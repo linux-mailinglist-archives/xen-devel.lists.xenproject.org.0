@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 840F9800444
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 08:02:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645304.1007409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCB0E80044F
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 08:05:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645307.1007419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8xXp-0000WA-W9; Fri, 01 Dec 2023 07:02:37 +0000
+	id 1r8xZy-00017P-FB; Fri, 01 Dec 2023 07:04:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645304.1007409; Fri, 01 Dec 2023 07:02:37 +0000
+Received: by outflank-mailman (output) from mailman id 645307.1007419; Fri, 01 Dec 2023 07:04:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8xXp-0000TP-SX; Fri, 01 Dec 2023 07:02:37 +0000
-Received: by outflank-mailman (input) for mailman id 645304;
- Fri, 01 Dec 2023 07:02:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r8xZy-00014w-CQ; Fri, 01 Dec 2023 07:04:50 +0000
+Received: by outflank-mailman (input) for mailman id 645307;
+ Fri, 01 Dec 2023 07:04:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jO30=HM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r8xXo-0000TJ-C9
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 07:02:36 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on20612.outbound.protection.outlook.com
- [2a01:111:f400:7eaf::612])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ae9b35f-9017-11ee-98e5-6d05b1d4d9a1;
- Fri, 01 Dec 2023 08:02:35 +0100 (CET)
+ id 1r8xZw-00014m-9a
+ for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 07:04:48 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2612::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e8dcd176-9017-11ee-9b0f-b553b5be7939;
+ Fri, 01 Dec 2023 08:04:46 +0100 (CET)
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by PAXPR04MB9007.eurprd04.prod.outlook.com (2603:10a6:102:20f::12)
+ by AS8PR04MB8372.eurprd04.prod.outlook.com (2603:10a6:20b:3b3::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.8; Fri, 1 Dec
- 2023 07:02:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.11; Fri, 1 Dec
+ 2023 07:04:43 +0000
 Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
  ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7068.012; Fri, 1 Dec 2023
- 07:02:33 +0000
+ 07:04:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,35 +47,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ae9b35f-9017-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: e8dcd176-9017-11ee-9b0f-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QuISm9tBMpr4MxVNQM+uH3MYjXdL50Riz4tN/umFt/SboE3tAq0cgFyN26D6Hip0xuSOde/eKVhxYeJkWZUiPCQzNWltveXH25iUK8EIcTgKdmPprsnS1243hE73VlAeb/H8vLiXY4bRlwsIW9M5BD3k5VZlxUBODcCGRRNrNrmGJBoO2Xz/xEWPmlPUOs7P6CfYeD5KxwWVsaP9u2iUFNxH5g6S2IEcfuV3l20eBmACp/b1BmaVja3BVADDyEHmCRZ18mm+MbDy3Xm0kYMneSfsj8lOJ9Rm8jzZqKxohhTUUvLSdKAJOtiLvdTkaqXlOEO2ndkSx31KKv3R2rQW6g==
+ b=dWpRE0mhI7d5uMWIdu5viJPHSD428m/5DH82VTstHI74VRvCBi+TDFuC6AjsNX2gyJbmxWe+FbGZrEqGKk+qoRDVGSWg9ZCe2awA2it5nroBFLV2dDzw1al/swZY1VvOkmnZwk0BzhRqV7R+zgtYYqtBwz3lDs69N69NiGRZYhUuXkb1ab6X97F4/R2RczpYkGYDIicSEgHSHOgGWKtKey9svc+z0RsEjA+Zue6S4mU42JSw8u3I+tPb7RwznQOQpXLkZsNaqo8n5Xk6NF5H7emFufRVF/ACTCMdk2mn4DZxNb32RQ2kJLceJ+ToBTmO+1/QH3sihM/Lv1y1F2mPJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hc3VbQwl8iBqZ+QVA34SczUndA6xgUTDtNFyAweavFA=;
- b=Ne+kbDXh374czzAA5l1oz+OumYXsHpEuM26xIDkxLUFDCjW1580RLgv98R5KUdbhv/iKRwu57V14gaPygkBj+qUrK7xW8CexBusbN4MtaQ4jUu3+U5qpFKsfJdlbAVhWIHuTDYKYioHMdWkEsZZOC7gq7K+zBe8jhwu3u6uC0K28AP+1/cN/tYS6rdpLhlaK77op2QZuG0OO3II6DVLutzx2x3/rdnqu0ohbYCOpdXzTeux92jgPG9tRWK/uWAXlB8gF9ZB311uLndX4Xz/RMKeoLQIZkSNFda6hrHhg6KYiigfx5Cu34imqpJWEqVwbVztf/G1JWzaluCor97vTGQ==
+ bh=ntrgcbQQr8qmSnAY61BdbyT006mCPiG2PgnYHyPvRrg=;
+ b=ZZQnoHodgWVYBR+4QxLWlEEm2yTqPp3j3VxqdIWKxfBViUt5zKpAeQoSN7RUbxbrzPXBrNpB9+h5ZZ3yg5YMr5Ncy96EBhP+yljocs7WzGwpeyI1U0nIeSzn4z5X+dRXBFJJHy1hpDxIGZvinzFk1B9/TxRIIXtpgG9GX93O+6ZNEXOzmL0v+ryIyJhgKgm96ThUpwbNWFfYKEVamxEAjBUGpptXx0KKGqGbPCTWXKWx/kbQh0mZQMXWH5tpt0MXnx2tOLUt9K9wmya9/ws6mnioQKrN6mkF1sb/w9hzg7+6wdYpxyEs2okAnRp2PHL9mqfpTomu4PdygU0OcavnFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hc3VbQwl8iBqZ+QVA34SczUndA6xgUTDtNFyAweavFA=;
- b=CTjOtEckNs1eZTcvFignh0VUgGs5bvCvcVdmO5poVBrd4muMT5veaaSN6R3MZ5nyu2CS6737NwgJJqr+DIip2FnXaAlSUYwywyQ2MuFF7dpxziJTsGOwYaPKALshJQWdRds1NxfeGX0e477wCi3n+AhB4IwLqFhWkQgyUUHOWwE36j4mZGkFWYqdufvWDqph/lyj0m2v5p8JE3ZhWVqoBU6cz3npOiq34geud065ELfGy1usW2hR6uIZweXbn0EA5FuyiB0TPYBY4WsR6DhU94oqZdJnoATtU+1BgreWppHAr9vGCTyRk3WdUeJtl3mq2vicxB36N69pgBpFDQXcOw==
+ bh=ntrgcbQQr8qmSnAY61BdbyT006mCPiG2PgnYHyPvRrg=;
+ b=pb/xpthlwurzeqRwdENlWutNAnnHeiYLgiIE6xsIcCLIqve3W+0DdlzERkk3Q8wqYpLC+yyxVF2DOKn6cO4MguZLftfraxKCQqq2J0voFAKzG9s4CfMuLbRdmd11b16FTUaGq2rLLhSACTPFbyjhsGpvue1kSd/S8qTeCNctf1u5WSu2DKhe8hFs81CI+Ii8a3YbtqAx59UsLUECW3AmFPnEOzYrukX/v+SG7Ez3htbXpOfzJxhftok/BqNhe7yiKWAMn/+Zis4MncEmzruWSRBwJ86Gr20SCdIdUbglZAsV/rX0benGXgC0hE5UZfj0wu7a0MhkGVidMYUkrPvKsg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <6921f9a8-94dd-41e4-9e4b-5e6411a8dcd8@suse.com>
-Date: Fri, 1 Dec 2023 08:02:31 +0100
+Message-ID: <073e8dd7-2fb2-46ab-b513-3672a3ee74e1@suse.com>
+Date: Fri, 1 Dec 2023 08:04:41 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: INFORMAL VOTE REQUIRED - DOCUMENTATION WORDING
+Subject: Re: [PATCH v3 02/10] xen/version: Introduce non-truncating
+ deterministically-signed XENVER_* subops
 Content-Language: en-US
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Kelly Choi <kelly.choi@cloud.com>
-Cc: xen-devel@lists.xenproject.org, committers@xenproject.org
-References: <CAO-mL=x3DntLhoKuaiWYjVqkQRqj=rdyZWmuH1aDjkmUbQchyA@mail.gmail.com>
- <alpine.DEB.2.22.394.2311301426210.110490@ubuntu-linux-20-04-desktop>
- <CABfawhnXtOFuqNgWP=6bdX_+T7X0+T_wxQtJsxMrbtpbempuVA@mail.gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Jason Andryuk <jandryuk@gmail.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Daniel Smith <dpsmith@apertussolutions.com>, Henry Wang
+ <Henry.Wang@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20230815210650.2735671-1-andrew.cooper3@citrix.com>
+ <20230815210650.2735671-3-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2311301429030.110490@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -100,126 +104,389 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CABfawhnXtOFuqNgWP=6bdX_+T7X0+T_wxQtJsxMrbtpbempuVA@mail.gmail.com>
+In-Reply-To: <alpine.DEB.2.22.394.2311301429030.110490@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0142.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::8) To DU2PR04MB8790.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0156.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::13) To DU2PR04MB8790.eurprd04.prod.outlook.com
  (2603:10a6:10:2e1::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|PAXPR04MB9007:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1cc1cf51-379a-4b56-8d42-08dbf23b7de8
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB8372:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8bf322d3-3b97-46c6-4ab3-08dbf23bcb95
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	p6A3pb9+2YiF1noCz6Wgo6SJz+sxI6q6Lnbuwxk3Byk1cqCvkFBwF0t751eqIQIYoGZZTuMKlLMSHpIbLfEzrwFZhHdOdQ2BSeYMlDQ6ftR9+WMnsFG22g7gyahlZnDK0g6HLhG/D9tyckQpHx+MxRRCdGc+EAtQoOFeGoLiX1UlyS1V6/FVpTwN98BVvUrop96MSM4rrYXpxZf1pYALmr6lD5auBPIiZiJdFLR5AlJ7ajlJt8R9hGzSerenrLsfekgKYYCxLYmYtWi7XL8wdMnR7BEXvqsAJWx1cBbKAcZwEjWZ/xuTwVRanGTKYG3XB5OJwR48yMUZgYasmZhiUQqj3cRb51iQm1Rsq1Wziv0uIo8eplrBepUY2W+IwkKIDEgBVmsBBCBj0KSjxTXq2L6RPte543NwmfB70uvzPAQK/i1QjJ0V6O3kkxwG4iZPIXpiLTHnKTOD9dLysS2u5FRDakDnNorf8vr0pVdbVhzxy+4/VFqiKo73CHVyr3OSDvuiBunz0Gi9xSDpnve1QlJsmUyyut4YHTh6MVQtj9/CB38u+542M2IPMx3G5SQlcxTQuhSwdXiWWLXlX2bmEwDW2B3+yAk1nnSxtXPBSXscjGF3cTtMyRMCZ1CZhMSooxfuqSTdbTYiw5yUpqE07g==
+	SxLrGasmu/5OQEuLeYU/fZOc52YbxNktJpMymMHddzwgfg1Fn+ZUtJZyflKxgvp7EhYWlKXsFKrZxKtpOxAOnl2dZaua0D6Q3X+mzY1/701Ry8LmWsUlR+HFFWr+VL/tZclexz7C5V3PDK1jVGkMlSohNwo+nFmJM/hAROQgoH5vH/0hMTyPwvkytvI44IWDNkYi+eZ7MBygvtCKn0gEpcEbAqLaGOV0Nv9ZxMubOsvHwicm1k/uQJpaffj/M0+y9BM53f7urtoY00L3LZax4rmJRTr6XThTq08FnYDU0o9UXFj3Zodkl8MaN6IeZDc3+rNtaa03YC0Yh5new5BC6n9HxWuAmhSwQkA4XV91ClppJ2vyX5BqO+N1kKJXhjL+8xeEwXLZh69Wx/WKvwtjVTJSmpjCiAcqrPFTMFgPf0JcjKvVGA7SWdKA1M9MVmI4NgJ66/i/+DxadK3BGaTPCh7lBMRbYWNkManG16GsZ2vWSI/Pe6I+C5+PGKH74KdSiaLmOF8n8yivKOGqJuV2v1yQJ8qPKlE8rqn2i40J1QETShEFr+WNY6Rx5QIHSkcPX11dXsM4b/CrAkKJtJmivV0DiwSwTNK33VuK9nfD4g+i+xClc3RahhmSGAj7khy+V86+4NQg7BOYZmhU7SqNyRgpMUcIoM414Ukca6AegFhBj8e2ZF1VZTrOBDKP35+K
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(396003)(346002)(376002)(136003)(39860400002)(230922051799003)(186009)(1800799012)(451199024)(64100799003)(2906002)(4326008)(110136005)(66556008)(66476007)(66946007)(316002)(8676002)(36756003)(8936002)(5660300002)(41300700001)(86362001)(31696002)(2616005)(26005)(38100700002)(31686004)(508600001)(966005)(6506007)(6512007)(53546011)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(396003)(366004)(136003)(39860400002)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(66556008)(6486002)(6916009)(508600001)(66946007)(66476007)(316002)(54906003)(966005)(86362001)(38100700002)(2616005)(8936002)(4326008)(8676002)(6506007)(6512007)(53546011)(26005)(83380400001)(5660300002)(2906002)(31696002)(30864003)(7416002)(31686004)(41300700001)(36756003)(21314003)(45980500001)(43740500002)(309714004);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dENYSVBnRjJQSEFnT2lOZjEyQTBCY05vbUY3eGp0cFNoSlRtamVZZjNoMHNn?=
- =?utf-8?B?eUdQcFNaeEZJbDV4dkVQcTcrVUl4LzEzaDJuaFNIMVlSZmZNRlU4V2s3QVZG?=
- =?utf-8?B?SWV6eURGNDA3aXM0SzZFbjBzRXdNOUpJN2VsS0hOdy85cjh0Uy9ERXZ6cTVv?=
- =?utf-8?B?UDFUN3praFFYb0xhYVhnVW1ZSUdGcm13VkhiOFduM0R3TDQ0Y3FycmxYQUI1?=
- =?utf-8?B?UG84M3NJUjVPSTA2QzNhOWZHZnZINjBlVFgySUZMRWR0RjBJcXBrcUFaRFdu?=
- =?utf-8?B?Q3JmUS9yTCtrSnRuV0NZNGhCSDVBaitDQ3Jxcnh3amVCU2lJc29mNVQ4WGl0?=
- =?utf-8?B?K3RnSjhKazR5eHE4RGxmVlVnU09seXVXckoxNS85VkRHbHErcy9kanJsVWdu?=
- =?utf-8?B?aGlNa29ZMHZLOXVRaFhPSmdDN2x1aSs3TGcyb0s4ODNsczFjcHlVS1EzeElv?=
- =?utf-8?B?NGFCbmtOMHBoTEliSHBEVkQ4bDAwcktIY0hiV29zOFFycXZqTWVOa0UvazNn?=
- =?utf-8?B?VExGbEdtaitScmxyNXhSNTB4ZXFMSjQ1QXBFbGh0clJlS05vdk5iMmQxMXpI?=
- =?utf-8?B?L1hIcndrbTZhYlhLRHlTK2doem5BSS9Palk0QkFrZ3ZpREFMcXpoTktrYTVr?=
- =?utf-8?B?MjU4MzRyamtncXZ1OVUzYUFJN3VrUzZTN3gzbzNVSldIUlFoVXN4TjlnekVX?=
- =?utf-8?B?Tmh2VGRmSFM1Wmp6alhlVHRScVJNWXh2Vk5oVEdMME1kV1lyQXNHUThqV2NF?=
- =?utf-8?B?SjBwNkdFNytzb3BSVzlTWTRSUFFHWVY1TEJBc2hkTG45SGFlOXhKM0loMllM?=
- =?utf-8?B?emE4a2lJQUlLbVltSFV5dGhOOUZCSTRBNVRmSW5iMnJvOHJNeGNKZ01DK1dn?=
- =?utf-8?B?dDhLek9BdFJLL00zNmZtQStvMGNMSVd6OG1WdmpiVGVqR0l0WnVuZWxtbDZ5?=
- =?utf-8?B?ZGNERFMvV1pqTEc0Y2ZZOGVxVmwxOXRLOUd2a1pZdmlFWkJUSHpxNmJrYzgy?=
- =?utf-8?B?aU4rdENBOHIyMzQ2QWhOZ0M5WUd5T2s4TDAxZW40Y2VvVVVXOXhJQjV6N2xJ?=
- =?utf-8?B?UThwTkJQMmFFQ000SW9LOEhaVDhWeWFmR0E5OXZUSy9pc0RTMHJsV2d5OWNB?=
- =?utf-8?B?WnhaNDg2cXN6YzhLRUxBdkVJTXdrRytWVFozMHpuVm4rL2xIYWhic0taRW1i?=
- =?utf-8?B?ZnZOYVR2bTV2T0lFT3VpK3J1T2Q1d2lOcVBCWDB5VGFweEVtM1UzaFErWVZT?=
- =?utf-8?B?VXovYk1zRHZUaGxhWmN4UWNTZk5MNzAzTVBsZzg2VkdKSnVqYXRyWnJNTXAr?=
- =?utf-8?B?RjMwbzJQalFDYlVxbzhPWEZrYUpoUUUrOVduQWdUWDMvZWtIbFdWTVpoRllB?=
- =?utf-8?B?ZjFrU3U1TnFwQ2dhRFVlK3NucDFRcGNIQXlvM3hCbVdYQVE2T3gvaTJramw5?=
- =?utf-8?B?eWIvaGF6aS9nOFdnblNEQ09kenRxRjNrYmFBUTdodEhsNjY4Ymg2MnY0VHJp?=
- =?utf-8?B?Q29Ebk1SZ2NFOGtjZHI1d3JxOW00YnRGYmNYam1ldmgwVnQ3ZzhzM3ZVWTBi?=
- =?utf-8?B?dFlyNi9VVWNWKzVsWmJIWHRveVBhRmszU00wV05USFhzU2d3aHZha3kyOHBn?=
- =?utf-8?B?aVBUODI0SmN2RWZlT0tLYlhvWjJYc0FLQllTbGJtZzdyaEtQUzhzdVBaeWN0?=
- =?utf-8?B?NFVCbi9Gem1zMUY4d3kvUDIxeFdEUytQSmIydFJLWU5Wc29lWFVCQnVWUFY3?=
- =?utf-8?B?K1FTSzE4WGlUNEJCZUUvZ2M5SnVEWU9jbnYxSUx5NXdoVmVvVERDZTRXakpD?=
- =?utf-8?B?bkFSREhTZTJHSzZBNm1iUEtEQklXSVBsRUZNTDVxNW9mT1F5TEN2V1lOZ0xR?=
- =?utf-8?B?aTRmdFBQQWpyVTJONFN6STB3blpBaU5HQ0tBZk9VbjJQNGJtL1JsQ1hCekpT?=
- =?utf-8?B?R1JYTEdKbVNHdGVFNG5rOGQvYzE4N0RrQSsrU1YzTytkSyt1a3dqazdlN2xr?=
- =?utf-8?B?V3dMQTZ4YnFlUHJESGdYL21tb3JUaEh3ZE11RUEybnVzZXphM2tVWHQyNHNB?=
- =?utf-8?B?alpSSXNHck9zK0V1cUx4QjlNbUhuNlNhaDJjYkhaT29tU2xrNWJBOExaeHhl?=
- =?utf-8?Q?YqzQS9bE+7zAilaBLi7sBotnR?=
+	=?utf-8?B?Qm1vR3JtdTUwR2JoejhrV0N5QzU4V1lsdEVBMUhnekt3aUtQMGh2dFNZUXFV?=
+ =?utf-8?B?Yk9KbXhlV3FOMjRMaEN1TGVpSXFFWW8reUFGc25yM3R2REM0V3QwMFpvd1RC?=
+ =?utf-8?B?elU5ZUdEbFVEZTZvck9KNnFrMkFpblB2ZGpPWkVYWSs3ei9iazhaWVczdm5q?=
+ =?utf-8?B?RFdRS25mUnlESkxCTTcrTnVZOEQ1QUNtaHFCL0NCQ1puelZETFVoTFk0ak9S?=
+ =?utf-8?B?V2hXZlgwSldaS0FIYmtjU3VlWnYwRzQ1cjg3RVRuenpUUGFEMEUxZ2VVQ2lr?=
+ =?utf-8?B?ODJEM1RXcFNSelR6RWRPMzdmcklDSG9kbVBBL0RhZElNc1lCNWFRTDJkUFE3?=
+ =?utf-8?B?VjZmN3NDVkpEZnl6TWkvbWlNNlM0a3U4UWdDZ3FVU3JHVnFIVUpJb1o1cnBQ?=
+ =?utf-8?B?aHBzS3BFM01IaVgwUWRGdExKVmVmN0F1dzVWQjVpMWhBM1k1QysyeEJIelo1?=
+ =?utf-8?B?S2FEbEdDWFdCbGkzQjJaNlZJSitYZXF1bVRyUW84VTJGcVk4dG5rcmR5eFhJ?=
+ =?utf-8?B?NFRmYXVYQzBoSFRqZTNzaVFrYUZJVnZBYVI5a2tTUmFaQ1VrWCtRdVhXQitq?=
+ =?utf-8?B?ZmxMWVVrdEdXNnZaUGdkMCs5d1NsU0YvaHRldk9TckkzZkRuV3k3QnhtSXB5?=
+ =?utf-8?B?YmlPYkMxRC9wM2RvOEk2Vm9TZTlWN0oyTDh0ZEI3SjJiSjVscmN3MFlka0lU?=
+ =?utf-8?B?eTVIMzkvalFRZGZZZENEM09PVmMzZEVUMFZLUmxGLzRwK0IzZDFSb3FPMllx?=
+ =?utf-8?B?REF2Kzc0ZkxlK1Nnb0h3NkV6RnEvaXk3V21tYklia3dRZGJ5dnBYMXVTY2J1?=
+ =?utf-8?B?Q215NWdrOVQraG94MEdpVmZhdWYrcytPZ3VhdXZ0RFZrNUQzYTNQYW1LU3p1?=
+ =?utf-8?B?Wjl3dTJvVm1Ib0hWVWE3N01OL2ZBUFplNTgrd3FpK21pR05ja2VWblVOM1d0?=
+ =?utf-8?B?bW4rNGJwS0RoV1JRS1ZEQzdIZkhBTzdKWjZiSlduN2c2YURZU0RGVmFTZnpW?=
+ =?utf-8?B?UG9rdGtLSUVhTnB3cEh1U0RJd20xS0NVUWE5WEJRV2Q5U3poamxEMzlQUkd1?=
+ =?utf-8?B?azhJQnF1MEZKQ0lIajlNcE0xWEt4Z25sWDhoRitobTRHdkxsNVFjWGovYmFC?=
+ =?utf-8?B?NjBVMDZ2aEliQTk0TlpSRHFodWRVZGtYR0xTN2lqcWpzbzVwUStuVGlpRlRr?=
+ =?utf-8?B?aU1tMHQwTUpyVm9mNHo0NlFDY0R3cVBCVXNZT1krTUFSUjd3TGh0bGZtK0Er?=
+ =?utf-8?B?a0U1QnNGbzAxcE03emI0cUwrVmZqbTlWODh4YStwK3JwLy9aOTNNUVlaUVBY?=
+ =?utf-8?B?MHkzaW1rQzA4YkRWVlFVNU5kQlQ2UWJYUXBZeXBPRG9JaWpxdHZUbHpubDc4?=
+ =?utf-8?B?YWE3VDNna0RJbmI0QTlQVjR0bE1tbDU4TDFYUm5QMkY2VTlxUkVOT1hLSkJu?=
+ =?utf-8?B?NXRhV2NlL0ljVERQSFZ3bWpWNmdKM01SRmhJbFpTMy9XTTZVK1BiUUxYbDVq?=
+ =?utf-8?B?VkFSaDdnTStYeExhblRwQ25HTVYzenppd0h2bWJoOFE0dTAzT1hiaE1CeEJC?=
+ =?utf-8?B?c2tQSG4yOXUwL3NKbTlBQkhVdXIyeW5pTjk3Mzdoa24vUm5saWphN3A0dzRk?=
+ =?utf-8?B?T2VZbWlyVmZWNS9oWTRrdlA0L1hzZVcxZWtYRVc2NWc0UXRNbEl6Mkxod1dB?=
+ =?utf-8?B?RXBwSkxrZFE5UXdsNmRGRXJQMmd4SDh1LzdFdjZ5SWJ1U0hZMkZTNWZObU1p?=
+ =?utf-8?B?aDlDejFFbkZ2UGVMNzFvVlhWL0VKbHY3WjhEUVdkOFV3TzFhbDZOSGUrY2Rq?=
+ =?utf-8?B?UlgzRnlaTklIWGZDSU9pTGh1cUZlTm9wd3ZSWXgyYVIvZXlYaERuVTR2WjZk?=
+ =?utf-8?B?NGNZQ3ZWSzl2L1hhaEZ4c1RuTzV4bFUxRHQ3Skw1cVczSWg5QjFaa3k0SUUy?=
+ =?utf-8?B?L3RTdEk4VUhIeGthcmpSYytkRXFBSnE3Y2NmQlVJb1FXN3hlblBBZUNXRUd0?=
+ =?utf-8?B?bUJETDh2VDBZWTVpd3cxVktaeEYySjJseDFNTXlVYkFiUktkMTBQM1E5SVJv?=
+ =?utf-8?B?b04xaWxRcHF0MmJNMldkZnZ4M2oyR2xDL3oxUUpCL000NlVuYXZiQnVQR0JL?=
+ =?utf-8?Q?M7HLctAUgWN2u79ln/Bl1ePwb?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cc1cf51-379a-4b56-8d42-08dbf23b7de8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8bf322d3-3b97-46c6-4ab3-08dbf23bcb95
 X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2023 07:02:33.3552
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2023 07:04:43.7116
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rBX4yhUPOl+R2np4DoYaD9dsu109bgqOdO0VXUoJtNMMbjsmWwrB3Qh+0lgy/kls3zrwvAVuhlo7xPWXs4+Rgw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9007
+X-MS-Exchange-CrossTenant-UserPrincipalName: T44mFoa1k591HL6s/ojcxYoWCjHCiuFbbaNOdtFGeUx/iiyEMdqI6J4IWla5ISTq/ThwnnkxSiGtL3PeKu0T2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8372
 
-On 30.11.2023 23:57, Tamas K Lengyel wrote:
-> I think this form is bad and is not helpful. We ought to be able to
-> recommend an alternative term beside "broken" and "deprecated". I
-> would not use the term broken in this context but that also doesn't
-> mean we shouldn't use it in any context. But also in this context
-> deprecated is not the right term to use either since deprecated would
-> require us to actually make the old hypercalls stop working altogether
-> at some future point, which we won't ever do AFAIU. My vote would be
-> to use the term superseded in this context, which I can't express
-> clearly in the form so I'm not going to cast a vote.
+On 30.11.2023 23:30, Stefano Stabellini wrote:
+> Hi everyone following this thread,
+> 
+> please see:
+> https://marc.info/?l=xen-devel&m=170135718323946
+> https://cryptpad.fr/form/#/2/form/view/7ByH95Vd7KiDOvN4wjV5iUGlMuZbkVdwk7cYpZdluWo/
+> 
+> For a vote on the usage of the word "broken"
 
-+1
-
-This really supports my earlier voiced concern that reducing things too
-much for "ease" of voting isn't helpful. (That said, I don't share
-Tamas'es view on the use of "deprecated".)
+So I did vote before becoming aware of this context. I would have voted
+differently if I had known that this _alone_ is the context. Yet then
+I'm also not going to change my vote, because as written _there_ it is
+intended to be more general. If the wording of the text describing what
+to vote on changed, things would be different.
 
 Jan
 
-> On Thu, Nov 30, 2023 at 5:28 PM Stefano Stabellini
-> <sstabellini@kernel.org> wrote:
+> On Tue, 15 Aug 2023, Andrew Cooper wrote:
+>> Recently in XenServer, we have encountered problems caused by both
+>> XENVER_extraversion and XENVER_commandline having fixed bounds.
 >>
->> Hi all,
+>> More than just the invariant size, the APIs/ABIs also broken by typedef-ing an
+>> array, and using an unqualified 'char' which has implementation-specific
+>> signed-ness.
 >>
->> This vote is in the context of this thread:
->> https://marc.info/?l=xen-devel&m=169213351810075
+>> Provide brand new ops, which are capable of expressing variable length
+>> strings, and mark the older ops as broken.
 >>
+>> This fixes all issues around XENVER_extraversion being longer than 15 chars.
+>> Further work beyond just this API is needed to remove other assumptions about
+>> XENVER_commandline being 1023 chars long.
 >>
->> On Thu, 30 Nov 2023, Kelly Choi wrote:
->>> Hi all,
->>> There have been a few discussions about how we use documentation wording within the community. Whilst there are differences in opinions and
->>> perceptions of the definition, it would be helpful to see a wider consensus of how we feel.
->>>
->>> Discussion: Should we use the term 'broken' in our documentation, or do you think an alternative wording would be better? If you agree or
->>> disagree, please vote as this will impact future discussions.
->>>
->>> I have purposely made the vote between two options to help us move in a forward direction.
->>>
->>> PLEASE VOTE HERE. Deadline 15th December 2023.
->>> Your name will be required but will be private. If you answer anonymously, your vote will not count. This is to ensure it is fair and each
->>> person gets one vote.
->>>
->>> As an open-source project, we need to come to a common ground, which sometimes means we may not personally agree. To make this fair, please
->>> note the final results will be used to determine our future actions within the community.
->>>
->>> If the majority votes for/against, we will respect the majority and implement this accordingly.
->>>
->>> Many thanks,
->>> Kelly Choi
->>>
->>> Xen Project Community Manager
->>> XenServer, Cloud Software Group
->>>
->>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+>> ---
+>> CC: George Dunlap <George.Dunlap@eu.citrix.com>
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Wei Liu <wl@xen.org>
+>> CC: Julien Grall <julien@xen.org>
+>> CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+>> CC: Daniel Smith <dpsmith@apertussolutions.com>
+>> CC: Jason Andryuk <jandryuk@gmail.com>
+>> CC: Henry Wang <Henry.Wang@arm.com>
+>>
+>> v3:
+>>  * Modify dummy.h's xsm_xen_version() in the same way as flask.
+>> v2:
+>>  * Remove xen_capabilities_info_t from the stack now that arch_get_xen_caps()
+>>    has gone.
+>>  * Use an arbitrary limit check much lower than INT_MAX.
+>>  * Use "buf" rather than "string" terminology.
+>>  * Expand the API comment.
+>>
+>> Tested by forcing XENVER_extraversion to be 20 chars long, and confirming that
+>> an untruncated version can be obtained.
+>> ---
+>>  xen/common/kernel.c          | 62 +++++++++++++++++++++++++++++++++++
+>>  xen/include/public/version.h | 63 ++++++++++++++++++++++++++++++++++--
+>>  xen/include/xlat.lst         |  1 +
+>>  xen/include/xsm/dummy.h      |  3 ++
+>>  xen/xsm/flask/hooks.c        |  4 +++
+>>  5 files changed, 131 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/xen/common/kernel.c b/xen/common/kernel.c
+>> index f822480a8ef3..79c008c7ee5f 100644
+>> --- a/xen/common/kernel.c
+>> +++ b/xen/common/kernel.c
+>> @@ -24,6 +24,7 @@
+>>  CHECK_build_id;
+>>  CHECK_compile_info;
+>>  CHECK_feature_info;
+>> +CHECK_varbuf;
+>>  #endif
+>>  
+>>  enum system_state system_state = SYS_STATE_early_boot;
+>> @@ -498,6 +499,59 @@ static int __init cf_check param_init(void)
+>>  __initcall(param_init);
+>>  #endif
+>>  
+>> +static long xenver_varbuf_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>> +{
+>> +    struct xen_varbuf user_str;
+>> +    const char *str = NULL;
+>> +    size_t sz;
+>> +
+>> +    switch ( cmd )
+>> +    {
+>> +    case XENVER_extraversion2:
+>> +        str = xen_extra_version();
+>> +        break;
+>> +
+>> +    case XENVER_changeset2:
+>> +        str = xen_changeset();
+>> +        break;
+>> +
+>> +    case XENVER_commandline2:
+>> +        str = saved_cmdline;
+>> +        break;
+>> +
+>> +    case XENVER_capabilities2:
+>> +        str = xen_cap_info;
+>> +        break;
+>> +
+>> +    default:
+>> +        ASSERT_UNREACHABLE();
+>> +        return -ENODATA;
+>> +    }
+>> +
+>> +    sz = strlen(str);
+>> +
+>> +    if ( sz > KB(64) ) /* Arbitrary limit.  Avoid long-running operations. */
+>> +        return -E2BIG;
+>> +
+>> +    if ( guest_handle_is_null(arg) ) /* Length request */
+>> +        return sz;
+>> +
+>> +    if ( copy_from_guest(&user_str, arg, 1) )
+>> +        return -EFAULT;
+>> +
+>> +    if ( user_str.len == 0 )
+>> +        return -EINVAL;
+>> +
+>> +    if ( sz > user_str.len )
+>> +        return -ENOBUFS;
+>> +
+>> +    if ( copy_to_guest_offset(arg, offsetof(struct xen_varbuf, buf),
+>> +                              str, sz) )
+>> +        return -EFAULT;
+>> +
+>> +    return sz;
+>> +}
+>> +
+>>  long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>  {
+>>      bool_t deny = !!xsm_xen_version(XSM_OTHER, cmd);
+>> @@ -711,6 +765,14 @@ long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>  
+>>          return sz;
+>>      }
+>> +
+>> +    case XENVER_extraversion2:
+>> +    case XENVER_capabilities2:
+>> +    case XENVER_changeset2:
+>> +    case XENVER_commandline2:
+>> +        if ( deny )
+>> +            return -EPERM;
+>> +        return xenver_varbuf_op(cmd, arg);
+>>      }
+>>  
+>>      return -ENOSYS;
+>> diff --git a/xen/include/public/version.h b/xen/include/public/version.h
+>> index cbc4ef7a46e6..0dd6bbcb43cc 100644
+>> --- a/xen/include/public/version.h
+>> +++ b/xen/include/public/version.h
+>> @@ -19,12 +19,20 @@
+>>  /* arg == NULL; returns major:minor (16:16). */
+>>  #define XENVER_version      0
+>>  
+>> -/* arg == xen_extraversion_t. */
+>> +/*
+>> + * arg == xen_extraversion_t.
+>> + *
+>> + * This API/ABI is broken.  Use XENVER_extraversion2 where possible.
+>> + */
+>>  #define XENVER_extraversion 1
+>>  typedef char xen_extraversion_t[16];
+>>  #define XEN_EXTRAVERSION_LEN (sizeof(xen_extraversion_t))
+>>  
+>> -/* arg == xen_compile_info_t. */
+>> +/*
+>> + * arg == xen_compile_info_t.
+>> + *
+>> + * This API/ABI is broken and truncates data.
+>> + */
+>>  #define XENVER_compile_info 2
+>>  struct xen_compile_info {
+>>      char compiler[64];
+>> @@ -34,10 +42,20 @@ struct xen_compile_info {
+>>  };
+>>  typedef struct xen_compile_info xen_compile_info_t;
+>>  
+>> +/*
+>> + * arg == xen_capabilities_info_t.
+>> + *
+>> + * This API/ABI is broken.  Use XENVER_capabilities2 where possible.
+>> + */
+>>  #define XENVER_capabilities 3
+>>  typedef char xen_capabilities_info_t[1024];
+>>  #define XEN_CAPABILITIES_INFO_LEN (sizeof(xen_capabilities_info_t))
+>>  
+>> +/*
+>> + * arg == xen_changeset_info_t.
+>> + *
+>> + * This API/ABI is broken.  Use XENVER_changeset2 where possible.
+>> + */
+>>  #define XENVER_changeset 4
+>>  typedef char xen_changeset_info_t[64];
+>>  #define XEN_CHANGESET_INFO_LEN (sizeof(xen_changeset_info_t))
+>> @@ -95,6 +113,11 @@ typedef struct xen_feature_info xen_feature_info_t;
+>>   */
+>>  #define XENVER_guest_handle 8
+>>  
+>> +/*
+>> + * arg == xen_commandline_t.
+>> + *
+>> + * This API/ABI is broken.  Use XENVER_commandline2 where possible.
+>> + */
+>>  #define XENVER_commandline 9
+>>  typedef char xen_commandline_t[1024];
+>>  
+>> @@ -110,6 +133,42 @@ struct xen_build_id {
+>>  };
+>>  typedef struct xen_build_id xen_build_id_t;
+>>  
+>> +/*
+>> + * Container for an arbitrary variable length buffer.
+>> + */
+>> +struct xen_varbuf {
+>> +    uint32_t len;                          /* IN:  size of buf[] in bytes. */
+>> +    unsigned char buf[XEN_FLEX_ARRAY_DIM]; /* OUT: requested data.         */
+>> +};
+>> +typedef struct xen_varbuf xen_varbuf_t;
+>> +
+>> +/*
+>> + * arg == xen_varbuf_t
+>> + *
+>> + * Equivalent to the original ops, but with a non-truncating API/ABI.
+>> + *
+>> + * These hypercalls can fail for a number of reasons.  All callers must handle
+>> + * -XEN_xxx return values appropriately.
+>> + *
+>> + * Passing arg == NULL is a request for size, which will be signalled with a
+>> + * non-negative return value.  Note: a return size of 0 may be legitimate for
+>> + * the requested subop.
+>> + *
+>> + * Otherwise, the input xen_varbuf_t provides the size of the following
+>> + * buffer.  Xen will fill the buffer, and return the number of bytes written
+>> + * (e.g. if the input buffer was longer than necessary).
+>> + *
+>> + * Some subops may return binary data.  Some subops may be expected to return
+>> + * textural data.  These are returned without a NUL terminator, and while the
+>> + * contents is expected to be ASCII/UTF-8, Xen makes no guarentees to this
+>> + * effect.  e.g. Xen has no control over the formatting used for the command
+>> + * line.
+>> + */
+>> +#define XENVER_extraversion2 11
+>> +#define XENVER_capabilities2 12
+>> +#define XENVER_changeset2    13
+>> +#define XENVER_commandline2  14
+>> +
+>>  #endif /* __XEN_PUBLIC_VERSION_H__ */
+>>  
+>>  /*
+>> diff --git a/xen/include/xlat.lst b/xen/include/xlat.lst
+>> index 9c41948514bf..a61ba85ed0ca 100644
+>> --- a/xen/include/xlat.lst
+>> +++ b/xen/include/xlat.lst
+>> @@ -173,6 +173,7 @@
+>>  ?	build_id                        version.h
+>>  ?	compile_info                    version.h
+>>  ?	feature_info                    version.h
+>> +?	varbuf                          version.h
+>>  ?	xenoprof_init			xenoprof.h
+>>  ?	xenoprof_passive		xenoprof.h
+>>  ?	flask_access			xsm/flask_op.h
+>> diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
+>> index 8671af1ba4d3..a4a920f74e6e 100644
+>> --- a/xen/include/xsm/dummy.h
+>> +++ b/xen/include/xsm/dummy.h
+>> @@ -828,9 +828,12 @@ static XSM_INLINE int cf_check xsm_xen_version(XSM_DEFAULT_ARG uint32_t op)
+>>          block_speculation();
+>>          return 0;
+>>      case XENVER_extraversion:
+>> +    case XENVER_extraversion2:
+>>      case XENVER_compile_info:
+>>      case XENVER_capabilities:
+>> +    case XENVER_capabilities2:
+>>      case XENVER_changeset:
+>> +    case XENVER_changeset2:
+>>      case XENVER_pagesize:
+>>      case XENVER_guest_handle:
+>>          /* These MUST always be accessible to any guest by default. */
+>> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+>> index 78225f68c15c..a671dcd0322e 100644
+>> --- a/xen/xsm/flask/hooks.c
+>> +++ b/xen/xsm/flask/hooks.c
+>> @@ -1777,15 +1777,18 @@ static int cf_check flask_xen_version(uint32_t op)
+>>          /* These sub-ops ignore the permission checks and return data. */
+>>          return 0;
+>>      case XENVER_extraversion:
+>> +    case XENVER_extraversion2:
+>>          return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+>>                              VERSION__XEN_EXTRAVERSION, NULL);
+>>      case XENVER_compile_info:
+>>          return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+>>                              VERSION__XEN_COMPILE_INFO, NULL);
+>>      case XENVER_capabilities:
+>> +    case XENVER_capabilities2:
+>>          return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+>>                              VERSION__XEN_CAPABILITIES, NULL);
+>>      case XENVER_changeset:
+>> +    case XENVER_changeset2:
+>>          return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+>>                              VERSION__XEN_CHANGESET, NULL);
+>>      case XENVER_pagesize:
+>> @@ -1795,6 +1798,7 @@ static int cf_check flask_xen_version(uint32_t op)
+>>          return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+>>                              VERSION__XEN_GUEST_HANDLE, NULL);
+>>      case XENVER_commandline:
+>> +    case XENVER_commandline2:
+>>          return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+>>                              VERSION__XEN_COMMANDLINE, NULL);
+>>      case XENVER_build_id:
+>> -- 
+>> 2.30.2
+>>
 
 
