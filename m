@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C628001EA
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 04:10:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645256.1007326 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA5BE8001F5
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 04:15:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645259.1007337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8tu5-0008Em-R7; Fri, 01 Dec 2023 03:09:21 +0000
+	id 1r8u02-0002nl-Gd; Fri, 01 Dec 2023 03:15:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645256.1007326; Fri, 01 Dec 2023 03:09:21 +0000
+Received: by outflank-mailman (output) from mailman id 645259.1007337; Fri, 01 Dec 2023 03:15:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8tu5-0008CH-ON; Fri, 01 Dec 2023 03:09:21 +0000
-Received: by outflank-mailman (input) for mailman id 645256;
- Fri, 01 Dec 2023 03:09:19 +0000
+	id 1r8u02-0002kl-Dq; Fri, 01 Dec 2023 03:15:30 +0000
+Received: by outflank-mailman (input) for mailman id 645259;
+ Fri, 01 Dec 2023 03:15:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QmaB=HM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r8tu3-0008Af-Rx
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 03:09:19 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1r8u01-0002kZ-8S
+ for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 03:15:29 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02e39036-8ff7-11ee-9b0f-b553b5be7939;
- Fri, 01 Dec 2023 04:09:16 +0100 (CET)
+ id dea0e43b-8ff7-11ee-9b0f-b553b5be7939;
+ Fri, 01 Dec 2023 04:15:26 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id D644AB8460F;
- Fri,  1 Dec 2023 03:09:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EB66C433C9;
- Fri,  1 Dec 2023 03:09:13 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 30CF8CE1733;
+ Fri,  1 Dec 2023 03:15:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03048C433C8;
+ Fri,  1 Dec 2023 03:15:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,102 +41,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02e39036-8ff7-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: dea0e43b-8ff7-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701400155;
-	bh=phjQR8JbHlcd128mywIFmoYoSk+lvwB8cAN5LEYu2ZQ=;
+	s=k20201202; t=1701400521;
+	bh=Dp7B5vd2hVcODH9a2EoW3LvQCYVBsy+Yg/mVTlE9inU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=teOHTqveaTaBUaNVXcPrVDCyf0eE3f0Zs232XCfPjwJvwoSMT0AFfbLPZd/8NrKfF
-	 veVVhz4S5sIoH29bE+lrlPQwOVTH6dvtGc2Px0l/pGyjmMhJVuWRXIcVKpVGCiXFet
-	 sZ1gwFbftkz8AwQNQeCCbTHxGVRE8ao5x6raahIT5AOKJCpxN0jKoaUlXm630C1qv/
-	 a/qEZtv7Oq5QJ59NfpQkOOWkf/d5thxLjlwm/CRRSgfFguiBbbPJgwTu3PUc+YZtEX
-	 PVMDYkPadYoKNEaseb3Z2EPhcsmAKPujulQ9TNfiUJ7tKsr5nvarW47uYgKNQe9wHr
-	 IDB9Umdq2cFjQ==
-Date: Thu, 30 Nov 2023 19:09:12 -0800 (PST)
+	b=QXRXIIGk3RVLPsM4TCRp2cn2iBCqITDx3AWfqYRl3Lln3cRggUuDlXWdreqcykGsL
+	 W946LuhkL2qPLsf3/raIlDTPk3Drc5irqHJGg+oPby4lLnrTsYhV2sUc0Izv52YpnF
+	 MRqsfAVPlzx8Bdl426zUVsiMIKfPvPR+8o0LbOwEsfebODMAxZ1AkXV6gzv5WvMGnE
+	 vdvaGhSthObuKzxmpx6yuRcmH+6r9KHtlZT407gtbyKQMPFQvGGS8oyqREfhVDDmUp
+	 wLcJikr7LGhwsoJ199+0r9HNU5FRwIsMBGlQY0omccS71m+/4uYUdIB17v3shmvoVW
+	 FYAxePMeaTQbw==
+Date: Thu, 30 Nov 2023 19:15:17 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Jiqian Chen <Jiqian.Chen@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
-    Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, 
-    Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
-    Alex Deucher <Alexander.Deucher@amd.com>, 
-    Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
+    Jiqian Chen <Jiqian.Chen@amd.com>, Juergen Gross <jgross@suse.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Thomas Gleixner <tglx@linutronix.de>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+    Bjorn Helgaas <bhelgaas@google.com>, xen-devel@lists.xenproject.org, 
+    linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org, 
     Stefano Stabellini <stefano.stabellini@amd.com>, 
-    Huang Rui <Ray.Huang@amd.com>, Honglei Huang <Honglei1.Huang@amd.com>, 
-    Julia Zhang <Julia.Zhang@amd.com>
-Subject: Re: [RFC XEN PATCH v2 3/3] tools: Add new function to get gsi from
- irq
-In-Reply-To: <ZWheuUjLxShoQ_qn@macbook>
-Message-ID: <alpine.DEB.2.22.394.2311301907370.110490@ubuntu-linux-20-04-desktop>
-References: <20231124104136.3263722-1-Jiqian.Chen@amd.com> <20231124104136.3263722-4-Jiqian.Chen@amd.com> <ZWX4R9UEE6oXiqaz@macbook> <alpine.DEB.2.22.394.2311291937170.3533093@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2311291956130.3533093@ubuntu-linux-20-04-desktop>
- <ZWheuUjLxShoQ_qn@macbook>
+    Alex Deucher <Alexander.Deucher@amd.com>, 
+    Christian Koenig <Christian.Koenig@amd.com>, 
+    Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
+    Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
+    Honglei Huang <Honglei1.Huang@amd.com>, Julia Zhang <Julia.Zhang@amd.com>, 
+    Huang Rui <Ray.Huang@amd.com>
+Subject: Re: [RFC KERNEL PATCH v2 2/3] xen/pvh: Unmask irq for passthrough
+ device in PVH dom0
+In-Reply-To: <ZWiyBP4Lzz5lXraP@macbook>
+Message-ID: <alpine.DEB.2.22.394.2311301912350.110490@ubuntu-linux-20-04-desktop>
+References: <20231124103123.3263471-1-Jiqian.Chen@amd.com> <20231124103123.3263471-3-Jiqian.Chen@amd.com> <alpine.DEB.2.22.394.2311291950350.3533093@ubuntu-linux-20-04-desktop> <ZWiyBP4Lzz5lXraP@macbook>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2084307848-1701400155=:110490"
+Content-Type: multipart/mixed; boundary="8323329-351411740-1701400521=:110490"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-2084307848-1701400155=:110490
+--8323329-351411740-1701400521=:110490
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
 On Thu, 30 Nov 2023, Roger Pau Monné wrote:
-> On Wed, Nov 29, 2023 at 08:02:40PM -0800, Stefano Stabellini wrote:
-> > n Wed, 29 Nov 2023, Stefano Stabellini wrote:
-> > > On Tue, 28 Nov 2023, Roger Pau Monné wrote:
-> > > > On Fri, Nov 24, 2023 at 06:41:36PM +0800, Jiqian Chen wrote:
-> > > > > In PVH dom0, it uses the linux local interrupt mechanism,
-> > > > > when it allocs irq for a gsi, it is dynamic, and follow
-> > > > > the principle of applying first, distributing first. And
-> > > > > if you debug the kernel codes, you will find the irq
-> > > > > number is alloced from small to large, but the applying
-> > > > > gsi number is not, may gsi 38 comes before gsi 28, that
-> > > > > causes the irq number is not equal with the gsi number.
-> > > > > And when we passthrough a device, QEMU will use its gsi
-> > > > > number to do mapping actions, see xen_pt_realize->
-> > > > > xc_physdev_map_pirq, but the gsi number is got from file
-> > > > > /sys/bus/pci/devices/xxxx:xx:xx.x/irq in current code,
-> > > > > so it will fail when mapping.
-> > > > > And in current codes, there is no method to translate
-> > > > > irq to gsi for userspace.
-> > > > 
-> > > > I think it would be cleaner to just introduce a new sysfs node that
-> > > > contains the gsi if a device is using one (much like the irq sysfs
-> > > > node)?
-> > > > 
-> > > > Such ioctl to translate from IRQ to GSI has nothing to do with Xen, so
-> > > > placing it in privcmd does seem quite strange to me.  I understand
-> > > > that for passthrough we need the GSI, but such translation layer from
-> > > > IRQ to GSI is all Linux internal, and it would be much simpler to just
-> > > > expose the GSI in sysfs IMO.
+> On Wed, Nov 29, 2023 at 07:53:59PM -0800, Stefano Stabellini wrote:
+> > On Fri, 24 Nov 2023, Jiqian Chen wrote:
+> > > This patch is to solve two problems we encountered when we try to
+> > > passthrough a device to hvm domU base on Xen PVH dom0.
 > > > 
-> > > Maybe something to add to drivers/xen/sys-hypervisor.c in Linux.
-> > > Juergen what do you think?
+> > > First, hvm guest will alloc a pirq and irq for a passthrough device
+> > > by using gsi, before that, the gsi must first has a mapping in dom0,
+> > > see Xen code pci_add_dm_done->xc_domain_irq_permission, it will call
+> > > into Xen and check whether dom0 has the mapping. See
+> > > XEN_DOMCTL_irq_permission->pirq_access_permitted, "current" is PVH
+> > > dom0 and it return irq is 0, and then return -EPERM.
+> > > This is because the passthrough device doesn't do PHYSDEVOP_map_pirq
+> > > when thay are enabled.
+> > > 
+> > > Second, in PVH dom0, the gsi of a passthrough device doesn't get
+> > > registered, but gsi must be configured for it to be able to be
+> > > mapped into a domU.
+> > > 
+> > > After searching codes, we can find map_pirq and register_gsi will be
+> > > done in function vioapic_write_redirent->vioapic_hwdom_map_gsi when
+> > > the gsi(aka ioapic's pin) is unmasked in PVH dom0. So the problems
+> > > can be conclude to that the gsi of a passthrough device doesn't be
+> > > unmasked.
+> > > 
+> > > To solve the unmaske problem, this patch call the unmask_irq when we
+> > > assign a device to be passthrough. So that the gsi can get registered
+> > > and mapped in PVH dom0.
 > > 
-> > Let me also add that privcmd.c is already a Linux specific interface.
-> > Although it was born to be a Xen hypercall "proxy" in reality today we
-> > have a few privcmd ioctls that don't translate into hypercalls. So I
-> > don't think that adding IOCTL_PRIVCMD_GSI_FROM_IRQ would be a problem.
+> > 
+> > Roger, this seems to be more of a Xen issue than a Linux issue. Why do
+> > we need the unmask check in Xen? Couldn't we just do:
+> > 
+> > 
+> > diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+> > index 4e40d3609a..df262a4a18 100644
+> > --- a/xen/arch/x86/hvm/vioapic.c
+> > +++ b/xen/arch/x86/hvm/vioapic.c
+> > @@ -287,7 +287,7 @@ static void vioapic_write_redirent(
+> >              hvm_dpci_eoi(d, gsi);
+> >      }
+> >  
+> > -    if ( is_hardware_domain(d) && unmasked )
+> > +    if ( is_hardware_domain(d) )
+> >      {
+> >          /*
+> >           * NB: don't call vioapic_hwdom_map_gsi while holding hvm.irq_lock
 > 
-> Maybe not all ioctls translate to hypercalls (I guess you are
-> referring to the IOCTL_PRIVCMD_RESTRICT ioctl), but they are specific
-> Xen actions.  Getting the GSI used by a device has nothing do to with
-> Xen.
+> There are some issues with this approach.
 > 
-> IMO drivers/xen/sys-hypervisor.c is also not appropriate, but I'm not
-> the maintainer of any of those components.
+> mp_register_gsi() will only setup the trigger and polarity of the
+> IO-APIC pin once, so we do so once the guest unmask the pin in order
+> to assert that the configuration is the intended one.  A guest is
+> allowed to write all kind of nonsense stuff to the IO-APIC RTE, but
+> that doesn't take effect unless the pin is unmasked.
 > 
-> There's nothing Xen specific about fetching the GSI associated with a
-> PCI device.  The fact that Xen needs it for passthrough is just a red
-> herring, further cases where the GSI is needed might arise outside of
-> Xen, and hence such node would better be placed in a generic
-> location.  The right location should be /sys/bus/pci/devices/<sbdf>/gsi.
+> Overall the question would be whether we have any guarantees that
+> the hardware domain has properly configured the pin, even if it's not
+> using it itself (as it hasn't been unmasked).
+> 
+> IIRC PCI legacy interrupts are level triggered and low polarity, so we
+> could configure any pins that are not setup at bind time?
 
-That might be true but /sys/bus/pci/devices/<sbdf>/gsi is a non-Xen
-generic interface and the maintainers of that portion of Linux code
-might have a different opinion. We'll have to see.
---8323329-2084307848-1701400155=:110490--
+That could work.
+
+Another idea is to move only the call to allocate_and_map_gsi_pirq at
+bind time? That might be enough to pass a pirq_access_permitted check.
+--8323329-351411740-1701400521=:110490--
 
