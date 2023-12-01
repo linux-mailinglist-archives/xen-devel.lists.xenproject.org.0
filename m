@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF9E88001A8
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 03:34:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645230.1007256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CD3B8001B4
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 03:43:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645235.1007267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8tMC-0001LB-OH; Fri, 01 Dec 2023 02:34:20 +0000
+	id 1r8tUN-0005EW-H9; Fri, 01 Dec 2023 02:42:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645230.1007256; Fri, 01 Dec 2023 02:34:20 +0000
+Received: by outflank-mailman (output) from mailman id 645235.1007267; Fri, 01 Dec 2023 02:42:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8tMC-0001JC-Le; Fri, 01 Dec 2023 02:34:20 +0000
-Received: by outflank-mailman (input) for mailman id 645230;
- Fri, 01 Dec 2023 02:34:19 +0000
+	id 1r8tUN-0005CA-Dc; Fri, 01 Dec 2023 02:42:47 +0000
+Received: by outflank-mailman (input) for mailman id 645235;
+ Fri, 01 Dec 2023 02:42:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QmaB=HM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1r8tMA-0001B4-Uq
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 02:34:18 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ id 1r8tUL-0005C4-PX
+ for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 02:42:45 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1f3c914f-8ff2-11ee-98e5-6d05b1d4d9a1;
- Fri, 01 Dec 2023 03:34:18 +0100 (CET)
+ id 4d6e5268-8ff3-11ee-98e5-6d05b1d4d9a1;
+ Fri, 01 Dec 2023 03:42:44 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 7A83CCE23DB;
- Fri,  1 Dec 2023 02:34:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB501C433C8;
- Fri,  1 Dec 2023 02:34:13 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 8E0AFCE25A0;
+ Fri,  1 Dec 2023 02:42:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF5BC433CA;
+ Fri,  1 Dec 2023 02:42:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,39 +42,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f3c914f-8ff2-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: 4d6e5268-8ff3-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701398054;
-	bh=x8mxYECTLAVxDVNbxafphEwTpQfKejz4k9Fd/a+Mdm4=;
+	s=k20201202; t=1701398558;
+	bh=oOHZxq26umuH3iITtqwrKlaIKUSmIqlY+mUFKgbrhgI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=aHSwDkSTvV/XrRHB66ltBK4VFVBf40ZN+Bw2r/JWinOt6EgB8VcxiG7FxwIzDOpDZ
-	 VAy2IbSmStA8um7bpj3khjJ+s0q19EUROlFpxE9Iq7iGdbrgGdNv6i0raskG1isBva
-	 1RCs0UFP2NB9Z966H0GM2ElxsKLB/dLVZ3KNl/QhCL9OK71M+gE6x9lMdEnWezrVTi
-	 1gCDpwhnYVQPDbPKQpQ+HhOdfFt4jlBV/mwXJW5jxXSPT4V9MCk+pQ9a3ihPmrqy0f
-	 BxUpAdoQUo7FWkj5q3pcx0LgF1rO5rZmWLPWct7yzexr2InfXQW3cj1zatnuOJ7tlJ
-	 umlhH+fo/Gtrg==
-Date: Thu, 30 Nov 2023 18:34:12 -0800 (PST)
+	b=ZyOXCBwiSfD6E9R/yOU4LuMZH5ma4oNUTYTHrr7k05oE/q3DFg5gMMGhZ1RO5GJcp
+	 eNYlDpZ0O5IEu1i7wgSSiE5e25YxDrg1qUML2Juc20eS3wlrM+8Q8cNP2kWGSbmjrM
+	 kM+tYPf8ehnd1kctdqia5pZhVvOe2PleuoqR6CnrA7w9EN68wRmQtAhMNMHNbAPy6H
+	 SskWx1qY8i08mgc9keQK3lxkQ79ODviwFejc6zNyAi6lBnpXS3wwRlEKXILbVBi5wO
+	 nNnfSbp/F6RR+N4TPl3iyLbphADe0ZdJtlusIlTPOcfMW9V4o+BUiZRwek5pxSsidA
+	 KF1Hp+jLEwyGA==
+Date: Thu, 30 Nov 2023 18:42:36 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Federico Serafini <federico.serafini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 11/11] xen/serial: address a violation of MISRA C:2012
- Rule 8.2
-In-Reply-To: <4f831a5441ac699b50783fb0559daabaa37b8e50.1700832962.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2311301834040.110490@ubuntu-linux-20-04-desktop>
-References: <cover.1700832962.git.federico.serafini@bugseng.com> <4f831a5441ac699b50783fb0559daabaa37b8e50.1700832962.git.federico.serafini@bugseng.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
+    consulting@bugseng.com, bertrand.marquis@arm.com, julien@xen.org, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [XEN PATCH 1/7] xen/arm: mmu: add headers for missing
+ declarations
+In-Reply-To: <7032dd53fa025ad19ce53171b80e51db9d332b83.1701270983.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2311301842300.110490@ubuntu-linux-20-04-desktop>
+References: <cover.1701270983.git.nicola.vetrini@bugseng.com> <7032dd53fa025ad19ce53171b80e51db9d332b83.1701270983.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 24 Nov 2023, Federico Serafini wrote:
-> Add missing parameter name. No functional change.
+On Wed, 29 Nov 2023, Nicola Vetrini wrote:
+> The definitions needing the inclusion of asm/setup.h are
+> boot_{first,second,third}(_id)?, whereas vmap.h is needed by arch_vmap_virt_end.
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> No functional change.
+> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
