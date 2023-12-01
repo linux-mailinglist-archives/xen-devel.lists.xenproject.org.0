@@ -2,39 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4484800936
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 12:00:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645462.1007619 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE5408009CA
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 12:21:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645466.1007629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r91FK-0005fq-7x; Fri, 01 Dec 2023 10:59:46 +0000
+	id 1r91Zi-0003jk-UZ; Fri, 01 Dec 2023 11:20:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645462.1007619; Fri, 01 Dec 2023 10:59:46 +0000
+Received: by outflank-mailman (output) from mailman id 645466.1007629; Fri, 01 Dec 2023 11:20:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r91FK-0005dT-4c; Fri, 01 Dec 2023 10:59:46 +0000
-Received: by outflank-mailman (input) for mailman id 645462;
- Fri, 01 Dec 2023 10:59:44 +0000
+	id 1r91Zi-0003gl-Qm; Fri, 01 Dec 2023 11:20:50 +0000
+Received: by outflank-mailman (input) for mailman id 645466;
+ Fri, 01 Dec 2023 11:20:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jO30=HM=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1r91FI-0005dK-7a
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 10:59:44 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2051.outbound.protection.outlook.com [40.107.7.51])
+ (envelope-from <SRS0=hHVa=HM=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1r91Zh-0003gZ-CS
+ for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 11:20:49 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id baafe9ca-9038-11ee-9b0f-b553b5be7939;
- Fri, 01 Dec 2023 11:59:42 +0100 (CET)
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
- by AS8PR04MB7560.eurprd04.prod.outlook.com (2603:10a6:20b:29d::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.13; Fri, 1 Dec
- 2023 10:59:11 +0000
-Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
- ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7068.012; Fri, 1 Dec 2023
- 10:59:11 +0000
+ id ab1187b9-903b-11ee-9b0f-b553b5be7939;
+ Fri, 01 Dec 2023 12:20:44 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 78DD921BDF;
+ Fri,  1 Dec 2023 11:20:43 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 3491513928;
+ Fri,  1 Dec 2023 11:20:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id cml6C4vBaWVJBwAAn2gu4w
+ (envelope-from <jgross@suse.com>); Fri, 01 Dec 2023 11:20:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,197 +52,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: baafe9ca-9038-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T3AAtz2hqnY1C3BE5w+4b42cayO+PgnqjZy5QqO0abUcBlUzwkR6jEr9t8y/w/bckJ3a+VzrAHkRnGV+vKrQfhtogUh+sgnTW5wXSJ1JNRr3p9r7q9js6fB7Y6pIJe7OR7NtahiQ1hBHQ8cFvHgfnRPCCGNovybKYXyKelZxnQRzOpj7JFpq4bEf+I/USrUIV6VvelwHbUqhckYVkmqPpbICXhnkJOsdOA/oc/1EolVWCY2WhCOs25RKDUsq+C7wloi76S7Zz/h6vBjZ4a5HlpBwZ7PFfR9pYvdoHizZo9o6uxEsFbZKS/TtzBGC5aouo7MAbpu0f2Zk615ZHtLIvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rch61Vp+nHgQNcu/w9wNxu+6cDClod/OExtLq0kBudk=;
- b=X/TPN+uOtsqMkvSST3dvQUfMPTzCfGIOBff6eR43Ou/MEAqvZV4hbUZQEtVUExG5whLE5Fb7czQk50Jeqpk1sjLPCKx6IucjJaMTtiRHATToqQY/Xc1A6pmd+2l9Zp+P6OOHZrj5vpqUHfXq9WD+DnZen0WouuszmQhPvoeIyu8QRTrIl+y5zvqW8jaNa/86H6zKq8IxF/gUP3V7Z+jR30m08JrkTBiQje6vjldPoPymoRTB4ypkxGHTbxH/Vqd31WuG2IIY/PzMy+8ClYSNPjSFcKrh4GCPNIXokqNJPrHcgNVBhdCfuIJu7bNKT+70yboZWpCqP7vzujZSNQxCXQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rch61Vp+nHgQNcu/w9wNxu+6cDClod/OExtLq0kBudk=;
- b=z8TJ/RzrVMEN2i+kAu2mgrdzyu2MaHy/UURFAY7fm63k+k/lgg5TOyGlbO/Iq6HtqfJh+JU40rxCt2XaLYahwwxsn3JeqLbF1xt5C2KX+w77KN+TtXW53L4zmNKTgsOKyvog9O9ZEZhitwrHji6kjjeeHOLYzn+FfnBisKa4YbwPnvADfPHZ/7SOzJsAUJnGNWu2wPVPZu5dpL9w8SJWPSe7XaWyQja6w4YqF4hFydmiDyRXrxZxEpxKVrABQFfZYtW2uOepD65ZOfaYM60n9UnxcRS0yQEKn2nfNjZvgoowfU3ACUpZCBKY6IbbE35vhtHvyNgVsXYBvcEQNJZQwg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <15fb0b37-da9d-410c-ae02-872dd45cd327@suse.com>
-Date: Fri, 1 Dec 2023 11:59:09 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] x86/livepatch: set function alignment to ensure
- minimal function size
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <20231128100352.35430-1-roger.pau@citrix.com>
- <20231128100352.35430-2-roger.pau@citrix.com>
- <a65aafed-68c0-41dd-bf4d-3eeff87dd5d3@suse.com> <ZWjIX0Jo5gW5SEDr@macbook>
- <d0a4f187-4e84-4e0d-b478-6d8437a0b644@suse.com> <ZWmeV-y5RpGAG5cS@macbook>
- <0d9bc0cd-3719-4961-ae7d-3e27508000a2@suse.com> <ZWmzo68abRmRtfwN@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZWmzo68abRmRtfwN@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0406.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d0::11) To DU2PR04MB8790.eurprd04.prod.outlook.com
- (2603:10a6:10:2e1::23)
+X-Inumbo-ID: ab1187b9-903b-11ee-9b0f-b553b5be7939
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Henry Wang <Henry.Wang@arm.com>,
+	Community Manager <community.manager@xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3] xen/public: fix flexible array definitions
+Date: Fri,  1 Dec 2023 12:20:41 +0100
+Message-Id: <20231201112041.5260-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AS8PR04MB7560:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7214d132-9c12-43fa-556d-08dbf25c8c8f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	hfTQlEc0cjLldhuW3gDM/nMfIgwksEu+RiAnsHm4LXO85yndiD5qPB/tCAHXc3nYdgCWZp3FuDsddbAvXmAY6P630IrdMfCtQKQX1F+lrKnoTIJG5YOBRjzWOvnhB6p3WljPNpRv+i78UleqV9ziedg0x3OQ5+IrtaZWHAMUq9vURY4eR6AdnkaLIubi43/+Lba5v5EFq+LGdzzMRWWxSB3AkPMhA7YKy7mTwuV/oqanZ9BajYqNesUQUkenMmSLPgGduqhFAhjyS4ZyRKrHwcLKknZI89yLkxoQrrzuTZ6/ibPf3uZQiYW3k5PfOqY6+XPAWXezRID7bAGtzt1TQCIQ9XnWA6PvbhN8nJpNsHh4atCs3bv7GDVX9qIcl1Cese5MjcQGBGYsUtErKAlf6AjC51l3MMVqRx4sMmQEVEDlon2ApIwcoI2jvjm/JawipHAFqKtmhziJegdR5bkO9p2WBDWenzev1GuWCG+X22iIRg3KGjOpby8dTofqRo5MA1erQ5zClGhU6OiWEZ7ihHB52lJUWLksb4WEPRZCO+xSZscgkzSu72SiZC/9Rve2G9Xyar5XZpKzmlbUl038I7sZewG/eT16TVSuQVkj5SdGm03hrD6v0DlYdxJ987TGsj0uvHkdEKKMZ3tz0E3rpQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(366004)(376002)(136003)(396003)(39860400002)(230922051799003)(64100799003)(451199024)(186009)(1800799012)(8676002)(86362001)(38100700002)(6506007)(66946007)(54906003)(66476007)(66556008)(6916009)(31696002)(36756003)(316002)(6486002)(41300700001)(4326008)(8936002)(6512007)(508600001)(66899024)(53546011)(2906002)(31686004)(83380400001)(26005)(2616005)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S1VYRXg2VzBwT1VxSVBRNEgrYmVJVGxvNUNvMDlHYUJyMXkvOCtXN0oxZjdS?=
- =?utf-8?B?SFhYbFA3SWwxa21ycXVNV2RHVVE2N1QzV040QysxWCs4WmhoY3lOOEZWMTEr?=
- =?utf-8?B?aVJlbmswaHVlK2gxQmlSTjdVdy9OR2J4RVNQMmVLODJVMWNiS0J0NWkxUk9a?=
- =?utf-8?B?WW1SaTVxQUZGaG80SnBkcUI4NExsajA2NVZ3QkZ6NEtTZVk1SVJ2OHdNK2Vw?=
- =?utf-8?B?cG5wc3ptS0JqT3ZUdjRDWXVOd24rN1R1MGIzNm13RmZJRWdPSE5KRHFQSlN5?=
- =?utf-8?B?K1V2Tk56OUxRUnlCS2xTSk9yUk5xUWozdHhBc1VlRTFicUY2RTh4bFh4RWIw?=
- =?utf-8?B?YTF3RUkvNUxXYWdIWGl3Qy9XY0gvU3dLTTlOWnM3VUQ5Nk1vWU4yb2daamIy?=
- =?utf-8?B?MW1TZTNBbWtDR0wxK3VRcTNCcHdodWdVWU9qMHBENlRUQTZSSUZ5YUJPOFg0?=
- =?utf-8?B?dm9VU1l2T2RrcFlML0NaTUtia2pSdU1jb2xJOW5hODkzQTRTL1lLK0htdXo1?=
- =?utf-8?B?RFcrZmdweXZpaERkc0d2UlZxNlY2RXV0Y1UxUStuMWlHVHdTZVdvNExscysx?=
- =?utf-8?B?dVNWa3AxdVAxUndMeGx3cG1CcDdTQXhPcHpZOTBSZ0xLQmNHMzdZeWg3UGdu?=
- =?utf-8?B?ZU9kaGJpSFFlaTE5OURtUXkrTkJpazlYczJUSG1TODl1WitFNGhsOGdGUmU2?=
- =?utf-8?B?ZGV1d3RXNnNLbVpxYVFHa2JVU2xycHhLZmt2aHU1YWhNVG1HSWpHMUJ0ZlJ3?=
- =?utf-8?B?YkZ1ZGc0NU1JUHZjaHhUU0hTRytlcWhicmtvSFhUZ3E2bzRUUVoraDJ3aExH?=
- =?utf-8?B?Qml0d2ViOVBEaS9CWnlFbTlZcWJXVzlJSVphMWFDdG1xNXErcnFiVU1ELzJ0?=
- =?utf-8?B?TGdBN29xZUswdTQwSVRxYisxS2VrOFVSM2FkYXJYUVRld1FRTzFJdTRoejRl?=
- =?utf-8?B?YjB3NDZXL2FyOHFTSnVDcWlBaEc5N1FTVm5uU0c4NXYrYTVGSVZWN2thaVNq?=
- =?utf-8?B?Z2FxSlo1SWdUKzdEWTFka1B4Q2NnWEtzaHppRjd6RlFXYXZsTDJxcmc2NUxz?=
- =?utf-8?B?T1B5K3QvL3kwZ0p1WVNIUkJsamp0R1pMdklOamdnRW1pV3NBMVgwbjB4eDhJ?=
- =?utf-8?B?MzY0ZGZiR013Y0g2UU1LR2NxbER2TlNNQjB2c0tBWW42NWltQU4reUxhdjFV?=
- =?utf-8?B?RmliMTZTQmxucU01YjJtT0FJMWZEU2g2VGJ4dkM3YjZpLy9UTlg4M2VYeG8y?=
- =?utf-8?B?a0l2UTllVG5LeFo5SVpYV0NlRlpzM1ZPK0wvaHJ3Qk5YYW9DNCtwQ1dnMiti?=
- =?utf-8?B?RmJBbU5XWTlLSTVVSmViN3RiTWNQRlIxbDVlSUZCMFBVKzRrK1RqK1krUmdw?=
- =?utf-8?B?SWYvcUtMYncySmVROEx0MktZYXdSeHpPeEttR25DS1d4WHBMOVRLRVJ6ZmZh?=
- =?utf-8?B?OXFFYm8vMlZQelRoUGs4M2xpL05YZ2Q2QTN1bFFWY0g2QWRPUUFCa3FaZi8r?=
- =?utf-8?B?bW55TFBsdk1TY1hrUXBWS0xKZUd6UmFYOG1xZDhZZVp1U2VUWE01dlZ0aWdH?=
- =?utf-8?B?c1RNQTRLRFpNMVFMTW5IZytFYk4wOUdtL3JZWkk0LzhCa0RxTHp2dFdiN0J4?=
- =?utf-8?B?TkpwbTUxSm0xL1B4MDczUlRLM3U4c09EazAwbWV3QkE3V2M4YlRTb0NSbklZ?=
- =?utf-8?B?SlZTSTBGcVJtMlpuVnlEamNjaEVjcE1lVThrZzRhWXljNlMrSXFvanBEb2FE?=
- =?utf-8?B?THBFVllOU2pHTnkxQlZFT0MwN2NISVFZYnBKRDQ0UElTOXk5bVVkc1I3THNV?=
- =?utf-8?B?SjA4UHF1Nm9lZUIyTWRQc2dGREN6LzFRZllQclg4U2RxakxRV3FxNVZzdFZM?=
- =?utf-8?B?WjZ3anlRNmVMMVZLdDA1YjNIQ21wRkRXZWdrKzVQeTFlNEZ5WFhyOTU3TFli?=
- =?utf-8?B?a0txQ0pOYU50OC8yc1NFUy85cUxOdHdqQmdnWVg3aXFmbHZmOWdmbExzZ3Fv?=
- =?utf-8?B?VWEwVE03VmhOTzkxQUp6bUpOeE52a2FrRXZRUDVLNnBvWTY3cEljTXBJa0dR?=
- =?utf-8?B?ZWszNzlYM2dzb2tvTWZrL1ZnOHF5YW5NdFFQSGlKVlQ0ZUFJQjh3SXRGZHU2?=
- =?utf-8?Q?47AdBqcFWFnTC+L5ExG6dllbQ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7214d132-9c12-43fa-556d-08dbf25c8c8f
-X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2023 10:59:11.4029
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W5BuF/mjzMEFh7RBgHNKes1KmbhTLGWvcbdBKwmdgOi6ttqxyltogFAL7AeGrMecZf389QqLFLLzTyg+lsEszw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7560
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: *******************
+X-Spamd-Bar: +++++++++++++++++++
+Authentication-Results: smtp-out1.suse.de;
+	dkim=none;
+	dmarc=fail reason="No valid SPF, No valid DKIM" header.from=suse.com (policy=quarantine);
+	spf=fail (smtp-out1.suse.de: domain of jgross@suse.com does not designate 2a07:de40:b281:104:10:150:64:98 as permitted sender) smtp.mailfrom=jgross@suse.com
+X-Rspamd-Server: rspamd2
+X-Spamd-Result: default: False [19.10 / 50.00];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_SPF_FAIL(1.00)[-all];
+	 ARC_NA(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 R_MISSING_CHARSET(2.50)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:98:from];
+	 BROKEN_CONTENT_TYPE(1.50)[];
+	 DMARC_POLICY_QUARANTINE(1.50)[suse.com : No valid SPF, No valid DKIM,quarantine];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 BAYES_SPAM(5.10)[100.00%];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[10];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 R_DKIM_NA(2.20)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: 19.10
+X-Rspamd-Queue-Id: 78DD921BDF
+X-Spam-Flag: NO
 
-On 01.12.2023 11:21, Roger Pau Monné wrote:
-> On Fri, Dec 01, 2023 at 10:41:45AM +0100, Jan Beulich wrote:
->> On 01.12.2023 09:50, Roger Pau Monné wrote:
->>> On Fri, Dec 01, 2023 at 07:53:29AM +0100, Jan Beulich wrote:
->>>> On 30.11.2023 18:37, Roger Pau Monné wrote:
->>>>> On Thu, Nov 30, 2023 at 05:55:07PM +0100, Jan Beulich wrote:
->>>>>> On 28.11.2023 11:03, Roger Pau Monne wrote:
->>>>>>> The minimal function size requirements for livepatch are either 5 bytes (for
->>>>>>> jmp) or 9 bytes (for endbr + jmp).  Ensure that functions are always at least
->>>>>>> that size by requesting the compiled to align the functions to 8 or 16 bytes,
->>>>>>> depending on whether Xen is build with IBT support.
->>>>>>
->>>>>> How is alignment going to enforce minimum function size? If a function is
->>>>>> last in a section, there may not be any padding added (ahead of linking at
->>>>>> least). The trailing padding also isn't part of the function.
->>>>>
->>>>> If each function lives in it's own section (by using
->>>>> -ffunction-sections), and each section is aligned, then I think we can
->>>>> guarantee that there will always be enough padding space?
->>>>>
->>>>> Even the last function/section on the .text block would still be
->>>>> aligned, and as long as the function alignment <= SECTION_ALIGN
->>>>> there will be enough padding left.  I should add some build time
->>>>> assert that CONFIG_CC_FUNCTION_ALIGNMENT <= SECTION_ALIGN.
->>>>
->>>> I'm not sure of there being a requirement for a section to be padded to
->>>> its alignment. If the following section has smaller alignment, it could
->>>> be made start earlier. Of course our linker scripts might guarantee
->>>> this ...
->>>
->>> I do think so, given our linker script arrangements for the .text
->>> section:
->>>
->>> DECL_SECTION(.text) {
->>>     [...]
->>> } PHDR(text) = 0x9090
->>>
->>> . = ALIGN(SECTION_ALIGN);
->>>
->>> The end of the text section is aligned to SECTION_ALIGN, so as long as
->>> SECTION_ALIGN >= CONFIG_CC_FUNCTION_ALIGNMENT the alignment should
->>> guarantee a minimal function size.
->>>
->>> Do you think it would be clearer if I add the following paragraph:
->>>
->>> "Given the Xen linker script arrangement of the .text section, we can
->>> ensure that when all functions are aligned to the given boundary the
->>> function size will always be a multiple of such alignment, even for
->>> the last function in .text, as the linker script aligns the end of the
->>> section to SECTION_ALIGN."
->>
->> I think this would be useful to have there. Beyond that, assembly code
->> also needs considering btw.
-> 
-> Assembly will get dealt with once we start to also have separate
-> sections for each assembly function.  We cannot patch assembly code at
-> the moment anyway, due to lack of debug symbols.
+Flexible arrays in public headers can be problematic with some
+compilers.
 
-Well, yes, that's one part of it. The other is that some .text coming
-from an assembly source may follow one coming from some C source, and
-if the assembly one then isn't properly aligned, padding space again
-wouldn't necessarily be large enough. This may be alright now (where
-.text is the only thing that can come from .S and would be linked
-ahead of all .text.*, being the only thing that can come from .c), but
-it might subtly when assembly code is also switched to per-function
-sections (you may recall that a patch to this effect is already
-pending: "common: honor CONFIG_CC_SPLIT_SECTIONS also for assembly
-functions").
+With XEN_FLEX_ARRAY_DIM there is a mechanism available to deal with
+this issue, but care must be taken to not change the affected structs
+in an incompatible way.
 
-Jan
+So bump __XEN_LATEST_INTERFACE_VERSION__ and introduce a new macro
+XENPV_FLEX_ARRAY_DIM which will be XENPV_FLEX_ARRAY_DIM with the
+interface version being new enough and "1" (the value used today in
+the affected headers) when the interface version is an old one.
+
+Replace the arr[1] instances (this includes the ones seen to be
+problematic in recent Linux kernels [1]) with arr[XENPV_FLEX_ARRAY_DIM]
+in order to avoid compilation errors.
+
+[1]: https://bugzilla.kernel.org/show_bug.cgi?id=217693
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- bump interface version and make change only for new version
+  (Jan Beulich)
+V3:
+- move XENPV_FLEX_ARRAY_DIM definition to ring.h (Jan Beulich)
+- fix 2 wrong XENPV_FLEX_ARRAY_DIM use cases (Julien Grall)
+- add CHANGELOG.md entry (Andrew Cooper)
+---
+ CHANGELOG.md                     |  2 ++
+ xen/include/public/io/cameraif.h |  2 +-
+ xen/include/public/io/displif.h  |  2 +-
+ xen/include/public/io/fsif.h     |  4 ++--
+ xen/include/public/io/pvcalls.h  |  2 +-
+ xen/include/public/io/ring.h     | 12 ++++++++++--
+ xen/include/public/io/sndif.h    |  2 +-
+ xen/include/public/xen-compat.h  |  2 +-
+ 8 files changed, 19 insertions(+), 9 deletions(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 4ecebb9f68..5ee5d41fc9 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+ ## [4.19.0 UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
+ 
+ ### Changed
++ - Changed flexible array definitions in public I/O interface headers to not
++   use "1" as the number of array elements.
+ 
+ ### Added
+  - On x86:
+diff --git a/xen/include/public/io/cameraif.h b/xen/include/public/io/cameraif.h
+index 13763abef9..a389443769 100644
+--- a/xen/include/public/io/cameraif.h
++++ b/xen/include/public/io/cameraif.h
+@@ -763,7 +763,7 @@ struct xencamera_buf_create_req {
+  */
+ struct xencamera_page_directory {
+     grant_ref_t gref_dir_next_page;
+-    grant_ref_t gref[1]; /* Variable length */
++    grant_ref_t gref[XENPV_FLEX_ARRAY_DIM];
+ };
+ 
+ /*
+diff --git a/xen/include/public/io/displif.h b/xen/include/public/io/displif.h
+index 73d0cbdf15..132c96fa5c 100644
+--- a/xen/include/public/io/displif.h
++++ b/xen/include/public/io/displif.h
+@@ -537,7 +537,7 @@ struct xendispl_dbuf_create_req {
+ 
+ struct xendispl_page_directory {
+     grant_ref_t gref_dir_next_page;
+-    grant_ref_t gref[1]; /* Variable length */
++    grant_ref_t gref[XENPV_FLEX_ARRAY_DIM];
+ };
+ 
+ /*
+diff --git a/xen/include/public/io/fsif.h b/xen/include/public/io/fsif.h
+index ec57850233..dcade1c698 100644
+--- a/xen/include/public/io/fsif.h
++++ b/xen/include/public/io/fsif.h
+@@ -40,7 +40,7 @@ struct fsif_read_request {
+     int32_t pad;
+     uint64_t len;
+     uint64_t offset;
+-    grant_ref_t grefs[1];  /* Variable length */
++    grant_ref_t grefs[XENPV_FLEX_ARRAY_DIM];
+ };
+ 
+ struct fsif_write_request {
+@@ -48,7 +48,7 @@ struct fsif_write_request {
+     int32_t pad;
+     uint64_t len;
+     uint64_t offset;
+-    grant_ref_t grefs[1];  /* Variable length */
++    grant_ref_t grefs[XENPV_FLEX_ARRAY_DIM];
+ };
+ 
+ struct fsif_stat_request {
+diff --git a/xen/include/public/io/pvcalls.h b/xen/include/public/io/pvcalls.h
+index 230b0719e3..c8c7602470 100644
+--- a/xen/include/public/io/pvcalls.h
++++ b/xen/include/public/io/pvcalls.h
+@@ -30,7 +30,7 @@ struct pvcalls_data_intf {
+     uint8_t pad2[52];
+ 
+     RING_IDX ring_order;
+-    grant_ref_t ref[];
++    grant_ref_t ref[XEN_FLEX_ARRAY_DIM];
+ };
+ DEFINE_XEN_FLEX_RING(pvcalls);
+ 
+diff --git a/xen/include/public/io/ring.h b/xen/include/public/io/ring.h
+index 0cae4367be..a79d913142 100644
+--- a/xen/include/public/io/ring.h
++++ b/xen/include/public/io/ring.h
+@@ -25,8 +25,16 @@
+  * and grant_table.h from the Xen public headers.
+  */
+ 
++#include "../xen.h"
+ #include "../xen-compat.h"
+ 
++/* Some PV I/O interfaces need a compatibility variant. */
++#if __XEN_INTERFACE_VERSION__ < 0x00041300
++#define XENPV_FLEX_ARRAY_DIM  1 /* variable size */
++#else
++#define XENPV_FLEX_ARRAY_DIM  XEN_FLEX_ARRAY_DIM
++#endif
++
+ #if __XEN_INTERFACE_VERSION__ < 0x00030208
+ #define xen_mb()  mb()
+ #define xen_rmb() rmb()
+@@ -110,7 +118,7 @@ struct __name##_sring {                                                 \
+         uint8_t pvt_pad[4];                                             \
+     } pvt;                                                              \
+     uint8_t __pad[44];                                                  \
+-    union __name##_sring_entry ring[1]; /* variable-length */           \
++    union __name##_sring_entry ring[XENPV_FLEX_ARRAY_DIM];              \
+ };                                                                      \
+                                                                         \
+ /* "Front" end's private variables */                                   \
+@@ -479,7 +487,7 @@ struct name##_data_intf {                                                     \
+     uint8_t pad2[56];                                                         \
+                                                                               \
+     RING_IDX ring_order;                                                      \
+-    grant_ref_t ref[];                                                        \
++    grant_ref_t ref[XEN_FLEX_ARRAY_DIM];                                      \
+ };                                                                            \
+ DEFINE_XEN_FLEX_RING(name)
+ 
+diff --git a/xen/include/public/io/sndif.h b/xen/include/public/io/sndif.h
+index 4234a47c87..cce1459b7b 100644
+--- a/xen/include/public/io/sndif.h
++++ b/xen/include/public/io/sndif.h
+@@ -659,7 +659,7 @@ struct xensnd_open_req {
+ 
+ struct xensnd_page_directory {
+     grant_ref_t gref_dir_next_page;
+-    grant_ref_t gref[1]; /* Variable length */
++    grant_ref_t gref[XENPV_FLEX_ARRAY_DIM];
+ };
+ 
+ /*
+diff --git a/xen/include/public/xen-compat.h b/xen/include/public/xen-compat.h
+index 97fe698498..078b796664 100644
+--- a/xen/include/public/xen-compat.h
++++ b/xen/include/public/xen-compat.h
+@@ -10,7 +10,7 @@
+ #ifndef __XEN_PUBLIC_XEN_COMPAT_H__
+ #define __XEN_PUBLIC_XEN_COMPAT_H__
+ 
+-#define __XEN_LATEST_INTERFACE_VERSION__ 0x00040e00
++#define __XEN_LATEST_INTERFACE_VERSION__ 0x00041300
+ 
+ #if defined(__XEN__) || defined(__XEN_TOOLS__)
+ /* Xen is built with matching headers and implements the latest interface. */
+-- 
+2.35.3
+
 
