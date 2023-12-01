@@ -2,32 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FB498014DA
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 21:56:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645762.1008079 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 596278014F7
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 22:11:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645766.1008089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r9AYl-0004gD-TA; Fri, 01 Dec 2023 20:56:27 +0000
+	id 1r9AmP-0001My-24; Fri, 01 Dec 2023 21:10:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645762.1008079; Fri, 01 Dec 2023 20:56:27 +0000
+Received: by outflank-mailman (output) from mailman id 645766.1008089; Fri, 01 Dec 2023 21:10:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r9AYl-0004dH-Q3; Fri, 01 Dec 2023 20:56:27 +0000
-Received: by outflank-mailman (input) for mailman id 645762;
- Fri, 01 Dec 2023 20:56:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1r9AYk-0004dB-UU
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 20:56:26 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r9AYk-0000L7-6J; Fri, 01 Dec 2023 20:56:26 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1r9AYj-0006Qj-W2; Fri, 01 Dec 2023 20:56:26 +0000
+	id 1r9AmO-0001Kg-Uf; Fri, 01 Dec 2023 21:10:32 +0000
+Received: by outflank-mailman (input) for mailman id 645766;
+ Fri, 01 Dec 2023 21:10:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=w7my=HM=raptorengineering.com=tpearson@srs-se1.protection.inumbo.net>)
+ id 1r9AmN-0001JK-EM
+ for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 21:10:31 +0000
+Received: from raptorengineering.com (mail.raptorengineering.com
+ [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0c3bec5e-908e-11ee-9b0f-b553b5be7939;
+ Fri, 01 Dec 2023 22:10:26 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 783448285554;
+ Fri,  1 Dec 2023 15:10:25 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Bk2M7rLww1-q; Fri,  1 Dec 2023 15:10:23 -0600 (CST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 9391B8285721;
+ Fri,  1 Dec 2023 15:10:23 -0600 (CST)
+Received: from mail.rptsys.com ([127.0.0.1])
+ by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id XKxKmtOH0yH1; Fri,  1 Dec 2023 15:10:23 -0600 (CST)
+Received: from vali.starlink.edu (localhost [127.0.0.1])
+ by mail.rptsys.com (Postfix) with ESMTP id 2E6378285554;
+ Fri,  1 Dec 2023 15:10:23 -0600 (CST)
+Received: from 192.168.3.91 (proxying for 172.58.188.160)
+ (SquirrelMail authenticated user tpearson@raptorengineering.com)
+ by vali.starlink.edu with HTTP; Fri, 1 Dec 2023 15:10:23 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,51 +54,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=NQLaIwUZPorgLBX9VVZGLxq9mqY+hCwMWWoudaGWMYc=; b=m+DAylLBkdiVNBQDd8f0fFZ524
-	EOr0dUYLBE1Qd4bia5okL55/D4DwTdxcHqPgFru4Fw8JrDqVNzJvmxTUXhP26BxnFmevvBUZ6v9aj
-	aC5Ltu9+ufyIHV/ylNPlXwMVT/ME0SDnjPF2MJAPsFAujv7578aHH/7FKjzjmQJGV8cs=;
-Message-ID: <938b9bfe-fba0-4c77-b2e5-fb79fb316ab4@xen.org>
-Date: Fri, 1 Dec 2023 20:56:24 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] xen/ppc: Enable Boot Allocator
-To: Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Jan Beulich <jbeulich@suse.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Oleksii <oleksii.kurochko@gmail.com>
+X-Inumbo-ID: 0c3bec5e-908e-11ee-9b0f-b553b5be7939
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 9391B8285721
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
+	t=1701465023; bh=bxT2AZjZ2cRdzkzG2sHEsDpTCKjhUQftBvzpCjUGa00=;
+	h=Message-ID:Date:From:To:MIME-Version;
+	b=iWRoOZ8hpdTStrvDg/bzyiGNMR+SGnR5vSGW0f51htju3hq9WiZyDiU9epYrLUlSt
+	 0qQ7Jd5+HuVBIvVDtrYaBh5OEarZNDX/DQ6mThoM+sbME/BPJ9rm4cspV2cvhls49t
+	 zEdH2POQrxGCFElZ23S+4WopqdfB3SBtSE08vqx8=
+X-Virus-Scanned: amavisd-new at rptsys.com
+Message-ID: <7e0ea8d9ca0a3a90550eb7b9e65fe86c.squirrel@vali.starlink.edu>
+In-Reply-To: <938b9bfe-fba0-4c77-b2e5-fb79fb316ab4@xen.org>
 References: <cover.1701384928.git.sanastasio@raptorengineering.com>
- <5ed3351f7824a5d0a1ff29c17cb55b2608f28109.1701384928.git.sanastasio@raptorengineering.com>
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <5ed3351f7824a5d0a1ff29c17cb55b2608f28109.1701384928.git.sanastasio@raptorengineering.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+    <5ed3351f7824a5d0a1ff29c17cb55b2608f28109.1701384928.git.sanastasio@raptorengineering.com>
+    <938b9bfe-fba0-4c77-b2e5-fb79fb316ab4@xen.org>
+Date: Fri, 1 Dec 2023 15:10:23 -0600
+Subject: Re: [PATCH 1/3] xen/ppc: Enable Boot Allocator
+From: tpearson@raptorengineering.com
+To: "Julien Grall" <julien@xen.org>
+Cc: "Shawn Anastasio" <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org,
+ "Jan Beulich" <jbeulich@suse.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ "Stefano Stabellini" <sstabellini@kernel.org>,
+ "Bertrand Marquis" <bertrand.marquis@arm.com>,
+ "Michal Orzel" <michal.orzel@amd.com>,
+ "Oleksii" <oleksii.kurochko@gmail.com>
+User-Agent: SquirrelMail/1.4.22
+MIME-Version: 1.0
+Content-Type: text/plain;charset=utf-8
+X-Priority: 3 (Normal)
+Importance: Normal
+Content-Transfer-Encoding: quoted-printable
 
-(+ Arm and RISC-V folks)
+> (+ Arm and RISC-V folks)
+>
+> Hi Shawn,
+>
+> On 01/12/2023 20:59, Shawn Anastasio wrote:
+>> Adapt arm's earlyfdt parsing code to ppc64 and enable Xen's early boot
+>> allocator. Routines for parsing arm-specific devicetree nodes (e.g.
+>> multiboot) were excluded, reducing the overall footprint of code that
+>> was copied.
+>
+> I expect RISC-V to want similar code. I am not really thrilled in the
+> idea of having 3 similar copy of the parsing. So can we extract the
+> common bits (or harmonize it) so it can be shared?
+>
+> Maybe Oleksii has already a version doing that.
 
-Hi Shawn,
+Just my $0.02, but wouldn't it make more sense to have the RISC-V port
+handle the deduplication, seeing as the POWER support came first here?  W=
+e
+don't know if/when the RISC-V port will be ready for submission, so I'm
+not sure why we should be on the hook for this particular work.
 
-On 01/12/2023 20:59, Shawn Anastasio wrote:
-> Adapt arm's earlyfdt parsing code to ppc64 and enable Xen's early boot
-> allocator. Routines for parsing arm-specific devicetree nodes (e.g.
-> multiboot) were excluded, reducing the overall footprint of code that
-> was copied.
+Thanks!
 
-I expect RISC-V to want similar code. I am not really thrilled in the 
-idea of having 3 similar copy of the parsing. So can we extract the 
-common bits (or harmonize it) so it can be shared?
-
-Maybe Oleksii has already a version doing that.
-
-Cheers,
-
--- 
-Julien Grall
 
