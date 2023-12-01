@@ -2,44 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 924328012EF
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 19:42:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645643.1007848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F32580130B
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 19:47:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645647.1007858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r98SI-0005qA-T0; Fri, 01 Dec 2023 18:41:38 +0000
+	id 1r98Y6-0007Ej-Kr; Fri, 01 Dec 2023 18:47:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645643.1007848; Fri, 01 Dec 2023 18:41:38 +0000
+Received: by outflank-mailman (output) from mailman id 645647.1007858; Fri, 01 Dec 2023 18:47:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r98SI-0005o3-QT; Fri, 01 Dec 2023 18:41:38 +0000
-Received: by outflank-mailman (input) for mailman id 645643;
- Fri, 01 Dec 2023 18:41:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1r98Y6-0007CK-I9; Fri, 01 Dec 2023 18:47:38 +0000
+Received: by outflank-mailman (input) for mailman id 645647;
+ Fri, 01 Dec 2023 18:47:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eb4H=HM=redhat.com=eblake@srs-se1.protection.inumbo.net>)
- id 1r98SI-0005mQ-4k
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 18:41:38 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 412fc385-9079-11ee-98e5-6d05b1d4d9a1;
- Fri, 01 Dec 2023 19:41:36 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-217-66xIaf1cO8GcY6Qnzh7Wxg-1; Fri, 01 Dec 2023 13:41:32 -0500
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 31B74101A550;
- Fri,  1 Dec 2023 18:41:31 +0000 (UTC)
-Received: from redhat.com (unknown [10.2.16.190])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7777010EA5;
- Fri,  1 Dec 2023 18:41:26 +0000 (UTC)
+ (envelope-from <julien@xen.org>) id 1r98Y5-0007CE-7b
+ for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 18:47:37 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r98Y4-00062A-SO; Fri, 01 Dec 2023 18:47:36 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1r98Y4-0000Np-Hr; Fri, 01 Dec 2023 18:47:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,77 +40,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 412fc385-9079-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701456095;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3ZACWUhb4JEwfAd7144DY0G8wC5xk0wN6pMVFcDanWw=;
-	b=AZWON6++LQHeZp94YXTpsD+scrnyC5FSi0Ve9edYWwaRfI3CUCm0wRx5ZkvfSd37CP8vw3
-	P74eAwPiluMNEY4q5P8fM3sjQTTUwUHMU0u61KmfLpTqbHsMsDVebgFOzDNyXZagqcy9kS
-	rbChNBAdjeeyMTlwfqaYAIygfWGHUV0=
-X-MC-Unique: 66xIaf1cO8GcY6Qnzh7Wxg-1
-Date: Fri, 1 Dec 2023 12:41:24 -0600
-From: Eric Blake <eblake@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>, 
-	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Alberto Garcia <berto@igalia.com>, Emanuele Giuseppe Esposito <eesposit@redhat.com>, 
-	John Snow <jsnow@redhat.com>, Kevin Wolf <kwolf@redhat.com>, 
-	Wen Congyang <wencongyang2@huawei.com>, qemu-block@nongnu.org, xen-devel@lists.xenproject.org, 
-	Coiby Xu <Coiby.Xu@gmail.com>, Eduardo Habkost <eduardo@habkost.net>, 
-	Xie Changlong <xiechanglong.d@gmail.com>, Ari Sundholm <ari@tuxera.com>, 
-	Li Zhijian <lizhijian@fujitsu.com>, Cleber Rosa <crosa@redhat.com>, 
-	Juan Quintela <quintela@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>, Zhang Chen <chen.zhang@intel.com>, Peter Xu <peterx@redhat.com>, 
-	Anthony Perard <anthony.perard@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Leonardo Bras <leobras@redhat.com>, Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>, 
-	Fam Zheng <fam@euphon.net>, Fabiano Rosas <farosas@suse.de>
-Subject: Re: [PATCH 12/12] block: remove outdated AioContext locking comments
-Message-ID: <dhk443hopxyaye4lp2mxbvtmw6txuhweytxqqnwe7n25mvorou@wslc57dcy5ny>
-References: <20231129195553.942921-1-stefanha@redhat.com>
- <20231129195553.942921-13-stefanha@redhat.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=ndxVU3EWahiDQSPaDNSsgeLeNuG+m3VG8dgm4KveLBw=; b=grs4Uq
+	RPBPjd0ayV8k4tc21JHaNE4tIi4aOVXx4F/iwEp7AmDrEAOEyupLc1Mj/bR03WCZtXy89YliIjK1N
+	/lVTNLS1NBhwQKlJnOTb156qgZ03zlkTd5vYYPF4XRPHiTUW0aEcKvOfHrhTex8o0f3toRQdsq8J/
+	Lcp/Hsa3cc0=;
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] CODING_STYLE: Add a section of the naming convention
+Date: Fri,  1 Dec 2023 18:47:28 +0000
+Message-Id: <20231201184728.31766-1-julien@xen.org>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231129195553.942921-13-stefanha@redhat.com>
-User-Agent: NeoMutt/20231103
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 29, 2023 at 02:55:53PM -0500, Stefan Hajnoczi wrote:
-> The AioContext lock no longer exists.
-> 
-> There is one noteworthy change:
-> 
->   - * More specifically, these functions use BDRV_POLL_WHILE(bs), which
->   - * requires the caller to be either in the main thread and hold
->   - * the BlockdriverState (bs) AioContext lock, or directly in the
->   - * home thread that runs the bs AioContext. Calling them from
->   - * another thread in another AioContext would cause deadlocks.
->   + * More specifically, these functions use BDRV_POLL_WHILE(bs), which requires
->   + * the caller to be either in the main thread or directly in the home thread
->   + * that runs the bs AioContext. Calling them from another thread in another
->   + * AioContext would cause deadlocks.
-> 
-> I am not sure whether deadlocks are still possible. Maybe they have just
-> moved to the fine-grained locks that have replaced the AioContext. Since
-> I am not sure if the deadlocks are gone, I have kept the substance
-> unchanged and just removed mention of the AioContext.
+From: Julien Grall <jgrall@amazon.com>
 
-I'd rather text that may be overly conservative than an omission that
-could lead to a bug; so I'm okay with your action there.
+Several maintainers have expressed a stronger preference
+to use '-' when in filename and option that contains multiple
+words.
 
-> 
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> ---
+So document it in CODING_STYLE.
 
-Reviewed-by: Eric Blake <eblake@redhat.com>
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+---
+ CODING_STYLE | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
+diff --git a/CODING_STYLE b/CODING_STYLE
+index ced3ade5a6fb..afd09177745b 100644
+--- a/CODING_STYLE
++++ b/CODING_STYLE
+@@ -144,6 +144,15 @@ separate lines and each line should begin with a leading '*'.
+  * Note beginning and end markers on separate lines and leading '*'.
+  */
+ 
++Naming convention
++-----------------
++
++When command line option or filename contain multiple words, a '-'
++should be to separate them. E.g. 'timer-works'.
++
++Note that some of the option and filename are using '_'. This is now
++deprecated.
++
+ Emacs local variables
+ ---------------------
+ 
 -- 
-Eric Blake, Principal Software Engineer
-Red Hat, Inc.
-Virtualization:  qemu.org | libguestfs.org
+2.40.1
 
 
