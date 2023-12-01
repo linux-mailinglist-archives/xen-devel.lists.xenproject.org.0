@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E1C3800662
-	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 09:58:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.645368.1007509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A546380067D
+	for <lists+xen-devel@lfdr.de>; Fri,  1 Dec 2023 10:03:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.645374.1007519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8zLm-0001B9-46; Fri, 01 Dec 2023 08:58:18 +0000
+	id 1r8zQT-0003IZ-LS; Fri, 01 Dec 2023 09:03:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 645368.1007509; Fri, 01 Dec 2023 08:58:18 +0000
+Received: by outflank-mailman (output) from mailman id 645374.1007519; Fri, 01 Dec 2023 09:03:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1r8zLm-00018B-12; Fri, 01 Dec 2023 08:58:18 +0000
-Received: by outflank-mailman (input) for mailman id 645368;
- Fri, 01 Dec 2023 08:58:16 +0000
+	id 1r8zQT-0003Gv-IT; Fri, 01 Dec 2023 09:03:09 +0000
+Received: by outflank-mailman (input) for mailman id 645374;
+ Fri, 01 Dec 2023 09:03:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2bjU=HM=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1r8zLk-000185-Bg
- for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 08:58:16 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ id 1r8zQS-0003Gp-0W
+ for xen-devel@lists.xenproject.org; Fri, 01 Dec 2023 09:03:08 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2f21ad8-9027-11ee-9b0f-b553b5be7939;
- Fri, 01 Dec 2023 09:58:14 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-50bccc2e3efso2335727e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 01 Dec 2023 00:58:14 -0800 (PST)
+ id 6ed091ce-9028-11ee-9b0f-b553b5be7939;
+ Fri, 01 Dec 2023 10:03:02 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40b399a6529so18892385e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 01 Dec 2023 01:03:02 -0800 (PST)
 Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- je18-20020a05600c1f9200b003feea62440bsm4755865wmb.43.2023.12.01.00.58.13
+ o18-20020a05600c4fd200b0040b45282f88sm8255845wmq.36.2023.12.01.01.03.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Dec 2023 00:58:13 -0800 (PST)
+ Fri, 01 Dec 2023 01:03:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,140 +44,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2f21ad8-9027-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 6ed091ce-9028-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701421094; x=1702025894; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1701421382; x=1702026182; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=UaHw1hjCR3NxnrQY1ARKmRXnyrSrOCItNMW6PUMuMF4=;
-        b=nbdHi+FYCEeX042Ser+FzVwekkm6fattSd3sSt/Xe8+bpg3xqAZ5YSElVDl6+vQmSi
-         Uzr+L4TGN2SdikGlr9k+m6Yc48aJuWEbnYv7o2Zc96cfPfW8//UlSUTGNwP9myax97zM
-         4KPQcA08huAD4DrozuVb51u/tejY0U54rOgyc=
+        bh=1YMrUSdUG2tveNsDVe5kwFVej4hbYjBI1JOj7cincDw=;
+        b=F1xbO7KzmMhuPny5jn8W4N5RPA7HgO9gxfQQisqkhlQL7nuFmkRo6jvf6kceopUH6l
+         paTWGz6i9uOUrxTUkAD60usJ97BLoDyMWkZzDGn8ny6SJ9KsKtH25NBjh+8TDDS5u9lS
+         gMprYLF5Y9sYPgFHX+qSHisSS4C/Xx4oZbVDA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701421094; x=1702025894;
+        d=1e100.net; s=20230601; t=1701421382; x=1702026182;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UaHw1hjCR3NxnrQY1ARKmRXnyrSrOCItNMW6PUMuMF4=;
-        b=JZkuOwEjOBOEohsTDB1AckYg0RTtYP/I+BkD8cQOTiF3ikncRrq4PIXKWRYOiplO+H
-         i1/b5ioB9l4HDvsXKRAszsOs7P+s6Uft7BTHwU0GKbZV2YqZBKSL+vDpmdQMNeEa8Yw4
-         ShsNZtdyQuc8xINxNINTnrNQxU3siRcbCqPWVkm1caUA7QqjL/6Q9iPerxiefWTA5Z7g
-         M1kRF4b0PqfQrhOblWhKLnahs/EqJr+JaGOu60nOKtvVDm/yFyoqwcxxVKeg5B3dS0Ne
-         nR5rOSQr4/Gq27N5PaJykeWyqV61XYfK3M42eMeyOkvc0sL8T2Q2NiOHxtP81uSBXoX1
-         c82A==
-X-Gm-Message-State: AOJu0YxEWpsEd6m+np7vxFSxG1EtGIxjk1DGfYvBHSpTgn6DcvwHDX40
-	mKECUdMLHz0evOZKwSRTUObSgA==
-X-Google-Smtp-Source: AGHT+IE4OhisR8OsQM44A4vQh8aBYtvo29xgVaO+teORZibTRNUQH3H3JBaKP/eUBwb826QuHOJKcg==
-X-Received: by 2002:a05:6512:31cd:b0:50b:d763:fe5f with SMTP id j13-20020a05651231cd00b0050bd763fe5fmr728578lfe.122.1701421093872;
-        Fri, 01 Dec 2023 00:58:13 -0800 (PST)
-Date: Fri, 1 Dec 2023 09:58:12 +0100
+        bh=1YMrUSdUG2tveNsDVe5kwFVej4hbYjBI1JOj7cincDw=;
+        b=VQcuK45D3MLdIoiut41qJYVRvFsfzmwKf2QDhTuxZbdBueq4ovorvFCLAniI8vtY48
+         8Q2YnpA5sNbE4OYCmLXArDJUoRPQ6v4jaHJfUkPup8aYBQET28t3J61z3RF9/Xsk9+as
+         wGOyfnaodoPw/YyG2TVuMi6pP4he2ZgxGzy1IVwwBQXsAM2Xl/Ucj5Dq/tq5QDfr0O9e
+         rLfDCISDfY+bokxzXWIwSdx3PvulnaYX65gJaRtgGE+xMA07F5J+RYXM5cKHi0eXu/VR
+         EPMag3ds9S50/Wa0JovvSq7OJzBIo+waBfjDmWebybqHxu5cni09ZJ92B8ma5THz8H1r
+         8qOA==
+X-Gm-Message-State: AOJu0Yz+bOFxJWMhZSZUuBVZtyuurZ26zCZHR4ZU4ElsDF3/uwv/lpRd
+	K51vtdjTVrqitEy20b6CZN35Yw==
+X-Google-Smtp-Source: AGHT+IErNwVjqZkrQkMV/EuXtCIPxP0BRxtv/NR6+5nzEsJwPYHpwP27Ln1rR5aUzylK6yC9Wk+sFQ==
+X-Received: by 2002:a05:600c:3d9a:b0:40b:5e4a:2356 with SMTP id bi26-20020a05600c3d9a00b0040b5e4a2356mr460923wmb.88.1701421382350;
+        Fri, 01 Dec 2023 01:03:02 -0800 (PST)
+Date: Fri, 1 Dec 2023 10:03:01 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>, Juergen Gross <jgross@suse.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	Stefano Stabellini <stefano.stabellini@amd.com>,
-	Alex Deucher <Alexander.Deucher@amd.com>,
-	Christian Koenig <Christian.Koenig@amd.com>,
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>, Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
 	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Alex Deucher <Alexander.Deucher@amd.com>,
 	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+	Stefano Stabellini <stefano.stabellini@amd.com>,
+	Huang Rui <Ray.Huang@amd.com>,
 	Honglei Huang <Honglei1.Huang@amd.com>,
-	Julia Zhang <Julia.Zhang@amd.com>, Huang Rui <Ray.Huang@amd.com>
-Subject: Re: [RFC KERNEL PATCH v2 2/3] xen/pvh: Unmask irq for passthrough
- device in PVH dom0
-Message-ID: <ZWmgJNidFsfkDp7q@macbook>
-References: <20231124103123.3263471-1-Jiqian.Chen@amd.com>
- <20231124103123.3263471-3-Jiqian.Chen@amd.com>
- <alpine.DEB.2.22.394.2311291950350.3533093@ubuntu-linux-20-04-desktop>
- <ZWiyBP4Lzz5lXraP@macbook>
- <alpine.DEB.2.22.394.2311301912350.110490@ubuntu-linux-20-04-desktop>
+	Julia Zhang <Julia.Zhang@amd.com>
+Subject: Re: [RFC XEN PATCH v2 3/3] tools: Add new function to get gsi from
+ irq
+Message-ID: <ZWmhRb6Ne4vgplzM@macbook>
+References: <20231124104136.3263722-1-Jiqian.Chen@amd.com>
+ <20231124104136.3263722-4-Jiqian.Chen@amd.com>
+ <ZWX4R9UEE6oXiqaz@macbook>
+ <alpine.DEB.2.22.394.2311291937170.3533093@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2311291956130.3533093@ubuntu-linux-20-04-desktop>
+ <ZWheuUjLxShoQ_qn@macbook>
+ <alpine.DEB.2.22.394.2311301907370.110490@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <alpine.DEB.2.22.394.2311301912350.110490@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2311301907370.110490@ubuntu-linux-20-04-desktop>
 
-On Thu, Nov 30, 2023 at 07:15:17PM -0800, Stefano Stabellini wrote:
+On Thu, Nov 30, 2023 at 07:09:12PM -0800, Stefano Stabellini wrote:
 > On Thu, 30 Nov 2023, Roger Pau Monné wrote:
-> > On Wed, Nov 29, 2023 at 07:53:59PM -0800, Stefano Stabellini wrote:
-> > > On Fri, 24 Nov 2023, Jiqian Chen wrote:
-> > > > This patch is to solve two problems we encountered when we try to
-> > > > passthrough a device to hvm domU base on Xen PVH dom0.
+> > On Wed, Nov 29, 2023 at 08:02:40PM -0800, Stefano Stabellini wrote:
+> > > n Wed, 29 Nov 2023, Stefano Stabellini wrote:
+> > > > On Tue, 28 Nov 2023, Roger Pau Monné wrote:
+> > > > > On Fri, Nov 24, 2023 at 06:41:36PM +0800, Jiqian Chen wrote:
+> > > > > > In PVH dom0, it uses the linux local interrupt mechanism,
+> > > > > > when it allocs irq for a gsi, it is dynamic, and follow
+> > > > > > the principle of applying first, distributing first. And
+> > > > > > if you debug the kernel codes, you will find the irq
+> > > > > > number is alloced from small to large, but the applying
+> > > > > > gsi number is not, may gsi 38 comes before gsi 28, that
+> > > > > > causes the irq number is not equal with the gsi number.
+> > > > > > And when we passthrough a device, QEMU will use its gsi
+> > > > > > number to do mapping actions, see xen_pt_realize->
+> > > > > > xc_physdev_map_pirq, but the gsi number is got from file
+> > > > > > /sys/bus/pci/devices/xxxx:xx:xx.x/irq in current code,
+> > > > > > so it will fail when mapping.
+> > > > > > And in current codes, there is no method to translate
+> > > > > > irq to gsi for userspace.
+> > > > > 
+> > > > > I think it would be cleaner to just introduce a new sysfs node that
+> > > > > contains the gsi if a device is using one (much like the irq sysfs
+> > > > > node)?
+> > > > > 
+> > > > > Such ioctl to translate from IRQ to GSI has nothing to do with Xen, so
+> > > > > placing it in privcmd does seem quite strange to me.  I understand
+> > > > > that for passthrough we need the GSI, but such translation layer from
+> > > > > IRQ to GSI is all Linux internal, and it would be much simpler to just
+> > > > > expose the GSI in sysfs IMO.
 > > > > 
-> > > > First, hvm guest will alloc a pirq and irq for a passthrough device
-> > > > by using gsi, before that, the gsi must first has a mapping in dom0,
-> > > > see Xen code pci_add_dm_done->xc_domain_irq_permission, it will call
-> > > > into Xen and check whether dom0 has the mapping. See
-> > > > XEN_DOMCTL_irq_permission->pirq_access_permitted, "current" is PVH
-> > > > dom0 and it return irq is 0, and then return -EPERM.
-> > > > This is because the passthrough device doesn't do PHYSDEVOP_map_pirq
-> > > > when thay are enabled.
-> > > > 
-> > > > Second, in PVH dom0, the gsi of a passthrough device doesn't get
-> > > > registered, but gsi must be configured for it to be able to be
-> > > > mapped into a domU.
-> > > > 
-> > > > After searching codes, we can find map_pirq and register_gsi will be
-> > > > done in function vioapic_write_redirent->vioapic_hwdom_map_gsi when
-> > > > the gsi(aka ioapic's pin) is unmasked in PVH dom0. So the problems
-> > > > can be conclude to that the gsi of a passthrough device doesn't be
-> > > > unmasked.
-> > > > 
-> > > > To solve the unmaske problem, this patch call the unmask_irq when we
-> > > > assign a device to be passthrough. So that the gsi can get registered
-> > > > and mapped in PVH dom0.
+> > > > Maybe something to add to drivers/xen/sys-hypervisor.c in Linux.
+> > > > Juergen what do you think?
 > > > 
-> > > 
-> > > Roger, this seems to be more of a Xen issue than a Linux issue. Why do
-> > > we need the unmask check in Xen? Couldn't we just do:
-> > > 
-> > > 
-> > > diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
-> > > index 4e40d3609a..df262a4a18 100644
-> > > --- a/xen/arch/x86/hvm/vioapic.c
-> > > +++ b/xen/arch/x86/hvm/vioapic.c
-> > > @@ -287,7 +287,7 @@ static void vioapic_write_redirent(
-> > >              hvm_dpci_eoi(d, gsi);
-> > >      }
-> > >  
-> > > -    if ( is_hardware_domain(d) && unmasked )
-> > > +    if ( is_hardware_domain(d) )
-> > >      {
-> > >          /*
-> > >           * NB: don't call vioapic_hwdom_map_gsi while holding hvm.irq_lock
+> > > Let me also add that privcmd.c is already a Linux specific interface.
+> > > Although it was born to be a Xen hypercall "proxy" in reality today we
+> > > have a few privcmd ioctls that don't translate into hypercalls. So I
+> > > don't think that adding IOCTL_PRIVCMD_GSI_FROM_IRQ would be a problem.
 > > 
-> > There are some issues with this approach.
+> > Maybe not all ioctls translate to hypercalls (I guess you are
+> > referring to the IOCTL_PRIVCMD_RESTRICT ioctl), but they are specific
+> > Xen actions.  Getting the GSI used by a device has nothing do to with
+> > Xen.
 > > 
-> > mp_register_gsi() will only setup the trigger and polarity of the
-> > IO-APIC pin once, so we do so once the guest unmask the pin in order
-> > to assert that the configuration is the intended one.  A guest is
-> > allowed to write all kind of nonsense stuff to the IO-APIC RTE, but
-> > that doesn't take effect unless the pin is unmasked.
+> > IMO drivers/xen/sys-hypervisor.c is also not appropriate, but I'm not
+> > the maintainer of any of those components.
 > > 
-> > Overall the question would be whether we have any guarantees that
-> > the hardware domain has properly configured the pin, even if it's not
-> > using it itself (as it hasn't been unmasked).
-> > 
-> > IIRC PCI legacy interrupts are level triggered and low polarity, so we
-> > could configure any pins that are not setup at bind time?
+> > There's nothing Xen specific about fetching the GSI associated with a
+> > PCI device.  The fact that Xen needs it for passthrough is just a red
+> > herring, further cases where the GSI is needed might arise outside of
+> > Xen, and hence such node would better be placed in a generic
+> > location.  The right location should be /sys/bus/pci/devices/<sbdf>/gsi.
 > 
-> That could work.
-> 
-> Another idea is to move only the call to allocate_and_map_gsi_pirq at
-> bind time? That might be enough to pass a pirq_access_permitted check.
+> That might be true but /sys/bus/pci/devices/<sbdf>/gsi is a non-Xen
+> generic interface and the maintainers of that portion of Linux code
+> might have a different opinion. We'll have to see.
 
-Maybe, albeit that would change the behavior of XEN_DOMCTL_bind_pt_irq
-just for PT_IRQ_TYPE_PCI and only when called from a PVH dom0 (as the
-parameter would be a GSI instead of a previously mapped IRQ).  Such
-difference just for PT_IRQ_TYPE_PCI is slightly weird - if we go that
-route I would recommend that we instead introduce a new dmop that has
-this syntax regardless of the domain type it's called from.
+Right, but before resorting to implement a Xen specific workaround
+let's attempt to do it the proper way :).
+
+I cannot see why exposing the gsi on sysfs like that would be an
+issue.  There's a lot of resource information exposed on sysfs
+already, and it's a trivial node to implement.
 
 Thanks, Roger.
 
