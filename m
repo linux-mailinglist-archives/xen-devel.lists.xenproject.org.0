@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23CD4803CDF
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 19:24:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647272.1010222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D36B9803E0B
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 20:06:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647276.1010232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rADbE-0003VQ-QE; Mon, 04 Dec 2023 18:23:20 +0000
+	id 1rAEFj-0003nV-TQ; Mon, 04 Dec 2023 19:05:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647272.1010222; Mon, 04 Dec 2023 18:23:20 +0000
+Received: by outflank-mailman (output) from mailman id 647276.1010232; Mon, 04 Dec 2023 19:05:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rADbE-0003Tb-NV; Mon, 04 Dec 2023 18:23:20 +0000
-Received: by outflank-mailman (input) for mailman id 647272;
- Mon, 04 Dec 2023 18:23:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wjtD=HP=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rADbD-0003TC-Oq
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 18:23:19 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 326ebb05-92d2-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 19:23:18 +0100 (CET)
-Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id B836C4EE0C8A;
- Mon,  4 Dec 2023 19:23:16 +0100 (CET)
+	id 1rAEFj-0003ky-Qm; Mon, 04 Dec 2023 19:05:11 +0000
+Received: by outflank-mailman (input) for mailman id 647276;
+ Mon, 04 Dec 2023 19:05:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rAEFi-0003ks-P9
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 19:05:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rAEFg-0001AX-1V; Mon, 04 Dec 2023 19:05:08 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=[192.168.23.72]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rAEFf-0001LJ-Qx; Mon, 04 Dec 2023 19:05:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,73 +39,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 326ebb05-92d2-11ee-98e5-6d05b1d4d9a1
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Nicola Vetrini <nicola.vetrini@bugseng.com>,
-	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH] docs/misra: deviate deliberately unused labels
-Date: Mon,  4 Dec 2023 19:23:11 +0100
-Message-Id: <669f63d14926f6335a081711de5a34ef04c61717.1701714146.git.nicola.vetrini@bugseng.com>
-X-Mailer: git-send-email 2.34.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=xcIGVCT+PzjA+edF2JFCki0/42EB50E0k+Jsd503egM=; b=LXxMqiztfjHqxL2lYFFsapxgr5
+	+Fy6jPXqH2XQ4ntOvxEP443QFgMhJlSSHd3zfMh6htWxaH51K0o/Ij4UIxDTMB20GaVEALuHh5+RN
+	KjSD5mqa6UAGzgLD3J1rocAXgvK56CrShrjvwdjyTVi39WsEdkOsc024BbLr56MRjLAk=;
+Message-ID: <f40d6838-9a82-48cd-9a6b-a298c281f8cf@xen.org>
+Date: Mon, 4 Dec 2023 19:05:05 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] CODING_STYLE: Add a section of the naming convention
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20231201184728.31766-1-julien@xen.org>
+ <0e20592b-9800-4b9d-9f2f-a996f9ac00bd@xen.org>
+ <cfaf75cf-f658-4df0-b654-f1c3af279b15@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <cfaf75cf-f658-4df0-b654-f1c3af279b15@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The labels marked with __maybe_unused are either used only
-in certain build configurations or deliberately unused.
-See the justification in docs/misra/deviations.rst.
+Hi Jan,
 
-No functional changes.
+On 04/12/2023 09:39, Jan Beulich wrote:
+> On 01.12.2023 19:49, Julien Grall wrote:
+>> +Naming convention
+>> +-----------------
+>> +
+>> +'-' should be used to separate words in commandline options and filenames.
+>> +E.g. timer-works.
+>> +
+>> +Note that some of the options and filenames are using '_'. This is now
+>> +deprecated.
+> 
+> I certainly appreciate and second the intent, yet I'm afraid "Naming convention"
+> in the doc would (to me at least) first and foremost talk about identifiers used
+> in the various source files. If this really is to be about only file names and
+> command line options, then I think the heading would better say so. Alternatively
+> a clear indication would want adding that text about identifiers is supposed to
+> be here, but is yet to be written. (The text itself, for the intended purpose, > reads fine to me, fwiw.)
 
-Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
----
- automation/eclair_analysis/ECLAIR/deviations.ecl | 4 ++++
- docs/misra/deviations.rst                        | 8 ++++++++
- 2 files changed, 12 insertions(+)
+Right now, I don't have any plan to document the naming convention for 
+identifiers. In fact, I don't know if we have one...
 
-diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-index c9e3a90801aa..f18ed6345e67 100644
---- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-+++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-@@ -37,6 +37,10 @@ removed by the compiler, the resulting slowdown is negligible."
- -config=MC3R1.R2.2,reports+={disapplied,"any()"}
- -doc_end
- 
-+-doc_begin="Some labels are unused in certain build configurations, or are deliberately marked as unused, so that the compiler is entitled to remove them."
-+-config=MC3R1.R2.6,reports+={deliberate, "any_area(text(^.*__maybe_unused.*$))"}
-+-doc_end
-+
- #
- # Series 3.
- #
-diff --git a/docs/misra/deviations.rst b/docs/misra/deviations.rst
-index 160513b997ae..9979ddae7c7d 100644
---- a/docs/misra/deviations.rst
-+++ b/docs/misra/deviations.rst
-@@ -73,6 +73,14 @@ Deviations related to MISRA C:2012 Rules:
-        resulting slowdown is negligible.
-      - Project-wide deviation, tagged as `disapplied` for ECLAIR.
- 
-+   * - R2.6
-+     - Labels deliberately marked as unused trough the pseudo-attribute
-+       `__maybe_unused` are either the result of them not being in certain build
-+       configurations, or as a deliberate practice (e.g., `unimplemented_insn`).
-+       Given that the compiler is then entitled to remove them, the presence of
-+       such labels poses no risks.
-+     - Tagged as `deliberate` for ECLAIR.
-+
-    * - R3.1
-      - Comments starting with '/\*' and containing hyperlinks are safe as they
-        are not instances of commented-out code.
+So how about renaming the section to:
+
+"Naming convention for files and comand line options"
+
+Cheers,
+
 -- 
-2.34.1
-
+Julien Grall
 
