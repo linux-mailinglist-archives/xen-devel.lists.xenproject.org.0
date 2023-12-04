@@ -2,52 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9AA3802A9E
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 04:55:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.646493.1008795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D120802B2F
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 06:03:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.646499.1008805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA02k-00037o-7h; Mon, 04 Dec 2023 03:54:50 +0000
+	id 1rA16Z-0005gb-3K; Mon, 04 Dec 2023 05:02:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 646493.1008795; Mon, 04 Dec 2023 03:54:50 +0000
+Received: by outflank-mailman (output) from mailman id 646499.1008805; Mon, 04 Dec 2023 05:02:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA02k-00034x-4a; Mon, 04 Dec 2023 03:54:50 +0000
-Received: by outflank-mailman (input) for mailman id 646493;
- Mon, 04 Dec 2023 03:54:48 +0000
+	id 1rA16Z-0005eJ-0h; Mon, 04 Dec 2023 05:02:51 +0000
+Received: by outflank-mailman (input) for mailman id 646499;
+ Mon, 04 Dec 2023 05:02:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y+Gv=HP=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1rA02i-00034r-Ns
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 03:54:48 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20616.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::616])
+ <SRS0=dRte=HP=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1rA16X-0005eC-Eu
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 05:02:49 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dcc7ac7e-9258-11ee-9b0f-b553b5be7939;
- Mon, 04 Dec 2023 04:54:46 +0100 (CET)
-Received: from BYAPR02CA0047.namprd02.prod.outlook.com (2603:10b6:a03:54::24)
- by CY5PR12MB6324.namprd12.prod.outlook.com (2603:10b6:930:f::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.33; Mon, 4 Dec
- 2023 03:54:42 +0000
-Received: from DS3PEPF000099E1.namprd04.prod.outlook.com
- (2603:10b6:a03:54:cafe::cd) by BYAPR02CA0047.outlook.office365.com
- (2603:10b6:a03:54::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.33 via Frontend
- Transport; Mon, 4 Dec 2023 03:54:41 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS3PEPF000099E1.mail.protection.outlook.com (10.167.17.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Mon, 4 Dec 2023 03:54:41 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Sun, 3 Dec
- 2023 21:54:41 -0600
-Received: from [172.27.137.28] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Sun, 3 Dec 2023 21:54:39 -0600
+ id 5cd5ad94-9262-11ee-9b0f-b553b5be7939;
+ Mon, 04 Dec 2023 06:02:45 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a1b68ae40ffso84277766b.0
+ for <xen-devel@lists.xenproject.org>; Sun, 03 Dec 2023 21:02:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,172 +40,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcc7ac7e-9258-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Np0ScdIpxaP+lB5jhqoHna/+v9p85T9o739huNzeUYSRk1LX9/EEC57oDSTW/dDK3Cn9uF2IDPPdq0EPwz0mgumLmXmwHmyY0SPa5ERwLpOqXWGS22QkDK/Xr0ss7CUHgB6TwQ9gDjmD+Wh9dLToUdngqmv3d1nkwARjhfMo5rzH6lVcL5H1DSO63LPnAZ8xoofyPw7PHRLSN4dXxXdwrbRqfgybFxMba+7b3MfsxbhB50QVz1p5xbY14bujspJ2YNoV4Q6ABFTleE3ufXYrC0RVQcvuboAwo/TC8mjcWypCrl5/xOnq9OhHQ3rAsuZJr39VMYyGLgXAl4dsjaQacQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G0YDVnMB1/O75VR68CjooSPm0O7pOT1+GJYLgTmg150=;
- b=hTFQMu4AMvyoE3HCS/ZWv1z0hG6oTO9bBayzK3FEhQa0h2PBSKEn4Gyogh4g+q6HRt83b856R320PqRymJKPuk02FztVZfQ+KW40act0dwrcAKtlt6s5ca4q01zFXJW86s07p/x0fdMJjJfegaZ+ClT0WoykTklKTq7J+IObgTJ9VToTivVudbAXqtkxvrLnNvEh3cRZeheB/sAKeZWkxlmUweGFqXgbsRPIJ3y3ZiYSZaMaLlnOAjMuzDhpt/LpA0tojhNXhJyOrMS3xwJWX/YOoayltPi2wawN3kLE8RzwpTBfBgF1OTfLqiU+VRpNTsaxHJv4CMaOq5yophJe4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G0YDVnMB1/O75VR68CjooSPm0O7pOT1+GJYLgTmg150=;
- b=e+855axeQmG5pVyutpNz+KbOzYpgGEM9J4E3y44Yqs6/lZYPqTTxmHctO/BY6JJ1idtqwC0ctCCcM/iIkHQHKPAA8vzXQUIoQuHLIbDhfM0/GLNMIw9ZClEFV2X+Nl8ZKuiWl9h/nsJgv6qj83IoEE1yZ/nPIbFe7GCcvKFooMU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <c9a9421d-8f7b-453e-a583-4574367ae5f5@amd.com>
-Date: Sun, 3 Dec 2023 22:54:34 -0500
+X-Inumbo-ID: 5cd5ad94-9262-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1701666165; x=1702270965; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=kArH217FK6O2EcTfOMwWn1+JeyULlLjEiCM5F+n9/Tk=;
+        b=HCfLPQTajk1HWVoi+3ne07h86IEYNYdt79yB6LVjheVzvyQjvo6FMWOTQsIf/PQya6
+         zvnhj/EDTeWcTW5nzy7i3jRnZVEl+mfMcg1IVqzH5qSDQQBa5z4Inxqu/ADno6zoaB2N
+         zBN2Y9Y7B1zNRqQ2bTybHyqnu2shnxJYhUWm0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701666165; x=1702270965;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kArH217FK6O2EcTfOMwWn1+JeyULlLjEiCM5F+n9/Tk=;
+        b=lmiLuMqsEH9PdZy62ztU6ORO5e5pJpxHogupeBgTiOflcsXVh+2yqUMcrxNdX9/Hjl
+         1+wNa038bDxxDmRacMgXNKINeuATRhIR1snkSMd8cTpi5ioGWHqUANvrb+oPwa23obE8
+         SqJHupdqndg8T5lb8oMA0ud3mOGX/lKWaqzuqNvu6IlEypRT0AT42RQLKgOE+dszXD6a
+         p0rslZT6LCT/NXcAPA3oU+COUbnRbkmQl8tOGmfrZOk9dyibTTIbPogWpdoRkmyArf1A
+         wXrRRnMkgMtNhu+VILcN/hIbofJPuR/kG0CwO7CXzSCOH2dJbfHj2baNeiscnNF1sYXO
+         H83g==
+X-Gm-Message-State: AOJu0Yz3w3pSv41WH4tV7QquzUe8lae3BHWS1Gh4JfA6N5QCFc3mnTTk
+	t9ib1iynnqv2fZKcZ4cMOWN6jeHp2ni2v7+hzsLKsQUur7/K2G5LCfdm6A==
+X-Google-Smtp-Source: AGHT+IEpgqFsQeUzg+TlgfX406K26kL0h/Vzj/x3Bi81YnkixB6RhaCNzaZi7j8w+Td0XKY6r8pqqxY1IRRvAiZG/Ts=
+X-Received: by 2002:a17:906:dfe9:b0:a19:9b79:8b4f with SMTP id
+ lc9-20020a170906dfe900b00a199b798b4fmr2052198ejc.96.1701666165101; Sun, 03
+ Dec 2023 21:02:45 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/5] [FUTURE] xen/arm: enable vPCI for domUs
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Wei Liu <wl@xen.org>, Paul Durrant
-	<paul@xen.org>
-References: <20231113222118.825758-1-stewart.hildebrand@amd.com>
- <20231113222118.825758-5-stewart.hildebrand@amd.com>
- <ZWmkh0Xeaynh43N7@macbook>
- <alpine.DEB.2.22.394.2312011847520.110490@ubuntu-linux-20-04-desktop>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <alpine.DEB.2.22.394.2312011847520.110490@ubuntu-linux-20-04-desktop>
+References: <CAO-mL=x3DntLhoKuaiWYjVqkQRqj=rdyZWmuH1aDjkmUbQchyA@mail.gmail.com>
+ <alpine.DEB.2.22.394.2311301426210.110490@ubuntu-linux-20-04-desktop>
+ <CA+zSX=ZJETPgXut62Y5RQyB8Q6Ruwqd656+iW+ark6WOXYEf+w@mail.gmail.com>
+ <alpine.DEB.2.22.394.2312011253390.110490@ubuntu-linux-20-04-desktop> <CA+zSX=aZf1UQt2eE0byMgwL+3EfW3B6CJkUHuFBVGA7Na=9gqA@mail.gmail.com>
+In-Reply-To: <CA+zSX=aZf1UQt2eE0byMgwL+3EfW3B6CJkUHuFBVGA7Na=9gqA@mail.gmail.com>
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Mon, 4 Dec 2023 05:02:08 +0000
+Message-ID: <CAO-mL=ybm=AGyeerpngwQBTn6995z937bR5Gf8Qd5vP8MmR2TQ@mail.gmail.com>
+Subject: Re: INFORMAL VOTE REQUIRED - DOCUMENTATION WORDING
+To: George Dunlap <george.dunlap@cloud.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org, 
+	committers@xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000004c33f8060ba80777"
+
+--0000000000004c33f8060ba80777
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E1:EE_|CY5PR12MB6324:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba254c34-02f9-4983-75c3-08dbf47cbeda
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Uwmud7ppXrlV3pZ37kvOMa8GGwqURihNzgH5otuBscHHDtBXMdkaHWQoQ+iZLG8UwM+rPcvUE6jI9ePgYiwH+Sv8j86mfiqOUw6O2Ask+ru07ZtLCWo/ALaMqFsIcSjpEaJhnxY0vtsoyeAZ5ggoAhYQWwTDmTg5NR/n0AWHKGTn7ocEnh5p4t58qDJ+bF+mUNKr7FLMjGz9jPKC3N17s3d754hT0pRQ5PdYqHeVnJ6zz7QbUpHxEw4VVJlbreOS1hMDblx3A6tl+GMTVtiCmB57ad44dYJ9u5V7XU6X9uvJgBnNer7lTQpMZXQoR3ubDjSVZKxhlgoc3VEKQ5MYBwsMBP15QXJ2rhBu8ZR/+L6rhyfhusXLbMH60JHdPPgZbKOCmPnH3mKP4hPqtjChzHFVXWT9f25376pqzfQ1FA0OspWkMiPuLTrPXzMD7yJCxsEftyqiuIv61k0+tT/R9SuCmXuKM4AaY70xmPzjmYgnsLvLrLvOSFeL1hfff0fRr+LP8M9S2ExL+zKPfEnc4htXxP6jCw9CesVJEnBGn7ePaxBHhtNX2Pf5kis/xVhCy5ftnEw1FmC3PuKABJR0B15fwHXdSn48zjQllYl7zZNPHHM1zNeM9KapyBiB7RquXpOSf6Rikk8kYwtzwiriqRLFMBtVUfO0mKkQX78zozAd/rcRicyG6heIvL48IJIblq8lZGnOjuo8CGpjGwvM1Cye17jvbtApdmetcoeiaNGxYEKYw8o3fik2WzuYEkdjOMYwnrhEYaqAvTw2wnIlE6JdcsrOo8RKJN5NsN+RMHzQNhzVsu/dNGxsnGctRGv02T8I+a3R2vTU7y0XCwwwd10tCOgm3zfA+rOB6gUcYqw=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(376002)(396003)(346002)(230273577357003)(230922051799003)(230173577357003)(64100799003)(451199024)(1800799012)(82310400011)(186009)(40470700004)(36840700001)(46966006)(70206006)(70586007)(316002)(16576012)(54906003)(110136005)(40460700003)(7416002)(2906002)(5660300002)(31696002)(41300700001)(86362001)(36756003)(4326008)(8936002)(8676002)(81166007)(356005)(82740400003)(44832011)(40480700001)(36860700001)(53546011)(426003)(336012)(83380400001)(47076005)(26005)(2616005)(31686004)(6666004)(478600001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2023 03:54:41.7386
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba254c34-02f9-4983-75c3-08dbf47cbeda
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099E1.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6324
+Content-Transfer-Encoding: quoted-printable
 
-On 12/1/23 21:56, Stefano Stabellini wrote:
-> On Fri, 1 Dec 2023, Roger Pau Monné wrote:
->> On Mon, Nov 13, 2023 at 05:21:13PM -0500, Stewart Hildebrand wrote:
->>> @@ -1618,6 +1630,14 @@ int iommu_do_pci_domctl(
->>>          bus = PCI_BUS(machine_sbdf);
->>>          devfn = PCI_DEVFN(machine_sbdf);
->>>  
->>> +        if ( needs_vpci(d) && !has_vpci(d) )
->>> +        {
->>> +            printk(XENLOG_G_WARNING "Cannot assign %pp to %pd: vPCI support not enabled\n",
->>> +                   &PCI_SBDF(seg, bus, devfn), d);
->>> +            ret = -EPERM;
->>> +            break;
->>
->> I think this is likely too restrictive going forward.  The current
->> approach is indeed to enable vPCI on a per-domain basis because that's
->> how PVH dom0 uses it, due to being unable to use ioreq servers.
->>
->> If we start to expose vPCI suport to guests the interface should be on
->> a per-device basis, so that vPCI could be enabled for some devices,
->> while others could still be handled by ioreq servers.
->>
->> We might want to add a new flag to xen_domctl_assign_device (used by
->> XEN_DOMCTL_assign_device) in order to signal whether the device will
->> use vPCI.
-> 
-> Actually I don't think this is a good idea. I am all for flexibility but
-> supporting multiple different configurations comes at an extra cost for
-> both maintainers and contributors. I think we should try to reduce the
-> amount of configurations we support rather than increasing them
-> (especially on x86 where we have PV, PVH, HVM).
-> 
-> I don't think we should enable IOREQ servers to handle PCI passthrough
-> for PVH guests and/or guests with vPCI. If the domain has vPCI, PCI
-> Passthrough can be handled by vPCI just fine. I think this should be a
-> good anti-feature to have (a goal to explicitly not add this feature) to
-> reduce complexity. Unless you see a specific usecase to add support for
-> it?
+Hi everyone,
 
-Just to preemptively clarify: there is a use case for passthrough (vPCI) and emulated virtio-pci devices (ioreq). However, the XEN_DOMCTL_assign_device hypercall, where this check is added, is only used for real physical hardware devices as far as I can tell. So I agree, I can't see a use case for passing through some physical devices with vPCI and some physical devices with qemu/ioreq.
+Thank you for your feedback.
 
-With that said, the plumbing for a new flag does not appear to be particularly complex. It may actually be simpler than introducing a per-arch needs_vpci(d) heuristic.
+Firstly, let me apologise if I have caused confusion with the form. It was
+not intended to be a one answer fits all within the community. Rather, it
+was created to give community members an option to share how they feel
+about the term, with the example mentioned. In the future, I want to ensure
+you that I have taken your feedback on board and wider context will be
+provided. I'll also make sure that maintainers/committers are CC'd into the
+threads.
 
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index 96cb4da0794e..2c38088a4772 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -1113,6 +1113,7 @@ typedef struct pci_add_state {
-     libxl_device_pci pci;
-     libxl_domid pci_domid;
-     int retries;
-+    bool vpci;
- } pci_add_state;
+The form was created as a method to understand the wider view of the
+community, whilst making it easier to track responses. The key takeaways
+here are what Stefano has addressed earlier: that we should reach a
+consensus quicker rather than continue what some would consider nitpicking
+small things.
 
- static void pci_add_qemu_trad_watch_state_cb(libxl__egc *egc,
-@@ -1176,6 +1177,10 @@ static void do_pci_add(libxl__egc *egc,
-         }
-     }
+Following the discussions above and my previous emails, we will be adding
+informal voting to the governance guidelines and reviewing other ways to
+better collaborate. Some suggestions for improvement include discussing
+ways in which the wider community can address their concerns, having the
+ability to vote, and potentially electing an arbiter or technical steering
+committee for similar situations. I will be sending out further
+communications and discussing this with the community at a later date.
 
-+    if (type == LIBXL_DOMAIN_TYPE_PVH /* includes Arm guests */) {
-+        pas->vpci = true;
-+    }
-+
-     rc = 0;
+In the specific example above, it's difficult in the sense that informal
+voting wasn't officially in the governance yet when the feedback was
+raised. What I would recommend in this instance is that if George and
+others feel very strongly about removing that term and have given a proper
+explanation, then I'd advise calling an informal vote within the thread and
+following the decision. Alternatively if after this conversation, members
+understand Andy's point of view and the term doesn't have serious
+consequences - let's agree with what Andy inputted in the first place and
+move this project ahead.  In an ideal world, we wouldn't require voting,
+but rather a discussion. However, if there are strong opinions for/against
+a specific decision that is causing us to be at a standstill, this is where
+informal voting helps.
 
- out:
-@@ -1418,7 +1423,8 @@ static void pci_add_dm_done(libxl__egc *egc,
-     unsigned long long start, end, flags, size;
-     int irq, i;
-     int r;
--    uint32_t flag = XEN_DOMCTL_DEV_RDM_RELAXED;
-+    uint32_t flag = XEN_DOMCTL_DEV_RDM_RELAXED |
-+                    (pas->vpci ? XEN_DOMCTL_DEV_USES_VPCI : 0);
-     uint32_t domainid = domid;
-     bool isstubdom = libxl_is_stubdom(ctx, domid, &domainid);
+*I have updated the form
+<https://cryptpad.fr/form/#/2/form/view/7ByH95Vd7KiDOvN4wjV5iUGlMuZbkVdwk7c=
+YpZdluWo/>
+with wider context and other options to reflect a 5-point survey, should
+anyone wish to express/change their vote. It would be good to view how the
+community feels about this in general, which should guide us in future
+similar situations. *
 
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 2203725a2aa6..7786da1cf1e6 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -1630,7 +1630,7 @@ int iommu_do_pci_domctl(
-         bus = PCI_BUS(machine_sbdf);
-         devfn = PCI_DEVFN(machine_sbdf);
+I just want to reiterate that we all working towards a common goal within
+the project, and although disagreements can arise, we should always seek
+ways to compromise.
 
--        if ( needs_vpci(d) && !has_vpci(d) )
-+        if ( (flags & XEN_DOMCTL_DEV_USES_VPCI) && !has_vpci(d) )
-         {
-             printk(XENLOG_G_WARNING "Cannot assign %pp to %pd: vPCI support not enabled\n",
-                    &PCI_SBDF(seg, bus, devfn), d);
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 8b3ea62cae06..5735d47219bc 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -527,6 +527,7 @@ struct xen_domctl_assign_device {
-     uint32_t dev;   /* XEN_DOMCTL_DEV_* */
-     uint32_t flags;
- #define XEN_DOMCTL_DEV_RDM_RELAXED      1 /* assign only */
-+#define XEN_DOMCTL_DEV_USES_VPCI        (1 << 1)
-     union {
-         struct {
-             uint32_t machine_sbdf;   /* machine PCI ID of assigned device */
+Many thanks,
+Kelly Choi
+
+Xen Project Community Manager
+XenServer, Cloud Software Group
+
+
+On Fri, Dec 1, 2023 at 11:03=E2=80=AFPM George Dunlap <george.dunlap@cloud.=
+com>
+wrote:
+
+> On Fri, Dec 1, 2023 at 9:44=E2=80=AFPM Stefano Stabellini
+> <sstabellini@kernel.org> wrote:
+> > By the informal
+> > voting, we have 3 against "broken" and 2 in favor (not 1 as George wrot=
+e
+> > as Andrew's vote counts too).
+>
+> Just to clarify: The opinions on that thread (if you include all
+> versions of the series) were:
+>
+> Andy, Daniel for keeping "broken
+> Julien, Jan, Stefano, George: for changing "broken"
+>
+> That's the "2 (+) / 4 split" I referred to (The "(+)" being the people
+> who agreed with Andy in private).  Regarding voting, I was only
+> counting the maintainers of the code in question; it coming under THE
+> REST, that would include everyone except Daniel; hence 1 - 4.  Not at
+> all that Daniel's opinion doesn't matter, but that from a governance
+> perspective, it's the maintainers (and then the committers) who get
+> votes in the case of a formal escalation.
+>
+>  -George
+>
+
+--0000000000004c33f8060ba80777
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi everyone,<div><br></div><div>Thank you for your feedbac=
+k.=C2=A0</div><div><br></div><div>Firstly, let me apologise if I have cause=
+d confusion=C2=A0with the form. It was not intended to be a one answer fits=
+ all within the community. Rather, it was created to give community members=
+ an option to share how they feel about the term,=C2=A0with the example men=
+tioned. In the future, I want to ensure you that I have taken your feedback=
+ on board and wider context will be provided. I&#39;ll also make sure that =
+maintainers/committers are CC&#39;d into the threads.=C2=A0=C2=A0</div><div=
+><br></div><div>The form was created as a method to understand the wider vi=
+ew of the community, whilst making it easier to track responses. The key ta=
+keaways here are what Stefano has addressed earlier: that we should reach a=
+ consensus quicker rather than continue what some would consider nitpicking=
+ small things.=C2=A0</div><div><br></div><div>Following the discussions abo=
+ve and my previous emails, we will be adding informal voting to the governa=
+nce guidelines and reviewing other ways to better collaborate. Some suggest=
+ions for improvement include discussing ways in which the wider community=
+=C2=A0can address their concerns, having the ability to vote, and potential=
+ly electing an arbiter or technical steering committee for similar situatio=
+ns. I will be sending out further communications and discussing this with t=
+he community at a later date.</div><div><br></div><div>In the specific exam=
+ple above, it&#39;s difficult in the sense that informal voting wasn&#39;t =
+officially in the governance yet when the feedback was raised. What I would=
+=C2=A0recommend in this instance is that if George and others feel very str=
+ongly about removing that term and have given a proper explanation, then I&=
+#39;d advise calling an informal=C2=A0vote within the thread and following =
+the decision. Alternatively if after this conversation, members understand =
+Andy&#39;s point of view and the term doesn&#39;t have serious consequences=
+ - let&#39;s agree with what Andy inputted in the first place and move this=
+ project ahead.=C2=A0 In an ideal world, we wouldn&#39;t require voting, bu=
+t rather a discussion. However, if there are strong opinions for/against a =
+specific decision that is causing us to be at a standstill, this is where i=
+nformal voting helps.</div><div><b><br></b></div><div><b>I have updated the=
+ <a href=3D"https://cryptpad.fr/form/#/2/form/view/7ByH95Vd7KiDOvN4wjV5iUGl=
+MuZbkVdwk7cYpZdluWo/">form</a> with wider context and other options to refl=
+ect a 5-point survey, should anyone wish to express/change their vote. It w=
+ould be good to view how the community feels about=C2=A0this in general, wh=
+ich should guide us in future similar situations.=C2=A0</b></div><div><br><=
+/div><div>I just want to reiterate that we all working towards a common goa=
+l within the project, and although disagreements can arise, we should alway=
+s seek ways to compromise.=C2=A0=C2=A0</div><div><br clear=3D"all"><div><di=
+v dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature">=
+<div dir=3D"ltr"><div>Many thanks,</div><div>Kelly Choi</div><div><br></div=
+><div><div style=3D"color:rgb(136,136,136)">Xen Project Community Manager</=
+div><div style=3D"color:rgb(136,136,136)">XenServer, Cloud Software Group</=
+div></div></div></div></div><br></div></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Dec 1, 2023 at 11:03=E2=80=AF=
+PM George Dunlap &lt;<a href=3D"mailto:george.dunlap@cloud.com">george.dunl=
+ap@cloud.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">On Fri, Dec 1, 2023 at 9:44=E2=80=AFPM Stefano Stabellini<br>
+&lt;<a href=3D"mailto:sstabellini@kernel.org" target=3D"_blank">sstabellini=
+@kernel.org</a>&gt; wrote:<br>
+&gt; By the informal<br>
+&gt; voting, we have 3 against &quot;broken&quot; and 2 in favor (not 1 as =
+George wrote<br>
+&gt; as Andrew&#39;s vote counts too).<br>
+<br>
+Just to clarify: The opinions on that thread (if you include all<br>
+versions of the series) were:<br>
+<br>
+Andy, Daniel for keeping &quot;broken<br>
+Julien, Jan, Stefano, George: for changing &quot;broken&quot;<br>
+<br>
+That&#39;s the &quot;2 (+) / 4 split&quot; I referred to (The &quot;(+)&quo=
+t; being the people<br>
+who agreed with Andy in private).=C2=A0 Regarding voting, I was only<br>
+counting the maintainers of the code in question; it coming under THE<br>
+REST, that would include everyone except Daniel; hence 1 - 4.=C2=A0 Not at<=
+br>
+all that Daniel&#39;s opinion doesn&#39;t matter, but that from a governanc=
+e<br>
+perspective, it&#39;s the maintainers (and then the committers) who get<br>
+votes in the case of a formal escalation.<br>
+<br>
+=C2=A0-George<br>
+</blockquote></div>
+
+--0000000000004c33f8060ba80777--
 
