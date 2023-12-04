@@ -2,32 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36972803ED8
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 20:55:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647298.1010293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C25758040CB
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 22:10:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647309.1010304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAF2I-000857-Up; Mon, 04 Dec 2023 19:55:22 +0000
+	id 1rAGC2-0005aL-BE; Mon, 04 Dec 2023 21:09:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647298.1010293; Mon, 04 Dec 2023 19:55:22 +0000
+Received: by outflank-mailman (output) from mailman id 647309.1010304; Mon, 04 Dec 2023 21:09:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAF2I-00082f-RD; Mon, 04 Dec 2023 19:55:22 +0000
-Received: by outflank-mailman (input) for mailman id 647298;
- Mon, 04 Dec 2023 19:55:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rAF2H-00082Z-F8
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 19:55:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rAF2D-00024O-Iq; Mon, 04 Dec 2023 19:55:17 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230]
- helo=[192.168.23.72]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rAF2D-0005Bk-CU; Mon, 04 Dec 2023 19:55:17 +0000
+	id 1rAGC2-0005XH-6n; Mon, 04 Dec 2023 21:09:30 +0000
+Received: by outflank-mailman (input) for mailman id 647309;
+ Mon, 04 Dec 2023 21:09:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=y+Gv=HP=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1rAGC0-0005XB-4b
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 21:09:28 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062a.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 663a8085-92e9-11ee-9b0f-b553b5be7939;
+ Mon, 04 Dec 2023 22:09:24 +0100 (CET)
+Received: from DS7PR05CA0021.namprd05.prod.outlook.com (2603:10b6:5:3b9::26)
+ by MW6PR12MB8900.namprd12.prod.outlook.com (2603:10b6:303:244::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.33; Mon, 4 Dec
+ 2023 21:09:21 +0000
+Received: from DS2PEPF00003442.namprd04.prod.outlook.com
+ (2603:10b6:5:3b9:cafe::d7) by DS7PR05CA0021.outlook.office365.com
+ (2603:10b6:5:3b9::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.23 via Frontend
+ Transport; Mon, 4 Dec 2023 21:09:21 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7068.20 via Frontend Transport; Mon, 4 Dec 2023 21:09:20 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 4 Dec
+ 2023 15:09:20 -0600
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Mon, 4 Dec 2023 15:09:18 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,204 +59,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=1/iYg1xVoT4Batkm0nSjXtS0wof6SMbTof+9yg7MyuM=; b=L4Ikfu8JQcW3Ph/HYfqiUIGKeq
-	OlkOlG2Iyi7omKKg88W0FxYmsWA1HC6HMNyHCNPMxycKSOhoDZD63Abuesahiq7gHuiDphmcCrJNT
-	xbk4OCf26+wQKHJcoXez4G3aVq0ti6a5ZSaNhvm1vAP0mEY46PksdDVrEC52mvjhOelk=;
-Message-ID: <ca91f71b-9633-495f-9fb2-731bd250a561@xen.org>
-Date: Mon, 4 Dec 2023 19:55:15 +0000
+X-Inumbo-ID: 663a8085-92e9-11ee-9b0f-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TfTOgl11OCcsHbXWqhRBShAyI/hcUpX26JL1ge1vMZ4hq9anKOVbp2vPb8PnYG1yzW8+HQPyR79iKOpaCjfBZPlw6ffFj/6JwUr1GKLNf9mKI1oRZYd3hMiEFaxErdowbdkeWLiTOBw1erheuJ8SCNEkcxjVCD9FUYpZBTa04aaox+s9m+Tn+J8krPoO7nj6NjEvhzqw5ssQAgCizJ6HgXRVlYtc0LpqmKo1U5EKA8UwUlL0KqysIE8BROcxKHFAm/ZVP5CWzOr2lFJzvVUa7fHmKqbqr1J2zRN2jbSHixDXYiMFiXlmhX3RTz5iuC2JABim1n1fpuyS0RLopATxqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=t5zDZAQHtH5DU8J90znZ+kdopSo5KFgGnZOx3zB55d4=;
+ b=LxkF8c9vKYPt84wqSHbAwln9hsHzFM6jHmaVAFcMs9PcYyxZZQSI5wwt5A/nyRZMbuaGCCvzxq+5eps63o6ZNCNvHsH6sesVI0YZwVE6QfhLm6X5U/iDAC1Tus5W1SpXBi9mrb+Y3MeSgoOff6e2UFzBNmMOkDYG0T0U7W996e2dAOYs994Z8bCK6YofPBSyFAzqjAIVZ+WUGakvZdNCkT/GYDkL6RxgsW2GoT0zjnNKPZHt6nIIBIs9cZU03vH3DUHTFloWIBSunH+YxXuATyHkpe5yw4YFJWZ9HSNYMY3s4AOWi6OQlEtkLcUNvD/aAsgaqWKHG+voYE3gKe+wSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=t5zDZAQHtH5DU8J90znZ+kdopSo5KFgGnZOx3zB55d4=;
+ b=hdoUMXG1YVdFLVpBsa6Uyga/q/ZK6arSowIO7X/Av/adU7NB0yoC8dBws37q6ZC6vAAJwNTlAPNz8zsmOqh2RNs7+Zb++NY8ppsxFrGaUBk+6XjCz3UelkAK5tYczDbjzp2vxjtfmkEZW6bhP2gWsHialu7cygzmLINeXuCUTSQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>
+Subject: [PATCH v10 0/2] vPCI capabilities filtering
+Date: Mon, 4 Dec 2023 16:09:11 -0500
+Message-ID: <20231204210916.3651999-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/arm: Add emulation of Debug Data Transfer
- Registers
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, sstabellini@kernel.org,
- stefano.stabellini@amd.com, bertrand.marquis@arm.com, michal.orzel@amd.com,
- Volodymyr_Babchuk@epam.com
-Cc: xen-devel@lists.xenproject.org
-References: <20231201185009.1719183-1-ayan.kumar.halder@amd.com>
- <0bd65e25-aec2-4294-9a73-1cdaece52242@xen.org>
- <9ffe5a34-d1f4-4f4a-82eb-77c92f71040c@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <9ffe5a34-d1f4-4f4a-82eb-77c92f71040c@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|MW6PR12MB8900:EE_
+X-MS-Office365-Filtering-Correlation-Id: e741df0b-2c7b-48ef-03cc-08dbf50d48cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	B6yAgD+h993/0SRSC7X42MifMibABnLzMhvT91yw+LUYbN12O0uOom33wnUxRRbYFSajKCY4wOnX+fnu5qVAaonYQ+prtVbwfANQP2AS2ylVvi+v0SsYHZUGyBeCVoGP0kNW4Sa2xZyZkgOVp8HWTQb2MlsVhb38wYYYyLH1FAOAnbtpURRJPjn1ATV3wysbSu6hVqdso3eBM1vUDP5thKqUhZS3ZCQu/UpezaMJIgg8k47fV+FxIFz7aD+sLaXSz/rchAEMYLtc8Gc2cJv969qcFSKaa1+CQRBjvHkQRubKocMMgP7ZdWYtTDs9qrID4UGwuACcJ+cCtZ5N9RzWMV0D2e0l6oFxYzBD6YceLq6zaH7BXkE2NyfbNyVXOX8Ox3aVKXT8hl2r4xSGYaqLxblf+yE+hSkOGgxsUvIBLtsnU2xDxAolx3dA2TmwCiq1IaoScigk6weMB2Z7MXyDU/9nF0a4DKCAAxZoQ4hqUDTO541a/JW7U0Dx3vvi+whnzN5HDUvXSVDOpbM4Ukxv/ZJ5nAzEGN66I/lRu8zwNE4hMI0kn8WWH7sbRqHIBiQT2owYL3RBa/FKzhDaaNOGEFvgEWZQoo1x6G8B8mBakmDLaM9OnAE7j9c6440gqXtQSM+YUQP/PmfTw5dyTXcU+ydGRkSYFDFv7cu6rpJv7AtZELli2jpyYIjk5aRUVFXT8LR2QaUxpSIHzxOuiHxrRYg1DkdhSXAOlYnFpC6y7jrwaBbyybb54Qk35HIy1PI/DRIe2ShAWkXEb4bjI1AO+A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(396003)(39860400002)(346002)(376002)(230922051799003)(451199024)(64100799003)(186009)(82310400011)(1800799012)(36840700001)(40470700004)(46966006)(5660300002)(40460700003)(44832011)(86362001)(4326008)(66899024)(8676002)(8936002)(2906002)(41300700001)(36756003)(2616005)(40480700001)(1076003)(426003)(81166007)(356005)(82740400003)(83380400001)(966005)(478600001)(336012)(26005)(6666004)(47076005)(36860700001)(316002)(54906003)(6916009)(70586007)(70206006)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2023 21:09:20.6985
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e741df0b-2c7b-48ef-03cc-08dbf50d48cc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF00003442.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8900
+
+This small series enables vPCI to filter which PCI capabilities we expose to a
+domU. This series adds vPCI register handlers within
+xen/drivers/vpci/header.c:init_bars(), along with some supporting functions.
+
+Note there are minor rebase conflicts with the in-progress vPCI series [1].
+These conflicts fall into the category of functions and code being added
+adjacent to one another, so are easily resolved. I did not identify any
+dependency on the vPCI locking work, and the two series deal with different
+aspects of emulating the PCI header.
+
+Future work may involve adding handlers for more registers in the vPCI header,
+such as VID/DID, etc. Future work may also involve exposing additional
+capabilities to the guest for broader device/driver support.
+
+v9->v10:
+* address feedback, add R-b tags
+
+v8->v9:
+* address feedback
+
+v7->v8:
+* address feedback
+
+v6->v7:
+* address feedback in ("xen/vpci: header: status register handler")
+* drop ("xen/pci: convert pci_find_*cap* to pci_sbdf_t") and
+  ("x86/msi: rearrange read_pci_mem_bar slightly") as they were committed
+
+v5->v6:
+* drop ("xen/pci: update PCI_STATUS_* constants") as it has been committed
+
+v4->v5:
+* drop ("x86/msi: remove some unused-but-set-variables") as it has been
+  committed
+* add ("xen/pci: update PCI_STATUS_* constants")
+* squash ro_mask patch
+
+v3->v4:
+* drop "xen/pci: address a violation of MISRA C:2012 Rule 8.3" as it has been
+  committed
+* re-order status register handler and capabilities filtering patches
+* split an unrelated change from ("xen/pci: convert pci_find_*cap* to pci_sbdf_t")
+  into its own patch
+* add new patch ("x86/msi: rearrange read_pci_mem_bar slightly") based on
+  feedback
+* add new RFC patch ("xen/vpci: support ro mask")
+
+v2->v3:
+* drop RFC "xen/vpci: header: avoid cast for value passed to vpci_read_val"
+* minor misra C violation fixup in preparatory patch
+* switch to pci_sbdf_t in preparatory patch
+* introduce status handler
+
+v1->v2:
+* squash helper functions into the patch where they are used to avoid transient
+  dead code situation
+* add new RFC patch, possibly throwaway, to get an idea of what it would look
+  like to get rid of the (void *)(uintptr_t) cast by introducing a new memory
+  allocation
+
+[1] https://lists.xenproject.org/archives/html/xen-devel/2023-08/msg02361.html
+
+Stewart Hildebrand (2):
+  xen/vpci: header: status register handler
+  xen/vpci: header: filter PCI capabilities
+
+ tools/tests/vpci/main.c    | 111 +++++++++++++++++++++++++++++++++++++
+ xen/drivers/pci/pci.c      |  33 +++++++----
+ xen/drivers/vpci/header.c  |  79 +++++++++++++++++++++++++-
+ xen/drivers/vpci/vpci.c    |  64 ++++++++++++++++-----
+ xen/include/xen/pci.h      |   3 +
+ xen/include/xen/pci_regs.h |   9 +++
+ xen/include/xen/vpci.h     |  30 ++++++++--
+ 7 files changed, 297 insertions(+), 32 deletions(-)
 
 
-
-On 04/12/2023 13:02, Ayan Kumar Halder wrote:
-> 
-> On 04/12/2023 10:31, Julien Grall wrote:
->> Hi Ayan,
-> Hi Julien,
->>
->> On 01/12/2023 18:50, Ayan Kumar Halder wrote:
->>> Currently if user enables HVC_DCC config option in Linux, it invokes
->>> access to debug data transfer registers (ie DBGDTRTX_EL0 on arm64,
->>> DBGDTRTXINT on arm32). As these registers are not emulated, Xen injects
->>> an undefined exception to the guest. And Linux crashes.
->>
->> I am missing some data points here to be able to say whether I would 
->> be ok with emulating the registers. So some questions:
->>   * As you wrote below, HVC_DCC will return -ENODEV after this 
->> emulation. So may I ask what's the use case to enable it? (e.g. is 
->> there a distro turning this on?)
-> 
-> I am not aware of any distro using (or not using) this feature. This 
-> issue came to light during our internal testing, when HVC_DCC was 
-> enabled to use the debug console. When Linux runs without Xen, then we 
-> could observe the logs on the debug console. When Linux was running as a 
-> VM, it crashed.
-> 
-> My intention here was to do the bare minimum emulation so that the crash 
-> could be avoided.
-This reminds me a bit the discussion around "xen/arm64: Decode ldr/str 
-post increment operations". I don't want Xen to contain half-backed 
-emulation just to please an OS in certain configuration that doesn't 
-seem to be often used.
-
-Also, AFAICT, KVM is in the same situation...
-
-Given this is internal testing, have you considered to ask them to 
-disable HVC_DCC?
-
-> 
->>  * Linux is writing to the registers unconditionally, but is the spec 
->> mandating the implementation of the registers? (I couldn't find either 
->> way)
-> 
->  From ARM DDI 0487I.a ID081822, H1.2, External debug,
-> 
-> "The Debug Communications Channel, DCC, passes data between the PE and 
-> the debugger:
-> 
-> — The DCC includes the data transfer registers, DTRRX and DTRTX, and 
-> associated flow-control flags.
-> 
-> — Although the DCC is an essential part of Debug state operation, it can 
-> also be used in Non-debug state."
-> 
->  From this I infer that the spec mandates the implementation of these 
-> registers. IOW, these registers should always be present in any Arm 
-> compliant SoC.
-> 
->>  * When was this check introduced in Linux? Did it ever changed?
->>
-> This check was introduced in the following commit
-> 
-> "commit f377775dc083506e2fd7739d8615971c46b5246e
-> Author: Rob Herring <rob.herring@calxeda.com>
-> Date:   Tue Sep 24 21:05:58 2013 -0500
-> 
->      TTY: hvc_dcc: probe for a JTAG connection before registering
-> 
->      Enabling the ARM DCC console and using without a JTAG connection will
->      simply hang the system. Since distros like to turn on all options, 
-> this
->      is a reoccurring problem to debug. We can do better by checking if
->      anything is attached and handling characters. There is no way to probe
->      this, so send a newline and check that it is handled.
-> "
-
-I think this is the part I was missing from the commit message. I have 
-proposed some wording below.
-
-> 
-> As of today, this check hasn't changed.
-> 
->>>
->>> We wish to avoid this crash by adding a "partial" emulation. DBGDTR_EL0
->>> is emulated as TXfull | RXfull.
->>
->> Skimming through the Arm Arm, I see that TXfull and Rxfull indicates 
->> that both buffers are full but it doesn't explicitly say this means 
->> the feature is not available.
-> We are not saying that the feature is not available. Rather ...
->>
->> I understand this is what Linux checks, but if we want to partially 
->> emulate the registers in Xen, then I'd like us to make sure this is 
->> backed by the Arm Arm rather than based on Linux implementation (which 
->> can change at any point).
->>
->>> Refer ARM DDI 0487I.a ID081822, D17.3.8, DBGDTRTX_EL0
->>> "If TXfull is set to 1, set DTRRX and DTRTX to UNKNOWN"
->>> Also D17.3.7 DBGDTRRX_EL0,
->>> " If RXfull is set to 1, return the last value written to DTRRX."
->>>
->>> Thus, any OS is expected to read DBGDTR_EL0 and check for TXfull
->>> before using DBGDTRTX_EL0. Linux does it via hvc_dcc_init() --->
->>> hvc_dcc_check() , it returns -ENODEV. In this way, we are preventing
->>> the guest to be aborted.
->>
->> See above, what guarantees us that Linux will not change this behavior 
->> in the future?
-> 
-> If I understand "If TXfull is set to 1, set DTRRX and DTRTX to UNKNOWN" 
-> correctly, it seems that Arm ARM expects OS to check for TXfull.
-> 
-> If the condition is true, it should return some error.
-> 
-> Let me know if I misunderstood this.
-
-You understand the Arm spec correcly. I think we are disagreeing on the 
-wording and whether we should accept basic emulation (see above).
-
-I would like more opinion on that.
-
-[...]
-
->>> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
->>> index 39aeda9dab..3f1276f96e 100644
->>> --- a/xen/arch/arm/vcpreg.c
->>> +++ b/xen/arch/arm/vcpreg.c
->>> @@ -548,20 +548,37 @@ void do_cp14_32(struct cpu_user_regs *regs, 
->>> const union hsr hsr)
->>>           break;
->>>       }
->>>   -    case HSR_CPREG32(DBGDSCRINT):
->>> +    case HSR_CPREG32(DBGDSCREXT):
->>> +    {
->>>           /*
->>> -         * Read-only register. Accessible by EL0 if DBGDSCRext.UDCCdis
->>> -         * is set to 0, which we emulated below.
->>> +         * Bit 29: TX full, bit 30: RX full
->>> +         * Given that we emulate DCC registers as RAZ/WI, doing the 
->>> same for
->>> +         * DBGDSCRint would cause a guest to continue using the DCC 
->>> despite no
->>> +         * real effect. Setting the TX/RX status bits should result 
->>> in a probe
->>> +         * fail (based on Linux behavior).
->> If you want to mention Linux then you need to be a bit more specific 
->> because Linux can change at any point. So you at least want to specify 
->> the Linux version and place in the code.
->>
->> So this doesn't get stale as soon as the HVC_DCC driver changes.
-> 
-> (based on Linux behavior since f377775dc083).
-
-Base on the discussion above, I would like to suggest the following:
-
-Xen doesn't expose a real (or emulated) Debug Communications Channel 
-(DCC) to a domain. Yet the Arm Arm implies this is not an optional 
-feature. So some domains may start to probe it. For instance, the 
-HVC_DCC driver in Linux (since f377775dc083 and at least up to v6.7), 
-will try to write some characters and check if the transmit buffer has 
-emptied. By setting TX status bit to indicate the transmit buffer is 
-full. This we would hint the OS that the DCC is probably not working.
-
-This would give enough information for the reader to know what's going 
-and how you emulate.
-
-Also, while writing the proposed comment, I wonder why we need to set 
-RX? Wouldn't this potentially indicate to the OS that there are some 
-data to read?
-
-Cheers,
-
+base-commit: 525c7c094b258e8a46b494488eef96f5670eb352
 -- 
-Julien Grall
+2.43.0
+
 
