@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E49FE803AED
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 17:54:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647193.1010005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E00C803AF4
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 17:56:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647201.1010034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rACDF-0006J4-B5; Mon, 04 Dec 2023 16:54:29 +0000
+	id 1rACEV-0007Df-PU; Mon, 04 Dec 2023 16:55:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647193.1010005; Mon, 04 Dec 2023 16:54:29 +0000
+Received: by outflank-mailman (output) from mailman id 647201.1010034; Mon, 04 Dec 2023 16:55:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rACDF-0006Gm-8O; Mon, 04 Dec 2023 16:54:29 +0000
-Received: by outflank-mailman (input) for mailman id 647193;
- Mon, 04 Dec 2023 16:54:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rACEV-0007BN-Mf; Mon, 04 Dec 2023 16:55:47 +0000
+Received: by outflank-mailman (input) for mailman id 647201;
+ Mon, 04 Dec 2023 16:55:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CG6/=HP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rACDD-0006Gg-MO
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 16:54:27 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c85f9f2c-92c5-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 17:54:26 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40c039e9719so25886745e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 08:54:26 -0800 (PST)
+ id 1rACET-000780-PC
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 16:55:45 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f66df2bf-92c5-11ee-9b0f-b553b5be7939;
+ Mon, 04 Dec 2023 17:55:43 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40c09dfd82aso18631485e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 08:55:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v11-20020a05600c444b00b003fefaf299b6sm15608248wmn.38.2023.12.04.08.54.25
+ v11-20020a05600c444b00b003fefaf299b6sm15608248wmn.38.2023.12.04.08.55.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Dec 2023 08:54:25 -0800 (PST)
+ Mon, 04 Dec 2023 08:55:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c85f9f2c-92c5-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: f66df2bf-92c5-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701708866; x=1702313666; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701708943; x=1702313743; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1A6QnzPypumBV3mDGEut2cRF7BruW14XQb66UfO1we8=;
-        b=eQLurn4VVq3g7qVWBuiMUiFnCOQdBP6hvrhCph9tmPkIho4rmiW1NPRGa6EY1lc20U
-         aVFOx0QJLFO4w7fkjIMC9u8iMHxocluoxFU+DrUKJf0hFuloLXJxqn/Oo1P89yUPZ3gF
-         M2oYGL2IFUHiCAyN6GLprV1DTdJOh20/F0bGoafmyEYOV+36LpnEAWedNToTLR806iOc
-         5kn9tbZCJlHdzglGdwmqFJwlC+1hmeVRX2rsR9KN+XSbTGkqVQXmuT+peBXMpT3Xt15K
-         BD+HJ+7mXGIgqMZnm2hDmj6QYp7l3xYbCvj2OqhZyc8zDG7JGn3QMW2XtyOBNx8xHn9l
-         AWdQ==
+        bh=CgAteeg6LMJxGIGHWSA1PXYNRpVdIA3VRULDp+0+gDE=;
+        b=YpU13M5vczURTFauLrW46+voAJrAqSLgXD3lHP1iesRKQyWIx1/ps9D7HIIkYQ+Jml
+         1iG9/hHO5EpWw7zFc5FXe2+UCjhGPmTMAYRsF1pKQcqHTVqi5i08WLewsDbtHymSILu2
+         FzHtkUlmQXMiEHHDdlWrI9XoOlB9p+w1o56dV3oCeMqSDQGSm1uM1AaWsAmvvjrtfQmb
+         WN7wV4AwAX9ow+m3c3P1WdKWM5cOkB/AdtO6aNuJ2Tv9AHbnIcw3o88YUSYYH0V4eWmc
+         vnVANqFXNdgLT+SuUbpTv8+r4pYCBFd6KOpRtMEdktyBRjjoy+C7zntKXQoLefZHyMAr
+         SDTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701708866; x=1702313666;
+        d=1e100.net; s=20230601; t=1701708943; x=1702313743;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1A6QnzPypumBV3mDGEut2cRF7BruW14XQb66UfO1we8=;
-        b=d5fbnKNtNoeoNxfu2w/Y8rGmepSPvzD1WpT2fo2y41SZ3iH1PAgP+g8Z1DZc2O8Mzb
-         gpJ35vFnlFfKwl6lc2sLYlugCMH1KDLcd2yS0R2lMZRU778I7QLLwzIAYehrQYYxD3vC
-         ikWpsddrOhX2qE8GW//OMfpvlGWzrlorxwW3T8ryTCOwj1u7zq8a5cE4apon1CEM1WAK
-         kIC2pn2owwiaQpyn7V2Z7AQxWjEemaQGyjFf5cG7YBmIc4NZncldg/UDP3bPPfgyVZOh
-         wezM9ppwPF48cYVHi9oUFf2J8jujK6KBuQn/hM1FAMcwdB4KW9IFIh9qPDKbYfpxZLYI
-         OvxA==
-X-Gm-Message-State: AOJu0YzzDvdD9HyMqZJrsU3xGztAX+cYJ8HaT+9/wMqZV+to/duUV1f6
-	vREdOarDOMbfCGSF7EB7GDr1
-X-Google-Smtp-Source: AGHT+IFmrBekvPQ1oZmxmni/DNjAet7c46s5dooGC5cY6A4dww3NJmQ1f8ypWKFZofeKw3qC2TebNA==
-X-Received: by 2002:a05:600c:2195:b0:401:bd2e:49fc with SMTP id e21-20020a05600c219500b00401bd2e49fcmr1477959wme.24.1701708865934;
-        Mon, 04 Dec 2023 08:54:25 -0800 (PST)
-Message-ID: <3c7abc30-20d7-4a4e-b963-27339952e7a3@suse.com>
-Date: Mon, 4 Dec 2023 17:54:24 +0100
+        bh=CgAteeg6LMJxGIGHWSA1PXYNRpVdIA3VRULDp+0+gDE=;
+        b=MfrmQi0GBlBD0619tLE2zyviSOt6VC+r4EAWqfdYqWeI3/3ppMhjbDggDMmnXQX5rN
+         18OC/ExwwoqmBs/y5YL+5InbphvKJIulC6f5prpf4NuSB5zWFt84bRVWv8kSF/Kzyj9y
+         5oThvVOWTNDXBPlYaFyYMVNIZGB2WcX+JGxKtdDcmvz/wes6C3iFOe5jHBcXjpKxDBPT
+         ZJ3+iSY1vxZeMd9aGY8Pkq0jvmQMRZxWk3PJVA6lsdDDsfzMtP43/pBtqK1N+Npq1xmQ
+         V4FFcTTKUuqNxJR5SyUlQvXMP0vjjmyDkFPe+xlrjDIKephnXVbTUxY57hBG4Rf6NfpB
+         BgfA==
+X-Gm-Message-State: AOJu0Yw8TWDoTBILy9O1vO0A0KfqM3mnJrfbK+GN+PnAXSa5vUlMxwie
+	VJhuBnAF18drFEfhE6Zh8Jm8
+X-Google-Smtp-Source: AGHT+IE2HUbNIQhnb+kR6yWdNdShkuaLva1gWtraEKxFG5xrbcNadAj4slZK14MRdgq/Pomtk7rVOQ==
+X-Received: by 2002:a05:600c:2041:b0:40b:3056:7420 with SMTP id p1-20020a05600c204100b0040b30567420mr2862379wmg.39.1701708943241;
+        Mon, 04 Dec 2023 08:55:43 -0800 (PST)
+Message-ID: <34f5d241-54ad-40c6-abd2-46d2c65514af@suse.com>
+Date: Mon, 4 Dec 2023 17:55:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen: address violations of MISRA C:2012 Rule 11.8.
+Subject: Re: [PATCH v2 1/3] xen/sched: fix adding offline cpu to cpupool
 Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: consulting@bugseng.com, maria.celeste.cesario@bugseng.com,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <de2bfb322d91e99cf794c233461a04e638ee93aa.1701707356.git.maria.celeste.cesario@bugseng.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: Dario Faggioli <dfaggioli@suse.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Ren=C3=A9_Winther_H=C3=B8jgaard?= <renewin@proton.me>,
+ xen-devel@lists.xenproject.org
+References: <20231204152321.16520-1-jgross@suse.com>
+ <20231204152321.16520-2-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,54 +112,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <de2bfb322d91e99cf794c233461a04e638ee93aa.1701707356.git.maria.celeste.cesario@bugseng.com>
+In-Reply-To: <20231204152321.16520-2-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04.12.2023 17:32, Simone Ballarin wrote:
-> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+On 04.12.2023 16:23, Juergen Gross wrote:
+> Trying to add an offline cpu to a cpupool can crash the hypervisor,
+> as the probably non-existing percpu area of the cpu is accessed before
+> the availability of the cpu is being tested. This can happen in case
+> the cpupool's granularity is "core" or "socket".
 > 
-> Remove or amend casts to comply with Rule 11.8.
+> Fix that by testing the cpu to be online.
 > 
-> Fix violations by adding missing const qualifier in cast.
-> Fix violations by removing unnecessary cast.
-> Change type of operands from char* to uintptr_t: uintptr_t is
-> the appropriate type for memory address operations.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
-> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+> Fixes: cb563d7665f2 ("xen/sched: support core scheduling for moving cpus to/from cpupools")
+> Reported-by: René Winther Højgaard <renewin@proton.me>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-I consider it good practice to at least briefly say what the rule is
-about, so it is clear why certain changes need doing.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/arm/include/asm/atomic.h
-> +++ b/xen/arch/arm/include/asm/atomic.h
-> @@ -154,7 +154,7 @@ static always_inline void write_atomic_size(volatile void *p,
->   */
->  static inline int atomic_read(const atomic_t *v)
->  {
-> -    return *(volatile int *)&v->counter;
-> +    return *(const volatile int *)&v->counter;
->  }
 
-What about PPC's identical code?
-
-> --- a/xen/arch/x86/include/asm/regs.h
-> +++ b/xen/arch/x86/include/asm/regs.h
-> @@ -6,7 +6,7 @@
->  
->  #define guest_mode(r)                                                         \
->  ({                                                                            \
-> -    unsigned long diff = (char *)guest_cpu_user_regs() - (char *)(r);         \
-> +    unsigned long diff = (uintptr_t)guest_cpu_user_regs() - (uintptr_t)(r);   \
->      /* Frame pointer must point into current CPU stack. */                    \
->      ASSERT(diff < STACK_SIZE);                                                \
->      /* If not a guest frame, it must be a hypervisor frame. */                \
-
-This part
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
