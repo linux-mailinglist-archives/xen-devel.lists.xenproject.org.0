@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FB63804153
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 23:08:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647328.1010342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBF818041A1
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 23:20:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647332.1010352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAH6g-0001UF-C4; Mon, 04 Dec 2023 22:08:02 +0000
+	id 1rAHHz-00040P-HE; Mon, 04 Dec 2023 22:19:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647328.1010342; Mon, 04 Dec 2023 22:08:02 +0000
+Received: by outflank-mailman (output) from mailman id 647332.1010352; Mon, 04 Dec 2023 22:19:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAH6g-0001Rw-8z; Mon, 04 Dec 2023 22:08:02 +0000
-Received: by outflank-mailman (input) for mailman id 647328;
- Mon, 04 Dec 2023 22:08:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rAHHz-0003ya-EC; Mon, 04 Dec 2023 22:19:43 +0000
+Received: by outflank-mailman (input) for mailman id 647332;
+ Mon, 04 Dec 2023 22:19:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8A84=HP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rAH6e-0001Qj-An
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 22:08:00 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93de5bf8-92f1-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 23:07:57 +0100 (CET)
+ id 1rAHHy-0003yQ-Nv
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 22:19:42 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 36a1473c-92f3-11ee-9b0f-b553b5be7939;
+ Mon, 04 Dec 2023 23:19:39 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 797BE61408;
- Mon,  4 Dec 2023 22:07:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DBEDC433C8;
- Mon,  4 Dec 2023 22:07:53 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 3360BB81233;
+ Mon,  4 Dec 2023 22:19:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B907CC433C8;
+ Mon,  4 Dec 2023 22:19:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,189 +42,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93de5bf8-92f1-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: 36a1473c-92f3-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701727675;
-	bh=Yj9s4ZlBlXNkKQ3M4mmvLhWZ849iVnYCzOnBOl9yV8Y=;
+	s=k20201202; t=1701728377;
+	bh=0hNiw7to/yO9/NIok2V2cBm5rPlBjCyUvP5ni95GaCo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Atv7C3hliiqneW6VcwPC5u55ltlXDlYXXm7lEL/YojYEqlJf8i9/WY6TmuZvZktUs
-	 VO7Z9iCrsIXfGbNFTP/chbAgE8uioTHmg3xe4pUvDYCERJ0KTEmRipXkwzoiissTuf
-	 Hewe9f6OsYnzqV2kjGqxd/d97F/etRZp/E4MS+6cRPwyn7NSj2uKMAkLdKAwdCM7BT
-	 lBx1CPcNB+E4WHz9ihtpnrQfJnop0u/w2kTMR0orpWS+aJE+JDeFqmNKvlmqi55MiP
-	 NSYl8AxagMGZflTo+nWRnSo0jLFe3R6ugY3nNdWaI+/V5MWpdrft/TCZMr4CVZRT7a
-	 QbKeR49qkvBBQ==
-Date: Mon, 4 Dec 2023 14:07:51 -0800 (PST)
+	b=nl2Zobp4xA5MMX0jOv7fSNJ3LZ7p6u6rrTEfJqV3NaH9iLF5TGS+8W1XJ3DSaXp7I
+	 CfnzIX09PeJ0dI7Av/hlmk2xlYT41Yw96jdH2Bcr6fKBtqrA6TAU37MNT6UXUFKLLG
+	 fLkP9o2Xk+xEk2uSax32m1PuJESDhZvvI4rWklxEflp5JVXPwfMwVF+3C/559d9gz+
+	 D7uyDJeh0fCJ1ceOAruTXFN8PHTXP9ZB4KrZOPEjy4TEc1CbdQJkPQqT/tvJGGXGbB
+	 cGRTgfnABxD9Rtj9nn7YKUUjZVPCtprOMd0dvkekZCY3J/VlKBdRig+5FFznGyg0HQ
+	 VfR2Qofk/fH3g==
+Date: Mon, 4 Dec 2023 14:19:33 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Stewart Hildebrand <stewart.hildebrand@amd.com>, 
-    xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v6 4/5] [FUTURE] xen/arm: enable vPCI for domUs
-In-Reply-To: <ZW2wuqXW-DneUVi0@macbook>
-Message-ID: <alpine.DEB.2.22.394.2312041333250.110490@ubuntu-linux-20-04-desktop>
-References: <20231113222118.825758-1-stewart.hildebrand@amd.com> <20231113222118.825758-5-stewart.hildebrand@amd.com> <ZWmkh0Xeaynh43N7@macbook> <alpine.DEB.2.22.394.2312011847520.110490@ubuntu-linux-20-04-desktop> <ZW2wuqXW-DneUVi0@macbook>
+    Jiqian Chen <Jiqian.Chen@amd.com>, Juergen Gross <jgross@suse.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Thomas Gleixner <tglx@linutronix.de>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+    Bjorn Helgaas <bhelgaas@google.com>, xen-devel@lists.xenproject.org, 
+    linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org, 
+    Stefano Stabellini <stefano.stabellini@amd.com>, 
+    Alex Deucher <Alexander.Deucher@amd.com>, 
+    Christian Koenig <Christian.Koenig@amd.com>, 
+    Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
+    Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
+    Honglei Huang <Honglei1.Huang@amd.com>, Julia Zhang <Julia.Zhang@amd.com>, 
+    Huang Rui <Ray.Huang@amd.com>
+Subject: Re: [RFC KERNEL PATCH v2 2/3] xen/pvh: Unmask irq for passthrough
+ device in PVH dom0
+In-Reply-To: <ZW2ptexPQXrWBiOS@macbook>
+Message-ID: <alpine.DEB.2.22.394.2312041413000.110490@ubuntu-linux-20-04-desktop>
+References: <20231124103123.3263471-1-Jiqian.Chen@amd.com> <20231124103123.3263471-3-Jiqian.Chen@amd.com> <alpine.DEB.2.22.394.2311291950350.3533093@ubuntu-linux-20-04-desktop> <ZWiyBP4Lzz5lXraP@macbook> <alpine.DEB.2.22.394.2311301912350.110490@ubuntu-linux-20-04-desktop>
+ <ZWmgJNidFsfkDp7q@macbook> <alpine.DEB.2.22.394.2312011857260.110490@ubuntu-linux-20-04-desktop> <ZW2ptexPQXrWBiOS@macbook>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-63937670-1701725629=:110490"
-Content-ID: <alpine.DEB.2.22.394.2312041333510.110490@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/mixed; BOUNDARY="8323329-1207504391-1701728057=:110490"
+Content-ID: <alpine.DEB.2.22.394.2312041414460.110490@ubuntu-linux-20-04-desktop>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-63937670-1701725629=:110490
+--8323329-1207504391-1701728057=:110490
 Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2312041333511.110490@ubuntu-linux-20-04-desktop>
+Content-ID: <alpine.DEB.2.22.394.2312041414461.110490@ubuntu-linux-20-04-desktop>
 
 On Mon, 4 Dec 2023, Roger Pau Monné wrote:
-> On Fri, Dec 01, 2023 at 06:56:32PM -0800, Stefano Stabellini wrote:
+> On Fri, Dec 01, 2023 at 07:37:55PM -0800, Stefano Stabellini wrote:
 > > On Fri, 1 Dec 2023, Roger Pau Monné wrote:
-> > > On Mon, Nov 13, 2023 at 05:21:13PM -0500, Stewart Hildebrand wrote:
-> > > > @@ -1618,6 +1630,14 @@ int iommu_do_pci_domctl(
-> > > >          bus = PCI_BUS(machine_sbdf);
-> > > >          devfn = PCI_DEVFN(machine_sbdf);
-> > > >  
-> > > > +        if ( needs_vpci(d) && !has_vpci(d) )
-> > > > +        {
-> > > > +            printk(XENLOG_G_WARNING "Cannot assign %pp to %pd: vPCI support not enabled\n",
-> > > > +                   &PCI_SBDF(seg, bus, devfn), d);
-> > > > +            ret = -EPERM;
-> > > > +            break;
+> > > On Thu, Nov 30, 2023 at 07:15:17PM -0800, Stefano Stabellini wrote:
+> > > > On Thu, 30 Nov 2023, Roger Pau Monné wrote:
+> > > > > On Wed, Nov 29, 2023 at 07:53:59PM -0800, Stefano Stabellini wrote:
+> > > > > > On Fri, 24 Nov 2023, Jiqian Chen wrote:
+> > > > > > > This patch is to solve two problems we encountered when we try to
+> > > > > > > passthrough a device to hvm domU base on Xen PVH dom0.
+> > > > > > > 
+> > > > > > > First, hvm guest will alloc a pirq and irq for a passthrough device
+> > > > > > > by using gsi, before that, the gsi must first has a mapping in dom0,
+> > > > > > > see Xen code pci_add_dm_done->xc_domain_irq_permission, it will call
+> > > > > > > into Xen and check whether dom0 has the mapping. See
+> > > > > > > XEN_DOMCTL_irq_permission->pirq_access_permitted, "current" is PVH
+> > > > > > > dom0 and it return irq is 0, and then return -EPERM.
+> > > > > > > This is because the passthrough device doesn't do PHYSDEVOP_map_pirq
+> > > > > > > when thay are enabled.
+> > > > > > > 
+> > > > > > > Second, in PVH dom0, the gsi of a passthrough device doesn't get
+> > > > > > > registered, but gsi must be configured for it to be able to be
+> > > > > > > mapped into a domU.
+> > > > > > > 
+> > > > > > > After searching codes, we can find map_pirq and register_gsi will be
+> > > > > > > done in function vioapic_write_redirent->vioapic_hwdom_map_gsi when
+> > > > > > > the gsi(aka ioapic's pin) is unmasked in PVH dom0. So the problems
+> > > > > > > can be conclude to that the gsi of a passthrough device doesn't be
+> > > > > > > unmasked.
+> > > > > > > 
+> > > > > > > To solve the unmaske problem, this patch call the unmask_irq when we
+> > > > > > > assign a device to be passthrough. So that the gsi can get registered
+> > > > > > > and mapped in PVH dom0.
+> > > > > > 
+> > > > > > 
+> > > > > > Roger, this seems to be more of a Xen issue than a Linux issue. Why do
+> > > > > > we need the unmask check in Xen? Couldn't we just do:
+> > > > > > 
+> > > > > > 
+> > > > > > diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+> > > > > > index 4e40d3609a..df262a4a18 100644
+> > > > > > --- a/xen/arch/x86/hvm/vioapic.c
+> > > > > > +++ b/xen/arch/x86/hvm/vioapic.c
+> > > > > > @@ -287,7 +287,7 @@ static void vioapic_write_redirent(
+> > > > > >              hvm_dpci_eoi(d, gsi);
+> > > > > >      }
+> > > > > >  
+> > > > > > -    if ( is_hardware_domain(d) && unmasked )
+> > > > > > +    if ( is_hardware_domain(d) )
+> > > > > >      {
+> > > > > >          /*
+> > > > > >           * NB: don't call vioapic_hwdom_map_gsi while holding hvm.irq_lock
+> > > > > 
+> > > > > There are some issues with this approach.
+> > > > > 
+> > > > > mp_register_gsi() will only setup the trigger and polarity of the
+> > > > > IO-APIC pin once, so we do so once the guest unmask the pin in order
+> > > > > to assert that the configuration is the intended one.  A guest is
+> > > > > allowed to write all kind of nonsense stuff to the IO-APIC RTE, but
+> > > > > that doesn't take effect unless the pin is unmasked.
+> > > > > 
+> > > > > Overall the question would be whether we have any guarantees that
+> > > > > the hardware domain has properly configured the pin, even if it's not
+> > > > > using it itself (as it hasn't been unmasked).
+> > > > > 
+> > > > > IIRC PCI legacy interrupts are level triggered and low polarity, so we
+> > > > > could configure any pins that are not setup at bind time?
+> > > > 
+> > > > That could work.
+> > > > 
+> > > > Another idea is to move only the call to allocate_and_map_gsi_pirq at
+> > > > bind time? That might be enough to pass a pirq_access_permitted check.
 > > > 
-> > > I think this is likely too restrictive going forward.  The current
-> > > approach is indeed to enable vPCI on a per-domain basis because that's
-> > > how PVH dom0 uses it, due to being unable to use ioreq servers.
-> > > 
-> > > If we start to expose vPCI suport to guests the interface should be on
-> > > a per-device basis, so that vPCI could be enabled for some devices,
-> > > while others could still be handled by ioreq servers.
-> > > 
-> > > We might want to add a new flag to xen_domctl_assign_device (used by
-> > > XEN_DOMCTL_assign_device) in order to signal whether the device will
-> > > use vPCI.
+> > > Maybe, albeit that would change the behavior of XEN_DOMCTL_bind_pt_irq
+> > > just for PT_IRQ_TYPE_PCI and only when called from a PVH dom0 (as the
+> > > parameter would be a GSI instead of a previously mapped IRQ).  Such
+> > > difference just for PT_IRQ_TYPE_PCI is slightly weird - if we go that
+> > > route I would recommend that we instead introduce a new dmop that has
+> > > this syntax regardless of the domain type it's called from.
 > > 
-> > Actually I don't think this is a good idea. I am all for flexibility but
-> > supporting multiple different configurations comes at an extra cost for
-> > both maintainers and contributors. I think we should try to reduce the
-> > amount of configurations we support rather than increasing them
-> > (especially on x86 where we have PV, PVH, HVM).
+> > Looking at the code it is certainly a bit confusing. My point was that
+> > we don't need to wait until polarity and trigger are set appropriately
+> > to allow Dom0 to pass successfully a pirq_access_permitted() check. Xen
+> > should be able to figure out that Dom0 is permitted pirq access.
 > 
-> I think it's perfectly fine to initially require a domain to have all
-> its devices either passed through using vPCI or ireqs, but the
-> interface IMO should allow for such differentiation in the future.
-> That's why I think introducing a domain wide vPCI flag might not be
-> the best option going forward.
+> The logic is certainly not straightforward, and it could benefit from
+> some comments.
 > 
-> It would be perfectly fine for XEN_DOMCTL_assign_device to set a
-> domain wide vPCI flag, iow:
+> The irq permissions are a bit special, in that they get setup when the
+> IRQ is mapped.
 > 
-> if ( HYPERCALL_VPCI_FLAG_SET && !has_vpci(d) )
-> {
->     if ( has_arch_pdevs(d) )
->     {
->         printk("All passthrough devices must use the same backend\n");
->         return -EINVAL;
->     }
+> The problem however is not so much with IRQ permissions, that we can
+> indeed sort out internally in Xen.  Such check in dom0 has the side
+> effect of preventing the IRQ from being assigned to a domU without the
+> hardware source being properly configured AFAICT.
+
+Now I understand why you made a comment previously about Xen having to
+configure trigger and polarity for these interrupts on its own.
+
+
+> > So the idea was to move the call to allocate_and_map_gsi_pirq() earlier
+> > somewhere because allocate_and_map_gsi_pirq doesn't require trigger or
+> > polarity to be configured to work. But the suggestion of doing it a
+> > "bind time" (meaning: XEN_DOMCTL_bind_pt_irq) was a bad idea.
+> > 
+> > But maybe we can find another location, maybe within
+> > xen/arch/x86/hvm/vioapic.c, to call allocate_and_map_gsi_pirq() before
+> > trigger and polarity are set and before the interrupt is unmasked.
+> > 
+> > Then we change the implementation of vioapic_hwdom_map_gsi to skip the
+> > call to allocate_and_map_gsi_pirq, because by the time
+> > vioapic_hwdom_map_gsi we assume that allocate_and_map_gsi_pirq had
+> > already been done.
 > 
->     /* Set vPCI domain flag */
-> }
-
-That would be fine by me, but maybe we can avoid this change too. I was
-imagining that vPCI would be enabled at domain creation, not at runtime.
-And that vPCI would be enabled by default for all PVH guests (once we
-are past the initial experimental phase.)
-
-
-> We have already agreed that we want to aim for a setup where ioreqs
-> and vPCI could be used for the same domain, but I guess you assumed
-> that ioreqs would be used for emulated devices exclusively and vPCI
-> for passthrough devices?
-
-Yes, that's right
-
-
-> Overall if we agree that ioreqs and vPCI should co-exist for a domain,
-> I'm not sure there's much reason to limit ioreqs to only handle
-> emulated devices, seems like an arbitrary limitation.
-
-Reply below
-
-
-> > I don't think we should enable IOREQ servers to handle PCI passthrough
-> > for PVH guests and/or guests with vPCI. If the domain has vPCI, PCI
-> > Passthrough can be handled by vPCI just fine. I think this should be a
-> > good anti-feature to have (a goal to explicitly not add this feature) to
-> > reduce complexity. Unless you see a specific usecase to add support for
-> > it?
+> But then we would end up in a situation where the
+> pirq_access_permitted() check will pass, but the IO-APIC pin won't be
+> configured, which I think it's not what we want.
 > 
-> There are passthrough devices (GPUs) that might require some extra
-> mediation on dom0 (like the Intel GVT-g thing) that would force the
-> usage of ioreqs to passthrough.
+> One option would be to allow mp_register_gsi() to be called multiple
+> times, and update the IO-APIC pin configuration as long as the pin is
+> not unmasked.  That would propagate each dom0 RTE update to the
+> underlying IO-APIC.  However such approach relies on dom0 configuring
+> all possible IO-APIC pins, even if no device on dom0 is using them, I
+> think it's not a very reliable option.
+> 
+> Another option would be to modify the toolstack to setup the GSI
+> itself using the PHYSDEVOP_setup_gsi hypercall.  As said in a previous
+> email, since we only care about PCI device passthrough the legacy INTx
+> should always be level triggered and low polarity.
+> 
+> > I am not familiar with vioapic.c but to give you an idea of what I was
+> > thinking:
+> > 
+> > 
+> > diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+> > index 4e40d3609a..16d56fe851 100644
+> > --- a/xen/arch/x86/hvm/vioapic.c
+> > +++ b/xen/arch/x86/hvm/vioapic.c
+> > @@ -189,14 +189,6 @@ static int vioapic_hwdom_map_gsi(unsigned int gsi, unsigned int trig,
+> >          return ret;
+> >      }
+> >  
+> > -    ret = allocate_and_map_gsi_pirq(currd, pirq, &pirq);
+> > -    if ( ret )
+> > -    {
+> > -        gprintk(XENLOG_WARNING, "vioapic: error mapping GSI %u: %d\n",
+> > -                 gsi, ret);
+> > -        return ret;
+> > -    }
+> > -
+> >      pcidevs_lock();
+> >      ret = pt_irq_create_bind(currd, &pt_irq_bind);
+> >      if ( ret )
+> > @@ -287,6 +279,17 @@ static void vioapic_write_redirent(
+> >              hvm_dpci_eoi(d, gsi);
+> >      }
+> >  
+> > +    if ( is_hardware_domain(d) ) 
+> > +    {
+> > +        int pirq = gsi, ret;
+> > +        ret = allocate_and_map_gsi_pirq(currd, pirq, &pirq);
+> > +        if ( ret )
+> > +        {
+> > +            gprintk(XENLOG_WARNING, "vioapic: error mapping GSI %u: %d\n",
+> > +                    gsi, ret);
+> > +            return ret;
+> > +        }
+> > +    }
+> >      if ( is_hardware_domain(d) && unmasked )
+> >      {
+> >          /*
+> 
+> As said above, such approach relies on dom0 writing to the IO-APIC RTE
+> of likely each IO-APIC pin, which is IMO not quite reliable.  In there
+> are two different issues here that need to be fixed for PVH dom0:
+> 
+>  - Fix the XEN_DOMCTL_irq_permission pirq_access_permitted() call to
+>    succeed for a PVH dom0, even if dom0 is not using the GSI itself.
 
-From an architectural perspective, I think it would be cleaner, simpler
-to maintain, and simpler to understand if Xen was the sole owner of the
-PCI Root Complex and PCI config space mediation (implemented with vPCI).
-IOREQ can be used for emulation and it works very well for that. At
-least in my mind, that makes things much simpler.
-
-I understand there are non-trivial cases, like virtual GPUs with
-hardware access, but I don't classify those as passthrough. That's
-because there isn't one device that gets fully assigned to the guest.
-Instead, there is an emulated device (hence IOREQ) with certain MMIO
-regions and interrupts that end up being directly mapped from real
-hardware.
-
-So I think it is natural in those cases to use IOREQ and it is also
-natural to have QEMU remap MMIO/IRQs at runtime. From a vPCI
-perspective, I hope it will mostly look as if the device is assigned to
-Dom0. Even if it ends up being more complex than that, Rome wasn't
-built in one day, and I don't think we should try to solve this problem
-on day1 (as long as the interfaces are not stable interfaces).
+Yes makes sense
 
 
-> It's important that the interfaces we introduce are correct IMO,
-> because that ends up reflecting on the configuration options that we
-> expose to users on xl/libxl.  While both XEN_DOMCTL_createdomain and
-> XEN_DOMCTL_assign_device are unstable interfaces, how the vPCI option
-> gets placed there will ultimately influence how the option gets
-> exposed in xl/libxl, and the interface there is relevant to keep
-> stable for end user sanity.
-
-I agree with you on the stable interfaces. The important part is not to
-introduce changes to stable interfaces that could limit us in the
-future. Specifically that includes xl and libxl, we need to be careful
-there. But I don't see a single per-domain vPCI enable/disable option as
-a problem. Let's say that in the future we have a mediated vGPU
-implementation: if it works together with vPCI then the per-domain vPCI
-option in libxl will be enabled (either explicitely or by default), if
-it doesn't then vPCI will be disabled (either explicitely or by the
-newer vGPU options.)
-
-For *unstable* interfaces (XEN_DOMCTL_assign_device) I would rather wait
-before adding more changes on top of them, not because I don't care
-about the mediated GPU problem (we do have something similar at AMD),
-but because I worry that if we try to change them now we might not do a
-good enough job. I would prefer to wait until we know more about the
-actual use case, ideally with code supporting it.
-
-I think the difference in points of views comes from the fact that I see
-vPCI as the default, QEMU only as a limited peripheral emulator (or
-mediator for the vGPU case) but not in control. vPCI and QEMU are not
-equal in my view. vPCI is in charge and always present if not in very
-uncommon setups (even if we decide to hook it inside Xen by using
-internal IOREQ interfaces). QEMU might come and go.
-
-Now that I am writing this, I realize this is also why I wasn't too
-happy with the idea of hooking vPCI using IOREQ. It makes them look as
-if they are the same, while I don't they should be considered at the
-same level of priority, criticality, safety, integration in the system,
-etc.
---8323329-63937670-1701725629=:110490--
+>  - Configure IO-APIC pins for PCI interrupts even if dom0 is not using
+>    the IO-APIC pin itself.
+> 
+> First one needs to be fixed internally in Xen, second one will require
+> the toolstack to issue an extra hypercall in order to ensure the
+> IO-APIC pin is properly configured.
+ 
+On ARM, Xen doesn't need to wait for dom0 to configure interrupts
+correctly. Xen configures them all on its own at boot based on Device
+Tree information. I guess it is not possible to do the same on x86? If
+not, then I can see why we would need 1 extra toolstack hypercall for
+that (or to bundle the operation of configuring IO-APIC pins together
+with an existing toolstack hypercall).
+--8323329-1207504391-1701728057=:110490--
 
