@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59E95803042
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 11:28:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.646783.1009315 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E8D3803049
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 11:32:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.646789.1009325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA6BO-0001fg-9h; Mon, 04 Dec 2023 10:28:10 +0000
+	id 1rA6F1-0004K0-OF; Mon, 04 Dec 2023 10:31:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 646783.1009315; Mon, 04 Dec 2023 10:28:10 +0000
+Received: by outflank-mailman (output) from mailman id 646789.1009325; Mon, 04 Dec 2023 10:31:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA6BO-0001ds-6l; Mon, 04 Dec 2023 10:28:10 +0000
-Received: by outflank-mailman (input) for mailman id 646783;
- Mon, 04 Dec 2023 10:28:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uft2=HP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rA6BM-0001cO-Gt
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 10:28:08 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d08b3c9d-928f-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 11:28:07 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40bda47b7c1so22938925e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 02:28:07 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- r21-20020a05600c35d500b0040b3e79bad3sm14462375wmq.40.2023.12.04.02.28.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 04 Dec 2023 02:28:06 -0800 (PST)
+	id 1rA6F1-0004IM-L2; Mon, 04 Dec 2023 10:31:55 +0000
+Received: by outflank-mailman (input) for mailman id 646789;
+ Mon, 04 Dec 2023 10:31:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rA6F0-0004IG-QE
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 10:31:54 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rA6Ew-0007NF-EX; Mon, 04 Dec 2023 10:31:50 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rA6Ew-00048u-5a; Mon, 04 Dec 2023 10:31:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,247 +39,268 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d08b3c9d-928f-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701685687; x=1702290487; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9Xm7HNFkq0+Qbd6Uu1gKkNyeDxPZw3eWj43IaSy+UC4=;
-        b=AKzBUJXDoOTXQVs2I1tTZtBDFLd3gr+1iq/yW0Bty7Ock2PXTShHOXbPjmA1ZOVaMl
-         hfOwCHUV3mmo/NP/9Th7GjEklSLIM6lSvPznM8PMrzxfs55BEfTm7k/pbiOxD3Hb6fjv
-         1S4I93IkiSYru/L9+fplKabnOSZhju2i6MINE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701685687; x=1702290487;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9Xm7HNFkq0+Qbd6Uu1gKkNyeDxPZw3eWj43IaSy+UC4=;
-        b=tqBalB9FoRJnDNBlHDAe7ZnSN2h8qfm0fi5q9N29jfMoZaCU2GCZJxAPMfpXcZsaLL
-         I0A/TdoKuL+iBjcap7cRBTxZ7z4dkA4ZiA6gOVcp49MsWBW95uoxzML2CWCjdo15cfap
-         CAy0UJPzS1I4oIIjmBCYyA3U6arWZ3O32RvHJ4f4ZXjE31vBS/JyGZUzr+oRjSM/sR82
-         6moJxL6QjzahFOnjYQQCd8FiIX9tdugRR81mTeAeS18tip1p0FAsuMNign1KgkLwiuJ7
-         Z8xisSS342ICMbKzghcswXazZnxgEdPbSd7xxL0LNQlBUpcKvhQtksmUarspmbfootse
-         g6hA==
-X-Gm-Message-State: AOJu0Yz2NzUT/fDt/hLmT8dpTtiUk4Ps1eWOuDRCPa3LhpL//QCJp0Jh
-	vu/3NnQRz9tU1GYwsNMXZqH6Dw==
-X-Google-Smtp-Source: AGHT+IHQrE6G9YfZt6YRb8WN3b3NCDEKLCWBQFePbbHf+vIbFNsdFKpqoANLbKTBhVnrWpsfjOX0Qw==
-X-Received: by 2002:a05:600c:3d09:b0:40c:6bf:bdff with SMTP id bh9-20020a05600c3d0900b0040c06bfbdffmr879047wmb.355.1701685686722;
-        Mon, 04 Dec 2023 02:28:06 -0800 (PST)
-Date: Mon, 4 Dec 2023 11:28:05 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jiqian Chen <Jiqian.Chen@amd.com>, Juergen Gross <jgross@suse.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	Stefano Stabellini <stefano.stabellini@amd.com>,
-	Alex Deucher <Alexander.Deucher@amd.com>,
-	Christian Koenig <Christian.Koenig@amd.com>,
-	Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Honglei Huang <Honglei1.Huang@amd.com>,
-	Julia Zhang <Julia.Zhang@amd.com>, Huang Rui <Ray.Huang@amd.com>
-Subject: Re: [RFC KERNEL PATCH v2 2/3] xen/pvh: Unmask irq for passthrough
- device in PVH dom0
-Message-ID: <ZW2ptexPQXrWBiOS@macbook>
-References: <20231124103123.3263471-1-Jiqian.Chen@amd.com>
- <20231124103123.3263471-3-Jiqian.Chen@amd.com>
- <alpine.DEB.2.22.394.2311291950350.3533093@ubuntu-linux-20-04-desktop>
- <ZWiyBP4Lzz5lXraP@macbook>
- <alpine.DEB.2.22.394.2311301912350.110490@ubuntu-linux-20-04-desktop>
- <ZWmgJNidFsfkDp7q@macbook>
- <alpine.DEB.2.22.394.2312011857260.110490@ubuntu-linux-20-04-desktop>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=4RdpTsqHGFFuyHBjzvnx2fGQAhTh7bUYJAnUCw+aLD4=; b=19Z6c36mYRZefsECBPDv5pyr33
+	nSss1tXG1HIp5UWSajIf51q6SGEBNfsUFCJGYX9MGsbSlG9LJcSSvBbCVb9f4z44NyGZAoVWnOdx+
+	EK4R/XJ9tEU42wfhdDfSCms4QuLlh2eRsqmPTXTMSXvVsBO6diRbKbnz6rGzg4vJaQ40=;
+Message-ID: <0bd65e25-aec2-4294-9a73-1cdaece52242@xen.org>
+Date: Mon, 4 Dec 2023 10:31:48 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <alpine.DEB.2.22.394.2312011857260.110490@ubuntu-linux-20-04-desktop>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] xen/arm: Add emulation of Debug Data Transfer
+ Registers
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, sstabellini@kernel.org,
+ stefano.stabellini@amd.com, bertrand.marquis@arm.com, michal.orzel@amd.com,
+ Volodymyr_Babchuk@epam.com
+Cc: xen-devel@lists.xenproject.org
+References: <20231201185009.1719183-1-ayan.kumar.halder@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231201185009.1719183-1-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Dec 01, 2023 at 07:37:55PM -0800, Stefano Stabellini wrote:
-> On Fri, 1 Dec 2023, Roger Pau Monné wrote:
-> > On Thu, Nov 30, 2023 at 07:15:17PM -0800, Stefano Stabellini wrote:
-> > > On Thu, 30 Nov 2023, Roger Pau Monné wrote:
-> > > > On Wed, Nov 29, 2023 at 07:53:59PM -0800, Stefano Stabellini wrote:
-> > > > > On Fri, 24 Nov 2023, Jiqian Chen wrote:
-> > > > > > This patch is to solve two problems we encountered when we try to
-> > > > > > passthrough a device to hvm domU base on Xen PVH dom0.
-> > > > > > 
-> > > > > > First, hvm guest will alloc a pirq and irq for a passthrough device
-> > > > > > by using gsi, before that, the gsi must first has a mapping in dom0,
-> > > > > > see Xen code pci_add_dm_done->xc_domain_irq_permission, it will call
-> > > > > > into Xen and check whether dom0 has the mapping. See
-> > > > > > XEN_DOMCTL_irq_permission->pirq_access_permitted, "current" is PVH
-> > > > > > dom0 and it return irq is 0, and then return -EPERM.
-> > > > > > This is because the passthrough device doesn't do PHYSDEVOP_map_pirq
-> > > > > > when thay are enabled.
-> > > > > > 
-> > > > > > Second, in PVH dom0, the gsi of a passthrough device doesn't get
-> > > > > > registered, but gsi must be configured for it to be able to be
-> > > > > > mapped into a domU.
-> > > > > > 
-> > > > > > After searching codes, we can find map_pirq and register_gsi will be
-> > > > > > done in function vioapic_write_redirent->vioapic_hwdom_map_gsi when
-> > > > > > the gsi(aka ioapic's pin) is unmasked in PVH dom0. So the problems
-> > > > > > can be conclude to that the gsi of a passthrough device doesn't be
-> > > > > > unmasked.
-> > > > > > 
-> > > > > > To solve the unmaske problem, this patch call the unmask_irq when we
-> > > > > > assign a device to be passthrough. So that the gsi can get registered
-> > > > > > and mapped in PVH dom0.
-> > > > > 
-> > > > > 
-> > > > > Roger, this seems to be more of a Xen issue than a Linux issue. Why do
-> > > > > we need the unmask check in Xen? Couldn't we just do:
-> > > > > 
-> > > > > 
-> > > > > diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
-> > > > > index 4e40d3609a..df262a4a18 100644
-> > > > > --- a/xen/arch/x86/hvm/vioapic.c
-> > > > > +++ b/xen/arch/x86/hvm/vioapic.c
-> > > > > @@ -287,7 +287,7 @@ static void vioapic_write_redirent(
-> > > > >              hvm_dpci_eoi(d, gsi);
-> > > > >      }
-> > > > >  
-> > > > > -    if ( is_hardware_domain(d) && unmasked )
-> > > > > +    if ( is_hardware_domain(d) )
-> > > > >      {
-> > > > >          /*
-> > > > >           * NB: don't call vioapic_hwdom_map_gsi while holding hvm.irq_lock
-> > > > 
-> > > > There are some issues with this approach.
-> > > > 
-> > > > mp_register_gsi() will only setup the trigger and polarity of the
-> > > > IO-APIC pin once, so we do so once the guest unmask the pin in order
-> > > > to assert that the configuration is the intended one.  A guest is
-> > > > allowed to write all kind of nonsense stuff to the IO-APIC RTE, but
-> > > > that doesn't take effect unless the pin is unmasked.
-> > > > 
-> > > > Overall the question would be whether we have any guarantees that
-> > > > the hardware domain has properly configured the pin, even if it's not
-> > > > using it itself (as it hasn't been unmasked).
-> > > > 
-> > > > IIRC PCI legacy interrupts are level triggered and low polarity, so we
-> > > > could configure any pins that are not setup at bind time?
-> > > 
-> > > That could work.
-> > > 
-> > > Another idea is to move only the call to allocate_and_map_gsi_pirq at
-> > > bind time? That might be enough to pass a pirq_access_permitted check.
-> > 
-> > Maybe, albeit that would change the behavior of XEN_DOMCTL_bind_pt_irq
-> > just for PT_IRQ_TYPE_PCI and only when called from a PVH dom0 (as the
-> > parameter would be a GSI instead of a previously mapped IRQ).  Such
-> > difference just for PT_IRQ_TYPE_PCI is slightly weird - if we go that
-> > route I would recommend that we instead introduce a new dmop that has
-> > this syntax regardless of the domain type it's called from.
-> 
-> Looking at the code it is certainly a bit confusing. My point was that
-> we don't need to wait until polarity and trigger are set appropriately
-> to allow Dom0 to pass successfully a pirq_access_permitted() check. Xen
-> should be able to figure out that Dom0 is permitted pirq access.
+Hi Ayan,
 
-The logic is certainly not straightforward, and it could benefit from
-some comments.
+On 01/12/2023 18:50, Ayan Kumar Halder wrote:
+> Currently if user enables HVC_DCC config option in Linux, it invokes
+> access to debug data transfer registers (ie DBGDTRTX_EL0 on arm64,
+> DBGDTRTXINT on arm32). As these registers are not emulated, Xen injects
+> an undefined exception to the guest. And Linux crashes.
 
-The irq permissions are a bit special, in that they get setup when the
-IRQ is mapped.
-
-The problem however is not so much with IRQ permissions, that we can
-indeed sort out internally in Xen.  Such check in dom0 has the side
-effect of preventing the IRQ from being assigned to a domU without the
-hardware source being properly configured AFAICT.
+I am missing some data points here to be able to say whether I would be 
+ok with emulating the registers. So some questions:
+   * As you wrote below, HVC_DCC will return -ENODEV after this 
+emulation. So may I ask what's the use case to enable it? (e.g. is there 
+a distro turning this on?)
+  * Linux is writing to the registers unconditionally, but is the spec 
+mandating the implementation of the registers? (I couldn't find either way)
+  * When was this check introduced in Linux? Did it ever changed?
 
 > 
-> So the idea was to move the call to allocate_and_map_gsi_pirq() earlier
-> somewhere because allocate_and_map_gsi_pirq doesn't require trigger or
-> polarity to be configured to work. But the suggestion of doing it a
-> "bind time" (meaning: XEN_DOMCTL_bind_pt_irq) was a bad idea.
-> 
-> But maybe we can find another location, maybe within
-> xen/arch/x86/hvm/vioapic.c, to call allocate_and_map_gsi_pirq() before
-> trigger and polarity are set and before the interrupt is unmasked.
-> 
-> Then we change the implementation of vioapic_hwdom_map_gsi to skip the
-> call to allocate_and_map_gsi_pirq, because by the time
-> vioapic_hwdom_map_gsi we assume that allocate_and_map_gsi_pirq had
-> already been done.
+> We wish to avoid this crash by adding a "partial" emulation. DBGDTR_EL0
+> is emulated as TXfull | RXfull.
 
-But then we would end up in a situation where the
-pirq_access_permitted() check will pass, but the IO-APIC pin won't be
-configured, which I think it's not what we want.
+Skimming through the Arm Arm, I see that TXfull and Rxfull indicates 
+that both buffers are full but it doesn't explicitly say this means the 
+feature is not available.
 
-One option would be to allow mp_register_gsi() to be called multiple
-times, and update the IO-APIC pin configuration as long as the pin is
-not unmasked.  That would propagate each dom0 RTE update to the
-underlying IO-APIC.  However such approach relies on dom0 configuring
-all possible IO-APIC pins, even if no device on dom0 is using them, I
-think it's not a very reliable option.
+I understand this is what Linux checks, but if we want to partially 
+emulate the registers in Xen, then I'd like us to make sure this is 
+backed by the Arm Arm rather than based on Linux implementation (which 
+can change at any point).
 
-Another option would be to modify the toolstack to setup the GSI
-itself using the PHYSDEVOP_setup_gsi hypercall.  As said in a previous
-email, since we only care about PCI device passthrough the legacy INTx
-should always be level triggered and low polarity.
-
-> I am not familiar with vioapic.c but to give you an idea of what I was
-> thinking:
+> Refer ARM DDI 0487I.a ID081822, D17.3.8, DBGDTRTX_EL0
+> "If TXfull is set to 1, set DTRRX and DTRTX to UNKNOWN"
+> Also D17.3.7 DBGDTRRX_EL0,
+> " If RXfull is set to 1, return the last value written to DTRRX."
 > 
+> Thus, any OS is expected to read DBGDTR_EL0 and check for TXfull
+> before using DBGDTRTX_EL0. Linux does it via hvc_dcc_init() --->
+> hvc_dcc_check() , it returns -ENODEV. In this way, we are preventing
+> the guest to be aborted.
+
+See above, what guarantees us that Linux will not change this behavior 
+in the future?
+
 > 
-> diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
-> index 4e40d3609a..16d56fe851 100644
-> --- a/xen/arch/x86/hvm/vioapic.c
-> +++ b/xen/arch/x86/hvm/vioapic.c
-> @@ -189,14 +189,6 @@ static int vioapic_hwdom_map_gsi(unsigned int gsi, unsigned int trig,
->          return ret;
->      }
->  
-> -    ret = allocate_and_map_gsi_pirq(currd, pirq, &pirq);
-> -    if ( ret )
-> -    {
-> -        gprintk(XENLOG_WARNING, "vioapic: error mapping GSI %u: %d\n",
-> -                 gsi, ret);
-> -        return ret;
-> -    }
-> -
->      pcidevs_lock();
->      ret = pt_irq_create_bind(currd, &pt_irq_bind);
->      if ( ret )
-> @@ -287,6 +279,17 @@ static void vioapic_write_redirent(
->              hvm_dpci_eoi(d, gsi);
->      }
->  
-> +    if ( is_hardware_domain(d) ) 
+> We also emulate DBGDTRTX_EL0 as RAZ/WI.
+> 
+> We have added emulation for AArch32 variant of these registers as well.
+> Also, we have added handle_read_val_wi() to emulate DBGDSCREXT register
+> to return a specific value (ie TXfull | RXfull) and ignore any writes
+> to this register.
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+
+We usually expect the first Signed-off-by to also be the author. So 
+should Michal be the author of this patch?
+
+> ---
+>   xen/arch/arm/arm64/vsysreg.c         | 21 ++++++++++++++----
+>   xen/arch/arm/include/asm/arm64/hsr.h |  3 +++
+>   xen/arch/arm/include/asm/cpregs.h    |  2 ++
+>   xen/arch/arm/include/asm/traps.h     |  4 ++++
+>   xen/arch/arm/traps.c                 | 18 +++++++++++++++
+>   xen/arch/arm/vcpreg.c                | 33 +++++++++++++++++++++-------
+>   6 files changed, 69 insertions(+), 12 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
+> index b5d54c569b..5082dfb02e 100644
+> --- a/xen/arch/arm/arm64/vsysreg.c
+> +++ b/xen/arch/arm/arm64/vsysreg.c
+> @@ -159,9 +159,6 @@ void do_sysreg(struct cpu_user_regs *regs,
+>        *
+>        * Unhandled:
+>        *    MDCCINT_EL1
+> -     *    DBGDTR_EL0
+> -     *    DBGDTRRX_EL0
+> -     *    DBGDTRTX_EL0
+>        *    OSDTRRX_EL1
+>        *    OSDTRTX_EL1
+>        *    OSECCR_EL1
+> @@ -172,11 +169,27 @@ void do_sysreg(struct cpu_user_regs *regs,
+>       case HSR_SYSREG_MDSCR_EL1:
+>           return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
+>       case HSR_SYSREG_MDCCSR_EL0:
 > +    {
-> +        int pirq = gsi, ret;
-> +        ret = allocate_and_map_gsi_pirq(currd, pirq, &pirq);
-> +        if ( ret )
-> +        {
-> +            gprintk(XENLOG_WARNING, "vioapic: error mapping GSI %u: %d\n",
-> +                    gsi, ret);
-> +            return ret;
-> +        }
+> +        /*
+> +         * Bit 29: TX full, bit 30: RX full
+> +         * Given that we emulate DCC registers as RAZ/WI, doing the same for
+> +         * MDCCSR_EL0 would cause a guest to continue using the DCC despite no
+> +         * real effect. Setting the TX/RX status bits should result in a probe
+> +         * fail (based on Linux behavior).
+> +         */
+> +        register_t guest_reg_value = (1U << 29) | (1U << 30);
+> +
+>           /*
+>            * Accessible at EL0 only if MDSCR_EL1.TDCC is set to 0. We emulate that
+>            * register as RAZ/WI above. So RO at both EL0 and EL1.
+>            */
+> -        return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr, 0);
+> +        return handle_ro_read_val(regs, regidx, hsr.sysreg.read, hsr, 0,
+> +                                  guest_reg_value);
 > +    }
->      if ( is_hardware_domain(d) && unmasked )
->      {
->          /*
+> +    case HSR_SYSREG_DBGDTR_EL0:
+> +    /* DBGDTR[TR]X_EL0 share the same encoding */
+> +    case HSR_SYSREG_DBGDTRTX_EL0:
+> +        return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 0);
+>       HSR_SYSREG_DBG_CASES(DBGBVR):
+>       HSR_SYSREG_DBG_CASES(DBGBCR):
+>       HSR_SYSREG_DBG_CASES(DBGWVR):
+> diff --git a/xen/arch/arm/include/asm/arm64/hsr.h b/xen/arch/arm/include/asm/arm64/hsr.h
+> index e691d41c17..1495ccddea 100644
+> --- a/xen/arch/arm/include/asm/arm64/hsr.h
+> +++ b/xen/arch/arm/include/asm/arm64/hsr.h
+> @@ -47,6 +47,9 @@
+>   #define HSR_SYSREG_OSDLR_EL1      HSR_SYSREG(2,0,c1,c3,4)
+>   #define HSR_SYSREG_DBGPRCR_EL1    HSR_SYSREG(2,0,c1,c4,4)
+>   #define HSR_SYSREG_MDCCSR_EL0     HSR_SYSREG(2,3,c0,c1,0)
+> +#define HSR_SYSREG_DBGDTR_EL0     HSR_SYSREG(2,3,c0,c4,0)
+> +#define HSR_SYSREG_DBGDTRTX_EL0   HSR_SYSREG(2,3,c0,c5,0)
+> +#define HSR_SYSREG_DBGDTRRX_EL0   HSR_SYSREG(2,3,c0,c5,0)
+>   
+>   #define HSR_SYSREG_DBGBVRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,4)
+>   #define HSR_SYSREG_DBGBCRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,5)
+> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
+> index 6b083de204..aec9e8f329 100644
+> --- a/xen/arch/arm/include/asm/cpregs.h
+> +++ b/xen/arch/arm/include/asm/cpregs.h
+> @@ -75,6 +75,8 @@
+>   #define DBGDIDR         p14,0,c0,c0,0   /* Debug ID Register */
+>   #define DBGDSCRINT      p14,0,c0,c1,0   /* Debug Status and Control Internal */
+>   #define DBGDSCREXT      p14,0,c0,c2,2   /* Debug Status and Control External */
+> +#define DBGDTRRXINT     p14,0,c0,c5,0   /* Debug Data Transfer Register, Receive */
+> +#define DBGDTRTXINT     p14,0,c0,c5,0   /* Debug Data Transfer Register, Transmit */
+>   #define DBGVCR          p14,0,c0,c7,0   /* Vector Catch */
+>   #define DBGBVR0         p14,0,c0,c0,4   /* Breakpoint Value 0 */
+>   #define DBGBCR0         p14,0,c0,c0,5   /* Breakpoint Control 0 */
+> diff --git a/xen/arch/arm/include/asm/traps.h b/xen/arch/arm/include/asm/traps.h
+> index 883dae368e..a2692722d5 100644
+> --- a/xen/arch/arm/include/asm/traps.h
+> +++ b/xen/arch/arm/include/asm/traps.h
+> @@ -56,6 +56,10 @@ void handle_ro_raz(struct cpu_user_regs *regs, int regidx, bool read,
+>   void handle_ro_read_val(struct cpu_user_regs *regs, int regidx, bool read,
+>                           const union hsr hsr, int min_el, register_t val);
+>   
+> +/* Read only as value provided with 'val' argument, write ignore */
+> +void handle_read_val_wi(struct cpu_user_regs *regs, int regidx,
+> +                        const union hsr hsr, int min_el, register_t val);
+> +
+>   /* Co-processor registers emulation (see arch/arm/vcpreg.c). */
+>   void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr);
+>   void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr);
+> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> index 3784e8276e..f5ab555b19 100644
+> --- a/xen/arch/arm/traps.c
+> +++ b/xen/arch/arm/traps.c
+> @@ -1676,6 +1676,24 @@ void handle_ro_read_val(struct cpu_user_regs *regs,
+>       advance_pc(regs, hsr);
+>   }
+>   
+> +/* Read as value provided with 'val' argument of this function, write ignore */
+> +void handle_read_val_wi(struct cpu_user_regs *regs,
+> +                        int regidx,
+> +                        const union hsr hsr,
+> +                        int min_el,
+> +                        register_t val)
+> +{
+> +    ASSERT((min_el == 0) || (min_el == 1));
+> +
+> +    if ( min_el > 0 && regs_mode_is_user(regs) )
+> +        return inject_undef_exception(regs, hsr);
+> +
+> +    set_user_reg(regs, regidx, val);
+> +
+> +    advance_pc(regs, hsr);
+> +}
+> +
+> +
+>   /* Read only as read as zero */
+>   void handle_ro_raz(struct cpu_user_regs *regs,
+>                      int regidx,
+> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
+> index 39aeda9dab..3f1276f96e 100644
+> --- a/xen/arch/arm/vcpreg.c
+> +++ b/xen/arch/arm/vcpreg.c
+> @@ -548,20 +548,37 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
+>           break;
+>       }
+>   
+> -    case HSR_CPREG32(DBGDSCRINT):
+> +    case HSR_CPREG32(DBGDSCREXT):
+> +    {
+>           /*
+> -         * Read-only register. Accessible by EL0 if DBGDSCRext.UDCCdis
+> -         * is set to 0, which we emulated below.
+> +         * Bit 29: TX full, bit 30: RX full
+> +         * Given that we emulate DCC registers as RAZ/WI, doing the same for
+> +         * DBGDSCRint would cause a guest to continue using the DCC despite no
+> +         * real effect. Setting the TX/RX status bits should result in a probe
+> +         * fail (based on Linux behavior).
+If you want to mention Linux then you need to be a bit more specific 
+because Linux can change at any point. So you at least want to specify 
+the Linux version and place in the code.
 
-As said above, such approach relies on dom0 writing to the IO-APIC RTE
-of likely each IO-APIC pin, which is IMO not quite reliable.  In there
-are two different issues here that need to be fixed for PVH dom0:
+So this doesn't get stale as soon as the HVC_DCC driver changes.
 
- - Fix the XEN_DOMCTL_irq_permission pirq_access_permitted() call to
-   succeed for a PVH dom0, even if dom0 is not using the GSI itself.
+>            */
+> -        return handle_ro_raz(regs, regidx, cp32.read, hsr, 1);
+> +        register_t guest_reg_value = (1U << 29) | (1U << 30);
+>   
+> -    case HSR_CPREG32(DBGDSCREXT):
+> +        return handle_read_val_wi(regs, regidx, hsr, 1,
+> +                                  guest_reg_value);
+> +    }
+> +
+> +    case HSR_CPREG32(DBGDSCRINT):
+> +    {
+>           /*
+> -         * Implement debug status and control register as RAZ/WI.
+> -         * The OS won't use Hardware debug if MDBGen not set.
+> +         * Bit 29: TX full, bit 30: RX full
+> +         * Given that we emulate DCC registers as RAZ/WI, doing the same for
+> +         * DBGDSCRint would cause a guest to continue using the DCC despite no
+> +         * real effect. Setting the TX/RX status bits should result in a probe
+> +         * fail (based on Linux behavior).
+>            */
+> -        return handle_raz_wi(regs, regidx, cp32.read, hsr, 1);
+> +        register_t guest_reg_value = (1U << 29) | (1U << 30);
+> +
+> +        return handle_ro_read_val(regs, regidx, cp32.read, hsr, 1,
+> +                                  guest_reg_value);
+> +    }
+>   
+> +    case HSR_CPREG32(DBGDTRTXINT):
+>       case HSR_CPREG32(DBGVCR):
+>       case HSR_CPREG32(DBGBVR0):
+>       case HSR_CPREG32(DBGBCR0):
 
- - Configure IO-APIC pins for PCI interrupts even if dom0 is not using
-   the IO-APIC pin itself.
+Cheers,
 
-First one needs to be fixed internally in Xen, second one will require
-the toolstack to issue an extra hypercall in order to ensure the
-IO-APIC pin is properly configured.
-
-Thanks, Roger.
+-- 
+Julien Grall
 
