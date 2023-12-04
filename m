@@ -2,38 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C774802C8C
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 08:58:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.646549.1008905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0902E802C8E
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 08:58:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.646552.1008916 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA3pR-0001Av-VL; Mon, 04 Dec 2023 07:57:21 +0000
+	id 1rA3qY-0001gg-Af; Mon, 04 Dec 2023 07:58:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 646549.1008905; Mon, 04 Dec 2023 07:57:21 +0000
+Received: by outflank-mailman (output) from mailman id 646552.1008916; Mon, 04 Dec 2023 07:58:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA3pR-000186-SC; Mon, 04 Dec 2023 07:57:21 +0000
-Received: by outflank-mailman (input) for mailman id 646549;
- Mon, 04 Dec 2023 07:57:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rA3qY-0001dk-77; Mon, 04 Dec 2023 07:58:30 +0000
+Received: by outflank-mailman (input) for mailman id 646552;
+ Mon, 04 Dec 2023 07:58:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nDhU=HP=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1rA3pQ-000180-Cz
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 07:57:20 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf619077-927a-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 08:57:19 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-54cde11d0f4so450307a12.2
- for <xen-devel@lists.xenproject.org>; Sun, 03 Dec 2023 23:57:19 -0800 (PST)
-Received: from rayden.urgonet (h-217-31-164-171.A175.priv.bahnhof.se.
- [217.31.164.171]) by smtp.gmail.com with ESMTPSA id
- sa12-20020a1709076d0c00b009fd585a2155sm4972023ejc.0.2023.12.03.23.57.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Dec 2023 23:57:17 -0800 (PST)
+ <SRS0=OYKC=HP=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1rA3qW-0001dW-7W
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 07:58:28 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e6e5437e-927a-11ee-9b0f-b553b5be7939;
+ Mon, 04 Dec 2023 08:58:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,147 +37,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf619077-927a-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1701676638; x=1702281438; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=dicC/kX5P2TsFX0dpgAdoM++hBrgoMivXSnmGvQBMt8=;
-        b=mSFmWwTx7/lnPVLfHTZ11bLNCdxhlzpWovf8IO7UsyMGtCZaESSr8u8Ze9vIjY9JkI
-         02x3AdUe14veQyOfTd0y0uULkweXvOPPDEh0/rgGWqd44lxMPrjmT3Lz08F6IvuSlrtZ
-         P1n2n3O2IgCAtuzkA1s5JPRmid8VB1KoahXwkxMIehnnQvAKjKiRMfk9Q5GrvgvIdDvJ
-         bNSmY1LXw9aXIwTVbPV2grGTkIYYWAMfvWPGImYOso3pwGuR2h6PdRK+qYqsgt/VaFJR
-         j9fu1qodMb7kTUI+lm0sIaZ1RM2pr9yVlYWiFwC/wlc0MM+JZi4mfTwYasdsJMWes4Ri
-         YFLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701676638; x=1702281438;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dicC/kX5P2TsFX0dpgAdoM++hBrgoMivXSnmGvQBMt8=;
-        b=aJqHjZ4MnqoKXa7NEE8qmMxNEnb0Fll0RncaHVnKxb3XbG+Xu+zwjKxWu14yG9xrjg
-         1ZJeCkUuU9Lg3RDQesx1Ivh3vn8T6A2bmok4XYkUoZOHLSslq7eQMj8jJw/TYJtQGvTJ
-         gkRKanupxu7n+lcTm8I6B0tVGicXfgvshRGiU8OCWYC7kKqYLs9gc9VoWDTqxnFxuzf8
-         /ZpHndUfkuqQ5HFT3csG4Zecjw5UqswB5U6VxulPErqs5K8wd6v1mzz7pmFuLIIqaFiG
-         fvnCWwaJHbIdB+PDlN62gdGXkFLuLSdqaavegsBTHjtNVuKzVVHSZKFfK7IawqThFG6w
-         tkYQ==
-X-Gm-Message-State: AOJu0YzXv0ell7wHciPM1f2Zdk5jRtj4SkhSrad5GMk2ZKLgFhBK0kYm
-	wwf+99pY4SygdmL02M8Jdkdgxq5eYho6bxyCjTU=
-X-Google-Smtp-Source: AGHT+IFTCVNFjvdrvzd9eyF+h0wvkyajDRYtoTaC560ySHY2WEDWy20SFdMrvbAWkd0/3eBMjBvN+w==
-X-Received: by 2002:a17:906:9e23:b0:a19:a1ba:da2e with SMTP id fp35-20020a1709069e2300b00a19a1bada2emr2390252ejc.85.1701676638197;
-        Sun, 03 Dec 2023 23:57:18 -0800 (PST)
-From: Jens Wiklander <jens.wiklander@linaro.org>
-To: xen-devel@lists.xenproject.org
-Cc: patches@linaro.org,
-	Jens Wiklander <jens.wiklander@linaro.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [RFC XEN PATCH] xen/arm: ffa: reclaim shared memory on guest destroy
-Date: Mon,  4 Dec 2023 08:55:53 +0100
-Message-Id: <20231204075552.3585875-1-jens.wiklander@linaro.org>
-X-Mailer: git-send-email 2.34.1
+X-Inumbo-ID: e6e5437e-927a-11ee-9b0f-b553b5be7939
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1701676704;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=olLQmfouF3da3Ez0MZE8XTk1beuCISuKI3rPjmx3/hc=;
+	b=jROt4+AA2gHCjQQejTIJ4vx61px4E4T6n7je/BoGancpAFJzJip5U7lrImJxKWIqbbMRtq
+	6m5nmG8i3VblkEIRlbtxchdeGxnLTRgHOfbPcp6e1doolQTYPM3nQxS48f+2396sY04H3K
+	AQa/bymq0fZit98BLuQWFsktYiAx9A2kt/HaXVoWxeU0DbC+m7maUCeeHta7XD7bkH33+G
+	Y4l9w4vk77GVv6YHcaiXBxkFEPjXcRomvw0tdn/apFOqCVUrMU/FjOHXztPcy2fZIeQZN+
+	lUF9etwZ2a5wpRp3KdgjkdImnU2gAeMF5oRpJDHp9RxgARd5oA3G8KaBaQunow==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1701676704;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=olLQmfouF3da3Ez0MZE8XTk1beuCISuKI3rPjmx3/hc=;
+	b=BfloaVnhH1keEIYiuj2GPUgURfGHFRALvHxjv42XRmGBcfK9HphTyelqVddlgAlKPMoJTx
+	zZ5jWZZYCHljWXBw==
+To: Jiqian Chen <Jiqian.Chen@amd.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, "Rafael J . Wysocki"
+ <rafael@kernel.org>, Len Brown <lenb@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Roger Pau =?utf-8?Q?Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ linux-acpi@vger.kernel.org
+Cc: Stefano Stabellini <stefano.stabellini@amd.com>, Alex Deucher
+ <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>, Xenia Ragiadakou
+ <xenia.ragiadakou@amd.com>, Honglei Huang <Honglei1.Huang@amd.com>, Julia
+ Zhang <Julia.Zhang@amd.com>, Huang Rui <Ray.Huang@amd.com>, Jiqian Chen
+ <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>
+Subject: Re: [RFC KERNEL PATCH v2 1/3] xen/pci: Add xen_reset_device_state
+ function
+In-Reply-To: <20231124103123.3263471-2-Jiqian.Chen@amd.com>
+References: <20231124103123.3263471-1-Jiqian.Chen@amd.com>
+ <20231124103123.3263471-2-Jiqian.Chen@amd.com>
+Date: Mon, 04 Dec 2023 08:58:22 +0100
+Message-ID: <87edg2xuu9.ffs@tglx>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-When an FF-A enabled guest is destroyed it may leave behind memory
-shared with SPs. This memory must be reclaimed before it's reused or an
-SP may make changes to memory used by a new unrelated guest. So when the
-domain is teared down add FF-A requests to reclaim all remaining shared
-memory.
+On Fri, Nov 24 2023 at 18:31, Jiqian Chen wrote:
+> When device on dom0 side has been reset, the vpci on Xen side
+> won't get notification, so that the cached state in vpci is
+> all out of date with the real device state.
+> To solve that problem, this patch add a function to clear all
 
-SPs in the secure world are notified using VM_DESTROYED that a guest has
-been destroyed. An SP is supposed to relinquish all shared memory to allow
-reclaiming the memory. The relinquish operation may need to be delayed if
-the shared memory is for instance part of a DMA operation.
+Please get rid of 'this patch' all over the series.
 
-If the FF-A memory reclaim request fails, return -ERESTART to retry
-again. This will effectively block the destruction of the guest until
-all memory has been reclaimed.
+# grep -r 'This patch' Documentation/process/
 
-Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
----
-Hi,
+> vpci device state when device is reset on dom0 side.
+>
+> And call that function in pcistub_init_device. Because when
+> we use "pci-assignable-add" to assign a passthrough device in
+> Xen, it will reset passthrough device and the vpci state will
+> out of date, and then device will fail to restore bar state.
+>
+> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
 
-This patch is a bit crude, but gets the job done. In a well designed
-system this might even be good enough since the SP or the secure world
-will let the memory be reclaimed and we can move on. But, if for some
-reason reclaiming the memory is refused it must not be possible to reuse
-the memory.
+This Signed-off-by chain is incorrect.
 
-These shared memory ranges are typically quite small compared to the
-total memory usage of a guest so it would be an improvement if only
-refused shared memory ranges where set aside from future reuse while the
-guest was destroyed and other resources made available for reuse. This
-could be done by for instance assign the refused shared memory ranges
-to a dummy VM like DOMID_IO.
+Documentation/process/submitting-patches.rst has a full chapter about
+S-O-B and the correct usage.
 
 Thanks,
-Jens
----
- xen/arch/arm/tee/ffa.c | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
 
-diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 183528d13388..9c596462a8a2 100644
---- a/xen/arch/arm/tee/ffa.c
-+++ b/xen/arch/arm/tee/ffa.c
-@@ -1539,6 +1539,7 @@ static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start,
- static int ffa_domain_teardown(struct domain *d)
- {
-     struct ffa_ctx *ctx = d->arch.tee;
-+    struct ffa_shm_mem *shm, *tmp;
-     unsigned int n;
-     int32_t res;
- 
-@@ -1564,10 +1565,45 @@ static int ffa_domain_teardown(struct domain *d)
-             printk(XENLOG_ERR "ffa: Failed to report destruction of vm_id %u to  %u: res %d\n",
-                    get_vm_id(d), subscr_vm_destroyed[n], res);
-     }
-+    /*
-+     * If this function is called again due to -ERESTART below, make sure
-+     * not to send the FFA_MSG_SEND_VM_DESTROYED's.
-+     */
-+    subscr_vm_destroyed_count = 0;
- 
-     if ( ctx->rx )
-         rxtx_unmap(ctx);
- 
-+
-+    list_for_each_entry_safe(shm, tmp, &ctx->shm_list, list)
-+    {
-+        register_t handle_hi;
-+        register_t handle_lo;
-+
-+        uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
-+        res = ffa_mem_reclaim(handle_lo, handle_hi, 0);
-+        if ( res )
-+        {
-+            printk(XENLOG_INFO, "ffa: Failed to reclaim handle %#lx : %d\n",
-+                   shm->handle, res);
-+        }
-+        else
-+        {
-+            printk(XENLOG_DEBUG, "ffa: Reclaimed handle %#lx\n", shm->handle);
-+            ctx->shm_count--;
-+            list_del(&shm->list);
-+        }
-+    }
-+    if ( !list_empty(&ctx->shm_list) )
-+    {
-+        printk(XENLOG_INFO, "ffa: Remaining unclaimed handles, retrying\n");
-+        /*
-+         * TODO: add a timeout where we either panic or let the guest be
-+         * fully destroyed.
-+         */
-+        return -ERESTART;
-+    }
-+
-     XFREE(d->arch.tee);
- 
-     return 0;
--- 
-2.34.1
-
+        tglx
 
