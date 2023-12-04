@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19457802D5F
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 09:38:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.646601.1009025 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADE98802D63
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 09:42:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.646609.1009035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA4TT-00007f-DR; Mon, 04 Dec 2023 08:38:43 +0000
+	id 1rA4Wc-0002KC-0K; Mon, 04 Dec 2023 08:41:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 646601.1009025; Mon, 04 Dec 2023 08:38:43 +0000
+Received: by outflank-mailman (output) from mailman id 646609.1009035; Mon, 04 Dec 2023 08:41:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA4TT-00005O-AO; Mon, 04 Dec 2023 08:38:43 +0000
-Received: by outflank-mailman (input) for mailman id 646601;
- Mon, 04 Dec 2023 08:38:42 +0000
+	id 1rA4Wb-0002Ho-TO; Mon, 04 Dec 2023 08:41:57 +0000
+Received: by outflank-mailman (input) for mailman id 646609;
+ Mon, 04 Dec 2023 08:41:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IRNf=HP=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rA4TR-0008VS-Pq
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 08:38:42 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060b.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::60b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CG6/=HP=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1rA4Wb-0002Hi-D3
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 08:41:57 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on0615.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::615])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84c76bd6-9280-11ee-9b0f-b553b5be7939;
- Mon, 04 Dec 2023 09:38:38 +0100 (CET)
-Received: from DM6PR02CA0044.namprd02.prod.outlook.com (2603:10b6:5:177::21)
- by BY5PR12MB4289.namprd12.prod.outlook.com (2603:10b6:a03:204::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34; Mon, 4 Dec
- 2023 08:38:33 +0000
-Received: from CY4PEPF0000EE3C.namprd03.prod.outlook.com
- (2603:10b6:5:177:cafe::16) by DM6PR02CA0044.outlook.office365.com
- (2603:10b6:5:177::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.33 via Frontend
- Transport; Mon, 4 Dec 2023 08:38:33 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000EE3C.mail.protection.outlook.com (10.167.242.16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Mon, 4 Dec 2023 08:38:33 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 4 Dec
- 2023 02:38:32 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 4 Dec
- 2023 00:38:32 -0800
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Mon, 4 Dec 2023 02:38:31 -0600
+ id fa8d49b8-9280-11ee-9b0f-b553b5be7939;
+ Mon, 04 Dec 2023 09:41:55 +0100 (CET)
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com (2603:10a6:10:2e1::23)
+ by AM7PR04MB7094.eurprd04.prod.outlook.com (2603:10a6:20b:11f::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.23; Mon, 4 Dec
+ 2023 08:41:53 +0000
+Received: from DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44]) by DU2PR04MB8790.eurprd04.prod.outlook.com
+ ([fe80::eb8e:fa24:44c1:5d44%3]) with mapi id 15.20.7068.022; Mon, 4 Dec 2023
+ 08:41:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,299 +47,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84c76bd6-9280-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: fa8d49b8-9280-11ee-9b0f-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aaMGVX4ILagGL7bFgyTkqnj20to9j+EhPA/CBakRMSbEejKuAAuUjwvidEoPDrsgzfFzxwMLfkb640HP+UM7uawj01Evppd8PJ8BVCxVyZJLoxO+0wB5AVLSQdOZo85lgdZVTcxJ1Ik5/Ey4QoqZAAbPB9KrhENuOLopPvIkiP72cpLr+jv5Tv6l4xy5Ggr4QTlODwTxzv7/97OXuDz5y5KXXzkjwt9vHHi41Ac0WlCiXWir0XzcGZoE1Nb2q+PV4ZUHXkq3piaPZJjW+LKsfI9nKCvb9f/BVESLaqi/vqEiJ0VLz7f4/7S+JBM3ybrnc7DiL0rerIW1F43mgA9AcA==
+ b=ZEOCY27S9/XFQ4/ZFHWcZkDni0S2fKF6fSbeMNp7GFPwamdxeD42KEkHILLV7tHyAoCiuNGsyVgf+aA0cffaD6GxnUAfjbNx0UYXW5Obc0+7gg6hvyCb2jg2JQSyqCv7KG1HABMoQ1FmNyj+1boIrnbcyyW0FxYJgJduALQaNjgGqmO77lzXz+zRObH26w+062gNXelQ8zRa2kZhcEjXdrh20lqFo4Kr8GfyINl/bMVBWEENkIGq5hT97xEG9uAy7GW5rFr1b9RhsCP9+QlbFHX3vBUmUQAlLQJvRaycTj7fSRVCRSS1s4AiDeSnHP2DDqcCGMlJwKgahMo1jL9QRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rlX6Yo3sUaCNRW5NRjFyl2rDQUzXKyjGDeUsaX4WQ18=;
- b=a0lG1PBceyYmLHTKiGm/5B26aqVrD/S0y7QL+rd4e9b69D02y3Uu7G7oD0VFc+wbuNQJZC+RWJSDIUGbVxBv8tQbh8V411EJ6ERlPQMCmZujJM563FEDkJJhl1qoiRfIMwwzDXQlAHxb+dLnyjttN+yhg5cyQMzlXlY970IxOtNF2rPNs2+OW+DE46qu33zd9TqmObXGrVHgc5iDTnWAeXRhNDw7A9NYVF7HQptYk307H+krELxTQPLYEcw66PMhJWcC0GWEdyZGT1jDEWuZzzwJBXOjgVVzY6kaotMaEsfP/8j75kBRYiOEKn56N8EU9E+nRCjWw9cYBVvVV92EXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=vREgiBgmeRhS0JA5vTBlK5oiH6yfA0mK5OQ3/x28zNE=;
+ b=i9dCeH60yB8b5RlRUNpdTHMGwaRkcUM6faQe/fjSjEHR8cBLikcP8P2O/bk9+Lwl4vPFMmsaCViYIthPAq/CE7uNwNF48TUhSPMqv+Tl8oFF7V3OxsFQY4spe6EmgSUDygWoSOjeYptsVtrwCInfUhU5MQTfm8qOQsy9srDSxPtH0VKOcyEBFPgsmHh5hTBIq6IJXtvGwQp3w6BUbq+703BmlF4KFbGcOy8winGmugzFmmVUoFwCdmGBrZz4XAf+7Mr2iGwNCdNykWsQ2/u1GIdJkJbqbd/BZPcOs5b6gotGqcNgj1oN2++njynL2XWJjj7UbhhNSBIwb0qgDr0QrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rlX6Yo3sUaCNRW5NRjFyl2rDQUzXKyjGDeUsaX4WQ18=;
- b=xom9gkCVZjIAx1Y5uBexXHcULMDwXgBjYcc9XU7oXHPpggL/kg+VXq2sFzDXVppv3v+2jzeNv3bsh8tFX0Q27r6Ss5oYcmgUnqZNY8tI7qB4oH+9YN7y+NdChZ0Tc6l06e4lobFyIdnjgbd1Pn7j9ngGNWvLMn8C5FJPDyIGNx4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <c7a5033d-78d9-49b4-9227-c9e43c2d5997@amd.com>
-Date: Mon, 4 Dec 2023 09:38:30 +0100
-MIME-Version: 1.0
+ bh=vREgiBgmeRhS0JA5vTBlK5oiH6yfA0mK5OQ3/x28zNE=;
+ b=Zv7X9QjhH4NBTlA3lwObQdnRu/yCsg+TVKfC0S8KDnSY5QrH+vO+qPgEeOPH2NBPfkCiUwo4/QJieKNF2Sl5yiVRAhm8XxaPrpChLSrtlBMimfkU+t4NUMwFcY2AmIQW5ZJsV9iIW3BU8TVzW07Cjq4ZPNgTnLxI9yBQIp+SawkcVuEXZtIH/9+lcQPKNYm5q/bL5dh8P42eojcdhulNzwhWai0sHvTzAjboW2YS4l1Bpxo9E6lEMM6ZNm56RqzMPt+9UrwVjAoUb1YD653csKlT7lc4NJEzA68QLdlaAYHGkxICK1xg0gCEdApGWNQWXk0IgC6VEd/xQb+EorBB2Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <050a57f5-7c04-4b4a-848d-fd2f0993a9a7@suse.com>
+Date: Mon, 4 Dec 2023 09:41:54 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/arm: Add emulation of Debug Data Transfer
- Registers
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>, <sstabellini@kernel.org>,
-	<stefano.stabellini@amd.com>, <julien@xen.org>, <bertrand.marquis@arm.com>,
-	<Volodymyr_Babchuk@epam.com>
-CC: <xen-devel@lists.xenproject.org>
-References: <20231201185009.1719183-1-ayan.kumar.halder@amd.com>
+Subject: Re: [PATCH v5 5/7] xen: ifdef inclusion of <asm/grant_table.h> in
+ <xen/grant_table.h>
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20231201185009.1719183-1-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1701453087.git.oleksii.kurochko@gmail.com>
+ <cdc20255540a66ba0b6946ac6d48c11029cd3385.1701453087.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <cdc20255540a66ba0b6946ac6d48c11029cd3385.1701453087.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR0P281CA0197.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ad::20) To DU2PR04MB8790.eurprd04.prod.outlook.com
+ (2603:10a6:10:2e1::23)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3C:EE_|BY5PR12MB4289:EE_
-X-MS-Office365-Filtering-Correlation-Id: d08b8532-4982-4d5f-42fc-08dbf4a4668a
+X-MS-TrafficTypeDiagnostic: DU2PR04MB8790:EE_|AM7PR04MB7094:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5a70368-a799-4847-f83e-08dbf4a4dd29
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	vxhD2+pau8GdpqxQQ5ABMWEtpGvk1zPc5TA20HCROSzqbOy1sn3NMMiU490eJPJFh27cAGewQ5tNo4F6afrY1DKfJG0+3P1XWsRd59BKUoMfHpO5Xyw8oF2NMQhW56wZX9AcaUzXp1SvAALvcl59bmDlPxl2CzmxC86CJ/oQRRTL3jO9CON72I1YPKsCyvlR470qC91h+5SAu8YX9BRnxe1kuiaD30E2IhZBSPKFiDSUfpzioJnKkWgovqVfB762T1S1B3P1QesSJ68bZC+hwo6lZQT6owAHD9yWRbKr/rUotRxIm1htNQS+k4L40Ujxx77hH43aus+QnapOvacD9o14IYDbwzVoKU+DlqIru8545wmcsmYbyzzHGlsNqEX95lDfVK5sRadFVvz0aCiC6rWS1/qhW8slks5ncP1CV7yaWU29/35pGEOewAyecZVkVVcxveCc6sSCiN/DVjf96e7vizHgbh3f2h9Z0PhYgMCH8nTwQZzAW63stTh+4pV0WbPdqEExIP7KcgolBT20LIdidZR/O2wReJcjASZDWsQWxb5v6tVVZbEPT59awcWqoLZrWBa4ftCxOfz8QM4FElQZ5zmLB0DFMKIZk/T0Pw21TOwi8n+e49r+vK8Mn+yoWzggNY1cOdEW05iCoATlkfwHw5sRtURaGmPmL8BFiOzJBS5ShRn5qvL/OT30NB0t0GfoU15M7Sap4LHLTCIkdnKV/BvVp+3MIvuRRh7J88zrlbrskrEQksBpxnontO3SOcTcdg2N1ph2bcdGe2XjwOau7HXuLq7wOw2SSNwP39pXczS1W97W/GwHk1Yt53ys3N2Um3KtkByYLicFxgNerDYYEadW+a97egXyjVEq4adpNtBcdYZdYcnnNAm4KKzY
+	KqUMt2TltPgy7EEesSti+O/t+uoBRjxfTE3jMZCX9jsRtiS23z3J5J6ZWXkkZJKAzI0SD8aEhGd0Zqp/6yOS/NREbFipI1l0p3Fa3BHu19oau1x4baeE4rX8pRztXozb1S158LfvEnRHgb4imjOK5VgTflC9rVoVY+0Yp+XqxsCd6Q1PT/x3viJdMKjAY0tDIRYkud01LjPOC7xje3wPcagelAoWop7G9pxn101zmXrbuT+tHIfLbCB1oPUx0uHkgcYVIKAEKwey+vb+YU4Sdt1khZ+Vv+X2r/pydxFHhjeGuX3Tg0JmKUVCW2cvw1neClP+BqYXjiHacVNGadX4a5EiReiALr8tptAnibysbxV+wN55EwT6eG/uQ7MMYe4e5hesdhvbMtC3kaSHL3Gyzt2PD7k2VVQk/ZzDs0inbVZP78qu2VSZQKUusnvocRvTHXdba8H9yZyzwjo4OrJy+4r123Safk23zyKa/Ec9FNaLt2uxRytCaxBV38pxj5QjvYHLjoU8AA3LNceiPG8JssaC9+PQNEmNNpO/UNHPtQjchJeRvIBqUP6VxQ1jz1xbUfbHe/ikyPhq/yCBq89X8UqDaGt1atFRekzKMQkKaTSMjQtU7LvcKbj3kyKVipy+ZvaV+5kNQ5dTobSA5a6wcQ==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(39850400004)(376002)(396003)(346002)(230173577357003)(230273577357003)(230922051799003)(64100799003)(451199024)(1800799012)(82310400011)(186009)(40470700004)(36840700001)(46966006)(70206006)(16576012)(70586007)(316002)(110136005)(40460700003)(2906002)(5660300002)(31696002)(41300700001)(86362001)(36756003)(4326008)(8936002)(8676002)(81166007)(356005)(82740400003)(44832011)(40480700001)(36860700001)(53546011)(426003)(336012)(83380400001)(47076005)(26005)(2616005)(31686004)(478600001)(36900700001)(43740500002)(2101003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2023 08:38:33.4114
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR04MB8790.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(366004)(396003)(39860400002)(136003)(376002)(346002)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(478600001)(6512007)(2616005)(8936002)(4326008)(8676002)(38100700002)(6916009)(66946007)(54906003)(66476007)(66556008)(316002)(31686004)(26005)(6486002)(53546011)(6506007)(31696002)(86362001)(5660300002)(7416002)(4744005)(2906002)(41300700001)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?L3FiVFRQdGNTY1dJQjB4L3Z6S0R5ckpkeG52Ni9CSDgwWUNFVE1JMHpCeWhi?=
+ =?utf-8?B?Z1pEeDV3ZWRCZkZqWFY2bjlvUkhOa1p4Q3JQaGg1Tk9Jd0lkbEtid2ZtbkR4?=
+ =?utf-8?B?Uk5yMGJ1VWJNNEw3ZzNZeDMvdzE3b1NTeFgrQVpGU1J0TUxWcFdEekJMSGlL?=
+ =?utf-8?B?aDkrQUFSa0FJeE5lYUdjL3RvWnh4eGw3NU10SDNmNmV2NFk4V2Q0aWJOYy9K?=
+ =?utf-8?B?QVI2ZGpmUXdtT2RSVmY0ODFWSUs5YVFoQTZXL3FLbmt3RkdKNWp0eWRHcUs2?=
+ =?utf-8?B?MVVsVWgvRjRwN2duNHRMRERMclVPdHNJa01vN0VIUUQ4WXRvbU9zRUZvZDdh?=
+ =?utf-8?B?QjdaRkNad0U3enBLN1hHUDl0M0xJS2dMOURyb0IzT0dUd2duR2ZDUWxHUC9w?=
+ =?utf-8?B?QW5NbFRxeGlmZmRsZ1VaYWxDMlBlamU5aGJrN3ZQQmhhYTF5endoUmxRZEhr?=
+ =?utf-8?B?SjAzSG50VGpzeHhWQTU4emgxNlB6RWNKUkorOXMzVmhZM2MyQWNmOXFGekVr?=
+ =?utf-8?B?T2sxNngwUGErVmNQZENUVHZWampDcEZVWGREKytIclNYUUw1UUpBc2wrdDc5?=
+ =?utf-8?B?LzV2SDAySlRUQWlnN3ZBaGxSMHd5aHFtSW1mUHRDNnJCNWpjQmhYb2lONnVT?=
+ =?utf-8?B?MzFnZzdYT0QvY3BKaHhwb05IdlNkY3RwbnpwZVdMaWFNdTVlT2ZGT1F3b2lF?=
+ =?utf-8?B?M1VsMXR1VUY5aktjR01laVpTRHdIYmJkY090SzRXSWRWbjh5a2dTU1E3U1da?=
+ =?utf-8?B?MG9qZ3h3a1ZlcWtXSlppby9XTTVOQ3Bydm1XeDJzd2xNUmFFcnhsY3M3dVFH?=
+ =?utf-8?B?MmZBZjNwK0RHMGk4NWVxdjlnNXNzNVBXLzByM2hjQVVESWFwdU5hM3hqQlc4?=
+ =?utf-8?B?Y2dUMngxL1dWZFkzOERlZ0NyYmpWd2RnSEZSU3JDaThiVjhycmMweEtWL1Va?=
+ =?utf-8?B?aUtESERiSG1iaUFrQUZaNjM3c0VuTEJwOFMrTUhMVjJlUVV3UWY4bVZHTkNa?=
+ =?utf-8?B?S1YyOUNSaXJ5MFRFQ05WZHF1REpYY2M1UFpZUnNJcXhuSWl1aGcxNW56UytE?=
+ =?utf-8?B?eFR1U01TeVdFMXRUREVOVGh2WEhEUnVyNnRkZ3VBeHJKTUt1bWkzMVZKVVNY?=
+ =?utf-8?B?ejdxeFhFSnMxUHpsN2Fqb25KNHhzaUhZRWEzalFwazdnYkxsYjU4MWYxd2VJ?=
+ =?utf-8?B?WEY5cGxsVUROaFFsTURnODZ4ZHU5TDZTTlBVcFRyY215Zmh5UzFLVE9XZ0ZU?=
+ =?utf-8?B?ZjRQWGxVMFNlblFySDJxSGJNMXp5a09oc3o5ZnF1MnJya0Z5ZTBqenI1b2RC?=
+ =?utf-8?B?M1dwWE5jSDB0ZldPNFBnWmVja3pwVmNDRkErdTRJZG1uKzg3STFXVVVHZVJT?=
+ =?utf-8?B?ZHhqd1AxeTFoRFBmaTkxNUlQNUVvVCsraEg2SElvTE5IYkZWK1h3Z0wxQUp1?=
+ =?utf-8?B?cTdwNkJBTlUzR0d5TjNkT3kwUkhNenR3SUVuQ2RYYzJYTVk4Q0FkNFh6ZVNp?=
+ =?utf-8?B?YzR1WDVUcmpmS0tlQTFJSmMva1ZremNpc1dqcEx2bXV6NkwzWmdTVGd1d056?=
+ =?utf-8?B?bXNtSUFKNFROT2ZadFZXNzFqc0pvUHJmL2F6U2Ywc2ZQTXN2S0FITjM3Q2pS?=
+ =?utf-8?B?bi9Ld3V0ZEpHL2tUZUpDUWRyY3dOYnFMQUExOGRIeElKcVFsZGtQQW1jOUFQ?=
+ =?utf-8?B?N0x6VmVaelZPSEFRVUkzWHJWVEd6cjFOc2lXM0dIcTBTdnhBbzZuTDJrUDNC?=
+ =?utf-8?B?OXFVdmJNbkhDaTdvT2pzOUoweWp1RDNGYjZzRnpjZlE0TlFWREd0cVdLeUQ1?=
+ =?utf-8?B?WDBGOEtCMmVVek9ZSjRERUFXNmxXM3BmOEJIMU4zbWNuVXJpa2tZWmxaYVRV?=
+ =?utf-8?B?UlQ0RzRFS1lUZWdva1ZCWGltRndtYzZ2K1pVZFBDcmJtMWsvaHJqYlhRSGFQ?=
+ =?utf-8?B?MjAzTEJkamJWM3VKTHlPLy9TZmhuTGVJREtwN0tuL2FyMmdleFR2MXRCN0NB?=
+ =?utf-8?B?QWV6d2NGMlNYcmxjc0dYMHlnNXdxRXhCMzAwejVCbC93b0dvVHE0bVpLYjBV?=
+ =?utf-8?B?S3o4Um9jR1JqMkhWa3REUk9XTXAvOGRDYUtMbUJZaWhWdlVzTUk3TlZNNWRC?=
+ =?utf-8?Q?B0WVk5kq5pIIHJC7qUw1QT9yu?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5a70368-a799-4847-f83e-08dbf4a4dd29
+X-MS-Exchange-CrossTenant-AuthSource: DU2PR04MB8790.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2023 08:41:52.9325
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d08b8532-4982-4d5f-42fc-08dbf4a4668a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3C.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4289
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SHd689cFCzqA3eSges9EcbIKPIqL/G/PIv+IClVYDG/q1eaawYUe4fbYg0faPwoyCUqj+LOwpVAaejI/b/nFFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7094
 
-Hi Ayan,
-
-On 01/12/2023 19:50, Ayan Kumar Halder wrote:
-> Currently if user enables HVC_DCC config option in Linux, it invokes
-> access to debug data transfer registers (ie DBGDTRTX_EL0 on arm64,
-> DBGDTRTXINT on arm32). As these registers are not emulated, Xen injects
-> an undefined exception to the guest. And Linux crashes.
+On 01.12.2023 21:48, Oleksii Kurochko wrote:
+> Ifdef-ing inclusion of <asm/grant_table.h> allows to avoid
+> generation of empty <asm/grant_table.h> for cases when
+> CONFIG_GRANT_TABLE is not enabled.
 > 
-> We wish to avoid this crash by adding a "partial" emulation. DBGDTR_EL0
-> is emulated as TXfull | RXfull.
-TX/RX are status bits of MDCCSR_EL0, not DBGDTR_EL0. This applies here and elsewhere.
-
-> Refer ARM DDI 0487I.a ID081822, D17.3.8, DBGDTRTX_EL0
-> "If TXfull is set to 1, set DTRRX and DTRTX to UNKNOWN"
-> Also D17.3.7 DBGDTRRX_EL0,
-> " If RXfull is set to 1, return the last value written to DTRRX."
+> The following changes were done for Arm:
+> <asm/grant_table.h> should be included directly because it contains
+> gnttab_dom0_frames() macros which is unique for Arm and is used in
+> arch/arm/domain_build.c.
+> <asm/grant_table.h> is #ifdef-ed with CONFIG_GRANT_TABLE in
+> <xen/grant_table.h> so in case of !CONFIG_GRANT_TABLE gnttab_dom0_frames
+> won't be available for use in arch/arm/domain_build.c.
 > 
-> Thus, any OS is expected to read DBGDTR_EL0 and check for TXfull
-> before using DBGDTRTX_EL0. Linux does it via hvc_dcc_init() --->
-> hvc_dcc_check() , it returns -ENODEV. In this way, we are preventing
-> the guest to be aborted.
-> 
-> We also emulate DBGDTRTX_EL0 as RAZ/WI.
-> 
-> We have added emulation for AArch32 variant of these registers as well.
-> Also, we have added handle_read_val_wi() to emulate DBGDSCREXT register
-Emulating DBGDSCREXT is not needed. See below.
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
 
-> to return a specific value (ie TXfull | RXfull) and ignore any writes
-> to this register.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
->  xen/arch/arm/arm64/vsysreg.c         | 21 ++++++++++++++----
->  xen/arch/arm/include/asm/arm64/hsr.h |  3 +++
->  xen/arch/arm/include/asm/cpregs.h    |  2 ++
->  xen/arch/arm/include/asm/traps.h     |  4 ++++
->  xen/arch/arm/traps.c                 | 18 +++++++++++++++
->  xen/arch/arm/vcpreg.c                | 33 +++++++++++++++++++++-------
->  6 files changed, 69 insertions(+), 12 deletions(-)
-> 
-> diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
-> index b5d54c569b..5082dfb02e 100644
-> --- a/xen/arch/arm/arm64/vsysreg.c
-> +++ b/xen/arch/arm/arm64/vsysreg.c
-> @@ -159,9 +159,6 @@ void do_sysreg(struct cpu_user_regs *regs,
->       *
->       * Unhandled:
->       *    MDCCINT_EL1
-> -     *    DBGDTR_EL0
-> -     *    DBGDTRRX_EL0
-> -     *    DBGDTRTX_EL0
->       *    OSDTRRX_EL1
->       *    OSDTRTX_EL1
->       *    OSECCR_EL1
-> @@ -172,11 +169,27 @@ void do_sysreg(struct cpu_user_regs *regs,
->      case HSR_SYSREG_MDSCR_EL1:
->          return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
->      case HSR_SYSREG_MDCCSR_EL0:
-> +    {
-> +        /*
-> +         * Bit 29: TX full, bit 30: RX full
-> +         * Given that we emulate DCC registers as RAZ/WI, doing the same for
-> +         * MDCCSR_EL0 would cause a guest to continue using the DCC despite no
-> +         * real effect. Setting the TX/RX status bits should result in a probe
-> +         * fail (based on Linux behavior).
-> +         */
-> +        register_t guest_reg_value = (1U << 29) | (1U << 30);
-> +
->          /*
->           * Accessible at EL0 only if MDSCR_EL1.TDCC is set to 0. We emulate that
->           * register as RAZ/WI above. So RO at both EL0 and EL1.
->           */
-> -        return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr, 0);
-> +        return handle_ro_read_val(regs, regidx, hsr.sysreg.read, hsr, 0,
-> +                                  guest_reg_value);
-> +    }
-> +    case HSR_SYSREG_DBGDTR_EL0:
-> +    /* DBGDTR[TR]X_EL0 share the same encoding */
-> +    case HSR_SYSREG_DBGDTRTX_EL0:
-> +        return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 0);
->      HSR_SYSREG_DBG_CASES(DBGBVR):
->      HSR_SYSREG_DBG_CASES(DBGBCR):
->      HSR_SYSREG_DBG_CASES(DBGWVR):
-> diff --git a/xen/arch/arm/include/asm/arm64/hsr.h b/xen/arch/arm/include/asm/arm64/hsr.h
-> index e691d41c17..1495ccddea 100644
-> --- a/xen/arch/arm/include/asm/arm64/hsr.h
-> +++ b/xen/arch/arm/include/asm/arm64/hsr.h
-> @@ -47,6 +47,9 @@
->  #define HSR_SYSREG_OSDLR_EL1      HSR_SYSREG(2,0,c1,c3,4)
->  #define HSR_SYSREG_DBGPRCR_EL1    HSR_SYSREG(2,0,c1,c4,4)
->  #define HSR_SYSREG_MDCCSR_EL0     HSR_SYSREG(2,3,c0,c1,0)
-> +#define HSR_SYSREG_DBGDTR_EL0     HSR_SYSREG(2,3,c0,c4,0)
-> +#define HSR_SYSREG_DBGDTRTX_EL0   HSR_SYSREG(2,3,c0,c5,0)
-> +#define HSR_SYSREG_DBGDTRRX_EL0   HSR_SYSREG(2,3,c0,c5,0)
->  
->  #define HSR_SYSREG_DBGBVRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,4)
->  #define HSR_SYSREG_DBGBCRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,5)
-> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
-> index 6b083de204..aec9e8f329 100644
-> --- a/xen/arch/arm/include/asm/cpregs.h
-> +++ b/xen/arch/arm/include/asm/cpregs.h
-> @@ -75,6 +75,8 @@
->  #define DBGDIDR         p14,0,c0,c0,0   /* Debug ID Register */
->  #define DBGDSCRINT      p14,0,c0,c1,0   /* Debug Status and Control Internal */
->  #define DBGDSCREXT      p14,0,c0,c2,2   /* Debug Status and Control External */
-> +#define DBGDTRRXINT     p14,0,c0,c5,0   /* Debug Data Transfer Register, Receive */
-> +#define DBGDTRTXINT     p14,0,c0,c5,0   /* Debug Data Transfer Register, Transmit */
->  #define DBGVCR          p14,0,c0,c7,0   /* Vector Catch */
->  #define DBGBVR0         p14,0,c0,c0,4   /* Breakpoint Value 0 */
->  #define DBGBCR0         p14,0,c0,c0,5   /* Breakpoint Control 0 */
-> diff --git a/xen/arch/arm/include/asm/traps.h b/xen/arch/arm/include/asm/traps.h
-> index 883dae368e..a2692722d5 100644
-> --- a/xen/arch/arm/include/asm/traps.h
-> +++ b/xen/arch/arm/include/asm/traps.h
-> @@ -56,6 +56,10 @@ void handle_ro_raz(struct cpu_user_regs *regs, int regidx, bool read,
->  void handle_ro_read_val(struct cpu_user_regs *regs, int regidx, bool read,
->                          const union hsr hsr, int min_el, register_t val);
->  
-> +/* Read only as value provided with 'val' argument, write ignore */
-> +void handle_read_val_wi(struct cpu_user_regs *regs, int regidx,
-> +                        const union hsr hsr, int min_el, register_t val);
-> +
->  /* Co-processor registers emulation (see arch/arm/vcpreg.c). */
->  void do_cp15_32(struct cpu_user_regs *regs, const union hsr hsr);
->  void do_cp15_64(struct cpu_user_regs *regs, const union hsr hsr);
-> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-> index 3784e8276e..f5ab555b19 100644
-> --- a/xen/arch/arm/traps.c
-> +++ b/xen/arch/arm/traps.c
-> @@ -1676,6 +1676,24 @@ void handle_ro_read_val(struct cpu_user_regs *regs,
->      advance_pc(regs, hsr);
->  }
->  
-> +/* Read as value provided with 'val' argument of this function, write ignore */
-> +void handle_read_val_wi(struct cpu_user_regs *regs,
-> +                        int regidx,
-> +                        const union hsr hsr,
-> +                        int min_el,
-> +                        register_t val)
-> +{
-> +    ASSERT((min_el == 0) || (min_el == 1));
-> +
-> +    if ( min_el > 0 && regs_mode_is_user(regs) )
-> +        return inject_undef_exception(regs, hsr);
-> +
-> +    set_user_reg(regs, regidx, val);
-> +
-> +    advance_pc(regs, hsr);
-> +}
-> +
-> +
->  /* Read only as read as zero */
->  void handle_ro_raz(struct cpu_user_regs *regs,
->                     int regidx,
-> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-> index 39aeda9dab..3f1276f96e 100644
-> --- a/xen/arch/arm/vcpreg.c
-> +++ b/xen/arch/arm/vcpreg.c
-> @@ -548,20 +548,37 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
->          break;
->      }
->  
-> -    case HSR_CPREG32(DBGDSCRINT):
-> +    case HSR_CPREG32(DBGDSCREXT):
-1) Why did you invert DBGDSCRINT with DBGDSCREXT? The former should appear first to keep the correct order.
+Not really, no: In particular ...
 
-2) Take a look at what I did for arm64. I emulated TX/RX only in MDCCSR_EL0 and not in MDSCR_EL1 (on arm32,
-DBGDSCRINT, DBGDSCREXT respectively). This is because according to Arm ARM for MDSCR_EL1 TXfull/RXfull:
-"When OSLSR_EL1.OSLK == 0, software must treat this bit as UNK/SBZP"
-On arm64, we emulate OSLSR_EL1 as (1<<3) meaning OSLK is 0. UNK/SBZP means RAZ/WI. This implies that
-the only way to access the TXfull/RXfull flags is through MDCCSR_EL0.
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -15,6 +15,7 @@ config CORE_PARKING
+>  config GRANT_TABLE
+>  	bool "Grant table support" if EXPERT
+>  	default y
+> +	depends on ARM || X86
 
-For arm32, we should do the same. Emulate only RINT and keep REXT as RAZ/WI. The only additional change would
-be to emulate (at the moment it is unhandled) DBGOSLSR similar to what we do for arm64.
+... this I explicitly said I consider wrong to add.
 
-> +    {
->          /*
-> -         * Read-only register. Accessible by EL0 if DBGDSCRext.UDCCdis
-> -         * is set to 0, which we emulated below.
-> +         * Bit 29: TX full, bit 30: RX full
-> +         * Given that we emulate DCC registers as RAZ/WI, doing the same for
-> +         * DBGDSCRint would cause a guest to continue using the DCC despite no
-> +         * real effect. Setting the TX/RX status bits should result in a probe
-> +         * fail (based on Linux behavior).
->           */
-> -        return handle_ro_raz(regs, regidx, cp32.read, hsr, 1);
-> +        register_t guest_reg_value = (1U << 29) | (1U << 30);
->  
-> -    case HSR_CPREG32(DBGDSCREXT):
-> +        return handle_read_val_wi(regs, regidx, hsr, 1,
-> +                                  guest_reg_value);
-> +    }
-> +
-> +    case HSR_CPREG32(DBGDSCRINT):
-> +    {
->          /*
-> -         * Implement debug status and control register as RAZ/WI.
-> -         * The OS won't use Hardware debug if MDBGen not set.
-> +         * Bit 29: TX full, bit 30: RX full
-> +         * Given that we emulate DCC registers as RAZ/WI, doing the same for
-> +         * DBGDSCRint would cause a guest to continue using the DCC despite no
-> +         * real effect. Setting the TX/RX status bits should result in a probe
-> +         * fail (based on Linux behavior).
->           */
-> -        return handle_raz_wi(regs, regidx, cp32.read, hsr, 1);
-> +        register_t guest_reg_value = (1U << 29) | (1U << 30);
-> +
-> +        return handle_ro_read_val(regs, regidx, cp32.read, hsr, 1,
-> +                                  guest_reg_value);
-DBGDSCRINT is accessible at EL0 if DBGDSCREXT.UDCCdis is 0 (we emulate REXT as RAZ). There is
-even a comment about that which you removed (please restore). Therefore, the minimum EL passed
-to handle_ro_read_val should be 0 not 1.
-
-P.S. The current code is incorrect in this regard.
-
-> +    }
->  
-> +    case HSR_CPREG32(DBGDTRTXINT):
-This would be incorrect. Adding TXINT here would result in calling handle_raz_wi with minimum EL == 1,
-but TXINT can be accessed at EL0.
-
-This should be:
-    /* DBGDTR[TR]XINT share the same encoding */
-    case HSR_CPREG32(DBGDTRTXINT):
-        return handle_raz_wi(regs, regidx, cp32.read, hsr, 0);
-
->      case HSR_CPREG32(DBGVCR):
->      case HSR_CPREG32(DBGBVR0):
->      case HSR_CPREG32(DBGBCR0):
-
-
-~Michal
+Jan
 
