@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB6E9803AA8
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 17:45:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647181.1009975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F375803AD0
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 17:50:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647186.1009985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAC4b-0002vA-T5; Mon, 04 Dec 2023 16:45:33 +0000
+	id 1rAC9F-0004rJ-Kh; Mon, 04 Dec 2023 16:50:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647181.1009975; Mon, 04 Dec 2023 16:45:33 +0000
+Received: by outflank-mailman (output) from mailman id 647186.1009985; Mon, 04 Dec 2023 16:50:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAC4b-0002rr-Pm; Mon, 04 Dec 2023 16:45:33 +0000
-Received: by outflank-mailman (input) for mailman id 647181;
- Mon, 04 Dec 2023 16:45:32 +0000
+	id 1rAC9F-0004oN-HT; Mon, 04 Dec 2023 16:50:21 +0000
+Received: by outflank-mailman (input) for mailman id 647186;
+ Mon, 04 Dec 2023 16:50:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CG6/=HP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAC4a-0002rl-1d
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 16:45:32 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wjtD=HP=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rAC9E-0004oH-NE
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 16:50:20 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8937b64d-92c4-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 17:45:31 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40bd5eaa66cso31562235e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 08:45:31 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e13-20020a5d594d000000b0033350f5f94dsm1903408wri.101.2023.12.04.08.45.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Dec 2023 08:45:30 -0800 (PST)
+ id 3546316b-92c5-11ee-98e5-6d05b1d4d9a1;
+ Mon, 04 Dec 2023 17:50:19 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 49EC24EE0C8A;
+ Mon,  4 Dec 2023 17:50:19 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +39,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8937b64d-92c4-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701708330; x=1702313130; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KTMdSgNE/IWCX4CDotv9Oadqb/mh4kxpk7kwPcr5KfQ=;
-        b=dcTCHitGVQr1OqyH74vDLF1Zs47eaKHgV+ku5nntEAnI1L36YcTnQ+Ub0fsffP1v2i
-         g5v5qY+53e1PKHi4G/0nzjyIocV3jzrnC06NJTTKQsaFZcIaNxWvshItWULNY0Wjbj2X
-         8C5wbabHD+TBbtQaPSqk53vzMYiJYmy5yiWeI6Hew2XHR9i5GjXGIIey0JrusE5Tm2Wj
-         OStj2dnGZku4ORRnEoSFdYOE7a1SULbYAv+fMjlPUA4LCSXTGEWAUWh4w95Y8h9dKzQY
-         HaLc7A0GKv0TBsgXPbtg/OgU7EG52WB9uj+VggH0t687nPz+ugQ2LjC+7Jjl+xVPTPE0
-         rKcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701708330; x=1702313130;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KTMdSgNE/IWCX4CDotv9Oadqb/mh4kxpk7kwPcr5KfQ=;
-        b=pormgWsJ0Ud6WPn4QzAFtCKZKjCqnTH0z6x5NRdFqXZIPe1mFR3FifBQQftt3n7dO4
-         etCbI8apcuuqUeSV2XeQDJkCjEremnAhIWaNRyFrKVwDLJy97tJpLVJfNAerJovh3jDm
-         c7gm4yrPXigQmFEwGVumTIIBTTqK9CXRzgHLzjmDMbbUlRm4xKwGUwwZj5MCmJSDSEp9
-         IGKjl6S+cLPiK76w6MqVkYoPYTNwUQ2+zOutGgbdm6Mh9Psb2tDX5R6/lu+ea+IgHe8s
-         +EhjVwsz+V4t67Wy4bWEEyRpW7e5tFE7OO0ppudo/qPPzm4aNNpqjUFiA6jnSQwoO9Kz
-         /xaA==
-X-Gm-Message-State: AOJu0YyGfXHM+wqrnaRJMTukgT2tM8pOmUjroZHJHnpAREU566jTlKJf
-	lFcgjcIgX5YTmFM0FkBWGAj5
-X-Google-Smtp-Source: AGHT+IELNdyWG3rBx4vgmLcS8y3ySQjA7auhTKuqh1tYhzmFOcwQi92RO1Qc4B/FpdMjfAvUT3+j6Q==
-X-Received: by 2002:a05:600c:458e:b0:40b:5e59:cca2 with SMTP id r14-20020a05600c458e00b0040b5e59cca2mr2903371wmo.131.1701708330500;
-        Mon, 04 Dec 2023 08:45:30 -0800 (PST)
-Message-ID: <ca864b85-db6a-47fd-ba0d-d95614e770dd@suse.com>
-Date: Mon, 4 Dec 2023 17:45:29 +0100
+X-Inumbo-ID: 3546316b-92c5-11ee-98e5-6d05b1d4d9a1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/2] x86/p2m: preparation work for
- xenmem_add_to_physmap_one()
-Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, xen-devel@lists.xenproject.org
-References: <cover.1701344917.git.federico.serafini@bugseng.com>
- <aeafaee0fc4a507f6ba0c10e8fed90ed73a6bd6d.1701344917.git.federico.serafini@bugseng.com>
- <43513284-c28a-407b-9567-2f120b2e322f@suse.com>
- <e349b85b-53b4-4850-a1af-5d99ff7eba82@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e349b85b-53b4-4850-a1af-5d99ff7eba82@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
+Date: Mon, 04 Dec 2023 17:50:19 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com, bertrand.marquis@arm.com,
+ julien@xen.org, Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?R?=
+ =?UTF-8?Q?oger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 6/7] xen/x86: remove stale comment
+In-Reply-To: <fa2971c0-10fc-48b8-9031-53e56ae08319@suse.com>
+References: <cover.1701270983.git.nicola.vetrini@bugseng.com>
+ <d06ee9f139392045fb8d927ff3a0c38fdc5080c6.1701270983.git.nicola.vetrini@bugseng.com>
+ <48f44ee5-95c5-4656-97f1-7fa6d0fdc53c@suse.com>
+ <528ef7334c091ad9acb0316cf4b5558b@bugseng.com>
+ <5b48da47a91a8e339b202a78bc5fd1eb@bugseng.com>
+ <fa2971c0-10fc-48b8-9031-53e56ae08319@suse.com>
+Message-ID: <f20ee3bf483c040c82ba5540a2102953@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04.12.2023 16:42, Federico Serafini wrote:
-> On 04/12/23 15:51, Jan Beulich wrote:
->> On 30.11.2023 16:48, Federico Serafini wrote:
->>> The objective is to use parameter name "gfn" for
->>> xenmem_add_to_physmap_one().
->>> Since the name "gfn" is currently used as identifier for a local
->>> variable, bad things could happen if new uses of such variable are
->>> committed while a renaming patch is waiting for the approval.
->>> To avoid such danger, as first thing rename the local variable from
->>> "gfn" to "gmfn".
->>
->> "..., in line with XENMAPSPACE_gmfn which is the only case it is used
->> with."
->>
->> This is to justify the name not matching our generally aimed at "gfn"
->> and "mfn" scheme.
->>
->>> No functional change.
->>>
->>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On 2023-12-04 17:40, Jan Beulich wrote:
+> On 04.12.2023 17:26, Nicola Vetrini wrote:
+>> On 2023-12-01 17:57, Nicola Vetrini wrote:
+>>> On 2023-11-30 17:41, Jan Beulich wrote:
+>>>> On 29.11.2023 16:24, Nicola Vetrini wrote:
+>>>>> The comment referred to the declaration for do_mca, which
+>>>>> now is part of hypercall-defs.h, therefore the comment is stale.
+>>>> 
+>>>> If the comments were stale, the #include-s should also be able to
+>>>> disappear?
+>> 
+>>>>> --- a/xen/arch/x86/include/asm/hypercall.h
+>>>>> +++ b/xen/arch/x86/include/asm/hypercall.h
+>>>>> @@ -12,7 +12,7 @@
+>>>>>  #include <xen/types.h>
+>>>>>  #include <public/physdev.h>
+>>>>>  #include <public/event_channel.h>
+>>>>> -#include <public/arch-x86/xen-mca.h> /* for do_mca */
+>>>>> +#include <public/arch-x86/xen-mca.h>
+>>>>>  #include <asm/paging.h>
+>>>> 
+>>>> Here otoh I'm not even sure this public header (or the others) is
+>>>> (are)
+>>>> really needed.
+>>>> 
+>>> 
+>>> I confirm this. It build even without this header.
+>> 
+>> It does appear to be needed after all. I did two differential pipeline
+>> runs, and some jobs fail to compile when I remove the header (e.g.,
+>> [1]). Looking trough the build log, it's not entirely clear what is 
+>> the
+>> relationship, but it seems related to some use of this struct defined 
+>> in
+>> xen-mca.h:
+>> 
+>> typedef struct xen_mc xen_mc_t;
+>> DEFINE_XEN_GUEST_HANDLE(xen_mc_t);
 > 
-> There is an use of "gfn" also few lines outside of the
-> switch statement, within an if condition where also XENMAPSPACE_gmfn is
-> involved:
-> what is true is that "gfn" is used only when space == XENMAPSPACE_gmfn.
+> That do_mca()'s parameter type, so in a way the comment is still 
+> correct
+> then.
+> 
+> Jan
 
-Well, sure - me saying "case" wasn't meant to limit things to the switch()
-statement.
+Yeah, this patch can be dropped.
 
-> What do you think about improve the description by adding:
-> "..., in line with XENMAPSPACE_gmfn which is the only *space* it is used
-> with."
-
-Fine with me.
-
-> However, the description improvement can be done on commit?
-
-It can. Nevertheless you want to avoid getting into the habit of asking
-for things to be done while committing. Strictly speaking on-commit
-editing isn't entirely correct, as committing ought to be a purely
-mechanical operation. In how far a particular committer is willing to
-deviate from that should be left to them.
-
-Jan
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
