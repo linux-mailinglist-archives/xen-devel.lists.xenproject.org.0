@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14F6A803784
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 15:51:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647083.1009795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 880FD80378E
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 15:52:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647090.1009805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAAHu-0001S5-N8; Mon, 04 Dec 2023 14:51:10 +0000
+	id 1rAAIc-0002Ka-1K; Mon, 04 Dec 2023 14:51:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647083.1009795; Mon, 04 Dec 2023 14:51:10 +0000
+Received: by outflank-mailman (output) from mailman id 647090.1009805; Mon, 04 Dec 2023 14:51:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAAHu-0001QM-KY; Mon, 04 Dec 2023 14:51:10 +0000
-Received: by outflank-mailman (input) for mailman id 647083;
- Mon, 04 Dec 2023 14:51:09 +0000
+	id 1rAAIb-0002HS-U0; Mon, 04 Dec 2023 14:51:53 +0000
+Received: by outflank-mailman (input) for mailman id 647090;
+ Mon, 04 Dec 2023 14:51:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PgPa=HP=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1rAAHt-0001Q8-48
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 14:51:09 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CG6/=HP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rAAIa-0001Q8-Bm
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 14:51:52 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8df6a82c-92b4-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 15:51:08 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-595-7kVZWR21Pym7Nfk5yaUfnQ-1; Mon, 04 Dec 2023 09:51:04 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6976685A59D;
- Mon,  4 Dec 2023 14:51:03 +0000 (UTC)
-Received: from localhost (unknown [10.39.192.49])
- by smtp.corp.redhat.com (Postfix) with ESMTP id C43E440C6EB9;
- Mon,  4 Dec 2023 14:51:02 +0000 (UTC)
+ id a8a2037d-92b4-11ee-98e5-6d05b1d4d9a1;
+ Mon, 04 Dec 2023 15:51:51 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-40bda47c489so25198965e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 06:51:51 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ b18-20020a05600c4e1200b0040c08567bbfsm6274349wmq.17.2023.12.04.06.51.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Dec 2023 06:51:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,100 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8df6a82c-92b4-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701701466;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xEOIXWa0DaRIIsxxh+p/yqRV4ny33fxYNbdSCdVwz7E=;
-	b=JJ0te5dURjetktuKM6aa8Gm4BKdjtXzGlSRyL8wQ/7txs8PI216obBMk/jCrf5Gy2ENO+4
-	lNxKZBwXYbnIZVl3om3C6cwH7oXHwWoiSCJxPM1XhMZzt+6OGy7Oy3dHCmzC1JAEzGZHGx
-	LW0URNtHrAhuTwSGrgBSm+FSblEt/7E=
-X-MC-Unique: 7kVZWR21Pym7Nfk5yaUfnQ-1
-Date: Mon, 4 Dec 2023 09:51:01 -0500
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>,
-	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
-	Alberto Garcia <berto@igalia.com>,
-	Emanuele Giuseppe Esposito <eesposit@redhat.com>,
-	John Snow <jsnow@redhat.com>, Eric Blake <eblake@redhat.com>,
-	Wen Congyang <wencongyang2@huawei.com>, qemu-block@nongnu.org,
-	xen-devel@lists.xenproject.org, Coiby Xu <Coiby.Xu@gmail.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Xie Changlong <xiechanglong.d@gmail.com>,
-	Ari Sundholm <ari@tuxera.com>, Li Zhijian <lizhijian@fujitsu.com>,
-	Cleber Rosa <crosa@redhat.com>, Juan Quintela <quintela@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
-	Zhang Chen <chen.zhang@intel.com>, Peter Xu <peterx@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Leonardo Bras <leobras@redhat.com>,
-	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
-	Fam Zheng <fam@euphon.net>, Fabiano Rosas <farosas@suse.de>
-Subject: Re: [PATCH 01/12] virtio-scsi: replace AioContext lock with
- tmf_bh_lock
-Message-ID: <20231204145101.GB1492005@fedora>
-References: <20231129195553.942921-1-stefanha@redhat.com>
- <20231129195553.942921-2-stefanha@redhat.com>
- <ZW3KFQ3PsdbVFymi@redhat.com>
+X-Inumbo-ID: a8a2037d-92b4-11ee-98e5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1701701511; x=1702306311; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hjOdG3wuffTyVvy9BYMeUZ43lJdjY7OuszqYTsw5Z5c=;
+        b=PlcTot3WhIlBOiP2RapcieIOpYBXn3hN5v5seI2WocsTL2Ficd3yYeWmxsrZMoAVEN
+         N2dkt/7PPQBYrJ9yIE9S7PjIaN7fG47CIxZ0L0VOSf2Fi2pC7wF32nYGxzLI0B9BcdgY
+         Js9nKvysPTM8HvVKAKKjui7ZgdobE7btXNiJ3oaeA3cKZnv70GK8cGBpNxeCZeFjyH3f
+         xK3sQ3Ri/hr+cbwgteM6MSgXXKIZMwZOI7wH2oPxjYwmQXEgTM03U6fyK/sGzOfU/wDA
+         ICBjsu+P2u79RAqkDy4NwbB6GW9ND1J0MTfi2APw+mKSVL7SGqBahQKyFJ5agqmCljLd
+         NWwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701701511; x=1702306311;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hjOdG3wuffTyVvy9BYMeUZ43lJdjY7OuszqYTsw5Z5c=;
+        b=CYHuUh1B9mNonzwhLU57UxSNEWJJg6N1ZDu6WjGBNULP1Gq/wxI3hPyWUZQ0XxewLr
+         x84alKL6UvzXEwzIjwj9tX6XEXUh4XWXwZXYB6rVcBepjqK9ZnmRr5TM3LC2GJrZND9n
+         PwPI2JwVDGjKGijLWRK75jaO6EvueCiiSRZRkHZBOz66QKw1bBOARE0tCSxGK345RqQ8
+         6PIN/cIhfRdX2T5V/XPnNYSX0ZOvlG9Owl8PDJVanAdNQUp/8EAcbLKk8FWv506d4jmb
+         OBtlxSZCl3w4bU6Cw7f5/i2PnNOJyFhAxdaO/cj0WMcHbA00oAL+WIpDeJgUSCXgRp7i
+         c06g==
+X-Gm-Message-State: AOJu0YyMAymK4mocm8pdf+JLp0l9yZewU/0FtR+VEAUZe/FrRpMjSw0H
+	cffH+SrMkeMmjHzpOa21yXfBB/FLtKH2jnxL/+MR
+X-Google-Smtp-Source: AGHT+IGyZaoRPqsBDcqgVOQHwqQ1NyiG7wswiID66shHF711NODk4yYtctqrtQgnURBi1ppWPgWFvg==
+X-Received: by 2002:a05:600c:601a:b0:40b:5e59:c557 with SMTP id az26-20020a05600c601a00b0040b5e59c557mr2510343wmb.129.1701701511284;
+        Mon, 04 Dec 2023 06:51:51 -0800 (PST)
+Message-ID: <43513284-c28a-407b-9567-2f120b2e322f@suse.com>
+Date: Mon, 4 Dec 2023 15:51:50 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="mjl6rdY6Uz2gkcPm"
-Content-Disposition: inline
-In-Reply-To: <ZW3KFQ3PsdbVFymi@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 1/2] x86/p2m: preparation work for
+ xenmem_add_to_physmap_one()
+Content-Language: en-US
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, xen-devel@lists.xenproject.org
+References: <cover.1701344917.git.federico.serafini@bugseng.com>
+ <aeafaee0fc4a507f6ba0c10e8fed90ed73a6bd6d.1701344917.git.federico.serafini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aeafaee0fc4a507f6ba0c10e8fed90ed73a6bd6d.1701344917.git.federico.serafini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 30.11.2023 16:48, Federico Serafini wrote:
+> The objective is to use parameter name "gfn" for
+> xenmem_add_to_physmap_one().
+> Since the name "gfn" is currently used as identifier for a local
+> variable, bad things could happen if new uses of such variable are
+> committed while a renaming patch is waiting for the approval.
+> To avoid such danger, as first thing rename the local variable from
+> "gfn" to "gmfn".
 
---mjl6rdY6Uz2gkcPm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+"..., in line with XENMAPSPACE_gmfn which is the only case it is used
+with."
 
-On Mon, Dec 04, 2023 at 01:46:13PM +0100, Kevin Wolf wrote:
-> Am 29.11.2023 um 20:55 hat Stefan Hajnoczi geschrieben:
-> > Protect the Task Management Function BH state with a lock. The TMF BH
-> > runs in the main loop thread. An IOThread might process a TMF at the
-> > same time as the TMF BH is running. Therefore tmf_bh_list and tmf_bh
-> > must be protected by a lock.
-> >=20
-> > Run TMF request completion in the IOThread using aio_wait_bh_oneshot().
-> > This avoids more locking to protect the virtqueue and SCSI layer state.
-> >=20
-> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
->=20
-> The second part reminds me that the implicit protection of the virtqueue
-> and SCSI data structures by having all accesses in a single thread is
-> hard to review and I think we wanted to put some assertions there to
-> check that we're really running in the right thread. I don't think we
-> have done that so far, so I suppose after this patch would be the place
-> in the series to add them, before we remove the protection by the
-> AioContext lock?
+This is to justify the name not matching our generally aimed at "gfn"
+and "mfn" scheme.
 
-Thanks for reminding me. I will add assertions in the next revision of
-this series.
+> No functional change.
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 
-Stefan
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---mjl6rdY6Uz2gkcPm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmVt51UACgkQnKSrs4Gr
-c8hFWgf+I5YP/4aOTKFaILLn7G6zRxMS0IOYp/agq08hZZX5uuODZdNJUtpvigRH
-223SAFBeEWaIbzUlnbaUtw7/jucFuBfA6WsxCM9wwr/iL0AH9pHzDjnfY3XbJIyp
-JsKSmTxS18OXWoK+mhrD6avFK8h9UKa+L5VV74gzbnjSmpQIBwXsSVzBjmton24v
-c2tQIyRtBQiwZkgRJSa8GgzB4OPrXIQ9u0WfjXx0tOOJAXcIrTOPu6TYFDM/BbWH
-6DP0WCKwetByfeC8aMEnU4F1weafWWk5xEeX5cQRWsECNbgyqIgfBTK8PgOSqC0M
-bO4Kx4X2LBokyHJOzdsOT29Qh9pNvQ==
-=xK/8
------END PGP SIGNATURE-----
-
---mjl6rdY6Uz2gkcPm--
-
+Jan
 
