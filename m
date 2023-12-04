@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 354628035A0
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 14:55:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.646987.1009655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C09A803616
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 15:10:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.646998.1009664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA9Q9-00047z-E5; Mon, 04 Dec 2023 13:55:37 +0000
+	id 1rA9eV-00007B-IL; Mon, 04 Dec 2023 14:10:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 646987.1009655; Mon, 04 Dec 2023 13:55:37 +0000
+Received: by outflank-mailman (output) from mailman id 646998.1009664; Mon, 04 Dec 2023 14:10:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA9Q9-00045f-AP; Mon, 04 Dec 2023 13:55:37 +0000
-Received: by outflank-mailman (input) for mailman id 646987;
- Mon, 04 Dec 2023 13:55:36 +0000
+	id 1rA9eV-00005P-FT; Mon, 04 Dec 2023 14:10:27 +0000
+Received: by outflank-mailman (input) for mailman id 646998;
+ Mon, 04 Dec 2023 14:10:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bwcF=HP=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rA9Q8-00045Z-5E
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 13:55:36 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ <SRS0=uft2=HP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rA9eU-00005J-DV
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 14:10:26 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cbbc8df2-92ac-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 14:55:34 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-50bf3efe2cbso1280416e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 05:55:34 -0800 (PST)
+ id de86ef46-92ae-11ee-98e5-6d05b1d4d9a1;
+ Mon, 04 Dec 2023 15:10:25 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-40c09dfd82aso16075425e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 06:10:25 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ ay31-20020a05600c1e1f00b004080f0376a0sm15156173wmb.42.2023.12.04.06.10.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Dec 2023 06:10:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,139 +44,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cbbc8df2-92ac-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: de86ef46-92ae-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1701698134; x=1702302934; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FV2Oq2v1SxYDnRxaqu0JYtg4pnX8gVxl1mHoZ5zChlA=;
-        b=AKl9xoi1yp6BEGAUjfmPCCPH1NiptWS/E6McSRcNGUlyAIXHv4cfPF//W955z9eRNv
-         RITEcNOeqc3rgBBcPccszTwGbvwMjPyZkeTOqMwQqg7x6TuMoqEl4snCLJkZcxuWB0Qp
-         27uZyOZF93pgKBZqik1LfLilWsQxFEqjpssCI=
+        d=citrix.com; s=google; t=1701699024; x=1702303824; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=g+1JIDq/jNQnEDgf7q5xQmXB2HwG4wjc80W59a30rXM=;
+        b=fxUCAVgK8z0bG68dbWQWUTl5UjBBcufjrAkgJdoLGKBGYVB9ufsShWKL8ovnA38onh
+         iL5dx4LXm3i5jT6ClmWxC4NPoS1t/sqZAsy9Sjtt2cCXd84FrDVvZ0q7NfCAZDeJcb9p
+         GSAB2tMyiKr7fbFjUaz4i7xE4QBjRMV58MAik=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701698134; x=1702302934;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FV2Oq2v1SxYDnRxaqu0JYtg4pnX8gVxl1mHoZ5zChlA=;
-        b=bknOI7kBmHcdWoXZS90G3ffIFQJ9N7mM78VjwsndRcct2LMObj/aqVZnTOk7ks/tZo
-         Mm/Ggdr1On5myHfynVtiV97yevnddCdmDcaXOqjZwQxmirBEy0s/jX9HRRVsse84qUuK
-         xZ/+boG4CmXSDpSNypJr3zxHpEWgz9cISIC6bmUI0gyxmmtVBGORpdasxeQG7eTujQ3f
-         ZpomFV344gJ6o7RDqM9ZHGqnQs/8tLaR0WCzgZIIFJPLvoCGlHLClN71C8XGlTvxPh+G
-         6fL5rdDJIXzX4XxGH4JB+YYhta3dMMNAcpSkzrH7iUZuyGHAcwv9XVZoyVJ170WYvUWK
-         WkDw==
-X-Gm-Message-State: AOJu0YzPMDR4rdvh5cb1VjOHOP09fIpE/114LZz2KOZI9VKnlPyyPpS3
-	YU8po9aee0N8gwXpUHqdjjVPhRME1k1HR/d5R9NNaA==
-X-Google-Smtp-Source: AGHT+IGHzWYoJ/1gQc6DR9B6EQWIz4qsLCO9KpeXmgI4+91jKT8A7tlNEu5w3frn5fKV/A4Aibk5cOJYuVloFma+d9A=
-X-Received: by 2002:a05:6512:370c:b0:50b:e694:e7fe with SMTP id
- z12-20020a056512370c00b0050be694e7femr618762lfr.260.1701698134045; Mon, 04
- Dec 2023 05:55:34 -0800 (PST)
+        d=1e100.net; s=20230601; t=1701699024; x=1702303824;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=g+1JIDq/jNQnEDgf7q5xQmXB2HwG4wjc80W59a30rXM=;
+        b=rw404Z2MVU/U2dHvDu0fMv1oPGqJ2CQVAEc6eBmc5854uv3qWYh7tiSU7vw9S/8Ng7
+         t3d1ZYA6AMAu8RJn13hY3YviNycH9gcP2+BtzA1msnY0rFTw+gdG0it+hUYB333vjOkT
+         DKYrjSg38/SKUbcngre8YepZ7RR+vbfwn7SuepXoNdGjqso+9WvbZ2ielNBzp/xoRbhk
+         /LOoM6C2v2HmJrNvLwz7YP4tbOU61KtN2X0znm/Jm9nXcZ3/MZL1I/+hGQqhjTSBAt5O
+         pLaFGgibCUukkeYUapZooVSm4FMw9JluUfyh8OIcEjxHeHKxRR0poELNYHz0a38Tuzm0
+         xq8w==
+X-Gm-Message-State: AOJu0Yzu2VzQE4HKEQoh1O5c0i83/pJBa+lptt1kZoFxuc6auXpZfeGv
+	AKR/wfOduhtkS4esC5Z5BMhzhg==
+X-Google-Smtp-Source: AGHT+IFyfcNdvBS35vsoa+AawHejHbNi8vcBQUlxsSUA7VjPZltlc5eVmQVE3764IgNIFwbze2aN1w==
+X-Received: by 2002:a05:600c:4746:b0:40b:5e59:ccb2 with SMTP id w6-20020a05600c474600b0040b5e59ccb2mr2761284wmo.147.1701699024637;
+        Mon, 04 Dec 2023 06:10:24 -0800 (PST)
+Date: Mon, 4 Dec 2023 15:10:23 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v9 1/2] xen/vpci: header: status register handler
+Message-ID: <ZW3dzyMsZKOClZNZ@macbook>
+References: <20231201154552.3066321-1-stewart.hildebrand@amd.com>
+ <20231201154552.3066321-2-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
-References: <2b59a3a2-d2f3-4d29-ab40-3f630fd497fe@suse.com>
- <CA+zSX=Zenkkyv2cQD-CKt=i90YUxxf=B_AuLgh82HDRUEkXJcg@mail.gmail.com> <7a3afb15-b7af-4fdc-bb16-bea46db6d3ed@suse.com>
-In-Reply-To: <7a3afb15-b7af-4fdc-bb16-bea46db6d3ed@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 4 Dec 2023 13:55:23 +0000
-Message-ID: <CA+zSX=YyPvi_atOV_Kbboo604UYEy5cD9CWgbaqx7eJ2o=bF+A@mail.gmail.com>
-Subject: Re: [PATCH] sched: correct sched_move_domain()'s cleanup path
-To: Juergen Gross <jgross@suse.com>
-Cc: Jan Beulich <jbeulich@suse.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Dario Faggioli <dfaggioli@suse.com>, 
-	=?UTF-8?Q?Ren=C3=A9_Winther_H=C3=B8jgaard?= <renewin@proton.me>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20231201154552.3066321-2-stewart.hildebrand@amd.com>
 
-On Mon, Dec 4, 2023 at 1:47=E2=80=AFPM Juergen Gross <jgross@suse.com> wrot=
-e:
->
-> On 04.12.23 14:00, George Dunlap wrote:
-> > On Mon, Dec 4, 2023 at 10:57=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >> It is only in the error case that we want to clean up the new pool's
-> >> scheduler data; in the success case it's rather the old scheduler's
-> >> data which needs cleaning up.
-> >>
-> >> Reported-by: Ren=C3=A9 Winther H=C3=B8jgaard <renewin@proton.me>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >> Reviewed-by: Juergen Gross <jgross@suse.com>
-> >>
-> >> --- a/xen/common/sched/core.c
-> >> +++ b/xen/common/sched/core.c
-> >> @@ -810,7 +810,7 @@ int sched_move_domain(struct domain *d,
-> >>       for ( unit =3D old_units; unit; )
-> >>       {
-> >>           if ( unit->priv )
-> >> -            sched_free_udata(c->sched, unit->priv);
-> >> +            sched_free_udata(ret ? c->sched : old_ops, unit->priv);
-> >>           old_unit =3D unit;
-> >>           unit =3D unit->next_in_list;
-> >>           xfree(old_unit);
-> >
-> > This code is unfortunately written in a "clever" way which seems to
-> > have introduced some confusion.  The one place which calls "goto
-> > out_free" goes through and replaces *most* of the "old_*" variables
-> > with the "new" equivalents.  That's why we're iterating over
-> > `old_units` even on the failure path.
-> >
-> > The result is that this change doesn't catch another bug on the
-> > following line, in the error case:
-> >
-> > sched_free_domdata(old_ops, old_domdata);
-> >
-> > At this point, old_ops is still the old ops, but old_domdata is the
-> > *new* domdata.
-> >
-> > A patch like the following (compile tested only) would fix it along
-> > the lines of the original intent:
-> > 8<-------
-> > diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-> > index eba0cea4bb..78f21839d3 100644
-> > --- a/xen/common/sched/core.c
-> > +++ b/xen/common/sched/core.c
-> > @@ -720,6 +720,7 @@ int sched_move_domain(struct domain *d, struct cpup=
-ool *c)
-> >           {
-> >               old_units =3D new_units;
-> >               old_domdata =3D domdata;
-> > +            old_ops =3D c->sched;
-> >               ret =3D -ENOMEM;
-> >               goto out_free;
-> >           }
-> > @@ -809,10 +810,15 @@ int sched_move_domain(struct domain *d, struct cp=
-upool *c)
-> >       domain_unpause(d);
-> >
-> >    out_free:
-> > +    /*
-> > +     * NB if we've jumped here, "old_units", "old_ops", and so on will
-> > +     * actually be pointing to the new ops, since when aborting it's
-> > +     * the new ops we want to free.
-> > +     */
-> >       for ( unit =3D old_units; unit; )
-> >       {
-> >           if ( unit->priv )
-> > -            sched_free_udata(c->sched, unit->priv);
-> > +            sched_free_udata(old_ops, unit->priv);
-> >           old_unit =3D unit;
-> >           unit =3D unit->next_in_list;
-> >           xfree(old_unit);
-> > ---->8
-> >
-> > But given that this kind of cleverness has already fooled two of our
-> > most senior developers, I'd suggest making the whole thing more
-> > explicit; something like the attached (again compile-tested only)?
->
-> And I have again a third approach, making it crystal clear what is happen=
-ing
-> with which data. No need to explain what is freed via which variables. Se=
-e
-> attached patch.
->
-> Thoughts?
+On Fri, Dec 01, 2023 at 10:45:49AM -0500, Stewart Hildebrand wrote:
+> Introduce a handler for the PCI status register, with ability to mask
+> the capabilities bit. The status register contains RsvdZ bits,
+> read-only bits, and write-1-to-clear bits. Additionally, we use RsvdP to
+> mask the capabilities bit. Introduce bitmasks to handle these in vPCI.
+> If a bit in the bitmask is set, then the special meaning applies:
+> 
+>   ro_mask: read normal, guest write ignore (preserve on write to hardware)
+>   rw1c_mask: read normal, write 1 to clear
+>   rsvdp_mask: read as zero, guest write ignore (preserve on write to hardware)
+>   rsvdz_mask: read as zero, guest write ignore (write zero to hardware)
+> 
+> The RO/RW1C/RsvdP/RsvdZ naming and definitions were borrowed from the
+> PCI Express Base 6.1 specification. RsvdP/RsvdZ bits help Xen enforce
+> our view of the world. Xen preserves the value of read-only bits on
+> write to hardware, discarding the guests write value. This is done in
+> case hardware wrongly implements R/O bits as R/W.
+> 
+> The mask_cap_list flag will be set in a follow-on patch.
+                                                    ^ s/patch/change/
 
-I only see a PGP key and signature.  Did you forget to attach the patch?
+> 
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
- -George
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks, Roger.
 
