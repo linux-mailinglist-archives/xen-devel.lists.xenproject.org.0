@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86A54803452
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 14:19:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.646930.1009605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 570FC803462
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 14:20:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.646934.1009614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA8qe-0000EV-J4; Mon, 04 Dec 2023 13:18:56 +0000
+	id 1rA8sS-00021f-U2; Mon, 04 Dec 2023 13:20:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 646930.1009605; Mon, 04 Dec 2023 13:18:56 +0000
+Received: by outflank-mailman (output) from mailman id 646934.1009614; Mon, 04 Dec 2023 13:20:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA8qe-0000Bh-G3; Mon, 04 Dec 2023 13:18:56 +0000
-Received: by outflank-mailman (input) for mailman id 646930;
- Mon, 04 Dec 2023 13:18:55 +0000
+	id 1rA8sS-0001zO-RM; Mon, 04 Dec 2023 13:20:48 +0000
+Received: by outflank-mailman (input) for mailman id 646934;
+ Mon, 04 Dec 2023 13:20:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/x5/=HP=redhat.com=kwolf@srs-se1.protection.inumbo.net>)
- id 1rA8qd-0000BZ-9j
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 13:18:55 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=aSPQ=HP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rA8sR-0001xk-Jv
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 13:20:47 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ab9135d2-92a7-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 14:18:54 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-628-mkzkasI9PUCWPgI5RxpOKg-1; Mon, 04 Dec 2023 08:18:49 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9B9E1101A52D;
- Mon,  4 Dec 2023 13:18:48 +0000 (UTC)
-Received: from redhat.com (unknown [10.39.194.237])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B423140C6EB9;
- Mon,  4 Dec 2023 13:18:43 +0000 (UTC)
+ id ef326aa3-92a7-11ee-98e5-6d05b1d4d9a1;
+ Mon, 04 Dec 2023 14:20:46 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40838915cecso45219975e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 05:20:46 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ az33-20020a05600c602100b0040c03c3289bsm8575397wmb.37.2023.12.04.05.20.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 Dec 2023 05:20:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,73 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab9135d2-92a7-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701695932;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VHQ4HR2B7MLC//HgFh3nAtqLerMP/Y4A9vM9X/MfQuk=;
-	b=Y/yT/TrpLB5Gj9E15XhysxQkcjQEqu390dVfNjgfuiQY1BxT+pk16SpTDI8m4Wb8rqEYY0
-	pcL4gi3/mFgjm4aMYomwRYeO7A32+A7FETXcSFCl8oOVWD0+shDZwThZglxzdOBGtNuqdP
-	FSitNfdh0W3hiy0q7nhV1VRH73lvN6o=
-X-MC-Unique: mkzkasI9PUCWPgI5RxpOKg-1
-Date: Mon, 4 Dec 2023 14:18:42 +0100
-From: Kevin Wolf <kwolf@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>,
-	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
-	Alberto Garcia <berto@igalia.com>,
-	Emanuele Giuseppe Esposito <eesposit@redhat.com>,
-	John Snow <jsnow@redhat.com>, Eric Blake <eblake@redhat.com>,
-	Wen Congyang <wencongyang2@huawei.com>, qemu-block@nongnu.org,
-	xen-devel@lists.xenproject.org, Coiby Xu <Coiby.Xu@gmail.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Xie Changlong <xiechanglong.d@gmail.com>,
-	Ari Sundholm <ari@tuxera.com>, Li Zhijian <lizhijian@fujitsu.com>,
-	Cleber Rosa <crosa@redhat.com>, Juan Quintela <quintela@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
-	Zhang Chen <chen.zhang@intel.com>, Peter Xu <peterx@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Leonardo Bras <leobras@redhat.com>,
-	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
-	Fam Zheng <fam@euphon.net>, Fabiano Rosas <farosas@suse.de>
-Subject: Re: [PATCH 03/12] aio: make
- aio_context_acquire()/aio_context_release() a no-op
-Message-ID: <ZW3RsnWZou44DFSE@redhat.com>
-References: <20231129195553.942921-1-stefanha@redhat.com>
- <20231129195553.942921-4-stefanha@redhat.com>
+X-Inumbo-ID: ef326aa3-92a7-11ee-98e5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1701696046; x=1702300846; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=lRkNhFftyAeH31ks+enNpkoW+966GXjOkrNtq0j45ps=;
+        b=Ur7IjuqUs41Eigyt1Fo0XJt2qoxVT8UBKT5drwrh2H03T9+4+4VmH74Ec7H73/eUzI
+         Qqgkp1oTDMKaWY61UQYGsko1v4MRJad4ndsPLIZcJf6Gw/ZgmhRUuY+6rzgTUD9aCQhx
+         In56JRp8soo2g8zfPQnJEQPAZJX65/83BJtlM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701696046; x=1702300846;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=lRkNhFftyAeH31ks+enNpkoW+966GXjOkrNtq0j45ps=;
+        b=In/L80uAcZ5naKSX6Cz7bfvmZNGC4rFtkz/hFmntuwK5YzCFif3/TfM2z0AWjjNAtZ
+         oNIY4EU/P7wZ5lQ6q7j2rLRRXwTGzyIjCErr06qwZKwjhU0K7GxBIvOJvP/E1j1xu7LF
+         kmJtGJVwG//kIdSQc6sI3tulEjw/tKP8v1TdGYuJZHdHP0G5muKBGwlZBqZ6i0b/RHB3
+         4dEgGhmdiX9qw+XAQRuOEkwd0cjYrVVTW0irPj5t5L7z7QWo+afnRr4NOsJ6Cr82Fjt3
+         f2lTddynTE02Vpdn+R17KzljlbHJcS8KVQ7UtTrhEpJxhv4A7N/0JilUkMbzDOFBW9JK
+         97Fg==
+X-Gm-Message-State: AOJu0YzG2I8i6lmwtffB0lpRbbKdUjpgXvmUfkJaldCkG5v97hFDlzeG
+	YcSN0ePMQbKD0TGIjxU/xaL0XA==
+X-Google-Smtp-Source: AGHT+IH04g+r5UAKrTDQlF/LGT4+1wXsX0v9SWtQdIzfNWpQ6wWj1WhaUTBgg3oAGz1jaGNhz0lYrA==
+X-Received: by 2002:a05:600c:5129:b0:407:7ea1:e9a4 with SMTP id o41-20020a05600c512900b004077ea1e9a4mr2483055wms.5.1701696046103;
+        Mon, 04 Dec 2023 05:20:46 -0800 (PST)
+Message-ID: <76790232-a83f-4641-b362-585a65e50528@citrix.com>
+Date: Mon, 4 Dec 2023 13:20:45 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231129195553.942921-4-stefanha@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86emul: avoid triggering event related assertions
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <a056a258-51c0-2721-1ef2-1e7796c85659@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <a056a258-51c0-2721-1ef2-1e7796c85659@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Am 29.11.2023 um 20:55 hat Stefan Hajnoczi geschrieben:
-> aio_context_acquire()/aio_context_release() has been replaced by
-> fine-grained locking to protect state shared by multiple threads. The
-> AioContext lock still plays the role of balancing locking in
-> AIO_WAIT_WHILE() and many functions in QEMU either require that the
-> AioContext lock is held or not held for this reason. In other words, the
-> AioContext lock is purely there for consistency with itself and serves
-> no real purpose anymore.
-> 
-> Stop actually acquiring/releasing the lock in
-> aio_context_acquire()/aio_context_release() so that subsequent patches
-> can remove callers across the codebase incrementally.
-> 
-> I have performed "make check" and qemu-iotests stress tests across
-> x86-64, ppc64le, and aarch64 to confirm that there are no failures as a
-> result of eliminating the lock.
-> 
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+On 17/04/2023 1:23 pm, Jan Beulich wrote:
+> The assertion at the end of x86_emulate_wrapper() as well as the ones
+> in x86_emul_{hw_exception,pagefault}() can trigger if we ignore
+> X86EMUL_EXCEPTION coming back from certain hook functions. Squash
+> exceptions when merely probing MSRs, plus on SWAPGS'es "best effort"
+> error handling path.
+>
+> In adjust_bnd() add another assertion after the read_xcr(0, ...)
+> invocation, paralleling the one in x86emul_get_fpu() - XCR0 reads should
+> never fault when XSAVE is (implicitly) known to be available.
+>
+> Also update the respective comment in x86_emulate_wrapper().
+>
+> Fixes: 14a6be89ec04 ("x86emul: correct EFLAGS.TF handling")
+> Fixes: cb2626c75813 ("x86emul: conditionally clear BNDn for branches")
+> Fixes: 6eb43fcf8a0b ("x86emul: support SWAPGS")
+> Reported-by: AFL
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-YOLO.
-
-Acked-by: Kevin Wolf <kwolf@redhat.com>
-
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
