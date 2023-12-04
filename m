@@ -2,56 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ECA8803E18
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 20:09:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647279.1010242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1977803E36
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 20:17:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647284.1010252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAEJp-00059F-EU; Mon, 04 Dec 2023 19:09:25 +0000
+	id 1rAERT-0006qf-CE; Mon, 04 Dec 2023 19:17:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647279.1010242; Mon, 04 Dec 2023 19:09:25 +0000
+Received: by outflank-mailman (output) from mailman id 647284.1010252; Mon, 04 Dec 2023 19:17:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAEJp-00057d-Az; Mon, 04 Dec 2023 19:09:25 +0000
-Received: by outflank-mailman (input) for mailman id 647279;
- Mon, 04 Dec 2023 19:09:23 +0000
+	id 1rAERT-0006oh-9f; Mon, 04 Dec 2023 19:17:19 +0000
+Received: by outflank-mailman (input) for mailman id 647284;
+ Mon, 04 Dec 2023 19:17:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y+Gv=HP=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1rAEJn-00057T-LZ
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 19:09:23 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060d.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::60d])
+ <SRS0=JJkP=HP=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
+ id 1rAERR-0006ob-He
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 19:17:17 +0000
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
+ [2607:f8b0:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a157657d-92d8-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 20:09:22 +0100 (CET)
-Received: from BL1PR13CA0208.namprd13.prod.outlook.com (2603:10b6:208:2be::33)
- by IA1PR12MB8538.namprd12.prod.outlook.com (2603:10b6:208:455::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.33; Mon, 4 Dec
- 2023 19:09:17 +0000
-Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
- (2603:10b6:208:2be:cafe::44) by BL1PR13CA0208.outlook.office365.com
- (2603:10b6:208:2be::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.22 via Frontend
- Transport; Mon, 4 Dec 2023 19:09:17 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Mon, 4 Dec 2023 19:09:17 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 4 Dec
- 2023 13:09:17 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 4 Dec
- 2023 11:09:16 -0800
-Received: from [172.27.137.28] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Mon, 4 Dec 2023 13:09:14 -0600
+ id bbf7a812-92d9-11ee-98e5-6d05b1d4d9a1;
+ Mon, 04 Dec 2023 20:17:16 +0100 (CET)
+Received: by mail-pg1-x530.google.com with SMTP id
+ 41be03b00d2f7-5c66e7eafabso1598207a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 11:17:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,162 +40,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a157657d-92d8-11ee-98e5-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hmtQAz0Vw7QkAaGXNyFS9waieVgKAmrH+1UnEn553vIaY0cFTmK6XHPE4pkdFVBJgevj85FwA3/zOnypv36vkBEiQ803bZ+CNeJ9I/94zzqgG/kkLc89yAdUNxBeB3VCbMJxFQrs/DCUPrm47hoHvsWOz0UcAgSKPIeiMrRgqd0KjT8KLrnKhC29XU1kFQKJ7njA4BOmFVsOMeb3Y7wXQqOdfXXK+C5A6pm3ZS46e4EX4Pm7Zlbr28je9jq/vpXI6kE7rljZeOlo8PiJ/KNzC6N1iXTfxCy8WTRENUSM/fohWJkAVXEjUnikXJcPVjqLilecdZdLxQKJPRnUU0eBNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AK6IDfB+uHzESfBkkm0rwzbiYaOUfaR6S9LDe9NxFCI=;
- b=E09jxR0MPHmMQgJZWhgDFn1ueuMChHkzC0HVNTmFB2RgziszTY1cxVoOElqLyzw83vKDKnybMSnock47Vkdy0gZi4uwGS/2qzErMlmM+n8rW+agWww/dDhw8IflJsNJVbODOLw8HzKVWcATbm0lVQwMFKCXOvcgow9PSukRIvBtgt4Nw3aM2wdVCRjyxhtl1wBypcRswieZ8yLWYrsvpblj7Dl5KFVpQMQaXvEEhhUqdA8YKcKFiypmr9Fif4U3x2IYsh/HrKTFO5GN9IMBmRH2eViXcBhGnRUlJkngWYHarjGFY+bfRhl4/sMqS1Vkd3NdaIyScvfo/n+X4/xWowQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AK6IDfB+uHzESfBkkm0rwzbiYaOUfaR6S9LDe9NxFCI=;
- b=PLg6bh7h9TxQV9Gn6H/yM+aZH3+Ke4ZB9AonRdCBwNJfs+WQgfXsQ+S2F4RjCd30pcesS0v+2jGdEcgf0BOMBKO75eVasDAztPjqgZMMvjvaN4j2SJwr3+Jyvq+fhjiVphdDPtuvqPR1Pgu9SKlc+GaU3XJMDkPOh3AC96dp2jg=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <2d9b98f3-0c7d-4467-8354-5644623429dc@amd.com>
-Date: Mon, 4 Dec 2023 14:09:14 -0500
+X-Inumbo-ID: bbf7a812-92d9-11ee-98e5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1701717435; x=1702322235; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=xu1dydmfdjg2ZqHXnRrl+/wMsmtepwWqFi5Gg8jzvBw=;
+        b=hX2wnblQzFOlusXGJtcotFJmo1Lb1t391Pa0RZE1X8XFwkwgjeynSnxlCaLSEuKQDD
+         LT94hjf8QfvZFwV+8YlhK7ATQIwyFGlSg06uSAnqni217P93vd0n/eZKGTvMZAAQ0JEW
+         jpQORIQQqzTOkhth1SnwdgfcTyC+xWudYVbyNKrY4iPHqvFFO9IqVYYy+K71ZBVfAT4b
+         ud7N5Ju37BQ7+r/eEWIFOWV3fJHlsPdrcbOs8gzy7lYrj2lw+3DtVzTDeoC7ApinKE4t
+         L8A71PufgneRs/binp/L3wm4jjJTpmkAVeqe9qQids8bs3CP9w+gTMhsph1wfAb0Q4bD
+         ddgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701717435; x=1702322235;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=xu1dydmfdjg2ZqHXnRrl+/wMsmtepwWqFi5Gg8jzvBw=;
+        b=nacz+G+l1Wy4mQCwcgH0KQx3EZqP5CRKU1jSae28Ue3DtCvl/QdAFGiTpIi/aG6BjY
+         iUqxKvo/Psj2nQqgEvJbPWfP9h2g8DracWXUdlkIJqjE9clKXA7n+6uis6kQveuZfV7/
+         3QTGx0k+6xVsAPWdT8LrtLcmSNtyC28qfp1W/5jVRGGl2JOfFb2Ara0kmPp1d5OBmBU3
+         4+UPWpv7T+EzmtGb9C1DGGZaCqxrmTKRz1A7jUuqW6iUilma3aXV/WAGmsYcgJqNssAl
+         NgGHO3nD6XOWgWb5pkuVThlM+UfzKc+gZiN2DHrUBzdDDr1F8CDmQHy8ZdiitTsOgpC3
+         Da6g==
+X-Gm-Message-State: AOJu0Yxo6sfHZ/iXI2DY1ClpzjtLE/3rm4ShsXkdugfOAPYr+FFoRQOX
+	6tJk2Psh6KUjcH1lkx2OWlrAsC40WFjVFsqixtWbM1gA
+X-Google-Smtp-Source: AGHT+IFCM0M7m9aM5X139KyNKfphwm8qLfg2xClXpoq1RsGvOgg+C10YW4Bk4r0Si/EZNCKQoj6DejJU8l/3Q4T9ask=
+X-Received: by 2002:a17:90a:a016:b0:286:6cc0:cac6 with SMTP id
+ q22-20020a17090aa01600b002866cc0cac6mr50502pjp.61.1701717434391; Mon, 04 Dec
+ 2023 11:17:14 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/5] [FUTURE] xen/arm: enable vPCI for domUs
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Wei Liu <wl@xen.org>, Paul Durrant
-	<paul@xen.org>
-References: <20231113222118.825758-1-stewart.hildebrand@amd.com>
- <20231113222118.825758-5-stewart.hildebrand@amd.com>
- <ZWmkh0Xeaynh43N7@macbook>
- <alpine.DEB.2.22.394.2312011847520.110490@ubuntu-linux-20-04-desktop>
- <ZW2wuqXW-DneUVi0@macbook>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <ZW2wuqXW-DneUVi0@macbook>
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com>
+In-Reply-To: <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com>
+From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+Date: Mon, 4 Dec 2023 20:17:02 +0100
+Message-ID: <CAKm-UmYGTLY0fTh4zvj-xrA3Tp+Oj+ES61pncG7ze0QnP4o=FQ@mail.gmail.com>
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="0000000000002f8487060bb3f772"
+
+--0000000000002f8487060bb3f772
+Content-Type: multipart/alternative; boundary="0000000000002f8486060bb3f770"
+
+--0000000000002f8486060bb3f770
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|IA1PR12MB8538:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6fb4728b-90ab-4f31-7392-08dbf4fc8343
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	WWVmWS2OTwVt1UbbPjo6tMeO8cqHP16BW2d1mmF4BPXDU1zmJ4zRMBQ7l6OLjZIgG5bNf54zjNKuKvPqOjn8CkLfAfM1ljtHi/j2fmt+UNPo/STJKN0BAXi1KXSiJKKHsCeNEGoaskSZVqocG/7ixR05kZQXu/EcHv4iOmJZlnbzoKuKQw6+x5KiJEYuu1bFsvILb/esFWsYMPHetAVUN1U1nXIqwAvMCR7wx678ESh1AZW9euxoWRsr4MJB6MInev6SZFxMWdj3YiXBGpQj4QbH8KTA5xCxFdb0tFdLAwEEAyMos6OZP8y6Aa+ZfXXJeDS5qNW88fQQKlwtDlG2x0G2cZrxHsFXhaQJE2lCTeyBu97/vR+NNHM9tzghNgfHNN28E49/9Kq0Md1sNAHkT9ECw87hKELxkVKZKhYSa6FqzJszBC3RtYCFQuVljkTFwR3jefDJE9QszuxbEf5wTLI2rGD1ESHqU8ycAXf8SXnGTap3dM9t6crWgMx/Pab5sknpAHFK32FieYvnTntwvYHDTEcBMfJuwI72W//oiuDLwNkNLYnBSDodCcFpq2jV9F//HFDkbYI1Dw2DGRw87cpM8ojrCsb0Pva7wwmKng5//n0Htc495suKZmZhtqYJMCzHhYwpZlgJLwWYWiRF15OQ1Qlt4UIzkdNUZjU3L3d2m3xu3l6CkM7V3TYAqhztkEuQRWoYr8NbFgCu3GMEW8+nHGjCmxbrCFItQgBa1f0QqISRfhhvmWewhktecaXOBdzi7q3ztRq5HoDqLAuYg1kdicWeJvNEPptZlv5VgVIHlQ+YEj9Ks7x37LRr1DDCHzJoHRmTQKQL1hJ+6Njec8ekuoja+Tk6x49mSw1CSmI=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(136003)(346002)(39860400002)(376002)(230173577357003)(230922051799003)(230273577357003)(1800799012)(82310400011)(186009)(64100799003)(451199024)(40470700004)(36840700001)(46966006)(31696002)(36756003)(31686004)(40480700001)(53546011)(2616005)(2906002)(478600001)(86362001)(5660300002)(4326008)(54906003)(316002)(16576012)(8936002)(8676002)(110136005)(47076005)(336012)(426003)(83380400001)(40460700003)(26005)(70586007)(36860700001)(70206006)(7416002)(44832011)(81166007)(82740400003)(41300700001)(356005)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Dec 2023 19:09:17.3760
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fb4728b-90ab-4f31-7392-08dbf4fc8343
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8538
+Content-Transfer-Encoding: quoted-printable
 
-On 12/4/23 05:58, Roger Pau Monné wrote:
-> On Fri, Dec 01, 2023 at 06:56:32PM -0800, Stefano Stabellini wrote:
->> On Fri, 1 Dec 2023, Roger Pau Monné wrote:
->>> On Mon, Nov 13, 2023 at 05:21:13PM -0500, Stewart Hildebrand wrote:
->>>> @@ -1618,6 +1630,14 @@ int iommu_do_pci_domctl(
->>>>          bus = PCI_BUS(machine_sbdf);
->>>>          devfn = PCI_DEVFN(machine_sbdf);
->>>>  
->>>> +        if ( needs_vpci(d) && !has_vpci(d) )
->>>> +        {
->>>> +            printk(XENLOG_G_WARNING "Cannot assign %pp to %pd: vPCI support not enabled\n",
->>>> +                   &PCI_SBDF(seg, bus, devfn), d);
->>>> +            ret = -EPERM;
->>>> +            break;
->>>
->>> I think this is likely too restrictive going forward.  The current
->>> approach is indeed to enable vPCI on a per-domain basis because that's
->>> how PVH dom0 uses it, due to being unable to use ioreq servers.
->>>
->>> If we start to expose vPCI suport to guests the interface should be on
->>> a per-device basis, so that vPCI could be enabled for some devices,
->>> while others could still be handled by ioreq servers.
->>>
->>> We might want to add a new flag to xen_domctl_assign_device (used by
->>> XEN_DOMCTL_assign_device) in order to signal whether the device will
->>> use vPCI.
->>
->> Actually I don't think this is a good idea. I am all for flexibility but
->> supporting multiple different configurations comes at an extra cost for
->> both maintainers and contributors. I think we should try to reduce the
->> amount of configurations we support rather than increasing them
->> (especially on x86 where we have PV, PVH, HVM).
-> 
-> I think it's perfectly fine to initially require a domain to have all
-> its devices either passed through using vPCI or ireqs, but the
-> interface IMO should allow for such differentiation in the future.
-> That's why I think introducing a domain wide vPCI flag might not be
-> the best option going forward.
-> 
-> It would be perfectly fine for XEN_DOMCTL_assign_device to set a
-> domain wide vPCI flag, iow:
-> 
-> if ( HYPERCALL_VPCI_FLAG_SET && !has_vpci(d) )
-> {
->     if ( has_arch_pdevs(d) )
->     {
->         printk("All passthrough devices must use the same backend\n");
->         return -EINVAL;
->     }
-> 
->     /* Set vPCI domain flag */
+Le lun. 4 d=C3=A9c. 2023 =C3=A0 10:06, Jan Beulich <jbeulich@suse.com> a =
+=C3=A9crit :
 
-There is a vPCI initializer that would need to be called too (on Arm, to set up mmio handlers). It is normally called earlier during arch_domain_create(), but it looks to be okay to call here as long as it is done before the guest boots.
+> On 03.12.2023 10:56, S=C3=A9bastien Chaumat wrote:
+> > Hello,
+> >
+> >  Trying to get the Framework Laptop 13 AMD to work with QubesOS I hit t=
+he
+> > following Xen issue :
+> >
+> > Xen version : 4.17.2
+>
++ tested with 4.18.0
 
-    d->options |= XEN_DOMCTL_CDF_vpci;
-    domain_vpci_init(d);
 
-Perhaps the flag should be set inside domain_vpci_init(d).
+> > Kernel : 6.5.12-300.fc39.x86_64
+> > CPU  model name : AMD Ryzen 7 7840U w/ Radeon  780M Graphics
+>
 
-> }
-> 
-> We have already agreed that we want to aim for a setup where ioreqs
-> and vPCI could be used for the same domain, but I guess you assumed
-> that ioreqs would be used for emulated devices exclusively and vPCI
-> for passthrough devices?
-> 
-> Overall if we agree that ioreqs and vPCI should co-exist for a domain,
-> I'm not sure there's much reason to limit ioreqs to only handle
-> emulated devices, seems like an arbitrary limitation.
-> 
->> I don't think we should enable IOREQ servers to handle PCI passthrough
->> for PVH guests and/or guests with vPCI. If the domain has vPCI, PCI
->> Passthrough can be handled by vPCI just fine. I think this should be a
->> good anti-feature to have (a goal to explicitly not add this feature) to
->> reduce complexity. Unless you see a specific usecase to add support for
->> it?
-> 
-> There are passthrough devices (GPUs) that might require some extra
-> mediation on dom0 (like the Intel GVT-g thing) that would force the
-> usage of ioreqs to passthrough.
-> 
-> It's important that the interfaces we introduce are correct IMO,
-> because that ends up reflecting on the configuration options that we
-> expose to users on xl/libxl.  While both XEN_DOMCTL_createdomain and
-> XEN_DOMCTL_assign_device are unstable interfaces, how the vPCI option
-> gets placed there will ultimately influence how the option gets
-> exposed in xl/libxl, and the interface there is relevant to keep
-> stable for end user sanity.
-> 
-> Thanks, Roger.
+
+> > [    2.464598] amd_gpio AMDI0030:00: failed to enable wake-up interrupt
+>
+> Possibly releated to this. You'll want to obtain a full-verbosity
+> hypervisor
+> log with a debug hypervisor, as there may be hypervisor debug messages
+> telling us what Xen may not like.
+>
+
+xl dmesg with some traces attached.
+
+--0000000000002f8486060bb3f770
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">Le=C2=A0lun. 4 d=C3=A9c. 2023 =C3=A0=
+=C2=A010:06, Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" target=3D=
+"_blank">jbeulich@suse.com</a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex">On 03.12.2023 10:56, S=C3=A9bastien =
+Chaumat wrote:<br>
+&gt; Hello,<br>
+&gt; <br>
+&gt;=C2=A0 Trying to get the Framework Laptop 13 AMD to work with QubesOS I=
+ hit the<br>
+&gt; following Xen issue :<br>
+&gt; <br>
+&gt; Xen version : 4.17.2<br></blockquote><div>+ tested with 4.18.0</div><d=
+iv>=C2=A0<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+&gt; Kernel : 6.5.12-300.fc39.x86_64<br>
+&gt; CPU=C2=A0 model name : AMD Ryzen 7 7840U w/ Radeon=C2=A0 780M Graphics=
+<br></blockquote><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">
+&gt; [=C2=A0 =C2=A0 2.464598] amd_gpio AMDI0030:00: failed to enable wake-u=
+p interrupt<br>
+<br>
+Possibly releated to this. You&#39;ll want to obtain a full-verbosity hyper=
+visor<br>
+log with a debug hypervisor, as there may be hypervisor debug messages<br>
+telling us what Xen may not like.<br></blockquote><div>=C2=A0</div><div>xl =
+dmesg with some traces attached.</div><div><br></div></div></div>
+
+--0000000000002f8486060bb3f770--
+--0000000000002f8487060bb3f772
+Content-Type: application/gzip; name="xl-dmesg-4.18.txt.gz"
+Content-Disposition: attachment; filename="xl-dmesg-4.18.txt.gz"
+Content-Transfer-Encoding: base64
+Content-ID: <f_lprajrnc0>
+X-Attachment-Id: f_lprajrnc0
+
+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
+--0000000000002f8487060bb3f772--
 
