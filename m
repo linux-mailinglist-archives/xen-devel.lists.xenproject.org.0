@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41D02803882
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 16:18:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647110.1009835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F02B8038AF
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 16:24:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647118.1009845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAAi6-0001pJ-He; Mon, 04 Dec 2023 15:18:14 +0000
+	id 1rAAn9-0005aW-3O; Mon, 04 Dec 2023 15:23:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647110.1009835; Mon, 04 Dec 2023 15:18:14 +0000
+Received: by outflank-mailman (output) from mailman id 647118.1009845; Mon, 04 Dec 2023 15:23:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAAi6-0001mv-ES; Mon, 04 Dec 2023 15:18:14 +0000
-Received: by outflank-mailman (input) for mailman id 647110;
- Mon, 04 Dec 2023 15:18:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PgPa=HP=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1rAAi5-0001jk-1p
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 15:18:13 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 552210c3-92b8-11ee-98e5-6d05b1d4d9a1;
- Mon, 04 Dec 2023 16:18:10 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-373-Q7vPoqGuPbqZZ9WrmOSLTg-1; Mon, 04 Dec 2023 10:18:04 -0500
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+	id 1rAAn9-0005Xl-0O; Mon, 04 Dec 2023 15:23:27 +0000
+Received: by outflank-mailman (input) for mailman id 647118;
+ Mon, 04 Dec 2023 15:23:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=THDE=HP=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rAAn8-0005Xf-ER
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 15:23:26 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 109f680f-92b9-11ee-9b0f-b553b5be7939;
+ Mon, 04 Dec 2023 16:23:24 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AD91B81B56A;
- Mon,  4 Dec 2023 15:18:03 +0000 (UTC)
-Received: from localhost (unknown [10.39.192.49])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 89EDE40C6EBB;
- Mon,  4 Dec 2023 15:18:02 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A51A8220D9;
+ Mon,  4 Dec 2023 15:23:23 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 7252513588;
+ Mon,  4 Dec 2023 15:23:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id h2xNGuvubWUgJgAAn2gu4w
+ (envelope-from <jgross@suse.com>); Mon, 04 Dec 2023 15:23:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,112 +51,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 552210c3-92b8-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701703089;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kBZ1SZVWRnkDiTr92kHl7AK+tPgCY2ZrLpcj1yanM/w=;
-	b=bsl+/Horf9FBZiWUIjzZptUawgJe9roBE6cA99oL9d7md34MVkcIZmSa8Tk7z8hEThgi84
-	aGi2+gEQC8GK2gFEjFavZrMtNqhuKt/q34I2euLNVg/Xp4UvS4qg1UvYL6MfaM/1FKAIvk
-	tEVIC9d+Qisv6dsaPS6dIYWZh6Ssr7M=
-X-MC-Unique: Q7vPoqGuPbqZZ9WrmOSLTg-1
-Date: Mon, 4 Dec 2023 10:17:55 -0500
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Kevin Wolf <kwolf@redhat.com>
-Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>,
-	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
-	Alberto Garcia <berto@igalia.com>,
-	Emanuele Giuseppe Esposito <eesposit@redhat.com>,
-	John Snow <jsnow@redhat.com>, Eric Blake <eblake@redhat.com>,
-	Wen Congyang <wencongyang2@huawei.com>, qemu-block@nongnu.org,
-	xen-devel@lists.xenproject.org, Coiby Xu <Coiby.Xu@gmail.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Xie Changlong <xiechanglong.d@gmail.com>,
-	Ari Sundholm <ari@tuxera.com>, Li Zhijian <lizhijian@fujitsu.com>,
-	Cleber Rosa <crosa@redhat.com>, Juan Quintela <quintela@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
-	Zhang Chen <chen.zhang@intel.com>, Peter Xu <peterx@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Leonardo Bras <leobras@redhat.com>,
-	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
-	Fam Zheng <fam@euphon.net>, Fabiano Rosas <farosas@suse.de>
-Subject: Re: [PATCH 05/12] block: remove AioContext locking
-Message-ID: <20231204151755.GC1492005@fedora>
-References: <20231129195553.942921-1-stefanha@redhat.com>
- <20231129195553.942921-6-stefanha@redhat.com>
- <ZW3jVZZ_Kuf99g8O@redhat.com>
+X-Inumbo-ID: 109f680f-92b9-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1701703403; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Lq1X+5oqV08B6nb7+2V7icPYOvOMJTkcMH+E08fMf0M=;
+	b=ac9FqAIhC9mtWDQM+9haV58mVH6FZqxEBm0PINDBR7GMlhPUTnEkDQR3DCa6n99wubGiwr
+	zfquuioZ4IAXa6cwZ0vY63Y5Zyeb50bQ/I7Kn66y0phwwBNeB2sxKnchnG9KIxg3oJomWs
+	Byb6UBxGUSp6E6v+dXKl4GzPFJ2+UJM=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>
+Subject: [PATCH v2 0/3] xen/sched: fixes and cleanup related to cpupools
+Date: Mon,  4 Dec 2023 16:23:18 +0100
+Message-Id: <20231204152321.16520-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="+4Jsw1CxaxIgWzJ/"
-Content-Disposition: inline
-In-Reply-To: <ZW3jVZZ_Kuf99g8O@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spamd-Result: default: False [-0.30 / 50.00];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 NEURAL_HAM_SHORT(-0.20)[-0.991];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 ARC_NA(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 RCPT_COUNT_THREE(0.00)[4];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 NEURAL_HAM_LONG(-1.00)[-0.997];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -0.30
 
+Fix 2 bugs related to cpupool handling and do some related cleanups.
 
---+4Jsw1CxaxIgWzJ/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+V2:
+- send out the fixes tagged properly as "PATCH"
+- add cleanup patch
+ 
+Juergen Gross (3):
+  xen/sched: fix adding offline cpu to cpupool
+  xen/sched: fix sched_move_domain()
+  xen/sched: do some minor cleanup of sched_move_domain()
 
-On Mon, Dec 04, 2023 at 03:33:57PM +0100, Kevin Wolf wrote:
-> Am 29.11.2023 um 20:55 hat Stefan Hajnoczi geschrieben:
-> > This is the big patch that removes
-> > aio_context_acquire()/aio_context_release() from the block layer and
-> > affected block layer users.
-> >=20
-> > There isn't a clean way to split this patch and the reviewers are likely
-> > the same group of people, so I decided to do it in one patch.
-> >=20
-> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
->=20
-> > @@ -7585,29 +7433,12 @@ void coroutine_fn bdrv_co_leave(BlockDriverStat=
-e *bs, AioContext *old_ctx)
-> > =20
-> >  void coroutine_fn bdrv_co_lock(BlockDriverState *bs)
-> >  {
-> > -    AioContext *ctx =3D bdrv_get_aio_context(bs);
-> > -
-> > -    /* In the main thread, bs->aio_context won't change concurrently */
-> > -    assert(qemu_get_current_aio_context() =3D=3D qemu_get_aio_context(=
-));
-> > -
-> > -    /*
-> > -     * We're in coroutine context, so we already hold the lock of the =
-main
-> > -     * loop AioContext. Don't lock it twice to avoid deadlocks.
-> > -     */
-> > -    assert(qemu_in_coroutine());
-> > -    if (ctx !=3D qemu_get_aio_context()) {
-> > -        aio_context_acquire(ctx);
-> > -    }
-> > +    /* TODO removed in next patch */
-> >  }
->=20
-> It's still there at the end of the series.
+ xen/common/sched/core.c    | 74 ++++++++++++++++++++------------------
+ xen/common/sched/cpupool.c |  2 ++
+ 2 files changed, 41 insertions(+), 35 deletions(-)
 
-Will fix in v2. Thanks!
-
---+4Jsw1CxaxIgWzJ/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmVt7aMACgkQnKSrs4Gr
-c8jOnAgAroCsRM62VuXidh1DiXsdM/0hkCfNnvZSyW8BYwcZlOo16u9i6w1n4+fW
-HrkQPylQsCI5gHfj72kqrfphVoxWDdjCeaTN+ILBnSbbvKzvym2bNtsYfuuZpMGO
-v9wItcMUPP0UkEwiPgSTj28FlfAj9SqzjDEiaIqgJjzL6jVEqQ/xuI9tvESarulP
-SKVf02Lwrz2y4dH25crdvwyP1w2x0ZK9TtaE59g5hElfOC/bhBiFiPtVEeAFOwDw
-5HXPwJA9U0NOzjVxvYg1Bg2rxhlTxRu3A22b7T+zYwKHIG+FYan3ejiDvOz1YwF3
-baMaVDb0ovZiApd+ipPwctALD+HI9g==
-=TuU3
------END PGP SIGNATURE-----
-
---+4Jsw1CxaxIgWzJ/--
+-- 
+2.35.3
 
 
