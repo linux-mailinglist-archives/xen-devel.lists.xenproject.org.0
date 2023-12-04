@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E00C803AF4
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 17:56:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647201.1010034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0570E803AF8
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 17:56:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647208.1010061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rACEV-0007Df-PU; Mon, 04 Dec 2023 16:55:47 +0000
+	id 1rACFG-0007ws-Az; Mon, 04 Dec 2023 16:56:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647201.1010034; Mon, 04 Dec 2023 16:55:47 +0000
+Received: by outflank-mailman (output) from mailman id 647208.1010061; Mon, 04 Dec 2023 16:56:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rACEV-0007BN-Mf; Mon, 04 Dec 2023 16:55:47 +0000
-Received: by outflank-mailman (input) for mailman id 647201;
- Mon, 04 Dec 2023 16:55:45 +0000
+	id 1rACFG-0007uR-5X; Mon, 04 Dec 2023 16:56:34 +0000
+Received: by outflank-mailman (input) for mailman id 647208;
+ Mon, 04 Dec 2023 16:56:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CG6/=HP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rACET-000780-PC
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 16:55:45 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1rACFE-000780-Un
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 16:56:32 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f66df2bf-92c5-11ee-9b0f-b553b5be7939;
- Mon, 04 Dec 2023 17:55:43 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-40c09dfd82aso18631485e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 08:55:43 -0800 (PST)
+ id 12cde042-92c6-11ee-9b0f-b553b5be7939;
+ Mon, 04 Dec 2023 17:56:31 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40b538d5c4eso42402935e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 08:56:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v11-20020a05600c444b00b003fefaf299b6sm15608248wmn.38.2023.12.04.08.55.42
+ v11-20020a05600c444b00b003fefaf299b6sm15608248wmn.38.2023.12.04.08.56.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 Dec 2023 08:55:42 -0800 (PST)
+ Mon, 04 Dec 2023 08:56:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f66df2bf-92c5-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 12cde042-92c6-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701708943; x=1702313743; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701708991; x=1702313791; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CgAteeg6LMJxGIGHWSA1PXYNRpVdIA3VRULDp+0+gDE=;
-        b=YpU13M5vczURTFauLrW46+voAJrAqSLgXD3lHP1iesRKQyWIx1/ps9D7HIIkYQ+Jml
-         1iG9/hHO5EpWw7zFc5FXe2+UCjhGPmTMAYRsF1pKQcqHTVqi5i08WLewsDbtHymSILu2
-         FzHtkUlmQXMiEHHDdlWrI9XoOlB9p+w1o56dV3oCeMqSDQGSm1uM1AaWsAmvvjrtfQmb
-         WN7wV4AwAX9ow+m3c3P1WdKWM5cOkB/AdtO6aNuJ2Tv9AHbnIcw3o88YUSYYH0V4eWmc
-         vnVANqFXNdgLT+SuUbpTv8+r4pYCBFd6KOpRtMEdktyBRjjoy+C7zntKXQoLefZHyMAr
-         SDTw==
+        bh=A6ZH0H0fotw8fuQGfCpZi0icnqE1Qk9bGZN671DPR58=;
+        b=RexZNUAT/55J/hOmPqH9+CZO7bdwuH0RDW7TPlfxhr2KK6g7z8HEIYOieO2ZRC+PQV
+         Dj2HV3wvB9iwntEc1veZL9HlpaxeGnb4mOcgOewgv4xzsxud7iX9uCRFvSQBX+uB0Eso
+         7aIBZmUHMIiFHKjzTIauJaPVSAQfAaHprxF3L4zCjAqnPk1Hrc1hejDsiWOcvBjUx8HD
+         k6DhWsgCuqK7xxy47JkLu4cbJzH8bTHSqydGUQwEAoec0dJwoathhQcb7gJ9xluD2eaG
+         V+21fYzdaKCp0O2M0882Hcwz4LuX4xY4TxdZwe3xZVu+Tr3hMoS8D3EVaywPTknNRo8u
+         70IA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701708943; x=1702313743;
+        d=1e100.net; s=20230601; t=1701708991; x=1702313791;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CgAteeg6LMJxGIGHWSA1PXYNRpVdIA3VRULDp+0+gDE=;
-        b=MfrmQi0GBlBD0619tLE2zyviSOt6VC+r4EAWqfdYqWeI3/3ppMhjbDggDMmnXQX5rN
-         18OC/ExwwoqmBs/y5YL+5InbphvKJIulC6f5prpf4NuSB5zWFt84bRVWv8kSF/Kzyj9y
-         5oThvVOWTNDXBPlYaFyYMVNIZGB2WcX+JGxKtdDcmvz/wes6C3iFOe5jHBcXjpKxDBPT
-         ZJ3+iSY1vxZeMd9aGY8Pkq0jvmQMRZxWk3PJVA6lsdDDsfzMtP43/pBtqK1N+Npq1xmQ
-         V4FFcTTKUuqNxJR5SyUlQvXMP0vjjmyDkFPe+xlrjDIKephnXVbTUxY57hBG4Rf6NfpB
-         BgfA==
-X-Gm-Message-State: AOJu0Yw8TWDoTBILy9O1vO0A0KfqM3mnJrfbK+GN+PnAXSa5vUlMxwie
-	VJhuBnAF18drFEfhE6Zh8Jm8
-X-Google-Smtp-Source: AGHT+IE2HUbNIQhnb+kR6yWdNdShkuaLva1gWtraEKxFG5xrbcNadAj4slZK14MRdgq/Pomtk7rVOQ==
-X-Received: by 2002:a05:600c:2041:b0:40b:3056:7420 with SMTP id p1-20020a05600c204100b0040b30567420mr2862379wmg.39.1701708943241;
-        Mon, 04 Dec 2023 08:55:43 -0800 (PST)
-Message-ID: <34f5d241-54ad-40c6-abd2-46d2c65514af@suse.com>
-Date: Mon, 4 Dec 2023 17:55:42 +0100
+        bh=A6ZH0H0fotw8fuQGfCpZi0icnqE1Qk9bGZN671DPR58=;
+        b=gNQGOX4GLM0hANg9E6CCgHF++EpV0U3qhi51bQkV1K4vKp03fMtev6f/l89rXoqxLI
+         YVtIgG2QVZmN7M3ZsANBo6fReOqTEwjV+otAvzZ2h8AWOz14JBKsoetdbD68XEfX2KIp
+         o0SacnXlg0Y8AlfybLqEVdO5K5vxBFY45q3Ia8iFCSTLkdBsdNy4RRzN4mg4QnFRrqOb
+         TmHkb0ZqedXxm54bxlBhJ25jiQlJ/gZ/ZQamaInhZa491ZLoOjsHkfqh4pKKpvU5/CTD
+         vsPKuR7rN/FCy70N3nygPpabQ7KMX+b6/BKND3O8JcppLogVj63vtl+fKFTPB9TyUuEi
+         HpbA==
+X-Gm-Message-State: AOJu0YwqH+1qA9Qj0h+Thh332ridyIQvuaQVDPmIc51Hj3YsKZXpuwjA
+	JEhxM3Z1w0xJkZH4nz16+sADT8csPg7wCW4g8C50
+X-Google-Smtp-Source: AGHT+IHz6etayH3kO+EghH9l0IzDltwRriD3uDI9lNXhlasCzNk9mStUJF82ZTT2xZpjciNW0b1qeg==
+X-Received: by 2002:a1c:6a16:0:b0:40c:835:b9a with SMTP id f22-20020a1c6a16000000b0040c08350b9amr1416935wmc.167.1701708990971;
+        Mon, 04 Dec 2023 08:56:30 -0800 (PST)
+Message-ID: <c1438011-6f26-4ab6-b7ae-ac273a1beee0@suse.com>
+Date: Mon, 4 Dec 2023 17:56:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] xen/sched: fix adding offline cpu to cpupool
+Subject: Re: [PATCH v2 2/3] xen/sched: fix sched_move_domain()
 Content-Language: en-US
 To: Juergen Gross <jgross@suse.com>
-Cc: Dario Faggioli <dfaggioli@suse.com>,
- George Dunlap <george.dunlap@citrix.com>,
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>,
  =?UTF-8?Q?Ren=C3=A9_Winther_H=C3=B8jgaard?= <renewin@proton.me>,
- xen-devel@lists.xenproject.org
+ George Dunlap <george.dunlap@cloud.com>, xen-devel@lists.xenproject.org
 References: <20231204152321.16520-1-jgross@suse.com>
- <20231204152321.16520-2-jgross@suse.com>
+ <20231204152321.16520-3-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,20 +112,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231204152321.16520-2-jgross@suse.com>
+In-Reply-To: <20231204152321.16520-3-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 04.12.2023 16:23, Juergen Gross wrote:
-> Trying to add an offline cpu to a cpupool can crash the hypervisor,
-> as the probably non-existing percpu area of the cpu is accessed before
-> the availability of the cpu is being tested. This can happen in case
-> the cpupool's granularity is "core" or "socket".
+> Do cleanup in sched_move_domain() in a dedicated service function,
+> which is called either in error case with newly allocated data, or in
+> success case with the old data to be freed.
 > 
-> Fix that by testing the cpu to be online.
+> This will at once fix some subtle bugs which sneaked in due to
+> forgetting to overwrite some pointers in the error case.
 > 
-> Fixes: cb563d7665f2 ("xen/sched: support core scheduling for moving cpus to/from cpupools")
+> Fixes: 70fadc41635b ("xen/cpupool: support moving domain between cpupools with different granularity")
 > Reported-by: René Winther Højgaard <renewin@proton.me>
+> Initial-fix-by: Jan Beulich <jbeulich@suse.com>
+> Initial-fix-by: George Dunlap <george.dunlap@cloud.com>
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
