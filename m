@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C855880427C
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 00:19:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647347.1010392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A3518042E4
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 00:52:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647354.1010403 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAIDf-0008A7-C6; Mon, 04 Dec 2023 23:19:19 +0000
+	id 1rAIio-0006dP-UP; Mon, 04 Dec 2023 23:51:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647347.1010392; Mon, 04 Dec 2023 23:19:19 +0000
+Received: by outflank-mailman (output) from mailman id 647354.1010403; Mon, 04 Dec 2023 23:51:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAIDf-000885-9Q; Mon, 04 Dec 2023 23:19:19 +0000
-Received: by outflank-mailman (input) for mailman id 647347;
- Mon, 04 Dec 2023 23:19:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rAIio-0006b6-RN; Mon, 04 Dec 2023 23:51:30 +0000
+Received: by outflank-mailman (input) for mailman id 647354;
+ Mon, 04 Dec 2023 23:51:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=8A84=HP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rAIDd-00081e-Gd
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 23:19:17 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b5513ec-92fb-11ee-98e5-6d05b1d4d9a1;
- Tue, 05 Dec 2023 00:19:16 +0100 (CET)
+ id 1rAIin-0006b0-6F
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 23:51:29 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 07b46616-9300-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 00:51:24 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 4E122B8159B;
- Mon,  4 Dec 2023 23:19:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EACA2C433C8;
- Mon,  4 Dec 2023 23:19:13 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id A30A661254;
+ Mon,  4 Dec 2023 23:51:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 798A2C433C8;
+ Mon,  4 Dec 2023 23:51:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,91 +41,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b5513ec-92fb-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: 07b46616-9300-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701731955;
-	bh=K5vOBrBN+0un2jPiJXMxLI+rVZy/jeyXqClh0diXL2o=;
+	s=k20201202; t=1701733882;
+	bh=yIW68xJUrwAvtznLJmo18RWVROlHx/acwzfA1j1B+qo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=qM6gis7LG6OoCDy1Kcip5weUETWGi8ypXtEu61c4RCN3zrv3h3YaJNr90EJnMjkZo
-	 aHdADYeHLmmXT7udsyckbTd7mu+U0eG2PcIIxShay3KQSO4164knfI4dXyPGjq2b30
-	 2o5SJ0uhLSZT48mDBq3rFVR5SLxmIF9sEDuteez1KeCoMslTLcY9fPYDRywqjpUvYs
-	 +ciN6J8rTYj7aNYzaVH2r+pa1nZ6n0Z5Per8V/P8APGIDCyXm6P6k9pYxcNRzmVmLH
-	 yuKPy4YThKPPHSYAzHmUeq3ClaCbR5lBsdxLu0t+pD9ziSI0abVc6bJfEoh67duE3i
-	 vtpIyfSC5rP5g==
-Date: Mon, 4 Dec 2023 15:19:12 -0800 (PST)
+	b=Qy48tNEB0H9qZaO5+YfV6rXOJhaXUllOcProD3h2kBHKE92BZcm3Z4eCZMuslEjLp
+	 /nNsBijcyxp47+0SUpBO9cPCLMltZE0Cq0QI0Ge6+0EAUeDiiS5mqBAQiwT6Hp0BM2
+	 NDibPYzV4J1qE+Gacy1fC6kH3rf0CRVtpyUNlJFoGenatJdeMcwsCWYelZwKIAyaLi
+	 1OCf4ScimH16E0+cJPLEoaR551R2v6xpsYVg+5TUWVsnKDmpEqlPxCnC2I1f0HtS+X
+	 v3W+XeOBPoCECA405dtWMQE+CiB9ckZqHrKVC+3UbdKPnb2lhHoMzJOKVzOy9r0QP0
+	 xFY9uzmeD6ErQ==
+Date: Mon, 4 Dec 2023 15:51:19 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org, 
-    michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com, 
-    consulting@bugseng.com, bertrand.marquis@arm.com, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-    Nicola Vetrini <nicola.vetrini@bugseng.com>
-Subject: Re: [XEN PATCH 7/7] xen/page_alloc: deviate first_valid_mfn for
- MISRA C Rule 8.4
-In-Reply-To: <67299896-49cb-4d71-aa93-71a2f18b2d0e@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2312041518460.110490@ubuntu-linux-20-04-desktop>
-References: <cover.1701270983.git.nicola.vetrini@bugseng.com> <1ee69d2f0b9e9a704bf869e2b2700f88a8069343.1701270983.git.nicola.vetrini@bugseng.com> <alpine.DEB.2.22.394.2311301847300.110490@ubuntu-linux-20-04-desktop> <21956d5b-08ad-45ac-96ff-22fe7d54ec60@suse.com>
- <alpine.DEB.2.22.394.2312011901450.110490@ubuntu-linux-20-04-desktop> <67299896-49cb-4d71-aa93-71a2f18b2d0e@xen.org>
+To: George Dunlap <george.dunlap@cloud.com>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Kelly Choi <kelly.choi@cloud.com>, xen-devel@lists.xenproject.org, 
+    committers@xenproject.org
+Subject: Re: INFORMAL VOTE REQUIRED - DOCUMENTATION WORDING
+In-Reply-To: <CA+zSX=YNcjDZHF-gx8C8owEpyyjSEtj-MKDAqRwp9woHzEFtUg@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2312041524180.110490@ubuntu-linux-20-04-desktop>
+References: <CAO-mL=x3DntLhoKuaiWYjVqkQRqj=rdyZWmuH1aDjkmUbQchyA@mail.gmail.com> <alpine.DEB.2.22.394.2311301426210.110490@ubuntu-linux-20-04-desktop> <CA+zSX=ZJETPgXut62Y5RQyB8Q6Ruwqd656+iW+ark6WOXYEf+w@mail.gmail.com> <alpine.DEB.2.22.394.2312011253390.110490@ubuntu-linux-20-04-desktop>
+ <1978d259-1531-4dcc-a106-d87f6f26885d@suse.com> <CA+zSX=YNcjDZHF-gx8C8owEpyyjSEtj-MKDAqRwp9woHzEFtUg@mail.gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Sat, 2 Dec 2023, Julien Grall wrote:
-> Hi,
-> 
-> On 02/12/2023 04:03, Stefano Stabellini wrote:
-> > On Fri, 1 Dec 2023, Jan Beulich wrote:
-> > > On 01.12.2023 03:47, Stefano Stabellini wrote:
-> > > > On Wed, 29 Nov 2023, Nicola Vetrini wrote:
-> > > > > No functional change.
-> > > > > 
-> > > > > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> > > > > ---
-> > > > > The preferred way to deviate is to use asmlinkage, but this
-> > > > > modification is only
-> > > > > the consequence of NUMA on ARM (and possibly PPC) being a work in
-> > > > > progress.
-> > > > > As stated in the comment above the textual deviation, first_valid_mfn
-> > > > > will
-> > > > > likely then become static and there would be no need for the comment
-> > > > > anymore.
-> > > > > This works towards having the analysis for this rule clean (i.e. no
-> > > > > violations);
-> > > > > the interest in having a clean rule is that then it could be used to
-> > > > > signal
-> > > > > newly introduced violations by making the analysis job fail.
-> > > > 
-> > > > Please add this text as part of the commit message. It can be done on
-> > > > commit.
-> > > 
-> > > I assume you saw my reply on another of the patches in this series as to
-> > > asmlinkage use on variables? IOW I think this paragraph would also need
-> > > adjustment to account for that.
-> > 
-> > I was going to ask you about that: reading your reply
-> > https://marc.info/?l=xen-devel&m=170142048615336 it is not clear to me
-> > what you are asking or suggesting as next step in regard to asmlinkage
-> > use on variables.
-> 
-> Regardless what Jan wrote there, I think it would be an abuse to add
-> asmlinkage for first_valid_mfn because it is not used by assembly code.
-> 
-> The same goes for the use of SAF-1-safe. This is defined as:
-> 
-> "Functions and variables used only by asm modules do not need to have a
-> visible declaration prior to their definition."
-> 
-> Now, regarding the violation itself. AFAIU, this would be a violation only on
-> x86 because Arm, PPC, RISC-V will all need the declaration as NUMA is not
-> supported. For Arm, we may have NUMA support soon, but I doubt this will
-> happen in the next couple of years for the others.
-> 
-> Furthermore, I am sure this is not the only exported variable/function which
-> may be used by some archictectures but not others. So I think it would be
-> better to declare first_valid_mfn in a common header.
+On Mon, 4 Dec 2023, George Dunlap wrote:
+> And how do we give people practical options to respond to a maintainer
+> who they think is being "picky"
 
-That is true
+If a maintainer is too picky the contributor and the other maintainers
+should say that the patch is good enough in their view. If the
+maintainers disagree (on that topic or another) the new informal voting
+rule should help us move forward faster.
+
+The informal voting would have helped us move forward faster in the
+original thread.
+
+
+On Mon, 4 Dec 2023, George Dunlap wrote:
+> the chance of a vote of the committers being out of sync with the
+> community is fairly small. But of course, small is not impossible.
+> [...] Hence the community-wide survey.
+
+Yes. If someone cares about the outcome, and they are not happy with the
+informal vote, then they need to call for a formal vote.
+
+But maintainers/committers might not always be the right people to
+escalate the voting to.
+
+Yes committers' opinions should count, but certain things have more to
+do with our users and the way they understand our documentation than
+implementation correctness. For these things, our users' opinions should
+count as much as ours.
+
+So I can see that in those cases, if someone is not happy with the
+informal vote, the best next step would be a community-wide survey like
+Kelly did here. That's a good idea. 
+
+I don't think that's written anywhere in our governance specifically,
+but I think it would be a good addition.
 
