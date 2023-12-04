@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A26B480363F
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 15:20:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647015.1009695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C5968036D9
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 15:34:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647019.1009706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA9mt-00045g-Sv; Mon, 04 Dec 2023 14:19:07 +0000
+	id 1rAA1U-0000Cy-9h; Mon, 04 Dec 2023 14:34:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647015.1009695; Mon, 04 Dec 2023 14:19:07 +0000
+Received: by outflank-mailman (output) from mailman id 647019.1009706; Mon, 04 Dec 2023 14:34:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rA9mt-00043o-PD; Mon, 04 Dec 2023 14:19:07 +0000
-Received: by outflank-mailman (input) for mailman id 647015;
- Mon, 04 Dec 2023 14:19:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bwcF=HP=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rA9mr-00042T-Jj
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 14:19:05 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13824487-92b0-11ee-9b0f-b553b5be7939;
- Mon, 04 Dec 2023 15:19:03 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-50be10acaf9so2454889e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 06:19:03 -0800 (PST)
+	id 1rAA1U-0000AR-5j; Mon, 04 Dec 2023 14:34:12 +0000
+Received: by outflank-mailman (input) for mailman id 647019;
+ Mon, 04 Dec 2023 14:34:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/x5/=HP=redhat.com=kwolf@srs-se1.protection.inumbo.net>)
+ id 1rAA1S-0000AL-Iy
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 14:34:10 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ebf6329-92b2-11ee-98e5-6d05b1d4d9a1;
+ Mon, 04 Dec 2023 15:34:09 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-647-j35TmjwUNKevqb14ZTIcdA-1; Mon,
+ 04 Dec 2023 09:34:06 -0500
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D5A631C06535;
+ Mon,  4 Dec 2023 14:34:03 +0000 (UTC)
+Received: from redhat.com (unknown [10.39.194.237])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B9F2240C6EB9;
+ Mon,  4 Dec 2023 14:33:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,141 +51,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13824487-92b0-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1701699543; x=1702304343; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aoXpYKeAwkkXM5zAxEhzOuV4q5RZWoJvtgzz21y8toE=;
-        b=kQozw+dN9mhS+HxrbNdou3xSNWK1cWQSZK5TYY3V0nhgLdwrXbePwazjJDx3DOz5ml
-         v7dbx4CcXWnUQZ6GmO5p2S/WUP9VROVrEVjz5dgdQOHM8zgyq8ass1USmDGPR55So/h4
-         mLBsJcSQeyYzN2Y9C0EzKjoPwTdHGYIZdIOu8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701699543; x=1702304343;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=aoXpYKeAwkkXM5zAxEhzOuV4q5RZWoJvtgzz21y8toE=;
-        b=dA0/EZy81g8zBg+DedAJ4NhRzpZT9glBO2SOAps9rO5faqZh3Dwm88pAsvZcclWBqd
-         6CBQ7URaaJKeDiGprJG52cKUzymdMa9foOvMQO+9PLVBNcRoYpDtA+5oFCJnAXL5YwZr
-         V/q6dUg8fl0JUoRh4OVNt+E3f9EAEuWXFT2y5sQhjrv3kTzSmLwRqospi1DSADagIEK4
-         Im17qMdakWGHB7bGaTRDrS++uQ7prrHMj9rJ/5DKYCiQAZMa9DITffpxkasPV6vRMSrO
-         qZDyLM1Wpvoh7nuqgsVCi/ArAD0FXi+bS9hAmsXhSrTBag2bqV8NjPD1u9ulAE1YjjFw
-         EKXw==
-X-Gm-Message-State: AOJu0YzJOP2FuzF+l2OxwyjC7i7nO+xr8cDEPf4somz8Fo0o6dgEUdw5
-	uJ+TJUdyGl9xwSP7jyzpyPGt/hYPlRx+ezgEiJ5Djg==
-X-Google-Smtp-Source: AGHT+IHzgXYXlV5kZlqZeRDSc0KdLqRPGLuEz/Oy4IzEgPC1nm7GcEwCrPaQrhuPB6DE+gJ8ekslu0qdttWGT/5dOno=
-X-Received: by 2002:ac2:5dc3:0:b0:50b:f3fc:125a with SMTP id
- x3-20020ac25dc3000000b0050bf3fc125amr963378lfq.10.1701699542965; Mon, 04 Dec
- 2023 06:19:02 -0800 (PST)
+X-Inumbo-ID: 2ebf6329-92b2-11ee-98e5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1701700447;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VmAAnk2hgXAxz3YwAXy2av/6HBbaMs5STpe6b+ZkGUU=;
+	b=L1EXhP8/uSfY9G5tysVB+4nVjlM5xoLVVhSS0jjgIJkQzM8iltNSTo/n0BpmFEHsfjs/wa
+	Xe9r4T/N9z56FobAyrEUvWRhZM8+XkonRi50xxHRhaX50HAPbrvrMaTEKN6921krX67P2C
+	kROjdLIYMd8AxQeUVAOP78zb0Au+Fqw=
+X-MC-Unique: j35TmjwUNKevqb14ZTIcdA-1
+Date: Mon, 4 Dec 2023 15:33:57 +0100
+From: Kevin Wolf <kwolf@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org, Hanna Reitz <hreitz@redhat.com>,
+	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
+	Alberto Garcia <berto@igalia.com>,
+	Emanuele Giuseppe Esposito <eesposit@redhat.com>,
+	John Snow <jsnow@redhat.com>, Eric Blake <eblake@redhat.com>,
+	Wen Congyang <wencongyang2@huawei.com>, qemu-block@nongnu.org,
+	xen-devel@lists.xenproject.org, Coiby Xu <Coiby.Xu@gmail.com>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Xie Changlong <xiechanglong.d@gmail.com>,
+	Ari Sundholm <ari@tuxera.com>, Li Zhijian <lizhijian@fujitsu.com>,
+	Cleber Rosa <crosa@redhat.com>, Juan Quintela <quintela@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+	Jason Wang <jasowang@redhat.com>,
+	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+	Zhang Chen <chen.zhang@intel.com>, Peter Xu <peterx@redhat.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Leonardo Bras <leobras@redhat.com>,
+	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
+	Fam Zheng <fam@euphon.net>, Fabiano Rosas <farosas@suse.de>
+Subject: Re: [PATCH 05/12] block: remove AioContext locking
+Message-ID: <ZW3jVZZ_Kuf99g8O@redhat.com>
+References: <20231129195553.942921-1-stefanha@redhat.com>
+ <20231129195553.942921-6-stefanha@redhat.com>
 MIME-Version: 1.0
-References: <2b59a3a2-d2f3-4d29-ab40-3f630fd497fe@suse.com>
- <CA+zSX=Zenkkyv2cQD-CKt=i90YUxxf=B_AuLgh82HDRUEkXJcg@mail.gmail.com> <88796b63-390d-4a4f-982f-ce86f21017c1@suse.com>
-In-Reply-To: <88796b63-390d-4a4f-982f-ce86f21017c1@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 4 Dec 2023 14:18:52 +0000
-Message-ID: <CA+zSX=aicqMNWybLQYe3Jb6rzfePVrgbg6KT=rYnLnvq-GKrcA@mail.gmail.com>
-Subject: Re: [PATCH] sched: correct sched_move_domain()'s cleanup path
-To: Juergen Gross <jgross@suse.com>
-Cc: Jan Beulich <jbeulich@suse.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Dario Faggioli <dfaggioli@suse.com>, 
-	=?UTF-8?Q?Ren=C3=A9_Winther_H=C3=B8jgaard?= <renewin@proton.me>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231129195553.942921-6-stefanha@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
 
-On Mon, Dec 4, 2023 at 2:10=E2=80=AFPM Juergen Gross <jgross@suse.com> wrot=
-e:
->
-> On 04.12.23 14:00, George Dunlap wrote:
-> > On Mon, Dec 4, 2023 at 10:57=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >> It is only in the error case that we want to clean up the new pool's
-> >> scheduler data; in the success case it's rather the old scheduler's
-> >> data which needs cleaning up.
-> >>
-> >> Reported-by: Ren=C3=A9 Winther H=C3=B8jgaard <renewin@proton.me>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >> Reviewed-by: Juergen Gross <jgross@suse.com>
-> >>
-> >> --- a/xen/common/sched/core.c
-> >> +++ b/xen/common/sched/core.c
-> >> @@ -810,7 +810,7 @@ int sched_move_domain(struct domain *d,
-> >>       for ( unit =3D old_units; unit; )
-> >>       {
-> >>           if ( unit->priv )
-> >> -            sched_free_udata(c->sched, unit->priv);
-> >> +            sched_free_udata(ret ? c->sched : old_ops, unit->priv);
-> >>           old_unit =3D unit;
-> >>           unit =3D unit->next_in_list;
-> >>           xfree(old_unit);
-> >
-> > This code is unfortunately written in a "clever" way which seems to
-> > have introduced some confusion.  The one place which calls "goto
-> > out_free" goes through and replaces *most* of the "old_*" variables
-> > with the "new" equivalents.  That's why we're iterating over
-> > `old_units` even on the failure path.
-> >
-> > The result is that this change doesn't catch another bug on the
-> > following line, in the error case:
-> >
-> > sched_free_domdata(old_ops, old_domdata);
-> >
-> > At this point, old_ops is still the old ops, but old_domdata is the
-> > *new* domdata.
-> >
-> > A patch like the following (compile tested only) would fix it along
-> > the lines of the original intent:
-> > 8<-------
-> > diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-> > index eba0cea4bb..78f21839d3 100644
-> > --- a/xen/common/sched/core.c
-> > +++ b/xen/common/sched/core.c
-> > @@ -720,6 +720,7 @@ int sched_move_domain(struct domain *d, struct cpup=
-ool *c)
-> >           {
-> >               old_units =3D new_units;
-> >               old_domdata =3D domdata;
-> > +            old_ops =3D c->sched;
-> >               ret =3D -ENOMEM;
-> >               goto out_free;
-> >           }
-> > @@ -809,10 +810,15 @@ int sched_move_domain(struct domain *d, struct cp=
-upool *c)
-> >       domain_unpause(d);
-> >
-> >    out_free:
-> > +    /*
-> > +     * NB if we've jumped here, "old_units", "old_ops", and so on will
-> > +     * actually be pointing to the new ops, since when aborting it's
-> > +     * the new ops we want to free.
-> > +     */
-> >       for ( unit =3D old_units; unit; )
-> >       {
-> >           if ( unit->priv )
-> > -            sched_free_udata(c->sched, unit->priv);
-> > +            sched_free_udata(old_ops, unit->priv);
-> >           old_unit =3D unit;
-> >           unit =3D unit->next_in_list;
-> >           xfree(old_unit);
-> > ---->8
-> >
-> > But given that this kind of cleverness has already fooled two of our
-> > most senior developers, I'd suggest making the whole thing more
-> > explicit; something like the attached (again compile-tested only)?
->
-> And I have again a third approach, making it crystal clear what is happen=
-ing
-> with which data. No need to explain what is freed via which variables. Se=
-e
-> attached patch (this time it should be really there).
+Am 29.11.2023 um 20:55 hat Stefan Hajnoczi geschrieben:
+> This is the big patch that removes
+> aio_context_acquire()/aio_context_release() from the block layer and
+> affected block layer users.
+> 
+> There isn't a clean way to split this patch and the reviewers are likely
+> the same group of people, so I decided to do it in one patch.
+> 
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 
-Yes, I thought about making a function as well -- that works for me too.
+> @@ -7585,29 +7433,12 @@ void coroutine_fn bdrv_co_leave(BlockDriverState *bs, AioContext *old_ctx)
+>  
+>  void coroutine_fn bdrv_co_lock(BlockDriverState *bs)
+>  {
+> -    AioContext *ctx = bdrv_get_aio_context(bs);
+> -
+> -    /* In the main thread, bs->aio_context won't change concurrently */
+> -    assert(qemu_get_current_aio_context() == qemu_get_aio_context());
+> -
+> -    /*
+> -     * We're in coroutine context, so we already hold the lock of the main
+> -     * loop AioContext. Don't lock it twice to avoid deadlocks.
+> -     */
+> -    assert(qemu_in_coroutine());
+> -    if (ctx != qemu_get_aio_context()) {
+> -        aio_context_acquire(ctx);
+> -    }
+> +    /* TODO removed in next patch */
+>  }
 
-Personally I prefer to keep the "goto out", rather than duplicating
-the rcu_read_unlock().  I'd yield if Jan said he preferred
-duplication, however.
+It's still there at the end of the series.
 
- -George
+>  void coroutine_fn bdrv_co_unlock(BlockDriverState *bs)
+>  {
+> -    AioContext *ctx = bdrv_get_aio_context(bs);
+> -
+> -    assert(qemu_in_coroutine());
+> -    if (ctx != qemu_get_aio_context()) {
+> -        aio_context_release(ctx);
+> -    }
+> +    /* TODO removed in next patch */
+>  }
+
+This one, too.
+
+Reviewed-by: Kevin Wolf <kwolf@redhat.com>
+
 
