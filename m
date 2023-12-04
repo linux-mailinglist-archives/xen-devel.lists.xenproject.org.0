@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB264803BD1
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 18:40:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647262.1010203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A50BB803BED
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Dec 2023 18:47:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647265.1010213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rACvm-0000jE-D8; Mon, 04 Dec 2023 17:40:30 +0000
+	id 1rAD1l-0001im-2q; Mon, 04 Dec 2023 17:46:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647262.1010203; Mon, 04 Dec 2023 17:40:30 +0000
+Received: by outflank-mailman (output) from mailman id 647265.1010213; Mon, 04 Dec 2023 17:46:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rACvm-0000gf-9m; Mon, 04 Dec 2023 17:40:30 +0000
-Received: by outflank-mailman (input) for mailman id 647262;
- Mon, 04 Dec 2023 17:40:28 +0000
+	id 1rAD1k-0001fU-W9; Mon, 04 Dec 2023 17:46:40 +0000
+Received: by outflank-mailman (input) for mailman id 647265;
+ Mon, 04 Dec 2023 17:46:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=r4Wa=HP=proton.me=renewin@srs-se1.protection.inumbo.net>)
- id 1rACvj-0000gZ-Nf
- for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 17:40:28 +0000
-Received: from mail-40134.protonmail.ch (mail-40134.protonmail.ch
- [185.70.40.134]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3490474b-92cc-11ee-9b0f-b553b5be7939;
- Mon, 04 Dec 2023 18:40:25 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uft2=HP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rAD1j-0001eC-JY
+ for xen-devel@lists.xenproject.org; Mon, 04 Dec 2023 17:46:39 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1262964b-92cd-11ee-9b0f-b553b5be7939;
+ Mon, 04 Dec 2023 18:46:37 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40c032962c5so29031515e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 09:46:37 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ r20-20020a05600c35d400b0040c05c768afsm8588814wmq.9.2023.12.04.09.46.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 04 Dec 2023 09:46:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,304 +44,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3490474b-92cc-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1701711623; x=1701970823;
-	bh=Prd9yO0AI5mvo/Hqtmdc6j47eDUY+OS3gy3qYZJET9A=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=BCG8+UDJw2AFid2hisbL/T4z0VsvlWqEYz6flmKTTAdRYNqwofhHXIPHwQKEw/4sS
-	 IO272BBmF5S5JsS+7+zYYUxS0TrGDKBfnDJFWSiu8amvV08/2v74PVPEoHnQDHA2Kg
-	 +0WDXjmpQXoDKaqYmH+vPFK3s8vgH5o8OaVca6fNpUo+JXszXI5wIDNCJm6/ndHsdY
-	 xKNppGwqKeRw08gkHd33VjkbC+CGjHPmly8HA70d+UY1mmP75EQo1OJJQuSsQY/Vxx
-	 1tFuctfv5eM1N+al7x5OOXqxNqdGazEaePSPNgDvaCk8qIDGhxvadnWPcevwFJ4Ish
-	 OwFP/FlNwIErQ==
-Date: Mon, 04 Dec 2023 17:40:07 +0000
-To: Juergen Gross <jgross@suse.com>
-From: =?utf-8?Q?Ren=C3=A9_Winther_H=C3=B8jgaard?= <renewin@proton.me>
-Cc: Jan Beulich <jbeulich@suse.com>, George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: Trying add smt=off disabled cores to cpupool crash xen
-Message-ID: <eoYHHXdHJzBIPmppjwYPoxVy_LbXN8PCF5FawlOBYMIpqAUeOiPNsW9ZVL3u_iCpzCy7xB0muzDKIfCIDdiFkR-bumO3TgxZkksrOZE7_oE=@proton.me>
-In-Reply-To: <dec807bc-8450-48b0-be99-70bf17e62bca@suse.com>
-References: <ImC5JB7OjNgCNtCixZSzBIyXAyR0qI-DKWcm-w5YtHP_5aH71GA_zJK2C4AmA4_GtaYAKK6wGEM8YZ2THj2qLe9kFhjO5bEl8qoqRY8o9p4=@proton.me> <987b03e9-7a16-434a-a060-538dd5a6f045@citrix.com> <2e25ea9e-5f38-4363-ae34-cf838d161cc8@suse.com> <44bbbc6f-607e-4c8c-b4a4-de220345b2b5@suse.com> <1fc21e82-f9f3-4929-a138-2b3de98c06dc@suse.com> <dec807bc-8450-48b0-be99-70bf17e62bca@suse.com>
-Feedback-ID: 45853758:user:proton
+X-Inumbo-ID: 1262964b-92cd-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1701711996; x=1702316796; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=l0SOcOhAedmGbSblAZ4sqnCPC/P04NuInPl8PQK3Mjs=;
+        b=Nrp/0xh4otlSL2myjDO9+1R2xA+aZ8iOZaA8UwJqerRe3P1bZQ1La6o0EIL+YatZha
+         LKHHj+leAjyuYiFM5mxHLz2gETSrifGUXpllOsiXN+JW/RHGkhg2WXrwmvENWbVKc4p8
+         1QlzJ/QjbM/ssyBmjzrHORUsK6XpF/e3baEOg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701711996; x=1702316796;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=l0SOcOhAedmGbSblAZ4sqnCPC/P04NuInPl8PQK3Mjs=;
+        b=xMZ6v00B2XZpwdmW03IB7oGzA9nQ+eRNbLlngcpfHCXEp6uFHK5oh4B80eB4t9B8Y8
+         6L4cuaGIFDac46dsU6LzB2OS2t03b0wSXjjp0wTMil60WW0fJ+pqkHbNjrDSw9mFpUvX
+         Fd9rZxvU1n/nmihQqlmKy5N7s/kJwv26mBHdnm8NU4MPLEQNwlHTHpH5E/+D55uxNY95
+         TQBSvJ58XM46nXh31IaRr6kiFdqgFmolIC0SvL81aLSLIUdieXsHILS8aksa//xXkUFf
+         SJvfqFGXZA8O1TpG4iY49gtcdv77Y2mPaFQI26MhhSvsCEl25QWokFIrGdVt7kK/IoEj
+         rGLw==
+X-Gm-Message-State: AOJu0YxiuW5bjgmQE3lm2FKpChovXq2YuM38OvKxCIEvmLz0+sP7J+Xe
+	zcZ+TYvY4Y/OS8q5tKXHBb91XQ==
+X-Google-Smtp-Source: AGHT+IE+ElWLnSJSKr1KibRJlCfKHM5W7Q20K3f6H90Tmvo9Jxtp7HCioElHE4eqMgLhgMwqNtxV7Q==
+X-Received: by 2002:a7b:c396:0:b0:40c:f1e:5ed9 with SMTP id s22-20020a7bc396000000b0040c0f1e5ed9mr294923wmj.217.1701711996415;
+        Mon, 04 Dec 2023 09:46:36 -0800 (PST)
+Date: Mon, 4 Dec 2023 18:46:35 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 4/6] x86/vPIT: check values loaded from state save
+ record
+Message-ID: <ZW4Qe1H-v0dqu2YS@macbook>
+References: <49a17ffa-c873-4b0f-81ed-9587053ca159@suse.com>
+ <cf1ff132-878a-4cb6-8eae-1995a78576a0@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------421f8b95fe0fbd45dd94a5daaf07c5f81dc893bddac33491d512ccb044bbed43"; charset=utf-8
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------421f8b95fe0fbd45dd94a5daaf07c5f81dc893bddac33491d512ccb044bbed43
-Content-Type: multipart/mixed;boundary=---------------------d45fa8f498a911e229a632c0d0a073a7
-
------------------------d45fa8f498a911e229a632c0d0a073a7
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;charset=utf-8
-
-Hi Juergen,
-
-Sorry for the late reply.
-
-Here are the commands I execute, it is 'xl cpupool-cpu-add pcores 4-15' th=
-at crash the system.
-
-xl cpupool-cpu-remove Pool-0 4-31
-xl cpupool-create name=3D\"ecores\" sched=3D\"credit\"
-xl cpupool-cpu-add ecores 16-31
-
-xl cpupool-create name=3D\"pcores\" sched=3D\"credit\"
-xl cpupool-cpu-add pcores 4-15
-
-
-Here is the other information you asked for.
-
-xl cpupool-list:
-Name               CPUs   Sched     Active   Domain count
-Pool-0              24    credit       y          5
-
-xl cpupool-list -c:
-Name               CPU list
-Pool-0             0,2,4,6,8,10,12,14,16,17,18,19,20,21,22,23,24,25,26,27,=
-28,29,30,31
-
-xl info:
-host                   : dom0
-release                : 6.1.62-1.qubes.fc37.x86_64
-version                : #1 SMP PREEMPT_DYNAMIC Tue Nov 14 06:16:38 GMT 20=
-23
-machine                : x86_64
-nr_cpus                : 24
-max_cpu_id             : 31
-nr_nodes               : 1
-cores_per_socket       : 24
-threads_per_core       : 1
-cpu_mhz                : 2995.196
-hw_caps                : bfebfbff:77faf3ff:2c100800:00000121:0000000f:239c=
-27eb:1840078c:00000100
-virt_caps              : pv hvm hvm_directio pv_directio hap iommu_hap_pt_=
-share vmtrace gnttab-v1
-total_memory           : 65373
-free_memory            : 56505
-sharing_freed_memory   : 0
-sharing_used_memory    : 0
-outstanding_claims     : 0
-free_cpus              : 0
-xen_major              : 4
-xen_minor              : 17
-xen_extra              : .2
-xen_version            : 4.17.2
-xen_caps               : xen-3.0-x86_64 hvm-3.0-x86_32 hvm-3.0-x86_32p hvm=
--3.0-x86_64 =
-
-
-xen_scheduler          : credit
-xen_pagesize           : 4096
-platform_params        : virt_start=3D0xffff800000000000
-xen_changeset          : =
-
-
-xen_commandline        : placeholder dom0_mem=3Dmin:2048M dom0_mem=3Dmax:4=
-096M ucode=3Dscan gnttab_max_frames=3D2048 gnttab_max_maptrack_frames=3D40=
-96 smt=3Doff dom0_max_vcpus=3D4 dom0_vcpus_pin sched-gran=3Dcore sched=3Dc=
-redit no-real-mode edd=3Doff
-cc_compiler            : gcc (GCC) 12.3.1 20230508 (Red Hat 12.3.1-1)
-cc_compile_by          : mockbuild
-cc_compile_domain      : [unknown]
-cc_compile_date        : Tue Nov 14 00:00:00 UTC 2023
-build_id               : a426597e4f24a9487bed72dafc63d4eb523be22b
-xend_config_format     : 4
-
-
-I'm not sure which file is the cpupool config file, this is the content fr=
-om /etc/xen/cpupool
-# the name of the new cpupool
-name =3D "Example-Cpupool"
-
-# the scheduler to use: valid are e.g. credit, credit2 and rtds
-sched =3D "credit"
-
-# list of cpus to use
-cpus =3D ["2", "3"]
-
-/rene
-
-
-On Monday, December 4th, 2023 at 13:07, Juergen Gross <jgross@suse.com> wr=
-ote:
-
-
-> On 04.12.23 11:13, Jan Beulich wrote:
-> =
-
-
-> > On 04.12.2023 11:02, Juergen Gross wrote:
-> > =
-
-
-> > > On 04.12.23 10:15, Jan Beulich wrote:
-> > > =
-
-
-> > > > On 01.12.2023 21:12, Andrew Cooper wrote:
-> > > > =
-
-
-> > > > > On 01/12/2023 7:59 pm, Ren=C3=A9 Winther H=C3=B8jgaard wrote:
-> > > > > =
-
-
-> > > > > > If I set smt=3Doff and try to configure cpupools with credit(1=
-) as if
-> > > > > > all cores are available, I get the following crash.
-> > > > > > =
-
-
-> > > > > > The crash happens when I try to use xl cpupool-add-cpu on the =
-disabled
-> > > > > > HT sibling cores.
-> > > > > > =
-
-
-> > > > > > Hyper-threading is enabled in the firmware, and only disabled =
-with
-> > > > > > smt=3Doff.
-> > > > > =
-
-
-> > > > > CC'ing some maintainers.
-> > > > > =
-
-
-> > > > > I expect this will also explode when a CPU is runtime offlined w=
-ith
-> > > > > `xen-hptool cpu-offline` and then added to a cpupool.
-> > > > > =
-
-
-> > > > > Interestingly, the crash is mov (%rdx,%rax,1),%r13, and I think =
-that's
-> > > > > the percpu posion value in %rdx.
-> > > > > =
-
-
-> > > > > I expect cpupools want to reject parked/offline CPUs.
-> > > > =
-
-
-> > > > While the only explicit check there is
-> > > > =
-
-
-> > > > if ( cpu >=3D nr_cpu_ids )
-> > > > goto addcpu_out;
-> > > > =
-
-
-> > > > I would have expected this
-> > > > =
-
-
-> > > > if ( !cpumask_subset(cpus, &cpupool_free_cpus) ||
-> > > > cpumask_intersects(cpus, &cpupool_locked_cpus) )
-> > > > goto addcpu_out;
-> > > > =
-
-
-> > > > to deal with the situation, as parked/offline CPUs shouldn't be "f=
-ree".
-> > > > J=C3=BCrgen?
-> > > =
-
-
-> > > The problem is the call of sched_get_opt_cpumask() to need the percp=
-u area
-> > > of the cpu in question.
-> > =
-
-
-> > That was my first thought, too, but then I saw cpupool_assign_cpu_lock=
-ed() on
-> > the call trace, which is called only afterwards. Plus sched_get_opt_cp=
-umask()
-> > needs the per-CPU area only when granularity was switched from its def=
-ault of
-> > SCHED_GRAN_cpu afaics.
-> =
-
-
-> =
-
-
-> Oh right you are.
-> =
-
-
-> My patch is needed for larger granularities, though.
-> =
-
-
-> I've tried to hit the same problem as Ren=C3=A9, but everything works as=
- intended (no
-> crash, but adding an offline cpu is being rejected).
-> =
-
-
-> Ren=C3=A9, could you please tell us what exactly you've been doing? This=
- would be:
-> =
-
-
-> - Xen command line parameters
-> - Output of "xl info"
-> - Output of "xl cpupool-list" before starting to manipulate cpupools
-> - Output of "xl cpupool-list -c" before starting to manipulate cpupools
-> - Cpupool config file used to create new cpupool
-> - xl commands you've used to setup the cpupool and adding the cpu(s) to =
-it
-> =
-
-
-> Thanks,
-> =
-
-
-> =
-
-
-> Juergen
------------------------d45fa8f498a911e229a632c0d0a073a7
-Content-Type: application/pgp-keys; filename="publickey - renewin@proton.me - 0x43C32E54.asc"; name="publickey - renewin@proton.me - 0x43C32E54.asc"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="publickey - renewin@proton.me - 0x43C32E54.asc"; name="publickey - renewin@proton.me - 0x43C32E54.asc"
-
-LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgp4ak1FWWxmZy9oWUpLd1lCQkFI
-YVJ3OEJBUWRBOWhrZnlRblEzVlVETWZsT3FPZU1sc1o0N252eml1cmoKbXJnZTFCd040d3pOSlhK
-bGJtVjNhVzVBY0hKdmRHOXVMbTFsSUR4eVpXNWxkMmx1UUhCeWIzUnZiaTV0ClpUN0Nqd1FRRmdv
-QUlBVUNZbGZnL2dZTENRY0lBd0lFRlFnS0FnUVdBZ0VBQWhrQkFoc0RBaDRCQUNFSgpFQXRxSisz
-WXh1S1hGaUVFUThNdVZIeDNmREZGcnZqSEMyb243ZGpHNHBkYUtBRC9WMnNlNk5lTGJ0VkkKVzVB
-ck1XRHdJN21xZ0dNSDgrQ3ZCelh1RUE5Y2xrOEEvUkNLbjdzRE1HZVJzWVNENWNFRXdidVRLK01B
-CkZ4T2owaEZGOS9PNHRxQUd6amdFWWxmZy9oSUtLd1lCQkFHWFZRRUZBUUVIUUlmc3ozdGNhVElk
-MWp2YQpZVG12NURmdUVRVGY4V2s3RmtGVG5LNHltMjRJQXdFSUI4SjRCQmdXQ0FBSkJRSmlWK0Qr
-QWhzTUFDRUoKRUF0cUorM1l4dUtYRmlFRVE4TXVWSHgzZkRGRnJ2akhDMm9uN2RqRzRwZDZpUUQr
-TzVrR0w2ZjhndktJCmlpSStidS94NkFacytvNGZERmVlc052bS9TWkFRZUVBLzBxbEw1RHR2ckJD
-TjY5b2xZMERlRjQ1d0R0bQpEbDlIZ2dtc09sdXRTYzRCCj1xUFNVCi0tLS0tRU5EIFBHUCBQVUJM
-SUMgS0VZIEJMT0NLLS0tLS0K
------------------------d45fa8f498a911e229a632c0d0a073a7--
-
---------421f8b95fe0fbd45dd94a5daaf07c5f81dc893bddac33491d512ccb044bbed43
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wnUEARYKACcFgmVuDtoJkAtqJ+3YxuKXFiEEQ8MuVHx3fDFFrvjHC2on7djG
-4pcAAJywAP9doH5ldQrU5Lc+C8yuJkUm/SWJnPqSvTo+APaCtDspWgD9G7P+
-fe2G/pav0druKMzhG8LiaOwDnC3UHhtt5czlzgU=
-=GkUX
------END PGP SIGNATURE-----
-
-
---------421f8b95fe0fbd45dd94a5daaf07c5f81dc893bddac33491d512ccb044bbed43--
-
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <cf1ff132-878a-4cb6-8eae-1995a78576a0@suse.com>
+
+On Tue, Nov 28, 2023 at 11:35:18AM +0100, Jan Beulich wrote:
+> In particular pit_latch_status() and speaker_ioport_read() perform
+> calculations which assume in-bounds values. Several of the state save
+> record fields can hold wider ranges, though. Refuse to load values which
+> cannot result from normal operation, except mode, the init state of
+> which (see also below) cannot otherwise be reached.
+> 
+> Note that ->gate should only be possible to be zero for channel 2;
+> enforce that as well.
+> 
+> Adjust pit_reset()'s writing of ->mode as well, to not unduly affect
+> the value pit_latch_status() may calculate. The chosen mode of 7 is
+> still one which cannot be established by writing the control word. Note
+> that with or without this adjustment effectively all switch() statements
+> using mode as the control expression aren't quite right when the PIT is
+> still in that init state; there is an apparent assumption that before
+> these can sensibly be invoked, the guest would init the PIT (i.e. in
+> particular set the mode).
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+> ---
+> For mode we could refuse to load values in the [0x08,0xfe] range; I'm
+
+I'm missing something, why should we accept a 0xff mode?  Don't modes
+go up to 7 at most (0b111, mode 3).
+
+> not certain that's going to be overly helpful.
+
+I don't have a strong opinion.  Could be done in a separate change
+anyway.  I guess since we are at it it might be worth to check for as
+much as we can, even if it's not going to affect the logic.
+
+> For count I was considering to clip the saved value to 16 bits (i.e. to
+> convert the internally used 0x10000 back to the architectural 0x0000),
+> but pit_save() doesn't easily lend itself to such a "fixup". If desired
+> perhaps better a separate change anyway.
+
+I would prefer a separate change iff you want to implement this.
+
+> ---
+> v3: Slightly adjust two comments. Re-base over rename in earlier patch.
+> v2: Introduce separate checking function; switch to refusing to load
+>     bogus values. Re-base.
+> 
+> --- a/xen/arch/x86/emul-i8254.c
+> +++ b/xen/arch/x86/emul-i8254.c
+> @@ -47,6 +47,7 @@
+>  #define RW_STATE_MSB 2
+>  #define RW_STATE_WORD0 3
+>  #define RW_STATE_WORD1 4
+> +#define RW_STATE_NUM 5
+>  
+>  #define get_guest_time(v) \
+>     (is_hvm_vcpu(v) ? hvm_get_guest_time(v) : (u64)get_s_time())
+> @@ -427,6 +428,47 @@ static int cf_check pit_save(struct vcpu
+>      return rc;
+>  }
+>  
+> +static int cf_check pit_check(const struct domain *d, hvm_domain_context_t *h)
+> +{
+> +    const struct hvm_hw_pit *hw;
+> +    unsigned int i;
+> +
+> +    if ( !has_vpit(d) )
+> +        return -ENODEV;
+> +
+> +    hw = hvm_get_entry(PIT, h);
+> +    if ( !hw )
+> +        return -ENODATA;
+> +
+> +    /*
+> +     * Check to-be-loaded values are within valid range, for them to represent
+> +     * actually reachable state.  Uses of some of the values elsewhere assume
+> +     * this is the case.  Note that the channels' mode fields aren't checked;
+> +     * Xen prior to 4.19 might save them as 0xff.
+
+Oh, OK, so that explains the weird 0xff mode.
+
+Thanks, Roger.
 
