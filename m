@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 959B8805D64
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 19:33:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648226.1012413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8944F805D66
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 19:34:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648233.1012433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAaDo-0005Nj-Ie; Tue, 05 Dec 2023 18:32:40 +0000
+	id 1rAaFQ-0006lb-76; Tue, 05 Dec 2023 18:34:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648226.1012413; Tue, 05 Dec 2023 18:32:40 +0000
+Received: by outflank-mailman (output) from mailman id 648233.1012433; Tue, 05 Dec 2023 18:34:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAaDo-0005L4-Ef; Tue, 05 Dec 2023 18:32:40 +0000
-Received: by outflank-mailman (input) for mailman id 648226;
- Tue, 05 Dec 2023 18:32:39 +0000
+	id 1rAaFQ-0006jh-3r; Tue, 05 Dec 2023 18:34:20 +0000
+Received: by outflank-mailman (input) for mailman id 648233;
+ Tue, 05 Dec 2023 18:34:18 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rAaDn-0005IJ-1z
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 18:32:39 +0000
+ (envelope-from <julien@xen.org>) id 1rAaFO-0006iL-R0
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 18:34:18 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rAaDl-0004HJ-5h; Tue, 05 Dec 2023 18:32:37 +0000
-Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ id 1rAaFM-0004L6-7w; Tue, 05 Dec 2023 18:34:16 +0000
+Received: from 54-240-197-228.amazon.com ([54.240.197.228]
+ helo=[10.95.100.251]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rAaDk-0007ET-R5; Tue, 05 Dec 2023 18:32:37 +0000
+ id 1rAaFM-0007R7-0a; Tue, 05 Dec 2023 18:34:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,197 +40,70 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
-	Subject:Cc:To:From; bh=uV43mf2udG/DKrLzWvUqnyy/HVgeQgGqI+W4eOCsXJw=; b=LKh0sx
-	sHE6cNKM67g37yCo95EFnPrHubUyePnWej1yO+5H0JYXGlj33f2vPqTFvhd6eZhX1ZvasWLDdYoBg
-	WLIf3ZXZ7esW8uO9cjNvt5ErKzu6Evbm1CWWdoRsUbVg3PiF6SqpA0k0oRXlgN44q01u9An8f80DN
-	37dyoVmwb6U=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	Julien Grall <jgrall@amazon.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Quan Xu <quan.xu0@gmail.com>,
-	Juergen Gross <jgross@suse.com>,
-	Alexander Kanavin <alex@linutronix.de>
-Subject: [PATCH] Only compile the hypervisor with -Wdeclaration-after-statement
-Date: Tue,  5 Dec 2023 18:32:26 +0000
-Message-Id: <20231205183226.26636-1-julien@xen.org>
-X-Mailer: git-send-email 2.40.1
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=b2mx82GWmiUxCkQpCz01WIFQ+/VD691RwByjXzdEUa0=; b=HC29peXOaMAXOHBMqeTxUMRefl
+	jJ7ZMg96ud7giH8Q/qInTZ5t9EHf/bRBtSqj+vILIwrLMqXSEEYOisvlRnG6lu56mTTwP6QFp8WM6
+	D8pAbvVVNE5sn0aUYWkgtmj7wMGSxNbsoT9xLaCcZ+p3jbSHzAfmN2V4hW3b2wKaeZRU=;
+Message-ID: <a5909c02-7851-47ec-a401-f808ae3714d8@xen.org>
+Date: Tue, 5 Dec 2023 18:34:13 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Config.mk: drop -Wdeclaration-after-statement
+Content-Language: en-GB
+To: Alexander Kanavin <alex@linutronix.de>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
+References: <20231128174729.3880113-1-alex@linutronix.de>
+ <fcb1cc57-b985-4711-a234-4aaa380b9abe@suse.com>
+ <81043e30-c9fd-4c5e-ad63-0e42edea733d@linutronix.de>
+ <5a469665-54b2-4904-9604-ad686fbbb05e@xen.org>
+ <716b0ec4-adce-494d-b9b6-69dbb7e26000@perard>
+ <890f54b5-9692-40b8-94fa-9a55268e29f5@suse.com>
+ <da7a86ba-7f74-41bb-9540-76f4530ac7ac@xen.org>
+ <da50a3db-b950-4a0e-a7e7-a715c1f74f4a@linutronix.de>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <da50a3db-b950-4a0e-a7e7-a715c1f74f4a@linutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Julien Grall <jgrall@amazon.com>
+Hi Alexander.
 
-Right now, all tools and hypervisor will be complied with the option
--Wdeclaration-after-statement. While most of the code in the hypervisor
-is controlled by us, for tools we may import external libraries.
+On 04/12/2023 09:28, Alexander Kanavin wrote:
+> On 12/1/23 20:14, Julien Grall wrote:
+>>
+>> So I agree that if we were to remove -Wdeclaration-after-statement 
+>> then we should also update the CODING_STYLE. However, I am not 
+>> entirely sure I would want to mix code and declaration in the hypervisor.
+>>
+>> Anyway, I think this is a separate discussion from resolving the 
+>> immediate problem (i.e. building the python bindings).
+>>
+>> So for now, I think it would make sense to push the 
+>> -Wdeclaration-after-statement to the tools.
+>>
+>> @Alexander, are you going to send a new version? If not, I would be 
+>> happy to do it.
+> 
+> Please do it, as in the meantime, my attention has focused entirely 
+> elsewhere, so I'd have to switch context and find time to study the xen 
+> source. I don't have specific interest in xen, the reason I looked into 
+> it is that we're updating python to 3.12 in yocto and this one was one 
+> of the many issues that came up all over the userspace stack.
 
-The build will fail if one of them are using the construct we are
-trying to prevent. This is the case when building against Python 3.12
-and Yocto:
+Thanks, I have sent a patch [1]. I decided to add a Reported-by tag 
+rather than Signed-off-by on my version. I hope this is fine.
 
-| In file included from /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/Python.h:44,
-|                  from xen/lowlevel/xc/xc.c:8:
-| /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/object.h: In function 'Py_SIZE':
-| /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/object.h:233:5: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
-|   233 |     PyVarObject *var_ob = _PyVarObject_CAST(ob);
-|       |     ^~~~~~~~~~~
-| In file included from /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/Python.h:53:
-| /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/cpython/longintrepr.h: In function '_PyLong_CompactValue':
-| /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/cpython/longintrepr.h:121:5: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
-|   121 |     Py_ssize_t sign = 1 - (op->long_value.lv_tag & _PyLong_SIGN_MASK);
-|       |     ^~~~~~~~~~
-| cc1: all warnings being treated as errors
+Cheers,
 
-Looking at the tools directory, a fair few directory already add
--Wno-declaration-after-statement to inhibit the default behavior.
+[1] https://lore.kernel.org/xen-devel/20231205183226.26636-1-julien@xen.org/
 
-We have always build the hypervisor with the flag, so for now remove
-only the flag for anything but the hypervisor. We can decide at later
-time whether we want to relax.
+> 
+> 
 
-Also remove the -Wno-declaration-after-statement in some subdirectory
-as the flag is now unnecessary.
-
-Part of the commit message was take from Alexander's first proposal:
-
-Link: https://lore.kernel.org/xen-devel/20231128174729.3880113-1-alex@linutronix.de/
-Reported-by: Alexander Kanavin <alex@linutronix.de>
-Signed-off-by: Julien Grall <jgrall@amazon.com>
-
----
-
-I think the decision to remove the flag for the hypervisor is a separate
-discussion. Personally I am on the fence.
-
-We could also re-enable the flags to some of the tools directory
-if wanted. I chose the most convenience approach for now.
----
- Config.mk                   | 2 --
- stubdom/Makefile            | 2 +-
- stubdom/vtpmmgr/Makefile    | 2 +-
- tools/libs/light/Makefile   | 3 +--
- tools/libs/util/Makefile    | 3 +--
- tools/tests/depriv/Makefile | 2 --
- tools/xl/Makefile           | 3 +--
- xen/Makefile                | 1 +
- 8 files changed, 6 insertions(+), 12 deletions(-)
-
-diff --git a/Config.mk b/Config.mk
-index 2c43702958eb..7e67b91de293 100644
---- a/Config.mk
-+++ b/Config.mk
-@@ -177,8 +177,6 @@ CFLAGS += -std=gnu99
- 
- CFLAGS += -Wall -Wstrict-prototypes
- 
--$(call cc-option-add,HOSTCFLAGS,HOSTCC,-Wdeclaration-after-statement)
--$(call cc-option-add,CFLAGS,CC,-Wdeclaration-after-statement)
- $(call cc-option-add,CFLAGS,CC,-Wno-unused-but-set-variable)
- $(call cc-option-add,CFLAGS,CC,-Wno-unused-local-typedefs)
- 
-diff --git a/stubdom/Makefile b/stubdom/Makefile
-index 71c9b2200e68..8c503c2bf8de 100644
---- a/stubdom/Makefile
-+++ b/stubdom/Makefile
-@@ -245,7 +245,7 @@ tpm_emulator-$(XEN_TARGET_ARCH): tpm_emulator-$(TPMEMU_VERSION).tar.gz
- 	patch -d $@ -p1 < vtpm-command-duration.patch
- 	patch -d $@ -p1 < vtpm-tpm_bn_t-addr.patch
- 	mkdir $@/build
--	cd $@/build; CC=${CC} $(CMAKE) .. -DCMAKE_C_FLAGS:STRING="-std=c99 -DTPM_NO_EXTERN $(TARGET_CPPFLAGS) $(TARGET_CFLAGS) -Wno-declaration-after-statement"
-+	cd $@/build; CC=${CC} $(CMAKE) .. -DCMAKE_C_FLAGS:STRING="-std=c99 -DTPM_NO_EXTERN $(TARGET_CPPFLAGS) $(TARGET_CFLAGS)"
- 	touch $@
- 
- TPMEMU_STAMPFILE=$(CROSS_ROOT)/$(GNU_TARGET_ARCH)-xen-elf/lib/libtpm.a
-diff --git a/stubdom/vtpmmgr/Makefile b/stubdom/vtpmmgr/Makefile
-index 6dae034a0778..c29bb498381c 100644
---- a/stubdom/vtpmmgr/Makefile
-+++ b/stubdom/vtpmmgr/Makefile
-@@ -17,7 +17,7 @@ OBJS += vtpm_disk.o disk_tpm.o disk_io.o disk_crypto.o disk_read.o disk_write.o
- OBJS += mgmt_authority.o
- 
- CFLAGS+=-Werror -Iutil -Icrypto -Itcs
--CFLAGS+=-Wno-declaration-after-statement -Wno-unused-label
-+CFLAGS+=-Wno-unused-label
- 
- build: $(TARGET)
- $(TARGET): $(OBJS)
-diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
-index ba4c1b79336f..37e4d1670986 100644
---- a/tools/libs/light/Makefile
-+++ b/tools/libs/light/Makefile
-@@ -38,8 +38,7 @@ vpath static_tables.c $(ACPI_PATH)/
- 
- OBJS-$(CONFIG_X86) += $(ACPI_OBJS)
- 
--CFLAGS += -Wno-format-zero-length -Wmissing-declarations \
--	-Wno-declaration-after-statement -Wformat-nonliteral
-+CFLAGS += -Wno-format-zero-length -Wmissing-declarations -Wformat-nonliteral
- 
- CFLAGS-$(CONFIG_X86) += -DCONFIG_PCI_SUPP_LEGACY_IRQ
- 
-diff --git a/tools/libs/util/Makefile b/tools/libs/util/Makefile
-index c3b21875dcd8..936ec90a3153 100644
---- a/tools/libs/util/Makefile
-+++ b/tools/libs/util/Makefile
-@@ -9,8 +9,7 @@ OBJS-y += libxlu_disk.o
- OBJS-y += libxlu_vif.o
- OBJS-y += libxlu_pci.o
- 
--CFLAGS += -Wno-format-zero-length -Wmissing-declarations \
--	-Wno-declaration-after-statement -Wformat-nonliteral
-+CFLAGS += -Wno-format-zero-length -Wmissing-declarations -Wformat-nonliteral
- CFLAGS += $(CFLAGS_libxenctrl)
- 
- CFLAGS += $(PTHREAD_CFLAGS)
-diff --git a/tools/tests/depriv/Makefile b/tools/tests/depriv/Makefile
-index 7d9e3b01bbd4..5404a12f4780 100644
---- a/tools/tests/depriv/Makefile
-+++ b/tools/tests/depriv/Makefile
-@@ -1,8 +1,6 @@
- XEN_ROOT=$(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
--CFLAGS += -Wno-declaration-after-statement
--
- CFLAGS += $(CFLAGS_xeninclude)
- CFLAGS += $(CFLAGS_libxenctrl)
- CFLAGS += $(CFLAGS_libxencall)
-diff --git a/tools/xl/Makefile b/tools/xl/Makefile
-index 5f7aa5f46c87..d742e96a5b3e 100644
---- a/tools/xl/Makefile
-+++ b/tools/xl/Makefile
-@@ -5,8 +5,7 @@
- XEN_ROOT = $(CURDIR)/../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
--CFLAGS += -Wno-format-zero-length -Wmissing-declarations \
--	-Wno-declaration-after-statement -Wformat-nonliteral
-+CFLAGS += -Wno-format-zero-length -Wmissing-declarations -Wformat-nonliteral
- CFLAGS += -fPIC
- 
- CFLAGS += $(PTHREAD_CFLAGS)
-diff --git a/xen/Makefile b/xen/Makefile
-index ca571103c868..360fb6dcae57 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -393,6 +393,7 @@ CFLAGS-$(CONFIG_CC_SPLIT_SECTIONS) += -ffunction-sections -fdata-sections
- 
- CFLAGS += -nostdinc -fno-builtin -fno-common
- CFLAGS += -Werror -Wredundant-decls -Wwrite-strings -Wno-pointer-arith
-+$(call cc-option-add,CFLAGS,CC,-Wdeclaration-after-statement)
- $(call cc-option-add,CFLAGS,CC,-Wvla)
- CFLAGS += -pipe -D__XEN__ -include $(srctree)/include/xen/config.h
- CFLAGS-$(CONFIG_DEBUG_INFO) += -g
 -- 
-2.40.1
-
+Julien Grall
 
