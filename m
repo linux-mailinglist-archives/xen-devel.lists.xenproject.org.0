@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3E1D8053A0
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:56:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647703.1011275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC57C80539B
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:56:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647704.1011293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAU25-0000sx-NE; Tue, 05 Dec 2023 11:56:09 +0000
+	id 1rAU27-0001Vf-CA; Tue, 05 Dec 2023 11:56:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647703.1011275; Tue, 05 Dec 2023 11:56:09 +0000
+Received: by outflank-mailman (output) from mailman id 647704.1011293; Tue, 05 Dec 2023 11:56:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAU25-0000my-GH; Tue, 05 Dec 2023 11:56:09 +0000
-Received: by outflank-mailman (input) for mailman id 647703;
- Tue, 05 Dec 2023 11:56:08 +0000
+	id 1rAU27-0001NY-6S; Tue, 05 Dec 2023 11:56:11 +0000
+Received: by outflank-mailman (input) for mailman id 647704;
+ Tue, 05 Dec 2023 11:56:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pDPQ=HQ=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1rAU24-0008Co-9i
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:56:08 +0000
+ id 1rAU25-0008Co-A4
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:56:09 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44aa20d2-9365-11ee-98e5-6d05b1d4d9a1;
+ id 44f7385f-9365-11ee-98e5-6d05b1d4d9a1;
  Tue, 05 Dec 2023 12:56:05 +0100 (CET)
 Received: from Dell.homenet.telecomitalia.it
  (host-79-46-48-173.retail.telecomitalia.it [79.46.48.173])
- by support.bugseng.com (Postfix) with ESMTPSA id 70CF74EE0750;
+ by support.bugseng.com (Postfix) with ESMTPSA id CC5C64EE074D;
  Tue,  5 Dec 2023 12:56:04 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -40,60 +40,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44aa20d2-9365-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: 44f7385f-9365-11ee-98e5-6d05b1d4d9a1
 From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Federico Serafini <federico.serafini@bugseng.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Paul Durrant <paul@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 5/6] x86/mce: address violations of MISRA C:2012 Rule 8.2
-Date: Tue,  5 Dec 2023 12:55:54 +0100
-Message-Id: <16a4587adaac7b116026c0df4addd254d4a33715.1701764980.git.federico.serafini@bugseng.com>
+Subject: [XEN PATCH 6/6] xen/pci: address violations of MISRA C:2012 Rule 8.2
+Date: Tue,  5 Dec 2023 12:55:55 +0100
+Message-Id: <f84479a28a7f9d6e44829259229460dcf7c497c4.1701764980.git.federico.serafini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1701764980.git.federico.serafini@bugseng.com>
 References: <cover.1701764980.git.federico.serafini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add missing parameter names. No functional change.
+Add missing parameter names to address violations of MISRA C:2012
+Rule 8.2. Furthermore, use C standard types to comply with XEN coding style.
+No functional change.
 
 Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 ---
- xen/arch/x86/cpu/mcheck/mce.h  | 2 +-
- xen/arch/x86/include/asm/mce.h | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ xen/drivers/passthrough/pci.c | 8 ++++----
+ xen/include/xen/pci.h         | 3 ++-
+ 2 files changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/mcheck/mce.h b/xen/arch/x86/cpu/mcheck/mce.h
-index b6fc9c3617..34285296b4 100644
---- a/xen/arch/x86/cpu/mcheck/mce.h
-+++ b/xen/arch/x86/cpu/mcheck/mce.h
-@@ -158,7 +158,7 @@ extern void mce_need_clearbank_register(mce_need_clearbank_t cbfunc);
-  * MCi_STATUS value for that bank.
-  */
- typedef struct mcinfo_extended *(*x86_mce_callback_t)
--    (struct mc_info *, uint16_t, uint64_t);
-+    (struct mc_info *mi, uint16_t bank, uint64_t status);
- extern void x86_mce_callback_register(x86_mce_callback_t cbfunc);
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index 04d00c7c37..28ed8ea817 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -104,9 +104,9 @@ static struct pci_seg *alloc_pseg(u16 seg)
+ }
  
- void *x86_mcinfo_reserve(struct mc_info *mi,
-diff --git a/xen/arch/x86/include/asm/mce.h b/xen/arch/x86/include/asm/mce.h
-index 2c63318c08..6ce56b5b85 100644
---- a/xen/arch/x86/include/asm/mce.h
-+++ b/xen/arch/x86/include/asm/mce.h
-@@ -37,8 +37,8 @@ struct domain;
- struct vcpu;
+ static int pci_segments_iterate(
+-    int (*handler)(struct pci_seg *, void *), void *arg)
++    int (*handler)(struct pci_seg *pseg, void *arg), void *arg)
+ {
+-    u16 seg = 0;
++    uint16_t seg = 0;
+     int rc = 0;
  
- /* Guest vMCE MSRs virtualization */
--extern void vmce_init_vcpu(struct vcpu *);
--extern int vmce_restore_vcpu(struct vcpu *, const struct hvm_vmce_vcpu *);
-+extern void vmce_init_vcpu(struct vcpu *v);
-+extern int vmce_restore_vcpu(struct vcpu *v, const struct hvm_vmce_vcpu *ctxt);
- extern int vmce_wrmsr(uint32_t msr, uint64_t val);
- extern int vmce_rdmsr(uint32_t msr, uint64_t *val);
- extern bool vmce_has_lmce(const struct vcpu *v);
+     do {
+@@ -1077,7 +1077,7 @@ int __init scan_pci_devices(void)
+ 
+ struct setup_hwdom {
+     struct domain *d;
+-    int (*handler)(u8 devfn, struct pci_dev *);
++    int (*handler)(uint8_t devfn, struct pci_dev *pdev);
+ };
+ 
+ static void __hwdom_init setup_one_hwdom_device(const struct setup_hwdom *ctxt,
+@@ -1157,7 +1157,7 @@ static int __hwdom_init cf_check _setup_hwdom_pci_devices(
+ }
+ 
+ void __hwdom_init setup_hwdom_pci_devices(
+-    struct domain *d, int (*handler)(u8 devfn, struct pci_dev *))
++    struct domain *d, int (*handler)(uint8_t devfn, struct pci_dev *pdev))
+ {
+     struct setup_hwdom ctxt = { .d = d, .handler = handler };
+ 
+diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+index 50d7dfb2a2..a3b7434818 100644
+--- a/xen/include/xen/pci.h
++++ b/xen/include/xen/pci.h
+@@ -178,7 +178,8 @@ enum pdev_type pdev_type(u16 seg, u8 bus, u8 devfn);
+ int find_upstream_bridge(u16 seg, u8 *bus, u8 *devfn, u8 *secbus);
+ 
+ void setup_hwdom_pci_devices(struct domain *d,
+-                            int (*handler)(u8 devfn, struct pci_dev *pdev));
++                             int (*handler)(uint8_t devfn,
++                                            struct pci_dev *pdev));
+ int pci_release_devices(struct domain *d);
+ void pci_segments_init(void);
+ int pci_add_segment(u16 seg);
 -- 
 2.34.1
 
