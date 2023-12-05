@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 424A180547A
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 13:39:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647747.1011368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD1AF805479
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 13:39:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647748.1011383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAUhM-0004G7-Lh; Tue, 05 Dec 2023 12:38:48 +0000
+	id 1rAUhO-0004eo-46; Tue, 05 Dec 2023 12:38:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647747.1011368; Tue, 05 Dec 2023 12:38:48 +0000
+Received: by outflank-mailman (output) from mailman id 647748.1011383; Tue, 05 Dec 2023 12:38:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAUhM-0004AT-Gx; Tue, 05 Dec 2023 12:38:48 +0000
-Received: by outflank-mailman (input) for mailman id 647747;
- Tue, 05 Dec 2023 12:38:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rAUhN-0004ag-TL; Tue, 05 Dec 2023 12:38:49 +0000
+Received: by outflank-mailman (input) for mailman id 647748;
+ Tue, 05 Dec 2023 12:38:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JQhx=HQ=huaweicloud.com=yukuai1@srs-se1.protection.inumbo.net>)
- id 1rAUhK-00035R-J9
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 12:38:46 +0000
+ id 1rAUhL-00035L-SK
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 12:38:47 +0000
 Received: from dggsgout11.his.huawei.com (unknown [45.249.212.51])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38d3e812-936b-11ee-98e5-6d05b1d4d9a1;
- Tue, 05 Dec 2023 13:38:44 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 39ae3db5-936b-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 13:38:45 +0100 (CET)
 Received: from mail.maildlp.com (unknown [172.19.163.216])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Sl0Sq4VkHz4f3lDb
- for <xen-devel@lists.xenproject.org>; Tue,  5 Dec 2023 20:38:35 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
- by mail.maildlp.com (Postfix) with ESMTP id 5291D1A0B43
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Sl0Sw5R1Dz4f3kKg
  for <xen-devel@lists.xenproject.org>; Tue,  5 Dec 2023 20:38:40 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+ by mail.maildlp.com (Postfix) with ESMTP id C842F1A0373
+ for <xen-devel@lists.xenproject.org>; Tue,  5 Dec 2023 20:38:41 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP1 (Coremail) with SMTP id cCh0CgDnNw7GGW9lr8E8Cw--.35507S9;
- Tue, 05 Dec 2023 20:38:39 +0800 (CST)
+ by APP1 (Coremail) with SMTP id cCh0CgDnNw7GGW9lr8E8Cw--.35507S10;
+ Tue, 05 Dec 2023 20:38:41 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,7 +45,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38d3e812-936b-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: 39ae3db5-936b-11ee-9b0f-b553b5be7939
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: axboe@kernel.dk,
 	roger.pau@citrix.com,
@@ -94,18 +94,18 @@ Cc: linux-block@vger.kernel.org,
 	yukuai1@huaweicloud.com,
 	yi.zhang@huawei.com,
 	yangerkun@huawei.com
-Subject: [PATCH -next RFC 05/14] s390/dasd: use bdev api in dasd_format()
-Date: Tue,  5 Dec 2023 20:37:19 +0800
-Message-Id: <20231205123728.1866699-6-yukuai1@huaweicloud.com>
+Subject: [PATCH -next RFC 06/14] scsicam: use bdev api in scsi_bios_ptable()
+Date: Tue,  5 Dec 2023 20:37:20 +0800
+Message-Id: <20231205123728.1866699-7-yukuai1@huaweicloud.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231205123728.1866699-1-yukuai1@huaweicloud.com>
 References: <20231205123728.1866699-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgDnNw7GGW9lr8E8Cw--.35507S9
-X-Coremail-Antispam: 1UD129KBjvdXoW7XFWrKF1rWw4UAw4kXFWkWFg_yoWfWrg_Zr
-	1fGryxtr1xCr9Ikr1YvF15Zr9Y9F1kWr4Svry3KryfXFnrXFsaq3ykuFW3JrZ7JayUG3s3
-	GF9rXw10yr15WjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+X-CM-TRANSID:cCh0CgDnNw7GGW9lr8E8Cw--.35507S10
+X-Coremail-Antispam: 1UD129KBjvdXoW7XFW7Jry5ZFy8tw45tFykGrg_yoW3CFX_CF
+	WI9ryxWr1FkFs7Kw45tF43Zryvva15XF1I9FWSq34Svw1UXr95Kr4vvr17Zr47Gr4DJw1f
+	Cr17WrWakrsFgjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
 	9fnUUIcSsGvfJTRUUUbqkFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
 	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAVCq3wA2048vs2
 	IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28E
@@ -129,25 +129,26 @@ block_devcie.
 
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/s390/block/dasd_ioctl.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/scsi/scsicam.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/s390/block/dasd_ioctl.c b/drivers/s390/block/dasd_ioctl.c
-index 61b9675e2a67..bbfb958237e6 100644
---- a/drivers/s390/block/dasd_ioctl.c
-+++ b/drivers/s390/block/dasd_ioctl.c
-@@ -221,8 +221,9 @@ dasd_format(struct dasd_block *block, struct format_data_t *fdata)
- 	 * enabling the device later.
- 	 */
- 	if (fdata->start_unit == 0) {
--		block->gdp->part0->bd_inode->i_blkbits =
--			blksize_bits(fdata->blksize);
-+		rc = set_blocksize(block->gdp->part0, fdata->blksize);
-+		if (rc)
-+			return rc;
- 	}
+diff --git a/drivers/scsi/scsicam.c b/drivers/scsi/scsicam.c
+index e2c7d8ef205f..1c99b964a0eb 100644
+--- a/drivers/scsi/scsicam.c
++++ b/drivers/scsi/scsicam.c
+@@ -32,11 +32,10 @@
+  */
+ unsigned char *scsi_bios_ptable(struct block_device *dev)
+ {
+-	struct address_space *mapping = bdev_whole(dev)->bd_inode->i_mapping;
+ 	unsigned char *res = NULL;
+ 	struct folio *folio;
  
- 	rc = base->discipline->format_device(base, fdata, 1);
+-	folio = read_mapping_folio(mapping, 0, NULL);
++	folio = bdev_read_folio(bdev_whole(dev), 0);
+ 	if (IS_ERR(folio))
+ 		return NULL;
+ 
 -- 
 2.39.2
 
