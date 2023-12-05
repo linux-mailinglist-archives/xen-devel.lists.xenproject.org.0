@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E71480569E
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 14:57:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647908.1011643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6AF98056A6
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 15:00:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647911.1011652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAVve-0000Xi-83; Tue, 05 Dec 2023 13:57:38 +0000
+	id 1rAVxy-0002Mv-Kb; Tue, 05 Dec 2023 14:00:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647908.1011643; Tue, 05 Dec 2023 13:57:38 +0000
+Received: by outflank-mailman (output) from mailman id 647911.1011652; Tue, 05 Dec 2023 14:00:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAVve-0000Uw-57; Tue, 05 Dec 2023 13:57:38 +0000
-Received: by outflank-mailman (input) for mailman id 647908;
- Tue, 05 Dec 2023 13:57:37 +0000
+	id 1rAVxy-0002Jg-HT; Tue, 05 Dec 2023 14:00:02 +0000
+Received: by outflank-mailman (input) for mailman id 647911;
+ Tue, 05 Dec 2023 14:00:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAVvd-0000Ta-0a
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 13:57:37 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1rAVxw-0001wF-Ir
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 14:00:00 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3dc403be-9376-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 14:57:34 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40bd5eaa66cso45540675e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 05:57:34 -0800 (PST)
+ id 934ee92e-9376-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 14:59:58 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-40bd5eaa66eso38944425e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 05:59:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j35-20020a05600c1c2300b004076f522058sm22660085wms.0.2023.12.05.05.57.33
+ fk14-20020a05600c0cce00b0040b2a52ecaasm22784362wmb.2.2023.12.05.05.59.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 05:57:34 -0800 (PST)
+ Tue, 05 Dec 2023 05:59:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3dc403be-9376-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 934ee92e-9376-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701784654; x=1702389454; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701784798; x=1702389598; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=qsWZxyy0NLSl6egU5ts9/0A9uLo96gMVmdJfhPHnNIU=;
-        b=QaH/mwToej/CNp9rlMHRkRZ0/5xaZQ+w4BXXbFeJDokK1zyaW29SrIRoGoY0T9b2ET
-         bDENNJS3PAUrmxkFm6M6aRGSyXLbq3YgLUzNxRh3pcQoCLiOIJdmKundxWZcn3EdPBEM
-         kqLckAF40FtbfUpfK9mJ8CmLi4XxikJ+hkfSPYO3vQ3dzBRfqy6aL956nNxFD4/1cWFG
-         5lBbpaDF3n+cMate+Fx6gnwOfAOoIow8oKptf5Oa4YLtV157FPRr5xoE7w+eXeBlGwjD
-         THDmK+ozPQrWx5El0sjUOX7vUjx3hTUSgs81PTlDANOefJ0uAzXBzyOasTSuDEds3CBk
-         jhzQ==
+        bh=yshCHNldBlAnFm1ij+X3Ur7gze1BanWPgtNuhU6jShE=;
+        b=dAMSxuU4Js04S1lo4l+4xsxx6MZiyB2XB1BwQxi9Xbp60AqWMGMxPGpQr8CBwyP+dV
+         0Qdqzr1p3sETV0+VzD/9L/OXJgaKlDp8owsEbCT/8CAeLGSQ2cRnL9jpKn08N1nwVV58
+         B/eTeEHR4/qC0ZB3IZtzN3Gg15rRY3tSJwsXpKRFiRhVVMQ+NvduUghAj6g5kWeieKvb
+         BmTqQyXOQ31Hmz5K4FXXmTnprMoWu/RZM4Rk4KV1YIxi6/l+Hsz0bSuwyNUIID69quud
+         MenvVpdKhqr5GVyS4n7dT3bik2aHom13XSisG2B6UUrw2Z++K2W6N9qyQbXFw/Xetq2D
+         HQ1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701784654; x=1702389454;
+        d=1e100.net; s=20230601; t=1701784798; x=1702389598;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qsWZxyy0NLSl6egU5ts9/0A9uLo96gMVmdJfhPHnNIU=;
-        b=cBkMLbwZTFEs/padnKjfQb26gOFCmADyzBXv+1i91KfAG4MJ8rtChOKHa3R5HEWmSD
-         Lij25WIBcZl6adyZVYG5IGod9rdgl3R5zPviUEf26B7WHxEJ1yWz5AXfnLHTy6gsIAld
-         ou85iCr1DpRoUTjeJUT02rGjnSVTKeDFJ2mP0LNClUa3tGLB3JUyJujP75Z9m8wq0k6E
-         g2xfJ1yjieu537ewQpLDoTlugNhD3zShGYPUqWCVghD6ysMZ1eaugqxmxqDCErwafoEl
-         Spl/LKvi/Nrmj7E+ureCSpdrvdLHgI2YC3ViEzIGC+Tb65rD7s5wIE/5GIZJ2mknOHQt
-         iBpw==
-X-Gm-Message-State: AOJu0YxNqkl7u11LOHOhnqa2N+CmSjYLSiKR+quHxK+PAsK0bRsOwxnP
-	Z2lqnCZim7Gc4F0Kc249JxfO
-X-Google-Smtp-Source: AGHT+IHVcIB8g8fFwMUgMJAdQiXthk5jc17fujtV57Pag9NFAIwv0HkB2TUffnlIrASvwIlqUVZisg==
-X-Received: by 2002:a05:600c:46d5:b0:40b:5e21:dd20 with SMTP id q21-20020a05600c46d500b0040b5e21dd20mr541396wmo.78.1701784654326;
-        Tue, 05 Dec 2023 05:57:34 -0800 (PST)
-Message-ID: <dd3a316e-1eb8-45f7-a27e-1467e8295a16@suse.com>
-Date: Tue, 5 Dec 2023 14:57:33 +0100
+        bh=yshCHNldBlAnFm1ij+X3Ur7gze1BanWPgtNuhU6jShE=;
+        b=NGLmx4AlZQufSvyrjfETcRky5IUzPA9jmAhzFdR88/tcWDKR3vZ3depO23MVoH9GsH
+         g6cGVnko19gq5iuNHBudLSA8+gzmwjiGHt7nZalBGhfHQvfnXlz1SfRk0Bh/ZN4mTueR
+         h2HvABwS3nhenIB0uijhhf6kDuwvFjSIex6Y+S/NFIF48czHBv555e8/OgjYzeIEyaiS
+         yiJqaXftu9cceMnzt1CP9r/aajh9woeoSQB6Zmnv5Xztt98/p/SNSlIYuyuFPsf9O3N7
+         qJMxZp86OhPQtMOrdZPaTkCaVRWFSKssVZrW4Eqcvg6mLRGaJ/f9tloS5HUB4jiE2+OU
+         T95g==
+X-Gm-Message-State: AOJu0YxPu9lK/ugeoa0vbgcVxYdNVcVtmusQP7vnRYaZNQjqjsRu/8Ip
+	luVjUKSTUFheVREFdZVSxuQS2mYTN/+qT5+BQnJi
+X-Google-Smtp-Source: AGHT+IED4j8777n1Anxf6EgyulW8VJlL9uT2hNdonM67Q3ZwxMTMTfQwDBYt0ReJcMTnoxPnvgIEOA==
+X-Received: by 2002:a05:600c:4f8f:b0:40b:5e21:ec34 with SMTP id n15-20020a05600c4f8f00b0040b5e21ec34mr517528wmq.102.1701784797857;
+        Tue, 05 Dec 2023 05:59:57 -0800 (PST)
+Message-ID: <57eb9981-26e6-4281-ab31-78fb5b7427b1@suse.com>
+Date: Tue, 5 Dec 2023 14:59:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen: remove asm/unaligned.h
+Subject: Re: [PATCH 1/2] xen: make include/xen/unaligned.h usable on all
+ architectures
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Arnd Bergmann <arnd@arndb.de>, Juergen Gross <jgross@suse.com>,
  xen-devel@lists.xenproject.org
 References: <20231205100756.18920-1-jgross@suse.com>
- <20231205100756.18920-3-jgross@suse.com>
+ <20231205100756.18920-2-jgross@suse.com>
+ <1984c65c-72d8-4850-9886-f2b0766224a5@xen.org>
+ <e8df45d3-1d7d-432b-b0ca-7532d4b35eae@suse.com>
+ <96ed8aa3-f92f-4b33-a846-549cfda14548@xen.org>
+ <3789ced7-e320-4e32-bda9-3039551a7117@suse.com>
+ <652bdb77-6f2d-4fe0-9ae1-132be50962e3@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,18 +119,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231205100756.18920-3-jgross@suse.com>
+In-Reply-To: <652bdb77-6f2d-4fe0-9ae1-132be50962e3@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.12.2023 11:07, Juergen Gross wrote:
-> With include/xen/unaligned.h now dealing properly with unaligned
-> accesses for all architectures, asm/unaligned.h can be removed and
-> users can be switched to include xen/unaligned.h instead.
+On 05.12.2023 14:46, Julien Grall wrote:
+> On 05/12/2023 13:41, Juergen Gross wrote:
+>> On 05.12.23 14:31, Julien Grall wrote:
+>>> Anyway, given you don't seem to have a use-case yet, I would simply to 
+>>> consider to surround the declaration with an a config which can be 
+>>> selected if unaligned access is supported.
+>>
+>> Like in xen/common/lzo.c et al?
 > 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Just to clarify, I am suggesting to add in unaligned.h:
+> 
+> #ifdef CONFIG_HAS_UNALIGNED_ACCESS
+> 
+> your definitions
+> 
+> #endif
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+But that would be wrong: HAS_UNALIGNED_ACCESS would be there to indicate
+one does _not_ need any special accessors.
 
-
+Jan
 
