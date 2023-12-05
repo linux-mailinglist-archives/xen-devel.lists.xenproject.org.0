@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E681F804418
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 02:32:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647366.1010433 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4232804549
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 03:46:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647378.1010443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAKIB-00077x-WE; Tue, 05 Dec 2023 01:32:08 +0000
+	id 1rALRA-0001uQ-4B; Tue, 05 Dec 2023 02:45:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647366.1010433; Tue, 05 Dec 2023 01:32:07 +0000
+Received: by outflank-mailman (output) from mailman id 647378.1010443; Tue, 05 Dec 2023 02:45:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAKIB-00075f-RA; Tue, 05 Dec 2023 01:32:07 +0000
-Received: by outflank-mailman (input) for mailman id 647366;
- Tue, 05 Dec 2023 01:32:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rALR9-0001sM-W7; Tue, 05 Dec 2023 02:45:27 +0000
+Received: by outflank-mailman (input) for mailman id 647378;
+ Tue, 05 Dec 2023 02:45:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t8Su=HQ=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1rAKIA-00075X-7i
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 01:32:06 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 17d4e86b-930e-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 02:32:03 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a0029289b1bso659656966b.1
- for <xen-devel@lists.xenproject.org>; Mon, 04 Dec 2023 17:32:03 -0800 (PST)
+ <SRS0=H3q/=HQ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1rALR8-0001rv-6l
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 02:45:26 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20622.outbound.protection.outlook.com
+ [2a01:111:f400:7e8d::622])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 55368475-9318-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 03:45:22 +0100 (CET)
+Received: from MW4PR03CA0133.namprd03.prod.outlook.com (2603:10b6:303:8c::18)
+ by DM4PR12MB7549.namprd12.prod.outlook.com (2603:10b6:8:10f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.33; Tue, 5 Dec
+ 2023 02:45:17 +0000
+Received: from MWH0EPF000989E7.namprd02.prod.outlook.com
+ (2603:10b6:303:8c:cafe::5e) by MW4PR03CA0133.outlook.office365.com
+ (2603:10b6:303:8c::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34 via Frontend
+ Transport; Tue, 5 Dec 2023 02:45:16 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000989E7.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7068.20 via Frontend Transport; Tue, 5 Dec 2023 02:45:15 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 4 Dec
+ 2023 20:45:15 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Mon, 4 Dec
+ 2023 18:45:14 -0800
+Received: from [172.27.137.28] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Mon, 4 Dec 2023 20:45:14 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,299 +63,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17d4e86b-930e-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1701739923; x=1702344723; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=7Q79mS7K1AUoyftnmiKiPwwtRfwl5V1DKCGolJPsZbs=;
-        b=aYgONVK+I06jlq9GhhHi3uZf3pu8QaMI0/9e9QMfk/xS00fbbjUZKHtKyrHdZ/S0YS
-         jpcfGzfjbk9n25mdUc7TA+xBmGaT9vlPhG3Ww0m5ZKzuMSYXO62vylEdSnJGghxfLKKk
-         AQoaqngwNYLKk9Dpbn3yW6fPZQbR3S7skMac8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701739923; x=1702344723;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=7Q79mS7K1AUoyftnmiKiPwwtRfwl5V1DKCGolJPsZbs=;
-        b=mz4hi/KwdnuuzLp1GH51kRXMj7JSmxgUDeoWDfiZqX875X7iIyFuzuzNj8kl90VF02
-         BXGvOyntou6razQ2DZE6dQi3w4L74KYTI7AYqZ7kkC7E4Nu30PCAlcKgPr0fVILDXcRe
-         pR1udtefKXOcsiJi44g3e+FB2khRbZWg/G2cDRtKUTnp3OI36q/AL+B6V49Ia6EmLqMK
-         vNLzgBZpdZ5dRIRYLLJhDqU/PTjApzgRB0oZl6G8j/CxI4p6uGBs6Vyl5OXCbGldt7bZ
-         v03ToJGW5OlT4kDpW3CRF9WbNuLdCbp4V+ci0XAZ4Y5Vqlj96AaUzmzWcyOXpNqpTUsq
-         5bWw==
-X-Gm-Message-State: AOJu0Yz//512NZIrkyBaickBRtdby1TL+3aCgw5U4nHzwKwRqzS+qYt4
-	qzH3/B5ucuaMlarIBqlLLJmeOVI03e7JYz7i4zY7hA==
-X-Google-Smtp-Source: AGHT+IHAz/TuRNsDxwREuqrJuS2CFa9qUIFwRThJsfHnn0V2B6RJmtG8kGJOk8V1WmhMHfjN5FC0f+mEPhwYTLfbqyk=
-X-Received: by 2002:a17:906:101d:b0:a18:97fb:138a with SMTP id
- 29-20020a170906101d00b00a1897fb138amr4183404ejm.62.1701739922963; Mon, 04 Dec
- 2023 17:32:02 -0800 (PST)
+X-Inumbo-ID: 55368475-9318-11ee-98e5-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aSHbSQkoV+8vTrk0o+3lnuFOQPuqKt1WjgS5IqIxIMW/5ZA5C/oABS/2Q/y2ps1bKDBS65Wm/Xp2DYoPM1LygHJ+jYajPgvhaX/ewoyA4zJSCJS67AEezEv/Xfta2J8hpY7xjrbHSaQHz7zN32eH8MWvyjinjAQihX1ZXZ+9i5g9vQLFBx3XIK3ScPd0CE6p13Azmi+5eWIKcJ1sevoAK68A3nLElTnrJjB6d51SsM5q+DY1QdMuD5bx7e5hSN/Hu0JpwIZ4b/XXQD16oEHEs1f8su7cR5QnhfwbYd4HiyHARFLAsfACLaoBuOJqnFdFQf/HDeGuv4gDWcY3mcZ9Pg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=88uRk3jdohLNmjxocnljUSXOZuC9n4eCPuzq0fnjPJ8=;
+ b=bZ3lDNDKnxAf6GlFgxl+amXz7IqlwN9q5LzFk5QxuD2PLb5lOJecFPJN/7slC3fL1/1fb8OQsZoq0WhCEGIzqre3kxUfohdaP9wS5R46Vd2nWyqZr6/F19w7EWlSgQlGfnxhDtGB+aS7nBeT/QzbIA/fVBGaY/JckPUw7sOZ+Xi5PzbxrN98g9OA6olbvfbDnOMinzT1wP2XanuAfHo5a31R3/QPijhywBz+EZDrIliECIZMzcMTcIVOi88BKh2DoPoncyEAc8htTuf217FZcka+sVsV4/t7NLm313iBlKJm+Axu3g8+XVRyeCHZQ/Rl+y4UoXomZuym+wn48aAxBg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=88uRk3jdohLNmjxocnljUSXOZuC9n4eCPuzq0fnjPJ8=;
+ b=ft4GNSqRJ+3KpyFRSWzpyLJHhTkrMiaZBtIGbMO3TVhWiS/lSuZHkl/P3/Z/t4TzFv+KAMRAFq9u8iFv9GFSPzbHFyrHDtS43iSNWMG1C0qtcWvD35/HVNBCZUfxjUN7/JsboYesRcv63YGZB7zsB4uMG01niPaFVwJRED3WvzY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <b30812b1-aaa4-41b2-9d82-5ca1478012c0@amd.com>
+Date: Mon, 4 Dec 2023 21:45:12 -0500
 MIME-Version: 1.0
-References: <62E07D85-2601-406F-AC27-956BF986ED7F@gmail.com>
-In-Reply-To: <62E07D85-2601-406F-AC27-956BF986ED7F@gmail.com>
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Tue, 5 Dec 2023 01:31:26 +0000
-Message-ID: <CAO-mL=xuSYjhpB1ZwobC8bN+s-iY8j4CBvngqJjo5UXcbRUpMw@mail.gmail.com>
-Subject: Re: Informal voting proposal
-To: Rich Persaud <persaur@gmail.com>
-Cc: committers@xenproject.org, openxt <openxt@googlegroups.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000009bd6b3060bb933c1"
-
---0000000000009bd6b3060bb933c1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 12/17] vpci/header: emulate PCI_COMMAND register for
+ guests
+Content-Language: en-US
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20231202012556.2012281-1-volodymyr_babchuk@epam.com>
+ <20231202012556.2012281-13-volodymyr_babchuk@epam.com>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <20231202012556.2012281-13-volodymyr_babchuk@epam.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E7:EE_|DM4PR12MB7549:EE_
+X-MS-Office365-Filtering-Correlation-Id: c5d5cc14-a031-4a21-9910-08dbf53c369c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	DZ6djxQKBPazqa7Hi0uC8GIpIA3yDPpgQEj4stNByvqxChmXB9JoPwHq39tbRl+S2MnmgmWRVGCvOYPrHZwxggx5QAivkVhoWONBiX3bs0p5FitZLssLZhpfEAUygWwqr4U8oSXpOGWVE6tHv9KuOdVV3XsjGJb1akdKSghkRsy6GdUKJ1s14rjeQYqeQDOkvUop7DvNJlAfs9Rh3l1Q1AZoXjz0UbdlhkKJhy9gJU6o0jNS2Dy32NISKS8H5V9tJsidiL8hFRPk66fUDA+j3YFclKWfZ7Vr4wg+5K4YuWQoGzH5ME++GfQz7qHtNi1t6y5fPIvmf0/dYjw42IrE9FAas0Od/mv7cU55LK0NQHL/BuzG3kWt7VttXD9Gow1F3F3meDyCKVBXcKFif/sAmQt2CV0IkbLGRKqLf9zumxprwYsTevkS1hS/mw5FeQZmxTI7H/R4kisl4mVtokYiZD2ny32WRzI/TWF/etfG8Hry1qlft6j6EJdNJgOm49Wuc1WQEaz5vOleAs8umnTdOmB6CoSysBHMK+9VseEv+cJd2UpuS97lSOmZV53bg0mFLKy5Y0X2hPGLKZlM9s8e7EftU7CKF8D14fzHnrzpnxKABtLT6ejFbrEcNfDw62CifUclfXQ+Fyfb12XHdo0NqNjc6V/YB6saEVX35fLRNR9xE7YfuI0zgqlEYuNx+ULJNJ/hDtyb0Uf7pJg5NSHn9/OCh2HjbRSvx/cMaqlty4h8m/7Pp37Vv5irChnsSfuqntidZ9KWy7vtUeepiuHz5mR5BLJZ/OQPP7R42GQF22l0vJrqVUaa+dthQFtsHVQl
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(39860400002)(346002)(376002)(136003)(230922051799003)(451199024)(82310400011)(1800799012)(64100799003)(186009)(46966006)(36840700001)(40470700004)(40460700003)(4744005)(53546011)(36756003)(26005)(2616005)(36860700001)(41300700001)(81166007)(82740400003)(356005)(336012)(86362001)(31696002)(426003)(83380400001)(47076005)(2906002)(478600001)(40480700001)(44832011)(316002)(70586007)(110136005)(70206006)(54906003)(16576012)(8676002)(4326008)(8936002)(31686004)(5660300002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2023 02:45:15.9101
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c5d5cc14-a031-4a21-9910-08dbf53c369c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000989E7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7549
 
-Hi Rich,
+On 12/1/23 20:27, Volodymyr Babchuk wrote:
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index 21b3fb5579..bc2ebe125b 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -167,6 +167,9 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
+>      if ( !rom_only )
+>      {
+>          pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+> +        /* Show DomU that we updated P2M */
+> +        header->guest_cmd &= ~PCI_COMMAND_MEMORY;
+> +        header->guest_cmd = (val & PCI_COMMAND_MEMORY);
 
-I am away on business travel, so did not see your reply before sending my
-last email.
+Was this assignment meant to be a bitwise operation (e.g. |= ) ?
 
-The problem we have noted is that there are frequent disagreements within
-the project, mainly due to a difference in opinion among other factors. As
-a bid to help us move quicker and progress within the community, the
-informal voting method was suggested. There probably are many cases where
-this can be applicable, but historically a formal vote is a long process
-that many want to avoid.
-
-A solution orientated approach is the reason for suggesting a method such
-as informal voting. Rather than approaching each problem with a unique
-process, this approach encourages the community to work together to achieve
-a consensus. Only when this is not possible, then informal voting should be
-called.
-
-The informal voting aims to consider multiple solutions, before deciding
-between the best two. So I'd disagree with your point that it is either one
-solution or no solution.
-Instead, the informal voting process aims to empower individuals to present
-the best solutions after discussions. I would suggest that historical test
-cases be used here as part of the argument whilst presenting the solution.
-Again, if we considered every single solution and still disagreed then this
-would defeat the point of a vote. It would also be time consuming for
-members involved to consistently argue the benefits of each point when it
-is clear there are disagreements.
-
-For specific test cases, I agree this would be helpful to have. This would
-fit better in aspirational guidelines within governance documents as to
-what has happened previously, the solution in that instance, and how it was
-resolved.
-
-Our goal here is to progress whilst achieving a majority consensus. It
-doesn't mean that the informal voted decision cannot be reviewed when
-things change, but this solution will help break up disagreements and avoid
-stagnation. Processes such as these will always be reviewed to ensure
-consistent improvements in our ways of working.
-
-On a more positive note, it's great to hear your opinion. It simply means
-that you and others within the community care and want the best out of the
-project.
-
-
-
-
-On Fri, 1 Dec 2023 at 18:08, Rich Persaud <persaur@gmail.com> wrote:
-
-> On Nov 6, 2023, at 13:53, Kelly Choi <kelly.choi@cloud.com> wrote:
->
->
-> =EF=BB=BF
-> Hi all,
->
-> As an open-source community, there will always be differences of opinion
-> in approaches and the way we think. It is imperative, however, that we vi=
-ew
-> this diversity as a source of strength rather than a hindrance.
->
-> Recent deliberations within our project have led to certain matters being
-> put on hold due to an inability to reach a consensus. While formal voting
-> procedures serve their purpose, they can be time-consuming and may not
-> always lead to meaningful progress.
->
-> Having received agreement from a few maintainers already, I would like to
-> propose the following:
->
-> *Informal voting method:*
->
->    1. Each project should ideally have more than 2 maintainers to
->    facilitate impartial discussions. Projects lacking this configuration =
-will
->    be addressed at a later stage.
->    2. Anyone in the community is welcome to voice their opinions, ideas,
->    and concerns about any patch or contribution.
->    3. If members cannot agree, the majority informal vote of the
->    maintainers will be the decision that stands. For instance, if, after
->    careful consideration of all suggestions and concerns, 2 out of 3
->    maintainers endorse a solution within the x86 subsystem, it shall be t=
-he
->    decision we move forward with.
->    4. Naturally, there may be exceptional circumstances, as such, a
->    formal vote may be warranted but should happen only a few times a year=
- for
->    serious cases only.
->    5. Informal votes can be as easy as 2 out of 3 maintainers providing
->    their Acked-by/Reviewed-by tag. Alternatively, Maintainers can call an
->    informal vote by simply emailing the thread with "informal vote propos=
-ed,
->    option 1 and option 2."
->    6. *All maintainers should reply with their vote within 5 working
->    days.*
->    7. Please note that with any new process, there will always be room
->    for improvement and we will reiterate where needed.
->
-> Ultimately our goal here is to prevent the project coming to a standstill
-> while deliberating decisions that we all cannot agree on. This may mean
-> compromising in the short term but I am sure the long-term benefits will
-> stand for themselves.
->
-> *If you have any strong objections to the informal voting, please let me
-> know by 30th November 2023. *
-> *Should I receive no objections, the process will be implemented as of 1s=
-t
-> December 2023.*
->
->
-> Apologies for the late response, I was recently asked to look at this
-> thread, and it's now the end of my Nov 30th USA day.
->
-> In order to evaluate new governance proposals, historical test cases are
-> needed.  Then the existing process, proposed process (and other candidate
-> processes!) can be applied to each test case in turn, so we can evaluate
-> the benefits and costs of each candidate.
->
-> If the problem is not defined, how can candidate solutions be evaluated?
-> Perhaps those who have responded to the thread have already discussed the
-> problem(s) elsewhere, but we need to include them in the public, on-list
-> discussion record.
->
->
-> Again there will be times for that call for flexibility, but we should
-> always aim to have a vote for two of the best solutions to avoid the
-> project coming to another standstill.
->
->
-> Unless I am mistaken, only *one* solution has been proposed for a problem
-> that has zero on-list examples or test cases.  The community is being giv=
-en
-> a choice between one solution and no solution?
->
-> If we can define the problem, with more than one historical example, then
-> we can consider multiple solutions, pick *two* of the best solutions, and
-> approve one of the solutions for implementation.
->
-> Regards,
-> Rich
->
-> p.s. This is a strong objection to the absence of a problem definition.
->
-
---0000000000009bd6b3060bb933c1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"auto">Hi Rich,</div><div dir=3D"auto"><br></di=
-v><div dir=3D"auto">I am away on business travel, so did not see your reply=
- before sending my last email.=C2=A0<br></div><div dir=3D"auto"><br></div><=
-div>The problem we have noted is that there are frequent disagreements with=
-in the project, mainly due to a difference in opinion among other factors. =
-As a bid to help us move quicker and progress within the community, the inf=
-ormal voting method was suggested. There probably are many cases where this=
- can be applicable, but historically a formal vote is a long process that m=
-any want to avoid.=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto"=
->A solution orientated approach is the reason for suggesting a method such =
-as informal voting. Rather than approaching each problem with a unique proc=
-ess, this approach encourages=C2=A0the community to work together to achiev=
-e a consensus. Only when this is not possible, then informal voting should =
-be called.=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"auto">The inf=
-ormal voting aims to consider multiple solutions, before deciding between t=
-he best two. So I&#39;d disagree with your point that it is either one solu=
-tion or no solution.</div><div dir=3D"auto">Instead, the informal voting pr=
-ocess aims to empower individuals to present the best solutions after discu=
-ssions. I would suggest that historical test cases be used here as part of =
-the argument whilst presenting the solution. Again, if we considered every =
-single solution and still disagreed then this would defeat the point of a v=
-ote. It would also be time consuming for members involved to consistently a=
-rgue the benefits of each point when it is clear there are disagreements.</=
-div><div dir=3D"auto"><br></div><div dir=3D"auto">For specific test cases, =
-I agree this would be helpful to have. This would fit better in aspirationa=
-l guidelines within governance documents as to what has happened previously=
-, the solution in that instance, and how it was resolved.=C2=A0</div><div d=
-ir=3D"auto"><br></div><div>Our goal here is to progress whilst achieving a =
-majority consensus. It doesn&#39;t mean that the informal voted decision ca=
-nnot be reviewed when things change, but this solution will help break up d=
-isagreements and avoid stagnation. Processes such as these will always be=
-=C2=A0reviewed to ensure consistent improvements in our ways of working.=C2=
-=A0</div><div><br></div><div>On a more positive note, it&#39;s great to hea=
-r your opinion. It simply means that you and others within the community ca=
-re and want the best out of the project.=C2=A0</div></div><div dir=3D"auto"=
-><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div><br=
-><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, 1=
- Dec 2023 at 18:08, Rich Persaud &lt;<a href=3D"mailto:persaur@gmail.com" t=
-arget=3D"_blank">persaur@gmail.com</a>&gt; wrote:<br></div><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex"><div dir=3D"auto"><div dir=3D"ltr">On Nov=
- 6, 2023, at 13:53, Kelly Choi &lt;<a href=3D"mailto:kelly.choi@cloud.com" =
-target=3D"_blank">kelly.choi@cloud.com</a>&gt; wrote:<div dir=3D"ltr"><div =
-dir=3D"ltr"><blockquote type=3D"cite"><br></blockquote></div><blockquote ty=
-pe=3D"cite"><div dir=3D"ltr">=EF=BB=BF<div dir=3D"ltr">Hi all,<div><br>As a=
-n open-source community, there will always be differences of opinion in app=
-roaches and the way we think. It is imperative, however, that we view this =
-diversity as a source of strength rather than a hindrance.<br><br>Recent de=
-liberations within our project have led to certain matters being put on hol=
-d due to an inability to reach a consensus. While formal voting procedures =
-serve their purpose, they can be time-consuming and may not always lead to =
-meaningful progress.<div><br></div><div>Having received agreement from a fe=
-w maintainers already, I would like to propose=C2=A0the following:</div><di=
-v><br></div><div><b>Informal voting method:</b></div><div><ol><li>Each proj=
-ect should ideally have more than 2 maintainers to facilitate impartial dis=
-cussions. Projects lacking this configuration will be addressed at a later =
-stage.</li><li>Anyone in the community is welcome to voice their opinions, =
-ideas, and concerns about any patch or contribution.</li><li>If members can=
-not agree, the majority informal vote of the maintainers will be the decisi=
-on that stands. For instance, if, after careful consideration of all sugges=
-tions and concerns, 2 out of 3 maintainers endorse a solution within the x8=
-6 subsystem, it shall be the decision we move forward with.</li><li>Natural=
-ly, there may be exceptional circumstances, as such, a formal vote may be w=
-arranted but should happen only a few times a year for serious cases only.<=
-/li><li>Informal votes can be as easy as 2 out of 3 maintainers providing t=
-heir Acked-by/Reviewed-by tag. Alternatively, Maintainers can call an infor=
-mal vote by simply emailing the thread with &quot;informal vote proposed, o=
-ption 1 and option 2.&quot;=C2=A0</li><li><b>All maintainers should reply w=
-ith their vote within 5 working days.</b>=C2=A0=C2=A0</li><li>Please note t=
-hat with any new process, there will always be room for improvement and we =
-will reiterate where needed.</li></ol><div>Ultimately=C2=A0our goal here is=
- to prevent the project coming to a standstill while deliberating decisions=
- that=C2=A0we all cannot agree on. This may mean compromising in the short =
-term but I am sure the long-term benefits will stand for themselves.=C2=A0=
-=C2=A0</div><div><font color=3D"#ff0000"><br></font></div><div><font color=
-=3D"#ff0000"><b>If you have any strong objections to the informal voting, p=
-lease let me know by <u>30th November 2023.=C2=A0</u></b></font></div><div>=
-<font color=3D"#ff0000"><b>Should I receive no objections, the process will=
- be implemented as of 1st December 2023.</b></font></div><div><br></div></d=
-iv></div></div>
-</div></blockquote><br><div>Apologies for the late response, I was recently=
- asked to look at this thread, and it&#39;s now the end of my Nov 30th USA =
-day.</div><div><br></div><div>In order to evaluate new governance proposals=
-, historical test cases are needed.=C2=A0 Then the existing process, propos=
-ed process (and other candidate processes!) can be applied to each test cas=
-e in turn, so we can evaluate the benefits and costs of each candidate. =C2=
-=A0</div><div><br></div><div>If the problem is not defined, how can candida=
-te solutions be evaluated?=C2=A0 Perhaps those who have responded to the th=
-read have already discussed the problem(s) elsewhere, but we need to includ=
-e them in the public, on-list discussion record.</div><div><br></div><div><=
-br></div><div><blockquote type=3D"cite"><span style=3D"color:rgb(255,0,0);b=
-ackground-color:rgb(255,255,255)">Again there will be times for that call f=
-or flexibility, but we should always aim to have a vote for two of the best=
- solutions to avoid the project coming to another standstill.=C2=A0</span><=
-/blockquote></div><div><br></div><div>Unless I am mistaken, only <b>one</b>=
- solution has been proposed for a problem that has zero on-list examples or=
- test cases.=C2=A0 The community is being given a choice between one soluti=
-on and no solution? =C2=A0</div><div><br></div><div>If we can define the pr=
-oblem, with more than one historical example, then we can consider multiple=
- solutions, pick <b>two</b> of the best solutions, and approve one of the s=
-olutions for implementation.</div><div><br></div><div>Regards,</div><div>Ri=
-ch</div><div><br></div><div><div>p.s. This is a strong objection to the abs=
-ence of a problem definition.</div></div></div></div></div></blockquote></d=
-iv></div>
-
---0000000000009bd6b3060bb933c1--
+Also, "val" doesn't appear to be declared in this scope? Maybe you meant "cmd"?
 
