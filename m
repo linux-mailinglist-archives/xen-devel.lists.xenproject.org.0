@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A1208057A4
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 15:43:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647976.1011812 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 358238057E2
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 15:51:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647980.1011823 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAWdv-0005k5-Ju; Tue, 05 Dec 2023 14:43:23 +0000
+	id 1rAWl7-0000dN-F6; Tue, 05 Dec 2023 14:50:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647976.1011812; Tue, 05 Dec 2023 14:43:23 +0000
+Received: by outflank-mailman (output) from mailman id 647980.1011823; Tue, 05 Dec 2023 14:50:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAWdv-0005i8-Gr; Tue, 05 Dec 2023 14:43:23 +0000
-Received: by outflank-mailman (input) for mailman id 647976;
- Tue, 05 Dec 2023 14:43:22 +0000
+	id 1rAWl7-0000ax-C1; Tue, 05 Dec 2023 14:50:49 +0000
+Received: by outflank-mailman (input) for mailman id 647980;
+ Tue, 05 Dec 2023 14:50:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cmhw=HQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rAWdu-0005i2-Aq
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 14:43:22 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rAWl5-0000ar-LL
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 14:50:47 +0000
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [2a00:1450:4864:20::444])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a2b68f23-937c-11ee-98e5-6d05b1d4d9a1;
- Tue, 05 Dec 2023 15:43:21 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-40c09fcfa9fso27453005e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 06:43:21 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- bg36-20020a05600c3ca400b003fe1fe56202sm19205399wmb.33.2023.12.05.06.43.20
+ id abfd4d7a-937d-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 15:50:46 +0100 (CET)
+Received: by mail-wr1-x444.google.com with SMTP id
+ ffacd0b85a97d-3332ad5b3e3so4107691f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 06:50:46 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ u29-20020adfa19d000000b003332db7d91dsm13280602wru.39.2023.12.05.06.50.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 06:43:20 -0800 (PST)
+ Tue, 05 Dec 2023 06:50:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,216 +45,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2b68f23-937c-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: abfd4d7a-937d-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701787400; x=1702392200; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701787846; x=1702392646; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=AVqXJd8SoXzjXF1oteqKlI3xNcd39qeXf1oX7YvYlR0=;
-        b=vCNoyytxohepsrU+bjKf0Ae2R0fLVRXTlHVAHRf2eyxJo/w1mcq+GNjFOvPX13MZtX
-         mB7fEZ9em8XW3UTKXgdJYIM1sq3dXhISFKcm+rBegK0bwNpH/8HPFnqp7l4ihDwbVYUx
-         b7H59ap4w1+kqmYtE2vIpEf1zymJNqlBqjIhg=
+        bh=7qLqTbRP5u4rxG8SX4Y7wH/O9oBeBnRlY48dCWEpWlk=;
+        b=G8gxEwynstU/rUldO6G2DETFaYqh5HK26Y5yZ6G9GRUR3qOxX/+O51B47rEXfneANA
+         Jp3b9lfewJrwRWt2KRKW6wvqTHAWl9Ra27xVIo/GLxF8nThTaekJSY/iN187XzJ4gVB3
+         hscugi5ExMr7h2GdmVBST0Plyn63cnTpXD4f1NMdMjFcJXqSSO+rw19SYpMSDh10hbIx
+         ln2Xq+1z1HMW28HBCRzhvJJUSVudRYK7xu33zlvkKcRGo52J6jUM1nLLCRI0H96kYNrJ
+         fPgVANDI3vcn+JrCoz+jbUdODsYbbMhNnZi+pD0Xvgb6rHOiQYRZzYjGYtKN0kck0Z9W
+         IsKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701787400; x=1702392200;
+        d=1e100.net; s=20230601; t=1701787846; x=1702392646;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AVqXJd8SoXzjXF1oteqKlI3xNcd39qeXf1oX7YvYlR0=;
-        b=Dl8wPw4m+QUgtSroAgtN0yoD4PCPNfGQOZBmHR9fJFfGWygp8pDPUy2gPiWq0uCt53
-         s+CWDGjfgS5av+aw5rUPUbvGmn9HUqa+jPKv5PK9B8da60xeCSv6q2inSMk2tnP4u4Bp
-         lnnbACLi0xfHChEwqQV1cAR+D/BrM9H9JhhZtzPiRd9OEjOFGK6SGYkmYDTykgWzXFHE
-         mbNPVIbk+asYxPGo91V9Yg0VbcBRnuEhCKohnNgVDhmyN8qYojlxobC5/MyTXeteax+B
-         QjVYPKBtqahPiW5SNcpnI5oDTwTZwFbK4EWEpqVt2o2TvKi9N7fh+Si3dsI2+hQmWBJL
-         b3Mw==
-X-Gm-Message-State: AOJu0YxmyrxODX16rrXPsYOEk+uI+hrAifM2aIqS9JcZ5xP05FY+MX25
-	yU9qK5UvxZrWQsB7Y3dbKZJGYw==
-X-Google-Smtp-Source: AGHT+IFL5yenk8V+e6+S1qVJol+vTZKt96nMmA6xbrxhA/zmfrysAHgn94N6ADEuFIF6eJUHxs6KbQ==
-X-Received: by 2002:a1c:7418:0:b0:40b:5e59:f726 with SMTP id p24-20020a1c7418000000b0040b5e59f726mr1690182wmc.152.1701787400518;
-        Tue, 05 Dec 2023 06:43:20 -0800 (PST)
-Message-ID: <1415ddc9-81f3-4d50-b735-7e44a7f656d5@citrix.com>
-Date: Tue, 5 Dec 2023 14:43:19 +0000
+        bh=7qLqTbRP5u4rxG8SX4Y7wH/O9oBeBnRlY48dCWEpWlk=;
+        b=tO0zhoB4r8+yHiodVPf0CRZm29VEFiSvQaRG2yIyb+YiLLe0fyBRNq6B5pVNttT1z0
+         y5gE0R+FyVfaJFR3wjBqfstezRXO0j5eAnxBRSCfOvWA7/fWYbhwNr6k9pg1BmyePbTC
+         Pbap8g28Hf/2Uyo54ex/yIkQ+X8nCH3LPAPsJwixYS1EZBu3wt7+yX+3uLuYZCrEwZAx
+         GJ0jeuDidZPid4pEDSSLreYA5slIb6v6xXAY4G+ah3gEtPC3G5W7tlb2f9EESGsclijR
+         SxSXsZYCgvUwQKcKKFVkAYZHbl7FY/24Sc91GL8QTg5uy7F3Fbi8KsDGQK+rscZ7xdDg
+         jG0g==
+X-Gm-Message-State: AOJu0Yw0ULHPRB/B7zDCoY1mZ/wYmNrtpVd78CTA948VkSZPVUkDGzni
+	aWhMWLnzJvOeSTF+wtjjJbgj
+X-Google-Smtp-Source: AGHT+IFe1bpUVLYeBfF+eKFEPox/PE8MtVE41c2XzupOVJ2XIZ9Ix6NsnTJe2KfwpYi+VEijJ8Hwsg==
+X-Received: by 2002:a5d:4b42:0:b0:333:7c5:560d with SMTP id w2-20020a5d4b42000000b0033307c5560dmr4735446wrs.10.1701787845639;
+        Tue, 05 Dec 2023 06:50:45 -0800 (PST)
+Message-ID: <93b57f96-e47e-493b-b0f4-a8183ba8466f@suse.com>
+Date: Tue, 5 Dec 2023 15:50:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] Nested Virtualization Bug on x86-64 AMD CPU
-Content-Language: en-GB
-To: Reima ISHII <ishiir@g.ecc.u-tokyo.ac.jp>, xen-devel@lists.xenproject.org
-Cc: Takahiro Shinagawa <shina@ecc.u-tokyo.ac.jp>
-References: <CA+aCS-Ha4jSYFfxhOwMGiGJPdCOtgBJLt=3Q=v9dfp6SQJys4w@mail.gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <CA+aCS-Ha4jSYFfxhOwMGiGJPdCOtgBJLt=3Q=v9dfp6SQJys4w@mail.gmail.com>
+Subject: Re: [PATCH v2 3/6] x86/iommu: introduce a rangeset to perform hwdom
+ IOMMU setup
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20231204094305.59267-1-roger.pau@citrix.com>
+ <20231204094305.59267-4-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20231204094305.59267-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05/12/2023 1:51 pm, Reima ISHII wrote:
-> Dear Xen Development Team,
->
-> I am writing to report a bug that I have encountered in a Xen HVM
-> guest with nested virtualization.
-> Below is a detailed description of the bug, its potential impact, and
-> the environment in which it was observed.
->
-> [Bug Description]
-> The issue emerges when operating an HVM guest with nested
-> virtualization on an x86-64 AMD CPU, specifically in 64-bit mode (Long
-> Mode). The sequence to reproduce the bug is as follows:
->
-> 1. Enable nestedhvm on an HVM guest.
-> 2. In the L1 guest hypervisor, set CR0.PE, PG to 1 in VMCB12 and
-> execute  VMRUN, correctly resulting in a VM entry into the L2 guest.
-> 3. In the L2 guest, perform a vmcall, which returns control back to
-> the L1 hypervisor.
-> 4. Subsequently, while still in 64-bit mode, the L1 hypervisor just
-> changes the CR0.PG to 0 in VMCB12 and then executes VMRUN.
+On 04.12.2023 10:43, Roger Pau Monne wrote:
+> This change just introduces the boilerplate code in order to use a rangeset
+> when setting up the hardware domain IOMMU mappings.  The rangeset is never
+> populated in this patch, so it's a non-functional change as far as the mappings
+> the domain gets established.
+> 
+> Note there's a change for HVM domains (ie: PVH dom0) that will get switched to
+> create the p2m mappings using map_mmio_regions() instead of
+> p2m_add_identity_entry(), so that ranges can be mapped with a single function
+> call if possible.  Note that the interface of map_mmio_regions() doesn't allow
+> creating read-only mappings, but so far there are no such mappings created for
+> PVH dom0 in arch_iommu_hwdom_init().
 
-Thankyou for the bug report.
+I don't understand this paragraph: The rangeset remains empty, so nothing is
+changing right here. DYM there is going to be such a change as a result of
+this patch, but in a later part of this series?
 
-Who is still in 64-bit mode ?
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -370,10 +370,77 @@ static unsigned int __hwdom_init hwdom_iommu_map(const struct domain *d,
+>      return perms;
+>  }
+>  
+> +struct map_data {
+> +    struct domain *d;
+> +    unsigned int flush_flags;
+> +    bool ro;
+> +};
+> +
+> +static int __hwdom_init cf_check identity_map(unsigned long s, unsigned long e,
+> +                                              void *data)
+> +{
+> +    struct map_data *info = data;
+> +    struct domain *d = info->d;
+> +    long rc;
+> +
+> +    if ( iommu_verbose )
+> +        printk(XENLOG_INFO " [%010lx, %010lx] R%c\n",
+> +               s, e, info->ro ? 'O' : 'W');
+> +
+> +    if ( paging_mode_translate(d) )
+> +    {
+> +        if ( info->ro )
+> +        {
+> +            ASSERT_UNREACHABLE();
+> +            return 0;
+> +        }
+> +        while ( (rc = map_mmio_regions(d, _gfn(s), e - s + 1, _mfn(s))) > 0 )
+> +        {
+> +            s += rc;
+> +            process_pending_softirqs();
+> +        }
+> +    }
+> +    else
+> +    {
+> +        const unsigned int perms = IOMMUF_readable | IOMMUF_preempt |
+> +                                   (info->ro ? 0 : IOMMUF_writable);
+> +
+> +        if ( info->ro && !iomem_access_permitted(d, s, e) )
 
-It is legal for a 64-bit L1 to VMRUN into a 32-bit L2 with PG=0.
+How is r/o-ness related to iomem_access_permitted()? The present callers
+are such that there is a connection, but that's invisible here. I guess
+either the field wants to change name (maybe mmio_ro or ro_mmio or even
+just mmio), or there wants to be a comment.
 
-But I'm guessing that you mean L2 is also 64-bit, and we're clearing PG,
-thus creating an illegal state (LMA=1 && PG=0) in VMCB12.
+> +        {
+> +            /*
+> +             * Should be more fine grained in order to not map the forbidden
+> +             * frame instead of rejecting the region as a whole, but it's only
+> +             * for read-only MMIO regions, which are very limited.
+> +             */
 
-And yes, in that case (virtual) VMRUN at L1 ought to fail with
-VMEXIT_INVALID.
+How certain are you/we that no two adjacent ones may appear, with
+different permissions granted to Dom0?
 
->
-> It is this specific action - executing VMRUN with CR0.PG set to 0 in
-> Long Mode - that triggers the BUG() within the
-> nsvm_vmcb_guest_intercepts_exitcode function in
-> arch/x86/hvm/svm/nestedsvm.c.
-> For an unknown reason, a vmexit occurs with the code 0x402, which is
-> flagged as an illegal exitcode, thus triggering the BUG().
->
-> [Potential Impact]
-> This bug presents a vulnerability that could allow a DoS attack from
-> the guest VM to the host hypervisor.
->
-> [Environment Details]
-> Here are the specs of the environment where the bug occurred:
-> - Xen Version: Xen-4.18-unstable (commit
-> 290f82375d828ef93f831a5ef028f1283aa1ea47)
-> - Architecture: x86_64 (intel)
->
-> [Error Log]
-> (XEN) d1v0 Unexpected nested vmexit: reason 0x66
-> (XEN) d1v0 Unexpected nested vmexit: reason 0x7b
-> (XEN) d1v0 Unexpected nested vmexit: reason 0x7b
-> (XEN) d1v0 Unexpected nested vmexit: reason 0x7b
-> (XEN) d1v0 Unexpected nested vmexit: reason 0x7b
-> (XEN) arch/x86/hvm/svm/nestedsvm.c:982:d1v0 Illegal exitcode 0x402
-> (XEN) Xen BUG at arch/x86/hvm/svm/nestedsvm.c:983
-> (XEN) Debugging connection not set up.
-> (XEN) ----[ Xen-4.18-unstable  x86_64  debug=y gcov=y  Tainted:   C    ]----
-> (XEN) CPU:    10
-> (XEN) RIP:    e008:[<ffff82d0402997b8>]
-> arch/x86/hvm/svm/nestedsvm.c#nsvm_vmcb_guest_intercepts_exitcode+0x29e/0x4c1
-> (XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor (d1v0)
-> (XEN) rax: ffff830839bdd040   rbx: ffff83084f593000   rcx: 0000000000000008
-> (XEN) rdx: ffff830839bd7fff   rsi: ffff830839be5da8   rdi: ffff830839be5da0
-> (XEN) rbp: ffff830839bd7e48   rsp: ffff830839bd7e30   r8:  0000000000000001
-> (XEN) r9:  ffff830839be5da0   r10: 0000000000000001   r11: 0000000000000010
-> (XEN) r12: ffff83084f593000   r13: ffff83084f583000   r14: ffff83084f593000
-> (XEN) r15: 0000000000000001   cr0: 000000008005003b   cr4: 0000000000f506e0
-> (XEN) cr3: 000000084f6d4000   cr2: 0000000000000000
-> (XEN) fsb: 0000000000000000   gsb: ffff888490140000   gss: 0000000000000000
-> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-> (XEN) Xen code around <ffff82d0402997b8>
-> (arch/x86/hvm/svm/nestedsvm.c#nsvm_vmcb_guest_intercepts_exitcode+0x29e/0x4c1):
-> (XEN)  48 83 05 e0 ee 3b 00 01 <0f> 0b 48 83 05 de ee 3b 00 01 48 83 05 96 ee 3b
-> (XEN) Xen stack trace from rsp=ffff830839bd7e30:
-> (XEN)    0000000000000402 ffff83084f593000 ffff83084f583000 ffff830839bd7e70
-> (XEN)    ffff82d04029b052 0000000000000402 ffff830839bd7ef8 ffff83084f583000
-> (XEN)    ffff830839bd7ee8 ffff82d0402a1121 ffff82d0402a4afa ffff82d0402a4b00
-> (XEN)    ffff82d0402a4afa ffff82c0002d8000 ffff82d0402a4afa ffff82d0402a4b00
-> (XEN)    ffff82d0402a4afa ffff82d0402a4b00 ffff83084f593000 0000000000000000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 00007cf7c64280e7
-> (XEN)    ffff82d0402a4b4c 0000000000000000 0000000000000000 0000000000000000
-> (XEN)    0000000000000000 000000001f4604f7 0000000000000006 0000000000000000
-> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000002040
-> (XEN)    00000000000004f7 0000000000000000 0000000000000000 000000001f467473
-> (XEN)    0000beef0000beef 000000000000ffff 000000bf0000beef 0000000000000082
-> (XEN)    0000000000000c62 000000000000beef 000000000000beef 000000000000beef
-> (XEN)    00000000ffffbeef 000000000000beef 0000e0100000000a ffff83084f593000
-> (XEN)    00000037f95a2000 0000000000f506e0 0000000000000000 0000000000000000
-> (XEN)    0000030300000000 0000000000000000
-> (XEN) Xen call trace:
-> (XEN)    [<ffff82d0402997b8>] R
-> arch/x86/hvm/svm/nestedsvm.c#nsvm_vmcb_guest_intercepts_exitcode+0x29e/0x4c1
-> (XEN)    [<ffff82d04029b052>] F nestedsvm_check_intercepts+0x29/0x214
-> (XEN)    [<ffff82d0402a1121>] F svm_vmexit_handler+0x351/0x2502
-> (XEN)    [<ffff82d0402a4b4c>] F svm_stgi_label+0x5/0x15
-> (XEN)
-> (XEN) debugtrace_dump() global buffer starting
-> 1 cpupool_create(pool=0,sched=6)
-> 2 Created cpupool 0 with scheduler SMP Credit Scheduler rev2 (credit2)
-> 3 cpupool_add_domain(dom=0,pool=0) n_dom 1 rc 0
-> 4-14 p2m: p2m_alloc_table(): allocating p2m table
-> 15 cpupool_add_domain(dom=1,pool=0) n_dom 2 rc 0
-> (XEN) wrap: 0
-> (XEN) debugtrace_dump() global buffer finished
-> (XEN)
-> (XEN) ****************************************
-> (XEN) Panic on CPU 10:
-> (XEN) Xen BUG at arch/x86/hvm/svm/nestedsvm.c:983
-> (XEN) ****************************************
-> (XEN)
+> +            printk(XENLOG_DEBUG
+> +                   "IOMMU read-only mapping of region [%lx, %lx] forbidden\n",
+> +                   s, e);
+> +            return 0;
+> +        }
+> +        while ( (rc = iommu_map(d, _dfn(s), _mfn(s), e - s + 1,
+> +                                perms, &info->flush_flags)) > 0 )
+> +        {
+> +            s += rc;
+> +            process_pending_softirqs();
+> +        }
+> +    }
+> +    ASSERT(rc <= 0);
+> +    if ( rc )
+> +        printk(XENLOG_WARNING
+> +               "IOMMU identity mapping of [%lx, %lx] failed: %ld\n",
+> +               s, e, rc);
+> +
+> +    /* Ignore errors and attempt to map the remaining regions. */
+> +    return 0;
+> +}
+> +
+>  void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>  {
+>      unsigned long i, top, max_pfn, start, count;
+>      unsigned int flush_flags = 0, start_perms = 0;
+> +    struct rangeset *map;
+> +    struct map_data map_data = { .d = d };
+> +    int rc;
+>  
+>      BUG_ON(!is_hardware_domain(d));
+>  
+> @@ -397,6 +464,10 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>      if ( iommu_hwdom_passthrough )
+>          return;
+>  
+> +    map = rangeset_new(NULL, NULL, 0);
+> +    if ( !map )
+> +        panic("IOMMU init: unable to allocate rangeset\n");
+> +
+>      max_pfn = (GB(4) >> PAGE_SHIFT) - 1;
+>      top = max(max_pdx, pfn_to_pdx(max_pfn) + 1);
+>  
+> @@ -451,6 +522,24 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>              goto commit;
+>      }
+>  
+> +    if ( iommu_verbose )
+> +        printk(XENLOG_INFO "d%u: identity mappings for IOMMU:\n",
+> +               d->domain_id);
 
-As an incidental observation, that function is particularly absurd and
-the two switches should be merged.
+%pd: ?
 
-VMExit reason 0x402 is AVIC_NOACCEL and Xen has no support for AVIC in
-the slightest right now.  i.e. Xen shouldn't have AVIC active in the
-VMCB, and should never any AVIC related VMExits.
+> +    rc = rangeset_report_ranges(map, 0, ~0UL, identity_map, &map_data);
+> +    if ( rc )
+> +        panic("IOMMU unable to create mappings: %d\n", rc);
+> +    if ( is_pv_domain(d) )
+> +    {
+> +        map_data.ro = true;
+> +        rc = rangeset_report_ranges(mmio_ro_ranges, 0, ~0UL, identity_map,
+> +                                    &map_data);
+> +        if ( rc )
+> +            panic("IOMMU unable to create read-only mappings: %d\n", rc);
+> +    }
+> +
+> +    rangeset_destroy(map);
 
-It is possible that we've got memory corruption, and have accidentally
-activated AVIC in the VMCB.
+This could move up, couldn't it?
 
-But, is this by any chance all running nested under KVM in your fuzzer?
+>      /* Use if to avoid compiler warning */
+>      if ( iommu_iotlb_flush_all(d, flush_flags) )
 
-~Andrew
+Don't you need to fold map.flush_flags into flush_flags ahead of this call?
+Or can the variable perhaps go away altogether, being replaced by the struct
+field?
+
+Jan
+
+>          return;
+
 
