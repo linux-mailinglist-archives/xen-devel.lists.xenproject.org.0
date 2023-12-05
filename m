@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08914805370
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:49:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647684.1011193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4AD9805371
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:49:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647685.1011203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATvf-0002DL-Jy; Tue, 05 Dec 2023 11:49:31 +0000
+	id 1rATvr-0002cc-SL; Tue, 05 Dec 2023 11:49:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647684.1011193; Tue, 05 Dec 2023 11:49:31 +0000
+Received: by outflank-mailman (output) from mailman id 647685.1011203; Tue, 05 Dec 2023 11:49:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATvf-0002BS-Gw; Tue, 05 Dec 2023 11:49:31 +0000
-Received: by outflank-mailman (input) for mailman id 647684;
- Tue, 05 Dec 2023 11:49:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6bfq=HQ=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1rATve-0002B3-2w
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:49:30 +0000
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [2607:f8b0:4864:20::72c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 57b3bc0e-9364-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 12:49:27 +0100 (CET)
-Received: by mail-qk1-x72c.google.com with SMTP id
- af79cd13be357-77d6b28aa9aso377361785a.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 03:49:27 -0800 (PST)
+	id 1rATvr-0002Zl-OT; Tue, 05 Dec 2023 11:49:43 +0000
+Received: by outflank-mailman (input) for mailman id 647685;
+ Tue, 05 Dec 2023 11:49:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rATvp-0002YJ-U9
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:49:41 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5fa946df-9364-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 12:49:40 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-40c09dfd82aso30386455e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 03:49:40 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ bg36-20020a05600c3ca400b003fe1fe56202sm18724702wmb.33.2023.12.05.03.49.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Dec 2023 03:49:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,147 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 57b3bc0e-9364-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5fa946df-9364-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1701776967; x=1702381767; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TwCFPVCbDa50OL/ChB5rqB+T/HQ9KdESV0FYZgKnLz8=;
-        b=gN50E7ToYmdWWmXaHxhbM8Za1647qQHaDD2oW5n04lr31TjWCI7KQ94eMlxriiid2n
-         FsDIPPLE8LLcovjZ8aYkU8Krdmgo+Ar6MouN9/mAcnrhGg3gC/8TUkzSK3bVX0IeBhp1
-         17UohrgWhgRkMhGUxgX5xA/45uBZChyerFVQJlKHdCQcQp0dOMU41DR8d7sh9yp/8/tF
-         WtZ8PnM78AsNsv3OZ2zCrOJ7/aTzUEB8VD6k0aXIPtSA2dJYo9sfUG0vec02jDcBIlzE
-         8Ackh4DWhCw/rZIYXSsWc/WNFbiPZzgXl7p+HvHLfe1GHWYMt7c7ouuserP6QP7esy8/
-         eS3w==
+        d=suse.com; s=google; t=1701776980; x=1702381780; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jas3LCYBNcXt0QeS+ug1YQuk2rbSkKdbnfMaiDcy0I8=;
+        b=J1Z12VB/ALu3QyItHrY4TBLd/IAgTjUPIRUJgzjd2OChe4egIiiAR37+e6F4Q2Zy1+
+         ypW3nH4iRlz2zV9XfO2KhzO9hB/wlE00V4Y8I27Fxg+GqXH8bGT4FMeyMgDNS+3LrOP6
+         J/2cItXpTxpZ1KL9uD8gJu/Pg4Vu3fGxXJZCNekUkRaAPiwfB4cbLgcoCoZePOllB8rA
+         O/c/HXNJelM9QY0JSCpEQobboafal7iut9114oq5P5wvOSOu0ChaO+duRph/kdYs7o+S
+         ylpg9IEHiUDpFkTEAbFCXVDWczoxgMKPkMDVCcPdM6GNlgu+0FsSbmoCdnnJfenvZNxx
+         hgig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701776967; x=1702381767;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=TwCFPVCbDa50OL/ChB5rqB+T/HQ9KdESV0FYZgKnLz8=;
-        b=i+SWvudqraa5uexzowk552S8ZNMXva4wNVdRBW0W7zcN7RSdR8bFu456VuT0Lcm2gu
-         PHO8VETuBpzPBRz+pxMS6EtGIoWRqPMbMmbKfJytfNNAjhd/FTqe5M4GGlbqkG/IpnCj
-         GPH9z3P6SgDEGvH9jrhUzZVwmg4BNbRyy8kK82xLEE5978v2AesPuCrIvWzRhkTEiMGn
-         w7MNTC74Ap5bXe36luXmCHUm6q8VLQ3v9ORowRHETcLiJrkZaRzGFEmgh7H3j9Hzvyog
-         UWo+QHndvn21tzr/7QXPkvIkHgr96e6a+u4SD9SDX560lMyBT05TpBZYrmH13LX0eJrf
-         Q7+A==
-X-Gm-Message-State: AOJu0YyXUHlot/AlhWZvRuMGU3IlUrayWAqpy4UtS7LQLMg46IwY7e09
-	MofDczTYNb8bNOxxU9Fq3YezFgdHg+DvuDnCD2zl7JoVPP0jYByD
-X-Google-Smtp-Source: AGHT+IG2o4jiH5bSl5VNvxrNDC2PyfRcl0d4pga4m+fmo3ob7nhujhmfEJM2EXFV6uDeXdNRGnkWdJkWtdlmFEn0ew0=
-X-Received: by 2002:a0c:d7cb:0:b0:67a:a721:b1a0 with SMTP id
- g11-20020a0cd7cb000000b0067aa721b1a0mr1101637qvj.91.1701776966791; Tue, 05
- Dec 2023 03:49:26 -0800 (PST)
+        d=1e100.net; s=20230601; t=1701776980; x=1702381780;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jas3LCYBNcXt0QeS+ug1YQuk2rbSkKdbnfMaiDcy0I8=;
+        b=Iv5Qgv2sBE60j1AFQWVgGDA3rcVhwzMC6Rq2BNEmLkD4AT4U2Jza7ozG/crUHluXlH
+         bqwXqF5/UceORLrTCcCRpD9kzSLzGs+yoxvaknM2mu3utDDF7O74+ixhZO10FpwZHQCj
+         yu1ot85+Wa7Q9TTkylon3i6tXBpzRTQRjiQ2Oa2xsWzhQ2nrvekMYHfy2PY6YkrnKbtZ
+         nqWAPIBl//8XwF96AVn8F+4D1Sv6BpQpqL7yBEvHnjDNcB0Xjtdj49mirSVUx4fdR29+
+         d4zkwoP82puGfdd+pGj16mB8M5y/eLKxaShrDWCRjw9BmrfAotwYWCyjp2uRtvgUWsX/
+         ji3g==
+X-Gm-Message-State: AOJu0Yww/ND/JRKTCqhWKK6PLGSRfCTVOvc/BExy/diilAoWI1kYpGwB
+	oJ1wQUqm/d0UmokhUF7g/ddm
+X-Google-Smtp-Source: AGHT+IEXmm2HI+MUvf5UXGZN6/uCoO1PKL/IZictJSyjuDkichV2Lx3AVwoS0VJhK9vMi5oGYCgn9A==
+X-Received: by 2002:a05:600c:11c8:b0:40b:5e59:ccc1 with SMTP id b8-20020a05600c11c800b0040b5e59ccc1mr466108wmi.162.1701776980232;
+        Tue, 05 Dec 2023 03:49:40 -0800 (PST)
+Message-ID: <00de64fd-5669-424d-9b32-2342b5936f1a@suse.com>
+Date: Tue, 5 Dec 2023 12:49:38 +0100
 MIME-Version: 1.0
-References: <20231204075552.3585875-1-jens.wiklander@linaro.org>
- <232c2496-77d6-4e37-a400-dbefd135ef3c@xen.org> <0B35D609-5378-4180-B79E-0CAE69D42165@arm.com>
- <6aaeea8c-cba9-4d3b-85a8-905dfee69e6f@citrix.com>
-In-Reply-To: <6aaeea8c-cba9-4d3b-85a8-905dfee69e6f@citrix.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 5 Dec 2023 12:49:15 +0100
-Message-ID: <CAHUa44HKVT9-DozjsKs+bZBE573BBh=e-h5qGhW3xeCsajuo4g@mail.gmail.com>
-Subject: Re: [RFC XEN PATCH] xen/arm: ffa: reclaim shared memory on guest destroy
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "patches@linaro.org" <patches@linaro.org>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/5] x86/livepatch: introduce a basic live patch test
+ to gitlab CI
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20231128100352.35430-1-roger.pau@citrix.com>
+ <20231128100352.35430-5-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20231128100352.35430-5-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
+On 28.11.2023 11:03, Roger Pau Monne wrote:
+> Introduce a basic livepatch test using the interface to run self modifying
+> tests.  The introduced test relies on changing a function from returning false
+> to returning true.
+> 
+> To simplify the burden of keeping a patch that can be provided to
+> livepatch-build-tools, introduce two new files: one containing the unpatched
+> test functions, and another one that contains the patched forms of such
+> functions.  Note that only the former is linked into the Xen image, the latter
+> is built but the object file is not consumed afterwards.  Do this to assert
+> that the file containing the patched functions continues to build.
+> 
+> Since livepatch testing will ensure that the functions are not patched previous
+> the applying the livepatch, allow the livepatch related tests to fail without
+> tainting the hypervisor.
+> 
+> Note the livepatch tests are not run as part of the self modifying checks
+> executed during boot, as they would obviously fail.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v1:
+>  - New interface & test.
+> ---
+>  tools/misc/xen-livepatch.c          | 29 +++++++++++++++++++++++++++++
+>  xen/arch/x86/Makefile               |  2 ++
+>  xen/arch/x86/include/asm/test-smc.h |  2 ++
+>  xen/arch/x86/setup.c                |  2 +-
+>  xen/arch/x86/test-smc-lp-alt.c      | 23 +++++++++++++++++++++++
+>  xen/arch/x86/test-smc-lp.c          | 23 +++++++++++++++++++++++
+>  xen/arch/x86/test-smc.c             | 11 ++++++++++-
+>  xen/include/public/sysctl.h         |  6 +++++-
+>  8 files changed, 95 insertions(+), 3 deletions(-)
+>  create mode 100644 xen/arch/x86/test-smc-lp-alt.c
+>  create mode 100644 xen/arch/x86/test-smc-lp.c
 
-On Tue, Dec 5, 2023 at 11:53=E2=80=AFAM Andrew Cooper <andrew.cooper3@citri=
-x.com> wrote:
->
-> On 05/12/2023 8:14 am, Bertrand Marquis wrote:
-> > Hi Julien,
-> >
-> > Thanks a lot for your review and comment, this is very helpful.
-> >
-> >> On 4 Dec 2023, at 20:24, Julien Grall <julien@xen.org> wrote:
-> >>
-> >> Hi Jens,
-> >>
-> >> On 04/12/2023 07:55, Jens Wiklander wrote:
-> >>>        if ( ctx->rx )
-> >>>          rxtx_unmap(ctx);
-> >>>  +
-> >>> +    list_for_each_entry_safe(shm, tmp, &ctx->shm_list, list)
-> >>> +    {
-> >>> +        register_t handle_hi;
-> >>> +        register_t handle_lo;
-> >>> +
-> >>> +        uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
-> >>> +        res =3D ffa_mem_reclaim(handle_lo, handle_hi, 0);
-> >> Is this call expensive? If so, we may need to handle continuation here=
-.
-> > This call should not be expensive in the normal case as memory is recla=
-imable
-> > so there is no processing required in the SP and all is done in the SPM=
-C which
-> > should basically just return a yes or no depending on a state for the h=
-andle.
-> >
-> > So I think this is the best trade.
-> >
-> > @Jens: One thing to consider is that a Destroy might get a retry or bus=
-y answer and we
-> > will have to issue it again and this is not considered in the current i=
-mplementation.
-> >
-> > After discussing the subject internally we could in fact consider that =
-if an SP cannot release
-> > some memory shared with the VM destroyed, it should tell it by returnin=
-g "retry" to the message.
-> > Here that could simplify things by doing a strategy where:
-> > - we retry on the VM_DESTROY message if required
-> > - if some memory is not reclaimable we check if we could park it and ma=
-ke the VM a zombie.
-> > What do you think ?
->
-> This is the cleanup issue discussed at XenSummit, isn't it?
->
-> You cannot feasibly implement this cleanup by having
-> ffa_domain_teardown() return -ERESTART.
->
-> Yes, it will probably function - but now you're now bouncing in/out of
-> Xen as fast as the CPU will allow, rechecking a condition which will
-> take an unbounded quantity of time.  Meanwhile, you've tied up a
-> userspace thread (the invocation of `xl destroy`) to do so, and one of
-> dom0's vCPU for however long the scheduler is willing to schedule the
-> destroy invocation, which will be 100% of the time as it's always busy
-> in the hypervisor.
->
-> The teardown/kill infrastructure is intended and expected to always make
-> forward progress.
->
+Can these (and perhaps also the one file introduced earlier in the series)
+perhaps become xen/arch/x86/test/smc*.c?
 
-OK
+> --- /dev/null
+> +++ b/xen/arch/x86/test-smc-lp-alt.c
+> @@ -0,0 +1,23 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +#include <asm/test-smc.h>
+> +
+> +/*
+> + * Interesting case because `return false` can be encoded as an xor
+> + * instruction, which is shorter than `return true` which is a mov instruction,
+> + * and also shorter than a jmp instruction.
+> + */
 
->
-> The closest thing to this patch which will work sanely is this:
->
-> Hold a single domain reference for any non-zero amount of magic memory
-> held.  See domain_adjust_tot_pages() and how it interacts with
-> {get,put}_domain(), and copy it.  Importantly, this prevents the domain
-> being freed until the final piece of magic memory has been released.
->
-> Have some way (can be early on the teardown/kill path, or a separate
-> hypercall - assuming the VM can't ever be scheduled again) to kick Xen
-> into being responsible for trying to reclaim the memory.  (Start a
-> timer, or reclaim in the idle loop, whatever.)
->
-> This way, you can `xl destroy` a VM in an arbitrary state, *and* the
-> invocation will terminate when Xen has nothing deterministic left to do,
-> *and* in the case that the secure world or Xen has an issue, the VM will
-> stay around as a zombie holding minimal resources.
+I'm a little wary of this comment: "mov $1, %al" is two bytes only, just like
+"xor %eax, %eax" is.
 
-Thanks for the pointers, very helpful, and now I at least know where
-to start looking.
+> +bool cf_check test_lp_insn_replacement(void)
 
-Cheers,
-Jens
+What's the purpose of the cf_check here?
 
->
-> ~Andrew
+Jan
 
