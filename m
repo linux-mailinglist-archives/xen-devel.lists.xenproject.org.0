@@ -2,56 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01FDF805E41
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 20:02:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648244.1012442 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFB6D805E4D
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 20:03:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648247.1012453 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAagH-0001y0-8Q; Tue, 05 Dec 2023 19:02:05 +0000
+	id 1rAahY-0002Xv-QJ; Tue, 05 Dec 2023 19:03:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648244.1012442; Tue, 05 Dec 2023 19:02:05 +0000
+Received: by outflank-mailman (output) from mailman id 648247.1012453; Tue, 05 Dec 2023 19:03:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAagH-0001w1-5N; Tue, 05 Dec 2023 19:02:05 +0000
-Received: by outflank-mailman (input) for mailman id 648244;
- Tue, 05 Dec 2023 19:02:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H3q/=HQ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1rAagF-0001vv-KA
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 19:02:03 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20610.outbound.protection.outlook.com
- [2a01:111:f400:fe5a::610])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4125528-93a0-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 20:02:00 +0100 (CET)
-Received: from BL6PEPF00013DFD.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:22e:400:0:1001:0:1d) by PH7PR12MB7356.namprd12.prod.outlook.com
- (2603:10b6:510:20f::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22; Tue, 5 Dec
- 2023 19:01:54 +0000
-Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
- (2a01:111:f403:f903::) by BL6PEPF00013DFD.outlook.office365.com
- (2603:1036:903:4::4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.22 via Frontend
- Transport; Tue, 5 Dec 2023 19:01:53 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Tue, 5 Dec 2023 19:01:53 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 5 Dec
- 2023 13:01:49 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 5 Dec
- 2023 11:01:48 -0800
-Received: from [172.28.155.39] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Tue, 5 Dec 2023 13:01:47 -0600
+	id 1rAahY-0002V2-Mm; Tue, 05 Dec 2023 19:03:24 +0000
+Received: by outflank-mailman (input) for mailman id 648247;
+ Tue, 05 Dec 2023 19:03:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=QGQ0=HQ=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
+ id 1rAahX-0002Uu-8Z
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 19:03:23 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.43])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f3d0119f-93a0-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 20:03:20 +0100 (CET)
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Dec 2023 11:03:16 -0800
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by orviesa001.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 05 Dec 2023 11:03:16 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Tue, 5 Dec 2023 11:03:15 -0800
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Tue, 5 Dec 2023 11:03:14 -0800
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Tue, 5 Dec 2023 11:03:14 -0800
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.168)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.34; Tue, 5 Dec 2023 11:03:14 -0800
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com (2603:10b6:806:25d::22)
+ by BL3PR11MB6484.namprd11.prod.outlook.com (2603:10b6:208:3bf::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34; Tue, 5 Dec
+ 2023 19:03:11 +0000
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::3d98:6afd:a4b2:49e3]) by SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::3d98:6afd:a4b2:49e3%7]) with mapi id 15.20.7046.034; Tue, 5 Dec 2023
+ 19:03:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,341 +67,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4125528-93a0-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: f3d0119f-93a0-11ee-98e5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1701803000; x=1733339000;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=IbHSdREHgd7O1FQ/47PudSb0sVl21m0Dz/eFmLG5FP0=;
+  b=l1Xd174Ks/6hl9dgH6y8xbYkY1MHTLkxvd/DNfCPo5JEzHxgtNyD9oOO
+   tRvMfjsSh2CM9GSncHe3ap8bcAp3xaZwbZspoYVBKhwIcikGnCCBKsKQ3
+   UTU0t1uCzrRHDju05p0BUi5P1vpC4PPxknEUqSWdF4Jw71PtffvjkB6cY
+   Dh83SyC8TUxCv9rgotqFHlmwe5DlpX0V0HecNp6NkEKVd4WarM1ES9Tkj
+   3uxZkNIbm+TYFjXZ+1zDQajrLhR3C6ZMLsR4Xqjwlzb2TyUFmtKXVUW3o
+   LzMDypJ9JYKKER42zel8cv2Bu/Xw6QSOp2z9osfglr+JEpYpVhhZTiQTA
+   w==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10915"; a="480138640"
+X-IronPort-AV: E=Sophos;i="6.04,253,1695711600"; 
+   d="scan'208";a="480138640"
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.04,253,1695711600"; 
+   d="scan'208";a="19059575"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cN4d4m1mBg2EWZurlPswOVPMe0xfWOoP2tO0FsqAK73e9F7guXYA8Bmal0qzU7VNCGIb/1hL9/zm/y9L8f79CCvSbJ6YgRnLPu1i3lRyHNgYtP4DoKEfdCD7jk2gZRmg3wtEcGzzwW/Xjvh01BEUHQXNay6Nz8iyISVqD8aIwaEdEgrG8CX4GgXWe2YxCVsLLA6bh9oEQW2m2WJ4Rmd6OpoLbz9Ie0NvSXySPY1j9lRlAfpB0Vqjg8olq2Y84sKDUWimPVp/rplcuVk//UfrI1QByt4uhl+7kXyPNOGyGXzOZuIHQyKTOwlLNsud76GhgeSAyjUJhHY/TbYcmzJbAw==
+ b=RsI/2HWKNzM8FlVVPU4k2cO0Yg8vEAXksF9uu0OAxdV+pOTqquw4QhU8dLBQVTzCgz+JgDGbJvAaAMn8WHl4iN/e7jMTUmdBUC19V6Y0oissOM1rKCeXUiqFk6DTmiv7ua8HSwLVxwbhgaARTSQMpRIlGbnWXamJ0luBJDIr0CGOhWKsjWzTZLGaruTvENVqrp0awXBya4gltxw34aE0Blth8wy6Bit9EkMfisK52W8PTcQE235DmSYTXFN2OXqZYk8MGwqaF5r9sBypJECzsyfMqxtQbI0MkIlJKL68CsiaLzISspQlFJVy4z1DdORulqi/uM/TlCduQcgTIkXzsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dPjqbsOOnL3POvat++8FNiLpC6i7MPqqdLkyEs+dfXQ=;
- b=LRCBa9QckWSlZqTT2nbDUeZ7+PEERHlEs/rPYkgJn7TdzIPe6MR78Lk+aF3cCh40ARRYIcCMPRTaFSkjQnmiUEnpJ587FPKogCgwxJKkp6y2s8oiNl/lvKVOJMWf7qKHW79Nx/WHe4Pn6T9bzq+lVX/KJk7KoduKFIFXAk3JUlWbonAzHU2hAPNxJkHWPTOdiUQGKrraDjDhufiRKhsyROrMfIxiw7XwlDczU+x+fp1mblFNvl5hp+2Y+/AGlVZazYaYpoy9MfZidx4xIvUwSjcQ8hgvau+PpfRErPzeY5r0jvxVhE5YaypAzdlpaKseC3+99xmEKrHlcwr/NM5Wbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dPjqbsOOnL3POvat++8FNiLpC6i7MPqqdLkyEs+dfXQ=;
- b=ZUsqFAVJO4L4oBFitVLlPjcLeTXI6fInxfN9YuIEQrTtwBg/juQSSzCYY2e+D3yqUqesXmGT5BMP9hu6bDfWvqliwk+ozCAzSkJs38OvdqKTYaalh9pIIk+XTIymAZ68zhR3FezT2pl9H7Rjzz5kITKrqBwLltb6OdzEx5MQElU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <16de540b-fd79-4c23-9698-a641da9c9967@amd.com>
-Date: Tue, 5 Dec 2023 14:01:46 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/5] [FUTURE] xen/arm: enable vPCI for domUs
+ bh=IbHSdREHgd7O1FQ/47PudSb0sVl21m0Dz/eFmLG5FP0=;
+ b=iOwj7/AuM1Xagq4v+CMbDtie/yVSVtN82Qwu8zlb7bA8iw8qh+i1Mb1X1gkdjJKodsePunZ/uwpI3G853BHFv4I20J1FScv+o+mZJUpfkuvgQwwHuEs/U+DT8hrHbyq6SHkma794Tnk2IZfWk1y51M0mCTkI6PMme9yAQyn/gexjh3I+cPIJL80QMDUvBsGSivrybY8tkAJYLsfy4EL+Kw7gd+LsdDSAIWYQALI8ok5oX11FfC1sbOL7ZKL9xmJKWqMM1IVfOSin/CYRXNMRQCpYsxEZtrL17inJZ/ZyCjhAcYLyG7GuAtao/Ga8hZAaU0bLcAwPjpFT6OO5mftJCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+From: "Li, Xin3" <xin3.li@intel.com>
+To: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: "tglx@linutronix.de" <tglx@linutronix.de>, "mingo@redhat.com"
+	<mingo@redhat.com>, "bp@alien8.de" <bp@alien8.de>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "x86@kernel.org"
+	<x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>, "Lutomirski, Andy"
+	<luto@kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"seanjc@google.com" <seanjc@google.com>, "peterz@infradead.org"
+	<peterz@infradead.org>, "Gross, Jurgen" <jgross@suse.com>, "Shankar, Ravi V"
+	<ravi.v.shankar@intel.com>, "mhiramat@kernel.org" <mhiramat@kernel.org>,
+	"jiangshanlai@gmail.com" <jiangshanlai@gmail.com>, "nik.borisov@suse.com"
+	<nik.borisov@suse.com>, "Kang, Shan" <shan.kang@intel.com>
+Subject: RE: [PATCH v13 26/35] x86/fred: FRED entry/exit and dispatch code
+Thread-Topic: [PATCH v13 26/35] x86/fred: FRED entry/exit and dispatch code
+Thread-Index: AQHaJ215PhEOYu43sEObVSTXzfHZOLCanWSAgABu2VA=
+Date: Tue, 5 Dec 2023 19:03:10 +0000
+Message-ID: <SA1PR11MB67340C4246F7BED4D0B09837A885A@SA1PR11MB6734.namprd11.prod.outlook.com>
+References: <20231205105030.8698-1-xin3.li@intel.com>
+ <20231205105030.8698-27-xin3.li@intel.com>
+ <f260ddf9-be67-48e0-8121-6f58d46f7978@citrix.com>
+In-Reply-To: <f260ddf9-be67-48e0-8121-6f58d46f7978@citrix.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Wei Liu <wl@xen.org>, Paul Durrant
-	<paul@xen.org>
-References: <20231113222118.825758-1-stewart.hildebrand@amd.com>
- <20231113222118.825758-5-stewart.hildebrand@amd.com>
- <ZWmkh0Xeaynh43N7@macbook>
- <alpine.DEB.2.22.394.2312011847520.110490@ubuntu-linux-20-04-desktop>
- <ZW2wuqXW-DneUVi0@macbook>
- <alpine.DEB.2.22.394.2312041333250.110490@ubuntu-linux-20-04-desktop>
- <ZW8EkQLTwEEK6fXC@macbook>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <ZW8EkQLTwEEK6fXC@macbook>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|PH7PR12MB7356:EE_
-X-MS-Office365-Filtering-Correlation-Id: c12e5c53-6da3-4474-6733-08dbf5c4a556
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	xkvDZ1yoFqfZ79utxmPhvObbWkuHcZEhSwim6mWJHanUtfMiuYdy8MZHsX1HCel8sN5o1/MvyvfBxxfhLwtJmIbE+gI+YtQT1Z/ruedyzPJ6xfINUPwp3myT5XW8kgd7fQuqP8TnktoqV9xZoWL6tTkUCzV/fh05CIBGKFDs+7Xi/iGCdEn9xIA20zLSCjSIdqd/tajxyvqxRZaFpokHh3GcfioY3ss7uRocuHIzqYIcqO6O3tOpl6c9zZ0h4AfiR4xm+BlAJ5PO4rEggjbBusMidTD2qO6o/wiOR0DAT1MnlKbDL0u9YF3ZtNryzfyXON5RKCDtbUe9mVAAC4aNyjH4/TncpOeol7Q5TVYboRP6nq92iM2sMgTB96Nx2eDrZv0mGYVEkcEvzkSV9JgxdPWmvuh6Gr2qonjd/LCzKf3mPitt7ILPOQY5tXrYzX/ziF84RP3oUx39jgejiZ87xaE/E5Iz0Dgqs3728rE3qtgSD/xU3G3qqiQoTSQh8Yv6zO5PW+W427ZOGHJBW7tTSkH7n8lj/6u4/68DxKo22yhBQbWzhyf5q5NyMjgin86rdxkoForQjd0+kKVMSJW1pyWFeYxyS4fL1Oq6wiSggbXA0DpD/GzPsPah1Q2Hy4msnZ6+kKTObY+WTbTtZ5xq5+Gj9WDm8/3Ufo4sazyfgzktB9yjyAVAkG913xvj7lJ+8hgE9TBcnn8dCPIEWt7AJdLE3d0ARFLlD7HnO+PoIeXV06R4J5pRIsjUKTGqOBsD5c4cREypggztE7Vq7/W8G0t6nM+LUZj7acFoIlYoKht25vhGYzfr/NuN/tCE/fJA87O/2r4TQdoQx1WVSIosCPz3pY0fDnunjfnqpB81HT5j9ohHl9UBJmqz7gvhte46RICpz6v43uoLJQN3qz4QXw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(136003)(346002)(376002)(39860400002)(230273577357003)(230922051799003)(230173577357003)(186009)(451199024)(64100799003)(1800799012)(82310400011)(40470700004)(46966006)(36840700001)(31686004)(40480700001)(66899024)(426003)(478600001)(26005)(336012)(2616005)(36860700001)(40460700003)(36756003)(82740400003)(81166007)(86362001)(356005)(31696002)(83380400001)(2906002)(44832011)(41300700001)(30864003)(7416002)(4326008)(54906003)(47076005)(70586007)(70206006)(5660300002)(110136005)(16576012)(53546011)(8676002)(8936002)(316002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2023 19:01:53.8886
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR11MB6734:EE_|BL3PR11MB6484:EE_
+x-ms-office365-filtering-correlation-id: 0ae2fddd-1399-4091-2058-08dbf5c4d300
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Myh7rlO5no9CkAaaWvDg9XNOm5kuzJpdruAkVAdjJiBkyDfmnfRcUz6UhABCCm7fexgY/T7ArHpW73lK/pUDoocOoK4HVa6ULsbV2b+81+ypZ1695ew9cjmAk5R6w9wpAVjR6ryIeI2H1eCvRaozWBQnPyxBwxII+PnUuYc/FLvlT0MRw/U9RSDLCxSKZ5+MfmqD6jI3va+LAQmbkSeNt4xt6DfENQ4OTXCCXBPgEhDeAek8WWlJ/IQApldL4HoEMM8e08UAn1iRv6Nyna/8N1KKv1Z5/8FDlXYB/zntIfvOd8s65R+RVZbxRyQzaa7ZhAtUvw4xC3ugMo9is5dmn9bcjDU0BUYz3lPx6Rj3+Vi66yHUdoc2vcvONGISeOQcKsxdEv7B7tigIUzcwBvHAiZkFoD8DjSjTeZJHwtRT87fsOXn2jbgQQnSADpHbbJbN77/DlYfy0DNaRpoJJpIGDfh4vs+nSqYwDClVz2aRnwKLZRQOtwtbQ1EiRHpJIs5xJKF8YFw4SdGiM/pjvGN9i0ZHrJ0gz3Xi7tt+JnMzy4Zhy6UGb52dzo2QNo+1S5yxCS+rCu5TluFhQ3UiyJBuAKOYd014bbeXOKKxeSJLIibRGGVXH4EavIysNB2TNZ/paaOv9PIUxVchNUhDdbAUkIJZLRzc9cndXCAUO7jYH4=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB6734.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(39860400002)(136003)(376002)(396003)(366004)(230922051799003)(230173577357003)(230273577357003)(186009)(64100799003)(1800799012)(451199024)(7416002)(2906002)(33656002)(110136005)(316002)(66476007)(54906003)(64756008)(66446008)(66556008)(38070700009)(76116006)(8676002)(86362001)(66946007)(55016003)(52536014)(41300700001)(8936002)(4326008)(5660300002)(122000001)(38100700002)(82960400001)(83380400001)(478600001)(26005)(71200400001)(7696005)(9686003)(6506007);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QzFMMXFYbGZNaHFPSUZTUlh4NktMOFlsdS9kRVFONU1RN3RYK0RicmgwN1l4?=
+ =?utf-8?B?V1FBWXp6QkREUHB2NGpQaFVFQ0xEdEF6SGhtcEwwblRkY0IrMmZXYm9MT1dj?=
+ =?utf-8?B?MWY5ZGw2TjRIelVUTWJRR1JNWjdjTFJiV3pKZ3pqQm9uVmtYSCtEQTI4b1Fs?=
+ =?utf-8?B?SCswZWIyTEp5M1UwNHJveTNtWUhaaFBnYUtLQ1YzNDNJeXhQR3MxYTJYWGRm?=
+ =?utf-8?B?NDNwRkRsQVo1eEZwQzNadWdUMHJraE0xcVl4K0xRaGd1S0FPSzFNY2t0MjVR?=
+ =?utf-8?B?VEt5dHBDUFgyMDZUOW51OW9jcHJmdjR1c3FJdlJWZjJ3RW91QWVDKzVqbzBK?=
+ =?utf-8?B?K2JxNDNzZWFMVUxoZVBsbGZmQ2hxQXlaTWZtN0kxUEs0d2djTS8rUzJaWkNt?=
+ =?utf-8?B?QWdOVXMxYnpuRnRKeDJKQUQ5ZEs1WHpOTkxsUEM2VjJtcW16a3JURzJ6NXFn?=
+ =?utf-8?B?VUxwYWkxZzB6eHdWS3BFQnpuNnEyNjRZc2hqYlpFcjNqSjV2bHg1cVhrdWpB?=
+ =?utf-8?B?UzB1VkFuV3dCQzRGMXRDOGtIZFovNk1UYnFxZnlDTzVCbCtWSTdLTWdiTkt0?=
+ =?utf-8?B?dXNwdTVrTytXRXo2UFlKSVFxTVRjUEEwd2ZnZGptSTZkczNYSitkUTZhZ0V2?=
+ =?utf-8?B?U1E0VkpsWWduVkNQa3JmQXBldzd1OU4rUmRqelRGNVhwTllVZkJQUHY1Nzdk?=
+ =?utf-8?B?ZU5OUTgrbFZ4cDZIYk9CZWViVE1wa1E3cDRzSEFoR3lIOUVReDJaR0FhcFFj?=
+ =?utf-8?B?S0c1dVVDNGczY0JRNFF5STNZbUJBcmIxU0FKRmxjTW0reDhyNlpuaUJoMytT?=
+ =?utf-8?B?SENMamVmSnZOSS9pNlYrZklYOHNHMXBaZ0pldklMcjVNVHI5Y2RqSnkyWkxw?=
+ =?utf-8?B?Y2JTdFBXOVdXMjRqT2h2RVlES3ExOTJpeHZ2TzZyUnAvWFMrNmxveWZYOHY2?=
+ =?utf-8?B?bU5Ed3AveFg5MGdHVDUzQ2tHVzgzT3VOeFN4R0hMZWJvUHVOc2Y1YklzK3NX?=
+ =?utf-8?B?cGdJVlNRS2VpaFh5NGpHQm9aRWFjdzhkY2RyN2FCWjhFa0tscENOL2tSaXdE?=
+ =?utf-8?B?NnZXSUZNSXd3dHNjeURYM3kxSmhOSmJFQ1Rha1NyeWRINklxbW83RUxoZHN0?=
+ =?utf-8?B?R21aV1dBdDhwWm10ZjY3RTFWTzJRbEo5NFJLc1pJUC8yanhrRkNBclI2QnlE?=
+ =?utf-8?B?VU53Y1ArOVhka1VKNm5jQ2Y5OHNJcThvN2ZOY1dTeHlXYjBoNUlQMzd6T2dK?=
+ =?utf-8?B?LzI5RWlPTmZLN1pMYlR3NjdYdy8rTDhHYXI5QzRXb2NnVS9JR2xWZkRVT1Rm?=
+ =?utf-8?B?NktIeTdUd0lQN3RxVGswWElLZXJOTitndHBJdDREM2tjVWxVbzVJNDF0azEv?=
+ =?utf-8?B?c0JQaW9uSGRUTnBGTGtzQ0JNaXlqOXZDeGhDby93eUROZDZ0U0FOTkE1Vk9l?=
+ =?utf-8?B?eVc1OVVQM1lHZWgvamxJcGw4SnBaeE84bWFvbThQZ3BUNUltWWUwNXk4K1NI?=
+ =?utf-8?B?N2ozWTQyOUpIWksvbzd4dllQdGdMY2tUUVNFODNiTXZMbGFyK0JlOG5CeEN0?=
+ =?utf-8?B?cUFtV2tnakRYK1lwdkJkeStjckZWazdRQk9VN1VoMFhOTUV5b2tUZzZhdlF4?=
+ =?utf-8?B?ajROS3JLNXBob2FQKzBLRG9DM1RTSFpFS1l6UmZ4emVqRktxRllocXR6dXdG?=
+ =?utf-8?B?amY4UUJKRjVWR1NDNVlUTWcrTTlySW81UlhjNC9mUEd4S0hrdGpsZC85Y1NK?=
+ =?utf-8?B?d1BveTdrQy9xZldvMzV3bzlGdjVrK1hWZVVEd2RVMHpzOEUrRkg2V29aV2Ir?=
+ =?utf-8?B?c3NkaUhNSXJTRy9ablJMM285dWhRUmR3WGpOdUZxNlRYTTAvT3hCN0FCMTUz?=
+ =?utf-8?B?S29FcUxDM3ozdlFPVCtDekJjR2pVdDZqRkh2VElEY1F1emxTVUtjd3ZkWm9k?=
+ =?utf-8?B?Y3VkTGxNcUJjLzY1elByc0RWbm1jVDNCNWlmcjNRNmFubE9LaSsvdUJmS0tC?=
+ =?utf-8?B?OW5POW5XMnk3VGl1YWdQR0x5TWtyWXdQbUdlMENYbFYzSE9TaGRlemtaOE92?=
+ =?utf-8?B?RWE0c0JsWnVCWjNCU1UzMnFBM0MzeU9ZWEQxL2p3ZHJmQTlGZ0ZIYTRhajdG?=
+ =?utf-8?Q?gE4U=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6734.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ae2fddd-1399-4091-2058-08dbf5c4d300
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Dec 2023 19:03:10.5372
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c12e5c53-6da3-4474-6733-08dbf5c4a556
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB71.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7356
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xQ3Xyz2tASN1Ng3UgXyBkestW0RIZw6sfPBAzs90REklTrIKtn7dtFmViCP9yRQPxRGEglvYrpMg5TWIjBE5ig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR11MB6484
+X-OriginatorOrg: intel.com
 
-On 12/5/23 06:08, Roger Pau Monné wrote:
-> On Mon, Dec 04, 2023 at 02:07:51PM -0800, Stefano Stabellini wrote:
->> On Mon, 4 Dec 2023, Roger Pau Monné wrote:
->>> On Fri, Dec 01, 2023 at 06:56:32PM -0800, Stefano Stabellini wrote:
->>>> On Fri, 1 Dec 2023, Roger Pau Monné wrote:
->>>>> On Mon, Nov 13, 2023 at 05:21:13PM -0500, Stewart Hildebrand wrote:
->>>>>> @@ -1618,6 +1630,14 @@ int iommu_do_pci_domctl(
->>>>>>          bus = PCI_BUS(machine_sbdf);
->>>>>>          devfn = PCI_DEVFN(machine_sbdf);
->>>>>>  
->>>>>> +        if ( needs_vpci(d) && !has_vpci(d) )
->>>>>> +        {
->>>>>> +            printk(XENLOG_G_WARNING "Cannot assign %pp to %pd: vPCI support not enabled\n",
->>>>>> +                   &PCI_SBDF(seg, bus, devfn), d);
->>>>>> +            ret = -EPERM;
->>>>>> +            break;
->>>>>
->>>>> I think this is likely too restrictive going forward.  The current
->>>>> approach is indeed to enable vPCI on a per-domain basis because that's
->>>>> how PVH dom0 uses it, due to being unable to use ioreq servers.
->>>>>
->>>>> If we start to expose vPCI suport to guests the interface should be on
->>>>> a per-device basis, so that vPCI could be enabled for some devices,
->>>>> while others could still be handled by ioreq servers.
->>>>>
->>>>> We might want to add a new flag to xen_domctl_assign_device (used by
->>>>> XEN_DOMCTL_assign_device) in order to signal whether the device will
->>>>> use vPCI.
->>>>
->>>> Actually I don't think this is a good idea. I am all for flexibility but
->>>> supporting multiple different configurations comes at an extra cost for
->>>> both maintainers and contributors. I think we should try to reduce the
->>>> amount of configurations we support rather than increasing them
->>>> (especially on x86 where we have PV, PVH, HVM).
->>>
->>> I think it's perfectly fine to initially require a domain to have all
->>> its devices either passed through using vPCI or ireqs, but the
->>> interface IMO should allow for such differentiation in the future.
->>> That's why I think introducing a domain wide vPCI flag might not be
->>> the best option going forward.
->>>
->>> It would be perfectly fine for XEN_DOMCTL_assign_device to set a
->>> domain wide vPCI flag, iow:
->>>
->>> if ( HYPERCALL_VPCI_FLAG_SET && !has_vpci(d) )
->>> {
->>>     if ( has_arch_pdevs(d) )
->>>     {
->>>         printk("All passthrough devices must use the same backend\n");
->>>         return -EINVAL;
->>>     }
->>>
->>>     /* Set vPCI domain flag */
->>> }
->>
->> That would be fine by me, but maybe we can avoid this change too. I was
->> imagining that vPCI would be enabled at domain creation, not at runtime.
->> And that vPCI would be enabled by default for all PVH guests (once we
->> are past the initial experimental phase.)
-> 
-> Then we don't even need a new CDF flag, and just enable vPCI when
-> IOMMU is enabled?  IOW: we can key the enabling of vPCI to
-> XEN_DOMCTL_CDF_iommu for specific domain types?
-> 
-> Maybe that's not so trivial on x86, as there's no x86 PVH domain type
-> from the hypervisor PoV.
-> 
->>
->>> We have already agreed that we want to aim for a setup where ioreqs
->>> and vPCI could be used for the same domain, but I guess you assumed
->>> that ioreqs would be used for emulated devices exclusively and vPCI
->>> for passthrough devices?
->>
->> Yes, that's right
->>
->>
->>> Overall if we agree that ioreqs and vPCI should co-exist for a domain,
->>> I'm not sure there's much reason to limit ioreqs to only handle
->>> emulated devices, seems like an arbitrary limitation.
->>
->> Reply below
->>
->>
->>>> I don't think we should enable IOREQ servers to handle PCI passthrough
->>>> for PVH guests and/or guests with vPCI. If the domain has vPCI, PCI
->>>> Passthrough can be handled by vPCI just fine. I think this should be a
->>>> good anti-feature to have (a goal to explicitly not add this feature) to
->>>> reduce complexity. Unless you see a specific usecase to add support for
->>>> it?
->>>
->>> There are passthrough devices (GPUs) that might require some extra
->>> mediation on dom0 (like the Intel GVT-g thing) that would force the
->>> usage of ioreqs to passthrough.
->>
->> From an architectural perspective, I think it would be cleaner, simpler
->> to maintain, and simpler to understand if Xen was the sole owner of the
->> PCI Root Complex and PCI config space mediation (implemented with vPCI).
->> IOREQ can be used for emulation and it works very well for that. At
->> least in my mind, that makes things much simpler.
-> 
-> But IOREQ already has all the code to mediate accesses to the PCI
-> config space, and the interface to register separate servers for
-> different PCI devices.
-> 
-> We would then need to duplicate this internally for vPCI, so that vPCI
-> could forward accesses to IOREQ just for IOREQ to forward to yet a
-> different component?  Seems like a lot of duplication for no benefit.
-> 
->> I understand there are non-trivial cases, like virtual GPUs with
->> hardware access, but I don't classify those as passthrough. That's
->> because there isn't one device that gets fully assigned to the guest.
->> Instead, there is an emulated device (hence IOREQ) with certain MMIO
->> regions and interrupts that end up being directly mapped from real
->> hardware.
->>
->> So I think it is natural in those cases to use IOREQ and it is also
->> natural to have QEMU remap MMIO/IRQs at runtime. From a vPCI
->> perspective, I hope it will mostly look as if the device is assigned to
->> Dom0. Even if it ends up being more complex than that, Rome wasn't
->> built in one day, and I don't think we should try to solve this problem
->> on day1 (as long as the interfaces are not stable interfaces).
-> 
-> I don't see IOREQ as dealing explicitly with emulation.  Yes, it does
-> allow for emulators to be implemented in user-space, but at the end
-> it's just an interface that allows forwarding accesses to certain
-> resources (for the case we are speaking about here, PCI config space)
-> to entities that registered as handlers.
-> 
-> vPCI OTOH just deals with a very specific resource (PCI config space)
-> and only allows internal handlers to be registered on a byte
-> granularity.
-> 
-> So your proposal would be to implement a hierarchy like the one on the
-> diagram below:
-> 
->     ┌────────┐ ┌──────────┐ ┌──────────────────┐
->     │ Memory │ │ IO Ports │ │ PCI config space │
->     └───────┬┘ └┬─────────┘ └───┬──────────────┘
->             │   │               │
->             │   │           ┌───┴──┐
->             │   │           │ vPCI │
->             │   │           └─┬──┬─┘
->          ┌──┴───┴┐            │  │
->          │ IOREQ ├────────────┘  │
->          └────┬──┘               │
->               │                  │
->  ┌────────────┴──┐              ┌┴──────────────┐
->  │ IOREQ servers │              │ vPCI handlers │
->  └───────────────┘              └───────────────┘
-> 
-> While what I'm proposing would look like:
-> 
->     ┌────────┐ ┌──────────┐ ┌──────────────────┐
->     │ Memory │ │ IO Ports │ │ PCI config space │
->     └────┬───┘ └────┬─────┘ └────────┬─────────┘
->          │          │                │
->          └─────┬────┴────┬───────────┘
->                │  IOREQ  │
->                └─┬─────┬─┘
->                  │     │
->  ┌───────────────┤     └────┬──────┐
->  │ IOREQ servers │          │ vPCI │
->  └───────────────┘          └───┬──┘
->                                 │
->                             ┌───┴───────────┐
->                             │ vPCI handlers │
->                             └───────────────┘
-> 
-> I'm obviously biased, but I think the latter is cleaner, and allows
-> all resources to be arbitrated by the same component (IOREQ).
-> 
-> If the concern is about the IOREQ hypercall interface, it would be
-> fine to introduce an option that limit IOREQs to internal users
-> (vPCI) without supporting external IOREQ servers.
-> 
-> Think of IOREQ as a resource mediator inside of Xen, that just does
-> the PCI address decoding and forwards the access to the interested
-> party, either an external IOREQ server or vPCI.
-> 
->>
->>> It's important that the interfaces we introduce are correct IMO,
->>> because that ends up reflecting on the configuration options that we
->>> expose to users on xl/libxl.  While both XEN_DOMCTL_createdomain and
->>> XEN_DOMCTL_assign_device are unstable interfaces, how the vPCI option
->>> gets placed there will ultimately influence how the option gets
->>> exposed in xl/libxl, and the interface there is relevant to keep
->>> stable for end user sanity.
->>
->> I agree with you on the stable interfaces. The important part is not to
->> introduce changes to stable interfaces that could limit us in the
->> future. Specifically that includes xl and libxl, we need to be careful
->> there. But I don't see a single per-domain vPCI enable/disable option as
->> a problem. Let's say that in the future we have a mediated vGPU
->> implementation: if it works together with vPCI then the per-domain vPCI
->> option in libxl will be enabled (either explicitely or by default), if
->> it doesn't then vPCI will be disabled (either explicitely or by the
->> newer vGPU options.)
-> 
-> If vPCI is hooked into IOREQ there won't be a need anymore to register
-> the vPCI config space traps, as that would be done by IOREQ, and hence
-> vPCI managed devices could be registered at runtime with IOREQ.  IOW:
-> there won't be a need anymore to signal at domain creation whether
-> vPCI is intended to be used or not.
-> 
-> We would obviously need to enable IOREQ for all domains with IOMMU
-> enabled, as it would be IOREQ that register the PCI config space
-> handlers.
-> 
->> For *unstable* interfaces (XEN_DOMCTL_assign_device) I would rather wait
->> before adding more changes on top of them, not because I don't care
->> about the mediated GPU problem (we do have something similar at AMD),
->> but because I worry that if we try to change them now we might not do a
->> good enough job. I would prefer to wait until we know more about the
->> actual use case, ideally with code supporting it.
->>
->> I think the difference in points of views comes from the fact that I see
->> vPCI as the default, QEMU only as a limited peripheral emulator (or
->> mediator for the vGPU case) but not in control. vPCI and QEMU are not
->> equal in my view. vPCI is in charge and always present if not in very
->> uncommon setups (even if we decide to hook it inside Xen by using
->> internal IOREQ interfaces). QEMU might come and go.
-> 
-> Xen needs a single component that mediates accesses to resources,
-> whether that's IOREQ, or something else I don't really care that much.
-
-I just wanted to share what the "something else" diagram might look like.
-
-    ┌────────┐ ┌──────────┐ ┌──────────────────┐
-    │ Memory │ │ IO Ports │ │ PCI config space │
-    └────┬───┘ └────┬─────┘ └──────────┬───────┘
-         │          │                  │
-         └──┬───────┴───────────────┬──┘
-            │ PCI Resource Mediator │
-            └────┬─────┬────────────┘
-                 │     │
-         ┌───────┤     └────┬──────┐
-         │ IOREQ │          │ vPCI │
-         └────┬──┘          └───┬──┘
-              │                 │
- ┌────────────┴──┐          ┌───┴───────────┐
- │ IOREQ servers │          │ vPCI handlers │
- └───────────────┘          └───────────────┘
-
-> Having vPCI mediate accesses to the PCI config space, and IOREQ to the
-> memory (and on x86 IO port) space just seems awfully complicated for
-> AFAICT no real benefit.
-> 
-> Also, you seem to confabulate IOREQ with QEMU, while the latter is
-> indeed an user of IOREQ, I do see IOREQ as a simple resource mediator
-> inside of Xen, that has the ability to forward such accesses to
-> external emulators using an hypercall interface.
-> 
->> Now that I am writing this, I realize this is also why I wasn't too
->> happy with the idea of hooking vPCI using IOREQ. It makes them look as
->> if they are the same, while I don't they should be considered at the
->> same level of priority, criticality, safety, integration in the system,
->> etc.
-> 
-> I feel there are some fears with IOREQ from a safety PoV?  The code
-> that does the resource multiplexing is small, and as said above if
-> there are safety concerns with the hypercall interface it would be
-> fine to limit it's usage to internal handlers only.
-
-Would it make any sense at all to split the resource multiplexing bits from IOREQ into a new separate PCI resource mediator?
-
-> 
-> Thanks, Roger.
+PiA+ICtzdGF0aWMgbm9pbnN0ciB2b2lkIGZyZWRfaW50eChzdHJ1Y3QgcHRfcmVncyAqcmVncykg
+ew0KPiA+ICsJc3dpdGNoIChyZWdzLT5mcmVkX3NzLnZlY3Rvcikgew0KPiA+ICsJLyogSU5UMCAq
+Lw0KPiANCj4gSU5UTyAoZm9yIG92ZXJmbG93KSwgbm90IElOVC16ZXJvLsKgIEhvd2V2ZXIuLi4N
+Cj4gDQo+ID4gKwljYXNlIFg4Nl9UUkFQX09GOg0KPiA+ICsJCWV4Y19vdmVyZmxvdyhyZWdzKTsN
+Cj4gPiArCQlyZXR1cm47DQo+ID4gKw0KPiA+ICsJLyogSU5UMyAqLw0KPiA+ICsJY2FzZSBYODZf
+VFJBUF9CUDoNCj4gPiArCQlleGNfaW50MyhyZWdzKTsNCj4gPiArCQlyZXR1cm47DQo+IA0KPiAu
+Li4gbmVpdGhlciBPRiBub3IgQlAgd2lsbCBldmVyIGVudGVyIGZyZWRfaW50eCgpIGJlY2F1c2Ug
+dGhleSdyZSB0eXBlIFNXRVhDIG5vdA0KPiBTV0lOVC4NCj4gDQo+IFNXSU5UIGlzIHN0cmljdGx5
+IHRoZSBJTlQgJGltbTggaW5zdHJ1Y3Rpb24uDQo+IA0KPiA+IC4uLg0KPiA+ICtzdGF0aWMgbm9p
+bnN0ciB2b2lkIGZyZWRfZXh0aW50KHN0cnVjdCBwdF9yZWdzICpyZWdzKSB7DQo+ID4gKwl1bnNp
+Z25lZCBpbnQgdmVjdG9yID0gcmVncy0+ZnJlZF9zcy52ZWN0b3I7DQo+ID4gKw0KPiA+ICsJaWYg
+KFdBUk5fT05fT05DRSh2ZWN0b3IgPCBGSVJTVF9FWFRFUk5BTF9WRUNUT1IpKQ0KPiA+ICsJCXJl
+dHVybjsNCj4gPiArDQo+ID4gKwlpZiAobGlrZWx5KHZlY3RvciA+PSBGSVJTVF9TWVNURU1fVkVD
+VE9SKSkgew0KPiA+ICsJCWlycWVudHJ5X3N0YXRlX3Qgc3RhdGUgPSBpcnFlbnRyeV9lbnRlcihy
+ZWdzKTsNCj4gPiArDQo+ID4gKwkJaW5zdHJ1bWVudGF0aW9uX2JlZ2luKCk7DQo+ID4gKwkJc3lz
+dmVjX3RhYmxlW3ZlY3RvciAtIEZJUlNUX1NZU1RFTV9WRUNUT1JdKHJlZ3MpOw0KPiANCj4gYXJy
+YXlfaW5kZXhfbWFza19ub3NwZWMoKQ0KPiANCj4gVGhpcyBpcyBlYXN5IGZvciBhbiBhdHRhY2tl
+ciB0byBhYnVzZSwgdG8gaW5zdGFsbCBub24tZnVuY3Rpb24tcG9pbnRlciB0YXJnZXRzIGludG8N
+Cj4gdGhlIGluZGlyZWN0IHByZWRpY3Rvci4NCj4gDQo+ID4gKwkJaW5zdHJ1bWVudGF0aW9uX2Vu
+ZCgpOw0KPiA+ICsJCWlycWVudHJ5X2V4aXQocmVncywgc3RhdGUpOw0KPiA+ICsJfSBlbHNlIHsN
+Cj4gPiArCQljb21tb25faW50ZXJydXB0KHJlZ3MsIHZlY3Rvcik7DQo+ID4gKwl9DQo+ID4gK30N
+Cj4gPiArDQo+ID4gK3N0YXRpYyBub2luc3RyIHZvaWQgZnJlZF9leGNlcHRpb24oc3RydWN0IHB0
+X3JlZ3MgKnJlZ3MsIHVuc2lnbmVkDQo+ID4gK2xvbmcgZXJyb3JfY29kZSkgew0KPiA+ICsJLyog
+T3B0aW1pemUgZm9yICNQRi4gVGhhdCdzIHRoZSBvbmx5IGV4Y2VwdGlvbiB3aGljaCBtYXR0ZXJz
+IHBlcmZvcm1hbmNlDQo+IHdpc2UgKi8NCj4gPiArCWlmIChsaWtlbHkocmVncy0+ZnJlZF9zcy52
+ZWN0b3IgPT0gWDg2X1RSQVBfUEYpKSB7DQo+ID4gKwkJZXhjX3BhZ2VfZmF1bHQocmVncywgZXJy
+b3JfY29kZSk7DQo+ID4gKwkJcmV0dXJuOw0KPiA+ICsJfQ0KPiA+ICsNCj4gPiArCXN3aXRjaCAo
+cmVncy0+ZnJlZF9zcy52ZWN0b3IpIHsNCj4gPiArCWNhc2UgWDg2X1RSQVBfREU6IHJldHVybiBl
+eGNfZGl2aWRlX2Vycm9yKHJlZ3MpOw0KPiA+ICsJY2FzZSBYODZfVFJBUF9EQjogcmV0dXJuIGZy
+ZWRfZXhjX2RlYnVnKHJlZ3MpOw0KPiA+ICsJY2FzZSBYODZfVFJBUF9CUDogcmV0dXJuIGV4Y19p
+bnQzKHJlZ3MpOw0KPiA+ICsJY2FzZSBYODZfVFJBUF9PRjogcmV0dXJuIGV4Y19vdmVyZmxvdyhy
+ZWdzKTsNCj4gDQo+IERlcGVuZGluZyBvbiB3aGF0IHlvdSB3YW50IHRvIGRvIHdpdGggQlAvT0Yg
+dnMgZnJlZF9pbnR4KCksIHRoaXMgbWF5IG5lZWQNCj4gYWRqdXN0aW5nLg0KPiANCj4gSWYgeW91
+IGFyZSBjcm9zcy1jaGVja2luZyB0eXBlIGFuZCB2ZWN0b3IsIHRoZW4gdGhlc2Ugc2hvdWxkIGJl
+IHJlamVjdGVkIGZvciBub3QNCj4gYmVpbmcgb2YgdHlwZSBIV0VYQy4NCj4gDQo+ID4gKwljYXNl
+IFg4Nl9UUkFQX0JSOiByZXR1cm4gZXhjX2JvdW5kcyhyZWdzKTsNCj4gPiArCWNhc2UgWDg2X1RS
+QVBfVUQ6IHJldHVybiBleGNfaW52YWxpZF9vcChyZWdzKTsNCj4gPiArCWNhc2UgWDg2X1RSQVBf
+Tk06IHJldHVybiBleGNfZGV2aWNlX25vdF9hdmFpbGFibGUocmVncyk7DQo+ID4gKwljYXNlIFg4
+Nl9UUkFQX0RGOiByZXR1cm4gZXhjX2RvdWJsZV9mYXVsdChyZWdzLCBlcnJvcl9jb2RlKTsNCj4g
+PiArCWNhc2UgWDg2X1RSQVBfVFM6IHJldHVybiBleGNfaW52YWxpZF90c3MocmVncywgZXJyb3Jf
+Y29kZSk7DQo+ID4gKwljYXNlIFg4Nl9UUkFQX05QOiByZXR1cm4gZXhjX3NlZ21lbnRfbm90X3By
+ZXNlbnQocmVncywgZXJyb3JfY29kZSk7DQo+ID4gKwljYXNlIFg4Nl9UUkFQX1NTOiByZXR1cm4g
+ZXhjX3N0YWNrX3NlZ21lbnQocmVncywgZXJyb3JfY29kZSk7DQo+ID4gKwljYXNlIFg4Nl9UUkFQ
+X0dQOiByZXR1cm4gZXhjX2dlbmVyYWxfcHJvdGVjdGlvbihyZWdzLCBlcnJvcl9jb2RlKTsNCj4g
+PiArCWNhc2UgWDg2X1RSQVBfTUY6IHJldHVybiBleGNfY29wcm9jZXNzb3JfZXJyb3IocmVncyk7
+DQo+ID4gKwljYXNlIFg4Nl9UUkFQX0FDOiByZXR1cm4gZXhjX2FsaWdubWVudF9jaGVjayhyZWdz
+LCBlcnJvcl9jb2RlKTsNCj4gPiArCWNhc2UgWDg2X1RSQVBfWEY6IHJldHVybiBleGNfc2ltZF9j
+b3Byb2Nlc3Nvcl9lcnJvcihyZWdzKTsNCj4gPiArDQo+ID4gKyNpZmRlZiBDT05GSUdfWDg2X01D
+RQ0KPiA+ICsJY2FzZSBYODZfVFJBUF9NQzogcmV0dXJuIGZyZWRfZXhjX21hY2hpbmVfY2hlY2so
+cmVncyk7ICNlbmRpZiAjaWZkZWYNCj4gPiArQ09ORklHX0lOVEVMX1REWF9HVUVTVA0KPiA+ICsJ
+Y2FzZSBYODZfVFJBUF9WRTogcmV0dXJuIGV4Y192aXJ0dWFsaXphdGlvbl9leGNlcHRpb24ocmVn
+cyk7DQo+ID4gKyNlbmRpZg0KPiA+ICsjaWZkZWYgQ09ORklHX1g4Nl9LRVJORUxfSUJUDQo+IA0K
+PiBDT05GSUdfWDg2X0NFVA0KPiANCj4gVXNlcnNwYWNlIGNhbiB1c2UgQ0VUIGV2ZW4gaWYgdGhl
+IGtlcm5lbCBpc24ndCBjb21waWxlZCB3aXRoIElCVCwgc28gdGhpcw0KPiBleGNlcHRpb24gbmVl
+ZHMgaGFuZGxpbmcuDQo+IA0KPiA+ICsJY2FzZSBYODZfVFJBUF9DUDogcmV0dXJuIGV4Y19jb250
+cm9sX3Byb3RlY3Rpb24ocmVncywgZXJyb3JfY29kZSk7DQo+ID4gKyNlbmRpZg0KPiA+ICsJZGVm
+YXVsdDogcmV0dXJuIGZyZWRfYmFkX3R5cGUocmVncywgZXJyb3JfY29kZSk7DQo+ID4gKwl9DQo+
+ID4gK30NCj4gPiArDQo+ID4gK19fdmlzaWJsZSBub2luc3RyIHZvaWQgZnJlZF9lbnRyeV9mcm9t
+X3VzZXIoc3RydWN0IHB0X3JlZ3MgKnJlZ3MpIHsNCj4gPiArCXVuc2lnbmVkIGxvbmcgZXJyb3Jf
+Y29kZSA9IHJlZ3MtPm9yaWdfYXg7DQo+ID4gKw0KPiA+ICsJLyogSW52YWxpZGF0ZSBvcmlnX2F4
+IHNvIHRoYXQgc3lzY2FsbF9nZXRfbnIoKSB3b3JrcyBjb3JyZWN0bHkgKi8NCj4gPiArCXJlZ3Mt
+Pm9yaWdfYXggPSAtMTsNCj4gPiArDQo+ID4gKwlzd2l0Y2ggKHJlZ3MtPmZyZWRfc3MudHlwZSkg
+ew0KPiA+ICsJY2FzZSBFVkVOVF9UWVBFX0VYVElOVDoNCj4gPiArCQlyZXR1cm4gZnJlZF9leHRp
+bnQocmVncyk7DQo+ID4gKwljYXNlIEVWRU5UX1RZUEVfTk1JOg0KPiA+ICsJCXJldHVybiBmcmVk
+X2V4Y19ubWkocmVncyk7DQo+ID4gKwljYXNlIEVWRU5UX1RZUEVfU1dJTlQ6DQo+ID4gKwkJcmV0
+dXJuIGZyZWRfaW50eChyZWdzKTsNCj4gPiArCWNhc2UgRVZFTlRfVFlQRV9IV0VYQzoNCj4gPiAr
+CWNhc2UgRVZFTlRfVFlQRV9TV0VYQzoNCj4gPiArCWNhc2UgRVZFTlRfVFlQRV9QUklWX1NXRVhD
+Og0KPiA+ICsJCXJldHVybiBmcmVkX2V4Y2VwdGlvbihyZWdzLCBlcnJvcl9jb2RlKTsNCj4gDQo+
+IFBSSVZfU1dFWEMgc2hvdWxkIGhhdmUgaXQncyBvd24gZnVuY3Rpb24gYW5kIG5vdCBmYWxsIGlu
+dG8gZnJlZF9leGNlcHRpb24oKS4NCj4gDQo+IEl0IGlzIHN0cmljdGx5IG9ubHkgdGhlIElDRUJQ
+IChJTlQxKSBpbnN0cnVjdGlvbiBhdCB0aGUgbW9tZW50LCBzbyBzaG91bGQgZmFsbCBpbnRvDQo+
+IGJhZF90eXBlKCkgZm9yIGFueSB2ZWN0b3Igb3RoZXIgdGhhbiBYODZfVFJBUF9EQi4NCj4gDQo+
+ID4gKwljYXNlIEVWRU5UX1RZUEVfT1RIRVI6DQo+ID4gKwkJcmV0dXJuIGZyZWRfb3RoZXIocmVn
+cyk7DQo+ID4gKwlkZWZhdWx0Og0KPiA+ICsJCXJldHVybiBmcmVkX2JhZF90eXBlKHJlZ3MsIGVy
+cm9yX2NvZGUpOw0KPiA+ICsJfQ0KPiA+ICt9DQo+IA0KPiB+QW5kcmV3DQoNCg0KVGhhbmtzIGEg
+bG90IGZvciB5b3VyIHF1aWNrIHJldmlldywgd2lsbCBhZGRyZXNzIHNvb24uDQogICAgWGluDQo=
 
