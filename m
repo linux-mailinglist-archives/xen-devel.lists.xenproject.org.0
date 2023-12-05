@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2AD0804CF3
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 09:51:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647466.1010622 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9415C804CF6
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 09:52:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647468.1010633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAR8h-0002t1-K7; Tue, 05 Dec 2023 08:50:47 +0000
+	id 1rARAS-0003SP-Vy; Tue, 05 Dec 2023 08:52:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647466.1010622; Tue, 05 Dec 2023 08:50:47 +0000
+Received: by outflank-mailman (output) from mailman id 647468.1010633; Tue, 05 Dec 2023 08:52:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAR8h-0002qd-HN; Tue, 05 Dec 2023 08:50:47 +0000
-Received: by outflank-mailman (input) for mailman id 647466;
- Tue, 05 Dec 2023 08:50:47 +0000
+	id 1rARAS-0003Pn-Rz; Tue, 05 Dec 2023 08:52:36 +0000
+Received: by outflank-mailman (input) for mailman id 647468;
+ Tue, 05 Dec 2023 08:52:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7WXV=HQ=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
- id 1rAR8g-0002qX-UM
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 08:50:47 +0000
-Received: from mail-pl1-x631.google.com (mail-pl1-x631.google.com
- [2607:f8b0:4864:20::631])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rARAR-0003Pe-PF
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 08:52:35 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5fcce299-934b-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 09:50:44 +0100 (CET)
-Received: by mail-pl1-x631.google.com with SMTP id
- d9443c01a7336-1cfc9c4acb6so23546585ad.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 00:50:44 -0800 (PST)
+ id a145045b-934b-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 09:52:33 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40c09dfa03cso23310645e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 00:52:33 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ f18-20020a05600c155200b004094d4292aesm18022403wmg.18.2023.12.05.00.52.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Dec 2023 00:52:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,174 +45,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5fcce299-934b-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: a145045b-934b-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701766243; x=1702371043; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=KxsmGtDRn1Wo9Fz8BQwrLB7AzZJnt699cGgqD5Tx4tA=;
-        b=YldaX+KgIkUZS4udJ0P4K/PcMHWIrWjimW6Qlb7U3GdXsyM2HC1obiOU55803J6Wu4
-         aGun/fUlnXAZrpBG5EJtwl48SNE/0ptHNnXA2nXjBZcWaWCsrjoiZhxqfnSa5ZYBNTjs
-         47o8PQmgGjyFeZ7qc7JUY3PMO/cRv/puOA6rIHU79b4LS6d0hI4k3x77vHPjq7xGcg6U
-         7vWHntUY+CfwxBabJd5837Ay5sV+kMZxHK2C1jAZifP2eJlfxGXewx4c4ekWBcVRpgRG
-         x7TaxmCeW+3R3ZBP+VoJs+IQnU9aJiLCmHLvzUswmyJ/2sx8m+ztR6da47wnwCJeNBj5
-         1h6g==
+        d=suse.com; s=google; t=1701766353; x=1702371153; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Ts9bPpccPlYsKv8vzcv1tEsiLpLyS8c4dtjGIgClwaI=;
+        b=bLmN7Zm2VVzb4349FVJeY7hPzILJvkbF5gTxVthGaiJBfgmsC0bjEe+9Q5+Pp733lp
+         Rily0KqLsDLQz0XIrdRGY+oqwHOwPv+8SaZ1w9ncw3tvM/fRsLUJS8ytsH2nVL9vb5EY
+         DbX4qtGNv9Ak868L8HTCj3ufFCuQcOwSAhVvm/3Lw2s/JQkKi2W2pa11UbFNZRSe/BSb
+         fIb7HvXBehRFA1Sl0zD7ZCiTzusmSRzEuYO42Gg5DpoIodFabPuC2LSZCSGGrJ6Xro7G
+         6a3b+y8qYFbctZW5E2ibgqF8fx5UaQKD5pkXO14KinLTxqgD1GzjL5EWJ06it1hJoZeg
+         cCFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701766243; x=1702371043;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KxsmGtDRn1Wo9Fz8BQwrLB7AzZJnt699cGgqD5Tx4tA=;
-        b=vbj7xM0+Qzs6seBoRTsTxdqdcet76KzmuG3d7sqpjcuOjqtNTnkpzgTZITy/Hdur5N
-         A8LpDTz5UwQCSrjhSNxBxsFk+/qNTm3IiCU/kIxlOB53Asgx1fEsjnreKS+7WKlqwlve
-         4l4RYAewPxxS2jy/AXtiLnIyW6eEkpwgubTblKHsfpQ8MIOUV4x5rmOcmdG6dWWgSuEd
-         kPHVu1F55Q+8EheiGY8cBxeOpSVXJn/TgmdFjzn0fD3AkmRe37A49+7fmvoQxxxvovwx
-         GR7N6P5n4Qfb89CEvLR7lGGtcWdrJs3NpDJzsbB/b2tOx1CbRnr+Lr6dYOCPHs6NM8DD
-         FZ8g==
-X-Gm-Message-State: AOJu0Ywmzy90boHvv5N5UYcPXGOX/hZwFfNKHk9b6lPMJTRnn6d1SEyD
-	zHbn1KFD7/AcIE/fwzD64gmQ+aNgebHsG4ideWo=
-X-Google-Smtp-Source: AGHT+IHHSKMXsneBOM96qZfAEML/IVvHEQopHpJ980yMSrEsuJy2GoQigxvPbynVtnekTWzA2e5YxiKa168qB4jamwY=
-X-Received: by 2002:a17:90a:e2ce:b0:286:6cc0:886e with SMTP id
- fr14-20020a17090ae2ce00b002866cc0886emr617165pjb.91.1701766242581; Tue, 05
- Dec 2023 00:50:42 -0800 (PST)
+        d=1e100.net; s=20230601; t=1701766353; x=1702371153;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ts9bPpccPlYsKv8vzcv1tEsiLpLyS8c4dtjGIgClwaI=;
+        b=KoKfuHjIXQuK1+DH2SNQ+oMwh2SF8sI78Z3PmYHF0lGaOaN9eqMEMZg+7xmgiYdsxW
+         F59ZQ2+9wHDNgNJLjFtut7iC3o4XYcNlp5C9fRR+XRmyHQJSK9ATQf0VxueDS+prnZCR
+         Jc01BK4iDnxKm29mfSBbL5JrcAvKiEjDa0ALWNG7lLfHnylM9mkSFiz1LlXdxIGtw/l4
+         gQl/TyQIujfMNYvhCGnxIg4jNbEdcg1UJ47Y5JFt7AGYWn5GCJhl8VlYpugKIMS2lDMt
+         C5uiGc8478Vznlzxgtwd35FGx+x39Nwda3sxf0K39y68JYr75w+/zAuSrRHckc4X1vEf
+         vkMA==
+X-Gm-Message-State: AOJu0YwfYRIjhw/NnwaEg2rt9rl31tHZSekjGlvi7kfNRkwM6vkVjtit
+	hG9E154whhIU/18ko1Qit2O4
+X-Google-Smtp-Source: AGHT+IHPi4sbtH7ziKOYwSaRAzA2vx/pcSVZclIzOCVfdnmmulJSdEnXs7FB5EYUtVEEDsYVn86WNw==
+X-Received: by 2002:a05:600c:4f12:b0:40b:5e59:c581 with SMTP id l18-20020a05600c4f1200b0040b5e59c581mr260285wmq.171.1701766352890;
+        Tue, 05 Dec 2023 00:52:32 -0800 (PST)
+Message-ID: <5f7c43ca-dfc4-4929-8776-6985e610e154@suse.com>
+Date: Tue, 5 Dec 2023 09:52:31 +0100
 MIME-Version: 1.0
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com> <CAKm-UmYGTLY0fTh4zvj-xrA3Tp+Oj+ES61pncG7ze0QnP4o=FQ@mail.gmail.com>
- <52bd8702-cf7d-4f5b-883d-be6214ba31c0@suse.com>
-In-Reply-To: <52bd8702-cf7d-4f5b-883d-be6214ba31c0@suse.com>
-From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Date: Tue, 5 Dec 2023 09:50:31 +0100
-Message-ID: <CAKm-UmadRsc7GEYDqMDTBaoozT5Bj3nwK+=uDs1LkTZVG8tgdQ@mail.gmail.com>
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000614288060bbf54c2"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/6] x86/HVM: split restore state checking from state
+ loading
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <49a17ffa-c873-4b0f-81ed-9587053ca159@suse.com>
+ <dcc726f5-634e-4b48-aa8f-d477cdc8dea9@suse.com> <ZW4L5Q4SMprtmbK-@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZW4L5Q4SMprtmbK-@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---000000000000614288060bbf54c2
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 04.12.2023 18:27, Roger Pau Monné wrote:
+> On Tue, Nov 28, 2023 at 11:34:04AM +0100, Jan Beulich wrote:
+>> ..., at least as reasonably feasible without making a check hook
+>> mandatory (in particular strict vs relaxed/zero-extend length checking
+>> can't be done early this way).
+>>
+>> Note that only one of the two uses of hvm_load() is accompanied with
+>> hvm_check(). The other directly consumes hvm_save() output, which ought
+>> to be well-formed. This means that while input data related checks don't
+>> need repeating in the "load" function when already done by the "check"
+>> one (albeit assertions to this effect may be desirable), domain state
+>> related checks (e.g. has_xyz(d)) will be required in both places.
+>>
+>> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Do we really need all the copying involved in use of _hvm_read_entry()
+>> (backing hvm_load_entry()? Zero-extending loads are likely easier to
+>> handle that way, but for strict loads all we gain is a reduced risk of
+>> unaligned accesses (compared to simply pointing into h->data[]).
+> 
+> See below, but I wonder whether the checks could be performed as part
+> of hvm_load() without having to introduce a separate handler and loop
+> over the context entries.
 
-Any direction on how I can enhance the debugging at the kernel level ?
+Specifically not. State loading (in the longer run) would better not fail
+once started. (Imo it should have been this way from the beginning.) Only
+then will the vCPU still be in a predictable state even after a possible
+error.
 
-There was an old issue with amd_gpio there :
-https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1971597
-Coud the kernel be confused by IRQ/GSI mapping ? Any way to test this
-hypothesis?
+>> Would the hvm_sr_handlers[] better use array_access_nospec()?
+> 
+> Maybe?  Given this is a domctl I do wonder whether a domain already
+> having access to such interface won't have easier ways to leak data
+> from Xen.  Maybe for a disaggregated setup.
 
-Thanks
+Hmm, now we're in the middle - Andrew effectively said "no need to".
 
+>> @@ -275,6 +281,78 @@ int hvm_save(struct domain *d, hvm_domai
+>>      return 0;
+>>  }
+>>  
+>> +int hvm_check(const struct domain *d, hvm_domain_context_t *h)
+>> +{
+>> +    const struct hvm_save_header *hdr;
+>> +    int rc;
+>> +
+>> +    if ( d->is_dying )
+>> +        return -EINVAL;
+>> +
+>> +    /* Get at the save header, which must be first. */
+>> +    hdr = hvm_get_entry(HEADER, h);
+>> +    if ( !hdr )
+>> +        return -ENODATA;
+>> +
+>> +    rc = arch_hvm_check(d, hdr);
+>> +    if ( rc )
+>> +        return rc;
+>> +
+>> +    for ( ; ; )
+>> +    {
+>> +        const struct hvm_save_descriptor *desc;
+>> +        hvm_check_handler handler;
+>> +
+>> +        if ( h->size - h->cur < sizeof(*desc) )
+>> +        {
+>> +            /* Run out of data */
+>> +            printk(XENLOG_G_ERR
+>> +                   "HVM restore %pd: save did not end with a null entry\n",
+>> +                   d);
+>> +            return -ENODATA;
+>> +        }
+>> +
+>> +        /* Read the typecode of the next entry and check for the end-marker. */
+>> +        desc = (const void *)&h->data[h->cur];
+>> +        if ( desc->typecode == HVM_SAVE_CODE(END) )
+>> +        {
+>> +            /* Reset cursor for hvm_load(). */
+>> +            h->cur = 0;
+>> +            return 0;
+>> +        }
+>> +
+>> +        /* Find the handler for this entry. */
+>> +        if ( desc->typecode >= ARRAY_SIZE(hvm_sr_handlers) ||
+>> +             !hvm_sr_handlers[desc->typecode].name ||
+>> +             !hvm_sr_handlers[desc->typecode].load )
+>> +        {
+>> +            printk(XENLOG_G_ERR "HVM restore %pd: unknown entry typecode %u\n",
+>> +                   d, desc->typecode);
+>> +            return -EINVAL;
+>> +        }
+>> +
+>> +        /* Check the entry. */
+>> +        handler = hvm_sr_handlers[desc->typecode].check;
+>> +        if ( !handler )
+>> +        {
+>> +            if ( desc->length > h->size - h->cur - sizeof(*desc) )
+>> +                return -ENODATA;
+>> +            h->cur += sizeof(*desc) + desc->length;
+>> +        }
+>> +        else if ( (rc = handler(d, h)) )
+>> +        {
+>> +            printk(XENLOG_G_ERR
+>> +                   "HVM restore %pd: failed to check %s:%u rc %d\n",
+>> +                   d, hvm_sr_handlers[desc->typecode].name, desc->instance, rc);
+>> +            return rc;
+>> +        }
+>> +
+>> +        process_pending_softirqs();
+> 
+> Looking at this, won't it be better to call the check() hooks inside
+> the hvm_load() function instead of duplicating the loop?
+> 
+> I realize that you only perform the checks when the state is loaded
+> from a domctl, but still seems quite a lot of code duplication for
+> little benefit.
+> 
+> hvm_load() could gain an extra parameter to select whether the input
+> must be checked or not, and that would avoid having to iterate twice
+> over the context.
 
+Well, see above.
 
+>> +    }
+>> +
+>> +    /* Not reached */
+> 
+> ASSERT_UNREACHABLE() maybe?
 
-Le mar. 5 d=C3=A9c. 2023 =C3=A0 09:17, Jan Beulich <jbeulich@suse.com> a =
-=C3=A9crit :
+Hmm, I'd find it kind of odd to have such here. While hvm_load() doesn't
+have such either, perhaps that's not a meaningful reference. Adding this
+would make me fear introducing a Misra violation (adding dead code).
 
-> On 04.12.2023 20:17, S=C3=A9bastien Chaumat wrote:
-> > Le lun. 4 d=C3=A9c. 2023 =C3=A0 10:06, Jan Beulich <jbeulich@suse.com> =
-a =C3=A9crit :
-> >
-> >> On 03.12.2023 10:56, S=C3=A9bastien Chaumat wrote:
-> >>> Hello,
-> >>>
-> >>>  Trying to get the Framework Laptop 13 AMD to work with QubesOS I hit
-> the
-> >>> following Xen issue :
-> >>>
-> >>> Xen version : 4.17.2
-> >>
-> > + tested with 4.18.0
-> >
-> >
-> >>> Kernel : 6.5.12-300.fc39.x86_64
-> >>> CPU  model name : AMD Ryzen 7 7840U w/ Radeon  780M Graphics
-> >>
-> >
-> >
-> >>> [    2.464598] amd_gpio AMDI0030:00: failed to enable wake-up interru=
-pt
-> >>
-> >> Possibly releated to this. You'll want to obtain a full-verbosity
-> >> hypervisor
-> >> log with a debug hypervisor, as there may be hypervisor debug messages
-> >> telling us what Xen may not like.
-> >>
-> >
-> > xl dmesg with some traces attached.
->
-> Nothing that looks relevant here. The anomalies are related to you also
-> having enabled lock debugging and ubsan.
->
-> I'm afraid this needs looking into from the kernel side first, to
-> understand
-> what's going wrong there. Once that's known, it'll hopefully be more clea=
-r
-> whether this is a Xen or a kernel issue.
->
-> Jan
->
-
---000000000000614288060bbf54c2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Any direction on how I can enhance the debugging at t=
-he kernel level ?</div><div><br></div><div>There was an old issue with amd_=
-gpio there : <a href=3D"https://bugs.launchpad.net/ubuntu/+source/linux/+bu=
-g/1971597">https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1971597</a>=
-</div><div>Coud the kernel be confused by IRQ/GSI mapping ? Any way to test=
- this hypothesis?</div><div><br></div><div>Thanks<br></div><div><br></div><=
-div><br></div><div><br></div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">Le=C2=A0mar. 5 d=C3=A9c. 2023 =C3=A0=C2=A009:=
-17, Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com<=
-/a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">On 04.12.2023 20:17, S=C3=A9bastien Chaumat wrote:<br>
-&gt; Le lun. 4 d=C3=A9c. 2023 =C3=A0 10:06, Jan Beulich &lt;<a href=3D"mail=
-to:jbeulich@suse.com" target=3D"_blank">jbeulich@suse.com</a>&gt; a =C3=A9c=
-rit :<br>
-&gt; <br>
-&gt;&gt; On 03.12.2023 10:56, S=C3=A9bastien Chaumat wrote:<br>
-&gt;&gt;&gt; Hello,<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;=C2=A0 Trying to get the Framework Laptop 13 AMD to work with Q=
-ubesOS I hit the<br>
-&gt;&gt;&gt; following Xen issue :<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Xen version : 4.17.2<br>
-&gt;&gt;<br>
-&gt; + tested with 4.18.0<br>
-&gt; <br>
-&gt; <br>
-&gt;&gt;&gt; Kernel : 6.5.12-300.fc39.x86_64<br>
-&gt;&gt;&gt; CPU=C2=A0 model name : AMD Ryzen 7 7840U w/ Radeon=C2=A0 780M =
-Graphics<br>
-&gt;&gt;<br>
-&gt; <br>
-&gt; <br>
-&gt;&gt;&gt; [=C2=A0 =C2=A0 2.464598] amd_gpio AMDI0030:00: failed to enabl=
-e wake-up interrupt<br>
-&gt;&gt;<br>
-&gt;&gt; Possibly releated to this. You&#39;ll want to obtain a full-verbos=
-ity<br>
-&gt;&gt; hypervisor<br>
-&gt;&gt; log with a debug hypervisor, as there may be hypervisor debug mess=
-ages<br>
-&gt;&gt; telling us what Xen may not like.<br>
-&gt;&gt;<br>
-&gt; <br>
-&gt; xl dmesg with some traces attached.<br>
-<br>
-Nothing that looks relevant here. The anomalies are related to you also<br>
-having enabled lock debugging and ubsan.<br>
-<br>
-I&#39;m afraid this needs looking into from the kernel side first, to under=
-stand<br>
-what&#39;s going wrong there. Once that&#39;s known, it&#39;ll hopefully be=
- more clear<br>
-whether this is a Xen or a kernel issue.<br>
-<br>
-Jan<br>
-</blockquote></div>
-
---000000000000614288060bbf54c2--
+Jan
 
