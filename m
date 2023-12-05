@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118018061B8
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 23:30:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648496.1012563 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 810CD8061CC
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 23:38:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648502.1012573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAdvj-00018I-HJ; Tue, 05 Dec 2023 22:30:15 +0000
+	id 1rAe35-0002iW-Am; Tue, 05 Dec 2023 22:37:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648496.1012563; Tue, 05 Dec 2023 22:30:15 +0000
+Received: by outflank-mailman (output) from mailman id 648502.1012573; Tue, 05 Dec 2023 22:37:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAdvj-00016T-ET; Tue, 05 Dec 2023 22:30:15 +0000
-Received: by outflank-mailman (input) for mailman id 648496;
- Tue, 05 Dec 2023 22:30:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rAdvh-00016J-N6; Tue, 05 Dec 2023 22:30:13 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rAdvh-0000ON-8L; Tue, 05 Dec 2023 22:30:13 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rAdvg-00032O-Qw; Tue, 05 Dec 2023 22:30:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rAdvg-0001TL-QW; Tue, 05 Dec 2023 22:30:12 +0000
+	id 1rAe35-0002gn-6w; Tue, 05 Dec 2023 22:37:51 +0000
+Received: by outflank-mailman (input) for mailman id 648502;
+ Tue, 05 Dec 2023 22:37:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=MQDs=HQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rAe33-0002gf-DQ
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 22:37:49 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e8935b27-93be-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 23:37:46 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 77658CE1B22;
+ Tue,  5 Dec 2023 22:37:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7E39C433C7;
+ Tue,  5 Dec 2023 22:37:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,87 +41,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=BYksRaLr2ptGeXOA943mtmpUiffOobqM7RuAPoxnMjc=; b=B2Ryv15g2NVmvi9yCXY/jGDhqg
-	CFZ6eAgbW+YAwoVX2ZCqB65iI98ipsfqzky5CtNDm59W6g8iUW8+BURZAeS1d+cmZcch9EVB0m8cy
-	H+VJl88CZR6llA6c3PBe63ejJXnO7ownF82e5oXxQn+e7gZf8fjD0VtBa2wslIxXkedA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-183998-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e8935b27-93be-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1701815860;
+	bh=sREbz9DKSjqXuLOUL8jwggcX4KntV1Kh5sSgOifiQyE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=arznWVpT85zXKYCMx2p9VwmS5C5YWedRxPvFBC90LJYoCFk3NcqnIXTMZpgAbE0L1
+	 8wp7jgeiX6waz631/gRYN7zVbaDcPP8QwkjdU38PlAy+3VRuiNbfyvtXvGeKwHg+Og
+	 J25uOw2o1GNnMo7LZA0iKsqosECXODo0BStzoOOexxlzoKIBSvbC+/ez+urAlbyml0
+	 dWfY8OMyh2MnRrNJhF0XvPes4rJLKgirZ8+OVH7NzRvcJzKD7iCVUZWk81uihxoFlp
+	 jcInj9Lrxy1nNoWxu5wrMwGOVXtgG/GcCznWSH+uk9jczslHFcH18kayl6nld/vhtf
+	 vvjUsDOKrKJHA==
+Date: Tue, 5 Dec 2023 14:37:38 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Juergen Gross <jgross@suse.com>
+cc: linux-kernel@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    xen-devel@lists.xenproject.org, Pry Mar <pryorm09@gmail.com>
+Subject: Re: [PATCH] xen: update PV-device interface headers
+In-Reply-To: <20231205115121.11627-1-jgross@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2312051437330.110490@ubuntu-linux-20-04-desktop>
+References: <20231205115121.11627-1-jgross@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 183998: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=948e03303138482bf12f67740d8ebd8272824903
-X-Osstest-Versions-That:
-    xen=ff1178062094837d55ef342070e58316c43a54c9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 05 Dec 2023 22:30:12 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 183998 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/183998/
+On Tue, 4 Dec 2023, Juergen Gross wrote:
+> Update the Xen PV-device interface headers in order to avoid undefined
+> behavior with flexible arrays being defined with one array element.
+> 
+> Reported-by: Pry Mar <pryorm09@gmail.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Failures :-/ but no regressions.
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  948e03303138482bf12f67740d8ebd8272824903
-baseline version:
- xen                  ff1178062094837d55ef342070e58316c43a54c9
-
-Last test of basis   183994  2023-12-05 10:00:30 Z    0 days
-Testing same since   183998  2023-12-05 20:02:06 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Orzel <michal.orzel@amd.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   ff11780620..948e033031  948e03303138482bf12f67740d8ebd8272824903 -> smoke
+> ---
+>  include/xen/interface/io/displif.h | 2 +-
+>  include/xen/interface/io/ring.h    | 2 +-
+>  include/xen/interface/io/sndif.h   | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/xen/interface/io/displif.h b/include/xen/interface/io/displif.h
+> index 18417b017869..60e42d3b760e 100644
+> --- a/include/xen/interface/io/displif.h
+> +++ b/include/xen/interface/io/displif.h
+> @@ -537,7 +537,7 @@ struct xendispl_dbuf_create_req {
+>  
+>  struct xendispl_page_directory {
+>  	grant_ref_t gref_dir_next_page;
+> -	grant_ref_t gref[1]; /* Variable length */
+> +	grant_ref_t gref[];
+>  };
+>  
+>  /*
+> diff --git a/include/xen/interface/io/ring.h b/include/xen/interface/io/ring.h
+> index ba4c4274b714..4fef1efcdcab 100644
+> --- a/include/xen/interface/io/ring.h
+> +++ b/include/xen/interface/io/ring.h
+> @@ -95,7 +95,7 @@ struct __name##_sring {                                                 \
+>      RING_IDX req_prod, req_event;                                       \
+>      RING_IDX rsp_prod, rsp_event;                                       \
+>      uint8_t __pad[48];                                                  \
+> -    union __name##_sring_entry ring[1]; /* variable-length */           \
+> +    union __name##_sring_entry ring[];                                  \
+>  };                                                                      \
+>                                                                          \
+>  /* "Front" end's private variables */                                   \
+> diff --git a/include/xen/interface/io/sndif.h b/include/xen/interface/io/sndif.h
+> index 445657cdb1de..b818517588b5 100644
+> --- a/include/xen/interface/io/sndif.h
+> +++ b/include/xen/interface/io/sndif.h
+> @@ -659,7 +659,7 @@ struct xensnd_open_req {
+>  
+>  struct xensnd_page_directory {
+>  	grant_ref_t gref_dir_next_page;
+> -	grant_ref_t gref[1]; /* Variable length */
+> +	grant_ref_t gref[];
+>  };
+>  
+>  /*
+> -- 
+> 2.35.3
+> 
 
