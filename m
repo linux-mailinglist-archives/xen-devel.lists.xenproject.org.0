@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E184C805855
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:15:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648014.1011894 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09EB8805856
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:16:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648017.1011902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAX8Y-0001Jq-TG; Tue, 05 Dec 2023 15:15:02 +0000
+	id 1rAX9y-000229-A7; Tue, 05 Dec 2023 15:16:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648014.1011894; Tue, 05 Dec 2023 15:15:02 +0000
+Received: by outflank-mailman (output) from mailman id 648017.1011902; Tue, 05 Dec 2023 15:16:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAX8Y-0001GW-Ou; Tue, 05 Dec 2023 15:15:02 +0000
-Received: by outflank-mailman (input) for mailman id 648014;
- Tue, 05 Dec 2023 15:15:01 +0000
+	id 1rAX9y-0001zb-7G; Tue, 05 Dec 2023 15:16:30 +0000
+Received: by outflank-mailman (input) for mailman id 648017;
+ Tue, 05 Dec 2023 15:16:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAX8X-0001GQ-3e
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:15:01 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1rAX9x-0001zV-7Z
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:16:29 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0df0b3a6-9381-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 16:14:59 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-332fd78fa9dso4654988f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:14:59 -0800 (PST)
+ id 4275bfad-9381-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 16:16:27 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3334254cfa3so1613088f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:16:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- q18-20020adf9dd2000000b00333357a77c4sm10463936wre.34.2023.12.05.07.14.58
+ q18-20020adf9dd2000000b00333357a77c4sm10463936wre.34.2023.12.05.07.16.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 07:14:58 -0800 (PST)
+ Tue, 05 Dec 2023 07:16:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0df0b3a6-9381-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 4275bfad-9381-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701789298; x=1702394098; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701789386; x=1702394186; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0SjG8eJ/JAdY43wB+nU+rycxpGV9ftdDE3uTO2Efwqk=;
-        b=BvhWIS2gDb0esAPbk0CK5q913QHhbrPKH2DpsJivgBzEwuVhbCJimiE9i3EGwW6sCU
-         W0VaQZTLo0FtzEJf/X3DA50CrKvfKblb+L1ioCw6I7xMaizcLqr1lIi8RPgFEOB4/oF3
-         3klooU6m0+6H9fd0LjjjDJMdXpK3MIjHV79t3M4MwEhu0ludYz1HBNan0iaWhQLnBCLG
-         3oTOVBLJTWZgnQZp3BCu5xvxkyrMkHF320EySeXdiUUESZGar5q5quLUkRCW+3ehHajE
-         T+gO0czoNn5On5gybCFvZ1Q+JiB2pPhrLuxoG+7qAUXeXEeJSaJoytT6wFMhtQWGkgDv
-         Ln+g==
+        bh=cFzvHie7cXy2AJrdY6P3f47Glj8npa0Pjc3ZW7jR3zI=;
+        b=Rk6Pr95btde13KvYYpZEbQHvCiY7Vl8YExjWkij1yEABu1Lcuj2KQF3tbc81cLviVl
+         0SpJxZOJ/JVM30Cat+ekqdi+aDREIaWOSOUlaopGPQg8uo87hWVLj+JW1kbBkDSrSHt3
+         TKXxGI63/2jI42qeR46t2GkPiykOg9G77sZZcQf36ZRsJtZ60pXLkIifrAtcN2KQ7Wf+
+         zpaF2m8qUj2FByu13itp0CyQKDXMzWmTgozAJ5W490wHcwyOAis979D9P1q2+wjEKl1p
+         Zgdj8F5DaF6EaYcgdpZPlefXBtCenZEUDZyle5tLupfjqja9EL/ThzxajqS6b5z8Mmh1
+         fqxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701789298; x=1702394098;
+        d=1e100.net; s=20230601; t=1701789386; x=1702394186;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0SjG8eJ/JAdY43wB+nU+rycxpGV9ftdDE3uTO2Efwqk=;
-        b=nSgLMMlmcV/V9NJmHLBB1astzGA3SYlBanIEBH+vPTF7v7lKGjDboy1Tao8SoZypCR
-         01R5IEguOx4Zwo/JQrgpSC2ZaPcVj//doNgDDjZ7JngIpIf3K967MfaeVUC89wI/PpvN
-         hdR9y5TfmI6bG0o8UH+ihFo7FoxgSei9wS6C1a6NACtQ2o9PSOnmQwsUoKZrp2KAS2r9
-         3uDQsfvOcujrieXY0ZCcmxesoHNyuS+vJVzy+XfjxRtt0Djfche1t//76EEFE4fk548I
-         k+qYduretKihYfe9qpqHyrcwWP6Vpe24qveuJQwz6Gxi5fdDqZfvywQjr2GLlx4YDUYU
-         j7Pw==
-X-Gm-Message-State: AOJu0YybwsLSiW+PAsa44cl2jfkWnaxWSEB3frFyEKJsnzkOVqnv8K6Z
-	cl0B1lP+7tiVG+4p539vRn1v
-X-Google-Smtp-Source: AGHT+IG7/+QmzkL7RRg2tKVnn4mK40tS6TJRV/ai6cYi0yCuaNgNrt3ohQIENhvQ7spd4FLVQ0JuUA==
-X-Received: by 2002:a5d:484b:0:b0:333:49a8:73ea with SMTP id n11-20020a5d484b000000b0033349a873eamr949937wrs.249.1701789298544;
-        Tue, 05 Dec 2023 07:14:58 -0800 (PST)
-Message-ID: <29b2d864-2b3f-4a74-9d61-534523e842cd@suse.com>
-Date: Tue, 5 Dec 2023 16:14:57 +0100
+        bh=cFzvHie7cXy2AJrdY6P3f47Glj8npa0Pjc3ZW7jR3zI=;
+        b=wHJV4G8/OVyP49rq/cmAfquCYg1iLuiaur2nbPyLbRzTOyEtukxu3SxHAeRqVtm5vH
+         09JlvITi+SwfwEZUiZ7cSY128mIfHiK/oMqPZ2wOWRDkuLWL4Qr9GjBhK5iJRS6kgTrV
+         AouKqmLA51JVn1cUegXwjB9f7gS3c5+PoUeRdgdBBqos2c/2neJ2iuV4aIuHlCbZmsTm
+         U+8IWeC4pea4nqWwqC9i8e1PxRbQKx988322z+Ggwd/UxbrJXCpUI6QKpmbIDt4C7P8n
+         kHABA0Bc24rx/MdW+tqYJWj9V7ASIZ4W9Nh4+B/CF6blz+rlsNApnzCDf6sUG3yFaUf5
+         C0IQ==
+X-Gm-Message-State: AOJu0YwX1lUaaJb9/gWx3X/5oAtaDQnHz9FSCY3o31eH1RhsXdPD3IJw
+	r7EYNVSncZn2s/CQq9RnwemA
+X-Google-Smtp-Source: AGHT+IFOwRTlhwXCB52z8duWIliO3O21d1s3h5jlYbGxcxBHhRAmtSX36JCLWnW/7yNdXXL2cdpJuw==
+X-Received: by 2002:a5d:4092:0:b0:332:e3ad:4273 with SMTP id o18-20020a5d4092000000b00332e3ad4273mr807898wrp.2.1701789386630;
+        Tue, 05 Dec 2023 07:16:26 -0800 (PST)
+Message-ID: <b7dc9886-fb3f-4d69-83a8-52f77249ee80@suse.com>
+Date: Tue, 5 Dec 2023 16:16:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] x86/livepatch: set function alignment to ensure
- minimal function size
+Subject: Re: [PATCH 1/5] xen/livepatch: register livepatch regions when loaded
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  Ross Lagerwall <ross.lagerwall@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20231128100352.35430-1-roger.pau@citrix.com>
- <20231128100352.35430-2-roger.pau@citrix.com>
- <ddbf1fad-e0c1-4b7c-9734-71d4997b5aa0@citrix.com> <ZW87Qq3Hw4ql-ZFw@macbook>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20231130142944.46322-1-roger.pau@citrix.com>
+ <20231130142944.46322-2-roger.pau@citrix.com>
+ <4bfb71ef-0443-40dd-a854-349db42a7a30@suse.com> <ZW87_kZhE3UJC3UZ@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,54 +115,101 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZW87Qq3Hw4ql-ZFw@macbook>
+In-Reply-To: <ZW87_kZhE3UJC3UZ@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.12.2023 16:01, Roger Pau Monné wrote:
-> On Tue, Dec 05, 2023 at 01:42:42PM +0000, Andrew Cooper wrote:
->> On 28/11/2023 10:03 am, Roger Pau Monne wrote:
->>> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
->>> index f3abdf9cd111..f629157086d0 100644
->>> --- a/xen/arch/x86/Makefile
->>> +++ b/xen/arch/x86/Makefile
->>> @@ -82,6 +82,8 @@ obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
->>>  obj-y += sysctl.o
->>>  endif
+On 05.12.2023 16:04, Roger Pau Monné wrote:
+> On Tue, Dec 05, 2023 at 02:47:56PM +0100, Jan Beulich wrote:
+>> On 30.11.2023 15:29, Roger Pau Monne wrote:
+>>> diff --git a/xen/common/virtual_region.c b/xen/common/virtual_region.c
+>>> index 5f89703f513b..b444253848cf 100644
+>>> --- a/xen/common/virtual_region.c
+>>> +++ b/xen/common/virtual_region.c
+>>> @@ -23,14 +23,8 @@ static struct virtual_region core_init __initdata = {
+>>>  };
 >>>  
->>> +CFLAGS-$(CONFIG_LIVEPATCH) += -falign-functions=$(CONFIG_CC_FUNCTION_ALIGNMENT)
+>>>  /*
+>>> - * RCU locking. Additions are done either at startup (when there is only
+>>> - * one CPU) or when all CPUs are running without IRQs.
+>>> - *
+>>> - * Deletions are bit tricky. We do it when Live Patch (all CPUs running
+>>> - * without IRQs) or during bootup (when clearing the init).
+>>> - *
+>>> - * Hence we use list_del_rcu (which sports an memory fence) and a spinlock
+>>> - * on deletion.
+>>> + * RCU locking. Modifications to the list must be done in exclusive mode, and
+>>> + * hence need to hold the spinlock.
+>>>   *
+>>>   * All readers of virtual_region_list MUST use list_for_each_entry_rcu.
+>>>   */
+>>> @@ -58,38 +52,28 @@ const struct virtual_region *find_text_region(unsigned long addr)
+>>>  
+>>>  void register_virtual_region(struct virtual_region *r)
+>>>  {
+>>> -    ASSERT(!local_irq_is_enabled());
+>>> +    unsigned long flags;
+>>>  
+>>> +    spin_lock_irqsave(&virtual_region_lock, flags);
+>>>      list_add_tail_rcu(&r->list, &virtual_region_list);
+>>> +    spin_unlock_irqrestore(&virtual_region_lock, flags);
+>>>  }
+>>>  
+>>>  static void remove_virtual_region(struct virtual_region *r)
+>>>  {
+>>> -    unsigned long flags;
+>>> +     unsigned long flags;
 >>
->> I'd really prefer not to express it like this.  For one, a major reason
->> for using an alignment of 16b or more is simply performance.
->>
->> Also, it isn't "CC" when we get the asm macros working.
->>
->> Copy Linux more closely.  Then, you have LIVEPATCH select
->> FUNCTION_ALIGNMENT_{8,16}B as appropriate.  And PERFORMANCE selects
->> FUNCTION_ALIGNMENT_16B or perhaps 32B depending on uarch.
+>> Nit: Stray blank added?
 > 
-> So just use CONFIG_FUNCTION_ALIGNMENT and drop the CC part of it?
-> That would indeed be fine.  We will also need to adjust
-> CC_SPLIT_SECTIONS to drop the CC_ prefix when we start using it in
-> assembly code.
-
-Could we prune the CC infixes once everything is settled asm-code-wise?
-
->> If we ever get around to having KCFI, then we need 16B irrespective of
->> anything else.
->>
->>
->>
->> As for the subject, it's not really about size; the function size is
->> still going to be small irrespective of the alignment.
+> Oh, my bad.
 > 
-> What about wording it like:
+>>> -    spin_lock_irqsave(&virtual_region_lock, flags);
+>>> -    list_del_rcu(&r->list);
+>>> -    spin_unlock_irqrestore(&virtual_region_lock, flags);
+>>> -    /*
+>>> -     * We do not need to invoke call_rcu.
+>>> -     *
+>>> -     * This is due to the fact that on the deletion we have made sure
+>>> -     * to use spinlocks (to guard against somebody else calling
+>>> -     * unregister_virtual_region) and list_deletion spiced with
+>>> -     * memory barrier.
+>>> -     *
+>>> -     * That protects us from corrupting the list as the readers all
+>>> -     * use list_for_each_entry_rcu which is safe against concurrent
+>>> -     * deletions.
+>>> -     */
+>>> +     spin_lock_irqsave(&virtual_region_lock, flags);
+>>> +     list_del_rcu(&r->list);
+>>> +     spin_unlock_irqrestore(&virtual_region_lock, flags);
+>>>  }
+>>>  
+>>>  void unregister_virtual_region(struct virtual_region *r)
+>>>  {
+>>> -    /* Expected to be called from Live Patch - which has IRQs disabled. */
+>>> -    ASSERT(!local_irq_is_enabled());
+>>> -
+>>>      remove_virtual_region(r);
+>>> +
+>>> +    /* Assert that no CPU might be using the removed region. */
+>>> +    rcu_barrier();
+>>>  }
+>>
+>> rcu_barrier() is a relatively heavy operation aiui. Seeing ...
+>>
+>>>  #if defined(CONFIG_LIVEPATCH) && defined(CONFIG_X86)
+>>
+>> ... this I'd like to ask to consider hiding {,un}register_virtual_region()
+>> in "#ifdef CONFIG_LIVEPATCH" as well, to make clear these aren't supposed
+>> to be used for other purpose. Would at the same time address two Misra
+>> violations, I think (both functions having no callers when !LIVEPATCH).
 > 
-> x86/livepatch: set function alignment to ensure minimal space between functions
+> That's fine, I can do it this same patch unless you prefer such
+> adjustment to be in a separate change.
 
-This still wouldn't be right, as there may be no padding at all between
-functions (if they're just the right size). Maybe "minimal distance
-between function entry points"? Getting long-ish, though ...
+Since the change itself constitutes at least part of the reason for the
+adjustment, this would be fine with me. (A separate change, if preferred
+by others, would still be fine, too.)
 
 Jan
 
