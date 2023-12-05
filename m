@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BAF2805D1E
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 19:20:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648189.1012343 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B88A805D21
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 19:20:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648192.1012353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAa2I-0004z9-Mx; Tue, 05 Dec 2023 18:20:46 +0000
+	id 1rAa2L-0005K1-20; Tue, 05 Dec 2023 18:20:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648189.1012343; Tue, 05 Dec 2023 18:20:46 +0000
+Received: by outflank-mailman (output) from mailman id 648192.1012353; Tue, 05 Dec 2023 18:20:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAa2I-0004vh-I8; Tue, 05 Dec 2023 18:20:46 +0000
-Received: by outflank-mailman (input) for mailman id 648189;
- Tue, 05 Dec 2023 18:20:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rAa2K-0005GH-T2; Tue, 05 Dec 2023 18:20:48 +0000
+Received: by outflank-mailman (input) for mailman id 648192;
+ Tue, 05 Dec 2023 18:20:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=I6T2=HQ=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1rAa2G-0002fT-Pz
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 18:20:44 +0000
+ id 1rAa2J-0002wG-Om
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 18:20:47 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0076e629-939b-11ee-98e5-6d05b1d4d9a1;
- Tue, 05 Dec 2023 19:20:44 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 015b3741-939b-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 19:20:45 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-689-aLTBzfH7NZ6pFUQL-ZClUQ-1; Tue,
- 05 Dec 2023 13:20:37 -0500
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-587-ksoH-B_qNCu3IHo5ypFuDQ-1; Tue,
+ 05 Dec 2023 13:20:40 -0500
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91D0029ABA04;
- Tue,  5 Dec 2023 18:20:36 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D0ACB386A0AC;
+ Tue,  5 Dec 2023 18:20:38 +0000 (UTC)
 Received: from localhost (unknown [10.39.194.111])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D27EE3C25;
- Tue,  5 Dec 2023 18:20:35 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 329D9492BC6;
+ Tue,  5 Dec 2023 18:20:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,18 +51,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0076e629-939b-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: 015b3741-939b-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1701800443;
+	s=mimecast20190719; t=1701800444;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=eTK1D/m0rA2DrSG0310cQh9Ae3M4PF5cLiXTsHSalhM=;
-	b=CqFKd2elAa5X3eJu7+hCP5rmtkCEBMWlGP84WpDOw6sLupBFEpIYWts9p3tw8F0VrAstGk
-	/v7tLUpPhnJ69lmj4gqauHXfFYe3RaN2MMcE/mRAsttXwZSwQHOShcC0TPALUhO1zJ/cEC
-	Sqd1BURKoB6wK0AHFl10TI9O//xqHLY=
-X-MC-Unique: aLTBzfH7NZ6pFUQL-ZClUQ-1
+	bh=QKQzQ3fye1WySx6n8C4OipFXirz9rwxVm6vz00LMeKs=;
+	b=PCXoewqez83iclCPZ5RqkjrtMG4/MWwVviMVfoT/DFNUQArvaxTn419iEwwm0r0xsxJzTT
+	DyUBjEuJhtIunFVurqUbxUMpbjnyQ/5QtLH7K1frbZobIFUUTj/LelrYCOwObBcBYscVqG
+	smev1PigzZYwj8I0E2l2INBeYDJ4ttw=
+X-MC-Unique: ksoH-B_qNCu3IHo5ypFuDQ-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
@@ -98,94 +98,277 @@ Cc: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
 	David Hildenbrand <david@redhat.com>,
 	Li Zhijian <lizhijian@fujitsu.com>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH v2 07/14] block: remove bdrv_co_lock()
-Date: Tue,  5 Dec 2023 13:20:04 -0500
-Message-ID: <20231205182011.1976568-8-stefanha@redhat.com>
+Subject: [PATCH v2 08/14] scsi: remove AioContext locking
+Date: Tue,  5 Dec 2023 13:20:05 -0500
+Message-ID: <20231205182011.1976568-9-stefanha@redhat.com>
 In-Reply-To: <20231205182011.1976568-1-stefanha@redhat.com>
 References: <20231205182011.1976568-1-stefanha@redhat.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
 
-The bdrv_co_lock() and bdrv_co_unlock() functions are already no-ops.
-Remove them.
+The AioContext lock no longer has any effect. Remove it.
 
 Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+Reviewed-by: Eric Blake <eblake@redhat.com>
 ---
- include/block/block-global-state.h | 14 --------------
- block.c                            | 10 ----------
- blockdev.c                         |  4 ----
- 3 files changed, 28 deletions(-)
+ include/hw/virtio/virtio-scsi.h | 14 --------------
+ hw/scsi/scsi-bus.c              |  2 --
+ hw/scsi/scsi-disk.c             | 31 +++++--------------------------
+ hw/scsi/virtio-scsi.c           | 18 ------------------
+ 4 files changed, 5 insertions(+), 60 deletions(-)
 
-diff --git a/include/block/block-global-state.h b/include/block/block-global-state.h
-index 0327f1c605..4ec0b217f0 100644
---- a/include/block/block-global-state.h
-+++ b/include/block/block-global-state.h
-@@ -267,20 +267,6 @@ int bdrv_debug_remove_breakpoint(BlockDriverState *bs, const char *tag);
- int bdrv_debug_resume(BlockDriverState *bs, const char *tag);
- bool bdrv_debug_is_suspended(BlockDriverState *bs, const char *tag);
+diff --git a/include/hw/virtio/virtio-scsi.h b/include/hw/virtio/virtio-scsi.h
+index da8cb928d9..7f0573b1bf 100644
+--- a/include/hw/virtio/virtio-scsi.h
++++ b/include/hw/virtio/virtio-scsi.h
+@@ -101,20 +101,6 @@ struct VirtIOSCSI {
+     uint32_t host_features;
+ };
  
--/**
-- * Locks the AioContext of @bs if it's not the current AioContext. This avoids
-- * double locking which could lead to deadlocks: This is a coroutine_fn, so we
-- * know we already own the lock of the current AioContext.
-- *
-- * May only be called in the main thread.
-- */
--void coroutine_fn bdrv_co_lock(BlockDriverState *bs);
+-static inline void virtio_scsi_acquire(VirtIOSCSI *s)
+-{
+-    if (s->ctx) {
+-        aio_context_acquire(s->ctx);
+-    }
+-}
 -
--/**
-- * Unlocks the AioContext of @bs if it's not the current AioContext.
-- */
--void coroutine_fn bdrv_co_unlock(BlockDriverState *bs);
+-static inline void virtio_scsi_release(VirtIOSCSI *s)
+-{
+-    if (s->ctx) {
+-        aio_context_release(s->ctx);
+-    }
+-}
 -
- bool bdrv_child_change_aio_context(BdrvChild *c, AioContext *ctx,
-                                    GHashTable *visited, Transaction *tran,
-                                    Error **errp);
-diff --git a/block.c b/block.c
-index 91ace5d2d5..434b7f4d72 100644
---- a/block.c
-+++ b/block.c
-@@ -7431,16 +7431,6 @@ void coroutine_fn bdrv_co_leave(BlockDriverState *bs, AioContext *old_ctx)
-     bdrv_dec_in_flight(bs);
+ void virtio_scsi_common_realize(DeviceState *dev,
+                                 VirtIOHandleOutput ctrl,
+                                 VirtIOHandleOutput evt,
+diff --git a/hw/scsi/scsi-bus.c b/hw/scsi/scsi-bus.c
+index f3ec11f892..df68a44b6a 100644
+--- a/hw/scsi/scsi-bus.c
++++ b/hw/scsi/scsi-bus.c
+@@ -1731,9 +1731,7 @@ void scsi_device_purge_requests(SCSIDevice *sdev, SCSISense sense)
+ {
+     scsi_device_for_each_req_async(sdev, scsi_device_purge_one_req, NULL);
+ 
+-    aio_context_acquire(blk_get_aio_context(sdev->conf.blk));
+     blk_drain(sdev->conf.blk);
+-    aio_context_release(blk_get_aio_context(sdev->conf.blk));
+     scsi_device_set_ua(sdev, sense);
  }
  
--void coroutine_fn bdrv_co_lock(BlockDriverState *bs)
--{
--    /* TODO removed in next patch */
--}
--
--void coroutine_fn bdrv_co_unlock(BlockDriverState *bs)
--{
--    /* TODO removed in next patch */
--}
--
- static void bdrv_do_remove_aio_context_notifier(BdrvAioNotifier *ban)
+diff --git a/hw/scsi/scsi-disk.c b/hw/scsi/scsi-disk.c
+index a5048e0aaf..61be3d395a 100644
+--- a/hw/scsi/scsi-disk.c
++++ b/hw/scsi/scsi-disk.c
+@@ -2339,14 +2339,10 @@ static void scsi_disk_reset(DeviceState *dev)
  {
-     GLOBAL_STATE_CODE();
-diff --git a/blockdev.c b/blockdev.c
-index 8a1b28f830..3a5e7222ec 100644
---- a/blockdev.c
-+++ b/blockdev.c
-@@ -2264,18 +2264,14 @@ void coroutine_fn qmp_block_resize(const char *device, const char *node_name,
+     SCSIDiskState *s = DO_UPCAST(SCSIDiskState, qdev.qdev, dev);
+     uint64_t nb_sectors;
+-    AioContext *ctx;
+ 
+     scsi_device_purge_requests(&s->qdev, SENSE_CODE(RESET));
+ 
+-    ctx = blk_get_aio_context(s->qdev.conf.blk);
+-    aio_context_acquire(ctx);
+     blk_get_geometry(s->qdev.conf.blk, &nb_sectors);
+-    aio_context_release(ctx);
+ 
+     nb_sectors /= s->qdev.blocksize / BDRV_SECTOR_SIZE;
+     if (nb_sectors) {
+@@ -2545,15 +2541,13 @@ static void scsi_unrealize(SCSIDevice *dev)
+ static void scsi_hd_realize(SCSIDevice *dev, Error **errp)
+ {
+     SCSIDiskState *s = DO_UPCAST(SCSIDiskState, qdev, dev);
+-    AioContext *ctx = NULL;
++
+     /* can happen for devices without drive. The error message for missing
+      * backend will be issued in scsi_realize
+      */
+     if (s->qdev.conf.blk) {
+-        ctx = blk_get_aio_context(s->qdev.conf.blk);
+-        aio_context_acquire(ctx);
+         if (!blkconf_blocksizes(&s->qdev.conf, errp)) {
+-            goto out;
++            return;
+         }
+     }
+     s->qdev.blocksize = s->qdev.conf.logical_block_size;
+@@ -2562,16 +2556,11 @@ static void scsi_hd_realize(SCSIDevice *dev, Error **errp)
+         s->product = g_strdup("QEMU HARDDISK");
+     }
+     scsi_realize(&s->qdev, errp);
+-out:
+-    if (ctx) {
+-        aio_context_release(ctx);
+-    }
+ }
+ 
+ static void scsi_cd_realize(SCSIDevice *dev, Error **errp)
+ {
+     SCSIDiskState *s = DO_UPCAST(SCSIDiskState, qdev, dev);
+-    AioContext *ctx;
+     int ret;
+     uint32_t blocksize = 2048;
+ 
+@@ -2587,8 +2576,6 @@ static void scsi_cd_realize(SCSIDevice *dev, Error **errp)
+         blocksize = dev->conf.physical_block_size;
+     }
+ 
+-    ctx = blk_get_aio_context(dev->conf.blk);
+-    aio_context_acquire(ctx);
+     s->qdev.blocksize = blocksize;
+     s->qdev.type = TYPE_ROM;
+     s->features |= 1 << SCSI_DISK_F_REMOVABLE;
+@@ -2596,7 +2583,6 @@ static void scsi_cd_realize(SCSIDevice *dev, Error **errp)
+         s->product = g_strdup("QEMU CD-ROM");
+     }
+     scsi_realize(&s->qdev, errp);
+-    aio_context_release(ctx);
+ }
+ 
+ 
+@@ -2727,7 +2713,6 @@ static int get_device_type(SCSIDiskState *s)
+ static void scsi_block_realize(SCSIDevice *dev, Error **errp)
+ {
+     SCSIDiskState *s = DO_UPCAST(SCSIDiskState, qdev, dev);
+-    AioContext *ctx;
+     int sg_version;
+     int rc;
+ 
+@@ -2742,9 +2727,6 @@ static void scsi_block_realize(SCSIDevice *dev, Error **errp)
+                           "be removed in a future version");
+     }
+ 
+-    ctx = blk_get_aio_context(s->qdev.conf.blk);
+-    aio_context_acquire(ctx);
+-
+     /* check we are using a driver managing SG_IO (version 3 and after) */
+     rc = blk_ioctl(s->qdev.conf.blk, SG_GET_VERSION_NUM, &sg_version);
+     if (rc < 0) {
+@@ -2752,18 +2734,18 @@ static void scsi_block_realize(SCSIDevice *dev, Error **errp)
+         if (rc != -EPERM) {
+             error_append_hint(errp, "Is this a SCSI device?\n");
+         }
+-        goto out;
++        return;
+     }
+     if (sg_version < 30000) {
+         error_setg(errp, "scsi generic interface too old");
+-        goto out;
++        return;
+     }
+ 
+     /* get device type from INQUIRY data */
+     rc = get_device_type(s);
+     if (rc < 0) {
+         error_setg(errp, "INQUIRY failed");
+-        goto out;
++        return;
+     }
+ 
+     /* Make a guess for the block size, we'll fix it when the guest sends.
+@@ -2783,9 +2765,6 @@ static void scsi_block_realize(SCSIDevice *dev, Error **errp)
+ 
+     scsi_realize(&s->qdev, errp);
+     scsi_generic_read_device_inquiry(&s->qdev);
+-
+-out:
+-    aio_context_release(ctx);
+ }
+ 
+ typedef struct SCSIBlockReq {
+diff --git a/hw/scsi/virtio-scsi.c b/hw/scsi/virtio-scsi.c
+index 4f8d35facc..ca365a70e9 100644
+--- a/hw/scsi/virtio-scsi.c
++++ b/hw/scsi/virtio-scsi.c
+@@ -642,9 +642,7 @@ static void virtio_scsi_handle_ctrl(VirtIODevice *vdev, VirtQueue *vq)
          return;
      }
  
--    bdrv_co_lock(bs);
-     bdrv_drained_begin(bs);
--    bdrv_co_unlock(bs);
- 
-     old_ctx = bdrv_co_enter(bs);
-     blk_co_truncate(blk, size, false, PREALLOC_MODE_OFF, 0, errp);
-     bdrv_co_leave(bs, old_ctx);
- 
--    bdrv_co_lock(bs);
-     bdrv_drained_end(bs);
-     blk_co_unref(blk);
--    bdrv_co_unlock(bs);
+-    virtio_scsi_acquire(s);
+     virtio_scsi_handle_ctrl_vq(s, vq);
+-    virtio_scsi_release(s);
  }
  
- void qmp_block_stream(const char *job_id, const char *device,
+ static void virtio_scsi_complete_cmd_req(VirtIOSCSIReq *req)
+@@ -882,9 +880,7 @@ static void virtio_scsi_handle_cmd(VirtIODevice *vdev, VirtQueue *vq)
+         return;
+     }
+ 
+-    virtio_scsi_acquire(s);
+     virtio_scsi_handle_cmd_vq(s, vq);
+-    virtio_scsi_release(s);
+ }
+ 
+ static void virtio_scsi_get_config(VirtIODevice *vdev,
+@@ -1031,9 +1027,7 @@ static void virtio_scsi_handle_event(VirtIODevice *vdev, VirtQueue *vq)
+         return;
+     }
+ 
+-    virtio_scsi_acquire(s);
+     virtio_scsi_handle_event_vq(s, vq);
+-    virtio_scsi_release(s);
+ }
+ 
+ static void virtio_scsi_change(SCSIBus *bus, SCSIDevice *dev, SCSISense sense)
+@@ -1052,9 +1046,7 @@ static void virtio_scsi_change(SCSIBus *bus, SCSIDevice *dev, SCSISense sense)
+             },
+         };
+ 
+-        virtio_scsi_acquire(s);
+         virtio_scsi_push_event(s, &info);
+-        virtio_scsi_release(s);
+     }
+ }
+ 
+@@ -1071,17 +1063,13 @@ static void virtio_scsi_hotplug(HotplugHandler *hotplug_dev, DeviceState *dev,
+     VirtIODevice *vdev = VIRTIO_DEVICE(hotplug_dev);
+     VirtIOSCSI *s = VIRTIO_SCSI(vdev);
+     SCSIDevice *sd = SCSI_DEVICE(dev);
+-    AioContext *old_context;
+     int ret;
+ 
+     if (s->ctx && !s->dataplane_fenced) {
+         if (blk_op_is_blocked(sd->conf.blk, BLOCK_OP_TYPE_DATAPLANE, errp)) {
+             return;
+         }
+-        old_context = blk_get_aio_context(sd->conf.blk);
+-        aio_context_acquire(old_context);
+         ret = blk_set_aio_context(sd->conf.blk, s->ctx, errp);
+-        aio_context_release(old_context);
+         if (ret < 0) {
+             return;
+         }
+@@ -1097,10 +1085,8 @@ static void virtio_scsi_hotplug(HotplugHandler *hotplug_dev, DeviceState *dev,
+             },
+         };
+ 
+-        virtio_scsi_acquire(s);
+         virtio_scsi_push_event(s, &info);
+         scsi_bus_set_ua(&s->bus, SENSE_CODE(REPORTED_LUNS_CHANGED));
+-        virtio_scsi_release(s);
+     }
+ }
+ 
+@@ -1122,17 +1108,13 @@ static void virtio_scsi_hotunplug(HotplugHandler *hotplug_dev, DeviceState *dev,
+     qdev_simple_device_unplug_cb(hotplug_dev, dev, errp);
+ 
+     if (s->ctx) {
+-        virtio_scsi_acquire(s);
+         /* If other users keep the BlockBackend in the iothread, that's ok */
+         blk_set_aio_context(sd->conf.blk, qemu_get_aio_context(), NULL);
+-        virtio_scsi_release(s);
+     }
+ 
+     if (virtio_vdev_has_feature(vdev, VIRTIO_SCSI_F_HOTPLUG)) {
+-        virtio_scsi_acquire(s);
+         virtio_scsi_push_event(s, &info);
+         scsi_bus_set_ua(&s->bus, SENSE_CODE(REPORTED_LUNS_CHANGED));
+-        virtio_scsi_release(s);
+     }
+ }
+ 
 -- 
 2.43.0
 
