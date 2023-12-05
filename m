@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A231780584A
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:11:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648006.1011883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E184C805855
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:15:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648014.1011894 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAX56-0000G5-Be; Tue, 05 Dec 2023 15:11:28 +0000
+	id 1rAX8Y-0001Jq-TG; Tue, 05 Dec 2023 15:15:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648006.1011883; Tue, 05 Dec 2023 15:11:28 +0000
+Received: by outflank-mailman (output) from mailman id 648014.1011894; Tue, 05 Dec 2023 15:15:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAX56-0000D2-8Y; Tue, 05 Dec 2023 15:11:28 +0000
-Received: by outflank-mailman (input) for mailman id 648006;
- Tue, 05 Dec 2023 15:11:26 +0000
+	id 1rAX8Y-0001GW-Ou; Tue, 05 Dec 2023 15:15:02 +0000
+Received: by outflank-mailman (input) for mailman id 648014;
+ Tue, 05 Dec 2023 15:15:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAX54-0000As-TI
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:11:26 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1rAX8X-0001GQ-3e
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:15:01 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d94e738-9380-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 16:11:23 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40c09fcfa9fso27865495e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:11:23 -0800 (PST)
+ id 0df0b3a6-9381-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 16:14:59 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-332fd78fa9dso4654988f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:14:59 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g3-20020a056000118300b0033340b6d3a7sm7773767wrx.76.2023.12.05.07.11.22
+ q18-20020adf9dd2000000b00333357a77c4sm10463936wre.34.2023.12.05.07.14.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 07:11:22 -0800 (PST)
+ Tue, 05 Dec 2023 07:14:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d94e738-9380-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 0df0b3a6-9381-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701789083; x=1702393883; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701789298; x=1702394098; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=7KN7JCxDXGaTUes+xf4Le7aTmjMM4e/Ufb7G4jNAVIE=;
-        b=PFlzt81MvFkYuqsMlW+pEbsfv/kIb4W9UgQWYxKq9n5C7YN067y4CudOvMZWP9rY6C
-         +4Qp+8UvqJvCKha3v7VK89G1h5WCzyaM+KhON9yvRzmuhKMYD25DN7fJsVxb/MDqCtf4
-         2Ygj1Ph17hk5s4YHU8HdvwrI/1+7DcXrASS9Cha8chpTqa+PKtzi48d7LcNp/U2uOKl2
-         vpz+zmuRpo8K4ULrKFfTUMnrKlOCaO7bzDa15fviTFX3dPrb3hJxEVTsHnW2cZ+GpInb
-         IWP6JYAMlGKkN5xYPlHsPN3fhj3fF58QAVxfYEuY2/9otkm9llnU3NXmWkuE/Bm0FLNs
-         /cSQ==
+        bh=0SjG8eJ/JAdY43wB+nU+rycxpGV9ftdDE3uTO2Efwqk=;
+        b=BvhWIS2gDb0esAPbk0CK5q913QHhbrPKH2DpsJivgBzEwuVhbCJimiE9i3EGwW6sCU
+         W0VaQZTLo0FtzEJf/X3DA50CrKvfKblb+L1ioCw6I7xMaizcLqr1lIi8RPgFEOB4/oF3
+         3klooU6m0+6H9fd0LjjjDJMdXpK3MIjHV79t3M4MwEhu0ludYz1HBNan0iaWhQLnBCLG
+         3oTOVBLJTWZgnQZp3BCu5xvxkyrMkHF320EySeXdiUUESZGar5q5quLUkRCW+3ehHajE
+         T+gO0czoNn5On5gybCFvZ1Q+JiB2pPhrLuxoG+7qAUXeXEeJSaJoytT6wFMhtQWGkgDv
+         Ln+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701789083; x=1702393883;
+        d=1e100.net; s=20230601; t=1701789298; x=1702394098;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7KN7JCxDXGaTUes+xf4Le7aTmjMM4e/Ufb7G4jNAVIE=;
-        b=gtxNlf8go8y+RwsmFoSkU91H3FtkUkYphKpQyqyelzQrXKJDynDdvsIBfCYj7yEpX6
-         aWVcRquuQEMb926S9VYEcnzeZkggz0Cs6H6EdKpvoI1HqWfsX4QlZ2R3vmKrKiHtE5qr
-         ZoWJHuqGU7b6O/7ULjxH3pplycJGE1ryjCAfElMEc5YJwiwNGph9hdPV9vLV7+iAzOmY
-         3FGcLRc5+tJPn80kcb5WWuCbD4DD2YSxA/9VQACMnr+o9qS8vCO0+oLakgIeaFgBzGCA
-         UuX7qPawP+Gv6RWBFqVExrgHrTObt/p8FR+K78btXgc/zUOBnFxVBTHl2WnZ0fcoVjNs
-         4LsQ==
-X-Gm-Message-State: AOJu0Yyu4AoINEpi1NJ6YQ3iHnZJc0iDZR7i6Y4LTKx2CpGRJR7cltFi
-	ORtu5KBVROx935ggesr1ceA8hJfr974P63HfW3gQ
-X-Google-Smtp-Source: AGHT+IHeAtOKWHSDJZWXcDcI0T/EnfyoqASQ997zZ3CD2Ol8KwDYF58jKHfM/Uvv8NzzYw9cDQ9IWg==
-X-Received: by 2002:a05:600c:11cf:b0:40c:5ce:d4ec with SMTP id b15-20020a05600c11cf00b0040c05ced4ecmr1560602wmi.369.1701789083068;
-        Tue, 05 Dec 2023 07:11:23 -0800 (PST)
-Message-ID: <d94a20ea-67fa-4219-9184-3d7dd9bcf646@suse.com>
-Date: Tue, 5 Dec 2023 16:11:21 +0100
+        bh=0SjG8eJ/JAdY43wB+nU+rycxpGV9ftdDE3uTO2Efwqk=;
+        b=nSgLMMlmcV/V9NJmHLBB1astzGA3SYlBanIEBH+vPTF7v7lKGjDboy1Tao8SoZypCR
+         01R5IEguOx4Zwo/JQrgpSC2ZaPcVj//doNgDDjZ7JngIpIf3K967MfaeVUC89wI/PpvN
+         hdR9y5TfmI6bG0o8UH+ihFo7FoxgSei9wS6C1a6NACtQ2o9PSOnmQwsUoKZrp2KAS2r9
+         3uDQsfvOcujrieXY0ZCcmxesoHNyuS+vJVzy+XfjxRtt0Djfche1t//76EEFE4fk548I
+         k+qYduretKihYfe9qpqHyrcwWP6Vpe24qveuJQwz6Gxi5fdDqZfvywQjr2GLlx4YDUYU
+         j7Pw==
+X-Gm-Message-State: AOJu0YybwsLSiW+PAsa44cl2jfkWnaxWSEB3frFyEKJsnzkOVqnv8K6Z
+	cl0B1lP+7tiVG+4p539vRn1v
+X-Google-Smtp-Source: AGHT+IG7/+QmzkL7RRg2tKVnn4mK40tS6TJRV/ai6cYi0yCuaNgNrt3ohQIENhvQ7spd4FLVQ0JuUA==
+X-Received: by 2002:a5d:484b:0:b0:333:49a8:73ea with SMTP id n11-20020a5d484b000000b0033349a873eamr949937wrs.249.1701789298544;
+        Tue, 05 Dec 2023 07:14:58 -0800 (PST)
+Message-ID: <29b2d864-2b3f-4a74-9d61-534523e842cd@suse.com>
+Date: Tue, 5 Dec 2023 16:14:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] x86/iommu: remove regions not to be mapped
+Subject: Re: [PATCH v2 1/5] x86/livepatch: set function alignment to ensure
+ minimal function size
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20231204094305.59267-1-roger.pau@citrix.com>
- <20231204094305.59267-5-roger.pau@citrix.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20231128100352.35430-1-roger.pau@citrix.com>
+ <20231128100352.35430-2-roger.pau@citrix.com>
+ <ddbf1fad-e0c1-4b7c-9734-71d4997b5aa0@citrix.com> <ZW87Qq3Hw4ql-ZFw@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,41 +114,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231204094305.59267-5-roger.pau@citrix.com>
+In-Reply-To: <ZW87Qq3Hw4ql-ZFw@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04.12.2023 10:43, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -2136,6 +2136,54 @@ int __hwdom_init xen_in_range(unsigned long mfn)
->      return 0;
->  }
->  
-> +int __hwdom_init remove_xen_ranges(struct rangeset *r)
-> +{
-> +    paddr_t start, end;
-> +    int rc;
-> +
-> +    /* S3 resume code (and other real mode trampoline code) */
-> +    rc = rangeset_remove_range(r, PFN_DOWN(bootsym_phys(trampoline_start)),
-> +                               PFN_DOWN(bootsym_phys(trampoline_end)));
-> +    if ( rc )
-> +        return rc;
-> +
-> +    /*
-> +     * This needs to remain in sync with the uses of the same symbols in
-> +     * - __start_xen()
-> +     * - is_xen_fixed_mfn()
-> +     * - tboot_shutdown()
-> +     */
+On 05.12.2023 16:01, Roger Pau Monné wrote:
+> On Tue, Dec 05, 2023 at 01:42:42PM +0000, Andrew Cooper wrote:
+>> On 28/11/2023 10:03 am, Roger Pau Monne wrote:
+>>> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+>>> index f3abdf9cd111..f629157086d0 100644
+>>> --- a/xen/arch/x86/Makefile
+>>> +++ b/xen/arch/x86/Makefile
+>>> @@ -82,6 +82,8 @@ obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
+>>>  obj-y += sysctl.o
+>>>  endif
+>>>  
+>>> +CFLAGS-$(CONFIG_LIVEPATCH) += -falign-functions=$(CONFIG_CC_FUNCTION_ALIGNMENT)
+>>
+>> I'd really prefer not to express it like this.  For one, a major reason
+>> for using an alignment of 16b or more is simply performance.
+>>
+>> Also, it isn't "CC" when we get the asm macros working.
+>>
+>> Copy Linux more closely.  Then, you have LIVEPATCH select
+>> FUNCTION_ALIGNMENT_{8,16}B as appropriate.  And PERFORMANCE selects
+>> FUNCTION_ALIGNMENT_16B or perhaps 32B depending on uarch.
+> 
+> So just use CONFIG_FUNCTION_ALIGNMENT and drop the CC part of it?
+> That would indeed be fine.  We will also need to adjust
+> CC_SPLIT_SECTIONS to drop the CC_ prefix when we start using it in
+> assembly code.
 
-As you're duplicating this comment from xen_in_range(), you want to
-- also mention xen_in_range() here,
-- also update xen_in_range()'s comment,
-- also update the respective comments in __start_xen() that also mention
-  xen_in_range().
-Everything else here looks good to me.
+Could we prune the CC infixes once everything is settled asm-code-wise?
+
+>> If we ever get around to having KCFI, then we need 16B irrespective of
+>> anything else.
+>>
+>>
+>>
+>> As for the subject, it's not really about size; the function size is
+>> still going to be small irrespective of the alignment.
+> 
+> What about wording it like:
+> 
+> x86/livepatch: set function alignment to ensure minimal space between functions
+
+This still wouldn't be right, as there may be no padding at all between
+functions (if they're just the right size). Maybe "minimal distance
+between function entry points"? Getting long-ish, though ...
 
 Jan
 
