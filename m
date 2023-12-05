@@ -2,32 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3C6080563C
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 14:41:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647880.1011562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C73D80563D
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 14:41:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647881.1011573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAVfX-0000Vy-2c; Tue, 05 Dec 2023 13:40:59 +0000
+	id 1rAVfo-00010K-9q; Tue, 05 Dec 2023 13:41:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647880.1011562; Tue, 05 Dec 2023 13:40:59 +0000
+Received: by outflank-mailman (output) from mailman id 647881.1011573; Tue, 05 Dec 2023 13:41:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAVfW-0000Tr-VQ; Tue, 05 Dec 2023 13:40:58 +0000
-Received: by outflank-mailman (input) for mailman id 647880;
- Tue, 05 Dec 2023 13:40:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rAVfo-0000yg-6A; Tue, 05 Dec 2023 13:41:16 +0000
+Received: by outflank-mailman (input) for mailman id 647881;
+ Tue, 05 Dec 2023 13:41:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rAVfV-0000SM-7T
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 13:40:57 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rAVfQ-0006Pe-Rk; Tue, 05 Dec 2023 13:40:52 +0000
-Received: from 54-240-197-228.amazon.com ([54.240.197.228]
- helo=[10.95.100.251]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rAVfQ-0005O7-La; Tue, 05 Dec 2023 13:40:52 +0000
+ (envelope-from <SRS0=Mnjk=HQ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rAVfn-0000yK-8J
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 13:41:15 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f45e975d-9373-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 14:41:12 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2E7C11F8BE;
+ Tue,  5 Dec 2023 13:41:12 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DDA5A1386E;
+ Tue,  5 Dec 2023 13:41:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id CDDBNHcob2VFOgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 05 Dec 2023 13:41:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,185 +52,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=HGDL+6rdyIdXPQvbpfLq6DgcwKNZTS8E9v2K729BorM=; b=MturlTrZUVLw+1UfcZQcR7/2eC
-	a2Ma2Sd1N/7fbvletb1Yc/UQZhJhuk/tXl8rLJqx4pL9mD9Ov5WqyyzUd/e2e1ag5zqI7yoP+1OtI
-	5AuuOn0jqyH0jpGppad7IlNX3aKgqkwIF0EgeDDOuiKHBD8uzEHhp1T6uvemY7FpVMRM=;
-Message-ID: <50372bd4-5e1a-4d38-abd3-19abf8e82591@xen.org>
-Date: Tue, 5 Dec 2023 13:40:50 +0000
+X-Inumbo-ID: f45e975d-9373-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1701783672; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=+y8XUWNf7xOIEJZbYM72amkPH7x7C6Hzt6Zdl/smweI=;
+	b=FtL+cZr1VraSYWrMXjfWasSc0H2MB1WNRid+8PPAMZrg4CqVQnatzsT2CF8GAo0VNLabOH
+	xzOY/14qLx1BX2zdbHBRNBlxediwVWIKKr+F4kkpFoCyU/LnVkqNzqrpn19WBVGyoRRCXo
+	OVKZ0bb8Psq6e7/SXxxbJcSiuArjf2I=
+Message-ID: <3789ced7-e320-4e32-bda9-3039551a7117@suse.com>
+Date: Tue, 5 Dec 2023 14:41:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/arm: Add emulation of Debug Data Transfer
- Registers
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayankuma@amd.com>, Michal Orzel
- <michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- sstabellini@kernel.org, stefano.stabellini@amd.com,
- bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com
-Cc: xen-devel@lists.xenproject.org
-References: <20231201185009.1719183-1-ayan.kumar.halder@amd.com>
- <0bd65e25-aec2-4294-9a73-1cdaece52242@xen.org>
- <9ffe5a34-d1f4-4f4a-82eb-77c92f71040c@amd.com>
- <ca91f71b-9633-495f-9fb2-731bd250a561@xen.org>
- <8547fc3b-4e77-45d7-8063-1bee869d07db@amd.com>
- <3a9efd72-07cc-4b1d-8814-d4f6df4e6230@xen.org>
- <73554150-9880-447c-ac2b-e4f3ef0f76be@amd.com>
- <0d232ffe-1eb1-420b-af2c-70e16088a9b6@xen.org>
- <03a91b0f-eabe-47bd-b9fb-a9e15bdd121f@amd.com>
- <7420ada1-cc6c-48cf-9b2d-4c09e236dfdf@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <7420ada1-cc6c-48cf-9b2d-4c09e236dfdf@amd.com>
+Subject: Re: [PATCH 1/2] xen: make include/xen/unaligned.h usable on all
+ architectures
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Arnd Bergmann <arnd@arndb.de>
+References: <20231205100756.18920-1-jgross@suse.com>
+ <20231205100756.18920-2-jgross@suse.com>
+ <1984c65c-72d8-4850-9886-f2b0766224a5@xen.org>
+ <e8df45d3-1d7d-432b-b0ca-7532d4b35eae@suse.com>
+ <96ed8aa3-f92f-4b33-a846-549cfda14548@xen.org>
+From: Juergen Gross <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <96ed8aa3-f92f-4b33-a846-549cfda14548@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------FP7WiuE8V9g9xlZoydSa2664"
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -4.15
+X-Spamd-Result: default: False [-4.15 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%];
+	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	 HAS_ATTACHMENT(0.00)[];
+	 MIME_BASE64_TEXT_BOGUS(1.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 NEURAL_HAM_SHORT(-0.16)[-0.803];
+	 MIME_BASE64_TEXT(0.10)[];
+	 RCPT_COUNT_SEVEN(0.00)[8];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
+	 SIGNED_PGP(-2.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[];
+	 MIME_UNKNOWN(0.10)[application/pgp-keys]
+X-Spam-Flag: NO
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------FP7WiuE8V9g9xlZoydSa2664
+Content-Type: multipart/mixed; boundary="------------XjY4muYZW3IALh5t0V096L6x";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Arnd Bergmann <arnd@arndb.de>
+Message-ID: <3789ced7-e320-4e32-bda9-3039551a7117@suse.com>
+Subject: Re: [PATCH 1/2] xen: make include/xen/unaligned.h usable on all
+ architectures
+References: <20231205100756.18920-1-jgross@suse.com>
+ <20231205100756.18920-2-jgross@suse.com>
+ <1984c65c-72d8-4850-9886-f2b0766224a5@xen.org>
+ <e8df45d3-1d7d-432b-b0ca-7532d4b35eae@suse.com>
+ <96ed8aa3-f92f-4b33-a846-549cfda14548@xen.org>
+In-Reply-To: <96ed8aa3-f92f-4b33-a846-549cfda14548@xen.org>
+
+--------------XjY4muYZW3IALh5t0V096L6x
+Content-Type: multipart/mixed; boundary="------------0jKTJDYJx0e3bJRYUXf1ol4e"
+
+--------------0jKTJDYJx0e3bJRYUXf1ol4e
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
-Hi Ayan,
+T24gMDUuMTIuMjMgMTQ6MzEsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
+Cj4gDQo+IE9uIDA1LzEyLzIwMjMgMTI6MzksIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBP
+biAwNS4xMi4yMyAxMjo1MywgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+IEhpIEp1ZXJnZW4s
+DQo+Pj4NCj4+PiBPbiAwNS8xMi8yMDIzIDEwOjA3LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
+Pj4+PiBJbnN0ZWFkIG9mIGRlZmluaW5nIGdldF91bmFsaWduZWQoKSBhbmQgcHV0X3VuYWxp
+Z25lZCgpIGluIGEgd2F5IHRoYXQNCj4+Pj4gaXMgb25seSBzdXBwb3J0aW5nIGFyY2hpdGVj
+dHVyZXMgYWxsb3dpbmcgdW5hbGlnbmVkIGFjY2Vzc2VzLCB1c2UgdGhlDQo+Pj4+IHNhbWUg
+YXBwcm9hY2ggYXMgdGhlIExpbnV4IGtlcm5lbCBhbmQgbGV0IHRoZSBjb21waWxlciBkbyB0
+aGUNCj4+Pj4gZGVjaXNpb24gaG93IHRvIGdlbmVyYXRlIHRoZSBjb2RlIGZvciBwcm9iYWJs
+eSB1bmFsaWduZWQgZGF0YSBhY2Nlc3Nlcy4NCj4+Pj4NCj4+Pj4gVXBkYXRlIGluY2x1ZGUv
+eGVuL3VuYWxpZ25lZC5oIGZyb20gaW5jbHVkZS9hc20tZ2VuZXJpYy91bmFsaWduZWQuaCBv
+Zg0KPj4+PiB0aGUgTGludXgga2VybmVsLg0KPj4+Pg0KPj4+PiBUaGUgZ2VuZXJhdGVkIGNv
+ZGUgaGFzIGJlZW4gY2hlY2tlZCB0byBiZSB0aGUgc2FtZSBvbiB4ODYuDQo+Pj4+DQo+Pj4+
+IFNpZ25lZC1vZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+DQo+Pj4+IE9y
+aWdpbjogZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3Rv
+cnZhbGRzL2xpbnV4LmdpdCANCj4+Pj4gODAzZjRlMWVhYjdhDQo+Pj4+IFNpZ25lZC1vZmYt
+Ynk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCj4+Pg0KPj4+IENhbiB5b3Ug
+b3V0bGluZSB5b3VyIGVuZCBnb2FsPyBBdCBsZWFzdCBvbiBhcm0zMiwgSSBiZWxpZXZlIHRo
+aXMgd2lsbCByZXN1bHQgDQo+Pj4gdG8gYWJvcnQgYmVjYXVzZSBldmVudCBpZiB0aGUgYXJj
+aGl0ZWN0dXJlIHN1cHBvcnQgdW5hbGlnbmVkIGFjY2Vzcywgd2UgYXJlIA0KPj4+IHByZXZl
+bnRpbmcgdGhlbSBvbiBBcm0zMi4NCj4+DQo+PiBJIG5lZWQgc29tZXRoaW5nIGxpa2UgdGhh
+dCBpbiBYZW4gdG9vbHMgZm9yIHN1cHBvcnRpbmcgcGFja2VkIGRhdGEgYWNjZXNzZXMNCj4+
+IG9uIHRoZSA5cGZzIHJpbmcgcGFnZSwgc28gSSBsb29rZWQgaW50byB0aGUgaHlwZXJ2aXNv
+ciBmb3IgcmVsYXRlZCBzdXBwb3J0Lg0KPiANCj4gRGlkIHdlIHJlYWxseSBpbnRyb2R1Y2Ug
+YW4gQUJJIHJlcXVpcmluZyB1bmFsaWduZWQgYWNjZXNzPz8/IE9yIGlzIHRoaXMgDQo+IHNv
+bWV0aGluZyB5b3UgYXJlIGNvbWluZyB1cCB3aXRoPw0KDQpUaGlzIGlzIHRoZSA5cGZzIHBy
+b3RvY29sIChzZWUgWzFdKS4NCg0KPiBBbnl3YXksIElJUkMgTGludXggYWxsb3dzIHVuYWxp
+Z25lZCBhY2Nlc3MuIFNvIHRoZSBwcm9ibGVtIEkgYW0gZGVzY3JpYmluZyBpcyANCj4gb25s
+eSBmb3IgdGhlIGh5cGVydmlzb3IuIEFsdGhvdWdoLCBJIHdvdWxkIGxpa2UgdG8gcG9pbnQg
+b3V0IHRoYXQgdW5hbGlnbmVkIA0KPiBhY2Nlc3MgaGFzIG5vIGF0b21pY2l0eSBndWFyYW50
+ZWUuIEkgYXNzdW1lIHRoaXMgaXMgbm90IGdvaW5nIHRvIGJlIGEgY29uY2VybiANCj4gZm9y
+IHlvdT8NCg0KQ29ycmVjdC4NCg0KPiANCj4+IEkgZ3Vlc3MgZm9yIGFybTMyIHVzaW5nIC1t
+bm8tdW5hbGlnbmVkLWFjY2VzcyB3aGVuIGJ1aWxkaW5nIHNob3VsZCBhdm9pZCBhbnkNCj4+
+IHVuYWxpZ25lZCBhY2Nlc3Nlcz8NCj4gDQo+IEkgYW0gbm90IHN1cmUuIFRoaXMgaXMgaW1w
+bGllcyB0aGUgY29tcGlsZXIgd2lsbCBiZSBhYmxlIHRvIGluZmVyIHRoYXQgdGhlIA0KPiBh
+Y2Nlc3Mgd2lsbCBiZSB1bmFsaWduZWQuIElzIHRoaXMgYWx3YXlzIHRoZSBjYXNlPw0KDQpU
+aGlzIHNob3VsZCBoYXBwZW4gdGhyb3VnaCB0aGUgIl9fcGFja2VkIiBhdHRyaWJ1dGUgb24g
+dGhlIGFjY2VzcyBtYWNyb3MuIEFzDQplLmcuIE1JUFMgZG9lc24ndCBzdXBwb3J0IHVuYWxp
+Z25lZCBhY2Nlc3NlcywgYnV0IGlzIHdvcmtpbmcgd2l0aCB0aG9zZSBhY2Nlc3MNCm1hY3Jv
+cyBpbiB0aGUgTGludXgga2VybmVsLCBJIHN1c3BlY3QgdGhlIGF0dHJpYnV0ZSBpcyBkb2lu
+ZyBpdHMgam9iLg0KDQo+IEFueXdheSwgZ2l2ZW4geW91IGRvbid0IHNlZW0gdG8gaGF2ZSBh
+IHVzZS1jYXNlIHlldCwgSSB3b3VsZCBzaW1wbHkgdG8gY29uc2lkZXIgDQo+IHRvIHN1cnJv
+dW5kIHRoZSBkZWNsYXJhdGlvbiB3aXRoIGFuIGEgY29uZmlnIHdoaWNoIGNhbiBiZSBzZWxl
+Y3RlZCBpZiB1bmFsaWduZWQgDQo+IGFjY2VzcyBpcyBzdXBwb3J0ZWQuDQoNCkxpa2UgaW4g
+eGVuL2NvbW1vbi9sem8uYyBldCBhbD8gVGhvc2UgYXJlIGNvbXBpbGVkIHdpdGggQ09ORklH
+X1g4NiBvbmx5IHRvZGF5LA0KYnV0IEkgZ3Vlc3Mgb3RoZXIgYXJjaHMgbWlnaHQgbmVlZCB0
+aGUgZGVjb21wcmVzc29ycyBpbiBmdXR1cmUsIHRvby4NCg0KDQpKdWVyZ2VuDQoNClsxXTog
+aHR0cDovL2VyaWN2aC5naXRodWIuaW8vOXAtcmZjL3JmYzlwMjAwMC5odG1sDQo=
+--------------0jKTJDYJx0e3bJRYUXf1ol4e
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-On 05/12/2023 12:50, Ayan Kumar Halder wrote:
-> Hi Julien/All,
-> 
-> On 05/12/2023 11:02, Michal Orzel wrote:
->>
->> On 05/12/2023 11:42, Julien Grall wrote:
->>>
->>> On 05/12/2023 10:30, Michal Orzel wrote:
->>>>
->>>> On 05/12/2023 11:01, Julien Grall wrote:
->>>>>
->>>>> On 05/12/2023 09:28, Michal Orzel wrote:
->>>>>> Hi Julien,
->>>>>>
->>>>>> On 04/12/2023 20:55, Julien Grall wrote:
->>>>>>>
->>>>>>> On 04/12/2023 13:02, Ayan Kumar Halder wrote:
->>>>>>>> On 04/12/2023 10:31, Julien Grall wrote:
->>>>>>>>> Hi Ayan,
->>>>>>>> Hi Julien,
->>>>>>>>> On 01/12/2023 18:50, Ayan Kumar Halder wrote:
->>>>>>>>>> Currently if user enables HVC_DCC config option in Linux, it 
->>>>>>>>>> invokes
->>>>>>>>>> access to debug data transfer registers (ie DBGDTRTX_EL0 on 
->>>>>>>>>> arm64,
->>>>>>>>>> DBGDTRTXINT on arm32). As these registers are not emulated, 
->>>>>>>>>> Xen injects
->>>>>>>>>> an undefined exception to the guest. And Linux crashes.
->>>>>>>>> I am missing some data points here to be able to say whether I 
->>>>>>>>> would
->>>>>>>>> be ok with emulating the registers. So some questions:
->>>>>>>>>      * As you wrote below, HVC_DCC will return -ENODEV after this
->>>>>>>>> emulation. So may I ask what's the use case to enable it? (e.g. is
->>>>>>>>> there a distro turning this on?)
->>>>>>>> I am not aware of any distro using (or not using) this feature. 
->>>>>>>> This
->>>>>>>> issue came to light during our internal testing, when HVC_DCC was
->>>>>>>> enabled to use the debug console. When Linux runs without Xen, 
->>>>>>>> then we
->>>>>>>> could observe the logs on the debug console. When Linux was 
->>>>>>>> running as a
->>>>>>>> VM, it crashed.
->>>>>>>>
->>>>>>>> My intention here was to do the bare minimum emulation so that 
->>>>>>>> the crash
->>>>>>>> could be avoided.
->>>>>>> This reminds me a bit the discussion around "xen/arm64: Decode 
->>>>>>> ldr/str
->>>>>>> post increment operations". I don't want Xen to contain half-backed
->>>>>>> emulation just to please an OS in certain configuration that doesn't
->>>>>>> seem to be often used.
->>>>>>>
->>>>>>> Also, AFAICT, KVM is in the same situation...
->>>>>> Well, KVM is not in the same situation. It emulates all DCC regs 
->>>>>> as RAZ/WI, so there
->>>>>> will be no fault on an attempt to access the DCC.
->>>>> Does this mean a guest will think the JTAG is availabe?
->>>> Yes, it will believe the DCC is available which is not a totally bad 
->>>> idea. Yes, it will not have
->>>> any effect but at least covers the polling loop. The solution 
->>>> proposed here sounds better but does not take
->>>> into account the busy while loop when sending the char. Linux DCC 
->>>> earlycon does not make an initial check that runtime
->>>> driver does and will keep waiting in the loop if TXfull is set. 
->>>> Emulating everything as RAZ/WI solves that.
->>>> As you can see, each solution has its flaws and depends on the OS 
->>>> implementation.
->>> Right, which prove my earlier point. You are providing an emulation just
->>> to please a specific driver in Linux (not even the whole Linux). This is
->>> what I was the most concern of.
-> I have sent out a patch ("[PATCH] tty: hvc: dcc: Check for TXfull 
-> condition while setting up early console") to fix this.
->>>
->>> So ...
->>>
->>>>>> In general, I think that if a register is not optional and does 
->>>>>> not depend on other register
->>>>>> to be checked first (e.g. a feature/control register we emulate), 
->>>>>> which implies that it is fully ok for a guest to
->>>>>> access it directly - we should at least try to do something not to 
->>>>>> crash a guest.
->>>>> This is where we have opposing opinion. I view crashing a guest better
->>>>> than providing a wrong emulation because it gives a clear signal that
->>>>> the register they are trying to access will not function properly.
->>>>>
->>>>> We had this exact same discussion a few years ago when Linux 
->>>>> started to
->>>>> access GIC*_ACTIVER registers. I know that Stefano was for emulating
->>>>> them as RAZ but this had consequences on the domain side (Linux
->>>>> sometimes need to read them). We settled on printing a warning 
->>>>> which is
->>>>> not great but better than claiming we properly emulate the register.
->>>>>
->>>>>> I agree that this feature is not widely used. In fact I can only 
->>>>>> find it implemented in Linux and U-BOOT
->>>>>> and the issue I found in DBGDSCRINT (no access from EL0, even 
->>>>>> though we emulate REXT.UDCCdis as 0) only
->>>>>> proves that. At the same time, it does not cost us much to add 
->>>>>> this trivial support.
->>>>> See above. If we provide an (even basic) emulation, we need to make 
->>>>> sure
->>>>> it is correct and doesn't have a side effect on the guest. If we can't
->>>>> guarantee that (e.g. like for set/way when a device is assigned), then
->>>>> the best course of action is to crash the domain.
->>>>>
->>>>> AFAICT, the proposed emulation would be ok.
->>> ... I will need to revise this statement. I am now against this patch.
->> Yes, the problem was tricky from the very beginning and I somewhat 
->> agree. I prepared a POC with one solution
->> that Ayan extended and sent to gather feedback (hence RFC). I think we 
->> should still wait for others
->> opinion (@Stefano, @Bertrand). I think the thread contains all the 
->> necessary information
->> to decide what to do:
->> - do nothing* (guest crashes)
->> - emulate DCC the same way as KVM i.e. RAZ/WI (no crash, no busy loop, 
->> guest keeps using DCC with no effect)
->> - emulate DCC with TXfull set to 1 (no crash, runtime DCC in Linux 
->> returns -ENODEV, earlycon busy loop issue)
->>
->> * I still think we should fix DBGDSCRINT but I can send a separate 
->> patch (not really related to the DCC problem)
-> 
-> Regardless if the linux hvc earlycon is fixed or not
-> 
-> @Julien , would you be ok with option 2 or 3 with a suitable warning ?
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I am afraid the answer is no.
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-> Also will wait for Stefano's and Bertrand's opinions.
-> 
-> Crashing the guest would seem quite severe imo if there can be a better 
-> way (option 2 or 3) to tell that DCC is not available.
+--------------0jKTJDYJx0e3bJRYUXf1ol4e--
 
-Well in option 2, you don't tell the DCC is not available. You just lie 
-to it claiming there is one but it is not behaving properly.
+--------------XjY4muYZW3IALh5t0V096L6x--
 
-I agree that crashing a guest is bad, but is lying to the domain really 
-better? The consequence here is not that bad and hopefully it would be 
-fairly easy to find. But this is not always the case. So I definitely 
-would place a half-backed emulation more severe than a guest crash.
+--------------FP7WiuE8V9g9xlZoydSa2664
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-Cheers,
+-----BEGIN PGP SIGNATURE-----
 
--- 
-Julien Grall
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmVvKHcFAwAAAAAACgkQsN6d1ii/Ey8U
+mAf9HzBoCEbP8iWxhaceGsFWdDboVmto7Z8+0GMjtFZzlykijhOSssZywD0ih04aCkmYqCzz5g0d
+XdCWGBGYa1a9ueLjVDYItxmhHSL8UO34ipvReYJ5qhRnJqwAOIpgOc1r2lOcx0ksU3u2WRZZJuMz
+qNgIzeIU3fdMdUOTiKmCPYuyR6ewyV9eR2ix6rcPSGxUTLrUVg5vBq6vqeZhddLVczGAXIDsGbqF
+gIvssRvKbghBQOWa0Fl78uQROLStN5REoOejX1hVdGSrIbp+dOvp7uxsKlAJ1AywMAp15tCy2f5w
+aNPY6I0+YBNCRNs7UjF/ompG3W8Xo+fLR1tefvZBgw==
+=zdFx
+-----END PGP SIGNATURE-----
+
+--------------FP7WiuE8V9g9xlZoydSa2664--
 
