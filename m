@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4AD9805AA5
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 18:04:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648143.1012193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 558F1805AAB
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 18:04:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648146.1012203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAYp3-0006n3-AM; Tue, 05 Dec 2023 17:03:01 +0000
+	id 1rAYpz-0007RB-M7; Tue, 05 Dec 2023 17:03:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648143.1012193; Tue, 05 Dec 2023 17:03:01 +0000
+Received: by outflank-mailman (output) from mailman id 648146.1012203; Tue, 05 Dec 2023 17:03:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAYp3-0006l2-6Y; Tue, 05 Dec 2023 17:03:01 +0000
-Received: by outflank-mailman (input) for mailman id 648143;
- Tue, 05 Dec 2023 17:02:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rAYpz-0007PC-Ir; Tue, 05 Dec 2023 17:03:59 +0000
+Received: by outflank-mailman (input) for mailman id 648146;
+ Tue, 05 Dec 2023 17:03:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j3Ry=HQ=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1rAYp1-0006kw-Aq
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 17:02:59 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22fca150-9390-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 18:02:57 +0100 (CET)
+ <SRS0=ZseQ=HQ=gmail.com=bart.vanassche@srs-se1.protection.inumbo.net>)
+ id 1rAYpx-0007Nv-Ic
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 17:03:57 +0000
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
+ [209.85.161.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 46004397-9390-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 18:03:56 +0100 (CET)
+Received: by mail-oo1-f50.google.com with SMTP id
+ 006d021491bc7-58d9a4e9464so2495521eaf.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 09:03:56 -0800 (PST)
+Received: from [172.20.2.177] (rrcs-173-197-90-226.west.biz.rr.com.
+ [173.197.90.226]) by smtp.gmail.com with ESMTPSA id
+ s25-20020a639259000000b00578afd8e012sm5146562pgn.92.2023.12.05.09.03.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Dec 2023 09:03:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,148 +44,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22fca150-9390-11ee-9b0f-b553b5be7939
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1701795775;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tKj/G59HmDBT/RcKJNhjfacQG0y6lbGXbN5/YyhoGFQ=;
-	b=gBs2xU/8H+BYBNLyCeYcxWGK2DZm4IabnOmpFdODKMdgkBPuxusYpkJuD8d5nh/R3KLnbv
-	x5HOmiKZACda/7MqInA95GLLoSjFc6ZbPAHItZhCLbXpNfG3vEP8PEeAv0Dyhl0ZN/i5p4
-	D36nAXuQqr6TgdWMOQNCHWsCvy69bXXMfTa4MjCEVvmGElsCn7OmsxHPtkilqKWMZmCn8s
-	WgGntur+yfvv0BQdbGoMsjQqWyqyXeiiJ0BlpPUYpuPujZWY1I4IA7ixlnPTzRjMbnL3E9
-	ql34epQy/+k5Z+geYL3XccPv8qe8KR/gW2//csS7+XQIbeTKK4sr4lXiM6fONw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1701795775;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tKj/G59HmDBT/RcKJNhjfacQG0y6lbGXbN5/YyhoGFQ=;
-	b=ycX4aADBX6fBhOk+amfiCNFdHlR2j22kpskGtkhiZY8tFpmyEFOH2YLz4yXuMW8J2h7zyH
-	rHbpCWNVp2OWgABA==
-To: Stefano Stabellini <sstabellini@kernel.org>, "Chen, Jiqian"
- <Jiqian.Chen@amd.com>
-Cc: Juergen Gross <jgross@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Len Brown <lenb@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Roger
- Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "linux-acpi@vger.kernel.org"
- <linux-acpi@vger.kernel.org>, "Stabellini, Stefano"
- <stefano.stabellini@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Hildebrand, Stewart"
- <Stewart.Hildebrand@amd.com>, "Ragiadakou, Xenia"
- <Xenia.Ragiadakou@amd.com>, "Huang, Honglei1" <Honglei1.Huang@amd.com>,
- "Zhang, Julia" <Julia.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
-Subject: Re: [RFC KERNEL PATCH v2 1/3] xen/pci: Add xen_reset_device_state
- function
-In-Reply-To: <alpine.DEB.2.22.394.2312041331210.110490@ubuntu-linux-20-04-desktop>
-References: <20231124103123.3263471-1-Jiqian.Chen@amd.com>
- <20231124103123.3263471-2-Jiqian.Chen@amd.com> <87edg2xuu9.ffs@tglx>
- <BL1PR12MB5849F2E24E00BF7B20A0B4A6E786A@BL1PR12MB5849.namprd12.prod.outlook.com>
- <alpine.DEB.2.22.394.2312041331210.110490@ubuntu-linux-20-04-desktop>
-Date: Tue, 05 Dec 2023 18:02:54 +0100
-Message-ID: <87fs0gwpj5.ffs@tglx>
+X-Inumbo-ID: 46004397-9390-11ee-98e5-6d05b1d4d9a1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701795835; x=1702400635;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=5Kxt6CKccKyM2aD5KqaYbJ+5NRAtsSu20TdTe87tfro=;
+        b=Bdbf//CfjFlBq1PTy6Ibkt6e+wPhM9h7opL2oVbEi7Wsd0H9no0HojWN9W7AtgVL9G
+         ry5g7oCKgOsDUcuQVIbH3iucZmD5BaF3ke0L3wBWI+xGYc0Up1MErE+7i9LxYZ223wQD
+         NMAhnaAvgxD19tQoVt8eGEbTtvFW44xjZMmGA1NIuTV7Z6wCr+0LOg4pxRIVL0Bz4DIj
+         WYSWNbodi2HnAgAAFRXUORs3z80S9wS1ymttApW71ROB4l6fhYpDHVxdeE+VtawqKYYJ
+         PNWlYu5ziHpLf4MHNkztu1Ko21D7lhf/r4BLzIhSrneQhX5pZItBCthPEim8xdF3QsTc
+         vmrA==
+X-Gm-Message-State: AOJu0YzR57EDnI8SqMGGhukqsxUXEcBzfwqAFAdSBjbvNWq0xMAkhqNh
+	BcDjJwcvlJNw9LQL6g0Y5Aw=
+X-Google-Smtp-Source: AGHT+IHREsBDTR/fguPuUAOPGrQJFqdX7+L934/9nqEfo9v3T6jgbM8x1qOuTAd7fOfx1S8tYfwMzA==
+X-Received: by 2002:a05:6358:6f95:b0:16e:43a1:6881 with SMTP id s21-20020a0563586f9500b0016e43a16881mr2252180rwn.26.1701795834695;
+        Tue, 05 Dec 2023 09:03:54 -0800 (PST)
+Message-ID: <189fa9b2-bcc8-4839-ac04-33a29bba9aaa@acm.org>
+Date: Tue, 5 Dec 2023 09:03:48 -0800
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH -next RFC 01/14] block: add some bdev apis
+Content-Language: en-US
+To: Yu Kuai <yukuai1@huaweicloud.com>, axboe@kernel.dk, roger.pau@citrix.com,
+ colyli@suse.de, kent.overstreet@gmail.com, joern@lazybastard.org,
+ miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+ sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
+ gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
+ martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
+ dsterba@suse.com, nico@fluxnic.net, xiang@kernel.org, chao@kernel.org,
+ tytso@mit.edu, adilger.kernel@dilger.ca, agruenba@redhat.com, jack@suse.com,
+ konishi.ryusuke@gmail.com, willy@infradead.org, akpm@linux-foundation.org,
+ hare@suse.de, p.raghav@samsung.com
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, gfs2@lists.linux.dev,
+ linux-nilfs@vger.kernel.org, yukuai3@huawei.com, yi.zhang@huawei.com,
+ yangerkun@huawei.com
+References: <20231205123728.1866699-1-yukuai1@huaweicloud.com>
+ <20231205123728.1866699-2-yukuai1@huaweicloud.com>
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20231205123728.1866699-2-yukuai1@huaweicloud.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Dec 04 2023 at 13:31, Stefano Stabellini wrote:
-> On Mon, 3 Dec 2023, Chen, Jiqian wrote:
->> >> vpci device state when device is reset on dom0 side.
->> >>
->> >> And call that function in pcistub_init_device. Because when
->> >> we use "pci-assignable-add" to assign a passthrough device in
->> >> Xen, it will reset passthrough device and the vpci state will
->> >> out of date, and then device will fail to restore bar state.
->> >>
->> >> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
->> >> Signed-off-by: Huang Rui <ray.huang@amd.com>
->> > 
->> > This Signed-off-by chain is incorrect.
->> > 
->> > Documentation/process/submitting-patches.rst has a full chapter about
->> > S-O-B and the correct usage.
->> I am the author of this series of patches, and Huang Rui transported the v1 to upstream. And now I transport v2. I am not aware that the SOB chain is incorrect.
->> Do you have any suggestions?
->
-> I think he means that your Signed-off-by should be the second one of the
-> two as you are the one submitting the patch to the LKML
+On 12/5/23 04:37, Yu Kuai wrote:
+> +static inline u8 block_bits(struct block_device *bdev)
+> +{
+> +	return bdev->bd_inode->i_blkbits;
+> +}
 
-No.
-
-   Mailfrom: Jiqian Chen <Jiqian.Chen@amd.com>
-   <body>
-
-   Changelog-text
-
-   Signed-off-by: Huang Rui <ray.huang@amd.com>
-   Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-
-is equally wrong because that would end up with Chen as author and Huang
-as first S-O-B which is required to be the author's S-O-B
-
-To make the above correct this would require:
-
-   Mailfrom: Jiqian Chen <Jiqian.Chen@amd.com>
-   <body>
-
-   From: Huang Rui <ray.huang@amd.com>
-
-   Changelog-text
-
-   Signed-off-by: Huang Rui <ray.huang@amd.com>
-   Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-
-   which tells that Huang is the author and Chen is the 'transporter',
-   which unfortunately does not reflect reality.
-
-Or:
-
-   Mailfrom: Jiqian Chen <Jiqian.Chen@amd.com>
-   <body>
-
-   Changelog-text
-
-   Co-developed-by: Huang Rui <ray.huang@amd.com>
-   Signed-off-by: Huang Rui <ray.huang@amd.com>
-   Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-
-   which tells that Checn is the author and Huang co-developed the
-   patch, which might be true or not.
-
-
-V1 which was sent by Huang has the ordering is correct:
-
-   Mailfrom: Huang Rui <ray.huang@amd.com>
-   <body>
-
-   From: Jiqian Chen <Jiqian.Chen@amd.com>
-
-   Changelog-text
-
-   Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-   Signed-off-by: Huang Rui <ray.huang@amd.com>
-
-   i.e. Chen authored and Huang transported
-
-Now this V2 has not really much to do with V1 and is a new
-implementation to solve the problem, which was authored by Chen, so
-Huang is not involved at all if I understand correctly.
-
-So what does his S-O-B mean here? Nothing...
-
-It's very well documented how the whole S-O-B business works and it's
-not really rocket science to get it straight.
-
-It has a meaning and is not just for decoration purposes.
+This function needs a name that's more descriptive.
 
 Thanks,
 
-        tglx
+Bart.
 
