@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B73380520C
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:21:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647564.1010886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89378805201
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:21:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647563.1010882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATUb-0005ZG-Kp; Tue, 05 Dec 2023 11:21:33 +0000
+	id 1rATUb-0005Qw-87; Tue, 05 Dec 2023 11:21:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647564.1010886; Tue, 05 Dec 2023 11:21:33 +0000
+Received: by outflank-mailman (output) from mailman id 647563.1010882; Tue, 05 Dec 2023 11:21:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATUb-0005Py-Ax; Tue, 05 Dec 2023 11:21:33 +0000
-Received: by outflank-mailman (input) for mailman id 647564;
+	id 1rATUa-0005II-P3; Tue, 05 Dec 2023 11:21:32 +0000
+Received: by outflank-mailman (input) for mailman id 647563;
  Tue, 05 Dec 2023 11:21:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QGQ0=HQ=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1rATUZ-0003dP-TU
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:21:31 +0000
+ id 1rATUY-0003dP-TA
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:21:30 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6e40954d-9360-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 12:21:27 +0100 (CET)
+ id 6d9637ad-9360-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 12:21:26 +0100 (CET)
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  05 Dec 2023 03:21:19 -0800
 Received: from unknown (HELO fred..) ([172.25.112.68])
- by fmsmga006.fm.intel.com with ESMTP; 05 Dec 2023 03:21:17 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 05 Dec 2023 03:21:18 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e40954d-9360-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 6d9637ad-9360-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701775288; x=1733311288;
+  t=1701775287; x=1733311287;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=x84ckBkGQ2mHZOwuZkHd1Fjs3DcMdeHjBJ7YSwg1yco=;
-  b=mG+79kt1PnclPWYi/wfM9HpXrxbRn+HR5TS1C0tWhfczgmGW2vgW+VDc
-   F7C0AXLgP0expNv0iIaot4va8cemLadJibBONaFB2HgaYupCqJyJfpPuR
-   gz0ax6VW/vbHa4e1f7tXJ/6NBDtNAVOSAETMZtrYHLussUq4HN8R0W5Br
-   COy0BRHGZ0QIS16SQxDLkFtjv1gMjLsh1mcMKPSWktXP8GKR8fd7cLtPg
-   caz1qgbAGeBqQ1XY/jLG5CbYhl2rvV7mARNESUWUJ685YyzyXXu/f6LTg
-   X/FraMH4SYb+eFmo0L/FC2CT8YT0Sv9kz7lpBJimDFwEGTFf3pNWscgNb
-   w==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="942395"
+  bh=at3P90/0BHfZm4A3RDkp4mmTPKN/FQQ6JC7gRORtMwU=;
+  b=Hi9+qqrSRYSHE/bzr39tBZYAb7pb7u5HtKapuGTBoHQ2eQB03Nqb5Rcb
+   WmVB16Zdd3UnYH0myD/ofUhh46kNNIlFlCtCI7fUh2hBGX5qMjIJHfllD
+   2kNmZh8VTRZtlINDOjUX1mPsEhq9wru1h87egoPoex4LtBylCn7ARRJMj
+   rVQnfqH5IcFwDjwndokZOEBw1LtkMcUDkIt33qu7EDikg8dUYT9rQhlym
+   NG4H9ROyKMYovwEHlc2hwxPP9ASzhAGXMv6MVdOXBgjcS86yatZyE2Svl
+   BvQv05wAzzwUUH771WwfDwAr6efYOaY9QWkIXzcABzunm+9Utc3bYEX4c
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="942402"
 X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; 
-   d="scan'208";a="942395"
+   d="scan'208";a="942402"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="1018192919"
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="1018192924"
 X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; 
-   d="scan'208";a="1018192919"
+   d="scan'208";a="1018192924"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -86,85 +86,52 @@ Cc: tglx@linutronix.de,
 	jiangshanlai@gmail.com,
 	nik.borisov@suse.com,
 	shan.kang@intel.com
-Subject: [PATCH v13 07/35] x86/fred: Disable FRED support if CONFIG_X86_FRED is disabled
-Date: Tue,  5 Dec 2023 02:49:56 -0800
-Message-ID: <20231205105030.8698-8-xin3.li@intel.com>
+Subject: [PATCH v13 08/35] x86/fred: Disable FRED by default in its early stage
+Date: Tue,  5 Dec 2023 02:49:57 -0800
+Message-ID: <20231205105030.8698-9-xin3.li@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231205105030.8698-1-xin3.li@intel.com>
 References: <20231205105030.8698-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
+To enable FRED, a new kernel command line option "fred" needs to be added.
 
-Add CONFIG_X86_FRED to <asm/disabled-features.h> to make
-cpu_feature_enabled() work correctly with FRED.
-
-Originally-by: Megha Dey <megha.dey@intel.com>
-Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
+ Documentation/admin-guide/kernel-parameters.txt | 3 +++
+ arch/x86/kernel/cpu/common.c                    | 3 +++
+ 2 files changed, 6 insertions(+)
 
-Changes since v10:
-* FRED feature is defined in cpuid word 12, not 13 (Nikolay Borisov).
----
- arch/x86/include/asm/disabled-features.h       | 8 +++++++-
- tools/arch/x86/include/asm/disabled-features.h | 8 +++++++-
- 2 files changed, 14 insertions(+), 2 deletions(-)
-
-diff --git a/arch/x86/include/asm/disabled-features.h b/arch/x86/include/asm/disabled-features.h
-index 702d93fdd10e..f40b29d3abad 100644
---- a/arch/x86/include/asm/disabled-features.h
-+++ b/arch/x86/include/asm/disabled-features.h
-@@ -117,6 +117,12 @@
- #define DISABLE_IBT	(1 << (X86_FEATURE_IBT & 31))
- #endif
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 65731b060e3f..6992b392e8d3 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -1526,6 +1526,9 @@
+ 			Warning: use of this parameter will taint the kernel
+ 			and may cause unknown problems.
  
-+#ifdef CONFIG_X86_FRED
-+# define DISABLE_FRED	0
-+#else
-+# define DISABLE_FRED	(1 << (X86_FEATURE_FRED & 31))
-+#endif
++	fred		[X86-64]
++			Enable flexible return and event delivery
 +
- /*
-  * Make sure to add features to the correct mask
-  */
-@@ -133,7 +139,7 @@
- #define DISABLED_MASK10	0
- #define DISABLED_MASK11	(DISABLE_RETPOLINE|DISABLE_RETHUNK|DISABLE_UNRET| \
- 			 DISABLE_CALL_DEPTH_TRACKING|DISABLE_USER_SHSTK)
--#define DISABLED_MASK12	(DISABLE_LAM)
-+#define DISABLED_MASK12	(DISABLE_FRED|DISABLE_LAM)
- #define DISABLED_MASK13	0
- #define DISABLED_MASK14	0
- #define DISABLED_MASK15	0
-diff --git a/tools/arch/x86/include/asm/disabled-features.h b/tools/arch/x86/include/asm/disabled-features.h
-index 702d93fdd10e..f40b29d3abad 100644
---- a/tools/arch/x86/include/asm/disabled-features.h
-+++ b/tools/arch/x86/include/asm/disabled-features.h
-@@ -117,6 +117,12 @@
- #define DISABLE_IBT	(1 << (X86_FEATURE_IBT & 31))
- #endif
+ 	ftrace=[tracer]
+ 			[FTRACE] will set and start the specified tracer
+ 			as early as possible in order to facilitate early
+diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+index 4d4b87c6885d..68102acd63b0 100644
+--- a/arch/x86/kernel/cpu/common.c
++++ b/arch/x86/kernel/cpu/common.c
+@@ -1491,6 +1491,9 @@ static void __init cpu_parse_early_param(void)
+ 	char *argptr = arg, *opt;
+ 	int arglen, taint = 0;
  
-+#ifdef CONFIG_X86_FRED
-+# define DISABLE_FRED	0
-+#else
-+# define DISABLE_FRED	(1 << (X86_FEATURE_FRED & 31))
-+#endif
++	if (!cmdline_find_option_bool(boot_command_line, "fred"))
++		setup_clear_cpu_cap(X86_FEATURE_FRED);
 +
- /*
-  * Make sure to add features to the correct mask
-  */
-@@ -133,7 +139,7 @@
- #define DISABLED_MASK10	0
- #define DISABLED_MASK11	(DISABLE_RETPOLINE|DISABLE_RETHUNK|DISABLE_UNRET| \
- 			 DISABLE_CALL_DEPTH_TRACKING|DISABLE_USER_SHSTK)
--#define DISABLED_MASK12	(DISABLE_LAM)
-+#define DISABLED_MASK12	(DISABLE_FRED|DISABLE_LAM)
- #define DISABLED_MASK13	0
- #define DISABLED_MASK14	0
- #define DISABLED_MASK15	0
+ #ifdef CONFIG_X86_32
+ 	if (cmdline_find_option_bool(boot_command_line, "no387"))
+ #ifdef CONFIG_MATH_EMULATION
 -- 
 2.43.0
 
