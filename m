@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C833D805AD6
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 18:10:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648151.1012212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 330C5805B16
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 18:25:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648157.1012222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAYvn-00025N-AM; Tue, 05 Dec 2023 17:09:59 +0000
+	id 1rAZAX-0001s9-Iv; Tue, 05 Dec 2023 17:25:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648151.1012212; Tue, 05 Dec 2023 17:09:59 +0000
+Received: by outflank-mailman (output) from mailman id 648157.1012222; Tue, 05 Dec 2023 17:25:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAYvn-00022X-7P; Tue, 05 Dec 2023 17:09:59 +0000
-Received: by outflank-mailman (input) for mailman id 648151;
- Tue, 05 Dec 2023 17:09:58 +0000
+	id 1rAZAX-0001pz-GI; Tue, 05 Dec 2023 17:25:13 +0000
+Received: by outflank-mailman (input) for mailman id 648157;
+ Tue, 05 Dec 2023 17:25:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jRF5=HQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rAYvm-00022R-QH
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 17:09:58 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Rbgk=HQ=proton.me=renewin@srs-se1.protection.inumbo.net>)
+ id 1rAZAV-0001pt-5C
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 17:25:12 +0000
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1cdd9fe3-9391-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 18:09:56 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40bda47c489so40884845e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 09:09:56 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- bg24-20020a05600c3c9800b0040b3d33ab55sm23185556wmb.47.2023.12.05.09.09.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 Dec 2023 09:09:54 -0800 (PST)
+ id 3c4d51e4-9393-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 18:25:07 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,139 +36,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cdd9fe3-9391-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701796195; x=1702400995; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=cTjh+ByXcmDCxhU+NNUA3HCKjxE68CgBO2niK+jby0Q=;
-        b=XsBkEEEm+DK8Z9GG41FDs4IZY6g7Ld8qlXJJ5s3WYpvPz0B4+LkOHyop37ioNv1Y8I
-         OmI97wDra/6mluuY3CCcTGuPJt2vLPMR1Hs2/UijuZGV7c0IrE+IvaPZq2j0PzPl4kvx
-         H5c21eF7757l6rpsHeSJNjpBxIDx21iULjkUQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701796195; x=1702400995;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cTjh+ByXcmDCxhU+NNUA3HCKjxE68CgBO2niK+jby0Q=;
-        b=WV/g5irNf2gTsaXnVU7JIcJ+ci7NTk8fzr+F/EuH3SSSfx3fWcL6PnFa4g6JugwZg9
-         ymGDZg2+lwW/Zn+F7IFsVfBgwp4tEWZqPIdlzS3/uqizPx7ud9/HKZ+jLuosDbgocQPf
-         J7UzlV8SXTITbMU/2Y/lOsBopZRfTG6OAsM5FHTZl7Xt2N9QqTG1P8Vuzx+El77Feq+b
-         PLUvMQXw9L1P1/Bx33XXOLmzgAN5kuW+z/BPYp2sbmAaKQC134UXTI9yyYgXJsOLT8zS
-         YnaZVXCEIRE+T93UPiPlQye00J0Oo8R8lzWU3CY7s/HsMrOltg7nsVAYxzXhiKCcsP2h
-         IVjg==
-X-Gm-Message-State: AOJu0Yz3KVg2MnDZRH0H63eYcueXH3U+dryKndPicCaZTcrl0XyHW/6W
-	8CH9SwZFCXSOfGm+ZhuWkT4u2A==
-X-Google-Smtp-Source: AGHT+IEeiAx2grdp6OiaajX/mmo4BWCwwvE/ZkNit21Mw4PLo6+jb9OJAtOmu08DVeBcWuUvX+qoCw==
-X-Received: by 2002:a7b:c34a:0:b0:40b:5e59:c586 with SMTP id l10-20020a7bc34a000000b0040b5e59c586mr785994wmj.176.1701796195252;
-        Tue, 05 Dec 2023 09:09:55 -0800 (PST)
-Date: Tue, 5 Dec 2023 18:09:53 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v6 4/5] [FUTURE] xen/arm: enable vPCI for domUs
-Message-ID: <ZW9ZYeDD7k146LsB@macbook>
-References: <20231113222118.825758-1-stewart.hildebrand@amd.com>
- <20231113222118.825758-5-stewart.hildebrand@amd.com>
- <ZWmkh0Xeaynh43N7@macbook>
- <alpine.DEB.2.22.394.2312011847520.110490@ubuntu-linux-20-04-desktop>
- <ZW2wuqXW-DneUVi0@macbook>
- <alpine.DEB.2.22.394.2312041333250.110490@ubuntu-linux-20-04-desktop>
- <ZW8EkQLTwEEK6fXC@macbook>
- <8980b420-8e6a-4dd9-ba5f-bd2eb527c2f7@amd.com>
+X-Inumbo-ID: 3c4d51e4-9393-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1701797107; x=1702056307;
+	bh=CEcQRcIn7plPS46ALOZW3CbBXq4NhHTbqsZujfE13+8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=OeOcdfRJUOu0xctixHkV0f1Idkv5Bh2P29CY7di5Ak0HHdBXW3iKbGEeidPa6NoCE
+	 ECM8jNrc7DdDJNvKYhe2Ue+Ega2oH1V+qhkBCM4qUedHXZo4Xuyd8had3dKnh5+Hvj
+	 JA6wcR6lVoGt5H7MMu5bGgZf1MUHhh4IzKhA+JYq57km+1IM4Tb+y1A4o0aNZssFPA
+	 28GY1BDtNyOwDoACkdR0B6sG9Nn0JoNbkSY6ODCS2t7DqbspGgloeuAVZuxF0HuElV
+	 BFllJPnLjFlWiB/T4FlecY1FbOUI9VrmI1WoDt7G8DkwpTaIYjYLMpWqgWQjEfunu2
+	 QoZ0Cf7AsmojA==
+Date: Tue, 05 Dec 2023 17:24:44 +0000
+To: Juergen Gross <jgross@suse.com>
+From: =?utf-8?Q?Ren=C3=A9_Winther_H=C3=B8jgaard?= <renewin@proton.me>
+Cc: Jan Beulich <jbeulich@suse.com>, George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>, "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: Trying add smt=off disabled cores to cpupool crash xen
+Message-ID: <RWTcalGTi6AWz6y3kGdVeeviN3FSE96OVVCyH-DL9qySYjv0jImv0avp2uCDGGTtUm830cGTQeffygUZXECli4JChABgzUyUjsv2zFJiTVU=@proton.me>
+In-Reply-To: <4f6445b2-f871-415a-aa72-7c08a2c357e0@suse.com>
+References: <ImC5JB7OjNgCNtCixZSzBIyXAyR0qI-DKWcm-w5YtHP_5aH71GA_zJK2C4AmA4_GtaYAKK6wGEM8YZ2THj2qLe9kFhjO5bEl8qoqRY8o9p4=@proton.me> <987b03e9-7a16-434a-a060-538dd5a6f045@citrix.com> <2e25ea9e-5f38-4363-ae34-cf838d161cc8@suse.com> <44bbbc6f-607e-4c8c-b4a4-de220345b2b5@suse.com> <1fc21e82-f9f3-4929-a138-2b3de98c06dc@suse.com> <dec807bc-8450-48b0-be99-70bf17e62bca@suse.com> <eoYHHXdHJzBIPmppjwYPoxVy_LbXN8PCF5FawlOBYMIpqAUeOiPNsW9ZVL3u_iCpzCy7xB0muzDKIfCIDdiFkR-bumO3TgxZkksrOZE7_oE=@proton.me> <4f6445b2-f871-415a-aa72-7c08a2c357e0@suse.com>
+Feedback-ID: 45853758:user:proton
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8980b420-8e6a-4dd9-ba5f-bd2eb527c2f7@amd.com>
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------5169c2fae1025291f41601eaf70825899bcddb48543b224f07981b9084c5108d"; charset=utf-8
 
-On Tue, Dec 05, 2023 at 11:27:03AM -0500, Stewart Hildebrand wrote:
-> On 12/5/23 06:08, Roger Pau Monné wrote:
-> > On Mon, Dec 04, 2023 at 02:07:51PM -0800, Stefano Stabellini wrote:
-> >> On Mon, 4 Dec 2023, Roger Pau Monné wrote:
-> >>> On Fri, Dec 01, 2023 at 06:56:32PM -0800, Stefano Stabellini wrote:
-> >>>> On Fri, 1 Dec 2023, Roger Pau Monné wrote:
-> >>>>> On Mon, Nov 13, 2023 at 05:21:13PM -0500, Stewart Hildebrand wrote:
-> >>>>>> @@ -1618,6 +1630,14 @@ int iommu_do_pci_domctl(
-> >>>>>>          bus = PCI_BUS(machine_sbdf);
-> >>>>>>          devfn = PCI_DEVFN(machine_sbdf);
-> >>>>>>  
-> >>>>>> +        if ( needs_vpci(d) && !has_vpci(d) )
-> >>>>>> +        {
-> >>>>>> +            printk(XENLOG_G_WARNING "Cannot assign %pp to %pd: vPCI support not enabled\n",
-> >>>>>> +                   &PCI_SBDF(seg, bus, devfn), d);
-> >>>>>> +            ret = -EPERM;
-> >>>>>> +            break;
-> >>>>>
-> >>>>> I think this is likely too restrictive going forward.  The current
-> >>>>> approach is indeed to enable vPCI on a per-domain basis because that's
-> >>>>> how PVH dom0 uses it, due to being unable to use ioreq servers.
-> >>>>>
-> >>>>> If we start to expose vPCI suport to guests the interface should be on
-> >>>>> a per-device basis, so that vPCI could be enabled for some devices,
-> >>>>> while others could still be handled by ioreq servers.
-> >>>>>
-> >>>>> We might want to add a new flag to xen_domctl_assign_device (used by
-> >>>>> XEN_DOMCTL_assign_device) in order to signal whether the device will
-> >>>>> use vPCI.
-> >>>>
-> >>>> Actually I don't think this is a good idea. I am all for flexibility but
-> >>>> supporting multiple different configurations comes at an extra cost for
-> >>>> both maintainers and contributors. I think we should try to reduce the
-> >>>> amount of configurations we support rather than increasing them
-> >>>> (especially on x86 where we have PV, PVH, HVM).
-> >>>
-> >>> I think it's perfectly fine to initially require a domain to have all
-> >>> its devices either passed through using vPCI or ireqs, but the
-> >>> interface IMO should allow for such differentiation in the future.
-> >>> That's why I think introducing a domain wide vPCI flag might not be
-> >>> the best option going forward.
-> >>>
-> >>> It would be perfectly fine for XEN_DOMCTL_assign_device to set a
-> >>> domain wide vPCI flag, iow:
-> >>>
-> >>> if ( HYPERCALL_VPCI_FLAG_SET && !has_vpci(d) )
-> >>> {
-> >>>     if ( has_arch_pdevs(d) )
-> >>>     {
-> >>>         printk("All passthrough devices must use the same backend\n");
-> >>>         return -EINVAL;
-> >>>     }
-> >>>
-> >>>     /* Set vPCI domain flag */
-> >>> }
-> >>
-> >> That would be fine by me, but maybe we can avoid this change too. I was
-> >> imagining that vPCI would be enabled at domain creation, not at runtime.
-> >> And that vPCI would be enabled by default for all PVH guests (once we
-> >> are past the initial experimental phase.)
-> > 
-> > Then we don't even need a new CDF flag, and just enable vPCI when
-> > IOMMU is enabled?  IOW: we can key the enabling of vPCI to
-> > XEN_DOMCTL_CDF_iommu for specific domain types?
-> 
-> There are many Arm based platforms that need to use iommu but don't have (or don't use) PCI, so we'd still like to have a separate vPCI flag.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------5169c2fae1025291f41601eaf70825899bcddb48543b224f07981b9084c5108d
+Content-Type: multipart/mixed;boundary=---------------------d7db68ad1a997730490d21f776c8386f
 
-OK, read below though - if we switch to vPCI being a descendant of
-IOREQ (so that the PCI config space decoding is done by IOREQ) we
-could hotplug vPCI managed devices at runtime without requiring any
-prior initialization at domain create, since the traps to the PCI
-config space would be setup by IOREQ.
+-----------------------d7db68ad1a997730490d21f776c8386f
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-We might need a PCI flag in order to signal whether the domain is
-intended to use PCI devices or not, and so whether IOREQ needs to
-setup PCI config space traps (either fully emulated or passthrough
-devices).  But that would be arch-specific AFAICT, as on x86 we
-always trap accesses to the PCI IO ports.
+You are right about sched-gran=3Dcore being the issue.
 
-Thanks, Roger.
+I don't know if this is relevant, but my CPU shouldn't be able to use sche=
+d-gran=3Dcore it's asymmetric.
+
+smt=3Don with sched-gran=3Dcore gives me a warning that it's falling back =
+to sched-gran=3Dcpu, I tested smt=3Doff with sched-gran=3Dcpu and it works=
+.
+
+This warning is missing with sched-gran=3Dcore and smt=3Doff =
+
+
+(XEN) ***************************************************
+(XEN) Asymmetric cpu configuration.
+(XEN) Falling back to sched-gran=3Dcpu.
+(XEN) ***************************************************
+
+
+/rene
+
+
+On Tuesday, December 5th, 2023 at 07:21, Juergen Gross <jgross@suse.com> w=
+rote:
+
+
+> On 04.12.23 18:40, Ren=C3=A9 Winther H=C3=B8jgaard wrote:
+> =
+
+
+> > Hi Juergen,
+> > =
+
+
+> > Sorry for the late reply.
+> > =
+
+
+> > Here are the commands I execute, it is 'xl cpupool-cpu-add pcores 4-15=
+' that crash the system.
+> > =
+
+
+> > xl cpupool-cpu-remove Pool-0 4-31
+> > xl cpupool-create name=3D\"ecores\" sched=3D\"credit\"
+> > xl cpupool-cpu-add ecores 16-31
+> > =
+
+
+> > xl cpupool-create name=3D\"pcores\" sched=3D\"credit\"
+> > xl cpupool-cpu-add pcores 4-15
+> > =
+
+
+> > Here is the other information you asked for.
+> > =
+
+
+> > xl cpupool-list:
+> > Name CPUs Sched Active Domain count
+> > Pool-0 24 credit y 5
+> > =
+
+
+> > xl cpupool-list -c:
+> > Name CPU list
+> > Pool-0 0,2,4,6,8,10,12,14,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30=
+,31
+> > =
+
+
+> > xl info:
+> > host : dom0
+> > release : 6.1.62-1.qubes.fc37.x86_64
+> > version : #1 SMP PREEMPT_DYNAMIC Tue Nov 14 06:16:38 GMT 2023
+> > machine : x86_64
+> > nr_cpus : 24
+> > max_cpu_id : 31
+> > nr_nodes : 1
+> > cores_per_socket : 24
+> > threads_per_core : 1
+> > cpu_mhz : 2995.196
+> > hw_caps : bfebfbff:77faf3ff:2c100800:00000121:0000000f:239c27eb:184007=
+8c:00000100
+> > virt_caps : pv hvm hvm_directio pv_directio hap iommu_hap_pt_share vmt=
+race gnttab-v1
+> > total_memory : 65373
+> > free_memory : 56505
+> > sharing_freed_memory : 0
+> > sharing_used_memory : 0
+> > outstanding_claims : 0
+> > free_cpus : 0
+> > xen_major : 4
+> > xen_minor : 17
+> > xen_extra : .2
+> > xen_version : 4.17.2
+> > xen_caps : xen-3.0-x86_64 hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-3.0-x86_6=
+4
+> > =
+
+
+> > xen_scheduler : credit
+> > xen_pagesize : 4096
+> > platform_params : virt_start=3D0xffff800000000000
+> > xen_changeset :
+> > =
+
+
+> > xen_commandline : placeholder dom0_mem=3Dmin:2048M dom0_mem=3Dmax:4096=
+M ucode=3Dscan gnttab_max_frames=3D2048 gnttab_max_maptrack_frames=3D4096 =
+smt=3Doff dom0_max_vcpus=3D4 dom0_vcpus_pin sched-gran=3Dcore sched=3Dcred=
+it no-real-mode edd=3Doff
+> =
+
+
+> =
+
+
+> Please drop the "sched-gran=3Dcore" from the Xen boot parameters. It doe=
+sn't make
+> any sense with smt=3Doff and is adding additional complexity.
+> =
+
+
+> It shouldn't crash, but core scheduling is still "Experimental". I'll lo=
+ok into
+> the issue later.
+> =
+
+
+> =
+
+
+> Juergen
+-----------------------d7db68ad1a997730490d21f776c8386f
+Content-Type: application/pgp-keys; filename="publickey - renewin@proton.me - 0x43C32E54.asc"; name="publickey - renewin@proton.me - 0x43C32E54.asc"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="publickey - renewin@proton.me - 0x43C32E54.asc"; name="publickey - renewin@proton.me - 0x43C32E54.asc"
+
+LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCgp4ak1FWWxmZy9oWUpLd1lCQkFI
+YVJ3OEJBUWRBOWhrZnlRblEzVlVETWZsT3FPZU1sc1o0N252eml1cmoKbXJnZTFCd040d3pOSlhK
+bGJtVjNhVzVBY0hKdmRHOXVMbTFsSUR4eVpXNWxkMmx1UUhCeWIzUnZiaTV0ClpUN0Nqd1FRRmdv
+QUlBVUNZbGZnL2dZTENRY0lBd0lFRlFnS0FnUVdBZ0VBQWhrQkFoc0RBaDRCQUNFSgpFQXRxSisz
+WXh1S1hGaUVFUThNdVZIeDNmREZGcnZqSEMyb243ZGpHNHBkYUtBRC9WMnNlNk5lTGJ0VkkKVzVB
+ck1XRHdJN21xZ0dNSDgrQ3ZCelh1RUE5Y2xrOEEvUkNLbjdzRE1HZVJzWVNENWNFRXdidVRLK01B
+CkZ4T2owaEZGOS9PNHRxQUd6amdFWWxmZy9oSUtLd1lCQkFHWFZRRUZBUUVIUUlmc3ozdGNhVElk
+MWp2YQpZVG12NURmdUVRVGY4V2s3RmtGVG5LNHltMjRJQXdFSUI4SjRCQmdXQ0FBSkJRSmlWK0Qr
+QWhzTUFDRUoKRUF0cUorM1l4dUtYRmlFRVE4TXVWSHgzZkRGRnJ2akhDMm9uN2RqRzRwZDZpUUQr
+TzVrR0w2ZjhndktJCmlpSStidS94NkFacytvNGZERmVlc052bS9TWkFRZUVBLzBxbEw1RHR2ckJD
+TjY5b2xZMERlRjQ1d0R0bQpEbDlIZ2dtc09sdXRTYzRCCj1xUFNVCi0tLS0tRU5EIFBHUCBQVUJM
+SUMgS0VZIEJMT0NLLS0tLS0K
+-----------------------d7db68ad1a997730490d21f776c8386f--
+
+--------5169c2fae1025291f41601eaf70825899bcddb48543b224f07981b9084c5108d
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wnUEARYKACcFgmVvXMkJkAtqJ+3YxuKXFiEEQ8MuVHx3fDFFrvjHC2on7djG
+4pcAACORAQCReT16oCU3/ubwLU5uW0YDmar9uG9bd6J8BRscdb/r4gEA80sy
+ApPzs47BJz9FPaTmcDxgmYOvsTdoq2Rl+5a1mAA=
+=mkNj
+-----END PGP SIGNATURE-----
+
+
+--------5169c2fae1025291f41601eaf70825899bcddb48543b224f07981b9084c5108d--
+
 
