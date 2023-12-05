@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F610805742
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 15:25:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647952.1011763 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8442A80574E
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 15:29:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647955.1011772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAWLz-0003zQ-5z; Tue, 05 Dec 2023 14:24:51 +0000
+	id 1rAWQY-0000cT-KO; Tue, 05 Dec 2023 14:29:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647952.1011763; Tue, 05 Dec 2023 14:24:51 +0000
+Received: by outflank-mailman (output) from mailman id 647955.1011772; Tue, 05 Dec 2023 14:29:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAWLz-0003xX-2t; Tue, 05 Dec 2023 14:24:51 +0000
-Received: by outflank-mailman (input) for mailman id 647952;
- Tue, 05 Dec 2023 14:24:50 +0000
+	id 1rAWQY-0000ao-HW; Tue, 05 Dec 2023 14:29:34 +0000
+Received: by outflank-mailman (input) for mailman id 647955;
+ Tue, 05 Dec 2023 14:29:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAWLy-0003r1-3p
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 14:24:50 +0000
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [2a00:1450:4864:20::444])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jRF5=HQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rAWQX-0000ZF-1f
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 14:29:33 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b776713-937a-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 15:24:48 +0100 (CET)
-Received: by mail-wr1-x444.google.com with SMTP id
- ffacd0b85a97d-3334d9b57adso1356304f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 06:24:48 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bl13-20020adfe24d000000b0033344666878sm6699905wrb.91.2023.12.05.06.24.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 06:24:47 -0800 (PST)
+ id b3d72764-937a-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 15:29:30 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40c09f4814eso32896985e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 06:29:30 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ i12-20020a5d584c000000b0033342f72bf8sm7011110wrf.9.2023.12.05.06.29.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Dec 2023 06:29:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +44,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b776713-937a-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: b3d72764-937a-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701786288; x=1702391088; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gQmLJOgkh6sIuGYdKUONLWoveERp17lqVvLgypNbpEg=;
-        b=A8QG3r/AuZGZLiMlmV4CDwNaOjFPGBa5ivX4OWLjoY+xdZDqjWACQ0/zuImgfV9CAu
-         mlleFjaCjbI0GS4EvDMZjVUz0g0/YaD1eylKEihgxTVJLY1eZ2zGD681rxRgj+yjIOpw
-         C0dO/dVp0t5Qw0Wa8pieXnQRjfN3R4tz+y68cXLAX3kf75bdntpHLQk8qI2su8PoSeL8
-         /EiE0mZDgyFNaO5bZnTiVJ85ngS6AThzOwC2jBr1AlMzKfFzXxJrtyFwAQ9feutEQ/3n
-         leuXUuLdFpQ4/qW54y+DYn6qiFzNLtmBqRw0EuYatIur6ATunrL5Ib3RFqzYMkGnX9Ho
-         azfQ==
+        d=citrix.com; s=google; t=1701786570; x=1702391370; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=3aQcICTQfuMd+zc46y6/S5a47Y9E7zeF7tjwTjquORc=;
+        b=kjS0UHeyHKJxgXu+flRl21q8/CXzg2ap6nGSyB0B/T0Y1Y6zv2jC8EjdgzalD10hal
+         dWEvHtqMRkJRslKs40UTfbXX5iOKYohSUWxzH3Zj4uPNek89jktWJIy1GUI2H3Fe8LlQ
+         HyzqYZ9NHtE8hNf3YSZbBYj2GrBNC8RGpYck4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701786288; x=1702391088;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1701786570; x=1702391370;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gQmLJOgkh6sIuGYdKUONLWoveERp17lqVvLgypNbpEg=;
-        b=E+2rYqmB3VIMhXU7iG7F9VgYltqAsh3LL7ChGUJKCPONE8BjDxjs9mNOhJil0sTkR/
-         PqfJlZ/J3nEOhd4svCe499cz4cTIzWdnECmq7qPpVi3X5mQov1B8+OlFuUC2LoGrTR9U
-         UnNgsF7ebB8kYyZHuJEj4hRsW6VXrTNCaYDBs5DtHYobWj7HcFXgpWszR61D8TN5Fvop
-         AO7xrBMrOWNawY2gplIZbTYQ8Fh5FGfna1kdggepdQ32mtyNfYJ20xosL6rAt2OGneso
-         kk5XZVE+77wgMCkSxMX4iwMtGXtWqy8cGnJNGTbocFO0g8WjdgEgIjJ/D+QG0Burky6J
-         /Jjg==
-X-Gm-Message-State: AOJu0YzQszYk3WZogZcUb62y6uMF7A+MLHADLNXyhPMmM3ikIkjm0cHj
-	2y37Mf1gKknioWMHe8DWFeht
-X-Google-Smtp-Source: AGHT+IFd6W6PHzFPjE0uO0X8UvS27/kbNHZUKLTJDzea1X2qyaPYF+9Xi7UjGDln23IzCILa94rj9Q==
-X-Received: by 2002:adf:fa0c:0:b0:333:2fd2:8142 with SMTP id m12-20020adffa0c000000b003332fd28142mr5343424wrr.95.1701786287857;
-        Tue, 05 Dec 2023 06:24:47 -0800 (PST)
-Message-ID: <a9ca40d5-3546-46a4-ab56-3b190b1e4e93@suse.com>
-Date: Tue, 5 Dec 2023 15:24:46 +0100
+        bh=3aQcICTQfuMd+zc46y6/S5a47Y9E7zeF7tjwTjquORc=;
+        b=qC+4gX1EFWA/+brkUzdTFVUjtDLbKE373fNRR8wlxGlwtwpbiGBUzUiIZApQeXuEX0
+         RphBemNnbn7BO0jl28bksQqoqrEZn0TeoPqdN/U3oUDAHmbdqWrrYZyAyvME/TVmeLnk
+         rQH3N/BjTqnIG9+OOHKb7aBW1ABY5j5zoQhgGTEHrwz3DGFLzKf1YhGLvaB3PpL1RyKW
+         ch1A9JtMLqtXN32mEe3yu950+2j3WUXElIbwLIsJIyUBDqiFF1Ly6MsEd43AXhyDmGjL
+         UfTanxH/iMKa4xyW9iv6YTUMRfBSn30o9h2AeoPYHgHZS1gbn0XxkV38vXkXNXtQjD89
+         ENMQ==
+X-Gm-Message-State: AOJu0YwvlUYeVwufSVzcpXHCkLS3/k6l9trOBdKrGg4Es/UORyyLTx9G
+	UBqJMWXZ9zjm/BjVxB+/WjF/Kg==
+X-Google-Smtp-Source: AGHT+IFKD6LHh7npRzTLcWYuOWpW+ln3EvzvN95Rh/9Fh5fvoERC7fnuHumdZsOL8x7I6wgagiSqtA==
+X-Received: by 2002:a05:600c:4f42:b0:3fe:1232:93fa with SMTP id m2-20020a05600c4f4200b003fe123293famr557547wmq.22.1701786570268;
+        Tue, 05 Dec 2023 06:29:30 -0800 (PST)
+Date: Tue, 5 Dec 2023 15:29:29 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 2/6] x86/HVM: split restore state checking from state
+ loading
+Message-ID: <ZW8zyXkUJDKVt-HX@macbook>
+References: <49a17ffa-c873-4b0f-81ed-9587053ca159@suse.com>
+ <dcc726f5-634e-4b48-aa8f-d477cdc8dea9@suse.com>
+ <ZW4L5Q4SMprtmbK-@macbook>
+ <5f7c43ca-dfc4-4929-8776-6985e610e154@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] iommu/vt-d: do not assume page table levels for
- quarantine domain
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
-References: <20231204094305.59267-1-roger.pau@citrix.com>
- <20231204094305.59267-2-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231204094305.59267-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <5f7c43ca-dfc4-4929-8776-6985e610e154@suse.com>
 
-On 04.12.2023 10:43, Roger Pau Monne wrote:
-> Like XSA-445, do not assume IOMMU page table levels on VT-d are always set
-> based on DEFAULT_DOMAIN_ADDRESS_WIDTH and instead fetch the value set by
-> intel_iommu_hwdom_init() from the domain iommu structure.  This prevents
-> changes to intel_iommu_hwdom_init() possibly getting the levels out of sync
-
-In both cases, don't you mean intel_iommu_domain_init() instead? Only if
-so
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(and happy to adjust while committing).
-
-Otherwise I must be missing something.
-
-Jan
-
-> with what intel_iommu_quarantine_init() expects.
+On Tue, Dec 05, 2023 at 09:52:31AM +0100, Jan Beulich wrote:
+> On 04.12.2023 18:27, Roger Pau Monné wrote:
+> > On Tue, Nov 28, 2023 at 11:34:04AM +0100, Jan Beulich wrote:
+> >> ..., at least as reasonably feasible without making a check hook
+> >> mandatory (in particular strict vs relaxed/zero-extend length checking
+> >> can't be done early this way).
+> >>
+> >> Note that only one of the two uses of hvm_load() is accompanied with
+> >> hvm_check(). The other directly consumes hvm_save() output, which ought
+> >> to be well-formed. This means that while input data related checks don't
+> >> need repeating in the "load" function when already done by the "check"
+> >> one (albeit assertions to this effect may be desirable), domain state
+> >> related checks (e.g. has_xyz(d)) will be required in both places.
+> >>
+> >> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >> ---
+> >> Do we really need all the copying involved in use of _hvm_read_entry()
+> >> (backing hvm_load_entry()? Zero-extending loads are likely easier to
+> >> handle that way, but for strict loads all we gain is a reduced risk of
+> >> unaligned accesses (compared to simply pointing into h->data[]).
+> > 
+> > See below, but I wonder whether the checks could be performed as part
+> > of hvm_load() without having to introduce a separate handler and loop
+> > over the context entries.
 > 
-> No functional change, since on Intel domains are hardcoded to use
-> DEFAULT_DOMAIN_ADDRESS_WIDTH.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> Changes since v1:
->  - New in this version.
-> ---
->  xen/drivers/passthrough/vtd/iommu.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-> index e13b7d99db40..bc6181c9f911 100644
-> --- a/xen/drivers/passthrough/vtd/iommu.c
-> +++ b/xen/drivers/passthrough/vtd/iommu.c
-> @@ -3162,7 +3162,7 @@ static int cf_check intel_iommu_quarantine_init(struct pci_dev *pdev,
->  {
->      struct domain_iommu *hd = dom_iommu(dom_io);
->      struct page_info *pg;
-> -    unsigned int agaw = width_to_agaw(DEFAULT_DOMAIN_ADDRESS_WIDTH);
-> +    unsigned int agaw = hd->arch.vtd.agaw;
->      unsigned int level = agaw_to_level(agaw);
->      const struct acpi_drhd_unit *drhd;
->      const struct acpi_rmrr_unit *rmrr;
+> Specifically not. State loading (in the longer run) would better not fail
+> once started. (Imo it should have been this way from the beginning.) Only
+> then will the vCPU still be in a predictable state even after a possible
+> error.
 
+Looking at the callers, does such predictable state after failure
+matter?
+
+One caller is an hypercall used by the toolstack at domain create,
+failing can just lead to the domain being destroyed.  The other caller
+is vm fork, which will also lead to the fork being destroyed if
+context loading fails.
+
+Maybe I'm overlooking something.
+
+> >> Would the hvm_sr_handlers[] better use array_access_nospec()?
+> > 
+> > Maybe?  Given this is a domctl I do wonder whether a domain already
+> > having access to such interface won't have easier ways to leak data
+> > from Xen.  Maybe for a disaggregated setup.
+> 
+> Hmm, now we're in the middle - Andrew effectively said "no need to".
+
+I'm certainly not an expert on whether array_access_nospec() should be
+used, so if Andrew says no need, that's likely better advice.
+
+Maybe the xsm check used in such desegregated setups would already
+stop speculation?
+
+> >> @@ -275,6 +281,78 @@ int hvm_save(struct domain *d, hvm_domai
+> >>      return 0;
+> >>  }
+> >>  
+> >> +int hvm_check(const struct domain *d, hvm_domain_context_t *h)
+> >> +{
+> >> +    const struct hvm_save_header *hdr;
+> >> +    int rc;
+> >> +
+> >> +    if ( d->is_dying )
+> >> +        return -EINVAL;
+> >> +
+> >> +    /* Get at the save header, which must be first. */
+> >> +    hdr = hvm_get_entry(HEADER, h);
+> >> +    if ( !hdr )
+> >> +        return -ENODATA;
+> >> +
+> >> +    rc = arch_hvm_check(d, hdr);
+> >> +    if ( rc )
+> >> +        return rc;
+> >> +
+> >> +    for ( ; ; )
+> >> +    {
+> >> +        const struct hvm_save_descriptor *desc;
+> >> +        hvm_check_handler handler;
+> >> +
+> >> +        if ( h->size - h->cur < sizeof(*desc) )
+> >> +        {
+> >> +            /* Run out of data */
+> >> +            printk(XENLOG_G_ERR
+> >> +                   "HVM restore %pd: save did not end with a null entry\n",
+> >> +                   d);
+> >> +            return -ENODATA;
+> >> +        }
+> >> +
+> >> +        /* Read the typecode of the next entry and check for the end-marker. */
+> >> +        desc = (const void *)&h->data[h->cur];
+> >> +        if ( desc->typecode == HVM_SAVE_CODE(END) )
+> >> +        {
+> >> +            /* Reset cursor for hvm_load(). */
+> >> +            h->cur = 0;
+> >> +            return 0;
+> >> +        }
+> >> +
+> >> +        /* Find the handler for this entry. */
+> >> +        if ( desc->typecode >= ARRAY_SIZE(hvm_sr_handlers) ||
+> >> +             !hvm_sr_handlers[desc->typecode].name ||
+> >> +             !hvm_sr_handlers[desc->typecode].load )
+> >> +        {
+> >> +            printk(XENLOG_G_ERR "HVM restore %pd: unknown entry typecode %u\n",
+> >> +                   d, desc->typecode);
+> >> +            return -EINVAL;
+> >> +        }
+> >> +
+> >> +        /* Check the entry. */
+> >> +        handler = hvm_sr_handlers[desc->typecode].check;
+> >> +        if ( !handler )
+> >> +        {
+> >> +            if ( desc->length > h->size - h->cur - sizeof(*desc) )
+> >> +                return -ENODATA;
+> >> +            h->cur += sizeof(*desc) + desc->length;
+> >> +        }
+> >> +        else if ( (rc = handler(d, h)) )
+> >> +        {
+> >> +            printk(XENLOG_G_ERR
+> >> +                   "HVM restore %pd: failed to check %s:%u rc %d\n",
+> >> +                   d, hvm_sr_handlers[desc->typecode].name, desc->instance, rc);
+> >> +            return rc;
+> >> +        }
+> >> +
+> >> +        process_pending_softirqs();
+> > 
+> > Looking at this, won't it be better to call the check() hooks inside
+> > the hvm_load() function instead of duplicating the loop?
+> > 
+> > I realize that you only perform the checks when the state is loaded
+> > from a domctl, but still seems quite a lot of code duplication for
+> > little benefit.
+> > 
+> > hvm_load() could gain an extra parameter to select whether the input
+> > must be checked or not, and that would avoid having to iterate twice
+> > over the context.
+> 
+> Well, see above.
+> 
+> >> +    }
+> >> +
+> >> +    /* Not reached */
+> > 
+> > ASSERT_UNREACHABLE() maybe?
+> 
+> Hmm, I'd find it kind of odd to have such here. While hvm_load() doesn't
+> have such either, perhaps that's not a meaningful reference. Adding this
+> would make me fear introducing a Misra violation (adding dead code).
+
+But isn't this the purpose of ASSERT_UNREACHABLE() exactly?  IOW:
+Misra will need an exception for all usage of ASSERT_UNREACHABLE()
+already.
+
+I think ASSERT_UNREACHABLE() is much better than a Not reached
+comment: conveys the same information to readers of the code and has
+a run-time consequence on debug builds.
+
+Thanks, Roger.
 
