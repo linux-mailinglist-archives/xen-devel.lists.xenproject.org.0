@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89378805201
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:21:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647563.1010882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A07A80520F
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:21:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647566.1010908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATUb-0005Qw-87; Tue, 05 Dec 2023 11:21:33 +0000
+	id 1rATUe-000691-0v; Tue, 05 Dec 2023 11:21:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647563.1010882; Tue, 05 Dec 2023 11:21:33 +0000
+Received: by outflank-mailman (output) from mailman id 647566.1010908; Tue, 05 Dec 2023 11:21:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATUa-0005II-P3; Tue, 05 Dec 2023 11:21:32 +0000
-Received: by outflank-mailman (input) for mailman id 647563;
- Tue, 05 Dec 2023 11:21:31 +0000
+	id 1rATUd-00064Z-Bs; Tue, 05 Dec 2023 11:21:35 +0000
+Received: by outflank-mailman (input) for mailman id 647566;
+ Tue, 05 Dec 2023 11:21:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=QGQ0=HQ=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
- id 1rATUY-0003dP-TA
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:21:30 +0000
+ id 1rATUa-0003dP-Tq
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:21:32 +0000
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6d9637ad-9360-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 12:21:26 +0100 (CET)
+ id 6ec9678c-9360-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 12:21:28 +0100 (CET)
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Dec 2023 03:21:19 -0800
+ 05 Dec 2023 03:21:20 -0800
 Received: from unknown (HELO fred..) ([172.25.112.68])
  by fmsmga006.fm.intel.com with ESMTP; 05 Dec 2023 03:21:18 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -41,27 +41,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6d9637ad-9360-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 6ec9678c-9360-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1701775287; x=1733311287;
+  t=1701775289; x=1733311289;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=at3P90/0BHfZm4A3RDkp4mmTPKN/FQQ6JC7gRORtMwU=;
-  b=Hi9+qqrSRYSHE/bzr39tBZYAb7pb7u5HtKapuGTBoHQ2eQB03Nqb5Rcb
-   WmVB16Zdd3UnYH0myD/ofUhh46kNNIlFlCtCI7fUh2hBGX5qMjIJHfllD
-   2kNmZh8VTRZtlINDOjUX1mPsEhq9wru1h87egoPoex4LtBylCn7ARRJMj
-   rVQnfqH5IcFwDjwndokZOEBw1LtkMcUDkIt33qu7EDikg8dUYT9rQhlym
-   NG4H9ROyKMYovwEHlc2hwxPP9ASzhAGXMv6MVdOXBgjcS86yatZyE2Svl
-   BvQv05wAzzwUUH771WwfDwAr6efYOaY9QWkIXzcABzunm+9Utc3bYEX4c
-   Q==;
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="942402"
+  bh=fBLiRRcKVyAMRaXpDMNfuo7m3LN99KBaGmZAQi3QyEY=;
+  b=N7v8on1XPdEA0HLHVf4QwtVtLw++UxF1ptrhUHk4MSXxSxJCYBGUixTb
+   gCjun8yIU88bq2JRTZGU9hUNEic2l3Pc3GoRHi3bdlpt+oaqTZ5xSdi1f
+   IwWXP+/JZ74a3m5q0gRWfnpsrqmv5OrsP5XMOTcHsq3EqsNofiyK7Jcsm
+   V1xJwN2SE1yZLmMHR7o+zO3oe4o3iKfH9YpkQ3viQHNbljdJGYVC4MM6j
+   CuBbg1UbK0/W10dLn2IGKYacj2yK5mC4UBKW6ZTjRcMFXLibxTj5vgsYJ
+   oKm1q6mEE1uPgi97z2ii6/ETAa5lpMSil8Fj906OrL6oIG62JLtPCWR+r
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="942415"
 X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; 
-   d="scan'208";a="942402"
+   d="scan'208";a="942415"
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="1018192924"
+X-IronPort-AV: E=McAfee;i="6600,9927,10914"; a="1018192928"
 X-IronPort-AV: E=Sophos;i="6.04,252,1695711600"; 
-   d="scan'208";a="1018192924"
+   d="scan'208";a="1018192928"
 From: Xin Li <xin3.li@intel.com>
 To: linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
@@ -86,52 +86,58 @@ Cc: tglx@linutronix.de,
 	jiangshanlai@gmail.com,
 	nik.borisov@suse.com,
 	shan.kang@intel.com
-Subject: [PATCH v13 08/35] x86/fred: Disable FRED by default in its early stage
-Date: Tue,  5 Dec 2023 02:49:57 -0800
-Message-ID: <20231205105030.8698-9-xin3.li@intel.com>
+Subject: [PATCH v13 09/35] x86/opcode: Add ERET[US] instructions to the x86 opcode map
+Date: Tue,  5 Dec 2023 02:49:58 -0800
+Message-ID: <20231205105030.8698-10-xin3.li@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20231205105030.8698-1-xin3.li@intel.com>
 References: <20231205105030.8698-1-xin3.li@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-To enable FRED, a new kernel command line option "fred" needs to be added.
+From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
+ERETU returns from an event handler while making a transition to ring 3,
+and ERETS returns from an event handler while staying in ring 0.
+
+Add instruction opcodes used by ERET[US] to the x86 opcode map; opcode
+numbers are per FRED spec v5.0.
+
+Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
 Tested-by: Shan Kang <shan.kang@intel.com>
+Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 Signed-off-by: Xin Li <xin3.li@intel.com>
 ---
- Documentation/admin-guide/kernel-parameters.txt | 3 +++
- arch/x86/kernel/cpu/common.c                    | 3 +++
- 2 files changed, 6 insertions(+)
+ arch/x86/lib/x86-opcode-map.txt       | 2 +-
+ tools/arch/x86/lib/x86-opcode-map.txt | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 65731b060e3f..6992b392e8d3 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1526,6 +1526,9 @@
- 			Warning: use of this parameter will taint the kernel
- 			and may cause unknown problems.
+diff --git a/arch/x86/lib/x86-opcode-map.txt b/arch/x86/lib/x86-opcode-map.txt
+index 1efe1d9bf5ce..12af572201a2 100644
+--- a/arch/x86/lib/x86-opcode-map.txt
++++ b/arch/x86/lib/x86-opcode-map.txt
+@@ -1052,7 +1052,7 @@ EndTable
  
-+	fred		[X86-64]
-+			Enable flexible return and event delivery
-+
- 	ftrace=[tracer]
- 			[FTRACE] will set and start the specified tracer
- 			as early as possible in order to facilitate early
-diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index 4d4b87c6885d..68102acd63b0 100644
---- a/arch/x86/kernel/cpu/common.c
-+++ b/arch/x86/kernel/cpu/common.c
-@@ -1491,6 +1491,9 @@ static void __init cpu_parse_early_param(void)
- 	char *argptr = arg, *opt;
- 	int arglen, taint = 0;
+ GrpTable: Grp7
+ 0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B) | WRMSRNS (110),(11B)
+-1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
++1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B) | ERETU (F3),(010),(11B) | ERETS (F2),(010),(11B)
+ 2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
+ 3: LIDT Ms
+ 4: SMSW Mw/Rv
+diff --git a/tools/arch/x86/lib/x86-opcode-map.txt b/tools/arch/x86/lib/x86-opcode-map.txt
+index 1efe1d9bf5ce..12af572201a2 100644
+--- a/tools/arch/x86/lib/x86-opcode-map.txt
++++ b/tools/arch/x86/lib/x86-opcode-map.txt
+@@ -1052,7 +1052,7 @@ EndTable
  
-+	if (!cmdline_find_option_bool(boot_command_line, "fred"))
-+		setup_clear_cpu_cap(X86_FEATURE_FRED);
-+
- #ifdef CONFIG_X86_32
- 	if (cmdline_find_option_bool(boot_command_line, "no387"))
- #ifdef CONFIG_MATH_EMULATION
+ GrpTable: Grp7
+ 0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B) | WRMSRNS (110),(11B)
+-1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
++1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B) | ERETU (F3),(010),(11B) | ERETS (F2),(010),(11B)
+ 2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
+ 3: LIDT Ms
+ 4: SMSW Mw/Rv
 -- 
 2.43.0
 
