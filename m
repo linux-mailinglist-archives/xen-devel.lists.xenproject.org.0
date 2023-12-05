@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9921980590C
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:45:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648065.1012013 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AB5C80590E
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:47:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648070.1012023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAXbz-00016x-6m; Tue, 05 Dec 2023 15:45:27 +0000
+	id 1rAXdo-0002SV-HW; Tue, 05 Dec 2023 15:47:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648065.1012013; Tue, 05 Dec 2023 15:45:27 +0000
+Received: by outflank-mailman (output) from mailman id 648070.1012023; Tue, 05 Dec 2023 15:47:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAXbz-00013H-3M; Tue, 05 Dec 2023 15:45:27 +0000
-Received: by outflank-mailman (input) for mailman id 648065;
- Tue, 05 Dec 2023 15:45:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rAXdo-0002Qy-Eo; Tue, 05 Dec 2023 15:47:20 +0000
+Received: by outflank-mailman (input) for mailman id 648070;
+ Tue, 05 Dec 2023 15:47:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAXbx-00011j-8l
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:45:25 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4d3a07bf-9385-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 16:45:23 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-333536432e0so1308747f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:45:23 -0800 (PST)
+ id 1rAXdn-0002Qs-M5
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:47:19 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9187d480-9385-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 16:47:18 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3333a3a599fso1811344f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:47:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i18-20020adfefd2000000b003334a1e92dasm5619094wrp.70.2023.12.05.07.45.21
+ t20-20020a05600c199400b0040b36ad5413sm19093937wmq.46.2023.12.05.07.47.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 07:45:22 -0800 (PST)
+ Tue, 05 Dec 2023 07:47:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d3a07bf-9385-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 9187d480-9385-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701791122; x=1702395922; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701791237; x=1702396037; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=F752FJDv0lL6He1JsQDOS7E7JD7qZHZ3sbRhf2iA3sA=;
-        b=IUUChb6pJ22mSO1JomprpG4Q4+TZVQ28SYGl7cl1TyxQI9NsSqvtO8Gq/8zKJulDuu
-         A/3/TIvx5pThw8nkjfsU+p+gMz9Dd3tb5iicRz1iIWa+BizezGiN2FaW9bi2HP6cR/cf
-         xnSORUYayDwoXf6wWVKhTJAFM66ldZl/Ehs2CkN2LhT0s48WB1mrryb+I+xptJ3QKrd+
-         lYiSdJ6YPEF3Hcx/riix3QcXSk20xR+oh9pJC89A0VS+jFu95I2+zcQ8Qkx87+nJkbcM
-         mqLob4Vqvmc/2h81owD6Ef/yG/MUZRFvWT/PhIWkEi6LKwt3z7OCWwzDaWdspgNZzBqb
-         GgMg==
+        bh=65eTcWf9uOrFD9ZNDzI5Ko3Ji4eS0sQsuPZrLjadFZ8=;
+        b=MjDEbyollXl1IIsIlG4r1PiKrqPg5H10J42/D9uVyUGzXuobMrhmNJlL2pIPVPqbEG
+         UV98xRXv/nFXXOAfm+H2RP1mro+i60mMjs0Duhl4s8pP+ma06CLp5gre6uI9E50uPcqh
+         zEKbSaIX6kbjmu3n2pJWchXaxsFzqOMN9gEATE99Lw0CTa+dOO0pfye73FYin4TnQJZf
+         m36POp+MPCp7JGBBHSKkagY1GZc0eU27Go3iddQRNZN1GggWIhxyDK4Fi3qoVmK3dWy3
+         xEQcm1f5PiTn/xmb8YbDuX0thojdnfwTtVj2t+5Yitf0rS2WSk+DIccVekklIR0Z0w88
+         Au3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701791122; x=1702395922;
+        d=1e100.net; s=20230601; t=1701791237; x=1702396037;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=F752FJDv0lL6He1JsQDOS7E7JD7qZHZ3sbRhf2iA3sA=;
-        b=jA72ORZEW7RndE5PfTsPGMhTCapxrIXJswW2ukEiqZOGQSAz5rMNLSJSCfvls3O326
-         2eB2cFGpTzm85i8buofvpW62f8U4eUc2+Wl69v/jgZmNR6lJc19AKQg6AyM1JaHh2XVE
-         NjkhX1d+YQkAIbcWJfgcdpO1syO/r189x25O6fXanNdvd4iuRz6O8Kpi8JVyCsgUDbYb
-         UwwUl6QoJuQgx8pyxVDKAqOPSScEV4CbY9y1XJY+bh3TwYaF0gxhNCYrLFPJ+u0+2n3I
-         3FENid6efzLy/zV1Pa0zDx744XlU70PBEyJOlX66xp4miT99Xag0XNyxg/tPWdO+cQfq
-         TlLg==
-X-Gm-Message-State: AOJu0YyfyEk4oGnFpqOMCXTlBAVoJ+DJk6Xb1lv1i4Sk8k2wAfjLZY3b
-	RfMxfWLqV71ljcCkhtDuyiGd
-X-Google-Smtp-Source: AGHT+IHmPa+Fh04Egs9qsR/amBSYFsYWmSjyzgPH+1Olcgy97k33HQdN44ZuA+n9IgMF/KE+Y85QDg==
-X-Received: by 2002:a5d:4102:0:b0:332:d07a:6f9d with SMTP id l2-20020a5d4102000000b00332d07a6f9dmr4236650wrp.53.1701791122726;
-        Tue, 05 Dec 2023 07:45:22 -0800 (PST)
-Message-ID: <39c16b91-ecd9-4d97-8fc2-497929103e7e@suse.com>
-Date: Tue, 5 Dec 2023 16:45:21 +0100
+        bh=65eTcWf9uOrFD9ZNDzI5Ko3Ji4eS0sQsuPZrLjadFZ8=;
+        b=Fh6cf0cuFs18eRRgmqGdr0QEyrWKquVMgQNmuVMem4LAOI+HGhmchmIAhQ/S1uz3dp
+         LOM3JwgkecOGx3sD2Ol/doV+78dlKS5gsr8cXUnY0WDuY+3H02LptRpvIG8sU6g1Tcbs
+         mg8T7nlCWAfYo6gqL8LEtgYqVZm7pkTyt9PJrX9RWBUYArJPkde0+lhnzkfQr98iMyix
+         ijiIYElF2WAneoEcdnCKv3jZUxBqZveN34OgNTPPkUp/+IpLniYRNFQopQsk6pSWyePJ
+         Ggj7jqH7ULa9Gkf5fhcb1HylrTsuNpLbLeRIsKMIi1vkMLH1GBeK5XrEKVqcRruog+Gs
+         sV/w==
+X-Gm-Message-State: AOJu0YybCb5Goz/pCR60s1P3/R2d8vBQ2kMJngObgrRdzX000o4GOYgt
+	ZQIsC38NyqfE2bBG6SRtNOvJ
+X-Google-Smtp-Source: AGHT+IGEsd53zyyugF5jJ/xSSq4kaysAmNegTfVcdhodOxwji7USVQqgIOwsQzmVRR8+K02xUwfSfA==
+X-Received: by 2002:a05:600c:4d0f:b0:40b:5e56:7b66 with SMTP id u15-20020a05600c4d0f00b0040b5e567b66mr653280wmp.175.1701791237285;
+        Tue, 05 Dec 2023 07:47:17 -0800 (PST)
+Message-ID: <798cfd87-7c10-41e9-a427-c7177da4d063@suse.com>
+Date: Tue, 5 Dec 2023 16:47:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] x86/livepatch: set function alignment to ensure
- minimal function size
+Subject: Re: [PATCH v2 5/6] x86/iommu: switch hwdom IOMMU to use a rangeset
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20231128100352.35430-1-roger.pau@citrix.com>
- <20231128100352.35430-2-roger.pau@citrix.com>
- <ddbf1fad-e0c1-4b7c-9734-71d4997b5aa0@citrix.com> <ZW87Qq3Hw4ql-ZFw@macbook>
- <29b2d864-2b3f-4a74-9d61-534523e842cd@suse.com> <ZW9DkoiVHhlzM6yA@macbook>
+Cc: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20231204094305.59267-1-roger.pau@citrix.com>
+ <20231204094305.59267-6-roger.pau@citrix.com>
+ <095c2f4c-9b10-4ab8-95ea-101f62096678@suse.com> <ZW9FM44pEIn4odkn@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,41 +110,86 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZW9DkoiVHhlzM6yA@macbook>
+In-Reply-To: <ZW9FM44pEIn4odkn@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.12.2023 16:36, Roger Pau Monné wrote:
-> On Tue, Dec 05, 2023 at 04:14:57PM +0100, Jan Beulich wrote:
->> On 05.12.2023 16:01, Roger Pau Monné wrote:
->>> On Tue, Dec 05, 2023 at 01:42:42PM +0000, Andrew Cooper wrote:
->>>> As for the subject, it's not really about size; the function size is
->>>> still going to be small irrespective of the alignment.
->>>
->>> What about wording it like:
->>>
->>> x86/livepatch: set function alignment to ensure minimal space between functions
+On 05.12.2023 16:43, Roger Pau Monné wrote:
+> On Tue, Dec 05, 2023 at 04:27:05PM +0100, Jan Beulich wrote:
+>> On 04.12.2023 10:43, Roger Pau Monne wrote:
+>>> @@ -476,58 +406,55 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>>>      if ( !map )
+>>>          panic("IOMMU init: unable to allocate rangeset\n");
+>>>  
+>>> -    max_pfn = (GB(4) >> PAGE_SHIFT) - 1;
+>>> -    top = max(max_pdx, pfn_to_pdx(max_pfn) + 1);
+>>> +    if ( iommu_hwdom_inclusive )
+>>> +    {
+>>> +        /* Add the whole range below 4GB, UNUSABLE regions will be removed. */
+>>> +        rc = rangeset_add_range(map, 0, max_pfn);
+>>> +        if ( rc )
+>>> +            panic("IOMMU inclusive mappings can't be added: %d\n",
+>>> +                  rc);
+>>> +    }
+>>>  
+>>> -    for ( i = 0, start = 0, count = 0; i < top; )
+>>> +    for ( i = 0; i < e820.nr_map; i++ )
+>>>      {
+>>> -        unsigned long pfn = pdx_to_pfn(i);
+>>> -        unsigned int perms = hwdom_iommu_map(d, pfn, max_pfn);
+>>> +        struct e820entry entry = e820.map[i];
+>>>  
+>>> -        if ( !perms )
+>>> -            /* nothing */;
+>>> -        else if ( paging_mode_translate(d) )
+>>> +        switch ( entry.type )
+>>>          {
+>>> -            int rc;
+>>> +        case E820_UNUSABLE:
+>>> +            if ( !iommu_hwdom_inclusive || PFN_DOWN(entry.addr) > max_pfn )
+>>> +                continue;
 >>
->> This still wouldn't be right, as there may be no padding at all between
->> functions (if they're just the right size).
+>> The !iommu_hwdom_inclusive part isn't really needed here, is it? The ...
 > 
-> But no padding would still be fine given the text above, as then the
-> minimal space requirement is already meet?
+> Nor the PFN_DOWN(entry.addr) > max_pfn.
+
+Hmm, I couldn't convince myself that could also be dropped.
+
+>>> -            rc = p2m_add_identity_entry(d, pfn,
+>>> -                                        perms & IOMMUF_writable ? p2m_access_rw
+>>> -                                                                : p2m_access_r,
+>>> -                                        0);
+>>> +            rc = rangeset_remove_range(map, PFN_DOWN(entry.addr),
+>>> +                                       PFN_DOWN(entry.addr + entry.size - 1));
+>>
+>> ... call here would then simply be a no-op, as it looks. And things would
+>> overall look more safe if the removal was skipped for fewer reasons.
 > 
->> Maybe "minimal distance
->> between function entry points"? Getting long-ish, though ...
+> OK, the removal can be done unconditionally if so desired.
 > 
-> Oh, I see.  You want to explicitly mention the distance is between
-> function entry points, as otherwise one way to read the subject would
-> be distance between function end and next function entry point?
+>>> @@ -605,7 +532,7 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>>>      rangeset_destroy(map);
+>>>  
+>>>      /* Use if to avoid compiler warning */
+>>> -    if ( iommu_iotlb_flush_all(d, flush_flags) )
+>>> +    if ( iommu_iotlb_flush_all(d, map_data.flush_flags) )
+>>>          return;
+>>>  }
+>>
+>> Ah yes, here is said change. But I think for correctness this wants
+>> moving to the earlier patch.
+> 
+> OK, so something like:
+> 
+> map_data.flush_flags |= flush_flags;
 
-Yes, I saw no other way of reading it. IOW ...
-
-> It's indeed a bit long for my taste, but I don't mind adjusting if you
-> think the current wording could cause confusion.
-
-... it already did cause confusion. But maybe we can still think of
-shrinking the result some ...
+Or simply drop flush_flags here right away (read: replace by map.flush_flags).
 
 Jan
+
+> And adjusting the iommu_iotlb_flush_all() would be fine in this patch
+> context.
+> 
+> Thanks, Roger.
+
 
