@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 496E38062E2
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 00:22:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648683.1012653 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 589B68062F1
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 00:25:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648687.1012662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAejG-0008FZ-Dp; Tue, 05 Dec 2023 23:21:26 +0000
+	id 1rAenP-0000Tk-W4; Tue, 05 Dec 2023 23:25:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648683.1012653; Tue, 05 Dec 2023 23:21:26 +0000
+Received: by outflank-mailman (output) from mailman id 648687.1012662; Tue, 05 Dec 2023 23:25:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAejG-0008Cv-9I; Tue, 05 Dec 2023 23:21:26 +0000
-Received: by outflank-mailman (input) for mailman id 648683;
- Tue, 05 Dec 2023 23:21:24 +0000
+	id 1rAenP-0000Rq-TL; Tue, 05 Dec 2023 23:25:43 +0000
+Received: by outflank-mailman (input) for mailman id 648687;
+ Tue, 05 Dec 2023 23:25:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=MQDs=HQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rAejE-0008Cp-J0
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 23:21:24 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1rAenN-0000Ri-N1
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 23:25:41 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe3d2a87-93c4-11ee-98e5-6d05b1d4d9a1;
- Wed, 06 Dec 2023 00:21:19 +0100 (CET)
+ id 9a7553cf-93c5-11ee-98e5-6d05b1d4d9a1;
+ Wed, 06 Dec 2023 00:25:40 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id EF82D6175C;
- Tue,  5 Dec 2023 23:21:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DA7EC433C8;
- Tue,  5 Dec 2023 23:21:16 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id DE3A1B81D64;
+ Tue,  5 Dec 2023 23:25:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A034BC433C8;
+ Tue,  5 Dec 2023 23:25:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,224 +41,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe3d2a87-93c4-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: 9a7553cf-93c5-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701818477;
-	bh=+TC32LmrftKNUUrW8xP/QIC7oUPugt5N6HpLLFJkLX0=;
+	s=k20201202; t=1701818739;
+	bh=/8UjRmebeDMvTDORrR3C6SUgdeWgmCE89/ql4seGRgc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HVUdPIVh45xs9Z3HB8pojiebkGPYrcELOupLdybKMiQsQ1gXptrt4wwaQzQi5Qszj
-	 VlScYL812D1q3SanBPYzUj6wgQvOeGUMwNvok4TKJSfGBroQbE2qBLWdfweGSR0hJZ
-	 /KLDjnGbPRE5idZ+qa1v0OtQPmgWoX57oEd3SBrqldE7c0G2HbkEZXBXEMxW6k28Ki
-	 VsGGXzS6XSa3MOsjIjxdHXLLPA/zjZ42KApm6u2bZArXM8nkJ8f/7PnLrE6J8gQEwB
-	 te/hc29m6eDSgR9m9zFHuv3GVbJ0ez1s5K+M58lS/lt5hWd9QKBVpkVtOnLA9Zjcac
-	 6RUrSizIO4hBg==
-Date: Tue, 5 Dec 2023 15:21:14 -0800 (PST)
+	b=pTp6HvG/XJC0kOIjL+lRLBVkdPuNhUsqodoIbYiiTfzW1OXo0NpOBIRR9pwscnl/v
+	 gGKLcitvv8adk+GxVNvX07qUVEx9Sm8ZK99td4+frf1pzKUhM+jAkpuNe/6enEVPxT
+	 6rQsE+5lTSldlUPJ+CwPEl1u+DTkLukQpGcOBTFsZ/lTLdi5UFBaKf1L49BxIsR5FI
+	 mhHSw/thNlWom2PfZ5jkVS/9hbf11QNPrakC/lUw8i5WTDtGWuIfYjnPDwFDB6ydG3
+	 pdlJSiM5U5sZ4yJBYlegPg5DIa30UcJY0j2dUaaUP7T1InkEltoIhFwxz0d/06quhQ
+	 JmFDI4+nwkAag==
+Date: Tue, 5 Dec 2023 15:25:36 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Ayan Kumar Halder <ayankuma@amd.com>, Michal Orzel <michal.orzel@amd.com>, 
-    Ayan Kumar Halder <ayan.kumar.halder@amd.com>, sstabellini@kernel.org, 
-    stefano.stabellini@amd.com, bertrand.marquis@arm.com, 
-    Volodymyr_Babchuk@epam.com, xen-devel@lists.xenproject.org
-Subject: Re: [RFC PATCH] xen/arm: Add emulation of Debug Data Transfer
- Registers
-In-Reply-To: <50372bd4-5e1a-4d38-abd3-19abf8e82591@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2312051503060.110490@ubuntu-linux-20-04-desktop>
-References: <20231201185009.1719183-1-ayan.kumar.halder@amd.com> <0bd65e25-aec2-4294-9a73-1cdaece52242@xen.org> <9ffe5a34-d1f4-4f4a-82eb-77c92f71040c@amd.com> <ca91f71b-9633-495f-9fb2-731bd250a561@xen.org> <8547fc3b-4e77-45d7-8063-1bee869d07db@amd.com>
- <3a9efd72-07cc-4b1d-8814-d4f6df4e6230@xen.org> <73554150-9880-447c-ac2b-e4f3ef0f76be@amd.com> <0d232ffe-1eb1-420b-af2c-70e16088a9b6@xen.org> <03a91b0f-eabe-47bd-b9fb-a9e15bdd121f@amd.com> <7420ada1-cc6c-48cf-9b2d-4c09e236dfdf@amd.com>
- <50372bd4-5e1a-4d38-abd3-19abf8e82591@xen.org>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
+Subject: Re: [PATCH v6 4/5] [FUTURE] xen/arm: enable vPCI for domUs
+In-Reply-To: <075bae3d-c255-4354-9917-191cce3ba1b1@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2312051524210.110490@ubuntu-linux-20-04-desktop>
+References: <20231113222118.825758-1-stewart.hildebrand@amd.com> <20231113222118.825758-5-stewart.hildebrand@amd.com> <ZWmkh0Xeaynh43N7@macbook> <alpine.DEB.2.22.394.2312011847520.110490@ubuntu-linux-20-04-desktop> <ZW2wuqXW-DneUVi0@macbook>
+ <alpine.DEB.2.22.394.2312041333250.110490@ubuntu-linux-20-04-desktop> <ZW8EkQLTwEEK6fXC@macbook> <8980b420-8e6a-4dd9-ba5f-bd2eb527c2f7@amd.com> <ZW9ZYeDD7k146LsB@macbook> <075bae3d-c255-4354-9917-191cce3ba1b1@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-365692561-1701818477=:110490"
+Content-Type: multipart/mixed; boundary="8323329-1995270885-1701818739=:110490"
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-365692561-1701818477=:110490
+--8323329-1995270885-1701818739=:110490
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8BIT
 
-On Tue, 5 Dec 2023, Julien Grall wrote:
-> Hi Ayan,
-> 
-> On 05/12/2023 12:50, Ayan Kumar Halder wrote:
-> > Hi Julien/All,
+On Tue, 5 Dec 2023, Stewart Hildebrand wrote:
+> On 12/5/23 12:09, Roger Pau Monné wrote:
+> > On Tue, Dec 05, 2023 at 11:27:03AM -0500, Stewart Hildebrand wrote:
+> >> On 12/5/23 06:08, Roger Pau Monné wrote:
+> >>> On Mon, Dec 04, 2023 at 02:07:51PM -0800, Stefano Stabellini wrote:
+> >>>> On Mon, 4 Dec 2023, Roger Pau Monné wrote:
+> >>>>> On Fri, Dec 01, 2023 at 06:56:32PM -0800, Stefano Stabellini wrote:
+> >>>>>> On Fri, 1 Dec 2023, Roger Pau Monné wrote:
+> >>>>>>> On Mon, Nov 13, 2023 at 05:21:13PM -0500, Stewart Hildebrand wrote:
+> >>>>>>>> @@ -1618,6 +1630,14 @@ int iommu_do_pci_domctl(
+> >>>>>>>>          bus = PCI_BUS(machine_sbdf);
+> >>>>>>>>          devfn = PCI_DEVFN(machine_sbdf);
+> >>>>>>>>  
+> >>>>>>>> +        if ( needs_vpci(d) && !has_vpci(d) )
+> >>>>>>>> +        {
+> >>>>>>>> +            printk(XENLOG_G_WARNING "Cannot assign %pp to %pd: vPCI support not enabled\n",
+> >>>>>>>> +                   &PCI_SBDF(seg, bus, devfn), d);
+> >>>>>>>> +            ret = -EPERM;
+> >>>>>>>> +            break;
+> >>>>>>>
+> >>>>>>> I think this is likely too restrictive going forward.  The current
+> >>>>>>> approach is indeed to enable vPCI on a per-domain basis because that's
+> >>>>>>> how PVH dom0 uses it, due to being unable to use ioreq servers.
+> >>>>>>>
+> >>>>>>> If we start to expose vPCI suport to guests the interface should be on
+> >>>>>>> a per-device basis, so that vPCI could be enabled for some devices,
+> >>>>>>> while others could still be handled by ioreq servers.
+> >>>>>>>
+> >>>>>>> We might want to add a new flag to xen_domctl_assign_device (used by
+> >>>>>>> XEN_DOMCTL_assign_device) in order to signal whether the device will
+> >>>>>>> use vPCI.
+> >>>>>>
+> >>>>>> Actually I don't think this is a good idea. I am all for flexibility but
+> >>>>>> supporting multiple different configurations comes at an extra cost for
+> >>>>>> both maintainers and contributors. I think we should try to reduce the
+> >>>>>> amount of configurations we support rather than increasing them
+> >>>>>> (especially on x86 where we have PV, PVH, HVM).
+> >>>>>
+> >>>>> I think it's perfectly fine to initially require a domain to have all
+> >>>>> its devices either passed through using vPCI or ireqs, but the
+> >>>>> interface IMO should allow for such differentiation in the future.
+> >>>>> That's why I think introducing a domain wide vPCI flag might not be
+> >>>>> the best option going forward.
+> >>>>>
+> >>>>> It would be perfectly fine for XEN_DOMCTL_assign_device to set a
+> >>>>> domain wide vPCI flag, iow:
+> >>>>>
+> >>>>> if ( HYPERCALL_VPCI_FLAG_SET && !has_vpci(d) )
+> >>>>> {
+> >>>>>     if ( has_arch_pdevs(d) )
+> >>>>>     {
+> >>>>>         printk("All passthrough devices must use the same backend\n");
+> >>>>>         return -EINVAL;
+> >>>>>     }
+> >>>>>
+> >>>>>     /* Set vPCI domain flag */
+> >>>>> }
+> >>>>
+> >>>> That would be fine by me, but maybe we can avoid this change too. I was
+> >>>> imagining that vPCI would be enabled at domain creation, not at runtime.
+> >>>> And that vPCI would be enabled by default for all PVH guests (once we
+> >>>> are past the initial experimental phase.)
+> >>>
+> >>> Then we don't even need a new CDF flag, and just enable vPCI when
+> >>> IOMMU is enabled?  IOW: we can key the enabling of vPCI to
+> >>> XEN_DOMCTL_CDF_iommu for specific domain types?
+> >>
+> >> There are many Arm based platforms that need to use iommu but don't have (or don't use) PCI, so we'd still like to have a separate vPCI flag.
 > > 
-> > On 05/12/2023 11:02, Michal Orzel wrote:
-> > > 
-> > > On 05/12/2023 11:42, Julien Grall wrote:
-> > > > 
-> > > > On 05/12/2023 10:30, Michal Orzel wrote:
-> > > > > 
-> > > > > On 05/12/2023 11:01, Julien Grall wrote:
-> > > > > > 
-> > > > > > On 05/12/2023 09:28, Michal Orzel wrote:
-> > > > > > > Hi Julien,
-> > > > > > > 
-> > > > > > > On 04/12/2023 20:55, Julien Grall wrote:
-> > > > > > > > 
-> > > > > > > > On 04/12/2023 13:02, Ayan Kumar Halder wrote:
-> > > > > > > > > On 04/12/2023 10:31, Julien Grall wrote:
-> > > > > > > > > > Hi Ayan,
-> > > > > > > > > Hi Julien,
-> > > > > > > > > > On 01/12/2023 18:50, Ayan Kumar Halder wrote:
-> > > > > > > > > > > Currently if user enables HVC_DCC config option in Linux,
-> > > > > > > > > > > it invokes
-> > > > > > > > > > > access to debug data transfer registers (ie DBGDTRTX_EL0
-> > > > > > > > > > > on arm64,
-> > > > > > > > > > > DBGDTRTXINT on arm32). As these registers are not
-> > > > > > > > > > > emulated, Xen injects
-> > > > > > > > > > > an undefined exception to the guest. And Linux crashes.
-> > > > > > > > > > I am missing some data points here to be able to say whether
-> > > > > > > > > > I would
-> > > > > > > > > > be ok with emulating the registers. So some questions:
-> > > > > > > > > >      * As you wrote below, HVC_DCC will return -ENODEV after
-> > > > > > > > > > this
-> > > > > > > > > > emulation. So may I ask what's the use case to enable it?
-> > > > > > > > > > (e.g. is
-> > > > > > > > > > there a distro turning this on?)
-> > > > > > > > > I am not aware of any distro using (or not using) this
-> > > > > > > > > feature. This
-> > > > > > > > > issue came to light during our internal testing, when HVC_DCC
-> > > > > > > > > was
-> > > > > > > > > enabled to use the debug console. When Linux runs without Xen,
-> > > > > > > > > then we
-> > > > > > > > > could observe the logs on the debug console. When Linux was
-> > > > > > > > > running as a
-> > > > > > > > > VM, it crashed.
-> > > > > > > > > 
-> > > > > > > > > My intention here was to do the bare minimum emulation so that
-> > > > > > > > > the crash
-> > > > > > > > > could be avoided.
-> > > > > > > > This reminds me a bit the discussion around "xen/arm64: Decode
-> > > > > > > > ldr/str
-> > > > > > > > post increment operations". I don't want Xen to contain
-> > > > > > > > half-backed
-> > > > > > > > emulation just to please an OS in certain configuration that
-> > > > > > > > doesn't
-> > > > > > > > seem to be often used.
-> > > > > > > > 
-> > > > > > > > Also, AFAICT, KVM is in the same situation...
-> > > > > > > Well, KVM is not in the same situation. It emulates all DCC regs
-> > > > > > > as RAZ/WI, so there
-> > > > > > > will be no fault on an attempt to access the DCC.
-> > > > > > Does this mean a guest will think the JTAG is availabe?
-> > > > > Yes, it will believe the DCC is available which is not a totally bad
-> > > > > idea. Yes, it will not have
-> > > > > any effect but at least covers the polling loop. The solution proposed
-> > > > > here sounds better but does not take
-> > > > > into account the busy while loop when sending the char. Linux DCC
-> > > > > earlycon does not make an initial check that runtime
-> > > > > driver does and will keep waiting in the loop if TXfull is set.
-> > > > > Emulating everything as RAZ/WI solves that.
-> > > > > As you can see, each solution has its flaws and depends on the OS
-> > > > > implementation.
-> > > > Right, which prove my earlier point. You are providing an emulation just
-> > > > to please a specific driver in Linux (not even the whole Linux). This is
-> > > > what I was the most concern of.
-> > I have sent out a patch ("[PATCH] tty: hvc: dcc: Check for TXfull condition
-> > while setting up early console") to fix this.
-> > > > 
-> > > > So ...
-> > > > 
-> > > > > > > In general, I think that if a register is not optional and does
-> > > > > > > not depend on other register
-> > > > > > > to be checked first (e.g. a feature/control register we emulate),
-> > > > > > > which implies that it is fully ok for a guest to
-> > > > > > > access it directly - we should at least try to do something not to
-> > > > > > > crash a guest.
-> > > > > > This is where we have opposing opinion. I view crashing a guest
-> > > > > > better
-> > > > > > than providing a wrong emulation because it gives a clear signal
-> > > > > > that
-> > > > > > the register they are trying to access will not function properly.
-> > > > > > 
-> > > > > > We had this exact same discussion a few years ago when Linux started
-> > > > > > to
-> > > > > > access GIC*_ACTIVER registers. I know that Stefano was for emulating
-> > > > > > them as RAZ but this had consequences on the domain side (Linux
-> > > > > > sometimes need to read them). We settled on printing a warning which
-> > > > > > is
-> > > > > > not great but better than claiming we properly emulate the register.
-> > > > > > 
-> > > > > > > I agree that this feature is not widely used. In fact I can only
-> > > > > > > find it implemented in Linux and U-BOOT
-> > > > > > > and the issue I found in DBGDSCRINT (no access from EL0, even
-> > > > > > > though we emulate REXT.UDCCdis as 0) only
-> > > > > > > proves that. At the same time, it does not cost us much to add
-> > > > > > > this trivial support.
-> > > > > > See above. If we provide an (even basic) emulation, we need to make
-> > > > > > sure
-> > > > > > it is correct and doesn't have a side effect on the guest. If we
-> > > > > > can't
-> > > > > > guarantee that (e.g. like for set/way when a device is assigned),
-> > > > > > then
-> > > > > > the best course of action is to crash the domain.
-> > > > > > 
-> > > > > > AFAICT, the proposed emulation would be ok.
-> > > > ... I will need to revise this statement. I am now against this patch.
-> > > Yes, the problem was tricky from the very beginning and I somewhat agree.
-> > > I prepared a POC with one solution
-> > > that Ayan extended and sent to gather feedback (hence RFC). I think we
-> > > should still wait for others
-> > > opinion (@Stefano, @Bertrand). I think the thread contains all the
-> > > necessary information
-> > > to decide what to do:
-> > > - do nothing* (guest crashes)
-> > > - emulate DCC the same way as KVM i.e. RAZ/WI (no crash, no busy loop,
-> > > guest keeps using DCC with no effect)
-> > > - emulate DCC with TXfull set to 1 (no crash, runtime DCC in Linux returns
-> > > -ENODEV, earlycon busy loop issue)
-> > > 
-> > > * I still think we should fix DBGDSCRINT but I can send a separate patch
-> > > (not really related to the DCC problem)
+> > OK, read below though - if we switch to vPCI being a descendant of
+> > IOREQ (so that the PCI config space decoding is done by IOREQ) we
+> > could hotplug vPCI managed devices at runtime without requiring any
+> > prior initialization at domain create, since the traps to the PCI
+> > config space would be setup by IOREQ.
 > > 
-> > Regardless if the linux hvc earlycon is fixed or not
-> > 
-> > @Julien , would you be ok with option 2 or 3 with a suitable warning ?
+> > We might need a PCI flag in order to signal whether the domain is
+> > intended to use PCI devices or not, and so whether IOREQ needs to
+> > setup PCI config space traps (either fully emulated or passthrough
+> > devices).  But that would be arch-specific AFAICT, as on x86 we
+> > always trap accesses to the PCI IO ports.
 > 
-> I am afraid the answer is no.
-> 
-> > Also will wait for Stefano's and Bertrand's opinions.
-> > 
-> > Crashing the guest would seem quite severe imo if there can be a better way
-> > (option 2 or 3) to tell that DCC is not available.
-> 
-> Well in option 2, you don't tell the DCC is not available. You just lie to it
-> claiming there is one but it is not behaving properly.
-> 
-> I agree that crashing a guest is bad, but is lying to the domain really
-> better? The consequence here is not that bad and hopefully it would be fairly
-> easy to find. But this is not always the case. So I definitely would place a
-> half-backed emulation more severe than a guest crash.
+> On Arm, the toolstack (or dom0less creation code) needs to construct a {v,ioreq}PCI root complex node in the device tree before guest boot. Attempting to hot plug such a device tree node at runtime sounds like a goal for the (far) future. On Arm, we don't trap the {v,ioreq}PCI config space by default, so, yes, we for sure would need such a {v,ioreq}PCI flag for setting up the {v,ioreq}PCI mmio handlers if we go this route.
 
-
-I see where Julien is coming from, but I would go with option two:
-"emulate DCC the same way as KVM". That's because I don't think we can
-get away with crashing the guest in all cases. Although the issue came
-up with a Linux guest, it could have been triggered by a proprietary
-operating system that we cannot change, and I think Xen should support
-running unmodified operating systems.
-
-If we go with a "half-backed emulation" solution, as Julien wrote, then
-it is better to be more similar to other hypervisors, that's why I chose
-option two instead of option three.
-
-But at the same time I recognize the validity of Julien's words and it
-makes me wonder if we should have a KCONFIG option or command line
-option to switch the Xen behavior. We could use it to gate all the
-"half-backed emulation" we do for compatibility.  Something like:
-
-config PARTIAL_EMULATION
-    bool "Partial Emulation"
-    ---help---
-     
-    Enables partial, not spec compliant, emulation of certain register
-    interfaces (e.g DCC UART) for guest compatibility. If you disable
-    this option, Xen will crash the guest if the guest tries to access
-    interfaces not fully emulated or virtualized.
-
-    If you enable this option, the guest might misbehave due to non-spec
-    compliant emulation done by Xen.
---8323329-365692561-1701818477=:110490--
+Yes and also dynamic configuration and hotplug are actually detrimental
+in safety configurations where you need as much as possible, ideally
+everything, to be specified at build time.
+--8323329-1995270885-1701818739=:110490--
 
