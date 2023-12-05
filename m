@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19AA7806191
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 23:18:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648415.1012543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02D7F80619D
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 23:22:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648446.1012552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAdji-0005V3-4C; Tue, 05 Dec 2023 22:17:50 +0000
+	id 1rAdnu-0006yD-Kh; Tue, 05 Dec 2023 22:22:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648415.1012543; Tue, 05 Dec 2023 22:17:50 +0000
+Received: by outflank-mailman (output) from mailman id 648446.1012552; Tue, 05 Dec 2023 22:22:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAdji-0005Si-0l; Tue, 05 Dec 2023 22:17:50 +0000
-Received: by outflank-mailman (input) for mailman id 648415;
- Tue, 05 Dec 2023 22:17:48 +0000
+	id 1rAdnu-0006ww-HW; Tue, 05 Dec 2023 22:22:10 +0000
+Received: by outflank-mailman (input) for mailman id 648446;
+ Tue, 05 Dec 2023 22:22:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=d1Yn=HQ=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
- id 1rAdjg-0005Sb-BY
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 22:17:48 +0000
-Received: from do158-143.mg.gitlab.com (do158-143.mg.gitlab.com
- [192.237.158.143]) by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
- id 1dd1df82-93bc-11ee-98e5-6d05b1d4d9a1;
- Tue, 05 Dec 2023 23:17:46 +0100 (CET)
-Received: from mg.gitlab.com (31.226.74.34.bc.googleusercontent.com
- [34.74.226.31]) by
- 74ed807fb134 with SMTP id 656fa188de2d347a6709260c (version=TLS1.3,
- cipher=TLS_AES_128_GCM_SHA256); Tue, 05 Dec 2023 22:17:44 GMT
+ id 1rAdnt-0006wq-3c
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 22:22:09 +0000
+Received: from so254-136.mailgun.net (so254-136.mailgun.net [198.61.254.136])
+ by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
+ id b9681029-93bc-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 23:22:07 +0100 (CET)
+Received: from mg.gitlab.com (65.90.74.34.bc.googleusercontent.com
+ [34.74.90.65]) by
+ 6ce6a2f21a3e with SMTP id 656fa28dec502225e008d55c (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Tue, 05 Dec 2023 22:22:05 GMT
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,25 +39,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 1dd1df82-93bc-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: b9681029-93bc-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
- q=dns/txt; s=mailo; t=1701814664; x=1701821864; h=List-Id:
+ q=dns/txt; s=mailo; t=1701814925; x=1701822125; h=List-Id:
  Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
  Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
- bh=DpVGlaxaZyP7rmFXEXIjZVCkjPU7Tf+947RhhmlbVNU=;
- b=gxUlbhK+SevQbZFw3tBYLwltL2BzCWp8Impmd6e6Kb6Nz8HwNPPp4kf+4UkDqjSv+NZn6ef/x8GMjE/C8P4bonKe6Vsuhh2ykZw6ecj1xdFVAPfaJp5IFj3+Tu1yioURJRY5PDGahwoWSydH3m0eMT34bIZkVRJl0fAH3h3TTr8=
-X-Mailgun-Sending-Ip: 192.237.158.143
+ bh=wNIxps3n0p5wwiU/QCXaz7/blVOCQS2t/EmwMDI3/So=;
+ b=Dkrr0VRsZM3VB1GJQM7Ol2Ukrr80Q1I0We6nOukut3mIww4EzucEMOE9lxoJQYSS0IzX49OFysWim4oKqsxMHQicK5g5bhVqfVFjoTqbNr+L7BcdZbYGiYO9qXERW/hWGBDhx7Zl181SGMsPGUBLRCFyha4Y7IxpApsoCeZawZY=
+X-Mailgun-Sending-Ip: 198.61.254.136
 X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
 Sender: gitlab@mg.gitlab.com
-Date: Tue, 05 Dec 2023 22:17:44 +0000
+Date: Tue, 05 Dec 2023 22:22:05 +0000
 From: GitLab <gitlab@mg.gitlab.com>
 Reply-To: GitLab <noreply@gitlab.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <656fa18880088_2c94a7080676@gitlab-sidekiq-catchall-v2-6c954d4f99-fqv94.mail>
+Message-ID: <656fa28dcec06_2c94c50800e@gitlab-sidekiq-catchall-v2-6c954d4f99-9tcwb.mail>
 Subject: xen | Failed pipeline for staging | 948e0330
 Mime-Version: 1.0
 Content-Type: multipart/alternative;
- boundary="--==_mimepart_656fa1886ab3a_2c94a708050";
+ boundary="--==_mimepart_656fa28dc6a22_2c94c507995";
  charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-GitLab-Project: xen
@@ -69,7 +69,7 @@ X-GitLab-Pipeline-Status: failed
 Auto-Submitted: auto-generated
 X-Auto-Response-Suppress: All
 
-----==_mimepart_656fa1886ab3a_2c94a708050
+----==_mimepart_656fa28dc6a22_2c94c507995
 Content-Type: text/plain;
  charset=UTF-8
 Content-Transfer-Encoding: 7bit
@@ -90,16 +90,12 @@ Committed by: Andrew Cooper ( https://gitlab.com/andyhhp )
 
 
 Pipeline #1096471389 ( https://gitlab.com/xen-project/xen/-/pipelines/1096471389 ) triggered by Ganis ( https://gitlab.com/ganis )
-had 2 failed jobs.
+had 1 failed job.
 
 Job #5688196651 ( https://gitlab.com/xen-project/xen/-/jobs/5688196651/raw )
 
 Stage: test
 Name: zen3p-pci-hvm-x86-64-gcc-debug
-Job #5688242125 ( https://gitlab.com/xen-project/xen/-/jobs/5688242125/raw )
-
-Stage: test
-Name: adl-pci-hvm-x86-64-gcc-debug
 
 -- 
 You're receiving this email because of your account on gitlab.com.
@@ -107,7 +103,7 @@ You're receiving this email because of your account on gitlab.com.
 
 
 
-----==_mimepart_656fa1886ab3a_2c94a708050
+----==_mimepart_656fa28dc6a22_2c94c507995
 Content-Type: text/html;
  charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
@@ -425,7 +421,7 @@ Ganis
 <td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
 sans-serif; color: #333333; font-size: 14px; font-weight: 400; line-heigh=
 t: 1.4; padding: 0 8px 16px;" align=3D"center">
-had 2 failed jobs
+had 1 failed job
 </td>
 </tr>
 <tr class=3D"table-warning">
@@ -434,7 +430,7 @@ rder-radius: 4px 4px 0 0; overflow: hidden; color: #d22852; font-size: 14=
 px; line-height: 1.4; padding: 8px 16px; border-color: #ededed; border-st=
 yle: solid; border-width: 1px 1px 0;" align=3D"center" bgcolor=3D"#fdf4f6=
 ">
-Failed jobs
+Failed job
 </td>
 </tr>
 <tr class=3D"section">
@@ -473,39 +469,6 @@ l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
 <a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5688196651" style=3D=
 "color: #3777b0; text-decoration: none;">
 zen3p-pci-hvm-x86-64-gcc-debug
-</a>
-
-</td>
-</tr>
-<tr class=3D"build-state">
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
-lor: #8c8c8c; font-weight: 500; font-size: 14px; padding: 16px 0;">
-<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
-le=3D"border-collapse: collapse;">
-<tbody>
-<tr>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
-lor: #d22f57; font-weight: 500; font-size: 16px; padding-right: 8px; line=
--height: 10px;" valign=3D"middle">
-<img alt=3D"&#10006;" height=3D"10" src=3D"https://gitlab.com/assets/mail=
-ers/ci_pipeline_notif_v1/icon-x-red-67056b7b99899e30453df79abfbe16162f6a2=
-6ed789d8236f81afcaea216ffe6.gif" style=3D"display: block;" width=3D"10" /=
->
-</td>
-<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
-lor: #8c8c8c; font-weight: 500; font-size: 14px;" valign=3D"middle">
-test
-</td>
-</tr>
-</tbody>
-</table>
-</td>
-<td align=3D"right" style=3D"font-family: 'Helvetica Neue',Helvetica,Aria=
-l,sans-serif; color: #8c8c8c; font-weight: 500; font-size: 14px; padding:=
- 16px 0;">
-<a href=3D"https://gitlab.com/xen-project/xen/-/jobs/5688242125" style=3D=
-"color: #3777b0; text-decoration: none;">
-adl-pci-hvm-x86-64-gcc-debug
 </a>
 
 </td>
@@ -559,5 +522,5 @@ lor: #5c5c5c; padding: 25px 0;">
 </body>
 </html>
 
-----==_mimepart_656fa1886ab3a_2c94a708050--
+----==_mimepart_656fa28dc6a22_2c94c507995--
 
