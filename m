@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0E15806171
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 23:08:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648367.1012533 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19AA7806191
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 23:18:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648415.1012543 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAda6-00025M-1T; Tue, 05 Dec 2023 22:07:54 +0000
+	id 1rAdji-0005V3-4C; Tue, 05 Dec 2023 22:17:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648367.1012533; Tue, 05 Dec 2023 22:07:54 +0000
+Received: by outflank-mailman (output) from mailman id 648415.1012543; Tue, 05 Dec 2023 22:17:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAda5-00023h-UY; Tue, 05 Dec 2023 22:07:53 +0000
-Received: by outflank-mailman (input) for mailman id 648367;
- Tue, 05 Dec 2023 22:07:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rAdji-0005Si-0l; Tue, 05 Dec 2023 22:17:50 +0000
+Received: by outflank-mailman (input) for mailman id 648415;
+ Tue, 05 Dec 2023 22:17:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=d1Yn=HQ=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
- id 1rAda3-00023b-Nv
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 22:07:51 +0000
-Received: from m226-146.mailgun.net (m226-146.mailgun.net [159.135.226.146])
- by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
- id b93e801a-93ba-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 23:07:49 +0100 (CET)
-Received: from mg.gitlab.com (30.226.74.34.bc.googleusercontent.com
- [34.74.226.30]) by
- 4610e329f881 with SMTP id 656f9f32d0b89648ec324964 (version=TLS1.3,
- cipher=TLS_AES_128_GCM_SHA256); Tue, 05 Dec 2023 22:07:46 GMT
+ id 1rAdjg-0005Sb-BY
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 22:17:48 +0000
+Received: from do158-143.mg.gitlab.com (do158-143.mg.gitlab.com
+ [192.237.158.143]) by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
+ id 1dd1df82-93bc-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 23:17:46 +0100 (CET)
+Received: from mg.gitlab.com (31.226.74.34.bc.googleusercontent.com
+ [34.74.226.31]) by
+ 74ed807fb134 with SMTP id 656fa188de2d347a6709260c (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Tue, 05 Dec 2023 22:17:44 GMT
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,25 +39,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: b93e801a-93ba-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 1dd1df82-93bc-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
- q=dns/txt; s=mailo; t=1701814066; x=1701821266; h=List-Id:
+ q=dns/txt; s=mailo; t=1701814664; x=1701821864; h=List-Id:
  Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
  Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
- bh=Cjo7F8TKn7gz46jC9uheBQKpHZYOyZ4POj15mJi5NdY=;
- b=PQ1GJ0OpAZ8l9lG5VrC3X74wl1ikuiR82W+NftWg+Hx3dzPoMQLtSRaqa3Vro47gbmX0gLS/LwMsd1zSAKtaEe+XeF5sAvT48dRN+OprzRdSLesACNvOFREem2O4aWf1fTiI2zKoQiAlzt9egm5aLQjkPEU1jemw+ziuKI0cdWI=
-X-Mailgun-Sending-Ip: 159.135.226.146
+ bh=DpVGlaxaZyP7rmFXEXIjZVCkjPU7Tf+947RhhmlbVNU=;
+ b=gxUlbhK+SevQbZFw3tBYLwltL2BzCWp8Impmd6e6Kb6Nz8HwNPPp4kf+4UkDqjSv+NZn6ef/x8GMjE/C8P4bonKe6Vsuhh2ykZw6ecj1xdFVAPfaJp5IFj3+Tu1yioURJRY5PDGahwoWSydH3m0eMT34bIZkVRJl0fAH3h3TTr8=
+X-Mailgun-Sending-Ip: 192.237.158.143
 X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
 Sender: gitlab@mg.gitlab.com
-Date: Tue, 05 Dec 2023 22:07:46 +0000
+Date: Tue, 05 Dec 2023 22:17:44 +0000
 From: GitLab <gitlab@mg.gitlab.com>
 Reply-To: GitLab <noreply@gitlab.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <656f9f322b0f2_2d94c28320c6@gitlab-sidekiq-catchall-v2-6c954d4f99-tkqwf.mail>
+Message-ID: <656fa18880088_2c94a7080676@gitlab-sidekiq-catchall-v2-6c954d4f99-fqv94.mail>
 Subject: xen | Failed pipeline for staging | 948e0330
 Mime-Version: 1.0
 Content-Type: multipart/alternative;
- boundary="--==_mimepart_656f9f3221a25_2d94c2831944";
+ boundary="--==_mimepart_656fa1886ab3a_2c94a708050";
  charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-GitLab-Project: xen
@@ -69,7 +69,7 @@ X-GitLab-Pipeline-Status: failed
 Auto-Submitted: auto-generated
 X-Auto-Response-Suppress: All
 
-----==_mimepart_656f9f3221a25_2d94c2831944
+----==_mimepart_656fa1886ab3a_2c94a708050
 Content-Type: text/plain;
  charset=UTF-8
 Content-Transfer-Encoding: 7bit
@@ -107,7 +107,7 @@ You're receiving this email because of your account on gitlab.com.
 
 
 
-----==_mimepart_656f9f3221a25_2d94c2831944
+----==_mimepart_656fa1886ab3a_2c94a708050
 Content-Type: text/html;
  charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
@@ -559,5 +559,5 @@ lor: #5c5c5c; padding: 25px 0;">
 </body>
 </html>
 
-----==_mimepart_656f9f3221a25_2d94c2831944--
+----==_mimepart_656fa1886ab3a_2c94a708050--
 
