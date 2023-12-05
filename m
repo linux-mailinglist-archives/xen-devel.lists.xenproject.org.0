@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72A08805033
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 11:31:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647525.1010733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CC7B805034
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 11:32:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647528.1010743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAShQ-0004Jk-IQ; Tue, 05 Dec 2023 10:30:44 +0000
+	id 1rASiw-0004vs-Ug; Tue, 05 Dec 2023 10:32:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647525.1010733; Tue, 05 Dec 2023 10:30:44 +0000
+Received: by outflank-mailman (output) from mailman id 647528.1010743; Tue, 05 Dec 2023 10:32:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAShQ-0004HP-EL; Tue, 05 Dec 2023 10:30:44 +0000
-Received: by outflank-mailman (input) for mailman id 647525;
- Tue, 05 Dec 2023 10:30:43 +0000
+	id 1rASiw-0004tU-Rg; Tue, 05 Dec 2023 10:32:18 +0000
+Received: by outflank-mailman (input) for mailman id 647528;
+ Tue, 05 Dec 2023 10:32:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ibAO=HQ=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rAShP-0004HJ-5y
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 10:30:43 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2060b.outbound.protection.outlook.com
- [2a01:111:f400:7e8b::60b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rASiv-0004tO-92
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 10:32:17 +0000
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [2a00:1450:4864:20::441])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 558327ed-9359-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 11:30:40 +0100 (CET)
-Received: from DM6PR02CA0082.namprd02.prod.outlook.com (2603:10b6:5:1f4::23)
- by SN7PR12MB7810.namprd12.prod.outlook.com (2603:10b6:806:34c::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34; Tue, 5 Dec
- 2023 10:30:35 +0000
-Received: from DS2PEPF0000343F.namprd02.prod.outlook.com
- (2603:10b6:5:1f4:cafe::eb) by DM6PR02CA0082.outlook.office365.com
- (2603:10b6:5:1f4::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34 via Frontend
- Transport; Tue, 5 Dec 2023 10:30:35 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS2PEPF0000343F.mail.protection.outlook.com (10.167.18.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Tue, 5 Dec 2023 10:30:34 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 5 Dec
- 2023 04:30:31 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 5 Dec
- 2023 02:30:17 -0800
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Tue, 5 Dec 2023 04:30:16 -0600
+ id 8e584258-9359-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 11:32:14 +0100 (CET)
+Received: by mail-wr1-x441.google.com with SMTP id
+ ffacd0b85a97d-3334254cfa3so1390408f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 02:32:14 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ s1-20020a5d5101000000b003333521a1cesm10126337wrt.57.2023.12.05.02.32.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Dec 2023 02:32:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,156 +45,333 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 558327ed-9359-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dtT45+Ioq5gZxwS1AE3gGZCj9bdkvehY2+9ClAd4AlwD/7KYM1YAjr5xjqJD2UE7Xl/KHxpF2vFS0oYG/4wWgIR9lt0wj3iAzSro4V89PkO1GYmegjAOrzRzKt0d3n9ze7iQmhsGOwh1aJhQk5xdDc2AcdxYl5yjbCJF/Rl5spUwtEd0mHl6Ba+5CgxP/aT9ya+1iLJy4UQrhkJ9KYBgmt+MbO1LYctjClMBNSxZ1GGRTDcrkAFNWgG0hflUI8MT0m7qp0KaDiDHkBZVxsI15I+Vf6VloJtwOzAohOxxP+b8pD/6ey/5w1cchCH5l+zRmiX+KFvsDZNRzzF7BiwutQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XRRycqvsnZ55Tn/c5Gjr5mCYcItaczlpUEwVwLZmPmY=;
- b=DLXdMBwwSpdz7Uv1GHubYYkXduzTzEXai2PKbNl5zW+MKHjo7jn8J0kL2QDz362tJZeF4oX8XZ0KGj8hwChd+Z84qbno7b/6qEVyAkN8cQ3TPbYi4RN/hU2Pdey3MHGGlMwKQInCvTeTD1Ba7uLllkwiXqH03ZFJ6RyoHAB1NrWRI5E9kp9yxr9DOyhVacojaFItIyddjD+1TZadEJSfTkTMBixdaKVcmWRqcRWG1+blqZkTnSQftGzfxx0I/4ccmQQoRLCeuT64xTj7Vll6lBdfmCfI94GcLB5GJMlBQT09Zay/lrIvMEXJixL0V9+SKGpP2f3Q+5vV8XLp4lRy+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XRRycqvsnZ55Tn/c5Gjr5mCYcItaczlpUEwVwLZmPmY=;
- b=LWs7/ToKJ2zV3PsX+2obDOz54ympxy0tpRTIqb+P0746CtujEDhHlxdR/LC2BwoPeUNLJBlKvnbjrhF2UP1sG9y8kBgiV7G3VYKJzFFKGudFHOTyLEfTl1+UghHbpQh71u+auqtW5ccI8ndciUnIKfbBc23ALPxpN5IxpZz0W8A=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <73554150-9880-447c-ac2b-e4f3ef0f76be@amd.com>
-Date: Tue, 5 Dec 2023 11:30:15 +0100
+X-Inumbo-ID: 8e584258-9359-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1701772334; x=1702377134; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DVNqy7YsuIkl8aQ4ZbP26tEAG4Op9jDFwyUj1GfebWM=;
+        b=b+SyUWHcExnaaQjOe4lmvdQPLKFp/2x3VeWED/Yx+u3ddbVV/7HiJN3O81+zAomAgu
+         j60qdcWTmBIBHoX+OSCKPQQjbcgnvoXeRZp9p14Gtj/G4H/XNWpCvvGlKablJ/aFtYle
+         /V9XN+TONiDJIpMEf0tLiRPsxdCXKAaid4xYMp/SeP9mdAZ+k+0QQtkQLovfOzOrHGf4
+         kcTQU/vC36jT9uK9oDmnTBuSe+9hjUf1iFlwGckTiRjtH91J34Ew/nvaiLZP9/2NrF6f
+         syEQGsK+6UxHtd39gHKbmzMkaD9GWJCOAugXIpvA374y+a2LKUD1s7jsoy3fc38R/IJu
+         sgIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701772334; x=1702377134;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=DVNqy7YsuIkl8aQ4ZbP26tEAG4Op9jDFwyUj1GfebWM=;
+        b=oOZ77L/+WtgypUQOHlXlamgzUVslX9dMfS1n432Knw9gDC/fI3vOyJVhItM7soZlMj
+         tRllEkvHeV1RYTu1jcnJt8CKNAix9l7oceNlnB/AgPP5e8lAuDKUycStKw2l1qPl+Z/S
+         9q6oLKDg6rJvzC5pjdN1o+sm0n7OScOgRskJAylyUzZy375qhwFjgQmlVaQFPAQF4fNN
+         A4Ao9m4RUcGNfQAMRvDBwnYELIqwWLSUJYvu/Vv0zgUqbhUu2nQyRFiOgYmJ8dat7h+n
+         IliVnmMFC3HozitEf4uSQjHVlFXH6Dn9dSTZBJyjnEs7N5SpWaRNTTco6kGo5uF0708K
+         5IDA==
+X-Gm-Message-State: AOJu0Ywa+Bz+XR5Prw5EmZM/K7FoT94fu8mtoT0Tijkzzo5/Ow4jiDnC
+	26OkoAVI5GfrCuHQes/q2yW/
+X-Google-Smtp-Source: AGHT+IGUv2+FcEpWRrKS8f75v5tGnUn79eiMPuocryfL3u4IX6/sUBY1Mpx8NL+uvLx34AxvGV5tYA==
+X-Received: by 2002:adf:fd48:0:b0:333:2fd7:95f8 with SMTP id h8-20020adffd48000000b003332fd795f8mr614778wrs.51.1701772333985;
+        Tue, 05 Dec 2023 02:32:13 -0800 (PST)
+Message-ID: <15275706-5c31-4e29-aa29-9f5e90526219@suse.com>
+Date: Tue, 5 Dec 2023 11:32:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/arm: Add emulation of Debug Data Transfer
- Registers
+Subject: Re: [RFC KERNEL PATCH v2 2/3] xen/pvh: Unmask irq for passthrough
+ device in PVH dom0
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Ayan Kumar Halder <ayankuma@amd.com>, "Ayan
- Kumar Halder" <ayan.kumar.halder@amd.com>, <sstabellini@kernel.org>,
-	<stefano.stabellini@amd.com>, <bertrand.marquis@arm.com>,
-	<Volodymyr_Babchuk@epam.com>
-CC: <xen-devel@lists.xenproject.org>
-References: <20231201185009.1719183-1-ayan.kumar.halder@amd.com>
- <0bd65e25-aec2-4294-9a73-1cdaece52242@xen.org>
- <9ffe5a34-d1f4-4f4a-82eb-77c92f71040c@amd.com>
- <ca91f71b-9633-495f-9fb2-731bd250a561@xen.org>
- <8547fc3b-4e77-45d7-8063-1bee869d07db@amd.com>
- <3a9efd72-07cc-4b1d-8814-d4f6df4e6230@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <3a9efd72-07cc-4b1d-8814-d4f6df4e6230@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|SN7PR12MB7810:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f05640c-aa8f-46a5-ecab-08dbf57d3712
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	OAGKy4NZ6DaIOakhIQlKVJFFDpaHHwbKeDDhXkidppJtvSl9MMHNDHxqAtzjPM1rmMo5wSUgb8O0VNb1KsVM7cPBdNGuhSYjXixBoo8iTmdLqwtrko7avW9f5zIKWJH3v4oQ1PaPC3n2ao+SFxCI2QBT6P5OY3wzsMx9la0FZuJcrahSPAsDQzU+0pzrJLvDUWmzmswNAhYG3lsx6d/+lZe7ESO2K/spywh+JItkbhi9INXVIIzZ+2ilVeZHKmumrYlYs0/ldr1N19yMSq9tbJKsXqUTfTRWjL3ut7ZAzvLLlOJe0yQK3QFKtMvSLcCz/GPYuJ7reliUoe4uhp8e1l80SP8K5PSDMcMb3noMrMUv9dPrlLt5u5b9Ahw9TAogGozdFd6hPZv+ZD9jMTf4CRXnMbhvJjIVybmRDxJ3BEPmmBHDZ7r9SvziT9Ym6p2MPGmeI4LSCcUgjvf+cIfIa0X/gDtd2OgHCgUHJ41/DWhmaAREZjAh3x95YlmPXkJIA0qAGnZMiCjsxci340sN7acnw8NqB+e8jtYFzDCiDrQ4DRUgOFhgUrkpNHPdhTWevBl3nhUvgv8RzmknW2UXv90spLDAebOEWdiOF/wwfte9901numMlBBX5X2HED3XJoBEVj0UDOLueV0khnlnqZyAORk0aUiaFlDWygVVHpSAKylcEfDcQMQ1O24Dq3nAUws+CcLZWQYfHwvaYlJ6JH5HPADcZ7znzi8d0tm2rzt6RV4eGWug6DBx+FHMqgtDTQt/TkvRnCK91tuyT2c61QJ7P1EJkZ1nTYCjsa1zj4SpymGXqE8xa0HRLVfdOVLEpgrqBFjw6LizGLflflUQdKZirsezV8B1DRTwDri7iT2zHZZMWbIxRibMN/ZCDxaVL
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(396003)(136003)(39860400002)(376002)(230922051799003)(230273577357003)(230173577357003)(64100799003)(451199024)(186009)(1800799012)(82310400011)(36840700001)(40470700004)(46966006)(47076005)(40480700001)(26005)(53546011)(356005)(81166007)(4326008)(8936002)(8676002)(110136005)(31686004)(70206006)(316002)(70586007)(36860700001)(16576012)(82740400003)(336012)(2616005)(426003)(478600001)(83380400001)(2906002)(41300700001)(5660300002)(40460700003)(86362001)(44832011)(36756003)(31696002)(2101003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2023 10:30:34.5823
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f05640c-aa8f-46a5-ecab-08dbf57d3712
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF0000343F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7810
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jiqian Chen <Jiqian.Chen@amd.com>, Juergen Gross <jgross@suse.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org, linux-acpi@vger.kernel.org,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ Alex Deucher <Alexander.Deucher@amd.com>,
+ Christian Koenig <Christian.Koenig@amd.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Honglei Huang <Honglei1.Huang@amd.com>, Julia Zhang <Julia.Zhang@amd.com>,
+ Huang Rui <Ray.Huang@amd.com>
+References: <20231124103123.3263471-1-Jiqian.Chen@amd.com>
+ <20231124103123.3263471-3-Jiqian.Chen@amd.com>
+ <alpine.DEB.2.22.394.2311291950350.3533093@ubuntu-linux-20-04-desktop>
+ <ZWiyBP4Lzz5lXraP@macbook>
+ <alpine.DEB.2.22.394.2311301912350.110490@ubuntu-linux-20-04-desktop>
+ <ZWmgJNidFsfkDp7q@macbook>
+ <alpine.DEB.2.22.394.2312011857260.110490@ubuntu-linux-20-04-desktop>
+ <ZW2ptexPQXrWBiOS@macbook>
+ <alpine.DEB.2.22.394.2312041413000.110490@ubuntu-linux-20-04-desktop>
+ <ZW7rDjjC0gxEI1cq@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZW7rDjjC0gxEI1cq@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 05/12/2023 11:01, Julien Grall wrote:
-> 
-> 
-> On 05/12/2023 09:28, Michal Orzel wrote:
->> Hi Julien,
->>
->> On 04/12/2023 20:55, Julien Grall wrote:
->>>
->>>
->>> On 04/12/2023 13:02, Ayan Kumar Halder wrote:
->>>>
->>>> On 04/12/2023 10:31, Julien Grall wrote:
->>>>> Hi Ayan,
->>>> Hi Julien,
+On 05.12.2023 10:19, Roger Pau Monné wrote:
+> On Mon, Dec 04, 2023 at 02:19:33PM -0800, Stefano Stabellini wrote:
+>> On Mon, 4 Dec 2023, Roger Pau Monné wrote:
+>>> On Fri, Dec 01, 2023 at 07:37:55PM -0800, Stefano Stabellini wrote:
+>>>> On Fri, 1 Dec 2023, Roger Pau Monné wrote:
+>>>>> On Thu, Nov 30, 2023 at 07:15:17PM -0800, Stefano Stabellini wrote:
+>>>>>> On Thu, 30 Nov 2023, Roger Pau Monné wrote:
+>>>>>>> On Wed, Nov 29, 2023 at 07:53:59PM -0800, Stefano Stabellini wrote:
+>>>>>>>> On Fri, 24 Nov 2023, Jiqian Chen wrote:
+>>>>>>>>> This patch is to solve two problems we encountered when we try to
+>>>>>>>>> passthrough a device to hvm domU base on Xen PVH dom0.
+>>>>>>>>>
+>>>>>>>>> First, hvm guest will alloc a pirq and irq for a passthrough device
+>>>>>>>>> by using gsi, before that, the gsi must first has a mapping in dom0,
+>>>>>>>>> see Xen code pci_add_dm_done->xc_domain_irq_permission, it will call
+>>>>>>>>> into Xen and check whether dom0 has the mapping. See
+>>>>>>>>> XEN_DOMCTL_irq_permission->pirq_access_permitted, "current" is PVH
+>>>>>>>>> dom0 and it return irq is 0, and then return -EPERM.
+>>>>>>>>> This is because the passthrough device doesn't do PHYSDEVOP_map_pirq
+>>>>>>>>> when thay are enabled.
+>>>>>>>>>
+>>>>>>>>> Second, in PVH dom0, the gsi of a passthrough device doesn't get
+>>>>>>>>> registered, but gsi must be configured for it to be able to be
+>>>>>>>>> mapped into a domU.
+>>>>>>>>>
+>>>>>>>>> After searching codes, we can find map_pirq and register_gsi will be
+>>>>>>>>> done in function vioapic_write_redirent->vioapic_hwdom_map_gsi when
+>>>>>>>>> the gsi(aka ioapic's pin) is unmasked in PVH dom0. So the problems
+>>>>>>>>> can be conclude to that the gsi of a passthrough device doesn't be
+>>>>>>>>> unmasked.
+>>>>>>>>>
+>>>>>>>>> To solve the unmaske problem, this patch call the unmask_irq when we
+>>>>>>>>> assign a device to be passthrough. So that the gsi can get registered
+>>>>>>>>> and mapped in PVH dom0.
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> Roger, this seems to be more of a Xen issue than a Linux issue. Why do
+>>>>>>>> we need the unmask check in Xen? Couldn't we just do:
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+>>>>>>>> index 4e40d3609a..df262a4a18 100644
+>>>>>>>> --- a/xen/arch/x86/hvm/vioapic.c
+>>>>>>>> +++ b/xen/arch/x86/hvm/vioapic.c
+>>>>>>>> @@ -287,7 +287,7 @@ static void vioapic_write_redirent(
+>>>>>>>>              hvm_dpci_eoi(d, gsi);
+>>>>>>>>      }
+>>>>>>>>  
+>>>>>>>> -    if ( is_hardware_domain(d) && unmasked )
+>>>>>>>> +    if ( is_hardware_domain(d) )
+>>>>>>>>      {
+>>>>>>>>          /*
+>>>>>>>>           * NB: don't call vioapic_hwdom_map_gsi while holding hvm.irq_lock
+>>>>>>>
+>>>>>>> There are some issues with this approach.
+>>>>>>>
+>>>>>>> mp_register_gsi() will only setup the trigger and polarity of the
+>>>>>>> IO-APIC pin once, so we do so once the guest unmask the pin in order
+>>>>>>> to assert that the configuration is the intended one.  A guest is
+>>>>>>> allowed to write all kind of nonsense stuff to the IO-APIC RTE, but
+>>>>>>> that doesn't take effect unless the pin is unmasked.
+>>>>>>>
+>>>>>>> Overall the question would be whether we have any guarantees that
+>>>>>>> the hardware domain has properly configured the pin, even if it's not
+>>>>>>> using it itself (as it hasn't been unmasked).
+>>>>>>>
+>>>>>>> IIRC PCI legacy interrupts are level triggered and low polarity, so we
+>>>>>>> could configure any pins that are not setup at bind time?
+>>>>>>
+>>>>>> That could work.
+>>>>>>
+>>>>>> Another idea is to move only the call to allocate_and_map_gsi_pirq at
+>>>>>> bind time? That might be enough to pass a pirq_access_permitted check.
 >>>>>
->>>>> On 01/12/2023 18:50, Ayan Kumar Halder wrote:
->>>>>> Currently if user enables HVC_DCC config option in Linux, it invokes
->>>>>> access to debug data transfer registers (ie DBGDTRTX_EL0 on arm64,
->>>>>> DBGDTRTXINT on arm32). As these registers are not emulated, Xen injects
->>>>>> an undefined exception to the guest. And Linux crashes.
->>>>>
->>>>> I am missing some data points here to be able to say whether I would
->>>>> be ok with emulating the registers. So some questions:
->>>>>    * As you wrote below, HVC_DCC will return -ENODEV after this
->>>>> emulation. So may I ask what's the use case to enable it? (e.g. is
->>>>> there a distro turning this on?)
+>>>>> Maybe, albeit that would change the behavior of XEN_DOMCTL_bind_pt_irq
+>>>>> just for PT_IRQ_TYPE_PCI and only when called from a PVH dom0 (as the
+>>>>> parameter would be a GSI instead of a previously mapped IRQ).  Such
+>>>>> difference just for PT_IRQ_TYPE_PCI is slightly weird - if we go that
+>>>>> route I would recommend that we instead introduce a new dmop that has
+>>>>> this syntax regardless of the domain type it's called from.
 >>>>
->>>> I am not aware of any distro using (or not using) this feature. This
->>>> issue came to light during our internal testing, when HVC_DCC was
->>>> enabled to use the debug console. When Linux runs without Xen, then we
->>>> could observe the logs on the debug console. When Linux was running as a
->>>> VM, it crashed.
->>>>
->>>> My intention here was to do the bare minimum emulation so that the crash
->>>> could be avoided.
->>> This reminds me a bit the discussion around "xen/arm64: Decode ldr/str
->>> post increment operations". I don't want Xen to contain half-backed
->>> emulation just to please an OS in certain configuration that doesn't
->>> seem to be often used.
+>>>> Looking at the code it is certainly a bit confusing. My point was that
+>>>> we don't need to wait until polarity and trigger are set appropriately
+>>>> to allow Dom0 to pass successfully a pirq_access_permitted() check. Xen
+>>>> should be able to figure out that Dom0 is permitted pirq access.
 >>>
->>> Also, AFAICT, KVM is in the same situation...
->> Well, KVM is not in the same situation. It emulates all DCC regs as RAZ/WI, so there
->> will be no fault on an attempt to access the DCC.
-> 
-> Does this mean a guest will think the JTAG is availabe?
-Yes, it will believe the DCC is available which is not a totally bad idea. Yes, it will not have
-any effect but at least covers the polling loop. The solution proposed here sounds better but does not take
-into account the busy while loop when sending the char. Linux DCC earlycon does not make an initial check that runtime
-driver does and will keep waiting in the loop if TXfull is set. Emulating everything as RAZ/WI solves that.
-As you can see, each solution has its flaws and depends on the OS implementation.
-
-> 
+>>> The logic is certainly not straightforward, and it could benefit from
+>>> some comments.
+>>>
+>>> The irq permissions are a bit special, in that they get setup when the
+>>> IRQ is mapped.
+>>>
+>>> The problem however is not so much with IRQ permissions, that we can
+>>> indeed sort out internally in Xen.  Such check in dom0 has the side
+>>> effect of preventing the IRQ from being assigned to a domU without the
+>>> hardware source being properly configured AFAICT.
 >>
->> In general, I think that if a register is not optional and does not depend on other register
->> to be checked first (e.g. a feature/control register we emulate), which implies that it is fully ok for a guest to
->> access it directly - we should at least try to do something not to crash a guest.
-> 
-> This is where we have opposing opinion. I view crashing a guest better
-> than providing a wrong emulation because it gives a clear signal that
-> the register they are trying to access will not function properly.
-> 
-> We had this exact same discussion a few years ago when Linux started to
-> access GIC*_ACTIVER registers. I know that Stefano was for emulating
-> them as RAZ but this had consequences on the domain side (Linux
-> sometimes need to read them). We settled on printing a warning which is
-> not great but better than claiming we properly emulate the register.
-> 
+>> Now I understand why you made a comment previously about Xen having to
+>> configure trigger and polarity for these interrupts on its own.
 >>
->> I agree that this feature is not widely used. In fact I can only find it implemented in Linux and U-BOOT
->> and the issue I found in DBGDSCRINT (no access from EL0, even though we emulate REXT.UDCCdis as 0) only
->> proves that. At the same time, it does not cost us much to add this trivial support.
+>>
+>>>> So the idea was to move the call to allocate_and_map_gsi_pirq() earlier
+>>>> somewhere because allocate_and_map_gsi_pirq doesn't require trigger or
+>>>> polarity to be configured to work. But the suggestion of doing it a
+>>>> "bind time" (meaning: XEN_DOMCTL_bind_pt_irq) was a bad idea.
+>>>>
+>>>> But maybe we can find another location, maybe within
+>>>> xen/arch/x86/hvm/vioapic.c, to call allocate_and_map_gsi_pirq() before
+>>>> trigger and polarity are set and before the interrupt is unmasked.
+>>>>
+>>>> Then we change the implementation of vioapic_hwdom_map_gsi to skip the
+>>>> call to allocate_and_map_gsi_pirq, because by the time
+>>>> vioapic_hwdom_map_gsi we assume that allocate_and_map_gsi_pirq had
+>>>> already been done.
+>>>
+>>> But then we would end up in a situation where the
+>>> pirq_access_permitted() check will pass, but the IO-APIC pin won't be
+>>> configured, which I think it's not what we want.
+>>>
+>>> One option would be to allow mp_register_gsi() to be called multiple
+>>> times, and update the IO-APIC pin configuration as long as the pin is
+>>> not unmasked.  That would propagate each dom0 RTE update to the
+>>> underlying IO-APIC.  However such approach relies on dom0 configuring
+>>> all possible IO-APIC pins, even if no device on dom0 is using them, I
+>>> think it's not a very reliable option.
+>>>
+>>> Another option would be to modify the toolstack to setup the GSI
+>>> itself using the PHYSDEVOP_setup_gsi hypercall.  As said in a previous
+>>> email, since we only care about PCI device passthrough the legacy INTx
+>>> should always be level triggered and low polarity.
+>>>
+>>>> I am not familiar with vioapic.c but to give you an idea of what I was
+>>>> thinking:
+>>>>
+>>>>
+>>>> diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
+>>>> index 4e40d3609a..16d56fe851 100644
+>>>> --- a/xen/arch/x86/hvm/vioapic.c
+>>>> +++ b/xen/arch/x86/hvm/vioapic.c
+>>>> @@ -189,14 +189,6 @@ static int vioapic_hwdom_map_gsi(unsigned int gsi, unsigned int trig,
+>>>>          return ret;
+>>>>      }
+>>>>  
+>>>> -    ret = allocate_and_map_gsi_pirq(currd, pirq, &pirq);
+>>>> -    if ( ret )
+>>>> -    {
+>>>> -        gprintk(XENLOG_WARNING, "vioapic: error mapping GSI %u: %d\n",
+>>>> -                 gsi, ret);
+>>>> -        return ret;
+>>>> -    }
+>>>> -
+>>>>      pcidevs_lock();
+>>>>      ret = pt_irq_create_bind(currd, &pt_irq_bind);
+>>>>      if ( ret )
+>>>> @@ -287,6 +279,17 @@ static void vioapic_write_redirent(
+>>>>              hvm_dpci_eoi(d, gsi);
+>>>>      }
+>>>>  
+>>>> +    if ( is_hardware_domain(d) ) 
+>>>> +    {
+>>>> +        int pirq = gsi, ret;
+>>>> +        ret = allocate_and_map_gsi_pirq(currd, pirq, &pirq);
+>>>> +        if ( ret )
+>>>> +        {
+>>>> +            gprintk(XENLOG_WARNING, "vioapic: error mapping GSI %u: %d\n",
+>>>> +                    gsi, ret);
+>>>> +            return ret;
+>>>> +        }
+>>>> +    }
+>>>>      if ( is_hardware_domain(d) && unmasked )
+>>>>      {
+>>>>          /*
+>>>
+>>> As said above, such approach relies on dom0 writing to the IO-APIC RTE
+>>> of likely each IO-APIC pin, which is IMO not quite reliable.  In there
+>>> are two different issues here that need to be fixed for PVH dom0:
+>>>
+>>>  - Fix the XEN_DOMCTL_irq_permission pirq_access_permitted() call to
+>>>    succeed for a PVH dom0, even if dom0 is not using the GSI itself.
+>>
+>> Yes makes sense
+>>
+>>
+>>>  - Configure IO-APIC pins for PCI interrupts even if dom0 is not using
+>>>    the IO-APIC pin itself.
+>>>
+>>> First one needs to be fixed internally in Xen, second one will require
+>>> the toolstack to issue an extra hypercall in order to ensure the
+>>> IO-APIC pin is properly configured.
+>>  
+>> On ARM, Xen doesn't need to wait for dom0 to configure interrupts
+>> correctly. Xen configures them all on its own at boot based on Device
+>> Tree information. I guess it is not possible to do the same on x86?
 > 
-> See above. If we provide an (even basic) emulation, we need to make sure
-> it is correct and doesn't have a side effect on the guest. If we can't
-> guarantee that (e.g. like for set/way when a device is assigned), then
-> the best course of action is to crash the domain.
+> No, not exactly.  There's some interrupt information in the ACPI MADT,
+> but that's just for very specific sources (Interrupt Source Override
+> Structures)
 > 
-> AFAICT, the proposed emulation would be ok. But I want to make clear
-> that I would not generally be ok with this approach and the decision
-> would need to be on the case by case basis.
-This goes without saying. Every issue requires separate investigation.
+> Then on AML devices can have resource descriptors that contain
+> information about how interrupts are setup.  However Xen is not able
+> to read any of this information on AML.
+> 
+> Legacy PCI interrupts are (always?) level triggered and low polarity,
+> because it's assumed that an interrupt source can be shared between
+> multiple devices.
 
-~Michal
+Except that as per what you said just in the earlier paragraph ACPI can
+tell us otherwise.
+
+> I'm however not able to find any reference to this in the PCI spec,
+> hence I'm reluctant to take this for granted in Xen, and default all
+> GSIs >= 16 to such mode.
+> 
+> OTOH legacy PCI interrupts are not that used anymore, as almost all
+> devices will support MSI(-X) (because PCIe mandates it) and OSes
+> should prefer the latter.  SR-IOV VF don't even support legacy PCI
+> interrupts anymore.
+> 
+>> If
+>> not, then I can see why we would need 1 extra toolstack hypercall for
+>> that (or to bundle the operation of configuring IO-APIC pins together
+>> with an existing toolstack hypercall).
+> 
+> One suitable compromise would be to default unconfigured GSIs >= 16 to
+> level-triggered and low-polarity, as I would expect that to work in
+> almost all cases.  We can always introduce the usage of
+> PHYSDEVOP_setup_gsi later if required.
+> 
+> Maybe Jan has more input here, would you agree to defaulting non-ISA
+> GSIs to level-triggered, low-polarity in the absence of a specific
+> setup provided by dom0?
+
+Well, such defaulting is an option, but in case it's wrong we might
+end up with hard to diagnose issues. Personally I'd prefer if we
+didn't take shortcuts here, i.e. if we followed what Dom0 is able
+to read from ACPI.
+
+Jan
 
