@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ECF1805863
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:19:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648021.1011912 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15C9C80589F
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:27:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648024.1011922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAXCu-0004R5-Og; Tue, 05 Dec 2023 15:19:32 +0000
+	id 1rAXKJ-0002mN-GO; Tue, 05 Dec 2023 15:27:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648021.1011912; Tue, 05 Dec 2023 15:19:32 +0000
+Received: by outflank-mailman (output) from mailman id 648024.1011922; Tue, 05 Dec 2023 15:27:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAXCu-0004O4-Ln; Tue, 05 Dec 2023 15:19:32 +0000
-Received: by outflank-mailman (input) for mailman id 648021;
- Tue, 05 Dec 2023 15:19:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rAXKJ-0002kE-Dg; Tue, 05 Dec 2023 15:27:11 +0000
+Received: by outflank-mailman (input) for mailman id 648024;
+ Tue, 05 Dec 2023 15:27:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAXCt-0004Ny-Js
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:19:31 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id afde1a73-9381-11ee-98e5-6d05b1d4d9a1;
- Tue, 05 Dec 2023 16:19:30 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40b538d5c4eso53881395e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:19:30 -0800 (PST)
+ id 1rAXKI-0002k8-02
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:27:10 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c0493fdf-9382-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 16:27:07 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40bd5eaa66cso47037865e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:27:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f18-20020a05600c155200b004094d4292aesm19092238wmg.18.2023.12.05.07.19.29
+ i19-20020a05600c355300b0040b3867a297sm18810084wmq.36.2023.12.05.07.27.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 07:19:29 -0800 (PST)
+ Tue, 05 Dec 2023 07:27:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afde1a73-9381-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: c0493fdf-9382-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701789570; x=1702394370; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701790027; x=1702394827; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=obOnFqoEHLYAQtr65jw2QfsQlhvyXM2XSnS+DM5BlBw=;
-        b=YHMnP2sztdUsu0otR38VuIXkr7TxBevUng8eKP6N3Bq/XrVdgEskPEv/AXzDdrXBWG
-         3xU8ccsSskSR1hDwfRc9cMERB3YnWPeD+eHqX1dJ/1G8h++5qF9VQeGJaKvKRslkCvv5
-         pP/rS2sXQTrs9ANIlxicHBZ/lklt+8Ee9QKuR3WA+kb3g3Ek6cVuP7aMelv0wvV+iuiM
-         GgTJUed+BLxw7vYhnjKzlV7vRKiDSsEf54zSwUdRv08jA2cEd3zhhch9pLGdN0ndIYbJ
-         QnZHpOnjb/20fjoZqXavqa96PYWUXUfeSHp/q7E6YQAoZGuch+ga7OEDJMGmPkRjgwYn
-         pDSA==
+        bh=CgY2D1k/e8Uf0F4+f2H7wb182xU0wRVEhobTv2hzE4A=;
+        b=dHMUUJUTIM0EI+0peDF5BxQjT7OfjY3c6vVHlw4QYhjDqwN87O1UgbQxB0WST8AWL1
+         cMYkFG0nC3FyFIy6IHPqb0+ajhqa2D+LaB8sZWnovJODpRwEd/qIlhjED/MGCUrOn8Qp
+         zyWgaUop3DVpO4oUxGUjh6hpevjxAkBg4/khOFR6414R27qD2sUpc7LsOtYtp/dhU6Ju
+         h2drdlxw92ewJPU6Ijp1qJtoBX0SSSSEkB/RoJb8gj8HRvvQezrWNvmmHAVTLlTiGdbd
+         QDRdp1Wvwf2wrbe1XUhb/w6dyR/MZT9psAE3ZQagcBSLEdM/hCitb/gDpXP5gVEl5s9v
+         UtKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701789570; x=1702394370;
+        d=1e100.net; s=20230601; t=1701790027; x=1702394827;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=obOnFqoEHLYAQtr65jw2QfsQlhvyXM2XSnS+DM5BlBw=;
-        b=XD+gDizLTrN6d9XT/j4m8SkaumzZvizbExVwVzRYZUnhamG0crzJUPAGd2fXUEd3Vp
-         86Bo8nGdIpQ1yVtiwFBo2XtrSGLgcSdk8VhXpMl4XkRuRIRUTNdwfQg5iVbZxFT1OOZm
-         BUZUQfn3yxhdN06Iz9RFDaOnCbwjzRBWzyun0jKY/bRV3kvnFj8qOiL8+L4+z6uWRtve
-         tonOlyawJKj6cIWi2pBH5nFhoxEV0ZIRI76m1/OywtcxDTAMTqaczQDnvBhRgEnxVInE
-         YpU+PmW33QHNMfGMk2qLFbQJqXSEc2Ngqofbs/Tef+k5YITFE6TVXWiUIV6L+dPTpn7l
-         uXIg==
-X-Gm-Message-State: AOJu0YwGxSnOpi+vj5MpzCegbf/TKeqnLNJpn+7TixwFnnR5uliCRXZx
-	MjN7Ei+zVQm3L7vTlTQa5e0n
-X-Google-Smtp-Source: AGHT+IF9VHFEKT3r1cYQ0yJT8IgB2BLxzT5TeuUsUgD2n2VPjUn+3GicdNiCVQeo4DS3UXWWpfnWSw==
-X-Received: by 2002:a1c:7912:0:b0:40b:5e59:b7a9 with SMTP id l18-20020a1c7912000000b0040b5e59b7a9mr576680wme.134.1701789570232;
-        Tue, 05 Dec 2023 07:19:30 -0800 (PST)
-Message-ID: <2ebe87c9-770e-434c-b7dc-440fd123762e@suse.com>
-Date: Tue, 5 Dec 2023 16:19:29 +0100
+        bh=CgY2D1k/e8Uf0F4+f2H7wb182xU0wRVEhobTv2hzE4A=;
+        b=Bu3ntJKpgkOzHoIUvsdd03gArZoY95ljc1PnrL+FiSPbLXzkV+lGUBe+3EFDxalN3z
+         22LMBP3BLHQyAZtM1WU5nY8S1rLEWjpyy6i5aeSrfPOeB76SIGrO8EJ3py985OyWNyLq
+         OlPhXd61oF5/twTGkbVjurkt7Hps0c7be3EmYfxjeTHmXPLJXEVsTW5U6LRjQQS0QMjM
+         VCuKUHuIGVP/Gm3WpR8YJEmQoZzcqW9zF086snfQimXK727etF2FPUYaTw9ejZsQDmre
+         jPk5g9cNrEuw/Np6d1NbAWTr1FiblooxP5D5/BeclzdZsAwO9C8EytKX17NrE3IGTS+L
+         G4CA==
+X-Gm-Message-State: AOJu0YyCfK557RkM1JqVxFpoZwIkvIrLbmnfp859DKy499ABiNCQFR/u
+	yP4Y1wWw4tTYr8yfH6IiQ5u94nJUgO8GIpmrroeZ
+X-Google-Smtp-Source: AGHT+IFMzDYOwPBpG+ZZA2mleKJpLTk9lNn79UiQndBrsGHot8ykbuuj4AKY+68R6nNYiOcaoMX3pg==
+X-Received: by 2002:a05:600c:3309:b0:40b:5e21:dd37 with SMTP id q9-20020a05600c330900b0040b5e21dd37mr635035wmp.101.1701790027167;
+        Tue, 05 Dec 2023 07:27:07 -0800 (PST)
+Message-ID: <095c2f4c-9b10-4ab8-95ea-101f62096678@suse.com>
+Date: Tue, 5 Dec 2023 16:27:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] amd-vi: set IOMMU page table levels based on guest
- reported paddr width
+Subject: Re: [PATCH v2 5/6] x86/iommu: switch hwdom IOMMU to use a rangeset
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
 References: <20231204094305.59267-1-roger.pau@citrix.com>
- <20231204094305.59267-3-roger.pau@citrix.com>
- <17de355f-623f-4310-ac55-df028235c240@suse.com> <ZW89jMz1yaD4qLN9@macbook>
+ <20231204094305.59267-6-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,45 +109,66 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZW89jMz1yaD4qLN9@macbook>
+In-Reply-To: <20231204094305.59267-6-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05.12.2023 16:11, Roger Pau Monné wrote:
-> On Tue, Dec 05, 2023 at 03:32:20PM +0100, Jan Beulich wrote:
->> On 04.12.2023 10:43, Roger Pau Monne wrote:
->>> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
->>> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
->>> @@ -359,21 +359,17 @@ int __read_mostly amd_iommu_min_paging_mode = 1;
->>>  static int cf_check amd_iommu_domain_init(struct domain *d)
->>>  {
->>>      struct domain_iommu *hd = dom_iommu(d);
->>> +    int pglvl = amd_iommu_get_paging_mode(
->>> +                PFN_DOWN(1UL << paging_max_paddr_bits(d)));
->>
->> This is a function in the paging subsystem, i.e. generally inapplicable
->> to system domains (specifically DomIO). If this is to remain this way,
->> the function would imo need to gain a warning. Yet better would imo be
->> if the function was avoided for system domains.
-> 
-> I have to admit I'm confused, won't systems domains return
-> paging_mode_hap(d) == false, and thus fallback to using paddr_bits
-> (host paddr width?).
+On 04.12.2023 10:43, Roger Pau Monne wrote:
+> @@ -476,58 +406,55 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>      if ( !map )
+>          panic("IOMMU init: unable to allocate rangeset\n");
+>  
+> -    max_pfn = (GB(4) >> PAGE_SHIFT) - 1;
+> -    top = max(max_pdx, pfn_to_pdx(max_pfn) + 1);
+> +    if ( iommu_hwdom_inclusive )
+> +    {
+> +        /* Add the whole range below 4GB, UNUSABLE regions will be removed. */
+> +        rc = rangeset_add_range(map, 0, max_pfn);
+> +        if ( rc )
+> +            panic("IOMMU inclusive mappings can't be added: %d\n",
+> +                  rc);
+> +    }
+>  
+> -    for ( i = 0, start = 0, count = 0; i < top; )
+> +    for ( i = 0; i < e820.nr_map; i++ )
+>      {
+> -        unsigned long pfn = pdx_to_pfn(i);
+> -        unsigned int perms = hwdom_iommu_map(d, pfn, max_pfn);
+> +        struct e820entry entry = e820.map[i];
+>  
+> -        if ( !perms )
+> -            /* nothing */;
+> -        else if ( paging_mode_translate(d) )
+> +        switch ( entry.type )
+>          {
+> -            int rc;
+> +        case E820_UNUSABLE:
+> +            if ( !iommu_hwdom_inclusive || PFN_DOWN(entry.addr) > max_pfn )
+> +                continue;
 
-True, but that check lives inside the function.
+The !iommu_hwdom_inclusive part isn't really needed here, is it? The ...
 
-> I can avoid such domains calling into paging_max_paddr_bits() but it
-> seems redundant, and would just be duplicated logic for a case that
-> paging_max_paddr_bits() already handles correctly AFAICT.
+> -            rc = p2m_add_identity_entry(d, pfn,
+> -                                        perms & IOMMUF_writable ? p2m_access_rw
+> -                                                                : p2m_access_r,
+> -                                        0);
+> +            rc = rangeset_remove_range(map, PFN_DOWN(entry.addr),
+> +                                       PFN_DOWN(entry.addr + entry.size - 1));
 
-Hence why I suggested a comment (warning) as alternative.
+... call here would then simply be a no-op, as it looks. And things would
+overall look more safe if the removal was skipped for fewer reasons.
 
-> Would it be better for me to rename paging_max_paddr_bits() to
-> domain_max_paddr_bits() and move it to asm/domain.h?
+> @@ -605,7 +532,7 @@ void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
+>      rangeset_destroy(map);
+>  
+>      /* Use if to avoid compiler warning */
+> -    if ( iommu_iotlb_flush_all(d, flush_flags) )
+> +    if ( iommu_iotlb_flush_all(d, map_data.flush_flags) )
+>          return;
+>  }
 
-Maybe. I'm not sure exactly why the function was introduced where it
-is and under the name it has. It sole present caller is in cpu-policy.c,
-so either name/placement would look good to me.
+Ah yes, here is said change. But I think for correctness this wants
+moving to the earlier patch.
 
 Jan
 
