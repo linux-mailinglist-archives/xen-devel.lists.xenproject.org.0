@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5735980538C
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:53:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647694.1011223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E442805397
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:56:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647697.1011233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATzO-0006nO-Nl; Tue, 05 Dec 2023 11:53:22 +0000
+	id 1rAU22-0008F9-3X; Tue, 05 Dec 2023 11:56:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647694.1011223; Tue, 05 Dec 2023 11:53:22 +0000
+Received: by outflank-mailman (output) from mailman id 647697.1011233; Tue, 05 Dec 2023 11:56:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATzO-0006ky-KZ; Tue, 05 Dec 2023 11:53:22 +0000
-Received: by outflank-mailman (input) for mailman id 647694;
- Tue, 05 Dec 2023 11:53:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rATzN-0006jd-5i
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:53:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rATzM-0004G4-TM; Tue, 05 Dec 2023 11:53:20 +0000
-Received: from [15.248.3.117] (helo=[10.24.67.37])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rATzM-0000KZ-Ng; Tue, 05 Dec 2023 11:53:20 +0000
+	id 1rAU22-0008D1-0P; Tue, 05 Dec 2023 11:56:06 +0000
+Received: by outflank-mailman (input) for mailman id 647697;
+ Tue, 05 Dec 2023 11:56:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pDPQ=HQ=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1rAU20-0008Co-JA
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:56:04 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 439ae457-9365-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 12:56:03 +0100 (CET)
+Received: from Dell.homenet.telecomitalia.it
+ (host-79-46-48-173.retail.telecomitalia.it [79.46.48.173])
+ by support.bugseng.com (Postfix) with ESMTPSA id 7D1884EE0742;
+ Tue,  5 Dec 2023 12:56:02 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,54 +40,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=U9c8mR1DZocEOTXExm9KvDdFaKFd0emz9LynjhI4/K0=; b=0G/BivVq7DGwm1O0uKCdP/+V1p
-	kIeJeXZGOf4uVj8+XOsNhqe1ZU/9dLuwkXtHWd9dT/CkSvDt/jhmRg3WXWg3U3pMzWUJC9ATyQWYF
-	hJReM06QsR0GAeMqbDf956akQvOVhY+9FvQVjTGQxwnVLI4yPKuP2qnbTYZT7RvPOTLA=;
-Message-ID: <1984c65c-72d8-4850-9886-f2b0766224a5@xen.org>
-Date: Tue, 5 Dec 2023 11:53:18 +0000
+X-Inumbo-ID: 439ae457-9365-11ee-98e5-6d05b1d4d9a1
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Paul Durrant <paul@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH 0/6] xen: address violations of MISRA C:2012 Rule 8.2
+Date: Tue,  5 Dec 2023 12:55:49 +0100
+Message-Id: <cover.1701764980.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen: make include/xen/unaligned.h usable on all
- architectures
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Arnd Bergmann <arnd@arndb.de>
-References: <20231205100756.18920-1-jgross@suse.com>
- <20231205100756.18920-2-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231205100756.18920-2-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Juergen,
+This patch series adds the missing parameter names and makes some
+improvements to the coding style as the removal of trailing spaces and
+the use of C standard integer types over Linux typedefs.
 
-On 05/12/2023 10:07, Juergen Gross wrote:
-> Instead of defining get_unaligned() and put_unaligned() in a way that
-> is only supporting architectures allowing unaligned accesses, use the
-> same approach as the Linux kernel and let the compiler do the
-> decision how to generate the code for probably unaligned data accesses.
-> 
-> Update include/xen/unaligned.h from include/asm-generic/unaligned.h of
-> the Linux kernel.
-> 
-> The generated code has been checked to be the same on x86.
-> 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 803f4e1eab7a
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+No functional changes are introduced.
 
-Can you outline your end goal? At least on arm32, I believe this will 
-result to abort because event if the architecture support unaligned 
-access, we are preventing them on Arm32.
+Federico Serafini (6):
+  xen/acpi: address remaining violations of MISRA C:2012 Rule 8.2
+  x86/mm: address violations of MISRA C:2012 Rule 8.2
+  AMD/IOMMU: address violations of MISRA C:2012 Rule 8.2
+  x86/page: address violations of MISRA C:2012 Rule 8.2
+  x86/mce: address violations of MISRA C:2012 Rule 8.2
+  xen/pci: address violations of MISRA C:2012 Rule 8.2
 
-Cheers,
+ xen/arch/x86/cpu/mcheck/mce.h             |  2 +-
+ xen/arch/x86/include/asm/acpi.h           |  2 +-
+ xen/arch/x86/include/asm/mce.h            |  4 ++--
+ xen/arch/x86/include/asm/mm.h             | 20 +++++++++----------
+ xen/arch/x86/include/asm/page.h           |  6 +++---
+ xen/drivers/passthrough/amd/iommu.h       | 17 +++++++++-------
+ xen/drivers/passthrough/amd/iommu_init.c  | 24 +++++++++++++----------
+ xen/drivers/passthrough/pci.c             |  8 ++++----
+ xen/include/acpi/apei.h                   |  5 +++--
+ xen/include/acpi/cpufreq/cpufreq.h        |  2 +-
+ xen/include/acpi/cpufreq/processor_perf.h | 16 +++++++--------
+ xen/include/xen/pci.h                     |  3 ++-
+ 12 files changed, 59 insertions(+), 50 deletions(-)
 
 -- 
-Julien Grall
+2.34.1
+
 
