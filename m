@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 310998058EA
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:39:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648052.1011982 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09F9F8058F9
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:40:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648056.1011993 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAXVj-0004mO-VB; Tue, 05 Dec 2023 15:38:59 +0000
+	id 1rAXX8-0006Yg-DI; Tue, 05 Dec 2023 15:40:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648052.1011982; Tue, 05 Dec 2023 15:38:59 +0000
+Received: by outflank-mailman (output) from mailman id 648056.1011993; Tue, 05 Dec 2023 15:40:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAXVj-0004k1-Sb; Tue, 05 Dec 2023 15:38:59 +0000
-Received: by outflank-mailman (input) for mailman id 648052;
- Tue, 05 Dec 2023 15:38:58 +0000
+	id 1rAXX8-0006VQ-AV; Tue, 05 Dec 2023 15:40:26 +0000
+Received: by outflank-mailman (input) for mailman id 648056;
+ Tue, 05 Dec 2023 15:40:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAXVi-0004jv-Ns
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:38:58 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1rAXX7-0006U4-Cx
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:40:25 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 66c26d0a-9384-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 16:38:56 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-40838915cecso59881805e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:38:56 -0800 (PST)
+ id 9a866d5d-9384-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 16:40:23 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40bd5ea84d6so20294225e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:40:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v11-20020a05600c444b00b003fefaf299b6sm19006941wmn.38.2023.12.05.07.38.55
+ v11-20020a05600c444b00b003fefaf299b6sm19006941wmn.38.2023.12.05.07.40.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 07:38:55 -0800 (PST)
+ Tue, 05 Dec 2023 07:40:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66c26d0a-9384-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 9a866d5d-9384-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701790736; x=1702395536; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701790823; x=1702395623; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=QAX7ETSjirtUSC9PqhCtV6ZQHcW5zmlxA1Ng496P9Rs=;
-        b=Bx7QiG/CAxqZk5Gs8k/Ew8Nz1bLtR2+Q3Xawp88Xk8hTnCqo4yHRlgvPNSj6FZkMAI
-         1wVJtujLmmQVlpo+BubJDvs1VMZYEtqdgBxRw5OQLah9YxY4TcooiEmShjFz8LKzI2Dr
-         iDRjH3tD+Qe1iSb2cQ0P5mgzdUTu21YV44CgGABbaXHg9DwaPTc7Ab7ufdSe79XUuorp
-         hn5npu4j+WkuzxbAT/Jr8WPvSo5Ro6fsNPGeHoN2967kCE+ZYY+uPZy26PigJOdgfDLj
-         WauFu46rRknJJmR/NGMbEWJkbrE9oJIxlEKw905FDiy/WCyW3oVCbfwQilK/hwD9xG8x
-         G72g==
+        bh=l7SdrXFSUR1cZ9X6jPrAC1DXfmceQ8UQxXuqv+5OIf0=;
+        b=VlJp3xeOI0fxj7MzrmZJLITIdebiYeRwReH3bbv6TFYm6XHJPPbhuRMTo6bQ//olkV
+         Zvc2eTGdDHrp1BATAu5P+h86Ubxftwv1zSdVLTjbmYdxWDX2H5E/xoAP9gsRZ6igd5z9
+         rSULwAjxnDpRitcPSxA8NWX8s3EzDmYYGsgrftiwH8y15zbB+v7nIcElWiSg2pY/mvHN
+         MDiDgniM26qnTuZyUMQ8+/uJh+uUwSPRdiUGdYeAL9YMOW5fvVCXJ4vj3B3pQJU5VloP
+         EmqB2vZsDhv3L5pt2K2rZaySW26rOp02lqOGD/xASlkY37AfbYJVxMKDSCSVNhK8eLqW
+         To6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701790736; x=1702395536;
+        d=1e100.net; s=20230601; t=1701790823; x=1702395623;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QAX7ETSjirtUSC9PqhCtV6ZQHcW5zmlxA1Ng496P9Rs=;
-        b=gXDnEK2GRh5eBjKTi+j56a0xW6E37kXT3QCEZulpyDfseAVjFIWbKhSyTs4tnlbL23
-         +Wue7UZw+XYr/iTp4yWxV0IpgdBNt8a9Ysa4J6OQeLBbR+sj5tZPq/MA0C0GYC7/nfEG
-         zTk0UJywVws0KGPGDELL5ZiVpXX6wKOz3weXLiawM9/pk3iRU1L8JmhXpgXZ63IC/hY5
-         2jhlnlj7u3YWoB9mKG7Pti/zVVWYBm1PoChRsN0Tm6C6makCc0PN3whLaAUrpadjZyOD
-         H8cvIFeqSTnqpTuOKCCz6jD9V0vumAutu4QMP6g8vVzTFo9bqKEEZE5xcQq0a+xLOhwR
-         bfLA==
-X-Gm-Message-State: AOJu0Yz5zFmaITLb6RwE2iEMiupfyHOwJrkaZTVcA7RVZJ9IKygxtgmO
-	/Ofz5dq1ekL7yo0EkmBCX16q
-X-Google-Smtp-Source: AGHT+IFvnyulpSObkRIXdLFgT75T1A07sOn7NFYVDKdqlE3g+XpStu6g+/ZxYgPKApBaQJpXKgpf+A==
-X-Received: by 2002:a05:600c:4515:b0:40b:5e1c:af2b with SMTP id t21-20020a05600c451500b0040b5e1caf2bmr626444wmo.49.1701790736006;
-        Tue, 05 Dec 2023 07:38:56 -0800 (PST)
-Message-ID: <fdfda320-b73b-4830-8f1b-d261b02bcdde@suse.com>
-Date: Tue, 5 Dec 2023 16:38:55 +0100
+        bh=l7SdrXFSUR1cZ9X6jPrAC1DXfmceQ8UQxXuqv+5OIf0=;
+        b=avoqaCtMaKX8wfMU59wv1RoZG86kjgDq0Fyo6BJvOwZpl7m0ApWsdIJTV46KXtW+up
+         67372G2Bjv5YjH7hs81M0UZEi0e2VY8oI8Cj/OAscZnWj1tTZzSUSCTrYyCS2qCgvG8w
+         yJofmJC2VDEhU66gJ22sfLj8VdYGacwBVebEnsCs5qqFUmsatqQ7kEADyhVnNo1zvaab
+         JYN31EyhX5trT6HJV8LSaKTuhIn9sTc/9tMMPjajW7MoWjTgOAyXxbwnwulDyPA+k2J+
+         0X+Ogk62GJopuN97agiiYaTxp98pT9EUx4o60mcLFd4B/qk73dN0dPb40rExeVX/AHx7
+         6YhQ==
+X-Gm-Message-State: AOJu0YyDfbg4ELV2beqme8ogswEZ6X+8ToUcwDbxto2kXmBcTSd9CdJC
+	vcbhoePhq+/zyUPBFSTZ8rgv
+X-Google-Smtp-Source: AGHT+IFCLNeq0kyg/nAeqHQHH4ucxyGDrhi7soP0oYzwMcqgXZ0CFK5JAZVXJ8hQkYHPT4F6ORx3zQ==
+X-Received: by 2002:a7b:ce08:0:b0:40b:5e56:7b67 with SMTP id m8-20020a7bce08000000b0040b5e567b67mr708023wmc.176.1701790822846;
+        Tue, 05 Dec 2023 07:40:22 -0800 (PST)
+Message-ID: <3d7b5337-7a0c-472c-8416-453194e8c38d@suse.com>
+Date: Tue, 5 Dec 2023 16:40:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/39] xen/riscv: disable unnecessary configs
+Subject: Re: [PATCH v2 02/39] xen/riscv: use some asm-generic headers
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
+Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <b4e85f8f58787b4d179022973ce25673d6b56e36.1700761381.git.oleksii.kurochko@gmail.com>
+ <90beae5dfa2bc4c27108ca4dea630306dfdfe81f.1700761381.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,64 +114,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b4e85f8f58787b4d179022973ce25673d6b56e36.1700761381.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <90beae5dfa2bc4c27108ca4dea630306dfdfe81f.1700761381.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.11.2023 11:30, Oleksii Kurochko wrote:
-> The patch also fixes the build script as conf util expects
-> to have each config on separate line.
+> Some headers are the same as asm-generic verions of them
+> so use them instead of arch-specific headers.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-The approach doesn't really scale (it's already odd that you add the
-(apparently) same set four times. There's also zero justification for
-this kind of an adjustment (as per discussion elsewhere I don't think
-we should go this route, and hence arguments towards convincing me [and
-perhaps others] would be needed here).
+Acked-by: Jan Beulich <jbeulich@suse.com>
+assuming ...
 
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -522,6 +522,38 @@ archlinux-current-gcc-riscv64:
->      CONTAINER: archlinux:current-riscv64
->      KBUILD_DEFCONFIG: tiny64_defconfig
->      HYPERVISOR_ONLY: y
-> +    EXTRA_XEN_CONFIG:
-> +      CONFIG_COVERAGE=n
-> +      CONFIG_GRANT_TABLE=n
-> +      CONFIG_SCHED_CREDIT=n
-> +      CONFIG_SCHED_CREDIT2=n
-> +      CONFIG_SCHED_RTDS=n
-> +      CONFIG_SCHED_NULL=n
-> +      CONFIG_SCHED_ARINC653=n
-> +      CONFIG_TRACEBUFFER=n
-> +      CONFIG_HYPFS=n
-> +      CONFIG_GRANT_TABLE=n
-> +      CONFIG_SPECULATIVE_HARDEN_ARRAY=n
-> +      CONFIG_ARGO=n
-> +      CONFIG_HYPFS_CONFIG=n
-> +      CONFIG_CORE_PARKING=n
-> +      CONFIG_DEBUG_TRACE=n
-> +      CONFIG_IOREQ_SERVER=n
-> +      CONFIG_CRASH_DEBUG=n
-> +      CONFIG_KEXEC=n
-> +      CONFIG_LIVEPATCH=n
-> +      CONFIG_MEM_ACCESS=n
-> +      CONFIG_NUMA=n
-> +      CONFIG_PERF_COUNTERS=n
-> +      CONFIG_HAS_PMAP=n
-> +      CONFIG_TRACEBUFFER=n
-> +      CONFIG_XENOPROF=n
-> +      CONFIG_COMPAT=n
-> +      CONFIG_COVERAGE=n
-> +      CONFIG_UBSAN=n
-> +      CONFIG_NEEDS_LIBELF=n
-> +      CONFIG_XSM=n
-> +
->  
->  archlinux-current-gcc-riscv64-debug:
->    extends: .gcc-riscv64-cross-build-debug
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/Makefile
+> @@ -0,0 +1,14 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +generic-y += altp2m.h
+> +generic-y += device.h
+> +generic-y += div64.h
+> +generic-y += hardirq.h
+> +generic-y += hypercall.h
+> +generic-y += iocap.h
+> +generic-y += monitor.h
+> +generic-y += numa.h
+> +generic-y += paging.h
+> +generic-y += percpu.h
+> +generic-y += random.h
+> +generic-y += softirq.h
+> +generic-y += vm_event.h
 
-I think I've said so elsewhere before: Please avoid introducing double
-blank lines, unless entirely unavoidable (for reasons I cannot think of).
+... these headers are indeed all going to appear.
 
 Jan
 
