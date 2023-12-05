@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 730228058DA
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:35:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648042.1011963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8ECF68058DE
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 16:37:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648046.1011973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAXRG-0002io-5O; Tue, 05 Dec 2023 15:34:22 +0000
+	id 1rAXTi-0003vo-JK; Tue, 05 Dec 2023 15:36:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648042.1011963; Tue, 05 Dec 2023 15:34:22 +0000
+Received: by outflank-mailman (output) from mailman id 648046.1011973; Tue, 05 Dec 2023 15:36:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAXRG-0002gW-2f; Tue, 05 Dec 2023 15:34:22 +0000
-Received: by outflank-mailman (input) for mailman id 648042;
- Tue, 05 Dec 2023 15:34:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAXRE-0002gO-3m
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:34:20 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0cbf102-9383-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 16:34:18 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40c09f5a7cfso28648805e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:34:18 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fc12-20020a05600c524c00b0040b400711f5sm22906462wmb.7.2023.12.05.07.34.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 07:34:17 -0800 (PST)
+	id 1rAXTi-0003uA-G8; Tue, 05 Dec 2023 15:36:54 +0000
+Received: by outflank-mailman (input) for mailman id 648046;
+ Tue, 05 Dec 2023 15:36:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=jRF5=HQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rAXTg-0003u3-P0
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 15:36:52 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1c6b7ce7-9384-11ee-98e5-6d05b1d4d9a1;
+ Tue, 05 Dec 2023 16:36:51 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-40bda47c489so39722465e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 07:36:51 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ t20-20020a05600c199400b0040b36ad5413sm19067222wmq.46.2023.12.05.07.36.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 05 Dec 2023 07:36:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +44,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0cbf102-9383-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 1c6b7ce7-9384-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701790457; x=1702395257; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lhrwPA7Segs02S9MBf4Fzb4Jivz7Fg6+BncEXy8zs0Q=;
-        b=Et75QUDBrDdi4+lGy9HPkwJFagYqOxxDoZMeaDcqmjkdFdhL1BhliYgQecIw9tNZMT
-         Gal/7azWkF9LFVapdy516d8+WTP1bW3vD6LBwoFR1/MN41pYRazfYpvTL6kzAN3+Jbkd
-         M/EILon0mpPhzDE7MNHfGuV/utDtwrnfziZRKgtt2SY0cEYkVAKPiySIIwi37W7Pkn0B
-         9kE1RXjCMZsaY/XwBP0JwK4y6I9Z8EvsmXSU9fmh8bWST/7UYnAtEGr+cRKp2UNkZdB2
-         dljG2kmGyBSEUGajNdWMwfj15sZpyrjP6ze1khy1Yj2cth1DKdNMDIxEIu2w+rp79b4j
-         ggbQ==
+        d=citrix.com; s=google; t=1701790611; x=1702395411; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=sf6UFn4hQmCUidzIu1RkJcmNBUYW3Y7dhR4WaIDgfbA=;
+        b=g5PpHJ2ufXmkm4eO5qizQjB3kPCGvoIX5jNq4UHGPloVqpckSeMzSXlKOOWKZJvG4x
+         PCZcAd0Rqseed4z04xfVm7OBGy96Vph9Gg60Z1FGCNVCLn1UdGQbDa96bM1psEmZth9W
+         5WrPavkBPsjgVCGXGY8PzzpfGXASsmYuMbzrQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701790457; x=1702395257;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1701790611; x=1702395411;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lhrwPA7Segs02S9MBf4Fzb4Jivz7Fg6+BncEXy8zs0Q=;
-        b=GhS7lAKkgYAX5C64uXXr+7ZYmW5Ff+po7pNQ1RiJ+H4xLRW1mVJRsjb6+oHBUky3bD
-         3QBjztZ8RWCTCyH4GFpsG9S0XI1oaRmCto+qjOCSzUIfsrLHwL/tPlfAXwczysv2Akyr
-         nhE2R+JE7gEsBPgH6SnWilYS+PrfJgj9FvXsP6nbq1/hmvupGYZAXdPA485alzlKpLWg
-         +YIvqFav1UhaVEqS5BrBw4NxPITbXbjent8gpuF12ijx9welaZtjbHaztPMPOx5Vl+14
-         s54LvYojMd+MlEg9ICY44vMKfxH/uvbRE6o2Ch89CBKd8MPZ2d1OLo0HSrhnPrVaJQPd
-         dKpw==
-X-Gm-Message-State: AOJu0Yy4PpKxRz65uW53b5HF/SKzmNcMARDhXMxJN0RoqUN9ACdVzQ/M
-	Ya0WqmQ5Y60iWwZzGitClJXJaPTZnaEL8WFlkbBx
-X-Google-Smtp-Source: AGHT+IEJGbblyuPE91lPMwyGwbT8C3ttzJZDdOLv0Vi/BV2BVC91DKQaJKMMFwdpwM+W7aGaZlEJbA==
-X-Received: by 2002:a7b:c394:0:b0:40b:5e21:ec2b with SMTP id s20-20020a7bc394000000b0040b5e21ec2bmr619893wmj.93.1701790457527;
-        Tue, 05 Dec 2023 07:34:17 -0800 (PST)
-Message-ID: <046856f4-3bce-4760-ac0b-0e3feb65cc64@suse.com>
-Date: Tue, 5 Dec 2023 16:34:16 +0100
+        bh=sf6UFn4hQmCUidzIu1RkJcmNBUYW3Y7dhR4WaIDgfbA=;
+        b=ZPX63wC3P7LSuwT9xZO28l+AT0AsGr1eSJe9cA+MlQd8I0a7vX6bBEBfcCo78YMKR7
+         THwI1/xVNE6prINujUUtJxAQPINT8868S14S4FTRIVAqbE7ZclPPElGaTxVTcL5FNcmK
+         dOgzofT2dSEDj94z/HW6Uw0BPSyChxArQnSpO4Z+oXEqoR4SYm58RP8TlSiTp03q2P5W
+         rVICsvGxxopSRKUEF1kYKrbE75uXxJj5fJywGMojlZ26qgIwN430HIbSLGNQaIodzQWv
+         76LY59orSJyUgjSQen7nZ1FM5SCfIbbvIO6oV8lHJRuQjhe2I1fPuIlemXpPV8z+M0yP
+         A/YQ==
+X-Gm-Message-State: AOJu0YwXM7gCW0kLeJk/TtUEUXoSfTWFBxit5km0+qw49To87PNURfm5
+	qX2q60bl1gECT822JDLShHx58Q==
+X-Google-Smtp-Source: AGHT+IFpx4Y/BhD7U+yrwtSw4bFDAWj1T0il697jRJ9j+HlzndQUXzarOvhRDEo4yD8Vxkm4J5/TiQ==
+X-Received: by 2002:a05:600c:4fce:b0:408:3c10:ad47 with SMTP id o14-20020a05600c4fce00b004083c10ad47mr703397wmq.40.1701790611308;
+        Tue, 05 Dec 2023 07:36:51 -0800 (PST)
+Date: Tue, 5 Dec 2023 16:36:50 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH v2 1/5] x86/livepatch: set function alignment to ensure
+ minimal function size
+Message-ID: <ZW9DkoiVHhlzM6yA@macbook>
+References: <20231128100352.35430-1-roger.pau@citrix.com>
+ <20231128100352.35430-2-roger.pau@citrix.com>
+ <ddbf1fad-e0c1-4b7c-9734-71d4997b5aa0@citrix.com>
+ <ZW87Qq3Hw4ql-ZFw@macbook>
+ <29b2d864-2b3f-4a74-9d61-534523e842cd@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/6] x86/iommu: remove regions not to be mapped
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20231204094305.59267-1-roger.pau@citrix.com>
- <20231204094305.59267-5-roger.pau@citrix.com>
- <d94a20ea-67fa-4219-9184-3d7dd9bcf646@suse.com> <ZW9CWe3p_8BLUXs9@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZW9CWe3p_8BLUXs9@macbook>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <29b2d864-2b3f-4a74-9d61-534523e842cd@suse.com>
 
-On 05.12.2023 16:31, Roger Pau Monné wrote:
-> On Tue, Dec 05, 2023 at 04:11:21PM +0100, Jan Beulich wrote:
->> On 04.12.2023 10:43, Roger Pau Monne wrote:
->>> --- a/xen/arch/x86/setup.c
->>> +++ b/xen/arch/x86/setup.c
->>> @@ -2136,6 +2136,54 @@ int __hwdom_init xen_in_range(unsigned long mfn)
->>>      return 0;
->>>  }
->>>  
->>> +int __hwdom_init remove_xen_ranges(struct rangeset *r)
->>> +{
->>> +    paddr_t start, end;
->>> +    int rc;
->>> +
->>> +    /* S3 resume code (and other real mode trampoline code) */
->>> +    rc = rangeset_remove_range(r, PFN_DOWN(bootsym_phys(trampoline_start)),
->>> +                               PFN_DOWN(bootsym_phys(trampoline_end)));
->>> +    if ( rc )
->>> +        return rc;
->>> +
->>> +    /*
->>> +     * This needs to remain in sync with the uses of the same symbols in
->>> +     * - __start_xen()
->>> +     * - is_xen_fixed_mfn()
->>> +     * - tboot_shutdown()
->>> +     */
->>
->> As you're duplicating this comment from xen_in_range(), you want to
->> - also mention xen_in_range() here,
->> - also update xen_in_range()'s comment,
+On Tue, Dec 05, 2023 at 04:14:57PM +0100, Jan Beulich wrote:
+> On 05.12.2023 16:01, Roger Pau Monné wrote:
+> > On Tue, Dec 05, 2023 at 01:42:42PM +0000, Andrew Cooper wrote:
+> >> On 28/11/2023 10:03 am, Roger Pau Monne wrote:
+> >>> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> >>> index f3abdf9cd111..f629157086d0 100644
+> >>> --- a/xen/arch/x86/Makefile
+> >>> +++ b/xen/arch/x86/Makefile
+> >>> @@ -82,6 +82,8 @@ obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
+> >>>  obj-y += sysctl.o
+> >>>  endif
+> >>>  
+> >>> +CFLAGS-$(CONFIG_LIVEPATCH) += -falign-functions=$(CONFIG_CC_FUNCTION_ALIGNMENT)
+> >>
+> >> I'd really prefer not to express it like this.  For one, a major reason
+> >> for using an alignment of 16b or more is simply performance.
+> >>
+> >> Also, it isn't "CC" when we get the asm macros working.
+> >>
+> >> Copy Linux more closely.  Then, you have LIVEPATCH select
+> >> FUNCTION_ALIGNMENT_{8,16}B as appropriate.  And PERFORMANCE selects
+> >> FUNCTION_ALIGNMENT_16B or perhaps 32B depending on uarch.
+> > 
+> > So just use CONFIG_FUNCTION_ALIGNMENT and drop the CC part of it?
+> > That would indeed be fine.  We will also need to adjust
+> > CC_SPLIT_SECTIONS to drop the CC_ prefix when we start using it in
+> > assembly code.
 > 
-> xen_in_range() is going away in the last patch, hence I did bother tyo
-> update it.
-> 
->> - also update the respective comments in __start_xen() that also mention
->>   xen_in_range().
-> 
-> That's done in patch 6/6.
-> 
->> Everything else here looks good to me.
-> 
-> Let me know if doing such changes in a later patch is OK.
+> Could we prune the CC infixes once everything is settled asm-code-wise?
 
-If xen_in_range() is indeed going to go away (see my question there), I'd be
-okay-ish with that.
+That would also be fine by me.
 
-Jan
+> >> If we ever get around to having KCFI, then we need 16B irrespective of
+> >> anything else.
+> >>
+> >>
+> >>
+> >> As for the subject, it's not really about size; the function size is
+> >> still going to be small irrespective of the alignment.
+> > 
+> > What about wording it like:
+> > 
+> > x86/livepatch: set function alignment to ensure minimal space between functions
+> 
+> This still wouldn't be right, as there may be no padding at all between
+> functions (if they're just the right size).
+
+But no padding would still be fine given the text above, as then the
+minimal space requirement is already meet?
+
+> Maybe "minimal distance
+> between function entry points"? Getting long-ish, though ...
+
+Oh, I see.  You want to explicitly mention the distance is between
+function entry points, as otherwise one way to read the subject would
+be distance between function end and next function entry point?
+
+It's indeed a bit long for my taste, but I don't mind adjusting if you
+think the current wording could cause confusion.
+
+Thanks, Roger.
 
