@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5519E805323
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:38:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.647675.1011173 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4DD0805337
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 12:42:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.647680.1011183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATkf-0004ID-8k; Tue, 05 Dec 2023 11:38:09 +0000
+	id 1rAToc-0007O8-Sp; Tue, 05 Dec 2023 11:42:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 647675.1011173; Tue, 05 Dec 2023 11:38:09 +0000
+Received: by outflank-mailman (output) from mailman id 647680.1011183; Tue, 05 Dec 2023 11:42:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rATkf-0004GE-4B; Tue, 05 Dec 2023 11:38:09 +0000
-Received: by outflank-mailman (input) for mailman id 647675;
- Tue, 05 Dec 2023 11:38:07 +0000
+	id 1rAToc-0007LK-Q1; Tue, 05 Dec 2023 11:42:14 +0000
+Received: by outflank-mailman (input) for mailman id 647680;
+ Tue, 05 Dec 2023 11:42:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kfJ1=HQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rATkc-0004Er-VU
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:38:06 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6bfq=HQ=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1rATob-0007LE-SC
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 11:42:13 +0000
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [2607:f8b0:4864:20::735])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0e06ecb-9362-11ee-9b0f-b553b5be7939;
- Tue, 05 Dec 2023 12:38:04 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40b2ad4953cso41095885e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 03:38:04 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bg24-20020a05600c3c9800b0040b3d33ab55sm22284633wmb.47.2023.12.05.03.38.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 03:38:04 -0800 (PST)
+ id 5397dc23-9363-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 12:42:11 +0100 (CET)
+Received: by mail-qk1-x735.google.com with SMTP id
+ af79cd13be357-77f04969d2eso176812285a.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 03:42:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,82 +40,291 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0e06ecb-9362-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5397dc23-9363-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701776284; x=1702381084; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=hzKa1Dx2dZg8S7YoZWzImzxxkEiCHh71hCRgk8iUnCM=;
-        b=Vw5vT90I1zD+bb2heoQhjm1F1ywJigVLyJb16UHNl76BeVrxemqZ8gnhnsucMH440F
-         rTC+T/1fol4djdPFLVWv2xPB9462vWvxQni8ZiJCFR7mH3ReuRDbT5VO2MS6ra4RAsI1
-         E64zPqW11vjNHm0AzBVxzbdbpsLo7MoIpeGzzAfIKjkumnzBI9HUrWvRfoqeWLrUKXLF
-         ECBHLnned8Q0oRfSBVQAo4gLm7YelmqX6bzDEayjqbmFPnAKJbk5hEPpsM5ZDG81Y6LU
-         oZM2GUnTU/3Nheg+JXD6HENiB2i5jN+Xp6WyUSo6pnqy+K7ba0xiuK2Yh72l3w8RqrjB
-         euaw==
+        d=linaro.org; s=google; t=1701776530; x=1702381330; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=WXxtA6ZxbQLZB9JWDZXA4b6fiXxGvPDU1q2MsDgqlac=;
+        b=AC5SQC1zSbb3ibAgWEwuRiWTgmT389lZEbMQvoTJYruqpqrMFMqtWtMypaNKkuRN1d
+         YmBcH+v/H7I5UuOZA4tiHZtbkVcO49syHwqzfdZ5QhLTcnim3FDMrn22MgHkRGcszFg8
+         6M8TXnIYFI+7KVGj0+ichVjkgyYAAzoM72h50lWVS4+IYP1+MoGAwwzFUcjEIJdkmQpA
+         HYsFoAh7x5MK0GJed9G82PvmG6fierGttwf+McbH95v+lVF+PVlzYvvIJWxKkkAXpNm3
+         TfuMHGNa+VkvD1CBICxJsdNR2HlJU1fhT1OPrchz+Z8x0S4uJd13ZngPckU/3XREeXhT
+         o0kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701776284; x=1702381084;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hzKa1Dx2dZg8S7YoZWzImzxxkEiCHh71hCRgk8iUnCM=;
-        b=rAXWTpnR0cKWZbdlEihbQOWzw9glwg84PchHq0nE7MJ9xzgfl7lsi8YcvNeXlutCUr
-         21237rw9YelDIDkCbks3gL0FRPeoNfqgoe+oRkA8x6hgOa+sXBszdzNTdWu5vmTr3c98
-         FmgCafDiEE0NSdt0hZZ58Ac1cMl0jxzmifqDKLsYAiC0m6JSCwo0Jy1oIjYBMgrZZpKr
-         8lC2krWzohYi/FpxBVCsPpf223L4yF0g9qVlwIby5qXCwPM5skpjdaYFsSr6gCFddsxf
-         dp17t1PmYAJZY3CzjdyetbgMnx4MWofVxkhV2AiTYjLNfuUjq62WSZh/wMJCh9saj6lh
-         UBjQ==
-X-Gm-Message-State: AOJu0YzRkUC4+7ehmhns6rek6pYjJMCRyQdGuceTnf5gjY4H9kElCn/U
-	UugP1Uy1EtLCIAWiBnpM0TqF
-X-Google-Smtp-Source: AGHT+IE+0UfSMY5RmZdIWdGIoDJePrEVu/5oBUk9g1tCz0qZstyFZFK9gDngh9FLJ/F6eNrP3lbr0Q==
-X-Received: by 2002:a05:600c:4c08:b0:40b:5e4a:2368 with SMTP id d8-20020a05600c4c0800b0040b5e4a2368mr413527wmp.106.1701776284412;
-        Tue, 05 Dec 2023 03:38:04 -0800 (PST)
-Message-ID: <4797d75b-5ad9-445d-bbd7-6e90cd80f5a3@suse.com>
-Date: Tue, 5 Dec 2023 12:38:03 +0100
+        d=1e100.net; s=20230601; t=1701776530; x=1702381330;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=WXxtA6ZxbQLZB9JWDZXA4b6fiXxGvPDU1q2MsDgqlac=;
+        b=WQRLMh7A0yj3B7oQfN2+tCepVh/Fj+bfrzq7nBUSfYxgG2mmkxgOK8MHrPGR9F2JVK
+         smQUWbNkSDbmGFGxK5x5crMX0QQT71WBsP1+qkjk8QufK5IovCkCM1pGTgDUa5yQgZSx
+         9NSyGmAUBaVgKgQ7BF7ipn7ZnYm4mzePUKy54M/tx5hHtpBDzgEeaSTP17zPjQ4UYXBp
+         BYtDo7RfD0eUnDczsnEgNXZZrCGPCD81PpDJOJjdUPdtmXu43Ex4zzQrW+kSqr5QrXbS
+         i76KNpjgQDrqarlZ96jtLGLhnsm9Q4k+IdmFT3JZ5ZiKe4LuhbYUcC9er9xQctsfm8rT
+         bMGw==
+X-Gm-Message-State: AOJu0YxIvyEEqW0WEUTg8YizB/v3zTYok3KyVntbqqqrDYs92eliG9MD
+	vmMJBphdnFT9JXeyXAThbG2fAauDIkjfHHYxPhO5kxlVe2v6sBIZaNU=
+X-Google-Smtp-Source: AGHT+IFh4KJJ/A0VaYCd5raQyYnOc9AhZUofYotIimGSUBCDT6Wcw1XUsmANbouhx21CNPsRnJ6BwQvwIvqCIg51Oy8=
+X-Received: by 2002:ad4:4482:0:b0:67a:b592:458c with SMTP id
+ m2-20020ad44482000000b0067ab592458cmr1132711qvt.9.1701776530378; Tue, 05 Dec
+ 2023 03:42:10 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] config: update Mini-OS commit
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20231205103508.5811-1-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231205103508.5811-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20231204075552.3585875-1-jens.wiklander@linaro.org>
+ <232c2496-77d6-4e37-a400-dbefd135ef3c@xen.org> <0B35D609-5378-4180-B79E-0CAE69D42165@arm.com>
+In-Reply-To: <0B35D609-5378-4180-B79E-0CAE69D42165@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Tue, 5 Dec 2023 12:41:59 +0100
+Message-ID: <CAHUa44GGU5WWBeOAF3S3+N8vkCNC3ZraGC_E9__EJhh0nAi2hA@mail.gmail.com>
+Subject: Re: [RFC XEN PATCH] xen/arm: ffa: reclaim shared memory on guest destroy
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Julien Grall <julien@xen.org>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "patches@linaro.org" <patches@linaro.org>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 05.12.2023 11:35, Juergen Gross wrote:
-> Update the Mini-OS upstream revision.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Hi,
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+On Tue, Dec 5, 2023 at 9:14=E2=80=AFAM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Julien,
+>
+> Thanks a lot for your review and comment, this is very helpful.
+>
+> > On 4 Dec 2023, at 20:24, Julien Grall <julien@xen.org> wrote:
+> >
+> > Hi Jens,
+> >
+> > On 04/12/2023 07:55, Jens Wiklander wrote:
+> >> When an FF-A enabled guest is destroyed it may leave behind memory
+> >> shared with SPs. This memory must be reclaimed before it's reused or a=
+n
+> >> SP may make changes to memory used by a new unrelated guest. So when t=
+he
+> >> domain is teared down add FF-A requests to reclaim all remaining share=
+d
+> >> memory.
+> >> SPs in the secure world are notified using VM_DESTROYED that a guest h=
+as
+> >> been destroyed. An SP is supposed to relinquish all shared memory to a=
+llow
+> >> reclaiming the memory. The relinquish operation may need to be delayed=
+ if
+> >> the shared memory is for instance part of a DMA operation.
+> >> If the FF-A memory reclaim request fails, return -ERESTART to retry
+> >> again. This will effectively block the destruction of the guest until
+> >> all memory has been reclaimed.
+> >> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> >> ---
+> >> Hi,
+> >> This patch is a bit crude, but gets the job done. In a well designed
+> >> system this might even be good enough since the SP or the secure world
+> >> will let the memory be reclaimed and we can move on. But, if for some
+> >> reason reclaiming the memory is refused it must not be possible to reu=
+se
+> >> the memory.
+> >
+> > IIUC, we are trying to harden against a buggy SP. Is that correct?
+>
+> This is not hardening as this is a possible scenario with a correctly imp=
+lemented SP.
+> This is valid for the SP to not be able to relinquish the memory directly=
+ so we have
+> to take this possibility into account and retry.
+>
+> What is not expected if for the SP to never release the memory hence the =
+possible
+> "todo" at the end of the code where i think we might have to implement a =
+counter
+> to bound the possible number of loops but as always the question is how m=
+any...
+>
+> In this case the only solution would be to park the memory as suggested a=
+fter
+> but we are not completely sure where hence the RFC.
+>
+> >
+> >> These shared memory ranges are typically quite small compared to the
+> >> total memory usage of a guest so it would be an improvement if only
+> >> refused shared memory ranges where set aside from future reuse while t=
+he
+> >> guest was destroyed and other resources made available for reuse. This
+> >> could be done by for instance assign the refused shared memory ranges
+> >> to a dummy VM like DOMID_IO.
+> >
+> > I like the idea to use a dummy VM, but I don't think DOMID_IO is right.=
+ Once teardown has completed, the domain will stay around until the last re=
+ference on all pages are dropped. At this point, the amount of memory left-=
+over is minimum (this is mostly bookeeping in Xen).
+> >
+> > From the userland PoV, the domain will still show-up in the list but to=
+ols like "xl list" will show "(null)". They are called zombie domains.
+> >
+> > So I would consider to keep the same domain around. The advantage is yo=
+u can call "xl destroy" again to retry the operation.
+>
+> In this scenario the "restart" implementation here is right but how could=
+ we park the VM as "zombie" instead of busy looping in
+> the "kill" loop of userland ?
+>
+> Also we need to release all the memory of the VM but the one shared with =
+the SP.
+>
+> I will let Jens answer the more implementation questions here after and t=
+ry to help on the more "system" ones.
+>
+> >
+> >> Thanks,
+> >> Jens
+> >> ---
+> >>  xen/arch/arm/tee/ffa.c | 36 ++++++++++++++++++++++++++++++++++++
+> >>  1 file changed, 36 insertions(+)
+> >> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> >> index 183528d13388..9c596462a8a2 100644
+> >> --- a/xen/arch/arm/tee/ffa.c
+> >> +++ b/xen/arch/arm/tee/ffa.c
+> >> @@ -1539,6 +1539,7 @@ static bool is_in_subscr_list(const uint16_t *su=
+bscr, uint16_t start,
+> >>  static int ffa_domain_teardown(struct domain *d)
+> >>  {
+> >>      struct ffa_ctx *ctx =3D d->arch.tee;
+> >> +    struct ffa_shm_mem *shm, *tmp;
+> >>      unsigned int n;
+> >>      int32_t res;
+> >>  @@ -1564,10 +1565,45 @@ static int ffa_domain_teardown(struct domain =
+*d)
+> >>              printk(XENLOG_ERR "ffa: Failed to report destruction of v=
+m_id %u to  %u: res %d\n",
+> >>                     get_vm_id(d), subscr_vm_destroyed[n], res);
+> >>      }
+> >> +    /*
+> >> +     * If this function is called again due to -ERESTART below, make =
+sure
+> >> +     * not to send the FFA_MSG_SEND_VM_DESTROYED's.
+> >> +     */
+> >> +    subscr_vm_destroyed_count =3D 0;
+> >
+> > AFAICT, this variable is global. So wouldn't you effectively break othe=
+r domain if let say the unmapping error is temporary?
+> >
+> >>        if ( ctx->rx )
+> >>          rxtx_unmap(ctx);
+> >>  +
+> >> +    list_for_each_entry_safe(shm, tmp, &ctx->shm_list, list)
+> >> +    {
+> >> +        register_t handle_hi;
+> >> +        register_t handle_lo;
+> >> +
+> >> +        uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
+> >> +        res =3D ffa_mem_reclaim(handle_lo, handle_hi, 0);
+> >
+> > Is this call expensive? If so, we may need to handle continuation here.
+>
+> This call should not be expensive in the normal case as memory is reclaim=
+able
+> so there is no processing required in the SP and all is done in the SPMC =
+which
+> should basically just return a yes or no depending on a state for the han=
+dle.
 
+I agree, this should only be a thing between the hypervisor and the
+SPMC in the secure world.
 
+>
+> So I think this is the best trade.
+>
+> @Jens: One thing to consider is that a Destroy might get a retry or busy =
+answer and we
+> will have to issue it again and this is not considered in the current imp=
+lementation.
+
+You're right, we'll need to keep track of which SPs we've been able to
+send a VM_DESTROY message to.
+
+>
+> After discussing the subject internally we could in fact consider that if=
+ an SP cannot release
+> some memory shared with the VM destroyed, it should tell it by returning =
+"retry" to the message.
+> Here that could simplify things by doing a strategy where:
+> - we retry on the VM_DESTROY message if required
+
+We should keep a record of which SPs remain to be signaled with
+VM_DESTROY. An SP may have other reasons to return an error so this
+call can be retried later.
+
+> - if some memory is not reclaimable we check if we could park it and make=
+ the VM a zombie.
+> What do you think ?
+
+The zombie option sounds like a good fallback when automatic reclaim
+(reasonable timeouts have expired etc) has failed.
+
+Thanks,
+Jens
+
+>
+>
+> >
+> >> +        if ( res )
+> >> +        {
+> >> +            printk(XENLOG_INFO, "ffa: Failed to reclaim handle %#lx :=
+ %d\n",
+> >> +                   shm->handle, res);
+> >
+> > I think you want to use XENLOG_G_INFO to use the guest ratelimit. Also,=
+ I would suggest to print the domain ID in the logs (see '%pd').
+> >
+> >
+> >> +        }
+> >> +        else
+> >> +        {
+> >> +            printk(XENLOG_DEBUG, "ffa: Reclaimed handle %#lx\n", shm-=
+>handle);
+> >
+> > Same here. You want to use XENLOG_G_DEBUG and print the domain ID.
+> >
+> >> +            ctx->shm_count--;
+> >> +            list_del(&shm->list);
+> >> +        }
+> >> +    }
+> >
+> > NIT: New line here please for clarity.
+> >
+> >> +    if ( !list_empty(&ctx->shm_list) )
+> >> +    {
+> >> +        printk(XENLOG_INFO, "ffa: Remaining unclaimed handles, retryi=
+ng\n");
+> >
+> > Same as the other printks.
+> >
+> >> +        /*
+> >> +         * TODO: add a timeout where we either panic or let the guest=
+ be
+> >> +         * fully destroyed.
+> >> +         */
+> > Timeout with proper handling would be a solution. I am not sure about p=
+anic-ing. Do you think the TEE would be in a bad state if we can't release =
+memory?
+> >
+> >> +        return -ERESTART;
+> >> +    }
+> >> +
+> >>      XFREE(d->arch.tee);
+> >>        return 0;
+> >
+> > Cheers,
+> >
+>
+> Cheers
+> Bertrand
+>
+> > --
+> > Julien Grall
+>
+>
 
