@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED8A4805F2A
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 21:12:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648267.1012483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D8FE805F75
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Dec 2023 21:31:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648273.1012492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAbme-0002rJ-5a; Tue, 05 Dec 2023 20:12:44 +0000
+	id 1rAc4i-0000pg-KW; Tue, 05 Dec 2023 20:31:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648267.1012483; Tue, 05 Dec 2023 20:12:44 +0000
+Received: by outflank-mailman (output) from mailman id 648273.1012492; Tue, 05 Dec 2023 20:31:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAbme-0002p5-24; Tue, 05 Dec 2023 20:12:44 +0000
-Received: by outflank-mailman (input) for mailman id 648267;
- Tue, 05 Dec 2023 20:12:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rAc4i-0000nP-Hm; Tue, 05 Dec 2023 20:31:24 +0000
+Received: by outflank-mailman (input) for mailman id 648273;
+ Tue, 05 Dec 2023 20:31:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cmhw=HQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rAbmb-0002nd-QV
- for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 20:12:41 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a45ff01b-93aa-11ee-98e5-6d05b1d4d9a1;
- Tue, 05 Dec 2023 21:12:40 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3316bb1303bso44567f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 12:12:40 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- w18-20020a5d4b52000000b0033334df1259sm11375561wrs.20.2023.12.05.12.12.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 Dec 2023 12:12:40 -0800 (PST)
+ <SRS0=7WXV=HQ=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
+ id 1rAc4h-0000nJ-8z
+ for xen-devel@lists.xenproject.org; Tue, 05 Dec 2023 20:31:23 +0000
+Received: from mail-pg1-x52b.google.com (mail-pg1-x52b.google.com
+ [2607:f8b0:4864:20::52b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3f910f44-93ad-11ee-9b0f-b553b5be7939;
+ Tue, 05 Dec 2023 21:31:21 +0100 (CET)
+Received: by mail-pg1-x52b.google.com with SMTP id
+ 41be03b00d2f7-5c230c79c0bso2696662a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 12:31:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,102 +40,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a45ff01b-93aa-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: 3f910f44-93ad-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701807160; x=1702411960; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=CxzmOgLzolU4toSrReZbwiXVkd/zXujCcCfDuL8cqnI=;
-        b=Sep1iyebRSS55+mkjeNPfNRwx5NYVEIMmmAQXqi+q46iFRBnksWWxO7ZYWcsqKrHg/
-         WjhH/m3Op6Br7qBo/+ukkYwDiRFjcWdiGG1SCoiOJZS8hVWHwS54XP7TMMeFP9F4gpdr
-         lPJMZcStWkM6PVXg8GxJe2uaw25gA7VuMgpzs=
+        d=gmail.com; s=20230601; t=1701808279; x=1702413079; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=GG6A0ybaQjlEUeE8ZmkduRm/mR67du5f25WPw8uKIxE=;
+        b=S0TjEqx3D46R+ryYQkDGTxRXc6TZ8IBW3xgGtHIrrDIMM2OOcA03ugYg8EJysQs4GQ
+         uNNN8kkHrO3vAEuFM7SPFczaNq7ZZxAIyicF2UkxgIhvXqdfqIwU5rd3DyxWlnmb//Ih
+         qrFhfhl8xvpN4deG54alqgD7ebGlgYHL1JISP0zs7pToabCK0lekbbQ3lxrIuYhujoSF
+         Im7ZkCYtnISc6/KA+CQa3hkf/kFKCHj4UPwRiYTtc5O48mO1J/nE9RSZwpkkV3IoA6O2
+         kOSZc+f4EO47BDlc3QyT2X7ZfQd75CPcoMCs9t6vJbPpznEBVB6GfS9i9Gd47+L019oq
+         rrrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701807160; x=1702411960;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CxzmOgLzolU4toSrReZbwiXVkd/zXujCcCfDuL8cqnI=;
-        b=VrAg3DbciUqxKXbXoKiVhh9CXeZM1VNE4xY6aFy0oJ/YIhg4BjQZ7bcL96gSCaGLKU
-         BzrF1ilZxtwNHCNQHYaWwxrg30J02uJp/KLb8qoCnFUT+hOUGf6ptaFjPzO3i14i5WKg
-         fS1pEOYZsmdPNqmYXt+6Ysxzt2hi9NtHu5nMi4WsiReA8j7nz7bsJ2MoI3qdlD10aGQ5
-         dwaZCrBjJviNfiXrWa1svLvFI0DCMRbXUjo8WZz1eqqEUQ+p/CyOGcvi/GqxKqww3m5J
-         POYuCtiZuozWXIjvV1ilRr1rWApfmaNd3teE1Zqvqy7rLnFgPcXuMjlV1B0vvKdbCQxj
-         sdMg==
-X-Gm-Message-State: AOJu0Ywl6AIkLGGHO36BJcKqZl/UAMM06h3oi+xkC3i6YAvVXxCNHnRR
-	bOMaTPETtUG7rsNfBIsPVbGs/A==
-X-Google-Smtp-Source: AGHT+IHdGvHUU/6x0vVvWZJ11R0Aw3qf50FRoplSKo/jJdmk8RDXrx/oZmaFr253sFm1u8g89/EVXg==
-X-Received: by 2002:a5d:5051:0:b0:332:e777:a8d4 with SMTP id h17-20020a5d5051000000b00332e777a8d4mr5037758wrt.36.1701807160288;
-        Tue, 05 Dec 2023 12:12:40 -0800 (PST)
-Message-ID: <32930dd2-5978-4b02-9402-eead80b5ff0f@citrix.com>
-Date: Tue, 5 Dec 2023 20:12:39 +0000
+        d=1e100.net; s=20230601; t=1701808279; x=1702413079;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GG6A0ybaQjlEUeE8ZmkduRm/mR67du5f25WPw8uKIxE=;
+        b=me/2ktA9ml55KC+CdhR38I+BWdz74UNJ8xhh7cX9jivdARubrtFiQIPOfSUb6F+zYz
+         13E92iQihwuR3kkwQ0azOtrFMbG1WB2L10I5P4RLq+AWdE2AXwxYG1GB6S05eyIMSNVr
+         oG4kTla+ccbjucf5e8ceOPAhgTfc+89tgl7GiC8CauKh5kZblnaUbHAGGg7WksIBXmSl
+         7tYobWiYYARlPOB4AbSwIvJBb1hlwom1gu2dLMB+NKyi5jz9ufzyCJH3JTKo11BzNiWN
+         g3Y41X+/Z2jd8/+fT26or08kv+Y1JC0gIjbIG+b/3AeOSzW4lrYY6UzqKpRpsns8PFNC
+         F8fw==
+X-Gm-Message-State: AOJu0Yx+netQJkbPLdzhfr8Mtj9AqT7bCbGsD+6jY5bQQ1ufKwk1BoxE
+	nwZSVdXGWkr7PD3AZ/hH7vOj+VOzYe2q3sbIgovFFvZ2BHA=
+X-Google-Smtp-Source: AGHT+IGxH159qtMcFxnxKcwe2y3bRMFWnA6drR0Yv93+4yjlt1Xc/02uf0Qel5xjywIJdIo9AGlngCzbk/C4Eddgtlc=
+X-Received: by 2002:a05:6a21:360c:b0:18f:97c:ba1c with SMTP id
+ yg12-20020a056a21360c00b0018f097cba1cmr3407193pzb.118.1701808279246; Tue, 05
+ Dec 2023 12:31:19 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] ns16550: remove partial explicit initializer
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <89f9aebddac56c034aace59c5b910ad4bef701c5.1701793717.git.nicola.vetrini@bugseng.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <89f9aebddac56c034aace59c5b910ad4bef701c5.1701793717.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com> <CAKm-UmYGTLY0fTh4zvj-xrA3Tp+Oj+ES61pncG7ze0QnP4o=FQ@mail.gmail.com>
+ <52bd8702-cf7d-4f5b-883d-be6214ba31c0@suse.com> <CAKm-UmadRsc7GEYDqMDTBaoozT5Bj3nwK+=uDs1LkTZVG8tgdQ@mail.gmail.com>
+ <CAKm-UmZnPtH_Fxou3OV0BbpP+tBpSe1z8Qet4Q5=zDD7UGZy6Q@mail.gmail.com>
+ <CAKm-UmbaHoXymP8CcBVBLSVG7T9zCE2fbFQB33SMnY8pwXOU1Q@mail.gmail.com>
+ <435d159f-96d5-49af-82ec-bce6961e3391@suse.com> <CAKm-UmbEBOm525=f+OOL0P05tQVVQz9wegh7F8yhgV_=Z7rWug@mail.gmail.com>
+In-Reply-To: <CAKm-UmbEBOm525=f+OOL0P05tQVVQz9wegh7F8yhgV_=Z7rWug@mail.gmail.com>
+From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+Date: Tue, 5 Dec 2023 21:31:08 +0100
+Message-ID: <CAKm-UmYejm8CW-Enc_Y-aefcLPsRhQO8w2P-fNdu1zXMMjUAoA@mail.gmail.com>
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 05/12/2023 4:31 pm, Nicola Vetrini wrote:
-> The initializer of 'ns16550_com' violates MISRA C Rule 9.3
-> because it explicitly initializes only the first element of the array,
-> but the semantics is the same if the explicit initialization is
-> omitted.
->
-> No functional change.
->
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> [    2.464598] amd_gpio AMDI0030:00: failed to enable wake-up interrupt
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Is it expected that IRQ7 goes from fasteoi (kernel 6.6.4 ) to
+ioapic-edge and IRQ9 to ioapic-level ?
+
+IR-IO-APIC    7-fasteoi   pinctrl_amd
+IR-IO-APIC    9-fasteoi   acpi
+
+to (xen 4.18.0)
+
+xen-pirq     -ioapic-edge  pinctrl_amd
+xen-pirq     -ioapic-level  acpi
+
+?
+
+THX
 
