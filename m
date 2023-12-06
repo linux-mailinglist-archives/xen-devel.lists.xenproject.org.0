@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED0D980733B
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 16:00:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649331.1013726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21C108073F5
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 16:48:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649336.1013735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAtNH-0008OY-IN; Wed, 06 Dec 2023 14:59:43 +0000
+	id 1rAu7B-0008FZ-WD; Wed, 06 Dec 2023 15:47:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649331.1013726; Wed, 06 Dec 2023 14:59:43 +0000
+Received: by outflank-mailman (output) from mailman id 649336.1013735; Wed, 06 Dec 2023 15:47:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAtNH-0008Le-F6; Wed, 06 Dec 2023 14:59:43 +0000
-Received: by outflank-mailman (input) for mailman id 649331;
- Wed, 06 Dec 2023 14:59:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=d2jr=HR=infradead.org=willy@srs-se1.protection.inumbo.net>)
- id 1rAtND-0008LY-Uf
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 14:59:41 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 13686739-9448-11ee-98e5-6d05b1d4d9a1;
- Wed, 06 Dec 2023 15:59:38 +0100 (CET)
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1rAtMN-002zkJ-Nc; Wed, 06 Dec 2023 14:58:47 +0000
+	id 1rAu7B-0008EH-TN; Wed, 06 Dec 2023 15:47:09 +0000
+Received: by outflank-mailman (input) for mailman id 649336;
+ Wed, 06 Dec 2023 15:47:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rAu7A-0008E7-NG; Wed, 06 Dec 2023 15:47:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rAu7A-0003X9-EX; Wed, 06 Dec 2023 15:47:08 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rAu79-0006zF-Vo; Wed, 06 Dec 2023 15:47:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rAu79-0004EV-VJ; Wed, 06 Dec 2023 15:47:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,103 +42,271 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13686739-9448-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=s+7kV2NOaPEBmhFkJpDv/pC5Llv4VXEE9i8fdKbvmjw=; b=ojDk7+bvhmkVaj86d9uPvOhQaz
-	kbAJJlz3eiFA7yxHtxf02BCaqsNM5pS9C8k5lXRoPly3/N/e0u5QADIgtZKFOwGOJtwsI5ZzSsYPS
-	PKyktYqelsFB3E+G8W+4/yQSFmaQ2jHSWEigX57CwcwQszQ0bDoxOOqdU2sc0+ZoE3Ff1wwcpqslV
-	VWLgXJnu2MrDZGBo0sVLqXRdAvGI+d1WdlsXWEVkM0crARzZz5+nD3AR2Avd8/g6eRde0hkW/FoXX
-	agEz57imZpOlmdW73T5pzua0TfxBEP/xRZ/WXwPlD7/tpJRN5cqF7OvXJrtIdGRYW6omWvwYwBXvA
-	OJr6nVaw==;
-Date: Wed, 6 Dec 2023 14:58:47 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Yu Kuai <yukuai1@huaweicloud.com>
-Cc: axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
-	kent.overstreet@gmail.com, joern@lazybastard.org,
-	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
-	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
-	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
-	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
-	dsterba@suse.com, nico@fluxnic.net, xiang@kernel.org,
-	chao@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
-	agruenba@redhat.com, jack@suse.com, konishi.ryusuke@gmail.com,
-	akpm@linux-foundation.org, hare@suse.de, p.raghav@samsung.com,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
-	linux-btrfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-ext4@vger.kernel.org, gfs2@lists.linux.dev,
-	linux-nilfs@vger.kernel.org, yukuai3@huawei.com,
-	yi.zhang@huawei.com, yangerkun@huawei.com
-Subject: Re: [PATCH -next RFC 01/14] block: add some bdev apis
-Message-ID: <ZXCMJ9skAAgPm4z3@casper.infradead.org>
-References: <20231205123728.1866699-1-yukuai1@huaweicloud.com>
- <20231205123728.1866699-2-yukuai1@huaweicloud.com>
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=jv+CkyV0Vf92m50SG+hNmxD8txcd3gYTqPHaW5YWxGA=; b=KgCCXeA1AN+toOYqthSCYS5BQ0
+	ahYlf1tyZpLmsvozntLQCRIDNCFCC/a7EKSFDHz2VjZ1hxsUfUk0Xhne8g/8IANlbzYD83018PSmr
+	nweOzIyfN06ayh75GF5KHvhh62XN8X1qolHAufY5G6Ufy+2Nkjpc6rouVfDFupJ9kHVI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184001-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231205123728.1866699-2-yukuai1@huaweicloud.com>
+Subject: [linux-linus test] 184001: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:build-i386-pvops:kernel-build:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:heisenbug
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=bee0e7762ad2c6025b9f5245c040fcc36ef2bde8
+X-Osstest-Versions-That:
+    linux=815fb87b753055df2d9e50f6cd80eb10235fe3e9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 06 Dec 2023 15:47:07 +0000
 
-On Tue, Dec 05, 2023 at 08:37:15PM +0800, Yu Kuai wrote:
-> +struct folio *bdev_read_folio(struct block_device *bdev, pgoff_t index)
-> +{
-> +	return read_mapping_folio(bdev->bd_inode->i_mapping, index, NULL);
-> +}
-> +EXPORT_SYMBOL_GPL(bdev_read_folio);
+flight 184001 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184001/
 
-I'm coming to the opinion that 'index' is the wrong parameter here.
-Looking through all the callers of bdev_read_folio() in this patchset,
-they all have a position in bytes, and they all convert it to
-index for this call.  The API should probably be:
+Regressions :-(
 
-struct folio *bdev_read_folio(struct block_device *bdev, loff_t pos)
-{
-	return read_mapping_folio(bdev->bd_inode->i_mapping,
-			pos / PAGE_SIZE, NULL);
-}
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-pvops              6 kernel-build             fail REGR. vs. 183973
 
-... and at some point, we'll get round to converting read_mapping_folio()
-to take its argument in loff_t.
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-examine      8 reboot                     fail pass in 183993
 
-Similiarly for these two APIs:
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183973
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 183973
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 183973
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 183973
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183973
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 183973
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183973
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 183973
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-> +struct folio *bdev_read_folio_gfp(struct block_device *bdev, pgoff_t index,
-> +				  gfp_t gfp)
-> +struct folio *bdev_get_folio(struct block_device *bdev, pgoff_t index)
+version targeted for testing:
+ linux                bee0e7762ad2c6025b9f5245c040fcc36ef2bde8
+baseline version:
+ linux                815fb87b753055df2d9e50f6cd80eb10235fe3e9
 
-> +struct folio *bdev_find_or_create_folio(struct block_device *bdev,
-> +					pgoff_t index, gfp_t gfp)
-> +{
-> +	return __filemap_get_folio(bdev->bd_inode->i_mapping, index,
-> +				   FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
-> +}
-> +EXPORT_SYMBOL_GPL(bdev_find_or_create_folio);
+Last test of basis   183973  2023-12-02 07:48:26 Z    4 days
+Failing since        183977  2023-12-03 00:12:06 Z    3 days    8 attempts
+Testing same since   183993  2023-12-05 09:00:54 Z    1 days    2 attempts
 
-This one probably shouldn't exist.  I've been converting callers of
-find_or_create_page() to call __filemap_get_folio; I suspect we
-should expose a __bdev_get_folio and have the callers use the FGP
-arguments directly, but I'm open to other opinions here.
+------------------------------------------------------------
+People who touched revisions under test:
+  Alex Williamson <alex.williamson@redhat.com>
+  Brett Creeley <brett.creeley@amd.com>
+  Dan Carpenter <dan.carpenter@linaro.org>
+  David Howells <dhowells@redhat.com>
+  Dmitry Antipov <dmantipov@yandex.ru>
+  Eugenio Pérez <eperezma@redhat.com>
+  Jason Gunthorpe <jgg@nvidia.com>
+  Jason Wang <jasowang@redhat.com>
+  Jens Axboe <axboe@kernel.dk>
+  Joao Martins <joao.m.martins@oracle.com>
+  JP Kobryn <inwardvessel@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Masami Hiramatsu (Google) <mhiramat@kernel.org>
+  Michael Ellerman <mpe@ellerman.id.au>
+  Michael S. Tsirkin <mst@redhat.com>
+  Namjae Jeon <linkinjeon@kernel.org>
+  Nicholas Piggin <npiggin@gmail.com>
+  Paulo Alcantara (SUSE) <pc@manguebit.com>
+  Paulo Alcantara <pc@manguebit.com>
+  Robin Murphy <robin.murphy@arm.com>
+  Sean Christopherson <seanjc@google.com>
+  Shannon Nelson <shannon.nelson@amd.com>
+  Steve French <stfrench@microsoft.com>
+  Steve Sistare <steven.sistare@oracle.com>
+  Takashi Sakamoto <o-takashi@sakamocchi.jp>
+  Timothy Pearson <tpearson@raptorengineering.com>
+  wuqiang.matt <wuqiang.matt@bytedance.com>
+  Yang Yingliang <yangyingliang@huawei.com>
 
-> +void bdev_sync_readahead(struct block_device *bdev, struct file_ra_state *ra,
-> +			 struct file *file, pgoff_t index,
-> +			 unsigned long req_count)
-> +{
-> +	struct file_ra_state tmp_ra = {};
-> +
-> +	if (!ra) {
-> +		ra = &tmp_ra;
-> +		file_ra_state_init(ra, bdev->bd_inode->i_mapping);
-> +	}
-> +	page_cache_sync_readahead(bdev->bd_inode->i_mapping, ra, file, index,
-> +				  req_count);
-> +}
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             fail    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-I think the caller should always be passing in a valid file_ra_state.
-It's only cramfs that doesn't have one, and it really should!
-Not entirely sure about the arguments here; part of me says "bytes",
-but this is weird enough to maybe take arguments in pages.
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 987 lines long.)
 
