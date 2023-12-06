@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B59258069FA
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 09:42:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648977.1013135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B988069FF
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 09:44:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648980.1013146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAnTW-0000Vv-AT; Wed, 06 Dec 2023 08:41:46 +0000
+	id 1rAnVj-0001Nh-QE; Wed, 06 Dec 2023 08:44:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648977.1013135; Wed, 06 Dec 2023 08:41:46 +0000
+Received: by outflank-mailman (output) from mailman id 648980.1013146; Wed, 06 Dec 2023 08:44:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAnTW-0000T3-6L; Wed, 06 Dec 2023 08:41:46 +0000
-Received: by outflank-mailman (input) for mailman id 648977;
- Wed, 06 Dec 2023 08:41:43 +0000
+	id 1rAnVj-0001Ks-ML; Wed, 06 Dec 2023 08:44:03 +0000
+Received: by outflank-mailman (input) for mailman id 648980;
+ Wed, 06 Dec 2023 08:44:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X1yw=HR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAnTT-0000SG-Sd
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 08:41:43 +0000
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [2a00:1450:4864:20::444])
+ id 1rAnVi-0001Ki-Sd
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 08:44:02 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47d3e242-9413-11ee-98e5-6d05b1d4d9a1;
- Wed, 06 Dec 2023 09:41:42 +0100 (CET)
-Received: by mail-wr1-x444.google.com with SMTP id
- ffacd0b85a97d-332c0c32d19so578204f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 00:41:42 -0800 (PST)
+ id 9acb3dab-9413-11ee-98e5-6d05b1d4d9a1;
+ Wed, 06 Dec 2023 09:44:02 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40b397793aaso3276775e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 00:44:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l14-20020a5d6d8e000000b0033343b1ec1asm8704506wrs.26.2023.12.06.00.41.41
+ e2-20020adf9bc2000000b003332fa77a0fsm14315315wrc.21.2023.12.06.00.44.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Dec 2023 00:41:41 -0800 (PST)
+ Wed, 06 Dec 2023 00:44:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47d3e242-9413-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: 9acb3dab-9413-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701852102; x=1702456902; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=FSJmxM6AaCYttK0D/fkGRAXDM/3Z8X9PgrOncB9F9OQ=;
-        b=gRxJpmfXiUkdf+4vixQ7K0SkImiJ9WyiRnIxgUw/oV6tCKonEZ5Py2EoKrOzsaQOLF
-         ChHeiVvAwJv3XZog3/2/MZXL51O//pp0oXCusTidg+vj4hGnDRF8rpE2apImY3KjZ8fB
-         MBa7+ObqgeNnCkD3v2ZlD5Gs4UNgb8bF41UXDuv3dADkQknbXBrIzd6dqNZM0Hlz6NMI
-         Q3Fzi+1aNIRDX4rS4+dxcP3ET2XbJWjEGruBQy/sYkTuGT9NTawkzt5/PSiVkFWHX0UM
-         fOgYPtwohhRWqXglu0Lof1VYZPu1DTF3XoCinl/yLvqZiyILMD/fJjBRX/I29MlOJhoO
-         4S1g==
+        d=suse.com; s=google; t=1701852241; x=1702457041; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+/hfupQE0FCDpaIJHdnn/iB9CcbgSgDZqdvxwWfvR0I=;
+        b=c8p+f9bwQ30MdSWvGM6+tEMOz+c+ha3WHlHOI/sSKnC7TQZ8mnb7fHJJFd+9224Das
+         tpVij9jXTlCuhVt+kjUbSDOz4Ca5HGH2tpbtKsnGMUNCkYyl/tnEXChMt7/ex1PES18L
+         9wF30S0a6F1dn0mvwOhUsZuAdIii2Av2PuLWrccsjY93fQc2KZV3zmt4ppfdXTeRb5Fy
+         ZszKLuSOFCjc8Hh6tten34clVdF9aDNmp1pylrx5nSfL3HtsbCzA0ZlF/7QYur3BQ6zs
+         r9h2Tpv1iNRXgkN9DrPti3JWF2IvoM+uv3JwLArNgkeX3MKFcrFLHDIpIc3rzumYxaMQ
+         eDGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701852102; x=1702456902;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FSJmxM6AaCYttK0D/fkGRAXDM/3Z8X9PgrOncB9F9OQ=;
-        b=TD/a5+P3HIcMayBhgBpXI3IeTj51PTXvVrW8c1ZzGHACo0aKcgtbIJIVauzzuJadnD
-         /CJN0FFieiB1qXKp4+hpjsUtNCNtxWnwPcYC7EOXney2UdS4PSNuq7GGOQa2HwUmF5vW
-         qiITc5AZBpClpWmHqKD5hNVS2M9kXL9BZIaSyEl1Qux75nsrSP1ukbZp+iQZMIOKp/yb
-         0Aj88Y5UBqiY7Mw93E8h/AXGAFQzjzlNG79irYEYvJ0V7wrET7Z7cEOueK24ShtEhxai
-         kiCRBAeH95fGy1u1MDtltAkZucqaOohF+zlvVA3iE7iSdhwOaOB5BfyrB7EHQXO3yYmU
-         ab2Q==
-X-Gm-Message-State: AOJu0YyxuBOUMZipuX6n5XktfOufPAtkYAgrTYvDKF7VDB4uTXU2/UCc
-	DCd92H+ePMcxBYfAGoJ9sM6Y
-X-Google-Smtp-Source: AGHT+IEt8BQ36J6a3X/Kz6hddQFV22uS9olYdkI6dikI24GGvg2UKGZMfjZKhA/sYWL/3fcU2BxxAQ==
-X-Received: by 2002:a5d:6143:0:b0:333:2fd2:2ed4 with SMTP id y3-20020a5d6143000000b003332fd22ed4mr263672wrt.77.1701852102175;
-        Wed, 06 Dec 2023 00:41:42 -0800 (PST)
-Message-ID: <50b36423-d1e1-406f-a63f-66f2e4dce68e@suse.com>
-Date: Wed, 6 Dec 2023 09:41:40 +0100
+        d=1e100.net; s=20230601; t=1701852241; x=1702457041;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+/hfupQE0FCDpaIJHdnn/iB9CcbgSgDZqdvxwWfvR0I=;
+        b=TuGrJY1da9YvqHw69rXYq6aetZaOxdihywHPLzeDPEMZ9fBZZbn7SP5aXeToL4pipf
+         4GRhxZYmUQqHZSlUJTld5Voy4/X0SM7/0RjfgH05TJ3HW7AmFo0JOyTPeKgQGUqhmSJt
+         r0t82mdz66VUwLm1adYRPRI23Sz/h2/KeDjfKyEWWpi/TrPfJmT3CY+9QmSEmuas6CKz
+         I56+qWXas74Mn+VVQ2nznfEtL0ZM7TKlhQVQs7XaQJ0YQzee0oASch3/4foVlU4pP2WH
+         OfngCOrOg7QAFu62dIuZyGkRMcgm8RPkfk7cWXtoT4Jin4KB680zYcDKC3rjQ7VoyGAH
+         LJMQ==
+X-Gm-Message-State: AOJu0YzaNbfy0rgJwGTmrXXkgzPuhKbJio+SF3/xU6hA+enOoNH9NCZY
+	SF8Bt8rRxJvK7LMuQYJAqwkj
+X-Google-Smtp-Source: AGHT+IFf8IAVcvqUVDccrRt+TNWVNnDZ9iFbpHWMPgsmSHqcdGkksJUdYzrZ3KASUH6y6GRHLCGVyA==
+X-Received: by 2002:a05:600c:3596:b0:40b:4072:54de with SMTP id p22-20020a05600c359600b0040b407254demr1281928wmq.13.1701852241369;
+        Wed, 06 Dec 2023 00:44:01 -0800 (PST)
+Message-ID: <606969b5-5ee3-4e15-92d4-86b142845437@suse.com>
+Date: Wed, 6 Dec 2023 09:44:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CODING_STYLE: Add a section of the naming convention
-To: George Dunlap <george.dunlap@cloud.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>
-References: <20231205181218.74667-1-julien@xen.org>
- <CA+zSX=aUV00BwnNfFTbCE=6PuVNT=UFvE0tnMO3UhwCMh5jmHQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] xen/arm: set -mno-unaligned-access compiler option
+ for Arm32
 Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20231206071039.24435-1-jgross@suse.com>
+ <20231206071039.24435-2-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,75 +114,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CA+zSX=aUV00BwnNfFTbCE=6PuVNT=UFvE0tnMO3UhwCMh5jmHQ@mail.gmail.com>
+In-Reply-To: <20231206071039.24435-2-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.12.2023 03:21, George Dunlap wrote:
-> On Tue, Dec 5, 2023 at 6:12 PM Julien Grall <julien@xen.org> wrote:
->>
->> From: Julien Grall <jgrall@amazon.com>
->>
->> Several maintainers have expressed a stronger preference
->> to use '-' when in filename and option that contains multiple
->> words.
->>
->> So document it in CODING_STYLE.
->>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>
->> ---
->>     Changes in v2:
->>         - New wording
->>         - Update the section title
->>         - Add Jan's acked-by
->> ---
->>  CODING_STYLE | 9 +++++++++
->>  1 file changed, 9 insertions(+)
->>
->> diff --git a/CODING_STYLE b/CODING_STYLE
->> index ced3ade5a6fb..ed13ee2b664b 100644
->> --- a/CODING_STYLE
->> +++ b/CODING_STYLE
->> @@ -144,6 +144,15 @@ separate lines and each line should begin with a leading '*'.
->>   * Note beginning and end markers on separate lines and leading '*'.
->>   */
->>
->> +Naming convention for files and command line options
->> +----------------------------------------------------
->> +
->> +'-' should be used to separate words in commandline options and filenames.
->> +E.g. timer-works.
->> +
->> +Note that some of the options and filenames are using '_'. This is now
->> +deprecated.
+On 06.12.2023 08:10, Juergen Gross wrote:
+> As the hypervisor is disabling unaligned accesses for Arm32, set the
+> -mno-unaligned-access compiler option for building. This will prohibit
+> unaligned accesses when e.g. accessing 2- or 4-byte data items in
+> packed data structures.
 > 
-> Sorry for not catching this last time; "are using X" isn't really
-> idiomatic English; more idiomatic would be something like the
-> following:
-> 
-> "Note that some existing options and file names use '_'.  This is now
-> deprecated."
-> 
-> Since we're changing things, I *think* most style guides would advise
-> against starting the sentence with a punctuation; so perhaps:
-> 
-> "Command-line options and file names should use '-' to separate words;
-> e.g., timer-works."
-> 
-> And what about adding to the last paragraph:
-> 
-> "When touching code around command-line parameters still using '_', it
-> is recommended to modify the documentation to say only '-', but modify
-> the code to accept both '-' and '_' (for backwards compatibility)."
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-In this context see
-https://lists.xen.org/archives/html/xen-devel/2020-01/msg01945.html
-and Andrew's response
-https://lists.xen.org/archives/html/xen-devel/2020-01/msg02006.html
-I'm still in favor of addressing the issue centrally (making unnecessary
-adjustments like you suggest in the new paragraph). Yet I think Andrew's
-objection would cover such adjustments as much as my generic solution.
+Assuming this will want backporting, should it have some Fixes: tag?
 
 Jan
 
