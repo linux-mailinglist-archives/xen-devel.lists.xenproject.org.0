@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 119A9807586
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 17:44:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649367.1013810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6A9E807626
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 18:12:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649372.1013820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAv0c-0004Vu-Fv; Wed, 06 Dec 2023 16:44:26 +0000
+	id 1rAvQA-00026V-Lx; Wed, 06 Dec 2023 17:10:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649367.1013810; Wed, 06 Dec 2023 16:44:26 +0000
+Received: by outflank-mailman (output) from mailman id 649372.1013820; Wed, 06 Dec 2023 17:10:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAv0c-0004TN-BV; Wed, 06 Dec 2023 16:44:26 +0000
-Received: by outflank-mailman (input) for mailman id 649367;
- Wed, 06 Dec 2023 16:44:25 +0000
+	id 1rAvQA-00023i-In; Wed, 06 Dec 2023 17:10:50 +0000
+Received: by outflank-mailman (input) for mailman id 649372;
+ Wed, 06 Dec 2023 17:10:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lx6I=HR=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rAv0b-0004TH-6i
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 16:44:25 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uU2H=HR=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rAvQA-00023b-29
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 17:10:50 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b59a5db6-9456-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 17:44:23 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id EEFCC1FD2A;
- Wed,  6 Dec 2023 16:44:21 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CB49C136CD;
- Wed,  6 Dec 2023 16:44:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id vEhIMOWkcGXHaAAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 06 Dec 2023 16:44:21 +0000
+ id 66106d31-945a-11ee-9b0f-b553b5be7939;
+ Wed, 06 Dec 2023 18:10:47 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-3333a3a599fso580789f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 09:10:47 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ he15-20020a05600c540f00b0040c25abd724sm296896wmb.9.2023.12.06.09.10.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Dec 2023 09:10:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,218 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b59a5db6-9456-11ee-9b0f-b553b5be7939
-Message-ID: <b5b74155-e086-425d-8f5a-e9878d5d2da2@suse.com>
-Date: Wed, 6 Dec 2023 17:44:21 +0100
+X-Inumbo-ID: 66106d31-945a-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1701882647; x=1702487447; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ygJQ11lVIy+dGwQu4ObcXGNlr5jdB1jPQ2GsWqZ4H6o=;
+        b=IQy543vuM6WO+8sWhOlDtkdl0bUrjPS6LqMEZzYlcRrWiXxOFSFiZ6x/Wqfyd70qdE
+         xkD2ig/FHEHgTtemeq1BQ7Su7zv5Dcsy7OGJHf/++8CCqlrCfLeHSPMawXNw0YlkNZEp
+         AEp8jLiZT9/fjkVJW2HssxVcJFfjnaOSHtFzw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701882647; x=1702487447;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ygJQ11lVIy+dGwQu4ObcXGNlr5jdB1jPQ2GsWqZ4H6o=;
+        b=JU6jAWzup5mqb4uOFoVQgWQ4cQSk8nkKey/yQFRf9fm+AT8mxLTMfdzsRltQqTmVQI
+         hghqq8xGzOzkx45zfmL638eg8C20ee8+sBMcCCvO8Pykaul9gUifmSuF0WNH2qXrIk/1
+         AVn22gOyk5rpgY/m0FtjZCvyPTh8KffogqtyxtR4w4OH9uAx494Fs0VcMLldhBJuz5r/
+         YcB/uAgR1FJUfdicvXYJFBNW+V1CuzvEQgKxJOdxUys30c5OwfVEu2rUotSLkhSk+Hz4
+         D5dsrXioE2DUCRdbpEzSoJiFo2GQemJrwtTFkMDFNMHokLPtP32pfUmHsFEuuxgSgavb
+         9jvA==
+X-Gm-Message-State: AOJu0YyNIb6VVa/gJSMikABKoQqggXpaXv1ZCFKXyci4L+TCIZBeU7fV
+	jtddHoCHNlDVyIix8+1g9P6qgQ==
+X-Google-Smtp-Source: AGHT+IFtWcSHZ2oJLGyder4CwJPSnDHhLNNs7iy18nmFpsBl9eoDeOc0IorEktjQvawsGHALt4O/UQ==
+X-Received: by 2002:a05:600c:3c99:b0:40b:2a08:c45e with SMTP id bg25-20020a05600c3c9900b0040b2a08c45emr1750816wmb.3.1701882647076;
+        Wed, 06 Dec 2023 09:10:47 -0800 (PST)
+Date: Wed, 6 Dec 2023 17:10:46 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+	David Woodhouse <dwmw@amazon.co.uk>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Paul Durrant <xadimgnik@gmail.com>,
+	Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+	Paul Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>,
+	Hanna Reitz <hreitz@redhat.com>, Jason Wang <jasowang@redhat.com>,
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+	"open list:Block layer core" <qemu-block@nongnu.org>
+Subject: Re: [PATCH v4 2/6] xen: backends: don't overwrite XenStore nodes
+ created by toolstack
+Message-ID: <a5d439c6-f20d-41a6-8ec1-6132d505deb0@perard>
+References: <20231202014108.2017803-1-volodymyr_babchuk@epam.com>
+ <20231202014108.2017803-3-volodymyr_babchuk@epam.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/libs/evtchn: drop assert()s in stubdom
-Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20231206144009.29154-1-jgross@suse.com>
- <CAKf6xpvu5txfU4uU26=Q-FyEmaaBazXPcOK_gU_=Tp=T98sS7g@mail.gmail.com>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <CAKf6xpvu5txfU4uU26=Q-FyEmaaBazXPcOK_gU_=Tp=T98sS7g@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------JmnCiQtIVPdfGa60UKrYBReW"
-X-Rspamd-Queue-Id: EEFCC1FD2A
-X-Spam-Score: 15.00
-X-Spam-Flag: YES
-X-Spamd-Result: default: False [15.00 / 50.00];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 TO_DN_SOME(0.00)[];
-	 HAS_ATTACHMENT(0.00)[];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 MX_GOOD(-0.01)[];
-	 MIME_BASE64_TEXT(0.10)[];
-	 SIGNED_PGP(-2.00)[];
-	 FREEMAIL_TO(0.00)[gmail.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 R_DKIM_NA(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys];
-	 ARC_NA(0.00)[];
-	 R_SPF_FAIL(1.00)[-all];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 DMARC_POLICY_QUARANTINE(1.50)[suse.com : No valid SPF, No valid DKIM,quarantine];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 RCVD_TLS_ALL(0.00)[]
-X-Spamd-Bar: +++++++++++++++
-Authentication-Results: smtp-out2.suse.de;
-	dkim=none;
-	dmarc=fail reason="No valid SPF, No valid DKIM" header.from=suse.com (policy=quarantine);
-	spf=fail (smtp-out2.suse.de: domain of jgross@suse.com does not designate 2a07:de40:b281:104:10:150:64:97 as permitted sender) smtp.mailfrom=jgross@suse.com
-X-Rspamd-Server: rspamd1
-X-Spam-Level: ***************
-X-Spam: Yes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231202014108.2017803-3-volodymyr_babchuk@epam.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------JmnCiQtIVPdfGa60UKrYBReW
-Content-Type: multipart/mixed; boundary="------------v5ouR3jBBOuhda0eVaItMQkK";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <b5b74155-e086-425d-8f5a-e9878d5d2da2@suse.com>
-Subject: Re: [PATCH] tools/libs/evtchn: drop assert()s in stubdom
-References: <20231206144009.29154-1-jgross@suse.com>
- <CAKf6xpvu5txfU4uU26=Q-FyEmaaBazXPcOK_gU_=Tp=T98sS7g@mail.gmail.com>
-In-Reply-To: <CAKf6xpvu5txfU4uU26=Q-FyEmaaBazXPcOK_gU_=Tp=T98sS7g@mail.gmail.com>
+On Sat, Dec 02, 2023 at 01:41:21AM +0000, Volodymyr Babchuk wrote:
+> Xen PV devices in QEMU can be created in two ways: either by QEMU
+> itself, if they were passed via command line, or by Xen toolstack. In
+> the latter case, QEMU scans XenStore entries and configures devices
+> accordingly.
+> 
+> In the second case we don't want QEMU to write/delete front-end
+> entries for two reasons: it might have no access to those entries if
+> it is running in un-privileged domain and it is just incorrect to
+> overwrite entries already provided by Xen toolstack, because toolstack
+> manages those nodes. For example, it might read backend- or frontend-
+> state to be sure that they are both disconnected and it is safe to
+> destroy a domain.
+> 
+> This patch checks presence of xendev->backend to check if Xen PV
+> device was configured by Xen toolstack to decide if it should touch
+> frontend entries in XenStore. Also, when we need to remove XenStore
+> entries during device teardown only if they weren't created by Xen
+> toolstack. If they were created by toolstack, then it is toolstack's
+> job to do proper clean-up.
+> 
+> Suggested-by: Paul Durrant <xadimgnik@gmail.com>
+> Suggested-by: David Woodhouse <dwmw@amazon.co.uk>
+> Co-Authored-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
+> 
 
---------------v5ouR3jBBOuhda0eVaItMQkK
-Content-Type: multipart/mixed; boundary="------------qY0Cz07POJLJk3xHopfaPGts"
+Hi Volodymyr,
 
---------------qY0Cz07POJLJk3xHopfaPGts
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+There's something wrong with this patch. The block backend doesn't work
+when creating a guest via libxl, an x86 hvm guest with qdisk.
 
-T24gMDYuMTIuMjMgMTc6MzgsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IE9uIFdlZCwgRGVj
-IDYsIDIwMjMgYXQgOTo0MOKAr0FNIEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4g
-d3JvdGU6DQo+Pg0KPj4gSW4gdG9vbHMvbGlicy9ldnRjaG4vbWluaW9zLmMgdGhlcmUgYXJl
-IGFzc2VydCgpcyBmb3IgdGhlIGN1cnJlbnQNCj4+IHRocmVhZCBiZWluZyB0aGUgbWFpbiB0
-aHJlYWQgd2hlbiBiaW5kaW5nIGFuIGV2ZW50IGNoYW5uZWwuDQo+Pg0KPj4gQXMgTWluaS1P
-UyBpcyBzdXBwb3J0aW5nIG11bHRpcGxlIHRocmVhZHMsIHRoZXJlIGlzIG5vIHJlYWwgcmVh
-c29uDQo+PiB3aHkgdGhlIGJpbmRpbmcgc2hvdWxkbid0IGJlIGFsbG93ZWQgdG8gaGFwcGVu
-IGluIGFueSBvdGhlciB0aHJlYWQuDQo+Pg0KPj4gSnVzdCBkcm9wIHRoZSBhc3NlcnQoKXMu
-DQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29t
-Pg0KPj4gLS0tDQo+PiAgIHRvb2xzL2xpYnMvZXZ0Y2huL21pbmlvcy5jIHwgMyAtLS0NCj4+
-ICAgMSBmaWxlIGNoYW5nZWQsIDMgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBh
-L3Rvb2xzL2xpYnMvZXZ0Y2huL21pbmlvcy5jIGIvdG9vbHMvbGlicy9ldnRjaG4vbWluaW9z
-LmMNCj4+IGluZGV4IDI4NzQzY2IwNTUuLmUzM2RkZWM3ZTcgMTAwNjQ0DQo+PiAtLS0gYS90
-b29scy9saWJzL2V2dGNobi9taW5pb3MuYw0KPj4gKysrIGIvdG9vbHMvbGlicy9ldnRjaG4v
-bWluaW9zLmMNCj4+IEBAIC0xOTUsNyArMTk1LDYgQEAgeGVuZXZ0Y2huX3BvcnRfb3JfZXJy
-b3JfdCB4ZW5ldnRjaG5fYmluZF91bmJvdW5kX3BvcnQoeGVuZXZ0Y2huX2hhbmRsZSAqeGNl
-LA0KPj4gICAgICAgaW50IHJldDsNCj4+ICAgICAgIGV2dGNobl9wb3J0X3QgcG9ydDsNCj4+
-DQo+PiAtICAgIGFzc2VydChnZXRfY3VycmVudCgpID09IG1haW5fdGhyZWFkKTsNCj4+ICAg
-ICAgIHBvcnRfaW5mbyA9IHBvcnRfYWxsb2MoeGNlKTsNCj4gDQo+IElmIG11bHRpcGxlIHRo
-cmVhZHMgYXJlIGFsbG93ZWQsIGRvZXMgcG9ydF9saXN0IG5lZWQgdG8gZ2FpbiBhIGxvY2sN
-Cj4gcHJvdGVjdGluZyBpdD8NCg0KSSB0aG91Z2h0IG9mIHRoYXQsIHRvby4NCg0KVGhlIGFu
-c3dlciBpczogbWF5YmUNCg0KQW55IG90aGVyIGxpc3Qgb3BlcmF0aW9uIG9uIHRoZSBsaXN0
-IGlzbid0IHByb3RlY3RlZCBieSBhbiBhc3NlcnQoKSwgc28NCnRlY2huaWNhbGx5IHRoZXJl
-IGlzIG5vIHJlYWwgbmV3IGFzcGVjdCBhZGRlZCBpbiB0aGlzIHJlZ2FyZC4NCg0KSSBiZWxp
-ZXZlIGFkZGluZyBhIGxvY2sgd291bGQgbWFrZSBzZW5zZSwgYnV0IGl0IGlzIG9ydGhvZ29u
-YWwgdG8gdGhpcw0KcGF0Y2guDQoNCg0KSnVlcmdlbg0KDQo=
---------------qY0Cz07POJLJk3xHopfaPGts
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Error from guest kernel:
+"2 reading backend fields at /local/domain/0/backend/qdisk/23/768"
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+It seems that "sector-size" is missing for the disk.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Thanks,
 
---------------qY0Cz07POJLJk3xHopfaPGts--
-
---------------v5ouR3jBBOuhda0eVaItMQkK--
-
---------------JmnCiQtIVPdfGa60UKrYBReW
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmVwpOUFAwAAAAAACgkQsN6d1ii/Ey/j
-Rwf+Nyts+prQa8TWiboo5ThDhK6q1zU3ULzOHsrFPlnYp+6EmAuS+0YtpfHECzdaqd2w8Jsxl7EK
-HzV+hcUWIzwqlFwQqHkQJqN3+qixOoYSoSiOaTJmb/MvTttDKVLrkEC7vzdIR2u5yg6pTxFK42qI
-zoJgNOc7eNd5hPb7F4A9MHEaYGPvBcMdrkoZiShHDxdlWHij8WRrg35JndDvRcmqPbG0AtjzPOij
-qbaQC4wLThHNuVkfXFE4tqvefQPAYultx18qoXFPExxlDLDj2Otb6EA5fKuOvWP96PxANFbQR2UO
-qFVO0Qiv9kgnu8N2OGJDBz5Wy9iREdMT5x+bb1keag==
-=Ku4Z
------END PGP SIGNATURE-----
-
---------------JmnCiQtIVPdfGa60UKrYBReW--
+-- 
+Anthony PERARD
 
