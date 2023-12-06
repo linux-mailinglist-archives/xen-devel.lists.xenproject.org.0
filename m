@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD445806E10
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 12:33:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649134.1013535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F48C806E12
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 12:34:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649138.1013548 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAq9a-0003e2-Ps; Wed, 06 Dec 2023 11:33:22 +0000
+	id 1rAqAV-0004BN-5e; Wed, 06 Dec 2023 11:34:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649134.1013535; Wed, 06 Dec 2023 11:33:22 +0000
+Received: by outflank-mailman (output) from mailman id 649138.1013548; Wed, 06 Dec 2023 11:34:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAq9a-0003b6-LU; Wed, 06 Dec 2023 11:33:22 +0000
-Received: by outflank-mailman (input) for mailman id 649134;
- Wed, 06 Dec 2023 11:33:21 +0000
+	id 1rAqAV-00049F-1f; Wed, 06 Dec 2023 11:34:19 +0000
+Received: by outflank-mailman (input) for mailman id 649138;
+ Wed, 06 Dec 2023 11:34:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rHB2=HR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rAq9Z-0003b0-5j
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 11:33:21 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1rAqAT-00048p-O3
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 11:34:17 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 41162716-942b-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 12:33:19 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-40c0a0d068bso33016815e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 03:33:19 -0800 (PST)
+ id 62d33a5d-942b-11ee-9b0f-b553b5be7939;
+ Wed, 06 Dec 2023 12:34:15 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-40b2ddab817so69833775e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 03:34:15 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- fl8-20020a05600c0b8800b0040b37f1079dsm25733060wmb.29.2023.12.06.03.33.18
+ fl8-20020a05600c0b8800b0040b37f1079dsm25733060wmb.29.2023.12.06.03.34.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Dec 2023 03:33:18 -0800 (PST)
+ Wed, 06 Dec 2023 03:34:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41162716-942b-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 62d33a5d-942b-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701862399; x=1702467199; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=RtEQcKbt+YxPr2cmkE466WhRtvfACjQaCrMaylf9cWs=;
-        b=jM1ycEOeotLtZg6574wnLbqfyMd9flRmx7yBlVcw7Kz6MUM6/0t5s8XzLrApPHDWAg
-         MRL7K/zt2+M3KedwPadO2cewyLMtKOXUWi+iIPD9v2pS/oCYPKNXk20wgXJ+7hqN4mOa
-         xOujArEwRswid7110fJkCatG4Rt0FMr8kIk9Y=
+        d=citrix.com; s=google; t=1701862455; x=1702467255; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=WZJ7cxcejz9u6NYxab3g4zyeV7d6qWy2sV2nr6pT27s=;
+        b=mVTjXkhk1xqaoeqRxcAhtZ+w5mtMwM8pWNO7An5+bsj96OknLTaHeS5LUwnZjR7iFZ
+         kmF5QMpURZCLyT/syIuTeKZLQHcIA2jQ0oPPDHuNN3Yc5BAT1yIaQ4XvKKmWAatecdA1
+         NL0Pqxv0S58uZ6bv+sekPIALP80DKEQqf1WsY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701862399; x=1702467199;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RtEQcKbt+YxPr2cmkE466WhRtvfACjQaCrMaylf9cWs=;
-        b=o2/e+9rGvfnN2H9V8/Sll7xX/MO98JRZadE7Zs6q9Doc9Sq8CpEOTFBliVAszlhhEJ
-         POM8cX1De1xavR+9ugbfhUg8b/ix5CpiRLL46kPkyCoPF0VvM8uq3EvR67GY8p3kypi4
-         1gAhu9OGE2iYUJIyHe7lUouMpkq8JDZc6pvBwwim2gfBC/YqxrTW7PKFFCMBlWmHK1dO
-         U+2paPiPLZITynXMrOzo1tVCnCcT7/sSwFqTiqmgy5Z625WzuPyzVoUKmDm8ERm4T3ke
-         I5209TA1H7MYdJ9g+ILBJ4E1j+mLy+dgDoBj42aAkW89j59y/AIKLNnMvcFNsT+/Fj1F
-         GXzA==
-X-Gm-Message-State: AOJu0YxQe7PWjNQNGNMgnK7d+0h7dtZYV79wC9CaMKOTbyrpZuVzNmZ/
-	nBDhFn/kNcRWucJzltDP+20ZzfITTRbFFo8OEuM=
-X-Google-Smtp-Source: AGHT+IHI1xP7Xg12Me6OWjaJfjgAqD2aHBe0q4o9ACX6qKhTERfQiOFmNyokvv4Fk+gwoOb3gTDsAg==
-X-Received: by 2002:a05:600c:46d1:b0:40b:4c36:f80 with SMTP id q17-20020a05600c46d100b0040b4c360f80mr571531wmo.32.1701862398723;
-        Wed, 06 Dec 2023 03:33:18 -0800 (PST)
-Message-ID: <9af90251-e16a-43b2-acdc-fa6feddd5a22@citrix.com>
-Date: Wed, 6 Dec 2023 11:33:18 +0000
+        d=1e100.net; s=20230601; t=1701862455; x=1702467255;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=WZJ7cxcejz9u6NYxab3g4zyeV7d6qWy2sV2nr6pT27s=;
+        b=p4EPfqY/ro4MV862oMcd3ijpfLHswodIGdhZ3eJX+snx5q1KBjNShQGrKsFR25gq7y
+         O0g+R8/kwZL68s4YYwZmgomy0qJcUzpuqxauQpOdmqZS7CxYhxe2m1FvZghvedUSrUhf
+         BvBTzbDLmqPZyuSulVJz139/iCRHIvFft7dQMQKHuqW47vNNjw5F047v81kR/vIgaL3/
+         6nGmJMnvb+NFDCPCdu1rYzMnBrJvl47NftaSTZTU6e44jqiPJT13edITq2m5gbpfjVhh
+         9IcF+JU4UUEVYYb1WWkqqIHbtUVjRFH6z19XQDHud9uFn7hR6fE0KBXb8+31q+h/r2BM
+         +/lg==
+X-Gm-Message-State: AOJu0YyNdYW/KAzuj6q2YbUvM6i3unY32h1VnjhI9+voz9XKVRplyUk3
+	Y91aYeUEP9yWvA7/KFWjUhAKZQ==
+X-Google-Smtp-Source: AGHT+IGYDhpEv+3BDt0sfrVN/KDMyMSESIX/fjs8/BhDxOATEjFhvdFIjfym5RMa9zOjRQ5lYJMX4g==
+X-Received: by 2002:a05:600c:4508:b0:40b:5e1c:af27 with SMTP id t8-20020a05600c450800b0040b5e1caf27mr520675wmo.45.1701862455455;
+        Wed, 06 Dec 2023 03:34:15 -0800 (PST)
+Message-ID: <88771312-9dda-4acf-8bf3-8ab7a05583a9@citrix.com>
+Date: Wed, 6 Dec 2023 11:34:15 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen: make include/xen/unaligned.h usable on all
- architectures
+Subject: Re: [PATCH] Mini-OS: use BUG() instead of dereferencing NULL
 Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org, Jan Beulich <jbeulich@suse.com>
+References: <20231206113037.8832-1-jgross@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Arnd Bergmann <arnd@arndb.de>
-References: <20231206071039.24435-1-jgross@suse.com>
- <20231206071039.24435-3-jgross@suse.com>
- <31e2e2cd-2b83-43cc-a385-97feef2cdbb6@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -132,33 +126,47 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <31e2e2cd-2b83-43cc-a385-97feef2cdbb6@citrix.com>
+In-Reply-To: <20231206113037.8832-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/12/2023 10:59 am, Andrew Cooper wrote:
-> On 06/12/2023 7:10 am, Juergen Gross wrote:
->> diff --git a/xen/include/xen/unaligned.h b/xen/include/xen/unaligned.h
->> index 0a2b16d05d..0ceb06a2bb 100644
->> --- a/xen/include/xen/unaligned.h
->> +++ b/xen/include/xen/unaligned.h
->> @@ -1,12 +1,4 @@
->>
->> -static inline uint16_t get_unaligned_be16(const void *p)
->> +static inline u16 get_unaligned_le16(const void *p)
-> I've done some cleanup for you.
+On 06/12/2023 11:30 am, Juergen Gross wrote:
+> There are some places using a dereference of NULL to cause a crash.
 >
-> You swapped away from using stdint types, and shuffled the order of
-> functions, which made the diff basically illegible.
+> Use BUG() instead.
 >
-> https://xenbits.xen.org/gitweb/?p=people/andrewcoop/xen.git;a=commitdiff;h=1d448a845ee4ad74cab76563b3a2552b10953186
-> is a much shorter diff.
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Oh, and the Origin link ought to be
+Wow...
 
-https://git.kernel.org/torvalds/c/803f4e1eab7a8938ba3a3c30dd4eb5e9eeef5e63
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-which is shorter and also lets people on the web view it.
+> ---
+>  lib/xmalloc.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/lib/xmalloc.c b/lib/xmalloc.c
+> index cc5db11e..2aa07138 100644
+> --- a/lib/xmalloc.c
+> +++ b/lib/xmalloc.c
+> @@ -219,7 +219,7 @@ void xfree(const void *p)
+>      if(((long)p & PAGE_MASK) != ((long)hdr & PAGE_MASK))
+>      {
+>          printk("Header should be on the same page\n");
+> -        *(int*)0=0;
+> +        BUG();
+>      }
+>  
+>      /* Merge with other free block, or put in list. */
+> @@ -255,7 +255,7 @@ void xfree(const void *p)
+>          if((((unsigned long)hdr) & (PAGE_SIZE-1)) != 0)
+>          {
+>              printk("Bug\n");
+> -            *(int*)0=0;
+> +            BUG();
+>          }
+>          free_page(hdr);
+>      }
 
-~Andrew
 
