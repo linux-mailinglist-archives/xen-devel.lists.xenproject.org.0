@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38F3F807823
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 19:53:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649396.1013879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 578CB80782D
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 19:53:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649399.1013890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAx0R-0000JP-PR; Wed, 06 Dec 2023 18:52:23 +0000
+	id 1rAx1o-0000qs-5E; Wed, 06 Dec 2023 18:53:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649396.1013879; Wed, 06 Dec 2023 18:52:23 +0000
+Received: by outflank-mailman (output) from mailman id 649399.1013890; Wed, 06 Dec 2023 18:53:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAx0R-0000HH-Ml; Wed, 06 Dec 2023 18:52:23 +0000
-Received: by outflank-mailman (input) for mailman id 649396;
- Wed, 06 Dec 2023 18:52:22 +0000
+	id 1rAx1o-0000oM-29; Wed, 06 Dec 2023 18:53:48 +0000
+Received: by outflank-mailman (input) for mailman id 649399;
+ Wed, 06 Dec 2023 18:53:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L1Lg=HR=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1rAx0P-0000H5-M6
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 18:52:22 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=uigp=HR=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1rAx1m-0000oE-W4
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 18:53:47 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 95415c08-9468-11ee-98e5-6d05b1d4d9a1;
- Wed, 06 Dec 2023 19:52:20 +0100 (CET)
-Received: from j130084.upc-j.chello.nl ([24.132.130.84]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1rAwzg-003AJI-8e; Wed, 06 Dec 2023 18:51:36 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id E0501300451; Wed,  6 Dec 2023 19:51:34 +0100 (CET)
+ id c8925819-9468-11ee-98e5-6d05b1d4d9a1;
+ Wed, 06 Dec 2023 19:53:45 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-54c5d041c23so132045a12.2
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 10:53:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,97 +40,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95415c08-9468-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=TgX+PmuAr5QRkCmSx0BsqqI+xnwWnFusCDa4CHApM4Y=; b=B5DPzN5JWKoYuSlpoDnvFq5zOY
-	dzy+/0VlFQNrT2wh4LgPvSRluDKGcHlGhouKPTNRY/3vVEEFJ+IKrhPccE1kFE7jLARo3gHWsRE+m
-	hyfobf0yCSUyHM9U1jb0+6DpKrPKsPx7L/YNpn8cKZHkYmiUO8SIvkZZWuqobDpGSal/sOYVBv7Vm
-	XT8/adblz9WvVW6ebYI03bIYngMaLuIkVlBSScKOXh19/Mb231q3/GTdydkZEPlwte5TTgs3iRX+0
-	AJ5UeGPpggFN+1gIc3zDpXpuIDmBzRjbLYup40yo3omwimvD2/V3tK6zybuhECjs7PtpcykiFidbn
-	db/iU80A==;
-Date: Wed, 6 Dec 2023 19:51:34 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Madhavan T. Venkataraman" <madvenka@linux.microsoft.com>
-Cc: =?iso-8859-1?Q?Micka=EBl_Sala=FCn?= <mic@digikod.net>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
-	Kees Cook <keescook@chromium.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Alexander Graf <graf@amazon.com>,
-	Chao Peng <chao.p.peng@linux.intel.com>,
-	"Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
-	Forrest Yuan Yu <yuanyu@google.com>,
-	James Gowans <jgowans@amazon.com>,
-	James Morris <jamorris@linux.microsoft.com>,
-	John Andersen <john.s.andersen@intel.com>,
-	Marian Rotariu <marian.c.rotariu@gmail.com>,
-	Mihai =?utf-8?B?RG9uyJt1?= <mdontu@bitdefender.com>,
-	=?utf-8?B?TmljdciZb3IgQ8OuyJt1?= <nicu.citu@icloud.com>,
-	Thara Gopinath <tgopinath@microsoft.com>,
-	Trilok Soni <quic_tsoni@quicinc.com>, Wei Liu <wei.liu@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Yu Zhang <yu.c.zhang@linux.intel.com>,
-	Zahra Tarkhani <ztarkhani@microsoft.com>,
-	=?utf-8?Q?=C8=98tefan_=C8=98icleru?= <ssicleru@bitdefender.com>,
-	dev@lists.cloudhypervisor.org, kvm@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	qemu-devel@nongnu.org, virtualization@lists.linux-foundation.org,
-	x86@kernel.org, xen-devel@lists.xenproject.org
-Subject: Re: [RFC PATCH v2 17/19] heki: x86: Update permissions counters
- during text patching
-Message-ID: <20231206185134.GA9899@noisy.programming.kicks-ass.net>
-References: <20231113022326.24388-1-mic@digikod.net>
- <20231113022326.24388-18-mic@digikod.net>
- <20231113081929.GA16138@noisy.programming.kicks-ass.net>
- <a52d8885-43cc-4a4e-bb47-9a800070779e@linux.microsoft.com>
- <20231127200841.GZ3818@noisy.programming.kicks-ass.net>
- <ea63ae4e-e8ea-4fbf-9383-499e14de2f5e@linux.microsoft.com>
- <20231130113315.GE20191@noisy.programming.kicks-ass.net>
- <624a310b-c0d2-406c-a4a7-d851b3cc68f5@linux.microsoft.com>
+X-Inumbo-ID: c8925819-9468-11ee-98e5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1701888825; x=1702493625; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ihGTYEniTkjtdxRgP7owzVf8ITuOwUCb0pPjHMeV5TE=;
+        b=JHde+IdIiuleQT2tjIw0mrR+j8N9njplYLLBhOLXc4OiBKyU59JmvGXPQLa0yP9KAU
+         UOZlRGQ0Mr9VzCiuhnh5S1IGnyGg+s6Lrpso05xRPYlY95ZBGJFL+4LYX8hY7hVvKpqw
+         g8SAEZN2RU/T5KgQ2zTbowyj4od55Tons/3HW5NiYeXF/qeA5go15a2BxqL8Y/kEAf+P
+         5CSizP6b2JyuX1U/2BbVUibFvi2PWQlorEEZ8v4ZYVvb/OLW+Qel0jrP64B8u6xCPUy2
+         YtWqEzhMxiHhSzhyHYUmxIvcUtBo9zRvt70l8sXPDBffkgfCcShvV0uq8FPE7/O9kOIb
+         z4EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701888825; x=1702493625;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ihGTYEniTkjtdxRgP7owzVf8ITuOwUCb0pPjHMeV5TE=;
+        b=pEz9vy5jasRwE4WzrGw715JmWJCDaYaTnG9AU9lL74oGWtTzfMJFitwkMftKiXD4qL
+         lYraoNjsHnwOdp4lSIw49yRhXfEEgFU7qc83NMw9faen5tfsyGuUoe+5pAx1id7j46eV
+         c/rK/nqqa7sDkIHxO4Knb6zENBpT5IpLD8G8nVDA4jASxjP/GDRrU1XQuVFIixgZqBHH
+         LnOwyDcAWxh8AKAmcPhoGvS4XEtyVPXY7FMPlljoLV5UplNzYEMrgim3YofU7s4Z6CZM
+         WFLOUJNl3BGXl+23k3oNQlnogCk+zKU26NQRTbdRXeg6SCmXTRUqK2PLa6hhwgVf5MQR
+         TBEg==
+X-Gm-Message-State: AOJu0YwDnKpn8gYc7x9HHqyotRXm9/SZlIuj8PUn4E1Dv/Qy5CwI2HVM
+	Q49XmyLJmgZ8sZceYjkoIE+HkRXEIbf0s7aTs/8=
+X-Google-Smtp-Source: AGHT+IG+mpBT1oISrhPaycnyi1xjaPgoHsi6s0BkvpiGUdS2fnnKTLuioIqDLqHu6GPTgTTk2xRa0NoWm3MHWcq0+24=
+X-Received: by 2002:a50:9b41:0:b0:54c:e644:aa0e with SMTP id
+ a1-20020a509b41000000b0054ce644aa0emr509222edj.19.1701888825224; Wed, 06 Dec
+ 2023 10:53:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <624a310b-c0d2-406c-a4a7-d851b3cc68f5@linux.microsoft.com>
+References: <20231110160804.29021-1-jgross@suse.com> <20231110160804.29021-16-jgross@suse.com>
+ <CAKf6xpty3ENpuPgTf7=Gk1Q-Ekn+FjOx=-ySMQF6v3kx7zntrw@mail.gmail.com> <CAEBZRSdyoCH2CFP14imC9We+sTiGn8f-DWecQ1t+ftd0+=0xwg@mail.gmail.com>
+In-Reply-To: <CAEBZRSdyoCH2CFP14imC9We+sTiGn8f-DWecQ1t+ftd0+=0xwg@mail.gmail.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 6 Dec 2023 13:53:33 -0500
+Message-ID: <CAKf6xpuamYUe_HPuw_m38PBO9cgLpq-H4f_1qjGt5C7ptSkCoA@mail.gmail.com>
+Subject: Re: [PATCH v2 15/29] tools/libs/light: add backend type for 9pfs PV devices
+To: Nick Rosbrook <rosbrookn@gmail.com>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Dec 06, 2023 at 10:37:33AM -0600, Madhavan T. Venkataraman wrote:
-> 
-> 
-> On 11/30/23 05:33, Peter Zijlstra wrote:
-> > On Wed, Nov 29, 2023 at 03:07:15PM -0600, Madhavan T. Venkataraman wrote:
-> > 
-> >> Kernel Lockdown
-> >> ---------------
-> >>
-> >> But, we must provide at least some security in V2. Otherwise, it is useless.
-> >>
-> >> So, we have implemented what we call a kernel lockdown. At the end of kernel
-> >> boot, Heki establishes permissions in the extended page table as mentioned
-> >> before. Also, it adds an immutable attribute for kernel text and kernel RO data.
-> >> Beyond that point, guest requests that attempt to modify permissions on any of
-> >> the immutable pages will be denied.
-> >>
-> >> This means that features like FTrace and KProbes will not work on kernel text
-> >> in V2. This is a temporary limitation. Once authentication is in place, the
-> >> limitation will go away.
-> > 
-> > So either you're saying your patch 17 / text_poke is broken (so why
-> > include it ?!?) or your statement above is incorrect. Pick one.
-> > 
-> 
-> It has been included so that people can be aware of the changes.
-> 
-> I will remove the text_poke() changes from the patchset and send it later when
-> I have some authentication in place. It will make sense then.
+On Wed, Dec 6, 2023 at 12:44=E2=80=AFPM Nick Rosbrook <rosbrookn@gmail.com>=
+ wrote:
+>
+> On Wed, Dec 6, 2023 at 9:36=E2=80=AFAM Jason Andryuk <jandryuk@gmail.com>=
+ wrote:
+> > FYI, these IDL changes will require golang binding regeneration.
+> > (Maybe we shouldn't have generated code checked in...)
+>
+> The generated code needs to be checked in for it to work as a go module.
 
-If you know its broken then fucking say so in the Changelog instead of
-wasting everybody's time.. OMG.
+I don't follow. The build system generates the *.gen.go binding files
+if they are missing.  They can then be used, installed or packaged.
+Why do they need to be checked into the git repo?  Checked in, they
+have a tendency to go stale.
+
+Regards,
+Jason
 
