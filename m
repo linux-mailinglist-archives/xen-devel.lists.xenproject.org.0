@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EBCB806C16
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 11:36:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649072.1013376 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF7D4806CAA
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 11:53:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649076.1013386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rApFk-00070y-Vl; Wed, 06 Dec 2023 10:35:40 +0000
+	id 1rApVy-0002kb-8y; Wed, 06 Dec 2023 10:52:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649072.1013376; Wed, 06 Dec 2023 10:35:40 +0000
+Received: by outflank-mailman (output) from mailman id 649076.1013386; Wed, 06 Dec 2023 10:52:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rApFk-0006zK-T5; Wed, 06 Dec 2023 10:35:40 +0000
-Received: by outflank-mailman (input) for mailman id 649072;
- Wed, 06 Dec 2023 10:35:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rApVy-0002ig-5f; Wed, 06 Dec 2023 10:52:26 +0000
+Received: by outflank-mailman (input) for mailman id 649076;
+ Wed, 06 Dec 2023 10:52:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mE+U=HR=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rApFj-0006zE-FW
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 10:35:39 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 25d0e15b-9423-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 11:35:17 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 06CFA4EE0739;
- Wed,  6 Dec 2023 11:35:17 +0100 (CET)
+ <SRS0=rHB2=HR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rApVx-0002iV-AB
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 10:52:25 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 89e79bfc-9425-11ee-98e5-6d05b1d4d9a1;
+ Wed, 06 Dec 2023 11:52:24 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40c09f4bea8so35228845e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 02:52:24 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ o18-20020a05600c511200b004064e3b94afsm25135009wms.4.2023.12.06.02.52.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Dec 2023 02:52:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,94 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25d0e15b-9423-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 89e79bfc-9425-11ee-98e5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1701859944; x=1702464744; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=i3T+URRasKd5gVZ+HA55OHDT/UwrqFouVUpxLYSOqEI=;
+        b=qlVoUW92SLtC9ur2HDX9/JpHqMX+/iL47H4fGXOOdZBxfr4MgTNR8pTEklRgv+lR7c
+         5gRgLdYO1yMOHF40azVO2Mb5bR6L0XN8zc1PIcEVTmY2TZz5ETtrQ4N8v8wjc4StiFsb
+         yIveVToggDPg7Ny8Jb3wfopDETVa78OTbSXqU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701859944; x=1702464744;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=i3T+URRasKd5gVZ+HA55OHDT/UwrqFouVUpxLYSOqEI=;
+        b=n4xMJ7UPZtegDLhQMEHuL16eclho1ii6VPK+CS9LiLjRvLicykzrbszhSOpDOhwfl4
+         /S0zUUAQsbicR2DKjIyY1O1ansIPU092fhLRqhjWlQZUrTy+vdQX9wl9EXUCZAAPKPEK
+         8PjrstB7KEMqJqifXbCQ6m+Kv61iG0bv4Jx3Zu3jTB1+o/3sKHz9j1ahcuBDwDCH9wuQ
+         OTCojtyLTh/4LQ1+9F7GBzx67CPVKyfOInPBvOpeNcJvjcJF/1txkCI4/Nax7CoFYV7S
+         8iUKql3ft0T2HRSKdiNxFQP9PSmQ21KplKZTEZOH1GxkAQ2GzomMqJ+sFPpmWvcjc4f5
+         71mw==
+X-Gm-Message-State: AOJu0YzyF0KE0c7TWR70YSB7SEJ0A+nBd1QXuXlOtl4uLgTJI2La0Hxy
+	2tLxCj489ewk2DkVdQQJY+MxFQ==
+X-Google-Smtp-Source: AGHT+IGyYI/iLV3MXXqtgc+OS1XGSR24oMrjGM2wBrpEuiDQnoQ5fP667PhzsvsojPHbDmyJbjeAVQ==
+X-Received: by 2002:a05:600c:4fd2:b0:40b:5e1c:af2f with SMTP id o18-20020a05600c4fd200b0040b5e1caf2fmr430565wmq.53.1701859943860;
+        Wed, 06 Dec 2023 02:52:23 -0800 (PST)
+Message-ID: <14050129-822c-48e9-83ad-f046a7fcc197@citrix.com>
+Date: Wed, 6 Dec 2023 10:52:23 +0000
 MIME-Version: 1.0
-Date: Wed, 06 Dec 2023 11:35:17 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, bertrand.marquis@arm.com, julien@xen.org, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 7/7] xen/page_alloc: deviate first_valid_mfn for MISRA
- C Rule 8.4
-In-Reply-To: <alpine.DEB.2.22.394.2312041517310.110490@ubuntu-linux-20-04-desktop>
-References: <cover.1701270983.git.nicola.vetrini@bugseng.com>
- <1ee69d2f0b9e9a704bf869e2b2700f88a8069343.1701270983.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2311301847300.110490@ubuntu-linux-20-04-desktop>
- <21956d5b-08ad-45ac-96ff-22fe7d54ec60@suse.com>
- <alpine.DEB.2.22.394.2312011901450.110490@ubuntu-linux-20-04-desktop>
- <5dae5d3e-81f3-4e78-a92f-fd1cc7eb2ea4@suse.com>
- <c7a45a0b0849cd319fb65cbd31f9f9d5@bugseng.com>
- <alpine.DEB.2.22.394.2312041517310.110490@ubuntu-linux-20-04-desktop>
-Message-ID: <138593a577a339fd59ef175f097bcb7f@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] xen: make include/xen/unaligned.h usable on all
+ architectures
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Arnd Bergmann <arnd@arndb.de>, xen-devel@lists.xenproject.org
+References: <20231206071039.24435-1-jgross@suse.com>
+ <20231206071039.24435-3-jgross@suse.com>
+ <96711b23-9dd9-4029-aaea-a3e755c4bd3e@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <96711b23-9dd9-4029-aaea-a3e755c4bd3e@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2023-12-05 00:18, Stefano Stabellini wrote:
-> On Mon, 4 Dec 2023, Nicola Vetrini wrote:
->> On 2023-12-04 08:44, Jan Beulich wrote:
->> > On 02.12.2023 04:03, Stefano Stabellini wrote:
->> > > On Fri, 1 Dec 2023, Jan Beulich wrote:
->> > > > On 01.12.2023 03:47, Stefano Stabellini wrote:
->> > > > > On Wed, 29 Nov 2023, Nicola Vetrini wrote:
->> > > > > > No functional change.
->> > > > > >
->> > > > > > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
->> > > > > > ---
->> > > > > > The preferred way to deviate is to use asmlinkage, but this
->> > > > > > modification is only
->> > > > > > the consequence of NUMA on ARM (and possibly PPC) being a work in
->> > > > > > progress.
->> > > > > > As stated in the comment above the textual deviation,
->> > > > > > first_valid_mfn will
->> > > > > > likely then become static and there would be no need for the comment
->> > > > > > anymore.
->> > > > > > This works towards having the analysis for this rule clean (i.e. no
->> > > > > > violations);
->> > > > > > the interest in having a clean rule is that then it could be used to
->> > > > > > signal
->> > > > > > newly introduced violations by making the analysis job fail.
->> > > > >
->> > > > > Please add this text as part of the commit message. It can be done on
->> > > > > commit.
->> > > >
->> > > > I assume you saw my reply on another of the patches in this series as to
->> > > > asmlinkage use on variables? IOW I think this paragraph would also need
->> > > > adjustment to account for that.
->> > >
->> > > I was going to ask you about that: reading your reply
->> > > https://marc.info/?l=xen-devel&m=170142048615336 it is not clear to me
->> > > what you are asking or suggesting as next step in regard to asmlinkage
->> > > use on variables.
->> >
->> > Either we need a separate attribute, or we need affirmation that calling
->> > convention attributes are ignored (and going to be going forward) for
->> > variables, or we need to resort to SAF-* comments. I'm not sure what's
->> > best (assuming the "affirm" wouldn't really be possible).
->> >
->> 
->> Well, gcc does warn on unsupported attributes for the entity which are 
->> being
->> dropped. This appears to be the case for calling convention 
->> attributes, as
->> they are not listed in their documentation for variable attributes, 
->> but some
->> more digging would be required to determine whether that's always the 
->> case.
-> 
-> Given that I don't suppose we have many variables that need deviating
-> (probably only 2-3 overall?) I think it is just easier to add a SAF
-> comment.
+On 06/12/2023 8:46 am, Jan Beulich wrote:
+> On 06.12.2023 08:10, Juergen Gross wrote:
+>> Instead of defining get_unaligned() and put_unaligned() in a way that
+>> is only supporting architectures allowing unaligned accesses, use the
+>> same approach as the Linux kernel and let the compiler do the
+>> decision how to generate the code for probably unaligned data accesses.
+>>
+>> Update include/xen/unaligned.h from include/asm-generic/unaligned.h of
+>> the Linux kernel.
+>>
+>> The generated code has been checked to be the same on x86.
+>>
+>> Modify the Linux variant to not use underscore prefixed identifiers,
+>> avoid unneeded parentheses and drop the 24-bit accessors.
+>>
+>> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 803f4e1eab7a
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+>
+> Nevertheless ...
+>
+>> @@ -15,67 +7,82 @@
+>>  #include <asm/byteorder.h>
+>>  #endif
+>>  
+>> -#define get_unaligned(p) (*(p))
+>> -#define put_unaligned(val, p) (*(p) = (val))
+>> +/*
+>> + * This is the most generic implementation of unaligned accesses
+>> + * and should work almost anywhere.
+>> + */
+>> +
+>> +#define get_unaligned_t_(type, ptr) ({					\
+> ..., do we need the trailing underscores here in addition to the already
+> sufficiently clear _t suffixes? (Leaving aside that ..._t generally is to
+> denote types, not macros or functions.)
 
-I agree, but then given what Julien wrote in the thread, I'll see what I 
-can do to avoid creating a new SAF entry.
+_t is fine.  It's what we use for {min,max}_t() and friends too.
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+~Andrew
 
