@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ACB6806A54
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 10:06:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649010.1013266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7976A806A50
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 10:06:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649004.1013217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAnro-00042b-Kd; Wed, 06 Dec 2023 09:06:52 +0000
+	id 1rAnrK-00026r-1u; Wed, 06 Dec 2023 09:06:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649010.1013266; Wed, 06 Dec 2023 09:06:52 +0000
+Received: by outflank-mailman (output) from mailman id 649004.1013217; Wed, 06 Dec 2023 09:06:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAnro-00040G-Gp; Wed, 06 Dec 2023 09:06:52 +0000
-Received: by outflank-mailman (input) for mailman id 649010;
- Wed, 06 Dec 2023 09:06:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B4rn=HR=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1rAnrm-0002Yw-VM
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 09:06:50 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id ca2f57a6-9416-11ee-98e5-6d05b1d4d9a1;
- Wed, 06 Dec 2023 10:06:50 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 834FD139F;
- Wed,  6 Dec 2023 01:07:35 -0800 (PST)
-Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
- [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8B32A3F762;
- Wed,  6 Dec 2023 01:06:46 -0800 (PST)
+	id 1rAnrJ-00023w-Us; Wed, 06 Dec 2023 09:06:21 +0000
+Received: by outflank-mailman (input) for mailman id 649004;
+ Wed, 06 Dec 2023 09:06:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=X1yw=HR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rAnrI-00022d-Ls
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 09:06:20 +0000
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [2a00:1450:4864:20::343])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b756aea7-9416-11ee-9b0f-b553b5be7939;
+ Wed, 06 Dec 2023 10:06:18 +0100 (CET)
+Received: by mail-wm1-x343.google.com with SMTP id
+ 5b1f17b1804b1-40859dee28cso65271705e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 01:06:18 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ g16-20020a05600c4ed000b0040b47c53610sm21255737wmq.14.2023.12.06.01.06.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 Dec 2023 01:06:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,267 +45,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca2f57a6-9416-11ee-98e5-6d05b1d4d9a1
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: xen-devel@lists.xenproject.org,
-	michal.orzel@amd.com
-Cc: wei.chen@arm.com,
-	Penny Zheng <Penny.Zheng@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v5 04/11] xen/arm: introduce allocate_domheap_memory and guest_physmap_memory
-Date: Wed,  6 Dec 2023 17:06:16 +0800
-Message-Id: <20231206090623.1932275-5-Penny.Zheng@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20231206090623.1932275-1-Penny.Zheng@arm.com>
-References: <20231206090623.1932275-1-Penny.Zheng@arm.com>
+X-Inumbo-ID: b756aea7-9416-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1701853578; x=1702458378; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wvwtw6phcPiVErnUuHnmMujra8D4GYFtZrxNc53AQhg=;
+        b=UmEQdP5JQ58MOp2pcnykGYRLHJKGe67SSCeVAykSY8gvF9mtynJcN/UxO/VTrgC9OY
+         uT5thYVoN+/JzlGQL38LrN/cQLV7D3W4UgzSxh2+2eVH9mk0MYEz3fN5i/5mB8NcLDTq
+         B2fxn5L2ijCoSvDrav8LiH0gJaEU9jUS+poOLCQvt73xX9z7si8Cxvp/mNeg254HdoWM
+         qsZ/y+CrCW3yppM/SOQXI6QfKOhGTJfHvtq3MaX7x5pn6xBn6HTO8m/w8edijzzFFllv
+         v1Vt+A/h67qsXN2mFXqggzLV2We2aIP+7A64GkWZytdHI++givtidux6cIk/LKzsC0j9
+         oiGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701853578; x=1702458378;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wvwtw6phcPiVErnUuHnmMujra8D4GYFtZrxNc53AQhg=;
+        b=IPDdmmR8YLKCmn9qQSBnRSUnnUC7jJAk+MEz38nF5sVoHXs1VorZ4BXkxB36GhgHBq
+         NmBg1qX4AGp6076M5EzX0/4mAAOyCjvF3/iQIS+mtdQJE/NUsSSVTlw5ldCXRAGmnyvU
+         9N2iZpS3fiVn/pQJQArDPnPkRYR6Zao12eIupuszoYT5jKb5/9IbnMQj1wvN6C/3WNeB
+         fsnKS001rgJYNwkUo67oUnSoH6BONn+k1FVDUcirX9VJjpA6m8A9JiDqOvRMORdaJzmH
+         vqsORxg6dT+SU7Rr44pXpGCPZxVgPSfrCPCQjNwwfRmni02YqmEdDyTP8bh101MI4BHe
+         yX9A==
+X-Gm-Message-State: AOJu0YxUnnIgOeX/cfkDDurmIjwmfa7xUsf3EyvQaWLGa9wb30FeIslz
+	zYztdlDhUaTjQ8WD8PLQHgpt
+X-Google-Smtp-Source: AGHT+IHwKxYfJ5tcxmug+SYUNqgTCaLloMURciQh6gSc0v+KZNAtCUiuoBWkYHiW0fMa5kMOWSLnrg==
+X-Received: by 2002:a05:600c:b97:b0:40b:5e1b:54ae with SMTP id fl23-20020a05600c0b9700b0040b5e1b54aemr335441wmb.58.1701853577693;
+        Wed, 06 Dec 2023 01:06:17 -0800 (PST)
+Message-ID: <ccdbe84d-24ca-41f0-bc1f-fb9499c73880@suse.com>
+Date: Wed, 6 Dec 2023 10:06:16 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs/misra/rules.rst: add more rules
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
+ bertrannd.marquis@arm.com, roger.pau@citrix.com,
+ roberto.bagnara@bugseng.com, federico.serafini@bugseng.com,
+ xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2312051859440.110490@ubuntu-linux-20-04-desktop>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2312051859440.110490@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-We split the code of allocate_bank_memory into two parts,
-allocate_domheap_memory and guest_physmap_memory.
+On 06.12.2023 04:02, Stefano Stabellini wrote:
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -462,11 +462,23 @@ maintainers if you want to suggest a change.
+>  
+>         while(0) and while(1) and alike are allowed.
+>  
+> +   * - `Rule 16.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_03.c>`_
+> +     - Required
+> +     - An unconditional break statement shall terminate every
+> +       switch-clause
+> +     - In addition to break, also other flow control statements such as
+> +       continue, return, goto are allowed.
+> +
+>     * - `Rule 16.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_07.c>`_
+>       - Required
+>       - A switch-expression shall not have essentially Boolean type
+>       -
+>  
+> +   * - `Rule 17.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_01.c>`_
+> +     - Required
+> +     - The features of <stdarg.h> shall not be used
+> +     -
 
-One is about allocating guest RAM from heap, which could be re-used later for
-allocating static shared memory from heap when host address is not provided.
-The other is building up guest P2M mapping.
+Did we really accept this without any constraint (warranting mentioning
+here)?
 
-We also define a set of MACRO helpers to access common fields in data
-structure of "meminfo" type, e.g. "struct meminfo" is one of them, and
-later new "struct shm_meminfo" is also one of them.
-This kind of structures must have the following characteristics:
-- an array of "struct membank"
-- a member called "nr_banks" indicating current array size
-- a field indicating the maximum array size
-When introducing a new data structure, according callbacks with function type
-"retrieve_fn" shall be defined for using MACRO helpers.
-This commit defines callback "retrieve_meminfo" for data structure
-"struct meminfo".
+> @@ -478,12 +490,24 @@ maintainers if you want to suggest a change.
+>         have an explicit return statement with an expression
+>       -
+>  
+> +   * - `Rule 17.5 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_05.c>`_
+> +     - Advisory
+> +     - The function argument corresponding to a parameter declared to
+> +       have an array type shall have an appropriate number of elements
+> +     -
+> +
+>     * - `Rule 17.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_06.c>`_
+>       - Mandatory
+>       - The declaration of an array parameter shall not contain the
+>         static keyword between the [ ]
+>       -
+>  
+> +   * - `Rule 17.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_07.c>`_
+> +     - Required
+> +     - The value returned by a function having non-void return type
+> +       shall be used
+> +     -
 
-Signed-off-by: Penny Zheng <penny.zheng@arm.com>
----
-v1 -> v2:
--  define a set of MACRO helpers to access common fields in data structure of
-"meminfo" type. "struct meminfo" is one of them, and according callback
-"retrieve_meminfo" is also introduced here.
-- typo of changing 1ULL to 1UL
----
-v2 -> v3
-- rebase and no changes
----
-v3 -> v4:
-rebase and no change
----
-v4 -> v5:
-rebase and no change
----
- xen/arch/arm/domain_build.c      | 119 +++++++++++++++++++++++++------
- xen/arch/arm/include/asm/setup.h |  33 +++++++++
- 2 files changed, 129 insertions(+), 23 deletions(-)
+Same question here.
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 64ae944431..a8bc78baa5 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -51,6 +51,28 @@ boolean_param("ext_regions", opt_ext_regions);
- static u64 __initdata dom0_mem;
- static bool __initdata dom0_mem_set;
- 
-+#ifdef CONFIG_DOM0LESS_BOOT
-+static void __init retrieve_meminfo(void *mem, unsigned int *max_mem_banks,
-+                                    struct membank **bank,
-+                                    unsigned int **nr_banks)
-+{
-+    struct meminfo *meminfo = (struct meminfo *)mem;
-+
-+    if ( max_mem_banks )
-+        *max_mem_banks = NR_MEM_BANKS;
-+
-+    if ( nr_banks )
-+        *nr_banks = &(meminfo->nr_banks);
-+
-+    if ( bank )
-+        *bank = meminfo->bank;
-+}
-+
-+retrieve_fn __initdata retrievers[MAX_MEMINFO_TYPE] = {
-+    [NORMAL_MEMINFO] = retrieve_meminfo,
-+};
-+#endif
-+
- static int __init parse_dom0_mem(const char *s)
- {
-     dom0_mem_set = true;
-@@ -415,32 +437,20 @@ static void __init allocate_memory_11(struct domain *d,
- }
- 
- #ifdef CONFIG_DOM0LESS_BOOT
--bool __init allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
--                                 gfn_t sgfn, paddr_t tot_size)
-+static bool __init allocate_domheap_memory(struct domain *d,
-+                                           paddr_t tot_size,
-+                                           void *mem, enum meminfo_type type)
- {
--    int res;
-     struct page_info *pg;
--    struct membank *bank;
-     unsigned int max_order = ~0;
--
--    /*
--     * allocate_bank_memory can be called with a tot_size of zero for
--     * the second memory bank. It is not an error and we can safely
--     * avoid creating a zero-size memory bank.
--     */
--    if ( tot_size == 0 )
--        return true;
--
--    bank = &kinfo->mem.bank[kinfo->mem.nr_banks];
--    bank->start = gfn_to_gaddr(sgfn);
--    bank->size = tot_size;
-+    unsigned int *nr_banks = GET_NR_BANKS(mem, type);
- 
-     while ( tot_size > 0 )
-     {
-         unsigned int order = get_allocation_size(tot_size);
-+        struct membank *membank;
- 
-         order = min(max_order, order);
--
-         pg = alloc_domheap_pages(d, order, 0);
-         if ( !pg )
-         {
-@@ -460,15 +470,78 @@ bool __init allocate_bank_memory(struct domain *d, struct kernel_info *kinfo,
-             continue;
-         }
- 
--        res = guest_physmap_add_page(d, sgfn, page_to_mfn(pg), order);
--        if ( res )
--        {
--            dprintk(XENLOG_ERR, "Failed map pages to DOMU: %d", res);
-+        if ( *nr_banks == MAX_MEM_BANKS(type) )
-             return false;
--        }
-+
-+        membank = GET_MEMBANK(mem, type, *nr_banks);
-+        membank->start = mfn_to_maddr(page_to_mfn(pg));
-+        membank->size = 1ULL << (PAGE_SHIFT + order);
-+        (*nr_banks)++;
-+        tot_size -= membank->size;
-+    }
-+
-+    return true;
-+}
-+
-+static int __init guest_physmap_memory(struct domain *d,
-+                                       void *mem, enum meminfo_type type,
-+                                       gfn_t sgfn)
-+{
-+    unsigned int i;
-+    int res;
-+    unsigned int *nr_banks = GET_NR_BANKS(mem, type);
-+
-+    for ( i = 0; i < *nr_banks; i++ )
-+    {
-+        struct membank *membank = GET_MEMBANK(mem, type, i);
-+        paddr_t start = membank->start;
-+        paddr_t size = membank->size;
-+        unsigned int order = get_order_from_bytes(size);
-+
-+        /* Size must be power of two */
-+        BUG_ON(!size || (size & (size - 1)));
-+        res = guest_physmap_add_page(d, sgfn, maddr_to_mfn(start), order);
-+        if ( res )
-+            return res;
- 
-         sgfn = gfn_add(sgfn, 1UL << order);
--        tot_size -= (1ULL << (PAGE_SHIFT + order));
-+    }
-+
-+    return 0;
-+}
-+
-+bool __init allocate_bank_memory(struct domain *d,
-+                                 struct kernel_info *kinfo,
-+                                 gfn_t sgfn,
-+                                 paddr_t total_size)
-+{
-+    struct membank *bank;
-+    struct meminfo host = { 0 };
-+
-+    /*
-+     * allocate_bank_memory can be called with a total_size of zero for
-+     * the second memory bank. It is not an error and we can safely
-+     * avoid creating a zero-size memory bank.
-+     */
-+    if ( total_size == 0 )
-+        return true;
-+
-+    bank = &kinfo->mem.bank[kinfo->mem.nr_banks];
-+    bank->start = gfn_to_gaddr(sgfn);
-+    bank->size = total_size;
-+
-+    if ( !allocate_domheap_memory(d, total_size, (void *)&host, NORMAL_MEMINFO) )
-+    {
-+        printk(XENLOG_ERR "Failed to allocate (%"PRIpaddr"MB) pages to %pd\n",
-+               total_size >> 20, d);
-+        return false;
-+    }
-+
-+    if ( guest_physmap_memory(d, (void *)&host, NORMAL_MEMINFO, sgfn) )
-+    {
-+        printk(XENLOG_ERR "Failed to map (%"PRIpaddr"MB) pages to %pd\n",
-+               total_size >> 20, d);
-+        return false;
-     }
- 
-     kinfo->mem.nr_banks++;
-diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-index 3a2b35ea46..bc5f08be97 100644
---- a/xen/arch/arm/include/asm/setup.h
-+++ b/xen/arch/arm/include/asm/setup.h
-@@ -57,6 +57,39 @@ struct meminfo {
-     struct membank bank[NR_MEM_BANKS];
- };
- 
-+enum meminfo_type {
-+    NORMAL_MEMINFO,
-+    MAX_MEMINFO_TYPE,
-+};
-+
-+/*
-+ * Define a set of MACRO helpers to access meminfo_type, like "struct meminfo"
-+ * as type of NORMAL_MEMINFO, etc.
-+ * This kind of structure must have a array of "struct membank",
-+ * a member called nr_banks indicating the current array size, and also a field
-+ * indicating the maximum array size.
-+ */
-+typedef void (*retrieve_fn)(void *, unsigned int *, struct membank **,
-+                            unsigned int **);
-+
-+#define MAX_MEM_BANKS(type) ({                              \
-+    unsigned int _max_mem_banks;                            \
-+    retrievers[type](NULL, &_max_mem_banks, NULL, NULL);    \
-+    _max_mem_banks;                                         \
-+})
-+
-+#define GET_MEMBANK(mem, type, index) ({                    \
-+    struct membank *_bank;                                  \
-+    retrievers[type]((void *)(mem), NULL, &_bank, NULL);    \
-+    &(_bank[index]);                                        \
-+})
-+
-+#define GET_NR_BANKS(mem, type) ({                          \
-+    unsigned int *_nr_banks;                                \
-+    retrievers[type]((void *)mem, NULL, NULL, &_nr_banks);  \
-+    _nr_banks;                                              \
-+})
-+
- /*
-  * The domU flag is set for kernels and ramdisks of "xen,domain" nodes.
-  * The purpose of the domU flag is to avoid getting confused in
--- 
-2.25.1
+If the other additions were separate, I probably would have ack-ed them
+right away.
 
+Jan
 
