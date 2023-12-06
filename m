@@ -2,52 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D7848070EB
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 14:31:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649267.1013661 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 832618070EC
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 14:31:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649268.1013672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rArzA-0006Ue-9B; Wed, 06 Dec 2023 13:30:44 +0000
+	id 1rArzZ-0006rI-LB; Wed, 06 Dec 2023 13:31:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649267.1013661; Wed, 06 Dec 2023 13:30:44 +0000
+Received: by outflank-mailman (output) from mailman id 649268.1013672; Wed, 06 Dec 2023 13:31:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rArzA-0006SB-6V; Wed, 06 Dec 2023 13:30:44 +0000
-Received: by outflank-mailman (input) for mailman id 649267;
- Wed, 06 Dec 2023 13:30:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rArzZ-0006nz-Gr; Wed, 06 Dec 2023 13:31:09 +0000
+Received: by outflank-mailman (input) for mailman id 649268;
+ Wed, 06 Dec 2023 13:31:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oQZO=HR=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rArz8-0006S3-58
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 13:30:42 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20602.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::602])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a517db88-943b-11ee-98e5-6d05b1d4d9a1;
- Wed, 06 Dec 2023 14:30:39 +0100 (CET)
-Received: from DM6PR18CA0022.namprd18.prod.outlook.com (2603:10b6:5:15b::35)
- by PH7PR12MB5653.namprd12.prod.outlook.com (2603:10b6:510:132::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34; Wed, 6 Dec
- 2023 13:30:27 +0000
-Received: from CY4PEPF0000E9D5.namprd05.prod.outlook.com
- (2603:10b6:5:15b:cafe::7a) by DM6PR18CA0022.outlook.office365.com
- (2603:10b6:5:15b::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.25 via Frontend
- Transport; Wed, 6 Dec 2023 13:30:27 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CY4PEPF0000E9D5.mail.protection.outlook.com (10.167.241.76) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.24 via Frontend Transport; Wed, 6 Dec 2023 13:30:26 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 6 Dec
- 2023 07:30:25 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Wed, 6 Dec 2023 07:30:23 -0600
+ <SRS0=nkyO=HR=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1rArzY-0006no-Ay
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 13:31:08 +0000
+Received: from m35-190.mailgun.net (m35-190.mailgun.net [69.72.35.190])
+ by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
+ id b2bdc1c9-943b-11ee-9b0f-b553b5be7939;
+ Wed, 06 Dec 2023 14:31:02 +0100 (CET)
+Received: from mg.gitlab.com (26.226.74.34.bc.googleusercontent.com
+ [34.74.226.26]) by
+ e2ce9ee6b5b1 with SMTP id 65707794745d3f0d39ea352a (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Wed, 06 Dec 2023 13:31:00 GMT
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,432 +39,431 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a517db88-943b-11ee-98e5-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iZC/QRpzQ5fkI3VGFo/zuO0AgiCyeFJBBfSIwX+q+YU0V/cBAEPYx928YK5tiwCl5XqbXS1Ho0EdrZ6Q98d1ubfLRdtmodpZa6J9EQStBUjhhHtbMLOWsVMArV2rLo4cyCoZf0NL39ooTWddv0qb5k0yHRJiqyWFVWR/F4anUl0fB8f8GW4R5YwHPe3kgIWwplLN7HZghnNlVWy1ht/wUny2xVEJKmMpUDpzrx3d5Qwot6G5l5WROH0l/49px+LPCVunzGi3TNxb16xrFA/lnTu0Sdp6d4D8aAD59cB2TOJr5J8dxemvDlw8ieSHbNnjeF/j1YNTuagvt8hJR34zJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wQR77DEwrNmtfoSYhrM/aepD1XnoLXJobuLCJzllS8M=;
- b=ee/bt0V7KGHbLaKhL2rLTmE5aBCJTNHuN5f8G9VgrLL6zqiEPbcb8+V+s19S0Sdu3tk/VaptQt2LB7LCojQXXSk2Dfg+vzbgeqsLtzKeS+TcyCYnCkCFt0ZUZ+aLOYbLhJiGMQQUjzvWcpT17ubDWn83de6BZPRttXZdsbyP2+cvEX/zLCZAY8MzAcm9syUEX9/9H87LXNh6HJk4NzTY0OC8+IlFubNAyGrywMt3+47MR18RpG7awveZCTJrYKyAgL3OgG+5D0zAvW2WJ82O2pgOKpHGZ0INH+tP+Zq3VX117GOw5+dagHlv5kIYpigLrkhi6ul1710fAiDblGvrIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wQR77DEwrNmtfoSYhrM/aepD1XnoLXJobuLCJzllS8M=;
- b=MKNdU8Gbd7XH8t8mEOM9lcXRsd3Z990eQk5+DCrb9vv61PGwjnNH7we9tIQ7HBTiFPJLDIFNiDijRSvLRasRbTHZO0N14rKfMSbj4f1MT8c4sVJ3EfjJVM38swnpS2gOp9jhDVPBjdupMu7iXzKcjfmz+ltzqcwDNSzX23IKic8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <eea5111e-95d1-4b98-beea-94a1f095e5e2@amd.com>
-Date: Wed, 6 Dec 2023 14:30:18 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/11] xen/arm: re-define a set of data structures for
- static shared memory region
-Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20231206090623.1932275-1-Penny.Zheng@arm.com>
- <20231206090623.1932275-4-Penny.Zheng@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20231206090623.1932275-4-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: b2bdc1c9-943b-11ee-9b0f-b553b5be7939
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
+ q=dns/txt; s=mailo; t=1701869461; x=1701876661; h=List-Id:
+ Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
+ Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
+ bh=TnhKgl+XcDnp6UJTv414xkHPWAhGfRV5RbQadJ7ntVU=;
+ b=SQdqp5gF9QFyKcuJYe23LpHsIbNH0ZFD5ZDkJZZDORhKjX+fK8GwpZnGBAdUIg8h8Yfb+e69k/Xce5OAwkLMDArydtwqVyzraysBDLE0WsUNhqRgU9+YrjG3dfiweinFngVEBMZL/dLsfQ1p/Zy/swjslTreGmoKJ2H1ojHPJiY=
+X-Mailgun-Sending-Ip: 69.72.35.190
+X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
+Sender: gitlab@mg.gitlab.com
+Date: Wed, 06 Dec 2023 13:30:59 +0000
+From: GitLab <gitlab@mg.gitlab.com>
+Reply-To: GitLab <noreply@gitlab.com>
+To: xen-devel@lists.xenproject.org
+Message-ID: <65707793ac942_2c94d5480465@gitlab-sidekiq-catchall-v2-6df8c9f9f-l94n7.mail>
+Subject: xen | Successful pipeline for staging-4.17 | 6eb98dda
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_65707793a2417_2c94d548034a";
+ charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D5:EE_|PH7PR12MB5653:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0d048fa-94a3-48e7-40d9-08dbf65f823e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	i75/45Q/48jN66Is2/ng1VVWsDjREiMKHxogLKIlwHkf3pSb9K3W/CmjftPdhB2X/wQvShIRJxtCnmW4ejNbNxTInbOAUpD4dX/vfhKz0xfdEgh61lv4MBwPjlG6NwAlry2UUax+iN1zRWDXWr3BexZ755fyVtw90Qs73plj3YnsGGjCQIa/TJPwWhIFnIQWPKE5m/O5LwyYq8TgS8BdolSMtxqNSRdtU39B0OfTjqOnHKjmzRHt5f4EvGMcyML3aAzZeMHX0LfH4wnt4+foF8aKeST4w1jG/zS3AKIiYO/krrtrHNsl9jxYiuRBMArqzpC6ADVs/wkvKX5Zo9Wl3Y8DeaZr1rNdambyINIDDUcAQIs2uNL5dXy3zh10X9EUEFBA7Xm1GDzEAetz1M6DftOEyMyUcg8Bcy638/CrX5bKB9TjlABuVuSNZ2Go6MhDO6kpeUTIi3m+xzfBBIYRPEqW2FLVfPfDHPaBUZrWmqcHhPZ3RH4UKsTk2XBh8OOdcSaWH1Q+o6k1HPsl9fM/JkuuMgxYGilz6qoVbtlS6w/4J3mPTU6m617hmNO5VDGo3eRKWMxDMhUFL/J6dy9tLWYHGbAQ/Y0R/484OVYF+lAUEekNUUPw368B4aUUhwJV/z2bHgcyTTN32rU5srszmvw+dNVD8dQr7s9IY0MU17kIadL0kyJ3Is/wuQgyoe8MfNPvsj8CIdV4fQGqX7gd4vS5mUBRT/iaRPV5UjkgRIO1Xxu50lDdS9SbHLdJyHY6q267bkhts8mLRcdz3sZOetLepPoq0XONfANqyZvPU0n2lEi3LWmEyUq3ymURuFWw
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(346002)(136003)(376002)(230922051799003)(1800799012)(186009)(82310400011)(451199024)(64100799003)(36840700001)(46966006)(40470700004)(36860700001)(40480700001)(53546011)(6666004)(478600001)(110136005)(54906003)(16576012)(81166007)(70586007)(70206006)(356005)(316002)(26005)(2616005)(47076005)(83380400001)(4326008)(8676002)(8936002)(31686004)(426003)(336012)(82740400003)(44832011)(5660300002)(2906002)(66899024)(31696002)(40460700003)(41300700001)(86362001)(30864003)(36756003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2023 13:30:26.9407
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0d048fa-94a3-48e7-40d9-08dbf65f823e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9D5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5653
+X-GitLab-Project: xen
+X-GitLab-Project-Id: 2336572
+X-GitLab-Project-Path: xen-project/xen
+X-GitLab-Pipeline-Id: 1097122838
+X-GitLab-Pipeline-Ref: staging-4.17
+X-GitLab-Pipeline-Status: success
+Auto-Submitted: auto-generated
+X-Auto-Response-Suppress: All
 
-Hi Penny,
+----==_mimepart_65707793a2417_2c94d548034a
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 06/12/2023 10:06, Penny Zheng wrote:
-> 
-> 
-> This commit introduces a set of separate data structures to deal with
-> static shared memory at different stages.
-> 
-> In boot-time host device tree parsing, we introduce a new structure
-> "struct shm_node" and a new field "shminfo" in bootinfo to describe and
-> store parsed shm info.
-> 
-> In acquire_nr_borrower_domain, it is better to use SHMID as unique identifier
-> to iterate "shminfo", other than address and size.
-> 
-> In the last, a new anonymized structure "shminfo", which is a array of
-> compound structure that contains SHMID and a "struct membank membank"
-> describing shared memory regions in guest address space, is created in "kinfo"
-> when dealing with domain information.
 
-This commit msg describes what the patch does but not why.
 
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> ---
-> v1 -> v2:
-> - As the original "struct shm_membank" was making reserving memory more
-> complex and actually memory information could be still got from host Device\
-> Tree when dealing with domain construction, we introduce a new simple structure
-> "struct shm_node" in bootinfo to only store SHMID and "nr_borrowers"
-> - Further restrict the scope of the local variable
-> "struct meminfo *mem = &bootinfo.reserved_mem"
-> - Introduce a new local global data "shm_data" in bootfdt.c. In which, reserved
-> memory bank is recorded together with the shm node, to assist doing shm node
-> verification.
-> - Define a set of local variables that point to
-> "shm_data.shm_nodes[i].membank->start", etc, to make the code more readable.
-> - Use SHMID to iterate "shminfo" to find requested shm node, as we no
-> longer store host memory bank info in shm node.
-> - A new anonymized structure, which is a array of compound structure that
-> contains SHMID and a "struct membank membank", describing shared memory region
-> in guest, is introduced in "kinfo".
-> ---
-> v2 -> v3:
-> - rebase and no changes
-> ---
-> v3 -> v4:
-> rebase and no change
-> ---
-> v4 -> v5:
-> - With all shm-related functions classified into static-shmem.c, there
-> is no need to import local global data "shm_data".
-> ---
->  xen/arch/arm/dom0less-build.c           |   3 +-
->  xen/arch/arm/domain_build.c             |   3 +-
->  xen/arch/arm/include/asm/kernel.h       |   9 +-
->  xen/arch/arm/include/asm/setup.h        |  24 +++++-
->  xen/arch/arm/include/asm/static-shmem.h |   4 +-
->  xen/arch/arm/static-shmem.c             | 104 ++++++++++++++----------
->  6 files changed, 92 insertions(+), 55 deletions(-)
-> 
-> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index fb63ec6fd1..ac096fa3fa 100644
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -645,8 +645,7 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
->      if ( ret )
->          goto err;
-> 
-> -    ret = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells,
-> -                                &kinfo->shm_mem);
-> +    ret = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells, kinfo);
->      if ( ret )
->          goto err;
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 613b2885ce..64ae944431 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1767,8 +1767,7 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
->                  return res;
->          }
-> 
-> -        res = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells,
-> -                                    &kinfo->shm_mem);
-> +        res = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells, kinfo);
->          if ( res )
->              return res;
->      }
-> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-> index 0a23e86c2d..db3d8232fa 100644
-> --- a/xen/arch/arm/include/asm/kernel.h
-> +++ b/xen/arch/arm/include/asm/kernel.h
-> @@ -39,7 +39,14 @@ struct kernel_info {
->      void *fdt; /* flat device tree */
->      paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
->      struct meminfo mem;
-> -    struct meminfo shm_mem;
-> +    /* Static shared memory banks */
-> +    struct {
-> +        unsigned int nr_banks;
-> +        struct {
-> +            char shm_id[MAX_SHM_ID_LENGTH];
-> +            struct membank membank;
-> +        } bank[NR_MEM_BANKS];
-> +    } shminfo;
-AFAICT, the only user of this structure is static-shmem.c so why not protecting it with #ifdef?
+Pipeline #1097122838 has passed!
 
-> 
->      /* kernel entry point */
->      paddr_t entry;
-> diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
-> index d15a88d2e0..3a2b35ea46 100644
-> --- a/xen/arch/arm/include/asm/setup.h
-> +++ b/xen/arch/arm/include/asm/setup.h
-> @@ -50,10 +50,6 @@ struct membank {
->      paddr_t start;
->      paddr_t size;
->      enum membank_type type;
-> -#ifdef CONFIG_STATIC_SHM
-> -    char shm_id[MAX_SHM_ID_LENGTH];
-> -    unsigned int nr_shm_borrowers;
-> -#endif
->  };
-> 
->  struct meminfo {
-> @@ -95,6 +91,17 @@ struct bootcmdlines {
->      struct bootcmdline cmdline[MAX_MODULES];
->  };
-> 
-> +#ifdef CONFIG_STATIC_SHM
-> +/*
-> + * struct shm_node represents a static shared memory node shared between
-> + * multiple domains, identified by the unique SHMID("xen,shm-id").
-> + */
-> +struct shm_node {
-> +    char shm_id[MAX_SHM_ID_LENGTH];
-> +    unsigned int nr_shm_borrowers;
-> +};
-> +#endif
-> +
->  struct bootinfo {
->      struct meminfo mem;
->      /* The reserved regions are only used when booting using Device-Tree */
-> @@ -105,6 +112,15 @@ struct bootinfo {
->      struct meminfo acpi;
->  #endif
->      bool static_heap;
-> +#ifdef CONFIG_STATIC_SHM
-> +    struct {
-> +        unsigned int nr_nodes;
-> +        struct {
-> +            struct shm_node node;
-> +            const struct membank *membank;
-> +        } shm_nodes[NR_MEM_BANKS];
-> +    } shminfo;
-I find it a bit confusing to have 2 structures named exactly the same (here and in kinfo).
-Something like shminfo_nodes would be better.
+Project: xen ( https://gitlab.com/xen-project/xen )
+Branch: staging-4.17 ( https://gitlab.com/xen-project/xen/-/commits/staging-4.17 )
 
-Also, correct me if I'm wrong. The reason for this structure is to avoid keeping membank growing?
+Commit: 6eb98dda ( https://gitlab.com/xen-project/xen/-/commit/6eb98dda5c91e68555684c57a2c9bd119ff082c1 )
+Commit Message: xen/domain: fix error path in domain_create()
 
-> +#endif
->  };
-> 
->  struct map_range_data
-> diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
-> index 1536ff18b8..66a3f4c146 100644
-> --- a/xen/arch/arm/include/asm/static-shmem.h
-> +++ b/xen/arch/arm/include/asm/static-shmem.h
-> @@ -8,7 +8,7 @@
->  #ifdef CONFIG_STATIC_SHM
-> 
->  int make_resv_memory_node(const struct domain *d, void *fdt, int addrcells,
-> -                          int sizecells, const struct meminfo *mem);
-> +                          int sizecells, const struct kernel_info *kinfo);
-> 
->  int process_shm(struct domain *d, struct kernel_info *kinfo,
->                  const struct dt_device_node *node);
-> @@ -28,7 +28,7 @@ int process_shm_node(const void *fdt, int node, uint32_t address_cells,
-> 
->  static inline int make_resv_memory_node(const struct domain *d, void *fdt,
->                                          int addrcells, int sizecells,
-> -                                        const struct meminfo *mem)
-> +                                        const struct kernel_info *kinfo)
->  {
->      return 0;
->  }
-> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
-> index 1a1a9386e4..6a3d8a54bd 100644
-> --- a/xen/arch/arm/static-shmem.c
-> +++ b/xen/arch/arm/static-shmem.c
-> @@ -6,28 +6,25 @@
->  #include <asm/domain_build.h>
->  #include <asm/static-shmem.h>
-> 
-> -static int __init acquire_nr_borrower_domain(struct domain *d,
-> -                                             paddr_t pbase, paddr_t psize,
-> +static int __init acquire_nr_borrower_domain(const char *shm_id,
->                                               unsigned long *nr_borrowers)
-Why is nr_borrowers unsigned long but nr_shm_borrowers is unsigned int?
+...
+Commit Author: Stewart Hildebrand ( https://gitlab.com/stewarthildebrand )
+Committed by: Jan Beulich ( https://gitlab.com/jbeulich )
 
->  {
-> -    unsigned int bank;
-> +    struct shm_node *shm_node;
-Can be const
 
-> +    unsigned int i;
-> 
-> -    /* Iterate reserved memory to find requested shm bank. */
-> -    for ( bank = 0 ; bank < bootinfo.reserved_mem.nr_banks; bank++ )
-> +    /* Iterate to find requested static shared memory node. */
-> +    for ( i = 0; i < bootinfo.shminfo.nr_nodes; i++ )
->      {
-> -        paddr_t bank_start = bootinfo.reserved_mem.bank[bank].start;
-> -        paddr_t bank_size = bootinfo.reserved_mem.bank[bank].size;
-> +        shm_node = &bootinfo.shminfo.shm_nodes[i].node;
-> 
-> -        if ( (pbase == bank_start) && (psize == bank_size) )
-> -            break;
-> +        if ( strcmp(shm_id, shm_node->shm_id) == 0 )
-> +        {
-> +            *nr_borrowers = shm_node->nr_shm_borrowers;
-> +            return 0;
-> +        }
->      }
-> 
-> -    if ( bank == bootinfo.reserved_mem.nr_banks )
-> -        return -ENOENT;
-> -
-> -    *nr_borrowers = bootinfo.reserved_mem.bank[bank].nr_shm_borrowers;
-> -
-> -    return 0;
-> +    return -ENOENT;
->  }
-> 
->  /*
-> @@ -91,7 +88,7 @@ static mfn_t __init acquire_shared_memory_bank(struct domain *d,
-> 
->  static int __init assign_shared_memory(struct domain *d,
->                                         paddr_t pbase, paddr_t psize,
-> -                                       paddr_t gbase)
-> +                                       paddr_t gbase, const char *shm_id)
->  {
->      mfn_t smfn;
->      int ret = 0;
-> @@ -125,7 +122,7 @@ static int __init assign_shared_memory(struct domain *d,
->       * Get the right amount of references per page, which is the number of
->       * borrower domains.
->       */
-> -    ret = acquire_nr_borrower_domain(d, pbase, psize, &nr_borrowers);
-> +    ret = acquire_nr_borrower_domain(shm_id, &nr_borrowers);
->      if ( ret )
->          return ret;
-> 
-> @@ -161,13 +158,16 @@ static int __init append_shm_bank_to_domain(struct kernel_info *kinfo,
->                                              paddr_t start, paddr_t size,
->                                              const char *shm_id)
->  {
-> -    if ( kinfo->shm_mem.nr_banks >= NR_MEM_BANKS )
-> +    unsigned int nr_banks = kinfo->shminfo.nr_banks;
-> +    struct membank *membank = &kinfo->shminfo.bank[nr_banks].membank;
-> +
-> +    if ( nr_banks >= NR_MEM_BANKS )
->          return -ENOMEM;
-> 
-> -    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].start = start;
-> -    kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].size = size;
-> -    safe_strcpy(kinfo->shm_mem.bank[kinfo->shm_mem.nr_banks].shm_id, shm_id);
-> -    kinfo->shm_mem.nr_banks++;
-> +    membank->start = start;
-> +    membank->size = size;
-> +    safe_strcpy(kinfo->shminfo.bank[nr_banks].shm_id, shm_id);
-> +    kinfo->shminfo.nr_banks++;
-> 
->      return 0;
->  }
-> @@ -251,7 +251,7 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
->               * specified, so they should be assigned to dom_io.
->               */
->              ret = assign_shared_memory(owner_dom_io ? dom_io : d,
-> -                                       pbase, psize, gbase);
-> +                                       pbase, psize, gbase, shm_id);
->              if ( ret )
->                  return ret;
->          }
-> @@ -279,12 +279,12 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
-> 
->  static int __init make_shm_memory_node(const struct domain *d, void *fdt,
->                                         int addrcells, int sizecells,
-> -                                       const struct meminfo *mem)
-> +                                       const struct kernel_info *kinfo)
->  {
->      unsigned int i = 0;
->      int res = 0;
-> 
-> -    if ( mem->nr_banks == 0 )
-> +    if ( kinfo->shminfo.nr_banks == 0 )
->          return -ENOENT;
-> 
->      /*
-> @@ -294,17 +294,17 @@ static int __init make_shm_memory_node(const struct domain *d, void *fdt,
->       */
->      dt_dprintk("Create xen-shmem node\n");
-> 
-> -    for ( ; i < mem->nr_banks; i++ )
-> +    for ( ; i < kinfo->shminfo.nr_banks; i++ )
->      {
-> -        uint64_t start = mem->bank[i].start;
-> -        uint64_t size = mem->bank[i].size;
-> +        uint64_t start = kinfo->shminfo.bank[i].membank.start;
-> +        uint64_t size = kinfo->shminfo.bank[i].membank.size;
->          const char compat[] = "xen,shared-memory-v1";
->          /* Worst case addrcells + sizecells */
->          __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
->          __be32 *cells;
->          unsigned int len = (addrcells + sizecells) * sizeof(__be32);
-> 
-> -        res = domain_fdt_begin_node(fdt, "xen-shmem", mem->bank[i].start);
-> +        res = domain_fdt_begin_node(fdt, "xen-shmem", start);
->          if ( res )
->              return res;
-> 
-> @@ -322,7 +322,7 @@ static int __init make_shm_memory_node(const struct domain *d, void *fdt,
->          dt_dprintk("Shared memory bank %u: %#"PRIx64"->%#"PRIx64"\n",
->                     i, start, start + size);
-> 
-> -        res = fdt_property_string(fdt, "xen,id", mem->bank[i].shm_id);
-> +        res = fdt_property_string(fdt, "xen,id", kinfo->shminfo.bank[i].shm_id);
->          if ( res )
->              return res;
-> 
-> @@ -350,7 +350,6 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
->      const struct fdt_property *prop, *prop_id, *prop_role;
->      const __be32 *cell;
->      paddr_t paddr, gaddr, size, end;
-> -    struct meminfo *mem = &bootinfo.reserved_mem;
->      unsigned int i;
->      int len;
->      bool owner = false;
-> @@ -429,17 +428,21 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
->          return -EINVAL;
->      }
-> 
-> -    for ( i = 0; i < mem->nr_banks; i++ )
-> +    for ( i = 0; i < bootinfo.shminfo.nr_nodes; i++ )
->      {
-> +        paddr_t bank_start = bootinfo.shminfo.shm_nodes[i].membank->start;
-> +        paddr_t bank_size = bootinfo.shminfo.shm_nodes[i].membank->size;
-> +        const char *bank_id = bootinfo.shminfo.shm_nodes[i].node.shm_id;
-> +
->          /*
->           * Meet the following check:
->           * 1) The shm ID matches and the region exactly match
->           * 2) The shm ID doesn't match and the region doesn't overlap
->           * with an existing one
->           */
-> -        if ( paddr == mem->bank[i].start && size == mem->bank[i].size )
-> +        if ( paddr == bank_start && size == bank_size )
->          {
-> -            if ( strncmp(shm_id, mem->bank[i].shm_id, MAX_SHM_ID_LENGTH) == 0 )
-> +            if ( strncmp(shm_id, bank_id, MAX_SHM_ID_LENGTH) == 0 )
-In following else if you still use mem->bank[i].shm_id which results in a build failure.
-You should use bank_id there as well.
 
-~Michal
+Pipeline #1097122838 ( https://gitlab.com/xen-project/xen/-/pipelines/1097122838 ) triggered by Ganis ( https://gitlab.com/ganis )
+successfully completed 84 jobs in 2 stages.
+
+-- 
+You're receiving this email because of your account on gitlab.com.
+
+
+
+
+----==_mimepart_65707793a2417_2c94d548034a
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://ww=
+w.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en">=
+
+<head>
+<meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Type" =
+/>
+<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewpor=
+t" />
+<meta content=3D"IE=3Dedge" http-equiv=3D"X-UA-Compatible" />
+<title>xen | Successful pipeline for staging-4.17 | 6eb98dda</title>
+<style data-premailer=3D"ignore" type=3D"text/css">
+body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}t=
+able,td{mso-table-lspace:0pt;mso-table-rspace:0pt}img{-ms-interpolation-m=
+ode:bicubic}.hidden{display:none !important;visibility:hidden !important}=
+a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !=
+important;font-size:inherit !important;font-family:inherit !important;fon=
+t-weight:inherit !important;line-height:inherit !important}div[style*=3D'=
+margin: 16px 0']{margin:0 !important}@media only screen and (max-width: 6=
+39px){body,#body{min-width:320px !important}table.wrapper{width:100% !imp=
+ortant;min-width:320px !important}table.wrapper td.wrapper-cell{border-le=
+ft:0 !important;border-right:0 !important;border-radius:0 !important;padd=
+ing-left:10px !important;padding-right:10px !important}}
+
+</style>
+
+<style>body {
+margin: 0 !important; background-color: #fafafa; padding: 0; text-align: =
+center; min-width: 640px; width: 100%; height: 100%; font-family: "Helvet=
+ica Neue", Helvetica, Arial, sans-serif;
+}
+</style></head>
+<body style=3D"text-align: center; min-width: 640px; width: 100%; height:=
+ 100%; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-se=
+rif; margin: 0; padding: 0;" bgcolor=3D"#fafafa">
+
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"body" style=
+=3D"text-align: center; min-width: 640px; width: 100%; margin: 0; padding=
+: 0;" bgcolor=3D"#fafafa">
+<tbody>
+<tr class=3D"line">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; height: 4px; font-size: 4px; line-height: 4px;" bgcolor=3D"#6b=
+4fbb"></td>
+</tr>
+<tr class=3D"header">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+
+<img alt=3D"GitLab" src=3D"https://gitlab.com/assets/mailers/gitlab_logo-=
+2957169c8ef64c58616a1ac3f4fc626e8a35ce4eb3ed31bb0d873712f2a041a0.png" wid=
+th=3D"55" height=3D"55" />
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"wrapper"=
+ style=3D"width: 640px; border-collapse: separate; border-spacing: 0; mar=
+gin: 0 auto;">
+<tbody>
+<tr>
+<td class=3D"wrapper-cell" style=3D"font-family: &quot;Helvetica Neue&quo=
+t;, Helvetica, Arial, sans-serif; border-radius: 3px; overflow: hidden; p=
+adding: 18px 25px; border: 1px solid #ededed;" align=3D"left" bgcolor=3D"=
+#fff">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"content"=
+ style=3D"width: 100%; border-collapse: separate; border-spacing: 0;">
+<tbody>
+<tr class=3D"table-success">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; font-size: 14px; line-height: 1.3; overflow: hidden; co=
+lor: #ffffff; padding: 10px;" align=3D"center" bgcolor=3D"#31af64">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff; padding-right: 5px;" align=3D"center" valign=3D"middle">
+<img alt=3D"&#10003;" height=3D"13" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-check-green-inverted-3fc3485096ebb83ce1d951=
+5883c8ca25ee5f382c4d643e064beb5da510aa26d5.gif" style=3D"display: block;"=
+ width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff;" align=3D"center" valign=3D"middle">
+Pipeline #1097122838 has passed!
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; overflow: hidden; padding: 0 15px; border: 1px solid #e=
+deded;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"table-in=
+fo" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; margin=
+: 0; padding: 14px 0;">
+Project
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; margin: 0; padding: 14px 0 14px 5px;">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project" style=3D"color=
+: #333333; text-decoration: none;">
+xen-project
+</a>
+/
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen" style=3D"c=
+olor: #333333; text-decoration: none;">
+xen
+</a>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Branch
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-branch-gray-53618a7fc19d4d32ccbabac2f6d59bebe67202a=
+9f2f1255e3f72c69756c0dd9c.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen/-/commits/s=
+taging-4.17" style=3D"color: #333333; text-decoration: none;">
+staging-4.17
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 400; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-commit-gray-c10243ac24cde64b549aec91de35e6b49c8739b=
+506b86472b54614c10d8b4aac.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a href=3D"https://gitlab.com/xen-project/xen/-/commit/6eb98dda5c91e68555=
+684c57a2c9bd119ff082c1" style=3D"color: #3777b0; text-decoration: none;">=
+6eb98dda</a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class=3D"commit" style=3D"color: #5c5c5c; font-weight: 300;">
+xen/domain: fix error path in domain_create()
+
+...
+</div>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit Author
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/86887961f183325c6bc3eca04f6fd4f4?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/stewarthildebrand" style=3D=
+"color: #333333; text-decoration: none;">
+Stewart Hildebrand
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Committed by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/d85e7926e3558bc23df7a4eb6c8a7c5e?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/jbeulich" style=3D"color: #=
+333333; text-decoration: none;">
+Jan Beulich
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"success-message">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #333333; font-size: 15px; font-weight: 400; line-height: 1.4; paddin=
+g: 15px 5px 0;" align=3D"center">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500;" valign=3D"baseline">
+Pipeline <a href=3D"https://gitlab.com/xen-project/xen/-/pipelines/109712=
+2838" style=3D"color: #3777b0; text-decoration: none;">#1097122838</a> tr=
+iggered by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500; padding-right: 5px; pa=
+dding-left: 5px;" width=3D"24" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/568538936b4ac45a343cb3a4ab0c6cda?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"baseline">
+<a class=3D"muted" href=3D"https://gitlab.com/ganis" style=3D"color: #333=
+333; text-decoration: none;">
+Ganis
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
+sans-serif; color: #333333; font-size: 15px; font-weight: 300; line-heigh=
+t: 1.4; padding: 15px 5px;" align=3D"center">
+successfully completed 84 jobs in 2 stages.
+</td>
+</tr>
+
+
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+<tr class=3D"footer">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+<img alt=3D"GitLab" class=3D"footer-logo" src=3D"https://gitlab.com/asset=
+s/mailers/gitlab_logo_black_text-5430ca955baf2bbce6d3aa856a025da70ac5c959=
+5597537254f665c10beab7a5.png" style=3D"display: block; width: 90px; margi=
+n: 0 auto 1em;" />
+<div>
+You're receiving this email because of your account on <a target=3D"_blan=
+k" rel=3D"noopener noreferrer" href=3D"https://gitlab.com" style=3D"color=
+: #3777b0; text-decoration: none;">gitlab.com</a>. <a href=3D"https://git=
+lab.com/-/profile/notifications" target=3D"_blank" rel=3D"noopener norefe=
+rrer" class=3D"mng-notif-link" style=3D"color: #3777b0; text-decoration: =
+none;">Manage all notifications</a> &#183; <a href=3D"https://gitlab.com/=
+help" target=3D"_blank" rel=3D"noopener noreferrer" class=3D"help-link" s=
+tyle=3D"color: #3777b0; text-decoration: none;">Help</a>
+</div>
+</td>
+</tr>
+
+
+<tr>
+<td class=3D"footer-message" style=3D"font-family: &quot;Helvetica Neue&q=
+uot;, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; co=
+lor: #5c5c5c; padding: 25px 0;">
+
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+----==_mimepart_65707793a2417_2c94d548034a--
 
