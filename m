@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7189D806A95
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 10:22:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649052.1013336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5112F806A8F
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 10:19:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649044.1013325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAo6V-0005SD-VO; Wed, 06 Dec 2023 09:22:03 +0000
+	id 1rAo4F-0003Pw-H9; Wed, 06 Dec 2023 09:19:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649052.1013336; Wed, 06 Dec 2023 09:22:03 +0000
+Received: by outflank-mailman (output) from mailman id 649044.1013325; Wed, 06 Dec 2023 09:19:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAo6V-0005Pr-Rv; Wed, 06 Dec 2023 09:22:03 +0000
-Received: by outflank-mailman (input) for mailman id 649052;
- Wed, 06 Dec 2023 09:22:03 +0000
+	id 1rAo4F-0003Np-EZ; Wed, 06 Dec 2023 09:19:43 +0000
+Received: by outflank-mailman (input) for mailman id 649044;
+ Wed, 06 Dec 2023 09:19:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=B4rn=HR=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1rAns8-00022d-Ac
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 09:07:12 +0000
+ id 1rAnsB-00022d-Qi
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 09:07:15 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id d6660baf-9416-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 10:07:10 +0100 (CET)
+ id d870d2bf-9416-11ee-9b0f-b553b5be7939;
+ Wed, 06 Dec 2023 10:07:13 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0A835139F;
- Wed,  6 Dec 2023 01:07:56 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 66524139F;
+ Wed,  6 Dec 2023 01:07:59 -0800 (PST)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 129A73F762;
- Wed,  6 Dec 2023 01:07:06 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6D7DB3F762;
+ Wed,  6 Dec 2023 01:07:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6660baf-9416-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: d870d2bf-9416-11ee-9b0f-b553b5be7939
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org,
 	michal.orzel@amd.com
@@ -54,22 +54,20 @@ Cc: wei.chen@arm.com,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v5 10/11] xen/arm: fix duplicate /reserved-memory node in Dom0
-Date: Wed,  6 Dec 2023 17:06:22 +0800
-Message-Id: <20231206090623.1932275-11-Penny.Zheng@arm.com>
+Subject: [PATCH v5 11/11] xen/arm: create another /memory node for static shm
+Date: Wed,  6 Dec 2023 17:06:23 +0800
+Message-Id: <20231206090623.1932275-12-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231206090623.1932275-1-Penny.Zheng@arm.com>
 References: <20231206090623.1932275-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In case there is a /reserved-memory node already present in the host dtb,
-current Xen codes would create yet another /reserved-memory node specially
-for the static shm in Dom0 Device Tree.
+Static shared memory region shall be described both under /memory and
+/reserved-memory.
 
-Xen will use write_properties() to copy the reserved memory nodes from host dtb
-to Dom0 FDT, so we want to insert the shm node along with the copying.
-And avoiding duplication, we add a checking before make_resv_memory_node().
+We introduce export_shm_memory_node() to create another /memory node to
+contain the static shared memory ranges.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 
@@ -78,121 +76,110 @@ v3 -> v4:
 new commit
 ---
 v4 -> v5:
-rebase and no change
+rebase and no changes
 ---
- xen/arch/arm/domain_build.c             | 27 ++++++++++++++++++++++---
- xen/arch/arm/include/asm/kernel.h       |  2 ++
- xen/arch/arm/include/asm/static-shmem.h | 14 +++++++++++++
- xen/arch/arm/static-shmem.c             |  6 +++---
- 4 files changed, 43 insertions(+), 6 deletions(-)
+ xen/arch/arm/dom0less-build.c           |  8 ++++++++
+ xen/arch/arm/domain_build.c             |  8 ++++++++
+ xen/arch/arm/include/asm/static-shmem.h | 10 ++++++++++
+ xen/arch/arm/static-shmem.c             | 19 +++++++++++++++++++
+ 4 files changed, 45 insertions(+)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index e040f8a6d9..f098678ea3 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -752,6 +752,23 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
-         }
-     }
+diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+index ac096fa3fa..870b8a553f 100644
+--- a/xen/arch/arm/dom0less-build.c
++++ b/xen/arch/arm/dom0less-build.c
+@@ -645,6 +645,14 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+     if ( ret )
+         goto err;
  
-+    if ( dt_node_path_is_equal(node, "/reserved-memory") )
++    /* Create a memory node to store the static shared memory regions */
++    if ( kinfo->shminfo.nr_banks != 0 )
 +    {
-+        kinfo->resv_mem = true;
-+
-+        /* shared memory provided. */
-+        if ( kinfo->shminfo.nr_banks != 0 )
-+        {
-+            uint32_t addrcells = dt_n_addr_cells(node),
-+                     sizecells = dt_n_size_cells(node);
-+
-+            res = make_shm_memory_node(d, kinfo->fdt,
-+                                       addrcells, sizecells, kinfo);
-+            if ( res )
-+                return res;
-+        }
++        ret = export_shm_memory_node(d, kinfo, addrcells, sizecells);
++        if ( ret )
++            goto err;
 +    }
 +
-     return 0;
- }
- 
-@@ -1856,9 +1873,13 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
+     ret = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells, kinfo);
+     if ( ret )
+         goto err;
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index f098678ea3..4e450cb4c7 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -1873,6 +1873,14 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
                  return res;
          }
  
--        res = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells, kinfo);
--        if ( res )
--            return res;
-+        /* Avoid duplicate /reserved-memory nodes in Device Tree */
-+        if ( !kinfo->resv_mem )
++        /* Create a memory node to store the static shared memory regions */
++        if ( kinfo->shminfo.nr_banks != 0 )
 +        {
-+            res = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells, kinfo);
++            res = export_shm_memory_node(d, kinfo, addrcells, sizecells);
 +            if ( res )
 +                return res;
 +        }
-     }
- 
-     res = fdt_end_node(kinfo->fdt);
-diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-index db3d8232fa..8fe2105a91 100644
---- a/xen/arch/arm/include/asm/kernel.h
-+++ b/xen/arch/arm/include/asm/kernel.h
-@@ -39,6 +39,8 @@ struct kernel_info {
-     void *fdt; /* flat device tree */
-     paddr_t unassigned_mem; /* RAM not (yet) assigned to a bank */
-     struct meminfo mem;
-+    /* Whether we have /reserved-memory node in host Device Tree */
-+    bool resv_mem;
-     /* Static shared memory banks */
-     struct {
-         unsigned int nr_banks;
++
+         /* Avoid duplicate /reserved-memory nodes in Device Tree */
+         if ( !kinfo->resv_mem )
+         {
 diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
-index d149985291..6cb4ef9646 100644
+index 6cb4ef9646..385fd24c17 100644
 --- a/xen/arch/arm/include/asm/static-shmem.h
 +++ b/xen/arch/arm/include/asm/static-shmem.h
-@@ -33,6 +33,11 @@ int remove_shm_from_rangeset(const struct kernel_info *kinfo,
- 
- int remove_shm_holes_for_domU(const struct kernel_info *kinfo,
-                               struct meminfo *orig_ext);
+@@ -38,6 +38,10 @@ int make_shm_memory_node(const struct domain *d,
+                          void *fdt,
+                          int addrcells, int sizecells,
+                          const struct kernel_info *kinfo);
 +
-+int make_shm_memory_node(const struct domain *d,
-+                         void *fdt,
-+                         int addrcells, int sizecells,
-+                         const struct kernel_info *kinfo);
++int export_shm_memory_node(const struct domain *d,
++                           const struct kernel_info *kinfo,
++                           int addrcells, int sizecells);
  #else /* !CONFIG_STATIC_SHM */
  
  static inline int make_resv_memory_node(const struct domain *d, void *fdt,
-@@ -72,6 +77,15 @@ static inline int remove_shm_holes_for_domU(const struct kernel_info *kinfo,
- {
+@@ -86,6 +90,12 @@ static inline int make_shm_memory_node(const struct domain *d,
      return 0;
  }
-+
-+static inline int make_shm_memory_node(const struct domain *d,
-+                                       void *fdt,
-+                                       int addrcells, int sizecells,
-+                                       const struct kernel_info *kinfo)
+ 
++static inline int export_shm_memory_node(const struct domain *d,
++                                         const struct kernel_info *kinfo,
++                                         int addrcells, int sizecells)
 +{
 +    return 0;
 +}
-+
  #endif /* CONFIG_STATIC_SHM */
  
  #endif /* __ASM_STATIC_SHMEM_H_ */
 diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
-index a06949abaf..bfce5bbad0 100644
+index bfce5bbad0..e583aae685 100644
 --- a/xen/arch/arm/static-shmem.c
 +++ b/xen/arch/arm/static-shmem.c
-@@ -505,9 +505,9 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
+@@ -505,6 +505,25 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
      return 0;
  }
  
--static int __init make_shm_memory_node(const struct domain *d, void *fdt,
--                                       int addrcells, int sizecells,
--                                       const struct kernel_info *kinfo)
-+int __init make_shm_memory_node(const struct domain *d, void *fdt,
-+                                int addrcells, int sizecells,
-+                                const struct kernel_info *kinfo)
- {
-     unsigned int i = 0;
-     int res = 0;
++int __init export_shm_memory_node(const struct domain *d,
++                                  const struct kernel_info *kinfo,
++                                  int addrcells, int sizecells)
++{
++    unsigned int i = 0;
++    struct meminfo shm_meminfo;
++
++    /* Extract meminfo from kinfo.shminfo */
++    for ( ; i < kinfo->shminfo.nr_banks; i++ )
++    {
++        shm_meminfo.bank[i].start = kinfo->shminfo.bank[i].membank.start;
++        shm_meminfo.bank[i].size = kinfo->shminfo.bank[i].membank.size;
++        shm_meminfo.bank[i].type = MEMBANK_DEFAULT;
++    }
++    shm_meminfo.nr_banks = kinfo->shminfo.nr_banks;
++
++    return make_memory_node(d, kinfo->fdt, addrcells, sizecells, &shm_meminfo);
++}
++
+ int __init make_shm_memory_node(const struct domain *d, void *fdt,
+                                 int addrcells, int sizecells,
+                                 const struct kernel_info *kinfo)
 -- 
 2.25.1
 
