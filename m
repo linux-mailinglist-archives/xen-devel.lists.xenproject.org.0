@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82DB2807A91
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 22:37:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649440.1013990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D15C807A9D
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 22:39:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649442.1013999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAzZY-0003Je-Jw; Wed, 06 Dec 2023 21:36:48 +0000
+	id 1rAzbm-00046z-Vj; Wed, 06 Dec 2023 21:39:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649440.1013990; Wed, 06 Dec 2023 21:36:48 +0000
+Received: by outflank-mailman (output) from mailman id 649442.1013999; Wed, 06 Dec 2023 21:39:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAzZY-0003GY-H6; Wed, 06 Dec 2023 21:36:48 +0000
-Received: by outflank-mailman (input) for mailman id 649440;
- Wed, 06 Dec 2023 21:36:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n1JC=HR=gmail.com=julien.grall@srs-se1.protection.inumbo.net>)
- id 1rAzZX-0003GS-Hs
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 21:36:47 +0000
-Received: from mail-yb1-xb29.google.com (mail-yb1-xb29.google.com
- [2607:f8b0:4864:20::b29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d4d9b48-947f-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 22:36:45 +0100 (CET)
-Received: by mail-yb1-xb29.google.com with SMTP id
- 3f1490d57ef6-db7d198e791so281147276.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 13:36:45 -0800 (PST)
+	id 1rAzbm-00044r-T5; Wed, 06 Dec 2023 21:39:06 +0000
+Received: by outflank-mailman (input) for mailman id 649442;
+ Wed, 06 Dec 2023 21:39:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rAzbl-00044l-KY
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 21:39:05 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rAzbl-0002MM-04; Wed, 06 Dec 2023 21:39:05 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rAzbk-0004Vy-PA; Wed, 06 Dec 2023 21:39:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,131 +39,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d4d9b48-947f-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701898604; x=1702503404; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FC1WMHYI5xsD/RHWYbeYlCVzcJRbeBGfCPFuq9VO6u4=;
-        b=inwcUB3UyDMb3qKJsGo8oA33WpNKPjhYEXdL4IdEeXNBVj1rZXSwQi57ossdhw3glK
-         41bIFx/DIKUPZ+a9b+CFjPYB0nnyi+9Y65PF7HBkRrcXYmicTUecTY6o7C66MnmMh4E2
-         BWAXDeFf8jKRlDlKrAfDSp9qJwiIAbf/ztxydJ5r0H7h0Dcn8b56T42bjQlvKtPvjB2a
-         KZnTX/1Cqb0GrbqgqKJdPLm3Q6KP6zMGewMWcdAZEy1JhRta2RNL0Z+mN6FlZD9APS6G
-         trNXfnjZ3o1EdDzDnx0oGx3dnyoRXBrSSbagnloGE6irnHGamLaQ9knxezX2tFJ0GtG3
-         2xSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701898604; x=1702503404;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FC1WMHYI5xsD/RHWYbeYlCVzcJRbeBGfCPFuq9VO6u4=;
-        b=WJh3LXDpvtQpo1XUmetZ+Exgd378n9ZmWhHd/RyPO3DkYg0FtuzBfaW2QUOQPnoH0m
-         997pTYBvHDRv1lR4cBIcOHH10y6/7AXZ7uzPDY5SHoKAn4UVCkj7WACULfv4FeqgB1vJ
-         TS/lNzmLEndboYU8zd9dO8OLO8KdRt3hSLRNmxE+Itt/n+ha1/f3yN90VoJujU1tqCcn
-         QtrY8ELtmD6YNIaIgl7lNeva7h7Fbmz6GNz7GPiROYFSOtN/7KDS6x87g/+XMigQ20y1
-         xCECRs5U+q85BmI6zErU/ISJF6wrOVqJkaFor8PRDdjwxaZdOuu1tBhIdWNgcRQxjhra
-         iEOg==
-X-Gm-Message-State: AOJu0Yxtt3iUs3aPDr1+Z/+YMFJN7ACVi9KwhaEeJDu6ESP27ZQRhCiJ
-	NwqX2eUnWcdlLS0wLDNueNC1G3jNHzmpopjVcPQ=
-X-Google-Smtp-Source: AGHT+IH8E1i7uafefxRbkwXAPC6Ft9EFmbr3EfiZoX1ftVl9hp7STgJoQJMCibuf99dt0FgZ2dSFHaONmj08gYLsAE8=
-X-Received: by 2002:a25:870f:0:b0:db7:dacf:4d54 with SMTP id
- a15-20020a25870f000000b00db7dacf4d54mr1104412ybl.80.1701898604143; Wed, 06
- Dec 2023 13:36:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=tlVhUKoXOOZaJGLSJgs22StEDbno8zpfeSx22EjA2y4=; b=DFrcMHSXhxFS5pQ/yASFewHiie
+	QLAXLQ2XQ2Oj1uESaeDcYCzT+15koQSub8wsJ3DBQfk46shz/iMt4xbTX6x8JQzxEbnHUPXUP4XkV
+	pA18tWgzesJgK4ClU7jiWECSDesdIjoUhdDUOAFkft+vmbqsSVO7kVwy8pim1xoR32b0=;
+Message-ID: <274e9e03-31fc-4838-9585-4ea2c9231203@xen.org>
+Date: Wed, 6 Dec 2023 21:39:01 +0000
 MIME-Version: 1.0
-References: <20231206144009.29154-1-jgross@suse.com> <CAKf6xpvu5txfU4uU26=Q-FyEmaaBazXPcOK_gU_=Tp=T98sS7g@mail.gmail.com>
- <b5b74155-e086-425d-8f5a-e9878d5d2da2@suse.com> <CAKf6xpvR1sOGCeH5PgdPGCuwAtLCH=J8c0C_V-DXopmw46=onQ@mail.gmail.com>
-In-Reply-To: <CAKf6xpvR1sOGCeH5PgdPGCuwAtLCH=J8c0C_V-DXopmw46=onQ@mail.gmail.com>
-From: Julien Grall <julien.grall@gmail.com>
-Date: Wed, 6 Dec 2023 21:36:07 +0000
-Message-ID: <CAF3u54DGYjbVnd6oO=TfqN-aAP5JpBW1agihNL3t=HO8muMtRQ@mail.gmail.com>
-Subject: Re: [PATCH] tools/libs/evtchn: drop assert()s in stubdom
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: MiniOS build regressions
+Content-Language: en-GB
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>
+Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <jgrall@amazon.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Jason Andryuk <jandryuk@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <0836857a-e9f7-41e9-9094-2833913e6485@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <0836857a-e9f7-41e9-9094-2833913e6485@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Le mer. 6 d=C3=A9c. 2023 =C3=A0 21:03, Jason Andryuk <jandryuk@gmail.com> a=
- =C3=A9crit :
->
-> On Wed, Dec 6, 2023 at 11:44=E2=80=AFAM Juergen Gross <jgross@suse.com> w=
-rote:
-> >
-> > On 06.12.23 17:38, Jason Andryuk wrote:
-> > > On Wed, Dec 6, 2023 at 9:40=E2=80=AFAM Juergen Gross <jgross@suse.com=
-> wrote:
-> > >>
-> > >> In tools/libs/evtchn/minios.c there are assert()s for the current
-> > >> thread being the main thread when binding an event channel.
-> > >>
-> > >> As Mini-OS is supporting multiple threads, there is no real reason
-> > >> why the binding shouldn't be allowed to happen in any other thread.
-> > >>
-> > >> Just drop the assert()s.
-> > >>
-> > >> Signed-off-by: Juergen Gross <jgross@suse.com>
-> > >> ---
-> > >>   tools/libs/evtchn/minios.c | 3 ---
-> > >>   1 file changed, 3 deletions(-)
-> > >>
-> > >> diff --git a/tools/libs/evtchn/minios.c b/tools/libs/evtchn/minios.c
-> > >> index 28743cb055..e33ddec7e7 100644
-> > >> --- a/tools/libs/evtchn/minios.c
-> > >> +++ b/tools/libs/evtchn/minios.c
-> > >> @@ -195,7 +195,6 @@ xenevtchn_port_or_error_t xenevtchn_bind_unbound=
-_port(xenevtchn_handle *xce,
-> > >>       int ret;
-> > >>       evtchn_port_t port;
-> > >>
-> > >> -    assert(get_current() =3D=3D main_thread);
-> > >>       port_info =3D port_alloc(xce);
-> > >
-> > > If multiple threads are allowed, does port_list need to gain a lock
-> > > protecting it?
-> >
-> > I thought of that, too.
-> >
-> > The answer is: maybe
-> >
-> > Any other list operation on the list isn't protected by an assert(), so
-> > technically there is no real new aspect added in this regard.
+Hi,
 
-I read this as "The others are not protected so let's remove all the
-protections"
-which sounds really wrong to me.
-At least with the existing ASSERT()s there is a chance a user would hit the=
-m.
+On 06/12/2023 21:58, Andrew Cooper wrote:
+> Following the chaos this morning and a scattering of fixes, I finally
+> got back to a working Gitlab with:
+> 
+> https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1097843454
+> 
+> This contains a full revert of the DMI patch, and removal of the Xilinx
+> hardware runner, both handled in other threads but noted here for anyone
+> looking at the test results.
+> 
+> It also contains 3 MiniOS fixes, mixed between repos:
+> 
+> "tools/libs/evtchn: drop assert()s in stubdom" in xen [1]
+> "Mini-OS: don't use objcopy --dump-section" in minios [2]
+> "Mini-OS: export main_thread" [3]
+> 
+> and the result with all of these passes.
+> 
+> However, it is my understanding that we don't actually want to take
+> patch 3, instead preferring patch 1 as an alternative.
 
-Without any, how would a user be able to know that they are mixing threads?
-Where is it documented?
+Looking at patch 1, I feel that 3 is better temporarily until we have 
+proper locking. With 1, we are just setting ourself for another failure.
 
->
-> Yes.
->
-> > I believe adding a lock would make sense, but it is orthogonal to this
-> > patch.
->
-> The assert() feels like it was an attempt to avoid introducing
-> locking, so I'm not sure it is really orthogonal.
+> 
+> But there is a concern which has been raised over patch 1.
+> 
+> 
+> So what are we going to do?
+> 
+> If there isn't an answer promptly, I will revert the most recent bump to
+> MINIOS_UPSTREAM_REVISION to unbreak Gitlab CI testing for everyone else.
 
-+1. I agree this is not orthogonal.
-
->
-> I was kinda waiting to see if anyone else would lend an opinion.
->
-> Since the asserts haven't been tripping there doesn't seem to be an
-> issue with the code as-is, so:
-
-The goal of an ASSERTs() is really to never trip in normal circumstances.
-So the fact nobody complained until now is a sign that they are working :).
-
-The right course of action is to add more, not less. If there is a problem
-with the existing ASSERT(), then the condition should either be updated
-as we switch to proper locking.
+I would say we should unblock gitlab CI ASAP. So whichever is the easiest.
 
 Cheers,
 
---=20
+-- 
 Julien Grall
 
