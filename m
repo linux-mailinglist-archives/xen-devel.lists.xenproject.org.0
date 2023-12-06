@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53F1580697F
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 09:18:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648973.1013125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B59258069FA
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 09:42:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648977.1013135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAn5a-0001pb-Bh; Wed, 06 Dec 2023 08:17:02 +0000
+	id 1rAnTW-0000Vv-AT; Wed, 06 Dec 2023 08:41:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648973.1013125; Wed, 06 Dec 2023 08:17:02 +0000
+Received: by outflank-mailman (output) from mailman id 648977.1013135; Wed, 06 Dec 2023 08:41:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAn5a-0001mL-7n; Wed, 06 Dec 2023 08:17:02 +0000
-Received: by outflank-mailman (input) for mailman id 648973;
- Wed, 06 Dec 2023 08:17:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rAnTW-0000T3-6L; Wed, 06 Dec 2023 08:41:46 +0000
+Received: by outflank-mailman (input) for mailman id 648977;
+ Wed, 06 Dec 2023 08:41:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X1yw=HR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAn5Y-0001ls-D3
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 08:17:00 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d28af3cd-940f-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 09:16:57 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40c09f4814eso44704405e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 00:16:57 -0800 (PST)
+ id 1rAnTT-0000SG-Sd
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 08:41:43 +0000
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [2a00:1450:4864:20::444])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 47d3e242-9413-11ee-98e5-6d05b1d4d9a1;
+ Wed, 06 Dec 2023 09:41:42 +0100 (CET)
+Received: by mail-wr1-x444.google.com with SMTP id
+ ffacd0b85a97d-332c0c32d19so578204f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 00:41:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- r16-20020a05600c459000b00406408dc788sm24722408wmo.44.2023.12.06.00.16.56
+ l14-20020a5d6d8e000000b0033343b1ec1asm8704506wrs.26.2023.12.06.00.41.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Dec 2023 00:16:57 -0800 (PST)
+ Wed, 06 Dec 2023 00:41:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d28af3cd-940f-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 47d3e242-9413-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701850617; x=1702455417; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IS2NIFF20MdsmJ4P4D6nHB/F14y4z6qF1Zqlz/EUFF0=;
-        b=ME54wuwXfVNRPRUE0cTIwXjlJ52XddsajvjBbmcH86xAZdfZdxtyaEBXxCpWE9pQwd
-         bVPwvG/bGRkRj/WwRyVh/kXYkUPy9IeL1TZPLr+CsGm+pZF76I65UKFJCDRu/wtmyp/b
-         9HpilvekoUCpSOwEH7WKs24GAl5wYdT37UUEejWtdSH4USB2qYW6j1ZzZWm+ArC7cFcn
-         Ulx+ZVVzqkiPcS70XqJ059VLUBAPYezyH1y82YVmPXEOqxnCjbRWG9vFiC8Zy8YmaSw9
-         +xOg8hkUrrbn1Kkc6rdXhsouswALgcrYyr4oNSxB15rBdORqyJ8b4j51hsTY18tgXe4J
-         cKpw==
+        d=suse.com; s=google; t=1701852102; x=1702456902; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FSJmxM6AaCYttK0D/fkGRAXDM/3Z8X9PgrOncB9F9OQ=;
+        b=gRxJpmfXiUkdf+4vixQ7K0SkImiJ9WyiRnIxgUw/oV6tCKonEZ5Py2EoKrOzsaQOLF
+         ChHeiVvAwJv3XZog3/2/MZXL51O//pp0oXCusTidg+vj4hGnDRF8rpE2apImY3KjZ8fB
+         MBa7+ObqgeNnCkD3v2ZlD5Gs4UNgb8bF41UXDuv3dADkQknbXBrIzd6dqNZM0Hlz6NMI
+         Q3Fzi+1aNIRDX4rS4+dxcP3ET2XbJWjEGruBQy/sYkTuGT9NTawkzt5/PSiVkFWHX0UM
+         fOgYPtwohhRWqXglu0Lof1VYZPu1DTF3XoCinl/yLvqZiyILMD/fJjBRX/I29MlOJhoO
+         4S1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701850617; x=1702455417;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IS2NIFF20MdsmJ4P4D6nHB/F14y4z6qF1Zqlz/EUFF0=;
-        b=L5CS3IL6z/OYTroD3sOPd/BCsFC1XX+oBlWJfPOllUQ/3js5NmJAbjtdN6+0pJiqm7
-         EnDFyKhkHnp4/0yXAw0YVjuiOd9fV5xLHBKah0RbAGYuDJoY737yErcGitUTHoUBKGQD
-         QCWYnoTAfFJ4R9gucz/Nbt8aZ+MMAEYnri1+lKXchuqIH1wokNUUr3hvBoQdAyaFjFgl
-         IDUqw7MKN++j+qYIVj3Yrd80gGM8KmuVwMxxM0fcPrKRr2szB8xXPC0u6sVYheVed8zd
-         LoPnCg0Wx2NvhCMKg05F+qijBAn3m0BP0m4IlqQDO0tnrmkQWlU98Xi9hlfZgioW7o+/
-         CE+A==
-X-Gm-Message-State: AOJu0Yz8TouRMwziA2nD3/9EnOy1vijnZ6shOdoxHJ7kh5MdxDWGGYnH
-	xj0usi3t6wwh1JMEFL0Ru2jw
-X-Google-Smtp-Source: AGHT+IE90nHlxrIWL/TOAgNLWaipK84uMmwzPW2bEVxlWjQBK0u4JSof0kBURH8lVb17S5fmPA7Gmg==
-X-Received: by 2002:a05:600c:4586:b0:40b:5e59:cc9f with SMTP id r6-20020a05600c458600b0040b5e59cc9fmr370382wmo.128.1701850617390;
-        Wed, 06 Dec 2023 00:16:57 -0800 (PST)
-Message-ID: <96f31a47-ee5f-41ae-976a-35663d5b51b6@suse.com>
-Date: Wed, 6 Dec 2023 09:16:56 +0100
+        d=1e100.net; s=20230601; t=1701852102; x=1702456902;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FSJmxM6AaCYttK0D/fkGRAXDM/3Z8X9PgrOncB9F9OQ=;
+        b=TD/a5+P3HIcMayBhgBpXI3IeTj51PTXvVrW8c1ZzGHACo0aKcgtbIJIVauzzuJadnD
+         /CJN0FFieiB1qXKp4+hpjsUtNCNtxWnwPcYC7EOXney2UdS4PSNuq7GGOQa2HwUmF5vW
+         qiITc5AZBpClpWmHqKD5hNVS2M9kXL9BZIaSyEl1Qux75nsrSP1ukbZp+iQZMIOKp/yb
+         0Aj88Y5UBqiY7Mw93E8h/AXGAFQzjzlNG79irYEYvJ0V7wrET7Z7cEOueK24ShtEhxai
+         kiCRBAeH95fGy1u1MDtltAkZucqaOohF+zlvVA3iE7iSdhwOaOB5BfyrB7EHQXO3yYmU
+         ab2Q==
+X-Gm-Message-State: AOJu0YyxuBOUMZipuX6n5XktfOufPAtkYAgrTYvDKF7VDB4uTXU2/UCc
+	DCd92H+ePMcxBYfAGoJ9sM6Y
+X-Google-Smtp-Source: AGHT+IEt8BQ36J6a3X/Kz6hddQFV22uS9olYdkI6dikI24GGvg2UKGZMfjZKhA/sYWL/3fcU2BxxAQ==
+X-Received: by 2002:a5d:6143:0:b0:333:2fd2:2ed4 with SMTP id y3-20020a5d6143000000b003332fd22ed4mr263672wrt.77.1701852102175;
+        Wed, 06 Dec 2023 00:41:42 -0800 (PST)
+Message-ID: <50b36423-d1e1-406f-a63f-66f2e4dce68e@suse.com>
+Date: Wed, 6 Dec 2023 09:41:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 3/6] AMD/IOMMU: address violations of MISRA C:2012
- Rule 8.2
-Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Federico Serafini <federico.serafini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+Subject: Re: [PATCH] CODING_STYLE: Add a section of the naming convention
+To: George Dunlap <george.dunlap@cloud.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1701764980.git.federico.serafini@bugseng.com>
- <c529cb0d8eba253436c5bba22f8bceddeaaf5831.1701764980.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2312051913190.110490@ubuntu-linux-20-04-desktop>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>
+References: <20231205181218.74667-1-julien@xen.org>
+ <CA+zSX=aUV00BwnNfFTbCE=6PuVNT=UFvE0tnMO3UhwCMh5jmHQ@mail.gmail.com>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,74 +113,75 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312051913190.110490@ubuntu-linux-20-04-desktop>
+In-Reply-To: <CA+zSX=aUV00BwnNfFTbCE=6PuVNT=UFvE0tnMO3UhwCMh5jmHQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06.12.2023 04:15, Stefano Stabellini wrote:
-> On Tue, 5 Dec 2023, Federico Serafini wrote:
->> --- a/xen/drivers/passthrough/amd/iommu.h
->> +++ b/xen/drivers/passthrough/amd/iommu.h
->> @@ -138,10 +138,12 @@ struct ivrs_mappings {
->>  extern unsigned int ivrs_bdf_entries;
->>  extern u8 ivhd_type;
->>  
->> -struct ivrs_mappings *get_ivrs_mappings(u16 seg);
->> -int iterate_ivrs_mappings(int (*)(u16 seg, struct ivrs_mappings *));
->> -int iterate_ivrs_entries(int (*)(const struct amd_iommu *,
->> -                                 struct ivrs_mappings *, uint16_t));
->> +struct ivrs_mappings *get_ivrs_mappings(uint16_t seg);
->> +int iterate_ivrs_mappings(int (*handler)(uint16_t seg,
->> +                                         struct ivrs_mappings *map));
->> +int iterate_ivrs_entries(int (*handler)(const struct amd_iommu *iommu,
->> +                                        struct ivrs_mappings *map,
->> +                                        uint16_t bdf));
-
-(Note this for the comment near the end.)
-
->> @@ -361,14 +362,15 @@ static int iommu_read_log(struct amd_iommu *iommu,
->>  
->>   out:
->>      spin_unlock(&log->lock);
->> -   
+On 06.12.2023 03:21, George Dunlap wrote:
+> On Tue, Dec 5, 2023 at 6:12 PM Julien Grall <julien@xen.org> wrote:
+>>
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> Several maintainers have expressed a stronger preference
+>> to use '-' when in filename and option that contains multiple
+>> words.
+>>
+>> So document it in CODING_STYLE.
+>>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>
+>> ---
+>>     Changes in v2:
+>>         - New wording
+>>         - Update the section title
+>>         - Add Jan's acked-by
+>> ---
+>>  CODING_STYLE | 9 +++++++++
+>>  1 file changed, 9 insertions(+)
+>>
+>> diff --git a/CODING_STYLE b/CODING_STYLE
+>> index ced3ade5a6fb..ed13ee2b664b 100644
+>> --- a/CODING_STYLE
+>> +++ b/CODING_STYLE
+>> @@ -144,6 +144,15 @@ separate lines and each line should begin with a leading '*'.
+>>   * Note beginning and end markers on separate lines and leading '*'.
+>>   */
+>>
+>> +Naming convention for files and command line options
+>> +----------------------------------------------------
 >> +
->>      return 0;
->>  }
->>  
->>  /* reset event log or ppr log when overflow */
->>  static void iommu_reset_log(struct amd_iommu *iommu,
->>                              struct ring_buffer *log,
->> -                            void (*ctrl_func)(struct amd_iommu *iommu, bool))
->> +                            void (*ctrl_func)(struct amd_iommu *iommu,
->> +                                              bool iommu_control))
+>> +'-' should be used to separate words in commandline options and filenames.
+>> +E.g. timer-works.
+>> +
+>> +Note that some of the options and filenames are using '_'. This is now
+>> +deprecated.
 > 
-> instead of iommu_control it should be iommu_enable ?
-
-What purpose would "iommu_" serve? It would be actively confusing, for
-colliding with the same-name global we have. Both functions passed here
-use simply "enable".
-
->> @@ -1158,14 +1160,15 @@ static void __init amd_iommu_init_cleanup(void)
->>      iommuv2_enabled = 0;
->>  }
->>  
->> -struct ivrs_mappings *get_ivrs_mappings(u16 seg)
->> +struct ivrs_mappings *get_ivrs_mappings(uint16_t seg)
->>  {
->>      return radix_tree_lookup(&ivrs_maps, seg);
->>  }
->>  
->> -int iterate_ivrs_mappings(int (*handler)(u16 seg, struct ivrs_mappings *))
->> +int iterate_ivrs_mappings(int (*handler)(uint16_t seg,
->> +                                         struct ivrs_mappings *map))
+> Sorry for not catching this last time; "are using X" isn't really
+> idiomatic English; more idiomatic would be something like the
+> following:
 > 
-> Instead of map it should be ivrs_mappings ? Actually it reads better as
-> map and I know it is not a MISRA requirement to have function pointer
-> args match. I'll leave this one to Jan.
+> "Note that some existing options and file names use '_'.  This is now
+> deprecated."
+> 
+> Since we're changing things, I *think* most style guides would advise
+> against starting the sentence with a punctuation; so perhaps:
+> 
+> "Command-line options and file names should use '-' to separate words;
+> e.g., timer-works."
+> 
+> And what about adding to the last paragraph:
+> 
+> "When touching code around command-line parameters still using '_', it
+> is recommended to modify the documentation to say only '-', but modify
+> the code to accept both '-' and '_' (for backwards compatibility)."
 
-The name is entirely meaningless here (i.e. not helping with anything),
-so imo "map" is not only fine but also (see above) consistent with other
-code.
+In this context see
+https://lists.xen.org/archives/html/xen-devel/2020-01/msg01945.html
+and Andrew's response
+https://lists.xen.org/archives/html/xen-devel/2020-01/msg02006.html
+I'm still in favor of addressing the issue centrally (making unnecessary
+adjustments like you suggest in the new paragraph). Yet I think Andrew's
+objection would cover such adjustments as much as my generic solution.
 
 Jan
 
