@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B8DB806D07
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 11:59:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649087.1013428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91293806D38
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 12:03:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649096.1013440 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rApd8-0005jK-R1; Wed, 06 Dec 2023 10:59:50 +0000
+	id 1rApg1-0007WE-8C; Wed, 06 Dec 2023 11:02:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649087.1013428; Wed, 06 Dec 2023 10:59:50 +0000
+Received: by outflank-mailman (output) from mailman id 649096.1013440; Wed, 06 Dec 2023 11:02:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rApd8-0005gV-LS; Wed, 06 Dec 2023 10:59:50 +0000
-Received: by outflank-mailman (input) for mailman id 649087;
- Wed, 06 Dec 2023 10:59:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rApg1-0007V7-4i; Wed, 06 Dec 2023 11:02:49 +0000
+Received: by outflank-mailman (input) for mailman id 649096;
+ Wed, 06 Dec 2023 11:02:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X1yw=HR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rApd6-0005P8-IU
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 10:59:48 +0000
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [2a00:1450:4864:20::441])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 917a1df6-9426-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 11:59:46 +0100 (CET)
-Received: by mail-wr1-x441.google.com with SMTP id
- ffacd0b85a97d-3316a4bc37dso583898f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 02:59:46 -0800 (PST)
+ id 1rApg0-0007V0-2t
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 11:02:48 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fcda4654-9426-11ee-98e5-6d05b1d4d9a1;
+ Wed, 06 Dec 2023 12:02:46 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-332d5c852a0so619845f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 03:02:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e14-20020a5d500e000000b003335e67e574sm3128483wrt.78.2023.12.06.02.59.45
+ c12-20020a056000104c00b00333339e5f42sm13279318wrx.32.2023.12.06.03.02.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Dec 2023 02:59:45 -0800 (PST)
+ Wed, 06 Dec 2023 03:02:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 917a1df6-9426-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: fcda4654-9426-11ee-98e5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701860386; x=1702465186; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=kQzh/kxGUddWCVZoEBZkMTbc+8tsnObi8hKwzMBGVLs=;
-        b=M6460PYJoWbrheQolC4RFoN9P/v4QcSoG8DBQAsigZKwSX6Xr8nB4UaIgopIRK6ork
-         +3RLQETBYatavG+MiWZdPPjZaofGE/X/8TQAnh79Gr0mFxf1nN1QyPEZOnd91CQZeRJR
-         cBQY1v22XMeuhKZEAAvzzgl901IE21dKm/q08PXIAqAFSgxhxFFyXUhCySJHVlqWeNC4
-         fDVQuPcUm0v9kglbEhr4peLmA2X+uKCbvfeWK4hceXVeBkwSpiDJNGlj+GINT/KkclfI
-         PNZJ/Z2LAlTgylwp5wqU/+jCEwjTG13wKG60Lkj8gokVormah8x9cMcPg2yjV5tT255h
-         bHlQ==
+        d=suse.com; s=google; t=1701860566; x=1702465366; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=3m6mAP0dykMt1zxfzRMwB4ANO/WsCIQyyd/YIRmxN1A=;
+        b=KZvCxQ8VmprVYUKEru5Lq51J8J2FFdbkKnIZkn1DdAX739nRmvAMabAWQaFDEV7Uk2
+         eHvx/6y/4nXMSxhP9ca4aGwPU0jyC4R1y4W34BnrA40ixxTzgwhiwPgaocDL78N19DKY
+         ep2fh/l3nYzUV11PqQYXIFOESN+2g0jBK00nAU1hD/NnptOd96G4m4iRJJrmsQHGwKXL
+         6Zv/2pXyA9d5CbtOgiKki5nETERDQOgT0PF+mo4rFNr4y2hGhwg8kwUKQhMVNagZ4jJf
+         bxe1GAWugS0co+xs+/CLQQY+TNweQIduqXgyzGZUlI09I/I6Kok2qrbr/rNp2AhZJSea
+         vCqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701860386; x=1702465186;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1701860566; x=1702465366;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kQzh/kxGUddWCVZoEBZkMTbc+8tsnObi8hKwzMBGVLs=;
-        b=o2rM5VBoMYAbchiAVnHnIlLzWGamAbOteLgKUNrhtGOWP81VIx0n+qK9xk3ZBH91Sq
-         JKTDQDlp8td7IP+sZH8RablEmfRD/Qckrq6Oig/FTa1ftDLBPVIIlzMByS8+FTOR42su
-         BunnP6jlkkbzXl5MRqIS97jSh1FJ8AjEpdoMWE2Yx1C2KcHN/jgkfVjBmI+1K0TpKvV6
-         iFhIn2LgEdHPnN+4pFSU6b6untsZMXpzM3HEznX8mTEgdogK2PaN8jp/i2iCTYu1mb9L
-         uasstHedHqdw0xclrm+eB3HC5wcl/om1e2Q/TW9fXTDUKRv8CY856215sWVmTuImBZd1
-         YckQ==
-X-Gm-Message-State: AOJu0Yx4B6u1Fnzxb84okttdHtYSa3C0w08YeToCmH4axVvJfJ9y8F3n
-	1pfoDBDphFrHy+ji637uP8RI
-X-Google-Smtp-Source: AGHT+IGyZ33jlUkPxViD/67EWyw7B79AGxXiIPkSRaqEpOnr3iUC6WneacxN69W15RRxjfEvtQuyEg==
-X-Received: by 2002:adf:fe8a:0:b0:333:2fd2:4aff with SMTP id l10-20020adffe8a000000b003332fd24affmr292524wrr.123.1701860386139;
-        Wed, 06 Dec 2023 02:59:46 -0800 (PST)
-Message-ID: <8ec8031a-65bb-4b1b-8964-8c457e04b4b4@suse.com>
-Date: Wed, 6 Dec 2023 11:59:45 +0100
+        bh=3m6mAP0dykMt1zxfzRMwB4ANO/WsCIQyyd/YIRmxN1A=;
+        b=HEyozpcFxZyYCjdTcHWUzvDg9GHkwdMtOjYezyPHev4LYkvhb1opQL3WFIFzsjU6Ly
+         5T8j3rNVqv9ASII7q9Nst8iXL+/Qv5/+/9c5O6dOWO+uAAWFa0chVgOAUtbvlbcBpPMv
+         mCNwh34NaT86GjWhvJ4cd6iB7QuyW4fsF0uU8aKQcyT1flNX4Ysk3xCqA0eIDh2AUXlQ
+         +eSxVhk2DO8TLmti7DIGRAF4Nc3lEmvECD3qNvFZS4VTM8Qj2SdqcX3YDPW91PH/Hqfd
+         WS5QJccraaxO/HfjMrhPClt3FPXYsANl1QRHsEiDcJN33e+IgImxZZg5exGmEi1AW+/K
+         DBmQ==
+X-Gm-Message-State: AOJu0Yy0hTDAHemsGLyB9f7Jje9F5ifYYBzhHIxP17PT6mM7OP/41dYo
+	JMIY0t6EyCW69gqIIbVClrxA
+X-Google-Smtp-Source: AGHT+IGw00TXegRH2vsGFbEOpFPGLskp4sOiu8yJ0NICUaHJ/QMvfSL7zIE3LdZIoyBAogAimQv3GQ==
+X-Received: by 2002:a5d:54cc:0:b0:333:533d:9ce8 with SMTP id x12-20020a5d54cc000000b00333533d9ce8mr544021wrv.90.1701860566284;
+        Wed, 06 Dec 2023 03:02:46 -0800 (PST)
+Message-ID: <1607a68e-e8d2-44e0-ab01-97cacdfad8b0@suse.com>
+Date: Wed, 6 Dec 2023 12:02:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] xen: make include/xen/unaligned.h usable on all
+ architectures
 Content-Language: en-US
-To: Minios-devel <minios-devel@lists.xenproject.org>
-Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>, Wei Liu <wl@xen.org>,
- Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Arnd Bergmann <arnd@arndb.de>, xen-devel@lists.xenproject.org
+References: <20231206071039.24435-1-jgross@suse.com>
+ <20231206071039.24435-3-jgross@suse.com>
+ <96711b23-9dd9-4029-aaea-a3e755c4bd3e@suse.com>
+ <8224404e-ed23-438b-8a61-23d76a980cc5@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH mini-os] x86: fix building with Clang
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -109,106 +115,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8224404e-ed23-438b-8a61-23d76a980cc5@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-It doesn't understand -fno-reorder-blocks. Whether without that option
-the resulting binary is actually functional I can't tell, though.
+On 06.12.2023 11:02, Juergen Gross wrote:
+> On 06.12.23 09:46, Jan Beulich wrote:
+>> On 06.12.2023 08:10, Juergen Gross wrote:
+>>> @@ -15,67 +7,82 @@
+>>>   #include <asm/byteorder.h>
+>>>   #endif
+>>>   
+>>> -#define get_unaligned(p) (*(p))
+>>> -#define put_unaligned(val, p) (*(p) = (val))
+>>> +/*
+>>> + * This is the most generic implementation of unaligned accesses
+>>> + * and should work almost anywhere.
+>>> + */
+>>> +
+>>> +#define get_unaligned_t_(type, ptr) ({					\
+>>
+>> ..., do we need the trailing underscores here in addition to the already
+>> sufficiently clear _t suffixes? (Leaving aside that ..._t generally is to
+>> denote types, not macros or functions.)
+> 
+> Maybe we should just name it get_unaligned_type()?
 
-For $(cc-option ...) to be usable in arch.mk, at least CC needs setting
-earlier in Config.mk. Move up the entire "Set tools" section.
+I wouldn't mind, but Andrew mentioning min_t() / max_t() suggests the
+present naming might be okay, too. (Still those two macros signal
+something quite different with their _t suffixes.)
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Observed with Clang7, but then checked option (un)availability with
-godbolt.org.
-
-With Clang5 there's further breakage, due to apparently deliberate de-
-referencing of NULL in lib/xmalloc.c (poor man's BUG(), as it looks).
-The compiler's -Wnull-dereference causes a warning to be issued there,
-converted to an error by -Werror. Question is whether building with
-Clang5 is supposed to work.
-
---- a/Config.mk
-+++ b/Config.mk
-@@ -86,6 +86,33 @@ TARGET_ARCH_DIR := arch/$(TARGET_ARCH_FA
- export TARGET_ARCH_DIR
- export TARGET_ARCH_FAM
- 
-+# Set tools
-+AS         = $(CROSS_COMPILE)as
-+LD         = $(CROSS_COMPILE)ld
-+ifeq ($(clang),y)
-+CC         = $(CROSS_COMPILE)clang
-+LD_LTO     = $(CROSS_COMPILE)llvm-ld
-+else
-+CC         = $(CROSS_COMPILE)gcc
-+LD_LTO     = $(CROSS_COMPILE)ld
-+endif
-+CPP        = $(CC) -E
-+AR         = $(CROSS_COMPILE)ar
-+RANLIB     = $(CROSS_COMPILE)ranlib
-+NM         = $(CROSS_COMPILE)nm
-+STRIP      = $(CROSS_COMPILE)strip
-+OBJCOPY    = $(CROSS_COMPILE)objcopy
-+OBJDUMP    = $(CROSS_COMPILE)objdump
-+SIZEUTIL   = $(CROSS_COMPILE)size
-+
-+# Allow git to be wrappered in the environment
-+GIT        ?= git
-+
-+INSTALL      = install
-+INSTALL_DIR  = $(INSTALL) -d -m0755 -p
-+INSTALL_DATA = $(INSTALL) -m0644 -p
-+INSTALL_PROG = $(INSTALL) -m0755 -p
-+
- # This is used for architecture specific links.
- # This can be overwritten from arch specific rules.
- ARCH_LINKS =
-@@ -119,33 +147,6 @@ DEF_CPPFLAGS += -isystem $(LWIPDIR)/src/
- DEF_CPPFLAGS += -isystem $(LWIPDIR)/src/include/ipv4
- endif
- 
--# Set tools
--AS         = $(CROSS_COMPILE)as
--LD         = $(CROSS_COMPILE)ld
--ifeq ($(clang),y)
--CC         = $(CROSS_COMPILE)clang
--LD_LTO     = $(CROSS_COMPILE)llvm-ld
--else
--CC         = $(CROSS_COMPILE)gcc
--LD_LTO     = $(CROSS_COMPILE)ld
--endif
--CPP        = $(CC) -E
--AR         = $(CROSS_COMPILE)ar
--RANLIB     = $(CROSS_COMPILE)ranlib
--NM         = $(CROSS_COMPILE)nm
--STRIP      = $(CROSS_COMPILE)strip
--OBJCOPY    = $(CROSS_COMPILE)objcopy
--OBJDUMP    = $(CROSS_COMPILE)objdump
--SIZEUTIL   = $(CROSS_COMPILE)size
--
--# Allow git to be wrappered in the environment
--GIT        ?= git
--
--INSTALL      = install
--INSTALL_DIR  = $(INSTALL) -d -m0755 -p
--INSTALL_DATA = $(INSTALL) -m0644 -p
--INSTALL_PROG = $(INSTALL) -m0755 -p
--
- BOOT_DIR ?= /boot
- 
- SOCKET_LIBS =
---- a/arch/x86/arch.mk
-+++ b/arch/x86/arch.mk
-@@ -14,7 +14,8 @@ EXTRA_SRC += arch/$(EXTRA_INC)
- endif
- 
- ifeq ($(MINIOS_TARGET_ARCH),x86_64)
--ARCH_CFLAGS := -m64 -mno-red-zone -fno-reorder-blocks
-+ARCH_CFLAGS := -m64 -mno-red-zone
-+ARCH_CFLAGS += $(call cc-option,$(CC),-fno-reorder-blocks)
- ARCH_CFLAGS += -fno-asynchronous-unwind-tables
- ARCH_ASFLAGS := -m64
- ARCH_LDFLAGS := -m elf_x86_64
+Jan
 
