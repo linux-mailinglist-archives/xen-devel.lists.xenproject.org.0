@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7AE0806830
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 08:22:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648936.1013046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DED9806832
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 08:23:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648940.1013055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAmEV-0002n2-Ga; Wed, 06 Dec 2023 07:22:11 +0000
+	id 1rAmF7-0003Lz-Te; Wed, 06 Dec 2023 07:22:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648936.1013046; Wed, 06 Dec 2023 07:22:11 +0000
+Received: by outflank-mailman (output) from mailman id 648940.1013055; Wed, 06 Dec 2023 07:22:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAmEV-0002kz-DS; Wed, 06 Dec 2023 07:22:11 +0000
-Received: by outflank-mailman (input) for mailman id 648936;
- Wed, 06 Dec 2023 07:22:10 +0000
+	id 1rAmF7-0003Je-Qv; Wed, 06 Dec 2023 07:22:49 +0000
+Received: by outflank-mailman (input) for mailman id 648940;
+ Wed, 06 Dec 2023 07:22:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sruh=HR=bombadil.srs.infradead.org=BATV+2d31c4bdfe93494595b7+7409+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1rAmEU-0002kr-II
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 07:22:10 +0000
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [2607:7c80:54:3::133])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=X1yw=HR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rAmF6-0002kr-KO
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 07:22:48 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2a2b0c6a-9408-11ee-98e5-6d05b1d4d9a1;
- Wed, 06 Dec 2023 08:22:09 +0100 (CET)
-Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1rAmDz-009HyE-2v; Wed, 06 Dec 2023 07:21:39 +0000
+ id 41ba2ed2-9408-11ee-98e5-6d05b1d4d9a1;
+ Wed, 06 Dec 2023 08:22:48 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-3333fbbeab9so417098f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 Dec 2023 23:22:48 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ n6-20020a5d67c6000000b0033335333d88sm12133526wrw.43.2023.12.05.23.22.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 05 Dec 2023 23:22:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,68 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a2b0c6a-9408-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=qmCAsGLsB31X5J4lJ2nHtJS8+MwGW1F5WEYO0jIziI0=; b=hhRbaenXZsjRyFtp5oCl7ZLapp
-	PGbBHBMazopo9x7zLycOLomgyozjMFDmXz0mBlHcwPG5BI6SfQiEYs2RFIxTkHszoMBIB5fp7RvF5
-	vaqpcOeQKcUjsuqauqy5BsIY31xjg/0sVfUccDbi5kKXOZc7fS1d0vbSOWjK1ECcJERDPQIM6Icyq
-	pZ82Y80XxVZAy+fiqCF56whvlLXWz/53NURq30p1NEOux+n0cJVqd1itpsG6+3wl1H+zQ95RNHzGZ
-	8Wbn2E17f06JWnxiq2s6y4vOb2NT9ha36DJvWW/HkrWz3MeH9YEasxDh/aL/9GmJ56G3rYqKjOoGL
-	m/NxJEIQ==;
-Date: Tue, 5 Dec 2023 23:21:39 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Yu Kuai <yukuai1@huaweicloud.com>
-Cc: Christoph Hellwig <hch@infradead.org>, axboe@kernel.dk,
-	roger.pau@citrix.com, colyli@suse.de, kent.overstreet@gmail.com,
-	joern@lazybastard.org, miquel.raynal@bootlin.com, richard@nod.at,
-	vigneshr@ti.com, sth@linux.ibm.com, hoeppner@linux.ibm.com,
-	hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-	jejb@linux.ibm.com, martin.petersen@oracle.com, clm@fb.com,
-	josef@toxicpanda.com, dsterba@suse.com, nico@fluxnic.net,
-	xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
-	adilger.kernel@dilger.ca, agruenba@redhat.com, jack@suse.com,
-	konishi.ryusuke@gmail.com, willy@infradead.org,
-	akpm@linux-foundation.org, hare@suse.de, p.raghav@samsung.com,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
-	linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
-	linux-btrfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-ext4@vger.kernel.org, gfs2@lists.linux.dev,
-	linux-nilfs@vger.kernel.org, yi.zhang@huawei.com,
-	yangerkun@huawei.com, "yukuai (C)" <yukuai3@huawei.com>
-Subject: Re: [PATCH -next RFC 02/14] xen/blkback: use bdev api in
- xen_update_blkif_status()
-Message-ID: <ZXAhA0WUXoF5YEq4@infradead.org>
-References: <20231205123728.1866699-1-yukuai1@huaweicloud.com>
- <20231205123728.1866699-3-yukuai1@huaweicloud.com>
- <ZXAMwBD8pd48qwX/@infradead.org>
- <783b5515-db42-c77f-62ab-050f7cc8ef5e@huaweicloud.com>
+X-Inumbo-ID: 41ba2ed2-9408-11ee-98e5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1701847367; x=1702452167; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=N46oMtztTMKivnkI5qJIbT8O6Da7Ep6qclq26Ay1Jq0=;
+        b=DMKoyWFsllDHrYq+YwosbBEqlb58pQ6+ZMa89Mnyg8KJKCAYFS4uuuN3hFi5XxrrjP
+         FbnVd9cdAQf60sZ1do7rZE+paTNt62RHO/dBAOYqeUb+oMWW5SzadHI/0JHHrZgD80hf
+         VYwEdkie183JJco47T4W/RxGqPb6uhLqhEzEPzdbu8JUuyeCgil/G+2J9SJAeIgdIEUG
+         ewXeFbi4k/UqL/vFohQo+DEhL761bGMepcaHcWNlPOhRXorQs33Ji3EoOy+p5cHbwCpz
+         ookc5gPDD7o/eUCriyMlZVY1YRbMO1nj+FqfbZY2ojtcYCXRS2HcYbeYhrefUhEiGZnf
+         xLCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701847367; x=1702452167;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=N46oMtztTMKivnkI5qJIbT8O6Da7Ep6qclq26Ay1Jq0=;
+        b=v/WLT0UkkJ0N/ZmVAUGtrHCAmvHvUSSYBbGAkVpqadaJzRLy6tUZAvdbCgRbZaYyNj
+         lHsg4c6hUgJ0fe/rHsraohfhYep8PFDfxBFMqyVJpGhDKbeoopG09YfnfFgVJWxkmUki
+         rskJQXBjCAx/Ui9qilDEiLYKlVi7fcIP1qiPWzOYc74FZKFJpMGXBJbkWCMaOA8rUfY6
+         TSQ0P681KQwwQoFh8eYHLUkIlfRKxEPmT3gB43yeAH7SqMGapWsll31oWBd5swJUgQC6
+         7dCCx3L64wCS1yxyjGTfQhkb5SAkx1nwRoMdD+l9hFudXldFbyHlhQOzVBnNQ5LX+ySh
+         TdzA==
+X-Gm-Message-State: AOJu0Yw+Yify0+6Y6c7B55mXMHCuAURNK35ItWhfn1javC/K41Jjhc7/
+	iR/kalb/KZVjfaZq1Js7OZaE
+X-Google-Smtp-Source: AGHT+IFe+V2eK2a9SxRAPXEYklTVE4Tejfi+Esn99uo2+1aLaHFU5JrG4zs5cYNHGbsdx8Va55Qf4g==
+X-Received: by 2002:a05:6000:cc2:b0:333:39dc:d99e with SMTP id dq2-20020a0560000cc200b0033339dcd99emr227028wrb.119.1701847367501;
+        Tue, 05 Dec 2023 23:22:47 -0800 (PST)
+Message-ID: <d71ca852-087b-4781-9fab-304acbdfc968@suse.com>
+Date: Wed, 6 Dec 2023 08:22:46 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <783b5515-db42-c77f-62ab-050f7cc8ef5e@huaweicloud.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/6] x86/vPIC: vpic_elcr_mask() master bit 2 control
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <49a17ffa-c873-4b0f-81ed-9587053ca159@suse.com>
+ <09fc4c14-07e8-4e59-a23e-bb295125f25a@suse.com> <ZW9d9MK6l6GwXo60@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZW9d9MK6l6GwXo60@macbook>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Dec 06, 2023 at 02:56:05PM +0800, Yu Kuai wrote:
-> > > -	invalidate_inode_pages2(
-> > > -			blkif->vbd.bdev_handle->bdev->bd_inode->i_mapping);
-> > > +	invalidate_bdev(blkif->vbd.bdev_handle->bdev);
-> > 
-> > blkbak is a bdev exported.   I don't think it should ever call
-> > invalidate_inode_pages2, through a wrapper or not.
+On 05.12.2023 18:29, Roger Pau Monné wrote:
+> On Tue, Nov 28, 2023 at 11:35:46AM +0100, Jan Beulich wrote:
+>> @@ -387,7 +387,7 @@ static int cf_check vpic_intercept_elcr_
+>>          if ( dir == IOREQ_WRITE )
+>>          {
+>>              /* Some IRs are always edge trig. Slave IR is always level trig. */
+>> -            data = (*val >> shift) & vpic_elcr_mask(vpic);
+>> +            data = (*val >> shift) & vpic_elcr_mask(vpic, 1);
 > 
-> I'm not sure about this. I'm not familiar with xen/blkback, but I saw
-> that xen-blkback will open a bdev from xen_vbd_create(), hence this
-> looks like a dm/md for me, hence it sounds reasonable to sync +
-> invalidate the opened bdev while initialization. Please kindly correct
-> me if I'm wrong.
+> Not that it matters much, but I think you could use
+> vpic_elcr_mask(vpic, 0) to strictly keep the same behavior as
+> before?
 
-I guess we have enough precedence for this, so the switchover here
-isn't wrong.  But all this invalidating of the bdev cache seems to
-be asking for trouble.
+Indeed, as also said in the description. Personally I view it as (slightly)
+more logical to not mask off ...
 
+>>              if ( vpic->is_master )
+>>                  data |= 1 << 2;
+> 
+> Since the bit is forcefully set here anyway.
+
+... and then set the bit, hence why I chose to go with 1.
+
+> Regardless:
+> 
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks.
+
+Jan
 
