@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F48C806E12
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 12:34:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649138.1013548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36626806E14
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 12:35:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649143.1013557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAqAV-0004BN-5e; Wed, 06 Dec 2023 11:34:19 +0000
+	id 1rAqBL-0004lX-E0; Wed, 06 Dec 2023 11:35:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649138.1013548; Wed, 06 Dec 2023 11:34:19 +0000
+Received: by outflank-mailman (output) from mailman id 649143.1013557; Wed, 06 Dec 2023 11:35:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAqAV-00049F-1f; Wed, 06 Dec 2023 11:34:19 +0000
-Received: by outflank-mailman (input) for mailman id 649138;
- Wed, 06 Dec 2023 11:34:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rAqBL-0004jo-Ap; Wed, 06 Dec 2023 11:35:11 +0000
+Received: by outflank-mailman (input) for mailman id 649143;
+ Wed, 06 Dec 2023 11:35:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rHB2=HR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rAqAT-00048p-O3
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 11:34:17 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 62d33a5d-942b-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 12:34:15 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40b2ddab817so69833775e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 03:34:15 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- fl8-20020a05600c0b8800b0040b37f1079dsm25733060wmb.29.2023.12.06.03.34.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Dec 2023 03:34:15 -0800 (PST)
+ <SRS0=oQZO=HR=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rAqBK-0004jg-C6
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 11:35:10 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20612.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::612])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 81e7c826-942b-11ee-98e5-6d05b1d4d9a1;
+ Wed, 06 Dec 2023 12:35:09 +0100 (CET)
+Received: from BN9P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:13e::9)
+ by CH2PR12MB4279.namprd12.prod.outlook.com (2603:10b6:610:af::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.25; Wed, 6 Dec
+ 2023 11:35:05 +0000
+Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
+ (2603:10b6:408:13e::4) by BN9P220CA0004.outlook.office365.com
+ (2603:10b6:408:13e::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.25 via Frontend
+ Transport; Wed, 6 Dec 2023 11:35:05 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7068.20 via Frontend Transport; Wed, 6 Dec 2023 11:35:05 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 6 Dec
+ 2023 05:35:03 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 6 Dec
+ 2023 05:35:03 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Wed, 6 Dec 2023 05:35:01 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,128 +63,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62d33a5d-942b-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701862455; x=1702467255; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WZJ7cxcejz9u6NYxab3g4zyeV7d6qWy2sV2nr6pT27s=;
-        b=mVTjXkhk1xqaoeqRxcAhtZ+w5mtMwM8pWNO7An5+bsj96OknLTaHeS5LUwnZjR7iFZ
-         kmF5QMpURZCLyT/syIuTeKZLQHcIA2jQ0oPPDHuNN3Yc5BAT1yIaQ4XvKKmWAatecdA1
-         NL0Pqxv0S58uZ6bv+sekPIALP80DKEQqf1WsY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701862455; x=1702467255;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WZJ7cxcejz9u6NYxab3g4zyeV7d6qWy2sV2nr6pT27s=;
-        b=p4EPfqY/ro4MV862oMcd3ijpfLHswodIGdhZ3eJX+snx5q1KBjNShQGrKsFR25gq7y
-         O0g+R8/kwZL68s4YYwZmgomy0qJcUzpuqxauQpOdmqZS7CxYhxe2m1FvZghvedUSrUhf
-         BvBTzbDLmqPZyuSulVJz139/iCRHIvFft7dQMQKHuqW47vNNjw5F047v81kR/vIgaL3/
-         6nGmJMnvb+NFDCPCdu1rYzMnBrJvl47NftaSTZTU6e44jqiPJT13edITq2m5gbpfjVhh
-         9IcF+JU4UUEVYYb1WWkqqIHbtUVjRFH6z19XQDHud9uFn7hR6fE0KBXb8+31q+h/r2BM
-         +/lg==
-X-Gm-Message-State: AOJu0YyNdYW/KAzuj6q2YbUvM6i3unY32h1VnjhI9+voz9XKVRplyUk3
-	Y91aYeUEP9yWvA7/KFWjUhAKZQ==
-X-Google-Smtp-Source: AGHT+IGYDhpEv+3BDt0sfrVN/KDMyMSESIX/fjs8/BhDxOATEjFhvdFIjfym5RMa9zOjRQ5lYJMX4g==
-X-Received: by 2002:a05:600c:4508:b0:40b:5e1c:af27 with SMTP id t8-20020a05600c450800b0040b5e1caf27mr520675wmo.45.1701862455455;
-        Wed, 06 Dec 2023 03:34:15 -0800 (PST)
-Message-ID: <88771312-9dda-4acf-8bf3-8ab7a05583a9@citrix.com>
-Date: Wed, 6 Dec 2023 11:34:15 +0000
+X-Inumbo-ID: 81e7c826-942b-11ee-98e5-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TTOpLn2pxbrsEigyr3ZARwkJ5a9fScBamm5qw9UVQRa8yYpMDWszSH5Pr9g/q2WUPBC/q0cKwCATvfrUnVV+HbAgUtzSka/5og7J13LrbTLS1z2RcrcPWxCgOnd9SFm5VHn9OgUWGu7klPJWA+J0OEWMiQiZasIr73mZmFwwIfo9VIEKM9lptbpwTzuZ8T4klT3IjD21qZEWNG0bw6Fo77+5ParK0sGyJZUblmt1BRb+S+DCbN5mIKGgXUzMU5gy54Al1YdwGWG+B53lPufWWrub9tPPRUfvlQcnGhMXe+sZ/byJkRh5WF0bfys/03GOKSmoE7IFZVOnsKWQMPr7Ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/VxlAYorZ6hx9bTDrrfqZmv9S+meKM/WoC3ZESJsK4M=;
+ b=fgsQhFTdM7vnUc/HPylgFSoqwRa45YqlZ4m6OGp0viAYEe9TTq8nw5NKNanyEE3WCh+bfj48pArJ8IV1vMaOLW+wstd8m0cTljFrJDGlHp90gP2JwLvlDe+v9cOauR584JhcCqFwnuIEFyCIW/vyza4jiu4tYGL1EECdLoz/y//K8W4tP5tdxDUWThqQT7xx3j3esetLN2kR+xDeKdycdxZyyubxQs46aSE60IlDAsDUZwPtYg+mA11Kn9WQ7u4w9NWLESlo42Wgdf/as9MCvvoKqVgZxf0f/T22imuMTg0j0F2247Z+2IR63X3BojyINS2JlME7dM1W+LZ8RXad1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/VxlAYorZ6hx9bTDrrfqZmv9S+meKM/WoC3ZESJsK4M=;
+ b=pHe9610rQuvqI2dKDCiSj4bF1/jwUcANjLfNn00IO5sOJa4ZViScAqRjRatx7xE4fsNTBIe4jacSNTCkct248DbaBL98dFo5+V7jkX/tIeMVHtONn2fDGH712S7xYwZp0Gvf9KbnK967c/NoCrdr3zaPiFr6ozd8GOyLzLBvkvQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <fed944e1-cb66-46a1-b327-d69ad280cc5f@amd.com>
+Date: Wed, 6 Dec 2023 12:35:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Mini-OS: use BUG() instead of dereferencing NULL
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org, Jan Beulich <jbeulich@suse.com>
-References: <20231206113037.8832-1-jgross@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20231206113037.8832-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v5 02/11] xen/arm: avoid repetitive checking in
+ process_shm_node
+Content-Language: en-US
+To: Penny Zheng <Penny.Zheng@arm.com>, <xen-devel@lists.xenproject.org>
+CC: <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
+ Grall" <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231206090623.1932275-1-Penny.Zheng@arm.com>
+ <20231206090623.1932275-3-Penny.Zheng@arm.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20231206090623.1932275-3-Penny.Zheng@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|CH2PR12MB4279:EE_
+X-MS-Office365-Filtering-Correlation-Id: e852789f-a8e7-4b6d-2668-08dbf64f64a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	CSAGW6u0IzcSE+gQ1VYd7+zSiL+ResttV5oNv/SbFKxa8XmEDVGoV0PG+rQ5Yb8sjaCJVZJ7mav/9zhdwTEN+sv5yc2tniQKmYKAmAJtjGuroXDMEhbw1Y7s184tfwZM5CroaUzDgj9IByaN4xel+NRVbJJq3WHJFmKX7BXZZQM+nAtgowe5UoOyP9ykK/DmM58kZGGUo3D+gyjN9/VQ2qRb2CqqNRXq/RJgq2R2ETG/wBKSpVdIj+FGYiCxHPKW79fy4ImzkX+22FnrXN2suYtMCNsRriIkUyu/uhjxR0jj40M9t+VdX0IQDvmH4buQxHah3MmrTa1UpbiPaHexZXhhXkH2aJADxgO4UJ8fYweSfAiCenfrUwx5kMRVR0eFV607ysndSYESPKfW4v58mguFflqmnnzFFf7zVyCotG/dY2E/fJ2zHm0O3akNioqzGp8mB63iAdEOr48tO9oHL8mF2lwlEXH7xybSmwY8yoedUv+YXihtpcevyXyaP2PpaU73BvyVjehzijb8bjwVBKebfWW5TOVAr30zEilvXE51lc7EKG++SU40SR04hDmglqDIU03NQvIdnxTo7J/kf/25oC4MEJ3THsHQ+kU1T3yb+CEFtJ50NoUD9Vc0PUrB8i8+fXYUZRioCxOSAln+VmytZvNpj0NPJgjAFuKzTcsZzh37bY43Imvp0FUhDxuB8LFbQL37FqDjr+LGALcfcIDjcuHbMkmT/HO97OiOowUE784wXthhs10HfuuXNYdLUChB3LTtHSaPdvFkByvuuD0Z6sgxrVHYLLPoji5+5WdW8ym2RabIsZgdDLXbkTyw
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(39860400002)(136003)(346002)(396003)(84040400005)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(82310400011)(46966006)(40470700004)(36840700001)(36860700001)(47076005)(356005)(81166007)(53546011)(26005)(336012)(426003)(40480700001)(54906003)(16576012)(70206006)(70586007)(31686004)(316002)(31696002)(110136005)(82740400003)(83380400001)(2616005)(478600001)(4326008)(8936002)(8676002)(86362001)(40460700003)(5660300002)(2906002)(36756003)(41300700001)(44832011)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2023 11:35:05.4088
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e852789f-a8e7-4b6d-2668-08dbf64f64a9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000252A4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4279
 
-On 06/12/2023 11:30 am, Juergen Gross wrote:
-> There are some places using a dereference of NULL to cause a crash.
->
-> Use BUG() instead.
->
-> Reported-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Hi Penny,
 
-Wow...
+On 06/12/2023 10:06, Penny Zheng wrote:
+> 
+> 
+> Putting overlap and overflow checking in the loop is causing repetitive
+> operation, so this commit extracts both checking outside the loop.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+In general the patch looks good to me:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+That said, there are 2 things I realized during review.
 
 > ---
->  lib/xmalloc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/lib/xmalloc.c b/lib/xmalloc.c
-> index cc5db11e..2aa07138 100644
-> --- a/lib/xmalloc.c
-> +++ b/lib/xmalloc.c
-> @@ -219,7 +219,7 @@ void xfree(const void *p)
->      if(((long)p & PAGE_MASK) != ((long)hdr & PAGE_MASK))
+> v6:
+> new commit
+> ---
+>  xen/arch/arm/static-shmem.c | 39 +++++++++++++++----------------------
+>  1 file changed, 16 insertions(+), 23 deletions(-)
+> 
+> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
+> index cb268cd2ed..1a1a9386e4 100644
+> --- a/xen/arch/arm/static-shmem.c
+> +++ b/xen/arch/arm/static-shmem.c
+> @@ -349,7 +349,7 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
+>  {
+>      const struct fdt_property *prop, *prop_id, *prop_role;
+>      const __be32 *cell;
+> -    paddr_t paddr, gaddr, size;
+> +    paddr_t paddr, gaddr, size, end;
+>      struct meminfo *mem = &bootinfo.reserved_mem;
+>      unsigned int i;
+>      int len;
+> @@ -422,6 +422,13 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
+>          return -EINVAL;
+>      }
+> 
+> +    end = paddr + size;
+> +    if ( end <= paddr )
+> +    {
+> +        printk("fdt: static shared memory region %s overflow\n", shm_id);
+> +        return -EINVAL;
+> +    }
+> +
+>      for ( i = 0; i < mem->nr_banks; i++ )
 >      {
->          printk("Header should be on the same page\n");
-> -        *(int*)0=0;
-> +        BUG();
->      }
->  
->      /* Merge with other free block, or put in list. */
-> @@ -255,7 +255,7 @@ void xfree(const void *p)
->          if((((unsigned long)hdr) & (PAGE_SIZE-1)) != 0)
->          {
->              printk("Bug\n");
-> -            *(int*)0=0;
-> +            BUG();
+>          /*
+> @@ -441,30 +448,13 @@ int __init process_shm_node(const void *fdt, int node, uint32_t address_cells,
+>                  return -EINVAL;
+>              }
 >          }
->          free_page(hdr);
->      }
+> +        else if ( strcmp(shm_id, mem->bank[i].shm_id) != 0 )
+> +            continue;
+>          else
+>          {
+> -            paddr_t end = paddr + size;
+> -            paddr_t bank_end = mem->bank[i].start + mem->bank[i].size;
+> -
+> -            if ( (end <= paddr) || (bank_end <= mem->bank[i].start) )
+You are iterating over reserved memory regions in general, so apart from shmem regions there might be truly /reserved ones.
+It appears that we don't have overflow check in device_tree_get_meminfo, so this second check was the only place to detect that
+(protected by a feature, so not very useful) :) This is just an observation and I agree to drop it. We should be checking for an
+overflow in device_tree_get_meminfo.
 
+The second observation I made is that we don't seem to assign and check the return code from device_tree_for_each_node.
+This means, that any error while parsing the early fdt (e.g. static shm issues) does not stop Xen from booting, which might result in strange behavior later on.
+If others agree, I'm ok to send a fix for that.
+
+~Michal
 
