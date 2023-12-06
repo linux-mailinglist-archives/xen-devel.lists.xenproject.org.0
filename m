@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C991F806574
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 04:10:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648797.1012786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9A5B806582
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 04:16:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648805.1012796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAiIk-0003gM-3d; Wed, 06 Dec 2023 03:10:18 +0000
+	id 1rAiOF-0005ET-NY; Wed, 06 Dec 2023 03:15:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648797.1012786; Wed, 06 Dec 2023 03:10:18 +0000
+Received: by outflank-mailman (output) from mailman id 648805.1012796; Wed, 06 Dec 2023 03:15:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAiIk-0003dW-0s; Wed, 06 Dec 2023 03:10:18 +0000
-Received: by outflank-mailman (input) for mailman id 648797;
- Wed, 06 Dec 2023 03:10:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rAiOF-0005CF-KA; Wed, 06 Dec 2023 03:15:59 +0000
+Received: by outflank-mailman (input) for mailman id 648805;
+ Wed, 06 Dec 2023 03:15:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=AMAt=HR=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rAiIj-0003dP-4L
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 03:10:17 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa07e7bb-93e4-11ee-98e5-6d05b1d4d9a1;
- Wed, 06 Dec 2023 04:10:16 +0100 (CET)
+ id 1rAiOE-0005Ap-0A
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 03:15:58 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c5017d11-93e5-11ee-9b0f-b553b5be7939;
+ Wed, 06 Dec 2023 04:15:55 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D1E04608C0;
- Wed,  6 Dec 2023 03:10:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B3BC433C7;
- Wed,  6 Dec 2023 03:10:13 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 5B314B81D8A;
+ Wed,  6 Dec 2023 03:15:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BDB6C433C7;
+ Wed,  6 Dec 2023 03:15:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,75 +42,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa07e7bb-93e4-11ee-98e5-6d05b1d4d9a1
+X-Inumbo-ID: c5017d11-93e5-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701832214;
-	bh=y29qUYa5AmFDM3XI0hWka6TCb/np57otshggx7s5hK4=;
+	s=k20201202; t=1701832554;
+	bh=uvWU04pRqiplwKbwHTnhwZ2FK1FCR67Y/FppL/AJPAc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=mEclSlE0mZ+zqL+kKNr0Yb11vzQyxS0lVC/BBXTrd071+3fvKrznCcQoNsFOBKiEC
-	 jStgIamIBWrAzlM10tPFmu7WiiMEHeA3nAKfFfzMGrv+ElKzFOjawk8E0noUvmDxn8
-	 UW9OsWbS67sq1+KRRqadVldGmVNOpStwXHyB/c+3/010lybODvLWFakYHZAi0VvVOn
-	 gRYZUKKdo5ttbgJdjesytrxXsFLW6Hjna6RwWEJE0OftvKLO+jribTtgTRLW/XoqYL
-	 waNmVyfh7P+jdh5hRJ8u+wnA8rHQqN6gcsO2xLakwmqcY6o7a1P79EiF7nmHr2Hnbj
-	 EI3/jQX11d73Q==
-Date: Tue, 5 Dec 2023 19:10:12 -0800 (PST)
+	b=IPyZHYQ3hkds4zVvhCzU7pNVUBorBIp2Y9ZQGg2FjkA8iG4/QjcMCH1tV2LWYtYpb
+	 GrPBJUhxFgisPv9ae/iuZ+/IDXx5OI5cDGfFRPcZTrLUyS3bCzsNpgSGKf7DxMBp4p
+	 PeEvwnN6eLPx1TNw8SY5f7Ju39YP2gcXvypvq+yx5y+lbrlr8SZdUhub38n3vnynuj
+	 +f6GpAPCNL9zIIUf9T0EAkm0VWYHknMnDF0lMx6CcCsBNLDwfupN8xd75tAbkBWT8w
+	 SSd4beGmBU0aXJI89NDYVDTanrCiCElbPE0xK90w6P5roEXjC+QiDT0i1sxVXubwPm
+	 NQ62NoFLLBLkQ==
+Date: Tue, 5 Dec 2023 19:15:52 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Federico Serafini <federico.serafini@bugseng.com>
 cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 2/6] x86/mm: address violations of MISRA C:2012 Rule
- 8.2
-In-Reply-To: <461a97a14a530286a8b8d0d30a1a8ed63690bc26.1701764980.git.federico.serafini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2312051908470.110490@ubuntu-linux-20-04-desktop>
-References: <cover.1701764980.git.federico.serafini@bugseng.com> <461a97a14a530286a8b8d0d30a1a8ed63690bc26.1701764980.git.federico.serafini@bugseng.com>
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH 3/6] AMD/IOMMU: address violations of MISRA C:2012
+ Rule 8.2
+In-Reply-To: <c529cb0d8eba253436c5bba22f8bceddeaaf5831.1701764980.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2312051913190.110490@ubuntu-linux-20-04-desktop>
+References: <cover.1701764980.git.federico.serafini@bugseng.com> <c529cb0d8eba253436c5bba22f8bceddeaaf5831.1701764980.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 5 Dec 2023, Federico Serafini wrote:
-> Add missing parameter names. No functional change.
+> Add missing parameter names to address violations of MISRA C:2012
+> Rule 8.2. Furthermore, remove trailing spaces and use C standard types to
+> comply with XEN coding style.
+> 
+> No functional change.
 > 
 > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 > ---
->  xen/arch/x86/include/asm/mm.h | 20 ++++++++++----------
->  1 file changed, 10 insertions(+), 10 deletions(-)
+>  xen/drivers/passthrough/amd/iommu.h      | 17 ++++++++++-------
+>  xen/drivers/passthrough/amd/iommu_init.c | 24 ++++++++++++++----------
+>  2 files changed, 24 insertions(+), 17 deletions(-)
 > 
-> diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
-> index 05dfe35502..a270f8ddd6 100644
-> --- a/xen/arch/x86/include/asm/mm.h
-> +++ b/xen/arch/x86/include/asm/mm.h
-> @@ -406,7 +406,7 @@ void put_page_type(struct page_info *page);
->  int  get_page_type(struct page_info *page, unsigned long type);
->  int  put_page_type_preemptible(struct page_info *page);
->  int  get_page_type_preemptible(struct page_info *page, unsigned long type);
-> -int  put_old_guest_table(struct vcpu *);
-> +int  put_old_guest_table(struct vcpu *v);
->  int  get_page_from_l1e(
->      l1_pgentry_t l1e, struct domain *l1e_owner, struct domain *pg_owner);
->  void put_page_from_l1e(l1_pgentry_t l1e, struct domain *l1e_owner);
-> @@ -557,7 +557,7 @@ void audit_domains(void);
+> diff --git a/xen/drivers/passthrough/amd/iommu.h b/xen/drivers/passthrough/amd/iommu.h
+> index d4416ebc43..1b62c083ba 100644
+> --- a/xen/drivers/passthrough/amd/iommu.h
+> +++ b/xen/drivers/passthrough/amd/iommu.h
+> @@ -138,10 +138,12 @@ struct ivrs_mappings {
+>  extern unsigned int ivrs_bdf_entries;
+>  extern u8 ivhd_type;
 >  
->  void make_cr3(struct vcpu *v, mfn_t mfn);
->  pagetable_t update_cr3(struct vcpu *v);
-> -int vcpu_destroy_pagetables(struct vcpu *);
-> +int vcpu_destroy_pagetables(struct vcpu *v);
->  void *do_page_walk(struct vcpu *v, unsigned long addr);
+> -struct ivrs_mappings *get_ivrs_mappings(u16 seg);
+> -int iterate_ivrs_mappings(int (*)(u16 seg, struct ivrs_mappings *));
+> -int iterate_ivrs_entries(int (*)(const struct amd_iommu *,
+> -                                 struct ivrs_mappings *, uint16_t));
+> +struct ivrs_mappings *get_ivrs_mappings(uint16_t seg);
+> +int iterate_ivrs_mappings(int (*handler)(uint16_t seg,
+> +                                         struct ivrs_mappings *map));
+> +int iterate_ivrs_entries(int (*handler)(const struct amd_iommu *iommu,
+> +                                        struct ivrs_mappings *map,
+> +                                        uint16_t bdf));
 >  
->  /* Allocator functions for Xen pagetables. */
-> @@ -572,20 +572,20 @@ int __sync_local_execstate(void);
->  /* Arch-specific portion of memory_op hypercall. */
->  long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
->  long subarch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
-> -int compat_arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void));
-> -int compat_subarch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void));
-> +int compat_arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
-> +int compat_subarch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg);
+>  /* iommu tables in guest space */
+>  struct mmio_reg {
+> @@ -226,7 +228,7 @@ struct acpi_ivrs_hardware;
+>  /* amd-iommu-detect functions */
+>  int amd_iommu_get_ivrs_dev_entries(void);
+>  int amd_iommu_get_supported_ivhd_type(void);
+> -int amd_iommu_detect_one_acpi(const struct acpi_ivrs_hardware *);
+> +int amd_iommu_detect_one_acpi(const struct acpi_ivrs_hardware *ivhd_block);
+>  int amd_iommu_detect_acpi(void);
+>  void get_iommu_features(struct amd_iommu *iommu);
+>  
+> @@ -295,9 +297,10 @@ struct amd_iommu *find_iommu_for_device(int seg, int bdf);
+>  bool cf_check iov_supports_xt(void);
+>  int amd_iommu_setup_ioapic_remapping(void);
+>  void *amd_iommu_alloc_intremap_table(
+> -    const struct amd_iommu *, unsigned long **, unsigned int nr);
+> +    const struct amd_iommu *iommu, unsigned long **inuse_map, unsigned int nr);
+>  int cf_check amd_iommu_free_intremap_table(
+> -    const struct amd_iommu *, struct ivrs_mappings *, uint16_t);
+> +    const struct amd_iommu *iommu, struct ivrs_mappings *ivrs_mapping,
+> +    uint16_t bdf);
+>  unsigned int amd_iommu_intremap_table_order(
+>      const void *irt, const struct amd_iommu *iommu);
+>  void cf_check amd_iommu_ioapic_update_ire(
+> diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
+> index 5515cb70fd..62f9bfdfc8 100644
+> --- a/xen/drivers/passthrough/amd/iommu_init.c
+> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+> @@ -300,12 +300,13 @@ static void cf_check set_iommu_ppr_log_control(
+>  static int iommu_read_log(struct amd_iommu *iommu,
+>                            struct ring_buffer *log,
+>                            unsigned int entry_size,
+> -                          void (*parse_func)(struct amd_iommu *, u32 *))
+> +                          void (*parse_func)(struct amd_iommu *iommu,
+> +                                             uint32_t *entry))
+>  {
+>      unsigned int tail, tail_offest, head_offset;
+>  
+>      BUG_ON(!iommu || ((log != &iommu->event_log) && (log != &iommu->ppr_log)));
+> -    
+> +
+>      spin_lock(&log->lock);
+>  
+>      /* make sure there's an entry in the log */
+> @@ -361,14 +362,15 @@ static int iommu_read_log(struct amd_iommu *iommu,
+>  
+>   out:
+>      spin_unlock(&log->lock);
+> -   
+> +
+>      return 0;
+>  }
+>  
+>  /* reset event log or ppr log when overflow */
+>  static void iommu_reset_log(struct amd_iommu *iommu,
+>                              struct ring_buffer *log,
+> -                            void (*ctrl_func)(struct amd_iommu *iommu, bool))
+> +                            void (*ctrl_func)(struct amd_iommu *iommu,
+> +                                              bool iommu_control))
 
-Also for compat_subarch_memory_op I cannot find the definition
+instead of iommu_control it should be iommu_enable ?
 
-everything else looks fine
 
+>  {
+>      unsigned int entry, run_bit, loop_count = 1000;
+>      bool log_run;
+> @@ -1158,14 +1160,15 @@ static void __init amd_iommu_init_cleanup(void)
+>      iommuv2_enabled = 0;
+>  }
+>  
+> -struct ivrs_mappings *get_ivrs_mappings(u16 seg)
+> +struct ivrs_mappings *get_ivrs_mappings(uint16_t seg)
+>  {
+>      return radix_tree_lookup(&ivrs_maps, seg);
+>  }
+>  
+> -int iterate_ivrs_mappings(int (*handler)(u16 seg, struct ivrs_mappings *))
+> +int iterate_ivrs_mappings(int (*handler)(uint16_t seg,
+> +                                         struct ivrs_mappings *map))
+
+Instead of map it should be ivrs_mappings ? Actually it reads better as
+map and I know it is not a MISRA requirement to have function pointer
+args match. I'll leave this one to Jan.
+
+
+
+
+>  {
+> -    u16 seg = 0;
+> +    uint16_t seg = 0;
+>      int rc = 0;
+>  
+>      do {
+> @@ -1180,10 +1183,11 @@ int iterate_ivrs_mappings(int (*handler)(u16 seg, struct ivrs_mappings *))
+>      return rc;
+>  }
+>  
+> -int iterate_ivrs_entries(int (*handler)(const struct amd_iommu *,
+> -                                        struct ivrs_mappings *, uint16_t bdf))
+> +int iterate_ivrs_entries(int (*handler)(const struct amd_iommu *iommu,
+> +                                        struct ivrs_mappings *map,
+
+same here ivrs_mappings instead of map, but actually map reads better
+
+I checked everything else and looks OK
 
