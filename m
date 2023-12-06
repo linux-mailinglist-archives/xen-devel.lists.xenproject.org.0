@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB161806D89
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 12:12:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649115.1013489 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE339806DC4
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 12:20:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649120.1013500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAppN-0004Br-Cf; Wed, 06 Dec 2023 11:12:29 +0000
+	id 1rApwE-0005lK-Vo; Wed, 06 Dec 2023 11:19:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649115.1013489; Wed, 06 Dec 2023 11:12:29 +0000
+Received: by outflank-mailman (output) from mailman id 649120.1013500; Wed, 06 Dec 2023 11:19:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAppN-00049J-9f; Wed, 06 Dec 2023 11:12:29 +0000
-Received: by outflank-mailman (input) for mailman id 649115;
- Wed, 06 Dec 2023 11:12:27 +0000
+	id 1rApwE-0005jf-T6; Wed, 06 Dec 2023 11:19:34 +0000
+Received: by outflank-mailman (input) for mailman id 649120;
+ Wed, 06 Dec 2023 11:19:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rHB2=HR=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rAppL-00048i-0i
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 11:12:27 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
+ id 1rApwE-0005jZ-Cr
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 11:19:34 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 554417ba-9428-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 12:12:24 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-332f90a375eso589703f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 03:12:24 -0800 (PST)
+ id 541db6ff-9429-11ee-9b0f-b553b5be7939;
+ Wed, 06 Dec 2023 12:19:32 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40c05ce04a8so47077135e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 03:19:32 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- b5-20020adfe645000000b00333404e9935sm9938644wrn.54.2023.12.06.03.12.23
+ r21-20020a05600c35d500b0040b3e79bad3sm21573943wmq.40.2023.12.06.03.19.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Dec 2023 03:12:23 -0800 (PST)
+ Wed, 06 Dec 2023 03:19:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 554417ba-9428-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 541db6ff-9429-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701861144; x=1702465944; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1701861571; x=1702466371; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=woWun1nYZKtC0D0Mup/SX8NKJuEau8JFuQ5hWyX6e0A=;
-        b=FUSjHRZzUSlU0dtmi3XsgXFfQeDVHVpAQoXEunAK3FtMaMoQ7iEbuzsSeubMkqXhwB
-         eEhO8jqPDERU/WBYeCWx47pdCvfRRj4n5+OxbsTlBiZeyB6S72zdh4xPJBRwkp7qhe1q
-         /RDhG6GejqJbLrYwzDy2DJOZSgPdmkt+TDois=
+        bh=1FEUV+PmKBOeyVDMK5RQ80NkiszK43YJzMpajTgF0JU=;
+        b=IbybqLs/DAbsR2sUqjZw0luxLGPGOcEbIHs2vCShbUsbJM5FIsZdnwpyFuHZwA33Ym
+         2OBCcBB2AWvJvtQbLTzU1lLBfo3UuOWvl7JV2OuftuTk8VBtVmFRifa+YbRMQc3Cn2Lv
+         47e867uInFON/x01cglidN5nZPSiKnCT3t/Wc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701861144; x=1702465944;
+        d=1e100.net; s=20230601; t=1701861571; x=1702466371;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=woWun1nYZKtC0D0Mup/SX8NKJuEau8JFuQ5hWyX6e0A=;
-        b=MlQUCyI/7nyDNieo57aVJSn5ksNmnGhrbKH+KLFzJ5CzaYnAIg30vE5qX4DSV1JWcp
-         cmA/iueyhMS193tPwUgwo0kUfsJHPTofdbNOpa0OV1PzxKFcusekKYSZVRKQIZbFvw5P
-         6Drk6e6fxSpTGI7tTdnbGygn4XKDV4VDgoVMsnMmEUx3tnIT1dTeZyrbK5Q9cv+0sEeA
-         Nw1FeCkgQcTS71Qv+pXamtmNVtIxkDVJuQLsSvHKYB/fz8NEdqy01ZrpUulj3ofnzmuR
-         Qd4c3cIIXH/E8nlGgTEdijpXgclJ7ynmy0XrGpc5njCZS/U817g19LMJ9ojUf2xON6aQ
-         BUIg==
-X-Gm-Message-State: AOJu0YxQXP8lNmIEsIv+NMGml93mcwOKo1JGHVC2jykMyKnI2tylmGkL
-	/gGN6DsjYzcg1gcQc/53Oa6Sjw==
-X-Google-Smtp-Source: AGHT+IFIRk1sEBKPHFDxfaxGWo4VNiVfJxspTaLgm+PG2aa0K7BEiTiFx0OKSOlHM4Gg9hO4FsNCBg==
-X-Received: by 2002:adf:ce83:0:b0:333:e8d:99d8 with SMTP id r3-20020adfce83000000b003330e8d99d8mr446563wrn.36.1701861144115;
-        Wed, 06 Dec 2023 03:12:24 -0800 (PST)
-Message-ID: <4c702b55-08ad-46db-8b0e-8f2b63b64d2b@citrix.com>
-Date: Wed, 6 Dec 2023 11:12:23 +0000
+        bh=1FEUV+PmKBOeyVDMK5RQ80NkiszK43YJzMpajTgF0JU=;
+        b=pVaivsCskzpcA/SDDzwBXrDSlAN+O/+8ICGfJr4BbaZcD4TUEG1bBbaKFyAzUKEGYS
+         qTmh5PZTx6SvStXXgLMhlRtnwa6kn2ASxCYu2ZpPA0nEWL0I0OPDML8RiYrc4x66SpH3
+         Q5LevAkUAtzAqjtWfi/bsjx/6rL07kEMMBUBaoC3EAdPYjuc7Lk1v2lhwIfL8Mnu7aqr
+         jGc4Vt+GEw3QI/RhdmV3SCT+ZmAgpAnyRc21SmUl2N3GYsIw8R4Xub3GwaQb10et8Zg5
+         od1mG+igQm/E3zhg0pN6M6sYLOANhg3f9v4qiwOdGU7QS7QPtsh610uw2DkzH/Omlt4n
+         SYvA==
+X-Gm-Message-State: AOJu0Yz9ETgC5CLyY67x517JneJSPiSegq/yv7FAbnHYvF3hpXsW0WpU
+	3A7zAgDFaeoA0BBR1Y6wKKN4Ig==
+X-Google-Smtp-Source: AGHT+IET00eT+qOGrLf1wmJr9VnNb5nAP2BUr4CUfncqfgizZ9e0u83c5EZbhYBvn2QsTFNAQkTwhA==
+X-Received: by 2002:a05:600c:2210:b0:40b:5f03:b3fc with SMTP id z16-20020a05600c221000b0040b5f03b3fcmr274540wml.286.1701861571531;
+        Wed, 06 Dec 2023 03:19:31 -0800 (PST)
+Message-ID: <6f071eba-3995-451b-af80-efe875ec5ea8@citrix.com>
+Date: Wed, 6 Dec 2023 11:19:30 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Only compile the hypervisor with
- -Wdeclaration-after-statement
+Subject: Re: [PATCH] CODING_STYLE: Add a section of the naming convention
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-Cc: Julien Grall <jgrall@amazon.com>, George Dunlap
- <george.dunlap@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Quan Xu <quan.xu0@gmail.com>,
- Juergen Gross <jgross@suse.com>, Alexander Kanavin <alex@linutronix.de>,
- xen-devel@lists.xenproject.org
-References: <20231205183226.26636-1-julien@xen.org>
- <c7d844ea-139e-416f-bb8e-51e63c0fe3ed@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, George Dunlap <george.dunlap@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>
+References: <20231205181218.74667-1-julien@xen.org>
+ <CA+zSX=aUV00BwnNfFTbCE=6PuVNT=UFvE0tnMO3UhwCMh5jmHQ@mail.gmail.com>
+ <50b36423-d1e1-406f-a63f-66f2e4dce68e@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -133,54 +129,96 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c7d844ea-139e-416f-bb8e-51e63c0fe3ed@suse.com>
+In-Reply-To: <50b36423-d1e1-406f-a63f-66f2e4dce68e@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 06/12/2023 8:52 am, Jan Beulich wrote:
-> On 05.12.2023 19:32, Julien Grall wrote:
->> From: Julien Grall <jgrall@amazon.com>
+On 06/12/2023 8:41 am, Jan Beulich wrote:
+> On 06.12.2023 03:21, George Dunlap wrote:
+>> On Tue, Dec 5, 2023 at 6:12 PM Julien Grall <julien@xen.org> wrote:
+>>> From: Julien Grall <jgrall@amazon.com>
+>>>
+>>> Several maintainers have expressed a stronger preference
+>>> to use '-' when in filename and option that contains multiple
+>>> words.
+>>>
+>>> So document it in CODING_STYLE.
+>>>
+>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>>
+>>> ---
+>>>     Changes in v2:
+>>>         - New wording
+>>>         - Update the section title
+>>>         - Add Jan's acked-by
+>>> ---
+>>>  CODING_STYLE | 9 +++++++++
+>>>  1 file changed, 9 insertions(+)
+>>>
+>>> diff --git a/CODING_STYLE b/CODING_STYLE
+>>> index ced3ade5a6fb..ed13ee2b664b 100644
+>>> --- a/CODING_STYLE
+>>> +++ b/CODING_STYLE
+>>> @@ -144,6 +144,15 @@ separate lines and each line should begin with a leading '*'.
+>>>   * Note beginning and end markers on separate lines and leading '*'.
+>>>   */
+>>>
+>>> +Naming convention for files and command line options
+>>> +----------------------------------------------------
+>>> +
+>>> +'-' should be used to separate words in commandline options and filenames.
+>>> +E.g. timer-works.
+>>> +
+>>> +Note that some of the options and filenames are using '_'. This is now
+>>> +deprecated.
+>> Sorry for not catching this last time; "are using X" isn't really
+>> idiomatic English; more idiomatic would be something like the
+>> following:
 >>
->> Right now, all tools and hypervisor will be complied with the option
->> -Wdeclaration-after-statement. While most of the code in the hypervisor
->> is controlled by us, for tools we may import external libraries.
+>> "Note that some existing options and file names use '_'.  This is now
+>> deprecated."
 >>
->> The build will fail if one of them are using the construct we are
->> trying to prevent. This is the case when building against Python 3.12
->> and Yocto:
+>> Since we're changing things, I *think* most style guides would advise
+>> against starting the sentence with a punctuation; so perhaps:
 >>
->> | In file included from /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/Python.h:44,
->> |                  from xen/lowlevel/xc/xc.c:8:
->> | /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/object.h: In function 'Py_SIZE':
->> | /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/object.h:233:5: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
->> |   233 |     PyVarObject *var_ob = _PyVarObject_CAST(ob);
->> |       |     ^~~~~~~~~~~
->> | In file included from /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/Python.h:53:
->> | /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/cpython/longintrepr.h: In function '_PyLong_CompactValue':
->> | /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/cpython/longintrepr.h:121:5: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
->> |   121 |     Py_ssize_t sign = 1 - (op->long_value.lv_tag & _PyLong_SIGN_MASK);
->> |       |     ^~~~~~~~~~
->> | cc1: all warnings being treated as errors
+>> "Command-line options and file names should use '-' to separate words;
+>> e.g., timer-works."
 >>
->> Looking at the tools directory, a fair few directory already add
->> -Wno-declaration-after-statement to inhibit the default behavior.
+>> And what about adding to the last paragraph:
 >>
->> We have always build the hypervisor with the flag, so for now remove
->> only the flag for anything but the hypervisor. We can decide at later
->> time whether we want to relax.
->>
->> Also remove the -Wno-declaration-after-statement in some subdirectory
->> as the flag is now unnecessary.
-> With all these removals, don't you need to add the option centrally
-> somewhere? Or else are you sure that no compiler version, including
-> distro-customized ones, would ever come with the warning enabled by
-> default?
+>> "When touching code around command-line parameters still using '_', it
+>> is recommended to modify the documentation to say only '-', but modify
+>> the code to accept both '-' and '_' (for backwards compatibility)."
+> In this context see
+> https://lists.xen.org/archives/html/xen-devel/2020-01/msg01945.html
+> and Andrew's response
+> https://lists.xen.org/archives/html/xen-devel/2020-01/msg02006.html
+> I'm still in favor of addressing the issue centrally (making unnecessary
+> adjustments like you suggest in the new paragraph). Yet I think Andrew's
+> objection would cover such adjustments as much as my generic solution.
 
-declaration-after-statement being permitted is covered by the -std we
-choose.
+Aliasing - and _ in the cmdline parsing breaks basic usability.
 
-No distro is plausibly going to ship a compiler which takes -std=gnu99
-and has declaration-after-statement forced off if in that configuration.
+Its fine for new options to use -, and it's even fine-ish (but only if
+you're going to be the one doing security backports) to rename internal
+files.
+
+But there is real and detrimental effect for altering the command line.
+
+You will get people failing to express the option they intended when
+working with an older form of Xen.  You will need an absurd number of
+notes in the command line docs saying "newer versions of Xen accept an
+alias but you need to use the underscore form for backwards compatibility".
+
+Not to mention that there are years of notes scattered all around the
+internet using the underscore forms, so it's likely that everyone will
+continue to use the underscore form, meaning that you don't even have a
+way to phase them out.
+
+And for what?  An attempt to pretend that we don't have 2 decades of
+history where underscores where the norm?
+
+It's tinkering, for no useful benefit and a clear cost.
 
 ~Andrew
 
