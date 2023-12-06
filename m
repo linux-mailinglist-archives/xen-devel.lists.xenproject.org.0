@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B9158072F1
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 15:47:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649327.1013716 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED0D980733B
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 16:00:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649331.1013726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAtAn-000640-DU; Wed, 06 Dec 2023 14:46:49 +0000
+	id 1rAtNH-0008OY-IN; Wed, 06 Dec 2023 14:59:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649327.1013716; Wed, 06 Dec 2023 14:46:49 +0000
+Received: by outflank-mailman (output) from mailman id 649331.1013726; Wed, 06 Dec 2023 14:59:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAtAn-00061v-Ak; Wed, 06 Dec 2023 14:46:49 +0000
-Received: by outflank-mailman (input) for mailman id 649327;
- Wed, 06 Dec 2023 14:46:48 +0000
+	id 1rAtNH-0008Le-F6; Wed, 06 Dec 2023 14:59:43 +0000
+Received: by outflank-mailman (input) for mailman id 649331;
+ Wed, 06 Dec 2023 14:59:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OP1m=HR=cloud.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1rAtAm-00061p-6n
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 14:46:48 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=d2jr=HR=infradead.org=willy@srs-se1.protection.inumbo.net>)
+ id 1rAtND-0008LY-Uf
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 14:59:41 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47d7eaa7-9446-11ee-98e5-6d05b1d4d9a1;
- Wed, 06 Dec 2023 15:46:47 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40c0f3a7717so30038555e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 06:46:47 -0800 (PST)
+ id 13686739-9448-11ee-98e5-6d05b1d4d9a1;
+ Wed, 06 Dec 2023 15:59:38 +0100 (CET)
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1rAtMN-002zkJ-Nc; Wed, 06 Dec 2023 14:58:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,76 +39,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47d7eaa7-9446-11ee-98e5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1701874006; x=1702478806; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Rthd2mvd+O3Ss6Abxt7nn4UQmcRGMNZLTtFOesTF8yc=;
-        b=Vip/xKnGRSQOUv4GBw9CQnC6pYFf+s+RgPBQs9Lcco2DF/NGA65SlE2WXKKTSm539r
-         kpCJ951KKjV8WP+21kfhLo/lkHH0gVXJx5r7HtKhVlx0dflqzpu2Ut0tljvRX2q6ZD62
-         1R12GyUfCc1IMlomI61O1QrVbZZvVssIkPVP8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701874006; x=1702478806;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Rthd2mvd+O3Ss6Abxt7nn4UQmcRGMNZLTtFOesTF8yc=;
-        b=nAw8PePrFuHGlU3HSZy3Olwq7/aWOY49U4tYZAD2JfT8v0wyDW7kflln72FFHdgJJb
-         SHHA+GVp46xOlt/2zDgO2dfd1yT/49S4l98svJJ2BoPsXoK4JbCWGI1WsThEqQ8goAQ+
-         3s2uN5pjRFDVT0uJjWmMlEvp9RFKIpXmNx92AZ+QH/ceGOm0a9YhZy7SJgD24qfKmvu4
-         cRzF0lIAWqmI1nNhS8Z+rxLzJ6NmhBk1bIVT1Mlym6GBaIgPEeiRTBWil3jEArXCIQ/D
-         /V46bUJtPW1XgzjW8oKsrhJAPR7mB+sMU+IXTUljJwyPIXd2A2wsCKFQt+DJWTuKMg+U
-         8znw==
-X-Gm-Message-State: AOJu0YwEV/TeIfN+wuy0m0HHIeL5YNqvf4C/2z9ZhQ+aC+aJDqQ99IWQ
-	FszuY6J2CkXGynp6Gzbl9e/0DhTbVzuKsnVkwJ2Y
-X-Google-Smtp-Source: AGHT+IEIqSvEhlkBNPVzAhRsl9mW1+0dqTQRWZa3p9cQD7FwNoGGJI39/6Fi9GfN6FItDjA1MEhLBE/ZCNZmRplMETE=
-X-Received: by 2002:a7b:cb91:0:b0:40b:5e59:f715 with SMTP id
- m17-20020a7bcb91000000b0040b5e59f715mr284836wmi.135.1701874006561; Wed, 06
- Dec 2023 06:46:46 -0800 (PST)
+X-Inumbo-ID: 13686739-9448-11ee-98e5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=s+7kV2NOaPEBmhFkJpDv/pC5Llv4VXEE9i8fdKbvmjw=; b=ojDk7+bvhmkVaj86d9uPvOhQaz
+	kbAJJlz3eiFA7yxHtxf02BCaqsNM5pS9C8k5lXRoPly3/N/e0u5QADIgtZKFOwGOJtwsI5ZzSsYPS
+	PKyktYqelsFB3E+G8W+4/yQSFmaQ2jHSWEigX57CwcwQszQ0bDoxOOqdU2sc0+ZoE3Ff1wwcpqslV
+	VWLgXJnu2MrDZGBo0sVLqXRdAvGI+d1WdlsXWEVkM0crARzZz5+nD3AR2Avd8/g6eRde0hkW/FoXX
+	agEz57imZpOlmdW73T5pzua0TfxBEP/xRZ/WXwPlD7/tpJRN5cqF7OvXJrtIdGRYW6omWvwYwBXvA
+	OJr6nVaw==;
+Date: Wed, 6 Dec 2023 14:58:47 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
+	kent.overstreet@gmail.com, joern@lazybastard.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
+	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
+	dsterba@suse.com, nico@fluxnic.net, xiang@kernel.org,
+	chao@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+	agruenba@redhat.com, jack@suse.com, konishi.ryusuke@gmail.com,
+	akpm@linux-foundation.org, hare@suse.de, p.raghav@samsung.com,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+	linux-btrfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org, gfs2@lists.linux.dev,
+	linux-nilfs@vger.kernel.org, yukuai3@huawei.com,
+	yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: Re: [PATCH -next RFC 01/14] block: add some bdev apis
+Message-ID: <ZXCMJ9skAAgPm4z3@casper.infradead.org>
+References: <20231205123728.1866699-1-yukuai1@huaweicloud.com>
+ <20231205123728.1866699-2-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-References: <20231128092152.35039-1-roger.pau@citrix.com>
-In-Reply-To: <20231128092152.35039-1-roger.pau@citrix.com>
-From: Ross Lagerwall <ross.lagerwall@cloud.com>
-Date: Wed, 6 Dec 2023 14:46:34 +0000
-Message-ID: <CAG7k0EqmuRV5iQ-uefQi2fCdMzF1UaNdiiT7gKitgH5Ed+TrWg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] livepatch-build-tools: fixes for non GNU tools and alignment
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231205123728.1866699-2-yukuai1@huaweicloud.com>
 
-On Tue, Nov 28, 2023 at 9:22=E2=80=AFAM Roger Pau Monne <roger.pau@citrix.c=
-om> wrote:
->
-> Hello,
->
-> The series contains two fixes for using the tools on non GNU
-> environments, plus one extra fix to account for section alignment when
-> calculating old function size.
->
-> Thanks, Roger.
->
-> Roger Pau Monne (3):
->   livepatch-build-tools: do not use readlink -m option
->   livepatch-build-tools: remove usage of gawk
->   livepatch-build-tools: account for section alignment when calculating
->     function size
->
->  common.h             |  2 ++
->  create-diff-object.c |  5 +++++
->  livepatch-build      | 38 +++++++++++++++++++++-----------------
->  3 files changed, 28 insertions(+), 17 deletions(-)
->
->
-> base-commit: e588b7914e7afa3abb64b15a32fc2fdb57ded341
-> --
-> 2.43.0
->
+On Tue, Dec 05, 2023 at 08:37:15PM +0800, Yu Kuai wrote:
+> +struct folio *bdev_read_folio(struct block_device *bdev, pgoff_t index)
+> +{
+> +	return read_mapping_folio(bdev->bd_inode->i_mapping, index, NULL);
+> +}
+> +EXPORT_SYMBOL_GPL(bdev_read_folio);
 
-Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+I'm coming to the opinion that 'index' is the wrong parameter here.
+Looking through all the callers of bdev_read_folio() in this patchset,
+they all have a position in bytes, and they all convert it to
+index for this call.  The API should probably be:
 
-... and applied, thanks.
+struct folio *bdev_read_folio(struct block_device *bdev, loff_t pos)
+{
+	return read_mapping_folio(bdev->bd_inode->i_mapping,
+			pos / PAGE_SIZE, NULL);
+}
+
+... and at some point, we'll get round to converting read_mapping_folio()
+to take its argument in loff_t.
+
+Similiarly for these two APIs:
+
+> +struct folio *bdev_read_folio_gfp(struct block_device *bdev, pgoff_t index,
+> +				  gfp_t gfp)
+> +struct folio *bdev_get_folio(struct block_device *bdev, pgoff_t index)
+
+> +struct folio *bdev_find_or_create_folio(struct block_device *bdev,
+> +					pgoff_t index, gfp_t gfp)
+> +{
+> +	return __filemap_get_folio(bdev->bd_inode->i_mapping, index,
+> +				   FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
+> +}
+> +EXPORT_SYMBOL_GPL(bdev_find_or_create_folio);
+
+This one probably shouldn't exist.  I've been converting callers of
+find_or_create_page() to call __filemap_get_folio; I suspect we
+should expose a __bdev_get_folio and have the callers use the FGP
+arguments directly, but I'm open to other opinions here.
+
+> +void bdev_sync_readahead(struct block_device *bdev, struct file_ra_state *ra,
+> +			 struct file *file, pgoff_t index,
+> +			 unsigned long req_count)
+> +{
+> +	struct file_ra_state tmp_ra = {};
+> +
+> +	if (!ra) {
+> +		ra = &tmp_ra;
+> +		file_ra_state_init(ra, bdev->bd_inode->i_mapping);
+> +	}
+> +	page_cache_sync_readahead(bdev->bd_inode->i_mapping, ra, file, index,
+> +				  req_count);
+> +}
+
+I think the caller should always be passing in a valid file_ra_state.
+It's only cramfs that doesn't have one, and it really should!
+Not entirely sure about the arguments here; part of me says "bytes",
+but this is weird enough to maybe take arguments in pages.
 
