@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE14806A0B
-	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 09:47:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.648982.1013157 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 630CD806A24
+	for <lists+xen-devel@lfdr.de>; Wed,  6 Dec 2023 09:53:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.648987.1013166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAnYV-0002aB-7Q; Wed, 06 Dec 2023 08:46:55 +0000
+	id 1rAne5-00058w-R2; Wed, 06 Dec 2023 08:52:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 648982.1013157; Wed, 06 Dec 2023 08:46:55 +0000
+Received: by outflank-mailman (output) from mailman id 648987.1013166; Wed, 06 Dec 2023 08:52:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rAnYV-0002Wx-3q; Wed, 06 Dec 2023 08:46:55 +0000
-Received: by outflank-mailman (input) for mailman id 648982;
- Wed, 06 Dec 2023 08:46:53 +0000
+	id 1rAne5-00055v-Nt; Wed, 06 Dec 2023 08:52:41 +0000
+Received: by outflank-mailman (input) for mailman id 648987;
+ Wed, 06 Dec 2023 08:52:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=X1yw=HR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rAnYT-0002Wj-R0
- for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 08:46:53 +0000
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [2a00:1450:4864:20::342])
+ id 1rAne4-00055p-LN
+ for xen-devel@lists.xenproject.org; Wed, 06 Dec 2023 08:52:40 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 000b48fe-9414-11ee-9b0f-b553b5be7939;
- Wed, 06 Dec 2023 09:46:51 +0100 (CET)
-Received: by mail-wm1-x342.google.com with SMTP id
- 5b1f17b1804b1-40c19467a63so5133585e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 00:46:51 -0800 (PST)
+ id ce67d714-9414-11ee-9b0f-b553b5be7939;
+ Wed, 06 Dec 2023 09:52:38 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3332f1512e8so443069f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 06 Dec 2023 00:52:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n10-20020a05600c4f8a00b0040b4b2a15ebsm21051888wmq.28.2023.12.06.00.46.49
+ q15-20020a056000136f00b0033332524235sm13555128wrz.82.2023.12.06.00.52.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 Dec 2023 00:46:50 -0800 (PST)
+ Wed, 06 Dec 2023 00:52:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 000b48fe-9414-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ce67d714-9414-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701852411; x=1702457211; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701852757; x=1702457557; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=GUdAFjZQ+8xpF21yy+dYas4Fg+4I2AZxMuS+an0Ea/I=;
-        b=YIzsBzfPxULIaM2ukmDu37bs0d1o0fqZVV1yloUBbRrYBfABO6SVGqGyGKkzKZIfvF
-         SFGHkS+8lB0EGZNg0LbD5UeN7Yk206gvTECp/LmhDcFVDb3xtM+JE06AnJqelqLUWT6+
-         61cBZqiv1eo6UsoYPqE8OZmlPvlGZ6dvEl7tSgaHvsgBaOvioWPqKzE53bP7JgJwMRNy
-         IpSicHoW8myIuFUJpehOGQ/Mjx5Q8MKNy4P0GHi1f3BsjP730XKn3+n6eDIncnM7xGXh
-         IRF5MXGUeCm/Ko29jXs7toqwJdHnzMjWrlWbGiCX93BgFmm2rr4HqkjfPJ1vHyIutqUa
-         Ykzw==
+        bh=1t7Z/c0xt0riUyHpPIzTr8cBpcGMvqg1+423qEyu9VM=;
+        b=gpsErwXlOG1mnauitBJTInZrTAW7hpE/ywrdCyZiffN8rstbL81rDgActURicbnZbg
+         AtlO78uRktVZw5DdEwLi9PfiRwwVKgruCfsAh/PnCbIyBsq9zY9d2dNFPCw884lzqmCj
+         I2KYOED9Us0QjOLORraQlnZze7N8S7k4vGHeAAtadyd7rssRYz4B58NXgcTmYtjdIrVc
+         lm67o2pvjpar9NAKkdpqvGyKvVekpg9lw1WmvUNSbs4qvLQPkI4p+vxStAoTSYV3H79l
+         cssWL73xgGPmnVfpW9Bw+cRD8+YWFfBf2fWKbnmedYPgibCdvgII0c/utwaLwoGMDm5e
+         AmRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701852411; x=1702457211;
+        d=1e100.net; s=20230601; t=1701852757; x=1702457557;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GUdAFjZQ+8xpF21yy+dYas4Fg+4I2AZxMuS+an0Ea/I=;
-        b=jrN022b9o99WLbXvl85OZ2lFYpZrUMS6kUmGFecGmKaRgrjPPoxc5wUURLy4Ea/ScF
-         Hl/agr4pp+39bozEFISEvp5nUp5Z3HnuEhlc6mXxopHRc9vt1lszh1AjQ+Oo0YYMrYQg
-         1Y1bV2FCEf8xmFRQV3fclTlZKf+hyhJ8SnejsmoTcSgTAGXr5SDazT11psqo9X3sSKny
-         zjiJ2X9gPJdTWI6ko8nFwrzG8t6/z22NypPLuBOBqF5sLtYfH9/l7PVNNBdYtX2M1IiE
-         EVDpOVAbuoHYmnYrR9xhRXSeILu/rR2l+pI095VlB2l6VnXrBpvptyHjIrGjT6bHCjYE
-         w6bQ==
-X-Gm-Message-State: AOJu0Yxe3idFB/dTo6uY4prO9V0nbO9AlV10ihavdRilqHINz2tCYnOO
-	1sz+YsHrnY2ZM7DeRlDjqwO8
-X-Google-Smtp-Source: AGHT+IFcnAud9UKchgun9HIFGpeOaoqt1UHJLPNtInfF1/6J0va/eFkvCWksa0JjyGn0IsCGI9cPjQ==
-X-Received: by 2002:a05:600c:1c01:b0:40c:1421:ae89 with SMTP id j1-20020a05600c1c0100b0040c1421ae89mr345491wms.121.1701852411188;
-        Wed, 06 Dec 2023 00:46:51 -0800 (PST)
-Message-ID: <96711b23-9dd9-4029-aaea-a3e755c4bd3e@suse.com>
-Date: Wed, 6 Dec 2023 09:46:49 +0100
+        bh=1t7Z/c0xt0riUyHpPIzTr8cBpcGMvqg1+423qEyu9VM=;
+        b=hYJMbL00n3ZS+2PLd+6xi4l4BTMdJxEyxOTPYaDNsWhZXHneCzImmGCGGiFRVGI4RU
+         X+UvgF7KCS9tLKyaXs8J5fNwETEIaNl2TdEshnNl5QqmKxL2slE77hW3XvdPDVoZo1zA
+         poK0KRU7goGHvWmJIYWtYZIGNnlpiWmAhamrY6i9GmbSC/3bE10VbUyhhl22UUFM1uJC
+         Lhp3V01MSkTDqGokfuriQ+GbdsFICzs9qm6fyuiCI6QxMIp2YNi85VTIVz0d+19jnXcf
+         ZJErBQnk4KMhxutlEWv64QbiD35S+BcM9qIp1jskMKmP7tNHszQ0EaudUe8+uEF23khG
+         iHMQ==
+X-Gm-Message-State: AOJu0YwTMVUHikELB3+MJuD8Eiy+EfyEWu4xnKZi2a/NSxj+Trb4cXEi
+	T5lQKWXrd35AI04Wx70dElTf
+X-Google-Smtp-Source: AGHT+IGKDyBaI0fPrtefGHsEZXos9JxcIpP/9F5+1wNelO1/5D7EF7IxjkLrmyOjunDuGWo40VtA2A==
+X-Received: by 2002:adf:e647:0:b0:333:543e:6a68 with SMTP id b7-20020adfe647000000b00333543e6a68mr310023wrn.32.1701852757468;
+        Wed, 06 Dec 2023 00:52:37 -0800 (PST)
+Message-ID: <c7d844ea-139e-416f-bb8e-51e63c0fe3ed@suse.com>
+Date: Wed, 6 Dec 2023 09:52:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen: make include/xen/unaligned.h usable on all
- architectures
+Subject: Re: [PATCH] Only compile the hypervisor with
+ -Wdeclaration-after-statement
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+To: Julien Grall <julien@xen.org>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Arnd Bergmann <arnd@arndb.de>, xen-devel@lists.xenproject.org
-References: <20231206071039.24435-1-jgross@suse.com>
- <20231206071039.24435-3-jgross@suse.com>
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>, Quan Xu <quan.xu0@gmail.com>,
+ Juergen Gross <jgross@suse.com>, Alexander Kanavin <alex@linutronix.de>,
+ xen-devel@lists.xenproject.org
+References: <20231205183226.26636-1-julien@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,48 +117,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231206071039.24435-3-jgross@suse.com>
+In-Reply-To: <20231205183226.26636-1-julien@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.12.2023 08:10, Juergen Gross wrote:
-> Instead of defining get_unaligned() and put_unaligned() in a way that
-> is only supporting architectures allowing unaligned accesses, use the
-> same approach as the Linux kernel and let the compiler do the
-> decision how to generate the code for probably unaligned data accesses.
+On 05.12.2023 19:32, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> Update include/xen/unaligned.h from include/asm-generic/unaligned.h of
-> the Linux kernel.
+> Right now, all tools and hypervisor will be complied with the option
+> -Wdeclaration-after-statement. While most of the code in the hypervisor
+> is controlled by us, for tools we may import external libraries.
 > 
-> The generated code has been checked to be the same on x86.
+> The build will fail if one of them are using the construct we are
+> trying to prevent. This is the case when building against Python 3.12
+> and Yocto:
 > 
-> Modify the Linux variant to not use underscore prefixed identifiers,
-> avoid unneeded parentheses and drop the 24-bit accessors.
+> | In file included from /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/Python.h:44,
+> |                  from xen/lowlevel/xc/xc.c:8:
+> | /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/object.h: In function 'Py_SIZE':
+> | /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/object.h:233:5: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+> |   233 |     PyVarObject *var_ob = _PyVarObject_CAST(ob);
+> |       |     ^~~~~~~~~~~
+> | In file included from /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/Python.h:53:
+> | /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/cpython/longintrepr.h: In function '_PyLong_CompactValue':
+> | /srv/storage/alex/yocto/build-virt/tmp/work/core2-64-poky-linux/xen-tools/4.17+stable/recipe-sysroot/usr/include/python3.12/cpython/longintrepr.h:121:5: error: ISO C90 forbids mixed declarations and code [-Werror=declaration-after-statement]
+> |   121 |     Py_ssize_t sign = 1 - (op->long_value.lv_tag & _PyLong_SIGN_MASK);
+> |       |     ^~~~~~~~~~
+> | cc1: all warnings being treated as errors
 > 
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 803f4e1eab7a
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Looking at the tools directory, a fair few directory already add
+> -Wno-declaration-after-statement to inhibit the default behavior.
+> 
+> We have always build the hypervisor with the flag, so for now remove
+> only the flag for anything but the hypervisor. We can decide at later
+> time whether we want to relax.
+> 
+> Also remove the -Wno-declaration-after-statement in some subdirectory
+> as the flag is now unnecessary.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-Nevertheless ...
-
-> @@ -15,67 +7,82 @@
->  #include <asm/byteorder.h>
->  #endif
->  
-> -#define get_unaligned(p) (*(p))
-> -#define put_unaligned(val, p) (*(p) = (val))
-> +/*
-> + * This is the most generic implementation of unaligned accesses
-> + * and should work almost anywhere.
-> + */
-> +
-> +#define get_unaligned_t_(type, ptr) ({					\
-
-..., do we need the trailing underscores here in addition to the already
-sufficiently clear _t suffixes? (Leaving aside that ..._t generally is to
-denote types, not macros or functions.)
+With all these removals, don't you need to add the option centrally
+somewhere? Or else are you sure that no compiler version, including
+distro-customized ones, would ever come with the warning enabled by
+default?
 
 Jan
 
