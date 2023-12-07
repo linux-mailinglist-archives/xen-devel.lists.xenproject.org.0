@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A1568088FD
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 14:17:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649861.1014888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 541C8808968
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 14:44:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649864.1014898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBEFk-0005az-8B; Thu, 07 Dec 2023 13:17:20 +0000
+	id 1rBEfg-0005yC-9D; Thu, 07 Dec 2023 13:44:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649861.1014888; Thu, 07 Dec 2023 13:17:20 +0000
+Received: by outflank-mailman (output) from mailman id 649864.1014898; Thu, 07 Dec 2023 13:44:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBEFk-0005Y8-4h; Thu, 07 Dec 2023 13:17:20 +0000
-Received: by outflank-mailman (input) for mailman id 649861;
- Thu, 07 Dec 2023 13:17:18 +0000
+	id 1rBEfg-0005w2-63; Thu, 07 Dec 2023 13:44:08 +0000
+Received: by outflank-mailman (input) for mailman id 649864;
+ Thu, 07 Dec 2023 13:44:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qi5/=HS=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1rBEFi-0005VT-4n
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 13:17:18 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ <SRS0=y0Pn=HS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rBEff-0005vv-9F
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 13:44:07 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0f7a799-9502-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 14:17:16 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-54cae99a48aso1981984a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 05:17:16 -0800 (PST)
+ id afc9cebb-9506-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 14:44:04 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-54bf9a54fe3so1324560a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 05:44:04 -0800 (PST)
+Received: from [192.168.220.211] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ u24-20020a50a418000000b0054c77ac01f4sm813333edb.51.2023.12.07.05.44.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Dec 2023 05:44:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,68 +45,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0f7a799-9502-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: afc9cebb-9506-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701955035; x=1702559835; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lqmhgQ6IUlZJ82gSiojTSv2+yYvRh+WxRcfBls1+Bjw=;
-        b=Jb993qIy/J/EnEtqx+sJ9trR41o0YObLExIi01uWSXKkClVt3CTmJ2Nxz5p2YSyhmt
-         /9paifk+wK4vhEvKV6iYlvEo/AweuPbEWYulGNhfbQTdphL4YOY6av/v7fGsbpbIDmUs
-         i5PTzF/wfy+R6JKpuHqKT6519+IR0P3o72MpT3aUvTuAgW9+a801SvBGKLlYpl8O0pb0
-         YbwxwQ12yk/I9QViv6R0qEkSD04qdSrOQOPpEkvmmhhqdoAMTpf+Kzz1s8SsqBElYWW7
-         Vkx6nwhB0cALn90Sv39SrE1oPbeV2BpwGBloZWZHIHcm0iuJVo2paz7440CugbF6drC3
-         zSeA==
+        d=gmail.com; s=20230601; t=1701956644; x=1702561444; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ROCimpol/rLlDeNd6pBGKJSURddmRjpgO76QnvNURCk=;
+        b=EIM5U0yFpk0g4A0hyJZNTH53UUbyxi7QJl5MZZVQf/RVsLbuZvHHgpj64yORX8T/tp
+         mxw0yX8D1onewcJL1groSmp1UGHGp7tRdT/MGHcFuhK31vWkIzgliMdfzcmmUYJtsMca
+         fikIGHtGJKpY1qOiItSGv60GlzjZrVQaTttjRnWJw7c0oXkJ8tkRTW30CKA7FQfrQ2Fc
+         HHkCwgTugC5/JYnt5bAXXRvih5hPKKOWx0pXYczFcyEX75EHZp60i+Rj9D0judOOqqIm
+         l1bCUe/SBchLOpOFv4esjDzOWlbCt6iy/N5O9OPTE1wRZImp5K0ZgdtOSTYV5FNWCoqD
+         ajXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701955035; x=1702559835;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=lqmhgQ6IUlZJ82gSiojTSv2+yYvRh+WxRcfBls1+Bjw=;
-        b=rQmepJsNFNeShgL/5ts37DMSQeAqxmQXqSxoxsvmOI/Da/Cxu8oF3pmgNrcIq5R70+
-         BnKtzy0g7QXXbA3bHTkpmyWmC7HrrRENCkbsFOKtKnSBI2uzLces7Vnf9223oXZpNZQ5
-         VM/zYcz2a7aaATP3gElu6pExSiXZfvu8zZVv8dN0JGpKPhhm88Cc3f6B3gZXG8/f76k1
-         ju1fsyrwkuaYw9QYv1d1zQcGNV+39x/W1AsbZvd6tTu+GbCalC2aic7g2X/b/VLZ6nau
-         fF9nXxERFZRI/hnfqXNPluyMxER443IziNzBqlrLBvgmmjpoURYEFN4H8xbSjHDCYcoL
-         O7OQ==
-X-Gm-Message-State: AOJu0YyKcGpwTl5KTsAApS/TnmnQ8M+vSCtUcZc9G95utiaVOCPpibyj
-	nJufhkRafKSJiktNluXHVkEvF5JEdqfB0R+P8X1yMKYY
-X-Google-Smtp-Source: AGHT+IE7ueSYllPm62fE6z8gKqOv9MWgdEDXYYPgJ9NeRnsCFglZWYO5lBA+K6hkzXVyZa+VrLNceCbb4GBanQLuMV4=
-X-Received: by 2002:a50:8dcb:0:b0:54d:8d00:de34 with SMTP id
- s11-20020a508dcb000000b0054d8d00de34mr2587026edh.6.1701955035456; Thu, 07 Dec
- 2023 05:17:15 -0800 (PST)
-MIME-Version: 1.0
-References: <20231207062551.19825-1-jgross@suse.com>
-In-Reply-To: <20231207062551.19825-1-jgross@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 7 Dec 2023 08:17:03 -0500
-Message-ID: <CAKf6xpt7RSpsR3eFXqSJX-XJeEBZAv6MFTrK67QTpDy+s-=Byg@mail.gmail.com>
-Subject: Re: [PATCH v2] tools/libs/evtchn: replace assert()s in stubdom with
- proper locking
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>
+        d=1e100.net; s=20230601; t=1701956644; x=1702561444;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=ROCimpol/rLlDeNd6pBGKJSURddmRjpgO76QnvNURCk=;
+        b=WEPygk7r2hxvbFhir2j6ddqu+bJ1SEPUIcnul+qnwkzJbgIDdRv2yFRsGcGiTxKsrA
+         4btG97Z7TDpPOZKLjwLTmPRaBKXvZopGqPfs6nIH5i+bG3qHEpoBCQL3I4/M+qPkml/m
+         ApqMMKsj9hAi8Ch2n19tPvREM8FrJ/72E1zPl80rUT0twV0hqOwqxqgqDD7NK1bX/8aD
+         SdilBX0dLowULEFZ+TEoXfuoiJe0oswi/EqhdJ4hkQBQCS+Fe8d8yfPEt03KtyeAPYFe
+         VdFrkfDPp/yF39PyaKhrY6t1X2P3wtOQcmhmJCvmhwKy31MkWPSSr5TCO8SN0NPXc+Rs
+         f6Pg==
+X-Gm-Message-State: AOJu0YyzJMcSyPrJeQw1lCBtXPOMEY1i0jZJtdQunvMqvUHDvChKP/km
+	1CW1eaTcFhftU3hqelZhkcw=
+X-Google-Smtp-Source: AGHT+IGql7H9Nk6OsFc7QVqahv+E/gZO/HNGJkHwMUqC2KtpRgKl89aZ4/0o7SssXP3BHgSEuYJMbw==
+X-Received: by 2002:a05:6402:38b:b0:54a:f1db:c2b3 with SMTP id o11-20020a056402038b00b0054af1dbc2b3mr1808672edv.0.1701956644108;
+        Thu, 07 Dec 2023 05:44:04 -0800 (PST)
+Message-ID: <09d24b36380027df21d547de438da10e01eda0e0.camel@gmail.com>
+Subject: Re: [PATCH v2 01/39] xen/riscv: disable unnecessary configs
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
+	 <sstabellini@kernel.org>, Alistair Francis <alistair.francis@wdc.com>, Bob
+	Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, 
+	xen-devel@lists.xenproject.org
+Date: Thu, 07 Dec 2023 15:44:02 +0200
+In-Reply-To: <008d0c66-6816-4d12-9e1f-1878e982f9fc@suse.com>
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+	 <b4e85f8f58787b4d179022973ce25673d6b56e36.1700761381.git.oleksii.kurochko@gmail.com>
+	 <fdfda320-b73b-4830-8f1b-d261b02bcdde@suse.com>
+	 <22fa451f7b165a00082443a35077e98e101c22e4.camel@gmail.com>
+	 <008d0c66-6816-4d12-9e1f-1878e982f9fc@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
+MIME-Version: 1.0
 
-On Thu, Dec 7, 2023 at 1:26=E2=80=AFAM Juergen Gross <jgross@suse.com> wrot=
-e:
->
-> In tools/libs/evtchn/minios.c there are assert()s for the current
-> thread being the main thread when binding an event channel.
->
-> As Mini-OS is supporting multiple threads, there is no real reason
-> why the binding shouldn't be allowed to happen in any other thread.
->
-> Drop the assert()s and replace them with proper locking of the
-> port_list.
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+On Thu, 2023-12-07 at 11:00 +0100, Jan Beulich wrote:
+> On 07.12.2023 10:22, Oleksii wrote:
+> > On Tue, 2023-12-05 at 16:38 +0100, Jan Beulich wrote:
+> > > > On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> > > > > > The patch also fixes the build script as conf util expects
+> > > > > > to have each config on separate line.
+> > > >=20
+> > > > The approach doesn't really scale (it's already odd that you
+> > > > add
+> > > > the
+> > > > (apparently) same set four times. There's also zero
+> > > > justification
+> > > > for
+> > > > this kind of an adjustment (as per discussion elsewhere I don't
+> > > > think
+> > > > we should go this route, and hence arguments towards convincing
+> > > > me
+> > > > [and
+> > > > perhaps others] would be needed here).
+> > I agree that this may not be the best approach, but it seems like
+> > we
+> > don't have too many options to turn off a config for randconfig.
+> >=20
+> > To be honest, in my opinion (IMO), randconfig should either be
+> > removed
+> > or allowed to fail until most of the functionality is ready.
+> > Otherwise,
+> > there should be a need to introduce HAS_* or depend on
+> > 'SUPPORTED_ARCHS' for each config, or introduce a lot of stubs.
+> >=20
+> > Could you please suggest a better option?
+>=20
+> As to dropping randconfig tests, I'd like to refer you to Andrew, who
+> is of the opinion that it was wrong to drop them for ppc. (I'm
+> agreeing
+> with him when taking a theoretical perspective, but I'm not happy
+> with
+> the practical consequences.)
+>=20
+> As to a better approach: Instead of listing the same set of options
+> several times, can't there be a template config which is used to
+> force
+> randconfig to not touch certain settings? In fact at least for non-
+> randconfig purposes I thought tiny64_defconfig / riscv64_defconfig
+> already serve kind of a similar purpose. Imo the EXTRA_*CONFIG
+> overrides
+> are there for at most very few special case settings, not for
+> purposes
+> like you use them here.
+The template will be the really a good option.
 
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+What do you think about the following patch which introduces arch-
+specific allrandom.config?
 
-Thank you for doing this.
+diff --git a/xen/Makefile b/xen/Makefile
+index ca571103c8..cb1eca76c2 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -336,11 +336,14 @@ ifeq ($(config-build),y)
+ # *config targets only - make sure prerequisites are updated, and
+descend
+ # in tools/kconfig to make the *config target
+=20
++ARCH_ALLRANDOM_CONFIG :=3D
+$(srctree)/arch/$(SRCARCH)/configs/allrandom.config
++
+ # Create a file for KCONFIG_ALLCONFIG which depends on the
+environment.
+ # This will be use by kconfig targets
+allyesconfig/allmodconfig/allnoconfig/randconfig
+ filechk_kconfig_allconfig =3D \
+     $(if $(findstring n,$(XEN_HAS_CHECKPOLICY)), echo
+'CONFIG_XSM_FLASK_POLICY=3Dn';) \
+-    $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG);) \
++    $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG); \
++    $(if $(wildcard $(ARCH_ALLRANDOM_CONFIG)), cat
+$(ARCH_ALLRANDOM_CONFIG);) ) \
+     :
 
--Jason
+If this patch is OK then it can be reused for patches:
+https://lore.kernel.org/xen-devel/cdc20255540a66ba0b6946ac6d48c11029cd3385.=
+1701453087.git.oleksii.kurochko@gmail.com/
+https://lore.kernel.org/xen-devel/d42a34866edc70a12736b5c6976aa1b44b4ebd8a.=
+1701453087.git.oleksii.kurochko@gmail.com/
+
+>=20
+> > > > > > --- a/automation/gitlab-ci/build.yaml
+> > > > > > +++ b/automation/gitlab-ci/build.yaml
+> > > > > > @@ -522,6 +522,38 @@ archlinux-current-gcc-riscv64:
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 CONTAINER: archlinux:current-riscv64
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 KBUILD_DEFCONFIG: tiny64_defconfig
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 HYPERVISOR_ONLY: y
+> > > > > > +=C2=A0=C2=A0=C2=A0 EXTRA_XEN_CONFIG:
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_GRANT_TABLE=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_CREDIT=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_CREDIT2=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_RTDS=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_NULL=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_ARINC653=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_TRACEBUFFER=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_HYPFS=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_GRANT_TABLE=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SPECULATIVE_HARDEN_ARRAY=
+=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_ARGO=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_HYPFS_CONFIG=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_CORE_PARKING=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_DEBUG_TRACE=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_IOREQ_SERVER=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_CRASH_DEBUG=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_KEXEC=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_LIVEPATCH=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_MEM_ACCESS=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_NUMA=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_PERF_COUNTERS=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_HAS_PMAP=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_TRACEBUFFER=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_XENOPROF=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COMPAT=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_UBSAN=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_NEEDS_LIBELF=3Dn
+> > > > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_XSM=3Dn
+> > > > > > +
+> > > > > > =C2=A0
+> > > > > > =C2=A0archlinux-current-gcc-riscv64-debug:
+> > > > > > =C2=A0=C2=A0 extends: .gcc-riscv64-cross-build-debug
+> > > >=20
+> > > > I think I've said so elsewhere before: Please avoid introducing
+> > > > double
+> > > > blank lines, unless entirely unavoidable (for reasons I cannot
+> > > > think
+> > > > of).
+> > Sorry for that; I am not doing that on purpose. It's just a big
+> > patch
+> > series, and I missed that double blank. I will try to be more
+> > attentive.
+> >=20
+> > Do you think it makes sense to add a script to perform basic code
+> > style
+> > checks, similar to what Linux has?
+>=20
+> Such a script would be nice, but it doesn't exist and re-using
+> existing
+> checkers has also proven controversial. There's actually an ongoing
+> discussion on this topic which you may want to follow.
+Yes, I would like to follow. I'll search the topic in ML.
+Thanks.
+
+~ Oleksii
 
