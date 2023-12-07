@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D13808A63
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 15:23:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649920.1015048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A145808A70
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 15:25:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649924.1015057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBFHM-0000HY-NP; Thu, 07 Dec 2023 14:23:04 +0000
+	id 1rBFJb-0000vR-52; Thu, 07 Dec 2023 14:25:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649920.1015048; Thu, 07 Dec 2023 14:23:04 +0000
+Received: by outflank-mailman (output) from mailman id 649924.1015057; Thu, 07 Dec 2023 14:25:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBFHM-0000FA-JD; Thu, 07 Dec 2023 14:23:04 +0000
-Received: by outflank-mailman (input) for mailman id 649920;
- Thu, 07 Dec 2023 14:23:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBFHK-0000F2-Cp
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 14:23:02 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1feff1ae-950c-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 15:23:00 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3333fbbeab9so934954f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 06:23:00 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dh8-20020a0560000a8800b00334b3208700sm1553170wrb.49.2023.12.07.06.22.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 06:22:59 -0800 (PST)
+	id 1rBFJb-0000t3-2R; Thu, 07 Dec 2023 14:25:23 +0000
+Received: by outflank-mailman (input) for mailman id 649924;
+ Thu, 07 Dec 2023 14:25:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=TliB=HS=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1rBFJa-0000sw-5a
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 14:25:22 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 73c0c3ac-950c-11ee-98e7-6d05b1d4d9a1;
+ Thu, 07 Dec 2023 15:25:21 +0100 (CET)
+Received: from [192.168.1.9] (net-37-182-35-120.cust.vodafonedsl.it
+ [37.182.35.120])
+ by support.bugseng.com (Postfix) with ESMTPSA id 3E5704EE073E;
+ Thu,  7 Dec 2023 15:25:20 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +40,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1feff1ae-950c-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701958980; x=1702563780; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pIsiaEzH5NUQ+ns68qpu+is/X8iyqsCfhMGb8tn4vw8=;
-        b=giBNKnDO+4ZpQekFZAAyESD3qV7Q+ku7uNnI/NHTwYZnMEyMYJOUTZRJ8lgVH+iQNf
-         nIKWSVOw/gUOdA+WfI0Pg+mWo3jwHVjiiMvnnQyd1U5MtP1+Mq8/1C3+fa7PzLw3nGIT
-         RYxEagDQoYedgziSG/weNTGjJXJPGN3iQofuv0GVATBXCVnjPrRhsE53DF2rZ2q0qtDi
-         Sowh7VDiib4iRC8kVhNkB0Vp4atZ1JTAVUUOvWTG4shU9EZ1JkuMYD3tBh/B/TM+jNPA
-         DqVCpqaKxRYAkKJHZenbTFUXnF3K90fDvcXjPqJfVgzlKVyFmgCRboeyso1i6gs/2KNL
-         hUwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701958980; x=1702563780;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pIsiaEzH5NUQ+ns68qpu+is/X8iyqsCfhMGb8tn4vw8=;
-        b=GkYbePN7lAoFuUrr83h70Te4j18U6m0IaYBcDnPjnptZdMocF8xa3UAANA2Hzb2sGj
-         Vi6ChXvOEG90vTeK27YEaaNxVCAVbfbyJhtttXwMD5QhjslmYAqFkOteeJk65EiDZChy
-         7WESWgjcEOHDCYhRappe+RbJ4ggi4Y23FLXdfCyZeQ4+yJRMEs9vpCFSmZybLyfLXVWN
-         CdlucM5xlipwr2a1FLWUiKoIok3TK4BdDbveH+/jI+O6LR58rw4IAIRFMSXbog6eVFHo
-         Q/DA8ZH0j/vBfGsnaZDfa+OL4x/oDsgdFItow9dbMvCuq4qXkFhZOBYdI4vEkVhGCAWC
-         H30Q==
-X-Gm-Message-State: AOJu0YwpUzovHe1Edf6HpsIx0fE0UJIrgSJ22sb8stFL7bfenk4qCdvF
-	XSZNrDRwLAgBc0kg/clzEfQf
-X-Google-Smtp-Source: AGHT+IFt0P1ocNHBxJKBZAabwIbCiKGGMVmmHpcpVpspEEiDSNxk1Jv3r0W2KtZGYInUluBCp/IbJQ==
-X-Received: by 2002:a5d:4cc9:0:b0:333:2fd2:68eb with SMTP id c9-20020a5d4cc9000000b003332fd268ebmr1403779wrt.126.1701958979984;
-        Thu, 07 Dec 2023 06:22:59 -0800 (PST)
-Message-ID: <ca13b1b0-8b96-47b0-abc5-9711f96ccca0@suse.com>
-Date: Thu, 7 Dec 2023 15:22:59 +0100
+X-Inumbo-ID: 73c0c3ac-950c-11ee-98e7-6d05b1d4d9a1
+Message-ID: <e40ecf27-1743-4e6a-891a-d189e51564b9@bugseng.com>
+Date: Thu, 7 Dec 2023 15:25:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/39] xen/riscv: introduce asm/iommu.h
+Subject: Re: [PATCH 2/3] xen/x86: address violations of MISRA C:2012 Rule 14.4
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <68be3d368bf6ed96b0bb53b51a2fd07696cb338d.1700761381.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <68be3d368bf6ed96b0bb53b51a2fd07696cb338d.1700761381.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1701941924.git.maria.celeste.cesario@bugseng.com>
+ <d494980216b8f0f870083fcfae7269f45e779780.1701941924.git.maria.celeste.cesario@bugseng.com>
+ <30b48e9b-0630-4df9-ac6b-5ece418bf4b0@suse.com>
+ <65db0ca1-9afa-4d9a-8bf2-7b1720ac1f60@bugseng.com>
+ <b96f0697-146f-4230-986f-eb1b097e40fa@suse.com>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <b96f0697-146f-4230-986f-eb1b097e40fa@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 24.11.2023 11:30, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/iommu.h
-> @@ -0,0 +1,7 @@
-> +#ifndef __ASM_RISCV_IOMMU_H__
-> +#define __ASM_RISCV_IOMMU_H__
-> +
-> +struct arch_iommu {
-> +};
-> +
-> +#endif /* __ASM_IOMMU_H__ */
+On 07/12/23 15:15, Jan Beulich wrote:
+> On 07.12.2023 14:53, Simone Ballarin wrote:
+>> On 07/12/23 11:54, Jan Beulich wrote:
+>>> On 07.12.2023 10:48, Simone Ballarin wrote:
+>>>> --- a/xen/arch/x86/hpet.c
+>>>> +++ b/xen/arch/x86/hpet.c
+>>>> @@ -279,7 +279,7 @@ static int hpet_msi_write(struct hpet_event_channel *ch, struct msi_msg *msg)
+>>>>    {
+>>>>        ch->msi.msg = *msg;
+>>>>    
+>>>> -    if ( iommu_intremap )
+>>>> +    if ( iommu_intremap != iommu_intremap_off )
+>>>>        {
+>>>>            int rc = iommu_update_ire_from_msi(&ch->msi, msg);
+>>>>    
+>>>> @@ -353,7 +353,7 @@ static int __init hpet_setup_msi_irq(struct hpet_event_channel *ch)
+>>>>        u32 cfg = hpet_read32(HPET_Tn_CFG(ch->idx));
+>>>>        irq_desc_t *desc = irq_to_desc(ch->msi.irq);
+>>>>    
+>>>> -    if ( iommu_intremap )
+>>>> +    if ( iommu_intremap != iommu_intremap_off )
+>>>>        {
+>>>>            ch->msi.hpet_id = hpet_blockid;
+>>>>            ret = iommu_setup_hpet_msi(&ch->msi);
+>>>> @@ -372,7 +372,7 @@ static int __init hpet_setup_msi_irq(struct hpet_event_channel *ch)
+>>>>            ret = __hpet_setup_msi_irq(desc);
+>>>>        if ( ret < 0 )
+>>>>        {
+>>>> -        if ( iommu_intremap )
+>>>> +        if ( iommu_intremap != iommu_intremap_off )
+>>>>                iommu_update_ire_from_msi(&ch->msi, NULL);
+>>>>            return ret;
+>>>>        }
+>>>> diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
+>>>> index 7f8e794254..72dce2e4ab 100644
+>>>> --- a/xen/arch/x86/msi.c
+>>>> +++ b/xen/arch/x86/msi.c
+>>>> @@ -189,7 +189,7 @@ static int write_msi_msg(struct msi_desc *entry, struct msi_msg *msg)
+>>>>    {
+>>>>        entry->msg = *msg;
+>>>>    
+>>>> -    if ( iommu_intremap )
+>>>> +    if ( iommu_intremap != iommu_intremap_off )
+>>>>        {
+>>>>            int rc;
+>>>>    
+>>>> @@ -555,7 +555,7 @@ int msi_free_irq(struct msi_desc *entry)
+>>>>                destroy_irq(entry[nr].irq);
+>>>>    
+>>>>            /* Free the unused IRTE if intr remap enabled */
+>>>> -        if ( iommu_intremap )
+>>>> +        if ( iommu_intremap != iommu_intremap_off )
+>>>>                iommu_update_ire_from_msi(entry + nr, NULL);
+>>>>        }
+>>>>    
+>>>
+>>> All of this would logically be part of patch 1. Is there a particular reason
+>>> why it wasn't done right there?
+>>
+>> These changes and the ones in patch 1 are related, but still remain
+>> independent. Patch 1 can be accepted without patch 2 and vice versa.
+>> So we've decided to split the commits because patch 1 is in common
+>> code, while patch 2 is in x86-specific code.
+> 
+> Just to clarify: While not located under arch/x86/, what patch 1 touches
+> is still x86-specific code. It's subject prefix also wrongly says
+> AMD/IOMMU: when it also touches VT-d code. Especially with the changes
+> here folded in, x86/IOMMU: might be more appropriate.
+> 
 
-Instead of adding this header, didn't we discuss to make the #include in
-xen/iommu.h depend on CONFIG_HAS_PASSTHROUGH? Also - no SPDX or footer
-here?
+OK, then I'll move the changes and use x86/IOMMU.
+Thanks.
 
-Jan
+> Jan
+> 
+
+-- 
+Simone Ballarin, M.Sc.
+
+Field Application Engineer, BUGSENG (https://bugseng.com)
+
 
