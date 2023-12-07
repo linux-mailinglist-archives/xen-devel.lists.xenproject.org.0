@@ -2,52 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43E12808680
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 12:15:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649794.1014708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0B8F8086DD
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 12:40:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649797.1014718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBCLZ-00085u-B1; Thu, 07 Dec 2023 11:15:13 +0000
+	id 1rBCjP-00078t-6x; Thu, 07 Dec 2023 11:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649794.1014708; Thu, 07 Dec 2023 11:15:13 +0000
+Received: by outflank-mailman (output) from mailman id 649797.1014718; Thu, 07 Dec 2023 11:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBCLZ-00083V-7H; Thu, 07 Dec 2023 11:15:13 +0000
-Received: by outflank-mailman (input) for mailman id 649794;
- Thu, 07 Dec 2023 11:15:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBCjP-00076D-3V; Thu, 07 Dec 2023 11:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 649797;
+ Thu, 07 Dec 2023 11:39:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3y0a=HS=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rBCLX-00083P-JB
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 11:15:11 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on20609.outbound.protection.outlook.com
- [2a01:111:f400:7ea9::609])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1c813ca-94f1-11ee-98e7-6d05b1d4d9a1;
- Thu, 07 Dec 2023 12:15:10 +0100 (CET)
-Received: from BLAPR03CA0151.namprd03.prod.outlook.com (2603:10b6:208:32f::15)
- by SA3PR12MB9129.namprd12.prod.outlook.com (2603:10b6:806:397::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.27; Thu, 7 Dec
- 2023 11:15:06 +0000
-Received: from BL02EPF0001A100.namprd03.prod.outlook.com
- (2603:10b6:208:32f:cafe::20) by BLAPR03CA0151.outlook.office365.com
- (2603:10b6:208:32f::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.27 via Frontend
- Transport; Thu, 7 Dec 2023 11:15:06 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BL02EPF0001A100.mail.protection.outlook.com (10.167.242.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Thu, 7 Dec 2023 11:15:06 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 7 Dec
- 2023 05:14:31 -0600
-Received: from [10.71.193.58] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Thu, 7 Dec 2023 05:14:29 -0600
+ <SRS0=fZpn=HS=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rBCjN-000767-Ud
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 11:39:49 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5310376c-94f5-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 12:39:47 +0100 (CET)
+Received: from nico.bugseng.com (unknown [147.123.100.131])
+ by support.bugseng.com (Postfix) with ESMTPSA id 99CC14EE073A;
+ Thu,  7 Dec 2023 12:39:46 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,123 +39,221 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1c813ca-94f1-11ee-98e7-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=daDGcZYMG9xRyEOm3Pk/1xq4JrME9usqwpfA6dua4SZKAXU4j9q3YP4BvXmEGDy/Z5ur/MNLlw8cHwtX02MWNUK1llZzOtN7L/TFaMzD9N8uqj6JRV61kPKr8AWhDNz7otz83D6DGobgEgpuBJp7IyLHOWhFeNCYUHdulRIfiFMc7udKqoHsq6XnE9cKkPh+Hsi2aXuVUQ87K4Z4wtrwrU67ugzh9ndYtv5pbT5C+xrPb9QF8IMYBabwFSO0Hfy8G6oengIjFyHjdejoqRcPvFiV/Ay3Pz79RJA3qpvVDxy0R6f+Oq1PgWlUaV9rT6dqa/YUVsG1mNX4t5P0v64t0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SauPA79bymWKrMvjTmM2TMRpZe9pqSp1BuXurZZVn6U=;
- b=II5bkTC/JkDaHQ5gZDv6yeCL6JPlTY6O1qjZGIWWyfhFqXShbCX5Q8ac/52ATBpDtWVkNHG7yuVk7UPtRwVEIsvmP7+/0Jyp8keh6alRgg/aox9K+D3sKdZjiRIhS7f2wKBnq9Fcufhq9Ap7dQTQw84txfVQGOWBHFZyRT0ihpwV8vugrc7iLlUOlJnDoP0uF1mP/q8kXgQ7INq5ONyGNXUzWsj5lqSjSFfqYXne6Gk41IbNHMYEIWX6kNYc6W8RSNtZfYoOTZC/qRAjo3WmSTjapwgbRODwb/Goc3aIbJQwZ84qij1E+Wv55idDtrgzgIfYcJUYtPP+H2jU/Zk/ig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SauPA79bymWKrMvjTmM2TMRpZe9pqSp1BuXurZZVn6U=;
- b=3Nv8H4powlm1TyaHyfLpPU0jUWUIXl6epiNsw3YWXrT7b98XC4X2IQ0B1/KTy7RQJ+qpQi2HwATtssnIDTdvoTr1kBGc5DyCNIz1OiOZcqtqCcngRHNvql3/1vOVvMXi/flG2kQgBHSpT2NUH5NReickYrKJTIrqt/BJx458Z90=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <6b2696de-c70a-438b-9053-3bfab5cffead@amd.com>
-Date: Thu, 7 Dec 2023 12:14:29 +0100
+X-Inumbo-ID: 5310376c-94f5-11ee-9b0f-b553b5be7939
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Simone Ballarin <simone.ballarin@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [XEN PATCH] automation/eclair_analysis: file exclusion automation
+Date: Thu,  7 Dec 2023 12:39:43 +0100
+Message-Id: <e17fba6f45a03f7acb0af342ed8aea97130dba4a.1701949157.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 10/11] xen/arm: fix duplicate /reserved-memory node in
- Dom0
-Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
- Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20231206090623.1932275-1-Penny.Zheng@arm.com>
- <20231206090623.1932275-11-Penny.Zheng@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20231206090623.1932275-11-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A100:EE_|SA3PR12MB9129:EE_
-X-MS-Office365-Filtering-Correlation-Id: 115b278a-53ee-4406-ce1b-08dbf715c47d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	T+mjCaWaH52iSqI7kVwmlAbijbMqTazZLL6sTfpzrfezJv1feIkr8V8xQdafU30jULFwzSoZF7x18WguHEBPs2q1anJ7xgJOY8SjReCbewD09UgVmyFd5OwCWG7DOKOnUkOW+qBV1poqtJlq+RVMwszcCzpB38PRuaebF+cSyiNPh29E80/OusrjF3iTNHHLcXrE/t9upySPs394Nufh0hZl7VHLq5EBdL11++4ANZPbco4SbEcu1p3pF9z5K4PCxCpdvh29Y7/H3+oH41OmAjBxtC1rP4ui3cjU6wjCdIoc6FnoFcbS1BSTUYhtd4UzTI75plpxEz6b2cMYyuEsTFEJ3Ji4DsCZD8bxcvoq2GTvzJpaAaBvB/r8uBVaYoy9SHA40R0K1M42dIVVCCgQ6op5XdXol1WVaX/v+7UcPlqhVFZvIBFqb/K3DXt+xTkwpI6+5prLsqaCfzsb7n4Xj1JTNQ5NPJO1qSbeG2UXzQNnMZdyEnRP1lS6SExFKtxzRBDpmLYSYsBHUNa9RltfF15NHhRSm6UhX0GijPCCK8PsmYjiBfvYa5UgQLVg1Y5KzGorFTh6Kofqmyx6Rey5p9FKgZc2zlL5dAprUKaw8jJ5lel6iK6iqn0tMwUJoSqwFZLwU5IU0RoBIIBftAgRMm0iRjBIytWLBQ6G4mu18fEZx2SbmH3B875hpAkpnKFfCDQpl8Gv/9vsNA56WK4ldNZOYhQWSPez5vcIdEtDPu0kt2adS7u9nXzQ/F1JgZsOUXswa4T4ypty93k7hmFZ+73GlEZzWQp0FnIzZbkJOHqbJe3uIsTQQ0yi7ghjefVX
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(376002)(396003)(346002)(39860400002)(230922051799003)(82310400011)(1800799012)(186009)(64100799003)(451199024)(40470700004)(36840700001)(46966006)(2906002)(5660300002)(31686004)(40480700001)(44832011)(8936002)(8676002)(4326008)(16576012)(316002)(70586007)(54906003)(70206006)(40460700003)(110136005)(47076005)(36860700001)(478600001)(2616005)(53546011)(36756003)(41300700001)(26005)(336012)(83380400001)(82740400003)(426003)(356005)(81166007)(86362001)(31696002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2023 11:15:06.5541
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 115b278a-53ee-4406-ce1b-08dbf715c47d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A100.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9129
+Content-Transfer-Encoding: 8bit
 
-Hi Penny,
+The file exclude-list.json contains files that are classified as
+adopted code for MISRA compliance. Therefore, this file is used to
+automatically generate a suitable .ecl configuration for ECLAIR.
 
-On 06/12/2023 10:06, Penny Zheng wrote:
-> 
-> 
-> In case there is a /reserved-memory node already present in the host dtb,
-> current Xen codes would create yet another /reserved-memory node specially
-> for the static shm in Dom0 Device Tree.
-Rational missing:
-This would result in an incorrect device tree generation and guest would not be able
-to detect the static shared memory region.
+As such, many entries in out_of_scope.ecl can be removed, as they
+would be duplicates.
 
-> 
-> Xen will use write_properties() to copy the reserved memory nodes from host dtb
-> to Dom0 FDT, so we want to insert the shm node along with the copying.
-> And avoiding duplication, we add a checking before make_resv_memory_node().
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> 
-> ---
-> v3 -> v4:
-> new commit
-> ---
-> v4 -> v5:
-> rebase and no change
-> ---
->  xen/arch/arm/domain_build.c             | 27 ++++++++++++++++++++++---
->  xen/arch/arm/include/asm/kernel.h       |  2 ++
->  xen/arch/arm/include/asm/static-shmem.h | 14 +++++++++++++
->  xen/arch/arm/static-shmem.c             |  6 +++---
->  4 files changed, 43 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index e040f8a6d9..f098678ea3 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -752,6 +752,23 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
->          }
->      }
-> 
-> +    if ( dt_node_path_is_equal(node, "/reserved-memory") )
-> +    {
-> +        kinfo->resv_mem = true;
-I think I raised this concern last time. kinfo is used to store per-domain configuration.
-Information whether the reserved memory is present in host dtb or not does not fit there.
-Therefore, I would move this flag to bootinfo.
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+---
+ automation/eclair_analysis/ECLAIR/adopted.sh  | 30 +++++++++
+ .../eclair_analysis/ECLAIR/analysis.ecl       |  3 +
+ automation/eclair_analysis/ECLAIR/analyze.sh  |  3 +
+ .../eclair_analysis/ECLAIR/generate_ecl.sh    | 15 +++++
+ .../eclair_analysis/ECLAIR/out_of_scope.ecl   | 64 +------------------
+ .../ECLAIR/print_analyzed_files.sh            |  4 +-
+ 6 files changed, 56 insertions(+), 63 deletions(-)
+ create mode 100755 automation/eclair_analysis/ECLAIR/adopted.sh
+ create mode 100755 automation/eclair_analysis/ECLAIR/generate_ecl.sh
 
-> +
-> +        /* shared memory provided. */
-> +        if ( kinfo->shminfo.nr_banks != 0 )
-> +        {
-> +            uint32_t addrcells = dt_n_addr_cells(node),
-> +                     sizecells = dt_n_size_cells(node);
-I find this always a bit odd. Just uint32_t sizecells on the next line, just like you did in all the other patches.
-
-~Michal
+diff --git a/automation/eclair_analysis/ECLAIR/adopted.sh b/automation/eclair_analysis/ECLAIR/adopted.sh
+new file mode 100755
+index 000000000000..9adbc4e58218
+--- /dev/null
++++ b/automation/eclair_analysis/ECLAIR/adopted.sh
+@@ -0,0 +1,30 @@
++#!/bin/bash
++
++# Generates the adopted.ecl file
++
++set -eu
++
++script_name="$(basename "$0")"
++script_dir="$(
++  cd "$(dirname "$0")"
++  echo "${PWD}"
++)"
++
++fatal() {
++  echo "${script_name}: $*" >&2
++  exit 1
++}
++
++usage() {
++  fatal "Usage: ${script_name}"
++}
++
++exclude_list=$1
++outfile=${script_dir}/adopted.ecl
++
++(
++  echo "-doc_begin=\"Adopted files.\"" >"${outfile}"
++  sed -n -E -e 's|^\s+"rel_path":\s+"([^"]*).*$|-file_tag+={adopted,"^xen/\1$"}|p' "${exclude_list}" |
++    sed -E -e 's|\.([ch])|\\\\.\1|g' -e 's|\*|.*|g' >>"${outfile}"
++  printf "%s\n" "-doc_end" >>"${outfile}"
++)
+diff --git a/automation/eclair_analysis/ECLAIR/analysis.ecl b/automation/eclair_analysis/ECLAIR/analysis.ecl
+index f8d4cc8c9990..a604582da335 100644
+--- a/automation/eclair_analysis/ECLAIR/analysis.ecl
++++ b/automation/eclair_analysis/ECLAIR/analysis.ecl
+@@ -21,6 +21,9 @@ map_strings("scheduled-analysis",analysis_kind)
+ 
+ -eval_file=toolchain.ecl
+ -eval_file=public_APIs.ecl
++if(not(scheduled_analysis),
++    eval_file("adopted.ecl")
++)
+ if(not(scheduled_analysis),
+     eval_file("out_of_scope.ecl")
+ )
+diff --git a/automation/eclair_analysis/ECLAIR/analyze.sh b/automation/eclair_analysis/ECLAIR/analyze.sh
+index 47cdbb03cee7..a127e7aaed2d 100755
+--- a/automation/eclair_analysis/ECLAIR/analyze.sh
++++ b/automation/eclair_analysis/ECLAIR/analyze.sh
+@@ -82,6 +82,9 @@ export ECLAIR_PROJECT_ROOT="${PWD}"
+ rm -rf "${ECLAIR_OUTPUT_DIR:?}/*"
+ mkdir -p "${ECLAIR_DATA_DIR}"
+ 
++# Generate additional configuration files 
++"${SCRIPT_DIR}/generate_ecl.sh"
++
+ # Perform the build (from scratch) in an ECLAIR environment.
+ "${ECLAIR_BIN_DIR}eclair_env" \
+     "-config_file='${SCRIPT_DIR}/analysis.ecl'" \
+diff --git a/automation/eclair_analysis/ECLAIR/generate_ecl.sh b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+new file mode 100755
+index 000000000000..de20728eb1f9
+--- /dev/null
++++ b/automation/eclair_analysis/ECLAIR/generate_ecl.sh
+@@ -0,0 +1,15 @@
++#!/bin/bash
++
++# Generates the .ecl files
++
++set -eu
++
++script_dir="$(
++  cd "$(dirname "$0")"
++  echo "${PWD}"
++)"
++
++exclude_list="${ECLAIR_PROJECT_ROOT}/docs/misra/exclude-list.json"
++
++# Generate the exclude list file
++"${script_dir}/adopted.sh" "${exclude_list}"
+diff --git a/automation/eclair_analysis/ECLAIR/out_of_scope.ecl b/automation/eclair_analysis/ECLAIR/out_of_scope.ecl
+index e1ec4a607c63..2245ca8c3df5 100644
+--- a/automation/eclair_analysis/ECLAIR/out_of_scope.ecl
++++ b/automation/eclair_analysis/ECLAIR/out_of_scope.ecl
+@@ -1,53 +1,5 @@
+--doc_begin="Imported from Linux: ignore for now."
+--file_tag+={adopted,"^xen/common/libfdt/.*$"}
+--file_tag+={adopted,"^xen/include/xen/libfdt/.*$"}
+--file_tag+={adopted,"^xen/common/xz/.*$"}
+--file_tag+={adopted,"^xen/common/zstd/.*$"}
+--file_tag+={adopted,"^xen/drivers/acpi/apei/.*$"}
+--file_tag+={adopted,"^xen/drivers/acpi/tables/.*$"}
+--file_tag+={adopted,"^xen/drivers/acpi/utilities/.*$"}
+--file_tag+={adopted,"^xen/drivers/video/font_.*$"}
+--file_tag+={adopted,"^xen/arch/arm/arm64/cpufeature\\.c$"}
+--file_tag+={adopted,"^xen/arch/arm/arm64/insn\\.c$"}
+--file_tag+={adopted,"^xen/arch/arm/arm64/lib/find_next_bit\\.c$"}
+--file_tag+={adopted,"^xen/common/bitmap\\.c$"}
+--file_tag+={adopted,"^xen/common/bunzip2\\.c$"}
+--file_tag+={adopted,"^xen/common/earlycpio\\.c$"}
+--file_tag+={adopted,"^xen/common/inflate\\.c$"}
+--file_tag+={adopted,"^xen/common/lzo\\.c$"}
+--file_tag+={adopted,"^xen/common/lz4/decompress\\.c$"}
+--file_tag+={adopted,"^xen/common/radix-tree\\.c$"}
+--file_tag+={adopted,"^xen/common/ubsan/ubsan\\.c$"}
+--file_tag+={adopted,"^xen/drivers/acpi/hwregs\\.c$"}
+--file_tag+={adopted,"^xen/drivers/acpi/numa\\.c$"}
+--file_tag+={adopted,"^xen/drivers/acpi/osl\\.c$"}
+--file_tag+={adopted,"^xen/drivers/acpi/tables\\.c$"}
+--file_tag+={adopted,"^xen/include/xen/acpi\\.h$"}
+--file_tag+={adopted,"^xen/include/acpi/acpiosxf\\.h$"}
+--file_tag+={adopted,"^xen/include/acpi/acpixf\\.h$"}
+--file_tag+={adopted,"^xen/lib/list-sort\\.c$"}
+--file_tag+={adopted,"^xen/lib/rbtree\\.c$"}
+--file_tag+={adopted,"^xen/lib/xxhash.*\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/acpi/boot\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/acpi/cpu_idle\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/acpi/cpufreq/cpufreq\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/acpi/cpuidle_menu\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/acpi/lib\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/cpu/amd\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/cpu/centaur\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/cpu/common\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/cpu/hygon\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/cpu/intel\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/cpu/intel_cacheinfo\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/cpu/mcheck/non-fatal\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/cpu/mtrr/.*$"}
+--file_tag+={adopted,"^xen/arch/x86/cpu/mwait-idle\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/delay\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/dmi_scan\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/mpparse\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/srat\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/time\\.c$"}
+--file_tag+={adopted,"^xen/arch/x86/x86_64/mmconf-fam10h\\.c$"}
++-doc_begin="libfdt is out of scope."
++-file_tag+={out_of_scope,"^xen/include/xen/libfdt/.*$"}
+ -doc_end
+ 
+ -doc_begin="Intel specific source files are out of scope."
+@@ -69,18 +21,6 @@
+ -file_tag+={out_of_scope,"^xen/arch/x86/include/asm/intel-family\\.h$"}
+ -doc_end
+ 
+--doc_begin="Not in scope initially as it generates many violations and it is not enabled in safety configurations."
+--file_tag+={adopted,"^xen/xsm/flask/.*$"}
+--doc_end
+-
+--doc_begin="unlz4.c implementation by Yann Collet, the others un* are from Linux, ignore for now."
+--file_tag+={adopted,"^xen/common/un.*\\.c$"}
+--doc_end
+-
+--doc_begin="Origin is external and documented in xen/crypto/README.source ."
+--file_tag+={adopted,"^xen/crypto/.*$"}
+--doc_end
+-
+ -doc_begin="Files imported from the gnu-efi package"
+ -file_tag+={adopted,"^xen/include/efi/.*$"}
+ -file_tag+={adopted,"^xen/arch/x86/include/asm/x86_64/efibind\\.h$"}
+diff --git a/automation/eclair_analysis/ECLAIR/print_analyzed_files.sh b/automation/eclair_analysis/ECLAIR/print_analyzed_files.sh
+index c19a8ecbd061..7d231271617c 100755
+--- a/automation/eclair_analysis/ECLAIR/print_analyzed_files.sh
++++ b/automation/eclair_analysis/ECLAIR/print_analyzed_files.sh
+@@ -46,7 +46,9 @@ fi
+ "${ECLAIR_BIN_DIR}eclair_report" -db="${DB}" -files_txt="${files_txt}"
+ 
+ {
+-  # Extracting out of scope code
++  # Extracting out of scope and adopted code
++  adopted_ecl="${script_dir}/adopted.ecl"
++  extrapolate_regex adopted,             "${adopted_ecl}"
+   out_of_scope_ecl="${script_dir}/out_of_scope.ecl"
+   extrapolate_regex adopted,             "${out_of_scope_ecl}"
+   extrapolate_regex out_of_scope_tools,  "${out_of_scope_ecl}"
+-- 
+2.34.1
 
 
