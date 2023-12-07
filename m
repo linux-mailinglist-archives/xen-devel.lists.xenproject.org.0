@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A11E80898C
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 14:53:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649873.1014938 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D997808989
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 14:53:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649874.1014948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBEor-0002ef-QI; Thu, 07 Dec 2023 13:53:37 +0000
+	id 1rBEou-0002vp-6v; Thu, 07 Dec 2023 13:53:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649873.1014938; Thu, 07 Dec 2023 13:53:37 +0000
+Received: by outflank-mailman (output) from mailman id 649874.1014948; Thu, 07 Dec 2023 13:53:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBEor-0002cc-MP; Thu, 07 Dec 2023 13:53:37 +0000
-Received: by outflank-mailman (input) for mailman id 649873;
- Thu, 07 Dec 2023 13:53:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rBEou-0002tu-3D; Thu, 07 Dec 2023 13:53:40 +0000
+Received: by outflank-mailman (input) for mailman id 649874;
+ Thu, 07 Dec 2023 13:53:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cCsk=HS=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1rBEoq-0002bv-6w
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 13:53:36 +0000
+ id 1rBEos-0002Al-Lb
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 13:53:38 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 030ad929-9508-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 14:53:34 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 04f5b949-9508-11ee-98e7-6d05b1d4d9a1;
+ Thu, 07 Dec 2023 14:53:37 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6AD19139F;
- Thu,  7 Dec 2023 05:54:19 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1699912FC;
+ Thu,  7 Dec 2023 05:54:23 -0800 (PST)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.5])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C348F3F6C4;
- Thu,  7 Dec 2023 05:53:30 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6F7F23F6C4;
+ Thu,  7 Dec 2023 05:53:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 030ad929-9508-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 04f5b949-9508-11ee-98e7-6d05b1d4d9a1
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>,
@@ -53,51 +53,53 @@ Cc: Henry Wang <Henry.Wang@arm.com>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Wei Chen <wei.chen@arm.com>
-Subject: [PATCH 1/5] automation: Add a Dockerfile for running FVP_Base jobs
-Date: Thu,  7 Dec 2023 21:53:14 +0800
-Message-Id: <20231207135318.1912846-2-Henry.Wang@arm.com>
+Subject: [PATCH 2/5] automation: Add the Dockerfile to build TF-A and U-Boot for FVP
+Date: Thu,  7 Dec 2023 21:53:15 +0800
+Message-Id: <20231207135318.1912846-3-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231207135318.1912846-1-Henry.Wang@arm.com>
 References: <20231207135318.1912846-1-Henry.Wang@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fixed Virtual Platforms (FVPs) are complete simulations of an Arm
-system, including processor, memory and peripherals. These are set
-out in a "programmer's view", which gives programmers a comprehensive
-model on which to build and test software. FVP can be configured to
-different setups by its cmdline parameters, and hence having the FVP
-in CI will provide us with the flexibility to test Arm features and
-setups that we find difficult to use real hardware or emulators.
+Unlike the emulators that currently being used in the CI pipelines,
+the FVP must start at EL3. Therefore we need the firmware, i.e. the
+TrustedFirmware-A (TF-A), for corresponding functionality.
 
-This commit adds a Dockerfile for the new arm64v8 container with
-FVP installed, based on the debian bookworm-arm64v8 image. This
-container will be used to run the FVP test jobs. Compared to the
-debian bookworm-arm64v8 image, the packages in the newly added FVP
-container does not contain the `u-boot-qemu`, and adds the `expect`
-to run expect scripts introduced by following commits, `telnet` to
-connect to FVP, and `tftpd-hpa` to provide the TFTP service for
-the FVP.
+There is a dedicated board (vexpress_fvp) in U-Boot (serve as the
+BL33 of the TF-A) for the FVP platform, so the U-Boot should also be
+compiled for the FVP platform instead of reusing the U-Boot for the
+existing emulators used in the CI pipelines.
+
+To avoid compiling TF-A and U-Boot everytime in the job, adding a
+Dockerfile to the test artifacts to build TF-A v2.9.0 and U-Boot
+v2023.10 for FVP. The binaries for the TF-A and U-Boot, as well as
+the device tree for the FVP platform, will be saved (and exported by
+the CI job introduced by following commits). Note that, a patch for
+the TF-A will be applied before building to enable the virtio-net
+and the virtio-rng device on the FVP. The virtio-net device will
+provide the networking service for FVP, and the virtio-rng device
+will improve the speed of the FVP.
 
 Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 ---
- .../debian/bookworm-arm64v8-fvp.dockerfile    | 64 +++++++++++++++++++
- 1 file changed, 64 insertions(+)
- create mode 100644 automation/build/debian/bookworm-arm64v8-fvp.dockerfile
+ .../2023.10-2.9.0-arm64v8.dockerfile          | 48 +++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+ create mode 100644 automation/tests-artifacts/armfvp-uboot-tfa/2023.10-2.9.0-arm64v8.dockerfile
 
-diff --git a/automation/build/debian/bookworm-arm64v8-fvp.dockerfile b/automation/build/debian/bookworm-arm64v8-fvp.dockerfile
+diff --git a/automation/tests-artifacts/armfvp-uboot-tfa/2023.10-2.9.0-arm64v8.dockerfile b/automation/tests-artifacts/armfvp-uboot-tfa/2023.10-2.9.0-arm64v8.dockerfile
 new file mode 100644
-index 0000000000..3b87dc5a5b
+index 0000000000..6566b60545
 --- /dev/null
-+++ b/automation/build/debian/bookworm-arm64v8-fvp.dockerfile
-@@ -0,0 +1,64 @@
++++ b/automation/tests-artifacts/armfvp-uboot-tfa/2023.10-2.9.0-arm64v8.dockerfile
+@@ -0,0 +1,48 @@
 +FROM --platform=linux/arm64/v8 debian:bookworm
 +LABEL maintainer.name="The Xen Project" \
 +      maintainer.email="xen-devel@lists.xenproject.org"
 +
-+ARG FVP_BASE_VERSION="11.23_9_Linux64_armv8l"
-+
 +ENV DEBIAN_FRONTEND=noninteractive
++ENV UBOOT_VERSION="2023.10"
++ENV TFA_VERSION="v2.9.0"
 +ENV USER root
 +
 +RUN mkdir /build
@@ -107,54 +109,38 @@ index 0000000000..3b87dc5a5b
 +RUN apt-get update && \
 +    apt-get --quiet --yes install \
 +        build-essential \
-+        zlib1g-dev \
-+        libncurses5-dev \
 +        libssl-dev \
-+        python3-dev \
-+        python3-setuptools \
-+        xorg-dev \
-+        uuid-dev \
-+        libyajl-dev \
-+        libaio-dev \
-+        libglib2.0-dev \
-+        clang \
-+        libpixman-1-dev \
-+        pkg-config \
++        bc \
++        curl \
 +        flex \
 +        bison \
-+        acpica-tools \
-+        libfdt-dev \
-+        bin86 \
-+        bcc \
-+        liblzma-dev \
-+        libnl-3-dev \
-+        ocaml-nox \
-+        libfindlib-ocaml-dev \
-+        markdown \
-+        transfig \
-+        pandoc \
-+        checkpolicy \
-+        wget \
 +        git \
-+        nasm \
-+        # for test phase, fvp-smoke-* jobs
-+        u-boot-tools \
-+        expect \
-+        device-tree-compiler \
-+        curl \
-+        cpio \
-+        busybox-static \
-+        telnet \
-+        tftpd-hpa \
-+        && \
-+        apt-get autoremove -y && \
-+        apt-get clean && \
-+        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
++        device-tree-compiler && \
++    apt-get autoremove -y && \
++    apt-get clean && \
++    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
 +
-+RUN wget https://developer.arm.com/-/media/Files/downloads/ecosystem-models/FVP_Base_RevC-2xAEMvA_${FVP_BASE_VERSION}.tgz && \
-+    mkdir -p /FVP/FVP_Base_RevC-2xAEMvA && \
-+    tar -xvzf FVP_Base_RevC-2xAEMvA_${FVP_BASE_VERSION}.tgz -C /FVP/FVP_Base_RevC-2xAEMvA && \
-+    rm FVP_Base_RevC-2xAEMvA_${FVP_BASE_VERSION}.tgz
++# Build U-Boot and TF-A
++RUN curl -fsSLO https://ftp.denx.de/pub/u-boot/u-boot-"$UBOOT_VERSION".tar.bz2 && \
++    tar xvf u-boot-"$UBOOT_VERSION".tar.bz2 && \
++    cd u-boot-"$UBOOT_VERSION" && \
++    make -j$(nproc) V=1 vexpress_fvp_defconfig && \
++    make -j$(nproc) V=1 all && \
++    cd .. && \
++    git clone --branch "$TFA_VERSION" --depth 1 https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git && \
++    cd trusted-firmware-a && \
++    curl -fsSLO https://git.yoctoproject.org/meta-arm/plain/meta-arm-bsp/recipes-bsp/trusted-firmware-a/files/fvp-base/0001-fdts-fvp-base-Add-stdout-path-and-virtio-net-and-rng.patch \
++         --output 0001-fdts-fvp-base-Add-stdout-path-and-virtio-net-and-rng.patch && \
++    git config --global user.email "you@example.com" && \
++    git config --global user.name "Your Name" && \
++    git am 0001-fdts-fvp-base-Add-stdout-path-and-virtio-net-and-rng.patch && \
++    make -j$(nproc) DEBUG=1 PLAT=fvp ARCH=aarch64 FVP_DT_PREFIX=fvp-base-gicv3-psci-1t all && \
++    make -j$(nproc) DEBUG=1 PLAT=fvp ARCH=aarch64 FVP_DT_PREFIX=fvp-base-gicv3-psci-1t fip BL33=../u-boot-"$UBOOT_VERSION"/u-boot.bin && \
++    cp build/fvp/debug/bl1.bin / && \
++    cp build/fvp/debug/fip.bin / && \
++    cp build/fvp/debug/fdts/fvp-base-gicv3-psci-1t.dtb / && \
++    cd /build && \
++    rm -rf u-boot-"$UBOOT_VERSION" trusted-firmware-a
 -- 
 2.25.1
 
