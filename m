@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FB888089FB
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 15:15:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649911.1015018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75D55808A3A
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 15:19:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649915.1015027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBF9v-0003U7-Gb; Thu, 07 Dec 2023 14:15:23 +0000
+	id 1rBFDo-00059u-Vq; Thu, 07 Dec 2023 14:19:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649911.1015018; Thu, 07 Dec 2023 14:15:23 +0000
+Received: by outflank-mailman (output) from mailman id 649915.1015027; Thu, 07 Dec 2023 14:19:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBF9v-0003Rh-Ch; Thu, 07 Dec 2023 14:15:23 +0000
-Received: by outflank-mailman (input) for mailman id 649911;
- Thu, 07 Dec 2023 14:15:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBFDo-00055y-TE; Thu, 07 Dec 2023 14:19:24 +0000
+Received: by outflank-mailman (input) for mailman id 649915;
+ Thu, 07 Dec 2023 14:19:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBF9u-0003Ra-AX
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 14:15:22 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0dfd3f22-950b-11ee-98e7-6d05b1d4d9a1;
- Thu, 07 Dec 2023 15:15:20 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3332efd75c9so897042f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 06:15:21 -0800 (PST)
+ id 1rBFDn-00054q-HO
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 14:19:23 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d4c28a6-950b-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 15:19:21 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40c2c65e6aaso4432555e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 06:19:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m4-20020a05600c4f4400b0040836519dd9sm1964747wmq.25.2023.12.07.06.15.20
+ p8-20020a05600c358800b0040b40468c98sm2088870wmq.10.2023.12.07.06.19.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 06:15:20 -0800 (PST)
+ Thu, 07 Dec 2023 06:19:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dfd3f22-950b-11ee-98e7-6d05b1d4d9a1
+X-Inumbo-ID: 9d4c28a6-950b-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701958521; x=1702563321; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701958760; x=1702563560; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=89toJf156ywbFwnZY/y11Qh5a63V+be/YhxcYZHTd2U=;
-        b=Hz1IU+qbY3ZbTMcbHMeITQni4hxizzpulcpZkjCvXDLQj9J0i6+dIB4u0K5QmpZCUc
-         r/3lrFvwF6SytvqCq2TQEMQRkco6t49CXzASh/gBgu2Ok+eSZlpPSLcHKHFoolSUlgHr
-         019v1GwH05DaGsWgjNslDL8wQlFlVC1XEEWo/ZFTOWekm8s3vjSy02wal10JzPLj3H4h
-         ZW2aVSff7iWe7pz2itF0OyYnqQCrUZ3eglW8XceNXwo5oDONUBfkI/5dBYMqphYpotVx
-         YFjg/3xM7AqkM88lnjQ+OZlrtt+wnnQpDnS/qce9wTBl7n2mZws15y5niBW0iTrUyLaL
-         hFog==
+        bh=doRANLjcoXrCYPUIloK+IhgW8Mz4CcE4MucErzH0S2I=;
+        b=F6jsI4CNr3FHA7+FKndvPFrmVWo69Sf/ndrO9DMgRYRMVzrStG9MUAaU9TQwf9FFwq
+         HxJFiLh/P2m5/0/G0WTMQ4d3v2kDXjXj3M2VPCY/kC17zi83nfnlkTB4bYIWQVq2WFlE
+         SCUzxcLcgqsOjb2axkF2eMAmsM07kagM8XXHKiixwmpeisBGMCKm8GUalgY6lExbGB2J
+         xoelbcQaOkmaVh0P+OjTstH5fwg/ppSTtCz1HTI6sLYe9Vp+GnnPYOuwNxlm7G3Oqpl5
+         6sTawXl25miY3sL2WiPVmMkWPkQAVJow6nQif+tzAH4DRm8bSQ5pdiLDazJaLi0wYAvX
+         Si9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701958521; x=1702563321;
+        d=1e100.net; s=20230601; t=1701958760; x=1702563560;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=89toJf156ywbFwnZY/y11Qh5a63V+be/YhxcYZHTd2U=;
-        b=FGhMDKo3tTwdnUHD4c5fJVxtIesFXyrOKui3dPEXkD73xMSRg9xLRlBvECr9vrzU53
-         GwtOCN9oSwpG4XISJ+Kl1x+ErlZZfqrHAcXxGg9abc2MpI6SJmWnbVoGvu/rCF/Au8T/
-         0qG7N3arM3X5xauXTtsfjIRPbt8ZUGRdgw1pkg/HvXs7AH60uiSrpixs3qyBYHgeaUI4
-         tSWEj7dIuvxeLUM/8WvVdN03KgUvdUnMdWRrbsYE+ZiM6tvbaQz0BU6L5peMQnL75I/H
-         8B8uFUy7cPSjr3Bi9zyviy0uiAVO0PMYJSgj82qP3FvvSQubR/vV/+dsuk7qpxjlgRaD
-         enpA==
-X-Gm-Message-State: AOJu0Yzdh2MjZXmF34vrafjmmhRWoRh85kuU0NIXKERGmyhL7iRTffBS
-	hON/uqRWrV2J3+o+Ly3NKQl1
-X-Google-Smtp-Source: AGHT+IGsf5+5UzBy6FHL++Dr2qBJL5S5wGMX1sYKjbuN67TMmoHl3KYaAjCbJYHf/k2L13nGKgJZqg==
-X-Received: by 2002:a1c:770b:0:b0:40c:2aeb:c750 with SMTP id t11-20020a1c770b000000b0040c2aebc750mr282942wmi.166.1701958520790;
-        Thu, 07 Dec 2023 06:15:20 -0800 (PST)
-Message-ID: <b96f0697-146f-4230-986f-eb1b097e40fa@suse.com>
-Date: Thu, 7 Dec 2023 15:15:19 +0100
+        bh=doRANLjcoXrCYPUIloK+IhgW8Mz4CcE4MucErzH0S2I=;
+        b=hOWXJlNqRlxnxJjb9XQQEFG3xwLl1mzzuIII6Ww7zQTcRCTO6gpsG2oYAstsKE1Vf3
+         HD18FqdRzc9JF40Hn1fGWXC6DCYZHzJQ9fo9ZFj88N2DoV8lvtJ6HyQEkJz+6cAEI7aN
+         dr9cjR2rVYjMySzRENk2TUB1CC+xoBaPjErM8a+Z8l3vGHYsVeKpd/bSvIuMD73d1qte
+         0TaeuIPY/nbzfROI5JAd6B+WzxECntAC7vronBASDddQ8fFUjHsUQ6WS7vhs3b+jOvIx
+         GqodyJuvbmNBgMtp0Y5DaUiZp+m6HNEMeKaY/R7O91qs7ocq84l7tUt6U4+tQBIe2voQ
+         NVKg==
+X-Gm-Message-State: AOJu0YwF4l+K0KJVQiZkNvWLdhUyXgrXRE9YOpxaya9MNIg5yuVKvCN4
+	nmT4ciM9z+Miorh/0pdD04fS
+X-Google-Smtp-Source: AGHT+IG/GShB10XE+G6O4bNk7CeTgbJbxqikjJ92zlEKWWNgA7wztSvMJcQBvITTy5kOX8LG9WTiqg==
+X-Received: by 2002:a05:600c:1c01:b0:40c:1c02:6b40 with SMTP id j1-20020a05600c1c0100b0040c1c026b40mr1352361wms.37.1701958760655;
+        Thu, 07 Dec 2023 06:19:20 -0800 (PST)
+Message-ID: <3959501d-9696-4791-bf04-d394af255bd2@suse.com>
+Date: Thu, 7 Dec 2023 15:19:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] xen/x86: address violations of MISRA C:2012 Rule 14.4
+Subject: Re: [PATCH v2 08/39] xen/riscv: introduce asm/cpufeature.h
 Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: consulting@bugseng.com,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1701941924.git.maria.celeste.cesario@bugseng.com>
- <d494980216b8f0f870083fcfae7269f45e779780.1701941924.git.maria.celeste.cesario@bugseng.com>
- <30b48e9b-0630-4df9-ac6b-5ece418bf4b0@suse.com>
- <65db0ca1-9afa-4d9a-8bf2-7b1720ac1f60@bugseng.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+ <b8fcdd22462ffa71a058e63dbf874dfc858264df.1700761381.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,77 +114,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <65db0ca1-9afa-4d9a-8bf2-7b1720ac1f60@bugseng.com>
+In-Reply-To: <b8fcdd22462ffa71a058e63dbf874dfc858264df.1700761381.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.12.2023 14:53, Simone Ballarin wrote:
-> On 07/12/23 11:54, Jan Beulich wrote:
->> On 07.12.2023 10:48, Simone Ballarin wrote:
->>> --- a/xen/arch/x86/hpet.c
->>> +++ b/xen/arch/x86/hpet.c
->>> @@ -279,7 +279,7 @@ static int hpet_msi_write(struct hpet_event_channel *ch, struct msi_msg *msg)
->>>   {
->>>       ch->msi.msg = *msg;
->>>   
->>> -    if ( iommu_intremap )
->>> +    if ( iommu_intremap != iommu_intremap_off )
->>>       {
->>>           int rc = iommu_update_ire_from_msi(&ch->msi, msg);
->>>   
->>> @@ -353,7 +353,7 @@ static int __init hpet_setup_msi_irq(struct hpet_event_channel *ch)
->>>       u32 cfg = hpet_read32(HPET_Tn_CFG(ch->idx));
->>>       irq_desc_t *desc = irq_to_desc(ch->msi.irq);
->>>   
->>> -    if ( iommu_intremap )
->>> +    if ( iommu_intremap != iommu_intremap_off )
->>>       {
->>>           ch->msi.hpet_id = hpet_blockid;
->>>           ret = iommu_setup_hpet_msi(&ch->msi);
->>> @@ -372,7 +372,7 @@ static int __init hpet_setup_msi_irq(struct hpet_event_channel *ch)
->>>           ret = __hpet_setup_msi_irq(desc);
->>>       if ( ret < 0 )
->>>       {
->>> -        if ( iommu_intremap )
->>> +        if ( iommu_intremap != iommu_intremap_off )
->>>               iommu_update_ire_from_msi(&ch->msi, NULL);
->>>           return ret;
->>>       }
->>> diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
->>> index 7f8e794254..72dce2e4ab 100644
->>> --- a/xen/arch/x86/msi.c
->>> +++ b/xen/arch/x86/msi.c
->>> @@ -189,7 +189,7 @@ static int write_msi_msg(struct msi_desc *entry, struct msi_msg *msg)
->>>   {
->>>       entry->msg = *msg;
->>>   
->>> -    if ( iommu_intremap )
->>> +    if ( iommu_intremap != iommu_intremap_off )
->>>       {
->>>           int rc;
->>>   
->>> @@ -555,7 +555,7 @@ int msi_free_irq(struct msi_desc *entry)
->>>               destroy_irq(entry[nr].irq);
->>>   
->>>           /* Free the unused IRTE if intr remap enabled */
->>> -        if ( iommu_intremap )
->>> +        if ( iommu_intremap != iommu_intremap_off )
->>>               iommu_update_ire_from_msi(entry + nr, NULL);
->>>       }
->>>   
->>
->> All of this would logically be part of patch 1. Is there a particular reason
->> why it wasn't done right there?
-> 
-> These changes and the ones in patch 1 are related, but still remain
-> independent. Patch 1 can be accepted without patch 2 and vice versa.
-> So we've decided to split the commits because patch 1 is in common
-> code, while patch 2 is in x86-specific code.
+On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Just to clarify: While not located under arch/x86/, what patch 1 touches
-is still x86-specific code. It's subject prefix also wrongly says
-AMD/IOMMU: when it also touches VT-d code. Especially with the changes
-here folded in, x86/IOMMU: might be more appropriate.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Would have been nice ...
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/cpufeature.h
+> @@ -0,0 +1,22 @@
+> +#ifndef __ASM_RISCV_CPUFEATURE_H
+> +#define __ASM_RISCV_CPUFEATURE_H
+> +
+> +#ifndef __ASSEMBLY__
+> +
+> +static inline int cpu_nr_siblings(unsigned int cpu)
+
+... for this to have return type unsigned int, but I see you're staying in
+line with oddities elsewhere. Just one more place to touch down the road.
 
 Jan
 
