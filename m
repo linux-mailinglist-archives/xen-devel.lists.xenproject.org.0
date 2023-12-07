@@ -2,33 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E24F807E29
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 03:02:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649522.1014097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31DFD807E4D
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 03:19:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649525.1014108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rB3hg-0006ym-JZ; Thu, 07 Dec 2023 02:01:28 +0000
+	id 1rB3y6-0001B9-1k; Thu, 07 Dec 2023 02:18:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649522.1014097; Thu, 07 Dec 2023 02:01:28 +0000
+Received: by outflank-mailman (output) from mailman id 649525.1014108; Thu, 07 Dec 2023 02:18:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rB3hg-0006x1-Gf; Thu, 07 Dec 2023 02:01:28 +0000
-Received: by outflank-mailman (input) for mailman id 649522;
- Thu, 07 Dec 2023 02:01:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rB3y5-00018D-Uy; Thu, 07 Dec 2023 02:18:25 +0000
+Received: by outflank-mailman (input) for mailman id 649525;
+ Thu, 07 Dec 2023 02:18:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G8G3=HS=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1rB3hf-0006wv-DI
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 02:01:27 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85be978d-94a4-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 03:01:25 +0100 (CET)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1701914470116589.447177774002;
- Wed, 6 Dec 2023 18:01:10 -0800 (PST)
+ <SRS0=QcaE=HS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rB3y3-000187-VG
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 02:18:23 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e47b7d65-94a6-11ee-98e6-6d05b1d4d9a1;
+ Thu, 07 Dec 2023 03:18:21 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id C76F3B824D1;
+ Thu,  7 Dec 2023 02:18:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FC23C433C8;
+ Thu,  7 Dec 2023 02:18:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,104 +41,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85be978d-94a4-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; t=1701914472; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Kqrc9EwbPh5h7rvC9rOVh7fgNVkXdWBUCRMvAc583iVAp8TnUCDzXmIookAew1GwkJdaraKkYeBezaMdxy+fB7DnJyeCXe11KGu5Hby8pGpf4C0EafOyulwuseebWby15eLRl3RVn5N0yx4tXtMJd6VRzHC0hutdJ14gqMs9Ylg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1701914472; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=VLbM0dadOyLi60RciybOuwW0AEniZ9Gvc8FzEZOI7eM=; 
-	b=k7PIPb6R9g/i+SvhoJfjhPXLxLv1bGTbb01GHZP4/q4SXQpLWIMe996u6BzQPHJTbkvBUMrttUvuXhtCr0zj6VTdWJef6z/7v9ykVGkS9Ys5HalyRboHvbSKm2gRDGvEvh3/cZncUtj2PeoUMuNcd6t7TKZ6uVHhEtKyUXykAIE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1701914472;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=VLbM0dadOyLi60RciybOuwW0AEniZ9Gvc8FzEZOI7eM=;
-	b=pcTp9Tnm7vjxhUwPUlqL1tMboiNzU/mmzmOEuu2bP9lQuRHHcCBonD9gfx5vU9cw
-	x7RV27Q3JMD5Ag6sjxtP1djYDMNu140AKRc+3oz+UvlIQQMKkUlmfh903aSl0pdeX1H
-	Jf3RCMyZAtd37kiX3tlEpZHreHA69rHbBrmaPI1Q=
-Message-ID: <a6400750-fd17-4452-a60d-bd9307825548@apertussolutions.com>
-Date: Wed, 6 Dec 2023 21:01:07 -0500
+X-Inumbo-ID: e47b7d65-94a6-11ee-98e6-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1701915500;
+	bh=c7OyBhAKKMMDcdQ7TOKYguis+q3iuIF4wYZKx0rNcd0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=GPEqMtN8nlLWwHDM78zzptjNKtdVnj3qq7q3pNHPpSPYp8J9zaPr5ZyY5WB7kSVow
+	 CaCjLREqaYebqfbmMZuh+R9/3d6gJbukVDXQrD+BddaOatSKl2nPfS8Lw9RGJy+07x
+	 8kjSyzUv0qqfpnxFNEq+TCiZgc6VJzBaBnUPLq/uoMspy5Jyr4cdfEOwZxkur4Ilgy
+	 2xgxx0lFAR6smUenVZV8NAVHyNXOT+1ae1xf3w3g3k8JHx8N1QLJORIyx8KZvO7ovy
+	 iSJLqH8U41qO1okKwdI+rAjoZ3Zg9rOei1zngKGlbOBTumZuqTdvb5nt25roOQj9BM
+	 GTUvKNYFEvcbA==
+Date: Wed, 6 Dec 2023 18:18:09 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Juergen Gross <jgross@suse.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Thomas Gleixner <tglx@linutronix.de>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
+    Bjorn Helgaas <bhelgaas@google.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+    "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, 
+    "Stabellini, Stefano" <stefano.stabellini@amd.com>, 
+    "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+    "Koenig, Christian" <Christian.Koenig@amd.com>, 
+    "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, 
+    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
+    "Huang, Honglei1" <Honglei1.Huang@amd.com>, 
+    "Zhang, Julia" <Julia.Zhang@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>
+Subject: Re: [RFC KERNEL PATCH v2 2/3] xen/pvh: Unmask irq for passthrough
+ device in PVH dom0
+In-Reply-To: <BL1PR12MB5849C871B0B9577D1E0BF576E784A@BL1PR12MB5849.namprd12.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2312061818030.1265976@ubuntu-linux-20-04-desktop>
+References: <20231124103123.3263471-1-Jiqian.Chen@amd.com> <20231124103123.3263471-3-Jiqian.Chen@amd.com> <alpine.DEB.2.22.394.2311291950350.3533093@ubuntu-linux-20-04-desktop> <ZWiyBP4Lzz5lXraP@macbook> <alpine.DEB.2.22.394.2311301912350.110490@ubuntu-linux-20-04-desktop>
+ <ZWmgJNidFsfkDp7q@macbook> <alpine.DEB.2.22.394.2312011857260.110490@ubuntu-linux-20-04-desktop> <ZW2ptexPQXrWBiOS@macbook> <alpine.DEB.2.22.394.2312041413000.110490@ubuntu-linux-20-04-desktop> <ZW7rDjjC0gxEI1cq@macbook> <15275706-5c31-4e29-aa29-9f5e90526219@suse.com>
+ <BL1PR12MB5849C871B0B9577D1E0BF576E784A@BL1PR12MB5849.namprd12.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] xen/ppc: Enable Boot Allocator
-To: Julien Grall <julien@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Oleksii <oleksii.kurochko@gmail.com>
-References: <cover.1701384928.git.sanastasio@raptorengineering.com>
- <5ed3351f7824a5d0a1ff29c17cb55b2608f28109.1701384928.git.sanastasio@raptorengineering.com>
- <938b9bfe-fba0-4c77-b2e5-fb79fb316ab4@xen.org>
-Content-Language: en-US
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <938b9bfe-fba0-4c77-b2e5-fb79fb316ab4@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
 
-On 12/1/23 15:56, Julien Grall wrote:
-> (+ Arm and RISC-V folks)
+On Tue, 5 Dec 2023, Chen, Jiqian wrote:
+> When PVH dom0 enable a device, it will get trigger and polarity from ACPI (see acpi_pci_irq_enable)
+> I have a version of patch which tried that way, see below:
+
+This approach looks much better. I think this patch is OKish. Juergen,
+what do you think?
+
+
+> diff --git a/arch/x86/xen/enlighten_pvh.c b/arch/x86/xen/enlighten_pvh.c
+> index ada3868c02c2..43e1bda9f946 100644
+> --- a/arch/x86/xen/enlighten_pvh.c
+> +++ b/arch/x86/xen/enlighten_pvh.c
+> @@ -1,6 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  #include <linux/acpi.h>
+>  #include <linux/export.h>
+> +#include <linux/pci.h>
 > 
-> Hi Shawn,
+>  #include <xen/hvc-console.h>
 > 
-> On 01/12/2023 20:59, Shawn Anastasio wrote:
->> Adapt arm's earlyfdt parsing code to ppc64 and enable Xen's early boot
->> allocator. Routines for parsing arm-specific devicetree nodes (e.g.
->> multiboot) were excluded, reducing the overall footprint of code that
->> was copied.
+> @@ -25,6 +26,127 @@
+>  bool __ro_after_init xen_pvh;
+>  EXPORT_SYMBOL_GPL(xen_pvh);
 > 
-> I expect RISC-V to want similar code. I am not really thrilled in the 
-> idea of having 3 similar copy of the parsing. So can we extract the 
-> common bits (or harmonize it) so it can be shared?
-
-That is actually 4, Hyperlaunch already did a common version for our usage.
-
-> Maybe Oleksii has already a version doing that.
+> +typedef struct gsi_info {
+> +       int gsi;
+> +       int trigger;
+> +       int polarity;
+> +       int pirq;
+> +} gsi_info_t;
+> +
+> +struct acpi_prt_entry {
+> +       struct acpi_pci_id      id;
+> +       u8                      pin;
+> +       acpi_handle             link;
+> +       u32                     index;          /* GSI, or link _CRS index */
+> +};
+> +
+> +static int xen_pvh_get_gsi_info(struct pci_dev *dev,
+> +                                                               gsi_info_t *gsi_info)
+> +{
+> +       int gsi;
+> +       u8 pin = 0;
+> +       struct acpi_prt_entry *entry;
+> +       int trigger = ACPI_LEVEL_SENSITIVE;
+> +       int polarity = acpi_irq_model == ACPI_IRQ_MODEL_GIC ?
+> +                                     ACPI_ACTIVE_HIGH : ACPI_ACTIVE_LOW;
+> +
+> +       if (dev)
+> +               pin = dev->pin;
+> +       if (!pin) {
+> +               xen_raw_printk("No interrupt pin configured\n");
+> +               return -EINVAL;
+> +       }
+> +
+> +       entry = acpi_pci_irq_lookup(dev, pin);
+> +       if (entry) {
+> +               if (entry->link)
+> +                       gsi = acpi_pci_link_allocate_irq(entry->link,
+> +                                                        entry->index,
+> +                                                        &trigger, &polarity,
+> +                                                        NULL);
+> +               else
+> +                       gsi = entry->index;
+> +       } else
+> +               return -EINVAL;
+> +
+> +       gsi_info->gsi = gsi;
+> +       gsi_info->trigger = trigger;
+> +       gsi_info->polarity = polarity;
+> +
+> +       return 0;
+> +}
+> +
+> +static int xen_pvh_map_pirq(gsi_info_t *gsi_info)
+> +{
+> +       struct physdev_map_pirq map_irq;
+> +       int ret;
+> +
+> +       map_irq.domid = DOMID_SELF;
+> +       map_irq.type = MAP_PIRQ_TYPE_GSI;
+> +       map_irq.index = gsi_info->gsi;
+> +       map_irq.pirq = gsi_info->gsi;
+> +
+> +       ret = HYPERVISOR_physdev_op(PHYSDEVOP_map_pirq, &map_irq);
+> +       gsi_info->pirq = map_irq.pirq;
+> +
+> +       return ret;
+> +}
+> +
+> +static int xen_pvh_unmap_pirq(gsi_info_t *gsi_info)
+> +{
+> +       struct physdev_unmap_pirq unmap_irq;
+> +
+> +       unmap_irq.domid = DOMID_SELF;
+> +       unmap_irq.pirq = gsi_info->pirq;
+> +
+> +       return HYPERVISOR_physdev_op(PHYSDEVOP_unmap_pirq, &unmap_irq);
+> +}
+> +
+> +static int xen_pvh_setup_gsi(gsi_info_t *gsi_info)
+> +{
+> +       struct physdev_setup_gsi setup_gsi;
+> +
+> +       setup_gsi.gsi = gsi_info->gsi;
+> +       setup_gsi.triggering = (gsi_info->trigger == ACPI_EDGE_SENSITIVE ? 0 : 1);
+> +       setup_gsi.polarity = (gsi_info->polarity == ACPI_ACTIVE_HIGH ? 0 : 1);
+> +
+> +       return HYPERVISOR_physdev_op(PHYSDEVOP_setup_gsi, &setup_gsi);
+> +}
+> +
+> +int xen_pvh_passthrough_gsi(struct pci_dev *dev)
+> +{
+> +       int ret;
+> +       gsi_info_t gsi_info;
+> +
+> +       if (!dev) {
+> +               return -EINVAL;
+> +       }
+> +
+> +       ret = xen_pvh_get_gsi_info(dev, &gsi_info);
+> +       if (ret) {
+> +               xen_raw_printk("Fail to get gsi info!\n");
+> +               return ret;
+> +       }
+> +
+> +       ret = xen_pvh_map_pirq(&gsi_info);
+> +       if (ret) {
+> +               xen_raw_printk("Fail to map pirq for gsi (%d)!\n", gsi_info.gsi);
+> +               return ret;
+> +       }
+> +
+> +       ret = xen_pvh_setup_gsi(&gsi_info);
+> +       if (ret == -EEXIST) {
+> +               ret = 0;
+> +               xen_raw_printk("Already setup the GSI :%u\n", gsi_info.gsi);
+> +       } else if (ret) {
+> +               xen_raw_printk("Fail to setup gsi (%d)!\n", gsi_info.gsi);
+> +               xen_pvh_unmap_pirq(&gsi_info);
+> +       }
+> +
+> +       return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(xen_pvh_passthrough_gsi);
+> +
+>  void __init xen_pvh_init(struct boot_params *boot_params)
+>  {
+>         u32 msr;
+> diff --git a/drivers/acpi/pci_irq.c b/drivers/acpi/pci_irq.c
+> index ff30ceca2203..630fe0a34bc6 100644
+> --- a/drivers/acpi/pci_irq.c
+> +++ b/drivers/acpi/pci_irq.c
+> @@ -288,7 +288,7 @@ static int acpi_reroute_boot_interrupt(struct pci_dev *dev,
+>  }
+>  #endif /* CONFIG_X86_IO_APIC */
 > 
-> Cheers,
+> -static struct acpi_prt_entry *acpi_pci_irq_lookup(struct pci_dev *dev, int pin)
+> +struct acpi_prt_entry *acpi_pci_irq_lookup(struct pci_dev *dev, int pin)
+>  {
+>         struct acpi_prt_entry *entry = NULL;
+>         struct pci_dev *bridge;
+> diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
+> index e34b623e4b41..1abd4dad6f40 100644
+> --- a/drivers/xen/xen-pciback/pci_stub.c
+> +++ b/drivers/xen/xen-pciback/pci_stub.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/atomic.h>
+>  #include <xen/events.h>
+>  #include <xen/pci.h>
+> +#include <xen/acpi.h>
+>  #include <xen/xen.h>
+>  #include <asm/xen/hypervisor.h>
+>  #include <xen/interface/physdev.h>
+> @@ -399,6 +400,12 @@ static int pcistub_init_device(struct pci_dev *dev)
+>         if (err)
+>                 goto config_release;
 > 
-
-
-
-V/r,
-Daniel P. Smith
-Apertus Solutions, LLC
-
+> +       if (xen_initial_domain() && xen_pvh_domain()) {
+> +               err = xen_pvh_passthrough_gsi(dev);
+> +               if (err)
+> +                       goto config_release;
+> +       }
+> +
+>         if (dev->msix_cap) {
+>                 struct physdev_pci_device ppdev = {
+>                         .seg = pci_domain_nr(dev->bus),
+> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
+> index 641dc4843987..368d56ba2c5e 100644
+> --- a/include/linux/acpi.h
+> +++ b/include/linux/acpi.h
+> @@ -375,6 +375,7 @@ void acpi_unregister_gsi (u32 gsi);
+> 
+>  struct pci_dev;
+> 
+> +struct acpi_prt_entry *acpi_pci_irq_lookup(struct pci_dev *dev, int pin);
+>  int acpi_pci_irq_enable (struct pci_dev *dev);
+>  void acpi_penalize_isa_irq(int irq, int active);
+>  bool acpi_isa_irq_available(int irq);
+> diff --git a/include/xen/acpi.h b/include/xen/acpi.h
+> index b1e11863144d..ce7f5554f88e 100644
+> --- a/include/xen/acpi.h
+> +++ b/include/xen/acpi.h
+> @@ -67,6 +67,7 @@ static inline void xen_acpi_sleep_register(void)
+>                 acpi_suspend_lowlevel = xen_acpi_suspend_lowlevel;
+>         }
+>  }
+> +int xen_pvh_passthrough_gsi(struct pci_dev *dev);
+>  #else
+>  static inline void xen_acpi_sleep_register(void)
+>  {
+> 
+> > 
+> > Jan
+> 
+> -- 
+> Best regards,
+> Jiqian Chen.
+> 
 
