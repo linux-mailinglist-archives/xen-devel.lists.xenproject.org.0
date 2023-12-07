@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1CBB808892
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 13:55:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649846.1014858 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B8C3808898
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 13:58:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649853.1014868 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBDud-000761-TS; Thu, 07 Dec 2023 12:55:31 +0000
+	id 1rBDxb-0001M6-9o; Thu, 07 Dec 2023 12:58:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649846.1014858; Thu, 07 Dec 2023 12:55:31 +0000
+Received: by outflank-mailman (output) from mailman id 649853.1014868; Thu, 07 Dec 2023 12:58:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBDud-00074I-Pj; Thu, 07 Dec 2023 12:55:31 +0000
-Received: by outflank-mailman (input) for mailman id 649846;
- Thu, 07 Dec 2023 12:55:30 +0000
+	id 1rBDxb-0001KE-6r; Thu, 07 Dec 2023 12:58:35 +0000
+Received: by outflank-mailman (input) for mailman id 649853;
+ Thu, 07 Dec 2023 12:58:33 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rBDuc-00073U-6G
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 12:55:30 +0000
+ (envelope-from <julien@xen.org>) id 1rBDxZ-0001K8-Ci
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 12:58:33 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rBDuY-0003Ca-AE; Thu, 07 Dec 2023 12:55:26 +0000
+ id 1rBDxY-0003HG-UU; Thu, 07 Dec 2023 12:58:32 +0000
 Received: from [15.248.3.113] (helo=[10.24.67.25])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rBDuY-0005U6-5B; Thu, 07 Dec 2023 12:55:26 +0000
+ id 1rBDxY-0005lR-NV; Thu, 07 Dec 2023 12:58:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,62 +40,49 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ia9VimKyVx6fHUQ4KOrk4GrQFXEWyJEie/mM4lkRn+E=; b=xiVCeEFJ9Pt6RVGtc30UFO6fXI
-	j93IfmUduVrPJ1Ot1h0oGPcyzUdfSUJLeXyThU9zTvn73wd9D3kwd9Tx4qRngAS12Ta4uMpO3VHtD
-	hkXKPkNz8OicvnPHfeHb1AZYp5TNJlWvB70f7baNmZ3eUswxCG1AXrs+E93sj0BNpils=;
-Message-ID: <0d51ddb4-1bbc-4ed3-bc0d-3efdcb00f70d@xen.org>
-Date: Thu, 7 Dec 2023 12:55:25 +0000
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=CTkZr54jQZLWNJBvwjG4v+r1Cjl46Pc2EGHJvvlqZkQ=; b=Us8SAaAvxDreVEud6kPHmk48Rq
+	l9FPYOC7vTagkplxhGyboEqg9Hx04ykCOaFeaJxImKPAMOQiMaarsrYauQnH6DlkEXfWEP2cjAZRv
+	nE8ZNWa7O+2innOvC+oN4e7uZd+fgs9a9Krf5ONJ9ofecePnXPpfIus/q6n1juIeNUB4=;
+Message-ID: <beb24b8c-700f-4d2a-955f-2d2b30d4ae79@xen.org>
+Date: Thu, 7 Dec 2023 12:58:31 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: ARM: MISRA C:2012 Rule 5.6
+Subject: Re: [PATCH] xen/arm: bootfdt: Check return code of
+ device_tree_for_each_node()
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- Federico Serafini <federico.serafini@bugseng.com>
+From: Julien Grall <julien@xen.org>
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <5a732dc4-70c7-4c03-b6fa-02d5074441bc@bugseng.com>
- <924a50ac-7200-45c7-b486-763b01b44a57@bugseng.com>
- <65b668a5-7518-4e96-8357-c3fc680e8760@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <65b668a5-7518-4e96-8357-c3fc680e8760@suse.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231207101432.37732-1-michal.orzel@amd.com>
+ <d45f0d37-dbca-44a8-a27f-b9e709bb9cfd@xen.org>
+In-Reply-To: <d45f0d37-dbca-44a8-a27f-b9e709bb9cfd@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
 
-On 07/12/2023 12:44, Jan Beulich wrote:
-> On 07.12.2023 12:48, Federico Serafini wrote:
->> On 07/12/23 12:43, Federico Serafini wrote:
->>> Hello everyone,
->>>
->>> Rule 5.6 states that a typedef name shall be a unique identifier.
->>> This is to avoid developer confusion.
->>>
->>> For ARM, the violations left [1] are generated by two definitions
->>> of the type phys_addr_t within two different files.
->>> I would like to ask if this is intentional or not:
->>> if it is intentional and it is not causing any confusion between XEN
->>> developers, then I think violations involving phys_addr_t can be
->>> deviated.
->>>
->>> [1]
->>> https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/staging/ARM64-2023/429/PROJECT.ecd;/by_service/MC3R1.R5.6.html
+On 07/12/2023 12:20, Julien Grall wrote:
+> Hi Michal,
+> 
+> On 07/12/2023 10:14, Michal Orzel wrote:
+>> As a result of not checking the return code of 
+>> device_tree_for_each_node()
+>> in boot_fdt_info(), any error occured during early FDT parsing does not
+>> stop Xen from booting. This can result in an unwanted behavior in later
+>> boot stages. Fix it by checking the return code and panicing on an error.
 >>
->> Adding XEN mailing list in CC.
+>> Fixes: 9cf4a9a46717 ("device tree: add device_tree_for_each_node()")
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 > 
-> Thanks.
+> With one remark below:
 > 
-> These are files ported from Linux, where I assume the typedef-s were added
-> to limit the changes which would need making elsewhere. Still I think that's
-> exactly what we (now) have xen/linux-compat.h for. IOW - just move the
-> typedef-s there?
+> Acked-by: Julien Grall <jgrall@amazon.com>
 
-+1. I was about to suggest the same.
+It is now committed.
 
 Cheers,
 
