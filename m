@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60D67808890
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 13:55:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649845.1014847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1CBB808892
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 13:55:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649846.1014858 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBDuU-0006lQ-Kh; Thu, 07 Dec 2023 12:55:22 +0000
+	id 1rBDud-000761-TS; Thu, 07 Dec 2023 12:55:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649845.1014847; Thu, 07 Dec 2023 12:55:22 +0000
+Received: by outflank-mailman (output) from mailman id 649846.1014858; Thu, 07 Dec 2023 12:55:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBDuU-0006jc-Hy; Thu, 07 Dec 2023 12:55:22 +0000
-Received: by outflank-mailman (input) for mailman id 649845;
- Thu, 07 Dec 2023 12:55:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ri6x=HS=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rBDuT-0006jJ-Vd
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 12:55:22 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e0e22506-94ff-11ee-98e7-6d05b1d4d9a1;
- Thu, 07 Dec 2023 13:55:20 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2c9ef682264so8307231fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 04:55:20 -0800 (PST)
+	id 1rBDud-00074I-Pj; Thu, 07 Dec 2023 12:55:31 +0000
+Received: by outflank-mailman (input) for mailman id 649846;
+ Thu, 07 Dec 2023 12:55:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rBDuc-00073U-6G
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 12:55:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rBDuY-0003Ca-AE; Thu, 07 Dec 2023 12:55:26 +0000
+Received: from [15.248.3.113] (helo=[10.24.67.25])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rBDuY-0005U6-5B; Thu, 07 Dec 2023 12:55:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,57 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e0e22506-94ff-11ee-98e7-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1701953720; x=1702558520; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=L9eZGyTQww4F7GV0mTq9xrdy1qbxaPPMbQl412QVm8k=;
-        b=Fp61dEk25j3WuQxn6Xj4c6YbJOJGvXTriHr2SFX66UjkCF1Opds4SFUOI67BahMfb9
-         olrTfsewTfD6VDBISmlJkZs0NwS2/4oig9n/fLpY1lJh+lIG2u0aHva2xrNWU2YMhfyr
-         Xmp/8eLImhN57tIjdM2zjs83G2LbidAUGUbZE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701953720; x=1702558520;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=L9eZGyTQww4F7GV0mTq9xrdy1qbxaPPMbQl412QVm8k=;
-        b=RkOIpCEiFTrTUDp4CIMCDnjNE8bwClWTMZm4+Wvfw1ZZUdf2W1e7Cn++eDLGTtinuH
-         dkXZ17dHahBAvbJglOnmNkl8Ji2Eg0zGA57jsfJKwfhsPXugrYFSDVF4tJRt/BQteuBz
-         4k+oZkjFTCcA1rcU6Gyn+TkzLXOzrTb+FHpSEU95fWg8OcsYD83XnKdkRn27bBHyamZp
-         ZfRhcx0fTnRTQCdYViDf9fwkDtq7q7wNVi8lubPzlGGjrxPvbcSTzI2TLjbKcnrNYFgr
-         sb0/m6mYZuVDO3TheJoBVEm02WiylHeT8jcI5PhWNo0DJck19YWiPWa2P+ObShFBQvVC
-         GVOA==
-X-Gm-Message-State: AOJu0YxRrYbz3oH9m9TQqli2DySr0nuNDazMe0DTx0qMQpSkE5TWiXuC
-	V5nYvsU0AMOhOcgW3DR5iv3/o1mDdyAKyK/C89CQLA==
-X-Google-Smtp-Source: AGHT+IGjOYd0E03GCOlJCnhIQ+K3ewbZ8mPRB4RXQ2umUKi/AnrpHTV0HI7wt+HU30isPgjCamMYmE2B+Dl6dbP9/UI=
-X-Received: by 2002:a2e:86cf:0:b0:2ca:688:8406 with SMTP id
- n15-20020a2e86cf000000b002ca06888406mr1402931ljj.3.1701953720089; Thu, 07 Dec
- 2023 04:55:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ia9VimKyVx6fHUQ4KOrk4GrQFXEWyJEie/mM4lkRn+E=; b=xiVCeEFJ9Pt6RVGtc30UFO6fXI
+	j93IfmUduVrPJ1Ot1h0oGPcyzUdfSUJLeXyThU9zTvn73wd9D3kwd9Tx4qRngAS12Ta4uMpO3VHtD
+	hkXKPkNz8OicvnPHfeHb1AZYp5TNJlWvB70f7baNmZ3eUswxCG1AXrs+E93sj0BNpils=;
+Message-ID: <0d51ddb4-1bbc-4ed3-bc0d-3efdcb00f70d@xen.org>
+Date: Thu, 7 Dec 2023 12:55:25 +0000
 MIME-Version: 1.0
-References: <20231204152321.16520-1-jgross@suse.com> <20231204152321.16520-4-jgross@suse.com>
-In-Reply-To: <20231204152321.16520-4-jgross@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 7 Dec 2023 12:55:09 +0000
-Message-ID: <CA+zSX=bFDh2XUnJko3NfLxcq23K3WmFaX35n5-+M+k_5YJKaDw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] xen/sched: do some minor cleanup of sched_move_domain()
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Dario Faggioli <dfaggioli@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: ARM: MISRA C:2012 Rule 5.6
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ Federico Serafini <federico.serafini@bugseng.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <5a732dc4-70c7-4c03-b6fa-02d5074441bc@bugseng.com>
+ <924a50ac-7200-45c7-b486-763b01b44a57@bugseng.com>
+ <65b668a5-7518-4e96-8357-c3fc680e8760@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <65b668a5-7518-4e96-8357-c3fc680e8760@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Dec 4, 2023 at 3:23=E2=80=AFPM Juergen Gross <jgross@suse.com> wrot=
-e:
->
-> Do some minor cleanups:
->
-> - Move setting of old_domdata and old_units next to each other
-> - Drop incrementing unit_idx in the final loop of sched_move_domain()
->   as it isn't used afterwards
-> - Rename new_p to new_cpu and unit_p to unit_cpu
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+
+On 07/12/2023 12:44, Jan Beulich wrote:
+> On 07.12.2023 12:48, Federico Serafini wrote:
+>> On 07/12/23 12:43, Federico Serafini wrote:
+>>> Hello everyone,
+>>>
+>>> Rule 5.6 states that a typedef name shall be a unique identifier.
+>>> This is to avoid developer confusion.
+>>>
+>>> For ARM, the violations left [1] are generated by two definitions
+>>> of the type phys_addr_t within two different files.
+>>> I would like to ask if this is intentional or not:
+>>> if it is intentional and it is not causing any confusion between XEN
+>>> developers, then I think violations involving phys_addr_t can be
+>>> deviated.
+>>>
+>>> [1]
+>>> https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/staging/ARM64-2023/429/PROJECT.ecd;/by_service/MC3R1.R5.6.html
+>>
+>> Adding XEN mailing list in CC.
+> 
+> Thanks.
+> 
+> These are files ported from Linux, where I assume the typedef-s were added
+> to limit the changes which would need making elsewhere. Still I think that's
+> exactly what we (now) have xen/linux-compat.h for. IOW - just move the
+> typedef-s there?
+
++1. I was about to suggest the same.
+
+Cheers,
+
+-- 
+Julien Grall
 
