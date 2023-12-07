@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF8C0808A93
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 15:29:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649933.1015087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E901808A9C
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 15:31:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649934.1015097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBFNT-00047C-2J; Thu, 07 Dec 2023 14:29:23 +0000
+	id 1rBFOp-0005w8-CW; Thu, 07 Dec 2023 14:30:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649933.1015087; Thu, 07 Dec 2023 14:29:23 +0000
+Received: by outflank-mailman (output) from mailman id 649934.1015097; Thu, 07 Dec 2023 14:30:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBFNS-00045U-Vs; Thu, 07 Dec 2023 14:29:22 +0000
-Received: by outflank-mailman (input) for mailman id 649933;
- Thu, 07 Dec 2023 14:29:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBFOp-0005uV-90; Thu, 07 Dec 2023 14:30:47 +0000
+Received: by outflank-mailman (input) for mailman id 649934;
+ Thu, 07 Dec 2023 14:30:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBFNR-00042r-Mt
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 14:29:21 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 02979dad-950d-11ee-98e7-6d05b1d4d9a1;
- Thu, 07 Dec 2023 15:29:20 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3333224c7b9so954179f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 06:29:20 -0800 (PST)
+ id 1rBFOn-0005uL-LV
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 14:30:45 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 33d840b3-950d-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 15:30:43 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40c19f5f822so5956665e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 06:30:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w8-20020adfcd08000000b003334675634bsm1579129wrm.29.2023.12.07.06.29.19
+ w8-20020adfcd08000000b003334675634bsm1579129wrm.29.2023.12.07.06.30.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 06:29:20 -0800 (PST)
+ Thu, 07 Dec 2023 06:30:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02979dad-950d-11ee-98e7-6d05b1d4d9a1
+X-Inumbo-ID: 33d840b3-950d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701959360; x=1702564160; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701959443; x=1702564243; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=pBpXZYr1kUHQo3WjX6emLN/laWA7ag7rnEUjjfzXO1s=;
-        b=Qjl6UPqm6EZEW/OxZSabeNs4v5uLEwEXyS8PpHl2mQq5R1kdhgX8px24pdejKK5lux
-         of3WRn630hPrP+2t7uWEH7pq0+aq6Kw6azuqgwo3ZK5kkjen8AQnXUU7gTrYM6CPESZR
-         xjH0S8piP7QKJS6xsE1Bc06aBk7tcxoEy51sFdxSm0hsNWrVVD59pi5m+MPtQDuMHObK
-         wc6Qg7OljKvLMSApnWT+AVauuVwkvJBf9RKPU/NGyR5sNc7InZo2Iqw5VBELfzraE8pY
-         lAQmIF/QrU628mBcdHXNWiY+CpRn63HKnlyW9784nYUfUZMIgWQLXZPXZJMqhZ+Vl78/
-         yuqQ==
+        bh=4H6JHUoVvSHOtyAnjnHGsFOmB5TsjpFHYo/wp/19rHw=;
+        b=Swzo2MamuZPrf0s4ByZWT9t1tr7Ex3+BYPDnBF/iWgAV7xG8615Iv7TzcJjBPimctF
+         CAZtyFcwfAIR37QKUumkCjyDXdMsTnHBHNgCIeGMV08YiTB0Fydf7JzuodlMcn4f9/l3
+         An/HZw9R+44wUVKDPlmDStwHQlUoBHvghj4Tfm6NAg0o8vnJBrGpz0Lfx1Z4Egpt9/D4
+         b1n/ONv7gN9C8DeqnKqy20NmAhaj6QnjhCir/pOW/lGzHbkoVJHeTK9YP6BrEAkmt/I9
+         6T6Q3KzCDGRJ52myOmEm0BeM2I+38mCHEbTMxdBdJN/FVErqkhXYBLTNbsq2T5xY9/TU
+         zrlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701959360; x=1702564160;
+        d=1e100.net; s=20230601; t=1701959443; x=1702564243;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pBpXZYr1kUHQo3WjX6emLN/laWA7ag7rnEUjjfzXO1s=;
-        b=XKVdhDLf0HC4uN/c7mcz8FvkCUf7FCzjvROvLjyt1pWF82+Ms1Q9bmO3tfmHratCst
-         GMJls3rWkhQyMW13aSaa4qrTCFg2vULOC2gMdl7oKubKb7ByzK0B6CBBXfbfmcBsCCea
-         oW6+muMorBFnbonh/Hn3liMJACm1RHoargYMmQ1CTbAyVuQMiePE79nyq5288Z3uPiDu
-         qXb5cmW2XHbRF/hHXl+kxjyYmLl4z3uEv9o3rEwY3zQmGKUAG3iCMXRpLf6FzqT8Zx8C
-         HzpMLsB1z5bHMPu3TMHXFefOf5PFYksWYluEluD9D6iOXNlkUFXFCsEK3ShbAGwmyBaJ
-         0FXw==
-X-Gm-Message-State: AOJu0YyS4ugu1Pn6PvaMDQqAAWldJROBh9cwcxS/TSw1TpJnkp0AJ/J8
-	1B1339ix0F4fn+hkByiYex+7
-X-Google-Smtp-Source: AGHT+IF9O38/Qnz9T8QBcBxWUykofmTt7TaxqsHfVTRRDaYWokpxGdjC1GoUSsFCI139D0q89kvnWA==
-X-Received: by 2002:a5d:538e:0:b0:333:49be:bf82 with SMTP id d14-20020a5d538e000000b0033349bebf82mr1455855wrv.77.1701959360200;
-        Thu, 07 Dec 2023 06:29:20 -0800 (PST)
-Message-ID: <e299d4ea-63f5-4d04-ab50-aeba773d2bb2@suse.com>
-Date: Thu, 7 Dec 2023 15:29:19 +0100
+        bh=4H6JHUoVvSHOtyAnjnHGsFOmB5TsjpFHYo/wp/19rHw=;
+        b=ONoA3ZIA7mYryjWK0yPM36MZPDrOKjYs9Dm+f+E3WhC5soUjDtYbto4uKvX5n3cV5A
+         36t+7jg1hGD1ncj7VthDHsLva56J8FYNTeyk8TnoAydCVaJWE9x4KB2DSocRbuF9Qu+b
+         mYdnqGGFZ20wuXTq3AmULOdQk2Hqf9BNLjvY8dDd08qbt7YTgwb6qxSFboWY0ZroVpIu
+         t0EmPvYKyw0sHIE+PmV8yXMmCxNTc3+1AuzemTDJaQ7QrOpypuzFC+vv4Km/BmivWOkR
+         bpTfHSbMnBc99APybNgJcmwHoeZj4ahsFbDySrkeUvGfzF7jjsfWXPEUbFfV+FpM6BhI
+         togg==
+X-Gm-Message-State: AOJu0YwJI+Y3CD435uMRzPIqKTg7dCfm3HPAurTHKdciUvh6dz+qQwqA
+	TjvXRv4akEb0FjOxg3PtWsVY
+X-Google-Smtp-Source: AGHT+IG7adhm6ZGkenggxSyetqEaAhqKmQWSAzUJ5F9twvFT0pGkxeUx41brArhlV37wTXLeuJBf9w==
+X-Received: by 2002:a05:600c:1e04:b0:40b:5e56:7b36 with SMTP id ay4-20020a05600c1e0400b0040b5e567b36mr2801362wmb.127.1701959442815;
+        Thu, 07 Dec 2023 06:30:42 -0800 (PST)
+Message-ID: <0fab3032-5236-48ad-96c8-3ae26b70cb8b@suse.com>
+Date: Thu, 7 Dec 2023 15:30:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/39] xen/riscv: introduce asm/setup.h
+Subject: Re: [PATCH v2 00/39] Enable build of full Xen for RISC-V
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
+Cc: Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <2dd966bbcaaf5a884c1a6a0a81dc29511e90f938.1700761381.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,15 +114,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2dd966bbcaaf5a884c1a6a0a81dc29511e90f938.1700761381.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <cover.1700761381.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.11.2023 11:30, Oleksii Kurochko wrote:
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Bobby Eshleman (1):
+>   xen/riscv: introduce asm/atomic.h
+> 
+> Oleksii Kurochko (38):
+>   xen/riscv: disable unnecessary configs
+>   xen/riscv: use some asm-generic headers
+>   xen/riscv:introduce asm/byteorder.h
+>   xen/riscv: add public arch-riscv.h
+>   xen/riscv: introduce spinlock.h
+>   xen/riscv: introduce fence.h
+>   xen/riscv: introduce arch-riscv/hvm/save.h
+>   xen/riscv: introduce asm/cpufeature.h
+>   xen/riscv: introduce asm/guest_atomics.h
+>   xen/riscv: introduce asm/iommu.h
+>   xen/riscv: introduce asm/nospec.h
+>   xen/riscv: introduce asm/setup.h
+>   xen/riscv: introduce asm/system.h
+>   xen/riscv: introduce bitops.h
+>   xen/riscv: introduce flushtlb.h
+>   xen/riscv: introduce asm/smp.h
+>   xen/riscv: introduce cmpxchg.h
+>   xen/riscv: introduce asm/io.h
+>   xen/riscv: define bug frame tables in xen.lds.S
+>   xen/riscv: introduce bit operations
+>   xen/riscv: introduce asm/domain.h
+>   xen/riscv: introduce asm/guest_access.h
+>   xen/riscv: introduce asm/irq.h
+>   xen/riscv: introduce asm/p2m.h
+>   xen/riscv: introduce asm/regs.h
+>   xen/riscv: introduce asm/time.h
+>   xen/riscv: introduce asm/event.h
 
-With at least SPDX header
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Throughout here, would you please try to be consistent about (not) using asm/
+prefixes?
 
-
+Jan
 
