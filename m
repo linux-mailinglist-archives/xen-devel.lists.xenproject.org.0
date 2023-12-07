@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE337809226
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 21:18:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650170.1015415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E17388092C2
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 21:49:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650173.1015426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBKot-0004Zu-0A; Thu, 07 Dec 2023 20:18:03 +0000
+	id 1rBLIe-0001sL-92; Thu, 07 Dec 2023 20:48:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650170.1015415; Thu, 07 Dec 2023 20:18:02 +0000
+Received: by outflank-mailman (output) from mailman id 650173.1015426; Thu, 07 Dec 2023 20:48:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBKos-0004XM-Tl; Thu, 07 Dec 2023 20:18:02 +0000
-Received: by outflank-mailman (input) for mailman id 650170;
- Thu, 07 Dec 2023 20:18:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBLIe-0001qd-5y; Thu, 07 Dec 2023 20:48:48 +0000
+Received: by outflank-mailman (input) for mailman id 650173;
+ Thu, 07 Dec 2023 20:48:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fdCZ=HS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rBKos-0004XG-25
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 20:18:02 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8119d7d-953d-11ee-98e7-6d05b1d4d9a1;
- Thu, 07 Dec 2023 21:18:01 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40c2c5a8150so8372495e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 12:18:01 -0800 (PST)
+ id 1rBLId-0001qX-AF
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 20:48:47 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 035450ab-9542-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 21:48:45 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-332f90a375eso1425762f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 12:48:45 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- n21-20020a05600c3b9500b0040b2a52ecaasm2921770wms.2.2023.12.07.12.17.59
+ n11-20020a5d4c4b000000b0033326e90496sm488615wrt.18.2023.12.07.12.48.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 12:18:00 -0800 (PST)
+ Thu, 07 Dec 2023 12:48:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8119d7d-953d-11ee-98e7-6d05b1d4d9a1
+X-Inumbo-ID: 035450ab-9542-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1701980280; x=1702585080; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1701982125; x=1702586925; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ysd62m2tBouM6AjR2z4aUe4Aev1c+bGhzdO9PHyaMyg=;
-        b=F/ogYHBDyN77aYZMcjnCtAtgJhrW01hFu/Qe/KL/kOeDpHgn4w8zUhn0KkRrqWaqkq
-         yYQ/lcSjr0WzdtXm6M6F1nd+bGdmqJQgf2+jS221oSAMrevB4r6n2WD93Y1WAwqUTWaJ
-         OUpboYQ9h2xBz0+H1u8VoodHzfWkxX/6zTl/g=
+        bh=cPwpux/zirXh2ltxHSmVMNTM1MmKKvlm2FNG1iQ+RPs=;
+        b=nkYyXNx25esCAPrYyH/blVn7/HK7PcbK3azQI8/6qsP2PeWlMivtfP/uvz4kfQTWBp
+         YTgMhS1Iz4TTV9SVb90K1LMExJjhJUe0HC7yc7EKOy093d66rH/L074anQPkU6Vhyeni
+         2rbv56LrHWlYDMZZ6CsQma9/R+fStGbZyHdA4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701980280; x=1702585080;
+        d=1e100.net; s=20230601; t=1701982125; x=1702586925;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ysd62m2tBouM6AjR2z4aUe4Aev1c+bGhzdO9PHyaMyg=;
-        b=vAZ0q9PELW1BFRucIC+hATMkvRxDAKgmXUOS/8LL6c24s2qD8CNop1QCQs8fQHOEmN
-         Y+IRXQe0a6WQnpd9vUXjDjnsRaFWcc8Oo6fo4Y0MoMKHUHGR0HmpR7KzeAIdM2HcqRku
-         AvnwjR8Uz5rvV3NcV747YOi+qqJB4IoTNco7f4speUPznC/mAlTpjws+UXjYSh3Z78q3
-         Nc1VPHk5O9upJ2dsjFuSmUZbTbyk3aJ1viLl3UKc10Q3lj2Kk2pVup+YuKBdyW+otZT/
-         MNogzCvGM6QV/K2L8I5/aGhwuJV1zmEZlYdsUWDygwtF9BIkZE2zXbgfymxKGEQBv4Eq
-         IN0A==
-X-Gm-Message-State: AOJu0YweE2tGP8pxBPwrbkfr0sVc6d7Gb8R1CAg+sPXJRVym90OlGbHp
-	KqngUIP72fyeXU8HdDegaSX6WQ==
-X-Google-Smtp-Source: AGHT+IFWj+FJiFxCQou9mgyjOJOCfNiwm4fshEUi2Lsu8bKvUAMO3qfLjTPC/JpKvjZHiSr7RGDEGg==
-X-Received: by 2002:a7b:cd10:0:b0:40c:1ebd:11c4 with SMTP id f16-20020a7bcd10000000b0040c1ebd11c4mr1673494wmj.15.1701980280355;
-        Thu, 07 Dec 2023 12:18:00 -0800 (PST)
-Message-ID: <f9ceb8f7-a664-452b-8b38-f74b36386e33@citrix.com>
-Date: Thu, 7 Dec 2023 20:17:59 +0000
+        bh=cPwpux/zirXh2ltxHSmVMNTM1MmKKvlm2FNG1iQ+RPs=;
+        b=tx/97HD4dOmGEf43z7zNh99efoZa+2dIEhQCG56RTjbP6kvMG9sncUgzPq/ISzaCnI
+         K5O216Xr+B4fDAl8MpqqVb0XTqznTFk+lmbLP2rmPFsHHcIDYF7ZpBhCjlEg2FsBM5Qk
+         3Mf5GFopwpqIt3OzeMIxM8rfdk58tBveRNxlN+6H9SJFTn9FWFLVXTA53Ez3kXtIQlaC
+         Qd/B8JIcAF4fYmd6Wbpn+WZOgR7xbkauLhjulV9pRQ+1qmz7EjAilhQAP+Et59cyh76F
+         3qcJYEMm+JgY7kCBctZhYUj+KxRfURfD0Ah6vNpbhCi3o1mVCUIof/UQjAKHlBYnQtuG
+         ky3Q==
+X-Gm-Message-State: AOJu0YzUkhKnvookr/XxUkKXrgolSiWiOLZjXViEpuUlXGpGb5ZcwS63
+	rRpT/1XPz0ppnK5xTY8GIXP6PA==
+X-Google-Smtp-Source: AGHT+IEolIH498ebsi1nZLD0BzzqQUtQ0hVH2W1//JMNOg3H80vWs72wAt0JF/3Vh5UgVcEuslSUZg==
+X-Received: by 2002:a05:6000:1b03:b0:332:feb2:dee9 with SMTP id f3-20020a0560001b0300b00332feb2dee9mr2234875wrz.61.1701982124781;
+        Thu, 07 Dec 2023 12:48:44 -0800 (PST)
+Message-ID: <75b583bb-48ef-4672-aaed-906d6c8e8de5@citrix.com>
+Date: Thu, 7 Dec 2023 20:48:44 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 1/1] xen/Makefile: introduce ARCH_FIXED_CONFIG for
- randconfig
+Subject: Re: preparations for 4.17.3
 Content-Language: en-GB
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <george.dunlap@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-References: <cover.1701966261.git.oleksii.kurochko@gmail.com>
- <c95959adca794a90465abd10f579dc9159a7697f.1701966261.git.oleksii.kurochko@gmail.com>
+ Anthony Perard <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>
+References: <4a7ecdb1-770e-4886-a397-336a510b7e3c@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -131,102 +128,24 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c95959adca794a90465abd10f579dc9159a7697f.1701966261.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <4a7ecdb1-770e-4886-a397-336a510b7e3c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 07/12/2023 5:03 pm, Oleksii Kurochko wrote:
-> ARCH_FIXED_CONFIG is required in the case of randconfig
-> and CI for configs that aren't ready or are not
-> supposed to be implemented for specific architecture.
-> These configs should always be disabled to prevent randconfig
-> related tests from failing.
+On 07/12/2023 7:06 am, Jan Beulich wrote:
+> All,
 >
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
->  xen/Makefile | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/xen/Makefile b/xen/Makefile
-> index ca571103c8..8ae8fe1480 100644
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -336,11 +336,14 @@ ifeq ($(config-build),y)
->  # *config targets only - make sure prerequisites are updated, and descend
->  # in tools/kconfig to make the *config target
->  
-> +ARCH_FORCED_CONFIG := $(srctree)/arch/$(SRCARCH)/configs/randomforced.config
-> +
->  # Create a file for KCONFIG_ALLCONFIG which depends on the environment.
->  # This will be use by kconfig targets allyesconfig/allmodconfig/allnoconfig/randconfig
->  filechk_kconfig_allconfig = \
->      $(if $(findstring n,$(XEN_HAS_CHECKPOLICY)), echo 'CONFIG_XSM_FLASK_POLICY=n';) \
-> -    $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG);) \
-> +    $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG); \
-> +    $(if $(wildcard $(ARCH_FORCED_CONFIG)), cat $(ARCH_FORCED_CONFIG);) ) \
->      :
->  
->  .allconfig.tmp: FORCE
+> the release is about due. Please point out backports you find missing
+> from the respective staging branch, but which you consider relevant.
 
-We already have infrastructure for this.  What's wrong with
-EXTRA_FIXED_RANDCONFIG?
+e3c409d59ac8 "x86/x2apic: introduce a mixed physical/cluster mode"
 
----8<---
+There's now clear evidence on the "[PATCH] x86/x2apic: introduce a mixed
+physical/cluster mode" that it fixes something on real systems.  At a
+guess, a platform erratum concerning the use of external cluster mode
+interrupts, but nevertheless its a genuine improvement too.
 
-CI: Revert "automation: Drop ppc64le-*randconfig jobs", fix Randconfig
-with existing infrastructure
-    
-This reverts commit cbb71b95dd708b1e26899bbe1e7bf9a85081fd60.
+I've got backports to 4.17 and 4.13 easily to hand if you want.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-diff --git a/automation/gitlab-ci/build.yaml
-b/automation/gitlab-ci/build.yaml
-index 32af30ccedc9..346d0400ed09 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -538,6 +538,7 @@ archlinux-current-gcc-riscv64-randconfig:
-     RANDCONFIG: y
-     EXTRA_FIXED_RANDCONFIG:
-       CONFIG_COVERAGE=n
-+      CONFIG_GRANT_TABLE=n
- 
- archlinux-current-gcc-riscv64-debug-randconfig:
-   extends: .gcc-riscv64-cross-build-debug
-@@ -547,6 +548,7 @@ archlinux-current-gcc-riscv64-debug-randconfig:
-     RANDCONFIG: y
-     EXTRA_FIXED_RANDCONFIG:
-       CONFIG_COVERAGE=n
-+      CONFIG_GRANT_TABLE=n
- 
- # Power cross-build
- debian-bullseye-gcc-ppc64le:
-@@ -563,6 +565,26 @@ debian-bullseye-gcc-ppc64le-debug:
-     KBUILD_DEFCONFIG: ppc64_defconfig
-     HYPERVISOR_ONLY: y
- 
-+debian-bullseye-gcc-ppc64le-randconfig:
-+  extends: .gcc-ppc64le-cross-build
-+  variables:
-+    CONTAINER: debian:bullseye-ppc64le
-+    KBUILD_DEFCONFIG: ppc64_defconfig
-+    RANDCONFIG: y
-+    EXTRA_FIXED_RANDCONFIG:
-+      CONFIG_COVERAGE=n
-+      CONFIG_GRANT_TABLE=n
-+
-+debian-bullseye-gcc-ppc64le-debug-randconfig:
-+  extends: .gcc-ppc64le-cross-build-debug
-+  variables:
-+    CONTAINER: debian:bullseye-ppc64le
-+    KBUILD_DEFCONFIG: ppc64_defconfig
-+    RANDCONFIG: y
-+    EXTRA_FIXED_RANDCONFIG:
-+      CONFIG_COVERAGE=n
-+      CONFIG_GRANT_TABLE=n
-+
- # Yocto test jobs
- yocto-qemuarm64:
-   extends: .yocto-test-arm64
-
+~Andrew
 
