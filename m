@@ -2,55 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECC66808BC8
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 16:28:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650001.1015178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B3A4808C02
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 16:37:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650007.1015187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBGIO-0001Id-Fr; Thu, 07 Dec 2023 15:28:12 +0000
+	id 1rBGRR-0003qx-9V; Thu, 07 Dec 2023 15:37:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650001.1015178; Thu, 07 Dec 2023 15:28:12 +0000
+Received: by outflank-mailman (output) from mailman id 650007.1015187; Thu, 07 Dec 2023 15:37:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBGIO-0001GR-CE; Thu, 07 Dec 2023 15:28:12 +0000
-Received: by outflank-mailman (input) for mailman id 650001;
- Thu, 07 Dec 2023 15:28:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3y0a=HS=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rBGIM-0001FA-KB
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 15:28:10 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20603.outbound.protection.outlook.com
- [2a01:111:f400:7eb2::603])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 389de1f1-9515-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 16:28:08 +0100 (CET)
-Received: from DM6PR01CA0021.prod.exchangelabs.com (2603:10b6:5:296::26) by
- PH7PR12MB5688.namprd12.prod.outlook.com (2603:10b6:510:130::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7068.27; Thu, 7 Dec 2023 15:28:04 +0000
-Received: from DS1PEPF0001709D.namprd05.prod.outlook.com
- (2603:10b6:5:296:cafe::b7) by DM6PR01CA0021.outlook.office365.com
- (2603:10b6:5:296::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7046.34 via Frontend
- Transport; Thu, 7 Dec 2023 15:28:04 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0001709D.mail.protection.outlook.com (10.167.18.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7068.20 via Frontend Transport; Thu, 7 Dec 2023 15:28:03 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 7 Dec
- 2023 09:28:03 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 7 Dec
- 2023 09:28:03 -0600
-Received: from [10.71.193.58] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Thu, 7 Dec 2023 09:28:01 -0600
+	id 1rBGRR-0003pF-6r; Thu, 07 Dec 2023 15:37:33 +0000
+Received: by outflank-mailman (input) for mailman id 650007;
+ Thu, 07 Dec 2023 15:37:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rBGRQ-0003p7-3w
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 15:37:32 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 887e603c-9516-11ee-98e7-6d05b1d4d9a1;
+ Thu, 07 Dec 2023 16:37:30 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40c2308faedso11213715e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 07:37:30 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ g11-20020a05600c310b00b004090798d29csm37973wmo.15.2023.12.07.07.37.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Dec 2023 07:37:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,193 +45,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 389de1f1-9515-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=i+CHjTPBCYvmJeCLDzc1kKPRuwSzlFHQSTT1TCogrNgW9EHaePyylY0kkAG70NP/N/k7/RJz+C22yxvzuGdQltCJZ49GDaJfBK3ioB+fsCwqA1xDf0Vu5/wrVqcf28H6EgRKvB+3/qUxgsOyXErn5ZSHCby+Wlu/88PBcrrLMiQMXtY6nVBIow6VKHSNxH6KJOxB/vinPSU4ToDUToqEKBKNlWx84Ox8P8XB1K4NLXCsmouF/WowQdT8lBOwqTjKH9Bqfe9pRVcOyRZdT+lRkfq/wNfpcpBsqVMUcuI4YWaWfuICGG7athktZJMBSxUMIONE+3ZPb3Eu81+MjiZLQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dpMG63mrgN/tJWzH5iLAK5Euh3C5zliYN2vIz1Zx/nc=;
- b=jVy82q6xwN7wNmbbQJ+2gm+Ww7pAfJ4xWHOxMx/YXP8xavIllwCNuMHkqXtdjyC4tthe92L39AM4bw2DrunzmsfL9LlWzFDFuTSdObFjos82xY9EP0Dcjjboq45Fj70KPgwjpD48wmu0rHPu7IB7BnB+DLe391ji4iBrohQCX4GElJrQehazG2LsggjZ6782Nq2OTKLICLkd1Zqf4J7ickx2nppYPQcdP/L0Ty4Z8Gj4OcHlZvnB1u0BTHh19LEOns3sYLCCKRKhPN+GnPVVE2BPpEdmJG3WyslUQJ2Ps813ESbOvfgsAkIm9yTVZDqAdQDJKuxLRaR8w2ygKR4uUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dpMG63mrgN/tJWzH5iLAK5Euh3C5zliYN2vIz1Zx/nc=;
- b=X0Yc/XzaCuFqgbthVe98kCHuJ3seagq8M65r2qivTJQIxs4VU2wtCc/9TvzfpnebcyxOIG+2eXKQKJePggXGWvQaJ3wXHVaP94IuPO8Qn2ScpFpv3ec+/pjHABhwZyuyo+mSJYBPvzLzArQXDCk8eyxpfGinTHdGI204OIafOs0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <9f4fc7b3-805b-4adb-a482-4bdbaa0f2aff@amd.com>
-Date: Thu, 7 Dec 2023 16:28:01 +0100
+X-Inumbo-ID: 887e603c-9516-11ee-98e7-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1701963450; x=1702568250; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=aU18r7pJhdouh6dLMlGHN3SET1Bd8uMHRetUqhiyRTE=;
+        b=Z72HzBKuDtYzMJpx1mOCUEH+Cu1gCtM7dQZxyGyshwS6LO18OGnJ4xIpW2BFhx3qHg
+         JK791hF/NAEV2+FCiVnJGdmtMwexIodX0OjrAfT1yfMKWMAwx1iKXe2qvzyjfNjpqDCj
+         WRLHFFWzQHtvgoc7kKBWc542baFU7UddxoPlrKKuW/cPWSRNHZQuBqRDSmuSUgqb33m+
+         i1cBjZ/LQBfAAAX4zRlLNfrANvpquQDt1j0qk4xRo3FiWHPzSyI9xa9u5aav5npUVPC8
+         a5VsA2hbWFyfH960YEUBGjUcvAEjI1RKpFq6V3nTv2u6TVeiORBfd2585K6OlTOYvryT
+         YC8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701963450; x=1702568250;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=aU18r7pJhdouh6dLMlGHN3SET1Bd8uMHRetUqhiyRTE=;
+        b=qoto9KuWWs/Eksg7kDz7nyfiON8dpsi8vyPrnKqAb6lndHjzOfOamo02jw4imQjU3i
+         InaUfZ0iLZEndmrbrBQmvqobOCsmS4jPh+7hboTKnqqS2gOAb3JO5+7S0eHzXsUuDhkv
+         bRk1dTugd3CYn6dJxdbW9YByimgW5FAMwdRhKPmmuasqgauXXYbozylS5AuhqgCiUOym
+         6r7Vzgpm7HJGbPw3RlPzVlN8BTx+PRkrUIhLcfcGOp7wknIpiTAC+kyM/ke4pasJ+3Ws
+         zzXW19hc0KOXF7uBCHCB5cnZCrNF8tJ/GQzhbU4PkikEFw+W/FucCdCSUlX0ZLNNR/yX
+         DPpQ==
+X-Gm-Message-State: AOJu0Yx7CgnWuWiDXXSjsVdLKCt2BBlmhQnxEJPKqFb4WFHpKaUjw7cp
+	uko/XKr0UFqjJAzh0eQLiI9i
+X-Google-Smtp-Source: AGHT+IHY3c4IDdWOk5rdJAAB6ZOEYrN4UPK5yorsSXLmTfN6W2maRoiU0ODA+a1xbX4+C5SvkEs14w==
+X-Received: by 2002:a1c:7214:0:b0:40b:5e21:d369 with SMTP id n20-20020a1c7214000000b0040b5e21d369mr1683310wmc.114.1701963450224;
+        Thu, 07 Dec 2023 07:37:30 -0800 (PST)
+Message-ID: <fff80a7f-75f7-4e91-be1a-bc7fd683b94d@suse.com>
+Date: Thu, 7 Dec 2023 16:37:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 11/11] xen/arm: create another /memory node for static
- shm
+Subject: Re: [PATCH v2 14/39] xen/riscv: introduce bitops.h
 Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>, <xen-devel@lists.xenproject.org>
-CC: <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
- Grall" <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20231206090623.1932275-1-Penny.Zheng@arm.com>
- <20231206090623.1932275-12-Penny.Zheng@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20231206090623.1932275-12-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+ <a9c69e17fe073551e7007242d00b74b6333ce98d.1700761381.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a9c69e17fe073551e7007242d00b74b6333ce98d.1700761381.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0001709D:EE_|PH7PR12MB5688:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9603446d-bede-4016-75f6-08dbf7391ae5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	brEJh3zTWo+efe5STKJK/uK055VjaeRx0MMf6xyHQEbeVmmnhSCDYLJ7z7GHRvlKe1AwG0AdxSKEt/2CCGTd6qhUxdkVrNfeuEPjGiiKda7JV+gfoAF/UCm86SAoPm71iuGNaSFk6USFL40JiXDCJ+zcB31hKbqzIVH49TYSkPKnm+Cuvh7isgTtfO8ooWmgGXkQnDGD2cGVAVXSOJfz0EJYGJoufxy5LrPa2mj1xF1JeaR/50tEMQgTOPM++izCKxD6+qWL1JWD29hPJY5J615IIfO/a+fvV5Iy9KgHA4dt3p6G0XqDdvuZi8UbIv6mGY6x2xWL0s9rkl30BvNiUhf8oJhUPLIX4y0+bBA2CKAceA6pc//CgySFJT+/YZQsW1uGj4PGcV8+UzXyhdxBdkcAUGv+vB3JMUtuuQGHu83+Nwadvar8bVJ8HQoRmYxHs+QnEXA1Ucs2FYtLeYwYxUvYwZ+1fY5G7SKfNsu/wU/C89jm1d6KzgoOWFtcpCU5lE6bJ8pS8hZ/dObmPvSuGKcIS1928GAcgtRn/d174CMgWS894A0XfAH7E7Y+gdehilw5utdIvofKc3cwRFKnQfvNhh/Loq4/LIbsXJKEv35NXmrCp6qIHWiAKlnPJEMwVVC7ruk+egy9MN6DyKifmHPW5muTAnnO/rHcPk8qF++dnKZ29/zRO31RUArUicUPtpPH47B6Zvz2sk8LyC5rWVWLyeO1HSlqUx9xQ/5j+LYDcZxiFCKgz3UUJiNVNkWkrTYkAlr1N9Eu1rKmQqiiftgaDPiejtvFjKizmkKwf1aBVQfm8ADjUTQfi17o7YQS
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(346002)(39860400002)(136003)(396003)(230922051799003)(1800799012)(82310400011)(64100799003)(451199024)(186009)(36840700001)(40470700004)(46966006)(40480700001)(31686004)(40460700003)(36860700001)(41300700001)(5660300002)(2906002)(36756003)(16576012)(8676002)(316002)(4326008)(336012)(81166007)(110136005)(356005)(426003)(478600001)(53546011)(2616005)(54906003)(86362001)(70586007)(31696002)(82740400003)(26005)(70206006)(8936002)(44832011)(47076005)(83380400001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2023 15:28:03.8093
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9603446d-bede-4016-75f6-08dbf7391ae5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF0001709D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5688
 
-Hi Penny,
+On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-On 06/12/2023 10:06, Penny Zheng wrote:
-> 
-> 
-> Static shared memory region shall be described both under /memory and
-> /reserved-memory.
-> 
-> We introduce export_shm_memory_node() to create another /memory node to
-> contain the static shared memory ranges.
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> 
-> ---
-> v3 -> v4:
-> new commit
-> ---
-> v4 -> v5:
-> rebase and no changes
-> ---
->  xen/arch/arm/dom0less-build.c           |  8 ++++++++
->  xen/arch/arm/domain_build.c             |  8 ++++++++
->  xen/arch/arm/include/asm/static-shmem.h | 10 ++++++++++
->  xen/arch/arm/static-shmem.c             | 19 +++++++++++++++++++
->  4 files changed, 45 insertions(+)
-> 
-> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index ac096fa3fa..870b8a553f 100644
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -645,6 +645,14 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
->      if ( ret )
->          goto err;
-> 
-> +    /* Create a memory node to store the static shared memory regions */
-> +    if ( kinfo->shminfo.nr_banks != 0 )
-There is no need for this check to be repeated every time export_shm_memory_node is used.
-When the feature is disabled, export_shm_memory_node will return 0 anyway.
-Furthermore, there is no need for kinfo->shminfo exposure. Please move the check to the function itself.
+So this looks to have been taken from Linux, which could do with saying
+(including which version or most recent commit). It may e.g. justify you
+using tab indentation here, albeit ...
 
-Also, I think both this and previous patch could be moved towards the beginning of the series.
-They are not related to other things you do in the series.
-
-
-> +    {
-> +        ret = export_shm_memory_node(d, kinfo, addrcells, sizecells);
-> +        if ( ret )
-> +            goto err;
-> +    }
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/bitops.h
+> @@ -0,0 +1,288 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/* Copyright (C) 2012 Regents of the University of California */
 > +
->      ret = make_resv_memory_node(d, kinfo->fdt, addrcells, sizecells, kinfo);
->      if ( ret )
->          goto err;
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index f098678ea3..4e450cb4c7 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1873,6 +1873,14 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
->                  return res;
->          }
-> 
-> +        /* Create a memory node to store the static shared memory regions */
-> +        if ( kinfo->shminfo.nr_banks != 0 )
-> +        {
-> +            res = export_shm_memory_node(d, kinfo, addrcells, sizecells);
-> +            if ( res )
-> +                return res;
-> +        }
+> +#ifndef _ASM_RISCV_BITOPS_H
+> +#define _ASM_RISCV_BITOPS_H
 > +
->          /* Avoid duplicate /reserved-memory nodes in Device Tree */
->          if ( !kinfo->resv_mem )
->          {
-> diff --git a/xen/arch/arm/include/asm/static-shmem.h b/xen/arch/arm/include/asm/static-shmem.h
-> index 6cb4ef9646..385fd24c17 100644
-> --- a/xen/arch/arm/include/asm/static-shmem.h
-> +++ b/xen/arch/arm/include/asm/static-shmem.h
-> @@ -38,6 +38,10 @@ int make_shm_memory_node(const struct domain *d,
->                           void *fdt,
->                           int addrcells, int sizecells,
->                           const struct kernel_info *kinfo);
+> +#include <asm/system.h>
 > +
-> +int export_shm_memory_node(const struct domain *d,
-> +                           const struct kernel_info *kinfo,
-> +                           int addrcells, int sizecells);
->  #else /* !CONFIG_STATIC_SHM */
-> 
->  static inline int make_resv_memory_node(const struct domain *d, void *fdt,
-> @@ -86,6 +90,12 @@ static inline int make_shm_memory_node(const struct domain *d,
->      return 0;
->  }
-> 
-> +static inline int export_shm_memory_node(const struct domain *d,
-> +                                         const struct kernel_info *kinfo,
-> +                                         int addrcells, int sizecells)
-> +{
-> +    return 0;
-> +}
->  #endif /* CONFIG_STATIC_SHM */
-> 
->  #endif /* __ASM_STATIC_SHMEM_H_ */
-> diff --git a/xen/arch/arm/static-shmem.c b/xen/arch/arm/static-shmem.c
-> index bfce5bbad0..e583aae685 100644
-> --- a/xen/arch/arm/static-shmem.c
-> +++ b/xen/arch/arm/static-shmem.c
-> @@ -505,6 +505,25 @@ int __init process_shm(struct domain *d, struct kernel_info *kinfo,
->      return 0;
->  }
-> 
-> +int __init export_shm_memory_node(const struct domain *d,
-> +                                  const struct kernel_info *kinfo,
-> +                                  int addrcells, int sizecells)
-> +{
-> +    unsigned int i = 0;
-> +    struct meminfo shm_meminfo;
+> +#define BITOP_BITS_PER_WORD     32
+> +#define BITOP_MASK(nr)	        (1UL << ((nr) % BITOP_BITS_PER_WORD))
+> +#define BITOP_WORD(nr)	        ((nr) / BITOP_BITS_PER_WORD)
+> +#define BITS_PER_BYTE	        8
 > +
-> +    /* Extract meminfo from kinfo.shminfo */
-> +    for ( ; i < kinfo->shminfo.nr_banks; i++ )
-> +    {
-> +        shm_meminfo.bank[i].start = kinfo->shminfo.bank[i].membank.start;
-> +        shm_meminfo.bank[i].size = kinfo->shminfo.bank[i].membank.size;
-> +        shm_meminfo.bank[i].type = MEMBANK_DEFAULT;
-Is all of this really needed? This series introduces so many structures to avoid using
-meminfo but at the end we still need to use it. The amount of meminfo like structures copying
-done in this series worries me a bit.
+> +#define __set_bit(n,p)          set_bit(n,p)
+> +#define __clear_bit(n,p)        clear_bit(n,p)
 
-~Michal
+... then please consistently. Other style related remarks made on the
+system.h patch apply here as well (unless again there's a goal of
+keeping the diff to the Linux original small; yet then I guess the
+delta to the Linux file is already pretty large).
 
+> +/* Based on linux/include/asm-generic/bitops/find.h */
+> +
+> +#ifndef find_next_bit
+> +/**
+> + * find_next_bit - find the next set bit in a memory region
+> + * @addr: The address to base the search on
+> + * @offset: The bitnumber to start searching at
+> + * @size: The bitmap size in bits
+> + */
+> +extern unsigned long find_next_bit(const unsigned long *addr, unsigned long
+> +		size, unsigned long offset);
+> +#endif
+> +
+> +#ifndef find_next_zero_bit
+> +/**
+> + * find_next_zero_bit - find the next cleared bit in a memory region
+> + * @addr: The address to base the search on
+> + * @offset: The bitnumber to start searching at
+> + * @size: The bitmap size in bits
+> + */
+> +extern unsigned long find_next_zero_bit(const unsigned long *addr, unsigned
+> +		long size, unsigned long offset);
+> +#endif
+> +
+> +/**
+> + * find_first_bit - find the first set bit in a memory region
+> + * @addr: The address to start the search at
+> + * @size: The maximum size to search
+> + *
+> + * Returns the bit number of the first set bit.
+> + */
+> +extern unsigned long find_first_bit(const unsigned long *addr,
+> +				    unsigned long size);
+> +
+> +/**
+> + * find_first_zero_bit - find the first cleared bit in a memory region
+> + * @addr: The address to start the search at
+> + * @size: The maximum size to search
+> + *
+> + * Returns the bit number of the first cleared bit.
+> + */
+> +extern unsigned long find_first_zero_bit(const unsigned long *addr,
+> +					 unsigned long size);
+
+Looking over the titles of the rest of the series, I can't spot where
+these are going to be implemented. The again maybe you indeed can get
+away without those, at least initially.
+
+> +#define ffs(x) ({ unsigned int __t = (x); fls(__t & -__t); })
+
+This wants to use ISOLATE_LSB() now.
+
+Jan
 
