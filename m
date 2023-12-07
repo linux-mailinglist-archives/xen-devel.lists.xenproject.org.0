@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D0198085B3
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 11:42:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649760.1014618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE8C08085B8
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 11:47:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649765.1014628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBBpt-0003d9-PO; Thu, 07 Dec 2023 10:42:29 +0000
+	id 1rBBu4-00056n-Dq; Thu, 07 Dec 2023 10:46:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649760.1014618; Thu, 07 Dec 2023 10:42:29 +0000
+Received: by outflank-mailman (output) from mailman id 649765.1014628; Thu, 07 Dec 2023 10:46:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBBpt-0003bR-LZ; Thu, 07 Dec 2023 10:42:29 +0000
-Received: by outflank-mailman (input) for mailman id 649760;
- Thu, 07 Dec 2023 10:42:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBBu4-00053t-An; Thu, 07 Dec 2023 10:46:48 +0000
+Received: by outflank-mailman (input) for mailman id 649765;
+ Thu, 07 Dec 2023 10:46:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBBps-0003Zy-0Z
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 10:42:28 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4f0184ff-94ed-11ee-98e7-6d05b1d4d9a1;
- Thu, 07 Dec 2023 11:42:24 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-50bfe99b6edso598986e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 02:42:25 -0800 (PST)
+ id 1rBBu2-00053n-Vp
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 10:46:46 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e9fc0a67-94ed-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 11:46:45 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-333536432e0so707507f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 02:46:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s16-20020adfea90000000b003333bd63792sm1093472wrm.117.2023.12.07.02.42.24
+ x17-20020adff651000000b003333c2c313bsm1103151wrp.100.2023.12.07.02.46.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 02:42:24 -0800 (PST)
+ Thu, 07 Dec 2023 02:46:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f0184ff-94ed-11ee-98e7-6d05b1d4d9a1
+X-Inumbo-ID: e9fc0a67-94ed-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701945745; x=1702550545; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=C9o94U9FucqyeIDpMPVVoTggLZbaDgC5Qr3jrS8jT2o=;
-        b=g2yqtv2pLByfypnjTOUUY8MyN8o8z80uHnmTDKK2kaupBtzWZfsqsixcf9GUJYf0b1
-         b8/Atju7f9eh5C8htDlEeQZ9OZjMTHECW9l/fJq70GHARZ66ttfrj3usdPPYEk8kstBQ
-         0jY3kBOXSpT/Tp8FgEvbyTSNkk2DncPz3npR9Ewyrs9MgZtH6ZYeDX0Wq/7np2S1PuVk
-         BhLbtFdZ4bWaTCizoDuoFVf/PknRrD6fMM5DElMF//Dzzcxov5fkoh07a88/GKmUFcop
-         /6wx8xI8b3PU91Cxtj1xKLzuRUHnB0joDjUlU8P6fEQjNszZPFPrNM251fLk1WBcT5Xe
-         Mtcw==
+        d=suse.com; s=google; t=1701946004; x=1702550804; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=nqo33Yk2KU43QCZVEEkVJ3s4U4ViuGvdy1fL8Tumqkg=;
+        b=We8280aF8Hy9CebANqIVytBCVH/xZnieqLkVPA+Wd5EjoMtzLnCMBUau+tVsuczNcD
+         TD3vDUFNz6HrXg5jfqEWBrrxsg4bFDe1s3O0bVW+sXeUaN9p82BIx2aTBQNwrYC/mnn7
+         IbpOja8Lh4Ml77I6KY2sgs/9PromjufazdVqgnIG3uKcWNg12VHvpEzwMhC7nvBSmgQN
+         DwYW5cTUqrDw8DWRgAIA/Iq84MjRiACAHi5humC4gfvNHEQtjyCwEChJKtMqQqFCklfO
+         WIKEM3PDYj1MC7x68EDM5/LwaNPzgu4douTrRJFlb/xk3hS5X/eNUhOta19/TlMdkSHA
+         E8cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701945745; x=1702550545;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=C9o94U9FucqyeIDpMPVVoTggLZbaDgC5Qr3jrS8jT2o=;
-        b=cUsAQIUbHBufzRdVeicqx8pP9XuKCj0GyzmSDpGhFpqwV7Wo+aMQnOPUTNc+MsqhpH
-         /PQ5P8DJ0kCY5I9fNWX6Rg1OjJtyTxz4/cc+eNHxYOf27pwVXO3Gg6EQyUg0B/48TaKR
-         ovNEDhowmgvBAti/HumcAqtdHz7bN2+rht1s2DnWBJCLxyjIpV5H4ZvCK+/4sfMYFicQ
-         URQo/tdWQSwiqHvsXPdDm071onPENC8rb4fuJQl9WhVzq6hbH0LbLLgKau9uLbOGO6xp
-         +w5R5mAhCwcYJNTJuuTBlhkbruIX3oK/f7aaw/P8c/gAr7iNYJ7ChJLpB7ujIewttKUv
-         jw5g==
-X-Gm-Message-State: AOJu0YwDv6kb7T0ycXuHD/QzWaknir5A+ONnzlCUKGLru0QJE1dpTrrF
-	UIXQddUk8c/1V5WDkfY1MA3v
-X-Google-Smtp-Source: AGHT+IH4fWe9RpL9yXNv+ImxzFQdRKBKO/vh7tmYs/I5fcXDTfRtY7Fd1lJRrJIoh3r+XPp0WjD5RA==
-X-Received: by 2002:a05:6512:3481:b0:50b:e980:9cd with SMTP id v1-20020a056512348100b0050be98009cdmr1212342lfr.75.1701945744807;
-        Thu, 07 Dec 2023 02:42:24 -0800 (PST)
-Message-ID: <77e17b59-25d9-455e-b3da-b50bb524614a@suse.com>
-Date: Thu, 7 Dec 2023 11:42:23 +0100
+        d=1e100.net; s=20230601; t=1701946004; x=1702550804;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=nqo33Yk2KU43QCZVEEkVJ3s4U4ViuGvdy1fL8Tumqkg=;
+        b=Nu4lfmqsS70/hQ1oTfIFoKLDEUUnywycgG90j9RSHPhhmWU5PtcCVaTjkE9wy8SHS5
+         pJIx5MYXpXgH5VM+8/waHzBC4Iwh0wJAcnEE1DT+nB/Ss75k0XcS0hPDI4+m7SkbBE9K
+         nx5opLWqBRKFqcM3irc3d1HvgozOkJmQAaxZaIRdb+PAwV8FnkWrCNw714kV/i+A7Q5Y
+         52p30y3oX8wXZ0amitnq23qiDRuQVhzy2UJuJ9ZTym3srr/0XdlLBjiTu/TokDJzOZp+
+         PMzj1Fj9Hfbqa7vuGCoshhD907UOQBd+HdOtCuCXyOdZddB0EWZ8dUHlgljZ+Sh/M5CO
+         aMWQ==
+X-Gm-Message-State: AOJu0YxNoW1xJQG8ZMXAvLYwydGPiCJwFiKmpQAGl0wQSal3pww90f9s
+	nmUktjDxfqh9J+MggNjs+TODFWxWina8L6hKqcbt
+X-Google-Smtp-Source: AGHT+IGNke+Ib9OLp/jVGt/rbmFpei8DBRO5RLic9P7zkVkWhDH4+uijROBBVEplT8a6Edj1nfnTtA==
+X-Received: by 2002:adf:f7d2:0:b0:32d:9d3a:d8c0 with SMTP id a18-20020adff7d2000000b0032d9d3ad8c0mr1428169wrq.60.1701946004555;
+        Thu, 07 Dec 2023 02:46:44 -0800 (PST)
+Message-ID: <089964f2-1b2c-4ee7-92cf-f50f2e967d5b@suse.com>
+Date: Thu, 7 Dec 2023 11:46:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/5] x86/acpi: remove acpi_pic_sci_set_trigger()
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1701936906.git.federico.serafini@bugseng.com>
- <f0c7d42c12a0b89c61265cdfe67a35b07d220aa0.1701936906.git.federico.serafini@bugseng.com>
- <2205366c-c66a-419a-9232-ec41432127c1@suse.com>
- <f6245172-d094-411e-9edf-6912129abe18@bugseng.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/2] build: tool option handling adjustments
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,52 +111,15 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f6245172-d094-411e-9edf-6912129abe18@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.12.2023 11:09, Federico Serafini wrote:
-> On 07/12/23 10:19, Jan Beulich wrote:
->> On 07.12.2023 09:47, Federico Serafini wrote:
->>> Remove apci_pic_set_trigger() declaration: there is no definition and there are
->>> no calls to such function in the XEN project.
->>>
->>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>
->> A reference to the offending commit would have been nice, the more that iirc
->> I had already gone and fished that out for you.
-> 
-> Is it correct to use Fixes: <id> ("subj") even if there are other
-> useless entities left?
+The first is a fix for a latent issue (which became real with one of my
+pending changes), while the 2nd is merely cleanup noticed as possible /
+useful to do in the course of investigating.
 
-It was specifically because of being uncertain in this case that I didn't
-mention a possible Fixes: tag. There's no breakage from stray declarations,
-so it doesn't really feel to me like a "fix".
-
-> In particular, this is what I think should be removed:
-> 
-> Functions:
-> __acpi_acquire_global_lock()
-> __acpi_release_global_lock()
-> acpi_save_state{mem,disk}()
-> acpi_restore_state_mem()
-> acpi_enter_state()
-> {save,restore}_rest_processor_state()
-> 
-> Variables:
-> acpi_wakeup_address
-> 
-> Macros:
-> ACPI_ACQUIRE_GLOBAL_LOCK()
-> 
-> If you agree with me, I can propose a new patch which includes such 
-> removals and refers to the offending commit with a Fixes.
-
-I haven't checked the entities above, but yes, I agree other stray
-declarations would want removing as well. In fact I was assuming that
-removal of just one item meant no other stray ones exist (right here).
+1: x86/EFI: correct compiler probing
+2: Kbuild: simplify as-insn a little
 
 Jan
 
