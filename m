@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F37F808809
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 13:40:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649832.1014807 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD9B7808828
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 13:44:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649838.1014817 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBDfW-0000R3-K5; Thu, 07 Dec 2023 12:39:54 +0000
+	id 1rBDjx-0002na-8F; Thu, 07 Dec 2023 12:44:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649832.1014807; Thu, 07 Dec 2023 12:39:54 +0000
+Received: by outflank-mailman (output) from mailman id 649838.1014817; Thu, 07 Dec 2023 12:44:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBDfW-0000Om-GR; Thu, 07 Dec 2023 12:39:54 +0000
-Received: by outflank-mailman (input) for mailman id 649832;
- Thu, 07 Dec 2023 12:39:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rBDjx-0002kr-5a; Thu, 07 Dec 2023 12:44:29 +0000
+Received: by outflank-mailman (input) for mailman id 649838;
+ Thu, 07 Dec 2023 12:44:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBDfV-00006Z-KY
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 12:39:53 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b73f43ba-94fd-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 13:39:51 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-40bda47c489so9259935e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 04:39:51 -0800 (PST)
+ id 1rBDjv-0002kl-UB
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 12:44:27 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5b416732-94fe-11ee-98e7-6d05b1d4d9a1;
+ Thu, 07 Dec 2023 13:44:27 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-33334480eb4so1066358f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 04:44:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p8-20020a05600c358800b0040b4ccdcffbsm1796999wmq.2.2023.12.07.04.39.50
+ d14-20020adffbce000000b0033343804ec9sm1344971wrs.85.2023.12.07.04.44.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 04:39:51 -0800 (PST)
+ Thu, 07 Dec 2023 04:44:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b73f43ba-94fd-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5b416732-94fe-11ee-98e7-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701952791; x=1702557591; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=suse.com; s=google; t=1701953066; x=1702557866; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ghzOSRCn9YPrW5h2Ae8ybWvY2HHtMaCn9QSuyB913+0=;
-        b=WmZvnM8vY6wbGeT9HFVj9NWevTx0XSr7qeQugPC0xoHr6AlOKpUHasJUvNwRbDoDtf
-         qY/ZVqdjgm735MKrUc9Mof+QEcDjPOKeVG7Sp2iDooncA+r2az5hwLJpnv6MyBMB5ylC
-         0aglcGbFF7Sy7cW2OSsmIqUpUodPuI5l3oOWUz+3ccccqxqS0339NRakYJkOg+Yy3yRh
-         nK8pWNIc3q8FqVAKCt6h5PoMhCaIgnLxPIa5Airf/SxbqK0ZBqvTQGW5imtyHYC0ru+w
-         y/NJwILsQfsYvNH3ovX6C06utSW8Pw4OqSfsOq8SqUEciOWJhGIzR53UbyYkZRwkxNfN
-         D4Qg==
+        bh=b+KULE3SJq9wVZj+AHnf437YsLgbdBevy8Vk9oYZW3Y=;
+        b=eZkj/4WxBsQyRQRMkgRx+Fxn/UnTY6FMYB3Dh1nwcdky3tbofrN02FSFFpC3kJz8u6
+         2Z34DiC9wwEZQDzynv0uqaukkRFeRNw2V3T4TNG4O7Of8WgECt5kS4d/s6HiPlhOBDZ/
+         FaHlJWMqUFpWbGjyf0D+bE3VNeVAupEuQFLRFPbIjMMRVkqMdP3yTIJP6tqnD/uly8yK
+         y/t7qofC1GcwRxoG1yUuuJsbWk4QxfljXXpSFs/xZiEe0ion2O8ExC3Y4FvKtWj76dy3
+         jip7t6o7jsaODbEPvY5yxS7V4cw9J8V2izcUTHEYsDPKuA604HDdgiPNgyY3YiUzjTjC
+         kSEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701952791; x=1702557591;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=1e100.net; s=20230601; t=1701953066; x=1702557866;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ghzOSRCn9YPrW5h2Ae8ybWvY2HHtMaCn9QSuyB913+0=;
-        b=HIMCnxl4og5ki/pi3kJmwrEUKovwn8XiQ4KKuZw/AoZ62SM6veneih1PLEvC1aPgDX
-         G30ycWMiADQDxkDjpvgvm2y66o0n7B/l9sc+1FCQuYlORFUhlmkHbTB79AEc/qzdUwUT
-         UxifRIicN7zqrjURa51EiajTb0BdjHw6lKZHxNLNLuGJuP7t66oYnsTegThTQxO8BzSo
-         Af355Dv+3kyqIKGCGM7Eet+HGwW3eIN+9rNb7w631eAxkFkeSLXnetU/SN4EqyfXlE5O
-         jgIM4M3NPZPDsVXWMGQa+HrV1MV5KNO0z2nDdFSuA4gzRtvgNX3LrOEo7GCBCo9hX8em
-         ryRQ==
-X-Gm-Message-State: AOJu0YwIuyb9pFtxhZpV/RSh/m2lby3f+604SQTYG0Z4LyHCKOmnNhPQ
-	8Z3BvESHXpbcxm8IU7TFyqk9
-X-Google-Smtp-Source: AGHT+IFtAd2nt3gNWpCVq3Xrk4iMFEc5GxoPwlP6Co6Tcl6wuZzaUcliuXi4wL+aFlL13fKQ68Lh/g==
-X-Received: by 2002:a05:600c:ad5:b0:40b:37ec:41b3 with SMTP id c21-20020a05600c0ad500b0040b37ec41b3mr1374281wmr.31.1701952791312;
-        Thu, 07 Dec 2023 04:39:51 -0800 (PST)
-Message-ID: <c3601b9a-67c6-498c-a177-cda94c3c3d47@suse.com>
-Date: Thu, 7 Dec 2023 13:39:50 +0100
+        bh=b+KULE3SJq9wVZj+AHnf437YsLgbdBevy8Vk9oYZW3Y=;
+        b=jwBsgnYm38jW9TAal7psLdqamOhI2UK4blqhTdV+QON5/Qf2g66m05ziokzIa8OnnH
+         wDGz687vS61NNc9VpbGK7b3X9xOB//+ycLeu/11p5itpCW3aKVKbirwqBFHt+etfynTk
+         jnpKaMZm0WiUaG95tm6gwIRIpRLl4EI5+1a1u2CcDKGRcCBm2EvydwN4pUZaZLdM3H9M
+         UD55oc8PdIxvqJbF5by05gNhkvn9eIMFzk5m2t+k24RjpHSBfTL4G1O2yKqnkm0SLwSL
+         8SkcDWFXaJA3F0afYLHqdLVegAq+GqAcSoyyiw8qF/tgxna8oKl5eIu76hC6sCzjnILG
+         pjyw==
+X-Gm-Message-State: AOJu0Yy295WEetfCw2t97CG9GBf0jBcUGYJKQ/Im1F/+0Nro6grc9zB+
+	djjtUkGHy3Efxx1SxsngQPZr
+X-Google-Smtp-Source: AGHT+IGURI5I7y/rPzEDT8f1RcrUBYx1xaJSTpi87LiNacpty703esF1ucZyRd90ETMSKHYLCQMgkQ==
+X-Received: by 2002:a5d:590b:0:b0:333:59ce:4e6c with SMTP id v11-20020a5d590b000000b0033359ce4e6cmr1655273wrd.40.1701953066540;
+        Thu, 07 Dec 2023 04:44:26 -0800 (PST)
+Message-ID: <65b668a5-7518-4e96-8357-c3fc680e8760@suse.com>
+Date: Thu, 7 Dec 2023 13:44:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] tools/xenstored: remove some command line options
+Subject: Re: ARM: MISRA C:2012 Rule 5.6
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
-References: <20231121114048.31294-1-jgross@suse.com>
- <1a6f8027-0e49-4975-8ab1-998a9b4cebee@suse.com>
- <fab5cc9d-d97e-405d-9f7a-1b86de097aab@suse.com>
- <2763baaf-110d-457a-b302-12b06bf28b15@xen.org>
+To: Federico Serafini <federico.serafini@bugseng.com>
+References: <5a732dc4-70c7-4c03-b6fa-02d5074441bc@bugseng.com>
+ <924a50ac-7200-45c7-b486-763b01b44a57@bugseng.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,42 +113,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <2763baaf-110d-457a-b302-12b06bf28b15@xen.org>
+In-Reply-To: <924a50ac-7200-45c7-b486-763b01b44a57@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07.12.2023 13:14, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 07/12/2023 09:30, Jan Beulich wrote:
->> On 07.12.2023 09:26, Juergen Gross wrote:
->>> On 21.11.23 12:40, Juergen Gross wrote:
->>>> Remove some command line options which have no real use case.
->>>>
->>>> Changes in V2:
->>>> - moved removal of "-N" into last patch of the series, as this is the
->>>>     only option which seems to have a use case (OTOH using it has some
->>>>     downsides as well).
->>>>
->>>> Juergen Gross (5):
->>>>     tools/xenstored: remove "-D" command line parameter
->>>>     tools/xenstored: remove "-V" command line option
->>>>     tools/xenstored: remove the "-P" command line option
->>>>     tools/xenstored: remove the "-R" command line option
->>>>     tools/xenstored: remove "-N" command line option
->>>>
->>>>    tools/xenstored/core.c | 81 +++++++-----------------------------------
->>>>    1 file changed, 12 insertions(+), 69 deletions(-)
->>>>
->>>
->>> I think at least patches 1-4 can go in as they all have the required Acks.
+On 07.12.2023 12:48, Federico Serafini wrote:
+> On 07/12/23 12:43, Federico Serafini wrote:
+>> Hello everyone,
 >>
->> I'll try to remember to include them in the next swipe. I was kind of
->> assuming Julien would be taking care of them.
+>> Rule 5.6 states that a typedef name shall be a unique identifier.
+>> This is to avoid developer confusion.
+>>
+>> For ARM, the violations left [1] are generated by two definitions
+>> of the type phys_addr_t within two different files.
+>> I would like to ask if this is intentional or not:
+>> if it is intentional and it is not causing any confusion between XEN
+>> developers, then I think violations involving phys_addr_t can be
+>> deviated.
+>>
+>> [1]
+>> https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/staging/ARM64-2023/429/PROJECT.ecd;/by_service/MC3R1.R5.6.html
 > 
-> Sorry this fell through the cracks. I can do it if you haven't yet done it.
+> Adding XEN mailing list in CC.
 
-I haven't yet, no.
+Thanks.
+
+These are files ported from Linux, where I assume the typedef-s were added
+to limit the changes which would need making elsewhere. Still I think that's
+exactly what we (now) have xen/linux-compat.h for. IOW - just move the
+typedef-s there?
 
 Jan
 
