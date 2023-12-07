@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9DA9807ED7
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 03:43:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649528.1014117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6486D807EE9
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 03:45:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649530.1014128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rB4LW-0005jR-U3; Thu, 07 Dec 2023 02:42:38 +0000
+	id 1rB4OH-0006Hp-AD; Thu, 07 Dec 2023 02:45:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649528.1014117; Thu, 07 Dec 2023 02:42:38 +0000
+Received: by outflank-mailman (output) from mailman id 649530.1014128; Thu, 07 Dec 2023 02:45:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rB4LW-0005hX-RC; Thu, 07 Dec 2023 02:42:38 +0000
-Received: by outflank-mailman (input) for mailman id 649528;
- Thu, 07 Dec 2023 02:42:37 +0000
+	id 1rB4OH-0006Fd-7X; Thu, 07 Dec 2023 02:45:29 +0000
+Received: by outflank-mailman (input) for mailman id 649530;
+ Thu, 07 Dec 2023 02:45:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QcaE=HS=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rB4LV-0005hR-TJ
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 02:42:37 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ <SRS0=siPQ=HS=huaweicloud.com=yukuai1@srs-se1.protection.inumbo.net>)
+ id 1rB4OF-0006FX-GJ
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 02:45:27 +0000
+Received: from dggsgout12.his.huawei.com (unknown [45.249.212.56])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 436890e0-94aa-11ee-98e6-6d05b1d4d9a1;
- Thu, 07 Dec 2023 03:42:36 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 7CA8161F3F;
- Thu,  7 Dec 2023 02:42:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D92C433C8;
- Thu,  7 Dec 2023 02:42:26 +0000 (UTC)
+ id a95b4707-94aa-11ee-98e6-6d05b1d4d9a1;
+ Thu, 07 Dec 2023 03:45:23 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.93.142])
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4SlzCG5yj0z4f3jXS
+ for <xen-devel@lists.xenproject.org>; Thu,  7 Dec 2023 10:45:14 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+ by mail.maildlp.com (Postfix) with ESMTP id 19F081A0904
+ for <xen-devel@lists.xenproject.org>; Thu,  7 Dec 2023 10:45:17 +0800 (CST)
+Received: from [10.174.176.73] (unknown [10.174.176.73])
+ by APP1 (Coremail) with SMTP id cCh0CgCnqxG5MXFllH3QCw--.13955S3;
+ Thu, 07 Dec 2023 10:45:16 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,109 +45,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 436890e0-94aa-11ee-98e6-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701916948;
-	bh=A+nvrEQiQ+HYDC6Xoo4NEI8mdYJ4yNKSnW4nFTS/yTE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=St4o6yr9jbDb6r1mD6P/UP9VFVOTbfAPuNyjXrhr3mDB/znCXZFS6a6OIwBXApjOR
-	 MWT1ivTi/DQRZhZK9UPCkiVTzqRvcB16MChrQ60MjLUeA4j2cXeuqEsiDh58EkpXOA
-	 Mwal47bRO1pK1u+LQMnNaBkum+Zob/2DtA4RFKqg+briUr7kTKIyiTUorZ15aG2Bht
-	 HCsz3AVTJ1Zm1xfeXVSThj/d/YDfOFmMyBCMWujHEyg4Bpu86NeB0whSFLeGpxFA3Z
-	 DIzMKgrsIdw65oSWKk6WLHfRbNCS+I+ZnHEDTcO/HtEkAxALMqVJS1g7lMBbMhIrSg
-	 Y+OWY9dbc5jfw==
-Date: Wed, 6 Dec 2023 18:42:25 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
-    george.dunlap@citrix.com, julien@xen.org, bertrannd.marquis@arm.com, 
-    roger.pau@citrix.com, roberto.bagnara@bugseng.com, 
-    federico.serafini@bugseng.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] docs/misra/rules.rst: add more rules
-In-Reply-To: <ccdbe84d-24ca-41f0-bc1f-fb9499c73880@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2312061819090.1265976@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2312051859440.110490@ubuntu-linux-20-04-desktop> <ccdbe84d-24ca-41f0-bc1f-fb9499c73880@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: a95b4707-94aa-11ee-98e6-6d05b1d4d9a1
+Subject: Re: [PATCH -next RFC 01/14] block: add some bdev apis
+To: Matthew Wilcox <willy@infradead.org>, Yu Kuai <yukuai1@huaweicloud.com>
+Cc: axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
+ kent.overstreet@gmail.com, joern@lazybastard.org, miquel.raynal@bootlin.com,
+ richard@nod.at, vigneshr@ti.com, sth@linux.ibm.com, hoeppner@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+ jejb@linux.ibm.com, martin.petersen@oracle.com, clm@fb.com,
+ josef@toxicpanda.com, dsterba@suse.com, nico@fluxnic.net, xiang@kernel.org,
+ chao@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ agruenba@redhat.com, jack@suse.com, konishi.ryusuke@gmail.com,
+ akpm@linux-foundation.org, hare@suse.de, p.raghav@samsung.com,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, gfs2@lists.linux.dev,
+ linux-nilfs@vger.kernel.org, yi.zhang@huawei.com, yangerkun@huawei.com,
+ "yukuai (C)" <yukuai3@huawei.com>
+References: <20231205123728.1866699-1-yukuai1@huaweicloud.com>
+ <20231205123728.1866699-2-yukuai1@huaweicloud.com>
+ <ZXCMJ9skAAgPm4z3@casper.infradead.org>
+From: Yu Kuai <yukuai1@huaweicloud.com>
+Message-ID: <d195aba8-7b89-698f-b7a0-06b87ae01c21@huaweicloud.com>
+Date: Thu, 7 Dec 2023 10:45:13 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+In-Reply-To: <ZXCMJ9skAAgPm4z3@casper.infradead.org>
+Content-Type: text/plain; charset=gbk; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgCnqxG5MXFllH3QCw--.13955S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxuF4Dury5Kr13Aw47Gr4Uurg_yoW5Ar4DpF
+	W8KFZ8JrW8Gr18ursrJa15Z3WFg34UJFW5ZrWxG343C3s0yr9akFWYgws0kayIv3yUJFs7
+	ZFWjvrW8WF1j9FJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
+	0xkIwI1lc7I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Wrv_Gr1UMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWrJr0_
+	WFyUJwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjfUojjgUUUUU
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 
-On Wed, 6 Dec 2023, Jan Beulich wrote:
-> On 06.12.2023 04:02, Stefano Stabellini wrote:
-> > --- a/docs/misra/rules.rst
-> > +++ b/docs/misra/rules.rst
-> > @@ -462,11 +462,23 @@ maintainers if you want to suggest a change.
-> >  
-> >         while(0) and while(1) and alike are allowed.
-> >  
-> > +   * - `Rule 16.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_03.c>`_
-> > +     - Required
-> > +     - An unconditional break statement shall terminate every
-> > +       switch-clause
-> > +     - In addition to break, also other flow control statements such as
-> > +       continue, return, goto are allowed.
-> > +
-> >     * - `Rule 16.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_07.c>`_
-> >       - Required
-> >       - A switch-expression shall not have essentially Boolean type
-> >       -
-> >  
-> > +   * - `Rule 17.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_01.c>`_
-> > +     - Required
-> > +     - The features of <stdarg.h> shall not be used
-> > +     -
+Hi,
+
+ÔÚ 2023/12/06 22:58, Matthew Wilcox Ð´µÀ:
+> On Tue, Dec 05, 2023 at 08:37:15PM +0800, Yu Kuai wrote:
+>> +struct folio *bdev_read_folio(struct block_device *bdev, pgoff_t index)
+>> +{
+>> +	return read_mapping_folio(bdev->bd_inode->i_mapping, index, NULL);
+>> +}
+>> +EXPORT_SYMBOL_GPL(bdev_read_folio);
 > 
-> Did we really accept this without any constraint (warranting mentioning
-> here)?
-
-We agreed that in certain situations stdarg.h is OK to use and in those
-cases we would add a deviation. Would you like me to add something to
-that effect here? I could do that but it would sound a bit vague.  Also
-if we want to specify a project-wide deviation it would be better
-documented in docs/misra/deviations.rst. I would leave Rule 17.1 without
-a note.
-
-
-> > @@ -478,12 +490,24 @@ maintainers if you want to suggest a change.
-> >         have an explicit return statement with an expression
-> >       -
-> >  
-> > +   * - `Rule 17.5 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_05.c>`_
-> > +     - Advisory
-> > +     - The function argument corresponding to a parameter declared to
-> > +       have an array type shall have an appropriate number of elements
-> > +     -
-> > +
-> >     * - `Rule 17.6 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_06.c>`_
-> >       - Mandatory
-> >       - The declaration of an array parameter shall not contain the
-> >         static keyword between the [ ]
-> >       -
-> >  
-> > +   * - `Rule 17.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_07.c>`_
-> > +     - Required
-> > +     - The value returned by a function having non-void return type
-> > +       shall be used
-> > +     -
+> I'm coming to the opinion that 'index' is the wrong parameter here.
+> Looking through all the callers of bdev_read_folio() in this patchset,
+> they all have a position in bytes, and they all convert it to
+> index for this call.  The API should probably be:
 > 
-> Same question here.
+> struct folio *bdev_read_folio(struct block_device *bdev, loff_t pos)
+> {
+> 	return read_mapping_folio(bdev->bd_inode->i_mapping,
+> 			pos / PAGE_SIZE, NULL);
+> }
 
-Here I was also thinking it might be good to add a comment. Maybe we could
-add:
+Thanks for reviewing this patchset! Okay, I'll convert to pass in "pos"
+in v2.
+> 
+> ... and at some point, we'll get round to converting read_mapping_folio()
+> to take its argument in loff_t.
+> 
+> Similiarly for these two APIs:
+> 
+>> +struct folio *bdev_read_folio_gfp(struct block_device *bdev, pgoff_t index,
+>> +				  gfp_t gfp)
+>> +struct folio *bdev_get_folio(struct block_device *bdev, pgoff_t index)
+> 
+>> +struct folio *bdev_find_or_create_folio(struct block_device *bdev,
+>> +					pgoff_t index, gfp_t gfp)
+>> +{
+>> +	return __filemap_get_folio(bdev->bd_inode->i_mapping, index,
+>> +				   FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
+>> +}
+>> +EXPORT_SYMBOL_GPL(bdev_find_or_create_folio);
+> 
+> This one probably shouldn't exist.  I've been converting callers of
+> find_or_create_page() to call __filemap_get_folio; I suspect we
+> should expose a __bdev_get_folio and have the callers use the FGP
+> arguments directly, but I'm open to other opinions here.
 
-     - Please beware that this rule has many violations in the Xen
-       codebase today, and its adoption is aspirational. However, when
-       submitting new patches please try to decrease the number of
-       violations when possible.
+If nobody against this, I will expose single __bdev_get_folio() to use
+in v2.
+> 
+>> +void bdev_sync_readahead(struct block_device *bdev, struct file_ra_state *ra,
+>> +			 struct file *file, pgoff_t index,
+>> +			 unsigned long req_count)
+>> +{
+>> +	struct file_ra_state tmp_ra = {};
+>> +
+>> +	if (!ra) {
+>> +		ra = &tmp_ra;
+>> +		file_ra_state_init(ra, bdev->bd_inode->i_mapping);
+>> +	}
+>> +	page_cache_sync_readahead(bdev->bd_inode->i_mapping, ra, file, index,
+>> +				  req_count);
+>> +}
+> 
+> I think the caller should always be passing in a valid file_ra_state.
+> It's only cramfs that doesn't have one, and it really should!
+> Not entirely sure about the arguments here; part of me says "bytes",
+> but this is weird enough to maybe take arguments in pages.
 
-I would also mention a GCC warning to use for this but I couldn't find
-the right one. It looks like all the -Wunused warnings do something
-different.
+In fact, bdev_sync_readahead() is only called for cramfs and ext4.
 
+For ext4 it's used in ext4_readdir() so there is valid file_ra_state.
 
-> If the other additions were separate, I probably would have ack-ed them
-> right away.
+Hoever, for cramfs it's used in cramfs_read(), and cramfs_read() is used
+for:
 
-If we can't find the right wording to use quickly I can separate them
-out
+1) cramfs_read_folio
+2) cramfs_readdir
+3) cramfs_lookup
+4) cramfs_read_super
+
+Looks like it's easy to pass in valid file_ra_state() for 1) and 2),
+however, I don't see an easy way to do this for 3) and 4).
+
+Thanks,
+Kuai
+
+> 
+> .
+> 
+
 
