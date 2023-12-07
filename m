@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B3A4808C02
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 16:37:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650007.1015187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39602808C08
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 16:39:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650009.1015198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBGRR-0003qx-9V; Thu, 07 Dec 2023 15:37:33 +0000
+	id 1rBGT3-0004xy-Js; Thu, 07 Dec 2023 15:39:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650007.1015187; Thu, 07 Dec 2023 15:37:33 +0000
+Received: by outflank-mailman (output) from mailman id 650009.1015198; Thu, 07 Dec 2023 15:39:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBGRR-0003pF-6r; Thu, 07 Dec 2023 15:37:33 +0000
-Received: by outflank-mailman (input) for mailman id 650007;
- Thu, 07 Dec 2023 15:37:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBGT3-0004vs-H2; Thu, 07 Dec 2023 15:39:13 +0000
+Received: by outflank-mailman (input) for mailman id 650009;
+ Thu, 07 Dec 2023 15:39:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBGRQ-0003p7-3w
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 15:37:32 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 887e603c-9516-11ee-98e7-6d05b1d4d9a1;
- Thu, 07 Dec 2023 16:37:30 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40c2308faedso11213715e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 07:37:30 -0800 (PST)
+ id 1rBGT2-0004u3-1h
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 15:39:12 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c3ad1c13-9516-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 16:39:10 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40b5155e154so13358305e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 07:39:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g11-20020a05600c310b00b004090798d29csm37973wmo.15.2023.12.07.07.37.29
+ g11-20020a05600c310b00b004090798d29csm37973wmo.15.2023.12.07.07.39.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 07:37:30 -0800 (PST)
+ Thu, 07 Dec 2023 07:39:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 887e603c-9516-11ee-98e7-6d05b1d4d9a1
+X-Inumbo-ID: c3ad1c13-9516-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701963450; x=1702568250; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1701963549; x=1702568349; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=aU18r7pJhdouh6dLMlGHN3SET1Bd8uMHRetUqhiyRTE=;
-        b=Z72HzBKuDtYzMJpx1mOCUEH+Cu1gCtM7dQZxyGyshwS6LO18OGnJ4xIpW2BFhx3qHg
-         JK791hF/NAEV2+FCiVnJGdmtMwexIodX0OjrAfT1yfMKWMAwx1iKXe2qvzyjfNjpqDCj
-         WRLHFFWzQHtvgoc7kKBWc542baFU7UddxoPlrKKuW/cPWSRNHZQuBqRDSmuSUgqb33m+
-         i1cBjZ/LQBfAAAX4zRlLNfrANvpquQDt1j0qk4xRo3FiWHPzSyI9xa9u5aav5npUVPC8
-         a5VsA2hbWFyfH960YEUBGjUcvAEjI1RKpFq6V3nTv2u6TVeiORBfd2585K6OlTOYvryT
-         YC8w==
+        bh=1fN4S+XE+2ZmI4wvGXwI+SQIIXHOdn1f/noK2Ezp/4w=;
+        b=cFuX9bdP0pogBQtvnTVVdCetjd71mmghTBJgkxzTuH9teHn2vRdLIiOeL3EowMkuah
+         S3iWzeQbGO5QYffzXScgPhiaZ7EyfqkXeKBxakXg8I9zWCdCteQ7Dg5J+LkDUrf0DLwR
+         IvwltPxUUUICC8Lh4mBHhxulxsD5sDMoHgUgMBuQ5eOJp0d/CHI767kCh+2cmNJ2jYbe
+         GUZ2Tk60lYawtBpe8aCCZXN7I9VFyOKhTjc4GEveFOHjX8jMEBicWB74QmQKBl87mnjU
+         rX0TzPR2DK2D3WxQygobKpNpPmk5ejQTRCeznuNC7uhC4qou+88Bf2Z+7Cv25AiRNZQZ
+         uGnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701963450; x=1702568250;
+        d=1e100.net; s=20230601; t=1701963549; x=1702568349;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=aU18r7pJhdouh6dLMlGHN3SET1Bd8uMHRetUqhiyRTE=;
-        b=qoto9KuWWs/Eksg7kDz7nyfiON8dpsi8vyPrnKqAb6lndHjzOfOamo02jw4imQjU3i
-         InaUfZ0iLZEndmrbrBQmvqobOCsmS4jPh+7hboTKnqqS2gOAb3JO5+7S0eHzXsUuDhkv
-         bRk1dTugd3CYn6dJxdbW9YByimgW5FAMwdRhKPmmuasqgauXXYbozylS5AuhqgCiUOym
-         6r7Vzgpm7HJGbPw3RlPzVlN8BTx+PRkrUIhLcfcGOp7wknIpiTAC+kyM/ke4pasJ+3Ws
-         zzXW19hc0KOXF7uBCHCB5cnZCrNF8tJ/GQzhbU4PkikEFw+W/FucCdCSUlX0ZLNNR/yX
-         DPpQ==
-X-Gm-Message-State: AOJu0Yx7CgnWuWiDXXSjsVdLKCt2BBlmhQnxEJPKqFb4WFHpKaUjw7cp
-	uko/XKr0UFqjJAzh0eQLiI9i
-X-Google-Smtp-Source: AGHT+IHY3c4IDdWOk5rdJAAB6ZOEYrN4UPK5yorsSXLmTfN6W2maRoiU0ODA+a1xbX4+C5SvkEs14w==
-X-Received: by 2002:a1c:7214:0:b0:40b:5e21:d369 with SMTP id n20-20020a1c7214000000b0040b5e21d369mr1683310wmc.114.1701963450224;
-        Thu, 07 Dec 2023 07:37:30 -0800 (PST)
-Message-ID: <fff80a7f-75f7-4e91-be1a-bc7fd683b94d@suse.com>
-Date: Thu, 7 Dec 2023 16:37:29 +0100
+        bh=1fN4S+XE+2ZmI4wvGXwI+SQIIXHOdn1f/noK2Ezp/4w=;
+        b=droJhKxJwEP8dSX/LlZvsxSkJg6Bj1MgqQZ2xQdw0td2K/ZslmVlkG9TBciVv8Kx3m
+         /D60doFtzC6ZSEmbeKAPakZr8/ndP2NOlr/vOzPlPm97AJVZZAPz0J1L5g/V7eR0tPNL
+         1cxKS/aLBtm0jHipqBuy9C4Tx+qKIvyyNo2AP3rkqRD71gtNRBALdlmiYGea7M4HKE3B
+         Kt8FhW4Jf42KJ+gq4KQDOaj3y7zpqCtfwUVaVbbw+A/6O8O7VkXwWxqA8NZc2O0AwO6y
+         Srs0Enc1viQPh2gn1a3z0fyAVkqVyKgOmxE5zOh1CYygvCgg+fhNPe+jhPm6/ZvfNxlu
+         D+Ew==
+X-Gm-Message-State: AOJu0YweI55g8kMtlSwKLFucIjNsm1fzg5JxM2+abErPmPZbCVUXsG6r
+	wR3Ea5kJykXnVu4v6Mtxr8Bm
+X-Google-Smtp-Source: AGHT+IHeEPWBlcuVY9DuhJgf0xFCUbk/h5bC2ga2o1MQFFvbCucmvTq/t9VIGQjX55tpTeukzaR7KQ==
+X-Received: by 2002:a05:600c:3155:b0:40b:4c39:b4b with SMTP id h21-20020a05600c315500b0040b4c390b4bmr1625892wmo.0.1701963549627;
+        Thu, 07 Dec 2023 07:39:09 -0800 (PST)
+Message-ID: <8fd89180-ecd6-4ef9-bd00-845ebac04c69@suse.com>
+Date: Thu, 7 Dec 2023 16:39:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 14/39] xen/riscv: introduce bitops.h
+Subject: Re: [PATCH v2 15/39] xen/riscv: introduce flushtlb.h
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
@@ -89,7 +89,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <a9c69e17fe073551e7007242d00b74b6333ce98d.1700761381.git.oleksii.kurochko@gmail.com>
+ <12a698e62766be7dfdac23923d7cdcb3b9b2d52e.1700761381.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,92 +114,15 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a9c69e17fe073551e7007242d00b74b6333ce98d.1700761381.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <12a698e62766be7dfdac23923d7cdcb3b9b2d52e.1700761381.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.11.2023 11:30, Oleksii Kurochko wrote:
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-So this looks to have been taken from Linux, which could do with saying
-(including which version or most recent commit). It may e.g. justify you
-using tab indentation here, albeit ...
+Again, with an SPDX header
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/bitops.h
-> @@ -0,0 +1,288 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/* Copyright (C) 2012 Regents of the University of California */
-> +
-> +#ifndef _ASM_RISCV_BITOPS_H
-> +#define _ASM_RISCV_BITOPS_H
-> +
-> +#include <asm/system.h>
-> +
-> +#define BITOP_BITS_PER_WORD     32
-> +#define BITOP_MASK(nr)	        (1UL << ((nr) % BITOP_BITS_PER_WORD))
-> +#define BITOP_WORD(nr)	        ((nr) / BITOP_BITS_PER_WORD)
-> +#define BITS_PER_BYTE	        8
-> +
-> +#define __set_bit(n,p)          set_bit(n,p)
-> +#define __clear_bit(n,p)        clear_bit(n,p)
 
-... then please consistently. Other style related remarks made on the
-system.h patch apply here as well (unless again there's a goal of
-keeping the diff to the Linux original small; yet then I guess the
-delta to the Linux file is already pretty large).
-
-> +/* Based on linux/include/asm-generic/bitops/find.h */
-> +
-> +#ifndef find_next_bit
-> +/**
-> + * find_next_bit - find the next set bit in a memory region
-> + * @addr: The address to base the search on
-> + * @offset: The bitnumber to start searching at
-> + * @size: The bitmap size in bits
-> + */
-> +extern unsigned long find_next_bit(const unsigned long *addr, unsigned long
-> +		size, unsigned long offset);
-> +#endif
-> +
-> +#ifndef find_next_zero_bit
-> +/**
-> + * find_next_zero_bit - find the next cleared bit in a memory region
-> + * @addr: The address to base the search on
-> + * @offset: The bitnumber to start searching at
-> + * @size: The bitmap size in bits
-> + */
-> +extern unsigned long find_next_zero_bit(const unsigned long *addr, unsigned
-> +		long size, unsigned long offset);
-> +#endif
-> +
-> +/**
-> + * find_first_bit - find the first set bit in a memory region
-> + * @addr: The address to start the search at
-> + * @size: The maximum size to search
-> + *
-> + * Returns the bit number of the first set bit.
-> + */
-> +extern unsigned long find_first_bit(const unsigned long *addr,
-> +				    unsigned long size);
-> +
-> +/**
-> + * find_first_zero_bit - find the first cleared bit in a memory region
-> + * @addr: The address to start the search at
-> + * @size: The maximum size to search
-> + *
-> + * Returns the bit number of the first cleared bit.
-> + */
-> +extern unsigned long find_first_zero_bit(const unsigned long *addr,
-> +					 unsigned long size);
-
-Looking over the titles of the rest of the series, I can't spot where
-these are going to be implemented. The again maybe you indeed can get
-away without those, at least initially.
-
-> +#define ffs(x) ({ unsigned int __t = (x); fls(__t & -__t); })
-
-This wants to use ISOLATE_LSB() now.
-
-Jan
 
