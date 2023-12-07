@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 774C58082F8
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 09:27:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649599.1014280 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7103480836A
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 09:44:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649602.1014290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rB9ia-0007UA-Vi; Thu, 07 Dec 2023 08:26:48 +0000
+	id 1rB9yX-0002tj-Bu; Thu, 07 Dec 2023 08:43:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649599.1014280; Thu, 07 Dec 2023 08:26:48 +0000
+Received: by outflank-mailman (output) from mailman id 649602.1014290; Thu, 07 Dec 2023 08:43:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rB9ia-0007R0-Se; Thu, 07 Dec 2023 08:26:48 +0000
-Received: by outflank-mailman (input) for mailman id 649599;
- Thu, 07 Dec 2023 08:26:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rB9yX-0002rr-7f; Thu, 07 Dec 2023 08:43:17 +0000
+Received: by outflank-mailman (input) for mailman id 649602;
+ Thu, 07 Dec 2023 08:43:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZW7A=HS=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rB9iZ-0007Qu-Ar
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 08:26:47 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5b27bc87-94da-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 09:26:45 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5F2EF1F897;
- Thu,  7 Dec 2023 08:26:44 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3409B13B6A;
- Thu,  7 Dec 2023 08:26:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ANmNCsSBcWW/MAAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 07 Dec 2023 08:26:44 +0000
+ (envelope-from <julien@xen.org>) id 1rB9yV-0002rj-Tl
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 08:43:15 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rB9yR-0006e8-13; Thu, 07 Dec 2023 08:43:11 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rB9yQ-0002X6-RW; Thu, 07 Dec 2023 08:43:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,203 +39,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b27bc87-94da-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1701937604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=OHhEiLHQHFK/iQWNSGJgCSxqLCMwDyW3EC6bO+aqvxE=;
-	b=ePOcVPyNQkOQMG1vyrUDhL19SwKtcwLmII8giRmv6DBy9E3bJLJ9eH4GCFOpHzEao1JOOJ
-	maSoC/vpnTq8b35uklXeRsHCIPWDVPCTmX/eRNDY+jIGvDrwsmEaDX83FMkcP5CoRrLyt+
-	puz1r0sLjxSdU7CDRavpxw3DJYYUkG8=
-Message-ID: <1a6f8027-0e49-4975-8ab1-998a9b4cebee@suse.com>
-Date: Thu, 7 Dec 2023 09:26:43 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=B0o4FSP3sNW7d5pk5ZbI4YFCDsL+/YfidwTgsBn/X0s=; b=eWT7sJH92/u93sqLTFlnAOBSBs
+	8igWTxfIh2hT8XJfz1fhwZtvQ3cF3SOlX62PR3Gu3Qiw2EsF123CVWY3ABsxd5KTSl1S/pCoPYMYf
+	k6dG2RjBm790/QQFonRLvKckYBgGpsbG4AqqIjEulsWWQ2NSTlSXdNAbQACBdR2SFbhg=;
+Message-ID: <52f25f40-ab42-4845-9912-81ce92cc4de6@xen.org>
+Date: Thu, 7 Dec 2023 08:43:08 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/5] tools/xenstored: remove some command line options
-Content-Language: en-US
-To: xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20231121114048.31294-1-jgross@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20231121114048.31294-1-jgross@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------klxO36Q56XIyKSThu47QagFD"
-X-Spam-Flag: NO
-X-Spam-Level: 
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spam-Score: -0.99
-X-Spamd-Result: default: False [-0.99 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 HAS_ATTACHMENT(0.00)[];
-	 MIME_BASE64_TEXT_BOGUS(1.00)[];
-	 BAYES_HAM(-0.00)[14.70%];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 MIME_BASE64_TEXT(0.10)[];
-	 SIGNED_PGP(-2.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 RCVD_TLS_ALL(0.00)[];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys]
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------klxO36Q56XIyKSThu47QagFD
-Content-Type: multipart/mixed; boundary="------------KyolmpPuOjrycV7lNKW0Eibv";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <1a6f8027-0e49-4975-8ab1-998a9b4cebee@suse.com>
-Subject: Re: [PATCH v2 0/5] tools/xenstored: remove some command line options
-References: <20231121114048.31294-1-jgross@suse.com>
-In-Reply-To: <20231121114048.31294-1-jgross@suse.com>
-
---------------KyolmpPuOjrycV7lNKW0Eibv
-Content-Type: multipart/mixed; boundary="------------71ANf0Td4kngd1GT4SnlCZT9"
-
---------------71ANf0Td4kngd1GT4SnlCZT9
+Subject: Re: Clang-format configuration discussion - pt 2
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Luca Fancellu <Luca.Fancellu@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <Michal.Orzel@amd.com>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ George Dunlap <george.dunlap@cloud.com>
+References: <1B83FF45-E93B-47D7-AD21-615CFCFD0816@arm.com>
+ <2E778E49-C2F5-421F-9598-CED15E7D4284@arm.com>
+ <827e24a2-0ecd-48c4-becb-12129c4208dc@suse.com>
+ <CA+zSX=b77av9rHwWHsRD8MAnprfXQiotUPPPKFDOU9cTOA2OzA@mail.gmail.com>
+ <4ce995a3-78a1-49e5-881d-d6af10514673@xen.org>
+ <b71c4e81-7026-40b2-ad76-ea4de5bbf6b3@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <b71c4e81-7026-40b2-ad76-ea4de5bbf6b3@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gMjEuMTEuMjMgMTI6NDAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IFJlbW92ZSBzb21l
-IGNvbW1hbmQgbGluZSBvcHRpb25zIHdoaWNoIGhhdmUgbm8gcmVhbCB1c2UgY2FzZS4NCj4g
-DQo+IENoYW5nZXMgaW4gVjI6DQo+IC0gbW92ZWQgcmVtb3ZhbCBvZiAiLU4iIGludG8gbGFz
-dCBwYXRjaCBvZiB0aGUgc2VyaWVzLCBhcyB0aGlzIGlzIHRoZQ0KPiAgICBvbmx5IG9wdGlv
-biB3aGljaCBzZWVtcyB0byBoYXZlIGEgdXNlIGNhc2UgKE9UT0ggdXNpbmcgaXQgaGFzIHNv
-bWUNCj4gICAgZG93bnNpZGVzIGFzIHdlbGwpLg0KPiANCj4gSnVlcmdlbiBHcm9zcyAoNSk6
-DQo+ICAgIHRvb2xzL3hlbnN0b3JlZDogcmVtb3ZlICItRCIgY29tbWFuZCBsaW5lIHBhcmFt
-ZXRlcg0KPiAgICB0b29scy94ZW5zdG9yZWQ6IHJlbW92ZSAiLVYiIGNvbW1hbmQgbGluZSBv
-cHRpb24NCj4gICAgdG9vbHMveGVuc3RvcmVkOiByZW1vdmUgdGhlICItUCIgY29tbWFuZCBs
-aW5lIG9wdGlvbg0KPiAgICB0b29scy94ZW5zdG9yZWQ6IHJlbW92ZSB0aGUgIi1SIiBjb21t
-YW5kIGxpbmUgb3B0aW9uDQo+ICAgIHRvb2xzL3hlbnN0b3JlZDogcmVtb3ZlICItTiIgY29t
-bWFuZCBsaW5lIG9wdGlvbg0KPiANCj4gICB0b29scy94ZW5zdG9yZWQvY29yZS5jIHwgODEg
-KysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+ICAgMSBmaWxl
-IGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDY5IGRlbGV0aW9ucygtKQ0KPiANCg0KSSB0
-aGluayBhdCBsZWFzdCBwYXRjaGVzIDEtNCBjYW4gZ28gaW4gYXMgdGhleSBhbGwgaGF2ZSB0
-aGUgcmVxdWlyZWQgQWNrcy4NCg0KDQpKdWVyZ2VuDQo=
---------------71ANf0Td4kngd1GT4SnlCZT9
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On 07/12/2023 07:28, Jan Beulich wrote:
+> On 06.12.2023 18:55, Julien Grall wrote:
+>> On 06/12/2023 02:32, George Dunlap wrote:
+>>> On Tue, Dec 5, 2023 at 2:07 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 05.12.2023 14:46, Luca Fancellu wrote:
+>>>>> In my opinion, I don’t know of any tool that can address all the flexibility the Xen codestyle allows, yet the use of automatic
+>>>>> checkers would improve the review time, allow more new contributors to approach the community without being put down by
+>>>>> the amount of code-style comments,
+>>>>
+>>>> Since this argument is being repeated: I find it odd. No-one needs to even
+>>>> fear any amount of style comments if they simply follow the written down
+>>>> policy plus a tiny bit of common sense. According to my observation, (some)
+>>>> newcomers don't even care to look at what is being said about our style.
+>>>> It's not like you and I haven't been through this. When I started working
+>>>> with GNU toolchain, I had to adopt to their style. When I later started to
+>>>> work with Linux, I had to also adopt there. And then for Xen. And all of
+>>>> that already past closed source projects I had been working on before.
+>>
+>> I am not sure I get the point. With this argument, we are not only
+>> putting load on the contributors but also on the reviewers because we
+>> have to check the style manually while reviewing the code.
+>>
+>> Do you really think this is a good use of our time? Personally I don't
+>> think so and definitely there are more unwritten rule than you let
+>> transpire above.
+>>
+>> A good example is the "_" vs "-". If even a maintainer can't guess it,
+>> then how can a contributor know it?
+> 
+> I didn't even hint at anything unwritten, did I?
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+You didn't and that was my point. I don't think we can put the unwritten 
+rules aside when arguing about how easy it is to follow our coding 
+style. They are usually the ones that tends to be the most contentious 
+and trigger the most debate everytime they come up...
 
---------------71ANf0Td4kngd1GT4SnlCZT9--
+>>> Most modern languages, including golang (and I think rust) have
+>>> built-in style correctors (`go fmt` is go's official one).  If you
+>>> haven't worked with an automatic style checker / fixer, you don't know
+>>> how much time, hassle, and emotional energy you're saving.  I don't
+>>> think I know anyone who, after using one, wants to go back to not
+>>> using one any more.
+>>>
+>>> In general, I'm in favor of making changes to our style such that we
+>>> can make clang's style checker official.  The only reason I would vote
+>>> against it is if one of the style requirements was really intolerable;
+>>> but I find that pretty unlikely.
+>>
+>> +1
+>>
+>>>
+>>> And as I've said before, the main reservation I have going forward
+>>> with this discussion is that I can't see clearly what it is that I'm
+>>> agreeing to.
+>>
+>> +1
+>>
+>> I found the way we dealt with MISRA rules quite helpful. We had a weekly
+>> meeting to discuss some of the rules and then the outcome was posted on
+>> the ML. Maybe we should do the same here? Any other suggestion how to move?
+> 
+> I have mixed feelings with meetings like the Misra ones. That's probably
+> unavoidable because of it being a goal to move fast. I'm not sure the
+> same applies here. 
 
---------------KyolmpPuOjrycV7lNKW0Eibv--
+I think in this situation is less about moving fast but more about 
+making a closure of the 3 years+ discussion about the coding style.
 
---------------klxO36Q56XIyKSThu47QagFD
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+We had several persons (including maintainers) expressing there 
+frustration about the coding style [1]. And this is not really going 
+better...
 
------BEGIN PGP SIGNATURE-----
+We have a couple of solutions:
+   1. Properly codify our coding style
+   2. Pick an existing one close enough to Xen
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmVxgcMFAwAAAAAACgkQsN6d1ii/Ey80
-1Af+Lte/BpvDocKFi50Ljp/ywBqDrVP4ilhTg8miZla0BBOQmmW55elbuyurjLBh30E4mTrIM9F2
-lWAfiVhKuUSlgy4aagA7jer0FH8bl0Dzeu9a7Bbyx/+kJeDkD/iWMO4afCK5yH249HwoCrGes1lK
-1YDcJ2hPI66n4k/HSukOq1tylF0fQIMoAmG4/4v2OX86qxi/Sdpfr22p5rhHXBoXFLK/Jwp4WVE6
-0U3Z1sfdkkQ2cXQDKUoQ0TCXf8F1SbkzY1GIKhAIgWskVL2A2nkb3kcYW2038ewFLpm8sRHh/81T
-3oAv0YHamAxRPDCJzPT4zeeVbppV/AuTM06aTInOmw==
-=oVSB
------END PGP SIGNATURE-----
+The first one would require the less change in Xen but given nobody 
+really agree on changes to CODING_STYLE, I feer it is going to take a 
+very long time to retrofit. From the discussion here, it also seems like 
+we will not be able to get the automatic checker doing what we want.
 
---------------klxO36Q56XIyKSThu47QagFD--
+For the second one, this may have an impact on Xen. But it would help to 
+use an automatic checker. I also don't expect many contributors been 
+able to sink a lot of time trying to come to a conclusion with the 
+coding style. So I would chose the least path of resistance which is 2. 
+I believe this is what Luca is attempting.
+
+> But first of all - see also what George said - there
+> needs to be a coherent proposal of what aspects of style to change in
+> which way. The more heavy the changes, the harder it may be for long
+> time contributors to adapt;
+
+The whole point of having an automatic coding-style checker/formatting 
+is you don't need to worry about it anymore.
+
+Obviously if you intend to avoid the coding style checker, then it will 
+be more difficult...
+
+Cheers,
+
+[1] 
+https://lore.kernel.org/all/CABfawhnaDS=nGn3+NqoY_nWXvu0cfsAmpYjiv9VqkT6C0Ow1FA@mail.gmail.com/
+
+-- 
+Julien Grall
 
