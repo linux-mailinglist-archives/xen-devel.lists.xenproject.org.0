@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2E64808723
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 12:56:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649811.1014758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2186808762
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 13:10:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649818.1014768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBCzl-0004vy-9m; Thu, 07 Dec 2023 11:56:45 +0000
+	id 1rBDCZ-0007yd-KK; Thu, 07 Dec 2023 12:09:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649811.1014758; Thu, 07 Dec 2023 11:56:45 +0000
+Received: by outflank-mailman (output) from mailman id 649818.1014768; Thu, 07 Dec 2023 12:09:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBCzl-0004uB-6W; Thu, 07 Dec 2023 11:56:45 +0000
-Received: by outflank-mailman (input) for mailman id 649811;
- Thu, 07 Dec 2023 11:56:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ri6x=HS=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rBCzk-0004ty-4L
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 11:56:44 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae92c8f2-94f7-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 12:56:40 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2ca0c36f5beso8090941fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 03:56:40 -0800 (PST)
+	id 1rBDCZ-0007wH-Gr; Thu, 07 Dec 2023 12:09:59 +0000
+Received: by outflank-mailman (input) for mailman id 649818;
+ Thu, 07 Dec 2023 12:09:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rBDCX-0007w7-JH; Thu, 07 Dec 2023 12:09:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rBDCX-0002Mz-Bf; Thu, 07 Dec 2023 12:09:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rBDCW-0005ao-VE; Thu, 07 Dec 2023 12:09:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rBDCW-00020h-Ui; Thu, 07 Dec 2023 12:09:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,70 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae92c8f2-94f7-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1701950200; x=1702555000; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=LpZx0VJvyJ/1VaWPPGGVlmzWdVT+P07/SID6L3m2qlc=;
-        b=Onl0ayDD2Lp/JCDpDbyRmAnT533+1VcRsUeF6UOWtGljrEwWQMuBFh06CD8TfZotYg
-         MLUIYZcQZyZusBKBPwYIiJPmMNqeKcVO8ZP2zWKbKrkwMdpSHNnmFTbq82uRM95oAJfL
-         VIL70uzrPPasNeaAGt35WlA7+veQMlP+vnuMk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701950200; x=1702555000;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LpZx0VJvyJ/1VaWPPGGVlmzWdVT+P07/SID6L3m2qlc=;
-        b=gIAuRpVSTlHyfSX+r9/BFmEeVfsixGGJJ5p4qqEChY88JbfG+dEbSl5+Ak8Uzgxt6z
-         fQi4Spi/yetXDlr4/bPWfDKVj/7cTMwPte3504XbiimVLTyxNqJu9WTW47zfIGaU37Wa
-         CrU1uuXQg2b0Lz1fjRK1Ts29jfFjnkjpe+H6DXzHTfnrp8bX/HNdreHiZ/YKmo2YIdHD
-         sDUd3XVTqIBUD9PWJ84VItABrZQFV5tAzr21blOn9hxKCKDhEY/tJZaY8eBAxmBdi3RN
-         PRcOWf1Xh373kBVNJp2EEn5FRi+39mzHHQutGOUKFrwbRYHxgNfdJuG7kY0VCQXGEbvM
-         9Ddw==
-X-Gm-Message-State: AOJu0YwTP4Qu6emAjHFJTl87dbjKjCTEn+9yAE73WVYbuSgwWCxfi+gk
-	2Hi1DCq5nK66VmZt90tjXO1aNpaASUvj89JnM/Y0/w==
-X-Google-Smtp-Source: AGHT+IFzpC2z5yH7vIkG4FTi51MYUUoUr8Av/Lxnof939N2Uamdz26258/MI/oj55CzXVUw37il92JQWHHKSo7Cg3gs=
-X-Received: by 2002:a2e:87d7:0:b0:2ca:ac6:9f94 with SMTP id
- v23-20020a2e87d7000000b002ca0ac69f94mr1333945ljj.86.1701950199804; Thu, 07
- Dec 2023 03:56:39 -0800 (PST)
-MIME-Version: 1.0
-References: <20231204152321.16520-1-jgross@suse.com> <20231204152321.16520-3-jgross@suse.com>
- <c1438011-6f26-4ab6-b7ae-ac273a1beee0@suse.com>
-In-Reply-To: <c1438011-6f26-4ab6-b7ae-ac273a1beee0@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 7 Dec 2023 11:56:29 +0000
-Message-ID: <CA+zSX=bSQtKZWjxjj6M-cM1Vh66f6g0x1nmcTc9bv5aLgzqUdw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] xen/sched: fix sched_move_domain()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Juergen Gross <jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>, 
-	=?UTF-8?Q?Ren=C3=A9_Winther_H=C3=B8jgaard?= <renewin@proton.me>, 
-	xen-devel@lists.xenproject.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=sYat56yakKu2wb9wyV0kV6TvZf6HgAzWmn74+GjMcl4=; b=TEUwgbcnuqYmemT7EDG5uREgG0
+	YiL0naf5dzTS/6P8DkOysngleVNl03YofUOzPpX2bVLKiDHnMV0jZ+fHr9ysZnVusWgUvy9AwolTJ
+	7DenqKTxHxHwNs2HlCJMVtnevoYeXpU10d5oi+MkWPRlUUeXdTMrESDpeXROUNVvgDp4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184022-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 184022: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=dbe69e1c8555b40a43cde482615501eb8515ab80
+X-Osstest-Versions-That:
+    xen=d4bfd3899886d0fbe259c20660dadb1e00170f2d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 07 Dec 2023 12:09:56 +0000
 
-On Mon, Dec 4, 2023 at 4:56=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 04.12.2023 16:23, Juergen Gross wrote:
-> > Do cleanup in sched_move_domain() in a dedicated service function,
-> > which is called either in error case with newly allocated data, or in
-> > success case with the old data to be freed.
-> >
-> > This will at once fix some subtle bugs which sneaked in due to
-> > forgetting to overwrite some pointers in the error case.
-> >
-> > Fixes: 70fadc41635b ("xen/cpupool: support moving domain between cpupoo=
-ls with different granularity")
-> > Reported-by: Ren=C3=A9 Winther H=C3=B8jgaard <renewin@proton.me>
-> > Initial-fix-by: Jan Beulich <jbeulich@suse.com>
-> > Initial-fix-by: George Dunlap <george.dunlap@cloud.com>
-> > Signed-off-by: Juergen Gross <jgross@suse.com>
->
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+flight 184022 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184022/
 
-Still not a fan of removing the "out:" label, but anyway:
+Failures :-/ but no regressions.
 
-Acked-by: George Dunlap <george.dunlap@cloud.com>
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  dbe69e1c8555b40a43cde482615501eb8515ab80
+baseline version:
+ xen                  d4bfd3899886d0fbe259c20660dadb1e00170f2d
+
+Last test of basis   184015  2023-12-06 20:02:07 Z    0 days
+Testing same since   184022  2023-12-07 08:00:34 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   d4bfd38998..dbe69e1c85  dbe69e1c8555b40a43cde482615501eb8515ab80 -> smoke
 
