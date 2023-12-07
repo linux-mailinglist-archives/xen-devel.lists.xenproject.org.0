@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95EB28086FA
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 12:49:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649804.1014738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B89F808718
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 12:54:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649809.1014747 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBCrq-0002Ih-B9; Thu, 07 Dec 2023 11:48:34 +0000
+	id 1rBCxU-0003vu-U9; Thu, 07 Dec 2023 11:54:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649804.1014738; Thu, 07 Dec 2023 11:48:34 +0000
+Received: by outflank-mailman (output) from mailman id 649809.1014747; Thu, 07 Dec 2023 11:54:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBCrq-0002Fy-80; Thu, 07 Dec 2023 11:48:34 +0000
-Received: by outflank-mailman (input) for mailman id 649804;
- Thu, 07 Dec 2023 11:48:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBCxU-0003tr-RY; Thu, 07 Dec 2023 11:54:24 +0000
+Received: by outflank-mailman (input) for mailman id 649809;
+ Thu, 07 Dec 2023 11:54:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZB3o=HS=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1rBCro-0002Fp-Px
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 11:48:32 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b292258-94f6-11ee-98e7-6d05b1d4d9a1;
- Thu, 07 Dec 2023 12:48:31 +0100 (CET)
-Received: from [192.168.1.229] (93-36-216-194.ip62.fastwebnet.it
- [93.36.216.194])
- by support.bugseng.com (Postfix) with ESMTPSA id E70FF4EE073A;
- Thu,  7 Dec 2023 12:48:30 +0100 (CET)
+ <SRS0=ri6x=HS=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rBCxT-0003tl-Sm
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 11:54:23 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c089bb8-94f7-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 12:54:21 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-50bfd7be487so686488e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 03:54:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,45 +40,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b292258-94f6-11ee-98e7-6d05b1d4d9a1
-Message-ID: <924a50ac-7200-45c7-b486-763b01b44a57@bugseng.com>
-Date: Thu, 7 Dec 2023 12:48:30 +0100
+X-Inumbo-ID: 5c089bb8-94f7-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1701950061; x=1702554861; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oE2bjhCnhfZLEuqnh3gBqaZciXLlZtz0F4kZulcUIqQ=;
+        b=egKmj9QAF+HtebRGlE3MWldH/UOLS6xpxTF2Laf1N7Y059iZ4cgIDd9vTA65ImIbrb
+         s6dDuX5gtzFJc0dNQh+0NrbPRrv7YNWHnfqlJze3/eFIGneq/Ir21ZGr0kUJ49VYOmqb
+         GlBqbpe1wNQ+WEtAETcQeyBC7XMM0+MO45iuE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701950061; x=1702554861;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=oE2bjhCnhfZLEuqnh3gBqaZciXLlZtz0F4kZulcUIqQ=;
+        b=qQykR7HbEn8/Z3A+z4tHwTSBO3uL8TNLtzbdWaXVsn0MG6uFmWjBShz1Caxr/hDamd
+         IUVQogsuiT5PBuYcFGpYxVKinQPyajjG0giA+hepkB9UbfZEJQ+CP8WouhHGO4rpUUix
+         JMZ7ZY8nmeNSS7QMLCejXB+lfAiYWQ+sERjyiwJrkvm8yAeRI+Sx4vK06lRGbDggefKx
+         KtKHs2+G4ixbT5oeo+8Rq0UgHAhe6Ye+M+yaDdXYKLDl78zTTOkNncPTzyPdIyFoZin2
+         DT6ZM7jAVijkB3Zzqanko3lOHOHZvdMODZNRxmYdyiIEngSDGra1VfS09DnLKNyct7Io
+         pEmA==
+X-Gm-Message-State: AOJu0Yy9EihLTEUDI6JRUqfgZMpCz2r46/7WJOLI37jbTtfrhrmD9Taf
+	tcHV2MMNM1vugkfdGTp+8T4mwJDU8byIPQX0NUEL5w==
+X-Google-Smtp-Source: AGHT+IG+KutWLwdT6oneOFW/NYWylKKLBtx97wiDzkHMlGDJdovG/RsRfpmI5SUIn7OzbxYQnqOzk5BTdgVswOydjpY=
+X-Received: by 2002:a2e:9004:0:b0:2ca:f17:dd5f with SMTP id
+ h4-20020a2e9004000000b002ca0f17dd5fmr1287305ljg.103.1701950061258; Thu, 07
+ Dec 2023 03:54:21 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: ARM: MISRA C:2012 Rule 5.6
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <5a732dc4-70c7-4c03-b6fa-02d5074441bc@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <5a732dc4-70c7-4c03-b6fa-02d5074441bc@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20231204152321.16520-1-jgross@suse.com> <20231204152321.16520-2-jgross@suse.com>
+ <34f5d241-54ad-40c6-abd2-46d2c65514af@suse.com>
+In-Reply-To: <34f5d241-54ad-40c6-abd2-46d2c65514af@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Thu, 7 Dec 2023 11:54:10 +0000
+Message-ID: <CA+zSX=Y0LjyBa5coqoy+REj85Q-EimXqKW6grCB4Mt5K1jiZ=w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] xen/sched: fix adding offline cpu to cpupool
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Juergen Gross <jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>, 
+	=?UTF-8?Q?Ren=C3=A9_Winther_H=C3=B8jgaard?= <renewin@proton.me>, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 07/12/23 12:43, Federico Serafini wrote:
-> Hello everyone,
-> 
-> Rule 5.6 states that a typedef name shall be a unique identifier.
-> This is to avoid developer confusion.
-> 
-> For ARM, the violations left [1] are generated by two definitions
-> of the type phys_addr_t within two different files.
-> I would like to ask if this is intentional or not:
-> if it is intentional and it is not causing any confusion between XEN
-> developers, then I think violations involving phys_addr_t can be
-> deviated.
-> 
-> [1]
-> https://saas.eclairit.com:3787/fs/var/local/eclair/XEN.ecdf/ECLAIR_normal/staging/ARM64-2023/429/PROJECT.ecd;/by_service/MC3R1.R5.6.html
+On Mon, Dec 4, 2023 at 4:55=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 04.12.2023 16:23, Juergen Gross wrote:
+> > Trying to add an offline cpu to a cpupool can crash the hypervisor,
+> > as the probably non-existing percpu area of the cpu is accessed before
+> > the availability of the cpu is being tested. This can happen in case
+> > the cpupool's granularity is "core" or "socket".
+> >
+> > Fix that by testing the cpu to be online.
+> >
+> > Fixes: cb563d7665f2 ("xen/sched: support core scheduling for moving cpu=
+s to/from cpupools")
+> > Reported-by: Ren=C3=A9 Winther H=C3=B8jgaard <renewin@proton.me>
+> > Signed-off-by: Juergen Gross <jgross@suse.com>
+>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Adding XEN mailing list in CC.
+I feel like there should be a more robust way to protect against this
+sort of thing; but I don't see anything obvious, and this does fix a
+bug, so:
 
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+Acked-by: George Dunlap <george.dunlap@cloud.com>
 
