@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8726A808D68
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 17:32:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650030.1015248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35ADB808D77
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 17:34:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650032.1015258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBHHq-0007JY-E4; Thu, 07 Dec 2023 16:31:42 +0000
+	id 1rBHKJ-0007qL-RV; Thu, 07 Dec 2023 16:34:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650030.1015248; Thu, 07 Dec 2023 16:31:42 +0000
+Received: by outflank-mailman (output) from mailman id 650032.1015258; Thu, 07 Dec 2023 16:34:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBHHq-0007GP-Al; Thu, 07 Dec 2023 16:31:42 +0000
-Received: by outflank-mailman (input) for mailman id 650030;
- Thu, 07 Dec 2023 16:31:41 +0000
+	id 1rBHKJ-0007oS-NU; Thu, 07 Dec 2023 16:34:15 +0000
+Received: by outflank-mailman (input) for mailman id 650032;
+ Thu, 07 Dec 2023 16:34:14 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rBHHp-0007GJ-KC
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 16:31:41 +0000
+ (envelope-from <julien@xen.org>) id 1rBHKI-0007oM-HI
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 16:34:14 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rBHHo-0007kC-Sf; Thu, 07 Dec 2023 16:31:40 +0000
+ id 1rBHKI-0007mc-2z; Thu, 07 Dec 2023 16:34:14 +0000
 Received: from [15.248.3.113] (helo=[10.24.67.25])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rBHHo-0007xE-Mj; Thu, 07 Dec 2023 16:31:40 +0000
+ id 1rBHKH-0008Am-Ty; Thu, 07 Dec 2023 16:34:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,11 +42,11 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=yBADU2juMaK23Ivqy06u23E0kKq6f/Pjd3Y/yEVsUKE=; b=MTxS6ycITjdKWm5w38hJitaano
-	FhdbRNG9+7UHdEWJPoGlfIUphTJmUUKRbCl9F3MEVowTTgWoj4d5gmzloKEl7wYN0qfZpMIPMvhMq
-	ga9piRzq9ur4QjdDbwxS0fdSJhgE4H7pALeCmHHbsvm45fEhMd42kLjginC5pU6PeDmA=;
-Message-ID: <866ae09f-8e21-4f1b-a82e-8b72cc0f34e8@xen.org>
-Date: Thu, 7 Dec 2023 16:31:38 +0000
+	bh=KkM237Y1AOZO0VNc6OIB0BGwC0Jd9vMhnus7vkdq0v4=; b=IWOWEA8B1nn4W4zgxZaWIiRenE
+	0GZktSyAH58FQS4F0wgFNM6hED0VW6NCKWYc+7NKSbSCsRIhcQz/1LVgZ+orBpUNnFHjrEv/9Ss1t
+	TEvMBEVzwvpxgzLz/s/sAQEHlaraWI8qPseI97YNkqLa9O1d0BrSL9DVWPZl6Flwi+zg=;
+Message-ID: <bc72e8c4-d370-4537-8e05-abd547de3bea@xen.org>
+Date: Thu, 7 Dec 2023 16:34:11 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [XEN PATCH] automation/eclair: add deviations for MISRA C:2012
@@ -66,7 +66,7 @@ In-Reply-To: <4fa08aaed77d2b68db39ce51beef29820f1ba9b0.1701940034.git.federico.s
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Federico,
+Hi again,
 
 On 07/12/2023 09:08, Federico Serafini wrote:
 > MISRA C:2012 Rule 16.3 states that an unconditional break statement
@@ -84,11 +84,6 @@ On 07/12/2023 09:08, Federico Serafini wrote:
 >   .../eclair_analysis/ECLAIR/deviations.ecl     | 18 ++++++++++++++
 >   docs/misra/deviations.rst                     | 24 +++++++++++++++++++
 >   2 files changed, 42 insertions(+)
-
-It would be good that this is depending on to be accepted:
-
-https://lore.kernel.org/alpine.DEB.2.22.394.2312051859440.110490@ubuntu-linux-20-04-desktop.
-
 > 
 > diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
 > index b0c79741b5..df0b58a010 100644
@@ -114,11 +109,6 @@ https://lore.kernel.org/alpine.DEB.2.22.394.2312051859440.110490@ubuntu-linux-20
 > +-doc_begin="Switch clauses not ending with the break statement are safe if an explicit comment or pseudo-keyword indicating the fallthrough intention is present."
 > +-config=MC3R1.R16.3,reports+={safe, "any_area(any_loc(any_exp(text(^(?s).*([fF]all[- ]?[tT]hrough|FALL[- ]?THROUGH).*$,0..1))))"}
 > +-config=MC3R1.R16.3,reports+={safe, "any_area(text(^(?s).*([fF]all[- ]?[tT]hrough|FALL[- ]?THROUGH).*$,0..1))"}
-
-This is not trivial to read. Can you document the exhaustive list of 
-keywords you are actually trying to deviate on? Also, did you consider 
-to harmonize to only a few?
-
 > +-doc_end
 > +
 >   #
@@ -148,26 +138,17 @@ to harmonize to only a few?
 > +        - maybe_reboot
 > +        - panic
 > +        - BUG
-
-To me, it seems to be odd to deviate R16.3 by function. Some of those 
-have an attribute noreboot. Can this be used?
-
 > +        - BUG_ON
-
-BUG_ON() can return if the condition is false. So it doesn't look 
-correct to deviate with the argument that the function doesn't give the 
-control back...
-
 > +
 > +   * - R16.3
 > +     - Switch clauses not ending with the break statement are safe if an
 > +       explicit comment or pseudo-keyword indicating the fallthrough intention
 > +       is present.
-> +     - Tagged as `safe` for ECLAIR.
-> +
->      * - R20.7
->        - Code violating Rule 20.7 is safe when macro parameters are used:
->          (1) as function arguments;
+
+One more thing. This is not explicit which comment should be added. But 
+would should deprecate the comment in favor of "fallthrough".
+
+The deviation should have it written down (similar to SAF-1 for rule 8.4).
 
 Cheers,
 
