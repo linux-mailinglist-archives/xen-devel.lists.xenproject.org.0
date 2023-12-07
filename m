@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE220808E12
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 17:58:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650041.1015277 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6596E808E26
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 18:03:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650045.1015288 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBHhW-0006gd-15; Thu, 07 Dec 2023 16:58:14 +0000
+	id 1rBHmZ-0000Tg-JV; Thu, 07 Dec 2023 17:03:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650041.1015277; Thu, 07 Dec 2023 16:58:14 +0000
+Received: by outflank-mailman (output) from mailman id 650045.1015288; Thu, 07 Dec 2023 17:03:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBHhV-0006eg-US; Thu, 07 Dec 2023 16:58:13 +0000
-Received: by outflank-mailman (input) for mailman id 650041;
- Thu, 07 Dec 2023 16:58:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rBHhT-0006ea-KC
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 16:58:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rBHhR-0008BC-0l; Thu, 07 Dec 2023 16:58:09 +0000
-Received: from [15.248.3.113] (helo=[10.24.67.25])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rBHhQ-0006U4-O8; Thu, 07 Dec 2023 16:58:08 +0000
+	id 1rBHmZ-0000S1-GW; Thu, 07 Dec 2023 17:03:27 +0000
+Received: by outflank-mailman (input) for mailman id 650045;
+ Thu, 07 Dec 2023 17:03:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=y0Pn=HS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rBHmY-0000Rv-G2
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 17:03:26 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 884fd8a9-9522-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 18:03:24 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-50bf26f8988so1187859e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 09:03:24 -0800 (PST)
+Received: from fedora.. (public-gprs375370.centertel.pl. [37.47.97.139])
+ by smtp.gmail.com with ESMTPSA id
+ br4-20020a056512400400b0050c1520f783sm213780lfb.303.2023.12.07.09.03.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Dec 2023 09:03:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,92 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=aQnCJXfB2R+4M1D7RAq/vAKoHo9zAT8eAp8YEBFFYGQ=; b=FmoAiuunesFc+bPmSiYFnaSEf2
-	S89iN/gbg+hjGW6CWQ62zc4MyxYaqB8iWUxB7f+VQOBBp4N6vljWyJiXwSJbZL1LLbWe/98O6sl6m
-	wvQGvy2aNRp8B/T2XcH67Gg9HtbvR2GPETmvKikyi7t19ktfIOQ6P7i9CHhIJRN9fAOs=;
-Message-ID: <a4c43652-1fa6-4b42-b751-582cfd6324fe@xen.org>
-Date: Thu, 7 Dec 2023 16:58:06 +0000
+X-Inumbo-ID: 884fd8a9-9522-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1701968603; x=1702573403; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=YYjRg1Gsp/+iKmIGBuuDsDy1z8aRFRzJg36YMCnFrhQ=;
+        b=CoavOMQbE2P0f+lDaiYyL+OLi8vt8Paphm2JHo09Qw6VBbGTgEm7Kh08HyXh1FRuuX
+         c/FsNZHRW23ra+lsnFH44lBB42uKjvGOtVtfu6Mm1V6WYoy2FGRZfi3bYahcE3eRA/nc
+         y9zuCsPH+fuxpps7iJmqOJBcGWJXyH85BBHxkDt/4pfishwnBajh4XLiOJBw9DOThwX9
+         KHtDMVIngEV/vrhYw+9+n20oeJqrf7CTj6h0ulTonJ/RHXUUMbcMja/9gXggVCuCtWun
+         HrZDJFQ+LlTdYML6rHQKCI/5+oeEvlxZbrnS692OO7wuQoXvj2JeOv7PQYIwIrcyBWNx
+         oqJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701968603; x=1702573403;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=YYjRg1Gsp/+iKmIGBuuDsDy1z8aRFRzJg36YMCnFrhQ=;
+        b=abckpWh+Sigofl2cPgLzQLX1fHe6pJ6VQtkNy5qZlN0L2S9N2s2JUIfHIuk78kGNvM
+         0L0kiLRHtA83o3ECKg/QxD346cpX4Xva31BkJDtgSEr17v6nyveLoHNbbkiHSIDoIdpv
+         rNUttXUS6h6+R9SOeOgC6OXX3oTf98hAlPT8cSC88PKRSE7a7q1nLfIcSQdXjksCStZ3
+         HZurwC2vwwfHEdja0pOUe+Novt//b+WGNpL6GGfjkh1YaXcirPaNa+JIIPEkTCFn5dEo
+         UJZZiKRuQzQf7iTbpMRECI1wBSvTiTStLSCDXwS+OOTAVQNK4P9nNj0qLsLEVMOa/yok
+         nixg==
+X-Gm-Message-State: AOJu0YxvkiGqviaDD6MZfHvKMKO/BZtmbISTwJK2uLPgs2wDA7t57kXb
+	LUDUihNLBnb9t+BdIM4CT1tau8mFDLA=
+X-Google-Smtp-Source: AGHT+IEIt+CoyC9Lzp3N0m/hOGwoQu73DMTgAl7hBxPdjg8P+3D3YGI5HL6m1RRDAvT5TVSxIAl0dg==
+X-Received: by 2002:a05:6512:476:b0:50b:f8da:23f2 with SMTP id x22-20020a056512047600b0050bf8da23f2mr1776307lfd.135.1701968603007;
+        Thu, 07 Dec 2023 09:03:23 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [RFC PATCH v1 0/1] ARCH_FIXED_CONFIG introduction for randconfig
+Date: Thu,  7 Dec 2023 19:03:18 +0200
+Message-ID: <cover.1701966261.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/arm: Add emulation of Debug Data Transfer
- Registers
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Ayan Kumar Halder <ayankuma@amd.com>, Michal Orzel
- <michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- stefano.stabellini@amd.com, bertrand.marquis@arm.com,
- Volodymyr_Babchuk@epam.com, xen-devel@lists.xenproject.org
-References: <20231201185009.1719183-1-ayan.kumar.halder@amd.com>
- <0bd65e25-aec2-4294-9a73-1cdaece52242@xen.org>
- <9ffe5a34-d1f4-4f4a-82eb-77c92f71040c@amd.com>
- <ca91f71b-9633-495f-9fb2-731bd250a561@xen.org>
- <8547fc3b-4e77-45d7-8063-1bee869d07db@amd.com>
- <3a9efd72-07cc-4b1d-8814-d4f6df4e6230@xen.org>
- <73554150-9880-447c-ac2b-e4f3ef0f76be@amd.com>
- <0d232ffe-1eb1-420b-af2c-70e16088a9b6@xen.org>
- <03a91b0f-eabe-47bd-b9fb-a9e15bdd121f@amd.com>
- <7420ada1-cc6c-48cf-9b2d-4c09e236dfdf@amd.com>
- <50372bd4-5e1a-4d38-abd3-19abf8e82591@xen.org>
- <alpine.DEB.2.22.394.2312051503060.110490@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2312051503060.110490@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
+Brief Overview:
+In the earlier patch series [1], it was introduced a comprehensive set of changes
+enabling a full Xen build for RISC-V.
+This early support primarily provides the minimum stubs required for the RISC-V
+Xen build. At this stage of development, many configs are deemed unnecessary and
+are expected to be disabled.
 
-On 05/12/2023 23:21, Stefano Stabellini wrote:
-> On Tue, 5 Dec 2023, Julien Grall wrote:
->> I agree that crashing a guest is bad, but is lying to the domain really
->> better? The consequence here is not that bad and hopefully it would be fairly
->> easy to find. But this is not always the case. So I definitely would place a
->> half-backed emulation more severe than a guest crash.
-> 
-> 
-> I see where Julien is coming from, but I would go with option two:
-> "emulate DCC the same way as KVM". That's because I don't think we can
-> get away with crashing the guest in all cases. Although the issue came
-> up with a Linux guest, it could have been triggered by a proprietary
-> operating system that we cannot change, and I think Xen should support
-> running unmodified operating systems.
-> 
-> If we go with a "half-backed emulation" solution, as Julien wrote, then
-> it is better to be more similar to other hypervisors, that's why I chose
-> option two instead of option three.
-> 
-> But at the same time I recognize the validity of Julien's words and it
-> makes me wonder if we should have a KCONFIG option or command line
-> option to switch the Xen behavior. We could use it to gate all the
-> "half-backed emulation" we do for compatibility.  Something like:
-> 
-> config PARTIAL_EMULATION
->      bool "Partial Emulation"
->      ---help---
->       
->      Enables partial, not spec compliant, emulation of certain register
->      interfaces (e.g DCC UART) for guest compatibility. If you disable
->      this option, Xen will crash the guest if the guest tries to access
->      interfaces not fully emulated or virtualized.
-> 
->      If you enable this option, the guest might misbehave due to non-spec
->      compliant emulation done by Xen.
+Without ARCH_FIXED_CONFIG (or an alternative mechanism), the alternative is
+updating CI's build.yaml in multiple instances with the same configs,
+mirroring the approach taken in [1] to prevent the inadvertent activation of
+unsupported configs.
 
-As I wrote to Ayan on Matrix today, I am not in favor of the emulation. 
-Yet, I am not going to oppose (as in Nack it) if the other maintainers 
-agree with it.
+For example, in scenarios like dom0less, we can exclude grant tables by setting
+"CONFIG_GRANT_TABLE=n" in ARCH_FIXED_CONFIG. This eliminates the need for intricate
+modifications to Kconfig configurations with conditions like "depends on X86 || ARM"
+or the introduction of HAS_* conditions followed by Kconfig updates with
+"depends on HAS_*," as illustrated in examples [2] or [3].
 
-The KConfig would be nice, the question is whether we want to (security) 
-support such configuration? E.g. could this potentially introduce a 
-security issue in the guest?
+It might be useful for other architectures as well, especially for PPC, which is
+currently under development.
 
-Regarding the  emulation itself, I actually prefer 3 because at least 
-the Linux drivers will be able to bail out rather than trying to use them.
+There are several open questions:
+- Does introduction of ARCH_FIXED_CONFIG make sense?
+- Should ARCH_FIXED_CONFIG be re-used for *defconfig?
 
-Cheers,
+[1] https://lore.kernel.org/xen-devel/b4e85f8f58787b4d179022973ce25673d6b56e36.1700761381.git.oleksii.kurochko@gmail.com/
+[2] https://lore.kernel.org/xen-devel/cdc20255540a66ba0b6946ac6d48c11029cd3385.1701453087.git.oleksii.kurochko@gmail.com/
+[3] https://lore.kernel.org/xen-devel/d42a34866edc70a12736b5c6976aa1b44b4ebd8a.1701453087.git.oleksii.kurochko@gmail.com/
+
+Oleksii Kurochko (1):
+  xen/Makefile: introduce ARCH_FIXED_CONFIG for randconfig
+
+ xen/Makefile | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 -- 
-Julien Grall
+2.43.0
+
 
