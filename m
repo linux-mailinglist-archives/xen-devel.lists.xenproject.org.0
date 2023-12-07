@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9569780866C
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BCE180866A
 	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 12:11:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649779.1014687 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.649778.1014673 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBCHu-0005or-GT; Thu, 07 Dec 2023 11:11:26 +0000
+	id 1rBCHt-0005PW-8P; Thu, 07 Dec 2023 11:11:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649779.1014687; Thu, 07 Dec 2023 11:11:26 +0000
+Received: by outflank-mailman (output) from mailman id 649778.1014673; Thu, 07 Dec 2023 11:11:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBCHu-0005mh-DZ; Thu, 07 Dec 2023 11:11:26 +0000
-Received: by outflank-mailman (input) for mailman id 649779;
- Thu, 07 Dec 2023 11:11:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rBCHt-0005Lz-2v; Thu, 07 Dec 2023 11:11:25 +0000
+Received: by outflank-mailman (input) for mailman id 649778;
+ Thu, 07 Dec 2023 11:11:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fZpn=HS=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rBCHs-0005Iv-Ly
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 11:11:24 +0000
+ id 1rBCHr-0005Ik-Sf
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 11:11:23 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5a91a0ce-94f1-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 12:11:22 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5af131a1-94f1-11ee-98e7-6d05b1d4d9a1;
+ Thu, 07 Dec 2023 12:11:23 +0100 (CET)
 Received: from nico.bugseng.com (unknown [147.123.100.131])
- by support.bugseng.com (Postfix) with ESMTPSA id C54024EE073E;
- Thu,  7 Dec 2023 12:11:21 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id 48B314EE0740;
+ Thu,  7 Dec 2023 12:11:22 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,65 +39,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a91a0ce-94f1-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5af131a1-94f1-11ee-98e7-6d05b1d4d9a1
 From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Paul Durrant <paul@xen.org>,
+	Wei Liu <wl@xen.org>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2 1/3] xen/x86: add missing instances of asmlinkage attributes
-Date: Thu,  7 Dec 2023 12:11:16 +0100
-Message-Id: <34a6fbfadd5a3029552cd25933de5cd0e80984e2.1701947290.git.nicola.vetrini@bugseng.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [XEN PATCH v2 2/3] x86/viridian: make build_assertions static
+Date: Thu,  7 Dec 2023 12:11:17 +0100
+Message-Id: <d9c3a455e0ea4edbfa7145d66b08a1daa4092d3d.1701947290.git.nicola.vetrini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1701947290.git.nicola.vetrini@bugseng.com>
 References: <cover.1701947290.git.nicola.vetrini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+This is consistent with other instances of the same function
+and also resolves a violation of MISRA C:2012 Rule 8.4.
+
 No functional change.
 
 Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-Changes in v2:
-- The attribute on boot_gdtr and l1_fixmap_x has been dropped, as detailed in
-  the cover letter.
----
- xen/arch/x86/efi/efi-boot.h | 5 +++--
- xen/arch/x86/smpboot.c      | 2 +-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ xen/arch/x86/hvm/viridian/synic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 86467da301e5..8ea64e31cdc2 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -808,8 +808,9 @@ static const char *__init get_option(const char *cmd, const char *opt)
-     return o;
- }
+diff --git a/xen/arch/x86/hvm/viridian/synic.c b/xen/arch/x86/hvm/viridian/synic.c
+index 8cf600cec68f..3375e55e95ca 100644
+--- a/xen/arch/x86/hvm/viridian/synic.c
++++ b/xen/arch/x86/hvm/viridian/synic.c
+@@ -18,7 +18,7 @@
+ #include "private.h"
  
--void __init efi_multiboot2(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable,
--                           const char *cmdline)
-+void asmlinkage __init efi_multiboot2(EFI_HANDLE ImageHandle,
-+                                      EFI_SYSTEM_TABLE *SystemTable,
-+                                      const char *cmdline)
+ 
+-void __init __maybe_unused build_assertions(void)
++static void __init __maybe_unused build_assertions(void)
  {
-     EFI_GRAPHICS_OUTPUT_PROTOCOL *gop;
-     EFI_HANDLE gop_handle;
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 4c54ecbc91d7..8aa621533f3d 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -310,7 +310,7 @@ static void set_cpu_sibling_map(unsigned int cpu)
-     }
+     BUILD_BUG_ON(sizeof(struct hv_message) != HV_MESSAGE_SIZE);
  }
- 
--void start_secondary(void *unused)
-+void asmlinkage start_secondary(void *unused)
- {
-     struct cpu_info *info = get_cpu_info();
- 
 -- 
 2.34.1
+
 
