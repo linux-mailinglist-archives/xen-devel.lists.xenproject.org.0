@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 110C6808B0D
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 15:51:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649949.1015128 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDE84808B74
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 16:08:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649952.1015138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBFia-0005cs-Kw; Thu, 07 Dec 2023 14:51:12 +0000
+	id 1rBFy5-0000Df-W2; Thu, 07 Dec 2023 15:07:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649949.1015128; Thu, 07 Dec 2023 14:51:12 +0000
+Received: by outflank-mailman (output) from mailman id 649952.1015138; Thu, 07 Dec 2023 15:07:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBFia-0005Zl-Hh; Thu, 07 Dec 2023 14:51:12 +0000
-Received: by outflank-mailman (input) for mailman id 649949;
- Thu, 07 Dec 2023 14:51:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=y0Pn=HS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rBFiZ-0005Zf-Gt
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 14:51:11 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ea07f16-9510-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 15:51:09 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40c2c65e6aaso4869645e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 06:51:09 -0800 (PST)
-Received: from [192.168.220.211] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- qo3-20020a170907874300b00a1dc4307ecfsm909996ejc.188.2023.12.07.06.51.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 Dec 2023 06:51:08 -0800 (PST)
+	id 1rBFy5-0000Ao-SC; Thu, 07 Dec 2023 15:07:13 +0000
+Received: by outflank-mailman (input) for mailman id 649952;
+ Thu, 07 Dec 2023 15:07:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rBFy4-00006c-7R
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 15:07:12 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4b9f7abc-9512-11ee-98e7-6d05b1d4d9a1;
+ Thu, 07 Dec 2023 16:07:10 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40c2c65e6aaso5060765e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 07:07:10 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ r20-20020a05600c35d400b0040b538047b4sm2271079wmq.3.2023.12.07.07.07.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 07 Dec 2023 07:07:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,187 +45,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ea07f16-9510-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 4b9f7abc-9512-11ee-98e7-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1701960669; x=1702565469; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=xPWs7+6cb4CyFEf01u8dt/t17I7rUtlNovTWZ2bc5D0=;
-        b=DdS9r4aVAGJdl9gGOUw0zwKtd++hFyuomkrLR7GFZ2Q1b3qXE52T99q0DTjCdiqeVq
-         PoguHD5no10YjZZVFVIvJ+IbgtT2Bm7AnBO6H5tLPQ0BJ4+w7qLonZxqlDkOyED5MPv1
-         dow3+UwJKICkClIE9FzcFTz3d5Kwg87ibN0CfifrEbnjR1rMWbr7drReL7CLVYg2PdPm
-         qUWj29lmgH2R5csilGy7QyhNTJPoAMQn+CCAFRBMZdiFt5b71bD0K5oSIo+4D7rX0zcc
-         D4fQeLnhuUXytTg/BxBbjNbFN7ZASjkqL54cgJ4noABQ+kMkDc2qukoZ/IdE3/89RjbY
-         q6+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701960669; x=1702565469;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1701961630; x=1702566430; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xPWs7+6cb4CyFEf01u8dt/t17I7rUtlNovTWZ2bc5D0=;
-        b=xOMx1mcVgdtyEby9NmtHdYtzDepHNez4QZnN8BxS1ys4l2TEJIM7rj/YHXoephtz9U
-         Q4PYI21TnSSdbay7oQeVnGzymrCWkp1Rz0INLqBEXxyAY073v0IpxdoZw5PpVMnQlj6s
-         w796NkA7ZeYBWQRRafmPnZco1mL5JRZOjFxH0ifS13hHIjZKq12jg2++rCz91+QbrFx0
-         Mf0r4aQdA2yOHoBX0Eonvgui21+EvMku/BKNGNa0JZ5YiuV2I1z7Z5GNsFa+EeZ314Hu
-         uOB2ET7IU/frjtGkLGKs9LkTaxtclqamiTB7HOCeNUnnzLPgqhxL17/5N6b2AzFXDUZU
-         Mbrg==
-X-Gm-Message-State: AOJu0YyHofPUEdX3tOzLWhgR5ZNwnlCw4PmFUYufFzifPNp7FSXkwYEV
-	KHs3+VBhy7EtKMvVCba5ebI=
-X-Google-Smtp-Source: AGHT+IErhR3Jr+XXGIVudKYRNaavw8ccw76vD/fru5vTR0s+9Pv3S8hSMhOmaWbEzIJ9zxsn8Zc2ug==
-X-Received: by 2002:a05:600c:2296:b0:40c:6bf:a924 with SMTP id 22-20020a05600c229600b0040c06bfa924mr1488537wmf.78.1701960668661;
-        Thu, 07 Dec 2023 06:51:08 -0800 (PST)
-Message-ID: <decb178a72c48549d721a7da88459b35ac443f52.camel@gmail.com>
-Subject: Re: [PATCH v2 01/39] xen/riscv: disable unnecessary configs
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
-	 <sstabellini@kernel.org>, Alistair Francis <alistair.francis@wdc.com>, Bob
-	Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, 
-	xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Date: Thu, 07 Dec 2023 16:51:07 +0200
-In-Reply-To: <4064be07-747e-4b9c-b5da-9935aa13d91f@suse.com>
-References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
-	 <b4e85f8f58787b4d179022973ce25673d6b56e36.1700761381.git.oleksii.kurochko@gmail.com>
-	 <fdfda320-b73b-4830-8f1b-d261b02bcdde@suse.com>
-	 <22fa451f7b165a00082443a35077e98e101c22e4.camel@gmail.com>
-	 <008d0c66-6816-4d12-9e1f-1878e982f9fc@suse.com>
-	 <09d24b36380027df21d547de438da10e01eda0e0.camel@gmail.com>
-	 <4064be07-747e-4b9c-b5da-9935aa13d91f@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
+        bh=iKTI/TFjXfgWUryG2bg7p8YcsAi9nj1/38/wFvw/Qxs=;
+        b=diauUZgpD4oCWfnubtsCth4cFUEJig+mC9fsdvXKxcOOMqpciF8+fMMmJKmeME/woo
+         dz/limB6MVc2eC8+GkYoth451Ua1bC5aLW0ZS0c912ZlW9+wXs/JZfU/FBfQnEHSht1n
+         XknVgsfAa7mnCR7PLwTQzkwGj5X3/ROcvLnm7n5J3R69QpHGLKy62qbRE6FTB8xlRwJ2
+         XnvKZWt6mczcEfcfNaFdLq8xOEAarsHdRcOfatdlq9z5KLj7K3eBCYHb/NASmgA9fSvG
+         ZhvAu9o3JyEdbxEu69/KbHwatNXsVj+oMQMEkZc5d8DXr+XbgwVSatvSXMH986Z11fV4
+         MQVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1701961630; x=1702566430;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=iKTI/TFjXfgWUryG2bg7p8YcsAi9nj1/38/wFvw/Qxs=;
+        b=F8XJDNgpE8bcyvcZ2UYgI/LGYXJOOAGdkRdGOSPdQUd4xuTz1yCP4MeLAxu7M4PUci
+         amK4XJyJigz5KiYeLve2VFK/VkiepMu6xKw+UUvWJkAMOHOpl80x/QPGluCZneY1PskW
+         KmAr1ZGpPV1yMVcY5Wg0WkCdt3C4j5zco0w5FrHSYKnT6LyQp5G3CFSarUqrSRJvnMqN
+         4MwycXDRg8YW790v1VOzadTLYW5PUq+50v9GZFxUNXlqfeGBLXeyMOnqkINXwhb8ZG7X
+         1/NolvUMsYt3z6+r7NKzQrfMBKUHNzCSkHh5Hp3aav9m7cpyPf2IPAvwbDCpjSA9SiuT
+         +yiQ==
+X-Gm-Message-State: AOJu0YxpnGTuG9X30TrxB2dsbR7NwP9Wp1SvOP64S+I2M9J7YBgALMaY
+	nPR0mJPfFqZnMy14inufLMD3
+X-Google-Smtp-Source: AGHT+IEJ/E4R3HCZX+gy52Tr/VRRRRf2akFO4VGqiR5FZQh1Z1u7llyepPaycoYG5wxEVWSuuxvnSA==
+X-Received: by 2002:a05:600c:1d8c:b0:40c:335:5544 with SMTP id p12-20020a05600c1d8c00b0040c03355544mr1583149wms.230.1701961630103;
+        Thu, 07 Dec 2023 07:07:10 -0800 (PST)
+Message-ID: <671d903b-8135-4b30-a197-36bffed180da@suse.com>
+Date: Thu, 7 Dec 2023 16:07:07 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/39] xen/riscv: introduce asm/system.h
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+ <3007fb3d841dbaa078bb5b7af699c883356badca.1700761381.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <3007fb3d841dbaa078bb5b7af699c883356badca.1700761381.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2023-12-07 at 15:11 +0100, Jan Beulich wrote:
-> On 07.12.2023 14:44, Oleksii wrote:
-> > On Thu, 2023-12-07 at 11:00 +0100, Jan Beulich wrote:
-> > > On 07.12.2023 10:22, Oleksii wrote:
-> > > > On Tue, 2023-12-05 at 16:38 +0100, Jan Beulich wrote:
-> > > > > > On 24.11.2023 11:30, Oleksii Kurochko wrote:
-> > > > > > > > The patch also fixes the build script as conf util
-> > > > > > > > expects
-> > > > > > > > to have each config on separate line.
-> > > > > >=20
-> > > > > > The approach doesn't really scale (it's already odd that
-> > > > > > you
-> > > > > > add
-> > > > > > the
-> > > > > > (apparently) same set four times. There's also zero
-> > > > > > justification
-> > > > > > for
-> > > > > > this kind of an adjustment (as per discussion elsewhere I
-> > > > > > don't
-> > > > > > think
-> > > > > > we should go this route, and hence arguments towards
-> > > > > > convincing
-> > > > > > me
-> > > > > > [and
-> > > > > > perhaps others] would be needed here).
-> > > > I agree that this may not be the best approach, but it seems
-> > > > like
-> > > > we
-> > > > don't have too many options to turn off a config for
-> > > > randconfig.
-> > > >=20
-> > > > To be honest, in my opinion (IMO), randconfig should either be
-> > > > removed
-> > > > or allowed to fail until most of the functionality is ready.
-> > > > Otherwise,
-> > > > there should be a need to introduce HAS_* or depend on
-> > > > 'SUPPORTED_ARCHS' for each config, or introduce a lot of stubs.
-> > > >=20
-> > > > Could you please suggest a better option?
-> > >=20
-> > > As to dropping randconfig tests, I'd like to refer you to Andrew,
-> > > who
-> > > is of the opinion that it was wrong to drop them for ppc. (I'm
-> > > agreeing
-> > > with him when taking a theoretical perspective, but I'm not happy
-> > > with
-> > > the practical consequences.)
-> > >=20
-> > > As to a better approach: Instead of listing the same set of
-> > > options
-> > > several times, can't there be a template config which is used to
-> > > force
-> > > randconfig to not touch certain settings? In fact at least for
-> > > non-
-> > > randconfig purposes I thought tiny64_defconfig /
-> > > riscv64_defconfig
-> > > already serve kind of a similar purpose. Imo the EXTRA_*CONFIG
-> > > overrides
-> > > are there for at most very few special case settings, not for
-> > > purposes
-> > > like you use them here.
-> > The template will be the really a good option.
-> >=20
-> > What do you think about the following patch which introduces arch-
-> > specific allrandom.config?
-> >=20
-> > diff --git a/xen/Makefile b/xen/Makefile
-> > index ca571103c8..cb1eca76c2 100644
-> > --- a/xen/Makefile
-> > +++ b/xen/Makefile
-> > @@ -336,11 +336,14 @@ ifeq ($(config-build),y)
-> > =C2=A0# *config targets only - make sure prerequisites are updated, and
-> > descend
-> > =C2=A0# in tools/kconfig to make the *config target
-> > =C2=A0
-> > +ARCH_ALLRANDOM_CONFIG :=3D
-> > $(srctree)/arch/$(SRCARCH)/configs/allrandom.config
-> > +
-> > =C2=A0# Create a file for KCONFIG_ALLCONFIG which depends on the
-> > environment.
-> > =C2=A0# This will be use by kconfig targets
-> > allyesconfig/allmodconfig/allnoconfig/randconfig
-> > =C2=A0filechk_kconfig_allconfig =3D \
-> > =C2=A0=C2=A0=C2=A0=C2=A0 $(if $(findstring n,$(XEN_HAS_CHECKPOLICY)), e=
-cho
-> > 'CONFIG_XSM_FLASK_POLICY=3Dn';) \
-> > -=C2=A0=C2=A0=C2=A0 $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG)=
-;) \
-> > +=C2=A0=C2=A0=C2=A0 $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG)=
-; \
-> > +=C2=A0=C2=A0=C2=A0 $(if $(wildcard $(ARCH_ALLRANDOM_CONFIG)), cat
-> > $(ARCH_ALLRANDOM_CONFIG);) ) \
-> > =C2=A0=C2=A0=C2=A0=C2=A0 :
->=20
-> Something along these lines may be okay, but why would the name be
-> "allrandom" when the config is used elsewhere as well?
-The naming is not optimal. "unused.config" or "ignored.config" would be
-a better choice.
+On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/system.h
+> @@ -0,0 +1,79 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +
+> +#ifndef _ASM_RISCV_BARRIER_H
+> +#define _ASM_RISCV_BARRIER_H
+> +
+> +#include <asm/csr.h>
+> +
+> +#ifndef __ASSEMBLY__
+> +
+> +#define RISCV_FENCE(p, s) \
+> +    __asm__ __volatile__ ("fence " #p "," #s : : : "memory")
 
->  Further, besides
-> keeping randconfig and all*config from creating unusable configs, it
-> will at least want considering whether in other cases that set of
-> fixed
-> values shouldn't be used as well then.
-If I understood you correctly, the other case is *defconfig targets.
-Therefore, the following targets might also need to be updated by
-merging "unused.config" with {defconfig,%_defconfig}:
+Nit (style): Missing blanks immediately inside the parentheses.
 
+> +/* These barriers need to enforce ordering on both devices or memory. */
+> +#define mb()                    RISCV_FENCE(iorw,iorw)
+> +#define rmb()                   RISCV_FENCE(ir,ir)
+> +#define wmb()                   RISCV_FENCE(ow,ow)
 
-defconfig: $(obj)/conf
-ifneq ($(wildcard
-$(srctree)/arch/$(SRCARCH)/configs/$(KBUILD_DEFCONFIG)),)
-	@$(kecho) "*** Default configuration is based on
-'$(KBUILD_DEFCONFIG)'"
-	$(Q)$< $(silent) --
-defconfig=3Darch/$(SRCARCH)/configs/$(KBUILD_DEFCONFIG) $(Kconfig)
-else
-	@$(kecho) "*** Default configuration is based on target
-'$(KBUILD_DEFCONFIG)'"
-	$(Q)$(MAKE) -f $(srctree)/Makefile $(KBUILD_DEFCONFIG)
-endif
+Nit (style): Missing blanks after the commas (also again below).
 
-%_defconfig: $(obj)/conf
-	$(Q)$< $(silent) --defconfig=3Darch/$(SRCARCH)/configs/$@
-$(Kconfig)
+> +/* These barriers do not need to enforce ordering on devices, just memory. */
+> +#define smp_mb()                RISCV_FENCE(rw,rw)
+> +#define smp_rmb()               RISCV_FENCE(r,r)
+> +#define smp_wmb()               RISCV_FENCE(w,w)
+> +#define smp_mb__before_atomic() smp_mb()
+> +#define smp_mb__after_atomic()  smp_mb()
+> +
+> +/*
+> +#define __smp_store_release(p, v)       \
 
-However, I believe it's possible that for *defconfig, a configuration
-should be set to N, but in randconfig, it is still acceptable to be set
-to Y.
+Is there a need for the double underscores here? We try to not
+introduce new instances of undue leading underscores, but there might
+be e.g. a strong desire to stay in sync with, say, Linux.
 
-~ Oleksii
+> +do {                                    \
+> +	compiletime_assert_atomic_type(*p); \
+> +	RISCV_FENCE(rw,w);                  \
+> +	WRITE_ONCE(*p, v);                  \
+
+Nit: Can the trailing backslashes be aligned, please?
+
+> +} while (0)
+> +
+> +#define __smp_load_acquire(p)           \
+> +({                                      \
+> +    typeof(*p) ___p1 = READ_ONCE(*p);   \
+
+Hmm, yet more leading underscores, and here surely not needed.
+
+> +    compiletime_assert_atomic_type(*p); \
+> +    RISCV_FENCE(r,rw);                  \
+> +    ___p1;                              \
+> +})
+> +*/
+> +
+> +static inline unsigned long local_save_flags(void)
+> +{
+> +    return csr_read(sstatus);
+> +}
+> +
+> +static inline void local_irq_enable(void)
+> +{
+> +    csr_set(sstatus, SSTATUS_SIE);
+> +}
+> +
+> +static inline void local_irq_disable(void)
+> +{
+> +    csr_clear(sstatus, SSTATUS_SIE);
+> +}
+> +
+> +#define local_irq_save(x)                           \
+> +({                                                  \
+> +    x = csr_read_clear(CSR_SSTATUS, SSTATUS_SIE);   \
+> +    local_irq_disable();                            \
+> +})
+> +
+> +static inline void local_irq_restore(unsigned long flags)
+> +{
+> +	csr_set(CSR_SSTATUS, flags & SSTATUS_SIE);
+> +}
+> +
+> +static inline int local_irq_is_enabled(void)
+> +{
+> +    unsigned long flags = local_save_flags();
+> +
+> +    return flags & SSTATUS_SIE;
+
+SSTATUS_SIE doesn't even happen to be 1, so I think you're better off
+adding != 0, unless you would do as I think I had suggested before and
+have the function return bool right away.
+
+Jan
 
