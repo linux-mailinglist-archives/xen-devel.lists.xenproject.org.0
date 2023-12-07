@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F53480843C
-	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 10:19:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.649654.1014428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E82FC808453
+	for <lists+xen-devel@lfdr.de>; Thu,  7 Dec 2023 10:22:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.649657.1014437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBAXZ-0007Z6-6Y; Thu, 07 Dec 2023 09:19:29 +0000
+	id 1rBAaV-0000ap-Jt; Thu, 07 Dec 2023 09:22:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 649654.1014428; Thu, 07 Dec 2023 09:19:29 +0000
+Received: by outflank-mailman (output) from mailman id 649657.1014437; Thu, 07 Dec 2023 09:22:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBAXZ-0007Ws-38; Thu, 07 Dec 2023 09:19:29 +0000
-Received: by outflank-mailman (input) for mailman id 649654;
- Thu, 07 Dec 2023 09:19:28 +0000
+	id 1rBAaV-0000Xy-HB; Thu, 07 Dec 2023 09:22:31 +0000
+Received: by outflank-mailman (input) for mailman id 649657;
+ Thu, 07 Dec 2023 09:22:30 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+CYm=HS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBAXY-0007Wm-0D
- for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 09:19:28 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=y0Pn=HS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rBAaU-0000Xr-Nb
+ for xen-devel@lists.xenproject.org; Thu, 07 Dec 2023 09:22:30 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6efddcc-94e1-11ee-9b0f-b553b5be7939;
- Thu, 07 Dec 2023 10:19:25 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-33349b3f99aso689029f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 01:19:26 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e24-20020a5d5958000000b003332fa77a0fsm921384wri.21.2023.12.07.01.19.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 01:19:25 -0800 (PST)
+ id 23dfe646-94e2-11ee-9b0f-b553b5be7939;
+ Thu, 07 Dec 2023 10:22:28 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a1f47f91fc0so6853166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 01:22:28 -0800 (PST)
+Received: from [192.168.220.211] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ ov8-20020a170906fc0800b00a1cbb055575sm562069ejb.180.2023.12.07.01.22.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 07 Dec 2023 01:22:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6efddcc-94e1-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 23dfe646-94e2-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1701940765; x=1702545565; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+0ZQvbqBO2hFg0p1rdyjyhc9/Ztec2xTeb+rkYkL8rU=;
-        b=Q0oeoOjEtsLSsWAKNdMeTiSQh+0UC4FcEN6AHHZwBli4gxJ04tJq6/ziXT0+cpvnBc
-         sTLCCwrBkL5XgzjcYN9eD/Lu48wuAVXuQXq4Sk4E0QjPeQiFF/sl+TxW0RB/9Insa6Ld
-         eOBhnsN5CGsQtMafUg94/apU98u24rAOMG8EIzFw/mwoyd8ExIbNrHMyBsCPdJ2FDhx2
-         BjAiPNdReqeGblNca3w7B+VZYG8MyUS3UsFLXvq8Qu4OAAgyAOm2/YJWitKTdtJiXANC
-         J8w+VuOHOGq+EtOMzhx7QTh+wqcNaoja5gQXHhRUfUckV3FQzkaoDP+R8UtHX1enoAdZ
-         ck8g==
+        d=gmail.com; s=20230601; t=1701940948; x=1702545748; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=4gcCcVl/OrvlS/H8SXEbCBNlEwdZbATi2HVrc1fSjFI=;
+        b=KAoALnXIAajG7yxDFca4Q3D1lQzCtpLUjwYjm2NqR5xjQrVM0FDC9pQ4pufaBIGUt6
+         umVCTBrnHVHaH+NNlDU7IbZhw0lEPB76qy03PTHRNOlngVD6HD3ig8y1agP4m9n9Xsen
+         E073E+EmMVfI79SiBkMmXmghWIvFemNXYdRIIbBidcbUWXPYiZTutKIXRzzd2wOh0F8V
+         zqyrauGwgs4PGuwkwqUpN0Dh/3Wv97HrKNZD4Pw7BM1defH/RyaU6SJZ2dMs1kdofKl9
+         plNi1dAGeeK7VYr3mWQ43J5oetptsMGCo5KaMMCAY7UMlNT3XaGzCNF8FDrb5+MD0jFI
+         6ZyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1701940765; x=1702545565;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+0ZQvbqBO2hFg0p1rdyjyhc9/Ztec2xTeb+rkYkL8rU=;
-        b=slgrsMIQcrFUckE99aPtTsWs88XrlZaSzrf3aAWCq/JgDULgDE2JXD1Z9s4vQv0KiF
-         uVGIhkgMJ9fvcNllVggqsDTT31voeSvrFAKf/brMQV0fXLfiAHusrg6Kh5mQFr1QeST7
-         wbkqq8fNqsWt9voLjanPAynB4kQBVuj5OsG9YKziQuxW+kg5OXbSNM9y+fOditH6Fx4t
-         XdixDx5QReDDpMUWDXyBarQ1OfMIc6rCQDb55f+KykAb0+6yapcNMICA2hKRqv5VtXIG
-         twIx7SfdBW/S9kPO+X30WGHfQkDqGCM5hxP7ov5OmELCWtHJaGDNCNuCcM1QFbjM3a6z
-         VGlQ==
-X-Gm-Message-State: AOJu0YyjJPFxYsmY9DXk11GhLNGJjGS8pTE4bDFKy/fTtYdw3lN3rO0u
-	nXMMTywW/Wwc7HBCEglNBBEd
-X-Google-Smtp-Source: AGHT+IGXgatIxeqyY8VwVrKKuNFldLfdCUrGL+7VXQlcwT9J6qlr4SSc8LMtdR0dBIUnSkxE1EaTHg==
-X-Received: by 2002:a5d:6511:0:b0:333:2fd2:51d1 with SMTP id x17-20020a5d6511000000b003332fd251d1mr1190540wru.74.1701940765504;
-        Thu, 07 Dec 2023 01:19:25 -0800 (PST)
-Message-ID: <2205366c-c66a-419a-9232-ec41432127c1@suse.com>
-Date: Thu, 7 Dec 2023 10:19:24 +0100
+        d=1e100.net; s=20230601; t=1701940948; x=1702545748;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4gcCcVl/OrvlS/H8SXEbCBNlEwdZbATi2HVrc1fSjFI=;
+        b=YOKn9nbhD4D9StxBGuwOgsIhdhQKhCpYPCqbKKobpCGCU9PtkPCcWQsbFf0+2f6edS
+         YE12MPQDAith8Eok6PXkKrPmSq3lo6YsosRFm/mQ8XJVW0C7JbBbVyQ0QjSRGmmFzeOD
+         1OcHAAIPAG1rT1g3GtgQyJ1MicgSxeIu1gpBDyqKF+exklX9RhINy+XhaCjT4Vx+0cmu
+         BTDFrWhgBlv6mApHn2rP97++PCOUBfcH7eXksBD1Kv7LNaE/uHgNXCPvB0tvaBzNDYFN
+         2RgInWl7qzken5FbPFgQO8U6r3uoAKemGGXzZnXZjaxDUA9laElU0o307KN6KuwPTHOn
+         exJg==
+X-Gm-Message-State: AOJu0Yw6mqRUtICIGkWhotSa0eAeDtuutQl9X/ItZ9F9N3dC5TTsln2m
+	MLadqdTm5V26rHGyixN1Cb8=
+X-Google-Smtp-Source: AGHT+IFJkGUGMtUWw8V6wzSFDUNfFKOBhOTHOg2VC1Nfw19gk8XaiaHHshu7RCSPXTvZ7HhvuSwI9w==
+X-Received: by 2002:a17:906:b248:b0:a02:27d9:9f05 with SMTP id ce8-20020a170906b24800b00a0227d99f05mr1392788ejb.42.1701940948116;
+        Thu, 07 Dec 2023 01:22:28 -0800 (PST)
+Message-ID: <22fa451f7b165a00082443a35077e98e101c22e4.camel@gmail.com>
+Subject: Re: [PATCH v2 01/39] xen/riscv: disable unnecessary configs
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
+	 <sstabellini@kernel.org>, Alistair Francis <alistair.francis@wdc.com>, Bob
+	Eshleman <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, 
+	xen-devel@lists.xenproject.org
+Date: Thu, 07 Dec 2023 11:22:27 +0200
+In-Reply-To: <fdfda320-b73b-4830-8f1b-d261b02bcdde@suse.com>
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+	 <b4e85f8f58787b4d179022973ce25673d6b56e36.1700761381.git.oleksii.kurochko@gmail.com>
+	 <fdfda320-b73b-4830-8f1b-d261b02bcdde@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.1 (3.50.1-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 1/5] x86/acpi: remove acpi_pic_sci_set_trigger()
-Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1701936906.git.federico.serafini@bugseng.com>
- <f0c7d42c12a0b89c61265cdfe67a35b07d220aa0.1701936906.git.federico.serafini@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f0c7d42c12a0b89c61265cdfe67a35b07d220aa0.1701936906.git.federico.serafini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 07.12.2023 09:47, Federico Serafini wrote:
-> Remove apci_pic_set_trigger() declaration: there is no definition and there are
-> no calls to such function in the XEN project.
-> 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+On Tue, 2023-12-05 at 16:38 +0100, Jan Beulich wrote:
+> > On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> > > > The patch also fixes the build script as conf util expects
+> > > > to have each config on separate line.
+> >=20
+> > The approach doesn't really scale (it's already odd that you add
+> > the
+> > (apparently) same set four times. There's also zero justification
+> > for
+> > this kind of an adjustment (as per discussion elsewhere I don't
+> > think
+> > we should go this route, and hence arguments towards convincing me
+> > [and
+> > perhaps others] would be needed here).
+I agree that this may not be the best approach, but it seems like we
+don't have too many options to turn off a config for randconfig.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+To be honest, in my opinion (IMO), randconfig should either be removed
+or allowed to fail until most of the functionality is ready. Otherwise,
+there should be a need to introduce HAS_* or depend on
+'SUPPORTED_ARCHS' for each config, or introduce a lot of stubs.
 
-A reference to the offending commit would have been nice, the more that iirc
-I had already gone and fished that out for you.
+Could you please suggest a better option?
 
-Jan
+> >=20
+> > > > --- a/automation/gitlab-ci/build.yaml
+> > > > +++ b/automation/gitlab-ci/build.yaml
+> > > > @@ -522,6 +522,38 @@ archlinux-current-gcc-riscv64:
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 CONTAINER: archlinux:current-riscv64
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 KBUILD_DEFCONFIG: tiny64_defconfig
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0 HYPERVISOR_ONLY: y
+> > > > +=C2=A0=C2=A0=C2=A0 EXTRA_XEN_CONFIG:
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_GRANT_TABLE=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_CREDIT=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_CREDIT2=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_RTDS=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_NULL=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SCHED_ARINC653=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_TRACEBUFFER=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_HYPFS=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_GRANT_TABLE=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_SPECULATIVE_HARDEN_ARRAY=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_ARGO=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_HYPFS_CONFIG=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_CORE_PARKING=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_DEBUG_TRACE=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_IOREQ_SERVER=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_CRASH_DEBUG=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_KEXEC=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_LIVEPATCH=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_MEM_ACCESS=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_NUMA=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_PERF_COUNTERS=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_HAS_PMAP=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_TRACEBUFFER=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_XENOPROF=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COMPAT=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_COVERAGE=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_UBSAN=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_NEEDS_LIBELF=3Dn
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CONFIG_XSM=3Dn
+> > > > +
+> > > > =C2=A0
+> > > > =C2=A0archlinux-current-gcc-riscv64-debug:
+> > > > =C2=A0=C2=A0 extends: .gcc-riscv64-cross-build-debug
+> >=20
+> > I think I've said so elsewhere before: Please avoid introducing
+> > double
+> > blank lines, unless entirely unavoidable (for reasons I cannot
+> > think
+> > of).
+Sorry for that; I am not doing that on purpose. It's just a big patch
+series, and I missed that double blank. I will try to be more
+attentive.
+
+Do you think it makes sense to add a script to perform basic code style
+checks, similar to what Linux has?
+
+> >=20
+~ Oleksii
+
 
