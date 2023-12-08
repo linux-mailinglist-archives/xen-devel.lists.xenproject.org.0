@@ -2,45 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5101809D6E
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 08:47:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650394.1015911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE79809E74
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 09:41:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650421.1015924 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBVZW-0002dE-Sn; Fri, 08 Dec 2023 07:46:54 +0000
+	id 1rBWOn-0005NK-A3; Fri, 08 Dec 2023 08:39:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650394.1015911; Fri, 08 Dec 2023 07:46:54 +0000
+Received: by outflank-mailman (output) from mailman id 650421.1015924; Fri, 08 Dec 2023 08:39:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBVZW-0002aV-PJ; Fri, 08 Dec 2023 07:46:54 +0000
-Received: by outflank-mailman (input) for mailman id 650394;
- Fri, 08 Dec 2023 07:46:54 +0000
+	id 1rBWOn-0005Kg-7R; Fri, 08 Dec 2023 08:39:53 +0000
+Received: by outflank-mailman (input) for mailman id 650421;
+ Fri, 08 Dec 2023 08:39:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=T8s0=HT=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rBVZV-0002aP-Tb
- for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 07:46:54 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [2a07:de40:b251:101:10:150:64:1])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=F8K7=HT=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rBWOl-0005Ka-4L
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 08:39:51 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20623.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::623])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3c9b380-959d-11ee-98e8-6d05b1d4d9a1;
- Fri, 08 Dec 2023 08:46:53 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7430322119;
- Fri,  8 Dec 2023 07:46:52 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4C6BC13335;
- Fri,  8 Dec 2023 07:46:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id DujUEOzJcmWKcQAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 08 Dec 2023 07:46:52 +0000
+ id 58c3a411-95a5-11ee-98e8-6d05b1d4d9a1;
+ Fri, 08 Dec 2023 09:39:49 +0100 (CET)
+Received: from PH7PR13CA0018.namprd13.prod.outlook.com (2603:10b6:510:174::22)
+ by MW6PR12MB8734.namprd12.prod.outlook.com (2603:10b6:303:249::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.28; Fri, 8 Dec
+ 2023 08:39:44 +0000
+Received: from SN1PEPF0002529D.namprd05.prod.outlook.com
+ (2603:10b6:510:174:cafe::32) by PH7PR13CA0018.outlook.office365.com
+ (2603:10b6:510:174::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.14 via Frontend
+ Transport; Fri, 8 Dec 2023 08:39:44 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002529D.mail.protection.outlook.com (10.167.242.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7068.20 via Frontend Transport; Fri, 8 Dec 2023 08:39:43 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 8 Dec
+ 2023 02:39:40 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Fri, 8 Dec 2023 02:39:39 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,207 +59,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3c9b380-959d-11ee-98e8-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1702021612; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QQK+Tj7g62spYrkLuh/1Ha8+vxZG2QIUdM86iNq9bsI=;
-	b=gks3QDDIyV6AlFHnp1G+MxiXHILjZHb1X3scIffnF7MY8GuZuNimCwPd6Fe8+Eru5aUv/i
-	KLe3TAWHPEUB2ihQxtlt12BaAYXDlaMgAvJ/jMR0YgcgPtqGitfmy0eigI6lMYzTNxtJAT
-	D4/g3eV859tqcCWKWQ/ugySzCicD3qk=
-Message-ID: <41d4bbc0-5c8d-443c-979b-391d5fc09432@suse.com>
-Date: Fri, 8 Dec 2023 08:46:51 +0100
+X-Inumbo-ID: 58c3a411-95a5-11ee-98e8-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hPGZdsoGtESd9TUYey/Dw3tCic/fe1vGANMRBlicRTlv8IDTpV2NJJ0EJIkOFRtjjRME5shbB0kjh5kucXY3sVyJsoSHhPF8rGIRk60fMNQrruDgK5CWrxewfTROUmm3OEI/7WQfC3o6/SkEKFUjvIRHz5pONSs4eHC2z/MbP+3/1s+qCMx8l9SheULTnFUgHUGHX8adBS87wZLBTY/cPz5gQH++qgb/hZoRDHPhOmveg3j6yPmpmrenwd7P8p2sIJvyvyt9TcwVBd+82TRhFXiXSqTIqYVCXlti6ik2PmvKjXUWqIt+f2ht3IZrnZp7BW5mUzXpug6JbJ2UnAq/lA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GLFA0sxO1id7jPf2s8b5pgDNGgRPZNPiSSZAOaKwLaA=;
+ b=V170utopYhVjX7XzHBwj3gaAMEttyIV/YLtfX0g4BAE9sItZIOMzRvYSa8KYAGbBbH1zhXXMfs7Y91JpYzP+PcZ3HxjxqtKnL4IoxioB23FVyVmXXnhgVQL+Em94oQ/nayq0xKauQCqWwYiucypGFvpTPrRqtfvnAhqSxJdSQn44qxbs6wt5mG1BLaQh6SBD1+KzaVDrTqk/cGJKX7Yx7Aps3IScEfMU/+BuRXbViZnwR/PeIPlM/OIus7DdZPuyxZO0yER7lJYzdTtIh1QLXf1BEYdtM71La0Z0fGh8AWxZjcLTIFn+r+DX//F7SY56Xz5PhYnvjJXJ3ZL3m+PAnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GLFA0sxO1id7jPf2s8b5pgDNGgRPZNPiSSZAOaKwLaA=;
+ b=xBh89n1r3AYhr6Uc99xyjqeudYY72jVoXuvhL0AVgZJ5KgL62OAPm3Kw6E4Ayr58wTOxzNnE8zKXiQ+ss8gB6vUbEL8nZX41/RPaad1DGYGCL46mEbkt5fJ6I6IdPfMMDEXd/VN8+6wNvmJhkV9KCuSJIHpnWxeU1vjJx7gT9K8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <beb72672-4ff6-4fce-a3bd-2a7ead9e64ec@amd.com>
+Date: Fri, 8 Dec 2023 09:39:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tools/libs/evtchn: replace assert()s in stubdom with
- proper locking
+Subject: Re: [PATCH v2 2/5] automation: Add the Dockerfile to build TF-A and
+ U-Boot for FVP
+To: Henry Wang <Henry.Wang@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>
+References: <20231208054637.1973424-1-Henry.Wang@arm.com>
+ <20231208054637.1973424-3-Henry.Wang@arm.com>
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20231207062551.19825-1-jgross@suse.com>
- <06d65659-5bcd-4326-b21c-0ac7720ae8c2@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <06d65659-5bcd-4326-b21c-0ac7720ae8c2@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------zTN0BuQO4JzgF0OAxv4mAMbV"
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spam-Level: 
-X-Spam-Score: -2.44
-X-Spamd-Result: default: False [-2.44 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 HAS_ATTACHMENT(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_BASE64_TEXT_BOGUS(1.00)[];
-	 BAYES_HAM(-0.25)[73.39%];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 NEURAL_HAM_SHORT(-0.19)[-0.969];
-	 MIME_BASE64_TEXT(0.10)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
-	 SIGNED_PGP(-2.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 RCVD_TLS_ALL(0.00)[];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys]
-X-Spam-Flag: NO
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20231208054637.1973424-3-Henry.Wang@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529D:EE_|MW6PR12MB8734:EE_
+X-MS-Office365-Filtering-Correlation-Id: 498da0e9-f61f-43ae-ad58-08dbf7c93a1f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	CINa07Fjmi34eRPMfvyFh3j4RvG9dzRG+EdrdVbfATdzEcKnmPldBVOH9cczkwELw/zLjuFsQggxu9LphYHmFfgxRdUyt7l9rHO5AkmnaqAAE7BmaKrkrFs2dk0+Ht9iCemiN5vCchAafLJWBt11sCE6EQo2fMnZNw2DrTRCDG44vxoEVJ0scXvV9Tuo+Fw6qOQnbKuJE3monFOanF277lepchnSljslb8tE/HX17udV047RceVGZ6DXZZ6YW5GELb3dLGxuDyWJfJjjk8vVOQC6UUkcUMbxGV4jLV1YJrREHlLa8SasriaaZuyLNbtcwkZNq1Osxvi9VeVk+2CdMoXdJzrg43BUjvzid1xMh2WHM2NsZc5CqomywkAjNOmAVFosV78wWEaMfup2bZK4kiorR/UvGL9mPBIkdYGXzAA1cqyBfvxqYZs2WqAZy2HyjiXyUyxAh+/BJZQJzDGHtbA4mHXNeXzWnvqyMM04jvH1Xvo1X58yP7d4QPgStSaq06XxXa0eM3hw5m4XRNuJY5Jp18EgdfsT2xrecQLazOJkHQUl5NS4/6voOcSvBQ6ggQbw2YnqkRFvD79nXeXq5zJRHw192vJY7LdZgL0jzwHLFd20xVhkFUYohzvZtdMVSZU/ywYGOoSDNG5+RWPtIETDxzNyHGOih2FWZdXiw8FLpxdJ6f4NdTro1pORaM97+Co1SS2zpuv9+FqM/ns0u0i4qDD9DByycvbt34SUudlePL1xy9N7F/N0DMBnoJmqwnqA83uN/EcR5Ce+Zoo8Mv7B2fRRUj8VdV12xEd34wg=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(346002)(39860400002)(376002)(396003)(230922051799003)(186009)(451199024)(1800799012)(82310400011)(64100799003)(36840700001)(46966006)(40470700004)(83380400001)(81166007)(41300700001)(36756003)(40460700003)(426003)(2906002)(47076005)(356005)(82740400003)(36860700001)(31686004)(31696002)(44832011)(966005)(478600001)(53546011)(54906003)(40480700001)(110136005)(70206006)(16576012)(2616005)(316002)(86362001)(4326008)(8676002)(8936002)(70586007)(5660300002)(6666004)(26005)(336012)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2023 08:39:43.8230
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 498da0e9-f61f-43ae-ad58-08dbf7c93a1f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002529D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8734
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------zTN0BuQO4JzgF0OAxv4mAMbV
-Content-Type: multipart/mixed; boundary="------------h3rO2FN5priNPLK18gcFMJtM";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <41d4bbc0-5c8d-443c-979b-391d5fc09432@suse.com>
-Subject: Re: [PATCH v2] tools/libs/evtchn: replace assert()s in stubdom with
- proper locking
-References: <20231207062551.19825-1-jgross@suse.com>
- <06d65659-5bcd-4326-b21c-0ac7720ae8c2@suse.com>
-In-Reply-To: <06d65659-5bcd-4326-b21c-0ac7720ae8c2@suse.com>
+Hi Henry,
 
---------------h3rO2FN5priNPLK18gcFMJtM
-Content-Type: multipart/mixed; boundary="------------JgS0xRNCq0e8PpgMos7Zv0CX"
+On 08/12/2023 06:46, Henry Wang wrote:
+> 
+> 
+> Unlike the emulators that currently being used in the CI pipelines,
+> the FVP must start at EL3. Therefore we need the firmware, i.e. the
+> TrustedFirmware-A (TF-A), for corresponding functionality.
+> 
+> There is a dedicated board (vexpress_fvp) in U-Boot (serve as the
+> BL33 of the TF-A) for the FVP platform, so the U-Boot should also be
+> compiled for the FVP platform instead of reusing the U-Boot for the
+> existing emulators used in the CI pipelines.
+> 
+> To avoid compiling TF-A and U-Boot everytime in the job, adding a
+> Dockerfile to the test artifacts to build TF-A v2.9.0 and U-Boot
+> v2023.10 for FVP. The binaries for the TF-A and U-Boot, as well as
+> the device tree for the FVP platform, will be saved (and exported by
+> the CI job introduced by following commits). Note that, a patch for
+> the TF-A will be applied before building to enable the virtio-net
+> and the virtio-rng device on the FVP. The virtio-net device will
+> provide the networking service for FVP, and the virtio-rng device
+> will improve the speed of the FVP.
+> 
+> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> v2:
+> - Add Stefano's Reviewed-by tag.
+> ---
+>  .../2023.10-2.9.0-arm64v8.dockerfile          | 48 +++++++++++++++++++
+>  1 file changed, 48 insertions(+)
+>  create mode 100644 automation/tests-artifacts/armfvp-uboot-tfa/2023.10-2.9.0-arm64v8.dockerfile
+> 
+> diff --git a/automation/tests-artifacts/armfvp-uboot-tfa/2023.10-2.9.0-arm64v8.dockerfile b/automation/tests-artifacts/armfvp-uboot-tfa/2023.10-2.9.0-arm64v8.dockerfile
+> new file mode 100644
+> index 0000000000..6566b60545
+> --- /dev/null
+> +++ b/automation/tests-artifacts/armfvp-uboot-tfa/2023.10-2.9.0-arm64v8.dockerfile
+> @@ -0,0 +1,48 @@
+> +FROM --platform=linux/arm64/v8 debian:bookworm
+> +LABEL maintainer.name="The Xen Project" \
+> +      maintainer.email="xen-devel@lists.xenproject.org"
+> +
+> +ENV DEBIAN_FRONTEND=noninteractive
+> +ENV UBOOT_VERSION="2023.10"
+> +ENV TFA_VERSION="v2.9.0"
+> +ENV USER root
+> +
+> +RUN mkdir /build
+> +WORKDIR /build
+> +
+> +# build depends
+> +RUN apt-get update && \
+> +    apt-get --quiet --yes install \
+> +        build-essential \
+> +        libssl-dev \
+> +        bc \
+> +        curl \
+> +        flex \
+> +        bison \
+> +        git \
+> +        device-tree-compiler && \
+> +    apt-get autoremove -y && \
+> +    apt-get clean && \
+> +    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+> +
+> +# Build U-Boot and TF-A
+> +RUN curl -fsSLO https://ftp.denx.de/pub/u-boot/u-boot-"$UBOOT_VERSION".tar.bz2 && \
+> +    tar xvf u-boot-"$UBOOT_VERSION".tar.bz2 && \
+> +    cd u-boot-"$UBOOT_VERSION" && \
+> +    make -j$(nproc) V=1 vexpress_fvp_defconfig && \
+> +    make -j$(nproc) V=1 all && \
+Do we need 'all'? Can't we just build target 'u-boot' for u-boot.bin?
 
---------------JgS0xRNCq0e8PpgMos7Zv0CX
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> +    cd .. && \
+> +    git clone --branch "$TFA_VERSION" --depth 1 https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git && \
+> +    cd trusted-firmware-a && \
+> +    curl -fsSLO https://git.yoctoproject.org/meta-arm/plain/meta-arm-bsp/recipes-bsp/trusted-firmware-a/files/fvp-base/0001-fdts-fvp-base-Add-stdout-path-and-virtio-net-and-rng.patch \
+> +         --output 0001-fdts-fvp-base-Add-stdout-path-and-virtio-net-and-rng.patch && \
+> +    git config --global user.email "you@example.com" && \
+> +    git config --global user.name "Your Name" && \
+If this is needed for git am, you could get away using 'patch -p1'
 
-T24gMDguMTIuMjMgMDg6MzQsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAwNy4xMi4yMDIz
-IDA3OjI1LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gSW4gdG9vbHMvbGlicy9ldnRjaG4v
-bWluaW9zLmMgdGhlcmUgYXJlIGFzc2VydCgpcyBmb3IgdGhlIGN1cnJlbnQNCj4+IHRocmVh
-ZCBiZWluZyB0aGUgbWFpbiB0aHJlYWQgd2hlbiBiaW5kaW5nIGFuIGV2ZW50IGNoYW5uZWwu
-DQo+Pg0KPj4gQXMgTWluaS1PUyBpcyBzdXBwb3J0aW5nIG11bHRpcGxlIHRocmVhZHMsIHRo
-ZXJlIGlzIG5vIHJlYWwgcmVhc29uDQo+PiB3aHkgdGhlIGJpbmRpbmcgc2hvdWxkbid0IGJl
-IGFsbG93ZWQgdG8gaGFwcGVuIGluIGFueSBvdGhlciB0aHJlYWQuDQo+Pg0KPj4gRHJvcCB0
-aGUgYXNzZXJ0KClzIGFuZCByZXBsYWNlIHRoZW0gd2l0aCBwcm9wZXIgbG9ja2luZyBvZiB0
-aGUNCj4+IHBvcnRfbGlzdC4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3Nz
-IDxqZ3Jvc3NAc3VzZS5jb20+DQo+IA0KPiBJcyB0aGlzIGEgY2hhbmdlIEkgc2hvdWxkIHBp
-Y2sgdXAgZm9yIGJhY2twb3J0Pw0KDQpUaGlzIHBhdGNoIGlzbid0IHJlYWxseSBmaXhpbmcg
-YSBidWcsIGJ1dCBtb3JlIGVuaGFuY2luZyBmdW5jdGlvbmFsaXR5Lg0KDQpJIGRvbid0IHRo
-aW5rIGEgYmFja3BvcnQgaXMgbmVlZGVkLg0KDQoNCkp1ZXJnZW4NCg==
---------------JgS0xRNCq0e8PpgMos7Zv0CX
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> +    git am 0001-fdts-fvp-base-Add-stdout-path-and-virtio-net-and-rng.patch && \
+> +    make -j$(nproc) DEBUG=1 PLAT=fvp ARCH=aarch64 FVP_DT_PREFIX=fvp-base-gicv3-psci-1t all && \
+> +    make -j$(nproc) DEBUG=1 PLAT=fvp ARCH=aarch64 FVP_DT_PREFIX=fvp-base-gicv3-psci-1t fip BL33=../u-boot-"$UBOOT_VERSION"/u-boot.bin && \
+> +    cp build/fvp/debug/bl1.bin / && \
+> +    cp build/fvp/debug/fip.bin / && \
+> +    cp build/fvp/debug/fdts/fvp-base-gicv3-psci-1t.dtb / && \
+> +    cd /build && \
+> +    rm -rf u-boot-"$UBOOT_VERSION" trusted-firmware-a
+You forgot to remove u-boot tar file
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Other than that:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------JgS0xRNCq0e8PpgMos7Zv0CX--
-
---------------h3rO2FN5priNPLK18gcFMJtM--
-
---------------zTN0BuQO4JzgF0OAxv4mAMbV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmVyyesFAwAAAAAACgkQsN6d1ii/Ey/1
-MQgAl5wwIPeZe+hzLKrMMYlvVooySpAVG6r57Hy/8PG2J2bi8r3Ht1u5arDQhp8ui1CSoyHjYbgC
-X5++XHQmz/CqAFIIWlLyDBU9QQz9wrEIAZP9iMkzBkz0uTYC+F7SBfCRfBP7xd5CA7sIHOBJBSab
-Fz0WbeetFmzHM5fdtiBpLC0yjo20Uikf81M9uGDFtu2fezRBQaEWRxl3+Sz3P7CC4wWcxYM+cs01
-OUB3uzcBY+CwuBF8+rQziaKtPuStbLjdJPn/6ITsitb7HnbGoDmbvfPs3a45sKNC9XoTmYOp8pHc
-nNZgQZ5wk+o7wOWawxrpDKzIgJm+3rcufZu0zujblQ==
-=rYim
------END PGP SIGNATURE-----
-
---------------zTN0BuQO4JzgF0OAxv4mAMbV--
+~Michal
 
