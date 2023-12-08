@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF1E08098B2
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 02:43:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650316.1015746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C4718098BD
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 02:45:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650320.1015755 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBPtL-0003M4-3O; Fri, 08 Dec 2023 01:42:59 +0000
+	id 1rBPvr-0004aF-JF; Fri, 08 Dec 2023 01:45:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650316.1015746; Fri, 08 Dec 2023 01:42:59 +0000
+Received: by outflank-mailman (output) from mailman id 650320.1015755; Fri, 08 Dec 2023 01:45:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBPtK-0003Jw-W5; Fri, 08 Dec 2023 01:42:58 +0000
-Received: by outflank-mailman (input) for mailman id 650316;
- Fri, 08 Dec 2023 01:42:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBPvr-0004YK-Ga; Fri, 08 Dec 2023 01:45:35 +0000
+Received: by outflank-mailman (input) for mailman id 650320;
+ Fri, 08 Dec 2023 01:45:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RvmJ=HT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rBPtJ-0003Jm-Cb
- for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 01:42:57 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1afbdd35-956b-11ee-98e8-6d05b1d4d9a1;
- Fri, 08 Dec 2023 02:42:56 +0100 (CET)
+ id 1rBPvp-0004YE-Go
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 01:45:33 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 78189a53-956b-11ee-9b0f-b553b5be7939;
+ Fri, 08 Dec 2023 02:45:31 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 5B5B2CE25D7;
- Fri,  8 Dec 2023 01:42:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89A3AC433C9;
- Fri,  8 Dec 2023 01:42:49 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id ADFAC6223E;
+ Fri,  8 Dec 2023 01:45:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56B54C433C8;
+ Fri,  8 Dec 2023 01:45:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,126 +41,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1afbdd35-956b-11ee-98e8-6d05b1d4d9a1
+X-Inumbo-ID: 78189a53-956b-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701999770;
-	bh=lzPDqEfWco1SI3FujK3rSfQ7ZlhLtamE/+1S1PtStDk=;
+	s=k20201202; t=1701999929;
+	bh=vLc1uRakr9TmI+nUcaT0DcgRdkZuxW00VBXiSP6Z/hc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=CANGD9GrrODsYg+dSuVnQZD3hjQJoPEW60BzGV8TWQ4PYyUoGPSzBCWqdMM2dOROp
-	 BIzcii6wbovF6DvJverfw3mKcOszymRwxBRFzcBUYRMec7CeLf9+FYZTLBiFFm/7a1
-	 VOReKnjafXYIjhA6i2XWSI7W9PlybWHuvtgUc0CfAOixkGVp9asN96UdMTGMq/x6TR
-	 QFJ9d/TTOI/aUbIbGEwm3qIe2mY1kUpscV8YObR00enI9sqwWu5etTpK20UbcpHWc3
-	 qRPmH3E86O8mBsXb4n7mciZyt2Gyl5vfGXuEES8sGj4ZxDeXFj/VOP1FUPgwP5b0KJ
-	 Ymr4y6c9zTTFQ==
-Date: Thu, 7 Dec 2023 17:42:47 -0800 (PST)
+	b=PJLXqr8aWQO/nZE9na8sMQDop4gDRTaBiUVJhUtAvxlOoaD3XVGEQ5xW88RXsSdzp
+	 LY52O2zTq8BmFRo7n+c8dDJ5pPmjESc2YYvNt39X4tCEHrDpYnokFLZ6Aptj3L6364
+	 c/2hTxokSI2KQkaFnpRqHKVo9c8V8rBGTAxWKEXa8GOYaqA5p0bOFFfP+E5IJxWvwA
+	 TA4ULzvH5k1JjUJC/fhsQ4fcONT7curvLTOxav3uItkEDbUHDAshPjRLzKye6N1+Gr
+	 HGOU20Ps4aX4veNxlJUII0t76YUR7XWKU5dcgG7W/dM4+lX5hR+rmaL3mWNjnuXcU9
+	 E4JLbmWj4OIKw==
+Date: Thu, 7 Dec 2023 17:45:26 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Henry Wang <Henry.Wang@arm.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>
-Subject: Re: [PATCH 5/5] automation: Add the arm64 FVP build and Dom0 smoke
- test jobs
-In-Reply-To: <20231207135318.1912846-6-Henry.Wang@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2312071741410.1265976@ubuntu-linux-20-04-desktop>
-References: <20231207135318.1912846-1-Henry.Wang@arm.com> <20231207135318.1912846-6-Henry.Wang@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+cc: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org, 
+    Doug Goldstein <cardoe@cardoe.com>, Michal Orzel <michal.orzel@amd.com>, 
+    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Wei Chen <wei.chen@arm.com>
+Subject: Re: [PATCH 1/5] automation: Add a Dockerfile for running FVP_Base
+ jobs
+In-Reply-To: <alpine.DEB.2.22.394.2312071722250.1265976@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2312071743220.1265976@ubuntu-linux-20-04-desktop>
+References: <20231207135318.1912846-1-Henry.Wang@arm.com> <20231207135318.1912846-2-Henry.Wang@arm.com> <alpine.DEB.2.22.394.2312071722250.1265976@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 7 Dec 2023, Henry Wang wrote:
-> Add a job in the build stage to export the TF-A, U-Boot and the
-> device tree for the FVP platform from the test artifact container.
+On Thu, 7 Dec 2023, Stefano Stabellini wrote:
+> On Thu, 7 Dec 2023, Henry Wang wrote:
+> > Fixed Virtual Platforms (FVPs) are complete simulations of an Arm
+> > system, including processor, memory and peripherals. These are set
+> > out in a "programmer's view", which gives programmers a comprehensive
+> > model on which to build and test software. FVP can be configured to
+> > different setups by its cmdline parameters, and hence having the FVP
+> > in CI will provide us with the flexibility to test Arm features and
+> > setups that we find difficult to use real hardware or emulators.
+> > 
+> > This commit adds a Dockerfile for the new arm64v8 container with
+> > FVP installed, based on the debian bookworm-arm64v8 image. This
+> > container will be used to run the FVP test jobs. Compared to the
+> > debian bookworm-arm64v8 image, the packages in the newly added FVP
+> > container does not contain the `u-boot-qemu`, and adds the `expect`
+> > to run expect scripts introduced by following commits, `telnet` to
+> > connect to FVP, and `tftpd-hpa` to provide the TFTP service for
+> > the FVP.
+> > 
+> > Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> > ---
+> >  .../debian/bookworm-arm64v8-fvp.dockerfile    | 64 +++++++++++++++++++
+> >  1 file changed, 64 insertions(+)
+> >  create mode 100644 automation/build/debian/bookworm-arm64v8-fvp.dockerfile
+> > 
+> > diff --git a/automation/build/debian/bookworm-arm64v8-fvp.dockerfile b/automation/build/debian/bookworm-arm64v8-fvp.dockerfile
+> > new file mode 100644
+> > index 0000000000..3b87dc5a5b
+> > --- /dev/null
+> > +++ b/automation/build/debian/bookworm-arm64v8-fvp.dockerfile
 > 
-> Add a FVP smoke test job in the test stage to do the same test as
-> the `qemu-smoke-dom0-arm64-gcc` job.
+> Please move this container under automation/tests-artifacts/ because the
+> container is only meant to be used for tests as opposed as to build Xen.
+> I know that in other cases we have reused the build container but that
+> just because it was already there an working for the purpose.
 > 
-> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> Also please name it based on the fvp rather than debian:
+> 
+> automation/tests-artifacts/armfvp/11.23_9-arm64v8.dockerfile
+> 
+> Everything else looks fine.
+
+I take it back. We even have
+automation/build/ubuntu/xenial-xilinx.dockerfile and
+automation/build/debian/bookworm-cppcheck.dockerfile
+
+At one point I think we should separate the build containers from the
+ones we use for testing but I won't ask it here.
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> Although it does not affect the functionality, I am still quite
-> confused about why the logs displayed by GitLab UI, for
-> example [1], is much less than the actual output (saved in the
-> artifacts, see [2]). Had a discussion with Michal on Matrix
-> and we agree that the log in gitlab UI is usually capped.
-> 
-> [1] https://gitlab.com/xen-project/people/henryw/xen/-/jobs/5700569676
-> [2] https://gitlab.com/xen-project/people/henryw/xen/-/jobs/5700569676/artifacts/file/smoke.serial
-> ---
->  automation/gitlab-ci/build.yaml | 17 +++++++++++++++++
->  automation/gitlab-ci/test.yaml  | 22 ++++++++++++++++++++++
->  2 files changed, 39 insertions(+)
-> 
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 32af30cced..89d2f01302 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -344,6 +344,23 @@ kernel-6.1.19-export:
->    tags:
->      - x86_64
->  
-> +armfvp-uboot-tfa-2023.10-2.9.0-arm64-export:
-> +  extends: .test-jobs-artifact-common
-> +  image: registry.gitlab.com/xen-project/xen/tests-artifacts/armfvp-uboot-tfa:2023.10-2.9.0-arm64v8
-> +  script:
-> +    - |
-> +       mkdir binaries && \
-> +       cp /bl1.bin binaries/bl1.bin && \
-> +       cp /fip.bin binaries/fip.bin && \
-> +       cp /fvp-base-gicv3-psci-1t.dtb binaries/fvp-base-gicv3-psci-1t.dtb
-> +  artifacts:
-> +    paths:
-> +      - binaries/bl1.bin
-> +      - binaries/fip.bin
-> +      - binaries/fvp-base-gicv3-psci-1t.dtb
-> +  tags:
-> +    - arm64
-> +
->  # Jobs below this line
->  
->  # Build jobs needed for tests
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 6aabdb9d15..47e00d0a0b 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -96,6 +96,19 @@
->    tags:
->      - xilinx
->  
-> +.fvp-arm64:
-> +  extends: .test-jobs-common
-> +  variables:
-> +    CONTAINER: debian:bookworm-arm64v8-fvp
-> +    LOGFILE: fvp-smoke-arm64.log
-> +  artifacts:
-> +    paths:
-> +      - smoke.serial
-> +      - '*.log'
-> +    when: always
-> +  tags:
-> +    - arm64
-> +
->  .adl-x86-64:
->    extends: .test-jobs-common
->    variables:
-> @@ -459,3 +472,12 @@ qemu-smoke-ppc64le-powernv9-gcc:
->    needs:
->      - qemu-system-ppc64-8.1.0-ppc64-export
->      - debian-bullseye-gcc-ppc64le-debug
-> +
-> +fvp-smoke-dom0-arm64-gcc-debug:
-> +  extends: .fvp-arm64
-> +  script:
-> +    - ./automation/scripts/fvp-base-smoke-dom0-arm64.sh 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *arm64-test-needs
-> +    - armfvp-uboot-tfa-2023.10-2.9.0-arm64-export
-> +    - alpine-3.18-gcc-debug-arm64
-> -- 
-> 2.25.1
-> 
 
