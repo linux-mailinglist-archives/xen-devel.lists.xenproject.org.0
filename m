@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B0F6809D05
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 08:18:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650386.1015890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E659809D35
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 08:34:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650390.1015901 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBV83-00051e-Ew; Fri, 08 Dec 2023 07:18:31 +0000
+	id 1rBVNQ-0008Ka-Ol; Fri, 08 Dec 2023 07:34:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650386.1015890; Fri, 08 Dec 2023 07:18:31 +0000
+Received: by outflank-mailman (output) from mailman id 650390.1015901; Fri, 08 Dec 2023 07:34:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBV83-0004zO-C5; Fri, 08 Dec 2023 07:18:31 +0000
-Received: by outflank-mailman (input) for mailman id 650386;
- Fri, 08 Dec 2023 07:18:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rBVNQ-0008Hg-Lp; Fri, 08 Dec 2023 07:34:24 +0000
+Received: by outflank-mailman (input) for mailman id 650390;
+ Fri, 08 Dec 2023 07:34:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFXw=HT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBV81-0004zI-Ko
- for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 07:18:29 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fb2e3e38-9599-11ee-9b0f-b553b5be7939;
- Fri, 08 Dec 2023 08:18:27 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40c2308faedso18348965e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 23:18:27 -0800 (PST)
+ id 1rBVNP-0008Ha-Rv
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 07:34:23 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 34a6ed30-959c-11ee-98e8-6d05b1d4d9a1;
+ Fri, 08 Dec 2023 08:34:22 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40c2c5a8150so13372675e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 23:34:22 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d12-20020a05600c3acc00b0040836519dd9sm1925651wms.25.2023.12.07.23.18.26
+ p1-20020adfe601000000b0033334df1259sm1402507wrm.20.2023.12.07.23.34.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 23:18:26 -0800 (PST)
+ Thu, 07 Dec 2023 23:34:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb2e3e38-9599-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 34a6ed30-959c-11ee-98e8-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702019907; x=1702624707; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702020862; x=1702625662; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1SYdAbmWhos24EuutWwbD8wRit9LFm1H1azNYNy4ZIc=;
-        b=M/EhQl8HySJ0XQxi+WtJ8QBWcS+A+iQg+XY/iOOQE8C+LQgjToew49lO69pYZCXyuv
-         +RTNdyIL+kPN9PBrz7YE8afHElpaMy4ggmtZTJB0ge7wcRkwe1K7N+iE8BOKHLu1EbNU
-         sxgIbgsZLjI39QQR63oS1qd/kPiaTJ5Iq1RviObVdJLgPopsR/jHkH1Yn+N2lXnyfQHw
-         QqEI6unOWEH72q8ODHOtncfyq9gkXV34AmR6GC3OGnPwLxrHI8S8OZL63RleSJO7VyfP
-         cC/BTS7AAYJbErO+rdrCCPuJAwrTsqSYsD++Fz5ktHkVwr+uxNC0Trmq27ta3pL0RQjq
-         89aQ==
+        bh=xzE+u1izF65yFtO14EQdT7QKiRZs02FB+MTL9nuuhmI=;
+        b=QqDy4xgLiwML/r9lJnCZHPBkAMuRtaJGoK7V79BNvfweT06HBdPi8tvBcbVrNiPCXm
+         3ovP4djshcMh9reXWjZa9ArIZklc9Pgbb5iNM9yIVpcXsbeHZrLFoEja+lgN/sxVaf+g
+         3pQQTXO5IpS0yXLEKccmQnLtfc6ubbI8xLoK3KsTxBKysBLI9LrkNP64y1aTHGS2cQsS
+         I/2ZePI1213P/UStj/aG+kwfop9WQQo8pC8+Gk90Ys0LlXY9H2kgDWFrZ4cU+s5FiMV/
+         qjAxd2x/m1PTb04X+TZvnz3mZCi4sNEBhFNHrvDTv4i5Ea44wpF3NFJRbzip0GOT31NE
+         UfYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702019907; x=1702624707;
+        d=1e100.net; s=20230601; t=1702020862; x=1702625662;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1SYdAbmWhos24EuutWwbD8wRit9LFm1H1azNYNy4ZIc=;
-        b=r1jWB7D375Jqfgasz2NU1hsnq2j150KkVgDfmLCAzNM4JtskEo0VbLS1GUQPxyXeAb
-         /e+22Q1SXCBNOovSDK6GKR655GIbkjJMJHebSQrQugxaDZFKUpLIiwTPeh1XOtQc5Ko9
-         Oy/c04RODOa5lXdbvvoZku82dENncO9WS6594KaOV3BsqUrcZxmgoZeXb4lfU9W7ia1/
-         hL0FEw0dhY79k298RcKpEuIk9mC5hJp/KPVa+gcZRLW3flTUNwIrzzDRTHlEByKfRi15
-         jTSTJ7kJKqI4Td+GpBKWYWzqslv3H3ZUQdM8W58HiKOIy/DvyLS5KBDGAErYoN5DsCQh
-         OfYg==
-X-Gm-Message-State: AOJu0YwUUkJvHj37B6BvLAaPRER/4Wc6VHHaPkvd6AuG1kKh04PMmJ4J
-	qZ+nUQ7RGIs+/6mRyI7oXjrV
-X-Google-Smtp-Source: AGHT+IGj8xJ1+rxT7Z6yqtQHbFPQ7IXkVHIm83VLa6wj66o0L56t7s7IzofsyHph2nBfw0Gq59pW0w==
-X-Received: by 2002:a05:600c:1c09:b0:40b:36e6:b7ed with SMTP id j9-20020a05600c1c0900b0040b36e6b7edmr2506599wms.7.1702019906783;
-        Thu, 07 Dec 2023 23:18:26 -0800 (PST)
-Message-ID: <f51e120c-2db9-498c-82bf-66494f862920@suse.com>
-Date: Fri, 8 Dec 2023 08:18:25 +0100
+        bh=xzE+u1izF65yFtO14EQdT7QKiRZs02FB+MTL9nuuhmI=;
+        b=JeZtbxRU4oSwa0XtvTzDQy81tx8X2Mm51pmvDNoiK61uahOUQ5D02QjEpIG9EYnbH7
+         I8cUqml/jOAY521A5wDJy1g2aJuOqN5HK+gZXwyPJ4cBt9evjyFni0OyuAvOAgw7rUX4
+         hCG0vI1IymP21gn8+5oOls7eCbmm+O3rsOVdAV66BvydP36kMGyP2ILB8iCdBMwUle7w
+         FaQKMmNLMk87GF0c+1JmI7EOo2pVroN1dimdn9vM/V/Rmb6LdwRzVZa7+l4F+Wr8mdPm
+         JTnKnJQOM070wk1f13c01kQfe08Rxh3dk2uLxWwRMvDCRald8q3/PLpYSZqZ1NgVzEPs
+         PUXA==
+X-Gm-Message-State: AOJu0YzdOTj1GEHhB8MGxi2Wn7o41gLRppqle0WIjemXVY/W5Zo0bLXv
+	EoZhfUoIDxRL2Z6DBxqcIu3A
+X-Google-Smtp-Source: AGHT+IH4aicy+xFiPUJGATS3CtdoQFjgiulVmGMMPM6p/pJiAI13VOvl80NSHS2Z1cEsxGNnx3JTeg==
+X-Received: by 2002:a05:600c:2049:b0:40c:2b24:325e with SMTP id p9-20020a05600c204900b0040c2b24325emr1128240wmg.184.1702020862213;
+        Thu, 07 Dec 2023 23:34:22 -0800 (PST)
+Message-ID: <06d65659-5bcd-4326-b21c-0ac7720ae8c2@suse.com>
+Date: Fri, 8 Dec 2023 08:34:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] docs/misra/rules.rst: add more rules
+Subject: Re: [PATCH v2] tools/libs/evtchn: replace assert()s in stubdom with
+ proper locking
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
- bertrand.marquis@arm.com, roger.pau@citrix.com, roberto.bagnara@bugseng.com,
- federico.serafini@bugseng.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2312071609060.1265976@ubuntu-linux-20-04-desktop>
+To: Juergen Gross <jgross@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20231207062551.19825-1-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,31 +110,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312071609060.1265976@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20231207062551.19825-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.12.2023 01:09, Stefano Stabellini wrote:
-> Add the rules accepted in the last three MISRA C working group meetings.
+On 07.12.2023 07:25, Juergen Gross wrote:
+> In tools/libs/evtchn/minios.c there are assert()s for the current
+> thread being the main thread when binding an event channel.
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> As Mini-OS is supporting multiple threads, there is no real reason
+> why the binding shouldn't be allowed to happen in any other thread.
+> 
+> Drop the assert()s and replace them with proper locking of the
+> port_list.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-> --- a/docs/misra/rules.rst
-> +++ b/docs/misra/rules.rst
-> @@ -462,6 +462,13 @@ maintainers if you want to suggest a change.
->  
->         while(0) and while(1) and alike are allowed.
->  
-> +   * - `Rule 16.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_03.c>`_
-> +     - Required
-> +     - An unconditional break statement shall terminate every
-> +       switch-clause
-> +     - In addition to break, also other flow control statements such as
-> +       continue, return, goto are allowed.
-
-To eliminate any room for doubt, maybe add "unconditional" also again here?
+Is this a change I should pick up for backport?
 
 Jan
 
