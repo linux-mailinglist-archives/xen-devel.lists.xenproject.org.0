@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75A0809CE7
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 08:05:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650381.1015881 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B0F6809D05
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 08:18:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650386.1015890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBUuE-0001ou-Bw; Fri, 08 Dec 2023 07:04:14 +0000
+	id 1rBV83-00051e-Ew; Fri, 08 Dec 2023 07:18:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650381.1015881; Fri, 08 Dec 2023 07:04:14 +0000
+Received: by outflank-mailman (output) from mailman id 650386.1015890; Fri, 08 Dec 2023 07:18:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBUuE-0001ma-8i; Fri, 08 Dec 2023 07:04:14 +0000
-Received: by outflank-mailman (input) for mailman id 650381;
- Fri, 08 Dec 2023 07:04:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBV83-0004zO-C5; Fri, 08 Dec 2023 07:18:31 +0000
+Received: by outflank-mailman (input) for mailman id 650386;
+ Fri, 08 Dec 2023 07:18:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFXw=HT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBUuC-0001mT-Uk
- for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 07:04:12 +0000
+ id 1rBV81-0004zI-Ko
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 07:18:29 +0000
 Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
  [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb0e6157-9597-11ee-98e8-6d05b1d4d9a1;
- Fri, 08 Dec 2023 08:04:08 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fb2e3e38-9599-11ee-9b0f-b553b5be7939;
+ Fri, 08 Dec 2023 08:18:27 +0100 (CET)
 Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40c19f5f822so9916015e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 23:04:08 -0800 (PST)
+ 5b1f17b1804b1-40c2308faedso18348965e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 07 Dec 2023 23:18:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l15-20020a05600c1d0f00b003feae747ff2sm4185247wms.35.2023.12.07.23.04.07
+ d12-20020a05600c3acc00b0040836519dd9sm1925651wms.25.2023.12.07.23.18.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 Dec 2023 23:04:07 -0800 (PST)
+ Thu, 07 Dec 2023 23:18:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb0e6157-9597-11ee-98e8-6d05b1d4d9a1
+X-Inumbo-ID: fb2e3e38-9599-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702019047; x=1702623847; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702019907; x=1702624707; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=8fQ/vFFGBMyhhGUsF8otvgdMnn6ABtLlkUsIwSfouUQ=;
-        b=UYiZMCtb6QCw1Ag1OeqCMpHAWean12cAt7CZvE98JBuDLm9cEqCLi6sANyk8/N2oUF
-         e0VLh4cNYDUb6tmEyxs1Aak+LWtZNtQYXbKsEPhlg9VOXkxeQvwXYghjuR/aR0F+g9Pw
-         Zfiicj0F58Si+07d65GIDmqNc9fiB2N9lV+cevH21QS7GC5JrtiXrU0BH8arxYQCBxXN
-         1z7i3/Ve2LIwTV8Es6x+aZ1WCynDBP779sUG7C1HtmWnC1zxfLl+9bdS6gGTc22s4v5L
-         G8A6daYYAIRKsEQTldr0cQHMqwpQ/Bt6pos/GSnRiTpv9TGAm8vRMrkgly2IFTGHxcws
-         WQBw==
+        bh=1SYdAbmWhos24EuutWwbD8wRit9LFm1H1azNYNy4ZIc=;
+        b=M/EhQl8HySJ0XQxi+WtJ8QBWcS+A+iQg+XY/iOOQE8C+LQgjToew49lO69pYZCXyuv
+         +RTNdyIL+kPN9PBrz7YE8afHElpaMy4ggmtZTJB0ge7wcRkwe1K7N+iE8BOKHLu1EbNU
+         sxgIbgsZLjI39QQR63oS1qd/kPiaTJ5Iq1RviObVdJLgPopsR/jHkH1Yn+N2lXnyfQHw
+         QqEI6unOWEH72q8ODHOtncfyq9gkXV34AmR6GC3OGnPwLxrHI8S8OZL63RleSJO7VyfP
+         cC/BTS7AAYJbErO+rdrCCPuJAwrTsqSYsD++Fz5ktHkVwr+uxNC0Trmq27ta3pL0RQjq
+         89aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702019047; x=1702623847;
+        d=1e100.net; s=20230601; t=1702019907; x=1702624707;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8fQ/vFFGBMyhhGUsF8otvgdMnn6ABtLlkUsIwSfouUQ=;
-        b=HI3FT4v2kLQxoNTotDKfdKDahtRmy/mERu86NsiyY78Cr9LEd8DaQS/YnUStqp8vh6
-         u8tgFCnzQV9VA3I1S2XGTcOl3AdUDFlVeuqJ6YoWLMTgm4vZrwnTp62TKO68ScB/0hR9
-         NEqHGeGZM8uAUHMY1L/m0lX1QMrET2oCf1pkRcau8VlvMI4uI7JUMUt+tykD1li93sbi
-         H4DRLcpQZEGjVvfAdH8+8EuizTIcD0eW6yNvkDjFDv0VhtBib5u2jH32yWmZse2Hd6vM
-         80dRrS54iETmtH/ElINBoYRwuLKWPabVAvmSLbuVgHbkWAUXz/DBkdY9JuAzX5uaUPsY
-         kxTg==
-X-Gm-Message-State: AOJu0YwGbc5ji8vGPmNNdwXZpX2azoc3/aVl3wvvqJ3IW8lZxtnnQq1/
-	u1SnAoNVy/Q8XwJjJ0s+7TKI
-X-Google-Smtp-Source: AGHT+IEhj1Wqomn64A5J2Qbx0BmXKJGDApzvdKiXA9S0xDBCplB8Hu5rMG7Vuy2bogcYH9P7n9gCQQ==
-X-Received: by 2002:a05:600c:470f:b0:40b:5e4a:2351 with SMTP id v15-20020a05600c470f00b0040b5e4a2351mr182377wmo.83.1702019047556;
-        Thu, 07 Dec 2023 23:04:07 -0800 (PST)
-Message-ID: <9572a7a2-67b4-40a8-a04b-3caf4d617a6a@suse.com>
-Date: Fri, 8 Dec 2023 08:04:06 +0100
+        bh=1SYdAbmWhos24EuutWwbD8wRit9LFm1H1azNYNy4ZIc=;
+        b=r1jWB7D375Jqfgasz2NU1hsnq2j150KkVgDfmLCAzNM4JtskEo0VbLS1GUQPxyXeAb
+         /e+22Q1SXCBNOovSDK6GKR655GIbkjJMJHebSQrQugxaDZFKUpLIiwTPeh1XOtQc5Ko9
+         Oy/c04RODOa5lXdbvvoZku82dENncO9WS6594KaOV3BsqUrcZxmgoZeXb4lfU9W7ia1/
+         hL0FEw0dhY79k298RcKpEuIk9mC5hJp/KPVa+gcZRLW3flTUNwIrzzDRTHlEByKfRi15
+         jTSTJ7kJKqI4Td+GpBKWYWzqslv3H3ZUQdM8W58HiKOIy/DvyLS5KBDGAErYoN5DsCQh
+         OfYg==
+X-Gm-Message-State: AOJu0YwUUkJvHj37B6BvLAaPRER/4Wc6VHHaPkvd6AuG1kKh04PMmJ4J
+	qZ+nUQ7RGIs+/6mRyI7oXjrV
+X-Google-Smtp-Source: AGHT+IGj8xJ1+rxT7Z6yqtQHbFPQ7IXkVHIm83VLa6wj66o0L56t7s7IzofsyHph2nBfw0Gq59pW0w==
+X-Received: by 2002:a05:600c:1c09:b0:40b:36e6:b7ed with SMTP id j9-20020a05600c1c0900b0040b36e6b7edmr2506599wms.7.1702019906783;
+        Thu, 07 Dec 2023 23:18:26 -0800 (PST)
+Message-ID: <f51e120c-2db9-498c-82bf-66494f862920@suse.com>
+Date: Fri, 8 Dec 2023 08:18:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/misra/rules.rst: add more rules
+Subject: Re: [PATCH v2] docs/misra/rules.rst: add more rules
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
- bertrannd.marquis@arm.com, roger.pau@citrix.com,
- roberto.bagnara@bugseng.com, federico.serafini@bugseng.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2312051859440.110490@ubuntu-linux-20-04-desktop>
- <ccdbe84d-24ca-41f0-bc1f-fb9499c73880@suse.com>
- <alpine.DEB.2.22.394.2312061819090.1265976@ubuntu-linux-20-04-desktop>
- <12c7da9c-245e-48b7-98f9-2bf0f29b7621@suse.com>
- <alpine.DEB.2.22.394.2312071606000.1265976@ubuntu-linux-20-04-desktop>
+ bertrand.marquis@arm.com, roger.pau@citrix.com, roberto.bagnara@bugseng.com,
+ federico.serafini@bugseng.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2312071609060.1265976@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,60 +110,31 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312071606000.1265976@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2312071609060.1265976@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.12.2023 01:08, Stefano Stabellini wrote:
-> On Thu, 7 Dec 2023, Jan Beulich wrote:
->> On 07.12.2023 03:42, Stefano Stabellini wrote:
->>> On Wed, 6 Dec 2023, Jan Beulich wrote:
->>>> On 06.12.2023 04:02, Stefano Stabellini wrote:
->>>>> --- a/docs/misra/rules.rst
->>>>> +++ b/docs/misra/rules.rst
->>>>> @@ -462,11 +462,23 @@ maintainers if you want to suggest a change.
->>>>>  
->>>>>         while(0) and while(1) and alike are allowed.
->>>>>  
->>>>> +   * - `Rule 16.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_03.c>`_
->>>>> +     - Required
->>>>> +     - An unconditional break statement shall terminate every
->>>>> +       switch-clause
->>>>> +     - In addition to break, also other flow control statements such as
->>>>> +       continue, return, goto are allowed.
->>>>> +
->>>>>     * - `Rule 16.7 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_07.c>`_
->>>>>       - Required
->>>>>       - A switch-expression shall not have essentially Boolean type
->>>>>       -
->>>>>  
->>>>> +   * - `Rule 17.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_01.c>`_
->>>>> +     - Required
->>>>> +     - The features of <stdarg.h> shall not be used
->>>>> +     -
->>>>
->>>> Did we really accept this without any constraint (warranting mentioning
->>>> here)?
->>>
->>> We agreed that in certain situations stdarg.h is OK to use and in those
->>> cases we would add a deviation. Would you like me to add something to
->>> that effect here? I could do that but it would sound a bit vague.  Also
->>> if we want to specify a project-wide deviation it would be better
->>> documented in docs/misra/deviations.rst. I would leave Rule 17.1 without
->>> a note.
->>
->> I can see your point, and I don't have a good suggestion on possible text.
->> Still I wouldn't feel well ack-ing this in its present shape.
+On 08.12.2023 01:09, Stefano Stabellini wrote:
+> Add the rules accepted in the last three MISRA C working group meetings.
 > 
-> What about:
-> 
->      - It is understood that in some limited circumstances <stdarg.h> is
->        appropriate to use, such as the implementation of printk. Those
->        cases will be dealt with using deviations as usual, see
->        docs/misra/deviations.rst and
->        docs/misra/documenting-violations.rst.
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-Looks okay. Would also look okay if it was just the first sentence.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -462,6 +462,13 @@ maintainers if you want to suggest a change.
+>  
+>         while(0) and while(1) and alike are allowed.
+>  
+> +   * - `Rule 16.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_03.c>`_
+> +     - Required
+> +     - An unconditional break statement shall terminate every
+> +       switch-clause
+> +     - In addition to break, also other flow control statements such as
+> +       continue, return, goto are allowed.
+
+To eliminate any room for doubt, maybe add "unconditional" also again here?
 
 Jan
 
