@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06D9480A78C
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 16:36:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650688.1016413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBE4F80A7C2
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 16:44:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650694.1016424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBcu9-0000rO-AG; Fri, 08 Dec 2023 15:36:41 +0000
+	id 1rBd0j-0002rD-Um; Fri, 08 Dec 2023 15:43:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650688.1016413; Fri, 08 Dec 2023 15:36:41 +0000
+Received: by outflank-mailman (output) from mailman id 650694.1016424; Fri, 08 Dec 2023 15:43:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBcu9-0000oo-7U; Fri, 08 Dec 2023 15:36:41 +0000
-Received: by outflank-mailman (input) for mailman id 650688;
- Fri, 08 Dec 2023 15:36:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rBcu7-0000oQ-91
- for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 15:36:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rBcu6-0001P9-Vg; Fri, 08 Dec 2023 15:36:38 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=[192.168.23.116]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rBcu6-00017s-OK; Fri, 08 Dec 2023 15:36:38 +0000
+	id 1rBd0j-0002pR-S5; Fri, 08 Dec 2023 15:43:29 +0000
+Received: by outflank-mailman (input) for mailman id 650694;
+ Fri, 08 Dec 2023 15:43:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gRCO=HT=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rBd0j-0002pL-AH
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 15:43:29 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 876eeb12-95e0-11ee-9b0f-b553b5be7939;
+ Fri, 08 Dec 2023 16:43:27 +0100 (CET)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2c9f85eff28so32024151fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Dec 2023 07:43:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,111 +40,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=pjY3uhahoJ6Ejf8Jy+OMLCKeesaBjGu909SiT0NAvKg=; b=Cco1qm3eM7d6vdy7admSOva9Ws
-	xe4ihqXXcDm+ipmnlNxi98qfGar+kaZzPNw88nAO9a3TTqBP1Ic11X+Z6NDYWqLtzRzrPizyVPh+5
-	Xxix9S7paO0ipdK07ekRGwYA5K4PowT1H8pwpHWSutLXyTu8QBFn0iMVYt95AZ3K55ow=;
-Message-ID: <b0133fa8-a774-4587-a1ed-4059f97970f9@xen.org>
-Date: Fri, 8 Dec 2023 15:36:36 +0000
+X-Inumbo-ID: 876eeb12-95e0-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1702050207; x=1702655007; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A6k/DWiBejeRD6ZOzbRhQb1cp4CJb4UWtP63T4t/O2w=;
+        b=j6LMnjoluUKfLiZfRWtgary2YNIsC/9IzLkJTbx5aDeMFyygEJYMAs6POUNASbTvz3
+         m/5xkaH2abSTl66h8y9moQxoFaZDODcU56mRja48Ahox4bo0bTLm8PoeAnuoxqmmYW38
+         qrWDZI977N0OjSFMVXkZJkCCBXjvJ/dqrZBw8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702050207; x=1702655007;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=A6k/DWiBejeRD6ZOzbRhQb1cp4CJb4UWtP63T4t/O2w=;
+        b=t4lPTEIBekq4W+yVn2dQRP7swlBMqPUlAfHZ0mGl2d6JtUUwzAOjlg4azluE+YggkT
+         hl+Kti8hVPWq1oZYByH/9JFVCzn5A/ET4ONMA35s73JHnok4zceRGG9aR7CaWM6XHxHN
+         lKTlfXljA6kynsNrf0+h8edDOcqqTrRKVHFvCyXIty2Om2sxAQLXZcufOlZ8Z/T9NXrW
+         z9ykwgvfpfkYSgOv47L3ebXk/iMM0SsatwG/bOE9UN0Kkx0/V+5vx+3nWlL+QQmlemXW
+         aO/mrqMe2PxBPpqVnkup/1AGsRmKeCW2LXRt45MhtrTVVzaI0d7NCAXYoq08xIkMknZl
+         Hltw==
+X-Gm-Message-State: AOJu0YzvRofQ0bPx8t28/XnAE0wgqB2vRFzp5m7napBe8qZQemPP0tgy
+	CO999DFalhTNRqTqJEShkeAJfvp2YE4c8raptvlAqg==
+X-Google-Smtp-Source: AGHT+IHfVvFK4cARCj0Gp6958FMWmC4uVUXE03Gd8VTjCxUAoGWIWGEDXCgZWdnksWa7MK+PzG22ZIDaidUWdkdcugM=
+X-Received: by 2002:a2e:94c6:0:b0:2ca:1a56:f603 with SMTP id
+ r6-20020a2e94c6000000b002ca1a56f603mr69264ljh.13.1702050206853; Fri, 08 Dec
+ 2023 07:43:26 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/pygrub: Drop compatibility symlink
-Content-Language: en-GB
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
- <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
 References: <20231123163023.2158134-1-andrew.cooper3@citrix.com>
- <232da84f-08d0-4bec-9eca-0bef023dae37@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <232da84f-08d0-4bec-9eca-0bef023dae37@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <232da84f-08d0-4bec-9eca-0bef023dae37@citrix.com> <b0133fa8-a774-4587-a1ed-4059f97970f9@xen.org>
+In-Reply-To: <b0133fa8-a774-4587-a1ed-4059f97970f9@xen.org>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Fri, 8 Dec 2023 15:43:16 +0000
+Message-ID: <CA+zSX=aHisr_MKEqXpe2DH9PGF=sTpqZrOQhkss623ttfRWZXg@mail.gmail.com>
+Subject: Re: [PATCH] tools/pygrub: Drop compatibility symlink
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	Jan Beulich <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Fri, Dec 8, 2023 at 3:36=E2=80=AFPM Julien Grall <julien@xen.org> wrote:
 
-On 08/12/2023 15:13, Andrew Cooper wrote:
-> Ping.
+> See above, I think this code is under the remit of Anthony. You haven't
+> CCed him so no surprise no-one answered.
 
-I noticed Anthony is not CCed (scripts/get_maintainer.pl reports him and 
-Wei). The same for CHANGELOG. This should have been Henry (and soon 
-Oleksii).
+Additionally, my old citrix address *was* cc'd, but I only have the
+'ping', not the original email in my work mailbox.
 
-Is this intended?
+I'm tempted to suggest adding a hack to libxl, so that /usr/bin/pygrub
+automatically falls back to the libexec directory if /usr/bin/pygrub
+doesn't exist.  (I'd be happy to code something up if we decided to go
+that route.). OTOH, I can see the argument that 11 years and the
+CHANGELOG entry is enough.
 
-> 
-> On 23/11/2023 4:30 pm, Andrew Cooper wrote:
->> This was declared deprecated in commit 10c88f1c18b7 ("tools: Install pv
->> bootloaders in libexec rather than /usr/bin") in 2012
->>
->> Take it out fully now, 11 years later.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: George Dunlap <George.Dunlap@citrix.com>
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Wei Liu <wl@xen.org>
->> CC: Julien Grall <julien@xen.org>
->> ---
->>   CHANGELOG.md          | 3 +++
->>   tools/pygrub/Makefile | 6 ------
-
-See above, I think this code is under the remit of Anthony. You haven't 
-CCed him so no surprise no-one answered.
-
-It is unclear why "THE REST" was CCed. I called 
-scripts/get_maintainers.pl on the patch and only Henry/Anthony/Wei
-was listed.
-
-I have CCed Anthony. I can review give a try to review it if you don't 
-get any answer from Anthony by mid-next week.
-
->>   2 files changed, 3 insertions(+), 6 deletions(-)
->>
->> diff --git a/CHANGELOG.md b/CHANGELOG.md
->> index 4ecebb9f686a..36a8ef89d8e4 100644
->> --- a/CHANGELOG.md
->> +++ b/CHANGELOG.md
->> @@ -16,6 +16,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>   ### Removed
->>   - caml-stubdom.  It hasn't built since 2014, was pinned to Ocaml 4.02, and has
->>     been superseded by the MirageOS/SOLO5 projects.
->> +- /usr/bin/pygrub symlink.  This was deprecated in Xen 4.2 (2012) but left for
->> +  compatibility reasons.  VMs configured with bootloader="/usr/bin/pygrub"
->> +  should be updated to just bootloader="pygrub".
->>   
->>   ## [4.18.0](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.18.0) - 2023-11-16
->>   
->> diff --git a/tools/pygrub/Makefile b/tools/pygrub/Makefile
->> index 4963bc89c6ed..d5e291ea0619 100644
->> --- a/tools/pygrub/Makefile
->> +++ b/tools/pygrub/Makefile
->> @@ -22,15 +22,9 @@ install: all
->>   	$(setup.py) install --record $(INSTALL_LOG) $(PYTHON_PREFIX_ARG) \
->>   		--root="$(DESTDIR)" --force
->>   	$(INSTALL_PYTHON_PROG) src/pygrub $(DESTDIR)/$(LIBEXEC_BIN)/pygrub
->> -	set -e; if [ $(bindir) != $(LIBEXEC_BIN) -a \
->> -	             "`readlink -f $(DESTDIR)/$(bindir)`" != \
->> -	             "`readlink -f $(LIBEXEC_BIN)`" ]; then \
->> -	    ln -sf $(LIBEXEC_BIN)/pygrub $(DESTDIR)/$(bindir); \
->> -	fi
->>   
->>   .PHONY: uninstall
->>   uninstall:
->> -	rm -f $(DESTDIR)/$(bindir)/pygrub
->>   	if [ -e $(INSTALL_LOG) ]; then \
->>   		cat $(INSTALL_LOG) | xargs -i rm -f $(DESTDIR)/{}; \
->>   	fi
->>
->> base-commit: f96e2f64576cdbb147391c7cb399d393385719a9
-> 
-
-Cheers,
-
--- 
-Julien Grall
+ -George
 
