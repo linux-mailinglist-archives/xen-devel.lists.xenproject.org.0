@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78F7980A52D
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 15:12:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650642.1016353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D875580A55D
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 15:24:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650651.1016364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBbZe-0005cK-RM; Fri, 08 Dec 2023 14:11:26 +0000
+	id 1rBbm6-0000Hm-VQ; Fri, 08 Dec 2023 14:24:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650642.1016353; Fri, 08 Dec 2023 14:11:26 +0000
+Received: by outflank-mailman (output) from mailman id 650651.1016364; Fri, 08 Dec 2023 14:24:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBbZe-0005aV-Od; Fri, 08 Dec 2023 14:11:26 +0000
-Received: by outflank-mailman (input) for mailman id 650642;
- Fri, 08 Dec 2023 14:11:25 +0000
+	id 1rBbm6-0000Ft-Sc; Fri, 08 Dec 2023 14:24:18 +0000
+Received: by outflank-mailman (input) for mailman id 650651;
+ Fri, 08 Dec 2023 14:24:17 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rBbZd-0005aL-53; Fri, 08 Dec 2023 14:11:25 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1rBbm5-0000Fn-4Q
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 14:24:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rBbZd-0008JZ-0B; Fri, 08 Dec 2023 14:11:25 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rBbZc-000890-L8; Fri, 08 Dec 2023 14:11:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rBbZc-00051C-Kn; Fri, 08 Dec 2023 14:11:24 +0000
+ (envelope-from <julien@xen.org>)
+ id 1rBbm4-000086-Ep; Fri, 08 Dec 2023 14:24:16 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=[192.168.23.116]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rBbm4-0006II-8h; Fri, 08 Dec 2023 14:24:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,143 +39,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=UKuCAyJbI2ZPvYa9BDOncmOkd34uDKFf8/4NfycDB8Q=; b=HwFxFaV+Ho2Q63MqQIyLJDUjU1
-	ocEYmfn5ozXRjLaLveyVjJ8uv8MTPuAu0dz8/vleY3kw1sB1Pzkv9PYLVjne5ol7JIP3Q0ed5r6qC
-	kIPekfWmDoTzLbrgiw1DTYxbtty93DychoOCdVjA//6YX9sgoTQeSc8VY9BoujoWHLGg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184033-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=w5SQHuiVDosZvKu7mNqDvcqINp/XeUgrB4MfO4wvxhc=; b=LXnz4DcHYne468QkX4fGG1vQSB
+	Pu4a+Ojtt1e2OiMZbnsqW73J8zVSWiaPoEpHMnWUD8j/kEvNDrgI94u5ZksoJaXgoOj8gmITftBod
+	bQ9X/IwUFzSWTvKRPL2xcTM3xXeWUFdM0Gf5bC2z1mcmAciY3Gp2hJ8GrV9Edquehmso=;
+Message-ID: <e13fbfe6-0a13-44ec-839a-f007990384cc@xen.org>
+Date: Fri, 8 Dec 2023 14:24:14 +0000
 MIME-Version: 1.0
-Subject: [libvirt test] 184033: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=06e344f762bb2a31bfbdecbf0da9736373c19cce
-X-Osstest-Versions-That:
-    libvirt=a949a53e1390462db101238c548b94d8600f9d11
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 08 Dec 2023 14:11:24 +0000
-
-flight 184033 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184033/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184019
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184019
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184019
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- libvirt              06e344f762bb2a31bfbdecbf0da9736373c19cce
-baseline version:
- libvirt              a949a53e1390462db101238c548b94d8600f9d11
-
-Last test of basis   184019  2023-12-07 04:18:50 Z    1 days
-Testing same since   184033  2023-12-08 04:20:31 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anastasia Belova <abelova@astralinux.ru>
-  Peter Krempa <pkrempa@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] automation: Add a Dockerfile for running FVP_Base
+ jobs
+Content-Language: en-GB
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+References: <20231208054637.1973424-1-Henry.Wang@arm.com>
+ <20231208054637.1973424-2-Henry.Wang@arm.com>
+ <9978c881-9d1a-4554-b0f8-577a1cf6fc35@xen.org>
+ <239318A5-BBE7-495A-8BA6-1DBA75FDBE46@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <239318A5-BBE7-495A-8BA6-1DBA75FDBE46@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 08/12/2023 12:59, Henry Wang wrote:
+> Hi Julien,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hi,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>> On Dec 8, 2023, at 20:30, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi,
+>>
+>> On 08/12/2023 05:46, Henry Wang wrote:
+>>> Fixed Virtual Platforms (FVPs) are complete simulations of an Arm
+>>> system, including processor, memory and peripherals. These are set
+>>> out in a "programmer's view", which gives programmers a comprehensive
+>>> model on which to build and test software. FVP can be configured to
+>>> different setups by its cmdline parameters, and hence having the FVP
+>>> in CI will provide us with the flexibility to test Arm features and
+>>> setups that we find difficult to use real hardware or emulators.
+>>> This commit adds a Dockerfile for the new arm64v8 container with
+>>> FVP installed, based on the debian bookworm-arm64v8 image. This
+>>> container will be used to run the FVP test jobs. Compared to the
+>>> debian bookworm-arm64v8 image, the packages in the newly added FVP
+>>> container does not contain the `u-boot-qemu`, and adds the `expect`
+>>> to run expect scripts introduced by following commits, `telnet` to
+>>> connect to FVP, and `tftpd-hpa` to provide the TFTP service for
+>>> the FVP.
+>>> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>>> ---
+>>> v2:
+>>> - Add Stefano's Reviewed-by tag.
+>>> ---
+>>> +
+>>> +RUN wget https://developer.arm.com/-/media/Files/downloads/ecosystem-models/FVP_Base_RevC-2xAEMvA_${FVP_BASE_VERSION}.tgz && \
+>>
+>> I vaguely recall some discussions on whether it was ok for us to publish a container with the FVP model due to the license agreement.
+>>
+>> I guess this has now been resolved because the download can be done without sign-in to the account. Can you confirm?
+> 
+> Yes, quoting some words from the people we asked internally:
+> (the page referred to is https://developer.arm.com/Tools%20and%20Software/Fixed%20Virtual%20Platforms):
+> 
+> "All the FVPs referenced on this page that you are interested in are licensed under
+> lightweight Eco System EULA that has no restrictions on the redistribution.”
+> 
+> "So, yes, we can ship container images containing the FVP and the license on the FVP will remain as is.”
+> 
+> "No issues with redistributing the model package in a Docker container, as long as the EULA in included."
 
+Thanks for checking. In the current form, I don't think it is easy to 
+know that the FVP has a specific license. I think this should be written 
+down at the top of the container file. Something:
 
-Pushing revision :
+"The FVP is license under... Please read the file in ... for more details".
 
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   a949a53e13..06e344f762  06e344f762bb2a31bfbdecbf0da9736373c19cce -> xen-tested-master
+> 
+>> It would also be good that the commit message indicates whether there is any implicit license agreement from Xen Project (or any user that decide to use our scripts).
+> 
+> I think it is the “END USER LICENSE AGREEMENT FOR ARM ECOSYSTEM MODELS”?
+
+It looks like it.
+
+Cheers,
+
+-- 
+Julien Grall
 
