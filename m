@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F42880AFEB
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 23:50:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650821.1016633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57EBA80B093
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Dec 2023 00:28:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650828.1016643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBjf4-00016N-MY; Fri, 08 Dec 2023 22:49:34 +0000
+	id 1rBkFl-0000lt-Hv; Fri, 08 Dec 2023 23:27:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650821.1016633; Fri, 08 Dec 2023 22:49:34 +0000
+Received: by outflank-mailman (output) from mailman id 650828.1016643; Fri, 08 Dec 2023 23:27:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBjf4-00013g-Jv; Fri, 08 Dec 2023 22:49:34 +0000
-Received: by outflank-mailman (input) for mailman id 650821;
- Fri, 08 Dec 2023 22:49:34 +0000
+	id 1rBkFl-0000jN-FA; Fri, 08 Dec 2023 23:27:29 +0000
+Received: by outflank-mailman (input) for mailman id 650828;
+ Fri, 08 Dec 2023 23:27:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RvmJ=HT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rBjf4-00013a-1x
- for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 22:49:34 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1rBkFk-0000jH-Ii
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 23:27:28 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c5ee288-961c-11ee-98e8-6d05b1d4d9a1;
- Fri, 08 Dec 2023 23:49:31 +0100 (CET)
+ id 5937ab4a-9621-11ee-98e8-6d05b1d4d9a1;
+ Sat, 09 Dec 2023 00:27:27 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 3CF76625E4;
- Fri,  8 Dec 2023 22:49:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033DDC433C8;
- Fri,  8 Dec 2023 22:49:28 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id 7BE7DB82E88;
+ Fri,  8 Dec 2023 23:27:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83066C433C7;
+ Fri,  8 Dec 2023 23:27:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,181 +41,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c5ee288-961c-11ee-98e8-6d05b1d4d9a1
+X-Inumbo-ID: 5937ab4a-9621-11ee-98e8-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702075769;
-	bh=Str9XyP63a08WIpfTICrG8sa3qrLzGScb0cGu5pCjAY=;
+	s=k20201202; t=1702078045;
+	bh=6PSsSUwrJ/hllsufO/nLRoJU3QH4o0ds9o3EgSwTyd0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=KP7L0fJ8FKKbwj55yW7m3fIyRWRPC52ATtHCNwdTyX4PMwCDq5kjj+WJ5RH4wsvOk
-	 Dlsua+qeG4+pGszMsk9y5Q0VA0FlNm2UWzs4QsQTloINSvGaIAWbwECyLYOJ4B9eIR
-	 mfLAMMsOgWxWq49HXubXvHi2P7aIEtCwCh200Tz3l1Ho4krCmRQ74xmUyvYTfg4QiK
-	 9pRyNiaeJox6ZVCWbYEaodnzu/MxUhKtw9odGkudkMNg5O79KDOT/D6NCiMyHRym6c
-	 zbmRVfVVK9etF1na+DsXM7zBm4JnpFnVGeEajwH/xOASZqfoNNN4atTXMCVPl/zpBs
-	 OdxknJSmuMa/w==
-Date: Fri, 8 Dec 2023 14:49:27 -0800 (PST)
+	b=XdeirTpad7pchDbZlfbrsEQCJp6UtEuVAdfXKoAhdCB7Yb+Hrkxxk7KORndjju8iP
+	 mf85q0jIRiCYMDb+JgKvtBvaSq5h6xaiA8h1S2Kn1KjQWUEGSjh2ZKdJcqBaDbRlwl
+	 7p5O60f6Ds6izzxKwv07yAPyMEgIrzVN0zYePvnNQujs98ZEVRra/1yaXwkLl9NMZt
+	 mXl5pSD8UW7o8iq1gCnRr67vRSpoWNAprgMM0T2kiRhD/QRH8pxhzeqIxPsrm55r1E
+	 Niv9oB5H/oNksIX1i9BGc5ZJPboi7KwgsMTBuC7VIQoeqI22zthlQuhGq8MGUg1zrX
+	 x6vID4exMTZhQ==
+Date: Fri, 8 Dec 2023 15:27:22 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>
-cc: Michael Young <m.a.young@durham.ac.uk>, qemu-devel@nongnu.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] fix qemu build with xen-4.18.0
-In-Reply-To: <ZXLg_YCHM-P6drQV@redhat.com>
-Message-ID: <alpine.DEB.2.22.394.2312081422490.1703076@ubuntu-linux-20-04-desktop>
-References: <277e21fc78b75ec459efc7f5fde628a0222c63b0.1701989261.git.m.a.young@durham.ac.uk> <ZXLg_YCHM-P6drQV@redhat.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Ayan Kumar Halder <ayankuma@amd.com>, Michal Orzel <michal.orzel@amd.com>, 
+    Ayan Kumar Halder <ayan.kumar.halder@amd.com>, 
+    "stefano.stabellini@amd.com" <stefano.stabellini@amd.com>, 
+    "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [RFC PATCH] xen/arm: Add emulation of Debug Data Transfer
+ Registers\
+In-Reply-To: <C0ADC33B-1966-4D3E-B081-A3AA0C3AE76D@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2312081514450.1703076@ubuntu-linux-20-04-desktop>
+References: <20231201185009.1719183-1-ayan.kumar.halder@amd.com> <0bd65e25-aec2-4294-9a73-1cdaece52242@xen.org> <9ffe5a34-d1f4-4f4a-82eb-77c92f71040c@amd.com> <ca91f71b-9633-495f-9fb2-731bd250a561@xen.org> <8547fc3b-4e77-45d7-8063-1bee869d07db@amd.com>
+ <3a9efd72-07cc-4b1d-8814-d4f6df4e6230@xen.org> <73554150-9880-447c-ac2b-e4f3ef0f76be@amd.com> <0d232ffe-1eb1-420b-af2c-70e16088a9b6@xen.org> <03a91b0f-eabe-47bd-b9fb-a9e15bdd121f@amd.com> <7420ada1-cc6c-48cf-9b2d-4c09e236dfdf@amd.com>
+ <50372bd4-5e1a-4d38-abd3-19abf8e82591@xen.org> <alpine.DEB.2.22.394.2312051503060.110490@ubuntu-linux-20-04-desktop> <a4c43652-1fa6-4b42-b751-582cfd6324fe@xen.org> <alpine.DEB.2.22.394.2312071341540.1265976@ubuntu-linux-20-04-desktop>
+ <C0ADC33B-1966-4D3E-B081-A3AA0C3AE76D@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-855051027-1702074176=:1703076"
-Content-ID: <alpine.DEB.2.22.394.2312081423010.1703076@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-855051027-1702074176=:1703076
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2312081423011.1703076@ubuntu-linux-20-04-desktop>
-
-On Fri, 8 Dec 2023, Daniel P. Berrangé wrote:
-> CC'ing the Xen folks
+On Fri, 8 Dec 2023, Bertrand Marquis wrote:
+> Hi All,
 > 
-> On Thu, Dec 07, 2023 at 11:12:48PM +0000, Michael Young wrote:
-> > Builds of qemu-8.2.0rc2 with xen-4.18.0 are currently failing
-> > with errors like
-> > ../hw/arm/xen_arm.c:74:5: error: ‘GUEST_VIRTIO_MMIO_SPI_LAST’ undeclared (first use in this function)
-> >    74 |    (GUEST_VIRTIO_MMIO_SPI_LAST - GUEST_VIRTIO_MMIO_SPI_FIRST)
-> >       |     ^~~~~~~~~~~~~~~~~~~~~~~~~~
+> Sorry for coming back late on this thread.
+> 
+> > On 7 Dec 2023, at 22:41, Stefano Stabellini <sstabellini@kernel.org> wrote:
 > > 
-> > as there is an incorrect comparision in include/hw/xen/xen_native.h
-> > which means that settings like GUEST_VIRTIO_MMIO_SPI_LAST
-> > aren't being defined for xen-4.18.0
-> 
-> The conditions in arch-arm.h for xen 4.18 show:
-> 
-> $ cppi arch-arm.h | grep -E '(#.*if)|MMIO'
-> #ifndef __XEN_PUBLIC_ARCH_ARM_H__
-> # if defined(__XEN__) || defined(__XEN_TOOLS__) || defined(__GNUC__)
-> # endif
-> # ifndef __ASSEMBLY__
-> #  if defined(__XEN__) || defined(__XEN_TOOLS__)
-> #   if defined(__GNUC__) && !defined(__STRICT_ANSI__)
-> #   endif
-> #  endif /* __XEN__ || __XEN_TOOLS__ */
-> # endif
-> # if defined(__XEN__) || defined(__XEN_TOOLS__)
-> #  define PSR_MODE_BIT  0x10U /* Set iff AArch32 */
-> /* Virtio MMIO mappings */
-> #  define GUEST_VIRTIO_MMIO_BASE   xen_mk_ullong(0x02000000)
-> #  define GUEST_VIRTIO_MMIO_SIZE   xen_mk_ullong(0x00100000)
-> #  define GUEST_VIRTIO_MMIO_SPI_FIRST   33
-> #  define GUEST_VIRTIO_MMIO_SPI_LAST    43
-> # endif
-> # ifndef __ASSEMBLY__
-> # endif
-> #endif /*  __XEN_PUBLIC_ARCH_ARM_H__ */
-> 
-> So the MMIO constants are available if __XEN__ or __XEN_TOOLS__
-> are defined. This is no different to the condition that was
-> present in Xen 4.17.
-> 
-> What you didn't mention was that the Fedora build failure is
-> seen on an x86_64 host, when building the aarch64 target QEMU,
-> and I think this is the key issue.
-
-Hi Daniel, thanks for looking into it.
-
-- you are building on a x86_64 host
-- the target is aarch64
-- the target is the aarch64 Xen PVH machine (xen_arm.c)
-
-But is the resulting QEMU binary expected to be an x86 binary? Or are
-you cross compiling ARM binaries on a x86 host?
-
-In other word, is the resulting QEMU binary expected to run on ARM or
-x86?
-
-
-> Are we expecting to build Xen support for non-arch native QEMU
-> system binaries or not ?
-
-The ARM xenpvh machine (xen_arm.c) is meant to work with Xen on ARM, not
-Xen on x86.  So this is only expected to work if you are
-cross-compiling. But you can cross-compile both Xen and QEMU, and I am
-pretty sure that Yocto is able to build Xen, Xen userspace tools, and
-QEMU for Xen/ARM on an x86 host today.
-
-
-> The constants are defined in arch-arm.h, which is only included
-> under:
-> 
->   #if defined(__i386__) || defined(__x86_64__)
->   #include "arch-x86/xen.h"
->   #elif defined(__arm__) || defined (__aarch64__)
->   #include "arch-arm.h"
->   #else
->   #error "Unsupported architecture"
->   #endif
-> 
-> 
-> When we are building on an x86_64 host, we not going to get
-> arch-arm.h included, even if we're trying to build the aarch64
-> system emulator.
-> 
-> I don't know how this is supposed to work ?
-
-It looks like a host vs. target architecture mismatch: the #if defined
-(__aarch64__) check should pass I think.
-
-
-The following is a guess. Maybe Xen gets enabled because you have x86
-Xen installed, and you are building QEMU for an aarch64 target (aarch64
-emulation, running on a x86 host). So this is not meant to work for
-xen_arm.c and it would be better to disable xen_arm.c.
-
-On the other hand if you are trying to cross-build a QEMU binary meant
-to run on an aarch64 host, cross-building it on an x86_64 host, then yes
-this is meant to work and we need to figure out why the #if defined
-(__aarch64__) is not passing.
-
-
-
-> > Signed-off-by: Michael Young <m.a.young@durham.ac.uk>
-> > ---
-> >  include/hw/xen/xen_native.h | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > On Thu, 7 Dec 2023, Julien Grall wrote:
+> >> Hi Stefano,
+> >> 
+> >> On 05/12/2023 23:21, Stefano Stabellini wrote:
+> >>> On Tue, 5 Dec 2023, Julien Grall wrote:
+> >>>> I agree that crashing a guest is bad, but is lying to the domain really
+> >>>> better? The consequence here is not that bad and hopefully it would be
+> >>>> fairly
+> >>>> easy to find. But this is not always the case. So I definitely would place
+> >>>> a
+> >>>> half-backed emulation more severe than a guest crash.
+> >>> 
+> >>> 
+> >>> I see where Julien is coming from, but I would go with option two:
+> >>> "emulate DCC the same way as KVM". That's because I don't think we can
+> >>> get away with crashing the guest in all cases. Although the issue came
+> >>> up with a Linux guest, it could have been triggered by a proprietary
+> >>> operating system that we cannot change, and I think Xen should support
+> >>> running unmodified operating systems.
+> >>> 
+> >>> If we go with a "half-backed emulation" solution, as Julien wrote, then
+> >>> it is better to be more similar to other hypervisors, that's why I chose
+> >>> option two instead of option three.
+> >>> 
+> >>> But at the same time I recognize the validity of Julien's words and it
+> >>> makes me wonder if we should have a KCONFIG option or command line
+> >>> option to switch the Xen behavior. We could use it to gate all the
+> >>> "half-backed emulation" we do for compatibility.  Something like:
+> >>> 
+> >>> config PARTIAL_EMULATION
+> >>>     bool "Partial Emulation"
+> >>>     ---help---
+> >>>           Enables partial, not spec compliant, emulation of certain
+> >>> register
+> >>>     interfaces (e.g DCC UART) for guest compatibility. If you disable
+> >>>     this option, Xen will crash the guest if the guest tries to access
+> >>>     interfaces not fully emulated or virtualized.
+> >>> 
+> >>>     If you enable this option, the guest might misbehave due to non-spec
+> >>>     compliant emulation done by Xen.
+> >> 
+> >> As I wrote to Ayan on Matrix today, I am not in favor of the emulation. Yet, I
+> >> am not going to oppose (as in Nack it) if the other maintainers agree with it.
 > > 
-> > diff --git a/include/hw/xen/xen_native.h b/include/hw/xen/xen_native.h
-> > index 6f09c48823..04b1ef4d34 100644
-> > --- a/include/hw/xen/xen_native.h
-> > +++ b/include/hw/xen/xen_native.h
-> > @@ -532,7 +532,7 @@ static inline int xendevicemodel_set_irq_level(xendevicemodel_handle *dmod,
-> >  }
-> >  #endif
-> >  
-> > -#if CONFIG_XEN_CTRL_INTERFACE_VERSION <= 41700
-> > +#if CONFIG_XEN_CTRL_INTERFACE_VERSION >= 41700
+> > Thanks for being flexible
+> > 
+> > 
+> >> The KConfig would be nice, the question is whether we want to (security)
+> >> support such configuration? E.g. could this potentially introduce a security
+> >> issue in the guest?
+> > 
+> > The important question is whether it could introduce a security issue in
+> > Xen. If we think it wouldn't increase the attack surface significantly
+> > then I would security support it otherwise not.
+> > 
+> > 
+> >> Regarding the  emulation itself, I actually prefer 3 because at least the
+> >> Linux drivers will be able to bail out rather than trying to use them.
+> > 
+> > I don't have a strong opinion between 2 and 3
 > 
-> This change is not correct
+> Here is my view on it:
+> - providing a wrong emulation to please guests is not wrong as it might end
+> up hidding something that will be hard to debug so on that point I agree with
+> Julien.
+> - choosing a solution which might just crash a guest without any other solution
+> than recompiling or modifying xen is not something acceptable if we want Xen
+> to thrive.
 > 
-> We can see the upstream change was introduced in 4.17:
+> So i would suggest the following solution:
+> - have a Kconfig to surround this code so that "correct" guests can disable it.
+> - have a command line option to activate this behavior and turn it off by default.
+> One encountering the problem will have to explicitly set a command line parameter
+> so cannot do this without knowing.
+> - activate the Kconfig option by default and security support it as it is only active if
+> a command line parameter is passed.
 > 
->   $ git describe  2128143c114
->   4.16.0-rc4-967-g2128143c11
-> 
-> IOW, if we have 4.17 or newer these constants already
-> exist. If we have 4.16 or older, then we need to define
-> them to provide back compat.
-> 
-> >  #define GUEST_VIRTIO_MMIO_BASE   xen_mk_ullong(0x02000000)
-> >  #define GUEST_VIRTIO_MMIO_SIZE   xen_mk_ullong(0x00100000)
-> >  #define GUEST_VIRTIO_MMIO_SPI_FIRST   33
-> 
-> With regards,
-> Daniel
-> -- 
-> |: https://berrange.com      -o-    https://www.flickr.com/photos/dberrange :|
-> |: https://libvirt.org         -o-            https://fstop138.berrange.com :|
-> |: https://entangle-photo.org    -o-    https://www.instagram.com/dberrange :|
-> 
---8323329-855051027-1702074176=:1703076--
+> The Kconfig parameter should be more generic so that this could apply to a bunch of
+> registers we would emulate with RAZ/WI so I am happy with that proposal if we say
+> that this must be activated through a command line option passed to Xen at boot.
+
+You are suggesting both a Kconfig and a command line option.
+
+The Kconfig would be useful so that in a strict configuration we can
+disable the code even from the build (useful for instance in
+configurations for safety certifications.)
+
+The Kconfig option would be enabled by default (which is important for
+the out of the box experience otherwise users would have to manually
+rebuild Xen to run their guests.)
+
+However, the actual partial emulation is only enabled if a command line
+option is passed. The command line option would be off by default. So
+the code is there, but wouldn't be used unless the user enables the
+command line option explicitly. This way, tools aimed at making the out
+of the box experience better (like ImageBuilder) might pass the command
+line option by default but production build systems (like Yocto)
+wouldn't.
+
+Yes I think this is the best compromise. If it was just for this patch I
+would say it is a bit too much but we have seen a few of these cases so
+I think this is a general framework that will be useful in multiple
+instances. I am fine with this.
 
