@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C06D80AE96
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 22:10:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650792.1016574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12F9380AECA
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 22:21:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650798.1016585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBi5h-0004UN-8W; Fri, 08 Dec 2023 21:08:57 +0000
+	id 1rBiHD-0007ZV-BB; Fri, 08 Dec 2023 21:20:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650792.1016574; Fri, 08 Dec 2023 21:08:57 +0000
+Received: by outflank-mailman (output) from mailman id 650798.1016585; Fri, 08 Dec 2023 21:20:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBi5h-0004Si-5e; Fri, 08 Dec 2023 21:08:57 +0000
-Received: by outflank-mailman (input) for mailman id 650792;
- Fri, 08 Dec 2023 21:08:56 +0000
+	id 1rBiHD-0007WA-7e; Fri, 08 Dec 2023 21:20:51 +0000
+Received: by outflank-mailman (input) for mailman id 650798;
+ Fri, 08 Dec 2023 21:20:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RvmJ=HT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rBi5g-0004Sc-DC
- for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 21:08:56 +0000
+ id 1rBiHC-0007W3-47
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 21:20:50 +0000
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fc1cce9f-960d-11ee-9b0f-b553b5be7939;
- Fri, 08 Dec 2023 22:08:52 +0100 (CET)
+ id a67d1e93-960f-11ee-9b0f-b553b5be7939;
+ Fri, 08 Dec 2023 22:20:47 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id E582FCE29A8;
- Fri,  8 Dec 2023 21:08:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA91AC433C8;
- Fri,  8 Dec 2023 21:08:45 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 90FE0CE2136;
+ Fri,  8 Dec 2023 21:20:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BD32C433C8;
+ Fri,  8 Dec 2023 21:20:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,64 +41,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc1cce9f-960d-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: a67d1e93-960f-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702069727;
-	bh=gtfzbOHnBbEQynkbJo0rojU425H6qwyS3oRzrtlLEGA=;
+	s=k20201202; t=1702070443;
+	bh=EAbGuGot/DUK/c5T1KmEehAn53IC4HyfWRG4dpuS6oo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=HPLzoK9OPixV8a5UgqpaS1AwF13fFzRmQi6stba0ut5RIYIaRshpyHv67Pu/YmAD4
-	 1cjI8IoCCnNIYVxJVjYfBCKLudZ7KNLJsQqYJ6z6/Jzi6p82XANDsRzjvsbh3qmGCo
-	 Wxh9jFyUFYdnQZooMk8bOhcBBMmiAAyorO/XQepjfmvJdsZQ94wsYTxHgUDXbqu3LR
-	 4loqaQDzNSF5aUIfVH1HpIPLwp3xufTriSBulNxEW1HCt2Zd1ggBefzTx8zChsA5JB
-	 twC1uE6qKtST0AZfXjmE8MCqE73zd4ei1UgzPifMe/Ivi0n7JZEQTRULoBusq+udc/
-	 h7oCK1QCpG01g==
-Date: Fri, 8 Dec 2023 13:08:41 -0800 (PST)
+	b=aXG82K8KVelxuen7RZz9j9376W/ebY/s6CEDaRIx9atEDQ3XBvJfHlp3u5A5IjAAo
+	 6HZ8y2HP8TwOdSmlf1/+yxgtdX/hmx36EO9soHgZdawdqt3tezWor7sNq/UL5xo3/8
+	 dE7cbJu/OzJW7uFp1UEsGCJq1re11BaOPTTcaSIdnazWR1c4K09UPH+LYSaUzMsbvi
+	 HeEKoR+8qkhb4KfvnIR2k1EG1KPnfpZgMzaHt0NbiIGTK7yH92WBWeYjj/OFlzCI8w
+	 ux2Ej0EjKNhxUh1PsfaYHNHAc//1tvbpUfp//SuQP7ZnQi30TC+f/IzlWEXFB3h9mu
+	 dyyJIO97fHXSA==
+Date: Fri, 8 Dec 2023 13:20:40 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Wei Chen <Wei.Chen@arm.com>
-cc: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
-    Wei Liu <wl@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: Hand over the release manager role to
- Oleksii Kurochko
-In-Reply-To: <f3c759bc-f101-4e29-b4ff-dbf53d997d15@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2312081308360.1703076@ubuntu-linux-20-04-desktop>
-References: <20231207162036.1921323-1-Henry.Wang@arm.com> <f3c759bc-f101-4e29-b4ff-dbf53d997d15@arm.com>
+To: Henry Wang <Henry.Wang@arm.com>
+cc: Michal Orzel <michal.orzel@amd.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>
+Subject: Re: [PATCH v2 2/5] automation: Add the Dockerfile to build TF-A and
+ U-Boot for FVP
+In-Reply-To: <CC528228-94A0-4D22-897F-24BDD5A5A11E@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2312081320320.1703076@ubuntu-linux-20-04-desktop>
+References: <20231208054637.1973424-1-Henry.Wang@arm.com> <20231208054637.1973424-3-Henry.Wang@arm.com> <beb72672-4ff6-4fce-a3bd-2a7ead9e64ec@amd.com> <CC528228-94A0-4D22-897F-24BDD5A5A11E@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-391461717-1702070443=:1703076"
 
-On Fri, 8 Dec 2023, Wei Chen wrote:
-> Hi Henry,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-391461717-1702070443=:1703076
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Fri, 8 Dec 2023, Henry Wang wrote:
+> Hi Michal,
 > 
-> On 2023/12/8 00:20, Henry Wang wrote:
-> > I've finished the opportunity to do two releases (4.17 and 4.18)
-> > and Oleksii Kurochko has volunteered to be the next release manager.
-> > Hand over the role to him by changing the maintainership of the
-> > CHANGELOG.md.
+> > On Dec 8, 2023, at 16:39, Michal Orzel <michal.orzel@amd.com> wrote:
 > > 
-> > Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-> > ---
-> >   MAINTAINERS | 2 +-
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > Hi Henry,
 > > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 0fcf5a6f36..702032cc12 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -278,7 +278,7 @@ S:	Supported
-> >   F:	xen/drivers/passthrough/arm/smmu-v3.c
-> >     Change Log
-> > -M:	Henry Wang <Henry.Wang@arm.com>
-> > +M:	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> >   R:	Community Manager <community.manager@xenproject.org>
-> >   S:	Maintained
-> >   F:	CHANGELOG.md
+> > On 08/12/2023 06:46, Henry Wang wrote:
+> >> 
+> >> Unlike the emulators that currently being used in the CI pipelines,
+> >> the FVP must start at EL3. Therefore we need the firmware, i.e. the
+> >> TrustedFirmware-A (TF-A), for corresponding functionality.
+> >> 
+> >> There is a dedicated board (vexpress_fvp) in U-Boot (serve as the
+> >> BL33 of the TF-A) for the FVP platform, so the U-Boot should also be
+> >> compiled for the FVP platform instead of reusing the U-Boot for the
+> >> existing emulators used in the CI pipelines.
+> >> 
+> >> To avoid compiling TF-A and U-Boot everytime in the job, adding a
+> >> Dockerfile to the test artifacts to build TF-A v2.9.0 and U-Boot
+> >> v2023.10 for FVP. The binaries for the TF-A and U-Boot, as well as
+> >> the device tree for the FVP platform, will be saved (and exported by
+> >> the CI job introduced by following commits). Note that, a patch for
+> >> the TF-A will be applied before building to enable the virtio-net
+> >> and the virtio-rng device on the FVP. The virtio-net device will
+> >> provide the networking service for FVP, and the virtio-rng device
+> >> will improve the speed of the FVP.
+> >> 
+> >> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> >> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> >> ---
+> >> v2:
+> >> - Add Stefano's Reviewed-by tag.
+> >> ---
+> >> +# Build U-Boot and TF-A
+> >> +RUN curl -fsSLO https://ftp.denx.de/pub/u-boot/u-boot-"$UBOOT_VERSION".tar.bz2 && \
+> >> +    tar xvf u-boot-"$UBOOT_VERSION".tar.bz2 && \
+> >> +    cd u-boot-"$UBOOT_VERSION" && \
+> >> +    make -j$(nproc) V=1 vexpress_fvp_defconfig && \
+> >> +    make -j$(nproc) V=1 all && \
+> > Do we need 'all'? Can't we just build target 'u-boot' for u-boot.bin?
 > 
-> I'm proud of your work on the last two Xen releases.
-> Thanks for your works!
- 
-I echo Wei's sentiment: thank you so much Henry you did an amazing job
+> I think your suggestion makes sense, and I can have a try, if changing all to u-boot works,
+> I will use that in v3.
+> 
+> >> +    cd .. && \
+> >> +    git clone --branch "$TFA_VERSION" --depth 1 https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git && \
+> >> +    cd trusted-firmware-a && \
+> >> +    curl -fsSLO https://git.yoctoproject.org/meta-arm/plain/meta-arm-bsp/recipes-bsp/trusted-firmware-a/files/fvp-base/0001-fdts-fvp-base-Add-stdout-path-and-virtio-net-and-rng.patch \
+> >> +         --output 0001-fdts-fvp-base-Add-stdout-path-and-virtio-net-and-rng.patch && \
+> >> +    git config --global user.email "you@example.com" && \
+> >> +    git config --global user.name "Your Name" && \
+> > If this is needed for git am, you could get away using 'patch -p1'
+> 
+> Hmmm right, then probably we can even not install git and use the tarball instead of
+> git clone.
+> 
+> 
+> >> +    git am 0001-fdts-fvp-base-Add-stdout-path-and-virtio-net-and-rng.patch && \
+> >> +    make -j$(nproc) DEBUG=1 PLAT=fvp ARCH=aarch64 FVP_DT_PREFIX=fvp-base-gicv3-psci-1t all && \
+> >> +    make -j$(nproc) DEBUG=1 PLAT=fvp ARCH=aarch64 FVP_DT_PREFIX=fvp-base-gicv3-psci-1t fip BL33=../u-boot-"$UBOOT_VERSION"/u-boot.bin && \
+> >> +    cp build/fvp/debug/bl1.bin / && \
+> >> +    cp build/fvp/debug/fip.bin / && \
+> >> +    cp build/fvp/debug/fdts/fvp-base-gicv3-psci-1t.dtb / && \
+> >> +    cd /build && \
+> >> +    rm -rf u-boot-"$UBOOT_VERSION" trusted-firmware-a
+> > You forgot to remove u-boot tar file
+> 
+> oops, nice catch, thanks. Will also remove that in v3.
+> 
+> > Other than that:
+> > Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> 
+> Thanks!
+> 
+> Stefano: Can I keep your Reviewed-by tag after addressing Michal’s comments above?
+
+Yes
+
+Cheers,
+
+Stefano
+--8323329-391461717-1702070443=:1703076--
 
