@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F1DE80978E
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 01:46:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650285.1015655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03ECB8097A1
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 01:50:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650288.1015667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBP0b-0003HD-44; Fri, 08 Dec 2023 00:46:25 +0000
+	id 1rBP4I-0005nT-KR; Fri, 08 Dec 2023 00:50:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650285.1015655; Fri, 08 Dec 2023 00:46:25 +0000
+Received: by outflank-mailman (output) from mailman id 650288.1015667; Fri, 08 Dec 2023 00:50:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBP0b-0003G7-0m; Fri, 08 Dec 2023 00:46:25 +0000
-Received: by outflank-mailman (input) for mailman id 650285;
- Fri, 08 Dec 2023 00:46:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rBP4I-0005kS-GT; Fri, 08 Dec 2023 00:50:14 +0000
+Received: by outflank-mailman (input) for mailman id 650288;
+ Fri, 08 Dec 2023 00:50:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RvmJ=HT=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rBP0Z-0003Ej-GK
- for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 00:46:23 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35462b62-9563-11ee-98e8-6d05b1d4d9a1;
- Fri, 08 Dec 2023 01:46:22 +0100 (CET)
+ id 1rBP4H-0005kM-FN
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 00:50:13 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bc591f22-9563-11ee-9b0f-b553b5be7939;
+ Fri, 08 Dec 2023 01:50:10 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id B91CDB82ACB;
- Fri,  8 Dec 2023 00:46:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D586C433C8;
- Fri,  8 Dec 2023 00:46:20 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id 56DBD62241;
+ Fri,  8 Dec 2023 00:50:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03126C433C8;
+ Fri,  8 Dec 2023 00:50:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,30 +42,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35462b62-9563-11ee-98e8-6d05b1d4d9a1
+X-Inumbo-ID: bc591f22-9563-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1701996381;
-	bh=66yUa1tDw72SCJa2/7shAl04DAdoMpA7Yx3wR3n/a/E=;
+	s=k20201202; t=1701996608;
+	bh=zmQdo+B6WuD7ueSIZ4jgwHm5py5TIxg5iLgpDLowmQw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=nBMqn/R3Z6HE69a7SR0Fotq5Lsex0/er/wq5cKXlTPki2BtRx3YsEryQs5BjBTUx9
-	 3+wLqwwpd1I2Uaz8vPdhORjhHkrVENYVVRxlsPbrSfmoNvp+Y1xPNlg1+FX/pg5N04
-	 5ckOrpzn8Aid52LlwAjMrcOnZBeomT14EIjxdLr8gcSaUBcSj4hUkhpI+kkNxtWy5R
-	 OIzp1nb2OyLtECuKP7MKLFXWbxef67+b3a1ld9W+bWigjmIZkoBL4B7tE92PBOnmrv
-	 lAYCaYmpmkwkUBtdpnIQKGj6iW6NZotvZW0jMBlX1vWcQidlcFUJlHd27WqwMDPdk0
-	 hEXbk+MqB+okA==
-Date: Thu, 7 Dec 2023 16:46:18 -0800 (PST)
+	b=JpwvrVuMufxKeCLEdL4i1JCyx9EbfS07vMXm/OIkOcnmocCXQNrmhqEE54qYGTXM9
+	 MS3hU1kR61v3BWjxioIIpFE/eu5r4N2Q4hhbmekmE+68UyDt4JMSHlI2xediUJ6vuP
+	 KYYcuQBG9UBfSrk+G6cxS4ZiYuxxVmZrm0GemKo3fv5Etk3ouJxG5PEtSDvtvNpK+R
+	 M9tS2Pg9BoQ8dygWZ2GGbkyOGL/8czB7vpqV6yb4w79ICIXia5O8NpfbXHJR2t9/9B
+	 w4joimxAxVjdxyiF0GiarYOwN35dsltW8zqbBU6HUrHF/AHNy3sKmWABCWqdGyy5lX
+	 umFxlIM7KcuiA==
+Date: Thu, 7 Dec 2023 16:50:05 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Simone Ballarin <simone.ballarin@bugseng.com>
 cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
     Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>, 
     Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Kevin Tian <kevin.tian@intel.com>
-Subject: Re: [PATCH 1/3] AMD/IOMMU: address violations of MISRA C:2012 Rule
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 2/3] xen/x86: address violations of MISRA C:2012 Rule
  14.4
-In-Reply-To: <097df7703c372a687206251fe97bfc5df18222b6.1701941924.git.maria.celeste.cesario@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2312071646060.1265976@ubuntu-linux-20-04-desktop>
-References: <cover.1701941924.git.maria.celeste.cesario@bugseng.com> <097df7703c372a687206251fe97bfc5df18222b6.1701941924.git.maria.celeste.cesario@bugseng.com>
+In-Reply-To: <d494980216b8f0f870083fcfae7269f45e779780.1701941924.git.maria.celeste.cesario@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2312071647140.1265976@ubuntu-linux-20-04-desktop>
+References: <cover.1701941924.git.maria.celeste.cesario@bugseng.com> <d494980216b8f0f870083fcfae7269f45e779780.1701941924.git.maria.celeste.cesario@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -83,6 +85,9 @@ On Thu, 7 Dec 2023, Simone Ballarin wrote:
 > 
 > Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
 > Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+
+I think it would have been better to put all the iommu_intremap changed
+in the same patch (patch #1). But anyway:
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
