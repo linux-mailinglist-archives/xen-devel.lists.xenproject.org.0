@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CFAB80A082
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 11:22:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650544.1016193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C86180A092
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Dec 2023 11:23:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650548.1016203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBXyz-00068y-8J; Fri, 08 Dec 2023 10:21:21 +0000
+	id 1rBY0w-0007JD-NF; Fri, 08 Dec 2023 10:23:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650544.1016193; Fri, 08 Dec 2023 10:21:21 +0000
+Received: by outflank-mailman (output) from mailman id 650548.1016203; Fri, 08 Dec 2023 10:23:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBXyz-00067U-5W; Fri, 08 Dec 2023 10:21:21 +0000
-Received: by outflank-mailman (input) for mailman id 650544;
- Fri, 08 Dec 2023 10:21:19 +0000
+	id 1rBY0w-0007HY-KS; Fri, 08 Dec 2023 10:23:22 +0000
+Received: by outflank-mailman (input) for mailman id 650548;
+ Fri, 08 Dec 2023 10:23:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFXw=HT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rBXyx-00067O-Ej
- for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 10:21:19 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1rBY0v-0007HS-Lm
+ for xen-devel@lists.xenproject.org; Fri, 08 Dec 2023 10:23:21 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 850931b4-95b3-11ee-98e8-6d05b1d4d9a1;
- Fri, 08 Dec 2023 11:21:16 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-334af3b3ddfso1891000f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 08 Dec 2023 02:21:16 -0800 (PST)
+ id cf5d5256-95b3-11ee-98e8-6d05b1d4d9a1;
+ Fri, 08 Dec 2023 11:23:20 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40c29f7b068so16653165e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 08 Dec 2023 02:23:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- q15-20020a056000136f00b00336098d0e64sm670724wrz.106.2023.12.08.02.21.14
+ k42-20020a05600c1caa00b003fe1fe56202sm2391163wms.33.2023.12.08.02.23.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 08 Dec 2023 02:21:15 -0800 (PST)
+ Fri, 08 Dec 2023 02:23:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 850931b4-95b3-11ee-98e8-6d05b1d4d9a1
+X-Inumbo-ID: cf5d5256-95b3-11ee-98e8-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702030875; x=1702635675; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702031000; x=1702635800; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zhm3E4xE/Sb4A+ZXJPLdHZg9ZIHlYv2OPfxmFk8n8sE=;
-        b=XOLABq9lYxK3LRSZwOzyXhPvKSOWogan46tMulNZnSk3uyhzz8rNJCfqvLM5r+zb1w
-         THBt88HLRdWoNbYy+Uq86Hld6A8Q5G1ikh9l2vVmcyEeXe8u4UQ8+9jJDJ2ILD1CcdxB
-         hg0fcL342nPF4cylo3//FwO5oPLGFID/j6amdfMMvtcMjCDVYi5XbLfTZ5GbolXS5O+o
-         ZDVFV9odkW6qB3nOTU7qJ2s0zFE3fgcYxXy3z+pyA+r6ZYqILhRS1P4PNb5pCuFC2fdR
-         4kLT25tUAyY/gwVE6dtSd6sTSGk2u4BbhP/AlsPBBNtQssxEpU2UH6o3m4c+HDnorXwb
-         eBUw==
+        bh=6x76WUDNewsTNxYrpglF6vJ9GoXMh21tPJ8MfaaFlk8=;
+        b=TWA9zI8jEReLMjvnR/YYGjZfO+SvledAHkIIM3N5zDZxQ3PkZAzP3nqwOBqopByvrk
+         XoJwSiQq1lDtTnVwFk6UoxV2b9l7ogtuXOpTzz3ici3pbrsiUWS5gcrOHpHtnVAc5aEk
+         ID7LK9EyUh/+jmvXV+PIXN7YYTk5OZXzqOmd1yWpLaU7B6BhmBQr5X5U57oU78inI0CK
+         ijidmGgIBO3o1d0ktGU8d1GTAjR8HXTwiz7uJcXR+GhnxaiG9guCL3FwUitHWAIXgM2z
+         10t9PfK+q2mWGMXZ9KGPi+GqWZihbDwTs3Dg2QDwyYx0dyOC5kSOB1a2NIT1Bbqpjc1v
+         XsNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702030875; x=1702635675;
+        d=1e100.net; s=20230601; t=1702031000; x=1702635800;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zhm3E4xE/Sb4A+ZXJPLdHZg9ZIHlYv2OPfxmFk8n8sE=;
-        b=Pl4x7yOPLM9Tbr3YgkZ7ZCwSToGwx8MKDxdxqdLYBzU/aomj8qELdiDGKchPG2jPgW
-         75nYilzb9+W2qjlGvQh0zQ46WkE/ccfoyvkbd51KK2yWZ6GYvuoR7WPDOWaxH0cZNGRQ
-         lOZ6rcluWamUwqhmXjtx4HABFRsvQTckomRykMfoEa/loV+ZG19GuhSiyQ/OHuo01jWP
-         m55o8tHmtCNLADFGeZjzppLvZ3blPDx+hvT7tnqAQl2JxxOq67OGBbPr18jiC5SvKAp4
-         4WPU4Xr7rWPuCOQ+YE3oPPE+JtoGjIVmjuxCUQOqHkW6tr4Q9gc9lz9xP6G5i84w0VlO
-         0mtw==
-X-Gm-Message-State: AOJu0YxoLgW5Wr/ABubM1lB5P0QnkYNe1VZZjKcTRAb86XxfjGAqo6Nd
-	aPbJUMuo2SLPdMPRPVQK3Dhq
-X-Google-Smtp-Source: AGHT+IG5BA5AryVVFNkeqk9QSIf6o1VJe4ffP3b2Whljg8IpX9IyovILq/PbZFBhvQ3WoMsK2Fljeg==
-X-Received: by 2002:a5d:6549:0:b0:333:db9:47e2 with SMTP id z9-20020a5d6549000000b003330db947e2mr2080105wrv.63.1702030875403;
-        Fri, 08 Dec 2023 02:21:15 -0800 (PST)
-Message-ID: <a060e05a-2177-4344-8674-0d62a9095167@suse.com>
-Date: Fri, 8 Dec 2023 11:21:07 +0100
+        bh=6x76WUDNewsTNxYrpglF6vJ9GoXMh21tPJ8MfaaFlk8=;
+        b=qxuOc23utUzXb3tbFpQDqhLogTNJnhI404gvM26LYQVMjQQ0aPdOtf5unTj12cw9jK
+         38SPiRs3eZ/r9khEVnF/C/cowf47PCPsYA1a9nSB9mx8+j7PaHT11VkfMnWi8SphWPHi
+         ROMoe3CIwFP+YnMGhF7WTcHfCpK4nloRdqNA2gR4qFQJfweEOHPvTdO4NMh7kGX2UK93
+         L9X8QrAbyKJREtgTK76rwu1p/ITZhlG88x5AIDOJlRaHim2gx1CjWfr156q1lnrLEGq4
+         4q/zV3QjP9fvFGYsYcpvljGk3iToCUyo0A1b1AWlxUOpLJkw77HS4QS51WNDShZ8pRiy
+         t+zQ==
+X-Gm-Message-State: AOJu0Yzn9UKinkcRsBl9ryZ6uKoXE765Yi3xemFN1ojt0n/lJ/AOqJoD
+	pZiQ9ffi0g8esZoA1QgYtJ4G
+X-Google-Smtp-Source: AGHT+IEtLVA1NMGCEV7C/8vaInw/dTdtl9KafbOUcxPOQdvNyM+NDxrbZEs8iNYN+BtnGY/cVGP2Cg==
+X-Received: by 2002:a05:600c:2802:b0:40c:2b16:1dd with SMTP id m2-20020a05600c280200b0040c2b1601ddmr1278579wmb.93.1702031000079;
+        Fri, 08 Dec 2023 02:23:20 -0800 (PST)
+Message-ID: <3d5aa7de-cbcd-4207-a540-ad512ba315eb@suse.com>
+Date: Fri, 8 Dec 2023 11:23:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/39] xen/riscv: introduce asm/iommu.h
+Subject: Re: [PATCH v2 11/39] xen/riscv: introduce asm/nospec.h
 Content-Language: en-US
 To: Oleksii <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
@@ -89,9 +89,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <68be3d368bf6ed96b0bb53b51a2fd07696cb338d.1700761381.git.oleksii.kurochko@gmail.com>
- <ca13b1b0-8b96-47b0-abc5-9711f96ccca0@suse.com>
- <cdc3fe19d7e9e60c348eb1c25c716ecb9486a664.camel@gmail.com>
+ <aa2ff1df494f82f7c045f913371d3b9d04962a5e.1700761381.git.oleksii.kurochko@gmail.com>
+ <028532fb-55d4-4a08-9b93-9ae29ed8e37c@suse.com>
+ <484d52564ea8b800d1eb39f1ef899c1a3044fc53.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,53 +116,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cdc3fe19d7e9e60c348eb1c25c716ecb9486a664.camel@gmail.com>
+In-Reply-To: <484d52564ea8b800d1eb39f1ef899c1a3044fc53.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.12.2023 10:29, Oleksii wrote:
-> On Thu, 2023-12-07 at 15:22 +0100, Jan Beulich wrote:
+On 08.12.2023 10:33, Oleksii wrote:
+> On Thu, 2023-12-07 at 15:28 +0100, Jan Beulich wrote:
 >> On 24.11.2023 11:30, Oleksii Kurochko wrote:
 >>> --- /dev/null
->>> +++ b/xen/arch/riscv/include/asm/iommu.h
->>> @@ -0,0 +1,7 @@
->>> +#ifndef __ASM_RISCV_IOMMU_H__
->>> +#define __ASM_RISCV_IOMMU_H__
+>>> +++ b/xen/arch/riscv/include/asm/nospec.h
+>>> @@ -0,0 +1,25 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>>> +/* Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights
+>>> Reserved. */
 >>> +
->>> +struct arch_iommu {
->>> +};
+>>> +#ifndef _ASM_RISCV_NOSPEC_H
+>>> +#define _ASM_RISCV_NOSPEC_H
 >>> +
->>> +#endif /* __ASM_IOMMU_H__ */
+>>> +static inline bool evaluate_nospec(bool condition)
+>>> +{
+>>> +    return condition;
+>>> +}
+>>> +
+>>> +static inline void block_speculation(void)
+>>> +{
+>>> +}
+>>> +
+>>> +#endif /* _ASM_RISCV_NOSPEC_H */
 >>
->> Instead of adding this header, didn't we discuss to make the #include
->> in
->> xen/iommu.h depend on CONFIG_HAS_PASSTHROUGH? Also - no SPDX or
->> footer
->> here?
-> We had discussion about some stuff in device.h, but we can apply it
-> here too. Only to place will be needed to update:
+>> This being identical between Arm, PPC, and now RISC-V, wouldn't this
+>> be another
+>> asm-generic/ candidate? (Whether such trivial stubs are copyrightable
+>> is, as
+>> per earlier remarks, at least questionable to me.)
+> It is a good candidate to be moved to asm-generic. Thanks for notice
+> that. I'll update move this patch to generic headers patch series.
 > 
-> 
-> + #ifdef CONFIG_HAS_PASSTHROUGH
-> #include <asm/iommu.h>
-> + #endif
-> 
-> #ifndef iommu_call
-> # define iommu_call(ops, fn, args...) ((ops)->fn(args))
-> # define iommu_vcall iommu_call
-> #endif
-> 
-> struct domain_iommu {
-> + #ifdef CONFIG_HAS_PASSTHROUGH
->     struct arch_iommu arch;
-> + #endif
-> ...
-> 
-> I'll do that in the next iteration of this patch series.
+> I am not sure too but the copyright was presented in Arm's file and
+> RISC-V's version is just a copy so I decided to leave it.
+> Does any documented rule exist in which cases copyright should be and
+> not?
 
-What you suggest is to eliminate the need for an asm/ header. I asked
-about an asm-generic/ one, though. (But I'd be okay either way, as long
-as the redundancy is avoided.)
+I'm afraid there's nothing. But see how PPC has dropped the copyright,
+too. Generally I'm of the opinion that purely trivial stubs aren't
+sensible to put under a copyright.
 
 Jan
 
