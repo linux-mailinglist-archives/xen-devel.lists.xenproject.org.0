@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB04280B16A
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Dec 2023 02:28:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.650834.1016654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1123980B179
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Dec 2023 02:36:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.650839.1016664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBm7b-00047l-NQ; Sat, 09 Dec 2023 01:27:11 +0000
+	id 1rBmGb-0005vG-I1; Sat, 09 Dec 2023 01:36:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 650834.1016654; Sat, 09 Dec 2023 01:27:11 +0000
+Received: by outflank-mailman (output) from mailman id 650839.1016664; Sat, 09 Dec 2023 01:36:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBm7b-00044x-KF; Sat, 09 Dec 2023 01:27:11 +0000
-Received: by outflank-mailman (input) for mailman id 650834;
- Sat, 09 Dec 2023 01:27:09 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rBm7Z-00044n-RM; Sat, 09 Dec 2023 01:27:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rBm7Z-0003Y2-KU; Sat, 09 Dec 2023 01:27:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rBm7Z-0004xp-6Q; Sat, 09 Dec 2023 01:27:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rBm7Z-0004kc-5y; Sat, 09 Dec 2023 01:27:09 +0000
+	id 1rBmGb-0005sj-F0; Sat, 09 Dec 2023 01:36:29 +0000
+Received: by outflank-mailman (input) for mailman id 650839;
+ Sat, 09 Dec 2023 01:36:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dmD7=HU=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rBmGa-0005sI-7d
+ for xen-devel@lists.xenproject.org; Sat, 09 Dec 2023 01:36:28 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c81c3e9-9633-11ee-9b0f-b553b5be7939;
+ Sat, 09 Dec 2023 02:36:26 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 3470FCE256C;
+ Sat,  9 Dec 2023 01:36:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D54C433C8;
+ Sat,  9 Dec 2023 01:36:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +41,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=VjvqClAMeNyp2Cg4lS+g4w4o3yvJC/0rrV8u/hs+F+0=; b=7CyIQ/GkyeZiA2RD8oe73Zo2Wp
-	eELmXUFo9pbXr3Er/V09HZrWaGE6z9NzxrKmNutuCncYO2p3pxmvbXVeWuvX40HIPpFI8ljENLVYa
-	lBHJHEEBI7WOPVrdpl1pi88Wmwn6jcA1KciF80D8xpzXJQe4v2HIkDZGZIlj2ns6U4Dk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184040-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5c81c3e9-9633-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1702085781;
+	bh=YVzRqnw4MDk6dSKu7IG2gFfx8d15E6ChvPSpj23V+Bk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=EW18qFC9EIbO5REHgxPQF4YkaNlZ3K/HGad4emCDHCYwR4RcRY5BsM2Iyv1mk4Vt6
+	 2Q/YmBhAb9Pyo5M2mVijfsdJ3gUicg9iFMZz5p0SHXSKLntOudF5ZUXuamj9ihiAPP
+	 Uc+0UCGDpNqHMYzDA4lTCyPzjHflahTnWeGAK07vaYBwLq0Ms+6naOfFLad/WWdkDc
+	 GvxHOKFZVLbnMqmlBg9274EroP7Aom5RvH3XYeqjD41SCw00pV6o7I1viV7xTkVFei
+	 Ph+HKzw5pq8V8jWIxGsJDgvGWJCMAAjrLxAo4GQrQ7NMMxj2O6vMdqiTWm49CC+w2Q
+	 298lPtqsICxbQ==
+Date: Fri, 8 Dec 2023 17:36:18 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
+    george.dunlap@citrix.com, julien@xen.org, bertrand.marquis@arm.com, 
+    roger.pau@citrix.com, roberto.bagnara@bugseng.com, 
+    federico.serafini@bugseng.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] docs/misra/rules.rst: add more rules
+In-Reply-To: <f51e120c-2db9-498c-82bf-66494f862920@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2312081735050.1703076@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2312071609060.1265976@ubuntu-linux-20-04-desktop> <f51e120c-2db9-498c-82bf-66494f862920@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 184040: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=3c40ee8c68efb787b13be1a120d2ea0ebf1fc949
-X-Osstest-Versions-That:
-    ovmf=2cd9d5f6fa710e9a8ee810212081f86702114d2f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 09 Dec 2023 01:27:09 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 184040 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184040/
+On Fri, 8 Dec 2023, Jan Beulich wrote:
+> On 08.12.2023 01:09, Stefano Stabellini wrote:
+> > Add the rules accepted in the last three MISRA C working group meetings.
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> 
+> > --- a/docs/misra/rules.rst
+> > +++ b/docs/misra/rules.rst
+> > @@ -462,6 +462,13 @@ maintainers if you want to suggest a change.
+> >  
+> >         while(0) and while(1) and alike are allowed.
+> >  
+> > +   * - `Rule 16.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_03.c>`_
+> > +     - Required
+> > +     - An unconditional break statement shall terminate every
+> > +       switch-clause
+> > +     - In addition to break, also other flow control statements such as
+> > +       continue, return, goto are allowed.
+> 
+> To eliminate any room for doubt, maybe add "unconditional" also again here?
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 3c40ee8c68efb787b13be1a120d2ea0ebf1fc949
-baseline version:
- ovmf                 2cd9d5f6fa710e9a8ee810212081f86702114d2f
-
-Last test of basis   184038  2023-12-08 13:43:06 Z    0 days
-Testing same since   184040  2023-12-08 23:12:38 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  ManickamX Srinivasan <manickamx.srinivasan@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   2cd9d5f6fa..3c40ee8c68  3c40ee8c68efb787b13be1a120d2ea0ebf1fc949 -> xen-tested-master
+Thanks for the Ack! I am OK with the addition you suggested. I'll let
+you do it on commit so that we can be sure it is added in the way you
+intended.
 
