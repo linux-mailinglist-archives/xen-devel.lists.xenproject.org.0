@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08CC880B505
-	for <lists+xen-devel@lfdr.de>; Sat,  9 Dec 2023 16:22:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.651049.1016781 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0ECA80B6C2
+	for <lists+xen-devel@lfdr.de>; Sat,  9 Dec 2023 23:14:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.651140.1016833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBz8W-0006pt-EJ; Sat, 09 Dec 2023 15:21:00 +0000
+	id 1rC5Za-0004Qh-BS; Sat, 09 Dec 2023 22:13:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 651049.1016781; Sat, 09 Dec 2023 15:21:00 +0000
+Received: by outflank-mailman (output) from mailman id 651140.1016833; Sat, 09 Dec 2023 22:13:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rBz8W-0006oK-Aa; Sat, 09 Dec 2023 15:21:00 +0000
-Received: by outflank-mailman (input) for mailman id 651049;
- Sat, 09 Dec 2023 15:20:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rC5Za-0004OM-8f; Sat, 09 Dec 2023 22:13:22 +0000
+Received: by outflank-mailman (input) for mailman id 651140;
+ Sat, 09 Dec 2023 22:13:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rBz8U-0006oA-UU; Sat, 09 Dec 2023 15:20:58 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rBz8U-0003RF-O4; Sat, 09 Dec 2023 15:20:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rBz8U-0006iE-7P; Sat, 09 Dec 2023 15:20:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rBz8U-0007sL-4O; Sat, 09 Dec 2023 15:20:58 +0000
+ (envelope-from <SRS0=UXVs=HU=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
+ id 1rC5ZZ-0004OG-1l
+ for xen-devel@lists.xenproject.org; Sat, 09 Dec 2023 22:13:21 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.115])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 26395a51-96e0-11ee-9b0f-b553b5be7939;
+ Sat, 09 Dec 2023 23:13:17 +0100 (CET)
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2023 14:13:14 -0800
+Received: from unknown (HELO fred..) ([172.25.112.68])
+ by fmsmga002.fm.intel.com with ESMTP; 09 Dec 2023 14:13:13 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,524 +41,478 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=QSPeG3bjGHlhoKmIsQaZvCGi9VW5HmkxmSS0Kmty2Ww=; b=CB8yAq3XTCtiVTE8yTIZpzQKph
-	zFKfTqdOY7DwErO6LRRoprxv8yy0q9syxwU4m1gU2GMZKvWK9+4Fcbr+9cMTG3fKv1yYDGxtwYZbz
-	qlb1WUBP3RvNk0IAq57KNSqdUClfLxl92MTyASsovqKUrRdcFw3InXVe7UA4xFp+VKxg=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184047-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 26395a51-96e0-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1702159997; x=1733695997;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Bmq2+VybbODFa+8++mKcBISkjteQeduMNN5yrbxK/z0=;
+  b=KltsYuEkMEy7R4VydX28O5K8twLIv1EJ/iQk9HW4Qn2WWuITCoj//Dsn
+   tbk0HBvyn4XPvu+DuzTRtSHR0g4cQwtCM/3mJdX70of/dgC/d68C2vkak
+   JhrsfIdIlQVu5Q1CcUhhzskLfiaiEmLIocyd8OMRxVhmq0eBg3/+D9Tdh
+   sk7DakAhk75cRzCkWSGtA5jl5uSGb110Ag5XqsL4Dw6EJK7ZLkIjcsCeD
+   GqflcJuGlns9DOEBMskunn83EkmhMgx4JNe53Abs7fCnuol8iW6iRjtxH
+   ftsT7dc4YqySjXNlaC1ySwCIPnSCeuDwjWue8aOZPqHkRVv0tQtS49xYk
+   A==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10919"; a="394265399"
+X-IronPort-AV: E=Sophos;i="6.04,264,1695711600"; 
+   d="scan'208";a="394265399"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10919"; a="890579871"
+X-IronPort-AV: E=Sophos;i="6.04,264,1695711600"; 
+   d="scan'208";a="890579871"
+From: Xin Li <xin3.li@intel.com>
+To: linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-edac@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org
+Cc: tglx@linutronix.de,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	luto@kernel.org,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	peterz@infradead.org,
+	jgross@suse.com,
+	ravi.v.shankar@intel.com,
+	mhiramat@kernel.org,
+	andrew.cooper3@citrix.com,
+	jiangshanlai@gmail.com,
+	nik.borisov@suse.com,
+	shan.kang@intel.com
+Subject: [PATCH v13A 26/35] x86/fred: FRED entry/exit and dispatch code
+Date: Sat,  9 Dec 2023 13:42:14 -0800
+Message-ID: <20231209214214.2932-1-xin3.li@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <SA1PR11MB6734ACF7F90649CADDC82C6EA88BA@SA1PR11MB6734.namprd11.prod.outlook.com>
+References: <SA1PR11MB6734ACF7F90649CADDC82C6EA88BA@SA1PR11MB6734.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-Subject: [linux-linus test] 184047: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:build-i386-pvops:kernel-build:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=f2e8a57ee9036c7d5443382b6c3c09b51a92ec7e
-X-Osstest-Versions-That:
-    linux=815fb87b753055df2d9e50f6cd80eb10235fe3e9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 09 Dec 2023 15:20:58 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 184047 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184047/
+From: "H. Peter Anvin (Intel)" <hpa@zytor.com>
 
-Regressions :-(
+The code to actually handle kernel and event entry/exit using
+FRED. It is split up into two files thus:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-i386-pvops              6 kernel-build             fail REGR. vs. 183973
+- entry_64_fred.S contains the actual entrypoints and exit code, and
+  saves and restores registers.
+- entry_fred.c contains the two-level event dispatch code for FRED.
+  The first-level dispatch is on the event type, and the second-level
+  is on the event vector.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 183973
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 183973
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 183973
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 183973
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 183973
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 183973
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 183973
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 183973
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+Originally-by: Megha Dey <megha.dey@intel.com>
+Signed-off-by: H. Peter Anvin (Intel) <hpa@zytor.com>
+Suggested-by: Thomas Gleixner <tglx@linutronix.de>
+Tested-by: Shan Kang <shan.kang@intel.com>
+Co-developed-by: Xin Li <xin3.li@intel.com>
+Signed-off-by: Xin Li <xin3.li@intel.com>
+---
 
-version targeted for testing:
- linux                f2e8a57ee9036c7d5443382b6c3c09b51a92ec7e
-baseline version:
- linux                815fb87b753055df2d9e50f6cd80eb10235fe3e9
+Changes since v13:
+* Fix a typo, INTO instead of INT0 (Andrew Cooper).
+* Build #CP handler with CONFIG_X86_CET instead of
+  CONFIG_X86_KERNEL_IBT (Andrew Cooper).
+* Use array_index_nospec() to safe-guard sysvec_table index calculation
+  (Andrew Cooper).
+* Cross-check both event type and vector (Andrew Cooper).
 
-Last test of basis   183973  2023-12-02 07:48:26 Z    7 days
-Failing since        183977  2023-12-03 00:12:06 Z    6 days   13 attempts
-Testing same since   184047  2023-12-09 05:50:52 Z    0 days    1 attempts
+Changes since v10:
+* Replace "IS_ENABLED(CONFIG_IA32_EMULATION)" with the new ia32_enabled()
+  API (Nikolay Borisov).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  "Luke D. Jones" <luke@ljones.dev>
-  "Nícolas F. R. A. Prado" <nfraprado@collabora.com>
-  <urbinek@gmail.com>
-  Adam Ford <aford173@gmail.com>
-  Adrián Larumbe <adrian.larumbe@collabora.com>
-  Ahmad Fatoum <a.fatoum@pengutronix.de>
-  Aleksandrs Vinarskis <alex.vinarskis@gmail.com>
-  Alex Bee <knaerzche@gmail.com>
-  Alex Deucher <alexander.deucher@amd.com>
-  Alex Williamson <alex.williamson@redhat.com>
-  Alexander Gordeev <agordeev@linux.ibm.com>
-  Alexander Stein <alexander.stein@ew.tq-group.com>
-  Alexis Belmonte <alexbelm48@gmail.com>
-  Alvin Lee <alvin.lee2@amd.com>
-  Alyssa Ross <hi@alyssa.is>
-  Andrew Jones <ajones@ventanamicro.com>
-  Andrew Morton <akpm@linux-foundation.org>
-  Andrii Nakryiko <andrii@kernel.org>
-  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-  Antoniu Miclaus <antoniu.miclaus@analog.com>
-  Antti Palosaari <crope@iki.fi>
-  Armin Wolf <W_Armin@gmx.de>
-  Arnd Bergmann <arnd@arndb.de>
-  Bagas Sanjaya <bagasdotme@gmail.com>
-  Baoquan He <bhe@redhat.com>
-  Bin Li <bin.li@canonical.com>
-  Bitao Hu <yaoma@linux.alibaba.com>
-  Björn Töpel <bjorn@rivosinc.com>
-  Brett Creeley <brett.creeley@amd.com>
-  Catalin Marinas <catalin.marinas@arm.com>
-  Chancel Liu <chancel.liu@nxp.com>
-  Charles Keepax <ckeepax@opensource.cirrus.com>
-  Charlie Jenkins <charlie@rivosinc.com>
-  Chen Wang <unicorn_wang@outlook.com>
-  Chen-Yu Tsai <wenst@chromium.org>
-  Chester Lin <clin@suse.com>
-  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-  ChunHao Lin <hau@realtek.com>
-  Clément Léger <cleger@rivosinc.com>
-  Colin Ian King <colin.i.king@gmail.com>
-  Conor Dooley <conor.dooley@microchip.com>
-  D. Wythe <alibuda@linux.alibaba.com>
-  Dan Carpenter <dan.carpenter@linaro.org>
-  Daniel Borkmann <daniel@iogearbox.net>
-  Daniel Wheeler <daniel.wheeler@amd.com>
-  Daniel Xu <dxu@dxuuu.xyz>
-  Daniil Maximov <daniil31415it@gmail.com>
-  Danilo Krummrich <dakr@redhat.com>
-  Dave Airlie <airlied@redhat.com>
-  Dave Hansen <dave.hansen@linux.intel.com>
-  David Hildenbrand <david@redhat.com>
-  David Howells <dhowells@redhat.com>
-  David Jeffery <djeffery@redhat.com>
-  David Lin <CTLIN0@nuvoton.com>
-  David Rau <David.Rau.opensource@dm.renesas.com>
-  David S. Miller <davem@davemloft.net>
-  David Thompson <davthompson@nvidia.com>
-  Dinghao Liu <dinghao.liu@zju.edu.cn>
-  Dmitry Antipov <dmantipov@yandex.ru>
-  Dmitry Safonov <dima@arista.com>
-  Douglas Anderson <dianders@chromium.org>
-  Erhard Furtner <erhard_f@mailbox.org>
-  Eric DeVolder <eric_devolder@yahoo.com>
-  Eric Dumazet <edumazet@google.com>
-  Eric Woudstra <ericwouds@gmail.com>
-  Eugen Hristev <eugen.hristev@collabora.com>
-  Eugenio Pérez <eperezma@redhat.com>
-  Fabio Estevam <festevam@denx.de>
-  Florian Fainelli <florian.fainelli@broadcom.com>
-  Florian Westphal <fw@strlen.de>
-  Florian-Ewald Mueller <florian-ewald.mueller@ionos.com>
-  Francesco Dolcini <francesco.dolcini@toradex.com>
-  Frank Wunderlich <frank-w@public-files.de>
-  Geetha sowjanya <gakula@marvell.com>
-  Geethasowjanya Akula <gakula@marvell.com>
-  Georg Gottleuber <ggo@tuxedocomputers.com>
-  Grant Grundler <grundler@chromium.org>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Grzegorz Prajsner <grzegorz.prajsner@ionos.com>
-  Guangwu Zhang <guazhang@redhat.com>
-  Guenter Roeck <linux@roeck-us.net>
-  Haibo Chen <haibo.chen@nxp.com>
-  Hannes Reinecke <hare@suse.de>
-  Hans de Goede <hdegoede@redhat.com>
-  Hawking Zhang <Hawking.Zhang@amd.com>
-  Hayes Wang <hayeswang@realtek.com>
-  Heiko Carstens <hca@linux.ibm.com>
-  Heiko Stuebner <heiko.stuebner@cherry.de>
-  Heiko Stuebner <heiko@sntech.de>
-  Heiner Kallweit <hkallweit1@gmail.com>
-  Helge Deller <deller@gmx.de>
-  heminhong <heminhong@kylinos.cn>
-  Hsin-Yi Wang <hsinyi@chromium.org>
-  Hugh Dickins <hughd@google.com>
-  Hui Zhou <hui.zhou@corigine.com>
-  Ido Schimmel <idosch@nvidia.com>
-  Ignat Korchagin <ignat@cloudflare.com>       [compile-time only]
-  Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-  Ilya Leoshkevich <iii@linux.ibm.com>
-  Inki Dae <inki.dae@samsung.com>
-  Ivan Lipski <ivlipski@amd.com>
-  Ivan Orlov <ivan.orlov0322@gmail.com>
-  Ivan Vecera <ivecera@redhat.com>
-  Jack Wang <jinpu.wang@ionos.com>
-  Jacob Keller <jacob.e.keller@intel.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jani Nikula <jani.nikula@intel.com>
-  Jason Gunthorpe <jgg@nvidia.com>
-  Jason Wang <jasowang@redhat.com>
-  Jason Zhang <jason.zhang@rock-chips.com>
-  Jens Axboe <axboe@kernel.dk>
-  Jens Wiklander <jens.wiklander@linaro.org>
-  Jeremy Soller <jeremy@system76.com>
-  Jerome Forissier <jerome.forissier@linaro.org>
-  Jiadong Zhu <Jiadong.Zhu@amd.com>
-  Jianheng Zhang <Jianheng.Zhang@synopsys.com>
-  Jiexun Wang <wangjiexun@tinylab.org>
-  Jijie Shao <shaojijie@huawei.com>
-  Jiri Olsa <jolsa@kernel.org>
-  Joao Martins <joao.m.martins@oracle.com>
-  Johan Hovold <johan+linaro@kernel.org>
-  John Fastabend <john.fastabend@gmail.com>
-  Jonas Karlman <jonas@kwiboo.se>
-  JP Kobryn <inwardvessel@gmail.com>
-  Juergen Gross <jgross@suse.com>
-  Junxian Huang <huangjunxian6@hisilicon.com>
-  Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
-  Kamil Duljas <kamil.duljas@gmail.com>
-  Keith Busch <kbusch@kernel.org>
-  Kelly Kane <kelly@hawknetworks.com>
-  Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-  Konrad Dybcio <konrad.dybcio@linaro.org>
-  Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-  Kuan-Ying Lee <Kuan-Ying.Lee@mediatek.com>
-  Kunwu Chan <chentao@kylinos.cn>
-  Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-  Laurence Oberman <loberman@redhat.com>
-  Lee Jones <lee@kernel.org>
-  Leon Romanovsky <leon@kernel.org>
-  Li Ma <li.ma@amd.com>
-  Lijo Lazar <lijo.lazar@amd.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Liu Shixin <liushixin2@huawei.com>
-  Liu Ying <victor.liu@nxp.com>
-  Lizhi Xu <lizhi.xu@windriver.com>
-  Lorenzo Bianconi <lorenzo@kernel.org>
-  Lorenzo Pieralisi <lpieralisi@kernel.org>
-  Louis Peens <louis.peens@corigine.com>
-  Luca Ceresoli <luca.ceresoli@bootlin.com>
-  Lukasz Luba <lukasz.luba@arm.com>
-  Luke D. Jones <luke@ljones.dev>
-  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-  Maciej Strozek <mstrozek@opensource.cirrus.com>
-  Magnus Karlsson <magnus.karlsson@intel.com>
-  Malcolm Hart <malcolm@5harts.com>
-  Marcin Szycik <marcin.szycik@linux.intel.com>
-  Marian Postevca <posteuca@mutex.one>
-  Mario Limonciello <mario.limonciello@amd.com>
-  Mark Brown <broonie@kernel.org>
-  Mark Hasemeyer <markhas@chromium.org>
-  Martin K. Petersen <martin.petersen@oracle.com>
-  Masami Hiramatsu (Google) <mhiramat@kernel.org>
-  Matthias Reichl <hias@horus.com>
-  Matus Malych <matus@malych.org>
-  Md Haris Iqbal <haris.iqbal@ionos.com>
-  Michael Ellerman <mpe@ellerman.id.au>
-  Michael S. Tsirkin <mst@redhat.com>
-  Michael Walle <mwalle@kernel.org>
-  Michal Smulski <michal.smulski@ooma.com>
-  Michal Swiatkowski <michal.swiatkowski@linux.intel.com>
-  Mike Kravetz <mike.kravetz@oracle.com>
-  Mike Marciniszyn <mike.marciniszyn@intel.com>
-  Ming Lei <ming.lei@redhat.com>
-  Mustafa Ismail <mustafa.ismail@intel.com>
-  Namjae Jeon <linkinjeon@kernel.org>
-  Nathan Rossi <nathan.rossi@digi.com>
-  Naveen Mamindlapalli <naveenm@marvell.com>
-  Neal Cardwell <ncardwell@google.com>
-  Neil Armstrong <neil.armstrong@linaro.org>
-  Nicholas Piggin <npiggin@gmail.com>
-  Nico Pache <npache@redhat.com>
-  Nitesh Shetty <nj.shetty@samsung.com>
-  Nithin Dabilpuram <ndabilpuram@marvell.com>
-  Nícolas F. R. A. Prado <nfraprado@collabora.com>
-  Oleg Nesterov <oleg@redhat.com>
-  Pablo Neira Ayuso <pablo@netfilter.org>
-  Palmer Dabbelt <palmer@rivosinc.com>
-  Paolo Abeni <pabeni@redhat.com>
-  Pascal Noël <pascal@pascalcompiles.com>
-  Paulo Alcantara (SUSE) <pc@manguebit.com>
-  Paulo Alcantara <pc@manguebit.com>
-  Pavel Begunkov <asml.silence@gmail.com>
-  Peng Fan <peng.fan@nxp.com>
-  Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-  Peter Xu <peterx@redhat.com>
-  Petr Pavlu <petr.pavlu@suse.com>
-  Phil Sutter <phil@nwl.cc>
-  Philip Mueller <philm@manjaro.org>
-  Philipp Zabel <p.zabel@pengutronix.de>
-  Phillip Susi <phill@thesusis.net>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Rafal Romanowski <rafal.romanowski@intel.com>
-  Rahul Bhansali <rbhansali@marvell.com>
-  Randy Dunlap <rdunlap@infradead.org>
-  Randy Dunlap <rdunlap@infradead.org> # build-tested
-  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-  Rob Herring <robh@kernel.org>
-  Robin Murphy <robin.murphy@arm.com>
-  Rodrigo Siqueira <rodrigo.siqueira@amd.com>
-  Roland Hieber <rhi@pengutronix.de>
-  Roman Gushchin (Cruise) <roman.gushchin@linux.dev>
-  Roman Gushchin <roman.gushchin@linux.dev>
-  Roman Li <Roman.Li@amd.com>
-  Ryusuke Konishi <konishi.ryusuke@gmail.com>
-  Sam Edwards <CFSworks@gmail.com>
-  Samuel Holland <samuel.holland@sifive.com>
-  Santosh Kumar Pradhan <santosh.pradhan@ionos.com>
-  Sarah Grant <s@srd.tw>
-  Sascha Hauer <s.hauer@pengutronix.de>
-  Sean Christopherson <seanjc@google.com>
-  Sean Nyekjaer <sean@geanix.com>
-  Selvin Xavier <selvin.xavier@broadcom.com>
-  SeongJae Park <sj@kernel.org>
-  Shakeel Butt <shakeelb@google.com>
-  Shannon Nelson <shannon.nelson@amd.com>
-  Shawn Guo <shawn.guo@linaro.org>
-  Shawn Guo <shawnguo@kernel.org>
-  Shengjiu Wang <shengjiu.wang@nxp.com>
-  Shifeng Li <lishifeng1992@126.com>
-  Shifeng Li <lishifeng@sangfor.com.cn>
-  Shigeru Yoshida <syoshida@redhat.com>
-  Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-  Shiraz Saleem <shiraz.saleem@intel.com>
-  Shuming Fan <shumingf@realtek.com>
-  Sidhartha Kumar <sidhartha.kumar@oracle.com>
-  Simon Horman <horms@kernel.org> # build-tested
-  Song Liu <song@kernel.org>
-  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-  Stefan Eichenberger <stefan.eichenberger@toradex.com>
-  Stefan Kerkmann <s.kerkmann@pengutronix.de>
-  Stefan Wahren <wahrenst@gmx.net>
-  Stefano Garzarella <sgarzare@redhat.com>
-  Steve French <stfrench@microsoft.com>
-  Steve Sistare <steven.sistare@oracle.com>
-  Steven Price <steven.price@arm.com>
-  Steven Rostedt (Google) <rostedt@goodmis.org>
-  Su Hui <suhui@nfschina.com>
-  Subbaraya Sundeep <sbhatta@marvell.com>
-  Sudeep Holla <sudeep.holla@arm.com>
-  Suman Ghosh <sumang@marvell.com>
-  Sumanth Korikkar <sumanthk@linux.ibm.com>
-  Sumit Garg <sumit.garg@linaro.org>
-  Sunil Goutham <sgoutham@marvell.com>
-  Takashi Iwai <tiwai@suse.de>
-  Takashi Sakamoto <o-takashi@sakamocchi.jp>
-  Tejun Heo <tj@kernel.org>
-  Thinh Tran <thinhtr@linux.vnet.ibm.com>
-  Thomas Gleixner <tglx@linutronix.de>
-  Thomas Reichinger <thomas.reichinger@sohard.de>
-  Thomas Zimmermann <tzimmermann@suse.de>
-  Tim Bosse <flinn@timbos.se>
-  Tim Crawford <tcrawford@system76.com>
-  Tim Van Patten <timvp@google.com>
-  Timothy Pearson <tpearson@raptorengineering.com>
-  Timur Tabi <ttabi@nvidia.com>
-  Tobias Waldekranz <tobias@waldekranz.com>
-  Tony Nguyen <anthony.l.nguyen@intel.com>
-  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-  Venkata Sai Duggi <venkata.sai.duggi@ibm.com>
-  Ville Syrjälä <ville.syrjala@linux.intel.com>
-  Vlastimil Babka <vbabka@suse.cz>
-  Wen Gu <guwen@linux.alibaba.com>
-  Werner Sembach <wse@tuxedocomputers.com>
-  Woody Suwalski <terraluna977@gmail.com>
-  wuqiang.matt <wuqiang.matt@bytedance.com>
-  Xiang Yang <xiangyang3@huawei.com>
-  Xiao Ni <xni@redhat.com>
-  Xiaolei Wang <xiaolei.wang@windriver.com>
-  Yang Wang <kevinyang.wang@amd.com>
-  Yang Yingliang <yangyingliang@huawei.com>
-  Yewon Choi <woni9911@gmail.com>
-  Yonghong Song <yonghong.song@linux.dev>
-  Yonglong Liu <liuyonglong@huawei.com>
-  Yu Kuai <yukuai3@huawei.com>
-  Zhipeng Lu <alexious@zju.edu.cn>
+Changes since v9:
+* Don't use jump tables, indirect jumps are expensive (Thomas Gleixner).
+* Except NMI/#DB/#MCE, FRED really can share the exception handlers
+  with IDT (Thomas Gleixner).
+* Avoid the sysvec_* idt_entry muck, do it at a central place, reuse code
+  instead of blindly copying it, which breaks the performance optimized
+  sysvec entries like reschedule_ipi (Thomas Gleixner).
+* Add asm_ prefix to FRED asm entry points (Thomas Gleixner).
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             fail    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
+Changes since v8:
+* Don't do syscall early out in fred_entry_from_user() before there are
+  proper performance numbers and justifications (Thomas Gleixner).
+* Add the control exception handler to the FRED exception handler table
+  (Thomas Gleixner).
+* Add ENDBR to the FRED_ENTER asm macro.
+* Reflect the FRED spec 5.0 change that ERETS and ERETU add 8 to %rsp
+  before popping the return context from the stack.
 
+Changes since v1:
+* Initialize a FRED exception handler to fred_bad_event() instead of NULL
+  if no FRED handler defined for an exception vector (Peter Zijlstra).
+* Push calling irqentry_{enter,exit}() and instrumentation_{begin,end}()
+  down into individual FRED exception handlers, instead of in the dispatch
+  framework (Peter Zijlstra).
+---
+ arch/x86/entry/Makefile               |   5 +-
+ arch/x86/entry/entry_64_fred.S        |  52 ++++++
+ arch/x86/entry/entry_fred.c           | 244 ++++++++++++++++++++++++++
+ arch/x86/include/asm/asm-prototypes.h |   1 +
+ arch/x86/include/asm/fred.h           |   6 +
+ 5 files changed, 307 insertions(+), 1 deletion(-)
+ create mode 100644 arch/x86/entry/entry_64_fred.S
+ create mode 100644 arch/x86/entry/entry_fred.c
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+diff --git a/arch/x86/entry/Makefile b/arch/x86/entry/Makefile
+index ca2fe186994b..c93e7f5c2a06 100644
+--- a/arch/x86/entry/Makefile
++++ b/arch/x86/entry/Makefile
+@@ -18,6 +18,9 @@ obj-y				+= vdso/
+ obj-y				+= vsyscall/
+ 
+ obj-$(CONFIG_PREEMPTION)	+= thunk_$(BITS).o
++CFLAGS_entry_fred.o		+= -fno-stack-protector
++CFLAGS_REMOVE_entry_fred.o	+= -pg $(CC_FLAGS_FTRACE)
++obj-$(CONFIG_X86_FRED)		+= entry_64_fred.o entry_fred.o
++
+ obj-$(CONFIG_IA32_EMULATION)	+= entry_64_compat.o syscall_32.o
+ obj-$(CONFIG_X86_X32_ABI)	+= syscall_x32.o
+-
+diff --git a/arch/x86/entry/entry_64_fred.S b/arch/x86/entry/entry_64_fred.S
+new file mode 100644
+index 000000000000..37a1dd5e8ace
+--- /dev/null
++++ b/arch/x86/entry/entry_64_fred.S
+@@ -0,0 +1,52 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * The actual FRED entry points.
++ */
++
++#include <asm/fred.h>
++
++#include "calling.h"
++
++	.code64
++	.section .noinstr.text, "ax"
++
++.macro FRED_ENTER
++	UNWIND_HINT_END_OF_STACK
++	ENDBR
++	PUSH_AND_CLEAR_REGS
++	movq	%rsp, %rdi	/* %rdi -> pt_regs */
++.endm
++
++.macro FRED_EXIT
++	UNWIND_HINT_REGS
++	POP_REGS
++.endm
++
++/*
++ * The new RIP value that FRED event delivery establishes is
++ * IA32_FRED_CONFIG & ~FFFH for events that occur in ring 3.
++ * Thus the FRED ring 3 entry point must be 4K page aligned.
++ */
++	.align 4096
++
++SYM_CODE_START_NOALIGN(asm_fred_entrypoint_user)
++	FRED_ENTER
++	call	fred_entry_from_user
++	FRED_EXIT
++	ERETU
++SYM_CODE_END(asm_fred_entrypoint_user)
++
++.fill asm_fred_entrypoint_kernel - ., 1, 0xcc
++
++/*
++ * The new RIP value that FRED event delivery establishes is
++ * (IA32_FRED_CONFIG & ~FFFH) + 256 for events that occur in
++ * ring 0, i.e., asm_fred_entrypoint_user + 256.
++ */
++	.org asm_fred_entrypoint_user + 256
++SYM_CODE_START_NOALIGN(asm_fred_entrypoint_kernel)
++	FRED_ENTER
++	call	fred_entry_from_kernel
++	FRED_EXIT
++	ERETS
++SYM_CODE_END(asm_fred_entrypoint_kernel)
+diff --git a/arch/x86/entry/entry_fred.c b/arch/x86/entry/entry_fred.c
+new file mode 100644
+index 000000000000..bd605cd11187
+--- /dev/null
++++ b/arch/x86/entry/entry_fred.c
+@@ -0,0 +1,244 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * The FRED specific kernel/user entry functions which are invoked from
++ * assembly code and dispatch to the associated handlers.
++ */
++#include <linux/kernel.h>
++#include <linux/kdebug.h>
++#include <linux/nospec.h>
++
++#include <asm/desc.h>
++#include <asm/fred.h>
++#include <asm/idtentry.h>
++#include <asm/syscall.h>
++#include <asm/trapnr.h>
++#include <asm/traps.h>
++
++/* FRED EVENT_TYPE_OTHER vector numbers */
++#define FRED_SYSCALL			1
++#define FRED_SYSENTER			2
++
++static noinstr void fred_bad_type(struct pt_regs *regs, unsigned long error_code)
++{
++	irqentry_state_t irq_state = irqentry_nmi_enter(regs);
++
++	instrumentation_begin();
++
++	/* Panic on events from a high stack level */
++	if (regs->fred_cs.sl > 0) {
++		pr_emerg("PANIC: invalid or fatal FRED event; event type %u "
++			 "vector %u error 0x%lx aux 0x%lx at %04x:%016lx\n",
++			 regs->fred_ss.type, regs->fred_ss.vector, regs->orig_ax,
++			 fred_event_data(regs), regs->cs, regs->ip);
++		die("invalid or fatal FRED event", regs, regs->orig_ax);
++		panic("invalid or fatal FRED event");
++	} else {
++		unsigned long flags = oops_begin();
++		int sig = SIGKILL;
++
++		pr_alert("BUG: invalid or fatal FRED event; event type %u "
++			 "vector %u error 0x%lx aux 0x%lx at %04x:%016lx\n",
++			 regs->fred_ss.type, regs->fred_ss.vector, regs->orig_ax,
++			 fred_event_data(regs), regs->cs, regs->ip);
++
++		if (__die("Invalid or fatal FRED event", regs, regs->orig_ax))
++			sig = 0;
++
++		oops_end(flags, regs, sig);
++	}
++
++	instrumentation_end();
++	irqentry_nmi_exit(regs, irq_state);
++}
++
++static noinstr void fred_intx(struct pt_regs *regs)
++{
++	switch (regs->fred_ss.vector) {
++	/* Opcode 0xcd, 0x3, NOT INT3 (opcode 0xcc) */
++	case X86_TRAP_BP:
++		return exc_int3(regs);
++
++	/* Opcode 0xcd, 0x4, NOT INTO (opcode 0xce) */
++	case X86_TRAP_OF:
++		return exc_overflow(regs);
++
++	/* INT80 */
++	case IA32_SYSCALL_VECTOR:
++		if (ia32_enabled())
++			return int80_emulation(regs);
++		fallthrough;
++
++	default:
++		return exc_general_protection(regs, 0);
++	}
++}
++
++static __always_inline void fred_other(struct pt_regs *regs)
++{
++	/* The compiler can fold these conditions into a single test */
++	if (likely(regs->fred_ss.vector == FRED_SYSCALL && regs->fred_ss.lm)) {
++		regs->orig_ax = regs->ax;
++		regs->ax = -ENOSYS;
++		do_syscall_64(regs, regs->orig_ax);
++		return;
++	} else if (ia32_enabled() &&
++		   likely(regs->fred_ss.vector == FRED_SYSENTER &&
++			  !regs->fred_ss.lm)) {
++		regs->orig_ax = regs->ax;
++		regs->ax = -ENOSYS;
++		do_fast_syscall_32(regs);
++		return;
++	} else {
++		exc_invalid_op(regs);
++		return;
++	}
++}
++
++#define SYSVEC(_vector, _function) [_vector - FIRST_SYSTEM_VECTOR] = fred_sysvec_##_function
++
++static idtentry_t sysvec_table[NR_SYSTEM_VECTORS] __ro_after_init = {
++	SYSVEC(ERROR_APIC_VECTOR,		error_interrupt),
++	SYSVEC(SPURIOUS_APIC_VECTOR,		spurious_apic_interrupt),
++	SYSVEC(LOCAL_TIMER_VECTOR,		apic_timer_interrupt),
++	SYSVEC(X86_PLATFORM_IPI_VECTOR,		x86_platform_ipi),
++
++	SYSVEC(RESCHEDULE_VECTOR,		reschedule_ipi),
++	SYSVEC(CALL_FUNCTION_SINGLE_VECTOR,	call_function_single),
++	SYSVEC(CALL_FUNCTION_VECTOR,		call_function),
++	SYSVEC(REBOOT_VECTOR,			reboot),
++
++	SYSVEC(THRESHOLD_APIC_VECTOR,		threshold),
++	SYSVEC(DEFERRED_ERROR_VECTOR,		deferred_error),
++	SYSVEC(THERMAL_APIC_VECTOR,		thermal),
++
++	SYSVEC(IRQ_WORK_VECTOR,			irq_work),
++
++	SYSVEC(POSTED_INTR_VECTOR,		kvm_posted_intr_ipi),
++	SYSVEC(POSTED_INTR_WAKEUP_VECTOR,	kvm_posted_intr_wakeup_ipi),
++	SYSVEC(POSTED_INTR_NESTED_VECTOR,	kvm_posted_intr_nested_ipi),
++};
++
++static noinstr void fred_extint(struct pt_regs *regs)
++{
++	unsigned int vector = regs->fred_ss.vector;
++	unsigned int index = array_index_nospec(vector - FIRST_SYSTEM_VECTOR,
++						NR_SYSTEM_VECTORS);
++
++	if (WARN_ON_ONCE(vector < FIRST_EXTERNAL_VECTOR))
++		return;
++
++	if (likely(vector >= FIRST_SYSTEM_VECTOR)) {
++		irqentry_state_t state = irqentry_enter(regs);
++
++		instrumentation_begin();
++		sysvec_table[index](regs);
++		instrumentation_end();
++		irqentry_exit(regs, state);
++	} else {
++		common_interrupt(regs, vector);
++	}
++}
++
++static noinstr void fred_hwexc(struct pt_regs *regs, unsigned long error_code)
++{
++	/* Optimize for #PF. That's the only exception which matters performance wise */
++	if (likely(regs->fred_ss.vector == X86_TRAP_PF))
++		return exc_page_fault(regs, error_code);
++
++	switch (regs->fred_ss.vector) {
++	case X86_TRAP_DE: return exc_divide_error(regs);
++	case X86_TRAP_DB: return fred_exc_debug(regs);
++	case X86_TRAP_BR: return exc_bounds(regs);
++	case X86_TRAP_UD: return exc_invalid_op(regs);
++	case X86_TRAP_NM: return exc_device_not_available(regs);
++	case X86_TRAP_DF: return exc_double_fault(regs, error_code);
++	case X86_TRAP_TS: return exc_invalid_tss(regs, error_code);
++	case X86_TRAP_NP: return exc_segment_not_present(regs, error_code);
++	case X86_TRAP_SS: return exc_stack_segment(regs, error_code);
++	case X86_TRAP_GP: return exc_general_protection(regs, error_code);
++	case X86_TRAP_MF: return exc_coprocessor_error(regs);
++	case X86_TRAP_AC: return exc_alignment_check(regs, error_code);
++	case X86_TRAP_XF: return exc_simd_coprocessor_error(regs);
++
++#ifdef CONFIG_X86_MCE
++	case X86_TRAP_MC: return fred_exc_machine_check(regs);
++#endif
++#ifdef CONFIG_INTEL_TDX_GUEST
++	case X86_TRAP_VE: return exc_virtualization_exception(regs);
++#endif
++#ifdef CONFIG_X86_CET
++	case X86_TRAP_CP: return exc_control_protection(regs, error_code);
++#endif
++	default: return fred_bad_type(regs, error_code);
++	}
++
++}
++
++static noinstr void fred_swexc(struct pt_regs *regs, unsigned long error_code)
++{
++	switch (regs->fred_ss.vector) {
++	case X86_TRAP_BP: return exc_int3(regs);
++	case X86_TRAP_OF: return exc_overflow(regs);
++	default: return fred_bad_type(regs, error_code);
++	}
++}
++
++__visible noinstr void fred_entry_from_user(struct pt_regs *regs)
++{
++	unsigned long error_code = regs->orig_ax;
++
++	/* Invalidate orig_ax so that syscall_get_nr() works correctly */
++	regs->orig_ax = -1;
++
++	switch (regs->fred_ss.type) {
++	case EVENT_TYPE_EXTINT:
++		return fred_extint(regs);
++	case EVENT_TYPE_NMI:
++		if (likely(regs->fred_ss.vector == X86_TRAP_NMI))
++			return fred_exc_nmi(regs);
++		break;
++	case EVENT_TYPE_HWEXC:
++		return fred_hwexc(regs, error_code);
++	case EVENT_TYPE_SWINT:
++		return fred_intx(regs);
++	case EVENT_TYPE_PRIV_SWEXC:
++		if (likely(regs->fred_ss.vector == X86_TRAP_DB))
++			return fred_exc_debug(regs);
++		break;
++	case EVENT_TYPE_SWEXC:
++		return fred_swexc(regs, error_code);
++	case EVENT_TYPE_OTHER:
++		return fred_other(regs);
++	default: break;
++	}
++
++	return fred_bad_type(regs, error_code);
++}
++
++__visible noinstr void fred_entry_from_kernel(struct pt_regs *regs)
++{
++	unsigned long error_code = regs->orig_ax;
++
++	/* Invalidate orig_ax so that syscall_get_nr() works correctly */
++	regs->orig_ax = -1;
++
++	switch (regs->fred_ss.type) {
++	case EVENT_TYPE_EXTINT:
++		return fred_extint(regs);
++	case EVENT_TYPE_NMI:
++		if (likely(regs->fred_ss.vector == X86_TRAP_NMI))
++			return fred_exc_nmi(regs);
++		break;
++	case EVENT_TYPE_HWEXC:
++		return fred_hwexc(regs, error_code);
++	case EVENT_TYPE_PRIV_SWEXC:
++		if (likely(regs->fred_ss.vector == X86_TRAP_DB))
++			return fred_exc_debug(regs);
++		break;
++	case EVENT_TYPE_SWEXC:
++		return fred_swexc(regs, error_code);
++	default: break;
++	}
++
++	return fred_bad_type(regs, error_code);
++}
+diff --git a/arch/x86/include/asm/asm-prototypes.h b/arch/x86/include/asm/asm-prototypes.h
+index b1a98fa38828..076bf8dee702 100644
+--- a/arch/x86/include/asm/asm-prototypes.h
++++ b/arch/x86/include/asm/asm-prototypes.h
+@@ -12,6 +12,7 @@
+ #include <asm/special_insns.h>
+ #include <asm/preempt.h>
+ #include <asm/asm.h>
++#include <asm/fred.h>
+ #include <asm/gsseg.h>
+ 
+ #ifndef CONFIG_X86_CMPXCHG64
+diff --git a/arch/x86/include/asm/fred.h b/arch/x86/include/asm/fred.h
+index f514fdb5a39f..16a64ffecbf8 100644
+--- a/arch/x86/include/asm/fred.h
++++ b/arch/x86/include/asm/fred.h
+@@ -60,6 +60,12 @@ static __always_inline unsigned long fred_event_data(struct pt_regs *regs)
+ 	return fred_info(regs)->edata;
+ }
+ 
++void asm_fred_entrypoint_user(void);
++void asm_fred_entrypoint_kernel(void);
++
++__visible void fred_entry_from_user(struct pt_regs *regs);
++__visible void fred_entry_from_kernel(struct pt_regs *regs);
++
+ #else /* CONFIG_X86_FRED */
+ static __always_inline unsigned long fred_event_data(struct pt_regs *regs) { return 0; }
+ #endif /* CONFIG_X86_FRED */
+-- 
+2.43.0
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 9989 lines long.)
 
