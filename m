@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55EC280BC32
-	for <lists+xen-devel@lfdr.de>; Sun, 10 Dec 2023 17:40:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.651392.1017073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC45580BC41
+	for <lists+xen-devel@lfdr.de>; Sun, 10 Dec 2023 17:53:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.651407.1017083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCMrH-00057m-MI; Sun, 10 Dec 2023 16:40:47 +0000
+	id 1rCN3B-0000Bp-SS; Sun, 10 Dec 2023 16:53:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 651392.1017073; Sun, 10 Dec 2023 16:40:47 +0000
+Received: by outflank-mailman (output) from mailman id 651407.1017083; Sun, 10 Dec 2023 16:53:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCMrH-00054m-J8; Sun, 10 Dec 2023 16:40:47 +0000
-Received: by outflank-mailman (input) for mailman id 651392;
- Sun, 10 Dec 2023 16:40:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rCN3B-00009n-PJ; Sun, 10 Dec 2023 16:53:05 +0000
+Received: by outflank-mailman (input) for mailman id 651407;
+ Sun, 10 Dec 2023 16:53:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lAJh=HV=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1rCMrG-0004mZ-8A
- for xen-devel@lists.xenproject.org; Sun, 10 Dec 2023 16:40:46 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20627.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::627])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc8a7e9a-977a-11ee-9b0f-b553b5be7939;
- Sun, 10 Dec 2023 17:40:44 +0100 (CET)
-Received: from SA0PR11CA0085.namprd11.prod.outlook.com (2603:10b6:806:d2::30)
- by SA0PR12MB4559.namprd12.prod.outlook.com (2603:10b6:806:9e::23)
+ id 1rCN39-00009f-Rp
+ for xen-devel@lists.xenproject.org; Sun, 10 Dec 2023 16:53:03 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2416::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 94142f62-977c-11ee-98e8-6d05b1d4d9a1;
+ Sun, 10 Dec 2023 17:53:02 +0100 (CET)
+Received: from SJ0PR13CA0012.namprd13.prod.outlook.com (2603:10b6:a03:2c0::17)
+ by MW4PR12MB7165.namprd12.prod.outlook.com (2603:10b6:303:21b::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.32; Sun, 10 Dec
- 2023 16:40:41 +0000
-Received: from SA2PEPF000015C8.namprd03.prod.outlook.com
- (2603:10b6:806:d2:cafe::70) by SA0PR11CA0085.outlook.office365.com
- (2603:10b6:806:d2::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.32 via Frontend
- Transport; Sun, 10 Dec 2023 16:40:41 +0000
+ 2023 16:52:58 +0000
+Received: from MWH0EPF000989EA.namprd02.prod.outlook.com
+ (2603:10b6:a03:2c0:cafe::a7) by SJ0PR13CA0012.outlook.office365.com
+ (2603:10b6:a03:2c0::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.21 via Frontend
+ Transport; Sun, 10 Dec 2023 16:52:58 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF000015C8.mail.protection.outlook.com (10.167.241.198) with Microsoft
+ MWH0EPF000989EA.mail.protection.outlook.com (10.167.241.137) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7091.18 via Frontend Transport; Sun, 10 Dec 2023 16:40:41 +0000
+ 15.20.7091.18 via Frontend Transport; Sun, 10 Dec 2023 16:52:57 +0000
 Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Sun, 10 Dec
- 2023 10:40:36 -0600
+ 2023 10:52:53 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc8a7e9a-977a-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 94142f62-977c-11ee-98e8-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g/eR3SBaxHDNvF/KQoywjcPbxFRHxlhtRmf6v3+n+qx1hYPBmv9XafdA31vS1vkh9tJnD1Wyc+BXwmMIwi/UWbjDsYlPQcJ9eiyk6JgH7IPg4pkhNpHHtK3m2pYOpzFiYEBN9rWHOZnAjofz3C2ApVKsRg8Uk0+sWGlUUQTgdpr0Q3AW4qUJP/n5cptzc87Suo+lYcS2oP7gocZC+nXzsPeuySHzdX9zN7ggmQiSyTpJOtYzINRHEdIV/+xCK8VaiBUj6eh4/YDd2aLPml1l5Y4hvzoJOdT9nRlRjrfO1NwuqKU2dX1O8CCZku2hIILU6/ICtJIC8s1kuuQoSKyqUA==
+ b=gG+4PyF4IJhxlugd1fib3XuB383IxzuSo+oIKzdJb6sKGuqaDPsBmmTJOu6NMcpEeW0kRESkdv5LSkBUwsrInwJNxeY4CdoJpsrwbY7PSmsSAqj4EUB7oyMQhdP/tzwL1zF2U4AuuylXI6HC0k9/vKp68cK0cuFPXSQVPMn0ABlF7bvBZdHfzYrofsXNW5yXHd0frzZ0UUmDx5y4mBztM+MRNZMgXl2SmsMqK/NjA5eLvA6guwOdlC2j4Il2KbbqaIUYj3ZERkjKHoP02Tzo8LlWvJ+vimYKr/zw1dhG8GJNECcymfN6/GCuz+1EhPI8pfgssanAOS74321ygXTu+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0UpkM/2hZ/hyd7VzUuA87GzjsofrR7iewcvgg+VyOL8=;
- b=LZkLlqR6S6olkzyfAhQsF+qmfvKaHtkVrAHBt/WjeEHr+IFeKf2WiYg3NBwFYhJ+IRPRMIG5FoH7uWBcMeSP0t1nH46hFx2bKX0BHsyeLg0bo2VkXwvRlrEMfy79RvuxzmSXAJLeS1zlAcb/nH1GdemofyP+6DaITykw7dlQKzPWp4NGr6+mYLDuSvmuuzhcxbA16msV+IH5Lm0cAMrHxJVvBOy940z9xxG/iBortA9d+cL8N+JV2LqX+8Ifbk9R6DhMT418vgQOP/JCD7XUPuYD2uK/OegwasWwUBt2RC2ERovadhCSdEzOGHOk4J+DB0X36iymjJRx21iXgySLAw==
+ bh=3XlXaSEqa0DdMrahG/fhGSwozwtfCWFVQhk7iHPtKUU=;
+ b=Db1k7U3NFAKAcN31Jtn8CLbXgEaVYWbnHxPWrxdx8XXuIJt1tFY4GFawiZII1WL7pPjJzsexF10DbQosD5FKJmPhmoMDBh9E8t6KOrRYeQITsF6hHxuvWsVyMLszUUcODBH7jZJsmy64iKrcskCB8MI8/HHkdJhTQuKoYjLibBHX8+rflHLoOrk8b2G+Zyqv7g3iB1F6aicVsEXEypvCd6IzuJQD37u47sz8/2QN69bwsUeeuhkfKdtXsAGsf0DO6n7fZOyMSPPIOzT0CDgfGAjeKOdYcW0zcn43denuAtDXTlDCnUe5Lbqy77UHQYaiLyVrAiConve7byd+HsBNBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0UpkM/2hZ/hyd7VzUuA87GzjsofrR7iewcvgg+VyOL8=;
- b=LgF0saVfah85f972ZH4p7VhTJYDQEdCBjbG77RXHstXHg0KSKTh3lwiZoqClntYulcGIkxfsFl/ndqytwiQG5JBVdBkMSPciuwgBYozuymWtayM1XvF2HdukOup8qBbEg9vrYNM5B3K2ME3WUqEqdLyUq1JYxFJl16ewp6udFJA=
+ bh=3XlXaSEqa0DdMrahG/fhGSwozwtfCWFVQhk7iHPtKUU=;
+ b=3jUshvQdBe3haUjBNQyWLpUxfDyDc16uH/MGr0PtC2wTTR3FjenFP43yYz/PeH1q5QSh42WxhykUU2IXAUNRhx8YNi3HmU/GOTAb6zLIGbH4x9VhkFOV9to22pMqK7Z3v1DKMkFqLIoJevJuDRSErGeMdpkfsNZsVOdPkYT7Rwk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -79,128 +79,85 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, "Juergen
- Gross" <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	<xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <Stewart.Hildebrand@amd.com>, Alex Deucher
-	<Alexander.Deucher@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
-	Stefano Stabellini <stefano.stabellini@amd.com>, Huang Rui
-	<Ray.Huang@amd.com>, Honglei Huang <Honglei1.Huang@amd.com>, Julia Zhang
-	<Julia.Zhang@amd.com>, Jiqian Chen <Jiqian.Chen@amd.com>, Huang Rui
-	<ray.huang@amd.com>
-Subject: [RFC XEN PATCH v3 3/3] libxl: Use gsi instead of irq for mapping pirq
-Date: Mon, 11 Dec 2023 00:40:09 +0800
-Message-ID: <20231210164009.1551147-4-Jiqian.Chen@amd.com>
+To: Stefano Stabellini <sstabellini@kernel.org>, Anthony Perard
+	<anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+	<qemu-devel@nongnu.org>
+CC: <xen-devel@lists.xenproject.org>, Xenia Ragiadakou
+	<xenia.ragiadakou@amd.com>, Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
+	Alex Deucher <Alexander.Deucher@amd.com>, Huang Rui <Ray.Huang@amd.com>,
+	Honglei Huang <Honglei1.Huang@amd.com>, Julia Zhang <Julia.Zhang@amd.com>,
+	Jiqian Chen <Jiqian.Chen@amd.com>
+Subject: [RFC QEMU PATCH v3 0/1] Support device passthrough when dom0 is PVH on Xen
+Date: Mon, 11 Dec 2023 00:52:39 +0800
+Message-ID: <20231210165240.1551450-1-Jiqian.Chen@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20231210164009.1551147-1-Jiqian.Chen@amd.com>
-References: <20231210164009.1551147-1-Jiqian.Chen@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015C8:EE_|SA0PR12MB4559:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66335a6c-1a3c-429b-e1a3-08dbf99ebf35
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989EA:EE_|MW4PR12MB7165:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3386ee77-2e51-4973-02ac-08dbf9a07662
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	XpLKbnMU7A+9gF59s8pIU3rykYXY5HbnsrnO8wouj6x0aXlPR3tOv9edy+Y0HgmteIvrREAAWSu96gfKudaWoo9Ck/URdEdoGOIPIE2jXJghYIUyp1IAyVmhJ60VxsRg0MseOjVXhSzWefqlXlZ3b+PIeY7nuyRuvidfl/RPUQMo4F8u/6OkLivxbxxkbxgtfKKS8ThSj1irR1GAkloqD6r2sRM6Z9yjW925gJZdFkaMrIrr7VVWBdpg7UlKvPFT9fZDKn2IrAHnMFdkePPHPwLJ6gQTkug0xOcQu4MEle0eP0UaeAXlNMrjnVF4rpHywlROEtvNGjngih6+PnkocT4dty3UHOQUgwfmaJdzB8VVHH3EgkG/wCH+oqw9NF2CuesR8XMcpLfJn18ZwN2nwsv5aicm7eFZfiljUClWjGwC+eQA6gmEzoAKKO+UJIvfkeHJmBeKXsAKklA/51IOZHXUkcMBNP1Pya6KmY+ZQQCbU2nliiSST8TXf9h7Cl4v5xIPBOoVMTY6uWWZSLWoh38iwFXh6dwdnbJZl5WVraN4lrr2tccPmKBE3IHsk0BRfPzJyfBrICpY/lb2lfaGirCHFSalyGA0J2+lNhgJeYQnYKexaw3L6w5Cutvyc7Eu1gVJ239yDia/wE4cb/b+3wpHnhdOiqFVCcqMopDkzyARriq+gCucqR53/CD7YuB7GIpPTF5tSC9WdXb8BLXHW7LgtrVyt7YoAd+gqsbTrcZHcXorWSaVjvFqxtPPjWJLSae07VjxnEVPdsaqpf3Bhw==
+	Rf+VFX6rAoi7ZC6GEq5S0hmVQz6QPOo1CPii1W5GnaskWOKOd00rZq4DpkgbOtqGtWZXGDaDfFpAAXoDZIP2Hd/1aj2lrODDqEfYjuFAMlnNmrxDFLQjG0lBQ2kmCzdEYNNRSRB7PLRLumNKtIuJNkHwk57Go+RsFIk27N0liV278qZJpX/gJ3bFYBdbny2m8MsLLmNxbIoilM+aL7Y2NBLQ2iM/xaUdEHqdEFHzv1NP7jqRNBj0olHjBsdQQDV/CzsAL/FMghQsn9n83uMG58UOiqzaD1JmRHXTn/7ty0OY+SKZrEJ+QCGBkxQA1UEBjczpYf/NmLbhWaneqK++Jrc+r1pIdZI5nQwmALNlin5eGY3UJwgBW2em8EGnmJXCe+oHQ7lv2Syle63TAT/rGzLBFkp7BB/bDlZnf8EZ5XH5hHnjQodp3K1vTV+9NKa86LO0/bMKiTs8huEKXDJElpF0RQ1rF72SWp7rummS8JQgcLj6J4Yg3/uytJCunGdiTBrdI3XD/kjiNOos3iFD+4G3Mac9DiB1/0YRuSji8DDCz3lDtCCffcpyJ9g2Uc+rL9ZhES0OmWW1Xeo08HPmmt19P5IYXm68VLPJiVkQ70BQzNDcY8ZAwIB4y44+wwl1nBToIo3XiRxMer9BzV7dw1XZUHi6JFx4K9PLpgg3qBlv4g2nbgagih44a8Ws92O7NMrIqysgKVPXlBI4v9mQ+mcuGgUVGqJ5PeKQmgkxH8a/NegHPhMmykDGpO0Pmaf/mFmh+t5JD/1qBFrAEQK102rjefMMlgbZEH6/DVt0yXU=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(136003)(376002)(346002)(230922051799003)(451199024)(64100799003)(82310400011)(1800799012)(186009)(46966006)(40470700004)(36840700001)(40460700003)(36860700001)(5660300002)(1076003)(47076005)(336012)(26005)(2616005)(16526019)(36756003)(426003)(70586007)(70206006)(54906003)(40480700001)(2906002)(83380400001)(82740400003)(81166007)(41300700001)(356005)(478600001)(7696005)(86362001)(8676002)(8936002)(4326008)(110136005)(316002)(6666004)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(376002)(346002)(136003)(39860400002)(230922051799003)(451199024)(1800799012)(64100799003)(186009)(82310400011)(46966006)(40470700004)(36840700001)(40460700003)(1076003)(26005)(16526019)(2616005)(426003)(336012)(6666004)(7696005)(36860700001)(83380400001)(47076005)(5660300002)(41300700001)(2906002)(478600001)(966005)(4326008)(8676002)(8936002)(70206006)(70586007)(110136005)(316002)(54906003)(81166007)(86362001)(356005)(82740400003)(36756003)(40480700001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2023 16:40:41.0560
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Dec 2023 16:52:57.7712
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66335a6c-1a3c-429b-e1a3-08dbf99ebf35
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3386ee77-2e51-4973-02ac-08dbf9a07662
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015C8.namprd03.prod.outlook.com
+	MWH0EPF000989EA.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4559
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7165
 
-In PVH dom0, it uses the linux local interrupt mechanism,
-when it allocs irq for a gsi, it is dynamic, and follow
-the principle of applying first, distributing first. And
-the irq number is alloced from small to large, but the
-applying gsi number is not, may gsi 38 comes before gsi
-28, that causes the irq number is not equal with the gsi
-number. And when passthrough a device, xl wants to use
-gsi to map pirq, see pci_add_dm_done->xc_physdev_map_pirq,
-but the gsi number is got from file
-/sys/bus/pci/devices/<sbdf>/irq in current code, so it
-will fail when mapping.
+Hi All,
+v2->v3 changes:
+* du to changes in the implementation of the second patch on kernel side(that adds a new sysfs for gsi instead of a new syscall), so read gsi number from the sysfs of gsi.
 
-So, use real gsi number read from gsi sysfs.
 
-Co-developed-by: Huang Rui <ray.huang@amd.com>
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
----
- tools/libs/light/libxl_pci.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+v3 patch on kernel side:
+https://lore.kernel.org/lkml/20231210161519.1550860-1-Jiqian.Chen@amd.com/T/#t
+v3 patch on Xen side:
+https://lore.kernel.org/xen-devel/20231210164009.1551147-1-Jiqian.Chen@amd.com/T/#t
 
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index 96cb4da079..9e75f0c263 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -1416,7 +1416,7 @@ static void pci_add_dm_done(libxl__egc *egc,
-     char *sysfs_path;
-     FILE *f;
-     unsigned long long start, end, flags, size;
--    int irq, i;
-+    int gsi, i;
-     int r;
-     uint32_t flag = XEN_DOMCTL_DEV_RDM_RELAXED;
-     uint32_t domainid = domid;
-@@ -1439,7 +1439,7 @@ static void pci_add_dm_done(libxl__egc *egc,
-                            pci->bus, pci->dev, pci->func);
-     f = fopen(sysfs_path, "r");
-     start = end = flags = size = 0;
--    irq = 0;
-+    gsi = 0;
- 
-     if (f == NULL) {
-         LOGED(ERROR, domainid, "Couldn't open %s", sysfs_path);
-@@ -1478,26 +1478,26 @@ static void pci_add_dm_done(libxl__egc *egc,
-     fclose(f);
-     if (!pci_supp_legacy_irq())
-         goto out_no_irq;
--    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/irq", pci->domain,
-+    sysfs_path = GCSPRINTF(SYSFS_PCI_DEV"/"PCI_BDF"/gsi", pci->domain,
-                                 pci->bus, pci->dev, pci->func);
-     f = fopen(sysfs_path, "r");
-     if (f == NULL) {
-         LOGED(ERROR, domainid, "Couldn't open %s", sysfs_path);
-         goto out_no_irq;
-     }
--    if ((fscanf(f, "%u", &irq) == 1) && irq) {
--        r = xc_physdev_map_pirq(ctx->xch, domid, irq, &irq);
-+    if ((fscanf(f, "%u", &gsi) == 1) && gsi) {
-+        r = xc_physdev_map_pirq(ctx->xch, domid, gsi, &gsi);
-         if (r < 0) {
--            LOGED(ERROR, domainid, "xc_physdev_map_pirq irq=%d (error=%d)",
--                  irq, r);
-+            LOGED(ERROR, domainid, "xc_physdev_map_pirq gsi=%d (error=%d)",
-+                  gsi, r);
-             fclose(f);
-             rc = ERROR_FAIL;
-             goto out;
-         }
--        r = xc_domain_irq_permission(ctx->xch, domid, irq, 1);
-+        r = xc_domain_irq_permission(ctx->xch, domid, gsi, 1);
-         if (r < 0) {
-             LOGED(ERROR, domainid,
--                  "xc_domain_irq_permission irq=%d (error=%d)", irq, r);
-+                  "xc_domain_irq_permission gsi=%d (error=%d)", gsi, r);
-             fclose(f);
-             rc = ERROR_FAIL;
-             goto out;
+
+Below is the description of v2 cover letter:
+This patch is the v2 of the implementation of passthrough when dom0 is PVH on Xen.
+Issues we encountered:
+1. failed to map pirq for gsi
+Problem: qemu will call xc_physdev_map_pirq() to map a passthrough device’s gsi to pirq in function xen_pt_realize(). But failed.
+
+Reason: According to the implement of xc_physdev_map_pirq(), it needs gsi instead of irq, but qemu pass irq to it and treat irq as gsi, it is got from file /sys/bus/pci/devices/xxxx:xx:xx.x/irq in function xen_host_pci_device_get(). But actually the gsi number is not equal with irq. On PVH dom0, when it allocates irq for a gsi in function acpi_register_gsi_ioapic(), allocation is dynamic, and follow the principle of applying first, distributing first. And if you debug the kernel codes(see function __irq_alloc_descs), you will find the irq number is allocated from small to large by order, but the applying gsi number is not, gsi 38 may come before gsi 28, that causes gsi 38 get a smaller irq number than gsi 28, and then gsi != irq.
+
+Solution: we can record the relation between gsi and irq, then when userspace(qemu) want to use gsi, we can do a translation. The third patch of kernel(xen/privcmd: Add new syscall to get gsi from irq) records all the relations in acpi_register_gsi_xen_pvh() when dom0 initialize pci devices, and provide a syscall for userspace to get the gsi from irq. The third patch of xen(tools: Add new function to get gsi from irq) add a new function xc_physdev_gsi_from_irq() to call the new syscall added on kernel side.
+And then userspace can use that function to get gsi. Then xc_physdev_map_pirq() will success.
+
+This v2 on qemu side is the same as the v1 ( qemu https://lore.kernel.org/xen-devel/20230312092244.451465-19-ray.huang@amd.com/), just call
+xc_physdev_gsi_from_irq() to get gsi from irq.
+
+v2 on kernel side:
+https://lore.kernel.org/lkml/20231124103123.3263471-1-Jiqian.Chen@amd.com/T/#t
+
+v2 on Xen side:
+https://lore.kernel.org/xen-devel/20231124104136.3263722-1-Jiqian.Chen@amd.com/T/#t
+
+
+Jiqian Chen (1):
+  xen: Use gsi instead of irq for mapping pirq
+
+ hw/xen/xen-host-pci-device.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
 -- 
 2.34.1
 
