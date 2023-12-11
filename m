@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B44A80C6FD
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 11:46:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.651646.1017425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67B4B80C74C
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 11:53:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.651656.1017434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCdnm-0005YF-AL; Mon, 11 Dec 2023 10:46:18 +0000
+	id 1rCduT-00081D-0A; Mon, 11 Dec 2023 10:53:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 651646.1017425; Mon, 11 Dec 2023 10:46:18 +0000
+Received: by outflank-mailman (output) from mailman id 651656.1017434; Mon, 11 Dec 2023 10:53:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCdnm-0005Vg-75; Mon, 11 Dec 2023 10:46:18 +0000
-Received: by outflank-mailman (input) for mailman id 651646;
- Mon, 11 Dec 2023 10:46:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rCduS-0007zM-TZ; Mon, 11 Dec 2023 10:53:12 +0000
+Received: by outflank-mailman (input) for mailman id 651656;
+ Mon, 11 Dec 2023 10:53:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ojZ6=HW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rCdnk-0005Uo-PD
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 10:46:16 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 819dc5d1-9812-11ee-9b0f-b553b5be7939;
- Mon, 11 Dec 2023 11:46:14 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40b27726369so45944615e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 02:46:14 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- ay35-20020a05600c1e2300b0040b2b38a1fasm12621649wmb.4.2023.12.11.02.46.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Dec 2023 02:46:13 -0800 (PST)
+ <SRS0=O2vV=HW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rCduR-0007zG-R0
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 10:53:11 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 796574c5-9813-11ee-98e8-6d05b1d4d9a1;
+ Mon, 11 Dec 2023 11:53:10 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-33340c50af9so4470364f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 02:53:10 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ s3-20020a5d69c3000000b00333320cf08bsm8266848wrw.102.2023.12.11.02.53.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 11 Dec 2023 02:53:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,128 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 819dc5d1-9812-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 796574c5-9813-11ee-98e8-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1702291574; x=1702896374; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=6kY1G0UYuo0Sln2JCppCjtL7Z6jveHyI9yioNk2/OZ4=;
-        b=KpMmiHSg9Oc6zeao/L2Ih92mWDWiHF5NoKNCoRmhWQZjmrcbbwucEL1SsH4sdEJ0Lb
-         bPUPPLvrTDVmGzGjHNyLgypEGj767lq3S5kFAqgZei+iDswSQbVUYuXMsQjAyff8cSRU
-         WeW0Jxb7x92qQUBV/Ca7aOpXj7+LOKnDBMy5A=
+        d=citrix.com; s=google; t=1702291990; x=1702896790; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zEWUNOd33UC4iVxzhV82+8pYF6BWi1q92nNXLUOSfCk=;
+        b=dYWzVE24pB0PDxTPBpw7XTQG5CGk+MKgvyb3CRJwPG9DWtVly7OWoqThorZpVlPy/i
+         3RoWAqPQReEBdusX/Uo/PPDas1VVIol9Y0YbWGgqPzHHVt84TH/Uk9pa52Xg2Vx5N+Uv
+         z5JubvxwnxHFt67CDSA/xkFO+GLZsjDNYEAfM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702291574; x=1702896374;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1702291990; x=1702896790;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6kY1G0UYuo0Sln2JCppCjtL7Z6jveHyI9yioNk2/OZ4=;
-        b=VD8mim2dWs/nGhs2nnO25S8r21250B+CYKeFpoKNotiG7YWazHPB8rDqEzy77duLl6
-         dUEMXfYp0n1wIzP9peaxJ3NFwW9sg9o4mZxr8Suz+ixJMvPrzLBko+J3iVI2A9oNdIKx
-         mhjO8p7d6DaUo+MNwAclqrw5LCESuaCbdPQSsaaGfO/86sa0fcS1nHapGs0p/J5LTNFO
-         FNimHtk0iAxIDnopMm2Raqp2xQKWf6lOA6qBB2biuJ7+bKWo8aXv8IKDFW9XgkdU6ayP
-         hz7nZ8zZGyPIQkeHbnImBt8OvlvqQtH+lSUo3VpFGtyBk8HJetgw+9595LP3aSBhAMWs
-         VFIQ==
-X-Gm-Message-State: AOJu0YwLCyo+y9U6QxzDXRWpGjO2DeaPG07pmeIQG+o5XakBHvWLb6QV
-	kzx0z1wKRH5dwC5K2rJXVlmKKg==
-X-Google-Smtp-Source: AGHT+IEDo2gxs5YDFu8ldk07w7vKmQXLTB8IipVtNeDnGw3fUyRDbs6RtP1BYpA9RPCB3pu9jOAung==
-X-Received: by 2002:a05:600c:2e42:b0:40c:314a:426 with SMTP id q2-20020a05600c2e4200b0040c314a0426mr2155657wmf.156.1702291574221;
-        Mon, 11 Dec 2023 02:46:14 -0800 (PST)
-Date: Mon, 11 Dec 2023 11:46:12 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 2/6] x86/HVM: split restore state checking from state
- loading
-Message-ID: <ZXbodK0CcT5U1i5V@macbook>
-References: <49a17ffa-c873-4b0f-81ed-9587053ca159@suse.com>
- <dcc726f5-634e-4b48-aa8f-d477cdc8dea9@suse.com>
- <ZW4L5Q4SMprtmbK-@macbook>
- <5f7c43ca-dfc4-4929-8776-6985e610e154@suse.com>
- <ZW8zyXkUJDKVt-HX@macbook>
- <2ded19f7-2ba6-4b1c-8752-a73894dcdae0@suse.com>
- <ZW9H1uE_6k3d-uWn@macbook>
- <21cdb9ad-81f5-497a-bfd8-ef6aea5906e2@suse.com>
+        bh=zEWUNOd33UC4iVxzhV82+8pYF6BWi1q92nNXLUOSfCk=;
+        b=jEC8pU2zd5V7tDk6z6mZiMiKEZ6IQMwdd7xxmJe92VAIUjPvBv4hf0csyup+q1ErIC
+         t4pQ+ura1vzIzD7Ojuyld7bgGoc2w67UzzST3wthDKsvZAaMFKVbfbfVZpc9YVm0SVHC
+         kimYwKZnWv2tWCUy4KC1MM68il7YRc/pqsMPViavy3Dk2ih9RGB5ozbT+gJF5OT5hGPH
+         ZEe2azoOgF0hpXgscvq5apjst6bkgOhomkKUPlAD6zB4rhrVfBLpRBsiU+nEx5ip/PWc
+         N8xge9BSWGlMLRfhymUfi7Q15GLUvj3FApxoHnqSlqC2//94W8ilxQCr6modanDvx8Mj
+         TM0Q==
+X-Gm-Message-State: AOJu0YwmUjiN9BctQk5wqKGOJsqh4zRnR/Gtj/lIo5/hpn5bjzQV4itO
+	bcpIu0Aar0KNNMWVhj+Cgwy0Qg==
+X-Google-Smtp-Source: AGHT+IEVn3GOQI2slLthNTmzm5vMcWPmlv8sapX3ueax3VWtjtVnqpu5TygEDMElTapWsbJW8vZ/XA==
+X-Received: by 2002:a05:6000:11c4:b0:333:2fd2:3be2 with SMTP id i4-20020a05600011c400b003332fd23be2mr1729547wrx.155.1702291990313;
+        Mon, 11 Dec 2023 02:53:10 -0800 (PST)
+Message-ID: <1974e461-78f8-4a5c-90f2-d637ee3341e7@citrix.com>
+Date: Mon, 11 Dec 2023 10:53:09 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <21cdb9ad-81f5-497a-bfd8-ef6aea5906e2@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] docs/misra/rules.rst: add more rules
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, roberto.bagnara@bugseng.com,
+ federico.serafini@bugseng.com
+Cc: jbeulich@suse.com, george.dunlap@citrix.com, julien@xen.org,
+ bertrand.marquis@arm.com, roger.pau@citrix.com
+References: <alpine.DEB.2.22.394.2312071609060.1265976@ubuntu-linux-20-04-desktop>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <alpine.DEB.2.22.394.2312071609060.1265976@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Dec 06, 2023 at 08:27:59AM +0100, Jan Beulich wrote:
-> On 05.12.2023 16:55, Roger Pau Monné wrote:
-> > On Tue, Dec 05, 2023 at 03:59:13PM +0100, Jan Beulich wrote:
-> >> On 05.12.2023 15:29, Roger Pau Monné wrote:
-> >>> On Tue, Dec 05, 2023 at 09:52:31AM +0100, Jan Beulich wrote:
-> >>>> On 04.12.2023 18:27, Roger Pau Monné wrote:
-> >>>>> On Tue, Nov 28, 2023 at 11:34:04AM +0100, Jan Beulich wrote:
-> >>>>>> ..., at least as reasonably feasible without making a check hook
-> >>>>>> mandatory (in particular strict vs relaxed/zero-extend length checking
-> >>>>>> can't be done early this way).
-> >>>>>>
-> >>>>>> Note that only one of the two uses of hvm_load() is accompanied with
-> >>>>>> hvm_check(). The other directly consumes hvm_save() output, which ought
-> >>>>>> to be well-formed. This means that while input data related checks don't
-> >>>>>> need repeating in the "load" function when already done by the "check"
-> >>>>>> one (albeit assertions to this effect may be desirable), domain state
-> >>>>>> related checks (e.g. has_xyz(d)) will be required in both places.
-> >>>>>>
-> >>>>>> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >>>>>> ---
-> >>>>>> Do we really need all the copying involved in use of _hvm_read_entry()
-> >>>>>> (backing hvm_load_entry()? Zero-extending loads are likely easier to
-> >>>>>> handle that way, but for strict loads all we gain is a reduced risk of
-> >>>>>> unaligned accesses (compared to simply pointing into h->data[]).
-> >>>>>
-> >>>>> See below, but I wonder whether the checks could be performed as part
-> >>>>> of hvm_load() without having to introduce a separate handler and loop
-> >>>>> over the context entries.
-> >>>>
-> >>>> Specifically not. State loading (in the longer run) would better not fail
-> >>>> once started. (Imo it should have been this way from the beginning.) Only
-> >>>> then will the vCPU still be in a predictable state even after a possible
-> >>>> error.
-> >>>
-> >>> Looking at the callers, does such predictable state after failure
-> >>> matter?
-> >>>
-> >>> One caller is an hypercall used by the toolstack at domain create,
-> >>> failing can just lead to the domain being destroyed.  The other caller
-> >>> is vm fork, which will also lead to the fork being destroyed if
-> >>> context loading fails.
-> >>>
-> >>> Maybe I'm overlooking something.
-> >>
-> >> You don't (I think), but existing callers necessarily have to behave the
-> >> way you describe. From an abstract perspective, though, failed state
-> >> loading would better allow a retry. And really I thought that when you
-> >> suggested to split checking from loading, you had exactly that in mind.
-> > 
-> > Not really TBH, because I didn't think that much on a possible
-> > implementation when proposing it.
-> 
-> But what else did you think of then in terms of separating checking from
-> loading?
+On 08/12/2023 12:09 am, Stefano Stabellini wrote:
+> Add the rules accepted in the last three MISRA C working group meetings.
+>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+> Changes in v2:
+> - remove 17.1 for now, to be a separate patch
+> - add a clarification comment for 17.7
+> ---
+>  docs/misra/rules.rst | 34 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 34 insertions(+)
+>
+> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
+> index 75921b9a34..2b570af0e0 100644
+> --- a/docs/misra/rules.rst
+> +++ b/docs/misra/rules.rst
+> @@ -462,6 +462,13 @@ maintainers if you want to suggest a change.
+>  
+>         while(0) and while(1) and alike are allowed.
+>  
+> +   * - `Rule 16.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_03.c>`_
+> +     - Required
+> +     - An unconditional break statement shall terminate every
+> +       switch-clause
+> +     - In addition to break, also other flow control statements such as
+> +       continue, return, goto are allowed.
 
-Just calling the check and load functions inside of the same loop was
-my initial thought.
+And what about fallthrough ?
 
-> > Maybe a suitable compromise would be to reset the state to the initial
-> > (at domain build) one on failure?
-> 
-> That's an option, sure.
-> 
-> > I do dislike the duplicated loops, as it seems like a lot of duplicate
-> > boilerplate code, and I have fears of it going out of sync.
-> 
-> There's a certain risk, yes, but that exists similarly with the save and
-> load sides imo.
+$ git grep -iwe fallthrough -e "fall through" | wc -l
+315
 
-Hm, yes, albeit I have the feeling those are not as similar as the
-proposed check and load loops.
+This is an under-estimate because there are other comment based
+justifications too.
 
-Thanks, Roger.
+All are an explicit statement that a break, or other control flow
+statement, is wrong in the given context.
+
+~Andrew
 
