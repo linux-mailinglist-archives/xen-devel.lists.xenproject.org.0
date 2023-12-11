@@ -2,34 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59FD180D357
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 18:12:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652424.1018253 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B69380D37F
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 18:17:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652431.1018263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCjpm-0003qQ-Ke; Mon, 11 Dec 2023 17:12:46 +0000
+	id 1rCjte-0004jh-3j; Mon, 11 Dec 2023 17:16:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652424.1018253; Mon, 11 Dec 2023 17:12:46 +0000
+Received: by outflank-mailman (output) from mailman id 652431.1018263; Mon, 11 Dec 2023 17:16:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCjpm-0003ol-H8; Mon, 11 Dec 2023 17:12:46 +0000
-Received: by outflank-mailman (input) for mailman id 652424;
- Mon, 11 Dec 2023 17:12:45 +0000
+	id 1rCjte-0004hP-0Z; Mon, 11 Dec 2023 17:16:46 +0000
+Received: by outflank-mailman (input) for mailman id 652431;
+ Mon, 11 Dec 2023 17:16:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uu+c=HW=casper.srs.infradead.org=BATV+80eef5cf954a3a940104+7414+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rCjpl-0003of-4w
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 17:12:45 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=El9v=HW=suse.cz=jack@srs-se1.protection.inumbo.net>)
+ id 1rCjtc-0004hJ-Ey
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 17:16:44 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f128143-9848-11ee-98e8-6d05b1d4d9a1;
- Mon, 11 Dec 2023 18:12:44 +0100 (CET)
-Received: from [2001:8b0:10b:5:53ad:e4dd:6d01:7a89]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1rCjph-0092Yh-1P; Mon, 11 Dec 2023 17:12:41 +0000
+ id 0dc3ed1e-9849-11ee-98e8-6d05b1d4d9a1;
+ Mon, 11 Dec 2023 18:16:43 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org [10.150.64.98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DB0321FBA5;
+ Mon, 11 Dec 2023 17:16:41 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id A98A0134B0;
+ Mon, 11 Dec 2023 17:16:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id /jojKflDd2VgGwAAn2gu4w
+ (envelope-from <jack@suse.cz>); Mon, 11 Dec 2023 17:16:41 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id C28F8A07E3; Mon, 11 Dec 2023 18:16:40 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,185 +53,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f128143-9848-11ee-98e8-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=wxtzzQT84YFpQIhxEg5rDzBpGQU1WiDZBJ20OR12dQw=; b=CzMPTr8k5vo0tA8ktGuC5sZ1ZY
-	uEVUaZ7sJKE00dWtkBcq4P5omTnuT6JVSiQ1oEfZv0PTcw9NL3RltLB0NvGkGYgB0QnxYye+HqkZE
-	k3F78jjJreykuN1pmPJE6sfkQBX0EDKI0LjfZtLNIO0dQr+gSi0glaKxeXlzMsXEj9CrWM7fUV73p
-	Nl4gp9EIp2bkXVc9SCrBW+nnt1oC1xoYd7O2KhPxn1xiqML6fpig6P9KqlZP/fzAbkd5bLz8qvLr2
-	AJA6TBtuN9F6BZ00gcL7CirQiwcQtOXuK0QA1efd/cGReCIUev1DOhunV+R4MJle5TDPLE2W0O3z1
-	1mQ5AFVQ==;
-Message-ID: <2e5395e6214a08056f112c46fdfab3eaa6f8dd45.camel@infradead.org>
-Subject: Re: INFORMAL VOTE REQUIRED - DOCUMENTATION WORDING
-From: David Woodhouse <dwmw2@infradead.org>
-To: George Dunlap <george.dunlap@cloud.com>, Stefano Stabellini
-	 <sstabellini@kernel.org>
-Cc: Kelly Choi <kelly.choi@cloud.com>, xen-devel@lists.xenproject.org, 
-	committers@xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Date: Mon, 11 Dec 2023 17:12:40 +0000
-In-Reply-To: <CA+zSX=ZJETPgXut62Y5RQyB8Q6Ruwqd656+iW+ark6WOXYEf+w@mail.gmail.com>
-References: 
-	<CAO-mL=x3DntLhoKuaiWYjVqkQRqj=rdyZWmuH1aDjkmUbQchyA@mail.gmail.com>
-	 <alpine.DEB.2.22.394.2311301426210.110490@ubuntu-linux-20-04-desktop>
-	 <CA+zSX=ZJETPgXut62Y5RQyB8Q6Ruwqd656+iW+ark6WOXYEf+w@mail.gmail.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-ihaFu6y+tcu9ChGBwKlQ"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+X-Inumbo-ID: 0dc3ed1e-9849-11ee-98e8-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1702315002; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dMM9MhtfbhX3ac2GwN2bNfaO9rysjcTZQxYvC7ZInFI=;
+	b=iayBRXoRt1U9Tx06ZmstRbm2XveoOAJmb3H+XQyGqUT3P+zbvLC3fS/O5gdFufKvW1RJbL
+	HMAZWuUZsMPyvABJ9A7pruDU4AcTDQzuM5BmFOcMpPg01XOr3SfxgwFxns6FxAg/2+qgul
+	KHf+4YKjdBDiM3v+jN0kV6uOJtPm9mE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1702315002;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dMM9MhtfbhX3ac2GwN2bNfaO9rysjcTZQxYvC7ZInFI=;
+	b=gq4/V/ApNSLd8arCAs4Cj0nWb4kzCJLFsxslfo8GpIg7puEZ0qyubbSAqtkLM29rFvPuF8
+	ndIRhrA/lTNRnYCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1702315001; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dMM9MhtfbhX3ac2GwN2bNfaO9rysjcTZQxYvC7ZInFI=;
+	b=JWHgZqlEi7oldnItx6+BGXsreHUxl8R9ft/84suL5jG5LaRmqAKzMeY6LughDoVWTxSxb9
+	rW5hIssnw8gI0rAEpLlvK9UAsO7fbGs1YIoSbw2xr16Qo/X5Ibe7jENGrdL9fXsCKZpUqp
+	y3jHwJaYT0d5U78xPtPgc7mX/juPtCk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1702315001;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dMM9MhtfbhX3ac2GwN2bNfaO9rysjcTZQxYvC7ZInFI=;
+	b=LOT2l8ZTpVnEcJMtm2mTePZcOc0vT6wlx3GQAnb7ighTwutmzdGsMJruFV/tFdhmn/grFg
+	7iaP+/qqGQPJ6eBQ==
+Date: Mon, 11 Dec 2023 18:16:40 +0100
+From: Jan Kara <jack@suse.cz>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
+	kent.overstreet@gmail.com, joern@lazybastard.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
+	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
+	dsterba@suse.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	nico@fluxnic.net, xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
+	adilger.kernel@dilger.ca, agruenba@redhat.com, jack@suse.com,
+	konishi.ryusuke@gmail.com, willy@infradead.org,
+	akpm@linux-foundation.org, p.raghav@samsung.com, hare@suse.de,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
+	gfs2@lists.linux.dev, linux-nilfs@vger.kernel.org,
+	yukuai3@huawei.com, yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: Re: [PATCH RFC v2 for-6.8/block 16/18] ext4: use new helper to read
+ sb block
+Message-ID: <20231211171640.teuuedr3dqzsvsmw@quack3>
+References: <20231211140552.973290-1-yukuai1@huaweicloud.com>
+ <20231211140808.975527-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231211140808.975527-1-yukuai1@huaweicloud.com>
+X-Spam-Flag: NO
+X-Spam-Score: 5.80
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spam-Level: *****
+X-Spam-Score: 5.81
+X-Spamd-Result: default: False [5.81 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 BAYES_SPAM(5.10)[100.00%];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 R_RATELIMIT(0.00)[to_ip_from(RLg7z3ka1nnoi3zj4x13ixbdfk)];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 NEURAL_HAM_SHORT(-0.19)[-0.963];
+	 RCPT_COUNT_GT_50(0.00)[50];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:email,huawei.com:email,suse.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 FREEMAIL_CC(0.00)[kernel.dk,citrix.com,suse.de,gmail.com,lazybastard.org,bootlin.com,nod.at,ti.com,linux.ibm.com,oracle.com,fb.com,toxicpanda.com,suse.com,zeniv.linux.org.uk,kernel.org,fluxnic.net,mit.edu,dilger.ca,redhat.com,infradead.org,linux-foundation.org,samsung.com,vger.kernel.org,lists.xenproject.org,lists.infradead.org,lists.ozlabs.org,lists.linux.dev,huawei.com];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[]
+X-Spam-Flag: NO
 
+On Mon 11-12-23 22:08:08, Yu Kuai wrote:
+> From: Yu Kuai <yukuai3@huawei.com>
+> 
+> Remove __ext4_sb_bread_gfp() and ext4_buffer_uptodate() that is defined
+> by ext4, and convert to use common helper __bread_gfp2() and
+> buffer_uptodate_or_error().
+> 
+> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 
---=-ihaFu6y+tcu9ChGBwKlQ
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Looks good. Feel free to add:
 
-On Fri, 2023-12-01 at 10:27 +0000, George Dunlap wrote:
->=20
-> FWIW I think a "five-point survey" would probably have been somewhat bett=
-er:
->=20
-> Regarding the review insisting that the word "broken" be removed from
-> the updated documentation to the old hypercall:
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-(=E2=9C=94) I think this sort of enforcement is unreasonable and is harming=
- the
-community
+								Honza
 
-Honestly, this latest example just epitomises the reason I've dedicated
-the last two years of my life to hosting Xen guests on something
-*other* than Xen itself.
-
-I *want* to contribute, to help make Xen better. We have code we'd love
-to give back. I'd love to see Xen upstream supporting live update and
-guest transparent live migration (oops, even that term got gratuitously
-bikeshedded, didn't it?)
-
-But I cannot, and will not, subject my engineers to this.
-
-I've even got long-time Xen contributors on my team saying that they're
-done with it. I certainly can't ask junior engineers to operate in this
-environment.
-
-I don't say this to be combative. I genuinely want the Xen community to
-improve and to become as welcoming and productive as it can be.
-
-Perhaps we do need a TAB to help keep things working smoothly, and help
-stamp out the problematic behaviour? This isn't healthy.
-
---=-ihaFu6y+tcu9ChGBwKlQ
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMxMjExMTcxMjQwWjAvBgkqhkiG9w0BCQQxIgQgYQhrdIC5
-uLp49OPmfAe26sU27n/A0GLPSQdUFG06uDowgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBWwG9FWjRlAbVYv1Po1j21OZvLgbI3kPb5
-tn9w4KCn8oadg2JB8qhTl3psVtBqwUmkG2f6jm3JoLKiM7+dWeErR2gAeTGF+1khCgOy33qWasJ/
-W4vNM/YNn3/NcMcYzAJ24Xlhx24YDbbmiMW/RkQCUVSPCQLni/iLfNoTY2ve/pks/HgOCZX2SYG5
-5K6g9h4uftMg7c34qg4oKWtxLJAoXyklvcqUhLJcuaHCJ7EEgMqKDkxBJrbe9vzgunq7SGbWUzIr
-5Eo1x9wSSmeN4QNYz4BHteI8mxgv3tffbx66uM6FvtkLTLX0RnmUKS5SrzF6ZJHor+2vpneJ4xoX
-3VN7aJFB6UtchhGBNUo9/zvfVGKzUEfk3bQYWmdHKSZjeCtTMkO/GpWUEIlEO8blYNLQZQwScjdn
-tl85Hq5l5FPcylR7CM7XavFywcuzFATunjIeeH6wGyFV4qzyHfwuQei+jmYp06XM38s/vWSE8qk3
-iDDL81ylwqdA0lAcpGyV4bpxBH5Pspf1wJw1+KP4T55GdaKvZP0DISINvJP2zg0afaxTb6+zTQll
-uJ6NTT3R2JoQdp8j+3O6rVaH2TdukI9QJJPJ20TUIMhUkDck8thvgWqvO0F/5BTfvNe2qwb0J2J4
-D7zSvwKr/97lYFRUYcYQrUzOEXnvoXX79DGmDV7ikwAAAAAAAA==
-
-
---=-ihaFu6y+tcu9ChGBwKlQ--
+> ---
+>  fs/ext4/ext4.h    | 13 -------------
+>  fs/ext4/inode.c   |  8 ++++----
+>  fs/ext4/super.c   | 45 ++++++++++-----------------------------------
+>  fs/ext4/symlink.c |  2 +-
+>  4 files changed, 15 insertions(+), 53 deletions(-)
+> 
+> diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+> index a5d784872303..8377f6c5264f 100644
+> --- a/fs/ext4/ext4.h
+> +++ b/fs/ext4/ext4.h
+> @@ -3824,19 +3824,6 @@ extern const struct iomap_ops ext4_iomap_ops;
+>  extern const struct iomap_ops ext4_iomap_overwrite_ops;
+>  extern const struct iomap_ops ext4_iomap_report_ops;
+>  
+> -static inline int ext4_buffer_uptodate(struct buffer_head *bh)
+> -{
+> -	/*
+> -	 * If the buffer has the write error flag, we have failed
+> -	 * to write out data in the block.  In this  case, we don't
+> -	 * have to read the block because we may read the old data
+> -	 * successfully.
+> -	 */
+> -	if (buffer_write_io_error(bh))
+> -		set_buffer_uptodate(bh);
+> -	return buffer_uptodate(bh);
+> -}
+> -
+>  #endif	/* __KERNEL__ */
+>  
+>  #define EFSBADCRC	EBADMSG		/* Bad CRC detected */
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 61277f7f8722..efb0af6f02f7 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -887,7 +887,7 @@ struct buffer_head *ext4_bread(handle_t *handle, struct inode *inode,
+>  	bh = ext4_getblk(handle, inode, block, map_flags);
+>  	if (IS_ERR(bh))
+>  		return bh;
+> -	if (!bh || ext4_buffer_uptodate(bh))
+> +	if (!bh || buffer_uptodate_or_error(bh))
+>  		return bh;
+>  
+>  	ret = ext4_read_bh_lock(bh, REQ_META | REQ_PRIO, true);
+> @@ -915,7 +915,7 @@ int ext4_bread_batch(struct inode *inode, ext4_lblk_t block, int bh_count,
+>  
+>  	for (i = 0; i < bh_count; i++)
+>  		/* Note that NULL bhs[i] is valid because of holes. */
+> -		if (bhs[i] && !ext4_buffer_uptodate(bhs[i]))
+> +		if (bhs[i] && !buffer_uptodate_or_error(bhs[i]))
+>  			ext4_read_bh_lock(bhs[i], REQ_META | REQ_PRIO, false);
+>  
+>  	if (!wait)
+> @@ -4392,11 +4392,11 @@ static int __ext4_get_inode_loc(struct super_block *sb, unsigned long ino,
+>  	bh = sb_getblk(sb, block);
+>  	if (unlikely(!bh))
+>  		return -ENOMEM;
+> -	if (ext4_buffer_uptodate(bh))
+> +	if (buffer_uptodate_or_error(bh))
+>  		goto has_buffer;
+>  
+>  	lock_buffer(bh);
+> -	if (ext4_buffer_uptodate(bh)) {
+> +	if (buffer_uptodate_or_error(bh)) {
+>  		/* Someone brought it uptodate while we waited */
+>  		unlock_buffer(bh);
+>  		goto has_buffer;
+> diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+> index c5fcf377ab1f..ae41204f52d4 100644
+> --- a/fs/ext4/super.c
+> +++ b/fs/ext4/super.c
+> @@ -180,7 +180,7 @@ void ext4_read_bh_nowait(struct buffer_head *bh, blk_opf_t op_flags,
+>  {
+>  	BUG_ON(!buffer_locked(bh));
+>  
+> -	if (ext4_buffer_uptodate(bh)) {
+> +	if (buffer_uptodate_or_error(bh)) {
+>  		unlock_buffer(bh);
+>  		return;
+>  	}
+> @@ -191,7 +191,7 @@ int ext4_read_bh(struct buffer_head *bh, blk_opf_t op_flags, bh_end_io_t *end_io
+>  {
+>  	BUG_ON(!buffer_locked(bh));
+>  
+> -	if (ext4_buffer_uptodate(bh)) {
+> +	if (buffer_uptodate_or_error(bh)) {
+>  		unlock_buffer(bh);
+>  		return 0;
+>  	}
+> @@ -214,49 +214,24 @@ int ext4_read_bh_lock(struct buffer_head *bh, blk_opf_t op_flags, bool wait)
+>  	return ext4_read_bh(bh, op_flags, NULL);
+>  }
+>  
+> -/*
+> - * This works like __bread_gfp() except it uses ERR_PTR for error
+> - * returns.  Currently with sb_bread it's impossible to distinguish
+> - * between ENOMEM and EIO situations (since both result in a NULL
+> - * return.
+> - */
+> -static struct buffer_head *__ext4_sb_bread_gfp(struct super_block *sb,
+> -					       sector_t block,
+> -					       blk_opf_t op_flags, gfp_t gfp)
+> -{
+> -	struct buffer_head *bh;
+> -	int ret;
+> -
+> -	bh = sb_getblk_gfp(sb, block, gfp);
+> -	if (bh == NULL)
+> -		return ERR_PTR(-ENOMEM);
+> -	if (ext4_buffer_uptodate(bh))
+> -		return bh;
+> -
+> -	ret = ext4_read_bh_lock(bh, REQ_META | op_flags, true);
+> -	if (ret) {
+> -		put_bh(bh);
+> -		return ERR_PTR(ret);
+> -	}
+> -	return bh;
+> -}
+> -
+>  struct buffer_head *ext4_sb_bread(struct super_block *sb, sector_t block,
+>  				   blk_opf_t op_flags)
+>  {
+> -	gfp_t gfp = mapping_gfp_constraint(sb->s_bdev->bd_inode->i_mapping,
+> -			~__GFP_FS) | __GFP_MOVABLE;
+> +	struct buffer_head *bh = __bread_gfp2(sb->s_bdev, block,
+> +					      sb->s_blocksize,
+> +					      REQ_META | op_flags,
+> +					      __GFP_MOVABLE);
+>  
+> -	return __ext4_sb_bread_gfp(sb, block, op_flags, gfp);
+> +	return bh ? bh : ERR_PTR(-EIO);
+>  }
+>  
+>  struct buffer_head *ext4_sb_bread_unmovable(struct super_block *sb,
+>  					    sector_t block)
+>  {
+> -	gfp_t gfp = mapping_gfp_constraint(sb->s_bdev->bd_inode->i_mapping,
+> -			~__GFP_FS);
+> +	struct buffer_head *bh = __bread_gfp2(sb->s_bdev, block,
+> +					      sb->s_blocksize, 0, 0);
+>  
+> -	return __ext4_sb_bread_gfp(sb, block, 0, gfp);
+> +	return bh ? bh : ERR_PTR(-EIO);
+>  }
+>  
+>  void ext4_sb_breadahead_unmovable(struct super_block *sb, sector_t block)
+> diff --git a/fs/ext4/symlink.c b/fs/ext4/symlink.c
+> index 75bf1f88843c..49e918221aac 100644
+> --- a/fs/ext4/symlink.c
+> +++ b/fs/ext4/symlink.c
+> @@ -94,7 +94,7 @@ static const char *ext4_get_link(struct dentry *dentry, struct inode *inode,
+>  		bh = ext4_getblk(NULL, inode, 0, EXT4_GET_BLOCKS_CACHED_NOWAIT);
+>  		if (IS_ERR(bh))
+>  			return ERR_CAST(bh);
+> -		if (!bh || !ext4_buffer_uptodate(bh))
+> +		if (!bh || !buffer_uptodate_or_error(bh))
+>  			return ERR_PTR(-ECHILD);
+>  	} else {
+>  		bh = ext4_bread(NULL, inode, 0, 0);
+> -- 
+> 2.39.2
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
