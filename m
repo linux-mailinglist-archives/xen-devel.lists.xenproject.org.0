@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 454BF80CCC7
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 15:03:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652122.1017774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84FD780CD1B
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 15:07:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652127.1017784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCgsb-00039o-Aa; Mon, 11 Dec 2023 14:03:29 +0000
+	id 1rCgwS-00040Y-UW; Mon, 11 Dec 2023 14:07:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652122.1017774; Mon, 11 Dec 2023 14:03:29 +0000
+Received: by outflank-mailman (output) from mailman id 652127.1017784; Mon, 11 Dec 2023 14:07:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCgsb-00036j-7h; Mon, 11 Dec 2023 14:03:29 +0000
-Received: by outflank-mailman (input) for mailman id 652122;
- Mon, 11 Dec 2023 14:03:28 +0000
+	id 1rCgwS-0003xb-R1; Mon, 11 Dec 2023 14:07:28 +0000
+Received: by outflank-mailman (input) for mailman id 652127;
+ Mon, 11 Dec 2023 14:07:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pUvq=HW=gmail.com=marietto2008@srs-se1.protection.inumbo.net>)
- id 1rCgsa-00036Y-5W
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 14:03:28 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ <SRS0=vrFX=HW=huaweicloud.com=yukuai1@srs-se1.protection.inumbo.net>)
+ id 1rCgwR-0003xP-M8
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 14:07:27 +0000
+Received: from dggsgout11.his.huawei.com (unknown [45.249.212.51])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c2233b5-982e-11ee-9b0f-b553b5be7939;
- Mon, 11 Dec 2023 15:03:24 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a1d2f89ddabso548507266b.1; 
- Mon, 11 Dec 2023 06:03:23 -0800 (PST)
+ id 99c367e1-982e-11ee-9b0f-b553b5be7939;
+ Mon, 11 Dec 2023 15:07:24 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.93.142])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Spk8K4pF8z4f3lCj
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 22:07:13 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+ by mail.maildlp.com (Postfix) with ESMTP id 8E1FA1A060E
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 22:07:18 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.175.104.67])
+ by APP1 (Coremail) with SMTP id cCh0CgDn6xGTF3dlDYFxDQ--.28013S4;
+ Mon, 11 Dec 2023 22:07:17 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,334 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c2233b5-982e-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702303403; x=1702908203; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=1gJZa6piGzQ7dXvAGieW+iXJk6dCQghFB8Wpd4pq3AA=;
-        b=G+fZby7m+tqs+o5yJ81zwokrsWVwKXUMxXQeOccsS+gzG8F/Pc/3reC/7wi2WLrr77
-         2WP4CPfzO+wvudj+1fNoA0Ka9ZvR1vxVq0Mw+z//CT9pzHVNjKKewehZ4voL0B0FOrjB
-         /HSMyEwX9Cu5uSdGLGTfp+uAZJzX6yc3aA1HEkdLk8BGxwS5he99f06SaXoUgMp6TfTK
-         i8irvFe04L0UrHmgp3kuK/jfhVFucTrAgneO50D1lYw5OVS0BojiGDrv9Goma82yPCfB
-         QuLnxPzOAop5ikZtv+RvXEbJjbpVw/DBD3sqBLt6s01ltyU6kfZ0VKnMNImCB2H4xkjj
-         gDfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702303403; x=1702908203;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=1gJZa6piGzQ7dXvAGieW+iXJk6dCQghFB8Wpd4pq3AA=;
-        b=pceWS85snblLQr4NsETpbUDMTHAMnKYCf0XJphJ8wm/rKBApIO0JGyxkD4wvpjnmTp
-         aj6gqcHQER10k1V0rTkQvDHYre0RPGFiqeKmVtHvF7tmIdV0SU5m7hTTue6Thjm850nS
-         dLMj4z9ORNhdWGL2wOPLpKR1R6DCEUEhVCyA8tYMgWyhLM6u/pZHzk4kTh6hD4KKdCq0
-         Bhroyt8xNxz8bXnYJp3W98FM4SzWrlNaNlFlhOU1xVkMEoHZwTq1tzYO1uR26VPxtChq
-         qs6O47d0aZRIKbuArX1oLPnJBE2YkiD7EEQBNPZ5lkQ+0iZm43kQ+04LAuhZ97iQ9hJs
-         cEjg==
-X-Gm-Message-State: AOJu0YwNxztdtHEMz0oTb6MMcDZl7A8c4t14rNfO20xYZVv8gFxl31ta
-	PSb3x0m9ntweUhNGAmpvLYOnFKz7XKID452BLTc=
-X-Google-Smtp-Source: AGHT+IEwF+ny0pRx5cLbp2T+sxJJRf4fJix4EeaD/LaJe7FIiBCffM1MnCbatVyBih2v/0vPn5b4IEmsG4/ahPEecaQ=
-X-Received: by 2002:a17:906:7c51:b0:a19:a19b:78c4 with SMTP id
- g17-20020a1709067c5100b00a19a19b78c4mr2024094ejp.135.1702303402565; Mon, 11
- Dec 2023 06:03:22 -0800 (PST)
+X-Inumbo-ID: 99c367e1-982e-11ee-9b0f-b553b5be7939
+From: Yu Kuai <yukuai1@huaweicloud.com>
+To: axboe@kernel.dk,
+	roger.pau@citrix.com,
+	colyli@suse.de,
+	kent.overstreet@gmail.com,
+	joern@lazybastard.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	sth@linux.ibm.com,
+	hoeppner@linux.ibm.com,
+	hca@linux.ibm.com,
+	gor@linux.ibm.com,
+	agordeev@linux.ibm.com,
+	jejb@linux.ibm.com,
+	martin.petersen@oracle.com,
+	clm@fb.com,
+	josef@toxicpanda.com,
+	dsterba@suse.com,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	nico@fluxnic.net,
+	xiang@kernel.org,
+	chao@kernel.org,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	agruenba@redhat.com,
+	jack@suse.com,
+	konishi.ryusuke@gmail.com,
+	willy@infradead.org,
+	akpm@linux-foundation.org,
+	p.raghav@samsung.com,
+	hare@suse.de
+Cc: linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-bcachefs@vger.kernel.org,
+	linux-btrfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org,
+	gfs2@lists.linux.dev,
+	linux-nilfs@vger.kernel.org,
+	yukuai3@huawei.com,
+	yukuai1@huaweicloud.com,
+	yi.zhang@huawei.com,
+	yangerkun@huawei.com
+Subject: [PATCH RFC v2 for-6.8/block 00/18] block: don't access bd_inode directly from other modules
+Date: Mon, 11 Dec 2023 22:05:34 +0800
+Message-Id: <20231211140552.973290-1-yukuai1@huaweicloud.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-From: Mario Marietto <marietto2008@gmail.com>
-Date: Mon, 11 Dec 2023 15:02:45 +0100
-Message-ID: <CA+1FSiii2etikw9LKdJ5Ebn+z-3-e5UXh3cJjBgYGJYtq3q=Ww@mail.gmail.com>
-Subject: xc_dom_guest_type: image not capable of booting inside a HV M
- container: Invalid kernel
-To: Elliott Mitchell <ehem+freebsd@m5p.com>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Chuck Zmudzinski <brchuckz@netscape.net>, 
-	xen-devel <xen-devel@lists.xenproject.org>, xen-users-request@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Content-Type: multipart/alternative; boundary="0000000000009c2744060c3c6561"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgDn6xGTF3dlDYFxDQ--.28013S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxXr48Ww4Utw47JFWDWFW7Arb_yoW5XFWfpr
+	13KF4fGr1UWryxZaya9a17tw1rG3WkGayUWFnIy34rZFW5AryfZrWktF1rJa4kXryxXr4k
+	Xw17JryrKr1jgaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvF14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4U
+	JwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_WFyUJVCq3wCI42IY6I8E87Iv67AK
+	xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
+	fUojjgUUUUU
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 
---0000000000009c2744060c3c6561
-Content-Type: text/plain; charset="UTF-8"
+From: Yu Kuai <yukuai3@huawei.com>
 
-Hello.
+Changes in v2:
+ - remove some bdev apis that is not necessary;
+ - pass in offset for bdev_read_folio() and __bdev_get_folio();
+ - remove bdev_gfp_constraint() and add a new helper in fs/buffer.c to
+ prevent access bd_indoe() directly from mapping_gfp_constraint() in
+ ext4.(patch 15, 16);
+ - remove block_device_ejected() from ext4.
 
-Finally I tried to recompile the FreeBSD kernel using the @Elliott Mitchell
-<ehem+freebsd@m5p.com> code because I want to boot FreeBSD as domU with Xen
-installed on my Arm 32 bit Chromebook. Unfortunately it didn't work at all.
-Maybe I've missed something / I haven't understood well what to do. Please
-give me some suggestions.
+Noted that following is not changed yet since v1:
+- Chirstoph suggested to remove invalidate_inode_pages2() from
+xen_update_blkif_status(), however, this sync_bdev() + invalidate_bdev()
+is used from many modules, and I'll leave this for later if we want to
+kill all of them.
+- Matthew suggested that pass in valid file_ra_state for cramfs,
+however, I don't see an easy way to do this for cramfs_lookup() and
+cramfs_read_super().
 
-Basically this is what I did :
+Patch 1 add some bdev apis, then follow up patches will use these apis
+to avoid access bd_inode directly, and hopefully the field bd_inode can
+be removed eventually(after figure out a way for fs/buffer.c).
 
-$ created a vm called FreeBSD-13.2-RELEASE-armv7.img with qemu / kvm /
-libvirt / virt-manager
+Yu Kuai (18):
+  block: add some bdev apis
+  xen/blkback: use bdev api in xen_update_blkif_status()
+  bcache: use bdev api in read_super()
+  mtd: block2mtd: use bdev apis
+  s390/dasd: use bdev api in dasd_format()
+  scsicam: use bdev api in scsi_bios_ptable()
+  bcachefs: remove dead function bdev_sectors()
+  bio: export bio_add_folio_nofail()
+  btrfs: use bdev apis
+  cramfs: use bdev apis in cramfs_blkdev_read()
+  erofs: use bdev api
+  gfs2: use bdev api
+  nilfs2: use bdev api in nilfs_attach_log_writer()
+  jbd2: use bdev apis
+  buffer: add a new helper to read sb block
+  ext4: use new helper to read sb block
+  ext4: remove block_device_ejected()
+  ext4: use bdev apis
 
-$ within the vm : mkdir /build-xen
-
-$ cd /usr
-
-$ git clone https://gitlab.com/ehem/freebsd-src.git
-<https://gitlab.com/ehem/freebsd-src.git?fbclid=IwAR09ukOdBXCR3gJznvHWpnWM8VEZqnX1l4ZMza_7lhoAjfPYAGbvcqwjh94>
-
-$ cd freebsd-src
-
-$ make KERNCONF=GENERIC TARGET=arm TARGET_ARCH=armv7 buildkernel
-
-$ make KERNCONF=GENERIC TARGET=arm TARGET_ARCH=armv7 DESTDIR=/build-xen
-installkernel
-
-$ echo "/dev/xbd0 / ufs rw 1 1" > /mnt/etc/fstab
-
-$ nano /etc/ttys (add the line 'xc0 "/usr/libexec/getty Pc" xterm on
-secure")
-
-$ renamed the directories dtb to dtb_ and kernel to kernel_ that are inside
-the /boot dir of the vm
-
-$ copied the directory dtb and kernel from the directory /build-xen to the
-directory /boot inside the vm
-
-$ shut down the vm
-
-$ copied the directory /build-xen outside of the vm using this method (in
-this case I used Linux installed on the Host OS,because the kernel that I'm
-using on the Chromebook has the kernel parameter related to the ufs2 fs set
-to off) :
-
-on my X64 workstation :
-
-# modprobe ufs
-
-# sudo losetup -fP FreeBSD-13.2-RELEASE-armv7.img
-
-# ls /dev/loop0*
-
-/dev/loop0 /dev/loop0p1 /dev/loop0p2 /dev/loop0p5
-
-# mount -t ufs -o ufstype=ufs2 /dev/loop0p5 ./FreeBSD-xen
-
-then :
-
-# nano freebsd.cfg
-
-kernel="/mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-xen/kernel/kernel"
-memory=64
-name="freebsd"
-vcpus=1
-autoballon="off"
-disk=[ 'phy:/dev/loop0,xvda,w' ]
-# nano start-freebsd
-losetup -fP FreeBSD-13.2-RELEASE-armv7.img
-xl create freebsd.cfg
-xl console freebsd
-
-# ./start-freebsd
-
-Parsing config from freebsd.cfg
-xc: error: panic: xg_dom_elfloader.c:63: xc_dom_guest_type: image not
-capable of booting inside a HV
-M container: Invalid kernel
-libxl: error: libxl_dom.c:571:libxl__build_dom: xc_dom_parse_image failed
-libxl: error: libxl_create.c:1640:domcreate_rebuild_done: Domain 1:cannot
-(re-)build domain: -3
-libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain
-1:Non-existent domain
-libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain 1:Unable
-to destroy guest
-libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain 1:Destruction
-of domain failed
-freebsd is an invalid domain identifier (rc=-6)
-
-I have also tried with kernel.bin :
-
-# nano freebsd.cfg
-
-kernel="/mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-xen/kernel/kernel.bin"
-memory=64
-name="freebsd"
-vcpus=1
-autoballon="off"
-disk=[ 'phy:/dev/loop0,xvda,w' ]
-
-# ./start-freebsd
-
-Parsing config from freebsd.cfg
-xc: error: panic: xg_dom_core.c:689: xc_dom_find_loader: no loader found:
-Invalid kernel
-libxl: error: libxl_dom.c:571:libxl__build_dom: xc_dom_parse_image failed
-libxl: error: libxl_create.c:1640:domcreate_rebuild_done: Domain 2:cannot
-(re-)build domain: -3
-libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain
-2:Non-existent domain
-libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain 2:Unable
-to destroy guest
-libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain 2:Destruction
-of domain failed
-freebsd is an invalid domain identifier (rc=-6)
+ block/bdev.c                       | 70 ++++++++++++++++++++++++++
+ block/bio.c                        |  1 +
+ block/blk.h                        |  2 -
+ drivers/block/xen-blkback/xenbus.c |  3 +-
+ drivers/md/bcache/super.c          | 11 ++--
+ drivers/mtd/devices/block2mtd.c    | 81 +++++++++++++-----------------
+ drivers/s390/block/dasd_ioctl.c    |  5 +-
+ drivers/scsi/scsicam.c             |  4 +-
+ fs/bcachefs/util.h                 |  5 --
+ fs/btrfs/disk-io.c                 | 71 ++++++++++++--------------
+ fs/btrfs/volumes.c                 | 17 +++----
+ fs/btrfs/zoned.c                   | 15 +++---
+ fs/buffer.c                        | 68 +++++++++++++++++--------
+ fs/cramfs/inode.c                  | 36 +++++--------
+ fs/erofs/data.c                    | 18 ++++---
+ fs/erofs/internal.h                |  2 +
+ fs/ext4/dir.c                      |  6 +--
+ fs/ext4/ext4.h                     | 13 -----
+ fs/ext4/ext4_jbd2.c                |  6 +--
+ fs/ext4/inode.c                    |  8 +--
+ fs/ext4/super.c                    | 66 ++++--------------------
+ fs/ext4/symlink.c                  |  2 +-
+ fs/gfs2/glock.c                    |  2 +-
+ fs/gfs2/ops_fstype.c               |  2 +-
+ fs/jbd2/journal.c                  |  3 +-
+ fs/jbd2/recovery.c                 |  6 +--
+ fs/nilfs2/segment.c                |  2 +-
+ include/linux/blkdev.h             | 17 +++++++
+ include/linux/buffer_head.h        | 18 ++++++-
+ 29 files changed, 301 insertions(+), 259 deletions(-)
 
 -- 
-Mario.
+2.39.2
 
---0000000000009c2744060c3c6561
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail-" dir=3D"auto"><div class=3D"gmail-x1i=
-orvi4 gmail-x1pi30zi gmail-x1l90r2v gmail-x1swvt13" id=3D"gmail-:r1df:"><di=
-v class=3D"gmail-x78zum5 gmail-xdt5ytf gmail-xz62fqu gmail-x16ldp7u"><div c=
-lass=3D"gmail-xu06os2 gmail-x1ok221b"><span class=3D"gmail-x193iq5w gmail-x=
-euugli gmail-x13faqbe gmail-x1vvkbs gmail-x10flsy6 gmail-x1lliihq gmail-x1s=
-928wv gmail-xhkezso gmail-x1gmr53x gmail-x1cpjm7i gmail-x1fgarty gmail-x194=
-3h6x gmail-x4zkp8e gmail-x41vudc gmail-x6prxxf gmail-xvq8zen gmail-xo1l8bm =
-gmail-xzsf02u gmail-x1yc453h" dir=3D"auto"><div class=3D"gmail-xdj266r gmai=
-l-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-x126k92a"><div =
-style=3D"text-align:start">Hello.</div><div style=3D"text-align:start"><br>=
-</div><div style=3D"text-align:start">Finally I tried to recompile the Free=
-BSD kernel using the <a class=3D"gmail_plusreply" id=3D"plusReplyChip-0" hr=
-ef=3D"mailto:ehem+freebsd@m5p.com" tabindex=3D"-1">@Elliott Mitchell</a> co=
-de because I want to boot FreeBSD as domU with Xen installed on my Arm 32 b=
-it Chromebook. Unfortunately it didn&#39;t work at all. Maybe I&#39;ve miss=
-ed something / I haven&#39;t understood well what to do. Please give me som=
-e suggestions.<br></div><div style=3D"text-align:start"><br></div><div dir=
-=3D"auto" style=3D"text-align:start">Basically this is what I did :</div><d=
-iv dir=3D"auto" style=3D"text-align:start"><br></div></div><div class=3D"gm=
-ail-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail=
--x126k92a"><div dir=3D"auto" style=3D"text-align:start">$ created a vm call=
-ed FreeBSD-13.2-RELEASE-armv7.img with qemu / kvm / libvirt / virt-manager<=
-/div><div dir=3D"auto" style=3D"text-align:start"><br></div><div dir=3D"aut=
-o" style=3D"text-align:start">$ within the vm : mkdir /build-xen</div><div =
-dir=3D"auto" style=3D"text-align:start"><br></div><div dir=3D"auto" style=
-=3D"text-align:start">$ cd /usr</div><div dir=3D"auto" style=3D"text-align:=
-start"><br></div><div dir=3D"auto" style=3D"text-align:start">$ <span><a ta=
-bindex=3D"-1"></a></span>git clone <span><a class=3D"gmail-x1i10hfl gmail-x=
-jbqb8w gmail-x6umtig gmail-x1b1mbwd gmail-xaqea5y gmail-xav7gou gmail-x9f61=
-9 gmail-x1ypdohk gmail-xt0psk2 gmail-xe8uvvx gmail-xdj266r gmail-x11i5rnm g=
-mail-xat24cr gmail-x1mh8g0r gmail-xexx8yu gmail-x4uap5 gmail-x18d9i69 gmail=
--xkhd6sd gmail-x16tdsg8 gmail-x1hl2dhg gmail-xggy1nq gmail-x1a2a7pz gmail-x=
-t0b8zv gmail-x1fey0fg" href=3D"https://gitlab.com/ehem/freebsd-src.git?fbcl=
-id=3DIwAR09ukOdBXCR3gJznvHWpnWM8VEZqnX1l4ZMza_7lhoAjfPYAGbvcqwjh94" rel=3D"=
-nofollow noreferrer" role=3D"link" tabindex=3D"0" target=3D"_blank">https:/=
-/gitlab.com/ehem/freebsd-src.git</a><br></span></div><div dir=3D"auto" styl=
-e=3D"text-align:start"><span><br></span></div><div dir=3D"auto" style=3D"te=
-xt-align:start">$ cd freebsd-src</div><div dir=3D"auto" style=3D"text-align=
-:start"><br></div><div dir=3D"auto" style=3D"text-align:start">$ make KERNC=
-ONF=3DGENERIC TARGET=3Darm TARGET_ARCH=3Darmv7 buildkernel</div><div dir=3D=
-"auto" style=3D"text-align:start"><br></div><div dir=3D"auto" style=3D"text=
--align:start">$ make KERNCONF=3DGENERIC TARGET=3Darm TARGET_ARCH=3Darmv7 DE=
-STDIR=3D/build-xen installkernel</div><div dir=3D"auto" style=3D"text-align=
-:start"><br></div><div dir=3D"auto" style=3D"text-align:start">$ echo &quot=
-;/dev/xbd0 / ufs rw 1 1&quot; &gt; /mnt/etc/fstab</div><div dir=3D"auto" st=
-yle=3D"text-align:start"><br></div><div dir=3D"auto" style=3D"text-align:st=
-art">$ nano /etc/ttys (add the line &#39;xc0 &quot;/usr/libexec/getty Pc&qu=
-ot; xterm on secure&quot;)</div><div dir=3D"auto" style=3D"text-align:start=
-"><br></div><div dir=3D"auto" style=3D"text-align:start">$ renamed the dire=
-ctories dtb to dtb_ and kernel to kernel_ that are inside the /boot dir of =
-the vm</div><div dir=3D"auto" style=3D"text-align:start"><br></div><div dir=
-=3D"auto" style=3D"text-align:start">$ copied the directory dtb and kernel =
-from the directory /build-xen to the directory /boot inside the vm</div><di=
-v dir=3D"auto" style=3D"text-align:start"><br></div><div dir=3D"auto" style=
-=3D"text-align:start">$ shut down the vm</div><div dir=3D"auto" style=3D"te=
-xt-align:start"><br></div></div><div class=3D"gmail-x11i5rnm gmail-xat24cr =
-gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k92a"><div dir=3D"auto=
-" style=3D"text-align:start">$ copied the directory /build-xen outside of t=
-he vm using this method (in this case I used Linux installed on the Host OS=
-,because the kernel that I&#39;m using on the Chromebook has the kernel par=
-ameter related to the ufs2 fs set to off) :</div><div dir=3D"auto" style=3D=
-"text-align:start"><br></div></div><div class=3D"gmail-x11i5rnm gmail-xat24=
-cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k92a"><div dir=3D"a=
-uto" style=3D"text-align:start">on my X64 workstation :</div><div dir=3D"au=
-to" style=3D"text-align:start"><br></div></div><div class=3D"gmail-x11i5rnm=
- gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k92a"><=
-div dir=3D"auto" style=3D"text-align:start"># modprobe ufs</div></div><div =
-class=3D"gmail-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xt=
-lvy1s gmail-x126k92a"><div dir=3D"auto" style=3D"text-align:start"><br></di=
-v><div dir=3D"auto" style=3D"text-align:start"># sudo losetup -fP FreeBSD-1=
-3.2-RELEASE-armv7.img</div><div dir=3D"auto" style=3D"text-align:start"><br=
-></div></div><div class=3D"gmail-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmai=
-l-x1vvkbs gmail-xtlvy1s gmail-x126k92a"><div dir=3D"auto" style=3D"text-ali=
-gn:start"># ls /dev/loop0*</div></div><div class=3D"gmail-x11i5rnm gmail-xa=
-t24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k92a"><div dir=
-=3D"auto" style=3D"text-align:start"><br></div><div dir=3D"auto" style=3D"t=
-ext-align:start">/dev/loop0 /dev/loop0p1 /dev/loop0p2 /dev/loop0p5</div><di=
-v dir=3D"auto" style=3D"text-align:start"><br></div></div><div class=3D"gma=
-il-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-=
-x126k92a"><div dir=3D"auto" style=3D"text-align:start"># mount -t ufs -o uf=
-stype=3Dufs2 /dev/loop0p5 ./FreeBSD-xen</div></div><div class=3D"gmail-x11i=
-5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k92=
-a"><div dir=3D"auto" style=3D"text-align:start"><br></div><div dir=3D"auto"=
- style=3D"text-align:start">then :</div><div dir=3D"auto" style=3D"text-ali=
-gn:start"><br></div></div><div class=3D"gmail-x11i5rnm gmail-xat24cr gmail-=
-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k92a"><div dir=3D"auto" styl=
-e=3D"text-align:start"># nano freebsd.cfg</div><div dir=3D"auto" style=3D"t=
-ext-align:start"><br></div></div><div class=3D"gmail-x11i5rnm gmail-xat24cr=
- gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k92a"><div dir=3D"aut=
-o" style=3D"text-align:start">kernel=3D&quot;/mnt/zroot2/zroot2/OS/Chromebo=
-ok/domU/freebsd-xen/boot-xen/kernel/kernel&quot;</div><div dir=3D"auto" sty=
-le=3D"text-align:start">memory=3D64</div><div dir=3D"auto" style=3D"text-al=
-ign:start">name=3D&quot;freebsd&quot;</div><div dir=3D"auto" style=3D"text-=
-align:start">vcpus=3D1</div><div dir=3D"auto" style=3D"text-align:start">au=
-toballon=3D&quot;off&quot;</div><div dir=3D"auto" style=3D"text-align:start=
-">disk=3D[ &#39;phy:/dev/loop0,xvda,w&#39; ]</div></div><div class=3D"gmail=
--x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x1=
-26k92a"><div dir=3D"auto" style=3D"text-align:start"># nano start-freebsd</=
-div></div><div class=3D"gmail-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x=
-1vvkbs gmail-xtlvy1s gmail-x126k92a"><div dir=3D"auto" style=3D"text-align:=
-start">losetup -fP FreeBSD-13.2-RELEASE-armv7.img</div><div dir=3D"auto" st=
-yle=3D"text-align:start">xl create freebsd.cfg</div><div dir=3D"auto" style=
-=3D"text-align:start">xl console freebsd</div></div><div class=3D"gmail-x11=
-i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k9=
-2a"><div dir=3D"auto" style=3D"text-align:start"><br></div><div dir=3D"auto=
-" style=3D"text-align:start"># ./start-freebsd</div></div><div class=3D"gma=
-il-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-=
-x126k92a"><div dir=3D"auto" style=3D"text-align:start"><br></div><div dir=
-=3D"auto" style=3D"text-align:start">Parsing config from freebsd.cfg</div><=
-div dir=3D"auto" style=3D"text-align:start">xc: error: panic: xg_dom_elfloa=
-der.c:63: xc_dom_guest_type: image not capable of booting inside a HV</div>=
-<div dir=3D"auto" style=3D"text-align:start">M container: Invalid kernel</d=
-iv><div dir=3D"auto" style=3D"text-align:start">libxl: error: libxl_dom.c:5=
-71:libxl__build_dom: xc_dom_parse_image failed</div><div dir=3D"auto" style=
-=3D"text-align:start">libxl: error: libxl_create.c:1640:domcreate_rebuild_d=
-one: Domain 1:cannot (re-)build domain: -3</div><div dir=3D"auto" style=3D"=
-text-align:start">libxl: error: libxl_domain.c:1183:libxl__destroy_domid: D=
-omain 1:Non-existent domain</div><div dir=3D"auto" style=3D"text-align:star=
-t">libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain 1:Unab=
-le to destroy guest</div><div dir=3D"auto" style=3D"text-align:start">libxl=
-: error: libxl_domain.c:1064:domain_destroy_cb: Domain 1:Destruction of dom=
-ain failed</div><div dir=3D"auto" style=3D"text-align:start">freebsd is an =
-invalid domain identifier (rc=3D-6)</div></div><div class=3D"gmail-x11i5rnm=
- gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k92a"><=
-div dir=3D"auto" style=3D"text-align:start"><br></div><div dir=3D"auto" sty=
-le=3D"text-align:start">I have also tried with kernel.bin :</div><div dir=
-=3D"auto" style=3D"text-align:start"><br></div></div><div class=3D"gmail-x1=
-1i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmail-x126k=
-92a"><div dir=3D"auto" style=3D"text-align:start"># nano freebsd.cfg</div><=
-div dir=3D"auto" style=3D"text-align:start"><br></div></div><div class=3D"g=
-mail-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy1s gmai=
-l-x126k92a"><div dir=3D"auto" style=3D"text-align:start">kernel=3D&quot;/mn=
-t/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-xen/kernel/kernel.bin&q=
-uot;</div><div dir=3D"auto" style=3D"text-align:start">memory=3D64</div><di=
-v dir=3D"auto" style=3D"text-align:start">name=3D&quot;freebsd&quot;</div><=
-div dir=3D"auto" style=3D"text-align:start">vcpus=3D1</div><div dir=3D"auto=
-" style=3D"text-align:start">autoballon=3D&quot;off&quot;</div><div dir=3D"=
-auto" style=3D"text-align:start">disk=3D[ &#39;phy:/dev/loop0,xvda,w&#39; ]=
-</div><div dir=3D"auto" style=3D"text-align:start"><br></div></div><div cla=
-ss=3D"gmail-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail-xtlvy=
-1s gmail-x126k92a"><div dir=3D"auto" style=3D"text-align:start"># ./start-f=
-reebsd</div><div dir=3D"auto" style=3D"text-align:start"><br></div></div><d=
-iv class=3D"gmail-x11i5rnm gmail-xat24cr gmail-x1mh8g0r gmail-x1vvkbs gmail=
--xtlvy1s gmail-x126k92a"><div dir=3D"auto" style=3D"text-align:start">Parsi=
-ng config from freebsd.cfg</div><div dir=3D"auto" style=3D"text-align:start=
-">xc: error: panic: xg_dom_core.c:689: xc_dom_find_loader: no loader found:=
- Invalid kernel</div><div dir=3D"auto" style=3D"text-align:start">libxl: er=
-ror: libxl_dom.c:571:libxl__build_dom: xc_dom_parse_image failed</div><div =
-dir=3D"auto" style=3D"text-align:start">libxl: error: libxl_create.c:1640:d=
-omcreate_rebuild_done: Domain 2:cannot (re-)build domain: -3</div><div dir=
-=3D"auto" style=3D"text-align:start">libxl: error: libxl_domain.c:1183:libx=
-l__destroy_domid: Domain 2:Non-existent domain</div><div dir=3D"auto" style=
-=3D"text-align:start">libxl: error: libxl_domain.c:1137:domain_destroy_call=
-back: Domain 2:Unable to destroy guest</div><div dir=3D"auto" style=3D"text=
--align:start">libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain 2=
-:Destruction of domain failed</div><div dir=3D"auto" style=3D"text-align:st=
-art">freebsd is an invalid domain identifier (rc=3D-6)</div></div></span></=
-div></div></div></div><br><span class=3D"gmail_signature_prefix">-- </span>=
-<br><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_sign=
-ature">Mario.<br></div></div>
-
---0000000000009c2744060c3c6561--
 
