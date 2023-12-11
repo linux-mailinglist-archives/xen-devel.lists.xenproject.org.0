@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D494580CEBB
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 15:55:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652275.1018035 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A238480CEBD
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 15:55:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652277.1018044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rChgH-0007Y3-1e; Mon, 11 Dec 2023 14:54:49 +0000
+	id 1rChgY-0007wG-A2; Mon, 11 Dec 2023 14:55:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652275.1018035; Mon, 11 Dec 2023 14:54:49 +0000
+Received: by outflank-mailman (output) from mailman id 652277.1018044; Mon, 11 Dec 2023 14:55:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rChgG-0007Ug-UV; Mon, 11 Dec 2023 14:54:48 +0000
-Received: by outflank-mailman (input) for mailman id 652275;
- Mon, 11 Dec 2023 14:54:47 +0000
+	id 1rChgY-0007uH-6T; Mon, 11 Dec 2023 14:55:06 +0000
+Received: by outflank-mailman (input) for mailman id 652277;
+ Mon, 11 Dec 2023 14:55:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BtsV=HW=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rChgF-0007Ua-6X
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 14:54:47 +0000
+ <SRS0=wVij=HW=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1rChgX-0007Ua-2t
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 14:55:05 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 38ec11e6-9835-11ee-9b0f-b553b5be7939;
- Mon, 11 Dec 2023 15:54:45 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id D47AC4EE073E;
- Mon, 11 Dec 2023 15:54:44 +0100 (CET)
+ id 43dfeb48-9835-11ee-9b0f-b553b5be7939;
+ Mon, 11 Dec 2023 15:55:03 +0100 (CET)
+Received: from Dell.bugseng.com.homenet.telecomitalia.it
+ (host-80-116-181-249.retail.telecomitalia.it [80.116.181.249])
+ by support.bugseng.com (Postfix) with ESMTPSA id D82494EE073E;
+ Mon, 11 Dec 2023 15:55:02 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,45 +40,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38ec11e6-9835-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 43dfeb48-9835-11ee-9b0f-b553b5be7939
+From: Federico Serafini <federico.serafini@bugseng.com>
+To: xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com,
+	Federico Serafini <federico.serafini@bugseng.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Rahul Singh <rahul.singh@arm.com>
+Subject: [XEN PATCH] xen/arm: smmu: move phys_addr_t definition to linux-compat.h
+Date: Mon, 11 Dec 2023 15:54:56 +0100
+Message-Id: <e525cd0a2770743e052819b2e14f7df50f801a23.1702303903.git.federico.serafini@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Date: Mon, 11 Dec 2023 15:54:44 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH 5/7] xen/arm: traps: add ASSERT_UNREACHABLE() where
- needed
-In-Reply-To: <08e3c8f0-772e-4c08-9afc-c623f19c85e3@xen.org>
-References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
- <394b69b769f2dc2461d2ddb0c7e037f4794eb244.1702283415.git.nicola.vetrini@bugseng.com>
- <08e3c8f0-772e-4c08-9afc-c623f19c85e3@xen.org>
-Message-ID: <c77560d6044700f10a8b149d539a95d1@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 2023-12-11 13:32, Julien Grall wrote:
-> Hi,
-> 
-> On 11/12/2023 10:30, Nicola Vetrini wrote:
->> The branches of the switch after a call to 'do_unexpected_trap'
->> cannot return, but there is one path that may return, hence
->> only some clauses are marked with ASSERT_UNREACHABLE().
-> I don't understand why this is necessary. The code should never be 
-> reachable because do_unexpected_trap() is a noreturn().
-> 
-> Cheers,
+Both smmu and smmu-v3 (ported from Linux) define the typedef name
+"phys_addr_t": move the type definition to the common header
+linux-compat.h to address violations of MISRA C:2012 Rule 5.6
+("A typedef name shall be a unique identifier").
+No functional change.
 
-It was meant as a safeguard against mistakes. There are MISRA rules that 
-deal with this aspect (e.g., a noreturn function should not return), but 
-they are not in Amendment 2, which is what Xen is following.
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Suggested-by: Julien Grall <julien@xen.org>
+Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+---
+ xen/drivers/passthrough/arm/smmu-v3.h | 1 -
+ xen/drivers/passthrough/arm/smmu.c    | 1 -
+ xen/include/xen/linux-compat.h        | 1 +
+ 3 files changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthrough/arm/smmu-v3.h
+index 05f6b1fb7e..f09048812c 100644
+--- a/xen/drivers/passthrough/arm/smmu-v3.h
++++ b/xen/drivers/passthrough/arm/smmu-v3.h
+@@ -377,7 +377,6 @@
+ 
+ /* Linux compatibility functions. */
+ typedef paddr_t		dma_addr_t;
+-typedef paddr_t		phys_addr_t;
+ typedef unsigned int		gfp_t;
+ 
+ /* Alias to Xen lock functions */
+diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+index 11fc1d22ef..32e2ff279b 100644
+--- a/xen/drivers/passthrough/arm/smmu.c
++++ b/xen/drivers/passthrough/arm/smmu.c
+@@ -199,7 +199,6 @@ static inline int pci_for_each_dma_alias(struct pci_dev *pdev,
+ 
+ /* Xen: misc */
+ #define PHYS_MASK_SHIFT		PADDR_BITS
+-typedef paddr_t phys_addr_t;
+ 
+ #define VA_BITS		0	/* Only used for configuring stage-1 input size */
+ 
+diff --git a/xen/include/xen/linux-compat.h b/xen/include/xen/linux-compat.h
+index 8d06bb6dc9..987ac7d8db 100644
+--- a/xen/include/xen/linux-compat.h
++++ b/xen/include/xen/linux-compat.h
+@@ -16,5 +16,6 @@ typedef uint8_t __u8;
+ typedef int16_t __s16;
+ typedef int32_t __s32;
+ typedef int64_t __s64;
++typedef paddr_t phys_addr_t;
+ 
+ #endif /* __XEN_LINUX_COMPAT_H__ */
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.34.1
+
 
