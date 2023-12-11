@@ -2,37 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 203AB80C4F5
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 10:43:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.651565.1017274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1ECC80C541
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 10:51:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.651576.1017285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCcoT-0002VR-1N; Mon, 11 Dec 2023 09:42:57 +0000
+	id 1rCcwG-0004rx-SI; Mon, 11 Dec 2023 09:51:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 651565.1017274; Mon, 11 Dec 2023 09:42:57 +0000
+Received: by outflank-mailman (output) from mailman id 651576.1017285; Mon, 11 Dec 2023 09:51:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCcoS-0002TN-V4; Mon, 11 Dec 2023 09:42:56 +0000
-Received: by outflank-mailman (input) for mailman id 651565;
- Mon, 11 Dec 2023 09:42:55 +0000
+	id 1rCcwG-0004pb-NT; Mon, 11 Dec 2023 09:51:00 +0000
+Received: by outflank-mailman (input) for mailman id 651576;
+ Mon, 11 Dec 2023 09:50:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ojZ6=HW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rCcoR-0002TH-Ew
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 09:42:55 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ <SRS0=VtRo=HW=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1rCcwF-0004pV-1f
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 09:50:59 +0000
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0620.outbound.protection.outlook.com
+ [2a01:111:f400:fe02::620])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7e86b58-9809-11ee-98e8-6d05b1d4d9a1;
- Mon, 11 Dec 2023 10:42:53 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40c0fc1cf3dso44930045e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 01:42:53 -0800 (PST)
-Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- bg38-20020a05600c3ca600b0040b540ff0a5sm12218117wmb.19.2023.12.11.01.42.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Dec 2023 01:42:52 -0800 (PST)
+ id c83f30a2-980a-11ee-98e8-6d05b1d4d9a1;
+ Mon, 11 Dec 2023 10:50:57 +0100 (CET)
+Received: from DUZP191CA0069.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4fa::22)
+ by PAWPR08MB10133.eurprd08.prod.outlook.com (2603:10a6:102:35f::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.32; Mon, 11 Dec
+ 2023 09:50:54 +0000
+Received: from DU6PEPF0000B621.eurprd02.prod.outlook.com
+ (2603:10a6:10:4fa:cafe::57) by DUZP191CA0069.outlook.office365.com
+ (2603:10a6:10:4fa::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.32 via Frontend
+ Transport; Mon, 11 Dec 2023 09:50:53 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DU6PEPF0000B621.mail.protection.outlook.com (10.167.8.138) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7091.18 via Frontend Transport; Mon, 11 Dec 2023 09:50:53 +0000
+Received: ("Tessian outbound 7c4ecdadb9e7:v228");
+ Mon, 11 Dec 2023 09:50:53 +0000
+Received: from 51dfdd52b1f7.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ B73709A2-2E41-4F47-A730-225E06930F64.1; 
+ Mon, 11 Dec 2023 09:50:42 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 51dfdd52b1f7.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 11 Dec 2023 09:50:42 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by PA6PR08MB10545.eurprd08.prod.outlook.com (2603:10a6:102:3d3::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.32; Mon, 11 Dec
+ 2023 09:50:40 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::a045:911e:2349:3d8b]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::a045:911e:2349:3d8b%6]) with mapi id 15.20.7068.025; Mon, 11 Dec 2023
+ 09:50:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,343 +72,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7e86b58-9809-11ee-98e8-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1702287773; x=1702892573; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=d/S/o876/bqSVETyB1aK4fWc+zqMD/lZ8eTzIbNA0Mk=;
-        b=IdEtsTeCQ7robJ8pPhZDz6xiJYGh/rMgXhq2e5FyWjGDECCHAnHwJP5zIZa5w5bzuM
-         mQFHiykufwR6RcmSaMC/ZylERIGf+mp8ZSPSlMOQM4KbDEzNy5y4x2hUUFoEob7sbE0u
-         JNKhsBo8K/q+yIIS4Z7Ka79Dctn/hngumHgNs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702287773; x=1702892573;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=d/S/o876/bqSVETyB1aK4fWc+zqMD/lZ8eTzIbNA0Mk=;
-        b=V+Sr94GQ+TxrkUfWFQ8ziOzSpPOMTOnIGvCCBDmslyfI5nTmab0QOYWP+7za596bO5
-         jh2f9207AFtivwD24QfG6l0jH5hNIYrm8YLZDFKRsmZBV1We/hNUgCS9rbC0CyQtuJ2v
-         Wq5WqYCugCunoG0K8YWqfdxcL9bfxIHEsA3rUppGxBCGgNinYHej72MvEkohqgX8CD/T
-         IqX+B1w9K6yMG/YHHsLHLAZVgZjQUIm8TJLHI8X4RPLKw4CnPlRdvw4ToG9620sPo9Zc
-         LRac7i5IpsbV7UYpEa/RX1WGTnc3y+WQqaq7Flv+6JHsGctHO6gdQbFQQv0gEUXL73Sf
-         Ludg==
-X-Gm-Message-State: AOJu0Yys24uOznUDAC9PgGBQpv8sB2wFGfviFqu4N4cuAAi1Ov+8znOb
-	hKxhd9P5xXhWbkGLX7fWHeE3Aw==
-X-Google-Smtp-Source: AGHT+IFewKOSPeZfZJEJO3jU+tzT2H3YOTYooJQtLhjvDFNEUTh1UJMZr14RBvfmg1wEPtjkWCbOfA==
-X-Received: by 2002:a05:600c:808:b0:40c:2aeb:c758 with SMTP id k8-20020a05600c080800b0040c2aebc758mr1914572wmp.119.1702287772861;
-        Mon, 11 Dec 2023 01:42:52 -0800 (PST)
-Date: Mon, 11 Dec 2023 10:42:51 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v6 4/5] [FUTURE] xen/arm: enable vPCI for domUs
-Message-ID: <ZXbZmwHtZJfSLrC3@macbook>
-References: <20231113222118.825758-1-stewart.hildebrand@amd.com>
- <20231113222118.825758-5-stewart.hildebrand@amd.com>
- <ZWmkh0Xeaynh43N7@macbook>
- <alpine.DEB.2.22.394.2312011847520.110490@ubuntu-linux-20-04-desktop>
- <ZW2wuqXW-DneUVi0@macbook>
- <alpine.DEB.2.22.394.2312041333250.110490@ubuntu-linux-20-04-desktop>
- <ZW8EkQLTwEEK6fXC@macbook>
- <16de540b-fd79-4c23-9698-a641da9c9967@amd.com>
+X-Inumbo-ID: c83f30a2-980a-11ee-98e8-6d05b1d4d9a1
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
+ b=mrbu7QblfCfXyB0h49+TtL4P969ltWKUY7ovk7JoVjWIZj1TcvGPW16FYBUQTqrcUVihQK3wWSSIvZflaFwuZeedJpg1ffA+F6GZhKiLn0SRyWz+9myAc0ZqV2ovKWftksQ/RFMeNu3lfy9ToSIX7PFJdJzoEo1/R7Xek3MHjwfguryEAVr5X/bXYneKzjDgRBJ3VZ1gKYtl229zv+R6V0o5YHow/sr/5HfLGs4n6v9YT9Sd6jHWaBfApgoet/Mz/NBUFGTlvQOju9C8tqBHTi38OTOLJwa9z77xIf4QAMVQQJGEgw2tiTF+fnlKdnqmIsx3u3nSrca0sf+0AhS2NA==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rDEZIRSB8QzQDCY1Lte8iskgU8y6FT1MNwWndMFO5YA=;
+ b=BiXkAELOKC04AHeNb3lPPbD+2FqAMBkGfW+dwCb+YbXigzJgled0fuEdIglSlTZPszhr8MolfIV7NFvBS5NPIj/mVFsD2lChEADgMtQ0Tlcr4n4PT1SBFWoU0leIZhrqB1vXC5i6rDB2HTNO0xH2JgbNUSu9HMvYnvB3euNbIOSPvTAl2kgSwDjv7RrTN+CkHDCVcrFMTwCvW0GLl1pRIriJMtYR9H0zXoZrIY6fxKJScWHHfvoCZnF4MNIOOVhosRdYUyjpCAMyLaGMMG5kNxkMQBRVph5rPMvuzEb0u5DUSaIJHU9iMqyTs+Ds16aP3WDp1J6RxvQy3aMApWTfuA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
+ oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rDEZIRSB8QzQDCY1Lte8iskgU8y6FT1MNwWndMFO5YA=;
+ b=QI1Ij0U0Rd4Uk5NhAmplbMufaadttZMg5sKdRSeog70hakAbyokAk+NNYiq7cciCOKy/hEE3QkNBhMu/wZ4gUjv3uHY/BTkUunLKWoh5pU36+uoF4d7qi38DWVrvpCP8RpUGVaE+uBIoS5d+SdYMXWmbW77mtxrP49Q3Jbpk8y8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 8a501cd1593da98a
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dU5lWhwIMQPZhcTljOKi01zufeV+xqKaUg6WoNEKgNxpfPNuxDkmMzCyzNfVsqpEScSVsPerqLh12jVK4l30HGt3NlK10hnmRZPfUyX3UqDdSZmHTUr4acaVxzHiYj6oGm61ushIhOZU63xFPVSjxOPVl/lW8uWaUTDvqDpJJxZX7QhoDESqZhblTvC75Ex/HKN7k4sTf9KvahULGixadPzE68rl8fn187AvVvGDo54mLat17K8yPKqp4Hrv/LfawJ5tXZqcdX29+tyOq8FdkCSPRihjyX29YOPxwy99yR0u6A7Y6hkRp76WfE+bB7QUv0gA1ybdVZD0QlHz7g3DVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rDEZIRSB8QzQDCY1Lte8iskgU8y6FT1MNwWndMFO5YA=;
+ b=MONCQAP/+4UdnNLeb5Twt8vS2PvoqE3OrbLjP8u4jmEUGn+JdcNaRsxDT06S+D2Xwfpx2H8paTFEcJkWJC6e4P4TLkfhAlpn1olPY4igs8R55s6VaNCyg3Yunf8HWChsougK9GB164TPDRnLOKXniLqbBphR9mOkFWjjTLgsMexNATKBkJC3Dl/oS7Bq/Bm+d+ilL5cmH9yyka4ug9oKp6bR0iNZTM7E0z6x/I2io0O8El9O2U+HHVR5Q/cY+am+L5US4+6a9iPa4I+lP0jTQsBG72b7kY6Kv17F2Xp0G09xgnQ0wrBk99AnIWn/KEwPSXIlc/f1TmDlIx4GFiDtxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rDEZIRSB8QzQDCY1Lte8iskgU8y6FT1MNwWndMFO5YA=;
+ b=QI1Ij0U0Rd4Uk5NhAmplbMufaadttZMg5sKdRSeog70hakAbyokAk+NNYiq7cciCOKy/hEE3QkNBhMu/wZ4gUjv3uHY/BTkUunLKWoh5pU36+uoF4d7qi38DWVrvpCP8RpUGVaE+uBIoS5d+SdYMXWmbW77mtxrP49Q3Jbpk8y8=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Wei Chen <Wei.Chen@arm.com>
+CC: Henry Wang <Henry.Wang@arm.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: Hand over the release manager role to
+ Oleksii Kurochko
+Thread-Topic: [PATCH] MAINTAINERS: Hand over the release manager role to
+ Oleksii Kurochko
+Thread-Index: AQHaKSlq43w0Rzr+HkWA0YYLdMYRQLCfOlsAgASiRIA=
+Date: Mon, 11 Dec 2023 09:50:40 +0000
+Message-ID: <A0AFA862-74CD-4712-AE0C-5C1E9EC802AC@arm.com>
+References: <20231207162036.1921323-1-Henry.Wang@arm.com>
+ <f3c759bc-f101-4e29-b4ff-dbf53d997d15@arm.com>
+In-Reply-To: <f3c759bc-f101-4e29-b4ff-dbf53d997d15@arm.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3774.200.91.1.1)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM6PR08MB3784:EE_|PA6PR08MB10545:EE_|DU6PEPF0000B621:EE_|PAWPR08MB10133:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01e05691-8605-4982-bf88-08dbfa2eaa5f
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ nhu4va4sOFyymE3AgOY6yfsrqrNMoJDT+UH6cTGsJ7HdISgsqiqQ4KD51I41gy4HsvvvN/i6hpc1xrfinNUQDMmUJAeuAMNfGRN3di3JVTdc6MDE7xsc13bNspCTCPaalfIQD4bhHNQB2DhqJ3nS5kDoHZnN0jvL4nrU2DvuKrcH3FsoI1s7OwTw8lnu9TvY+DFiwvuj9Wj3maRlKZoSj78/t88wo8fJATRIvRXBEC5YjuZwccoNcChyNpe1lzR7MI4LAcb+aJDPtN52UfKeJ7lfmJKvXfLqwaKpyi7f8FqMwFM//pzj02hAJVhfGE5gSn+q+vw2Q15EdcQKcpkzBrBMgq76AjlCB0POtmKA1BwCxmRdev3OtcotZZ8Q/6vZJ2119vqs6wvVgZCzRH2cbL/96Kb1OmRTYAi8KA2pCboIoDj7fip6fgN5V4qkyAvdlDMTjcLgBQYZ7YAl7MJrVRX+MD3/4Z+tccSd9oSx2PPsOXHuUgRsXiNFnKQJpzIL0P7EpWyhQKTYBziPfngEGQFL+QQKKTrQ6toAQbcZo1RKtdxzik8enC+ytBURvxPJ58dEnUGI0+/ngNU2V4IkzFayuMurARolEWO9ZTLS/Z8osia8Awib3uVFKacvrV8DC4rwYYg158NwFgeRQVec3A==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(396003)(376002)(136003)(346002)(366004)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(2616005)(6506007)(71200400001)(6512007)(53546011)(83380400001)(5660300002)(41300700001)(2906002)(4744005)(4326008)(6862004)(478600001)(6486002)(76116006)(8676002)(8936002)(66946007)(91956017)(66556008)(6636002)(37006003)(54906003)(64756008)(66446008)(66476007)(316002)(33656002)(86362001)(38100700002)(122000001)(36756003)(38070700009)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <340DCC78587FBC4D9B177CD0F332BCAB@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <16de540b-fd79-4c23-9698-a641da9c9967@amd.com>
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR08MB10545
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DU6PEPF0000B621.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	e9b820cc-9cea-4c86-7c90-08dbfa2ea28b
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	GhWHcIc6tUH2eDanH4zxrsAJ8R7gDCszl/VzltR71sT1qjixZeB28g+vtYXMo+pgUdPy0WuF/dMLyWeMdMYvpllf5bk5dRxI49mhr6Ggd937cAPWh44Ml2OR3Ch8ESC9/E/IP+FyZKIa+TBxdc0YXfspSpTe3PoEwWPPRwx2chTtk+W7mI/gxIFHRhdtN4AP9yPOS7yXL27Jbnfp1AxCaFgnw+uRePzW+/T89P+IKBMIO1zgf6FnBgnTaSsQgSnwOabgpHqoB0obVjNDrRxbaTAYcwLRRxkZT+DbQcilwBNliyKJlmvppwiRiiPgBZmEOaMIykp06Qg9ufD63pYQUJgvhjXJINsf927p1SWAkXpbuFQBQvWBMaLw1RBAIomJ9eJkOotkKVfQBoN7lFQJfA7zBYC/cChe2xxE7qyRWyDMS1WVgiitKhQncG7DuglcWxxRX//X4d7dDhl2hwSQpXe51GquGqjSSTMQW7cRBwCUKDhB7EbGRJXKYCfBonOHCTACC0ccsHa3SGEQMC+999HTwO80qgrvi44FBvR5eLHj0hgH+C9ehMSD5j4IwoSDNSFKtgBPcE6J8GknpVkpFoov6gD2T0L3JNhr0mPEru+MuN+FOS1nAv0jfd+sanO9VJ3RxlXbOnvHPyEeEU/kKQ6gQucltJgjlipxwNC3bEf9z5zUvtpi0gtfPyDeNrxTzMhZdPjGyL5M7a9JXHUulsC2UAFy1NkwL61Pa8C5Ubo=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(346002)(396003)(376002)(230922051799003)(451199024)(1800799012)(64100799003)(82310400011)(186009)(46966006)(40470700004)(36840700001)(6512007)(40460700003)(6506007)(53546011)(36860700001)(5660300002)(47076005)(336012)(26005)(2616005)(107886003)(33656002)(36756003)(6636002)(54906003)(70586007)(70206006)(6486002)(40480700001)(2906002)(83380400001)(81166007)(82740400003)(41300700001)(356005)(478600001)(86362001)(8676002)(8936002)(4326008)(6862004)(316002)(37006003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2023 09:50:53.6742
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01e05691-8605-4982-bf88-08dbfa2eaa5f
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF0000B621.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB10133
 
-On Tue, Dec 05, 2023 at 02:01:46PM -0500, Stewart Hildebrand wrote:
-> On 12/5/23 06:08, Roger Pau Monné wrote:
-> > On Mon, Dec 04, 2023 at 02:07:51PM -0800, Stefano Stabellini wrote:
-> >> On Mon, 4 Dec 2023, Roger Pau Monné wrote:
-> >>> On Fri, Dec 01, 2023 at 06:56:32PM -0800, Stefano Stabellini wrote:
-> >>>> On Fri, 1 Dec 2023, Roger Pau Monné wrote:
-> >>>>> On Mon, Nov 13, 2023 at 05:21:13PM -0500, Stewart Hildebrand wrote:
-> >>>>>> @@ -1618,6 +1630,14 @@ int iommu_do_pci_domctl(
-> >>>>>>          bus = PCI_BUS(machine_sbdf);
-> >>>>>>          devfn = PCI_DEVFN(machine_sbdf);
-> >>>>>>  
-> >>>>>> +        if ( needs_vpci(d) && !has_vpci(d) )
-> >>>>>> +        {
-> >>>>>> +            printk(XENLOG_G_WARNING "Cannot assign %pp to %pd: vPCI support not enabled\n",
-> >>>>>> +                   &PCI_SBDF(seg, bus, devfn), d);
-> >>>>>> +            ret = -EPERM;
-> >>>>>> +            break;
-> >>>>>
-> >>>>> I think this is likely too restrictive going forward.  The current
-> >>>>> approach is indeed to enable vPCI on a per-domain basis because that's
-> >>>>> how PVH dom0 uses it, due to being unable to use ioreq servers.
-> >>>>>
-> >>>>> If we start to expose vPCI suport to guests the interface should be on
-> >>>>> a per-device basis, so that vPCI could be enabled for some devices,
-> >>>>> while others could still be handled by ioreq servers.
-> >>>>>
-> >>>>> We might want to add a new flag to xen_domctl_assign_device (used by
-> >>>>> XEN_DOMCTL_assign_device) in order to signal whether the device will
-> >>>>> use vPCI.
-> >>>>
-> >>>> Actually I don't think this is a good idea. I am all for flexibility but
-> >>>> supporting multiple different configurations comes at an extra cost for
-> >>>> both maintainers and contributors. I think we should try to reduce the
-> >>>> amount of configurations we support rather than increasing them
-> >>>> (especially on x86 where we have PV, PVH, HVM).
-> >>>
-> >>> I think it's perfectly fine to initially require a domain to have all
-> >>> its devices either passed through using vPCI or ireqs, but the
-> >>> interface IMO should allow for such differentiation in the future.
-> >>> That's why I think introducing a domain wide vPCI flag might not be
-> >>> the best option going forward.
-> >>>
-> >>> It would be perfectly fine for XEN_DOMCTL_assign_device to set a
-> >>> domain wide vPCI flag, iow:
-> >>>
-> >>> if ( HYPERCALL_VPCI_FLAG_SET && !has_vpci(d) )
-> >>> {
-> >>>     if ( has_arch_pdevs(d) )
-> >>>     {
-> >>>         printk("All passthrough devices must use the same backend\n");
-> >>>         return -EINVAL;
-> >>>     }
-> >>>
-> >>>     /* Set vPCI domain flag */
-> >>> }
-> >>
-> >> That would be fine by me, but maybe we can avoid this change too. I was
-> >> imagining that vPCI would be enabled at domain creation, not at runtime.
-> >> And that vPCI would be enabled by default for all PVH guests (once we
-> >> are past the initial experimental phase.)
-> > 
-> > Then we don't even need a new CDF flag, and just enable vPCI when
-> > IOMMU is enabled?  IOW: we can key the enabling of vPCI to
-> > XEN_DOMCTL_CDF_iommu for specific domain types?
-> > 
-> > Maybe that's not so trivial on x86, as there's no x86 PVH domain type
-> > from the hypervisor PoV.
-> > 
-> >>
-> >>> We have already agreed that we want to aim for a setup where ioreqs
-> >>> and vPCI could be used for the same domain, but I guess you assumed
-> >>> that ioreqs would be used for emulated devices exclusively and vPCI
-> >>> for passthrough devices?
-> >>
-> >> Yes, that's right
-> >>
-> >>
-> >>> Overall if we agree that ioreqs and vPCI should co-exist for a domain,
-> >>> I'm not sure there's much reason to limit ioreqs to only handle
-> >>> emulated devices, seems like an arbitrary limitation.
-> >>
-> >> Reply below
-> >>
-> >>
-> >>>> I don't think we should enable IOREQ servers to handle PCI passthrough
-> >>>> for PVH guests and/or guests with vPCI. If the domain has vPCI, PCI
-> >>>> Passthrough can be handled by vPCI just fine. I think this should be a
-> >>>> good anti-feature to have (a goal to explicitly not add this feature) to
-> >>>> reduce complexity. Unless you see a specific usecase to add support for
-> >>>> it?
-> >>>
-> >>> There are passthrough devices (GPUs) that might require some extra
-> >>> mediation on dom0 (like the Intel GVT-g thing) that would force the
-> >>> usage of ioreqs to passthrough.
-> >>
-> >> From an architectural perspective, I think it would be cleaner, simpler
-> >> to maintain, and simpler to understand if Xen was the sole owner of the
-> >> PCI Root Complex and PCI config space mediation (implemented with vPCI).
-> >> IOREQ can be used for emulation and it works very well for that. At
-> >> least in my mind, that makes things much simpler.
-> > 
-> > But IOREQ already has all the code to mediate accesses to the PCI
-> > config space, and the interface to register separate servers for
-> > different PCI devices.
-> > 
-> > We would then need to duplicate this internally for vPCI, so that vPCI
-> > could forward accesses to IOREQ just for IOREQ to forward to yet a
-> > different component?  Seems like a lot of duplication for no benefit.
-> > 
-> >> I understand there are non-trivial cases, like virtual GPUs with
-> >> hardware access, but I don't classify those as passthrough. That's
-> >> because there isn't one device that gets fully assigned to the guest.
-> >> Instead, there is an emulated device (hence IOREQ) with certain MMIO
-> >> regions and interrupts that end up being directly mapped from real
-> >> hardware.
-> >>
-> >> So I think it is natural in those cases to use IOREQ and it is also
-> >> natural to have QEMU remap MMIO/IRQs at runtime. From a vPCI
-> >> perspective, I hope it will mostly look as if the device is assigned to
-> >> Dom0. Even if it ends up being more complex than that, Rome wasn't
-> >> built in one day, and I don't think we should try to solve this problem
-> >> on day1 (as long as the interfaces are not stable interfaces).
-> > 
-> > I don't see IOREQ as dealing explicitly with emulation.  Yes, it does
-> > allow for emulators to be implemented in user-space, but at the end
-> > it's just an interface that allows forwarding accesses to certain
-> > resources (for the case we are speaking about here, PCI config space)
-> > to entities that registered as handlers.
-> > 
-> > vPCI OTOH just deals with a very specific resource (PCI config space)
-> > and only allows internal handlers to be registered on a byte
-> > granularity.
-> > 
-> > So your proposal would be to implement a hierarchy like the one on the
-> > diagram below:
-> > 
-> >     ┌────────┐ ┌──────────┐ ┌──────────────────┐
-> >     │ Memory │ │ IO Ports │ │ PCI config space │
-> >     └───────┬┘ └┬─────────┘ └───┬──────────────┘
-> >             │   │               │
-> >             │   │           ┌───┴──┐
-> >             │   │           │ vPCI │
-> >             │   │           └─┬──┬─┘
-> >          ┌──┴───┴┐            │  │
-> >          │ IOREQ ├────────────┘  │
-> >          └────┬──┘               │
-> >               │                  │
-> >  ┌────────────┴──┐              ┌┴──────────────┐
-> >  │ IOREQ servers │              │ vPCI handlers │
-> >  └───────────────┘              └───────────────┘
-> > 
-> > While what I'm proposing would look like:
-> > 
-> >     ┌────────┐ ┌──────────┐ ┌──────────────────┐
-> >     │ Memory │ │ IO Ports │ │ PCI config space │
-> >     └────┬───┘ └────┬─────┘ └────────┬─────────┘
-> >          │          │                │
-> >          └─────┬────┴────┬───────────┘
-> >                │  IOREQ  │
-> >                └─┬─────┬─┘
-> >                  │     │
-> >  ┌───────────────┤     └────┬──────┐
-> >  │ IOREQ servers │          │ vPCI │
-> >  └───────────────┘          └───┬──┘
-> >                                 │
-> >                             ┌───┴───────────┐
-> >                             │ vPCI handlers │
-> >                             └───────────────┘
-> > 
-> > I'm obviously biased, but I think the latter is cleaner, and allows
-> > all resources to be arbitrated by the same component (IOREQ).
-> > 
-> > If the concern is about the IOREQ hypercall interface, it would be
-> > fine to introduce an option that limit IOREQs to internal users
-> > (vPCI) without supporting external IOREQ servers.
-> > 
-> > Think of IOREQ as a resource mediator inside of Xen, that just does
-> > the PCI address decoding and forwards the access to the interested
-> > party, either an external IOREQ server or vPCI.
-> > 
-> >>
-> >>> It's important that the interfaces we introduce are correct IMO,
-> >>> because that ends up reflecting on the configuration options that we
-> >>> expose to users on xl/libxl.  While both XEN_DOMCTL_createdomain and
-> >>> XEN_DOMCTL_assign_device are unstable interfaces, how the vPCI option
-> >>> gets placed there will ultimately influence how the option gets
-> >>> exposed in xl/libxl, and the interface there is relevant to keep
-> >>> stable for end user sanity.
-> >>
-> >> I agree with you on the stable interfaces. The important part is not to
-> >> introduce changes to stable interfaces that could limit us in the
-> >> future. Specifically that includes xl and libxl, we need to be careful
-> >> there. But I don't see a single per-domain vPCI enable/disable option as
-> >> a problem. Let's say that in the future we have a mediated vGPU
-> >> implementation: if it works together with vPCI then the per-domain vPCI
-> >> option in libxl will be enabled (either explicitely or by default), if
-> >> it doesn't then vPCI will be disabled (either explicitely or by the
-> >> newer vGPU options.)
-> > 
-> > If vPCI is hooked into IOREQ there won't be a need anymore to register
-> > the vPCI config space traps, as that would be done by IOREQ, and hence
-> > vPCI managed devices could be registered at runtime with IOREQ.  IOW:
-> > there won't be a need anymore to signal at domain creation whether
-> > vPCI is intended to be used or not.
-> > 
-> > We would obviously need to enable IOREQ for all domains with IOMMU
-> > enabled, as it would be IOREQ that register the PCI config space
-> > handlers.
-> > 
-> >> For *unstable* interfaces (XEN_DOMCTL_assign_device) I would rather wait
-> >> before adding more changes on top of them, not because I don't care
-> >> about the mediated GPU problem (we do have something similar at AMD),
-> >> but because I worry that if we try to change them now we might not do a
-> >> good enough job. I would prefer to wait until we know more about the
-> >> actual use case, ideally with code supporting it.
-> >>
-> >> I think the difference in points of views comes from the fact that I see
-> >> vPCI as the default, QEMU only as a limited peripheral emulator (or
-> >> mediator for the vGPU case) but not in control. vPCI and QEMU are not
-> >> equal in my view. vPCI is in charge and always present if not in very
-> >> uncommon setups (even if we decide to hook it inside Xen by using
-> >> internal IOREQ interfaces). QEMU might come and go.
-> > 
-> > Xen needs a single component that mediates accesses to resources,
-> > whether that's IOREQ, or something else I don't really care that much.
-> 
-> I just wanted to share what the "something else" diagram might look like.
-> 
->     ┌────────┐ ┌──────────┐ ┌──────────────────┐
->     │ Memory │ │ IO Ports │ │ PCI config space │
->     └────┬───┘ └────┬─────┘ └──────────┬───────┘
->          │          │                  │
->          └──┬───────┴───────────────┬──┘
->             │ PCI Resource Mediator │
->             └────┬─────┬────────────┘
->                  │     │
->          ┌───────┤     └────┬──────┐
->          │ IOREQ │          │ vPCI │
->          └────┬──┘          └───┬──┘
->               │                 │
->  ┌────────────┴──┐          ┌───┴───────────┐
->  │ IOREQ servers │          │ vPCI handlers │
->  └───────────────┘          └───────────────┘
 
-It's IMO weird that the PCI resource mediator also controls Memory
-and IO ports, since that's not a PCI specific resource.
 
-Isn't your proposed "PCI Resource Mediator" the same as what IOREQ
-currently does?
+> On 8 Dec 2023, at 12:04, Wei Chen <Wei.Chen@arm.com> wrote:
+>=20
+> Hi Henry,
+>=20
+> On 2023/12/8 00:20, Henry Wang wrote:
+>> I've finished the opportunity to do two releases (4.17 and 4.18)
+>> and Oleksii Kurochko has volunteered to be the next release manager.
+>> Hand over the role to him by changing the maintainership of the
+>> CHANGELOG.md.
+>> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+>> ---
+>>  MAINTAINERS | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 0fcf5a6f36..702032cc12 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -278,7 +278,7 @@ S: Supported
+>>  F: xen/drivers/passthrough/arm/smmu-v3.c
+>>    Change Log
+>> -M: Henry Wang <Henry.Wang@arm.com>
+>> +M: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>  R: Community Manager <community.manager@xenproject.org>
+>>  S: Maintained
+>>  F: CHANGELOG.md
+>=20
+> I'm proud of your work on the last two Xen releases.
+> Thanks for your works!
+>=20
 
-I'm kind of confused as what benefit there is in introducing another
-layer that multiplexes guest resource accesses.
+I am seconding that.
 
-> > Having vPCI mediate accesses to the PCI config space, and IOREQ to the
-> > memory (and on x86 IO port) space just seems awfully complicated for
-> > AFAICT no real benefit.
-> > 
-> > Also, you seem to confabulate IOREQ with QEMU, while the latter is
-> > indeed an user of IOREQ, I do see IOREQ as a simple resource mediator
-> > inside of Xen, that has the ability to forward such accesses to
-> > external emulators using an hypercall interface.
-> > 
-> >> Now that I am writing this, I realize this is also why I wasn't too
-> >> happy with the idea of hooking vPCI using IOREQ. It makes them look as
-> >> if they are the same, while I don't they should be considered at the
-> >> same level of priority, criticality, safety, integration in the system,
-> >> etc.
-> > 
-> > I feel there are some fears with IOREQ from a safety PoV?  The code
-> > that does the resource multiplexing is small, and as said above if
-> > there are safety concerns with the hypercall interface it would be
-> > fine to limit it's usage to internal handlers only.
-> 
-> Would it make any sense at all to split the resource multiplexing bits from IOREQ into a new separate PCI resource mediator?
+Thanks a lot Henry for the great work you made during those 2 releases.
+Cheers
+Bertrand
 
-That might be fine, but seems like a lot of work and more complexity
-in Xen for AFAICT no real benefit.
 
-I think I would need to better understand the worries with using
-IOREQ, but wouldn't it be easier to just limit the current IOREQ
-code/interface to suit your needs?  Again without knowing exactly what
-are the issues with using IOREQ	it's hard to propose solutions.
-
-Thanks, Roger.
 
