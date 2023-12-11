@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09DA980C9A5
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 13:23:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.651732.1017528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D80FE80C9C2
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 13:29:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.651743.1017538 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCfJq-0005j5-Bg; Mon, 11 Dec 2023 12:23:30 +0000
+	id 1rCfPU-000729-W9; Mon, 11 Dec 2023 12:29:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 651732.1017528; Mon, 11 Dec 2023 12:23:30 +0000
+Received: by outflank-mailman (output) from mailman id 651743.1017538; Mon, 11 Dec 2023 12:29:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCfJq-0005h7-8H; Mon, 11 Dec 2023 12:23:30 +0000
-Received: by outflank-mailman (input) for mailman id 651732;
- Mon, 11 Dec 2023 12:23:29 +0000
+	id 1rCfPU-0006zY-Sx; Mon, 11 Dec 2023 12:29:20 +0000
+Received: by outflank-mailman (input) for mailman id 651743;
+ Mon, 11 Dec 2023 12:29:19 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rCfJp-0005bX-AO
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 12:23:29 +0000
+ (envelope-from <julien@xen.org>) id 1rCfPT-0006wd-KA
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 12:29:19 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rCfJp-0003oZ-6F; Mon, 11 Dec 2023 12:23:29 +0000
+ id 1rCfPS-0003vG-RE; Mon, 11 Dec 2023 12:29:18 +0000
 Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ helo=[10.95.158.169]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rCfJo-0001JH-Uo; Mon, 11 Dec 2023 12:23:29 +0000
+ id 1rCfPS-0001Qv-KK; Mon, 11 Dec 2023 12:29:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,121 +40,51 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=NOACs3hSf5sKsZ7DYPVi4JzNRj9JzZlqiodDxK0OPX8=; b=EA01PHDn8HByG6wWZ8jGzHOTUX
-	XCWj3mgtucLQyaQglvRujJ7l7x1xPwTRPRDDr5yE6umdBm/hyJULEZRWXj/2pdIoARPdhVCu0Ady5
-	b3BUJrCiZGz8ZYpYvVl57L4/y4skwStKOXBzU0AjiLjhwS50kCcCBZaVCEK1Gfx7g6/A=;
-From: Julien Grall <julien@xen.org>
-To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	Julien Grall <jgrall@amazon.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 2/2] xen/x86: ioapic: Bail out from timer_irq_works() as soon as possible
-Date: Mon, 11 Dec 2023 12:23:22 +0000
-Message-Id: <20231211122322.15815-3-julien@xen.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20231211122322.15815-1-julien@xen.org>
-References: <20231211122322.15815-1-julien@xen.org>
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ykW1jDpHYxlGZaHTT9jjzf1UAXZ/XYtuew7JJT2/LRs=; b=145XBUkpuHXTb6+u4TLOEmrbyW
+	hgyIsZRn6C7dkGIpH8MQeiWAubLx1H4kG8dFMS/a15RhnJyYtcy7gMnfBaOehr0XP52F3L+BTYGCz
+	X8rBUcfhjdAaN+Y90sF4M81BboQ2P24IYSWsSihOPgsba4nFHn0hZMArKtmFpG6Z57GU=;
+Message-ID: <e86f46bd-b404-4feb-82f5-90c52837e169@xen.org>
+Date: Mon, 11 Dec 2023 12:29:16 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 3/7] xen/arm: address MISRA C:2012 Rule 2.1
+Content-Language: en-GB
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
+ <4c0d38f2b707afa9aed1853a99d286fa2424fb9d.1702283415.git.nicola.vetrini@bugseng.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <4c0d38f2b707afa9aed1853a99d286fa2424fb9d.1702283415.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Julien Grall <jgrall@amazon.com>
+Hi,
 
-Currently timer_irq_works() will wait the full 100ms before checking
-that pit0_ticks has been incremented at least 4 times.
+On 11/12/2023 10:30, Nicola Vetrini wrote:
+> The "return 1;" statements at the end of some cases in the switch
+> of function 'vgic_v3_its_mmio_write' in 'vcig-v3-its.c' cause the
+> unreachability of the "return 1;" statement after the switch, thus
+> violating MISRA C:2012 Rule 2.1:
+> "A project shall not contain unreachable code".
+> 
+> The same is true for the switch in 'arch_memory_op' from
+> 'xen/arch/arm/mm.c'.
 
-However, the bulk of the BIOS/platform should not have a buggy timer.
-So waiting for the full 100ms is a bit harsh.
+For both cases, I actually much prefer the "return" version in the 
+cases. In particular for the vGIC emulation the switch is quite large 
+and it would not be trivial to know what happens after the break.
 
-Rework the logic to only wait until 100ms passed or we saw more than
-4 ticks. So now, in the good case, this will reduce the wait time
-to ~50ms.
+IOW, I would much prefer if we remove the "return ..." outside of the 
+switch.
 
-Take the opportunity to change the prototype of timer_irq_works() to
-return a bool rather than int (which was already acting as a bool because
-only 0/1 could be returned).
+Cheers,
 
-Signed-off-by: Julien Grall <jgrall@amazon.com>
-
----
-
-Note that local_irq_restore() cannot be replaced with local_irq_disable()
-because the function is not consistently called with IRQs off.
-
-Changes in v2:
-    - Return bool rather than int
-    - Have a single return path
-    - Use 'unsigned int' rather than 'unsigned long' for msec
----
- xen/arch/x86/io_apic.c | 39 ++++++++++++++++++++++++---------------
- 1 file changed, 24 insertions(+), 15 deletions(-)
-
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index 238b6c1c2837..c89fbed8d675 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -1506,32 +1506,41 @@ static void __init setup_ioapic_ids_from_mpc(void)
-  *	- if this function detects that timer IRQs are defunct, then we fall
-  *	  back to ISA timer IRQs
-  */
--static int __init timer_irq_works(void)
-+static bool __init timer_irq_works(void)
- {
-     unsigned long t1, flags;
-+    /* Wait for maximum 10 ticks */
-+    unsigned int msec = (10 * 1000) / HZ;
-+    bool works = false;
- 
-     if ( pit_irq_works )
--        return 1;
-+        return true;
- 
-     t1 = ACCESS_ONCE(pit0_ticks);
- 
-     local_save_flags(flags);
-     local_irq_enable();
--    /* Let ten ticks pass... */
--    mdelay((10 * 1000) / HZ);
--    local_irq_restore(flags);
- 
--    /*
--     * Expect a few ticks at least, to be sure some possible
--     * glue logic does not lock up after one or two first
--     * ticks in a non-ExtINT mode.  Also the local APIC
--     * might have cached one ExtINT interrupt.  Finally, at
--     * least one tick may be lost due to delays.
--     */
--    if ( (ACCESS_ONCE(pit0_ticks) - t1) > 4 )
--        return 1;
-+    while ( msec-- )
-+    {
-+        mdelay(1);
-+        /*
-+         * Expect a few ticks at least, to be sure some possible
-+         * glue logic does not lock up after one or two first
-+         * ticks in a non-ExtINT mode.  Also the local APIC
-+         * might have cached one ExtINT interrupt.  Finally, at
-+         * least one tick may be lost due to delays.
-+         */
-+        if ( (ACCESS_ONCE(pit0_ticks) - t1) <= 4 )
-+            continue;
- 
--    return 0;
-+        works = true;
-+        break;
-+    }
-+
-+    local_irq_restore(flags);
-+
-+    return works;
- }
- 
- /*
 -- 
-2.40.1
-
+Julien Grall
 
