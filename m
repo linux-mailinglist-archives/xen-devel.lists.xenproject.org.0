@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9852280CAC0
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 14:21:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.651802.1017657 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4FD80CAD4
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 14:22:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.651806.1017668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCgDi-0001em-Fn; Mon, 11 Dec 2023 13:21:14 +0000
+	id 1rCgEI-0002IR-Sz; Mon, 11 Dec 2023 13:21:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 651802.1017657; Mon, 11 Dec 2023 13:21:14 +0000
+Received: by outflank-mailman (output) from mailman id 651806.1017668; Mon, 11 Dec 2023 13:21:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCgDi-0001d4-D2; Mon, 11 Dec 2023 13:21:14 +0000
-Received: by outflank-mailman (input) for mailman id 651802;
- Mon, 11 Dec 2023 13:21:13 +0000
+	id 1rCgEI-0002FT-Pu; Mon, 11 Dec 2023 13:21:50 +0000
+Received: by outflank-mailman (input) for mailman id 651806;
+ Mon, 11 Dec 2023 13:21:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mRXB=HW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rCgDh-0001Dk-0l
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 13:21:13 +0000
+ id 1rCgEH-0001Dk-Js
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 13:21:49 +0000
 Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
  [2a00:1450:4864:20::632])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26cbcb4a-9828-11ee-9b0f-b553b5be7939;
- Mon, 11 Dec 2023 14:21:11 +0100 (CET)
+ id 3cb6c0b8-9828-11ee-9b0f-b553b5be7939;
+ Mon, 11 Dec 2023 14:21:48 +0100 (CET)
 Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a1f8f470903so181711066b.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 05:21:11 -0800 (PST)
+ a640c23a62f3a-a1e35c2807fso592599866b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 05:21:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- sf22-20020a1709078a9600b00982a92a849asm4859104ejc.91.2023.12.11.05.21.10
+ sf22-20020a1709078a9600b00982a92a849asm4859104ejc.91.2023.12.11.05.21.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Dec 2023 05:21:10 -0800 (PST)
+ Mon, 11 Dec 2023 05:21:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26cbcb4a-9828-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 3cb6c0b8-9828-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702300871; x=1702905671; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702300907; x=1702905707; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zJ6m0w9p7Dnzz78IqQQo1hT1wC1kP6Likj8D68/E4MU=;
-        b=g/y8wHI1Beb0bxdm3T7Mw5ffkB+xVlNWSnT0C+fJPrX7MHXNoRJ+SBUMb99izsFwjD
-         Yf1cPUNAzeu/7kvhB/1QE4nVpCgvqGMrKs+LyCxSrHWsWlBkS56ZApdAQsss4T/33OfB
-         0WK9dKiUGLuafmF5Latb1LsqWrfYlDt3ZhYNXosAJUDSBWLjdpu61E9BSK0JMBIvDLe+
-         APcSECbsuxxUbn4B/IWW6Oa3cVOPlslDq0DEyk3ZHOTh5cNlhRMIwdvRxADZNFYTay0Y
-         vg2btu8QVfgD7/ZrRY/ZgcZaKYr3rCJ+AZP47PVyJjb7BzSD9FmNc1JSwgtocn1Ln3m5
-         gDag==
+        bh=dVSrukEZfExlaUpZQoYOUi/ZxibAVaRdnsBeai8h7e8=;
+        b=XqqGN38noY5w1E1iPHwEhEKdt+QCl1Dp4Di/XK19VV/7aaAyLO1XvC/ezKY9kf/mhp
+         Ii90Ucl+27pAs5fQG9zTAazfq4M43V4I6V2UfIgkUyCUB7JETjkhjwjoPH7yrwRpFnOJ
+         4E8l1o9Evp8C9dJKHMwlTwAKCjmeoP4mnNj6AGDHscckwAyxzNQAMldFUWoAM1uXh8M0
+         Ts2ADu7QQG1LIOvF/Aoncx5iBNpsphnpdwOOb1mxXAjpv4BVC78FXLcSN+Gl1oR1e/xZ
+         NZ34PqjEVKrK0uPow685+pRpD86+1BpP5JSUfW/h1CYagpl9ZxTJOFKUcKELneRO0KE4
+         wRpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702300871; x=1702905671;
+        d=1e100.net; s=20230601; t=1702300907; x=1702905707;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zJ6m0w9p7Dnzz78IqQQo1hT1wC1kP6Likj8D68/E4MU=;
-        b=NMGV5wK4qx6XgLwwUxPC6h92Z8nKaI9WcBA8Y3BbPb+8FiCTH5fYY4RoAfCR+2yCag
-         P47g50WWgg7iKv7mOVSkWhCYNGXT2QP8NdFLHDyqLgYwg8SBAz1GJvXtKTKynDvSLmaC
-         owBr2ozBzcNWkPPZAWqLxZRNYpSncX+5FJMOz0C+9k0+bRkfHnQeycH+C3SGr+2QUpdR
-         9ZPSaao3knUBYMDFXoRwaQxKtp2Dd6A8VN/HIg6H0LWBYtWOLgkRh7H7+1RqQzvENywD
-         y+U0V+7BWk//XAjX3r3xvTXnre5+oHMweuVxr2t5q0ke/H4btwFv8T+Pq7TU1oWtJPFm
-         J+4Q==
-X-Gm-Message-State: AOJu0YwTbjZl+PavA3oeKy6LqqSax0SEWaERba7bt5DIuZUX2EPVfx2l
-	MmJKut19O3fs6HlB6w1IGAQz
-X-Google-Smtp-Source: AGHT+IGxaTsQSjK6Ghn2ZN3pZytCiMVZ3/Q6a4OiDGRV0JmvO+PMko8kHxujp9Jx0mx4FSETiXkueg==
-X-Received: by 2002:a17:906:5346:b0:a14:d6e2:fb1f with SMTP id j6-20020a170906534600b00a14d6e2fb1fmr2515275ejo.10.1702300870900;
-        Mon, 11 Dec 2023 05:21:10 -0800 (PST)
-Message-ID: <a0e8923b-c1bc-450f-a31a-232af31462d7@suse.com>
-Date: Mon, 11 Dec 2023 14:21:09 +0100
+        bh=dVSrukEZfExlaUpZQoYOUi/ZxibAVaRdnsBeai8h7e8=;
+        b=XMrd8UygqCNSBWvWTNTmpETuqET9fVki3WKLgVVbr+NzL2RJgeSRGARw0fZOyj2qpy
+         RJ4tKgPqQP++JJHFul6ayPPz8xRoSkhVIp0OzMHMua1/WvAeSlT9EpeNoBwlqtuD+tw6
+         BXBBp65mUx4sDBTUpNv2WxkyxqmHZ9dIJbVz3vYMALJItHck6F2RpclyYuEkkqgbGNSm
+         H1OkCVUfz+Y6sMtBZNAll5iAfEpadquA52OVKQG6ZPUlS2NKk67JTrYafISGJTpK3m76
+         jden4laO6OLbPQr5UtbvUffT9NrOOb8y76YRH1PW1OxaCJDLuWJnxtbFEGroy5pq6nww
+         USVA==
+X-Gm-Message-State: AOJu0Yy8S5tj73XhuWv1qbRzou6Etb1J5dkXmWRZpPeD9VdgpkjBMzqY
+	Vub1hlQEvIaJZRpTID2HYYBJ
+X-Google-Smtp-Source: AGHT+IENWfI9o0r1b5MWqndW4pNwT/AVIE11txsOrYpODwyBf5qEodtgX+oUH+gAV0BN4q/H3Zl5hA==
+X-Received: by 2002:a17:907:7f29:b0:a1e:cb47:3785 with SMTP id qf41-20020a1709077f2900b00a1ecb473785mr2595285ejc.68.1702300907534;
+        Mon, 11 Dec 2023 05:21:47 -0800 (PST)
+Message-ID: <d10ae5d0-314f-4795-9f90-f7028e599093@suse.com>
+Date: Mon, 11 Dec 2023 14:21:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 3/5] x86/mm: remove compat_subarch_memory_op()
+Subject: Re: [XEN PATCH v2 4/5] x86/mm: address violations of MISRA C:2012
+ Rule 8.2
 Content-Language: en-US
 To: Federico Serafini <federico.serafini@bugseng.com>
 Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
@@ -87,8 +88,8 @@ Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
  <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1701936906.git.federico.serafini@bugseng.com>
- <285de0decf8ffe4277ce7e14a2561a693103f72b.1701936906.git.federico.serafini@bugseng.com>
- <alpine.DEB.2.22.394.2312071634110.1265976@ubuntu-linux-20-04-desktop>
+ <428b868a2b1aec2b50ccbe510bc3089203ac9c7b.1701936906.git.federico.serafini@bugseng.com>
+ <alpine.DEB.2.22.394.2312071640330.1265976@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,20 +114,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312071634110.1265976@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2312071640330.1265976@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.12.2023 01:34, Stefano Stabellini wrote:
+On 08.12.2023 01:40, Stefano Stabellini wrote:
 > On Thu, 7 Dec 2023, Federico Serafini wrote:
->> Remove remove compat_subarch_memory_op() declaration: there is no
->> definition and there are no calls to such function in the XEN project.
+>> Add missing parameter names. No functional change.
 >>
 >> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 > 
 > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
-
 
 
