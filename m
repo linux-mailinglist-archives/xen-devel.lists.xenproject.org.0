@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01DEF80C7FA
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 12:28:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.651669.1017465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAC1780C804
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 12:32:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.651673.1017474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCeRv-0007LP-2q; Mon, 11 Dec 2023 11:27:47 +0000
+	id 1rCeVI-0000sq-JC; Mon, 11 Dec 2023 11:31:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 651669.1017465; Mon, 11 Dec 2023 11:27:47 +0000
+Received: by outflank-mailman (output) from mailman id 651673.1017474; Mon, 11 Dec 2023 11:31:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCeRv-0007JC-02; Mon, 11 Dec 2023 11:27:47 +0000
-Received: by outflank-mailman (input) for mailman id 651669;
- Mon, 11 Dec 2023 11:27:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rCeVI-0000qH-Fn; Mon, 11 Dec 2023 11:31:16 +0000
+Received: by outflank-mailman (input) for mailman id 651673;
+ Mon, 11 Dec 2023 11:31:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mRXB=HW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rCeRt-0007J6-Jt
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 11:27:45 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4cf4f15e-9818-11ee-9b0f-b553b5be7939;
- Mon, 11 Dec 2023 12:27:43 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3333224c7b9so3920219f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 03:27:43 -0800 (PST)
+ id 1rCeVH-0000o1-1H
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 11:31:15 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ca149645-9818-11ee-98e8-6d05b1d4d9a1;
+ Mon, 11 Dec 2023 12:31:13 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3360ae2392eso2656150f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 03:31:13 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e17-20020adf9bd1000000b003334992c578sm8391754wrc.10.2023.12.11.03.27.42
+ k18-20020a5d5192000000b0033339027c89sm8343295wrv.108.2023.12.11.03.31.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Dec 2023 03:27:42 -0800 (PST)
+ Mon, 11 Dec 2023 03:31:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4cf4f15e-9818-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ca149645-9818-11ee-98e8-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702294063; x=1702898863; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=suse.com; s=google; t=1702294273; x=1702899073; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=9rXtPfcSJ64zkJwr34XMtBLEYaGZDgRPhGf8h2fliHM=;
-        b=WnZr9mmC/gaRGArKu/qg6hqZ5tpj09rBfenZcdbsSl6E3blxTmUIzEzOygnU6DleR8
-         BW89TbeR6J9+C39EAvpPL7OXV6f4vpXXxGQALol9lCIEp47x0u8oHtNkJLk1O9GdxB6+
-         4KqmaqYJiUIYS8Rx9p1BnWNN02gy+QsL7nVtMrhTKP1txqpEAz6RTnC4UAHNxZALxvHP
-         trqNDqTjANlg8bdpaUo7M2e0Grql0+Ziuwa8VggFURXWLrP7s73dWqiMTXtien2kCRye
-         yXwSZ35PiZoE40KGQwJKe2OHIcpsYw/VKRvU3gSyV20CS/rlrcdpO6gZ58LwkwLMYikU
-         icGg==
+        bh=83gXcqfV4M4Rq2MIDetw8tx4YogahfP23wLJtBN0HSU=;
+        b=GnEdK9EPWMEodU/XHOGIH0HXJn5EOcKZKHF0Gzo6aQJD2RC/+8R+3nrdW6jwArxNUY
+         AizM6YFFa5GuVUhpcQN3ZjqMml33TkYwoySTDjLO8eoq/1kZcw9ervUDzY9T+IYHq0Jr
+         MixdO00JvQsXGEV5Nt2FnloEzic/F/IzYsxy3TdZybheIQGPM+HrYtAWUbYcMNnKnpAh
+         z4NTWR5xAg4ZzkAwQaL1hw6HU3E1D1AY045MsHu0mDDRPK/rkIxI/EN/FBxcp+LucdzW
+         0gcyOjs8gGuQlLv+vrkDQsUuPC8YAncRe4hq4JetmjPq36x4NYe/9Om2CAzrk0KBkawN
+         nB5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702294063; x=1702898863;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+        d=1e100.net; s=20230601; t=1702294273; x=1702899073;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9rXtPfcSJ64zkJwr34XMtBLEYaGZDgRPhGf8h2fliHM=;
-        b=xTOrtOXcdvhlfuzlGSdGvme15bOgvELOtMPCTo7BnbZxFs1WDH+P9q6pNEr4zyDVBl
-         dZiVnp0lQob8f1tzn7hLFOfn83abkPEI3HvxqCOpyxGgDP+8HwbReH8mjj6FFIN0OcLV
-         QKqjbdxg0FE2BEBBiYUX6bATMevBjZ/HewtDQ2Sv0LdQ6Kry+T2ZPwF7V0kx4tkTpSTH
-         8bDOLlhNNN/V9/b0yZSJRnsKhioUWRTbnrrGEXeCZ4LBz+hVH8MlXBLD/pqzT/LuK49l
-         ee/WvMVBy8wmJKASCfnw1Pme8U8o7TVWLr8z7CZw5rVtfrRUrG99A4k+FnoPP4Ozed9q
-         uZXg==
-X-Gm-Message-State: AOJu0YypXE95TOJ8mKHHbDGvwJ6hKTxJJaRATd1TEvarmEdBQuWPe9Fz
-	0RJFjkMyDhRvrIYX0wiTyU1VtbUPCY4KwJ07H891
-X-Google-Smtp-Source: AGHT+IGgZgnvW1aXAGeKnvw3e6t3ylHT0xu8Gjx4ImjXBWXnJfcMdQaYp/68cms35BG6cKulunLxQQ==
-X-Received: by 2002:adf:fd04:0:b0:332:e3f1:9656 with SMTP id e4-20020adffd04000000b00332e3f19656mr2127125wrr.35.1702294062914;
-        Mon, 11 Dec 2023 03:27:42 -0800 (PST)
-Message-ID: <64d738b7-08c1-4b2c-a828-a137c870408e@suse.com>
-Date: Mon, 11 Dec 2023 12:27:32 +0100
+        bh=83gXcqfV4M4Rq2MIDetw8tx4YogahfP23wLJtBN0HSU=;
+        b=U5cAW477u6SH803GFl4hfVcxwjvcAdEImLth52veHNO7WEjXq2Ofvc/9DfM43OxViF
+         UhXX826N9W9sPmdpNh713uqyBWEZUCTRw00NSdZcGjOM/tANAXJm35D7713wzHcKfG1J
+         zrBllumzagZxBQ88fHlkigE9SpL1ljAbYEnOllr/jY/MKOsXejBP7aCg8OYLtKDJZxbB
+         s4O9kz+1Akb44RLE8kAdU8nTIFC8qJD+qcaouUokBGBvOkGUHL/S45mUvfR6uOQUf95h
+         7KAuGrFgErE7ywCaIdQwn8YUN/9yX5DoEGbAFYVn4q/gCYWiqDxP0Jsbsqb6yjfumh6o
+         ivYw==
+X-Gm-Message-State: AOJu0YzLkl7M04oMcpm3ebmhsbQGY+vuD6erizMb/PbTv14sP5/wiT4L
+	OLZRGFGYhmT3IN3qxCkXYtWo
+X-Google-Smtp-Source: AGHT+IHj1Ig0fggHrT0UmiQeHJpklwRW630mVm9oIwLLaN0mwlHYQC9AB1hA1pcNShUN/QiDRy4HXw==
+X-Received: by 2002:adf:ab10:0:b0:333:389b:4a2c with SMTP id q16-20020adfab10000000b00333389b4a2cmr1874350wrc.118.1702294273202;
+        Mon, 11 Dec 2023 03:31:13 -0800 (PST)
+Message-ID: <011bdf3f-6cbd-49e6-b1d8-10c77722664e@suse.com>
+Date: Mon, 11 Dec 2023 12:31:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+Subject: Re: [PATCH v3 2/6] x86/HVM: split restore state checking from state
+ loading
 Content-Language: en-US
-To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com>
- <CAKm-UmYGTLY0fTh4zvj-xrA3Tp+Oj+ES61pncG7ze0QnP4o=FQ@mail.gmail.com>
- <52bd8702-cf7d-4f5b-883d-be6214ba31c0@suse.com>
- <CAKm-UmadRsc7GEYDqMDTBaoozT5Bj3nwK+=uDs1LkTZVG8tgdQ@mail.gmail.com>
- <CAKm-UmZnPtH_Fxou3OV0BbpP+tBpSe1z8Qet4Q5=zDD7UGZy6Q@mail.gmail.com>
- <CAKm-UmbaHoXymP8CcBVBLSVG7T9zCE2fbFQB33SMnY8pwXOU1Q@mail.gmail.com>
- <435d159f-96d5-49af-82ec-bce6961e3391@suse.com>
- <CAKm-UmbEBOm525=f+OOL0P05tQVVQz9wegh7F8yhgV_=Z7rWug@mail.gmail.com>
- <CAKm-UmYejm8CW-Enc_Y-aefcLPsRhQO8w2P-fNdu1zXMMjUAoA@mail.gmail.com>
- <e83e7254-0c90-4912-ae63-ea7221a10071@suse.com>
- <CAKm-UmbDNbeakVQtDT47o4Qc4oQvi0dqmBDb5Q=pRqTHFY0C5w@mail.gmail.com>
- <CAKm-UmZtN2o3d13cE9GyyLKfMmZ855MfrAAw9O6zE-5ob0-iYg@mail.gmail.com>
-Cc: xen-devel@lists.xenproject.org
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>
+References: <49a17ffa-c873-4b0f-81ed-9587053ca159@suse.com>
+ <dcc726f5-634e-4b48-aa8f-d477cdc8dea9@suse.com> <ZW4L5Q4SMprtmbK-@macbook>
+ <5f7c43ca-dfc4-4929-8776-6985e610e154@suse.com> <ZW8zyXkUJDKVt-HX@macbook>
+ <2ded19f7-2ba6-4b1c-8752-a73894dcdae0@suse.com> <ZW9H1uE_6k3d-uWn@macbook>
+ <21cdb9ad-81f5-497a-bfd8-ef6aea5906e2@suse.com> <ZXbodK0CcT5U1i5V@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -120,61 +115,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKm-UmZtN2o3d13cE9GyyLKfMmZ855MfrAAw9O6zE-5ob0-iYg@mail.gmail.com>
+In-Reply-To: <ZXbodK0CcT5U1i5V@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.12.2023 12:09, Sébastien Chaumat wrote:
-> Le lun. 11 déc. 2023 à 10:18, Sébastien Chaumat <euidzero@gmail.com> a écrit :
+On 11.12.2023 11:46, Roger Pau Monné wrote:
+> On Wed, Dec 06, 2023 at 08:27:59AM +0100, Jan Beulich wrote:
+>> On 05.12.2023 16:55, Roger Pau Monné wrote:
+>>> On Tue, Dec 05, 2023 at 03:59:13PM +0100, Jan Beulich wrote:
+>>>> On 05.12.2023 15:29, Roger Pau Monné wrote:
+>>>>> On Tue, Dec 05, 2023 at 09:52:31AM +0100, Jan Beulich wrote:
+>>>>>> On 04.12.2023 18:27, Roger Pau Monné wrote:
+>>>>>>> On Tue, Nov 28, 2023 at 11:34:04AM +0100, Jan Beulich wrote:
+>>>>>>>> ..., at least as reasonably feasible without making a check hook
+>>>>>>>> mandatory (in particular strict vs relaxed/zero-extend length checking
+>>>>>>>> can't be done early this way).
+>>>>>>>>
+>>>>>>>> Note that only one of the two uses of hvm_load() is accompanied with
+>>>>>>>> hvm_check(). The other directly consumes hvm_save() output, which ought
+>>>>>>>> to be well-formed. This means that while input data related checks don't
+>>>>>>>> need repeating in the "load" function when already done by the "check"
+>>>>>>>> one (albeit assertions to this effect may be desirable), domain state
+>>>>>>>> related checks (e.g. has_xyz(d)) will be required in both places.
+>>>>>>>>
+>>>>>>>> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>>>>> ---
+>>>>>>>> Do we really need all the copying involved in use of _hvm_read_entry()
+>>>>>>>> (backing hvm_load_entry()? Zero-extending loads are likely easier to
+>>>>>>>> handle that way, but for strict loads all we gain is a reduced risk of
+>>>>>>>> unaligned accesses (compared to simply pointing into h->data[]).
+>>>>>>>
+>>>>>>> See below, but I wonder whether the checks could be performed as part
+>>>>>>> of hvm_load() without having to introduce a separate handler and loop
+>>>>>>> over the context entries.
+>>>>>>
+>>>>>> Specifically not. State loading (in the longer run) would better not fail
+>>>>>> once started. (Imo it should have been this way from the beginning.) Only
+>>>>>> then will the vCPU still be in a predictable state even after a possible
+>>>>>> error.
+>>>>>
+>>>>> Looking at the callers, does such predictable state after failure
+>>>>> matter?
+>>>>>
+>>>>> One caller is an hypercall used by the toolstack at domain create,
+>>>>> failing can just lead to the domain being destroyed.  The other caller
+>>>>> is vm fork, which will also lead to the fork being destroyed if
+>>>>> context loading fails.
+>>>>>
+>>>>> Maybe I'm overlooking something.
+>>>>
+>>>> You don't (I think), but existing callers necessarily have to behave the
+>>>> way you describe. From an abstract perspective, though, failed state
+>>>> loading would better allow a retry. And really I thought that when you
+>>>> suggested to split checking from loading, you had exactly that in mind.
+>>>
+>>> Not really TBH, because I didn't think that much on a possible
+>>> implementation when proposing it.
 >>
->>> On 05.12.2023 21:31, Sébastien Chaumat wrote:
->>>>> [    2.464598] amd_gpio AMDI0030:00: failed to enable wake-up interrupt
->>>>
->>>> Is it expected that IRQ7 goes from fasteoi (kernel 6.6.4 ) to
->>>> ioapic-edge and IRQ9 to ioapic-level ?
->>>>
->>>> IR-IO-APIC    7-fasteoi   pinctrl_amd
->>>> IR-IO-APIC    9-fasteoi   acpi
->>>>
->>>> to (xen 4.18.0)
->>>>
->>>> xen-pirq     -ioapic-edge  pinctrl_amd
->>>> xen-pirq     -ioapic-level  acpi
->>>>
->>>> ?
+>> But what else did you think of then in terms of separating checking from
+>> loading?
 > 
-> This look similar to
-> https://yhbt.net/lore/all/20201006044941.fdjsp346kc5thyzy@Rk/t/
-> 
-> This issue seems that IRQ 7 (the GPIO controller) is natively fasteoi
-> (so level type) while in xen it  is mapped to oapic-edge  instead of
-> oapic-level
-> as the SSDT indicates :
-> 
->  Device (GPIO)
-> 
->      {
->          Name (_HID, "AMDI0030")  // _HID: Hardware ID
->          Name (_CID, "AMDI0030")  // _CID: Compatible ID
->          Name (_UID, Zero)  // _UID: Unique ID
->          Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource Settings
->          {
->              Name (RBUF, ResourceTemplate ()
->              {
->                  Interrupt (ResourceConsumer, Level, ActiveLow, Shared, ,, )
->                  {
->                      0x00000007,
->            }
-> Any idea why ?
+> Just calling the check and load functions inside of the same loop was
+> my initial thought.
 
-Information coming from AML is required to be handed down by Dom0 to Xen.
-May want checking that (a) Dom0 properly does so and (b) Xen doesn't screw
-up in consuming that data. See PHYSDEVOP_setup_gsi. I wonder if this is
-specific to it being IRQ7 which GPIO uses, as at the (master) PIC IRQ7 is
-also the spurious vector. You may want to retry with the tip of the 4.17
-branch (soon to become 4.17.3) - while it doesn't look very likely to me
-that recent backports there were related, it may still be that they make
-a difference.
+Okay, I was meanwhile also guessing that this might have been what you
+thought of. I can go that route, but I wouldn't want to make it "and", but
+"or" then, depending on a new boolean parameter to be passed to hvm_load().
+IOW I'd still like to do all checking before all loading (in the longer
+run, that is i.e. after individual handlers have been adapted). Would that
+be okay with you?
 
 Jan
 
