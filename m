@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E887080CD0C
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 15:07:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652133.1017845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3874180CD19
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 15:07:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652134.1017852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCgwZ-0005de-Si; Mon, 11 Dec 2023 14:07:35 +0000
+	id 1rCgwa-0005na-Eg; Mon, 11 Dec 2023 14:07:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652133.1017845; Mon, 11 Dec 2023 14:07:35 +0000
+Received: by outflank-mailman (output) from mailman id 652134.1017852; Mon, 11 Dec 2023 14:07:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCgwZ-0005Y2-NA; Mon, 11 Dec 2023 14:07:35 +0000
-Received: by outflank-mailman (input) for mailman id 652133;
- Mon, 11 Dec 2023 14:07:34 +0000
+	id 1rCgwa-0005dh-8k; Mon, 11 Dec 2023 14:07:36 +0000
+Received: by outflank-mailman (input) for mailman id 652134;
+ Mon, 11 Dec 2023 14:07:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vrFX=HW=huaweicloud.com=yukuai1@srs-se1.protection.inumbo.net>)
- id 1rCgwY-0003xQ-8F
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 14:07:34 +0000
+ id 1rCgwZ-0003xQ-8H
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 14:07:35 +0000
 Received: from dggsgout11.his.huawei.com (unknown [45.249.212.51])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ecb38db-982e-11ee-98e8-6d05b1d4d9a1;
- Mon, 11 Dec 2023 15:07:32 +0100 (CET)
-Received: from mail.maildlp.com (unknown [172.19.93.142])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Spk8Z5RMbz4f3kjm
- for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 22:07:26 +0800 (CST)
+ id 9fba93b2-982e-11ee-98e8-6d05b1d4d9a1;
+ Mon, 11 Dec 2023 15:07:33 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.163.235])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Spk8c2FbGz4f3kKT
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 22:07:28 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.112])
- by mail.maildlp.com (Postfix) with ESMTP id E9B8D1A07B6
- for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 22:07:27 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTP id 7B0831A0A65
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 22:07:29 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP1 (Coremail) with SMTP id cCh0CgDn6xGTF3dlDYFxDQ--.28013S10;
- Mon, 11 Dec 2023 22:07:27 +0800 (CST)
+ by APP1 (Coremail) with SMTP id cCh0CgDn6xGTF3dlDYFxDQ--.28013S11;
+ Mon, 11 Dec 2023 22:07:28 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,7 +45,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ecb38db-982e-11ee-98e8-6d05b1d4d9a1
+X-Inumbo-ID: 9fba93b2-982e-11ee-98e8-6d05b1d4d9a1
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: axboe@kernel.dk,
 	roger.pau@citrix.com,
@@ -97,18 +97,18 @@ Cc: linux-block@vger.kernel.org,
 	yukuai1@huaweicloud.com,
 	yi.zhang@huawei.com,
 	yangerkun@huawei.com
-Subject: [PATCH RFC v2 for-6.8/block 06/18] scsicam: use bdev api in scsi_bios_ptable()
-Date: Mon, 11 Dec 2023 22:05:40 +0800
-Message-Id: <20231211140552.973290-7-yukuai1@huaweicloud.com>
+Subject: [PATCH RFC v2 for-6.8/block 07/18] bcachefs: remove dead function bdev_sectors()
+Date: Mon, 11 Dec 2023 22:05:41 +0800
+Message-Id: <20231211140552.973290-8-yukuai1@huaweicloud.com>
 X-Mailer: git-send-email 2.39.2
 In-Reply-To: <20231211140552.973290-1-yukuai1@huaweicloud.com>
 References: <20231211140552.973290-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:cCh0CgDn6xGTF3dlDYFxDQ--.28013S10
-X-Coremail-Antispam: 1UD129KBjvdXoW7XFWrKrykKr43Jr15KryrCrg_yoW3urb_CF
-	WS9ryxWr18KFs7Kwn8tF47Zryvvan8XF1I9FWSqa4Svr1UXrn5Kw4vvr17Zr47Gr4kJ3Z3
-	CF17XrWakrsrujkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+X-CM-TRANSID:cCh0CgDn6xGTF3dlDYFxDQ--.28013S11
+X-Coremail-Antispam: 1UD129KBjvdXoWrZFyrKrWkuF1fAw4fZrWUurg_yoW3Wrc_KF
+	nY9F17Ww4SqF9Y93W2qr1vvr4Y93yDXrW2gFs0v3W7G3WDArZ5ZFZ5KrW5Zrsru397uFy7
+	X3yxJrW29ryFkjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
 	9fnUUIcSsGvfJTRUUUbqkFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
 	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAVCq3wA2048vs2
 	IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28E
@@ -127,31 +127,29 @@ X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 
 From: Yu Kuai <yukuai3@huawei.com>
 
-Avoid to access bd_inode directly, prepare to remove bd_inode from
-block_devcie.
+bdev_sectors() is not used hence remove it.
 
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/scsi/scsicam.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ fs/bcachefs/util.h | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/drivers/scsi/scsicam.c b/drivers/scsi/scsicam.c
-index e2c7d8ef205f..9617d70c0ed1 100644
---- a/drivers/scsi/scsicam.c
-+++ b/drivers/scsi/scsicam.c
-@@ -32,11 +32,9 @@
-  */
- unsigned char *scsi_bios_ptable(struct block_device *dev)
- {
--	struct address_space *mapping = bdev_whole(dev)->bd_inode->i_mapping;
- 	unsigned char *res = NULL;
--	struct folio *folio;
-+	struct folio *folio = bdev_read_folio(bdev_whole(dev), 0);
+diff --git a/fs/bcachefs/util.h b/fs/bcachefs/util.h
+index 2984b57b2958..22a0acc1704f 100644
+--- a/fs/bcachefs/util.h
++++ b/fs/bcachefs/util.h
+@@ -516,11 +516,6 @@ static inline unsigned fract_exp_two(unsigned x, unsigned fract_bits)
+ void bch2_bio_map(struct bio *bio, void *base, size_t);
+ int bch2_bio_alloc_pages(struct bio *, size_t, gfp_t);
  
--	folio = read_mapping_folio(mapping, 0, NULL);
- 	if (IS_ERR(folio))
- 		return NULL;
- 
+-static inline sector_t bdev_sectors(struct block_device *bdev)
+-{
+-	return bdev->bd_inode->i_size >> 9;
+-}
+-
+ #define closure_bio_submit(bio, cl)					\
+ do {									\
+ 	closure_get(cl);						\
 -- 
 2.39.2
 
