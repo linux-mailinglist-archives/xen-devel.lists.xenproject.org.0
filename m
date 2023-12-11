@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7A080C6E6
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 11:42:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.651640.1017415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B44A80C6FD
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 11:46:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.651646.1017425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCdji-0004xQ-QJ; Mon, 11 Dec 2023 10:42:06 +0000
+	id 1rCdnm-0005YF-AL; Mon, 11 Dec 2023 10:46:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 651640.1017415; Mon, 11 Dec 2023 10:42:06 +0000
+Received: by outflank-mailman (output) from mailman id 651646.1017425; Mon, 11 Dec 2023 10:46:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCdji-0004uI-Nd; Mon, 11 Dec 2023 10:42:06 +0000
-Received: by outflank-mailman (input) for mailman id 651640;
- Mon, 11 Dec 2023 10:42:05 +0000
+	id 1rCdnm-0005Vg-75; Mon, 11 Dec 2023 10:46:18 +0000
+Received: by outflank-mailman (input) for mailman id 651646;
+ Mon, 11 Dec 2023 10:46:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ojZ6=HW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rCdjh-0004uC-Kt
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 10:42:05 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1rCdnk-0005Uo-PD
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 10:46:16 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ebe6dfb2-9811-11ee-9b0f-b553b5be7939;
- Mon, 11 Dec 2023 11:42:03 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40c29f7b068so40711345e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 02:42:03 -0800 (PST)
+ id 819dc5d1-9812-11ee-9b0f-b553b5be7939;
+ Mon, 11 Dec 2023 11:46:14 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-40b27726369so45944615e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 02:46:14 -0800 (PST)
 Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
- bd21-20020a05600c1f1500b0040c25abd724sm14974409wmb.9.2023.12.11.02.42.02
+ ay35-20020a05600c1e2300b0040b2b38a1fasm12621649wmb.4.2023.12.11.02.46.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 Dec 2023 02:42:02 -0800 (PST)
+ Mon, 11 Dec 2023 02:46:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,171 +44,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebe6dfb2-9811-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 819dc5d1-9812-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1702291323; x=1702896123; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1702291574; x=1702896374; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=rWtIUHPFqn7WJxyEsBDvSeke1O52VvQsil65m7fexPg=;
-        b=fLoqfSlmtrMEv3zej3MYoLhRM/BiFDygsqdeTBROnsWvNC5qfXxo07RY4Fbh0udmWO
-         tefGijsKC6sMY85bCsMpyc8n0Gr1+0qpTSQfMaJYL7wDst8HkMJQyEnavlLsouq0vZUE
-         wXoXwg5jbwqRcoTMNvDGOZICd5B5Bt8i0m8pg=
+        bh=6kY1G0UYuo0Sln2JCppCjtL7Z6jveHyI9yioNk2/OZ4=;
+        b=KpMmiHSg9Oc6zeao/L2Ih92mWDWiHF5NoKNCoRmhWQZjmrcbbwucEL1SsH4sdEJ0Lb
+         bPUPPLvrTDVmGzGjHNyLgypEGj767lq3S5kFAqgZei+iDswSQbVUYuXMsQjAyff8cSRU
+         WeW0Jxb7x92qQUBV/Ca7aOpXj7+LOKnDBMy5A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702291323; x=1702896123;
+        d=1e100.net; s=20230601; t=1702291574; x=1702896374;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rWtIUHPFqn7WJxyEsBDvSeke1O52VvQsil65m7fexPg=;
-        b=jgyNbb/kAVVypWHwzmRJQWTrZUIgLRQ15jwPeIELsGegtd1o+8v6O1XbFX54Pe+dZF
-         zsbZ4VOVesheQFJBd3SEZuNXwzgsTTOgMfpvgXOPquHLCz4OW6s4vV8N2ieM6n9yNcgM
-         0G6qMBxgSuO6K9HaJpRn4sFfjO2y+OjOdw5Y8FiH4ZHzaMpx6sAbrSoIRUpjLD/cXcMr
-         VndccunG+qzxLC7PrsqxlmxGOOkCpC3VlUb0QmjfJc0AgFbr3cf3r9HWvLkSgCl5uyhi
-         kx//+lOkQMLMx5fJLret6Uyaf+gPepOax+m+tViSfz3d+EpncYmd2vdVkbeEQ2li3fX9
-         DGgw==
-X-Gm-Message-State: AOJu0Ywsvxzg87nP6IQO6vvOxNrW0dg9J7kALzsUQUMjOJIz6OIUv1Yo
-	pbCjNTOW5LY5D4+89Vq/7u031w==
-X-Google-Smtp-Source: AGHT+IFpZBDaEqaKSYQ3iTDYpVLz3inS6PmeDBilIUZ7h6A3ZDb1rhs48hPPAK4F6W7yTO8OvH32WQ==
-X-Received: by 2002:a05:600c:3011:b0:40b:5e59:b7d2 with SMTP id j17-20020a05600c301100b0040b5e59b7d2mr1932684wmh.175.1702291322956;
-        Mon, 11 Dec 2023 02:42:02 -0800 (PST)
-Date: Mon, 11 Dec 2023 11:42:01 +0100
+        bh=6kY1G0UYuo0Sln2JCppCjtL7Z6jveHyI9yioNk2/OZ4=;
+        b=VD8mim2dWs/nGhs2nnO25S8r21250B+CYKeFpoKNotiG7YWazHPB8rDqEzy77duLl6
+         dUEMXfYp0n1wIzP9peaxJ3NFwW9sg9o4mZxr8Suz+ixJMvPrzLBko+J3iVI2A9oNdIKx
+         mhjO8p7d6DaUo+MNwAclqrw5LCESuaCbdPQSsaaGfO/86sa0fcS1nHapGs0p/J5LTNFO
+         FNimHtk0iAxIDnopMm2Raqp2xQKWf6lOA6qBB2biuJ7+bKWo8aXv8IKDFW9XgkdU6ayP
+         hz7nZ8zZGyPIQkeHbnImBt8OvlvqQtH+lSUo3VpFGtyBk8HJetgw+9595LP3aSBhAMWs
+         VFIQ==
+X-Gm-Message-State: AOJu0YwLCyo+y9U6QxzDXRWpGjO2DeaPG07pmeIQG+o5XakBHvWLb6QV
+	kzx0z1wKRH5dwC5K2rJXVlmKKg==
+X-Google-Smtp-Source: AGHT+IEDo2gxs5YDFu8ldk07w7vKmQXLTB8IipVtNeDnGw3fUyRDbs6RtP1BYpA9RPCB3pu9jOAung==
+X-Received: by 2002:a05:600c:2e42:b0:40c:314a:426 with SMTP id q2-20020a05600c2e4200b0040c314a0426mr2155657wmf.156.1702291574221;
+        Mon, 11 Dec 2023 02:46:14 -0800 (PST)
+Date: Mon, 11 Dec 2023 11:46:12 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Ross Lagerwall <ross.lagerwall@cloud.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Subject: Re: [PATCH] livepatch-build-tools: allow livepatching version.c
-Message-ID: <ZXbneT2XGoj8CtMW@macbook>
-References: <20231205123403.63813-1-roger.pau@citrix.com>
- <824c50c3-ad3f-4d97-a3e8-5343564cbde5@citrix.com>
- <ZW86TOTFn3JZswUO@macbook>
- <CAG7k0Eq72v7Y5HN+dckAkiL4+RHHUOaVCMW0TGwKdWa9wOeTMA@mail.gmail.com>
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v3 2/6] x86/HVM: split restore state checking from state
+ loading
+Message-ID: <ZXbodK0CcT5U1i5V@macbook>
+References: <49a17ffa-c873-4b0f-81ed-9587053ca159@suse.com>
+ <dcc726f5-634e-4b48-aa8f-d477cdc8dea9@suse.com>
+ <ZW4L5Q4SMprtmbK-@macbook>
+ <5f7c43ca-dfc4-4929-8776-6985e610e154@suse.com>
+ <ZW8zyXkUJDKVt-HX@macbook>
+ <2ded19f7-2ba6-4b1c-8752-a73894dcdae0@suse.com>
+ <ZW9H1uE_6k3d-uWn@macbook>
+ <21cdb9ad-81f5-497a-bfd8-ef6aea5906e2@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG7k0Eq72v7Y5HN+dckAkiL4+RHHUOaVCMW0TGwKdWa9wOeTMA@mail.gmail.com>
+In-Reply-To: <21cdb9ad-81f5-497a-bfd8-ef6aea5906e2@suse.com>
 
-On Wed, Dec 06, 2023 at 12:11:39PM +0000, Ross Lagerwall wrote:
-> On Tue, Dec 5, 2023 at 2:57 PM Roger Pau Monné <roger.pau@citrix.com> wrote:
-> >
-> > On Tue, Dec 05, 2023 at 02:15:05PM +0000, Andrew Cooper wrote:
-> > > On 05/12/2023 12:34 pm, Roger Pau Monne wrote:
-> > > > Currently version.o is explicitly ignored as the file would change as a result
-> > > > of the orignal and the patched build having possibly different dates and
-> > > > times.
-> > > >
-> > > > Fix such difference by exporting the date and time from the build script, so
-> > > > that both builds share the same build time.  This allows checking for changes
-> > > > in version.c, since the rest of fields need to be manually changed in order to
-> > > > produce different output.
-> > > >
-> > > > Setting XEN_BUILD_{DATE,TIME} as an environment variable has been supported
-> > > > since before livepatch support was added to Xen, so it's safe to export those
-> > > > variables unconditionally.
-> > > >
-> > > > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > > > ---
-> > > >  livepatch-build | 4 ++++
-> > > >  livepatch-gcc   | 2 --
-> > > >  2 files changed, 4 insertions(+), 2 deletions(-)
-> > > >
-> > > > diff --git a/livepatch-build b/livepatch-build
-> > > > index e2ccce4f7fd7..f622683fc56c 100755
-> > > > --- a/livepatch-build
-> > > > +++ b/livepatch-build
-> > > > @@ -417,6 +417,10 @@ if [ "${SKIP}" != "build" ]; then
-> > > >
-> > > >      export CROSS_COMPILE="${TOOLSDIR}/livepatch-gcc "
-> > > >
-> > > > +    # Force same date and time to prevent unwanted changes in version.c
-> > > > +    export XEN_BUILD_DATE=`LC_ALL=C date`
-> > > > +    export XEN_BUILD_TIME=`LC_ALL=C date +%T`
-> > >
-> > > Date is the one that goes wrong every time, but everything else in
-> > > compile.h can go wrong in a way that causes version.o to change.
-> >
-> > I've attempted to reflect that in "since the rest of fields need to be
-> > manually changed in order to produce different output".
-> >
-> > For those to change there must be some kind of environment change
-> > between the original and the patched version build, and hence I don't
-> > think that would be supported.
+On Wed, Dec 06, 2023 at 08:27:59AM +0100, Jan Beulich wrote:
+> On 05.12.2023 16:55, Roger Pau Monné wrote:
+> > On Tue, Dec 05, 2023 at 03:59:13PM +0100, Jan Beulich wrote:
+> >> On 05.12.2023 15:29, Roger Pau Monné wrote:
+> >>> On Tue, Dec 05, 2023 at 09:52:31AM +0100, Jan Beulich wrote:
+> >>>> On 04.12.2023 18:27, Roger Pau Monné wrote:
+> >>>>> On Tue, Nov 28, 2023 at 11:34:04AM +0100, Jan Beulich wrote:
+> >>>>>> ..., at least as reasonably feasible without making a check hook
+> >>>>>> mandatory (in particular strict vs relaxed/zero-extend length checking
+> >>>>>> can't be done early this way).
+> >>>>>>
+> >>>>>> Note that only one of the two uses of hvm_load() is accompanied with
+> >>>>>> hvm_check(). The other directly consumes hvm_save() output, which ought
+> >>>>>> to be well-formed. This means that while input data related checks don't
+> >>>>>> need repeating in the "load" function when already done by the "check"
+> >>>>>> one (albeit assertions to this effect may be desirable), domain state
+> >>>>>> related checks (e.g. has_xyz(d)) will be required in both places.
+> >>>>>>
+> >>>>>> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+> >>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>>>>> ---
+> >>>>>> Do we really need all the copying involved in use of _hvm_read_entry()
+> >>>>>> (backing hvm_load_entry()? Zero-extending loads are likely easier to
+> >>>>>> handle that way, but for strict loads all we gain is a reduced risk of
+> >>>>>> unaligned accesses (compared to simply pointing into h->data[]).
+> >>>>>
+> >>>>> See below, but I wonder whether the checks could be performed as part
+> >>>>> of hvm_load() without having to introduce a separate handler and loop
+> >>>>> over the context entries.
+> >>>>
+> >>>> Specifically not. State loading (in the longer run) would better not fail
+> >>>> once started. (Imo it should have been this way from the beginning.) Only
+> >>>> then will the vCPU still be in a predictable state even after a possible
+> >>>> error.
+> >>>
+> >>> Looking at the callers, does such predictable state after failure
+> >>> matter?
+> >>>
+> >>> One caller is an hypercall used by the toolstack at domain create,
+> >>> failing can just lead to the domain being destroyed.  The other caller
+> >>> is vm fork, which will also lead to the fork being destroyed if
+> >>> context loading fails.
+> >>>
+> >>> Maybe I'm overlooking something.
+> >>
+> >> You don't (I think), but existing callers necessarily have to behave the
+> >> way you describe. From an abstract perspective, though, failed state
+> >> loading would better allow a retry. And really I thought that when you
+> >> suggested to split checking from loading, you had exactly that in mind.
+> > 
+> > Not really TBH, because I didn't think that much on a possible
+> > implementation when proposing it.
 > 
-> In general, yes. However, with this patch changes to the
-> hostname/domain/username would result in version.o being marked
-> as changed even though it is entirely fine to build the live patch
-> on a different build host from the original Xen.
+> But what else did you think of then in terms of separating checking from
+> loading?
 
-Keep in mind livepatch-build-tools builds it's base version of Xen and
-then a patched version, and that's how the diff is performed.  For the
-hostname/domain/username changes to appear on the livepatch payload
-such change would need to happen in the muddle of the execution of
-livepatch-build.
+Just calling the check and load functions inside of the same loop was
+my initial thought.
 
-This change doesn't prevent building the original Xen on a different
-host than the one building the livepatch, and the
-hostname/domain/username changes won't be part of the livepatch
-payload.
-
-> >
-> > > Ideally, the pristine source for building livepatches would include a
-> > > generated compile.h, and livepatch would have a way to force no
-> > > regeneration of the header.  But I've got no idea how nice that would be
-> > > to arrange.
-> >
-> > Yes, no idea how fragile that would be either.  IMO the proposed
-> > approach is not that bad.
-> >
-> > > That way, you're using the same details as the Xen being patched, rather
-> > > than hoping that two identical different details will cancel out in the
-> > > binary diff.
-> >
-> > Another option is to set all the env variables to disable any
-> > build time probing.  However things like compiler or version changing
-> > between the original and the patched builds likely point out to issues
-> > elsewhere, unless it's intentional modification of the helpers.
-> >
-> > > > +
-> > > >      echo "Perform full initial build with ${CPUS} CPU(s)..."
-> > > >      build_full
-> > > >
-> > > > diff --git a/livepatch-gcc b/livepatch-gcc
-> > > > index fcad80551aa0..e4cb6fb59029 100755
-> > > > --- a/livepatch-gcc
-> > > > +++ b/livepatch-gcc
-> > > > @@ -33,7 +33,6 @@ if [[ "$TOOLCHAINCMD" =~ $GCC_RE ]] ; then
-> > > >              obj=$2
-> > > >              [[ $2 = */.tmp_*.o ]] && obj=${2/.tmp_/}
-> > > >              case "$(basename $obj)" in
-> > > > -            version.o|\
-> > > >              debug.o|\
-> > > >              check.o|\
-> > >
-> > > Tangential question.  check.o is excluded because it's a toolchain test,
-> > > but any idea what debug.o is doing in this list?
-> > >
-> > > It can't possibly be the debug.c I've recently added to x86 (which we'll
-> > > want to be able to livepatch), so I guess it's got something to do the
-> > > ARM debug.S's, but I can't see anything in those that are worthy of
-> > > exemption either...
-> >
-> > Hm, that comes from the first commit that imported the wrapper to the
-> > repository, and at that point only x86 had livepatch support.
-> >
-> > I'm tempted to think this was inherited from the original xsplice
-> > tooling, and so debug.o needs to be removed from the list.
-> >
+> > Maybe a suitable compromise would be to reset the state to the initial
+> > (at domain build) one on failure?
 > 
-> livepatch-build-tools is derived from the kpatch build tooling and
-> debug.o has never been present there so it was added here for a
-> reason. AFAICT the gdbsx code used to live in debug.o. I can't
-> recall why it was being marked as changed unnecessarily but since
-> that is no longer an issue and the code lives elsewhere, the debug.o
-> lines can be dropped.
+> That's an option, sure.
+> 
+> > I do dislike the duplicated loops, as it seems like a lot of duplicate
+> > boilerplate code, and I have fears of it going out of sync.
+> 
+> There's a certain risk, yes, but that exists similarly with the save and
+> load sides imo.
 
-Will someone send a patch for this, or should I do it?
+Hm, yes, albeit I have the feeling those are not as similar as the
+proposed check and load loops.
 
 Thanks, Roger.
 
