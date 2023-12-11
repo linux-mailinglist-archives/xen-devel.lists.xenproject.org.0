@@ -2,35 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F66C80D3A7
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 18:24:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652438.1018272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B34E80D3BA
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 18:27:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652442.1018283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCk0Z-0007VA-TT; Mon, 11 Dec 2023 17:23:55 +0000
+	id 1rCk3n-0008KE-Bk; Mon, 11 Dec 2023 17:27:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652438.1018272; Mon, 11 Dec 2023 17:23:55 +0000
+Received: by outflank-mailman (output) from mailman id 652442.1018283; Mon, 11 Dec 2023 17:27:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCk0Z-0007Qd-Qx; Mon, 11 Dec 2023 17:23:55 +0000
-Received: by outflank-mailman (input) for mailman id 652438;
- Mon, 11 Dec 2023 17:23:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rCk3n-0008I7-8o; Mon, 11 Dec 2023 17:27:15 +0000
+Received: by outflank-mailman (input) for mailman id 652442;
+ Mon, 11 Dec 2023 17:27:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h7WS=HW=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1rCk0Y-0007QS-Px
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 17:23:54 +0000
-Received: from sonic309-21.consmr.mail.gq1.yahoo.com
- (sonic309-21.consmr.mail.gq1.yahoo.com [98.137.65.147])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0cedf2fe-984a-11ee-98e8-6d05b1d4d9a1;
- Mon, 11 Dec 2023 18:23:52 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic309.consmr.mail.gq1.yahoo.com with HTTP; Mon, 11 Dec 2023 17:23:50 +0000
-Received: by hermes--production-ne1-d6bdb9d86-bq8gp (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 8fa80777334a5ec028d3b46dd4fa0965; 
- Mon, 11 Dec 2023 17:23:45 +0000 (UTC)
+ (envelope-from <SRS0=El9v=HW=suse.cz=jack@srs-se1.protection.inumbo.net>)
+ id 1rCk3l-0008I1-CR
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 17:27:13 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 844221c4-984a-11ee-9b0f-b553b5be7939;
+ Mon, 11 Dec 2023 18:27:11 +0100 (CET)
+Received: from imap2.dmz-prg2.suse.org (imap2.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:98])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B84E5223DB;
+ Mon, 11 Dec 2023 17:27:09 +0000 (UTC)
+Received: from imap2.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap2.dmz-prg2.suse.org (Postfix) with ESMTPS id 9A588134B0;
+ Mon, 11 Dec 2023 17:27:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap2.dmz-prg2.suse.org with ESMTPSA id DhppJW1Gd2WxHQAAn2gu4w
+ (envelope-from <jack@suse.cz>); Mon, 11 Dec 2023 17:27:09 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 0511CA07E3; Mon, 11 Dec 2023 18:27:08 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,184 +54,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cedf2fe-984a-11ee-98e8-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netscape.net; s=a2048; t=1702315430; bh=wOYd6rmc4vW1gAUjHEGbGy8A5Kj7ze7p+NlB4ba2pug=; h=Date:Subject:To:References:From:In-Reply-To:From:Subject:Reply-To; b=ccECvILhR+PvMKx7mE4jTEkRluZkYwZJqmjuWT4XLsg4nKcPEPxAcNzlKkdKfOWS7++RMOr2IJrNoT4KglgQzoyv749SwnfIar2wbM1pI8s/BcVGaegFghMuQWMok08tQtMFAzezB/8ROi2eDnC6Apful+ytmNgW6f/JIRS4lUuqZbaIboZLR1YRLjGpcILei/Mctp/eTTVozzL3IARexja+Hm9k1r7QsLx9wUpGctvgaNPclI2kCV1PvJzP0sW3D3JeAXo0IOJPKp9snT+gA7MkOfaGoazTvRBrClPUVrGGk7BKzMF4fz/OnStcZkA7EFviJMdx4akt8AJPduxAxA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1702315430; bh=SikCK44oapX6rj4ATLUi4+tYQcB9kMcWVvA0xL+GlZT=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=Sz+RNqY4/jSLX2HiWpfFUkS3TNo8tA5bNTbOZFRXeyVJ5HHLubbvPxZSTzRiLbw68P8hToWyINZ9Svz/xq1gkOPutfn8IENGx7sM/aSA6To6iumS1gqbYiFfI4/zVGXEjjatIKCYX/WVJd6s5sEzXJuQBommv3v8S0UCl45TwEY9+IVkP8ZdE90w2ejtvyaMJB8i2o0FaQere5E4/3BYGAolYMED5GAeixRBYVVg7KK8NqQJx2EOZLJvhNnNAaeWdEeC9YGJ+smvK+CZsKIRQQ0ht7LyNEtQWGlBKz50mctr5ETuXMGw/8ahonJXDED1JPEufyXdl7P7iVkunWwl2g==
-X-YMail-OSG: o_CutlYVM1m77CFceVYzy4PoT6FSZp7Ed96cwUKm4_c0MN61gGSI1Z3U38d7UcR
- 9Id9G8QEgsl8tyVIvV5vqLLPTE6LctdWEFKHFNKSOeEpMmCKQix0Dvr9Eu2UF_OsTDVwmkGfpfhv
- Qit2AOzLzc8oxxVQkRsqe64xIR9ha8FCt3u3zDtTBEEFmUE3mm8k0gzmR5IH6ELuEql4eFRddggm
- SfgZMOJiNbiAFxP3ASgO5EYh6N69AzDltQuzPQ7XkaC2nTzUDuBHqu63AEZ4S1fciz1qPubDHZi1
- XGCvxNOpR56MmCvC6xcvc9IXBySYn4QpQDCLQO.u8wnN1cNqTXli3MYLRcqmu28CKU57SE7OLxCK
- sZ8zYCvB9LExdiYuo609WSLmzvoiIUNuMAcDZlX3Pf6LiTQzUKGObGqF1K7fUq5Klb4KTDKRWjfo
- KGmznl15DPsquQScJfA74Bua.KfT8ZMAMIklXLN3Wc0rpIaUC2i9R9fo43vjGCT2UGSRxHnfslVm
- PwoUbiHkntk5rUjRPZpdBzOn.Rs3ux.hpiRjbn9TpSQft_nmD6xpoyd3Haq2TTws3MXW6OpwVMP8
- Yqkm5vmNQbXOBCNyVUdYGpifhXcbNNG3GTdz40yVIW4nuHvxoTtCUZ3FipkRtSIqvj72EwN5klJI
- nRravXuyO_i_EX2Q3G.KvXUvC16fSwQcRa9ZwQ4yLEY3.aZZxx6B52kbS4D7DWxGudcoPqLAe5xC
- 1jCMele4ubVXGW8s5LAA9iaE21EiDNidboAoTtsUxgAcsk4Y7rnAlKplY_oTGf4tHVALUPWbQ_.C
- W5XPWVztkOjIO2ri4HqYnaCqUJQxEPO0_knGFMkCwosTlHPcPhKwPHT3y1ooM0RAy6sJ18S.Pus7
- m3.Mk7eKvk2GGKO2tixQIWS7gQB8zq26i9aMfxCTtmbDWXzQXA024k5Kx6SvLb4VQ.gNoeTWWiQc
- t8WT4cDLZSzsLJwHsIu7H13xTiZ5JxQ83h5Nblgqs.mEMkCpKgDCDuFIyezaP9Dl.Sk3Vp_KvP59
- 57nAKDi29SM7ZM3E7zfaYuIgZgYv4siU63A1NM8TeABR4qkmc_cUDGN6ssDjHDd6DaWKKl_sINuu
- 4ELi6d5YfgFpbw0atiRGsFw6IXecfIWcDkg_0iJaqWnTps2ehb5IvUdzUfWWqkZ.sclIKYGWF.JK
- OI7B2H.TWh0jQcHBxfQaNYKYqvtcZZhROPpmmPNfo00fK5UdZoIYkYHIoexFEMmpFntgFWq.IIro
- Qrc3I3FKXXYoBd1_mKkYKWMrbi9xSy_zokKUkEnrLJ8cm6IXusHJe9tbZ4y1ibwS6hBhF9yJE9Gg
- TpPfQB2WRozRsUY_SkD8g1ToJK23Rlc8FncY.y6wAqBbChatq4t3aI4IjtlLXGUhV2W00vfZiEvW
- 7reyUOZUSaKT6eGUmu9mFCRDzpt9uMH4ylEVhUgsTVTn.0J0utPjqnppZYr1cHLJG97YJeJrushS
- FRcLSzB3LxG45K.MqEegNSXRGYn_iTYnWl6VGaIKJ89ep_uR0u5yzbunB6EEGey6j0lDjKWyzqeQ
- WKTBjDRldqak8SWiKyQ1jXW5hhkGLnuTA_3cfjkwLe6c7bLVYVgRO_qFRuUlWcm97fPm9nyTLwms
- zczy.59.yNYRlP7y1Sgnn8L0bX5kv2e4GYTQhf.zwM2t1_dqMFWNu0ylV6AE3nRr2psmJnZzyUg4
- IaULQcnTtWxmO4dFajQcdCLTpqK1k6pgVpHrpcCA04rPd3NbRk3P7mKluvkQC8DXd_lL4AKLWHM9
- .isfXIgz7TAZ5LlDIfjmdxxx01CflFZ0JEjDjuWEpVf6g0QTjH.VBToqfNgZvuWsjm6AzK2gL1Mp
- zFdCo46nFyJ40RbEPBG141mya_Y7aQOTXIG4PS.S2sYxxjLmxm5XTaXqNrj9bVaSDriz6HJc_vBG
- LoTulgNHK2wZC4N7GrNwo.EOwSC5jWTDke2LN9cft0_JDKEBUbnIUK.gVaR.zvsPBAm_pssgJzlk
- 8wsoGPd7XzgGP0gy960H2j3kFiVlkWww1TC.ZtALZUnrC_Fnb3TpRRGF4J2ANGh39HuSOQMYXRSK
- PS.HefYh7zbiHjK8EeZdW0apLxe9sXGaE7y.nw88x6anBoKTl0e.zeAfE1tqf8oYGLshdUIQMopK
- GNwSLV9G9MDOLVi_PsYIOK.KgEZZOuKK93wjGYGZkQZgUtPG9LOiY6Zzk9xjSxUJp1DrKYYNkl.e
- 0Jbi4Oqf6FBNBcw--
-X-Sonic-MF: <brchuckz@aim.com>
-X-Sonic-ID: 155c52e0-45a0-4ca0-bd56-48934e07c54e
-Message-ID: <300b7e2b-068a-4cac-a617-ae41caa6d3b9@netscape.net>
-Date: Mon, 11 Dec 2023 12:23:44 -0500
+X-Inumbo-ID: 844221c4-984a-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1702315630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uuXeYcPGrieZET/Hl977sPLVwbUrIJA1zejD9mT3ogI=;
+	b=KJ4efM9E+sa33aFAd8jwg5VXmnjMxleP6CmyD1Z0i97ow/IMJQBSqYXPh1ej+xavVwSRP4
+	Yg1lz/fUikUZbf1u2+vXr2RJE2evTJgLdRHZp8PKCuknSrpV2KnjDsWgIdBkLdxCyxxQjh
+	RNp4pJOJa1FNsc52gTMd8s7goQjnjEc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1702315630;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uuXeYcPGrieZET/Hl977sPLVwbUrIJA1zejD9mT3ogI=;
+	b=TO6pszgbMWjR3gBZnaW4MEVQ+gbRax/0poyUFFXjotFHInDoOr+qN7/2TD3A7ZbLly3/IT
+	YRHLNJGFEpFf+TBw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1702315629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uuXeYcPGrieZET/Hl977sPLVwbUrIJA1zejD9mT3ogI=;
+	b=wzXbksvRNiCb4BbXMMBxbEnY6iRN/20VAk4MCpHS3Rljj8T26a7bGIb5ufMVkyXIF6ZR91
+	EvfGBjSwf9A5O7MLBegJl4BM0+huE5fNoBm4jZzLIFLmDT7FuH6vs9QkRAvxTJx13mPPRM
+	NuBUsypYbVCpDejdowVksfEijuMTCJg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1702315629;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uuXeYcPGrieZET/Hl977sPLVwbUrIJA1zejD9mT3ogI=;
+	b=k3338zTO3EpETkE8li6Dp/0dY97GEZjygMS4ZhvDNl1b1VwUfwBL4jBi4Swo7FgrfAdnP+
+	7OISWgzg4D5XlXAQ==
+Date: Mon, 11 Dec 2023 18:27:08 +0100
+From: Jan Kara <jack@suse.cz>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
+	kent.overstreet@gmail.com, joern@lazybastard.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
+	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
+	dsterba@suse.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	nico@fluxnic.net, xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
+	adilger.kernel@dilger.ca, agruenba@redhat.com, jack@suse.com,
+	konishi.ryusuke@gmail.com, willy@infradead.org,
+	akpm@linux-foundation.org, p.raghav@samsung.com, hare@suse.de,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
+	gfs2@lists.linux.dev, linux-nilfs@vger.kernel.org,
+	yukuai3@huawei.com, yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: Re: [PATCH RFC v2 for-6.8/block 15/18] buffer: add a new helper to
+ read sb block
+Message-ID: <20231211172708.qpuk4rkwq4u2zbmj@quack3>
+References: <20231211140552.973290-1-yukuai1@huaweicloud.com>
+ <20231211140753.975297-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: xc_dom_guest_type: image not capable of booting inside a HV M
- container: Invalid kernel
-To: Mario Marietto <marietto2008@gmail.com>,
- Elliott Mitchell <ehem+freebsd@m5p.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- xen-users-request@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <CA+1FSiii2etikw9LKdJ5Ebn+z-3-e5UXh3cJjBgYGJYtq3q=Ww@mail.gmail.com>
-Content-Language: en-US
-From: Chuck Zmudzinski <brchuckz@netscape.net>
-In-Reply-To: <CA+1FSiii2etikw9LKdJ5Ebn+z-3-e5UXh3cJjBgYGJYtq3q=Ww@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.21943 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231211140753.975297-1-yukuai1@huaweicloud.com>
+X-Spam-Score: 16.16
+X-Spam-Flag: NO
+X-Spam-Level: *********
+X-Spamd-Bar: +++++++++
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=wzXbksvR;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=k3338zTO;
+	dmarc=none;
+	spf=softfail (smtp-out1.suse.de: 2a07:de40:b281:104:10:150:64:98 is neither permitted nor denied by domain of jack@suse.cz) smtp.mailfrom=jack@suse.cz
+X-Rspamd-Server: rspamd2
+X-Spamd-Result: default: False [9.46 / 50.00];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 R_SPF_SOFTFAIL(4.60)[~all];
+	 R_RATELIMIT(0.00)[to_ip_from(RLa8hd5fybgmzcyr9mhbq8ey7y)];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_TRACE(0.00)[suse.cz:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_GT_50(0.00)[50];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 ARC_NA(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 FROM_HAS_DN(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DMARC_NA(1.20)[suse.cz];
+	 NEURAL_SPAM_SHORT(2.97)[0.991];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email,huawei.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 FREEMAIL_CC(0.00)[kernel.dk,citrix.com,suse.de,gmail.com,lazybastard.org,bootlin.com,nod.at,ti.com,linux.ibm.com,oracle.com,fb.com,toxicpanda.com,suse.com,zeniv.linux.org.uk,kernel.org,fluxnic.net,mit.edu,dilger.ca,redhat.com,infradead.org,linux-foundation.org,samsung.com,vger.kernel.org,lists.xenproject.org,lists.infradead.org,lists.ozlabs.org,lists.linux.dev,huawei.com];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[]
+X-Spam-Score: 9.46
+X-Rspamd-Queue-Id: B84E5223DB
+X-Spam-Flag: NO
 
-On 12/11/2023 9:02 AM, Mario Marietto wrote:
-> Hello.
+On Mon 11-12-23 22:07:53, Yu Kuai wrote:
+> From: Yu Kuai <yukuai3@huawei.com>
 > 
-> Finally I tried to recompile the FreeBSD kernel using the @Elliott Mitchell <mailto:ehem+freebsd@m5p.com> code because I want to boot FreeBSD as domU with Xen installed on my Arm 32 bit Chromebook. Unfortunately it didn't work at all. Maybe I've missed something / I haven't understood well what to do. Please give me some suggestions.
+> Unlike __bread_gfp(), ext4 has special handing while reading sb block:
 > 
-> Basically this is what I did :
+> 1) __GFP_NOFAIL is not set, and memory allocation can fail;
+> 2) If buffer write failed before, set buffer uptodate and don't read
+>    block from disk;
+> 3) REQ_META is set for all IO, and REQ_PRIO is set for reading xattr;
+> 4) If failed, return error ptr instead of NULL;
 > 
-> $ created a vm called FreeBSD-13.2-RELEASE-armv7.img with qemu / kvm / libvirt / virt-manager
+> This patch add a new helper __bread_gfp2() that will match above 2 and 3(
+> 1 will be used, and 4 will still be encapsulated by ext4), and prepare to
+> prevent calling mapping_gfp_constraint() directly on bd_inode->i_mapping
+> in ext4.
 > 
-> $ within the vm : mkdir /build-xen
-> 
-> $ cd /usr
-> 
-> $ git clone https://gitlab.com/ehem/freebsd-src.git <https://gitlab.com/ehem/freebsd-src.git?fbclid=IwAR09ukOdBXCR3gJznvHWpnWM8VEZqnX1l4ZMza_7lhoAjfPYAGbvcqwjh94>
-> 
-> $ cd freebsd-src
-> 
-> $ make KERNCONF=GENERIC TARGET=arm TARGET_ARCH=armv7 buildkernel
-> 
-> $ make KERNCONF=GENERIC TARGET=arm TARGET_ARCH=armv7 DESTDIR=/build-xen installkernel
-> 
-> $ echo "/dev/xbd0 / ufs rw 1 1" > /mnt/etc/fstab
-> 
-> $ nano /etc/ttys (add the line 'xc0 "/usr/libexec/getty Pc" xterm on secure")
-> 
-> $ renamed the directories dtb to dtb_ and kernel to kernel_ that are inside the /boot dir of the vm
-> 
-> $ copied the directory dtb and kernel from the directory /build-xen to the directory /boot inside the vm
-> 
-> $ shut down the vm
-> 
-> $ copied the directory /build-xen outside of the vm using this method (in this case I used Linux installed on the Host OS,because the kernel that I'm using on the Chromebook has the kernel parameter related to the ufs2 fs set to off) :
-> 
-> on my X64 workstation :
-> 
-> # modprobe ufs
-> 
-> # sudo losetup -fP FreeBSD-13.2-RELEASE-armv7.img
-> 
-> # ls /dev/loop0*
-> 
-> /dev/loop0 /dev/loop0p1 /dev/loop0p2 /dev/loop0p5
-> 
-> # mount -t ufs -o ufstype=ufs2 /dev/loop0p5 ./FreeBSD-xen
-> 
-> then :
-> 
-> # nano freebsd.cfg
-> 
-> kernel="/mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-xen/kernel/kernel"
-> memory=64
-> name="freebsd"
-> vcpus=1
-> autoballon="off"
-> disk=[ 'phy:/dev/loop0,xvda,w' ]
-> # nano start-freebsd
-> losetup -fP FreeBSD-13.2-RELEASE-armv7.img
-> xl create freebsd.cfg
-> xl console freebsd
-> 
-> # ./start-freebsd
-> 
-> Parsing config from freebsd.cfg
-> xc: error: panic: xg_dom_elfloader.c:63: xc_dom_guest_type: image not capable of booting inside a HV
-> M container: Invalid kernel
+> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+...
+> +/*
+> + * This works like __bread_gfp() except:
+> + * 1) If buffer write failed before, set buffer uptodate and don't read
+> + * block from disk;
+> + * 2) Caller can pass in additional op_flags like REQ_META;
+> + */
+> +struct buffer_head *
+> +__bread_gfp2(struct block_device *bdev, sector_t block, unsigned int size,
+> +	     blk_opf_t op_flags, gfp_t gfp)
+> +{
+> +	return bread_gfp(bdev, block, size, op_flags, gfp, true);
+> +}
+> +EXPORT_SYMBOL(__bread_gfp2);
 
-It is detecting the kernel as an elf binary. IIUC, Xen on arm guests should have zImage kernels, not elf.
+__bread_gfp2() is not a great name, why not just using bread_gfp()
+directly? I'm not a huge fan of boolean arguments but three different flags
+arguments would be too much for my taste ;) so I guess I can live with
+that.
 
-> libxl: error: libxl_dom.c:571:libxl__build_dom: xc_dom_parse_image failed
-> libxl: error: libxl_create.c:1640:domcreate_rebuild_done: Domain 1:cannot (re-)build domain: -3
-> libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain 1:Non-existent domain
-> libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain 1:Unable to destroy guest
-> libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain 1:Destruction of domain failed
-> freebsd is an invalid domain identifier (rc=-6)
-> 
-> I have also tried with kernel.bin :
-> 
-> # nano freebsd.cfg
-> 
-> kernel="/mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-xen/kernel/kernel.bin"
-> memory=64
-> name="freebsd"
-> vcpus=1
-> autoballon="off"
-> disk=[ 'phy:/dev/loop0,xvda,w' ]
-> 
-> # ./start-freebsd
-> 
-> Parsing config from freebsd.cfg
-> xc: error: panic: xg_dom_core.c:689: xc_dom_find_loader: no loader found: Invalid kernel
-> libxl: error: libxl_dom.c:571:libxl__build_dom: xc_dom_parse_image failed
-> libxl: error: libxl_create.c:1640:domcreate_rebuild_done: Domain 2:cannot (re-)build domain: -3
-> libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain 2:Non-existent domain
-> libxl: error: libxl_domain.c:1137:domain_destroy_callback: Domain 2:Unable to destroy guest
-> libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain 2:Destruction of domain failed
-> freebsd is an invalid domain identifier (rc=-6)
-> 
-> -- 
-> Mario.
-
-I would be interested to see the output of :
-
-$ file /mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-xen/kernel/kernel
-
-and
-
-$ file /mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-xen/kernel/kernel.bin
-
-I have been trying out Julien's old patch set from 2014, and in there was this patch :
-
-> arm: Add zImage support
-> 
-> Currently Xen on ARM is only supported zImage for guest kernel. Adding support
-> for ARM ELF in the toolstack looks a bit complicate for ARM (though there is
-> an x86 support).
-
-Link to Julien's 2014 patch to provide zImage support for FreeBSD :
-
-https://xenbits.xen.org/gitweb/?p=people/julieng/freebsd.git;a=commit;h=12a7cb346b88c6d3f52a20b98f361dc62797fbcd
-
-When using Julien's patches, from 'file' I find that the kernel file is in
-the elf format, and the kernel.bin file is in the zImage format, so I have
-been trying to boot the kernel.bin file.
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
