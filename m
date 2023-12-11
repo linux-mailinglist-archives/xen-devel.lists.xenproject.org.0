@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE17E80D0A5
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 17:11:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652363.1018167 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB00280D119
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Dec 2023 17:21:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652368.1018180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCisX-0001Rx-H8; Mon, 11 Dec 2023 16:11:33 +0000
+	id 1rCj26-0004rE-FT; Mon, 11 Dec 2023 16:21:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652363.1018167; Mon, 11 Dec 2023 16:11:33 +0000
+Received: by outflank-mailman (output) from mailman id 652368.1018180; Mon, 11 Dec 2023 16:21:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCisX-0001Pi-EV; Mon, 11 Dec 2023 16:11:33 +0000
-Received: by outflank-mailman (input) for mailman id 652363;
- Mon, 11 Dec 2023 16:11:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rCj26-0004oS-Cc; Mon, 11 Dec 2023 16:21:26 +0000
+Received: by outflank-mailman (input) for mailman id 652368;
+ Mon, 11 Dec 2023 16:21:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mRXB=HW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rCisW-0001Pa-93
- for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 16:11:32 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f19fe65b-983f-11ee-9b0f-b553b5be7939;
- Mon, 11 Dec 2023 17:11:30 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40c19f5f822so26003165e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 08:11:30 -0800 (PST)
+ id 1rCj24-0004hQ-Cb
+ for xen-devel@lists.xenproject.org; Mon, 11 Dec 2023 16:21:24 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 535eb4b1-9841-11ee-98e8-6d05b1d4d9a1;
+ Mon, 11 Dec 2023 17:21:23 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-33621d443a7so1141603f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 Dec 2023 08:21:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- q12-20020a05600c46cc00b0040b4c59f133sm13339488wmo.1.2023.12.11.08.11.28
+ o3-20020a5d6843000000b0033335333d88sm8922894wrw.43.2023.12.11.08.21.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 Dec 2023 08:11:29 -0800 (PST)
+ Mon, 11 Dec 2023 08:21:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f19fe65b-983f-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 535eb4b1-9841-11ee-98e8-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702311089; x=1702915889; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702311683; x=1702916483; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=WfFQ31DC5aksTM3eHzPZg7sBtAZMRidND5qGkoyKnho=;
-        b=KrHY6OrfttLXoB+J9IHVM9fCI+N/wj6o6Rn0GNpy+KlvwNLtrSJGlxfYVj2j7gDfFY
-         239PPw34+EJ0NnABx+pE/ZWeNWBq/MCB13BaeH/1oTDjhGltoTMoe1H157TUHuO3T3dT
-         /lf8J+pBwfdOGOcFOQ/ufE+Qub8BeKvFFBilItwSzem8GtMVH94A8moGqZHgLFYvsgsf
-         Tb2pRYUc9OcnHf/9WGNwUfDY7nFGL1qp6KxpFPjnjeDBCvefeZRLJ7Hx/FF7yqEoGFnP
-         ZXg9Gh8LFiNQ02NYucz5b5D6BNV1cOeg0qbebD6qriN2NQPUL++9KMOi3Fcy/sa5xivq
-         5/KQ==
+        bh=ByyuRwf02EJ0AQRxJUjraQ8MHWftAUMjovhPH0eflic=;
+        b=Ek2cCnpgA5MDg/xzFBS1ls6ioWfoOG93dqfDa1FCaK1ufS9yux+6Rz8D6kr1q60k80
+         2V4a2Z22QE6i4nfU3eGeWJtSs5MSq854ZbBkjmfy2c5knMSciq/ELElMeBcj6jABzemt
+         A82khWaD3B1eUa8WPNoc0ml4xoqfkR1mceY+0/npWZdk/sR4zd89eyHUpFdMIVjV98Qy
+         TqXCRNtAcsehkbNZqaDtPxCdHlFjaS1TWTxINGWG+kC2z/eS4Yc8UnskfzinlD4tZ8ed
+         eotcWF5QwuOpf1Ft3IXvikEzWOub42Lu8aERcvENq8HVkOOwuPE22U8MWClJ74n0KBKZ
+         5HLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702311089; x=1702915889;
+        d=1e100.net; s=20230601; t=1702311683; x=1702916483;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WfFQ31DC5aksTM3eHzPZg7sBtAZMRidND5qGkoyKnho=;
-        b=LvnXXvASoEVHHBxqnzVk9KLR8Oz9zQxHqUM1fk5d86w3tsprqLqXb5v+DgJPfZA9im
-         4Wb5moK9y02k2mLjLHBc+xv3bo+G8DdhnhR0FpPWIlKxAw6IRX4oUUwY7VQP/dtBSfxy
-         DprSeIbwNGRNdPbwbt2Q345d6pn6HLZ5Okt2UJSHddPAa8GdotEyzWMSBVz0OgivIZLv
-         yEwsUpu+X5hwEfYT38Pt0UIwx2NXuTzf5fFHOYEe5U+oQlMJt5PCc4TNpxBu70BbuLkS
-         0BffrC3XPFlV9Y60LElDPcwUw9YZY09cXgHBY63l6ezOYaemfCfsLB/gaJ85FAoqI3Lf
-         OH5A==
-X-Gm-Message-State: AOJu0Yw5+uS9ML+zPDgsNFtIdYvIfsqJqMYngpWr8RiOolt9JzWT6UQb
-	wlLLdy0fb9mewA8nQE1y2sM5
-X-Google-Smtp-Source: AGHT+IERvdO5C+V+4N+h5P012dbDfI4pKyZ+DYusKF2vKCB8FmsNC+J46ayiLo9fiO91gS6XLFUZ9A==
-X-Received: by 2002:a05:600c:35c8:b0:3ff:516b:5c4c with SMTP id r8-20020a05600c35c800b003ff516b5c4cmr2106448wmq.18.1702311089582;
-        Mon, 11 Dec 2023 08:11:29 -0800 (PST)
-Message-ID: <31c897d6-e196-4eed-998a-d776fbf041b7@suse.com>
-Date: Mon, 11 Dec 2023 17:11:09 +0100
+        bh=ByyuRwf02EJ0AQRxJUjraQ8MHWftAUMjovhPH0eflic=;
+        b=ZcBcQunv0Hph0bVLCsAFMwlnqrIjQb0GmHlFxs5ddbwiHnXxlmDLUPwFLTMY3TpYhu
+         kWKHLmVRRpcBuVJWFoX21nD+rxswo37aTBnt9HWEDtTq0ptPlqqOJkX9x5yylALrXy86
+         y52r+w0r3ZYsOqRyghY3uhPdYh6P4wpM423w6Ei/9rJvZvGkZF0tpp5V/4myFRccS5so
+         3wrT/pkP1FWLcJzBn9IOUr+PLZk+bFtQwZJjFuyrwIFmO8wFu1kzPE3d5BUYQiBgNPVN
+         Mmd6hwJQT7HvNjQIJ4D1aHN/glRwcU0kYDQDXsrytkMhdUvLpohjrh00YAnUkaruB+CI
+         qL2A==
+X-Gm-Message-State: AOJu0Yx6XlNf6VApsjKhdiKxUS+b0pjFYyV5lccBPMHRBj2egHLPWd4f
+	60f39uMLTM7hl7SLLGkSuMFv
+X-Google-Smtp-Source: AGHT+IHGPuuIBUBt7p1PmLMyTA91ItVpROqJBl0GnFKEP6RHCVmXclrZEWkBC7gWahPScj9tXXyuAg==
+X-Received: by 2002:a05:6000:92c:b0:333:3e39:8ff3 with SMTP id cx12-20020a056000092c00b003333e398ff3mr2227605wrb.57.1702311683050;
+        Mon, 11 Dec 2023 08:21:23 -0800 (PST)
+Message-ID: <6d39c8d1-36d4-471e-8d12-d7ff11b90a88@suse.com>
+Date: Mon, 11 Dec 2023 17:21:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen/arm: smmu: move phys_addr_t definition to
- linux-compat.h
+Subject: Re: [PATCH] xen/pci: fix phantom error path in assign_device()
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
-References: <e525cd0a2770743e052819b2e14f7df50f801a23.1702303903.git.federico.serafini@bugseng.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20231211150520.299768-1-stewart.hildebrand@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,26 +109,100 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e525cd0a2770743e052819b2e14f7df50f801a23.1702303903.git.federico.serafini@bugseng.com>
+In-Reply-To: <20231211150520.299768-1-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.12.2023 15:54, Federico Serafini wrote:
-> --- a/xen/include/xen/linux-compat.h
-> +++ b/xen/include/xen/linux-compat.h
-> @@ -16,5 +16,6 @@ typedef uint8_t __u8;
->  typedef int16_t __s16;
->  typedef int32_t __s32;
->  typedef int64_t __s64;
-> +typedef paddr_t phys_addr_t;
+On 11.12.2023 16:05, Stewart Hildebrand wrote:
+> Currently if an iommu_call() for a phantom function fails, there is no
+> indication of the failure. Propagate (but don't return) the error code
+> from the most recently failed iommu_call() and emit a warning. While
+> here, add a comment to clarify that the loop keeps iterating even when
+> failure is encountered.
+> 
+> Fixes: cd7dedad8209 ("passthrough: simplify locking and logging")
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> ---
+> Unlike assign_device(), deassign_device() breaks out of the phantom loop
+> when a failure is encountered and returns the error code. I'm curious
+> why assign_device() and deassign_device() behave differently? It looks
+> like it's been that way since
+> 4e9950dc1bd2 ("IOMMU: add phantom function support"). I was initially
+> inclined to break out of the loop and return the error code in
+> assign_device(), but adhering to the principle of Chesterton's fence,
+> I'd first like to understand why this is not currently being done.
 
-Nit: Wants a blank line above the addition. If no need for a v2 arises,
-I'd be happy to adjust on commit.
+It's been a long time, but seeing the same pattern for add/remove I think
+the idea was that a device may still work with its phantom functions not
+properly mapped in the IOMMU, whereas failure to unmap means a domain may
+retain (partial) access to a device.
 
+> I'm aware that I could have avoided introducing a tmp local variable by
+> using the conditional operator with omitted middle operand:
+> 
+>     rc_nonfatal = iommu_call(...) ?: rc_nonfatal;
+> 
+> However, I explicitly chose not to do this to avoid relying on a GNU
+> extension in yet another place.
+
+Introducing a helper variable is certainly okay, if you think that's
+better. However, in cases like ...
+
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -1407,7 +1407,7 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
+>  {
+>      const struct domain_iommu *hd = dom_iommu(d);
+>      struct pci_dev *pdev;
+> -    int rc = 0;
+> +    int rc = 0, rc_nonfatal = 0;
 >  
->  #endif /* __XEN_LINUX_COMPAT_H__ */
+>      if ( !is_iommu_enabled(d) )
+>          return 0;
+> @@ -1443,21 +1443,28 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
+>                            pci_to_dev(pdev), flag)) )
+>          goto done;
+>  
+> -    for ( ; pdev->phantom_stride; rc = 0 )
+> +    while ( pdev->phantom_stride )
+>      {
+> +        int tmp;
+> +
+>          devfn += pdev->phantom_stride;
+>          if ( PCI_SLOT(devfn) != PCI_SLOT(pdev->devfn) )
+> +        {
+> +            devfn -= pdev->phantom_stride; /* Adjust for printing */
+>              break;
+> +        }
+> -        rc = iommu_call(hd->platform_ops, assign_device, d, devfn,
+> -                        pci_to_dev(pdev), flag);
+> +        tmp = iommu_call(hd->platform_ops, assign_device, d, devfn,
+> +                         pci_to_dev(pdev), flag);
+> +        rc_nonfatal = tmp ? tmp : rc_nonfatal;
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+... this, I'm relatively certain most maintainers would agree that using
+the extension will yield easier to read code. Plus there's no reason to
+avoid extensions we use widely anyway, as long as there's no (reasonably
+neat) way to express the same without using extensions.
 
 Jan
+
+> +        /* Keep iterating even if the iommu call failed. */
+>      }
+>  
+>   done:
+> -    if ( rc )
+> +    if ( rc || rc_nonfatal )
+>          printk(XENLOG_G_WARNING "%pd: assign (%pp) failed (%d)\n",
+> -               d, &PCI_SBDF(seg, bus, devfn), rc);
+> +               d, &PCI_SBDF(seg, bus, devfn), rc ? rc : rc_nonfatal);
+>      /* The device is assigned to dom_io so mark it as quarantined */
+> -    else if ( d == dom_io )
+> +    if ( !rc && d == dom_io )
+>          pdev->quarantine = true;
+>  
+>      return rc;
+> 
+> base-commit: 1403131596fa77663708f6baa0fee8bf7b95eb5a
+
 
