@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE30C80E98A
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 11:57:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652935.1019101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D5E680E98B
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 11:57:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652936.1019109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD0Ro-0000dv-R2; Tue, 12 Dec 2023 10:57:08 +0000
+	id 1rD0S6-0000w6-1T; Tue, 12 Dec 2023 10:57:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652935.1019101; Tue, 12 Dec 2023 10:57:08 +0000
+Received: by outflank-mailman (output) from mailman id 652936.1019109; Tue, 12 Dec 2023 10:57:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD0Ro-0000bH-N3; Tue, 12 Dec 2023 10:57:08 +0000
-Received: by outflank-mailman (input) for mailman id 652935;
- Tue, 12 Dec 2023 10:57:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rD0S5-0000uH-Uq; Tue, 12 Dec 2023 10:57:25 +0000
+Received: by outflank-mailman (input) for mailman id 652936;
+ Tue, 12 Dec 2023 10:57:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A+1q=HX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rD0Rm-0000bB-Ru
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 10:57:06 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2f3a1ed1-98dd-11ee-9b0f-b553b5be7939;
- Tue, 12 Dec 2023 11:57:04 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3333a3a599fso3483700f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 12 Dec 2023 02:57:04 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- x14-20020adfdd8e000000b0033630da3528sm1004932wrl.25.2023.12.12.02.56.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Dec 2023 02:56:48 -0800 (PST)
+ <SRS0=/uNK=HX=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
+ id 1rD0S3-0000tY-Mc
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 10:57:23 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 39f57206-98dd-11ee-98e8-6d05b1d4d9a1;
+ Tue, 12 Dec 2023 11:57:22 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-33635163fe6so186703f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Dec 2023 02:57:22 -0800 (PST)
+Received: from EMEAENGAAD19049.citrite.net
+ (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
+ by smtp.gmail.com with ESMTPSA id
+ h5-20020a05600c314500b0040b56f2cce3sm18321291wmo.23.2023.12.12.02.57.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Dec 2023 02:57:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,150 +46,295 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f3a1ed1-98dd-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 39f57206-98dd-11ee-98e8-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1702378624; x=1702983424; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0ZgpHItpOgzwWJXOE6/3cgC60N4mJ/I2l/9jNNQ2tMo=;
-        b=FrZCCnT+uO3162m840fP4G9KA59xzzC6Kf1Htt8bO9j5moT1PKK8gERZmXBYrj/Gor
-         466terATe4wW/wPgAzLelnTZcE6dCKUBe+WuNKasZKnUNVYsqvhuhX72DWMQASYYjt6G
-         N5J65g3ApRXjGLVpHE0F9epVgbP1v+yIGTuMA=
+        d=cloud.com; s=cloud; t=1702378641; x=1702983441; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FQntZ9IVfXXUVY24eUxCSk33M52J4eNjxmyKF3h3sV8=;
+        b=k5Vax9dNJbhZxPSE8xmAfw3F3tGJ86Z8vKCrZE7+nGhp4sLjVryKbDEuemUlcq9q9J
+         cZY2md57sCJfY0HEu2SZsb2aWvXRrYOGB0eucl7rjoJX2MGynk0vflIUyJgDZBuRHKR/
+         nGUQVW+IgG9gcdz92XZLZPmYTYDhfFbvYjf+M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702378624; x=1702983424;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0ZgpHItpOgzwWJXOE6/3cgC60N4mJ/I2l/9jNNQ2tMo=;
-        b=sDqkOHswRfCapqzN2zRdoUCT/5gRlbJH0ExlBVd9d8dpUkTTZL0m8YnqZGEV3VJxx8
-         9P9VOr6oZSu77LAZNyK8e01k3+Nb9nS/MgjGl9tqOK6lwgyiP05Tuea3VpP0iYJ73ly3
-         C/2E3yoTlE4mEeiKZWmXKYHUX/ZMuZUqipLmaytKEAq1TDd2OghQ8MNKgpDyZstNf/gU
-         IocAguoOqGPphTYamD+0C3NvQEIAw6VwmziwCDroOjKow7PJ+OhKOvsiYWfT4WSoWnxA
-         CfA7dY6TEJYG3RIfoKs/mGtTgbaZ+LVi4PGz/0PR1jCOfQrBgWM54bKPn7LbjRJ83UqI
-         E0rw==
-X-Gm-Message-State: AOJu0Yy9Q+QW7EI7kD9tuoYxYhrGe2UmgZbd0WTonxgejb1xX88HUtek
-	SDH74/EB7wf4dGYYxWxfju9Xig==
-X-Google-Smtp-Source: AGHT+IG8Fchp0Ln13X/19uaLu236xh1OvsJKkIwHdnU1BAeGCBQZIJrLcwheQ4coqAUrhxMx8YRHiQ==
-X-Received: by 2002:a5d:4a82:0:b0:333:3c90:fe16 with SMTP id o2-20020a5d4a82000000b003333c90fe16mr3218453wrq.32.1702378623834;
-        Tue, 12 Dec 2023 02:57:03 -0800 (PST)
-Message-ID: <f4c7141c-5f37-4366-890c-ab8b86b6f5dd@citrix.com>
-Date: Tue, 12 Dec 2023 10:56:48 +0000
+        d=1e100.net; s=20230601; t=1702378641; x=1702983441;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FQntZ9IVfXXUVY24eUxCSk33M52J4eNjxmyKF3h3sV8=;
+        b=klcOiz5PPHwWnxmY1bPG3TIxvfL9HL4od2jZvQUc3rFob+vfpN6BSmchEO2J8XaxQs
+         QL8JZ5YlNBruKxpZxGsHPmZrwG1mz73YHIy9oFi6T4ibUI5IaxHdaIQOoKm48PiUNH/w
+         iajUs/BR+GCIWgsriaOJvRek8H5mBFxYWiwSw0iDM+hFkXDXPRUzrmXhQRss75IuXgf8
+         UvS+Iphy+zxfJUGgNR3LTV9M7VYh5gNrVYNIFeXLIDu1G0e4JfdP6OjkDeCC8jkM+IO2
+         Wz2grR1lASJ1K/zLEA93Qp4Ug11ARm0j2lo+NI7TDYJY2R6vKzAnAUiQDMn9BPMB/es2
+         jk1A==
+X-Gm-Message-State: AOJu0Yx8oj3Gln5g+aeTpv8HiIvr8r9b1Wh0M0QB//R5DUYQOJipFVOd
+	S2E6MjqgN6JvqNNwWrHFL+7Z70sCh4yzPI2VrMI=
+X-Google-Smtp-Source: AGHT+IHG2qvH/AxbT4iFo2lXvF+I4JV5xHpjgdowuxyEtXvvHYXMT8/tgrsDAsfKVL7feK5RhWGyLw==
+X-Received: by 2002:a05:600c:4749:b0:40c:31e6:cae3 with SMTP id w9-20020a05600c474900b0040c31e6cae3mr2819959wmo.115.1702378641131;
+        Tue, 12 Dec 2023 02:57:21 -0800 (PST)
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH] tools/xg: Reserialise CPU policies with the allocated number of leaves.
+Date: Tue, 12 Dec 2023 10:57:17 +0000
+Message-Id: <20231212105717.6031-1-alejandro.vallejo@cloud.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: XSA-446 relevance on Intel
-Content-Language: en-GB
-To: James Dingwall <james-xen@dingwall.me.uk>, xen-devel@lists.xenproject.org
-References: <ZXgrQdVvDuQCbCRP@dingwall.me.uk>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <ZXgrQdVvDuQCbCRP@dingwall.me.uk>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12/12/2023 9:43 am, James Dingwall wrote:
-> Hi,
->
-> We were experiencing a crash during PV domU boot on several different models
-> of hardware but all with Intel CPUs.  The Xen version was based on stable-4.15
-> at 4a4daf6bddbe8a741329df5cc8768f7dec664aed (XSA-444) with some local
-> patches.  Since updating the branch to b918c4cdc7ab2c1c9e9a9b54fa9d9c595913e028
-> (XSA-446) we have not observed the same crash.
+The procedure used to customize the domain CPU policy is broken when
+toolstack tries to set leaves (with subleaves) that the hypervisor didn't
+need to serialise (i.e: because they where empty subleaves).
 
-That range covers:
+During typical domain creation xg does the following:
 
-1f5f515da0f6 - iommu/amd-vi: use correct level for quarantine domain
-page tables
-b918c4cdc7ab - x86/spec-ctrl: Remove conditional IRQs-on-ness for INT
-$0x80/0x82 paths
+  1. Probe Xen for max #leaves that a policy may have
+  2. Allocate memory for that many leaves
+  3. Tell the hypervisor to dump the policy in the allocated buffer
+  4. Deserialise it
+  5. Modify it
+  6. Reserialise it
+  7. Send it back to Xen
 
-so yeah - not much in the way of change.
+The problem is that (3) overrides nr_leaves, which then makes (6) fail in
+the case where (5) has added subleaves that Xen understands but didn't need
+to serialize on (3).
 
-> The occurrence was on 1-2% of boots and we couldn't determine a particular
-> sequence of events that would trigger it.  The kernel is based on Ubuntu's
-> 5.15.0-91 tag but we also observed the same with -85.  Due to the low
-> frequency it is possible that we simply haven't observed it again since
-> updating our Xen build.
->
-> If I have followed the early startup this is happening shortly after detection
-> of possible CPU vulnerabilities and patching in alternative instructions.  As
-> the RIP was native_irq_return_iret and XSA-446 related to interupt management
-> I wondered if it was possible that despite "Xen is not believed to be vulnerable
-> in default configurations on CPUs from other hardware vendors." there could
-> be some conditions in which an Intel CPU is affected?
+The fix uses an opaque CPU policy object so we can (a) avoid probing Xen
+for sizes, and (b) trivially have knowledge of the actual size of the
+buffer.
 
-In short, XSA-446 isn't plausibly related.  It's completely internal to
-Xen, with no alteration on guest state.
+While at it, fix xc_cpu_policy_destroy() to preserve errno accross free()
 
-It is an error that Linux has ended up in native_irq_return_iret.  Linux
-cannot return to itself with an IRET instruction, and must use
-HYPERCALL_iret instead.
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+---
+ tools/libs/guest/xg_cpuid_x86.c | 98 +++++++++++++++------------------
+ 1 file changed, 45 insertions(+), 53 deletions(-)
 
-In recent versions of Linux, this is fixed up as about the earliest
-action a PV kernel takes, but on older versions of Linux, any
-interrupt/exception early enough on boot was fatal in this way.
+diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
+index db5aebc815..4453178100 100644
+--- a/tools/libs/guest/xg_cpuid_x86.c
++++ b/tools/libs/guest/xg_cpuid_x86.c
+@@ -583,13 +583,15 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+     int rc;
+     bool hvm;
+     xc_domaininfo_t di;
+-    unsigned int i, nr_leaves, nr_msrs;
+-    xen_cpuid_leaf_t *leaves = NULL;
+-    struct cpu_policy *p = NULL;
++    struct xc_cpu_policy *p = xc_cpu_policy_init();
++    unsigned int i, nr_leaves = ARRAY_SIZE(p->leaves), nr_msrs = 0;
+     uint32_t err_leaf = -1, err_subleaf = -1, err_msr = -1;
+     uint32_t host_featureset[FEATURESET_NR_ENTRIES] = {};
+     uint32_t len = ARRAY_SIZE(host_featureset);
+ 
++    if ( !p )
++        return -ENOMEM;
++
+     if ( (rc = xc_domain_getinfo_single(xch, domid, &di)) < 0 )
+     {
+         PERROR("Failed to obtain d%d info", domid);
+@@ -598,19 +600,6 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+     }
+     hvm = di.flags & XEN_DOMINF_hvm_guest;
+ 
+-    rc = xc_cpu_policy_get_size(xch, &nr_leaves, &nr_msrs);
+-    if ( rc )
+-    {
+-        PERROR("Failed to obtain policy info size");
+-        rc = -errno;
+-        goto out;
+-    }
+-
+-    rc = -ENOMEM;
+-    if ( (leaves = calloc(nr_leaves, sizeof(*leaves))) == NULL ||
+-         (p = calloc(1, sizeof(*p))) == NULL )
+-        goto out;
+-
+     /* Get the host policy. */
+     rc = xc_get_cpu_featureset(xch, XEN_SYSCTL_cpu_featureset_host,
+                                &len, host_featureset);
+@@ -623,10 +612,9 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+     }
+ 
+     /* Get the domain's default policy. */
+-    nr_msrs = 0;
+     rc = get_system_cpu_policy(xch, hvm ? XEN_SYSCTL_cpu_policy_hvm_default
+                                         : XEN_SYSCTL_cpu_policy_pv_default,
+-                               &nr_leaves, leaves, &nr_msrs, NULL);
++                               &nr_leaves, p->leaves, &nr_msrs, NULL);
+     if ( rc )
+     {
+         PERROR("Failed to obtain %s default policy", hvm ? "hvm" : "pv");
+@@ -634,7 +622,7 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+         goto out;
+     }
+ 
+-    rc = x86_cpuid_copy_from_buffer(p, leaves, nr_leaves,
++    rc = x86_cpuid_copy_from_buffer(&p->policy, p->leaves, nr_leaves,
+                                     &err_leaf, &err_subleaf);
+     if ( rc )
+     {
+@@ -659,18 +647,18 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+          * - Re-enable features which have become (possibly) off by default.
+          */
+ 
+-        p->basic.rdrand = test_bit(X86_FEATURE_RDRAND, host_featureset);
+-        p->feat.hle = test_bit(X86_FEATURE_HLE, host_featureset);
+-        p->feat.rtm = test_bit(X86_FEATURE_RTM, host_featureset);
++        p->policy.basic.rdrand = test_bit(X86_FEATURE_RDRAND, host_featureset);
++        p->policy.feat.hle = test_bit(X86_FEATURE_HLE, host_featureset);
++        p->policy.feat.rtm = test_bit(X86_FEATURE_RTM, host_featureset);
+ 
+         if ( hvm )
+         {
+-            p->feat.mpx = test_bit(X86_FEATURE_MPX, host_featureset);
++            p->policy.feat.mpx = test_bit(X86_FEATURE_MPX, host_featureset);
+         }
+ 
+-        p->basic.max_leaf = min(p->basic.max_leaf, 0xdu);
+-        p->feat.max_subleaf = 0;
+-        p->extd.max_leaf = min(p->extd.max_leaf, 0x8000001c);
++        p->policy.basic.max_leaf = min(p->policy.basic.max_leaf, 0xdu);
++        p->policy.feat.max_subleaf = 0;
++        p->policy.extd.max_leaf = min(p->policy.extd.max_leaf, 0x8000001c);
+     }
+ 
+     if ( featureset )
+@@ -714,17 +702,17 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+             }
+         }
+ 
+-        x86_cpu_featureset_to_policy(feat, p);
++        x86_cpu_featureset_to_policy(feat, &p->policy);
+     }
+     else
+     {
+-        p->extd.itsc = itsc;
++        p->policy.extd.itsc = itsc;
+ 
+         if ( hvm )
+         {
+-            p->basic.pae = pae;
+-            p->basic.vmx = nested_virt;
+-            p->extd.svm = nested_virt;
++            p->policy.basic.pae = pae;
++            p->policy.basic.vmx = nested_virt;
++            p->policy.extd.svm = nested_virt;
+         }
+     }
+ 
+@@ -734,8 +722,8 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+          * On hardware without CPUID Faulting, PV guests see real topology.
+          * As a consequence, they also need to see the host htt/cmp fields.
+          */
+-        p->basic.htt       = test_bit(X86_FEATURE_HTT, host_featureset);
+-        p->extd.cmp_legacy = test_bit(X86_FEATURE_CMP_LEGACY, host_featureset);
++        p->policy.basic.htt       = test_bit(X86_FEATURE_HTT, host_featureset);
++        p->policy.extd.cmp_legacy = test_bit(X86_FEATURE_CMP_LEGACY, host_featureset);
+     }
+     else
+     {
+@@ -743,28 +731,28 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+          * Topology for HVM guests is entirely controlled by Xen.  For now, we
+          * hardcode APIC_ID = vcpu_id * 2 to give the illusion of no SMT.
+          */
+-        p->basic.htt = true;
+-        p->extd.cmp_legacy = false;
++        p->policy.basic.htt = true;
++        p->policy.extd.cmp_legacy = false;
+ 
+         /*
+          * Leaf 1 EBX[23:16] is Maximum Logical Processors Per Package.
+          * Update to reflect vLAPIC_ID = vCPU_ID * 2, but make sure to avoid
+          * overflow.
+          */
+-        if ( !p->basic.lppp )
+-            p->basic.lppp = 2;
+-        else if ( !(p->basic.lppp & 0x80) )
+-            p->basic.lppp *= 2;
++        if ( !p->policy.basic.lppp )
++            p->policy.basic.lppp = 2;
++        else if ( !(p->policy.basic.lppp & 0x80) )
++            p->policy.basic.lppp *= 2;
+ 
+-        switch ( p->x86_vendor )
++        switch ( p->policy.x86_vendor )
+         {
+         case X86_VENDOR_INTEL:
+-            for ( i = 0; (p->cache.subleaf[i].type &&
+-                          i < ARRAY_SIZE(p->cache.raw)); ++i )
++            for ( i = 0; (p->policy.cache.subleaf[i].type &&
++                          i < ARRAY_SIZE(p->policy.cache.raw)); ++i )
+             {
+-                p->cache.subleaf[i].cores_per_package =
+-                    (p->cache.subleaf[i].cores_per_package << 1) | 1;
+-                p->cache.subleaf[i].threads_per_cache = 0;
++                p->policy.cache.subleaf[i].cores_per_package =
++                    (p->policy.cache.subleaf[i].cores_per_package << 1) | 1;
++                p->policy.cache.subleaf[i].threads_per_cache = 0;
+             }
+             break;
+ 
+@@ -784,25 +772,26 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+              * apic_id_size values greater than 7.  Limit the value to
+              * 7 for now.
+              */
+-            if ( p->extd.nc < 0x7f )
++            if ( p->policy.extd.nc < 0x7f )
+             {
+-                if ( p->extd.apic_id_size != 0 && p->extd.apic_id_size < 0x7 )
+-                    p->extd.apic_id_size++;
++                if ( p->policy.extd.apic_id_size != 0 && p->policy.extd.apic_id_size < 0x7 )
++                    p->policy.extd.apic_id_size++;
+ 
+-                p->extd.nc = (p->extd.nc << 1) | 1;
++                p->policy.extd.nc = (p->policy.extd.nc << 1) | 1;
+             }
+             break;
+         }
+     }
+ 
+-    rc = x86_cpuid_copy_to_buffer(p, leaves, &nr_leaves);
++    nr_leaves = ARRAY_SIZE(p->leaves);
++    rc = x86_cpuid_copy_to_buffer(&p->policy, p->leaves, &nr_leaves);
+     if ( rc )
+     {
+         ERROR("Failed to serialise CPUID (%d = %s)", -rc, strerror(-rc));
+         goto out;
+     }
+ 
+-    rc = xc_set_domain_cpu_policy(xch, domid, nr_leaves, leaves, 0, NULL,
++    rc = xc_set_domain_cpu_policy(xch, domid, nr_leaves, p->leaves, 0, NULL,
+                                   &err_leaf, &err_subleaf, &err_msr);
+     if ( rc )
+     {
+@@ -825,8 +814,7 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+     rc = 0;
+ 
+ out:
+-    free(p);
+-    free(leaves);
++    xc_cpu_policy_destroy(p);
+ 
+     return rc;
+ }
+@@ -839,7 +827,11 @@ xc_cpu_policy_t *xc_cpu_policy_init(void)
+ void xc_cpu_policy_destroy(xc_cpu_policy_t *policy)
+ {
+     if ( policy )
++    {
++        int err = errno;
+         free(policy);
++        errno = err;
++    }
+ }
+ 
+ static int deserialize_policy(xc_interface *xch, xc_cpu_policy_t *policy,
+-- 
+2.34.1
 
-
-This part of the backtrace is odd:
-
-[    0.398962]  ? native_iret+0x7/0x7
-[    0.398967]  ? insn_decode+0x79/0x100
-[    0.398975]  ? insn_decode+0xcf/0x100
-[    0.398980]  optimize_nops+0x68/0x150
-
-as it's not clear how we've ended up in a case wanting to return back to
-the kernel to begin with.  However, it's most likely a pagefault, as
-optimize_nops() is making changes in arbitrary locations.
-
-It is possible that a change in visible features has altered the
-behaviour enough not to crash, but if everything is still the same as
-far as you can tell, then it's likely just chance that you haven't seen
-it again.
-
-This is definitely a Linux bug, so I suspect something bad has been
-backported into Ubuntu.
-
-~Andrew
 
