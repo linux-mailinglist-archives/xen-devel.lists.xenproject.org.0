@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41A6B80E71D
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 10:13:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652755.1018772 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 859A480E735
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 10:18:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652761.1018782 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCyog-0003Wk-Hh; Tue, 12 Dec 2023 09:12:38 +0000
+	id 1rCyu8-0004V7-8y; Tue, 12 Dec 2023 09:18:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652755.1018772; Tue, 12 Dec 2023 09:12:38 +0000
+Received: by outflank-mailman (output) from mailman id 652761.1018782; Tue, 12 Dec 2023 09:18:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCyog-0003Tz-Dx; Tue, 12 Dec 2023 09:12:38 +0000
-Received: by outflank-mailman (input) for mailman id 652755;
- Tue, 12 Dec 2023 09:12:37 +0000
+	id 1rCyu8-0004Sm-5p; Tue, 12 Dec 2023 09:18:16 +0000
+Received: by outflank-mailman (input) for mailman id 652761;
+ Tue, 12 Dec 2023 09:18:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j5yJ=HX=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rCyof-0003Tt-46
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 09:12:37 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=IzYH=HX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rCyu6-0004Sg-VO
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 09:18:14 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95c0ca2e-98ce-11ee-9b0f-b553b5be7939;
- Tue, 12 Dec 2023 10:12:34 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 89A334EE0737;
- Tue, 12 Dec 2023 10:12:33 +0100 (CET)
+ id 5fcaf3ad-98cf-11ee-9b0f-b553b5be7939;
+ Tue, 12 Dec 2023 10:18:12 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-3332efd75c9so4878548f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Dec 2023 01:18:12 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ t9-20020a05600c198900b0040c490db950sm5631023wmq.47.2023.12.12.01.18.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Dec 2023 01:18:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,48 +44,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95c0ca2e-98ce-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5fcaf3ad-98cf-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1702372692; x=1702977492; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=9WELy4DAZTSrhx4zGGjgQkw3W/tbMhWv9d+cZpR74m0=;
+        b=sR8OaL8C0bLenlUb4kg+RBX2KkxdwuEa8Qt2xvPH/DG+3yrQjIx6qn+CADolTP6PYi
+         4E3ZHeergOv67VjudURLbGCvL7ChTe4wE1R5zq+jMvQs09mjoNEq3kSxkVMI6UDExhEn
+         5h/L13tNVTHy8jnI8VzUo7l0pCST3WFF2zhwY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702372692; x=1702977492;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=9WELy4DAZTSrhx4zGGjgQkw3W/tbMhWv9d+cZpR74m0=;
+        b=mYrPCgH/RKL8x5PL0uF1ecnmMqYA5zgjYe58ZEU93zDNMPN7Yo/DzZmIWkTAG5x91r
+         TAY3IUzJKIEzV4kvT2D7znCXLAAaAOA1JyR7thz3NZxzbHy/hLPe86S+gIwmcV5nDqHR
+         JeXD1F8WOqUdbi6DIuZaVExFitD2/1u/ZMEIxIoZ1N/Gvqgs9X66F8Yma1r2Wu4WwTa0
+         BNPDgXP8nJ9GrmV0sFx/Z+908/UzvpIRRSNBzuu/uwqe8FqqbRcEm+zwg2+7M5DxhkGc
+         NoOug5FDoJlOnwyFscIlNe6tIP/t130MRqA1aRm/1uFPN4ZHopi/27j4aRdDwywjmW2T
+         q2FQ==
+X-Gm-Message-State: AOJu0Yx9hTBAcJFdHOkUcN8K/2kiB+XNoVTn5fRrfBa/SHPN4wpU8fjU
+	hAfvwi4qNnh64LXNrg1bCuuNMg==
+X-Google-Smtp-Source: AGHT+IFgKgRKA6Hj8FA4QbKIfcIE89wBNkiyNGzHcW1HguHNOiTJp2Iwm2e75u6BvwbtAJwHlC1s8w==
+X-Received: by 2002:a05:600c:1c1f:b0:40b:4c54:3d6d with SMTP id j31-20020a05600c1c1f00b0040b4c543d6dmr1419794wms.8.1702372692352;
+        Tue, 12 Dec 2023 01:18:12 -0800 (PST)
+Date: Tue, 12 Dec 2023 10:18:11 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
+	"Koenig, Christian" <Christian.Koenig@amd.com>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
+	"Zhang, Julia" <Julia.Zhang@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>
+Subject: Re: [RFC KERNEL PATCH v3 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
+Message-ID: <ZXglU0EtBrRNiWVp@macbook>
+References: <20231210161519.1550860-1-Jiqian.Chen@amd.com>
+ <20231210161519.1550860-4-Jiqian.Chen@amd.com>
+ <ZXdNf0HWs4nAVPeF@macbook>
+ <BL1PR12MB584910C2E370BBCC8A312733E78EA@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Date: Tue, 12 Dec 2023 10:12:33 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, Jan Beulich
- <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>
-Subject: Re: [XEN PATCH 2/7] x86/mm: address MISRA C:2012 Rule 2.1
-In-Reply-To: <alpine.DEB.2.22.394.2312111741390.1703076@ubuntu-linux-20-04-desktop>
-References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
- <5913d8871ff6c4f320c521e50e550a64e58d4351.1702283415.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2312111741390.1703076@ubuntu-linux-20-04-desktop>
-Message-ID: <ff95c65f53ab8acfd577ec132009cd7b@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB584910C2E370BBCC8A312733E78EA@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-On 2023-12-12 02:42, Stefano Stabellini wrote:
-> On Mon, 11 Dec 2023, Nicola Vetrini wrote:
->> The "return 0" after the swich statement in 'xen/arch/x86/mm.c'
->> is unreachable because all switch clauses end with returns.
->> However, some of them can be substituted with "break"s to allow
->> the "return 0" outside the switch to be reachable.
->> 
->> No functional changes.
+On Tue, Dec 12, 2023 at 06:34:27AM +0000, Chen, Jiqian wrote:
 > 
-> This is correct but makes the code inconsistent. I would either remove
-> the return 0; at the end of arch_memory_op, or do the following:
-> 
-> - initialize rc to 0 at the beginning: int rc = 0;
-> - all switch clauses break instead of return;
-> - at the end: return rc;
-> 
+> On 2023/12/12 01:57, Roger Pau Monné wrote:
+> > On Mon, Dec 11, 2023 at 12:15:19AM +0800, Jiqian Chen wrote:
+> >> There is a need for some scenarios to use gsi sysfs.
+> >> For example, when xen passthrough a device to dumU, it will
+> >> use gsi to map pirq, but currently userspace can't get gsi
+> >> number.
+> >> So, add gsi sysfs for that and for other potential scenarios.
+> >>
+> >> Co-developed-by: Huang Rui <ray.huang@amd.com>
+> >> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+> >> ---
+> >>  drivers/acpi/pci_irq.c  |  1 +
+> >>  drivers/pci/pci-sysfs.c | 11 +++++++++++
+> >>  include/linux/pci.h     |  2 ++
+> >>  3 files changed, 14 insertions(+)
+> >>
+> >> diff --git a/drivers/acpi/pci_irq.c b/drivers/acpi/pci_irq.c
+> >> index 630fe0a34bc6..739a58755df2 100644
+> >> --- a/drivers/acpi/pci_irq.c
+> >> +++ b/drivers/acpi/pci_irq.c
+> >> @@ -449,6 +449,7 @@ int acpi_pci_irq_enable(struct pci_dev *dev)
+> >>  		kfree(entry);
+> >>  		return 0;
+> >>  	}
+> >> +	dev->gsi = gsi;
+> > 
+> > It would be better if the gsi if fetched without requiring calling
+> > acpi_pci_irq_enable(), as the gsi doesn't require the interrupt to be
+> > enabled.  The gsi is known at boot time and won't change for the
+> > lifetime of the device.
+> Do you have any suggest places to do this?
 
-Given the feedback on the Arm side, the first solution is likely to be 
-preferred.
+I'm not an expert on this, but drivers/pci/pci-sysfs.c would seem like
+a better place, together with the rest of the resources.
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Maybe my understanding is incorrect, but given the suggested placement
+in acpi_pci_irq_enable() I think the device would need to bind the
+interrupt in order for the gsi node to appear on sysfs?
+
+Would the current approach work if the device is assigned to pciback
+on the kernel command line, and thus never owned by any driver in
+dom0?
+
+> > 
+> >>  
+> >>  	rc = acpi_register_gsi(&dev->dev, gsi, triggering, polarity);
+> >>  	if (rc < 0) {
+> >> diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+> >> index 2321fdfefd7d..c51df88d079e 100644
+> >> --- a/drivers/pci/pci-sysfs.c
+> >> +++ b/drivers/pci/pci-sysfs.c
+> >> @@ -71,6 +71,16 @@ static ssize_t irq_show(struct device *dev,
+> >>  }
+> >>  static DEVICE_ATTR_RO(irq);
+> >>  
+> >> +static ssize_t gsi_show(struct device *dev,
+> >> +			struct device_attribute *attr,
+> >> +			char *buf)
+> >> +{
+> >> +	struct pci_dev *pdev = to_pci_dev(dev);
+> > 
+> > const
+> Do you mean "const struct pci_dev *pdev = to_pci_dev(dev);" ?
+
+Yup.
+
+Thanks, Roger.
 
