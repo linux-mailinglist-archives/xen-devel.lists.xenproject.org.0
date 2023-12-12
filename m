@@ -2,46 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22BE880E6A1
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AB3180E6A2
 	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 09:49:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652739.1018752 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.652741.1018762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCyRf-000653-F6; Tue, 12 Dec 2023 08:48:51 +0000
+	id 1rCyS6-0006TU-Nb; Tue, 12 Dec 2023 08:49:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652739.1018752; Tue, 12 Dec 2023 08:48:51 +0000
+Received: by outflank-mailman (output) from mailman id 652741.1018762; Tue, 12 Dec 2023 08:49:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCyRf-00062U-CO; Tue, 12 Dec 2023 08:48:51 +0000
-Received: by outflank-mailman (input) for mailman id 652739;
- Tue, 12 Dec 2023 08:48:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/k62=HX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rCyRd-00062M-Gg
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 08:48:49 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4407b1ff-98cb-11ee-98e8-6d05b1d4d9a1;
- Tue, 12 Dec 2023 09:48:48 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B84521FCFF;
- Tue, 12 Dec 2023 08:48:47 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 97070136C7;
- Tue, 12 Dec 2023 08:48:47 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 81hBI28eeGVHeAAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 12 Dec 2023 08:48:47 +0000
+	id 1rCyS6-0006RJ-KO; Tue, 12 Dec 2023 08:49:18 +0000
+Received: by outflank-mailman (input) for mailman id 652741;
+ Tue, 12 Dec 2023 08:49:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IzYH=HX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rCyS5-0006Qw-33
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 08:49:17 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 53d82d26-98cb-11ee-9b0f-b553b5be7939;
+ Tue, 12 Dec 2023 09:49:15 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-336221efdceso1451515f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Dec 2023 00:49:15 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ v13-20020a5d590d000000b003363469490asm503631wrd.111.2023.12.12.00.49.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Dec 2023 00:49:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,232 +44,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4407b1ff-98cb-11ee-98e8-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1702370927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=pAQ9YKPOZAbLM5C+z5b8++X+tNlXyvSADKf62xHctA4=;
-	b=Nqz0r+NyC5tREUhkMruL01SLB3KVYOtfx0LHNCSxVkSdn9GY0tGVt+yDa97ml1+hHP3QIQ
-	NieFnsX/BH3LGPz/ctzFc+BKp5VSBZ0zuitpGuE666vpdtR3+a5ZtEJuq/Vn2118fOtYbL
-	Ic2z/R5/kxbGzAiTDngCLd9VsIPjCwc=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1702370927; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=pAQ9YKPOZAbLM5C+z5b8++X+tNlXyvSADKf62xHctA4=;
-	b=Nqz0r+NyC5tREUhkMruL01SLB3KVYOtfx0LHNCSxVkSdn9GY0tGVt+yDa97ml1+hHP3QIQ
-	NieFnsX/BH3LGPz/ctzFc+BKp5VSBZ0zuitpGuE666vpdtR3+a5ZtEJuq/Vn2118fOtYbL
-	Ic2z/R5/kxbGzAiTDngCLd9VsIPjCwc=
-Message-ID: <6a175474-e6d4-4410-bde1-47c9895baeac@suse.com>
-Date: Tue, 12 Dec 2023 09:48:46 +0100
+X-Inumbo-ID: 53d82d26-98cb-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1702370954; x=1702975754; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=6uZzm+Qo9kyEz193letIHfqz7iKse8Vcx14IHv462OI=;
+        b=abIqZx/h31gc8n4pZDGETQdDrDGm14bNuwTUjelF8acq3qrFfrxC1BwHZe+pMY/1gD
+         cXMnaG27zYN7WhXhY5RyOpj9i12kNzmK8wL/UXqDcNPB6AYc0aocvNfeHUBPtirCq9zH
+         2aVsD0FPZbGZ8qDrkUzRdL9RWg6yJ7pMFYfSA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702370954; x=1702975754;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6uZzm+Qo9kyEz193letIHfqz7iKse8Vcx14IHv462OI=;
+        b=O5BpVr7OqPpuxQZ0NqPTnwblbsXLtT1jAHHoOwzlBRSDYKU57WEbRK0zP3Hud199mu
+         PfxEMomAfHoWVZAsdJtC77YgbhY5F9GNw2CFF99i3opGg59XCdqGAPmtm1EEF0W7c4fL
+         EbWsNu2PD7xvLeWbKnBGKem7cPnuPVpRQAaaan+BDSpEfj7CefzgTJlVLKXjs3+b/5yF
+         IBpHmbd5eJ452cBLjEZNguiDCBFaIAqlIogAvY4XvSkRPaTEuFYRuMZkL1whwAOfgQnP
+         73h5vA+dvZndIHS/3I14tpkXjWsMLAYxnF12U/E8usmre3E1Ee7NZ6QWSwFM3RT/6Q6K
+         0Ubw==
+X-Gm-Message-State: AOJu0Yz4Cq3UdRLzvQp+xmkQ+wdM8+6Qd67KOrr7dAX/2/UNoYghHv2j
+	rr0piFWu7DB6fmrAcMfo9Zf9kQ==
+X-Google-Smtp-Source: AGHT+IEZFnrGwnWVMUa8WqvQ1kBpf2Ui1ZoWTnehWdJvArdWdni7kizYW7qHE4fznbzxBvAlLIdv1A==
+X-Received: by 2002:a05:6000:1012:b0:333:174f:edd8 with SMTP id a18-20020a056000101200b00333174fedd8mr1089314wrx.50.1702370954354;
+        Tue, 12 Dec 2023 00:49:14 -0800 (PST)
+Date: Tue, 12 Dec 2023 09:49:13 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"Stabellini, Stefano" <stefano.stabellini@amd.com>,
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
+	"Koenig, Christian" <Christian.Koenig@amd.com>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
+	"Zhang, Julia" <Julia.Zhang@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>
+Subject: Re: [RFC KERNEL PATCH v2 2/3] xen/pvh: Unmask irq for passthrough
+ device in PVH dom0
+Message-ID: <ZXgeieg4E8UN0KoN@macbook>
+References: <alpine.DEB.2.22.394.2311301912350.110490@ubuntu-linux-20-04-desktop>
+ <ZWmgJNidFsfkDp7q@macbook>
+ <alpine.DEB.2.22.394.2312011857260.110490@ubuntu-linux-20-04-desktop>
+ <ZW2ptexPQXrWBiOS@macbook>
+ <alpine.DEB.2.22.394.2312041413000.110490@ubuntu-linux-20-04-desktop>
+ <ZW7rDjjC0gxEI1cq@macbook>
+ <15275706-5c31-4e29-aa29-9f5e90526219@suse.com>
+ <BL1PR12MB5849C871B0B9577D1E0BF576E784A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZXculMdLgwGaRC7i@macbook>
+ <BL1PR12MB584997DDE6839F2340022976E78EA@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [OSSTEST PATCH 2/3] create_build_jobs: Enable X86_GENERIC for
- i386 kernel pvops jobs.
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20231208160226.14739-1-anthony.perard@citrix.com>
- <20231208160226.14739-3-anthony.perard@citrix.com> <ZXgcBIAkmWrLvo-h@macbook>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <ZXgcBIAkmWrLvo-h@macbook>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Nk4DuQqhKTAt0P3c3NFpI1rV"
-X-Spam-Level: ***************
-X-Spam-Flag: YES
-X-Spam-Score: 15.00
-X-Spam-Level: 
-X-Rspamd-Server: rspamd1
-X-Rspamd-Queue-Id: B84521FCFF
-X-Spam-Flag: NO
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Nqz0r+Ny;
-	dmarc=pass (policy=quarantine) header.from=suse.com;
-	spf=fail (smtp-out2.suse.de: domain of jgross@suse.com does not designate 2a07:de40:b281:104:10:150:64:97 as permitted sender) smtp.mailfrom=jgross@suse.com
-X-Spamd-Result: default: False [-4.74 / 50.00];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 TO_DN_SOME(0.00)[];
-	 HAS_ATTACHMENT(0.00)[];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_TRACE(0.00)[suse.com:+];
-	 MIME_BASE64_TEXT(0.10)[];
-	 DMARC_POLICY_ALLOW(0.00)[suse.com,quarantine];
-	 MX_GOOD(-0.01)[];
-	 DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	 SIGNED_PGP(-2.00)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 BAYES_HAM(-0.04)[58.41%];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys];
-	 ARC_NA(0.00)[];
-	 R_SPF_FAIL(0.00)[-all];
-	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	 SPAM_FLAG(5.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[3];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 WHITELIST_DMARC(-7.00)[suse.com:D:+];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 RCVD_TLS_ALL(0.00)[];
-	 RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]
-X-Spam-Score: -4.74
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB584997DDE6839F2340022976E78EA@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Nk4DuQqhKTAt0P3c3NFpI1rV
-Content-Type: multipart/mixed; boundary="------------34IvQGXPlaGp0zbG9IWolAKw";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Message-ID: <6a175474-e6d4-4410-bde1-47c9895baeac@suse.com>
-Subject: Re: [OSSTEST PATCH 2/3] create_build_jobs: Enable X86_GENERIC for
- i386 kernel pvops jobs.
-References: <20231208160226.14739-1-anthony.perard@citrix.com>
- <20231208160226.14739-3-anthony.perard@citrix.com> <ZXgcBIAkmWrLvo-h@macbook>
-In-Reply-To: <ZXgcBIAkmWrLvo-h@macbook>
+On Tue, Dec 12, 2023 at 06:16:43AM +0000, Chen, Jiqian wrote:
+> On 2023/12/11 23:45, Roger Pau Monné wrote:
+> > On Wed, Dec 06, 2023 at 06:07:26AM +0000, Chen, Jiqian wrote:
+> >>
+> >> When PVH dom0 enable a device, it will get trigger and polarity from ACPI (see acpi_pci_irq_enable)
+> >> I have a version of patch which tried that way, see below:
+> >>
+> >> diff --git a/arch/x86/xen/enlighten_pvh.c b/arch/x86/xen/enlighten_pvh.c
+> >> index ada3868c02c2..43e1bda9f946 100644
+> >> --- a/arch/x86/xen/enlighten_pvh.c
+> >> +++ b/arch/x86/xen/enlighten_pvh.c
+> >> @@ -1,6 +1,7 @@
+> >>  // SPDX-License-Identifier: GPL-2.0
+> >>  #include <linux/acpi.h>
+> >>  #include <linux/export.h>
+> >> +#include <linux/pci.h>
+> >>
+> >>  #include <xen/hvc-console.h>
+> >>
+> >> @@ -25,6 +26,127 @@
+> >>  bool __ro_after_init xen_pvh;
+> >>  EXPORT_SYMBOL_GPL(xen_pvh);
+> >>
+> >> +typedef struct gsi_info {
+> >> +       int gsi;
+> >> +       int trigger;
+> >> +       int polarity;
+> >> +       int pirq;
+> >> +} gsi_info_t;
+> >> +
+> >> +struct acpi_prt_entry {
+> >> +       struct acpi_pci_id      id;
+> >> +       u8                      pin;
+> >> +       acpi_handle             link;
+> >> +       u32                     index;          /* GSI, or link _CRS index */
+> >> +};
+> >> +
+> >> +static int xen_pvh_get_gsi_info(struct pci_dev *dev,
+> >> +                                                               gsi_info_t *gsi_info)
+> >> +{
+> >> +       int gsi;
+> >> +       u8 pin = 0;
+> >> +       struct acpi_prt_entry *entry;
+> >> +       int trigger = ACPI_LEVEL_SENSITIVE;
+> >> +       int polarity = acpi_irq_model == ACPI_IRQ_MODEL_GIC ?
+> >> +                                     ACPI_ACTIVE_HIGH : ACPI_ACTIVE_LOW;
+> >> +
+> >> +       if (dev)
+> >> +               pin = dev->pin;
+> >> +       if (!pin) {
+> >> +               xen_raw_printk("No interrupt pin configured\n");
+> >> +               return -EINVAL;
+> >> +       }
+> >> +
+> >> +       entry = acpi_pci_irq_lookup(dev, pin);
+> >> +       if (entry) {
+> >> +               if (entry->link)
+> >> +                       gsi = acpi_pci_link_allocate_irq(entry->link,
+> >> +                                                        entry->index,
+> >> +                                                        &trigger, &polarity,
+> >> +                                                        NULL);
+> >> +               else
+> >> +                       gsi = entry->index;
+> >> +       } else
+> >> +               return -EINVAL;
+> >> +
+> >> +       gsi_info->gsi = gsi;
+> >> +       gsi_info->trigger = trigger;
+> >> +       gsi_info->polarity = polarity;
+> >> +
+> >> +       return 0;
+> >> +}
+> >> +
+> >> +static int xen_pvh_map_pirq(gsi_info_t *gsi_info)
+> >> +{
+> >> +       struct physdev_map_pirq map_irq;
+> >> +       int ret;
+> >> +
+> >> +       map_irq.domid = DOMID_SELF;
+> >> +       map_irq.type = MAP_PIRQ_TYPE_GSI;
+> >> +       map_irq.index = gsi_info->gsi;
+> >> +       map_irq.pirq = gsi_info->gsi;
+> >> +
+> >> +       ret = HYPERVISOR_physdev_op(PHYSDEVOP_map_pirq, &map_irq);
+> >> +       gsi_info->pirq = map_irq.pirq;
+> >> +
+> >> +       return ret;
+> >> +}
+> >> +
+> >> +static int xen_pvh_unmap_pirq(gsi_info_t *gsi_info)
+> >> +{
+> >> +       struct physdev_unmap_pirq unmap_irq;
+> >> +
+> >> +       unmap_irq.domid = DOMID_SELF;
+> >> +       unmap_irq.pirq = gsi_info->pirq;
+> >> +
+> >> +       return HYPERVISOR_physdev_op(PHYSDEVOP_unmap_pirq, &unmap_irq);
+> >> +}
+> >> +
+> >> +static int xen_pvh_setup_gsi(gsi_info_t *gsi_info)
+> >> +{
+> >> +       struct physdev_setup_gsi setup_gsi;
+> >> +
+> >> +       setup_gsi.gsi = gsi_info->gsi;
+> >> +       setup_gsi.triggering = (gsi_info->trigger == ACPI_EDGE_SENSITIVE ? 0 : 1);
+> >> +       setup_gsi.polarity = (gsi_info->polarity == ACPI_ACTIVE_HIGH ? 0 : 1);
+> >> +
+> >> +       return HYPERVISOR_physdev_op(PHYSDEVOP_setup_gsi, &setup_gsi);
+> >> +}
+> > 
+> > Hm, why not simply call pcibios_enable_device() from pciback?  What
+> pcibios_enable_device had been called when using cmd "xl pci-assignable-add sbdf" from pciback. But it didn't do map_pirq and setup_gsi.
+> Because pcibios_enable_device-> pcibios_enable_irq-> __acpi_register_gsi(acpi_register_gsi_ioapic PVH specific)
+> > you are doing here using the hypercalls is a backdoor into what's done
+> > automatically by Xen on IO-APIC accesses by a PVH dom0.
+> But the gsi didn't be unmasked, and vioapic_hwdom_map_gsi is never called.
+> So, I think in pciback, if we can do what vioapic_hwdom_map_gsi does.
+>
 
---------------34IvQGXPlaGp0zbG9IWolAKw
-Content-Type: multipart/mixed; boundary="------------Kxr0uniy7c5DT6j4QIlMboib"
+I see, it does setup the IO-APIC pin but doesn't unmask it, that's
+what I feared.
 
---------------Kxr0uniy7c5DT6j4QIlMboib
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> > It will be much more natural for the PVH dom0 model to simply use the
+> > native way to configure and unmask the IO-APIC pin, and that would
+> > correctly setup the triggering/polarity and bind it to dom0 without
+> > requiring the usage of any hypercalls.
+> Do you still prefer that I called unmask_irq in pcistub_init_device, as this v2 patch do?
+> But Thomas Gleixner think it is not suitable to export unmask_irq.
 
-T24gMTIuMTIuMjMgMDk6MzgsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+IE9uIEZyaSwg
-RGVjIDA4LCAyMDIzIGF0IDA0OjAyOjI1UE0gKzAwMDAsIEFudGhvbnkgUEVSQVJEIHdyb3Rl
-Og0KPj4gVGhpcyBpcyBmb2xsb3dpbmcgYSBmYWlsdXJlIHRvIGJ1aWxkICJhcmNoL3g4Ni94
-ZW4vZW5saWdodGVuLmMiIGluDQo+PiBidWlsZC1pMzg2LXB2b3BzIGpvYnMgd2l0aCBsaW51
-eCA5NjhmMzVmNGFiMWMgKCJNZXJnZSB0YWcNCj4+ICd2Ni43LXJjMy1zbWIzLWNsaWVudC1m
-aXhlcycgb2YgZ2l0Oi8vZ2l0LnNhbWJhLm9yZy9zZnJlbmNoL2NpZnMtMi42IikNCj4+IGlu
-IGxpbnV4LWxpbnVzIGJyYW5jaC4NCj4gDQo+IENvdWxkIHdlIGV4cGFuZCBhIGJpdCBvbiB3
-aHkgQ09ORklHX1g4Nl9HRU5FUklDIGlzIHJlcXVpcmVkPyAgSXQgd291bGQNCj4gc2VlbSB0
-byBtZSB0aGF0IG9wdGlvbiBzaG91bGQgaGF2ZSBiZWVuIHNlbGVjdGVkIGJ5IGRlZmF1bHQg
-YWxyZWFkeT8NCg0KTm8sIHRoZSBrZXJuZWwncyBkZWZhdWx0IGZvciAzMi1iaXQgeDg2IGJ1
-aWxkcyBpcyBzdGlsbCB1c2luZyB0aGUgTTY4Ni4NCg0KSSBndWVzcyB0aGlzIGlzIGZvciBo
-aXN0b3JpY2FsIHJlYXNvbnMuDQoNCkJUVywgdGhlcmUgaXMgYSBrZXJuZWwgcGF0Y2ggcGVu
-ZGluZyBsZXR0aW5nIENPTkZJR19YRU4gZGVwZW5kIG9uIG1vcmUNCnJlY2VudCBjcHUgdHlw
-ZXMgZm9yIDMyLWJpdCBidWlsZHMuIEknbSBwbGFubmluZyB0byB0YWtlIHRoYXQgcGF0Y2gN
-CmFmdGVyIE9TU3Rlc3QgaGFzIGJlZW4gY2hhbmdlZCB0byBubyBsb25nZXIgdXNlIE02ODYu
-DQoNCg0KSnVlcmdlbg0KDQo=
---------------Kxr0uniy7c5DT6j4QIlMboib
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Yeah, that wasn't good.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> > 
+> > Is that an issue since in that case the gsi will get mapped and bound
+> > to dom0?
+> Dom0 do map_pirq is to pass the check xc_domain_irq_permission()-> pirq_access_permitted(), 
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Can we see about finding another way to fix this check?
 
---------------Kxr0uniy7c5DT6j4QIlMboib--
+One option would be granting permissions over the IRQ in
+PHYSDEVOP_setup_gsi?
 
---------------34IvQGXPlaGp0zbG9IWolAKw--
+Otherwise we could see about modifying the logic in PHYSDEVOP_map_pirq
+so that the hardware domain can map IRQs to other domains without
+having it mapped to itself first?
 
---------------Nk4DuQqhKTAt0P3c3NFpI1rV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+I think the call to PHYSDEVOP_setup_gsi in pciback is fine, but I
+would really like to avoid the usage of PHYSDEVOP_{,un}map_pirq on a
+PVH dom0 against itself.
 
------BEGIN PGP SIGNATURE-----
+> > 
+> > Otherwise I would prefer if the gsi is just configured from pciback
+> > (PHYSDEVOP_setup_gsi) but not mapped, as allowing a PVH dom0 to map
+> > interrupts using PHYSDEVOP_{,un}map_pirq to itself introduces a new
+> > interface to manage interrupts that clashes with the native way that a
+> > PVH dom0 uses.
+> This method does map_pirq and setup_gsi only when a device is assigned to passthrough, it won't affect the other device using native way.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmV4Hm8FAwAAAAAACgkQsN6d1ii/Ey/3
-1wgAlm+GJULS+tUorG9T2y3R0NQTYd79EKx+CcYOf9Ml4vSRukOqe8xoHunrqDUMZpFuOYyXIi3y
-QuNWcp9A2khLG/02Iz7gXR4mxb1IXNKg2evWCUXFrX4otNYHisS3KhSGIOyzjfbqFGfS18BH/s9v
-ArN0UMznseASygxxmk+CZwRs3XqyLmeP9FoDipQ08Fp85JqLeAp5sUttdYllLeE6TU//ZoZOwI6l
-kpU0QImMK/XPo1E8XU+lxWX3+06qQgmAAhK+D4I9TS4PjWCcCyKT/qD80LVH0sIwVI8NNQTprCQb
-jVvSad7EOEBpdS2jVuTnLUTMi6lpii/DQa+8yslvlw==
-=rRDG
------END PGP SIGNATURE-----
+It's not affected because of the specific usage in Linux, but allowing
+the interface to be used against itself (so to manage interrupts
+from assigned to dom0) is opening a whole new way to setup interrupts,
+and it's unclear to me how that will affect the current way we use to
+manage interrupts on a PVH dom0.
 
---------------Nk4DuQqhKTAt0P3c3NFpI1rV--
+Thanks, Roger.
 
