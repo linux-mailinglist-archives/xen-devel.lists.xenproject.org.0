@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A2F480F8E6
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 22:05:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.653603.1020015 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52DBE80FA7A
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 23:39:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.653616.1020028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD9wB-0008Ey-P0; Tue, 12 Dec 2023 21:05:07 +0000
+	id 1rDBOj-0004lH-Cb; Tue, 12 Dec 2023 22:38:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 653603.1020015; Tue, 12 Dec 2023 21:05:07 +0000
+Received: by outflank-mailman (output) from mailman id 653616.1020028; Tue, 12 Dec 2023 22:38:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD9wB-0008DG-KU; Tue, 12 Dec 2023 21:05:07 +0000
-Received: by outflank-mailman (input) for mailman id 653603;
- Tue, 12 Dec 2023 21:05:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rD9w9-0008D6-GX; Tue, 12 Dec 2023 21:05:05 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rD9w9-0008HM-C9; Tue, 12 Dec 2023 21:05:05 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rD9w9-0000XK-5c; Tue, 12 Dec 2023 21:05:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rD9w9-0001mi-52; Tue, 12 Dec 2023 21:05:05 +0000
+	id 1rDBOj-0004ii-8x; Tue, 12 Dec 2023 22:38:41 +0000
+Received: by outflank-mailman (input) for mailman id 653616;
+ Tue, 12 Dec 2023 22:38:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=A1Zv=HX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rDBOh-0004iY-Af
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 22:38:39 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 30c4cb89-993f-11ee-98e8-6d05b1d4d9a1;
+ Tue, 12 Dec 2023 23:38:37 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 267B8B817CA;
+ Tue, 12 Dec 2023 22:38:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CFE8C433C7;
+ Tue, 12 Dec 2023 22:38:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,94 +41,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0wVBs88FJ/lRQfybuPSoNfq6h1DDT8kSxgvTEqc/W94=; b=VXkiBxSP2SS0H+NcMc6kVsI9k6
-	g11pxZuIgL6qiu2m0/C+NW9rYs5PLHensaLBIclCIVKDHpvhmPz/wKNQHxeeEPom6mo/ef3UfJXe5
-	K/SwZvM7h8jR2ZsVUM/sFDPztI1kWz2r4e9lnEWSPuxj53Ac59LU8NTabNGjbX6sxmRc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184112-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 30c4cb89-993f-11ee-98e8-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1702420716;
+	bh=CtG2DfxlAksLVIdyYgnqD1BqwaGgnM13hz70YTyLgok=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=OqbcEOGrXIDx/4Qec4va0UclQAsLOl20ESvfQNFbqmHCegaJV7Qb9TUorVj5WmcVY
+	 E7B+Dp760r3sgpUME7jUTDjoiEYDRJAeyaz6ec2isvbKc7XOzdGcPLTpht+GLC1EYl
+	 PSQBFRFSK8looUFGm5I8S+kui9Gfm5TfKRm2Zo9DitB7FrUvjpVbII4ibto8s+Scyu
+	 Bb3GFhAFStNvoE4D5iqht/TRJuId2b/3BknA3ycUEr/RdO2XRwgz4ry2fRuXopRHjx
+	 n2LGA0b0GJGVTfsXvThRqvhfys/Gia259QKc1+nQuI2u2sn2/cblyCDjE8tiV5QRFh
+	 YHpxCZJ/glVZg==
+Date: Tue, 12 Dec 2023 14:38:34 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    consulting@bugseng.com, Wei Liu <wl@xen.org>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 6/7] x86/platform: removed break to address MISRA
+ C:2012 Rule 2.1
+In-Reply-To: <a8c42909-6316-448b-8d21-628d055abfbc@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2312121437280.1703076@ubuntu-linux-20-04-desktop>
+References: <cover.1702283415.git.nicola.vetrini@bugseng.com> <b1103bc13d5ce04159417592705b4fe6a6db748b.1702283415.git.nicola.vetrini@bugseng.com> <a8c42909-6316-448b-8d21-628d055abfbc@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 184112: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=a6a8fe0eb177ca27c9155177e7e60c13fc46e5f6
-X-Osstest-Versions-That:
-    xen=cf40abbc7ff2a73eaaea84e919fc7762354e75ad
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 12 Dec 2023 21:05:05 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 184112 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184112/
+On Tue, 12 Dec 2023, Jan Beulich wrote:
+> On 11.12.2023 11:30, Nicola Vetrini wrote:
+> > The break statement is redundant, hence it can be removed.
+> 
+> Except ...
+> 
+> > --- a/xen/arch/x86/platform_hypercall.c
+> > +++ b/xen/arch/x86/platform_hypercall.c
+> > @@ -723,7 +723,6 @@ ret_t do_platform_op(
+> >  
+> >          ret = continue_hypercall_on_cpu(
+> >              0, cpu_down_helper, (void *)(unsigned long)cpu);
+> > -        break;
+> >      }
+> >      break;
+> 
+> ... it wants to be the other break that is removed, imo.
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  a6a8fe0eb177ca27c9155177e7e60c13fc46e5f6
-baseline version:
- xen                  cf40abbc7ff2a73eaaea84e919fc7762354e75ad
-
-Last test of basis   184102  2023-12-12 11:00:28 Z    0 days
-Failing since        184106  2023-12-12 14:02:12 Z    0 days    2 attempts
-Testing same since   184112  2023-12-12 18:02:28 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Arnd Bergmann <arnd@arndb.de>
-  Federico Serafini <federico.serafini@bugseng.com>
-  George Dunlap <george.dunlap@cloud.com>
-  Henry Wang <Henry.Wang@arm.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Michal Orzel <michal.orzel@amd.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   cf40abbc7f..a6a8fe0eb1  a6a8fe0eb177ca27c9155177e7e60c13fc46e5f6 -> smoke
+I was also about to comment about which of the two breaks to remove... I
+didn't know if there are x86 specific conventions so I didn't say
+anything about it. But I also think it is more natural to keep the other
+break.
 
