@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CBD480E115
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 02:48:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652614.1018585 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97BF580E33E
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 05:26:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652624.1018595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCrt5-0002vR-53; Tue, 12 Dec 2023 01:48:43 +0000
+	id 1rCuKF-0003h3-DB; Tue, 12 Dec 2023 04:24:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652614.1018585; Tue, 12 Dec 2023 01:48:43 +0000
+Received: by outflank-mailman (output) from mailman id 652624.1018595; Tue, 12 Dec 2023 04:24:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCrt5-0002t8-22; Tue, 12 Dec 2023 01:48:43 +0000
-Received: by outflank-mailman (input) for mailman id 652614;
- Tue, 12 Dec 2023 01:48:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A1Zv=HX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rCrt3-0002t2-Bw
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 01:48:41 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9264ee6d-9890-11ee-98e8-6d05b1d4d9a1;
- Tue, 12 Dec 2023 02:48:40 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id B1B0461524;
- Tue, 12 Dec 2023 01:48:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DD99C433C8;
- Tue, 12 Dec 2023 01:48:37 +0000 (UTC)
+	id 1rCuKF-0003ds-9e; Tue, 12 Dec 2023 04:24:55 +0000
+Received: by outflank-mailman (input) for mailman id 652624;
+ Tue, 12 Dec 2023 04:24:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rCuKD-0003di-D2; Tue, 12 Dec 2023 04:24:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rCuKD-0004ll-9N; Tue, 12 Dec 2023 04:24:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rCuKC-0007zr-PZ; Tue, 12 Dec 2023 04:24:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rCuKC-0005qU-OY; Tue, 12 Dec 2023 04:24:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,38 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9264ee6d-9890-11ee-98e8-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702345718;
-	bh=HlZh59wGfAVBSuorjxj41ZEQZnizjiwbSz1ec6mgCCY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ERK/yd43EQvKEMvujhtvY7GVYRceWO5Ebv5D0ddTCSG8GFJpjA4xr9bvYh1Wpty8K
-	 YBrAHFLlSPB/su7hkL7nLTLiKkkB9DsQuWqQY6Et0HyzZJTwTqD/sA8KMGkX73/gC8
-	 K3Qm/cEY30ewsgaomeysFRrLYg2/8CNfHxXx/eDtkEmPlSZqYMRJrhUvRpLE1YUvzy
-	 1kLtKFiFhVCxm72u1V5fB3yZ7F9JStbcdMp1itQJlFdXmglM8/3VHIwCzRP1dHy7t9
-	 sODmY0RnL/pl5Na34PqpK4OzULZU+besOJs5CPhFcZLGVixYJsYRsvRYoRW72NCn3e
-	 VpAZxEZvgNhag==
-Date: Mon, 11 Dec 2023 17:48:35 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH v3 1/3] xen/x86: add missing instances of asmlinkage
- attributes
-In-Reply-To: <2282f4b7ff0143f513f9677e0cca2d68c0f2a08c.1702285639.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2312111748300.1703076@ubuntu-linux-20-04-desktop>
-References: <cover.1702285639.git.nicola.vetrini@bugseng.com> <2282f4b7ff0143f513f9677e0cca2d68c0f2a08c.1702285639.git.nicola.vetrini@bugseng.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=CkD411KDf7Vf2X+Do2llXV6BBC8TX/lbkKeWPHWorxQ=; b=JpFchinof97KtLhJz1xPAcfoMc
+	YvHnw2Cv5aODgzssRP7cAbt79PAWRGXXyA2Y865N3Tk6MjYM0r+5BhzViLAiEt3IfIh4AKhkB7tDI
+	6LfVbmkWSjTWlMy8p7pehqH6jINtW5Ltl5Aw66wvuJGwXt0odPNITbgR6+BvvspOI5kA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184097-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 184097: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=725acd0b9cc047b20a1b9379e46f05d3ebcf485e
+X-Osstest-Versions-That:
+    ovmf=1d50544aa2321e4efcd9c193d534fb4096d64dbf
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 12 Dec 2023 04:24:52 +0000
 
-On Mon, 11 Dec 2023, Nicola Vetrini wrote:
-> No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+flight 184097 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184097/
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 725acd0b9cc047b20a1b9379e46f05d3ebcf485e
+baseline version:
+ ovmf                 1d50544aa2321e4efcd9c193d534fb4096d64dbf
+
+Last test of basis   184095  2023-12-11 21:42:52 Z    0 days
+Testing same since   184097  2023-12-12 01:43:01 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Dun Tan <dun.tan@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   1d50544aa2..725acd0b9c  725acd0b9cc047b20a1b9379e46f05d3ebcf485e -> xen-tested-master
 
