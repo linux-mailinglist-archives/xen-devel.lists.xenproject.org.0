@@ -2,45 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84DD180E9AF
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 12:10:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652947.1019130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A83E280EA39
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 12:19:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652952.1019140 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD0du-0005WQ-AN; Tue, 12 Dec 2023 11:09:38 +0000
+	id 1rD0mC-0000Vh-7d; Tue, 12 Dec 2023 11:18:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652947.1019130; Tue, 12 Dec 2023 11:09:38 +0000
+Received: by outflank-mailman (output) from mailman id 652952.1019140; Tue, 12 Dec 2023 11:18:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD0du-0005Tm-6j; Tue, 12 Dec 2023 11:09:38 +0000
-Received: by outflank-mailman (input) for mailman id 652947;
- Tue, 12 Dec 2023 11:09:37 +0000
+	id 1rD0mC-0000TC-3T; Tue, 12 Dec 2023 11:18:12 +0000
+Received: by outflank-mailman (input) for mailman id 652952;
+ Tue, 12 Dec 2023 11:18:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/k62=HX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rD0ds-0005Tg-Uu
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 11:09:36 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IzYH=HX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rD0mA-0000T6-KK
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 11:18:10 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ee494418-98de-11ee-9b0f-b553b5be7939;
- Tue, 12 Dec 2023 12:09:34 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 074941FD05;
- Tue, 12 Dec 2023 11:09:33 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B0D08136C7;
- Tue, 12 Dec 2023 11:09:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id foKBKWw/eGV4LQAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 12 Dec 2023 11:09:32 +0000
+ id 20b854e7-98e0-11ee-9b0f-b553b5be7939;
+ Tue, 12 Dec 2023 12:18:08 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3363397426eso352781f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Dec 2023 03:18:08 -0800 (PST)
+Received: from localhost ([213.195.113.99]) by smtp.gmail.com with ESMTPSA id
+ v4-20020a5d4a44000000b003342e0745absm10528606wrs.93.2023.12.12.03.18.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Dec 2023 03:18:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,244 +44,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee494418-98de-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1702379373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WWFzz7B7HDdQvHxEm0VZDszHZV2tb7ZxAHURMGC6Hsw=;
-	b=OXg3WypR1DlbaJa9MyURHuXDlbfnJRT7Gjsq87HQFjUDmUgNWOpohv5PnJIBLlZWAJmZNZ
-	6isLNEEcvmoBaBky5iDJ2nwLqwks8gLsMFMMdvEyW+vcsXlb7plKFQR/NF5jD5O4LIDUUz
-	tEHaL3zg5t08aek4ZetYmTEwbKkOiK4=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1702379373; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=WWFzz7B7HDdQvHxEm0VZDszHZV2tb7ZxAHURMGC6Hsw=;
-	b=OXg3WypR1DlbaJa9MyURHuXDlbfnJRT7Gjsq87HQFjUDmUgNWOpohv5PnJIBLlZWAJmZNZ
-	6isLNEEcvmoBaBky5iDJ2nwLqwks8gLsMFMMdvEyW+vcsXlb7plKFQR/NF5jD5O4LIDUUz
-	tEHaL3zg5t08aek4ZetYmTEwbKkOiK4=
-Message-ID: <29a4894c-6a08-49cb-9567-c952eaaffa0f@suse.com>
-Date: Tue, 12 Dec 2023 12:09:32 +0100
+X-Inumbo-ID: 20b854e7-98e0-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1702379888; x=1702984688; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=q7BFBppsK3GWi0F4LB+KttdrrzEfHyI8WvRQEogrcRE=;
+        b=deE9eeDS9AicM2oPESH+238+vGS+YRjCe40iUTiZgt9JGq78OnKbWwFcjE3yXc/JOq
+         R1DnerQfpbWwOcGkUhqn7ok9PfZ1RcZZ2rRYAOcMkOidiyQ5cef8nW9XXTT/PULhuF6A
+         NAZbqq6EmoqL4aJ781y3sNNjOSyCpN9ohQUcE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702379888; x=1702984688;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=q7BFBppsK3GWi0F4LB+KttdrrzEfHyI8WvRQEogrcRE=;
+        b=gwF6ly/SYxoqG7cIjWn1R2uzdlgR9T51h6Jh43wYmp+GzUjkxiC1DpGFbRSnYchicV
+         oeWOkd0gm6JLF+W8InSp4VLQDhZScQmvammfm68XegjIBovHoweXdhjNaIRDrBC1IuTP
+         GPfxU5OB08eP4038b8+PocLxhHiT15diOguBsIjuPOPDlX8+1GVTcMBk/pdqAn8GYWaU
+         BPexNuelqaaJK9hwwati19O4lPVJyNNxDr+BN8PKaWOg2LOQvlhXBK09k6/ONY98ddB4
+         B5rc4X4b0GxroE7Jfl7/Mh7PlfLT4QOYLmZXuwC5jwB5PNQGZwhLrd/0XO0zQgeS3Z/X
+         pSJQ==
+X-Gm-Message-State: AOJu0YxSEIkyf9NhPstf5yzWmPzSs5dLHHZq+Vvn2pquQ5cmXij1Ta4+
+	7pW4A+BXVaNeZbGy2ba4SVfhcQ==
+X-Google-Smtp-Source: AGHT+IE+cmXW0xzzzz/niDA4DCQcFmC2gDD9204EEblz5Il4mMgF4+Gk5TlFR116dxE3XcbBkwQm4g==
+X-Received: by 2002:a5d:6242:0:b0:333:524d:59f9 with SMTP id m2-20020a5d6242000000b00333524d59f9mr2992320wrv.17.1702379887956;
+        Tue, 12 Dec 2023 03:18:07 -0800 (PST)
+Date: Tue, 12 Dec 2023 12:18:07 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"Stabellini, Stefano" <stefano.stabellini@amd.com>,
+	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
+	"Koenig, Christian" <Christian.Koenig@amd.com>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
+	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
+	"Zhang, Julia" <Julia.Zhang@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>
+Subject: Re: [RFC KERNEL PATCH v2 2/3] xen/pvh: Unmask irq for passthrough
+ device in PVH dom0
+Message-ID: <ZXhBb0Vt6gDuprHa@macbook>
+References: <alpine.DEB.2.22.394.2312011857260.110490@ubuntu-linux-20-04-desktop>
+ <ZW2ptexPQXrWBiOS@macbook>
+ <alpine.DEB.2.22.394.2312041413000.110490@ubuntu-linux-20-04-desktop>
+ <ZW7rDjjC0gxEI1cq@macbook>
+ <15275706-5c31-4e29-aa29-9f5e90526219@suse.com>
+ <BL1PR12MB5849C871B0B9577D1E0BF576E784A@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZXculMdLgwGaRC7i@macbook>
+ <BL1PR12MB584997DDE6839F2340022976E78EA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZXgeieg4E8UN0KoN@macbook>
+ <50ca26a1-38e3-45fb-9c39-56e4d04de3e0@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/12] xen/spinlock: support higher number of cpus
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- javi.merino@cloud.com
-References: <20231212094725.22184-1-jgross@suse.com>
- <20231212094725.22184-13-jgross@suse.com>
- <2c2f8ee1-bf97-4e42-a1ef-74ed1997722c@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <2c2f8ee1-bf97-4e42-a1ef-74ed1997722c@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------aBjSpE0n3i0K7srNAmULoOAb"
-X-Spam-Level: ***************
-X-Spam-Flag: YES
-X-Spam-Score: 15.00
-X-Spam-Level: 
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=OXg3WypR;
-	dmarc=pass (policy=quarantine) header.from=suse.com;
-	spf=fail (smtp-out2.suse.de: domain of jgross@suse.com does not designate 2a07:de40:b281:104:10:150:64:97 as permitted sender) smtp.mailfrom=jgross@suse.com
-X-Rspamd-Server: rspamd2
-X-Spamd-Result: default: False [-5.94 / 50.00];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 TO_DN_SOME(0.00)[];
-	 HAS_ATTACHMENT(0.00)[];
-	 MIME_BASE64_TEXT_BOGUS(1.00)[];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_TRACE(0.00)[suse.com:+];
-	 MIME_BASE64_TEXT(0.10)[];
-	 RCPT_COUNT_SEVEN(0.00)[8];
-	 MX_GOOD(-0.01)[];
-	 DMARC_POLICY_ALLOW(0.00)[suse.com,quarantine];
-	 SIGNED_PGP(-2.00)[];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
-	 DMARC_POLICY_ALLOW_WITH_FAILURES(-0.50)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 BAYES_HAM(-0.07)[62.39%];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys];
-	 ARC_NA(0.00)[];
-	 R_SPF_FAIL(0.00)[-all];
-	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	 SPAM_FLAG(5.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 NEURAL_HAM_LONG(-0.97)[-0.975];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 DWL_DNSWL_LOW(-1.00)[suse.com:dkim];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 WHITELIST_DMARC(-7.00)[suse.com:D:+];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 RCVD_TLS_ALL(0.00)[]
-X-Spam-Score: -5.94
-X-Rspamd-Queue-Id: 074941FD05
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <50ca26a1-38e3-45fb-9c39-56e4d04de3e0@suse.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------aBjSpE0n3i0K7srNAmULoOAb
-Content-Type: multipart/mixed; boundary="------------azZ9X7z6VYEbav50KaG0AXYb";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- javi.merino@cloud.com
-Message-ID: <29a4894c-6a08-49cb-9567-c952eaaffa0f@suse.com>
-Subject: Re: [PATCH v4 12/12] xen/spinlock: support higher number of cpus
-References: <20231212094725.22184-1-jgross@suse.com>
- <20231212094725.22184-13-jgross@suse.com>
- <2c2f8ee1-bf97-4e42-a1ef-74ed1997722c@xen.org>
-In-Reply-To: <2c2f8ee1-bf97-4e42-a1ef-74ed1997722c@xen.org>
+On Tue, Dec 12, 2023 at 10:38:08AM +0100, Jan Beulich wrote:
+> (I think the Cc list is too long here, but then I don't know who to
+> keep and who to possibly drop.)
+> 
+> On 12.12.2023 09:49, Roger Pau Monné wrote:
+> > On Tue, Dec 12, 2023 at 06:16:43AM +0000, Chen, Jiqian wrote:
+> >> On 2023/12/11 23:45, Roger Pau Monné wrote:
+> >>> On Wed, Dec 06, 2023 at 06:07:26AM +0000, Chen, Jiqian wrote:
+> >>>> +static int xen_pvh_setup_gsi(gsi_info_t *gsi_info)
+> >>>> +{
+> >>>> +       struct physdev_setup_gsi setup_gsi;
+> >>>> +
+> >>>> +       setup_gsi.gsi = gsi_info->gsi;
+> >>>> +       setup_gsi.triggering = (gsi_info->trigger == ACPI_EDGE_SENSITIVE ? 0 : 1);
+> >>>> +       setup_gsi.polarity = (gsi_info->polarity == ACPI_ACTIVE_HIGH ? 0 : 1);
+> >>>> +
+> >>>> +       return HYPERVISOR_physdev_op(PHYSDEVOP_setup_gsi, &setup_gsi);
+> >>>> +}
+> >>>
+> >>> Hm, why not simply call pcibios_enable_device() from pciback?  What
+> >> pcibios_enable_device had been called when using cmd "xl pci-assignable-add sbdf" from pciback. But it didn't do map_pirq and setup_gsi.
+> >> Because pcibios_enable_device-> pcibios_enable_irq-> __acpi_register_gsi(acpi_register_gsi_ioapic PVH specific)
+> >>> you are doing here using the hypercalls is a backdoor into what's done
+> >>> automatically by Xen on IO-APIC accesses by a PVH dom0.
+> >> But the gsi didn't be unmasked, and vioapic_hwdom_map_gsi is never called.
+> >> So, I think in pciback, if we can do what vioapic_hwdom_map_gsi does.
+> >>
+> > 
+> > I see, it does setup the IO-APIC pin but doesn't unmask it, that's
+> > what I feared.
+> > 
+> >>> It will be much more natural for the PVH dom0 model to simply use the
+> >>> native way to configure and unmask the IO-APIC pin, and that would
+> >>> correctly setup the triggering/polarity and bind it to dom0 without
+> >>> requiring the usage of any hypercalls.
+> >> Do you still prefer that I called unmask_irq in pcistub_init_device, as this v2 patch do?
+> >> But Thomas Gleixner think it is not suitable to export unmask_irq.
+> > 
+> > Yeah, that wasn't good.
+> > 
+> >>>
+> >>> Is that an issue since in that case the gsi will get mapped and bound
+> >>> to dom0?
+> >> Dom0 do map_pirq is to pass the check xc_domain_irq_permission()-> pirq_access_permitted(), 
+> > 
+> > Can we see about finding another way to fix this check?
+> > 
+> > One option would be granting permissions over the IRQ in
+> > PHYSDEVOP_setup_gsi?
+> 
+> There's no domain available there, and imo it's also the wrong interface to
+> possibly grant any permissions.
 
---------------azZ9X7z6VYEbav50KaG0AXYb
-Content-Type: multipart/mixed; boundary="------------rwXR5bJKc7f00993aUOzVCHL"
+Well, the domain is the caller.
 
---------------rwXR5bJKc7f00993aUOzVCHL
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> > Otherwise we could see about modifying the logic in PHYSDEVOP_map_pirq
+> > so that the hardware domain can map IRQs to other domains without
+> > having it mapped to itself first?
+> 
+> While this may be possible to arrange for, it still would feel wrong. How
+> would you express the same in a disaggregated environment? I.e. how would
+> you make sure a domain trying to grant permission is actually permitted to
+> do so for the resource in question?
 
-T24gMTIuMTIuMjMgMTE6MTAsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
-Cj4gDQo+IE9uIDEyLzEyLzIwMjMgMDk6NDcsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBB
-bGxvdyAxNiBiaXRzIHBlciBjcHUgbnVtYmVyLCB3aGljaCBpcyB0aGUgbGltaXQgaW1wb3Nl
-ZCBieQ0KPj4gc3BpbmxvY2tfdGlja2V0c190Lg0KPj4NCj4+IFRoaXMgd2lsbCBhbGxvdyB1
-cCB0byA2NTUzNSBjcHVzLCB3aGlsZSBpbmNyZWFzaW5nIG9ubHkgdGhlIHNpemUgb2YNCj4+
-IHJlY3Vyc2l2ZSBzcGlubG9ja3MgaW4gZGVidWcgYnVpbGRzIGZyb20gOCB0byAxMiBieXRl
-cy4NCj4gTG9va2luZyBhdCBhcmNoL0tjb25maWcsIGl0IGxvb2tzIGxpa2Ugd2UgYXJlIGxp
-bWl0aW5nIE5SX0NQVVMgdG8gbWF4aW11bSA0MDk2LiANCj4gU28gY2FuIHlvdSBvdXRsaW5l
-IHdoeSB3ZSBuZWVkIHRoaXM/DQoNClRoZSBsaW1pdCBvZiA0MDk2IGNwdXMgaXMgZGljdGF0
-ZWQgYnkgdGhlIGN1cnJlbnQgbGltaXQgb2YgdGhlIHNwaW5sb2NrDQppbXBsZW1lbnRhdGlv
-bi4gU28gYXNraW5nICJ3aHkgZG8gd2UgbmVlZCB0byBzdXBwb3J0IG1vcmUgdGhhbiA0MDk2
-IGNwdXMNCmluIHNwaW5sb2NrX3Qgd2hlbiB0aGUgY3VycmVudCBYZW4gbGltaXQgaXMgNDA5
-NiIgaXMga2luZCBvZiB0aGUgd3JvbmcNCnF1ZXN0aW9uLg0KDQpUaGUgY29ycmVjdCBxdWVz
-dGlvbiB3b3VsZCBiZTogd2h5IGlzIFhlbiBsaW1pdGVkIHRvIDQwOTYgY3B1cz8gQW5zd2Vy
-Og0KYmVjYXVzZSBvZiB0aGUgbGltaXQgaW4gc3BpbmxvY2tfdC4NCg0KVGhlcmUgYXJlICh4
-ODYpIG1hY2hpbmVzIG91dCB0aGVyZSB3aXRoIG1vcmUgY3B1cyB0aGFuIDQwOTYsIGFuZCBK
-YXZpIChhZGRlZA0KdG8gQ2M6KSB3YXMgYWxyZWFkeSBsb29raW5nIGludG8gcmlzaW5nIHRo
-ZSBYZW4gbGltaXQuDQoNCj4gDQo+IEp1c3QgdG8gYmUgY2xlYXIgaXMgSSBhbSBub3QgYWdh
-aW5zdCB0aGlzIGNoYW5nZSwgYnV0IGFsb25lIGl0IHNlZW1zIGEgbGl0dGxlIA0KPiBiaXQg
-b2RkIHRvIGluY3JlYXNlIHRoZSBzaXplIGluIGRlYnVnIHdoZW4gdGhhdCBsaW1pdCBjYW4g
-bmV2ZXIgYmUgcmVhY2hlZCAoYXQgDQo+IGxlYXN0IHRvZGF5KS4NCg0KDQpKdWVyZ2VuDQoN
-Cg==
---------------rwXR5bJKc7f00993aUOzVCHL
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+I've been looking again at the original issue, and I think I was
+confused.  The issue is not that dom0 doesn't have permissions over
+the GSIs (as we do grant those in dom0_setup_permissions()), but
+rather that XEN_DOMCTL_irq_permission attempts to use
+domain_pirq_to_irq() in order to get the IRQ from the PIRQ parameter.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+I've always been a bit confused with the PIRQ GSI relation, but IIRC
+GSIs are always identity mapped to PIRQs, and hence you could possibly
+adjust XEN_DOMCTL_irq_permission to use irq_permit_access() to check
+if the caller domain has permissions over the target PIRQ.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------rwXR5bJKc7f00993aUOzVCHL--
-
---------------azZ9X7z6VYEbav50KaG0AXYb--
-
---------------aBjSpE0n3i0K7srNAmULoOAb
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmV4P2wFAwAAAAAACgkQsN6d1ii/Ey80
-UwgAlGyH6KM+WMa7o2dLrbBgHlndKDk8Rui9Su0umry1nESjc5BRo/EiznLoacpRwYH4L2VYBsVx
-o+t/v90PifDQ6V+F6T8FtZuGZKMabpB2S6LQx6qbjLokoBSLXArzX5/yZNFe3Rm6FMmNK8e4DY4+
-qJl+K8KfGvxwgD8cpPIWHl1iQt0xZj6AIBVV9A9HKczFhsShvZRIaq4XphUXMBPHCwUEa0F86A0h
-oEbwPMh6Fru4S99U3gBhMpw8ztTu+jAfV0pokueZNzl27npU30tpvFTpMzZ4aXXje5Syb52MdBH8
-idGXZYLbUi8NZjczwiFhTZx+rjvBqxdWTynh3ZffZg==
-=sxvy
------END PGP SIGNATURE-----
-
---------------aBjSpE0n3i0K7srNAmULoOAb--
+Thanks, Roger.
 
