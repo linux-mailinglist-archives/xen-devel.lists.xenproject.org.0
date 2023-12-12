@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEF2280EB9B
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 13:22:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.653047.1019285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF73580EC2A
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 13:40:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.653055.1019295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD1m8-0002Ee-8m; Tue, 12 Dec 2023 12:22:12 +0000
+	id 1rD23K-0007fv-OT; Tue, 12 Dec 2023 12:39:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 653047.1019285; Tue, 12 Dec 2023 12:22:12 +0000
+Received: by outflank-mailman (output) from mailman id 653055.1019295; Tue, 12 Dec 2023 12:39:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD1m8-0002Bq-5z; Tue, 12 Dec 2023 12:22:12 +0000
-Received: by outflank-mailman (input) for mailman id 653047;
- Tue, 12 Dec 2023 12:22:10 +0000
+	id 1rD23K-0007dD-LT; Tue, 12 Dec 2023 12:39:58 +0000
+Received: by outflank-mailman (input) for mailman id 653055;
+ Tue, 12 Dec 2023 12:39:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rD1m5-0002Aa-UI
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 12:22:10 +0000
+ (envelope-from <julien@xen.org>) id 1rD23K-0007d7-5k
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 12:39:58 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rD1m5-0006Fh-Ou; Tue, 12 Dec 2023 12:22:09 +0000
+ id 1rD23K-0006Y0-2Z; Tue, 12 Dec 2023 12:39:58 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rD1m5-0002MX-FQ; Tue, 12 Dec 2023 12:22:09 +0000
+ id 1rD23J-00036i-Tb; Tue, 12 Dec 2023 12:39:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,11 +42,11 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=YfyG5cOvBKMc8x3GPmVNnaUzV+ObYlTiJStZdWZnFdM=; b=2D8EYKmR2IAhXUj+po8q/zGYD+
-	5akRQt6B86DiPQat27rJ4nKRDLUlvQ36MYKMSYEY/GaGCZJ5izdp2WSbWvcqT89KD/xxAm2/qvN+G
-	IqVx7kJrJ4Q/3zSM9t1goPIu+puNr/IdrODF0UxDYaQHct6EXKh4wZLmPWKIxB6EvDiA=;
-Message-ID: <2056d029-99b0-4b6e-a83f-d3401c9828fe@xen.org>
-Date: Tue, 12 Dec 2023 12:22:07 +0000
+	bh=K6eOUXxhOh7y38HPVTOJqfzezXpkjDuR5mflNl0Qfg4=; b=GJJuEISXDkAEiAwm397Nchns9A
+	M5JEPdkACu4XGgy930aIuzVxCOIaC4RB2fVXPXfnTgnwZeuh5itwsjfw98gEvD+OBVwA2m1OY6kZN
+	/Hd1iNWrPm8IavArgXgn2Pi5pJFCwy1Tz6RrzI3Z+tg6BohrRkpKpiWzObKLg9Mk8hDM=;
+Message-ID: <569bfdee-5d0b-4384-9dad-e2e90861d837@xen.org>
+Date: Tue, 12 Dec 2023 12:39:56 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 12/12] xen/spinlock: support higher number of cpus
@@ -54,57 +54,94 @@ Content-Language: en-GB
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- javi.merino@cloud.com
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 References: <20231212094725.22184-1-jgross@suse.com>
  <20231212094725.22184-13-jgross@suse.com>
- <2c2f8ee1-bf97-4e42-a1ef-74ed1997722c@xen.org>
- <29a4894c-6a08-49cb-9567-c952eaaffa0f@suse.com>
- <e5d991d7-cfdb-4970-90e9-c43fc16cdba0@xen.org>
- <a3a1b216-96d5-4ae0-a03e-e8ef7ee58a43@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <a3a1b216-96d5-4ae0-a03e-e8ef7ee58a43@suse.com>
+In-Reply-To: <20231212094725.22184-13-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 12/12/2023 12:11, Juergen Gross wrote:
-> On 12.12.23 12:40, Julien Grall wrote:
->> Hi Juergen,
->>
->> On 12/12/2023 11:09, Juergen Gross wrote:
->>> On 12.12.23 11:10, Julien Grall wrote:
->>>> Hi Juergen,
->>>>
->>>> On 12/12/2023 09:47, Juergen Gross wrote:
->>>>> Allow 16 bits per cpu number, which is the limit imposed by
->>>>> spinlock_tickets_t.
->>>>>
->>>>> This will allow up to 65535 cpus, while increasing only the size of
->>>>> recursive spinlocks in debug builds from 8 to 12 bytes.
->>>> Looking at arch/Kconfig, it looks like we are limiting NR_CPUS to 
->>>> maximum 4096. So can you outline why we need this?
->>>
->>> The limit of 4096 cpus is dictated by the current limit of the spinlock
->>> implementation. So asking "why do we need to support more than 4096 cpus
->>> in spinlock_t when the current Xen limit is 4096" is kind of the wrong
->>> question. >
->>> The correct question would be: why is Xen limited to 4096 cpus? Answer:
->>> because of the limit in spinlock_t.
->>
->> I thought there was also some lock contention issue in Xen. Hence why 
->> I asked the question because the commit message doesn't really give 
->> any clue why we are raising the limit... (This is a hint that it 
->> probably needs to be expanded a bit).
+On 12/12/2023 09:47, Juergen Gross wrote:
+> Allow 16 bits per cpu number, which is the limit imposed by
+> spinlock_tickets_t.
 > 
-> Okay, are you fine with the following addition:
+> This will allow up to 65535 cpus, while increasing only the size of
+> recursive spinlocks in debug builds from 8 to 12 bytes.
 > 
->    The current Xen limit of 4095 cpus is imposed by SPINLOCK_CPU_BITS
->    being 12. There are machines available with more cpus than the current
->    Xen limit, so it makes sense to have the possibility to use more cpus.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>   xen/common/spinlock.c      |  1 +
+>   xen/include/xen/spinlock.h | 18 +++++++++---------
+>   2 files changed, 10 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
+> index 296bcf33e6..ae7c7c2086 100644
+> --- a/xen/common/spinlock.c
+> +++ b/xen/common/spinlock.c
+> @@ -481,6 +481,7 @@ int rspin_trylock(rspinlock_t *lock)
+>   
+>       /* Don't allow overflow of recurse_cpu field. */
+>       BUILD_BUG_ON(NR_CPUS > SPINLOCK_NO_CPU);
+> +    BUILD_BUG_ON(SPINLOCK_CPU_BITS > sizeof(lock->recurse_cpu) * 8);
+>       BUILD_BUG_ON(SPINLOCK_RECURSE_BITS < 3);
+>   
+>       check_lock(&lock->debug, true);
+> diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
+> index 87946965b2..d720778cc1 100644
+> --- a/xen/include/xen/spinlock.h
+> +++ b/xen/include/xen/spinlock.h
+> @@ -7,16 +7,16 @@
+>   #include <asm/system.h>
+>   #include <asm/spinlock.h>
+>   
+> -#define SPINLOCK_CPU_BITS  12
+> +#define SPINLOCK_CPU_BITS  16
+>   
+>   #ifdef CONFIG_DEBUG_LOCKS
+>   union lock_debug {
+> -    uint16_t val;
+> -#define LOCK_DEBUG_INITVAL 0xffff
+> +    uint32_t val;
+> +#define LOCK_DEBUG_INITVAL 0xffffffff
+>       struct {
+> -        uint16_t cpu:SPINLOCK_CPU_BITS;
+> -#define LOCK_DEBUG_PAD_BITS (14 - SPINLOCK_CPU_BITS)
+> -        uint16_t :LOCK_DEBUG_PAD_BITS;
+> +        uint32_t cpu:SPINLOCK_CPU_BITS;
+> +#define LOCK_DEBUG_PAD_BITS (30 - SPINLOCK_CPU_BITS)
+> +        uint32_t :LOCK_DEBUG_PAD_BITS;
+>           bool irq_safe:1;
+>           bool unseen:1;
+>       };
+> @@ -210,10 +210,10 @@ typedef struct spinlock {
+>   
+>   typedef struct rspinlock {
+>       spinlock_tickets_t tickets;
+> -    uint16_t recurse_cpu:SPINLOCK_CPU_BITS;
+> +    uint16_t recurse_cpu;
+>   #define SPINLOCK_NO_CPU        ((1u << SPINLOCK_CPU_BITS) - 1)
+> -#define SPINLOCK_RECURSE_BITS  (16 - SPINLOCK_CPU_BITS)
+> -    uint16_t recurse_cnt:SPINLOCK_RECURSE_BITS;
+> +#define SPINLOCK_RECURSE_BITS  8
+> +    uint8_t recurse_cnt;
 
-Yes. That makes clearer.
+This patch is also bumping the number of recursion possible from 16 to 
+256. It is not clear to me whether this was intended or you just wanted 
+to use uint8_t because it was easy to use.
+
+ From above, I also see that we only need 3 bits:
+
+ > BUILD_BUG_ON(SPINLOCK_RECURSE_BITS < 3);
+
+So I would consider to ...
+
+>   #define SPINLOCK_MAX_RECURSE   ((1u << SPINLOCK_RECURSE_BITS) - 1)
+
+... update SPINLOCK_MAX_RECURSE to 16 or at least explain why we want to 
+allow up to 256 recursion.
 
 Cheers,
 
