@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3041F80EE44
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 15:02:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.653153.1019457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B434F80EE4E
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 15:05:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.653155.1019468 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD3KM-00077w-De; Tue, 12 Dec 2023 14:01:38 +0000
+	id 1rD3NU-0007lU-UP; Tue, 12 Dec 2023 14:04:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 653153.1019457; Tue, 12 Dec 2023 14:01:38 +0000
+Received: by outflank-mailman (output) from mailman id 653155.1019468; Tue, 12 Dec 2023 14:04:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD3KM-000755-Az; Tue, 12 Dec 2023 14:01:38 +0000
-Received: by outflank-mailman (input) for mailman id 653153;
- Tue, 12 Dec 2023 14:01:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rD3NU-0007jm-PK; Tue, 12 Dec 2023 14:04:52 +0000
+Received: by outflank-mailman (input) for mailman id 653155;
+ Tue, 12 Dec 2023 14:04:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=A/PU=HX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rD3KK-00074z-GY
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 14:01:36 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f576038e-98f6-11ee-9b0f-b553b5be7939;
- Tue, 12 Dec 2023 15:01:34 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-40c3f68b79aso35855735e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 12 Dec 2023 06:01:34 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j25-20020a05600c1c1900b004076f522058sm19095667wms.0.2023.12.12.06.01.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Dec 2023 06:01:32 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1rD3NT-0007jf-6x
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 14:04:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rD3NS-0008D9-UY; Tue, 12 Dec 2023 14:04:50 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rD3NS-0007MC-Np; Tue, 12 Dec 2023 14:04:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +39,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f576038e-98f6-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702389694; x=1702994494; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Q07JDhtC8/CzI+mPapQNHYKf/7pRxNuK6H1n1J5tdx0=;
-        b=d+vSCH4+dS6AEg1+CQls5ly+HJuODXl98cHE6FNHiYhi9DXbx2PNU9adwor40DmsFH
-         6HCnQekBSLAS56YfThFoom62vkm94wndhosA15LBtI3fzzceSI3A5GYx7s8JcQmCvYHj
-         2mFgVB3oRH+b1RLZDUUPYYTEXGC/y46s4yUg7xDKdc874w+IhwnSApel5Cmp7RCTYtYX
-         m0d4gWX5tvUUStPB8rfTgtHVbF8pG9kcIxMqhmt3KGDMq1QnOWRzoToDbBi5RIsRNlMW
-         ryB4SsD8tXYQdFIGIcmYTkIS86R9WzBgOl8DOjTvh/VjvXFl4IVhGXwsExM/g02RUjfc
-         T2aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702389694; x=1702994494;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q07JDhtC8/CzI+mPapQNHYKf/7pRxNuK6H1n1J5tdx0=;
-        b=CUu+FLLPXt3Dr5WH95o771ZZ27rno/2cSk8YDMdlBI6Y5eFSH6xs+e7G3YnqsJ7KG4
-         eacEDWw4VkmVucSfFSLVVL8uIXzXbcEHDi2FN4osHy1woDZB501JFFqKu5IkPSOVh/Ic
-         +SNh30d4VIFs0GvkhyGtUEAVJNZrECv7uu+3ethXxY+bcjCVqO7FPP0GeAgjfS85U9RW
-         qUo1xEeQEnC8U7EFVGaOjhNoSlNTeTdJyilrp9AWD2m8iv3HTJ7Esdxrb26Dyfcp+R6e
-         LaB7O5JmV2JolY4tg0CEpmz8SX1t1gr7MOTKKcDE6jDNPn4Q5vQvruAOioL30QIZQdVt
-         gNOQ==
-X-Gm-Message-State: AOJu0Yz2gvqUGrb+YNwaWLDXgdHFN74KW1JrX5DUj8jeq8tuHdrcrQmQ
-	0Wq1yDN3tVSK88VLQccRtbst
-X-Google-Smtp-Source: AGHT+IFEzJOrzF0IqeM7Q/R6hO1T7X20KDmEYbUoYh72xADGXyuGrIIU0Yc2N9ew/IBWlmVrD5xWRA==
-X-Received: by 2002:a05:600c:22c2:b0:40c:2a2b:4ef with SMTP id 2-20020a05600c22c200b0040c2a2b04efmr3516456wmg.43.1702389693836;
-        Tue, 12 Dec 2023 06:01:33 -0800 (PST)
-Message-ID: <c2679666-9cd6-45aa-a222-82a589247ea2@suse.com>
-Date: Tue, 12 Dec 2023 15:01:31 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=aRzPj3gSpjPeOjXM+J4MFtF2ssViqCXIq0GWnn/kAlI=; b=HU/VY5HGqKs5CGc2CXHEjN6xST
+	lxV2PGsOFXW9wJSgZrEYW4HOfFWFyzvjRiwMJ2oBjJGDZQ/ACRKhDITDAaYN67c1kQzxsyNRuUljp
+	RU/Ssd5jhPqlu5QJUsRVn4q4MWbCjF7jYWzvu6UkAYi3hArMWuBRcvi6uqLNDv6au/q0=;
+Message-ID: <4afe81fd-f5b7-4ddb-8782-38c98d8b3076@xen.org>
+Date: Tue, 12 Dec 2023 14:04:48 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 7/7] x86/xstate: move BUILD_BUG_ON to address MISRA
- C:2012 Rule 2.1
-Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
- <a969550faea681c69730c0968264781f7739670d.1702283415.git.nicola.vetrini@bugseng.com>
- <1d05baf2-e262-4151-b5a3-308f0ffa1e97@suse.com>
- <af20721d-c353-4327-8ae2-6e803de4ba37@suse.com>
- <06787876c18401f7adbfb23f7f91ee84@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <06787876c18401f7adbfb23f7f91ee84@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 12/12] xen/spinlock: support higher number of cpus
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20231212094725.22184-1-jgross@suse.com>
+ <20231212094725.22184-13-jgross@suse.com>
+ <569bfdee-5d0b-4384-9dad-e2e90861d837@xen.org>
+ <9f1f73e6-2ade-440f-aed4-df46be62f3a5@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <9f1f73e6-2ade-440f-aed4-df46be62f3a5@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 12.12.2023 14:38, Nicola Vetrini wrote:
-> On 2023-12-12 11:07, Jan Beulich wrote:
->> On 12.12.2023 11:04, Jan Beulich wrote:
->>> On 11.12.2023 11:30, Nicola Vetrini wrote:
->>>> The string literal inside the expansion of BUILD_BUG_ON is considered
->>>> unreachable code; however, such statement can be moved earlier
->>>> with no functional change.
+
+
+On 12/12/2023 13:08, Juergen Gross wrote:
+> On 12.12.23 13:39, Julien Grall wrote:
+>> Hi,
+>>
+>> On 12/12/2023 09:47, Juergen Gross wrote:
+>>> Allow 16 bits per cpu number, which is the limit imposed by
+>>> spinlock_tickets_t.
 >>>
->>> First: Why is this deemed dead code in its present position, but okay 
->>> when
->>> moved? Second: While moving is indeed no functional change (really
->>> BUILD_BUG_ON() can be moved about anywhere, for not producing any code 
->>> in
->>> the final binary), it removes the connection between it and the 
->>> respective
->>> asm() (where %z would have been nice to use).
+>>> This will allow up to 65535 cpus, while increasing only the size of
+>>> recursive spinlocks in debug builds from 8 to 12 bytes.
+>>>
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>> ---
+>>>   xen/common/spinlock.c      |  1 +
+>>>   xen/include/xen/spinlock.h | 18 +++++++++---------
+>>>   2 files changed, 10 insertions(+), 9 deletions(-)
+>>>
+>>> diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
+>>> index 296bcf33e6..ae7c7c2086 100644
+>>> --- a/xen/common/spinlock.c
+>>> +++ b/xen/common/spinlock.c
+>>> @@ -481,6 +481,7 @@ int rspin_trylock(rspinlock_t *lock)
+>>>       /* Don't allow overflow of recurse_cpu field. */
+>>>       BUILD_BUG_ON(NR_CPUS > SPINLOCK_NO_CPU);
+>>> +    BUILD_BUG_ON(SPINLOCK_CPU_BITS > sizeof(lock->recurse_cpu) * 8);
+>>>       BUILD_BUG_ON(SPINLOCK_RECURSE_BITS < 3);
+>>>       check_lock(&lock->debug, true);
+>>> diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
+>>> index 87946965b2..d720778cc1 100644
+>>> --- a/xen/include/xen/spinlock.h
+>>> +++ b/xen/include/xen/spinlock.h
+>>> @@ -7,16 +7,16 @@
+>>>   #include <asm/system.h>
+>>>   #include <asm/spinlock.h>
+>>> -#define SPINLOCK_CPU_BITS  12
+>>> +#define SPINLOCK_CPU_BITS  16
+>>>   #ifdef CONFIG_DEBUG_LOCKS
+>>>   union lock_debug {
+>>> -    uint16_t val;
+>>> -#define LOCK_DEBUG_INITVAL 0xffff
+>>> +    uint32_t val;
+>>> +#define LOCK_DEBUG_INITVAL 0xffffffff
+>>>       struct {
+>>> -        uint16_t cpu:SPINLOCK_CPU_BITS;
+>>> -#define LOCK_DEBUG_PAD_BITS (14 - SPINLOCK_CPU_BITS)
+>>> -        uint16_t :LOCK_DEBUG_PAD_BITS;
+>>> +        uint32_t cpu:SPINLOCK_CPU_BITS;
+>>> +#define LOCK_DEBUG_PAD_BITS (30 - SPINLOCK_CPU_BITS)
+>>> +        uint32_t :LOCK_DEBUG_PAD_BITS;
+>>>           bool irq_safe:1;
+>>>           bool unseen:1;
+>>>       };
+>>> @@ -210,10 +210,10 @@ typedef struct spinlock {
+>>>   typedef struct rspinlock {
+>>>       spinlock_tickets_t tickets;
+>>> -    uint16_t recurse_cpu:SPINLOCK_CPU_BITS;
+>>> +    uint16_t recurse_cpu;
+>>>   #define SPINLOCK_NO_CPU        ((1u << SPINLOCK_CPU_BITS) - 1)
+>>> -#define SPINLOCK_RECURSE_BITS  (16 - SPINLOCK_CPU_BITS)
+>>> -    uint16_t recurse_cnt:SPINLOCK_RECURSE_BITS;
+>>> +#define SPINLOCK_RECURSE_BITS  8
+>>> +    uint8_t recurse_cnt;
 >>
->> Oh, and third: Which string literal? I expect you're not building with
->> an ancient compiler, so it got to be
->>
->> #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), "!(" #cond ")"); 
->> })
->>
->> which you see in use. Yet that string literal isn't "code" or "data", 
->> but
->> an argument to _Static_assert(). Is Eclair perhaps not properly aware 
->> of
->> _Static_assert()?
+>> This patch is also bumping the number of recursion possible from 16 to 
+>> 256. It is not clear to me whether this was intended or you just 
+>> wanted to use uint8_t because it was easy to use.
 > 
-> On further inspection, this should have fallen into the deviation for 
-> pure decls. This patch can be dropped, we'll adjust this inside ECLAIR.
+> That was the case indeed.
+> 
+>>  From above, I also see that we only need 3 bits:
+>>
+>>  > BUILD_BUG_ON(SPINLOCK_RECURSE_BITS < 3);
+>>
+>> So I would consider to ...
+>>
+>>>   #define SPINLOCK_MAX_RECURSE   ((1u << SPINLOCK_RECURSE_BITS) - 1)
+>>
+>> ... update SPINLOCK_MAX_RECURSE to 16 or at least explain why we want 
+>> to allow up to 256 recursion.
+> 
+> I think updating SPINLOCK_MAX_RECURSE to 15 (the current value) is fine,
+> probably with an additional
+> 
+> BUILD_BUG_ON(SPINLOCK_MAX_RECURSE > ((1u << SPINLOCK_RECURSE_BITS) - 1));
 
-What's the connection to "pure" here? Or are you merely piggybacking on
-that attribute for this non-function?
+It sounds good to me.
 
-Jan
+Cheers,
+
+-- 
+Julien Grall
 
