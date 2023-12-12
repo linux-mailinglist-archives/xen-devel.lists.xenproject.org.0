@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FA1E80E894
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 11:05:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652907.1019039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 858B780E8B0
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 11:08:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652913.1019050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCzd9-0004vX-DU; Tue, 12 Dec 2023 10:04:47 +0000
+	id 1rCzgS-0005a9-2q; Tue, 12 Dec 2023 10:08:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652907.1019039; Tue, 12 Dec 2023 10:04:47 +0000
+Received: by outflank-mailman (output) from mailman id 652913.1019050; Tue, 12 Dec 2023 10:08:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCzd9-0004so-Ar; Tue, 12 Dec 2023 10:04:47 +0000
-Received: by outflank-mailman (input) for mailman id 652907;
- Tue, 12 Dec 2023 10:04:46 +0000
+	id 1rCzgR-0005XX-VC; Tue, 12 Dec 2023 10:08:11 +0000
+Received: by outflank-mailman (input) for mailman id 652913;
+ Tue, 12 Dec 2023 10:08:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=A/PU=HX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rCzd8-0004si-1l
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 10:04:46 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1rCzgQ-0005XR-JL
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 10:08:10 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df3bc1d2-98d5-11ee-9b0f-b553b5be7939;
- Tue, 12 Dec 2023 11:04:43 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40c517d0de5so4006005e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 12 Dec 2023 02:04:43 -0800 (PST)
+ id 595a1ab1-98d6-11ee-9b0f-b553b5be7939;
+ Tue, 12 Dec 2023 11:08:08 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-33338c47134so5098293f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Dec 2023 02:08:08 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fj5-20020a05600c0c8500b0040b2976eb02sm16134474wmb.10.2023.12.12.02.04.42
+ je16-20020a05600c1f9000b00405442edc69sm18164399wmb.14.2023.12.12.02.08.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 Dec 2023 02:04:43 -0800 (PST)
+ Tue, 12 Dec 2023 02:08:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df3bc1d2-98d5-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 595a1ab1-98d6-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702375483; x=1702980283; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iIzOjm9ApykVxZkRgQSI/av936JIaW2QggLwYdtFEDc=;
-        b=ScFSQxmDODNPqA2u5jbumsyKtTTygpjmm5iXTzBHMUXkQ4uqns1IV32nQDOTHLG73x
-         5iNdH4p6Bb40cxVscalv5tgP3q7QmmSrTUpjZV8n2E5BHe/xWvEq71SRoYUYANXv2V0Y
-         LWq5eFIIJBkfSjR2oNfJbskKLJH8BDxeH++oyEOKPUzTxGeDhlJziWOycmb8K01o0HsC
-         3th44uD4HhnzOMJP36CYxlQeCGLITLbLTaVu8SLSBKWvkyS6bSXNKDWRGZ4vYh/1H6PI
-         aBC4Uc3zH5Ae7O75QqHGdBEblDwOwRDtZs5KqOVH2wfOrAjNB/OPKbSnxbVBwnmjB7Iv
-         khWQ==
+        d=suse.com; s=google; t=1702375688; x=1702980488; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=KZwg/RtqM0NKLso9LDrpoMoAu9y2dzBm8vps/3U6MIE=;
+        b=HpAP8PdGOu+W15FUDrjccVmt5scRh965iPZSQwe/W95CXDwVi6ANSXYVOqmLA/TRhr
+         +nfMqQBhPHkTS5UhA40EctXfkgjas6DGPiTv+KMIsERyF/8S4RvRKD18G3TuRkbjoUuL
+         vS54ZsdwggijdLVIW4whmO3KdPegFZybf3xdR/gB3wGavqZ3n/mKXlmKDDSu29CETLV6
+         r/HzYk604HzEEEZnwCMKLkmsbCdxigEQGHH07U76W7AFUDdmE6N386cg+Z6/v36Ouxsg
+         n8bZRl01QuneFcZ/PWyi0ITJ/MTZtfxkeifohd6D/VgmSJIsT0Dz6i5wRG62ebxM9WmB
+         EMeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702375483; x=1702980283;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iIzOjm9ApykVxZkRgQSI/av936JIaW2QggLwYdtFEDc=;
-        b=U1S21OyK5fa0fHGDkPjwq5pR5NXGRve8JCPyXy5DrxF2m5fvAureGGXhQ002/2v130
-         gQ1BPNkaZHz9uLFJ/unma2aszneZzxOXYs6gyeDzQHlIGPnsYuV3KSCBgpo1dAahz7Wu
-         tJR0vtE/Z1UOpnHmhJ4dCbW2SqDUNrH+BCY7qbjGgsFbv97ry3qkcmRE81oeoK2/GsRb
-         pAkl9HaW6yadaY/bgquJR2IznjF2nf7mpEhBdecSxdNs2p/Q9rqt6kHpFoXDzg6rASLq
-         wpNoFifQTRfxy/LWV0xObu8ZTrumgzUqVPTSAYLdvJRA90kEzGUTdw/SkB1DNJweAsZ4
-         YkuA==
-X-Gm-Message-State: AOJu0YzEu8x0IZHo3YdgJy8sbUWqJa7F5iuY0bXQdYS0DV+jQH97cKu6
-	8o5uIA7DAiVTgHTXIuSFoTHQ
-X-Google-Smtp-Source: AGHT+IF5coiw+z+7qlWtI9EUwFsYbvAiBmfx86Dj35gpmpp3GYZ8SYjanguUwcsSlKV0Xqh46RIUmQ==
-X-Received: by 2002:a05:600c:331b:b0:40b:5e59:da79 with SMTP id q27-20020a05600c331b00b0040b5e59da79mr3067338wmp.140.1702375483245;
-        Tue, 12 Dec 2023 02:04:43 -0800 (PST)
-Message-ID: <1d05baf2-e262-4151-b5a3-308f0ffa1e97@suse.com>
-Date: Tue, 12 Dec 2023 11:04:30 +0100
+        d=1e100.net; s=20230601; t=1702375688; x=1702980488;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=KZwg/RtqM0NKLso9LDrpoMoAu9y2dzBm8vps/3U6MIE=;
+        b=B/jNhlIj1huoXshSJNHhSR+pXf/Go+Jnig5Nm5n3ci+91LDAnFP4gwckHHa25wfXqH
+         GHdp49Mui/cQSvbbD2yLdR+chH+HK4ozga148SuxlluJemYcCKzcRkJzEbCDopHJSFLF
+         3kdsg4wXYeCEn3W0Rf8pOf40xhH5tG/V63QoWsY90nsyuImVuflwYnWkG09qa1odG+vt
+         pJXjDn3Dxx8yz1ybXuTp1JeJ1OI4IGWH1KdWN3ES3KX2jJ3QkDgZzrwpcwJPz2F6fmey
+         y6eFWQ+l23qo9KvRlG7fpt50OuOhM6ZLKJZj11wO9l5NmRui5ZFjX74jTFuhdS7tI51b
+         Ojvg==
+X-Gm-Message-State: AOJu0Yx3zcEXUtA09cD2XyBB7r8DX3iHVKL/6anX7VR0+awHHQbOW6Ug
+	NF6Ds8oxno43a6u8OYNLvw7M
+X-Google-Smtp-Source: AGHT+IFMpUOfenFNBgzneXK9DaKmJxPHFZ9++jtQn70bdMYhkdtVZOs3a64lS1VjTJePT96WWl3rHA==
+X-Received: by 2002:a7b:c5cc:0:b0:40c:53d1:4c6 with SMTP id n12-20020a7bc5cc000000b0040c53d104c6mr152574wmk.166.1702375688038;
+        Tue, 12 Dec 2023 02:08:08 -0800 (PST)
+Message-ID: <af20721d-c353-4327-8ae2-6e803de4ba37@suse.com>
+Date: Tue, 12 Dec 2023 11:07:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [XEN PATCH 7/7] x86/xstate: move BUILD_BUG_ON to address MISRA
  C:2012 Rule 2.1
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
  <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
  <a969550faea681c69730c0968264781f7739670d.1702283415.git.nicola.vetrini@bugseng.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
+ <1d05baf2-e262-4151-b5a3-308f0ffa1e97@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,20 +114,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a969550faea681c69730c0968264781f7739670d.1702283415.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <1d05baf2-e262-4151-b5a3-308f0ffa1e97@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.12.2023 11:30, Nicola Vetrini wrote:
-> The string literal inside the expansion of BUILD_BUG_ON is considered
-> unreachable code; however, such statement can be moved earlier
-> with no functional change.
+On 12.12.2023 11:04, Jan Beulich wrote:
+> On 11.12.2023 11:30, Nicola Vetrini wrote:
+>> The string literal inside the expansion of BUILD_BUG_ON is considered
+>> unreachable code; however, such statement can be moved earlier
+>> with no functional change.
+> 
+> First: Why is this deemed dead code in its present position, but okay when
+> moved? Second: While moving is indeed no functional change (really
+> BUILD_BUG_ON() can be moved about anywhere, for not producing any code in
+> the final binary), it removes the connection between it and the respective
+> asm() (where %z would have been nice to use).
 
-First: Why is this deemed dead code in its present position, but okay when
-moved? Second: While moving is indeed no functional change (really
-BUILD_BUG_ON() can be moved about anywhere, for not producing any code in
-the final binary), it removes the connection between it and the respective
-asm() (where %z would have been nice to use).
+Oh, and third: Which string literal? I expect you're not building with
+an ancient compiler, so it got to be
+
+#define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), "!(" #cond ")"); })
+
+which you see in use. Yet that string literal isn't "code" or "data", but
+an argument to _Static_assert(). Is Eclair perhaps not properly aware of
+_Static_assert()?
 
 Jan
 
