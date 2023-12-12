@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8276980E0F4
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 02:44:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652607.1018566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D91180E0F9
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 02:46:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652611.1018576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCrp7-0001kx-E3; Tue, 12 Dec 2023 01:44:37 +0000
+	id 1rCrqn-0002Mu-Oc; Tue, 12 Dec 2023 01:46:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652607.1018566; Tue, 12 Dec 2023 01:44:37 +0000
+Received: by outflank-mailman (output) from mailman id 652611.1018576; Tue, 12 Dec 2023 01:46:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rCrp7-0001iU-AB; Tue, 12 Dec 2023 01:44:37 +0000
-Received: by outflank-mailman (input) for mailman id 652607;
- Tue, 12 Dec 2023 01:44:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rCrqn-0002Jw-Lo; Tue, 12 Dec 2023 01:46:21 +0000
+Received: by outflank-mailman (input) for mailman id 652611;
+ Tue, 12 Dec 2023 01:46:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=A1Zv=HX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rCrp5-0001iI-Ik
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 01:44:35 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fec22693-988f-11ee-9b0f-b553b5be7939;
- Tue, 12 Dec 2023 02:44:33 +0100 (CET)
+ id 1rCrqn-0002Jo-1d
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 01:46:21 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3f5c3783-9890-11ee-98e8-6d05b1d4d9a1;
+ Tue, 12 Dec 2023 02:46:20 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 2ED87CE13AD;
- Tue, 12 Dec 2023 01:44:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A0A8C433C7;
- Tue, 12 Dec 2023 01:44:29 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id B3EADB810DB;
+ Tue, 12 Dec 2023 01:46:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A548C433C7;
+ Tue, 12 Dec 2023 01:46:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,18 +42,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fec22693-988f-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 3f5c3783-9890-11ee-98e8-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702345470;
-	bh=tq80R6tbY+WHErdqKlbP1A0A5OMhcDgUtfj/d+5WE+k=;
+	s=k20201202; t=1702345579;
+	bh=/O9QV8/AHOH6xzHvqcH08MeGR3qFjIZmyEwhQdG7ByY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=EfFVmiQK5CARKRdOr1dFtDAzEP0dqa7IdUlfwvL2h7c3WGXbCll4Jae+va6UHQ4zL
-	 ElbA7P4sdWiyK9n2rlmxs+GH1sz3tYDxpQ/Sc++MpGPho7OTQbC/aL+c3mudAt7+CB
-	 6XP1hUXLh7Mk6csL8VSKsn6hCYbe/vmjAe4keUPQ8bf28i+dr3ZeLXA/9qSPpMm7pp
-	 6XicOIHmyaS/FbGU8NpDRa6AEdD94iKS95J23yVwQzGu5+YTPoP/I7bLVwj3YO0Cq9
-	 6Sw7QUztoFsOROMCFoqNfPZz0xxdLrANVJOjTz/X1PhW88qpxiUGHZKpFy+aXabgg5
-	 337DBa37HcP+A==
-Date: Mon, 11 Dec 2023 17:44:28 -0800 (PST)
+	b=i26RkqCugYTMz7RFOvnXFUnMncJIO+muZ84J9hugx6fgTkU77JJy3JeVMMUqn/JwH
+	 xllO7L5qdf1bhpRpTp550t/rCi2qrW0X+4jSvLB5tKR+v2ZiQ0LgT+BUSrkpvl1SpY
+	 45aMLIXRCWwwxcfV9+T8tCQxi5KQ/B/YHOjdQAuByy0tuuoNOdVqK8ltTNFlmJkSV3
+	 PAc0Y2riKdBRQyJIrAjbtKBNZmWHlvnjQTDQsHTQrZ1jtjQEsd2MCJJbdpijMsag80
+	 vJEXjQpVdh3fwS7TJCNyUMDmLyMOUCPxfk9PaS6zJJ7guInX9yXw4x2kIl5J6AIB0T
+	 oTpYSSAWZ4GEw==
+Date: Mon, 11 Dec 2023 17:46:16 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
@@ -61,20 +61,54 @@ cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
     Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 6/7] x86/platform: removed break to address MISRA
+Subject: Re: [XEN PATCH 7/7] x86/xstate: move BUILD_BUG_ON to address MISRA
  C:2012 Rule 2.1
-In-Reply-To: <b1103bc13d5ce04159417592705b4fe6a6db748b.1702283415.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2312111744170.1703076@ubuntu-linux-20-04-desktop>
-References: <cover.1702283415.git.nicola.vetrini@bugseng.com> <b1103bc13d5ce04159417592705b4fe6a6db748b.1702283415.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <a969550faea681c69730c0968264781f7739670d.1702283415.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2312111745280.1703076@ubuntu-linux-20-04-desktop>
+References: <cover.1702283415.git.nicola.vetrini@bugseng.com> <a969550faea681c69730c0968264781f7739670d.1702283415.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 11 Dec 2023, Nicola Vetrini wrote:
-> The break statement is redundant, hence it can be removed.
+> The string literal inside the expansion of BUILD_BUG_ON is considered
+> unreachable code; however, such statement can be moved earlier
+> with no functional change.
 > 
 > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> ---
+> The motivation for this code movement is that keeping it inside the switch
+> statement matches MISRA's definition of unreachable code, but does not fall into
+> the category of declarations without initialization, which is already a deviated
+> aspect. An alternative approach would be to deviate BUILD_BUG_ON as well.
+
+I think that deviating BUILD_BUG_ON would be totally fine. But given
+that this patch is obviously correct:
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
+
+> ---
+>  xen/arch/x86/xstate.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
+> index cf94761d0542..99f0526c8988 100644
+> --- a/xen/arch/x86/xstate.c
+> +++ b/xen/arch/x86/xstate.c
+> @@ -396,9 +396,10 @@ void xrstor(struct vcpu *v, uint64_t mask)
+>       */
+>      for ( prev_faults = faults = 0; ; prev_faults = faults )
+>      {
+> +        BUILD_BUG_ON(sizeof(faults) != 4); /* Clang doesn't support %z in asm. */
+> +
+>          switch ( __builtin_expect(ptr->fpu_sse.x[FPU_WORD_SIZE_OFFSET], 8) )
+>          {
+> -            BUILD_BUG_ON(sizeof(faults) != 4); /* Clang doesn't support %z in asm. */
+>  #define _xrstor(insn) \
+>          asm volatile ( "1: .byte " insn "\n" \
+>                         "3:\n" \
+> -- 
+> 2.34.1
+> 
 
