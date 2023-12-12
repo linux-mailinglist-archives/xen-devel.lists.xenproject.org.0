@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B434F80EE4E
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 15:05:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.653155.1019468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC88A80EE53
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 15:05:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.653159.1019477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD3NU-0007lU-UP; Tue, 12 Dec 2023 14:04:52 +0000
+	id 1rD3OC-0008Fy-8k; Tue, 12 Dec 2023 14:05:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 653155.1019468; Tue, 12 Dec 2023 14:04:52 +0000
+Received: by outflank-mailman (output) from mailman id 653159.1019477; Tue, 12 Dec 2023 14:05:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD3NU-0007jm-PK; Tue, 12 Dec 2023 14:04:52 +0000
-Received: by outflank-mailman (input) for mailman id 653155;
- Tue, 12 Dec 2023 14:04:51 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rD3NT-0007jf-6x
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 14:04:51 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rD3NS-0008D9-UY; Tue, 12 Dec 2023 14:04:50 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rD3NS-0007MC-Np; Tue, 12 Dec 2023 14:04:50 +0000
+	id 1rD3OC-0008DY-6B; Tue, 12 Dec 2023 14:05:36 +0000
+Received: by outflank-mailman (input) for mailman id 653159;
+ Tue, 12 Dec 2023 14:05:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=j5yJ=HX=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rD3OB-00086p-8M
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 14:05:35 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 84b53cd2-98f7-11ee-98e8-6d05b1d4d9a1;
+ Tue, 12 Dec 2023 15:05:34 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 49B594EE0737;
+ Tue, 12 Dec 2023 15:05:34 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,122 +39,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=aRzPj3gSpjPeOjXM+J4MFtF2ssViqCXIq0GWnn/kAlI=; b=HU/VY5HGqKs5CGc2CXHEjN6xST
-	lxV2PGsOFXW9wJSgZrEYW4HOfFWFyzvjRiwMJ2oBjJGDZQ/ACRKhDITDAaYN67c1kQzxsyNRuUljp
-	RU/Ssd5jhPqlu5QJUsRVn4q4MWbCjF7jYWzvu6UkAYi3hArMWuBRcvi6uqLNDv6au/q0=;
-Message-ID: <4afe81fd-f5b7-4ddb-8782-38c98d8b3076@xen.org>
-Date: Tue, 12 Dec 2023 14:04:48 +0000
+X-Inumbo-ID: 84b53cd2-98f7-11ee-98e8-6d05b1d4d9a1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/12] xen/spinlock: support higher number of cpus
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20231212094725.22184-1-jgross@suse.com>
- <20231212094725.22184-13-jgross@suse.com>
- <569bfdee-5d0b-4384-9dad-e2e90861d837@xen.org>
- <9f1f73e6-2ade-440f-aed4-df46be62f3a5@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <9f1f73e6-2ade-440f-aed4-df46be62f3a5@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Date: Tue, 12 Dec 2023 15:05:34 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH 7/7] x86/xstate: move BUILD_BUG_ON to address MISRA
+ C:2012 Rule 2.1
+In-Reply-To: <c2679666-9cd6-45aa-a222-82a589247ea2@suse.com>
+References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
+ <a969550faea681c69730c0968264781f7739670d.1702283415.git.nicola.vetrini@bugseng.com>
+ <1d05baf2-e262-4151-b5a3-308f0ffa1e97@suse.com>
+ <af20721d-c353-4327-8ae2-6e803de4ba37@suse.com>
+ <06787876c18401f7adbfb23f7f91ee84@bugseng.com>
+ <c2679666-9cd6-45aa-a222-82a589247ea2@suse.com>
+Message-ID: <93e217379f777bdc7c5f536865543d94@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-
-
-On 12/12/2023 13:08, Juergen Gross wrote:
-> On 12.12.23 13:39, Julien Grall wrote:
->> Hi,
->>
->> On 12/12/2023 09:47, Juergen Gross wrote:
->>> Allow 16 bits per cpu number, which is the limit imposed by
->>> spinlock_tickets_t.
->>>
->>> This will allow up to 65535 cpus, while increasing only the size of
->>> recursive spinlocks in debug builds from 8 to 12 bytes.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>>   xen/common/spinlock.c      |  1 +
->>>   xen/include/xen/spinlock.h | 18 +++++++++---------
->>>   2 files changed, 10 insertions(+), 9 deletions(-)
->>>
->>> diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
->>> index 296bcf33e6..ae7c7c2086 100644
->>> --- a/xen/common/spinlock.c
->>> +++ b/xen/common/spinlock.c
->>> @@ -481,6 +481,7 @@ int rspin_trylock(rspinlock_t *lock)
->>>       /* Don't allow overflow of recurse_cpu field. */
->>>       BUILD_BUG_ON(NR_CPUS > SPINLOCK_NO_CPU);
->>> +    BUILD_BUG_ON(SPINLOCK_CPU_BITS > sizeof(lock->recurse_cpu) * 8);
->>>       BUILD_BUG_ON(SPINLOCK_RECURSE_BITS < 3);
->>>       check_lock(&lock->debug, true);
->>> diff --git a/xen/include/xen/spinlock.h b/xen/include/xen/spinlock.h
->>> index 87946965b2..d720778cc1 100644
->>> --- a/xen/include/xen/spinlock.h
->>> +++ b/xen/include/xen/spinlock.h
->>> @@ -7,16 +7,16 @@
->>>   #include <asm/system.h>
->>>   #include <asm/spinlock.h>
->>> -#define SPINLOCK_CPU_BITS  12
->>> +#define SPINLOCK_CPU_BITS  16
->>>   #ifdef CONFIG_DEBUG_LOCKS
->>>   union lock_debug {
->>> -    uint16_t val;
->>> -#define LOCK_DEBUG_INITVAL 0xffff
->>> +    uint32_t val;
->>> +#define LOCK_DEBUG_INITVAL 0xffffffff
->>>       struct {
->>> -        uint16_t cpu:SPINLOCK_CPU_BITS;
->>> -#define LOCK_DEBUG_PAD_BITS (14 - SPINLOCK_CPU_BITS)
->>> -        uint16_t :LOCK_DEBUG_PAD_BITS;
->>> +        uint32_t cpu:SPINLOCK_CPU_BITS;
->>> +#define LOCK_DEBUG_PAD_BITS (30 - SPINLOCK_CPU_BITS)
->>> +        uint32_t :LOCK_DEBUG_PAD_BITS;
->>>           bool irq_safe:1;
->>>           bool unseen:1;
->>>       };
->>> @@ -210,10 +210,10 @@ typedef struct spinlock {
->>>   typedef struct rspinlock {
->>>       spinlock_tickets_t tickets;
->>> -    uint16_t recurse_cpu:SPINLOCK_CPU_BITS;
->>> +    uint16_t recurse_cpu;
->>>   #define SPINLOCK_NO_CPU        ((1u << SPINLOCK_CPU_BITS) - 1)
->>> -#define SPINLOCK_RECURSE_BITS  (16 - SPINLOCK_CPU_BITS)
->>> -    uint16_t recurse_cnt:SPINLOCK_RECURSE_BITS;
->>> +#define SPINLOCK_RECURSE_BITS  8
->>> +    uint8_t recurse_cnt;
->>
->> This patch is also bumping the number of recursion possible from 16 to 
->> 256. It is not clear to me whether this was intended or you just 
->> wanted to use uint8_t because it was easy to use.
+On 2023-12-12 15:01, Jan Beulich wrote:
+> On 12.12.2023 14:38, Nicola Vetrini wrote:
+>> On 2023-12-12 11:07, Jan Beulich wrote:
+>>> On 12.12.2023 11:04, Jan Beulich wrote:
+>>>> On 11.12.2023 11:30, Nicola Vetrini wrote:
+>>>>> The string literal inside the expansion of BUILD_BUG_ON is 
+>>>>> considered
+>>>>> unreachable code; however, such statement can be moved earlier
+>>>>> with no functional change.
+>>>> 
+>>>> First: Why is this deemed dead code in its present position, but 
+>>>> okay
+>>>> when
+>>>> moved? Second: While moving is indeed no functional change (really
+>>>> BUILD_BUG_ON() can be moved about anywhere, for not producing any 
+>>>> code
+>>>> in
+>>>> the final binary), it removes the connection between it and the
+>>>> respective
+>>>> asm() (where %z would have been nice to use).
+>>> 
+>>> Oh, and third: Which string literal? I expect you're not building 
+>>> with
+>>> an ancient compiler, so it got to be
+>>> 
+>>> #define BUILD_BUG_ON(cond) ({ _Static_assert(!(cond), "!(" #cond 
+>>> ")");
+>>> })
+>>> 
+>>> which you see in use. Yet that string literal isn't "code" or "data",
+>>> but
+>>> an argument to _Static_assert(). Is Eclair perhaps not properly aware
+>>> of
+>>> _Static_assert()?
+>> 
+>> On further inspection, this should have fallen into the deviation for
+>> pure decls. This patch can be dropped, we'll adjust this inside 
+>> ECLAIR.
 > 
-> That was the case indeed.
+> What's the connection to "pure" here? Or are you merely piggybacking on
+> that attribute for this non-function?
 > 
->>  From above, I also see that we only need 3 bits:
->>
->>  > BUILD_BUG_ON(SPINLOCK_RECURSE_BITS < 3);
->>
->> So I would consider to ...
->>
->>>   #define SPINLOCK_MAX_RECURSE   ((1u << SPINLOCK_RECURSE_BITS) - 1)
->>
->> ... update SPINLOCK_MAX_RECURSE to 16 or at least explain why we want 
->> to allow up to 256 recursion.
-> 
-> I think updating SPINLOCK_MAX_RECURSE to 15 (the current value) is fine,
-> probably with an additional
-> 
-> BUILD_BUG_ON(SPINLOCK_MAX_RECURSE > ((1u << SPINLOCK_RECURSE_BITS) - 1));
+> Jan
 
-It sounds good to me.
-
-Cheers,
+Just a naming coincidence, there aren't any attributes involved. No 
+change to Xen code is needed.
 
 -- 
-Julien Grall
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
