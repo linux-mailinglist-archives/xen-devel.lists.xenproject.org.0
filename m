@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F37DE80EA94
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 12:40:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.652967.1019170 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9971D80EABB
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Dec 2023 12:44:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.652972.1019180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD184-0000qj-HK; Tue, 12 Dec 2023 11:40:48 +0000
+	id 1rD1Bw-0002Xq-48; Tue, 12 Dec 2023 11:44:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 652967.1019170; Tue, 12 Dec 2023 11:40:48 +0000
+Received: by outflank-mailman (output) from mailman id 652972.1019180; Tue, 12 Dec 2023 11:44:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rD184-0000oI-CH; Tue, 12 Dec 2023 11:40:48 +0000
-Received: by outflank-mailman (input) for mailman id 652967;
- Tue, 12 Dec 2023 11:40:46 +0000
+	id 1rD1Bw-0002Ui-16; Tue, 12 Dec 2023 11:44:48 +0000
+Received: by outflank-mailman (input) for mailman id 652972;
+ Tue, 12 Dec 2023 11:44:46 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rD182-0000o8-TG
- for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 11:40:46 +0000
+ (envelope-from <julien@xen.org>) id 1rD1Bu-0002Uc-8x
+ for xen-devel@lists.xenproject.org; Tue, 12 Dec 2023 11:44:46 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rD182-0005MI-M1; Tue, 12 Dec 2023 11:40:46 +0000
+ id 1rD1Bt-0005Rj-Vz; Tue, 12 Dec 2023 11:44:45 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rD182-0006XD-EP; Tue, 12 Dec 2023 11:40:46 +0000
+ id 1rD1Bt-0006mk-QA; Tue, 12 Dec 2023 11:44:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,55 +42,48 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=KykO3tlCCMmSZPtvJcGWxmVGOqrmWXFk37A4ESjIXJ4=; b=0FAJQTEjZ8gl/5wntTOW6W2C25
-	9jGejJ4/ab9IMlwONwlSjqIgoCtfXx0+E6L1xXp/J+DOOac27g0dDNyXOF2FC71KKm/9ZuoDE59Ay
-	N19sw0/ADDTseaWtrtGMPnQy5adGuNgipm+stREE93mFiX9POsJZr9A0RIMH5nFMAHzI=;
-Message-ID: <e5d991d7-cfdb-4970-90e9-c43fc16cdba0@xen.org>
-Date: Tue, 12 Dec 2023 11:40:44 +0000
+	bh=FgZoIbzKZyuwJLFL0Fix8G8Fx1iS5C3fAtASUpDKlCY=; b=aCeWjp07cgILqaeM1E0lCmUqcg
+	w/YJ3XsUMeD3wm0852c6XYfZxNc9VGDemi21jBmbKx6veTtYUKLVs5lvZQE5JwnkYw8DJiMk6hXl3
+	Q7D3umxGX2sUAKa25yQ9nyDTZMJ2e8WpdkkBIw0VACYU8pEzRvacU2DY9VkhTb6LnMnI=;
+Message-ID: <b49a092d-a0de-4f54-8b1e-32c5a549c843@xen.org>
+Date: Tue, 12 Dec 2023 11:44:43 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 12/12] xen/spinlock: support higher number of cpus
+Subject: Re: [PATCH v3 0/3] xen: have a more generic unaligned.h header
 Content-Language: en-GB
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- javi.merino@cloud.com
-References: <20231212094725.22184-1-jgross@suse.com>
- <20231212094725.22184-13-jgross@suse.com>
- <2c2f8ee1-bf97-4e42-a1ef-74ed1997722c@xen.org>
- <29a4894c-6a08-49cb-9567-c952eaaffa0f@suse.com>
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20231211131616.1839-1-jgross@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <29a4894c-6a08-49cb-9567-c952eaaffa0f@suse.com>
+In-Reply-To: <20231211131616.1839-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Juergen,
 
-On 12/12/2023 11:09, Juergen Gross wrote:
-> On 12.12.23 11:10, Julien Grall wrote:
->> Hi Juergen,
->>
->> On 12/12/2023 09:47, Juergen Gross wrote:
->>> Allow 16 bits per cpu number, which is the limit imposed by
->>> spinlock_tickets_t.
->>>
->>> This will allow up to 65535 cpus, while increasing only the size of
->>> recursive spinlocks in debug builds from 8 to 12 bytes.
->> Looking at arch/Kconfig, it looks like we are limiting NR_CPUS to 
->> maximum 4096. So can you outline why we need this?
+On 11/12/2023 13:16, Juergen Gross wrote:
+> Update Xen's unaligned.h header to support all architectures, allowing
+> to remove the architecture specific variants (x86 only until now).
 > 
-> The limit of 4096 cpus is dictated by the current limit of the spinlock
-> implementation. So asking "why do we need to support more than 4096 cpus
-> in spinlock_t when the current Xen limit is 4096" is kind of the wrong
-> question. >
-> The correct question would be: why is Xen limited to 4096 cpus? Answer:
-> because of the limit in spinlock_t.
+> Changes in V2:
+> - new patch 1 (Julien Grall)
+> - adjusted patch 2 (Jan Beulich)
+> 
+> Changes in V3:
+> - adjusted patch 2 (Andrew Cooper)
+> 
+> Juergen Gross (3):
+>    xen/arm: set -mno-unaligned-access compiler option for Arm32
+>    xen: make include/xen/unaligned.h usable on all architectures
+>    xen: remove asm/unaligned.h
 
-I thought there was also some lock contention issue in Xen. Hence why I 
-asked the question because the commit message doesn't really give any 
-clue why we are raising the limit... (This is a hint that it probably 
-needs to be expanded a bit).
+The series is now committed.
 
 Cheers,
 
