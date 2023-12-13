@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F625811861
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 16:52:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654087.1020743 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FC2F8118D4
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 17:12:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654092.1020754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDRWl-0003tA-NA; Wed, 13 Dec 2023 15:52:03 +0000
+	id 1rDRqB-00081b-AG; Wed, 13 Dec 2023 16:12:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654087.1020743; Wed, 13 Dec 2023 15:52:03 +0000
+Received: by outflank-mailman (output) from mailman id 654092.1020754; Wed, 13 Dec 2023 16:12:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDRWl-0003r3-Jy; Wed, 13 Dec 2023 15:52:03 +0000
-Received: by outflank-mailman (input) for mailman id 654087;
- Wed, 13 Dec 2023 15:52:02 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rDRWk-0003qt-QM; Wed, 13 Dec 2023 15:52:02 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rDRWk-0003y3-MQ; Wed, 13 Dec 2023 15:52:02 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rDRWk-0004mD-4q; Wed, 13 Dec 2023 15:52:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rDRWk-00052I-4K; Wed, 13 Dec 2023 15:52:02 +0000
+	id 1rDRqB-0007yf-6x; Wed, 13 Dec 2023 16:12:07 +0000
+Received: by outflank-mailman (input) for mailman id 654092;
+ Wed, 13 Dec 2023 16:12:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mCut=HY=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1rDRq9-0007yZ-7N
+ for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 16:12:05 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 59f7d8e0-99d2-11ee-9b0f-b553b5be7939;
+ Wed, 13 Dec 2023 17:12:02 +0100 (CET)
+Received: from beta.station (net-37-182-35-120.cust.vodafonedsl.it
+ [37.182.35.120])
+ by support.bugseng.com (Postfix) with ESMTPSA id D99BA4EE0737;
+ Wed, 13 Dec 2023 17:12:01 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +40,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=bhOJquFIFMFYKKCGxIagyRb5/9dNhwghrxX4NHCVMUk=; b=zfML/1dwGWv5femlxlo6386tBl
-	QpAIkzbvUSLDNM4YtxLhOGXvOV2zVCOvIvUyae5ofT8e8ohWp4MeouXREY7AkMh4Uogxy7cMqKhCA
-	EVp/faiYmDRc9TdQPV+Pfu9z+fpOLatvcol67tXZq2h9Lxu9myoOtLMFAEQTcCwAUb/M=;
+X-Inumbo-ID: 59f7d8e0-99d2-11ee-9b0f-b553b5be7939
+From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184125-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: consulting@bugseng.com,
+	Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: [PATCH v2 0/2] xen: address violations of MISRA C:2012 Rule 14.4
+Date: Wed, 13 Dec 2023 17:10:49 +0100
+Message-Id: <cover.1702310368.git.maria.celeste.cesario@bugseng.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 184125: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=a236b74b961faa045640275605e319bba45483c1
-X-Osstest-Versions-That:
-    xen=666e3c294d50e4a7f87a4d22757b7ffe5863b4df
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 13 Dec 2023 15:52:02 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 184125 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184125/
+From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
 
-Failures :-/ but no regressions.
+The xen sources contain violations of MISRA C:2012 Rule 14.4 whose
+headline states:
+"The controlling expression of an if statement and the controlling
+expression of an iteration-statement shall have essentially Boolean type".
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Add comparisons to avoid using enum constants as controlling expressions
+to comply with Rule 14.4.
 
-version targeted for testing:
- xen                  a236b74b961faa045640275605e319bba45483c1
-baseline version:
- xen                  666e3c294d50e4a7f87a4d22757b7ffe5863b4df
+Changes in v2:
+- rename patch prefix from AMD/IOMMU to x86/IOMMU;
+- move changes on hpet.c and msi.c from xen/x86 to x86/IOMMU patch;
+- rename patch prefix from xen/x86 to xen/x86_emulate.
 
-Last test of basis   184122  2023-12-13 10:02:13 Z    0 days
-Testing same since   184125  2023-12-13 13:02:06 Z    0 days    1 attempts
+Maria Celeste Cesario (2):
+  x86/IOMMU: address violations of MISRA C:2012 Rule 14.4
+  xen/x86_emulate: address violations of MISRA C:2012 Rule 14.4
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Julien Grall <jgrall@amazon.com>
-  Stewart Hildebrand <stewart.hildebrand@amd.com>
+ xen/arch/x86/hpet.c                      | 6 +++---
+ xen/arch/x86/msi.c                       | 4 ++--
+ xen/arch/x86/x86_emulate/x86_emulate.c   | 8 ++++----
+ xen/drivers/passthrough/amd/iommu_init.c | 4 ++--
+ xen/drivers/passthrough/vtd/iommu.c      | 4 ++--
+ xen/drivers/passthrough/vtd/quirks.c     | 2 +-
+ 6 files changed, 14 insertions(+), 14 deletions(-)
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+-- 
+2.40.0
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   666e3c294d..a236b74b96  a236b74b961faa045640275605e319bba45483c1 -> smoke
 
