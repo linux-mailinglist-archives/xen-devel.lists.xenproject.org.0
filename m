@@ -2,64 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90283811461
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 15:13:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654016.1020658 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6896481148B
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 15:25:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654019.1020669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDPzB-0001aI-Nn; Wed, 13 Dec 2023 14:13:17 +0000
+	id 1rDQ9z-0003zd-OD; Wed, 13 Dec 2023 14:24:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654016.1020658; Wed, 13 Dec 2023 14:13:17 +0000
+Received: by outflank-mailman (output) from mailman id 654019.1020669; Wed, 13 Dec 2023 14:24:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDPzB-0001Wz-KY; Wed, 13 Dec 2023 14:13:17 +0000
-Received: by outflank-mailman (input) for mailman id 654016;
- Wed, 13 Dec 2023 14:13:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rDQ9z-0003wH-Kc; Wed, 13 Dec 2023 14:24:27 +0000
+Received: by outflank-mailman (input) for mailman id 654019;
+ Wed, 13 Dec 2023 14:24:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ieRt=HY=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1rDPz9-0001Wt-HH
- for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 14:13:15 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2070.outbound.protection.outlook.com [40.107.7.70])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bdfb8147-99c1-11ee-9b0f-b553b5be7939;
- Wed, 13 Dec 2023 15:13:09 +0100 (CET)
-Received: from AS9PR05CA0294.eurprd05.prod.outlook.com (2603:10a6:20b:492::28)
- by GV1PR08MB10424.eurprd08.prod.outlook.com (2603:10a6:150:15e::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.33; Wed, 13 Dec
- 2023 14:12:35 +0000
-Received: from AM2PEPF0001C715.eurprd05.prod.outlook.com
- (2603:10a6:20b:492:cafe::58) by AS9PR05CA0294.outlook.office365.com
- (2603:10a6:20b:492::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.33 via Frontend
- Transport; Wed, 13 Dec 2023 14:12:35 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM2PEPF0001C715.mail.protection.outlook.com (10.167.16.185) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7091.26 via Frontend Transport; Wed, 13 Dec 2023 14:12:34 +0000
-Received: ("Tessian outbound 26ee1d40577c:v228");
- Wed, 13 Dec 2023 14:12:34 +0000
-Received: from dc1b8797008f.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- E6BE790B-8B01-4B6A-A63A-1656181BC50A.1; 
- Wed, 13 Dec 2023 14:12:28 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id dc1b8797008f.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 13 Dec 2023 14:12:28 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by PA6PR08MB10417.eurprd08.prod.outlook.com (2603:10a6:102:3cd::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.33; Wed, 13 Dec
- 2023 14:12:26 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::a045:911e:2349:3d8b]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::a045:911e:2349:3d8b%6]) with mapi id 15.20.7091.022; Wed, 13 Dec 2023
- 14:12:24 +0000
+ <SRS0=ca38=HY=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1rDQ9x-0003wB-BZ
+ for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 14:24:25 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4e652f9f-99c3-11ee-98e9-6d05b1d4d9a1;
+ Wed, 13 Dec 2023 15:24:22 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 351DE5C04FC;
+ Wed, 13 Dec 2023 09:24:20 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Wed, 13 Dec 2023 09:24:20 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 13 Dec 2023 09:24:18 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,155 +43,368 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bdfb8147-99c1-11ee-9b0f-b553b5be7939
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=AlPgVnqXfE8udOL50Bd8KeDpieXbrQ2nqxqaRSRuI8V+yjawEjeyflByjiXxzs7WSGBT3Qva/FVeZ/REunU5Y4TcUsaFOCFbRC1trV4jojoqYoelwY2keWWXwgqncw1FZaLw+ziAvApgnDh1LE53FsK9QMC0/h1A+ciFxYnBNq2myXyaizx64NYqOFPhUBMhhd+E9Daq4/f84Lt/5ggWA8ldtMzagdigl0RfPgcE+8wm7OkG/pIuZgUNHpF3q8Iyzs/wnNQKpJ9pXatZCu8kquQufhZz+IhR2JikH/ulrHYElcqK+WWMgNC802+CoM44DSopqwZqsxKv/KnpuPKkEA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zXvCi0VToAqo8eGsgipSbL9qnm6d03x9sVDBPq3nMlw=;
- b=L7unJMdlMo5Ar48ff2O7FuCxOx3QOGO3uAOqY1cyD8hSYzu7nsMkHqdTudExed5Y0RHPNJE4FFZiFrqvsKJ9zR0CYpvReUqiZwZClPjNlzWhyibq33TK4h37Vj7RbVUrbyGNq2kQ3Uv83WOZCULoH9JraPZD3fepbL6CLTl2BwSh3hVWs8JEJUr0bOw//M72lvWHY8eMZQLBuqgL5F1Yy2wqdEIc9qcU5Qwii36LWeX3cxMKXfQflzi1KHO9tvAJh59IFi4HcYa73S4TOvZYhWhmvNlqICWwxg8CYqJp4wFJU4VBtJCQRzdAqE8XpQYvBGjK5HoWSfo22/UAoEHdjA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zXvCi0VToAqo8eGsgipSbL9qnm6d03x9sVDBPq3nMlw=;
- b=tFMmvD2FLIsgJZFZ6RJ/hLNbNiouIIbrr+tCd8jNsRFFVbbQHbcinwZIcbKUMLF4iFoHDDTXiqope9SNX84OYXyjDrzevha/05CoPJoz5le7UFQBTHn3/1CHXgg5zb7jB3sy8oe1CmbLTkFBoytLRU8qk2jOYt09ssYqHiwMGI0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 112ba88f2c48a028
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ayg+l5atxpPAZYOsqjoM16rNhXTznyOBOFGPULX4C/vDAQH/4jsxEx4D7bE7bKRZ5V28ZjSAgNy4ug9ABxP1SOlr6GQ6np0wB3548kX8aPdradAJJwGKU1WkLnboxindopvjmenh/xjpX7VQ5JXo6rDVFuxY2J+k9XTrjMNA16Vx5KR5VzdxHEg7xwA7z9JsOtP/c1ytcWfgFi50FZSrpMTjd2d8JAZJRNqhVuaUhKAX0SRfQGp0fFEhXcfM3GII1IFNNb+vg4kWrQbb/dLYcTpkpYtUI39HeJqE0H4sdWO+QngXlQQ1CZ1t1BiALrZWc0G2Enb8hGc13cOu2vLCqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zXvCi0VToAqo8eGsgipSbL9qnm6d03x9sVDBPq3nMlw=;
- b=ODr0t6biUUU4aa4czfT3ggRUM9zw4ecouBK6n5yQnOkbR6vhNPeZ6VfLt71I9Jiltw90ux9uWxzX9CfHJv+i3nr9VpaaCfZIPFNyQGDf0dvcrDBCKo+GX9+c3L2kLjIDtNqsZPcxfW3JG5ZcGu+prQXGSMGHlZiRH6YOqBLuLe0hImIK5joDXf+PKgGV0AHBoRviq7Baa08iRzvpjeuv6rW6rrL3rkD63Z6DmbevYsQu8ElzUpFAM6ba5QyRE2fdIL5+QHVibgB1Te5RO27Ip7Z3MK28FCw1h6jWyCv1MfaDq5n5iIQGHPWL0l945b++GeNghNYe1zrmeYW2iA1QPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zXvCi0VToAqo8eGsgipSbL9qnm6d03x9sVDBPq3nMlw=;
- b=tFMmvD2FLIsgJZFZ6RJ/hLNbNiouIIbrr+tCd8jNsRFFVbbQHbcinwZIcbKUMLF4iFoHDDTXiqope9SNX84OYXyjDrzevha/05CoPJoz5le7UFQBTHn3/1CHXgg5zb7jB3sy8oe1CmbLTkFBoytLRU8qk2jOYt09ssYqHiwMGI0=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Jens Wiklander <jens.wiklander@linaro.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, "patches@linaro.org"
-	<patches@linaro.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Subject: Re: [XEN PATCH] xen/arm: ffa: return FFA_RET_NOT_SUPPORTED on
- unhandled calls
-Thread-Topic: [XEN PATCH] xen/arm: ffa: return FFA_RET_NOT_SUPPORTED on
- unhandled calls
-Thread-Index: AQHaLa+9f2NgKntfU0yyvul3VTpCb7CnQV2A
-Date: Wed, 13 Dec 2023 14:12:24 +0000
-Message-ID: <26C1D752-3FDB-43C4-9A28-8C1060C4AB70@arm.com>
-References: <20231213103241.2346813-1-jens.wiklander@linaro.org>
-In-Reply-To: <20231213103241.2346813-1-jens.wiklander@linaro.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3774.200.91.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|PA6PR08MB10417:EE_|AM2PEPF0001C715:EE_|GV1PR08MB10424:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8578701-9e91-4a04-fa45-08dbfbe58de9
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- FlAyA5KHAIYMI3gzjc6V8jazJK0bnj0JF1A8KQjWC1mjSiD+MyZBM0M5aCS9rk81EAg38rrXvZt3mvoST2VZx5lmiynOuW16cv6uWfbCvyyq5El3klRVhgvdQysZFfyIO0zHz4i2PURLFU3dEdI7bj8bVumGzTY1oy9tlOLM13tBEthChxsXNOn8MSJt+BKB8UdRpL3/DbCxBYgyLB5G20aqNSNNxafR4YCli87rlAYxoxaUiZ65AFCS3M+2dci5kxHs/URLozqSuhzH1N4yR0PYzQfwgiiGwJcZLgWsR9aNl71Flu8a9Gpge+z6ImnmruJjHoY8zG49RohNgEq/FW2HpmwLyHhVRaHrFHpMU4U2HTU3cT8jiDUoLW1UZRA6Y24UlnJ4kEc9xdI6sfALHenhH8tQFvUu19OcxbqsoIK3P2g9hneai4KvShI/9wMFBDShK1bIZsB2JXBfvUcxkEi57uG3t4UkJ67mj+t9NhalIm3ha+FVVC/KkDafYzGlTFPXMsLzcqVV8tQbcDuKQIik1U8u9l/UBgB1tLIwWMnawDrx5JRf7qjkc93zuV/7RIbz/I//Bg/xMu/oEefUq3wmdLYYmOeQNN2aqreR1WSNp9a8oB0/0ev0ix9OJCy6cXjhwaGCD6KwB8IzMFxrDA==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(39860400002)(396003)(346002)(136003)(376002)(366004)(230922051799003)(1800799012)(451199024)(64100799003)(186009)(2616005)(86362001)(122000001)(38100700002)(38070700009)(36756003)(33656002)(83380400001)(5660300002)(316002)(66946007)(53546011)(71200400001)(76116006)(91956017)(6486002)(8676002)(8936002)(66556008)(64756008)(6916009)(66446008)(66476007)(6512007)(54906003)(41300700001)(2906002)(6506007)(478600001)(4326008)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <5A5385EEB4A3BC46A50C21B1BC6B5DF1@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 4e652f9f-99c3-11ee-98e9-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1702477460;
+	 x=1702563860; bh=+XVNl6EQXZ04NF9e23mZvbfkUunjJ5i82874zXn0jF4=; b=
+	wb7/7ziVQu9BNYqy72TNeHwL/tO1va8B+ISiKsBD3/o5NgZ0wUiaYJdiVqbhjpUK
+	He44WEKwrT0UUjhfdVEcgtvxhPcUNlH03xd/5COD49GL7UufvwAT0WeIHsuFwNk5
+	oF5dDAh2b9rV8N6Us5CswBBA7kqiaZFJEWoaSxbjfq5rVtNmxwiI76Gd+HH0zwgV
+	bwVLJucXKYJ+E/6U2j16uyRibCvXuHg8eX445lMojpboaEwGmlPy3gvnUh2mBsI8
+	15Ih25KuedLyCeqMUs1taAIg4wLyxl+FTh20PCE8L0HIE/RVRaE2lLQQmiZi/lPA
+	m+fr3G5ghN8mM/t7mEB99A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1702477460; x=1702563860; bh=+XVNl6EQXZ04NF9e23mZvbfkUunj
+	J5i82874zXn0jF4=; b=fxXd9vhi2NxczXLJ5H2nLVVnqg45aqfIqR5UNidajMDK
+	x0VMrUQZo7fu5guvJOhyLKAZujofASpgNRNt9rqR8A7wWGQZDMLaAB+oApGfISPK
+	6bN+q4cXI32+TZu6XEDzyWwUkOLpUMgaQHgfcnkRbY+SXtQjmVZJLrDpRsllFa7S
+	2hpmo4kKWggmIKKMU3NU5oQEmAwA/vQsmOijgA0WrYoKGqnToWwssV+28CNQWLG8
+	nm7nrvMxwonir8odw6Bz57z9o1fVFsBGsZ0Z1UIAE/mDmXCcqQQ99widFpK1FpjP
+	ao2LDNUmzxtnAiPiyehnf+NsF1/cf9GoQsHnV02TtQ==
+X-ME-Sender: <xms:k755ZbhsiKSvMRm4f3ZNlmjQu4TKGZvUdu2hY6DCtIrgC2dRL6EVpQ>
+    <xme:k755ZYC2WbGsp1PKqf9_N1m1ORqRajlB_UclRwdLzyB_Ppjvb6Y_c3EWt5uEvffuh
+    J9y8QlXA4ao7A>
+X-ME-Received: <xmr:k755ZbEMilL50vcCEDKVSqeI8kG4jbBD4frzboQk4i_AZRXnvjpLtvkWk9MolBr3q4qDrv0Lo6-dj5-OSgsAznNtZ7QEtoiP2w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrudeljedgtdegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptefh
+    gefgueegveevgeethfekueejgeeitdekhfffgfehgeeludetvddttdfhkeffnecuffhomh
+    grihhnpehfohhllhhofihinhhgshhpvggtihhfihgtrghtihhonhhsrdhmugenucevlhhu
+    shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkh
+    esihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:k755ZYTZPaKpitNCrQkUFuN02lsqEMANI48P4BrFBGrHCGuXbofOPA>
+    <xmx:k755ZYz5td9fiAqw2bIv_PpEjbZCJ7rTJr1013KTTMm6rYlIg2f5EA>
+    <xmx:k755Ze6kpbQ0THnZLFJPVDJbVdYvkwAT6_eux6W6N4rVbDAFPxKuaA>
+    <xmx:lL55ZXpTCb3GNgL54-JhY6ju5NXtGF4RhEbgmUy63UzWJST-ncIpFA>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 13 Dec 2023 15:24:15 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: George Dunlap <george.dunlap@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] docs: Document a policy for when to deviate from
+ specifications
+Message-ID: <ZXm+jxn4hr9Y68eD@mail-itl>
+References: <20230918122817.6577-1-george.dunlap@cloud.com>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR08MB10417
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM2PEPF0001C715.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	4dcc92d4-fd04-4695-b525-08dbfbe58779
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	28LgmWkrQ29LuM9NJV1+QsOA3MmZGuE02H/1aa0z0tYLYvvNwKulBo6mlDmR9/Yhrr0tayCsaVmXWB9vyt5PsqXfKey+fTLr5u1Tefj1AmNiM2nDClaPQ0IQ4/hOT++F48JZGLqB0TouH7oSsDENIortpe473W/SPUE6ghCkwJnef/UsXwFCL45XnnJvqVJmPlaOIyjlQAXqpSwdCFNlGFO8J8gcZzM0fP25qSxYUJda0rE8LGPl2CYwJ54le+YcAFDqDzbsJw/FvFzVSJ6rY2FCEv1py8tGD9UXYO2OeauFqYSTXVys+2jJ+7TtTFuuf8Pfs4b3WpILmaTcIbqJwy7zEwozf3mp3GpZlmlEDWq2tj5rztE33wyYak9jtCEesKneS1gYemtbod0gkfgX+AFUv0C5QyIbTQAebIovOblbzyqEyPJPRhuMGFD+gp5Wuzc8IpXID5M5Jv0xFDINiXD41Twb6eaWE47sp4nMquaZ/luV7AX8IiHokZvl3jtR3F9YJ7LpkM/1GJ+odJY3fqUS2xm09WIAtK+ZaM8qEfyy9BLW6raL9a6HYIqU+YsM6xh628KNM0BHA0fdIahe06oGM0JFm81meBRmPWjHJ12wCY7xkStLvP3vranAs0KIALgI/hINsyMQ3jRdQdnPTEvbmhhIHDnelzaCTgYakgbixxjSFvzQKM7CieMW/gnESD7Rbfgi1hufXEd4r8CiMjwnLYLYoDMHzRdrYYOIQrPX8l6T9eePdVADjMZrkqpn
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230031)(4636009)(396003)(376002)(136003)(346002)(39860400002)(230922051799003)(82310400011)(186009)(64100799003)(451199024)(1800799012)(40470700004)(36840700001)(46966006)(40480700001)(40460700003)(36756003)(70586007)(54906003)(82740400003)(26005)(81166007)(356005)(86362001)(33656002)(70206006)(47076005)(36860700001)(53546011)(83380400001)(6506007)(6512007)(2616005)(6486002)(316002)(2906002)(8676002)(478600001)(336012)(5660300002)(4326008)(8936002)(41300700001)(6862004);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2023 14:12:34.9592
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8578701-9e91-4a04-fa45-08dbfbe58de9
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM2PEPF0001C715.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB10424
-
-Hi Jens,
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="eXnc3naPWXNrddmm"
+Content-Disposition: inline
+In-Reply-To: <20230918122817.6577-1-george.dunlap@cloud.com>
 
 
-> On 13 Dec 2023, at 11:32, Jens Wiklander <jens.wiklander@linaro.org> wrot=
-e:
+--eXnc3naPWXNrddmm
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 13 Dec 2023 15:24:15 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: George Dunlap <george.dunlap@cloud.com>
+Cc: xen-devel@lists.xenproject.org,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] docs: Document a policy for when to deviate from
+ specifications
+
+On Mon, Sep 18, 2023 at 01:28:16PM +0100, George Dunlap wrote:
+> There is an ongoing disagreement among maintainers for how Xen should
+> handle deviations to specifications such as ACPI or EFI.
 >=20
-> Until now has an unsupported FF-A request been reported back with
-> ARM_SMCCC_ERR_UNKNOWN_FUNCTION in register x0. A FF-A caller would
-> rather expect FFA_ERROR in x0 and FFA_RET_NOT_SUPPORTED in x2 so update
-> ffa_handle_call() to return true and with the cpu_user_regs updated.
+> Write up an explicit policy, and include two worked-out examples from
+> recent discussions.
+
+Looks very reasonable to me. While it would be nice for every hardware
+(or thing in general) to follow specifications, sadly it isn't reality
+and Xen doesn't have enough market share to influence vendors in a
+meaningful way. So, yes, the policy described below sounds like a
+reasonable approach to make things working for end users.
+
+Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
+om>
+
+PS As a downstream distributions, we do ship several workarounds that were
+rejected upstream on the grounds that "specification says otherwise"
+before...
+
 >=20
-> Fixes: 38846de2176b ("xen/arm: tee: add a primitive FF-A mediator")
-> Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
-
-With the Nit from Michal fixed in the commit message (could be done on comm=
-it):
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Cheers
-Bertrand
-
+> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 > ---
-> xen/arch/arm/tee/ffa.c | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
+> NB that the technical descriptions of the costs of the accommodations
+> or lack thereof I've just gathered from reading the discussions; I'm
+> not familiar enough with the details to assert things about them.  So
+> please correct any technical issues.
+> ---
+>  docs/policy/FollowingSpecifications.md | 219 +++++++++++++++++++++++++
+>  1 file changed, 219 insertions(+)
+>  create mode 100644 docs/policy/FollowingSpecifications.md
 >=20
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 183528d13388..98905fec7967 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -1477,7 +1477,8 @@ static bool ffa_handle_call(struct cpu_user_regs *r=
-egs)
->=20
->     default:
->         gprintk(XENLOG_ERR, "ffa: unhandled fid 0x%x\n", fid);
-> -        return false;
-> +        set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        return true;
->     }
-> }
->=20
+> diff --git a/docs/policy/FollowingSpecifications.md b/docs/policy/Followi=
+ngSpecifications.md
+> new file mode 100644
+> index 0000000000..a197f01f65
+> --- /dev/null
+> +++ b/docs/policy/FollowingSpecifications.md
+> @@ -0,0 +1,219 @@
+> +# Guidelines for following specifications
+> +
+> +## In general, follow specifications
+> +
+> +In general, specifications such as ACPI and EFI should be followed.
+> +
+> +## Accommodate non-compliant systems if it doesn't affect compliant syst=
+ems
+> +
+> +Sometimes, however, there occur situations where real systems "in the
+> +wild" violate these specifications, or at least our interpretation of
+> +them (henceforth called "non-compliant").  If we can accommodate
+> +non-compliant systems without affecting any compliant systems, then we
+> +should do so.
+> +
+> +## If accommodation would affect theoretical compliant systems that are
+> +   not known to exist, and Linux and/or Windows takes the
+> +   accommodation, take the accommodation unless there's a
+> +   reason not to.
+> +
+> +Sometimes, however, there occur situations where real, non-compliant
+> +systems "in the wild" cannot be accommodated without affecting
+> +theoretical compliant systems; but there are no known theoretical
+> +compliant systems which exist.  If Linux and/or Windows take the
+> +accommodation, then from a cost/benefits perspective it's probably best
+> +for us to take the accommodation as well.
+> +
+> +This is really a generalization of the next principle; the "reason not
+> +to" would be in the form of a cost-benefits analysis as described in
+> +the next section showing why the "special case" doesn't apply to the
+> +accommodation in question.
+> +
+> +## If things aren't clear, do a cost-benefits analysis
+> +
+> +Sometimes, however, things are more complicated or less clear.  In
+> +that case, we should do a cost-benefits analysis for a particular
+> +accommodation.  Things which should be factored into the analysis:
+> +
+> +N-1: The number of non-compliant systems that require the accommodation
+> + N-1a: The number of known current systems
+> + N-1b: The probable number of unknown current systems
+> + N-1c: The probable number of unknown future systems
+> +
+> +N-2 The severity of the effect of non-accommodation on these systems
+> +
+> +C-1: The number of compliant systems that would be affected by the accom=
+modation
+> + C-1a: The number of known current systems
+> + C-1b: The probable number of unknown current systems
+> + C-1c: The probable number of unknown future systems
+> +
+> +C-2 The severity of the effect of accommodation on these systems
+> +
+> +Intuitively, N-1 * N-2 gives us N, the cost of not making the
+> +accommodation, and C-1 * C-2 gives us C, the cost of taking the
+> +accommodation.  If N > C, then we should take the accommodation; if C >
+> +N, then we shouldn't.
+> +
+> +The idea isn't to come up with actual numbers to plug in here
+> +(although that's certainly an option if someone wants to), but to
+> +explain the general idea we're trying to get at.
+> +
+> +A couple of other principles to factor in:
+> +
+> +Vendors tend to copy themselves and other vendors.  If one or two
+> +major vendors are known to create compliant or non-compliant systems
+> +in a particular way, then there are likely to be more unknown and
+> +future systems which will be affected by / need a similar accommodation
+> +respectively; that is, we should raise our estimates of N-1{b,c} and
+> +C-1{b,c}.
+> +
+> +Some downstreams already implement accommodations, and test on a
+> +variety of hardware.  If downstreams such as QubesOS or XenServer /
+> +XCP-ng implement the accommodations, then N-1 * N-2 is likely to be
+> +non-negligible, and C-1 * C-2 is likely to be negligible.
+> +
+> +Windows and Linux are widely tested.  If Windows and/or Linux make a
+> +particular accommodation, and that accommodation has remained stable
+> +without being reverted, then it's likely that the number of unknown
+> +current systems that are affected by the accommodation is negligible;
+> +that is, we should lower the C-1b estimate.
+> +
+> +Vendors tend to test server hardware on Windows and Linux.  If Windows
+> +and/or Linux make a particular accommodation, then it's unlikely that
+> +future systems will be affected by the accommodation; that is, we
+> +should lower the C-1c estimate.
+> +
+> +# Example applications
+> +
+> +Here are some examples of how these principles can be applied.
+> +
+> +## ACPI MADT tables containing ~0
+> +
+> +Xen disables certain kinds of features on CPU hotplug systems; for
+> +example, it will avoid using TSC, which is faster and more power
+> +efficient (since on a hot-pluggable system it won't be reliable), and
+> +instead fall back to other timer sources which are slower and less
+> +power efficient.
+> +
+> +Some hardware vendors have (it seems) begun making a single ACPI table
+> +image for a range of similar systems, with MADT entries for the number
+> +of CPUs based on the system with the most CPUs, and then for the
+> +systems with fewer CPUs, replacing the APIC IDs in the MADT table with
+> +~0, to indicate that those entries aren't valid.  These systems are
+> +not hotplug capable.  Sometimes the invalid slots are on a separate
+> +socket.
+> +
+> +One interpretation of the spec is that a system with such MADT entries
+> +could actually have an extra socket, and that later the system could
+> +update the MADT table, populating the APIC IDs with real values.
+> +
+> +If Xen finds an MADT where all slots are either populated or filled
+> +with APICID ~0, , should it consider it a multi-socket hotplug system,
+> +disable features available on single-socket systems?  Or should it
+> +accommodate the systems above, treating the system as systems
+> +incapable of hotplug?
+> +
+> +N-1a: People have clearly found a number of systems in the wild, from
+> +different vendors, that exhibit this property; it's a non-negligible
+> +number of systems.
+> +
+> +N-1b,c: Since these systems are from different vendors, and there seem to
+> +be a fair number of them, there are likely to be many more that we
+> +don't know about; and likely to be many more produced in the future.
+> +
+> +N-2: Xen will use more expensive (both time and power-wise) clock
+> +sources unless the user manually modifies the Xen command-line.
+> +
+> +C-1a,b: There are no known systems that implement phyical CPU hotplug
+> +whatsoever, much less a system that uses ~0 for APICIDs.
+> +
+> +There are hypervisors that implement *virtual* CPU hotplug; but they
+> +don't use ~0 for APICIDs.
+> +
+> +C-1c: It seems that physical CPU hotplug is an unsolved problem: it was
+> +worked on for quite a while and then abandoned.  So it seems fairly
+> +unlikely that any physical CPU hotplug systems will come to exist any
+> +time in the near future.
+> +
+> +If any hotplug systems were created, they would only be affected if
+> +they happened to use ~0 the APIC ID of the empty slots in the MADT
+> +table.  This by itself seems unlikely, given the number of vendors who
+> +are now using that to mean "invalid slot", and the fact that virtual
+> +hotplug systems don't do this.
+> +
+> +Furthermore, Linux has been treating such entries as permanently
+> +invalid since 2016.  If any system were to implement physical CPU
+> +hotplug in the future, and use ~0 as a placeholder APIC ID, it's very
+> +likely they would test it on Linux, discover that it doesn't work, and
+> +modify the system to enable it to work (perhaps copying QEMU's
+> +behavior).  It seems likely that Windows will do the same thing,
+> +further reducing the probability that any system like this will make
+> +it into production.
+> +
+> +So the potential number of future systems affected by this before we
+> +can implement a fix seems very small indeed.
+> +
+> +C-2: If such a system did exist, everything would work fine at boot;
+> +the only issue would be that when an extra CPU was plugged in, nothing
+> +would happen.  This could be overridden by a command-line argument.
+> +
+> +Adding these all together, there's a widespread, moderate cost to not
+> +accommodating these systems, and an uncertain and small cost to
+> +accommodating them.  So it makes sense to apply the accommodation.
+> +
+> +## Calling EFI Reboot method
+> +
+> +One interpretation of the EFI spec is that operating systems should
+> +call the EFI ResetSystem method in preference to the ACPI reboot
+> +method.
+> +
+> +However, although the ResetSystem method is required by the EFI spec,
+> +a large number of different systems doesn't actully work, at least
+> +when called by Xen: a large number of systems don't cleanly reboot
+> +after calling the EFI REBOOT method, but rather crash or fail in some
+> +other random way.
+> +
+> +(One reason for this is that the Windows EFI test doesn't call the EFI
+> +ResetSystem method, but calls the ACPI reboot method.  One possibile
+> +explanation for the repeated pattern is that vendors smoke-test the
+> +ResetSystem method from the EFI shell, which has its own memory map;
+> +but fail to test it when running on the OS memory map.)
+> +
+> +Should Xen follow our interpretation of the EFI spec, and call the
+> +ResetSystem method in preference to the ACPI reboot method?  Or should
+> +Xen accommodate systems with broken ResetSystem methods, and call the
+> +ACPI reboot method by default?
+> +
+> +N-1a: There are clearly a large number of systems which exhibit this
+> +property.
+> +
+> +N-1b,c: Given the large number of diverse vendors who make this
+> +mistake, it seems likely that there are even more that we don't know
+> +about, and this will continue into the future.
+> +
+> +N-2: Systems are incapable of rebooting cleanly unless the right runes
+> +are put into the Xen command line to make it prefer using the ACPI
+> +reboot method.
+> +
+> +C-1a: A system would only be negatively affected if 1) an ACPI reboot
+> +method exists, 2) an EFI method exists, and 3) calling the ACPI method
+> +in preference to the EFI method causes some sort of issue.  So far
+> +nobody has run into such a system.
+> +
+> +C-1b,c: The Windows EFI test explicitly tests the ACPI reboot method
+> +on EFI systems.  Linux also prefers calling the ACPI reboot method
+> +even when an EFI method is available.  The chance of someone shipping
+> +a system that had a problem while that was the case is very tiny: it
+> +basically wouldn't run either of the two most important operating
+> +systems.
+> +
+> +C-2: It seems likely that the worst that could happen is what's
+> +happening now when calling the EFI method: that the ACPI method would
+> +cause a weird crash, which then would reboot or hang.
+> +
+> +XenServer has shipped this accommodation for several years now.
+> +
+> +Adding these altogether, the cost of non-accommodation is widespread
+> +and moderate; that is to say, non-negligible; and the cost of
+> +accommodation is theoretical and tiny.  So it makes sense to apply the
+> +accommodation.
+> \ No newline at end of file
 > --=20
-> 2.34.1
+> 2.42.0
+>=20
 >=20
 
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--eXnc3naPWXNrddmm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmV5vo8ACgkQ24/THMrX
+1yyF0wf/ezDeU0nztR8z4tFn4ngmeIL6HrKGavH6h8n9KKc1HVBb7d+ItkWdafva
+CVi1AmeO+OtaG+z4vt/fTIjiMc0pziwJq7mPeJBXhxJLGcyoyUNwEd81q+UtOMrh
+ie/c0+7iPQCAaxvEpgiO9NpS8AgcIAYBRmxjOJTOm7mzJJppCJGEHXzywRRjyOPY
+kGckmjCdhHFgjvBtGk3SA06eZyTQ7zgVYc1mSUa9EV34q6ekvje00fS+2WHTEM6c
+maCuAEH3q/2J3gORi2vDHgXJSGLGgYnoh4lJueGj5huq3LmavUsB8z865apj4vDH
+w644+zAUVCiHZA9XkzWPcc2GkIASag==
+=Vlsv
+-----END PGP SIGNATURE-----
+
+--eXnc3naPWXNrddmm--
 
