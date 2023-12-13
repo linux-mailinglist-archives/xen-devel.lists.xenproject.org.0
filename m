@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54ECD81066A
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 01:19:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.653678.1020107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D38781075B
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 02:10:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.653683.1020118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDCx9-0001xE-JR; Wed, 13 Dec 2023 00:18:19 +0000
+	id 1rDDke-0000CB-AK; Wed, 13 Dec 2023 01:09:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 653678.1020107; Wed, 13 Dec 2023 00:18:19 +0000
+Received: by outflank-mailman (output) from mailman id 653683.1020118; Wed, 13 Dec 2023 01:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDCx9-0001vc-Gv; Wed, 13 Dec 2023 00:18:19 +0000
-Received: by outflank-mailman (input) for mailman id 653678;
- Wed, 13 Dec 2023 00:18:17 +0000
+	id 1rDDke-00007j-71; Wed, 13 Dec 2023 01:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 653683;
+ Wed, 13 Dec 2023 01:09:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zptr=HY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rDCx7-0001vW-NC
- for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 00:18:17 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ <SRS0=8FWX=HY=huaweicloud.com=yukuai1@srs-se1.protection.inumbo.net>)
+ id 1rDDkc-0008VR-D0
+ for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 01:09:26 +0000
+Received: from dggsgout11.his.huawei.com (unknown [45.249.212.51])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1aca9803-994d-11ee-9b0f-b553b5be7939;
- Wed, 13 Dec 2023 01:18:13 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 3EF9FB81A59;
- Wed, 13 Dec 2023 00:18:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260DFC433C7;
- Wed, 13 Dec 2023 00:18:11 +0000 (UTC)
+ id 3e649cb0-9954-11ee-9b0f-b553b5be7939;
+ Wed, 13 Dec 2023 02:09:22 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.163.216])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Sqcnm0qcBz4f3jZ0
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Dec 2023 09:09:16 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+ by mail.maildlp.com (Postfix) with ESMTP id 54B1D1A093E
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Dec 2023 09:09:17 +0800 (CST)
+Received: from [10.174.176.73] (unknown [10.174.176.73])
+ by APP1 (Coremail) with SMTP id cCh0CgBntQs5BHllRkz5DQ--.6696S3;
+ Wed, 13 Dec 2023 09:09:16 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,212 +45,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1aca9803-994d-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702426692;
-	bh=/qZ++LEW8+z1IK+J9SXqOnTaJhNMDT2Xr/IjF3+fwgk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=o+ljR43JvIU5c96+DV2Mj5W5dgbjOoKe/VqZxLkMxuQ9voMlKjnBLrw+Ate966zh/
-	 QlaRlDNojdAJmiq683IK9O+ht9PCgwub9B69z8HTqJa9RuQ1yRDjY/7aEfPoKxrBFx
-	 dVL0IOTpXsayeDzmKM4F+VIpc6XlAgazDP+WhWvF495TOCAKXn0HJui5nSv8UML73H
-	 IriTUrA0O8tXKRtZH3VDAOfLdyL3qQVCwz1nKpFLZbjcolhq/f0M22ODmz/QQWGeNZ
-	 POcNj+SJip0Za3rHu4BUPxHXZoWwfM4JBOtdfHdR/MAx7j5vIAzvRBgi/xSv/YthkA
-	 fWmEBa7ndoa0g==
-Date: Tue, 12 Dec 2023 16:18:10 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Chuck Zmudzinski <brchuckz@netscape.net>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Mario Marietto <marietto2008@gmail.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Demi Marie Obenour <demi@invisiblethingslab.com>, 
-    Anthony PERARD <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Elliott Mitchell <ehem+freebsd@m5p.com>
-Subject: Re: We are not able to virtualize FreeBSD using xen 4.17 on Arm 32
- bit
-In-Reply-To: <c56f3db5-114e-4442-a318-b5abcd33eff8@netscape.net>
-Message-ID: <alpine.DEB.2.22.394.2312121612480.1703076@ubuntu-linux-20-04-desktop>
-References: <CA+1FSiggg=XZmif6c3pY0+jz7i9caU-OTwFy80gwO7MVpXiwcA@mail.gmail.com> <CA+1FSigM1PZc4WfZNUJSMsZbNPPTyThRJ7MMQwQ9TWn6VnSUTg@mail.gmail.com> <C0A0E9FA-5AAB-4324-BBBD-D07412CD7F32@arm.com> <ZWR1v5Y3EpRK817B@macbook>
- <CA+1FSij2Q9f9Vj0A06HUYeUxTddrEyF=Q8X5fbs96CRr83_BPg@mail.gmail.com> <4fc95518-7e46-4f82-b540-afdbc941508a@netscape.net> <f606be07-c4ff-43c6-acf9-42065a84b594@netscape.net> <alpine.DEB.2.22.394.2311271826370.3533093@ubuntu-linux-20-04-desktop>
- <c56f3db5-114e-4442-a318-b5abcd33eff8@netscape.net>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 3e649cb0-9954-11ee-9b0f-b553b5be7939
+Subject: Re: [PATCH RFC v2 for-6.8/block 01/18] block: add some bdev apis
+To: Christoph Hellwig <hch@infradead.org>, Yu Kuai <yukuai1@huaweicloud.com>
+Cc: axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
+ kent.overstreet@gmail.com, joern@lazybastard.org, miquel.raynal@bootlin.com,
+ richard@nod.at, vigneshr@ti.com, sth@linux.ibm.com, hoeppner@linux.ibm.com,
+ hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+ jejb@linux.ibm.com, martin.petersen@oracle.com, clm@fb.com,
+ josef@toxicpanda.com, dsterba@suse.com, viro@zeniv.linux.org.uk,
+ brauner@kernel.org, nico@fluxnic.net, xiang@kernel.org, chao@kernel.org,
+ tytso@mit.edu, adilger.kernel@dilger.ca, agruenba@redhat.com, jack@suse.com,
+ konishi.ryusuke@gmail.com, willy@infradead.org, akpm@linux-foundation.org,
+ p.raghav@samsung.com, hare@suse.de, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-bcachefs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, gfs2@lists.linux.dev,
+ linux-nilfs@vger.kernel.org, yi.zhang@huawei.com, yangerkun@huawei.com,
+ "yukuai (C)" <yukuai3@huawei.com>
+References: <20231211140552.973290-1-yukuai1@huaweicloud.com>
+ <20231211140552.973290-2-yukuai1@huaweicloud.com>
+ <ZXhdRhfr+JoWdhyj@infradead.org>
+From: Yu Kuai <yukuai1@huaweicloud.com>
+Message-ID: <893e2764-65a6-ef73-5ddf-95cd9f97cb19@huaweicloud.com>
+Date: Wed, 13 Dec 2023 09:09:13 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-767190743-1702426435=:1703076"
-Content-ID: <alpine.DEB.2.22.394.2312121614410.1703076@ubuntu-linux-20-04-desktop>
+In-Reply-To: <ZXhdRhfr+JoWdhyj@infradead.org>
+Content-Type: text/plain; charset=gbk; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgBntQs5BHllRkz5DQ--.6696S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7Gw4fJw1rAF1UKF4fJrWDJwb_yoWfurcEqr
+	n7Cryv9w1jvws5Wr4UKFy5JrWrJFWYyr43Xay8ta4Iq3s8Xa18Ar92ka48uas8Ww47Z3ZI
+	9FsxuFy8uF4fujkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbaxFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kI
+	c2xKxwCYjI0SjxkI62AI1cAE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWrXVW8Jr1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j
+	6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUd8n5UUUUU=
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi,
 
---8323329-767190743-1702426435=:1703076
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2312121614411.1703076@ubuntu-linux-20-04-desktop>
-
-On Mon, 11 Dec 2023, Chuck Zmudzinski wrote:
-> On 11/27/2023 9:28 PM, Stefano Stabellini wrote:
-> > On Mon, 27 Nov 2023, Chuck Zmudzinski wrote:
-> >> On 11/27/2023 10:22 AM, Chuck Zmudzinski wrote:
-> >> > On 11/27/2023 7:45 AM, Mario Marietto wrote:
-> >> >> @Chuck Zmudzinski <mailto:brchuckz@netscape.net> : Stay tuned. They want to help us. The xen developers are great. Very good support for us. I'm sure that you can give a good contribution to understand what's our problem and how to implement a fix with the help of all those good guys.
-> >> >> 
-> >> >> On Mon, Nov 27, 2023 at 11:56â€¯AM Roger Pau MonnÃ© <roger.pau@citrix.com <mailto:roger.pau@citrix.com>> wrote:
-> >> >> 
-> >> >>     On Mon, Nov 27, 2023 at 10:28:13AM +0000, Henry Wang wrote:
-> >> >>     > +(xen-devel and Arm maintainers, including Julien)
-> >> >>     >
-> >> >>     > > On Nov 27, 2023, at 18:03, Mario Marietto <marietto2008@gmail.com <mailto:marietto2008@gmail.com>>
-> >> >>     > > wrote:
-> >> >>     > >
-> >> >>     > > Hello.Â  We have just virtualized Debian 12 on our arm (32 bit)
-> >> >>     > > Chromebook model xe303c12 . As host / dom0 we have chosen Devuan
-> >> >>     > > 5,and for guest / domU,Debian 12. It works great. But our goal is
-> >> >>     > > different. We want to virtualize FreeBSD as domU. Can we have a
-> >> >>     > > working Xen PV network driver for a FreeBSD arm guest ?. I found
-> >> >>     > > that Julien Grall has ported the Xen drivers to FreeBSD on arm. I
-> >> >>     > > would like to know if Julien's work was accepted upstream by
-> >> >>     > > FreeBSD, in which case FreeBSD as a Xen guest on arm should work
-> >> >>     > > if we enable the Xen PV drivers in the FreeBSD on arm kernel. If
-> >> >>     > > Julien's work was not accepted upstream by FreeBSD, we will have
-> >> >>     > > to find his patches and apply them ourselves to the FreeBSD on arm
-> >> >>     > > kernel.
-> >> >> 
-> >> >>     I've added Elliot on Cc as he is working on upstreaming the patches to
-> >> >>     FreeBSD.Â  He will be able to provide a better update than myself.
-> >> >> 
-> >> >>     Regards, Roger.
-> >> > 
-> >> > I have been collaborating with Mario, and I can explain what we have done so far :
-> >> > 
-> >> > We are using Julien's patch set against an old development version of FreeBSD 11
-> >> > from 2014-12-03 :
-> >> > 
-> >> > https://xenbits.xen.org/gitweb/?p=people/julieng/freebsd.git;a=shortlog;h=refs/heads/xen-arm-v2.2
-> >> > 
-> >> > We successfully built the XENVIRT kernel and FreeBSD world, and created the
-> >> > FreeBSD rootfs according to Julien's instructions here :
-> >> > 
-> >> > https://lists.freebsd.org/pipermail/freebsd-xen/2014-November/002202.html
-> >> > 
-> >> > There were some adjustments to the instructions :
-> >> > 
-> >> > To build the kernel, we used :
-> >> > 
-> >> > $ sudo make TARGET_ARCH=armv6 KERNCONF=XENVIRT buildkernel
-> >> > 
-> >> > instead of
-> >> > 
-> >> > $ sudo make TARGET_ARCH=armv6 KERNCONF=XENHVM buildkernel
-> >> > 
-> >> > The FreeBSD 'kernel' file is in ELF format and did not work, and we spent
-> >> > some time trying to convert it to the zImage format without realizing the
-> >> > build of the FreeBSD kernel creates the 'kernel.bin' file in the zImage format.
-> >> > So when booting with the 'kernel.bin' file instead, it actually boots :
-> >> > 
-> >> > user@devuan-bunsen ~ % sudo xl create freebsd.cfg
-> >> > Parsing config from freebsd.cfg
-> >> > user@devuan-bunsen ~ % sudo xl li
-> >> > Name                                        ID   Mem VCPUs	State	Time(s)
-> >> > Domain-0                                     0   768     2     r-----    1439.4
-> >> > freebsd                                      1  1152     1     r-----       3.0
-> >> > user@devuan-bunsen ~ %
-> >> > 
-> >> > However, the guest is still not working correctly :
-> >> > 
-> >> > 1. Attaching the console with the -c option at creation or with
-> >> >    'xl console freebsd' results in no output to the console.
-> >> > 
-> >> > 2. The timestamp on the virtual disk image file shows that the filesystem
-> >> >    was at best mounted read-only, if it was mounted at all by the guest
-> >> >    FreeBSD kernel.
-> >> > 
-> >> > 3. The 'xl shutdown freebsd' command does not work, it just hangs. To stop
-> >> >    the guest, you need to do 'xl destroy freebsd'.
-> >> > 
-> >> > However, I think we can get the console to work and the rootfs to mount because I
-> >> > just realized I forgot to do the steps from Julien's instructions of editing the
-> >> > /etc/fstab and /etc/ttys files in the FreeBSD rootfs :
-> >> > 
-> >> > $ echo "/dev/xbd0       /       ufs     rw      1       1" > /mnt/etc/fstab
-> >> > $ vi /mnt/etc/ttys (add the line 'xc0 "/usr/libexec/getty Pc" xterm on secure")
-> >> > 
-> >> > I will add those and see if the console and disk are working.
-> >> 
-> >> Unfortunately, adding xc0 to /etc/ttys and /dev/xbd0 as the root device in
-> >> /etc/fstab did not make the console or disk work. Still no output on the
-> >> xen console from the guest kernel, and the timestamp on the rootfs image
-> >> file did not change so it did not mount read-write.
-> >> 
-> >> We could use some advice for troubleshooting this. Now, we are blind because
-> >> we are not getting any xen console output But I am pleased we were able to
-> >> demonstrate that Julien's old patch set for FreeBSD 11 allows us to boot
-> >> FreeBSD 11 on a modern version of Xen on arm - we are using the Debian
-> >> stable Xen 4.17 packages.
-> > 
-> > You can use the DEBUG hypercalls to check how far we got into the
-> > booting process:
-> > https://wiki.xenproject.org/wiki/Xen_ARM_DEBUG_hypercalls
-> > 
-> > For instance add the following to FreeBSD code:
-> > 
-> > asm volatile("hvc 0xfffd");
-> > 
+ÔÚ 2023/12/12 21:16, Christoph Hellwig Ð´µÀ:
+>> +void invalidate_bdev_range(struct block_device *bdev, pgoff_t start,
+>> +			   pgoff_t end)
+>> +{
+>> +	invalidate_mapping_pages(bdev->bd_inode->i_mapping, start, end);
+>> +}
+>> +EXPORT_SYMBOL_GPL(invalidate_bdev_range);
 > 
-> It took me a while, but I finally got this approach to work to debug the FreeBSD
-> kernel. Thanks!
-> 
-> The problem was the compiler was reporting hvc is an invalid instruction. To
-> get the compiler to accept the hvc instruction as valid, I first spent quite a
-> bit of time porting the patches from the old development version of FreeBSD 11 on
-> which Julien's patches were based to FreeBSD 12.4, because that old development
-> version of FreeBSD did not support armv7 but only armv6, and I thought maybe
-> the compiler is rejecting the hvc instruction because the kernel build was
-> targeting armv6 and I was not sure hypervisor extensions were available for
-> armv6. But FreeBSD 12 and higher has support to target armv7 for the kernel.
-> There were quite a few changes to account for between FreeBSD 11 and FreeBSD 12.4,
-> I had to add about 12 more patches, but I also removed some of Julien's patches
-> that were either applied in FreeBSD 12.4 or no longer applicable to FreeBSD 12.4.
-> 
-> So when I was able to build a FreeBSD 12.4 kernel + Julien's arm/xenvirt patches
-> targeting armv7 instead of armv6, I got the same behavior: the guest started but
-> no output on the console, and the compiler at first still did not accept the
-> hvc instruction (FreeBSD uses the clang compiler by default to build the kernel).
-> After some searches on the Internet I discovered that adding the -mthumb CFLAG
-> when compiling the objects with an hvc instruction enabled the compiler to accept
-> the hvc instruction.
-> 
-> So I was able to get output like this in the dom0 Xen console log from the hvc
-> instruction in the guest :
-> 
-> (XEN) arch/arm/traps.c:1983:d2v0 HSR=0x80000005 pc=0xffff000c gva=0xffff000c gpa=0x000000ffff000c
-> (XEN) arch/arm/traps.c:1983:d2v0 HSR=0x80000005 pc=0xffff000c gva=0xffff000c gpa=0x000000ffff000c
-> ...
-> 
-> For now, I only put one hvc instruction in the FreeBSD code - it is where the
-> kernel prints the copyright and version information to the console. So I don't
-> understand why the message from the hvc instruction is appearing multiple times
-> in the Xen logs...
-> 
-> In any case, this provides a way to debug the boot of FreeBSD / arm on Xen, so
-> thanks, Stefano, for this suggestion!
+> Can we have kerneldoc comments for the new helpers please?
 
-You are welcome! :-)
+Of course, will definitely do this in v3.
+> 
+>> +struct folio *__bdev_get_folio(struct block_device *bdev, loff_t pos,
+>> +			       fgf_t fgp_flags, gfp_t gfp)
+>> +{
+>> +	return __filemap_get_folio(bdev->bd_inode->i_mapping, pos >> PAGE_SHIFT,
+>> +				   fgp_flags, gfp);
+>> +}
+>> +EXPORT_SYMBOL_GPL(__bdev_get_folio);
+> 
+> It's a bit silly to have a __-prefixed API without a version that
+> doesn't have the prefix, so I'd prefer to drop it.  Unless willy has
+> a good argument for keeping it the same as the filemap API.
 
-I am glad you could make progress. You'll find that the hvc 0xfffd and
-other debug hypercalls are really useful. Also it is easy to write using
-just hvc and assembly a very simple early printk implementation. See the
-__HYPERVISOR_console_io hypercall:
+Ok, I'll drop it if willy doesn't against this.
 
-- immediate: 0xEA1
-- r12: hypercall number 18
-- r0: CONSOLEIO_write 0x0
-- r1: number of chars
-- r2: guest address of the string
+Thanks,
+Kuai
+> 
+> .
+> 
 
-Cheers,
-
-Stefano
---8323329-767190743-1702426435=:1703076--
 
