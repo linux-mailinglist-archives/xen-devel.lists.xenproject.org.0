@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FE86810EBD
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 11:43:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.653847.1020508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB2D9810EC2
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 11:46:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.653850.1020518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDMiB-0004vq-39; Wed, 13 Dec 2023 10:43:31 +0000
+	id 1rDMks-0005vN-Fj; Wed, 13 Dec 2023 10:46:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 653847.1020508; Wed, 13 Dec 2023 10:43:31 +0000
+Received: by outflank-mailman (output) from mailman id 653850.1020518; Wed, 13 Dec 2023 10:46:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDMiA-0004tP-Vy; Wed, 13 Dec 2023 10:43:30 +0000
-Received: by outflank-mailman (input) for mailman id 653847;
- Wed, 13 Dec 2023 10:43:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mw9L=HY=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rDMi9-0004s2-2L
- for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 10:43:29 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72477514-99a4-11ee-9b0f-b553b5be7939;
- Wed, 13 Dec 2023 11:43:26 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 5FAB84EE0737;
- Wed, 13 Dec 2023 11:43:26 +0100 (CET)
+	id 1rDMks-0005tB-CE; Wed, 13 Dec 2023 10:46:18 +0000
+Received: by outflank-mailman (input) for mailman id 653850;
+ Wed, 13 Dec 2023 10:46:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rDMkr-0005sp-1p
+ for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 10:46:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rDMkq-0006sq-Jk; Wed, 13 Dec 2023 10:46:16 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227] helo=[192.168.2.97])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rDMkq-0005fz-Cv; Wed, 13 Dec 2023 10:46:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,59 +39,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72477514-99a4-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=NIKn1KtVJRyUNAQQ+HT5D4kqCv2OjKG5ZHXmVydNmNU=; b=L5GesP4Q7XFvd6KC5OpteW1UMK
+	qV1USVSLXiVquHzGXwOextRabuMYlBdhVjfnWnlD+7KdfandEz9aI2wlQBzz6toyy/tSvr2vDXYmp
+	dwdOOR/JBG7+xqlFqs6kNrUiypybY5N+ebLDTn5SKhbnuhVqjdv2hbYAbRatb/Q7gXQA=;
+Message-ID: <a67c76c6-0fde-438e-9ca8-b6860d03470f@xen.org>
+Date: Wed, 13 Dec 2023 10:46:14 +0000
 MIME-Version: 1.0
-Date: Wed, 13 Dec 2023 11:43:26 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn?=
- =?UTF-8?Q?=C3=A9?= <roger.pau@citrix.com>, consulting@bugseng.com, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH 6/7] x86/platform: removed break to address MISRA
- C:2012 Rule 2.1
-In-Reply-To: <a8c42909-6316-448b-8d21-628d055abfbc@suse.com>
-References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
- <b1103bc13d5ce04159417592705b4fe6a6db748b.1702283415.git.nicola.vetrini@bugseng.com>
- <a8c42909-6316-448b-8d21-628d055abfbc@suse.com>
-Message-ID: <5a5db7d32c91658f80bf7d2991023a30@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/9] xen/arm: don't pass iommu properties to hwdom for
+ iommu-map
+Content-Language: en-GB
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Julien Grall <jgrall@amazon.com>
+References: <20231109182716.367119-1-stewart.hildebrand@amd.com>
+ <20231109182716.367119-2-stewart.hildebrand@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231109182716.367119-2-stewart.hildebrand@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 2023-12-12 11:13, Jan Beulich wrote:
-> On 11.12.2023 11:30, Nicola Vetrini wrote:
->> The break statement is redundant, hence it can be removed.
-> 
-> Except ...
-> 
->> --- a/xen/arch/x86/platform_hypercall.c
->> +++ b/xen/arch/x86/platform_hypercall.c
->> @@ -723,7 +723,6 @@ ret_t do_platform_op(
->> 
->>          ret = continue_hypercall_on_cpu(
->>              0, cpu_down_helper, (void *)(unsigned long)cpu);
->> -        break;
->>      }
->>      break;
-> 
-> ... it wants to be the other break that is removed, imo. Andrew, Roger,
-> what do you think? There are many such (again: imo) oddly placed 
-> break-s
-> in that switch() ... In some cases there are also inner scopes without
-> there being new local variables in there. IOW imo throughout this
-> switch()
-> - pointless inner scopes want dropping,
-> - all "main" break-s want to have the same indentation.
-> 
-> Jan
+Hi,
 
-Ok. I'm not particularly keen on doing a full style cleanup; I can drop 
-the other break, for the sake of resolving the MISRA violation, so that 
-the cleanup can happen anytime.
+On 09/11/2023 18:27, Stewart Hildebrand wrote:
+> A device tree node for a PCIe root controller may have an iommu-map property [1]
+> with a phandle reference to the SMMU node, but not necessarily an iommus
+> property. In this case, we want to treat it the same as we currently handle
+> devices with an iommus property: don't pass the iommu related properties to
+> hwdom.
+> 
+> [1] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/pci-iommu.txt
+> 
+> Reported-by: Michal Orzel <michal.orzel@amd.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Acked-by: Julien Grall <jgrall@amazon.com>
+
+I was committed this patch. The rest doesn't seem to be reviewed or have 
+some dependencies.
+
+Cheers,
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Julien Grall
 
