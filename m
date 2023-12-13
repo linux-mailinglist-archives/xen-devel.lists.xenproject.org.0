@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6896481148B
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 15:25:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654019.1020669 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 930998114BF
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 15:35:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654023.1020677 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDQ9z-0003zd-OD; Wed, 13 Dec 2023 14:24:27 +0000
+	id 1rDQJj-000669-PT; Wed, 13 Dec 2023 14:34:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654019.1020669; Wed, 13 Dec 2023 14:24:27 +0000
+Received: by outflank-mailman (output) from mailman id 654023.1020677; Wed, 13 Dec 2023 14:34:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDQ9z-0003wH-Kc; Wed, 13 Dec 2023 14:24:27 +0000
-Received: by outflank-mailman (input) for mailman id 654019;
- Wed, 13 Dec 2023 14:24:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rDQJj-00063z-Mb; Wed, 13 Dec 2023 14:34:31 +0000
+Received: by outflank-mailman (input) for mailman id 654023;
+ Wed, 13 Dec 2023 14:34:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ca38=HY=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rDQ9x-0003wB-BZ
- for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 14:24:25 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4e652f9f-99c3-11ee-98e9-6d05b1d4d9a1;
- Wed, 13 Dec 2023 15:24:22 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 351DE5C04FC;
- Wed, 13 Dec 2023 09:24:20 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Wed, 13 Dec 2023 09:24:20 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 13 Dec 2023 09:24:18 -0500 (EST)
+ <SRS0=tYyH=HY=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1rDQJi-00063t-7z
+ for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 14:34:30 +0000
+Received: from do158-143.mg.gitlab.com (do158-143.mg.gitlab.com
+ [192.237.158.143]) by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
+ id b7b9da07-99c4-11ee-9b0f-b553b5be7939;
+ Wed, 13 Dec 2023 15:34:27 +0100 (CET)
+Received: from mg.gitlab.com (70.90.74.34.bc.googleusercontent.com
+ [34.74.90.70]) by
+ 93a2b985278e with SMTP id 6579c0e94da2499b5ac59c12 (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Wed, 13 Dec 2023 14:34:17 GMT
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,369 +39,426 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e652f9f-99c3-11ee-98e9-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1702477460;
-	 x=1702563860; bh=+XVNl6EQXZ04NF9e23mZvbfkUunjJ5i82874zXn0jF4=; b=
-	wb7/7ziVQu9BNYqy72TNeHwL/tO1va8B+ISiKsBD3/o5NgZ0wUiaYJdiVqbhjpUK
-	He44WEKwrT0UUjhfdVEcgtvxhPcUNlH03xd/5COD49GL7UufvwAT0WeIHsuFwNk5
-	oF5dDAh2b9rV8N6Us5CswBBA7kqiaZFJEWoaSxbjfq5rVtNmxwiI76Gd+HH0zwgV
-	bwVLJucXKYJ+E/6U2j16uyRibCvXuHg8eX445lMojpboaEwGmlPy3gvnUh2mBsI8
-	15Ih25KuedLyCeqMUs1taAIg4wLyxl+FTh20PCE8L0HIE/RVRaE2lLQQmiZi/lPA
-	m+fr3G5ghN8mM/t7mEB99A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1702477460; x=1702563860; bh=+XVNl6EQXZ04NF9e23mZvbfkUunj
-	J5i82874zXn0jF4=; b=fxXd9vhi2NxczXLJ5H2nLVVnqg45aqfIqR5UNidajMDK
-	x0VMrUQZo7fu5guvJOhyLKAZujofASpgNRNt9rqR8A7wWGQZDMLaAB+oApGfISPK
-	6bN+q4cXI32+TZu6XEDzyWwUkOLpUMgaQHgfcnkRbY+SXtQjmVZJLrDpRsllFa7S
-	2hpmo4kKWggmIKKMU3NU5oQEmAwA/vQsmOijgA0WrYoKGqnToWwssV+28CNQWLG8
-	nm7nrvMxwonir8odw6Bz57z9o1fVFsBGsZ0Z1UIAE/mDmXCcqQQ99widFpK1FpjP
-	ao2LDNUmzxtnAiPiyehnf+NsF1/cf9GoQsHnV02TtQ==
-X-ME-Sender: <xms:k755ZbhsiKSvMRm4f3ZNlmjQu4TKGZvUdu2hY6DCtIrgC2dRL6EVpQ>
-    <xme:k755ZYC2WbGsp1PKqf9_N1m1ORqRajlB_UclRwdLzyB_Ppjvb6Y_c3EWt5uEvffuh
-    J9y8QlXA4ao7A>
-X-ME-Received: <xmr:k755ZbEMilL50vcCEDKVSqeI8kG4jbBD4frzboQk4i_AZRXnvjpLtvkWk9MolBr3q4qDrv0Lo6-dj5-OSgsAznNtZ7QEtoiP2w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrudeljedgtdegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptefh
-    gefgueegveevgeethfekueejgeeitdekhfffgfehgeeludetvddttdfhkeffnecuffhomh
-    grihhnpehfohhllhhofihinhhgshhpvggtihhfihgtrghtihhonhhsrdhmugenucevlhhu
-    shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkh
-    esihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:k755ZYTZPaKpitNCrQkUFuN02lsqEMANI48P4BrFBGrHCGuXbofOPA>
-    <xmx:k755ZYz5td9fiAqw2bIv_PpEjbZCJ7rTJr1013KTTMm6rYlIg2f5EA>
-    <xmx:k755Ze6kpbQ0THnZLFJPVDJbVdYvkwAT6_eux6W6N4rVbDAFPxKuaA>
-    <xmx:lL55ZXpTCb3GNgL54-JhY6ju5NXtGF4RhEbgmUy63UzWJST-ncIpFA>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 13 Dec 2023 15:24:15 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] docs: Document a policy for when to deviate from
- specifications
-Message-ID: <ZXm+jxn4hr9Y68eD@mail-itl>
-References: <20230918122817.6577-1-george.dunlap@cloud.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="eXnc3naPWXNrddmm"
-Content-Disposition: inline
-In-Reply-To: <20230918122817.6577-1-george.dunlap@cloud.com>
+X-Inumbo-ID: b7b9da07-99c4-11ee-9b0f-b553b5be7939
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
+ q=dns/txt; s=mailo; t=1702478065; x=1702485265; h=List-Id:
+ Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
+ Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
+ bh=C9qwFsIcqNnnNNNTy3CB5m0Yjkhq6eAa3fnM6ld1lzI=;
+ b=H1HvhYIMR61Ku0G1KcvWY1mLdgIAPrQMNfI6iNpgstMU8Nbjq++uQ1rky6pBqzehics8WlkTHEC9woHEDRbVEeJXWNS8oWI3ozCUHaIsSeWqM6d4ypokjBz+eX0PrmKkoUrLB3dea8AIK7uUAUZH3+sgifXm8VP6gjipsZUQajg=
+X-Mailgun-Sending-Ip: 192.237.158.143
+X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
+Sender: gitlab@mg.gitlab.com
+Date: Wed, 13 Dec 2023 14:34:17 +0000
+From: GitLab <gitlab@mg.gitlab.com>
+Reply-To: GitLab <noreply@gitlab.com>
+To: xen-devel@lists.xenproject.org
+Message-ID: <6579c0e914259_2c9545c4759c@gitlab-sidekiq-catchall-v2-7c84b4f76f-wlrxn.mail>
+Subject: xen | Successful pipeline for staging | a236b74b
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_6579c0e99776_2c9545c474ca";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-GitLab-Project: xen
+X-GitLab-Project-Id: 2336572
+X-GitLab-Project-Path: xen-project/xen
+X-GitLab-Pipeline-Id: 1105301739
+X-GitLab-Pipeline-Ref: staging
+X-GitLab-Pipeline-Status: success
+Auto-Submitted: auto-generated
+X-Auto-Response-Suppress: All
+
+----==_mimepart_6579c0e99776_2c9545c474ca
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
---eXnc3naPWXNrddmm
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+
+Pipeline #1105301739 has passed!
+
+Project: xen ( https://gitlab.com/xen-project/xen )
+Branch: staging ( https://gitlab.com/xen-project/xen/-/commits/staging )
+
+Commit: a236b74b ( https://gitlab.com/xen-project/xen/-/commit/a236b74b961faa045640275605e319bba45483c1 )
+Commit Message: xen/arm: don't pass iommu properties to hwdom f...
+Commit Author: Stewart Hildebrand ( https://gitlab.com/stewarthildebrand )
+Committed by: Julien Grall
+
+
+
+Pipeline #1105301739 ( https://gitlab.com/xen-project/xen/-/pipelines/1105301739 ) triggered by Ganis ( https://gitlab.com/ganis )
+successfully completed 129 jobs in 3 stages.
+
+-- 
+You're receiving this email because of your account on gitlab.com.
+
+
+
+
+----==_mimepart_6579c0e99776_2c9545c474ca
+Content-Type: text/html;
+ charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 13 Dec 2023 15:24:15 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] docs: Document a policy for when to deviate from
- specifications
 
-On Mon, Sep 18, 2023 at 01:28:16PM +0100, George Dunlap wrote:
-> There is an ongoing disagreement among maintainers for how Xen should
-> handle deviations to specifications such as ACPI or EFI.
->=20
-> Write up an explicit policy, and include two worked-out examples from
-> recent discussions.
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://ww=
+w.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en">=
 
-Looks very reasonable to me. While it would be nice for every hardware
-(or thing in general) to follow specifications, sadly it isn't reality
-and Xen doesn't have enough market share to influence vendors in a
-meaningful way. So, yes, the policy described below sounds like a
-reasonable approach to make things working for end users.
+<head>
+<meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Type" =
+/>
+<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewpor=
+t" />
+<meta content=3D"IE=3Dedge" http-equiv=3D"X-UA-Compatible" />
+<title>xen | Successful pipeline for staging | a236b74b</title>
+<style data-premailer=3D"ignore" type=3D"text/css">
+body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}t=
+able,td{mso-table-lspace:0pt;mso-table-rspace:0pt}img{-ms-interpolation-m=
+ode:bicubic}.hidden{display:none !important;visibility:hidden !important}=
+a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !=
+important;font-size:inherit !important;font-family:inherit !important;fon=
+t-weight:inherit !important;line-height:inherit !important}div[style*=3D'=
+margin: 16px 0']{margin:0 !important}@media only screen and (max-width: 6=
+39px){body,#body{min-width:320px !important}table.wrapper{width:100% !imp=
+ortant;min-width:320px !important}table.wrapper td.wrapper-cell{border-le=
+ft:0 !important;border-right:0 !important;border-radius:0 !important;padd=
+ing-left:10px !important;padding-right:10px !important}}
 
-Reviewed-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.c=
-om>
+</style>
 
-PS As a downstream distributions, we do ship several workarounds that were
-rejected upstream on the grounds that "specification says otherwise"
-before...
+<style>body {
+margin: 0 !important; background-color: #fafafa; padding: 0; text-align: =
+center; min-width: 640px; width: 100%; height: 100%; font-family: "Helvet=
+ica Neue", Helvetica, Arial, sans-serif;
+}
+</style></head>
+<body style=3D"text-align: center; min-width: 640px; width: 100%; height:=
+ 100%; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-se=
+rif; margin: 0; padding: 0;" bgcolor=3D"#fafafa">
 
->=20
-> Signed-off-by: George Dunlap <george.dunlap@cloud.com>
-> ---
-> NB that the technical descriptions of the costs of the accommodations
-> or lack thereof I've just gathered from reading the discussions; I'm
-> not familiar enough with the details to assert things about them.  So
-> please correct any technical issues.
-> ---
->  docs/policy/FollowingSpecifications.md | 219 +++++++++++++++++++++++++
->  1 file changed, 219 insertions(+)
->  create mode 100644 docs/policy/FollowingSpecifications.md
->=20
-> diff --git a/docs/policy/FollowingSpecifications.md b/docs/policy/Followi=
-ngSpecifications.md
-> new file mode 100644
-> index 0000000000..a197f01f65
-> --- /dev/null
-> +++ b/docs/policy/FollowingSpecifications.md
-> @@ -0,0 +1,219 @@
-> +# Guidelines for following specifications
-> +
-> +## In general, follow specifications
-> +
-> +In general, specifications such as ACPI and EFI should be followed.
-> +
-> +## Accommodate non-compliant systems if it doesn't affect compliant syst=
-ems
-> +
-> +Sometimes, however, there occur situations where real systems "in the
-> +wild" violate these specifications, or at least our interpretation of
-> +them (henceforth called "non-compliant").  If we can accommodate
-> +non-compliant systems without affecting any compliant systems, then we
-> +should do so.
-> +
-> +## If accommodation would affect theoretical compliant systems that are
-> +   not known to exist, and Linux and/or Windows takes the
-> +   accommodation, take the accommodation unless there's a
-> +   reason not to.
-> +
-> +Sometimes, however, there occur situations where real, non-compliant
-> +systems "in the wild" cannot be accommodated without affecting
-> +theoretical compliant systems; but there are no known theoretical
-> +compliant systems which exist.  If Linux and/or Windows take the
-> +accommodation, then from a cost/benefits perspective it's probably best
-> +for us to take the accommodation as well.
-> +
-> +This is really a generalization of the next principle; the "reason not
-> +to" would be in the form of a cost-benefits analysis as described in
-> +the next section showing why the "special case" doesn't apply to the
-> +accommodation in question.
-> +
-> +## If things aren't clear, do a cost-benefits analysis
-> +
-> +Sometimes, however, things are more complicated or less clear.  In
-> +that case, we should do a cost-benefits analysis for a particular
-> +accommodation.  Things which should be factored into the analysis:
-> +
-> +N-1: The number of non-compliant systems that require the accommodation
-> + N-1a: The number of known current systems
-> + N-1b: The probable number of unknown current systems
-> + N-1c: The probable number of unknown future systems
-> +
-> +N-2 The severity of the effect of non-accommodation on these systems
-> +
-> +C-1: The number of compliant systems that would be affected by the accom=
-modation
-> + C-1a: The number of known current systems
-> + C-1b: The probable number of unknown current systems
-> + C-1c: The probable number of unknown future systems
-> +
-> +C-2 The severity of the effect of accommodation on these systems
-> +
-> +Intuitively, N-1 * N-2 gives us N, the cost of not making the
-> +accommodation, and C-1 * C-2 gives us C, the cost of taking the
-> +accommodation.  If N > C, then we should take the accommodation; if C >
-> +N, then we shouldn't.
-> +
-> +The idea isn't to come up with actual numbers to plug in here
-> +(although that's certainly an option if someone wants to), but to
-> +explain the general idea we're trying to get at.
-> +
-> +A couple of other principles to factor in:
-> +
-> +Vendors tend to copy themselves and other vendors.  If one or two
-> +major vendors are known to create compliant or non-compliant systems
-> +in a particular way, then there are likely to be more unknown and
-> +future systems which will be affected by / need a similar accommodation
-> +respectively; that is, we should raise our estimates of N-1{b,c} and
-> +C-1{b,c}.
-> +
-> +Some downstreams already implement accommodations, and test on a
-> +variety of hardware.  If downstreams such as QubesOS or XenServer /
-> +XCP-ng implement the accommodations, then N-1 * N-2 is likely to be
-> +non-negligible, and C-1 * C-2 is likely to be negligible.
-> +
-> +Windows and Linux are widely tested.  If Windows and/or Linux make a
-> +particular accommodation, and that accommodation has remained stable
-> +without being reverted, then it's likely that the number of unknown
-> +current systems that are affected by the accommodation is negligible;
-> +that is, we should lower the C-1b estimate.
-> +
-> +Vendors tend to test server hardware on Windows and Linux.  If Windows
-> +and/or Linux make a particular accommodation, then it's unlikely that
-> +future systems will be affected by the accommodation; that is, we
-> +should lower the C-1c estimate.
-> +
-> +# Example applications
-> +
-> +Here are some examples of how these principles can be applied.
-> +
-> +## ACPI MADT tables containing ~0
-> +
-> +Xen disables certain kinds of features on CPU hotplug systems; for
-> +example, it will avoid using TSC, which is faster and more power
-> +efficient (since on a hot-pluggable system it won't be reliable), and
-> +instead fall back to other timer sources which are slower and less
-> +power efficient.
-> +
-> +Some hardware vendors have (it seems) begun making a single ACPI table
-> +image for a range of similar systems, with MADT entries for the number
-> +of CPUs based on the system with the most CPUs, and then for the
-> +systems with fewer CPUs, replacing the APIC IDs in the MADT table with
-> +~0, to indicate that those entries aren't valid.  These systems are
-> +not hotplug capable.  Sometimes the invalid slots are on a separate
-> +socket.
-> +
-> +One interpretation of the spec is that a system with such MADT entries
-> +could actually have an extra socket, and that later the system could
-> +update the MADT table, populating the APIC IDs with real values.
-> +
-> +If Xen finds an MADT where all slots are either populated or filled
-> +with APICID ~0, , should it consider it a multi-socket hotplug system,
-> +disable features available on single-socket systems?  Or should it
-> +accommodate the systems above, treating the system as systems
-> +incapable of hotplug?
-> +
-> +N-1a: People have clearly found a number of systems in the wild, from
-> +different vendors, that exhibit this property; it's a non-negligible
-> +number of systems.
-> +
-> +N-1b,c: Since these systems are from different vendors, and there seem to
-> +be a fair number of them, there are likely to be many more that we
-> +don't know about; and likely to be many more produced in the future.
-> +
-> +N-2: Xen will use more expensive (both time and power-wise) clock
-> +sources unless the user manually modifies the Xen command-line.
-> +
-> +C-1a,b: There are no known systems that implement phyical CPU hotplug
-> +whatsoever, much less a system that uses ~0 for APICIDs.
-> +
-> +There are hypervisors that implement *virtual* CPU hotplug; but they
-> +don't use ~0 for APICIDs.
-> +
-> +C-1c: It seems that physical CPU hotplug is an unsolved problem: it was
-> +worked on for quite a while and then abandoned.  So it seems fairly
-> +unlikely that any physical CPU hotplug systems will come to exist any
-> +time in the near future.
-> +
-> +If any hotplug systems were created, they would only be affected if
-> +they happened to use ~0 the APIC ID of the empty slots in the MADT
-> +table.  This by itself seems unlikely, given the number of vendors who
-> +are now using that to mean "invalid slot", and the fact that virtual
-> +hotplug systems don't do this.
-> +
-> +Furthermore, Linux has been treating such entries as permanently
-> +invalid since 2016.  If any system were to implement physical CPU
-> +hotplug in the future, and use ~0 as a placeholder APIC ID, it's very
-> +likely they would test it on Linux, discover that it doesn't work, and
-> +modify the system to enable it to work (perhaps copying QEMU's
-> +behavior).  It seems likely that Windows will do the same thing,
-> +further reducing the probability that any system like this will make
-> +it into production.
-> +
-> +So the potential number of future systems affected by this before we
-> +can implement a fix seems very small indeed.
-> +
-> +C-2: If such a system did exist, everything would work fine at boot;
-> +the only issue would be that when an extra CPU was plugged in, nothing
-> +would happen.  This could be overridden by a command-line argument.
-> +
-> +Adding these all together, there's a widespread, moderate cost to not
-> +accommodating these systems, and an uncertain and small cost to
-> +accommodating them.  So it makes sense to apply the accommodation.
-> +
-> +## Calling EFI Reboot method
-> +
-> +One interpretation of the EFI spec is that operating systems should
-> +call the EFI ResetSystem method in preference to the ACPI reboot
-> +method.
-> +
-> +However, although the ResetSystem method is required by the EFI spec,
-> +a large number of different systems doesn't actully work, at least
-> +when called by Xen: a large number of systems don't cleanly reboot
-> +after calling the EFI REBOOT method, but rather crash or fail in some
-> +other random way.
-> +
-> +(One reason for this is that the Windows EFI test doesn't call the EFI
-> +ResetSystem method, but calls the ACPI reboot method.  One possibile
-> +explanation for the repeated pattern is that vendors smoke-test the
-> +ResetSystem method from the EFI shell, which has its own memory map;
-> +but fail to test it when running on the OS memory map.)
-> +
-> +Should Xen follow our interpretation of the EFI spec, and call the
-> +ResetSystem method in preference to the ACPI reboot method?  Or should
-> +Xen accommodate systems with broken ResetSystem methods, and call the
-> +ACPI reboot method by default?
-> +
-> +N-1a: There are clearly a large number of systems which exhibit this
-> +property.
-> +
-> +N-1b,c: Given the large number of diverse vendors who make this
-> +mistake, it seems likely that there are even more that we don't know
-> +about, and this will continue into the future.
-> +
-> +N-2: Systems are incapable of rebooting cleanly unless the right runes
-> +are put into the Xen command line to make it prefer using the ACPI
-> +reboot method.
-> +
-> +C-1a: A system would only be negatively affected if 1) an ACPI reboot
-> +method exists, 2) an EFI method exists, and 3) calling the ACPI method
-> +in preference to the EFI method causes some sort of issue.  So far
-> +nobody has run into such a system.
-> +
-> +C-1b,c: The Windows EFI test explicitly tests the ACPI reboot method
-> +on EFI systems.  Linux also prefers calling the ACPI reboot method
-> +even when an EFI method is available.  The chance of someone shipping
-> +a system that had a problem while that was the case is very tiny: it
-> +basically wouldn't run either of the two most important operating
-> +systems.
-> +
-> +C-2: It seems likely that the worst that could happen is what's
-> +happening now when calling the EFI method: that the ACPI method would
-> +cause a weird crash, which then would reboot or hang.
-> +
-> +XenServer has shipped this accommodation for several years now.
-> +
-> +Adding these altogether, the cost of non-accommodation is widespread
-> +and moderate; that is to say, non-negligible; and the cost of
-> +accommodation is theoretical and tiny.  So it makes sense to apply the
-> +accommodation.
-> \ No newline at end of file
-> --=20
-> 2.42.0
->=20
->=20
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"body" style=
+=3D"text-align: center; min-width: 640px; width: 100%; margin: 0; padding=
+: 0;" bgcolor=3D"#fafafa">
+<tbody>
+<tr class=3D"line">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; height: 4px; font-size: 4px; line-height: 4px;" bgcolor=3D"#6b=
+4fbb"></td>
+</tr>
+<tr class=3D"header">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+<img alt=3D"GitLab" src=3D"https://gitlab.com/assets/mailers/gitlab_logo-=
+2957169c8ef64c58616a1ac3f4fc626e8a35ce4eb3ed31bb0d873712f2a041a0.png" wid=
+th=3D"55" height=3D"55" />
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"wrapper"=
+ style=3D"width: 640px; border-collapse: separate; border-spacing: 0; mar=
+gin: 0 auto;">
+<tbody>
+<tr>
+<td class=3D"wrapper-cell" style=3D"font-family: &quot;Helvetica Neue&quo=
+t;, Helvetica, Arial, sans-serif; border-radius: 3px; overflow: hidden; p=
+adding: 18px 25px; border: 1px solid #ededed;" align=3D"left" bgcolor=3D"=
+#fff">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"content"=
+ style=3D"width: 100%; border-collapse: separate; border-spacing: 0;">
+<tbody>
+<tr class=3D"table-success">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; font-size: 14px; line-height: 1.3; overflow: hidden; co=
+lor: #ffffff; padding: 10px;" align=3D"center" bgcolor=3D"#31af64">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff; padding-right: 5px;" align=3D"center" valign=3D"middle">
+<img alt=3D"&#10003;" height=3D"13" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-check-green-inverted-3fc3485096ebb83ce1d951=
+5883c8ca25ee5f382c4d643e064beb5da510aa26d5.gif" style=3D"display: block;"=
+ width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff;" align=3D"center" valign=3D"middle">
+Pipeline #1105301739 has passed!
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; overflow: hidden; padding: 0 15px; border: 1px solid #e=
+deded;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"table-in=
+fo" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; margin=
+: 0; padding: 14px 0;">
+Project
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; margin: 0; padding: 14px 0 14px 5px;">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project" style=3D"color=
+: #333333; text-decoration: none;">
+xen-project
+</a>
+/
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen" style=3D"c=
+olor: #333333; text-decoration: none;">
+xen
+</a>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Branch
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-branch-gray-53618a7fc19d4d32ccbabac2f6d59bebe67202a=
+9f2f1255e3f72c69756c0dd9c.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen/-/commits/s=
+taging" style=3D"color: #333333; text-decoration: none;">
+staging
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 400; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-commit-gray-c10243ac24cde64b549aec91de35e6b49c8739b=
+506b86472b54614c10d8b4aac.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a href=3D"https://gitlab.com/xen-project/xen/-/commit/a236b74b961faa0456=
+40275605e319bba45483c1" style=3D"color: #3777b0; text-decoration: none;">=
+a236b74b</a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class=3D"commit" style=3D"color: #5c5c5c; font-weight: 300;">
+xen/arm: don't pass iommu properties to hwdom f...
+</div>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit Author
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/86887961f183325c6bc3eca04f6fd4f4?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/stewarthildebrand" style=3D=
+"color: #333333; text-decoration: none;">
+Stewart Hildebrand
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Committed by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/51553d20dbeb50c199767049bd40c57b?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<span>
+Julien Grall
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"success-message">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #333333; font-size: 15px; font-weight: 400; line-height: 1.4; paddin=
+g: 15px 5px 0;" align=3D"center">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500;" valign=3D"baseline">
+Pipeline <a href=3D"https://gitlab.com/xen-project/xen/-/pipelines/110530=
+1739" style=3D"color: #3777b0; text-decoration: none;">#1105301739</a> tr=
+iggered by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500; padding-right: 5px; pa=
+dding-left: 5px;" width=3D"24" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/568538936b4ac45a343cb3a4ab0c6cda?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"baseline">
+<a class=3D"muted" href=3D"https://gitlab.com/ganis" style=3D"color: #333=
+333; text-decoration: none;">
+Ganis
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
+sans-serif; color: #333333; font-size: 15px; font-weight: 300; line-heigh=
+t: 1.4; padding: 15px 5px;" align=3D"center">
+successfully completed 129 jobs in 3 stages.
+</td>
+</tr>
 
---eXnc3naPWXNrddmm
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmV5vo8ACgkQ24/THMrX
-1yyF0wf/ezDeU0nztR8z4tFn4ngmeIL6HrKGavH6h8n9KKc1HVBb7d+ItkWdafva
-CVi1AmeO+OtaG+z4vt/fTIjiMc0pziwJq7mPeJBXhxJLGcyoyUNwEd81q+UtOMrh
-ie/c0+7iPQCAaxvEpgiO9NpS8AgcIAYBRmxjOJTOm7mzJJppCJGEHXzywRRjyOPY
-kGckmjCdhHFgjvBtGk3SA06eZyTQ7zgVYc1mSUa9EV34q6ekvje00fS+2WHTEM6c
-maCuAEH3q/2J3gORi2vDHgXJSGLGgYnoh4lJueGj5huq3LmavUsB8z865apj4vDH
-w644+zAUVCiHZA9XkzWPcc2GkIASag==
-=Vlsv
------END PGP SIGNATURE-----
+<tr class=3D"footer">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+<img alt=3D"GitLab" class=3D"footer-logo" src=3D"https://gitlab.com/asset=
+s/mailers/gitlab_logo_black_text-5430ca955baf2bbce6d3aa856a025da70ac5c959=
+5597537254f665c10beab7a5.png" style=3D"display: block; width: 90px; margi=
+n: 0 auto 1em;" />
+<div>
+You're receiving this email because of your account on <a target=3D"_blan=
+k" rel=3D"noopener noreferrer" href=3D"https://gitlab.com" style=3D"color=
+: #3777b0; text-decoration: none;">gitlab.com</a>. <a href=3D"https://git=
+lab.com/-/profile/notifications" target=3D"_blank" rel=3D"noopener norefe=
+rrer" class=3D"mng-notif-link" style=3D"color: #3777b0; text-decoration: =
+none;">Manage all notifications</a> &#183; <a href=3D"https://gitlab.com/=
+help" target=3D"_blank" rel=3D"noopener noreferrer" class=3D"help-link" s=
+tyle=3D"color: #3777b0; text-decoration: none;">Help</a>
+</div>
+</td>
+</tr>
 
---eXnc3naPWXNrddmm--
+
+<tr>
+<td class=3D"footer-message" style=3D"font-family: &quot;Helvetica Neue&q=
+uot;, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; co=
+lor: #5c5c5c; padding: 25px 0;">
+
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+----==_mimepart_6579c0e99776_2c9545c474ca--
 
