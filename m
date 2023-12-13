@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50149810A3A
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 07:23:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.653723.1020198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72D15810A76
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Dec 2023 07:38:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.653726.1020208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDIea-0006T4-9G; Wed, 13 Dec 2023 06:23:32 +0000
+	id 1rDIrz-0000BD-Ee; Wed, 13 Dec 2023 06:37:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 653723.1020198; Wed, 13 Dec 2023 06:23:32 +0000
+Received: by outflank-mailman (output) from mailman id 653726.1020208; Wed, 13 Dec 2023 06:37:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDIea-0006RP-5e; Wed, 13 Dec 2023 06:23:32 +0000
-Received: by outflank-mailman (input) for mailman id 653723;
- Wed, 13 Dec 2023 06:23:30 +0000
+	id 1rDIrz-00008p-B6; Wed, 13 Dec 2023 06:37:23 +0000
+Received: by outflank-mailman (input) for mailman id 653726;
+ Wed, 13 Dec 2023 06:37:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7vuN=HY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rDIeY-0006RJ-K4
- for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 06:23:30 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AQxx=HY=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
+ id 1rDIrx-00008j-E9
+ for xen-devel@lists.xenproject.org; Wed, 13 Dec 2023 06:37:21 +0000
+Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
+ [2607:f8b0:4864:20::1034])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 20fd1715-9980-11ee-9b0f-b553b5be7939;
- Wed, 13 Dec 2023 07:23:28 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 907281FD3B;
- Wed, 13 Dec 2023 06:23:27 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 546CC137E8;
- Wed, 13 Dec 2023 06:23:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8b1ME99NeWVWEgAAD6G6ig
- (envelope-from <jgross@suse.com>); Wed, 13 Dec 2023 06:23:27 +0000
+ id 0e7f28be-9982-11ee-9b0f-b553b5be7939;
+ Wed, 13 Dec 2023 07:37:17 +0100 (CET)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ 98e67ed59e1d1-28abb3c5b9cso985264a91.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Dec 2023 22:37:17 -0800 (PST)
+Received: from [157.82.205.15] ([157.82.205.15])
+ by smtp.gmail.com with ESMTPSA id
+ u13-20020a170902e5cd00b001cff026df52sm9636038plf.221.2023.12.12.22.37.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 Dec 2023 22:37:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,289 +45,297 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20fd1715-9980-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1702448607; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=KDFeuLJyTK5PzLLtE5vASfd0/tLQd+ki6juLzbRUZ98=;
-	b=NA2v0uvnOLqyuOjPT7/dKdgV00vnIvRlswKdRe9OIVPUoWti4/59lfYfyYwpDr3AkFmnYr
-	GVU/HzKI5woBOEFDzFiZmrSnZcxw5YYlyu5O5zltXkOCHnbyil88e4KFRDb0zSUeUS1B8M
-	H2grGz7zd4V769SO3xlI6R9EmZrKMGo=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1702448607; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=KDFeuLJyTK5PzLLtE5vASfd0/tLQd+ki6juLzbRUZ98=;
-	b=NA2v0uvnOLqyuOjPT7/dKdgV00vnIvRlswKdRe9OIVPUoWti4/59lfYfyYwpDr3AkFmnYr
-	GVU/HzKI5woBOEFDzFiZmrSnZcxw5YYlyu5O5zltXkOCHnbyil88e4KFRDb0zSUeUS1B8M
-	H2grGz7zd4V769SO3xlI6R9EmZrKMGo=
-Message-ID: <2cccc696-a9d6-49ed-9b00-74de59884d43@suse.com>
-Date: Wed, 13 Dec 2023 07:23:26 +0100
+X-Inumbo-ID: 0e7f28be-9982-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1702449436; x=1703054236; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kMU0hw+gwGczR/gRWRQnDaEoeESPinDQdK01aukaVCQ=;
+        b=OFKtfprH+eMxLTgFc9eOVRyO4ktOOoxAR/DXIr44WhmKKmjjaYC4p7WQDoQAnKDjiI
+         g+XrZ7XI2+z+J/U3O4dlq6w27Ht6BjVDBYX9ck92HOj3LirVqgFJmMp7j+FGCiewKpS8
+         bf1S4aqKlN+1mDL66iB/4o7ULnUGjGILnbTYd/JWsihg4+5RmNlbah6U5BXFBgUmfB7Y
+         XJdU9pGSugGMQbELoRs+NSZUPOmck23Cao2iiqchiwfBnXqUQfudpUznn2cw2huC3k3w
+         QAL0b9nTK66mzpb8Jgy9Y+AO6Vn8ZQ7N3Fcp04zH4aaCIbXfkAnjx4B6uWY51WqCFvzC
+         q7IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702449436; x=1703054236;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=kMU0hw+gwGczR/gRWRQnDaEoeESPinDQdK01aukaVCQ=;
+        b=ezP3wIhySuWhy4uemfXRxEciHEUZ8RYIS3J4ZzfXRNCyt2MXHTVvgY7VxKb6lfrtD0
+         vCpy9sW7GId5jcBL+TWFvl/T0nFFNLTGR1VMqcCeTQidrYUvMKL2mX1bxdazJIrGCjIe
+         IV3T+AWa4X1FANOFSFX5PLuMEV1BjYKu1G0etQ921zF/ifZblwB0okV+XiPhRAPsfRx0
+         pqsNmaLUWZmr7BdQD5OLH5kjjZRxxcTKcMKIYaQgOH+9qjgDf/E2fDCnQ75yuZE56K0d
+         tCyE+43ziDpHtkRnH3WHQQvYvpYbvYbdOBnIuovQleqJuLz+jOAwiDAV/GaoE4H9dNBo
+         kvXw==
+X-Gm-Message-State: AOJu0Yx/j4o7iSnGPBoz1V76rZRJpEA9LZoW53vSuww0RBPeLqYuPoC7
+	oEW8otUqn2h9pJtoJXQEYTjm5Q==
+X-Google-Smtp-Source: AGHT+IG5o/HJjzAe1oqBwjDmyKD+jnryCVy/PNKNBzfMqSP/v+UwSWZ7GhdbAoPzo3ay4ybD2HWbEQ==
+X-Received: by 2002:a17:902:eb87:b0:1d0:b944:6344 with SMTP id q7-20020a170902eb8700b001d0b9446344mr3145508plg.28.1702449435577;
+        Tue, 12 Dec 2023 22:37:15 -0800 (PST)
+Message-ID: <389fff8c-9f5d-4b6b-acd2-bc3e2110a9b3@daynix.com>
+Date: Wed, 13 Dec 2023 15:37:00 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/12] xen/spinlock: add another function level
+Subject: Re: [PATCH v2 1/5] system/cpus: rename qemu_mutex_lock_iothread() to
+ bql_lock()
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20231212094725.22184-1-jgross@suse.com>
- <20231212094725.22184-9-jgross@suse.com>
- <bee4d33a-1120-4389-a83d-4d2b91c5611d@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <bee4d33a-1120-4389-a83d-4d2b91c5611d@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------WKk2qVpHJXSxLz1Z52Et2iE2"
-X-Spam-Level: 
-X-Spam-Score: -6.19
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spam-Flag: NO
-Authentication-Results: smtp-out2.suse.de;
-	none
-X-Spamd-Result: default: False [-5.99 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 HAS_ATTACHMENT(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 MIME_BASE64_TEXT(0.10)[];
-	 RCPT_COUNT_SEVEN(0.00)[7];
-	 SIGNED_PGP(-2.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 RCVD_TLS_ALL(0.00)[];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys]
-X-Spam-Score: -5.99
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------WKk2qVpHJXSxLz1Z52Et2iE2
-Content-Type: multipart/mixed; boundary="------------iWUSR0tWUQi01lXyqFCaeIuu";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <2cccc696-a9d6-49ed-9b00-74de59884d43@suse.com>
-Subject: Re: [PATCH v4 08/12] xen/spinlock: add another function level
-References: <20231212094725.22184-1-jgross@suse.com>
- <20231212094725.22184-9-jgross@suse.com>
- <bee4d33a-1120-4389-a83d-4d2b91c5611d@xen.org>
-In-Reply-To: <bee4d33a-1120-4389-a83d-4d2b91c5611d@xen.org>
-
---------------iWUSR0tWUQi01lXyqFCaeIuu
-Content-Type: multipart/mixed; boundary="------------FcIac008lxzNOZ00rjX5usD0"
-
---------------FcIac008lxzNOZ00rjX5usD0
+To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
+Cc: =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Artyom Tarasenko <atar4qemu@gmail.com>, Paul Durrant <paul@xen.org>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>,
+ Paolo Bonzini <pbonzini@redhat.com>, BALATON Zoltan <balaton@eik.bme.hu>,
+ Jagannathan Raman <jag.raman@oracle.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Alexander Graf <agraf@csgraf.de>, Hailiang Zhang
+ <zhanghailiang@xfusion.com>, Marcelo Tosatti <mtosatti@redhat.com>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Huacai Chen <chenhuacai@kernel.org>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>, Peter Xu <peterx@redhat.com>,
+ Hyman Huang <yong.huang@smartx.com>, Fam Zheng <fam@euphon.net>,
+ Song Gao <gaosong@loongson.cn>, Alistair Francis <alistair.francis@wdc.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ David Woodhouse <dwmw2@infradead.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Aurelien Jarno <aurelien@aurel32.net>,
+ Leonardo Bras <leobras@redhat.com>, Jiri Slaby <jslaby@suse.cz>,
+ Eric Farman <farman@linux.ibm.com>, Thomas Huth <thuth@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ David Hildenbrand <david@redhat.com>, Michael Roth <michael.roth@amd.com>,
+ Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, Cameron Esfahani <dirty@apple.com>,
+ qemu-ppc@nongnu.org, John Snow <jsnow@redhat.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Weiwei Li <liwei1518@gmail.com>, Hanna Reitz <hreitz@redhat.com>,
+ qemu-s390x@nongnu.org, qemu-block@nongnu.org,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, kvm@vger.kernel.org,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
+ Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+ Andrey Smirnov <andrew.smirnov@gmail.com>,
+ Reinoud Zandijk <reinoud@netbsd.org>, Kevin Wolf <kwolf@redhat.com>,
+ Bin Meng <bin.meng@windriver.com>, Sunil Muthuswamy
+ <sunilmut@microsoft.com>, Peter Maydell <peter.maydell@linaro.org>,
+ qemu-riscv@nongnu.org, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Stafford Horne <shorne@gmail.com>, Fabiano Rosas <farosas@suse.de>,
+ Juan Quintela <quintela@redhat.com>, Markus Armbruster <armbru@redhat.com>,
+ qemu-arm@nongnu.org, Jason Wang <jasowang@redhat.com>,
+ Eduardo Habkost <eduardo@habkost.net>, Max Filippov <jcmvbkbc@gmail.com>,
+ Jean-Christophe Dubois <jcd@tribudubois.net>, Eric Blake
+ <eblake@redhat.com>, Roman Bolshakov <rbolshakov@ddn.com>,
+ Halil Pasic <pasic@linux.ibm.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ David Woodhouse <dwmw@amazon.co.uk>
+References: <20231212153905.631119-1-stefanha@redhat.com>
+ <20231212153905.631119-2-stefanha@redhat.com>
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+In-Reply-To: <20231212153905.631119-2-stefanha@redhat.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gMTIuMTIuMjMgMjA6MTAsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
-Cj4gDQo+IE9uIDEyLzEyLzIwMjMgMDk6NDcsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBB
-ZGQgYW5vdGhlciBmdW5jdGlvbiBsZXZlbCBpbiBzcGlubG9jay5jIGhpZGluZyB0aGUgc3Bp
-bmxvY2tfdCBsYXlvdXQNCj4+IGZyb20gdGhlIGxvdyBsZXZlbCBsb2NraW5nIGNvZGUuDQo+
-Pg0KPj4gVGhpcyBpcyBkb25lIGluIHByZXBhcmF0aW9uIG9mIGludHJvZHVjaW5nIHJzcGlu
-bG9ja190IGZvciByZWN1cnNpdmUNCj4+IGxvY2tzIHdpdGhvdXQgaGF2aW5nIHRvIGR1cGxp
-Y2F0ZSBhbGwgb2YgdGhlIGxvY2tpbmcgY29kZS4NCj4gDQo+IFNvIGFsbCB0aGUgZmllbGRz
-IHlvdSBwYXNzIGFyZSB0aGUgb25lIGZyb20gc3BpbmxvY2suDQo+IA0KPiBMb29raW5nIGF0
-IHBhaG9sZSBhZnRlciB0aGlzIHNlcmllcyBpcyBhcHBsaWQsIHdlIGhhdmU6DQo+IA0KPiA9
-PT09IERlYnVnICsgTG9jayBwcm9maWxlID09PT0NCj4gDQo+IHN0cnVjdCBzcGlubG9jayB7
-DQo+ICDCoMKgwqDCoMKgwqDCoCBzcGlubG9ja190aWNrZXRzX3TCoMKgwqDCoMKgwqDCoMKg
-IHRpY2tldHM7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyrCoMKgwqDCoCAwwqDCoMKg
-wqAgNCAqLw0KPiAgwqDCoMKgwqDCoMKgwqAgdW5pb24gbG9ja19kZWJ1Z8KgwqDCoMKgwqDC
-oMKgwqDCoMKgIGRlYnVnO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKsKgwqDC
-oMKgIDTCoMKgwqDCoCA0ICovDQo+ICDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgbG9ja19wcm9m
-aWxlICrCoMKgwqDCoMKgIHByb2ZpbGU7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyrC
-oMKgwqDCoCA4wqDCoMKgwqAgOCAqLw0KPiANCj4gIMKgwqDCoMKgwqDCoMKgIC8qIHNpemU6
-IDE2LCBjYWNoZWxpbmVzOiAxLCBtZW1iZXJzOiAzICovDQo+ICDCoMKgwqDCoMKgwqDCoCAv
-KiBsYXN0IGNhY2hlbGluZTogMTYgYnl0ZXMgKi8NCj4gfTsNCj4gc3RydWN0IHJzcGlubG9j
-ayB7DQo+ICDCoMKgwqDCoMKgwqDCoCBzcGlubG9ja190aWNrZXRzX3TCoMKgwqDCoMKgwqDC
-oMKgIHRpY2tldHM7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyrCoMKgwqDCoCAwwqDC
-oMKgwqAgNCAqLw0KPiAgwqDCoMKgwqDCoMKgwqAgdWludDE2X3TCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVjdXJzZV9jcHU7wqDCoMKgwqDCoMKgwqDCoMKgIC8q
-wqDCoMKgwqAgNMKgwqDCoMKgIDIgKi8NCj4gIMKgwqDCoMKgwqDCoMKgIHVpbnQ4X3TCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWN1cnNlX2NudDvCoMKgwqDC
-oMKgwqDCoMKgwqAgLyrCoMKgwqDCoCA2wqDCoMKgwqAgMSAqLw0KPiANCj4gIMKgwqDCoMKg
-wqDCoMKgIC8qIFhYWCAxIGJ5dGUgaG9sZSwgdHJ5IHRvIHBhY2sgKi8NCj4gDQo+ICDCoMKg
-wqDCoMKgwqDCoCB1bmlvbiBsb2NrX2RlYnVnwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGVidWc7
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qwqDCoMKgwqAgOMKgwqDCoMKgIDQg
-Ki8NCj4gDQo+ICDCoMKgwqDCoMKgwqDCoCAvKiBYWFggNCBieXRlcyBob2xlLCB0cnkgdG8g
-cGFjayAqLw0KPiANCj4gIMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBsb2NrX3Byb2ZpbGUgKsKg
-wqDCoMKgwqAgcHJvZmlsZTvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKsKgwqDCoCAx
-NsKgwqDCoMKgIDggKi8NCj4gDQo+ICDCoMKgwqDCoMKgwqDCoCAvKiBzaXplOiAyNCwgY2Fj
-aGVsaW5lczogMSwgbWVtYmVyczogNSAqLw0KPiAgwqDCoMKgwqDCoMKgwqAgLyogc3VtIG1l
-bWJlcnM6IDE5LCBob2xlczogMiwgc3VtIGhvbGVzOiA1ICovDQo+ICDCoMKgwqDCoMKgwqDC
-oCAvKiBsYXN0IGNhY2hlbGluZTogMjQgYnl0ZXMgKi8NCj4gfTsNCj4gDQo+IA0KPiA9PT09
-IERlYnVnID09PT0NCj4gDQo+IHN0cnVjdCBzcGlubG9jayB7DQo+ICDCoMKgwqDCoMKgwqDC
-oCBzcGlubG9ja190aWNrZXRzX3TCoMKgwqDCoMKgwqDCoMKgIHRpY2tldHM7wqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgLyrCoMKgwqDCoCAwwqDCoMKgwqAgNCAqLw0KPiAgwqDCoMKg
-wqDCoMKgwqAgdW5pb24gbG9ja19kZWJ1Z8KgwqDCoMKgwqDCoMKgwqDCoMKgIGRlYnVnO8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKsKgwqDCoMKgIDTCoMKgwqDCoCA0ICov
-DQo+IA0KPiAgwqDCoMKgwqDCoMKgwqAgLyogc2l6ZTogOCwgY2FjaGVsaW5lczogMSwgbWVt
-YmVyczogMiAqLw0KPiAgwqDCoMKgwqDCoMKgwqAgLyogbGFzdCBjYWNoZWxpbmU6IDggYnl0
-ZXMgKi8NCj4gfTsNCj4gc3RydWN0IHJzcGlubG9jayB7DQo+ICDCoMKgwqDCoMKgwqDCoCBz
-cGlubG9ja190aWNrZXRzX3TCoMKgwqDCoMKgwqDCoMKgIHRpY2tldHM7wqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgLyrCoMKgwqDCoCAwwqDCoMKgwqAgNCAqLw0KPiAgwqDCoMKgwqDC
-oMKgwqAgdWludDE2X3TCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVj
-dXJzZV9jcHU7wqDCoMKgwqDCoMKgwqDCoMKgIC8qwqDCoMKgwqAgNMKgwqDCoMKgIDIgKi8N
-Cj4gIMKgwqDCoMKgwqDCoMKgIHVpbnQ4X3TCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCByZWN1cnNlX2NudDvCoMKgwqDCoMKgwqDCoMKgwqAgLyrCoMKgwqDCoCA2
-wqDCoMKgwqAgMSAqLw0KPiANCj4gIMKgwqDCoMKgwqDCoMKgIC8qIFhYWCAxIGJ5dGUgaG9s
-ZSwgdHJ5IHRvIHBhY2sgKi8NCj4gDQo+ICDCoMKgwqDCoMKgwqDCoCB1bmlvbiBsb2NrX2Rl
-YnVnwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGVidWc7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIC8qwqDCoMKgwqAgOMKgwqDCoMKgIDQgKi8NCj4gDQo+ICDCoMKgwqDCoMKgwqDC
-oCAvKiBzaXplOiAxMiwgY2FjaGVsaW5lczogMSwgbWVtYmVyczogNCAqLw0KPiAgwqDCoMKg
-wqDCoMKgwqAgLyogc3VtIG1lbWJlcnM6IDExLCBob2xlczogMSwgc3VtIGhvbGVzOiAxICov
-DQo+ICDCoMKgwqDCoMKgwqDCoCAvKiBsYXN0IGNhY2hlbGluZTogMTIgYnl0ZXMgKi8NCj4g
-fTsNCj4gDQo+ID09PT0gUHJvZCA9PT09DQo+IA0KPiBzdHJ1Y3Qgc3BpbmxvY2sgew0KPiAg
-wqDCoMKgwqDCoMKgwqAgc3BpbmxvY2tfdGlja2V0c190wqDCoMKgwqDCoMKgwqDCoCB0aWNr
-ZXRzO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qwqDCoMKgwqAgMMKgwqDCoMKgIDQg
-Ki8NCj4gIMKgwqDCoMKgwqDCoMKgIHVuaW9uIGxvY2tfZGVidWfCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBkZWJ1ZzvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyrCoMKgwqDCoCA0
-wqDCoMKgwqAgMCAqLw0KPiANCj4gIMKgwqDCoMKgwqDCoMKgIC8qIHNpemU6IDQsIGNhY2hl
-bGluZXM6IDEsIG1lbWJlcnM6IDIgKi8NCj4gIMKgwqDCoMKgwqDCoMKgIC8qIGxhc3QgY2Fj
-aGVsaW5lOiA0IGJ5dGVzICovDQo+IH07DQo+IHN0cnVjdCByc3BpbmxvY2sgew0KPiAgwqDC
-oMKgwqDCoMKgwqAgc3BpbmxvY2tfdGlja2V0c190wqDCoMKgwqDCoMKgwqDCoCB0aWNrZXRz
-O8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qwqDCoMKgwqAgMMKgwqDCoMKgIDQgKi8N
-Cj4gIMKgwqDCoMKgwqDCoMKgIHVpbnQxNl90wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHJlY3Vyc2VfY3B1O8KgwqDCoMKgwqDCoMKgwqDCoCAvKsKgwqDCoMKgIDTC
-oMKgwqDCoCAyICovDQo+ICDCoMKgwqDCoMKgwqDCoCB1aW50OF90wqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmVjdXJzZV9jbnQ7wqDCoMKgwqDCoMKgwqDCoMKg
-IC8qwqDCoMKgwqAgNsKgwqDCoMKgIDEgKi8NCj4gIMKgwqDCoMKgwqDCoMKgIHVuaW9uIGxv
-Y2tfZGVidWfCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZWJ1ZzvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgLyrCoMKgwqDCoCA3wqDCoMKgwqAgMCAqLw0KPiANCj4gIMKgwqDCoMKg
-wqDCoMKgIC8qIHNpemU6IDgsIGNhY2hlbGluZXM6IDEsIG1lbWJlcnM6IDQgKi8NCj4gIMKg
-wqDCoMKgwqDCoMKgIC8qIHBhZGRpbmc6IDEgKi8NCj4gIMKgwqDCoMKgwqDCoMKgIC8qIGxh
-c3QgY2FjaGVsaW5lOiA4IGJ5dGVzICovDQo+IH07DQo+IA0KPiANCj4gSSB0aGluayB3ZSBj
-b3VsZCBlbWJlZCBzcGlubG9ja190IGluIHJzcGlubG9ja190IHdpdGhvdXQgaW5jcmVhc2lu
-ZyByc3BpbmxvY2tfdC4gDQo+IEhhdmUgeW91IGNvbnNpZGVyZWQgaXQ/IFRoaXMgY291bGQg
-cmVkdWNlIHRoZSBudW1iZXIgb2YgZnVuY3Rpb24gbGV2ZWwgDQo+IGludHJvZHVjZWQgaW4g
-dGhpcyBzZXJpZXMuDQoNClRoYXQgd2FzIHRoZSBsYXlvdXQgaW4gdGhlIGZpcnN0IHZlcnNp
-b24gb2YgdGhpcyBzZXJpZXMuIEphbiByZXF1ZXN0ZWQgdG8gY2hhbmdlDQppdCB0byB0aGUg
-Y3VycmVudCBsYXlvdXQgWzFdLg0KDQoNCkp1ZXJnZW4NCg0KWzFdOiBodHRwczovL2xpc3Rz
-Lnhlbi5vcmcvYXJjaGl2ZXMvaHRtbC94ZW4tZGV2ZWwvMjAyMi0xMi9tc2cwMTA1NC5odG1s
-DQo=
---------------FcIac008lxzNOZ00rjX5usD0
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+On 2023/12/13 0:39, Stefan Hajnoczi wrote:
+> The Big QEMU Lock (BQL) has many names and they are confusing. The
+> actual QemuMutex variable is called qemu_global_mutex but it's commonly
+> referred to as the BQL in discussions and some code comments. The
+> locking APIs, however, are called qemu_mutex_lock_iothread() and
+> qemu_mutex_unlock_iothread().
+> 
+> The "iothread" name is historic and comes from when the main thread was
+> split into into KVM vcpu threads and the "iothread" (now called the main
+> loop thread). I have contributed to the confusion myself by introducing
+> a separate --object iothread, a separate concept unrelated to the BQL.
+> 
+> The "iothread" name is no longer appropriate for the BQL. Rename the
+> locking APIs to:
+> - void bql_lock(void)
+> - void bql_unlock(void)
+> - bool bql_locked(void)
+> 
+> There are more APIs with "iothread" in their names. Subsequent patches
+> will rename them. There are also comments and documentation that will be
+> updated in later patches.
+> 
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> Reviewed-by: Paul Durrant <paul@xen.org>
+> Acked-by: Fabiano Rosas <farosas@suse.de>
+> Acked-by: David Woodhouse <dwmw@amazon.co.uk>
+> Reviewed-by: Cédric Le Goater <clg@kaod.org>
+> Acked-by: Peter Xu <peterx@redhat.com>
+> Acked-by: Eric Farman <farman@linux.ibm.com>
+> Reviewed-by: Harsh Prateek Bora <harshpb@linux.ibm.com>
+> ---
+>   include/block/aio-wait.h             |   2 +-
+>   include/qemu/main-loop.h             |  40 ++++-----
+>   include/qemu/thread.h                |   2 +-
+>   accel/accel-blocker.c                |  10 +--
+>   accel/dummy-cpus.c                   |   8 +-
+>   accel/hvf/hvf-accel-ops.c            |   4 +-
+>   accel/kvm/kvm-accel-ops.c            |   4 +-
+>   accel/kvm/kvm-all.c                  |  22 ++---
+>   accel/tcg/cpu-exec.c                 |  26 +++---
+>   accel/tcg/cputlb.c                   |  16 ++--
+>   accel/tcg/tcg-accel-ops-icount.c     |   4 +-
+>   accel/tcg/tcg-accel-ops-mttcg.c      |  12 +--
+>   accel/tcg/tcg-accel-ops-rr.c         |  14 ++--
+>   accel/tcg/tcg-accel-ops.c            |   2 +-
+>   accel/tcg/translate-all.c            |   2 +-
+>   cpu-common.c                         |   4 +-
+>   dump/dump.c                          |   4 +-
+>   hw/core/cpu-common.c                 |   6 +-
+>   hw/i386/intel_iommu.c                |   6 +-
+>   hw/i386/kvm/xen_evtchn.c             |  16 ++--
+>   hw/i386/kvm/xen_overlay.c            |   2 +-
+>   hw/i386/kvm/xen_xenstore.c           |   2 +-
+>   hw/intc/arm_gicv3_cpuif.c            |   2 +-
+>   hw/intc/s390_flic.c                  |  18 ++--
+>   hw/misc/edu.c                        |   4 +-
+>   hw/misc/imx6_src.c                   |   2 +-
+>   hw/misc/imx7_src.c                   |   2 +-
+>   hw/net/xen_nic.c                     |   8 +-
+>   hw/ppc/pegasos2.c                    |   2 +-
+>   hw/ppc/ppc.c                         |   4 +-
+>   hw/ppc/spapr.c                       |   2 +-
+>   hw/ppc/spapr_rng.c                   |   4 +-
+>   hw/ppc/spapr_softmmu.c               |   4 +-
+>   hw/remote/mpqemu-link.c              |  20 ++---
+>   hw/remote/vfio-user-obj.c            |   2 +-
+>   hw/s390x/s390-skeys.c                |   2 +-
+>   migration/block-dirty-bitmap.c       |   4 +-
+>   migration/block.c                    |  16 ++--
+>   migration/colo.c                     |  60 +++++++-------
+>   migration/dirtyrate.c                |  12 +--
+>   migration/migration.c                |  52 ++++++------
+>   migration/ram.c                      |  12 +--
+>   replay/replay-internal.c             |   2 +-
+>   semihosting/console.c                |   8 +-
+>   stubs/iothread-lock.c                |   6 +-
+>   system/cpu-throttle.c                |   4 +-
+>   system/cpus.c                        |  51 ++++++------
+>   system/dirtylimit.c                  |   4 +-
+>   system/memory.c                      |   2 +-
+>   system/physmem.c                     |   8 +-
+>   system/runstate.c                    |   2 +-
+>   system/watchpoint.c                  |   4 +-
+>   target/arm/arm-powerctl.c            |  14 ++--
+>   target/arm/helper.c                  |   4 +-
+>   target/arm/hvf/hvf.c                 |   8 +-
+>   target/arm/kvm.c                     |   4 +-
+>   target/arm/kvm64.c                   |   4 +-
+>   target/arm/ptw.c                     |   6 +-
+>   target/arm/tcg/helper-a64.c          |   8 +-
+>   target/arm/tcg/m_helper.c            |   6 +-
+>   target/arm/tcg/op_helper.c           |  24 +++---
+>   target/arm/tcg/psci.c                |   2 +-
+>   target/hppa/int_helper.c             |   8 +-
+>   target/i386/hvf/hvf.c                |   6 +-
+>   target/i386/kvm/hyperv.c             |   4 +-
+>   target/i386/kvm/kvm.c                |  28 +++----
+>   target/i386/kvm/xen-emu.c            |  14 ++--
+>   target/i386/nvmm/nvmm-accel-ops.c    |   4 +-
+>   target/i386/nvmm/nvmm-all.c          |  20 ++---
+>   target/i386/tcg/sysemu/fpu_helper.c  |   6 +-
+>   target/i386/tcg/sysemu/misc_helper.c |   4 +-
+>   target/i386/whpx/whpx-accel-ops.c    |   4 +-
+>   target/i386/whpx/whpx-all.c          |  24 +++---
+>   target/loongarch/csr_helper.c        |   4 +-
+>   target/mips/kvm.c                    |   4 +-
+>   target/mips/tcg/sysemu/cp0_helper.c  |   4 +-
+>   target/openrisc/sys_helper.c         |  16 ++--
+>   target/ppc/excp_helper.c             |  12 +--
+>   target/ppc/kvm.c                     |   4 +-
+>   target/ppc/misc_helper.c             |   8 +-
+>   target/ppc/timebase_helper.c         |   8 +-
+>   target/s390x/kvm/kvm.c               |   4 +-
+>   target/s390x/tcg/misc_helper.c       | 118 +++++++++++++--------------
+>   target/sparc/int32_helper.c          |   2 +-
+>   target/sparc/int64_helper.c          |   6 +-
+>   target/sparc/win_helper.c            |  20 ++---
+>   target/xtensa/exc_helper.c           |   8 +-
+>   ui/spice-core.c                      |   4 +-
+>   util/async.c                         |   2 +-
+>   util/main-loop.c                     |   8 +-
+>   util/qsp.c                           |   6 +-
+>   util/rcu.c                           |  14 ++--
+>   audio/coreaudio.m                    |   4 +-
+>   memory_ldst.c.inc                    |  18 ++--
+>   target/i386/hvf/README.md            |   2 +-
+>   ui/cocoa.m                           |  50 ++++++------
+>   96 files changed, 530 insertions(+), 529 deletions(-)
+> 
+> diff --git a/include/block/aio-wait.h b/include/block/aio-wait.h
+> index 5449b6d742..d22ca24329 100644
+> --- a/include/block/aio-wait.h
+> +++ b/include/block/aio-wait.h
+> @@ -151,7 +151,7 @@ static inline bool in_aio_context_home_thread(AioContext *ctx)
+>       }
+>   
+>       if (ctx == qemu_get_aio_context()) {
+> -        return qemu_mutex_iothread_locked();
+> +        return bql_locked();
+>       } else {
+>           return false;
+>       }
+> diff --git a/include/qemu/main-loop.h b/include/qemu/main-loop.h
+> index 68e70e61aa..596a206acd 100644
+> --- a/include/qemu/main-loop.h
+> +++ b/include/qemu/main-loop.h
+> @@ -248,19 +248,19 @@ GSource *iohandler_get_g_source(void);
+>   AioContext *iohandler_get_aio_context(void);
+>   
+>   /**
+> - * qemu_mutex_iothread_locked: Return lock status of the main loop mutex.
+> + * bql_locked: Return lock status of the Big QEMU Lock (BQL)
+>    *
+> - * The main loop mutex is the coarsest lock in QEMU, and as such it
+> + * The Big QEMU Lock (BQL) is the coarsest lock in QEMU, and as such it
+>    * must always be taken outside other locks.  This function helps
+>    * functions take different paths depending on whether the current
+> - * thread is running within the main loop mutex.
+> + * thread is running within the BQL.
+>    *
+>    * This function should never be used in the block layer, because
+>    * unit tests, block layer tools and qemu-storage-daemon do not
+>    * have a BQL.
+>    * Please instead refer to qemu_in_main_thread().
+>    */
+> -bool qemu_mutex_iothread_locked(void);
+> +bool bql_locked(void);
+>   
+>   /**
+>    * qemu_in_main_thread: return whether it's possible to safely access
+> @@ -312,58 +312,58 @@ bool qemu_in_main_thread(void);
+>       } while (0)
+>   
+>   /**
+> - * qemu_mutex_lock_iothread: Lock the main loop mutex.
+> + * bql_lock: Lock the Big QEMU Lock (BQL).
+>    *
+> - * This function locks the main loop mutex.  The mutex is taken by
+> + * This function locks the Big QEMU Lock (BQL).  The lock is taken by
+>    * main() in vl.c and always taken except while waiting on
+> - * external events (such as with select).  The mutex should be taken
+> + * external events (such as with select).  The lock should be taken
+>    * by threads other than the main loop thread when calling
+>    * qemu_bh_new(), qemu_set_fd_handler() and basically all other
+>    * functions documented in this file.
+>    *
+> - * NOTE: tools currently are single-threaded and qemu_mutex_lock_iothread
+> + * NOTE: tools currently are single-threaded and bql_lock
+>    * is a no-op there.
+>    */
+> -#define qemu_mutex_lock_iothread()                      \
+> -    qemu_mutex_lock_iothread_impl(__FILE__, __LINE__)
+> -void qemu_mutex_lock_iothread_impl(const char *file, int line);
+> +#define bql_lock()                      \
+> +    bql_lock_impl(__FILE__, __LINE__)
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------FcIac008lxzNOZ00rjX5usD0--
-
---------------iWUSR0tWUQi01lXyqFCaeIuu--
-
---------------WKk2qVpHJXSxLz1Z52Et2iE2
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmV5Td8FAwAAAAAACgkQsN6d1ii/Ey+d
-IAf/ZcBVzHXWES0UNnwBxuJ0NRe+EHROcRUBB5j6Jrk1lSl7GsDfnlJBydyIjm5g67313HHVt+bU
-LTDFGgc7lADFj0aq44rKyh8qhVcoengA4M1jnrJBmg0PsTgdT02EslLaUfTtM3CDDk3C5CnaDuuW
-HAvrKaCjnqBBQAeAxqPKP/IC7ban9oiGj1bXtR5pG04hf687Qq9uJvMr76M2t+9u08NErnZWRftp
-YmYrgoG+ebM4ByLGvRDUr3DdHmwOakeXRX+QnzXdm0ZXv1XR2rZ9Np56c2omuVBDgWDA8H6AGZ0l
-LmFY84Gd7UgBfvCbE91Qn7zXUTl68L4e2hi4fDS7JQ==
-=D3av
------END PGP SIGNATURE-----
-
---------------WKk2qVpHJXSxLz1Z52Et2iE2--
+This line break is no longer necessary.
 
