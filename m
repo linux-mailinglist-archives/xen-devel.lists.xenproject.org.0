@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36DB6813D4D
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 23:33:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654793.1022176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80546813D82
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 23:50:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654803.1022190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDuGK-0002gv-Gr; Thu, 14 Dec 2023 22:33:00 +0000
+	id 1rDuWH-0006UT-UR; Thu, 14 Dec 2023 22:49:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654793.1022176; Thu, 14 Dec 2023 22:33:00 +0000
+Received: by outflank-mailman (output) from mailman id 654803.1022190; Thu, 14 Dec 2023 22:49:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDuGK-0002eA-Dd; Thu, 14 Dec 2023 22:33:00 +0000
-Received: by outflank-mailman (input) for mailman id 654793;
- Thu, 14 Dec 2023 22:32:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rDuWH-0006S4-Rr; Thu, 14 Dec 2023 22:49:29 +0000
+Received: by outflank-mailman (input) for mailman id 654803;
+ Thu, 14 Dec 2023 22:49:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fjLX=HZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rDuGJ-0002d2-MZ
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 22:32:59 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bad1c1ee-9ad0-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 23:32:58 +0100 (CET)
+ id 1rDuWG-0006Ry-H0
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 22:49:28 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 070117a1-9ad3-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 23:49:25 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id E2A4462215;
- Thu, 14 Dec 2023 22:32:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90E9AC433C7;
- Thu, 14 Dec 2023 22:32:55 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id ED3D8CE2462;
+ Thu, 14 Dec 2023 22:49:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C970C433C7;
+ Thu, 14 Dec 2023 22:49:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,152 +41,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bad1c1ee-9ad0-11ee-98e9-6d05b1d4d9a1
+X-Inumbo-ID: 070117a1-9ad3-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702593176;
-	bh=0QdiEQBaLuIST3rqtdsjoAfSh1iEsq3v1/JLWfSHBiI=;
+	s=k20201202; t=1702594162;
+	bh=YxAoDz1562Qm5JXSHG+37rbo8or/kA4W8NhMy564ma8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=INpQ498laNXL1qvakMHhrsQWGeuF8aUf1Q5/CFWWotaOIJpjP3jfzq0v+7JIUPREd
-	 xWSRg+fk72KeeqygbHltbPJZz4KwPHdaSPjRKR0LAgS1Igmi2UJkJcCgLQZOUswDLx
-	 5HS+I9YdHMckKyk32zWAeyorMC6cV4QFd41wEdJPZ65KEpTZbmEpeC06zEGw9pnPLm
-	 QmkELYZkAXW84TOpp6W7+H9dMrwmAQJa0Yj9tmKWqL9US5x7cplFfDuoYqbJHlRVxZ
-	 azYTdrBOZEsVjSHZ/uFJxDduuJE4qT6Vjz0ojJFjPxdpHh+kciyCVM+OZh1OLR4Xj5
-	 +touIJUcBCoPg==
-Date: Thu, 14 Dec 2023 14:32:54 -0800 (PST)
+	b=Vdqfq4nnWtOEcINi1OABxK8g/yP4J2ctA/2JONMQqZrint4anCTu+YOROici5Xzto
+	 1CFK1FL4QyysewKF8drTF6GKuzfhVAVwJQs3qDy6Ge5/3vVJptUDYK2/Vaj4BGyVew
+	 UbnOWiec//ZBizalrWeqogQhhdDmI31C3/Gf5++drOnzlEX3LGQleiFtJNj6EBhcx+
+	 4TEt7TXlbsEE7kqUoCAJyBR5RBGBuuuhWF2ktG2JuKtCBrXc0y/PwEnPIBu52HMYWq
+	 yE4fbCwyPfZkPB6MaB7eg9PVwe1V8vwB161YT8lWqGXbSoK0Nq5jUw7jbSAW9tSpAL
+	 wmFHgg4vXhGCg==
+Date: Thu, 14 Dec 2023 14:49:18 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    "Daniel P . Smith" <dpsmith@apertussolutions.com>, Wei Liu <wl@xen.org>, 
+    Anthony PERARD <anthony.perard@citrix.com>, 
+    Juergen Gross <jgross@suse.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH 5/7] xen/arm: traps: add ASSERT_UNREACHABLE() where
- needed
-In-Reply-To: <2b4eec7c-3657-4542-96b9-56b272e8723b@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2312141418160.3175268@ubuntu-linux-20-04-desktop>
-References: <cover.1702283415.git.nicola.vetrini@bugseng.com> <394b69b769f2dc2461d2ddb0c7e037f4794eb244.1702283415.git.nicola.vetrini@bugseng.com> <08e3c8f0-772e-4c08-9afc-c623f19c85e3@xen.org> <240c97ed-ce27-406d-84ad-68b72e999294@xen.org>
- <5ad1c008182bc9f23e1b37b0d6e35e4c@bugseng.com> <2b4eec7c-3657-4542-96b9-56b272e8723b@xen.org>
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, 
+    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
+    "Huang, Ray" <Ray.Huang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Subject: Re: [RFC XEN PATCH v3 2/3] x86/pvh: Add (un)map_pirq and setup_gsi
+ for PVH dom0
+In-Reply-To: <ZXrTwfzedFQLhxiQ@macbook>
+Message-ID: <alpine.DEB.2.22.394.2312141441020.3175268@ubuntu-linux-20-04-desktop>
+References: <20231210164009.1551147-1-Jiqian.Chen@amd.com> <20231210164009.1551147-3-Jiqian.Chen@amd.com> <ZXcrX44ceUjzjtDh@macbook> <BL1PR12MB5849B1BDCBECD73353413869E78EA@BL1PR12MB5849.namprd12.prod.outlook.com> <704cc051-7362-4691-a120-4effaf8dd1fc@suse.com>
+ <BL1PR12MB584993E317AF28E675814FC6E78DA@BL1PR12MB5849.namprd12.prod.outlook.com> <917ef38b-5aec-4c6a-803c-c0b2dcc74454@suse.com> <BL1PR12MB58494259A9E37CD7133090D9E78CA@BL1PR12MB5849.namprd12.prod.outlook.com> <ZXrRG8oc25Do0Dnv@macbook>
+ <390368e2-5f13-4bbf-8c07-4a05c04e9939@suse.com> <ZXrTwfzedFQLhxiQ@macbook>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1284507503-1702592684=:3175268"
-Content-ID: <alpine.DEB.2.22.394.2312141425040.3175268@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/mixed; BOUNDARY="8323329-1075268383-1702593786=:3175268"
+Content-ID: <alpine.DEB.2.22.394.2312141443090.3175268@ubuntu-linux-20-04-desktop>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-1284507503-1702592684=:3175268
+--8323329-1075268383-1702593786=:3175268
 Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2312141425041.3175268@ubuntu-linux-20-04-desktop>
+Content-ID: <alpine.DEB.2.22.394.2312141443091.3175268@ubuntu-linux-20-04-desktop>
 
-On Thu, 14 Dec 2023, Julien Grall wrote:
-> Hi,
-> 
-> On 13/12/2023 14:02, Nicola Vetrini wrote:
-> > On 2023-12-12 16:49, Julien Grall wrote:
-> > > Hi,
+On Thu, 14 Dec 2023, Roger Pau Monné wrote:
+> On Thu, Dec 14, 2023 at 10:58:24AM +0100, Jan Beulich wrote:
+> > On 14.12.2023 10:55, Roger Pau Monné wrote:
+> > > On Thu, Dec 14, 2023 at 08:55:45AM +0000, Chen, Jiqian wrote:
+> > >> On 2023/12/13 15:03, Jan Beulich wrote:
+> > >>> On 13.12.2023 03:47, Chen, Jiqian wrote:
+> > >>>> On 2023/12/12 17:30, Jan Beulich wrote:
+> > >>>>> On 12.12.2023 07:49, Chen, Jiqian wrote:
+> > >>>>>> On 2023/12/11 23:31, Roger Pau Monné wrote:
+> > >>>>>>> On Mon, Dec 11, 2023 at 12:40:08AM +0800, Jiqian Chen wrote:
+> > >>>>>>>> --- a/xen/arch/x86/hvm/hypercall.c
+> > >>>>>>>> +++ b/xen/arch/x86/hvm/hypercall.c
+> > >>>>>>>> @@ -72,8 +72,11 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+> > >>>>>>>>  
+> > >>>>>>>>      switch ( cmd )
+> > >>>>>>>>      {
+> > >>>>>>>> +    case PHYSDEVOP_setup_gsi:
+> > >>>>>>>
+> > >>>>>>> I think given the new approach on the Linux side patches, where
+> > >>>>>>> pciback will configure the interrupt, there's no need to expose
+> > >>>>>>> setup_gsi anymore?
+> > >>>>>> The latest patch(the second patch of v3 on kernel side) does setup_gsi and map_pirq for passthrough device in pciback, so we need this and below.
+> > >>>>>>
+> > >>>>>>>
+> > >>>>>>>>      case PHYSDEVOP_map_pirq:
+> > >>>>>>>>      case PHYSDEVOP_unmap_pirq:
+> > >>>>>>>> +        if ( is_hardware_domain(currd) )
+> > >>>>>>>> +            break;
+> > >>>>>>>
+> > >>>>>>> Also Jan already pointed this out in v2: this hypercall needs to be
+> > >>>>>>> limited so a PVH dom0 cannot execute it against itself.  IOW: refuse
+> > >>>>>>> the hypercall if DOMID_SELF or the passed domid matches the current
+> > >>>>>>> domain domid.
+> > >>>>>> Yes, I remember Jan's suggestion, but since the latest patch(the second patch of v3 on kernel side) has change the implementation, it does setup_gsi and map_pirq for dom0 itself, so I didn't add the DOMID_SELF check.
+> > >>>>>
+> > >>>>> And why exactly would it do specifically the map_pirq? (Even the setup_gsi
+> > >>>>> looks questionable to me, but there might be reasons there.)
+> > >>>> Map_pirq is to solve the check failure problem. (pci_add_dm_done-> xc_domain_irq_permission-> XEN_DOMCTL_irq_permission-> pirq_access_permitted->domain_pirq_to_irq->return irq is 0)
+> > >>>> Setup_gsi is because the gsi is never be unmasked, so the gsi is never be registered( vioapic_hwdom_map_gsi-> mp_register_gsi is never be called).
+> > >>>
+> > >>> And it was previously made pretty clear by Roger, I think, that doing a "map"
+> > >>> just for the purpose of granting permission is, well, at best a temporary
+> > >>> workaround in the early development phase. If there's presently no hypercall
+> > >>> to _only_ grant permission to IRQ, we need to add one.
+> > >> Could you please describe it in detail? Do you mean to add a new hypercall to grant irq access for dom0 or domU?
+> > >> It seems XEN_DOMCTL_irq_permission is the hypercall to grant irq access from dom0 to domU(see XEN_DOMCTL_irq_permission-> irq_permit_access). There is no need to add hypercall to grant irq access.
+> > >> We failed here (XEN_DOMCTL_irq_permission-> pirq_access_permitted->domain_pirq_to_irq->return irq is 0) is because the PVH dom0 didn't use PIRQ, so we can't get irq from pirq if "current" is PVH dom0.
 > > > 
-> > > On 11/12/2023 12:32, Julien Grall wrote:
-> > > > Hi,
-> > > > 
-> > > > On 11/12/2023 10:30, Nicola Vetrini wrote:
-> > > > > The branches of the switch after a call to 'do_unexpected_trap'
-> > > > > cannot return, but there is one path that may return, hence
-> > > > > only some clauses are marked with ASSERT_UNREACHABLE().
-> > > > I don't understand why this is necessary. The code should never be
-> > > > reachable because do_unexpected_trap() is a noreturn().
-> > >
-> > > From the matrix discussion, it wasn't clear what was my position on this
-> > > patch.
-> > > 
-> > > I would much prefer if the breaks are kept. I could accept:
-> > > 
-> > > ASSERT_UNREACHABLE();
-> > > break;
-> > > 
-> > > But this solution is a Nack because if you are concerned about functions
-> > > like do_unexpected_trap() to return by mistaken, then it needs to also be
-> > > safe in production.
-> > > 
-> > > The current proposal is not safe.
+> > > One way to bodge this would be to detect whether the caller of
+> > > XEN_DOMCTL_irq_permission is a PV or an HVM domain, and in case of HVM
+> > > assume the pirq field is a GSI.  I'm unsure however how that will work
+> > > with non-x86 architectures.
 
-I re-read the email thread. I also do not think that this is useful:
-
-         do_unexpected_trap("SVE trap at EL2", regs);
--        break;
-+        ASSERT_UNREACHABLE();
-
-I also do not think that we should be concerned about functions like
-do_unexpected_trap() to return by mistaken.
-
-That said, what is the problem from MISRA point of view that we are
-trying to fix? Is the only problem the presence of break; after the call
-to a noreturn function?
-
-If that's not allowed, I would suggest to do this:
+PIRQ is an x86-only concept. We have event channels but no PIRQs on ARM.
+I expect RISC-V will be the same.
 
 
-         do_unexpected_trap("SVE trap at EL2", regs);
--        break;
-+        /* break; */
+> > > It would  be better to introduce a new XEN_DOMCTL_gsi_permission, or
 
+"GSI" is another x86-only concept.
 
-Or deviate "break" globally as it doesn't seem to be a safety risk in my
-opinion. If nothing else, it should make the code a bit safer because in
-case of mistakes in do_unexpected_trap, at least we would continue to
-follow a more reasonable code path rather than blindly falling through
-the next switch case by accident.
+So actually the best name was indeed XEN_DOMCTL_irq_permission, given
+that it is using the more arch-neutral "irq" terminology.
 
+Perhaps it was always a mistake to pass PIRQs to
+XEN_DOMCTL_irq_permission and we should always have passed the real
+interrupt number (GSI on x86, SPI on ARM).
 
-> > Ok. I wonder whether the should be applied here in vcpreg.c:
-> > 
-> > diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-> > index 39aeda9dab62..089d2f03eb5e 100644
-> > --- a/xen/arch/arm/vcpreg.c
-> > +++ b/xen/arch/arm/vcpreg.c
-> > @@ -707,7 +707,8 @@ void do_cp10(struct cpu_user_regs *regs, const union hsr
-> > hsr)
-> >           inject_undef_exception(regs, hsr);
-> >           return;
-> >       }
-> > -
-> > +
-> > +    ASSERT_UNREACHABLE();
-> >       advance_pc(regs, hsr);
-> >   }
-> > 
-> > the rationale being that, should the switch somehow fail to return, the
-> > advance_pc would be called, rather than doing nothing.
-> 
-> To clarify, advance_pc(regs, hsr) would still be called in production build.
-> So if you are concerned about advance_pc() been called, then adding an
-> ASSERT_UNREACHABLE() is not going to help.
-> 
-> It took me a little while to confirm that none of the path effectively returns
-> due to the macros (in hindsight, it wasn't a good idea of mine to introduce
-> them).
-> 
-> Depending on what we are trying to solve there are 3 possible approach:
->   1. Leave advance_pc(). This means we could potentially
->      a. Advance the PC twice (if it was already called) and therefore skipping
-> an instruction
->      b. Advance the PC once without an emulation
->   2. Remove advance_pc(). If we already called the function, then there is no
-> problem. Otherwise, we would trap in a loop effectively rendering the guest
-> vCPU unusable.
->   3. Replace with domain_crash()
-> 
-> Here it feels, that 3 is more suitable as this gives a clear indication
-> why/where the emulation gone wrong.
-> 
-> This may still need to be accompanied with a ASSERT_UNREACHABLE() to please
-> MISRA.
-> 
-> Bertrand, Michal, Stefano, what do you think?
+So your "bodge" is actually kind of OK in my opinion. Basically everyone
+else (x86 HVM/PVH, ARM, RISC-V, probably PPC too) will use
+XEN_DOMCTL_irq_permission with hardware interrupt numbers (GSIs, SPIs,
+etc.), the only special case is x86 PV. It is x86 PV the odd one.
 
-Yes, I would go with 3., replace advance_pc with domain_crash. Assuming
-that it would also solve the violation in ECLAIR.
---8323329-1284507503-1702592684=:3175268--
+Given that DOMCTL is an unstable interface anyway, I feel OK making
+changes to it, even better if backward compatible.
+
+--8323329-1075268383-1702593786=:3175268--
 
