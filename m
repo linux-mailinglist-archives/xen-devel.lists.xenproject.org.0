@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5471E813249
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 14:57:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654598.1021673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F14BA813279
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 15:06:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654601.1021683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDmDE-0005z4-Gm; Thu, 14 Dec 2023 13:57:16 +0000
+	id 1rDmLt-0008He-FV; Thu, 14 Dec 2023 14:06:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654598.1021673; Thu, 14 Dec 2023 13:57:16 +0000
+Received: by outflank-mailman (output) from mailman id 654601.1021683; Thu, 14 Dec 2023 14:06:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDmDE-0005wE-DR; Thu, 14 Dec 2023 13:57:16 +0000
-Received: by outflank-mailman (input) for mailman id 654598;
- Thu, 14 Dec 2023 13:57:15 +0000
+	id 1rDmLt-0008FW-Cx; Thu, 14 Dec 2023 14:06:13 +0000
+Received: by outflank-mailman (input) for mailman id 654601;
+ Thu, 14 Dec 2023 14:06:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDmDD-0005w8-BD
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 13:57:15 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ id 1rDmLr-0008FQ-KE
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 14:06:11 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aeafb309-9a88-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 14:57:13 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-50c0f6b1015so9529689e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 05:57:13 -0800 (PST)
+ id ee46542d-9a89-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 15:06:09 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a1e2ded3d9fso985170766b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 06:06:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- qo5-20020a170907874500b00a1b7b0cc30dsm9362695ejc.7.2023.12.14.05.57.11
+ tk3-20020a170907c28300b00a1cd54ec021sm9421102ejc.57.2023.12.14.06.06.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 05:57:12 -0800 (PST)
+ Thu, 14 Dec 2023 06:06:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aeafb309-9a88-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ee46542d-9a89-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702562233; x=1703167033; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702562769; x=1703167569; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=VPjvs+p+NxwNmbmCR28jMCoUyiLyV+8ltmkkMpNliIY=;
-        b=Vux6JoQLrWn59z0j2BIHWWTHg+MyndEtaSrR3ddI8nq2MrHX7aGlWYfV3jr1eURL7f
-         lSC+rTrSRh6bz6oCf2Qoui8wc0C4GMiFs6+Yd3Ih83ZBlaNqrYZKfvk7krEpbNDGzuf1
-         83Ray++3zeYreoKF1xnF4h7tpGN8cmZOpDR9dTFQ3xNu9acbg/gQLKZcJtuKKMujSnkc
-         Ury5o8CSIm/NTpziJRhYKBfvz/ys/4RU4FEkAwVXBjNiiWG3PuBTeXPb0BcdEEsmpaoA
-         XPMaeSjFsNPiHf0l3yoUeRhtCgsG20w37/cs9UCyAvRBXyhknscyLzwJIvTd4C6QW8g1
-         S+bw==
+        bh=d5dZFMvCG+Hj4tJQMSIUYNtGUmi6rZaCDkq+11u8WP0=;
+        b=bH9AXXNfpfoJNKnljyBcf0+RDa/Q4c0IYsnAOfsKmisoPhndd3AUu0uJdYxPAntadm
+         KjiakWK2nivgvlvUF9hoPbgxIa7kiPKlDoeuVSuMR/BOCYDMM4GEOmPYON4rLSGiD7ia
+         Ljjk7By5lWScVHcvZVKe713yqlbQdvFuyzckxVjD3oBEG3Sebz1a1jRVBD/xgxIUEnXd
+         qXKLC2G/4eNkL66zuqwDCU55r69x6ojE0NECgyWj+c9HFYi8cHQGNjMFVehRDeYwETGX
+         2Ix0J8aG7GHsFKBCf29t6PmbSKQSJ4hKpifSek/T92uNryLemLviAnGD8qx7CQv0ft7Y
+         EREQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702562233; x=1703167033;
+        d=1e100.net; s=20230601; t=1702562769; x=1703167569;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VPjvs+p+NxwNmbmCR28jMCoUyiLyV+8ltmkkMpNliIY=;
-        b=l/XfRctIkSXHl8aWvTG7mR6CRDRIRtgAPkITjiy+tOLoijgiaTWsBGFE9fg/RgTMiP
-         SC7ZjD3h4EfdPb6l1jKCQj2ChiRoi663NzAmVxXiQ9AZY27GVQcME+Hv7OynfWVjE9yr
-         1ya/rXgxv104HKs/QOdomSVftOq4Y7dzb+4Vcklx5EC0jTGAnBn4CI0Elvkdp1VmCxIK
-         C2Z1EHS6zhRqiJVwijgYpKiwM5xQCm346tChRgShZztjp03CD/XtyWhuGV1l5UD0T1fz
-         bAuAOmUtwdq6G+iG1NNXuOW2dBvD3f9YnEnheCryRAk7YorX2wpqWb1W1hN7bk+BeEQI
-         ZpkQ==
-X-Gm-Message-State: AOJu0YzSDxNooMreIgFMjJ8W5IvYaURzrq6UOcIsv2BYKzu6EVxlvy/L
-	gfUamX7xD42gcxxq13gWMB5b
-X-Google-Smtp-Source: AGHT+IGBX0hFSWg202PtKVPL960itMZCQpKPgT1YqHZSy2xWsxSkdfCVg/IfjEdlq09IfRSkWo67FA==
-X-Received: by 2002:a05:6512:3a88:b0:50b:fa69:16be with SMTP id q8-20020a0565123a8800b0050bfa6916bemr5289581lfu.15.1702562232735;
-        Thu, 14 Dec 2023 05:57:12 -0800 (PST)
-Message-ID: <31cb367f-1a20-4ced-8f6f-aeab69f7c4fb@suse.com>
-Date: Thu, 14 Dec 2023 14:57:11 +0100
+        bh=d5dZFMvCG+Hj4tJQMSIUYNtGUmi6rZaCDkq+11u8WP0=;
+        b=odFz3qfAomQ92vAT5tey2JeuEMKKeDJiGbw78JhiW8xO0rS59dyxLuVW9v2EHRYu8R
+         i8iAPqOaabEJiFwaJcT+255wxR0K4F9miaf4fZeb9lIFCJFDJjaljxDm7GuwzuDWRutB
+         b1tw9gGeMAYufD0kKDMe4627FBKAQlQldN8kHiv2FwFgUGjEUypvNH1CuljUdJ/+KUWE
+         uV3joQkb52q0APt/eEV8C1xk4mEQDRxLGUUmHkzxrvmx17kH6bEahT8pppQ7tkYTjkJz
+         5HTqXDRv1NDlhUAGnlUoo+AY0Fzv0nflMe096MIv9/8xzLijG5yv0Nv4nHTnNfKcxA8F
+         P7uA==
+X-Gm-Message-State: AOJu0Yx0PnWDiFn81X+c2Bh8OMLBom5TUrkDTeLKR3Dk4Jp43fqFC56t
+	87Trx1V0+gXlY+ycMi4hKnyd
+X-Google-Smtp-Source: AGHT+IHrgEXafmAfHDoGzW1QO9+mgCdwqRG68Wh8hGS3+4pMhZsTTqHruZW3oWjfb8RmOCXt2cj4gA==
+X-Received: by 2002:a17:906:66c5:b0:a19:a19b:78ad with SMTP id k5-20020a17090666c500b00a19a19b78admr4734753ejp.112.1702562769010;
+        Thu, 14 Dec 2023 06:06:09 -0800 (PST)
+Message-ID: <e08e2f49-5ed5-40ec-8db4-e2dd597c8046@suse.com>
+Date: Thu, 14 Dec 2023 15:06:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] xen/x86: introduce self modifying code test
+Subject: Re: [PATCH v2 23/39] xen/riscv: introduce asm/guest_access.h
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20231214101719.18770-1-roger.pau@citrix.com>
- <20231214101719.18770-3-roger.pau@citrix.com>
- <6226aa5e-c87f-48bf-b793-96aa04498c5e@suse.com> <ZXsHWzcCSBKRS83S@macbook>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+ <7dda759b846003fcb453f1118cefbfd2eeb804d7.1700761381.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,135 +114,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZXsHWzcCSBKRS83S@macbook>
+In-Reply-To: <7dda759b846003fcb453f1118cefbfd2eeb804d7.1700761381.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.12.2023 14:47, Roger Pau Monné wrote:
-> On Thu, Dec 14, 2023 at 12:55:22PM +0100, Jan Beulich wrote:
->> On 14.12.2023 11:17, Roger Pau Monne wrote:
->>> --- a/xen/arch/x86/setup.c
->>> +++ b/xen/arch/x86/setup.c
->>> @@ -58,6 +58,7 @@
->>>  #include <asm/microcode.h>
->>>  #include <asm/prot-key.h>
->>>  #include <asm/pv/domain.h>
->>> +#include <asm/test-smoc.h>
->>>  
->>>  /* opt_nosmp: If true, secondary processors are ignored. */
->>>  static bool __initdata opt_nosmp;
->>> @@ -1951,6 +1952,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>>  
->>>      alternative_branches();
->>>  
->>> +    test_smoc(XEN_SYSCTL_TEST_SMOC_ALL, NULL);
->>
->> I realize I'm at risk of causing scope creep, but I'd still like to at
->> least ask: As further self-tests are added, we likely don't want to
->> alter __start_xen() every time. Should there perhaps better be a wrapper
->> (going forward: multiple ones, depending on the time tests want invoking),
->> together with a Kconfig control to allow suppressing all of these tests in
->> at least release builds?
-> 
-> Right now I only had in mind that livepatch related tests won't be
-> executed as part of the call in __start_xen(), but all the other ones
-> would, and hence wasn't expecting the code to change from the form in
-> the next patch.
+On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/guest_access.h
+> @@ -0,0 +1,29 @@
+> +#ifndef __ASM_RISCV_GUEST_ACCESS_H__
+> +#define __ASM_RISCV_GUEST_ACCESS_H__
+> +
+> +#include <xen/types.h>
+> +
+> +unsigned long raw_copy_to_guest(void *to, const void *from, unsigned len);
+> +unsigned long raw_copy_from_guest(void *to, const void *from, unsigned len);
 
-Well, I was thinking of there more stuff appearing in test/, not self-
-modifying-code related, and hence needing further test_*() alongside.
-test_smoc().
+For the full build to work, you will need to implement these somewhere.
+From the titles of further patches I can't guess where that would be.
+Note how PPC has decided to have these be inline dummies for the time
+being. It also looks as if you would also need raw_clear_guest()?
 
->>> --- /dev/null
->>> +++ b/xen/arch/x86/test/smoc.c
->>> @@ -0,0 +1,68 @@
->>> +/* SPDX-License-Identifier: GPL-2.0 */
->>> +
->>> +#include <xen/errno.h>
->>> +
->>> +#include <asm/alternative.h>
->>> +#include <asm/cpufeature.h>
->>> +#include <asm/test-smoc.h>
->>> +
->>> +static bool cf_check test_insn_replacement(void)
->>> +{
->>> +#define EXPECTED_VALUE 2
->>> +    unsigned int r = ~EXPECTED_VALUE;
->>> +
->>> +    alternative_io("", "mov %1, %0", X86_FEATURE_ALWAYS,
->>> +                   "+r" (r), "i" (EXPECTED_VALUE));
->>> +
->>> +    return r == EXPECTED_VALUE;
->>> +#undef EXPECTED_VALUE
->>> +}
->>> +
->>> +int test_smoc(uint32_t selection, uint32_t *results)
->>> +{
->>> +    struct {
->>> +        unsigned int mask;
->>> +        bool (*test)(void);
->>> +        const char *name;
->>> +    } static const tests[] = {
->>> +        { XEN_SYSCTL_TEST_SMOC_INSN_REPL, &test_insn_replacement,
->>> +          "alternative instruction replacement" },
->>> +    };
->>> +    unsigned int i;
->>> +
->>> +    if ( selection & ~XEN_SYSCTL_TEST_SMOC_ALL )
->>> +        return -EINVAL;
->>> +
->>> +    if ( results )
->>> +        *results = 0;
->>> +
->>> +    printk(XENLOG_INFO "Checking Self Modify Code\n");
->>> +
->>> +    for ( i = 0; i < ARRAY_SIZE(tests); i++ )
->>> +    {
->>> +        if ( !(selection & tests[i].mask) )
->>> +            continue;
->>> +
->>> +        if ( tests[i].test() )
->>> +        {
->>> +            if ( results )
->>> +                *results |= tests[i].mask;
->>> +            continue;
->>> +        }
->>> +
->>> +        add_taint(TAINT_ERROR_SMOC);
->>> +        printk(XENLOG_ERR "%s test failed\n", tests[i].name);
->>
->> Do we really want both of these even when coming here from the sysctl?
-> 
-> So only print the messages if system_state < SYS_STATE_active?
+> +#define __raw_copy_to_guest raw_copy_to_guest
+> +#define __raw_copy_from_guest raw_copy_from_guest
+> +
+> +#define guest_handle_okay(hnd, nr) (1)
+> +#define guest_handle_subrange_okay(hnd, first, last) (1)
 
-Yes. Nor tainting the system.
+Arm has a comment next to these (actually two, I mean the latter), which
+I think would be sensible to also have here.
 
->>> --- a/xen/common/kernel.c
->>> +++ b/xen/common/kernel.c
->>> @@ -386,13 +386,14 @@ char *print_tainted(char *str)
->>>  {
->>>      if ( tainted )
->>>      {
->>> -        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c",
->>> +        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c%c",
->>>                   tainted & TAINT_MACHINE_INSECURE ? 'I' : ' ',
->>>                   tainted & TAINT_MACHINE_CHECK ? 'M' : ' ',
->>>                   tainted & TAINT_SYNC_CONSOLE ? 'C' : ' ',
->>>                   tainted & TAINT_ERROR_INJECT ? 'E' : ' ',
->>>                   tainted & TAINT_HVM_FEP ? 'H' : ' ',
->>> -                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ');
->>> +                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ',
->>> +                 tainted & TAINT_ERROR_SMOC ? 'A' : ' ');
->>
->> How well is this going to scale as other selftests are added? IOW should
->> this taint really be self-modifying-code-specific?
-> 
-> I'm afraid I'm not sure I'm following.  Would you instead like to make
-> the taint per-test selectable?
+> +struct domain;
+> +unsigned long copy_to_guest_phys(struct domain *d,
+> +                                 paddr_t gpa,
+> +                                 void *buf,
+> +                                 unsigned int len);
 
-The other way around actually: Taint generally for failed selftests,
-not just for the self-modifying-code one (which ends up being the only
-one right now).
+You don't need this just yet, do you?
 
 Jan
 
