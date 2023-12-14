@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F72581360E
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 17:20:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654681.1021866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E132B81361F
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 17:25:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654685.1021875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDoRy-0004tg-3X; Thu, 14 Dec 2023 16:20:38 +0000
+	id 1rDoW0-0006iI-Mo; Thu, 14 Dec 2023 16:24:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654681.1021866; Thu, 14 Dec 2023 16:20:38 +0000
+Received: by outflank-mailman (output) from mailman id 654685.1021875; Thu, 14 Dec 2023 16:24:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDoRx-0004rd-W9; Thu, 14 Dec 2023 16:20:37 +0000
-Received: by outflank-mailman (input) for mailman id 654681;
- Thu, 14 Dec 2023 16:20:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rDoW0-0006gH-K4; Thu, 14 Dec 2023 16:24:48 +0000
+Received: by outflank-mailman (input) for mailman id 654685;
+ Thu, 14 Dec 2023 16:24:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDoRw-0004rX-EA
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 16:20:36 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5fda806-9a9c-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 17:20:35 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id
- a640c23a62f3a-a22ed5f0440so434019666b.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 08:20:35 -0800 (PST)
+ id 1rDoVz-0006gB-C6
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 16:24:47 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4af298b7-9a9d-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 17:24:45 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2cc49101044so4191341fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 08:24:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- hw18-20020a170907a0d200b00a1cbe52300csm9605591ejc.56.2023.12.14.08.20.34
+ di5-20020a056402318500b0054cea9f91e9sm6864276edb.20.2023.12.14.08.24.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 08:20:34 -0800 (PST)
+ Thu, 14 Dec 2023 08:24:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5fda806-9a9c-11ee-98e9-6d05b1d4d9a1
+X-Inumbo-ID: 4af298b7-9a9d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702570835; x=1703175635; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702571085; x=1703175885; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=W+TauTi0WTTFqG4aaGELHLCGA518s+1bbBSvABtqpQ0=;
-        b=TyqTsGke+5GtPa2oWtaWCJ3y7tzQA+BsxwAOYEs2V1viX1UW6+Gv3pSxzYOVPAVyMo
-         KeMD/vNxb3hTSJQ4Bbq3hLzJ0USuM8pA9zaLY6qvqpRNxSP/mGE/93XcYwlbFbaYria5
-         OI8XVr4hSzTuAWntWneUXVbriNlxVcw2nWBqh6YM7mwmykCbmH1yEhw9B1AuJBwlWvmy
-         Upb4XTbmGYnHNlGlZeapPdtHkahbsQmig1NNm11CCdTbZ0TnEOt4m/ZlsRfc9+OyrGb1
-         Znq5/NFP1WUi2QRsABdLJ4sxR5HzM0Mj+GVOM6jDjO1iUFwR5nfV1884nkb9Udv6fHG5
-         OdCA==
+        bh=g9hobUheEx6nxl7wlXkAx0RzSOd0Ksqy+4tISQdL4DQ=;
+        b=HKLsIbZSetoXUI3VTYwZcQ4nB9AZZBYlsdVYJblD2aRWsoFGdbBvYcuJ0lOMV/FAOE
+         8Y241CSglmK21SuWQbvB3JqiYJnrVnvWoj+iuMENby8204GazmxxrZGgSZ8NxFy8Wpgu
+         LjipZPEdqd5TlcfHHd/h6+97vUUk8JbrD/i+hFFBdSIwP+idutbY4e/rgetcZpksY05p
+         /iBg05PX508hQA2JuS76XeJ6mVv3d7QIac25vt5LkUPPdAeHswVhXIUuJDXbvMWxLz2d
+         hl5WrFbJPrP5J2/vnpV3dKnQaeXQ/mF2WvsMOdu9TT81IBYjrsaYMqivZuHd+YXNdwPp
+         qAKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702570835; x=1703175635;
+        d=1e100.net; s=20230601; t=1702571085; x=1703175885;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=W+TauTi0WTTFqG4aaGELHLCGA518s+1bbBSvABtqpQ0=;
-        b=Gh2yybrklR0Q5jDuS0kX5kM5GNIkoiqNfPW8c6wW/RiWIkv2z1lkMGNke64BDr5xDy
-         wxMAIEABozV0CrNjG//47z+OcmQ27cLTfFGQBds2UPDxZi4lnIGFjifOOb+3w1MLq1ag
-         WKeue4lKPnYAche6SzqZnyh9oqbgm5Yo3g9xBvQMmIirDdeoG/8iJvbUP3swKYji3MpM
-         io4xeuI/pUfgYWeeeWDBzPre+BnxVwcKv0bATnxf9aLBPkVdR2tc4lC0NlOuOFDPX9us
-         jQBnAluWtxzGf9UPZAIeRhKTDyarZcrVO6estVZo/SbPpp2QVCjw4JuRJhoyYJ9PdAXF
-         wYYg==
-X-Gm-Message-State: AOJu0YypU6mgVTc7Qc3PuQJ2rXIe8vvnGCHQ63FDcnxy3Nrb5k+ZMJ36
-	rpIVkfRmMc0odj+DkhF8gqB2
-X-Google-Smtp-Source: AGHT+IEnBdXQcDnKrMb1gsXaaKx6qCMUpg4FSsnmBg4/Le3fCjWJCS1dLRzvDUI3lYn5AGuL4kK8pw==
-X-Received: by 2002:a17:906:225b:b0:a1f:8ffa:15af with SMTP id 27-20020a170906225b00b00a1f8ffa15afmr3087894ejr.130.1702570835093;
-        Thu, 14 Dec 2023 08:20:35 -0800 (PST)
-Message-ID: <2f79370e-ba6d-4796-a375-c4e19126fef9@suse.com>
-Date: Thu, 14 Dec 2023 17:20:33 +0100
+        bh=g9hobUheEx6nxl7wlXkAx0RzSOd0Ksqy+4tISQdL4DQ=;
+        b=QX9FTfCzIrqaemNq5O/JI/NAX9EMw5ydOwa8M3TVfNVi285B5mvKhrEtSNN+YD0+ck
+         pEgaihoMrzavyVeffXJT3MC0ubhyCPyk4VIwfCV628bAScpW882XqefFjD4pBiNiZ4tG
+         gUJ3JHFqfwKPc2auKelnPXNddObf1bxVldHwVN/9d9152noYrM8vM9VKQMWuilgex/N3
+         WQlouv7dZ+TQFn2/tgofS8vc4Y6oaL1JWfqNdLcUwL9c9AJHMnuqZubhQCHNoHGVxE01
+         rkbxKF0NFHvfJYsPqF3CB2YVrf5t/Xri3r6mwMiIb6FimJAAJD5mMEDnEIVBc+GCe+Gm
+         x7PA==
+X-Gm-Message-State: AOJu0YxLNdNzEWoGzw/AVVqwleXwSSHP4U7OcJJU1GDfLSQXQrfixE6v
+	e8sWLEjtjCtMRg8ub9VPwWjw
+X-Google-Smtp-Source: AGHT+IE48Co3kC0DbWtV8Ra70VR/Fvo8zVCCSOpgYpXGcdIeJ8iSwnM4rjFg38Rq7IMaUTu/Ok10SA==
+X-Received: by 2002:a2e:a4ce:0:b0:2cc:3da1:8e1c with SMTP id p14-20020a2ea4ce000000b002cc3da18e1cmr495979ljm.74.1702571084945;
+        Thu, 14 Dec 2023 08:24:44 -0800 (PST)
+Message-ID: <7150b1fb-5deb-4d4d-9de1-fd5abb18ca3d@suse.com>
+Date: Thu, 14 Dec 2023 17:24:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 35/39] xen: add necessary headers to common to build
- full Xen for RISC-V
+Subject: Re: [PATCH v2 39/39] xen: fix compilation issue of serial.c
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -88,7 +87,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <88bab81d8412588dab82bb53193105ff4993961a.1700761381.git.oleksii.kurochko@gmail.com>
+ <6e1f19de1e8a276d487e8517810da3e8e68104ff.1700761381.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,32 +112,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <88bab81d8412588dab82bb53193105ff4993961a.1700761381.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <6e1f19de1e8a276d487e8517810da3e8e68104ff.1700761381.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> The following issue occurs on RISC-V platforms:
+> drivers/char/serial.c: In function 'serial_tx_interrupt':
+> drivers/char/serial.c:88:9: error: implicit declaration of function 'cpu_relax' [-Werror=implicit-function-declaration]
+>    88 |         cpu_relax();
+> 
+> cpu_relax() is defined in <asm/processor.h> so it was added
+> an inclusion of the header to serial.c.
+> 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-With an empty description it is hard to judge whether this is really needed.
-I would sincerely hope we can get away without. Note how there already a few
-struct xen_domctl_* forward declarations there, which - if the #include
-really needs adding - should be dropped in exchange.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-As a nit on the subject - it's only singular (now?) and could hence do with
-being more precise on what the specific change is.
+I think this needs moving ahead at least by one patch in the series,
+but I guess I'll put it in ahead of most of the rest anyway.
 
 Jan
-
-> --- a/xen/include/xen/domain.h
-> +++ b/xen/include/xen/domain.h
-> @@ -4,6 +4,7 @@
->  
->  #include <xen/types.h>
->  
-> +#include <public/domctl.h>
->  #include <public/xen.h>
->  
->  struct guest_area {
-
 
