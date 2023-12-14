@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A7DD8134C6
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 16:29:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654633.1021784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A81D18134D8
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 16:34:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654651.1021806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDndt-0005Lc-M9; Thu, 14 Dec 2023 15:28:53 +0000
+	id 1rDnib-0007or-BC; Thu, 14 Dec 2023 15:33:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654633.1021784; Thu, 14 Dec 2023 15:28:53 +0000
+Received: by outflank-mailman (output) from mailman id 654651.1021806; Thu, 14 Dec 2023 15:33:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDndt-0005Jr-Iv; Thu, 14 Dec 2023 15:28:53 +0000
-Received: by outflank-mailman (input) for mailman id 654633;
- Thu, 14 Dec 2023 15:28:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h5bz=HZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rDnds-0004ta-Bb
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 15:28:52 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7bf4e3b5-9a95-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 16:28:51 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-336445a2749so951763f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 07:28:51 -0800 (PST)
-Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
- h11-20020adffd4b000000b003333298eb4bsm16488863wrs.61.2023.12.14.07.28.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Dec 2023 07:28:50 -0800 (PST)
+	id 1rDnib-0007mR-8b; Thu, 14 Dec 2023 15:33:45 +0000
+Received: by outflank-mailman (input) for mailman id 654651;
+ Thu, 14 Dec 2023 15:33:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rDnia-0007lZ-2K
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 15:33:44 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 28f82abb-9a96-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 16:33:42 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a1c7b20f895so956699066b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 07:33:42 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ qo14-20020a170907874e00b00a1f6737be65sm9265180ejc.82.2023.12.14.07.33.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Dec 2023 07:33:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,193 +45,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bf4e3b5-9a95-11ee-98e9-6d05b1d4d9a1
+X-Inumbo-ID: 28f82abb-9a96-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1702567731; x=1703172531; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PEC11bvLrwqaV5FBlAzJli958YZFskgIWyli4SMwyaI=;
-        b=JJy35vx+e87YkaohC5Sph1HqvE1FR03I6jKIBfcsnWgeM00K/h0INPOGhNHBkyRKAh
-         o8GMOBvZ3dTSJTDlzN559dQTvOBFT7r16O3I93sEnLe3bd4PPx4am3x746SkuXHHVZGz
-         ZRDDWkoWOTt8Qcx1EkH3+mrMdJnKJ7oqyWBlM=
+        d=suse.com; s=google; t=1702568022; x=1703172822; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PaiBT7+fp6FlmEVHn3Lwy3NhSgvZTPm/0hnA0Wc4po4=;
+        b=csE4QHwEo86Isq5+HfU1yXOeCRDrKEmgGyJT88Gk4rHniF4CprGKnEGmTcA66CrV4r
+         bgnXB3GbvKLS8U8BqSM9n4VLWGDhVprMww63NPphnhGOROUMPIYX6y4NdLcbvhxMInZv
+         p06IKVqltiu77e+MNF33hW4230ObxRUiRhn0dCD6t4UKh9J6IGFXvdXvWoHU6bQIkWlY
+         meKZ1bRJyYD5lny9NTj1U8JDyOitmiaIwyWTcOTIOKqWIFzE4G06X2BTu3GqmNmBh/+P
+         2+CIOJxByqNYABTn4SN6tyqnyc2X7dOZLECkd96enogP3O4Do1V6TwbnS6IJOlGopbe4
+         pSgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702567731; x=1703172531;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1702568022; x=1703172822;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PEC11bvLrwqaV5FBlAzJli958YZFskgIWyli4SMwyaI=;
-        b=WhndFdPgkPknZjZPom3RKjC+6GNXDPSSvwffdI5B9muGo4oRz7yt4/MoTUlTDnWKsK
-         vLqF0IlhFYr4kC9zF2lr4Uv/SQWSkqpaIKDS1FADPOr9plX3JNCbcx6dLfsk6Lympf7T
-         vf4xLgE0PGZyukKr/lSt8ReIz/wMwaCq7c0K/BZc5xIGlokjRPh8zIHTPfwuVSDa4gv5
-         A4n5ybF80eXfk/gnbpMzGcDsiWgOf91YkBJ3qItOl0C+VyrCaCfOwdW1wg6AA6TbGGMh
-         k4WKA0RfuBdn5ePDNGfOXfx61friD1GgXreiarNDzluqBqeHoEBnM7slASJVjO8uoQJU
-         CXXA==
-X-Gm-Message-State: AOJu0YzRybmJzJYeqweVuH1OgpTwxBGB78ch4mEWJ22C9NhVRzMi/Tjd
-	B2jHz2vKhIXmrGkn6EwDC9bRCw==
-X-Google-Smtp-Source: AGHT+IF92EA5/1DPhRvrFtCQGWkXEIlA9UPJM4A60DEbq0uOZnDsICtWPCnvdQ2deEsRj22QUEuHzg==
-X-Received: by 2002:a5d:630c:0:b0:333:2fd2:68dd with SMTP id i12-20020a5d630c000000b003332fd268ddmr5288179wru.112.1702567731172;
-        Thu, 14 Dec 2023 07:28:51 -0800 (PST)
-Date: Thu, 14 Dec 2023 16:28:50 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
+        bh=PaiBT7+fp6FlmEVHn3Lwy3NhSgvZTPm/0hnA0Wc4po4=;
+        b=Q5KAkYDFoKyrG04oQf8L77t+FliRuZUuQJ3/kkeYpx+droHCaBKA0xb/AOYKVIuzr5
+         JvbNH7gbUayhItLe0TBGdcdjQoBWNIdiRdzCGNUhiwv9wBp3taA6brc+KvvHH73yPPpg
+         ni2ycAg33Ojt2hOQaMZz/iVYATp7OwdOQE8ZWAyNFZSIXvKhC7xsLuOA2rWYNHRMLBZt
+         4W996WwWqPRNjJB4NYsRGPPZdqc0QYX4fC4DIz1qP2HQ2pLSZ1GwJLMrWGdLXw2mj06A
+         48R4e3MdYWJ9wn3Q6JYXaj15pg8H+ZsFTtNc24gUTGxrQK8LRKkVzVTuAI9nnM1YhApv
+         bnyA==
+X-Gm-Message-State: AOJu0YzEZxP8qUmDZqMfaDw/C6KiEYrFDYLibISuUuNWTcKtFQAqwHRu
+	24vZGH5neuyATxeJ97rUPROi
+X-Google-Smtp-Source: AGHT+IEA2ZB8oCmS0UyPuXtT9LtMJgx4A5LGRfb0bMuZ3idSbPrNcTmxUJuMqvs8/z4al8h2hyfKXA==
+X-Received: by 2002:a17:907:868d:b0:a19:a1ba:8ccb with SMTP id qa13-20020a170907868d00b00a19a1ba8ccbmr5424992ejc.105.1702568021765;
+        Thu, 14 Dec 2023 07:33:41 -0800 (PST)
+Message-ID: <414cc532-727c-478e-a565-1f2d6510ffee@suse.com>
+Date: Thu, 14 Dec 2023 16:33:40 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 2/4] xen/x86: introduce self modifying code test
-Message-ID: <ZXsfMthj8wTdZOeT@macbook>
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <20231214101719.18770-1-roger.pau@citrix.com>
  <20231214101719.18770-3-roger.pau@citrix.com>
- <6226aa5e-c87f-48bf-b793-96aa04498c5e@suse.com>
- <ZXsHWzcCSBKRS83S@macbook>
- <31cb367f-1a20-4ced-8f6f-aeab69f7c4fb@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+ <6226aa5e-c87f-48bf-b793-96aa04498c5e@suse.com> <ZXsHWzcCSBKRS83S@macbook>
+ <31cb367f-1a20-4ced-8f6f-aeab69f7c4fb@suse.com> <ZXsfMthj8wTdZOeT@macbook>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZXsfMthj8wTdZOeT@macbook>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <31cb367f-1a20-4ced-8f6f-aeab69f7c4fb@suse.com>
 
-On Thu, Dec 14, 2023 at 02:57:11PM +0100, Jan Beulich wrote:
-> On 14.12.2023 14:47, Roger Pau Monné wrote:
-> > On Thu, Dec 14, 2023 at 12:55:22PM +0100, Jan Beulich wrote:
-> >> On 14.12.2023 11:17, Roger Pau Monne wrote:
-> >>> --- a/xen/arch/x86/setup.c
-> >>> +++ b/xen/arch/x86/setup.c
-> >>> @@ -58,6 +58,7 @@
-> >>>  #include <asm/microcode.h>
-> >>>  #include <asm/prot-key.h>
-> >>>  #include <asm/pv/domain.h>
-> >>> +#include <asm/test-smoc.h>
-> >>>  
-> >>>  /* opt_nosmp: If true, secondary processors are ignored. */
-> >>>  static bool __initdata opt_nosmp;
-> >>> @@ -1951,6 +1952,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-> >>>  
-> >>>      alternative_branches();
-> >>>  
-> >>> +    test_smoc(XEN_SYSCTL_TEST_SMOC_ALL, NULL);
-> >>
-> >> I realize I'm at risk of causing scope creep, but I'd still like to at
-> >> least ask: As further self-tests are added, we likely don't want to
-> >> alter __start_xen() every time. Should there perhaps better be a wrapper
-> >> (going forward: multiple ones, depending on the time tests want invoking),
-> >> together with a Kconfig control to allow suppressing all of these tests in
-> >> at least release builds?
-> > 
-> > Right now I only had in mind that livepatch related tests won't be
-> > executed as part of the call in __start_xen(), but all the other ones
-> > would, and hence wasn't expecting the code to change from the form in
-> > the next patch.
+On 14.12.2023 16:28, Roger Pau Monné wrote:
+> On Thu, Dec 14, 2023 at 02:57:11PM +0100, Jan Beulich wrote:
+>> On 14.12.2023 14:47, Roger Pau Monné wrote:
+>>> On Thu, Dec 14, 2023 at 12:55:22PM +0100, Jan Beulich wrote:
+>>>> On 14.12.2023 11:17, Roger Pau Monne wrote:
+>>>>> --- a/xen/arch/x86/setup.c
+>>>>> +++ b/xen/arch/x86/setup.c
+>>>>> @@ -58,6 +58,7 @@
+>>>>>  #include <asm/microcode.h>
+>>>>>  #include <asm/prot-key.h>
+>>>>>  #include <asm/pv/domain.h>
+>>>>> +#include <asm/test-smoc.h>
+>>>>>  
+>>>>>  /* opt_nosmp: If true, secondary processors are ignored. */
+>>>>>  static bool __initdata opt_nosmp;
+>>>>> @@ -1951,6 +1952,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+>>>>>  
+>>>>>      alternative_branches();
+>>>>>  
+>>>>> +    test_smoc(XEN_SYSCTL_TEST_SMOC_ALL, NULL);
+>>>>
+>>>> I realize I'm at risk of causing scope creep, but I'd still like to at
+>>>> least ask: As further self-tests are added, we likely don't want to
+>>>> alter __start_xen() every time. Should there perhaps better be a wrapper
+>>>> (going forward: multiple ones, depending on the time tests want invoking),
+>>>> together with a Kconfig control to allow suppressing all of these tests in
+>>>> at least release builds?
+>>>
+>>> Right now I only had in mind that livepatch related tests won't be
+>>> executed as part of the call in __start_xen(), but all the other ones
+>>> would, and hence wasn't expecting the code to change from the form in
+>>> the next patch.
+>>
+>> Well, I was thinking of there more stuff appearing in test/, not self-
+>> modifying-code related, and hence needing further test_*() alongside.
+>> test_smoc().
 > 
-> Well, I was thinking of there more stuff appearing in test/, not self-
-> modifying-code related, and hence needing further test_*() alongside.
-> test_smoc().
+> Oh, I see.  I think it might be best to introduce such wrapper when we
+> have at least 2 different self tests?  Otherwise it would be weird IMO
+> to have another function (ie: execute_self_tests()?) that's just a
+> wrapper around test_smoc().
 
-Oh, I see.  I think it might be best to introduce such wrapper when we
-have at least 2 different self tests?  Otherwise it would be weird IMO
-to have another function (ie: execute_self_tests()?) that's just a
-wrapper around test_smoc().
+That's precisely why I said "risk of causing scope creep, but I'd still
+like to at least ask". I'm okay-ish, as long as it's clear that this
+way more code churn may happen down the road. Same ...
 
-> >>> --- /dev/null
-> >>> +++ b/xen/arch/x86/test/smoc.c
-> >>> @@ -0,0 +1,68 @@
-> >>> +/* SPDX-License-Identifier: GPL-2.0 */
-> >>> +
-> >>> +#include <xen/errno.h>
-> >>> +
-> >>> +#include <asm/alternative.h>
-> >>> +#include <asm/cpufeature.h>
-> >>> +#include <asm/test-smoc.h>
-> >>> +
-> >>> +static bool cf_check test_insn_replacement(void)
-> >>> +{
-> >>> +#define EXPECTED_VALUE 2
-> >>> +    unsigned int r = ~EXPECTED_VALUE;
-> >>> +
-> >>> +    alternative_io("", "mov %1, %0", X86_FEATURE_ALWAYS,
-> >>> +                   "+r" (r), "i" (EXPECTED_VALUE));
-> >>> +
-> >>> +    return r == EXPECTED_VALUE;
-> >>> +#undef EXPECTED_VALUE
-> >>> +}
-> >>> +
-> >>> +int test_smoc(uint32_t selection, uint32_t *results)
-> >>> +{
-> >>> +    struct {
-> >>> +        unsigned int mask;
-> >>> +        bool (*test)(void);
-> >>> +        const char *name;
-> >>> +    } static const tests[] = {
-> >>> +        { XEN_SYSCTL_TEST_SMOC_INSN_REPL, &test_insn_replacement,
-> >>> +          "alternative instruction replacement" },
-> >>> +    };
-> >>> +    unsigned int i;
-> >>> +
-> >>> +    if ( selection & ~XEN_SYSCTL_TEST_SMOC_ALL )
-> >>> +        return -EINVAL;
-> >>> +
-> >>> +    if ( results )
-> >>> +        *results = 0;
-> >>> +
-> >>> +    printk(XENLOG_INFO "Checking Self Modify Code\n");
-> >>> +
-> >>> +    for ( i = 0; i < ARRAY_SIZE(tests); i++ )
-> >>> +    {
-> >>> +        if ( !(selection & tests[i].mask) )
-> >>> +            continue;
-> >>> +
-> >>> +        if ( tests[i].test() )
-> >>> +        {
-> >>> +            if ( results )
-> >>> +                *results |= tests[i].mask;
-> >>> +            continue;
-> >>> +        }
-> >>> +
-> >>> +        add_taint(TAINT_ERROR_SMOC);
-> >>> +        printk(XENLOG_ERR "%s test failed\n", tests[i].name);
-> >>
-> >> Do we really want both of these even when coming here from the sysctl?
-> > 
-> > So only print the messages if system_state < SYS_STATE_active?
+>>>>> --- a/xen/common/kernel.c
+>>>>> +++ b/xen/common/kernel.c
+>>>>> @@ -386,13 +386,14 @@ char *print_tainted(char *str)
+>>>>>  {
+>>>>>      if ( tainted )
+>>>>>      {
+>>>>> -        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c",
+>>>>> +        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c%c",
+>>>>>                   tainted & TAINT_MACHINE_INSECURE ? 'I' : ' ',
+>>>>>                   tainted & TAINT_MACHINE_CHECK ? 'M' : ' ',
+>>>>>                   tainted & TAINT_SYNC_CONSOLE ? 'C' : ' ',
+>>>>>                   tainted & TAINT_ERROR_INJECT ? 'E' : ' ',
+>>>>>                   tainted & TAINT_HVM_FEP ? 'H' : ' ',
+>>>>> -                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ');
+>>>>> +                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ',
+>>>>> +                 tainted & TAINT_ERROR_SMOC ? 'A' : ' ');
+>>>>
+>>>> How well is this going to scale as other selftests are added? IOW should
+>>>> this taint really be self-modifying-code-specific?
+>>>
+>>> I'm afraid I'm not sure I'm following.  Would you instead like to make
+>>> the taint per-test selectable?
+>>
+>> The other way around actually: Taint generally for failed selftests,
+>> not just for the self-modifying-code one (which ends up being the only
+>> one right now).
 > 
-> Yes. Nor tainting the system.
+> So the suggestion would be to use TAINT_ERROR_SELFTEST instead of
+> TAINT_ERROR_SMOC?  I can do that, but it might also be more
+> appropriate when there are more self tests.
 
-OK.
+... here - of course we can also rename later.
 
-> >>> --- a/xen/common/kernel.c
-> >>> +++ b/xen/common/kernel.c
-> >>> @@ -386,13 +386,14 @@ char *print_tainted(char *str)
-> >>>  {
-> >>>      if ( tainted )
-> >>>      {
-> >>> -        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c",
-> >>> +        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c%c",
-> >>>                   tainted & TAINT_MACHINE_INSECURE ? 'I' : ' ',
-> >>>                   tainted & TAINT_MACHINE_CHECK ? 'M' : ' ',
-> >>>                   tainted & TAINT_SYNC_CONSOLE ? 'C' : ' ',
-> >>>                   tainted & TAINT_ERROR_INJECT ? 'E' : ' ',
-> >>>                   tainted & TAINT_HVM_FEP ? 'H' : ' ',
-> >>> -                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ');
-> >>> +                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ',
-> >>> +                 tainted & TAINT_ERROR_SMOC ? 'A' : ' ');
-> >>
-> >> How well is this going to scale as other selftests are added? IOW should
-> >> this taint really be self-modifying-code-specific?
-> > 
-> > I'm afraid I'm not sure I'm following.  Would you instead like to make
-> > the taint per-test selectable?
-> 
-> The other way around actually: Taint generally for failed selftests,
-> not just for the self-modifying-code one (which ends up being the only
-> one right now).
-
-So the suggestion would be to use TAINT_ERROR_SELFTEST instead of
-TAINT_ERROR_SMOC?  I can do that, but it might also be more
-appropriate when there are more self tests.
-
-Thanks, Roger.
+Jan
 
