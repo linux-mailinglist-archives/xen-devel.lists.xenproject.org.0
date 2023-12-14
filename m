@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7C2F8129C5
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 08:55:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654306.1021071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F28A38129D6
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 08:58:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654308.1021081 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDgXd-00030A-PB; Thu, 14 Dec 2023 07:53:57 +0000
+	id 1rDgbV-0003c4-8O; Thu, 14 Dec 2023 07:57:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654306.1021071; Thu, 14 Dec 2023 07:53:57 +0000
+Received: by outflank-mailman (output) from mailman id 654308.1021081; Thu, 14 Dec 2023 07:57:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDgXd-0002xo-Le; Thu, 14 Dec 2023 07:53:57 +0000
-Received: by outflank-mailman (input) for mailman id 654306;
- Thu, 14 Dec 2023 07:53:56 +0000
+	id 1rDgbV-0003ZN-5B; Thu, 14 Dec 2023 07:57:57 +0000
+Received: by outflank-mailman (input) for mailman id 654308;
+ Thu, 14 Dec 2023 07:57:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDgXc-0002xi-Q1
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 07:53:56 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1rDgbT-0003Yy-Pl
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 07:57:55 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ed590cca-9a55-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 08:53:54 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a1e2ded3d9fso937386966b.0
- for <xen-devel@lists.xenproject.org>; Wed, 13 Dec 2023 23:53:54 -0800 (PST)
+ id 7c384115-9a56-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 08:57:53 +0100 (CET)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-50d176eb382so8334355e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 13 Dec 2023 23:57:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- si10-20020a170906ceca00b00a1e377ea789sm8871093ejb.203.2023.12.13.23.53.52
+ ul5-20020a170907ca8500b00a1fa7e39957sm5302163ejc.136.2023.12.13.23.57.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 Dec 2023 23:53:53 -0800 (PST)
+ Wed, 13 Dec 2023 23:57:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed590cca-9a55-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 7c384115-9a56-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702540433; x=1703145233; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702540673; x=1703145473; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=OWSICCGMVQL8q4mV5y32l1cSijarK9RheoZkjBakzOk=;
-        b=ZP5s/lptfDkL9PCkyU6pB6rt1inLLM1ELtPuMs45YN39U1CqaGMN2SjERmFrFti8tE
-         nSdVEjmRSOlgeNUX73jixvQhI8Y9cWhHgmNqv2LhnIdDqEwzN0HBJ9TMgTL8LNjym1tH
-         xs1/sH5NRDMsLFEOmtFyxpjE+HBsJFjKGY6j8aFUfX79WOKxhKgBjZSHrpUqaIyeUOtD
-         JtVeulhe6Be1ELixirapQIc5lDNylNNZLmq/4wb4BsXe/g0uoAGML9wBIMeUtEnkBnWj
-         2pirFWbGx4KvBHZJELeAd0W1luqUVR8fjfCXQi8rRl6kGeqZpWQYRuKPDBBvye2CNQJ9
-         aoWg==
+        bh=5qwfQ1fYnd2+9zNdiB4JsEFPiMnM3Cpj43jXBGS7xTg=;
+        b=bVDXKUPM1XNoyJHeS2uOWMoWySsQ9cpA3FSWKrxsPXkZ069EaCd3G5+9C3Ti79ouAg
+         Pp2Pyoad+DSH/aIXo+ESnWDb8Q2zUG4cEYKWCcCFKW0aDyvsLoUHfeV07jkqkWTO6h4U
+         Mact5a39NBANj0gJNq5qUYpcsUsDjtKPIFf/nu0+lFZOAMabGBm0UdHGhoe7/glnXWe5
+         uv6uJKJ/8VnceFKf4aUljzrSS4ckTd8+VBZpWtQsJxJSwqqrt9M6wr2KoKOZEqKuE3qL
+         5IUThO44aPLmdVG9pThT6qp3chTNZobjyd/BQD2R/9ufY2pYFw8L75IRD1C62HBPDlex
+         66tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702540433; x=1703145233;
+        d=1e100.net; s=20230601; t=1702540673; x=1703145473;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OWSICCGMVQL8q4mV5y32l1cSijarK9RheoZkjBakzOk=;
-        b=qJ1lNfhLemEU29OfVB6MGNre06+6CnaJKxB0+nfOCWHmMmOQUVKhIPc+XbpIK26fc6
-         br0stQWklNTKfNZINUi/j6lPz8s4Tr4JtxMF9E3XbdwK93qpbm5gaYPpz50RsBdzkf+6
-         AQJY2SEl02+ZT+PmCjY4j9pDmJAvKiiWaK5ExKPXBd7+rhcFAMdPfDyN6Rw42DYrScLS
-         7GGkVR8ejkeaXiPgaj9fM25wJ572zkBXsnbncGjwgueLexH1tzdIOR72wbbOKFWL7B1+
-         OpDD+ALnYI7nNzqy1775qcOtrQmMHqx2yrT0pVRYrdB5fl10R9r4x0P2v7Kias9jFRjI
-         p/9A==
-X-Gm-Message-State: AOJu0YxCNg+cFloLtvJbdKuaX8h76YZriAuNmrGO/V3dIC6VPC0UfJLL
-	7aAnAYP8umLGzlw3nA2rpnF7
-X-Google-Smtp-Source: AGHT+IGlhdceWm2SZUD540asoVWeNJBZ4HF+NeOIH5P1r/rZw4D+hAkrEjN44KpZ4Qpj6kRucFFOkA==
-X-Received: by 2002:a17:906:2c6:b0:a1f:9bd2:7f67 with SMTP id 6-20020a17090602c600b00a1f9bd27f67mr4060662ejk.123.1702540433634;
-        Wed, 13 Dec 2023 23:53:53 -0800 (PST)
-Message-ID: <2a7f0d03-1cab-4824-86ae-fb7a26ff8adc@suse.com>
-Date: Thu, 14 Dec 2023 08:53:52 +0100
+        bh=5qwfQ1fYnd2+9zNdiB4JsEFPiMnM3Cpj43jXBGS7xTg=;
+        b=Wgsb0E4D/8Mq8SGcfKd6pqA+HeGnZqh58uP0VGG8s9hfWgcD8YErhJ9UDixKRkUoX+
+         +3zY9r0BABaJ7BIfsh89CRVrZ5DtDe9fQ8NJ1dxuEVfK9lGu0Q6Sc+yyRFBiVAW4ApZi
+         EKjY3uf8tq1I5PuuzKfFqmBOQNCyCB3IDJ4mglWRlHUGNcn8kCBKChCtL13fjnUtZdub
+         JFB/3uiCb7OZd6snjwFDkM1QQWVpa5ukDz9atBaQ9EAGUa7FWcl22lKLeSIcqn+2lDPz
+         IP305XFvlIAhQUdS8rdrOXG9ayNTIZNIxOaUn3f46YgwcEIcUUq3KPd+yAU6ScWWWxQ7
+         i0bg==
+X-Gm-Message-State: AOJu0YzEyfGzmplfWcoTvKvA6z9aFRZBn8MEvaVdlWVj8J5mkITVIQVa
+	bkP3QSg0YCm3C7+gy2cqbO9K
+X-Google-Smtp-Source: AGHT+IFrGFdO5vu4jx7cIPrbOFGu87mJSTJTV6uPVFwo/L3U3R+KigYXKgc28u41mwKP50Bq5wtpUA==
+X-Received: by 2002:ac2:4141:0:b0:50e:1514:e56 with SMTP id c1-20020ac24141000000b0050e15140e56mr573142lfi.79.1702540673278;
+        Wed, 13 Dec 2023 23:57:53 -0800 (PST)
+Message-ID: <21dae6f8-6f79-4952-94e0-1b7c13c7c1a6@suse.com>
+Date: Thu, 14 Dec 2023 08:57:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v3 3/3] xen/mm: add declaration for first_valid_mfn
+Subject: Re: [XEN PATCH 2/7] x86/mm: address MISRA C:2012 Rule 2.1
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, consulting@bugseng.com,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, consulting@bugseng.com,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1702285639.git.nicola.vetrini@bugseng.com>
- <d80309f31fea24ea75c4994e924da069472811fc.1702285639.git.nicola.vetrini@bugseng.com>
- <6c717bd4-db1b-4e19-9b98-0776a8359085@suse.com>
- <alpine.DEB.2.22.394.2312131803150.3175268@ubuntu-linux-20-04-desktop>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
+ <5913d8871ff6c4f320c521e50e550a64e58d4351.1702283415.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2312111741390.1703076@ubuntu-linux-20-04-desktop>
+ <ff95c65f53ab8acfd577ec132009cd7b@bugseng.com>
+ <0ad1d3f5-2a23-4ee9-a6e7-ebb824d2b7d7@suse.com>
+ <8a49facc4fbf4d3fefb91b9b5bef3305@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,56 +116,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312131803150.3175268@ubuntu-linux-20-04-desktop>
+In-Reply-To: <8a49facc4fbf4d3fefb91b9b5bef3305@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.12.2023 03:05, Stefano Stabellini wrote:
-> On Wed, 13 Dec 2023, Jan Beulich wrote:
->> On 11.12.2023 10:14, Nicola Vetrini wrote:
->>> --- a/xen/arch/arm/include/asm/numa.h
->>> +++ b/xen/arch/arm/include/asm/numa.h
->>> @@ -2,8 +2,9 @@
->>>  #define __ARCH_ARM_NUMA_H
->>>  
->>>  #include <xen/mm.h>
+On 13.12.2023 15:44, Nicola Vetrini wrote:
+> On 2023-12-12 10:53, Jan Beulich wrote:
+>> On 12.12.2023 10:12, Nicola Vetrini wrote:
+>>> On 2023-12-12 02:42, Stefano Stabellini wrote:
+>>>> On Mon, 11 Dec 2023, Nicola Vetrini wrote:
+>>>>> The "return 0" after the swich statement in 'xen/arch/x86/mm.c'
+>>>>> is unreachable because all switch clauses end with returns.
+>>>>> However, some of them can be substituted with "break"s to allow
+>>>>> the "return 0" outside the switch to be reachable.
+>>>>>
+>>>>> No functional changes.
+>>>>
+>>>> This is correct but makes the code inconsistent. I would either 
+>>>> remove
+>>>> the return 0; at the end of arch_memory_op, or do the following:
+>>>>
+>>>> - initialize rc to 0 at the beginning: int rc = 0;
+>>>> - all switch clauses break instead of return;
+>>>> - at the end: return rc;
+>>>
+>>> Given the feedback on the Arm side, the first solution is likely to be
+>>> preferred.
 >>
->> With this, ...
->>
->>> +#include <xen/types.h>
->>>  
->>> -typedef u8 nodeid_t;
->>> +typedef uint8_t nodeid_t;
->>>  
->>>  #ifndef CONFIG_NUMA
->>>  
->>> @@ -12,10 +13,9 @@ typedef u8 nodeid_t;
->>>  #define node_to_cpumask(node)   (cpu_online_map)
->>>  
->>>  /*
->>> - * TODO: make first_valid_mfn static when NUMA is supported on Arm, this
->>> - * is required because the dummy helpers are using it.
->>> + * TODO: define here first_valid_mfn as static when NUMA is supported on Arm,
->>> + * this is required because the dummy helpers are using it.
->>>   */
->>> -extern mfn_t first_valid_mfn;
->>
->> ... and this declaration moved to xen/mm.h, how is it going to be possible
->> to do as the adjusted comment says? The compiler will choke on the static
->> after having seen the extern.
+>> I wouldn't mind either option, with
+>> - the former ensured to be okay with all compiler versions we (still)
+>>   support,
 > 
-> Nicola was just following a review comment by Julien. NUMA has been
-> pending for a while and I wouldn't hold this patch back because of it.
-> I suggest we go with Julien's request (this version of the patch).
-> 
-> If you feel strongly about it, please suggest an alternative.
+> I tested a stripped-down version of the switch on godbolt.org (as far 
+> back as gcc-4.8.5) and it doesn't complain. It should be tested on a 
+> real Xen build, though.
 
-Leaving a TODO comment which cannot actually be carried out is just wrong
-imo. And I consider in unfair to ask me to suggest an alternative. The
-(imo obvious) alternative is to drop this patch, if no proper change can
-be proposed. There's nothing wrong with leaving a violation in place,
-when that violation is far from causing any kind of harm. The more that
-the place is already accompanied by a (suitable afaict) comment.
+I didn't fear any issue when going back to just 4.8. Quoting ./README:
+
+      - For x86:
+        - GCC 4.1.2_20070115 or later
+
+>> - the latter having the initialize rc to 0 part dropped; imo it's 
+>> better
+>>   if every case block makes sure to set the intended value explicitly.
+> 
+> This is a lot of churn, I'd rather avoid it.
+
+Rant (sorry): There's already excessive churn for entirely benign issues
+that Misra claims need adjusting.
 
 Jan
 
