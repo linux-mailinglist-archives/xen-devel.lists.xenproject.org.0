@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E5C9813D0A
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 23:05:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654785.1022155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14297813D0F
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 23:10:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654788.1022166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDtoy-0003B7-Vk; Thu, 14 Dec 2023 22:04:44 +0000
+	id 1rDtu2-0004Xb-Im; Thu, 14 Dec 2023 22:09:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654785.1022155; Thu, 14 Dec 2023 22:04:44 +0000
+Received: by outflank-mailman (output) from mailman id 654788.1022166; Thu, 14 Dec 2023 22:09:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDtoy-00038c-T8; Thu, 14 Dec 2023 22:04:44 +0000
-Received: by outflank-mailman (input) for mailman id 654785;
- Thu, 14 Dec 2023 22:04:43 +0000
+	id 1rDtu2-0004VE-F8; Thu, 14 Dec 2023 22:09:58 +0000
+Received: by outflank-mailman (input) for mailman id 654788;
+ Thu, 14 Dec 2023 22:09:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fjLX=HZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rDtox-00038W-OY
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 22:04:43 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
+ id 1rDtu0-0004Tw-O8
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 22:09:56 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6fd692f-9acc-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 23:04:41 +0100 (CET)
+ id 8145da4b-9acd-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 23:09:54 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 147C6CE2652;
- Thu, 14 Dec 2023 22:04:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9467C433C8;
- Thu, 14 Dec 2023 22:04:36 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id EE032CE19BF;
+ Thu, 14 Dec 2023 22:09:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024E7C433C8;
+ Thu, 14 Dec 2023 22:09:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +41,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6fd692f-9acc-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 8145da4b-9acd-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702591478;
-	bh=IIXYAcHhB9hNg5Zo0YZQzIK6v2vnrn8wn7nrRKXOlIk=;
+	s=k20201202; t=1702591789;
+	bh=r0H0axnIr8sFfyx3f914gBTpH6k5yBQX/8Z21Aeq3tA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=UPako9BNjPqVbWSVyv58pUag7mYioZhtslU+5KGRHmrjZmR1pb2uEzmGAqzvhLnDG
-	 qhO481hCX5UmKFB9HPTss0SLYe1p4ZuqT/QCK/6J1pVslW1w8Fs2xNxDUfZgzHsDKE
-	 rrkOPhb4mzDKsXplkfKCdbW0EjeehAPApbobqFDc0XETo1aM6RehwhXe7QxeStrLUm
-	 eoDOq1b1xHZOd8hJ+zt0jk112CnMxis76pFxUexffwnOh3lnyXO3yzZQ6w5gM31VXL
-	 17HhVsqWRCT09KTAr8NdJcBLFo9ryZgFGzppwnMv2FV81eQFCnwDtX4is0214oKi0l
-	 VkWSXdcOM41DQ==
-Date: Thu, 14 Dec 2023 14:04:35 -0800 (PST)
+	b=g/YmWuxHUv4pukgpanQtM3jm4NUarpGkndcSfKetQDEUZystt+4YZkO3Zm6ka58lR
+	 cckCaGy/aEX88ICCYRPqFxcE+n/vNWR+4p4reprd5MVEIEfbBrBBckudFh6pWgwGxg
+	 JyYY75Vk9zzTAQI31b4uZ+wTQjdOimEZS26y4uRZcQZFN16YKlnd+Rdmz8B0RKc6KI
+	 m8LxVlidDIo3wL6VKQ9riOeInANalHF9XuAz3Zq5yH/2Xt1iQhhxpNGNSbptXPJtuJ
+	 d96NyprwFlS7oWJ+VosThCIBRQubD1MPRbUYl8HU3idBfiUW0agJArgRQPhAuDwIUV
+	 9HehReNdP15fQ==
+Date: Thu, 14 Dec 2023 14:09:46 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>, 
-    consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 9/9] xen: add SAF deviation for safe cast removal.
-In-Reply-To: <b93417c7-1375-4bf4-ace2-d36bd63c8b0b@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2312141355391.3175268@ubuntu-linux-20-04-desktop>
-References: <cover.1702555386.git.maria.celeste.cesario@bugseng.com> <36e996b864853dba26a9c9fb9c9c674e92cc935e.1702555387.git.maria.celeste.cesario@bugseng.com> <b93417c7-1375-4bf4-ace2-d36bd63c8b0b@suse.com>
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>
+Subject: Re: [XEN RFC] xen/bug: introduce bug_fn_nonconst_t to validate
+ run_in_exception_handle()
+In-Reply-To: <3423244b0b1506d2a928799d80e15c19add75566.1702570086.git.federico.serafini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2312141407580.3175268@ubuntu-linux-20-04-desktop>
+References: <3423244b0b1506d2a928799d80e15c19add75566.1702570086.git.federico.serafini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 14 Dec 2023, Jan Beulich wrote:
-> On 14.12.2023 13:07, Simone Ballarin wrote:
-> > --- a/docs/misra/safe.json
-> > +++ b/docs/misra/safe.json
-> > @@ -28,6 +28,14 @@
-> >          },
-> >          {
-> >              "id": "SAF-3-safe",
-> > +            "analyser": {
-> > +                "eclair": "MC3R1.R11.8"
-> > +            },
-> > +            "name": "MC3R1.R11.8: removal of const qualifier to comply with function signature",
-> > +            "text": "It is safe to cast away const qualifiers to comply with function signature if the function does not modify the pointee."
+On Thu, 14 Dec 2023, Federico Serafini wrote:
+> Introduce function type bug_fn_nonconst_t (as opposed to bug_fn_t)
+> to validate the argument passed to run_in_exception_handle().
 > 
-> I'm not happy with this description, as it invites for all sorts of abuse.
-> Yet I'm also puzzled that ...
-
-We can improve the language but the concept would still be the same. For
-instance:
-
-A single function might or might not modify the pointee depending on
-other function parameters (for instance a single function that could
-either read or write depending on how it is called). It is safe to cast
-away const qualifiers when passing a parameter to a function of this
-type when the other parameters are triggering a read-only operation.
-
-
-> > --- a/xen/arch/x86/hvm/hvm.c
-> > +++ b/xen/arch/x86/hvm/hvm.c
-> > @@ -3413,6 +3413,7 @@ static enum hvm_translation_result __hvm_copy(
-> >  enum hvm_translation_result hvm_copy_to_guest_phys(
-> >      paddr_t paddr, const void *buf, unsigned int size, struct vcpu *v)
-> >  {
-> > +    /* SAF-3-safe */
-> >      return __hvm_copy((void *)buf /* HVMCOPY_to_guest doesn't modify */,
-> >                        paddr, size, v,
-> >                        HVMCOPY_to_guest | HVMCOPY_phys, 0, NULL);
+> Place the definition of bug_fn_nonconst_t before of asm/bug.h inclusion
+> so that arch-specific implementations of run_in_exception_handler() can
+> use it (and move bug_fn_t into the same place for the same reason).
 > 
-> ... this is the only place you then use it. Afaict some of Arm's copy_guest()
-> callers ought to have a similar issue. If so, an enlarged patch should be
-> discussed with a larger audience, to see how we collectively think we want to
-> put this specific kind of deviation.
+> Furthermore, use bug_fn_nonconst_t to address violations of
+> MISRA C:2012 Rule 8.2  ("Function types shall be in prototype form with
+> named parameters").
+> 
+> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> ---
+> At the moment, bug_fn_t can not be used within run_in_exception_handler()
+> because of the const qualifier on the formal parameter.
+> I tried to adjust the constness of the functions passed to
+> run_in_exception_handler but at a certain point I stopped:
+> a lot of code churn is required and I am not sure about the correctenss of the
+> result.
+> So, I came up with this solution, taking inspiration from the exising functions
+> show_execution_state() and show_execution_state_nonconst().
+> 
+> I would like to ask if:
+> 1) I correctly applied Julien's suggestion about the visibility [1];
+> 2) this RFC can become a patch.
+> 
+> [1]
+> https://lists.xenproject.org/archives/html/xen-devel/2023-11/msg01361.html
+> ---
+>  xen/common/bug.c      |  2 +-
+>  xen/include/xen/bug.h | 21 +++++++++++++++------
+>  2 files changed, 16 insertions(+), 7 deletions(-)
+> 
+> diff --git a/xen/common/bug.c b/xen/common/bug.c
+> index ca166e102b..9170821ab8 100644
+> --- a/xen/common/bug.c
+> +++ b/xen/common/bug.c
+> @@ -63,7 +63,7 @@ int do_bug_frame(struct cpu_user_regs *regs, unsigned long pc)
+>  
+>      if ( id == BUGFRAME_run_fn )
+>      {
+> -        void (*fn)(struct cpu_user_regs *) = bug_ptr(bug);
+> +        bug_fn_nonconst_t *fn = bug_ptr(bug);
+>  
+>          fn(regs);
+>  
+> diff --git a/xen/include/xen/bug.h b/xen/include/xen/bug.h
+> index cb5138410e..c6f5594af5 100644
+> --- a/xen/include/xen/bug.h
+> +++ b/xen/include/xen/bug.h
+> @@ -12,6 +12,18 @@
+>  #define BUG_LINE_LO_WIDTH (31 - BUG_DISP_WIDTH)
+>  #define BUG_LINE_HI_WIDTH (31 - BUG_DISP_WIDTH)
+>  
+> +#ifndef __ASSEMBLY__
+> +
+> +/*
+> + * Make bug_fn_t and bug_fn_nonconst_t visible for arch-specific implementation
+> + * of run_in_exception_handler.
+> + */
+> +struct cpu_user_regs;
+> +typedef void bug_fn_t(const struct cpu_user_regs *regs);
+> +typedef void bug_fn_nonconst_t(struct cpu_user_regs *regs);
+> +
+> +#endif
+> +
+>  #include <asm/bug.h>
+>  
+>  #ifndef __ASSEMBLY__
+> @@ -99,18 +111,15 @@ struct bug_frame {
+>  
+>  #endif
+>  
+> -struct cpu_user_regs;
+> -typedef void bug_fn_t(const struct cpu_user_regs *regs);
 
-We have a similar problem, see xen/arch/arm/guestcopy.c
-raw_copy_to_guest and raw_copy_from_guest.
+I am not sure why you moved this up in the file, but everything looks
+correct to me. I would ack it but I'll let Julien confirm in regards to
+his older comment.
 
-I would use the SAF deviation there too.
 
-In the case here, I think the comment "HVMCOPY_to_guest doesn't modify"
-could be removed as it becomes redundant with SAF-3-safe, but I'll leave
-it to you.
+>  #ifndef run_in_exception_handler
+>  
+>  /*
+>   * TODO: untangle header dependences, break BUILD_BUG_ON() out of xen/lib.h,
+>   * and use a real static inline here to get proper type checking of fn().
+>   */
+> -#define run_in_exception_handler(fn) do {                   \
+> -    (void)((fn) == (void (*)(struct cpu_user_regs *))NULL); \
+> -    BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL);             \
+> +#define run_in_exception_handler(fn) do {       \
+> +    (void)((fn) == (bug_fn_nonconst_t *)NULL);  \
+> +    BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL); \
+>  } while ( false )
+>  
+>  #endif /* run_in_exception_handler */
+> -- 
+> 2.34.1
+> 
 
