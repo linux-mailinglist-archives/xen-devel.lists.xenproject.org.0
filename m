@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33B0E812C9F
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 11:15:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654397.1021274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF5C812CBC
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 11:18:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654400.1021284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDijp-0005dt-J4; Thu, 14 Dec 2023 10:14:41 +0000
+	id 1rDimm-0006FL-Vc; Thu, 14 Dec 2023 10:17:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654397.1021274; Thu, 14 Dec 2023 10:14:41 +0000
+Received: by outflank-mailman (output) from mailman id 654400.1021284; Thu, 14 Dec 2023 10:17:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDijp-0005bf-GP; Thu, 14 Dec 2023 10:14:41 +0000
-Received: by outflank-mailman (input) for mailman id 654397;
- Thu, 14 Dec 2023 10:14:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rDijn-0005bZ-OW
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 10:14:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rDijk-0007uu-TQ; Thu, 14 Dec 2023 10:14:36 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rDijk-0004Mk-O8; Thu, 14 Dec 2023 10:14:36 +0000
+	id 1rDimm-0006Dc-Sb; Thu, 14 Dec 2023 10:17:44 +0000
+Received: by outflank-mailman (input) for mailman id 654400;
+ Thu, 14 Dec 2023 10:17:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h5bz=HZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rDiml-0006DQ-5M
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 10:17:43 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0367efaf-9a6a-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 11:17:41 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40c38e292c8so2429125e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 02:17:41 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ je22-20020a05600c1f9600b0040c5177a479sm9699403wmb.20.2023.12.14.02.17.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Dec 2023 02:17:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,101 +44,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=vCkJKxxnc56SMIBx7j5k/fHoO7EYyhNLBp9OTVpvOyU=; b=S7vyrY9ntIdQsbjn5v7rmiyAHm
-	XamEpBMA+2njaNP3YQWkblbMgJaKPF/iceiQ0xqbHhTF/BcBZ7tZTpT8WXk83JaNt0ABLbZVye2hq
-	Jwmb/KaVHyX/a/AmcGqRglSBZ1iHFgLQ2Pa4GAxlCpGSpeJ7GL2/g9Pgh7Uy7cvIBFV0=;
-Message-ID: <8b8a62a0-f854-405e-b256-5eee4bfdcb6c@xen.org>
-Date: Thu, 14 Dec 2023 10:14:35 +0000
+X-Inumbo-ID: 0367efaf-9a6a-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1702549060; x=1703153860; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NGpsS9ewPpfJ6fuvi3hbjOPSo2USkgEAi+sqPnYK2BE=;
+        b=mX5zRf/FrA1YdeAyXSFmr7JNkGtrbOT32OvmJkJbCJfIN2U2/X7Dz+h92Mro7D4MYu
+         AQ1Rq2Ee4WoxtIIUx9r4LC185yLwJnl/ado98YNzvAXECsftvqq6zhbDi1PYP0QYiy78
+         6fC03RK6+Z1rztg2exJSbNVPmcrxXNtnxH4+I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702549060; x=1703153860;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NGpsS9ewPpfJ6fuvi3hbjOPSo2USkgEAi+sqPnYK2BE=;
+        b=fdTqpeCmioQiDPh134XfFYpX9iTNgthGTvvTJRKhKhkQ4typOR8sivQDumk3NoakTd
+         hnvwZp6ufCSZGIU4WOBhnty9VJCzCILbdYmeS1q/hQ1JYtcT06n9a8ABC8TM8+n0WFXh
+         YHK1bUG8nHqE9Mjnzi1m1L2VpmUPrNt9ZfaYNh1tDGvU9aksr0MvelE5ZP0XSvv5hYwZ
+         NlP6EYVG5DQR6H9MGkHPkaYu6Jo6sVsJVBeWqYxA2HGUJFYxic4hz5EW++CIfKSq65Ht
+         pjuMs+p2ADxGGeZfQQIgU0YpZeQqwqOgW28BOiF0EikdIvYUdrSqO/A8Losi2SePgwJ1
+         ntaw==
+X-Gm-Message-State: AOJu0YxiYE81H19wmI34iTGXnQD/xk62iNQunpAx1XyPFIGy2Ca95SQ4
+	ycLXj1/1gUo/I0EqrR5lENItpp9JgKBqBkS/3fY=
+X-Google-Smtp-Source: AGHT+IH/J8lg2tnAZiI5zsWX3qpnr6iClUDyoardnVCWta0djfZTiHda2Ntk5DXQEgKO9L6+sk7k7Q==
+X-Received: by 2002:a05:600c:524d:b0:40c:3d02:57a1 with SMTP id fc13-20020a05600c524d00b0040c3d0257a1mr4863762wmb.132.1702549060308;
+        Thu, 14 Dec 2023 02:17:40 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH v3 0/4] xen/x86: add testing for self modifying code and livepatch
+Date: Thu, 14 Dec 2023 11:17:15 +0100
+Message-ID: <20231214101719.18770-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen/x86: io_apic: Introduce a command line option
- to skip timer check
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20231211122322.15815-1-julien@xen.org>
- <20231211122322.15815-2-julien@xen.org>
- <b17bb7d1-1206-4ad1-96b1-7b903a740c83@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <b17bb7d1-1206-4ad1-96b1-7b903a740c83@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hello,
 
-On 14/12/2023 10:10, Jan Beulich wrote:
-> On 11.12.2023 13:23, Julien Grall wrote:
->> --- a/docs/misc/xen-command-line.pandoc
->> +++ b/docs/misc/xen-command-line.pandoc
->> @@ -2535,6 +2535,17 @@ pages) must also be specified via the tbuf_size parameter.
->>   ### tickle_one_idle_cpu
->>   > `= <boolean>`
->>   
->> +### pit-irq-works (x86)
->> +> `=<boolean>`
->> +
->> +> Default: `false`
->> +
->> +Disables the code which tests for broken timer IRQ sources. Enabling
->> +this option will reduce boot time on HW where the timer works properly.
->> +
->> +If the system is unstable when enabling the option, then it means you
->> +may have a broken HW and therefore the testing cannot be be skipped.
->> +
->>   ### timer_slop
->>   > `= <integer>`
-> 
-> With the rename this now needs to move up to retain sorting.
+The following series contains a misc set of fixes and improvements.
 
-Ok.
+There's one improvement for the hypervisor to set function alignment for
+livepatch builds in order to make sure there's always enough space in a
+function to be live-patched.
 
-> 
->> --- a/xen/arch/x86/io_apic.c
->> +++ b/xen/arch/x86/io_apic.c
->> @@ -57,6 +57,14 @@ bool __initdata ioapic_ack_forced;
->>   int __read_mostly nr_ioapic_entries[MAX_IO_APICS];
->>   int __read_mostly nr_ioapics;
->>   
->> +/*
->> + * The logic to check if the timer is working is expensive. So allow
->> + * the admin to bypass it if they know their platform doesn't have
->> + * a buggy timer.
->> + */
->> +static bool __initdata pit_irq_works;
->> +boolean_param("pit-irq-works", pit_irq_works);
->> +
->>   /*
->>    * Rough estimation of how many shared IRQs there are, can
->>    * be changed anytime.
->> @@ -1502,6 +1510,9 @@ static int __init timer_irq_works(void)
->>   {
->>       unsigned long t1, flags;
->>   
->> +    if ( pit_irq_works )
->> +        return 1;
-> 
-> When the check is placed here, what exactly use of the option means is
-> system dependent. I consider this somewhat risky, so I'd prefer if the
-> check was put on the "normal" path in check_timer(). That way it'll
-> affect only the one case which we can generally consider "known good",
-> but not the cases where the virtual wire setups are being probed. I.e.
+Following patches attempt to introduce a set of tests for self modifying
+code, currently one test using the alternatives framework, and one test
+for livepatch.
 
-I am not against restricting when we allow skipping the timer check. But 
-in that case, I wonder why Linux is doing it differently?
+Last patch hooks the newly introduced livepatch test into the gitlab CI
+using QEMU and an Alpine Linux dom0:
 
-After all, this code is heavily borrowed from Linux. So shouldn't we 
-follow what they are doing?
+https://gitlab.com/xen-project/people/royger/xen/-/pipelines/1106713873
 
-Cheers,
+Roger Pau Monne (4):
+  x86/livepatch: align functions to ensure minimal distance between
+    entry points
+  xen/x86: introduce self modifying code test
+  x86/livepatch: introduce a basic live patch test to gitlab CI
+  automation: add x86-64 livepatching test
+
+ automation/gitlab-ci/build.yaml               |  9 +++
+ automation/gitlab-ci/test.yaml                |  8 ++
+ automation/scripts/build-livepatch            | 27 +++++++
+ .../scripts/qemu-alpine-x86_64-livepatch.sh   | 68 ++++++++++++++++
+ tools/include/xenctrl.h                       |  2 +
+ tools/libs/ctrl/xc_misc.c                     | 14 ++++
+ tools/misc/xen-livepatch.c                    | 29 +++++++
+ xen/Kconfig                                   | 18 +++++
+ xen/Makefile                                  |  3 +
+ xen/arch/arm/livepatch.c                      |  2 +
+ xen/arch/arm/xen.lds.S                        |  4 +
+ xen/arch/x86/Makefile                         |  1 +
+ xen/arch/x86/include/asm/test-smoc.h          | 22 ++++++
+ xen/arch/x86/livepatch.c                      |  4 +
+ xen/arch/x86/setup.c                          |  3 +
+ xen/arch/x86/sysctl.c                         |  9 +++
+ xen/arch/x86/test/Makefile                    |  3 +
+ xen/arch/x86/test/smoc-lp-alt.c               | 24 ++++++
+ xen/arch/x86/test/smoc-lp.c                   | 24 ++++++
+ xen/arch/x86/test/smoc.c                      | 77 +++++++++++++++++++
+ xen/arch/x86/xen.lds.S                        |  4 +
+ xen/common/Kconfig                            |  5 +-
+ xen/common/kernel.c                           |  5 +-
+ xen/include/public/sysctl.h                   | 14 ++++
+ xen/include/xen/lib.h                         |  1 +
+ 25 files changed, 377 insertions(+), 3 deletions(-)
+ create mode 100755 automation/scripts/build-livepatch
+ create mode 100755 automation/scripts/qemu-alpine-x86_64-livepatch.sh
+ create mode 100644 xen/arch/x86/include/asm/test-smoc.h
+ create mode 100644 xen/arch/x86/test/Makefile
+ create mode 100644 xen/arch/x86/test/smoc-lp-alt.c
+ create mode 100644 xen/arch/x86/test/smoc-lp.c
+ create mode 100644 xen/arch/x86/test/smoc.c
 
 -- 
-Julien Grall
+2.43.0
+
 
