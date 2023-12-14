@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07E2D812ACA
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 09:53:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654342.1021151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16B3F812AD4
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 09:55:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654346.1021162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDhSl-0007qG-SJ; Thu, 14 Dec 2023 08:52:59 +0000
+	id 1rDhUU-0008Qi-7l; Thu, 14 Dec 2023 08:54:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654342.1021151; Thu, 14 Dec 2023 08:52:59 +0000
+Received: by outflank-mailman (output) from mailman id 654346.1021162; Thu, 14 Dec 2023 08:54:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDhSl-0007oZ-P2; Thu, 14 Dec 2023 08:52:59 +0000
-Received: by outflank-mailman (input) for mailman id 654342;
- Thu, 14 Dec 2023 08:52:58 +0000
+	id 1rDhUU-0008NK-54; Thu, 14 Dec 2023 08:54:46 +0000
+Received: by outflank-mailman (input) for mailman id 654346;
+ Thu, 14 Dec 2023 08:54:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=57RS=HZ=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rDhSk-0007oT-1W
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 08:52:58 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=h5bz=HZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rDhUS-0008NC-NF
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 08:54:44 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2d2b3906-9a5e-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 09:52:57 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id E3DD94EE073A;
- Thu, 14 Dec 2023 09:52:56 +0100 (CET)
+ id 6c631de5-9a5e-11ee-98e9-6d05b1d4d9a1;
+ Thu, 14 Dec 2023 09:54:43 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3333131e08dso8273516f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 00:54:43 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ q9-20020a05600000c900b0033330846e76sm15512801wrx.86.2023.12.14.00.54.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Dec 2023 00:54:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,86 +44,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d2b3906-9a5e-11ee-98e9-6d05b1d4d9a1
+X-Inumbo-ID: 6c631de5-9a5e-11ee-98e9-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1702544082; x=1703148882; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=FvgrAtAP6VYVedQI8IfKjme4qoauzMRvA4DIc1jKOdw=;
+        b=Ztf/xUt9RuQGq7gEiJBGCnfhZ12abaA6xgyEk6hWUonY3wgCLdt/XfYhe3UIBnhMdk
+         w+jzpc3KWbHiYPt+s/2jrqzeb0ezZz1VBP3QOFZ7dU5s73UQhUmzPwj+fAGOZiyCipNo
+         9KE0LDH4DJA2sOaJBej1lURc4lP3tBpQx7APc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702544082; x=1703148882;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=FvgrAtAP6VYVedQI8IfKjme4qoauzMRvA4DIc1jKOdw=;
+        b=ROIobfAziuRHsz5FlAwiQPczsKJBbNvOAn+C4uO8Gr9p1wrKMOY7CUmLe51jyEDQud
+         qcGZJfaD/dLx9xBI35SeVfv1q0s0po7j057UnU2WTEjJEu1q0VWibfsLS6P324dv60aG
+         U6Bc6PoqfUJZhN5MeUhsZEIQuHcFE/mo6SyynJVntbTzkOyTckn0xh9Ut7kSnkel+vxK
+         pPw0/ZxfBWR5bBfqonWRM8zJiZiEf5sMUC9fOXMg6ZEn39kSrEJ5EvfQ1aDI9D0Eov5B
+         3ZPkqs/xgwms6cgEkZi7qvcVRxUMtL8QhrrOzonW6giZKwF4NV6CGH6UbEMi5pAFw1U4
+         /quw==
+X-Gm-Message-State: AOJu0Ywbz826lcfvLsv00KAOXR/YJ5bl7Frq8FseMky9o0GdTJhQT6NY
+	UljxY7zOTTYM8kcA6WgVrnIsN2O5w/9fBvCEat4=
+X-Google-Smtp-Source: AGHT+IFU8Qv/tdCnT5BeSTEX/hkrxGa9t0zfcoWcV+Xqvp15vnK39v0RQF4OE00yGG4MnkqHBsQhaQ==
+X-Received: by 2002:a05:6000:1370:b0:336:49da:57f with SMTP id q16-20020a056000137000b0033649da057fmr170089wrz.51.1702544082073;
+        Thu, 14 Dec 2023 00:54:42 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v2] livepatch-build-tools: allow livepatching version.c
+Date: Thu, 14 Dec 2023 09:54:24 +0100
+Message-ID: <20231214085424.16890-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Date: Thu, 14 Dec 2023 09:52:56 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, consulting@bugseng.com, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 2/7] x86/mm: address MISRA C:2012 Rule 2.1
-In-Reply-To: <21dae6f8-6f79-4952-94e0-1b7c13c7c1a6@suse.com>
-References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
- <5913d8871ff6c4f320c521e50e550a64e58d4351.1702283415.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2312111741390.1703076@ubuntu-linux-20-04-desktop>
- <ff95c65f53ab8acfd577ec132009cd7b@bugseng.com>
- <0ad1d3f5-2a23-4ee9-a6e7-ebb824d2b7d7@suse.com>
- <8a49facc4fbf4d3fefb91b9b5bef3305@bugseng.com>
- <21dae6f8-6f79-4952-94e0-1b7c13c7c1a6@suse.com>
-Message-ID: <b53352aa8c605e30a5e7bdc8384726aa@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 2023-12-14 08:57, Jan Beulich wrote:
-> On 13.12.2023 15:44, Nicola Vetrini wrote:
->> On 2023-12-12 10:53, Jan Beulich wrote:
->>> On 12.12.2023 10:12, Nicola Vetrini wrote:
->>>> On 2023-12-12 02:42, Stefano Stabellini wrote:
->>>>> On Mon, 11 Dec 2023, Nicola Vetrini wrote:
->>>>>> The "return 0" after the swich statement in 'xen/arch/x86/mm.c'
->>>>>> is unreachable because all switch clauses end with returns.
->>>>>> However, some of them can be substituted with "break"s to allow
->>>>>> the "return 0" outside the switch to be reachable.
->>>>>> 
->>>>>> No functional changes.
->>>>> 
->>>>> This is correct but makes the code inconsistent. I would either
->>>>> remove
->>>>> the return 0; at the end of arch_memory_op, or do the following:
->>>>> 
->>>>> - initialize rc to 0 at the beginning: int rc = 0;
->>>>> - all switch clauses break instead of return;
->>>>> - at the end: return rc;
->>>> 
->>>> Given the feedback on the Arm side, the first solution is likely to 
->>>> be
->>>> preferred.
->>> 
->>> I wouldn't mind either option, with
->>> - the former ensured to be okay with all compiler versions we (still)
->>>   support,
->> 
->> I tested a stripped-down version of the switch on godbolt.org (as far
->> back as gcc-4.8.5) and it doesn't complain. It should be tested on a
->> real Xen build, though.
-> 
-> I didn't fear any issue when going back to just 4.8. Quoting ./README:
-> 
->       - For x86:
->         - GCC 4.1.2_20070115 or later
-> 
+Currently version.o is explicitly ignored as the file would change as a result
+of the orignal and the patched build having possibly different dates, times or
+changeset strings (by the patched build appending -dirty).
 
-I found no issue in 4.1.2 (see https://godbolt.org/z/cxecnKseG)
+Fix such difference by exporting the date and time from the build script, so
+that both builds share the same build time.  The changeset string gets set in
+.scmversion, and is cleaned on script exit if it wasn't present initially. This
+allows checking for changes in version.c, since the rest of fields need to be
+manually changed in order to produce different output.
 
->>> - the latter having the initialize rc to 0 part dropped; imo it's
->>> better
->>>   if every case block makes sure to set the intended value 
->>> explicitly.
->> 
->> This is a lot of churn, I'd rather avoid it.
-> 
-> Rant (sorry): There's already excessive churn for entirely benign 
-> issues
-> that Misra claims need adjusting.
-> 
-> Jan
+Setting XEN_BUILD_{DATE,TIME} as an environment variable and .scmversion has
+been supported since before livepatch support was added to Xen, so it's safe to
+export those variables unconditionally.
 
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Changes since v1:
+ - Also ensure consistent changeset version.
+---
+ livepatch-build | 14 ++++++++++++++
+ livepatch-gcc   |  2 --
+ 2 files changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/livepatch-build b/livepatch-build
+index e2ccce4f7fd7..332d26f5c6b6 100755
+--- a/livepatch-build
++++ b/livepatch-build
+@@ -392,6 +392,10 @@ echo "Output directory: $outputarg"
+ echo "================================================"
+ echo
+ 
++cleanup_version() {
++    rm -rf "${SRCDIR}/xen/.scmversion"
++}
++
+ if [ "${SKIP}" != "build" ]; then
+     # Make sure output directory doesn't exist, and create it.
+     [ -e "$outputarg" ] && die "Output directory exists"
+@@ -417,6 +421,16 @@ if [ "${SKIP}" != "build" ]; then
+ 
+     export CROSS_COMPILE="${TOOLSDIR}/livepatch-gcc "
+ 
++    # Force same date and time to prevent unwanted changes in version.c
++    export XEN_BUILD_DATE=`LC_ALL=C date`
++    export XEN_BUILD_TIME=`LC_ALL=C date +%T`
++
++    # Ensure uniform changeset between builds
++    if [ ! -e "${SRCDIR}/xen/.scmversion" ]; then
++        trap cleanup_version EXIT
++        echo "unavailable" > "${SRCDIR}/xen/.scmversion"
++    fi
++
+     echo "Perform full initial build with ${CPUS} CPU(s)..."
+     build_full
+ 
+diff --git a/livepatch-gcc b/livepatch-gcc
+index fcad80551aa0..e4cb6fb59029 100755
+--- a/livepatch-gcc
++++ b/livepatch-gcc
+@@ -33,7 +33,6 @@ if [[ "$TOOLCHAINCMD" =~ $GCC_RE ]] ; then
+             obj=$2
+             [[ $2 = */.tmp_*.o ]] && obj=${2/.tmp_/}
+             case "$(basename $obj)" in
+-            version.o|\
+             debug.o|\
+             check.o|\
+             *.xen-syms.*.o|\
+@@ -63,7 +62,6 @@ done
+ elif [[ "$TOOLCHAINCMD" =~ $OBJCOPY_RE ]] ; then
+     obj="${!#}"
+     case "$(basename $obj)" in
+-        version.o|\
+         debug.o|\
+         check.o|\
+         boot.o|\
+
+base-commit: 0ed8ef88dc300750696a64e89efa3b82502f6dc7
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.43.0
+
 
