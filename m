@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38B188134C4
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 16:28:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654632.1021774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A7DD8134C6
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 16:29:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654633.1021784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDndY-0004wB-Df; Thu, 14 Dec 2023 15:28:32 +0000
+	id 1rDndt-0005Lc-M9; Thu, 14 Dec 2023 15:28:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654632.1021774; Thu, 14 Dec 2023 15:28:32 +0000
+Received: by outflank-mailman (output) from mailman id 654633.1021784; Thu, 14 Dec 2023 15:28:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDndY-0004tg-Ak; Thu, 14 Dec 2023 15:28:32 +0000
-Received: by outflank-mailman (input) for mailman id 654632;
- Thu, 14 Dec 2023 15:28:30 +0000
+	id 1rDndt-0005Jr-Iv; Thu, 14 Dec 2023 15:28:53 +0000
+Received: by outflank-mailman (input) for mailman id 654633;
+ Thu, 14 Dec 2023 15:28:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDndW-0004ta-6j
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 15:28:30 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h5bz=HZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rDnds-0004ta-Bb
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 15:28:52 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e74e276-9a95-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 16:28:28 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-50c0f6b1015so9658768e87.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 07:28:28 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- he43-20020a1709073dab00b00a1e21893a26sm9462019ejc.222.2023.12.14.07.28.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 07:28:28 -0800 (PST)
+ id 7bf4e3b5-9a95-11ee-98e9-6d05b1d4d9a1;
+ Thu, 14 Dec 2023 16:28:51 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-336445a2749so951763f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 07:28:51 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ h11-20020adffd4b000000b003333298eb4bsm16488863wrs.61.2023.12.14.07.28.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Dec 2023 07:28:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,122 +44,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e74e276-9a95-11ee-98e9-6d05b1d4d9a1
+X-Inumbo-ID: 7bf4e3b5-9a95-11ee-98e9-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702567708; x=1703172508; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2VDIexrzVZRd3Ykzq4FJxkRhO49UpQTV8isXD61Khu0=;
-        b=c7e2QKcRG8chva53PiSG933+C9BANgGerdsmzHOnzrbc3aK1h8kq7i9YJIFrZQCag7
-         8Cqy7iuCjAPJQAVmWzni1RWFt5dOFRLsJTnyXc0PxDb5jSOv/BU+BJY95+D7ySsKxsLm
-         JPq9y26SDc4snc87aHeZV92Jpxsp60gWj45tbor1VJ+EssGh4ALBlL+3w2H/JXvgKznZ
-         x1pI5zNstDVc6/A6G5SZqh2tmL+Ek6cM9GxdbyVS9B5+x5hehyYkFodkAB54Oqsu5NSS
-         f3ZVunrnrjBWPhwGwfgWaVMRhk9ZZ98MFUKodw1PHBiD2TFwHil1LUy9ZG4OPwDR0BeZ
-         7xQA==
+        d=citrix.com; s=google; t=1702567731; x=1703172531; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=PEC11bvLrwqaV5FBlAzJli958YZFskgIWyli4SMwyaI=;
+        b=JJy35vx+e87YkaohC5Sph1HqvE1FR03I6jKIBfcsnWgeM00K/h0INPOGhNHBkyRKAh
+         o8GMOBvZ3dTSJTDlzN559dQTvOBFT7r16O3I93sEnLe3bd4PPx4am3x746SkuXHHVZGz
+         ZRDDWkoWOTt8Qcx1EkH3+mrMdJnKJ7oqyWBlM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702567708; x=1703172508;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1702567731; x=1703172531;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2VDIexrzVZRd3Ykzq4FJxkRhO49UpQTV8isXD61Khu0=;
-        b=FXr4xK165BrYV/MEgXh4fo/tE9Y3vAKpgTr9rFsizgmjFQc4lirg5z5y7JQthSO1St
-         xOeiMoV1hvRo0oOSMKDpfuNzNQE158ywg1RRwmFhtZttoBvuWmDYXhc3eahwyYbAvJ6+
-         npL31HIj9k4Jr3kIM3CcFNrWW1Y88Mvjlv6dQSVs4uFDSpXopqIquVGNATxyWM1qIN2g
-         hR6626v1mX6lGhGV/42r6MJcXxl+KUnXyCPuGfTYLRe2vANVXQmlHKER1plAjn04OdYp
-         OEMQ0HpFSYTI3piX/ZVeyypTyAfX/lUMax2qK35aJ37JMl1+zrM6gUIf8VrNgwPBAlW6
-         7z6Q==
-X-Gm-Message-State: AOJu0Yy58Z99yBpNg44z8NI2kaGzn7k3gGcVm+FLEvnNHYCfIijgl1j6
-	LuGSdcoOE3UDGva7g3foThxA
-X-Google-Smtp-Source: AGHT+IHSyz9YG8lLQyzBxZwNK2fJATEg9kKQ2YRefDwzI/iXKSEHI4XxsE6n8kjz8k0FM7VZJRD9zQ==
-X-Received: by 2002:a05:6512:23a2:b0:50b:ee8f:2fb1 with SMTP id c34-20020a05651223a200b0050bee8f2fb1mr5881333lfv.10.1702567708538;
-        Thu, 14 Dec 2023 07:28:28 -0800 (PST)
-Message-ID: <9030ad37-62f2-4cfc-8f82-83c51cd5c763@suse.com>
-Date: Thu, 14 Dec 2023 16:28:27 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] x86/livepatch: align functions to ensure minimal
- distance between entry points
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
+        bh=PEC11bvLrwqaV5FBlAzJli958YZFskgIWyli4SMwyaI=;
+        b=WhndFdPgkPknZjZPom3RKjC+6GNXDPSSvwffdI5B9muGo4oRz7yt4/MoTUlTDnWKsK
+         vLqF0IlhFYr4kC9zF2lr4Uv/SQWSkqpaIKDS1FADPOr9plX3JNCbcx6dLfsk6Lympf7T
+         vf4xLgE0PGZyukKr/lSt8ReIz/wMwaCq7c0K/BZc5xIGlokjRPh8zIHTPfwuVSDa4gv5
+         A4n5ybF80eXfk/gnbpMzGcDsiWgOf91YkBJ3qItOl0C+VyrCaCfOwdW1wg6AA6TbGGMh
+         k4WKA0RfuBdn5ePDNGfOXfx61friD1GgXreiarNDzluqBqeHoEBnM7slASJVjO8uoQJU
+         CXXA==
+X-Gm-Message-State: AOJu0YzRybmJzJYeqweVuH1OgpTwxBGB78ch4mEWJ22C9NhVRzMi/Tjd
+	B2jHz2vKhIXmrGkn6EwDC9bRCw==
+X-Google-Smtp-Source: AGHT+IF92EA5/1DPhRvrFtCQGWkXEIlA9UPJM4A60DEbq0uOZnDsICtWPCnvdQ2deEsRj22QUEuHzg==
+X-Received: by 2002:a5d:630c:0:b0:333:2fd2:68dd with SMTP id i12-20020a5d630c000000b003332fd268ddmr5288179wru.112.1702567731172;
+        Thu, 14 Dec 2023 07:28:51 -0800 (PST)
+Date: Thu, 14 Dec 2023 16:28:50 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 2/4] xen/x86: introduce self modifying code test
+Message-ID: <ZXsfMthj8wTdZOeT@macbook>
 References: <20231214101719.18770-1-roger.pau@citrix.com>
- <20231214101719.18770-2-roger.pau@citrix.com>
- <4f6c3481-a44c-4176-a414-b32639556bb0@suse.com> <ZXsFCSd1xpngciP3@macbook>
- <89c741b3-9388-412e-87bf-4253e28c7808@suse.com> <ZXsdKsQS20IAyAny@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZXsdKsQS20IAyAny@macbook>
-Content-Type: text/plain; charset=UTF-8
+ <20231214101719.18770-3-roger.pau@citrix.com>
+ <6226aa5e-c87f-48bf-b793-96aa04498c5e@suse.com>
+ <ZXsHWzcCSBKRS83S@macbook>
+ <31cb367f-1a20-4ced-8f6f-aeab69f7c4fb@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <31cb367f-1a20-4ced-8f6f-aeab69f7c4fb@suse.com>
 
-On 14.12.2023 16:20, Roger Pau Monné wrote:
-> On Thu, Dec 14, 2023 at 02:53:13PM +0100, Jan Beulich wrote:
->> On 14.12.2023 14:37, Roger Pau Monné wrote:
->>> On Thu, Dec 14, 2023 at 12:18:13PM +0100, Jan Beulich wrote:
->>>> On 14.12.2023 11:17, Roger Pau Monne wrote:
->>>>> The minimal function size requirements for livepatch are either 5 bytes (for
->>>>> jmp) or 9 bytes (for endbr + jmp) on x86, and always 4 bytes on Arm.  Ensure
->>>>> that distance between functions entry points is always at least of the minimal
->>>>> required size for livepatch instruction replacement to be successful.
->>>>>
->>>>> Add an additional align directive to the linker script, in order to ensure that
->>>>> the next section placed after the .text.* (per-function sections) is also
->>>>> aligned to the required boundary, so that the distance of the last function
->>>>> entry point with the next symbol is also of minimal size.
->>>>>
->>>>> Note that it's possible for the compiler to end up using a higher function
->>>>> alignment regardless of the passed value, so this change just make sure that
->>>>> the minimum required for livepatch to work is present.
->>>>
->>>> That's a possibility which we don't need to be concerned about. Yet isn't it
->>>> also possible that we override a larger, deemed better (e.g. performance-wise)
->>>> value?
->>>
->>> I'm kind of confused, the compiler will always choose the higher
->>> alignment.
->>
->> Will it? Before writing the reply I went through gcc's respective doc
->> section, without finding such a guarantee.
+On Thu, Dec 14, 2023 at 02:57:11PM +0100, Jan Beulich wrote:
+> On 14.12.2023 14:47, Roger Pau Monné wrote:
+> > On Thu, Dec 14, 2023 at 12:55:22PM +0100, Jan Beulich wrote:
+> >> On 14.12.2023 11:17, Roger Pau Monne wrote:
+> >>> --- a/xen/arch/x86/setup.c
+> >>> +++ b/xen/arch/x86/setup.c
+> >>> @@ -58,6 +58,7 @@
+> >>>  #include <asm/microcode.h>
+> >>>  #include <asm/prot-key.h>
+> >>>  #include <asm/pv/domain.h>
+> >>> +#include <asm/test-smoc.h>
+> >>>  
+> >>>  /* opt_nosmp: If true, secondary processors are ignored. */
+> >>>  static bool __initdata opt_nosmp;
+> >>> @@ -1951,6 +1952,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+> >>>  
+> >>>      alternative_branches();
+> >>>  
+> >>> +    test_smoc(XEN_SYSCTL_TEST_SMOC_ALL, NULL);
+> >>
+> >> I realize I'm at risk of causing scope creep, but I'd still like to at
+> >> least ask: As further self-tests are added, we likely don't want to
+> >> alter __start_xen() every time. Should there perhaps better be a wrapper
+> >> (going forward: multiple ones, depending on the time tests want invoking),
+> >> together with a Kconfig control to allow suppressing all of these tests in
+> >> at least release builds?
+> > 
+> > Right now I only had in mind that livepatch related tests won't be
+> > executed as part of the call in __start_xen(), but all the other ones
+> > would, and hence wasn't expecting the code to change from the form in
+> > the next patch.
 > 
-> Hm, yes, checked with godbolt now and GCC behaves the opposite of
-> clang, and will always attempt to honor the alignment passed in
-> falign-functions.
+> Well, I was thinking of there more stuff appearing in test/, not self-
+> modifying-code related, and hence needing further test_*() alongside.
+> test_smoc().
+
+Oh, I see.  I think it might be best to introduce such wrapper when we
+have at least 2 different self tests?  Otherwise it would be weird IMO
+to have another function (ie: execute_self_tests()?) that's just a
+wrapper around test_smoc().
+
+> >>> --- /dev/null
+> >>> +++ b/xen/arch/x86/test/smoc.c
+> >>> @@ -0,0 +1,68 @@
+> >>> +/* SPDX-License-Identifier: GPL-2.0 */
+> >>> +
+> >>> +#include <xen/errno.h>
+> >>> +
+> >>> +#include <asm/alternative.h>
+> >>> +#include <asm/cpufeature.h>
+> >>> +#include <asm/test-smoc.h>
+> >>> +
+> >>> +static bool cf_check test_insn_replacement(void)
+> >>> +{
+> >>> +#define EXPECTED_VALUE 2
+> >>> +    unsigned int r = ~EXPECTED_VALUE;
+> >>> +
+> >>> +    alternative_io("", "mov %1, %0", X86_FEATURE_ALWAYS,
+> >>> +                   "+r" (r), "i" (EXPECTED_VALUE));
+> >>> +
+> >>> +    return r == EXPECTED_VALUE;
+> >>> +#undef EXPECTED_VALUE
+> >>> +}
+> >>> +
+> >>> +int test_smoc(uint32_t selection, uint32_t *results)
+> >>> +{
+> >>> +    struct {
+> >>> +        unsigned int mask;
+> >>> +        bool (*test)(void);
+> >>> +        const char *name;
+> >>> +    } static const tests[] = {
+> >>> +        { XEN_SYSCTL_TEST_SMOC_INSN_REPL, &test_insn_replacement,
+> >>> +          "alternative instruction replacement" },
+> >>> +    };
+> >>> +    unsigned int i;
+> >>> +
+> >>> +    if ( selection & ~XEN_SYSCTL_TEST_SMOC_ALL )
+> >>> +        return -EINVAL;
+> >>> +
+> >>> +    if ( results )
+> >>> +        *results = 0;
+> >>> +
+> >>> +    printk(XENLOG_INFO "Checking Self Modify Code\n");
+> >>> +
+> >>> +    for ( i = 0; i < ARRAY_SIZE(tests); i++ )
+> >>> +    {
+> >>> +        if ( !(selection & tests[i].mask) )
+> >>> +            continue;
+> >>> +
+> >>> +        if ( tests[i].test() )
+> >>> +        {
+> >>> +            if ( results )
+> >>> +                *results |= tests[i].mask;
+> >>> +            continue;
+> >>> +        }
+> >>> +
+> >>> +        add_taint(TAINT_ERROR_SMOC);
+> >>> +        printk(XENLOG_ERR "%s test failed\n", tests[i].name);
+> >>
+> >> Do we really want both of these even when coming here from the sysctl?
+> > 
+> > So only print the messages if system_state < SYS_STATE_active?
 > 
-> Maybe for release builds we should select a 16b alignment on x86?
+> Yes. Nor tainting the system.
 
-Might make sense, yes. Iirc there was a time where 16-byte alignment was
-the default for functions in gcc.
+OK.
 
-Jan
+> >>> --- a/xen/common/kernel.c
+> >>> +++ b/xen/common/kernel.c
+> >>> @@ -386,13 +386,14 @@ char *print_tainted(char *str)
+> >>>  {
+> >>>      if ( tainted )
+> >>>      {
+> >>> -        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c",
+> >>> +        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c%c",
+> >>>                   tainted & TAINT_MACHINE_INSECURE ? 'I' : ' ',
+> >>>                   tainted & TAINT_MACHINE_CHECK ? 'M' : ' ',
+> >>>                   tainted & TAINT_SYNC_CONSOLE ? 'C' : ' ',
+> >>>                   tainted & TAINT_ERROR_INJECT ? 'E' : ' ',
+> >>>                   tainted & TAINT_HVM_FEP ? 'H' : ' ',
+> >>> -                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ');
+> >>> +                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ',
+> >>> +                 tainted & TAINT_ERROR_SMOC ? 'A' : ' ');
+> >>
+> >> How well is this going to scale as other selftests are added? IOW should
+> >> this taint really be self-modifying-code-specific?
+> > 
+> > I'm afraid I'm not sure I'm following.  Would you instead like to make
+> > the taint per-test selectable?
+> 
+> The other way around actually: Taint generally for failed selftests,
+> not just for the self-modifying-code one (which ends up being the only
+> one right now).
+
+So the suggestion would be to use TAINT_ERROR_SELFTEST instead of
+TAINT_ERROR_SMOC?  I can do that, but it might also be more
+appropriate when there are more self tests.
+
+Thanks, Roger.
 
