@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A81D18134D8
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 16:34:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654651.1021806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9643081352E
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 16:48:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654665.1021816 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDnib-0007or-BC; Thu, 14 Dec 2023 15:33:45 +0000
+	id 1rDnwW-0002hQ-IV; Thu, 14 Dec 2023 15:48:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654651.1021806; Thu, 14 Dec 2023 15:33:45 +0000
+Received: by outflank-mailman (output) from mailman id 654665.1021816; Thu, 14 Dec 2023 15:48:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDnib-0007mR-8b; Thu, 14 Dec 2023 15:33:45 +0000
-Received: by outflank-mailman (input) for mailman id 654651;
- Thu, 14 Dec 2023 15:33:44 +0000
+	id 1rDnwW-0002fj-FP; Thu, 14 Dec 2023 15:48:08 +0000
+Received: by outflank-mailman (input) for mailman id 654665;
+ Thu, 14 Dec 2023 15:48:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDnia-0007lZ-2K
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 15:33:44 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1rDnwV-0002fd-0y
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 15:48:07 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 28f82abb-9a96-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 16:33:42 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a1c7b20f895so956699066b.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 07:33:42 -0800 (PST)
+ id 2ae01578-9a98-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 16:48:04 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a1f47f91fc0so1000893166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 07:48:04 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- qo14-20020a170907874e00b00a1f6737be65sm9265180ejc.82.2023.12.14.07.33.41
+ tl18-20020a170907c31200b00a1da2c9b06asm9534582ejc.42.2023.12.14.07.48.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 07:33:41 -0800 (PST)
+ Thu, 14 Dec 2023 07:48:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 28f82abb-9a96-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 2ae01578-9a98-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702568022; x=1703172822; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702568884; x=1703173684; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=PaiBT7+fp6FlmEVHn3Lwy3NhSgvZTPm/0hnA0Wc4po4=;
-        b=csE4QHwEo86Isq5+HfU1yXOeCRDrKEmgGyJT88Gk4rHniF4CprGKnEGmTcA66CrV4r
-         bgnXB3GbvKLS8U8BqSM9n4VLWGDhVprMww63NPphnhGOROUMPIYX6y4NdLcbvhxMInZv
-         p06IKVqltiu77e+MNF33hW4230ObxRUiRhn0dCD6t4UKh9J6IGFXvdXvWoHU6bQIkWlY
-         meKZ1bRJyYD5lny9NTj1U8JDyOitmiaIwyWTcOTIOKqWIFzE4G06X2BTu3GqmNmBh/+P
-         2+CIOJxByqNYABTn4SN6tyqnyc2X7dOZLECkd96enogP3O4Do1V6TwbnS6IJOlGopbe4
-         pSgA==
+        bh=J3VZnS/XqbUIqSxZOPYZeTGzImphUl2TuDlrCaZ0Atk=;
+        b=Pjwrc3oEjSTAp8amywq9dTyrmPPom5aJMuzSD8ub034cPectSdcpJTK6HYhUjPvxTn
+         akLCLoTHY3TU61sGcjGJbQTsLrIKHMIxshY54P3blPH6sPmj9lqSmaqCraKNeuQ+aFJq
+         NLP9iUAJn8Q1N1wO2Yn8QueUkOv+XSpO323qVCv2QHm0ea1HNgBMDkuIBpVKzAZMNeLy
+         uHtmfae00JlU9EQzSJKpbCiIAThf27K8utYC4KrT97i57g99RrUuLYcSJG6zK7aWot5l
+         n3Wbo+bZ2wEvIS7X7N2HUw+ld2bZ9pnooXXRJkvGFOJHuDMS13KwHpuLGSkI8ePvArBJ
+         9ayA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702568022; x=1703172822;
+        d=1e100.net; s=20230601; t=1702568884; x=1703173684;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PaiBT7+fp6FlmEVHn3Lwy3NhSgvZTPm/0hnA0Wc4po4=;
-        b=Q5KAkYDFoKyrG04oQf8L77t+FliRuZUuQJ3/kkeYpx+droHCaBKA0xb/AOYKVIuzr5
-         JvbNH7gbUayhItLe0TBGdcdjQoBWNIdiRdzCGNUhiwv9wBp3taA6brc+KvvHH73yPPpg
-         ni2ycAg33Ojt2hOQaMZz/iVYATp7OwdOQE8ZWAyNFZSIXvKhC7xsLuOA2rWYNHRMLBZt
-         4W996WwWqPRNjJB4NYsRGPPZdqc0QYX4fC4DIz1qP2HQ2pLSZ1GwJLMrWGdLXw2mj06A
-         48R4e3MdYWJ9wn3Q6JYXaj15pg8H+ZsFTtNc24gUTGxrQK8LRKkVzVTuAI9nnM1YhApv
-         bnyA==
-X-Gm-Message-State: AOJu0YzEZxP8qUmDZqMfaDw/C6KiEYrFDYLibISuUuNWTcKtFQAqwHRu
-	24vZGH5neuyATxeJ97rUPROi
-X-Google-Smtp-Source: AGHT+IEA2ZB8oCmS0UyPuXtT9LtMJgx4A5LGRfb0bMuZ3idSbPrNcTmxUJuMqvs8/z4al8h2hyfKXA==
-X-Received: by 2002:a17:907:868d:b0:a19:a1ba:8ccb with SMTP id qa13-20020a170907868d00b00a19a1ba8ccbmr5424992ejc.105.1702568021765;
-        Thu, 14 Dec 2023 07:33:41 -0800 (PST)
-Message-ID: <414cc532-727c-478e-a565-1f2d6510ffee@suse.com>
-Date: Thu, 14 Dec 2023 16:33:40 +0100
+        bh=J3VZnS/XqbUIqSxZOPYZeTGzImphUl2TuDlrCaZ0Atk=;
+        b=BF3vXfcFxuwyOj6j4gZf+Zj+pQJvJ1WtJBzr3Kw44QIDJ8/L221xQj5zi0ZvhUA7+/
+         8zHlnPQiA+yEVmy6GckSh/j62E3T4eicAVzoxTHGtbfH1uBCOn99cppOdewAl92xWcI4
+         36+tMdQuESwUWc4be4vGZ1mFEZbD59+oAGuNzwlzopizEyfZ9UOGegVCEEnPpTubb7cH
+         VwYiE16k/y67P747CQKjr56NwyEyurQws2Fz5LtF2XD/z83qXXxYiQTB8zgnmWl5GzPi
+         /qGqsWHkT2dnX9bjZB7UAcRUTr+IG7xWL4kPEoUoEgcn5XYhk9kmJS8eIyxLS6VlCUNO
+         4FbQ==
+X-Gm-Message-State: AOJu0YxgWw0HMccwdmlL3nr7Os9yakw1eRd0TS2h0AUePVbB6arfkozU
+	krWkdh52GF551/Y+tzEROW2D
+X-Google-Smtp-Source: AGHT+IGE9sKpgW5hnKvRFTQJfA7VtOioYJStTE9Hc2YotSFBvK92RRKDs8OUJGQ/7T0CMr5XhOmT0w==
+X-Received: by 2002:a17:906:184:b0:a19:a19b:55ce with SMTP id 4-20020a170906018400b00a19a19b55cemr5086234ejb.94.1702568883952;
+        Thu, 14 Dec 2023 07:48:03 -0800 (PST)
+Message-ID: <b2c42d56-6bc8-4ea8-9e6f-cae259c274c5@suse.com>
+Date: Thu, 14 Dec 2023 16:48:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] xen/x86: introduce self modifying code test
+Subject: Re: [PATCH v2 30/39] xen/riscv: define an address of frame table
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20231214101719.18770-1-roger.pau@citrix.com>
- <20231214101719.18770-3-roger.pau@citrix.com>
- <6226aa5e-c87f-48bf-b793-96aa04498c5e@suse.com> <ZXsHWzcCSBKRS83S@macbook>
- <31cb367f-1a20-4ced-8f6f-aeab69f7c4fb@suse.com> <ZXsfMthj8wTdZOeT@macbook>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+ <13ad41657814e4fc235772fa0928de1723ae7c3d.1700761381.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,88 +114,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZXsfMthj8wTdZOeT@macbook>
+In-Reply-To: <13ad41657814e4fc235772fa0928de1723ae7c3d.1700761381.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.12.2023 16:28, Roger Pau Monné wrote:
-> On Thu, Dec 14, 2023 at 02:57:11PM +0100, Jan Beulich wrote:
->> On 14.12.2023 14:47, Roger Pau Monné wrote:
->>> On Thu, Dec 14, 2023 at 12:55:22PM +0100, Jan Beulich wrote:
->>>> On 14.12.2023 11:17, Roger Pau Monne wrote:
->>>>> --- a/xen/arch/x86/setup.c
->>>>> +++ b/xen/arch/x86/setup.c
->>>>> @@ -58,6 +58,7 @@
->>>>>  #include <asm/microcode.h>
->>>>>  #include <asm/prot-key.h>
->>>>>  #include <asm/pv/domain.h>
->>>>> +#include <asm/test-smoc.h>
->>>>>  
->>>>>  /* opt_nosmp: If true, secondary processors are ignored. */
->>>>>  static bool __initdata opt_nosmp;
->>>>> @@ -1951,6 +1952,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->>>>>  
->>>>>      alternative_branches();
->>>>>  
->>>>> +    test_smoc(XEN_SYSCTL_TEST_SMOC_ALL, NULL);
->>>>
->>>> I realize I'm at risk of causing scope creep, but I'd still like to at
->>>> least ask: As further self-tests are added, we likely don't want to
->>>> alter __start_xen() every time. Should there perhaps better be a wrapper
->>>> (going forward: multiple ones, depending on the time tests want invoking),
->>>> together with a Kconfig control to allow suppressing all of these tests in
->>>> at least release builds?
->>>
->>> Right now I only had in mind that livepatch related tests won't be
->>> executed as part of the call in __start_xen(), but all the other ones
->>> would, and hence wasn't expecting the code to change from the form in
->>> the next patch.
->>
->> Well, I was thinking of there more stuff appearing in test/, not self-
->> modifying-code related, and hence needing further test_*() alongside.
->> test_smoc().
-> 
-> Oh, I see.  I think it might be best to introduce such wrapper when we
-> have at least 2 different self tests?  Otherwise it would be weird IMO
-> to have another function (ie: execute_self_tests()?) that's just a
-> wrapper around test_smoc().
+On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> Also the patchs adds some helpful macros.
 
-That's precisely why I said "risk of causing scope creep, but I'd still
-like to at least ask". I'm okay-ish, as long as it's clear that this
-way more code churn may happen down the road. Same ...
+In how far they're (going to be) helpful is hard to tell without uses
+and without some suitable comments.
 
->>>>> --- a/xen/common/kernel.c
->>>>> +++ b/xen/common/kernel.c
->>>>> @@ -386,13 +386,14 @@ char *print_tainted(char *str)
->>>>>  {
->>>>>      if ( tainted )
->>>>>      {
->>>>> -        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c",
->>>>> +        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c%c",
->>>>>                   tainted & TAINT_MACHINE_INSECURE ? 'I' : ' ',
->>>>>                   tainted & TAINT_MACHINE_CHECK ? 'M' : ' ',
->>>>>                   tainted & TAINT_SYNC_CONSOLE ? 'C' : ' ',
->>>>>                   tainted & TAINT_ERROR_INJECT ? 'E' : ' ',
->>>>>                   tainted & TAINT_HVM_FEP ? 'H' : ' ',
->>>>> -                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ');
->>>>> +                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ',
->>>>> +                 tainted & TAINT_ERROR_SMOC ? 'A' : ' ');
->>>>
->>>> How well is this going to scale as other selftests are added? IOW should
->>>> this taint really be self-modifying-code-specific?
->>>
->>> I'm afraid I'm not sure I'm following.  Would you instead like to make
->>> the taint per-test selectable?
->>
->> The other way around actually: Taint generally for failed selftests,
->> not just for the self-modifying-code one (which ends up being the only
->> one right now).
-> 
-> So the suggestion would be to use TAINT_ERROR_SELFTEST instead of
-> TAINT_ERROR_SMOC?  I can do that, but it might also be more
-> appropriate when there are more self tests.
+> --- a/xen/arch/riscv/include/asm/config.h
+> +++ b/xen/arch/riscv/include/asm/config.h
+> @@ -77,12 +77,31 @@
+>    name:
+>  #endif
+>  
+> +#define VPN_BITS    (9)
+> +#define OFFSET_BITS (12)
 
-... here - of course we can also rename later.
+Whose offset? In how far is this different from PAGE_SHIFT?
+
+>  #ifdef CONFIG_RISCV_64
+> +
+> +#define SLOTN_ENTRY_BITS        (HYP_PT_ROOT_LEVEL * VPN_BITS + OFFSET_BITS)
+> +#define SLOTN(slot)             (_AT(vaddr_t,slot) << SLOTN_ENTRY_BITS)
+
+Nit: Missing blank after comma.
+
+> +#define SLOTN_ENTRY_SIZE        SLOTN(1)
+> +
+>  #define XEN_VIRT_START 0xFFFFFFFFC0000000 /* (_AC(-1, UL) + 1 - GB(1)) */
+> +
+> +#define FRAMETABLE_VIRT_START   SLOTN(196)
+> +#define FRAMETABLE_SIZE         GB(3)
+> +#define FRAMETABLE_NR           (FRAMETABLE_SIZE / sizeof(*frame_table))
+> +#define FRAMETABLE_VIRT_END     (FRAMETABLE_VIRT_START + FRAMETABLE_SIZE - 1)
+> +
+> +#define VMAP_VIRT_START         SLOTN(194)
+> +#define VMAP_VIRT_SIZE          GB(1)
+
+May I suggest that you keep these blocks sorted by slot number? Or wait,
+the layout comment further up is also in decreasing order, so that's
+fine here, but then can all of this please be moved next to the comment
+actually providing the necessary context (thus eliminating the need for
+new comments)? You'll then also notice that the generalization here
+(keeping basically the same layout for e.g. SATP_MODE_SV48, just shifted
+by 9 bits) isn't in line with the comment there.
+
+> @@ -95,6 +114,8 @@
+>  #define RV_STAGE1_MODE SATP_MODE_SV32
+>  #endif
+>  
+> +#define HYP_PT_ROOT_LEVEL (CONFIG_PAGING_LEVELS - 1)
+
+I understand that CONFIG_PAGING_LEVELS is defined only just up from here,
+but what that identifier stands for is quite clear. It would seem to me
+that moving this up ahead if its first use would help clarity.
 
 Jan
 
