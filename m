@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35F8E813046
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 13:37:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654559.1021574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCA8281307E
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 13:46:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654562.1021584 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDkwm-00036s-Df; Thu, 14 Dec 2023 12:36:12 +0000
+	id 1rDl6T-0005lK-As; Thu, 14 Dec 2023 12:46:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654559.1021574; Thu, 14 Dec 2023 12:36:12 +0000
+Received: by outflank-mailman (output) from mailman id 654562.1021584; Thu, 14 Dec 2023 12:46:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDkwm-00034N-Av; Thu, 14 Dec 2023 12:36:12 +0000
-Received: by outflank-mailman (input) for mailman id 654559;
- Thu, 14 Dec 2023 12:36:11 +0000
+	id 1rDl6T-0005j8-6O; Thu, 14 Dec 2023 12:46:13 +0000
+Received: by outflank-mailman (input) for mailman id 654562;
+ Thu, 14 Dec 2023 12:46:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDkwl-00034F-7s
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 12:36:11 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ id 1rDl6R-0005j2-B5
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 12:46:11 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5a5290de-9a7d-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 13:36:07 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a1db99cd1b2so1035381266b.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 04:36:07 -0800 (PST)
+ id c0f04129-9a7e-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 13:46:09 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a1f6433bc1eso112589466b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 04:46:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- sl9-20020a170906618900b00a1cf7b31e9csm9227109ejc.89.2023.12.14.04.36.05
+ sa16-20020a1709076d1000b00a1da72b8752sm9274533ejc.212.2023.12.14.04.46.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 04:36:06 -0800 (PST)
+ Thu, 14 Dec 2023 04:46:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a5290de-9a7d-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: c0f04129-9a7e-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702557367; x=1703162167; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702557968; x=1703162768; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=83KRkcynFeOjSAQ7DjVgOT+OEPh+NEpdKx4dRl0wsZ8=;
-        b=Rqbtf+xtlIHKOH5qFeLdOOzu1bPZhtxgf99pNu5j1YBbrAKObQMNARXnebSODEt69G
-         X1iYZ6uHB9tipFJIFd4IDH/o/MQvTjZGJzc8bg2h+ZFJRHc/w8e8VnVWUA+PkqwE/mOb
-         pBZ/mv1iFU8IUrjmcAAdtB6zi0g1fqEQqqIXmHi2Oqzx2KH8V4xXtawyqEyUzX5mOX64
-         8p6PSZmXYlNtFeJsNo8rL7O090FQVXkkyM7gU5dOyF/zDncapW4XGe1G5tavaK3iHgrX
-         y2aNqb2vrd1AT5e9vgoRQD6TJQVe0YYozWx1ohJCFQLT14q4SOtBbKP7fWuC90aWmQAj
-         1cfQ==
+        bh=lsyAzTx9akiZfijKEWKipOctHdoPXGdStYQoTmxwkGU=;
+        b=eStyOKTsV5WnerSd/USp5Mq5Pw2EmB2K7k68I/gzokcXlopB/CORCFtiiszjC20C/Y
+         KhmQxviyPP4bkq5l0WQqfSHltTFnkFNYk1AoUTZDe2bkwBs6b2EcBp51fiM5uKb5oyqR
+         YC6FLarNXhTKoifOI2gWrs1e3RoSDzaKylAP2GZzWlURdPSMzwAygAzH4xo6KVkJXMpU
+         UraN2/leefd5ao16diTxjOdkUwm8zNwtmL953Bf6FeFyFk81JbWZaXNXTOx7kd1zCM5d
+         cBXnQaAAJrslXgHdePKvtxaTsFuTU7REg3PPJAQOHCrXVtfuUQhAHbDYUHTmpVStbsdm
+         5PbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702557367; x=1703162167;
+        d=1e100.net; s=20230601; t=1702557968; x=1703162768;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=83KRkcynFeOjSAQ7DjVgOT+OEPh+NEpdKx4dRl0wsZ8=;
-        b=OyoeFNU2dU/+zdbkCVxlHO0IEt+TFkB6bxSl+JO1KYHynLArld/4jNtvvKoEwAvwGJ
-         q5KzzStegIdqKBrXHU28REjDHlBHb3qJ7NZrYXHVzvSHbAtLn1W04caHAhkICYmiEQZ1
-         GUVEkEaBaDXucjbuudAhg1JR7TcsHCpyWgxrq/dv810sUOvIkN0yrzVlVPAF/IDlmlAd
-         fKxZDtma5/Uf+Vhrfpq3h1unIGblupO+juuJdB64OJgHUEdLM57aIOOJRaYjKQUUnApM
-         LaFf7SxgxLUKlLmLptFaYJSKwRd97WylaRgFOSw5+Q/qDDYEcHOsqRoLdcT0TmvBEnK/
-         C4kg==
-X-Gm-Message-State: AOJu0YwXJApxON6AjLjkmeiYBzlIRwMa/LvLR8pVnOd4ApqcCIBYWa0H
-	z1oxNZBZqiV8FGngENzaN/rw
-X-Google-Smtp-Source: AGHT+IHnaEIG9ELwNH7u9q8A3H8QeehkMCmNUtZ2qpFiI8ikDePBZNQEfNSZHG5AqfZUsgCI1T/AVw==
-X-Received: by 2002:a17:907:94d4:b0:a1a:8399:e12d with SMTP id dn20-20020a17090794d400b00a1a8399e12dmr3820380ejc.64.1702557366816;
-        Thu, 14 Dec 2023 04:36:06 -0800 (PST)
-Message-ID: <3b3996fb-ec66-468e-8ee8-eb8e7648f59d@suse.com>
-Date: Thu, 14 Dec 2023 13:36:05 +0100
+        bh=lsyAzTx9akiZfijKEWKipOctHdoPXGdStYQoTmxwkGU=;
+        b=sTvq2nPJkYwJQgsWZUO0qMujfiY6GvxRLVn/pWsHzZp7D72dGwJItt8hJWX27HaaKG
+         li0OXOqsyqr9yLknXAcHuo7orgd68r022ohq0xN2ZZbqezT+kufdyZBi9B45Wwlr/vAz
+         yJKAnxocuGjCvyvskx1MIatW5R46svimhgHPkB0jwhVFmOBJZRyrFvhvIJ4GcJttG39H
+         8mju68NQ6JB1um4wjkt+XeOBD7yBPK4jDVZ+mL6iXME3wqf6JEDXz2zWK9Jn2KHTVl/W
+         RvpyBthsFuTrcJEgXX+DwdjehlijdjNE/AOb1TQeKv67z8EQqyDWFteVRH6cWJArIPAh
+         RbwA==
+X-Gm-Message-State: AOJu0YwEUiZPMI2As2Cj/wBkwZ9NwCuF3ltcveNnQSmw4XX3ka++sXLw
+	GRwQKoYO4D4x8YSBb48DxBfK
+X-Google-Smtp-Source: AGHT+IFe0NUpJ/WdwQm9RA1sMz8NDzACSVxNQLCnOYiT4onmNHJgmXkRrHJOD03a94tVZbFeI2CAaQ==
+X-Received: by 2002:a17:907:7e8b:b0:a1d:58c0:ed7a with SMTP id qb11-20020a1709077e8b00b00a1d58c0ed7amr10745143ejc.38.1702557968377;
+        Thu, 14 Dec 2023 04:46:08 -0800 (PST)
+Message-ID: <ea5d25db-f035-47b5-999d-72a6f670fcd6@suse.com>
+Date: Thu, 14 Dec 2023 13:46:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/9] xen: address violations of MISRA C:2012 Rule 11.8
+Subject: Re: [PATCH 8/9] xen: add deviations for Rule 11.8
 Content-Language: en-US
 To: Simone Ballarin <simone.ballarin@bugseng.com>,
  Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Cc: consulting@bugseng.com, Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Shawn Anastasio <sanastasio@raptorengineering.com>,
- Doug Goldstein <cardoe@cardoe.com>
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1702555386.git.maria.celeste.cesario@bugseng.com>
+ <854747a97c4c7a70bfe1a30a038f2cc6aebfb566.1702555387.git.maria.celeste.cesario@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,31 +114,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cover.1702555386.git.maria.celeste.cesario@bugseng.com>
+In-Reply-To: <854747a97c4c7a70bfe1a30a038f2cc6aebfb566.1702555387.git.maria.celeste.cesario@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 14.12.2023 13:07, Simone Ballarin wrote:
-> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-> 
-> The xen sources contain violations of MISRA C:2012 Rule 11.8 whose
-> headline states:
-> "A conversion shall not remove any const, volatile or _Atomic
-> qualification from the type pointed to by a pointer".
-> 
-> This patch amends or removes casts that unnecessarily drop
-> const and volatile qualifiers.
-> 
-> Example:
-> 
->  static always_inline bool int_##name(volatile void *p)
->  {
->     volatile uint32_t *ptr = (uint32_t *)p;             /* Non-compliant */
->     volatile uint32_t *ptr = (volatile uint32_t *)p;    /* Compliant, proposed change */
->  }
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -292,6 +292,18 @@ constant expressions are required.\""
+>  # Series 11
+>  #
+>  
+> +-doc_begin="Violations caused by container_of are due to pointer arithmetic operations
+> +with the provided offset. The resulting pointer is then immediately cast back to its
+> +original type, which preserves the qualifier. This use can be deemed as safe.
+> +Fixing this violation would require to increase code complexity and lower readability."
+> +-config=MC3R1.R11.8,reports+={safe,"any_area(any_loc(any_exp(macro(^container_of$))))"}
+> +-doc_end
+> +
+> +-doc_begin="This function is made to explicitly cast an error-valued pointer to a void
+> +pointer type to make it clear that's what's going on, so the violation is deliberate."
+> +-config=MC3R1.R11.8,reports+={deliberate,"all_area(context(^ERR_CAST\\(.*$))"}
+> +-doc_end
 
-Why would you further complicate things when here the cast can simply
-be dropped?
+While the wording is okay here, ...
+
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -248,6 +248,19 @@ Deviations related to MISRA C:2012 Rules:
+>         If no bits are set, 0 is returned.
+>       - Tagged as `safe` for ECLAIR.
+>  
+> +   * - R11.8
+> +     - Violations caused by container_of are due to pointer arithmetic operations
+> +       with the provided offset. The resulting pointer is then immediately cast back to its
+> +       original type, which preserves the qualifier. This use can be deemed as safe.
+> +       Fixing this violation would require to increase code complexity and lower readability.
+> +     - Tagged as `safe` for ECLAIR.
+> +    
+> +   * - R11.8
+> +     - This function is made to explicitly cast an error-valued pointer to a
+> +       void pointer type to make it clear that's what's going on, so the
+> +       violation is deliberate.
+> +     - Tagged ad `deliberate` for ECLAIR.
+
+... "This function" here is entirely unclear. However, seeing ERR_CAST() has
+no users, wouldn't we be better off simply removing it? (Otherwise, nit:
+"Tagged as ...".)
 
 Jan
+
 
