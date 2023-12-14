@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3DE38135AA
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 17:05:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654675.1021847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0786813601
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 17:16:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654678.1021855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDoCZ-0008WH-IV; Thu, 14 Dec 2023 16:04:43 +0000
+	id 1rDoNp-0002kr-Io; Thu, 14 Dec 2023 16:16:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654675.1021847; Thu, 14 Dec 2023 16:04:43 +0000
+Received: by outflank-mailman (output) from mailman id 654678.1021855; Thu, 14 Dec 2023 16:16:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDoCZ-0008Sy-FA; Thu, 14 Dec 2023 16:04:43 +0000
-Received: by outflank-mailman (input) for mailman id 654675;
- Thu, 14 Dec 2023 16:04:41 +0000
+	id 1rDoNp-0002iK-G4; Thu, 14 Dec 2023 16:16:21 +0000
+Received: by outflank-mailman (input) for mailman id 654678;
+ Thu, 14 Dec 2023 16:16:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDoCX-0008Sq-UR
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 16:04:41 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ id 1rDoNo-0002iE-C7
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 16:16:20 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7b408c96-9a9a-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 17:04:38 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a1915034144so1084216666b.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 08:04:38 -0800 (PST)
+ id 1c812ca3-9a9c-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 17:16:18 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a1f8f470903so670092466b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 08:16:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z9-20020a170906d00900b009c5c5c2c5a4sm9550394ejy.219.2023.12.14.08.04.36
+ rm6-20020a1709076b0600b00a1bec12448csm9546273ejc.150.2023.12.14.08.16.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 08:04:37 -0800 (PST)
+ Thu, 14 Dec 2023 08:16:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7b408c96-9a9a-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 1c812ca3-9a9c-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702569878; x=1703174678; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702570577; x=1703175377; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HcFfTIiTFIffAV2LOgSTTjZ+M5y+zCjTyK4mjfr5F+g=;
-        b=MwuzBMPLRqSA3EesltLIYxVtSKMde4uZk2qrzn2eT5CDwfCAA6fM+xgqIvuVOcU3vU
-         1w4Wv1Bdhyad804jQc8DKHvgXGC/wSh6R+W+afjLMgT6U0mFFsyVmTwNCeFS+Z+pHyWp
-         dgDwXTXf3eYqt6w+Y48CQoGNtQN+m6PHehA/bYE09qm25/xZx9SZlGVdm/FRo738SaXK
-         33nBpU1vxrmNkt6snQKI+aRGQyXVbOLNeAKHvPlqYNsHLw8t7qWdrdJaMsUP1fMX7NsK
-         g/FvUCJDIofRqqQutOK1bsDQmsuD5z7yMd4DDE3dVbID27LbnleUZATImtEkKHKhLm4C
-         EVkw==
+        bh=R0dF8FAdH10Q8hinICWOsI7Ckkeic9tLUQyzW8L08mU=;
+        b=Uo7wMbqZeZUBWoTGB4lCcGOW2XvPkYkH/h6GLVcEN8dCZ+pndN0f8i6MnmPJoMsgbS
+         zbXFCBElMZ+egWigAhrxW8dZl4v+203GliClEjZn5VcYxb1sUhgcqUf/1XQmR0jlTsOA
+         l7Fqt8C3aA+Ny1fZvuNvuiVQmI3ZToTOIqtATI2km+iIraIOnh25Hg2b3O3bYZ+ooACY
+         qNQaMocLqysNxe4WI69uXiuRQb0Qt4skUX6vLlBqjxTODFTjHJB2bpX2fKXZFtLDf+OJ
+         kzsKidgIuSeKi60BhadrFasGnvOraJrRrS9I0lfTRdX7D5xNS5ukd12hSbz9Rrs/ZmPy
+         FjAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702569878; x=1703174678;
+        d=1e100.net; s=20230601; t=1702570577; x=1703175377;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HcFfTIiTFIffAV2LOgSTTjZ+M5y+zCjTyK4mjfr5F+g=;
-        b=cbbPFSY0jqJBsGy82nX+8ls04l5g6E7zTNvvxnoaGQHnBZA34H2jXasdXdZT3sgsiH
-         E4zTHSidiFQLmth6O+3es8kd5LPnB+H7wLPQ90mWR7ai/508G7kLhg4p6S27nH/4Fu7E
-         gjNAAzxL0wjrghR+ZPRCt8EpVICkkDpkag5SXLRUGRHy0eh6wvh1XSQPVA32Jp671hTa
-         jgy/aSi78dBFlWEyvSUHhcbCeiSnFoIJGanpVBcNPlQR/Sz8Ma8OqOtCdzopfqVMRoI/
-         JQLOyZnxy/hxwxtWXKuPl+6MW8kE1uBmeONH7kuydLlITrGepWkeGshWZpweunZ9EBoh
-         H4DA==
-X-Gm-Message-State: AOJu0YxxmR/nPvacnZ9ttKBSJxJhfkmnKrl1KpDLiMWNn6obAIRcWLQV
-	OPwKrKBHyPd/1iJCOhGlOYNv
-X-Google-Smtp-Source: AGHT+IE58Y7rYWKvPcTjTnJCM6yKthFuhSoiBhFnNbg3IVm7oL3TNIsrXeGJwTLewcpjnH+jZrkO4w==
-X-Received: by 2002:a17:906:b2d6:b0:a1d:4883:e066 with SMTP id cf22-20020a170906b2d600b00a1d4883e066mr4997187ejb.70.1702569877860;
-        Thu, 14 Dec 2023 08:04:37 -0800 (PST)
-Message-ID: <c431a7ac-ac4d-4de2-969a-ad2acf1a7aee@suse.com>
-Date: Thu, 14 Dec 2023 17:04:36 +0100
+        bh=R0dF8FAdH10Q8hinICWOsI7Ckkeic9tLUQyzW8L08mU=;
+        b=RetJ2IbrJ5nvhAInzT8WzZ2ZkVf0TZwnUbD8k47d2T9br45PDyaTwzY4VpHrcZOxsp
+         RWxrxR2RrKf5XAe+OHvbWobMZBZNNyGW12ZpvkZz1yYPKVwnv4+QUgQ+1pKK5o0C1A0v
+         7Blo1fcDftxHZIi+qHZp5al0DIdB76vS9JcgU2WV7AC1bQUCeJ743lTHTVLdhpj0jsOI
+         Kic2wMiSzXOZbWe7z5OyjTCShsDUotN9Zf69hnzkwTaRgOYx+9oqkB/wJD//ahaM5eGZ
+         0FN65d0yXisL5BzeS/M0Hkynj1rEVUPpHbyKgNJkfhJmsx2C5A0puFwLOKIVJP19ucch
+         7gZA==
+X-Gm-Message-State: AOJu0Yy5hWvhxr/0G8YPSVVtlvT8mWF7GUgyVFaJe56vVfpGUpDzke1w
+	mg+kYED+wdLcqz7cH2zT3MwN
+X-Google-Smtp-Source: AGHT+IH80IQDQIvpiO+9AGVV/3Os7myTiGO49dSMTc26qk8vWKXmSArR5xo5eVPUNP6ArZfTPnfwHA==
+X-Received: by 2002:a17:906:118:b0:a1d:b924:1042 with SMTP id 24-20020a170906011800b00a1db9241042mr5079515eje.13.1702570577563;
+        Thu, 14 Dec 2023 08:16:17 -0800 (PST)
+Message-ID: <ce90b4dc-20b7-41ea-ae51-9e99d4a3c07f@suse.com>
+Date: Thu, 14 Dec 2023 17:16:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 33/39] xen/riscv: add minimal stuff to asm/processor.h
- to build full Xen
+Subject: Re: [PATCH v2 34/39] xen: add RISCV support for pmu.h
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <11f177882b74c60233626075a69bdd00d3da2311.1700761381.git.oleksii.kurochko@gmail.com>
+ <55a47c6b5df5ea8c7dbe38995616b997f587880e.1700761381.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,45 +112,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <11f177882b74c60233626075a69bdd00d3da2311.1700761381.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <55a47c6b5df5ea8c7dbe38995616b997f587880e.1700761381.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.11.2023 11:30, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/include/asm/processor.h
-> +++ b/xen/arch/riscv/include/asm/processor.h
-> @@ -12,6 +12,9 @@
->  
->  #ifndef __ASSEMBLY__
->  
-> +/* TODO: need to be implemeted */
-> +#define get_processor_id() 0
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Please don't re-introduce this - it was just recently dropped from the
-code base.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> @@ -53,6 +56,18 @@ struct cpu_user_regs
->      unsigned long pregs;
->  };
->  
-> +/* TODO: need to implement */
-> +#define cpu_to_core(_cpu)   (0)
-> +#define cpu_to_socket(_cpu) (0)
-
-No need for leading underscores here.
-
-> +static inline void cpu_relax(void)
-> +{
-> +	int dummy;
-> +	/* In lieu of a halt instruction, induce a long-latency stall. */
-> +	__asm__ __volatile__ ("div %0, %0, zero" : "=r" (dummy));
-
-Any reason for this, when Arm's is just barrier(), and apparently they got
-away with this quite fine? Also isn't this causing a division by zero,
-which I'd expect to cause some kind of exception? (Terminology-wise I'm of
-course biased by x86, where "halt instruction" wouldn't be suitable to use
-here. But if that terminology is fine on RISC-V, then obviously no
-objection.)
+I think though that this would make sense to fold into patch 4, which is
+where the relevant (stub) structure appears.
 
 Jan
+
+> --- a/xen/include/public/pmu.h
+> +++ b/xen/include/public/pmu.h
+> @@ -13,6 +13,8 @@
+>  #include "arch-arm.h"
+>  #elif defined (__powerpc64__)
+>  #include "arch-ppc.h"
+> +#elif defined(__riscv)
+> +#include "arch-riscv.h"
+>  #else
+>  #error "Unsupported architecture"
+>  #endif
+
 
