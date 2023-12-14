@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBD7E813CD2
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 22:42:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654765.1022096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49C5D813CDF
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 22:46:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654770.1022106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDtTF-0004RP-0y; Thu, 14 Dec 2023 21:42:17 +0000
+	id 1rDtWn-00054l-KE; Thu, 14 Dec 2023 21:45:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654765.1022096; Thu, 14 Dec 2023 21:42:17 +0000
+Received: by outflank-mailman (output) from mailman id 654770.1022106; Thu, 14 Dec 2023 21:45:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDtTE-0004Oe-Tj; Thu, 14 Dec 2023 21:42:16 +0000
-Received: by outflank-mailman (input) for mailman id 654765;
- Thu, 14 Dec 2023 21:42:15 +0000
+	id 1rDtWn-00051o-GV; Thu, 14 Dec 2023 21:45:57 +0000
+Received: by outflank-mailman (input) for mailman id 654770;
+ Thu, 14 Dec 2023 21:45:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fjLX=HZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rDtTD-0004OY-T9
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 21:42:15 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1rDtWl-00051i-Lw
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 21:45:55 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a49b3a61-9ac9-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 22:42:14 +0100 (CET)
+ id 282e156b-9aca-11ee-98e9-6d05b1d4d9a1;
+ Thu, 14 Dec 2023 22:45:54 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id 0C333623D6;
- Thu, 14 Dec 2023 21:42:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D28C433CB;
- Thu, 14 Dec 2023 21:42:11 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id E2C25B824BD;
+ Thu, 14 Dec 2023 21:45:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E925BC433C7;
+ Thu, 14 Dec 2023 21:45:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,32 +41,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a49b3a61-9ac9-11ee-98e9-6d05b1d4d9a1
+X-Inumbo-ID: 282e156b-9aca-11ee-98e9-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702590132;
-	bh=Fn4jMwSH1u3E0YTNgaCsHAFFep7YcPQe4+hSTpEcooE=;
+	s=k20201202; t=1702590353;
+	bh=FMVbQUit/8TwQmnHYqaIVeehSOzQkCIrUTdCvymHnUU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Lp3t1QMMpwE0aHE5QUG8T22ahuqlsagN2OEUBr4VRE5OeVFZDBNo0oxzaCaNhe6L6
-	 VmmiEKayoTLuGkAFw0BAgIG03Fq7QW3t5fVUr6ZF4nXXh0YtYVGY3zEvsXYtg1fdbK
-	 eL9Zb5jI2r01I4kIi7XoIA721iLtD4c/K0DyOgNNXmTF1YDtboxFPnXyq8ZfLI+zeW
-	 ETUjr5e8e93TnnUcRMDQQe1+v+D7V1rFOv+fKC35n2M7qzVAuU1XTZM9E+kE9AaNIa
-	 Hguof1LEV6PUIysHOXGn0PdfgUO/GSG61kCPIihTKQ/MtVvBrGcK31JMFFizx/zz6A
-	 vuFhjiyy/gjHg==
-Date: Thu, 14 Dec 2023 13:42:10 -0800 (PST)
+	b=iKMFYx6zEm0CnexUMtasTjCVrjlFLyy0Ne+s46iAqkKIkI0H62yusPRThdrWKdB+s
+	 /LRmw5rrNiAFqopNNEKVliAh4NkNMaZseoKR1PaWya8a0azTXZlx3vorOyXPVCrp13
+	 LM5AStyycF2JQ6lM5e6wbyu+cvJmluBeQn1bCnmEy8bCMxiMKx3KgvgxYyE/A8R/Ul
+	 9k3m4QyvVSGAgg3wuyOTAW3C6yqqKXqqG5hauxMHE9112+504MUFwuSQcXbQyZuQJ9
+	 3lco0L/PEKFrPcoYOouZ54CHTPUy+IqKXy0Tu9PMIqm44AGvPawDX3vPZX5Nib3zvl
+	 eLdf7spRf8TZQ==
+Date: Thu, 14 Dec 2023 13:45:50 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Simone Ballarin <simone.ballarin@bugseng.com>
 cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
     Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 2/9] xen/arm: address violations of MISRA C:2012 Rule
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 3/9] xen/efi: address violations of MISRA C:2012 Rule
  11.8
-In-Reply-To: <1ad7937f9aa2086e76a87c8edf8105bd4476bf39.1702555387.git.maria.celeste.cesario@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2312141340460.3175268@ubuntu-linux-20-04-desktop>
-References: <cover.1702555386.git.maria.celeste.cesario@bugseng.com> <1ad7937f9aa2086e76a87c8edf8105bd4476bf39.1702555387.git.maria.celeste.cesario@bugseng.com>
+In-Reply-To: <4540a3850dae951dd6bc4f9b001c9816bde2e49e.1702555387.git.maria.celeste.cesario@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2312141345180.3175268@ubuntu-linux-20-04-desktop>
+References: <cover.1702555386.git.maria.celeste.cesario@bugseng.com> <4540a3850dae951dd6bc4f9b001c9816bde2e49e.1702555387.git.maria.celeste.cesario@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -82,61 +81,48 @@ On Thu, 14 Dec 2023, Simone Ballarin wrote:
 > Add missing const qualifiers in casts.
 > The variables are originally const-qualified.
 > There's no reason to drop the qualifiers.
-> No functional change.
 > 
 > Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
 > Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
 > ---
->  xen/arch/arm/bootfdt.c                 | 6 +++---
->  xen/arch/arm/include/asm/alternative.h | 2 +-
+>  xen/common/efi/boot.c | 6 +++---
+>  xen/common/version.c  | 2 +-
 >  2 files changed, 4 insertions(+), 4 deletions(-)
 > 
-> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-> index f496a8cf94..e7948ea3e8 100644
-> --- a/xen/arch/arm/bootfdt.c
-> +++ b/xen/arch/arm/bootfdt.c
-> @@ -377,7 +377,7 @@ static int __init process_chosen_node(const void *fdt, int node,
->          printk("linux,initrd-start property has invalid length %d\n", len);
->          return -EINVAL;
->      }
-> -    start = dt_read_paddr((void *)&prop->data, dt_size_to_cells(len));
-> +    start = dt_read_paddr((const void *)&prop->data, dt_size_to_cells(len));
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index 6110819918..efbec00af9 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -1248,10 +1248,10 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *Syste
+>  #endif
 >  
->      prop = fdt_get_property(fdt, node, "linux,initrd-end", &len);
->      if ( !prop )
-> @@ -390,7 +390,7 @@ static int __init process_chosen_node(const void *fdt, int node,
->          printk("linux,initrd-end property has invalid length %d\n", len);
->          return -EINVAL;
->      }
-> -    end = dt_read_paddr((void *)&prop->data, dt_size_to_cells(len));
-> +    end = dt_read_paddr((const void *)&prop->data, dt_size_to_cells(len));
+>      /* Adjust pointers into EFI. */
+> -    efi_ct = (void *)efi_ct + DIRECTMAP_VIRT_START;
+> -    efi_rs = (void *)efi_rs + DIRECTMAP_VIRT_START;
+> +    efi_ct = (const void *)efi_ct + DIRECTMAP_VIRT_START;
+> +    efi_rs = (const void *)efi_rs + DIRECTMAP_VIRT_START;
+>      efi_memmap = (void *)efi_memmap + DIRECTMAP_VIRT_START;
+> -    efi_fw_vendor = (void *)efi_fw_vendor + DIRECTMAP_VIRT_START;
+> +    efi_fw_vendor = (const void *)efi_fw_vendor + DIRECTMAP_VIRT_START;
+>  }
 >  
->      if ( start >= end )
->      {
-> @@ -541,7 +541,7 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
+>  /* SAF-1-safe */
+> diff --git a/xen/common/version.c b/xen/common/version.c
+> index d320135208..6ac5a52700 100644
+> --- a/xen/common/version.c
+> +++ b/xen/common/version.c
+> @@ -178,7 +178,7 @@ void __init xen_build_init(void)
+>      if ( &n[1] >= __note_gnu_build_id_end )
+>          return;
 >  
->      add_boot_module(BOOTMOD_FDT, paddr, fdt_totalsize(fdt), false);
+> -    sz = (void *)__note_gnu_build_id_end - (void *)n;
+> +    sz = (const void *)__note_gnu_build_id_end - (const void *)n;
 >  
-> -    ret = device_tree_for_each_node((void *)fdt, 0, early_scan_node, NULL);
-> +    ret = device_tree_for_each_node((const void *)fdt, 0, early_scan_node, NULL);
->      if ( ret )
->          panic("Early FDT parsing failed (%d)\n", ret);
-
-This cast can be dropped. The rest looks OK.
-
-
-> diff --git a/xen/arch/arm/include/asm/alternative.h b/xen/arch/arm/include/asm/alternative.h
-> index d3210e82f9..c7632668b6 100644
-> --- a/xen/arch/arm/include/asm/alternative.h
-> +++ b/xen/arch/arm/include/asm/alternative.h
-> @@ -20,7 +20,7 @@ struct alt_instr {
->  };
->  
->  /* Xen: helpers used by common code. */
-> -#define __ALT_PTR(a,f)		((void *)&(a)->f + (a)->f)
-> +#define __ALT_PTR(a,f)		((const void *)&(a)->f + (a)->f)
->  #define ALT_ORIG_PTR(a)		__ALT_PTR(a, orig_offset)
->  #define ALT_REPL_PTR(a)		__ALT_PTR(a, repl_offset)
+>      rc = xen_build_id_check(n, sz, &build_id_p, &build_id_len);
 >  
 > -- 
 > 2.40.0
