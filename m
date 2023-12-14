@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87371812CBE
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 11:18:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654404.1021324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57AD6812CC5
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 11:19:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654420.1021333 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDimr-0007Gx-FU; Thu, 14 Dec 2023 10:17:49 +0000
+	id 1rDioJ-0000ct-OQ; Thu, 14 Dec 2023 10:19:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654404.1021324; Thu, 14 Dec 2023 10:17:49 +0000
+Received: by outflank-mailman (output) from mailman id 654420.1021333; Thu, 14 Dec 2023 10:19:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDimr-0007FC-Ar; Thu, 14 Dec 2023 10:17:49 +0000
-Received: by outflank-mailman (input) for mailman id 654404;
- Thu, 14 Dec 2023 10:17:47 +0000
+	id 1rDioJ-0000bD-LN; Thu, 14 Dec 2023 10:19:19 +0000
+Received: by outflank-mailman (input) for mailman id 654420;
+ Thu, 14 Dec 2023 10:19:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h5bz=HZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rDimp-0006DQ-Dy
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 10:17:47 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rDioI-0000b5-Tl
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 10:19:18 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 062cf64c-9a6a-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 11:17:45 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40c38e292c8so2429645e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 02:17:45 -0800 (PST)
-Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
- j17-20020a05600c1c1100b0040b48690c49sm24179651wms.6.2023.12.14.02.17.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Dec 2023 02:17:44 -0800 (PST)
+ id 3c8b0fa3-9a6a-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 11:19:16 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a1d93da3eb7so916779366b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 02:19:16 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ v20-20020a170906489400b00a1de512fa24sm9109838ejq.191.2023.12.14.02.19.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Dec 2023 02:19:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,212 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 062cf64c-9a6a-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 3c8b0fa3-9a6a-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1702549064; x=1703153864; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xhWfcBNxu2blCdsb5H8j6/TvKkbd8xdFJdTYrKG7mJg=;
-        b=wbonGj0Kwk8uGuZs5Df6z/JKDA4ljr22cnEQoMVtufA+ApFOkmguKdQ9jNMADydugH
-         PJSloC33xFi4p/PqrC3p3hCmaXXp0UEf5qv1W/Bmc6DT8al8eaq+YRswlf1aAlWzofjt
-         u82pmecob7/9WsAGY+PDkczsurz2WQl1puSVs=
+        d=suse.com; s=google; t=1702549156; x=1703153956; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=SiyksQcBmQT3PvLWawxm5b6xgs4BZhJSJynakMVd7oM=;
+        b=UNxMeQhseR/Myr2t7jJArRwE9Sc9LVilwjezT9VkQ4J15/kjcpl6h4hpNvKSH9ApsG
+         gXklMU9o0O9UsRF+AeDCRTgoIiY+/3UUVPwvmMBYhGenzl8w3SYsevxogghOpiwkX5am
+         4Botn3ttJXAIbej67xXxR1O+DcF9K2VRYRqfIn9k3SPbm8k0aUe/TmAMZA0oufm2foaT
+         RzCfVA5LeOoir9lcPzzKzNh1ovsDE9ptYtekmRId0r01L3FKtnfceDjzQ7UH9UBE9rYB
+         SCXP5e3yxxuhrNxVq2njv3Uz5EppWP3x6f7ERu97uyA7h9bP5awTZ48f39OIXIDeC6fa
+         jO2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702549064; x=1703153864;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xhWfcBNxu2blCdsb5H8j6/TvKkbd8xdFJdTYrKG7mJg=;
-        b=ARjpeD1qSg8YxiHI8kvM7uh9vb8Og9SStoTgxLoVHKqxIWcDbDDVAcaINvQMdT0Sk6
-         cCVShmjABJkiJKiJi+qJd0aOvcgWGFz/EY8LAbfm/+1L76GEWyP3ElKXBvYCrb1IKGtE
-         2jzFpyl+s/82OElxWPGIkhiczUryDpDPjL8opmDFt47qDhJOK6pjHcGUSWcXUh669mwd
-         K+dcr0Mks2lZjl64DUkfUZ9CrxoMq4MxRjzK6ZhKR4mgC88yKaLa28WsvPZj1Vc2xy6m
-         fiwtB2Xs6XXIdKIH7wYbQlh2yslWKG8PzSMsoSO03yUl3rcHh9YCFGxoN+/iZ22p04Pb
-         rHdg==
-X-Gm-Message-State: AOJu0YyN1ZEVehztzAXLCsRLjATDnx7s6sgVmKLYD3ttNvFLPLU8v9QI
-	7paJWKJTxyiTSVCzlfoRStDQEsGmsQjOGbaZs/E=
-X-Google-Smtp-Source: AGHT+IEc3PMulJYY6bnUPnHgqHCAJ8klvXR3bgb3dZiWTdxk4PHeDJW2ocvrQ8nVeSVg2y6jHgGuqw==
-X-Received: by 2002:a05:600c:3b99:b0:40b:5e26:237b with SMTP id n25-20020a05600c3b9900b0040b5e26237bmr4736968wms.44.1702549064581;
-        Thu, 14 Dec 2023 02:17:44 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 4/4] automation: add x86-64 livepatching test
-Date: Thu, 14 Dec 2023 11:17:19 +0100
-Message-ID: <20231214101719.18770-5-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20231214101719.18770-1-roger.pau@citrix.com>
-References: <20231214101719.18770-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1702549156; x=1703153956;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=SiyksQcBmQT3PvLWawxm5b6xgs4BZhJSJynakMVd7oM=;
+        b=IKpTssusyuFZXVVd/NnG8/Uh0AWMY03j58pojeinhuQFxz2D8JlEGGPub/dr9UmS8G
+         WjMov/+pQN4ozOUez+lZcg5nn/tLX12uz7oXmQaznRRqzvaIBxN+tJ8FirfgNNP+oB2c
+         PGMFb0faFqSvGbk+op1//o42V3gA8NumeMlEd3ckk3QPN0jAR+7JOUf5RK6WrJgJsr9W
+         8lA4aIPxek+KmPFtu5fRybA35tsNhWQiwpHAchdZyWROfUGygAaZMMmXohGaojMwj4ja
+         zIHMwbUVYwH5BWxRrjNpol8s5xHIabEmFmVRV0expp3XNPLcIcIKOb+Rw7WTE1IiComD
+         brXA==
+X-Gm-Message-State: AOJu0YzMECsFliVwHuwfmufO9Tob41VcqKd3zKW075azIoXYtzlyArqp
+	ULYI65OuNm7u+CgCEq0Oa0Vd
+X-Google-Smtp-Source: AGHT+IGcPEtFBvkvBXtT/ngoNkAPiY8aoehAzLF2M1r/D2Ir1FD+mAZE9IplwbU7GVTcXv5u1gTTZA==
+X-Received: by 2002:a17:906:1787:b0:a19:a1ba:8cd6 with SMTP id t7-20020a170906178700b00a19a1ba8cd6mr4991638eje.116.1702549156430;
+        Thu, 14 Dec 2023 02:19:16 -0800 (PST)
+Message-ID: <6c5fd48d-a417-4731-8611-4f5f97865d91@suse.com>
+Date: Thu, 14 Dec 2023 11:19:15 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] xen/x86: ioapic: Bail out from timer_irq_works()
+ as soon as possible
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20231211122322.15815-1-julien@xen.org>
+ <20231211122322.15815-3-julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20231211122322.15815-3-julien@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Introduce a new gitlab tests for livepatching, using livepatch-build-tools,
-which better reflects how downstreams build live patches rather than the
-in-tree tests.
+On 11.12.2023 13:23, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> Currently timer_irq_works() will wait the full 100ms before checking
+> that pit0_ticks has been incremented at least 4 times.
+> 
+> However, the bulk of the BIOS/platform should not have a buggy timer.
+> So waiting for the full 100ms is a bit harsh.
+> 
+> Rework the logic to only wait until 100ms passed or we saw more than
+> 4 ticks. So now, in the good case, this will reduce the wait time
+> to ~50ms.
 
-The tests applies the dummy in-tree patch example, checks that the patch is
-applied correctly and then reverts and unloads it.
+Isn't this more like 40ms (4 ticks 10ms apart)? And really somewhere
+between 30 and 40, because the first tick has already partly elapsed?
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v2:
- - Split livepatch build into a separate script.
----
- automation/gitlab-ci/build.yaml               |  9 +++
- automation/gitlab-ci/test.yaml                |  8 +++
- automation/scripts/build-livepatch            | 27 ++++++++
- .../scripts/qemu-alpine-x86_64-livepatch.sh   | 68 +++++++++++++++++++
- 4 files changed, 112 insertions(+)
- create mode 100755 automation/scripts/build-livepatch
- create mode 100755 automation/scripts/qemu-alpine-x86_64-livepatch.sh
+> Take the opportunity to change the prototype of timer_irq_works() to
+> return a bool rather than int (which was already acting as a bool because
+> only 0/1 could be returned).
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 32af30ccedc9..d770bffb845e 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -358,6 +358,15 @@ alpine-3.18-gcc-debug:
-   variables:
-     CONTAINER: alpine:3.18
- 
-+alpine-3.18-gcc-livepatch:
-+  extends: .gcc-x86-64-build
-+  script:
-+    - ./automation/scripts/build-livepatch 2>&1 | tee build.log
-+  variables:
-+    CONTAINER: alpine:3.18
-+    EXTRA_XEN_CONFIG: |
-+      CONFIG_LIVEPATCH=y
-+
- debian-stretch-gcc-debug:
-   extends: .gcc-x86-64-build-debug
-   variables:
-diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 6aabdb9d156f..58a90be5ed0e 100644
---- a/automation/gitlab-ci/test.yaml
-+++ b/automation/gitlab-ci/test.yaml
-@@ -459,3 +459,11 @@ qemu-smoke-ppc64le-powernv9-gcc:
-   needs:
-     - qemu-system-ppc64-8.1.0-ppc64-export
-     - debian-bullseye-gcc-ppc64le-debug
-+
-+qemu-alpine-x86_64-gcc-livepatch:
-+  extends: .qemu-x86-64
-+  script:
-+    - ./automation/scripts/qemu-alpine-x86_64-livepatch.sh 2>&1 | tee ${LOGFILE}
-+  needs:
-+    - *x86-64-test-needs
-+    - alpine-3.18-gcc-livepatch
-diff --git a/automation/scripts/build-livepatch b/automation/scripts/build-livepatch
-new file mode 100755
-index 000000000000..ac86b17ae5e4
---- /dev/null
-+++ b/automation/scripts/build-livepatch
-@@ -0,0 +1,27 @@
-+#!/bin/bash -ex
-+
-+# Do a regular build first
-+./automation/scripts/build
-+
-+# Build a test livepatch using livepatch-build-tools.
-+
-+if [[ "$XEN_TARGET_ARCH" != "x86_64" ]]; then
-+    exit 1
-+fi
-+
-+BASE=xen/arch/x86/test/smoc-lp.c
-+ALT=xen/arch/x86/test/smoc-lp-alt.c
-+
-+[[ -f $BASE && -f $ALT ]]
-+
-+# git diff --no-index returns 0 if no differences, otherwise 1.
-+git diff --no-index --output=test.patch $BASE $ALT && exit 1
-+
-+BUILDID=$(readelf -Wn xen/xen-syms | sed -n -e 's/^.*Build ID: //p')
-+
-+git clone https://xenbits.xen.org/git-http/livepatch-build-tools.git
-+cd livepatch-build-tools
-+make
-+./livepatch-build -s ../ -p ../test.patch -o out -c ../xen/.config \
-+    --depends $BUILDID --xen-depends $BUILDID
-+cp out/test.livepatch ../binaries/test.livepatch
-diff --git a/automation/scripts/qemu-alpine-x86_64-livepatch.sh b/automation/scripts/qemu-alpine-x86_64-livepatch.sh
-new file mode 100755
-index 000000000000..da478cac4376
---- /dev/null
-+++ b/automation/scripts/qemu-alpine-x86_64-livepatch.sh
-@@ -0,0 +1,68 @@
-+#!/bin/bash
-+
-+set -ex
-+
-+cd binaries
-+# initrd.tar.gz is Dom0 rootfs
-+mkdir -p rootfs
-+cd rootfs
-+tar xvzf ../initrd.tar.gz
-+mkdir proc
-+mkdir run
-+mkdir srv
-+mkdir sys
-+rm var/run
-+cp -ar ../dist/install/* .
-+cp ../test.livepatch ./root/
-+cat << "EOF" >> etc/local.d/xen-lp.start
-+#!/bin/bash
-+
-+set -ex
-+
-+trap poweroff EXIT
-+
-+export LD_LIBRARY_PATH=/usr/local/lib
-+
-+xen-livepatch test && exit 1 || true
-+
-+xen-livepatch load /root/test.livepatch
-+
-+# Cannot fail now
-+xen-livepatch test
-+
-+xen-livepatch revert test
-+xen-livepatch unload test
-+
-+xen-livepatch test && exit 1 || true
-+
-+echo "SUCCESS"
-+EOF
-+chmod +x etc/local.d/xen-lp.start
-+echo "rc_verbose=yes" >> etc/rc.conf
-+# rebuild Dom0 rootfs
-+find . |cpio -H newc -o|gzip > ../xen-rootfs.cpio.gz
-+cd ../..
-+
-+cat >> binaries/pxelinux.0 << EOF
-+#!ipxe
-+
-+kernel xen console=com1 console_timestamps=boot
-+module bzImage console=hvc0
-+module xen-rootfs.cpio.gz
-+boot
-+EOF
-+
-+# Run the test
-+rm -f smoke.serial
-+timeout -k 1 360 \
-+qemu-system-x86_64 \
-+    -cpu qemu64,+svm \
-+    -m 2G -smp 2 \
-+    -monitor none -serial stdio \
-+    -nographic \
-+    -device virtio-net-pci,netdev=n0 \
-+    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0 |& \
-+        tee smoke.serial | sed 's/\r//'
-+
-+grep -q "SUCCESS" smoke.serial
-+exit 0
--- 
-2.43.0
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
+Jan
 
