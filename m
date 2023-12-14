@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45E71812D3C
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 11:43:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654440.1021364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8A23812E6C
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 12:19:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654445.1021374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDjBR-00011j-35; Thu, 14 Dec 2023 10:43:13 +0000
+	id 1rDjjO-0001iz-Od; Thu, 14 Dec 2023 11:18:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654440.1021364; Thu, 14 Dec 2023 10:43:13 +0000
+Received: by outflank-mailman (output) from mailman id 654445.1021374; Thu, 14 Dec 2023 11:18:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDjBQ-0000zQ-WA; Thu, 14 Dec 2023 10:43:12 +0000
-Received: by outflank-mailman (input) for mailman id 654440;
- Thu, 14 Dec 2023 10:43:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rDjjO-0001g6-LT; Thu, 14 Dec 2023 11:18:18 +0000
+Received: by outflank-mailman (input) for mailman id 654445;
+ Thu, 14 Dec 2023 11:18:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDjBP-0000zI-S7
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 10:43:11 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92a9cbf6-9a6d-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 11:43:09 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-50dfac6c0beso6065970e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 02:43:09 -0800 (PST)
+ id 1rDjjN-0001g0-4W
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 11:18:17 +0000
+Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
+ [2a00:1450:4864:20::52b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 79945258-9a72-11ee-98e9-6d05b1d4d9a1;
+ Thu, 14 Dec 2023 12:18:15 +0100 (CET)
+Received: by mail-ed1-x52b.google.com with SMTP id
+ 4fb4d7f45d1cf-54c7744a93fso11052816a12.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 03:18:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- vh2-20020a170907d38200b00a1be80a0b69sm9182928ejc.58.2023.12.14.02.43.08
- for <xen-devel@lists.xenproject.org>
+ hw18-20020a170907a0d200b00a1cbe52300csm9243152ejc.56.2023.12.14.03.18.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 02:43:08 -0800 (PST)
+ Thu, 14 Dec 2023 03:18:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,44 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92a9cbf6-9a6d-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 79945258-9a72-11ee-98e9-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702550589; x=1703155389; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=suse.com; s=google; t=1702552695; x=1703157495; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=PZVpokky+TFEHortVvpzOfyP1wjxhMg3ImUBtqh5rg0=;
-        b=gGtCNfyLD9Gt1/uNdHJYKKnYu/xp5lRGG7my3E34aMZYG/8LVgr8p3KpS30eTWow2B
-         P8ca4yVo4j2VXqvKY1SXYwk4pWPJZ/f+GoCI6VeroGfyCJ7fxDey77v/5Q/d4h3g42Lj
-         VTeysK7DL2JHN9rzXgs92mvACwR+3XSRCakdCcz9Y3IrJLrOZGOI+8l5ogSpJVweQAkH
-         hZDAkK3SgKVn5A5CzylghPiJkxkdZWDlS92oghe9tKX75XwF7xHsoLNjZtCpQsxJdnlV
-         phoc3n8JRJs8Wy8e5VaZbrWaFAkDtzIWqHA+mbD/YnjVN6MUg7P7mjo3P7HrE1xNBH3C
-         QTLg==
+        bh=bk3hkXb4nxoYgE1ftEY+4BzIcQQbOAkFV6q6EsHsQXA=;
+        b=IBz0/pYTZlov59fMMiztLpfX6xqTTcWP1RQhh6m0/gGHSwpmvEuL1K4P8HSo8vO1YE
+         H6JRMkFra/EdvGi1r54cZB0pW7HtX0KKNChNP3RpNzChqAQ94xckFeOKyYWdrClg3Ceu
+         7JWhcCzGcSkMgF/7n4XbQm5nH17tnFdBpNGKBUrEN9IkG0eLMTWruNr25fH+L5TgJO0/
+         goPe6h7UmCBKAwLluGfO6200bQsz33p+IjXK87osFjD5Oc7R2dNPOnE66k3qeG5tf28A
+         JEu27GzEjfBR2+877pg99ANZ9od3/G8z3Zxz3qShQXGJ328oD6MeIPl49H4h4PKAI7+N
+         m2Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702550589; x=1703155389;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1702552695; x=1703157495;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PZVpokky+TFEHortVvpzOfyP1wjxhMg3ImUBtqh5rg0=;
-        b=TjM2PMdmMfX55L1L4YHqK4b0eBZCWCEGtJODir5PjKejw8Putrx8cyBOu9tb928fEt
-         S9eWzLjUBO5+8R5VoM7RjnQhr/lZE3+vJZY9W043JhO4ut2vdCCNzAUCNH6aaVdr6t0X
-         Pw0bff2HiicPXlfudWv5VpIT/2yYUcVuv8ZHK8aGHArpeIu02+XZS0ctLTZPI1sa3TFp
-         DAn3bxy0rWlZXRF6mWRuP2EN6AFAzewL9TjAICOThP+AZKHHHIVXsJrGEaBkZKGEw7ot
-         +WngQnO4wH84USXwpoIW29P8HiMMtx2aizWIrlTrwDi1JoicsUHSqMHtgmXWqhEz3J77
-         togQ==
-X-Gm-Message-State: AOJu0YzpCgi6ahyj4pKVPFOrm7veSM5OZctkut22QAB1XsQxNpLd3Jz3
-	vL9XNSLgadhDQHYkOD7Uet4F0K19tAD1UzbxKANE
-X-Google-Smtp-Source: AGHT+IGMggLN8ETdOWbZhVYXIIb7kpl0Jh2jzXNLIvBnBjsN/XPF9W4oLGgL//QMdyMiqucj2tTRag==
-X-Received: by 2002:ac2:4542:0:b0:50d:12f6:da8a with SMTP id j2-20020ac24542000000b0050d12f6da8amr4112760lfm.48.1702550589187;
-        Thu, 14 Dec 2023 02:43:09 -0800 (PST)
-Message-ID: <dd07f28a-891e-48ed-a07c-eb3850811601@suse.com>
-Date: Thu, 14 Dec 2023 11:43:08 +0100
+        bh=bk3hkXb4nxoYgE1ftEY+4BzIcQQbOAkFV6q6EsHsQXA=;
+        b=nS0u7xFF949gCsN7h95rERrfTG5ziMgrNWsFrnuoKfhVJOXicwcmpHRFNxGtUXlY0E
+         bvbXx8XiQz9ldb2VxUR72lJMStUZc4AB95AJSqlBCPYvU6h/k1BrMFoOZ80knnOWTqBZ
+         5z40TwcDE8G6brPsqAnbdVqG/DttuTY00NFGKK59UJEyGjI5kgwT9UX3aKOWhI43OiOd
+         rpwf71xqEC3whgUZ9YGP30881v+vAxrWGBBRr7mI9yJEdPlm472HyapOeMos6D99B6Tt
+         7Im8ZwuiiQALyL1k2//mMz20wiaj8P859X9bO6j0sTrUfZYsmsKKCTlTOIBWoXU/yPo0
+         MA0A==
+X-Gm-Message-State: AOJu0YzAyn8Nti883+3GT/8tJnFPDUXgEOzExKpGXKMZzujm8aw4RS3J
+	WxivpiQlNg+oqL2NZlQ7RiYU
+X-Google-Smtp-Source: AGHT+IH3/ZBtQuiCeqLzc1uFJ7ENzFBXkEm8wFVeXGfj7shAh5ojkCujzqTuplRf0l1IYuMu/apChg==
+X-Received: by 2002:a17:907:e8f:b0:a18:b240:915f with SMTP id ho15-20020a1709070e8f00b00a18b240915fmr5572321ejc.69.1702552694831;
+        Thu, 14 Dec 2023 03:18:14 -0800 (PST)
+Message-ID: <4f6c3481-a44c-4176-a414-b32639556bb0@suse.com>
+Date: Thu, 14 Dec 2023 12:18:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: xen | Failed pipeline for staging | cad6f9a4
+Subject: Re: [PATCH v3 1/4] x86/livepatch: align functions to ensure minimal
+ distance between entry points
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <657adb903cbdd_2c95448341d4@gitlab-sidekiq-catchall-v2-66957bfcc9-q9pqb.mail>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20231214101719.18770-1-roger.pau@citrix.com>
+ <20231214101719.18770-2-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -108,91 +118,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <657adb903cbdd_2c95448341d4@gitlab-sidekiq-catchall-v2-66957bfcc9-q9pqb.mail>
+In-Reply-To: <20231214101719.18770-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.12.2023 11:40, GitLab wrote:
+On 14.12.2023 11:17, Roger Pau Monne wrote:
+> The minimal function size requirements for livepatch are either 5 bytes (for
+> jmp) or 9 bytes (for endbr + jmp) on x86, and always 4 bytes on Arm.  Ensure
+> that distance between functions entry points is always at least of the minimal
+> required size for livepatch instruction replacement to be successful.
 > 
+> Add an additional align directive to the linker script, in order to ensure that
+> the next section placed after the .text.* (per-function sections) is also
+> aligned to the required boundary, so that the distance of the last function
+> entry point with the next symbol is also of minimal size.
 > 
-> Pipeline #1106780344 has failed!
-> 
-> Project: xen ( https://gitlab.com/xen-project/hardware/xen )
-> Branch: staging ( https://gitlab.com/xen-project/hardware/xen/-/commits/staging )
-> 
-> Commit: cad6f9a4 ( https://gitlab.com/xen-project/hardware/xen/-/commit/cad6f9a4c12dd4d5cdb2620e3fe24727ee81c7ce )
-> Commit Message: smp: move cpu_is_offline() definition
-> 
-> It's all...
-> Commit Author: Jan Beulich ( https://gitlab.com/jbeulich )
-> 
-> 
-> Pipeline #1106780344 ( https://gitlab.com/xen-project/hardware/xen/-/pipelines/1106780344 ) triggered by Jan Beulich ( https://gitlab.com/jbeulich )
-> had 22 failed jobs.
-> 
-> Job #5751094611 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094611/raw )
-> 
-> Stage: build
-> Name: debian-bookworm-gcc-randconfig
-> Job #5751094255 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094255/raw )
-> 
-> Stage: build
-> Name: kernel-6.1.19-export
-> Job #5751094548 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094548/raw )
-> 
-> Stage: build
-> Name: archlinux-current-gcc-riscv64-debug-randconfig
-> Job #5751094078 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094078/raw )
-> 
-> Stage: analyze
-> Name: eclair-x86_64
-> Job #5751094580 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094580/raw )
-> 
-> Stage: build
-> Name: alpine-3.18-clang
-> Job #5751094585 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094585/raw )
-> 
-> Stage: build
-> Name: archlinux-gcc
-> Job #5751094587 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094587/raw )
-> 
-> Stage: build
-> Name: archlinux-gcc-debug
-> Job #5751094540 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094540/raw )
-> 
-> Stage: build
-> Name: archlinux-current-gcc-riscv64
-> Job #5751094593 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094593/raw )
-> 
-> Stage: build
-> Name: debian-stretch-clang
-> Job #5751094620 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094620/raw )
-> 
-> Stage: build
-> Name: fedora-gcc-debug
-> Job #5751094595 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094595/raw )
-> 
-> Stage: build
-> Name: debian-stretch-32-clang-debug
-> Job #5751094597 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094597/raw )
-> 
-> Stage: build
-> Name: debian-stretch-32-gcc-debug
-> Job #5751094603 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094603/raw )
-> 
-> Stage: build
-> Name: debian-bookworm-clang
-> Job #5751094608 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094608/raw )
-> 
-> Stage: build
-> Name: debian-bookworm-gcc
+> Note that it's possible for the compiler to end up using a higher function
+> alignment regardless of the passed value, so this change just make sure that
+> the minimum required for livepatch to work is present.
 
-Picking out this one:
+That's a possibility which we don't need to be concerned about. Yet isn't it
+also possible that we override a larger, deemed better (e.g. performance-wise)
+value? I'm somewhat concerned of that case. IOW is -falign-functions= really
+the right option to use here? (There may not be one which we would actually
+prefer to use.) Specifically -falign-functions (without a value, i.e. using a
+machine dependent default) is implied by -O2 and -O3, as per 13.2 gcc doc.
 
-Reinitialized existing Git repository in /builds/xen-project/hardware/xen/.git/
-fatal: unable to access 'https://gitlab.com/xen-project/hardware/xen.git/': SSL certificate problem: self signed certificate in certificate chain
+> --- a/xen/Kconfig
+> +++ b/xen/Kconfig
+> @@ -37,6 +37,24 @@ config CC_HAS_VISIBILITY_ATTRIBUTE
+>  config CC_SPLIT_SECTIONS
+>  	bool
+>  
+> +# Set function alignment.
+> +#
+> +# Allow setting on a boolean basis, and then convert such selection to an
+> +# integer for the build system and code to consume more easily.
+> +config CC_HAS_FUNCTION_ALIGNMENT
+> +	def_bool $(cc-option,-falign-functions=8)
 
-No idea what to do about it.
+How does this check make sure 4- or 16-byte alignment are also accepted as
+valid? (Requesting 8-byte alignment would be at least bogus on e.g. IA-64.)
+
+> +config FUNCTION_ALIGNMENT_4B
+> +	bool
+> +config FUNCTION_ALIGNMENT_8B
+> +	bool
+> +config FUNCTION_ALIGNMENT_16B
+> +	bool
+> +config FUNCTION_ALIGNMENT
+> +	int
+> +	default 16 if FUNCTION_ALIGNMENT_16B
+> +	default  8 if  FUNCTION_ALIGNMENT_8B
+> +	default  4 if  FUNCTION_ALIGNMENT_4B
+
+While for the immediate purpose here no "depends on CC_HAS_FUNCTION_ALIGNMENT"
+is okay, I still wonder if it wouldn't better be added in case further
+"select"s appear.
+
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -390,6 +390,9 @@ CFLAGS += -fomit-frame-pointer
+>  endif
+>  
+>  CFLAGS-$(CONFIG_CC_SPLIT_SECTIONS) += -ffunction-sections -fdata-sections
+> +ifdef CONFIG_FUNCTION_ALIGNMENT
+
+... e.g. this meaningless? Or is the lack of a default value leading to
+the option remaining undefined (rather than assigning some "default"
+default, e.g. 0)?
+
+> --- a/xen/arch/arm/xen.lds.S
+> +++ b/xen/arch/arm/xen.lds.S
+> @@ -44,6 +44,10 @@ SECTIONS
+>  #ifdef CONFIG_CC_SPLIT_SECTIONS
+>         *(.text.*)
+>  #endif
+> +#ifdef CONFIG_FUNCTION_ALIGNMENT
+> +       /* Ensure enough distance with the next placed section. */
+> +       . = ALIGN(CONFIG_FUNCTION_ALIGNMENT);
+> +#endif
+>  
+>         *(.fixup)
+
+Seeing .fixup nicely in context - can't that (and other specialized
+sections containing code) also be patched?
 
 Jan
 
