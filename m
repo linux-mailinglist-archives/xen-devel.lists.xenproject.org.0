@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCA8281307E
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 13:46:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654562.1021584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57E7F8130A5
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 13:56:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654566.1021593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDl6T-0005lK-As; Thu, 14 Dec 2023 12:46:13 +0000
+	id 1rDlG0-00087l-AH; Thu, 14 Dec 2023 12:56:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654562.1021584; Thu, 14 Dec 2023 12:46:13 +0000
+Received: by outflank-mailman (output) from mailman id 654566.1021593; Thu, 14 Dec 2023 12:56:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDl6T-0005j8-6O; Thu, 14 Dec 2023 12:46:13 +0000
-Received: by outflank-mailman (input) for mailman id 654562;
- Thu, 14 Dec 2023 12:46:11 +0000
+	id 1rDlG0-00085Q-7b; Thu, 14 Dec 2023 12:56:04 +0000
+Received: by outflank-mailman (input) for mailman id 654566;
+ Thu, 14 Dec 2023 12:56:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDl6R-0005j2-B5
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 12:46:11 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1rDlFy-00085K-3v
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 12:56:02 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c0f04129-9a7e-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 13:46:09 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a1f6433bc1eso112589466b.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 04:46:09 -0800 (PST)
+ id 212dba49-9a80-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 13:55:59 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2cc259392a6so56279301fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 04:55:59 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- sa16-20020a1709076d1000b00a1da72b8752sm9274533ejc.212.2023.12.14.04.46.07
+ ch13-20020a0564021bcd00b005485282a520sm1730096edb.75.2023.12.14.04.55.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 04:46:08 -0800 (PST)
+ Thu, 14 Dec 2023 04:55:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0f04129-9a7e-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 212dba49-9a80-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702557968; x=1703162768; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702558559; x=1703163359; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=lsyAzTx9akiZfijKEWKipOctHdoPXGdStYQoTmxwkGU=;
-        b=eStyOKTsV5WnerSd/USp5Mq5Pw2EmB2K7k68I/gzokcXlopB/CORCFtiiszjC20C/Y
-         KhmQxviyPP4bkq5l0WQqfSHltTFnkFNYk1AoUTZDe2bkwBs6b2EcBp51fiM5uKb5oyqR
-         YC6FLarNXhTKoifOI2gWrs1e3RoSDzaKylAP2GZzWlURdPSMzwAygAzH4xo6KVkJXMpU
-         UraN2/leefd5ao16diTxjOdkUwm8zNwtmL953Bf6FeFyFk81JbWZaXNXTOx7kd1zCM5d
-         cBXnQaAAJrslXgHdePKvtxaTsFuTU7REg3PPJAQOHCrXVtfuUQhAHbDYUHTmpVStbsdm
-         5PbQ==
+        bh=+QkoaH5WsVctKTNHsw0uJGdS4MR6bkE9ymMeyyLGWHo=;
+        b=Lsj19HXfacqXX7O0QkM+6oJXNSybTt+gLFNiKhdu3mnbv+IhcwJ22Dv/v/sdDmHPcF
+         X37i5Fa8OfViZhPMoBQwW3v2IkFUA/TCgg7Vj83nun0f5ovjuB1EMKpKGouJY2exlrn9
+         1V12nJWuBqfQnQQ2tFCQ8IAoKYIzSdL6jQ8MiDDqTWGVD06mxS1cHH11gJbbdruDoyh1
+         4wHhAd0vTS/0BZ6ZSrXO+VIL5yI74e/oR3L4SkbohZg5fFehaTD7AYX+e/jRUYOobfuV
+         0XSRuilCY6rPjzZP+OMfUbN1hI/tMp6yMy/W7QNJhfRRxEguzYYdddYy44xswL63bM/j
+         hBzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702557968; x=1703162768;
+        d=1e100.net; s=20230601; t=1702558559; x=1703163359;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lsyAzTx9akiZfijKEWKipOctHdoPXGdStYQoTmxwkGU=;
-        b=sTvq2nPJkYwJQgsWZUO0qMujfiY6GvxRLVn/pWsHzZp7D72dGwJItt8hJWX27HaaKG
-         li0OXOqsyqr9yLknXAcHuo7orgd68r022ohq0xN2ZZbqezT+kufdyZBi9B45Wwlr/vAz
-         yJKAnxocuGjCvyvskx1MIatW5R46svimhgHPkB0jwhVFmOBJZRyrFvhvIJ4GcJttG39H
-         8mju68NQ6JB1um4wjkt+XeOBD7yBPK4jDVZ+mL6iXME3wqf6JEDXz2zWK9Jn2KHTVl/W
-         RvpyBthsFuTrcJEgXX+DwdjehlijdjNE/AOb1TQeKv67z8EQqyDWFteVRH6cWJArIPAh
-         RbwA==
-X-Gm-Message-State: AOJu0YwEUiZPMI2As2Cj/wBkwZ9NwCuF3ltcveNnQSmw4XX3ka++sXLw
-	GRwQKoYO4D4x8YSBb48DxBfK
-X-Google-Smtp-Source: AGHT+IFe0NUpJ/WdwQm9RA1sMz8NDzACSVxNQLCnOYiT4onmNHJgmXkRrHJOD03a94tVZbFeI2CAaQ==
-X-Received: by 2002:a17:907:7e8b:b0:a1d:58c0:ed7a with SMTP id qb11-20020a1709077e8b00b00a1d58c0ed7amr10745143ejc.38.1702557968377;
-        Thu, 14 Dec 2023 04:46:08 -0800 (PST)
-Message-ID: <ea5d25db-f035-47b5-999d-72a6f670fcd6@suse.com>
-Date: Thu, 14 Dec 2023 13:46:07 +0100
+        bh=+QkoaH5WsVctKTNHsw0uJGdS4MR6bkE9ymMeyyLGWHo=;
+        b=IrRZrA3W6zb6yd8McYaxvM4NXbYSYEzfhrdC9kzQ4NVahmXqjel/yT4TbpDAOw/jlo
+         dWbzQqXLSd8eU3v1rivUavGAIn6IwzfpuL9wv82aiWkANE6/RmsIW3ZDjlCCweKfR/y6
+         4pORE0BVmPN0Ow9t/CcOA5UdpAEO1Uype9eFdvp6rtYOEKVK3GV8etQPjpkOTLb/zHB4
+         kSWiNvC2iezhrNxA+cTCnw36ma+1chyHd7++DvjfDmb5Z/HUEXl6/E09VwAf5kBoT0p8
+         UFruUdNHHBaXUutqhK7Q5dK6ty3BMnukcLSD399ZBaLvGlsHFh5YslzwWHwCxFAUFJ1e
+         GQzw==
+X-Gm-Message-State: AOJu0YxSNOQXQT6PMJLiqbZow304scgOikU38evJ+XRzJdaFF3l2xtwa
+	EtmtH5lcMqYVnxx7csgxbbck
+X-Google-Smtp-Source: AGHT+IEGjD6L85IxpCrAfW44BH75qJqrAjpdQnpTBlIuJC3yfio7B2LiPNtNrdxpqXWUhvKjkbUxUA==
+X-Received: by 2002:a2e:a5c3:0:b0:2cc:1ea9:c34 with SMTP id n3-20020a2ea5c3000000b002cc1ea90c34mr6128511ljp.63.1702558559380;
+        Thu, 14 Dec 2023 04:55:59 -0800 (PST)
+Message-ID: <a50a26c4-9de6-4443-8ee4-e5ce867fe90d@suse.com>
+Date: Thu, 14 Dec 2023 13:55:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/9] xen: add deviations for Rule 11.8
+Subject: Re: [PATCH v3 3/4] x86/livepatch: introduce a basic live patch test
+ to gitlab CI
 Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-Cc: consulting@bugseng.com, Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1702555386.git.maria.celeste.cesario@bugseng.com>
- <854747a97c4c7a70bfe1a30a038f2cc6aebfb566.1702555387.git.maria.celeste.cesario@bugseng.com>
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20231214101719.18770-1-roger.pau@citrix.com>
+ <20231214101719.18770-4-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,54 +115,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <854747a97c4c7a70bfe1a30a038f2cc6aebfb566.1702555387.git.maria.celeste.cesario@bugseng.com>
+In-Reply-To: <20231214101719.18770-4-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.12.2023 13:07, Simone Ballarin wrote:
-> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> @@ -292,6 +292,18 @@ constant expressions are required.\""
->  # Series 11
->  #
->  
-> +-doc_begin="Violations caused by container_of are due to pointer arithmetic operations
-> +with the provided offset. The resulting pointer is then immediately cast back to its
-> +original type, which preserves the qualifier. This use can be deemed as safe.
-> +Fixing this violation would require to increase code complexity and lower readability."
-> +-config=MC3R1.R11.8,reports+={safe,"any_area(any_loc(any_exp(macro(^container_of$))))"}
-> +-doc_end
-> +
-> +-doc_begin="This function is made to explicitly cast an error-valued pointer to a void
-> +pointer type to make it clear that's what's going on, so the violation is deliberate."
-> +-config=MC3R1.R11.8,reports+={deliberate,"all_area(context(^ERR_CAST\\(.*$))"}
-> +-doc_end
+On 14.12.2023 11:17, Roger Pau Monne wrote:
+> Introduce a basic livepatch test using the interface to run self modifying
+> tests.  The introduced test relies on changing a function from returning false
+> to returning true.
+> 
+> To simplify the burden of keeping a patch that can be provided to
+> livepatch-build-tools, introduce two new files: one containing the unpatched
+> test functions, and another one that contains the patched forms of such
+> functions.  Note that only the former is linked into the Xen image, the latter
+> is built but the object file is not consumed afterwards.  Do this to assert
+> that the file containing the patched functions continues to build.
+> 
+> Since livepatch testing will ensure that the functions are not patched previous
+> the applying the livepatch, allow the livepatch related tests to fail without
+> tainting the hypervisor.
+> 
+> Note the livepatch tests are not run as part of the self modifying checks
+> executed during boot, as they would obviously fail.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-While the wording is okay here, ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -248,6 +248,19 @@ Deviations related to MISRA C:2012 Rules:
->         If no bits are set, 0 is returned.
->       - Tagged as `safe` for ECLAIR.
->  
-> +   * - R11.8
-> +     - Violations caused by container_of are due to pointer arithmetic operations
-> +       with the provided offset. The resulting pointer is then immediately cast back to its
-> +       original type, which preserves the qualifier. This use can be deemed as safe.
-> +       Fixing this violation would require to increase code complexity and lower readability.
-> +     - Tagged as `safe` for ECLAIR.
-> +    
-> +   * - R11.8
-> +     - This function is made to explicitly cast an error-valued pointer to a
-> +       void pointer type to make it clear that's what's going on, so the
-> +       violation is deliberate.
-> +     - Tagged ad `deliberate` for ECLAIR.
-
-... "This function" here is entirely unclear. However, seeing ERR_CAST() has
-no users, wouldn't we be better off simply removing it? (Otherwise, nit:
-"Tagged as ...".)
+I'm still not overly happy with those comments though, but yes - -O2 is likely
+the only thing that matters in practice, until such time that we have a way to
+allow use of -Os without any Makefile changes or other custom overrides.
 
 Jan
-
 
