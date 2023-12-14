@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8595B812D37
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 11:40:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654438.1021353 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45E71812D3C
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 11:43:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654440.1021364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDj8r-0008Jk-Ka; Thu, 14 Dec 2023 10:40:33 +0000
+	id 1rDjBR-00011j-35; Thu, 14 Dec 2023 10:43:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654438.1021353; Thu, 14 Dec 2023 10:40:33 +0000
+Received: by outflank-mailman (output) from mailman id 654440.1021364; Thu, 14 Dec 2023 10:43:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDj8r-0008HW-Hv; Thu, 14 Dec 2023 10:40:33 +0000
-Received: by outflank-mailman (input) for mailman id 654438;
- Thu, 14 Dec 2023 10:40:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rDjBQ-0000zQ-WA; Thu, 14 Dec 2023 10:43:12 +0000
+Received: by outflank-mailman (input) for mailman id 654440;
+ Thu, 14 Dec 2023 10:43:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDj8q-0008GF-Ef
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 10:40:32 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 343f4a20-9a6d-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 11:40:31 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-551ee7d5214so914159a12.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 02:40:31 -0800 (PST)
+ id 1rDjBP-0000zI-S7
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 10:43:11 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 92a9cbf6-9a6d-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 11:43:09 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-50dfac6c0beso6065970e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 02:43:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ga22-20020a170906b85600b00a1d3e9e8be7sm9000308ejb.204.2023.12.14.02.40.30
+ vh2-20020a170907d38200b00a1be80a0b69sm9182928ejc.58.2023.12.14.02.43.08
+ for <xen-devel@lists.xenproject.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 02:40:30 -0800 (PST)
+ Thu, 14 Dec 2023 02:43:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +46,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 343f4a20-9a6d-11ee-98e9-6d05b1d4d9a1
+X-Inumbo-ID: 92a9cbf6-9a6d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702550431; x=1703155231; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=suse.com; s=google; t=1702550589; x=1703155389; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=cWi/xWteB0dJ+cLa6UZTA/zWrYQVrv5W0pjDjSwqS5s=;
-        b=D9SG5aIoRo0/fnduFmQTdUspGebfkaTdtswTjKHwY8Do5qgJGvSzYnE0GNsRYGK257
-         eikVSpPuz0azyl+hlmDSHClIp7+nHBGQAu2vkZbLGztrmxJXF3VN5gT9+WUzCkFQdKeC
-         y93pP8J4Fk026doTzDNF49wPwd5DgjIIo7Auj9xjmpKXIR5FA0H31N2mHARof1iVJR1Z
-         k1nxDOnJdtgCqMZsk+nlogAW4LWx1Mt8qBw+wUn/cgNOa520T07A7nRk74mUnRQInkyl
-         vfWkfkV0n9NYly/Z+ijqnonwmITf2ZW3chY/BubWctDzCiAI5VnQtghG9J7sNaQnktoB
-         GG9A==
+        bh=PZVpokky+TFEHortVvpzOfyP1wjxhMg3ImUBtqh5rg0=;
+        b=gGtCNfyLD9Gt1/uNdHJYKKnYu/xp5lRGG7my3E34aMZYG/8LVgr8p3KpS30eTWow2B
+         P8ca4yVo4j2VXqvKY1SXYwk4pWPJZ/f+GoCI6VeroGfyCJ7fxDey77v/5Q/d4h3g42Lj
+         VTeysK7DL2JHN9rzXgs92mvACwR+3XSRCakdCcz9Y3IrJLrOZGOI+8l5ogSpJVweQAkH
+         hZDAkK3SgKVn5A5CzylghPiJkxkdZWDlS92oghe9tKX75XwF7xHsoLNjZtCpQsxJdnlV
+         phoc3n8JRJs8Wy8e5VaZbrWaFAkDtzIWqHA+mbD/YnjVN6MUg7P7mjo3P7HrE1xNBH3C
+         QTLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702550431; x=1703155231;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1702550589; x=1703155389;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cWi/xWteB0dJ+cLa6UZTA/zWrYQVrv5W0pjDjSwqS5s=;
-        b=HpRM+IR/IjM8x+dlra2OTsp77Ac9lHW/QS+2rN+uCZOW7denFZD3qDD/INcgqbp6HN
-         qUX7Xn11EpLBDbwASyD1ajpVjTpHmkGvaByC7DFEt97DFzSMofcym2lc+Lci0F2zLqsp
-         iOkHPYYGMvP22SmIoESapeGIDkQMz92aZoTGTD6x9wCllY2a6Sif3+nqtR4IKQxaAtKp
-         bRaz8Z0tFHlqDLQ/6tPx8xxQo2schlCSP8eKoG+KoJe2t5h1/mClL322ZwdP3vApOsKF
-         V98agoTwlfrJZ9H+bx0jT+WxaqsH3EdZcFM247RS/ArqPeUb1UAT7v1fWFlIG/mPns+5
-         pczg==
-X-Gm-Message-State: AOJu0Yx6Pc9BLOw3YqL3DmHgY1EMRtorP4dG8VY8KA7ZManMDDoXBgti
-	UaAUKBRVzSjwy4reEZgjD4LT
-X-Google-Smtp-Source: AGHT+IEVktsKINVR2V5tJtIyVOjDq3r+pqqwkCTma4C6OtlgVLWNEMqJeG9EYa2qX2VtyLc4UufhFw==
-X-Received: by 2002:a17:906:af04:b0:a22:e827:fb7b with SMTP id lx4-20020a170906af0400b00a22e827fb7bmr4278422ejb.23.1702550431012;
-        Thu, 14 Dec 2023 02:40:31 -0800 (PST)
-Message-ID: <302a5dde-5b08-4a2d-8571-b28dfc8fb130@suse.com>
-Date: Thu, 14 Dec 2023 11:40:29 +0100
+        bh=PZVpokky+TFEHortVvpzOfyP1wjxhMg3ImUBtqh5rg0=;
+        b=TjM2PMdmMfX55L1L4YHqK4b0eBZCWCEGtJODir5PjKejw8Putrx8cyBOu9tb928fEt
+         S9eWzLjUBO5+8R5VoM7RjnQhr/lZE3+vJZY9W043JhO4ut2vdCCNzAUCNH6aaVdr6t0X
+         Pw0bff2HiicPXlfudWv5VpIT/2yYUcVuv8ZHK8aGHArpeIu02+XZS0ctLTZPI1sa3TFp
+         DAn3bxy0rWlZXRF6mWRuP2EN6AFAzewL9TjAICOThP+AZKHHHIVXsJrGEaBkZKGEw7ot
+         +WngQnO4wH84USXwpoIW29P8HiMMtx2aizWIrlTrwDi1JoicsUHSqMHtgmXWqhEz3J77
+         togQ==
+X-Gm-Message-State: AOJu0YzpCgi6ahyj4pKVPFOrm7veSM5OZctkut22QAB1XsQxNpLd3Jz3
+	vL9XNSLgadhDQHYkOD7Uet4F0K19tAD1UzbxKANE
+X-Google-Smtp-Source: AGHT+IGMggLN8ETdOWbZhVYXIIb7kpl0Jh2jzXNLIvBnBjsN/XPF9W4oLGgL//QMdyMiqucj2tTRag==
+X-Received: by 2002:ac2:4542:0:b0:50d:12f6:da8a with SMTP id j2-20020ac24542000000b0050d12f6da8amr4112760lfm.48.1702550589187;
+        Thu, 14 Dec 2023 02:43:09 -0800 (PST)
+Message-ID: <dd07f28a-891e-48ed-a07c-eb3850811601@suse.com>
+Date: Thu, 14 Dec 2023 11:43:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] xen/x86_emulate: address violations of MISRA
- C:2012 Rule 14.4
+Subject: Re: xen | Failed pipeline for staging | cad6f9a4
 Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: consulting@bugseng.com,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1702310368.git.maria.celeste.cesario@bugseng.com>
- <da78956b9dcb09ef78cc31debb58ad781b33dbe9.1702310368.git.maria.celeste.cesario@bugseng.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <657adb903cbdd_2c95448341d4@gitlab-sidekiq-catchall-v2-66957bfcc9-q9pqb.mail>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,27 +108,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <da78956b9dcb09ef78cc31debb58ad781b33dbe9.1702310368.git.maria.celeste.cesario@bugseng.com>
+In-Reply-To: <657adb903cbdd_2c95448341d4@gitlab-sidekiq-catchall-v2-66957bfcc9-q9pqb.mail>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.12.2023 17:10, Simone Ballarin wrote:
-> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+On 14.12.2023 11:40, GitLab wrote:
 > 
-> The xen sources contain violations of MISRA C:2012 Rule 14.4 whose
-> headline states:
-> "The controlling expression of an if statement and the controlling
-> expression of an iteration-statement shall have essentially Boolean type".
 > 
-> Add comparisons to avoid using enum constants as controlling expressions
-> to comply with Rule 14.4.
-> No functional change.
+> Pipeline #1106780344 has failed!
 > 
-> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
-> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+> Project: xen ( https://gitlab.com/xen-project/hardware/xen )
+> Branch: staging ( https://gitlab.com/xen-project/hardware/xen/-/commits/staging )
+> 
+> Commit: cad6f9a4 ( https://gitlab.com/xen-project/hardware/xen/-/commit/cad6f9a4c12dd4d5cdb2620e3fe24727ee81c7ce )
+> Commit Message: smp: move cpu_is_offline() definition
+> 
+> It's all...
+> Commit Author: Jan Beulich ( https://gitlab.com/jbeulich )
+> 
+> 
+> Pipeline #1106780344 ( https://gitlab.com/xen-project/hardware/xen/-/pipelines/1106780344 ) triggered by Jan Beulich ( https://gitlab.com/jbeulich )
+> had 22 failed jobs.
+> 
+> Job #5751094611 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094611/raw )
+> 
+> Stage: build
+> Name: debian-bookworm-gcc-randconfig
+> Job #5751094255 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094255/raw )
+> 
+> Stage: build
+> Name: kernel-6.1.19-export
+> Job #5751094548 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094548/raw )
+> 
+> Stage: build
+> Name: archlinux-current-gcc-riscv64-debug-randconfig
+> Job #5751094078 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094078/raw )
+> 
+> Stage: analyze
+> Name: eclair-x86_64
+> Job #5751094580 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094580/raw )
+> 
+> Stage: build
+> Name: alpine-3.18-clang
+> Job #5751094585 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094585/raw )
+> 
+> Stage: build
+> Name: archlinux-gcc
+> Job #5751094587 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094587/raw )
+> 
+> Stage: build
+> Name: archlinux-gcc-debug
+> Job #5751094540 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094540/raw )
+> 
+> Stage: build
+> Name: archlinux-current-gcc-riscv64
+> Job #5751094593 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094593/raw )
+> 
+> Stage: build
+> Name: debian-stretch-clang
+> Job #5751094620 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094620/raw )
+> 
+> Stage: build
+> Name: fedora-gcc-debug
+> Job #5751094595 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094595/raw )
+> 
+> Stage: build
+> Name: debian-stretch-32-clang-debug
+> Job #5751094597 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094597/raw )
+> 
+> Stage: build
+> Name: debian-stretch-32-gcc-debug
+> Job #5751094603 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094603/raw )
+> 
+> Stage: build
+> Name: debian-bookworm-clang
+> Job #5751094608 ( https://gitlab.com/xen-project/hardware/xen/-/jobs/5751094608/raw )
+> 
+> Stage: build
+> Name: debian-bookworm-gcc
 
-Somewhat hesitantly, as indicated before:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Picking out this one:
+
+Reinitialized existing Git repository in /builds/xen-project/hardware/xen/.git/
+fatal: unable to access 'https://gitlab.com/xen-project/hardware/xen.git/': SSL certificate problem: self signed certificate in certificate chain
+
+No idea what to do about it.
 
 Jan
 
