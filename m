@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE13F813576
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 16:57:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654671.1021835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3DE38135AA
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 17:05:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654675.1021847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDo5Y-00060g-QA; Thu, 14 Dec 2023 15:57:28 +0000
+	id 1rDoCZ-0008WH-IV; Thu, 14 Dec 2023 16:04:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654671.1021835; Thu, 14 Dec 2023 15:57:28 +0000
+Received: by outflank-mailman (output) from mailman id 654675.1021847; Thu, 14 Dec 2023 16:04:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDo5Y-0005yW-N3; Thu, 14 Dec 2023 15:57:28 +0000
-Received: by outflank-mailman (input) for mailman id 654671;
- Thu, 14 Dec 2023 15:57:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rDoCZ-0008Sy-FA; Thu, 14 Dec 2023 16:04:43 +0000
+Received: by outflank-mailman (input) for mailman id 654675;
+ Thu, 14 Dec 2023 16:04:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDo5X-0005yL-5X
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 15:57:27 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78a58711-9a99-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 16:57:24 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-55297485c04so41716a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 07:57:24 -0800 (PST)
+ id 1rDoCX-0008Sq-UR
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 16:04:41 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b408c96-9a9a-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 17:04:38 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a1915034144so1084216666b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 08:04:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- el13-20020a056402360d00b005527de2aecfsm528598edb.42.2023.12.14.07.57.22
+ z9-20020a170906d00900b009c5c5c2c5a4sm9550394ejy.219.2023.12.14.08.04.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 07:57:23 -0800 (PST)
+ Thu, 14 Dec 2023 08:04:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78a58711-9a99-11ee-98e9-6d05b1d4d9a1
+X-Inumbo-ID: 7b408c96-9a9a-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702569443; x=1703174243; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702569878; x=1703174678; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=qu/e6yITpwgTdF2nyZ0igoQI83bYXMlbflOh4TbbvaY=;
-        b=FUbuX2uXBF8BkYCclWR5/dFHjn80K4flU8JRVVoO5+6K2AmhDLmRE3XzIalJoBMAOg
-         jLFCGCFvRS8F5brMAehf5mZQqD6pRhUTOQOPLvfK/FTg3pd6kcuSvzOfQPGlpr5RCBhR
-         KeKsNYzhSkmB9GSocM1KXwfqvmRQLjUXPvl7MfLSCykQqHhfunySK18t/PorXv+nvfll
-         OAQLTPNdTIjagvke2DsywZs249zqu9ICP99CfBskItFTtVGLbltw2vYsgbnT6E4he+Az
-         aCB0D35oHmUFwk76iHn0jgllsdZ0UgXgqBkVFhUxLkYg87MdVXBdfA3WRaQ7dxG6acKb
-         jvoQ==
+        bh=HcFfTIiTFIffAV2LOgSTTjZ+M5y+zCjTyK4mjfr5F+g=;
+        b=MwuzBMPLRqSA3EesltLIYxVtSKMde4uZk2qrzn2eT5CDwfCAA6fM+xgqIvuVOcU3vU
+         1w4Wv1Bdhyad804jQc8DKHvgXGC/wSh6R+W+afjLMgT6U0mFFsyVmTwNCeFS+Z+pHyWp
+         dgDwXTXf3eYqt6w+Y48CQoGNtQN+m6PHehA/bYE09qm25/xZx9SZlGVdm/FRo738SaXK
+         33nBpU1vxrmNkt6snQKI+aRGQyXVbOLNeAKHvPlqYNsHLw8t7qWdrdJaMsUP1fMX7NsK
+         g/FvUCJDIofRqqQutOK1bsDQmsuD5z7yMd4DDE3dVbID27LbnleUZATImtEkKHKhLm4C
+         EVkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702569443; x=1703174243;
+        d=1e100.net; s=20230601; t=1702569878; x=1703174678;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qu/e6yITpwgTdF2nyZ0igoQI83bYXMlbflOh4TbbvaY=;
-        b=Qh6Znd2csHJNLvGh8GV/6Oz1Rg7ETDJKMllx9YiIWHXEdo3ilGWRDowMUVmcyd3frk
-         hL5QtHr35nNqhRfvmRufjnT4roaw4hfO6wvTW4R7tmtcl0bEvxt1PvJvfX1/AH//sIPL
-         /Lq/HNr86obXofyPQ0jbJc76MVO72O1bzQSNCvTYjhMNnhgWO6JvrG99N7+/kjatAhCW
-         NeK8rj9bNcXf+TxUARds69LC3cz+dTsPSBsUFYBpPcCnR49Y6BqEPEoXUg3fu2hNxmb2
-         xto+xn/fHEASeCLNebecVuHD7/n3WsvCJ1XmxX3OZ8hYQDjMcquK77C26V+igT+/JIps
-         RvGg==
-X-Gm-Message-State: AOJu0YxN6KmhYJAkipqlv+X37ZhEUKlohg79rhNLHkj/vWHliKWtdlhQ
-	F8t6XlWsixQpg7D/1q/32owU
-X-Google-Smtp-Source: AGHT+IEpMk9QPOKHkB+kmSLEgb+m7bX2ax2nczAgb/w0mhbdVdP1IYvpzRYxRzoCf17dTJjISKweOA==
-X-Received: by 2002:a50:ab5c:0:b0:552:2bb7:2e0b with SMTP id t28-20020a50ab5c000000b005522bb72e0bmr731002edc.91.1702569443654;
-        Thu, 14 Dec 2023 07:57:23 -0800 (PST)
-Message-ID: <ccef1adc-af39-43b2-8f97-ed3895e8809d@suse.com>
-Date: Thu, 14 Dec 2023 16:57:22 +0100
+        bh=HcFfTIiTFIffAV2LOgSTTjZ+M5y+zCjTyK4mjfr5F+g=;
+        b=cbbPFSY0jqJBsGy82nX+8ls04l5g6E7zTNvvxnoaGQHnBZA34H2jXasdXdZT3sgsiH
+         E4zTHSidiFQLmth6O+3es8kd5LPnB+H7wLPQ90mWR7ai/508G7kLhg4p6S27nH/4Fu7E
+         gjNAAzxL0wjrghR+ZPRCt8EpVICkkDpkag5SXLRUGRHy0eh6wvh1XSQPVA32Jp671hTa
+         jgy/aSi78dBFlWEyvSUHhcbCeiSnFoIJGanpVBcNPlQR/Sz8Ma8OqOtCdzopfqVMRoI/
+         JQLOyZnxy/hxwxtWXKuPl+6MW8kE1uBmeONH7kuydLlITrGepWkeGshWZpweunZ9EBoh
+         H4DA==
+X-Gm-Message-State: AOJu0YxxmR/nPvacnZ9ttKBSJxJhfkmnKrl1KpDLiMWNn6obAIRcWLQV
+	OPwKrKBHyPd/1iJCOhGlOYNv
+X-Google-Smtp-Source: AGHT+IE58Y7rYWKvPcTjTnJCM6yKthFuhSoiBhFnNbg3IVm7oL3TNIsrXeGJwTLewcpjnH+jZrkO4w==
+X-Received: by 2002:a17:906:b2d6:b0:a1d:4883:e066 with SMTP id cf22-20020a170906b2d600b00a1d4883e066mr4997187ejb.70.1702569877860;
+        Thu, 14 Dec 2023 08:04:37 -0800 (PST)
+Message-ID: <c431a7ac-ac4d-4de2-969a-ad2acf1a7aee@suse.com>
+Date: Thu, 14 Dec 2023 17:04:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 32/39] xen/riscv: add minimal stuff to asm/page.h to
- build full Xen
+Subject: Re: [PATCH v2 33/39] xen/riscv: add minimal stuff to asm/processor.h
+ to build full Xen
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
@@ -90,7 +90,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <34a4bc023eb50e1d1cf70fa149825c51f2f4555f.1700761381.git.oleksii.kurochko@gmail.com>
+ <11f177882b74c60233626075a69bdd00d3da2311.1700761381.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,35 +115,45 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <34a4bc023eb50e1d1cf70fa149825c51f2f4555f.1700761381.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <11f177882b74c60233626075a69bdd00d3da2311.1700761381.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.11.2023 11:30, Oleksii Kurochko wrote:
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-I wonder though ...
-
-> --- a/xen/arch/riscv/include/asm/page.h
-> +++ b/xen/arch/riscv/include/asm/page.h
-> @@ -6,6 +6,7 @@
+> --- a/xen/arch/riscv/include/asm/processor.h
+> +++ b/xen/arch/riscv/include/asm/processor.h
+> @@ -12,6 +12,9 @@
+>  
 >  #ifndef __ASSEMBLY__
 >  
->  #include <xen/const.h>
-> +#include <xen/bug.h>
->  #include <xen/types.h>
->  
->  #include <asm/mm.h>
-> @@ -32,6 +33,9 @@
->  #define PTE_LEAF_DEFAULT            (PTE_VALID | PTE_READABLE | PTE_WRITABLE)
->  #define PTE_TABLE                   (PTE_VALID)
->  
-> +/* TODO */
-> +#define PAGE_HYPERVISOR 0
+> +/* TODO: need to be implemeted */
+> +#define get_processor_id() 0
 
-... whether this couldn't be defined properly right away.
+Please don't re-introduce this - it was just recently dropped from the
+code base.
+
+> @@ -53,6 +56,18 @@ struct cpu_user_regs
+>      unsigned long pregs;
+>  };
+>  
+> +/* TODO: need to implement */
+> +#define cpu_to_core(_cpu)   (0)
+> +#define cpu_to_socket(_cpu) (0)
+
+No need for leading underscores here.
+
+> +static inline void cpu_relax(void)
+> +{
+> +	int dummy;
+> +	/* In lieu of a halt instruction, induce a long-latency stall. */
+> +	__asm__ __volatile__ ("div %0, %0, zero" : "=r" (dummy));
+
+Any reason for this, when Arm's is just barrier(), and apparently they got
+away with this quite fine? Also isn't this causing a division by zero,
+which I'd expect to cause some kind of exception? (Terminology-wise I'm of
+course biased by x86, where "halt instruction" wouldn't be suitable to use
+here. But if that terminology is fine on RISC-V, then obviously no
+objection.)
 
 Jan
 
