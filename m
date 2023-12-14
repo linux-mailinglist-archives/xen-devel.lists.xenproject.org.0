@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F276B8132DB
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 15:19:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654610.1021714 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5F8E8133C9
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 16:02:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654614.1021724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDmYN-0003vA-25; Thu, 14 Dec 2023 14:19:07 +0000
+	id 1rDnDS-0005k9-Ao; Thu, 14 Dec 2023 15:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654610.1021714; Thu, 14 Dec 2023 14:19:07 +0000
+Received: by outflank-mailman (output) from mailman id 654614.1021724; Thu, 14 Dec 2023 15:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDmYM-0003tB-US; Thu, 14 Dec 2023 14:19:06 +0000
-Received: by outflank-mailman (input) for mailman id 654610;
- Thu, 14 Dec 2023 14:19:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rDnDS-0005hl-7O; Thu, 14 Dec 2023 15:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 654614;
+ Thu, 14 Dec 2023 15:01:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDmYM-0003t4-4N
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 14:19:06 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bbc7e57e-9a8b-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 15:19:03 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50bf898c43cso7968775e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 06:19:03 -0800 (PST)
+ id 1rDnDR-0005hd-3V
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 15:01:33 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aa5bdfc9-9a91-11ee-98e9-6d05b1d4d9a1;
+ Thu, 14 Dec 2023 16:01:31 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a1ec87a7631so731176166b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 07:01:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x9-20020a056402414900b005528b3b3d95sm86577eda.34.2023.12.14.06.19.02
+ re14-20020a170907a2ce00b00a1f751d2ba4sm8824048ejc.99.2023.12.14.07.01.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 06:19:02 -0800 (PST)
+ Thu, 14 Dec 2023 07:01:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbc7e57e-9a8b-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: aa5bdfc9-9a91-11ee-98e9-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702563543; x=1703168343; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702566091; x=1703170891; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CflFT3wIJhbc7Wiv8StCwpl5nqcG2FukpUUb5nB1+Lc=;
-        b=Rr7hIxXxMHq3mrEsmJZctCtF+lxbS3HLBhmdjFsjE6zKWG/ZdPqB/qyIkCRSJTU62A
-         5yMDYsGzyaE6J3fxYCkhz8w93NFURDot8eBIxALp7Vw5aSoDnUdwGN4ituoudisPN/L2
-         oGrLx8oHNN00gO2/nJF4Rt/tuP412XKwj036LQj/OUpTrJEhEFbb4m3eAE8GXzUyfciI
-         JmF+mr7KTyAavIBCstqSxFmLIAKtk0C51iEFOfzbNxmvMKIiHOk1DCqoF7pNf1VzCPTE
-         LxLRSm6nW9sWBU2M5RaePBy7nwaaScmKLyXLdI+9f54EjAC6a1beZQA+QYMDMRTXaeBU
-         JTyw==
+        bh=vUuDz8H3VIsylHrOUwSIpaexVCt5dsQJH7N5vrjmoq4=;
+        b=A1GidsJjtJZ4Wb5U4NK6NIl4A7lSb39gZXem4o4KLcWd2mlpBSEGcPQ7gWB1+N+hyI
+         SoCTVD3e7AR8hEa+bjhKYf6ur9nPPMr9yYlniZpe5qnLsAyFbRq7JaMlm3DtOZNoyOAn
+         xPFGQZU9ziMUUABgjaJyZoGDGOlHqnNScEedFClyn1dlAYWVvzp0fjMuhHTSozIMeRPr
+         N37/hi56rXIYLMikye+1qBckmSHPm8C3VvCkQAX2dkHxZ+ZB8uJasyeQuWQ4qCJEIDR2
+         DD4GW5ovJabATB5VD5R/Bzjx3+oU93IQxfYY7hNLzw0vy9Yt62jja98P9lodBRXBVCge
+         b8qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702563543; x=1703168343;
+        d=1e100.net; s=20230601; t=1702566091; x=1703170891;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CflFT3wIJhbc7Wiv8StCwpl5nqcG2FukpUUb5nB1+Lc=;
-        b=IRD+ekFvm6zT139cJiL5K4UjjbRo69N6+kv4f2CDlI7gLOecHM1X4QhbeM1HoGPo1C
-         e4pm25bvmEZMWL1z8s/SG4vrcnfbVJ8DeXKbxMIiGlAxSxMjvaiVX/H+sJi+e5DoRNkJ
-         ZW2wxsJPxhAkXzkzo5M/+AaLl4rUMZ1kFj++JKw9rZiX/aD8/xxtL7sSurGJOENjT8rZ
-         r3LAqnExU4we0/h9QhtpItx7vhcF5gYGs84pn0b2NmTjqEKmTh8qzbN0BR987M0PD8k4
-         QZnSnlb2PlFN10scc6V3eoBtFJonEjiQbQBHCpHamYZBa4GwJ8FuCiKH65+Bjoqvs6vn
-         tPEg==
-X-Gm-Message-State: AOJu0YwJF73/asRsphXFK37OEwS3IvMh8V8vPi0xbPE3vDCLkMgubSSV
-	MYRtlGX5kjr04nfkknyasPDs
-X-Google-Smtp-Source: AGHT+IEvJtHd/K000S76f4Cu0asVd9GBMwv3Ube3BNAQ9ClThgcJxukRCRHr0PXE4ts2hRrWcNTqzg==
-X-Received: by 2002:a05:6512:aca:b0:50e:d27:a16b with SMTP id n10-20020a0565120aca00b0050e0d27a16bmr1389824lfu.77.1702563543244;
-        Thu, 14 Dec 2023 06:19:03 -0800 (PST)
-Message-ID: <46462554-f040-4c34-874d-2d0455707731@suse.com>
-Date: Thu, 14 Dec 2023 15:19:02 +0100
+        bh=vUuDz8H3VIsylHrOUwSIpaexVCt5dsQJH7N5vrjmoq4=;
+        b=HKBaH5sANPi+/+NW89HptaP0HuiqQyqrGLUhZALgWt1dME5TZOisyba8OWm0UUbv65
+         Vh9Zj34DI3QTXpRQ+pyGfNPn9fBVPxCCIrqXsEkXAANmLn2sH7YwdS/+wdofpLU6KwBP
+         sejq1bBzik4QgPii4LV2sTtGVVaE227KxFh3ZXc5hnYgFlAwpNjl+gxDKDmetMARtpju
+         8o8/78I/MEHLYjGcZtgGgCTfHqPmh0ay4byf8oNeVETAkaz83WDyqWjli30LtaoLi3jl
+         NLhC9JrOxhjrWaz3Wof+IWtnXsIb+XTQbhDXKa6Q3cOjw9co+BXm4lAQC9wjzW4f1gVR
+         sXtg==
+X-Gm-Message-State: AOJu0YwAEOsAYOnssk7KzeQAtZ1uxG8+hp8ku0d2t+sMG7KUgk8ia2V1
+	LHFYE0yf808YHrLXie8+Z3mg
+X-Google-Smtp-Source: AGHT+IHu+nIhUhPpaYk7OpvYIrYUb6Xs8epeNFc3r+rjnSdYuzUtyV1/bNKjMElvGpl/13LHH3LE7g==
+X-Received: by 2002:a17:906:a3d8:b0:a19:420b:2e26 with SMTP id ca24-20020a170906a3d800b00a19420b2e26mr5588445ejb.76.1702566091108;
+        Thu, 14 Dec 2023 07:01:31 -0800 (PST)
+Message-ID: <ceaa9575-7844-42cd-afb3-7c3d4a6b864c@suse.com>
+Date: Thu, 14 Dec 2023 16:01:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 25/39] xen/riscv: introduce asm/p2m.h
@@ -119,129 +119,16 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24.11.2023 11:30, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/p2m.h
-> @@ -0,0 +1,105 @@
-> +#ifndef __ASM_RISCV_P2M_H__
-> +#define __ASM_RISCV_P2M_H__
-> +
-> +#include <asm/page-bits.h>
-> +
-> +#define paddr_bits PADDR_BITS
-> +
-> +/*
-> + * List of possible type for each page in the p2m entry.
-> + * The number of available bit per page in the pte for this purpose is 4 bits.
-> + * So it's possible to only have 16 fields. If we run out of value in the
-> + * future, it's possible to use higher value for pseudo-type and don't store
-> + * them in the p2m entry.
-> + */
-> +typedef enum {
-> +    p2m_invalid = 0,    /* Nothing mapped here */
-> +    p2m_ram_rw,         /* Normal read/write guest RAM */
-> +    p2m_ram_ro,         /* Read-only; writes are silently dropped */
-> +    p2m_mmio_direct_dev,/* Read/write mapping of genuine Device MMIO area */
-> +    p2m_mmio_direct_nc, /* Read/write mapping of genuine MMIO area non-cacheable */
-> +    p2m_mmio_direct_c,  /* Read/write mapping of genuine MMIO area cacheable */
-> +    p2m_map_foreign_rw, /* Read/write RAM pages from foreign domain */
-> +    p2m_map_foreign_ro, /* Read-only RAM pages from foreign domain */
-> +    p2m_grant_map_rw,   /* Read/write grant mapping */
-> +    p2m_grant_map_ro,   /* Read-only grant mapping */
-> +    /* The types below are only used to decide the page attribute in the P2M */
-> +    p2m_iommu_map_rw,   /* Read/write iommu mapping */
-> +    p2m_iommu_map_ro,   /* Read-only iommu mapping */
-> +    p2m_max_real_type,  /* Types after this won't be store in the p2m */
-> +} p2m_type_t;
-
-As indicated before, I think you should have only those types here which
-you're sure you'll need, or even just those which you really need right
-away. I question in particular p2m_mmio_direct_*, which all look like
-you simply took them from Arm, without regard as to applicability to
-RISC-V. The fewer types you have here, the easier it is going to be to
-tell what needs adding and what is already _properly_ supported.
-
-> +#include <xen/p2m-common.h>
-> +
-> +static inline int get_page_and_type(struct page_info *page,
-> +                                    struct domain *domain,
-> +                                    unsigned long type)
-> +{
-> +    BUG();
-> +    return 1;
-> +}
-
-Imo despite the BUG() any such stub would better return failure, just
-like ...
-
-> +/* Look up a GFN and take a reference count on the backing page. */
-> +typedef unsigned int p2m_query_t;
-> +#define P2M_ALLOC    (1u<<0)   /* Populate PoD and paged-out entries */
-> +#define P2M_UNSHARE  (1u<<1)   /* Break CoW sharing */
-> +
-> +static inline struct page_info *get_page_from_gfn(
-> +    struct domain *d, unsigned long gfn, p2m_type_t *t, p2m_query_t q)
-> +{
-> +    BUG();
-> +    return NULL;
-> +}
-
-... you do here. May apply again further down.
-
-> +static inline void memory_type_changed(struct domain *d)
-> +{
-> +    BUG();
-> +}
-> +
-> +
 > +static inline int guest_physmap_mark_populate_on_demand(struct domain *d, unsigned long gfn,
 > +                                                        unsigned int order)
 > +{
 > +    BUG();
 > +    return 1;
 > +}
-> +
-> +static inline int guest_physmap_add_entry(struct domain *d,
-> +                            gfn_t gfn,
-> +                            mfn_t mfn,
-> +                            unsigned long page_order,
-> +                            p2m_type_t t)
-> +{
-> +    BUG();
-> +    return 1;
-> +}
-> +
-> +/* Untyped version for RAM only, for compatibility */
-> +static inline int __must_check
-> +guest_physmap_add_page(struct domain *d, gfn_t gfn, mfn_t mfn,
-> +                       unsigned int page_order)
-> +{
-> +    return guest_physmap_add_entry(d, gfn, mfn, page_order, p2m_ram_rw);
-> +}
-> +
-> +static inline mfn_t gfn_to_mfn(struct domain *d, gfn_t gfn)
-> +{
-> +    BUG();
-> +    return _mfn(0);
-> +}
-> +
-> +static inline bool arch_acquire_resource_check(struct domain *d)
-> +{
-> +    /*
-> +     * The reference counting of foreign entries in set_foreign_p2m_entry()
-> +     * is supported on RISCV.
-> +     */
-> +    return true;
-> +}
-> +
-> +static inline void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
-> +{
-> +    /* Not supported on RISCV. */
-> +}
-> +
-> +#endif /* __ASM_RISCV_P2M_H__ */
-> \ No newline at end of file
 
-This wants taking care of.
+This one I actually don't think needs to be a stub. It can return
+-EOPNOTSUPP or -EINVAL right away, and then wouldn't need touching
+again afaict.
 
 Jan
 
