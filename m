@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15D89812FBF
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 13:09:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654527.1021553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35F8E813046
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 13:37:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654559.1021574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDkWM-0002qF-KR; Thu, 14 Dec 2023 12:08:54 +0000
+	id 1rDkwm-00036s-Df; Thu, 14 Dec 2023 12:36:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654527.1021553; Thu, 14 Dec 2023 12:08:54 +0000
+Received: by outflank-mailman (output) from mailman id 654559.1021574; Thu, 14 Dec 2023 12:36:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDkWM-0002hP-8q; Thu, 14 Dec 2023 12:08:54 +0000
-Received: by outflank-mailman (input) for mailman id 654527;
- Thu, 14 Dec 2023 12:08:51 +0000
+	id 1rDkwm-00034N-Av; Thu, 14 Dec 2023 12:36:12 +0000
+Received: by outflank-mailman (input) for mailman id 654559;
+ Thu, 14 Dec 2023 12:36:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vWU9=HZ=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1rDkWJ-0000tI-Kj
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 12:08:51 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rDkwl-00034F-7s
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 12:36:11 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8a19fd92-9a79-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 13:08:49 +0100 (CET)
-Received: from beta.station (net-37-182-35-120.cust.vodafonedsl.it
- [37.182.35.120])
- by support.bugseng.com (Postfix) with ESMTPSA id D060B4EE0C91;
- Thu, 14 Dec 2023 13:08:48 +0100 (CET)
+ id 5a5290de-9a7d-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 13:36:07 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a1db99cd1b2so1035381266b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 04:36:07 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ sl9-20020a170906618900b00a1cf7b31e9csm9227109ejc.89.2023.12.14.04.36.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 14 Dec 2023 04:36:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,78 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a19fd92-9a79-11ee-9b0f-b553b5be7939
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Simone Ballarin <simone.ballarin@bugseng.com>
-Subject: [PATCH 9/9] xen: add SAF deviation for safe cast removal.
-Date: Thu, 14 Dec 2023 13:07:51 +0100
-Message-Id: <36e996b864853dba26a9c9fb9c9c674e92cc935e.1702555387.git.maria.celeste.cesario@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1702555386.git.maria.celeste.cesario@bugseng.com>
-References: <cover.1702555386.git.maria.celeste.cesario@bugseng.com>
+X-Inumbo-ID: 5a5290de-9a7d-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1702557367; x=1703162167; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=83KRkcynFeOjSAQ7DjVgOT+OEPh+NEpdKx4dRl0wsZ8=;
+        b=Rqbtf+xtlIHKOH5qFeLdOOzu1bPZhtxgf99pNu5j1YBbrAKObQMNARXnebSODEt69G
+         X1iYZ6uHB9tipFJIFd4IDH/o/MQvTjZGJzc8bg2h+ZFJRHc/w8e8VnVWUA+PkqwE/mOb
+         pBZ/mv1iFU8IUrjmcAAdtB6zi0g1fqEQqqIXmHi2Oqzx2KH8V4xXtawyqEyUzX5mOX64
+         8p6PSZmXYlNtFeJsNo8rL7O090FQVXkkyM7gU5dOyF/zDncapW4XGe1G5tavaK3iHgrX
+         y2aNqb2vrd1AT5e9vgoRQD6TJQVe0YYozWx1ohJCFQLT14q4SOtBbKP7fWuC90aWmQAj
+         1cfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702557367; x=1703162167;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=83KRkcynFeOjSAQ7DjVgOT+OEPh+NEpdKx4dRl0wsZ8=;
+        b=OyoeFNU2dU/+zdbkCVxlHO0IEt+TFkB6bxSl+JO1KYHynLArld/4jNtvvKoEwAvwGJ
+         q5KzzStegIdqKBrXHU28REjDHlBHb3qJ7NZrYXHVzvSHbAtLn1W04caHAhkICYmiEQZ1
+         GUVEkEaBaDXucjbuudAhg1JR7TcsHCpyWgxrq/dv810sUOvIkN0yrzVlVPAF/IDlmlAd
+         fKxZDtma5/Uf+Vhrfpq3h1unIGblupO+juuJdB64OJgHUEdLM57aIOOJRaYjKQUUnApM
+         LaFf7SxgxLUKlLmLptFaYJSKwRd97WylaRgFOSw5+Q/qDDYEcHOsqRoLdcT0TmvBEnK/
+         C4kg==
+X-Gm-Message-State: AOJu0YwXJApxON6AjLjkmeiYBzlIRwMa/LvLR8pVnOd4ApqcCIBYWa0H
+	z1oxNZBZqiV8FGngENzaN/rw
+X-Google-Smtp-Source: AGHT+IHnaEIG9ELwNH7u9q8A3H8QeehkMCmNUtZ2qpFiI8ikDePBZNQEfNSZHG5AqfZUsgCI1T/AVw==
+X-Received: by 2002:a17:907:94d4:b0:a1a:8399:e12d with SMTP id dn20-20020a17090794d400b00a1a8399e12dmr3820380ejc.64.1702557366816;
+        Thu, 14 Dec 2023 04:36:06 -0800 (PST)
+Message-ID: <3b3996fb-ec66-468e-8ee8-eb8e7648f59d@suse.com>
+Date: Thu, 14 Dec 2023 13:36:05 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/9] xen: address violations of MISRA C:2012 Rule 11.8
+Content-Language: en-US
+To: Simone Ballarin <simone.ballarin@bugseng.com>,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <cover.1702555386.git.maria.celeste.cesario@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <cover.1702555386.git.maria.celeste.cesario@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+On 14.12.2023 13:07, Simone Ballarin wrote:
+> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+> 
+> The xen sources contain violations of MISRA C:2012 Rule 11.8 whose
+> headline states:
+> "A conversion shall not remove any const, volatile or _Atomic
+> qualification from the type pointed to by a pointer".
+> 
+> This patch amends or removes casts that unnecessarily drop
+> const and volatile qualifiers.
+> 
+> Example:
+> 
+>  static always_inline bool int_##name(volatile void *p)
+>  {
+>     volatile uint32_t *ptr = (uint32_t *)p;             /* Non-compliant */
+>     volatile uint32_t *ptr = (volatile uint32_t *)p;    /* Compliant, proposed change */
+>  }
 
-The xen sources contain violations of MISRA C:2012 Rule 11.8 whose
-headline states:
-"A conversion shall not remove any const, volatile or _Atomic qualification
-from the type pointed to by a pointer".
+Why would you further complicate things when here the cast can simply
+be dropped?
 
-In function __hvm_copy, the const qualifier is cast away to comply with its
-function signature. There's no modification of the pointee during its
-execution, therefore its use can be deemed as safe.
-
-Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
-Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
----
- docs/misra/safe.json   | 8 ++++++++
- xen/arch/x86/hvm/hvm.c | 1 +
- 2 files changed, 9 insertions(+)
-
-diff --git a/docs/misra/safe.json b/docs/misra/safe.json
-index 952324f85c..e748bc6cf5 100644
---- a/docs/misra/safe.json
-+++ b/docs/misra/safe.json
-@@ -28,6 +28,14 @@
-         },
-         {
-             "id": "SAF-3-safe",
-+            "analyser": {
-+                "eclair": "MC3R1.R11.8"
-+            },
-+            "name": "MC3R1.R11.8: removal of const qualifier to comply with function signature",
-+            "text": "It is safe to cast away const qualifiers to comply with function signature if the function does not modify the pointee."
-+        },
-+        {
-+            "id": "SAF-4-safe",
-             "analyser": {},
-             "name": "Sentinel",
-             "text": "Next ID to be used"
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 523e0df57c..414853254f 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -3413,6 +3413,7 @@ static enum hvm_translation_result __hvm_copy(
- enum hvm_translation_result hvm_copy_to_guest_phys(
-     paddr_t paddr, const void *buf, unsigned int size, struct vcpu *v)
- {
-+    /* SAF-3-safe */
-     return __hvm_copy((void *)buf /* HVMCOPY_to_guest doesn't modify */,
-                       paddr, size, v,
-                       HVMCOPY_to_guest | HVMCOPY_phys, 0, NULL);
--- 
-2.40.0
-
+Jan
 
