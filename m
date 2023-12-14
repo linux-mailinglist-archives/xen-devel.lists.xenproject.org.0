@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57AD6812CC5
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 11:19:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654420.1021333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E894812D1C
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 11:36:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654435.1021343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDioJ-0000ct-OQ; Thu, 14 Dec 2023 10:19:19 +0000
+	id 1rDj4I-0006UB-3g; Thu, 14 Dec 2023 10:35:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654420.1021333; Thu, 14 Dec 2023 10:19:19 +0000
+Received: by outflank-mailman (output) from mailman id 654435.1021343; Thu, 14 Dec 2023 10:35:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDioJ-0000bD-LN; Thu, 14 Dec 2023 10:19:19 +0000
-Received: by outflank-mailman (input) for mailman id 654420;
- Thu, 14 Dec 2023 10:19:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rDj4I-0006S5-12; Thu, 14 Dec 2023 10:35:50 +0000
+Received: by outflank-mailman (input) for mailman id 654435;
+ Thu, 14 Dec 2023 10:35:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDioI-0000b5-Tl
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 10:19:18 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3c8b0fa3-9a6a-11ee-9b0f-b553b5be7939;
- Thu, 14 Dec 2023 11:19:16 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a1d93da3eb7so916779366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 02:19:16 -0800 (PST)
+ id 1rDj4G-0006Rz-WB
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 10:35:48 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8b25507e-9a6c-11ee-98e9-6d05b1d4d9a1;
+ Thu, 14 Dec 2023 11:35:47 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a1d2f89ddabso957301066b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 02:35:47 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v20-20020a170906489400b00a1de512fa24sm9109838ejq.191.2023.12.14.02.19.15
+ th18-20020a1709078e1200b00a2300127f26sm2185401ejc.185.2023.12.14.02.35.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 02:19:16 -0800 (PST)
+ Thu, 14 Dec 2023 02:35:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c8b0fa3-9a6a-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 8b25507e-9a6c-11ee-98e9-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702549156; x=1703153956; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702550147; x=1703154947; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=SiyksQcBmQT3PvLWawxm5b6xgs4BZhJSJynakMVd7oM=;
-        b=UNxMeQhseR/Myr2t7jJArRwE9Sc9LVilwjezT9VkQ4J15/kjcpl6h4hpNvKSH9ApsG
-         gXklMU9o0O9UsRF+AeDCRTgoIiY+/3UUVPwvmMBYhGenzl8w3SYsevxogghOpiwkX5am
-         4Botn3ttJXAIbej67xXxR1O+DcF9K2VRYRqfIn9k3SPbm8k0aUe/TmAMZA0oufm2foaT
-         RzCfVA5LeOoir9lcPzzKzNh1ovsDE9ptYtekmRId0r01L3FKtnfceDjzQ7UH9UBE9rYB
-         SCXP5e3yxxuhrNxVq2njv3Uz5EppWP3x6f7ERu97uyA7h9bP5awTZ48f39OIXIDeC6fa
-         jO2A==
+        bh=6xd6ELtNY1fP4tjupBg2EdYAIEhiUlLKkCCl94oPfec=;
+        b=UINWyjM8kRiwXPpfdgx03IvuA6uR32t/iR0oxbmsZoNhZcAJIthtLW/Iggo33yRL2N
+         ScRfTUD5j1TOi4QlGs7qEWhcbqaKpKl9WreFZmR9OmrMBYAac3MjkzH5ORP5Ddd29bEb
+         5tLjdhsX3KdxjH+zAi9CF0RnAbhqJaYEDLTnl5UfhJlsUdKY2Gk10kXWWIlDNJDWIjqD
+         YnevmkdSQAgR8K4c+FWJOUBb68z7PS/0Z2MI04H2q8sEA08S2JPT3c16PO3tCh/yJ4Gp
+         2tMdYl2IlCm4tSgIEbECjromY/OTJpSY9Q7gMfjCszI0bdL/tdnTiTOnd7llgloid3KF
+         eMjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702549156; x=1703153956;
+        d=1e100.net; s=20230601; t=1702550147; x=1703154947;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SiyksQcBmQT3PvLWawxm5b6xgs4BZhJSJynakMVd7oM=;
-        b=IKpTssusyuFZXVVd/NnG8/Uh0AWMY03j58pojeinhuQFxz2D8JlEGGPub/dr9UmS8G
-         WjMov/+pQN4ozOUez+lZcg5nn/tLX12uz7oXmQaznRRqzvaIBxN+tJ8FirfgNNP+oB2c
-         PGMFb0faFqSvGbk+op1//o42V3gA8NumeMlEd3ckk3QPN0jAR+7JOUf5RK6WrJgJsr9W
-         8lA4aIPxek+KmPFtu5fRybA35tsNhWQiwpHAchdZyWROfUGygAaZMMmXohGaojMwj4ja
-         zIHMwbUVYwH5BWxRrjNpol8s5xHIabEmFmVRV0expp3XNPLcIcIKOb+Rw7WTE1IiComD
-         brXA==
-X-Gm-Message-State: AOJu0YzMECsFliVwHuwfmufO9Tob41VcqKd3zKW075azIoXYtzlyArqp
-	ULYI65OuNm7u+CgCEq0Oa0Vd
-X-Google-Smtp-Source: AGHT+IGcPEtFBvkvBXtT/ngoNkAPiY8aoehAzLF2M1r/D2Ir1FD+mAZE9IplwbU7GVTcXv5u1gTTZA==
-X-Received: by 2002:a17:906:1787:b0:a19:a1ba:8cd6 with SMTP id t7-20020a170906178700b00a19a1ba8cd6mr4991638eje.116.1702549156430;
-        Thu, 14 Dec 2023 02:19:16 -0800 (PST)
-Message-ID: <6c5fd48d-a417-4731-8611-4f5f97865d91@suse.com>
-Date: Thu, 14 Dec 2023 11:19:15 +0100
+        bh=6xd6ELtNY1fP4tjupBg2EdYAIEhiUlLKkCCl94oPfec=;
+        b=F8t7nlDFMu0CqpH6sLsF7yMBM0iF2EX9p+i32LoDbNPwmiGhrrb5GLoi+O3IYiDiTt
+         b/cLEp6e/taUwfMszP7mZQqYyTCWaxuU4GqvxG329RDCty3K0XYLUX0drRkXUnq4F499
+         NYMuBaq+fsPqAOYIPfFczptFhCcjU05Kx6N/fmcfgTEYqXGmdzw7V2PqlErSnIr1VXqM
+         +4zMllfERablnV4nr+825swtCOEX+pmcogicKWvKHe1CL4DvSB0TgXoJZu9gnSYzmQE6
+         AVykX6eTG1HrzAynXx3lVkSrCP64au8/z7PqRehPlV2aakJQ0osz2/9AfxSZXgqChJR4
+         zcJg==
+X-Gm-Message-State: AOJu0YzgR7Z2y5ED4p+RtoHfuW2EDMoG+gwM50u2LaiOVVOZ3tWrK7eI
+	AOFFYCbYIau66Z8UjTr4mltt
+X-Google-Smtp-Source: AGHT+IGv8XCPixdiDMlXR181jXH6l9BfHwSx0UdEzTH6sIy1RMXRCe7KjyzRcDroZlYeQ/AvuNAc7w==
+X-Received: by 2002:a17:906:10c7:b0:a1d:2e32:d284 with SMTP id v7-20020a17090610c700b00a1d2e32d284mr4263610ejv.23.1702550147275;
+        Thu, 14 Dec 2023 02:35:47 -0800 (PST)
+Message-ID: <b74f1f28-58da-4604-a7ef-370aeb0522ce@suse.com>
+Date: Thu, 14 Dec 2023 11:35:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] xen/x86: ioapic: Bail out from timer_irq_works()
- as soon as possible
+Subject: Re: [PATCH v2 1/2] xen/x86: io_apic: Introduce a command line option
+ to skip timer check
 Content-Language: en-US
 To: Julien Grall <julien@xen.org>
 Cc: Julien Grall <jgrall@amazon.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
 References: <20231211122322.15815-1-julien@xen.org>
- <20231211122322.15815-3-julien@xen.org>
+ <20231211122322.15815-2-julien@xen.org>
+ <b17bb7d1-1206-4ad1-96b1-7b903a740c83@suse.com>
+ <8b8a62a0-f854-405e-b256-5eee4bfdcb6c@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,33 +117,54 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231211122322.15815-3-julien@xen.org>
+In-Reply-To: <8b8a62a0-f854-405e-b256-5eee4bfdcb6c@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11.12.2023 13:23, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
+On 14.12.2023 11:14, Julien Grall wrote:
+> On 14/12/2023 10:10, Jan Beulich wrote:
+>> On 11.12.2023 13:23, Julien Grall wrote:
+>>> --- a/xen/arch/x86/io_apic.c
+>>> +++ b/xen/arch/x86/io_apic.c
+>>> @@ -57,6 +57,14 @@ bool __initdata ioapic_ack_forced;
+>>>   int __read_mostly nr_ioapic_entries[MAX_IO_APICS];
+>>>   int __read_mostly nr_ioapics;
+>>>   
+>>> +/*
+>>> + * The logic to check if the timer is working is expensive. So allow
+>>> + * the admin to bypass it if they know their platform doesn't have
+>>> + * a buggy timer.
+>>> + */
+>>> +static bool __initdata pit_irq_works;
+>>> +boolean_param("pit-irq-works", pit_irq_works);
+>>> +
+>>>   /*
+>>>    * Rough estimation of how many shared IRQs there are, can
+>>>    * be changed anytime.
+>>> @@ -1502,6 +1510,9 @@ static int __init timer_irq_works(void)
+>>>   {
+>>>       unsigned long t1, flags;
+>>>   
+>>> +    if ( pit_irq_works )
+>>> +        return 1;
+>>
+>> When the check is placed here, what exactly use of the option means is
+>> system dependent. I consider this somewhat risky, so I'd prefer if the
+>> check was put on the "normal" path in check_timer(). That way it'll
+>> affect only the one case which we can generally consider "known good",
+>> but not the cases where the virtual wire setups are being probed. I.e.
 > 
-> Currently timer_irq_works() will wait the full 100ms before checking
-> that pit0_ticks has been incremented at least 4 times.
-> 
-> However, the bulk of the BIOS/platform should not have a buggy timer.
-> So waiting for the full 100ms is a bit harsh.
-> 
-> Rework the logic to only wait until 100ms passed or we saw more than
-> 4 ticks. So now, in the good case, this will reduce the wait time
-> to ~50ms.
+> I am not against restricting when we allow skipping the timer check. But 
+> in that case, I wonder why Linux is doing it differently?
 
-Isn't this more like 40ms (4 ticks 10ms apart)? And really somewhere
-between 30 and 40, because the first tick has already partly elapsed?
-
-> Take the opportunity to change the prototype of timer_irq_works() to
-> return a bool rather than int (which was already acting as a bool because
-> only 0/1 could be returned).
-> 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Sadly Linux'es git history doesn't go back far enough (begins only at past
+2.6.11), so I can't (easily) find the patch (and description) for the x86-64
+change. The later i386 change is justified mainly by paravirt needs, so
+isn't applicable here. I wouldn't therefore exclude that my point above
+wasn't even taken into consideration. Furthermore their command line option
+is "no_timer_check", which to me firmly says "don't check" without regard to
+whether the source (PIT) is actually okay. That's different with the option
+name you (imo validly) chose.
 
 Jan
 
