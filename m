@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E963E812F81
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 12:56:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654511.1021454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A695812F99
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 13:01:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654515.1021463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDkJL-0006Dm-Jd; Thu, 14 Dec 2023 11:55:27 +0000
+	id 1rDkP3-00004t-E1; Thu, 14 Dec 2023 12:01:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654511.1021454; Thu, 14 Dec 2023 11:55:27 +0000
+Received: by outflank-mailman (output) from mailman id 654515.1021463; Thu, 14 Dec 2023 12:01:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDkJL-0006AZ-Gj; Thu, 14 Dec 2023 11:55:27 +0000
-Received: by outflank-mailman (input) for mailman id 654511;
- Thu, 14 Dec 2023 11:55:25 +0000
+	id 1rDkP3-0008U9-BO; Thu, 14 Dec 2023 12:01:21 +0000
+Received: by outflank-mailman (input) for mailman id 654515;
+ Thu, 14 Dec 2023 12:01:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xmUX=HZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rDkJJ-0006AT-Nl
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 11:55:25 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aa4f154e-9a77-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 12:55:24 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a22eba5a290so366990766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 03:55:24 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ci13-20020a170906c34d00b00a0988d69549sm9184421ejb.189.2023.12.14.03.55.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 03:55:23 -0800 (PST)
+ (envelope-from <SRS0=1CT4=HZ=alyssa.is=hi@srs-se1.protection.inumbo.net>)
+ id 1rDkP0-0008U3-TA
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 12:01:20 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7a327db0-9a78-11ee-98e9-6d05b1d4d9a1;
+ Thu, 14 Dec 2023 13:01:16 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id B10D45C0166;
+ Thu, 14 Dec 2023 07:01:12 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Thu, 14 Dec 2023 07:01:12 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 14 Dec 2023 07:01:10 -0500 (EST)
+Received: by mbp.qyliss.net (Postfix, from userid 1000)
+ id CA06894F7; Thu, 14 Dec 2023 13:01:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,193 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa4f154e-9a77-11ee-98e9-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702554924; x=1703159724; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=frIWyUhYo0oHbOzv9NBBMa8IQEpBKv17gm4P7VxxLl0=;
-        b=ATWLJXBRDAH2XPe6W/3CJfeLmcaGRFa4jv3pU3sdva/YPAVVJmQsbrPSybuS1yO/Pj
-         +VjZDZfhQalrirpUX7oH81Qgqt1HljTTzNdguIGMqP/yG6NtlJAKsvlA8WFn+029QT2K
-         Ja612DKFqA8zA3lxuSQsxznd7C6fj70hvc3OZTevUai4JaCvhQSiPyFuL0W5iKNbV0XP
-         /lJAdZNmND3yiIYyIllFBvIlXN1drUDcshU7p4LU4Ru2FdyLgT228gHuyP1reQP2rAue
-         PGUTR2SgHkd/IwevDBqPNcI0M/uFnuZR3mNqnEvZJ404PuJLw+hk/lFb9F7SPWrsZ/3L
-         m+UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702554924; x=1703159724;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=frIWyUhYo0oHbOzv9NBBMa8IQEpBKv17gm4P7VxxLl0=;
-        b=uG2vio2LGvcDm87Ir/4PTUVGdYgcrmFw+MiXjBQzhc1TXp+s+V2p98RAglrdiebzJs
-         2+B91MngUeI+8nHbtJZMRuKHtn6VURWLpzekmRKgIKtPuy16u0cadKTozLgO2XDWvCp/
-         pBqnK8/V29rpHPay9bxDnQUMUQg8AJhoFOUkMTCdbDZQQKDwA+eiaNaBXeklN7hcs68z
-         cl6cxyQJd2i6w32eq1o9iZqSUveYZnYGb0krrFsW4iAIS8diXlgdg+fP7+dKN5A+mpEB
-         3o7nXMVnE/B4WCOIcgLp90PkvXIRYbBhy/Df3R7WmKOZ5GIB6q9NgO7gbfnOB8GOVai6
-         688g==
-X-Gm-Message-State: AOJu0YwZPUlrUY0/xxMJG5Sp4KVVFF0mYwdApKfc1y6+TdYdDoKkW+Jw
-	NJ0ZVxjEIKqBL2f9UtxH4QF3
-X-Google-Smtp-Source: AGHT+IFQGzlkE514oCN8swImk7xNoTAIPF3f2XvEWEwzPxfb0DxdE/B4TFNB+y9RCiQIohDZ5wc1dQ==
-X-Received: by 2002:a17:907:c30b:b0:a0d:ac30:4963 with SMTP id tl11-20020a170907c30b00b00a0dac304963mr6722513ejc.76.1702554924093;
-        Thu, 14 Dec 2023 03:55:24 -0800 (PST)
-Message-ID: <6226aa5e-c87f-48bf-b793-96aa04498c5e@suse.com>
-Date: Thu, 14 Dec 2023 12:55:22 +0100
+X-Inumbo-ID: 7a327db0-9a78-11ee-98e9-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alyssa.is; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1702555272; x=1702641672; bh=1B4ThV600u
+	QJHMyzGQwCFJGfVJ0JM9hKUZygdHA8jvY=; b=QxG9+FzVUnxG1xQHfwDHotyTDI
+	4WbBVE/grZ3na48o2hQurbCrzTLdLS0nfAIGugLqe6tCH7Hz/K3xdTR8plhIgysM
+	CLshuII9GWg678c62IkMQLgbadvrq7dnYnydAKvDWWkDnRG1moLH9bpVVY+xD1NW
+	snK4pu3GdOqcouXMbW544fGvG+Jm3DpeX3a1XSmpVXy88sg6a7YntKyETOkWJzh7
+	+d3Z/G1UB1ZnoQ/lBey6pi+Tu2H+cfEGa7Kg10D3P+/KTwK8UPDQzWoYri2vJ6b1
+	KJcFt8pME5p21PqelvRaowAtDqkUNbAMaewSQzuSaXNB6qwDkgcWwk/VcChQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1702555272; x=1702641672; bh=1B4ThV600uQJHMyzGQwCFJGfVJ0J
+	M9hKUZygdHA8jvY=; b=XI87XLh3jv1ua4maFylcDpTJDEwnanYfQEz4juby/+ED
+	RZ6sR87y+wVy4Hfq9F8ECXMwwguW2j+aZnR/tHlpsREsuH7FoLw2bNGhKj8kmjfK
+	iVHJd1CvlVl3R98KlEaD5R+QFprvtCnY7bnw6lP2bhIYjVADVaIsQis+1fkMObAo
+	TXxsUzlG1K/mJTS6tq+UUo1yzpvKEfUpxozwqrSMHvxdjWsg3KNH3hgmHaES9EzQ
+	Sp5A7XWdU+GGBJtTXz5HS3NraQLDivuImFdTd9Ww2TsaNQwAvHaHs8MX9s8/liIv
+	Skya9q/KlusOCoYhYh2cniP9AtDEAQg018CmsLHvKA==
+X-ME-Sender: <xms:h-56ZQVsKPUqJ3SpOgQKUv3L-79KwwNf3RF76RxGjI8AVo-TaOXHMA>
+    <xme:h-56ZUmY1OUliHUS_6tTbkXbSJqxDC6WPzQ760gCzaDSp96lWrqSzXoMhFqbykDQi
+    Gv6lvXGvnF1zjLOeg>
+X-ME-Received: <xmr:h-56ZUbFAoWyVrzzKOasOFDwiMT-RhI5oyseAt0fldW18ZHo4jEELGabknceIJ_j2tI5laOwZX0pDSVfEbEo1XaGpEqq>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrudelledgfeegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtsfertddtvdenucfhrhhomheptehlhihs
+    shgrucftohhsshcuoehhihesrghlhihsshgrrdhisheqnecuggftrfgrthhtvghrnheptd
+    ejueetkeehfeeuleeugfevieffkefhteefiedvfeehuefhjeegvdeiffeihfeinecuvehl
+    uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhephhhisegrlhihsh
+    hsrgdrihhs
+X-ME-Proxy: <xmx:h-56ZfVO1vQmL2Y9Ydla-TqlDcd1qUHxqTCj_cUGWEqXt7wrqdoIhw>
+    <xmx:h-56ZamAT0ZgS7clk3lojibHg-HxeD8WepAdXTuFVCvEx5_eiEAciQ>
+    <xmx:h-56ZUc6JAjYIF_wbVyhPgLkfA6i2kfPuSIvpipMz70EYByVWlVy3Q>
+    <xmx:iO56ZfgWIZuUM1RvE3xItuBBcEDsy7JAtgKRRLepvIGKvBmmdBGiAA>
+Feedback-ID: i12284293:Fastmail
+Date: Thu, 14 Dec 2023 13:01:09 +0100
+From: Alyssa Ross <hi@alyssa.is>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Juergen Gross <jgross@suse.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] x86/xen: add CPU dependencies for 32-bit build
+Message-ID: <snd4jotxfjwcekc52dhkyhn6gcxtaqyo3fchxd5acgvsvcoiqi@douctxdas3fu>
+References: <20231204084722.3789473-1-arnd@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] xen/x86: introduce self modifying code test
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20231214101719.18770-1-roger.pau@citrix.com>
- <20231214101719.18770-3-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231214101719.18770-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="bjargecwevzoc6i5"
+Content-Disposition: inline
+In-Reply-To: <20231204084722.3789473-1-arnd@kernel.org>
 
-On 14.12.2023 11:17, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -58,6 +58,7 @@
->  #include <asm/microcode.h>
->  #include <asm/prot-key.h>
->  #include <asm/pv/domain.h>
-> +#include <asm/test-smoc.h>
->  
->  /* opt_nosmp: If true, secondary processors are ignored. */
->  static bool __initdata opt_nosmp;
-> @@ -1951,6 +1952,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
->  
->      alternative_branches();
->  
-> +    test_smoc(XEN_SYSCTL_TEST_SMOC_ALL, NULL);
 
-I realize I'm at risk of causing scope creep, but I'd still like to at
-least ask: As further self-tests are added, we likely don't want to
-alter __start_xen() every time. Should there perhaps better be a wrapper
-(going forward: multiple ones, depending on the time tests want invoking),
-together with a Kconfig control to allow suppressing all of these tests in
-at least release builds?
+--bjargecwevzoc6i5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> --- /dev/null
-> +++ b/xen/arch/x86/test/smoc.c
-> @@ -0,0 +1,68 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +
-> +#include <xen/errno.h>
-> +
-> +#include <asm/alternative.h>
-> +#include <asm/cpufeature.h>
-> +#include <asm/test-smoc.h>
-> +
-> +static bool cf_check test_insn_replacement(void)
-> +{
-> +#define EXPECTED_VALUE 2
-> +    unsigned int r = ~EXPECTED_VALUE;
-> +
-> +    alternative_io("", "mov %1, %0", X86_FEATURE_ALWAYS,
-> +                   "+r" (r), "i" (EXPECTED_VALUE));
-> +
-> +    return r == EXPECTED_VALUE;
-> +#undef EXPECTED_VALUE
-> +}
-> +
-> +int test_smoc(uint32_t selection, uint32_t *results)
-> +{
-> +    struct {
-> +        unsigned int mask;
-> +        bool (*test)(void);
-> +        const char *name;
-> +    } static const tests[] = {
-> +        { XEN_SYSCTL_TEST_SMOC_INSN_REPL, &test_insn_replacement,
-> +          "alternative instruction replacement" },
-> +    };
-> +    unsigned int i;
-> +
-> +    if ( selection & ~XEN_SYSCTL_TEST_SMOC_ALL )
-> +        return -EINVAL;
-> +
-> +    if ( results )
-> +        *results = 0;
-> +
-> +    printk(XENLOG_INFO "Checking Self Modify Code\n");
-> +
-> +    for ( i = 0; i < ARRAY_SIZE(tests); i++ )
-> +    {
-> +        if ( !(selection & tests[i].mask) )
-> +            continue;
-> +
-> +        if ( tests[i].test() )
-> +        {
-> +            if ( results )
-> +                *results |= tests[i].mask;
-> +            continue;
-> +        }
-> +
-> +        add_taint(TAINT_ERROR_SMOC);
-> +        printk(XENLOG_ERR "%s test failed\n", tests[i].name);
+On Mon, Dec 04, 2023 at 09:47:01AM +0100, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> Xen only supports modern CPUs even when running a 32-bit kernel, and it now
+> requires a kernel built for a 64 byte (or larger) cache line:
+>
+> In file included from <command-line>:
+> In function 'xen_vcpu_setup',
+>     inlined from 'xen_vcpu_setup_restore' at arch/x86/xen/enlighten.c:111:3,
+>     inlined from 'xen_vcpu_restore' at arch/x86/xen/enlighten.c:141:3:
+> include/linux/compiler_types.h:435:45: error: call to '__compiletime_assert_287' declared with attribute error: BUILD_BUG_ON failed: sizeof(*vcpup) > SMP_CACHE_BYTES
+> arch/x86/xen/enlighten.c:166:9: note: in expansion of macro 'BUILD_BUG_ON'
+>   166 |         BUILD_BUG_ON(sizeof(*vcpup) > SMP_CACHE_BYTES);
+>       |         ^~~~~~~~~~~~
+>
+> Enforce the dependency with a whitelist of CPU configurations. In normal
+> distro kernels, CONFIG_X86_GENERIC is enabled, and this works fine. When this
+> is not set, still allow Xen to be built on kernels that target a 64-bit
+> capable CPU.
+>
+> Fixes: db2832309a82 ("x86/xen: fix percpu vcpu_info allocation")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
 
-Do we really want both of these even when coming here from the sysctl?
+This fixes 32-bit distro kernel builds in Nixpkgs, which regressed
+with a recent stable kernel update.  Thanks!
 
-> --- a/xen/common/kernel.c
-> +++ b/xen/common/kernel.c
-> @@ -386,13 +386,14 @@ char *print_tainted(char *str)
->  {
->      if ( tainted )
->      {
-> -        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c",
-> +        snprintf(str, TAINT_STRING_MAX_LEN, "Tainted: %c%c%c%c%c%c%c",
->                   tainted & TAINT_MACHINE_INSECURE ? 'I' : ' ',
->                   tainted & TAINT_MACHINE_CHECK ? 'M' : ' ',
->                   tainted & TAINT_SYNC_CONSOLE ? 'C' : ' ',
->                   tainted & TAINT_ERROR_INJECT ? 'E' : ' ',
->                   tainted & TAINT_HVM_FEP ? 'H' : ' ',
-> -                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ');
-> +                 tainted & TAINT_CPU_OUT_OF_SPEC ? 'S' : ' ',
-> +                 tainted & TAINT_ERROR_SMOC ? 'A' : ' ');
+Tested-by: Alyssa Ross <hi@alyssa.is>
 
-How well is this going to scale as other selftests are added? IOW should
-this taint really be self-modifying-code-specific?
+>  arch/x86/xen/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/arch/x86/xen/Kconfig b/arch/x86/xen/Kconfig
+> index 9b1ec5d8c99c..a65fc2ae15b4 100644
+> --- a/arch/x86/xen/Kconfig
+> +++ b/arch/x86/xen/Kconfig
+> @@ -9,6 +9,7 @@ config XEN
+>  	select PARAVIRT_CLOCK
+>  	select X86_HV_CALLBACK_VECTOR
+>  	depends on X86_64 || (X86_32 && X86_PAE)
+> +	depends on X86_64 || (X86_GENERIC || MPENTIUM4 || MCORE2 || MATOM || MK8)
+>  	depends on X86_LOCAL_APIC && X86_TSC
+>  	help
+>  	  This is the Linux Xen port.  Enabling this will allow the
+> --
+> 2.39.2
+>
 
-> --- a/xen/include/public/sysctl.h
-> +++ b/xen/include/public/sysctl.h
-> @@ -1180,6 +1180,7 @@ struct xen_sysctl_cpu_policy {
->  };
->  typedef struct xen_sysctl_cpu_policy xen_sysctl_cpu_policy_t;
->  DEFINE_XEN_GUEST_HANDLE(xen_sysctl_cpu_policy_t);
-> +
->  #endif
->  
->  #if defined(__arm__) || defined (__aarch64__)
+--bjargecwevzoc6i5
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Stray change (perhaps leftover from moving code around)?
+-----BEGIN PGP SIGNATURE-----
 
-Jan
+iQIzBAABCAAdFiEEH9wgcxqlHM/ARR3h+dvtSFmyccAFAmV67oEACgkQ+dvtSFmy
+ccAnEw//dm9vi/PyxEvDgewLQcikutEaQ4Mr/mlXW1mcleyv2baqH09M6PSn/g4D
+GeZIGzxLMK54gwgw0b+zqgXD1r7x2A27qQLsFOpEFM+LE3LcejJcULczHvznQ1IX
+3kFLjGWh0zzFPrQYZ/CST9RtP0w57LF0QHgZ8Mc4Am4n5+irPeLX8/K14LiK//6i
+79L1E/3N4w3L3TG2QP/6KinYgjhDNMJlzUgclSv6etMkZ35FRV+vAeZbh8porE/j
+vkba4GuxjuHiBXGe4oKBDjtNJJyxVbEJzW+CHguwxtYimxq1cuwQNBhZpDZ5xjVn
+5n53mxAeOX0IwXUoiQfhVUJ4OIidpUiDn9+9OCZPk/jDGCh0QbGkRxNTXw1iywSJ
+iQ3EX3Iron/n1wwP/cX3ntCkJZkQxbSNwqXJ0OZtxqTeOcBJKqFibiytCGAPuzaf
+iXDiowlss71+d005qC7+RmCVr2lj81B60OIungWzBUfN606XLrTLZk7u5Q2Y/0Md
+nDPx123HMbHxon+2aiTsKHJwQ6gcebUGNVPKXv5zTHyLBS6Nm4ngWTrAVCU1srDg
+K01jNFSd2vFGYXDpbxHF8nDczQ207UxHv80BYcbKT9UejszhTY8Bv7ApKsDpU5Ax
+1vs0Q92y0gbzq56sB+v30doKgMH5Afkw5+M+HBT1ZtDdiBGJ/O8=
+=hV3v
+-----END PGP SIGNATURE-----
+
+--bjargecwevzoc6i5--
 
