@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED3F48127D2
-	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 07:17:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654296.1021051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26C778128C6
+	for <lists+xen-devel@lfdr.de>; Thu, 14 Dec 2023 08:09:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654300.1021061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDf1D-0006bD-9i; Thu, 14 Dec 2023 06:16:23 +0000
+	id 1rDfpp-0004kY-7Q; Thu, 14 Dec 2023 07:08:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654296.1021051; Thu, 14 Dec 2023 06:16:23 +0000
+Received: by outflank-mailman (output) from mailman id 654300.1021061; Thu, 14 Dec 2023 07:08:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rDf1D-0006Yi-70; Thu, 14 Dec 2023 06:16:23 +0000
-Received: by outflank-mailman (input) for mailman id 654296;
- Thu, 14 Dec 2023 06:16:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rDfpp-0004hZ-3c; Thu, 14 Dec 2023 07:08:41 +0000
+Received: by outflank-mailman (input) for mailman id 654300;
+ Thu, 14 Dec 2023 07:08:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6sbk=HZ=gmail.com=marietto2008@srs-se1.protection.inumbo.net>)
- id 1rDf1C-0006YX-0U
- for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 06:16:22 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c3d2aef-9a48-11ee-98e9-6d05b1d4d9a1;
- Thu, 14 Dec 2023 07:16:20 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-551f9ca15b4so1948520a12.1; 
- Wed, 13 Dec 2023 22:16:20 -0800 (PST)
+ <SRS0=+dVB=HZ=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
+ id 1rDfpn-0004hP-IG
+ for xen-devel@lists.xenproject.org; Thu, 14 Dec 2023 07:08:39 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20617.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::617])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 99288fe3-9a4f-11ee-9b0f-b553b5be7939;
+ Thu, 14 Dec 2023 08:08:36 +0100 (CET)
+Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
+ by PH0PR12MB8176.namprd12.prod.outlook.com (2603:10b6:510:290::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7068.38; Thu, 14 Dec
+ 2023 07:08:32 +0000
+Received: from BL1PR12MB5849.namprd12.prod.outlook.com
+ ([fe80::969f:11b3:5ec2:3aa1]) by BL1PR12MB5849.namprd12.prod.outlook.com
+ ([fe80::969f:11b3:5ec2:3aa1%3]) with mapi id 15.20.7068.033; Thu, 14 Dec 2023
+ 07:08:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,209 +47,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c3d2aef-9a48-11ee-98e9-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702534580; x=1703139380; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=gD7tgxieDWSt+YW9XTmJUznY3tyvy/E6VKbPWapcg5o=;
-        b=O48vzIag6zmZKgF8U0+qNCkp9DzP3rBKb4IaclFFqE4wWOvCriq0Mmr8N+OWz8CBNX
-         QBC0F0Jr/MzSbHtL9xdN7M23G4L9LHGyrt/jT+ltuI+AuBBML+Qmag3eON66Js9lY2Sh
-         9bLA8oHUREUSQ0XoT9lYseIursAXX//82OlCqar+Z1l039fvCJZT8CWcpLQtf6F+Cgcy
-         vW5yuZ1/h5NftShw0nUDsxXHGoUeuZIHB6aULUYquHEvB/fuePAjSO0k5g/ikdeTt3CP
-         p0EJx/jy14/U7rC2oUI1jDpQ+luNPkkrdNqdrc878VrC09h+ApCUvIlGWPc4uNDHLFzb
-         e67Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702534580; x=1703139380;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gD7tgxieDWSt+YW9XTmJUznY3tyvy/E6VKbPWapcg5o=;
-        b=h+MNt4/e1kjyEiWWs4vEaIV/0xO3ZvknaIL0p1zWypri96OUqGsTvT2DeYQv3h2KnZ
-         klici9dDy2OeXTrdIQWzTDWb+M5+Cmo4QNiNlyO15w9zRAPYHN57LZViDouMDLgUg9HD
-         ogS3nBUWk4WOAx0lhz8b1jHjgVyFWSwVg+WskCNbgj6uWWPnveXIfy6L1WcHRhPnZIzU
-         MR07oV+Qi+Ct2cO25+mHEXpqwMjryCbdjtqI2Br7cd1q+FLg2vc9zBYqqd0Vh6oc3Hk5
-         bqtwxGZFitWgJwpM0Q1o3yrEHh3pvhW7UNLIbX5f7pSeN+PCGNp9lNCbHbnukfXd3Lkh
-         waIw==
-X-Gm-Message-State: AOJu0Yzufc6uiRB9EqSfUvOLrtG/R4JLSz/LmMIAZhsKpQy3nT63eiAF
-	yO8uJuE35fDEYYgIqKqHrHJsia3EaccTuMFI+Vc=
-X-Google-Smtp-Source: AGHT+IGp3ZrTN7VXz2ByAqHrggKslDSNkeVMphZYr2XmgXifM8Z7MvQXaInYTbJhF2W+en/rvsdUAaCOIzRmsnBHArE=
-X-Received: by 2002:a17:906:212:b0:a1b:e1bc:73e3 with SMTP id
- 18-20020a170906021200b00a1be1bc73e3mr5024862ejd.24.1702534579570; Wed, 13 Dec
- 2023 22:16:19 -0800 (PST)
+X-Inumbo-ID: 99288fe3-9a4f-11ee-9b0f-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YE1cyh8UOHjttsOswOT5CFBPpCnxOyWGrUoL1gk8lwkXynC6OZhr+Ma1vq6g0VXUk/Km5lIQhp9+bcyRV+kno2ExI/VfpNi2UUvO0jFXZ34lW75+pnO+InUmimq59Q00RZQUielAdU7EYZOc8MSIA4jusaDukRkmEnEo02nXXzuC/mKLGKVrLBqTfj/08gjEIndLWqy5BfaQwORN2zbW+x5Rwp6M2eUS/mFtcHKVAhpSworzLswSiy73JqgC8mbP2nMQxP6e6CJLWYgwdztbEhgDAe4nnEcL1QCSgsNIstPFmrDrpUC7Fsj9L+vjbGeg7R9b7nvsLWQhIkxUP0tKVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GJnuVdnySQ5WBlK3eXqbHIn+m45C0uBgaqmgii4zrsQ=;
+ b=Zts83f/tvmXtzxwBsVE0hMitatBZLNjGVuuS1FN20SgNT0NldjqvLj/s85SEnFNiRR7gRVdd3Ipe4cP8PDUD1fWETr8ZUI4/BvzIYf5LagfA0xWUS7IYyG7S1zNlDqdVyzw63j/VuAofN9c86nWBm8YyYkcFhl3a1A9d/xbXBPG6wVv+lqI2kupGgHMlEDHiDImWKaEPKnKgalRa1QV00s5cH3fvaK0SKE8ZsQ/AlyuWAsvt2EXWm88fbwwgKypt4Zx3ANdGcuxgR3QKWKx2YJJaA8sx+ZgYbzKfDaoS1bomJ+b4XeZIg/DX6J1NbisRXg+ipr9Y6GcJg0VX73r7tA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GJnuVdnySQ5WBlK3eXqbHIn+m45C0uBgaqmgii4zrsQ=;
+ b=XbcMcx0/uwTlaqy+BCVPdliPgALMlr+W6eijhnqw8qkptfNIebyq/17NVnrkLhLQWnHKzJiZkPsP2QzlggBwX1o2oxAngov1e3puV3aoklvOpGPgDv9emuw0nBOwcL+OVRqllyd3Neu2ZF2iOUSegEaELKM5H6et6f3AUk5roi8=
+From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
+CC: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "linux-acpi@vger.kernel.org"
+	<linux-acpi@vger.kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "Deucher, Alexander"
+	<Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Subject: Re: [RFC KERNEL PATCH v3 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
+Thread-Topic: [RFC KERNEL PATCH v3 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
+Thread-Index:
+ AQHaK4Q534ViUL7xiE2p4ymr6ObEurCkX+6AgAFU/YD//6xNgIABr6aAgAATSoCAAcFZAA==
+Date: Thu, 14 Dec 2023 07:08:32 +0000
+Message-ID:
+ <BL1PR12MB584911B4DFF4D9ED65CF92F0E78CA@BL1PR12MB5849.namprd12.prod.outlook.com>
+References: <20231210161519.1550860-1-Jiqian.Chen@amd.com>
+ <20231210161519.1550860-4-Jiqian.Chen@amd.com> <ZXdNf0HWs4nAVPeF@macbook>
+ <BL1PR12MB584910C2E370BBCC8A312733E78EA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZXglU0EtBrRNiWVp@macbook>
+ <BL1PR12MB584973D751EB57C3DE766AEEE78DA@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <ZXmfmbb4S8Iuy7si@macbook>
+In-Reply-To: <ZXmfmbb4S8Iuy7si@macbook>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-imapappendstamp: BL1PR12MB5364.namprd12.prod.outlook.com
+ (15.20.7113.000)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|PH0PR12MB8176:EE_
+x-ms-office365-filtering-correlation-id: a522719f-9363-47a9-0123-08dbfc737b64
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ CNokCmMLiAcB2OpIIMQImCJ6Ko5EHTFKBBfMAFkLACMGz2hevDcEDdZVf3CCxPubDR+fiKrJzEhppLj6B6Ld7NGqmOkN+wHgrtu2SdVmL4boalFPnxOtHx0sa2GpbhKdAUzqqfZ148t/Cak8I6ZtLLBAVoR7z5N+TcwkrC/5cU7FEyXeR25DfKnybzvrhYY9LHkts6CWIC+J1qIkG9QZDNkROuMwjLiU3pgWWzkShrxSsPPbAHAb3smw6qJ0D+DA7zemv3gQ3P9FtrWr77eUTyy4E79DqFcvrUbbU/xD+bvyuVMPJQNGfeE4FDB1/BpCjd/zuK0whU7tdJXkDGtW8MG38ILni3uCrcfTwgG8GsBjFoQpTAg/8BBgmYsu75rQNuSGSlbw39Z2R3gHqHq7j0iJ5TSND5OnYgKnac8ZlS++XFKtIyURrDvGpPM7JHllFHefQ6MoLam0jDON+1/XUi/eePIKZZaWsN5Al4LlfqifJCpqSy038/Y75qzwmIcpVrwoGZJc7rUiAxsHc2Rjxgf1Bcd7Dx8bBR+Az/BgXcp5nam3ybAX0GjEOyv0Tiukz1gJNeHUsnEDS9IFalidSePBE86twzIyJEQARulapCkM7esYgugfC+AEYlrstQJ2
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(396003)(376002)(136003)(39860400002)(366004)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(122000001)(2906002)(38100700002)(33656002)(38070700009)(41300700001)(4326008)(8936002)(8676002)(9686003)(71200400001)(478600001)(83380400001)(54906003)(76116006)(66946007)(66446008)(66476007)(66556008)(64756008)(316002)(6916009)(7696005)(6506007)(53546011)(5660300002)(55016003)(52536014)(26005);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?QmZvWG9oWFZodVY5bUlkb1l6cDFlWVRmbjRYK2pmaytEUUMxRGJMNE1Sb0Nj?=
+ =?utf-8?B?QzUzSXZtYmIrdFJQSDNySUhvajNjblBPczZHT1d0ajdwVjJORHRqZ0ZkRzhU?=
+ =?utf-8?B?RlV6NmxSTTE3Y094WTByWlVEM1RPTmNpSGlHSXNuNlh6S1ZwUzV5dHUwZ2xI?=
+ =?utf-8?B?NndKZWM2U3dYdFBHcHh4UEFjWTZiTXNjU0ZOYXdiSHI3YitzczcwZTJPWUVs?=
+ =?utf-8?B?dzdLanZIcFpsSWMxeWF3U3djL2FwRGdWVW0vWjNORk9xU1pib2pRc0kxQUk0?=
+ =?utf-8?B?WHc1NTcwWU5vdVI1THloMGJaMUV4ZktUMXhTSkxyME5aQkRoTXVSV1RGNnJr?=
+ =?utf-8?B?VjdTV1dNZW5PZnRPaC8vaVpLcnZSczFTMmVpYzNHV2NSZy9jczZiZ0ZVcnVl?=
+ =?utf-8?B?eUNnVnNWb1pQTHZQWmxGdDAvNEtDM2luWGdJei9UWlo0RU1IQ2h4bDdWdEsy?=
+ =?utf-8?B?OWJYdUI2MXBVWnNMRE5FSXFPcEJnazhPVTlpY0hPZlQvVURSNmtXQzRzZDJi?=
+ =?utf-8?B?WExxcmY5dkUzek1YSkNXL2taL0pSZUJJL3JHS3hXS3ZRSXVkQVhLNXB6WmYv?=
+ =?utf-8?B?QkpIeTVsK2tXbmQ1em9DclhQNkRLSkhCV3Z6VW10aERscERuY0h4U05GYjE2?=
+ =?utf-8?B?WWZrV0h4aUtPM0Z0NldIVGpsWHZSL1RxWWdyN2RTTzVUVzdKT1dmc3Y2emVC?=
+ =?utf-8?B?TFNjeDF5MFhJSXJTbzk3QXRXSVpYNUxQQ2gzTHM3cjdJeVJCdzdXRlBLbU1O?=
+ =?utf-8?B?N2V3TktpUUl0QnVERmo2N2ZYS0hDVW5qbjJtMzd3dVBEOG1oRTYwSkpuWjh1?=
+ =?utf-8?B?Sjd6TmtPV2tiVzR6aG5KejZTMUJNYmlJQ0RMdGE4OXJCclBPak1VNFFaZk9O?=
+ =?utf-8?B?eXpyM3A4aVEweVNseWEvbTNjbU1NWk53NTAvVG5qUTF0aVB6VDBranZVVndv?=
+ =?utf-8?B?R0ZsYjlxM1ZyN0ZDY2ZLR216Q3pjQ3FkK25QOGFSVW9zbGh3cTZEeDNjN01l?=
+ =?utf-8?B?UXZibkk2QXY4TW8rcmFTYTdsbllWV0tkUElzbTN6Vjh1NFQyZXFRNHkvdlhU?=
+ =?utf-8?B?bm0yWTRZY1lXekduTUR5dDRYeWJDa0NBalFVRXZQZWt3M3pSM3IwRk9sTzhG?=
+ =?utf-8?B?SUQyRTVBSHl0MUNZa1dDTVJjd0tUaVdlUmloRFo5NXlHYlpzSlNXR1ZneCt3?=
+ =?utf-8?B?c29OS2lYenZvY295VURleS9iNmZhWkFhYU5ER09acTJ3Wktqck91eFZSc3Jt?=
+ =?utf-8?B?N0x1V2g4M2tjZHJrUlo4Sm9HWGZlSUFXYUlpaitKTUhLckZQcTdaZ2h3RVBj?=
+ =?utf-8?B?WTZVVEhHdzlZWHQzNTloeXM1MHBxd0UvaXkvTEFhMUV4L1ZJK3NqbXdEYWIz?=
+ =?utf-8?B?K2dFSEdYaVZ1RmFFcHVCaU9jQ21NN1BtWDVwRUU2ODlYRElvekRWUEpEbGQx?=
+ =?utf-8?B?NDJ1VlhjZkJjeEFYcGEway9XdlU5MTVyL0hBZkxMcms4T01oTDNVa25NejJq?=
+ =?utf-8?B?TjhUc3ZCYnJqb0FNKzZ3TDZFUVN1bC9HYjJYbVJ0NVdQSTlza2FEL3VQYmJ0?=
+ =?utf-8?B?MlpMK2tScU1QWU1Lb2F0OXBDZ3JUbzkvVjViUW1wN2s2U2tkbWp3Umdpc3Bo?=
+ =?utf-8?B?cjZBQlJqMkxpUHhOdVRRdzVRR0dUZFgxRUFjQWp3a2dWbGM4cWQ3VHY2QytT?=
+ =?utf-8?B?VzlVWi9EU3lFWmowQzZBRzhVNnlyNDM3c2puZW43MFdWZWxIU21wNG42a3VL?=
+ =?utf-8?B?UEtWam5iWS9TWEo2VmV2N093dTNFU2lvODdFQnJIK09jNU9QNlFDcVMzYjBi?=
+ =?utf-8?B?MVZyUGdFNlVmcTZCT3hMR05ZNGpVNitNNVU1aGc0bEtNWnlQTkgrWjlBQkFF?=
+ =?utf-8?B?cXRHd0hwa1dndmxaTFB6WVlJc3hnVHNHRUQxVHFPRWNVOE5SK3ZxaGp5elVS?=
+ =?utf-8?B?R3RsaVN1Z0h4T3MvaVlIM0tXU0o1b3Z1Q1g5dFFTS0VEYXZjUlFvVXR4Y2FP?=
+ =?utf-8?B?dXU0MUZkMFUzTExiVjFrMllwRjQvWXpJaVRPZk10Wk9aZ3ZYZ0thWWp1NjNL?=
+ =?utf-8?B?ZWVUZHJsNGsrY3BacVdaU212aE9rcTV1K1I0NDdncFF5NFlqL1pETjByZTJj?=
+ =?utf-8?Q?x1yE=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <0B8CBC3B7490BE418DAAF6685149657A@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <CA+1FSiii2etikw9LKdJ5Ebn+z-3-e5UXh3cJjBgYGJYtq3q=Ww@mail.gmail.com>
- <300b7e2b-068a-4cac-a617-ae41caa6d3b9@netscape.net> <CA+1FSiiuWz_91Wg3Az440nFKaLY_raoUy=3nGj4Zca8viKAT=Q@mail.gmail.com>
- <0bf311bb-435a-4c5d-a36c-8cfe95f92f98@netscape.net> <ZXoboEVx1jzIgrvJ@mattapan.m5p.com>
-In-Reply-To: <ZXoboEVx1jzIgrvJ@mattapan.m5p.com>
-From: Mario Marietto <marietto2008@gmail.com>
-Date: Thu, 14 Dec 2023 07:15:45 +0100
-Message-ID: <CA+1FSihCUR2Sh9T+Kfw2LWHHiHVkmy1ohWZuFQPcNtcfzOVt6A@mail.gmail.com>
-Subject: Re: xc_dom_guest_type: image not capable of booting inside a HV M
- container: Invalid kernel
-To: Elliott Mitchell <ehem+freebsd@m5p.com>
-Cc: Chuck Zmudzinski <brchuckz@netscape.net>, Anthony Perard <anthony.perard@citrix.com>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	xen-devel <xen-devel@lists.xenproject.org>, xen-users-request@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Content-Type: multipart/alternative; boundary="000000000000d54ba6060c723821"
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a522719f-9363-47a9-0123-08dbfc737b64
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2023 07:08:32.4561
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8Fb31fz9i5RzRhT6CgSMTkoSCcyFgJvJ+AfYT2ApWqfFpTKjh7Ekeh5TkDktEMhXlezPo7znjKQyFnIHaLVkDQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8176
 
---000000000000d54ba6060c723821
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hello Elliott.
-
-In my experiment I've used FreeBSD 13.2-RELEASE. Do you think that it will
-work if I use a previous version,let's say 12.04 ?
-
-On Wed, Dec 13, 2023 at 10:01=E2=80=AFPM Elliott Mitchell <ehem+freebsd@m5p=
-.com>
-wrote:
-
-> On Mon, Dec 11, 2023 at 01:41:21PM -0500, Chuck Zmudzinski wrote:
-> > On 12/11/2023 12:59 PM, Mario Marietto wrote:
-> > > root@marietto:/mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-=
-xen/kernel
-> # file
-> /mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-xen/kernel/kernel
-> > >
-> > > ELF 32-bit LSB executable,ARM, EABI5 version 1 (FreeBSD), dynamically
-> linked, interpreter /red/herring,
-> BuildID[sha1]=3D5e6982c9cb67d9c94571b76419142a8c495388d0, for FreeBSD 13.=
-2,
-> not stripped
-> > >
-> > > root@marietto:/mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-=
-xen/kernel
-> # file
-> /mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boot-xen/kernel/kernel.=
-bin
-> > >
-> > > kernel.bin: data
-> >
-> > This needs to be :
-> >
-> > kernel.bin: Linux kernel ARM boot executable zImage (little-endian)
-> >
-> > >
-> > > It does not boot from the kernel.bin file.
-> >
-> > I suggest not trying to direct boot a kernel in Xen on arm unless the
-> file command reports the kernel image is a Linux kernel ARM boot executab=
-le
-> zImage (little endian).
-> >
-> > Did you try applying Julien's patch (link is in my earlier message) to
-> add zImage support to FreeBSD? Maybe after applying the patch the
-> kernel.bin file will be in the correct zImage format.
-> >
-> > The patch I linked in the earlier
->
-> Appears FreeBSD-CURRENT removed the last step converting the kernel file
-> to kernel.bin.  The patch can be readily rebased, but without kernel.bin
-> that doesn't do too much.  (hmm, see if that can be tracked down...)
->
->
-> A bigger issue is this approach is a maintenance nightmare.  Updating
-> the kernel requires action from outside the VM.
->
-> As such, Anthony Perard would there be any hope for Tianocore/EDK2
-> gaining support for ARMv6/v7?  The delta should be pretty small.
->
->
-> --
-> (\___(\___(\______          --=3D> 8-) EHM <=3D--          ______/)___/)_=
-__/)
->  \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
->   \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-> 8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
->
->
->
-
---=20
-Mario.
-
---000000000000d54ba6060c723821
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hello Elliott.</div><div><br></div><div></div><div>In=
- my experiment I&#39;ve used FreeBSD 13.2-RELEASE. Do you think that it wil=
-l work if I use a previous version,let&#39;s say 12.04 ?<br></div></div><br=
-><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, D=
-ec 13, 2023 at 10:01=E2=80=AFPM Elliott Mitchell &lt;<a href=3D"mailto:ehem=
-%2Bfreebsd@m5p.com">ehem+freebsd@m5p.com</a>&gt; wrote:<br></div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
-olid rgb(204,204,204);padding-left:1ex">On Mon, Dec 11, 2023 at 01:41:21PM =
--0500, Chuck Zmudzinski wrote:<br>
-&gt; On 12/11/2023 12:59 PM, Mario Marietto wrote:<br>
-&gt; &gt; root@marietto:/mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/b=
-oot-xen/kernel # file /mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boo=
-t-xen/kernel/kernel<br>
-&gt; &gt; <br>
-&gt; &gt; ELF 32-bit LSB executable,ARM, EABI5 version 1 (FreeBSD), dynamic=
-ally linked, interpreter /red/herring, BuildID[sha1]=3D5e6982c9cb67d9c94571=
-b76419142a8c495388d0, for FreeBSD 13.2, not stripped<br>
-&gt; &gt; <br>
-&gt; &gt; root@marietto:/mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/b=
-oot-xen/kernel # file /mnt/zroot2/zroot2/OS/Chromebook/domU/freebsd-xen/boo=
-t-xen/kernel/kernel.bin<br>
-&gt; &gt; <br>
-&gt; &gt; kernel.bin: data=C2=A0<br>
-&gt; <br>
-&gt; This needs to be :<br>
-&gt; <br>
-&gt; kernel.bin: Linux kernel ARM boot executable zImage (little-endian)<br=
->
-&gt; <br>
-&gt; &gt; <br>
-&gt; &gt; It does not boot from the kernel.bin file.<br>
-&gt; <br>
-&gt; I suggest not trying to direct boot a kernel in Xen on arm unless the =
-file command reports the kernel image is a Linux kernel ARM boot executable=
- zImage (little endian).<br>
-&gt; <br>
-&gt; Did you try applying Julien&#39;s patch (link is in my earlier message=
-) to add zImage support to FreeBSD? Maybe after applying the patch the kern=
-el.bin file will be in the correct zImage format.<br>
-&gt; <br>
-&gt; The patch I linked in the earlier <br>
-<br>
-Appears FreeBSD-CURRENT removed the last step converting the kernel file<br=
->
-to kernel.bin.=C2=A0 The patch can be readily rebased, but without kernel.b=
-in<br>
-that doesn&#39;t do too much.=C2=A0 (hmm, see if that can be tracked down..=
-.)<br>
-<br>
-<br>
-A bigger issue is this approach is a maintenance nightmare.=C2=A0 Updating<=
-br>
-the kernel requires action from outside the VM.<br>
-<br>
-As such, Anthony Perard would there be any hope for Tianocore/EDK2<br>
-gaining support for ARMv6/v7?=C2=A0 The delta should be pretty small.<br>
-<br>
-<br>
--- <br>
-(\___(\___(\______=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 --=3D&gt; 8-) EHM &lt;=
-=3D--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ______/)___/)___/)<br>
-=C2=A0\BS (=C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"mail=
-to:ehem%2Bsigmsg@m5p.com" target=3D"_blank">ehem+sigmsg@m5p.com</a>=C2=A0 P=
-GP 87145445=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 )=C2=A0 =C2=A0/=
-<br>
-=C2=A0 \_CS\=C2=A0 =C2=A0|=C2=A0 _____=C2=A0 -O #include &lt;stddisclaimer.=
-h&gt; O-=C2=A0 =C2=A0_____=C2=A0 |=C2=A0 =C2=A0/=C2=A0 _/<br>
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 &lt;-PGP-&gt; 41D1 B375 37D0 8714\_|_/___/=
-5445<br>
-<br>
-<br>
-</blockquote></div><br clear=3D"all"><br><span class=3D"gmail_signature_pre=
-fix">-- </span><br><div dir=3D"ltr" class=3D"gmail_signature">Mario.<br></d=
-iv>
-
---000000000000d54ba6060c723821--
+T24gMjAyMy8xMi8xMyAyMDoxMiwgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToNCj4gT24gV2VkLCBE
+ZWMgMTMsIDIwMjMgYXQgMDM6MzE6MjFBTSArMDAwMCwgQ2hlbiwgSmlxaWFuIHdyb3RlOg0KPj4g
+T24gMjAyMy8xMi8xMiAxNzoxOCwgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToNCj4+PiBPbiBUdWUs
+IERlYyAxMiwgMjAyMyBhdCAwNjozNDoyN0FNICswMDAwLCBDaGVuLCBKaXFpYW4gd3JvdGU6DQo+
+Pj4+DQo+Pj4+IE9uIDIwMjMvMTIvMTIgMDE6NTcsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+
+Pj4+PiBPbiBNb24sIERlYyAxMSwgMjAyMyBhdCAxMjoxNToxOUFNICswODAwLCBKaXFpYW4gQ2hl
+biB3cm90ZToNCj4+Pj4+PiBUaGVyZSBpcyBhIG5lZWQgZm9yIHNvbWUgc2NlbmFyaW9zIHRvIHVz
+ZSBnc2kgc3lzZnMuDQo+Pj4+Pj4gRm9yIGV4YW1wbGUsIHdoZW4geGVuIHBhc3N0aHJvdWdoIGEg
+ZGV2aWNlIHRvIGR1bVUsIGl0IHdpbGwNCj4+Pj4+PiB1c2UgZ3NpIHRvIG1hcCBwaXJxLCBidXQg
+Y3VycmVudGx5IHVzZXJzcGFjZSBjYW4ndCBnZXQgZ3NpDQo+Pj4+Pj4gbnVtYmVyLg0KPj4+Pj4+
+IFNvLCBhZGQgZ3NpIHN5c2ZzIGZvciB0aGF0IGFuZCBmb3Igb3RoZXIgcG90ZW50aWFsIHNjZW5h
+cmlvcy4NCj4+Pj4+Pg0KPj4+Pj4+IENvLWRldmVsb3BlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVh
+bmdAYW1kLmNvbT4NCj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBKaXFpYW4gQ2hlbiA8SmlxaWFuLkNo
+ZW5AYW1kLmNvbT4NCj4+Pj4+PiAtLS0NCj4+Pj4+PiAgZHJpdmVycy9hY3BpL3BjaV9pcnEuYyAg
+fCAgMSArDQo+Pj4+Pj4gIGRyaXZlcnMvcGNpL3BjaS1zeXNmcy5jIHwgMTEgKysrKysrKysrKysN
+Cj4+Pj4+PiAgaW5jbHVkZS9saW51eC9wY2kuaCAgICAgfCAgMiArKw0KPj4+Pj4+ICAzIGZpbGVz
+IGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKykNCj4+Pj4+Pg0KPj4+Pj4+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2FjcGkvcGNpX2lycS5jIGIvZHJpdmVycy9hY3BpL3BjaV9pcnEuYw0KPj4+Pj4+IGlu
+ZGV4IDYzMGZlMGEzNGJjNi4uNzM5YTU4NzU1ZGYyIDEwMDY0NA0KPj4+Pj4+IC0tLSBhL2RyaXZl
+cnMvYWNwaS9wY2lfaXJxLmMNCj4+Pj4+PiArKysgYi9kcml2ZXJzL2FjcGkvcGNpX2lycS5jDQo+
+Pj4+Pj4gQEAgLTQ0OSw2ICs0NDksNyBAQCBpbnQgYWNwaV9wY2lfaXJxX2VuYWJsZShzdHJ1Y3Qg
+cGNpX2RldiAqZGV2KQ0KPj4+Pj4+ICAJCWtmcmVlKGVudHJ5KTsNCj4+Pj4+PiAgCQlyZXR1cm4g
+MDsNCj4+Pj4+PiAgCX0NCj4+Pj4+PiArCWRldi0+Z3NpID0gZ3NpOw0KPj4+Pj4NCj4+Pj4+IEl0
+IHdvdWxkIGJlIGJldHRlciBpZiB0aGUgZ3NpIGlmIGZldGNoZWQgd2l0aG91dCByZXF1aXJpbmcg
+Y2FsbGluZw0KPj4+Pj4gYWNwaV9wY2lfaXJxX2VuYWJsZSgpLCBhcyB0aGUgZ3NpIGRvZXNuJ3Qg
+cmVxdWlyZSB0aGUgaW50ZXJydXB0IHRvIGJlDQo+Pj4+PiBlbmFibGVkLiAgVGhlIGdzaSBpcyBr
+bm93biBhdCBib290IHRpbWUgYW5kIHdvbid0IGNoYW5nZSBmb3IgdGhlDQo+Pj4+PiBsaWZldGlt
+ZSBvZiB0aGUgZGV2aWNlLg0KPj4+PiBEbyB5b3UgaGF2ZSBhbnkgc3VnZ2VzdCBwbGFjZXMgdG8g
+ZG8gdGhpcz8NCj4+Pg0KPj4+IEknbSBub3QgYW4gZXhwZXJ0IG9uIHRoaXMsIGJ1dCBkcml2ZXJz
+L3BjaS9wY2ktc3lzZnMuYyB3b3VsZCBzZWVtIGxpa2UNCj4+PiBhIGJldHRlciBwbGFjZSwgdG9n
+ZXRoZXIgd2l0aCB0aGUgcmVzdCBvZiB0aGUgcmVzb3VyY2VzLg0KPj4gSSdtIG5vdCBmYW1pbGlh
+ciB3aXRoIHRoaXMgdG9vLiBCdXQgaXQgc2VlbXMgcGNpLXN5c2ZzLmMgb25seSBjcmVhdGVzIHN5
+c2ZzIG5vZGUgYW5kIHN1cHBvcnRzIHRoZSByZWFkL3dyaXRlIG1ldGhvZCB3aXRob3V0IGluaXRp
+YWxpemluZyB0aGUgdmFsdWVzLg0KPj4gSWYgd2FudCB0byBpbml0aWFsaXplIHRoZSB2YWx1ZSBv
+ZiBnc2kgaGVyZS4gQW4gYXBwcm9hY2ggdG8gaW5pdGlhbGl6ZSBpdCBpcyB0byBjYWxsIGFjcGlf
+cGNpX2lycV9sb29rdXAgdG8gZ2V0IGdzaSBudW1iZXIgd2hlbiB0aGUgZmlyc3QgdGltZSBpdCBp
+cyByZWFkPw0KPiANCj4gSG0sIG1heWJlLCBJIGRvbid0IHJlYWxseSBoYXZlIG11Y2ggZXhwZXJp
+ZW5jZSB3aXRoIHN5c2ZzLCBzbyBkb24ndA0KPiBrbm93IGhvdyBub2RlcyBhcmUgdXN1YWxseSBp
+bml0aWFsaXplZC4NCk1heWJlIHRoZSBtYWludGFpbmVycyBvZiBzeXNmcyBjYW4gZ2l2ZSBzb21l
+IHN1Z2dlc3QgcGxhY2VzIHRvIGluaXRpYWxpemUgdGhlIHZhbHVlIG9mIGdzaS4NCg0KPiANCj4+
+Pg0KPj4+IE1heWJlIG15IHVuZGVyc3RhbmRpbmcgaXMgaW5jb3JyZWN0LCBidXQgZ2l2ZW4gdGhl
+IHN1Z2dlc3RlZCBwbGFjZW1lbnQNCj4+PiBpbiBhY3BpX3BjaV9pcnFfZW5hYmxlKCkgSSB0aGlu
+ayB0aGUgZGV2aWNlIHdvdWxkIG5lZWQgdG8gYmluZCB0aGUNCj4+PiBpbnRlcnJ1cHQgaW4gb3Jk
+ZXIgZm9yIHRoZSBnc2kgbm9kZSB0byBhcHBlYXIgb24gc3lzZnM/DQo+PiBObywgZ3NpIHN5c2Zz
+IGhhcyBleGlzdGVkIHRoZXJlLCBpbiBhY3BpX3BjaV9pcnFfZW5hYmxlIGlzIHRvIGluaXRpYWxp
+emUgdGhlIHZhbHVlIG9mIGdzaS4NCj4+DQo+Pj4NCj4+PiBXb3VsZCB0aGUgY3VycmVudCBhcHBy
+b2FjaCB3b3JrIGlmIHRoZSBkZXZpY2UgaXMgYXNzaWduZWQgdG8gcGNpYmFjaw0KPj4+IG9uIHRo
+ZSBrZXJuZWwgY29tbWFuZCBsaW5lLCBhbmQgdGh1cyBuZXZlciBvd25lZCBieSBhbnkgZHJpdmVy
+IGluDQo+Pj4gZG9tMD8NCj4+IElmIGFzc2lnbmVkIHRvIHBjaWJhY2ssIEkgdGhpbmsgcGNpYmFj
+ayB3aWxsIGVuYWJsZSB0aGUgZGV2aWNlLCBhbmQgdGhlbiBhY3BpX3BjaV9pcnFfZW5hYmxlIHdp
+bGwgYmUgY2FsbGVkLCBhbmQgdGhlbiB0aGUgZ3NpIHdpbGwgYmUgaW5pdGlhbGl6ZWQuIFNvLCBj
+dXJyZW50IGNhbiB3b3JrLg0KPiANCj4gVGhpcyBuZWVkcyBjaGVja2luZyB0byBiZSBzdXJlLCBJ
+J20gY2VydGFpbmx5IG5vdCB0aGF0IGZhbWlsaWFyLiAgWW91DQo+IHdvdWxkIG5lZWQgdG8gYXQg
+bGVhc3QgdGVzdCB0aGF0IGl0IHdvcmtzIHByb3Blcmx5IHdoZW4gdGhlIGRldmljZSBpcw0KPiBo
+aWRkZW4gdXNpbmcgeGVuLXBjaWJhY2suaGlkZT0oU0JERikgaW4gdGhlIExpbnV4IGtlcm5lbCBj
+b21tYW5kIGxpbmUuDQpTdXJlLCBJIGhhdmUgdmFsaWRhdGVkIGl0IG9uIG15IHNpZGUuIEJvdGgg
+dGhlICJTdGF0aWMgYXNzaWdubWVudCBmb3IgYnVpbHQtaW4geGVuLXBjaWJhY2soeGVuLXBjaWJh
+Y2suaGlkZT0oU0JERikpIiBhbmQgdGhlICJEeW5hbWljIGFzc2lnbm1lbnQgd2l0aCB4bChzdWRv
+IG1vZHByb2JlIHhlbi1wY2liYWNrICYgc3VkbyB4bCBwY2ktYXNzaWduYWJsZS1hZGQgU0JERiki
+IGNhbiB3b3JrIGZpbmUgd2l0aCBjdXJyZW50IGltcGxlbWVudGF0aW9uLg0KDQo+IA0KPiBUaGFu
+a3MsIFJvZ2VyLg0KDQotLSANCkJlc3QgcmVnYXJkcywNCkppcWlhbiBDaGVuLg0K
 
