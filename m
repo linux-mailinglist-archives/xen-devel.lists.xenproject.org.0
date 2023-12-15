@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91515815181
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 22:02:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655363.1023108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31EA0815180
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 22:02:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655364.1023118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rEFJc-0002gS-6m; Fri, 15 Dec 2023 21:01:48 +0000
+	id 1rEFJm-0002xu-E8; Fri, 15 Dec 2023 21:01:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655363.1023108; Fri, 15 Dec 2023 21:01:48 +0000
+Received: by outflank-mailman (output) from mailman id 655364.1023118; Fri, 15 Dec 2023 21:01:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rEFJc-0002dT-3l; Fri, 15 Dec 2023 21:01:48 +0000
-Received: by outflank-mailman (input) for mailman id 655363;
- Fri, 15 Dec 2023 21:01:46 +0000
+	id 1rEFJm-0002ul-Ae; Fri, 15 Dec 2023 21:01:58 +0000
+Received: by outflank-mailman (input) for mailman id 655364;
+ Fri, 15 Dec 2023 21:01:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Stqq=H2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rEFJa-0002dN-Hi
- for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 21:01:46 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1rEFJk-0002dN-6Q
+ for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 21:01:56 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27729c28-9b8d-11ee-98ea-6d05b1d4d9a1;
- Fri, 15 Dec 2023 22:01:45 +0100 (CET)
+ id 2d169105-9b8d-11ee-98ea-6d05b1d4d9a1;
+ Fri, 15 Dec 2023 22:01:55 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 7ADCFB82640;
- Fri, 15 Dec 2023 21:01:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EEF4C433C8;
- Fri, 15 Dec 2023 21:01:42 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id CF044627A6;
+ Fri, 15 Dec 2023 21:01:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7339C433C8;
+ Fri, 15 Dec 2023 21:01:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,90 +42,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27729c28-9b8d-11ee-98ea-6d05b1d4d9a1
+X-Inumbo-ID: 2d169105-9b8d-11ee-98ea-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702674103;
-	bh=LPqiB4gWftxzgmuGTpgcB+VxWM/1TXhAIWQUzdXycos=;
+	s=k20201202; t=1702674113;
+	bh=O2RuI3xmzIwwGqozyus2XuyWTx0BEzOms47qRRmXgok=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rKOSWL7IS4QP5xaZcOeJbk9eYRPkpnvG/FeLfIaCCt9UZfJ6O5wOVP+b+tq9lTJ2d
-	 +3k9l2acP7wWtYFU8Zo14KGgWaTstHHdxP6sF1ErBsy+7RRYKv/pRRg54o61aJ26l7
-	 a4pDIyW7XOszBSTkyOoJii5wSCzxZXtLj/XrgQM/70oxI20zNYYoYabSohGTlPZkAV
-	 Siu7HnUxaIlgx1f18EL3owMljyBD/U+pbyLIK+u4VzVzSZuPFqQsyJB4KKx4nwVBN9
-	 8qz9YsZlFO0kWQuQAeDtQY+pHh3YTbrX1VXOcCMdLyUVfn836oRaObOrYyJU1ZXAaL
-	 hw8OQNS67Wh1w==
-Date: Fri, 15 Dec 2023 13:01:40 -0800 (PST)
+	b=QwAZHZfTXqFj89eq/eW2JglJ9T51SshUy5dM89ykyi5ZxrA/anC6D3BRcMGvIaCS1
+	 ZjMjLwUc5qIe9vE8LO65/Y3NpE55ut/LZsqHvR1srQoyBSPI2Tc3UiVEutqCBzM3Ys
+	 UZk0i2YhV0zVNBxUezwhcywpUMNhI3YZuCEUugrVzgpjHYGd80mF0VWcdFFVAHSHaa
+	 B0EdKpVDg6Vq46ZreXeQ/LEb7iu4Q/ivbWe7vfE5YfHs+8Z5c0O5SglfN9Ok1qYyYK
+	 AoyTIes0zSjZZ7kisIryqncvXqFXCaewSKQ2lzB8+Jv7JYfM3oSlLPwqS+Uoj7Ds15
+	 piLUQyry2TMiQ==
+Date: Fri, 15 Dec 2023 13:01:50 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "Daniel P . Smith" <dpsmith@apertussolutions.com>, Wei Liu <wl@xen.org>, 
-    Anthony PERARD <anthony.perard@citrix.com>, 
-    Juergen Gross <jgross@suse.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>, 
-    "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>, 
-    "Huang, Ray" <Ray.Huang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
-Subject: Re: [RFC XEN PATCH v3 2/3] x86/pvh: Add (un)map_pirq and setup_gsi
- for PVH dom0
-In-Reply-To: <ZXwQ7BF9AxZPYPXQ@macbook>
-Message-ID: <alpine.DEB.2.22.394.2312151114310.3175268@ubuntu-linux-20-04-desktop>
-References: <BL1PR12MB5849B1BDCBECD73353413869E78EA@BL1PR12MB5849.namprd12.prod.outlook.com> <704cc051-7362-4691-a120-4effaf8dd1fc@suse.com> <BL1PR12MB584993E317AF28E675814FC6E78DA@BL1PR12MB5849.namprd12.prod.outlook.com> <917ef38b-5aec-4c6a-803c-c0b2dcc74454@suse.com>
- <BL1PR12MB58494259A9E37CD7133090D9E78CA@BL1PR12MB5849.namprd12.prod.outlook.com> <ZXrRG8oc25Do0Dnv@macbook> <390368e2-5f13-4bbf-8c07-4a05c04e9939@suse.com> <ZXrTwfzedFQLhxiQ@macbook> <alpine.DEB.2.22.394.2312141441020.3175268@ubuntu-linux-20-04-desktop>
- <6ba1feda-275a-43f1-911e-8a8596e100ff@suse.com> <ZXwQ7BF9AxZPYPXQ@macbook>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>, consulting@bugseng.com, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
+    Shawn Anastasio <sanastasio@raptorengineering.com>, 
+    xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@cloud.com>
+Subject: Re: [XEN PATCH v3 3/3] xen/mm: add declaration for first_valid_mfn
+In-Reply-To: <3b2f1699-d58c-40d8-af36-caef70064601@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2312151124490.3175268@ubuntu-linux-20-04-desktop>
+References: <cover.1702285639.git.nicola.vetrini@bugseng.com> <d80309f31fea24ea75c4994e924da069472811fc.1702285639.git.nicola.vetrini@bugseng.com> <6c717bd4-db1b-4e19-9b98-0776a8359085@suse.com> <alpine.DEB.2.22.394.2312131803150.3175268@ubuntu-linux-20-04-desktop>
+ <2a7f0d03-1cab-4824-86ae-fb7a26ff8adc@suse.com> <9fcc73f0-fc9c-4f4f-a431-f1f3b0df1b6a@xen.org> <4a1f86c7-6643-4fd1-ba1c-a4f86abb63f3@suse.com> <CA+zSX=YHW3kGFroNDzwQg=EhEe3F_fw3gCd_9W+P2UxC7+g+0A@mail.gmail.com> <0166dd5b-c12e-40d8-88a6-1f3c97bcf2e0@xen.org>
+ <3b2f1699-d58c-40d8-af36-caef70064601@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1170783508-1702667762=:3175268"
-Content-ID: <alpine.DEB.2.22.394.2312151116100.3175268@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=US-ASCII
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1170783508-1702667762=:3175268
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2312151116101.3175268@ubuntu-linux-20-04-desktop>
-
-On Fri, 15 Dec 2023, Roger Pau Monné wrote:
-> On Fri, Dec 15, 2023 at 09:24:22AM +0100, Jan Beulich wrote:
-> > On 14.12.2023 23:49, Stefano Stabellini wrote:
-> > > On Thu, 14 Dec 2023, Roger Pau Monné wrote:
-> > >> On Thu, Dec 14, 2023 at 10:58:24AM +0100, Jan Beulich wrote:
-> > >>> On 14.12.2023 10:55, Roger Pau Monné wrote:
-> > >>>> One way to bodge this would be to detect whether the caller of
-> > >>>> XEN_DOMCTL_irq_permission is a PV or an HVM domain, and in case of HVM
-> > >>>> assume the pirq field is a GSI.  I'm unsure however how that will work
-> > >>>> with non-x86 architectures.
-> > > 
-> > > PIRQ is an x86-only concept. We have event channels but no PIRQs on ARM.
-> > > I expect RISC-V will be the same.
-> > > 
-> > > 
-> > >>>> It would  be better to introduce a new XEN_DOMCTL_gsi_permission, or
-> > > 
-> > > "GSI" is another x86-only concept.
+On Fri, 15 Dec 2023, Jan Beulich wrote:
+> On 14.12.2023 20:10, Julien Grall wrote:
+> > On 14/12/2023 14:15, George Dunlap wrote:
+> >> But I do think that it's fair to ask Julien to think about a suitable
+> >> wording, since the comment is in a sense to remind him (or other ARM
+> >> maintainers) what's needed, and since the eventual solution will be
+> >> something to do with the ARM code and architecture anyway.
 > > 
-> > Just to mention it - going through the ACPI spec, this looks to be an
-> > arch-neutral ACPI term. It is also used in places which to me look
-> > pretty Arm-centric.
+> > The comment is for anyone using !NUMA (i.e. all architectures but x86) 
+> > :). What about the following (this is Nicola's patch with the comments 
+> > reworked):
 > 
-> Oh, indeed, they have retrofitted GSI(V?) for Arm also, as a way to have a
-> "flat" uniform interrupt space.
+> This clearly is better, yet then ...
+> 
+> > --- a/xen/arch/arm/include/asm/numa.h
+> > +++ b/xen/arch/arm/include/asm/numa.h
+> > @@ -2,8 +2,9 @@
+> >   #define __ARCH_ARM_NUMA_H
+> > 
+> >   #include <xen/mm.h>
+> > +#include <xen/types.h>
+> > 
+> > -typedef u8 nodeid_t;
+> > +typedef uint8_t nodeid_t;
+> > 
+> >   #ifndef CONFIG_NUMA
+> > 
+> > @@ -11,12 +12,6 @@ typedef u8 nodeid_t;
+> >   #define cpu_to_node(cpu) 0
+> >   #define node_to_cpumask(node)   (cpu_online_map)
+> > 
+> > -/*
+> > - * TODO: make first_valid_mfn static when NUMA is supported on Arm, this
+> > - * is required because the dummy helpers are using it.
+> > - */
+> > -extern mfn_t first_valid_mfn;
+> > -
+> >   /* XXX: implement NUMA support */
+> >   #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
+> >   #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+> > diff --git a/xen/arch/ppc/include/asm/numa.h 
+> > b/xen/arch/ppc/include/asm/numa.h
+> > index 7fdf66c3da74..888de2dbd1eb 100644
+> > --- a/xen/arch/ppc/include/asm/numa.h
+> > +++ b/xen/arch/ppc/include/asm/numa.h
+> > @@ -1,8 +1,8 @@
+> >   #ifndef __ASM_PPC_NUMA_H__
+> >   #define __ASM_PPC_NUMA_H__
+> > 
+> > -#include <xen/types.h>
+> >   #include <xen/mm.h>
+> > +#include <xen/types.h>
+> > 
+> >   typedef uint8_t nodeid_t;
+> > 
+> > @@ -10,12 +10,6 @@ typedef uint8_t nodeid_t;
+> >   #define cpu_to_node(cpu) 0
+> >   #define node_to_cpumask(node)   (cpu_online_map)
+> > 
+> > -/*
+> > - * TODO: make first_valid_mfn static when NUMA is supported on PPC, this
+> > - * is required because the dummy helpers are using it.
+> > - */
+> > -extern mfn_t first_valid_mfn;
+> > -
+> >   /* XXX: implement NUMA support */
+> >   #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
+> >   #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+> > diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> > index 9b5df74fddab..d874525916ea 100644
+> > --- a/xen/common/page_alloc.c
+> > +++ b/xen/common/page_alloc.c
+> > @@ -255,8 +255,10 @@ static PAGE_LIST_HEAD(page_broken_list);
+> >    */
+> > 
+> >   /*
+> > - * first_valid_mfn is exported because it is use in ARM specific NUMA
+> > - * helpers. See comment in arch/arm/include/asm/numa.h.
+> > + * first_valid_mfn is exported because it is used when !CONFIG_NUMA.
+> > + *
+> > + * TODO: Consider if we can conditionally export first_valid_mfn based
+> > + * on whether NUMA is selected.
+> >    */
+> >   mfn_t first_valid_mfn = INVALID_MFN_INITIALIZER;
+> > 
+> > diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+> > index 3d9b2d05a5c8..a13a9a46ced7 100644
+> > --- a/xen/include/xen/mm.h
+> > +++ b/xen/include/xen/mm.h
+> > @@ -118,6 +118,8 @@ int destroy_xen_mappings(unsigned long s, unsigned 
+> > long e);
+> >   /* Retrieve the MFN mapped by VA in Xen virtual address space. */
+> >   mfn_t xen_map_to_mfn(unsigned long va);
+> > 
+> > +extern mfn_t first_valid_mfn;
+> > +
+> >   /*
+> >    * Create only non-leaf page table entries for the
+> >    * page range in Xen virtual address space.
+> 
+> ... I still disagree with the placement here (should be xen/numa.h imo),
 
-Interesting, and I am not surprised. (I don't usually work with ACPI on
-ARM because none of our boards come with ACPI, they are all Device
-Tree.)
+This is where I would call it "good enough" and close it for now. I
+think we should commit such a patch (Julien's patch with the placement
+in xen/numa.h).
+
+Anything else...
 
 
-> So I guess Arm would also need the
-> GSI type, unless the translation from GSI to SPI or whatever platform
-> interrupt type is done by the guest and Xen is completely agnostic to
-> GSIs (if that's even possible).
+> and I still don't see why we can't carry out the TODO right away, if we
+> have to touch all of this anyway. If it's really too much to ask from
+> the original contributor, I can certainly see about making a patch myself
+> (and I've now added this to my short-term TODO list).
 
-I am guessing that GSIs on ARM must be mapped 1:1 to SPIs otherwise we
-would have severe inconsistencies between ACPI and DeviceTree booting
-and some boards support both.
-
-Also to answer your question about LPIs: those are MSIs on ARM.
---8323329-1170783508-1702667762=:3175268--
+... can still be done later whenever you get to it.
 
