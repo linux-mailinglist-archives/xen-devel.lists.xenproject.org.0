@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75E3F814A54
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 15:19:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655131.1022833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CB52814A51
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 15:19:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655132.1022838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rE92Y-0007Ls-4z; Fri, 15 Dec 2023 14:19:46 +0000
+	id 1rE92Y-0007Sm-Ho; Fri, 15 Dec 2023 14:19:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655131.1022833; Fri, 15 Dec 2023 14:19:46 +0000
+Received: by outflank-mailman (output) from mailman id 655132.1022838; Fri, 15 Dec 2023 14:19:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rE92Y-0007K9-1w; Fri, 15 Dec 2023 14:19:46 +0000
-Received: by outflank-mailman (input) for mailman id 655131;
+	id 1rE92Y-0007Mq-DK; Fri, 15 Dec 2023 14:19:46 +0000
+Received: by outflank-mailman (input) for mailman id 655132;
  Fri, 15 Dec 2023 14:19:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=a4Sn=H2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rE92W-0007Jp-Jf
+ id 1rE92W-0007Jp-Qd
  for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 14:19:44 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id de174ab3-9b54-11ee-9b0f-b553b5be7939;
- Fri, 15 Dec 2023 15:18:50 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-333536432e0so589058f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 15 Dec 2023 06:18:50 -0800 (PST)
+ id dea13028-9b54-11ee-9b0f-b553b5be7939;
+ Fri, 15 Dec 2023 15:18:51 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40c2308faedso8281565e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Dec 2023 06:18:51 -0800 (PST)
 Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
- m18-20020a5d6a12000000b003364492703csm5234834wru.23.2023.12.15.06.18.48
+ jb4-20020a05600c54e400b0040c5cf930e6sm10304507wmb.19.2023.12.15.06.18.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Dec 2023 06:18:48 -0800 (PST)
+ Fri, 15 Dec 2023 06:18:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,94 +44,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de174ab3-9b54-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: dea13028-9b54-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1702649929; x=1703254729; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hq7ROO1Dkz8xNVK9sMXMO1yZBwV35ERmOXzQeR/x8C0=;
-        b=VmYIwVhniQ3J7/NeTZ+Zpf83NQGDh2vpko9JlKLmW0scS3e1HPUXXjWbPa9rtdW4t6
-         xMMhL2yX2N0dhGgl1rtaPHc1MznJ0RMOd/n8fhxHbqwr9ausJhZoqspFUTcfStySPuH7
-         Yv7zq8VuxX/Vcuqc0dqFmrFAjKFFq5yGeZ4jo=
+        d=citrix.com; s=google; t=1702649930; x=1703254730; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=micbYiHo1/eCgvDXtChxHAYytkH71LDeDIW7HuEr1a4=;
+        b=gHuIKTHMNPbo5fam2PXpRNXWTVdFAxLaQAfa95l5BshF7aMQIMVY58N3g2CTed6ABD
+         lw6v+EOu7nOOq4uwdXCcS/tHTTUfwDEmtH3a4Pcd1CKvn/oLXf9s2KhQYYmywPvCD2sb
+         kml/WhEBQN9S1uaXWRNYEo+c2Mzg9wQPVDi5I=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702649929; x=1703254729;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hq7ROO1Dkz8xNVK9sMXMO1yZBwV35ERmOXzQeR/x8C0=;
-        b=NA415GYMbFLHUlKA0ZUW4Gn0HzZaqDMe1JfJoWlWYDLtLeD9ib1ji4K0lgTn3WSssC
-         ZwsJW1IvrkhZNOnOrZ1O97qNOptEg39QTTWSakCOXFm+7lrNullt2SK8SSmoj4hGQcCg
-         mJ9llgFWKzE/YB2f5NE7luBlrn2DSbcOOONeYw/XHl5khRDhRcfnLf/KExcBexiu2avj
-         lS2JGhtPtb5HrbV9G1DKg4PvQlOa8FD9kIs0C2ZMCp9cqJrpiD799lZwJwhWXJtO8LM2
-         JKWREH3kZYVgGqtLG1kC8s58ezM5giiLK2CdtPd5qQ7PRDf34XJiocHo9Zs7I9zP+Jir
-         hkCA==
-X-Gm-Message-State: AOJu0YyF0THR9g0TCUI6qcgNROjzV5zP/8QkwFGWfSGFE1cj6MpWevkn
-	D1sh2NF9CPQWrMWohwvH34tnRCyvrLpL3+l7pNY=
-X-Google-Smtp-Source: AGHT+IF/b/7/qScFgyi6zCgNgHy5tARgUgn0qJZAQ0F0OWawCH5vq5RwbOa55Qm59OQwGBcEYWEe7g==
-X-Received: by 2002:adf:fa89:0:b0:333:d38:9cf8 with SMTP id h9-20020adffa89000000b003330d389cf8mr5965361wrr.23.1702649929063;
-        Fri, 15 Dec 2023 06:18:49 -0800 (PST)
+        d=1e100.net; s=20230601; t=1702649930; x=1703254730;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=micbYiHo1/eCgvDXtChxHAYytkH71LDeDIW7HuEr1a4=;
+        b=vJgHS0V0bDqop2Q1dHFWTosuraE92p/c9d91Dp80KoU534VxZ+0ZuBGhz0MFivl1kR
+         P6tQqhXr11zxNByQ+7gshWaPtSha6BMTcAjpPz/Y6gs0JHJg/409W4YDtGEzB6rMp5Dw
+         UMwhnVTWkMrTkW/7fWBfpGvE4/JZssoGiXX8cQbAj1dbBQwp6MoyhPFBX4NhGIWMwIfO
+         pcHnxPZDjBBB/eO9vrOSqpI0F+2FJw8DgE76otegfDJ5Lx77LGYr1c6pXDBjMPO+6hfW
+         7jvyQ2Ctcpz7VpQoyjhrR4F5B/IgfFiKO7NzPTU2YCsBm0g6fnH1hP1RwEPqmLfS6y7R
+         ErLQ==
+X-Gm-Message-State: AOJu0Ywh4B5yJZY9rcEKrmgFMhejVNQvHhQo6R99NrHlFgdajcUpK7u5
+	ukWlg+oWMTve4TmykgedpJwUMQiisgxsx4Crm14=
+X-Google-Smtp-Source: AGHT+IGWmSEZYLoT7xDKGoqko8aP4/fZXUAfOWv+AmUwoE7mtuX1+6GMblkV4W+DGOpW3sm4PuQ7QQ==
+X-Received: by 2002:a05:600c:1c05:b0:40c:3856:5e07 with SMTP id j5-20020a05600c1c0500b0040c38565e07mr6063639wms.9.1702649930379;
+        Fri, 15 Dec 2023 06:18:50 -0800 (PST)
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Kevin Tian <kevin.tian@intel.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>,
-	Lukasz Hawrylko <lukasz@hawrylko.pl>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>
-Subject: [PATCH v3 0/7] x86/iommu: improve setup time of hwdom IOMMU
-Date: Fri, 15 Dec 2023 15:18:25 +0100
-Message-ID: <20231215141832.9492-1-roger.pau@citrix.com>
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v3 1/7] iommu/vt-d: do not assume page table levels for quarantine domain
+Date: Fri, 15 Dec 2023 15:18:26 +0100
+Message-ID: <20231215141832.9492-2-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20231215141832.9492-1-roger.pau@citrix.com>
+References: <20231215141832.9492-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello,
+Like XSA-445, do not assume IOMMU page table levels on VT-d are always set
+based on DEFAULT_DOMAIN_ADDRESS_WIDTH and instead fetch the value set by
+intel_iommu_domain_init() from the domain iommu structure.  This prevents
+changes to intel_iommu_domain_init() possibly getting the levels out of sync
+with what intel_iommu_quarantine_init() expects.
 
-The aim of the series is to reduce boot time setup of IOMMU page tables
-for dom0.
+No functional change, since on Intel domains are hardcoded to use
+DEFAULT_DOMAIN_ADDRESS_WIDTH.
 
-The first patch is completely unrelated leftover work from XSA-445, just
-included in the series because it's IOMMU code.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+Changes since v1:
+ - New in this version.
+---
+ xen/drivers/passthrough/vtd/iommu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Second and third patches are a pre-req, as further patches can end up
-attempting to create maps above the max RAM address, and hence without
-properly setting the IOMMU page tables levels those attempts to map
-would fail.
-
-Last 4 patches rework the hardware domain IOMMU setup to use a rangeset
-instead of iterating over all addresses up to the max RAM page.  See
-patch 6/7 for performance figures.
-
-Thanks, Roger.
-
-Roger Pau Monne (7):
-  iommu/vt-d: do not assume page table levels for quarantine domain
-  x86/p2m: move and rename paging_max_paddr_bits()
-  amd-vi: set IOMMU page table levels based on guest reported paddr
-    width
-  x86/iommu: introduce a rangeset to perform hwdom IOMMU setup
-  x86/iommu: remove regions not to be mapped
-  x86/iommu: switch hwdom IOMMU to use a rangeset
-  x86/iommu: cleanup unused functions
-
- xen/arch/x86/cpu-policy.c                   |   2 +-
- xen/arch/x86/domain.c                       |  21 ++
- xen/arch/x86/hvm/io.c                       |  15 +-
- xen/arch/x86/include/asm/domain.h           |   3 +
- xen/arch/x86/include/asm/hvm/io.h           |   4 +-
- xen/arch/x86/include/asm/paging.h           |  22 --
- xen/arch/x86/include/asm/setup.h            |   2 +-
- xen/arch/x86/setup.c                        |  81 +++---
- xen/arch/x86/tboot.c                        |   2 +-
- xen/drivers/passthrough/amd/pci_amd_iommu.c |  20 +-
- xen/drivers/passthrough/vtd/iommu.c         |   2 +-
- xen/drivers/passthrough/x86/iommu.c         | 277 +++++++++++++-------
- 12 files changed, 269 insertions(+), 182 deletions(-)
-
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+index e13b7d99db40..bc6181c9f911 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -3162,7 +3162,7 @@ static int cf_check intel_iommu_quarantine_init(struct pci_dev *pdev,
+ {
+     struct domain_iommu *hd = dom_iommu(dom_io);
+     struct page_info *pg;
+-    unsigned int agaw = width_to_agaw(DEFAULT_DOMAIN_ADDRESS_WIDTH);
++    unsigned int agaw = hd->arch.vtd.agaw;
+     unsigned int level = agaw_to_level(agaw);
+     const struct acpi_drhd_unit *drhd;
+     const struct acpi_rmrr_unit *rmrr;
 -- 
 2.43.0
 
