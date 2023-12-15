@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2CFD814F8A
+	by mail.lfdr.de (Postfix) with ESMTPS id DAA6F814F8B
 	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 19:15:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655294.1023014 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.655292.1022997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rECi7-00047O-Fd; Fri, 15 Dec 2023 18:14:55 +0000
+	id 1rEChx-0003mX-TO; Fri, 15 Dec 2023 18:14:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655294.1023014; Fri, 15 Dec 2023 18:14:55 +0000
+Received: by outflank-mailman (output) from mailman id 655292.1022997; Fri, 15 Dec 2023 18:14:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rECi7-00042g-A7; Fri, 15 Dec 2023 18:14:55 +0000
-Received: by outflank-mailman (input) for mailman id 655294;
- Fri, 15 Dec 2023 18:14:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rEChx-0003jg-QG; Fri, 15 Dec 2023 18:14:45 +0000
+Received: by outflank-mailman (input) for mailman id 655292;
+ Fri, 15 Dec 2023 18:14:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Xt8Y=H2=citrix.com=prvs=706e6129d=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1rECi5-0003yp-Mf
- for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 18:14:53 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6c21cca-9b75-11ee-9b0f-b553b5be7939;
- Fri, 15 Dec 2023 19:14:51 +0100 (CET)
+ id 1rEChw-0003jY-0h
+ for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 18:14:44 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cf0bbfb2-9b75-11ee-98ea-6d05b1d4d9a1;
+ Fri, 15 Dec 2023 19:14:40 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,58 +36,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6c21cca-9b75-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: cf0bbfb2-9b75-11ee-98ea-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1702664091;
+  d=citrix.com; s=securemail; t=1702664080;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=OnqPq6Hc/S5oBn22Ow8iaK4FcBK3XvOA2+OarJseW4c=;
-  b=Q2+AZNxwViMxBsHM1rw5PxGnafEyCjndkQnigrCykWF8fTrX3Fsr7M+G
-   jPSRXEy6JIcrnmE7tBkM3oRhonYJset4S2yqXylZcXu6gNjcr7zrr7aGh
-   X7PWmhXPlKINsFdzE+vXPzPv4K0ZphQukre9Or2cakm7h0qig48BV/MMt
-   Q=;
-X-CSE-ConnectionGUID: 7ftEl9BGRgycC6H1/bDEmw==
-X-CSE-MsgGUID: A2VzZa1FSpGJWEghRx/ITw==
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=yXDBjaPcuOw/xCtDwRwQPhmDviMcMBFl67n9XyYACmQ=;
+  b=KsA6OMHJwSm17WxBIqgXWA54059QBIR3WLYl670qS+0Y4COLkWiJKNCW
+   sdvpV3mqIrdtVCqNQuFxyy/ICxbRCJPNrz6Ps8Lzb+hjd4cLwrFqa45yE
+   pCvQg1XGrmkwrO8cikrzGmmeSyKnQA7YLkg6qTER/yoN+s5rQSZjVsVHg
+   s=;
+X-CSE-ConnectionGUID: EbfGol2xRT6TFvuMP1WoPw==
+X-CSE-MsgGUID: 59wrAI4lSFaR4S7u+PqXbg==
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 131604187
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 128813335
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.159.70
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:NMkela+MS5SbEYxSjbWlDrUDiH6TJUtcMsCJ2f8bNWPcYEJGY0x3z
- mAcCzqPMqqMZDP1LdgibYqy/R8E68DQnIdqSwJsrSo8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjVAOK6UKidYnwZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ird7ksz1BjOkGlA5AdnP6kW5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkkR+
- +A1LGEnQSqMlumdnpLiDeNAq8E8eZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
- ZBDMHw2MUWGPEUn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZwOxxjA+
- juWoAwVBDkzbuKN+zPc3Em0qc3wsCz7YpJVNYGno6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
- 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0efBdDuk74wGl0bfP7kCSAW1sZiVadNUsucsyRDor/
- lyEhdXkAXpoqrL9YW2Z3qeZq3W1Iyd9BW0fYS4JSyMV7t+lp5s85jrBQ9puCq++iZvuFCv5z
- TGMrQA0mroIgMgEka68+Dj6bymE/8aTCFRvv0OOAzPjsVsRiJOZi5KAtlbHwPIRBqmjQUiKl
- yYkwo+UwM0LEsTY/MCSe9nhDI1F9t7cb2WG3A81RMVxnwlB7UJPamy53d2fGKuKGpxdEdMRS
- BWP0T69HbcKVJdQUYd5YpiqF+MhxrX6GNLuW5j8N4UWOMUuJVfZrXw+OiZ8OlwBd2B1wMkC1
- WqzK57wXR7294w+lFJauNvxIZd0n3tjlAs/tLjwzgi90Kr2WZJmYe5tDbd6VchgtPnsiFyMo
- 75i2z6il003vBvWPnOGrub+7DkicRAGOHwBg5EHL7XbfFU5SAnMyZb5mNscRmCspIwN/s+gw
- 513chYwJIbX7ZEfFTi3Vw==
-IronPort-HdrOrdr: A9a23:Tmwu5anYTvBWccrEp7h0eBuzTY7pDfIU3DAbv31ZSRFFG/Fxl6
- iV8sjzsiWE7gr5OUtQ4exoV5PhfZqxz/JICMwqTNKftWrdyQyVxeNZnOjfKlTbckWUnINgPO
- VbAsxD4bXLfCFHZK3BgTVQfexO/DD+ytHLudvj
-X-Talos-CUID: 9a23:XOOLkW/ItOZYOLgbS1CVvxEaBu0hI1fy9njBKGTmKT8uQpG4TEDFrQ==
-X-Talos-MUID: 9a23:WWVmUAr9paSOsPad3ysezxg4CtVa6v2AM1gis6ortMm+JWtRByjI2Q==
+IronPort-Data: A9a23:XGSj6a6fi73/StDlUAnVvwxRtDDHchMFZxGqfqrLsTDasY5as4F+v
+ jEZWjzSPv2INGLweIwkYYS39E1U757WxoJjTwE5qis8Hi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRG/ykTraCY3gtLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9lU34JwehBtC5gZlPKoS4QeE/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m2
+ PYWBzcJNAC5u7yK7qymb9E1ucMbM5y+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
+ YxDM2MpNUmRJUIXUrsUIMtWcOOAr3/zaTBH7nmSorI6+TP7xw1tyrn9dtHSf7RmQO0MxBbI/
+ zmdpDmR7hcyaY2A0xOkrnaXqOb1wRikRcEqDY2y+as/6LGU7jNKU0BHPbehmtGph0j7V99BJ
+ kg8/is1sbN05EGtVsP6XRCzvDiDpBF0c/h6HvA+6QqN4rHJ+AvfDW8BJhZac8AvvsIyQT0s1
+ 3eKksnvCDgpt6eaIVqC8p+EoDX0PjIaRUcAeCsFQA0t89Tl5oYpgXrnQNtvHbS0hdqzAjzqy
+ j6LqikWjagclsMN2OOw+lWvvt63jsGXFEhvvFyRBz/0qFwhDGK4W2C2wXXR49lHKNyJdGXfg
+ FYahu2mtd8JNY7YwURhX94x8KGVC+etaWKE2wM+RcJ9p1yQF2ifkZe8CQySxXuF0e5eIFcFm
+ GeJ5WtsCGZ7ZRNGl5NfbYOrENgNxqP9D9njXf28RoMROsIsK17fonAzNRH4M4XRfK8EyPBXB
+ HtmWZz0USZy5VpPlWLeqxghPU8DmXllmDK7qWHTxBW7y7uODEN5up9cWGZimtsRtfveyC2Mq
+ oY3Cid/40kHOAEISnWNoNF7wJFjBSRTOK0aXOQKJrfYelQ5RzFJ5j246epJRrGJVp99zo/gl
+ kxRkGcBoLYjrRUr8Tm3V00=
+IronPort-HdrOrdr: A9a23:3x4eZq8tOSPbjELZWvluk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
+ re+sjztCWE8Ar5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
+ 9bAtFD4bbLbGSS4/yU3ODBKadD/OW6
+X-Talos-CUID: 9a23:EowecWExNFxvwbXAqmJK/kA7HcR/Ykfhkkv+PVKdMT9WT4WKHAo=
+X-Talos-MUID: =?us-ascii?q?9a23=3AqUtyyA/eGEIwUGKhtPfzKk6Qf5o5/L6HKRwJqrs?=
+ =?us-ascii?q?PgZW/ajEzAy6thjviFw=3D=3D?=
 X-IronPort-AV: E=Sophos;i="6.04,279,1695700800"; 
-   d="scan'208";a="131604187"
+   d="scan'208";a="128813335"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
 	<George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
 	<julien@xen.org>, Federico Serafini <federico.serafini@bugseng.com>
-Subject: [PATCH 1/2] driver/char: Drop run_in_exception_handler() ifdefary
-Date: Fri, 15 Dec 2023 18:14:32 +0000
-Message-ID: <20231215181433.1588532-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/2] xen/bug: Complete outstanding TODO
+Date: Fri, 15 Dec 2023 18:14:33 +0000
+Message-ID: <20231215181433.1588532-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20231215181433.1588532-1-andrew.cooper3@citrix.com>
 References: <20231215181433.1588532-1-andrew.cooper3@citrix.com>
@@ -95,9 +96,8 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Since commit 60a9b0715055 ("xen: introduce CONFIG_GENERIC_BUG_FRAME"), the new
-common bug.h provides an implementation of run_in_exception_handler() in all
-cases, making the #else here dead.
+Since this TODO was written, BUILD_BUG_ON() has been moved out of xen/lib.h
+into xen/macros.h, which has done all the hard work.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -108,42 +108,43 @@ CC: Wei Liu <wl@xen.org>
 CC: Julien Grall <julien@xen.org>
 CC: Federico Serafini <federico.serafini@bugseng.com>
 ---
- xen/drivers/char/ehci-dbgp.c | 4 ----
- xen/drivers/char/ns16550.c   | 4 ----
- 2 files changed, 8 deletions(-)
+ xen/include/xen/bug.h | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/xen/drivers/char/ehci-dbgp.c b/xen/drivers/char/ehci-dbgp.c
-index 0f5b41899ef5..bbf4e51c0263 100644
---- a/xen/drivers/char/ehci-dbgp.c
-+++ b/xen/drivers/char/ehci-dbgp.c
-@@ -1293,11 +1293,7 @@ static void cf_check _ehci_dbgp_poll(struct cpu_user_regs *regs)
- static void cf_check ehci_dbgp_poll(void *data)
- {
-     poll_port = data;
--#ifdef run_in_exception_handler
-     run_in_exception_handler(_ehci_dbgp_poll);
--#else
--    _ehci_dbgp_poll(guest_cpu_user_regs());
--#endif
- }
+diff --git a/xen/include/xen/bug.h b/xen/include/xen/bug.h
+index cb5138410ea7..8cca4486a477 100644
+--- a/xen/include/xen/bug.h
++++ b/xen/include/xen/bug.h
+@@ -20,7 +20,8 @@
+ #define BUG_DEBUGGER_TRAP_FATAL(regs) 0
+ #endif
  
- static bool ehci_dbgp_setup_preirq(struct ehci_dbgp *dbgp)
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index c8a51ed66008..29691e8d3ae6 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -233,11 +233,7 @@ static void cf_check __ns16550_poll(struct cpu_user_regs *regs)
- static void cf_check ns16550_poll(void *data)
- {
-     this_cpu(poll_port) = data;
--#ifdef run_in_exception_handler
-     run_in_exception_handler(__ns16550_poll);
--#else
--    __ns16550_poll(guest_cpu_user_regs());
--#endif
- }
+-#include <xen/lib.h>
++#include <xen/macros.h>
++#include <xen/types.h>
  
- static int cf_check ns16550_tx_ready(struct serial_port *port)
+ #ifndef BUG_FRAME_STRUCT
+ 
+@@ -104,14 +105,11 @@ typedef void bug_fn_t(const struct cpu_user_regs *regs);
+ 
+ #ifndef run_in_exception_handler
+ 
+-/*
+- * TODO: untangle header dependences, break BUILD_BUG_ON() out of xen/lib.h,
+- * and use a real static inline here to get proper type checking of fn().
+- */
+-#define run_in_exception_handler(fn) do {                   \
+-    (void)((fn) == (void (*)(struct cpu_user_regs *))NULL); \
+-    BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL);             \
+-} while ( false )
++static void always_inline run_in_exception_handler(
++    void (*fn)(struct cpu_user_regs *regs))
++{
++    BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL);
++}
+ 
+ #endif /* run_in_exception_handler */
+ 
 -- 
 2.30.2
 
