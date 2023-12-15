@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF2BD814314
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 08:59:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.654886.1022365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85901814330
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 09:03:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.654892.1022375 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rE36J-0002tr-Le; Fri, 15 Dec 2023 07:59:15 +0000
+	id 1rE3AD-000540-Jf; Fri, 15 Dec 2023 08:03:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 654886.1022365; Fri, 15 Dec 2023 07:59:15 +0000
+Received: by outflank-mailman (output) from mailman id 654892.1022375; Fri, 15 Dec 2023 08:03:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rE36J-0002sC-IZ; Fri, 15 Dec 2023 07:59:15 +0000
-Received: by outflank-mailman (input) for mailman id 654886;
- Fri, 15 Dec 2023 07:59:13 +0000
+	id 1rE3AD-00051j-G7; Fri, 15 Dec 2023 08:03:17 +0000
+Received: by outflank-mailman (input) for mailman id 654892;
+ Fri, 15 Dec 2023 08:03:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=F+xl=H2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rE36H-0002s5-PG
- for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 07:59:13 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
+ id 1rE3AB-00051Y-71
+ for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 08:03:15 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d4ce4ff5-9b1f-11ee-9b0f-b553b5be7939;
- Fri, 15 Dec 2023 08:59:11 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2c9f559b82cso3290731fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 14 Dec 2023 23:59:11 -0800 (PST)
+ id 650fe576-9b20-11ee-9b0f-b553b5be7939;
+ Fri, 15 Dec 2023 09:03:13 +0100 (CET)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2ca02def690so4086151fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Dec 2023 00:03:13 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k18-20020a02c652000000b004695eff62cfsm3266455jan.107.2023.12.14.23.59.08
+ r9-20020a6bd909000000b007b42bf452f4sm4049808ioc.33.2023.12.15.00.03.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 Dec 2023 23:59:10 -0800 (PST)
+ Fri, 15 Dec 2023 00:03:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4ce4ff5-9b1f-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 650fe576-9b20-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702627151; x=1703231951; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702627393; x=1703232193; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=AoL5T/jtDuRBjgc1vlyLRWbNP3HQ5hMn5bid8W/sS7o=;
-        b=OpXzWmxlp1dcWA3u4zEP8BDBKzi+UByVb6Li34S/379+ydnQy9gXTAQ9hCWST2y12z
-         j5LpPDQ1+3XqUwkVMtMoItuQtW/k0D/e9a76lbijOikasbJTrTlIfoO5uWvkspIKfxIY
-         TDh5QQnU+KvxCEVzMk6nZDtYPiDWWO5+Cy4YyBa9p6nBuO2WsBWr2/gUimX0EieonUIc
-         52Vi5+71smFbxiXZjq6rTAfh0obuQJFCNzVGaH+G12N6pKtkiy00v9seScAKzzwyDyls
-         rWbG0aGOwyiFwd1YZysVued1b3+8F91INN5F4GVMimnv2+LSNNzmAfQ0+9tfX1BZ2pUn
-         iQeA==
+        bh=Ax5qWN2jCHuAZZBuH/izsXI73jZNQrgV3cmPyhzFqUI=;
+        b=EclH/0oProrBrKQecDNNIMzYsHm1l2UrtAvFVq4aCDp6Ocwgw48ghOtXJ7rxTOaEZI
+         +HpbXxX3EZ0BfkCmUflQENaoqfugYqum0TtWRzC6pYnrR4FonPebnmPewfn4dq0WJO+W
+         j4yKQayeg21I33c4FOoosQNxEhNGdlGcHIUuR4Mr8daOQmXHKOd0XtdYLM4zDFy0xpZJ
+         l7Eer6NuOZMEn1qA01dARk8++aqZZzIX4l2SmCnRNY9r0nJwhF6ASOoPgjp9QvDGB/qF
+         K/ZrPUFihxqSW7z7o+YxSxoINwTG9L8NRyYSPd+iZcU92Fn8ocHyV0CVdlzm+u9aDmUf
+         0ydw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702627151; x=1703231951;
+        d=1e100.net; s=20230601; t=1702627393; x=1703232193;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AoL5T/jtDuRBjgc1vlyLRWbNP3HQ5hMn5bid8W/sS7o=;
-        b=qJEX6lnafPcx5rD7YkqTJ+Ov2FTDvUsH2r+bJ4CUNW1FZOyPe/Obh90W/XDnePrevO
-         wbwOPRQ9OGKUAkfG3TcHHjqNxvqdY2609cMcP3sp28zAq1DPf9bXVnfMRInCiTut5YPv
-         sNGJLr1/esC+I0Ya+hGb+DK7UiHwO5FiRTI5gUMD5uwn94fMNUeHtk5xif2YuWE4+q3C
-         /Mg7wnKQ2/wALWdTy8P9BmifoNzJFb77MyNQfzqZyusRXg1IOf95oyTg7LbIPnMECIMh
-         tJ6IrWxr3tEPiPqbF4UlFCWLZWCwJRb1wiS8II/NzuewjiYzQOBWQevyKqFnaREtvNmq
-         31Lg==
-X-Gm-Message-State: AOJu0Yz7e1ydmobpPofeJ/1mbvgq3IeY9vxLiuIlAjQfJ/2z1WOel55/
-	ewnFnkhoy9cg8qN27xzOWtjO
-X-Google-Smtp-Source: AGHT+IHFXKnyzjSf2os4xdbd1HBuakDu+p3YXoGW8DQT1mLf3nFUGyMk7g8dygQe3TdK/hLsA0ELDA==
-X-Received: by 2002:a2e:a401:0:b0:2c9:f975:8c59 with SMTP id p1-20020a2ea401000000b002c9f9758c59mr4369386ljn.87.1702627150769;
-        Thu, 14 Dec 2023 23:59:10 -0800 (PST)
-Message-ID: <698cb944-3e91-498c-99ba-ff0849723285@suse.com>
-Date: Fri, 15 Dec 2023 08:59:06 +0100
+        bh=Ax5qWN2jCHuAZZBuH/izsXI73jZNQrgV3cmPyhzFqUI=;
+        b=tqnBNNmpxoRwJk3CqFyfDVO8m9831+djoAXsaAHvIh57uS+MO71BkzciZ7D2YLrvUV
+         mRs6Oprnwj2xXbR15pPhxM4nGYezw7wzrVbLAzEdcrudMivEE7tzzDZMOcNWVRes1gSc
+         Ey6YhwrWB9hITX7Oknu263kb7FpYe0zHGeRS1gtrSpxE9AzyWimKlDn0wBXXDbNFMJp4
+         6aM2j8qjr5Z1jEqa2IN+0Ahlstr9OJIc2MME+ZRMl9NPo3FupKiVXy6YDN6PQgd9xvK9
+         ZlJyK546OT+1Rj3aDO83sGzEicStRD0JkDCH7PLfU1WZ6wVyzGkDGOHpTsD0acxzRfS+
+         DDKg==
+X-Gm-Message-State: AOJu0Yzi/AiK2x/Ur3KLIRNkr/M/PhGqqqU0K3ozNyJpA8J/Q+qkRDDu
+	uefAnqV+O9mQngH9KURKxLh8
+X-Google-Smtp-Source: AGHT+IFuw9BQ57yLPmlZUmDD6sZuJ8Cb2oWXQKiU4cgxgz1NE788BDCt7XfZZtjIvWudmfR9gN7K7w==
+X-Received: by 2002:a05:651c:1607:b0:2cc:31b4:c33b with SMTP id f7-20020a05651c160700b002cc31b4c33bmr4239630ljq.77.1702627392856;
+        Fri, 15 Dec 2023 00:03:12 -0800 (PST)
+Message-ID: <3b2f1699-d58c-40d8-af36-caef70064601@suse.com>
+Date: Fri, 15 Dec 2023 09:03:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 9/9] xen: add SAF deviation for safe cast removal.
+Subject: Re: [XEN PATCH v3 3/3] xen/mm: add declaration for first_valid_mfn
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Simone Ballarin <simone.ballarin@bugseng.com>,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1702555386.git.maria.celeste.cesario@bugseng.com>
- <36e996b864853dba26a9c9fb9c9c674e92cc935e.1702555387.git.maria.celeste.cesario@bugseng.com>
- <b93417c7-1375-4bf4-ace2-d36bd63c8b0b@suse.com>
- <alpine.DEB.2.22.394.2312141355391.3175268@ubuntu-linux-20-04-desktop>
+To: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>, consulting@bugseng.com,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@cloud.com>
+References: <cover.1702285639.git.nicola.vetrini@bugseng.com>
+ <d80309f31fea24ea75c4994e924da069472811fc.1702285639.git.nicola.vetrini@bugseng.com>
+ <6c717bd4-db1b-4e19-9b98-0776a8359085@suse.com>
+ <alpine.DEB.2.22.394.2312131803150.3175268@ubuntu-linux-20-04-desktop>
+ <2a7f0d03-1cab-4824-86ae-fb7a26ff8adc@suse.com>
+ <9fcc73f0-fc9c-4f4f-a431-f1f3b0df1b6a@xen.org>
+ <4a1f86c7-6643-4fd1-ba1c-a4f86abb63f3@suse.com>
+ <CA+zSX=YHW3kGFroNDzwQg=EhEe3F_fw3gCd_9W+P2UxC7+g+0A@mail.gmail.com>
+ <0166dd5b-c12e-40d8-88a6-1f3c97bcf2e0@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,71 +123,114 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312141355391.3175268@ubuntu-linux-20-04-desktop>
+In-Reply-To: <0166dd5b-c12e-40d8-88a6-1f3c97bcf2e0@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.12.2023 23:04, Stefano Stabellini wrote:
-> On Thu, 14 Dec 2023, Jan Beulich wrote:
->> On 14.12.2023 13:07, Simone Ballarin wrote:
->>> --- a/docs/misra/safe.json
->>> +++ b/docs/misra/safe.json
->>> @@ -28,6 +28,14 @@
->>>          },
->>>          {
->>>              "id": "SAF-3-safe",
->>> +            "analyser": {
->>> +                "eclair": "MC3R1.R11.8"
->>> +            },
->>> +            "name": "MC3R1.R11.8: removal of const qualifier to comply with function signature",
->>> +            "text": "It is safe to cast away const qualifiers to comply with function signature if the function does not modify the pointee."
->>
->> I'm not happy with this description, as it invites for all sorts of abuse.
->> Yet I'm also puzzled that ...
+On 14.12.2023 20:10, Julien Grall wrote:
+> On 14/12/2023 14:15, George Dunlap wrote:
+>> But I do think that it's fair to ask Julien to think about a suitable
+>> wording, since the comment is in a sense to remind him (or other ARM
+>> maintainers) what's needed, and since the eventual solution will be
+>> something to do with the ARM code and architecture anyway.
 > 
-> We can improve the language but the concept would still be the same. For
-> instance:
-> 
-> A single function might or might not modify the pointee depending on
-> other function parameters (for instance a single function that could
-> either read or write depending on how it is called). It is safe to cast
-> away const qualifiers when passing a parameter to a function of this
-> type when the other parameters are triggering a read-only operation.
+> The comment is for anyone using !NUMA (i.e. all architectures but x86) 
+> :). What about the following (this is Nicola's patch with the comments 
+> reworked):
 
-Right, but I think the next here needs to be setting as tight boundaries
-as possible: It should cover only this one specific pattern. Anything
-else would better get its own deviation, imo.
+This clearly is better, yet then ...
 
->>> --- a/xen/arch/x86/hvm/hvm.c
->>> +++ b/xen/arch/x86/hvm/hvm.c
->>> @@ -3413,6 +3413,7 @@ static enum hvm_translation_result __hvm_copy(
->>>  enum hvm_translation_result hvm_copy_to_guest_phys(
->>>      paddr_t paddr, const void *buf, unsigned int size, struct vcpu *v)
->>>  {
->>> +    /* SAF-3-safe */
->>>      return __hvm_copy((void *)buf /* HVMCOPY_to_guest doesn't modify */,
->>>                        paddr, size, v,
->>>                        HVMCOPY_to_guest | HVMCOPY_phys, 0, NULL);
->>
->> ... this is the only place you then use it. Afaict some of Arm's copy_guest()
->> callers ought to have a similar issue. If so, an enlarged patch should be
->> discussed with a larger audience, to see how we collectively think we want to
->> put this specific kind of deviation.
+> --- a/xen/arch/arm/include/asm/numa.h
+> +++ b/xen/arch/arm/include/asm/numa.h
+> @@ -2,8 +2,9 @@
+>   #define __ARCH_ARM_NUMA_H
 > 
-> We have a similar problem, see xen/arch/arm/guestcopy.c
-> raw_copy_to_guest and raw_copy_from_guest.
+>   #include <xen/mm.h>
+> +#include <xen/types.h>
 > 
-> I would use the SAF deviation there too.
+> -typedef u8 nodeid_t;
+> +typedef uint8_t nodeid_t;
 > 
-> In the case here, I think the comment "HVMCOPY_to_guest doesn't modify"
-> could be removed as it becomes redundant with SAF-3-safe, but I'll leave
-> it to you.
+>   #ifndef CONFIG_NUMA
+> 
+> @@ -11,12 +12,6 @@ typedef u8 nodeid_t;
+>   #define cpu_to_node(cpu) 0
+>   #define node_to_cpumask(node)   (cpu_online_map)
+> 
+> -/*
+> - * TODO: make first_valid_mfn static when NUMA is supported on Arm, this
+> - * is required because the dummy helpers are using it.
+> - */
+> -extern mfn_t first_valid_mfn;
+> -
+>   /* XXX: implement NUMA support */
+>   #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
+>   #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+> diff --git a/xen/arch/ppc/include/asm/numa.h 
+> b/xen/arch/ppc/include/asm/numa.h
+> index 7fdf66c3da74..888de2dbd1eb 100644
+> --- a/xen/arch/ppc/include/asm/numa.h
+> +++ b/xen/arch/ppc/include/asm/numa.h
+> @@ -1,8 +1,8 @@
+>   #ifndef __ASM_PPC_NUMA_H__
+>   #define __ASM_PPC_NUMA_H__
+> 
+> -#include <xen/types.h>
+>   #include <xen/mm.h>
+> +#include <xen/types.h>
+> 
+>   typedef uint8_t nodeid_t;
+> 
+> @@ -10,12 +10,6 @@ typedef uint8_t nodeid_t;
+>   #define cpu_to_node(cpu) 0
+>   #define node_to_cpumask(node)   (cpu_online_map)
+> 
+> -/*
+> - * TODO: make first_valid_mfn static when NUMA is supported on PPC, this
+> - * is required because the dummy helpers are using it.
+> - */
+> -extern mfn_t first_valid_mfn;
+> -
+>   /* XXX: implement NUMA support */
+>   #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
+>   #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 9b5df74fddab..d874525916ea 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -255,8 +255,10 @@ static PAGE_LIST_HEAD(page_broken_list);
+>    */
+> 
+>   /*
+> - * first_valid_mfn is exported because it is use in ARM specific NUMA
+> - * helpers. See comment in arch/arm/include/asm/numa.h.
+> + * first_valid_mfn is exported because it is used when !CONFIG_NUMA.
+> + *
+> + * TODO: Consider if we can conditionally export first_valid_mfn based
+> + * on whether NUMA is selected.
+>    */
+>   mfn_t first_valid_mfn = INVALID_MFN_INITIALIZER;
+> 
+> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+> index 3d9b2d05a5c8..a13a9a46ced7 100644
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -118,6 +118,8 @@ int destroy_xen_mappings(unsigned long s, unsigned 
+> long e);
+>   /* Retrieve the MFN mapped by VA in Xen virtual address space. */
+>   mfn_t xen_map_to_mfn(unsigned long va);
+> 
+> +extern mfn_t first_valid_mfn;
+> +
+>   /*
+>    * Create only non-leaf page table entries for the
+>    * page range in Xen virtual address space.
 
-No, the comment cannot be removed: The SAF comment says exactly nothing
-until you go and look up its description. The two comments could be
-folded, though. Which is something I was trying to advocate for in
-general: Unless entirely obvious, what exactly it is that is "safe"
-would better be (briefly) stated in these SAF comments.
+... I still disagree with the placement here (should be xen/numa.h imo),
+and I still don't see why we can't carry out the TODO right away, if we
+have to touch all of this anyway. If it's really too much to ask from
+the original contributor, I can certainly see about making a patch myself
+(and I've now added this to my short-term TODO list).
 
 Jan
 
