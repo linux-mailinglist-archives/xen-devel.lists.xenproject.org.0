@@ -2,46 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E32AE814D22
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 17:33:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655270.1022968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80DD3814E0C
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 18:11:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655286.1022986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rEB7V-0004hU-9L; Fri, 15 Dec 2023 16:33:01 +0000
+	id 1rEBi3-0002SE-4r; Fri, 15 Dec 2023 17:10:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655270.1022968; Fri, 15 Dec 2023 16:33:01 +0000
+Received: by outflank-mailman (output) from mailman id 655286.1022986; Fri, 15 Dec 2023 17:10:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rEB7V-0004fO-6i; Fri, 15 Dec 2023 16:33:01 +0000
-Received: by outflank-mailman (input) for mailman id 655270;
- Fri, 15 Dec 2023 16:33:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=25p9=H2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rEB7T-0004fI-Sv
- for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 16:33:00 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de
- [2a07:de40:b251:101:10:150:64:2])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b21e404-9b67-11ee-98ea-6d05b1d4d9a1;
- Fri, 15 Dec 2023 17:32:58 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7C0821FDD0;
- Fri, 15 Dec 2023 16:32:57 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 47B31137D4;
- Fri, 15 Dec 2023 16:32:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 7/HOD7l/fGU3bQAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 15 Dec 2023 16:32:57 +0000
+	id 1rEBi3-0002PP-1L; Fri, 15 Dec 2023 17:10:47 +0000
+Received: by outflank-mailman (input) for mailman id 655286;
+ Fri, 15 Dec 2023 17:10:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KpGJ=H2=linutronix.de=bigeasy@srs-se1.protection.inumbo.net>)
+ id 1rEBi1-0002PI-1H
+ for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 17:10:45 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id df19536e-9b6c-11ee-9b0f-b553b5be7939;
+ Fri, 15 Dec 2023 18:10:40 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,314 +37,330 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b21e404-9b67-11ee-98ea-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1702657977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=xpLu4k/OyPUz/RLNHNQNcy2kaSsAFMk/ZFX4UPOv7lo=;
-	b=m35CfrNFau0XYvLPOuoM9tmPau5tT5+3ElfuomottQCbxqg5ChSUskn1TtUloOq9rbhuQn
-	sk90VI5VO/VrWV6Xeg4W5XwhzubBPz2vKkf/rkk3BiC2WrpeI4wEanUu09dNiBp31tuYq7
-	o7aWUzBH2yizSbA7KjSvUwkj+BmvZJM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1702657977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=xpLu4k/OyPUz/RLNHNQNcy2kaSsAFMk/ZFX4UPOv7lo=;
-	b=m35CfrNFau0XYvLPOuoM9tmPau5tT5+3ElfuomottQCbxqg5ChSUskn1TtUloOq9rbhuQn
-	sk90VI5VO/VrWV6Xeg4W5XwhzubBPz2vKkf/rkk3BiC2WrpeI4wEanUu09dNiBp31tuYq7
-	o7aWUzBH2yizSbA7KjSvUwkj+BmvZJM=
-Message-ID: <20270f70-f2a6-4977-9e75-5474b0306cea@suse.com>
-Date: Fri, 15 Dec 2023 17:32:56 +0100
+X-Inumbo-ID: df19536e-9b6c-11ee-9b0f-b553b5be7939
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1702660239;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+0HJJPub1Rbn3MJWlEsGP0R+kJz2sY8/FL1YHZqJTPQ=;
+	b=bu//WPoJj1s+CyuzY9fCzuWUPNElBTG0mDAue5MtksSZ/nlXc3JYfccn6tG0UR7/s9bLcB
+	TyHwPF9rL6/pk9aAThq84QZ/O0PPk1BIhRiaV+wWrm874nalOaix3eDsDuVspKXyfMpQsX
+	SEP7qczM42BqZeYaUbDx8DFkqux75/XmDcmsMW8XVXUoArSSTH/2/SLlrKU/Y/BeoEFJ1G
+	niUm3L0GNIf2r6tGor3HgSQ2mPyJbN54p8y9ylbMz9svBrqSDE0+Rvfj8QwFQ3UWZybFQ3
+	9KKmqHpMn8OyR/lDx/Ew+Azv1ohXTln9Yj3vk5ZeyQyuhF5aBTxjwvDJbtZIEw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1702660239;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+0HJJPub1Rbn3MJWlEsGP0R+kJz2sY8/FL1YHZqJTPQ=;
+	b=IFHcLtVItNS1jqIMdMN6dYTNqvyEKzMDmeSXBvDnw0eZeuYwuQGT7alkK3RqsOXKSI1Vp9
+	o+kMgK4SkJMS6CBw==
+To: linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Waiman Long <longman@redhat.com>,
+	Will Deacon <will@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Hao Luo <haoluo@google.com>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Juergen Gross <jgross@suse.com>,
+	KP Singh <kpsingh@kernel.org>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Song Liu <song@kernel.org>,
+	Stanislav Fomichev <sdf@google.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wei.liu@kernel.org>,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	bpf@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH net-next 16/24] net: netkit, veth, tun, virt*: Use nested-BH locking for XDP redirect.
+Date: Fri, 15 Dec 2023 18:07:35 +0100
+Message-ID: <20231215171020.687342-17-bigeasy@linutronix.de>
+In-Reply-To: <20231215171020.687342-1-bigeasy@linutronix.de>
+References: <20231215171020.687342-1-bigeasy@linutronix.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Crashes under Xen with Radeon graphics card
-Content-Language: en-US
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>
-References: <29ceab65-4790-4015-b83c-241c35dfff08@suse.com>
- <BL1PR12MB5144541AC4318F30D2F57F27F793A@BL1PR12MB5144.namprd12.prod.outlook.com>
- <b91dabec-8fde-4de1-abfe-1664f9607784@suse.com>
- <BL1PR12MB514451609D73B032E7FF8B3AF793A@BL1PR12MB5144.namprd12.prod.outlook.com>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <BL1PR12MB514451609D73B032E7FF8B3AF793A@BL1PR12MB5144.namprd12.prod.outlook.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------4ZOWJRl0YsisP82RrqFNdYTS"
-X-Spam-Level: 
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.20 / 50.00];
-	 TO_DN_EQ_ADDR_SOME(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 TO_DN_SOME(0.00)[];
-	 HAS_ATTACHMENT(0.00)[];
-	 MIME_BASE64_TEXT_BOGUS(1.00)[];
-	 RCPT_COUNT_FIVE(0.00)[6];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_TRACE(0.00)[suse.com:+];
-	 MIME_BASE64_TEXT(0.10)[];
-	 MX_GOOD(-0.01)[];
-	 SIGNED_PGP(-2.00)[];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys];
-	 ARC_NA(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	 FROM_HAS_DN(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,lists.freedesktop.org:email,xenproject.org:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 RCVD_TLS_ALL(0.00)[];
-	 RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=m35CfrNF
-X-Spam-Score: -4.20
-X-Rspamd-Queue-Id: 7C0821FDD0
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------4ZOWJRl0YsisP82RrqFNdYTS
-Content-Type: multipart/mixed; boundary="------------PeCYtwQpR9wAnvc09cLSGfT0";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- lkml <linux-kernel@vger.kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Message-ID: <20270f70-f2a6-4977-9e75-5474b0306cea@suse.com>
-Subject: Re: Crashes under Xen with Radeon graphics card
-References: <29ceab65-4790-4015-b83c-241c35dfff08@suse.com>
- <BL1PR12MB5144541AC4318F30D2F57F27F793A@BL1PR12MB5144.namprd12.prod.outlook.com>
- <b91dabec-8fde-4de1-abfe-1664f9607784@suse.com>
- <BL1PR12MB514451609D73B032E7FF8B3AF793A@BL1PR12MB5144.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB514451609D73B032E7FF8B3AF793A@BL1PR12MB5144.namprd12.prod.outlook.com>
-
---------------PeCYtwQpR9wAnvc09cLSGfT0
-Content-Type: multipart/mixed; boundary="------------uccJtY91T04U06gThWB9tOK0"
-
---------------uccJtY91T04U06gThWB9tOK0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTUuMTIuMjMgMTc6MTksIERldWNoZXIsIEFsZXhhbmRlciB3cm90ZToNCj4gW0FNRCBP
-ZmZpY2lhbCBVc2UgT25seSAtIEdlbmVyYWxdDQo+IA0KPj4gLS0tLS1PcmlnaW5hbCBNZXNz
-YWdlLS0tLS0NCj4+IEZyb206IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCj4+
-IFNlbnQ6IEZyaWRheSwgRGVjZW1iZXIgMTUsIDIwMjMgMTE6MTMgQU0NCj4+IFRvOiBEZXVj
-aGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBsa21sIDxsaW51
-eC0NCj4+IGtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+OyB4ZW4tZGV2ZWxAbGlzdHMueGVucHJv
-amVjdC5vcmc7IGFtZC0NCj4+IGdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+IENjOiBL
-b2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgUGFuLCBYaW5o
-dWkNCj4+IDxYaW5odWkuUGFuQGFtZC5jb20+DQo+PiBTdWJqZWN0OiBSZTogQ3Jhc2hlcyB1
-bmRlciBYZW4gd2l0aCBSYWRlb24gZ3JhcGhpY3MgY2FyZA0KPj4NCj4+IE9uIDE1LjEyLjIz
-IDE3OjA0LCBEZXVjaGVyLCBBbGV4YW5kZXIgd3JvdGU6DQo+Pj4gW1B1YmxpY10NCj4+Pg0K
-Pj4+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj4+PiBGcm9tOiBKdWVyZ2VuIEdy
-b3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQoNCi4uLg0KDQo+Pj4+IFRoZSBjcmFzaGVzIHZhcnks
-IGJ1dCBvZnRlbiB0aGUga2VybmVsIGFjY2Vzc2VzIG5vbi1jYW5vbmljYWwNCj4+Pj4gYWRk
-cmVzc2VzIG9yIHRyaWVzIHRvIG1hcCBpbGxlZ2FsIHBoeXNpY2FsIGFkZHJlc3Nlcy4gU29t
-ZXRpbWVzIHRoZQ0KPj4+PiBzeXN0ZW0gaXMganVzdCBoYW5naW5nLCBlaXRoZXIgd2l0aCBz
-b2Z0bG9ja3VwcyBvciB3aXRob3V0IGFueSBmdXJ0aGVyIHNpZ25zDQo+PiBvZiBiZWluZyBh
-bGl2ZS4NCj4+Pj4NCj4+Pj4gSSBjYW4gZWFzaWx5IHJlcHJvZHVjZSB0aGUgcHJvYmxlbSwg
-c28gYW55IGRlYnVnIHBhdGNoZXMgdG8gbmFycm93DQo+Pj4+IGRvd24gdGhlIHByb2JsZW0g
-YXJlIHdlbGNvbWUuDQo+Pj4NCj4+PiBUaGVyZSBhcmUgc3RpbGwgbWlzc2luZyBmaXJtd2Fy
-ZSByZXF1aXJlZCBmb3IgcHJvcGVyIG9wZXJhdGlvbi4gIFBsZWFzZSBmaXgNCj4+IHRoZW0g
-dXAuDQo+Pg0KPj4gVGhhdCB3YXMgdGhlIHN0YXJ0aW5nIHBvaW50LCBvZiBjb3Vyc2UhDQo+
-IA0KPiBBaCwgb2suICBUaGFua3MgZm9yIGNsYXJpZnlpbmcuICBXaGF0IGV4YWN0bHkgaGFw
-cGVucyB3aGVuIHlvdSBnZXQgdGhpcyBjcmFzaD8gIFN5c3RlbSBoYW5nPyAgS2VybmVsIG9v
-cHM/ICBJcyB0aGVyZSBhbnl0aGluZyBpbiB0aGUgZG1lc2cgd2hlbiBpdCBoYXBwZW5zPw0K
-DQpBcyBJIHdyb3RlIGFib3ZlOiByYXRoZXIgZGlmZmVyZW50IGNhc2VzLiBUaGUgY3Jhc2gg
-aGFwcGVucyBub3JtYWxseQ0Kd2l0aGluIDIwIHNlY29uZHMgYWZ0ZXIgdGhlIHN5c3RlbSBp
-cyBjb21wbGV0ZWx5IHVwLiBJIGhhZCBvbmUgY2FzZQ0Kd2hlcmUgaXQgc3Vydml2ZWQgY2Eu
-IDIgbWludXRlcy4NCg0KT25lIGV4YW1wbGU6DQoNClsgICA2NC41NDkxMTRdIEJVRzogdW5h
-YmxlIHRvIGhhbmRsZSBwYWdlIGZhdWx0IGZvciBhZGRyZXNzOiBmZmZmODg4MTIxMjkxMDAw
-DQpbICAgNjQuNTYyODUwXSAjUEY6IHN1cGVydmlzb3Igd3JpdGUgYWNjZXNzIGluIGtlcm5l
-bCBtb2RlDQpbICAgNjQuNTczMzUyXSAjUEY6IGVycm9yX2NvZGUoMHgwMDAzKSAtIHBlcm1p
-c3Npb25zIHZpb2xhdGlvbg0KWyAgIDY0LjU4NDU4OV0gUEdEIDI4MzYwNjcgUDREIDI4MzYw
-NjcgUFVEIDNlNzNmNzA2NyBQTUQgM2U3MmVkMDY3IFBURSANCjgwMTAwMDAxMjEyOTEwMjUN
-ClsgICA2NC42MDAyMTJdIE9vcHM6IDAwMDMgWyMxXSBQUkVFTVBUIFNNUCBOT1BUSQ0KWyAg
-IDY0LjYwODk4NV0gQ1BVOiAzIFBJRDogMjA5MCBDb21tOiBraW9zbGF2ZTUgVGFpbnRlZDog
-RyAgICAgICAgICAgIEUgDQo2LjcuMC1yYzUtZGVmYXVsdCAjOTc0DQpbICAgNjQuNjI2NzIx
-XSBIYXJkd2FyZSBuYW1lOiBEZWxsIEluYy4gT3B0aVBsZXggOTAyMC8wUEM1RjcsIEJJT1Mg
-QTI1IDA1LzMwLzIwMTkNClsgICA2NC42NDExOTNdIFJJUDogZTAzMDpjbGVhcl9wYWdlX2Vy
-bXMrMHg3LzB4MTANClsgICA2NC42NTAxNjFdIENvZGU6IDQ4IDg5IDQ3IDM4IDQ4IDhkIDdm
-IDQwIDc1IGQ5IDkwIGMzIGNjIGNjIGNjIGNjIDBmIDFmIDAwIDkwIA0KOTAgOTAgOTAgOTAg
-OTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgYjkgMDAgMTAgMDAgMDAgMzEgYzAg
-PGYzPiBhYSBjMyBjYyANCmNjIGNjIGNjIDY2IDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkw
-IDkwIDkwIDkwIDkwIDkwDQpbICAgNjQuNjg3OTk2XSBSU1A6IGUwMmI6ZmZmZmM5MDA0MjA2
-ZmI1MCBFRkxBR1M6IDAwMDEwMjQ2DQpbICAgNjQuNjk4Mzc4XSBSQVg6IDAwMDAwMDAwMDAw
-MDAwMDAgUkJYOiBmZmZmZWEwMDA0ODRhNDAwIFJDWDogMDAwMDAwMDAwMDAwMTAwMA0KWyAg
-IDY0LjcxMjc4MF0gUkRYOiAwMDAwMDAwMDAwMDUyZGMwIFJTSTogMDAwMDAwMDAwMDAwMDAw
-MyBSREk6IGZmZmY4ODgxMjEyOTEwMDANClsgICA2NC43MjcxNTRdIFJCUDogMDAwMDAwMDAw
-MDAwMDkwMSBSMDg6IGZmZmZlYTAwMDQ4NGE0NDAgUjA5OiBmZmZmZWEwMDA0ODRhNjAwDQpb
-ICAgNjQuNzQxNDkxXSBSMTA6IDAwMDAwMDAwMDAwMDAwMDIgUjExOiAwMDAwMDAwMDAwMDAy
-NDFlIFIxMjogZmZmZjg4ODNlN2QyMWQ4MA0KWyAgIDY0Ljc1NTg0M10gUjEzOiAwMDAwMDAw
-MDAwMjhkODM0IFIxNDogMDAwMDAwMDAwMDAwMDkwMSBSMTU6IGZmZmZlYTAwMDQ4NGE0MDAN
-ClsgICA2NC43NzAyMDddIEZTOiAgMDAwMDdmNGMyYjc5ZDI4MCgwMDAwKSBHUzpmZmZmODg4
-NDA5MzgwMDAwKDAwMDApIA0Ka25sR1M6MDAwMDAwMDAwMDAwMDAwMA0KWyAgIDY0Ljc4NjQ4
-N10gQ1M6ICBlMDMwIERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMw0K
-WyAgIDY0Ljc5ODAxOV0gQ1IyOiBmZmZmODg4MTIxMjkxMDAwIENSMzogMDAwMDAwMDE0ZmVm
-NDAwMCBDUjQ6IDAwMDAwMDAwMDAwNTA2NjANClsgICA2NC44MTI0MTFdIENhbGwgVHJhY2U6
-DQpbICAgNjQuODE3MzA4XSAgPFRBU0s+DQpbICAgNjQuODIxNjI1XSAgPyBfX2RpZV9ib2R5
-KzB4MWEvMHg2MA0KWyAgIDY0LjgyODc0Nl0gID8gcGFnZV9mYXVsdF9vb3BzKzB4MTUxLzB4
-NDcwDQpbICAgNjQuODM3MDY1XSAgPyBzZWFyY2hfYnBmX2V4dGFibGVzKzB4NjUvMHg3MA0K
-WyAgIDY0Ljg0NTcxN10gID8gZml4dXBfZXhjZXB0aW9uKzB4MjIvMHgzMjANClsgICA2NC44
-NTM4NDRdICA/IGV4Y19wYWdlX2ZhdWx0KzB4YjMvMHgxNTANClsgICA2NC44NjE3OTJdICA/
-IGFzbV9leGNfcGFnZV9mYXVsdCsweDIyLzB4MzANClsgICA2NC44NzAyNzVdICA/IGNsZWFy
-X3BhZ2VfZXJtcysweDcvMHgxMA0KWyAgIDY0Ljg3ODA1MF0gIHByZXBfbmV3X3BhZ2UrMHg5
-Ny8weGIwDQpbICAgNjQuODg1MzA4XSAgZ2V0X3BhZ2VfZnJvbV9mcmVlbGlzdCsweDdhNC8w
-eDFmNDANClsgICA2NC44OTQ2NzhdICBfX2FsbG9jX3BhZ2VzKzB4MThiLzB4MzUwDQpbICAg
-NjQuOTAyMjcwXSAgPyBrdm1hbGxvY19ub2RlKzB4M2EvMHhkMA0KWyAgIDY0LjkwOTg5Ml0g
-IF9fa21hbGxvY19sYXJnZV9ub2RlKzB4N2EvMHgxNDANClsgICA2NC45MTg1NDJdICBfX2tt
-YWxsb2Nfbm9kZSsweGMxLzB4MTMwDQpbICAgNjQuOTI2MTQ5XSAga3ZtYWxsb2Nfbm9kZSsw
-eDNhLzB4ZDANClsgICA2NC45MzMzOTldICBwcm9jX3N5c19jYWxsX2hhbmRsZXIrMHhmYS8w
-eDIzMA0KWyAgIDY0Ljk0MjI1OV0gIHZmc19yZWFkKzB4MjJmLzB4MmUwDQpbICAgNjQuOTQ5
-MDA3XSAga3N5c19yZWFkKzB4YTUvMHhlMA0KWyAgIDY0Ljk1NTUyN10gIGRvX3N5c2NhbGxf
-NjQrMHg1ZC8weGUwDQpbICAgNjQuOTYyODA2XSAgPyBkb191c2VyX2FkZHJfZmF1bHQrMHg1
-YjMvMHg4YTANClsgICA2NC45NzE2NDddICA/IGV4Y19wYWdlX2ZhdWx0KzB4NmYvMHgxNTAN
-ClsgICA2NC45Nzk1ODddICBlbnRyeV9TWVNDQUxMXzY0X2FmdGVyX2h3ZnJhbWUrMHg2Zi8w
-eDc3DQpbICAgNjQuOTg5ODIxXSBSSVA6IDAwMzM6MHg3ZjRjMjlmMDZhM2UNClsgICA2NC45
-OTcwOThdIENvZGU6IDA4IGU4IGY0IDFlIDAyIDAwIDY2IDBmIDFmIDQ0IDAwIDAwIDkwIDkw
-IDkwIDkwIDkwIDkwIDkwIDkwIA0KOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgNjQgOGIgMDQg
-MjUgMTggMDAgMDAgMDAgODUgYzAgNzUgMTQgMGYgMDUgPDQ4PiAzZCAwMCBmMCANCmZmIGZm
-IDc3IDVhIGYzIGMzIDBmIDFmIDg0IDAwIDAwIDAwIDAwIDAwIDQxIDU0IDU1IDQ5DQpbICAg
-NjUuMDM0OTYyXSBSU1A6IDAwMmI6MDAwMDdmZmQ1YTg2ZjJiOCBFRkxBR1M6IDAwMDAwMjQ2
-IE9SSUdfUkFYOiANCjAwMDAwMDAwMDAwMDAwMDANClsgICA2NS4wNTAwNzFdIFJBWDogZmZm
-ZmZmZmZmZmZmZmZkYSBSQlg6IDAwMDAwMDAwMDAwMDAwMDAgUkNYOiAwMDAwN2Y0YzI5ZjA2
-YTNlDQpbICAgNjUuMDY0NDE1XSBSRFg6IDAwMDAwMDAwMDAwMDQwMDAgUlNJOiAwMDAwMDAw
-MDAyNTYyYzE4IFJESTogMDAwMDAwMDAwMDAwMDAwNA0KWyAgIDY1LjA3ODc3NV0gUkJQOiAw
-MDAwMDAwMDAyNTYxZDYwIFIwODogMDAwMDdmNGMyYWJkMzQxOCBSMDk6IDAwMDAwMDAwMDAw
-MDAwMjgNClsgICA2NS4wOTMxNTVdIFIxMDogMDAwMDAwMDAwMjUzYjAxMCBSMTE6IDAwMDAw
-MDAwMDAwMDAyNDYgUjEyOiAwMDAwMDAwMDAwMDA0MDAwDQpbICAgNjUuMTA3NDkyXSBSMTM6
-IDAwMDAwMDAwMDAwMDQwMDAgUjE0OiAwMDAwMDAwMDAwMDAwMDA0IFIxNTogMDAwMDAwMDAw
-MjU2MmMxOA0KWyAgIDY1LjEyMTg1MF0gIDwvVEFTSz4NCg0KPiANCj4+DQo+PiBCVFcsIG1l
-YW53aGlsZSBJIGhhdmUgdGVzdGVkIGtlcm5lbCA1LjE5LCB3aGljaCBpcyB3b3JraW5nLiBJ
-IHN1c3BlY3RlZCB0aGF0DQo+PiB0aGUgcGF0Y2ggc2VyaWVzIG1lcmdpbmcgc3dpb3RsYiBh
-bmQgc3dpb3RsYi14ZW4gY291bGQgYmUgdG8gYmxhbWUsIGJ1dCB0aGF0DQo+PiB3ZW50IGlu
-dG8gdjUuMTkuDQo+IA0KPiBDYW4geW91IGJpc2VjdD8NCg0KSSBjYW4gdHJ5IHRvIGZpbmQg
-dGhlIG9mZmVuZGluZyBjb21taXQsIHN1cmUuIEkganVzdCB3YW50ZWQgdG8gc2hhcmUgbXkg
-Y3VycmVudA0KZmluZGluZ3MgaW4gdGhlIGhvcGUgdGhhdCBzb21lb25lIG1pZ2h0IGhhdmUg
-YW4gaWRlYSAuLi4NCg0KDQpKdWVyZ2VuDQo=
---------------uccJtY91T04U06gThWB9tOK0
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+The per-CPU variables used during bpf_prog_run_xdp() invocation and
+later during xdp_do_redirect() rely on disabled BH for their protection.
+Without locking in local_bh_disable() on PREEMPT_RT these data structure
+require explicit locking.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+This is a follow-up on the previous change which introduced
+bpf_run_lock.redirect_lock and uses it now within drivers.
 
---------------uccJtY91T04U06gThWB9tOK0--
+The simple way is to acquire the lock before bpf_prog_run_xdp() is
+invoked and hold it until the end of function.
+This does not always work because some drivers (cpsw, atlantic) invoke
+xdp_do_flush() in the same context.
+Acquiring the lock in bpf_prog_run_xdp() and dropping in
+xdp_do_redirect() (without touching drivers) does not work because not
+all driver, which use bpf_prog_run_xdp(), do support XDP_REDIRECT (and
+invoke xdp_do_redirect()).
 
---------------PeCYtwQpR9wAnvc09cLSGfT0--
+Ideally the minimal locking scope would be bpf_prog_run_xdp() +
+xdp_do_redirect() and everything else (error recovery, DMA unmapping,
+free/ alloc of memory, =E2=80=A6) would happen outside of the locked sectio=
+n.
 
---------------4ZOWJRl0YsisP82RrqFNdYTS
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>
+Cc: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Alexei Starovoitov <ast@kernel.org>
+Cc: Andrii Nakryiko <andrii@kernel.org>
+Cc: Dexuan Cui <decui@microsoft.com>
+Cc: Haiyang Zhang <haiyangz@microsoft.com>
+Cc: Hao Luo <haoluo@google.com>
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>
+Cc: John Fastabend <john.fastabend@gmail.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: KP Singh <kpsingh@kernel.org>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>
+Cc: Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Song Liu <song@kernel.org>
+Cc: Stanislav Fomichev <sdf@google.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Wei Liu <wei.liu@kernel.org>
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+Cc: Yonghong Song <yonghong.song@linux.dev>
+Cc: bpf@vger.kernel.org
+Cc: virtualization@lists.linux.dev
+Cc: xen-devel@lists.xenproject.org
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+---
+ drivers/net/hyperv/netvsc_bpf.c |  1 +
+ drivers/net/netkit.c            | 13 +++++++----
+ drivers/net/tun.c               | 28 +++++++++++++----------
+ drivers/net/veth.c              | 40 ++++++++++++++++++++-------------
+ drivers/net/virtio_net.c        |  1 +
+ drivers/net/xen-netfront.c      |  1 +
+ 6 files changed, 52 insertions(+), 32 deletions(-)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/drivers/net/hyperv/netvsc_bpf.c b/drivers/net/hyperv/netvsc_bp=
+f.c
+index 4a9522689fa4f..55f8ca92ca199 100644
+--- a/drivers/net/hyperv/netvsc_bpf.c
++++ b/drivers/net/hyperv/netvsc_bpf.c
+@@ -58,6 +58,7 @@ u32 netvsc_run_xdp(struct net_device *ndev, struct netvsc=
+_channel *nvchan,
+=20
+ 	memcpy(xdp->data, data, len);
+=20
++	guard(local_lock_nested_bh)(&bpf_run_lock.redirect_lock);
+ 	act =3D bpf_prog_run_xdp(prog, xdp);
+=20
+ 	switch (act) {
+diff --git a/drivers/net/netkit.c b/drivers/net/netkit.c
+index 39171380ccf29..fbcf78477bda8 100644
+--- a/drivers/net/netkit.c
++++ b/drivers/net/netkit.c
+@@ -80,8 +80,15 @@ static netdev_tx_t netkit_xmit(struct sk_buff *skb, stru=
+ct net_device *dev)
+ 	netkit_prep_forward(skb, !net_eq(dev_net(dev), dev_net(peer)));
+ 	skb->dev =3D peer;
+ 	entry =3D rcu_dereference(nk->active);
+-	if (entry)
+-		ret =3D netkit_run(entry, skb, ret);
++	if (entry) {
++		scoped_guard(local_lock_nested_bh, &bpf_run_lock.redirect_lock) {
++			ret =3D netkit_run(entry, skb, ret);
++			if (ret =3D=3D NETKIT_REDIRECT) {
++				dev_sw_netstats_tx_add(dev, 1, len);
++				skb_do_redirect(skb);
++			}
++		}
++	}
+ 	switch (ret) {
+ 	case NETKIT_NEXT:
+ 	case NETKIT_PASS:
+@@ -95,8 +102,6 @@ static netdev_tx_t netkit_xmit(struct sk_buff *skb, stru=
+ct net_device *dev)
+ 		}
+ 		break;
+ 	case NETKIT_REDIRECT:
+-		dev_sw_netstats_tx_add(dev, 1, len);
+-		skb_do_redirect(skb);
+ 		break;
+ 	case NETKIT_DROP:
+ 	default:
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index afa5497f7c35c..fe0d31f11e4b6 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -1708,16 +1708,18 @@ static struct sk_buff *tun_build_skb(struct tun_str=
+uct *tun,
+ 		xdp_init_buff(&xdp, buflen, &tfile->xdp_rxq);
+ 		xdp_prepare_buff(&xdp, buf, pad, len, false);
+=20
+-		act =3D bpf_prog_run_xdp(xdp_prog, &xdp);
+-		if (act =3D=3D XDP_REDIRECT || act =3D=3D XDP_TX) {
+-			get_page(alloc_frag->page);
+-			alloc_frag->offset +=3D buflen;
+-		}
+-		err =3D tun_xdp_act(tun, xdp_prog, &xdp, act);
+-		if (err < 0) {
+-			if (act =3D=3D XDP_REDIRECT || act =3D=3D XDP_TX)
+-				put_page(alloc_frag->page);
+-			goto out;
++		scoped_guard(local_lock_nested_bh, &bpf_run_lock.redirect_lock) {
++			act =3D bpf_prog_run_xdp(xdp_prog, &xdp);
++			if (act =3D=3D XDP_REDIRECT || act =3D=3D XDP_TX) {
++				get_page(alloc_frag->page);
++				alloc_frag->offset +=3D buflen;
++			}
++			err =3D tun_xdp_act(tun, xdp_prog, &xdp, act);
++			if (err < 0) {
++				if (act =3D=3D XDP_REDIRECT || act =3D=3D XDP_TX)
++					put_page(alloc_frag->page);
++				goto out;
++			}
+ 		}
+=20
+ 		if (err =3D=3D XDP_REDIRECT)
+@@ -2460,8 +2462,10 @@ static int tun_xdp_one(struct tun_struct *tun,
+ 		xdp_init_buff(xdp, buflen, &tfile->xdp_rxq);
+ 		xdp_set_data_meta_invalid(xdp);
+=20
+-		act =3D bpf_prog_run_xdp(xdp_prog, xdp);
+-		ret =3D tun_xdp_act(tun, xdp_prog, xdp, act);
++		scoped_guard(local_lock_nested_bh, &bpf_run_lock.redirect_lock) {
++			act =3D bpf_prog_run_xdp(xdp_prog, xdp);
++			ret =3D tun_xdp_act(tun, xdp_prog, xdp, act);
++		}
+ 		if (ret < 0) {
+ 			put_page(virt_to_head_page(xdp->data));
+ 			return ret;
+diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+index 977861c46b1fe..c69e5ff9f8795 100644
+--- a/drivers/net/veth.c
++++ b/drivers/net/veth.c
+@@ -624,7 +624,18 @@ static struct xdp_frame *veth_xdp_rcv_one(struct veth_=
+rq *rq,
+ 		xdp->rxq =3D &rq->xdp_rxq;
+ 		vxbuf.skb =3D NULL;
+=20
+-		act =3D bpf_prog_run_xdp(xdp_prog, xdp);
++		scoped_guard(local_lock_nested_bh, &bpf_run_lock.redirect_lock) {
++			act =3D bpf_prog_run_xdp(xdp_prog, xdp);
++			if (act =3D=3D XDP_REDIRECT) {
++				orig_frame =3D *frame;
++				xdp->rxq->mem =3D frame->mem;
++				if (xdp_do_redirect(rq->dev, xdp, xdp_prog)) {
++					frame =3D &orig_frame;
++					stats->xdp_drops++;
++					goto err_xdp;
++				}
++			}
++		}
+=20
+ 		switch (act) {
+ 		case XDP_PASS:
+@@ -644,13 +655,6 @@ static struct xdp_frame *veth_xdp_rcv_one(struct veth_=
+rq *rq,
+ 			rcu_read_unlock();
+ 			goto xdp_xmit;
+ 		case XDP_REDIRECT:
+-			orig_frame =3D *frame;
+-			xdp->rxq->mem =3D frame->mem;
+-			if (xdp_do_redirect(rq->dev, xdp, xdp_prog)) {
+-				frame =3D &orig_frame;
+-				stats->rx_drops++;
+-				goto err_xdp;
+-			}
+ 			stats->xdp_redirect++;
+ 			rcu_read_unlock();
+ 			goto xdp_xmit;
+@@ -857,7 +861,18 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth_rq=
+ *rq,
+ 	orig_data =3D xdp->data;
+ 	orig_data_end =3D xdp->data_end;
+=20
+-	act =3D bpf_prog_run_xdp(xdp_prog, xdp);
++	scoped_guard(local_lock_nested_bh, &bpf_run_lock.redirect_lock) {
++		act =3D bpf_prog_run_xdp(xdp_prog, xdp);
++		if (act =3D=3D XDP_REDIRECT) {
++			veth_xdp_get(xdp);
++			consume_skb(skb);
++			xdp->rxq->mem =3D rq->xdp_mem;
++			if (xdp_do_redirect(rq->dev, xdp, xdp_prog)) {
++				stats->rx_drops++;
++				goto err_xdp;
++			}
++		}
++	}
+=20
+ 	switch (act) {
+ 	case XDP_PASS:
+@@ -875,13 +890,6 @@ static struct sk_buff *veth_xdp_rcv_skb(struct veth_rq=
+ *rq,
+ 		rcu_read_unlock();
+ 		goto xdp_xmit;
+ 	case XDP_REDIRECT:
+-		veth_xdp_get(xdp);
+-		consume_skb(skb);
+-		xdp->rxq->mem =3D rq->xdp_mem;
+-		if (xdp_do_redirect(rq->dev, xdp, xdp_prog)) {
+-			stats->rx_drops++;
+-			goto err_xdp;
+-		}
+ 		stats->xdp_redirect++;
+ 		rcu_read_unlock();
+ 		goto xdp_xmit;
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index d16f592c2061f..5e362c4604239 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -1010,6 +1010,7 @@ static int virtnet_xdp_handler(struct bpf_prog *xdp_p=
+rog, struct xdp_buff *xdp,
+ 	int err;
+ 	u32 act;
+=20
++	guard(local_lock_nested_bh)(&bpf_run_lock.redirect_lock);
+ 	act =3D bpf_prog_run_xdp(xdp_prog, xdp);
+ 	u64_stats_inc(&stats->xdp_packets);
+=20
+diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
+index ad29f370034e4..e3daa8cdeb84e 100644
+--- a/drivers/net/xen-netfront.c
++++ b/drivers/net/xen-netfront.c
+@@ -978,6 +978,7 @@ static u32 xennet_run_xdp(struct netfront_queue *queue,=
+ struct page *pdata,
+ 	xdp_prepare_buff(xdp, page_address(pdata), XDP_PACKET_HEADROOM,
+ 			 len, false);
+=20
++	guard(local_lock_nested_bh)(&bpf_run_lock.redirect_lock);
+ 	act =3D bpf_prog_run_xdp(prog, xdp);
+ 	switch (act) {
+ 	case XDP_TX:
+--=20
+2.43.0
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmV8f7gFAwAAAAAACgkQsN6d1ii/Ey+A
-TAf9GdxH8CHk6EiuOyaumXp0epaxR5XTxuJp1Rb6UwAjibq46iHrSD5prjopAnEFbnohGEz4sEXk
-9A/f1Wjip4gjQCJ+wR65hxhpAxDG3TeT/2CbhP6VubA/Av94BwtkA7cYcxlfXfPy9ycY6GhChXrj
-PJoj2bqF5N07pZbCQ6oz001C+qvtgRYSkzuzU/N3CrkrDv5gKcH9e1hJ7Sr0ePNqLHhmg1iN7sN/
-7MkaMdGybkVHdUHLVDZmz8XFTzLzEvZnUkhbzahYVkyjS6kXwJpjTW8+/+hQ0IkXnZVrxBAtpZQ0
-A/s7aDbAR0OIlVCpysT9Dp8MX1gt1wizzDtt1WBBug==
-=aREM
------END PGP SIGNATURE-----
-
---------------4ZOWJRl0YsisP82RrqFNdYTS--
 
