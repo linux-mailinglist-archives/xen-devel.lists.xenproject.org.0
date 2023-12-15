@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B35E481462F
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 12:05:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655024.1022663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53A738146A6
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Dec 2023 12:19:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655029.1022672 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rE5yy-0008F2-Nc; Fri, 15 Dec 2023 11:03:52 +0000
+	id 1rE6DV-00027c-0J; Fri, 15 Dec 2023 11:18:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655024.1022663; Fri, 15 Dec 2023 11:03:52 +0000
+Received: by outflank-mailman (output) from mailman id 655029.1022672; Fri, 15 Dec 2023 11:18:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rE5yy-0008Bs-Ko; Fri, 15 Dec 2023 11:03:52 +0000
-Received: by outflank-mailman (input) for mailman id 655024;
- Fri, 15 Dec 2023 11:03:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rE6DU-00024P-Tn; Fri, 15 Dec 2023 11:18:52 +0000
+Received: by outflank-mailman (input) for mailman id 655029;
+ Fri, 15 Dec 2023 11:18:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rqNh=H2=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rE5yx-0008Bk-D0
- for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 11:03:51 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d773774-9b39-11ee-9b0f-b553b5be7939;
- Fri, 15 Dec 2023 12:03:48 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id AE1D34EE073C;
- Fri, 15 Dec 2023 12:03:44 +0100 (CET)
+ <SRS0=a4Sn=H2=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rE6DT-00024C-OQ
+ for xen-devel@lists.xenproject.org; Fri, 15 Dec 2023 11:18:51 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b8bad3d4-9b3b-11ee-98ea-6d05b1d4d9a1;
+ Fri, 15 Dec 2023 12:18:50 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40c48d7a7a7so5131405e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Dec 2023 03:18:50 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ q14-20020a05600c46ce00b0040c4c9c52a3sm16968713wmo.12.2023.12.15.03.18.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Dec 2023 03:18:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,174 +44,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d773774-9b39-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: b8bad3d4-9b3b-11ee-98ea-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1702639129; x=1703243929; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QQSfgCUH/gyqfKahydnZfRc1+dZ9TnmnpZoNnoVbHCA=;
+        b=tAZyuB+L/axBWDP5SxLPpMoNdbQ7QdcZow+tl53MBRbyxu8JQPKneocVtvOrjVoM5g
+         X/ZcEsVwBP0GdfBEWv14Ez7RfLuhgKt8Od/vYhWcGyxwscRJ8Jt2ZBY3VfQp+17niR42
+         RpCwGgFCaaPnQv3jGvaR8/AkZvt4i7XHvG3Eg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702639129; x=1703243929;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QQSfgCUH/gyqfKahydnZfRc1+dZ9TnmnpZoNnoVbHCA=;
+        b=wELR+IgOeNNjyYQknoDfjPuKgEfpIzTCHRO16kSfHPZl55EJwa+FNVSWWqcdOBc9ap
+         zzA+ZJ7dFcqcLHuf+ANylo90EIXZ93s1yHVFM+le1rP/kA+fS+y8DEV5FfNczQjtt43Y
+         5tAfQYlfUVjazY+1q2kudlENp1WxtXRsN0oxlhnnI/1Ak1lRZurU8aMoIMaYkOrBRcF7
+         LEqg8bZHlIIxofNj//2Ky42XBD64xQAc25kInQvJRu1P+U/+fTFM8MJUfj4YXHaoLdJN
+         5TddPvR5hQFoA6kNPdEH/7VclClPvuJtyypthdZJFR77f0ufhkTNMHfP/pkoA+qfkeUQ
+         RnGg==
+X-Gm-Message-State: AOJu0YxM+GQgISHPrr8dTZSlWxxBErXk9IfW9xDejZV6S86mFVVdyJwY
+	tj15Hjl/WI6ueaKLd6hXouK5c/qPdD/tfxz9kS4=
+X-Google-Smtp-Source: AGHT+IFwESF7Ewp9G+VWRj6rmJQWPYVvDfKnaUTthxyii3n7Ut2mEE7WCszR1WVBmtYa1xVTNilVCA==
+X-Received: by 2002:a05:600c:3411:b0:404:4b6f:d70d with SMTP id y17-20020a05600c341100b004044b6fd70dmr6839489wmp.17.1702639128764;
+        Fri, 15 Dec 2023 03:18:48 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH v4 0/4] xen/x86: add testing for self modifying code and livepatch
+Date: Fri, 15 Dec 2023 12:18:38 +0100
+Message-ID: <20231215111842.8009-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Date: Fri, 15 Dec 2023 12:03:44 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>, Michal
- Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [XEN PATCH 5/7] xen/arm: traps: add ASSERT_UNREACHABLE() where
- needed
-In-Reply-To: <alpine.DEB.2.22.394.2312141418160.3175268@ubuntu-linux-20-04-desktop>
-References: <cover.1702283415.git.nicola.vetrini@bugseng.com>
- <394b69b769f2dc2461d2ddb0c7e037f4794eb244.1702283415.git.nicola.vetrini@bugseng.com>
- <08e3c8f0-772e-4c08-9afc-c623f19c85e3@xen.org>
- <240c97ed-ce27-406d-84ad-68b72e999294@xen.org>
- <5ad1c008182bc9f23e1b37b0d6e35e4c@bugseng.com>
- <2b4eec7c-3657-4542-96b9-56b272e8723b@xen.org>
- <alpine.DEB.2.22.394.2312141418160.3175268@ubuntu-linux-20-04-desktop>
-Message-ID: <add58ef45d9cb970c2447f22443f50c8@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 2023-12-14 23:32, Stefano Stabellini wrote:
-> On Thu, 14 Dec 2023, Julien Grall wrote:
->> Hi,
->> 
->> On 13/12/2023 14:02, Nicola Vetrini wrote:
->> > On 2023-12-12 16:49, Julien Grall wrote:
->> > > Hi,
->> > >
->> > > On 11/12/2023 12:32, Julien Grall wrote:
->> > > > Hi,
->> > > >
->> > > > On 11/12/2023 10:30, Nicola Vetrini wrote:
->> > > > > The branches of the switch after a call to 'do_unexpected_trap'
->> > > > > cannot return, but there is one path that may return, hence
->> > > > > only some clauses are marked with ASSERT_UNREACHABLE().
->> > > > I don't understand why this is necessary. The code should never be
->> > > > reachable because do_unexpected_trap() is a noreturn().
->> > >
->> > > From the matrix discussion, it wasn't clear what was my position on this
->> > > patch.
->> > >
->> > > I would much prefer if the breaks are kept. I could accept:
->> > >
->> > > ASSERT_UNREACHABLE();
->> > > break;
->> > >
->> > > But this solution is a Nack because if you are concerned about functions
->> > > like do_unexpected_trap() to return by mistaken, then it needs to also be
->> > > safe in production.
->> > >
->> > > The current proposal is not safe.
-> 
-> I re-read the email thread. I also do not think that this is useful:
-> 
->          do_unexpected_trap("SVE trap at EL2", regs);
-> -        break;
-> +        ASSERT_UNREACHABLE();
-> 
-> I also do not think that we should be concerned about functions like
-> do_unexpected_trap() to return by mistaken.
-> 
-> That said, what is the problem from MISRA point of view that we are
-> trying to fix? Is the only problem the presence of break; after the 
-> call
-> to a noreturn function?
-> 
-> If that's not allowed, I would suggest to do this:
-> 
-> 
->          do_unexpected_trap("SVE trap at EL2", regs);
-> -        break;
-> +        /* break; */
-> 
-> 
-> Or deviate "break" globally as it doesn't seem to be a safety risk in 
-> my
-> opinion. If nothing else, it should make the code a bit safer because 
-> in
-> case of mistakes in do_unexpected_trap, at least we would continue to
-> follow a more reasonable code path rather than blindly falling through
-> the next switch case by accident.
-> 
-> 
+Hello,
 
-That doesn't seem like a good idea to deviate just "break". However, 
-Julien's earlier proposal
+The following series contains a misc set of fixes and improvements.
 
-ASSERT_UNREACHABLE();
-break;
+There's one improvement for the hypervisor to set function alignment for
+livepatch builds in order to make sure there's always enough space in a
+function to be live-patched.
 
-is ok, though it could be shrunk in a macro
+Following patches attempt to introduce a set of tests for self modifying
+code, currently one test using the alternatives framework, and one test
+for livepatch.
 
-#define unreachable_break ASSERT_UNREACHABLE(); break;
+Last patch hooks the newly introduced livepatch test into the gitlab CI
+using QEMU and an Alpine Linux dom0:
 
-or just
+https://gitlab.com/xen-project/people/royger/xen/-/pipelines/1108069448
 
-#define unreachable_break break;
+Roger Pau Monne (4):
+  x86/livepatch: align functions to ensure minimal distance between
+    entry points
+  xen/x86: introduce self modifying code test
+  x86/livepatch: introduce a basic live patch test to gitlab CI
+  automation: add x86-64 livepatching test
 
-so that "unreachable_break" can be deviated.
-
->> > Ok. I wonder whether the should be applied here in vcpreg.c:
->> >
->> > diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
->> > index 39aeda9dab62..089d2f03eb5e 100644
->> > --- a/xen/arch/arm/vcpreg.c
->> > +++ b/xen/arch/arm/vcpreg.c
->> > @@ -707,7 +707,8 @@ void do_cp10(struct cpu_user_regs *regs, const union hsr
->> > hsr)
->> >           inject_undef_exception(regs, hsr);
->> >           return;
->> >       }
->> > -
->> > +
->> > +    ASSERT_UNREACHABLE();
->> >       advance_pc(regs, hsr);
->> >   }
->> >
->> > the rationale being that, should the switch somehow fail to return, the
->> > advance_pc would be called, rather than doing nothing.
->> 
->> To clarify, advance_pc(regs, hsr) would still be called in production 
->> build.
->> So if you are concerned about advance_pc() been called, then adding an
->> ASSERT_UNREACHABLE() is not going to help.
->> 
->> It took me a little while to confirm that none of the path effectively 
->> returns
->> due to the macros (in hindsight, it wasn't a good idea of mine to 
->> introduce
->> them).
->> 
->> Depending on what we are trying to solve there are 3 possible 
->> approach:
->>   1. Leave advance_pc(). This means we could potentially
->>      a. Advance the PC twice (if it was already called) and therefore 
->> skipping
->> an instruction
->>      b. Advance the PC once without an emulation
->>   2. Remove advance_pc(). If we already called the function, then 
->> there is no
->> problem. Otherwise, we would trap in a loop effectively rendering the 
->> guest
->> vCPU unusable.
->>   3. Replace with domain_crash()
->> 
->> Here it feels, that 3 is more suitable as this gives a clear 
->> indication
->> why/where the emulation gone wrong.
->> 
->> This may still need to be accompanied with a ASSERT_UNREACHABLE() to 
->> please
->> MISRA.
->> 
->> Bertrand, Michal, Stefano, what do you think?
-> 
-> Yes, I would go with 3., replace advance_pc with domain_crash. Assuming
-> that it would also solve the violation in ECLAIR.
-
-It needs to be prefixed with an ASSERT_UNREACHABLE(), though, because 
-it's still a violation if there is no execution path leading to 
-domain_crash(), but other than that it seems the safest choice.
+ automation/gitlab-ci/build.yaml               |  9 +++
+ automation/gitlab-ci/test.yaml                |  8 +++
+ automation/scripts/build-livepatch            | 27 +++++++
+ .../scripts/qemu-alpine-x86_64-livepatch.sh   | 68 ++++++++++++++++++
+ tools/include/xenctrl.h                       |  2 +
+ tools/libs/ctrl/xc_misc.c                     | 14 ++++
+ tools/misc/xen-livepatch.c                    | 29 ++++++++
+ xen/Kconfig                                   | 19 +++++
+ xen/Makefile                                  |  3 +
+ xen/arch/arm/livepatch.c                      |  2 +
+ xen/arch/arm/xen.lds.S                        |  4 ++
+ xen/arch/x86/Kconfig                          |  1 +
+ xen/arch/x86/Makefile                         |  1 +
+ xen/arch/x86/include/asm/test.h               | 37 ++++++++++
+ xen/arch/x86/livepatch.c                      |  4 ++
+ xen/arch/x86/setup.c                          |  3 +
+ xen/arch/x86/sysctl.c                         |  9 +++
+ xen/arch/x86/test/Makefile                    |  3 +
+ xen/arch/x86/test/smoc-lp-alt.c               | 24 +++++++
+ xen/arch/x86/test/smoc-lp.c                   | 24 +++++++
+ xen/arch/x86/test/smoc.c                      | 70 +++++++++++++++++++
+ xen/arch/x86/xen.lds.S                        |  4 ++
+ xen/common/Kconfig                            |  5 +-
+ xen/common/kernel.c                           |  5 +-
+ xen/include/public/sysctl.h                   | 13 ++++
+ xen/include/xen/lib.h                         |  1 +
+ 26 files changed, 386 insertions(+), 3 deletions(-)
+ create mode 100755 automation/scripts/build-livepatch
+ create mode 100755 automation/scripts/qemu-alpine-x86_64-livepatch.sh
+ create mode 100644 xen/arch/x86/include/asm/test.h
+ create mode 100644 xen/arch/x86/test/Makefile
+ create mode 100644 xen/arch/x86/test/smoc-lp-alt.c
+ create mode 100644 xen/arch/x86/test/smoc-lp.c
+ create mode 100644 xen/arch/x86/test/smoc.c
 
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+2.43.0
+
 
