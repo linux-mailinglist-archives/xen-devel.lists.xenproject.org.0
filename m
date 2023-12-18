@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78479817816
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 18:04:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656285.1024372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34F9E817817
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 18:04:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656286.1024382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFH2C-0000Ma-5M; Mon, 18 Dec 2023 17:04:04 +0000
+	id 1rFH2W-0000q3-Da; Mon, 18 Dec 2023 17:04:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656285.1024372; Mon, 18 Dec 2023 17:04:04 +0000
+Received: by outflank-mailman (output) from mailman id 656286.1024382; Mon, 18 Dec 2023 17:04:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFH2C-0000KG-2F; Mon, 18 Dec 2023 17:04:04 +0000
-Received: by outflank-mailman (input) for mailman id 656285;
- Mon, 18 Dec 2023 17:04:02 +0000
+	id 1rFH2W-0000np-AH; Mon, 18 Dec 2023 17:04:24 +0000
+Received: by outflank-mailman (input) for mailman id 656286;
+ Mon, 18 Dec 2023 17:04:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFH2A-0008KY-UG
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 17:04:02 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=av2Q=H5=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
+ id 1rFH2U-0008KY-I3
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 17:04:22 +0000
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [2607:f8b0:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 716de30f-9dc7-11ee-98eb-6d05b1d4d9a1;
- Mon, 18 Dec 2023 18:04:02 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40c517d0de5so37772875e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 09:04:02 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- gw18-20020a05600c851200b004063c9f68f2sm41986948wmb.26.2023.12.18.09.04.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 09:04:01 -0800 (PST)
+ id 7c8f6a2d-9dc7-11ee-98eb-6d05b1d4d9a1;
+ Mon, 18 Dec 2023 18:04:21 +0100 (CET)
+Received: by mail-pf1-x430.google.com with SMTP id
+ d2e1a72fcca58-6ceb2501f1bso3092508b3a.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 09:04:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +40,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 716de30f-9dc7-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 7c8f6a2d-9dc7-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702919042; x=1703523842; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Q1JbI75M+ZXmGjjQUcIafal5xOGn1/ryxUMTL8QIsSo=;
-        b=goB0TbIm3Jbat0HcWnxF7W9ysa5JcabDeZeGQbJn4YSbJP+6hZGmsMTjJKS4OhWc94
-         5dtwQIwUGlM4EMm6MnOVsJ4zEBq+zhlEbqLAUnPd60mHOSSSdH4zAcjg++FUQYEpMp99
-         fdD+YARFn70aTry74RCpJKIo2ChKPyvv7T9nK6AATPuHg4nzjNOfvsI7JcTx7lGoyvEV
-         9sPUVV7lHYVdxdBwkN2HssLmWgF7odTQB+/OJ4nnMvCvsZnLSu8MuTKtV0BbmoF3ZodD
-         yi+X9Uo7NuVfCKrjIuszeX6DvYhs3wPYc/6iu6DPoR6I/YQTXRTJYKSN/Wke7dBGO2K+
-         33wQ==
+        d=gmail.com; s=20230601; t=1702919060; x=1703523860; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=o5J2BkPYCS9Tj3jNQgPrBfAfxlhHW2JowfCvo6TYts8=;
+        b=YUjlcrwkHyGC2z3kzHP61wq/Jap2wVRFrqWhiY5fP4UauKBcW9VbW4C8Fv5nbLVhzT
+         hKOcmkK4oYjXkaG3wzL2pWnpFvXJB3V7tkvA1bDO0/dFZ4y2OzNzIINhprWzLRPnLuBH
+         16ra9hCz3jOztULVf8EntZ8gKTID98fQuRWO0mevx00VVEnMQc3rRmYl4pePOyvs8HPQ
+         cXfiCqorQks5kLmlq/5IkTr7Vs50Ym1Zy3hHREJcPGJTIAJBFbsolaVtWdbJA8hJH2Je
+         RcMoofsBejLVo9uxqHh0UfcRc98DgdZ5cMKOdfCJ6B8tnElAqGOzz6g+rEpqdg7d+x6j
+         Qyyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702919042; x=1703523842;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q1JbI75M+ZXmGjjQUcIafal5xOGn1/ryxUMTL8QIsSo=;
-        b=rlvTKZE6iCXFrPSpEYjZjN7SsdE09mtliR1XZCV0XMbMqSW4kRb2WQjVejdcHiuDyY
-         GgAwXH2L6ZF3F9RDxqILjbZGn8+zodQph02Zzf0a3m7q79kP/VqIec8Wrgn/pBAfr1E4
-         2ChB7jvw0fnc5PH8HwMqAiPVQMAhHMrrVcdmsIkzy+24Ks7RZcsngT9V7IdG6FgRI+2K
-         w40X7cK7pQj79vDA6PAkwjfjPns8KnIswkEaBxxGtJvsT3KwVAI6dKp6NCKxqp/xlWEc
-         Me/bJzXijUwelbiqadxTypz/kiuNL3vG262xT9SXHJeqAoEZIC5mRjRmUFdWB6BrugDV
-         8CXg==
-X-Gm-Message-State: AOJu0YyXKtTSik4MyYCuZHqaG4AUEztudTD/UAApUqLwt1OzJiqG1lJS
-	z6HmkjRDSYW39SsUFE+AZOM9
-X-Google-Smtp-Source: AGHT+IF/CN5nVRHlxU76PBda4+e+7Ekh/yKJVpOkzC+TDLO5qB4Kzir9moQLl2IvgBNa3forcrR7Kg==
-X-Received: by 2002:a05:600c:35cf:b0:40d:1c37:c521 with SMTP id r15-20020a05600c35cf00b0040d1c37c521mr471197wmq.145.1702919041854;
-        Mon, 18 Dec 2023 09:04:01 -0800 (PST)
-Message-ID: <32563f17-cd3a-4292-b8b0-cb2302859714@suse.com>
-Date: Mon, 18 Dec 2023 18:04:01 +0100
+        d=1e100.net; s=20230601; t=1702919060; x=1703523860;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=o5J2BkPYCS9Tj3jNQgPrBfAfxlhHW2JowfCvo6TYts8=;
+        b=N6pvByx/CxnIyLTJOjqPkgSN9PbeLq5cezQmdgl0MMJE5sVNYxHckERXdxZpc4V6BW
+         dqZvjXRE33QN/z2Zkqp7R3ddWiGbdDibbpqHykbIFResRPWGERBW7VwQ7PP01rQ+cUt+
+         mckCpDXzsHf0iw+UOISI/YyMIDrcJqNolwCpZuD3UnDubhdmgVPnPIxHkFkCkJH3wPuG
+         zyWamWT+KNGwIV/YwUTEdSnExXStTF12YPHGaMdODn9zDvgHiGcoQ65Gy2smoxO794xj
+         yeH52XP6Lvpir0Myy48Vs/XCAbupCCsICMf8iDOxkC/hAYV99f/16Xj3Xqz87EOU7lgc
+         dRVA==
+X-Gm-Message-State: AOJu0YzKBf7i7/A37XBDdMlQwzJYLrQo+CJarNR+PS4Ch4Hf/stklkyf
+	B9gLRi2h8FeAuyUJP9/7xFaFa0X0zQTfUhp957l8SAFidHo=
+X-Google-Smtp-Source: AGHT+IENd4LOCEde99KU5WQ2XtKhymjZnYZCk3gnbPBqnmQ6pjqs5R2rW9gpAsQqoI1+fmZOaiOuPSKipo13PmJxcf0=
+X-Received: by 2002:a05:6a20:e117:b0:194:87fc:cd56 with SMTP id
+ kr23-20020a056a20e11700b0019487fccd56mr749027pzb.105.1702919060145; Mon, 18
+ Dec 2023 09:04:20 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 2/5] x86/ioapic: use NULL as a null pointer constant
-Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1702553835.git.nicola.vetrini@bugseng.com>
- <01968117d9fc3eee6d6eca0d340d9d2edd4d6dd4.1702553835.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2312141330230.3175268@ubuntu-linux-20-04-desktop>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312141330230.3175268@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com> <CAKm-UmYGTLY0fTh4zvj-xrA3Tp+Oj+ES61pncG7ze0QnP4o=FQ@mail.gmail.com>
+ <52bd8702-cf7d-4f5b-883d-be6214ba31c0@suse.com> <CAKm-UmadRsc7GEYDqMDTBaoozT5Bj3nwK+=uDs1LkTZVG8tgdQ@mail.gmail.com>
+ <CAKm-UmZnPtH_Fxou3OV0BbpP+tBpSe1z8Qet4Q5=zDD7UGZy6Q@mail.gmail.com>
+ <CAKm-UmbaHoXymP8CcBVBLSVG7T9zCE2fbFQB33SMnY8pwXOU1Q@mail.gmail.com>
+ <435d159f-96d5-49af-82ec-bce6961e3391@suse.com> <CAKm-UmbEBOm525=f+OOL0P05tQVVQz9wegh7F8yhgV_=Z7rWug@mail.gmail.com>
+ <CAKm-UmYejm8CW-Enc_Y-aefcLPsRhQO8w2P-fNdu1zXMMjUAoA@mail.gmail.com>
+ <e83e7254-0c90-4912-ae63-ea7221a10071@suse.com> <CAKm-UmbDNbeakVQtDT47o4Qc4oQvi0dqmBDb5Q=pRqTHFY0C5w@mail.gmail.com>
+ <CAKm-UmZtN2o3d13cE9GyyLKfMmZ855MfrAAw9O6zE-5ob0-iYg@mail.gmail.com>
+ <64d738b7-08c1-4b2c-a828-a137c870408e@suse.com> <CAKm-UmayUxd8F337g+BnR=_50_o__oV_PeUv9Z+9gNZ5MXYmrA@mail.gmail.com>
+ <3aeb708d-a4fa-45b5-9d74-260ef2035b4a@suse.com>
+In-Reply-To: <3aeb708d-a4fa-45b5-9d74-260ef2035b4a@suse.com>
+From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+Date: Mon, 18 Dec 2023 18:04:09 +0100
+Message-ID: <CAKm-UmbFkO5RCDMTEgWBtEYtfO_LH=TKTh5TP=FyFFpdnbto4w@mail.gmail.com>
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000a94910060ccbbd56"
 
-On 14.12.2023 22:30, Stefano Stabellini wrote:
-> On Thu, 14 Dec 2023, Nicola Vetrini wrote:
->> Resolves violations of MISRA C Rule 11.9.
->> No functional change.
->>
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+--000000000000a94910060ccbbd56
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Le lun. 18 d=C3=A9c. 2023, 17:44, Jan Beulich <jbeulich@suse.com> a =C3=A9c=
+rit :
 
+> On 18.12.2023 17:21, S=C3=A9bastien Chaumat wrote:
+> >>>>> On 05.12.2023 21:31, S=C3=A9bastien Chaumat wrote:
+> >>> This issue seems that IRQ 7 (the GPIO controller) is natively fasteoi
+> >>> (so level type) while in xen it  is mapped to oapic-edge  instead of
+> >>> oapic-level
+> >>> as the SSDT indicates :
+> >>>
+> >>>  Device (GPIO)
+> >>>
+> >>>      {
+> >>>          Name (_HID, "AMDI0030")  // _HID: Hardware ID
+> >>>          Name (_CID, "AMDI0030")  // _CID: Compatible ID
+> >>>          Name (_UID, Zero)  // _UID: Unique ID
+> >>>          Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource
+> Settings
+> >>>          {
+> >>>              Name (RBUF, ResourceTemplate ()
+> >>>              {
+> >>>                  Interrupt (ResourceConsumer, Level, ActiveLow,
+> Shared, ,, )
+> >>>                  {
+> >>>                      0x00000007,
+> >>>            }
+> >>> Any idea why ?
+> >>
+> >> Information coming from AML is required to be handed down by Dom0 to
+> Xen.
+> >> May want checking that (a) Dom0 properly does so and (b) Xen doesn't
+> screw
+> >> up in consuming that data. See PHYSDEVOP_setup_gsi. I wonder if this i=
+s
+> >> specific to it being IRQ7 which GPIO uses, as at the (master) PIC IRQ7
+> is
+> >> also the spurious vector. You may want to retry with the tip of the 4.=
+17
+> >> branch (soon to become 4.17.3) - while it doesn't look very likely to =
+me
+> >> that recent backports there were related, it may still be that they ma=
+ke
+> >> a difference.
+> >>
+> >
+> > testing with 4.17.3:
+> >
+> > Adding some printk in PHYSDEVOP_setup_gsi, I  see (in xl dmesg)  that
+> > (XEN) PHYSDEVOP_setup_gsi setup_gsi : gsi: 7 triggering: 1 polarity: 1
+> >
+> > but later on in dmesg I see :
+> > [    1.747958] xen: registering gsi 7 triggering 0 polarity 1
+> >
+> > So triggering is flipped from 1 to 0 (cannot find the definition for
+> > those values).
+> > Could this be the culprit ?
+>
+> Possibly. Since it would be the kernel to invoke PHYSDEVOP_setup_gsi, it
+> looks as if the kernel was confused about which trigger mode to use. Have
+> you figured from where the kernel takes the two different values?
+>
+
+> Would you mind pointing me to the definition for those values first ? I
+did not find what 0/1 means in this context.
+
+Thanks
+
+--000000000000a94910060ccbbd56
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">Le lun. 18 d=C3=A9c. 2023, 17:44, Jan Beulich &lt;<a h=
+ref=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; a =C3=A9crit=C2=
+=A0:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;=
+border-left:1px #ccc solid;padding-left:1ex">On 18.12.2023 17:21, S=C3=A9ba=
+stien Chaumat wrote:<br>
+&gt;&gt;&gt;&gt;&gt; On 05.12.2023 21:31, S=C3=A9bastien Chaumat wrote:<br>
+&gt;&gt;&gt; This issue seems that IRQ 7 (the GPIO controller) is natively =
+fasteoi<br>
+&gt;&gt;&gt; (so level type) while in xen it=C2=A0 is mapped to oapic-edge=
+=C2=A0 instead of<br>
+&gt;&gt;&gt; oapic-level<br>
+&gt;&gt;&gt; as the SSDT indicates :<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 Device (GPIO)<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name (_HID, &quot;AMDI0030&q=
+uot;)=C2=A0 // _HID: Hardware ID<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name (_CID, &quot;AMDI0030&q=
+uot;)=C2=A0 // _CID: Compatible ID<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name (_UID, Zero)=C2=A0 // _=
+UID: Unique ID<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Method (_CRS, 0, NotSerializ=
+ed)=C2=A0 // _CRS: Current Resource Settings<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name (RBUF, Re=
+sourceTemplate ()<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+Interrupt (ResourceConsumer, Level, ActiveLow, Shared, ,, )<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+{<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 0x00000007,<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+&gt;&gt;&gt; Any idea why ?<br>
+&gt;&gt;<br>
+&gt;&gt; Information coming from AML is required to be handed down by Dom0 =
+to Xen.<br>
+&gt;&gt; May want checking that (a) Dom0 properly does so and (b) Xen doesn=
+&#39;t screw<br>
+&gt;&gt; up in consuming that data. See PHYSDEVOP_setup_gsi. I wonder if th=
+is is<br>
+&gt;&gt; specific to it being IRQ7 which GPIO uses, as at the (master) PIC =
+IRQ7 is<br>
+&gt;&gt; also the spurious vector. You may want to retry with the tip of th=
+e 4.17<br>
+&gt;&gt; branch (soon to become 4.17.3) - while it doesn&#39;t look very li=
+kely to me<br>
+&gt;&gt; that recent backports there were related, it may still be that the=
+y make<br>
+&gt;&gt; a difference.<br>
+&gt;&gt;<br>
+&gt; <br>
+&gt; testing with 4.17.3:<br>
+&gt; <br>
+&gt; Adding some printk in PHYSDEVOP_setup_gsi, I=C2=A0 see (in xl dmesg)=
+=C2=A0 that<br>
+&gt; (XEN) PHYSDEVOP_setup_gsi setup_gsi : gsi: 7 triggering: 1 polarity: 1=
+<br>
+&gt; <br>
+&gt; but later on in dmesg I see :<br>
+&gt; [=C2=A0 =C2=A0 1.747958] xen: registering gsi 7 triggering 0 polarity =
+1<br>
+&gt; <br>
+&gt; So triggering is flipped from 1 to 0 (cannot find the definition for<b=
+r>
+&gt; those values).<br>
+&gt; Could this be the culprit ?<br>
+<br>
+Possibly. Since it would be the kernel to invoke PHYSDEVOP_setup_gsi, it<br=
+>
+looks as if the kernel was confused about which trigger mode to use. Have<b=
+r>
+you figured from where the kernel takes the two different values?<br></bloc=
+kquote></div></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc soli=
+d;padding-left:1ex"></blockquote></div></div><div dir=3D"auto"><div class=
+=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8=
+ex;border-left:1px #ccc solid;padding-left:1ex"><br></blockquote></div></di=
+v><div dir=3D"auto">Would you mind pointing me to the definition for those =
+values first ? I did not find what 0/1 means in this context.</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
+id;padding-left:1ex"></blockquote></div></div><div dir=3D"auto">Thanks</div=
+></div>
+
+--000000000000a94910060ccbbd56--
 
