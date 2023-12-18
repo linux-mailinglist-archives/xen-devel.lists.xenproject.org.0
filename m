@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 942AE8173E4
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 15:40:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656066.1024016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 416388173E5
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 15:41:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656068.1024027 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFEnN-0003UY-Nz; Mon, 18 Dec 2023 14:40:37 +0000
+	id 1rFEnh-0004B4-3y; Mon, 18 Dec 2023 14:40:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656066.1024016; Mon, 18 Dec 2023 14:40:37 +0000
+Received: by outflank-mailman (output) from mailman id 656068.1024027; Mon, 18 Dec 2023 14:40:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFEnN-0003Si-Kh; Mon, 18 Dec 2023 14:40:37 +0000
-Received: by outflank-mailman (input) for mailman id 656066;
- Mon, 18 Dec 2023 14:40:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFEnh-000496-0c; Mon, 18 Dec 2023 14:40:57 +0000
+Received: by outflank-mailman (input) for mailman id 656068;
+ Mon, 18 Dec 2023 14:40:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFEnM-0003LJ-Ek
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 14:40:36 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 67750d39-9db3-11ee-98eb-6d05b1d4d9a1;
- Mon, 18 Dec 2023 15:40:35 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40c256ffdbcso37433805e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 06:40:35 -0800 (PST)
+ id 1rFEnf-00048G-8T
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 14:40:55 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 71c86c98-9db3-11ee-9b0f-b553b5be7939;
+ Mon, 18 Dec 2023 15:40:53 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40c3fe6c1b5so34652435e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 06:40:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v9-20020a05600c470900b0040c4acaa4bfsm31329915wmo.19.2023.12.18.06.40.34
+ v9-20020a05600c470900b0040c4acaa4bfsm31329915wmo.19.2023.12.18.06.40.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 06:40:34 -0800 (PST)
+ Mon, 18 Dec 2023 06:40:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67750d39-9db3-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 71c86c98-9db3-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702910435; x=1703515235; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702910452; x=1703515252; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZlEogBHJ42bqKdVld3OnXFEdms3+g1R9Ku2xVNYGcew=;
-        b=gZrgDnmAwawg3irOr18KAp9h+dD4j3JiSPgde5BxZI8h6dhs6I6Po1mtpOibzAQXKq
-         bArCBImfhYBbkNatGuevwG2iFC15eEERp4xuTstRm5ufdqIXB6dYIb8Ro7ZHdpzbNGB3
-         BID3fgfU3XN4Qk8O3+AZKSWXHcZgSxJ9LYSTsrDUJ3xkdR335+0gENcm+MEKczPV/Q49
-         jpV4qPQ0y3353jHY0MrqMg4xo2W6pQKdOM0VMoFY5BPUb4lErITT3mUorAwZHmNkc7BY
-         GK34vIKTkppuAzaMCEPs7SMPri6aHrxMUdAC9CVbq6M5IOdH2m1AhcScR0W5pBs8DGP/
-         T74Q==
+        bh=ymXg0bpmFz+1mXkWwxvgqG3wuNIkNAkO2q/Jn5XmZJc=;
+        b=ZCYQm2n0QmuJkA1KAHqAgTPpY9OfnV0NWGiRWFZvjmelZxG+Yn0bqX86wyqon5La4j
+         JnEgc3idnjOCqHQbJPr5v0OdZc/I8mUxQT2Vjo/5FfJtcCCCmPE21g77DIahjM0zj1uq
+         RATUnBYhX9UfLBMhxUTaUlA+PXoBwzdjTE/gWvpiEpjuhd/kAQkevD53po4/sgZHMf5k
+         qyrUALjWBKwoQCVe0+8XV6RpyWZb4vgblgYnp41Jdl4yckqyfcREpUOwzcD2z31GoSSp
+         3TkezJIUh2DFrA01WPVdzu5r4XZlZkxHYR04M1HljKDQr5F97fxQ1AmYBmZ/KkCUrFYA
+         EHxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702910435; x=1703515235;
+        d=1e100.net; s=20230601; t=1702910452; x=1703515252;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ZlEogBHJ42bqKdVld3OnXFEdms3+g1R9Ku2xVNYGcew=;
-        b=QtNOOS46HVnzbpL9SKmtBggep4Kz7NUsMFlxaavj7VWEYSCLZOPrie3ILDxKIS/C3I
-         1i4/pjudPIQou96nA78kGKSuwXm3796xrWt5rzrZXvCFGwEoZxriVMVeh5i2udXZwIyj
-         PhTU0fBDj8536ieLbVC8NpQKcqOtjshbqY262n6GP/FFrbDqClANTUprABaOvaKsYc2/
-         Ox2uvJ27miGcI2LZQd/3hL1qPhfLFVe/BmWFq71PS8swAfxrqsyFoH9bckd/jZHfP7jq
-         +7OmdazR5ICV2sRPpj/ksjWRKYMI9Ppik8ZUt6eJmxshVTOH55z28QNSVhbzepVaWiTw
-         t/fQ==
-X-Gm-Message-State: AOJu0Yw/uooAv+uTRATKbVVlhNHPg8Cl1QB8A3dUSti2niH0/wfGNIIH
-	pAjtdtO+8thvyuEfsnChBu2KI2uG7YGuH0HtvnD2
-X-Google-Smtp-Source: AGHT+IEhltKV7HXRK7qqDP6DCXQOLNvBF2soPdud5P371fCtyDZ4MAsc1yR8Nze4nLgdwVHGL3VMiQ==
-X-Received: by 2002:a05:600c:35d3:b0:40d:18ee:1d08 with SMTP id r19-20020a05600c35d300b0040d18ee1d08mr883863wmq.138.1702910434890;
-        Mon, 18 Dec 2023 06:40:34 -0800 (PST)
-Message-ID: <160696b3-13ff-4b4e-99ec-3d926a3c0be8@suse.com>
-Date: Mon, 18 Dec 2023 15:40:34 +0100
+        bh=ymXg0bpmFz+1mXkWwxvgqG3wuNIkNAkO2q/Jn5XmZJc=;
+        b=UjT1rA1PA3HKuc7EUE7+KciYZiYkRqKQh6d+N0FwmhjRJM71JvuUIgQNPtWrU0/7eV
+         zotmR7Ohg1gO12BVc9XfPr3Yn6+JF4fUrh2H6TZSgXVINhvchDgCAv/BsqTAUIzxMj9m
+         sPpS6ZArL5udMdEnvRWNKW8ITIiiTAhVfdoYi0Mr3Jg2rDP3SVuiibxIGfoTvOSA6fxD
+         /CTQua69f8BMHFsbqHykEoNf2c3p1blCk/Jm9BQKOVw1L3xpio1loPrcKMnpnfzMmYoF
+         dpYbv5leGqgF4YmlQ7YZp0srMM/VuJCDdgpS13oUAdinj6hlltY/Sxt5fr1BZyZfykfz
+         0qNA==
+X-Gm-Message-State: AOJu0YyAAu9bp0q4GEpNiMJMSByMnNBSt+tneH3gSGVFWztSwFqHhA8u
+	XaLvqCktyg/EKnQP7yGsUIYW9NyZ9hoYfUVh4Z4M
+X-Google-Smtp-Source: AGHT+IENCFbPhDWDJ3O0ULNCi2CFlhIgp2QC7so5i0AAfbe74adx52KuOILEZGhet3fdRhlvc10odA==
+X-Received: by 2002:a05:600c:1715:b0:40c:2bfa:fb03 with SMTP id c21-20020a05600c171500b0040c2bfafb03mr8060780wmn.72.1702910452441;
+        Mon, 18 Dec 2023 06:40:52 -0800 (PST)
+Message-ID: <9ab115f2-04c6-443f-95f1-581b2889b08f@suse.com>
+Date: Mon, 18 Dec 2023 15:40:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 3/5] x86/vPIT: check values loaded from state save record
+Subject: [PATCH v4 4/5] x86/vPIC: check values loaded from state save record
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -114,129 +114,94 @@ In-Reply-To: <1e855575-8c0f-4222-80ba-e64305ea714b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-In particular pit_latch_status() and speaker_ioport_read() perform
-calculations which assume in-bounds values. Several of the state save
-record fields can hold wider ranges, though. Refuse to load values which
-cannot result from normal operation, except mode, the init state of
-which (see also below) cannot otherwise be reached.
+Loading is_master from the state save record can lead to out-of-bounds
+accesses via at least the two container_of() uses by vpic_domain() and
+__vpic_lock(). Make sure the value is consistent with the instance being
+loaded.
 
-Note that ->gate should only be possible to be zero for channel 2;
-enforce that as well.
+For ->int_output (which for whatever reason isn't a 1-bit bitfield),
+besides bounds checking also take ->init_state into account.
 
-Adjust pit_reset()'s writing of ->mode as well, to not unduly affect
-the value pit_latch_status() may calculate. The chosen mode of 7 is
-still one which cannot be established by writing the control word. Note
-that with or without this adjustment effectively all switch() statements
-using mode as the control expression aren't quite right when the PIT is
-still in that init state; there is an apparent assumption that before
-these can sensibly be invoked, the guest would init the PIT (i.e. in
-particular set the mode).
+For ELCR follow what vpic_intercept_elcr_io()'s write path and
+vpic_reset() do, i.e. don't insist on the internal view of the value to
+be saved.
+
+Move the instance range check as well, leaving just an assertion in the
+load handler.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-For mode we could refuse to load values in the [0x08,0xfe] range; I'm
-not certain that's going to be overly helpful.
-
-For count I was considering to clip the saved value to 16 bits (i.e. to
-convert the internally used 0x10000 back to the architectural 0x0000),
-but pit_save() doesn't easily lend itself to such a "fixup". If desired
-perhaps better a separate change anyway.
----
-v3: Slightly adjust two comments. Re-base over rename in earlier patch.
+v3: vpic_domain() fix and vpic_elcr_mask() adjustment split out. Re-base
+    over rename in earlier patch.
 v2: Introduce separate checking function; switch to refusing to load
     bogus values. Re-base.
 
---- a/xen/arch/x86/emul-i8254.c
-+++ b/xen/arch/x86/emul-i8254.c
-@@ -47,6 +47,7 @@
- #define RW_STATE_MSB 2
- #define RW_STATE_WORD0 3
- #define RW_STATE_WORD1 4
-+#define RW_STATE_NUM 5
- 
- #define get_guest_time(v) \
-    (is_hvm_vcpu(v) ? hvm_get_guest_time(v) : (u64)get_s_time())
-@@ -427,6 +428,47 @@ static int cf_check pit_save(struct vcpu
-     return rc;
+--- a/xen/arch/x86/hvm/vpic.c
++++ b/xen/arch/x86/hvm/vpic.c
+@@ -429,6 +429,38 @@ static int cf_check vpic_save(struct vcp
+     return 0;
  }
  
-+static int cf_check pit_check(const struct domain *d, hvm_domain_context_t *h)
++static int cf_check vpic_check(const struct domain *d, hvm_domain_context_t *h)
 +{
-+    const struct hvm_hw_pit *hw;
-+    unsigned int i;
++    unsigned int inst = hvm_load_instance(h);
++    const struct hvm_hw_vpic *s;
 +
-+    if ( !has_vpit(d) )
++    if ( !has_vpic(d) )
 +        return -ENODEV;
 +
-+    hw = hvm_get_entry(PIT, h);
-+    if ( !hw )
++    /* Which PIC is this? */
++    if ( inst >= ARRAY_SIZE(d->arch.hvm.vpic) )
++        return -ENOENT;
++
++    s = hvm_get_entry(PIC, h);
++    if ( !s )
 +        return -ENODATA;
 +
 +    /*
 +     * Check to-be-loaded values are within valid range, for them to represent
 +     * actually reachable state.  Uses of some of the values elsewhere assume
-+     * this is the case.  Note that the channels' mode fields aren't checked;
-+     * Xen prior to 4.19 might save them as 0xff.
++     * this is the case.
 +     */
-+    if ( hw->speaker_data_on > 1 || hw->pad0 )
++    if ( s->int_output > 1 )
 +        return -EDOM;
 +
-+    for ( i = 0; i < ARRAY_SIZE(hw->channels); ++i )
-+    {
-+        const struct hvm_hw_pit_channel *ch = &hw->channels[i];
-+
-+        if ( ch->count > 0x10000 ||
-+             ch->count_latched >= RW_STATE_NUM ||
-+             ch->read_state >= RW_STATE_NUM ||
-+             ch->write_state >= RW_STATE_NUM ||
-+             ch->rw_mode > RW_STATE_WORD0 ||
-+             ch->gate > 1 ||
-+             ch->bcd > 1 )
-+            return -EDOM;
-+
-+        if ( i != 2 && !ch->gate )
-+            return -EINVAL;
-+    }
++    if ( s->is_master != !inst ||
++         (s->int_output && s->init_state) ||
++         (s->elcr & ~vpic_elcr_mask(s, 1)) )
++        return -EINVAL;
 +
 +    return 0;
 +}
 +
- static int cf_check pit_load(struct domain *d, hvm_domain_context_t *h)
+ static int cf_check vpic_load(struct domain *d, hvm_domain_context_t *h)
  {
-     PITState *pit = domain_vpit(d);
-@@ -443,6 +485,14 @@ static int cf_check pit_load(struct doma
-         goto out;
-     }
-     
-+    for ( i = 0; i < ARRAY_SIZE(pit->hw.channels); ++i )
-+    {
-+        struct hvm_hw_pit_channel *ch = &pit->hw.channels[i];
+     struct hvm_hw_vpic *s;
+@@ -438,18 +470,21 @@ static int cf_check vpic_load(struct dom
+         return -ENODEV;
+ 
+     /* Which PIC is this? */
+-    if ( inst > 1 )
+-        return -ENOENT;
++    ASSERT(inst < ARRAY_SIZE(d->arch.hvm.vpic));
+     s = &d->arch.hvm.vpic[inst];
+ 
+     /* Load the state */
+     if ( hvm_load_entry(PIC, h, s) != 0 )
+         return -EINVAL;
+ 
++    if ( s->is_master )
++        s->elcr |= 1 << 2;
 +
-+        if ( (ch->mode &= 7) > 5 )
-+            ch->mode -= 4;
-+    }
-+
-     /*
-      * Recreate platform timers from hardware state.  There will be some 
-      * time jitter here, but the wall-clock will have jumped massively, so 
-@@ -458,7 +508,7 @@ static int cf_check pit_load(struct doma
-     return rc;
+     return 0;
  }
  
--HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, NULL, pit_load, 1, HVMSR_PER_DOM);
-+HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, pit_check, pit_load, 1, HVMSR_PER_DOM);
- #endif
+-HVM_REGISTER_SAVE_RESTORE(PIC, vpic_save, NULL, vpic_load, 2, HVMSR_PER_DOM);
++HVM_REGISTER_SAVE_RESTORE(PIC, vpic_save, vpic_check, vpic_load, 2,
++                          HVMSR_PER_DOM);
  
- /* The intercept action for PIT DM retval: 0--not handled; 1--handled. */
-@@ -575,7 +625,7 @@ void pit_reset(struct domain *d)
-     for ( i = 0; i < 3; i++ )
-     {
-         s = &pit->hw.channels[i];
--        s->mode = 0xff; /* the init mode */
-+        s->mode = 7; /* unreachable sentinel */
-         s->gate = (i != 2);
-         pit_load_count(pit, i, 0);
-     }
+ void vpic_reset(struct domain *d)
+ {
 
 
