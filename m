@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4117F81675A
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 08:28:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655671.1023371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 743F4816798
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 08:42:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655675.1023381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rF81c-0003PZ-0V; Mon, 18 Dec 2023 07:26:52 +0000
+	id 1rF8GM-00064L-9n; Mon, 18 Dec 2023 07:42:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655671.1023371; Mon, 18 Dec 2023 07:26:51 +0000
+Received: by outflank-mailman (output) from mailman id 655675.1023381; Mon, 18 Dec 2023 07:42:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rF81b-0003Nt-U1; Mon, 18 Dec 2023 07:26:51 +0000
-Received: by outflank-mailman (input) for mailman id 655671;
- Mon, 18 Dec 2023 07:26:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rF8GM-000629-6e; Mon, 18 Dec 2023 07:42:06 +0000
+Received: by outflank-mailman (input) for mailman id 655675;
+ Mon, 18 Dec 2023 07:42:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rF81a-0003Nn-0D
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 07:26:50 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdad3821-9d76-11ee-98eb-6d05b1d4d9a1;
- Mon, 18 Dec 2023 08:26:48 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-33663adf953so667671f8f.3
- for <xen-devel@lists.xenproject.org>; Sun, 17 Dec 2023 23:26:48 -0800 (PST)
+ id 1rF8GK-000622-Mz
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 07:42:04 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ed6c652f-9d78-11ee-9b0f-b553b5be7939;
+ Mon, 18 Dec 2023 08:42:00 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-40c38de1ee4so26026435e9.0
+ for <xen-devel@lists.xenproject.org>; Sun, 17 Dec 2023 23:42:00 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- b12-20020adff90c000000b00333359b522dsm25988829wrr.77.2023.12.17.23.26.46
+ s13-20020a05600c384d00b004030e8ff964sm42972289wmr.34.2023.12.17.23.41.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 17 Dec 2023 23:26:47 -0800 (PST)
+ Sun, 17 Dec 2023 23:41:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdad3821-9d76-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: ed6c652f-9d78-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702884407; x=1703489207; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Q8AOVAk5scbBIpfOBk6d8oH+qpZdZEmZB2qz/ZMRz64=;
-        b=dcxLntYZMgBOW/jqevXuZXutCwZcU3eJ+Sqw3G+WtyhVxRxy7vzOz6+MRZjyksFLQF
-         C/NjCtGxYqElQ4aAaYVETtpD4ThhJSm138pHzRx0wONzL/ek1y19WFN4Mx5W/FUXolJw
-         QNNdamKQxqE0ygTCocnab0nUvKqnefmMN0VJwM3i7gsXPF6lHwjSQzVphCgNZP986LXS
-         3w9fU8a2AvZuHJFnszonD82nbQXKkoGhAFHogM3IUQKF7H1hEgRZaeST4TKCn+xish0i
-         JWxYIBFC9VMHZG2IdGLNLRqX1Lgk6QEY0YR+B0TK5pU7JhRARYY1SWAqiwM2hTdfTqBD
-         C2Kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702884407; x=1703489207;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1702885320; x=1703490120; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Q8AOVAk5scbBIpfOBk6d8oH+qpZdZEmZB2qz/ZMRz64=;
-        b=KCoE9B6SrxqvyMQJ3R2hZfQ8fnpQOd+nhyJHwhiBoWEZ8u4Gqxa+SnPkoqv4puJJBx
-         zceW59vpjgFnhPJzisnoVKAmU749MiIQO1Ru0Qu7bnHPg/dX6bE/VOVzxWFbob4yWWu/
-         4KpBXmWzvTKFDkZ1QHODE9Ti7lfy/flA4OkiWFcIoGiD463XjcY0tewUypa75usqPxW4
-         rVEwKYZhtlj98ZAfRetvM0YdYOZNVvcuf3rq4QFRXt40+tfFngxcS23EV7QZ0Qw5yJnW
-         cil77bl1ZILNdCKAtAFY1CWdrw2C+DrU0fdYNVF6N/M2SXkBD4q6V38zpVcb0u7jaDm8
-         NXlQ==
-X-Gm-Message-State: AOJu0YwIslTPVKPrh1o4KIEYqXglZWQQGJFpITpYxQPRuX0aG0dzpO8Z
-	H8VmLbF/5/phgAWSfjmm2g9AaQkxJeif7fDBUqjR
-X-Google-Smtp-Source: AGHT+IHHkuuNmjkpR3/Pv8AFMigkMIERk0E6658I/57u6RL59SuPfHg3T6qgfQPaq6wyk3nz+y0RQw==
-X-Received: by 2002:a5d:4b02:0:b0:336:6693:6e74 with SMTP id v2-20020a5d4b02000000b0033666936e74mr790853wrq.119.1702884407375;
-        Sun, 17 Dec 2023 23:26:47 -0800 (PST)
-Message-ID: <89d77714-df09-4d0b-bc7d-7d773f8d4f4b@suse.com>
-Date: Mon, 18 Dec 2023 08:26:49 +0100
+        bh=uUOu6YYXKQBzpeitVPIjuzsau7+hn+uuhnA8u1uaQ/I=;
+        b=WxOM4VRCSGAoSotGpyMhySh49vmWbfJ/2y/ucuTy5s4nG/sVqHkJU2YDFip+0qaYe5
+         8UH9+tac/5rikgGCsrE/8KvmMgz01rV5e+qTwfGrw98BR2IYiwDwTI/wSUBmovnEYtZg
+         /FAQ1jGnIl2DMDyFpn0zI3r+MpIjiyjdf/CqerwhXWRQvG31M7CL4Ds50eNIdAzBGxLV
+         hJmNpkCVCKqXh6Etlj9k9/xJr9xqukce8DRLJxe37zUOE2MQv7ifEJoYVvN3cMBpPFZg
+         oNeqrqjomf64dBAPJX1iUXEsP+5oRul8HnmzOgcuCJddpQRFeJeR+yHMlCPqUkuSDOSC
+         7xsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702885320; x=1703490120;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uUOu6YYXKQBzpeitVPIjuzsau7+hn+uuhnA8u1uaQ/I=;
+        b=beAko5jMBRT5bFl7vErDOwGL4iFI9mwnP6EzYZ52ulIAy43OWYyis4albmtfxSzfDW
+         lA7xQbAwT7yN8qixCDvENwzDBaGL/NMf7HMWbQlVgGn47ao4CaeTMdxTH5j58tFcNcVT
+         V7aHqb5BAmLvCMWnpZLg2Ghz8alN/RQge8y/i75f0cGiKZbz7u8Dw6StluFAN3MSMr80
+         7RCYZlT7UyUE/i++dzhvnJrFw+mZFI7eQmODaHQG2FJJkWEXwKBF1i4+sXW5gA/K+aDc
+         kzFURPYdaoozBXXOvEBBdilqQ2Atxkq9Eo9amUo+zoGtwbw12HzHdUr+wwI2TTxKINep
+         poTg==
+X-Gm-Message-State: AOJu0YxNMUWCVBw5vOdEcR+nuytaiVQ1EoZvb77sawb2xFxEFZqkCYr+
+	wbArK9IQciHwlsUChGwp9cKj
+X-Google-Smtp-Source: AGHT+IFkY+JBZGBm1N86XLV9Rs0yLe8I4VmRrLCnqPBJ6S9ia/ip3gsQL1+dKZzUF724gtoKJnnEQg==
+X-Received: by 2002:a1c:6a0e:0:b0:40c:2617:69c4 with SMTP id f14-20020a1c6a0e000000b0040c261769c4mr7958415wmc.78.1702885320230;
+        Sun, 17 Dec 2023 23:42:00 -0800 (PST)
+Message-ID: <a011c39d-7154-47d3-8604-073bcabb645b@suse.com>
+Date: Mon, 18 Dec 2023 08:42:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86/HVM: limit upcall vector related verbosity
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [XEN PATCH] automation/eclair: add deviations for MISRA C:2012
+ Rule 16.3
 Content-Language: en-US
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <7b07ed4a2a87c2774b469eb0fa280c19f945b3a4.1702631924.git.federico.serafini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -108,39 +114,87 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7b07ed4a2a87c2774b469eb0fa280c19f945b3a4.1702631924.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Avoid logging all-identical messages for every vCPU, but make sure to
-log unusual events like the vector differing from vCPU 0's (note that
-the respective condition also makes sure vCPU 0 itself will have the
-vector setting logged), or it changing after it was once set. (Arguably
-a downside is that some vCPU not having its vector set would no longer
-be recognizable from the logs. But I think that's tolerable as
-sufficiently unlikely outside of people actively fiddling with related
-code.)
+On 15.12.2023 10:26, Federico Serafini wrote:
+> --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
+> +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
+> @@ -327,6 +327,34 @@ therefore have the same behavior of a boolean"
+>  -config=MC3R1.R14.4,etypes+={deliberate, "stmt(child(cond,child(expr,ref(^<?domain>?::is_dying$))))","src_type(enum)"}
+>  -doc_end
+>  
+> +#
+> +# Series 16.
+> +#
+> +
+> +-doc_begin="Switch clauses ending with continue, goto, return statements are
+> +safe."
+> +-config=MC3R1.R16.3,terminals+={safe, "node(continue_stmt||goto_stmt||return_stmt)"}
+> +-doc_end
+> +
+> +-doc_begin="Switch clauses ending with a call to a function that does not give
+> +the control back are safe."
+> +-config=MC3R1.R16.3,terminals+={safe, "call(property(noreturn))"}
+> +-doc_end
+> +
+> +-doc_begin="Switch clauses ending with pseudo-keyword \"fallthrough\" are
+> +safe."
+> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/fallthrough;/))))"}
+> +-doc_end
+> +
+> +-doc_begin="Switch clauses ending with failure method \"BUG()\" are safe."
+> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(/BUG\\(\\);/))))"}
+> +-doc_end
+> +
+> +-doc_begin="Switch clauses not ending with the break statement are safe if an
+> +explicit comment indicating the fallthrough intention is present."
+> +-config=MC3R1.R16.3,reports+={safe, "any_area(end_loc(any_exp(text(^(?s).*/\\* [fF]all ?through.? \\*/.*$,0..1))))"}
+> +-doc_end
+> +
+>  #
+>  # Series 20.
+>  #
+> --- a/docs/misra/deviations.rst
+> +++ b/docs/misra/deviations.rst
+> @@ -276,6 +276,34 @@ Deviations related to MISRA C:2012 Rules:
+>         therefore have the same behavior of a boolean.
+>       - Project-wide deviation; tagged as `deliberate` for ECLAIR.
+>  
+> +   * - R16.3
+> +     - Switch clauses ending with continue, goto, return statements are safe.
+> +     - Tagged as `safe` for ECLAIR.
+> +
+> +   * - R16.3
+> +     - Switch clauses ending with a call to a function that does not give
+> +       the control back are safe.
+> +     - Tagged as `safe` for ECLAIR.
+> +
+> +   * - R16.3
+> +     - Switch clauses ending with failure method \"BUG()\" are safe.
+> +     - Tagged as `safe` for ECLAIR.
+> +
+> +   * - R16.3
+> +     - Existing switch clauses not ending with the break statement are safe if
+> +       an explicit comment indicating the fallthrough intention is present.
+> +       However, the use of such comments in new code is deprecated:
+> +       pseudo-keyword "fallthrough" shall be used.
+> +     - Tagged as `safe` for ECLAIR. The accepted comments are:
+> +         - /\* fall through \*/
+> +         - /\* fall through. \*/
+> +         - /\* fallthrough \*/
+> +         - /\* fallthrough. \*/
+> +         - /\* Fall through \*/
+> +         - /\* Fall through. \*/
+> +         - /\* Fallthrough \*/
+> +         - /\* Fallthrough. \*/
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Add comment.
+I was puzzled by there being 4 bullet points here, but 5 additions to the
+other file. I don't think the wording here is sufficiently unambiguous towards
+the use of the pseudo-keyword. If that's to remain a single bullet point, imo
+the pseudo-keyword needs mentioning first, and only the talk should be about
+comments as an alternative.
 
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -4129,7 +4129,15 @@ static int hvmop_set_evtchn_upcall_vecto
-     if ( (v = domain_vcpu(d, op.vcpu)) == NULL )
-         return -ENOENT;
- 
--    printk(XENLOG_G_INFO "%pv: upcall vector %02x\n", v, op.vector);
-+    /*
-+     * Avoid logging all-identical messages for every vCPU, but make sure to
-+     * log unusual events like the vector differing from vCPU 0's, or it
-+     * changing after it was once set
-+     */
-+    if ( op.vector != d->vcpu[0]->arch.hvm.evtchn_upcall_vector ||
-+         (v->arch.hvm.evtchn_upcall_vector &&
-+          op.vector != v->arch.hvm.evtchn_upcall_vector) )
-+        printk(XENLOG_G_INFO "%pv: upcall vector %02x\n", v, op.vector);
- 
-     v->arch.hvm.evtchn_upcall_vector = op.vector;
-     hvm_assert_evtchn_irq(v);
+Jan
 
