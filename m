@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B51F58174E6
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 16:13:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656127.1024127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D87EE817525
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 16:20:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656133.1024142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFFJ3-00086H-RG; Mon, 18 Dec 2023 15:13:21 +0000
+	id 1rFFPp-0005Bz-KN; Mon, 18 Dec 2023 15:20:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656127.1024127; Mon, 18 Dec 2023 15:13:21 +0000
+Received: by outflank-mailman (output) from mailman id 656133.1024142; Mon, 18 Dec 2023 15:20:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFFJ3-00084R-OM; Mon, 18 Dec 2023 15:13:21 +0000
-Received: by outflank-mailman (input) for mailman id 656127;
- Mon, 18 Dec 2023 15:13:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFFJ2-000837-Ku
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 15:13:20 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9fdf044-9db7-11ee-98eb-6d05b1d4d9a1;
- Mon, 18 Dec 2023 16:13:19 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40d12ade25dso17945915e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 07:13:19 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d1-20020adfe841000000b00333404e9935sm5893196wrn.54.2023.12.18.07.13.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 07:13:18 -0800 (PST)
+	id 1rFFPp-00059k-Hg; Mon, 18 Dec 2023 15:20:21 +0000
+Received: by outflank-mailman (input) for mailman id 656133;
+ Mon, 18 Dec 2023 15:20:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=W5ff=H5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rFFPn-00059W-Sy
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 15:20:19 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cf39fbeb-9db8-11ee-9b0f-b553b5be7939;
+ Mon, 18 Dec 2023 16:19:17 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-33664b6d6d5so1015297f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 07:19:17 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ df5-20020a5d5b85000000b003364a0e6983sm12011852wrb.62.2023.12.18.07.19.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 18 Dec 2023 07:19:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +44,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9fdf044-9db7-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: cf39fbeb-9db8-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702912399; x=1703517199; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=gKyIHACRia97J7Bd6I0jfvQXW42r6xNI6IA+Nbk/jb4=;
-        b=KyKUGytHdvBqzF9ZwCymrrxo7SrvTnq78F0jT1eQCJG2rnVpa8XlxdPkKZUqd9lER0
-         mOAskzOR46GAjHHX1huWwTNjen4JSPM2KTm60ZueQ/jKHXOcPH3LSt/AGWe2YNFgmqkB
-         YjdLdYEMZS52slWw50fqDdHL/m4ftuKly+Usrd3ATbLV2MutLgOI3W/nSJAY2Id75f3c
-         6KyBTxLrPlfDwmVXscqeewGdPdlrBUBduLLwZlwhDxS7U8YzMjNzjpyYmgLihtEb5Mgx
-         t8YeccEXkBIPddQ3mvaRI/nm3l/v93Z1A/SNo2THCdUXUBPDObz9NAlk1dWYtptFr7Gb
-         35JA==
+        d=citrix.com; s=google; t=1702912757; x=1703517557; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=d72LA5toV9dc1Tf/rdYFCxcsJs5cMzbAaYGqLCerd2Y=;
+        b=EPPpzSlABXBY5HULC5cm58CrxsObmE8WszfWXJIfKmQ2m2MIZeDh2TzuVoOCy+/h6v
+         r1cChNyYw4vXM77qDoXqmnbnn0y1feGk4ZIfOljjJyx9fUhG2Z1MfX8CrXRxTdRhmrrs
+         x6v2zwK1oDI74I95bpj2DCNIGz1++w0ZbF140=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702912399; x=1703517199;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1702912757; x=1703517557;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gKyIHACRia97J7Bd6I0jfvQXW42r6xNI6IA+Nbk/jb4=;
-        b=e4PAQb8u3wPfrN+7Dha9znprtDmNxeYkJBnEQMb6cJUlT9GeP2T7WH+XDGUqagxOOn
-         i6GY6vqwoaJAXpkxKNfy1+Tzt1I1jGklbai+VkXf1qbjoXz5FIm30T7fn4d764pa08ne
-         Ah0F6CXPrni/PDM+8MqV74gXidTqK/kY/MAlJhCZ6Jc2tDAqU8m3kMpcYOyYFNuLOnv3
-         G6h24o2J08SZin1Akbuumd4o73a28O3oMAWjj4wlIlrP4dDLicNs9fkX+fEyxkGPKktQ
-         SFTkzMmFo8VT91CzKRYlQUe0GJVkqUK8YFc2uhlGbVD6Es0c3X97tBKv+fL2CmhFjLHX
-         476w==
-X-Gm-Message-State: AOJu0YzX5LAq2/W3hrHuPxN9Ua2C4r7wdpCobwKmSLrpMk5OQ2I28bma
-	gwpUTOX7BCKuVgSqMoZcJundjckpkLzdwEV9+iWw
-X-Google-Smtp-Source: AGHT+IH6DUQgj0qemM0y5jm7NyruBMvE/mZXci0tZlMSX57cQLg1eOyXx7Fc5Gp+0WXcSfrIGF0iPg==
-X-Received: by 2002:a7b:c846:0:b0:40c:5f0b:d62e with SMTP id c6-20020a7bc846000000b0040c5f0bd62emr4702634wml.83.1702912398895;
-        Mon, 18 Dec 2023 07:13:18 -0800 (PST)
-Message-ID: <6ecac5e1-2131-44b0-af07-eeacfbd6b522@suse.com>
-Date: Mon, 18 Dec 2023 16:13:18 +0100
+        bh=d72LA5toV9dc1Tf/rdYFCxcsJs5cMzbAaYGqLCerd2Y=;
+        b=qYgEoJZehomGyMHvkvhV9hdk75bG+Bb9U/gnte2uCO2Nb8vEg7/ZsSFNmug0oU3CWe
+         O3iUmIKrIlg194hmI6zSXOwVMnMN1gV1VtE6VxZxUbomqZoBy3+xozrL13kNj2wfc4gf
+         Hk0gpEMDBpq6tWbdTjlm3Ok6sfIo9q1c2icGUb+BHFJ8OZdo1wSmBmcFVFA2J8u9g/oU
+         5dVvzN6KMEmQDtud4F56nYWPcLiKj2jVzBaFCyozQJMJWeAYC2+w4qFqAyVH1yWqGCFN
+         AoSeaxMt1AV4dX4GKuZmC+qdg9wxBLxuesyMacWSkL8BPwV2cfXncFaN8Rn+VcKgVTHC
+         yDRQ==
+X-Gm-Message-State: AOJu0Yw/3DppEv8FDS/fxaCRHe7yS3ODv3LhpDOWNSP4P+hz0/NUrMOm
+	aAbaQ6gN2ty1yqhlwoKl/NGv9A==
+X-Google-Smtp-Source: AGHT+IG6hGAsh9BuhdB8LcmqFHeNsrHBwpPQ4jlEhWWE950gHikxm3MbzaGBzswBKj5j/YjMrmgzIA==
+X-Received: by 2002:adf:e942:0:b0:336:6a2d:4ff0 with SMTP id m2-20020adfe942000000b003366a2d4ff0mr683997wrn.101.1702912756730;
+        Mon, 18 Dec 2023 07:19:16 -0800 (PST)
+Date: Mon, 18 Dec 2023 16:19:15 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v4 3/4] x86: limit issuing of IBPB during context switch
+Message-ID: <ZYBi83-LWEwywUuD@macbook>
+References: <06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com>
+ <29e2b527-16b8-e72d-f625-781aedf21bc4@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: don't open-code max_page calculation nor pfn_to_paddr()
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <29e2b527-16b8-e72d-f625-781aedf21bc4@suse.com>
 
-As observed by Roger while reviewing a somewhat related change, there's
-no need here either to open-code the (largely, i.e. once setup_max_pdx()
-was called) fixed relationship between max_pdx and max_page. Further we
-can avoid open-coding pfn_to_paddr() here.
+On Tue, Feb 14, 2023 at 05:11:40PM +0100, Jan Beulich wrote:
+> When the outgoing vCPU had IBPB issued and RSB overwritten upon entering
+> Xen, then there's no need for a 2nd barrier during context switch.
+> 
+> Note that SCF_entry_ibpb is always clear for the idle domain, so no
+> explicit idle domain check is needed to augment the feature check
+> (which is simply inapplicable to "idle").
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1569,7 +1569,7 @@ void asmlinkage __init noreturn __start_
-                 continue;
-             }
-             map_e = e;
--            e = (pdx_to_pfn(max_pdx - 1) + 1ULL) << PAGE_SHIFT;
-+            e = pfn_to_paddr(max_page);
-             printk(XENLOG_WARNING "Ignoring inaccessible memory range"
-                                   " %013"PRIx64"-%013"PRIx64"\n",
-                    e, map_e);
+> ---
+> v4: Tighten the condition.
+> v3: Fold into series.
+> ---
+> I think in principle we could limit the impact from finding the idle
+> domain as "prevd", by having __context_switch() tell us what kind
+> domain's vCPU was switched out (it could still be "idle", but in fewer
+> cases).
+> 
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -2005,17 +2005,26 @@ void context_switch(struct vcpu *prev, s
+>      }
+>      else
+>      {
+> +        unsigned int feat_sc_rsb = X86_FEATURE_SC_RSB_HVM;
+> +
+>          __context_switch();
+>  
+>          /* Re-enable interrupts before restoring state which may fault. */
+>          local_irq_enable();
+>  
+>          if ( is_pv_domain(nextd) )
+> +        {
+>              load_segments(next);
+>  
+> +            feat_sc_rsb = X86_FEATURE_SC_RSB_PV;
+> +        }
+> +
+>          ctxt_switch_levelling(next);
+>  
+> -        if ( opt_ibpb_ctxt_switch && !is_idle_domain(nextd) )
+> +        if ( opt_ibpb_ctxt_switch && !is_idle_domain(nextd) &&
+> +             (!(prevd->arch.spec_ctrl_flags & SCF_entry_ibpb) ||
+> +              /* is_idle_domain(prevd) || */
+
+I would rather add a comment to note that the idle domain always has
+SCF_entry_ibpb clear, rather than leaving this commented check in the
+condition.
+
+> +              !boot_cpu_has(feat_sc_rsb)) )
+
+I do wonder if it would be more fail safe (and easier to expand going
+forward) if we introduce a new cpu_info field to track the CPU state:
+relevant here would be whether RSB has been overwritten and IBPB
+executed.  Such state would be cleared on each return from guest path.
+
+Thanks, Roger.
 
