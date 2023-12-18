@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15A77816D21
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 12:58:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655910.1023810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A86A816D2A
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 12:59:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655912.1023821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFCFj-0006Er-6Q; Mon, 18 Dec 2023 11:57:43 +0000
+	id 1rFCGv-0006lP-GN; Mon, 18 Dec 2023 11:58:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655910.1023810; Mon, 18 Dec 2023 11:57:43 +0000
+Received: by outflank-mailman (output) from mailman id 655912.1023821; Mon, 18 Dec 2023 11:58:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFCFj-0006CS-3j; Mon, 18 Dec 2023 11:57:43 +0000
-Received: by outflank-mailman (input) for mailman id 655910;
- Mon, 18 Dec 2023 11:57:41 +0000
+	id 1rFCGv-0006jk-DG; Mon, 18 Dec 2023 11:58:57 +0000
+Received: by outflank-mailman (input) for mailman id 655912;
+ Mon, 18 Dec 2023 11:58:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f46f=H5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rFCFh-0006CM-N3
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 11:57:41 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
+ <SRS0=U9fe=H5=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1rFCGt-0006jZ-Kz
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 11:58:55 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a35465d1-9d9c-11ee-9b0f-b553b5be7939;
- Mon, 18 Dec 2023 12:57:37 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-50c04ebe1bbso3818483e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 03:57:37 -0800 (PST)
-Received: from [192.168.220.211] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- t10-20020a195f0a000000b0050e38f8ba2esm259192lfb.273.2023.12.18.03.57.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Dec 2023 03:57:36 -0800 (PST)
+ id d09113a7-9d9c-11ee-9b0f-b553b5be7939;
+ Mon, 18 Dec 2023 12:58:53 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-553338313a0so1242279a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 03:58:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,156 +40,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a35465d1-9d9c-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: d09113a7-9d9c-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702900657; x=1703505457; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+        d=cloud.com; s=cloud; t=1702900733; x=1703505533; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=dYi86SiMnphl8dWBxbqFJm3Le7+SIw0V803ihqs4b1A=;
-        b=GkbKaYgR2VTchkqct5Y5/cBsGbHzzbg+Hot3NMKUmNtafjY/sZq5obguFv9VujFqZw
-         1dHgjtJ3uwiF/TZOchdCU+8uulrBNYn/jhUN0luStBR/aLouW5HaTf5zXwcLfqo86KV4
-         2kiLt2vYAb1Sl6Jj/FZ5hQVn5h2XWKI8vXrmIseS9pqwphtxSazVvXiBgvImnJzeOGjV
-         tb83FOqpeAIVgLsByyywVoV727Y/+/rixgjhAiQ6x+w+9PL2YTg5LVJrAXEcZrfPJUW8
-         AxvUrhAZaU6gdH+lGGSGRXXcMLtRdStCQ3BPvBW+qT9xCwEHyReZEphSz8cLpjz1UtVL
-         F9zg==
+        bh=RqjCOkcWk9lFw7XmwLS/EZADd87c7o4tyio1n/qNYRg=;
+        b=YHUKr2G5U9HoZddGQ/tBeDx2pZING9daIvKoqDcarMP9HaFDpaAUy9QJ+DG4BrwrbH
+         o62dKrw9xzh1hMLo9dPUmugzqhZrPV7hz0qkOM0VQVae2V2xt1TZLd9pg1wGQNLyaDwX
+         Hwr+uQtVhdyD3780hiNSDQkHu7z3fmW4oRolc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702900657; x=1703505457;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=1e100.net; s=20230601; t=1702900733; x=1703505533;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dYi86SiMnphl8dWBxbqFJm3Le7+SIw0V803ihqs4b1A=;
-        b=e9JUVZefIAjexsVtXf0z1+ZmyzKImBO4szdkzVl5tmSHAqqPyq7ZSYojmU0DBhewEB
-         dTsqcl+yZq63epolYrE9sDtVas23HMe4DDpMcFwDAbUefk+MyQl1lofAgT0877ctgCxK
-         qnO6i0BVlWl7B/4k3rxKmWyKkH4pEVo3L4rxdiC7UUg6q6gYuyigyUf0pK9Bw9zQaTMe
-         e5qqSz00bMXHxSQZf289DYJ1cDIyxrLz8KmQDXTYgQCm4pNrt8dUGgDKO1hsl0uq6VGw
-         Yk04KIRSZEVesV33UMlL7d8tc+jTLSIDSjrBOVPkSETZfJzKLoe1HdfUQ5pDgzt2OC5c
-         vg9Q==
-X-Gm-Message-State: AOJu0YzBOOfOtZ/1OA9HQAQ2VTZbpVK2ak/fnnJG5eqnxNljtqnupQf1
-	KOltneo1v7rzDxImu/LlS7Q=
-X-Google-Smtp-Source: AGHT+IG3Jo7V4DTj44V+yQguI+0NiGxbBZCAqv1OlMpAlZrAqHVbtHOhFZFtsuTcwLvuh3QEMGBwfA==
-X-Received: by 2002:ac2:4849:0:b0:50e:2ade:af45 with SMTP id 9-20020ac24849000000b0050e2adeaf45mr1728066lfy.29.1702900657033;
-        Mon, 18 Dec 2023 03:57:37 -0800 (PST)
-Message-ID: <61afc7bf7dd153c368173eb8a82052d726ae2512.camel@gmail.com>
-Subject: Re: [PATCH v2 32/39] xen/riscv: add minimal stuff to asm/page.h to
- build full Xen
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Mon, 18 Dec 2023 13:57:36 +0200
-In-Reply-To: <2fa8fa4f-86d9-4856-91f3-f3dcf1c1013c@suse.com>
-References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
-	 <34a4bc023eb50e1d1cf70fa149825c51f2f4555f.1700761381.git.oleksii.kurochko@gmail.com>
-	 <ccef1adc-af39-43b2-8f97-ed3895e8809d@suse.com>
-	 <c0ae5654e6be1eb10282a3d95fb419d5c975e98b.camel@gmail.com>
-	 <2fa8fa4f-86d9-4856-91f3-f3dcf1c1013c@suse.com>
+        bh=RqjCOkcWk9lFw7XmwLS/EZADd87c7o4tyio1n/qNYRg=;
+        b=WmRKzr0EoM1fDsaDYSEOhJ2DMmPtur7SeWpLsjPZHG7VVSA22USU/4nmQqOo35oxP2
+         kIqT7CsPSS6vgwI/lPW86bpiyIcS19vtyrnsjHXzC3B5htZOp1n7qsEJfOAyej4CClcs
+         iJxb/ivFESL2sCr1VxVAnO9Z3hBRsd8FS/lHcLfhB/5Y3kqkwId/dVftIgrdQbe+4yX1
+         LC97Fyf7fLEHpwwdJHgjDRVGgxIbsoc6HPYltZMzHH7AvvjicXhCjs0liuY2beWuHqlV
+         glN/oSG3Ju1OyiGkqlsSJLdqhzcKUgcrQRVIs4Y0YGDMOgwlkoDuG7EN+qi6FcocYryr
+         CvjQ==
+X-Gm-Message-State: AOJu0YxuCs0QFbxeeAV+t9+yXPGtUDWqZH9WM88XsQfIz8UeHd6hEqyq
+	T95UBEE/VlklexPGjySp/dJvYkvs5bEPuAsveGCxu7874CTlxfLruSjumA==
+X-Google-Smtp-Source: AGHT+IEVolVt9qkbvnMiizuoi5uWNCXUVM3ntt6N639M2TUrQIbtc1YtxtVxTSlCn073nZ9TdFgbu+4SBBQjjEFZNH0=
+X-Received: by 2002:a05:6402:2051:b0:54c:5f17:1163 with SMTP id
+ bc17-20020a056402205100b0054c5f171163mr8246854edb.58.1702900732700; Mon, 18
+ Dec 2023 03:58:52 -0800 (PST)
+MIME-Version: 1.0
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Mon, 18 Dec 2023 11:58:16 +0000
+Message-ID: <CAO-mL=ziVf=9E345gaRJMUMN1BortznAwzOOJRw-8LMwFRweiQ@mail.gmail.com>
+Subject: Community Manager Update
+To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
+Cc: committers@xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000042c320060cc779d3"
+
+--00000000000042c320060cc779d3
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
-MIME-Version: 1.0
 
-On Mon, 2023-12-18 at 12:36 +0100, Jan Beulich wrote:
-> On 18.12.2023 11:45, Oleksii wrote:
-> > On Thu, 2023-12-14 at 16:57 +0100, Jan Beulich wrote:
-> > > On 24.11.2023 11:30, Oleksii Kurochko wrote:
-> > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > >=20
-> > > Acked-by: Jan Beulich <jbeulich@suse.com>
-> > >=20
-> > > I wonder though ...
-> > >=20
-> > > > --- a/xen/arch/riscv/include/asm/page.h
-> > > > +++ b/xen/arch/riscv/include/asm/page.h
-> > > > @@ -6,6 +6,7 @@
-> > > > =C2=A0#ifndef __ASSEMBLY__
-> > > > =C2=A0
-> > > > =C2=A0#include <xen/const.h>
-> > > > +#include <xen/bug.h>
-> > > > =C2=A0#include <xen/types.h>
-> > > > =C2=A0
-> > > > =C2=A0#include <asm/mm.h>
-> > > > @@ -32,6 +33,9 @@
-> > > > =C2=A0#define PTE_LEAF_DEFAULT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (PTE_VALID | PTE_READABLE
-> > > > |
-> > > > PTE_WRITABLE)
-> > > > =C2=A0#define PTE_TABLE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (PTE_VAL=
-ID)
-> > > > =C2=A0
-> > > > +/* TODO */
-> > > > +#define PAGE_HYPERVISOR 0
-> > >=20
-> > > ... whether this couldn't be defined properly right away.
-> > It can be introduced now but it requires some additional defines to
-> > be
-> > introduced in the same time:
-> >=20
-> > #define _PAGE_W_BIT=C2=A0=C2=A0=C2=A0=C2=A0 2
-> > #define _PAGE_XN_BIT=C2=A0=C2=A0=C2=A0 3
-> > #define _PAGE_RO_BIT=C2=A0=C2=A0=C2=A0 1
-> > #define _PAGE_XN=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1U << _PAGE=
-_XN_BIT)
-> > #define _PAGE_RO=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1U << _PAGE=
-_RO_BIT)
-> > #define _PAGE_W=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (1U << =
-_PAGE_W_BIT)
->=20
-> Why would you need these, when you already have
-> PTE_{READABLE,WRITABLE,EXECUTABLE} just out of context from above?
-I thought that the hypervisor page table is fully software-related, and
-that's why a separate PAGE*BIT was introduced. These bits can be
-different from PTE* bits, which are hardware-related
-https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/include/asm/=
-page.h?ref_type=3Dheads#L66
+Hi all,
 
-It looks like I misunderstood that, and PTE* can be used everywhere
-instead of _PAGE*. Alternatively, we could consider renaming everything
-to PAGE* to maintain consistency across architectures.
+Merry Christmas!
 
-Does it make sense?
+Just a quick update from myself.
 
+Whilst I can=E2=80=99t speak for everyone in the community, I know we have =
+valuable
+members who are committed to making the Xen Project successful. We are a
+strong and passionate community made up of individuals who consistently
+seek improvement in ways of working to ensure our open source project is
+welcoming and friendly. Our project is not only advancing the industry in
+many ways, but there are policies and governance practices that the
+community has helped shape to make it a better environment for all.
 
-> (And
-> that's aside from me (a) not following the naming (vs their purpose)
-> and
-> (b) not seeing what _PAGE_*_BIT are needed for, not even thinking
-> about
-> the leading underscores in these identifiers again.)
->=20
-> > ...
-> > /*
-> > =C2=A0* _PAGE_DEVICE and _PAGE_NORMAL are convenience defines. They are
-> > not
-> > =C2=A0* meant to be used outside of this header.
-> > =C2=A0*/
-> > // #define _PAGE_DEVICE=C2=A0=C2=A0=C2=A0 _PAGE_XN
-> > #define _PAGE_NORMAL=C2=A0=C2=A0=C2=A0 _PAGE_PRESENT
-> >=20
-> > #define PAGE_HYPERVISOR_RW=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (_PAGE_NORMAL =
-| _PAGE_RO | _PAGE_XN
-> > |
-> > _PAGE_W)
-> >=20
-> > #define PAGE_HYPERVISOR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- PAGE_HYPERVISOR_RW
-> >=20
-> > And _PAGE_PRESENT in pgtbl-bits.h:
-> >=20
-> > #define _PAGE_PRESENT=C2=A0=C2=A0 (1 << 0)
-> >=20
-> > I prefer to introduce all this things when it will be really used.
->=20
-> I understand that, yet for easy things it may help doing them right
-> away, rather than leaving them to be touched (in a straightforward
-> way)
-> again very soon.
->=20
-~ Oleksii
+As such, I strongly condemn activities or communications that diminish our
+efforts on how great the community is. We may not be perfect, but
+collectively we are all working towards a common goal on how to be better.
 
+This is a reminder to everyone to keep up the great work you are already
+doing, and for other individuals to refrain from making comments that could
+be seen as harmful to the community. Our communications can easily be
+misperceived and interpreted by others negatively, so if your messaging is
+not beneficial, please do not send these.
+
+Our next steps will be to look at creating a community working or technical
+group of some sort, to help address concerns and drive direction within the
+community. Given this will be something that affects everyone, I=E2=80=99d =
+like to
+ask for your patience as we scope out the specifics before asking for your
+feedback. I want to make sure we do this properly to ensure the process is
+something that benefits the community in the long run. As soon as I have
+the details, I will be sharing them with you all.
+
+I wish you all a great holiday and a Happy New Year!
+
+Many thanks,
+Kelly Choi
+
+Community Manager
+Xen Project
+
+--00000000000042c320060cc779d3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi all,<div><br></div><div>Merry=C2=A0Christmas!</div><div=
+><br></div><div>Just a quick update from myself.</div><div><br></div>Whilst=
+ I can=E2=80=99t speak for everyone in the community, I know we have valuab=
+le members who are committed to making the Xen Project successful. We are a=
+ strong and passionate community made up of individuals who consistently se=
+ek improvement in ways of working to ensure our open source project is welc=
+oming and friendly. Our project is not only advancing the industry in many =
+ways, but there are policies and governance practices that the community ha=
+s helped shape to make it a better environment for all. <br><br>As such, I =
+strongly condemn activities or communications that diminish our efforts on =
+how great the community is. We may not be perfect, but collectively we are =
+all working towards a common goal on how to be better. <br><br>This is a re=
+minder to everyone to keep up the great work you are already doing, and for=
+ other individuals to refrain from making comments that could be seen as ha=
+rmful to the community. Our communications can easily be misperceived and i=
+nterpreted by others negatively, so if your messaging is not beneficial, pl=
+ease do not send these. <br><br>Our next steps will be to look at creating =
+a community working or technical group of some sort, to help address concer=
+ns and drive direction within the community. Given this will be something t=
+hat affects everyone, I=E2=80=99d like to ask for your patience as we scope=
+ out the specifics before asking for your feedback. I want to make sure we =
+do this properly to ensure the process is something=C2=A0that benefits the =
+community in the long run. As soon as I have the details, I will be sharing=
+ them with you all.=C2=A0<div><br></div><div>I wish you all a great holiday=
+ and a Happy New Year!=C2=A0<br><div>=C2=A0 <br><div>Many thanks,<br></div>=
+<div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_sig=
+nature"><div dir=3D"ltr"><div>Kelly Choi</div><div><br></div><div><div styl=
+e=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb=
+(136,136,136)">Xen Project=C2=A0<br></div></div></div></div></div></div></d=
+iv></div>
+
+--00000000000042c320060cc779d3--
 
