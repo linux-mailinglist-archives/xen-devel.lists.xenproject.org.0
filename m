@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A4BB816A4D
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 10:57:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655727.1023471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83865816A68
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 11:02:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655751.1023491 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFAMC-0003Y1-Bg; Mon, 18 Dec 2023 09:56:16 +0000
+	id 1rFARs-00060z-8N; Mon, 18 Dec 2023 10:02:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655727.1023471; Mon, 18 Dec 2023 09:56:16 +0000
+Received: by outflank-mailman (output) from mailman id 655751.1023491; Mon, 18 Dec 2023 10:02:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFAMC-0003Uc-7U; Mon, 18 Dec 2023 09:56:16 +0000
-Received: by outflank-mailman (input) for mailman id 655727;
- Mon, 18 Dec 2023 09:56:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rFARs-0005yU-3k; Mon, 18 Dec 2023 10:02:08 +0000
+Received: by outflank-mailman (input) for mailman id 655751;
+ Mon, 18 Dec 2023 10:02:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f46f=H5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rFAMA-0003UW-J1
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 09:56:14 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ab939503-9d8b-11ee-9b0f-b553b5be7939;
- Mon, 18 Dec 2023 10:56:10 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2cc6b5a8364so9793751fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 01:56:10 -0800 (PST)
+ id 1rFARr-0005yO-Bs
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 10:02:07 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 801c0167-9d8c-11ee-98eb-6d05b1d4d9a1;
+ Mon, 18 Dec 2023 11:02:06 +0100 (CET)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-50e3845abdaso846596e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 02:02:06 -0800 (PST)
 Received: from [192.168.220.211] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- 17-20020a05651c009100b002cc77d0434esm101432ljq.22.2023.12.18.01.56.08
+ o20-20020ac24bd4000000b0050bfc775f51sm2889931lfq.169.2023.12.18.02.02.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 Dec 2023 01:56:09 -0800 (PST)
+ Mon, 18 Dec 2023 02:02:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab939503-9d8b-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 801c0167-9d8c-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702893369; x=1703498169; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1702893726; x=1703498526; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=1wi5oz66ZuTJB947miRH47KjYEnI0bUKJACGV50xjrg=;
-        b=X8Vk1T1leP8edf34/NZ4eQcsJ+t4lP5p1lsX406MXbjQ9A3IbSnee/Mb/0NoYbCErr
-         GgnvDrtO0QEUFdJf5jMUe0VjKBgG+Swt9tprwWJx4ita1OUx2XUYjH3pc4zyyD3AZO0C
-         Mm1mp2YiD+Kos0WeXGqpdikWGVi7ZgxCgw53zwS+hQoIIUFVKwlOPauUBNldULEYesXn
-         FNYW6w5y7595SlF2VHhZzMFFyXB8R1HQpHVuCoIQC1Z2+kv93Ye5TqpiXyQ//5Y5fk5d
-         ajC082kGyoZfJm2fIDCL6OWBr6xeb2FirIq7a4nGblUNbTEkmxtuOPsWpzR5Pb58uaf+
-         1Pmw==
+        bh=8KPNS9rX0K9FIdMM95PTvRzLQgHalLSgPcfO4iEp++M=;
+        b=WS7m34nHnsWwX9GjKiah9blum1y14YIs98c8+CRKIT0nEu8j2b+KLTXZUcFH4gEuq8
+         zStlG1ZlLGnamOyO5wG137Tl8EQ1yIlH8VA215ehlBz2RGPwz/WUtG7y8b6NeoSgyesy
+         UZhlHajZ3EFLVtL+hCBD/ZYJhD9RTAnxvkmne2hyH+vOQARx+C/BnMwmb1Ne2dQY6zVX
+         3mPIEQoPI3SQUI53qg+rwAY63TVoSEMecdKwPEdowVLuGoLqZF4oLp93J1B+AI+gO8Wl
+         gQs1X6Yd87H27/gnXHF5zh49javD2ZOFG/ldAGxFkQU0DGEboVcsSCeokd7roXEBW7As
+         ASfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702893369; x=1703498169;
+        d=1e100.net; s=20230601; t=1702893726; x=1703498526;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1wi5oz66ZuTJB947miRH47KjYEnI0bUKJACGV50xjrg=;
-        b=oTbiqiMz4t8FlQRoOEQ9psQCHHa8yeZWzqO0wp9ofpMIsvCuxGTOB8eJ6W+N8ix0ou
-         EZcbPIQ1LExcQfaCqcia9EkRHiU+bml3uqZoLkz8C6mgNt7grLVoPkpnjZsTMyNctFG6
-         jeLDGe416wMy9U+Tqf8xYrOr3heVOhAJ4odRz0ab49t/CFiSp9oOW5QZzzOOD5bJ33Mz
-         vm8EF71QDSXnKBV2N1LWBVwkF+c9ewGkpG6ApJm8hOUlHJ4pLXftkGR+eqBixLaMNKZB
-         1WiwvTPRE8Tw7J2JDjooY+ATOilCqtqjSGVkFtoNYLaCaKuR5ecgsKZrvSiC/sPHo6ug
-         JcQw==
-X-Gm-Message-State: AOJu0Yx8eyEYMt8Z3/95crwCRzI8QW3dzqBPeY6X496gcsPC9ofeeA1b
-	WwA/iZiOcJWQyJogrTnVNWA=
-X-Google-Smtp-Source: AGHT+IEZC0Ykx+b4/S1W3aG1lInvTw4Ez//R/vmHZVceOchcfTDDaB6l60yA56NwArnO7DGwdyOpBg==
-X-Received: by 2002:a05:651c:1a21:b0:2cb:2f3b:c89e with SMTP id by33-20020a05651c1a2100b002cb2f3bc89emr6639672ljb.20.1702893369288;
-        Mon, 18 Dec 2023 01:56:09 -0800 (PST)
-Message-ID: <5d9896c04a906c7ee379d6788e4c854e90cef363.camel@gmail.com>
-Subject: Re: [PATCH v2 21/39] xen/riscv: introduce bit operations
+        bh=8KPNS9rX0K9FIdMM95PTvRzLQgHalLSgPcfO4iEp++M=;
+        b=dByyZxcFHaZWAP0TqEWpVbUGSrHZGnA0pumFea6vJRXO8wjr5CFUQYp+nQ7aKEQhsB
+         HNGECuGXEtcK3K9qMTnzPk60VFIZySmvj+G6v/sYWvlMOeI25AlEuP5rLmdNwL2y4jbL
+         el2n8g7LaPao7ftVA4sJgh99HoPUM2d7QZaS4k9U0PdSLHdrdK7l7ksW7mRljFarVSB+
+         YRDXV2jJ51VGVi1CW95vfzXkaRqvi3+EmJCiY84o+NDaM9tI58U8dQ81YAcpw1xFrCqd
+         3A4bAuV2lhz/PRxpsLhmNyZUhZSTSLHjIWEGseYQdN5SDE7pzDVV6xDKLgHxh9CmN02F
+         kpDg==
+X-Gm-Message-State: AOJu0Yy8VBvW9ps9Lhg3uTb35wq5EupErU3V6TUjoi3ZYlYCTjsxx6Ob
+	7cUdnYbLmWfNjkUP0MvEyRU=
+X-Google-Smtp-Source: AGHT+IHM68/awZGH1ze06wdVGQco/ZLkHPJks3f5v7VMgA5jE3VhNilCCWmDqqG9Y71DUbCR7vd67g==
+X-Received: by 2002:a19:750c:0:b0:50e:2fe1:26fc with SMTP id y12-20020a19750c000000b0050e2fe126fcmr1058111lfe.19.1702893725897;
+        Mon, 18 Dec 2023 02:02:05 -0800 (PST)
+Message-ID: <406a8425dc711725d3575b4c06d7bcaaff05992b.camel@gmail.com>
+Subject: Re: [PATCH v2 23/39] xen/riscv: introduce asm/guest_access.h
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
@@ -85,46 +85,69 @@ Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
  <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
  Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
  xen-devel@lists.xenproject.org
-Date: Mon, 18 Dec 2023 11:56:07 +0200
-In-Reply-To: <ab8479db-b9f0-43b2-a751-349c7a59287d@suse.com>
+Date: Mon, 18 Dec 2023 12:02:04 +0200
+In-Reply-To: <e08e2f49-5ed5-40ec-8db4-e2dd597c8046@suse.com>
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
-	 <20732007fb103115c0e01cefea7d113b8a7ad8e9.1700761381.git.oleksii.kurochko@gmail.com>
-	 <ab8479db-b9f0-43b2-a751-349c7a59287d@suse.com>
+	 <7dda759b846003fcb453f1118cefbfd2eeb804d7.1700761381.git.oleksii.kurochko@gmail.com>
+	 <e08e2f49-5ed5-40ec-8db4-e2dd597c8046@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
 
-On Thu, 2023-12-14 at 14:27 +0100, Jan Beulich wrote:
+On Thu, 2023-12-14 at 15:06 +0100, Jan Beulich wrote:
 > On 24.11.2023 11:30, Oleksii Kurochko wrote:
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->=20
-> Did you write this code from scratch? If not, you need to at least
-> point
-> out the origin. But: None of this looks RISC-V specific, so shouldn't
-> it
-> instead be put under xen/lib/, as a fallback implementation for arch-
-> es
-> not having optimized implementations? Looks also at least very
-> similar
-> to Arm64's, so that one perhaps then will want dropping as well? We
-> surely don't want to carry two (almost) identical copies of the same
-> logic.
-No, I took the code from Arm because as you mentioned it doesn't have
-RISC-V specific things.
-
-I think we can move it to xen/lib. Would it be better to as part of
-this patch series?
-
->=20
 > > --- /dev/null
-> > +++ b/xen/arch/riscv/lib/Makefile
-> > @@ -0,0 +1 @@
-> > +obj-y +=3D find_next_bit.o
+> > +++ b/xen/arch/riscv/include/asm/guest_access.h
+> > @@ -0,0 +1,29 @@
+> > +#ifndef __ASM_RISCV_GUEST_ACCESS_H__
+> > +#define __ASM_RISCV_GUEST_ACCESS_H__
+> > +
+> > +#include <xen/types.h>
+> > +
+> > +unsigned long raw_copy_to_guest(void *to, const void *from,
+> > unsigned len);
+> > +unsigned long raw_copy_from_guest(void *to, const void *from,
+> > unsigned len);
 >=20
-> Dashes instead of underscores please in new file's names, whenever
-> possible.
-Sure. I'll update that. Thanks.
+> For the full build to work, you will need to implement these
+> somewhere.
+> From the titles of further patches I can't guess where that would be.
+> Note how PPC has decided to have these be inline dummies for the time
+> being. It also looks as if you would also need raw_clear_guest()?
+It is implemented in xen/arch/riscv/stubs.c:362,367.
+Regarding raw_clear_guest() I'll double check. I don't have a
+compilation issue with it, so I ignored this macros.
+
+> > +#define __raw_copy_to_guest raw_copy_to_guest
+> > +#define __raw_copy_from_guest raw_copy_from_guest
+> > +
+> > +#define guest_handle_okay(hnd, nr) (1)
+> > +#define guest_handle_subrange_okay(hnd, first, last) (1)
+>=20
+> Arm has a comment next to these (actually two, I mean the latter),
+> which
+> I think would be sensible to also have here.
+Thanks. I'll add the comment.
+
+>=20
+> > +struct domain;
+> > +unsigned long copy_to_guest_phys(struct domain *d,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 paddr_t gpa,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *buf,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int len);
+>=20
+> You don't need this just yet, do you?
+Yes, you are right. This function isn't needed for now.
+
+Thanks. I'll drop it.
 
 ~ Oleksii
+
 
