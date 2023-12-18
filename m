@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BC388167E8
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 09:18:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655695.1023410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7146D816804
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 09:26:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655698.1023421 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rF8pB-0003YZ-Vm; Mon, 18 Dec 2023 08:18:05 +0000
+	id 1rF8xG-0005Pj-Q7; Mon, 18 Dec 2023 08:26:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655695.1023410; Mon, 18 Dec 2023 08:18:05 +0000
+Received: by outflank-mailman (output) from mailman id 655698.1023421; Mon, 18 Dec 2023 08:26:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rF8pB-0003We-TB; Mon, 18 Dec 2023 08:18:05 +0000
-Received: by outflank-mailman (input) for mailman id 655695;
- Mon, 18 Dec 2023 08:18:04 +0000
+	id 1rF8xG-0005Mm-Mf; Mon, 18 Dec 2023 08:26:26 +0000
+Received: by outflank-mailman (input) for mailman id 655698;
+ Mon, 18 Dec 2023 08:26:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rF8p9-0003WY-V3
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 08:18:03 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1rF8xE-0005Mg-LD
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 08:26:24 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f680f39b-9d7d-11ee-98eb-6d05b1d4d9a1;
- Mon, 18 Dec 2023 09:18:02 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40c824b199fso16830125e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 00:18:02 -0800 (PST)
+ id 20f262c1-9d7f-11ee-98eb-6d05b1d4d9a1;
+ Mon, 18 Dec 2023 09:26:23 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-40c3ca9472dso31179565e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 00:26:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l39-20020a05600c1d2700b0040c2c5f5844sm41142067wms.21.2023.12.18.00.18.01
+ bi11-20020a05600c3d8b00b0040c2963e5f3sm40658941wmb.38.2023.12.18.00.26.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 00:18:02 -0800 (PST)
+ Mon, 18 Dec 2023 00:26:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f680f39b-9d7d-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 20f262c1-9d7f-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702887482; x=1703492282; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702887983; x=1703492783; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=9rpGK4FKMjSoKDVcFG2fZXFsDN1EVeVcSGyQ8JgVQYs=;
-        b=XPwx1CouMzKGytDSiH8yCCkwzJO+Rx6tIj4G34UirKAW1ZokYns8ARn6ulSbu1Q+bK
-         eUUzv4BlplYm3jMVZWPJzg2wDb9T/4jK9vQFVQS9X6Q1EzZvFFVHQqRlEdkVC5rtf7FK
-         /JBnnh2S8dUTmMjSqVr4p2/EMeckjtJDSGlrw5LGLi8J805pFcqB+pyr3P0IX1SiBZch
-         lajn3NgEMlS4nOq7XH7VC9G4RBVE92mcr+iL+eEQ/R0fdBkAXHJcchay3UtgXaas3BUR
-         bz8E1JfaHdJd5Q2cEctBuBhsAQZworgafE0tcI/13acnnWAi1yt4IekFRJnwNMpygJXo
-         H2IQ==
+        bh=d5pT9m4n+V1mSNPWP2Fz4wO3/NsQmAiWtPyv5IaAhJQ=;
+        b=fF/z0EEfDj42mKQCUyg/l7lAMtETdCtLVyQefxCCm6o8VPj44qERmJFSKoaV2dxQ5u
+         t6evT9ViILpcLfBEPkXlmTk0uttWN1z6ah4hciu+FAKLMjUnGjKoBsE74FCKPsJkrDHY
+         /u7gel27+A2W+91P0TvGVCKPcUPJh5gk6dkPVTERef1Qt5f41tdpYjSC8GxyLy9I2pkK
+         O8CDmiTYaxnahmTi9tC7vAxmS3LcpIp6khzB/uyAXaVIpF/8geJR+hhiN25jwiVl6bSJ
+         DbumM70phILCjEcNRNZTgvKcdqDJ3598iuBzbWsmsEskBHEjgAdQfJp4O5etNHrYf2C+
+         CzsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702887482; x=1703492282;
+        d=1e100.net; s=20230601; t=1702887983; x=1703492783;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9rpGK4FKMjSoKDVcFG2fZXFsDN1EVeVcSGyQ8JgVQYs=;
-        b=tP7rlOIZ74ynC39tjcBAAqDGM946Ti1C6rumFvSshTCb2I8b9GtXRu9+FoROQ2KXUy
-         vKe+VW8mll3TFPQ/bGLZDpeENn6zf6CfmlFdwG8WyjuBbQrX3OwDdJCuiyu6RetD+rBE
-         4u7jpofxyX1sGLtMj9eFo3M0sL+3ES1Sc/7qCyqvptf+nD3dbZMfoY1Tqjdx8P8v37QM
-         hc7ubs+LtfUgqUEq1fX+fXYhesD5cTlVDxHu89/P4NT8BC93p0jz9BlfgH7rK2DT1prw
-         nojd+UUczwqu2yCqndR8rNZeH/TnG69PvtuVo0VACF3zFCFPEzwLYacMymkxMShHqoiZ
-         RcHg==
-X-Gm-Message-State: AOJu0YwuAuURv1Kooe5nEKPZdIgtKky+puPp6iHgtUlFTQjFIbThh/fT
-	7W+WE1DLmEnbYwUgElv/ETsF
-X-Google-Smtp-Source: AGHT+IHqoN1AddQzOK1JbWHSC4RUr0EQBMogHPchpUB6RY56oCFDprGkuHSLM7hLAJ2m8JdFpiNOKQ==
-X-Received: by 2002:a05:600c:458d:b0:40b:5e1c:af2a with SMTP id r13-20020a05600c458d00b0040b5e1caf2amr7804720wmo.48.1702887482413;
-        Mon, 18 Dec 2023 00:18:02 -0800 (PST)
-Message-ID: <a9db3cb0-f085-47c2-bcaa-aa4f7351d586@suse.com>
-Date: Mon, 18 Dec 2023 09:18:04 +0100
+        bh=d5pT9m4n+V1mSNPWP2Fz4wO3/NsQmAiWtPyv5IaAhJQ=;
+        b=F1bHeMvrhJjslf/NY3IyJYtVaOt4qlGwbNbv8BI76yxRfmcuJNUCNaahNHhqAR2RZo
+         Fs4HCUrwSaGoQhC3VEIx8IpjUB2jc/iTSShwFbJ/CQjA5NrWSt6BmIRm1OdbVRmyMIHl
+         sABJv77hb1unNg7Cei7ILyxX5sEfcgOds+TpETi7iiKvjcMlHUoDcxkiJ1aHPvk9xFu1
+         CgJFZm60vXgjC7NPbEGlZ8PowA4olSN6Yux2AfVxoNGqqP5sN/HbOQbJteFMg+PDhg/Q
+         X4UZ4D87Z+5/QBZXVTcfzPYWiQ0zhTGS3YvWmj/WOPHDStZSd6rvRxiFeTOtJItHMKFn
+         BW3g==
+X-Gm-Message-State: AOJu0Yw1xkdJ9jZk6hro8zldB4iBVskV66RYc95+dnetdxjpGfw/wPaG
+	iTZpOqHf6HEV68DgI/G2RT7Z
+X-Google-Smtp-Source: AGHT+IFtbHEcoxqOrwd1E4CrBz9gR2uuGK5NXTBXrMe6TzhP1jzQNIAmT6Rv76qXahfEgJ8rbOzmxQ==
+X-Received: by 2002:a05:600c:6020:b0:40b:5e59:99bd with SMTP id az32-20020a05600c602000b0040b5e5999bdmr5569257wmb.221.1702887983008;
+        Mon, 18 Dec 2023 00:26:23 -0800 (PST)
+Message-ID: <3a41ab3a-c1e6-4371-bd71-26cd97baffd6@suse.com>
+Date: Mon, 18 Dec 2023 09:26:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 9/9] xen: add SAF deviation for safe cast removal.
+Subject: Re: [PATCH] x86: allow non-BIGMEM configs to boot on >= 16Tb systems
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Simone Ballarin <simone.ballarin@bugseng.com>,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1702555386.git.maria.celeste.cesario@bugseng.com>
- <36e996b864853dba26a9c9fb9c9c674e92cc935e.1702555387.git.maria.celeste.cesario@bugseng.com>
- <b93417c7-1375-4bf4-ace2-d36bd63c8b0b@suse.com>
- <alpine.DEB.2.22.394.2312141355391.3175268@ubuntu-linux-20-04-desktop>
- <698cb944-3e91-498c-99ba-ff0849723285@suse.com>
- <alpine.DEB.2.22.394.2312151127450.3175268@ubuntu-linux-20-04-desktop>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <4b282f2f-bce8-4c98-897c-2866ec1b6dd0@suse.com>
+ <ZXxovHNdNK_OfHUs@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,61 +110,50 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312151127450.3175268@ubuntu-linux-20-04-desktop>
+In-Reply-To: <ZXxovHNdNK_OfHUs@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15.12.2023 22:02, Stefano Stabellini wrote:
-> On Fri, 15 Dec 2023, Jan Beulich wrote:
->> On 14.12.2023 23:04, Stefano Stabellini wrote:
->>> On Thu, 14 Dec 2023, Jan Beulich wrote:
->>>> On 14.12.2023 13:07, Simone Ballarin wrote:
->>>>> --- a/docs/misra/safe.json
->>>>> +++ b/docs/misra/safe.json
->>>>> @@ -28,6 +28,14 @@
->>>>>          },
->>>>>          {
->>>>>              "id": "SAF-3-safe",
->>>>> +            "analyser": {
->>>>> +                "eclair": "MC3R1.R11.8"
->>>>> +            },
->>>>> +            "name": "MC3R1.R11.8: removal of const qualifier to comply with function signature",
->>>>> +            "text": "It is safe to cast away const qualifiers to comply with function signature if the function does not modify the pointee."
->>>>
->>>> I'm not happy with this description, as it invites for all sorts of abuse.
->>>> Yet I'm also puzzled that ...
->>>
->>> We can improve the language but the concept would still be the same. For
->>> instance:
->>>
->>> A single function might or might not modify the pointee depending on
->>> other function parameters (for instance a single function that could
->>> either read or write depending on how it is called). It is safe to cast
->>> away const qualifiers when passing a parameter to a function of this
->>> type when the other parameters are triggering a read-only operation.
+On 15.12.2023 15:54, Roger Pau Monné wrote:
+> On Wed, Jun 07, 2023 at 08:17:30AM +0200, Jan Beulich wrote:
+>> While frame table setup, directmap init, and boot allocator population
+>> respect all intended bounds, the logic passing memory to the heap
+>> allocator which wasn't passed to the boot allocator fails to respect
+>> max_{pdx,pfn}. This then typically triggers the BUG() in
+>> free_heap_pages() after checking page state, because of hitting a struct
+>> page_info instance which was set to all ~0.
 >>
->> Right, but I think the next here needs to be setting as tight boundaries
->> as possible: It should cover only this one specific pattern. Anything
->> else would better get its own deviation, imo.
+>> Of course all the memory above the 16Tb boundary is still going to
+>> remain unused; using it requires BIGMEM=y. And of course this fix
+>> similarly ought to help BIGMEM=y configurations on >= 123Tb systems
+>> (where all the memory beyond that boundary continues to be unused).
+>>
+>> Fixes: bac2000063ba ("x86-64: reduce range spanned by 1:1 mapping and frame table indexes")
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> OK. What about:
-> 
-> A single function might or might not modify the pointee depending on
-> other function parameters, for instance a common pattern is to implement
-> one function that could either read or write depending on how it is
-> called. It is safe to cast away const qualifiers when passing a
-> parameter to a function following this pattern when the other parameters
-> are triggering a read-only operation.
-> 
-> Feel free to suggest a better wording.
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Well, my point was to get rid of "for instance" and "common pattern" (and
-anything alike). E.g.:
+Thanks.
 
-"A single function could either read or write through a passed in pointer,
- depending on how it is called. It is deemed safe to cast away a const
- qualifier when passing a pointer to such a function, when the other
- parameters guarantee read-only operation."
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -1722,15 +1722,16 @@ void __init noreturn __start_xen(unsigne
+>>  
+>>      if ( max_page - 1 > virt_to_mfn(HYPERVISOR_VIRT_END - 1) )
+>>      {
+>> -        unsigned long limit = virt_to_mfn(HYPERVISOR_VIRT_END - 1);
+>> +        unsigned long lo = virt_to_mfn(HYPERVISOR_VIRT_END - 1);
+>> +        unsigned long hi = pdx_to_pfn(max_pdx - 1) + 1;
+> 
+> Maybe use max_page to avoid the pdx_to_pfn() call?  (And is also more
+> in context with the condition on the outside if).
+
+You mean
+
+        unsigned long hi = min(pdx_to_pfn(max_pdx - 1) + 1, max_page);
+
+? I could switch to that, yes. I wouldn't feel well switching to using
+just max_page, especially with me having nowhere to (reasonably) test.
 
 Jan
 
