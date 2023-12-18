@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F304481741C
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 15:48:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656094.1024067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92BDC81741E
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 15:48:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656096.1024077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFEty-0007Q4-Jd; Mon, 18 Dec 2023 14:47:26 +0000
+	id 1rFEue-0007uG-S2; Mon, 18 Dec 2023 14:48:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656094.1024067; Mon, 18 Dec 2023 14:47:26 +0000
+Received: by outflank-mailman (output) from mailman id 656096.1024077; Mon, 18 Dec 2023 14:48:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFEty-0007ND-Go; Mon, 18 Dec 2023 14:47:26 +0000
-Received: by outflank-mailman (input) for mailman id 656094;
- Mon, 18 Dec 2023 14:47:25 +0000
+	id 1rFEue-0007rk-P0; Mon, 18 Dec 2023 14:48:08 +0000
+Received: by outflank-mailman (input) for mailman id 656096;
+ Mon, 18 Dec 2023 14:48:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFEtx-0007N3-53
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 14:47:25 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ id 1rFEud-0007qP-BB
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 14:48:07 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5af23cc0-9db4-11ee-98eb-6d05b1d4d9a1;
- Mon, 18 Dec 2023 15:47:24 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-336668a5a8dso1348899f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 06:47:24 -0800 (PST)
+ id 73f7efaa-9db4-11ee-98eb-6d05b1d4d9a1;
+ Mon, 18 Dec 2023 15:48:06 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-33662243274so779396f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 06:48:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j29-20020a5d6e5d000000b003364e437577sm10175351wrz.84.2023.12.18.06.47.23
+ j29-20020a5d6e5d000000b003364e437577sm10175351wrz.84.2023.12.18.06.48.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 06:47:23 -0800 (PST)
+ Mon, 18 Dec 2023 06:48:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5af23cc0-9db4-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 73f7efaa-9db4-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702910843; x=1703515643; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702910885; x=1703515685; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/fMlAv9ea8KmO95h1rEr/bKlXlzXc/GyAyAyQRSshWQ=;
-        b=K9ndiHpo/nJKD3gSh9ZRw7a4F4sHUiXYc4ZOWIhLtvgJJLdDjgsbWRdE0Zo7ca9o+j
-         xqBEcHHJ+yunc/Jadgf66ppkFQx+PhDwmDGaVkJVVc39YZCGld+HXtxeMXYSovpiBoEz
-         Hv5ApNGpHyjhM+OXQreRbqtThpSk6CRtuqI9HDVqyOQhTZrONLHxFfFiX04TdIiKiNvN
-         hR8kxfxZhZzicHbRIs2Lm0YtfnuJ+F82hI6fCCUIYuezS2xTlyM7OJTc4O6/aeLHZccR
-         bKL7tcJCKn5FZsWxPZjgs6tt5GSoooUgo43bxTox2UYaVDheb5nbze68zXwrg0lhzb3H
-         at4Q==
+        bh=LjS7V6KKmRJM6g/C5tVk+zV0y+JdDW9hCdqYHqXgGAA=;
+        b=FbYzuQUIIHvdA3CGkCns8uLTNiPTowQFyqbOBLCm/jxcXmbYDku8kbQfeTAqPoqtME
+         vJQDJWu6d7L2XesjaUoTktbscpPmtPCkrDdpo+vh3cqRQnNRY2iQnqIZlA6DOTZMVWQZ
+         oR4/f8vzEpkY3prt7LJdd8s9cvR/gtEpvuoFeCQRP8WbujOfa5ffzH1ATi81tpK5RqvC
+         y91qHHf95v2Cgo5JP48o4/nvqYXvTehFYzOuD391IJ3dMTBLONe1piu0qGdPr1Rx+QO4
+         +OBcw7htrZ3YoTH10S9QCbDE3BUA9vwyV9M229Wpm4zxbcxdbVNSfuPIOwMEAQXMy5Ml
+         B1Qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702910843; x=1703515643;
+        d=1e100.net; s=20230601; t=1702910885; x=1703515685;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=/fMlAv9ea8KmO95h1rEr/bKlXlzXc/GyAyAyQRSshWQ=;
-        b=kNL7tQaauYg6UUgt5m3KveWg9DqUpgdxFCLPI/tom7E/RZMe+R0M/kreJ2nQudJ7EK
-         WsX9SQuI8UkEdESo5aNX3Mq/7Qkoc26MhbzDzla+NaTkTFj+2xGKrf4p5xV6vvSS8Z5X
-         QUH3ECPzPtGZtMIZ77dz+sp2i0UX8HTSMN5LZ0Piwdmw0AIieqnemokb9Yf+98BvoJUE
-         KCrmVwRax5zQJ9/Lcfaq2QuCfO49JGukSxXHvSrrDHn+UO6VH2I5d5hFx3Fn72BW46rY
-         nmtH1044/EA6OsNM9LQuvKm2F14eMjbOgd6y+9JSEn1rObkYRKiSb7SAWWYTfhAFi7QS
-         b6fg==
-X-Gm-Message-State: AOJu0Yxc7ruYyZdAG/xq9uSSRZhjqCA93yMR2I6STPtpIK8ivoSBk0H7
-	JQkqXkEYSM0VrDLvPcrjwg2mhlEWfFyarvakhKJm
-X-Google-Smtp-Source: AGHT+IEEWLq7N/yo94hEvikQL8/wPkeWEXKD8oVGf1W5HpGeD4qe37bbrWxPQNmlpNA+UW9AGlaq0A==
-X-Received: by 2002:a5d:55c6:0:b0:336:6e7d:3aff with SMTP id i6-20020a5d55c6000000b003366e7d3affmr185148wrw.37.1702910843678;
-        Mon, 18 Dec 2023 06:47:23 -0800 (PST)
-Message-ID: <bd116645-3451-47d7-8b8e-6e4b1af0680d@suse.com>
-Date: Mon, 18 Dec 2023 15:47:23 +0100
+        bh=LjS7V6KKmRJM6g/C5tVk+zV0y+JdDW9hCdqYHqXgGAA=;
+        b=OjFilTTFjqKOwqGiaQLnXYPtTabxXUMNd0pkpmQzYHIPwIXonq6HRH6E7EAexIAB/q
+         68bkpNjdVTMv+yztdZABK63m+75KP0WXPXdPTpr6Ofx0hjmAbFaGl4lj5SYPGN6fs6II
+         KLJQc2UkXQsDV+0ckEZtqfShxFIJcyAZsZD1m5McZ9bEtqcvuJjkUjzvAPtJiyoqYC42
+         dGzQpLSryb5udjFkZoq2L8Wco4/pHjCx+8gjacyNMa3jcEJAtjzYtI/K8L4/gIkz6tYM
+         q0NsmOY+6kAN4Ao+IKkq1mI5r8c9IQBP9riypIDPqOFA+V/2786yrtHSpln21FZgJfxx
+         7pxg==
+X-Gm-Message-State: AOJu0YxF74i+LfVwHT4KzFIFPpVkrpXHAGsIpRVXf9JbaZujpFCKoakW
+	pCx/Vx88rmQEWf7QdtoG6lE8KydkvylZ06p1JgcN
+X-Google-Smtp-Source: AGHT+IFTEIXHMTkzeOPQVN+hq1bcbwiIh1yeEabfPyUbLyuJEBXjuuc0f/sxATGC1mw+eCEKiIWZEw==
+X-Received: by 2002:a05:600c:46c3:b0:40c:6e98:7c50 with SMTP id q3-20020a05600c46c300b0040c6e987c50mr2713037wmo.165.1702910885553;
+        Mon, 18 Dec 2023 06:48:05 -0800 (PST)
+Message-ID: <c29ced52-6e1e-4997-81ab-8882df2d38a7@suse.com>
+Date: Mon, 18 Dec 2023 15:48:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 1/3] x86: allow to suppress port-alias probing
+Subject: [PATCH v2 2/3] x86: detect PIC aliasing on ports other than
+ 0x[2A][01]
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -112,85 +113,142 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <0c45155a-2beb-4e69-bca3-cdf42ba22f2b@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-By default there's already no use for this when we run in shim mode.
-Plus there may also be a need to suppress the probing in case of issues
-with it. Before introducing further port alias probing, introduce a
-command line option allowing to bypass it, default it to on when in shim
-mode, and gate RTC/CMOS port alias probing on it.
+... in order to also deny Dom0 access through the alias ports. Without
+this it is only giving the impression of denying access to both PICs.
+Unlike for CMOS/RTC, do detection very early, to avoid disturbing normal
+operation later on.
 
-Requested-by: Roger Pau Monné <roger.pau@citrix.com>
+Like for CMOS/RTC a fundamental assumption of the probing is that reads
+from the probed alias port won't have side effects in case it does not
+alias the respective PIC's one.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-While "probe-port-aliases" is longish, shorter forms (e.g. "port-probe")
-partially lose the intended meaning.
----
-v2: New.
+v2: Use new command line option. s/pic/8252A/. Re-base over new earlier
+    patch. Use ISOLATE_LSB().
 
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2000,6 +2000,17 @@ INVPCID is supported and not disabled vi
- This is a mask of C-states which are to be used preferably.  This option is
- applicable only on hardware were certain C-states are exclusive of one another.
+--- a/xen/arch/x86/dom0_build.c
++++ b/xen/arch/x86/dom0_build.c
+@@ -467,7 +467,7 @@ static void __init process_dom0_ioports_
+ int __init dom0_setup_permissions(struct domain *d)
+ {
+     unsigned long mfn;
+-    unsigned int i;
++    unsigned int i, offs;
+     int rc;
  
-+### probe-port-aliases (x86)
-+> `= <boolean>`
-+
-+> Default: `true` outside of shim mode, `false` in shim mode
-+
-+Certain devices accessible by I/O ports may be accessible also through "alias"
-+ports (originally a result of incomplete address decoding).  When such devices
-+are solely under Xen's control, Xen disallows even Dom0 access to the "primary"
-+ports.  When alias probing is active and aliases are detected, "alias" ports
-+would then be treated similar to the "primary" ones.
-+
- ### psr (Intel)
- > `= List of ( cmt:<boolean> | rmid_max:<integer> | cat:<boolean> | cos_max:<integer> | cdp:<boolean> )`
+     if ( pv_shim )
+@@ -480,10 +480,16 @@ int __init dom0_setup_permissions(struct
  
+     /* Modify I/O port access permissions. */
+ 
+-    /* Master Interrupt Controller (PIC). */
+-    rc |= ioports_deny_access(d, 0x20, 0x21);
+-    /* Slave Interrupt Controller (PIC). */
+-    rc |= ioports_deny_access(d, 0xA0, 0xA1);
++    for ( offs = 0, i = ISOLATE_LSB(i8259A_alias_mask) ?: 2;
++          offs <= i8259A_alias_mask; offs += i )
++    {
++        if ( offs & ~i8259A_alias_mask )
++            continue;
++        /* Master Interrupt Controller (PIC). */
++        rc |= ioports_deny_access(d, 0x20 + offs, 0x21 + offs);
++        /* Slave Interrupt Controller (PIC). */
++        rc |= ioports_deny_access(d, 0xA0 + offs, 0xA1 + offs);
++    }
+ 
+     /* ELCR of both PICs. */
+     rc |= ioports_deny_access(d, 0x4D0, 0x4D1);
+--- a/xen/arch/x86/i8259.c
++++ b/xen/arch/x86/i8259.c
+@@ -19,6 +19,7 @@
+ #include <xen/delay.h>
+ #include <asm/apic.h>
+ #include <asm/asm_defns.h>
++#include <asm/setup.h>
+ #include <io_ports.h>
+ #include <irq_vectors.h>
+ 
+@@ -333,6 +334,58 @@ void __init make_8259A_irq(unsigned int
+     irq_to_desc(irq)->handler = &i8259A_irq_type;
+ }
+ 
++unsigned int __initdata i8259A_alias_mask;
++
++static void __init probe_8259A_alias(void)
++{
++    unsigned int mask = 0x1e;
++    uint8_t val = 0;
++
++    if ( !opt_probe_port_aliases )
++        return;
++
++    /*
++     * The only properly r/w register is OCW1.  While keeping the master
++     * fully masked (thus also masking anything coming through the slave),
++     * write all possible 256 values to the slave's base port, and check
++     * whether the same value can then be read back through any of the
++     * possible alias ports.  Probing just the slave of course builds on the
++     * assumption that aliasing is identical for master and slave.
++     */
++
++    outb(0xff, 0x21); /* Fully mask master. */
++
++    do {
++        unsigned int offs;
++
++        outb(val, 0xa1);
++
++        /* Try to make sure we're actually having a PIC here. */
++        if ( inb(0xa1) != val )
++        {
++            mask = 0;
++            break;
++        }
++
++        for ( offs = ISOLATE_LSB(mask); offs <= mask; offs <<= 1 )
++        {
++            if ( !(mask & offs) )
++                continue;
++            if ( inb(0xa1 + offs) != val )
++                mask &= ~offs;
++        }
++    } while ( mask && (val += 0x0d) );  /* Arbitrary uneven number. */
++
++    outb(cached_A1, 0xa1); /* Restore slave IRQ mask. */
++    outb(cached_21, 0x21); /* Restore master IRQ mask. */
++
++    if ( mask )
++    {
++        dprintk(XENLOG_INFO, "PIC aliasing mask: %02x\n", mask);
++        i8259A_alias_mask = mask;
++    }
++}
++
+ static struct irqaction __read_mostly cascade = { no_action, "cascade", NULL};
+ 
+ void __init init_IRQ(void)
+@@ -343,6 +396,8 @@ void __init init_IRQ(void)
+ 
+     init_8259A(0);
+ 
++    probe_8259A_alias();
++
+     for (irq = 0; platform_legacy_irq(irq); irq++) {
+         struct irq_desc *desc = irq_to_desc(irq);
+         
 --- a/xen/arch/x86/include/asm/setup.h
 +++ b/xen/arch/x86/include/asm/setup.h
-@@ -47,6 +47,7 @@ extern unsigned long highmem_start;
+@@ -46,6 +46,8 @@ extern uint8_t kbd_shift_flags;
+ extern unsigned long highmem_start;
  #endif
  
++extern unsigned int i8259A_alias_mask;
++
  extern int8_t opt_smt;
-+extern int8_t opt_probe_port_aliases;
+ extern int8_t opt_probe_port_aliases;
  
- #ifdef CONFIG_SHADOW_PAGING
- extern bool opt_dom0_shadow;
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -75,6 +75,9 @@ static bool __initdata opt_invpcid = tru
- boolean_param("invpcid", opt_invpcid);
- bool __read_mostly use_invpcid;
- 
-+int8_t __initdata opt_probe_port_aliases = -1;
-+boolean_param("probe-port-aliases", opt_probe_port_aliases);
-+
- /* Only used in asm code and within this source file */
- unsigned long asmlinkage __read_mostly cr4_pv32_mask;
- 
-@@ -1844,6 +1847,9 @@ void asmlinkage __init noreturn __start_
-     /* Low mappings were only needed for some BIOS table parsing. */
-     zap_low_mappings();
- 
-+    if ( opt_probe_port_aliases < 0 )
-+        opt_probe_port_aliases = !pv_shim;
-+
-     init_apic_mappings();
- 
-     normalise_cpu_order();
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -1253,7 +1253,8 @@ static int __init cf_check probe_cmos_al
- {
-     unsigned int offs;
- 
--    if ( acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC )
-+    if ( (acpi_gbl_FADT.boot_flags & ACPI_FADT_NO_CMOS_RTC) ||
-+         !opt_probe_port_aliases )
-         return 0;
- 
-     for ( offs = 2; offs < 8; offs <<= 1 )
 
 
