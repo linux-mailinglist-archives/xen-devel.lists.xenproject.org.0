@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B9D9817423
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 15:48:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656099.1024086 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02F8481747D
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 15:59:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656113.1024097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFEv4-0008Mp-4f; Mon, 18 Dec 2023 14:48:34 +0000
+	id 1rFF5O-0003Yd-7d; Mon, 18 Dec 2023 14:59:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656099.1024086; Mon, 18 Dec 2023 14:48:34 +0000
+Received: by outflank-mailman (output) from mailman id 656113.1024097; Mon, 18 Dec 2023 14:59:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFEv4-0008KQ-1b; Mon, 18 Dec 2023 14:48:34 +0000
-Received: by outflank-mailman (input) for mailman id 656099;
- Mon, 18 Dec 2023 14:48:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFF5O-0003WM-4e; Mon, 18 Dec 2023 14:59:14 +0000
+Received: by outflank-mailman (input) for mailman id 656113;
+ Mon, 18 Dec 2023 14:59:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFEv2-0007qP-QL
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 14:48:32 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83794f5b-9db4-11ee-98eb-6d05b1d4d9a1;
- Mon, 18 Dec 2023 15:48:32 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-336668a5a8dso1352427f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 06:48:32 -0800 (PST)
+ id 1rFF5M-0003V8-0J
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 14:59:12 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff7d9952-9db5-11ee-9b0f-b553b5be7939;
+ Mon, 18 Dec 2023 15:59:09 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-33666946422so924426f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 06:59:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j29-20020a5d6e5d000000b003364e437577sm10175351wrz.84.2023.12.18.06.48.31
+ z8-20020adfec88000000b0033661255299sm5647133wrn.34.2023.12.18.06.59.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 06:48:31 -0800 (PST)
+ Mon, 18 Dec 2023 06:59:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83794f5b-9db4-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: ff7d9952-9db5-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702910911; x=1703515711; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fdAJveYHqA2g4CKa3+3oW3cyM7mNTxYeZr4t06ZVD3M=;
-        b=Q/j86XPWaYLHKQRauVym+6lRndWRgfI8qqTdUPFPIn/wJas9mBxMUbOiiCDebpJKcX
-         mwuoXou8c68OVtBB0emsmonX0tt+YSLVQOSmxuARXAU6h6I/MIl6pJmvYA3SPP57AIbq
-         u4riZHKShXFfUFwisjR840MczpziBdFMyWZ1Hta0DgKUtHDoUbR7ReN4AxOooS3WjWTU
-         Cf4cKKQUXClFSOieq1ytslMK7kjtNp9NGeYBhFmmzWv6RaDV7G45KiFcQnRrPpBpf+E9
-         x03To/tzMnrnm3SjgoYW/BH1QnLScEuwEFAvdepMsBisKsV3SGSrib7IDlc6DukEsyyG
-         4cww==
+        d=suse.com; s=google; t=1702911549; x=1703516349; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=cxP29n4VWgPdbNOCi1SlYHTP9cf3/4CPHpClqTi9kAg=;
+        b=fAF1q2rmDLcaOsHbOtpfDbYfw1vL4yxLSDSsK2vWBtlbb6+bu6ZDWuIKZyDM95dRbY
+         dIJQx+1ErsuOld+HmW/O3hb4yx24si3D39ACGYQBy/4r9DGfrZ/wbma8TxV8kSI+17wG
+         chVQcKR39OgVTQYRk3wnh7AaChyVf/IHSuLPRw7zVE2V5wvOP5hFwvPW3A9/n4gqpeYr
+         ayMQB19KB5yHgqSNWgd9YkvxynV2EJgHppWWiCLADFyB8Jcl9sCRPm57JmUaEyfgP7Rw
+         qmd5Zwo+BZVDa1IX/FLma5L10a9l9te9dMiG7pCyT2MLiaNPQDbYKSJAb3GFLaLn0yil
+         kScg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702910911; x=1703515711;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fdAJveYHqA2g4CKa3+3oW3cyM7mNTxYeZr4t06ZVD3M=;
-        b=i6KLnbGjxhElRyr8IgfO+ViMUWfa0CrpN78y7wJjGoauHKUyGaIw2oNRf9OUgOGJTp
-         iDGeedSSYIpEjT491rkZxalU7LXBdn86RPzL3Z/4R43IvuJQgSrpdXJk2knHSWdvJUIY
-         Qaqs+Cjccca3jmpV58FHb9jc4iCZkI3CKejAYT1yT07K23VBCLi0SDhV6y+l13o99k+x
-         a+Xu30fwpA75E103EhNwSo7xIPcgQLMksI1F96hOZN91MTerrke5qTBQAZwiNnXtdrLc
-         WfU0hQ0BwgmgWL9aq5CCGzSMIZjgy5Qc7YtA8J+gpeEl1ECA0f+ix4P0t1fZABYP5bUm
-         WIFQ==
-X-Gm-Message-State: AOJu0Yz3O6g1l7gnxGvgWjN2NE9VOI3nBzMwmkMLPhV3REsh0AfrUXFy
-	n0ZHEaFLkcUjFZ3FbclqhkiC0t3SEJuOCqbiWyrY
-X-Google-Smtp-Source: AGHT+IEcRm1OlYQRw4waYkgXv26JzJWDtoeZ7XB0p/wpHi2fh7f4AW0IzQg5clA/hSFMznmjF6/EAA==
-X-Received: by 2002:a05:6000:1201:b0:336:4e26:f7e5 with SMTP id e1-20020a056000120100b003364e26f7e5mr3068903wrx.110.1702910911614;
-        Mon, 18 Dec 2023 06:48:31 -0800 (PST)
-Message-ID: <039b9ceb-4862-4e26-a344-e47fc04bd979@suse.com>
-Date: Mon, 18 Dec 2023 15:48:31 +0100
+        d=1e100.net; s=20230601; t=1702911549; x=1703516349;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=cxP29n4VWgPdbNOCi1SlYHTP9cf3/4CPHpClqTi9kAg=;
+        b=esDCX2u6oCceXCyiyg60AKkji4G78bK9xEQ+K2K4xwVIcveljvsJbGWX6y+/DcDePh
+         qqPqoifF2Ikipzyg9eku8lorSzxitEfyFuZmc3WT/RQ7Z12XrhJ1kXXUgOdaunkdOyFB
+         WQ89wPqVnO0Z/xUWt8tM8xVtHItJGEuy5+7Cxl65S18ipz+vd4PYIXglD27gRqbLHXzL
+         hoX6oyL0f2kgkxzKWHfwdewVbe7JObBu41jFvG4uKEm0Jv9soBFHhLgh5SyKWidDkMsq
+         p40+AqChf99V5VM7KQiZpVSw2B/LZTk5yjghP/RB10fFimP8fVssDt+gpOz0Zyvud+S4
+         vokg==
+X-Gm-Message-State: AOJu0Yx2tPm1HeBQe11erOu58Lx3gXLvvMbneiiR8PIRV/gr/2HVZ26d
+	KUH0D1hyemRvcfmIBkhtEQ+s
+X-Google-Smtp-Source: AGHT+IGhDOv82I4kXat8MLnocczdOTQWF2fMhWWRpM8tZovtLHu+LvYc2bPkkEUfxPo9sTaiv639ag==
+X-Received: by 2002:a5d:5f49:0:b0:336:6d62:763e with SMTP id cm9-20020a5d5f49000000b003366d62763emr604511wrb.7.1702911549174;
+        Mon, 18 Dec 2023 06:59:09 -0800 (PST)
+Message-ID: <c9542ac3-9d41-4efd-a466-0f4d78da70b8@suse.com>
+Date: Mon, 18 Dec 2023 15:59:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 3/3] x86: detect PIT aliasing on ports other than 0x4[0-3]
+Subject: Re: [PATCH] x86: allow non-BIGMEM configs to boot on >= 16Tb systems
 Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <4b282f2f-bce8-4c98-897c-2866ec1b6dd0@suse.com>
+ <ZXxovHNdNK_OfHUs@macbook> <3a41ab3a-c1e6-4371-bd71-26cd97baffd6@suse.com>
+ <ZYApZTMGKOKlUdiA@macbook>
 From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <0c45155a-2beb-4e69-bca3-cdf42ba22f2b@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -110,146 +111,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0c45155a-2beb-4e69-bca3-cdf42ba22f2b@suse.com>
+In-Reply-To: <ZYApZTMGKOKlUdiA@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-... in order to also deny Dom0 access through the alias ports. Without
-this it is only giving the impression of denying access to PIT. Unlike
-for CMOS/RTC, do detection pretty early, to avoid disturbing normal
-operation later on (even if typically we won't use much of the PIT).
+On 18.12.2023 12:13, Roger Pau Monné wrote:
+> On Mon, Dec 18, 2023 at 09:26:24AM +0100, Jan Beulich wrote:
+>> On 15.12.2023 15:54, Roger Pau Monné wrote:
+>>> On Wed, Jun 07, 2023 at 08:17:30AM +0200, Jan Beulich wrote:
+>>>> While frame table setup, directmap init, and boot allocator population
+>>>> respect all intended bounds, the logic passing memory to the heap
+>>>> allocator which wasn't passed to the boot allocator fails to respect
+>>>> max_{pdx,pfn}. This then typically triggers the BUG() in
+>>>> free_heap_pages() after checking page state, because of hitting a struct
+>>>> page_info instance which was set to all ~0.
+>>>>
+>>>> Of course all the memory above the 16Tb boundary is still going to
+>>>> remain unused; using it requires BIGMEM=y. And of course this fix
+>>>> similarly ought to help BIGMEM=y configurations on >= 123Tb systems
+>>>> (where all the memory beyond that boundary continues to be unused).
+>>>>
+>>>> Fixes: bac2000063ba ("x86-64: reduce range spanned by 1:1 mapping and frame table indexes")
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+>>
+>> Thanks.
+>>
+>>>> --- a/xen/arch/x86/setup.c
+>>>> +++ b/xen/arch/x86/setup.c
+>>>> @@ -1722,15 +1722,16 @@ void __init noreturn __start_xen(unsigne
+>>>>  
+>>>>      if ( max_page - 1 > virt_to_mfn(HYPERVISOR_VIRT_END - 1) )
+>>>>      {
+>>>> -        unsigned long limit = virt_to_mfn(HYPERVISOR_VIRT_END - 1);
+>>>> +        unsigned long lo = virt_to_mfn(HYPERVISOR_VIRT_END - 1);
+>>>> +        unsigned long hi = pdx_to_pfn(max_pdx - 1) + 1;
+>>>
+>>> Maybe use max_page to avoid the pdx_to_pfn() call?  (And is also more
+>>> in context with the condition on the outside if).
+>>
+>> You mean
+>>
+>>         unsigned long hi = min(pdx_to_pfn(max_pdx - 1) + 1, max_page);
+>>
+>> ? I could switch to that, yes. I wouldn't feel well switching to using
+>> just max_page, especially with me having nowhere to (reasonably) test.
+> 
+> Isn't max_page derived from max_pdx (see setup_max_pdx()), and
+> hence we could avoid the pdx_to_pfn() conversion by just using it?
+> 
+> max_page = pdx_to_pfn(max_pdx - 1) + 1;
+> 
+> So hi == max_page in your proposed code.
+> 
+> Maybe there are further restrictions applied to max_pdx that are not
+> propagated into max_page, the meaning of all those variables is very
+> opaque, and hard to follow in the source code.
 
-Like for CMOS/RTC a fundamental assumption of the probing is that reads
-from the probed alias port won't have side effects (beyond such that PIT
-reads have anyway) in case it does not alias the PIT's.
+Looking more closely, the two appear to be properly in sync once
+setup_max_pdx() was called the first time. I guess I was in part
+mislead by
 
-At to the port 0x61 accesses: Unlike other accesses we do, this masks
-off the top four bits (in addition to the bottom two ones), following
-Intel chipset documentation saying that these (read-only) bits should
-only be written with zero.
+            e = (pdx_to_pfn(max_pdx - 1) + 1ULL) << PAGE_SHIFT;
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-If Xen was running on top of another instance of itself (in HVM mode,
-not PVH, i.e. not as a shim), prior to 14f42af3f52d ('x86/vPIT: account
-for "counter stopped" time') I'm afraid our vPIT logic would not have
-allowed the "Try to further make sure ..." check to pass in the Xen
-running on top: We don't respect the gate bit being clear when handling
-counter reads. (There are more unhandled [and unmentioned as being so]
-aspects of PIT behavior though, yet it's unclear in how far addressing
-at least some of them would be useful.)
----
-v2: Use new command line option. Re-base over changes to earlier
-    patches. Use ISOLATE_LSB().
+just a few lines past an update to both variables. I'll switch to
+max_page here, and I may also make a patch to tidy the line quoted
+above.
 
---- a/xen/arch/x86/dom0_build.c
-+++ b/xen/arch/x86/dom0_build.c
-@@ -495,7 +495,11 @@ int __init dom0_setup_permissions(struct
-     rc |= ioports_deny_access(d, 0x4D0, 0x4D1);
- 
-     /* Interval Timer (PIT). */
--    rc |= ioports_deny_access(d, 0x40, 0x43);
-+    for ( offs = 0, i = ISOLATE_LSB(pit_alias_mask) ?: 4;
-+          offs <= pit_alias_mask; offs += i )
-+        if ( !(offs & ~pit_alias_mask) )
-+            rc |= ioports_deny_access(d, 0x40 + offs, 0x43 + offs);
-+
-     /* PIT Channel 2 / PC Speaker Control. */
-     rc |= ioports_deny_access(d, 0x61, 0x61);
- 
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -47,6 +47,7 @@ extern unsigned long highmem_start;
- #endif
- 
- extern unsigned int i8259A_alias_mask;
-+extern unsigned int pit_alias_mask;
- 
- extern int8_t opt_smt;
- extern int8_t opt_probe_port_aliases;
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -425,6 +425,72 @@ static struct platform_timesource __init
-     .resume = resume_pit,
- };
- 
-+unsigned int __initdata pit_alias_mask;
-+
-+static void __init probe_pit_alias(void)
-+{
-+    unsigned int mask = 0x1c;
-+    uint8_t val = 0;
-+
-+    if ( !opt_probe_port_aliases )
-+        return;
-+
-+    /*
-+     * Use channel 2 in mode 0 for probing.  In this mode even a non-initial
-+     * count is loaded independent of counting being / becoming enabled.  Thus
-+     * we have a 16-bit value fully under our control, to write and then check
-+     * whether we can also read it back unaltered.
-+     */
-+
-+    /* Turn off speaker output and disable channel 2 counting. */
-+    outb(inb(0x61) & 0x0c, 0x61);
-+
-+    outb((2 << 6) | (3 << 4) | (0 << 1), PIT_MODE); /* Mode 0, LSB/MSB. */
-+
-+    do {
-+        uint8_t val2;
-+        unsigned int offs;
-+
-+        outb(val, PIT_CH2);
-+        outb(val ^ 0xff, PIT_CH2);
-+
-+        /* Wait for the Null Count bit to clear. */
-+        do {
-+            /* Latch status. */
-+            outb((3 << 6) | (1 << 5) | (1 << 3), PIT_MODE);
-+
-+            /* Try to make sure we're actually having a PIT here. */
-+            val2 = inb(PIT_CH2);
-+            if ( (val2 & ~(3 << 6)) != ((3 << 4) | (0 << 1)) )
-+                return;
-+        } while ( val2 & (1 << 6) );
-+
-+        /*
-+         * Try to further make sure we're actually having a PIT here.
-+         *
-+         * NB: Deliberately |, not ||, as we always want both reads.
-+         */
-+        val2 = inb(PIT_CH2);
-+        if ( (val2 ^ val) | (inb(PIT_CH2) ^ val ^ 0xff) )
-+            return;
-+
-+        for ( offs = ISOLATE_LSB(mask); offs <= mask; offs <<= 1 )
-+        {
-+            if ( !(mask & offs) )
-+                continue;
-+            val2 = inb(PIT_CH2 + offs);
-+            if ( (val2 ^ val) | (inb(PIT_CH2 + offs) ^ val ^ 0xff) )
-+                mask &= ~offs;
-+        }
-+    } while ( mask && (val += 0x0b) );  /* Arbitrary uneven number. */
-+
-+    if ( mask )
-+    {
-+        dprintk(XENLOG_INFO, "PIT aliasing mask: %02x\n", mask);
-+        pit_alias_mask = mask;
-+    }
-+}
-+
- /************************************************************
-  * PLATFORM TIMER 2: HIGH PRECISION EVENT TIMER (HPET)
-  */
-@@ -2414,6 +2480,8 @@ void __init early_time_init(void)
-     }
- 
-     preinit_pit();
-+    probe_pit_alias();
-+
-     tmp = init_platform_timer();
-     plt_tsc.frequency = tmp;
- 
-
+Jan
 
