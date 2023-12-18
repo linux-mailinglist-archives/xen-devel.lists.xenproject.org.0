@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0E048179C8
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 19:35:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656372.1024462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EC70817BEF
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 21:31:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656377.1024471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFISp-0006V8-LG; Mon, 18 Dec 2023 18:35:39 +0000
+	id 1rFKFm-0002VJ-P0; Mon, 18 Dec 2023 20:30:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656372.1024462; Mon, 18 Dec 2023 18:35:39 +0000
+Received: by outflank-mailman (output) from mailman id 656377.1024471; Mon, 18 Dec 2023 20:30:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFISp-0006TC-IY; Mon, 18 Dec 2023 18:35:39 +0000
-Received: by outflank-mailman (input) for mailman id 656372;
- Mon, 18 Dec 2023 18:35:38 +0000
+	id 1rFKFm-0002SJ-M1; Mon, 18 Dec 2023 20:30:18 +0000
+Received: by outflank-mailman (input) for mailman id 656377;
+ Mon, 18 Dec 2023 20:30:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=av2Q=H5=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
- id 1rFISo-0006T6-9Q
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 18:35:38 +0000
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [2607:f8b0:4864:20::52c])
+ <SRS0=3wqZ=H5=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1rFKFl-0002S4-Ef
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 20:30:17 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::601])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3b9203ad-9dd4-11ee-9b0f-b553b5be7939;
- Mon, 18 Dec 2023 19:35:36 +0100 (CET)
-Received: by mail-pg1-x52c.google.com with SMTP id
- 41be03b00d2f7-5c701bd9a3cso1568047a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 10:35:36 -0800 (PST)
+ id 3d6e390e-9de4-11ee-9b0f-b553b5be7939;
+ Mon, 18 Dec 2023 21:30:12 +0100 (CET)
+Received: from SJ0PR05CA0134.namprd05.prod.outlook.com (2603:10b6:a03:33d::19)
+ by BN9PR12MB5052.namprd12.prod.outlook.com (2603:10b6:408:135::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.37; Mon, 18 Dec
+ 2023 20:30:06 +0000
+Received: from CO1PEPF000042AC.namprd03.prod.outlook.com
+ (2603:10b6:a03:33d:cafe::2) by SJ0PR05CA0134.outlook.office365.com
+ (2603:10b6:a03:33d::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.17 via Frontend
+ Transport; Mon, 18 Dec 2023 20:30:06 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1PEPF000042AC.mail.protection.outlook.com (10.167.243.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7113.14 via Frontend Transport; Mon, 18 Dec 2023 20:30:05 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 18 Dec
+ 2023 14:30:04 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 18 Dec
+ 2023 14:30:04 -0600
+Received: from xcbayankuma40.xilinx.com (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via
+ Frontend Transport; Mon, 18 Dec 2023 14:30:03 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,125 +63,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b9203ad-9dd4-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702924534; x=1703529334; darn=lists.xenproject.org;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pn6B6hMOXJf+0B/gD33Bz73cB5lRhA4B3QCjiMT5Ksk=;
-        b=JBvrLSpAVFFpCMhVSPFFHGRT8LsmKd6lvClPd4VFBOlSMdgGmxBxN7N3nu5+lnHlKn
-         sru2WedJURvge7yNoNrSg4N/y5FF62pxWjFM4Kv7B3NX060BkTT5KDObCB9tdzQD73KW
-         /MylhdQvDsPErUgNKRHzJS9m65TjP440mUzCCNLHScOsUJ7nYjfjLvSDBSZ7lg/wrVWG
-         RjI2KyZgX3aGOYWIUEI9qeXAkfbFoI93dphRtGo9Wi7q1inklW4PfUj1XAMfF7QSFDk8
-         /lvioQfWW9Uk0S0bOWTxzk+8E9jD0b+h/tmC1Z32gK3A89hmUfyzMc6njLoFm1loHWdS
-         o5KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702924534; x=1703529334;
-        h=content-transfer-encoding:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pn6B6hMOXJf+0B/gD33Bz73cB5lRhA4B3QCjiMT5Ksk=;
-        b=Oitf2xrdy63p0IEhhFWRvurKridU0410YjasVYHwU54kFb/j/3NDcZl8Jf3evoRFOr
-         7PPvqdI+7/rKz73+KEVs2tCNjmy8cLZZnOnqXAYtNCNgEjkU0boZPMb9qEz8lEzZreDS
-         1dSplRDbnb1HGyH5x64bvS0ajPICKd5PtzZbLGeNH/C/N+M/Y9Du3aQYun8zhmXzXqsh
-         gyryAgp3Ddd/UpRxeeU5AzG0qG3wfdJF+9dANZk9t0skulIz/Hp/4/qKyDZIYKvTAOEU
-         +FR3WMMskiqjZQwLZdpGu+0gCCUC8Jbeb98ezfQ6CB3fbrzXeTBXJmDOhJU+misLF6E5
-         B9tw==
-X-Gm-Message-State: AOJu0YyKR0wHa33uH9WxJbVH53WSkdvJephX+i/fB7hDe72UjyzYmYgi
-	LwcmMmU/MyKm451i1CHhYuuUCIYJZ61VmjVdDSQTk6zLinI=
-X-Google-Smtp-Source: AGHT+IG2agZIAKSaKyK4W/Fg9Xpw2lWO2t5Ewjx6sMpmNvryVrdReEQqJ6AXty4AL4bzpSqzwPQy2cgxRFIO7WxJ74g=
-X-Received: by 2002:a05:6a20:144d:b0:194:9121:7b9b with SMTP id
- a13-20020a056a20144d00b0019491217b9bmr426637pzi.75.1702924534355; Mon, 18 Dec
- 2023 10:35:34 -0800 (PST)
+X-Inumbo-ID: 3d6e390e-9de4-11ee-9b0f-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=abkLoiVVAi2+4uQ+Gh0LnPG+R9vlzBw87FvpFORgrzNCfmLRJ5zXQAHzmQ0y3pxW/4rFKJVMAFToSFkhG92+KeXo7JxEIvvC/GDG21fWE4owc8XSbDdg2s4ItGYdSIYhM3V16axxr7B7d6qTPBmuzjqT9NDicF0gGz5YSb+mSzuleCvh0hDkkPyhXsNQcWhYUd4Za656x66gWkONp1IQGXxfKDdTVKryrwImZSSP9ZWCQgYwQ3MSlLBUIjaMYv77keLxse6OfQWZfQtcKANTa1zDb2YZPVGnE5parr/dt264CKNjnv1F1yfvSKI/5Ix3tI5vQ7ZmBHXaM4vNholdpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=emm9AHUxGT2h2crnvTq5uuboYEI/mRi4yey+GWpR4Sc=;
+ b=dQdN/+7Fqo7WEtP/I7QPoLYcWAAfebM9bVHHh8O47HzHxENBOdHpHVpL12ve4oyv8n7ZTDrurYLn4xVni/nGj7ZWtLv8Bl/kgLJnXmASNpogWacrJUJ49uFmnC+NO1pJuAtpZ+G+2Somjcd9U7s23fT59RH324ZYNFNFuGXPcEoqJ8a1SwyZJqKrpCYnRfoQj2V2A3dT9u9rZ04iNBcg0lfdJZlFWXm2/vcWeNTk4UFxPHsiTOIpWmnfAYezAosNlLiBRP3X8246kK9Xi/XiiYo89ZU0SutWIvX8vtz7EQcjJt+Ady6UDbFQ7kR29rcNOQHRT4wEPr7n6fBmMGh/yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=emm9AHUxGT2h2crnvTq5uuboYEI/mRi4yey+GWpR4Sc=;
+ b=sl3OuY+3JYNLjM/mIlfAaRr1WPpUd/Iy0sQyYxjioJjGQatSrEbSRaNhm9z9QTWfL/s4rZZbtOwG+U+Jm8LfHm7uylvLSvwNZrd/UAx1jJ+THpQSSUGFJUz730OVVc42mJZwOXKcjyYfyc7N5adafcGkTTaPvEAiX+V2xK7cr2A=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <julien@xen.org>, <ayan.kumar.halder@amd.com>, <sstabellini@kernel.org>,
+	<bertrand.marquis@arm.com>, <michal.orzel@amd.com>,
+	<Volodymyr_Babchuk@epam.com>, <stefano.stabellini@amd.com>
+CC: <xen-devel@lists.xenproject.org>
+Subject: [PATCH v2 0/3] xen/arm: Add emulation of Debug Data Transfer Registers
+Date: Mon, 18 Dec 2023 20:29:56 +0000
+Message-ID: <20231218202959.1390114-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com> <CAKm-UmYGTLY0fTh4zvj-xrA3Tp+Oj+ES61pncG7ze0QnP4o=FQ@mail.gmail.com>
- <52bd8702-cf7d-4f5b-883d-be6214ba31c0@suse.com> <CAKm-UmadRsc7GEYDqMDTBaoozT5Bj3nwK+=uDs1LkTZVG8tgdQ@mail.gmail.com>
- <CAKm-UmZnPtH_Fxou3OV0BbpP+tBpSe1z8Qet4Q5=zDD7UGZy6Q@mail.gmail.com>
- <CAKm-UmbaHoXymP8CcBVBLSVG7T9zCE2fbFQB33SMnY8pwXOU1Q@mail.gmail.com>
- <435d159f-96d5-49af-82ec-bce6961e3391@suse.com> <CAKm-UmbEBOm525=f+OOL0P05tQVVQz9wegh7F8yhgV_=Z7rWug@mail.gmail.com>
- <CAKm-UmYejm8CW-Enc_Y-aefcLPsRhQO8w2P-fNdu1zXMMjUAoA@mail.gmail.com>
- <e83e7254-0c90-4912-ae63-ea7221a10071@suse.com> <CAKm-UmbDNbeakVQtDT47o4Qc4oQvi0dqmBDb5Q=pRqTHFY0C5w@mail.gmail.com>
- <CAKm-UmZtN2o3d13cE9GyyLKfMmZ855MfrAAw9O6zE-5ob0-iYg@mail.gmail.com>
- <64d738b7-08c1-4b2c-a828-a137c870408e@suse.com> <CAKm-UmayUxd8F337g+BnR=_50_o__oV_PeUv9Z+9gNZ5MXYmrA@mail.gmail.com>
- <3aeb708d-a4fa-45b5-9d74-260ef2035b4a@suse.com> <CAKm-UmbFkO5RCDMTEgWBtEYtfO_LH=TKTh5TP=FyFFpdnbto4w@mail.gmail.com>
-In-Reply-To: <CAKm-UmbFkO5RCDMTEgWBtEYtfO_LH=TKTh5TP=FyFFpdnbto4w@mail.gmail.com>
-From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Date: Mon, 18 Dec 2023 19:35:23 +0100
-Message-ID: <CAKm-Uma2concr2qJZNz4fbcRmHviC9dMGT0GpE+vuC+AiuTpdA@mail.gmail.com>
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
-To: xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000042AC:EE_|BN9PR12MB5052:EE_
+X-MS-Office365-Filtering-Correlation-Id: a66869c7-fb15-428e-5f8f-08dc00081eb8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	RpwHl6g8GUrGe5J5oz3auIxrhINLIBKH87zblZX6R7L0PC27/pNi844qQUadc45BPQdkJlYKZhTODgPIt4u55RZBTW+jF9K8yetSmCjrYoFwYmMhM9y6+cG6r9xIE9pTqd6Kc3CnLEqCt9iqnnlV/a0sRjHR3LGo+KF3qOImc7YFgc3gif0cRvfv1np5weZuRXxX7B5/2ypO0zlF0ovFwv6lIMmMKyc+g89zTtrkipSzNCsRkT34ruth2R4zbp3ARLEbdPRpp6MfoAOwVhErgF1urGmYG8GB51NtUAitYyNrlsTuXOJgSSVZgA3i3l23C6fN94wLOqWOeqSEvE513tgQrpO94ECOcsujBssPDmQlMIiDk0ID3pSePaVXV9+1XQsxzy8vLiafIOo8NhjTB86DKQjdBMGS/difQMGMYezpqjSYCb++wJIIVBW+YKI5v01VuZluS0YVHnvLJ4SiDmj1nlIShO4GM+e3HYLrh/PzzXbdz4yuAB3ZCP2ALQw7NlWjNIAikBylpkgept7F9uRbMNTpSYQ4rZAMVlDagy1QLTFw+gwJ43SaYrxTvnC1jodqXytY69aiVwhCTz1g9RhcVKquCxlJoKYA8SiL4sCDWjL0qgdPUJ7ymkKFJ8/Vaqzit8OpaYq80RVA7vV1CF9OpmLovPKfwTalHkgzUFFfUFMfmOR8TiyvEPB7tGbPlAL+SWu4tSMD5/Slkon+dtGxkC6unejwhfM1tGL484YCnqnSvRYPfitqRjk+pJ59zQdyDUSYwu7X1ORKc5sRzsBVwa1jETpzKl6dD6b96/Q=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(396003)(376002)(136003)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(82310400011)(46966006)(40470700004)(36840700001)(40480700001)(40460700003)(47076005)(336012)(2906002)(86362001)(103116003)(70586007)(426003)(81166007)(1076003)(2616005)(26005)(83380400001)(356005)(36860700001)(82740400003)(6666004)(5660300002)(316002)(110136005)(41300700001)(36756003)(6636002)(966005)(8936002)(8676002)(478600001)(70206006)(4326008)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Dec 2023 20:30:05.3343
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a66869c7-fb15-428e-5f8f-08dc00081eb8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000042AC.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5052
 
-Le lun. 18 d=C3=A9c. 2023 =C3=A0 18:04, S=C3=A9bastien Chaumat <euidzero@gm=
-ail.com> a =C3=A9crit :
->
->
->
-> Le lun. 18 d=C3=A9c. 2023, 17:44, Jan Beulich <jbeulich@suse.com> a =C3=
-=A9crit :
->>
->> On 18.12.2023 17:21, S=C3=A9bastien Chaumat wrote:
->> >>>>> On 05.12.2023 21:31, S=C3=A9bastien Chaumat wrote:
->> >>> This issue seems that IRQ 7 (the GPIO controller) is natively fasteo=
-i
->> >>> (so level type) while in xen it  is mapped to oapic-edge  instead of
->> >>> oapic-level
->> >>> as the SSDT indicates :
->> >>>
->> >>>  Device (GPIO)
->> >>>
->> >>>      {
->> >>>          Name (_HID, "AMDI0030")  // _HID: Hardware ID
->> >>>          Name (_CID, "AMDI0030")  // _CID: Compatible ID
->> >>>          Name (_UID, Zero)  // _UID: Unique ID
->> >>>          Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource =
-Settings
->> >>>          {
->> >>>              Name (RBUF, ResourceTemplate ()
->> >>>              {
->> >>>                  Interrupt (ResourceConsumer, Level, ActiveLow, Shar=
-ed, ,, )
->> >>>                  {
->> >>>                      0x00000007,
->> >>>            }
->> >>> Any idea why ?
->> >>
->> >> Information coming from AML is required to be handed down by Dom0 to =
-Xen.
->> >> May want checking that (a) Dom0 properly does so and (b) Xen doesn't =
-screw
->> >> up in consuming that data. See PHYSDEVOP_setup_gsi. I wonder if this =
-is
->> >> specific to it being IRQ7 which GPIO uses, as at the (master) PIC IRQ=
-7 is
->> >> also the spurious vector. You may want to retry with the tip of the 4=
-.17
->> >> branch (soon to become 4.17.3) - while it doesn't look very likely to=
- me
->> >> that recent backports there were related, it may still be that they m=
-ake
->> >> a difference.
->> >>
->> >
->> > testing with 4.17.3:
->> >
->> > Adding some printk in PHYSDEVOP_setup_gsi, I  see (in xl dmesg)  that
->> > (XEN) PHYSDEVOP_setup_gsi setup_gsi : gsi: 7 triggering: 1 polarity: 1
->> >
->> > but later on in dmesg I see :
->> > [    1.747958] xen: registering gsi 7 triggering 0 polarity 1
->> >
->> > So triggering is flipped from 1 to 0 (cannot find the definition for
->> > those values).
->> > Could this be the culprit ?
->>
->> Possibly. Since it would be the kernel to invoke PHYSDEVOP_setup_gsi, it
->> looks as if the kernel was confused about which trigger mode to use. Hav=
-e
->> you figured from where the kernel takes the two different values?
->>
-side note : dom0 is PV.
+Hi,
+
+Refer https://lore.kernel.org/all/alpine.DEB.2.22.394.2312071341540.1265976@ubuntu-linux-20-04-desktop/T/
+for the previous discussion on this issue.
+
+Also, the linux earlycon hvc driver has been fixed.
+See https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty.git/commit/?h=tty-next&id=0ec058ece2f933aed66b76bd5cb9b5e6764853c3
+
+Changes from v1:-
+1. Split the change across 3 patches as per the design consensus.
+
+Ayan Kumar Halder (3):
+  xen/arm: Add emulation of Debug Data Transfer Registers
+  xen: arm: Introduce CONFIG_PARTIAL_EMULATION
+  xen/arm: Introduce "partial-emulation" xen command line option
+
+ docs/misc/xen-command-line.pandoc    |  7 +++++
+ xen/arch/arm/Kconfig                 |  8 +++++
+ xen/arch/arm/arm64/vsysreg.c         | 32 ++++++++++++++++---
+ xen/arch/arm/include/asm/arm64/hsr.h |  3 ++
+ xen/arch/arm/include/asm/cpregs.h    |  2 ++
+ xen/arch/arm/include/asm/regs.h      |  6 ++++
+ xen/arch/arm/include/asm/traps.h     |  4 +++
+ xen/arch/arm/traps.c                 | 21 +++++++++++++
+ xen/arch/arm/vcpreg.c                | 47 +++++++++++++++++++++++-----
+ 9 files changed, 117 insertions(+), 13 deletions(-)
+
+-- 
+2.25.1
+
 
