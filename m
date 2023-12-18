@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 416388173E5
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 15:41:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656068.1024027 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B459E8173E6
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 15:41:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656072.1024037 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFEnh-0004B4-3y; Mon, 18 Dec 2023 14:40:57 +0000
+	id 1rFEo2-0004t1-BT; Mon, 18 Dec 2023 14:41:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656068.1024027; Mon, 18 Dec 2023 14:40:57 +0000
+Received: by outflank-mailman (output) from mailman id 656072.1024037; Mon, 18 Dec 2023 14:41:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFEnh-000496-0c; Mon, 18 Dec 2023 14:40:57 +0000
-Received: by outflank-mailman (input) for mailman id 656068;
- Mon, 18 Dec 2023 14:40:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rFEo2-0004qq-7p; Mon, 18 Dec 2023 14:41:18 +0000
+Received: by outflank-mailman (input) for mailman id 656072;
+ Mon, 18 Dec 2023 14:41:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFEnf-00048G-8T
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 14:40:55 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71c86c98-9db3-11ee-9b0f-b553b5be7939;
- Mon, 18 Dec 2023 15:40:53 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-40c3fe6c1b5so34652435e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 06:40:53 -0800 (PST)
+ id 1rFEo0-0003LJ-8S
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 14:41:16 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7f5c899e-9db3-11ee-98eb-6d05b1d4d9a1;
+ Mon, 18 Dec 2023 15:41:15 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40b5155e154so39167485e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 06:41:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v9-20020a05600c470900b0040c4acaa4bfsm31329915wmo.19.2023.12.18.06.40.52
+ v9-20020a05600c470900b0040c4acaa4bfsm31329915wmo.19.2023.12.18.06.41.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 06:40:52 -0800 (PST)
+ Mon, 18 Dec 2023 06:41:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71c86c98-9db3-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 7f5c899e-9db3-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702910452; x=1703515252; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702910475; x=1703515275; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ymXg0bpmFz+1mXkWwxvgqG3wuNIkNAkO2q/Jn5XmZJc=;
-        b=ZCYQm2n0QmuJkA1KAHqAgTPpY9OfnV0NWGiRWFZvjmelZxG+Yn0bqX86wyqon5La4j
-         JnEgc3idnjOCqHQbJPr5v0OdZc/I8mUxQT2Vjo/5FfJtcCCCmPE21g77DIahjM0zj1uq
-         RATUnBYhX9UfLBMhxUTaUlA+PXoBwzdjTE/gWvpiEpjuhd/kAQkevD53po4/sgZHMf5k
-         qyrUALjWBKwoQCVe0+8XV6RpyWZb4vgblgYnp41Jdl4yckqyfcREpUOwzcD2z31GoSSp
-         3TkezJIUh2DFrA01WPVdzu5r4XZlZkxHYR04M1HljKDQr5F97fxQ1AmYBmZ/KkCUrFYA
-         EHxg==
+        bh=SA83WH/tVAa+8UrSlLg9fG17XrU318HxH5GSIudImvg=;
+        b=S+0IbRap4/C1EFSlMJkMYUCyD+9KP7RY88e28IOhlK/wUI4EgE7AqyVDLq9AD1Vv5q
+         n+kbVDKcd8la/QSzhEug/EMlt8PZhIBlvkwXieqV4AzZCUDQZqemFdIpl4lH8nyv//i8
+         UPTa+cZQn1PDFHgBnRSR4jQMHPLixGIbF7631cOrnkcHz48ugEVE6lU7aKt5VL6LtXlR
+         oyy5jeFoNYDc/I3kjdsalnG0FVvR3s/OqdxI+hP31qpvtV4CjM54Xq8sThcsNb/JnKeF
+         gzSssWTqP0NqIBm08m2eeM/UHgK3O9a+vpChy3vsr75r+eM9jt9wq3VVNxS3s21AUqpQ
+         XEoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702910452; x=1703515252;
+        d=1e100.net; s=20230601; t=1702910475; x=1703515275;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ymXg0bpmFz+1mXkWwxvgqG3wuNIkNAkO2q/Jn5XmZJc=;
-        b=UjT1rA1PA3HKuc7EUE7+KciYZiYkRqKQh6d+N0FwmhjRJM71JvuUIgQNPtWrU0/7eV
-         zotmR7Ohg1gO12BVc9XfPr3Yn6+JF4fUrh2H6TZSgXVINhvchDgCAv/BsqTAUIzxMj9m
-         sPpS6ZArL5udMdEnvRWNKW8ITIiiTAhVfdoYi0Mr3Jg2rDP3SVuiibxIGfoTvOSA6fxD
-         /CTQua69f8BMHFsbqHykEoNf2c3p1blCk/Jm9BQKOVw1L3xpio1loPrcKMnpnfzMmYoF
-         dpYbv5leGqgF4YmlQ7YZp0srMM/VuJCDdgpS13oUAdinj6hlltY/Sxt5fr1BZyZfykfz
-         0qNA==
-X-Gm-Message-State: AOJu0YyAAu9bp0q4GEpNiMJMSByMnNBSt+tneH3gSGVFWztSwFqHhA8u
-	XaLvqCktyg/EKnQP7yGsUIYW9NyZ9hoYfUVh4Z4M
-X-Google-Smtp-Source: AGHT+IENCFbPhDWDJ3O0ULNCi2CFlhIgp2QC7so5i0AAfbe74adx52KuOILEZGhet3fdRhlvc10odA==
-X-Received: by 2002:a05:600c:1715:b0:40c:2bfa:fb03 with SMTP id c21-20020a05600c171500b0040c2bfafb03mr8060780wmn.72.1702910452441;
-        Mon, 18 Dec 2023 06:40:52 -0800 (PST)
-Message-ID: <9ab115f2-04c6-443f-95f1-581b2889b08f@suse.com>
-Date: Mon, 18 Dec 2023 15:40:52 +0100
+        bh=SA83WH/tVAa+8UrSlLg9fG17XrU318HxH5GSIudImvg=;
+        b=s8lDsJC/XI4gmjuUZ3G+rvVJkEoRIkpf89S+jyX1dp+ouNtkDep51tCBE7TeaNIitf
+         LulXkRh4Q1R1dI6O0BXCuMro40AK3/jfTTCVOgTj71LH1uk1Z7fem81x9aDV4xTyMueZ
+         dMfpJe9VfDhuhhqNtRm9KUuWAa7RYGOxvuCQVw3m1zOuHsBIIIIqn0zFPiY75RKFhKCS
+         nMIvPsM1DYFakiViNQwigoq5TB+KoNF3D/8v9YfZ7jIV2F8EW2N4Gz+A+gLCTmJCtB08
+         P3NqVLiiZL77Z7eo0ZqFlMzLl6htrSMTZFqVBIGdFpW/B7IRhxlClYEyc8I8IiyOgaBw
+         UaTw==
+X-Gm-Message-State: AOJu0YxKaV1qPgRA/4RPkfu6B9gF2hShRWQ4SCUj4Iyg6HPQHpY6OjOR
+	IO/+29PI8IOkIMPLiLVwx+nou2jGSA7ixDPFP57T
+X-Google-Smtp-Source: AGHT+IEealb4TeglQHiJMGnJmhQlZzJDKrMBnAgY1fG14D5192f8JWEwkO3UZFcej4VUE8t1+TV/wA==
+X-Received: by 2002:a05:600c:1c9d:b0:40c:837:f033 with SMTP id k29-20020a05600c1c9d00b0040c0837f033mr7923825wms.61.1702910475359;
+        Mon, 18 Dec 2023 06:41:15 -0800 (PST)
+Message-ID: <3bd1a8b8-1ed5-4d3a-8f5a-e193fdab7e1d@suse.com>
+Date: Mon, 18 Dec 2023 15:41:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 4/5] x86/vPIC: check values loaded from state save record
+Subject: [PATCH v4 5/5] x86/vIRQ: split PCI link load state checking from
+ actual loading
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -112,96 +113,72 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <1e855575-8c0f-4222-80ba-e64305ea714b@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Loading is_master from the state save record can lead to out-of-bounds
-accesses via at least the two container_of() uses by vpic_domain() and
-__vpic_lock(). Make sure the value is consistent with the instance being
-loaded.
-
-For ->int_output (which for whatever reason isn't a 1-bit bitfield),
-besides bounds checking also take ->init_state into account.
-
-For ELCR follow what vpic_intercept_elcr_io()'s write path and
-vpic_reset() do, i.e. don't insist on the internal view of the value to
-be saved.
-
-Move the instance range check as well, leaving just an assertion in the
-load handler.
+Move the checking into a check hook, and add checking of the padding
+fields as well.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-v3: vpic_domain() fix and vpic_elcr_mask() adjustment split out. Re-base
-    over rename in earlier patch.
-v2: Introduce separate checking function; switch to refusing to load
-    bogus values. Re-base.
+v4: New.
 
---- a/xen/arch/x86/hvm/vpic.c
-+++ b/xen/arch/x86/hvm/vpic.c
-@@ -429,6 +429,38 @@ static int cf_check vpic_save(struct vcp
+--- a/xen/arch/x86/hvm/irq.c
++++ b/xen/arch/x86/hvm/irq.c
+@@ -749,6 +749,30 @@ static int cf_check irq_load_isa(struct
      return 0;
  }
  
-+static int cf_check vpic_check(const struct domain *d, hvm_domain_context_t *h)
++static int cf_check irq_check_link(const struct domain *d,
++                                   hvm_domain_context_t *h)
 +{
-+    unsigned int inst = hvm_load_instance(h);
-+    const struct hvm_hw_vpic *s;
++    const struct hvm_hw_pci_link *pci_link = hvm_get_entry(PCI_LINK, h);
++    unsigned int link;
 +
-+    if ( !has_vpic(d) )
-+        return -ENODEV;
-+
-+    /* Which PIC is this? */
-+    if ( inst >= ARRAY_SIZE(d->arch.hvm.vpic) )
-+        return -ENOENT;
-+
-+    s = hvm_get_entry(PIC, h);
-+    if ( !s )
++    if ( !pci_link )
 +        return -ENODATA;
 +
-+    /*
-+     * Check to-be-loaded values are within valid range, for them to represent
-+     * actually reachable state.  Uses of some of the values elsewhere assume
-+     * this is the case.
-+     */
-+    if ( s->int_output > 1 )
-+        return -EDOM;
++    for ( link = 0; link < ARRAY_SIZE(pci_link->pad0); link++ )
++        if ( pci_link->pad0[link] )
++            return -EINVAL;
 +
-+    if ( s->is_master != !inst ||
-+         (s->int_output && s->init_state) ||
-+         (s->elcr & ~vpic_elcr_mask(s, 1)) )
-+        return -EINVAL;
++    for ( link = 0; link < ARRAY_SIZE(pci_link->route); link++ )
++        if ( pci_link->route[link] > 15 )
++        {
++            printk(XENLOG_G_ERR
++                   "HVM restore: PCI-ISA link %u out of range (%u)\n",
++                   link, pci_link->route[link]);
++            return -EINVAL;
++        }
 +
 +    return 0;
 +}
-+
- static int cf_check vpic_load(struct domain *d, hvm_domain_context_t *h)
+ 
+ static int cf_check irq_load_link(struct domain *d, hvm_domain_context_t *h)
  {
-     struct hvm_hw_vpic *s;
-@@ -438,18 +470,21 @@ static int cf_check vpic_load(struct dom
-         return -ENODEV;
- 
-     /* Which PIC is this? */
--    if ( inst > 1 )
--        return -ENOENT;
-+    ASSERT(inst < ARRAY_SIZE(d->arch.hvm.vpic));
-     s = &d->arch.hvm.vpic[inst];
- 
-     /* Load the state */
-     if ( hvm_load_entry(PIC, h, s) != 0 )
+@@ -759,16 +783,6 @@ static int cf_check irq_load_link(struct
+     if ( hvm_load_entry(PCI_LINK, h, &hvm_irq->pci_link) != 0 )
          return -EINVAL;
  
-+    if ( s->is_master )
-+        s->elcr |= 1 << 2;
-+
-     return 0;
- }
- 
--HVM_REGISTER_SAVE_RESTORE(PIC, vpic_save, NULL, vpic_load, 2, HVMSR_PER_DOM);
-+HVM_REGISTER_SAVE_RESTORE(PIC, vpic_save, vpic_check, vpic_load, 2,
-+                          HVMSR_PER_DOM);
- 
- void vpic_reset(struct domain *d)
- {
+-    /* Sanity check */
+-    for ( link = 0; link < 4; link++ )
+-        if ( hvm_irq->pci_link.route[link] > 15 )
+-        {
+-            printk(XENLOG_G_ERR
+-                   "HVM restore: PCI-ISA link %u out of range (%u)\n",
+-                   link, hvm_irq->pci_link.route[link]);
+-            return -EINVAL;
+-        }
+-
+     /* Adjust the GSI assert counts for the link outputs.
+      * This relies on the PCI and ISA IRQ state being loaded first */
+     for ( link = 0; link < 4; link++ )
+@@ -788,5 +802,5 @@ HVM_REGISTER_SAVE_RESTORE(PCI_IRQ, irq_s
+                           1, HVMSR_PER_DOM);
+ HVM_REGISTER_SAVE_RESTORE(ISA_IRQ, irq_save_isa, NULL, irq_load_isa,
+                           1, HVMSR_PER_DOM);
+-HVM_REGISTER_SAVE_RESTORE(PCI_LINK, irq_save_link, NULL, irq_load_link,
+-                          1, HVMSR_PER_DOM);
++HVM_REGISTER_SAVE_RESTORE(PCI_LINK, irq_save_link, irq_check_link,
++                          irq_load_link, 1, HVMSR_PER_DOM);
 
 
