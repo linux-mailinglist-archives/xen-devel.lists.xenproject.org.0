@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A86A816D2A
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 12:59:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655912.1023821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D627816D58
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 13:06:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655949.1023847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFCGv-0006lP-GN; Mon, 18 Dec 2023 11:58:57 +0000
+	id 1rFCN1-0001sf-Qh; Mon, 18 Dec 2023 12:05:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655912.1023821; Mon, 18 Dec 2023 11:58:57 +0000
+Received: by outflank-mailman (output) from mailman id 655949.1023847; Mon, 18 Dec 2023 12:05:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFCGv-0006jk-DG; Mon, 18 Dec 2023 11:58:57 +0000
-Received: by outflank-mailman (input) for mailman id 655912;
- Mon, 18 Dec 2023 11:58:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U9fe=H5=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1rFCGt-0006jZ-Kz
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 11:58:55 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d09113a7-9d9c-11ee-9b0f-b553b5be7939;
- Mon, 18 Dec 2023 12:58:53 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-553338313a0so1242279a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 03:58:53 -0800 (PST)
+	id 1rFCN1-0001r1-Nf; Mon, 18 Dec 2023 12:05:15 +0000
+Received: by outflank-mailman (input) for mailman id 655949;
+ Mon, 18 Dec 2023 12:05:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rFCN0-0001pL-Ao
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 12:05:14 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b3128f95-9d9d-11ee-98eb-6d05b1d4d9a1;
+ Mon, 18 Dec 2023 13:05:13 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-40c6e2a47f6so27870455e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 04:05:13 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ bd19-20020a05600c1f1300b0040839fcb217sm42151486wmb.8.2023.12.18.04.05.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Dec 2023 04:05:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,121 +45,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d09113a7-9d9c-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: b3128f95-9d9d-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1702900733; x=1703505533; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=RqjCOkcWk9lFw7XmwLS/EZADd87c7o4tyio1n/qNYRg=;
-        b=YHUKr2G5U9HoZddGQ/tBeDx2pZING9daIvKoqDcarMP9HaFDpaAUy9QJ+DG4BrwrbH
-         o62dKrw9xzh1hMLo9dPUmugzqhZrPV7hz0qkOM0VQVae2V2xt1TZLd9pg1wGQNLyaDwX
-         Hwr+uQtVhdyD3780hiNSDQkHu7z3fmW4oRolc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702900733; x=1703505533;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+        d=suse.com; s=google; t=1702901113; x=1703505913; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=RqjCOkcWk9lFw7XmwLS/EZADd87c7o4tyio1n/qNYRg=;
-        b=WmRKzr0EoM1fDsaDYSEOhJ2DMmPtur7SeWpLsjPZHG7VVSA22USU/4nmQqOo35oxP2
-         kIqT7CsPSS6vgwI/lPW86bpiyIcS19vtyrnsjHXzC3B5htZOp1n7qsEJfOAyej4CClcs
-         iJxb/ivFESL2sCr1VxVAnO9Z3hBRsd8FS/lHcLfhB/5Y3kqkwId/dVftIgrdQbe+4yX1
-         LC97Fyf7fLEHpwwdJHgjDRVGgxIbsoc6HPYltZMzHH7AvvjicXhCjs0liuY2beWuHqlV
-         glN/oSG3Ju1OyiGkqlsSJLdqhzcKUgcrQRVIs4Y0YGDMOgwlkoDuG7EN+qi6FcocYryr
-         CvjQ==
-X-Gm-Message-State: AOJu0YxuCs0QFbxeeAV+t9+yXPGtUDWqZH9WM88XsQfIz8UeHd6hEqyq
-	T95UBEE/VlklexPGjySp/dJvYkvs5bEPuAsveGCxu7874CTlxfLruSjumA==
-X-Google-Smtp-Source: AGHT+IEVolVt9qkbvnMiizuoi5uWNCXUVM3ntt6N639M2TUrQIbtc1YtxtVxTSlCn073nZ9TdFgbu+4SBBQjjEFZNH0=
-X-Received: by 2002:a05:6402:2051:b0:54c:5f17:1163 with SMTP id
- bc17-20020a056402205100b0054c5f171163mr8246854edb.58.1702900732700; Mon, 18
- Dec 2023 03:58:52 -0800 (PST)
+        bh=+S2YZtpkrXpPeCF/W4lHSTE3t8QggdrwTPCu+mAiobg=;
+        b=c/TdN6G8wt7/iace5NCjDMwRJ10oNYcsiCvzwu5nMgMBlcA6dIO3+FYQT3rKQTO91M
+         MbeG9kzhozJU/ReMZDxn7pztXY8H5JFYuWk9XypnKHRkOXUJfIluvsFM5pV3PAYDVgzp
+         9TVyLFJsYv6NGKRWZkUlJ3vMD8xugwQYqH6qXQXKT5mCx8qzm2TFVG3/fmU/I1E9tjUl
+         AluWpkoNVEwIs6CFa+vJrFHSlQqf2DKhC7vqAuPxe75rBxhCbhyrn9ZiWs7gWf0Xu4dI
+         6b2QTJCyAeW1q8zGwmGTLOVNojw8D10I+v8WW/u5SbLhXkMg4ABORDOy9VDtvH61e2MR
+         zamg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702901113; x=1703505913;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+S2YZtpkrXpPeCF/W4lHSTE3t8QggdrwTPCu+mAiobg=;
+        b=ATx6KPDjsBy0v0IvLULobfV41tOkui8N59M/8sKXO5WRw7jy6xydaiNQgoJuliVbre
+         9Oi70vQCEsbA1+HJUaD5u9eUvDuAmkwmyJpIxwFc9hKRmVrSX3xCjiR+8bDbMnXs7l3j
+         QcTjPTX/8SJktz6xXERYX+v81MBU5GFzWuQSxBXGVY8otDTm4U5G55CBBaFQXanVaYW7
+         sn3Y8onRLRbEeIPdxG1xo0Z8vfxB90eq4j/MGmjM93na+o9ImiM4FmLfYzRhWFguWHDI
+         +e1v6CKcJO55IDVLeWQB2T2dkw8DhOKgZSFcsI3cK1PZhW6hC7F3NKwWJHc6zrH1BACz
+         hZOQ==
+X-Gm-Message-State: AOJu0Yzmffb2wRXj1klBWwUKxu+wIsUDJfHiJxfE5qVn/tNjnk094V3I
+	tJoSg2vpPuqv9tA+j7t2jwm7
+X-Google-Smtp-Source: AGHT+IGtQ+kY7TgL0YgE7TkFXyZ6g+/VLHfG1BehiFO55NonRfM9ZIL/vK5vyQR6AxpNwNL6jB+VOg==
+X-Received: by 2002:a05:600c:310c:b0:40b:5f03:b3cd with SMTP id g12-20020a05600c310c00b0040b5f03b3cdmr4279146wmo.239.1702901113020;
+        Mon, 18 Dec 2023 04:05:13 -0800 (PST)
+Message-ID: <929aef52-2f5e-4796-9404-c507b987cab3@suse.com>
+Date: Mon, 18 Dec 2023 13:05:11 +0100
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Mon, 18 Dec 2023 11:58:16 +0000
-Message-ID: <CAO-mL=ziVf=9E345gaRJMUMN1BortznAwzOOJRw-8LMwFRweiQ@mail.gmail.com>
-Subject: Community Manager Update
-To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org
-Cc: committers@xenproject.org
-Content-Type: multipart/alternative; boundary="00000000000042c320060cc779d3"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 32/39] xen/riscv: add minimal stuff to asm/page.h to
+ build full Xen
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+ <34a4bc023eb50e1d1cf70fa149825c51f2f4555f.1700761381.git.oleksii.kurochko@gmail.com>
+ <ccef1adc-af39-43b2-8f97-ed3895e8809d@suse.com>
+ <c0ae5654e6be1eb10282a3d95fb419d5c975e98b.camel@gmail.com>
+ <2fa8fa4f-86d9-4856-91f3-f3dcf1c1013c@suse.com>
+ <61afc7bf7dd153c368173eb8a82052d726ae2512.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <61afc7bf7dd153c368173eb8a82052d726ae2512.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---00000000000042c320060cc779d3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 18.12.2023 12:57, Oleksii wrote:
+> On Mon, 2023-12-18 at 12:36 +0100, Jan Beulich wrote:
+>> On 18.12.2023 11:45, Oleksii wrote:
+>>> On Thu, 2023-12-14 at 16:57 +0100, Jan Beulich wrote:
+>>>> On 24.11.2023 11:30, Oleksii Kurochko wrote:
+>>>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>>
+>>>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>>>>
+>>>> I wonder though ...
+>>>>
+>>>>> --- a/xen/arch/riscv/include/asm/page.h
+>>>>> +++ b/xen/arch/riscv/include/asm/page.h
+>>>>> @@ -6,6 +6,7 @@
+>>>>>  #ifndef __ASSEMBLY__
+>>>>>  
+>>>>>  #include <xen/const.h>
+>>>>> +#include <xen/bug.h>
+>>>>>  #include <xen/types.h>
+>>>>>  
+>>>>>  #include <asm/mm.h>
+>>>>> @@ -32,6 +33,9 @@
+>>>>>  #define PTE_LEAF_DEFAULT            (PTE_VALID | PTE_READABLE
+>>>>> |
+>>>>> PTE_WRITABLE)
+>>>>>  #define PTE_TABLE                   (PTE_VALID)
+>>>>>  
+>>>>> +/* TODO */
+>>>>> +#define PAGE_HYPERVISOR 0
+>>>>
+>>>> ... whether this couldn't be defined properly right away.
+>>> It can be introduced now but it requires some additional defines to
+>>> be
+>>> introduced in the same time:
+>>>
+>>> #define _PAGE_W_BIT     2
+>>> #define _PAGE_XN_BIT    3
+>>> #define _PAGE_RO_BIT    1
+>>> #define _PAGE_XN        (1U << _PAGE_XN_BIT)
+>>> #define _PAGE_RO        (1U << _PAGE_RO_BIT)
+>>> #define _PAGE_W         (1U << _PAGE_W_BIT)
+>>
+>> Why would you need these, when you already have
+>> PTE_{READABLE,WRITABLE,EXECUTABLE} just out of context from above?
+> I thought that the hypervisor page table is fully software-related, and
+> that's why a separate PAGE*BIT was introduced. These bits can be
+> different from PTE* bits, which are hardware-related
+> https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/include/asm/page.h?ref_type=heads#L66
+> 
+> It looks like I misunderstood that, and PTE* can be used everywhere
+> instead of _PAGE*. Alternatively, we could consider renaming everything
+> to PAGE* to maintain consistency across architectures.
+> 
+> Does it make sense?
 
-Hi all,
+Sure. Whether renaming makes sense is harder to tell though. It would
+be only the name prefix that's uniform, as how exactly e.g. permissions
+are controlled is arch-specific anyway. The one place I'm aware where
+PAGE_* (or, sadly, still _PAGE_*) would matter for common code is
+_PAGE_NONE (not sure though whether that's something that can / wants
+to be expressed for RISC-V).
 
-Merry Christmas!
-
-Just a quick update from myself.
-
-Whilst I can=E2=80=99t speak for everyone in the community, I know we have =
-valuable
-members who are committed to making the Xen Project successful. We are a
-strong and passionate community made up of individuals who consistently
-seek improvement in ways of working to ensure our open source project is
-welcoming and friendly. Our project is not only advancing the industry in
-many ways, but there are policies and governance practices that the
-community has helped shape to make it a better environment for all.
-
-As such, I strongly condemn activities or communications that diminish our
-efforts on how great the community is. We may not be perfect, but
-collectively we are all working towards a common goal on how to be better.
-
-This is a reminder to everyone to keep up the great work you are already
-doing, and for other individuals to refrain from making comments that could
-be seen as harmful to the community. Our communications can easily be
-misperceived and interpreted by others negatively, so if your messaging is
-not beneficial, please do not send these.
-
-Our next steps will be to look at creating a community working or technical
-group of some sort, to help address concerns and drive direction within the
-community. Given this will be something that affects everyone, I=E2=80=99d =
-like to
-ask for your patience as we scope out the specifics before asking for your
-feedback. I want to make sure we do this properly to ensure the process is
-something that benefits the community in the long run. As soon as I have
-the details, I will be sharing them with you all.
-
-I wish you all a great holiday and a Happy New Year!
-
-Many thanks,
-Kelly Choi
-
-Community Manager
-Xen Project
-
---00000000000042c320060cc779d3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<div><br></div><div>Merry=C2=A0Christmas!</div><div=
-><br></div><div>Just a quick update from myself.</div><div><br></div>Whilst=
- I can=E2=80=99t speak for everyone in the community, I know we have valuab=
-le members who are committed to making the Xen Project successful. We are a=
- strong and passionate community made up of individuals who consistently se=
-ek improvement in ways of working to ensure our open source project is welc=
-oming and friendly. Our project is not only advancing the industry in many =
-ways, but there are policies and governance practices that the community ha=
-s helped shape to make it a better environment for all. <br><br>As such, I =
-strongly condemn activities or communications that diminish our efforts on =
-how great the community is. We may not be perfect, but collectively we are =
-all working towards a common goal on how to be better. <br><br>This is a re=
-minder to everyone to keep up the great work you are already doing, and for=
- other individuals to refrain from making comments that could be seen as ha=
-rmful to the community. Our communications can easily be misperceived and i=
-nterpreted by others negatively, so if your messaging is not beneficial, pl=
-ease do not send these. <br><br>Our next steps will be to look at creating =
-a community working or technical group of some sort, to help address concer=
-ns and drive direction within the community. Given this will be something t=
-hat affects everyone, I=E2=80=99d like to ask for your patience as we scope=
- out the specifics before asking for your feedback. I want to make sure we =
-do this properly to ensure the process is something=C2=A0that benefits the =
-community in the long run. As soon as I have the details, I will be sharing=
- them with you all.=C2=A0<div><br></div><div>I wish you all a great holiday=
- and a Happy New Year!=C2=A0<br><div>=C2=A0 <br><div>Many thanks,<br></div>=
-<div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_sig=
-nature"><div dir=3D"ltr"><div>Kelly Choi</div><div><br></div><div><div styl=
-e=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb=
-(136,136,136)">Xen Project=C2=A0<br></div></div></div></div></div></div></d=
-iv></div>
-
---00000000000042c320060cc779d3--
+Jan
 
