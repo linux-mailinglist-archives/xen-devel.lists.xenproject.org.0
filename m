@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14904817180
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 14:58:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655987.1023907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 917348171C6
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 15:03:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655996.1023927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFE8E-0005hB-U1; Mon, 18 Dec 2023 13:58:06 +0000
+	id 1rFED7-0000Bj-P4; Mon, 18 Dec 2023 14:03:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655987.1023907; Mon, 18 Dec 2023 13:58:06 +0000
+Received: by outflank-mailman (output) from mailman id 655996.1023927; Mon, 18 Dec 2023 14:03:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFE8E-0005ee-Qo; Mon, 18 Dec 2023 13:58:06 +0000
-Received: by outflank-mailman (input) for mailman id 655987;
- Mon, 18 Dec 2023 13:58:05 +0000
+	id 1rFED7-000083-ML; Mon, 18 Dec 2023 14:03:09 +0000
+Received: by outflank-mailman (input) for mailman id 655996;
+ Mon, 18 Dec 2023 14:03:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFE8D-0005eX-Ki
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 13:58:05 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1rFED6-00007x-OH
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 14:03:08 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7631c74c-9dad-11ee-9b0f-b553b5be7939;
- Mon, 18 Dec 2023 14:58:03 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40c48d7a7a7so29657465e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 05:58:03 -0800 (PST)
+ id 2af72cdc-9dae-11ee-9b0f-b553b5be7939;
+ Mon, 18 Dec 2023 15:03:06 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40d05ebe642so8754075e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 06:03:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s5-20020a05600c384500b0040b632f31d2sm43018361wmr.5.2023.12.18.05.58.02
+ bg22-20020a05600c3c9600b0040c6ab53cd2sm15492943wmb.10.2023.12.18.06.03.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 05:58:02 -0800 (PST)
+ Mon, 18 Dec 2023 06:03:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7631c74c-9dad-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 2af72cdc-9dae-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702907883; x=1703512683; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702908186; x=1703512986; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=GyQrSRSCGAFsbstRqubNv6AvRfxrPkij+L7T9YVmuG0=;
-        b=b7cNMseBTHkirEZk5Llj/rD7PPhDeS9mJu5bLQfxk4TDraC41vTMca+ruUGyQ2LIlo
-         Jb7Ddcz6xd4l7a5hzL5qQRmaKdbcfRVSzQ7jLYZ+vms6QZSiTxWqM28BavgB6P2eEAS9
-         YCaW5InYHywgh0o+fKPgEdZYTJGTRbVkI6yszXc++UHqeBruS4m/i/VNgKygnhmCA6PN
-         Aa5ejwXWtzcKYRY6fx5Bhqpy6pc3r7MwnffJc0ReoT0/gkwPLTdPCOnpCqbVO3FARGjw
-         Hx1SQ2CDcHx54M7+egD7KyUfkkCX1l8X9ooZT64d2dYCg/mMsb3ZX4hTbKL0MXYRlsqh
-         Ko9Q==
+        bh=ntiCil28lyRVJPkdss5XJyeHJxz3eEVttwAY37JVNGY=;
+        b=SwNaiK0am1KqURVTLPgzsGS5Lo0eH2/ZLdH0mMFO5lVsa2lk4QhAVLPmg67XU/ty1J
+         aKHzxePV0NgFPBgUw2eBs5ciFeje+wM7QGcIGA3yrlyAmSqJOJKquOypUV/5si6EmKWG
+         ZevzsZR2pKX+il88H8/toTWhRL2cBaBckb3MAOW23x4XtPqbOPzv5NPy0gV33GEhkp8J
+         4X97AXmhf3/+zHEcMK8ig6RMACSnK0TWsoOob2brOUoQo6UuVvUaUVM1WBab9xwo1tx3
+         1HIGrO9oTK0UfRNr2b4VoIrUJlVC4lcWihnapDKlhd/WC6/jdZCw78m3xba4wS2ms5Mq
+         MdIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702907883; x=1703512683;
+        d=1e100.net; s=20230601; t=1702908186; x=1703512986;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GyQrSRSCGAFsbstRqubNv6AvRfxrPkij+L7T9YVmuG0=;
-        b=TxjNI3vAMTQQloU+/KijWC8cxXlGnrQS9utosDD+VeZV7wi0lzM450Xw0cz/HTDlC9
-         KM+yB/qlF6l0Qca+QtXeRUUmwOQDca3MnkoaLvClcfJSMka35cA1v2u9Fgw7Hl6LuumN
-         4GtLgG+YNQHehbI9IWaV7u4xKj2c1n3md4/fh8JPzYhBL7vObaLrMEbxYEam3Xbd10Mb
-         rW+/pTMLgCu9d3zSrvuvwvSmrHp9HuHKmficxNKis8wWR7Yyizh+vusKAXt/ckLjFa08
-         uOoLE35vU8ZlXeh8T1jBb33csLl3wPQJ3Rh2xCJ+SvR3PhrWlA/rsj9TLEqP6ShHweHW
-         45Mw==
-X-Gm-Message-State: AOJu0Yz+B0rS/CVBH4a6sOgg3qFTneRh37/k2wxBxy8a/WCfkIfkr8IO
-	vSfMGOIRpKQWg+H7Zh8wK4f1
-X-Google-Smtp-Source: AGHT+IH35fQbtMpq2sadzdVXv1VSc7lpdaBQdXgcyoyGnOh/M7Oc/uuzmnXDz2lA2Ip6ew3wQatrwA==
-X-Received: by 2002:a05:600c:4c8a:b0:40c:d3a:2447 with SMTP id g10-20020a05600c4c8a00b0040c0d3a2447mr10062550wmp.87.1702907882841;
-        Mon, 18 Dec 2023 05:58:02 -0800 (PST)
-Message-ID: <c618b09d-c9eb-4f2b-81bb-18c486ba6ea2@suse.com>
-Date: Mon, 18 Dec 2023 14:58:01 +0100
+        bh=ntiCil28lyRVJPkdss5XJyeHJxz3eEVttwAY37JVNGY=;
+        b=fwq8kZoOk5PhE9RpH8SbQzsD7BzM6/hNg2TPKLcW78bSqg4K0eYOCDkZ+E3hua/zO1
+         d2++lHprHchEi8ioG3mml43IUJvgHQwxgnrgdnRGzCoW6n9xinC9Wo3PgPfhUXU6tCfY
+         PyG28FpDcMi8g6U8D4MpEKKr3GmDrWqM+TmbyqI0dF5YFDHVNVNCPa6Va1E4Xb46QOGW
+         GrEQBE2vnivMMYyGlY3p3fm1S8v81kPuf7RUBRqMjm5AlKQ+WniLlGJpVbsVRNv9jtB1
+         ligZU3pX401j0Mx0hCtBda326kpwYHZTppiVsI+fgOaBCaqdm4FC58YOsqIzvTKcTb0C
+         X7Ow==
+X-Gm-Message-State: AOJu0Yz2WnAFHLWkSb3PEepi/qm+rXbr+zQXPJ8zH7vatKFeqEV66SIp
+	f92xNpUkgcIw08SYkYTSqOfq
+X-Google-Smtp-Source: AGHT+IGTna0BCzeSRqTqSDXdZjpJqWI9i62p+/FBdAtztuUKchlgkRWaV57vqp/AZhmucQuu/fC+vw==
+X-Received: by 2002:a05:600c:1c01:b0:40c:2ba2:8add with SMTP id j1-20020a05600c1c0100b0040c2ba28addmr7925084wms.117.1702908186182;
+        Mon, 18 Dec 2023 06:03:06 -0800 (PST)
+Message-ID: <ffa5a22a-36cf-4817-aae3-668d6ff181bf@suse.com>
+Date: Mon, 18 Dec 2023 15:03:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] x86/spec-ctrl: defer context-switch IBPB until
- guest entry
+Subject: Re: [XEN PATCH v3 1/3] xen/x86: add missing instances of asmlinkage
+ attributes
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com>
- <83c2a504-bce4-d3e7-1d9a-76ac0ca17bab@suse.com> <ZYA9ap4dB5nnFCu3@macbook>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1702285639.git.nicola.vetrini@bugseng.com>
+ <2282f4b7ff0143f513f9677e0cca2d68c0f2a08c.1702285639.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2312111748300.1703076@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,29 +114,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZYA9ap4dB5nnFCu3@macbook>
+In-Reply-To: <alpine.DEB.2.22.394.2312111748300.1703076@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 18.12.2023 13:39, Roger Pau Monné wrote:
-> On Tue, Feb 14, 2023 at 05:11:05PM +0100, Jan Beulich wrote:
->> In order to avoid clobbering Xen's own predictions, defer the barrier as
->> much as possible. Merely mark the CPU as needing a barrier issued the
->> next time we're exiting to guest context.
+On 12.12.2023 02:48, Stefano Stabellini wrote:
+> On Mon, 11 Dec 2023, Nicola Vetrini wrote:
+>> No functional change.
+>>
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > 
-> While I understand that doing the flush in the middle of the guest
-> context might not be ideal, as it's my understanding we also
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-s/guest context/context switch/?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> needlessly flush Xen predictions, I'm unsure whether this makes any
-> difference in practice, and IMO just makes the exit to guest paths
-> more complex.
-
-I need to redirect this question to Andrew, who suggested that doing so
-can be expected to make a difference. When we were discussing this, I
-could easily see it might make a difference, but I cannot provide hard
-proof.
-
-Jan
 
