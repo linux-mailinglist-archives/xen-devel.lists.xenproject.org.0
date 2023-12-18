@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00994816A9D
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 11:11:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.655782.1023571 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 248AD816AA5
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 11:12:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.655788.1023580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFAaO-0002nE-Un; Mon, 18 Dec 2023 10:10:56 +0000
+	id 1rFAbo-0003sZ-BJ; Mon, 18 Dec 2023 10:12:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 655782.1023571; Mon, 18 Dec 2023 10:10:56 +0000
+Received: by outflank-mailman (output) from mailman id 655788.1023580; Mon, 18 Dec 2023 10:12:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFAaO-0002kn-R0; Mon, 18 Dec 2023 10:10:56 +0000
-Received: by outflank-mailman (input) for mailman id 655782;
- Mon, 18 Dec 2023 10:10:55 +0000
+	id 1rFAbo-0003qu-8E; Mon, 18 Dec 2023 10:12:24 +0000
+Received: by outflank-mailman (input) for mailman id 655788;
+ Mon, 18 Dec 2023 10:12:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFAaN-0002UG-Aj
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 10:10:55 +0000
+ id 1rFAbm-0003qi-JX
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 10:12:22 +0000
 Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
  [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b9fa6d22-9d8d-11ee-9b0f-b553b5be7939;
- Mon, 18 Dec 2023 11:10:53 +0100 (CET)
+ id ee189039-9d8d-11ee-9b0f-b553b5be7939;
+ Mon, 18 Dec 2023 11:12:20 +0100 (CET)
 Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-33663adf953so766297f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 02:10:53 -0800 (PST)
+ ffacd0b85a97d-3365424df34so1781156f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 02:12:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v18-20020a5d5912000000b003365e7f35f4sm6165150wrd.46.2023.12.18.02.10.52
+ v18-20020a5d5912000000b003365e7f35f4sm6165150wrd.46.2023.12.18.02.12.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 02:10:52 -0800 (PST)
+ Mon, 18 Dec 2023 02:12:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9fa6d22-9d8d-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ee189039-9d8d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702894253; x=1703499053; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702894340; x=1703499140; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=HxjJnl32ZClJfNFczB7mo7VhiixqzK9x9AgIPcO6AGQ=;
-        b=FYLgmHkQ5Y2yclVwzfY/Ru7feP7FhbOTCXCQpqj+qLSb8tXQH8BA1jvpngOBlYQU5o
-         7V045XOM9vPjZMf1rOrK0W8yhSgMR3sf8rQIIXhQg2Caic6FQTqB+ZIsY2fm/XDCXww2
-         jtov8gFbNUSdGfFqvcRTn1+wSH6v98iVna/+o4g5OxlCHBSAEXV8desy0DqynN1YMi+E
-         zSGshEfoa8yswYzY7CHLTjx91GIpXNANgOB7dDbAQdXNL5QXNOVtIHcp0L1xmUTGPMtN
-         p8tErVmqnyf6v3wMSWqR89PcBRLa1FyY0xQdQ4Mvtj/NznR6fSvCgtGvAoni102/G40u
-         og8g==
+        bh=prDamPmLWsLHEbHCY7T2NRUW+DQt+u2BWyu9eE/IYRc=;
+        b=A1TUAoTAyJD81VgxrRk1wjyegPJ7NJ4gAelca3Gwju59VUR3tgBjhPKsEQ3O91Ra1p
+         TZ9kDTgTKxjHUEXUn+F9skbtltbl42atRNg3i6zzD2vj3YsaRmq26HUexAjLmsrYkz2g
+         It3QMevLloUmhvRON3LnZj/I3ZjhYQfTXwQ1qwj0uL6iij/DZNM96QKkQdYUlN62lv5p
+         xF78aSCnP9k0WoBl7C8VLB9iw741oQC20E00PTtciKN1TTPMt9YuLYR8ri7LISuogMvj
+         Wc2RKT+q0QcgjCY0JOJg5OL6chg73PsVbvdmHS9qxf4o9hr3dPCrHGdMA1NxwS9mvonG
+         luRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702894253; x=1703499053;
+        d=1e100.net; s=20230601; t=1702894340; x=1703499140;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HxjJnl32ZClJfNFczB7mo7VhiixqzK9x9AgIPcO6AGQ=;
-        b=fa/UMW395LBA+f7Zo1x5o5Q1TNmLrqpiZbuEnb2g/+btsfFC4jRVcM1n352/0ikfVi
-         rwflSiXxGduOpNGmsx0AOhe9gkcZwnf8X93MnUEzF6k3N5uKNK/qE3HxgUK7wfFcrnAe
-         rAhUtman2NauDWLfj1/rRRUSP8tx4mnO/jnN+ENum+/BV22YDbEcF9aRFxAvXlDl2K5M
-         WJyPt+vK7GDpdRunDBDfffHXutKqO5zkLAfxkdxOcaoYp4rb+3pulfdqUhwEJjDJY70Y
-         7+q7WjCarUUuIr1TK1J2WF6h6ZWPloLbyH/IV4iq/T7Mkbd4BpProPN7jkDJB8JbuBM4
-         q87g==
-X-Gm-Message-State: AOJu0YxTNMtStr2nhvvETsMOx/OmY7YwNwy/zxttQblMRTzAgzShfK99
-	idGKfonl56jb793pDAnAGjdR
-X-Google-Smtp-Source: AGHT+IHoUVD44ERA8at3G/zI17Qf5OnO8UWvxuCGRjGiy+sTgtftEVUmIBHwfN+5IELQnttfNcVSlQ==
-X-Received: by 2002:a05:6000:1863:b0:336:60ea:319d with SMTP id d3-20020a056000186300b0033660ea319dmr1542471wri.63.1702894252801;
-        Mon, 18 Dec 2023 02:10:52 -0800 (PST)
-Message-ID: <f53d964e-8df5-42eb-9582-41f6b8b5740a@suse.com>
-Date: Mon, 18 Dec 2023 11:10:51 +0100
+        bh=prDamPmLWsLHEbHCY7T2NRUW+DQt+u2BWyu9eE/IYRc=;
+        b=KyAh1V3kp2c4T1om5TM5nMp1lqbRE+63xHqV8dhFERbRmbeXB/plfrB599cbLZ4USj
+         +cB17TtzDYIPFq6A+luCKxtBRAxOMe3zURgIm0x8yX8EQokh4/WdiEPA+gDdYbBLMyk9
+         /xlsTurUVUstZPhwlzBIkI/mCPv13tRsndZ4n0wDb/NX8ZoMquY9mFBHqXPer9Gud0QX
+         ZHdaHhyRAQIsamNS2Uyz9uU0trafiu6BZjDcdtbg/hT53Ek56emtC4KOVmMZ+aUKP7FX
+         0y1D+IZHRDrnDPB4s1ojDQO89hR05ehsobxOWd+0/BfV8heMuQ9Sd8sp/viQZR8urFRm
+         hk1Q==
+X-Gm-Message-State: AOJu0Yw3s/SuUy0LQ7jb/bT3Dj/vbsh9mO8JPDryuc6ltgf8yVBIEy/+
+	ZnpWcBqtafgSS6vefMtjD5TJ
+X-Google-Smtp-Source: AGHT+IG/6nGLhFTel3NudfciZM6sg6LlmC1u1N8BXZoZ8KMRM7MftrMxwPSl2z0JuAKVG5zvEfXDtA==
+X-Received: by 2002:a5d:63d2:0:b0:336:5a95:8f4 with SMTP id c18-20020a5d63d2000000b003365a9508f4mr2698964wrw.37.1702894340239;
+        Mon, 18 Dec 2023 02:12:20 -0800 (PST)
+Message-ID: <ef529ee1-7ae4-4a0b-b089-e26feb3b2743@suse.com>
+Date: Mon, 18 Dec 2023 11:12:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 23/39] xen/riscv: introduce asm/guest_access.h
+Subject: Re: [PATCH v2 24/39] xen/riscv: introduce asm/irq.h
 Content-Language: en-US
 To: Oleksii <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
@@ -89,9 +89,9 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <7dda759b846003fcb453f1118cefbfd2eeb804d7.1700761381.git.oleksii.kurochko@gmail.com>
- <e08e2f49-5ed5-40ec-8db4-e2dd597c8046@suse.com>
- <406a8425dc711725d3575b4c06d7bcaaff05992b.camel@gmail.com>
+ <e9fc98cad562dad495ac1eb87b98be77cda72524.1700761381.git.oleksii.kurochko@gmail.com>
+ <479cd511-c01b-4460-bafc-2d3943956914@suse.com>
+ <d50405f2181396931941874f24c5018800cc5b44.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,39 +116,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <406a8425dc711725d3575b4c06d7bcaaff05992b.camel@gmail.com>
+In-Reply-To: <d50405f2181396931941874f24c5018800cc5b44.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18.12.2023 11:02, Oleksii wrote:
-> On Thu, 2023-12-14 at 15:06 +0100, Jan Beulich wrote:
+On 18.12.2023 11:04, Oleksii wrote:
+> On Thu, 2023-12-14 at 15:09 +0100, Jan Beulich wrote:
 >> On 24.11.2023 11:30, Oleksii Kurochko wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/include/asm/guest_access.h
->>> @@ -0,0 +1,29 @@
->>> +#ifndef __ASM_RISCV_GUEST_ACCESS_H__
->>> +#define __ASM_RISCV_GUEST_ACCESS_H__
->>> +
->>> +#include <xen/types.h>
->>> +
->>> +unsigned long raw_copy_to_guest(void *to, const void *from,
->>> unsigned len);
->>> +unsigned long raw_copy_from_guest(void *to, const void *from,
->>> unsigned len);
+>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>> ---
+>>> Changes in V2:
+>>> 	- add ifdef CONFIG_HAS_DEVICE_TREE for things that
+>>> shouldn't be
+>>>       in case !CONFIG_HAS_DEVICE_TREE
 >>
->> For the full build to work, you will need to implement these
->> somewhere.
->> From the titles of further patches I can't guess where that would be.
->> Note how PPC has decided to have these be inline dummies for the time
->> being. It also looks as if you would also need raw_clear_guest()?
-> It is implemented in xen/arch/riscv/stubs.c:362,367.
+>> Is there going to be a RISC-V build without this enabled (selected)?
+>> If
+>> not, I'd recommend against such pointless #ifdef-ary.
+> For this stage (Xen RISC-V full build), CONFIG_HAS_DEVICE_TREE will not
+> be selected, but it will be in the near future.
 
-Ah, that's patch 37, which I didn't get to yet.
+And from then on it'll always be selected, or only conditionally? In the
+former case it would still feel odd if #ifdef-s were introduced.
 
 Jan
-
-> Regarding raw_clear_guest() I'll double check. I don't have a
-> compilation issue with it, so I ignored this macros.
-
-
 
