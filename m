@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2DAF817711
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 17:12:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656217.1024302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92A6C817731
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Dec 2023 17:15:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656223.1024313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFGDr-0002rI-OY; Mon, 18 Dec 2023 16:12:03 +0000
+	id 1rFGHO-0004NY-8x; Mon, 18 Dec 2023 16:15:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656217.1024302; Mon, 18 Dec 2023 16:12:03 +0000
+Received: by outflank-mailman (output) from mailman id 656223.1024313; Mon, 18 Dec 2023 16:15:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFGDr-0002pc-LO; Mon, 18 Dec 2023 16:12:03 +0000
-Received: by outflank-mailman (input) for mailman id 656217;
- Mon, 18 Dec 2023 16:12:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rFGHO-0004Kh-48; Mon, 18 Dec 2023 16:15:42 +0000
+Received: by outflank-mailman (input) for mailman id 656223;
+ Mon, 18 Dec 2023 16:15:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=h3b+=H5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFGDq-0002pP-92
- for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 16:12:02 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2c7f89d5-9dc0-11ee-9b0f-b553b5be7939;
- Mon, 18 Dec 2023 17:12:00 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40c48d7a7a7so32237125e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 08:12:00 -0800 (PST)
+ id 1rFGHM-0004Kb-9r
+ for xen-devel@lists.xenproject.org; Mon, 18 Dec 2023 16:15:40 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aedfad7a-9dc0-11ee-98eb-6d05b1d4d9a1;
+ Mon, 18 Dec 2023 17:15:39 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-33668163949so1196643f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 Dec 2023 08:15:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l15-20020a05600c1d0f00b003feae747ff2sm45417784wms.35.2023.12.18.08.11.59
+ j17-20020a05600c1c1100b0040b48690c49sm43110390wms.6.2023.12.18.08.15.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 Dec 2023 08:11:59 -0800 (PST)
+ Mon, 18 Dec 2023 08:15:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c7f89d5-9dc0-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: aedfad7a-9dc0-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702915920; x=1703520720; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702916138; x=1703520938; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=shGVjf43tMOH73NeyaHX2b3j/JcOM4HvLfHH0Zbub5s=;
-        b=WoA9PYxUOR/l0TClR4DU01JwxNlshTDBbgc1FfIFOfpcMY3lJhaKfHXUgO//vZbPAm
-         Xlv1nx5rJBnapb/7BxTQjk5CDe2HJrKyFJQYp09zOxdOr4QEEe7SnRTGdVoWJ++gy/h/
-         +UWfChpKbdJx32vWN1ESjDPW528S0jFO5kVI1Hbip6leWDxZvznl3G8mcW5rH6zuq4T3
-         9rnlCiXC6h1Q2D69qC3E85Z6BJQm/jiUXXR4sdYdFy+WpBAf+OqHaDpXBcNfq+43eV5f
-         mUYUcrFAEuvIeadaWQb05DOcG5190iqgWK2fyXafgHwSYoETWM2wjR0B0t0muXdpO419
-         FyHA==
+        bh=YYUWCSAxZvREm2wsIVb0uzxLc9FlZQTameWd5CdpK8M=;
+        b=B6W2Fn4Hj9ZAnCbt3838xeZVx1Aw/FSd0R2vWwaLn+kgNI2ReKDcWkGRKatFqYZotj
+         1VYYFdPgyrSFJ3hHC+2Hs7HmYM6QFccVbPy6tCS4eC1zF9aHqUsI49fqJ9F05ScXlwiY
+         WmjPgX0/1fxJLKxP3WY0R2nkg9tFUkovBdcgjvsA0RW0/h3AYs/IzDQDCkvSYVHobGbG
+         GPIm4lNeqV2kt1FtoOvJpGwSSdAVijBrwWqMM0g7d5gdvX5wr9fPxfYngWHo7ehWVxfg
+         XN+7MtV7gR7BP/gvkpwpVwKau517fvxVuXM+gpHQBOM8iaBO3PaFn3gHBuswAzikpTUi
+         ZI1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702915920; x=1703520720;
+        d=1e100.net; s=20230601; t=1702916138; x=1703520938;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=shGVjf43tMOH73NeyaHX2b3j/JcOM4HvLfHH0Zbub5s=;
-        b=dMFYSPrGbKOSRMjWJA/kc/2zHiD2ukL5/Qt7zPMgN3Plj3FRmEn4UGvX6VsSQ3pdX8
-         dlMEsBCcq4fN0WOFW6+BcWK5XzPpHHieccU60h4EB+WTVrAWvjB/f+2gQu4fd1ebgm4O
-         rAHDa9+FBVcGoK4lYtxpK3LNQVXhT9+fzkXvhrvoB6QiEDm15xiIqv6Pl8/RYG8wW4iK
-         eZC+Cb+09WOlERha2oXDoqPiKHoHtYBEKdzkkxaR9G/chS++fskb8E2Cmxn9zyizTdwv
-         AA0ePn3lTu18xoqdz0XPC74LlQ1uejUhsKF05tPNirxpGYSU4vY4/fbPlv8axWgVbFao
-         hibQ==
-X-Gm-Message-State: AOJu0YzvLPP3/A34N87uHL80awH7cVWCf68DZbH880Ttv/gwwb1ZuwNr
-	CoaevmYcBB0sV30d4NWMA2Kf
-X-Google-Smtp-Source: AGHT+IEP3Ta/JZi0q9mB+NtoZBEpKWXWOpj3lGoXT9G8Rc7gku3gvnbpaeJDiGCW0CknACLHw4SbCg==
-X-Received: by 2002:a7b:cb95:0:b0:40c:1946:be03 with SMTP id m21-20020a7bcb95000000b0040c1946be03mr9348616wmi.111.1702915919701;
-        Mon, 18 Dec 2023 08:11:59 -0800 (PST)
-Message-ID: <f7217f06-05e0-4091-8b9a-ee33adad69ff@suse.com>
-Date: Mon, 18 Dec 2023 17:11:58 +0100
+        bh=YYUWCSAxZvREm2wsIVb0uzxLc9FlZQTameWd5CdpK8M=;
+        b=MTiFm68pbH3GZfYABU0nU8KWheJp3xOnSN6Mphdn6AXY8Wv/KCHOCIk2oMJ/+4zjm5
+         UoL3+GFjf5HbbY849lL6YyCoamhxBRT6XcFpNSlH6Y+ukLOXJ6HaFjSHZVs3oTfx4e5l
+         787xiaB1N1+lDuMi36BHrKaIVRx92yp5GHplClkeQgF+gdh4xrC409myXN1HTkXmtdRc
+         1F1HSIXFSICkJ5iRXCPLNH/rKPrllRwXWKh9NV8/9lsDHQIuqnpy/zgVK1Yws+0vNPq4
+         e88oYZZbc7Xbggh+rX5qMUBFrOgofjDY/GlDuWcrDnNv9n9VkOhKomhEYpxhWOWQ21sc
+         PAiQ==
+X-Gm-Message-State: AOJu0YzwZRXtOHzez6MxzzMEZo8xupb6s3gv3DTm7Cv2eUri9ZB77KIg
+	tJTFLgPfNSLXOOnADAfNiD5W
+X-Google-Smtp-Source: AGHT+IG8RosISx48Hwr6mUxxz/sbQDi/ZkfE/9FmTO7aa3bCJAyW+fBdVHvpV9XClgxHL26uCGnCRQ==
+X-Received: by 2002:a7b:c8cf:0:b0:40c:66d6:cbcb with SMTP id f15-20020a7bc8cf000000b0040c66d6cbcbmr1764102wml.374.1702916138376;
+        Mon, 18 Dec 2023 08:15:38 -0800 (PST)
+Message-ID: <d56aa264-41f2-4cff-97dd-1a222750a389@suse.com>
+Date: Mon, 18 Dec 2023 17:15:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/4] x86: limit issuing of IBPB during context switch
+Subject: Re: [RFC PATCH v1 1/1] xen/Makefile: introduce ARCH_FIXED_CONFIG for
+ randconfig
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com>
- <29e2b527-16b8-e72d-f625-781aedf21bc4@suse.com> <ZYBi83-LWEwywUuD@macbook>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@citrix.com>
+References: <cover.1701966261.git.oleksii.kurochko@gmail.com>
+ <c95959adca794a90465abd10f579dc9159a7697f.1701966261.git.oleksii.kurochko@gmail.com>
+ <f9ceb8f7-a664-452b-8b38-f74b36386e33@citrix.com>
+ <7ec81395-298d-4d50-89af-d54f756ef657@suse.com>
+ <95d3e8e9-66d3-4097-b2ed-c808369a08ac@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,77 +117,71 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZYBi83-LWEwywUuD@macbook>
+In-Reply-To: <95d3e8e9-66d3-4097-b2ed-c808369a08ac@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 18.12.2023 16:19, Roger Pau Monné wrote:
-> On Tue, Feb 14, 2023 at 05:11:40PM +0100, Jan Beulich wrote:
->> --- a/xen/arch/x86/domain.c
->> +++ b/xen/arch/x86/domain.c
->> @@ -2005,17 +2005,26 @@ void context_switch(struct vcpu *prev, s
->>      }
->>      else
->>      {
->> +        unsigned int feat_sc_rsb = X86_FEATURE_SC_RSB_HVM;
->> +
->>          __context_switch();
->>  
->>          /* Re-enable interrupts before restoring state which may fault. */
->>          local_irq_enable();
->>  
->>          if ( is_pv_domain(nextd) )
->> +        {
->>              load_segments(next);
->>  
->> +            feat_sc_rsb = X86_FEATURE_SC_RSB_PV;
->> +        }
->> +
->>          ctxt_switch_levelling(next);
->>  
->> -        if ( opt_ibpb_ctxt_switch && !is_idle_domain(nextd) )
->> +        if ( opt_ibpb_ctxt_switch && !is_idle_domain(nextd) &&
->> +             (!(prevd->arch.spec_ctrl_flags & SCF_entry_ibpb) ||
->> +              /* is_idle_domain(prevd) || */
+On 18.12.2023 17:07, Andrew Cooper wrote:
+> On 11/12/2023 3:56 pm, Jan Beulich wrote:
+>> On 07.12.2023 21:17, Andrew Cooper wrote:
+>>> On 07/12/2023 5:03 pm, Oleksii Kurochko wrote:
+>>>> ARCH_FIXED_CONFIG is required in the case of randconfig
+>>>> and CI for configs that aren't ready or are not
+>>>> supposed to be implemented for specific architecture.
+>>>> These configs should always be disabled to prevent randconfig
+>>>> related tests from failing.
+>>>>
+>>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>> ---
+>>>>  xen/Makefile | 5 ++++-
+>>>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/xen/Makefile b/xen/Makefile
+>>>> index ca571103c8..8ae8fe1480 100644
+>>>> --- a/xen/Makefile
+>>>> +++ b/xen/Makefile
+>>>> @@ -336,11 +336,14 @@ ifeq ($(config-build),y)
+>>>>  # *config targets only - make sure prerequisites are updated, and descend
+>>>>  # in tools/kconfig to make the *config target
+>>>>  
+>>>> +ARCH_FORCED_CONFIG := $(srctree)/arch/$(SRCARCH)/configs/randomforced.config
+>>>> +
+>>>>  # Create a file for KCONFIG_ALLCONFIG which depends on the environment.
+>>>>  # This will be use by kconfig targets allyesconfig/allmodconfig/allnoconfig/randconfig
+>>>>  filechk_kconfig_allconfig = \
+>>>>      $(if $(findstring n,$(XEN_HAS_CHECKPOLICY)), echo 'CONFIG_XSM_FLASK_POLICY=n';) \
+>>>> -    $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG);) \
+>>>> +    $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG); \
+>>>> +    $(if $(wildcard $(ARCH_FORCED_CONFIG)), cat $(ARCH_FORCED_CONFIG);) ) \
+>>>>      :
+>>>>  
+>>>>  .allconfig.tmp: FORCE
+>>> We already have infrastructure for this.  What's wrong with
+>>> EXTRA_FIXED_RANDCONFIG?
+>> What I don't understand here is why dealing with the issue would want
+>> limiting to gitlab-CI. Anyone could run randconfig on their own, and
+>> imo it would be helpful if the same issue(s) could be prevented there,
+>> too. Hence my earlier suggestion to have a snippet which can be used
+>> by "interested" parties. And once dealt with in e.g. the makefile
+>> there should not be a need for any overrides in the CI config anymore.
 > 
-> I would rather add a comment to note that the idle domain always has
-> SCF_entry_ibpb clear, rather than leaving this commented check in the
-> condition.
+> This is trying to find a solution to a problem which doesn't exist.
 > 
->> +              !boot_cpu_has(feat_sc_rsb)) )
+> RISC-V and PPC are experimental in Xen.  Noone else is going to come and
+> randconfig them until they're rather more production ready, and a
+> prerequisite of that is removing this list of exclusions.
+> 
+> Until you can actually find an interested party to comment, I think this
+> is just churn for no useful improvement.  If nothing else, calling it
+> randomforced.config isn't appropriate given the explanation of what this
+> target is used for...
 
-Oh, for completeness: For v5 I have this
-
-@@ -2092,17 +2092,26 @@ void context_switch(struct vcpu *prev, s
-     }
-     else
-     {
-+        unsigned int feat_sc_rsb = X86_FEATURE_SC_RSB_HVM;
-+
-         __context_switch();
- 
-         /* Re-enable interrupts before restoring state which may fault. */
-         local_irq_enable();
- 
-         if ( is_pv_domain(nextd) )
-+        {
-             load_segments(next);
- 
-+            feat_sc_rsb = X86_FEATURE_SC_RSB_PV;
-+        }
-+
-         ctxt_switch_levelling(next);
- 
--        if ( opt_ibpb_ctxt_switch && !is_idle_domain(nextd) )
-+        if ( opt_ibpb_ctxt_switch && !is_idle_domain(nextd) &&
-+             (!(prevd->arch.spec_ctrl_flags & SCF_entry_ibpb) ||
-+              /* is_idle_domain(prevd) || */
-+              (!cpu_has_auto_ibrs && !boot_cpu_has(feat_sc_rsb))) )
-         {
-             static DEFINE_PER_CPU(unsigned int, last);
-             unsigned int *last_id = &this_cpu(last);
-
-i.e. with the cpu_has_auto_ibrs check added.
+"random" in the name can't possibly be right anyway. Such collection of
+fixed settings would also be relevant to e.g. all{yes,no}config. Yet
+that's still not the same as any kind of "default" config, which the
+two architectures presently kind of abuse for the purpose of defining
+required-fixed settings.
 
 Jan
+
 
