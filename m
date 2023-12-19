@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC32B81871E
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 13:11:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656757.1025174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DBB5818749
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 13:21:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656763.1025184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFYwZ-0002AT-HS; Tue, 19 Dec 2023 12:11:27 +0000
+	id 1rFZ5P-0004ig-6a; Tue, 19 Dec 2023 12:20:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656757.1025174; Tue, 19 Dec 2023 12:11:27 +0000
+Received: by outflank-mailman (output) from mailman id 656763.1025184; Tue, 19 Dec 2023 12:20:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFYwZ-00027M-Ec; Tue, 19 Dec 2023 12:11:27 +0000
-Received: by outflank-mailman (input) for mailman id 656757;
- Tue, 19 Dec 2023 12:11:26 +0000
+	id 1rFZ5P-0004gr-3V; Tue, 19 Dec 2023 12:20:35 +0000
+Received: by outflank-mailman (input) for mailman id 656763;
+ Tue, 19 Dec 2023 12:20:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Dspo=H6=redhat.com=kwolf@srs-se1.protection.inumbo.net>)
- id 1rFYwY-00027E-9H
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 12:11:26 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=16KD=H6=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
+ id 1rFZ5N-0004gl-3h
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 12:20:33 +0000
+Received: from mail-io1-xd2d.google.com (mail-io1-xd2d.google.com
+ [2607:f8b0:4864:20::d2d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b8e410be-9e67-11ee-9b0f-b553b5be7939;
- Tue, 19 Dec 2023 13:11:22 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-10-ToXj3wYvNs6LWgQVbZTQgw-1; Tue, 19 Dec 2023 07:11:17 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB07485A58C;
- Tue, 19 Dec 2023 12:11:16 +0000 (UTC)
-Received: from redhat.com (unknown [10.39.194.175])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A9161C060AF;
- Tue, 19 Dec 2023 12:11:11 +0000 (UTC)
+ id ff95efef-9e68-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 13:20:30 +0100 (CET)
+Received: by mail-io1-xd2d.google.com with SMTP id
+ ca18e2360f4ac-7b7f93eb935so6894039f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 04:20:30 -0800 (PST)
+Received: from [157.82.205.15] ([157.82.205.15])
+ by smtp.gmail.com with ESMTPSA id
+ b31-20020a631b5f000000b005bdf59618f9sm19014375pgm.69.2023.12.19.04.20.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Dec 2023 04:20:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,83 +45,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8e410be-9e67-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1702987881;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uFGTvwjTibbXIkFU0K/fvsttgEJQFViTyB28RDyjN+I=;
-	b=PG69qkEfGT/wGtimPGowunTaS9dvqwGB7de2NyE++1Jk1e2hzMsWCo3/7ILduDUBaaM124
-	VfU6G0gJPH/WdV8mwNSXsWVKp7Ze2IJBvL9mxmCIFclvkv8d6gaGqNkcP4OdsFgI0xc8dC
-	fh85KslCgzXUVaxI29nAjK/HdyVn3yc=
-X-MC-Unique: ToXj3wYvNs6LWgQVbZTQgw-1
-Date: Tue, 19 Dec 2023 13:11:10 +0100
-From: Kevin Wolf <kwolf@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
-	Cleber Rosa <crosa@redhat.com>,
-	Xie Changlong <xiechanglong.d@gmail.com>,
-	Paul Durrant <paul@xen.org>, Ari Sundholm <ari@tuxera.com>,
-	Jason Wang <jasowang@redhat.com>, Eric Blake <eblake@redhat.com>,
-	John Snow <jsnow@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
-	Wen Congyang <wencongyang2@huawei.com>,
-	Alberto Garcia <berto@igalia.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
-	Juan Quintela <quintela@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, Coiby Xu <Coiby.Xu@gmail.com>,
-	Fabiano Rosas <farosas@suse.de>, Hanna Reitz <hreitz@redhat.com>,
-	Zhang Chen <chen.zhang@intel.com>,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
-	Peter Xu <peterx@redhat.com>,
-	Emanuele Giuseppe Esposito <eesposit@redhat.com>,
-	Fam Zheng <fam@euphon.net>, Leonardo Bras <leobras@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Li Zhijian <lizhijian@fujitsu.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 14/14] block: remove outdated AioContext locking
- comments
-Message-ID: <ZYGIXhUVKjSqDeZT@redhat.com>
-References: <20231205182011.1976568-1-stefanha@redhat.com>
- <20231205182011.1976568-15-stefanha@redhat.com>
+X-Inumbo-ID: ff95efef-9e68-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1702988429; x=1703593229; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wQA0RlwSqqyN9Wcw543mwNNgu5OHdx84OKgHRedGrS8=;
+        b=zqK/lBI0KgkiafLqyR/09cKqkMQb7xP65rEv5wpGHIlxTk2xqHPa+ZTdsZ+2B39Eze
+         DHD09JBZ2FjhC1NXRRaqrN0OB9S6q1RLBiH34ZPQd2qvPTMK68IVEfFUDO3xkAZpt2Lq
+         vopUmc6MBYR19KtIbked7bbx9yR8vjqERH8diCArzKf2L+pga+yr9qmCi+sbBKeoxm51
+         MSU9/ONTZSey4jYLNki9GD6M+QlYAVoVK3A8Elz3x4qiF0zvhKLX5Nci8UARqNsuYmvA
+         Ig7AacS2PmXrR77jlIVfvXDdmeHw8CW9y8CpWMCJu/DEEDUPrxmSl0Huur85Lq4Mms06
+         gbpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702988429; x=1703593229;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wQA0RlwSqqyN9Wcw543mwNNgu5OHdx84OKgHRedGrS8=;
+        b=UpLQwW6F5niOr38xceYaHIXXcmXa2hhOfBWY1zLoLqdwqw579T66brzhAd6kXYc1DK
+         7EoFJLiDoptcspieGf0MOFFHlMRw/yh9WNhpQMT2+wWdkr+Mm/gIbE3e5pZ/bRQ7U9z7
+         9gw6IMdflp0TezdXrAJGdCzYiCCVzq1sgalWiYkL14mCyqnTR6LX+RuolC8Ti8CHQqUS
+         5KjYlCaTb4EEqqjQTk+ox8m3rlggPbGYHl61lergAiMINqOoKhsmu5irNi0kAwsNLXE0
+         fhoyV6uPQ53sqkySh8OefgJ2uXZkOqbePyQh1ndtfzXqMkP7FodiEXK7NcuaNWtvUchT
+         cCeQ==
+X-Gm-Message-State: AOJu0YxDLGeBGtHeOJpFnCcQsOc0pJgzEO2srIyKaDOROIFLxEpF8NgT
+	D3mow0MRHj66CHNCowqdt9jePg==
+X-Google-Smtp-Source: AGHT+IFKfEaAOkSPqk6IsZ6SDxRqyf21egeIRYzz8LW68SmNcxq3Kf4hF2brQKO78npgJtIpDnKX/Q==
+X-Received: by 2002:a6b:6105:0:b0:7b6:fc48:46d1 with SMTP id v5-20020a6b6105000000b007b6fc4846d1mr21755028iob.12.1702988429230;
+        Tue, 19 Dec 2023 04:20:29 -0800 (PST)
+Message-ID: <6adff6d2-7c58-4c78-93a5-5a4594a60d27@daynix.com>
+Date: Tue, 19 Dec 2023 21:20:22 +0900
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231205182011.1976568-15-stefanha@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 01/11] linux-headers: Update to kernel headers to add
+ venus capset
+Content-Language: en-US
+To: Huang Rui <ray.huang@amd.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <quic_acaggian@quicinc.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>, ernunes@redhat.com,
+ Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>
+References: <20231219075320.165227-1-ray.huang@amd.com>
+ <20231219075320.165227-2-ray.huang@amd.com>
+From: Akihiko Odaki <akihiko.odaki@daynix.com>
+In-Reply-To: <20231219075320.165227-2-ray.huang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Am 05.12.2023 um 19:20 hat Stefan Hajnoczi geschrieben:
-> The AioContext lock no longer exists.
-> 
-> There is one noteworthy change:
-> 
->   - * More specifically, these functions use BDRV_POLL_WHILE(bs), which
->   - * requires the caller to be either in the main thread and hold
->   - * the BlockdriverState (bs) AioContext lock, or directly in the
->   - * home thread that runs the bs AioContext. Calling them from
->   - * another thread in another AioContext would cause deadlocks.
->   + * More specifically, these functions use BDRV_POLL_WHILE(bs), which requires
->   + * the caller to be either in the main thread or directly in the home thread
->   + * that runs the bs AioContext. Calling them from another thread in another
->   + * AioContext would cause deadlocks.
-> 
-> I am not sure whether deadlocks are still possible. Maybe they have just
-> moved to the fine-grained locks that have replaced the AioContext. Since
-> I am not sure if the deadlocks are gone, I have kept the substance
-> unchanged and just removed mention of the AioContext.
-> 
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> Reviewed-by: Eric Blake <eblake@redhat.com>
+On 2023/12/19 16:53, Huang Rui wrote:
+> Sync up kernel headers to update venus macro till they are merged into
+> mainline.
 
-I think the deadlock the comment refers to is that AIO_WAIT_WHILE() sits
-in a blocking aio_poll() and nobody wakes it up because aio_wait_kick()
-only wakes up the main thread. This deadlock still exists after removing
-the AioContext lock, so the comment after your change looks right to me.
+Thanks for sorting things out with the kernel and spec.
 
-Reviewed-by: Kevin Wolf <kwolf@redhat.com>
-
+> 
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> ---
+> 
+> Changes in v6:
+> - Venus capset is applied in kernel, so update it in qemu for future use.
+> 
+> https://lore.kernel.org/lkml/b79dcf75-c9e8-490e-644f-3b97d95f7397@collabora.com/
+> https://cgit.freedesktop.org/drm-misc/commit/?id=216d86b9a430f3280e5b631c51e6fd1a7774cfa0
+Please include the link to the upstream commit in the commit message.
 
