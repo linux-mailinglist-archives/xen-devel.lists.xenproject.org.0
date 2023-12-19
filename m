@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E63AD817F67
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 02:44:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656470.1024655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03505817F74
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 02:49:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656474.1024666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFP9K-0001DY-Vn; Tue, 19 Dec 2023 01:43:58 +0000
+	id 1rFPEA-00021s-Ip; Tue, 19 Dec 2023 01:48:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656470.1024655; Tue, 19 Dec 2023 01:43:58 +0000
+Received: by outflank-mailman (output) from mailman id 656474.1024666; Tue, 19 Dec 2023 01:48:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFP9K-0001Ba-TA; Tue, 19 Dec 2023 01:43:58 +0000
-Received: by outflank-mailman (input) for mailman id 656470;
- Tue, 19 Dec 2023 01:43:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rFPEA-0001zn-Fc; Tue, 19 Dec 2023 01:48:58 +0000
+Received: by outflank-mailman (input) for mailman id 656474;
+ Tue, 19 Dec 2023 01:48:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ry3N=H6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rFP9J-0000Vo-9U
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 01:43:57 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 122bcfa6-9e10-11ee-9b0f-b553b5be7939;
- Tue, 19 Dec 2023 02:43:55 +0100 (CET)
+ id 1rFPE9-0001zh-O5
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 01:48:57 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c4dd252c-9e10-11ee-98eb-6d05b1d4d9a1;
+ Tue, 19 Dec 2023 02:48:56 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 3469CB81205;
- Tue, 19 Dec 2023 01:43:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCDFFC433C7;
- Tue, 19 Dec 2023 01:43:53 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTP id D1A47611E3;
+ Tue, 19 Dec 2023 01:48:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA2E4C433C7;
+ Tue, 19 Dec 2023 01:48:52 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,63 +41,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 122bcfa6-9e10-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: c4dd252c-9e10-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702950234;
-	bh=oWiM59z27pgbt0dbNzQrpyziAjjCdM8kfodYqoPeZJU=;
+	s=k20201202; t=1702950534;
+	bh=f3H2YPGB4mkSnGr6Two/tlsKnnMGlZ1oySH+a1+wNLo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DXxCuKkPYdUCRYon2hdzyzP8SQ6VnURFp6rJHhTpLZbz4MsI8c0wcvODOm3YG9syM
-	 GWMOc+ss8G+ecmsmp1pIqKcDYA3ICqJO1z+9FzbFXfGqe67PmH4TcutdEh0WSNn2bj
-	 3kyIxqKYxKW5w/h8+oLmSolTnw8lWqifL7+WmEyYuKNY+U3EMWlOWk6Q+JVqIsYP6S
-	 eMxEOwr5am+Uim1zeiVxeonasIFSRriVvK885YkcIb7bHms1OAjvxNZhOWYWtE5y6U
-	 3WpzXhyO4cF0cBuicDunuT11gE+CToUmfal9aX5fjB0y1JibTdsw4d0yV6hQiBwP13
-	 toN0M3BxpRyzw==
-Date: Mon, 18 Dec 2023 17:43:52 -0800 (PST)
+	b=dmT/tFuzsOnL5CRGA9atylKG60YzCnFqd+0JiIjZJ33aHtp8vUwQtfnzIqGUpP32M
+	 sBJyB03wR8cOjowuuu4jDPvsr++IsljQz8P81rEQJxdcgRh7qJle5DuznYI6oOeVXq
+	 tPmtmSdeLiLAHtWKmXtuAnRds+4JtDJQrRbJobeEsy0t5vOm1XvgdEylmwK004RMWD
+	 lWET5ct/qomVyGWDDlQIAJtCh1yzYCbWzRAqmIGfUWS9/lGso9ZZ3MWf3Gc+04H8XI
+	 XpkyPYOJduTloQZXr8mbImkRh6f35SQZdOzxnMl4OcC7XVSDQF+kjEDdAsiOVkS+lA
+	 I3ZXZt4sa6fkg==
+Date: Mon, 18 Dec 2023 17:48:51 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [XEN PATCH v2 7/7] automation/eclair_analysis: avoid violation
- of MISRA Rule 2.1
-In-Reply-To: <alpine.DEB.2.22.394.2312181739560.3175268@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2312181743250.3175268@ubuntu-linux-20-04-desktop>
-References: <cover.1702891792.git.nicola.vetrini@bugseng.com> <6bf425b3d01dc16297ef45e58c03b3ffd803b9e0.1702891792.git.nicola.vetrini@bugseng.com> <alpine.DEB.2.22.394.2312181739560.3175268@ubuntu-linux-20-04-desktop>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: Re: [XEN PATCH v2] xen: move declaration of first_valid_mfn to
+ xen/numa.h
+In-Reply-To: <ad7ee70bd00c0de4b6dad48c91281929e98ef95c.1702911455.git.nicola.vetrini@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2312181748430.3175268@ubuntu-linux-20-04-desktop>
+References: <ad7ee70bd00c0de4b6dad48c91281929e98ef95c.1702911455.git.nicola.vetrini@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 18 Dec 2023, Stefano Stabellini wrote:
-> On Mon, 18 Dec 2023, Nicola Vetrini wrote:
-> > The presence of an unlinked object file triggers a violation
-> > of MISRA C Rule 2.1, which is deviated, as it's not part of
-> > the final Xen binary.
-> > 
-> > No functional change.
-> > 
-> > Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On Mon, 18 Dec 2023, Nicola Vetrini wrote:
+> Such declaration is moved in order to provide it for Arm and PPC,
+> whilst not violating MISRA C:2012 Rule 8.4 in common/page_alloc.c:
+> "A compatible declaration shall be visible when an object or
+> function with external linkage is defined".
 > 
-> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> 
-> > ---
-> >  automation/eclair_analysis/ECLAIR/deviations.ecl | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/automation/eclair_analysis/ECLAIR/deviations.ecl b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > index 85741a2c01a9..e3de0fb2adf8 100644
-> > --- a/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > +++ b/automation/eclair_analysis/ECLAIR/deviations.ecl
-> > @@ -28,6 +28,11 @@ not executable, and therefore it is safe for them to be unreachable."
-> >  -config=MC3R1.R2.1,ignored_stmts+={"any()", "pure_decl()"}
-> >  -doc_end
-> >  
-> > ++-doc_begin="The following autogenerated file is not linked deliberately."
-> > ++-file_tag+={C_runtime_failures,"^automation/eclair_analysis/C-runtime-failures\\.rst\\.c$"}
-> > ++-config=MC3R1.R2.1,reports+={deliberate, "any_area(any_loc(file(C_runtime_failures)))"}
-> > ++-doc_end
+> Signed-off-by: Julien Grall <julien@xen.org>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Would it make sense to add it to exclude-list instead?
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+> Changes in v2:
+> This patch is a rework of a previous one appeared in this series [1], of which
+> patches 1 and 2 have been committed already.
+> 
+> The updated patch was provided by Julien in this thread [2]. I added the commit
+> message and the rest of the information.
+> 
+> [1] https://lore.kernel.org/xen-devel/cover.1702285639.git.nicola.vetrini@bugseng.com/T/#mee6def855787d932fe2f10d5648d437dcb6f046c
+> [2] https://lore.kernel.org/xen-devel/cover.1702285639.git.nicola.vetrini@bugseng.com/T/#m3c5b141b806530b5920bb5e9dd53631195560317
+> ---
+>  xen/arch/arm/include/asm/numa.h | 6 ------
+>  xen/arch/ppc/include/asm/numa.h | 6 ------
+>  xen/common/page_alloc.c         | 6 ++++--
+>  xen/include/xen/numa.h          | 2 ++
+>  4 files changed, 6 insertions(+), 14 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/numa.h b/xen/arch/arm/include/asm/numa.h
+> index e2bee2bd8223..a2c1da4a82f7 100644
+> --- a/xen/arch/arm/include/asm/numa.h
+> +++ b/xen/arch/arm/include/asm/numa.h
+> @@ -11,12 +11,6 @@ typedef u8 nodeid_t;
+>  #define cpu_to_node(cpu) 0
+>  #define node_to_cpumask(node)   (cpu_online_map)
+>  
+> -/*
+> - * TODO: make first_valid_mfn static when NUMA is supported on Arm, this
+> - * is required because the dummy helpers are using it.
+> - */
+> -extern mfn_t first_valid_mfn;
+> -
+>  /* XXX: implement NUMA support */
+>  #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
+>  #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+> diff --git a/xen/arch/ppc/include/asm/numa.h b/xen/arch/ppc/include/asm/numa.h
+> index 7fdf66c3da74..204180ad5b98 100644
+> --- a/xen/arch/ppc/include/asm/numa.h
+> +++ b/xen/arch/ppc/include/asm/numa.h
+> @@ -10,12 +10,6 @@ typedef uint8_t nodeid_t;
+>  #define cpu_to_node(cpu) 0
+>  #define node_to_cpumask(node)   (cpu_online_map)
+>  
+> -/*
+> - * TODO: make first_valid_mfn static when NUMA is supported on PPC, this
+> - * is required because the dummy helpers are using it.
+> - */
+> -extern mfn_t first_valid_mfn;
+> -
+>  /* XXX: implement NUMA support */
+>  #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
+>  #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 9b5df74fddab..d874525916ea 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -255,8 +255,10 @@ static PAGE_LIST_HEAD(page_broken_list);
+>   */
+>  
+>  /*
+> - * first_valid_mfn is exported because it is use in ARM specific NUMA
+> - * helpers. See comment in arch/arm/include/asm/numa.h.
+> + * first_valid_mfn is exported because it is used when !CONFIG_NUMA.
+> + *
+> + * TODO: Consider if we can conditionally export first_valid_mfn based
+> + * on whether NUMA is selected.
+>   */
+>  mfn_t first_valid_mfn = INVALID_MFN_INITIALIZER;
+>  
+> diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
+> index 287e81ff6666..a10d4b1778a0 100644
+> --- a/xen/include/xen/numa.h
+> +++ b/xen/include/xen/numa.h
+> @@ -108,6 +108,8 @@ extern void numa_set_processor_nodes_parsed(nodeid_t node);
+>  
+>  #else
+>  
+> +extern mfn_t first_valid_mfn;
+> +
+>  static inline nodeid_t mfn_to_nid(mfn_t mfn)
+>  {
+>      return 0;
+> -- 
+> 2.34.1
+> 
 
