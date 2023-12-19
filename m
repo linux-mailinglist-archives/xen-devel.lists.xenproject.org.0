@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5073818637
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 12:20:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656711.1025093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DCC281863F
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 12:22:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656713.1025104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFY8m-000291-FO; Tue, 19 Dec 2023 11:20:00 +0000
+	id 1rFYAe-0003mU-R5; Tue, 19 Dec 2023 11:21:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656711.1025093; Tue, 19 Dec 2023 11:20:00 +0000
+Received: by outflank-mailman (output) from mailman id 656713.1025104; Tue, 19 Dec 2023 11:21:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFY8m-00026T-Cm; Tue, 19 Dec 2023 11:20:00 +0000
-Received: by outflank-mailman (input) for mailman id 656711;
- Tue, 19 Dec 2023 11:19:59 +0000
+	id 1rFYAe-0003kP-Ny; Tue, 19 Dec 2023 11:21:56 +0000
+Received: by outflank-mailman (input) for mailman id 656713;
+ Tue, 19 Dec 2023 11:21:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFY8l-000258-4d
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 11:19:59 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1rFYAd-0003kI-K8
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 11:21:55 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8aa04c7c-9e60-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 12:19:57 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40c3fe6c08fso50811365e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 03:19:58 -0800 (PST)
+ id d069affd-9e60-11ee-98eb-6d05b1d4d9a1;
+ Tue, 19 Dec 2023 12:21:54 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40c580ba223so55517305e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 03:21:55 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d14-20020a05600c34ce00b0040c6b667ce3sm2421164wmq.1.2023.12.19.03.19.56
+ v4-20020a05600c470400b0040b37f107c4sm2379432wmo.16.2023.12.19.03.21.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 03:19:57 -0800 (PST)
+ Tue, 19 Dec 2023 03:21:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8aa04c7c-9e60-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: d069affd-9e60-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702984797; x=1703589597; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=l+TBfPNEvQr569JsrAXlagEv7wqY4vXl9AQjzAh+6Bs=;
-        b=SqK0v3tgeYJlyVSqmpB2ELRt1YLMJF9pqSUgy8qqCC/j3l8emHBCZs1+z5B0b+1nsS
-         AET/QNCyZewy67X6/Ue0mJweIuGm9d/lGefeh+vzJgoZa3ybRa6cuJEpO+LcqtF6XtvX
-         6CdK16Okbm1f/RjKtjkQeEoP679LyN8Wwb0KxTNQ0c2wzGI6M+kYzva4n3AoXSciszUX
-         9pVz4UEtxpvbH4DdVy9qqQM/uWTbYZ2dQvgU/mRjW2CuL90YCaa6U9XJGyPTlNqduG6e
-         QJQHGueim0cRKsC0J3cszde/AV1WaGbmIabaeAIGaDq0eAwHAQip1nwbn5cFkvP5SUXB
-         QJ7Q==
+        d=suse.com; s=google; t=1702984914; x=1703589714; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=8iDeP7+nBkAeHmXEmwC1SKL4tNpSnffZ5LhiRrqQEUo=;
+        b=dEhlPcGVMTr3wjWBtGiP47lWY6hGvJ/l4cpzmWOae+yguOzXZ3gikjryH3skw67lHu
+         tepRAXmMtPbA6FbPjVXfcHlDM/xuHCF/77et9+G43Jb76bUypKO8wWEMRe1IbRBhipsZ
+         hPYB6mYWMeEoSagx/c8AeM+RjflRSTUkMcIHAs55DHKF8HU1C7vA0OnsC+L0FdWvo6c/
+         hdLQAZ++071d1PCtGN8/xmuvE01FBAwCopaPdWe5CiMgSuiuQr/WYpOEYSicV04r7EL8
+         N/Taw/paBBlh9r+mO4Jn0bCKFh3IFbLD7ymmxnzCzg/eW/NEf7IAOlzq6FrK6mSIC8nR
+         /ccw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702984797; x=1703589597;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=l+TBfPNEvQr569JsrAXlagEv7wqY4vXl9AQjzAh+6Bs=;
-        b=lPVXQI6zdmkJbEHUASfCllabVXG8G4ZJFkPYzN+Th/5RNGn2MM1ROuWAWUO4vvpO3s
-         ffL8VS8pxuJ+revp+bbcMfcUkIoXny8t05vaOPHZgcvISEd568FeZWA+mKfuV6Uk6lp6
-         uyqIcyP3Sp+8pxJvNFCdp6mFBUPHDibsDbvYOBq2HG35dOuQIPIhSwhKJKrBzDWSympW
-         vMEYpgofApX46AzLuWPW9myubIuKtLFiYxAcB2SwKtacAVhg7Cf1m7KkQvwT6G9uHYxe
-         dJnLINdBE7cnnim+b1ZTcI/spWn9XfJHfQIhLqzTq3EP4KZnFuTe6YuB9stUuynSRlx3
-         kzUg==
-X-Gm-Message-State: AOJu0Yw7XcWTJJr4awM5IDlLVU/3Yn6xbKlZlmlbVo6/HzNtqXPFdOsw
-	7ned6UTgjA7qQojyY77RgODq9/ry3I6qPubdslJI
-X-Google-Smtp-Source: AGHT+IHYA64qaks9I+/AAoYGhrcVOS9NpRS7vyNAdLAE/OuiPI3eBzl7IIep0Pds9xFeru9DPdbSLw==
-X-Received: by 2002:a05:600c:3151:b0:40d:190c:160f with SMTP id h17-20020a05600c315100b0040d190c160fmr1002428wmo.110.1702984797431;
-        Tue, 19 Dec 2023 03:19:57 -0800 (PST)
-Message-ID: <e944cc4f-354c-4752-8794-03e6a7517372@suse.com>
-Date: Tue, 19 Dec 2023 12:19:56 +0100
+        d=1e100.net; s=20230601; t=1702984914; x=1703589714;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8iDeP7+nBkAeHmXEmwC1SKL4tNpSnffZ5LhiRrqQEUo=;
+        b=FxKRHTviUO9llp1MDX7jNuhZZjCZxCXZrzSHQzvIUpNrQcRbACYAjdW+D3hQlif/T/
+         rHw+waFtkaW6YaHfXRYfNGKugYquuhgPTZoA6pEFxotQNEstNP2EpOHokHkYHq6HeTCe
+         h+mOp7fqBKFiBbTjvXEc0BfCtBdRqRCPv6ZWOmYeGGasw6RoSzfOz2J6Kk3xxJNyKncJ
+         SjHa7PrIUUgBVX/N/OiDfB2q0hkLEY/l5xWyuIt0U9Kv6hCuqaoCs1TPvLuCgtM/tTcR
+         dN/FB9WavKE7ZCmzfgpEd7sTHSTj7K8bt3QuAOiI7RyAkUfN9Ie3gLjhAsoKPVxcTmgE
+         Uplw==
+X-Gm-Message-State: AOJu0YxiKNDxd4J7afk+eBbTsW1nov0FgXn7CxWFmxlFZUlz37b0Adh/
+	+idCzECKqj1/v/ctzwKJ9A/3EoL8YMZthyGnvP5+
+X-Google-Smtp-Source: AGHT+IGTEkYe16KgOiOHm7twoKF1IJYOJ7yup+LsqoJmx4kv02ujMM6b3otNlkkHYcXQ5HIXr1DkcQ==
+X-Received: by 2002:a05:600c:470e:b0:40c:5f0b:d638 with SMTP id v14-20020a05600c470e00b0040c5f0bd638mr5793047wmo.182.1702984914484;
+        Tue, 19 Dec 2023 03:21:54 -0800 (PST)
+Message-ID: <c12f20a3-407c-4914-b6a0-1690962fd72c@suse.com>
+Date: Tue, 19 Dec 2023 12:21:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/platform: tidy do_platform_op() a little
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>,
  Stefano Stabellini <sstabellini@kernel.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/mm: use "break" in arch_memory_op()
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,56 +113,169 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The final return statement is unreachable and hence disliked by Misra
-C:2012 (rule 2.1). Convert those case-specific (main) return statements
-which already use "rc", or in one case when it can be used without
-further adding of code, to break.
+The function has a few stray scopes and inconsistent use (indentation)
+of break statements. Drop the stray braces and bring all the break-s in
+line with one another. This in particular means dropping a redundant
+break from XENPF_cpu_offline handling, pleasing Misra C:2012 rule 2.1.
 
 No functional change intended.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
 This is an alternative proposal to
-https://lists.xen.org/archives/html/xen-devel/2023-12/msg01537.html.
-Yet another option would be to simply pull the default case out of the
-switch() statement.
+https://lists.xen.org/archives/html/xen-devel/2023-12/msg01540.html.
 
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -4724,7 +4724,7 @@ long arch_memory_op(unsigned long cmd, X
-         spin_unlock(&d->arch.e820_lock);
+A few more scopes could be eliminated if the various "cpu" variables
+were consolidated to switch() of function scope.
+
+--- a/xen/arch/x86/platform_hypercall.c
++++ b/xen/arch/x86/platform_hypercall.c
+@@ -258,7 +258,6 @@ ret_t do_platform_op(
+         break;
  
-         rcu_unlock_domain(d);
--        return rc;
-+        break;
-     }
- 
-     case XENMEM_memory_map:
-@@ -4818,7 +4818,7 @@ long arch_memory_op(unsigned long cmd, X
-         if ( __copy_to_guest(arg, &ctxt.map, 1) )
-             return -EFAULT;
- 
--        return 0;
-+        break;
-     }
- 
-     case XENMEM_machphys_mapping:
-@@ -4880,7 +4880,7 @@ long arch_memory_op(unsigned long cmd, X
+     case XENPF_add_memtype:
+-    {
+         ret = mtrr_add_page(
+             op->u.add_memtype.mfn,
+             op->u.add_memtype.nr_mfns,
+@@ -273,11 +272,9 @@ ret_t do_platform_op(
+             if ( ret != 0 )
+                 mtrr_del_page(ret, 0, 0);
          }
+-    }
+-    break;
++        break;
  
-         rcu_unlock_domain(d);
--        return rc;
+     case XENPF_del_memtype:
+-    {
+         if (op->u.del_memtype.handle == 0
+             /* mtrr/main.c otherwise does a lookup */
+             && (int)op->u.del_memtype.reg >= 0)
+@@ -288,8 +285,7 @@ ret_t do_platform_op(
+         }
+         else
+             ret = -EINVAL;
+-    }
+-    break;
++        break;
+ 
+     case XENPF_read_memtype:
+     {
+@@ -306,8 +302,8 @@ ret_t do_platform_op(
+             ret = __copy_field_to_guest(u_xenpf_op, op, u.read_memtype)
+                   ? -EFAULT : 0;
+         }
 +        break;
      }
- #endif
+-    break;
  
-@@ -4888,7 +4888,7 @@ long arch_memory_op(unsigned long cmd, X
-         return subarch_memory_op(cmd, arg);
+     case XENPF_microcode_update:
+     {
+@@ -316,8 +312,8 @@ ret_t do_platform_op(
+         guest_from_compat_handle(data, op->u.microcode.data);
+ 
+         ret = microcode_update(data, op->u.microcode.length);
++        break;
      }
+-    break;
  
--    return 0;
-+    return rc;
- }
+     case XENPF_platform_quirk:
+     {
+@@ -340,8 +336,8 @@ ret_t do_platform_op(
+             ret = -EINVAL;
+             break;
+         }
++        break;
+     }
+-    break;
  
- int cf_check mmio_ro_emulated_write(
+     case XENPF_firmware_info:
+         switch ( op->u.firmware_info.type )
+@@ -521,8 +517,8 @@ ret_t do_platform_op(
+ 
+         if ( ret == 0 && __copy_field_to_guest(u_xenpf_op, op, u.getidletime) )
+             ret = -EFAULT;
++        break;
+     }
+-    break;
+ 
+     case XENPF_set_processor_pminfo:
+         switch ( op->u.set_pminfo.type )
+@@ -601,8 +597,8 @@ ret_t do_platform_op(
+         put_cpu_maps();
+ 
+         ret = __copy_field_to_guest(u_xenpf_op, op, u.pcpu_info) ? -EFAULT : 0;
++        break;
+     }
+-    break;
+ 
+     case XENPF_get_cpu_version:
+     {
+@@ -637,8 +633,8 @@ ret_t do_platform_op(
+ 
+         if ( __copy_field_to_guest(u_xenpf_op, op, u.pcpu_version) )
+             ret = -EFAULT;
++        break;
+     }
+-    break;
+ 
+     case XENPF_get_ucode_revision:
+     {
+@@ -666,8 +662,8 @@ ret_t do_platform_op(
+ 
+         if ( __copy_field_to_guest(u_xenpf_op, op, u.ucode_revision) )
+             ret = -EFAULT;
++        break;
+     }
+-    break;
+ 
+     case XENPF_cpu_online:
+     {
+@@ -725,7 +721,6 @@ ret_t do_platform_op(
+             0, cpu_down_helper, (void *)(unsigned long)cpu);
+         break;
+     }
+-    break;
+ 
+     case XENPF_cpu_hotadd:
+         ret = xsm_resource_plug_core(XSM_HOOK);
+@@ -735,7 +730,7 @@ ret_t do_platform_op(
+         ret = cpu_add(op->u.cpu_add.apic_id,
+                       op->u.cpu_add.acpi_id,
+                       op->u.cpu_add.pxm);
+-    break;
++        break;
+ 
+     case XENPF_mem_hotadd:
+         ret = xsm_resource_plug_core(XSM_HOOK);
+@@ -775,8 +770,8 @@ ret_t do_platform_op(
+             ret = -EINVAL;
+             break;
+         }
++        break;
+     }
+-    break;
+ 
+     case XENPF_resource_op:
+     {
+@@ -842,8 +837,8 @@ ret_t do_platform_op(
+             ret = ra.nr_done;
+ 
+         xfree(ra.entries);
++        break;
+     }
+-    break;
+ 
+     case XENPF_get_symbol:
+     {
+@@ -870,8 +865,8 @@ ret_t do_platform_op(
+             ret = -EFAULT;
+         if ( !ret && __copy_field_to_guest(u_xenpf_op, op, u.symdata) )
+             ret = -EFAULT;
++        break;
+     }
+-    break;
+ 
+ #ifdef CONFIG_VIDEO
+     case XENPF_get_dom0_console:
 
