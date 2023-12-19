@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DCC281863F
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 12:22:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656713.1025104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC9DC818641
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 12:24:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656719.1025124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFYAe-0003mU-R5; Tue, 19 Dec 2023 11:21:56 +0000
+	id 1rFYCm-00054H-JB; Tue, 19 Dec 2023 11:24:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656713.1025104; Tue, 19 Dec 2023 11:21:56 +0000
+Received: by outflank-mailman (output) from mailman id 656719.1025124; Tue, 19 Dec 2023 11:24:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFYAe-0003kP-Ny; Tue, 19 Dec 2023 11:21:56 +0000
-Received: by outflank-mailman (input) for mailman id 656713;
- Tue, 19 Dec 2023 11:21:55 +0000
+	id 1rFYCm-00052O-Fd; Tue, 19 Dec 2023 11:24:08 +0000
+Received: by outflank-mailman (input) for mailman id 656719;
+ Tue, 19 Dec 2023 11:24:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFYAd-0003kI-K8
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 11:21:55 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1rFYCl-00052G-Cq
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 11:24:07 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d069affd-9e60-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 12:21:54 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-40c580ba223so55517305e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 03:21:55 -0800 (PST)
+ id 1eb749c1-9e61-11ee-98eb-6d05b1d4d9a1;
+ Tue, 19 Dec 2023 12:24:06 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3363aa2bbfbso4674080f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 03:24:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v4-20020a05600c470400b0040b37f107c4sm2379432wmo.16.2023.12.19.03.21.53
+ m16-20020a056000009000b003366811fd6bsm5223870wrx.14.2023.12.19.03.24.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 03:21:54 -0800 (PST)
+ Tue, 19 Dec 2023 03:24:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d069affd-9e60-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 1eb749c1-9e61-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702984914; x=1703589714; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=8iDeP7+nBkAeHmXEmwC1SKL4tNpSnffZ5LhiRrqQEUo=;
-        b=dEhlPcGVMTr3wjWBtGiP47lWY6hGvJ/l4cpzmWOae+yguOzXZ3gikjryH3skw67lHu
-         tepRAXmMtPbA6FbPjVXfcHlDM/xuHCF/77et9+G43Jb76bUypKO8wWEMRe1IbRBhipsZ
-         hPYB6mYWMeEoSagx/c8AeM+RjflRSTUkMcIHAs55DHKF8HU1C7vA0OnsC+L0FdWvo6c/
-         hdLQAZ++071d1PCtGN8/xmuvE01FBAwCopaPdWe5CiMgSuiuQr/WYpOEYSicV04r7EL8
-         N/Taw/paBBlh9r+mO4Jn0bCKFh3IFbLD7ymmxnzCzg/eW/NEf7IAOlzq6FrK6mSIC8nR
-         /ccw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702984914; x=1703589714;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1702985046; x=1703589846; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=8iDeP7+nBkAeHmXEmwC1SKL4tNpSnffZ5LhiRrqQEUo=;
-        b=FxKRHTviUO9llp1MDX7jNuhZZjCZxCXZrzSHQzvIUpNrQcRbACYAjdW+D3hQlif/T/
-         rHw+waFtkaW6YaHfXRYfNGKugYquuhgPTZoA6pEFxotQNEstNP2EpOHokHkYHq6HeTCe
-         h+mOp7fqBKFiBbTjvXEc0BfCtBdRqRCPv6ZWOmYeGGasw6RoSzfOz2J6Kk3xxJNyKncJ
-         SjHa7PrIUUgBVX/N/OiDfB2q0hkLEY/l5xWyuIt0U9Kv6hCuqaoCs1TPvLuCgtM/tTcR
-         dN/FB9WavKE7ZCmzfgpEd7sTHSTj7K8bt3QuAOiI7RyAkUfN9Ie3gLjhAsoKPVxcTmgE
-         Uplw==
-X-Gm-Message-State: AOJu0YxiKNDxd4J7afk+eBbTsW1nov0FgXn7CxWFmxlFZUlz37b0Adh/
-	+idCzECKqj1/v/ctzwKJ9A/3EoL8YMZthyGnvP5+
-X-Google-Smtp-Source: AGHT+IGTEkYe16KgOiOHm7twoKF1IJYOJ7yup+LsqoJmx4kv02ujMM6b3otNlkkHYcXQ5HIXr1DkcQ==
-X-Received: by 2002:a05:600c:470e:b0:40c:5f0b:d638 with SMTP id v14-20020a05600c470e00b0040c5f0bd638mr5793047wmo.182.1702984914484;
-        Tue, 19 Dec 2023 03:21:54 -0800 (PST)
-Message-ID: <c12f20a3-407c-4914-b6a0-1690962fd72c@suse.com>
-Date: Tue, 19 Dec 2023 12:21:53 +0100
+        bh=UsZeXOPv9S3nK/XDAcTKyrqtAr0C7riCX+yn9Di+91I=;
+        b=AFpDdnVS6nEbkMkrv/LGJg4BEyLkzVfVRmpwjI5/nibq+BEU73IwokyGOqiOyFAxf3
+         /CGtJeWiy0Pt24aozys7NN581l8lp22M6BNQSrY1KezQJVaEjPDUW9POseMLw4WtghAL
+         Qk/mRtrEuyPxQE9Td2P/rubiB6Hz1Ij/LfxxGRkhbelerWwiZATxgAPPqF2Xfa17CW4M
+         7b7Csvv+F17C7FKKw9FrFeIqRU/O5YGThHXt5RmevHIfRvBSZ8urSYMEZgBReT0NJld4
+         GFAv8vdZBgEWxkwa05yC92JYRL7e3F8onxMZb92dH+guD8R2j0ilA4H0UrgOUYcPVHWT
+         5vzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702985046; x=1703589846;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UsZeXOPv9S3nK/XDAcTKyrqtAr0C7riCX+yn9Di+91I=;
+        b=Gavdb2qGc9ESrnbY5iQ2V+pkrId3MN8L693qrNapXS91QTzin9iUAilCtOBpS8ZsWP
+         fHslAx6kzcUXyiGhRz6iI5u6gyNOj2oXphn34Bj7/XOExK9rdmL4I0Wgi66lejtksnTZ
+         1MKmRUZOEpAqcRRMAUOYCrIH1Ap2l3VWEzB2VofnKd8vhWlry/HAERy+reyn5edSs/Na
+         08LfrsW1wwI3skBieLMgJkY7Ws/UTpVr7NmJPMdkbe9DM2YZ/kYKAB7mmSkh0XVaYPBv
+         Upx9Z0z60Hj4p6MNkyggO9iZPjnPwZWUG1aXDV1mRE6rIVy0ju3/j4278a+m9r6a1iJt
+         Xd8Q==
+X-Gm-Message-State: AOJu0YxCfanxhL841Tf4qv4BYWxMoNYKPdHdG3cMTbyjyx8E2gdvpg87
+	PSI0suZzEnPqShQrMDAbTbTi
+X-Google-Smtp-Source: AGHT+IEjzxxtdRggSagjRMlahhUxaJQIysTPEYnDGpG2fUiK9TYRlNTYPHeU+LWI8KTNhPIjm8IXsQ==
+X-Received: by 2002:a5d:6992:0:b0:336:5637:4239 with SMTP id g18-20020a5d6992000000b0033656374239mr3863891wru.120.1702985045912;
+        Tue, 19 Dec 2023 03:24:05 -0800 (PST)
+Message-ID: <dd920868-11ea-46cc-b300-c332e74e2f1b@suse.com>
+Date: Tue, 19 Dec 2023 12:24:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/platform: tidy do_platform_op() a little
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 5/6] xen: remove unused function ERR_CAST
 Content-Language: en-US
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+Cc: consulting@bugseng.com,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1702982442.git.maria.celeste.cesario@bugseng.com>
+ <e6152a631d3bb6ad4c798fe9d795b360100d63f5.1702982442.git.maria.celeste.cesario@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -110,172 +114,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <e6152a631d3bb6ad4c798fe9d795b360100d63f5.1702982442.git.maria.celeste.cesario@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The function has a few stray scopes and inconsistent use (indentation)
-of break statements. Drop the stray braces and bring all the break-s in
-line with one another. This in particular means dropping a redundant
-break from XENPF_cpu_offline handling, pleasing Misra C:2012 rule 2.1.
+On 19.12.2023 12:05, Simone Ballarin wrote:
+> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+> 
+> Function ERR_CAST contains a violation of MISRA C:2012 Rule 11.8,
+> whose headline states:
+> "A conversion shall not remove any const, volatile or _Atomic qualification
+> from the type pointed to by a pointer".
+> 
+> Since the function has no users, it is appropriate to remove it.
+> 
+> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
 
-No functional change intended.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-This is an alternative proposal to
-https://lists.xen.org/archives/html/xen-devel/2023-12/msg01540.html.
 
-A few more scopes could be eliminated if the various "cpu" variables
-were consolidated to switch() of function scope.
-
---- a/xen/arch/x86/platform_hypercall.c
-+++ b/xen/arch/x86/platform_hypercall.c
-@@ -258,7 +258,6 @@ ret_t do_platform_op(
-         break;
- 
-     case XENPF_add_memtype:
--    {
-         ret = mtrr_add_page(
-             op->u.add_memtype.mfn,
-             op->u.add_memtype.nr_mfns,
-@@ -273,11 +272,9 @@ ret_t do_platform_op(
-             if ( ret != 0 )
-                 mtrr_del_page(ret, 0, 0);
-         }
--    }
--    break;
-+        break;
- 
-     case XENPF_del_memtype:
--    {
-         if (op->u.del_memtype.handle == 0
-             /* mtrr/main.c otherwise does a lookup */
-             && (int)op->u.del_memtype.reg >= 0)
-@@ -288,8 +285,7 @@ ret_t do_platform_op(
-         }
-         else
-             ret = -EINVAL;
--    }
--    break;
-+        break;
- 
-     case XENPF_read_memtype:
-     {
-@@ -306,8 +302,8 @@ ret_t do_platform_op(
-             ret = __copy_field_to_guest(u_xenpf_op, op, u.read_memtype)
-                   ? -EFAULT : 0;
-         }
-+        break;
-     }
--    break;
- 
-     case XENPF_microcode_update:
-     {
-@@ -316,8 +312,8 @@ ret_t do_platform_op(
-         guest_from_compat_handle(data, op->u.microcode.data);
- 
-         ret = microcode_update(data, op->u.microcode.length);
-+        break;
-     }
--    break;
- 
-     case XENPF_platform_quirk:
-     {
-@@ -340,8 +336,8 @@ ret_t do_platform_op(
-             ret = -EINVAL;
-             break;
-         }
-+        break;
-     }
--    break;
- 
-     case XENPF_firmware_info:
-         switch ( op->u.firmware_info.type )
-@@ -521,8 +517,8 @@ ret_t do_platform_op(
- 
-         if ( ret == 0 && __copy_field_to_guest(u_xenpf_op, op, u.getidletime) )
-             ret = -EFAULT;
-+        break;
-     }
--    break;
- 
-     case XENPF_set_processor_pminfo:
-         switch ( op->u.set_pminfo.type )
-@@ -601,8 +597,8 @@ ret_t do_platform_op(
-         put_cpu_maps();
- 
-         ret = __copy_field_to_guest(u_xenpf_op, op, u.pcpu_info) ? -EFAULT : 0;
-+        break;
-     }
--    break;
- 
-     case XENPF_get_cpu_version:
-     {
-@@ -637,8 +633,8 @@ ret_t do_platform_op(
- 
-         if ( __copy_field_to_guest(u_xenpf_op, op, u.pcpu_version) )
-             ret = -EFAULT;
-+        break;
-     }
--    break;
- 
-     case XENPF_get_ucode_revision:
-     {
-@@ -666,8 +662,8 @@ ret_t do_platform_op(
- 
-         if ( __copy_field_to_guest(u_xenpf_op, op, u.ucode_revision) )
-             ret = -EFAULT;
-+        break;
-     }
--    break;
- 
-     case XENPF_cpu_online:
-     {
-@@ -725,7 +721,6 @@ ret_t do_platform_op(
-             0, cpu_down_helper, (void *)(unsigned long)cpu);
-         break;
-     }
--    break;
- 
-     case XENPF_cpu_hotadd:
-         ret = xsm_resource_plug_core(XSM_HOOK);
-@@ -735,7 +730,7 @@ ret_t do_platform_op(
-         ret = cpu_add(op->u.cpu_add.apic_id,
-                       op->u.cpu_add.acpi_id,
-                       op->u.cpu_add.pxm);
--    break;
-+        break;
- 
-     case XENPF_mem_hotadd:
-         ret = xsm_resource_plug_core(XSM_HOOK);
-@@ -775,8 +770,8 @@ ret_t do_platform_op(
-             ret = -EINVAL;
-             break;
-         }
-+        break;
-     }
--    break;
- 
-     case XENPF_resource_op:
-     {
-@@ -842,8 +837,8 @@ ret_t do_platform_op(
-             ret = ra.nr_done;
- 
-         xfree(ra.entries);
-+        break;
-     }
--    break;
- 
-     case XENPF_get_symbol:
-     {
-@@ -870,8 +865,8 @@ ret_t do_platform_op(
-             ret = -EFAULT;
-         if ( !ret && __copy_field_to_guest(u_xenpf_op, op, u.symdata) )
-             ret = -EFAULT;
-+        break;
-     }
--    break;
- 
- #ifdef CONFIG_VIDEO
-     case XENPF_get_dom0_console:
 
