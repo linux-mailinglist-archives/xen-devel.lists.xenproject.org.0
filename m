@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 774018190AF
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 20:27:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657116.1025834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54EC48190C1
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 20:31:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657120.1025844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFfkP-0001U2-IS; Tue, 19 Dec 2023 19:27:21 +0000
+	id 1rFfoC-0003WD-1m; Tue, 19 Dec 2023 19:31:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657116.1025834; Tue, 19 Dec 2023 19:27:21 +0000
+Received: by outflank-mailman (output) from mailman id 657120.1025844; Tue, 19 Dec 2023 19:31:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFfkP-0001R3-Ez; Tue, 19 Dec 2023 19:27:21 +0000
-Received: by outflank-mailman (input) for mailman id 657116;
- Tue, 19 Dec 2023 19:27:20 +0000
+	id 1rFfoB-0003TL-VJ; Tue, 19 Dec 2023 19:31:15 +0000
+Received: by outflank-mailman (input) for mailman id 657120;
+ Tue, 19 Dec 2023 19:31:14 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rFfkO-0001Qx-Tg
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 19:27:20 +0000
+ (envelope-from <julien@xen.org>) id 1rFfoA-0003TF-M9
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 19:31:14 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rFfkO-00011H-Kt; Tue, 19 Dec 2023 19:27:20 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ id 1rFfoA-00014Q-3J; Tue, 19 Dec 2023 19:31:14 +0000
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
  helo=[192.168.3.234]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rFfkO-0004NV-D4; Tue, 19 Dec 2023 19:27:20 +0000
+ id 1rFfo9-0004Sx-U4; Tue, 19 Dec 2023 19:31:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,38 +42,43 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=jv9TBTilkSC0NXTOS0qpaiCCocWxJlApespuF4YlU90=; b=nRaJH5i2BkoQ48/ZGQMc+RM68L
-	5n66pcPg5vvfmiIrFHBuTP+wLqzQ/o5WaRVkdhJDRnasKeWwMSj0zV8cmxxQfYpN+iZi3tjuwilqt
-	SCXPx8c0vSrX5y7IhhKL4cuV1qsoSb4vY2a5w6UELJAFSa4NaHpw0rTCZPU5H7gQK3PQ=;
-Message-ID: <479bbc75-453f-488e-bf6c-3a99d550b7d4@xen.org>
-Date: Tue, 19 Dec 2023 19:27:18 +0000
+	bh=AiKEAlVH4OP0omHtbllp9NWwsX+He4XFKQ0xZl+Vfo0=; b=4lqyoDs4Te0HsZ9X+LTTjv3ETo
+	PEF6t5Xi90T0UHlTdm4leEnQBJQEFOHZa8O0kBsLOnSi6SwnZKvVVAaqNeUs+U2vlmDU5TariuQi2
+	znB1DLT8d+BuPNrY/bGiJnEYkamPoIoM8iY2nY5wIVFkMnGiuFVugItwZFfEzwPW9nnM=;
+Message-ID: <cd8936ed-e5f1-4333-b776-a99af648c390@xen.org>
+Date: Tue, 19 Dec 2023 19:31:12 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 6/9] xen/arm: smmuv3: Add PCI devices support for
- SMMUv3
+Subject: Re: [PATCH v6 7/9] xen/arm: Fix mapping for PCI bridge mmio region
 Content-Language: en-GB
 To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
  xen-devel@lists.xenproject.org
 Cc: Rahul Singh <rahul.singh@arm.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20231109182716.367119-1-stewart.hildebrand@amd.com>
- <20231109182716.367119-7-stewart.hildebrand@amd.com>
+ <20231109182716.367119-8-stewart.hildebrand@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231109182716.367119-7-stewart.hildebrand@amd.com>
+In-Reply-To: <20231109182716.367119-8-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Stewart,
 
 On 09/11/2023 18:27, Stewart Hildebrand wrote:
 > From: Rahul Singh <rahul.singh@arm.com>
 > 
+> Current code skip the mapping for PCI bridge MMIO region to dom0 when
+> pci_passthrough_enabled flag is set. Mapping should be skip when
+> has_vpci(d) is enabled for the domain, as we need to skip the mapping
+> only when VPCI handler are registered for ECAM.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-Looking at the code, most of my comments on SMMUv2 apply here too. So I 
-will not repeat them.
+Acked-by: Julien Grall <jgrall@amazon.com>
 
 Cheers,
 
