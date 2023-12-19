@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BBCB8188F0
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 14:51:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656835.1025309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED6E281891F
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 14:58:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656845.1025319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFaV4-0006J2-H5; Tue, 19 Dec 2023 13:51:10 +0000
+	id 1rFabj-0007wQ-B3; Tue, 19 Dec 2023 13:58:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656835.1025309; Tue, 19 Dec 2023 13:51:10 +0000
+Received: by outflank-mailman (output) from mailman id 656845.1025319; Tue, 19 Dec 2023 13:58:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFaV4-0006Fx-Dt; Tue, 19 Dec 2023 13:51:10 +0000
-Received: by outflank-mailman (input) for mailman id 656835;
- Tue, 19 Dec 2023 13:51:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFabj-0007uU-8P; Tue, 19 Dec 2023 13:58:03 +0000
+Received: by outflank-mailman (input) for mailman id 656845;
+ Tue, 19 Dec 2023 13:58:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFaV2-0006Fn-7A
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 13:51:08 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a8952cef-9e75-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 14:51:07 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40c3f68b69aso43512045e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 05:51:07 -0800 (PST)
+ id 1rFabi-0007uO-BQ
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 13:58:02 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9eaeb1d5-9e76-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 14:58:00 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40d05ebe642so15860345e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 05:58:00 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n7-20020a05600c4f8700b0040d1774b4e4sm2928502wmq.42.2023.12.19.05.51.06
+ z5-20020a05600c0a0500b0040c2963e5f3sm2982525wmp.38.2023.12.19.05.57.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 05:51:06 -0800 (PST)
+ Tue, 19 Dec 2023 05:57:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8952cef-9e75-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 9eaeb1d5-9e76-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702993867; x=1703598667; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TOHHMwlJZXQmOowtGx0LvnLVKv8QMMGltuDx0qqkC3A=;
-        b=I7b4eyeB82+lWXrqP0tbAepTCdiiAmcRlotNh3Aexn/5V7ifwgrvP6f0LL3cRGQyvV
-         +K6z2lBDhIdVV5DkrrtNsJQybsBp4365U/Er7HpJavB6iuS8Oci3tNQZ/137OuCx3OVA
-         JnElXxe5h+JsbFjyU2x49z2k44xpGNPzXdYV0ua0vko4lidWaAnlyCDdVz/awqwoWbPA
-         Zo0UT0KYtm++a1+tleBzEEDtSmuumk1/q/motbcpHm6G3uUdGnZC1ydhwYnZoDm2H7xH
-         aDHbZk6Te1bFEpKGOBPo8MrPvFe1Q+K/FmncZ0RuGe39A+Fx9s/WDW7QS9IeegQLr/NM
-         2uNw==
+        d=suse.com; s=google; t=1702994280; x=1703599080; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qEsa6AhNdiOL934DM2czeICXaJmOeM/0Jtv2odSg8bs=;
+        b=K54JPRUhVzvYHJtqpXuEXakBQESLUz9LGT1wdqU84dVU+v3ebDcO0knAtduza0te69
+         pE6jH4iNR+pxeXwSACzFr2uYWBfuJODfXyCn4JjAUVsxFAHYQMlnFxmhl3pRAHw3zgS/
+         lm8OUqHytxgxTrJcv6XoGb/7QkIhn4af577d45xbhbOFRP7KZEdrdQzgJ6lEEbAmaeEI
+         7p2P0LBOHFjUzKI/MyYUGGeP0WgDsjMPvVGXLy3q5csBH4+AiYF/WktD/iNsE10ntoqO
+         0SCyDOXs4lTI+r6Wk4MojTBIQtsnA+n4aG42dPWzlQElH3YIdbCRm3se/T+d+qJlNtZk
+         Ynsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702993867; x=1703598667;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TOHHMwlJZXQmOowtGx0LvnLVKv8QMMGltuDx0qqkC3A=;
-        b=IhAyXo5Uyz/lsvayuyxJ/LskJibdcxwqPEV0j1VOT44Yxq1fLJgQVh88P9JgSzoX1U
-         sUmvJBG3z9SJ1P2xx+ND7wcmw+jh5mWaPm822uOi07SGgx83MMvV4X+uhALyCzAKbArZ
-         H2TJ77c74ZfDwHsUD/OTi2GWoqU3PvMG8Y9XQGTdSkAHXirQkdUJkVUqxXRWHkAJobji
-         wO+MbZ0jrUlTnzYqXCVt2//0epLtdKQ/GD2Ablsi59vAFg2mJ5ystEoLUDZrExO29Hmo
-         45LZt2F13McHcign/YfarlC9KfAT24XLlkKrJx0yElAvr1sz8Pg0ZsNRgNeZdTWvXd0s
-         HqDA==
-X-Gm-Message-State: AOJu0YzEnn5OZf2N6wndupg9SAS0sAql4qC8DfbEJcEW456EmnAv9tVu
-	tx21c0H+BFXeclQuOzohxx+eP5SdTIObayzo58Vk
-X-Google-Smtp-Source: AGHT+IGKIOKxhwi6NUGfRbRZUPV7hGiS16dNcWE/8tlA9n9bMH+buHlGUq5FWCWxIIpd1df58edY6Q==
-X-Received: by 2002:a05:600c:4f81:b0:40c:3e43:418c with SMTP id n1-20020a05600c4f8100b0040c3e43418cmr10168619wmq.33.1702993866789;
-        Tue, 19 Dec 2023 05:51:06 -0800 (PST)
-Message-ID: <1b99cbab-0598-4277-87ca-0d1712d5471e@suse.com>
-Date: Tue, 19 Dec 2023 14:51:05 +0100
+        d=1e100.net; s=20230601; t=1702994280; x=1703599080;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qEsa6AhNdiOL934DM2czeICXaJmOeM/0Jtv2odSg8bs=;
+        b=cMIVn7rNFG70W53qqJ/rjobPkabFw4DkOk9QKxhp3f3dDicnu26I52eZLUDBCmd5VE
+         4S295wzHP2FctSES8d8dksluB5erZXj32bweHZfzn4rT6Ylb9cJYzjRZQ6x6cWMkpxTa
+         Lgobspns5Od/rzDm/O8WzmOQhuRjekVTYSEJLgURlSjgl8YHSYhLge+8uRoKmz6cOBF9
+         ooa/+4RjvrKwrksX/5d6XHQn+SpfOGfhEwXureoH9vXJ1kvrZAUGV9zmy1ZHG5UPvXRD
+         9DSDjvn97Ehurr/CMc5LqUg3K+npn/lDFjMP4LEO+xYq5GQYN9zvZgPZkFgI4HDKWR+Q
+         WZrA==
+X-Gm-Message-State: AOJu0YwCMnRrWZNykW/s4kJg7XAsEfEcnNpIb3msNpGFBs0SqHEJZnPk
+	O+nO8qkvO6lp31j5QWAfSpVH
+X-Google-Smtp-Source: AGHT+IEmed++1U6FUG7wUwv0BJvGsSQrwfKmaRW43LqIW8MEMai4azyaDTEcFYT9//wpWFE9WZIZiw==
+X-Received: by 2002:a05:600c:245:b0:40c:3984:4985 with SMTP id 5-20020a05600c024500b0040c39844985mr533207wmj.79.1702994279716;
+        Tue, 19 Dec 2023 05:57:59 -0800 (PST)
+Message-ID: <7a149ad7-0363-4f4a-9de5-76be382e774c@suse.com>
+Date: Tue, 19 Dec 2023 14:57:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/IO-APIC: correct RET polarity comment
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <072a4e90-78dd-47ff-9890-ba377e0a2b66@suse.com>
+Subject: Re: [RFC PATCH] xen/dm: arm: Introudce arm_inject_msi DM op
 Content-Language: en-US
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6a631756a126e73390f95b9e86c69e3286c92f59.1702991909.git.mykyta_poturai@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -110,30 +114,63 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <072a4e90-78dd-47ff-9890-ba377e0a2b66@suse.com>
+In-Reply-To: <6a631756a126e73390f95b9e86c69e3286c92f59.1702991909.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.12.2023 14:49, Jan Beulich wrote:
-> The comment there was the wrong way round, documentation clearly states
-> that 0 is high and 1 is low.
+On 19.12.2023 14:48, Mykyta Poturai wrote:
+> This patch adds the ability for the device emulator to inject MSI
+> interrupts into guests. This is done by adding a new DM op to the device
+> model library.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> It is not possible to reuse already existing inject_msi DM op, because
+> it does not have a devid parameter, which is required for translation of
+> MSIs to interrupt numbers on ARM.
 
-And of course in the title s/RET/RTE/.
+Yet then ...
+
+> @@ -112,6 +113,20 @@ int dm_op(const struct dmop_args *op_args)
+>          break;
+>      }
+>  
+> +    case XEN_DMOP_arm_inject_msi:
+> +    {
+> +        const struct xen_dm_op_arm_inject_msi *data =
+> +            &op.u.arm_inject_msi;
+> +
+> +        if ( d->arch.vgic.its == NULL )
+> +        {
+> +            rc = -EINVAL;
+> +            break;
+> +        }
+> +        vgic_its_trigger_msi(d, d->arch.vgic.its, data->devid, data->data);
+> +        break;
+> +
+> +    }
+
+... you're not using the addr field at all, which therefore could likely
+hold the devid data (encoded to really represent some form of address,
+or stored directly - much depends on what purpose the address serves on
+Arm for MSI).
+
+> --- a/xen/include/public/hvm/dm_op.h
+> +++ b/xen/include/public/hvm/dm_op.h
+> @@ -444,6 +444,15 @@ struct xen_dm_op_nr_vcpus {
+>  };
+>  typedef struct xen_dm_op_nr_vcpus xen_dm_op_nr_vcpus_t;
+>  
+> +#define XEN_DMOP_arm_inject_msi 21
+> +
+> +struct xen_dm_op_arm_inject_msi {
+> +    uint64_t addr;
+> +    uint32_t data;
+> +    uint32_t devid;
+> +};
+
+Additionally xen_dm_op_inject_msi has a padding field, which is likely
+possible to use as well (perhaps by simply renaming it).
+
+Also note how the addr field there is using uint64_aligned_t.
 
 Jan
-
-> --- a/xen/arch/x86/include/asm/io_apic.h
-> +++ b/xen/arch/x86/include/asm/io_apic.h
-> @@ -101,7 +101,7 @@ struct IO_APIC_route_entry {
->                                             */
->              unsigned int dest_mode:1;     /* 0: physical, 1: logical */
->              unsigned int delivery_status:1;
-> -            unsigned int polarity:1;      /* 0: low, 1: high */
-> +            unsigned int polarity:1;      /* 0: high, 1: low */
->              unsigned int irr:1;
->              unsigned int trigger:1;       /* 0: edge, 1: level */
->              unsigned int mask:1;          /* 0: enabled, 1: disabled */
-
 
