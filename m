@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8A98184E9
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 10:58:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656631.1024944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 791D9818568
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 11:39:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656640.1024954 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFWsA-0002x1-SC; Tue, 19 Dec 2023 09:58:46 +0000
+	id 1rFXU5-0002u4-TF; Tue, 19 Dec 2023 10:37:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656631.1024944; Tue, 19 Dec 2023 09:58:46 +0000
+Received: by outflank-mailman (output) from mailman id 656640.1024954; Tue, 19 Dec 2023 10:37:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFWsA-0002us-OY; Tue, 19 Dec 2023 09:58:46 +0000
-Received: by outflank-mailman (input) for mailman id 656631;
- Tue, 19 Dec 2023 09:58:45 +0000
+	id 1rFXU5-0002sO-PP; Tue, 19 Dec 2023 10:37:57 +0000
+Received: by outflank-mailman (input) for mailman id 656640;
+ Tue, 19 Dec 2023 10:37:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Nbmq=H6=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1rFWs9-0002um-CB
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 09:58:45 +0000
-Received: from mail.alien8.de (mail.alien8.de [2a01:4f9:3051:3f93::2])
+ (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rFXU4-0002sG-2J
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 10:37:56 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3135c196-9e55-11ee-9b0f-b553b5be7939;
- Tue, 19 Dec 2023 10:58:43 +0100 (CET)
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id F1E9D40E00CD; 
- Tue, 19 Dec 2023 09:58:40 +0000 (UTC)
-Received: from mail.alien8.de ([127.0.0.1])
- by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id nodqOZyKC-fR; Tue, 19 Dec 2023 09:58:38 +0000 (UTC)
-Received: from zn.tnic (pd95304da.dip0.t-ipconnect.de [217.83.4.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
- SHA256) (No client certificate requested)
- by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 52F0440E00C9;
- Tue, 19 Dec 2023 09:58:28 +0000 (UTC)
+ id aa5becd2-9e5a-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 11:37:53 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3367601a301so172676f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 02:37:53 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ o13-20020a5d4a8d000000b0033674e10462sm806999wrq.113.2023.12.19.02.37.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Dec 2023 02:37:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,117 +45,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3135c196-9e55-11ee-9b0f-b553b5be7939
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1702979917; bh=S3JFK1fju4B6xZ8eBdvZm+1HPPTszSQfGOo5AjwDssQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bD6HE4bsbc2OQkFhBB+xvJpvtivUcbd5wsY25h5phYM5J0eGRJUdNjmLwiAj6o7KK
-	 gx3zGOLBwaZx5irPCWSX12wRoLv0IAl+XUNK4E8HxoZ13p5mWNyp7yOwWULdywRjH6
-	 5gcskawHSQTCP5ivxwfiClK6fMubzKPAFW/U/3aJr+7UCIMSODR6bs3edM6SJn5czn
-	 OACfG3Zv8y47kzDmIxIJBxWYXwYmvrBX5dI8WxQDRb81xltEcbxECtWtaEmO25zyvM
-	 gtmYY37HJsGk/je25y3mVFSnMcvmYnQ+bbLsWxcMqP3vb2HvCE+542GrIWJDvJ5bRj
-	 7m/8UuT8KN8+aGySZnllMiqnK+PtqnftUlpKm2CMmD+Y/20l0XG7C44Ii+8UbsuYHo
-	 LBb5YUD34PfChNkUKqSH16PxRKNYvEx5lYTfDNBscw4HdZQHBfVAZl97LSdeWyJRiv
-	 TMNVslgsF7WUUOnfafwU4plYk5Z34hf8X+u+TqQw2K7mebiWcIapQ95JrjyNCh0vTr
-	 l7rDMR+1oW20WEJrPQouBQ49B75bWuGLMQiKJ9i+UkxYjGUKqjgH4diOo/GzmaOIxt
-	 gKgbNwYUU3zVG7Y+Hk5s7Wda4a8TTj75z9yFOYxO/5ZEkj/SL6tOK54uo4eMq0YXp5
-	 tqSoCzkE/3DJJCyAfh/NHjzw=
-Date: Tue, 19 Dec 2023 10:58:21 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: kernel test robot <oliver.sang@intel.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>, oe-lkp@lists.linux.dev,
-	lkp@intel.com, linux-kernel@vger.kernel.org,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Linus Torvalds <torvalds@linuxfoundation.org>,
-	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [linus:master] [x86/entry]  be5341eb0d:
- WARNING:CPU:#PID:#at_int80_emulation
-Message-ID: <20231219095821.GAZYFpPUSKexZAcl05@fat_crate.local>
-References: <202312191507.348721d2-oliver.sang@intel.com>
+X-Inumbo-ID: aa5becd2-9e5a-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1702982273; x=1703587073; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wNSZZCMl3Lz6Z81lcXJlMGDN+6K/tnaMRz8SIdw2LJI=;
+        b=K7SbO44PkOqucPVgHM0HQ1JO4S9MDT1nueHLcbruig8ZyX7mqLZfNE/zyKX+PB4eCC
+         DvRfGxSjOqHBlRoC2x4hNidsYMeOUq3e+HyUvFS/9nEwZj66aKCwgVKIbOVz93LTBOJm
+         TBbbOTin7wavz5gKOvsr9P/Bl99O2QUjJN5KJCa7fghVZMMTiCrDE5rizRRBgDDsxHlH
+         0ez/J0xTpPBrklYVA5BNzwkpyF7EWjdqKHXLYGks+IbiJ0ReANHrC8UM09ce4XrcnITs
+         oOljMRSiwQne0WCrd/11PMg0SYy2tZtc0RT2gms1HhEbCW76Pnu1UxbNocw3ycUtu44z
+         DZUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702982273; x=1703587073;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wNSZZCMl3Lz6Z81lcXJlMGDN+6K/tnaMRz8SIdw2LJI=;
+        b=IxuGyDljZoiWeOE3An13UpoUgRtmroIflAwc2vOHJh593Kjhnpg3AxBRv3HcRiKVdM
+         US///rJ8+s73pG5GQecE/C0/znsN8ktlfDzFwTv/ctfoIvY8ZztqGfBlelHolNMNFVxV
+         2yKvavkh1OHMKC8AP10vWIC9mQkygD0ozIYLtSLF/VLDZgbJQr9ZRYXdX0eDJ5pf/X0J
+         pPUQtQTsOm6/zrmSlV38u6Dig4GDmIPzU1f4kxVUWKh74d+4oOI6zur5KtmZ5onhTvXr
+         z57KxATIVH5Hq/bJ+k08ikydQoh4BdTJ9uydqj4rDzHLnLIlFMwt5R38Qd+4mUo6vg0f
+         ht3w==
+X-Gm-Message-State: AOJu0YzudCoe8JzYJDuIpCo9/q5+0rcR5yOCbgw7+CTc0u3+1IZX6cQk
+	MaqByzN8/JYZ3A2glx2NRfkf
+X-Google-Smtp-Source: AGHT+IGz/bWZkLonRKVWBjY9u59cD4myANLl29eY4B/w+zfYGg119fvYXAX5y1pBry8tZodsDhM+dQ==
+X-Received: by 2002:a5d:56ce:0:b0:336:73eb:fe8c with SMTP id m14-20020a5d56ce000000b0033673ebfe8cmr257296wrw.8.1702982273314;
+        Tue, 19 Dec 2023 02:37:53 -0800 (PST)
+Message-ID: <055b6cf3-4f29-4f1d-b650-26c6d9be8832@suse.com>
+Date: Tue, 19 Dec 2023 11:37:52 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <202312191507.348721d2-oliver.sang@intel.com>
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] xen: add acmacros.h to exclude-list.json
+Content-Language: en-US
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <664ddc412905546d44d3e311a743ba5217a6243b.1702976486.git.nicola.vetrini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <664ddc412905546d44d3e311a743ba5217a6243b.1702976486.git.nicola.vetrini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Dec 19, 2023 at 04:49:14PM +0800, kernel test robot wrote:
-> [ 13.481107][ T48] WARNING: CPU: 0 PID: 48 at int80_emulation (arch/x86=
-/entry/common.c:164)=20
-> [   13.481454][   T48] Modules linked in:
-> [   13.481655][   T48] CPU: 0 PID: 48 Comm: init Tainted: G            =
-     N 6.7.0-rc4-00002-gbe5341eb0d43 #1
-> [ 13.482162][ T48] RIP: 0010:int80_emulation (arch/x86/entry/common.c:1=
-64)=20
+On 19.12.2023 10:02, Nicola Vetrini wrote:
+> --- a/docs/misra/exclude-list.json
+> +++ b/docs/misra/exclude-list.json
+> @@ -209,6 +209,10 @@
+>            "rel_path": "include/acpi/acglobal.h",
+>            "comment": "Imported from Linux, ignore for now"
+>          },
+> +        {
+> +          "rel_path": "include/acpi/acmacros.h",
+> +          "comment": "Imported from Linux, ignore for now"
+> +        },
 
-Looking at the dmesg, I think you missed the most important part - the
-preceding line:
+Together with what's already there (in context), wouldn't it better be
+the entire directory then which is excluded, or at least all
+include/acpi/ac*.h collectively (and perhaps also
+include/acpi/platform/ac*.h)?
 
-[   13.480504][   T48] CFI failure at int80_emulation+0x67/0xb0 (target: =
-sys_ni_posix_timers+0x0/0x70; expected type: 0xb02b34d9)
-			^^^^^^^^^^^
-
-[   13.481107][   T48] WARNING: CPU: 0 PID: 48 at int80_emulation+0x67/0x=
-b0
-[   13.481454][   T48] Modules linked in:
-[   13.481655][   T48] CPU: 0 PID: 48 Comm: init Tainted: G              =
-   N 6.7.0-rc4-00002-gbe5341eb0d43 #1
-
-The CFI bla is also in the stack trace.
-
-Now, decode_cfi_insn() has a comment there which says what the compiler
-generates about indirect call checks:
-
-         * =C2=A0 movl    -<id>, %r10d       ; 6 bytes
-         *   addl    -4(%reg), %r10d    ; 4 bytes
-         *   je      .Ltmp1             ; 2 bytes
-         *   ud2                        ; <- regs->ip
-         *   .Ltmp1:
-
-
-and the opcodes you decoded...
-
-> [ 13.482437][ T48] Code: 01 00 00 77 43 89 c1 48 81 f9 c9 01 00 00 48 1=
-9 c9 21 c1 48 89 df 4c 8b 1c cd 90 12 20 9a 41 ba 27 cb d4 4f 45 03 53 fc=
- 74 02 <0f> 0b 41 ff d3 48 89 c1 48 89 4b 50 90 48 89 df 5b 41 5e 31 c0 3=
-1
-> All code
-> =3D=3D=3D=3D=3D=3D=3D=3D
->    0:	01 00                	add    %eax,(%rax)
->    2:	00 77 43             	add    %dh,0x43(%rdi)
->    5:	89 c1                	mov    %eax,%ecx
->    7:	48 81 f9 c9 01 00 00 	cmp    $0x1c9,%rcx
->    e:	48 19 c9             	sbb    %rcx,%rcx
->   11:	21 c1                	and    %eax,%ecx
->   13:	48 89 df             	mov    %rbx,%rdi
->   16:	4c 8b 1c cd 90 12 20 	mov    -0x65dfed70(,%rcx,8),%r11
->   1d:	9a=20
->   1e:	41 ba 27 cb d4 4f    	mov    $0x4fd4cb27,%r10d
->   24:	45 03 53 fc          	add    -0x4(%r11),%r10d
->   28:	74 02                	je     0x2c
->   2a:*	0f 0b                	ud2		<-- trapping instruction
-
-... these guys here, look exactly like what the compiler did issue.
-
-This is the first time I'm looking at this CFI bla but it sounds like it
-is trying to compare the syscall target's address of
-sys_ni_posix_timers with something it is expecting to call and the
-comparison doesn't work out (%r10 is not 0).
-
-There's that special symbol __cfi_sys_ni_posix_timers which also gets
-generated...
-
-Someone would need to dig into that whole CFI gunk to figure out why
-this is not happy.
-
-Oh well.
-
---=20
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Jan
 
