@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B9CA818D7F
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 18:07:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657063.1025720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D24E3818FB1
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 19:21:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657071.1025734 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFdZ6-0002U2-QD; Tue, 19 Dec 2023 17:07:32 +0000
+	id 1rFehN-0006oh-3b; Tue, 19 Dec 2023 18:20:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657063.1025720; Tue, 19 Dec 2023 17:07:32 +0000
+Received: by outflank-mailman (output) from mailman id 657071.1025734; Tue, 19 Dec 2023 18:20:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFdZ6-0002NJ-Mv; Tue, 19 Dec 2023 17:07:32 +0000
-Received: by outflank-mailman (input) for mailman id 657063;
- Tue, 19 Dec 2023 17:07:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFehM-0006lg-WE; Tue, 19 Dec 2023 18:20:09 +0000
+Received: by outflank-mailman (input) for mailman id 657071;
+ Tue, 19 Dec 2023 18:20:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFdZ5-0002Kn-1K
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 17:07:31 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 17a9c9b1-9e91-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 18:07:30 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3367632ce7bso472143f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 09:07:30 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g16-20020adfa490000000b00336781b4915sm156557wrb.43.2023.12.19.09.07.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 09:07:29 -0800 (PST)
+ (envelope-from <SRS0=Dspo=H6=redhat.com=kwolf@srs-se1.protection.inumbo.net>)
+ id 1rFehL-0006cR-CJ
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 18:20:07 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 39f8db44-9e9b-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 19:20:03 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-557-ng6tSX5TO9q6N0AkdP052Q-1; Tue, 19 Dec 2023 13:19:54 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9391184B04B;
+ Tue, 19 Dec 2023 18:19:53 +0000 (UTC)
+Received: from redhat.com (unknown [10.39.194.175])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 81F601121306;
+ Tue, 19 Dec 2023 18:19:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +51,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17a9c9b1-9e91-11ee-98eb-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703005649; x=1703610449; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=SxS7tCfJ+1Cxjb1/uT78QsL4rUltdTWWWPBpZVxHDTY=;
-        b=J+MQ7zAabT3Bn4n+E6nWsvBpNikzjiZIwmMRZFhtI+3SVi4jDKLg3ky8i9QSVdmhJl
-         5EbRGNhWxeyHGyTrHM78wKb0Z7VMCEGWtgw1a0mbkhcOd82zX/vhc3XR63bEZ5n0V56U
-         FPE/G4oQZLXZXRDb4ZuEdBR78lBh8fKFihu0cHLVK3IKHxapsQQW6ybDyvbtOPClebEj
-         YaahU2sQRGw5SOiu4gx9dnjGdKvkx8ErVxrapzp1aMKcWP28sorG8SFjsHBIV3WQYB0e
-         TwA/q5s4pXrFQZKML2hYn7p696DQtp8FjGF0myA9oyGnMNWBnKjp4nzpPFbWVsQgHsOj
-         ujmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703005649; x=1703610449;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SxS7tCfJ+1Cxjb1/uT78QsL4rUltdTWWWPBpZVxHDTY=;
-        b=UPtjL+j1w86lgzccYInOFF4HcmcTq5ZEMCsgUm6a4puWvG8SXQwIh329e7Cu31rSqJ
-         NyYJqKnrJ11d8SnFI68rIOjIDZQocWL6X+h9EqweU1tTSP+SFqwxJxnkxYMafEnKBwyp
-         CDo7UKBoowZ0A283huNsRarKphkLSqkdaWRZ+cEfHrHy2b2yO9DZf8l/QPiw9xJSLlIL
-         8iQrV2fJU1SHsWuGiggmaivbweG96RgzuvTV5T/gWf7Qa0U3Tt/AIBTVgEE0Y58M58gb
-         F48ccGEFe+UmRwoWSdSHrYFQDxQVV6xr8Oje42V+BR4h9mV51UzW/9R4NJ31n11yaB9t
-         0jHA==
-X-Gm-Message-State: AOJu0Yw+53Pg9bpo2car5tVlRJ3Df9586sqpp8vIk1g8SJcuKJnY+DXy
-	lNsVYjjzKTSdbkP+wAGKvKcGrMKnl8KUDye+ayvZ
-X-Google-Smtp-Source: AGHT+IHVOX+tq25z6o8s8eKkRi2A9qI/FKJBd+hqG/0LfdLkCA9/VPjYq/YGlI6bFpertfI+mLsvcA==
-X-Received: by 2002:adf:ec8a:0:b0:336:62f7:2304 with SMTP id z10-20020adfec8a000000b0033662f72304mr3280641wrn.49.1703005649604;
-        Tue, 19 Dec 2023 09:07:29 -0800 (PST)
-Message-ID: <5c43ff2a-567d-4aad-8406-99adaf07332d@suse.com>
-Date: Tue, 19 Dec 2023 18:07:28 +0100
+X-Inumbo-ID: 39f8db44-9e9b-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1703010002;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kdHrCBh+aFwerdanskMZMdWR+mM1k+MIbCkQXlcqavA=;
+	b=YUzEEySBxcELbNg2caIEBGbXo1YJnCd4+VMKq/hxIgtYu/AO5v1qTcQUzzyeo6WM89UuYQ
+	68rHFSIGHAtjX7SF3uC/yzLJArla9GFtWnpPYx2KMP6QWHadUmWQKN3qxWWLd6DY2fbtEb
+	f3DNBL9RSzQtmLo9s8iuPGAWf7/deyw=
+X-MC-Unique: ng6tSX5TO9q6N0AkdP052Q-1
+Date: Tue, 19 Dec 2023 19:19:47 +0100
+From: Kevin Wolf <kwolf@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+	Cleber Rosa <crosa@redhat.com>,
+	Xie Changlong <xiechanglong.d@gmail.com>,
+	Paul Durrant <paul@xen.org>, Ari Sundholm <ari@tuxera.com>,
+	Jason Wang <jasowang@redhat.com>, Eric Blake <eblake@redhat.com>,
+	John Snow <jsnow@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
+	Wen Congyang <wencongyang2@huawei.com>,
+	Alberto Garcia <berto@igalia.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
+	Juan Quintela <quintela@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, Coiby Xu <Coiby.Xu@gmail.com>,
+	Fabiano Rosas <farosas@suse.de>, Hanna Reitz <hreitz@redhat.com>,
+	Zhang Chen <chen.zhang@intel.com>,
+	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
+	Peter Xu <peterx@redhat.com>,
+	Emanuele Giuseppe Esposito <eesposit@redhat.com>,
+	Fam Zheng <fam@euphon.net>, Leonardo Bras <leobras@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	Li Zhijian <lizhijian@fujitsu.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 04/14] aio: make
+ aio_context_acquire()/aio_context_release() a no-op
+Message-ID: <ZYHew2poxuJJRyhC@redhat.com>
+References: <20231205182011.1976568-1-stefanha@redhat.com>
+ <20231205182011.1976568-5-stefanha@redhat.com>
+ <ZYG2mSe1JWnC0tq_@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/7] xen/asm-generic: Introduce generic static-shmem.h
-Content-Language: en-US
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1702607884.git.sanastasio@raptorengineering.com>
- <ea548f9c6cefff54dadf83446d4f5c721281f247.1702607884.git.sanastasio@raptorengineering.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ea548f9c6cefff54dadf83446d4f5c721281f247.1702607884.git.sanastasio@raptorengineering.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ZYG2mSe1JWnC0tq_@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.3
 
-On 15.12.2023 03:43, Shawn Anastasio wrote:
-> --- /dev/null
-> +++ b/xen/include/asm-generic/static-shmem.h
-> @@ -0,0 +1,12 @@
-> +/* SPDX-License-Identifier:  GPL-2.0-only */
-> +
-> +#ifndef __ASM_GENERIC_STATIC_SHMEM_H__
-> +#define __ASM_GENERIC_STATIC_SHMEM_H__
-> +
-> +static inline int process_shm_node(const void *fdt, int node,
-> +                                   uint32_t address_cells, uint32_t size_cells)
-> +{
-> +    return -EINVAL;
-> +}
+Am 19.12.2023 um 16:28 hat Kevin Wolf geschrieben:
+> Am 05.12.2023 um 19:20 hat Stefan Hajnoczi geschrieben:
+> > aio_context_acquire()/aio_context_release() has been replaced by
+> > fine-grained locking to protect state shared by multiple threads. The
+> > AioContext lock still plays the role of balancing locking in
+> > AIO_WAIT_WHILE() and many functions in QEMU either require that the
+> > AioContext lock is held or not held for this reason. In other words, the
+> > AioContext lock is purely there for consistency with itself and serves
+> > no real purpose anymore.
+> > 
+> > Stop actually acquiring/releasing the lock in
+> > aio_context_acquire()/aio_context_release() so that subsequent patches
+> > can remove callers across the codebase incrementally.
+> > 
+> > I have performed "make check" and qemu-iotests stress tests across
+> > x86-64, ppc64le, and aarch64 to confirm that there are no failures as a
+> > result of eliminating the lock.
+> > 
+> > Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> > Reviewed-by: Eric Blake <eblake@redhat.com>
+> > Acked-by: Kevin Wolf <kwolf@redhat.com>
+> 
+> I knew why I wasn't confident enough to give a R-b... This crashes
+> qemu-storage-daemon in the qemu-iotests case graph-changes-while-io.
+> 
+> qemu-storage-daemon: ../nbd/server.c:2542: nbd_co_receive_request: Assertion `client->recv_coroutine == qemu_coroutine_self()' failed.
+> 
+> (gdb) bt
+> #0  0x00007fdb00529884 in __pthread_kill_implementation () from /lib64/libc.so.6
+> #1  0x00007fdb004d8afe in raise () from /lib64/libc.so.6
+> #2  0x00007fdb004c187f in abort () from /lib64/libc.so.6
+> #3  0x00007fdb004c179b in __assert_fail_base.cold () from /lib64/libc.so.6
+> #4  0x00007fdb004d1187 in __assert_fail () from /lib64/libc.so.6
+> #5  0x0000557f9f9534eb in nbd_co_receive_request (errp=0x7fdafc25eec0, request=0x7fdafc25ef10, req=0x7fdaf00159c0) at ../nbd/server.c:2542
+> #6  nbd_trip (opaque=0x557fa0b33fa0) at ../nbd/server.c:2962
+> #7  0x0000557f9faa416b in coroutine_trampoline (i0=<optimized out>, i1=<optimized out>) at ../util/coroutine-ucontext.c:177
+> #8  0x00007fdb004efe90 in ?? () from /lib64/libc.so.6
+> #9  0x00007fdafc35f680 in ?? ()
+> #10 0x0000000000000000 in ?? ()
+> (gdb) p *client
+> $2 = {refcount = 4, close_fn = 0x557f9f95dc40 <nbd_blockdev_client_closed>, exp = 0x557fa0b30590, tlscreds = 0x0, tlsauthz = 0x0, sioc = 0x557fa0b33d90, ioc = 0x557fa0b33d90,
+>   recv_coroutine = 0x7fdaf0015eb0, send_lock = {locked = 0, ctx = 0x0, from_push = {slh_first = 0x0}, to_pop = {slh_first = 0x0}, handoff = 0, sequence = 0, holder = 0x0},
+>   send_coroutine = 0x0, read_yielding = false, quiescing = false, next = {tqe_next = 0x0, tqe_circ = {tql_next = 0x0, tql_prev = 0x557fa0b305e8}}, nb_requests = 1, closing = false,
+>   check_align = 1, mode = NBD_MODE_EXTENDED, contexts = {exp = 0x557fa0b30590, count = 1, base_allocation = true, allocation_depth = false, bitmaps = 0x0}, opt = 7, optlen = 0}
+> (gdb) p co_tls_current
+> $3 = (Coroutine *) 0x7fdaf00061d0
 
-This talking of fdt and cells doesn't look very generic to me, I'm
-afraid. Plus if such a header was introduced, I'd kind of expect it
-to also be used by Arm's !CONFIG_STATIC_SHM section - no need to
-duplicate anything.
+This one isn't easy to debug...
 
-Jan
+The first problem here is that two nbd_trip() coroutines are scheduled
+in the same iothread, and creating the second one overwrites
+client->recv_coroutine, which triggers the assertion in the first one.
+
+This can be fixed by introducing a new mutex in NBDClient and taking it
+in nbd_client_receive_next_request() so that there is no race between
+checking client->recv_coroutine != NULL and setting it to a new
+coroutine. (Not entirely sure why two different threads are doing this,
+maybe the main thread reentering in drained_end and the iothread waiting
+for the next request?)
+
+However, I'm seeing new assertion failures when I do that:
+client->quiescing isn't set in the -EAGAIN case in nbd_trip(). I haven't
+really figured out yet where this comes from. Taking the new NBDClient
+lock in the drain functions and in nbd_trip() doesn't seem to be enough
+to fix it anyway. Or maybe I didn't quite find the right places to take
+it.
+
+I'm not sure if the list of NBD clients needs a lock, too, or if it is
+only ever accessed in the main thread, but that should be unrelated to
+the assertion failures I'm seeing.
+
+Kevin
 
 
