@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BE80818C5F
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 17:36:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657043.1025674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95827818D19
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 17:58:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657049.1025683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFd4a-0008Sm-Bi; Tue, 19 Dec 2023 16:36:00 +0000
+	id 1rFdPg-0007MM-1y; Tue, 19 Dec 2023 16:57:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657043.1025674; Tue, 19 Dec 2023 16:36:00 +0000
+Received: by outflank-mailman (output) from mailman id 657049.1025683; Tue, 19 Dec 2023 16:57:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFd4a-0008Q0-8P; Tue, 19 Dec 2023 16:36:00 +0000
-Received: by outflank-mailman (input) for mailman id 657043;
- Tue, 19 Dec 2023 16:35:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFdPf-0007KJ-Vf; Tue, 19 Dec 2023 16:57:47 +0000
+Received: by outflank-mailman (input) for mailman id 657049;
+ Tue, 19 Dec 2023 16:57:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFd4Z-0008Oc-Ck
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 16:35:59 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b02e817d-9e8c-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 17:35:58 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3367632ce7bso446076f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 08:35:58 -0800 (PST)
+ id 1rFdPf-0007KC-14
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 16:57:47 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id baa21a57-9e8f-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 17:57:44 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-40c6ea99429so48460225e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 08:57:44 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h3-20020a5d6883000000b00336755f15b0sm1505163wru.68.2023.12.19.08.35.57
+ bv17-20020a0560001f1100b003363aa2b3cfsm18200380wrb.98.2023.12.19.08.57.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 08:35:57 -0800 (PST)
+ Tue, 19 Dec 2023 08:57:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b02e817d-9e8c-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: baa21a57-9e8f-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703003758; x=1703608558; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=suse.com; s=google; t=1703005064; x=1703609864; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=j9hJKF7RRuBSejCOh++IK5x52P/Eji436fOwdpI2cfA=;
-        b=VvJCrTC9YX5gz7kr6GichRnoEskvI0kHSvnRMoxOsAgy8aLwJyfHPjd/GY/wDcLscf
-         kloIRlBDEbd4AWTMJt6MmhGXMQd3gbQ4bc+UWKALrZZiCQZ7qouELbBlkz2JDGkprICc
-         lY6EuCmr4QlwTMS3SLJIcwZy6dc7UVQFNovoeLf+r4Dwo/0VzhpDXhKeE6FUorjgt5z6
-         pBEvWOGrozGupp6jbN+vuuxTt6U30Gj0XoXWNs13Fmi59RVIOuVn9Ytx3A7H5m9wEDLG
-         LRlh8uIlOXDE3BBAqFlew/vrjfBN7/H4948mv3/W5SCRg1AUU6CN5g/FtO6Y+c8foh/y
-         p1ig==
+        bh=Z2ol6tnnYxZ21JLW0C7LiJU6cTtE6rDym4fyNBxXUfs=;
+        b=KUbr8OXpA7yFkA34x7dCsBUppXKLYUCJSZfhbVMCp1hsMGgpGp9qX8rrwuT+AjDt+I
+         n0wd5lqpx5320VcmVcR/fCjGlYjDMP4n9T5gR2yhFeaepQ10wL+BYpLZPgoyYoNw7q7s
+         OPjlQk6Z0QFnvm6ZgEcHWQETWzytIQ7hCUdcSwpkllN/2sb6P8IuGFc4Z6d8hT+iD1xW
+         Y4fvXnaXuHV7kJ1WGVA76xbqA5ePZA1X0vstQey8GFTmkl/tqzlZtYXECXq/0vr7ERfu
+         VDiA+BTKFV/87VtJQ7oxMM+J/EaCksE+bNlo3Z7r6dCWFEbWTxSuNtVhMOKUBAkOpX6g
+         QMWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703003758; x=1703608558;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=1e100.net; s=20230601; t=1703005064; x=1703609864;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=j9hJKF7RRuBSejCOh++IK5x52P/Eji436fOwdpI2cfA=;
-        b=AnIliW4eE51s24uJV6MjuYRaYfxXe4YsiLxf+9QhagfrGlpLfqbALhnvhp49MTxJzB
-         I7co7SWc1ny4La67qrfe8YpiDT2vj3qzUl2F7jVQfiPPOpSjX+ofzImJu1GYeT1zCM16
-         5WpVS+VVnuzOIel9kP6nC5EKncqFRlucvWZH4rS9PxSAfO/jhaRCFVUAZmJk/Lq8eyJY
-         PeKlW4GpiVURoRCmJz+qTAZkTJOlGozEJz1IZOgf5QcGjwKxBohKUrp9XZuyDDN8eraB
-         vK+Fxr3OZDOTSh0W7Jmh8lcz99WMflqjXSB2+uiL2M8R7OGxgmirUEJRTWI5HaoMeSn3
-         dA2g==
-X-Gm-Message-State: AOJu0YzXCEPg7hYpeJj2YCSYbqYj4idoHQSfSv6X++8c6WeQkLndT+1C
-	cfb+OiYii9+XOQtEbokG/SZ0
-X-Google-Smtp-Source: AGHT+IE88lp1v5YkDqE9DSdZM2tJSZjDJIgm63EytiwTouDSoM34/RqHkkU1qK4fGMnubsPa6QWjiw==
-X-Received: by 2002:adf:e2cf:0:b0:333:32d8:e0f2 with SMTP id d15-20020adfe2cf000000b0033332d8e0f2mr10168376wrj.102.1703003757990;
-        Tue, 19 Dec 2023 08:35:57 -0800 (PST)
-Message-ID: <8a236600-7fa3-48da-a692-8286e5931f21@suse.com>
-Date: Tue, 19 Dec 2023 17:35:56 +0100
+        bh=Z2ol6tnnYxZ21JLW0C7LiJU6cTtE6rDym4fyNBxXUfs=;
+        b=jwxz4QUGlMiprr9KVhk1rndNtLgVLfYckMb4THshTbZunSCAQPWPsbqIIwwGqUZIHp
+         ZWa9lRXYkIAAPlfeCfKK80h9co/KxMKKtuTlnRyxLzQwkvgSjzrxPpcOdh3SFQ+b5D85
+         qX+eVypJwEHKbHlA2Bf297b5ufonkMk51SFUrASGk48QGSRqQong9dvXLLEZ8fdUkJ10
+         f4EM/Yk4F3XdQ2bxGqgsJrTx2uqkECmfDypTz/0/e+qz0LqGv88hCFvkOoWIXZq0swYw
+         BHcGH9ReUHmLD6gG/3zOWc87pUyKJw7wt6N4PPQRZcTaELJR8opw8UZjyvdorqygzpqJ
+         NEyw==
+X-Gm-Message-State: AOJu0YzUfRoeQDPk9Wgx30QnAi5agIr2x5Uu/NRfL1kb2iLPWLGX+/OU
+	1GtQ7+UkotrknrR/r4JpHFJ9itE5B4uK1zlJjX33
+X-Google-Smtp-Source: AGHT+IGGDVUSEFfGfeMCicOX72QVQeeht7XFzY4mjtcRdQILwUSPyfChDh5y0peoWiBiY2cBIt5yfg==
+X-Received: by 2002:a05:600c:492f:b0:40c:31bb:6703 with SMTP id f47-20020a05600c492f00b0040c31bb6703mr6186182wmp.75.1703005063938;
+        Tue, 19 Dec 2023 08:57:43 -0800 (PST)
+Message-ID: <217649a9-8399-48d3-ba49-ae22cacf0d4b@suse.com>
+Date: Tue, 19 Dec 2023 17:57:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] xen/x86: introduce self modifying code test
+Subject: Re: hvmloader - allow_memory_relocate overlaps
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20231215111842.8009-1-roger.pau@citrix.com>
- <20231215111842.8009-3-roger.pau@citrix.com>
+To: Neowutran <xen@neowutran.ovh>
+References: <7oe275z3eap7rhdwmrm4mvqnjnhrpag5cjwnfvwsf7rchhkyjv@pd3abzwdhg6v>
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,32 +108,89 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231215111842.8009-3-roger.pau@citrix.com>
+In-Reply-To: <7oe275z3eap7rhdwmrm4mvqnjnhrpag5cjwnfvwsf7rchhkyjv@pd3abzwdhg6v>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.12.2023 12:18, Roger Pau Monne wrote:
-> Introduce a helper to perform checks related to self modifying code, and start
-> by creating a simple test to check that alternatives have been applied.
-> 
-> Such test is hooked into the boot process and called just after alternatives
-> have been applied.  In case of failure a message is printed, and the hypervisor
-> is tainted as not having passed the tests, this does require introducing a new
-> taint bit (printed as 'T').
-> 
-> A new sysctl is also introduced to run the tests on demand.  While there are no
-> current users introduced here, further changes will introduce those, and it's
-> helpful to have the interface defined in the sysctl header from the start.
-> 
-> Note the sysctl visibility is not limited to x86, albeit the only
-> implementation is for x86.  It's expected that other architectures can reuse
-> the same sysctl and structure, with possibly different tests.  Leave adjusting
-> those to when support for a different architecture is introduced, as the
-> sysctl interface is not stable anyway.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 16.12.2023 08:01, Neowutran wrote:
+> I am wondering if the variable "allow_memory_relocate" is still
+> relevant today and if its default value is still relevant. 
+> Should it be defined to 0 by default instead of 1 (it seems to be a
+> workaround for qemu-traditional, so maybe an outdated default value ? ) ? 
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+So are you saying you use qemu-trad? Otherwise isn't libxl suppressing
+this behavior anyway? Or did that code go stale?
 
+> Code extract: 
+> 
+> tools/firmware/hvmloader/pci.c 
+> "
+>    /*
+>      * Do we allow hvmloader to relocate guest memory in order to
+>      * increase the size of the lowmem MMIO hole?  Defaulting to 1
+>      * here will
+>  mean that non-libxl toolstacks (including xend and
+>      * home-grown ones) means that those using qemu-xen will still
+>      * experience the memory relocation bug described below; but it
+>      * also means that those using q 
+> emu-traditional will *not*
+>      * experience any change; and it also means that there is a
+>      * work-around for those using qemu-xen, namely switching to
+>      * qemu-traditional.
+>      *
+>      * If we defaulted to 0, and failing to resize the hole caused any
+>      * problems with qemu-traditional, then there is no work-around.
+>      *
+>      * Since xend can only use qemu-traditional, I think this is the
+>      * option that will have the least impact.
+>      */
+>     bool allow_memory_relocate = 1;
+> "
+> 
+> "
+>         /*
+>          * At the moment qemu-xen can't deal with relocated memory regions.
+>          * It's too close to the release to make a proper fix; for now,
+>          * only allow t
+> he MMIO hole to grow large enough to move guest memory
+>          * if we're running qemu-traditional.  Items that don't fit will be
+>          * relocated into the 64-bit address space.
+>          *
+>          * This loop now does the following:
+>          * - If allow_memory_relocate, increase the MMIO hole until it's
+>          *   big enough, or  
+> until it's 2GiB
+>          * - If !allow_memory_relocate, increase the MMIO hole until it's
+>          *   big enough, or until it's 2GiB, or until it overlaps guest
+>          *   memory
+>          */
+>         while ( (mmio_total > (pci_mem_end - pci_mem_start))
+>                 && ((pci_mem_start << 1) != 0)
+>                 && (allow_memory_relocate
+>                     || (((pci_mem_start << 1) >> PAGE_SHIFT)
+>                         >= hvm_info->low_mem_pgend)) )
+>             pci_mem_start <<= 1;
+> "
+> 
+> The issue it cause is documented in the source code: guest memory can
+> be trashed by the hvmloader. 
+> 
+> Due to this issue, it is impossible to passthrough a large PCI device to a HVM with a lot of ram.
+> (https://github.com/QubesOS/qubes-issues/issues/4321). 
+> 
+> (Forcing "allow_memory_relocate" to be 0 seems to solve the issue
+> linked)
 
+What I don't understand here (and what I also can't find helpful logs for)
+is: The code in hvmloader is in principle intended to work in both cases.
+If there's suspected guest memory corruption, can we get to see the actual
+results of the MMIO hole creation and its using for device ranges? If there
+indeed is an overlap with guest RAM, that's a bug which wants fixing. I
+don't see why we would want to drop allow_memory_relocate in the way you
+suggest; quite the other way around, if upstream qemu still can't tolerate
+hvmloader doing this, then it wants fixing there such that RAM relocation
+can be enabled unconditionally. Then the variable will indeed not be needed
+anymore.
+
+Jan
 
