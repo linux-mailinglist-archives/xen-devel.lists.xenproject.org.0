@@ -2,33 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE62819460
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 00:12:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657237.1025983 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 559F681946D
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 00:15:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657244.1025994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFjFl-0004w7-TI; Tue, 19 Dec 2023 23:11:57 +0000
+	id 1rFjJD-0005a3-Ix; Tue, 19 Dec 2023 23:15:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657237.1025983; Tue, 19 Dec 2023 23:11:57 +0000
+Received: by outflank-mailman (output) from mailman id 657244.1025994; Tue, 19 Dec 2023 23:15:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFjFl-0004tR-QA; Tue, 19 Dec 2023 23:11:57 +0000
-Received: by outflank-mailman (input) for mailman id 657237;
- Tue, 19 Dec 2023 23:11:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFjJD-0005YO-GH; Tue, 19 Dec 2023 23:15:31 +0000
+Received: by outflank-mailman (input) for mailman id 657244;
+ Tue, 19 Dec 2023 23:15:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+gux=H6=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
- id 1rFjFj-0004t5-Uv
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 23:11:56 +0000
-Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
- [2607:f8b0:4864:20::102c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ffb728cd-9ec3-11ee-98eb-6d05b1d4d9a1;
- Wed, 20 Dec 2023 00:11:55 +0100 (CET)
-Received: by mail-pj1-x102c.google.com with SMTP id
- 98e67ed59e1d1-28b4d49293fso2137470a91.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 15:11:54 -0800 (PST)
+ <SRS0=XNVD=H6=linuxfoundation.org=torvalds@srs-se1.protection.inumbo.net>)
+ id 1rFjJC-0005YG-74
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 23:15:30 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7f0342fb-9ec4-11ee-9b0f-b553b5be7939;
+ Wed, 20 Dec 2023 00:15:27 +0100 (CET)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-50e3cdcf010so3099269e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 15:15:27 -0800 (PST)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com.
+ [209.85.167.54]) by smtp.gmail.com with ESMTPSA id
+ br21-20020a056512401500b0050bfcae9637sm3333767lfb.12.2023.12.19.15.15.25
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Dec 2023 15:15:25 -0800 (PST)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-50e3cdcf010so3099252e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 15:15:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,387 +49,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ffb728cd-9ec3-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 7f0342fb-9ec4-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703027513; x=1703632313; darn=lists.xenproject.org;
+        d=linuxfoundation.org; s=google; t=1703027727; x=1703632527; darn=lists.xenproject.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=0U0OxG9EDyooSEOLJleYkspEujfyXsoV/rMVLdKPC8Y=;
-        b=MLXZJPPnQy4k3DZVTE1DBRS7Py2wbsJJ8oebPvXOEY3rAZ+QCQDYUTF5+YLzyMgZ8e
-         vYx3Xg0xxv+PobWBCQRa3xQMo6vtC1J3BK0hRO+5bMrEZQxMkjHXc18lb70lGr1w28IJ
-         yj1d9H/Bxx3Nr50PW07Z1C3VR6xcRV4jXBqHvw551Trpf5uR7pzxkPUuJcULSprQt/8l
-         8w7mKqvr5/whprP72agVVzYIbUu+HsbWNRR63XrF5RK+Im31dsEcbPJbq1R2mJofDhQs
-         seT4S+It1SJUwmDP30KR5YsLoAh7e2xMOPcMOiUWGVAbfcEKqaxNMFmNUUNaW4LEvEhC
-         LTzA==
+        bh=kj0NIbQMmR0b4KeLA6ZKjhMtfUEM3mGSEfitKIyAxUE=;
+        b=cH3TOM48CSfDDpw+acaoZsI+6vDCSzOzn9ygmH0sKuX7rkn5Sr5DfFEoLw9e7Vajkp
+         kWV+q8odvzzS9pwZoz3HWtWQWmy+NEx3a/SQTdD0soEOqfL7jgA2H4x5VRYbjMjoFcSn
+         7MetJinohD5ZSXOhPzN0fzz+JaYlDzFbEvqV8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703027513; x=1703632313;
+        d=1e100.net; s=20230601; t=1703027727; x=1703632527;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0U0OxG9EDyooSEOLJleYkspEujfyXsoV/rMVLdKPC8Y=;
-        b=MRUH3GcL0Pdjx790tvv26S55RqBhzIW1ChW1H4jK8+miDux658cfLZTdfkFGlFoi9l
-         owpz5Tp/cmOq+pcNvHybI5tgqOXELO2ihX8RzscXD5bTPNyAbGydiqsx076Smqx90dso
-         n171A5VnLvdmk8rdvzFQ+14CZxacyqIPIoVPhRdFP2XGqgpiNueKYLGEmrWxSnB46jpv
-         9yrJ9YNF52qDe6znMjnMpBvCENyazOqWRJ6NXIUrWMfJMVjSn+blV3VRcmw//4707Qbq
-         3k337cOZAeL3/xlIFPOzvt2ZRgcX/uW4ScP2IrAc2Yhugsi50VOIIsrrxyI67RUTTMwE
-         fK8Q==
-X-Gm-Message-State: AOJu0YwiaGTD5/FPkWHk6hgHSbC1Gzg9v26HV82x3DjnjRpY13N5I2od
-	+lvd0gOrDd7UlkavBBB0dmMlb+9x83nPsKhKvH9drx7cIBs=
-X-Google-Smtp-Source: AGHT+IETrYf6kfnRe1af3Am0ByfQ/y4pnNqKg1uCJnllk/TVRgDFDaXHRHfXVxn+e2oKIjeiDePSPBNAIf7VUWmW5Bw=
-X-Received: by 2002:a17:90a:dd43:b0:28b:9811:c298 with SMTP id
- u3-20020a17090add4300b0028b9811c298mr1809810pjv.55.1703027513243; Tue, 19 Dec
- 2023 15:11:53 -0800 (PST)
+        bh=kj0NIbQMmR0b4KeLA6ZKjhMtfUEM3mGSEfitKIyAxUE=;
+        b=PD2FvLI85ghNoa6vdIAoBp/yz92Uf27dHh3YGb/RM4Hii83k1Aeo3WdzMTf+Yv7JBg
+         OCKP5fwPyqjt7x+mI4EWukia4miT1xiWO4pUIgew7V0F8PQjTp108Fi1sTipvydh6gQG
+         lrmkSyIq+lRk5por1gxhM73p4UZ+h4Pgl6p55ITkES7bPbYCoOsA6YdA/4zGRY11zJwP
+         93LL1gZPHc4f+fP315dElpnRoWkJoSM9vg4P7t8LQGoOtxLZbcHK/InNAHEdTkYDtCMa
+         g5N/SnLXFlZyCT28fbEtm3BvdvTEoUqUi+X+tyiXD6SebfIKeEe8djPM60Sy367Ixni5
+         iFRg==
+X-Gm-Message-State: AOJu0YzIuVFwMTYmbXYrwdPGy5c01WbkOBj6XtnXxjw95IH3SKCHbAJ0
+	RAofduWbRSAVjnWNejFyK0T3YI8BIcH5knYx2W1kmDh6
+X-Google-Smtp-Source: AGHT+IHcF4XvtapOg2maTE4y2VBTJC7x3ZdiD1aHlnGUzY9ReuVNK9cABJQIHHFAgUwjZk0mMGeA2w==
+X-Received: by 2002:a05:6512:31d5:b0:50e:4ea7:f2c3 with SMTP id j21-20020a05651231d500b0050e4ea7f2c3mr240098lfe.121.1703027726911;
+        Tue, 19 Dec 2023 15:15:26 -0800 (PST)
+X-Received: by 2002:ac2:5fe3:0:b0:50b:f34b:8779 with SMTP id
+ s3-20020ac25fe3000000b0050bf34b8779mr4408890lfg.139.1703027725444; Tue, 19
+ Dec 2023 15:15:25 -0800 (PST)
 MIME-Version: 1.0
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com> <CAKm-UmYGTLY0fTh4zvj-xrA3Tp+Oj+ES61pncG7ze0QnP4o=FQ@mail.gmail.com>
- <52bd8702-cf7d-4f5b-883d-be6214ba31c0@suse.com> <CAKm-UmadRsc7GEYDqMDTBaoozT5Bj3nwK+=uDs1LkTZVG8tgdQ@mail.gmail.com>
- <CAKm-UmZnPtH_Fxou3OV0BbpP+tBpSe1z8Qet4Q5=zDD7UGZy6Q@mail.gmail.com>
- <CAKm-UmbaHoXymP8CcBVBLSVG7T9zCE2fbFQB33SMnY8pwXOU1Q@mail.gmail.com>
- <435d159f-96d5-49af-82ec-bce6961e3391@suse.com> <CAKm-UmbEBOm525=f+OOL0P05tQVVQz9wegh7F8yhgV_=Z7rWug@mail.gmail.com>
- <CAKm-UmYejm8CW-Enc_Y-aefcLPsRhQO8w2P-fNdu1zXMMjUAoA@mail.gmail.com>
- <e83e7254-0c90-4912-ae63-ea7221a10071@suse.com> <CAKm-UmbDNbeakVQtDT47o4Qc4oQvi0dqmBDb5Q=pRqTHFY0C5w@mail.gmail.com>
- <CAKm-UmZtN2o3d13cE9GyyLKfMmZ855MfrAAw9O6zE-5ob0-iYg@mail.gmail.com>
- <64d738b7-08c1-4b2c-a828-a137c870408e@suse.com> <CAKm-UmayUxd8F337g+BnR=_50_o__oV_PeUv9Z+9gNZ5MXYmrA@mail.gmail.com>
- <b4f46a91-b3b9-49b9-9a26-e2f962dee54c@suse.com> <CAKm-UmY9yYv2gOwm-O3DF7dBBNeNjs+3pDGuU+sYgJ+OHwcLNw@mail.gmail.com>
- <CAKm-UmZ1Q77EqUit9J6RX0-MCALdu4gjaU2zrX6oneW+45a+Kw@mail.gmail.com> <CAKm-UmYZcsY=C2Yhmy_EeZi0iAguVH0Eqy83upBLa_ikQtPwnw@mail.gmail.com>
-In-Reply-To: <CAKm-UmYZcsY=C2Yhmy_EeZi0iAguVH0Eqy83upBLa_ikQtPwnw@mail.gmail.com>
-From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Date: Wed, 20 Dec 2023 00:11:41 +0100
-Message-ID: <CAKm-Umapq5LW9yhSOGk8TOg1iuvUogUDKbEXbUcE5T5-vVzW3w@mail.gmail.com>
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000f83f50060ce4fd72"
+References: <202312191507.348721d2-oliver.sang@intel.com> <20231219095821.GAZYFpPUSKexZAcl05@fat_crate.local>
+ <CAHk-=wimbX8UF6ECo53Hm4Vz0tCC7jjN9e3tEhZfoEtsxyfU-A@mail.gmail.com>
+ <87013f74-5828-4bef-848b-ffedde8e86f5@citrix.com> <CAHk-=wh=z-aXw6o8Hi9SiC5-vwP403-ZpDHUOXdXmLbaG93dvQ@mail.gmail.com>
+In-Reply-To: <CAHk-=wh=z-aXw6o8Hi9SiC5-vwP403-ZpDHUOXdXmLbaG93dvQ@mail.gmail.com>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Tue, 19 Dec 2023 15:15:07 -0800
+X-Gmail-Original-Message-ID: <CAHk-=whfpRxuucUL1oguRivq0e7JSxNWC2p_6gvKriNTHmr0UQ@mail.gmail.com>
+Message-ID: <CAHk-=whfpRxuucUL1oguRivq0e7JSxNWC2p_6gvKriNTHmr0UQ@mail.gmail.com>
+Subject: Re: [linus:master] [x86/entry] be5341eb0d: WARNING:CPU:#PID:#at_int80_emulation
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Borislav Petkov <bp@alien8.de>, kernel test robot <oliver.sang@intel.com>, 
+	Thomas Gleixner <tglx@linutronix.de>, oe-lkp@lists.linux.dev, lkp@intel.com, 
+	linux-kernel@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>, xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="0000000000009efc6c060ce50a83"
 
---000000000000f83f50060ce4fd72
+--0000000000009efc6c060ce50a83
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Le mer. 20 d=C3=A9c. 2023 =C3=A0 00:06, S=C3=A9bastien Chaumat <euidzero@gm=
-ail.com> a
-=C3=A9crit :
+On Tue, 19 Dec 2023 at 12:17, Linus Torvalds
+<torvalds@linuxfoundation.org> wrote:
+>
+> That said, I still think that just getting rid of this horrid special
+> case for posix timers is the right thing, and we should just remove
+> that SYS_NI() alias thing entirely.
 
->
->
-> Le mar. 19 d=C3=A9c. 2023 =C3=A0 20:03, S=C3=A9bastien Chaumat <euidzero@=
-gmail.com> a
-> =C3=A9crit :
->
->> Le mar. 19 d=C3=A9c. 2023 =C3=A0 16:15, S=C3=A9bastien Chaumat <euidzero=
-@gmail.com> a
->> =C3=A9crit :
->> >
->> > I did add an extra printk in PHYSDEVOP_setup_gsi
->> > so the "first one" is my printk (available in xl dmesg)
->> > the second message is from xen_register_gsi (from linux kernel)
->> >
->> > Le mar. 19 d=C3=A9c. 2023 =C3=A0 14:15, Jan Beulich <jbeulich@suse.com=
-> a =C3=A9crit :
->> > >
->> > > On 18.12.2023 17:21, S=C3=A9bastien Chaumat wrote:
->> > > >>>>> On 05.12.2023 21:31, S=C3=A9bastien Chaumat wrote:
->> > > >>>>>>> [    2.464598] amd_gpio AMDI0030:00: failed to enable wake-u=
-p
->> interrupt
->> > > >>>>>>
->> > > >>>>>> Is it expected that IRQ7 goes from fasteoi (kernel 6.6.4 ) to
->> > > >>>>>> ioapic-edge and IRQ9 to ioapic-level ?
->> > > >>>>>>
->> > > >>>>>> IR-IO-APIC    7-fasteoi   pinctrl_amd
->> > > >>>>>> IR-IO-APIC    9-fasteoi   acpi
->> > > >>>>>>
->> > > >>>>>> to (xen 4.18.0)
->> > > >>>>>>
->> > > >>>>>> xen-pirq     -ioapic-edge  pinctrl_amd
->> > > >>>>>> xen-pirq     -ioapic-level  acpi
->> > > >>>>>>
->> > > >>>>>> ?
->> > > >>>
->> > > >
->> > > >>> This look similar to
->> > > >>> https://yhbt.net/lore/all/20201006044941.fdjsp346kc5thyzy@Rk/t/
->> > > >>>
->> > > >>> This issue seems that IRQ 7 (the GPIO controller) is natively
->> fasteoi
->> > > >>> (so level type) while in xen it  is mapped to oapic-edge  instea=
-d
->> of
->> > > >>> oapic-level
->> > > >>> as the SSDT indicates :
->> > > >>>
->> > > >>>  Device (GPIO)
->> > > >>>
->> > > >>>      {
->> > > >>>          Name (_HID, "AMDI0030")  // _HID: Hardware ID
->> > > >>>          Name (_CID, "AMDI0030")  // _CID: Compatible ID
->> > > >>>          Name (_UID, Zero)  // _UID: Unique ID
->> > > >>>          Method (_CRS, 0, NotSerialized)  // _CRS: Current
->> Resource Settings
->> > > >>>          {
->> > > >>>              Name (RBUF, ResourceTemplate ()
->> > > >>>              {
->> > > >>>                  Interrupt (ResourceConsumer, Level, ActiveLow,
->> Shared, ,, )
->> > > >>>                  {
->> > > >>>                      0x00000007,
->> > > >>>            }
->> > > >>> Any idea why ?
->> > > >>
->> > > >> Information coming from AML is required to be handed down by Dom0
->> to Xen.
->> > > >> May want checking that (a) Dom0 properly does so and (b) Xen
->> doesn't screw
->> > > >> up in consuming that data. See PHYSDEVOP_setup_gsi. I wonder if
->> this is
->> > > >> specific to it being IRQ7 which GPIO uses, as at the (master) PIC
->> IRQ7 is
->> > > >> also the spurious vector. You may want to retry with the tip of
->> the 4.17
->> > > >> branch (soon to become 4.17.3) - while it doesn't look very likel=
-y
->> to me
->> > > >> that recent backports there were related, it may still be that
->> they make
->> > > >> a difference.
->> > > >>
->> > > >
->> > > > testing with 4.17.3:
->> > > >
->> > > > Adding some printk in PHYSDEVOP_setup_gsi, I  see (in xl dmesg)
->> that
->> > > > (XEN) PHYSDEVOP_setup_gsi setup_gsi : gsi: 7 triggering: 1
->> polarity: 1
->> > > >
->> > > > but later on in dmesg I see :
->> > > > [    1.747958] xen: registering gsi 7 triggering 0 polarity 1
->> > >
->> > > Linux has exactly one place where this message is logged from, and
->> that's
->> > > ahead of it calling PHYSDEVOP_setup_gsi. Since you said "later", can
->> you
->> > > confirm that actually you see two instances of the Xen message and t=
-wo
->> > > instances of the Linux one (each of them with respectively matching
->> > > trigger and polarity values)? Or are we indeed observing what would
->> look
->> > > to be corruption of a hypercall argument?
->> > >
->> > > If there were two calls, it would be important to realize that Xen
->> will
->> > > respect only the first one.
->> > >
->> > > Jan
->>
->> Adding a printk to catch the gsi immediately before the hypercall in
->> linux/arch/x86/pci/xen.c
->>
->> #ifdef CONFIG_XEN_PV_DOM0
->> static int xen_register_gsi(u32 gsi, int triggering, int polarity)
->> {
->> int rc, irq;
->> struct physdev_setup_gsi setup_gsi;
->>
->> if (!xen_pv_domain())
->> return -1;
->>
->> printk(KERN_DEBUG "xen: registering gsi %u triggering %d polarity %d\n",
->> gsi, triggering, polarity);
->>
->
-> there we have :
->   [    1.848051] xen: registering gsi 7 triggering 0 polarity 1
->
-> then in the next call :
->
-> irq =3D xen_register_pirq(gsi, triggering, true);
->
->
->  I added a printk at the very beginning  :
->
->   static int xen_register_pirq(u32 gsi, int triggering, bool set_pirq)
->   {
->     int rc, pirq =3D -1, irq;
->     struct physdev_map_pirq map_irq;
->     int shareable =3D 0;
->     char *name;
->
->     printk(KERN_DEBUG "xen_register_pirq start gsi %u triggering %d
-> set_pirq %d\n", gsi, triggering, set_pirq)
->
-> And I get  in this printk result for IRQ7 : triggering=3D1 while it was
-> passed with value 0 in the call !?
->
+IOW, something like the attached patch.
 
-Sorry bad format %d instead of %i for triggering ...
+It's not extensively tested, but hey, the diffstat looks nice:
 
---000000000000f83f50060ce4fd72
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+  arch/arm64/include/asm/syscall_wrapper.h |  4 ---
+  arch/riscv/include/asm/syscall_wrapper.h |  5 ----
+  arch/s390/include/asm/syscall_wrapper.h  | 13 +--------
+  arch/x86/include/asm/syscall_wrapper.h   | 34 +++---------------------
+  kernel/sys_ni.c                          | 14 ++++++++++
+  kernel/time/posix-stubs.c                | 45 --------------------------------
+  6 files changed, 19 insertions(+), 96 deletions(-)
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">Le=C2=A0mer. 20 d=C3=A9c. 2023 =C3=A0=
-=C2=A000:06, S=C3=A9bastien Chaumat &lt;<a href=3D"mailto:euidzero@gmail.co=
-m">euidzero@gmail.com</a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr"><br></d=
-iv><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Le=
-=C2=A0mar. 19 d=C3=A9c. 2023 =C3=A0=C2=A020:03, S=C3=A9bastien Chaumat &lt;=
-<a href=3D"mailto:euidzero@gmail.com" target=3D"_blank">euidzero@gmail.com<=
-/a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">Le mar. 19 d=C3=A9c. 2023 =C3=A0 16:15, S=C3=A9bastien Chaumat =
-&lt;<a href=3D"mailto:euidzero@gmail.com" target=3D"_blank">euidzero@gmail.=
-com</a>&gt; a =C3=A9crit :<br>
-&gt;<br>
-&gt; I did add an extra printk in PHYSDEVOP_setup_gsi<br>
-&gt; so the &quot;first one&quot; is my printk (available in xl dmesg)<br>
-&gt; the second message is from xen_register_gsi (from linux kernel)<br>
-&gt;<br>
-&gt; Le mar. 19 d=C3=A9c. 2023 =C3=A0 14:15, Jan Beulich &lt;<a href=3D"mai=
-lto:jbeulich@suse.com" target=3D"_blank">jbeulich@suse.com</a>&gt; a =C3=A9=
-crit :<br>
-&gt; &gt;<br>
-&gt; &gt; On 18.12.2023 17:21, S=C3=A9bastien Chaumat wrote:<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt; On 05.12.2023 21:31, S=C3=A9bastien Chaumat =
-wrote:<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt;&gt; [=C2=A0 =C2=A0 2.464598] amd_gpio AM=
-DI0030:00: failed to enable wake-up interrupt<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt; Is it expected that IRQ7 goes from faste=
-oi (kernel 6.6.4 ) to<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt; ioapic-edge and IRQ9 to ioapic-level ?<b=
-r>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt; IR-IO-APIC=C2=A0 =C2=A0 7-fasteoi=C2=A0 =
-=C2=A0pinctrl_amd<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt; IR-IO-APIC=C2=A0 =C2=A0 9-fasteoi=C2=A0 =
-=C2=A0acpi<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt; to (xen 4.18.0)<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt; xen-pirq=C2=A0 =C2=A0 =C2=A0-ioapic-edge=
-=C2=A0 pinctrl_amd<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt; xen-pirq=C2=A0 =C2=A0 =C2=A0-ioapic-leve=
-l=C2=A0 acpi<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt;<br>
-&gt; &gt; &gt;&gt;&gt;&gt;&gt;&gt; ?<br>
-&gt; &gt; &gt;&gt;&gt;<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt;&gt;&gt; This look similar to<br>
-&gt; &gt; &gt;&gt;&gt; <a href=3D"https://yhbt.net/lore/all/20201006044941.=
-fdjsp346kc5thyzy@Rk/t/" rel=3D"noreferrer" target=3D"_blank">https://yhbt.n=
-et/lore/all/20201006044941.fdjsp346kc5thyzy@Rk/t/</a><br>
-&gt; &gt; &gt;&gt;&gt;<br>
-&gt; &gt; &gt;&gt;&gt; This issue seems that IRQ 7 (the GPIO controller) is=
- natively fasteoi<br>
-&gt; &gt; &gt;&gt;&gt; (so level type) while in xen it=C2=A0 is mapped to o=
-apic-edge=C2=A0 instead of<br>
-&gt; &gt; &gt;&gt;&gt; oapic-level<br>
-&gt; &gt; &gt;&gt;&gt; as the SSDT indicates :<br>
-&gt; &gt; &gt;&gt;&gt;<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 Device (GPIO)<br>
-&gt; &gt; &gt;&gt;&gt;<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 {<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name (_HID, &quot;=
-AMDI0030&quot;)=C2=A0 // _HID: Hardware ID<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name (_CID, &quot;=
-AMDI0030&quot;)=C2=A0 // _CID: Compatible ID<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name (_UID, Zero)=
-=C2=A0 // _UID: Unique ID<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Method (_CRS, 0, N=
-otSerialized)=C2=A0 // _CRS: Current Resource Settings<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Name=
- (RBUF, ResourceTemplate ()<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 {<br=
->
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 Interrupt (ResourceConsumer, Level, ActiveLow, Shared, ,, )<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 {<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 0x00000007,<br>
-&gt; &gt; &gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-&gt; &gt; &gt;&gt;&gt; Any idea why ?<br>
-&gt; &gt; &gt;&gt;<br>
-&gt; &gt; &gt;&gt; Information coming from AML is required to be handed dow=
-n by Dom0 to Xen.<br>
-&gt; &gt; &gt;&gt; May want checking that (a) Dom0 properly does so and (b)=
- Xen doesn&#39;t screw<br>
-&gt; &gt; &gt;&gt; up in consuming that data. See PHYSDEVOP_setup_gsi. I wo=
-nder if this is<br>
-&gt; &gt; &gt;&gt; specific to it being IRQ7 which GPIO uses, as at the (ma=
-ster) PIC IRQ7 is<br>
-&gt; &gt; &gt;&gt; also the spurious vector. You may want to retry with the=
- tip of the 4.17<br>
-&gt; &gt; &gt;&gt; branch (soon to become 4.17.3) - while it doesn&#39;t lo=
-ok very likely to me<br>
-&gt; &gt; &gt;&gt; that recent backports there were related, it may still b=
-e that they make<br>
-&gt; &gt; &gt;&gt; a difference.<br>
-&gt; &gt; &gt;&gt;<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; testing with 4.17.3:<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Adding some printk in PHYSDEVOP_setup_gsi, I=C2=A0 see (in x=
-l dmesg)=C2=A0 that<br>
-&gt; &gt; &gt; (XEN) PHYSDEVOP_setup_gsi setup_gsi : gsi: 7 triggering: 1 p=
-olarity: 1<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; but later on in dmesg I see :<br>
-&gt; &gt; &gt; [=C2=A0 =C2=A0 1.747958] xen: registering gsi 7 triggering 0=
- polarity 1<br>
-&gt; &gt;<br>
-&gt; &gt; Linux has exactly one place where this message is logged from, an=
-d that&#39;s<br>
-&gt; &gt; ahead of it calling PHYSDEVOP_setup_gsi. Since you said &quot;lat=
-er&quot;, can you<br>
-&gt; &gt; confirm that actually you see two instances of the Xen message an=
-d two<br>
-&gt; &gt; instances of the Linux one (each of them with respectively matchi=
-ng<br>
-&gt; &gt; trigger and polarity values)? Or are we indeed observing what wou=
-ld look<br>
-&gt; &gt; to be corruption of a hypercall argument?<br>
-&gt; &gt;<br>
-&gt; &gt; If there were two calls, it would be important to realize that Xe=
-n will<br>
-&gt; &gt; respect only the first one.<br>
-&gt; &gt;<br>
-&gt; &gt; Jan<br>
-<br>
-Adding a printk to catch the gsi immediately before the hypercall in<br>
-linux/arch/x86/pci/xen.c<br>
-<br>
-#ifdef CONFIG_XEN_PV_DOM0<br>
-static int xen_register_gsi(u32 gsi, int triggering, int polarity)<br>
-{<br>
-int rc, irq;<br>
-struct physdev_setup_gsi setup_gsi;<br>
-<br>
-if (!xen_pv_domain())<br>
-return -1;<br>
-<br>
-printk(KERN_DEBUG &quot;xen: registering gsi %u triggering %d polarity %d\n=
-&quot;,<br>
-gsi, triggering, polarity);<br></blockquote><div><br></div><div>there we ha=
-ve :<br></div><div>=C2=A0
-[=C2=A0 =C2=A0 1.848051] xen: registering gsi 7 triggering 0 polarity 1</di=
-v><div><br></div><div>then in the next call :</div><div><br></div><blockquo=
-te class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px =
-solid rgb(204,204,204);padding-left:1ex">
-irq =3D xen_register_pirq(gsi, triggering, true);</blockquote><div><br></di=
-v><div>=C2=A0I added a printk at the very beginning=C2=A0 :</div><div><br><=
-/div><div>=C2=A0 static int xen_register_pirq(u32 gsi, int triggering, bool=
- set_pirq)<br>=C2=A0 {<br>=C2=A0=C2=A0=C2=A0 int rc, pirq =3D -1, irq;<br>=
-=C2=A0=C2=A0=C2=A0 struct physdev_map_pirq map_irq;<br>=C2=A0=C2=A0=C2=A0 i=
-nt shareable =3D 0;<br>=C2=A0=C2=A0=C2=A0 char *name;</div><div><br>=C2=A0=
-=C2=A0=C2=A0 printk(KERN_DEBUG &quot;xen_register_pirq start gsi %u trigger=
-ing %d set_pirq %d\n&quot;, gsi, triggering, set_pirq)<br></div><div><br></=
-div><div>And I get=C2=A0 in this printk result for IRQ7 : triggering=3D1 wh=
-ile it was passed with value 0 in the call !?</div></div></div></blockquote=
-><div><br></div><div>Sorry bad format %d instead of %i for triggering ...<b=
-r></div></div></div>
+and it builds in at least a *couple* of configurations, including with
+CONFIG_POSIX_TIMERS disabled.
 
---000000000000f83f50060ce4fd72--
+I did *not* check whether it might fix the warning, since I doubt my
+user space would even boot without that posix timer support (actually,
+honestly, because I'm just lazy and "it _looks_ fine to me" was the
+main real thing).
+
+But that SYS_NI() thing really does deserve to die, as it was purely
+used as a hack for some random timer system calls.
+
+Comments?
+
+            Linus
+
+--0000000000009efc6c060ce50a83
+Content-Type: text/x-patch; charset="US-ASCII"; name="patch.diff"
+Content-Disposition: attachment; filename="patch.diff"
+Content-Transfer-Encoding: base64
+Content-ID: <f_lqcyiw9s0>
+X-Attachment-Id: f_lqcyiw9s0
+
+IGFyY2gvYXJtNjQvaW5jbHVkZS9hc20vc3lzY2FsbF93cmFwcGVyLmggfCAgNCAtLS0KIGFyY2gv
+cmlzY3YvaW5jbHVkZS9hc20vc3lzY2FsbF93cmFwcGVyLmggfCAgNSAtLS0tCiBhcmNoL3MzOTAv
+aW5jbHVkZS9hc20vc3lzY2FsbF93cmFwcGVyLmggIHwgMTMgKy0tLS0tLS0tCiBhcmNoL3g4Ni9p
+bmNsdWRlL2FzbS9zeXNjYWxsX3dyYXBwZXIuaCAgIHwgMzQgKysrLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tCiBrZXJuZWwvc3lzX25pLmMgICAgICAgICAgICAgICAgICAgICAgICAgIHwgMTQgKysrKysr
+KysrKwoga2VybmVsL3RpbWUvcG9zaXgtc3R1YnMuYyAgICAgICAgICAgICAgICB8IDQ1IC0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiA2IGZpbGVzIGNoYW5nZWQsIDE5IGluc2VydGlv
+bnMoKyksIDk2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2FyY2gvYXJtNjQvaW5jbHVkZS9h
+c20vc3lzY2FsbF93cmFwcGVyLmggYi9hcmNoL2FybTY0L2luY2x1ZGUvYXNtL3N5c2NhbGxfd3Jh
+cHBlci5oCmluZGV4IGQ5Nzc3MTNlYzBiYS4uYWJiNTdiYzU0MzA1IDEwMDY0NAotLS0gYS9hcmNo
+L2FybTY0L2luY2x1ZGUvYXNtL3N5c2NhbGxfd3JhcHBlci5oCisrKyBiL2FyY2gvYXJtNjQvaW5j
+bHVkZS9hc20vc3lzY2FsbF93cmFwcGVyLmgKQEAgLTQ0LDkgKzQ0LDYgQEAKIAkJcmV0dXJuIHN5
+c19uaV9zeXNjYWxsKCk7CQkJCQkJXAogCX0KIAotI2RlZmluZSBDT01QQVRfU1lTX05JKG5hbWUp
+IFwKLQlTWVNDQUxMX0FMSUFTKF9fYXJtNjRfY29tcGF0X3N5c18jI25hbWUsIHN5c19uaV9wb3Np
+eF90aW1lcnMpOwotCiAjZW5kaWYgLyogQ09ORklHX0NPTVBBVCAqLwogCiAjZGVmaW5lIF9fU1lT
+Q0FMTF9ERUZJTkV4KHgsIG5hbWUsIC4uLikJCQkJCQlcCkBAIC04MSw2ICs3OCw1IEBACiAJfQog
+CiBhc21saW5rYWdlIGxvbmcgX19hcm02NF9zeXNfbmlfc3lzY2FsbChjb25zdCBzdHJ1Y3QgcHRf
+cmVncyAqX191bnVzZWQpOwotI2RlZmluZSBTWVNfTkkobmFtZSkgU1lTQ0FMTF9BTElBUyhfX2Fy
+bTY0X3N5c18jI25hbWUsIHN5c19uaV9wb3NpeF90aW1lcnMpOwogCiAjZW5kaWYgLyogX19BU01f
+U1lTQ0FMTF9XUkFQUEVSX0ggKi8KZGlmZiAtLWdpdCBhL2FyY2gvcmlzY3YvaW5jbHVkZS9hc20v
+c3lzY2FsbF93cmFwcGVyLmggYi9hcmNoL3Jpc2N2L2luY2x1ZGUvYXNtL3N5c2NhbGxfd3JhcHBl
+ci5oCmluZGV4IDFkNzk0MmM4YTZjYi4uZWVlYzA0YjdkYWU2IDEwMDY0NAotLS0gYS9hcmNoL3Jp
+c2N2L2luY2x1ZGUvYXNtL3N5c2NhbGxfd3JhcHBlci5oCisrKyBiL2FyY2gvcmlzY3YvaW5jbHVk
+ZS9hc20vc3lzY2FsbF93cmFwcGVyLmgKQEAgLTQ2LDkgKzQ2LDYgQEAgYXNtbGlua2FnZSBsb25n
+IF9fcmlzY3Zfc3lzX25pX3N5c2NhbGwoY29uc3Qgc3RydWN0IHB0X3JlZ3MgKik7CiAJCXJldHVy
+biBzeXNfbmlfc3lzY2FsbCgpOwkJCQkJCVwKIAl9CiAKLSNkZWZpbmUgQ09NUEFUX1NZU19OSShu
+YW1lKSBcCi0JU1lTQ0FMTF9BTElBUyhfX3Jpc2N2X2NvbXBhdF9zeXNfIyNuYW1lLCBzeXNfbmlf
+cG9zaXhfdGltZXJzKTsKLQogI2VuZGlmIC8qIENPTkZJR19DT01QQVQgKi8KIAogI2RlZmluZSBf
+X1NZU0NBTExfREVGSU5FeCh4LCBuYW1lLCAuLi4pCQkJCQkJXApAQCAtODIsNiArNzksNCBAQCBh
+c21saW5rYWdlIGxvbmcgX19yaXNjdl9zeXNfbmlfc3lzY2FsbChjb25zdCBzdHJ1Y3QgcHRfcmVn
+cyAqKTsKIAkJcmV0dXJuIHN5c19uaV9zeXNjYWxsKCk7CQkJCQlcCiAJfQogCi0jZGVmaW5lIFNZ
+U19OSShuYW1lKSBTWVNDQUxMX0FMSUFTKF9fcmlzY3Zfc3lzXyMjbmFtZSwgc3lzX25pX3Bvc2l4
+X3RpbWVycyk7Ci0KICNlbmRpZiAvKiBfX0FTTV9TWVNDQUxMX1dSQVBQRVJfSCAqLwpkaWZmIC0t
+Z2l0IGEvYXJjaC9zMzkwL2luY2x1ZGUvYXNtL3N5c2NhbGxfd3JhcHBlci5oIGIvYXJjaC9zMzkw
+L2luY2x1ZGUvYXNtL3N5c2NhbGxfd3JhcHBlci5oCmluZGV4IDkyODY0MzBmZTcyOS4uMzVjMWQx
+Yjg2MGQ4IDEwMDY0NAotLS0gYS9hcmNoL3MzOTAvaW5jbHVkZS9hc20vc3lzY2FsbF93cmFwcGVy
+LmgKKysrIGIvYXJjaC9zMzkwL2luY2x1ZGUvYXNtL3N5c2NhbGxfd3JhcHBlci5oCkBAIC02Mywx
+MCArNjMsNiBAQAogCWNvbmRfc3lzY2FsbChfX3MzOTB4X3N5c18jI25hbWUpOwkJCQlcCiAJY29u
+ZF9zeXNjYWxsKF9fczM5MF9zeXNfIyNuYW1lKQogCi0jZGVmaW5lIFNZU19OSShuYW1lKQkJCQkJ
+CQlcCi0JU1lTQ0FMTF9BTElBUyhfX3MzOTB4X3N5c18jI25hbWUsIHN5c19uaV9wb3NpeF90aW1l
+cnMpOwkJXAotCVNZU0NBTExfQUxJQVMoX19zMzkwX3N5c18jI25hbWUsIHN5c19uaV9wb3NpeF90
+aW1lcnMpCi0KICNkZWZpbmUgQ09NUEFUX1NZU0NBTExfREVGSU5FeCh4LCBuYW1lLCAuLi4pCQkJ
+CQkJXAogCWxvbmcgX19zMzkwX2NvbXBhdF9zeXMjI25hbWUoc3RydWN0IHB0X3JlZ3MgKnJlZ3Mp
+OwkJCQlcCiAJQUxMT1dfRVJST1JfSU5KRUNUSU9OKF9fczM5MF9jb21wYXRfc3lzIyNuYW1lLCBF
+UlJOTyk7CQkJCVwKQEAgLTg1LDE1ICs4MSwxMSBAQAogCiAvKgogICogQXMgc29tZSBjb21wYXQg
+c3lzY2FsbHMgbWF5IG5vdCBiZSBpbXBsZW1lbnRlZCwgd2UgbmVlZCB0byBleHBhbmQKLSAqIENP
+TkRfU1lTQ0FMTF9DT01QQVQgaW4ga2VybmVsL3N5c19uaS5jIGFuZCBDT01QQVRfU1lTX05JIGlu
+Ci0gKiBrZXJuZWwvdGltZS9wb3NpeC1zdHVicy5jIHRvIGNvdmVyIHRoaXMgY2FzZSBhcyB3ZWxs
+LgorICogQ09ORF9TWVNDQUxMX0NPTVBBVCBpbiBrZXJuZWwvc3lzX25pLmMgdG8gY292ZXIgdGhp
+cyBjYXNlIGFzIHdlbGwuCiAgKi8KICNkZWZpbmUgQ09ORF9TWVNDQUxMX0NPTVBBVChuYW1lKQkJ
+CQkJXAogCWNvbmRfc3lzY2FsbChfX3MzOTBfY29tcGF0X3N5c18jI25hbWUpCiAKLSNkZWZpbmUg
+Q09NUEFUX1NZU19OSShuYW1lKQkJCQkJCVwKLQlTWVNDQUxMX0FMSUFTKF9fczM5MF9jb21wYXRf
+c3lzXyMjbmFtZSwgc3lzX25pX3Bvc2l4X3RpbWVycykKLQogI2RlZmluZSBfX1MzOTBfU1lTX1NU
+VUJ4KHgsIG5hbWUsIC4uLikJCQkJCQlcCiAJbG9uZyBfX3MzOTBfc3lzIyNuYW1lKHN0cnVjdCBw
+dF9yZWdzICpyZWdzKTsJCQkJXAogCUFMTE9XX0VSUk9SX0lOSkVDVElPTihfX3MzOTBfc3lzIyNu
+YW1lLCBFUlJOTyk7CQkJCVwKQEAgLTEyNCw5ICsxMTYsNiBAQAogI2RlZmluZSBDT05EX1NZU0NB
+TEwobmFtZSkJCQkJCQlcCiAJY29uZF9zeXNjYWxsKF9fczM5MHhfc3lzXyMjbmFtZSkKIAotI2Rl
+ZmluZSBTWVNfTkkobmFtZSkJCQkJCQkJXAotCVNZU0NBTExfQUxJQVMoX19zMzkweF9zeXNfIyNu
+YW1lLCBzeXNfbmlfcG9zaXhfdGltZXJzKQotCiAjZGVmaW5lIF9fUzM5MF9TWVNfU1RVQngoeCwg
+ZnVsbG5hbWUsIG5hbWUsIC4uLikKIAogI2VuZGlmIC8qIENPTkZJR19DT01QQVQgKi8KZGlmZiAt
+LWdpdCBhL2FyY2gveDg2L2luY2x1ZGUvYXNtL3N5c2NhbGxfd3JhcHBlci5oIGIvYXJjaC94ODYv
+aW5jbHVkZS9hc20vc3lzY2FsbF93cmFwcGVyLmgKaW5kZXggZmQyNjY5YjFjYjJkLi4yMWY5NDA3
+YmU1ZDMgMTAwNjQ0Ci0tLSBhL2FyY2gveDg2L2luY2x1ZGUvYXNtL3N5c2NhbGxfd3JhcHBlci5o
+CisrKyBiL2FyY2gveDg2L2luY2x1ZGUvYXNtL3N5c2NhbGxfd3JhcHBlci5oCkBAIC04Niw5ICs4
+Niw2IEBAIGV4dGVybiBsb25nIF9faWEzMl9zeXNfbmlfc3lzY2FsbChjb25zdCBzdHJ1Y3QgcHRf
+cmVncyAqcmVncyk7CiAJCXJldHVybiBzeXNfbmlfc3lzY2FsbCgpOwkJCQlcCiAJfQogCi0jZGVm
+aW5lIF9fU1lTX05JKGFiaSwgbmFtZSkJCQkJCQlcCi0JU1lTQ0FMTF9BTElBUyhfXyMjYWJpIyNf
+IyNuYW1lLCBzeXNfbmlfcG9zaXhfdGltZXJzKTsKLQogI2lmZGVmIENPTkZJR19YODZfNjQKICNk
+ZWZpbmUgX19YNjRfU1lTX1NUVUIwKG5hbWUpCQkJCQkJXAogCV9fU1lTX1NUVUIwKHg2NCwgc3lz
+XyMjbmFtZSkKQEAgLTEwMCwxMyArOTcsMTAgQEAgZXh0ZXJuIGxvbmcgX19pYTMyX3N5c19uaV9z
+eXNjYWxsKGNvbnN0IHN0cnVjdCBwdF9yZWdzICpyZWdzKTsKICNkZWZpbmUgX19YNjRfQ09ORF9T
+WVNDQUxMKG5hbWUpCQkJCQlcCiAJX19DT05EX1NZU0NBTEwoeDY0LCBzeXNfIyNuYW1lKQogCi0j
+ZGVmaW5lIF9fWDY0X1NZU19OSShuYW1lKQkJCQkJCVwKLQlfX1NZU19OSSh4NjQsIHN5c18jI25h
+bWUpCiAjZWxzZSAvKiBDT05GSUdfWDg2XzY0ICovCiAjZGVmaW5lIF9fWDY0X1NZU19TVFVCMChu
+YW1lKQogI2RlZmluZSBfX1g2NF9TWVNfU1RVQngoeCwgbmFtZSwgLi4uKQogI2RlZmluZSBfX1g2
+NF9DT05EX1NZU0NBTEwobmFtZSkKLSNkZWZpbmUgX19YNjRfU1lTX05JKG5hbWUpCiAjZW5kaWYg
+LyogQ09ORklHX1g4Nl82NCAqLwogCiAjaWYgZGVmaW5lZChDT05GSUdfWDg2XzMyKSB8fCBkZWZp
+bmVkKENPTkZJR19JQTMyX0VNVUxBVElPTikKQEAgLTEyMCwxMyArMTE0LDEwIEBAIGV4dGVybiBs
+b25nIF9faWEzMl9zeXNfbmlfc3lzY2FsbChjb25zdCBzdHJ1Y3QgcHRfcmVncyAqcmVncyk7CiAj
+ZGVmaW5lIF9fSUEzMl9DT05EX1NZU0NBTEwobmFtZSkJCQkJCVwKIAlfX0NPTkRfU1lTQ0FMTChp
+YTMyLCBzeXNfIyNuYW1lKQogCi0jZGVmaW5lIF9fSUEzMl9TWVNfTkkobmFtZSkJCQkJCQlcCi0J
+X19TWVNfTkkoaWEzMiwgc3lzXyMjbmFtZSkKICNlbHNlIC8qIENPTkZJR19YODZfMzIgfHwgQ09O
+RklHX0lBMzJfRU1VTEFUSU9OICovCiAjZGVmaW5lIF9fSUEzMl9TWVNfU1RVQjAobmFtZSkKICNk
+ZWZpbmUgX19JQTMyX1NZU19TVFVCeCh4LCBuYW1lLCAuLi4pCiAjZGVmaW5lIF9fSUEzMl9DT05E
+X1NZU0NBTEwobmFtZSkKLSNkZWZpbmUgX19JQTMyX1NZU19OSShuYW1lKQogI2VuZGlmIC8qIENP
+TkZJR19YODZfMzIgfHwgQ09ORklHX0lBMzJfRU1VTEFUSU9OICovCiAKICNpZmRlZiBDT05GSUdf
+SUEzMl9FTVVMQVRJT04KQEAgLTEzNSw4ICsxMjYsNyBAQCBleHRlcm4gbG9uZyBfX2lhMzJfc3lz
+X25pX3N5c2NhbGwoY29uc3Qgc3RydWN0IHB0X3JlZ3MgKnJlZ3MpOwogICogYWRkaXRpb25hbCB3
+cmFwcGVycyAoYXB0bHkgbmFtZWQgX19pYTMyX3N5c194eXp6eSkgd2hpY2ggZGVjb2RlIHRoZQog
+ICogaWEzMiByZWdzIGluIHRoZSBwcm9wZXIgb3JkZXIgZm9yIHNoYXJlZCBvciAiY29tbW9uIiBz
+eXNjYWxscy4gQXMgc29tZQogICogc3lzY2FsbHMgbWF5IG5vdCBiZSBpbXBsZW1lbnRlZCwgd2Ug
+bmVlZCB0byBleHBhbmQgQ09ORF9TWVNDQUxMIGluCi0gKiBrZXJuZWwvc3lzX25pLmMgYW5kIFNZ
+U19OSSBpbiBrZXJuZWwvdGltZS9wb3NpeC1zdHVicy5jIHRvIGNvdmVyIHRoaXMKLSAqIGNhc2Ug
+YXMgd2VsbC4KKyAqIGtlcm5lbC9zeXNfbmkuYyB0byBjb3ZlciB0aGlzIGNhc2UgYXMgd2VsbC4K
+ICAqLwogI2RlZmluZSBfX0lBMzJfQ09NUEFUX1NZU19TVFVCMChuYW1lKQkJCQkJXAogCV9fU1lT
+X1NUVUIwKGlhMzIsIGNvbXBhdF9zeXNfIyNuYW1lKQpAQCAtMTQ4LDE0ICsxMzgsMTAgQEAgZXh0
+ZXJuIGxvbmcgX19pYTMyX3N5c19uaV9zeXNjYWxsKGNvbnN0IHN0cnVjdCBwdF9yZWdzICpyZWdz
+KTsKICNkZWZpbmUgX19JQTMyX0NPTVBBVF9DT05EX1NZU0NBTEwobmFtZSkJCQkJXAogCV9fQ09O
+RF9TWVNDQUxMKGlhMzIsIGNvbXBhdF9zeXNfIyNuYW1lKQogCi0jZGVmaW5lIF9fSUEzMl9DT01Q
+QVRfU1lTX05JKG5hbWUpCQkJCQlcCi0JX19TWVNfTkkoaWEzMiwgY29tcGF0X3N5c18jI25hbWUp
+Ci0KICNlbHNlIC8qIENPTkZJR19JQTMyX0VNVUxBVElPTiAqLwogI2RlZmluZSBfX0lBMzJfQ09N
+UEFUX1NZU19TVFVCMChuYW1lKQogI2RlZmluZSBfX0lBMzJfQ09NUEFUX1NZU19TVFVCeCh4LCBu
+YW1lLCAuLi4pCiAjZGVmaW5lIF9fSUEzMl9DT01QQVRfQ09ORF9TWVNDQUxMKG5hbWUpCi0jZGVm
+aW5lIF9fSUEzMl9DT01QQVRfU1lTX05JKG5hbWUpCiAjZW5kaWYgLyogQ09ORklHX0lBMzJfRU1V
+TEFUSU9OICovCiAKIApAQCAtMTc1LDEzICsxNjEsMTAgQEAgZXh0ZXJuIGxvbmcgX19pYTMyX3N5
+c19uaV9zeXNjYWxsKGNvbnN0IHN0cnVjdCBwdF9yZWdzICpyZWdzKTsKICNkZWZpbmUgX19YMzJf
+Q09NUEFUX0NPTkRfU1lTQ0FMTChuYW1lKQkJCQkJXAogCV9fQ09ORF9TWVNDQUxMKHg2NCwgY29t
+cGF0X3N5c18jI25hbWUpCiAKLSNkZWZpbmUgX19YMzJfQ09NUEFUX1NZU19OSShuYW1lKQkJCQkJ
+XAotCV9fU1lTX05JKHg2NCwgY29tcGF0X3N5c18jI25hbWUpCiAjZWxzZSAvKiBDT05GSUdfWDg2
+X1gzMl9BQkkgKi8KICNkZWZpbmUgX19YMzJfQ09NUEFUX1NZU19TVFVCMChuYW1lKQogI2RlZmlu
+ZSBfX1gzMl9DT01QQVRfU1lTX1NUVUJ4KHgsIG5hbWUsIC4uLikKICNkZWZpbmUgX19YMzJfQ09N
+UEFUX0NPTkRfU1lTQ0FMTChuYW1lKQotI2RlZmluZSBfX1gzMl9DT01QQVRfU1lTX05JKG5hbWUp
+CiAjZW5kaWYgLyogQ09ORklHX1g4Nl9YMzJfQUJJICovCiAKIApAQCAtMjEyLDE3ICsxOTUsMTIg
+QEAgZXh0ZXJuIGxvbmcgX19pYTMyX3N5c19uaV9zeXNjYWxsKGNvbnN0IHN0cnVjdCBwdF9yZWdz
+ICpyZWdzKTsKIAogLyoKICAqIEFzIHNvbWUgY29tcGF0IHN5c2NhbGxzIG1heSBub3QgYmUgaW1w
+bGVtZW50ZWQsIHdlIG5lZWQgdG8gZXhwYW5kCi0gKiBDT05EX1NZU0NBTExfQ09NUEFUIGluIGtl
+cm5lbC9zeXNfbmkuYyBhbmQgQ09NUEFUX1NZU19OSSBpbgotICoga2VybmVsL3RpbWUvcG9zaXgt
+c3R1YnMuYyB0byBjb3ZlciB0aGlzIGNhc2UgYXMgd2VsbC4KKyAqIENPTkRfU1lTQ0FMTF9DT01Q
+QVQgaW4ga2VybmVsL3N5c19uaS5jIHRvIGNvdmVyIHRoaXMgY2FzZSBhcyB3ZWxsLgogICovCiAj
+ZGVmaW5lIENPTkRfU1lTQ0FMTF9DT01QQVQobmFtZSkgCQkJCQlcCiAJX19JQTMyX0NPTVBBVF9D
+T05EX1NZU0NBTEwobmFtZSkJCQkJXAogCV9fWDMyX0NPTVBBVF9DT05EX1NZU0NBTEwobmFtZSkK
+IAotI2RlZmluZSBDT01QQVRfU1lTX05JKG5hbWUpCQkJCQkJXAotCV9fSUEzMl9DT01QQVRfU1lT
+X05JKG5hbWUpCQkJCQlcCi0JX19YMzJfQ09NUEFUX1NZU19OSShuYW1lKQotCiAjZW5kaWYgLyog
+Q09ORklHX0NPTVBBVCAqLwogCiAjZGVmaW5lIF9fU1lTQ0FMTF9ERUZJTkV4KHgsIG5hbWUsIC4u
+LikJCQkJCVwKQEAgLTI0Myw4ICsyMjEsOCBAQCBleHRlcm4gbG9uZyBfX2lhMzJfc3lzX25pX3N5
+c2NhbGwoY29uc3Qgc3RydWN0IHB0X3JlZ3MgKnJlZ3MpOwogICogQXMgdGhlIGdlbmVyaWMgU1lT
+Q0FMTF9ERUZJTkUwKCkgbWFjcm8gZG9lcyBub3QgZGVjb2RlIGFueSBwYXJhbWV0ZXJzIGZvcgog
+ICogb2J2aW91cyByZWFzb25zLCBhbmQgcGFzc2luZyBzdHJ1Y3QgcHRfcmVncyAqcmVncyB0byBp
+dCBpbiAlcmRpIGRvZXMgbm90CiAgKiBodXJ0LCB3ZSBvbmx5IG5lZWQgdG8gcmUtZGVmaW5lIGl0
+IGhlcmUgdG8ga2VlcCB0aGUgbmFtaW5nIGNvbmdydWVudCB0bwotICogU1lTQ0FMTF9ERUZJTkV4
+KCkgLS0gd2hpY2ggaXMgZXNzZW50aWFsIGZvciB0aGUgQ09ORF9TWVNDQUxMKCkgYW5kIFNZU19O
+SSgpCi0gKiBtYWNyb3MgdG8gd29yayBjb3JyZWN0bHkuCisgKiBTWVNDQUxMX0RFRklORXgoKSAt
+LSB3aGljaCBpcyBlc3NlbnRpYWwgZm9yIHRoZSBDT05EX1NZU0NBTEwoKSBtYWNybworICogdG8g
+d29yayBjb3JyZWN0bHkuCiAgKi8KICNkZWZpbmUgU1lTQ0FMTF9ERUZJTkUwKHNuYW1lKQkJCQkJ
+CVwKIAlTWVNDQUxMX01FVEFEQVRBKF8jI3NuYW1lLCAwKTsJCQkJCVwKQEAgLTI1NywxMCArMjM1
+LDYgQEAgZXh0ZXJuIGxvbmcgX19pYTMyX3N5c19uaV9zeXNjYWxsKGNvbnN0IHN0cnVjdCBwdF9y
+ZWdzICpyZWdzKTsKIAlfX1g2NF9DT05EX1NZU0NBTEwobmFtZSkJCQkJCVwKIAlfX0lBMzJfQ09O
+RF9TWVNDQUxMKG5hbWUpCiAKLSNkZWZpbmUgU1lTX05JKG5hbWUpCQkJCQkJCVwKLQlfX1g2NF9T
+WVNfTkkobmFtZSkJCQkJCQlcCi0JX19JQTMyX1NZU19OSShuYW1lKQotCiAKIC8qCiAgKiBGb3Ig
+VlNZU0NBTExTLCB3ZSBuZWVkIHRvIGRlY2xhcmUgdGhlc2UgdGhyZWUgc3lzY2FsbHMgd2l0aCB0
+aGUgbmV3CmRpZmYgLS1naXQgYS9rZXJuZWwvc3lzX25pLmMgYi9rZXJuZWwvc3lzX25pLmMKaW5k
+ZXggZTFhNmUzYzY3NWMwLi45YTg0NjQzOWIzNmEgMTAwNjQ0Ci0tLSBhL2tlcm5lbC9zeXNfbmku
+YworKysgYi9rZXJuZWwvc3lzX25pLmMKQEAgLTIwMSw2ICsyMDEsMjAgQEAgQ09ORF9TWVNDQUxM
+KHJlY3ZtbXNnX3RpbWUzMik7CiBDT05EX1NZU0NBTExfQ09NUEFUKHJlY3ZtbXNnX3RpbWUzMik7
+CiBDT05EX1NZU0NBTExfQ09NUEFUKHJlY3ZtbXNnX3RpbWU2NCk7CiAKKy8qIFBvc2l4IHRpbWVy
+IHN5c2NhbGxzIG1heSBiZSBjb25maWd1cmVkIG91dCAqLworQ09ORF9TWVNDQUxMKHRpbWVyX2Ny
+ZWF0ZSk7CitDT05EX1NZU0NBTEwodGltZXJfZ2V0dGltZSk7CitDT05EX1NZU0NBTEwodGltZXJf
+Z2V0b3ZlcnJ1bik7CitDT05EX1NZU0NBTEwodGltZXJfc2V0dGltZSk7CitDT05EX1NZU0NBTEwo
+dGltZXJfZGVsZXRlKTsKK0NPTkRfU1lTQ0FMTChjbG9ja19hZGp0aW1lKTsKK0NPTkRfU1lTQ0FM
+TChnZXRpdGltZXIpOworQ09ORF9TWVNDQUxMKHNldGl0aW1lcik7CitDT05EX1NZU0NBTEwoYWxh
+cm0pOworQ09ORF9TWVNDQUxMX0NPTVBBVCh0aW1lcl9jcmVhdGUpOworQ09ORF9TWVNDQUxMX0NP
+TVBBVChnZXRpdGltZXIpOworQ09ORF9TWVNDQUxMX0NPTVBBVChzZXRpdGltZXIpOworCiAvKgog
+ICogQXJjaGl0ZWN0dXJlIHNwZWNpZmljIHN5c2NhbGxzOiBzZWUgZnVydGhlciBiZWxvdwogICov
+CmRpZmYgLS1naXQgYS9rZXJuZWwvdGltZS9wb3NpeC1zdHVicy5jIGIva2VybmVsL3RpbWUvcG9z
+aXgtc3R1YnMuYwppbmRleCA4MjhhZWVjYmQxZTguLjliNmZjYjhkODVlNyAxMDA2NDQKLS0tIGEv
+a2VybmVsL3RpbWUvcG9zaXgtc3R1YnMuYworKysgYi9rZXJuZWwvdGltZS9wb3NpeC1zdHVicy5j
+CkBAIC0xNyw0MCArMTcsNiBAQAogI2luY2x1ZGUgPGxpbnV4L3RpbWVfbmFtZXNwYWNlLmg+CiAj
+aW5jbHVkZSA8bGludXgvY29tcGF0Lmg+CiAKLSNpZmRlZiBDT05GSUdfQVJDSF9IQVNfU1lTQ0FM
+TF9XUkFQUEVSCi0vKiBBcmNoaXRlY3R1cmVzIG1heSBvdmVycmlkZSBTWVNfTkkgYW5kIENPTVBB
+VF9TWVNfTkkgKi8KLSNpbmNsdWRlIDxhc20vc3lzY2FsbF93cmFwcGVyLmg+Ci0jZW5kaWYKLQot
+YXNtbGlua2FnZSBsb25nIHN5c19uaV9wb3NpeF90aW1lcnModm9pZCkKLXsKLQlwcl9lcnJfb25j
+ZSgicHJvY2VzcyAlZCAoJXMpIGF0dGVtcHRlZCBhIFBPU0lYIHRpbWVyIHN5c2NhbGwgIgotCQkg
+ICAgIndoaWxlIENPTkZJR19QT1NJWF9USU1FUlMgaXMgbm90IHNldFxuIiwKLQkJICAgIGN1cnJl
+bnQtPnBpZCwgY3VycmVudC0+Y29tbSk7Ci0JcmV0dXJuIC1FTk9TWVM7Ci19Ci0KLSNpZm5kZWYg
+U1lTX05JCi0jZGVmaW5lIFNZU19OSShuYW1lKSAgU1lTQ0FMTF9BTElBUyhzeXNfIyNuYW1lLCBz
+eXNfbmlfcG9zaXhfdGltZXJzKQotI2VuZGlmCi0KLSNpZm5kZWYgQ09NUEFUX1NZU19OSQotI2Rl
+ZmluZSBDT01QQVRfU1lTX05JKG5hbWUpICBTWVNDQUxMX0FMSUFTKGNvbXBhdF9zeXNfIyNuYW1l
+LCBzeXNfbmlfcG9zaXhfdGltZXJzKQotI2VuZGlmCi0KLVNZU19OSSh0aW1lcl9jcmVhdGUpOwot
+U1lTX05JKHRpbWVyX2dldHRpbWUpOwotU1lTX05JKHRpbWVyX2dldG92ZXJydW4pOwotU1lTX05J
+KHRpbWVyX3NldHRpbWUpOwotU1lTX05JKHRpbWVyX2RlbGV0ZSk7Ci1TWVNfTkkoY2xvY2tfYWRq
+dGltZSk7Ci1TWVNfTkkoZ2V0aXRpbWVyKTsKLVNZU19OSShzZXRpdGltZXIpOwotU1lTX05JKGNs
+b2NrX2FkanRpbWUzMik7Ci0jaWZkZWYgX19BUkNIX1dBTlRfU1lTX0FMQVJNCi1TWVNfTkkoYWxh
+cm0pOwotI2VuZGlmCi0KIC8qCiAgKiBXZSBwcmVzZXJ2ZSBtaW5pbWFsIHN1cHBvcnQgZm9yIENM
+T0NLX1JFQUxUSU1FIGFuZCBDTE9DS19NT05PVE9OSUMKICAqIGFzIGl0IGlzIGVhc3kgdG8gcmVt
+YWluIGNvbXBhdGlibGUgd2l0aCBsaXR0bGUgY29kZS4gQ0xPQ0tfQk9PVFRJTUUKQEAgLTE1OCwx
+OCArMTI0LDcgQEAgU1lTQ0FMTF9ERUZJTkU0KGNsb2NrX25hbm9zbGVlcCwgY29uc3QgY2xvY2tp
+ZF90LCB3aGljaF9jbG9jaywgaW50LCBmbGFncywKIAkJCQkgd2hpY2hfY2xvY2spOwogfQogCi0j
+aWZkZWYgQ09ORklHX0NPTVBBVAotQ09NUEFUX1NZU19OSSh0aW1lcl9jcmVhdGUpOwotI2VuZGlm
+Ci0KLSNpZiBkZWZpbmVkKENPTkZJR19DT01QQVQpIHx8IGRlZmluZWQoQ09ORklHX0FMUEhBKQot
+Q09NUEFUX1NZU19OSShnZXRpdGltZXIpOwotQ09NUEFUX1NZU19OSShzZXRpdGltZXIpOwotI2Vu
+ZGlmCi0KICNpZmRlZiBDT05GSUdfQ09NUEFUXzMyQklUX1RJTUUKLVNZU19OSSh0aW1lcl9zZXR0
+aW1lMzIpOwotU1lTX05JKHRpbWVyX2dldHRpbWUzMik7CiAKIFNZU0NBTExfREVGSU5FMihjbG9j
+a19zZXR0aW1lMzIsIGNvbnN0IGNsb2NraWRfdCwgd2hpY2hfY2xvY2ssCiAJCXN0cnVjdCBvbGRf
+dGltZXNwZWMzMiBfX3VzZXIgKiwgdHApCg==
+--0000000000009efc6c060ce50a83--
 
