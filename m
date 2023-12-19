@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03505817F74
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 02:49:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656474.1024666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 747FF817F88
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 03:03:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656480.1024675 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFPEA-00021s-Ip; Tue, 19 Dec 2023 01:48:58 +0000
+	id 1rFPRx-0006ay-Lj; Tue, 19 Dec 2023 02:03:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656474.1024666; Tue, 19 Dec 2023 01:48:58 +0000
+Received: by outflank-mailman (output) from mailman id 656480.1024675; Tue, 19 Dec 2023 02:03:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFPEA-0001zn-Fc; Tue, 19 Dec 2023 01:48:58 +0000
-Received: by outflank-mailman (input) for mailman id 656474;
- Tue, 19 Dec 2023 01:48:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFPRx-0006Yz-J7; Tue, 19 Dec 2023 02:03:13 +0000
+Received: by outflank-mailman (input) for mailman id 656480;
+ Tue, 19 Dec 2023 02:03:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ry3N=H6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rFPE9-0001zh-O5
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 01:48:57 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4dd252c-9e10-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 02:48:56 +0100 (CET)
+ id 1rFPRw-0006Yt-Fx
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 02:03:12 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c0fbea79-9e12-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 03:03:09 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by dfw.source.kernel.org (Postfix) with ESMTP id D1A47611E3;
- Tue, 19 Dec 2023 01:48:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA2E4C433C7;
- Tue, 19 Dec 2023 01:48:52 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 6CF30CE1410;
+ Tue, 19 Dec 2023 02:03:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C181C433C7;
+ Tue, 19 Dec 2023 02:03:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,132 +41,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4dd252c-9e10-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: c0fbea79-9e12-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1702950534;
-	bh=f3H2YPGB4mkSnGr6Two/tlsKnnMGlZ1oySH+a1+wNLo=;
+	s=k20201202; t=1702951384;
+	bh=dpgWT01fU4hhboUDI1MXZ5wydri4P15xWeYtybGoqss=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=dmT/tFuzsOnL5CRGA9atylKG60YzCnFqd+0JiIjZJ33aHtp8vUwQtfnzIqGUpP32M
-	 sBJyB03wR8cOjowuuu4jDPvsr++IsljQz8P81rEQJxdcgRh7qJle5DuznYI6oOeVXq
-	 tPmtmSdeLiLAHtWKmXtuAnRds+4JtDJQrRbJobeEsy0t5vOm1XvgdEylmwK004RMWD
-	 lWET5ct/qomVyGWDDlQIAJtCh1yzYCbWzRAqmIGfUWS9/lGso9ZZ3MWf3Gc+04H8XI
-	 XpkyPYOJduTloQZXr8mbImkRh6f35SQZdOzxnMl4OcC7XVSDQF+kjEDdAsiOVkS+lA
-	 I3ZXZt4sa6fkg==
-Date: Mon, 18 Dec 2023 17:48:51 -0800 (PST)
+	b=X9MkZ5U3ga9Grza6T1S4GM6kuF4OvzR5sHeKsLKWMOhA/b/Mamy16JUmrkjcONSOQ
+	 IKt2jkKgdIl1W7Mg8k50OHE7efBJVj4wGOqJoy/nwpn7J7UeDWzkns9Amh3xryrD/W
+	 RZ4uuAYebQsSXZ2sEpUglJMYOK25p53f0HIJxxkNcyU/MbXRBvcC0Uc0StIxmvweIa
+	 k7ezK+5WCprX1b/XJWlcBUG5LF2cVtxBBfwCaIFJLIgjf3C+dUOE2B4pgqT338uzBN
+	 5Zi2Rzg/QqDx2k0944A6whBNSzOoEVuNDxi88nSEAVlGDserzoDJz3+R6qi7jaXUSh
+	 nAeZYrsphX1vA==
+Date: Mon, 18 Dec 2023 18:03:01 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Wei Liu <wl@xen.org>, Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: Re: [XEN PATCH v2] xen: move declaration of first_valid_mfn to
- xen/numa.h
-In-Reply-To: <ad7ee70bd00c0de4b6dad48c91281929e98ef95c.1702911455.git.nicola.vetrini@bugseng.com>
-Message-ID: <alpine.DEB.2.22.394.2312181748430.3175268@ubuntu-linux-20-04-desktop>
-References: <ad7ee70bd00c0de4b6dad48c91281929e98ef95c.1702911455.git.nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+    Shawn Anastasio <sanastasio@raptorengineering.com>, 
+    Oleksii Kurochko <oleksii.kurochko@gmail.com>, 
+    xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [RFC PATCH v1 1/1] xen/Makefile: introduce ARCH_FIXED_CONFIG
+ for randconfig
+In-Reply-To: <d56aa264-41f2-4cff-97dd-1a222750a389@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2312181753160.3175268@ubuntu-linux-20-04-desktop>
+References: <cover.1701966261.git.oleksii.kurochko@gmail.com> <c95959adca794a90465abd10f579dc9159a7697f.1701966261.git.oleksii.kurochko@gmail.com> <f9ceb8f7-a664-452b-8b38-f74b36386e33@citrix.com> <7ec81395-298d-4d50-89af-d54f756ef657@suse.com>
+ <95d3e8e9-66d3-4097-b2ed-c808369a08ac@citrix.com> <d56aa264-41f2-4cff-97dd-1a222750a389@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-655612109-1702950853=:3175268"
+Content-ID: <alpine.DEB.2.22.394.2312181754260.3175268@ubuntu-linux-20-04-desktop>
 
-On Mon, 18 Dec 2023, Nicola Vetrini wrote:
-> Such declaration is moved in order to provide it for Arm and PPC,
-> whilst not violating MISRA C:2012 Rule 8.4 in common/page_alloc.c:
-> "A compatible declaration shall be visible when an object or
-> function with external linkage is defined".
-> 
-> Signed-off-by: Julien Grall <julien@xen.org>
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+--8323329-655612109-1702950853=:3175268
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2312181754261.3175268@ubuntu-linux-20-04-desktop>
+
+On Mon, 18 Dec 2023, Jan Beulich wrote:
+> On 18.12.2023 17:07, Andrew Cooper wrote:
+> > On 11/12/2023 3:56 pm, Jan Beulich wrote:
+> >> On 07.12.2023 21:17, Andrew Cooper wrote:
+> >>> On 07/12/2023 5:03 pm, Oleksii Kurochko wrote:
+> >>>> ARCH_FIXED_CONFIG is required in the case of randconfig
+> >>>> and CI for configs that aren't ready or are not
+> >>>> supposed to be implemented for specific architecture.
+> >>>> These configs should always be disabled to prevent randconfig
+> >>>> related tests from failing.
+> >>>>
+> >>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> >>>> ---
+> >>>>  xen/Makefile | 5 ++++-
+> >>>>  1 file changed, 4 insertions(+), 1 deletion(-)
+> >>>>
+> >>>> diff --git a/xen/Makefile b/xen/Makefile
+> >>>> index ca571103c8..8ae8fe1480 100644
+> >>>> --- a/xen/Makefile
+> >>>> +++ b/xen/Makefile
+> >>>> @@ -336,11 +336,14 @@ ifeq ($(config-build),y)
+> >>>>  # *config targets only - make sure prerequisites are updated, and descend
+> >>>>  # in tools/kconfig to make the *config target
+> >>>>  
+> >>>> +ARCH_FORCED_CONFIG := $(srctree)/arch/$(SRCARCH)/configs/randomforced.config
+> >>>> +
+> >>>>  # Create a file for KCONFIG_ALLCONFIG which depends on the environment.
+> >>>>  # This will be use by kconfig targets allyesconfig/allmodconfig/allnoconfig/randconfig
+> >>>>  filechk_kconfig_allconfig = \
+> >>>>      $(if $(findstring n,$(XEN_HAS_CHECKPOLICY)), echo 'CONFIG_XSM_FLASK_POLICY=n';) \
+> >>>> -    $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG);) \
+> >>>> +    $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_ALLCONFIG); \
+> >>>> +    $(if $(wildcard $(ARCH_FORCED_CONFIG)), cat $(ARCH_FORCED_CONFIG);) ) \
+> >>>>      :
+> >>>>  
+> >>>>  .allconfig.tmp: FORCE
+> >>> We already have infrastructure for this.  What's wrong with
+> >>> EXTRA_FIXED_RANDCONFIG?
+> >> What I don't understand here is why dealing with the issue would want
+> >> limiting to gitlab-CI. Anyone could run randconfig on their own, and
+> >> imo it would be helpful if the same issue(s) could be prevented there,
+> >> too. Hence my earlier suggestion to have a snippet which can be used
+> >> by "interested" parties. And once dealt with in e.g. the makefile
+> >> there should not be a need for any overrides in the CI config anymore.
+> > 
+> > This is trying to find a solution to a problem which doesn't exist.
+> > 
+> > RISC-V and PPC are experimental in Xen.  Noone else is going to come and
+> > randconfig them until they're rather more production ready, and a
+> > prerequisite of that is removing this list of exclusions.
+> > 
+> > Until you can actually find an interested party to comment, I think this
+> > is just churn for no useful improvement.  If nothing else, calling it
+> > randomforced.config isn't appropriate given the explanation of what this
+> > target is used for...
+> 
+> "random" in the name can't possibly be right anyway. Such collection of
+> fixed settings would also be relevant to e.g. all{yes,no}config. Yet
+> that's still not the same as any kind of "default" config, which the
+> two architectures presently kind of abuse for the purpose of defining
+> required-fixed settings.
+
+One thing for sure, I don't think it would be a good idea to add extra
+temporary Kconfig changes like these:
+
+[1] https://lore.kernel.org/xen-devel/cdc20255540a66ba0b6946ac6d48c11029cd3385.1701453087.git.oleksii.kurochko@gmail.com/
+[2] https://lore.kernel.org/xen-devel/d42a34866edc70a12736b5c6976aa1b44b4ebd8a.1701453087.git.oleksii.kurochko@gmail.com/
 
 
-> ---
-> Changes in v2:
-> This patch is a rework of a previous one appeared in this series [1], of which
-> patches 1 and 2 have been committed already.
-> 
-> The updated patch was provided by Julien in this thread [2]. I added the commit
-> message and the rest of the information.
-> 
-> [1] https://lore.kernel.org/xen-devel/cover.1702285639.git.nicola.vetrini@bugseng.com/T/#mee6def855787d932fe2f10d5648d437dcb6f046c
-> [2] https://lore.kernel.org/xen-devel/cover.1702285639.git.nicola.vetrini@bugseng.com/T/#m3c5b141b806530b5920bb5e9dd53631195560317
-> ---
->  xen/arch/arm/include/asm/numa.h | 6 ------
->  xen/arch/ppc/include/asm/numa.h | 6 ------
->  xen/common/page_alloc.c         | 6 ++++--
->  xen/include/xen/numa.h          | 2 ++
->  4 files changed, 6 insertions(+), 14 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/numa.h b/xen/arch/arm/include/asm/numa.h
-> index e2bee2bd8223..a2c1da4a82f7 100644
-> --- a/xen/arch/arm/include/asm/numa.h
-> +++ b/xen/arch/arm/include/asm/numa.h
-> @@ -11,12 +11,6 @@ typedef u8 nodeid_t;
->  #define cpu_to_node(cpu) 0
->  #define node_to_cpumask(node)   (cpu_online_map)
->  
-> -/*
-> - * TODO: make first_valid_mfn static when NUMA is supported on Arm, this
-> - * is required because the dummy helpers are using it.
-> - */
-> -extern mfn_t first_valid_mfn;
-> -
->  /* XXX: implement NUMA support */
->  #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
->  #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
-> diff --git a/xen/arch/ppc/include/asm/numa.h b/xen/arch/ppc/include/asm/numa.h
-> index 7fdf66c3da74..204180ad5b98 100644
-> --- a/xen/arch/ppc/include/asm/numa.h
-> +++ b/xen/arch/ppc/include/asm/numa.h
-> @@ -10,12 +10,6 @@ typedef uint8_t nodeid_t;
->  #define cpu_to_node(cpu) 0
->  #define node_to_cpumask(node)   (cpu_online_map)
->  
-> -/*
-> - * TODO: make first_valid_mfn static when NUMA is supported on PPC, this
-> - * is required because the dummy helpers are using it.
-> - */
-> -extern mfn_t first_valid_mfn;
-> -
->  /* XXX: implement NUMA support */
->  #define node_spanned_pages(nid) (max_page - mfn_x(first_valid_mfn))
->  #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
-> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> index 9b5df74fddab..d874525916ea 100644
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -255,8 +255,10 @@ static PAGE_LIST_HEAD(page_broken_list);
->   */
->  
->  /*
-> - * first_valid_mfn is exported because it is use in ARM specific NUMA
-> - * helpers. See comment in arch/arm/include/asm/numa.h.
-> + * first_valid_mfn is exported because it is used when !CONFIG_NUMA.
-> + *
-> + * TODO: Consider if we can conditionally export first_valid_mfn based
-> + * on whether NUMA is selected.
->   */
->  mfn_t first_valid_mfn = INVALID_MFN_INITIALIZER;
->  
-> diff --git a/xen/include/xen/numa.h b/xen/include/xen/numa.h
-> index 287e81ff6666..a10d4b1778a0 100644
-> --- a/xen/include/xen/numa.h
-> +++ b/xen/include/xen/numa.h
-> @@ -108,6 +108,8 @@ extern void numa_set_processor_nodes_parsed(nodeid_t node);
->  
->  #else
->  
-> +extern mfn_t first_valid_mfn;
-> +
->  static inline nodeid_t mfn_to_nid(mfn_t mfn)
->  {
->      return 0;
-> -- 
-> 2.34.1
-> 
+I agree with Andrew that RISC-V and PPC are experimental so whatever
+works to enable them to make progress on this issue with a small effort
+is sufficient. I would be happy with a quick respin of this series
+following the gitlab-ci approach. This is good enough.
+
+And I think that having some sort of fixed seed (seed.config?) for
+randconfig would also be fine and potentially more reusable.
+
+But I think Oleksii should go forward with whatever approach he prefers
+and he is more comfortable with, as long as it is not [1] and [2].
+--8323329-655612109-1702950853=:3175268--
 
