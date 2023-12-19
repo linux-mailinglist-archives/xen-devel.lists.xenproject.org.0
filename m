@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19DB481860A
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 12:06:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656671.1025056 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07923818603
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 12:06:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656665.1025003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFXvS-0004iv-EA; Tue, 19 Dec 2023 11:06:14 +0000
+	id 1rFXv7-0003Kk-2j; Tue, 19 Dec 2023 11:05:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656671.1025056; Tue, 19 Dec 2023 11:06:14 +0000
+Received: by outflank-mailman (output) from mailman id 656665.1025003; Tue, 19 Dec 2023 11:05:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFXvS-0004a0-9R; Tue, 19 Dec 2023 11:06:14 +0000
-Received: by outflank-mailman (input) for mailman id 656671;
- Tue, 19 Dec 2023 11:06:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rFXv7-0003Hw-08; Tue, 19 Dec 2023 11:05:53 +0000
+Received: by outflank-mailman (input) for mailman id 656665;
+ Tue, 19 Dec 2023 11:05:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Div9=H6=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1rFXvQ-0003cc-2G
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 11:06:12 +0000
+ <SRS0=aNFb=H6=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rFXv5-0003Hq-95
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 11:05:51 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d6cbe10-9e5e-11ee-9b0f-b553b5be7939;
- Tue, 19 Dec 2023 12:06:10 +0100 (CET)
-Received: from beta.station (net-37-182-35-120.cust.vodafonedsl.it
- [37.182.35.120])
- by support.bugseng.com (Postfix) with ESMTPSA id 7A4024EE0C9B;
- Tue, 19 Dec 2023 12:06:09 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 911ef441-9e5e-11ee-98eb-6d05b1d4d9a1;
+ Tue, 19 Dec 2023 12:05:49 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 524684EE0738;
+ Tue, 19 Dec 2023 12:05:49 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,60 +39,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d6cbe10-9e5e-11ee-9b0f-b553b5be7939
-From: Simone Ballarin <simone.ballarin@bugseng.com>
-To: xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com,
-	Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Simone Ballarin <simone.ballarin@bugseng.com>
-Subject: [PATCH v2 6/6] xen/common: address violations of MISRA C:2012 Rule 11.8
-Date: Tue, 19 Dec 2023 12:05:14 +0100
-Message-Id: <df682e995b726b5f7ba8af0f69bb888c398eac96.1702982442.git.maria.celeste.cesario@bugseng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1702982442.git.maria.celeste.cesario@bugseng.com>
-References: <cover.1702982442.git.maria.celeste.cesario@bugseng.com>
+X-Inumbo-ID: 911ef441-9e5e-11ee-98eb-6d05b1d4d9a1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Tue, 19 Dec 2023 12:05:49 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Luca Fancellu <Luca.Fancellu@arm.com>
+Subject: Re: [XEN PATCH] xen: add acmacros.h to exclude-list.json
+In-Reply-To: <2fd03776043811a8ceae9ae41de5f0fa@bugseng.com>
+References: <664ddc412905546d44d3e311a743ba5217a6243b.1702976486.git.nicola.vetrini@bugseng.com>
+ <055b6cf3-4f29-4f1d-b650-26c6d9be8832@suse.com>
+ <2fd03776043811a8ceae9ae41de5f0fa@bugseng.com>
+Message-ID: <2c64af71dcb3984f1753ef115868cb7b@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+On 2023-12-19 11:51, Nicola Vetrini wrote:
+> On 2023-12-19 11:37, Jan Beulich wrote:
+>> On 19.12.2023 10:02, Nicola Vetrini wrote:
+>>> --- a/docs/misra/exclude-list.json
+>>> +++ b/docs/misra/exclude-list.json
+>>> @@ -209,6 +209,10 @@
+>>>            "rel_path": "include/acpi/acglobal.h",
+>>>            "comment": "Imported from Linux, ignore for now"
+>>>          },
+>>> +        {
+>>> +          "rel_path": "include/acpi/acmacros.h",
+>>> +          "comment": "Imported from Linux, ignore for now"
+>>> +        },
+>> 
+>> Together with what's already there (in context), wouldn't it better be
+>> the entire directory then which is excluded, or at least all
+>> include/acpi/ac*.h collectively (and perhaps also
+>> include/acpi/platform/ac*.h)?
+>> 
+>> Jan
+> 
+> +Cc Luca Fancellu
+> 
+> Sure. I wasn't certain which files are imported from ACPI CA and which 
+> aren't.
+> I'm also not sure whether "include/acpi/ac*.h" would be properly 
+> recognized by other tooling that uses exclude-list.json (only cppcheck 
+> I think). I Cc-ed Luca Fancellu on this.
 
-The xen sources contain violations of MISRA C:2012 Rule 11.8 whose
-headline states:
-"A conversion shall not remove any const, volatile or _Atomic qualification
-from the type pointed to by a pointer".
+It occurred to me that it's surely ok to use "include/acpi/ac*" and 
+"include/acpi/platform/ac*".
 
-Change cast type from void* to uintptr_t.
-void* type cast resulted in violation of the Rule, a cast to type uintptr_t
-is more appropriate type-wise.
-
-Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
-Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
----
-Commit introduced in v2
----
- xen/common/version.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/common/version.c b/xen/common/version.c
-index d320135208..e807ef4de0 100644
---- a/xen/common/version.c
-+++ b/xen/common/version.c
-@@ -178,7 +178,7 @@ void __init xen_build_init(void)
-     if ( &n[1] >= __note_gnu_build_id_end )
-         return;
- 
--    sz = (void *)__note_gnu_build_id_end - (void *)n;
-+    sz = (uintptr_t)__note_gnu_build_id_end - (uintptr_t)n;
- 
-     rc = xen_build_id_check(n, sz, &build_id_p, &build_id_len);
- 
 -- 
-2.40.0
-
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
