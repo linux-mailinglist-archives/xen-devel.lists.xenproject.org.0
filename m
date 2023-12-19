@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC86819451
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 00:06:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657233.1025974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE62819460
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 00:12:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657237.1025983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFjAK-0002xb-9j; Tue, 19 Dec 2023 23:06:20 +0000
+	id 1rFjFl-0004w7-TI; Tue, 19 Dec 2023 23:11:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657233.1025974; Tue, 19 Dec 2023 23:06:20 +0000
+Received: by outflank-mailman (output) from mailman id 657237.1025983; Tue, 19 Dec 2023 23:11:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFjAK-0002vT-6W; Tue, 19 Dec 2023 23:06:20 +0000
-Received: by outflank-mailman (input) for mailman id 657233;
- Tue, 19 Dec 2023 23:06:18 +0000
+	id 1rFjFl-0004tR-QA; Tue, 19 Dec 2023 23:11:57 +0000
+Received: by outflank-mailman (input) for mailman id 657237;
+ Tue, 19 Dec 2023 23:11:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+gux=H6=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
- id 1rFjAI-0002vN-DD
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 23:06:18 +0000
-Received: from mail-oo1-xc29.google.com (mail-oo1-xc29.google.com
- [2607:f8b0:4864:20::c29])
+ id 1rFjFj-0004t5-Uv
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 23:11:56 +0000
+Received: from mail-pj1-x102c.google.com (mail-pj1-x102c.google.com
+ [2607:f8b0:4864:20::102c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 360a105c-9ec3-11ee-98eb-6d05b1d4d9a1;
- Wed, 20 Dec 2023 00:06:16 +0100 (CET)
-Received: by mail-oo1-xc29.google.com with SMTP id
- 006d021491bc7-593f6fb21a5so491597eaf.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 15:06:16 -0800 (PST)
+ id ffb728cd-9ec3-11ee-98eb-6d05b1d4d9a1;
+ Wed, 20 Dec 2023 00:11:55 +0100 (CET)
+Received: by mail-pj1-x102c.google.com with SMTP id
+ 98e67ed59e1d1-28b4d49293fso2137470a91.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 15:11:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,36 +40,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 360a105c-9ec3-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: ffb728cd-9ec3-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703027175; x=1703631975; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1703027513; x=1703632313; darn=lists.xenproject.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=WH+5s345QeiFqJZmAKTyvnSUZLMLWqKaBS8wnuNj0Dw=;
-        b=ij2hu82D86cLxWlZWsBrmOBzcVWWIY9ADnbDK/vhynvv8NM37cuy6TjKX2M+qHVOqG
-         hdcZasogx7QSyRwR3uVNhnf0MalU91grnijqRpU2T0p8yBkItZPfmSWabXKubanu2ic3
-         8mt/7Bjw4mAlzcB9xPwqPkOFhN4867XkchyT3ZBuhkWvDEg3pfYFDdXjWjL7PZ8EWDm/
-         KjChHQsHrSFxA/KZF5YmlNLg6RiojNQitLfhHJ5j2nyrzIMhhqniil+RAQy0mIDqB0ec
-         +hjgdPQSe4Ss/P+fVjdkT9D7uBWS9Yw0oY80KEId7pw4JrFj9uUJ7AjUMhuKY5OB2BCA
-         ouPA==
+        bh=0U0OxG9EDyooSEOLJleYkspEujfyXsoV/rMVLdKPC8Y=;
+        b=MLXZJPPnQy4k3DZVTE1DBRS7Py2wbsJJ8oebPvXOEY3rAZ+QCQDYUTF5+YLzyMgZ8e
+         vYx3Xg0xxv+PobWBCQRa3xQMo6vtC1J3BK0hRO+5bMrEZQxMkjHXc18lb70lGr1w28IJ
+         yj1d9H/Bxx3Nr50PW07Z1C3VR6xcRV4jXBqHvw551Trpf5uR7pzxkPUuJcULSprQt/8l
+         8w7mKqvr5/whprP72agVVzYIbUu+HsbWNRR63XrF5RK+Im31dsEcbPJbq1R2mJofDhQs
+         seT4S+It1SJUwmDP30KR5YsLoAh7e2xMOPcMOiUWGVAbfcEKqaxNMFmNUUNaW4LEvEhC
+         LTzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703027175; x=1703631975;
+        d=1e100.net; s=20230601; t=1703027513; x=1703632313;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=WH+5s345QeiFqJZmAKTyvnSUZLMLWqKaBS8wnuNj0Dw=;
-        b=CqeL8T1xEjIGkfn0WYNg94OAkAM4Rdnk1x1+aggf0I0jTs2VqrYYqTP8ot+ljpzcIK
-         dYduFZFDYty1rboFBe4lXcHFjXNo5odRtVzaIIc3oTos6iPO8KPBFT5g0qMNBHV34bmp
-         xETJeBD5Am2zDcoSGU55EyvAzHlYIeWhfEsIKIktCBnFcuiQknNtldrfiuGULV6QYMbs
-         8GvjGWI/quvAxrxT1fABeV/oAR4sq2L9/mCJa2dyx+To9DIAK4KWx60SMux2m//pkGnn
-         Tw2CNEt4u9OHmTEoSi6ob6HMArA+D21092mZFQXfNyv7fiNSFrjdQ53DHv4VX78MVb0b
-         Y2Ow==
-X-Gm-Message-State: AOJu0Yzn2seSwcivaB3ikpeHUTNMAh5yi9TnTCHdgoKhHXee/MnTQeBp
-	B9zG41Qop6AuWiaW09UXFi8c5Zv2OE7wBGd5S1g=
-X-Google-Smtp-Source: AGHT+IGWrf5F70pTxj6PgD+twfZ79jmXbMdLAg6ly5N/M8gzxYPP3agMuVQJ52SbcWfXHEqVwRm9smfM2iaLGjNIJ54=
-X-Received: by 2002:a05:6358:8824:b0:170:160f:4400 with SMTP id
- hv36-20020a056358882400b00170160f4400mr22236233rwb.17.1703027174918; Tue, 19
- Dec 2023 15:06:14 -0800 (PST)
+        bh=0U0OxG9EDyooSEOLJleYkspEujfyXsoV/rMVLdKPC8Y=;
+        b=MRUH3GcL0Pdjx790tvv26S55RqBhzIW1ChW1H4jK8+miDux658cfLZTdfkFGlFoi9l
+         owpz5Tp/cmOq+pcNvHybI5tgqOXELO2ihX8RzscXD5bTPNyAbGydiqsx076Smqx90dso
+         n171A5VnLvdmk8rdvzFQ+14CZxacyqIPIoVPhRdFP2XGqgpiNueKYLGEmrWxSnB46jpv
+         9yrJ9YNF52qDe6znMjnMpBvCENyazOqWRJ6NXIUrWMfJMVjSn+blV3VRcmw//4707Qbq
+         3k337cOZAeL3/xlIFPOzvt2ZRgcX/uW4ScP2IrAc2Yhugsi50VOIIsrrxyI67RUTTMwE
+         fK8Q==
+X-Gm-Message-State: AOJu0YwiaGTD5/FPkWHk6hgHSbC1Gzg9v26HV82x3DjnjRpY13N5I2od
+	+lvd0gOrDd7UlkavBBB0dmMlb+9x83nPsKhKvH9drx7cIBs=
+X-Google-Smtp-Source: AGHT+IETrYf6kfnRe1af3Am0ByfQ/y4pnNqKg1uCJnllk/TVRgDFDaXHRHfXVxn+e2oKIjeiDePSPBNAIf7VUWmW5Bw=
+X-Received: by 2002:a17:90a:dd43:b0:28b:9811:c298 with SMTP id
+ u3-20020a17090add4300b0028b9811c298mr1809810pjv.55.1703027513243; Tue, 19 Dec
+ 2023 15:11:53 -0800 (PST)
 MIME-Version: 1.0
 References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
  <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com> <CAKm-UmYGTLY0fTh4zvj-xrA3Tp+Oj+ES61pncG7ze0QnP4o=FQ@mail.gmail.com>
@@ -82,182 +82,195 @@ References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
  <CAKm-UmZtN2o3d13cE9GyyLKfMmZ855MfrAAw9O6zE-5ob0-iYg@mail.gmail.com>
  <64d738b7-08c1-4b2c-a828-a137c870408e@suse.com> <CAKm-UmayUxd8F337g+BnR=_50_o__oV_PeUv9Z+9gNZ5MXYmrA@mail.gmail.com>
  <b4f46a91-b3b9-49b9-9a26-e2f962dee54c@suse.com> <CAKm-UmY9yYv2gOwm-O3DF7dBBNeNjs+3pDGuU+sYgJ+OHwcLNw@mail.gmail.com>
- <CAKm-UmZ1Q77EqUit9J6RX0-MCALdu4gjaU2zrX6oneW+45a+Kw@mail.gmail.com>
-In-Reply-To: <CAKm-UmZ1Q77EqUit9J6RX0-MCALdu4gjaU2zrX6oneW+45a+Kw@mail.gmail.com>
+ <CAKm-UmZ1Q77EqUit9J6RX0-MCALdu4gjaU2zrX6oneW+45a+Kw@mail.gmail.com> <CAKm-UmYZcsY=C2Yhmy_EeZi0iAguVH0Eqy83upBLa_ikQtPwnw@mail.gmail.com>
+In-Reply-To: <CAKm-UmYZcsY=C2Yhmy_EeZi0iAguVH0Eqy83upBLa_ikQtPwnw@mail.gmail.com>
 From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Date: Wed, 20 Dec 2023 00:06:03 +0100
-Message-ID: <CAKm-UmYZcsY=C2Yhmy_EeZi0iAguVH0Eqy83upBLa_ikQtPwnw@mail.gmail.com>
+Date: Wed, 20 Dec 2023 00:11:41 +0100
+Message-ID: <CAKm-Umapq5LW9yhSOGk8TOg1iuvUogUDKbEXbUcE5T5-vVzW3w@mail.gmail.com>
 Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
 To: Jan Beulich <jbeulich@suse.com>
 Cc: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000cdcf1e060ce4e9a3"
+Content-Type: multipart/alternative; boundary="000000000000f83f50060ce4fd72"
 
---000000000000cdcf1e060ce4e9a3
+--000000000000f83f50060ce4fd72
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le mar. 19 d=C3=A9c. 2023 =C3=A0 20:03, S=C3=A9bastien Chaumat <euidzero@gm=
+Le mer. 20 d=C3=A9c. 2023 =C3=A0 00:06, S=C3=A9bastien Chaumat <euidzero@gm=
 ail.com> a
 =C3=A9crit :
 
-> Le mar. 19 d=C3=A9c. 2023 =C3=A0 16:15, S=C3=A9bastien Chaumat <euidzero@=
+>
+>
+> Le mar. 19 d=C3=A9c. 2023 =C3=A0 20:03, S=C3=A9bastien Chaumat <euidzero@=
 gmail.com> a
 > =C3=A9crit :
-> >
-> > I did add an extra printk in PHYSDEVOP_setup_gsi
-> > so the "first one" is my printk (available in xl dmesg)
-> > the second message is from xen_register_gsi (from linux kernel)
-> >
-> > Le mar. 19 d=C3=A9c. 2023 =C3=A0 14:15, Jan Beulich <jbeulich@suse.com>=
- a =C3=A9crit :
-> > >
-> > > On 18.12.2023 17:21, S=C3=A9bastien Chaumat wrote:
-> > > >>>>> On 05.12.2023 21:31, S=C3=A9bastien Chaumat wrote:
-> > > >>>>>>> [    2.464598] amd_gpio AMDI0030:00: failed to enable wake-up
-> interrupt
-> > > >>>>>>
-> > > >>>>>> Is it expected that IRQ7 goes from fasteoi (kernel 6.6.4 ) to
-> > > >>>>>> ioapic-edge and IRQ9 to ioapic-level ?
-> > > >>>>>>
-> > > >>>>>> IR-IO-APIC    7-fasteoi   pinctrl_amd
-> > > >>>>>> IR-IO-APIC    9-fasteoi   acpi
-> > > >>>>>>
-> > > >>>>>> to (xen 4.18.0)
-> > > >>>>>>
-> > > >>>>>> xen-pirq     -ioapic-edge  pinctrl_amd
-> > > >>>>>> xen-pirq     -ioapic-level  acpi
-> > > >>>>>>
-> > > >>>>>> ?
-> > > >>>
-> > > >
-> > > >>> This look similar to
-> > > >>> https://yhbt.net/lore/all/20201006044941.fdjsp346kc5thyzy@Rk/t/
-> > > >>>
-> > > >>> This issue seems that IRQ 7 (the GPIO controller) is natively
-> fasteoi
-> > > >>> (so level type) while in xen it  is mapped to oapic-edge  instead
-> of
-> > > >>> oapic-level
-> > > >>> as the SSDT indicates :
-> > > >>>
-> > > >>>  Device (GPIO)
-> > > >>>
-> > > >>>      {
-> > > >>>          Name (_HID, "AMDI0030")  // _HID: Hardware ID
-> > > >>>          Name (_CID, "AMDI0030")  // _CID: Compatible ID
-> > > >>>          Name (_UID, Zero)  // _UID: Unique ID
-> > > >>>          Method (_CRS, 0, NotSerialized)  // _CRS: Current
-> Resource Settings
-> > > >>>          {
-> > > >>>              Name (RBUF, ResourceTemplate ()
-> > > >>>              {
-> > > >>>                  Interrupt (ResourceConsumer, Level, ActiveLow,
-> Shared, ,, )
-> > > >>>                  {
-> > > >>>                      0x00000007,
-> > > >>>            }
-> > > >>> Any idea why ?
-> > > >>
-> > > >> Information coming from AML is required to be handed down by Dom0
-> to Xen.
-> > > >> May want checking that (a) Dom0 properly does so and (b) Xen
-> doesn't screw
-> > > >> up in consuming that data. See PHYSDEVOP_setup_gsi. I wonder if
-> this is
-> > > >> specific to it being IRQ7 which GPIO uses, as at the (master) PIC
-> IRQ7 is
-> > > >> also the spurious vector. You may want to retry with the tip of th=
-e
-> 4.17
-> > > >> branch (soon to become 4.17.3) - while it doesn't look very likely
-> to me
-> > > >> that recent backports there were related, it may still be that the=
+>
+>> Le mar. 19 d=C3=A9c. 2023 =C3=A0 16:15, S=C3=A9bastien Chaumat <euidzero=
+@gmail.com> a
+>> =C3=A9crit :
+>> >
+>> > I did add an extra printk in PHYSDEVOP_setup_gsi
+>> > so the "first one" is my printk (available in xl dmesg)
+>> > the second message is from xen_register_gsi (from linux kernel)
+>> >
+>> > Le mar. 19 d=C3=A9c. 2023 =C3=A0 14:15, Jan Beulich <jbeulich@suse.com=
+> a =C3=A9crit :
+>> > >
+>> > > On 18.12.2023 17:21, S=C3=A9bastien Chaumat wrote:
+>> > > >>>>> On 05.12.2023 21:31, S=C3=A9bastien Chaumat wrote:
+>> > > >>>>>>> [    2.464598] amd_gpio AMDI0030:00: failed to enable wake-u=
+p
+>> interrupt
+>> > > >>>>>>
+>> > > >>>>>> Is it expected that IRQ7 goes from fasteoi (kernel 6.6.4 ) to
+>> > > >>>>>> ioapic-edge and IRQ9 to ioapic-level ?
+>> > > >>>>>>
+>> > > >>>>>> IR-IO-APIC    7-fasteoi   pinctrl_amd
+>> > > >>>>>> IR-IO-APIC    9-fasteoi   acpi
+>> > > >>>>>>
+>> > > >>>>>> to (xen 4.18.0)
+>> > > >>>>>>
+>> > > >>>>>> xen-pirq     -ioapic-edge  pinctrl_amd
+>> > > >>>>>> xen-pirq     -ioapic-level  acpi
+>> > > >>>>>>
+>> > > >>>>>> ?
+>> > > >>>
+>> > > >
+>> > > >>> This look similar to
+>> > > >>> https://yhbt.net/lore/all/20201006044941.fdjsp346kc5thyzy@Rk/t/
+>> > > >>>
+>> > > >>> This issue seems that IRQ 7 (the GPIO controller) is natively
+>> fasteoi
+>> > > >>> (so level type) while in xen it  is mapped to oapic-edge  instea=
+d
+>> of
+>> > > >>> oapic-level
+>> > > >>> as the SSDT indicates :
+>> > > >>>
+>> > > >>>  Device (GPIO)
+>> > > >>>
+>> > > >>>      {
+>> > > >>>          Name (_HID, "AMDI0030")  // _HID: Hardware ID
+>> > > >>>          Name (_CID, "AMDI0030")  // _CID: Compatible ID
+>> > > >>>          Name (_UID, Zero)  // _UID: Unique ID
+>> > > >>>          Method (_CRS, 0, NotSerialized)  // _CRS: Current
+>> Resource Settings
+>> > > >>>          {
+>> > > >>>              Name (RBUF, ResourceTemplate ()
+>> > > >>>              {
+>> > > >>>                  Interrupt (ResourceConsumer, Level, ActiveLow,
+>> Shared, ,, )
+>> > > >>>                  {
+>> > > >>>                      0x00000007,
+>> > > >>>            }
+>> > > >>> Any idea why ?
+>> > > >>
+>> > > >> Information coming from AML is required to be handed down by Dom0
+>> to Xen.
+>> > > >> May want checking that (a) Dom0 properly does so and (b) Xen
+>> doesn't screw
+>> > > >> up in consuming that data. See PHYSDEVOP_setup_gsi. I wonder if
+>> this is
+>> > > >> specific to it being IRQ7 which GPIO uses, as at the (master) PIC
+>> IRQ7 is
+>> > > >> also the spurious vector. You may want to retry with the tip of
+>> the 4.17
+>> > > >> branch (soon to become 4.17.3) - while it doesn't look very likel=
 y
-> make
-> > > >> a difference.
-> > > >>
-> > > >
-> > > > testing with 4.17.3:
-> > > >
-> > > > Adding some printk in PHYSDEVOP_setup_gsi, I  see (in xl dmesg)  th=
-at
-> > > > (XEN) PHYSDEVOP_setup_gsi setup_gsi : gsi: 7 triggering: 1 polarity=
-:
-> 1
-> > > >
-> > > > but later on in dmesg I see :
-> > > > [    1.747958] xen: registering gsi 7 triggering 0 polarity 1
-> > >
-> > > Linux has exactly one place where this message is logged from, and
-> that's
-> > > ahead of it calling PHYSDEVOP_setup_gsi. Since you said "later", can
-> you
-> > > confirm that actually you see two instances of the Xen message and tw=
-o
-> > > instances of the Linux one (each of them with respectively matching
-> > > trigger and polarity values)? Or are we indeed observing what would
-> look
-> > > to be corruption of a hypercall argument?
-> > >
-> > > If there were two calls, it would be important to realize that Xen wi=
-ll
-> > > respect only the first one.
-> > >
-> > > Jan
+>> to me
+>> > > >> that recent backports there were related, it may still be that
+>> they make
+>> > > >> a difference.
+>> > > >>
+>> > > >
+>> > > > testing with 4.17.3:
+>> > > >
+>> > > > Adding some printk in PHYSDEVOP_setup_gsi, I  see (in xl dmesg)
+>> that
+>> > > > (XEN) PHYSDEVOP_setup_gsi setup_gsi : gsi: 7 triggering: 1
+>> polarity: 1
+>> > > >
+>> > > > but later on in dmesg I see :
+>> > > > [    1.747958] xen: registering gsi 7 triggering 0 polarity 1
+>> > >
+>> > > Linux has exactly one place where this message is logged from, and
+>> that's
+>> > > ahead of it calling PHYSDEVOP_setup_gsi. Since you said "later", can
+>> you
+>> > > confirm that actually you see two instances of the Xen message and t=
+wo
+>> > > instances of the Linux one (each of them with respectively matching
+>> > > trigger and polarity values)? Or are we indeed observing what would
+>> look
+>> > > to be corruption of a hypercall argument?
+>> > >
+>> > > If there were two calls, it would be important to realize that Xen
+>> will
+>> > > respect only the first one.
+>> > >
+>> > > Jan
+>>
+>> Adding a printk to catch the gsi immediately before the hypercall in
+>> linux/arch/x86/pci/xen.c
+>>
+>> #ifdef CONFIG_XEN_PV_DOM0
+>> static int xen_register_gsi(u32 gsi, int triggering, int polarity)
+>> {
+>> int rc, irq;
+>> struct physdev_setup_gsi setup_gsi;
+>>
+>> if (!xen_pv_domain())
+>> return -1;
+>>
+>> printk(KERN_DEBUG "xen: registering gsi %u triggering %d polarity %d\n",
+>> gsi, triggering, polarity);
+>>
 >
-> Adding a printk to catch the gsi immediately before the hypercall in
-> linux/arch/x86/pci/xen.c
+> there we have :
+>   [    1.848051] xen: registering gsi 7 triggering 0 polarity 1
 >
-> #ifdef CONFIG_XEN_PV_DOM0
-> static int xen_register_gsi(u32 gsi, int triggering, int polarity)
-> {
-> int rc, irq;
-> struct physdev_setup_gsi setup_gsi;
+> then in the next call :
 >
-> if (!xen_pv_domain())
-> return -1;
+> irq =3D xen_register_pirq(gsi, triggering, true);
 >
-> printk(KERN_DEBUG "xen: registering gsi %u triggering %d polarity %d\n",
-> gsi, triggering, polarity);
+>
+>  I added a printk at the very beginning  :
+>
+>   static int xen_register_pirq(u32 gsi, int triggering, bool set_pirq)
+>   {
+>     int rc, pirq =3D -1, irq;
+>     struct physdev_map_pirq map_irq;
+>     int shareable =3D 0;
+>     char *name;
+>
+>     printk(KERN_DEBUG "xen_register_pirq start gsi %u triggering %d
+> set_pirq %d\n", gsi, triggering, set_pirq)
+>
+> And I get  in this printk result for IRQ7 : triggering=3D1 while it was
+> passed with value 0 in the call !?
 >
 
-there we have :
-  [    1.848051] xen: registering gsi 7 triggering 0 polarity 1
+Sorry bad format %d instead of %i for triggering ...
 
-then in the next call :
-
-irq =3D xen_register_pirq(gsi, triggering, true);
-
-
- I added a printk at the very beginning  :
-
-  static int xen_register_pirq(u32 gsi, int triggering, bool set_pirq)
-  {
-    int rc, pirq =3D -1, irq;
-    struct physdev_map_pirq map_irq;
-    int shareable =3D 0;
-    char *name;
-
-    printk(KERN_DEBUG "xen_register_pirq start gsi %u triggering %d
-set_pirq %d\n", gsi, triggering, set_pirq)
-
-And I get  in this printk result for IRQ7 : triggering=3D1 while it was
-passed with value 0 in the call !?
-
-Any idea ?
-
---000000000000cdcf1e060ce4e9a3
+--000000000000f83f50060ce4fd72
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">Le=C2=A0mar. 19 d=C3=A9c. 2023 =C3=A0=
-=C2=A020:03, S=C3=A9bastien Chaumat &lt;<a href=3D"mailto:euidzero@gmail.co=
+<div dir=3D"ltr" class=3D"gmail_attr">Le=C2=A0mer. 20 d=C3=A9c. 2023 =C3=A0=
+=C2=A000:06, S=C3=A9bastien Chaumat &lt;<a href=3D"mailto:euidzero@gmail.co=
 m">euidzero@gmail.com</a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote clas=
 s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex">Le mar. 19 d=C3=A9c. 2023 =C3=A0 16:15, S=
-=C3=A9bastien Chaumat &lt;<a href=3D"mailto:euidzero@gmail.com" target=3D"_=
-blank">euidzero@gmail.com</a>&gt; a =C3=A9crit :<br>
+gb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr"><br></d=
+iv><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Le=
+=C2=A0mar. 19 d=C3=A9c. 2023 =C3=A0=C2=A020:03, S=C3=A9bastien Chaumat &lt;=
+<a href=3D"mailto:euidzero@gmail.com" target=3D"_blank">euidzero@gmail.com<=
+/a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">Le mar. 19 d=C3=A9c. 2023 =C3=A0 16:15, S=C3=A9bastien Chaumat =
+&lt;<a href=3D"mailto:euidzero@gmail.com" target=3D"_blank">euidzero@gmail.=
+com</a>&gt; a =C3=A9crit :<br>
 &gt;<br>
 &gt; I did add an extra printk in PHYSDEVOP_setup_gsi<br>
 &gt; so the &quot;first one&quot; is my printk (available in xl dmesg)<br>
@@ -405,8 +418,9 @@ nt shareable =3D 0;<br>=C2=A0=C2=A0=C2=A0 char *name;</div><div><br>=C2=A0=
 =C2=A0=C2=A0 printk(KERN_DEBUG &quot;xen_register_pirq start gsi %u trigger=
 ing %d set_pirq %d\n&quot;, gsi, triggering, set_pirq)<br></div><div><br></=
 div><div>And I get=C2=A0 in this printk result for IRQ7 : triggering=3D1 wh=
-ile it was passed with value 0 in the call !?</div><div><br></div><div>Any =
-idea ?<br></div></div></div>
+ile it was passed with value 0 in the call !?</div></div></div></blockquote=
+><div><br></div><div>Sorry bad format %d instead of %i for triggering ...<b=
+r></div></div></div>
 
---000000000000cdcf1e060ce4e9a3--
+--000000000000f83f50060ce4fd72--
 
