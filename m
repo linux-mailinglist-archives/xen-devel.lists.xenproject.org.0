@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB90818864
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 14:12:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656786.1025228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51C0F818875
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 14:15:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656798.1025238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFZt9-0001Z5-SG; Tue, 19 Dec 2023 13:11:59 +0000
+	id 1rFZwe-0002fc-Ai; Tue, 19 Dec 2023 13:15:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656786.1025228; Tue, 19 Dec 2023 13:11:59 +0000
+Received: by outflank-mailman (output) from mailman id 656798.1025238; Tue, 19 Dec 2023 13:15:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFZt9-0001Wm-Pe; Tue, 19 Dec 2023 13:11:59 +0000
-Received: by outflank-mailman (input) for mailman id 656786;
- Tue, 19 Dec 2023 13:11:58 +0000
+	id 1rFZwe-0002cu-7V; Tue, 19 Dec 2023 13:15:36 +0000
+Received: by outflank-mailman (input) for mailman id 656798;
+ Tue, 19 Dec 2023 13:15:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CCte=H6=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rFZt8-0001WR-4e
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 13:11:58 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rFZwd-0002co-1t
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 13:15:35 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2e676a42-9e70-11ee-9b0f-b553b5be7939;
- Tue, 19 Dec 2023 14:11:54 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40c31f18274so57318895e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 05:11:54 -0800 (PST)
-Received: from [192.168.220.211] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- sn24-20020a170906629800b00a2310f34d0asm6577542ejc.196.2023.12.19.05.11.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 Dec 2023 05:11:53 -0800 (PST)
+ id b03071e4-9e70-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 14:15:32 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40c60dfa5bfso54130505e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 05:15:32 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ az1-20020a05600c600100b0040b5517ae31sm2843959wmb.6.2023.12.19.05.15.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Dec 2023 05:15:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,183 +45,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e676a42-9e70-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: b03071e4-9e70-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1702991514; x=1703596314; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=227KkKLBKUhS2GPLm/NtVtU/wkkIdDICY68h27QE3So=;
-        b=bf5xLDujI600Dd+HhkkImiaLNFpe2cSjeyWOV5jp7nxla5yo8Wzk/PlyaeFVTYiRvr
-         fwGttc8+/YD7jMjz+a0zQJV1c4z5YAa0L3quumpQ2AVJboheEwVFuXv8S4sUUV5fZDZq
-         WZLu42AUyyVZ5FJyf9rZkBVYXzNzT+41BTp9iWSX1MZnhhEK1La56CZ7pUZG/RUXkugD
-         Ezhgp/lsovw477tI1RL8C1BlwOTqERac5sKhF8GYlP5yIPpfVtPXEuLItn2TAVnWNyKv
-         YvWtQoyojGnbfi2F8bDh2JbzJALQtRb3rjoW8eCHY5KJT6qnTUIwD1dunIM/gRQsu+e8
-         Qtng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702991514; x=1703596314;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1702991732; x=1703596532; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=227KkKLBKUhS2GPLm/NtVtU/wkkIdDICY68h27QE3So=;
-        b=uOQyLPNHh0F2BQfvmxdGf7NthD7VTI3Rf1R0TPPpVFQ0KxjJfRq4i1+JYACXUD76OI
-         C6H+u6blJpNHkgSy7Tp/nxHncz6xKBNFsAfNDh0B9qF6rqeC8ctMXeSeYuXAB0Lkz6yN
-         Q+fXGlYC5avj2A1XajPWqb48xwmLz9eKp63CVvZG9D2N7pwZX4+Uyq6+mTtZoX3AFkhX
-         LdKRkVS1HdjkkXUNvXIbLIPG5lxSTieEVe0HgPrhA+BteBsryenyfL33rj60wl50GRYF
-         Z1KvJL1uuF3jc0l7tXqLXyX2MGcT0RswNlQa9NM77OzizBhSR8cB+OLGXoj/Q2oarkNq
-         oiEg==
-X-Gm-Message-State: AOJu0Yz0Jxm4EKzUqN6WcfOyzxTcSwBxATZ92Aq9pYIvq8lmgWxw4ziD
-	qTH2oCfcBGg7NW4h4zkD778=
-X-Google-Smtp-Source: AGHT+IEWMN8AvKLceqU+lF0BQpp+UX3qE/kW8zUvI6xAp6iXeO3rccYTEtaJUu+Nv/DWVYIRSsDD/w==
-X-Received: by 2002:a05:600c:4981:b0:40c:1dd1:295c with SMTP id h1-20020a05600c498100b0040c1dd1295cmr8755713wmp.199.1702991514154;
-        Tue, 19 Dec 2023 05:11:54 -0800 (PST)
-Message-ID: <a9a0ab135147fb55b124db3b00f714df2758fbca.camel@gmail.com>
-Subject: Re: [RFC PATCH v1 1/1] xen/Makefile: introduce ARCH_FIXED_CONFIG
- for randconfig
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich
- <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Wei Liu
- <wl@xen.org>,  Shawn Anastasio <sanastasio@raptorengineering.com>,
- xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@citrix.com>
-Date: Tue, 19 Dec 2023 15:11:52 +0200
-In-Reply-To: <alpine.DEB.2.22.394.2312181753160.3175268@ubuntu-linux-20-04-desktop>
-References: <cover.1701966261.git.oleksii.kurochko@gmail.com>
-	 <c95959adca794a90465abd10f579dc9159a7697f.1701966261.git.oleksii.kurochko@gmail.com>
-	 <f9ceb8f7-a664-452b-8b38-f74b36386e33@citrix.com>
-	 <7ec81395-298d-4d50-89af-d54f756ef657@suse.com>
-	 <95d3e8e9-66d3-4097-b2ed-c808369a08ac@citrix.com>
-	 <d56aa264-41f2-4cff-97dd-1a222750a389@suse.com>
-	 <alpine.DEB.2.22.394.2312181753160.3175268@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=VBizbzK46ciCCkt/oMCczQc2eIfqrFih45fwnP5KcFI=;
+        b=GPF9/F5B6goxBqVa8W7l8pcBAAaGCmehYUzqiEJQX1bRNOtFkyrVlwh6wE3ZYr1aFN
+         7cJNLqaQrY5pZ18kzXsOgNyNI8Mh0Ccpo4wdsB1gAwt4669iKibRkbvK/KYFnrC+POPO
+         3d2MStJWu0hHgdxCe4rayV/mBhwd6t0z5t6kSTUSAHbtD0/TAtGs22cE+PWxBZKjKhIo
+         oL/93sf6h02WENukK6sywMNZul3iqLRH4QcdoQaNEAqbbY8+8ENZdG+f8T5sAhLWb5Mj
+         kxAV5w+VW1T+Dj6uKG/wPXGPRSwfd21RjIWYTh6Kffy0evetdrZxTZYIKjaHI29xP2hq
+         Tn9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702991732; x=1703596532;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VBizbzK46ciCCkt/oMCczQc2eIfqrFih45fwnP5KcFI=;
+        b=ELVe/3LefPQXtTIZnpD2UZRPyKDDP08a39O+ZLA8IgcrDIKPP88mjspZzeiVzSGyUh
+         p3IajN7d0NukAeQi8dxwRcAREDX5+80JvKN7RwbZ2vyMJRn+9BuhJ+w5BNpCNLvI5yAF
+         gd6SWYAa0ZktR1Oe3AL/frihcrP/7hUmJCAR1H1GLIGqZ9rC65/vklwSRwhDKEGINouL
+         teXUNJrky2QfFCbvgZGeRPgs6fjl0qdfOvD6RodeAPkvvEHyi95a+plWFTMJT26gBTq2
+         AtdbwFltfpxbl1JzephgYB5SqYiR31UOrGaPAfyrJVAuCoC+25OrcyG+dWQ0+DxgUJCM
+         0L2Q==
+X-Gm-Message-State: AOJu0Yx8O/Vo3nnf6tcigTtsIYUVD3E22hFE97NvkxZK7oyybA/E8QJD
+	w47btbsj6i5FnGGf6p97NNvlE7pkDZr4cAZqu2Fm
+X-Google-Smtp-Source: AGHT+IF6FsqEUpNNPfLbYz4cieu46o69QTKx++0RqbOR1ha8XYFEVncPCncBdTnvpvtcg8uNwquchQ==
+X-Received: by 2002:a05:600c:2147:b0:40c:23ca:1444 with SMTP id v7-20020a05600c214700b0040c23ca1444mr9471818wml.80.1702991732054;
+        Tue, 19 Dec 2023 05:15:32 -0800 (PST)
+Message-ID: <b4f46a91-b3b9-49b9-9a26-e2f962dee54c@suse.com>
+Date: Tue, 19 Dec 2023 14:15:30 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+Content-Language: en-US
+To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <7f34d258-97fa-43e8-8d67-ac9dc93213af@suse.com>
+ <CAKm-UmYGTLY0fTh4zvj-xrA3Tp+Oj+ES61pncG7ze0QnP4o=FQ@mail.gmail.com>
+ <52bd8702-cf7d-4f5b-883d-be6214ba31c0@suse.com>
+ <CAKm-UmadRsc7GEYDqMDTBaoozT5Bj3nwK+=uDs1LkTZVG8tgdQ@mail.gmail.com>
+ <CAKm-UmZnPtH_Fxou3OV0BbpP+tBpSe1z8Qet4Q5=zDD7UGZy6Q@mail.gmail.com>
+ <CAKm-UmbaHoXymP8CcBVBLSVG7T9zCE2fbFQB33SMnY8pwXOU1Q@mail.gmail.com>
+ <435d159f-96d5-49af-82ec-bce6961e3391@suse.com>
+ <CAKm-UmbEBOm525=f+OOL0P05tQVVQz9wegh7F8yhgV_=Z7rWug@mail.gmail.com>
+ <CAKm-UmYejm8CW-Enc_Y-aefcLPsRhQO8w2P-fNdu1zXMMjUAoA@mail.gmail.com>
+ <e83e7254-0c90-4912-ae63-ea7221a10071@suse.com>
+ <CAKm-UmbDNbeakVQtDT47o4Qc4oQvi0dqmBDb5Q=pRqTHFY0C5w@mail.gmail.com>
+ <CAKm-UmZtN2o3d13cE9GyyLKfMmZ855MfrAAw9O6zE-5ob0-iYg@mail.gmail.com>
+ <64d738b7-08c1-4b2c-a828-a137c870408e@suse.com>
+ <CAKm-UmayUxd8F337g+BnR=_50_o__oV_PeUv9Z+9gNZ5MXYmrA@mail.gmail.com>
+Cc: xen-devel@lists.xenproject.org
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAKm-UmayUxd8F337g+BnR=_50_o__oV_PeUv9Z+9gNZ5MXYmrA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2023-12-18 at 18:03 -0800, Stefano Stabellini wrote:
-> On Mon, 18 Dec 2023, Jan Beulich wrote:
-> > On 18.12.2023 17:07, Andrew Cooper wrote:
-> > > On 11/12/2023 3:56 pm, Jan Beulich wrote:
-> > > > On 07.12.2023 21:17, Andrew Cooper wrote:
-> > > > > On 07/12/2023 5:03 pm, Oleksii Kurochko wrote:
-> > > > > > ARCH_FIXED_CONFIG is required in the case of randconfig
-> > > > > > and CI for configs that aren't ready or are not
-> > > > > > supposed to be implemented for specific architecture.
-> > > > > > These configs should always be disabled to prevent
-> > > > > > randconfig
-> > > > > > related tests from failing.
-> > > > > >=20
-> > > > > > Signed-off-by: Oleksii Kurochko
-> > > > > > <oleksii.kurochko@gmail.com>
-> > > > > > ---
-> > > > > > =C2=A0xen/Makefile | 5 ++++-
-> > > > > > =C2=A01 file changed, 4 insertions(+), 1 deletion(-)
-> > > > > >=20
-> > > > > > diff --git a/xen/Makefile b/xen/Makefile
-> > > > > > index ca571103c8..8ae8fe1480 100644
-> > > > > > --- a/xen/Makefile
-> > > > > > +++ b/xen/Makefile
-> > > > > > @@ -336,11 +336,14 @@ ifeq ($(config-build),y)
-> > > > > > =C2=A0# *config targets only - make sure prerequisites are
-> > > > > > updated, and descend
-> > > > > > =C2=A0# in tools/kconfig to make the *config target
-> > > > > > =C2=A0
-> > > > > > +ARCH_FORCED_CONFIG :=3D
-> > > > > > $(srctree)/arch/$(SRCARCH)/configs/randomforced.config
-> > > > > > +
-> > > > > > =C2=A0# Create a file for KCONFIG_ALLCONFIG which depends on th=
-e
-> > > > > > environment.
-> > > > > > =C2=A0# This will be use by kconfig targets
-> > > > > > allyesconfig/allmodconfig/allnoconfig/randconfig
-> > > > > > =C2=A0filechk_kconfig_allconfig =3D \
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 $(if $(findstring n,$(XEN_HAS_CHECKPOL=
-ICY)), echo
-> > > > > > 'CONFIG_XSM_FLASK_POLICY=3Dn';) \
-> > > > > > -=C2=A0=C2=A0=C2=A0 $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_AL=
-LCONFIG);)
-> > > > > > \
-> > > > > > +=C2=A0=C2=A0=C2=A0 $(if $(KCONFIG_ALLCONFIG), cat $(KCONFIG_AL=
-LCONFIG); \
-> > > > > > +=C2=A0=C2=A0=C2=A0 $(if $(wildcard $(ARCH_FORCED_CONFIG)), cat
-> > > > > > $(ARCH_FORCED_CONFIG);) ) \
-> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0 :
-> > > > > > =C2=A0
-> > > > > > =C2=A0.allconfig.tmp: FORCE
-> > > > > We already have infrastructure for this.=C2=A0 What's wrong with
-> > > > > EXTRA_FIXED_RANDCONFIG?
-> > > > What I don't understand here is why dealing with the issue
-> > > > would want
-> > > > limiting to gitlab-CI. Anyone could run randconfig on their
-> > > > own, and
-> > > > imo it would be helpful if the same issue(s) could be prevented
-> > > > there,
-> > > > too. Hence my earlier suggestion to have a snippet which can be
-> > > > used
-> > > > by "interested" parties. And once dealt with in e.g. the
-> > > > makefile
-> > > > there should not be a need for any overrides in the CI config
-> > > > anymore.
-> > >=20
-> > > This is trying to find a solution to a problem which doesn't
-> > > exist.
-> > >=20
-> > > RISC-V and PPC are experimental in Xen.=C2=A0 Noone else is going to
-> > > come and
-> > > randconfig them until they're rather more production ready, and a
-> > > prerequisite of that is removing this list of exclusions.
-> > >=20
-> > > Until you can actually find an interested party to comment, I
-> > > think this
-> > > is just churn for no useful improvement.=C2=A0 If nothing else,
-> > > calling it
-> > > randomforced.config isn't appropriate given the explanation of
-> > > what this
-> > > target is used for...
-> >=20
-> > "random" in the name can't possibly be right anyway. Such
-> > collection of
-> > fixed settings would also be relevant to e.g. all{yes,no}config.
-> > Yet
-> > that's still not the same as any kind of "default" config, which
-> > the
-> > two architectures presently kind of abuse for the purpose of
-> > defining
-> > required-fixed settings.
->=20
-> One thing for sure, I don't think it would be a good idea to add
-> extra
-> temporary Kconfig changes like these:
->=20
-> [1]
-> https://lore.kernel.org/xen-devel/cdc20255540a66ba0b6946ac6d48c11029cd338=
-5.1701453087.git.oleksii.kurochko@gmail.com/
-> [2]
-> https://lore.kernel.org/xen-devel/d42a34866edc70a12736b5c6976aa1b44b4ebd8=
-a.1701453087.git.oleksii.kurochko@gmail.com/
->=20
->=20
-> I agree with Andrew that RISC-V and PPC are experimental so whatever
-> works to enable them to make progress on this issue with a small
-> effort
-> is sufficient. I would be happy with a quick respin of this series
-> following the gitlab-ci approach. This is good enough.
->=20
-> And I think that having some sort of fixed seed (seed.config?) for
-> randconfig would also be fine and potentially more reusable.
->=20
-> But I think Oleksii should go forward with whatever approach he
-> prefers
-> and he is more comfortable with, as long as it is not [1] and [2].
-Despite the fact that I am still comfortable with both approaches,
-let's stick to the approach that requires minimal effort. For the time
-being, let's update patch series [1] with the GitLab CI approach and
-revert to the current patch if there are more cases where these changes
-are required. Thank you, everyone, for your feedback.
+On 18.12.2023 17:21, Sébastien Chaumat wrote:
+>>>>> On 05.12.2023 21:31, Sébastien Chaumat wrote:
+>>>>>>> [    2.464598] amd_gpio AMDI0030:00: failed to enable wake-up interrupt
+>>>>>>
+>>>>>> Is it expected that IRQ7 goes from fasteoi (kernel 6.6.4 ) to
+>>>>>> ioapic-edge and IRQ9 to ioapic-level ?
+>>>>>>
+>>>>>> IR-IO-APIC    7-fasteoi   pinctrl_amd
+>>>>>> IR-IO-APIC    9-fasteoi   acpi
+>>>>>>
+>>>>>> to (xen 4.18.0)
+>>>>>>
+>>>>>> xen-pirq     -ioapic-edge  pinctrl_amd
+>>>>>> xen-pirq     -ioapic-level  acpi
+>>>>>>
+>>>>>> ?
+>>>
+> 
+>>> This look similar to
+>>> https://yhbt.net/lore/all/20201006044941.fdjsp346kc5thyzy@Rk/t/
+>>>
+>>> This issue seems that IRQ 7 (the GPIO controller) is natively fasteoi
+>>> (so level type) while in xen it  is mapped to oapic-edge  instead of
+>>> oapic-level
+>>> as the SSDT indicates :
+>>>
+>>>  Device (GPIO)
+>>>
+>>>      {
+>>>          Name (_HID, "AMDI0030")  // _HID: Hardware ID
+>>>          Name (_CID, "AMDI0030")  // _CID: Compatible ID
+>>>          Name (_UID, Zero)  // _UID: Unique ID
+>>>          Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource Settings
+>>>          {
+>>>              Name (RBUF, ResourceTemplate ()
+>>>              {
+>>>                  Interrupt (ResourceConsumer, Level, ActiveLow, Shared, ,, )
+>>>                  {
+>>>                      0x00000007,
+>>>            }
+>>> Any idea why ?
+>>
+>> Information coming from AML is required to be handed down by Dom0 to Xen.
+>> May want checking that (a) Dom0 properly does so and (b) Xen doesn't screw
+>> up in consuming that data. See PHYSDEVOP_setup_gsi. I wonder if this is
+>> specific to it being IRQ7 which GPIO uses, as at the (master) PIC IRQ7 is
+>> also the spurious vector. You may want to retry with the tip of the 4.17
+>> branch (soon to become 4.17.3) - while it doesn't look very likely to me
+>> that recent backports there were related, it may still be that they make
+>> a difference.
+>>
+> 
+> testing with 4.17.3:
+> 
+> Adding some printk in PHYSDEVOP_setup_gsi, I  see (in xl dmesg)  that
+> (XEN) PHYSDEVOP_setup_gsi setup_gsi : gsi: 7 triggering: 1 polarity: 1
+> 
+> but later on in dmesg I see :
+> [    1.747958] xen: registering gsi 7 triggering 0 polarity 1
 
-[1]
-https://lore.kernel.org/xen-devel/cover.1701453087.git.oleksii.kurochko@gma=
-il.com/
+Linux has exactly one place where this message is logged from, and that's
+ahead of it calling PHYSDEVOP_setup_gsi. Since you said "later", can you
+confirm that actually you see two instances of the Xen message and two
+instances of the Linux one (each of them with respectively matching
+trigger and polarity values)? Or are we indeed observing what would look
+to be corruption of a hypercall argument?
 
+If there were two calls, it would be important to realize that Xen will
+respect only the first one.
+
+Jan
 
