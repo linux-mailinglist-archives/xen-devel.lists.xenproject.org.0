@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 408C381829D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 08:55:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656525.1024792 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60C988182A3
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 08:55:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656527.1024801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFUwB-0001aI-Ty; Tue, 19 Dec 2023 07:54:47 +0000
+	id 1rFUwL-000255-44; Tue, 19 Dec 2023 07:54:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656525.1024792; Tue, 19 Dec 2023 07:54:47 +0000
+Received: by outflank-mailman (output) from mailman id 656527.1024801; Tue, 19 Dec 2023 07:54:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFUwB-0001Xl-PL; Tue, 19 Dec 2023 07:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 656525;
- Tue, 19 Dec 2023 07:54:46 +0000
+	id 1rFUwL-00022r-0n; Tue, 19 Dec 2023 07:54:57 +0000
+Received: by outflank-mailman (input) for mailman id 656527;
+ Tue, 19 Dec 2023 07:54:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oURO=H6=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1rFUwA-0008Dp-4x
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 07:54:46 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20628.outbound.protection.outlook.com
- [2a01:111:f400:7e83::628])
+ id 1rFUwJ-0008Dp-EY
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 07:54:55 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20620.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::620])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id df7cae0d-9e43-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 08:54:45 +0100 (CET)
-Received: from MW4PR04CA0277.namprd04.prod.outlook.com (2603:10b6:303:89::12)
- by DM6PR12MB4863.namprd12.prod.outlook.com (2603:10b6:5:1b9::18) with
+ id e4f70a64-9e43-11ee-98eb-6d05b1d4d9a1;
+ Tue, 19 Dec 2023 08:54:54 +0100 (CET)
+Received: from MW2PR16CA0011.namprd16.prod.outlook.com (2603:10b6:907::24) by
+ CH3PR12MB7689.namprd12.prod.outlook.com (2603:10b6:610:14d::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38; Tue, 19 Dec
- 2023 07:54:40 +0000
-Received: from CO1PEPF000044F6.namprd21.prod.outlook.com
- (2603:10b6:303:89:cafe::11) by MW4PR04CA0277.outlook.office365.com
- (2603:10b6:303:89::12) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 07:54:47 +0000
+Received: from CO1PEPF000044F7.namprd21.prod.outlook.com
+ (2603:10b6:907:0:cafe::7) by MW2PR16CA0011.outlook.office365.com
+ (2603:10b6:907::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38 via Frontend
- Transport; Tue, 19 Dec 2023 07:54:40 +0000
+ Transport; Tue, 19 Dec 2023 07:54:46 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF000044F6.mail.protection.outlook.com (10.167.241.196) with Microsoft
+ CO1PEPF000044F7.mail.protection.outlook.com (10.167.241.197) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7113.7 via Frontend Transport; Tue, 19 Dec 2023 07:54:40 +0000
+ 15.20.7113.8 via Frontend Transport; Tue, 19 Dec 2023 07:54:46 +0000
 Received: from hr-amd.amd.com (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 19 Dec
- 2023 01:54:32 -0600
+ 2023 01:54:39 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,22 +56,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df7cae0d-9e43-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: e4f70a64-9e43-11ee-98eb-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DYxKGRR61qBPr4krhR53/x2i+/tRdouf51DP+SRNEIseb5IHDT7N39VmJM4E+sGkWNxKHCqESA1gp2/xwc9tooj2pJhtPNnrZ42pl9ba/iAaGTy49CDcHn5wGpSJ7ypZEfvmrdvYXh/LkGfI4noApFYqI3rPL4ztHKbm0Nl3kw408AMFNC05C7Ur8eSb0tmBXowy8kmmxZ4sLpgus3wC1iwxtSWfus4pcnAu18BHuhYitiKQMANoju9GUZCck6vnPXsQcT44E59vua3YfRa6vQcEgdisIBb/WjbzRKESCmWq9h2ZU1y/M6P8V3VSnBGARG4edMoDNISg1UlsGBETUg==
+ b=FGmax1MMDMZaZkGrKK3BKhXgX8wXJBI+AiEiSSKAaP0EPo4b02z+lQPa0yOpWKHRAAEN2j37nQhg7XCYToNtCYpIxxWTy0LGZdbWGw51C5VcVDHTnliHO0kPrzwFNsnPC5055nfpYYxSB5Qz9X4xE5oCQ4xS7hJdUnQlui2TPnBd+QfDaSziYkQFJ7idXYW4o7WzvPMkCT61H1jIsvhggHrCqz/y++UKWXzLv2VRg6CGKz8mI4kEq9pwWmDq5YmOV050S4nTOW8IUlgJhcTDSo/X7OIxL7D2FMpL6hTXoNh5pLi1mI2QI3ZfrrNFdKHnE7Mg0VYp+nGbgE7qMEWReg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vm+x9hO2OZqrH2JAMynkQ88/E+kT5I5SP0gGi9uxqpU=;
- b=TZ3N7g9XWZfSCzENO8Wrvdd+pUFVbD3v/Dw+Z7UmAOsI/SPEeDkujKo44r0TFnM+S3aCn3aIdcvxAOJoqjVD5O74TPp4iLBuyEc8hOdcx2R8b9XSTW3lsHMRjbCZg8JjPE+MP/pvgf/vWYN+JegTBqy5xFYqjtZTkTSVNRkFrGa7X90q7bxnAS8/Q2NMkJLpY1Z4SasufV8CBdrgKWkvZZOjEXuocCEV7UKNvbe35y5B8ub30hg43XLRwUPv/j2480MFDf/Aa1ggFcLJP9zWtEb4ffCuOmSEn+4s7DapljrPXmRAs4ZSMyKorq+4SzTeHJCThpzaQ18hC9AlXahCDw==
+ bh=5gjQXkZmdUlI5mi+HNsQt6K/uSUkTS4zo4/9zOqeuPo=;
+ b=QozNBOIoMul1LU8Uu2SNcQeUPBNVTqQzusWejVPegsmKSihHehn9Jm7flbxrXS9Bxnek2kjqna70bQjho5oaCuM9EnNckyjyrSsoGSkvqzSc52B/RgPfCktchm+Q5ibZ4pHPRcMsFKATlSR1I97oRE4D9GSKwlhxONdjkVuZ8AKXcKQVhky2YSSBWQSZAv7q7eol+vKIkCItkDCLksEmffmltgeEq85deG7uAC/oJ6IYePTD4LI+QcZOgRAMz6d21MZIn252j+01Lf1sU620D3cIVWOrv4nJ2mVCtw3R/j32We+c2sA+06BKO1nFINluPlUG4jTiouQPYwIUvrELjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=daynix.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vm+x9hO2OZqrH2JAMynkQ88/E+kT5I5SP0gGi9uxqpU=;
- b=CedPQ5+Xsn8ZrqsTWCtCVX3RxSO7RCqcvn8sEW3VJC842gwh1dD68N1r/2Wb7ndP/6O2SSt4lOIpJ/MeO3qBy7C2dfeviBvZacDZbmnHg4SvKd/UayhzbTakt45S7w3pwkiV8Reh4mQn8BF+h+3EWwNUHPP5JUNBeqYSs/wDUC4=
+ bh=5gjQXkZmdUlI5mi+HNsQt6K/uSUkTS4zo4/9zOqeuPo=;
+ b=kLQb6M+9jDxrgyIYoH1Zuafj2Wnmnupf3SOlaIW5fpgi+yYtrxOwjqbXT8mWO6DHunwBKZaVa+mshdI6f5oSO8mds4AKIapIYcWXEQHwAsydy4hrDfsPjuRgOf/i+jVus/1Z8NxnrOJfCT+VHdbXsR7x69jNC+oMopsSGrKmZhw=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -97,11 +97,10 @@ CC: <xen-devel@lists.xenproject.org>, Gurchetan Singh
 	<christian.koenig@amd.com>, Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
 	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, "Honglei
  Huang" <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>, "Chen
- Jiqian" <Jiqian.Chen@amd.com>, Antonio Caggiano
-	<antonio.caggiano@collabora.com>, Huang Rui <ray.huang@amd.com>
-Subject: [PATCH v6 04/11] virtio-gpu: Don't require udmabuf when blobs and virgl are enabled
-Date: Tue, 19 Dec 2023 15:53:13 +0800
-Message-ID: <20231219075320.165227-5-ray.huang@amd.com>
+ Jiqian" <Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>
+Subject: [PATCH v6 05/11] virtio-gpu: Introduce virgl_gpu_resource structure
+Date: Tue, 19 Dec 2023 15:53:14 +0800
+Message-ID: <20231219075320.165227-6-ray.huang@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20231219075320.165227-1-ray.huang@amd.com>
 References: <20231219075320.165227-1-ray.huang@amd.com>
@@ -113,59 +112,208 @@ X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
  (10.181.40.145)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000044F6:EE_|DM6PR12MB4863:EE_
-X-MS-Office365-Filtering-Correlation-Id: 934086c8-b3fa-421f-7fbf-08dc0067c166
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F7:EE_|CH3PR12MB7689:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7db3e0b3-32b2-47c1-1214-08dc0067c528
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	q7GUOj+mSDtBeSW5AvfsXsKaqOMSxKAk0Ex7s4rCG458gMmUtzCsoyQ2e6nHG/8PW5qjuG0rfWqxVAA+avaO9z2XnaSGA1fZYgOwC21f4uej2c13aRSabTjToLB+6gBIZcjaQuet/n5pwXA4ylMYEpgdvFtGNg7ZnK7mvx2rAhkOe9IxZig255nWyvzU7T4Pwpb2OyCU4ncYt1YgmXcsPBIOrWdGizXlKXUA6rMniPqNaWZ3J0xa7JioBZVNz0otDgLtFouomMOmlbx8pz/voWRX47fUlcZ5b+djAcNil4+kzX+cOwQJKGf7yoORY581xZs7GBgxj0dhOSKQnHVJjR1EtGSTRRGkvyepPG0kKXrxH3rEHps7YnUEuYOzeGR5sy9GzPBiv3p6JoTC480FfP7LZPptBuRfcA+TA7+h15nfuZvORornSFQSwDNztapJuQUP7Z8FYz3CYncHF9hq1kRnsLCJS/2GqggkZxU6FJxVdWocAbU+dJ1fVtoo47/dWgaYHAFGSyxnhq4+TyxSX063lskdTkzQKQgR48HQBXdxF8Hww0GlvH6AsTEVWaL6Eb+hLrruXolllN9130cV8LY72sabwvnsGu4LOIcA5kVn76QUmeS1mYP786s15PNlirKSttaUL4ube5pEgdBNOzEdPBgfPEfM8Th90mpQuD00vVqPGG2WDdptPfx5X6UeMFoEo9zVw/6vULopEWE7KOX6fjQfyHI/rh5rdmJccfSq8ZY/FFHKnKO47MyQoqATwpBnZTyEPxJteZEEoM6g7nBhWLbjBIYU64iGUm2rUA0=
+	lAtoYfukDt1MoY3K87nkoXbs8OUr8IJKcEtYvVh7Ak/2MI9XmWnnr+scICo+UjOK69CmSgW9o0azfHo7I5CbxVO43ZvVa6xXHsLAH3ERDuumER+j4vrTcRBG6oBqmsIQWzegDKm10fSjJWUcQp2wr1hFxK0ofkgmDIxNizQTfgSNfstMgsT7wzPNXaeRK87dNT/oeJ4XQg7g5PfuSfQSrTps8uJ0uE4KdvqQRxuDz90xVMXONK6EtV6njRkcvG+/PJaE6jAbonL2IIQUm8WTUiCZYEyN+DDlPKZGCUAKHpUMWHCuIVPKCgOjh/VTkdvaopwqVZHaYBJ5GyqepowMql6+ktSn0ufMWlXwK/civTnM8IpzlJvUfHTq/c/bnwj6S0Mn1C52FNjw0cd4hl4J94hujTNstW0oMspJudR68otJxf12/ORbaW7syjZIWJh+z0e4Vfpz8ZKHx7IZvHhu825a0YEl9ntakKVKcTWlz7y+Uu6bDtZmsNaHVpGpxQqPT03r7SKxBDdvrb+yqoDaMER/7LOEl+Ja9aLol4XsN+uIhzA2Twqr2nAvF7I80ujkzI5mSDBRyhah6XLquXArSrjL9Ssugv2nPQy+Et/lONl3Cylnl8H0S/OPA58MTewSVsj0dDdaVkrOTk3wbP8/AvrXxUGQZXhAlcbMjIDBsUtJdyPCaZWSszyYgqYAZCy8uGbW2ycXOT+81/Evn5VYZ9dR45/yVr0ockhulz8VUlDwsj9ABYC/VCVMeOtIrN8tD689harnnlKAsXUdA0+4K2PdLYiCppLm5s6qV2kLpH4=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(136003)(346002)(39860400002)(230922051799003)(64100799003)(186009)(451199024)(1800799012)(82310400011)(36840700001)(46966006)(40470700004)(36860700001)(356005)(40480700001)(47076005)(40460700003)(336012)(426003)(26005)(1076003)(83380400001)(16526019)(2616005)(36756003)(86362001)(921008)(82740400003)(81166007)(478600001)(7696005)(6666004)(316002)(54906003)(110136005)(70206006)(70586007)(4326008)(8676002)(8936002)(7416002)(2906002)(5660300002)(41300700001)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(376002)(39860400002)(136003)(396003)(230922051799003)(64100799003)(82310400011)(186009)(1800799012)(451199024)(36840700001)(46966006)(40470700004)(40480700001)(6666004)(1076003)(2616005)(426003)(16526019)(336012)(26005)(40460700003)(356005)(81166007)(82740400003)(921008)(36756003)(86362001)(47076005)(83380400001)(5660300002)(7696005)(36860700001)(8936002)(8676002)(4326008)(316002)(70586007)(70206006)(54906003)(110136005)(7416002)(2906002)(41300700001)(478600001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2023 07:54:40.4556
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2023 07:54:46.7574
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 934086c8-b3fa-421f-7fbf-08dc0067c166
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7db3e0b3-32b2-47c1-1214-08dc0067c528
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000044F6.namprd21.prod.outlook.com
+	CO1PEPF000044F7.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4863
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7689
 
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Introduce a new virgl_gpu_resource data structure and helper functions
+for virgl. It's used to add new member which is specific for virgl in
+following patches of blob memory support.
 
-The udmabuf usage is mandatory when virgl is disabled and blobs feature
-enabled in the Qemu machine configuration. If virgl and blobs are enabled,
-then udmabuf requirement is optional. Since udmabuf isn't widely supported
-by a popular Linux distros today, let's relax the udmabuf requirement for
-blobs=on,virgl=on. Now, a full-featured virtio-gpu acceleration is
-available to Qemu users without a need to have udmabuf available in the
-system.
-
-Reviewed-by: Antonio Caggiano <antonio.caggiano@collabora.com>
-Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 Signed-off-by: Huang Rui <ray.huang@amd.com>
 ---
 
-No change in v6.
+New patch:
+- Introduce new struct virgl_gpu_resource to store virgl specific members.
+- Move resource initialization from path "virtio-gpu: Resource UUID" here.
+- Remove error handling of g_new0, because glib will abort() on OOM.
+- Set iov and iov_cnt in struct virtio_gpu_simple_resource for all types
+  of resources.
 
- hw/display/virtio-gpu.c | 1 +
- 1 file changed, 1 insertion(+)
+ hw/display/virtio-gpu-virgl.c | 84 ++++++++++++++++++++++++++---------
+ 1 file changed, 64 insertions(+), 20 deletions(-)
 
-diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
-index 8b2f4c6be3..4c3ec9d0ea 100644
---- a/hw/display/virtio-gpu.c
-+++ b/hw/display/virtio-gpu.c
-@@ -1443,6 +1443,7 @@ void virtio_gpu_device_realize(DeviceState *qdev, Error **errp)
+diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+index 5bbc8071b2..faab374336 100644
+--- a/hw/display/virtio-gpu-virgl.c
++++ b/hw/display/virtio-gpu-virgl.c
+@@ -22,6 +22,23 @@
  
-     if (virtio_gpu_blob_enabled(g->parent_obj.conf)) {
-         if (!virtio_gpu_rutabaga_enabled(g->parent_obj.conf) &&
-+            !virtio_gpu_virgl_enabled(g->parent_obj.conf) &&
-             !virtio_gpu_have_udmabuf()) {
-             error_setg(errp, "need rutabaga or udmabuf for blob resources");
-             return;
+ #include <virglrenderer.h>
+ 
++struct virgl_gpu_resource {
++    struct virtio_gpu_simple_resource res;
++};
++
++static struct virgl_gpu_resource *
++virgl_gpu_find_resource(VirtIOGPU *g, uint32_t resource_id)
++{
++    struct virtio_gpu_simple_resource *res;
++
++    res = virtio_gpu_find_resource(g, resource_id);
++    if (!res) {
++        return NULL;
++    }
++
++    return container_of(res, struct virgl_gpu_resource, res);
++}
++
+ #if VIRGL_RENDERER_CALLBACKS_VERSION >= 4
+ static void *
+ virgl_get_egl_display(G_GNUC_UNUSED void *cookie)
+@@ -35,11 +52,19 @@ static void virgl_cmd_create_resource_2d(VirtIOGPU *g,
+ {
+     struct virtio_gpu_resource_create_2d c2d;
+     struct virgl_renderer_resource_create_args args;
++    struct virgl_gpu_resource *vres;
+ 
+     VIRTIO_GPU_FILL_CMD(c2d);
+     trace_virtio_gpu_cmd_res_create_2d(c2d.resource_id, c2d.format,
+                                        c2d.width, c2d.height);
+ 
++    vres = g_new0(struct virgl_gpu_resource, 1);
++    vres->res.width = c2d.width;
++    vres->res.height = c2d.height;
++    vres->res.format = c2d.format;
++    vres->res.resource_id = c2d.resource_id;
++    QTAILQ_INSERT_HEAD(&g->reslist, &vres->res, next);
++
+     args.handle = c2d.resource_id;
+     args.target = 2;
+     args.format = c2d.format;
+@@ -59,11 +84,19 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
+ {
+     struct virtio_gpu_resource_create_3d c3d;
+     struct virgl_renderer_resource_create_args args;
++    struct virgl_gpu_resource *vres;
+ 
+     VIRTIO_GPU_FILL_CMD(c3d);
+     trace_virtio_gpu_cmd_res_create_3d(c3d.resource_id, c3d.format,
+                                        c3d.width, c3d.height, c3d.depth);
+ 
++    vres = g_new0(struct virgl_gpu_resource, 1);
++    vres->res.width = c3d.width;
++    vres->res.height = c3d.height;
++    vres->res.format = c3d.format;
++    vres->res.resource_id = c3d.resource_id;
++    QTAILQ_INSERT_HEAD(&g->reslist, &vres->res, next);
++
+     args.handle = c3d.resource_id;
+     args.target = c3d.target;
+     args.format = c3d.format;
+@@ -82,19 +115,23 @@ static void virgl_cmd_resource_unref(VirtIOGPU *g,
+                                      struct virtio_gpu_ctrl_command *cmd)
+ {
+     struct virtio_gpu_resource_unref unref;
+-    struct iovec *res_iovs = NULL;
+-    int num_iovs = 0;
++    struct virgl_gpu_resource *vres;
+ 
+     VIRTIO_GPU_FILL_CMD(unref);
+     trace_virtio_gpu_cmd_res_unref(unref.resource_id);
+ 
+-    virgl_renderer_resource_detach_iov(unref.resource_id,
+-                                       &res_iovs,
+-                                       &num_iovs);
+-    if (res_iovs != NULL && num_iovs != 0) {
+-        virtio_gpu_cleanup_mapping_iov(g, res_iovs, num_iovs);
++    vres = virgl_gpu_find_resource(g, unref.resource_id);
++    if (!vres) {
++        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
++        return;
+     }
++
++    virgl_renderer_resource_detach_iov(unref.resource_id, NULL, NULL);
+     virgl_renderer_resource_unref(unref.resource_id);
++
++    QTAILQ_REMOVE(&g->reslist, &vres->res, next);
++    virtio_gpu_cleanup_mapping(g, &vres->res);
++    g_free(vres);
+ }
+ 
+ static void virgl_cmd_context_create(VirtIOGPU *g,
+@@ -310,44 +347,51 @@ static void virgl_resource_attach_backing(VirtIOGPU *g,
+                                           struct virtio_gpu_ctrl_command *cmd)
+ {
+     struct virtio_gpu_resource_attach_backing att_rb;
+-    struct iovec *res_iovs;
+-    uint32_t res_niov;
++    struct virgl_gpu_resource *vres;
+     int ret;
+ 
+     VIRTIO_GPU_FILL_CMD(att_rb);
+     trace_virtio_gpu_cmd_res_back_attach(att_rb.resource_id);
+ 
++    vres = virgl_gpu_find_resource(g, att_rb.resource_id);
++    if (!vres) {
++        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
++        return;
++    }
++
+     ret = virtio_gpu_create_mapping_iov(g, att_rb.nr_entries, sizeof(att_rb),
+-                                        cmd, NULL, &res_iovs, &res_niov);
++                                        cmd, NULL, &vres->res.iov,
++                                        &vres->res.iov_cnt);
+     if (ret != 0) {
+         cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+         return;
+     }
+ 
+     ret = virgl_renderer_resource_attach_iov(att_rb.resource_id,
+-                                             res_iovs, res_niov);
++                                             vres->res.iov, vres->res.iov_cnt);
+ 
+-    if (ret != 0)
+-        virtio_gpu_cleanup_mapping_iov(g, res_iovs, res_niov);
++    if (ret != 0) {
++        virtio_gpu_cleanup_mapping(g, &vres->res);
++    }
+ }
+ 
+ static void virgl_resource_detach_backing(VirtIOGPU *g,
+                                           struct virtio_gpu_ctrl_command *cmd)
+ {
+     struct virtio_gpu_resource_detach_backing detach_rb;
+-    struct iovec *res_iovs = NULL;
+-    int num_iovs = 0;
++    struct virgl_gpu_resource *vres;
+ 
+     VIRTIO_GPU_FILL_CMD(detach_rb);
+     trace_virtio_gpu_cmd_res_back_detach(detach_rb.resource_id);
+ 
+-    virgl_renderer_resource_detach_iov(detach_rb.resource_id,
+-                                       &res_iovs,
+-                                       &num_iovs);
+-    if (res_iovs == NULL || num_iovs == 0) {
++    vres = virgl_gpu_find_resource(g, detach_rb.resource_id);
++    if (!vres) {
++        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+         return;
+     }
+-    virtio_gpu_cleanup_mapping_iov(g, res_iovs, num_iovs);
++
++    virgl_renderer_resource_detach_iov(detach_rb.resource_id, NULL, NULL);
++    virtio_gpu_cleanup_mapping(g, &vres->res);
+ }
+ 
+ 
 -- 
 2.25.1
 
