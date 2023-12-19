@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B09188184A6
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 10:38:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656619.1024920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC7288184DD
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 10:56:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656629.1024933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFWYH-00067P-VR; Tue, 19 Dec 2023 09:38:13 +0000
+	id 1rFWpp-0002PL-F7; Tue, 19 Dec 2023 09:56:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656619.1024920; Tue, 19 Dec 2023 09:38:13 +0000
+Received: by outflank-mailman (output) from mailman id 656629.1024933; Tue, 19 Dec 2023 09:56:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFWYH-00065M-S8; Tue, 19 Dec 2023 09:38:13 +0000
-Received: by outflank-mailman (input) for mailman id 656619;
- Tue, 19 Dec 2023 09:38:11 +0000
+	id 1rFWpp-0002MX-CO; Tue, 19 Dec 2023 09:56:21 +0000
+Received: by outflank-mailman (input) for mailman id 656629;
+ Tue, 19 Dec 2023 09:56:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFWYF-00065G-LU
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 09:38:11 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ id 1rFWpn-0002MR-R8
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 09:56:19 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 525d3f7f-9e52-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 10:38:10 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-40c29f7b068so47679635e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 01:38:10 -0800 (PST)
+ id dae24674-9e54-11ee-98eb-6d05b1d4d9a1;
+ Tue, 19 Dec 2023 10:56:18 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3366827ca79so1885218f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 01:56:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bd7-20020a05600c1f0700b0040c420eda48sm2063141wmb.22.2023.12.19.01.38.09
+ o8-20020a5d6708000000b00336765e9babsm43412wru.83.2023.12.19.01.56.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 01:38:09 -0800 (PST)
+ Tue, 19 Dec 2023 01:56:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 525d3f7f-9e52-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: dae24674-9e54-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702978689; x=1703583489; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702979778; x=1703584578; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=OmfLi6aAdjrEP8MwG7sWu6/S141J4AiA1n8U6hsxt/w=;
-        b=bTcjRZEpOlpsPa8KaFuclsORokbBp+TLDxUnFj7jGH7Kp/H8L//4KZ3sIfGMccKjSo
-         OanqXl2fhTJxYmedjwB3X26dpgm6BHIsZ8381yd2XTwEBnNl2D56qabZtxLobhQKJ/gV
-         Jxnsj1pC70DsZTLZDpVLJIm0Dpmj2Uh3+0v/L8t8yCLJV0P7/P0PYTK6iMVyEscfBmkf
-         JVE1AXzN4PYkKMSmW7sqmFfiJntGRTtdFULtfth+wjIiMZirhbgOYcx1wrS947plOf4H
-         dbLO8lFM9xkiyJJWcW4mjtrFvFT2bjMkSr/sUroV9+UEVmhESDr27p/p+GBBndJlUuFD
-         RQKQ==
+        bh=rNcNVVMU/BvkIRVUs5jjfQ4xAWyi0abxBQcnUigCHVM=;
+        b=Aso9p4nwn7sHqxcF4PzLw6jqt0Wpj8xHPbEbEsXzGqC6viAsLBJp6Hs41Ld1O54Tee
+         EyK3lXHzo7/hRTa9Dn6F//+mx6Bku82aEyafFnWTRBZ8R7ym6TCnBPxFInVqvxRky+mi
+         zYbEmvEo4SDZZg+6y+hmdF12t5UGAdyTyij3lp6fa5w61U/Pn1Bffn/mBKLmCyn7t1Ni
+         p+esLP7kKZIA2+gI/1d4Yt5PPyx7hG7+W+9cpoFMryeqV3WfvfVEbECrCJwEx//0ts4N
+         ubX2oHdq8L5e/gaxlXJsF7gBRlZrJGOjWaZ+6j2GKHd8SfSCgq5O6nScuJQZfysvsJTR
+         nXew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702978689; x=1703583489;
+        d=1e100.net; s=20230601; t=1702979778; x=1703584578;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OmfLi6aAdjrEP8MwG7sWu6/S141J4AiA1n8U6hsxt/w=;
-        b=InOV2ZM1uvBnizoYzlYq3viEdLGk29IcIkrmB80bVCjOKSi7Foma4VJ5fP35C05USL
-         QcyMA2TOKiKSF3eMZYTPe176gkZp663NjfifiSGycCDoGjVXJarluWngYk1tj8t9/LUL
-         wepGiTOBQg1Gs21nIOeoWMFwn0XXhdzL84//eedggzPO/YMl7/oSHgK8a3ykWbpDSw3w
-         SSDu0QCGGyjkXQ633fglXYo8PmdX4Wj8w9KWRty93KzY/Ej3xT0jusWFf1WtJeP8moFI
-         yqrIBHIzcpDK8qUyvyttlArTBqoYTA6uE3WXbGx1u/IbPODPelQT/06mmf1ynEGP6Byj
-         f1RA==
-X-Gm-Message-State: AOJu0YxLAuUbqk+Wc7UQsxnMXzUCf8BbhDVlvLiuMTLujPvB22buzHTd
-	2KOEoVK85eFbeYaszx1Oqb1X
-X-Google-Smtp-Source: AGHT+IGt7S4c4IqySOqaBnhhRq4uQtr6f4Na09NnAbN0O09zTM45NdjxfIpLERtJTJuq76z8G9VEsQ==
-X-Received: by 2002:a05:600c:6020:b0:40c:7a1:b2c8 with SMTP id az32-20020a05600c602000b0040c07a1b2c8mr8988206wmb.163.1702978689700;
-        Tue, 19 Dec 2023 01:38:09 -0800 (PST)
-Message-ID: <84920973-8322-4da6-bdbc-165a065a69ba@suse.com>
-Date: Tue, 19 Dec 2023 10:38:08 +0100
+        bh=rNcNVVMU/BvkIRVUs5jjfQ4xAWyi0abxBQcnUigCHVM=;
+        b=l5jBd3+wJbc0RjV1SYAyKCIuT3qb3r8sVkwgBCyD3GsGz//fgeHpdbip0pZZS7Sd9z
+         xBfxbCaoiftO1eFh7MZJq5kY8k1VyczwKuHiVch4GTEBrBAp22fDbFhLeJBtVoTxI2Dn
+         CPooGVuuN3ak1FkYXsCBX22KrT6gm5xNtb0N6dKux1dkDYVZsh/0g2apLskTlCnE/tKq
+         4sKaigUiMPkUgUHvioyL4GGf0AspRn8Q95xLBjr6CgfRDlQdssJluK7bEy5K0R5kTvc2
+         Ue47nKMCiUsvZk4eBXK2XCcSvVpIbaX1hoNO/EF9z4YcrSDG8gTJaCHWa9qUfe36byeE
+         0KSQ==
+X-Gm-Message-State: AOJu0Yw8HzA3kUA0etvr8Ovye9fp/1xE8pajCzdP9YjvDRhi91eb5L2Q
+	U0o3lwjUOYC1bV8aVkGGb6f/
+X-Google-Smtp-Source: AGHT+IHbEE+xRk3ouSurXD43KKZHiGBwcA0Mrx0S9uZCr2EzYznk9fq9Mqym81QaOkzi4pemfiJJFw==
+X-Received: by 2002:adf:e3c9:0:b0:336:5f4f:4ae1 with SMTP id k9-20020adfe3c9000000b003365f4f4ae1mr2919757wrm.119.1702979777772;
+        Tue, 19 Dec 2023 01:56:17 -0800 (PST)
+Message-ID: <6e022af1-d383-48be-ab54-6ec254aa1502@suse.com>
+Date: Tue, 19 Dec 2023 10:56:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+Subject: Re: [PATCH v4 4/4] x86/PV: issue branch prediction barrier when
+ switching 64-bit guest to kernel mode
 Content-Language: en-US
-To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Cc: xen-devel@lists.xenproject.org
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <52bd8702-cf7d-4f5b-883d-be6214ba31c0@suse.com>
- <CAKm-UmadRsc7GEYDqMDTBaoozT5Bj3nwK+=uDs1LkTZVG8tgdQ@mail.gmail.com>
- <CAKm-UmZnPtH_Fxou3OV0BbpP+tBpSe1z8Qet4Q5=zDD7UGZy6Q@mail.gmail.com>
- <CAKm-UmbaHoXymP8CcBVBLSVG7T9zCE2fbFQB33SMnY8pwXOU1Q@mail.gmail.com>
- <435d159f-96d5-49af-82ec-bce6961e3391@suse.com>
- <CAKm-UmbEBOm525=f+OOL0P05tQVVQz9wegh7F8yhgV_=Z7rWug@mail.gmail.com>
- <CAKm-UmYejm8CW-Enc_Y-aefcLPsRhQO8w2P-fNdu1zXMMjUAoA@mail.gmail.com>
- <e83e7254-0c90-4912-ae63-ea7221a10071@suse.com>
- <CAKm-UmbDNbeakVQtDT47o4Qc4oQvi0dqmBDb5Q=pRqTHFY0C5w@mail.gmail.com>
- <CAKm-UmZtN2o3d13cE9GyyLKfMmZ855MfrAAw9O6zE-5ob0-iYg@mail.gmail.com>
- <64d738b7-08c1-4b2c-a828-a137c870408e@suse.com>
- <CAKm-UmayUxd8F337g+BnR=_50_o__oV_PeUv9Z+9gNZ5MXYmrA@mail.gmail.com>
- <3aeb708d-a4fa-45b5-9d74-260ef2035b4a@suse.com>
- <CAKm-UmbFkO5RCDMTEgWBtEYtfO_LH=TKTh5TP=FyFFpdnbto4w@mail.gmail.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com>
+ <2863b0a9-ca7c-3cce-104d-0b6685b0b383@suse.com> <ZYCARJAxH9hBD0YQ@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -122,87 +111,115 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKm-UmbFkO5RCDMTEgWBtEYtfO_LH=TKTh5TP=FyFFpdnbto4w@mail.gmail.com>
+In-Reply-To: <ZYCARJAxH9hBD0YQ@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 18.12.2023 18:04, Sébastien Chaumat wrote:
-> Le lun. 18 déc. 2023, 17:44, Jan Beulich <jbeulich@suse.com> a écrit :
+On 18.12.2023 18:24, Roger Pau Monné wrote:
+> On Tue, Feb 14, 2023 at 05:12:08PM +0100, Jan Beulich wrote:
+>> Since both kernel and user mode run in ring 3, they run in the same
+>> "predictor mode".
 > 
->> On 18.12.2023 17:21, Sébastien Chaumat wrote:
->>>>>>> On 05.12.2023 21:31, Sébastien Chaumat wrote:
->>>>> This issue seems that IRQ 7 (the GPIO controller) is natively fasteoi
->>>>> (so level type) while in xen it  is mapped to oapic-edge  instead of
->>>>> oapic-level
->>>>> as the SSDT indicates :
->>>>>
->>>>>  Device (GPIO)
->>>>>
->>>>>      {
->>>>>          Name (_HID, "AMDI0030")  // _HID: Hardware ID
->>>>>          Name (_CID, "AMDI0030")  // _CID: Compatible ID
->>>>>          Name (_UID, Zero)  // _UID: Unique ID
->>>>>          Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource
->> Settings
->>>>>          {
->>>>>              Name (RBUF, ResourceTemplate ()
->>>>>              {
->>>>>                  Interrupt (ResourceConsumer, Level, ActiveLow,
->> Shared, ,, )
->>>>>                  {
->>>>>                      0x00000007,
->>>>>            }
->>>>> Any idea why ?
->>>>
->>>> Information coming from AML is required to be handed down by Dom0 to
->> Xen.
->>>> May want checking that (a) Dom0 properly does so and (b) Xen doesn't
->> screw
->>>> up in consuming that data. See PHYSDEVOP_setup_gsi. I wonder if this is
->>>> specific to it being IRQ7 which GPIO uses, as at the (master) PIC IRQ7
->> is
->>>> also the spurious vector. You may want to retry with the tip of the 4.17
->>>> branch (soon to become 4.17.3) - while it doesn't look very likely to me
->>>> that recent backports there were related, it may still be that they make
->>>> a difference.
->>>>
->>>
->>> testing with 4.17.3:
->>>
->>> Adding some printk in PHYSDEVOP_setup_gsi, I  see (in xl dmesg)  that
->>> (XEN) PHYSDEVOP_setup_gsi setup_gsi : gsi: 7 triggering: 1 polarity: 1
->>>
->>> but later on in dmesg I see :
->>> [    1.747958] xen: registering gsi 7 triggering 0 polarity 1
->>>
->>> So triggering is flipped from 1 to 0 (cannot find the definition for
->>> those values).
->>> Could this be the culprit ?
->>
->> Possibly. Since it would be the kernel to invoke PHYSDEVOP_setup_gsi, it
->> looks as if the kernel was confused about which trigger mode to use. Have
->> you figured from where the kernel takes the two different values?
->>
+> That only true when IBRS is enabled, otherwise all CPU modes share the
+> same predictor mode?
+
+But here we only care about ring 3 anyway?
+
+>> @@ -753,7 +755,9 @@ static inline void pv_inject_sw_interrup
+>>   * but we can't make such requests fail all of the sudden.
+>>   */
+>>  #define PV64_VM_ASSIST_MASK (PV32_VM_ASSIST_MASK                      | \
+>> -                             (1UL << VMASST_TYPE_m2p_strict))
+>> +                             (1UL << VMASST_TYPE_m2p_strict)          | \
+>> +                             ((opt_ibpb_mode_switch + 0UL) <<           \
+>> +                              VMASST_TYPE_mode_switch_no_ibpb))
 > 
->> Would you mind pointing me to the definition for those values first ? I
-> did not find what 0/1 means in this context.
+> I'm wondering that it's kind of weird to offer the option to PV domUs
+> if opt_ibpb_entry_pv is set, as then the guest mode switch will always
+> (implicitly) do a IBPB as requiring an hypercall and thus take an
+> entry point into Xen.
+> 
+> I guess it's worth having it just as a way to signal to Xen that the
+> hypervisor does perform an IBPB, even if the guest cannot disable it.
 
-See e.g. the IO-APIC spec, or Xen's io_apic.h:
+I'm afraid I'm confused by your reply. Not only, but also because the
+latter sentence looks partly backwards / non-logical to me.
 
-struct IO_APIC_route_entry {
-    ...
-            unsigned int polarity:1;      /* 0: low, 1: high */
-    ...
-            unsigned int trigger:1;       /* 0: edge, 1: level */
+>> --- a/xen/arch/x86/pv/domain.c
+>> +++ b/xen/arch/x86/pv/domain.c
+>> @@ -455,6 +455,7 @@ static void _toggle_guest_pt(struct vcpu
+>>  void toggle_guest_mode(struct vcpu *v)
+>>  {
+>>      const struct domain *d = v->domain;
+>> +    struct cpu_info *cpu_info = get_cpu_info();
+>>      unsigned long gs_base;
+>>  
+>>      ASSERT(!is_pv_32bit_vcpu(v));
+>> @@ -467,15 +468,21 @@ void toggle_guest_mode(struct vcpu *v)
+>>      if ( v->arch.flags & TF_kernel_mode )
+>>          v->arch.pv.gs_base_kernel = gs_base;
+>>      else
+>> +    {
+>>          v->arch.pv.gs_base_user = gs_base;
+>> +
+>> +        if ( opt_ibpb_mode_switch &&
+>> +             !(d->arch.spec_ctrl_flags & SCF_entry_ibpb) &&
+>> +             !VM_ASSIST(d, mode_switch_no_ibpb) )
+>> +            cpu_info->spec_ctrl_flags |= SCF_new_pred_ctxt;
+> 
+> Likewise similar to the remarks I've made before, if doing an IBPB on
+> entry is enough to cover for the case here, it must also be fine to
+> issue the IBPB right here, instead of deferring to return to guest
+> context?
+> 
+> The only concern would be (as you mentioned before) to avoid clearing
+> valid Xen predictions, but I would rather see some figures about what
+> effect the delaying to return to guest has vs issuing it right here.
 
-(Sadly the comment may be the wrong way round for polarity, but then I
-may also be missing something, as msi.h and apicdef.h suggest things
-are as the comment above says.)
+Part of the reason (aiui) to do things on the exit path was to
+consolidate the context switch induced one and the user->kernel switch
+one into the same place and mechanism.
 
-In any event the PHYSDEVOP_setup_gsi invocation looks fishy, at least
-if this was a PCI IRQ. Just to mention it - according to the hypervisor
-log you sent earlier there's also no source override for IRQ 7 (in the
-log lines starting "ACPI: INT_SRC_OVR ").
+>> --- a/xen/include/public/xen.h
+>> +++ b/xen/include/public/xen.h
+>> @@ -554,6 +554,16 @@ DEFINE_XEN_GUEST_HANDLE(mmuext_op_t);
+>>   */
+>>  #define VMASST_TYPE_m2p_strict           32
+>>  
+>> +/*
+>> + * x86-64 guests: Suppress IBPB on guest-user to guest-kernel mode switch.
+> 
+> I think this needs to be more vague, as it's not true that the IBPB
+> will be suppressed if Xen is unconditionally issuing one on all guest
+> entry points.
+> 
+> Maybe adding:
+> 
+> "Setting the assist signals Xen that the IBPB can be avoided from a
+> guest perspective, however Xen might still issue one for other
+> reasons."
+
+I've done s/Suppress/Permit skipping/. I wouldn't want to go further,
+as that then becomes related to implementation details imo. IOW of
+course Xen may issue IBPB whenever it thinks there's a possible need.
+
+>> + *
+>> + * By default (on affected and capable hardware) as a safety measure Xen,
+>> + * to cover for the fact that guest-kernel and guest-user modes are both
+>> + * running in ring 3 (and hence share prediction context), would issue a
+>> + * barrier for user->kernel mode switches of PV guests.
+>> + */
+>> +#define VMASST_TYPE_mode_switch_no_ibpb  33
+> 
+> Would it be possible to define the assist as
+> VMASST_TYPE_mode_switch_ibpb and have it on when enabled?  So that the
+> guest would disable it if unneeded?  IMO negated options are in
+> general harder to understand.
+
+Negative options aren't nice, yes, but VM assists start out as all
+clear. The guest needs to change a "false" to a "true", and thus it
+cannot be a positive option here, as we want the default (off) to be
+safe/secure.
 
 Jan
 
