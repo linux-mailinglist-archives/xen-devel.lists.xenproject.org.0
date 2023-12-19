@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CB79818B3D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 16:28:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656989.1025553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15627818B58
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 16:39:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656995.1025564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFc1S-0006Be-H4; Tue, 19 Dec 2023 15:28:42 +0000
+	id 1rFcBJ-0001Zx-ET; Tue, 19 Dec 2023 15:38:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656989.1025553; Tue, 19 Dec 2023 15:28:42 +0000
+Received: by outflank-mailman (output) from mailman id 656995.1025564; Tue, 19 Dec 2023 15:38:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFc1S-00068l-EQ; Tue, 19 Dec 2023 15:28:42 +0000
-Received: by outflank-mailman (input) for mailman id 656989;
- Tue, 19 Dec 2023 15:28:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFcBJ-0001Y9-Bi; Tue, 19 Dec 2023 15:38:53 +0000
+Received: by outflank-mailman (input) for mailman id 656995;
+ Tue, 19 Dec 2023 15:38:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Dspo=H6=redhat.com=kwolf@srs-se1.protection.inumbo.net>)
- id 1rFc1R-00068d-8L
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 15:28:41 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48924455-9e83-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 16:28:40 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-74-6mtZLgXrPG-ASdwrw9encw-1; Tue,
- 19 Dec 2023 10:28:32 -0500
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 05769383A0A1;
- Tue, 19 Dec 2023 15:28:31 +0000 (UTC)
-Received: from redhat.com (unknown [10.39.194.175])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3201F492BC6;
- Tue, 19 Dec 2023 15:28:26 +0000 (UTC)
+ (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rFcBI-0001Y3-82
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 15:38:52 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b4af5119-9e84-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 16:38:50 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40c38de1ee4so47068395e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 07:38:50 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ l2-20020a05600c1d0200b004063c9f68f2sm3396999wms.26.2023.12.19.07.38.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 19 Dec 2023 07:38:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,101 +45,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48924455-9e83-11ee-98eb-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1702999718;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Nh0cR65sPswywtceyI2IIIl2ItyyUhcWzRQaZepOBXU=;
-	b=CcA56sIoWzeFL528blg5CscoaV0BtqfxWMt/0ijrtICsQfpmkYPjyW1/H3/y6w0NVOwARM
-	B5Ne7b9KCfCIMOTQu6hbrlmllU3IO5FyT20rN0USzkEdmYHS82yRZGZlR6VBhiz6dMrlUj
-	VlxCtXtadM6tDqZ7pLk8G05XaVjh/GY=
-X-MC-Unique: 6mtZLgXrPG-ASdwrw9encw-1
-Date: Tue, 19 Dec 2023 16:28:25 +0100
-From: Kevin Wolf <kwolf@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Cc: qemu-devel@nongnu.org,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
-	Cleber Rosa <crosa@redhat.com>,
-	Xie Changlong <xiechanglong.d@gmail.com>,
-	Paul Durrant <paul@xen.org>, Ari Sundholm <ari@tuxera.com>,
-	Jason Wang <jasowang@redhat.com>, Eric Blake <eblake@redhat.com>,
-	John Snow <jsnow@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
-	Wen Congyang <wencongyang2@huawei.com>,
-	Alberto Garcia <berto@igalia.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
-	Juan Quintela <quintela@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>, Coiby Xu <Coiby.Xu@gmail.com>,
-	Fabiano Rosas <farosas@suse.de>, Hanna Reitz <hreitz@redhat.com>,
-	Zhang Chen <chen.zhang@intel.com>,
-	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
-	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
-	Peter Xu <peterx@redhat.com>,
-	Emanuele Giuseppe Esposito <eesposit@redhat.com>,
-	Fam Zheng <fam@euphon.net>, Leonardo Bras <leobras@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Li Zhijian <lizhijian@fujitsu.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 04/14] aio: make
- aio_context_acquire()/aio_context_release() a no-op
-Message-ID: <ZYG2mSe1JWnC0tq_@redhat.com>
-References: <20231205182011.1976568-1-stefanha@redhat.com>
- <20231205182011.1976568-5-stefanha@redhat.com>
+X-Inumbo-ID: b4af5119-9e84-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1703000329; x=1703605129; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=jJBMoGAsqhK2/WPein48jJAqiU5oO52MY0HQDKyEDrY=;
+        b=LDz9APnFDsoy4bJ3rF60QjLGKmoQioKQf/RN555c3ae93/Wy3jQ2al5Nx0fIEYx3LS
+         DyBOyxhxnT4K0YjdETgQEjkJgcjA06ayjPGiaamZ7hmurfAso7UZ2u4/UM25181gMeIN
+         wsXWh7ckd/XlZOmhKiIXWVOTvui2rQE59si0nLYyv4hJtGmnSLdl+xVhgSBpyNdZJi3n
+         h/zj7oPtyPjynisUXpkNwsN6DMddoTR4mPavIi65PF1eZL7xMGj57vtmNKCvLwV1vTsZ
+         QIJmQ+oGwOnLVI6R1Mx7UjBKKXRvJbu7sfMTVuPucOb4kzoDtUy/WpYc7xj+s5GOh8Cl
+         2QpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703000329; x=1703605129;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=jJBMoGAsqhK2/WPein48jJAqiU5oO52MY0HQDKyEDrY=;
+        b=NRSZRkNb07s+09EpfiAQMza3yMKG2jrOhaLptx8/4A7k1WLTsetST3751nZ3qRtwxa
+         zsyjXcOsgbOt/oSifCJ8LxM2/D4nBGP24lylaKbIc0wkoShaiQ4ELaoxZeBFvM6fECbX
+         fZaPTfBvGgi3Kev3Z+pOcMiDqhZ95mlkuhmoPoJARlBDTh8DkxP1q5B5mnIKQFljVMOF
+         0aWjS/xQIqtPoLU1olyNZffcjnC6EP5YOkXRdvMWlpEJU+W576jx437rrykvZEH/jqpv
+         WN/rGxFQSlTa28WmXPyJoOqz+wnvS/dSr6TbMlYLmwyH0XWoF4EIwwnc2MOB1A0E2nrx
+         RpUw==
+X-Gm-Message-State: AOJu0YxT7iY+n7xDEVQrIPygDjiLrpVdnIRmGbQDszRqWP5wsZ9gqjw6
+	ttxb1wJly9Gr85aswwbzwuaa
+X-Google-Smtp-Source: AGHT+IFZhjf2bmXru39VYNBguPdFEpCual8qGzuI/m/J3YAcmhpy5rKL5/dbDMjj9YS3OSuz2vfWsQ==
+X-Received: by 2002:a05:600c:518a:b0:405:4776:735a with SMTP id fa10-20020a05600c518a00b004054776735amr9613970wmb.2.1703000329621;
+        Tue, 19 Dec 2023 07:38:49 -0800 (PST)
+Message-ID: <b97e28eb-6de5-48f0-91c1-bb9da72e24ae@suse.com>
+Date: Tue, 19 Dec 2023 16:38:48 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20231205182011.1976568-5-stefanha@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/7] x86/p2m: move and rename paging_max_paddr_bits()
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20231215141832.9492-1-roger.pau@citrix.com>
+ <20231215141832.9492-3-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20231215141832.9492-3-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Am 05.12.2023 um 19:20 hat Stefan Hajnoczi geschrieben:
-> aio_context_acquire()/aio_context_release() has been replaced by
-> fine-grained locking to protect state shared by multiple threads. The
-> AioContext lock still plays the role of balancing locking in
-> AIO_WAIT_WHILE() and many functions in QEMU either require that the
-> AioContext lock is held or not held for this reason. In other words, the
-> AioContext lock is purely there for consistency with itself and serves
-> no real purpose anymore.
+On 15.12.2023 15:18, Roger Pau Monne wrote:
+> The function also supports non-paging domains, and hence it being placed in
+> p2m.h and named with the paging_ prefix is misleading.
 > 
-> Stop actually acquiring/releasing the lock in
-> aio_context_acquire()/aio_context_release() so that subsequent patches
-> can remove callers across the codebase incrementally.
+> Move to x86 domain.c and rename to domain_max_paddr_bits().  Moving to a
+> different header is non trivial, as the function depends on helpers declared in
+> p2m.h.  There's no performance reason for the function being inline.
 > 
-> I have performed "make check" and qemu-iotests stress tests across
-> x86-64, ppc64le, and aarch64 to confirm that there are no failures as a
-> result of eliminating the lock.
+> No functional change intended.
 > 
-> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-> Reviewed-by: Eric Blake <eblake@redhat.com>
-> Acked-by: Kevin Wolf <kwolf@redhat.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-I knew why I wasn't confident enough to give a R-b... This crashes
-qemu-storage-daemon in the qemu-iotests case graph-changes-while-io.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-qemu-storage-daemon: ../nbd/server.c:2542: nbd_co_receive_request: Assertion `client->recv_coroutine == qemu_coroutine_self()' failed.
+However, for using it in the next patch either here or there I think the
+description wants to clarify that ...
 
-(gdb) bt
-#0  0x00007fdb00529884 in __pthread_kill_implementation () from /lib64/libc.so.6
-#1  0x00007fdb004d8afe in raise () from /lib64/libc.so.6
-#2  0x00007fdb004c187f in abort () from /lib64/libc.so.6
-#3  0x00007fdb004c179b in __assert_fail_base.cold () from /lib64/libc.so.6
-#4  0x00007fdb004d1187 in __assert_fail () from /lib64/libc.so.6
-#5  0x0000557f9f9534eb in nbd_co_receive_request (errp=0x7fdafc25eec0, request=0x7fdafc25ef10, req=0x7fdaf00159c0) at ../nbd/server.c:2542
-#6  nbd_trip (opaque=0x557fa0b33fa0) at ../nbd/server.c:2962
-#7  0x0000557f9faa416b in coroutine_trampoline (i0=<optimized out>, i1=<optimized out>) at ../util/coroutine-ucontext.c:177
-#8  0x00007fdb004efe90 in ?? () from /lib64/libc.so.6
-#9  0x00007fdafc35f680 in ?? ()
-#10 0x0000000000000000 in ?? ()
-(gdb) p *client
-$2 = {refcount = 4, close_fn = 0x557f9f95dc40 <nbd_blockdev_client_closed>, exp = 0x557fa0b30590, tlscreds = 0x0, tlsauthz = 0x0, sioc = 0x557fa0b33d90, ioc = 0x557fa0b33d90,
-  recv_coroutine = 0x7fdaf0015eb0, send_lock = {locked = 0, ctx = 0x0, from_push = {slh_first = 0x0}, to_pop = {slh_first = 0x0}, handoff = 0, sequence = 0, holder = 0x0},
-  send_coroutine = 0x0, read_yielding = false, quiescing = false, next = {tqe_next = 0x0, tqe_circ = {tql_next = 0x0, tql_prev = 0x557fa0b305e8}}, nb_requests = 1, closing = false,
-  check_align = 1, mode = NBD_MODE_EXTENDED, contexts = {exp = 0x557fa0b30590, count = 1, base_allocation = true, allocation_depth = false, bitmaps = 0x0}, opt = 7, optlen = 0}
-(gdb) p co_tls_current
-$3 = (Coroutine *) 0x7fdaf00061d0
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -2552,6 +2552,27 @@ static int __init cf_check init_vcpu_kick_softirq(void)
+>  }
+>  __initcall(init_vcpu_kick_softirq);
+>  
+> +unsigned int domain_max_paddr_bits(const struct domain *d)
+> +{
+> +    unsigned int bits = paging_mode_hap(d) ? hap_paddr_bits : paddr_bits;
 
-Kevin
+... this and ...
 
+> +
+> +    if ( paging_mode_external(d) )
+
+... this just so happen to be okay to use with system domains (i.e.
+DomIO in particular).
+
+Jan
 
