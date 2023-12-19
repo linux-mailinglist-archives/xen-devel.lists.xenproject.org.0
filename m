@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 791D9818568
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 11:39:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656640.1024954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 445C7818579
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 11:45:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656645.1024964 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFXU5-0002u4-TF; Tue, 19 Dec 2023 10:37:57 +0000
+	id 1rFXap-0005Hm-Jz; Tue, 19 Dec 2023 10:44:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656640.1024954; Tue, 19 Dec 2023 10:37:57 +0000
+Received: by outflank-mailman (output) from mailman id 656645.1024964; Tue, 19 Dec 2023 10:44:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFXU5-0002sO-PP; Tue, 19 Dec 2023 10:37:57 +0000
-Received: by outflank-mailman (input) for mailman id 656640;
- Tue, 19 Dec 2023 10:37:56 +0000
+	id 1rFXap-0005G2-H8; Tue, 19 Dec 2023 10:44:55 +0000
+Received: by outflank-mailman (input) for mailman id 656645;
+ Tue, 19 Dec 2023 10:44:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFXU4-0002sG-2J
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 10:37:56 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1rFXan-0005Fw-Sb
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 10:44:53 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aa5becd2-9e5a-11ee-9b0f-b553b5be7939;
- Tue, 19 Dec 2023 11:37:53 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3367601a301so172676f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 02:37:53 -0800 (PST)
+ id a389f759-9e5b-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 11:44:52 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40c2bb872e2so50039155e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 02:44:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o13-20020a5d4a8d000000b0033674e10462sm806999wrq.113.2023.12.19.02.37.52
+ n35-20020a05600c3ba300b004064e3b94afsm2296448wms.4.2023.12.19.02.44.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 02:37:52 -0800 (PST)
+ Tue, 19 Dec 2023 02:44:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa5becd2-9e5a-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: a389f759-9e5b-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702982273; x=1703587073; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702982691; x=1703587491; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=wNSZZCMl3Lz6Z81lcXJlMGDN+6K/tnaMRz8SIdw2LJI=;
-        b=K7SbO44PkOqucPVgHM0HQ1JO4S9MDT1nueHLcbruig8ZyX7mqLZfNE/zyKX+PB4eCC
-         DvRfGxSjOqHBlRoC2x4hNidsYMeOUq3e+HyUvFS/9nEwZj66aKCwgVKIbOVz93LTBOJm
-         TBbbOTin7wavz5gKOvsr9P/Bl99O2QUjJN5KJCa7fghVZMMTiCrDE5rizRRBgDDsxHlH
-         0ez/J0xTpPBrklYVA5BNzwkpyF7EWjdqKHXLYGks+IbiJ0ReANHrC8UM09ce4XrcnITs
-         oOljMRSiwQne0WCrd/11PMg0SYy2tZtc0RT2gms1HhEbCW76Pnu1UxbNocw3ycUtu44z
-         DZUQ==
+        bh=xVZT3gW+xzUGhAySh7dzcSMVZ/RcXnsavSY+i3y0IbQ=;
+        b=LVhQV2jBjsJj2UDtrHpF6ubtZbtdGHBaOqvK5TuaawZq7zoXEC7GPQsuyE8VOigwG7
+         eZjbrHMzEHNuIqU/5uAFjb/IMQ/37Y6ryg+LMowvs9O8jz5ZW1CVgrfXXndUq8X/A0oI
+         nVRjglFU6VWMOZQjFguFnpmMI0ZLbln7FuUHijSM488zP66ifItsn1/9vE99YwS0HCZn
+         oqTPyJK9dTKY1gGiDfJjfzobEhCyhBi89ux/hrZ7QoNSdEEg1SGfPgZJrCfYUF2FZSp6
+         yOkiz1MhHBYLTaWtkKDtfYGxz2KkzewKuZI6vRlw2W5ZHa4Te5Pcqkaq7rdW/sYVWgfu
+         c7Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702982273; x=1703587073;
+        d=1e100.net; s=20230601; t=1702982691; x=1703587491;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wNSZZCMl3Lz6Z81lcXJlMGDN+6K/tnaMRz8SIdw2LJI=;
-        b=IxuGyDljZoiWeOE3An13UpoUgRtmroIflAwc2vOHJh593Kjhnpg3AxBRv3HcRiKVdM
-         US///rJ8+s73pG5GQecE/C0/znsN8ktlfDzFwTv/ctfoIvY8ZztqGfBlelHolNMNFVxV
-         2yKvavkh1OHMKC8AP10vWIC9mQkygD0ozIYLtSLF/VLDZgbJQr9ZRYXdX0eDJ5pf/X0J
-         pPUQtQTsOm6/zrmSlV38u6Dig4GDmIPzU1f4kxVUWKh74d+4oOI6zur5KtmZ5onhTvXr
-         z57KxATIVH5Hq/bJ+k08ikydQoh4BdTJ9uydqj4rDzHLnLIlFMwt5R38Qd+4mUo6vg0f
-         ht3w==
-X-Gm-Message-State: AOJu0YzudCoe8JzYJDuIpCo9/q5+0rcR5yOCbgw7+CTc0u3+1IZX6cQk
-	MaqByzN8/JYZ3A2glx2NRfkf
-X-Google-Smtp-Source: AGHT+IGz/bWZkLonRKVWBjY9u59cD4myANLl29eY4B/w+zfYGg119fvYXAX5y1pBry8tZodsDhM+dQ==
-X-Received: by 2002:a5d:56ce:0:b0:336:73eb:fe8c with SMTP id m14-20020a5d56ce000000b0033673ebfe8cmr257296wrw.8.1702982273314;
-        Tue, 19 Dec 2023 02:37:53 -0800 (PST)
-Message-ID: <055b6cf3-4f29-4f1d-b650-26c6d9be8832@suse.com>
-Date: Tue, 19 Dec 2023 11:37:52 +0100
+        bh=xVZT3gW+xzUGhAySh7dzcSMVZ/RcXnsavSY+i3y0IbQ=;
+        b=qEMzfa2LP3luamaVTvl8ShLwYN/UhE3BZmaABO/RR8OYs34dTII6EIG8iy4HGe135f
+         iVuiCerMKX+JGJLK3/ILMXCvruv7IwMf2tLPXjVaPWBJLZ03ArbbXlK+w4bqUyG12yfn
+         ulmKVFMoAhYiH7ERfPNPUEFkOjzEvJNeOvrBTrvpc5YcFih+c71uuQMgP2lmlmmFhab9
+         wYoGtP/CQ5B78PnIb54sRm7cbR4X2JKu4O0J65WySTxAbpz+4ItlAwatAdtnCBYmdahq
+         9cBLp9+EqWxvYEnYW4S5RbAat/SCRGrkvDsZDORSh8Cxb8P4yRQamByECwOrQosbdg05
+         o1CQ==
+X-Gm-Message-State: AOJu0Ywn77XHl7F8aR2fcAuNTpEr/0VnOpt+JKDRuxA9Et/a0zDTrm2L
+	SqColxm/5gJdtHURM+3m9hLS
+X-Google-Smtp-Source: AGHT+IFy3bqR2cPK4Z+8vN1tFlQ8fuYHH7PglETp5XUtbdH7+XDtZ12cKOaR4CcsrbpKdxzm7szVPw==
+X-Received: by 2002:a05:600c:1e1a:b0:40d:2e2b:6e76 with SMTP id ay26-20020a05600c1e1a00b0040d2e2b6e76mr13805wmb.146.1702982691446;
+        Tue, 19 Dec 2023 02:44:51 -0800 (PST)
+Message-ID: <c4705dba-ce9f-4b4d-9962-8f9d420047f7@suse.com>
+Date: Tue, 19 Dec 2023 11:44:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen: add acmacros.h to exclude-list.json
+Subject: Re: [XEN PATCH 4/5] x86/hvm: dom0: use helper to get sizeof struct
+ field
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <664ddc412905546d44d3e311a743ba5217a6243b.1702976486.git.nicola.vetrini@bugseng.com>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1702553835.git.nicola.vetrini@bugseng.com>
+ <17b01f14b89a5dba6935bbd8019ddf431d595890.1702553835.git.nicola.vetrini@bugseng.com>
+ <alpine.DEB.2.22.394.2312141332470.3175268@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,26 +114,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <664ddc412905546d44d3e311a743ba5217a6243b.1702976486.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <alpine.DEB.2.22.394.2312141332470.3175268@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 19.12.2023 10:02, Nicola Vetrini wrote:
-> --- a/docs/misra/exclude-list.json
-> +++ b/docs/misra/exclude-list.json
-> @@ -209,6 +209,10 @@
->            "rel_path": "include/acpi/acglobal.h",
->            "comment": "Imported from Linux, ignore for now"
->          },
-> +        {
-> +          "rel_path": "include/acpi/acmacros.h",
-> +          "comment": "Imported from Linux, ignore for now"
-> +        },
+On 14.12.2023 22:32, Stefano Stabellini wrote:
+> On Thu, 14 Dec 2023, Nicola Vetrini wrote:
+>> Use of the proper helper macro also resolves a violation
+>> of MISRA C Rule 11.9.
+>> No functional change.
+>>
+>> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Together with what's already there (in context), wouldn't it better be
-the entire directory then which is excluded, or at least all
-include/acpi/ac*.h collectively (and perhaps also
-include/acpi/platform/ac*.h)?
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
 
