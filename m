@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AA7781868A
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 12:42:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656732.1025144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCD30818698
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 12:48:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656739.1025154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFYTo-0002Cl-8F; Tue, 19 Dec 2023 11:41:44 +0000
+	id 1rFYZy-0003bB-2D; Tue, 19 Dec 2023 11:48:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656732.1025144; Tue, 19 Dec 2023 11:41:44 +0000
+Received: by outflank-mailman (output) from mailman id 656739.1025154; Tue, 19 Dec 2023 11:48:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFYTo-00029x-59; Tue, 19 Dec 2023 11:41:44 +0000
-Received: by outflank-mailman (input) for mailman id 656732;
- Tue, 19 Dec 2023 11:41:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=oURO=H6=amd.com=Ray.Huang@srs-se1.protection.inumbo.net>)
- id 1rFYTm-00029r-MK
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 11:41:42 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20601.outbound.protection.outlook.com
- [2a01:111:f403:2412::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 92c37444-9e63-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 12:41:41 +0100 (CET)
-Received: from SJ2PR12MB8690.namprd12.prod.outlook.com (2603:10b6:a03:540::10)
- by MN0PR12MB5833.namprd12.prod.outlook.com (2603:10b6:208:378::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7091.38; Tue, 19 Dec
- 2023 11:41:36 +0000
-Received: from SJ2PR12MB8690.namprd12.prod.outlook.com
- ([fe80::87d4:680b:51ef:181]) by SJ2PR12MB8690.namprd12.prod.outlook.com
- ([fe80::87d4:680b:51ef:181%7]) with mapi id 15.20.7091.034; Tue, 19 Dec 2023
- 11:41:35 +0000
+	id 1rFYZx-0003Yi-Vh; Tue, 19 Dec 2023 11:48:05 +0000
+Received: by outflank-mailman (input) for mailman id 656739;
+ Tue, 19 Dec 2023 11:48:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rom3=H6=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rFYZv-0003Yc-Vr
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 11:48:03 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 768a5127-9e64-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 12:48:01 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-50e3845abdaso2991123e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 03:48:01 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ j8-20020a05600c190800b0040c11fbe581sm2480647wmq.27.2023.12.19.03.48.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 Dec 2023 03:48:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,161 +44,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92c37444-9e63-11ee-98eb-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gwG9zx/Hycxz0pvU1GzzS8pZrNyCkZ7vJ6c3JymcINy03Lvu5zAprLDR46QR1y3HDs0NO1XpP58RhesHhGRgGmRs+Mv8FbJi9wwnuxMOCAfMpBFtwm84srTvicMKAfwuUsvuzeKtvY7dAesb6vZJIMmSNUOPSzANMwzwmtoghORDIGmOgu4oSnjj4TOAvpnWcBDhbDE2URAhDSsWuCLbxpKMKqUs6r2E2iICvGtUktCa/ZYd0kM9zigh/fOQ+c9no1tOc3U0qsb5ySOPLDawXd3ofv+I/IW/4NJVlnA7kRQDZgh9eSHY0jTJ0FnoD1N+WnjGt+Awaludxs8IkpNdKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U77njlRnreXjZvF3+32EEl747QWWVKdmYWzGOSPb/f8=;
- b=XE4GBrmcOgHqii+H61xALw0PYwk1g3P5bzOOpGwXICrNyEpZ6ZZxxJcuN9DtcZf0BoQZkezFU1eA5s9FA+eA61alwRPwlvojDGSjTGplqNlY94pwr+DTmYhFcSGulrqebXsPFnY3jQepVpW4M8HvJIJ1grJGYh+5qiUR+lLvZ0tpJjqBRtvsRfkEHP424dStxJbEJrAZKeGyyrA0TxjgimTvU+dZY3vX6mbGBomhMJTH047wmurha/rt1G7Ssp25uySUwPBtvw0SxBoLy0NbNcTBT8eoWyzyMdWHIlkLjfvWOIUBaPwggUBt0RpwHfQUzapb5HwQvF+d2QNTUpSTAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U77njlRnreXjZvF3+32EEl747QWWVKdmYWzGOSPb/f8=;
- b=XSpa6a8t0dB6Z3Xk3msSm2hD83Lb9drdyZTm6RNvragi3a74Rx9b8yw/CE/o4PJV0rgq25lZ+6yVZenaUZojOmkWV7ICEnPnrRfUFYcL7+G0JlaR3XXwHht5O3PyaxXC69lG8V6bhuk+FZbpZi+C+bK/JzOl887t5UJnfFY4guU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Date: Tue, 19 Dec 2023 19:41:08 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: Antonio Caggiano <quic_acaggian@quicinc.com>
-Cc: Akihiko Odaki <akihiko.odaki@daynix.com>,
-	=?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@gmail.com>,
-	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	"Dr . David Alan Gilbert" <dgilbert@redhat.com>,
-	Robert Beckett <bob.beckett@collabora.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gert Wollny <gert.wollny@collabora.com>,
-	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	"ernunes@redhat.com" <ernunes@redhat.com>,
-	Alyssa Ross <hi@alyssa.is>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>,
-	"Stabellini, Stefano" <stefano.stabellini@amd.com>,
-	"Koenig, Christian" <Christian.Koenig@amd.com>,
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
-	"Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
-	"Huang, Honglei1" <Honglei1.Huang@amd.com>,
-	"Zhang, Julia" <Julia.Zhang@amd.com>,
-	"Chen, Jiqian" <Jiqian.Chen@amd.com>,
-	Antonio Caggiano <antonio.caggiano@collabora.com>
-Subject: Re: [PATCH v6 02/11] virtio-gpu: Configure new feature flag
- context_create_with_flags for virglrenderer
-Message-ID: <ZYGBVM7DNRuwQEDh@amd.com>
-References: <20231219075320.165227-1-ray.huang@amd.com>
- <20231219075320.165227-3-ray.huang@amd.com>
- <dbb37337-1552-410e-8231-7619aacbf887@quicinc.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dbb37337-1552-410e-8231-7619aacbf887@quicinc.com>
-X-ClientProxiedBy: SG2PR02CA0099.apcprd02.prod.outlook.com
- (2603:1096:4:92::15) To SJ2PR12MB8690.namprd12.prod.outlook.com
- (2603:10b6:a03:540::10)
+X-Inumbo-ID: 768a5127-9e64-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1702986481; x=1703591281; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=3qbonqnvg7zUldYIjudgCtR/x7N2u9KaUvDTkLAuP6Q=;
+        b=jodo0OSfSXruBa9Hf++FcPqokTSedlSPQ/qor6mW9Dqj8czVyjgkngFGUee0KTO87p
+         RVzdxLOXsFWkMCYzSMRDmQbDU7ED6GIEgrDF14P5r1eYCokbTZ4jrgnOTXsqbtuVc2Bz
+         1BoQI9fbu+SOXLWnyJdJ3n9ZjJIA1o3XGy0UA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1702986481; x=1703591281;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=3qbonqnvg7zUldYIjudgCtR/x7N2u9KaUvDTkLAuP6Q=;
+        b=GDjk2mzirxurovjCnQ3FmBzt6VOtNDli7fw+5w/P8DKj73W/x5OSGTPvj3UPG5T4ga
+         IQmikZAlZ27LjxtQ+EcGYhonBpu7UcnZ+9SLmY/HKEcnNtP4U5ePYLhiMtxEcvfwhEAb
+         uMtrfif8CyXj7JjaJYHKCH01eVTjzuaR8u3D2m0ofk8tPt0GfTkxyhla7sbNjg58Vli3
+         Olj0E0Amfxjd7RJUYBdeHS42MKEmjsQbnqsCBjMR3zsDd63p9O3kutdx0lITrlzQT+st
+         R5mekY/ytFb4/dDChLyVyucGZF5N6vlxF8VjPPEV/RadcIAPppq20ocnSGZdECDAPTAH
+         LveQ==
+X-Gm-Message-State: AOJu0Yxwqh5CBQRMJb3EqdBa9f2aJ5kWh7UdHW4Hu6Ogi2zozHSVFNyd
+	fYZYiixZkAik3CIv/7Aj01lu0g==
+X-Google-Smtp-Source: AGHT+IE5hM3jAYEshvl23mUJUnKrhWSPh3DhjijhSGtfSLNzaQ1wfVzv+N5ARDRrUOSONwrAMg9JRA==
+X-Received: by 2002:a05:6512:1095:b0:50e:4b94:61b0 with SMTP id j21-20020a056512109500b0050e4b9461b0mr397353lfg.56.1702986481247;
+        Tue, 19 Dec 2023 03:48:01 -0800 (PST)
+Date: Tue, 19 Dec 2023 12:48:00 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH v4 4/4] x86/PV: issue branch prediction barrier when
+ switching 64-bit guest to kernel mode
+Message-ID: <ZYGC8JaJ45tkbqQC@macbook>
+References: <06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com>
+ <2863b0a9-ca7c-3cce-104d-0b6685b0b383@suse.com>
+ <ZYCARJAxH9hBD0YQ@macbook>
+ <6e022af1-d383-48be-ab54-6ec254aa1502@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB8690:EE_|MN0PR12MB5833:EE_
-X-MS-Office365-Filtering-Correlation-Id: ec05e7d6-5847-4117-b5e3-08dc0087745c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	yvsrAdUU3ubx+Yw+JvfqszeZjRdzE0Zgzc19AflHYHKSmAowx/gL/DmKUFfK93sK2LNG0RJaxKSARb3q3yy6RuBdGmsYQkirRCNMM9IeE1kCDVmZVSs5gjIoaaYbf64bEkVDIfid0va3QOmZ4U8aN7sdZnjzTYvrTTVLqYlSXinM0+USbX4m3WTnUGD+AFe3FIyE7c8q0ohdRg449YfukVSeN84VR4EJPFK2CS/CD1PkTUKGxz9zt8lfmK/UJnCheuY5CSjtwGUlYiDVjyM9c1ALK5j7Q5LhL4Rmrll45y1Vaiu8ZNecuulpXVGhvlnzEuUxWatYg80OxC6GT1cVD81TUmC6FHE9yLwnyQVddRbuT8Xysmx/i0PdOzFLDSMTFe6Dtev4DeX7d9pZqdLix844g3pfpzvRPEDp4JPOFOazxMPRxb7QIT4nwaOUrrdz/yTeq57G2zurpZ3kAR3t25GE4n3e9I+mMh5KJbT15+uH97SZ7Lulsr16NxD1N3fgBhDCm1owHQ4KV+EcOzU1qVqDELXMgvGBRXv7b2KvokGD9i2hiAYVIz+YGONpBSlI
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB8690.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(376002)(366004)(39860400002)(396003)(136003)(230922051799003)(186009)(451199024)(1800799012)(64100799003)(53546011)(2616005)(26005)(38100700002)(4326008)(5660300002)(41300700001)(7416002)(8936002)(2906002)(478600001)(66556008)(6486002)(66476007)(6506007)(6512007)(6666004)(54906003)(66946007)(8676002)(316002)(6916009)(36756003)(86362001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?xev2fzVNP+Vreoeq+zPjW2Ig2crhSo6kheo4ErG6gz0fX+G/jrxJEuqOfXp0?=
- =?us-ascii?Q?zcKq92lJ32mvKXLxs2xouYBnrAf2V2OF8oqmeeG11f+9CM8waoWkYS8qiPHK?=
- =?us-ascii?Q?G3SXLBzVmf97BRnEXoBW9l1sdLVN3f0YBxWR3VRKpTSXejIzEu6dnHngD0Jf?=
- =?us-ascii?Q?JChuj8ACQNoedObtROXEq7qw/YMdypq4qKpI9isHTJ2CaYDi+o3MYhoV/1De?=
- =?us-ascii?Q?3T7oxqY+2bj0NFIhjHlXz/VQe4jbMxYgrdwf71ddoYk5uwM1qQr/NdFfAZTv?=
- =?us-ascii?Q?0hVq+gbHHKXWOLkeuaZ26fQYzCpuGDeqFk4XFwtxmsXeL85BsfeEmgPHSg9S?=
- =?us-ascii?Q?Eo8JRxJ2hVE8JzX2O3Z6doPIq6DMl3z7RASiUmYZ7/KFMYtSTEImZi21gUpq?=
- =?us-ascii?Q?uCLt2CGrJpPCGunn8f7bqsUrBHC3pMeDjZs4SMWoIQpTgN+dCWCO1mBUUGYv?=
- =?us-ascii?Q?mPGIta7bXANAlSBN1hObjmxAlldyG8T9tboHdCDMTqZES27sc5z8HBhRojEs?=
- =?us-ascii?Q?uo5YpKSpTQn88ydq57M4hOK6OkpBIIKNSNiShuTIvB0zHPuN5KWwYavEG8oN?=
- =?us-ascii?Q?8rPirA+NwFqdqIzGsXvu+sPkEcfBsPYzcBU7lcvYJxXs9KJSj3lEUhQliP8f?=
- =?us-ascii?Q?MJh6/zqY0E7bozIn/298QC/EAobieSsffkdKVgAvZBlX0m8DfICTF2TLrhm7?=
- =?us-ascii?Q?IitBujNeXwqJsLYt6qHV293WvleREAk0+9HqT4AzJoAV13ekLnUVqOVAgUxE?=
- =?us-ascii?Q?+2d7olf+EqKupogcfNnj7WJycrLSfwx9Ee7smtwJeihdy5kxtVP6GxxU6PSu?=
- =?us-ascii?Q?4XD9jIoeLMNzpyZfSX8j26HzbTwuX3jqajPd02s//CYu3A4kut8uAIr1nK0y?=
- =?us-ascii?Q?5s5KotqoZODsZlsF5ZdiMoin+ZW+1Ll1vaIAPtbf+x2cXXJHIQAXj+DMDoXi?=
- =?us-ascii?Q?7hKppOaeXXIpSGAgfg5pksXrWx8ODUKnrIf6KttP1OxovAYLal49dkBskCjK?=
- =?us-ascii?Q?ZzGQXfy6gWHsbPuvc3y9DQ9i74tD/iLV7T40YWjV2BrWs9HhcHBodo0OT62U?=
- =?us-ascii?Q?cFFyVRn/zT72UmudC7wDR3JvCl+zwxBdnKRX2/NKJBS1SSpS5OTpgDGFMIUL?=
- =?us-ascii?Q?rbuLLiAXfOwQgqmz3bQNg+WLkRtb7zyvQ1GNNupn675NodQOMwNBWitM2Cg2?=
- =?us-ascii?Q?8NAyeeKZXcxJUChfr5fvw8DfGfdd2p35t0uFhdfWoT6MBAQMJXQjMY0rWDNP?=
- =?us-ascii?Q?gAbMZd3GN59hJad4Ir3E+1LaUP4yux+9R40WpWgcB+ZKEX4zhO34QSjTTWzG?=
- =?us-ascii?Q?Rr5cYl/8j2BHvvG/iC2AnHOlolWZzFIwg69wHVo7K1pJNGdJ+9gos2j+ynSu?=
- =?us-ascii?Q?LZ62DiPxSPqSA1fu9sHCxvXqzhp0qgS5xPZAfrh4unZI66Py+p0E0aZOEcab?=
- =?us-ascii?Q?uiLl3cxgi75v4P33C2XSuaX8TF1bKMqty+hlIdubY+vy0X6LqTRXboRJ3tse?=
- =?us-ascii?Q?UaSM1wAKYJ/BMYObcf/Ba9eGHasBHk//2F6kQc/X48/oE/Lrh0VXo11aaanb?=
- =?us-ascii?Q?DbVGt1dEjBQXzpkl+kR8xMd1mDXbR3V559H163+e?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec05e7d6-5847-4117-b5e3-08dc0087745c
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB8690.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2023 11:41:35.6013
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A37/ug81Jsdfkgd7tdzem530iaGXTiEkxEmkzrXWp+80Ai1lwuybMRgSJr4DnfgAb3v2LslRNU/rJV6RiOeQtQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5833
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6e022af1-d383-48be-ab54-6ec254aa1502@suse.com>
 
-On Tue, Dec 19, 2023 at 05:09:27PM +0800, Antonio Caggiano wrote:
-> Hi Huang Rui,
+On Tue, Dec 19, 2023 at 10:56:16AM +0100, Jan Beulich wrote:
+> On 18.12.2023 18:24, Roger Pau Monné wrote:
+> > On Tue, Feb 14, 2023 at 05:12:08PM +0100, Jan Beulich wrote:
+> >> Since both kernel and user mode run in ring 3, they run in the same
+> >> "predictor mode".
+> > 
+> > That only true when IBRS is enabled, otherwise all CPU modes share the
+> > same predictor mode?
 > 
-> Thank you for this new version.
-> 
-> All patches which I did not sign off are reviewed by me :)
+> But here we only care about ring 3 anyway?
 
-Thanks Antonio! May I have your RB in next version?
-
-Best Regards,
-Ray
+Hm, yes, what I wanted to say is that this is not exclusive to 64bit
+PV, as with IBRS disabled ring 3 and ring 0 share the same predictor
+mode.  Anyway, not relevant.
 
 > 
-> Cheers,
-> Antonio Caggiano
+> >> @@ -753,7 +755,9 @@ static inline void pv_inject_sw_interrup
+> >>   * but we can't make such requests fail all of the sudden.
+> >>   */
+> >>  #define PV64_VM_ASSIST_MASK (PV32_VM_ASSIST_MASK                      | \
+> >> -                             (1UL << VMASST_TYPE_m2p_strict))
+> >> +                             (1UL << VMASST_TYPE_m2p_strict)          | \
+> >> +                             ((opt_ibpb_mode_switch + 0UL) <<           \
+> >> +                              VMASST_TYPE_mode_switch_no_ibpb))
+> > 
+> > I'm wondering that it's kind of weird to offer the option to PV domUs
+> > if opt_ibpb_entry_pv is set, as then the guest mode switch will always
+> > (implicitly) do a IBPB as requiring an hypercall and thus take an
+> > entry point into Xen.
+> > 
+> > I guess it's worth having it just as a way to signal to Xen that the
+> > hypervisor does perform an IBPB, even if the guest cannot disable it.
 > 
-> On 19/12/2023 08:53, Huang Rui wrote:
-> > Configure a new feature flag (context_create_with_flags) for
-> > virglrenderer.
+> I'm afraid I'm confused by your reply. Not only, but also because the
+> latter sentence looks partly backwards / non-logical to me.
+
+Sorry, I think I didn't word that very well.  The remark is tied to
+the one below about the vmassist 'possibly' allowing the guest to
+disable IBPB on guest user -> kernel context switches, but Xen might
+unconditionally do additional IBPBs that the guest cannot disable.
+
+> >> --- a/xen/arch/x86/pv/domain.c
+> >> +++ b/xen/arch/x86/pv/domain.c
+> >> @@ -455,6 +455,7 @@ static void _toggle_guest_pt(struct vcpu
+> >>  void toggle_guest_mode(struct vcpu *v)
+> >>  {
+> >>      const struct domain *d = v->domain;
+> >> +    struct cpu_info *cpu_info = get_cpu_info();
+> >>      unsigned long gs_base;
+> >>  
+> >>      ASSERT(!is_pv_32bit_vcpu(v));
+> >> @@ -467,15 +468,21 @@ void toggle_guest_mode(struct vcpu *v)
+> >>      if ( v->arch.flags & TF_kernel_mode )
+> >>          v->arch.pv.gs_base_kernel = gs_base;
+> >>      else
+> >> +    {
+> >>          v->arch.pv.gs_base_user = gs_base;
+> >> +
+> >> +        if ( opt_ibpb_mode_switch &&
+> >> +             !(d->arch.spec_ctrl_flags & SCF_entry_ibpb) &&
+> >> +             !VM_ASSIST(d, mode_switch_no_ibpb) )
+> >> +            cpu_info->spec_ctrl_flags |= SCF_new_pred_ctxt;
 > > 
-> > Originally-by: Antonio Caggiano <antonio.caggiano@collabora.com>
-> > Signed-off-by: Huang Rui <ray.huang@amd.com>
-> > ---
+> > Likewise similar to the remarks I've made before, if doing an IBPB on
+> > entry is enough to cover for the case here, it must also be fine to
+> > issue the IBPB right here, instead of deferring to return to guest
+> > context?
 > > 
-> > Changes in v6:
-> > - Move macros configurations under virgl.found() and rename
-> >    HAVE_VIRGL_CONTEXT_CREATE_WITH_FLAGS.
+> > The only concern would be (as you mentioned before) to avoid clearing
+> > valid Xen predictions, but I would rather see some figures about what
+> > effect the delaying to return to guest has vs issuing it right here.
+> 
+> Part of the reason (aiui) to do things on the exit path was to
+> consolidate the context switch induced one and the user->kernel switch
+> one into the same place and mechanism.
+
+Isn't it kind of a very specific case that we end up doing a
+user->kernel switch as part of a context switch?  IOW: would require
+the vCPU to be scheduled out at that very specific point.
+
+> >> + *
+> >> + * By default (on affected and capable hardware) as a safety measure Xen,
+> >> + * to cover for the fact that guest-kernel and guest-user modes are both
+> >> + * running in ring 3 (and hence share prediction context), would issue a
+> >> + * barrier for user->kernel mode switches of PV guests.
+> >> + */
+> >> +#define VMASST_TYPE_mode_switch_no_ibpb  33
 > > 
-> >   meson.build | 4 ++++
-> >   1 file changed, 4 insertions(+)
-> > 
-> > diff --git a/meson.build b/meson.build
-> > index ec01f8b138..ea52ef1b9c 100644
-> > --- a/meson.build
-> > +++ b/meson.build
-> > @@ -1050,6 +1050,10 @@ if not get_option('virglrenderer').auto() or have_system or have_vhost_user_gpu
-> >                            cc.has_member('struct virgl_renderer_resource_info_ext', 'd3d_tex2d',
-> >                                          prefix: '#include <virglrenderer.h>',
-> >                                          dependencies: virgl))
-> > +    config_host_data.set('HAVE_VIRGL_CONTEXT_CREATE_WITH_FLAGS',
-> > +                         cc.has_function('virgl_renderer_context_create_with_flags',
-> > +                                         prefix: '#include <virglrenderer.h>',
-> > +                                         dependencies: virgl))
-> >     endif
-> >   endif
-> >   rutabaga = not_found
+> > Would it be possible to define the assist as
+> > VMASST_TYPE_mode_switch_ibpb and have it on when enabled?  So that the
+> > guest would disable it if unneeded?  IMO negated options are in
+> > general harder to understand.
+> 
+> Negative options aren't nice, yes, but VM assists start out as all
+> clear.
+
+Are you sure?  I see VMASST_TYPE_pae_extended_cr3 getting set in
+dom0_construct_pv() and that makes me wonder whether other bits
+couldn't start set also.
+
+Maybe there's some restriction I'm missing, but I don't see any
+wording in the description of the interface that states that all
+assists are supposed to start disabled.
+
+Thanks, Roger.
 
