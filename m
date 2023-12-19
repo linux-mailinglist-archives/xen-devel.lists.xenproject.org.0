@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DD5C8185C1
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 11:56:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656657.1024993 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 122D6818640
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 12:22:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656643.1025114 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFXli-0000cQ-2F; Tue, 19 Dec 2023 10:56:10 +0000
+	id 1rFYBI-0004MU-80; Tue, 19 Dec 2023 11:22:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656657.1024993; Tue, 19 Dec 2023 10:56:10 +0000
+Received: by outflank-mailman (output) from mailman id 656643.1025114; Tue, 19 Dec 2023 11:22:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFXlh-0000Zx-Vu; Tue, 19 Dec 2023 10:56:09 +0000
-Received: by outflank-mailman (input) for mailman id 656657;
- Tue, 19 Dec 2023 10:56:08 +0000
+	id 1rFYBI-0004Jr-5P; Tue, 19 Dec 2023 11:22:36 +0000
+Received: by outflank-mailman (input) for mailman id 656643;
+ Tue, 19 Dec 2023 10:42:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFXlg-0000Zr-S4
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 10:56:08 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pd1e=H6=damsy.net=pierre-eric@srs-se1.protection.inumbo.net>)
+ id 1rFXY8-0005Cg-I9
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 10:42:09 +0000
+Received: from mail.damsy.net (mail.damsy.net [85.90.245.9])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 35d986a7-9e5d-11ee-9b0f-b553b5be7939;
- Tue, 19 Dec 2023 11:56:06 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40c6e2a47f6so45088265e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 02:56:06 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v8-20020a05600c444800b0040d2e37c06dsm115080wmn.20.2023.12.19.02.56.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 02:56:06 -0800 (PST)
+ id 40a0d39b-9e5b-11ee-9b0f-b553b5be7939;
+ Tue, 19 Dec 2023 11:42:06 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +36,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35d986a7-9e5d-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702983366; x=1703588166; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8P0LbAGXmgn2QmUozUT+jsEZFbsokZnnQ66xwGEyQfc=;
-        b=OD4L80/zD5YSIV7gLIaNT14aBu6nInfbEl4u46+Bc5x7NvdI8O9BgcKcNiXZnBzxuD
-         aID+IZ5zTPwQHg5AMDqZyyncOsqm+biuVSPWPlZLlrMu7B74nZTp3SVAHUl1/sIqi91j
-         r+Td7E3Z72IECKWvrZJIfSOA49jHwS8AYlx9HsnkMvZzVkbPdAUdUBG+5rVaIX47zWt5
-         VyX8gyL8fEE6Jcg+yvS3buHmw5HIJVtMw+ZS+CLQQnaHAGj9JthRT0qc0CFB/e16u6UA
-         p4Udq8hsa2Z44y80lwOY2dE+J+BZO230n2t1mJCHwTioq3tuFDPJ5mhKmtYcuBUJ8rI0
-         rSnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702983366; x=1703588166;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8P0LbAGXmgn2QmUozUT+jsEZFbsokZnnQ66xwGEyQfc=;
-        b=D6xAMYSfBYaXpfCn4pUXF5xLhWtOYgiwnbZtRjnwEaMUQLxttaJtaD3RdDn3ufU0Lr
-         inMMLky8D9DHJ5DS9rkauByYNhlvJtwYUKwoYfg9tVK0MAfrdkEadQp2s06Shp70l1Cx
-         FtkC16Us/EuE0ZffI0TOy8QwMrbFVpPEPLTcsDmH8F3W4GVcnIAYUSUsHWZOg6o83P1l
-         xJXcABWfG7xhC5tHbDyBI8mwfoP7f1QA4fLcpNGMmCuZRMmMuTciZ5/vXlPc2NE/RgKQ
-         SGPJBe3IY6Uxka/Hc1cRiSAPdYG8B+zA/InFpg8YA9umP+XEt5olUAv3k/LcQiwl0wm1
-         l67g==
-X-Gm-Message-State: AOJu0YzYYR11BVZWlEh2obJIxaLxMMmwurrOrUAFkYKFetEBRO9bBkFm
-	J8v+rZWHiLVSiPtcMhxWahXS
-X-Google-Smtp-Source: AGHT+IFZ+rcC27FHgh6fetvkrbne6swDSH114IRlBMbPRaFw2AAggOIAgL/5ZUF2AIjfWhSKp9ovMQ==
-X-Received: by 2002:a05:600c:1c0d:b0:40d:258e:fe9f with SMTP id j13-20020a05600c1c0d00b0040d258efe9fmr208994wms.90.1702983366409;
-        Tue, 19 Dec 2023 02:56:06 -0800 (PST)
-Message-ID: <000ee2b2-9010-4c43-94de-1c8ea2bd8a61@suse.com>
-Date: Tue, 19 Dec 2023 11:56:05 +0100
+X-Inumbo-ID: 40a0d39b-9e5b-11ee-9b0f-b553b5be7939
+Message-ID: <31891dcd-d72a-4d81-8bb1-579c6a8e6365@damsy.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=damsy.net; s=201803;
+	t=1702982523;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3575rjkDpAj2qDIT9c9EXnf7PqaPnB51hWsSon8Voos=;
+	b=bJd2yQAW9oaHXk5iTSIzLjsmuhJZxrxpEUIMh345UF3XZS3+xAsl1GPXy8Y6NAfwp1Pm7i
+	YD4yTTxMEaDPJwhl4b5oSt7E6MR9zQUqhBaAaAWGLv8D6v65dtEdOMVt+LT9z0ER164xMq
+	Pl5gqgbDRJxvJkBYmBNkbjZ3ZpvIKYJJAa6kZYU87GWTaUuYumbX/no+X5NWmd08+T1z07
+	SLrCdWIBMP6sJRPVRt4CXgTsyN1lDL0Dz1jzkjcSt0Jae8eYQRB1zIeRkH7ORn7DrgQ9r4
+	HdZq8cHOIX+y60mDkvkNCzmnzRGIl/800IOb1seWgdhqpeod75eXqE0jykUwiA==
+Date: Tue, 19 Dec 2023 11:42:02 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 2/7] x86/mm: address MISRA C:2012 Rule 2.1
-Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1702891792.git.nicola.vetrini@bugseng.com>
- <1cd82cf19a613a122a770bf6670e681ca7fccd44.1702891792.git.nicola.vetrini@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1cd82cf19a613a122a770bf6670e681ca7fccd44.1702891792.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v6 09/11] virtio-gpu: Support Venus capset
+To: Huang Rui <ray.huang@amd.com>, Akihiko Odaki <akihiko.odaki@daynix.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <quic_acaggian@quicinc.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>, ernunes@redhat.com,
+ Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>,
+ Antonio Caggiano <antonio.caggiano@collabora.com>
+References: <20231219075320.165227-1-ray.huang@amd.com>
+ <20231219075320.165227-10-ray.huang@amd.com>
+Content-Language: fr
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <20231219075320.165227-10-ray.huang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 18.12.2023 11:17, Nicola Vetrini wrote:
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -4887,8 +4887,6 @@ long arch_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->      default:
->          return subarch_memory_op(cmd, arg);
->      }
-> -
-> -    return 0;
->  }
+Hi Ray, Antonio,
 
-When a function is small and it's easy to see that all paths return by
-other means, omitting such a final "return <value>" is imo okay. Here,
-however, this isn't easy to see, and hence omitting the return is
-confusing in a different way from having the return. I guess I'll make
-an alternative change (as iirc I had outlined before), for other x86
-maintainers to at least consider. The other alternative (causing less
-code churn) would imo be to pull out the default case from the switch().
 
-Jan
+Le 19/12/2023 à 08:53, Huang Rui a écrit :
+> From: Antonio Caggiano <antonio.caggiano@collabora.com>
+> 
+> Add support for the Venus capset, which enables Vulkan support through
+> the Venus Vulkan driver for virtio-gpu.
+> 
+> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> ---
+> 
+> No change in v6.
+> 
+>   hw/display/virtio-gpu-virgl.c | 21 +++++++++++++++++----
+>   1 file changed, 17 insertions(+), 4 deletions(-)
+> 
+> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+> index be9da6e780..f35a751824 100644
+> --- a/hw/display/virtio-gpu-virgl.c
+> +++ b/hw/display/virtio-gpu-virgl.c
+> @@ -506,6 +506,11 @@ static void virgl_cmd_get_capset_info(VirtIOGPU *g,
+>           virgl_renderer_get_cap_set(resp.capset_id,
+>                                      &resp.capset_max_version,
+>                                      &resp.capset_max_size);
+> +    } else if (info.capset_index == 2) {
+> +        resp.capset_id = VIRTIO_GPU_CAPSET_VENUS;
+> +        virgl_renderer_get_cap_set(resp.capset_id,
+> +                                   &resp.capset_max_version,
+> +                                   &resp.capset_max_size);
+>       } else {
+>           resp.capset_max_version = 0;
+>           resp.capset_max_size = 0;
+> @@ -978,10 +983,18 @@ int virtio_gpu_virgl_init(VirtIOGPU *g)
+>   
+>   int virtio_gpu_virgl_get_num_capsets(VirtIOGPU *g)
+>   {
+> -    uint32_t capset2_max_ver, capset2_max_size;
+> +    uint32_t capset2_max_ver, capset2_max_size, num_capsets;
+> +    num_capsets = 1;
+> +
+>       virgl_renderer_get_cap_set(VIRTIO_GPU_CAPSET_VIRGL2,
+> -                              &capset2_max_ver,
+> -                              &capset2_max_size);
+> +                               &capset2_max_ver,
+> +                               &capset2_max_size);
+> +    num_capsets += capset2_max_ver ? 1 : 0;
+> +
+> +    virgl_renderer_get_cap_set(VIRTIO_GPU_CAPSET_VENUS,
+> +                               &capset2_max_ver,
+> +                               &capset2_max_size);
+> +    num_capsets += capset2_max_size ? 1 : 0;
+
+IMHO the logic here doesn't work.
+
+The kernel will use num_capset like this:
+
+	for (i = 0; i < num_capsets; i++) {
+		virtio_gpu_cmd_get_capset_info(vgdev, i);
+
+So if num_capset = 2, it will query the capset info of index 0 and 1.
+Capset 0 is alway VIRGL so it's fine. But since VIRL2 support is optional,
+QEMU has no way to know if index 1 is VIRGL2 (if it's supported)
+or VENUS (if VIRGL2 support is missing).
+And it'll get worse when we will want to support CAPSET_DRM.
+
+Ray: we have a patch internally for this (virtio-gpu: fix capset query), you
+may want to add it to this series, before this patch.
+
+Regards,
+Pierre-Eric
+
+
+
+>   
+> -    return capset2_max_ver ? 2 : 1;
+> +    return num_capsets;
+>   }
 
