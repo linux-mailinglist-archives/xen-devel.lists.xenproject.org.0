@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA4F818C1D
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 17:24:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657024.1025634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC643818C28
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 17:25:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657027.1025644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFcsz-0003uF-Cv; Tue, 19 Dec 2023 16:24:01 +0000
+	id 1rFcue-0004UN-O0; Tue, 19 Dec 2023 16:25:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657024.1025634; Tue, 19 Dec 2023 16:24:01 +0000
+Received: by outflank-mailman (output) from mailman id 657027.1025644; Tue, 19 Dec 2023 16:25:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFcsz-0003sa-9Q; Tue, 19 Dec 2023 16:24:01 +0000
-Received: by outflank-mailman (input) for mailman id 657024;
- Tue, 19 Dec 2023 16:23:59 +0000
+	id 1rFcue-0004R2-LD; Tue, 19 Dec 2023 16:25:44 +0000
+Received: by outflank-mailman (input) for mailman id 657027;
+ Tue, 19 Dec 2023 16:25:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFcsx-0003sU-Tu
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 16:23:59 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1rFcud-0004Qw-7B
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 16:25:43 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 033ccad4-9e8b-11ee-98eb-6d05b1d4d9a1;
- Tue, 19 Dec 2023 17:23:58 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3367632ce7bso435495f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 08:23:58 -0800 (PST)
+ id 40e4f26f-9e8b-11ee-98eb-6d05b1d4d9a1;
+ Tue, 19 Dec 2023 17:25:42 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3365f1326e4so3432620f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 08:25:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z3-20020adfec83000000b0033676f9e4cbsm625678wrn.36.2023.12.19.08.23.57
+ f10-20020adff8ca000000b003365951cef9sm11406140wrq.55.2023.12.19.08.25.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 08:23:58 -0800 (PST)
+ Tue, 19 Dec 2023 08:25:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 033ccad4-9e8b-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 40e4f26f-9e8b-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703003038; x=1703607838; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703003142; x=1703607942; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zoj6+varfKGT2kHc4ZbbguG1N80tdkubtxBSA/xNDS8=;
-        b=T9/1g96h0QcTpypaRgyokL5IENw5QhM56b7uVTGsTVNdvUgv76pNcpWyrjYhdMOw1z
-         hU3qStiSXGdar92cwnHdSdBdon62yDI9ekIqOr4jyG1MjnXt3zVbUX6lYLX66ilepf5t
-         qMpoCvCSc3Y//fwKCjq4nEtUwhXJYFXRdOqxvD0dvcdD4/L8Bt0Nr5XmlmlMjUgW6bkE
-         V9xIh1P2fGuaJW07x3/OEcSYXwCGn77ez6vAqb592WIb3GQnuZDdKVSuWds1fCuhV4Le
-         ncyhSffYC4sXJKP4oLlfSi7GZjUMUE9BfcemIWCFPDkXFDCA2UTO/oUedPiRHtXFQTq5
-         TAUA==
+        bh=3tdhlgde800NZLfZzsrYjg63B35CFCzShpO3xhfVbq0=;
+        b=HUU67EdCaG3A8Up4CxAeJ6oRPiXq7TQkZ3GKg1SqHs3YrWeGxeiZyEbIbds68ceKBL
+         ohFUxjfYl3M+s84KIyoC2eMEijCJ5//hkKXK3LFBOR9As++ptmB2lIbxpDgV0d42FsDH
+         NbirrpPg+3GPbPv/Wt98qJ/XKwJU1G8oT/LrXfenwv3NsIWPAK4O3V37YcQfiJndsFZq
+         6es6cmDTjgA5upSGx2JUpXEtM5BW4YzVW6Uvo/gklGNcU4rLTBgxQcRQRdZV4oKN1q8C
+         RtiHFUwyGCWSX9Wd99vCvIy9M5gYGjOvTdAtUdPaJFWkUuM6Dv+6COa3dzXcd7r9nH3N
+         ezzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703003038; x=1703607838;
+        d=1e100.net; s=20230601; t=1703003142; x=1703607942;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zoj6+varfKGT2kHc4ZbbguG1N80tdkubtxBSA/xNDS8=;
-        b=VSjCaLThLQ3BM2Y/5Z4d6fmg0QYZ2ZDdKRBTc1VVf98YoH6cPlz9VolAaXADla438e
-         p2s9w7sPOsB679ufrvXe72dU8zNUCUVz22B8+L3fNCZd4kz/XEC6FuZdcNF4NusolGZf
-         3fNkGDwEoFKK2RujZ6oc1kuzMXBiJFmUVI92vZUB6GIKRQuDZcYaIABC8cGqES2gL6cM
-         ssOkLiM4OT8nNyzJd3QmM252d2YQaM548EIzSNjLdPkyfp2/byR7fHG8qwVtfoCd6qix
-         b37kSLVVpwTIaJqU9R784uK/+KFoiIXG17v6d7QroHwUCWSjq/Nhnf85fblooc/NRGmh
-         Id+Q==
-X-Gm-Message-State: AOJu0Yzc8Jworzxcklt8EZWWQnYy+2YKea4AuSmy4ksIxxWw54ZUKDV3
-	1El3+hh6fsdFbOpGpD8MSrTO
-X-Google-Smtp-Source: AGHT+IFvFelU4q0InQyzPAbbQPJ7Flb+BD/6jQvaioOm6WoJD4Mc3mF74Sl8xLuTLP+uxSkpU4ZNCg==
-X-Received: by 2002:a05:6000:1d97:b0:333:2fd2:8163 with SMTP id bk23-20020a0560001d9700b003332fd28163mr10399768wrb.128.1703003038305;
-        Tue, 19 Dec 2023 08:23:58 -0800 (PST)
-Message-ID: <02a8e90e-dc4b-4fda-a2a7-50c12d356c63@suse.com>
-Date: Tue, 19 Dec 2023 17:23:57 +0100
+        bh=3tdhlgde800NZLfZzsrYjg63B35CFCzShpO3xhfVbq0=;
+        b=lGv/yc9xsSNeExXQedeYyP9Li+t8IMhHhDcxme6D6M4Kykt1QWVSVFTuIJhV6QA+Lp
+         /wzqkhHIRmiQMVCytl98zBDcXw/MdkpIHISCF2JqdbIXXErybqaQ3jH6lfA3KorqXBs7
+         cPdTxP2suKKBHlLvxk5ZTZ/q3Hnno95KvUTcsyezRcgD1nq34Axosg3mYiDxZnMaO0yK
+         93W1Adn9wfzo89WjNs/H+fk701JC/gxqj7NJeFWbRHmexifhNtZ0yPbl9Mm6gDGPB4vx
+         hSQHRRabmw0dejoF3J/YCD57UDxYkBk8+uCp1PP1bc1g8tWPSf/WdffAiHW67FzmZX5Q
+         cIrQ==
+X-Gm-Message-State: AOJu0YxYvoB3qYhaSiIaBFuYi6jYBNJ0em8CB3WrhJ46NI6vJ1tplUjS
+	/AftivFOZGOQ2VqbGknDxANK
+X-Google-Smtp-Source: AGHT+IHlnzcpoS7Qs5ZumHvRrWQJ5MoPu5VSeI92nYQk+5Hh3xj1qRW/c2NSsVkNlL6FyU8j8BPvZw==
+X-Received: by 2002:adf:fa45:0:b0:336:6690:6d0 with SMTP id y5-20020adffa45000000b00336669006d0mr2139318wrr.76.1703003141757;
+        Tue, 19 Dec 2023 08:25:41 -0800 (PST)
+Message-ID: <8005ecca-0ffc-4933-8d8f-03829fc67a3a@suse.com>
+Date: Tue, 19 Dec 2023 17:25:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 7/7] x86/iommu: cleanup unused functions
+Subject: Re: [PATCH v2 6/6] xen/common: address violations of MISRA C:2012
+ Rule 11.8
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, Lukasz Hawrylko <lukasz@hawrylko.pl>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+Cc: consulting@bugseng.com,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20231215141832.9492-1-roger.pau@citrix.com>
- <20231215141832.9492-8-roger.pau@citrix.com>
+References: <cover.1702982442.git.maria.celeste.cesario@bugseng.com>
+ <df682e995b726b5f7ba8af0f69bb888c398eac96.1702982442.git.maria.celeste.cesario@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,22 +115,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231215141832.9492-8-roger.pau@citrix.com>
+In-Reply-To: <df682e995b726b5f7ba8af0f69bb888c398eac96.1702982442.git.maria.celeste.cesario@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.12.2023 15:18, Roger Pau Monne wrote:
-> Remove xen_in_range() and vpci_is_mmcfg_address() now that hey are unused.
+On 19.12.2023 12:05, Simone Ballarin wrote:
+> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
 > 
-> Adjust comments to point to the new functions that replace the existing ones.
-
-And because of this affecting what was done earlier in the series, perhaps
-best if patches 5-7 would be committed together.
-
-> No functional change.
+> The xen sources contain violations of MISRA C:2012 Rule 11.8 whose
+> headline states:
+> "A conversion shall not remove any const, volatile or _Atomic qualification
+> from the type pointed to by a pointer".
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Change cast type from void* to uintptr_t.
+> void* type cast resulted in violation of the Rule, a cast to type uintptr_t
+> is more appropriate type-wise.
+> 
+> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
 
 
