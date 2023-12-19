@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66D61818B37
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 16:27:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656985.1025544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CB79818B3D
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 16:28:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656989.1025553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFc0E-0005ci-6y; Tue, 19 Dec 2023 15:27:26 +0000
+	id 1rFc1S-0006Be-H4; Tue, 19 Dec 2023 15:28:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656985.1025544; Tue, 19 Dec 2023 15:27:26 +0000
+Received: by outflank-mailman (output) from mailman id 656989.1025553; Tue, 19 Dec 2023 15:28:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFc0E-0005b3-4H; Tue, 19 Dec 2023 15:27:26 +0000
-Received: by outflank-mailman (input) for mailman id 656985;
- Tue, 19 Dec 2023 15:27:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rFc1S-00068l-EQ; Tue, 19 Dec 2023 15:28:42 +0000
+Received: by outflank-mailman (input) for mailman id 656989;
+ Tue, 19 Dec 2023 15:28:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rFc0C-0005at-Vx; Tue, 19 Dec 2023 15:27:24 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rFc0C-0003xT-Mo; Tue, 19 Dec 2023 15:27:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rFc0C-00008c-AJ; Tue, 19 Dec 2023 15:27:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rFc0C-0001j2-9m; Tue, 19 Dec 2023 15:27:24 +0000
+ (envelope-from <SRS0=Dspo=H6=redhat.com=kwolf@srs-se1.protection.inumbo.net>)
+ id 1rFc1R-00068d-8L
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 15:28:41 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 48924455-9e83-11ee-98eb-6d05b1d4d9a1;
+ Tue, 19 Dec 2023 16:28:40 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-74-6mtZLgXrPG-ASdwrw9encw-1; Tue,
+ 19 Dec 2023 10:28:32 -0500
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 05769383A0A1;
+ Tue, 19 Dec 2023 15:28:31 +0000 (UTC)
+Received: from redhat.com (unknown [10.39.194.175])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3201F492BC6;
+ Tue, 19 Dec 2023 15:28:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,88 +51,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=82G3lE3ylzQLa1CNao+X/hopa3sQ48lwUUNQPIk3yZg=; b=bS2i6b4BMLO5HWk8QwrC4hTpn2
-	2DDdpAR7Uk3VDp4dwVL5VyzirAf8N0dc6r1gXFnjLsxcxHcFfmpPEk9a36LqLfKsnvBz11GN288nB
-	fuXklLjxCu90ESOaSd3KIKqaoHhMFrGeVFgolUePzwrwYXGO/sDvOx1xU6UDEuU+oyPE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184174-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 48924455-9e83-11ee-98eb-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1702999718;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Nh0cR65sPswywtceyI2IIIl2ItyyUhcWzRQaZepOBXU=;
+	b=CcA56sIoWzeFL528blg5CscoaV0BtqfxWMt/0ijrtICsQfpmkYPjyW1/H3/y6w0NVOwARM
+	B5Ne7b9KCfCIMOTQu6hbrlmllU3IO5FyT20rN0USzkEdmYHS82yRZGZlR6VBhiz6dMrlUj
+	VlxCtXtadM6tDqZ7pLk8G05XaVjh/GY=
+X-MC-Unique: 6mtZLgXrPG-ASdwrw9encw-1
+Date: Tue, 19 Dec 2023 16:28:25 +0100
+From: Kevin Wolf <kwolf@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+	Cleber Rosa <crosa@redhat.com>,
+	Xie Changlong <xiechanglong.d@gmail.com>,
+	Paul Durrant <paul@xen.org>, Ari Sundholm <ari@tuxera.com>,
+	Jason Wang <jasowang@redhat.com>, Eric Blake <eblake@redhat.com>,
+	John Snow <jsnow@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
+	Wen Congyang <wencongyang2@huawei.com>,
+	Alberto Garcia <berto@igalia.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
+	Juan Quintela <quintela@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>, Coiby Xu <Coiby.Xu@gmail.com>,
+	Fabiano Rosas <farosas@suse.de>, Hanna Reitz <hreitz@redhat.com>,
+	Zhang Chen <chen.zhang@intel.com>,
+	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
+	Peter Xu <peterx@redhat.com>,
+	Emanuele Giuseppe Esposito <eesposit@redhat.com>,
+	Fam Zheng <fam@euphon.net>, Leonardo Bras <leobras@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	Li Zhijian <lizhijian@fujitsu.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 04/14] aio: make
+ aio_context_acquire()/aio_context_release() a no-op
+Message-ID: <ZYG2mSe1JWnC0tq_@redhat.com>
+References: <20231205182011.1976568-1-stefanha@redhat.com>
+ <20231205182011.1976568-5-stefanha@redhat.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 184174: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=05b6368ba01e07aa3b2b1f1856d77332971a7bdf
-X-Osstest-Versions-That:
-    xen=0cc74376d6823e0883f89556be2a267f2240a558
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 19 Dec 2023 15:27:24 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231205182011.1976568-5-stefanha@redhat.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.9
 
-flight 184174 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184174/
+Am 05.12.2023 um 19:20 hat Stefan Hajnoczi geschrieben:
+> aio_context_acquire()/aio_context_release() has been replaced by
+> fine-grained locking to protect state shared by multiple threads. The
+> AioContext lock still plays the role of balancing locking in
+> AIO_WAIT_WHILE() and many functions in QEMU either require that the
+> AioContext lock is held or not held for this reason. In other words, the
+> AioContext lock is purely there for consistency with itself and serves
+> no real purpose anymore.
+> 
+> Stop actually acquiring/releasing the lock in
+> aio_context_acquire()/aio_context_release() so that subsequent patches
+> can remove callers across the codebase incrementally.
+> 
+> I have performed "make check" and qemu-iotests stress tests across
+> x86-64, ppc64le, and aarch64 to confirm that there are no failures as a
+> result of eliminating the lock.
+> 
+> Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+> Reviewed-by: Eric Blake <eblake@redhat.com>
+> Acked-by: Kevin Wolf <kwolf@redhat.com>
 
-Failures :-/ but no regressions.
+I knew why I wasn't confident enough to give a R-b... This crashes
+qemu-storage-daemon in the qemu-iotests case graph-changes-while-io.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+qemu-storage-daemon: ../nbd/server.c:2542: nbd_co_receive_request: Assertion `client->recv_coroutine == qemu_coroutine_self()' failed.
 
-version targeted for testing:
- xen                  05b6368ba01e07aa3b2b1f1856d77332971a7bdf
-baseline version:
- xen                  0cc74376d6823e0883f89556be2a267f2240a558
+(gdb) bt
+#0  0x00007fdb00529884 in __pthread_kill_implementation () from /lib64/libc.so.6
+#1  0x00007fdb004d8afe in raise () from /lib64/libc.so.6
+#2  0x00007fdb004c187f in abort () from /lib64/libc.so.6
+#3  0x00007fdb004c179b in __assert_fail_base.cold () from /lib64/libc.so.6
+#4  0x00007fdb004d1187 in __assert_fail () from /lib64/libc.so.6
+#5  0x0000557f9f9534eb in nbd_co_receive_request (errp=0x7fdafc25eec0, request=0x7fdafc25ef10, req=0x7fdaf00159c0) at ../nbd/server.c:2542
+#6  nbd_trip (opaque=0x557fa0b33fa0) at ../nbd/server.c:2962
+#7  0x0000557f9faa416b in coroutine_trampoline (i0=<optimized out>, i1=<optimized out>) at ../util/coroutine-ucontext.c:177
+#8  0x00007fdb004efe90 in ?? () from /lib64/libc.so.6
+#9  0x00007fdafc35f680 in ?? ()
+#10 0x0000000000000000 in ?? ()
+(gdb) p *client
+$2 = {refcount = 4, close_fn = 0x557f9f95dc40 <nbd_blockdev_client_closed>, exp = 0x557fa0b30590, tlscreds = 0x0, tlsauthz = 0x0, sioc = 0x557fa0b33d90, ioc = 0x557fa0b33d90,
+  recv_coroutine = 0x7fdaf0015eb0, send_lock = {locked = 0, ctx = 0x0, from_push = {slh_first = 0x0}, to_pop = {slh_first = 0x0}, handoff = 0, sequence = 0, holder = 0x0},
+  send_coroutine = 0x0, read_yielding = false, quiescing = false, next = {tqe_next = 0x0, tqe_circ = {tql_next = 0x0, tql_prev = 0x557fa0b305e8}}, nb_requests = 1, closing = false,
+  check_align = 1, mode = NBD_MODE_EXTENDED, contexts = {exp = 0x557fa0b30590, count = 1, base_allocation = true, allocation_depth = false, bitmaps = 0x0}, opt = 7, optlen = 0}
+(gdb) p co_tls_current
+$3 = (Coroutine *) 0x7fdaf00061d0
 
-Last test of basis   184168  2023-12-18 15:03:58 Z    1 days
-Testing same since   184174  2023-12-19 13:02:03 Z    0 days    1 attempts
+Kevin
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Nicola Vetrini <nicola.vetrini@bugseng.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   0cc74376d6..05b6368ba0  05b6368ba01e07aa3b2b1f1856d77332971a7bdf -> smoke
 
