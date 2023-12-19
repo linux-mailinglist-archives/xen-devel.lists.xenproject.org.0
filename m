@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 445C7818579
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 11:45:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.656645.1024964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13048818589
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Dec 2023 11:48:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.656649.1024974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFXap-0005Hm-Jz; Tue, 19 Dec 2023 10:44:55 +0000
+	id 1rFXeC-0005vd-3w; Tue, 19 Dec 2023 10:48:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 656645.1024964; Tue, 19 Dec 2023 10:44:55 +0000
+Received: by outflank-mailman (output) from mailman id 656649.1024974; Tue, 19 Dec 2023 10:48:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFXap-0005G2-H8; Tue, 19 Dec 2023 10:44:55 +0000
-Received: by outflank-mailman (input) for mailman id 656645;
- Tue, 19 Dec 2023 10:44:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rFXeC-0005sI-0e; Tue, 19 Dec 2023 10:48:24 +0000
+Received: by outflank-mailman (input) for mailman id 656649;
+ Tue, 19 Dec 2023 10:48:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z0wA=H6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFXan-0005Fw-Sb
- for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 10:44:53 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a389f759-9e5b-11ee-9b0f-b553b5be7939;
- Tue, 19 Dec 2023 11:44:52 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-40c2bb872e2so50039155e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 02:44:51 -0800 (PST)
+ id 1rFXeA-0005sC-NT
+ for xen-devel@lists.xenproject.org; Tue, 19 Dec 2023 10:48:22 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 205f6c7e-9e5c-11ee-98eb-6d05b1d4d9a1;
+ Tue, 19 Dec 2023 11:48:21 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-336672406f0so1911562f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 02:48:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n35-20020a05600c3ba300b004064e3b94afsm2296448wms.4.2023.12.19.02.44.50
+ v18-20020a5d5912000000b003365e7f35f4sm8883594wrd.46.2023.12.19.02.48.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 02:44:51 -0800 (PST)
+ Tue, 19 Dec 2023 02:48:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a389f759-9e5b-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 205f6c7e-9e5c-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1702982691; x=1703587491; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1702982901; x=1703587701; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xVZT3gW+xzUGhAySh7dzcSMVZ/RcXnsavSY+i3y0IbQ=;
-        b=LVhQV2jBjsJj2UDtrHpF6ubtZbtdGHBaOqvK5TuaawZq7zoXEC7GPQsuyE8VOigwG7
-         eZjbrHMzEHNuIqU/5uAFjb/IMQ/37Y6ryg+LMowvs9O8jz5ZW1CVgrfXXndUq8X/A0oI
-         nVRjglFU6VWMOZQjFguFnpmMI0ZLbln7FuUHijSM488zP66ifItsn1/9vE99YwS0HCZn
-         oqTPyJK9dTKY1gGiDfJjfzobEhCyhBi89ux/hrZ7QoNSdEEg1SGfPgZJrCfYUF2FZSp6
-         yOkiz1MhHBYLTaWtkKDtfYGxz2KkzewKuZI6vRlw2W5ZHa4Te5Pcqkaq7rdW/sYVWgfu
-         c7Xg==
+        bh=2q4xN6y8OUPTcH9aKJaNvWJwQ77oIP2jYturtuqyKCg=;
+        b=g+jA8znhSoXvil30Bhh0AARe+2Cg+AflZEUIY89vmL1R8qiZf8JUOYlpAkbpV+Mfml
+         WhTi3njpZd2lD895IYFV1D//EHqy498rEt+jGZnLyxv1ipZhrvtqvvAPvemoMM9Kmpc3
+         z/mzxcfoeROHLA35GtZXr/SN/V13l1F5tClFA8WO5JAjoynCLy8+7Ht4IxeF8UmIXua7
+         MLf9aHJ7QJumP8fRhQslt5Wa6kNk3zvUEteQUHI0emCcnmCNbzmqbatyTo4+J6yPnG0G
+         Dq9dUfs7fab8gwxKxDekfMxsRYLSxABdV7x41vjwrf/cGhA6UibXdhJ+WDNkHYZYDtth
+         RwWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1702982691; x=1703587491;
+        d=1e100.net; s=20230601; t=1702982901; x=1703587701;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xVZT3gW+xzUGhAySh7dzcSMVZ/RcXnsavSY+i3y0IbQ=;
-        b=qEMzfa2LP3luamaVTvl8ShLwYN/UhE3BZmaABO/RR8OYs34dTII6EIG8iy4HGe135f
-         iVuiCerMKX+JGJLK3/ILMXCvruv7IwMf2tLPXjVaPWBJLZ03ArbbXlK+w4bqUyG12yfn
-         ulmKVFMoAhYiH7ERfPNPUEFkOjzEvJNeOvrBTrvpc5YcFih+c71uuQMgP2lmlmmFhab9
-         wYoGtP/CQ5B78PnIb54sRm7cbR4X2JKu4O0J65WySTxAbpz+4ItlAwatAdtnCBYmdahq
-         9cBLp9+EqWxvYEnYW4S5RbAat/SCRGrkvDsZDORSh8Cxb8P4yRQamByECwOrQosbdg05
-         o1CQ==
-X-Gm-Message-State: AOJu0Ywn77XHl7F8aR2fcAuNTpEr/0VnOpt+JKDRuxA9Et/a0zDTrm2L
-	SqColxm/5gJdtHURM+3m9hLS
-X-Google-Smtp-Source: AGHT+IFy3bqR2cPK4Z+8vN1tFlQ8fuYHH7PglETp5XUtbdH7+XDtZ12cKOaR4CcsrbpKdxzm7szVPw==
-X-Received: by 2002:a05:600c:1e1a:b0:40d:2e2b:6e76 with SMTP id ay26-20020a05600c1e1a00b0040d2e2b6e76mr13805wmb.146.1702982691446;
-        Tue, 19 Dec 2023 02:44:51 -0800 (PST)
-Message-ID: <c4705dba-ce9f-4b4d-9962-8f9d420047f7@suse.com>
-Date: Tue, 19 Dec 2023 11:44:50 +0100
+        bh=2q4xN6y8OUPTcH9aKJaNvWJwQ77oIP2jYturtuqyKCg=;
+        b=pRtUvf4SLJhHOzqjgfs+DvublXyeM57vx3ryZpWkkseGgojPDCztOinTAfaePLTYZj
+         Sn4xqjxY2k0AY5AmqTiJ0KwaD805ilGKys6VVCqUe70ei9tJfH7gdCe2AYmNdIOxRXIF
+         RTUyO+Dy0LoqemkG0OpDVD85B0w2/lhvnhq/rEeadl3NYUGGq+LdnqQhY9ELd5PrUyoM
+         RVJlOcKO6a8yfRePxF3qtlMO7WMmMTBfd0T4p7Db3U8Ibfv4mQcnJNNGbrNRGQtMOSW3
+         t0E9o3dEQRoW8R7eR144i+QFv1pn60zqQ/g42RR/mVb/730eLM0+zOPZPKcSJI3EGF0r
+         yldg==
+X-Gm-Message-State: AOJu0YwCl0zXxarFl8CagCn3EcaCAtfnYa1GqVXK5rRmkspQpms1XSUW
+	qV2tPhWI5iM4ydfXy7n9CRCq
+X-Google-Smtp-Source: AGHT+IHrMEWLad+X4b7RyX4o43WZfFSzFm/SNztrSBGBGEo78iWt8SjgOYlcVQVr68b7mhYItB6DHA==
+X-Received: by 2002:a5d:6707:0:b0:336:6426:4e1d with SMTP id o7-20020a5d6707000000b0033664264e1dmr2513626wru.17.1702982900883;
+        Tue, 19 Dec 2023 02:48:20 -0800 (PST)
+Message-ID: <09b8c0e5-b0d0-428b-8e72-d66b4ccf8c9c@suse.com>
+Date: Tue, 19 Dec 2023 11:48:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 4/5] x86/hvm: dom0: use helper to get sizeof struct
- field
+Subject: Re: [XEN PATCH 5/5] xen/wait: address violations of MISRA C Rule 11.9
 Content-Language: en-US
 To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <cover.1702553835.git.nicola.vetrini@bugseng.com>
- <17b01f14b89a5dba6935bbd8019ddf431d595890.1702553835.git.nicola.vetrini@bugseng.com>
- <alpine.DEB.2.22.394.2312141332470.3175268@ubuntu-linux-20-04-desktop>
+ <a4e13ba24ab54895454d8df1c956865f7cf7f0b5.1702553835.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,20 +112,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312141332470.3175268@ubuntu-linux-20-04-desktop>
+In-Reply-To: <a4e13ba24ab54895454d8df1c956865f7cf7f0b5.1702553835.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.12.2023 22:32, Stefano Stabellini wrote:
-> On Thu, 14 Dec 2023, Nicola Vetrini wrote:
->> Use of the proper helper macro also resolves a violation
->> of MISRA C Rule 11.9.
->> No functional change.
->>
->> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 14.12.2023 12:44, Nicola Vetrini wrote:
+> No functional change.
 > 
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
+Nevertheless, imo ...
+
+> --- a/xen/common/wait.c
+> +++ b/xen/common/wait.c
+> @@ -125,7 +125,7 @@ static void __prepare_to_wait(struct waitqueue_vcpu *wqv)
+>      struct vcpu *curr = current;
+>      unsigned long dummy;
+>  
+> -    ASSERT(wqv->esp == 0);
+> +    ASSERT(wqv->esp == NULL);
+>  
+>      /* Save current VCPU affinity; force wakeup on *this* CPU only. */
+>      if ( vcpu_temporary_affinity(curr, smp_processor_id(), VCPU_AFFINITY_WAIT) )
+> @@ -171,7 +171,7 @@ static void __prepare_to_wait(struct waitqueue_vcpu *wqv)
+>            [sz] "i" (PAGE_SIZE)
+>          : "memory", "rax", "rdx", "r8", "r9", "r10", "r11" );
+>  
+> -    if ( unlikely(wqv->esp == 0) )
+> +    if ( unlikely(wqv->esp == NULL) )
+>      {
+>          gdprintk(XENLOG_ERR, "Stack too large in %s\n", __func__);
+>          domain_crash(curr->domain);
+
+... in both cases the better change (more in line with what we do elsewhere,
+even if not liked by Misra and hence being deviated by us) would have been
+to use ! in place of == NULL.
+
+Jan
 
