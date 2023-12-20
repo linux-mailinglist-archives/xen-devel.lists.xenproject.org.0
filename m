@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4401B819D8F
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 12:03:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657632.1026624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED38D819D92
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 12:03:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657634.1026638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFuMD-0005BW-U2; Wed, 20 Dec 2023 11:03:21 +0000
+	id 1rFuME-0005T6-O3; Wed, 20 Dec 2023 11:03:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657632.1026624; Wed, 20 Dec 2023 11:03:21 +0000
+Received: by outflank-mailman (output) from mailman id 657634.1026638; Wed, 20 Dec 2023 11:03:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFuMD-00057L-Qk; Wed, 20 Dec 2023 11:03:21 +0000
-Received: by outflank-mailman (input) for mailman id 657632;
- Wed, 20 Dec 2023 11:03:20 +0000
+	id 1rFuME-0005M8-L4; Wed, 20 Dec 2023 11:03:22 +0000
+Received: by outflank-mailman (input) for mailman id 657634;
+ Wed, 20 Dec 2023 11:03:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xS+a=H7=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1rFuMC-0004rG-59
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 11:03:20 +0000
+ id 1rFuMD-0004rG-Au
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 11:03:21 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6227cee9-9f27-11ee-98eb-6d05b1d4d9a1;
- Wed, 20 Dec 2023 12:03:19 +0100 (CET)
+ id 62dd09f4-9f27-11ee-98eb-6d05b1d4d9a1;
+ Wed, 20 Dec 2023 12:03:20 +0100 (CET)
 Received: from Dell.bugseng.com (unknown [37.161.218.228])
- by support.bugseng.com (Postfix) with ESMTPSA id 8BE794EE0C9A;
- Wed, 20 Dec 2023 12:03:18 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id 7FE1C4EE0C9B;
+ Wed, 20 Dec 2023 12:03:19 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,7 +39,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6227cee9-9f27-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 62dd09f4-9f27-11ee-98eb-6d05b1d4d9a1
 From: Federico Serafini <federico.serafini@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
@@ -49,71 +49,54 @@ Cc: consulting@bugseng.com,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [XEN PATCH 2/7] xen/arm: traps: address violations of MISRA C:2012 Rule 16.3
-Date: Wed, 20 Dec 2023 12:03:02 +0100
-Message-Id: <90c6cdb780ff7b75aada2a8a8a2df5d9e8b94b78.1703066935.git.federico.serafini@bugseng.com>
+Subject: [XEN PATCH 3/7] xen/arm: guest_walk: address violations of MISRA C:2012 Rule 16.3
+Date: Wed, 20 Dec 2023 12:03:03 +0100
+Message-Id: <98175f394c2c8078a864071aacef04b8d9e1cb6a.1703066935.git.federico.serafini@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1703066935.git.federico.serafini@bugseng.com>
 References: <cover.1703066935.git.federico.serafini@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-MISRA C:2012 Rule 16.3 states: "An unconditional `break' statement
-shall terminate every switch-clause".
-
-Add missing break statements to address violations of Rule 16.3.
-Add pseudo-keyword "fallthrough" to make explicit the intended
-behavior and satisfy the requirements to deviate Rule 16.3.
+Add missing break statements to address violations of Rule 16.3
+("An unconditional `break' statement shall terminate every
+switch-clause").
 No functional change.
 
 Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
 ---
- xen/arch/arm/traps.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ xen/arch/arm/guest_walk.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
-index 77220ba092..9c10e8f78c 100644
---- a/xen/arch/arm/traps.c
-+++ b/xen/arch/arm/traps.c
-@@ -1414,10 +1414,18 @@ static void do_trap_hypercall(struct cpu_user_regs *regs, register_t *nr,
-     {
-         /* Deliberately corrupt parameter regs used by this hypercall. */
-         switch ( hypercall_args[*nr] ) {
--        case 5: HYPERCALL_ARG5(regs) = 0xDEADBEEFU;
--        case 4: HYPERCALL_ARG4(regs) = 0xDEADBEEFU;
--        case 3: HYPERCALL_ARG3(regs) = 0xDEADBEEFU;
--        case 2: HYPERCALL_ARG2(regs) = 0xDEADBEEFU;
-+        case 5:
-+            HYPERCALL_ARG5(regs) = 0xDEADBEEFU;
-+            fallthrough;
-+        case 4:
-+            HYPERCALL_ARG4(regs) = 0xDEADBEEFU;
-+            fallthrough;
-+        case 3:
-+            HYPERCALL_ARG3(regs) = 0xDEADBEEFU;
-+            fallthrough;
-+        case 2:
-+            HYPERCALL_ARG2(regs) = 0xDEADBEEFU;
-+            fallthrough;
-         case 1: /* Don't clobber x0/r0 -- it's the return value */
-         case 0: /* -ENOSYS case */
-             break;
-@@ -1929,6 +1937,7 @@ static void do_trap_stage2_abort_guest(struct cpu_user_regs *regs,
-         gprintk(XENLOG_WARNING,
-                 "Unsupported FSC: HSR=%#"PRIregister" DFSC=%#x\n",
-                 hsr.bits, xabt.fsc);
+diff --git a/xen/arch/arm/guest_walk.c b/xen/arch/arm/guest_walk.c
+index d99b411f3b..2f7d3a0da7 100644
+--- a/xen/arch/arm/guest_walk.c
++++ b/xen/arch/arm/guest_walk.c
+@@ -165,6 +165,8 @@ static bool guest_walk_sd(const struct vcpu *v,
+             *perms |= GV2M_WRITE;
+         if ( !pte.sec.xn )
+             *perms |= GV2M_EXEC;
++
 +        break;
      }
  
- inject_abt:
-@@ -2136,6 +2145,7 @@ void asmlinkage do_trap_guest_sync(struct cpu_user_regs *regs)
-                 "Unknown Guest Trap. HSR=%#"PRIregister" EC=0x%x IL=%x Syndrome=0x%"PRIx32"\n",
-                 hsr.bits, hsr.ec, hsr.len, hsr.iss);
-         inject_undef_exception(regs, hsr);
-+        break;
-     }
- }
+     return true;
+@@ -260,6 +262,7 @@ static bool get_ttbr_and_gran_64bit(uint64_t *ttbr, unsigned int *gran,
+              * fall back to 4K by default.
+              */
+             *gran = GRANULE_SIZE_INDEX_4K;
++            break;
+         }
  
+         /* Use TTBR0 for GVA to IPA translation. */
+@@ -291,6 +294,7 @@ static bool get_ttbr_and_gran_64bit(uint64_t *ttbr, unsigned int *gran,
+              * fall back to 4K by default.
+              */
+             *gran = GRANULE_SIZE_INDEX_4K;
++            break;
+         }
+ 
+         /* Use TTBR1 for GVA to IPA translation. */
 -- 
 2.34.1
 
