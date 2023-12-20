@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE1DA819DAC
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 12:09:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657687.1026715 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDD5D819DC4
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 12:15:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657700.1026725 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFuSP-00033J-EQ; Wed, 20 Dec 2023 11:09:45 +0000
+	id 1rFuY7-0006Db-2J; Wed, 20 Dec 2023 11:15:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657687.1026715; Wed, 20 Dec 2023 11:09:45 +0000
+Received: by outflank-mailman (output) from mailman id 657700.1026725; Wed, 20 Dec 2023 11:15:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFuSP-00030X-BD; Wed, 20 Dec 2023 11:09:45 +0000
-Received: by outflank-mailman (input) for mailman id 657687;
- Wed, 20 Dec 2023 11:09:44 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rFuSN-00030P-Vx
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 11:09:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rFuSN-0002dr-7M; Wed, 20 Dec 2023 11:09:43 +0000
-Received: from [15.248.2.232] (helo=[10.24.67.20])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rFuSN-000099-0Z; Wed, 20 Dec 2023 11:09:43 +0000
+	id 1rFuY6-0006AG-VO; Wed, 20 Dec 2023 11:15:38 +0000
+Received: by outflank-mailman (input) for mailman id 657700;
+ Wed, 20 Dec 2023 11:15:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vWXp=H7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rFuY5-0006AA-Mv
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 11:15:37 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 197f0f5e-9f29-11ee-98eb-6d05b1d4d9a1;
+ Wed, 20 Dec 2023 12:15:36 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40d38f03712so1570425e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 03:15:36 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ jg7-20020a05600ca00700b0040c46719966sm6876799wmb.25.2023.12.20.03.15.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Dec 2023 03:15:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,46 +44,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=l7CQyIO8CNZFvmsjGJ+z1l3Wj76DQIDYO7G6vZ61ezE=; b=sX2gO/Pu41ddKTfMKwdIB75yVf
-	YiXeH7u7SEkKzElEvaBDsEMMzKYrVuOxsPnM80EqGvl3N1Gd1bIABn3Fr3gye6RKIGZowLjuvI8/B
-	yE+M3lc4R3empL40m51Lpqw2ah8i44mNDZymKM31uKT4vfFZ3ahgyqIhEhHjEYlbfdYA=;
-Message-ID: <210a5c06-8146-4e66-8d23-93f91f93600b@xen.org>
-Date: Wed, 20 Dec 2023 11:09:41 +0000
+X-Inumbo-ID: 197f0f5e-9f29-11ee-98eb-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1703070936; x=1703675736; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=TUbHJtaRwhu3uDvDbFmA5A8L9noTZyKrw11OFe6cqlw=;
+        b=flUL8UNYi/kId4Tka/6P9AVSiJl3Ux/0M2yKq4IxrvS0FvfvqdWKt8+pRNfhBiIcQM
+         mbVmCAXtlaL/Ax6Y7hurA5GUePa7fXA+cdtLtOzCthhn4YhkjRxU3XjFeGC0L9KPLEu5
+         v/YO2OZgcq3om8Q1GjwMKKdy4rT4vQH70G6WU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703070936; x=1703675736;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=TUbHJtaRwhu3uDvDbFmA5A8L9noTZyKrw11OFe6cqlw=;
+        b=CxRH01hxhC/RkHFQ2u2KDIIARL+34qCPd6loBTnLpWBwUaziZZPOLGUpDSzk+qrkHW
+         JypeBmLXyJkdwmh9PM5Txtr0UGQ+fy9oea9Uavb2GANF3QBPAIU8jVy6Xlc6qoR1Oimi
+         p//6q07EoPzQQ+h34P8xkrbz3pDT4SfEdRFDXTlh/rw7mNunogptWXwenCL2zGNibqYi
+         esiwFXkMRIFWtniNOCrqHuE9M9iN6LQFpx8mbR8E44nBjHgY0ynKMZeWIumR4RZ1PQmR
+         GK3V6GJpqv5U6xxl7vt4pNG2aZjJmAkaXo4Ncaf6r+3hfFVowd0z5BCGwWw07JYskWVq
+         RzLg==
+X-Gm-Message-State: AOJu0YzD0xsT0dBtNSufyKXVLOB48pNRI8QC49WhxyXFJG5b+/RLP/k4
+	y5HuKbinDFziUacukee8PQjeDQ==
+X-Google-Smtp-Source: AGHT+IFcooR/43azGnRuGCfYBHPURu1Pmw4IpdfcNyfIlKaiwujVWqyHKe4UyxQQSVHvQ3Ner6atLA==
+X-Received: by 2002:a05:600c:84ca:b0:40c:3cc0:8616 with SMTP id er10-20020a05600c84ca00b0040c3cc08616mr9231316wmb.73.1703070935859;
+        Wed, 20 Dec 2023 03:15:35 -0800 (PST)
+Date: Wed, 20 Dec 2023 12:15:34 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2] x86/platform: tidy do_platform_op() a little
+Message-ID: <ZYLM1m_khwPd53Cj@macbook>
+References: <bd72ab26-2258-4a11-9b8d-b69c60ee5b8c@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/7] xen/arm: gic-v3: address violations of MISRA
- C:2012 Rule 16.3
-Content-Language: en-GB
-To: Federico Serafini <federico.serafini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1703066935.git.federico.serafini@bugseng.com>
- <fe578951c716f7745c14b1fc2851ce9de4da90cb.1703066935.git.federico.serafini@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <fe578951c716f7745c14b1fc2851ce9de4da90cb.1703066935.git.federico.serafini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <bd72ab26-2258-4a11-9b8d-b69c60ee5b8c@suse.com>
 
-Hi,
-
-On 20/12/2023 11:03, Federico Serafini wrote:
-> Add the pseudo-keyword fallthrough to meet the requirements to
-> deviate Rule 16.3 ("An unconditional `break' statement shall terminate
-> every switch-clause").
-> No functional change.
+On Wed, Dec 20, 2023 at 10:35:29AM +0100, Jan Beulich wrote:
+> The function has a few stray scopes and inconsistent use (indentation)
+> of break statements. Drop the stray braces and bring all the break-s in
+> line with one another. This in particular means dropping a redundant
+> break from XENPF_cpu_offline handling, pleasing Misra C:2012 rule 2.1.
 > 
-> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> No functional change intended.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Cheers,
-
--- 
-Julien Grall
+Thanks, Roger.
 
