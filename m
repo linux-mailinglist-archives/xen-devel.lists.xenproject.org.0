@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DC5981995F
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 08:24:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657397.1026202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9C91819A27
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 09:10:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657412.1026212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFqvm-00034N-13; Wed, 20 Dec 2023 07:23:50 +0000
+	id 1rFreP-0000dH-4p; Wed, 20 Dec 2023 08:09:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657397.1026202; Wed, 20 Dec 2023 07:23:49 +0000
+Received: by outflank-mailman (output) from mailman id 657412.1026212; Wed, 20 Dec 2023 08:09:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFqvl-00032h-Tl; Wed, 20 Dec 2023 07:23:49 +0000
-Received: by outflank-mailman (input) for mailman id 657397;
- Wed, 20 Dec 2023 07:23:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFreP-0000aS-1B; Wed, 20 Dec 2023 08:09:57 +0000
+Received: by outflank-mailman (input) for mailman id 657412;
+ Wed, 20 Dec 2023 08:09:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFqvl-00032b-13
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 07:23:49 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5943959-9f08-11ee-98eb-6d05b1d4d9a1;
- Wed, 20 Dec 2023 08:23:47 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3365d38dce2so4240491f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 Dec 2023 23:23:45 -0800 (PST)
+ id 1rFreN-0000aC-KS
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 08:09:55 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2760900f-9f0f-11ee-9b0f-b553b5be7939;
+ Wed, 20 Dec 2023 09:09:53 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3367601a301so1189006f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 00:09:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g17-20020a5d5551000000b003333521a1cesm6660172wrw.57.2023.12.19.23.23.44
+ g18-20020a05600c311200b0040d2524270asm6212348wmo.8.2023.12.20.00.09.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Dec 2023 23:23:44 -0800 (PST)
+ Wed, 20 Dec 2023 00:09:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5943959-9f08-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 2760900f-9f0f-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703057025; x=1703661825; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703059792; x=1703664592; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=u5XVZet7T2QTrOPi3oToIQti5iFLZ2zJAIFsd1nyI8A=;
-        b=DIvMwxWjSYvJqmCwIq6MKnrNIDPftkkfE3k21EeazwibZqCG8TI1uWyYZXlnZTlEFZ
-         x6dDmOKpfG0tlTdHo8X2879nekspx9aHQwMVtmnH2WwuZP5S198wP8drzHjIqpQsAzNp
-         U/jKQIexVTqtCWMKhCRynSdsujn6SPU55occHD4lb4p/c7d8WYykgKjngtGU4mn4wFJc
-         MQ1OnuvwhzXGe3kV1OdaCHlQRw1MTZGHtfImUWyxXp1Ih80U6We4FhCZxScZj7hVXaLf
-         9BdLfbjZienm0sVU5iJAaSmV0MMii3S5P2p3mDs2ed6CAiiQNWsu3yP4/QgOKRj7aDWO
-         Nupw==
+        bh=h7167CD9+DlpsTqr3/feLcbfa2I53LXhs+HmHgFcvLA=;
+        b=XTfqkqoaG+ZT+QmUfq6eK4CxY1Ah6/02l27VKIdfy6/u2JnCA44ASber1+0ydVwuPq
+         r0mmWZYPccnrA/dbU8YPWg35sOccWhw0jMXWw7nyQAvV/GOSebQLecuCX7OVNvdYTa8I
+         Hg+0fo5nZXvNchDdGLtI/sXUsNTKhezLJ75laomy58Qoiu4iCn/Ba95/zyIMM3uXnzN9
+         wscQRAu2GM7S1blHIybJxF6ibDHzDG1KCqsuVT9szJ99lObMW3v+s72Aihh328E5Jqwg
+         HyWnvLtUM5HPCS3YYDQu3dncccDxw4vv1//QKPG7nvGmrg82hWb/tm47q5SybGbNKU87
+         g5iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703057025; x=1703661825;
+        d=1e100.net; s=20230601; t=1703059792; x=1703664592;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=u5XVZet7T2QTrOPi3oToIQti5iFLZ2zJAIFsd1nyI8A=;
-        b=rbBZsgWSrFkmRpKSgQ3Jjhg7rkNjoZdjHq1MmrbvRMj6L66GGYrK7sZyICpaBSVeMP
-         Y2bg9Q4nrUpfoWY4Rmvt5j+E4KUm3qmAqERmO6t+3d7h8++Ab11cXbCYl+sVqQrjMfrx
-         dUWvNxqlP/qpNsCQQNeLWhUpfJvgP42/VXhQJJ5UtcZYNxtkm+YTlF52oGuO9jnMJI23
-         GvBJ65BStEU+RNl2282R7Hj8Hg1J5Sf4IhTkHK0TgT634Vc4oG4KzQLrHzYUhSNlKx0Y
-         Pe718ZMIvQOMEut2/iE/SBQ1if3RmcxjxXX9NSDd0A8WWHCNxa+yG9RJBp4psOR81nHP
-         oa2w==
-X-Gm-Message-State: AOJu0YyFPy/WpGInV46yvtorUbRKMnC09Mb47XBHQmo6sp2w7H5HzlKx
-	YZ0qOK1oib0614+UJq/twUrP7lxewtwTmH3Ud13h
-X-Google-Smtp-Source: AGHT+IGVvF/US2wfnHrPrWhk/wfybsms9up+K65bDEhZGWFwivkLBWqdoQePOl5kTTYCbdwUB/O60Q==
-X-Received: by 2002:a5d:6a01:0:b0:333:46fe:d933 with SMTP id m1-20020a5d6a01000000b0033346fed933mr6451302wru.201.1703057024736;
-        Tue, 19 Dec 2023 23:23:44 -0800 (PST)
-Message-ID: <29518ae7-2511-4db9-91ec-c3490839d6c3@suse.com>
-Date: Wed, 20 Dec 2023 08:23:43 +0100
+        bh=h7167CD9+DlpsTqr3/feLcbfa2I53LXhs+HmHgFcvLA=;
+        b=UcS/vcOTg2NyBUrw2zwv3vPD7m0urmbLI86uWzBHJvEiG8aqYWCokq1DeYOpPalYFs
+         /fSfVtezD8IeyT7Lc8fiPg1z+wT/LjacnPFBKs/XyBTSAo5XAiDjfvEhc7XUipMw2jXy
+         pRChRHW8TQA0wJNYXY/1vFoQWQ7UZ/eyyQ40b+UmP/my84d8Ll+BZpgL9uXqyB+5+z6S
+         1W+rFEdmn5EyE89EKpdTGkRK/ZagLZ9GrH6Xcyv5aLazUDYoGcRQ6U0g5A05SgD8WyO0
+         mD8cvZAXOihRxP8/28QMfLcH1gs2/buMvaj5fZuM2t2j3RbJrXrYejwmHcOm9Pf1TsBB
+         l8sA==
+X-Gm-Message-State: AOJu0Yy3g3vbCMbVhX2wTkUAGFV5ect8CTDX3a1mngE8Gd8Ft2PUtP+R
+	RXbTsNIlsm+ophH/XQQElN1J
+X-Google-Smtp-Source: AGHT+IEKOx65rDuDmGPN078pq/z+vtriuEGrj9STsNrVgsz9iElfuYnhHh1p3C4UlniU7URgO7vyOQ==
+X-Received: by 2002:a05:600c:520d:b0:40d:3376:d87c with SMTP id fb13-20020a05600c520d00b0040d3376d87cmr257682wmb.119.1703059792412;
+        Wed, 20 Dec 2023 00:09:52 -0800 (PST)
+Message-ID: <69c5afde-3a24-4792-b4e5-3ce17cb1602d@suse.com>
+Date: Wed, 20 Dec 2023 09:09:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] xen/asm-generic: Introduce generic setup.h
+Subject: Re: [PATCH v2 3/7] xen/common: Move Arm's bootfdt to common
 Content-Language: en-US
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
+To: Julien Grall <julien@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>
 Cc: Timothy Pearson <tpearson@raptorengineering.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1702607884.git.sanastasio@raptorengineering.com>
- <1e4f48d753871bf61de3af97a3009e069d25d01e.1702607884.git.sanastasio@raptorengineering.com>
+ <b26a07209b54cd036e42a8b00f036201821eb775.1702607884.git.sanastasio@raptorengineering.com>
+ <3546ec55-3e0c-4fdc-9697-0105d20bacfd@suse.com>
+ <5fc9ad7a-1281-46da-abff-0aa2d2beca14@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,17 +113,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1e4f48d753871bf61de3af97a3009e069d25d01e.1702607884.git.sanastasio@raptorengineering.com>
+In-Reply-To: <5fc9ad7a-1281-46da-abff-0aa2d2beca14@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.12.2023 03:43, Shawn Anastasio wrote:
-> Introduce setup.h to asm-generic based off of ARM's to define all
-> stubs necessary to compile bootfdt.c
+On 19.12.2023 19:29, Julien Grall wrote:
+> On 19/12/2023 17:03, Jan Beulich wrote:
+>> On 15.12.2023 03:43, Shawn Anastasio wrote:
+>>> --- a/xen/arch/arm/bootfdt.c
+>>> +++ b/xen/common/device-tree/bootfdt.c
+>>> @@ -431,12 +431,15 @@ static int __init early_scan_node(const void *fdt,
+>>>   {
+>>>       int rc = 0;
+>>>   
+>>> -    /*
+>>> -     * If Xen has been booted via UEFI, the memory banks are
+>>> -     * populated. So we should skip the parsing.
+>>> -     */
+>>> -    if ( !efi_enabled(EFI_BOOT) &&
+>>> -         device_tree_node_matches(fdt, node, "memory") )
+>>> +    if ( device_tree_node_matches(fdt, node, "memory") )
+>>> +#if defined(CONFIG_ARM_EFI)
+>>> +        /*
+>>> +         * If Xen has been booted via UEFI, the memory banks are
+>>> +         * populated. So we should skip the parsing.
+>>> +         */
+>>> +        if ( efi_enabled(EFI_BOOT) )
+>>> +            return rc;
+>>> +#endif
+>>
+>> I'm not a DT maintainer, but I don't like this kind of #ifdef, the more
+>> that maybe PPC and quite likely RISC-V are likely to also want to support
+>> EFI boot. But of course there may be something inherently Arm-specific
+>> here that I'm unaware of.
+> 
+> Right now, I can't think how this is Arm specific. If you are using 
+> UEFI, then you are expected to use the UEFI memory map rather than the 
+> content of the device-tree.
+> 
+> However, we don't have a CONFIG_EFI option. It would be nice to 
+> introduce one but I am not sure I would introduce it just for this #ifdef.
 
-And - I'm sorry to ask - how's that "generic"? I'm also not convinced at
-all that a generic header can validly use BUG() in the way you propose.
-Some of these go far beyond what presently we have in e.g. altp2m_vcpu_idx().
+Right, hence why I also wasn't suggesting to go that route right away.
+efi/common-stub.c already has a stub for efi_enabled(). Using that file
+may be too involved to arrange for in PPC, but supplying such a stub
+elsewhere for the time being looks like it wouldn't too much effort
+(and would eliminate the need for any #ifdef here afaict). Shawn?
 
 Jan
 
