@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DB5D819581
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 01:34:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657288.1026071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70C818195CE
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 01:43:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657295.1026079 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFkXU-0005zK-GL; Wed, 20 Dec 2023 00:34:20 +0000
+	id 1rFkfa-0008LU-EU; Wed, 20 Dec 2023 00:42:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657288.1026071; Wed, 20 Dec 2023 00:34:20 +0000
+Received: by outflank-mailman (output) from mailman id 657295.1026079; Wed, 20 Dec 2023 00:42:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFkXU-0005w0-D7; Wed, 20 Dec 2023 00:34:20 +0000
-Received: by outflank-mailman (input) for mailman id 657288;
- Wed, 20 Dec 2023 00:34:18 +0000
+	id 1rFkfa-0008J1-Bs; Wed, 20 Dec 2023 00:42:42 +0000
+Received: by outflank-mailman (input) for mailman id 657295;
+ Wed, 20 Dec 2023 00:42:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wrkk=H7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rFkXS-0005vu-7r
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 00:34:18 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ id 1rFkfY-0008Iv-P3
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 00:42:40 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 81344075-9ecf-11ee-9b0f-b553b5be7939;
- Wed, 20 Dec 2023 01:34:15 +0100 (CET)
+ id acc593fc-9ed0-11ee-9b0f-b553b5be7939;
+ Wed, 20 Dec 2023 01:42:38 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by ams.source.kernel.org (Postfix) with ESMTP id 3C6FDB81B1A;
- Wed, 20 Dec 2023 00:34:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57DCDC433C7;
- Wed, 20 Dec 2023 00:34:13 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTP id E1899B81A38;
+ Wed, 20 Dec 2023 00:42:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC840C433C8;
+ Wed, 20 Dec 2023 00:42:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,95 +42,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81344075-9ecf-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: acc593fc-9ed0-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703032454;
-	bh=4I4nhIDNR01PUo48rAP+hn6eMcKwhOS+OonrP6FV/Ns=;
+	s=k20201202; t=1703032956;
+	bh=3khB5p/C8TaTy0SXYCHaF4/KzV+W+IFObzykCL1ptyM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=YP6+h4u75JO8YbLfxdiqLp9kupVIh/siT4X2TtUE+mllH+gRKIpsazsZt9qPSYRdJ
-	 zNJjBlkE9pyauKYoeK2kSQEiwlhfnVqTyyM3Bt2HzzPYGmnoqRnIHCGmd1jpa6EN3a
-	 doeizC3gtsXdI8F9PSAyKfCpOlpcMewy86KrKo2gcOJksh2bgc4CxhmmBGXPeL8IQz
-	 lzBLazq5LRU4f5LkJnH3w0TTRgOVKYyM/J8lcq3vLBTRbb/kpoMjk73FO0nNAcClfc
-	 FZThU3F/rjHwFsQq0rjI3JS2dZSa/K5St1EaE59Fiax7VbiDaCQM/Jrq1JyZFfErjK
-	 pHSPe+xe1ODcA==
-Date: Tue, 19 Dec 2023 16:34:11 -0800 (PST)
+	b=WQLgHRnAPo+F4/gjMuLa8Dxkoe1V3uVqLjDuElLMnNQacrWUtvg2PFmycxHcfa8Nz
+	 XQp3tDZNvsA+jaqRR61wZPfkgPUyvYzRZmn/AIxPOiR/kTsoW6+HpkCsAx2bRLg5q8
+	 K51CF9jKsK7lv5NlXn+rTEUwi4zF+fuZGrGOLEjz8Q+qp/QdVMmu488r+XkNxqZMl4
+	 6t0l30QaMlSQfhfDXYFuZFfjoYllJKWogVjoFlX6Fdt5NsMrTdP1w75vv4MTKpwv/y
+	 E+0EMkvXlJVm6nRc6m1jUtKAd6Es/VUyxxbzQYWzCRk+Os7dCae2AYJliErW0FAQ7o
+	 bk1R5vOUnzRkA==
+Date: Tue, 19 Dec 2023 16:42:33 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com, 
-    jbeulich@suse.com, george.dunlap@citrix.com, bertrand.marquis@arm.com, 
-    roger.pau@citrix.com, roberto.bagnara@bugseng.com, 
-    federico.serafini@bugseng.com
-Subject: Re: [PATCH v2] docs/misra/rules.rst: add Rule 17.1
-In-Reply-To: <ce925557-a030-44a2-b991-661d6f64d05e@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2312191633410.3175268@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2312081738100.1703076@ubuntu-linux-20-04-desktop> <d7b880b2-10ec-4c3d-bf12-1c29995857d6@xen.org> <alpine.DEB.2.22.394.2312151251450.3175268@ubuntu-linux-20-04-desktop> <ce925557-a030-44a2-b991-661d6f64d05e@xen.org>
+cc: Mykyta Poturai <Mykyta_Poturai@epam.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+    Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [RFC PATCH] xen/dm: arm: Introudce arm_inject_msi DM op
+In-Reply-To: <13b218b5-2d37-48de-9baa-cf2b99211bde@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2312191641140.3175268@ubuntu-linux-20-04-desktop>
+References: <6a631756a126e73390f95b9e86c69e3286c92f59.1702991909.git.mykyta_poturai@epam.com> <cacbff18-f37d-42dc-ab8c-79409aa1d237@epam.com> <13b218b5-2d37-48de-9baa-cf2b99211bde@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Tue, 19 Dec 2023, Julien Grall wrote:
-> Hi Stefano,
+> Hi,
 > 
-> On 15/12/2023 21:02, Stefano Stabellini wrote:
-> > On Fri, 15 Dec 2023, Julien Grall wrote:
-> > > Hi Stefano,
-> > > 
-> > > On 09/12/2023 01:39, Stefano Stabellini wrote:
-> > > > 
-> > > > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > > > ---
-> > > > Changes in v2:
-> > > > - separated 17.1 in its own patch
-> > > > - add a comment
-> > > > 
-> > > > diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-> > > > index 8a659d8d47..f29b4c3d9a 100644
-> > > > --- a/docs/misra/rules.rst
-> > > > +++ b/docs/misra/rules.rst
-> > > > @@ -189,6 +189,12 @@ existing codebase are work-in-progress.
-> > > >         - A switch-expression shall not have essentially Boolean type
-> > > >         -
-> > > >    +   * - `Rule 17.1
-> > > > <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_17_01.c>`_
-> > > > +     - Required
-> > > > +     - The features of <stdarg.h> shall not be used
-> > > > +     - It is understood that in some limited circumstances <stdarg.h>
-> > > > is
-> > > > +       appropriate to use, such as the implementation of printk.
-> > > 
-> > > The last bullet point is unclear to me. You don't define what
-> > > "appropriate"
-> > > means here. So who is going to decide? Also, how is this going to be
-> > > deviated?
-> > > 
-> > > Possibly the solution here is to remove the last bullet point and have a
-> > > paragraph in deviations.rst explaining why we are using va_args.
+> On 19/12/2023 14:18, Mykyta Poturai wrote:
+> > Following up with relevant QEMU patch link.
 > > 
-> > Actually, I agree with you. I added the last bullet to address Jan's
-> > concern:
-> > https://marc.info/?l=xen-devel&m=170191695511513
-> > https://marc.info/?l=xen-devel&m=170193528120968
-> > 
-> > This was my original reply:
-> > 
-> > "We agreed that in certain situations stdarg.h is OK to use and in those
-> > cases we would add a deviation. Would you like me to add something to
-> > that effect here? I could do that but it would sound a bit vague.  Also
-> > if we want to specify a project-wide deviation it would be better
-> > documented in docs/misra/deviations.rst. I would leave Rule 17.1 without
-> > a note."
-> > 
-> > My preference is still to remove the last bullet (because too generic)
-> > and add any specific information to deviations.rst as usual.
-> > 
-> > Julien, would you be OK with this patch if I remove the last bullet and
-> > leave it blank?
+> > https://patchwork.kernel.org/project/qemu-devel/patch/c7a180a5874f036c246fc39f921eefafecbc8c76.1702994649.git.mykyta_poturai@epam.com/
 > 
-> I would be fine with that:
+> I don't seem to have the patch in my inbox. I guess you didn't CC xen-devel?
 > 
-> Acked-by: Julien Grall <jgrall@amazon.com>
+> Anyway, I will reply here. I think this is a mistake for QEMU to assume that
+> Xen will expose a GICv3 ITS to the guest (we may decide to implement another
+> MSI controller).
+> 
+> But QEMU should really not need to implement a full ITS. What it needs is a
+> way to forward the MSI to Xen. That's it.
 
-I plan to commit that one of the next few days unless someone speaks up
+I fully agree with Julien
+
+
+> Stefano, do you have any suggestion how to do this in QEMU?
+
+Yes, we just need something like hw/i386/xen/xen_apic.c but for ARM
 
