@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 017DA81A80A
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 22:24:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658301.1027390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CE7081A819
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 22:35:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658306.1027400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rG42V-0000j9-BB; Wed, 20 Dec 2023 21:23:39 +0000
+	id 1rG4Dr-0002dW-Bq; Wed, 20 Dec 2023 21:35:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658301.1027390; Wed, 20 Dec 2023 21:23:39 +0000
+Received: by outflank-mailman (output) from mailman id 658306.1027400; Wed, 20 Dec 2023 21:35:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rG42V-0000gb-8U; Wed, 20 Dec 2023 21:23:39 +0000
-Received: by outflank-mailman (input) for mailman id 658301;
- Wed, 20 Dec 2023 21:23:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rG4Dr-0002bc-9G; Wed, 20 Dec 2023 21:35:23 +0000
+Received: by outflank-mailman (input) for mailman id 658306;
+ Wed, 20 Dec 2023 21:35:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+WYL=H7=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rG42T-0000eu-3M
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 21:23:37 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 084924df-9f7e-11ee-9b0f-b553b5be7939;
- Wed, 20 Dec 2023 22:23:35 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40c41b43e1eso1710795e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 13:23:34 -0800 (PST)
+ id 1rG4Dq-0002bW-9e
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 21:35:22 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ad259aae-9f7f-11ee-98eb-6d05b1d4d9a1;
+ Wed, 20 Dec 2023 22:35:21 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-40c2308faedso1869045e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 13:35:21 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- he3-20020a05600c540300b00405d9a950a2sm8395833wmb.28.2023.12.20.13.23.33
+ j30-20020a05600c1c1e00b004076f522058sm8859538wms.0.2023.12.20.13.35.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Dec 2023 13:23:34 -0800 (PST)
+ Wed, 20 Dec 2023 13:35:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 084924df-9f7e-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ad259aae-9f7f-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1703107414; x=1703712214; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1703108120; x=1703712920; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1b7ixOeuORFehW3FsrzPRzfte6omFFH7dm59nw7kGo0=;
-        b=YGNNZX5JHZk28YbU97uLDblv6F6gyeYMGK6k+oNKuEDO7xPDX3Y7ZcrxTCMlp23E0A
-         h6u0JD833lfYyU/3kRP+DBAgR+03tm0ToDQvIYgQda1nl1eAkSmhrBEsgo2BvYTPx31U
-         qGdk3Gig6LvpLXxw0trm9YNzuinaDpmZpteJc=
+        bh=U4N05KO5w+N/LmrlCmrwMxgvslOvFLjoKxfuGHlYkTg=;
+        b=Xg+5Z1cp19HfLpkbocatLj1/9JPbdMnBF4bwl1X92O8KZ6N7YbAYT/krD92yF93qTy
+         vraQSh054aZ+us2/tX2nIjS3dm36mdhtuEceJZlghb9Yl1sDH55AJiaxkJmpjDyJ4f3n
+         rXJm7RBVpIFqzh0xkba/kRjqRnIhI1dcvySXw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703107414; x=1703712214;
+        d=1e100.net; s=20230601; t=1703108120; x=1703712920;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1b7ixOeuORFehW3FsrzPRzfte6omFFH7dm59nw7kGo0=;
-        b=awXYCfC9PvJaR0mJFfWzKBVxYjG9semMjxnuMYfGg9uZkOjhL39Wuj7tvsWymSov81
-         /DQTGZstTBfh0XIRR0zvX/9tHrN2qgoBmNSi3XvtZY5KCfoFYf52u3OOX7K+5khL+mEk
-         RK/WrmOT80LJclUdjTrHb7q3w0QvFphyGjhNSpPE4mjDNyKE8/UHqIgq1nCyLLgDXnzR
-         R3dsRVMVxdXDaOPGv+wZioaDR+G417oHQGtjhnUJOhkOzJmUv6qETQuLwBrcI9pgz2xx
-         gdmu/P454qRFB+RCeyeeYBDd6HoG9IefAEa/ugjxTs1RyNa0ySywnPdTMujxWZRw4B8f
-         ImCQ==
-X-Gm-Message-State: AOJu0YyCp7hmQV0p9aRWhATCWga8S8hYyQ/VGAq6a/Ckd5+9kX50YSPj
-	D7BxJfoxXY3Kx+QSetfzzyhVRw==
-X-Google-Smtp-Source: AGHT+IEiNOWqiWhHnXfEnRZ3zf9LQyz8h9f3sQTGYbvZzegJ+2hfGzKNjC6u5QRsPu86DIOxHeAExg==
-X-Received: by 2002:a05:600c:34cb:b0:40c:3244:fec4 with SMTP id d11-20020a05600c34cb00b0040c3244fec4mr154024wmq.218.1703107414358;
-        Wed, 20 Dec 2023 13:23:34 -0800 (PST)
-Message-ID: <e5a812ab-faaf-47fd-bada-9b19e0c94bcc@citrix.com>
-Date: Wed, 20 Dec 2023 21:23:33 +0000
+        bh=U4N05KO5w+N/LmrlCmrwMxgvslOvFLjoKxfuGHlYkTg=;
+        b=KoHBWscNx6kEEQiGlknTOUJBCyRtTctNm88yee88etJX20dAupbxpqrUyfFF2SG2i9
+         XShBPCjNqh5bRviZy1ScHmlQIIMpbiefrkKL09eMNRFYXHpGgaDpjthjT/NXBn2Bu4XL
+         FN6uaTphZ0zd2VtUqHgLrDsSVpi2eEwZBmL+j9DbVBRHTMkd4wJOsrdiIn8ulL8w7XMQ
+         kJ8xj7roe8jEuirCv0363//0lLhKQHlxH/YAuhpsJw06/5+bUmqsiXHrR4yN1j4Fz0Tg
+         qjLHkq3q4XJNyDqkBYDuD9YPQUd9zi0SVfTFJr7ciIVQYASBpn+dN/p1xABotc5aDH/B
+         uOxA==
+X-Gm-Message-State: AOJu0Yz1uKOWrwizRxxJvOYq4CAg4isnGqElRYgr+2ibtQkLq5hE9ekf
+	trpKkvk8ZMTltZTE7fVfZTJ/r1NMPh69JO6jYSY=
+X-Google-Smtp-Source: AGHT+IFXiI0LGIT5fjFpoVnqQYcqHaqTA/94iabXmEWwJnetkf6qvQbQ4/mbcL/bhJ2EUQgYGX2r0A==
+X-Received: by 2002:a1c:6a16:0:b0:40d:271e:67bc with SMTP id f22-20020a1c6a16000000b0040d271e67bcmr182500wmc.112.1703108120475;
+        Wed, 20 Dec 2023 13:35:20 -0800 (PST)
+Message-ID: <d847830f-7071-4141-bab7-8b8c55ec3ae8@citrix.com>
+Date: Wed, 20 Dec 2023 21:35:19 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 5/7] xen/arm: v{cp,sys}reg: address violations of
- MISRA C:2012 Rule 16.3
+Subject: Re: [XEN PATCH 0/7] xen/arm: address violations of MISRA C:2012 Rule
+ 16.3
 Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Federico Serafini <federico.serafini@bugseng.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+To: Federico Serafini <federico.serafini@bugseng.com>,
  xen-devel@lists.xenproject.org
+Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>
 References: <cover.1703066935.git.federico.serafini@bugseng.com>
- <541bc4fd47d26b12ea131590bf0c49f7c92d9368.1703066935.git.federico.serafini@bugseng.com>
- <0200354e-08b9-4136-b6e9-3220a51256af@xen.org>
- <9e9e3086-6311-4a76-8624-a06d52e7ec0b@suse.com>
- <c3a128d9-dea8-4e05-b292-1a6a04fb0daf@bugseng.com>
- <alpine.DEB.2.22.394.2312201008070.685950@ubuntu-linux-20-04-desktop>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -136,65 +127,66 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <alpine.DEB.2.22.394.2312201008070.685950@ubuntu-linux-20-04-desktop>
+In-Reply-To: <cover.1703066935.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 20/12/2023 6:24 pm, Stefano Stabellini wrote:
-> On Wed, 20 Dec 2023, Federico Serafini wrote:
->> On 20/12/23 12:55, Jan Beulich wrote:
->>> On 20.12.2023 12:48, Julien Grall wrote:
->>>> On 20/12/2023 11:03, Federico Serafini wrote:
->>>>> --- a/xen/arch/arm/arm64/vsysreg.c
->>>>> +++ b/xen/arch/arm/arm64/vsysreg.c
->>>>> @@ -210,8 +210,8 @@ void do_sysreg(struct cpu_user_regs *regs,
->>>>>            /* RO at EL0. RAZ/WI at EL1 */
->>>>>            if ( regs_mode_is_user(regs) )
->>>>>                return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr,
->>>>> 0);
->>>>> -        else
->>>>> -            return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr,
->>>>> 1);
->>>>> +
->>>>> +        return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
->>>> I don't 100% like this change (mostly because I find if/else clearer
->>>> here).
->>> While (it doesn't matter here) my view on this is different, I'm still
->>> puzzled why the tool would complain / why a change here is necessary.
->>> It is not _one_ return statement, but there's still (and obviously) no
->>> way of falling through.
->> The tool is configurable:
->> if you prefer deviate these cases instead of refactoring the code
->> I can update the configuration.
->  
-> If you say "deviation", it implies that there is a violation. I think
-> Jan's point was that both code versions shouldn't be any different.
+On 20/12/2023 11:03 am, Federico Serafini wrote:
+> This patch series addresses violations of MISRA C:2012 Rule 16.3 on the Arm
+> code. No fucntional changes are introduced.
 >
-> # option-1
-> if (a)
->   return f1();
-> else
->   return f2();
+> Federico Serafini (7):
+>   xen/arm: gic-v3: address violations of MISRA C:2012 Rule 16.3
+>   xen/arm: traps: address violations of MISRA C:2012 Rule 16.3
+>   xen/arm: guest_walk: address violations of MISRA C:2012 Rule 16.3
+>   xen/arm: mem_access: address violations of MISRA C:2012 Rule 16.3
+>   xen/arm: v{cp,sys}reg: address violations of MISRA C:2012 Rule 16.3
+>   xen/arm: mmu: address a violations of MISRA C:2012 Rule 16.3
+>   xen/arm: smmu-v3: address violations of MISRA C:2012 Rule 16.3
 >
-> # option-2
-> if (a)
->   return f1();
-> return f2();
+>  xen/arch/arm/arm64/vsysreg.c          |  4 ++--
+>  xen/arch/arm/gic-v3.c                 | 30 +++++++++++++++++++++++++++
+>  xen/arch/arm/guest_walk.c             |  4 ++++
+>  xen/arch/arm/mem_access.c             | 12 +++++------
+>  xen/arch/arm/mmu/p2m.c                |  1 +
+>  xen/arch/arm/traps.c                  | 18 ++++++++++++----
+>  xen/arch/arm/vcpreg.c                 |  4 ++--
+>  xen/drivers/passthrough/arm/smmu-v3.c |  2 ++
+>  8 files changed, 61 insertions(+), 14 deletions(-)
 >
-> Both options are equally guaranteed to always return. It looks like a
-> peculiar limitation to only recognize option-2 as something that returns
-> 100% of the times. Also option-1 returns 100% of the times. What am I
-> missing?
 
-For completeness, it's worth saying that there is an option-3:
+Just a couple of notes on style.  This isn't a request to change
+anything in this series, particularly as most is already committed, but
+bear it in mind for what I expect will be similar patches in other areas.
 
-    return a ? f1() : f2();
+We explicitly permit tabulation when it aids readibility, so patch 2
+could have been written:
 
-which is very clearly only a single return, but I personally don't like
-this as I often find it to be less clear than either other option.
+        switch ( hypercall_args[*nr] ) {
+        case 5: HYPERCALL_ARG5(regs) = 0xDEADBEEFU; fallthrough;
+        case 4: HYPERCALL_ARG4(regs) = 0xDEADBEEFU; fallthrough;
+        case 3: HYPERCALL_ARG3(regs) = 0xDEADBEEFU; fallthrough;
+        case 2: HYPERCALL_ARG2(regs) = 0xDEADBEEFU; fallthrough;
+        case 1: /* Don't clobber x0/r0 -- it's the return value */
+        case 0: /* -ENOSYS case */
+            break;
+        default: BUG();
+        }
 
-All options have a guaranteed return, but there cases including this one
-where option-1 is clearest way to write the logic.
+(give or take the brace placement other style issue)  We also have cases
+where a break before a new case statement is preferred, i.e.:
+
+        ...
+        break;
+
+    case ...:
+
+This is to prevent larger switch statements from being a straight wall
+of text.
+
+If in doubt, match the style around it.  Please don't de-tabulate
+examples which are already tabulated.  (i.e. don't de-tabulate the x86
+versions of patch 2.)
 
 ~Andrew
 
