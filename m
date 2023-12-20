@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BEAA819A8C
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 09:33:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657429.1026242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B3D1819ABC
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 09:42:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657436.1026252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFs0K-00068y-Cr; Wed, 20 Dec 2023 08:32:36 +0000
+	id 1rFs9S-0008HX-BE; Wed, 20 Dec 2023 08:42:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657429.1026242; Wed, 20 Dec 2023 08:32:36 +0000
+Received: by outflank-mailman (output) from mailman id 657436.1026252; Wed, 20 Dec 2023 08:42:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFs0K-00066F-9C; Wed, 20 Dec 2023 08:32:36 +0000
-Received: by outflank-mailman (input) for mailman id 657429;
- Wed, 20 Dec 2023 08:32:34 +0000
+	id 1rFs9S-0008FI-8Y; Wed, 20 Dec 2023 08:42:02 +0000
+Received: by outflank-mailman (input) for mailman id 657436;
+ Wed, 20 Dec 2023 08:42:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vWXp=H7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rFs0I-000667-Nk
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 08:32:34 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rFs9Q-0008FB-Dw
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 08:42:00 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 52361d1f-9f12-11ee-98eb-6d05b1d4d9a1;
- Wed, 20 Dec 2023 09:32:33 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40c69403b3eso54274435e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 00:32:33 -0800 (PST)
-Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
- g19-20020a05600c4ed300b0040b30be6244sm6504565wmq.24.2023.12.20.00.32.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Dec 2023 00:32:32 -0800 (PST)
+ id a3553ed8-9f13-11ee-98eb-6d05b1d4d9a1;
+ Wed, 20 Dec 2023 09:41:59 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-33621d443a7so5573912f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 00:41:59 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ n6-20020a05600c500600b0040c1d2c6331sm6436870wmr.32.2023.12.20.00.41.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Dec 2023 00:41:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,188 +45,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52361d1f-9f12-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: a3553ed8-9f13-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1703061153; x=1703665953; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KKmh1INZfKUACcuBbyrdc6mJ4hc4DA0TnGmi+6UpUZY=;
-        b=Fzvq2Jeptcgef7KEXXjbevJFUNzpn3E1KycNe5F/jbmPRwp5rZwxtc+T9+vmxFre88
-         imN4ZKcC6yhFzRXwpSNCdmG+ncynaLd3TYoLMTTl1/GKsA7Csc3i5yy+jG1osT5GMBQS
-         vjLhFIZPR3cYhoK54ihsUdsTBF/QNxyISMjvc=
+        d=suse.com; s=google; t=1703061718; x=1703666518; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dZKeXvxpoq9mdMW4swaLCDNC7gJ1Lo/uSGJXoUku94A=;
+        b=Li7QtFCnjT/q1Z8JH9UEuRrjd0mUBJq38b6q3GYRbz3fzxtBD3IWYT/MC+Apz0acJ4
+         SD/XR3NgAnjaUVSmWUAs54Ls0Yg1vP6PYLNnqGYNIC9YfxrYBF58XFsJrzWunUG7Invh
+         HKI3MtoPJLLyq8zJycv1sKtoU0BLiQ5Ye2f3ahHpANs3crl4+/Om25cTLPbDgYx1Iu/V
+         87H1F1zBbSJypJ7rLpy2IqtADscDuU67FqAIVTh0GO2DtQ1mgiDJIuDGAWnIrAwZJwEq
+         9/UaQNZeocpcSGLKqL7AO33pyU6irsh5MrUyASw5mdoAJ3bo8lz94JKmkbNdRmgckPR1
+         nXvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703061153; x=1703665953;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1703061718; x=1703666518;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=KKmh1INZfKUACcuBbyrdc6mJ4hc4DA0TnGmi+6UpUZY=;
-        b=R4V30SVpgyymxXGAmTcnOCnCb+Fr5vefyBW/cU4xx39s4S1jiSuu296bN9NVt7QRCO
-         0qvYNCXTJja7heFYKJogDlJW0Ga1VI46lE47sRAcTqtF8DWqsR4as8D8fL3+p04juAyt
-         Cw/LNWv3e8we/cK5oS/JBYLrbcWW2coO9NOAy4dkH2jRVW43biiI1Ua4SWPd8oldR/7h
-         LLStVoJo0tLZtBYRM8dIdDzzw9Ws9P3s4P0vOBU9DurmFydNnoMCGkXvncnLD8aolACh
-         qaCIWC2HgtJgWngcpZKPCbWOm0CfaOeG+iLLbCi4GDLFma8+GiIsTs1ap+gfLPmECx6j
-         epeA==
-X-Gm-Message-State: AOJu0YwUeU85TMYfgDFwAZvtqGFqo6znsDNH5kAP2x703h6aFBPYMd6H
-	EKAqXCRjdODESj+XJ6l6BkLXmA==
-X-Google-Smtp-Source: AGHT+IE6fmPR58OqtyhWZ5hipLtSfYxJl+ZHlLUGkBC6MARRpsUbc9LbuyLXrKgaC+8njN2+ETpMKQ==
-X-Received: by 2002:a05:600c:45cc:b0:40c:48d6:64cb with SMTP id s12-20020a05600c45cc00b0040c48d664cbmr8311548wmo.134.1703061152830;
-        Wed, 20 Dec 2023 00:32:32 -0800 (PST)
-Date: Wed, 20 Dec 2023 09:32:31 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v4 1/4] x86/livepatch: align functions to ensure minimal
- distance between entry points
-Message-ID: <ZYKmn-lvKQpauL6Z@macbook>
-References: <20231215111842.8009-1-roger.pau@citrix.com>
- <20231215111842.8009-2-roger.pau@citrix.com>
- <bc08ed7e-766d-4f0e-a7ef-994d09d1dbe2@citrix.com>
+        bh=dZKeXvxpoq9mdMW4swaLCDNC7gJ1Lo/uSGJXoUku94A=;
+        b=tBEYdS6AoZH6a+xinvVlNqLERWQJOPrvYGMNAzFL6DlsnREx7qVksauyIr1xvW5WBV
+         JHT/NOMYp/I9L7k7LS35xZfYbyLMiV/eqLeTDrhAykSTxaUKU1wk21JTrmE5CS81DPpz
+         SOuQva8HXXpFfqyvXq+XjpucjJjJ9PgZD7TPRFhE2vpYsQlEvrM/DNFGHsK85URhZous
+         FAQVl7D7YZ1wweMzpChF8ldEPMhP15ayYsWODSHcC7UiYeN0X8Aqkk6MMkkvL3sMe97g
+         gkq76vyRhBlTf17ICyXSSt3UI0w95Qowacf8w7ptzyG0Bceog11jMBD9QXDDR3CHBMMj
+         U/BA==
+X-Gm-Message-State: AOJu0Yxv1RENFgG/zOKWPrB72ka1K58na9v6y7mvsxdtmD7g+uXxWh/b
+	B60wlyWyEIlmFbBpax+wbtpu
+X-Google-Smtp-Source: AGHT+IERGa0Em4CritFvPjoVaaDQVKABscY+BGG1GuYfTPRlAEIsRWaUIfqUyiN+RQcXZC5wa+Brcg==
+X-Received: by 2002:a05:600c:538a:b0:40d:3084:e6d6 with SMTP id hg10-20020a05600c538a00b0040d3084e6d6mr600034wmb.235.1703061718483;
+        Wed, 20 Dec 2023 00:41:58 -0800 (PST)
+Message-ID: <70b0b556-d103-46dd-a69c-004e9adf27bf@suse.com>
+Date: Wed, 20 Dec 2023 09:41:57 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH] xen: add acmacros.h to exclude-list.json
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: "consulting@bugseng.com" <consulting@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Luca Fancellu <Luca.Fancellu@arm.com>
+References: <664ddc412905546d44d3e311a743ba5217a6243b.1702976486.git.nicola.vetrini@bugseng.com>
+ <055b6cf3-4f29-4f1d-b650-26c6d9be8832@suse.com>
+ <2fd03776043811a8ceae9ae41de5f0fa@bugseng.com>
+ <2c64af71dcb3984f1753ef115868cb7b@bugseng.com>
+ <2F345562-4049-4A50-9793-D0002B239C43@arm.com>
+ <alpine.DEB.2.22.394.2312191616400.3175268@ubuntu-linux-20-04-desktop>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2312191616400.3175268@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <bc08ed7e-766d-4f0e-a7ef-994d09d1dbe2@citrix.com>
 
-On Tue, Dec 19, 2023 at 07:46:11PM +0000, Andrew Cooper wrote:
-> On 15/12/2023 11:18 am, Roger Pau Monne wrote:
-> > The minimal function size requirements for livepatch are either 5 bytes (for
+On 20.12.2023 01:17, Stefano Stabellini wrote:
+> On Tue, 19 Dec 2023, Luca Fancellu wrote:
+>>> On 19 Dec 2023, at 11:05, Nicola Vetrini <nicola.vetrini@bugseng.com> wrote:
+>>> On 2023-12-19 11:51, Nicola Vetrini wrote:
+>>>> On 2023-12-19 11:37, Jan Beulich wrote:
+>>>>> On 19.12.2023 10:02, Nicola Vetrini wrote:
+>>>>>> --- a/docs/misra/exclude-list.json
+>>>>>> +++ b/docs/misra/exclude-list.json
+>>>>>> @@ -209,6 +209,10 @@
+>>>>>>           "rel_path": "include/acpi/acglobal.h",
+>>>>>>           "comment": "Imported from Linux, ignore for now"
+>>>>>>         },
+>>>>>> +        {
+>>>>>> +          "rel_path": "include/acpi/acmacros.h",
+>>>>>> +          "comment": "Imported from Linux, ignore for now"
+>>>>>> +        },
+>>>>> Together with what's already there (in context), wouldn't it better be
+>>>>> the entire directory then which is excluded, or at least all
+>>>>> include/acpi/ac*.h collectively (and perhaps also
+>>>>> include/acpi/platform/ac*.h)?
+>>>>> Jan
+>>>> +Cc Luca Fancellu
+>>>> Sure. I wasn't certain which files are imported from ACPI CA and which aren't.
+>>>> I'm also not sure whether "include/acpi/ac*.h" would be properly recognized by other tooling that uses exclude-list.json (only cppcheck I think). I Cc-ed Luca Fancellu on this.
+>>>
+>>> It occurred to me that it's surely ok to use "include/acpi/ac*" and "include/acpi/platform/ac*".
+>>
+>> Yes I think it’s fine, it just come to my mind now that this could have the risk that if
+>> another file is added with ‘ac' prefix, even if it could be subject to MISRA compliance,
+>> it will be excluded.
+>>
+>> If that risk is negligible for the maintainer of that part, then it’s fine.
 > 
-> "for an x86 livepatch", seeing as we're touching multiple architectures
-> worth of files.
-> 
-> I know it's at the end of the sentence, but it wants to be earlier to be
-> clearer.
-> 
-> > jmp) or 9 bytes (for endbr + jmp) on x86, and always 4 bytes on Arm.  Ensure
-> > that distance between functions entry points is always at least of the minimal
-> > required size for livepatch instruction replacement to be successful.
-> >
-> > Add an additional align directive to the linker script, in order to ensure that
-> > the next section placed after the .text.* (per-function sections) is also
-> > aligned to the required boundary, so that the distance of the last function
-> > entry point with the next symbol is also of minimal size.
-> >
-> > Note that it's possible for the compiler to end up using a higher function
-> > alignment regardless of the passed value, so this change just make sure that
-> > the minimum required for livepatch to work is present.  Different compilers
-> > handle the option differently, as clang will ignore -falign-functions value
-> > if it's smaller than the one that would be set by the optimization level, while
-> > gcc seems to always honor the function alignment passed in -falign-functions.
-> > In order to cope with this behavior and avoid that setting -falign-functions
-> > results in an alignment inferior to what the optimization level would have
-> > selected force x86 release builds to use a function alignment of 16 bytes.
-> 
-> Yuck :(
-> 
-> The same will be true for all other architectures too?
+> I think it is OK either way, I'll let Jan pick his preference.
 
-I would expect that for gcc I guess.
+It hasn't become clear to me what the benefit would be of omitting the
+trailing .h.
 
-> What happens on ARM, which also picks up an explicit choice in livepatch
-> builds?
-
-Arm AFAICT seems to use a 4 byte function alignment with -O2 (both gcc
-and clang), so that matches what we need to enforce for livepatch.  If
-we ever need a higher alignment for livepatch reasons it would be a
-multiple of the minimum one set by the compiler, so that should be
-fine.
-
-> >
-> > The compiler option -falign-functions is not available on at least clang 3.8,
-> > so introduce a Kconfig check for it and make the livepatch option depend on the
-> > compiler supporting the option.
-> >
-> > The naming of the option(s) CONFIG_FUNCTION_ALIGNMENT is explicitly not
-> > mentioning CC in preparation for the option also being used by assembly code.
-> >
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > Changes since v3:
-> >  - Test for compiler option with -falign-functions.
-> >  - Make FUNCTION_ALIGNMENT depend on CC_HAS_FUNCTION_ALIGNMENT.
-> >  - Set 16byte function alignment for x86 release builds.
-> >
-> > Changes since v2:
-> >  - Add Arm side.
-> >  - Align end of section in the linker script to ensure enough padding for the
-> >    last function.
-> >  - Expand commit message and subject.
-> >  - Rework Kconfig options.
-> >  - Check that the compiler supports the option.
-> >
-> > Changes since v1:
-> >  - New in this version.
-> > ---
-> >  xen/Kconfig              | 19 +++++++++++++++++++
-> >  xen/Makefile             |  3 +++
-> >  xen/arch/arm/livepatch.c |  2 ++
-> >  xen/arch/arm/xen.lds.S   |  4 ++++
-> >  xen/arch/x86/Kconfig     |  1 +
-> >  xen/arch/x86/livepatch.c |  4 ++++
-> >  xen/arch/x86/xen.lds.S   |  4 ++++
-> >  xen/common/Kconfig       |  5 ++++-
-> >  8 files changed, 41 insertions(+), 1 deletion(-)
-> 
-> xen$ git ls-files | grep xen.lds.S
-> arch/arm/xen.lds.S
-> arch/ppc/xen.lds.S
-> arch/riscv/xen.lds.S
-> arch/x86/xen.lds.S
-> 
-> RISC-V and PPC have the same pattern that you're patching for x86 and ARM.
-
-I've avoided touching those because there's no livepatch support there
-(yet), and I didn't want to give the impression that the option is
-supported or tested for those architectures.  I have no idea what
-function alignments would be sensible for riscv or ppc.
-
-> > diff --git a/xen/Kconfig b/xen/Kconfig
-> > index 134e6e68ad84..c2cc3fe165eb 100644
-> > --- a/xen/Kconfig
-> > +++ b/xen/Kconfig
-> > @@ -37,6 +37,25 @@ config CC_HAS_VISIBILITY_ATTRIBUTE
-> >  config CC_SPLIT_SECTIONS
-> >  	bool
-> >  
-> > +# Set function alignment.
-> > +#
-> > +# Allow setting on a boolean basis, and then convert such selection to an
-> > +# integer for the build system and code to consume more easily.
-> 
-> # Clang >= 6.0
-> 
-> > +config CC_HAS_FUNCTION_ALIGNMENT
-> > +	def_bool $(cc-option,-falign-functions)
-> > +config FUNCTION_ALIGNMENT_4B
-> > +	bool
-> > +config FUNCTION_ALIGNMENT_8B
-> > +	bool
-> > +config FUNCTION_ALIGNMENT_16B
-> > +	bool
-> > +config FUNCTION_ALIGNMENT
-> > +	int
-> > +	depends on CC_HAS_FUNCTION_ALIGNMENT
-> > +	default 16 if FUNCTION_ALIGNMENT_16B
-> > +	default  8 if  FUNCTION_ALIGNMENT_8B
-> > +	default  4 if  FUNCTION_ALIGNMENT_4B
-> 
-> What value do we get here for RISCV/PPC?  Do we need another override
-> for them?
-
-Hm, I wasn't planning on adding support for PPC/RISCV here, if those
-arches want to use a specific function alignment they might need to
-adjust the options here, I think that's a reasonable compromise, as I
-don't see a need for this to be blocked on also agreeing values for
-ppc or riscv.
-
-Thanks, Roger.
+Jan
 
