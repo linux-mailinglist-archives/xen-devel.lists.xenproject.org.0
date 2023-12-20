@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B3D1819ABC
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 09:42:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657436.1026252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C20A819AE1
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 09:50:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657441.1026261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFs9S-0008HX-BE; Wed, 20 Dec 2023 08:42:02 +0000
+	id 1rFsGr-0000ef-1d; Wed, 20 Dec 2023 08:49:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657436.1026252; Wed, 20 Dec 2023 08:42:02 +0000
+Received: by outflank-mailman (output) from mailman id 657441.1026261; Wed, 20 Dec 2023 08:49:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFs9S-0008FI-8Y; Wed, 20 Dec 2023 08:42:02 +0000
-Received: by outflank-mailman (input) for mailman id 657436;
- Wed, 20 Dec 2023 08:42:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFsGq-0000ci-VI; Wed, 20 Dec 2023 08:49:40 +0000
+Received: by outflank-mailman (input) for mailman id 657441;
+ Wed, 20 Dec 2023 08:49:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFs9Q-0008FB-Dw
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 08:42:00 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3553ed8-9f13-11ee-98eb-6d05b1d4d9a1;
- Wed, 20 Dec 2023 09:41:59 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-33621d443a7so5573912f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 00:41:59 -0800 (PST)
+ id 1rFsGo-0000bG-U4
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 08:49:38 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b451a1e5-9f14-11ee-9b0f-b553b5be7939;
+ Wed, 20 Dec 2023 09:49:37 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40c256ffdbcso63495205e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 00:49:37 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n6-20020a05600c500600b0040c1d2c6331sm6436870wmr.32.2023.12.20.00.41.57
+ r19-20020a05600c459300b0040d128e9c62sm6491754wmo.18.2023.12.20.00.49.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Dec 2023 00:41:58 -0800 (PST)
+ Wed, 20 Dec 2023 00:49:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3553ed8-9f13-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: b451a1e5-9f14-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703061718; x=1703666518; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703062176; x=1703666976; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dZKeXvxpoq9mdMW4swaLCDNC7gJ1Lo/uSGJXoUku94A=;
-        b=Li7QtFCnjT/q1Z8JH9UEuRrjd0mUBJq38b6q3GYRbz3fzxtBD3IWYT/MC+Apz0acJ4
-         SD/XR3NgAnjaUVSmWUAs54Ls0Yg1vP6PYLNnqGYNIC9YfxrYBF58XFsJrzWunUG7Invh
-         HKI3MtoPJLLyq8zJycv1sKtoU0BLiQ5Ye2f3ahHpANs3crl4+/Om25cTLPbDgYx1Iu/V
-         87H1F1zBbSJypJ7rLpy2IqtADscDuU67FqAIVTh0GO2DtQ1mgiDJIuDGAWnIrAwZJwEq
-         9/UaQNZeocpcSGLKqL7AO33pyU6irsh5MrUyASw5mdoAJ3bo8lz94JKmkbNdRmgckPR1
-         nXvg==
+        bh=ZVuzNK/rMseYy3xrhpPQnSdzuGfzzh0rZL1bAVfK8oo=;
+        b=e5CklXed5q8d0KxE1LdrBTEWL1pa2o+68UdqCTiA6tXBdxCkX2ZiWZ7680xXwwLSTt
+         3ZwvsuPHMNkG0gOzmQlo6xRTxl1nPboLrgSK/k6dAbo30yIRg7OSCayY2z7uXi2PBSXP
+         G+X+l3CZV6KKv72/FODc3lQ9ipP13fj+T5qR+F7GIRvb/bwhlErrJfosJvh3VbajrvIY
+         +lbmz4wJS+J95pyGo1xkChy0vXjAJsSCcG9kWe390RW1xQj8s6m66N2iUi29SltZog5n
+         Vk2LqxHts1paj+z1Q4omSId9xTEBK3Ezo6fTQzFNT7i2sJ5QZ7rur2WGSLGWctd5WGys
+         jwXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703061718; x=1703666518;
+        d=1e100.net; s=20230601; t=1703062176; x=1703666976;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dZKeXvxpoq9mdMW4swaLCDNC7gJ1Lo/uSGJXoUku94A=;
-        b=tBEYdS6AoZH6a+xinvVlNqLERWQJOPrvYGMNAzFL6DlsnREx7qVksauyIr1xvW5WBV
-         JHT/NOMYp/I9L7k7LS35xZfYbyLMiV/eqLeTDrhAykSTxaUKU1wk21JTrmE5CS81DPpz
-         SOuQva8HXXpFfqyvXq+XjpucjJjJ9PgZD7TPRFhE2vpYsQlEvrM/DNFGHsK85URhZous
-         FAQVl7D7YZ1wweMzpChF8ldEPMhP15ayYsWODSHcC7UiYeN0X8Aqkk6MMkkvL3sMe97g
-         gkq76vyRhBlTf17ICyXSSt3UI0w95Qowacf8w7ptzyG0Bceog11jMBD9QXDDR3CHBMMj
-         U/BA==
-X-Gm-Message-State: AOJu0Yxv1RENFgG/zOKWPrB72ka1K58na9v6y7mvsxdtmD7g+uXxWh/b
-	B60wlyWyEIlmFbBpax+wbtpu
-X-Google-Smtp-Source: AGHT+IERGa0Em4CritFvPjoVaaDQVKABscY+BGG1GuYfTPRlAEIsRWaUIfqUyiN+RQcXZC5wa+Brcg==
-X-Received: by 2002:a05:600c:538a:b0:40d:3084:e6d6 with SMTP id hg10-20020a05600c538a00b0040d3084e6d6mr600034wmb.235.1703061718483;
-        Wed, 20 Dec 2023 00:41:58 -0800 (PST)
-Message-ID: <70b0b556-d103-46dd-a69c-004e9adf27bf@suse.com>
-Date: Wed, 20 Dec 2023 09:41:57 +0100
+        bh=ZVuzNK/rMseYy3xrhpPQnSdzuGfzzh0rZL1bAVfK8oo=;
+        b=BPJbjqbURCk79gd96bZpBCF/BBkiUXQhHyLSWMEuAqRDk5TnFCPi7WAlKUlcaWuRRE
+         rDsHcRg5eTSfTaTzbqOdQbhSl79CLMZt9LdUhZvsItmF78xA0zgwE9XZeAmUhk8UYqrf
+         NMK+5POoKDJmvuWEqC7RfTCsYMB40gCvEfPlN0JjcD1IQC0U1CaaqY1SqqixAKx9pgAa
+         /jQLX6Qbn9VsXA3ryI0FYmK1xSPUnpEWQtua/zhGlUmjpr4ZYIMdemol/a3DDNm2HU25
+         Cn+EjjOM8DPLROEU0tsqaBkphiKqN79D80Mk0mPINsYhjeiGToFcFxex3pUlKpvfBV2m
+         //Ig==
+X-Gm-Message-State: AOJu0Yycg2ORKHBefbV+957JFZ7Zu2USM3tVAfsa5fumzcrxnr4H8Gz5
+	nr/8jO9M8GejnHDYFeALP40R
+X-Google-Smtp-Source: AGHT+IHwq/F+6iftapzKOZW5Z6lhPW4LPdNd3Ef4QsDYHJcLWrSSTRI3YvzT+if1CBSjyzXYSlESdA==
+X-Received: by 2002:a05:600c:21c7:b0:40b:5e59:c56d with SMTP id x7-20020a05600c21c700b0040b5e59c56dmr9819457wmj.151.1703062176405;
+        Wed, 20 Dec 2023 00:49:36 -0800 (PST)
+Message-ID: <b2ed0853-1d16-4d94-825f-fc120cd11ce8@suse.com>
+Date: Wed, 20 Dec 2023 09:49:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] xen: add acmacros.h to exclude-list.json
+Subject: Re: [PATCH v11 01/17] pci: msi: pass pdev to pci_enable_msi()
+ function
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: "consulting@bugseng.com" <consulting@bugseng.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Luca Fancellu <Luca.Fancellu@arm.com>
-References: <664ddc412905546d44d3e311a743ba5217a6243b.1702976486.git.nicola.vetrini@bugseng.com>
- <055b6cf3-4f29-4f1d-b650-26c6d9be8832@suse.com>
- <2fd03776043811a8ceae9ae41de5f0fa@bugseng.com>
- <2c64af71dcb3984f1753ef115868cb7b@bugseng.com>
- <2F345562-4049-4A50-9793-D0002B239C43@arm.com>
- <alpine.DEB.2.22.394.2312191616400.3175268@ubuntu-linux-20-04-desktop>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>
+References: <20231202012556.2012281-1-volodymyr_babchuk@epam.com>
+ <20231202012556.2012281-2-volodymyr_babchuk@epam.com>
+ <alpine.DEB.2.22.394.2312191806520.3175268@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,47 +117,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312191616400.3175268@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2312191806520.3175268@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 20.12.2023 01:17, Stefano Stabellini wrote:
-> On Tue, 19 Dec 2023, Luca Fancellu wrote:
->>> On 19 Dec 2023, at 11:05, Nicola Vetrini <nicola.vetrini@bugseng.com> wrote:
->>> On 2023-12-19 11:51, Nicola Vetrini wrote:
->>>> On 2023-12-19 11:37, Jan Beulich wrote:
->>>>> On 19.12.2023 10:02, Nicola Vetrini wrote:
->>>>>> --- a/docs/misra/exclude-list.json
->>>>>> +++ b/docs/misra/exclude-list.json
->>>>>> @@ -209,6 +209,10 @@
->>>>>>           "rel_path": "include/acpi/acglobal.h",
->>>>>>           "comment": "Imported from Linux, ignore for now"
->>>>>>         },
->>>>>> +        {
->>>>>> +          "rel_path": "include/acpi/acmacros.h",
->>>>>> +          "comment": "Imported from Linux, ignore for now"
->>>>>> +        },
->>>>> Together with what's already there (in context), wouldn't it better be
->>>>> the entire directory then which is excluded, or at least all
->>>>> include/acpi/ac*.h collectively (and perhaps also
->>>>> include/acpi/platform/ac*.h)?
->>>>> Jan
->>>> +Cc Luca Fancellu
->>>> Sure. I wasn't certain which files are imported from ACPI CA and which aren't.
->>>> I'm also not sure whether "include/acpi/ac*.h" would be properly recognized by other tooling that uses exclude-list.json (only cppcheck I think). I Cc-ed Luca Fancellu on this.
->>>
->>> It occurred to me that it's surely ok to use "include/acpi/ac*" and "include/acpi/platform/ac*".
->>
->> Yes I think it’s fine, it just come to my mind now that this could have the risk that if
->> another file is added with ‘ac' prefix, even if it could be subject to MISRA compliance,
->> it will be excluded.
->>
->> If that risk is negligible for the maintainer of that part, then it’s fine.
+On 20.12.2023 03:10, Stefano Stabellini wrote:
+> On Sat, 2 Dec 2023, Volodymyr Babchuk wrote:
+>> --- a/xen/arch/x86/include/asm/msi.h
+>> +++ b/xen/arch/x86/include/asm/msi.h
+>> @@ -81,8 +81,9 @@ struct irq_desc;
+>>  struct hw_interrupt_type;
+>>  struct msi_desc;
+>>  /* Helper functions */
+>> -extern int pci_enable_msi(struct msi_info *msi, struct msi_desc **desc);
+>> -extern void pci_disable_msi(struct msi_desc *msi_desc);
+>> +extern int pci_enable_msi(struct pci_dev *pdev, struct msi_info *msi,
+>> +                          struct msi_desc **desc);
+>> +extern void pci_disable_msi(struct msi_desc *desc);
 > 
-> I think it is OK either way, I'll let Jan pick his preference.
+> As the parameters name should match between declaration and definition,
+> you should also rename msi_desc to desc in the implementation of
+> pci_disable_msi. Or keep the parameter called "msi_desc" for
+> pci_disable_msi here.
 
-It hasn't become clear to me what the benefit would be of omitting the
-trailing .h.
+It's not clear at all why pci_disable_msi() is touched here; the description
+says nothing in this regard.
 
-Jan
+> That change could be done on commit and everything
+> else looks OK:
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
 
