@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A091819D60
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 11:51:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657622.1026594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42F1B819D68
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 11:56:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657626.1026604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFuA8-0000qo-9y; Wed, 20 Dec 2023 10:50:52 +0000
+	id 1rFuFF-0002bi-TD; Wed, 20 Dec 2023 10:56:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657622.1026594; Wed, 20 Dec 2023 10:50:52 +0000
+Received: by outflank-mailman (output) from mailman id 657626.1026604; Wed, 20 Dec 2023 10:56:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFuA8-0000oh-7Q; Wed, 20 Dec 2023 10:50:52 +0000
-Received: by outflank-mailman (input) for mailman id 657622;
- Wed, 20 Dec 2023 10:50:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rFuFF-0002ZW-QF; Wed, 20 Dec 2023 10:56:09 +0000
+Received: by outflank-mailman (input) for mailman id 657626;
+ Wed, 20 Dec 2023 10:56:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFuA7-0000ob-9i
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 10:50:51 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2cb7442-9f25-11ee-9b0f-b553b5be7939;
- Wed, 20 Dec 2023 11:50:49 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40d38f03712so1326195e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 02:50:49 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ay38-20020a05600c1e2600b0040d37e93cc5sm1352285wmb.27.2023.12.20.02.50.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Dec 2023 02:50:48 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1rFuFE-0002ZQ-7T
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 10:56:08 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rFuFD-0002KQ-69; Wed, 20 Dec 2023 10:56:07 +0000
+Received: from [15.248.2.232] (helo=[10.24.67.20])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rFuFC-0007kx-VR; Wed, 20 Dec 2023 10:56:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,97 +39,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2cb7442-9f25-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703069448; x=1703674248; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IdeWQHDu4H895lhKeQa/FOBu65GthT+971dnLSSPxxI=;
-        b=SToBmwHMxfUxWVljG2pTriwroZjC0e5GJ2pJ+QwGHGr6D9t8PSmTQvgQZZ2DJdlvtK
-         +UWUtUp+v9onIHnBtW2nqz51E9N3QY8kOGbLyP5Dt9qLykqOcfVEG2aMLtTz2DKEg19/
-         a7bteOtwxzot31cD/3rLhMar27ykJ2gB3ROW4vwkym2NsJF8OjilNy6SbdD55wyNYeLf
-         4/KM6roTEZcMTjtX4xBcIEXxaYaYDZdzmiIP8YLF2vzRpu3mPm4lk9i3yfCW9EW/vT20
-         yANTGoyd2sOStTXVFvKZPpDICLeqcX1SKdsQByXHPiOqSWnYDFGUmo+rqd8nj5GL4yva
-         qF/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703069448; x=1703674248;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IdeWQHDu4H895lhKeQa/FOBu65GthT+971dnLSSPxxI=;
-        b=LRcb90IuPMHYK7tcJGyMRgqiZD+jScBSX3pJ6ji4R035gEIJZSkBoYA5N2hNqd3c3S
-         p6W7lYm2Ks9K3BOrzJY5ve/eeN2iFgptBe1utUeKCLi//3KkmCaTidFTp61ZKxGkCfda
-         jAZqMiELtlwQNz7NEErsh9pA40JqSMREQOiNJyO2ODqONYpYc/rHigE/hSYL6bAKLMOe
-         muORA+VomVYyonPVgRFCHp+Nd5QJ6DFi2GJGe2NLU8Dynbdom6oyeXD5uc3yhIY8Vddb
-         +ICQmwrUvd7bGMxPtSpM4Arkcw9jk6nX3o+ellzHUSz7ED5C0Yp40VJnr8otKlG/rSe5
-         7tcA==
-X-Gm-Message-State: AOJu0Yz3/tmSCw9Hz2cA7w8c4M4YJIQX+9d77eyFLnixX6aXwn2TxmfY
-	QQoCOTBwRHVZ64EB99DA6Qwf
-X-Google-Smtp-Source: AGHT+IG54WAjKvi2fa6Nm4691aUqg4ohmi1lw2Q/l5LOd0RTDySNIikF+u7t3xKqyf1Ju51Jracp4A==
-X-Received: by 2002:a05:600c:4f07:b0:40c:6b55:d9c1 with SMTP id l7-20020a05600c4f0700b0040c6b55d9c1mr4633347wmq.30.1703069448460;
-        Wed, 20 Dec 2023 02:50:48 -0800 (PST)
-Message-ID: <73fe1d0e-c9f3-4941-9a15-0250c9bd34b4@suse.com>
-Date: Wed, 20 Dec 2023 11:50:47 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=R1Td4gWLf0+H+wX7JRjsHV9k/DYi2k+ZphId3/XqEo8=; b=T8Vf/wDJjP2VFp3ZY+XbwXuJgW
+	tncpqDjQEbXcM5o/YltAeorVbtJahQ5Te5FROdgmE9SK5mGhJXLdSN2O8a5MwcJrADwa1rUxi1LNg
+	VECBkNqMXuBi0LLsQCtvqmE7EInDVAjHLLfES3/bFgjuDTLA1aKwMxY9okZhVOkaqRGU=;
+Message-ID: <82d3c6d1-62a4-45c1-8f57-ecec6bb97e90@xen.org>
+Date: Wed, 20 Dec 2023 10:56:04 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/6] xen: add deviations for Rule 11.8
-Content-Language: en-US
-To: Simone Ballarin <simone.ballarin@bugseng.com>
-Cc: consulting@bugseng.com,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1702982442.git.maria.celeste.cesario@bugseng.com>
- <04cdbf21db915634acd49108edab7d6331df35eb.1702982442.git.maria.celeste.cesario@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <04cdbf21db915634acd49108edab7d6331df35eb.1702982442.git.maria.celeste.cesario@bugseng.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [RFC PATCH] xen/dm: arm: Introudce arm_inject_msi DM op
+Content-Language: en-GB
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <6a631756a126e73390f95b9e86c69e3286c92f59.1702991909.git.mykyta_poturai@epam.com>
+ <cacbff18-f37d-42dc-ab8c-79409aa1d237@epam.com>
+ <13b218b5-2d37-48de-9baa-cf2b99211bde@xen.org>
+ <alpine.DEB.2.22.394.2312191641140.3175268@ubuntu-linux-20-04-desktop>
+ <3a5df135-1bcf-41d7-b489-c5fd938b10d6@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <3a5df135-1bcf-41d7-b489-c5fd938b10d6@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 19.12.2023 12:05, Simone Ballarin wrote:
-> --- a/docs/misra/deviations.rst
-> +++ b/docs/misra/deviations.rst
-> @@ -248,6 +248,13 @@ Deviations related to MISRA C:2012 Rules:
->         If no bits are set, 0 is returned.
->       - Tagged as `safe` for ECLAIR.
->  
-> +   * - R11.8
-> +     - Violations caused by container_of are due to pointer arithmetic operations
-> +       with the provided offset. The resulting pointer is then immediately cast back to its
-> +       original type, which preserves the qualifier. This use is deemed safe.
-> +       Fixing this violation would require to increase code complexity and lower readability.
-> +     - Tagged as `safe` for ECLAIR.
-> +    
+Hi,
 
-Going forward can you please avoid adding trailing whitespace. "git am"
-doesn't really like that, and hence it requires extra steps to clean up.
+On 20/12/2023 09:13, Mykyta Poturai wrote:
+> 
+> Hi,
+> 
+> On 20.12.23 02:42, Stefano Stabellini wrote:
+>> On Tue, 19 Dec 2023, Julien Grall wrote:
+>>>
+>>> But QEMU should really not need to implement a full ITS. What it needs is a
+>>> way to forward the MSI to Xen. That's it.
+>>
+>> I fully agree with Julien
+>>
+>>
+>>> Stefano, do you have any suggestion how to do this in QEMU?
+>>
+>> Yes, we just need something like hw/i386/xen/xen_apic.c but for ARM
+> 
+> It is exactly like xen_apic.c. All this implementation does is getting
+> the MSI messages and forwarding them to Xen using the DM op from this patch.
 
-Jan
+If this implementation is only getting the MSI messages and forwarding 
+them, then why is it built on top of the vGICv3 ITS structure?
+
+Shouldn't instead be something that is agnostic to the interrupt 
+controller (and even possibly arch agnostic)?
+
+The point here is in Xen context, QEMU doesn't know which interrupt 
+controller will be exposed to the guest. QEMU is just used for emulating 
+devices and none of this should really be architecture specific. 
+Instead, it should be a Xen specific way to inject MSI/IRQ.
+
+Cheers,
+
+-- 
+Julien Grall
 
