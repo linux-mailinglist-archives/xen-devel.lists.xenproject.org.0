@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77A68819BDB
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 11:00:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657585.1026534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D4FF819C1D
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 11:07:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657592.1026545 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFtMq-0005yT-CN; Wed, 20 Dec 2023 09:59:56 +0000
+	id 1rFtTb-0000SD-30; Wed, 20 Dec 2023 10:06:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657585.1026534; Wed, 20 Dec 2023 09:59:56 +0000
+Received: by outflank-mailman (output) from mailman id 657592.1026545; Wed, 20 Dec 2023 10:06:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFtMq-0005vZ-9j; Wed, 20 Dec 2023 09:59:56 +0000
-Received: by outflank-mailman (input) for mailman id 657585;
- Wed, 20 Dec 2023 09:59:55 +0000
+	id 1rFtTa-0000Pj-W4; Wed, 20 Dec 2023 10:06:54 +0000
+Received: by outflank-mailman (input) for mailman id 657592;
+ Wed, 20 Dec 2023 10:06:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vWXp=H7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rFtMo-0005vT-Uo
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 09:59:54 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rFtTa-0000OJ-9R
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 10:06:54 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8523810b-9f1e-11ee-9b0f-b553b5be7939;
- Wed, 20 Dec 2023 10:59:52 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40b5155e154so68989355e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 01:59:52 -0800 (PST)
-Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
- a21-20020a05600c349500b0040c4be1af17sm6947367wmq.21.2023.12.20.01.59.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Dec 2023 01:59:51 -0800 (PST)
+ id 7f2e87bb-9f1f-11ee-9b0f-b553b5be7939;
+ Wed, 20 Dec 2023 11:06:52 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40b5155e154so69056655e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 02:06:52 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ r19-20020a05600c459300b0040d128e9c62sm6761130wmo.18.2023.12.20.02.06.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 20 Dec 2023 02:06:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,185 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8523810b-9f1e-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 7f2e87bb-9f1f-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1703066392; x=1703671192; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=T7EJEoUlELxy7C4Er/aWnmXJLPfyYcR6Q1vIxUsiz1s=;
-        b=te3cAFGAPN/BxpyWnVGTHTNO/SzvbrDyriduwrSr9Q/QglF3kahX+EXczNd1ngvJjX
-         n3S9GZz81k/g6MSNnehbf1nB1f7jBHd0X3FSXjyiYdeZVciFj1faYrIS6wyNA7MrW4Hs
-         AnSWxONzk5xahaiE6vY9xiYNy/FMd54P9+FcY=
+        d=suse.com; s=google; t=1703066812; x=1703671612; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=aGL1vybcF2qZj64Irbe5qdy2a6Tb1z/WAMJzgQlnykI=;
+        b=RZETiUq8HNtI0nRnJofgvEZ5LqVC81CD79PpP9JaLndK1aVXN1OL5nYIOt2qEd5xdF
+         NsajUf6OkJ3/i2th5TDz+cQEzVBEsAARV/LWHhaeQpze23lI+oIsGU8n/KONmh4PE/JK
+         7XQWd1e72dVSoxX7zXo+QfELtChk+/k0zCPfq/38/C1jh3DC+6x1l2MblovUG5vEuMKR
+         Vn8wMbz1jJsYS+pI4O4VrSGqHwfbQ47BtWSjzR8lrApBp6z/t95otvrOb2qmhoKq07xB
+         MCqMLUSPUx6nOmoTew9ESNA9/WRlh0F8GxdGIiDShzUKO+RRLcRMtS/lQ1PcGMj6/mcW
+         LXOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703066392; x=1703671192;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1703066812; x=1703671612;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=T7EJEoUlELxy7C4Er/aWnmXJLPfyYcR6Q1vIxUsiz1s=;
-        b=N++cGLAR5thCnFkrNE6sM8CUeAnjzIxlm820b3Hgx4mDs/I7A1gbF5TyJy0bHvkBdy
-         Bl9OU8XKnLEkLd+FPLaWwtBiW1j3SQjRtpiuxi4JqoJJ3qg/nfYIWBxjr8ulXSWY6haz
-         zO3CrDmrziavwYGXDzCyWFmkDJlxul6zK7CDXwYt7DXRXjPKJLB3SWr5Uwm6tlXwF29Y
-         2wqVqWUnta2NbG+BHNDUhY9Z1xr2gBuxxlyUC7QSsysZRZ1e7wqcdq4vdRgpM0j3lOIl
-         cdb8dFjAUE2HRe65TvYdUf664/X3vga4aMdBS7D/hBh9b4YlsVGUQmw9q/di0iE7m2Ll
-         FXgQ==
-X-Gm-Message-State: AOJu0YyUhhtgC9aD7ofkGp84vs+KMFqhWBDOEUX6h/060ucwnjTv6rii
-	Q7m3UE6ALY0UFWnUPJ2mtM8qkg==
-X-Google-Smtp-Source: AGHT+IH8wbiFutUhxGDhG5BSm2120K1kyrwkLTicqM/U4SIDpiT93LAVfTH/rHzW/HAragf7F4Vwig==
-X-Received: by 2002:a05:600c:5403:b0:40d:1748:d0a7 with SMTP id he3-20020a05600c540300b0040d1748d0a7mr2690388wmb.21.1703066392187;
-        Wed, 20 Dec 2023 01:59:52 -0800 (PST)
-Date: Wed, 20 Dec 2023 10:59:51 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v4 4/4] x86/PV: issue branch prediction barrier when
- switching 64-bit guest to kernel mode
-Message-ID: <ZYK7F_VJUIrZrzzV@macbook>
-References: <06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com>
- <2863b0a9-ca7c-3cce-104d-0b6685b0b383@suse.com>
- <ZYCARJAxH9hBD0YQ@macbook>
- <6e022af1-d383-48be-ab54-6ec254aa1502@suse.com>
- <ZYGC8JaJ45tkbqQC@macbook>
- <aacaa220-3e95-4dff-9572-79f9e79faeae@suse.com>
- <ZYGyjQiAomxh0QnI@macbook>
- <ZYHNzo8UFzOkt0pv@macbook>
- <13b34047-1137-44dd-ad74-27ec5b5fb8d3@suse.com>
+        bh=aGL1vybcF2qZj64Irbe5qdy2a6Tb1z/WAMJzgQlnykI=;
+        b=NM8RAfIwAnCXEbUwoeZ+09sj4/cGJbW1KsnzGUAegM3m3K6WtPCR71lf++Ynjx6Tod
+         G7TuU6Jb10eO1Iii6swjmwFyfXrg2F29DHaq1iEjbp137Z88Zy+Unhlfcwnke7RD73tJ
+         8YhhbwFXPADn10pNjMPPK2p5/Inw376QnybfnHRUUgYsCeeuVRlgz6mavsTqGU23qG0C
+         88z3t1xKbt8ZgvglC4WKhSonYxWIqOqyfwImBZDMGCUEDTsh1qL9RoE2VK0FRytb7PXW
+         2+hTFgfsX3DqoYuAucPziJ+kj0zJMr9ASbuBBpXoOfiPp28bBFO2T1flOfTiCnBJ/wyK
+         FIXg==
+X-Gm-Message-State: AOJu0YwW/Sf1lJwBOZNMAJVhoZ38rNpVSc843UVTtzbniY97Sscdk95v
+	G49wuRdj6ejZW3NHf+GXuV0N
+X-Google-Smtp-Source: AGHT+IH8S8vlAa5rjcKA35k4+ObP5tOaXjKCTtQ/T+EAZZZdyNMtmJb0xixW4EiM6uLTaJqrfEKzRw==
+X-Received: by 2002:a05:600c:19d3:b0:40d:123a:4f26 with SMTP id u19-20020a05600c19d300b0040d123a4f26mr3071146wmq.230.1703066811683;
+        Wed, 20 Dec 2023 02:06:51 -0800 (PST)
+Message-ID: <6ba9568a-ff8e-48ad-907f-74303e04d3a2@suse.com>
+Date: Wed, 20 Dec 2023 11:06:50 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+Content-Language: en-US
+To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+Cc: xen-devel@lists.xenproject.org
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <CAKm-UmbEBOm525=f+OOL0P05tQVVQz9wegh7F8yhgV_=Z7rWug@mail.gmail.com>
+ <CAKm-UmYejm8CW-Enc_Y-aefcLPsRhQO8w2P-fNdu1zXMMjUAoA@mail.gmail.com>
+ <e83e7254-0c90-4912-ae63-ea7221a10071@suse.com>
+ <CAKm-UmbDNbeakVQtDT47o4Qc4oQvi0dqmBDb5Q=pRqTHFY0C5w@mail.gmail.com>
+ <CAKm-UmZtN2o3d13cE9GyyLKfMmZ855MfrAAw9O6zE-5ob0-iYg@mail.gmail.com>
+ <64d738b7-08c1-4b2c-a828-a137c870408e@suse.com>
+ <CAKm-UmayUxd8F337g+BnR=_50_o__oV_PeUv9Z+9gNZ5MXYmrA@mail.gmail.com>
+ <b4f46a91-b3b9-49b9-9a26-e2f962dee54c@suse.com>
+ <CAKm-UmY9yYv2gOwm-O3DF7dBBNeNjs+3pDGuU+sYgJ+OHwcLNw@mail.gmail.com>
+ <CAKm-UmZ1Q77EqUit9J6RX0-MCALdu4gjaU2zrX6oneW+45a+Kw@mail.gmail.com>
+ <CAKm-UmYZcsY=C2Yhmy_EeZi0iAguVH0Eqy83upBLa_ikQtPwnw@mail.gmail.com>
+ <CAKm-Umapq5LW9yhSOGk8TOg1iuvUogUDKbEXbUcE5T5-vVzW3w@mail.gmail.com>
+ <CAKm-UmaUZ=rj-F3RvMoR7H3OvBHm1iy4PTRZAjyi=MQUVTuYVg@mail.gmail.com>
+ <CAKm-Umat77MTh6=GEuH+bf1WRX+_B4-N5hY4xwADALfhj4QCPA@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAKm-Umat77MTh6=GEuH+bf1WRX+_B4-N5hY4xwADALfhj4QCPA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <13b34047-1137-44dd-ad74-27ec5b5fb8d3@suse.com>
 
-On Wed, Dec 20, 2023 at 10:25:57AM +0100, Jan Beulich wrote:
-> On 19.12.2023 18:07, Roger Pau Monné wrote:
-> > On Tue, Dec 19, 2023 at 04:11:09PM +0100, Roger Pau Monné wrote:
-> >> On Tue, Dec 19, 2023 at 03:06:50PM +0100, Jan Beulich wrote:
-> >>> On 19.12.2023 12:48, Roger Pau Monné wrote:
-> >>>> On Tue, Dec 19, 2023 at 10:56:16AM +0100, Jan Beulich wrote:
-> >>>>> On 18.12.2023 18:24, Roger Pau Monné wrote:
-> >>>>>> On Tue, Feb 14, 2023 at 05:12:08PM +0100, Jan Beulich wrote:
-> >>>>>>> --- a/xen/arch/x86/pv/domain.c
-> >>>>>>> +++ b/xen/arch/x86/pv/domain.c
-> >>>>>>> @@ -455,6 +455,7 @@ static void _toggle_guest_pt(struct vcpu
-> >>>>>>>  void toggle_guest_mode(struct vcpu *v)
-> >>>>>>>  {
-> >>>>>>>      const struct domain *d = v->domain;
-> >>>>>>> +    struct cpu_info *cpu_info = get_cpu_info();
-> >>>>>>>      unsigned long gs_base;
-> >>>>>>>  
-> >>>>>>>      ASSERT(!is_pv_32bit_vcpu(v));
-> >>>>>>> @@ -467,15 +468,21 @@ void toggle_guest_mode(struct vcpu *v)
-> >>>>>>>      if ( v->arch.flags & TF_kernel_mode )
-> >>>>>>>          v->arch.pv.gs_base_kernel = gs_base;
-> >>>>>>>      else
-> >>>>>>> +    {
-> >>>>>>>          v->arch.pv.gs_base_user = gs_base;
-> >>>>>>> +
-> >>>>>>> +        if ( opt_ibpb_mode_switch &&
-> >>>>>>> +             !(d->arch.spec_ctrl_flags & SCF_entry_ibpb) &&
-> >>>>>>> +             !VM_ASSIST(d, mode_switch_no_ibpb) )
-> >>>>>>> +            cpu_info->spec_ctrl_flags |= SCF_new_pred_ctxt;
-> >>>>>>
-> >>>>>> Likewise similar to the remarks I've made before, if doing an IBPB on
-> >>>>>> entry is enough to cover for the case here, it must also be fine to
-> >>>>>> issue the IBPB right here, instead of deferring to return to guest
-> >>>>>> context?
-> >>>>>>
-> >>>>>> The only concern would be (as you mentioned before) to avoid clearing
-> >>>>>> valid Xen predictions, but I would rather see some figures about what
-> >>>>>> effect the delaying to return to guest has vs issuing it right here.
-> >>>>>
-> >>>>> Part of the reason (aiui) to do things on the exit path was to
-> >>>>> consolidate the context switch induced one and the user->kernel switch
-> >>>>> one into the same place and mechanism.
-> >>>>
-> >>>> Isn't it kind of a very specific case that we end up doing a
-> >>>> user->kernel switch as part of a context switch?  IOW: would require
-> >>>> the vCPU to be scheduled out at that very specific point.
-> >>>
-> >>> No, there's no user->kernel switch at the same time as context switch.
-> >>> What I was trying to explain is that with the actual IBPB being issued
-> >>> on exit to guest, both the context switch path and the user->kernel
-> >>> mode switch path set the same indicator, for the exit path to consume.
-> >>
-> >> Deferring to exit to guest path could be OK, but unless strictly
-> >> needed, which I don't think it's the case, I would request for IBPB to
-> >> be executed in C context rather than assembly one.
-> >>
-> >>>>>>> + *
-> >>>>>>> + * By default (on affected and capable hardware) as a safety measure Xen,
-> >>>>>>> + * to cover for the fact that guest-kernel and guest-user modes are both
-> >>>>>>> + * running in ring 3 (and hence share prediction context), would issue a
-> >>>>>>> + * barrier for user->kernel mode switches of PV guests.
-> >>>>>>> + */
-> >>>>>>> +#define VMASST_TYPE_mode_switch_no_ibpb  33
-> >>>>>>
-> >>>>>> Would it be possible to define the assist as
-> >>>>>> VMASST_TYPE_mode_switch_ibpb and have it on when enabled?  So that the
-> >>>>>> guest would disable it if unneeded?  IMO negated options are in
-> >>>>>> general harder to understand.
-> >>>>>
-> >>>>> Negative options aren't nice, yes, but VM assists start out as all
-> >>>>> clear.
-> >>>>
-> >>>> Are you sure?  I see VMASST_TYPE_pae_extended_cr3 getting set in
-> >>>> dom0_construct_pv() and that makes me wonder whether other bits
-> >>>> couldn't start set also.
-> >>>>
-> >>>> Maybe there's some restriction I'm missing, but I don't see any
-> >>>> wording in the description of the interface that states that all
-> >>>> assists are supposed to start disabled.
-> >>>
-> >>> Well, that setting of pae_extended_cr3 is in response to the kernel's
-> >>> notes section having a respective indicator. So we still only set the
-> >>> bit in response to what the kernel's asking us to do, just that here
-> >>> we carry out the request ahead of launching the kernel.
-> >>>
-> >>> Also consider what would happen during migration if there was a
-> >>> default-on assist: At the destination we can't know whether the
-> >>> source simply didn't know of the bit, or whether the guest elected to
-> >>> clear it.
-> >>
-> >> Hm, I see, so I was indeed missing that aspect.  VM assist is passed
-> >> as a plain bitmap, and there's no signal on which assists the VM had
-> >> available on the source side if not enabled.
-> > 
-> > Sorry, please bear with me, as I've been further thinking about this.
-> > 
-> > Why does the assist needs to be default-on?  It's my understanding
-> > that the guest can execute the IBPB itself by writing to the MSR, but
-> > that's suboptimal in the user -> kernel context switch as it then
-> > involves two traps into Xen, but the guest is not left insecure, it
-> > just needs to write the MSR itself like on native.
-> > 
-> > In fact, if we add an IBPB by default as part of amd64 PV user ->
-> > kernel guest context switch, we are likely doing a double IBPB on
-> > guests not aware of the assist.
-> > 
-> > IOW: I don't know why doing the assist as guest opt-in would be
-> > insecure, in fact I think it's the best approach (again I might be
-> > missing something).
+On 20.12.2023 01:23, Sébastien Chaumat wrote:
+> I had to triple check:
 > 
-> By issuing IBPB by default we can make guests safe (in this regard)
-> irrespective of their awareness of IBPB, and in particular their
-> awareness of IBPB being needed explicitly on the user->kernel mode
-> transition (where on native, with IBRS enabled, sufficient separation
-> exists iirc). IOW we're trying to cater for a 64-bit-PV special aspect
-> by default. (Andrew, please correct me if there's anything wrong in
-> here.)
+> The first call is from xen_register_pirq()  and seem to originate from
+> early_irq_init()  : triggering is 1
+> in this first call the HYPERVISOR_physdev_ops is called with triggering 1
+> shareable 0
+> 
+> The second call is from xen_register_pirq() called from xen_register_gsi() :
+>   trigger=0 polarity 1 at the start of  xen_register_pirq()
+> but then trigger=1 polarity=1 just before the call to PHYSDEVOPS_setup_gsi
 
-Hm, maybe.  My point would be that PV is already specific enough that
-OSes shouldn't expect things like IBRS to work as on native, and hence
-should be aware of user and kernel running in the same privilege mode
-and issue the IBPB themselves.
+I'm sorry, but this is getting extremely confusing. Can you please supply
+a complete kernel log, where also other potentially relevant messages
+would be present (like those issued when PHYSDEVOP_setup_gsi has failed,
+as ought to happen when invoked the 2nd time for the same GSI)? It's fine
+if you want to leave your extra printk()s in place for this, but please
+be sure (perhaps by way of also supplying the patch you use) to make clear
+where exactly they live, so we can make sense of those extra log messages.
 
-Setting that aside, would it make sense to tie the IBPB on guest user
--> kernel switches to the guest having enabled IBRS?  AFAICT IBRS on
-64bit PV is useless, as from the predictor PoV both user and kernel
-space share the same mode.  Hence a PV guest enabling IBRS could be
-used as a signal for Xen to execute IBPB on user -> kernel guest
-context switches?
+Jan
 
-Thanks, Roger.
 
