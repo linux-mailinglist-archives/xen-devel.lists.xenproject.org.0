@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41468819A35
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 09:13:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657417.1026222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C6BC819A57
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 09:20:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657423.1026231 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFrhk-0002ER-JG; Wed, 20 Dec 2023 08:13:24 +0000
+	id 1rFroD-0003qL-92; Wed, 20 Dec 2023 08:20:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657417.1026222; Wed, 20 Dec 2023 08:13:24 +0000
+Received: by outflank-mailman (output) from mailman id 657423.1026231; Wed, 20 Dec 2023 08:20:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFrhk-0002CI-G5; Wed, 20 Dec 2023 08:13:24 +0000
-Received: by outflank-mailman (input) for mailman id 657417;
- Wed, 20 Dec 2023 08:13:24 +0000
+	id 1rFroD-0003lZ-6S; Wed, 20 Dec 2023 08:20:05 +0000
+Received: by outflank-mailman (input) for mailman id 657423;
+ Wed, 20 Dec 2023 08:20:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFrhk-0002CC-2H
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 08:13:24 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1rFroC-0003aq-9d
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 08:20:04 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a4861321-9f0f-11ee-98eb-6d05b1d4d9a1;
- Wed, 20 Dec 2023 09:13:23 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40c2db2ee28so67296695e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 00:13:23 -0800 (PST)
+ id 92e34b9a-9f10-11ee-98eb-6d05b1d4d9a1;
+ Wed, 20 Dec 2023 09:20:02 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-33677fb38a3so747831f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 00:20:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- q15-20020a05600c46cf00b0040b349c91acsm6252004wmo.16.2023.12.20.00.13.22
+ d1-20020adff841000000b003367e35abd4sm208000wrq.71.2023.12.20.00.20.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Dec 2023 00:13:22 -0800 (PST)
+ Wed, 20 Dec 2023 00:20:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4861321-9f0f-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 92e34b9a-9f10-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703060002; x=1703664802; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703060402; x=1703665202; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=iR+eQK4WZMqlV50/1Et7qOFHCdZg/bDzP5iTizcJb/M=;
-        b=SRetfITuSo/PRcaV7LSupsBtrMd1UgMzLdWhUuqHRrjgA2PVmcgJuNotabMrzuDqti
-         as+arSuHSpDxyDESbzDASHiGOfLbje3yIbNxPdx75mLJoUZxMVmw043NMV3wQezGXt1g
-         x+c1Q7BOhsHjrFauKYL7RfqkdhhUVGIRNB0dYbFsLzXAYWeVIf2qQanMlsrmYkDM7Z/l
-         Nl+zrHY8bILMdfX40ADyukId64Cqz8yIUud+4oPf7za7/ImLkLr6ZzPINHhOMCBSpy7C
-         HEk/kCQbTa2q4UOt4d37hPhCxf3OTjDv4jazVJ/TKfajVxsmG4TJDtFdZksltI12tahl
-         IJkQ==
+        bh=f5kcUoFOCl/7HUBCzY35pY/7e6551efSmfsmRlZ8820=;
+        b=FcbBhKxQwuB9VO2DD54sAy3PuQW1Si7wlfgQA1ICia4+ftKKCvCIv6K1T3QiS2VYCz
+         lONyHf7RaznZULsuBr+kXRdn3WxadGhzyN1zQbZhLJO4zhDdLsstCWIRUjjx39fesRJB
+         DoA3oLQsqBKfuj2bRiX/jMWEHZZ2ETrjtc0tZajVqPu86D+4abDpCtgXpBeNb2RlqQY6
+         WC6reWHeRJLMoS28ofgGqTWl9WCmQzCAQJ2O+Z6fax7F7yVVVHWXReBJ3tlqQQdgXX+0
+         puP2VrmBCqqvU/1BE/MNQhA4R3IS9zeJ2nym91wrEOIt/zvuyM09n1PMwPOcQhwb8HVR
+         zaHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703060002; x=1703664802;
+        d=1e100.net; s=20230601; t=1703060402; x=1703665202;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iR+eQK4WZMqlV50/1Et7qOFHCdZg/bDzP5iTizcJb/M=;
-        b=aIzVQTSmIO64ooyK9OrilerUVAMIA0ciB+LowF5vAbJVX8cJaeV3dz2fpiok97LB1d
-         bt7FgnD54Qz/l2Zp8PKgvsADOrm2hZBIDlcwfk8kdo8tvrrI5oV58B6gGeEeD3F7WStI
-         OvZvEi6ZcBDJ/ZRWRlvmV5EoFbTQ8jCK4q5k2l8hhZ0vUvFehpGLyG8NOM2Gbf08ckLm
-         ZSkL1PF/Ue+bWNsdgj8M8Lgjxlpd3mydZHRpqs5xtyuK+7fcHFcC3e4MkaFh+Csxeq2Y
-         3VeneEHXgFweH/Sroz1kvmdpQuxUsq8QsnmixxXBYIwh5Q5O9EO2h1xiV2KUuxKJrN6F
-         eY2Q==
-X-Gm-Message-State: AOJu0Yx9RnmAyE/lV/w2vmgSQlGyywpHD+2qzFXzgPbcxvXFe0h7aFsP
-	9GY/DdY23ctCBmg5Xf7ymxln
-X-Google-Smtp-Source: AGHT+IHIkQET8msiEY3DLcNh64dG0YtsdRAKRjjHX0IldSfzJY0Q9Zrih4BDmz+rthgXdNJMdGe0Yg==
-X-Received: by 2002:a05:600c:538e:b0:40d:2f2a:5709 with SMTP id hg14-20020a05600c538e00b0040d2f2a5709mr839651wmb.47.1703060002520;
-        Wed, 20 Dec 2023 00:13:22 -0800 (PST)
-Message-ID: <92f14f0d-bd7f-480e-b8a1-57e32f84d5c7@suse.com>
-Date: Wed, 20 Dec 2023 09:13:21 +0100
+        bh=f5kcUoFOCl/7HUBCzY35pY/7e6551efSmfsmRlZ8820=;
+        b=DOhEEyuZK3GPRpc8WDnNgDelmZ/1pW61fkysvriJyMcFv5ifSF48tLmIpnZBxcpSI1
+         VCqVNgl4wUnB+gC/pkOgZ9FO8wmCcsQfd9AX6XJoOJNx/d2ItqnlOAY/brs8kwzVWEqe
+         R2xJs8ENOeKTNh6eulBrZOcbqHL3PBhYfLExuwl+FBACzLG3aAwhmpIRuqnXUj1ONOsG
+         8dg9z2PbYjr8vjv9Xs1xcgTKoF03mnz08WfBkeh9LiJ0uQVUqnFW1KXVdvhZzytywNLx
+         kaBbKbylf4p/r14AsVV8M8M/x9dzCyXicSUqy5q6Eot8SBQF3duqkb+4XyLIw93Xj+uo
+         zRNA==
+X-Gm-Message-State: AOJu0YxXbiv2GxW1Uxm1O3HFpmOTTKZHyrMshIzhV3KVB1+vhh26Dj2+
+	iOOemevx8vLrE81UUJNZVyNa
+X-Google-Smtp-Source: AGHT+IGu7XmWcQrL7lXirknx+xj2CBcUkpRykSPdP5hKQoWk7r0myCmqbxBMbR2U6cCLnStg+KQX4Q==
+X-Received: by 2002:adf:e7d2:0:b0:336:774d:a8b2 with SMTP id e18-20020adfe7d2000000b00336774da8b2mr785287wrn.135.1703060402272;
+        Wed, 20 Dec 2023 00:20:02 -0800 (PST)
+Message-ID: <67805b7a-b597-41ba-9d90-2aec573d2dea@suse.com>
+Date: Wed, 20 Dec 2023 09:20:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm: use "break" in arch_memory_op()
+Subject: Re: [PATCH] x86/platform: tidy do_platform_op() a little
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <e944cc4f-354c-4752-8794-03e6a7517372@suse.com>
- <alpine.DEB.2.22.394.2312191620000.3175268@ubuntu-linux-20-04-desktop>
+References: <c12f20a3-407c-4914-b6a0-1690962fd72c@suse.com>
+ <alpine.DEB.2.22.394.2312191626530.3175268@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,58 +112,106 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2312191620000.3175268@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2312191626530.3175268@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.12.2023 01:22, Stefano Stabellini wrote:
+On 20.12.2023 01:30, Stefano Stabellini wrote:
 > On Tue, 19 Dec 2023, Jan Beulich wrote:
->> The final return statement is unreachable and hence disliked by Misra
->> C:2012 (rule 2.1). Convert those case-specific (main) return statements
->> which already use "rc", or in one case when it can be used without
->> further adding of code, to break.
+>> The function has a few stray scopes and inconsistent use (indentation)
+>> of break statements. Drop the stray braces and bring all the break-s in
+>> line with one another. This in particular means dropping a redundant
+>> break from XENPF_cpu_offline handling, pleasing Misra C:2012 rule 2.1.
 >>
 >> No functional change intended.
 >>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >> ---
 >> This is an alternative proposal to
->> https://lists.xen.org/archives/html/xen-devel/2023-12/msg01537.html.
->> Yet another option would be to simply pull the default case out of the
->> switch() statement.
+>> https://lists.xen.org/archives/html/xen-devel/2023-12/msg01540.html.
 >>
->> --- a/xen/arch/x86/mm.c
->> +++ b/xen/arch/x86/mm.c
->> @@ -4724,7 +4724,7 @@ long arch_memory_op(unsigned long cmd, X
->>          spin_unlock(&d->arch.e820_lock);
+>> A few more scopes could be eliminated if the various "cpu" variables
+>> were consolidated to switch() of function scope.
+>>
+>> --- a/xen/arch/x86/platform_hypercall.c
+>> +++ b/xen/arch/x86/platform_hypercall.c
+>> @@ -258,7 +258,6 @@ ret_t do_platform_op(
+>>          break;
 >>  
->>          rcu_unlock_domain(d);
->> -        return rc;
+>>      case XENPF_add_memtype:
+>> -    {
+>>          ret = mtrr_add_page(
+>>              op->u.add_memtype.mfn,
+>>              op->u.add_memtype.nr_mfns,
+>> @@ -273,11 +272,9 @@ ret_t do_platform_op(
+>>              if ( ret != 0 )
+>>                  mtrr_del_page(ret, 0, 0);
+>>          }
+>> -    }
+>> -    break;
+>> +        break;
+>>  
+>>      case XENPF_del_memtype:
+>> -    {
+>>          if (op->u.del_memtype.handle == 0
+>>              /* mtrr/main.c otherwise does a lookup */
+>>              && (int)op->u.del_memtype.reg >= 0)
+>> @@ -288,8 +285,7 @@ ret_t do_platform_op(
+>>          }
+>>          else
+>>              ret = -EINVAL;
+>> -    }
+>> -    break;
+>> +        break;
+>>  
+>>      case XENPF_read_memtype:
+>>      {
+>> @@ -306,8 +302,8 @@ ret_t do_platform_op(
+>>              ret = __copy_field_to_guest(u_xenpf_op, op, u.read_memtype)
+>>                    ? -EFAULT : 0;
+>>          }
 >> +        break;
 >>      }
+>> -    break;
 >>  
->>      case XENMEM_memory_map:
->> @@ -4818,7 +4818,7 @@ long arch_memory_op(unsigned long cmd, X
->>          if ( __copy_to_guest(arg, &ctxt.map, 1) )
->>              return -EFAULT;
+>>      case XENPF_microcode_update:
+>>      {
+>> @@ -316,8 +312,8 @@ ret_t do_platform_op(
+>>          guest_from_compat_handle(data, op->u.microcode.data);
 >>  
->> -        return 0;
+>>          ret = microcode_update(data, op->u.microcode.length);
 >> +        break;
 >>      }
+>> -    break;
+>>  
+>>      case XENPF_platform_quirk:
+>>      {
+>> @@ -340,8 +336,8 @@ ret_t do_platform_op(
+>>              ret = -EINVAL;
+>>              break;
+>>          }
+>> +        break;
+>>      }
+>> -    break;
 > 
-> There are also two other return 0; under case XENMEM_memory_map and
-> XENMEM_machphys_mapping. I would be consistent and either leave this
-> return 0 alone, or change all the return 0.
+> I think you should be able to remove this break completely?
+> And also in XENPF_set_processor_pminfo. That's because the is a switch
+> with a default label and a break.
 
-Yes, that would have been another possible pattern to follow. Due to
-the multiple possible approaches I had specifically outlined (in the
-description) the pattern I decided to follow.
+Not really, no - those would then end up falling through to
+XENPF_firmware_info (here) or XENPF_get_cpuinfo (there), as the break-s
+I'm moving are for the outer switch(), sitting past the inner switch()'s
+body's final brace.
 
-> Either way, this patch is correct, so:
+I notice though that I missed at least one inconsistent break in an
+inner switch(), so I guess I'll make a v2.
+
+> Everything else checks out. Given that this is already a good
+> improvement as it is:
 > 
 > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Thanks.
+Thanks, but as said, I think a v2 is warranted.
 
 Jan
 
