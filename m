@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20AC681A54F
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 17:36:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658184.1027271 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F60D81A625
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 18:15:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658212.1027290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFzYe-0005iP-26; Wed, 20 Dec 2023 16:36:32 +0000
+	id 1rG09l-00071R-8D; Wed, 20 Dec 2023 17:14:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658184.1027271; Wed, 20 Dec 2023 16:36:32 +0000
+Received: by outflank-mailman (output) from mailman id 658212.1027290; Wed, 20 Dec 2023 17:14:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFzYd-0005gG-UL; Wed, 20 Dec 2023 16:36:31 +0000
-Received: by outflank-mailman (input) for mailman id 658184;
- Wed, 20 Dec 2023 16:36:30 +0000
+	id 1rG09l-0006z2-5f; Wed, 20 Dec 2023 17:14:53 +0000
+Received: by outflank-mailman (input) for mailman id 658212;
+ Wed, 20 Dec 2023 17:14:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cHJo=H7=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rFzYc-0005g3-NA
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 16:36:30 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
+ id 1rG09k-0006yw-IZ
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 17:14:52 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ed48a397-9f55-11ee-98eb-6d05b1d4d9a1;
- Wed, 20 Dec 2023 17:36:29 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-40d22d3e751so5973845e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 08:36:29 -0800 (PST)
+ id 49242367-9f5b-11ee-98eb-6d05b1d4d9a1;
+ Wed, 20 Dec 2023 18:14:51 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3367903b4dcso1139988f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 09:14:51 -0800 (PST)
 Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- r20-20020a05600c459400b0040c3dcc36e6sm153916wmo.47.2023.12.20.08.36.28
+ v11-20020a05600c470b00b0040c5cf930e6sm277654wmo.19.2023.12.20.09.14.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 Dec 2023 08:36:29 -0800 (PST)
+ Wed, 20 Dec 2023 09:14:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed48a397-9f55-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 49242367-9f5b-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1703090189; x=1703694989; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1703092491; x=1703697291; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=hA8y5W1bqpc6Dd91vzYXk0eopxD9JxEsxFTEP6oeTcU=;
-        b=biBGNLLZHWTEFNPQEGiApnP9LK0QSh0tZ1gAtzLyBwNfRg66CMlxrd0I2n+YOc5052
-         440Wh2A8TihM50fDd/Jxq66tQ676IZaL9MY3OLtWTaij4O02ViBwx2yP59P/eMbbvVRU
-         uYT+9aohCZooL0wfLhsk2C8yk5PMVjsHj95YI=
+        bh=IHoyBRXbxJl/Fk8Fe3c346+q8RDAepu8NiFo0x6fhJ0=;
+        b=NzjabceynYTpScdtdJztAD0D59j5iysW+5AaMWzWuZh6yzWJAyp+rONi7dlIAXPq7h
+         GxZ7vRzaxwlUHZtSWnrgQ373V6gApJSjlxP89X1PeOR0vRCmcoBleJszrDm1+gi+O/9y
+         rgiABGmyZ57Z7XBOoylsd+2VveP1A3YLzn7AQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703090189; x=1703694989;
+        d=1e100.net; s=20230601; t=1703092491; x=1703697291;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hA8y5W1bqpc6Dd91vzYXk0eopxD9JxEsxFTEP6oeTcU=;
-        b=dGTyJc1pbqT70twljE3Yj5/HnTzJuazbRrkhCiLVzPqE7xjpJ5jwbyVw28gz8Va1KY
-         d/aWV5zpPdVTAkKzJ0400aeXnd74KU7jvhZ58nqv9P8tHksBfWG8uNNgr6735qdN9dzW
-         yLV0tCG5QhVlSJXirS5YW5WzwlcYofrbIyK4KhTTSusqJClYoAV5FsYMlOs/N4dhok1M
-         6AHL1itSrXmtkY3OScnpuGElY/X6KkI+VWhKhfYMTzIZJdgF9ZJqe89KuO9V1RcX+Z5V
-         Fk70xnL3tTxTpdWrGi3hwQSUIXr/wqCcu7rdaOZQGoWaMePn0zrv0S2vH0yFhSP1r+2m
-         o7Gw==
-X-Gm-Message-State: AOJu0YyEude6Kixz0mGNKPH2s7UrZvbd7jE1pdMaUA+qX+rB0omg9mDm
-	tG1qAKfJPZcQ+UrVOKNNY0yc2g==
-X-Google-Smtp-Source: AGHT+IF2iBCEIWT9+giyQFrkRCEzdk/ePARygHTC3Xad8r8PiffiW26aBv41KnAHoEwZ5EKRxqF7Cg==
-X-Received: by 2002:a1c:6a0c:0:b0:40d:2dd9:dac5 with SMTP id f12-20020a1c6a0c000000b0040d2dd9dac5mr1325382wmc.97.1703090189366;
-        Wed, 20 Dec 2023 08:36:29 -0800 (PST)
-Date: Wed, 20 Dec 2023 16:36:28 +0000
+        bh=IHoyBRXbxJl/Fk8Fe3c346+q8RDAepu8NiFo0x6fhJ0=;
+        b=W3uUpJH3FaNLRWXPRZhrGI5kruRy9EIqtDzEg7/TBo9abydWzOuk/ms3HA5ZE4rgTb
+         QFv+UfWwX1zfx/HxP3B/d06JFuM0s75mTHRPGNpoN4DYaVfbVJ0ffiQ5AEy3ppX2ficE
+         ABWLNNK690pGymnLjXpAmd+lVrIDAKNTm2zNvHrpEkmV9D3vhx3dLO++/PLytUzIBC9j
+         CYZm10GCZqWBws1Rx4bPC8Yc1p7R3LlN5FC/0qXp092F74X1aSbcxCGdUORa+j+jwFIx
+         AXTfzUPHYA/xbpjGiFp1/KlKf3TbK8qn8jAoO2K/YcVQDoTkbuv27Exe1Q3EYC1d47zG
+         20ug==
+X-Gm-Message-State: AOJu0Yxf/cGY9kPnRkgPvdiamPU7U4/Qp+ex8SXfYLhPrWSNxVS58fxW
+	+cyoCQRhYkqyO0+Nlj1FECXoKmqeREDdosFLTM0=
+X-Google-Smtp-Source: AGHT+IGRAMgCdG4L0aP219RsTczPXkgRF+jQWtr4HVkeakP8eTPoYJTansv0A2cLJ4AfITMamFMxwQ==
+X-Received: by 2002:a05:600c:1e05:b0:40b:5e59:ccc8 with SMTP id ay5-20020a05600c1e0500b0040b5e59ccc8mr8386wmb.169.1703092490889;
+        Wed, 20 Dec 2023 09:14:50 -0800 (PST)
+Date: Wed, 20 Dec 2023 17:14:50 +0000
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [PATCH 1/7] tools/xenguest: Dynamically allocate xc_cpu_policy_t
- contents
-Message-ID: <1ba3c90e-7af0-4331-966d-ac39d1ee4721@perard>
-References: <20231107154921.54979-1-alejandro.vallejo@cloud.com>
- <20231107154921.54979-2-alejandro.vallejo@cloud.com>
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] tools/xg: Reserialise CPU policies with the allocated
+ number of leaves.
+Message-ID: <8dc3efe1-9419-4fc6-8801-e56625cd0693@perard>
+References: <20231212105717.6031-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20231107154921.54979-2-alejandro.vallejo@cloud.com>
+In-Reply-To: <20231212105717.6031-1-alejandro.vallejo@cloud.com>
 
-On Tue, Nov 07, 2023 at 03:49:15PM +0000, Alejandro Vallejo wrote:
->  void xc_cpu_policy_destroy(xc_cpu_policy_t *policy)
->  {
-> -    if ( policy )
-> -        free(policy);
-> +    int err = errno;
-> +
-> +    if ( !policy )
-> +        return;
-> +
-> +    if ( policy->leaves.buf )
-> +        free(policy->leaves.buf);
-> +    if ( policy->msrs.buf )
-> +        free(policy->msrs.buf);
+On Tue, Dec 12, 2023 at 10:57:17AM +0000, Alejandro Vallejo wrote:
+> The procedure used to customize the domain CPU policy is broken when
+> toolstack tries to set leaves (with subleaves) that the hypervisor didn't
+> need to serialise (i.e: because they where empty subleaves).
+> 
+> During typical domain creation xg does the following:
+> 
+>   1. Probe Xen for max #leaves that a policy may have
+>   2. Allocate memory for that many leaves
+>   3. Tell the hypervisor to dump the policy in the allocated buffer
+>   4. Deserialise it
+>   5. Modify it
+>   6. Reserialise it
+>   7. Send it back to Xen
+> 
+> The problem is that (3) overrides nr_leaves, which then makes (6) fail in
+> the case where (5) has added subleaves that Xen understands but didn't need
+> to serialize on (3).
+> 
+> The fix uses an opaque CPU policy object so we can (a) avoid probing Xen
+> for sizes, and (b) trivially have knowledge of the actual size of the
+> buffer.
+> 
+> While at it, fix xc_cpu_policy_destroy() to preserve errno accross free()
+> 
+> Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-FYI: free() already check for NULL, so the extra if() is unnecessary.
-
-Otherwise, patch looks fine:
 Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
 Thanks,
