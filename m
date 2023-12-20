@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A7A381A71A
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 19:59:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658245.1027350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 387AF81A77B
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 21:06:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658250.1027361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rG1mR-0002HC-CZ; Wed, 20 Dec 2023 18:58:55 +0000
+	id 1rG2p6-00057A-81; Wed, 20 Dec 2023 20:05:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658245.1027350; Wed, 20 Dec 2023 18:58:55 +0000
+Received: by outflank-mailman (output) from mailman id 658250.1027361; Wed, 20 Dec 2023 20:05:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rG1mR-0002FY-9d; Wed, 20 Dec 2023 18:58:55 +0000
-Received: by outflank-mailman (input) for mailman id 658245;
- Wed, 20 Dec 2023 18:58:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rG2p6-00055M-5K; Wed, 20 Dec 2023 20:05:44 +0000
+Received: by outflank-mailman (input) for mailman id 658250;
+ Wed, 20 Dec 2023 20:05:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wrkk=H7=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rG1mQ-0002FS-H4
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 18:58:54 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cfd26289-9f69-11ee-9b0f-b553b5be7939;
- Wed, 20 Dec 2023 19:58:52 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 25141CE1D5C;
- Wed, 20 Dec 2023 18:58:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47C9DC433C8;
- Wed, 20 Dec 2023 18:58:45 +0000 (UTC)
+ <SRS0=RD2L=H7=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rG2p5-00055G-84
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 20:05:43 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 267635e2-9f73-11ee-98eb-6d05b1d4d9a1;
+ Wed, 20 Dec 2023 21:05:41 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-50e44c1b35fso97095e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 12:05:41 -0800 (PST)
+Received: from [192.168.220.211] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ z1-20020ac24f81000000b0050e3f35e549sm50318lfs.203.2023.12.20.12.05.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Dec 2023 12:05:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,106 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfd26289-9f69-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1703098726;
-	bh=URY02UddOim4cEdqv3S4Emu2QUaKxv6M7A+HWzTBzQw=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=F5QgkZz+Uy4cW8qzOC47LI3VTHkFs/iRsFz0K4T6CUooeu/hBqMx0jFm/jrb093Iu
-	 z7+rhO07MMjW07rItsA7TMfAaw3udxynEtOML52pEXCxd8pJKE5TS01MC2I1vGJpzd
-	 DY+kBlYeRuZUxDZAkWyFOfVqDO+ZfK0pXkmbPXTje0xK7MdoU0Qp8QfccO2xSLjwn/
-	 6l04JP4CqV3SQaFf9vAFmdf6r3aSC7lerfuDTf4pRvnQD7xarV8Qoe5K7fbe5G6Dfj
-	 TbJDVA6ETsHXOfp3AVuKBYun+y+KHqgvmDmu9OxVh3tk4MZQhaoNuj+9/lu9hLIcLB
-	 CwsRcOoR6if8w==
-Date: Wed, 20 Dec 2023 10:58:43 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    Federico Serafini <federico.serafini@bugseng.com>
-Subject: Re: [PATCH 2/2] xen/bug: Complete outstanding TODO
-In-Reply-To: <139031ab-522c-41d7-b9d7-e9b7d3656555@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2312201053180.685950@ubuntu-linux-20-04-desktop>
-References: <20231215181433.1588532-1-andrew.cooper3@citrix.com> <20231215181433.1588532-3-andrew.cooper3@citrix.com> <139031ab-522c-41d7-b9d7-e9b7d3656555@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 267635e2-9f73-11ee-98eb-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1703102740; x=1703707540; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=7XXaZ148JMl9fL6qBS2K6YuKFKoFXCcdRayp3lFcKD4=;
+        b=JcGJGB9tJhBP0fQiflviTIy/Wa7egoG33R/3biNzs+XFjn93BDJ4xj454T4L1OtVhF
+         aHKSBba9D0O26vrWVUoniZ1SN+aKyMdMtfDwxTMbw/dzJ/kwwmNlzgvBnjdfuO144TNu
+         raL/Ud5Abe5DBr8SXTjs5BiKbZmBkn2poC3nPRP4myog6NqzWVPVUq69WY5N2GK1Vci0
+         gQjxQRm/JSdD+sk6WfA8lmZwSxjii0XGiTtfcyV8UsZ4Lkwr1R9C6YDFQ8C4o+i/vv85
+         Abvk+DRnxNudZ8WmUFfbmU6AGj9vQAccXfWlQJbkQOyRm/dXsYx/zUsRJygwk5ZcvT3p
+         Vw1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703102740; x=1703707540;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7XXaZ148JMl9fL6qBS2K6YuKFKoFXCcdRayp3lFcKD4=;
+        b=gE1U2O8o+ejbyTqPgaz7q9oxbPjuwFnC86fbmy7M5xo8MGIVzIDd9/jv7oe+iFSonU
+         SREcrOIHVSZy2DBLUtcdheP7GAHyTvhn0929fpYTcD4i5E8qIYdDB3TlShm4vnzgv4y0
+         23SLCyEJHyspipcvNE1RIPE3MwJa6XlPOEZ7UoltN/JLR0bXaj+/QgQATCY+Vmkrqq5T
+         zE8PaevlX8liHeFDwSScaQg8JBCUucHzQ5panCmo0DRR/dpntPgJ/PCfc1wQNTEsJoyU
+         eFz9tHtaVdmskNBkc/vMhPtwuERf1QkNmxuXfU42gAgJKb0mf9kwmCrHUfBQURY0x5Pe
+         hSQA==
+X-Gm-Message-State: AOJu0YzXJtQ+nzzzBgrFFlWgJtloIzyiSa8GCQFtuhosYU0ySNKY7mOg
+	bAPMHliMGrK8V/vn4vBFLnM=
+X-Google-Smtp-Source: AGHT+IGo7nphxPuXlO6K6wUACnIje+9FM7ngmlAvo88Dv4czcDl4D3P978d29iwQOw4GLWGQXcCWLA==
+X-Received: by 2002:a05:6512:31d2:b0:50b:f0a2:25dd with SMTP id j18-20020a05651231d200b0050bf0a225ddmr11607923lfe.3.1703102740335;
+        Wed, 20 Dec 2023 12:05:40 -0800 (PST)
+Message-ID: <f890996c2b100c6ace1f853da2c293d2f9244ef9.camel@gmail.com>
+Subject: Re: [PATCH v2 07/39] xen/riscv: introduce arch-riscv/hvm/save.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Shawn Anastasio
+ <sanastasio@raptorengineering.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	 <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+	xen-devel@lists.xenproject.org
+Date: Wed, 20 Dec 2023 22:05:34 +0200
+In-Reply-To: <5eae9d9b-e499-4c8c-aed0-2f52c0aa7c9f@suse.com>
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+	 <acb870b980a791d7800d47c08c9574275159df39.1700761381.git.oleksii.kurochko@gmail.com>
+	 <5eae9d9b-e499-4c8c-aed0-2f52c0aa7c9f@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1998577787-1703098608=:685950"
-Content-ID: <alpine.DEB.2.22.394.2312201056540.685950@ubuntu-linux-20-04-desktop>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Tue, 2023-12-05 at 16:59 +0100, Jan Beulich wrote:
+> On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> > --- /dev/null
+> > +++ b/xen/include/public/arch-riscv/hvm/save.h
+> > @@ -0,0 +1,20 @@
+> > +/* SPDX-License-Identifier: MIT */
+> > +/*
+> > + * Structure definitions for HVM state that is held by Xen and
+> > must
+> > + * be saved along with the domain's memory and device-model state.
+> > + */
+> > +
+> > +#ifndef __XEN_PUBLIC_HVM_SAVE_RISCV_H__
+> > +#define __XEN_PUBLIC_HVM_SAVE_RISCV_H__
+> > +
+> > +#endif
+> > +
+> > +/*
+> > + * Local variables:
+> > + * mode: C
+> > + * c-file-style: "BSD"
+> > + * c-basic-offset: 4
+> > + * tab-width: 4
+> > + * indent-tabs-mode: nil
+> > + * End:
+> > + */
+>=20
+> Seeing that Arm's is as empty, I wonder why we have it. Julien,
+> Stefano?
+It seems to exist to satisfy the 'install-tools-public-headers' target:
+install: cannot stat 'xen/arch-arm/hvm/*.h': No such file or directory
+Makefile:58: recipe for target 'install' failed
+make[1]: *** [install] Error 1
+make[1]: Leaving directory '/builds/xen-
+project/people/olkur/xen/tools/include'
+Makefile:44: recipe for target 'install-tools-public-headers' failed
 
---8323329-1998577787-1703098608=:685950
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2312201056541.685950@ubuntu-linux-20-04-desktop>
+From tools/include/Makefile:
+install: all
+...
+$(DESTDIR)$(includedir)/xen/arch-arm
+	$(INSTALL_DATA) xen/arch-arm/hvm/*.h
+$(DESTDIR)$(includedir)/xen/arch-arm/hvm
+...
 
-On Fri, 15 Dec 2023, Julien Grall wrote:
-> Hi Andrew,
-> 
-> On 15/12/2023 18:14, Andrew Cooper wrote:
-> > Since this TODO was written, BUILD_BUG_ON() has been moved out of xen/lib.h
-> > into xen/macros.h, which has done all the hard work.
-> > 
-> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > ---
-> > CC: George Dunlap <George.Dunlap@citrix.com>
-> > CC: Jan Beulich <JBeulich@suse.com>
-> > CC: Stefano Stabellini <sstabellini@kernel.org>
-> > CC: Wei Liu <wl@xen.org>
-> > CC: Julien Grall <julien@xen.org>
-> > CC: Federico Serafini <federico.serafini@bugseng.com>
-> > ---
-> >   xen/include/xen/bug.h | 16 +++++++---------
-> >   1 file changed, 7 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/xen/include/xen/bug.h b/xen/include/xen/bug.h
-> > index cb5138410ea7..8cca4486a477 100644
-> > --- a/xen/include/xen/bug.h
-> > +++ b/xen/include/xen/bug.h
-> > @@ -20,7 +20,8 @@
-> >   #define BUG_DEBUGGER_TRAP_FATAL(regs) 0
-> >   #endif
-> >   -#include <xen/lib.h>
-> > +#include <xen/macros.h>
-> > +#include <xen/types.h>
-> >     #ifndef BUG_FRAME_STRUCT
-> >   @@ -104,14 +105,11 @@ typedef void bug_fn_t(const struct cpu_user_regs
-> > *regs);
-> >     #ifndef run_in_exception_handler
-> >   -/*
-> > - * TODO: untangle header dependences, break BUILD_BUG_ON() out of
-> > xen/lib.h,
-> > - * and use a real static inline here to get proper type checking of fn().
-> > - */
-> > -#define run_in_exception_handler(fn) do {                   \
-> > -    (void)((fn) == (void (*)(struct cpu_user_regs *))NULL); \
-> > -    BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL);             \
-> > -} while ( false )
-> > +static void always_inline run_in_exception_handler(
-> > +    void (*fn)(struct cpu_user_regs *regs))
-> 
-> Based on the other threads, shouldn't this be using bug_fn_t?
+We have the following options:
+1. Remove the line with $(INSTALL_DATA) xen/arch-arm/hvm/*.h (only
+save.h is now in this folder, which is empty).
+2. Don't touch the Arm part, but for PPC and RISC-V, do the following:
+#if defined(__i386__) || defined(__x86_64__)
+#include "../arch-x86/hvm/save.h"
+#elif defined(__arm__) || defined(__aarch64__)
+#include "../arch-arm/hvm/save.h"
++#elif defined(__powerpc64__) || defined(__riscv)
++/* no specific header to include */
+#else
+#error "unsupported architecture"
+#endif
 
-Unfortunately it doesn't compile:
+3. Provide an asm-generic version of save.h for Arm, PPC, and RISC-V
+and use it in public/save.h.
 
-common/bug.c: In function ‘do_bug_frame’:
-common/bug.c:72:38: error: passing argument 1 of ‘run_in_exception_handler’ from incompatible pointer type [-Werror=incompatible-pointer-types]
-   72 |             run_in_exception_handler(fn);
-      |                                      ^~
-      |                                      |
-      |                                      void (*)(struct cpu_user_regs *)
+In your opinion, which option would be better?
 
-due to the missing const in common/bug.c:72.
+~ Oleksii
+> ....
+> > --- a/xen/include/public/hvm/save.h
+> > +++ b/xen/include/public/hvm/save.h
+> > @@ -91,6 +91,8 @@ DECLARE_HVM_SAVE_TYPE(END, 0, struct
+> > hvm_save_end);
+> > =C2=A0#include "../arch-arm/hvm/save.h"
+> > =C2=A0#elif defined(__powerpc64__)
+> > =C2=A0#include "../arch-ppc.h"
+> > +#elif defined(__riscv)
+> > +#include "../arch-riscv/hvm/save.h"
+> > =C2=A0#else
+> > =C2=A0#error "unsupported architecture"
+> > =C2=A0#endif
+>=20
+> The PPC part here looks bogus altogether. Shawn?
+>=20
+> Jan
 
-
-Not to make things more complicated in this patch, I think we should
-take the patch as is as a simple cleanup (and do further cleanups in the
-future):
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
---8323329-1998577787-1703098608=:685950--
 
