@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30E64819B13
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 10:04:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657460.1026295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 393A9819B1D
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 10:08:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657465.1026305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFsUe-0005gO-UB; Wed, 20 Dec 2023 09:03:56 +0000
+	id 1rFsZH-0006IA-GJ; Wed, 20 Dec 2023 09:08:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657460.1026295; Wed, 20 Dec 2023 09:03:56 +0000
+Received: by outflank-mailman (output) from mailman id 657465.1026305; Wed, 20 Dec 2023 09:08:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFsUe-0005d8-Rc; Wed, 20 Dec 2023 09:03:56 +0000
-Received: by outflank-mailman (input) for mailman id 657460;
- Wed, 20 Dec 2023 09:03:55 +0000
+	id 1rFsZH-0006Fs-D2; Wed, 20 Dec 2023 09:08:43 +0000
+Received: by outflank-mailman (input) for mailman id 657465;
+ Wed, 20 Dec 2023 09:08:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFsUd-0005d2-Rm
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 09:03:55 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vWXp=H7=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rFsZF-0006Fm-Vn
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 09:08:42 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b2e3e019-9f16-11ee-9b0f-b553b5be7939;
- Wed, 20 Dec 2023 10:03:53 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40d3352b525so6159255e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 01:03:53 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v8-20020a05600c444800b0040d2e37c06dsm4365776wmn.20.2023.12.20.01.03.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Dec 2023 01:03:52 -0800 (PST)
+ id 5d49ff13-9f17-11ee-9b0f-b553b5be7939;
+ Wed, 20 Dec 2023 10:08:39 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-33664b6d6d5so2805112f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 01:08:39 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ t18-20020a5d42d2000000b0033678e0c99bsm1482496wrr.96.2023.12.20.01.08.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 Dec 2023 01:08:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +44,261 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2e3e019-9f16-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5d49ff13-9f17-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703063033; x=1703667833; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jbpTp+bhvBXZXu2uiBzL+/2Efsmokikw5ozC+4yechU=;
-        b=AAC2B13fAhHMJh+UoriZ+hO2HRflbNN6XEJN88xBuJ9jGhRzzPklqJKQInbucNZ611
-         8jbreDvvkBtymhF4C4Ja+c2D6bTqNPSgJrgzeo7aAHRFk9uVJFLFEPP5KkP/VK/XI65O
-         Xs6RwsYYL8t1lYRkv9QgiRzi2qju5lJrDssQvGzHmNL5oKJfc4AWnM4x85U83jF6GWQi
-         UYOlokldoWnxyxolBwkGycA1Mfu0UW0Hqgd6g35RMc/i/KWRspgElSpgd7vc11ZQvRW/
-         4+gDSgaqd2jyaTTyE1Oe5ThycYaT8t8B3vGnTrh7WCtxChJU9mBRggWKn6l1PmwzRBh9
-         ZBKA==
+        d=citrix.com; s=google; t=1703063319; x=1703668119; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=L7SvkQI6kkO/NNrGzSJNZidwZDKmGcYc0nKLS+XLB6M=;
+        b=oscQkP1N1+tFh62yGhB/litprriEzDW0/uUMbYEhvaPU6cLkbTnZ4wlS8JU1D9xcbk
+         ifD7RGroabLk7I9slquMuUhh/K/9wc2NZwJKKrHGaruQb1r2m0aIr/z/Q0DEJL+dlxHs
+         m21qTZtrcyLU26UyemFCcmzL+o+t3NPvERGGo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703063033; x=1703667833;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1703063319; x=1703668119;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jbpTp+bhvBXZXu2uiBzL+/2Efsmokikw5ozC+4yechU=;
-        b=tIptlOiZWSxRQSfYs1FbsgwA7RNikQWTpQnpH9r5Ktw/lf4GNoSIWs/fnuab8O72mG
-         MBocyctmfvWILOPlwsu9aox1NwU87OsCrmDgF0MQ/1nmZdRrtXFDaJE0T02SeamGgDZk
-         ZwYDKuT3gfrp+z0ztlPDCgrwnS61NS3tp3d04VQUpk4KQojSV91JZvsPqeksM1hsXEi+
-         1KsM5PzgPmtobITXcuBLoiSO6/MqOQH+TDaSDup9PyMUuiUiP356yfwjZbfMaDSWHn7o
-         ou+vizDQNl9rTNGGkRg7eZ1SrdGX1adBJ2+J8hG/33CpTzRdm2an9Yq7y7npPCqB/QfY
-         XOEA==
-X-Gm-Message-State: AOJu0YwrD1akC5Cx3GUPAfRS1vAI9sri8c8npJPSOzRFnhAIyLtQRWNS
-	DX9wYSi0iO9hgL1SCju8I4Ps
-X-Google-Smtp-Source: AGHT+IFNG6d80U6pJZt57Ee+su+SJtkdz6ZZGMEsiIsMw4yMEGLAo547IBqyl206gDJW0AclaFAOGA==
-X-Received: by 2002:a05:600c:538c:b0:40d:3076:1f25 with SMTP id hg12-20020a05600c538c00b0040d30761f25mr622462wmb.151.1703063032963;
-        Wed, 20 Dec 2023 01:03:52 -0800 (PST)
-Message-ID: <87e185ab-6129-41ea-8424-9484659840d1@suse.com>
-Date: Wed, 20 Dec 2023 10:03:51 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] x86/livepatch: align functions to ensure minimal
- distance between entry points
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+        bh=L7SvkQI6kkO/NNrGzSJNZidwZDKmGcYc0nKLS+XLB6M=;
+        b=Ze2hlu92oJAhVkZ9e1C4lRQWufurPiwFFsq2qpDASm6oWpV4Bp38vtM4n7REPQbaqu
+         aI+zav8/kiudUVxKUure/wjskzkkuDBxPaqcDpglRLs0xHPGebebaDXN5ON6OxzcMF5N
+         9Woxi6RY8RuR+qUce184DEX4mlKB69KeJfDvJUJy3qpm2gkopaig9e6yeR6mqa/vxW6+
+         bs7cTBlYXbjPHcYGdxUxZ/SatviFgPajns1cFw1+VHkEcDkf+nB97/A5G/8IRjOWWNzP
+         ekgVtder6FKibSqej2V6RezPt1yBMneBC+vKo2vuTFGF59OrG2mm441Fg9HJjFvk2Cfb
+         WQ0g==
+X-Gm-Message-State: AOJu0YyQdZe9gSSMyRFq/KDboCcGmXbKnEWYfHSq4m96DYpIzwnHcWes
+	09/AxhqeDgnaX0kiZornF11LuQ==
+X-Google-Smtp-Source: AGHT+IEIYBNKpLR3cMAF9mAj5TkrrRbh64Na3ZoFGC9AXvo0D8/r9tgtQhczQ4tyIQWbIVwHviuKNQ==
+X-Received: by 2002:adf:f68c:0:b0:336:64cd:3fc3 with SMTP id v12-20020adff68c000000b0033664cd3fc3mr2982679wrp.59.1703063318819;
+        Wed, 20 Dec 2023 01:08:38 -0800 (PST)
+Date: Wed, 20 Dec 2023 10:08:37 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v4 2/4] xen/x86: introduce self modifying code test
+Message-ID: <ZYKvFUICQ4pKwH0S@macbook>
 References: <20231215111842.8009-1-roger.pau@citrix.com>
- <20231215111842.8009-2-roger.pau@citrix.com>
- <bc08ed7e-766d-4f0e-a7ef-994d09d1dbe2@citrix.com> <ZYKmn-lvKQpauL6Z@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZYKmn-lvKQpauL6Z@macbook>
-Content-Type: text/plain; charset=UTF-8
+ <20231215111842.8009-3-roger.pau@citrix.com>
+ <32d6d42f-2736-42ed-bad3-a6bdaedf588c@citrix.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <32d6d42f-2736-42ed-bad3-a6bdaedf588c@citrix.com>
 
-On 20.12.2023 09:32, Roger Pau Monné wrote:
-> On Tue, Dec 19, 2023 at 07:46:11PM +0000, Andrew Cooper wrote:
->> On 15/12/2023 11:18 am, Roger Pau Monne wrote:
->>> The minimal function size requirements for livepatch are either 5 bytes (for
->>
->> "for an x86 livepatch", seeing as we're touching multiple architectures
->> worth of files.
->>
->> I know it's at the end of the sentence, but it wants to be earlier to be
->> clearer.
->>
->>> jmp) or 9 bytes (for endbr + jmp) on x86, and always 4 bytes on Arm.  Ensure
->>> that distance between functions entry points is always at least of the minimal
->>> required size for livepatch instruction replacement to be successful.
->>>
->>> Add an additional align directive to the linker script, in order to ensure that
->>> the next section placed after the .text.* (per-function sections) is also
->>> aligned to the required boundary, so that the distance of the last function
->>> entry point with the next symbol is also of minimal size.
->>>
->>> Note that it's possible for the compiler to end up using a higher function
->>> alignment regardless of the passed value, so this change just make sure that
->>> the minimum required for livepatch to work is present.  Different compilers
->>> handle the option differently, as clang will ignore -falign-functions value
->>> if it's smaller than the one that would be set by the optimization level, while
->>> gcc seems to always honor the function alignment passed in -falign-functions.
->>> In order to cope with this behavior and avoid that setting -falign-functions
->>> results in an alignment inferior to what the optimization level would have
->>> selected force x86 release builds to use a function alignment of 16 bytes.
->>
->> Yuck :(
->>
->> The same will be true for all other architectures too?
+On Tue, Dec 19, 2023 at 08:31:29PM +0000, Andrew Cooper wrote:
+> On 15/12/2023 11:18 am, Roger Pau Monne wrote:
+> > Introduce a helper to perform checks related to self modifying code, and start
+> > by creating a simple test to check that alternatives have been applied.
+> >
+> > Such test is hooked into the boot process and called just after alternatives
+> > have been applied.  In case of failure a message is printed, and the hypervisor
+> > is tainted as not having passed the tests, this does require introducing a new
+> > taint bit (printed as 'T').
 > 
-> I would expect that for gcc I guess.
+> We've got stub_selftest() in extable.c which currently does an ah-hoc
+> form of this taint via warning_add().
 > 
->> What happens on ARM, which also picks up an explicit choice in livepatch
->> builds?
-> 
-> Arm AFAICT seems to use a 4 byte function alignment with -O2 (both gcc
-> and clang), so that matches what we need to enforce for livepatch.  If
-> we ever need a higher alignment for livepatch reasons it would be a
-> multiple of the minimum one set by the compiler, so that should be
-> fine.
+> Nothing else comes to mind, but I would suggest breaking out the new
+> taint into an earlier patch, as this one is complicated enough anyway.
 
-Thinking of it: The forcing of 16-byte alignment in release builds of x86
-is based on observations with certain compiler versions, iirc. What if
-future versions decide to go lower/higher for, perhaps, very good reasons?
-We don't really mean to override the compiler's choice, so maybe further
-probing is actually necessary?
+I see, so introduce the taint in a previous patch and use it in
+stub_selftest() failure,
 
-Jan
+> > diff --git a/xen/arch/x86/include/asm/test.h b/xen/arch/x86/include/asm/test.h
+> > new file mode 100644
+> > index 000000000000..e96e709c6a52
+> > --- /dev/null
+> > +++ b/xen/arch/x86/include/asm/test.h
+> > @@ -0,0 +1,30 @@
+> > +#ifndef _ASM_X86_TEST_H_
+> > +#define _ASM_X86_TEST_H_
+> > +
+> > +#include <xen/types.h>
+> > +
+> > +int test_smoc(uint32_t selection, uint32_t *results);
+> > +
+> > +static inline void execute_selftests(void)
+> 
+> IMO run_selftests() would be better, but this is already not all of our
+> selftests, and this particular function really doesn't warrant being
+> static inline.
+> 
+> But I'm also not sure what this is liable to contain other than
+> test_smoc() so I'm not sure why we want it.
+
+This was requested by Jan, he was concerned that more of such tests
+would appear.  It's new in v4 IIRC.
+
+> > diff --git a/xen/arch/x86/test/smoc.c b/xen/arch/x86/test/smoc.c
+> > new file mode 100644
+> > index 000000000000..09db5cee9ae2
+> > --- /dev/null
+> > +++ b/xen/arch/x86/test/smoc.c
+> > @@ -0,0 +1,66 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +
+> > +#include <xen/errno.h>
+> > +
+> > +#include <asm/alternative.h>
+> > +#include <asm/cpufeature.h>
+> > +#include <asm/test.h>
+> > +
+> > +static bool cf_check test_insn_replacement(void)
+> > +{
+> > +#define EXPECTED_VALUE 2
+> > +    unsigned int r = ~EXPECTED_VALUE;
+> > +
+> > +    alternative_io("", "mov %1, %0", X86_FEATURE_ALWAYS,
+> > +                   "+r" (r), "i" (EXPECTED_VALUE));
+> > +
+> > +    return r == EXPECTED_VALUE;
+> > +#undef EXPECTED_VALUE
+> > +}
+> > +
+> > +int test_smoc(uint32_t selection, uint32_t *results)
+> > +{
+> > +    struct {
+> > +        unsigned int mask;
+> > +        bool (*test)(void);
+> > +        const char *name;
+> > +    } static const tests[] = {
+> > +        { XEN_SYSCTL_TEST_SMOC_INSN_REPL, &test_insn_replacement,
+> > +          "alternative instruction replacement" },
+> > +    };
+> 
+> Ah.  I realise I said "like XTF", but I meant "checking one thing at a
+> time".
+> 
+> While this pattern for tests[] is very convenient in XTF, it has one
+> major downside in Xen, and that's the proliferation of ENDBR's in the
+> running binary.
+
+But for the livepatch case for example it's interesting to patch
+functions that have the ENDBR prefix.
+
+I do like having all the tests in an array, as then adding new ones is
+trivial.
+
+> Also (see below), returning bool isn't ok.  In the case of a failure, we
+> need:
+> 
+> printk(XENLOG_ERR "%s() Failure: Expected $FOO, got $BAR\n");
+
+There's already a message printed below, that's currently limited
+to system_state < SYS_STATE_active, but I would be fine with printing
+unconditionally that prints which test failed in a human readable
+form:
+
+printk(XENLOG_ERR "%s test failed\n", tests[i].name);
+
+So that would print:
+
+"alternative instruction replacement test failed"
+
+on the Xen dmesg.
+
+On one of the first versions test functions did return a value, but I
+ended up switching to this boolean version because I didn't see much
+value in returning anything that's not success or failure from the
+tests.
+
+I can switch back to returning a value, and then the array of tests
+will also store the expected returned value.
+
+> because that's what a human needs to know in order to fix the issue, not
+> a generic "something failed".
+> 
+> > +    unsigned int i;
+> > +
+> > +    if ( selection & ~XEN_SYSCTL_TEST_SMOC_ALL )
+> > +        return -EINVAL;
+> 
+> I'm not sure this is sensible.  It's a testing hypercall, so why
+> shouldn't I be able to pass ~0 to mean "test everything the hypervisor
+> knows about" ?
+
+Well, for one livepatch tests will fail if the livepatch hasn't been
+applied yet.
+
+> > +
+> > +    if ( results )
+> > +        *results = 0;
+> > +
+> > +    for ( i = 0; i < ARRAY_SIZE(tests); i++ )
+> > +    {
+> > +        if ( !(selection & tests[i].mask) )
+> > +            continue;
+> > +
+> > +        if ( tests[i].test() )
+> > +        {
+> > +            if ( results )
+> > +                *results |= tests[i].mask;
+> 
+> How is results supposed to be used?
+> 
+> XEN_SYSCTL_TEST_SMOC_INSN_REPL covers about 15 things we want to test,
+> making this output mask useless.
+
+The output mask just maps the input tests into output results.
+
+For example given the case you want to execute all tests (~0), and the
+livepatch replacements haven't been applied yet, the altinstructions
+test will succeed, but the livepatch ones will fail (as expected), we
+need a way to report this back to the caller.
+
+> 
+> The selftests, like the exception fixup ones, are supposed to be
+> guarantee pass.  Failure is an exceptional case, and is only expected to
+> be found with new compilers and new SMC development.
+
+Livepatch tests (at least the one I have implemented in patch 3) is
+expected to fail until a livepatch is applied to make it succeed.  We
+do care about checking that it first fails, then we upload the
+livepatch and it succeeds, and that reverting the livepatch makes it
+fail again.
+
+> I can kind of see how an input mask might be useful, although I wouldn't
+> have had one myself.  With correct diagnostics, running the hypercall
+> multiple times isn't useful to debugging, and without correct
+> diagnostics, the feedback provided by this is useless.
+> 
+> So honestly, I think this "results" output is overengineered and doesn't
+> help the cases where it is actually going to matter.
+
+So for altinstructions it's true that the expectation is for them to
+always succeed, that's not the case for livepatch ones, where it's
+useful to explicitly test for failure, hence we need a fine grained
+way to report failure of specific tests.
+
+> 
+> Remember most of all that self-modifying code which are going to cause
+> failures here have a high chance of crashing Xen outright.  And we're
+> deliberately trying to make this happen in CI and before a breaking
+> change gets out into releases.
+> 
+> > +            continue;
+> > +        }
+> > +
+> > +        if ( system_state < SYS_STATE_active )
+> > +            printk(XENLOG_ERR "%s test failed\n", tests[i].name);
+> 
+> This is a test hypercall, for the purpose of running testing, in
+> combination with test livepatches.  Eliding the diagnostics isn't ok.
+> 
+> Logspam concerns aren't an issue.  If the user runs `while :; do
+> xen-test-smc; done` in dom0 then they get to have a full dmesg ring.
+> 
+> Don't let that get in the way of having a sensible time figuring out
+> what went wrong.
+
+This was requested by Jan, and indeed my original intention was to
+unconditionally print the messages, as I think they are helpful.
+
+Thanks, Roger.
 
