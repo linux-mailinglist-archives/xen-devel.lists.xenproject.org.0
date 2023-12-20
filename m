@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0BC8819AE9
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 09:53:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.657451.1026286 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E64819B13
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Dec 2023 10:04:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.657460.1026295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFsKG-0003Dc-Tz; Wed, 20 Dec 2023 08:53:12 +0000
+	id 1rFsUe-0005gO-UB; Wed, 20 Dec 2023 09:03:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 657451.1026286; Wed, 20 Dec 2023 08:53:12 +0000
+Received: by outflank-mailman (output) from mailman id 657460.1026295; Wed, 20 Dec 2023 09:03:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rFsKG-0003Ax-Pb; Wed, 20 Dec 2023 08:53:12 +0000
-Received: by outflank-mailman (input) for mailman id 657451;
- Wed, 20 Dec 2023 08:53:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rFsUe-0005d8-Rc; Wed, 20 Dec 2023 09:03:56 +0000
+Received: by outflank-mailman (input) for mailman id 657460;
+ Wed, 20 Dec 2023 09:03:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=m81q=H7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rFsKF-0003Ao-CO
- for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 08:53:11 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2457f3a9-9f15-11ee-98eb-6d05b1d4d9a1;
- Wed, 20 Dec 2023 09:52:44 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40c256ffdbcso63522605e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 00:52:44 -0800 (PST)
+ id 1rFsUd-0005d2-Rm
+ for xen-devel@lists.xenproject.org; Wed, 20 Dec 2023 09:03:55 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b2e3e019-9f16-11ee-9b0f-b553b5be7939;
+ Wed, 20 Dec 2023 10:03:53 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40d3352b525so6159255e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 01:03:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c10-20020a056000104a00b00336787ccc92sm1634026wrx.114.2023.12.20.00.52.43
+ v8-20020a05600c444800b0040d2e37c06dsm4365776wmn.20.2023.12.20.01.03.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Dec 2023 00:52:44 -0800 (PST)
+ Wed, 20 Dec 2023 01:03:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2457f3a9-9f15-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: b2e3e019-9f16-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703062364; x=1703667164; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703063033; x=1703667833; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ROU0AEBFYd3KnAl6fIcmKX1GoZ/DRJ6fdlH15aA/zvk=;
-        b=a6i1fLT6T+Kh3riU/7pk0p4YiUvP0P2bZtjakwcoYAz1FgG8yiQ+m9xZwOxdVYfkK1
-         HJkq4525NmLr3IlGvQSZ6YqhX7K0Mf0qWrMWUnJXrHzqpRpNfF0ON7KuU3WBtU+R2bnF
-         pluWVHJz8OmqOgiVJuhUedv2pVwUHkswPnzWBnj8HAryh6h7qgCq+HGZ0BIigotnU9Pk
-         lDsi49JCwwULlIjohS49SFAOrm3O++MO1QCNivWchpbD4fJBoaN8qlkWEZ/CQxgqpiwG
-         sSjbykTGkp34gBLJ7aUxU0rNM1vDrPZgCdovydQfx4DoQkdnQchA24Re8UleEAmxFKJz
-         /TyQ==
+        bh=jbpTp+bhvBXZXu2uiBzL+/2Efsmokikw5ozC+4yechU=;
+        b=AAC2B13fAhHMJh+UoriZ+hO2HRflbNN6XEJN88xBuJ9jGhRzzPklqJKQInbucNZ611
+         8jbreDvvkBtymhF4C4Ja+c2D6bTqNPSgJrgzeo7aAHRFk9uVJFLFEPP5KkP/VK/XI65O
+         Xs6RwsYYL8t1lYRkv9QgiRzi2qju5lJrDssQvGzHmNL5oKJfc4AWnM4x85U83jF6GWQi
+         UYOlokldoWnxyxolBwkGycA1Mfu0UW0Hqgd6g35RMc/i/KWRspgElSpgd7vc11ZQvRW/
+         4+gDSgaqd2jyaTTyE1Oe5ThycYaT8t8B3vGnTrh7WCtxChJU9mBRggWKn6l1PmwzRBh9
+         ZBKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703062364; x=1703667164;
+        d=1e100.net; s=20230601; t=1703063033; x=1703667833;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ROU0AEBFYd3KnAl6fIcmKX1GoZ/DRJ6fdlH15aA/zvk=;
-        b=NbCpuNGyiATPDaFuSWG5eBts6/EFkDxFENilDOtdTwNninCYJTJQitrqHLUGq0z1JR
-         hTy9s0pP7d5/Zl48Z6jUVKVAHIMMiGogL8i/bxoOGhPoOOoUTzIAsD+Vd7etMQ/FlAoc
-         ePTPWcUA4dimK8Q/k4khh4XMlEfMbtlO0ffxtxuWirfG8tcT/h7HcDp+HAo2y9WyhSQo
-         PxuWorrauY8Kd2tQuGHf55x/rNS80I5nUM7jz6BN5BUqihWlPwmm3hLKSvjO2jvjn585
-         JXs4MaPB5RL+tK0rQzc94JjZEwS81YeEMLAUEo0GWcJlN32i8ycrnxwYdR6AesA7efkf
-         r86w==
-X-Gm-Message-State: AOJu0YwpTxvy/1o2xefAs5Dg7AIdNd+YcOnM4qVCaqZPtRcG3wEpgJ8d
-	MFU4BdLdY5GkoSN+nO0fCiQrp15xZn/z3i/gq9tk
-X-Google-Smtp-Source: AGHT+IFJkAgctcsEQG8iQZ2j+ZOLOfSg2sAGsVk7rLJuc70FR5XSp/O0nvhLikQLrCC9RnUDxmHLiw==
-X-Received: by 2002:a05:600c:43c5:b0:405:1c19:b747 with SMTP id f5-20020a05600c43c500b004051c19b747mr10783109wmn.15.1703062364399;
-        Wed, 20 Dec 2023 00:52:44 -0800 (PST)
-Message-ID: <dfb8321b-f9ed-48ec-b646-830caba2c4a1@suse.com>
-Date: Wed, 20 Dec 2023 09:52:42 +0100
+        bh=jbpTp+bhvBXZXu2uiBzL+/2Efsmokikw5ozC+4yechU=;
+        b=tIptlOiZWSxRQSfYs1FbsgwA7RNikQWTpQnpH9r5Ktw/lf4GNoSIWs/fnuab8O72mG
+         MBocyctmfvWILOPlwsu9aox1NwU87OsCrmDgF0MQ/1nmZdRrtXFDaJE0T02SeamGgDZk
+         ZwYDKuT3gfrp+z0ztlPDCgrwnS61NS3tp3d04VQUpk4KQojSV91JZvsPqeksM1hsXEi+
+         1KsM5PzgPmtobITXcuBLoiSO6/MqOQH+TDaSDup9PyMUuiUiP356yfwjZbfMaDSWHn7o
+         ou+vizDQNl9rTNGGkRg7eZ1SrdGX1adBJ2+J8hG/33CpTzRdm2an9Yq7y7npPCqB/QfY
+         XOEA==
+X-Gm-Message-State: AOJu0YwrD1akC5Cx3GUPAfRS1vAI9sri8c8npJPSOzRFnhAIyLtQRWNS
+	DX9wYSi0iO9hgL1SCju8I4Ps
+X-Google-Smtp-Source: AGHT+IFNG6d80U6pJZt57Ee+su+SJtkdz6ZZGMEsiIsMw4yMEGLAo547IBqyl206gDJW0AclaFAOGA==
+X-Received: by 2002:a05:600c:538c:b0:40d:3076:1f25 with SMTP id hg12-20020a05600c538c00b0040d30761f25mr622462wmb.151.1703063032963;
+        Wed, 20 Dec 2023 01:03:52 -0800 (PST)
+Message-ID: <87e185ab-6129-41ea-8424-9484659840d1@suse.com>
+Date: Wed, 20 Dec 2023 10:03:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 01/17] pci: msi: pass pdev to pci_enable_msi()
- function
+Subject: Re: [PATCH v4 1/4] x86/livepatch: align functions to ensure minimal
+ distance between entry points
 Content-Language: en-US
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20231202012556.2012281-1-volodymyr_babchuk@epam.com>
- <20231202012556.2012281-2-volodymyr_babchuk@epam.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231215111842.8009-1-roger.pau@citrix.com>
+ <20231215111842.8009-2-roger.pau@citrix.com>
+ <bc08ed7e-766d-4f0e-a7ef-994d09d1dbe2@citrix.com> <ZYKmn-lvKQpauL6Z@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,60 +118,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231202012556.2012281-2-volodymyr_babchuk@epam.com>
+In-Reply-To: <ZYKmn-lvKQpauL6Z@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02.12.2023 02:27, Volodymyr Babchuk wrote:
-> --- a/xen/drivers/char/ns16550.c
-> +++ b/xen/drivers/char/ns16550.c
-> @@ -452,21 +452,29 @@ static void __init cf_check ns16550_init_postirq(struct serial_port *port)
->              if ( rc > 0 )
->              {
->                  struct msi_desc *msi_desc = NULL;
-> +                struct pci_dev *pdev;
->  
->                  pcidevs_lock();
->  
-> -                rc = pci_enable_msi(&msi, &msi_desc);
-> -                if ( !rc )
-> +                pdev = pci_get_pdev(NULL, msi.sbdf);
-> +                if ( pdev )
->                  {
-> -                    struct irq_desc *desc = irq_to_desc(msi.irq);
-> -                    unsigned long flags;
-> -
-> -                    spin_lock_irqsave(&desc->lock, flags);
-> -                    rc = setup_msi_irq(desc, msi_desc);
-> -                    spin_unlock_irqrestore(&desc->lock, flags);
-> -                    if ( rc )
-> -                        pci_disable_msi(msi_desc);
-> +                    rc = pci_enable_msi(pdev, &msi, &msi_desc);
-> +
-> +                    if ( !rc )
-> +                    {
-> +                        struct irq_desc *desc = irq_to_desc(msi.irq);
-> +                        unsigned long flags;
-> +
-> +                        spin_lock_irqsave(&desc->lock, flags);
-> +                        rc = setup_msi_irq(desc, msi_desc);
-> +                        spin_unlock_irqrestore(&desc->lock, flags);
-> +                        if ( rc )
-> +                            pci_disable_msi(msi_desc);
-> +                    }
->                  }
-> +                else
-> +                    rc = -ENODEV;
->  
->                  pcidevs_unlock();
+On 20.12.2023 09:32, Roger Pau Monné wrote:
+> On Tue, Dec 19, 2023 at 07:46:11PM +0000, Andrew Cooper wrote:
+>> On 15/12/2023 11:18 am, Roger Pau Monne wrote:
+>>> The minimal function size requirements for livepatch are either 5 bytes (for
+>>
+>> "for an x86 livepatch", seeing as we're touching multiple architectures
+>> worth of files.
+>>
+>> I know it's at the end of the sentence, but it wants to be earlier to be
+>> clearer.
+>>
+>>> jmp) or 9 bytes (for endbr + jmp) on x86, and always 4 bytes on Arm.  Ensure
+>>> that distance between functions entry points is always at least of the minimal
+>>> required size for livepatch instruction replacement to be successful.
+>>>
+>>> Add an additional align directive to the linker script, in order to ensure that
+>>> the next section placed after the .text.* (per-function sections) is also
+>>> aligned to the required boundary, so that the distance of the last function
+>>> entry point with the next symbol is also of minimal size.
+>>>
+>>> Note that it's possible for the compiler to end up using a higher function
+>>> alignment regardless of the passed value, so this change just make sure that
+>>> the minimum required for livepatch to work is present.  Different compilers
+>>> handle the option differently, as clang will ignore -falign-functions value
+>>> if it's smaller than the one that would be set by the optimization level, while
+>>> gcc seems to always honor the function alignment passed in -falign-functions.
+>>> In order to cope with this behavior and avoid that setting -falign-functions
+>>> results in an alignment inferior to what the optimization level would have
+>>> selected force x86 release builds to use a function alignment of 16 bytes.
+>>
+>> Yuck :(
+>>
+>> The same will be true for all other architectures too?
+> 
+> I would expect that for gcc I guess.
+> 
+>> What happens on ARM, which also picks up an explicit choice in livepatch
+>> builds?
+> 
+> Arm AFAICT seems to use a 4 byte function alignment with -O2 (both gcc
+> and clang), so that matches what we need to enforce for livepatch.  If
+> we ever need a higher alignment for livepatch reasons it would be a
+> multiple of the minimum one set by the compiler, so that should be
+> fine.
 
-When mere re-indenting is needed, and even more so when indentation gets
-this deep, I think it is necessary to consider alternatives: With
-
-                pdev = pci_get_pdev(NULL, msi.sbdf);
-                rc = pdev ? pci_enable_msi(pdev, &msi, &msi_desc) : -ENODEV;
-
-I think all of the other code churn could be avoided.
+Thinking of it: The forcing of 16-byte alignment in release builds of x86
+is based on observations with certain compiler versions, iirc. What if
+future versions decide to go lower/higher for, perhaps, very good reasons?
+We don't really mean to override the compiler's choice, so maybe further
+probing is actually necessary?
 
 Jan
 
