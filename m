@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD49781AC4C
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 02:42:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658442.1027579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D1781AE3E
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 06:02:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658452.1027588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rG85A-0007cD-F1; Thu, 21 Dec 2023 01:42:40 +0000
+	id 1rGBAz-0005D1-Jq; Thu, 21 Dec 2023 05:00:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658442.1027579; Thu, 21 Dec 2023 01:42:40 +0000
+Received: by outflank-mailman (output) from mailman id 658452.1027588; Thu, 21 Dec 2023 05:00:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rG85A-0007a5-C1; Thu, 21 Dec 2023 01:42:40 +0000
-Received: by outflank-mailman (input) for mailman id 658442;
- Thu, 21 Dec 2023 01:42:38 +0000
+	id 1rGBAz-0005C3-G3; Thu, 21 Dec 2023 05:00:53 +0000
+Received: by outflank-mailman (input) for mailman id 658452;
+ Thu, 21 Dec 2023 05:00:52 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1rG858-0007Zv-8G; Thu, 21 Dec 2023 01:42:38 +0000
+ id 1rGBAy-0005Bt-2L; Thu, 21 Dec 2023 05:00:52 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1rG858-0002Dn-1i; Thu, 21 Dec 2023 01:42:38 +0000
+ id 1rGBAx-0006sS-RR; Thu, 21 Dec 2023 05:00:51 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1rG857-0007Wr-L6; Thu, 21 Dec 2023 01:42:37 +0000
+ id 1rGBAx-0001WS-CB; Thu, 21 Dec 2023 05:00:51 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rG857-0001UM-KZ; Thu, 21 Dec 2023 01:42:37 +0000
+ id 1rGBAx-0004vH-Bl; Thu, 21 Dec 2023 05:00:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=/4xgeKhCE7qjyxUV2YUG8cbQsDqPIV8wZKcvcydveP8=; b=Etip9nBsA9Tn7tF0J5d4NluV7O
-	gDFSlVmOqdS+SoZSDLyShu4uSJtt7TBc3fvzplpL12Bkp/yEO+/c2UHDeLLvRI6cueQVJvCKX8Z7Y
-	LAfTtUy/pTE30MgJuf0X4abn+NUXJZroqzqNZqozFFl75S1XWGNK+QN6qA4OQbnyI7Nw=;
+	bh=kEzxHS09Km2eVN8QrwLrc5QZTbMKIZTV77BOeUJ/eCY=; b=aqtVW4XvgW/Kz8puhDz1rMmi4z
+	REXlLKYK/H7/uQjkdoFfKjS29wLde53fupIKMWi9V3GGgq71T4AUGsJR243I9ixQH5p3YeZ8rpe5v
+	oayczPJu2kTmJ6pe+78RGs1ta/or7RmfAZXJiv7LRgbeJJd9HY4sLodCDnxbvtuT53X8=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184196-mainreport@xen.org>
+Message-ID: <osstest-184198-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [ovmf test] 184196: all pass - PUSHED
+Subject: [ovmf test] 184198: all pass - PUSHED
 X-Osstest-Versions-This:
-    ovmf=89705ad6c6342e3bd635bed89608e25f74372600
+    ovmf=9f0061a03b61d282fbc0ba5be22155d06a5e64a1
 X-Osstest-Versions-That:
-    ovmf=a83d953dc2741f650cc273f39fe803ae406b0fad
+    ovmf=89705ad6c6342e3bd635bed89608e25f74372600
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 21 Dec 2023 01:42:37 +0000
+Date: Thu, 21 Dec 2023 05:00:51 +0000
 
-flight 184196 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184196/
+flight 184198 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184198/
 
 Perfect :-)
 All tests in this flight passed as required
 version targeted for testing:
- ovmf                 89705ad6c6342e3bd635bed89608e25f74372600
+ ovmf                 9f0061a03b61d282fbc0ba5be22155d06a5e64a1
 baseline version:
- ovmf                 a83d953dc2741f650cc273f39fe803ae406b0fad
+ ovmf                 89705ad6c6342e3bd635bed89608e25f74372600
 
-Last test of basis   184185  2023-12-20 02:43:17 Z    0 days
-Testing same since   184196  2023-12-20 23:14:52 Z    0 days    1 attempts
+Last test of basis   184196  2023-12-20 23:14:52 Z    0 days
+Testing same since   184198  2023-12-21 01:57:56 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Rebecca Cran <rebecca@os.amperecomputing.com>
-  Yuwei Chen <yuwei.chen@intel.com>
+  Joey Vagedes <joey.vagedes@gmail.com>
+  Joey Vagedes via groups.io <joeyvagedes=microsoft.com@groups.io>
 
 jobs:
  build-amd64-xsm                                              pass    
@@ -111,5 +111,5 @@ Test harness code can be found at
 Pushing revision :
 
 To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   a83d953dc2..89705ad6c6  89705ad6c6342e3bd635bed89608e25f74372600 -> xen-tested-master
+   89705ad6c6..9f0061a03b  9f0061a03b61d282fbc0ba5be22155d06a5e64a1 -> xen-tested-master
 
