@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A64381B3B0
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 11:34:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658794.1028162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EADB781B3B1
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 11:34:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658797.1028172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGGNX-0001OF-U0; Thu, 21 Dec 2023 10:34:11 +0000
+	id 1rGGNq-0001vb-7o; Thu, 21 Dec 2023 10:34:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658794.1028162; Thu, 21 Dec 2023 10:34:11 +0000
+Received: by outflank-mailman (output) from mailman id 658797.1028172; Thu, 21 Dec 2023 10:34:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGGNX-0001KI-RM; Thu, 21 Dec 2023 10:34:11 +0000
-Received: by outflank-mailman (input) for mailman id 658794;
- Thu, 21 Dec 2023 10:34:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qw+O=IA=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1rGGNW-0001JA-JX
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 10:34:10 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 78e7e281-9fec-11ee-9b0f-b553b5be7939;
- Thu, 21 Dec 2023 11:34:08 +0100 (CET)
-Received: from [192.168.1.229] (93-36-216-194.ip62.fastwebnet.it
- [93.36.216.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 553C74EE0742;
- Thu, 21 Dec 2023 11:34:08 +0100 (CET)
+	id 1rGGNq-0001sI-42; Thu, 21 Dec 2023 10:34:30 +0000
+Received: by outflank-mailman (input) for mailman id 658797;
+ Thu, 21 Dec 2023 10:34:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vttA=IA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rGGNo-0001fa-3Q
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 10:34:28 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 841ece09-9fec-11ee-98eb-6d05b1d4d9a1;
+ Thu, 21 Dec 2023 11:34:27 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-40d31116dbeso7036245e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 02:34:27 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ i5-20020a05600c354500b0040d2805d158sm2755029wmq.48.2023.12.21.02.34.26
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Dec 2023 02:34:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,88 +45,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78e7e281-9fec-11ee-9b0f-b553b5be7939
-Message-ID: <ce1068ce-5537-4322-9316-d2260d9a9378@bugseng.com>
-Date: Thu, 21 Dec 2023 11:34:07 +0100
+X-Inumbo-ID: 841ece09-9fec-11ee-98eb-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1703154867; x=1703759667; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xKp0lfNdj4JAZmeaj9cRG9ojnk5+dhWB0fRogF/fZqo=;
+        b=UozH2ewwUcjcjWxK6M3UTeXR+StWuaB9/Amzz9x+0xoLSVzbrKvR7LRvRjN5SUKpQ0
+         IV9AlmyGkaEkfEbvyAg/i1ZBtrST+WNGV/dq30dyuLKfLZqNg6g6UBBhk8fGVPhfCg0o
+         rms7z9IUQR470X++RkRzrl0v7CiRVS1cHoi1iOVqEgnRjFJ/rMWwRf3BxZdgjbdZxctb
+         Eq6b6ChEvxSEi6TX8f2W5FjyioCWJ8f+muOa88AZf+61hfOIPn16oeXOCsOdh/d+qrTY
+         qqBSDgXFDl4RtNuP0iG+l5wAj1YMtbsfJuPs/GBEU4oQebW54k9OEhFUumyu6VQNqUx4
+         BdKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703154867; x=1703759667;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=xKp0lfNdj4JAZmeaj9cRG9ojnk5+dhWB0fRogF/fZqo=;
+        b=ggoCxBEevSKsafIgv5OqcGiD3L+jwmNgEsbSXsApIaYXFahkqOA4qXfue60dy21JWr
+         a4otr33gKo2HkHD4QYW7wsqVFszHs+iHq6Vz+LRi9rgvSAyIakWbVV9qnyUlc2aHOO/B
+         LNx8AfbWq+A/Ncr8gn0kavku6Mp0ewlsmr2/4PE07r3xCSjHNLjt2o3glUzBLVM1VNsY
+         jgPjiWCS5AwP5Wpx+zN7fsLkQwclRdqaU/MRbj3LcA+bMmIVJE4HJQWyjyOLsZVIj/NA
+         bhr0Q83kvnSqkCyEHvpJy+EynRuDC4ezlUGjF93zj1b3wCmX8TxC8G2KnZrbvomumxYK
+         YtSQ==
+X-Gm-Message-State: AOJu0Yx0SM9NT/vqYMGuBzPtH+fOHGF+5RDgJKfCdfm013Xd+qW06MJc
+	GSUPJiMXtbdlRTw31RXm2n/n
+X-Google-Smtp-Source: AGHT+IHtXX/iODG9BQzn6/PIrI2oOLjhjbyiIRLwV3mEjwdzqxNE/UQxBUTs77GnnQQKXEVQA0G4wQ==
+X-Received: by 2002:a05:600c:280b:b0:40d:22bb:27e9 with SMTP id m11-20020a05600c280b00b0040d22bb27e9mr589565wmb.53.1703154866812;
+        Thu, 21 Dec 2023 02:34:26 -0800 (PST)
+Message-ID: <36331c0f-d495-4263-95a6-e1c5abcac060@suse.com>
+Date: Thu, 21 Dec 2023 11:34:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 0/7] xen/arm: address violations of MISRA C:2012 Rule
- 16.3
-Content-Language: en-US, it
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1703066935.git.federico.serafini@bugseng.com>
- <d847830f-7071-4141-bab7-8b8c55ec3ae8@citrix.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <d847830f-7071-4141-bab7-8b8c55ec3ae8@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v4 03/12] xen/spinlock: introduce new type for recursive
+ spinlocks
+To: Julien Grall <julien@xen.org>, Juergen Gross <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>
+References: <20231212094725.22184-1-jgross@suse.com>
+ <20231212094725.22184-4-jgross@suse.com>
+ <ea25863a-f5da-4873-89f2-d75b3abb9ef8@xen.org>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ea25863a-f5da-4873-89f2-d75b3abb9ef8@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 20/12/23 22:35, Andrew Cooper wrote:
-> On 20/12/2023 11:03 am, Federico Serafini wrote:
->> This patch series addresses violations of MISRA C:2012 Rule 16.3 on the Arm
->> code. No fucntional changes are introduced.
->>
->> Federico Serafini (7):
->>    xen/arm: gic-v3: address violations of MISRA C:2012 Rule 16.3
->>    xen/arm: traps: address violations of MISRA C:2012 Rule 16.3
->>    xen/arm: guest_walk: address violations of MISRA C:2012 Rule 16.3
->>    xen/arm: mem_access: address violations of MISRA C:2012 Rule 16.3
->>    xen/arm: v{cp,sys}reg: address violations of MISRA C:2012 Rule 16.3
->>    xen/arm: mmu: address a violations of MISRA C:2012 Rule 16.3
->>    xen/arm: smmu-v3: address violations of MISRA C:2012 Rule 16.3
->>
->>   xen/arch/arm/arm64/vsysreg.c          |  4 ++--
->>   xen/arch/arm/gic-v3.c                 | 30 +++++++++++++++++++++++++++
->>   xen/arch/arm/guest_walk.c             |  4 ++++
->>   xen/arch/arm/mem_access.c             | 12 +++++------
->>   xen/arch/arm/mmu/p2m.c                |  1 +
->>   xen/arch/arm/traps.c                  | 18 ++++++++++++----
->>   xen/arch/arm/vcpreg.c                 |  4 ++--
->>   xen/drivers/passthrough/arm/smmu-v3.c |  2 ++
->>   8 files changed, 61 insertions(+), 14 deletions(-)
->>
+On 12.12.2023 13:57, Julien Grall wrote:
+> On 12/12/2023 09:47, Juergen Gross wrote:
+>> @@ -109,12 +109,16 @@ struct lock_profile_qhead {
+>>       spinlock_t l = _SPIN_LOCK_UNLOCKED(NULL);                                 \
+>>       static struct lock_profile __lock_profile_data_##l = _LOCK_PROFILE(l);    \
+>>       _LOCK_PROFILE_PTR(l)
+>> +#define DEFINE_RSPINLOCK(l)                                                   \
+>> +    rspinlock_t l = _SPIN_LOCK_UNLOCKED(NULL);                                \
+>> +    static struct lock_profile __lock_profile_data_##l = _LOCK_PROFILE(l);    \
+>> +    _LOCK_PROFILE_PTR(l)
+>>   
+>> -#define spin_lock_init_prof(s, l)                                             \
+>> +#define __spin_lock_init_prof(s, l, locktype)                                 \
 > 
-> Just a couple of notes on style.  This isn't a request to change
-> anything in this series, particularly as most is already committed, but
-> bear it in mind for what I expect will be similar patches in other areas.
+> If I am not mistaken the double-underscore prefix is a violation in 
+> MISRA. So can this be renamed to:
 > 
-> We explicitly permit tabulation when it aids readibility, so patch 2
-> could have been written:
-> 
->          switch ( hypercall_args[*nr] ) {
->          case 5: HYPERCALL_ARG5(regs) = 0xDEADBEEFU; fallthrough;
->          case 4: HYPERCALL_ARG4(regs) = 0xDEADBEEFU; fallthrough;
->          case 3: HYPERCALL_ARG3(regs) = 0xDEADBEEFU; fallthrough;
->          case 2: HYPERCALL_ARG2(regs) = 0xDEADBEEFU; fallthrough;
->          case 1: /* Don't clobber x0/r0 -- it's the return value */
->          case 0: /* -ENOSYS case */
->              break;
->          default: BUG();
->          }
-> 
-> (give or take the brace placement other style issue)  We also have cases
-> where a break before a new case statement is preferred, i.e.:
-> 
->          ...
->          break;
-> 
->      case ...:
-> 
-> This is to prevent larger switch statements from being a straight wall
-> of text.
-> 
-> If in doubt, match the style around it.  Please don't de-tabulate
-> examples which are already tabulated.  (i.e. don't de-tabulate the x86
-> versions of patch 2.)
-> 
-> ~Andrew
+> spin_lock_init_prof__()?
 
-Understood, thank you.
+Is the new parameter needed at all? Can't we use typeof((s)->l) in place of
+passing the type explicitly?
 
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+Jan
 
