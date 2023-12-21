@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3927281B035
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:21:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658575.1027799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BAA181B054
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:33:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658581.1027809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGEIn-0007N5-7o; Thu, 21 Dec 2023 08:21:09 +0000
+	id 1rGEUS-0002KI-BP; Thu, 21 Dec 2023 08:33:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658575.1027799; Thu, 21 Dec 2023 08:21:09 +0000
+Received: by outflank-mailman (output) from mailman id 658581.1027809; Thu, 21 Dec 2023 08:33:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGEIn-0007LO-4n; Thu, 21 Dec 2023 08:21:09 +0000
-Received: by outflank-mailman (input) for mailman id 658575;
- Thu, 21 Dec 2023 08:21:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vttA=IA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rGEIm-0007LI-60
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:21:08 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3a37e9e-9fd9-11ee-98eb-6d05b1d4d9a1;
- Thu, 21 Dec 2023 09:21:07 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-3368b9bbeb4so102431f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 00:21:07 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j10-20020adff00a000000b003365fc41bcasm1428984wro.51.2023.12.21.00.21.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 00:21:06 -0800 (PST)
+	id 1rGEUS-0002HX-7S; Thu, 21 Dec 2023 08:33:12 +0000
+Received: by outflank-mailman (input) for mailman id 658581;
+ Thu, 21 Dec 2023 08:33:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=hvtX=IA=amd.com=Xenia.Ragiadakou@srs-se1.protection.inumbo.net>)
+ id 1rGEUQ-0002HR-7a
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:33:10 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2416::601])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8fc50a40-9fdb-11ee-9b0f-b553b5be7939;
+ Thu, 21 Dec 2023 09:33:07 +0100 (CET)
+Received: from PH8PR05CA0006.namprd05.prod.outlook.com (2603:10b6:510:2cc::6)
+ by IA0PR12MB7652.namprd12.prod.outlook.com (2603:10b6:208:434::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.20; Thu, 21 Dec
+ 2023 08:33:00 +0000
+Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
+ (2603:10b6:510:2cc:cafe::e6) by PH8PR05CA0006.outlook.office365.com
+ (2603:10b6:510:2cc::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7113.18 via Frontend
+ Transport; Thu, 21 Dec 2023 08:33:00 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7113.14 via Frontend Transport; Thu, 21 Dec 2023 08:33:00 +0000
+Received: from [10.0.2.15] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 21 Dec
+ 2023 02:32:53 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +56,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3a37e9e-9fd9-11ee-98eb-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703146866; x=1703751666; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=2F7q5Fk6q0XRvTFT/mTRwabYu1spTDASJGoBpToE9Rg=;
-        b=I5gMy9kSMVqtE+oQ1V4PlaSk2uPPtBIZc8uzX8vMjftE/QotgI97V5v1dU7g5dndOd
-         emw6RuyszQjMAu7kgo65tvp5uVomcjZU62Bzc2Fz3sBXQlZeiTEp7pT9HNLfPdzvC+Lg
-         FIEXzfgwpB22hOjJN8AVFjWlk9s4PmurO7A7xWMOyzAb2FXbSqJAbZytlE/BBL01ql2Q
-         faV5xy2Z+DtXVnMXo9GESaY/skuKgYBp67BzqAsl2Voe9Asf5dLdd11ZHuEDq8hZJ/qE
-         ZChoujWL89ib0MIpNzujvgdRo6VTPvTJLYh66AI01SJyWTfc1T8vdxL5Sw3QhUrYeDd+
-         RP0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703146866; x=1703751666;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2F7q5Fk6q0XRvTFT/mTRwabYu1spTDASJGoBpToE9Rg=;
-        b=Bk0rtNVhzzENFs1BuyM48/ALkgYfUu+bBoraYA9hKTcx6IrCfY6++csKtCpGx+zOEg
-         hU4+Zgjf3+fEvdTfZtg7hlvuqNjmDjNLZBZKWkDw8yuSFrRYaCy01dn5VWRFUWmLLr8W
-         bTfA5Rif4OROVQqrSwnk3N3HYs1S8Fb93A4BEPQDGjtnq5ZCPT7idbMb384wxBCru5MO
-         JGmb4pC6MGmc30wbhGlT4UCjWJPhu4PdvA7SDgm6RiHnfbwXnuE3p72UvpUIO+GflHKJ
-         YS9QVgvcNgWYP7bgkylS0wfVFeeKH0FktzcIOYzMPLjyEIEukPI9r0GYgxTzlVsFgSnD
-         aAGA==
-X-Gm-Message-State: AOJu0YwBaOg4V6vKfOHUVDPCOgXLj+f/iPjw2/tx5TwYDiAndvVzYpPr
-	69Va7/fYk/wGt4XsmQPq897e
-X-Google-Smtp-Source: AGHT+IFFBF7273DmakIqA7wcF7DIDD9+1/GnueEKED8ZKkGw+1+hYLCrqRoPqn3qIeRyWe0SptgabA==
-X-Received: by 2002:adf:ee86:0:b0:336:7ff6:af9 with SMTP id b6-20020adfee86000000b003367ff60af9mr319260wro.212.1703146866689;
-        Thu, 21 Dec 2023 00:21:06 -0800 (PST)
-Message-ID: <ca09561e-4e6a-40ac-b543-80053224f64c@suse.com>
-Date: Thu, 21 Dec 2023 09:21:05 +0100
+X-Inumbo-ID: 8fc50a40-9fdb-11ee-9b0f-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=L2kqBsc6/pJrcm6fkSuBiwdht/yZb6O1VCINraGYMZWbPgTs4JkVlfOWx08n53muCCVV8rpOgtpl6A3ID10daAR5B43/YISetwFenBHl3GQgPAvg3b+Ukf3FcAQbU7pipQXKzdpeRiKI+zYj1QGyrogpPhiH6UDynu0IWYP5IWFEL+ErNk8od6Z8ymhoQ2LTbDQmHifEGgZabKNUD5cbDoDFSTIGchLBa4l+3OYyOk1knFRN3HDBlgEGGyKjGjWXZRFJviyiCyxjuMe8R6+LvJpKbtbIulThn97KDvKEvyT2TwRTmb8YDyI46dL0qBYAxN2uL89Zd59G0uVF0oX+KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZcbzJeiJWqGCnCp0vymg2jp8IhUW6vzoPGdNpIMVjzk=;
+ b=ahM8Y25zSWxVfxdtxjvh3szXphDPNhcqk78zAq6Q9aqzZh43DT+Xti+qS88tJpnl6pL4Niu80M5SDJlAHF/gFnxcP6jJsukmUMM2htRQFR58FnyDYKTVF5ZttoG0a58OREhxFvCBox0cFIKxsQW3818n/MaA4+oM5UsGIQn0kQn09ZfgkaSsG3zq7hwrUXP/9DY9qVUAi9xupprnQZR/lAfyoNqoyB3JDJ+gpFuPhZR3upO3RsYMYFeF/vPlKc1WvHlN3bu1nWUmQYh6schTyC0R/QVwm/PXv6U4jIj4gGh9eZ3CrSfF+dJv17t3ulwuaNXg7wwxFRMthmrQyedQ0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=daynix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZcbzJeiJWqGCnCp0vymg2jp8IhUW6vzoPGdNpIMVjzk=;
+ b=K1hIv1/JH+XaZBcvfgIH3X0i+kKhjvpkV2Ijwl2EKeejp7ahUL5Yod0NYVZxoeKN/3oe4wTJyNBm8qS7uW5/macUihPyVvBzmjzTDew/zmrE3FTKQIgdV9qQttAHc4NN9gobWHcMMwTd8hgau1TnVOrBboNsPrFFJZpTqbVSINw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <954fe5c2-d5a0-4d32-b822-ba370bc2d09a@amd.com>
+Date: Thu, 21 Dec 2023 10:32:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11.5 1/17] pci: msi: pass pdev to pci_enable_msi()
- function
+Subject: Re: [PATCH v6 06/11] softmmu/memory: enable automatic deallocation of
+ memory regions
 Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-References: <20231202012556.2012281-1-volodymyr_babchuk@epam.com>
- <20231202012556.2012281-2-volodymyr_babchuk@epam.com>
- <20231220214628.431512-1-stewart.hildebrand@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231220214628.431512-1-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=UTF-8
+To: Akihiko Odaki <akihiko.odaki@daynix.com>, Huang Rui <ray.huang@amd.com>,
+	=?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>,
+	=?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>, Gerd Hoffmann
+	<kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Antonio Caggiano <quic_acaggian@quicinc.com>,
+	"Dr . David Alan Gilbert" <dgilbert@redhat.com>, Robert Beckett
+	<bob.beckett@collabora.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+	<alex.bennee@linaro.org>, <qemu-devel@nongnu.org>
+CC: <xen-devel@lists.xenproject.org>, Gurchetan Singh
+	<gurchetansingh@chromium.org>, <ernunes@redhat.com>, Alyssa Ross
+	<hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Alex Deucher" <alexander.deucher@amd.com>, Stefano Stabellini
+	<stefano.stabellini@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+	<christian.koenig@amd.com>, Pierre-Eric Pelloux-Prayer
+	<pierre-eric.pelloux-prayer@amd.com>, Honglei Huang <honglei1.huang@amd.com>,
+	Julia Zhang <julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>
+References: <20231219075320.165227-1-ray.huang@amd.com>
+ <20231219075320.165227-7-ray.huang@amd.com>
+ <a88696bc-2ffe-442a-a171-50e6120bbf97@daynix.com>
+ <5dd37851-0b68-45ae-9843-9c1d6dc078f9@amd.com>
+ <9fb98128-eada-4a50-996e-b442ce8035cd@daynix.com>
+From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+In-Reply-To: <9fb98128-eada-4a50-996e-b442ce8035cd@daynix.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB03.amd.com (10.181.40.144) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|IA0PR12MB7652:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64f47a52-00f5-4c4e-bcb0-08dc01ff70d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	2OUlve4a5z60dhgygc0Lq94UiPVsREJUh7lB+tiAgqV/DDe2OHu30FMpFzWiBHpSb5K3YNaq6b2N+DAOB2zQNAcBnFSVq46jjly3v/7OIF1f+UsvjQXSmioGsNkbGVqDudr9B4NuKL2mH5ErWtdgnH9Zs/EN/d2Te48AP9idkF1RD9kBi70VigOIJZaiPJyJBLIiPDYpVDbQG3CYgJwZD5+ODRzBhdYy41p7q4NUI0C/i+O/Tlv72+TVFupw+abQV/u/6VExu4GWges5i+bbXL6N79Hs6DjP9N5vZ4T+Uvu1c7GrjpkZnt5WR0500yxvjBFkecVz6OmcCUG7cM+0rNhdpwbUby4j84YANAaaGcoLU9LmyKaX0NOFdUSXBnFi/D09RXF2ZR08CG4s1I0rDQwzuURieGsCR3QNIqXCXSJWriBCvWBY1+KcHhnNwCohEfgabD3D0SiDwjYZcRhgwIU+pjpdwOfOdVec/3rBigCgYqB5fIJNLdP2B0Thqv9kSc/Kp+h6vEYdJDJ8iWEhH7JNX7I8jdxSg07Sgla7vPUO2pahdExBnMKqqybwuYem4tvm5aw++/DR6Ov0jDRrN8iEJL0M7hxHZrAsX7ErFqxD75Ol8y8y6eXmVpxBNxzf3g5g2V7CY4wfOksYQVWU+RqbpzAtg3I+YK9Sn4mwiDzlOyVIZ4oO1y1vqrwU4NCvEO+qAlKI+iStPXiF94+4+OUr8yD0X53V/7s/YIYSnv05aBEtGwim3aIibG62lPW2LlP8jzcyKT1i7vHyoFK2+c06dHhA99e/Kd+1YUIIo8/wMdPbg0JCEGj7aiwvov/acCiJMxfnPVBjrThyfpFhONsN3hgdmNJaV7saSh+Fbo+QrvQA2Nd2eZJdygbl+jL8
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(376002)(136003)(346002)(39860400002)(230922051799003)(64100799003)(451199024)(1800799012)(82310400011)(186009)(46966006)(40470700004)(36840700001)(8936002)(8676002)(4326008)(316002)(16576012)(110136005)(54906003)(53546011)(40480700001)(47076005)(478600001)(2616005)(31686004)(40460700003)(44832011)(921008)(70206006)(70586007)(36756003)(86362001)(26005)(2906002)(83380400001)(66899024)(41300700001)(16526019)(5660300002)(336012)(82740400003)(356005)(7416002)(426003)(31696002)(81166007)(36860700001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2023 08:33:00.0552
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64f47a52-00f5-4c4e-bcb0-08dc01ff70d6
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF000015CA.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7652
 
-On 20.12.2023 22:46, Stewart Hildebrand wrote:
-> From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+
+On 21/12/23 09:50, Akihiko Odaki wrote:
+> On 2023/12/21 16:35, Xenia Ragiadakou wrote:
+>>
+>> On 21/12/23 07:45, Akihiko Odaki wrote:
+>>> On 2023/12/19 16:53, Huang Rui wrote:
+>>>> From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+>>>>
+>>>> When the memory region has a different life-cycle from that of her 
+>>>> parent,
+>>>> could be automatically released, once has been unparent and once all 
+>>>> of her
+>>>> references have gone away, via the object's free callback.
+>>>>
+>>>> However, currently, the address space subsystem keeps references to the
+>>>> memory region without first incrementing its object's reference count.
+>>>> As a result, the automatic deallocation of the object, not taking into
+>>>> account those references, results in use-after-free memory corruption.
+>>>>
+>>>> More specifically, reference to the memory region is kept in flatview
+>>>> ranges. If the reference count of the memory region is not incremented,
+>>>> flatview_destroy(), that is asynchronous, may be called after memory
+>>>> region's destruction. If the reference count of the memory region is
+>>>> incremented, memory region's destruction will take place after
+>>>> flatview_destroy() has released its references.
+>>>>
+>>>> This patch increases the reference count of an owned memory region 
+>>>> object
+>>>> on each memory_region_ref() and decreases it on each 
+>>>> memory_region_unref().
+>>>
+>>> Why not pass the memory region itself as the owner parameter of 
+>>> memory_region_init_ram_ptr()?
+>>
+>> Hmm, in that case, how will it be guaranteed that the VirtIOGPU won't 
+>> disappear while the memory region is still in use?
 > 
-> Previously pci_enable_msi() function obtained pdev pointer by itself,
-> but taking into account upcoming changes to PCI locking, it is better
-> when caller passes already acquired pdev pointer to the function,
-> because caller knows better how to obtain the pointer and which locks
-> are needed to be used. Also, in most cases caller already has pointer
-> to pdev, so we can avoid an extra list walk.
-> 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> You can object_ref() when you do memory_region_init_ram_ptr() and 
+> object_unref() when the memory region is being destroyed.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-
+It is not very intuitive but I see your point. This change is quite 
+intrusive and has little use. I think it can be worked around in the way 
+you suggest.
 
