@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F103781B016
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:14:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658570.1027789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3927281B035
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:21:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658575.1027799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGEBb-0005WT-H5; Thu, 21 Dec 2023 08:13:43 +0000
+	id 1rGEIn-0007N5-7o; Thu, 21 Dec 2023 08:21:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658570.1027789; Thu, 21 Dec 2023 08:13:43 +0000
+Received: by outflank-mailman (output) from mailman id 658575.1027799; Thu, 21 Dec 2023 08:21:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGEBb-0005Te-DV; Thu, 21 Dec 2023 08:13:43 +0000
-Received: by outflank-mailman (input) for mailman id 658570;
- Thu, 21 Dec 2023 08:13:41 +0000
+	id 1rGEIn-0007LO-4n; Thu, 21 Dec 2023 08:21:09 +0000
+Received: by outflank-mailman (input) for mailman id 658575;
+ Thu, 21 Dec 2023 08:21:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vttA=IA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rGEBZ-0005TY-Qc
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:13:41 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ id 1rGEIm-0007LI-60
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:21:08 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d98dcadf-9fd8-11ee-98eb-6d05b1d4d9a1;
- Thu, 21 Dec 2023 09:13:40 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40d2e5e8d1dso5788315e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 00:13:40 -0800 (PST)
+ id e3a37e9e-9fd9-11ee-98eb-6d05b1d4d9a1;
+ Thu, 21 Dec 2023 09:21:07 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3368b9bbeb4so102431f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 00:21:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m20-20020a05600c3b1400b0040b4c59f133sm2352194wms.1.2023.12.21.00.13.39
+ j10-20020adff00a000000b003365fc41bcasm1428984wro.51.2023.12.21.00.21.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 00:13:40 -0800 (PST)
+ Thu, 21 Dec 2023 00:21:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d98dcadf-9fd8-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: e3a37e9e-9fd9-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703146420; x=1703751220; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703146866; x=1703751666; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=OKYtMS3z9U2DUl7rdVVBE6C55RH0YYJvFZO0844Ex0M=;
-        b=DEbVLuLHG76ZEIWnLnxE2swU9Rgazn2eS3eF5/iGhRVBDfCZibeI37mtnlgNezVxqq
-         G24Xi+bjs4STfJyFU93bGldjAQiYi+sRUQSTyMKEQuuwvRmqKxYnymV4j5M1x19/0rzz
-         7P/JvJ0rYi8V3/JoRgsdSB7Z3PmOiu3ol1ImWvjxhE6ErH7ll25NDCiRCdDK/TbJIQtM
-         GM3cU7hokVYKo/zhpw08BuR99oQIgp/s7xTOC9nhfagd5x0QrtPvAt8eob7pe89cnqgy
-         /eHmpi1+RwdZGxXhURzcReFvdGDNdg3iDFkzsRdJQI3HQXba61ZN6zjaP7f/i2Ae+JhK
-         r5VQ==
+        bh=2F7q5Fk6q0XRvTFT/mTRwabYu1spTDASJGoBpToE9Rg=;
+        b=I5gMy9kSMVqtE+oQ1V4PlaSk2uPPtBIZc8uzX8vMjftE/QotgI97V5v1dU7g5dndOd
+         emw6RuyszQjMAu7kgo65tvp5uVomcjZU62Bzc2Fz3sBXQlZeiTEp7pT9HNLfPdzvC+Lg
+         FIEXzfgwpB22hOjJN8AVFjWlk9s4PmurO7A7xWMOyzAb2FXbSqJAbZytlE/BBL01ql2Q
+         faV5xy2Z+DtXVnMXo9GESaY/skuKgYBp67BzqAsl2Voe9Asf5dLdd11ZHuEDq8hZJ/qE
+         ZChoujWL89ib0MIpNzujvgdRo6VTPvTJLYh66AI01SJyWTfc1T8vdxL5Sw3QhUrYeDd+
+         RP0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703146420; x=1703751220;
+        d=1e100.net; s=20230601; t=1703146866; x=1703751666;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OKYtMS3z9U2DUl7rdVVBE6C55RH0YYJvFZO0844Ex0M=;
-        b=l8z0C4/dCsYxVLIAyDou/8EKKmTiFMKzMBaDbYZM+/Kmc//0ze9OCiLExTrJEZWF0i
-         k0EEjk7xvf7c94Nj6c6KmOTt2cc5m0IObbJFrebJ6/xY5iReqf8EKLuVKMSCsXqRY0Ds
-         5kfKnfU84tSx70H6Z4jzAuBZKCvXU3sNWyMRThTUMGUH3oaFu3IvBKkTcWGpROTrCJFs
-         olASIhNXS5RROj2nYNFxbxRC1Eqz2ePi41FoGVSNmMbQmf05HlSXv/OuIGvZQFdonJ3H
-         ShmFVTgSLZd0fQLGSM980nQFcco1sw0oAD3XZpsExyTjgDG3cgNIOO4XFQzzJnJUz6pS
-         TMDQ==
-X-Gm-Message-State: AOJu0Yxdm8fmF6Rka8efFvKKZuZoVq6WUMfFDaZyOnayOnQP3SZHdf5H
-	Tt+LEKaKNGHUZSkfKOTYGQE6
-X-Google-Smtp-Source: AGHT+IEQh9USuqJOp170FP99L+RALDUnQ+ZY1YCXLIAMHiPcYFwrbmen7fvpRqTNP/kZXxYNjUdidg==
-X-Received: by 2002:a05:600c:3592:b0:40c:914:d2cf with SMTP id p18-20020a05600c359200b0040c0914d2cfmr271911wmq.134.1703146420351;
-        Thu, 21 Dec 2023 00:13:40 -0800 (PST)
-Message-ID: <3a580b22-7ff2-4a60-a3c0-0cb03deef6ac@suse.com>
-Date: Thu, 21 Dec 2023 09:13:39 +0100
+        bh=2F7q5Fk6q0XRvTFT/mTRwabYu1spTDASJGoBpToE9Rg=;
+        b=Bk0rtNVhzzENFs1BuyM48/ALkgYfUu+bBoraYA9hKTcx6IrCfY6++csKtCpGx+zOEg
+         hU4+Zgjf3+fEvdTfZtg7hlvuqNjmDjNLZBZKWkDw8yuSFrRYaCy01dn5VWRFUWmLLr8W
+         bTfA5Rif4OROVQqrSwnk3N3HYs1S8Fb93A4BEPQDGjtnq5ZCPT7idbMb384wxBCru5MO
+         JGmb4pC6MGmc30wbhGlT4UCjWJPhu4PdvA7SDgm6RiHnfbwXnuE3p72UvpUIO+GflHKJ
+         YS9QVgvcNgWYP7bgkylS0wfVFeeKH0FktzcIOYzMPLjyEIEukPI9r0GYgxTzlVsFgSnD
+         aAGA==
+X-Gm-Message-State: AOJu0YwBaOg4V6vKfOHUVDPCOgXLj+f/iPjw2/tx5TwYDiAndvVzYpPr
+	69Va7/fYk/wGt4XsmQPq897e
+X-Google-Smtp-Source: AGHT+IFFBF7273DmakIqA7wcF7DIDD9+1/GnueEKED8ZKkGw+1+hYLCrqRoPqn3qIeRyWe0SptgabA==
+X-Received: by 2002:adf:ee86:0:b0:336:7ff6:af9 with SMTP id b6-20020adfee86000000b003367ff60af9mr319260wro.212.1703146866689;
+        Thu, 21 Dec 2023 00:21:06 -0800 (PST)
+Message-ID: <ca09561e-4e6a-40ac-b543-80053224f64c@suse.com>
+Date: Thu, 21 Dec 2023 09:21:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/6] amd-vi: set IOMMU page table levels based on guest
- reported paddr width
+Subject: Re: [PATCH v11.5 1/17] pci: msi: pass pdev to pci_enable_msi()
+ function
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20231220134346.22430-1-roger.pau@citrix.com>
- <20231220134346.22430-3-roger.pau@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <20231202012556.2012281-1-volodymyr_babchuk@epam.com>
+ <20231202012556.2012281-2-volodymyr_babchuk@epam.com>
+ <20231220214628.431512-1-stewart.hildebrand@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,23 +116,25 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231220134346.22430-3-roger.pau@citrix.com>
+In-Reply-To: <20231220214628.431512-1-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.12.2023 14:43, Roger Pau Monne wrote:
-> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> @@ -359,21 +359,17 @@ int __read_mostly amd_iommu_min_paging_mode = 1;
->  static int cf_check amd_iommu_domain_init(struct domain *d)
->  {
->      struct domain_iommu *hd = dom_iommu(d);
-> +    int pglvl = amd_iommu_get_paging_mode(
-> +                1UL << (domain_max_paddr_bits(d) - PAGE_SHIFT));
+On 20.12.2023 22:46, Stewart Hildebrand wrote:
+> From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> 
+> Previously pci_enable_msi() function obtained pdev pointer by itself,
+> but taking into account upcoming changes to PCI locking, it is better
+> when caller passes already acquired pdev pointer to the function,
+> because caller knows better how to obtain the pointer and which locks
+> are needed to be used. Also, in most cases caller already has pointer
+> to pdev, so we can avoid an extra list walk.
+> 
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Nit: Considering the "pending" open parenthesis, I think this line
-needs indenting one level further. I'll make the adjustment while
-committing, unless I hear objections pretty soon.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
