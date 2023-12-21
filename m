@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4446481AF1C
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 08:07:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658502.1027678 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA08281AF30
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 08:11:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658506.1027688 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGD8d-0001vR-De; Thu, 21 Dec 2023 07:06:35 +0000
+	id 1rGDDL-0003iT-04; Thu, 21 Dec 2023 07:11:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658502.1027678; Thu, 21 Dec 2023 07:06:35 +0000
+Received: by outflank-mailman (output) from mailman id 658506.1027688; Thu, 21 Dec 2023 07:11:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGD8d-0001t8-As; Thu, 21 Dec 2023 07:06:35 +0000
-Received: by outflank-mailman (input) for mailman id 658502;
- Thu, 21 Dec 2023 07:06:33 +0000
+	id 1rGDDK-0003gD-Tg; Thu, 21 Dec 2023 07:11:26 +0000
+Received: by outflank-mailman (input) for mailman id 658506;
+ Thu, 21 Dec 2023 07:11:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vttA=IA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rGD8b-0001t2-6v
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 07:06:33 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1rGDDK-0003g7-Bk
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 07:11:26 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77fe73dc-9fcf-11ee-98eb-6d05b1d4d9a1;
- Thu, 21 Dec 2023 08:06:31 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40c3ca9472dso5149335e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 23:06:31 -0800 (PST)
+ id 26f3166d-9fd0-11ee-98eb-6d05b1d4d9a1;
+ Thu, 21 Dec 2023 08:11:25 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3368b1e056eso90071f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 23:11:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c5-20020a05600c0a4500b0040c411da99csm10023197wmq.48.2023.12.20.23.06.30
+ x4-20020a5d54c4000000b0033662c2820bsm1268407wrv.117.2023.12.20.23.11.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Dec 2023 23:06:30 -0800 (PST)
+ Wed, 20 Dec 2023 23:11:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77fe73dc-9fcf-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 26f3166d-9fd0-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703142391; x=1703747191; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703142684; x=1703747484; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=okWSJFha35PAlZL8Va5HIRdiQ8mlHhSOTDfpX214hK0=;
-        b=QqNpphlAfjGPK1Owty7aI1J+5c6mwLLOeg0nfVJZc5S4jVAKPoLtaUx7WbNHvXRFmF
-         LmIAj5D+k/HDWytv+ew9231HvMOhvZLBCLpPrlXzOYadvINjQLPyWQFEdYkuRzvoQW08
-         w0oF0I9owcyyKozgXt77QgQQdcX0GParsoKDask9xA6qZgQAM3pelAkVGfINyvNPYebi
-         fwwEXspM07sLJbifIo4Fdw2vM+OuwF+0CEoMScrux3S/wAg9W1igq07T66TAh0Dv1G9d
-         OicEk5qIas2DJbUWY3EAHIfxvq0MPQKRmse6Lkw1T10OMtSc7xcqFATc7+i8EHLUekM5
-         1T9A==
+        bh=RPOsWaj+47t4H4801G/mQ9O7tkUE4RRPfORW0Ow1G/4=;
+        b=QZo7z8l7b1Z4TpoxS1BT9nKmGLGf0fGM+dK1oEM7JNKHXJ04/JohujbmZpHcQ+MtzQ
+         N7pm7JIcpFvYwdRKRYq0l/heGYvF2X6hivD1NxeF+Fjj/6ELh7O0JmJu2tH3V8NHY1Yu
+         TW/bDyHU/+EfGxlyjVPVHdkOezlFubpHDUbdNmwy73oSLOBPSbXzzDdE50bhUk9d+xM8
+         x4MZJsiYEZLhqAMGeWqkCvTOcTbm07rfEUL5nwouBW11o7Jdor0vyA2Rhj9fE8csjuP3
+         UpRUpSJRbN1P188rT2Lci5RxthzWMKljloOdvHb7WwtPrMZJRQMq23UFSAawuVUuRiJ6
+         LYSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703142391; x=1703747191;
+        d=1e100.net; s=20230601; t=1703142684; x=1703747484;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=okWSJFha35PAlZL8Va5HIRdiQ8mlHhSOTDfpX214hK0=;
-        b=CcmO4i9aGLdlyx8B/ZWkaMJtli3fx1A2HbHztnNgGiAx7BemRqcb1mL8KZhE111U3J
-         Kw0qGcMP9vmjtL2qhaVeehugk4V3a4BA3HsG82iENxRHvdz/HJ3ykQoaZ0SNh5cu9gB4
-         npAb/OJRDyyBYgevM6gWjSxa5Z9zSjiEHRBThlXG0klNQwiLiMeyzWlvK2otl8bBdvki
-         GczRETY36aQidLpjK0Nc5SdrHpOBPMzc8kSSvgUq9SBKkiYDg1e6Ulg45hA7J1eQY/0B
-         jNItWIYyKahgVfCqgpTcSzmjF9FjdYkw9VWVMOePoCucuUU4mc6woJ2m/oXBkHl2b9hH
-         prww==
-X-Gm-Message-State: AOJu0YyXA8XnGyg7DHYPKz9vFZVWhAk/rUph8H952S4cPHY96HxRguP4
-	fZAYAERXsUAMAKXb1moopCJ2ouVIM4qbAivk/Pc3
-X-Google-Smtp-Source: AGHT+IELV4LAEXpXC34ySFzfYc/6X3jy9yrugxzisFxLKtcRMgC/MIxdUQ0I0qupZUG0tShTj4BLzA==
-X-Received: by 2002:a05:600c:6028:b0:40c:357e:27b with SMTP id az40-20020a05600c602800b0040c357e027bmr294589wmb.162.1703142391060;
-        Wed, 20 Dec 2023 23:06:31 -0800 (PST)
-Message-ID: <6ba01b31-fc51-4d12-83a2-4754ccfb6339@suse.com>
-Date: Thu, 21 Dec 2023 08:06:30 +0100
+        bh=RPOsWaj+47t4H4801G/mQ9O7tkUE4RRPfORW0Ow1G/4=;
+        b=TfoVigEx0JIfIZg7AeUbZHr9ZPwxthL/yJOT1knuZ3JxxeElesNcxpnv3LoprUghL+
+         /CsMtSLO7GHxoKBlBn2zl0eLdrKg6v8yQ7//5ZHGtHaVd7XXxo7CyPWwJVFmZlLEqJr6
+         MudXTH/ad/OuZpPJg5o1sUZ/ii+glnMSgYrrv2KFAb4XZ4ROwKNLwBhbWbjv5j2rRIXq
+         jFsYxARmw2lxJsEfTU9qJe2Wd3BTDRqv4oa/DG1tlMYtERHvj4kootBmufdrcst+nEQQ
+         hZPs3dnECJBQ+HUOzI69i4wlDGOefo7zdiMaVMiELPUbx/Bmm7jN1DCeHRXVu+fOzui+
+         fBlA==
+X-Gm-Message-State: AOJu0Yyk/ATAhLWwtxQxiFQh2P82qY8Si+lX+zX5mtmFJC1MHXDNQKPY
+	BEb8+YIvCZx/vVNBhmkgzVo5
+X-Google-Smtp-Source: AGHT+IFMe6SeNeGwRvvzOWOJd3lWUA+3AbszC0FRiKeuVQBKoEN7+p8crkP7gxvdEBwvPcy9/VA6wA==
+X-Received: by 2002:a5d:6b51:0:b0:336:7f3c:5b08 with SMTP id x17-20020a5d6b51000000b003367f3c5b08mr399789wrw.50.1703142684685;
+        Wed, 20 Dec 2023 23:11:24 -0800 (PST)
+Message-ID: <95d03d68-23e3-4c22-8eae-44abe0e353e4@suse.com>
+Date: Thu, 21 Dec 2023 08:11:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] xen/ppc: mm-radix: Allocate Partition and Process
- Tables at runtime
+Subject: Re: [PATCH v2 3/7] xen/common: Move Arm's bootfdt to common
 Content-Language: en-US
-To: Shawn Anastasio <sanastasio@raptorengineering.com>
+To: Julien Grall <julien@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>
 Cc: Timothy Pearson <tpearson@raptorengineering.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1702607884.git.sanastasio@raptorengineering.com>
- <f49a4a372a9f82e217fa56ba0dc3068deff32ef5.1702607884.git.sanastasio@raptorengineering.com>
+ <b26a07209b54cd036e42a8b00f036201821eb775.1702607884.git.sanastasio@raptorengineering.com>
+ <3546ec55-3e0c-4fdc-9697-0105d20bacfd@suse.com>
+ <5fc9ad7a-1281-46da-abff-0aa2d2beca14@xen.org>
+ <69c5afde-3a24-4792-b4e5-3ce17cb1602d@suse.com>
+ <cb2f543b-ef29-4174-8437-dc875c27daab@raptorengineering.com>
+ <7a228bc8-7c2f-46fa-9ee6-5266f65e767b@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,164 +116,79 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f49a4a372a9f82e217fa56ba0dc3068deff32ef5.1702607884.git.sanastasio@raptorengineering.com>
+In-Reply-To: <7a228bc8-7c2f-46fa-9ee6-5266f65e767b@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.12.2023 03:44, Shawn Anastasio wrote:
-> In the initial mm-radix implementation, the in-memory partition and
-> process tables required to configure the MMU were allocated statically
-> since the boot allocator was not yet available.
+On 20.12.2023 23:08, Julien Grall wrote:
+> Hi,
 > 
-> Now that it is, allocate these tables at runtime and bump the size of
-> the Process Table to its maximum supported value (on POWER9). Also bump
-> the number of static LVL2/3 PD frames to tolerate cases where the boot
-> allocator returns an address outside of the range of the LVL2 frame used
-> for Xen.
-
-Don't you need to bump to 4, in case PATB and PRTB end up sufficiently
-far apart? Or even further, considering that you may need distinct L2
-and L3 for each of Xen, PATB, and PRTB?
-
-However, with there being memory to allocate now, is there a reason you
-still reserve (perhaps more than necessary) static memory for the
-page tables, rather than allocating those dynamically as well?
-
-> @@ -105,80 +157,43 @@ static void __init setup_initial_mapping(struct lvl1_pd *lvl1,
->          die();
->      }
+> On 20/12/2023 20:58, Shawn Anastasio wrote:
+>> On 12/20/23 2:09 AM, Jan Beulich wrote:
+>>> On 19.12.2023 19:29, Julien Grall wrote:
+>>>> On 19/12/2023 17:03, Jan Beulich wrote:
+>>>>> On 15.12.2023 03:43, Shawn Anastasio wrote:
+>>>>>> --- a/xen/arch/arm/bootfdt.c
+>>>>>> +++ b/xen/common/device-tree/bootfdt.c
+>>>>>> @@ -431,12 +431,15 @@ static int __init early_scan_node(const void *fdt,
+>>>>>>    {
+>>>>>>        int rc = 0;
+>>>>>>    
+>>>>>> -    /*
+>>>>>> -     * If Xen has been booted via UEFI, the memory banks are
+>>>>>> -     * populated. So we should skip the parsing.
+>>>>>> -     */
+>>>>>> -    if ( !efi_enabled(EFI_BOOT) &&
+>>>>>> -         device_tree_node_matches(fdt, node, "memory") )
+>>>>>> +    if ( device_tree_node_matches(fdt, node, "memory") )
+>>>>>> +#if defined(CONFIG_ARM_EFI)
+>>>>>> +        /*
+>>>>>> +         * If Xen has been booted via UEFI, the memory banks are
+>>>>>> +         * populated. So we should skip the parsing.
+>>>>>> +         */
+>>>>>> +        if ( efi_enabled(EFI_BOOT) )
+>>>>>> +            return rc;
+>>>>>> +#endif
+>>>>>
+>>>>> I'm not a DT maintainer, but I don't like this kind of #ifdef, the more
+>>>>> that maybe PPC and quite likely RISC-V are likely to also want to support
+>>>>> EFI boot. But of course there may be something inherently Arm-specific
+>>>>> here that I'm unaware of.
+>>>>
+>>>> Right now, I can't think how this is Arm specific. If you are using
+>>>> UEFI, then you are expected to use the UEFI memory map rather than the
+>>>> content of the device-tree.
+>>>>
+>>>> However, we don't have a CONFIG_EFI option. It would be nice to
+>>>> introduce one but I am not sure I would introduce it just for this #ifdef.
+>>>
+>>> Right, hence why I also wasn't suggesting to go that route right away.
+>>> efi/common-stub.c already has a stub for efi_enabled(). Using that file
+>>> may be too involved to arrange for in PPC, but supplying such a stub
+>>> elsewhere for the time being looks like it wouldn't too much effort
+>>> (and would eliminate the need for any #ifdef here afaict). Shawn?
+>>>
+>>
+>> To clarify, you're suggesting we add an efi_enabled stub somewhere in
+>> arch/ppc? I'm not against that, though it does seem a little silly to
+>> have to define EFI-specific functions on an architecture that will never
+>> support EFI.
 > 
-> +    /* Identity map Xen itself */
->      for ( page_addr = map_start; page_addr < map_end; page_addr += PAGE_SIZE )
->      {
-> -        struct lvl2_pd *lvl2;
-> -        struct lvl3_pd *lvl3;
-> -        struct lvl4_pt *lvl4;
-> -        pde_t *pde;
-> -        pte_t *pte;
-> -
-> -        /* Allocate LVL 2 PD if necessary */
-> -        pde = pt_entry(lvl1, page_addr);
-> -        if ( !pde_is_valid(*pde) )
-> -        {
-> -            lvl2 = lvl2_pd_pool_alloc();
-> -            *pde = paddr_to_pde(__pa(lvl2), PDE_VALID,
-> -                                XEN_PT_ENTRIES_LOG2_LVL_2);
-> -        }
-> -        else
-> -            lvl2 = __va(pde_to_paddr(*pde));
-> +        unsigned long flags;
+> (This is not an argument for adding efi_enabled in arch/ppc)
 > 
-> -        /* Allocate LVL 3 PD if necessary */
-> -        pde = pt_entry(lvl2, page_addr);
-> -        if ( !pde_is_valid(*pde) )
-> +        if ( is_kernel_text(page_addr) || is_kernel_inittext(page_addr) )
->          {
-> -            lvl3 = lvl3_pd_pool_alloc();
-> -            *pde = paddr_to_pde(__pa(lvl3), PDE_VALID,
-> -                                XEN_PT_ENTRIES_LOG2_LVL_3);
-> +            radix_dprintk("%016lx being marked as TEXT (RX)\n", page_addr);
-> +            flags = PTE_XEN_RX;
->          }
-> -        else
-> -            lvl3 = __va(pde_to_paddr(*pde));
-> -
-> -        /* Allocate LVL 4 PT if necessary */
-> -        pde = pt_entry(lvl3, page_addr);
-> -        if ( !pde_is_valid(*pde) )
-> -        {
-> -            lvl4 = lvl4_pt_pool_alloc();
-> -            *pde = paddr_to_pde(__pa(lvl4), PDE_VALID,
-> -                                XEN_PT_ENTRIES_LOG2_LVL_4);
-> -        }
-> -        else
-> -            lvl4 = __va(pde_to_paddr(*pde));
-> -
-> -        /* Finally, create PTE in LVL 4 PT */
-> -        pte = pt_entry(lvl4, page_addr);
-> -        if ( !pte_is_valid(*pte) )
-> +        else if ( is_kernel_rodata(page_addr) )
->          {
-> -            unsigned long paddr = (page_addr - map_start) + phys_base;
-> -            unsigned long flags;
-> -
-> -            radix_dprintk("%016lx being mapped to %016lx\n", paddr, page_addr);
-> -            if ( is_kernel_text(page_addr) || is_kernel_inittext(page_addr) )
-> -            {
-> -                radix_dprintk("%016lx being marked as TEXT (RX)\n", page_addr);
-> -                flags = PTE_XEN_RX;
-> -            }
-> -            else if ( is_kernel_rodata(page_addr) )
-> -            {
-> -                radix_dprintk("%016lx being marked as RODATA (RO)\n", page_addr);
-> -                flags = PTE_XEN_RO;
-> -            }
-> -            else
-> -            {
-> -                radix_dprintk("%016lx being marked as DEFAULT (RW)\n", page_addr);
-> -                flags = PTE_XEN_RW;
-> -            }
-> -
-> -            *pte = paddr_to_pte(paddr, flags);
-> -            radix_dprintk("%016lx is the result of PTE map\n",
-> -                paddr_to_pte(paddr, flags).pte);
-> +            radix_dprintk("%016lx being marked as RODATA (RO)\n", page_addr);
-> +            flags = PTE_XEN_RO;
->          }
->          else
->          {
-> -            early_printk("BUG: Tried to create PTE for already-mapped page!");
-> -            die();
-> +            radix_dprintk("%016lx being marked as DEFAULT (RW)\n", page_addr);
-> +            flags = PTE_XEN_RW;
->          }
-> +
-> +        map_page_initial(lvl1, page_addr, (page_addr - map_start) + phys_base, flags);
-> +    }
-> +
-> +    /* Map runtime-allocated PATB, PRTB */
-> +    for ( page_addr = (uint64_t)initial_patb;
-> +          page_addr < (uint64_t)initial_patb + PATB_SIZE;
+> I am curious to know why you think that. This is just software and 
+> therefore doesn't seem to be technically impossible. I mean who 
+> originally thought that ACPI would come to Arm? :) And yet we now have 
+> HWs (mainly servers) which provides only ACPI + UEFI.
+> 
+> And before, I got asked where is the support in Xen. Yes, the work is 
+> still on-going :).
+> 
+> Anyway, back to the original ask, one option would be to introduce 
+> efi_enabled stub in an common header. Maybe xen/efi.h?
 
-While technically not an issue, casting pointers to fixed width types is
-generally bogus. page_addr itself would likely better also be of a
-different type (unsigned long, uintptr_t, or vaddr_t; the latter only if
-that's meant to represent hypervisor virtual addresses, not guest ones).
-
-> +          page_addr += PAGE_SIZE )
-> +    {
-> +        map_page_initial(lvl1, page_addr, __pa(page_addr), PTE_XEN_RW);
-> +    }
-> +
-> +    for ( page_addr = (uint64_t)initial_prtb;
-> +          page_addr < (uint64_t)initial_prtb + PRTB_SIZE;
-> +          page_addr += PAGE_SIZE )
-> +    {
-> +        map_page_initial(lvl1, page_addr, __pa(page_addr), PTE_XEN_RW);
->      }
-
-Just as a remark (you're the maintainer) - in cases like these we generally
-prefer to omit the braces.
-
-> @@ -210,6 +225,16 @@ void __init setup_initial_pagetables(void)
->  {
->      struct lvl1_pd *root = lvl1_pd_pool_alloc();
->      unsigned long lpcr;
-> +    mfn_t patb_mfn, prtb_mfn;
-> +
-> +    /* Allocate mfns for in-memory tables using the boot allocator */
-> +    prtb_mfn = alloc_boot_pages(PRTB_SIZE / PAGE_SIZE,
-> +                                max(1, PRTB_SIZE_LOG2 - PAGE_SHIFT));
-> +    patb_mfn = alloc_boot_pages(PATB_SIZE / PAGE_SIZE,
-> +                                max(1, PATB_SIZE_LOG2 - PAGE_SHIFT));
-> +
-> +    initial_patb = __va(mfn_to_maddr(patb_mfn));
-> +    initial_prtb = __va(mfn_to_maddr(prtb_mfn));
-
-Overall, what's the plan wrt directmap: Are you meaning to not have one
-covering all memory? If you do, I wonder if you wouldn't be better off
-mapping memory as you pass it to the boot allocator, such that you
-won't need to map things piecemeal like you're doing here.
+Right, and having a somewhat odd #ifdef there (covering for the lack of
+CONFIG_EFI) would imo be preferable to having it in a random .c file.
 
 Jan
 
