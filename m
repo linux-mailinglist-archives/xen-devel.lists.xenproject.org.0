@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9752D81B376
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 11:25:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658765.1028122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A1A481B389
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 11:28:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658780.1028142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGGEd-00054Q-Bd; Thu, 21 Dec 2023 10:24:59 +0000
+	id 1rGGHz-0006SY-4K; Thu, 21 Dec 2023 10:28:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658765.1028122; Thu, 21 Dec 2023 10:24:59 +0000
+Received: by outflank-mailman (output) from mailman id 658780.1028142; Thu, 21 Dec 2023 10:28:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGGEd-00052i-7R; Thu, 21 Dec 2023 10:24:59 +0000
-Received: by outflank-mailman (input) for mailman id 658765;
- Thu, 21 Dec 2023 10:24:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rGGHz-0006Q7-16; Thu, 21 Dec 2023 10:28:27 +0000
+Received: by outflank-mailman (input) for mailman id 658780;
+ Thu, 21 Dec 2023 10:28:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=yxSo=IA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rGGEb-00051I-Qd
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 10:24:57 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3021660c-9feb-11ee-98eb-6d05b1d4d9a1;
- Thu, 21 Dec 2023 11:24:57 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40d2376db79so4740425e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 02:24:57 -0800 (PST)
+ id 1rGGHx-0006Q1-BH
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 10:28:25 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab215ac5-9feb-11ee-9b0f-b553b5be7939;
+ Thu, 21 Dec 2023 11:28:23 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2cc8fd5d54bso6662571fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 02:28:23 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l2-20020a05600c4f0200b003feae747ff2sm10663775wmq.35.2023.12.21.02.24.56
+ o20-20020a05600c4fd400b004094d4292aesm2753820wmq.18.2023.12.21.02.28.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 02:24:56 -0800 (PST)
+ Thu, 21 Dec 2023 02:28:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3021660c-9feb-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: ab215ac5-9feb-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1703154296; x=1703759096; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1703154503; x=1703759303; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=jQooth6BrfgYO72SFJtU9T6nvZk+lUA6jnXDfawcbPI=;
-        b=oSZIC28yXG5H+qKFVpumLGnsMa/sRhdWtLKLLFzV2ra+JO2V3fYvfusMHIcEhnEyh9
-         MtubaDiEemf0X1QKCejcH+1EG0S3rfb2vlXR3Ljqq9qkHjkrSwxZKvyuk8VCVTxfksXp
-         iuVQeb1fmwD871Ykde1IcQsUjdZ7aiZ7I7VRc=
+        bh=fpZpNXw9N6hDkx+/uTJfWExFLw7rUF2tLqSwFz8pVuw=;
+        b=OfPqcNrkvcYqzK2HKA13NeLF3PmotyCKy6pY6Lsgij8ceJ5Qrq9GJDxoqg3br9z0rU
+         hHpbn+fSC2PLq3GT9+JOdDcgSuBkqvkkDSmI4kGqazqadcL3GUF3xh8nyi/qxJxDliDA
+         SmrBDwNriH6tjFs29tMFmV+4vSso1wl71lIww=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703154296; x=1703759096;
+        d=1e100.net; s=20230601; t=1703154503; x=1703759303;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jQooth6BrfgYO72SFJtU9T6nvZk+lUA6jnXDfawcbPI=;
-        b=YpBPEDFuYYT8T4k8gnOHLd9VPL8e5uBvlxbJXmSNNqrZaj6meP1gRf5CI5kke8Ank5
-         BiqgyWGRMYV1wknYKxvYpal/kqUX0YqysZQhFX6gQ9wlhDHQXHxpJX7rNINUZPhssija
-         WV5RQdr0saZcvUfkkhNktHQTGA6dV2DaQ8m6rAehyzEId9Tx5gsP6BHi2ORNgUSCB9Y4
-         A4K71ec9xh5r4stTj1AxEF/0QgH9qGWvgsgBqIiZxneV5KzDyc7kg8M03wP0kDi1NBiQ
-         meGBD05Mrx/0BqCt+Sq6nracZdiDvY3Bod8FdXhguFyvz2xuB3yiNqGjcOaUweWs5Cdi
-         OnPQ==
-X-Gm-Message-State: AOJu0YyuF5jNx1LTYb+WC+cF32T8nUdioVBM3qOvhu5N1zP5BMRuIZf0
-	aq1wc2sdtbVp7lEI3jLTKxNqyg==
-X-Google-Smtp-Source: AGHT+IGZmz1t+LeFSd9kTYvn55s96oYtCrDK9indXCVqEi1/CD/H0/Y0J5xfYYeqVs2jdLtoP90ymg==
-X-Received: by 2002:a05:600c:3592:b0:40c:4ca8:6aca with SMTP id p18-20020a05600c359200b0040c4ca86acamr674966wmq.109.1703154296538;
-        Thu, 21 Dec 2023 02:24:56 -0800 (PST)
-Message-ID: <6d8eb59c-5824-47b3-b2d0-24f1db96b367@citrix.com>
-Date: Thu, 21 Dec 2023 10:24:55 +0000
+        bh=fpZpNXw9N6hDkx+/uTJfWExFLw7rUF2tLqSwFz8pVuw=;
+        b=KIDmteEdhRql9pzrq27/S1COVFXIBP11TVj3mcH5WJL/rIRcFZpRZeb1rEPU/g/iWW
+         qK2Glq3o65HXNon0N2exsqKnGJMCkxHjBU7ElTCKOGZHcIpmR+iflaRZB1BXFj2wfc/1
+         UzZHS7ZV6ZIoSBvoHtp/5Wf45qTGW3KeWc+S9juCyw17wgqIrgO4tJny9/pb8xiBt/TV
+         hwuSaRm8il1+Gyhs+jaCvYrQAPLUDK3lHaCvwqYqaNDft1lCI/AI6vxirBWMXmNmwJeL
+         8CGHda1umpdIoy/mXP9FpjCL2AvTAGsbP+CwzbsCY3LCCqBY9K8nvXG/gtYp+7RYv66L
+         IC0w==
+X-Gm-Message-State: AOJu0YxO9yuO99pXtUr1pmJ8MPhvpzok+YELJ2Y7Stx2oY4yAVFYScPx
+	I1Xs3bDeE782wQwRuYpsDifXaA==
+X-Google-Smtp-Source: AGHT+IHQIaDxIdrul9O5W278h+bP/b+aA73QZj6kkpIbcwb+8bAfnI5e9hdPjDjk9aSNc4J9AwuxWA==
+X-Received: by 2002:a05:6512:ac8:b0:50e:2a3a:19e9 with SMTP id n8-20020a0565120ac800b0050e2a3a19e9mr6105234lfu.60.1703154502904;
+        Thu, 21 Dec 2023 02:28:22 -0800 (PST)
+Message-ID: <71f638d1-1037-4170-a345-0ea0a0573fc3@citrix.com>
+Date: Thu, 21 Dec 2023 10:28:22 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/amd: extend CPU errata #1474 affected models
+Subject: Re: [PATCH] xen/xmalloc: XMEM_POOL_POISON improvements
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
-Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20231221100831.25570-1-roger.pau@citrix.com>
- <213dc008-f8eb-4313-8b3e-17fc435416e1@citrix.com>
- <978e4603-f20b-481f-97bd-2a84de0800c8@suse.com>
+To: Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20231220214716.2510402-1-andrew.cooper3@citrix.com>
+ <38dfe5ac-790e-4479-b7a8-ab3d5d0d0db2@xen.org>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -127,21 +129,34 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <978e4603-f20b-481f-97bd-2a84de0800c8@suse.com>
+In-Reply-To: <38dfe5ac-790e-4479-b7a8-ab3d5d0d0db2@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 21/12/2023 10:20 am, Jan Beulich wrote:
-> On 21.12.2023 11:17, Andrew Cooper wrote:
->> On 21/12/2023 10:08 am, Roger Pau Monne wrote:
->>> Errata #1474has now been extended to cover models from family 17h ranges
->> Extra space needed.  Can be fixed on commit.
-> Also (not just here) - isn't it "erratum" when we talk of just one?
+On 20/12/2023 9:51 pm, Julien Grall wrote:
+> Hi Andrew,
+>
+> On 20/12/2023 21:47, Andrew Cooper wrote:
+>> When in use, the spew:
+>>
+>>    (XEN) Assertion '!memchr_inv(b->ptr.buffer + MIN_BLOCK_SIZE,
+>> POISON_BYTE, (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE)' failed at
+>> common/xmalloc_tlsf.c:246
+>>
+>> is unweidly and likely meaningless to non-Xen developers.  Therefore:
+>>
+>>   * Switch to IS_ENABLED().  There's no need for full #ifdef-ary.
+>>   * Pull memchr_inv() out into the if(), and provide an error message
+>> which
+>>     clearly states that corruption has been found.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>
+> With one remark:
+>
+> Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-Good point, yes.
-
-I'll fix both.  (I'm just collecting some patches for a Gitlab CI run on
-Juergen's patches, and I'll include this one.)
+Thanks.  Will fix.
 
 ~Andrew
 
