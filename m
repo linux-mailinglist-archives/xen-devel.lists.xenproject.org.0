@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A1A481B389
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 11:28:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658780.1028142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E23381B38A
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 11:29:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658783.1028151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGGHz-0006SY-4K; Thu, 21 Dec 2023 10:28:27 +0000
+	id 1rGGIr-00070z-CV; Thu, 21 Dec 2023 10:29:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658780.1028142; Thu, 21 Dec 2023 10:28:27 +0000
+Received: by outflank-mailman (output) from mailman id 658783.1028151; Thu, 21 Dec 2023 10:29:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGGHz-0006Q7-16; Thu, 21 Dec 2023 10:28:27 +0000
-Received: by outflank-mailman (input) for mailman id 658780;
- Thu, 21 Dec 2023 10:28:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rGGIr-0006ym-9P; Thu, 21 Dec 2023 10:29:21 +0000
+Received: by outflank-mailman (input) for mailman id 658783;
+ Thu, 21 Dec 2023 10:29:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yxSo=IA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rGGHx-0006Q1-BH
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 10:28:25 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ab215ac5-9feb-11ee-9b0f-b553b5be7939;
- Thu, 21 Dec 2023 11:28:23 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2cc8fd5d54bso6662571fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 02:28:23 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- o20-20020a05600c4fd400b004094d4292aesm2753820wmq.18.2023.12.21.02.28.22
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 02:28:22 -0800 (PST)
+ <SRS0=Qw+O=IA=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1rGGIp-0006wY-Fh
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 10:29:19 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cbe3be75-9feb-11ee-98eb-6d05b1d4d9a1;
+ Thu, 21 Dec 2023 11:29:18 +0100 (CET)
+Received: from [192.168.1.229] (93-36-216-194.ip62.fastwebnet.it
+ [93.36.216.194])
+ by support.bugseng.com (Postfix) with ESMTPSA id 77DD04EE0742;
+ Thu, 21 Dec 2023 11:29:17 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +40,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab215ac5-9feb-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1703154503; x=1703759303; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fpZpNXw9N6hDkx+/uTJfWExFLw7rUF2tLqSwFz8pVuw=;
-        b=OfPqcNrkvcYqzK2HKA13NeLF3PmotyCKy6pY6Lsgij8ceJ5Qrq9GJDxoqg3br9z0rU
-         hHpbn+fSC2PLq3GT9+JOdDcgSuBkqvkkDSmI4kGqazqadcL3GUF3xh8nyi/qxJxDliDA
-         SmrBDwNriH6tjFs29tMFmV+4vSso1wl71lIww=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703154503; x=1703759303;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fpZpNXw9N6hDkx+/uTJfWExFLw7rUF2tLqSwFz8pVuw=;
-        b=KIDmteEdhRql9pzrq27/S1COVFXIBP11TVj3mcH5WJL/rIRcFZpRZeb1rEPU/g/iWW
-         qK2Glq3o65HXNon0N2exsqKnGJMCkxHjBU7ElTCKOGZHcIpmR+iflaRZB1BXFj2wfc/1
-         UzZHS7ZV6ZIoSBvoHtp/5Wf45qTGW3KeWc+S9juCyw17wgqIrgO4tJny9/pb8xiBt/TV
-         hwuSaRm8il1+Gyhs+jaCvYrQAPLUDK3lHaCvwqYqaNDft1lCI/AI6vxirBWMXmNmwJeL
-         8CGHda1umpdIoy/mXP9FpjCL2AvTAGsbP+CwzbsCY3LCCqBY9K8nvXG/gtYp+7RYv66L
-         IC0w==
-X-Gm-Message-State: AOJu0YxO9yuO99pXtUr1pmJ8MPhvpzok+YELJ2Y7Stx2oY4yAVFYScPx
-	I1Xs3bDeE782wQwRuYpsDifXaA==
-X-Google-Smtp-Source: AGHT+IHQIaDxIdrul9O5W278h+bP/b+aA73QZj6kkpIbcwb+8bAfnI5e9hdPjDjk9aSNc4J9AwuxWA==
-X-Received: by 2002:a05:6512:ac8:b0:50e:2a3a:19e9 with SMTP id n8-20020a0565120ac800b0050e2a3a19e9mr6105234lfu.60.1703154502904;
-        Thu, 21 Dec 2023 02:28:22 -0800 (PST)
-Message-ID: <71f638d1-1037-4170-a345-0ea0a0573fc3@citrix.com>
-Date: Thu, 21 Dec 2023 10:28:22 +0000
+X-Inumbo-ID: cbe3be75-9feb-11ee-98eb-6d05b1d4d9a1
+Message-ID: <6f3e64d1-5719-4960-9f60-0497a8ccea00@bugseng.com>
+Date: Thu, 21 Dec 2023 11:29:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/xmalloc: XMEM_POOL_POISON improvements
-Content-Language: en-GB
-To: Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Jan Beulich <JBeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20231220214716.2510402-1-andrew.cooper3@citrix.com>
- <38dfe5ac-790e-4479-b7a8-ab3d5d0d0db2@xen.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <38dfe5ac-790e-4479-b7a8-ab3d5d0d0db2@xen.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [XEN PATCH 5/7] xen/arm: v{cp,sys}reg: address violations of
+ MISRA C:2012 Rule 16.3
+Content-Language: en-US, it
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1703066935.git.federico.serafini@bugseng.com>
+ <541bc4fd47d26b12ea131590bf0c49f7c92d9368.1703066935.git.federico.serafini@bugseng.com>
+ <0200354e-08b9-4136-b6e9-3220a51256af@xen.org>
+ <9e9e3086-6311-4a76-8624-a06d52e7ec0b@suse.com>
+ <c3a128d9-dea8-4e05-b292-1a6a04fb0daf@bugseng.com>
+ <alpine.DEB.2.22.394.2312201008070.685950@ubuntu-linux-20-04-desktop>
+ <e5a812ab-faaf-47fd-bada-9b19e0c94bcc@citrix.com>
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG srl
+In-Reply-To: <e5a812ab-faaf-47fd-bada-9b19e0c94bcc@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 20/12/2023 9:51 pm, Julien Grall wrote:
-> Hi Andrew,
->
-> On 20/12/2023 21:47, Andrew Cooper wrote:
->> When in use, the spew:
+On 20/12/23 22:23, Andrew Cooper wrote:
+> On 20/12/2023 6:24 pm, Stefano Stabellini wrote:
+>> On Wed, 20 Dec 2023, Federico Serafini wrote:
+>>> On 20/12/23 12:55, Jan Beulich wrote:
+>>>> On 20.12.2023 12:48, Julien Grall wrote:
+>>>>> On 20/12/2023 11:03, Federico Serafini wrote:
+>>>>>> --- a/xen/arch/arm/arm64/vsysreg.c
+>>>>>> +++ b/xen/arch/arm/arm64/vsysreg.c
+>>>>>> @@ -210,8 +210,8 @@ void do_sysreg(struct cpu_user_regs *regs,
+>>>>>>             /* RO at EL0. RAZ/WI at EL1 */
+>>>>>>             if ( regs_mode_is_user(regs) )
+>>>>>>                 return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr,
+>>>>>> 0);
+>>>>>> -        else
+>>>>>> -            return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr,
+>>>>>> 1);
+>>>>>> +
+>>>>>> +        return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
+>>>>> I don't 100% like this change (mostly because I find if/else clearer
+>>>>> here).
+>>>> While (it doesn't matter here) my view on this is different, I'm still
+>>>> puzzled why the tool would complain / why a change here is necessary.
+>>>> It is not _one_ return statement, but there's still (and obviously) no
+>>>> way of falling through.
+>>> The tool is configurable:
+>>> if you prefer deviate these cases instead of refactoring the code
+>>> I can update the configuration.
+>>   
+>> If you say "deviation", it implies that there is a violation. I think
+>> Jan's point was that both code versions shouldn't be any different.
 >>
->>    (XEN) Assertion '!memchr_inv(b->ptr.buffer + MIN_BLOCK_SIZE,
->> POISON_BYTE, (b->size & BLOCK_SIZE_MASK) - MIN_BLOCK_SIZE)' failed at
->> common/xmalloc_tlsf.c:246
+>> # option-1
+>> if (a)
+>>    return f1();
+>> else
+>>    return f2();
 >>
->> is unweidly and likely meaningless to non-Xen developers.  Therefore:
+>> # option-2
+>> if (a)
+>>    return f1();
+>> return f2();
 >>
->>   * Switch to IS_ENABLED().  There's no need for full #ifdef-ary.
->>   * Pull memchr_inv() out into the if(), and provide an error message
->> which
->>     clearly states that corruption has been found.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->
-> With one remark:
->
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
+>> Both options are equally guaranteed to always return. It looks like a
+>> peculiar limitation to only recognize option-2 as something that returns
+>> 100% of the times. Also option-1 returns 100% of the times. What am I
+>> missing?
 
-Thanks.  Will fix.
+I don't think this is necessarily a limitation because it highlights
+cases where an if-else could be replaced with a simple if:
+some may find an if-else clearer, other may find the single if clearer.
 
-~Andrew
+ From a safety point of view both options are safe because there
+is no risk of unintentional fall through.
+
+If you all agree on the fact that small code refactoring like the ones I
+proposed are counterproductive, then I can update the tool configuration
+to consider also option-1 as safe.
+
+> 
+> For completeness, it's worth saying that there is an option-3:
+> 
+>      return a ? f1() : f2();
+> 
+> which is very clearly only a single return, but I personally don't like
+> this as I often find it to be less clear than either other option.
+
+Option-3 is currently considered as safe.
+
+> 
+> All options have a guaranteed return, but there cases including this one
+> where option-1 is clearest way to write the logic.
+> 
+> ~Andrew
+
+-- 
+Federico Serafini, M.Sc.
+
+Software Engineer, BUGSENG (http://bugseng.com)
 
