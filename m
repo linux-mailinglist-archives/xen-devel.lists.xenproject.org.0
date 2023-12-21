@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A90C181B29B
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 10:38:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658723.1028038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDF5881B2C3
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 10:42:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658730.1028049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGFVz-0005gc-4j; Thu, 21 Dec 2023 09:38:51 +0000
+	id 1rGFZa-00083R-JP; Thu, 21 Dec 2023 09:42:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658723.1028038; Thu, 21 Dec 2023 09:38:51 +0000
+Received: by outflank-mailman (output) from mailman id 658730.1028049; Thu, 21 Dec 2023 09:42:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGFVz-0005dr-1t; Thu, 21 Dec 2023 09:38:51 +0000
-Received: by outflank-mailman (input) for mailman id 658723;
- Thu, 21 Dec 2023 09:38:50 +0000
+	id 1rGFZa-00081J-Gb; Thu, 21 Dec 2023 09:42:34 +0000
+Received: by outflank-mailman (input) for mailman id 658730;
+ Thu, 21 Dec 2023 09:42:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yxSo=IA=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rGFVx-0005df-W8
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 09:38:50 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
+ <SRS0=ywj9=IA=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rGFZZ-000800-6G
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 09:42:33 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bd8d63b6-9fe4-11ee-9b0f-b553b5be7939;
- Thu, 21 Dec 2023 10:38:47 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-336746c7b6dso425857f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 01:38:47 -0800 (PST)
-Received: from [192.168.1.10] (host-92-26-110-223.as13285.net. [92.26.110.223])
+ id 42c55da7-9fe5-11ee-9b0f-b553b5be7939;
+ Thu, 21 Dec 2023 10:42:31 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-50e3c6f1c10so795151e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 01:42:31 -0800 (PST)
+Received: from [192.168.220.211] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- e4-20020a5d6d04000000b003367433118bsm1597343wrq.78.2023.12.21.01.38.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 01:38:47 -0800 (PST)
+ u5-20020ac25185000000b0050d438f0a09sm221057lfi.256.2023.12.21.01.42.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 Dec 2023 01:42:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,124 +45,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd8d63b6-9fe4-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 42c55da7-9fe5-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1703151527; x=1703756327; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8glTMB6OR6iWmfxtYa6V6b3clUcWOXKdT1CBESqc0eQ=;
-        b=lS2fXAExKOSJfhvo8aHdMc05ecPy18lQRxyu8xBiyWOirzzslCx4S3vjIxd6itrKyl
-         /g51Yh5OCz4ejP+ju3dONZNSY2oDoE3GfJgIUhnpDvp5GACCKEovP+4aNLQyePUHipPt
-         vg4V8uYHnX8eBo9rRsIuhWgcc95lYkLdKqfAQ=
+        d=gmail.com; s=20230601; t=1703151751; x=1703756551; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=KnD7DRVsvCfnbIpgFymmyiUUeWm8PbgiSCMTawUhusA=;
+        b=Sf4t/FkbfCLm/Fm9ad/YorMBsv5pCxPxDGkgyKS/ykYUCnf0ENQrko/9ocZyj+Lg+C
+         YnYGr5Foos0sYX5oiOzhp3POqpFssMhWnso20dMxTaxApjUoSwrafuQgnU4SMTYBuXM3
+         LfkXOTxDCyWE/ZOeB6jyPbvtuRWaXnSwLsoeG5hZIFi5LIYrgWTapN9KzIz3MhiXOZlL
+         cgtpnr3IdNGan/YS9oDO6qU5OV6gUXBnwk/va0rb2dKR2YW7grLHswqSwOSI+LI+VK9c
+         MXx8shRsL4P0QJZpwvfihdNYfgmyCNpu2AcFcLMyFayrrtW127LsNZo7lJV4NQ/NROAX
+         BbqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703151527; x=1703756327;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8glTMB6OR6iWmfxtYa6V6b3clUcWOXKdT1CBESqc0eQ=;
-        b=SgG5XKII+wdkwH6Md511FOlSDhse+tpU9A/qlIcCd1/pSXtSiCVjkE0QLZVsToIPxJ
-         VMpt/VmUhuqHT5COZFyunMFWEFuuoAUf5MCU3EaMdx+nhn16OHZ5nD1L0t4XNzjn7LmX
-         ocjMCX7T6GECBNOfNWW6w4J1qm/C5V7qXp57XeaQ6DVWu923ES9iGhIPj4AVTF+1rH/T
-         SA5w8SIkTedxVcv+1Km6beusRfevdojTtGOS1OQjM8YFrWYZeQCYwZDC+E1oYEB2voCV
-         F5vnccZ2/PCsxepkn/UrP4htsR6ztsjVVrnZgnfnlFYftQpRQ3d9pPjAAwlU6TKiAa3K
-         TK3w==
-X-Gm-Message-State: AOJu0YxLuHQeEj23+BGdg7Y654camFOD4GowfEWvkdFnX5hyZM1XMgKl
-	Anr6vu0WTrBMR1ECgoxBjJEN2A==
-X-Google-Smtp-Source: AGHT+IF79XqRFHRkPNkTTBQN3LXi4F01A6WLbNWHrTB+aBj4KMU6z0/VhVZNRHJqUjI+rkGX67VNyQ==
-X-Received: by 2002:a5d:4d89:0:b0:336:7814:84be with SMTP id b9-20020a5d4d89000000b00336781484bemr644704wru.141.1703151527316;
-        Thu, 21 Dec 2023 01:38:47 -0800 (PST)
-Message-ID: <97838b11-e23d-4081-acbf-054d02f5ab73@citrix.com>
-Date: Thu, 21 Dec 2023 09:38:46 +0000
+        d=1e100.net; s=20230601; t=1703151751; x=1703756551;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=KnD7DRVsvCfnbIpgFymmyiUUeWm8PbgiSCMTawUhusA=;
+        b=M3nex2jBnj9iMfLCc0aj0qwWqmY8iOrB9qkuhRdzUi78GGz3+ZlCENnqI+j5M+FYl5
+         cqypuBAGPRcjb+EGS9sy3IHpLrLDmwE7Gi1qW3/8NnBp9PeBk2fBJ7Xa8n+0w4Vwy8Gm
+         rGYfjgZkZ0SoSG+zid2+kVOdOkzCInNLzTzyz7+KRgd0hR6BxcTSfUwd2EJfz9fgdpMZ
+         fAIFjRb4kDgHfrBlIewZHb/Gno+CbyxehKwwK4W2x/8hGyBmP0msAPfFzwZxj2esll1L
+         0CDvNvntebZ2Ae8/kEVHlvIVroDAOu7nAUiUeuyQYm7I+OKBfB0QvLm1USJ/krtUdAIE
+         e8hQ==
+X-Gm-Message-State: AOJu0YwR0i2v7HvxKLg+YjqxkmZXzSQ/rbug2H+LCFi08tLekXWaUujL
+	ekPSUR9qjpRgFoBxcmj3aJQ=
+X-Google-Smtp-Source: AGHT+IGLXGrphCDlWXByCcOTKtFLcRABEUJbMQ5BV/qVKln4dpqg9BjXt9CuABM3EyjLWkQElmfZ+Q==
+X-Received: by 2002:ac2:428a:0:b0:50e:3774:9db6 with SMTP id m10-20020ac2428a000000b0050e37749db6mr1635470lfh.196.1703151750430;
+        Thu, 21 Dec 2023 01:42:30 -0800 (PST)
+Message-ID: <f9a2967197f809c64f32c1140f249de791055aad.camel@gmail.com>
+Subject: Re: [PATCH v2 07/39] xen/riscv: introduce arch-riscv/hvm/save.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Shawn Anastasio
+ <sanastasio@raptorengineering.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	 <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+	xen-devel@lists.xenproject.org
+Date: Thu, 21 Dec 2023 11:42:28 +0200
+In-Reply-To: <5a896d14-d96e-424a-a2a9-f0fc92b3cbde@suse.com>
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+	 <acb870b980a791d7800d47c08c9574275159df39.1700761381.git.oleksii.kurochko@gmail.com>
+	 <5eae9d9b-e499-4c8c-aed0-2f52c0aa7c9f@suse.com>
+	 <f890996c2b100c6ace1f853da2c293d2f9244ef9.camel@gmail.com>
+	 <5a896d14-d96e-424a-a2a9-f0fc92b3cbde@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] xen: have a more generic unaligned.h header (take 2)
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20231212162702.26360-1-jgross@suse.com>
- <75dccbdf-616c-4487-a1a0-64bdfcce0f91@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <75dccbdf-616c-4487-a1a0-64bdfcce0f91@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 21/12/2023 9:37 am, Juergen Gross wrote:
-> On 12.12.23 17:27, Juergen Gross wrote:
->> Second try for the generic unaligned.h approach.
->>
->> This time including a fix for building stubdom with libxenguest,
->> which is using a cruel hack to reuse the hypervisor's decompressing
->> code.
->>
->> Juergen Gross (2):
->>    xen: make include/xen/unaligned.h usable on all architectures
->>    xen: remove asm/unaligned.h
->>
->>   .../guest/xg_dom_decompress_unsafe_zstd.c     |  2 +-
->>   xen/arch/x86/include/asm/unaligned.h          |  6 ---
->>   xen/common/lz4/defs.h                         |  2 +-
->>   xen/common/lzo.c                              |  2 +-
->>   xen/common/unlzo.c                            |  2 +-
->>   xen/common/xz/private.h                       |  2 +-
->>   xen/common/zstd/mem.h                         |  2 +-
->>   xen/include/xen/unaligned.h                   | 53 +++++++++++--------
->>   xen/lib/xxhash32.c                            |  2 +-
->>   xen/lib/xxhash64.c                            |  2 +-
->>   10 files changed, 38 insertions(+), 37 deletions(-)
->>   delete mode 100644 xen/arch/x86/include/asm/unaligned.h
->>
->
-> Is anything missing for this series to go in?
+On Thu, 2023-12-21 at 08:58 +0100, Jan Beulich wrote:
+> On 20.12.2023 21:05, Oleksii wrote:
+> > On Tue, 2023-12-05 at 16:59 +0100, Jan Beulich wrote:
+> > > On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> > > > --- /dev/null
+> > > > +++ b/xen/include/public/arch-riscv/hvm/save.h
+> > > > @@ -0,0 +1,20 @@
+> > > > +/* SPDX-License-Identifier: MIT */
+> > > > +/*
+> > > > + * Structure definitions for HVM state that is held by Xen and
+> > > > must
+> > > > + * be saved along with the domain's memory and device-model
+> > > > state.
+> > > > + */
+> > > > +
+> > > > +#ifndef __XEN_PUBLIC_HVM_SAVE_RISCV_H__
+> > > > +#define __XEN_PUBLIC_HVM_SAVE_RISCV_H__
+> > > > +
+> > > > +#endif
+> > > > +
+> > > > +/*
+> > > > + * Local variables:
+> > > > + * mode: C
+> > > > + * c-file-style: "BSD"
+> > > > + * c-basic-offset: 4
+> > > > + * tab-width: 4
+> > > > + * indent-tabs-mode: nil
+> > > > + * End:
+> > > > + */
+> > >=20
+> > > Seeing that Arm's is as empty, I wonder why we have it. Julien,
+> > > Stefano?
+>=20
+> I'm still curious about the reason here, but ...
+>=20
+> > It seems to exist to satisfy the 'install-tools-public-headers'
+> > target:
+> > install: cannot stat 'xen/arch-arm/hvm/*.h': No such file or
+> > directory
+> > Makefile:58: recipe for target 'install' failed
+> > make[1]: *** [install] Error 1
+> > make[1]: Leaving directory '/builds/xen-
+> > project/people/olkur/xen/tools/include'
+> > Makefile:44: recipe for target 'install-tools-public-headers'
+> > failed
+> >=20
+> > From tools/include/Makefile:
+> > install: all
+> > ...
+> > $(DESTDIR)$(includedir)/xen/arch-arm
+> > 	$(INSTALL_DATA) xen/arch-arm/hvm/*.h
+> > $(DESTDIR)$(includedir)/xen/arch-arm/hvm
+> > ...
+> >=20
+> > We have the following options:
+> > 1. Remove the line with $(INSTALL_DATA) xen/arch-arm/hvm/*.h (only
+> > save.h is now in this folder, which is empty).
+>=20
+> ... we can't easily remove any existing public header. We can only
+> try to
+> avoid making the same mistake (even if it's just a minor one) again.
+>=20
+> > 2. Don't touch the Arm part, but for PPC and RISC-V, do the
+> > following:
+> > #if defined(__i386__) || defined(__x86_64__)
+> > #include "../arch-x86/hvm/save.h"
+> > #elif defined(__arm__) || defined(__aarch64__)
+> > #include "../arch-arm/hvm/save.h"
+> > +#elif defined(__powerpc64__) || defined(__riscv)
+> > +/* no specific header to include */
+> > #else
+> > #error "unsupported architecture"
+> > #endif
+>=20
+> Yes. Still awaiting Shawn's input here as well, though.
+Perhaps you missed the email from Shawn:
+https://lore.kernel.org/xen-devel/c2f3280e-2208-496b-a0b5-fda1a2076b3a@rapt=
+orengineering.com/
 
-Oh - I'd not spotted it.  Lemme throw it through a full Gitlab CI run
-just to be sure.
+>=20
+> > 3. Provide an asm-generic version of save.h for Arm, PPC, and RISC-
+> > V
+> > and use it in public/save.h.
+>=20
+> That's not an option imo - what's under public/ needs to be self-
+> contained.
+> Stuff there isn't supposed to even know of asm-generic/.
+In this case, this is not an option.
 
-~Andrew
+~ Oleksii
 
