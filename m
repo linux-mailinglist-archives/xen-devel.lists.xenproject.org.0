@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FF9281B0B2
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:50:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658594.1027829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3BB81B0EC
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:59:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658600.1027839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGEkt-0007tt-34; Thu, 21 Dec 2023 08:50:11 +0000
+	id 1rGEto-0001dp-1n; Thu, 21 Dec 2023 08:59:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658594.1027829; Thu, 21 Dec 2023 08:50:11 +0000
+Received: by outflank-mailman (output) from mailman id 658600.1027839; Thu, 21 Dec 2023 08:59:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGEks-0007qq-W4; Thu, 21 Dec 2023 08:50:10 +0000
-Received: by outflank-mailman (input) for mailman id 658594;
- Thu, 21 Dec 2023 08:50:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vttA=IA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rGEkr-0007qh-KE
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:50:09 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f19a4e7e-9fdd-11ee-98eb-6d05b1d4d9a1;
- Thu, 21 Dec 2023 09:50:08 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3368ae75082so108766f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 00:50:08 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- u4-20020a05600c138400b0040c03c3289bsm2468383wmf.37.2023.12.21.00.50.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 00:50:07 -0800 (PST)
+	id 1rGEtn-0001bG-U9; Thu, 21 Dec 2023 08:59:23 +0000
+Received: by outflank-mailman (input) for mailman id 658600;
+ Thu, 21 Dec 2023 08:59:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8MA4=IA=huaweicloud.com=yukuai1@srs-se1.protection.inumbo.net>)
+ id 1rGEtm-0001b5-JH
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:59:22 +0000
+Received: from dggsgout11.his.huawei.com (unknown [45.249.212.51])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 372da41c-9fdf-11ee-9b0f-b553b5be7939;
+ Thu, 21 Dec 2023 09:59:17 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.163.216])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4SwkrC4htSz4f3lDh
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 16:59:07 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+ by mail.maildlp.com (Postfix) with ESMTP id DD84F1A08B0
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 16:59:12 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.175.104.67])
+ by APP1 (Coremail) with SMTP id cCh0CgDnNw5d_oNlEQPvEA--.24929S4;
+ Thu, 21 Dec 2023 16:59:12 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,99 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f19a4e7e-9fdd-11ee-98eb-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703148608; x=1703753408; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2x+MZ7cSnOWKQ3huKNwW1qlNaoxAkTdCQN0qFFCj7I0=;
-        b=VBJHqbPkExM5vvNJfM0fitMOuN3je7RIH5jBpK76Vqg7XOmZXibrXYTfth8geK1b/A
-         4pQF59T1XPjbUDKHALQEppgx+r4CcIlPAPq8pdB+QbB3ZmqoxlqWvn4aYKkRWRAJVj0k
-         XuNry7kgNNyJ9BzMvYqzMJ9jZlIMLxAdDsBlyYeUwbGrZfYm5TP6YEV1Fqqvk6K8ukvJ
-         JOegI6qW1WzH8dAZieukLi/mRdCom9huKjYYGTVYYYy4/wjvZifBzkz8qY1BttRGFT1Y
-         Rzi1O6omM2Rh9cRw8l85WN1dV1UCMBZIQm5VsXqLEKm/FxqAGjIp2cFNHw7fSLbcqB2J
-         CNbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703148608; x=1703753408;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2x+MZ7cSnOWKQ3huKNwW1qlNaoxAkTdCQN0qFFCj7I0=;
-        b=aMPHD4ebtdEC/o6LY5+DcsF4q/CWyKtAhBonqJ2u4X8w/rCc/n5QYLlNeJ48RuDv01
-         tTYwOz2t7FSgvTtdtbO1yaN5PAtsgJxDD/FhzNV1bSTW78mG2gG80na5yqdlC5ivszuB
-         qqAW8c4UPNRfZtfib4h0zLgwL/g2XeHn9vA8qKUvTRaDW/bYwqw9NBrVXUe1EU+mi3fF
-         AdlichiGWpu2OdLbcAokP6C3EmxxuYa+/ogWu+/bZ+cFijI/q26gKq9ZbV/5mwMryw4d
-         ziZlMoUJBw7GnpHlB+cv2gZqSqkdWKLwnkuzyFbteVPIsfPwsofhld1o7otf8kAudlIC
-         e0iw==
-X-Gm-Message-State: AOJu0YzkhAkp+kls8qqe2HD6L0jq0JPor7akeIHoQ/2AjG2cZl3d/2Az
-	fi0aR6+U/zNWcEg6TghfVXkv
-X-Google-Smtp-Source: AGHT+IGEAj83gtMFtU++SeI+9sSET4mbCwyi7MDfdn8xV62km1/kCMbsDGj2S05R7Ah+jvEJZbliZA==
-X-Received: by 2002:a05:600c:4d96:b0:40c:3182:e061 with SMTP id v22-20020a05600c4d9600b0040c3182e061mr193798wmp.19.1703148608165;
-        Thu, 21 Dec 2023 00:50:08 -0800 (PST)
-Message-ID: <6f706a0d-1fd1-4ae9-b84d-b94747164db7@suse.com>
-Date: Thu, 21 Dec 2023 09:50:07 +0100
+X-Inumbo-ID: 372da41c-9fdf-11ee-9b0f-b553b5be7939
+From: Yu Kuai <yukuai1@huaweicloud.com>
+To: axboe@kernel.dk,
+	roger.pau@citrix.com,
+	colyli@suse.de,
+	kent.overstreet@gmail.com,
+	joern@lazybastard.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	sth@linux.ibm.com,
+	hoeppner@linux.ibm.com,
+	hca@linux.ibm.com,
+	gor@linux.ibm.com,
+	agordeev@linux.ibm.com,
+	jejb@linux.ibm.com,
+	martin.petersen@oracle.com,
+	clm@fb.com,
+	josef@toxicpanda.com,
+	dsterba@suse.com,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	nico@fluxnic.net,
+	xiang@kernel.org,
+	chao@kernel.org,
+	tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	jack@suse.com,
+	konishi.ryusuke@gmail.com,
+	willy@infradead.org,
+	akpm@linux-foundation.org,
+	hare@suse.de,
+	p.raghav@samsung.com
+Cc: linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-bcachefs@vger.kernel.org,
+	linux-btrfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org,
+	linux-nilfs@vger.kernel.org,
+	yukuai3@huawei.com,
+	yukuai1@huaweicloud.com,
+	yi.zhang@huawei.com,
+	yangerkun@huawei.com
+Subject: [PATCH RFC v3 for-6.8/block 00/17] block: don't access bd_inode directly from other modules
+Date: Thu, 21 Dec 2023 16:56:55 +0800
+Message-Id: <20231221085712.1766333-1-yukuai1@huaweicloud.com>
+X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/amd: extend CPU errata #1474 affected models
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-References: <20231220142218.22850-1-roger.pau@citrix.com>
- <ffb3445f-fd50-4746-9f70-272ea52271ec@citrix.com> <ZYMD_qukgCutWXRI@macbook>
- <00b19784-00bb-494d-bfc0-f0deaa0c1e08@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <00b19784-00bb-494d-bfc0-f0deaa0c1e08@citrix.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgDnNw5d_oNlEQPvEA--.24929S4
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw18WF43ur1kJF1xJFW8WFg_yoW5Jr4rpr
+	nxKF4fGr48u34xuayS9a17t34rJa1kGayUW3W2y345ZFWrZFyfZrWktF1rJFykJrZ7Xr4k
+	Xr1jyryrKr1I9aDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26rWY6r4U
+	JwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6rWUJVWrZr1UMIIF0xvEx4A2jsIE
+	14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf
+	9x0JUd8n5UUUUU=
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 
-On 20.12.2023 16:42, Andrew Cooper wrote:
-> On 20/12/2023 3:10 pm, Roger Pau Monné wrote:
->> On Wed, Dec 20, 2023 at 02:46:43PM +0000, Andrew Cooper wrote:
->>> On 20/12/2023 2:22 pm, Roger Pau Monne wrote:
->>>> @@ -978,24 +978,24 @@ void amd_check_zenbleed(void)
->>>>  		       val & chickenbit ? "chickenbit" : "microcode");
->>>>  }
->>>>  
->>>> -static void cf_check zen2_disable_c6(void *arg)
->>>> +static void cf_check zen_disable_c6(void *arg)
->>> fam17_disable_c6() ?  I know Hygon is 0x18 but it's also reasonably well
->>> know to be the same uarch.
->>>
->>> This particular algorithm is good for all Fam17 uarches, irrespective of
->>> #1474, even if they happen to be the same set of CPUs in practice.
->> Yeah, I was about to use fam17h prefix, but that wouldn't cover Hygon.
->> I we are fine with it I can send an adjusted v2 using fam17h prefix.
-> 
-> I think we're fine calling it fam17.  Happy to do that consistently.
+From: Yu Kuai <yukuai3@huawei.com>
 
-I agree. And it clearly cannot be just "zen", to avoid it also wrongly
-covering Zen3 / Zen4.
+Changes in v3:
+ - remove bdev_associated_mapping() and patch 12 from v1;
+ - add kerneldoc comments for new bdev apis;
+ - rename __bdev_get_folio() to bdev_get_folio;
+ - fix a problem in erofs that erofs_init_metabuf() is not always
+ called.
+ - add reviewed-by tag for patch 15-17;
+Changes in v2:
+ - remove some bdev apis that is not necessary;
+ - pass in offset for bdev_read_folio() and __bdev_get_folio();
+ - remove bdev_gfp_constraint() and add a new helper in fs/buffer.c to
+ prevent access bd_indoe() directly from mapping_gfp_constraint() in
+ ext4.(patch 15, 16);
+ - remove block_device_ejected() from ext4.
 
-Jan
+
+Patch 1 add some bdev apis, then follow up patches will use these apis
+to avoid access bd_inode directly, and hopefully the field bd_inode can
+be removed eventually(after figure out a way for fs/buffer.c).
+
+Yu Kuai (17):
+  block: add some bdev apis
+  xen/blkback: use bdev api in xen_update_blkif_status()
+  bcache: use bdev api in read_super()
+  mtd: block2mtd: use bdev apis
+  s390/dasd: use bdev api in dasd_format()
+  scsicam: use bdev api in scsi_bios_ptable()
+  bcachefs: remove dead function bdev_sectors()
+  bio: export bio_add_folio_nofail()
+  btrfs: use bdev apis
+  cramfs: use bdev apis in cramfs_blkdev_read()
+  erofs: use bdev api
+  nilfs2: use bdev api in nilfs_attach_log_writer()
+  jbd2: use bdev apis
+  buffer: add a new helper to read sb block
+  ext4: use new helper to read sb block
+  ext4: remove block_device_ejected()
+  ext4: use bdev apis
+
+ block/bdev.c                       | 148 +++++++++++++++++++++++++++++
+ block/bio.c                        |   1 +
+ block/blk.h                        |   2 -
+ drivers/block/xen-blkback/xenbus.c |   3 +-
+ drivers/md/bcache/super.c          |  11 +--
+ drivers/mtd/devices/block2mtd.c    |  81 +++++++---------
+ drivers/s390/block/dasd_ioctl.c    |   5 +-
+ drivers/scsi/scsicam.c             |   4 +-
+ fs/bcachefs/util.h                 |   5 -
+ fs/btrfs/disk-io.c                 |  71 +++++++-------
+ fs/btrfs/volumes.c                 |  17 ++--
+ fs/btrfs/zoned.c                   |  15 +--
+ fs/buffer.c                        |  68 +++++++++----
+ fs/cramfs/inode.c                  |  36 +++----
+ fs/erofs/data.c                    |  18 ++--
+ fs/erofs/internal.h                |   2 +
+ fs/ext4/dir.c                      |   6 +-
+ fs/ext4/ext4.h                     |  13 ---
+ fs/ext4/ext4_jbd2.c                |   6 +-
+ fs/ext4/inode.c                    |   8 +-
+ fs/ext4/super.c                    |  66 +++----------
+ fs/ext4/symlink.c                  |   2 +-
+ fs/jbd2/journal.c                  |   3 +-
+ fs/jbd2/recovery.c                 |   6 +-
+ fs/nilfs2/segment.c                |   2 +-
+ include/linux/blkdev.h             |  17 ++++
+ include/linux/buffer_head.h        |  18 +++-
+ 27 files changed, 377 insertions(+), 257 deletions(-)
+
+-- 
+2.39.2
+
 
