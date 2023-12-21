@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC18581AFFA
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:04:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658552.1027759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E1F281B001
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:09:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658557.1027769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGE2t-00014L-4Z; Thu, 21 Dec 2023 08:04:43 +0000
+	id 1rGE72-000278-Kw; Thu, 21 Dec 2023 08:09:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658552.1027759; Thu, 21 Dec 2023 08:04:43 +0000
+Received: by outflank-mailman (output) from mailman id 658557.1027769; Thu, 21 Dec 2023 08:09:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGE2t-00011X-0p; Thu, 21 Dec 2023 08:04:43 +0000
-Received: by outflank-mailman (input) for mailman id 658552;
- Thu, 21 Dec 2023 08:04:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rGE72-000242-Gu; Thu, 21 Dec 2023 08:09:00 +0000
+Received: by outflank-mailman (input) for mailman id 658557;
+ Thu, 21 Dec 2023 08:08:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vttA=IA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rGE2r-00011P-AM
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:04:41 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9633d3bc-9fd7-11ee-98eb-6d05b1d4d9a1;
- Thu, 21 Dec 2023 09:04:38 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40c2db2ee28so6215685e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 00:04:38 -0800 (PST)
+ id 1rGE71-00023w-4o
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:08:59 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2fc1f226-9fd8-11ee-9b0f-b553b5be7939;
+ Thu, 21 Dec 2023 09:08:56 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-3333b46f26aso420425f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 00:08:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bl13-20020adfe24d000000b003365fcc1846sm1401555wrb.52.2023.12.21.00.04.37
+ z7-20020a5d4d07000000b00336759019a5sm1405551wrt.42.2023.12.21.00.08.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 00:04:37 -0800 (PST)
+ Thu, 21 Dec 2023 00:08:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9633d3bc-9fd7-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 2fc1f226-9fd8-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703145878; x=1703750678; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703146135; x=1703750935; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=DqtT/WY/Ly1y83oE/06BHEIzw3GUxg+ZWhjWOkGSgOg=;
-        b=O3LjuikJ7hcniJr6xFKvIhKwzxWAG98U6/73EZ3GNvpgi5noDY5WtJSKVzTcUHAedO
-         4ylQtnkT7Fk3OLwOXNcc5J7eCa0NZszyXaA1A0e1JbHIKh4lN/PqIWpqraY7oPHfyc6s
-         DCLh8GxIH0SN2VApuNxdygYyzr4DjwU/BkEi10nzr2lRs+5mnx/2f/kPE2PNAMiu+Bnl
-         r2I+PR8qW1NtOSBxGgFj/xJqly/jyDRal+1hK6mI02UYON0MlNcIRG50KNVgAV7CVy3l
-         vGgegUQau1KFZa4lft8qcmBs4UmKoJlGQPVUARqmuoMu7hGyhNGvERuyexaJurrleAbm
-         Xlew==
+        bh=VLwfVvfuZvc2ynbbwFO4N5Uc5sQntJzsWveY3KeXoaA=;
+        b=Gip0xX4rZiqMA4UNODOS7uMX3xTGGvO311iUE8bA/PxgnHjeMBqDN1FN2eN9yrIGdv
+         aCdcVTkueNATK09y9zDB+LWnHEEZUrVcw778KBIft2bP2RvREchkXCQGT1+4oCPjSgS+
+         QTVLsgWPOzJ+wHJf5oT2pKwpyTb9eVk3sLqkNV5CS9/ckJ8DeHUNTmtkA/VN1sB05KxS
+         b89STwWEiIZJ2yhveU51w32LbkdLMgz04ZpJ52mBZE0uev2HOsiNZ/FkMLD23CHtxcBj
+         Hukq/LbgsTVllEmI+JysZjoRsWx7S+a/TW4LUs9fzVVbMtIA1LiNRfXHfYp5ori/GQ0N
+         05AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703145878; x=1703750678;
+        d=1e100.net; s=20230601; t=1703146135; x=1703750935;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DqtT/WY/Ly1y83oE/06BHEIzw3GUxg+ZWhjWOkGSgOg=;
-        b=rJ3eQLzYG/E0pwuhz5o4nVtQBlpByCp11MwDnKUIB/nDHA6eFy4OT/CJ3PaNZHIAa1
-         Or6+LLdAJgHCW2aAZ1u2x6THqNPzTzvg/e46DKGZdueubVrpWy+mL8grthikg4PVnCjO
-         T/sDMU1VhEPWlATy8TzreqTRNHag1AKTWlDwBkMVubg9eeXFTta3HWLdD6wU2o3bYrDj
-         sflswbkQu1XRcMKW/lAhYYoMipa/ZzcXZiv25NwXSUSJajb77cypPaYnXlndaFHAlbPd
-         jy6GQUauC09viHDPGSM1WdxymZ3AaCZxYeb8qjeTlRjaz24hA8CkRFjYdn9OFBeuZ8Dp
-         2I5Q==
-X-Gm-Message-State: AOJu0Yx8RyIb68Ctd4Rv05LuvbZVFcZ2YCB5Uh2EvmFNRK8N5YqPLe6M
-	YhKWjPyTRBbZtyVA7YtIKRzH
-X-Google-Smtp-Source: AGHT+IHzDp6OvtMoV5YTYCzd2MKcZTPrvBABBnCjsMSYCAkVmgWgFQRbunUnE+fsGoTK9SfZ20FtBA==
-X-Received: by 2002:a05:600c:511d:b0:3fe:1232:93fa with SMTP id o29-20020a05600c511d00b003fe123293famr579240wms.22.1703145877777;
-        Thu, 21 Dec 2023 00:04:37 -0800 (PST)
-Message-ID: <7483df1c-34f8-4e0e-aad4-c78f219c3d67@suse.com>
-Date: Thu, 21 Dec 2023 09:04:36 +0100
+        bh=VLwfVvfuZvc2ynbbwFO4N5Uc5sQntJzsWveY3KeXoaA=;
+        b=KNO/P28CDx8CJ77yghDJM6D0BHTm4t4YKgIBmQo9EyDBhf0pRpBLkNyDm/zBkI35Ek
+         rtX5YnIazHT4qHDb29334skf9Sy1tRkBSwdMNfEV6zlUqi+1M7uhcsxaOxoyc1fUSlnC
+         3D8o4vi9rJpUXWTwocnWxEBkDPLYAe9n74jHL5uKFO4ajPjEy0BUkbFp8UBbV2mMLu2X
+         ksLeY+n/eEOizI90BhXsKn6pWUaA3D/JCHbQDUMCYWBu0a1CAwpECyHctT8OFOsPfP1K
+         u9uZWAdGV6wRXLKTdaKcYM6Yw7Eu7A/Dv7FcMdMRsDzgi5NN5DkmY9oZf8aW2Y1+tZ6S
+         Zmuw==
+X-Gm-Message-State: AOJu0YyrSKVe/t9/2Rh5f920TdfaHOSiZ44ANCmQJmfEtkvRUP3HZwhC
+	nEnLFLrVVf2GmRRwICqZ8hqn
+X-Google-Smtp-Source: AGHT+IE1KT8ZVmOb/1x9hrQDLlSIbfoDvlShPfxvStXhhKMH5Em3Rs+1A38PSzUBEnIHCd5y5gLNKQ==
+X-Received: by 2002:a5d:4d8b:0:b0:336:68f5:a999 with SMTP id b11-20020a5d4d8b000000b0033668f5a999mr426485wru.36.1703146135396;
+        Thu, 21 Dec 2023 00:08:55 -0800 (PST)
+Message-ID: <5810703d-7ade-4b85-961c-e0c50f9aab34@suse.com>
+Date: Thu, 21 Dec 2023 09:08:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 5/7] xen/arm: v{cp,sys}reg: address violations of
- MISRA C:2012 Rule 16.3
+Subject: Re: [XEN PATCH 0/7] xen/arm: address violations of MISRA C:2012 Rule
+ 16.3
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: consulting@bugseng.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ xen-devel@lists.xenproject.org
 References: <cover.1703066935.git.federico.serafini@bugseng.com>
- <541bc4fd47d26b12ea131590bf0c49f7c92d9368.1703066935.git.federico.serafini@bugseng.com>
- <0200354e-08b9-4136-b6e9-3220a51256af@xen.org>
- <9e9e3086-6311-4a76-8624-a06d52e7ec0b@suse.com>
- <c3a128d9-dea8-4e05-b292-1a6a04fb0daf@bugseng.com>
+ <d847830f-7071-4141-bab7-8b8c55ec3ae8@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,39 +112,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c3a128d9-dea8-4e05-b292-1a6a04fb0daf@bugseng.com>
+In-Reply-To: <d847830f-7071-4141-bab7-8b8c55ec3ae8@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20.12.2023 13:15, Federico Serafini wrote:
-> On 20/12/23 12:55, Jan Beulich wrote:
->> On 20.12.2023 12:48, Julien Grall wrote:
->>> On 20/12/2023 11:03, Federico Serafini wrote:
->>>> --- a/xen/arch/arm/arm64/vsysreg.c
->>>> +++ b/xen/arch/arm/arm64/vsysreg.c
->>>> @@ -210,8 +210,8 @@ void do_sysreg(struct cpu_user_regs *regs,
->>>>            /* RO at EL0. RAZ/WI at EL1 */
->>>>            if ( regs_mode_is_user(regs) )
->>>>                return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr, 0);
->>>> -        else
->>>> -            return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
->>>> +
->>>> +        return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
->>>
->>> I don't 100% like this change (mostly because I find if/else clearer
->>> here).
+On 20.12.2023 22:35, Andrew Cooper wrote:
+> On 20/12/2023 11:03 am, Federico Serafini wrote:
+>> This patch series addresses violations of MISRA C:2012 Rule 16.3 on the Arm
+>> code. No fucntional changes are introduced.
 >>
->> While (it doesn't matter here) my view on this is different, I'm still
->> puzzled why the tool would complain / why a change here is necessary.
->> It is not _one_ return statement, but there's still (and obviously) no
->> way of falling through.
+>> Federico Serafini (7):
+>>   xen/arm: gic-v3: address violations of MISRA C:2012 Rule 16.3
+>>   xen/arm: traps: address violations of MISRA C:2012 Rule 16.3
+>>   xen/arm: guest_walk: address violations of MISRA C:2012 Rule 16.3
+>>   xen/arm: mem_access: address violations of MISRA C:2012 Rule 16.3
+>>   xen/arm: v{cp,sys}reg: address violations of MISRA C:2012 Rule 16.3
+>>   xen/arm: mmu: address a violations of MISRA C:2012 Rule 16.3
+>>   xen/arm: smmu-v3: address violations of MISRA C:2012 Rule 16.3
+>>
+>>  xen/arch/arm/arm64/vsysreg.c          |  4 ++--
+>>  xen/arch/arm/gic-v3.c                 | 30 +++++++++++++++++++++++++++
+>>  xen/arch/arm/guest_walk.c             |  4 ++++
+>>  xen/arch/arm/mem_access.c             | 12 +++++------
+>>  xen/arch/arm/mmu/p2m.c                |  1 +
+>>  xen/arch/arm/traps.c                  | 18 ++++++++++++----
+>>  xen/arch/arm/vcpreg.c                 |  4 ++--
+>>  xen/drivers/passthrough/arm/smmu-v3.c |  2 ++
+>>  8 files changed, 61 insertions(+), 14 deletions(-)
+>>
 > 
-> The tool is configurable:
-> if you prefer deviate these cases instead of refactoring the code
-> I can update the configuration.
+> Just a couple of notes on style.  This isn't a request to change
+> anything in this series, particularly as most is already committed, but
+> bear it in mind for what I expect will be similar patches in other areas.
+> 
+> We explicitly permit tabulation when it aids readibility, so patch 2
+> could have been written:
+> 
+>         switch ( hypercall_args[*nr] ) {
+>         case 5: HYPERCALL_ARG5(regs) = 0xDEADBEEFU; fallthrough;
+>         case 4: HYPERCALL_ARG4(regs) = 0xDEADBEEFU; fallthrough;
+>         case 3: HYPERCALL_ARG3(regs) = 0xDEADBEEFU; fallthrough;
+>         case 2: HYPERCALL_ARG2(regs) = 0xDEADBEEFU; fallthrough;
+>         case 1: /* Don't clobber x0/r0 -- it's the return value */
+>         case 0: /* -ENOSYS case */
+>             break;
+>         default: BUG();
+>         }
+> 
+> (give or take the brace placement other style issue)  We also have cases
+> where a break before a new case statement is preferred, i.e.:
 
-I guess this then needs to be discussed on the first call in the new year.
-Stefano - can you take note of that, please?
+Did you mean "blank line" here, seeing ...
+
+>         ...
+>         break;
+> 
+>     case ...:
+> 
+> This is to prevent larger switch statements from being a straight wall
+> of text.
+
+... this as the further explanation?
 
 Jan
 
