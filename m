@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83A6881AFF1
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:03:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658549.1027748 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC18581AFFA
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 09:04:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658552.1027759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGE0z-0000Af-Nq; Thu, 21 Dec 2023 08:02:45 +0000
+	id 1rGE2t-00014L-4Z; Thu, 21 Dec 2023 08:04:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658549.1027748; Thu, 21 Dec 2023 08:02:45 +0000
+Received: by outflank-mailman (output) from mailman id 658552.1027759; Thu, 21 Dec 2023 08:04:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGE0z-00008m-Kl; Thu, 21 Dec 2023 08:02:45 +0000
-Received: by outflank-mailman (input) for mailman id 658549;
- Thu, 21 Dec 2023 08:02:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rGE2t-00011X-0p; Thu, 21 Dec 2023 08:04:43 +0000
+Received: by outflank-mailman (input) for mailman id 658552;
+ Thu, 21 Dec 2023 08:04:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vttA=IA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rGE0y-00008g-77
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:02:44 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50cdc104-9fd7-11ee-9b0f-b553b5be7939;
- Thu, 21 Dec 2023 09:02:41 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40d3352b525so5219675e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 00:02:41 -0800 (PST)
+ id 1rGE2r-00011P-AM
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 08:04:41 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9633d3bc-9fd7-11ee-98eb-6d05b1d4d9a1;
+ Thu, 21 Dec 2023 09:04:38 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40c2db2ee28so6215685e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Dec 2023 00:04:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p6-20020a05600c468600b004053e9276easm9935381wmo.32.2023.12.21.00.02.40
+ bl13-20020adfe24d000000b003365fcc1846sm1401555wrb.52.2023.12.21.00.04.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 Dec 2023 00:02:41 -0800 (PST)
+ Thu, 21 Dec 2023 00:04:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50cdc104-9fd7-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 9633d3bc-9fd7-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703145761; x=1703750561; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703145878; x=1703750678; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=cnuoU+sGtcEm450jItf8wg/uWrWjwDIyNiF7cuRPg6U=;
-        b=eRBUnasDzv+GO37MtBCMTdV7pcfLbaqEH1VbXOrveoCNCa0fRaaSVgX7j9BZfFpJJO
-         AKCdrnlWmKDK9RwEezVyVq5sC0JpPylijjErUArkTrpAeJACJV/ndqjqSRFMOZWOr24O
-         z3Hn7x1Gf6YmAurD6IL6Ny1UC7AzQkGwh1aG9NmptG7BAyLQxAMtE16DygpRCkjS3fsS
-         /FiP8CgL/qw7/wmn0HyKYgefbIpq9CvmwdNpEJ/8Ka3/sCd4B3RpXlXrjA8muniGXlur
-         5wcljV0ziGrXcpz1mXwchQpQNrKaFUF7GGSqDH/OBvnsOsK5C/uNX1fCoFg6bVKz+ZYo
-         ugIg==
+        bh=DqtT/WY/Ly1y83oE/06BHEIzw3GUxg+ZWhjWOkGSgOg=;
+        b=O3LjuikJ7hcniJr6xFKvIhKwzxWAG98U6/73EZ3GNvpgi5noDY5WtJSKVzTcUHAedO
+         4ylQtnkT7Fk3OLwOXNcc5J7eCa0NZszyXaA1A0e1JbHIKh4lN/PqIWpqraY7oPHfyc6s
+         DCLh8GxIH0SN2VApuNxdygYyzr4DjwU/BkEi10nzr2lRs+5mnx/2f/kPE2PNAMiu+Bnl
+         r2I+PR8qW1NtOSBxGgFj/xJqly/jyDRal+1hK6mI02UYON0MlNcIRG50KNVgAV7CVy3l
+         vGgegUQau1KFZa4lft8qcmBs4UmKoJlGQPVUARqmuoMu7hGyhNGvERuyexaJurrleAbm
+         Xlew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703145761; x=1703750561;
+        d=1e100.net; s=20230601; t=1703145878; x=1703750678;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cnuoU+sGtcEm450jItf8wg/uWrWjwDIyNiF7cuRPg6U=;
-        b=qfUxaaI6ZcZw/cvjIAMOoEBSPFGTTrJtjA6+NnU0/8rFNMmIw15+9QvIXyvkzgGjTC
-         Rq8nb5vNorfjorQm1KsIeNuNaZWkBiUXjZ2EpXun6JC2p8YR6S/Q7TKr4IoU2t42PMSW
-         0mD5fp4KNfuZ/DoOsTn5Cn7ENWWIwuBzePRiXeZpcPqDefkdj+ewg/Y9x/aXfHWOcbHD
-         a0ynTIrReegkNO64Mw0QsdiApPcj0V4Fh0QI5XqiauwqQhNhL220pSKbnSgxhEm8feXm
-         IyhfFYhHaij8yvpRrw4iyghLuXoK3E/THMjd8X0ZTWXfUD0EyZSjS8bcvqMRXHBHPVUf
-         PXeA==
-X-Gm-Message-State: AOJu0YyQmPh6z+paCrWoZF6Ftb/mLzkChghkPmMrHDLYUV1yziJZm14k
-	gl7cNrXSW7Uhs7lPv1pRlPSo
-X-Google-Smtp-Source: AGHT+IFxDDPWCSVX9l7Oa04PfwPWIzpr6x8qsM4wNr7n/V9pG0/42ShmR55rpFH06rI/wkdShaIoEg==
-X-Received: by 2002:a05:600c:4589:b0:40d:2086:bb26 with SMTP id r9-20020a05600c458900b0040d2086bb26mr428123wmo.145.1703145761406;
-        Thu, 21 Dec 2023 00:02:41 -0800 (PST)
-Message-ID: <ede547ec-b6dd-4b41-9655-0944fbda8eec@suse.com>
-Date: Thu, 21 Dec 2023 09:02:40 +0100
+        bh=DqtT/WY/Ly1y83oE/06BHEIzw3GUxg+ZWhjWOkGSgOg=;
+        b=rJ3eQLzYG/E0pwuhz5o4nVtQBlpByCp11MwDnKUIB/nDHA6eFy4OT/CJ3PaNZHIAa1
+         Or6+LLdAJgHCW2aAZ1u2x6THqNPzTzvg/e46DKGZdueubVrpWy+mL8grthikg4PVnCjO
+         T/sDMU1VhEPWlATy8TzreqTRNHag1AKTWlDwBkMVubg9eeXFTta3HWLdD6wU2o3bYrDj
+         sflswbkQu1XRcMKW/lAhYYoMipa/ZzcXZiv25NwXSUSJajb77cypPaYnXlndaFHAlbPd
+         jy6GQUauC09viHDPGSM1WdxymZ3AaCZxYeb8qjeTlRjaz24hA8CkRFjYdn9OFBeuZ8Dp
+         2I5Q==
+X-Gm-Message-State: AOJu0Yx8RyIb68Ctd4Rv05LuvbZVFcZ2YCB5Uh2EvmFNRK8N5YqPLe6M
+	YhKWjPyTRBbZtyVA7YtIKRzH
+X-Google-Smtp-Source: AGHT+IHzDp6OvtMoV5YTYCzd2MKcZTPrvBABBnCjsMSYCAkVmgWgFQRbunUnE+fsGoTK9SfZ20FtBA==
+X-Received: by 2002:a05:600c:511d:b0:3fe:1232:93fa with SMTP id o29-20020a05600c511d00b003fe123293famr579240wms.22.1703145877777;
+        Thu, 21 Dec 2023 00:04:37 -0800 (PST)
+Message-ID: <7483df1c-34f8-4e0e-aad4-c78f219c3d67@suse.com>
+Date: Thu, 21 Dec 2023 09:04:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 37/39] xen/rirscv: add minimal amount of stubs to build
- full Xen
+Subject: Re: [XEN PATCH 5/7] xen/arm: v{cp,sys}reg: address violations of
+ MISRA C:2012 Rule 16.3
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <091887466560fbd6b66239f7fee5193eb97570b9.1700761381.git.oleksii.kurochko@gmail.com>
- <f52b19eb-7633-48df-85b9-c6a545dc4232@suse.com>
- <3c34e22a4cf040845e734c3575512945a87465dd.camel@gmail.com>
+To: Federico Serafini <federico.serafini@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: consulting@bugseng.com, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+References: <cover.1703066935.git.federico.serafini@bugseng.com>
+ <541bc4fd47d26b12ea131590bf0c49f7c92d9368.1703066935.git.federico.serafini@bugseng.com>
+ <0200354e-08b9-4136-b6e9-3220a51256af@xen.org>
+ <9e9e3086-6311-4a76-8624-a06d52e7ec0b@suse.com>
+ <c3a128d9-dea8-4e05-b292-1a6a04fb0daf@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,39 +117,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3c34e22a4cf040845e734c3575512945a87465dd.camel@gmail.com>
+In-Reply-To: <c3a128d9-dea8-4e05-b292-1a6a04fb0daf@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 20.12.2023 13:55, Oleksii wrote:
-> On Mon, 2023-12-18 at 18:00 +0100, Jan Beulich wrote:
->> On 24.11.2023 11:30, Oleksii Kurochko wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/stubs.c
->>> @@ -0,0 +1,426 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-only */
->>> +#include <xen/cpumask.h>
->>> +#include <xen/domain.h>
->>> +#include <xen/irq.h>
->>> +#include <xen/nodemask.h>
->>> +#include <xen/time.h>
->>> +#include <public/domctl.h>
->>> +#include <public/vm_event.h>
+On 20.12.2023 13:15, Federico Serafini wrote:
+> On 20/12/23 12:55, Jan Beulich wrote:
+>> On 20.12.2023 12:48, Julien Grall wrote:
+>>> On 20/12/2023 11:03, Federico Serafini wrote:
+>>>> --- a/xen/arch/arm/arm64/vsysreg.c
+>>>> +++ b/xen/arch/arm/arm64/vsysreg.c
+>>>> @@ -210,8 +210,8 @@ void do_sysreg(struct cpu_user_regs *regs,
+>>>>            /* RO at EL0. RAZ/WI at EL1 */
+>>>>            if ( regs_mode_is_user(regs) )
+>>>>                return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr, 0);
+>>>> -        else
+>>>> -            return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
+>>>> +
+>>>> +        return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
+>>>
+>>> I don't 100% like this change (mostly because I find if/else clearer
+>>> here).
 >>
->> I think I can see why you need the former of these last two, but do
->> you
->> really need the latter?
-> It is needed for vm_event_request_t and vm_event_response_t, but if use
-> a forward declaration that it won't be needed:
+>> While (it doesn't matter here) my view on this is different, I'm still
+>> puzzled why the tool would complain / why a change here is necessary.
+>> It is not _one_ return statement, but there's still (and obviously) no
+>> way of falling through.
 > 
-> typedef struct vm_event_st vm_event_request_t;
-> typedef struct vm_event_st vm_event_response_t;
+> The tool is configurable:
+> if you prefer deviate these cases instead of refactoring the code
+> I can update the configuration.
 
-Iirc Misra wouldn't like the duplicating of typedef-s used elsewhere. But
-as long as that's not going to stay (and I expect stubs.c to go away
-before Misra becomes of concern for RISC-V), that's going to be okay, I
-think. Yet then avoiding the typedef-s and using struct vm_event_st
-directly in the functions would be as good, and overall less code.
+I guess this then needs to be discussed on the first call in the new year.
+Stefano - can you take note of that, please?
 
 Jan
 
