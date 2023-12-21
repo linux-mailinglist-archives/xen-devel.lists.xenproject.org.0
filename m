@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54D6981AEF6
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 07:55:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.658497.1027668 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4446481AF1C
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Dec 2023 08:07:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.658502.1027678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGCxh-00085J-D9; Thu, 21 Dec 2023 06:55:17 +0000
+	id 1rGD8d-0001vR-De; Thu, 21 Dec 2023 07:06:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 658497.1027668; Thu, 21 Dec 2023 06:55:17 +0000
+Received: by outflank-mailman (output) from mailman id 658502.1027678; Thu, 21 Dec 2023 07:06:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGCxh-00082N-AT; Thu, 21 Dec 2023 06:55:17 +0000
-Received: by outflank-mailman (input) for mailman id 658497;
- Thu, 21 Dec 2023 06:55:16 +0000
+	id 1rGD8d-0001t8-As; Thu, 21 Dec 2023 07:06:35 +0000
+Received: by outflank-mailman (input) for mailman id 658502;
+ Thu, 21 Dec 2023 07:06:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1W3I=IA=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
- id 1rGCxf-00082G-Ua
- for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 06:55:16 +0000
-Received: from mail-pj1-x102f.google.com (mail-pj1-x102f.google.com
- [2607:f8b0:4864:20::102f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vttA=IA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rGD8b-0001t2-6v
+ for xen-devel@lists.xenproject.org; Thu, 21 Dec 2023 07:06:33 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3c34997-9fcd-11ee-98eb-6d05b1d4d9a1;
- Thu, 21 Dec 2023 07:55:14 +0100 (CET)
-Received: by mail-pj1-x102f.google.com with SMTP id
- 98e67ed59e1d1-28bc20cb501so1188599a91.1
- for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 22:55:14 -0800 (PST)
-Received: from [157.82.205.15] ([157.82.205.15])
- by smtp.gmail.com with ESMTPSA id
- j15-20020a17090a840f00b0028bad9b220fsm954956pjn.37.2023.12.20.22.55.07
+ id 77fe73dc-9fcf-11ee-98eb-6d05b1d4d9a1;
+ Thu, 21 Dec 2023 08:06:31 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40c3ca9472dso5149335e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Dec 2023 23:06:31 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ c5-20020a05600c0a4500b0040c411da99csm10023197wmq.48.2023.12.20.23.06.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 Dec 2023 22:55:12 -0800 (PST)
+ Wed, 20 Dec 2023 23:06:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,119 +45,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3c34997-9fcd-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 77fe73dc-9fcf-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1703141713; x=1703746513; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=suse.com; s=google; t=1703142391; x=1703747191; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CLzY5PdrM7K/wmvGqA4vWKhQk+AYxpxkLmOBtyv7qaE=;
-        b=rG4PKqO3F8y1hgHj0K7JZTdWKExBAFuz55xo1uFJ5s60x6t1wQffe7uwZs++zy402N
-         L0+4zVcNW8Lu9xljHKhW0Yy+BNU6830077AdZOwYzfdvO8wx61yUg4nir40Y6SDflMjs
-         M9LptbJ9mm7yZNb2jHML3yGBzUK5hL5suhb2cLxJQ5oNDiyU485GtaCuf7I9QMpwf/hu
-         Og4GR6BIPoP/nuPczfMk43Z18Rm9ngQdlDUxyA0CINfBpYdjEuvE6wbcOzWdVxeMTGmk
-         cZA2bM3qx8BUISt1fsgDJGieGvqNupEDp9cXFp2ObHf/DkcH+Nfn8okktvaKwIYcD24R
-         kLpg==
+        bh=okWSJFha35PAlZL8Va5HIRdiQ8mlHhSOTDfpX214hK0=;
+        b=QqNpphlAfjGPK1Owty7aI1J+5c6mwLLOeg0nfVJZc5S4jVAKPoLtaUx7WbNHvXRFmF
+         LmIAj5D+k/HDWytv+ew9231HvMOhvZLBCLpPrlXzOYadvINjQLPyWQFEdYkuRzvoQW08
+         w0oF0I9owcyyKozgXt77QgQQdcX0GParsoKDask9xA6qZgQAM3pelAkVGfINyvNPYebi
+         fwwEXspM07sLJbifIo4Fdw2vM+OuwF+0CEoMScrux3S/wAg9W1igq07T66TAh0Dv1G9d
+         OicEk5qIas2DJbUWY3EAHIfxvq0MPQKRmse6Lkw1T10OMtSc7xcqFATc7+i8EHLUekM5
+         1T9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703141713; x=1703746513;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1703142391; x=1703747191;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CLzY5PdrM7K/wmvGqA4vWKhQk+AYxpxkLmOBtyv7qaE=;
-        b=R6XtnaqK73yaA6MtPVduRLzkAArJ1mcYA5K4uEq5xNlQn4kpLhzmXAw3R8jr02CACH
-         f/UP/RhuKtzS9LLfYAL1YLV6NMZUlUi6yMLYMSIO2m3jNpjGMnrTOtElBSoFwlXSIuV+
-         Mqfz0b+zakedEusc5xr5LouRS9k3cqrc1IHg7aLQS+EA3qopB5I3SCpEhzHO9Cp2cIQW
-         or7mRrE2qcTevqjSgYZEFk0ELg1RO9LS7EPkzz7vfxiW2xAevY9IUzkyopmKfozPwFBB
-         hTsieOXC+rQX4GpJqn2k0s+PRL9vNrJ/tc4NlI24VcK8h0o7Hq86ds/0ToKcHnufKA/G
-         drwg==
-X-Gm-Message-State: AOJu0YzWQdzqTQkzCUBrglEiN2pxGT5PNduZVdbMoqU0RK0HkF4cT/Rf
-	GDVxM/yDyTFjf6htgqMvpT+MAw==
-X-Google-Smtp-Source: AGHT+IEbwVl9Gzb6AFc1cuiyAWrCzGB+Iuh7dB4wVutX8k4xc8tuq+dN41LEMJ8tq7KTcYtz+FhJXg==
-X-Received: by 2002:a17:90a:cb15:b0:28b:eed2:5990 with SMTP id z21-20020a17090acb1500b0028beed25990mr290395pjt.15.1703141712760;
-        Wed, 20 Dec 2023 22:55:12 -0800 (PST)
-Message-ID: <af89f683-2b6e-4ca1-aa37-8bedd12a781d@daynix.com>
-Date: Thu, 21 Dec 2023 15:55:06 +0900
+        bh=okWSJFha35PAlZL8Va5HIRdiQ8mlHhSOTDfpX214hK0=;
+        b=CcmO4i9aGLdlyx8B/ZWkaMJtli3fx1A2HbHztnNgGiAx7BemRqcb1mL8KZhE111U3J
+         Kw0qGcMP9vmjtL2qhaVeehugk4V3a4BA3HsG82iENxRHvdz/HJ3ykQoaZ0SNh5cu9gB4
+         npAb/OJRDyyBYgevM6gWjSxa5Z9zSjiEHRBThlXG0klNQwiLiMeyzWlvK2otl8bBdvki
+         GczRETY36aQidLpjK0Nc5SdrHpOBPMzc8kSSvgUq9SBKkiYDg1e6Ulg45hA7J1eQY/0B
+         jNItWIYyKahgVfCqgpTcSzmjF9FjdYkw9VWVMOePoCucuUU4mc6woJ2m/oXBkHl2b9hH
+         prww==
+X-Gm-Message-State: AOJu0YyXA8XnGyg7DHYPKz9vFZVWhAk/rUph8H952S4cPHY96HxRguP4
+	fZAYAERXsUAMAKXb1moopCJ2ouVIM4qbAivk/Pc3
+X-Google-Smtp-Source: AGHT+IELV4LAEXpXC34ySFzfYc/6X3jy9yrugxzisFxLKtcRMgC/MIxdUQ0I0qupZUG0tShTj4BLzA==
+X-Received: by 2002:a05:600c:6028:b0:40c:357e:27b with SMTP id az40-20020a05600c602800b0040c357e027bmr294589wmb.162.1703142391060;
+        Wed, 20 Dec 2023 23:06:31 -0800 (PST)
+Message-ID: <6ba01b31-fc51-4d12-83a2-4754ccfb6339@suse.com>
+Date: Thu, 21 Dec 2023 08:06:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/11] linux-headers: Update to kernel headers to add
- venus capset
+Subject: Re: [PATCH v2 7/7] xen/ppc: mm-radix: Allocate Partition and Process
+ Tables at runtime
 Content-Language: en-US
-To: Peter Maydell <peter.maydell@linaro.org>, Huang Rui <ray.huang@amd.com>
-Cc: =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Antonio Caggiano <quic_acaggian@quicinc.com>,
- "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
- Robert Beckett <bob.beckett@collabora.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- "ernunes@redhat.com" <ernunes@redhat.com>, Alyssa Ross <hi@alyssa.is>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>,
- "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>,
- "Huang, Honglei1" <Honglei1.Huang@amd.com>,
- "Zhang, Julia" <Julia.Zhang@amd.com>, "Chen, Jiqian" <Jiqian.Chen@amd.com>
-References: <20231219075320.165227-1-ray.huang@amd.com>
- <20231219075320.165227-2-ray.huang@amd.com>
- <6adff6d2-7c58-4c78-93a5-5a4594a60d27@daynix.com> <ZYGe4GcFPt0k5PTM@amd.com>
- <CAFEAcA_=iedJw4BbNHrDALC4mL4g3ZEihsDbLkEzsy-1zAWFWw@mail.gmail.com>
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
-In-Reply-To: <CAFEAcA_=iedJw4BbNHrDALC4mL4g3ZEihsDbLkEzsy-1zAWFWw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Shawn Anastasio <sanastasio@raptorengineering.com>
+Cc: Timothy Pearson <tpearson@raptorengineering.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1702607884.git.sanastasio@raptorengineering.com>
+ <f49a4a372a9f82e217fa56ba0dc3068deff32ef5.1702607884.git.sanastasio@raptorengineering.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <f49a4a372a9f82e217fa56ba0dc3068deff32ef5.1702607884.git.sanastasio@raptorengineering.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 2023/12/19 23:14, Peter Maydell wrote:
-> On Tue, 19 Dec 2023 at 13:49, Huang Rui <ray.huang@amd.com> wrote:
->>
->> On Tue, Dec 19, 2023 at 08:20:22PM +0800, Akihiko Odaki wrote:
->>> On 2023/12/19 16:53, Huang Rui wrote:
->>>> Sync up kernel headers to update venus macro till they are merged into
->>>> mainline.
->>>
->>> Thanks for sorting things out with the kernel and spec.
->>>
->>>>
->>>> Signed-off-by: Huang Rui <ray.huang@amd.com>
->>>> ---
->>>>
->>>> Changes in v6:
->>>> - Venus capset is applied in kernel, so update it in qemu for future use.
->>>>
->>>> https://lore.kernel.org/lkml/b79dcf75-c9e8-490e-644f-3b97d95f7397@collabora.com/
->>>> https://cgit.freedesktop.org/drm-misc/commit/?id=216d86b9a430f3280e5b631c51e6fd1a7774cfa0
->>> Please include the link to the upstream commit in the commit message.
->>
->> So far, it's in drm maintainers' branch not in kernel mainline yet. Do I
->> need to wait it to be merged into kernel mainline?
+On 15.12.2023 03:44, Shawn Anastasio wrote:
+> In the initial mm-radix implementation, the in-memory partition and
+> process tables required to configure the MMU were allocated statically
+> since the boot allocator was not yet available.
 > 
-> For an RFC patchset, no. For patches to be merged into QEMU
-> the headers change must be in the kernel mainline, and the
-> QEMU commit that updates our copy of the headers must be a
-> full-sync done with scripts/update-linux-headers.sh, not a
-> manual edit.
+> Now that it is, allocate these tables at runtime and bump the size of
+> the Process Table to its maximum supported value (on POWER9). Also bump
+> the number of static LVL2/3 PD frames to tolerate cases where the boot
+> allocator returns an address outside of the range of the LVL2 frame used
+> for Xen.
 
-Apparently the kernel change is unlikely to be merged to mainline before 
-QEMU 9.0 so we need to come up with some idea to deal with this.
+Don't you need to bump to 4, in case PATB and PRTB end up sufficiently
+far apart? Or even further, considering that you may need distinct L2
+and L3 for each of Xen, PATB, and PRTB?
 
-The release of Linux 6.7 is near and the development of 6.8 will start 
-soon. So it was nice if the change made into 6.8, but unfortunately it 
-missed the *probably last* drm-misc tree pull request for 6.8:
-https://lore.kernel.org/all/aqpn5miejmkks7pbcfex7b6u63uwsruywxsnr3x5ljs45qatin@nbkkej2elk46/
+However, with there being memory to allocate now, is there a reason you
+still reserve (perhaps more than necessary) static memory for the
+page tables, rather than allocating those dynamically as well?
 
-It will still get into linux-next so we may retrieve headers from 
-linux-next. Or we may add the definition to 
-hw/display/virtio-gpu-virgl.c; the duplicate definition warning will 
-tell when the definition becomes no longer necessary. I'm fine with 
-either option.
+> @@ -105,80 +157,43 @@ static void __init setup_initial_mapping(struct lvl1_pd *lvl1,
+>          die();
+>      }
+> 
+> +    /* Identity map Xen itself */
+>      for ( page_addr = map_start; page_addr < map_end; page_addr += PAGE_SIZE )
+>      {
+> -        struct lvl2_pd *lvl2;
+> -        struct lvl3_pd *lvl3;
+> -        struct lvl4_pt *lvl4;
+> -        pde_t *pde;
+> -        pte_t *pte;
+> -
+> -        /* Allocate LVL 2 PD if necessary */
+> -        pde = pt_entry(lvl1, page_addr);
+> -        if ( !pde_is_valid(*pde) )
+> -        {
+> -            lvl2 = lvl2_pd_pool_alloc();
+> -            *pde = paddr_to_pde(__pa(lvl2), PDE_VALID,
+> -                                XEN_PT_ENTRIES_LOG2_LVL_2);
+> -        }
+> -        else
+> -            lvl2 = __va(pde_to_paddr(*pde));
+> +        unsigned long flags;
+> 
+> -        /* Allocate LVL 3 PD if necessary */
+> -        pde = pt_entry(lvl2, page_addr);
+> -        if ( !pde_is_valid(*pde) )
+> +        if ( is_kernel_text(page_addr) || is_kernel_inittext(page_addr) )
+>          {
+> -            lvl3 = lvl3_pd_pool_alloc();
+> -            *pde = paddr_to_pde(__pa(lvl3), PDE_VALID,
+> -                                XEN_PT_ENTRIES_LOG2_LVL_3);
+> +            radix_dprintk("%016lx being marked as TEXT (RX)\n", page_addr);
+> +            flags = PTE_XEN_RX;
+>          }
+> -        else
+> -            lvl3 = __va(pde_to_paddr(*pde));
+> -
+> -        /* Allocate LVL 4 PT if necessary */
+> -        pde = pt_entry(lvl3, page_addr);
+> -        if ( !pde_is_valid(*pde) )
+> -        {
+> -            lvl4 = lvl4_pt_pool_alloc();
+> -            *pde = paddr_to_pde(__pa(lvl4), PDE_VALID,
+> -                                XEN_PT_ENTRIES_LOG2_LVL_4);
+> -        }
+> -        else
+> -            lvl4 = __va(pde_to_paddr(*pde));
+> -
+> -        /* Finally, create PTE in LVL 4 PT */
+> -        pte = pt_entry(lvl4, page_addr);
+> -        if ( !pte_is_valid(*pte) )
+> +        else if ( is_kernel_rodata(page_addr) )
+>          {
+> -            unsigned long paddr = (page_addr - map_start) + phys_base;
+> -            unsigned long flags;
+> -
+> -            radix_dprintk("%016lx being mapped to %016lx\n", paddr, page_addr);
+> -            if ( is_kernel_text(page_addr) || is_kernel_inittext(page_addr) )
+> -            {
+> -                radix_dprintk("%016lx being marked as TEXT (RX)\n", page_addr);
+> -                flags = PTE_XEN_RX;
+> -            }
+> -            else if ( is_kernel_rodata(page_addr) )
+> -            {
+> -                radix_dprintk("%016lx being marked as RODATA (RO)\n", page_addr);
+> -                flags = PTE_XEN_RO;
+> -            }
+> -            else
+> -            {
+> -                radix_dprintk("%016lx being marked as DEFAULT (RW)\n", page_addr);
+> -                flags = PTE_XEN_RW;
+> -            }
+> -
+> -            *pte = paddr_to_pte(paddr, flags);
+> -            radix_dprintk("%016lx is the result of PTE map\n",
+> -                paddr_to_pte(paddr, flags).pte);
+> +            radix_dprintk("%016lx being marked as RODATA (RO)\n", page_addr);
+> +            flags = PTE_XEN_RO;
+>          }
+>          else
+>          {
+> -            early_printk("BUG: Tried to create PTE for already-mapped page!");
+> -            die();
+> +            radix_dprintk("%016lx being marked as DEFAULT (RW)\n", page_addr);
+> +            flags = PTE_XEN_RW;
+>          }
+> +
+> +        map_page_initial(lvl1, page_addr, (page_addr - map_start) + phys_base, flags);
+> +    }
+> +
+> +    /* Map runtime-allocated PATB, PRTB */
+> +    for ( page_addr = (uint64_t)initial_patb;
+> +          page_addr < (uint64_t)initial_patb + PATB_SIZE;
 
-Regards,
-Akihiko Odaki
+While technically not an issue, casting pointers to fixed width types is
+generally bogus. page_addr itself would likely better also be of a
+different type (unsigned long, uintptr_t, or vaddr_t; the latter only if
+that's meant to represent hypervisor virtual addresses, not guest ones).
+
+> +          page_addr += PAGE_SIZE )
+> +    {
+> +        map_page_initial(lvl1, page_addr, __pa(page_addr), PTE_XEN_RW);
+> +    }
+> +
+> +    for ( page_addr = (uint64_t)initial_prtb;
+> +          page_addr < (uint64_t)initial_prtb + PRTB_SIZE;
+> +          page_addr += PAGE_SIZE )
+> +    {
+> +        map_page_initial(lvl1, page_addr, __pa(page_addr), PTE_XEN_RW);
+>      }
+
+Just as a remark (you're the maintainer) - in cases like these we generally
+prefer to omit the braces.
+
+> @@ -210,6 +225,16 @@ void __init setup_initial_pagetables(void)
+>  {
+>      struct lvl1_pd *root = lvl1_pd_pool_alloc();
+>      unsigned long lpcr;
+> +    mfn_t patb_mfn, prtb_mfn;
+> +
+> +    /* Allocate mfns for in-memory tables using the boot allocator */
+> +    prtb_mfn = alloc_boot_pages(PRTB_SIZE / PAGE_SIZE,
+> +                                max(1, PRTB_SIZE_LOG2 - PAGE_SHIFT));
+> +    patb_mfn = alloc_boot_pages(PATB_SIZE / PAGE_SIZE,
+> +                                max(1, PATB_SIZE_LOG2 - PAGE_SHIFT));
+> +
+> +    initial_patb = __va(mfn_to_maddr(patb_mfn));
+> +    initial_prtb = __va(mfn_to_maddr(prtb_mfn));
+
+Overall, what's the plan wrt directmap: Are you meaning to not have one
+covering all memory? If you do, I wonder if you wouldn't be better off
+mapping memory as you pass it to the boot allocator, such that you
+won't need to map things piecemeal like you're doing here.
+
+Jan
 
