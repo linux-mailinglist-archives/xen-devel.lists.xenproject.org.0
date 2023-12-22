@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 099A581CC28
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:25:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.659542.1029253 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D166881CC2A
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:26:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.659560.1029282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhOU-0006qQ-PN; Fri, 22 Dec 2023 15:24:58 +0000
+	id 1rGhPl-0000F6-LU; Fri, 22 Dec 2023 15:26:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 659542.1029253; Fri, 22 Dec 2023 15:24:58 +0000
+Received: by outflank-mailman (output) from mailman id 659560.1029282; Fri, 22 Dec 2023 15:26:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhOU-0006of-MD; Fri, 22 Dec 2023 15:24:58 +0000
-Received: by outflank-mailman (input) for mailman id 659542;
- Fri, 22 Dec 2023 15:24:57 +0000
+	id 1rGhPl-0000DS-Hl; Fri, 22 Dec 2023 15:26:17 +0000
+Received: by outflank-mailman (input) for mailman id 659560;
+ Fri, 22 Dec 2023 15:26:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=buqB=IB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rGhDZ-0007Ie-0U
- for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:41 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ id 1rGhDa-0007Ie-BV
+ for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:42 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b0141b8d-a0dc-11ee-98eb-6d05b1d4d9a1;
- Fri, 22 Dec 2023 16:13:40 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-50e49a0b5caso2392226e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:40 -0800 (PST)
+ id b0ec1849-a0dc-11ee-98eb-6d05b1d4d9a1;
+ Fri, 22 Dec 2023 16:13:41 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-50e23a4df33so2371542e87.2
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:41 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.38
+ j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Dec 2023 07:13:38 -0800 (PST)
+ Fri, 22 Dec 2023 07:13:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,462 +44,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0141b8d-a0dc-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: b0ec1849-a0dc-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703258019; x=1703862819; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1703258020; x=1703862820; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mOwqAKIhXH+0XZ7x1OiU/ECPxpe/imzx7o+LpLoS1i0=;
-        b=en2QSOETszdf5M2mVqeYWd4V3ujptKa14hGWQ8RWD67Dd6DXiySN54S3DDA+FmfWnp
-         GAhshkDSgu/G9tgmd8AG6Bn5pCWWwS6f2mQZbzx95/NhZ1Zge2fVs/ypRtF8LoWQqKY2
-         CK2CF+or/sdLyg+vGXAGWqrsbIpLhq11pOQzWsS+U7o2nmMnsMBGEEfB2d9I1Uv2B935
-         qQ/phGBuzKdB/obJuF2gsIxY75inBC+2xMEHT0Zyq6xc64cPC8eG16DYJmwra/INcdvX
-         ITD9mpuNPqxEG30XUBsQkubi0F9Bxt1KwfHIqTp3b8JNHMXAPad/hcd0hMEb68c5eK4e
-         BNlQ==
+        bh=ubbb7iTPWSo6Dj4Ma1J20RtqPqN8IdD2bRUwRTRCUg0=;
+        b=dJUT51C0i5IgDtjzSS0/uZXA8nBntOX2upPpYSTxnUfPsGAdqRvA5gpUHjd90CCTcP
+         JvsY2TXdAopVwKDoX7VvETIfHGYDhGcxZKac144r/2TUKXjcfEvhwa8I5pDs7t2NBmk5
+         DrApF/U50pFnxdCgLyaPAa8axd50c9hHsYsa8GF+J+YVriBn1CQMlfid6W4fyyMo0oQV
+         XOebEWUaBIqf19EMuqLrqaSsXbNFVwk80NpqkZHpo77Aa0x8jJUM7rnx1vfZZEHHvxxW
+         QNuPja+1ZNtOmGxvK7YcjU2WZwOsLu+quVLOUZkf9ZbZPB69pwZn/24kW13rEWK4gTqZ
+         oB9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703258019; x=1703862819;
+        d=1e100.net; s=20230601; t=1703258020; x=1703862820;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=mOwqAKIhXH+0XZ7x1OiU/ECPxpe/imzx7o+LpLoS1i0=;
-        b=P3uhspXpeTCYrsQcWcl7gy9FspLKd39ij7LMWZpXvXZnDrlqd+0jpOP5Grxiybpo1l
-         y5XWAw3AKmkz1c1svJPYilq006v9fODHAmyk/NKZWukMuyiOs4yn0WP2YKd5DzFLvofW
-         365otdWP6SKG2pX2plFh4MbCRBvSF0RolrtxCT5SjaCbzE2qxsmgsS8+n5Bmxf2sZXim
-         buy+vG11C/RZke7/T87GCNCV7gVGlE+rQcOxEH0dNxWxBHvi/H644F5DLTIGCgkQbPiZ
-         YHeYJI3nEy4zRjMfwH9HogX378HSOrnsWuBh0EoovLOXeIAAKZXQDsr4Nuoht3tm1525
-         e1kw==
-X-Gm-Message-State: AOJu0Yz9yvkbBEMUAeaav2FJwzCL7hi4ki82onvnfCyhZLwXAOCtNMm5
-	vHIpCFqv6nCptbtMnIcI+TFEfXMH9HA=
-X-Google-Smtp-Source: AGHT+IH6EnT8IJBJwZ4VCRfWZjiCy5GmU+qEc/YW5PJ53Mw5nlU6Ak0wpMLw6M2Wj836iANLqaSE8w==
-X-Received: by 2002:ac2:454e:0:b0:50e:384c:289a with SMTP id j14-20020ac2454e000000b0050e384c289amr761863lfm.78.1703258019469;
-        Fri, 22 Dec 2023 07:13:39 -0800 (PST)
+        bh=ubbb7iTPWSo6Dj4Ma1J20RtqPqN8IdD2bRUwRTRCUg0=;
+        b=iS1OZwIbhS1+b0+GqczQxw2QF4QDhWxwYSdFLIlZVwX30Fu94pdmHqI3oPyuvi8P/y
+         tXnRJxsuN5LuDvprqx0+bqHEqmxjTgp4OiUM3KC5lTBl8SHMud1hDchWdxW1wpZfK9NT
+         noJVpoE5RsHpTmQYfXvBPxovnXpDzVK9++5ufAFbwj4Yi8xaNKIg/CjF3NcObwZXpqFm
+         VkqHhQIoMbc1rh5xcRpIeEX6MQjxMEqt9IhzATceVCMElgrX/c19aJ69XLx8q1oXq33W
+         Yn6gYxcBSSf6sbN2Cuhmfo/ixYsMZCIHaRRNcQP2arPym3a5+MXYm4GeqrN46CNq2QVZ
+         +5pw==
+X-Gm-Message-State: AOJu0Yxpcvx/4rK633MPW5PhiKjxYUBS6OYFAPca2YTwmVqDMK7kMQ6n
+	JY2B8WS2oW/xVQ5SYBhoMOC+55WKvjo=
+X-Google-Smtp-Source: AGHT+IGY3GyQy2Ibb+/4UAZL0RE2ahWmtCDcBUnJadHuyGE/QgcxcEitD9kdxextHfoMCRuBYMIqRA==
+X-Received: by 2002:ac2:51a7:0:b0:50e:4bf6:8848 with SMTP id f7-20020ac251a7000000b0050e4bf68848mr772961lfk.38.1703258020410;
+        Fri, 22 Dec 2023 07:13:40 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Connor Davis <connojdavis@gmail.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH v3 15/34] xen/riscv: introduce atomic.h
-Date: Fri, 22 Dec 2023 17:12:59 +0200
-Message-ID: <54f5f13a4ee3de3c3cf4ba2b4d0347bb77bb7d08.1703255175.git.oleksii.kurochko@gmail.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 16/34] xen/lib: introduce generic find next bit operations
+Date: Fri, 22 Dec 2023 17:13:00 +0200
+Message-ID: <bb47caf6c275d8aea307b96e79828831eab4a703.1703255175.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1703255175.git.oleksii.kurochko@gmail.com>
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
+find-next-bit.c is common for Arm64 and RISC-V64 so it is moved
+to xen/lib.
 
-Additionally, this patch introduces macros in fence.h,
-which are utilized in atomic.h.
-
+Suggested-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V3:
-  - update the commit message
-  - add SPDX for fence.h
-  - code style fixes
-  - Remove /* TODO: ... */ for add_sized macros. It looks correct to me.
-  - re-order the patch
-  - merge to this patch fence.h
+ - new patch.
 ---
-Changes in V2:
- - Change an author of commit. I got this header from Bobby's old repo.
----
- xen/arch/riscv/include/asm/atomic.h | 384 ++++++++++++++++++++++++++++
- xen/arch/riscv/include/asm/fence.h  |  13 +
- 2 files changed, 397 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/atomic.h
- create mode 100644 xen/arch/riscv/include/asm/fence.h
+ xen/arch/riscv/include/asm/fence.h |  11 +-
+ xen/common/Kconfig                 |   3 +
+ xen/lib/Makefile                   |   1 +
+ xen/lib/find-next-bit.c            | 281 +++++++++++++++++++++++++++++
+ 4 files changed, 295 insertions(+), 1 deletion(-)
+ create mode 100644 xen/lib/find-next-bit.c
 
-diff --git a/xen/arch/riscv/include/asm/atomic.h b/xen/arch/riscv/include/asm/atomic.h
-new file mode 100644
-index 0000000000..725326a9d1
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/atomic.h
-@@ -0,0 +1,384 @@
+diff --git a/xen/arch/riscv/include/asm/fence.h b/xen/arch/riscv/include/asm/fence.h
+index b3f6b1c20a..5d9a851ae8 100644
+--- a/xen/arch/riscv/include/asm/fence.h
++++ b/xen/arch/riscv/include/asm/fence.h
+@@ -1,4 +1,4 @@
+-/* SPDX-License-Identifier: GPL-2.0-or-later */
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Taken and modified from Linux.
-+ * 
-+ * Copyright (C) 2007 Red Hat, Inc. All Rights Reserved.
-+ * Copyright (C) 2012 Regents of the University of California
-+ * Copyright (C) 2017 SiFive
-+ * Copyright (C) 2021 Vates SAS
-+ */
-+
-+#ifndef _ASM_RISCV_ATOMIC_H
-+#define _ASM_RISCV_ATOMIC_H
-+
-+#include <xen/atomic.h>
-+#include <asm/cmpxchg.h>
-+#include <asm/fence.h>
-+#include <asm/io.h>
-+#include <asm/system.h>
-+
-+void __bad_atomic_size(void);
-+
-+static always_inline void read_atomic_size(const volatile void *p,
-+                                           void *res,
-+                                           unsigned int size)
-+{
-+    switch ( size )
-+    {
-+    case 1: *(uint8_t *)res = readb((const uint8_t *)p); break;
-+    case 2: *(uint16_t *)res = readw((const uint16_t *)p); break;
-+    case 4: *(uint32_t *)res = readl((const uint32_t *)p); break;
-+    case 8: *(uint32_t *)res  = readq((const uint64_t *)p); break;
-+    default: __bad_atomic_size(); break;
-+    }
-+}
-+
-+#define read_atomic(p) ({                                               \
-+    union { typeof(*p) val; char c[0]; } x_;                            \
-+    read_atomic_size(p, x_.c, sizeof(*p));                              \
-+    x_.val;                                                             \
-+})
-+
-+
-+#define write_atomic(p, x) ({                                           \
-+    typeof(*p) x__ = (x);                                               \
-+    switch ( sizeof(*p) )												\
-+    {                                             						\
-+    case 1: writeb((uint8_t)x__,  (uint8_t *)  p); break;              	\
-+    case 2: writew((uint16_t)x__, (uint16_t *) p); break;              	\
-+    case 4: writel((uint32_t)x__, (uint32_t *) p); break;              	\
-+    case 8: writeq((uint64_t)x__, (uint64_t *) p); break;              	\
-+    default: __bad_atomic_size(); break;                                \
-+    }                                                                   \
-+    x__;                                                                \
-+})
-+
-+#define add_sized(p, x) ({                                              \
-+    typeof(*(p)) x__ = (x);                                             \
-+    switch ( sizeof(*(p)) )                                             \
-+    {                                                                   \
-+    case 1: writeb(read_atomic(p) + x__, (uint8_t *)(p)); break;        \
-+    case 2: writew(read_atomic(p) + x__, (uint16_t *)(p)); break;       \
-+    case 4: writel(read_atomic(p) + x__, (uint32_t *)(p)); break;       \
-+    default: __bad_atomic_size(); break;                                \
-+    }                                                                   \
-+})
-+
-+/*
-+ *  __unqual_scalar_typeof(x) - Declare an unqualified scalar type, leaving
-+ *               non-scalar types unchanged.
-+ *
-+ * Prefer C11 _Generic for better compile-times and simpler code. Note: 'char'
-+ * is not type-compatible with 'signed char', and we define a separate case.
-+ */
-+#define __scalar_type_to_expr_cases(type)               \
-+    unsigned type:  (unsigned type)0,                   \
-+    signed type:    (signed type)0
-+
-+#define __unqual_scalar_typeof(x) typeof(               \
-+    _Generic((x),                                       \
-+        char:  (char)0,                                 \
-+        __scalar_type_to_expr_cases(char),              \
-+        __scalar_type_to_expr_cases(short),             \
-+        __scalar_type_to_expr_cases(int),               \
-+        __scalar_type_to_expr_cases(long),              \
-+        __scalar_type_to_expr_cases(long long),         \
-+        default: (x)))
-+
-+#define READ_ONCE(x)  (*(const volatile __unqual_scalar_typeof(x) *)&(x))
-+#define WRITE_ONCE(x, val)                                      \
-+    do {                                                        \
-+        *(volatile typeof(x) *)&(x) = (val);                    \
-+    } while (0)
-+
-+#define __atomic_acquire_fence() \
-+    __asm__ __volatile__( RISCV_ACQUIRE_BARRIER "" ::: "memory" )
-+
-+#define __atomic_release_fence() \
-+    __asm__ __volatile__( RISCV_RELEASE_BARRIER "" ::: "memory" );
-+
-+static inline int atomic_read(const atomic_t *v)
-+{
-+    return READ_ONCE(v->counter);
-+}
-+
-+static inline int _atomic_read(atomic_t v)
-+{
-+    return v.counter;
-+}
-+
-+static inline void atomic_set(atomic_t *v, int i)
-+{
-+    WRITE_ONCE(v->counter, i);
-+}
-+
-+static inline void _atomic_set(atomic_t *v, int i)
-+{
-+    v->counter = i;
-+}
-+
-+static inline int atomic_sub_and_test(int i, atomic_t *v)
-+{
-+    return atomic_sub_return(i, v) == 0;
-+}
-+
-+static inline void atomic_inc(atomic_t *v)
-+{
-+    atomic_add(1, v);
-+}
-+
-+static inline int atomic_inc_return(atomic_t *v)
-+{
-+    return atomic_add_return(1, v);
-+}
-+
-+static inline void atomic_dec(atomic_t *v)
-+{
-+    atomic_sub(1, v);
-+}
-+
-+static inline int atomic_dec_return(atomic_t *v)
-+{
-+    return atomic_sub_return(1, v);
-+}
-+
-+static inline int atomic_dec_and_test(atomic_t *v)
-+{
-+    return atomic_sub_return(1, v) == 0;
-+}
-+
-+static inline int atomic_add_negative(int i, atomic_t *v)
-+{
-+    return atomic_add_return(i, v) < 0;
-+}
-+
-+static inline int atomic_inc_and_test(atomic_t *v)
-+{
-+    return atomic_add_return(1, v) == 0;
-+}
-+
-+/*
-+ * First, the atomic ops that have no ordering constraints and therefor don't
-+ * have the AQ or RL bits set.  These don't return anything, so there's only
-+ * one version to worry about.
-+ */
-+#define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)  \
-+static inline                                               \
-+void atomic##prefix##_##op(c_type i, atomic##prefix##_t *v) \
-+{                                                           \
-+    __asm__ __volatile__ (                                  \
-+        "   amo" #asm_op "." #asm_type " zero, %1, %0"      \
-+        : "+A" (v->counter)                                 \
-+        : "r" (I)                                           \
-+        : "memory" );                                       \
-+}                                                           \
-+
-+#define ATOMIC_OPS(op, asm_op, I)                           \
-+        ATOMIC_OP (op, asm_op, I, w, int,   )
-+
-+ATOMIC_OPS(add, add,  i)
-+ATOMIC_OPS(sub, add, -i)
-+ATOMIC_OPS(and, and,  i)
-+ATOMIC_OPS( or,  or,  i)
-+ATOMIC_OPS(xor, xor,  i)
-+
-+#undef ATOMIC_OP
-+#undef ATOMIC_OPS
-+
-+/*
-+ * Atomic ops that have ordered, relaxed, acquire, and release variants.
-+ * There's two flavors of these: the arithmatic ops have both fetch and return
-+ * versions, while the logical ops only have fetch versions.
-+ */
-+#define ATOMIC_FETCH_OP(op, asm_op, I, asm_type, c_type, prefix)    \
-+static inline                                                       \
-+c_type atomic##prefix##_fetch_##op##_relaxed(c_type i,              \
-+                         atomic##prefix##_t *v)                     \
-+{                                                                   \
-+    register c_type ret;                                            \
-+    __asm__ __volatile__ (                                          \
-+        "   amo" #asm_op "." #asm_type " %1, %2, %0"                \
-+        : "+A" (v->counter), "=r" (ret)                             \
-+        : "r" (I)                                                   \
-+        : "memory" );                                               \
-+    return ret;                                                     \
-+}                                                                   \
-+static inline                                                       \
-+c_type atomic##prefix##_fetch_##op(c_type i, atomic##prefix##_t *v) \
-+{                                                                   \
-+    register c_type ret;                                            \
-+    __asm__ __volatile__ (                                          \
-+        "   amo" #asm_op "." #asm_type ".aqrl  %1, %2, %0"          \
-+        : "+A" (v->counter), "=r" (ret)                             \
-+        : "r" (I)                                                   \
-+        : "memory" );                                               \
-+    return ret;                                                     \
-+}
-+
-+#define ATOMIC_OP_RETURN(op, asm_op, c_op, I, asm_type, c_type, prefix) \
-+static inline                                                           \
-+c_type atomic##prefix##_##op##_return_relaxed(c_type i,                 \
-+                          atomic##prefix##_t *v)                        \
-+{                                                                       \
-+        return atomic##prefix##_fetch_##op##_relaxed(i, v) c_op I;      \
-+}                                                                       \
-+static inline                                                           \
-+c_type atomic##prefix##_##op##_return(c_type i, atomic##prefix##_t *v)  \
-+{                                                                       \
-+        return atomic##prefix##_fetch_##op(i, v) c_op I;                \
-+}
-+
-+#define ATOMIC_OPS(op, asm_op, c_op, I)                                 \
-+        ATOMIC_FETCH_OP( op, asm_op,       I, w, int,   )               \
-+        ATOMIC_OP_RETURN(op, asm_op, c_op, I, w, int,   )
-+
-+ATOMIC_OPS(add, add, +,  i)
-+ATOMIC_OPS(sub, add, +, -i)
-+
-+#define atomic_add_return_relaxed   atomic_add_return_relaxed
-+#define atomic_sub_return_relaxed   atomic_sub_return_relaxed
-+#define atomic_add_return   atomic_add_return
-+#define atomic_sub_return   atomic_sub_return
-+
-+#define atomic_fetch_add_relaxed    atomic_fetch_add_relaxed
-+#define atomic_fetch_sub_relaxed    atomic_fetch_sub_relaxed
-+#define atomic_fetch_add    atomic_fetch_add
-+#define atomic_fetch_sub    atomic_fetch_sub
-+
-+#undef ATOMIC_OPS
-+
-+#define ATOMIC_OPS(op, asm_op, I) \
-+        ATOMIC_FETCH_OP(op, asm_op, I, w, int,   )
-+
-+ATOMIC_OPS(and, and, i)
-+ATOMIC_OPS( or,  or, i)
-+ATOMIC_OPS(xor, xor, i)
-+
-+#define atomic_fetch_and_relaxed    atomic_fetch_and_relaxed
-+#define atomic_fetch_or_relaxed	    atomic_fetch_or_relaxed
-+#define atomic_fetch_xor_relaxed    atomic_fetch_xor_relaxed
-+#define atomic_fetch_and    atomic_fetch_and
-+#define atomic_fetch_or     atomic_fetch_or
-+#define atomic_fetch_xor    atomic_fetch_xor
-+
-+#undef ATOMIC_OPS
-+
-+#undef ATOMIC_FETCH_OP
-+#undef ATOMIC_OP_RETURN
-+
-+/* This is required to provide a full barrier on success. */
-+static inline int atomic_add_unless(atomic_t *v, int a, int u)
-+{
-+       int prev, rc;
-+
-+    __asm__ __volatile__ (
-+        "0: lr.w     %[p],  %[c]\n"
-+        "   beq      %[p],  %[u], 1f\n"
-+        "   add      %[rc], %[p], %[a]\n"
-+        "   sc.w.rl  %[rc], %[rc], %[c]\n"
-+        "   bnez     %[rc], 0b\n"
-+        "   fence    rw, rw\n"
-+        "1:\n"
-+        : [p]"=&r" (prev), [rc]"=&r" (rc), [c]"+A" (v->counter)
-+        : [a]"r" (a), [u]"r" (u)
-+        : "memory");
-+    return prev;
-+}
-+#define atomic_fetch_add_unless atomic_fetch_add_unless
-+
-+/*
-+ * atomic_{cmp,}xchg is required to have exactly the same ordering semantics as
-+ * {cmp,}xchg and the operations that return, so they need a full barrier.
-+ */
-+#define ATOMIC_OP(c_t, prefix, size)                            \
-+static inline                                                   \
-+c_t atomic##prefix##_xchg_relaxed(atomic##prefix##_t *v, c_t n) \
-+{                                                               \
-+    return __xchg_relaxed(&(v->counter), n, size);              \
-+}                                                               \
-+static inline                                                   \
-+c_t atomic##prefix##_xchg_acquire(atomic##prefix##_t *v, c_t n) \
-+{                                                               \
-+    return __xchg_acquire(&(v->counter), n, size);              \
-+}                                                               \
-+static inline                                                   \
-+c_t atomic##prefix##_xchg_release(atomic##prefix##_t *v, c_t n) \
-+{                                                               \
-+    return __xchg_release(&(v->counter), n, size);              \
-+}                                                               \
-+static inline                                                   \
-+c_t atomic##prefix##_xchg(atomic##prefix##_t *v, c_t n)         \
-+{                                                               \
-+    return __xchg(&(v->counter), n, size);                      \
-+}                                                               \
-+static inline                                                   \
-+c_t atomic##prefix##_cmpxchg_relaxed(atomic##prefix##_t *v,     \
-+                     c_t o, c_t n)                              \
-+{                                                               \
-+    return __cmpxchg_relaxed(&(v->counter), o, n, size);        \
-+}                                                               \
-+static inline                                                   \
-+c_t atomic##prefix##_cmpxchg_acquire(atomic##prefix##_t *v,     \
-+                     c_t o, c_t n)                              \
-+{                                                               \
-+    return __cmpxchg_acquire(&(v->counter), o, n, size);        \
-+}                                                               \
-+static inline                                                   \
-+c_t atomic##prefix##_cmpxchg_release(atomic##prefix##_t *v,     \
-+                     c_t o, c_t n)                              \
-+{	                                                            \
-+    return __cmpxchg_release(&(v->counter), o, n, size);        \
-+}                                                               \
-+static inline                                                   \
-+c_t atomic##prefix##_cmpxchg(atomic##prefix##_t *v, c_t o, c_t n) \
-+{                                                               \
-+    return __cmpxchg(&(v->counter), o, n, size);                \
-+}
-+
-+#define ATOMIC_OPS() \
-+    ATOMIC_OP(int,   , 4)
-+
-+ATOMIC_OPS()
-+
-+#define atomic_xchg_relaxed atomic_xchg_relaxed
-+#define atomic_xchg_acquire atomic_xchg_acquire
-+#define atomic_xchg_release atomic_xchg_release
-+#define atomic_xchg atomic_xchg
-+#define atomic_cmpxchg_relaxed atomic_cmpxchg_relaxed
-+#define atomic_cmpxchg_acquire atomic_cmpxchg_acquire
-+#define atomic_cmpxchg_release atomic_cmpxchg_release
-+#define atomic_cmpxchg atomic_cmpxchg
-+
-+#undef ATOMIC_OPS
-+#undef ATOMIC_OP
-+
-+static inline int atomic_sub_if_positive(atomic_t *v, int offset)
-+{
-+       int prev, rc;
-+
-+    __asm__ __volatile__ (
-+        "0: lr.w     %[p],  %[c]\n"
-+        "   sub      %[rc], %[p], %[o]\n"
-+        "   bltz     %[rc], 1f\n"
-+        "   sc.w.rl  %[rc], %[rc], %[c]\n"
-+        "   bnez     %[rc], 0b\n"
-+        "   fence    rw, rw\n"
-+        "1:\n"
-+        : [p]"=&r" (prev), [rc]"=&r" (rc), [c]"+A" (v->counter)
-+        : [o]"r" (offset)
-+        : "memory" );
-+    return prev - offset;
-+}
-+
-+#define atomic_dec_if_positive(v)	atomic_sub_if_positive(v, 1)
-+
-+#endif /* _ASM_RISCV_ATOMIC_H */
+ #ifndef _ASM_RISCV_FENCE_H
+ #define _ASM_RISCV_FENCE_H
+ 
+@@ -11,3 +11,12 @@
+ #endif
+ 
+ #endif	/* _ASM_RISCV_FENCE_H */
 +
 +/*
 + * Local variables:
@@ -509,25 +134,319 @@ index 0000000000..725326a9d1
 + * indent-tabs-mode: nil
 + * End:
 + */
-diff --git a/xen/arch/riscv/include/asm/fence.h b/xen/arch/riscv/include/asm/fence.h
-new file mode 100644
-index 0000000000..b3f6b1c20a
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/fence.h
-@@ -0,0 +1,13 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+#ifndef _ASM_RISCV_FENCE_H
-+#define _ASM_RISCV_FENCE_H
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 310ad4229c..56ce34ffd4 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -47,6 +47,9 @@ config ARCH_MAP_DOMAIN_PAGE
+ config GENERIC_BUG_FRAME
+ 	bool
+ 
++config GENERIC_FIND_NEXT_BIT
++	bool
 +
-+#ifdef CONFIG_SMP
-+#define RISCV_ACQUIRE_BARRIER		"\tfence r , rw\n"
-+#define RISCV_RELEASE_BARRIER		"\tfence rw,  w\n"
-+#else
-+#define RISCV_ACQUIRE_BARRIER
-+#define RISCV_RELEASE_BARRIER
+ config HAS_ALTERNATIVE
+ 	bool
+ 
+diff --git a/xen/lib/Makefile b/xen/lib/Makefile
+index 2d9ebb945f..66237a45c5 100644
+--- a/xen/lib/Makefile
++++ b/xen/lib/Makefile
+@@ -3,6 +3,7 @@ obj-$(CONFIG_X86) += x86/
+ lib-y += bsearch.o
+ lib-y += ctors.o
+ lib-y += ctype.o
++lib-$(CONFIG_GENERIC_FIND_NEXT_BIT) += find-next-bit.o
+ lib-y += list-sort.o
+ lib-y += memchr.o
+ lib-y += memchr_inv.o
+diff --git a/xen/lib/find-next-bit.c b/xen/lib/find-next-bit.c
+new file mode 100644
+index 0000000000..ca6f82277e
+--- /dev/null
++++ b/xen/lib/find-next-bit.c
+@@ -0,0 +1,281 @@
++/* find_next_bit.c: fallback find next bit implementation
++ *
++ * Copyright (C) 2004 Red Hat, Inc. All Rights Reserved.
++ * Written by David Howells (dhowells@redhat.com)
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version
++ * 2 of the License, or (at your option) any later version.
++ */
++#include <xen/bitops.h>
++
++#include <asm/byteorder.h>
++
++#ifndef find_next_bit
++/*
++ * Find the next set bit in a memory region.
++ */
++unsigned long find_next_bit(const unsigned long *addr, unsigned long size,
++			    unsigned long offset)
++{
++	const unsigned long *p = addr + BIT_WORD(offset);
++	unsigned long result = offset & ~(BITS_PER_LONG-1);
++	unsigned long tmp;
++
++	if (offset >= size)
++		return size;
++	size -= result;
++	offset %= BITS_PER_LONG;
++	if (offset) {
++		tmp = *(p++);
++		tmp &= (~0UL << offset);
++		if (size < BITS_PER_LONG)
++			goto found_first;
++		if (tmp)
++			goto found_middle;
++		size -= BITS_PER_LONG;
++		result += BITS_PER_LONG;
++	}
++	while (size & ~(BITS_PER_LONG-1)) {
++		if ((tmp = *(p++)))
++			goto found_middle;
++		result += BITS_PER_LONG;
++		size -= BITS_PER_LONG;
++	}
++	if (!size)
++		return result;
++	tmp = *p;
++
++found_first:
++	tmp &= (~0UL >> (BITS_PER_LONG - size));
++	if (tmp == 0UL)		/* Are any bits set? */
++		return result + size;	/* Nope. */
++found_middle:
++	return result + __ffs(tmp);
++}
++EXPORT_SYMBOL(find_next_bit);
 +#endif
 +
-+#endif	/* _ASM_RISCV_FENCE_H */
++#ifndef find_next_zero_bit
++/*
++ * This implementation of find_{first,next}_zero_bit was stolen from
++ * Linus' asm-alpha/bitops.h.
++ */
++unsigned long find_next_zero_bit(const unsigned long *addr, unsigned long size,
++				 unsigned long offset)
++{
++	const unsigned long *p = addr + BIT_WORD(offset);
++	unsigned long result = offset & ~(BITS_PER_LONG-1);
++	unsigned long tmp;
++
++	if (offset >= size)
++		return size;
++	size -= result;
++	offset %= BITS_PER_LONG;
++	if (offset) {
++		tmp = *(p++);
++		tmp |= ~0UL >> (BITS_PER_LONG - offset);
++		if (size < BITS_PER_LONG)
++			goto found_first;
++		if (~tmp)
++			goto found_middle;
++		size -= BITS_PER_LONG;
++		result += BITS_PER_LONG;
++	}
++	while (size & ~(BITS_PER_LONG-1)) {
++		if (~(tmp = *(p++)))
++			goto found_middle;
++		result += BITS_PER_LONG;
++		size -= BITS_PER_LONG;
++	}
++	if (!size)
++		return result;
++	tmp = *p;
++
++found_first:
++	tmp |= ~0UL << size;
++	if (tmp == ~0UL)	/* Are any bits zero? */
++		return result + size;	/* Nope. */
++found_middle:
++	return result + ffz(tmp);
++}
++EXPORT_SYMBOL(find_next_zero_bit);
++#endif
++
++#ifndef find_first_bit
++/*
++ * Find the first set bit in a memory region.
++ */
++unsigned long find_first_bit(const unsigned long *addr, unsigned long size)
++{
++	const unsigned long *p = addr;
++	unsigned long result = 0;
++	unsigned long tmp;
++
++	while (size & ~(BITS_PER_LONG-1)) {
++		if ((tmp = *(p++)))
++			goto found;
++		result += BITS_PER_LONG;
++		size -= BITS_PER_LONG;
++	}
++	if (!size)
++		return result;
++
++	tmp = (*p) & (~0UL >> (BITS_PER_LONG - size));
++	if (tmp == 0UL)		/* Are any bits set? */
++		return result + size;	/* Nope. */
++found:
++	return result + __ffs(tmp);
++}
++EXPORT_SYMBOL(find_first_bit);
++#endif
++
++#ifndef find_first_zero_bit
++/*
++ * Find the first cleared bit in a memory region.
++ */
++unsigned long find_first_zero_bit(const unsigned long *addr, unsigned long size)
++{
++	const unsigned long *p = addr;
++	unsigned long result = 0;
++	unsigned long tmp;
++
++	while (size & ~(BITS_PER_LONG-1)) {
++		if (~(tmp = *(p++)))
++			goto found;
++		result += BITS_PER_LONG;
++		size -= BITS_PER_LONG;
++	}
++	if (!size)
++		return result;
++
++	tmp = (*p) | (~0UL << size);
++	if (tmp == ~0UL)	/* Are any bits zero? */
++		return result + size;	/* Nope. */
++found:
++	return result + ffz(tmp);
++}
++EXPORT_SYMBOL(find_first_zero_bit);
++#endif
++
++#ifdef __BIG_ENDIAN
++
++/* include/linux/byteorder does not support "unsigned long" type */
++static inline unsigned long ext2_swabp(const unsigned long * x)
++{
++#if BITS_PER_LONG == 64
++	return (unsigned long) __swab64p((u64 *) x);
++#elif BITS_PER_LONG == 32
++	return (unsigned long) __swab32p((u32 *) x);
++#else
++#error BITS_PER_LONG not defined
++#endif
++}
++
++/* include/linux/byteorder doesn't support "unsigned long" type */
++static inline unsigned long ext2_swab(const unsigned long y)
++{
++#if BITS_PER_LONG == 64
++	return (unsigned long) __swab64((u64) y);
++#elif BITS_PER_LONG == 32
++	return (unsigned long) __swab32((u32) y);
++#else
++#error BITS_PER_LONG not defined
++#endif
++}
++
++#ifndef find_next_zero_bit_le
++unsigned long find_next_zero_bit_le(const void *addr, unsigned
++		long size, unsigned long offset)
++{
++	const unsigned long *p = addr;
++	unsigned long result = offset & ~(BITS_PER_LONG - 1);
++	unsigned long tmp;
++
++	if (offset >= size)
++		return size;
++	p += BIT_WORD(offset);
++	size -= result;
++	offset &= (BITS_PER_LONG - 1UL);
++	if (offset) {
++		tmp = ext2_swabp(p++);
++		tmp |= (~0UL >> (BITS_PER_LONG - offset));
++		if (size < BITS_PER_LONG)
++			goto found_first;
++		if (~tmp)
++			goto found_middle;
++		size -= BITS_PER_LONG;
++		result += BITS_PER_LONG;
++	}
++
++	while (size & ~(BITS_PER_LONG - 1)) {
++		if (~(tmp = *(p++)))
++			goto found_middle_swap;
++		result += BITS_PER_LONG;
++		size -= BITS_PER_LONG;
++	}
++	if (!size)
++		return result;
++	tmp = ext2_swabp(p);
++found_first:
++	tmp |= ~0UL << size;
++	if (tmp == ~0UL)	/* Are any bits zero? */
++		return result + size; /* Nope. Skip ffz */
++found_middle:
++	return result + ffz(tmp);
++
++found_middle_swap:
++	return result + ffz(ext2_swab(tmp));
++}
++EXPORT_SYMBOL(find_next_zero_bit_le);
++#endif
++
++#ifndef find_next_bit_le
++unsigned long find_next_bit_le(const void *addr, unsigned
++		long size, unsigned long offset)
++{
++	const unsigned long *p = addr;
++	unsigned long result = offset & ~(BITS_PER_LONG - 1);
++	unsigned long tmp;
++
++	if (offset >= size)
++		return size;
++	p += BIT_WORD(offset);
++	size -= result;
++	offset &= (BITS_PER_LONG - 1UL);
++	if (offset) {
++		tmp = ext2_swabp(p++);
++		tmp &= (~0UL << offset);
++		if (size < BITS_PER_LONG)
++			goto found_first;
++		if (tmp)
++			goto found_middle;
++		size -= BITS_PER_LONG;
++		result += BITS_PER_LONG;
++	}
++
++	while (size & ~(BITS_PER_LONG - 1)) {
++		tmp = *(p++);
++		if (tmp)
++			goto found_middle_swap;
++		result += BITS_PER_LONG;
++		size -= BITS_PER_LONG;
++	}
++	if (!size)
++		return result;
++	tmp = ext2_swabp(p);
++found_first:
++	tmp &= (~0UL >> (BITS_PER_LONG - size));
++	if (tmp == 0UL)		/* Are any bits set? */
++		return result + size; /* Nope. */
++found_middle:
++	return result + __ffs(tmp);
++
++found_middle_swap:
++	return result + __ffs(ext2_swab(tmp));
++}
++EXPORT_SYMBOL(find_next_bit_le);
++#endif
++
++#endif /* __BIG_ENDIAN */
 -- 
 2.43.0
 
