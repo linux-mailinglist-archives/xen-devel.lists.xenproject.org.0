@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 595F281CC27
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:25:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.659543.1029257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C85B81CBED
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:14:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.659425.1029133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhOV-0006vE-1T; Fri, 22 Dec 2023 15:24:59 +0000
+	id 1rGhDh-0003Zb-IF; Fri, 22 Dec 2023 15:13:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 659543.1029257; Fri, 22 Dec 2023 15:24:58 +0000
+Received: by outflank-mailman (output) from mailman id 659425.1029133; Fri, 22 Dec 2023 15:13:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhOU-0006qP-Th; Fri, 22 Dec 2023 15:24:58 +0000
-Received: by outflank-mailman (input) for mailman id 659543;
- Fri, 22 Dec 2023 15:24:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rGhDh-0003TJ-Cj; Fri, 22 Dec 2023 15:13:49 +0000
+Received: by outflank-mailman (input) for mailman id 659425;
+ Fri, 22 Dec 2023 15:13:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=buqB=IB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rGhDd-0007Ie-GL
- for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:45 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2f175bc-a0dc-11ee-98eb-6d05b1d4d9a1;
- Fri, 22 Dec 2023 16:13:45 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-50e3901c2e2so2351849e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:45 -0800 (PST)
+ id 1rGhDf-0000EM-RY
+ for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:47 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b3ae300e-a0dc-11ee-9b0f-b553b5be7939;
+ Fri, 22 Dec 2023 16:13:46 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-50e384cd6ebso2165744e87.3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:46 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.42
+ j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Dec 2023 07:13:43 -0800 (PST)
+ Fri, 22 Dec 2023 07:13:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2f175bc-a0dc-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: b3ae300e-a0dc-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703258024; x=1703862824; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1703258025; x=1703862825; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jZhPBjyZBqgBpywqHlV+02WIfS08ciwegVuM8jISg+I=;
-        b=JYdOztOXinll0LmJyP05WBLtWHGtTirUPn71s4MTMdEwlh6paQJzo8oW5fTknFwBdJ
-         3DDQVaNZLFu74Gz1D3OIlqXWDBYvt7tCphJTPHachZ54RzXPBSAOz6ONDoLjkJHC9hvR
-         /ZN3TL7zTaTDvDncZnaTFwNqHSeViSe5Ah1Te6ZQA+6YOUu0GShQjFdGkB4cmOk6NsBP
-         VWdFJJth9YBFub2Vs7tWSEaNC7DdGLjbMHJ6UU/GjxE1JChx7KCYBWFtCW6vtiVx0smb
-         w5mJmDiTePDUTf1xqsODTX3qd4MxjzQeiJBqwfxBQK7vciY5sGR1uNXYXfIdfVEpKxVN
-         xPVg==
+        bh=lZzYufQNZjpcCeO79bMfJlqcSeS2q9i+NJUjGOoMktg=;
+        b=GqxNI7l3IvQUrCjA2pmqzELRVAwM/eZ5jxbw9RplT9zwxcdvUeWvbTjvgudodxZSHC
+         oHqED1qlg1DPygfnab4v9QPuDxpLBGo9Mj9bgseJZzMoVskCJdyTgrXdFJA33urCVtrf
+         ObJZyGSk3v4E3z0grZlS+t5dL8c2mzQp3C39ituL7230ls4G2twFkBoCX4zvLrExwDuT
+         eumIpHU6sfGgFPuS2jXp4AI3cHKfEUwWdfwRWxyRf8sR6rF69shz8MUzpgUrdTeKESqd
+         1AmAzROAW3Ds9qZ01wXeDmjO5Dj2Tsi016Ewx4DJfcWJK/hduFSziqKifTfxlUvgHb54
+         8eHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703258024; x=1703862824;
+        d=1e100.net; s=20230601; t=1703258025; x=1703862825;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=jZhPBjyZBqgBpywqHlV+02WIfS08ciwegVuM8jISg+I=;
-        b=Ihg4UawVpkf2fMeHuD92rc1NqQFe52oPQQtyD7yKq3QFENMsO20lUdXig2iIOTjscT
-         96UpEre1YJPrTfUlI7cO5bkppymXYWonHOyKkXGELR6Hu+LEvEQQRP9scEGObj4ZD/0s
-         KCCngP/bC+U/4lhRP6VcpNbzeZcrRAVO71eAwDzlIgr1x1w1W8cXseolQYJGrfBJb70c
-         zSTIq1LuiA4T/rFOuBQKHqa1hRHpRjT+F/P+RHHqehGXWCS3HWAw3Tzj6CUlaJkZuH5E
-         Zop499b7IBZSoyIrhvRIs2baZ9o/QnfyJdJZewPk4ZQMISggKFnnNC2F+hNC32phZD9J
-         7+wg==
-X-Gm-Message-State: AOJu0YxhbToXC7E8Gda1LWVPqn6SHvSrEkADc0cL+nRiqfQJZ6v9jmas
-	eoCBaLn4IQIv6pkoutR94+ZOAM7oJLc=
-X-Google-Smtp-Source: AGHT+IHL6pMsv/sCdYNQ/iuKnuHjGlxcfIEdKyveSyp3rrjxlVpyxCEIKR0IY0dQpPtuOGuumoo3Bw==
-X-Received: by 2002:a19:e01e:0:b0:50b:f83c:2449 with SMTP id x30-20020a19e01e000000b0050bf83c2449mr714243lfg.69.1703258023958;
-        Fri, 22 Dec 2023 07:13:43 -0800 (PST)
+        bh=lZzYufQNZjpcCeO79bMfJlqcSeS2q9i+NJUjGOoMktg=;
+        b=eizwG3w5X3n9zzhCWs8DSqRVKKlx2rRiAvIxVQA5OMvg9nR/QQgmLIz/JAFyE1O0bR
+         FYrWJUP9UKtv9Ml0+3/UDAytSXcvOUY9Jt/vZvdCR8hxw/6QtTVMmwToQluFBVLnT/rb
+         BkYaAaMJM5HW2rJeNUv+z0bsGUloEI5z8DUJ38YEt1DOGqkuifiD2Fceck39Y1sWCj5j
+         NH+i9xxVrmD2UvaMBqyXUwgCM2+bFiQEwAZXHciKtBHU2DAN8H99z8d+lhHYiBOq+AJL
+         FLn6+Rc3P1YyWw7tXDKy0ZJnvZI+N5K6NQVGbYjS3WdoSZCuze0t7b1W91DG/6T5YkO1
+         leqA==
+X-Gm-Message-State: AOJu0Yy/un40VaH1ZbgZQTdvb/vCaG3AhL65IwzBvNFriFH9Ar1AINgx
+	KZtG9JfMFEu94r4oG6jW2TJlSC9E7Fs=
+X-Google-Smtp-Source: AGHT+IEa3Lci85EhlI7EpPIDFh0+qGFFKZULIcciEknrUzZzxtIMyZ6rBYeGHZ5G1fa/JP5TfkTZ3A==
+X-Received: by 2002:ac2:51a7:0:b0:50d:1c5e:7982 with SMTP id f7-20020ac251a7000000b0050d1c5e7982mr492145lfk.182.1703258025192;
+        Fri, 22 Dec 2023 07:13:45 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -86,61 +86,67 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 19/34] xen/riscv: introduce guest_access.h
-Date: Fri, 22 Dec 2023 17:13:03 +0200
-Message-ID: <dd1741ee7ed3332106c08a2caf0daf8926570664.1703255175.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 20/34] xen/riscv: introduce irq.h
+Date: Fri, 22 Dec 2023 17:13:04 +0200
+Message-ID: <11613eb5a0378315d70fc2f4d4f744ede579cca3.1703255175.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1703255175.git.oleksii.kurochko@gmail.com>
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-All necessary dummiy implementation of functions in this header
-will be introduced in stubs.c
-
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V3:
- - remove unnessary inclusion of types.h header.
- - drop copy_to_guest_phys. it isn't needed yet
  - add SPDX
- - add comment above guest_handle_okay()
+ - remove all that was wraped to HAS_DEVICETREE_... as for RISC-V it is going to be
+   always selected.
  - update the commit message
 ---
 Changes in V2:
- - change xen/mm.h to xen/types.h
+	- add ifdef CONFIG_HAS_DEVICE_TREE for things that shouldn't be
+      in case !CONFIG_HAS_DEVICE_TREE
+	- use proper includes.
 ---
- xen/arch/riscv/include/asm/guest_access.h | 29 +++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/guest_access.h
+ xen/arch/riscv/include/asm/irq.h | 37 ++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/irq.h
 
-diff --git a/xen/arch/riscv/include/asm/guest_access.h b/xen/arch/riscv/include/asm/guest_access.h
+diff --git a/xen/arch/riscv/include/asm/irq.h b/xen/arch/riscv/include/asm/irq.h
 new file mode 100644
-index 0000000000..c55951f538
+index 0000000000..a4434fb8ae
 --- /dev/null
-+++ b/xen/arch/riscv/include/asm/guest_access.h
-@@ -0,0 +1,29 @@
++++ b/xen/arch/riscv/include/asm/irq.h
+@@ -0,0 +1,37 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_RISCV_GUEST_ACCESS_H__
-+#define __ASM_RISCV_GUEST_ACCESS_H__
++#ifndef __ASM_RISCV_IRQ_H__
++#define __ASM_RISCV_IRQ_H__
 +
-+unsigned long raw_copy_to_guest(void *to, const void *from, unsigned len);
-+unsigned long raw_copy_from_guest(void *to, const void *from, unsigned len);
-+unsigned long raw_clear_guest(void *to, unsigned int len);
++#include <xen/bug.h>
 +
-+#define __raw_copy_to_guest raw_copy_to_guest
-+#define __raw_copy_from_guest raw_copy_from_guest
-+#define __raw_clear_guest raw_clear_guest
++/* TODO */
++#define nr_irqs 0U
++#define nr_static_irqs 0
++#define arch_hwdom_irqs(domid) 0U
 +
-+/*
-+ * Pre-validate a guest handle.
-+ * Allows use of faster __copy_* functions.
-+ */
-+/* All RISCV guests are paging mode external and hence safe */
-+#define guest_handle_okay(hnd, nr) (1)
-+#define guest_handle_subrange_okay(hnd, first, last) (1)
++#define domain_pirq_to_irq(d, pirq) (pirq)
 +
-+#endif /* __ASM_RISCV_GUEST_ACCESS_H__ */
++#define arch_evtchn_bind_pirq(d, pirq) ((void)((d) + (pirq)))
++
++struct arch_pirq {
++};
++
++struct arch_irq_desc {
++    unsigned int type;
++};
++
++static inline void arch_move_irqs(struct vcpu *v)
++{
++    BUG();
++}
++
++#endif /* __ASM_RISCV_IRQ_H__ */
++
 +/*
 + * Local variables:
 + * mode: C
