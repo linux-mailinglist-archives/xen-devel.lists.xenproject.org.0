@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CC4481CC26
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:24:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.659539.1029242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9920B81CC21
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:22:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.659519.1029223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhO8-0006CW-EI; Fri, 22 Dec 2023 15:24:36 +0000
+	id 1rGhMD-0004k7-Rl; Fri, 22 Dec 2023 15:22:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 659539.1029242; Fri, 22 Dec 2023 15:24:36 +0000
+Received: by outflank-mailman (output) from mailman id 659519.1029223; Fri, 22 Dec 2023 15:22:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhO8-0006Ah-BP; Fri, 22 Dec 2023 15:24:36 +0000
-Received: by outflank-mailman (input) for mailman id 659539;
- Fri, 22 Dec 2023 15:24:35 +0000
+	id 1rGhMD-0004ht-Ob; Fri, 22 Dec 2023 15:22:37 +0000
+Received: by outflank-mailman (input) for mailman id 659519;
+ Fri, 22 Dec 2023 15:22:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=buqB=IB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rGhDh-0007Ie-HZ
- for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:49 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ id 1rGhDi-0007Ie-Hb
+ for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:50 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b477d9f3-a0dc-11ee-98eb-6d05b1d4d9a1;
- Fri, 22 Dec 2023 16:13:47 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50e4a637958so2426131e87.2
- for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:47 -0800 (PST)
+ id b519b854-a0dc-11ee-98eb-6d05b1d4d9a1;
+ Fri, 22 Dec 2023 16:13:48 +0100 (CET)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2cc9b31a27bso23537211fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:48 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.45
+ j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Dec 2023 07:13:45 -0800 (PST)
+ Fri, 22 Dec 2023 07:13:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,46 +44,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b477d9f3-a0dc-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: b519b854-a0dc-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703258026; x=1703862826; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1703258028; x=1703862828; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=X2XgyDBcB0wcGp/eGfwcZrl9kaDJvnjyiwZy9l3W62o=;
-        b=Fg1lQOU9rBjX8r+NJIeKiH7DSkZrrf8YZJshrxyjoRGXkqZ05HblmECNlCCUm5+1Zs
-         oPJMT+dHfwtpZd7xlGFrcvVTYJ9BxXtCKsz7/u6485MQOstOS5V7bVk0DVj0yRflioDU
-         FxrElPfGN4KOsUiCt5KLJ0L2G/O5r5UbAmnQgnoBtZHtuFS20WiKUGvypQbaVtxT3/iL
-         4HyQLiulEjQ9SvYWwHUfmRUwxa0HzkSH3JpAgTI+rbVH++4F3v2IytA9rk49Eeu9wZfP
-         nSR+tP+5yiM/52Q5zDgM/DOEm7/Wl974JvyU2ABv9s9z8A3RwhyC0z6Un8qz3m7yqeGg
-         /HDg==
+        bh=iERJyBx2zMVd360kKc+64bkAZfqJHhsH6Dyb71/j52s=;
+        b=lpW5iBbGPGBe8aLwrbtplCJn+VbwEn9UvWXayFFBFdJMoxk1QV+34671A8HGV2aMzA
+         YXUvJEQGoARfqzM2T0ULoS7YhiUZ4BRt3T8y8jrQJAsWAMGSiwV8F5rXdk1bL9VsTjZp
+         NNPoU4SRjt+cnCUvxYwGY9f5/TnPxEQCo+26wjYM2wQ/2qfRF3TGU4i/RNRsDyRpAMZE
+         SLD0RoaXUXqfB064HzxpZ0N0y+KgmxWhOJFMRM5n4GjvaGFSGKovUU8PJkWN8wk8Occb
+         8qsS9ZG4WnaYIZ3zMGVq5O4WX5DB+L+7a+gwtClMSZICxdpnRIr4Tsa5QV69DICbvbJo
+         9XJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703258026; x=1703862826;
+        d=1e100.net; s=20230601; t=1703258028; x=1703862828;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=X2XgyDBcB0wcGp/eGfwcZrl9kaDJvnjyiwZy9l3W62o=;
-        b=Y/+U26X/1s0MRdsNDerK3KvaVEY5eI7Fbc2RUg2ytkW1KC9N/ALhoOZ2+6NQEvAtI2
-         /ad/R14Ct7MGNIZ6+dYr4MT2L+Ru3krecvsfLCOX2fuldmeMTZaelXEX2D3H+lJnZ1gL
-         L1hud6EvDwYziBugDUd3Ko4yQfjiqOR52db+b01B5z0VNWCOCBwevzlY3236NcywI+rh
-         mc313LUyEkVZKZgiVEw7sZnYTak1XdGd7QiEpbezMDQIKU8JU2ICg7Y/VM8BRYb87I4V
-         c3cVjWcCFFVNAE5v4j9p1e1sN/ta3gt9wdBQCeJJ0sieFOhTby42VhY3L6FKFOWPtLaX
-         Nz+A==
-X-Gm-Message-State: AOJu0Yy9yer93aI3C4qbXvpcePh7Qz/CApG7jFtSZmn/pLor6H+ywcST
-	bYxz8aylVdBLvFMvQXpZbroQo7WY3K4=
-X-Google-Smtp-Source: AGHT+IFXlcx/J+Wls40o8XEL6UZ9HqMfyy2MVVMj21ySD20VMnVDQq8+43xyNlSyIR/iyL3GdDY2FQ==
-X-Received: by 2002:a05:6512:2185:b0:50e:3082:1afe with SMTP id b5-20020a056512218500b0050e30821afemr340432lft.22.1703258026484;
-        Fri, 22 Dec 2023 07:13:46 -0800 (PST)
+        bh=iERJyBx2zMVd360kKc+64bkAZfqJHhsH6Dyb71/j52s=;
+        b=MZfhe8659YumzskbeqM5Q8rHY2kSFpQtlyZGtvoE8cSP9MuGAhZGOC9c/aheRIEYg+
+         W4MKQMz0bGRHWsznMHKiHMD7RghTef+JJDAQh49Chxwy/RjMuxW5YY6bMBkxt4Pzs+/J
+         l+Ddn7XTiS0gqnlND+bra2G2ksJJgU3gwFqBu6yPmxXEDqAAarPqvVyGbwFpA/4+v1mo
+         f36EJSiIfyXakM+e9P0LO0l9EpzcMClveLdKVKXM5RxMVieHdU4Fbk5TBDhml0ltTkbq
+         vDLe9SFiixiQeSZg5H7vF4N1TSxVXqjEkmrJcXfEy+ZSDWKHpyT2HIF/b4pkqF13EsHK
+         DUmQ==
+X-Gm-Message-State: AOJu0YwB8IannZJ8NLXKFQeOYLMFLSWNC2PjRPmdbrVe+/V8ZNa8v9ir
+	87OJ7kwG4X6ADmkn2jxmvOh5Y7irQx8=
+X-Google-Smtp-Source: AGHT+IHNxMCwb10deT2JxAljJ2aSodr2v2rO1rU8SU44/5s1W0y/552HAFefOab01+7bbyoHQhsDfw==
+X-Received: by 2002:ac2:4a67:0:b0:50e:6d96:4b28 with SMTP id q7-20020ac24a67000000b0050e6d964b28mr203058lfp.137.1703258027760;
+        Fri, 22 Dec 2023 07:13:47 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v3 21/34] xen/riscv: introduce p2m.h
-Date: Fri, 22 Dec 2023 17:13:05 +0200
-Message-ID: <c3b1f24aea1ba01505697717b240c8d036abfee1.1703255175.git.oleksii.kurochko@gmail.com>
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 22/34] xen/riscv: introduce regs.h
+Date: Fri, 22 Dec 2023 17:13:06 +0200
+Message-ID: <3d1ae540120804af5fc812a1492931afac66bd39.1703255175.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1703255175.git.oleksii.kurochko@gmail.com>
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
@@ -93,132 +98,44 @@ Content-Transfer-Encoding: 8bit
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V3:
- - add SPDX
- - drop unneeded for now p2m types.
- - return false in all functions implemented with BUG() inside.
  - update the commit message
+ - add Acked-by: Jan Beulich <jbeulich@suse.com>
+ - remove "include <asm/current.h>" and use a forward declaration instead.
 ---
 Changes in V2:
- - Nothing changed. Only rebase.
+ - change xen/lib.h to xen/bug.h
+ - remove unnecessary empty line
 ---
- xen/arch/ppc/include/asm/p2m.h   |   3 +-
- xen/arch/riscv/include/asm/p2m.h | 102 +++++++++++++++++++++++++++++++
- 2 files changed, 103 insertions(+), 2 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/p2m.h
+ xen/arch/riscv/include/asm/regs.h | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/regs.h
 
-diff --git a/xen/arch/ppc/include/asm/p2m.h b/xen/arch/ppc/include/asm/p2m.h
-index 25ba054668..3bc05b7c05 100644
---- a/xen/arch/ppc/include/asm/p2m.h
-+++ b/xen/arch/ppc/include/asm/p2m.h
-@@ -50,8 +50,7 @@ static inline void memory_type_changed(struct domain *d)
- static inline int guest_physmap_mark_populate_on_demand(struct domain *d, unsigned long gfn,
-                                                         unsigned int order)
- {
--    BUG_ON("unimplemented");
--    return 1;
-+    return -EOPNOTSUPP;
- }
- 
- static inline int guest_physmap_add_entry(struct domain *d,
-diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
+diff --git a/xen/arch/riscv/include/asm/regs.h b/xen/arch/riscv/include/asm/regs.h
 new file mode 100644
-index 0000000000..d270ef6635
+index 0000000000..86bebc5810
 --- /dev/null
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -0,0 +1,102 @@
++++ b/xen/arch/riscv/include/asm/regs.h
+@@ -0,0 +1,29 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_RISCV_P2M_H__
-+#define __ASM_RISCV_P2M_H__
++#ifndef __ARM_RISCV_REGS_H__
++#define __ARM_RISCV_REGS_H__
 +
-+#include <asm/page-bits.h>
++#ifndef __ASSEMBLY__
 +
-+#define paddr_bits PADDR_BITS
++#include <xen/bug.h>
 +
-+/*
-+ * List of possible type for each page in the p2m entry.
-+ * The number of available bit per page in the pte for this purpose is 4 bits.
-+ * So it's possible to only have 16 fields. If we run out of value in the
-+ * future, it's possible to use higher value for pseudo-type and don't store
-+ * them in the p2m entry.
-+ */
-+typedef enum {
-+    p2m_invalid = 0,    /* Nothing mapped here */
-+    p2m_ram_rw,         /* Normal read/write guest RAM */
-+} p2m_type_t;
++#define hyp_mode(r)     (0)
 +
-+#include <xen/p2m-common.h>
++struct cpu_user_regs;
 +
-+static inline int get_page_and_type(struct page_info *page,
-+                                    struct domain *domain,
-+                                    unsigned long type)
-+{
-+    BUG();
-+    return -EINVAL;
-+}
-+
-+/* Look up a GFN and take a reference count on the backing page. */
-+typedef unsigned int p2m_query_t;
-+#define P2M_ALLOC    (1u<<0)   /* Populate PoD and paged-out entries */
-+#define P2M_UNSHARE  (1u<<1)   /* Break CoW sharing */
-+
-+static inline struct page_info *get_page_from_gfn(
-+    struct domain *d, unsigned long gfn, p2m_type_t *t, p2m_query_t q)
-+{
-+    BUG();
-+    return NULL;
-+}
-+
-+static inline void memory_type_changed(struct domain *d)
++static inline bool guest_mode(const struct cpu_user_regs *r)
 +{
 +    BUG();
 +}
 +
++#endif /* __ASSEMBLY__ */
 +
-+static inline int guest_physmap_mark_populate_on_demand(struct domain *d, unsigned long gfn,
-+                                                        unsigned int order)
-+{
-+    return -EOPNOTSUPP;
-+}
-+
-+static inline int guest_physmap_add_entry(struct domain *d,
-+                            gfn_t gfn,
-+                            mfn_t mfn,
-+                            unsigned long page_order,
-+                            p2m_type_t t)
-+{
-+    BUG();
-+    return -EINVAL;
-+}
-+
-+/* Untyped version for RAM only, for compatibility */
-+static inline int __must_check
-+guest_physmap_add_page(struct domain *d, gfn_t gfn, mfn_t mfn,
-+                       unsigned int page_order)
-+{
-+    return guest_physmap_add_entry(d, gfn, mfn, page_order, p2m_ram_rw);
-+}
-+
-+static inline mfn_t gfn_to_mfn(struct domain *d, gfn_t gfn)
-+{
-+    BUG();
-+    return _mfn(0);
-+}
-+
-+static inline bool arch_acquire_resource_check(struct domain *d)
-+{
-+    /*
-+     * The reference counting of foreign entries in set_foreign_p2m_entry()
-+     * is supported on RISCV.
-+     */
-+    return true;
-+}
-+
-+static inline void p2m_altp2m_check(struct vcpu *v, uint16_t idx)
-+{
-+    /* Not supported on RISCV. */
-+}
-+
-+#endif /* __ASM_RISCV_P2M_H__ */
++#endif /* __ARM_RISCV_REGS_H__ */
 +
 +/*
 + * Local variables:
