@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8AB381CE4B
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 19:16:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.659684.1029409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BE0081CF9F
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 23:02:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.659690.1029418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGk4A-0001T6-14; Fri, 22 Dec 2023 18:16:10 +0000
+	id 1rGnZf-00072M-Eu; Fri, 22 Dec 2023 22:00:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 659684.1029409; Fri, 22 Dec 2023 18:16:10 +0000
+Received: by outflank-mailman (output) from mailman id 659690.1029418; Fri, 22 Dec 2023 22:00:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGk49-0001R5-UM; Fri, 22 Dec 2023 18:16:09 +0000
-Received: by outflank-mailman (input) for mailman id 659684;
- Fri, 22 Dec 2023 18:16:08 +0000
+	id 1rGnZf-00070M-Ba; Fri, 22 Dec 2023 22:00:55 +0000
+Received: by outflank-mailman (input) for mailman id 659690;
+ Fri, 22 Dec 2023 22:00:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=buqB=IB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rGk48-0001Qg-GS
- for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 18:16:08 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c633603-a0f6-11ee-98eb-6d05b1d4d9a1;
- Fri, 22 Dec 2023 19:16:06 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-50e6a806e4aso801708e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 10:16:06 -0800 (PST)
-Received: from [192.168.220.211] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- g16-20020a19ee10000000b0050d12f6c533sm597137lfb.189.2023.12.22.10.16.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Dec 2023 10:16:04 -0800 (PST)
+ <SRS0=kBLA=IB=citrix.com=prvs=713b4d154=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1rGnZd-00070E-Si
+ for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 22:00:53 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9087d4e4-a115-11ee-98ec-6d05b1d4d9a1;
+ Fri, 22 Dec 2023 23:00:50 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +36,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c633603-a0f6-11ee-98eb-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703268965; x=1703873765; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=DsX2dperMp2qLzV8cdhEvBvzWC1vT6De4vqI0jnXKCY=;
-        b=QfnJtRxJ4bH+YapfvXHGRlGUnfQ2YldzFJ8ZpSKb+GE4MsVSjo/Mj4oK8xXUw9P1zb
-         /mHIFn2LswGHORJjpJLh8erGQ4cBQh+cX3m+qmP4FB2YVufs9z+CgyBlmB4DpXazk+jm
-         z5gXYAeMn2j99KBGWQqdDlUS4A3xf+Gtkmiqrp1SFiH07GX/DT/zNIhCbiM5FXG1dZGN
-         IYRUglsmfP5pqRwYlgIp8XIFoljraVLY4OEEJG2qE/yEnH9JCvX/7t/peTVtVylN0PvM
-         e5It8DMMioTE49h8Zq0gmN3Jv9bqi1HbQUXCQpgUFwdkp465If0lM2BR2eISfFUOSSLH
-         I0ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703268965; x=1703873765;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=DsX2dperMp2qLzV8cdhEvBvzWC1vT6De4vqI0jnXKCY=;
-        b=J/e1J7VbGLvUBC383/axGqpS8vG4RrTvUAsIgfU1lyuuYpyMAzoJAywnoG/O7EyjOi
-         mCXIUgSuCIOZwWsITI/7bK+3sP+QzjvXt1cpYOqAO/6v7ywvYBBDg0EIdNgdFGyAa7Ln
-         VOVdE8l+Pwxu4AX52K97l83iAhGx3C67svXOQSnbczDPmCv105B6bA2CZeYXlA7j2Lw/
-         pU7zqlCeH7xzpbu76OmdqQ0Oof5iiAaEI/d7N2nft6Ck26+dOgt/5IaONFxuJI80cMIy
-         bgrQ5eJRlCBEfyqfgLbbD0pKA3L13yr8KD8PXCVPEBajcqtzVTg0o0fMuIBBbt/cNAQV
-         g11A==
-X-Gm-Message-State: AOJu0YytgBQ5obp6l5CrgH5mIEoua9Xp0u2ZXjaH7Qm99u1dPXAVTeRZ
-	gULlyQs/5oZPAD+i1M7Va1aNTf8bv34=
-X-Google-Smtp-Source: AGHT+IHGdwLEjHez4Z86GpXF7rF3JUD7Ubs/N4QFq72FOdWsZ1IGfzjShrfcswLqH9XxBPNmMgw71w==
-X-Received: by 2002:a19:5f54:0:b0:50e:6878:a70b with SMTP id a20-20020a195f54000000b0050e6878a70bmr843506lfj.54.1703268964772;
-        Fri, 22 Dec 2023 10:16:04 -0800 (PST)
-Message-ID: <feb344194bf7422e774b70e34083188bff6fdbff.camel@gmail.com>
-Subject: Re: [PATCH v3 31/34] xen/riscv: add minimal stuff to mm.h to build
- full Xen
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
- <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
- <wl@xen.org>
-Date: Fri, 22 Dec 2023 20:16:03 +0200
-In-Reply-To: <3231bf55d5da1d3e1eb03a43759932d8ebcca8de.camel@gmail.com>
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
-	 <4411f6af38586074b347cd6005f19f9c670faa74.1703255175.git.oleksii.kurochko@gmail.com>
-	 <3231bf55d5da1d3e1eb03a43759932d8ebcca8de.camel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+X-Inumbo-ID: 9087d4e4-a115-11ee-98ec-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1703282450;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=NyMn+F+hFZOalcCl7Sy3A/+RiZ6ShplbOULfWH5F7dw=;
+  b=F3DgkLKkJMjCaHFchcqAzy9Y7TYHFcfQxu9rOJKmSoZmnmkXqNuPIr12
+   L04F6MKFqrLT0ewp+O6wAWpRZHZCZlfUJmQlKCek9HgDkVDPmo80ACtlH
+   FjTvD9Z9c3C8hhm53iAFVX2JIP500iTpJ6XrGCs9f8Q8IH5/e89VBtib4
+   0=;
+X-CSE-ConnectionGUID: yRHRQTKUQCOAJOn1oXFaXg==
+X-CSE-MsgGUID: ZY7ktRjsRZeVoCWnrg2U4Q==
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 128969904
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.159.70
+X-Policy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:tmoGEqAe5NEh8xVW/3Ljw5YqxClBgxIJ4kV8jS/XYbTApDlw0zZVy
+ DcWXzjVP6qOMDTzL9lwbIm/9kgAsZCBm4U2QQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48D8kk/nOH+KgYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbCRMt8pvlDs15K6p4WlC5ARlDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw69xXO1hy1
+ sEhAxckTDeF3uWG7ruLRbw57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdIL2U3BPjDS0Qn1lM/IZQyhuq3wFL4dCVVsgm9rqsr+WnDigd21dABNfKMIIzbG5QExhrwS
+ mTuzVWmAQ0gNsel+ze79VmTgPXAxx6nYddHfFG/3qEz2wDCroAJMzUGWF3+rfSnh0qWX9NEN
+ 1dS6icotbI19kGgUp/6RRLQiH2DuAQVV5xPEuk5wAaXw6HQ7kCSAW1sZhxrZcEitcQ2bSc3z
+ VLPlNTsbRRwtJWFRHTb8a2bxQ5eIgBMczVEP3VdC1JYsp+8+Onfky4jUP5yKo6Pt+HWJAjb5
+ Bmoiy5ngIU9hP4EgvDTEU/8v968mnTYZldqvl6NATv/v14RWWKzW2C/BbHmARd8wGWxFADpU
+ IAswZT20Qz3JcjleNaxaOsMBqq1wP2OLSfRh1Vid7F4qGz2oSH7J9wBumgnTKuMDirjUWa4C
+ HI/RCsLvMMDVJdURf4fj32N5zQCkvG7SIWNugH8ZdtSeJlhHDJrDwk3DXN8K1vFyRB2+YlmY
+ MfzTCpZJSpCYUiR5GbsFrh1PH5C7nxW+F4/srihlEv+iefOOiTLIVrHWXPXBt0EAGq/iF292
+ 75i2wGikn2zjMWWjvHrzLMu
+IronPort-HdrOrdr: A9a23:ZIgAgqD0V6tEll/lHemg55DYdb4zR+YMi2TC1yhKJyC9Ffbo8P
+ xG/c5rsSMc5wxwZJhNo7y90cq7MBbhHPxOkOos1N6ZNWGM0gaVxelZnO3fKlbbehEWmNQz6U
+ 4ZSdkdNOHN
+X-Talos-CUID: =?us-ascii?q?9a23=3AlLbd3Gqt/4oQfiWw/dIMROrmUdEfUkfk8FTtGmS?=
+ =?us-ascii?q?fIEROTuSSeXGZyKwxxg=3D=3D?=
+X-Talos-MUID: 9a23:iXqgHgnNVHQMBQdfhhNOdnpQBZhr/56sE3o/nKsBkPaCLyMqBmuk2WE=
+X-IronPort-AV: E=Sophos;i="6.04,297,1695700800"; 
+   d="scan'208";a="128969904"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>, "Jan
+ Beulich" <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] xen/livepatch: Make check_for_livepatch_work() faster in the common case
+Date: Fri, 22 Dec 2023 22:00:45 +0000
+Message-ID: <20231222220045.2840714-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-T24gRnJpLCAyMDIzLTEyLTIyIGF0IDE4OjMyICswMjAwLCBPbGVrc2lpIHdyb3RlOgo+ID4gKwo+
-ID4gK3N0cnVjdCBwYWdlX2luZm8KPiA+ICt7Cj4gPiArwqDCoMKgIC8qIEVhY2ggZnJhbWUgY2Fu
-IGJlIHRocmVhZGVkIG9udG8gYSBkb3VibHktbGlua2VkIGxpc3QuICovCj4gPiArwqDCoMKgIHN0
-cnVjdCBwYWdlX2xpc3RfZW50cnkgbGlzdDsKPiA+ICsKPiA+ICvCoMKgwqAgLyogUmVmZXJlbmNl
-IGNvdW50IGFuZCB2YXJpb3VzIFBHQ194eHggZmxhZ3MgYW5kIGZpZWxkcy4gKi8KPiA+ICvCoMKg
-wqAgdW5zaWduZWQgbG9uZyBjb3VudF9pbmZvOwo+ID4gKwo+ID4gK8KgwqDCoCAvKiBDb250ZXh0
-LWRlcGVuZGVudCBmaWVsZHMgZm9sbG93Li4uICovCj4gPiArwqDCoMKgIHVuaW9uIHsKPiA+ICvC
-oMKgwqDCoMKgwqDCoCAvKiBQYWdlIGlzIGluIHVzZTogKChjb3VudF9pbmZvICYgUEdDX2NvdW50
-X21hc2spICE9IDApLgo+ID4gKi8KPiA+ICvCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qgewo+ID4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogVHlwZSByZWZlcmVuY2UgY291bnQgYW5kIHZhcmlvdXMg
-UEdUX3h4eCBmbGFncyBhbmQKPiA+IGZpZWxkcy4gKi8KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHVuc2lnbmVkIGxvbmcgdHlwZV9pbmZvOwo+ID4gK8KgwqDCoMKgwqDCoMKgIH0gaW51c2U7
-Cj4gPiArwqDCoMKgwqDCoMKgwqAgLyogUGFnZSBpcyBvbiBhIGZyZWUgbGlzdDogKChjb3VudF9p
-bmZvICYgUEdDX2NvdW50X21hc2spCj4gPiA9PQo+ID4gMCkuICovCj4gPiArwqDCoMKgwqDCoMKg
-wqAgdW5pb24gewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHsKPiA+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyoKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCAqIEluZGV4IG9mIHRoZSBmaXJzdCAqcG9zc2libHkqIHVuc2NydWJiZWQgcGFn
-ZQo+ID4gaW4KPiA+IHRoZSBidWRkeS4KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCAqIE9uZSBtb3JlIGJpdCB0aGFuIG1heGltdW0gcG9zc2libGUgb3JkZXIgdG8KPiA+IGFj
-Y29tbW9kYXRlCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKiBJTlZBTElE
-X0RJUlRZX0lEWC4KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAqLwo+ID4g
-KyNkZWZpbmUgSU5WQUxJRF9ESVJUWV9JRFggKCgxVUwgPDwgKE1BWF9PUkRFUiArIDEpKSAtIDEp
-Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgZmlyc3Rf
-ZGlydHk6TUFYX09SREVSICsgMTsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgLyogRG8gVExCcyBuZWVkIGZsdXNoaW5nIGZvciBzYWZldHkgYmVmb3JlIG5leHQKPiA+
-IHBhZ2UKPiA+IHVzZT8gKi8KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYm9v
-bCBuZWVkX3RsYmZsdXNoOjE7Cj4gPiArCj4gPiArI2RlZmluZSBCVUREWV9OT1RfU0NSVUJCSU5H
-wqDCoMKgIDAKPiA+ICsjZGVmaW5lIEJVRERZX1NDUlVCQklOR8KgwqDCoMKgwqDCoMKgIDEKPiA+
-ICsjZGVmaW5lIEJVRERZX1NDUlVCX0FCT1JUwqDCoMKgwqDCoCAyCj4gPiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgc2NydWJfc3RhdGU6MjsKPiA+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIH07Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHVuc2lnbmVkIGxvbmcgdmFsOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfSBm
-cmVlOwo+ID4gKwo+ID4gK8KgwqDCoCB9IHU7Cj4gPiArCj4gPiArwqDCoMKgIHVuaW9uIHsKPiA+
-ICvCoMKgwqDCoMKgwqDCoCAvKiBQYWdlIGlzIGluIHVzZSwgYnV0IG5vdCBhcyBhIHNoYWRvdy4g
-Ki8KPiA+ICvCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgLyogT3duZXIgb2YgdGhpcyBwYWdlICh6ZXJvIGlmIHBhZ2UgaXMgYW5vbnltb3VzKS4gKi8K
-PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkb21haW4gKmRvbWFpbjsKPiA+ICvC
-oMKgwqDCoMKgwqDCoCB9IGludXNlOwo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgIC8qIFBhZ2Ug
-aXMgb24gYSBmcmVlIGxpc3QuICovCj4gPiArwqDCoMKgwqDCoMKgwqAgc3RydWN0IHsKPiA+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIE9yZGVyLXNpemUgb2YgdGhlIGZyZWUgY2h1bmsgdGhp
-cyBwYWdlIGlzIHRoZSBoZWFkCj4gPiBvZi4gKi8KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHVuc2lnbmVkIGludCBvcmRlcjsKPiA+ICvCoMKgwqDCoMKgwqDCoCB9IGZyZWU7Cj4gPiArCj4g
-PiArwqDCoMKgIH0gdjsKPiA+ICsKPiA+ICvCoMKgwqAgdW5pb24gewo+ID4gK8KgwqDCoMKgwqDC
-oMKgIC8qCj4gPiArwqDCoMKgwqDCoMKgwqDCoCAqIFRpbWVzdGFtcCBmcm9tICdUTEIgY2xvY2sn
-LCB1c2VkIHRvIGF2b2lkIGV4dHJhIHNhZmV0eQo+ID4gZmx1c2hlcy4KPiA+ICvCoMKgwqDCoMKg
-wqDCoMKgICogT25seSB2YWxpZCBmb3I6IGEpIGZyZWUgcGFnZXMsIGFuZCBiKSBwYWdlcyB3aXRo
-IHplcm8KPiA+IHR5cGUgY291bnQKPiA+ICvCoMKgwqDCoMKgwqDCoMKgICovCj4gPiArwqDCoMKg
-wqDCoMKgwqAgdWludDMyX3QgdGxiZmx1c2hfdGltZXN0YW1wOwo+ID4gK8KgwqDCoCB9Owo+ID4g
-K8KgwqDCoCB1aW50NjRfdCBwYWQ7CkkgdGhpbmsgaXQgY2FuIGJlIHJlbW92ZWQgdG9vLiBUaGUg
-Y2hhbmdlcyB3ZXJlbid0IHNhdmVkLiAoIEp1c3QKYW5vdGhlciBvbmUgcmVtaW5kZXIgZm9yIG1l
-ICkuCgpTb3JyeSBmb3IgdGhlIGNvbnZlbmllbmNlLgoKfiBPbGVrc2lpCj4gCg==
+When livepatching is enabled, this function is used all the time.  Really do
+check the fastpath first, and annotate it likely() as this is the right answer
+100% of the time (to many significant figures).
+
+This cuts out 3 pointer dereferences in the "nothing to do path", and it seems
+the optimiser has an easier time too.  Bloat-o-meter reports:
+
+  add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-57 (-57)
+  Function                                     old     new   delta
+  check_for_livepatch_work.cold               1201    1183     -18
+  check_for_livepatch_work                    1021     982     -39
+
+which isn't too shabby for no logical change.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+CC: Ross Lagerwall <ross.lagerwall@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+
+I'm still a little disappointed with the code generation.  GCC still chooses
+to set up the full stack frame (6 regs, +3 more slots) intermixed with the
+per-cpu calculations.
+
+In isolation, GCC can check the boolean without creating a stack frame:
+
+  <work_to_to>:
+    48 89 e2                mov    %rsp,%rdx
+    48 8d 05 de e1 37 00    lea    0x37e1de(%rip),%rax        # ffff82d0405b6068 <per_cpu__work_to_do>
+    48 81 ca ff 7f 00 00    or     $0x7fff,%rdx
+    8b 4a c1                mov    -0x3f(%rdx),%ecx
+    48 8d 15 45 aa 39 00    lea    0x39aa45(%rip),%rdx        # ffff82d0405d28e0 <__per_cpu_offset>
+    48 8b 14 ca             mov    (%rdx,%rcx,8),%rdx
+    0f b6 04 02             movzbl (%rdx,%rax,1),%eax
+    c3                      retq
+
+but I can't find a way to convince GCC that it would be worth not setting up a
+stack frame in in the common case, and having a few extra mov reg/reg's later
+in the uncommon case.
+
+I haven't tried manually splitting the function into a check() and a do()
+function.  Views on whether that might be acceptable?  At a guess, do() would
+need to be a static noinline to avoid it turning back into what it currently
+is.
+---
+ xen/common/livepatch.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+index 1209fea2566c..b6275339f663 100644
+--- a/xen/common/livepatch.c
++++ b/xen/common/livepatch.c
+@@ -1706,15 +1706,15 @@ void check_for_livepatch_work(void)
+     s_time_t timeout;
+     unsigned long flags;
+ 
++    /* Fast path: no work to do. */
++    if ( likely(!per_cpu(work_to_do, cpu)) )
++        return;
++
+     /* Only do any work when invoked in truly idle state. */
+     if ( system_state != SYS_STATE_active ||
+          !is_idle_domain(current->sched_unit->domain) )
+         return;
+ 
+-    /* Fast path: no work to do. */
+-    if ( !per_cpu(work_to_do, cpu ) )
+-        return;
+-
+     smp_rmb();
+     /* In case we aborted, other CPUs can skip right away. */
+     if ( !livepatch_work.do_work )
+
+base-commit: 49818cde637b5ec20383e46b71f93b2e7d867686
+-- 
+2.30.2
 
 
