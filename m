@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99A5381CC2C
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:27:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.659587.1029303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C36881CC29
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:26:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.659558.1029273 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhR0-0001yJ-8e; Fri, 22 Dec 2023 15:27:34 +0000
+	id 1rGhPb-0008FX-AT; Fri, 22 Dec 2023 15:26:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 659587.1029303; Fri, 22 Dec 2023 15:27:34 +0000
+Received: by outflank-mailman (output) from mailman id 659558.1029273; Fri, 22 Dec 2023 15:26:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhR0-0001wf-4d; Fri, 22 Dec 2023 15:27:34 +0000
-Received: by outflank-mailman (input) for mailman id 659587;
- Fri, 22 Dec 2023 15:27:32 +0000
+	id 1rGhPb-0008Cw-7M; Fri, 22 Dec 2023 15:26:07 +0000
+Received: by outflank-mailman (input) for mailman id 659558;
+ Fri, 22 Dec 2023 15:26:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=buqB=IB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rGhDW-0007Ie-RV
- for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:38 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ id 1rGhDX-0007Ie-Rg
+ for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:39 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aeb859c4-a0dc-11ee-98eb-6d05b1d4d9a1;
- Fri, 22 Dec 2023 16:13:38 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-50e3cdcf010so2163803e87.2
- for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:38 -0800 (PST)
+ id af824e17-a0dc-11ee-98eb-6d05b1d4d9a1;
+ Fri, 22 Dec 2023 16:13:39 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-50e6ee5b7ffso191705e87.3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:39 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.35
+ j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Dec 2023 07:13:35 -0800 (PST)
+ Fri, 22 Dec 2023 07:13:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aeb859c4-a0dc-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: af824e17-a0dc-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703258017; x=1703862817; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1703258018; x=1703862818; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6djMdmcp+oQ5VeTVRCtFMD3D8OXqSdpy9AyZmZkL/Fs=;
-        b=Ako25RV/DDJM450mzMvHEADoXfjj0gHsjFYanZJ1kmSK7g6QQIH7GND94FJtc2c4gA
-         QLtNmcsEvv0Lsq6hH6s6E0g/+RsOQ0GjPBj9GfLbGLODKQ4brMQmved29BYEDQoQmlzd
-         u9F+SH6HuWYsuzR5Qja7y7JG3ge6jsSoZ93hydISHVPc0WYZmkzmYOuupu2JTmwIhOzg
-         aXENroDf+Yv8Zc9w1WSnZgWUDFZvv/AZzjd276bbVY4y9Q9wZ25ebhmvLcyPOy/wUDWo
-         th+wsXlWiyxJSWPWQRJivkINosKXR3PsB1W9Tszy1jKxweAoJ4iXEEYwgvldn+ek+cG3
-         6MPw==
+        bh=rExImBCWONv5dbwNEtVk4jkk4u+ady4+FS4w6vB3FbQ=;
+        b=MGKLvEcM/3BDqOqhfPvZ4xpqx2bnnYMCsb3GXBd+4t9L1PU4q1lNAfkGyEp6c7pKxM
+         YbhwV/2SJnb7FDT96Qb8kfQ1Ab3soGLIQPgR1wotvsK4k+SbtsA83TSr3MgUc6k1je8p
+         7qLSIIwhU6H5Tv9caS42zV5Sgdja9reNfP+7RpRo/C/rxvedbkNBcZn0Yy4M6RJfslCr
+         cpABSPTCW85nJBB9nAVh3exytXQLTCriYvwMbG1+jgj//Mtxjtuznb/STAg14wP4zZ4D
+         PjRPSwYIgMVptNS8wLlTl6u1Hi9yPn9HEl8RZuK76AX3m0t5dnGoYC6IYtZU0geG9BXs
+         +oNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703258017; x=1703862817;
+        d=1e100.net; s=20230601; t=1703258018; x=1703862818;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=6djMdmcp+oQ5VeTVRCtFMD3D8OXqSdpy9AyZmZkL/Fs=;
-        b=kgfl9Kc9ih7l66VGi7Tskx3zXIgzjp45W4g2BulkdPMzIDbp2AFv7BEjTqNlY8dYJb
-         s9bdfgBAQzw7EKyJDWxgyVWEP+jBU4aTQLOAEpUi+UORpuqqCzJpUXHrT6S6kpm3MItY
-         MKlmjkP65nCH+Bv/hNpVLrtxffUYKNR2jNw8Xz/76uvTX3DABzf4lF0WqcBVFR5NuAld
-         iatap6a/xKyooRPghBzCZIshh4j4wvIvxRAAiMSHIcnqH5R1dLdIY1PN4b0lioZ79+bN
-         H8ETgnBhQX2AarVcvk7ePOuGhDB4TJdgUQsKUVFgIjWROe72FRQ55Ly1IT9cmvKmVpEi
-         WB+A==
-X-Gm-Message-State: AOJu0Yw2Rj6HDwTfCxk5hqTNMXJJq8JwN+SgW2iyyKTV6fv/J5cB1tTP
-	qRdGXpbrmBEzZEUD4GIjUl98F6aObzg=
-X-Google-Smtp-Source: AGHT+IETVYaZtwubgJgA+UIzZ/dAnt7ALciTtZ5Y+mXn+m/1tOGV9c+WVXmpzkbWXoBa5nBMaJ9zIg==
-X-Received: by 2002:a19:f018:0:b0:50e:5bab:63c9 with SMTP id p24-20020a19f018000000b0050e5bab63c9mr422640lfc.56.1703258016768;
-        Fri, 22 Dec 2023 07:13:36 -0800 (PST)
+        bh=rExImBCWONv5dbwNEtVk4jkk4u+ady4+FS4w6vB3FbQ=;
+        b=IZrk3rul7meZ+i22anoAs/iBcYpLpEZUpTGy/mbAKKGyzOAPzvzvz/Ms+ybIYz3eQZ
+         C9YYg6mgg6wnyO6Zvnsc304MeSIMeD3kd877NYx7beo48tOnQW0KU+655ZqbnRl0oT29
+         i/BDBOlppQEK5aEk3wd2OwfLDfrQjcFbYJIih9DMe9NlfXiootXsQRXPuF/hPRrGi8Cj
+         nE4+DBCqFjrE/HFn8Qk6T1jsJDRDGEFLGK1N5mQYB5eOkhCpfpbd6hj54koZbzXMgCyk
+         YHfX2vGNw5s3GkwgapeCV8CMNS7pryFOwapGSm95MdhEkNIDYwSHXgLn1Iql+v/TiTMB
+         ikpg==
+X-Gm-Message-State: AOJu0YyC+OLmKF7xaWm4BRtOqnitl1R9fDXqi66XVBF2lW0Arab6NYfc
+	FJwyicwZgF1A/k9m7q3M5J+gqzprpVo=
+X-Google-Smtp-Source: AGHT+IEoUnbSc/5ClfmCHitQNnDFFoQ+T++4BqBl2iLxA7ayy7a8WYp6J6h8zryGHB3wXXb+RUIuNA==
+X-Received: by 2002:a05:6512:5c4:b0:50e:67f6:40cd with SMTP id o4-20020a05651205c400b0050e67f640cdmr888636lfo.19.1703258018122;
+        Fri, 22 Dec 2023 07:13:38 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -86,530 +86,172 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 13/34] xen/riscv: introduce cmpxchg.h
-Date: Fri, 22 Dec 2023 17:12:57 +0200
-Message-ID: <214bfd61c8ccf2a5b2c640b815ebfa6a705f6234.1703255175.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 14/34] xen/riscv: introduce io.h
+Date: Fri, 22 Dec 2023 17:12:58 +0200
+Message-ID: <5d2c032481792a3fe5bd5f1cae42d95f6e9b54b1.1703255175.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1703255175.git.oleksii.kurochko@gmail.com>
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The header was taken from Linux kernl 6.4.0-rc1.
+The header taken form Linux 6.4.0-rc1 and is based on
+arch/riscv/include/asm/mmio.h.
 
-Addionally, were updated:
-* add emulation of {cmp}xchg for 1/2 byte types
-* replace tabs with spaces
-* replace __* varialbed with *__
+Addionally, to the header was added definions of ioremap_*().
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V3:
+ - re-sync with linux kernel
  - update the commit message
- - add emulation of {cmp}xchg_... for 1 and 2 bytes types
 ---
 Changes in V2:
-	- update the comment at the top of the header.
-	- change xen/lib.h to xen/bug.h.
-	- sort inclusion of headers properly.
+ - Nothing changed. Only rebase.
 ---
- xen/arch/riscv/include/asm/cmpxchg.h | 496 +++++++++++++++++++++++++++
- 1 file changed, 496 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/cmpxchg.h
+ xen/arch/riscv/include/asm/io.h | 142 ++++++++++++++++++++++++++++++++
+ 1 file changed, 142 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/io.h
 
-diff --git a/xen/arch/riscv/include/asm/cmpxchg.h b/xen/arch/riscv/include/asm/cmpxchg.h
+diff --git a/xen/arch/riscv/include/asm/io.h b/xen/arch/riscv/include/asm/io.h
 new file mode 100644
-index 0000000000..916776c403
+index 0000000000..ead466eb2d
 --- /dev/null
-+++ b/xen/arch/riscv/include/asm/cmpxchg.h
-@@ -0,0 +1,496 @@
++++ b/xen/arch/riscv/include/asm/io.h
+@@ -0,0 +1,142 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+/* Copyright (C) 2014 Regents of the University of California */
++/*
++ * {read,write}{b,w,l,q} based on arch/arm64/include/asm/io.h
++ *   which was based on arch/arm/include/io.h
++ *
++ * Copyright (C) 1996-2000 Russell King
++ * Copyright (C) 2012 ARM Ltd.
++ * Copyright (C) 2014 Regents of the University of California
++ */
 +
-+#ifndef _ASM_RISCV_CMPXCHG_H
-+#define _ASM_RISCV_CMPXCHG_H
 +
-+#include <xen/compiler.h>
-+#include <xen/lib.h>
++#ifndef _ASM_RISCV_IO_H
++#define _ASM_RISCV_IO_H
 +
-+#include <asm/fence.h>
-+#include <asm/io.h>
-+#include <asm/system.h>
-+
-+#define __xchg_relaxed(ptr, new, size) \
-+({ \
-+    __typeof__(ptr) ptr__ = (ptr); \
-+    __typeof__(new) new__ = (new); \
-+    __typeof__(*(ptr)) ret__; \
-+    switch (size) \
-+	{ \
-+    case 4: \
-+        asm volatile( \
-+            "	amoswap.w %0, %2, %1\n" \
-+            : "=r" (ret__), "+A" (*ptr__) \
-+            : "r" (new__) \
-+            : "memory" ); \
-+        break; \
-+    case 8: \
-+        asm volatile( \
-+            "	amoswap.d %0, %2, %1\n" \
-+            : "=r" (ret__), "+A" (*ptr__) \
-+            : "r" (new__) \
-+            : "memory" ); \
-+        break; \
-+    default: \
-+        ASSERT_UNREACHABLE(); \
-+    } \
-+    ret__; \
-+})
-+
-+#define xchg_relaxed(ptr, x) \
-+({ \
-+    __typeof__(*(ptr)) x_ = (x); \
-+    (__typeof__(*(ptr))) __xchg_relaxed((ptr), x_, sizeof(*(ptr))); \
-+})
-+
-+#define __xchg_acquire(ptr, new, size) \
-+({ \
-+    __typeof__(ptr) ptr__ = (ptr); \
-+    __typeof__(new) new__ = (new); \
-+    __typeof__(*(ptr)) ret__; \
-+    switch (size) \
-+	{ \
-+    case 4: \
-+        asm volatile( \
-+            "	amoswap.w %0, %2, %1\n" \
-+            RISCV_ACQUIRE_BARRIER \
-+            : "=r" (ret__), "+A" (*ptr__) \
-+            : "r" (new__) \
-+            : "memory" ); \
-+        break; \
-+    case 8: \
-+        asm volatile( \
-+            "	amoswap.d %0, %2, %1\n" \
-+            RISCV_ACQUIRE_BARRIER \
-+            : "=r" (ret__), "+A" (*ptr__) \
-+            : "r" (new__) \
-+            : "memory" ); \
-+        break; \
-+    default: \
-+        ASSERT_UNREACHABLE(); \
-+    } \
-+    ret__; \
-+})
-+
-+#define xchg_acquire(ptr, x) \
-+({ \
-+    __typeof__(*(ptr)) x_ = (x); \
-+    (__typeof__(*(ptr))) __xchg_acquire((ptr), x_, sizeof(*(ptr))); \
-+})
-+
-+#define __xchg_release(ptr, new, size) \
-+({ \
-+    __typeof__(ptr) ptr__ = (ptr); \
-+    __typeof__(new) new__ = (new); \
-+    __typeof__(*(ptr)) ret__; \
-+    switch (size) \
-+	{ \
-+    case 4: \
-+        asm volatile ( \
-+            RISCV_RELEASE_BARRIER \
-+            "	amoswap.w %0, %2, %1\n" \
-+            : "=r" (ret__), "+A" (*ptr__) \
-+            : "r" (new__) \
-+            : "memory"); \
-+        break; \
-+    case 8: \
-+        asm volatile ( \
-+            RISCV_RELEASE_BARRIER \
-+            "	amoswap.d %0, %2, %1\n" \
-+            : "=r" (ret__), "+A" (*ptr__) \
-+            : "r" (new__) \
-+            : "memory"); \
-+        break; \
-+    default: \
-+        ASSERT_UNREACHABLE(); \
-+    } \
-+    ret__; \
-+})
-+
-+#define xchg_release(ptr, x) \
-+({ \
-+    __typeof__(*(ptr)) x_ = (x); \
-+    (__typeof__(*(ptr))) __xchg_release((ptr), x_, sizeof(*(ptr))); \
-+})
-+
-+static always_inline uint32_t __xchg_case_4(volatile uint32_t *ptr,
-+                                            uint32_t new)
-+{
-+    __typeof__(*(ptr)) ret;
-+
-+    asm volatile (
-+        "   amoswap.w.aqrl %0, %2, %1\n"
-+        : "=r" (ret), "+A" (*ptr)
-+        : "r" (new)
-+        : "memory" );
-+
-+    return ret;
-+}
-+
-+static always_inline uint64_t __xchg_case_8(volatile uint64_t *ptr,
-+                                            uint64_t new)
-+{
-+    __typeof__(*(ptr)) ret;
-+
-+    asm volatile( \
-+        "   amoswap.d.aqrl %0, %2, %1\n" \
-+        : "=r" (ret), "+A" (*ptr) \
-+        : "r" (new) \
-+        : "memory" ); \
-+
-+    return ret;
-+}
-+
-+static always_inline unsigned short __cmpxchg_case_2(volatile uint32_t *ptr,
-+                                                     uint32_t old,
-+                                                     uint32_t new);
-+
-+static always_inline unsigned short __cmpxchg_case_1(volatile uint32_t *ptr,
-+                                                     uint32_t old,
-+                                                     uint32_t new);
-+
-+static inline unsigned long __xchg(volatile void *ptr, unsigned long x, int size)
-+{
-+    switch (size) {
-+    case 1:
-+        return __cmpxchg_case_1(ptr, (uint32_t)-1, x);
-+    case 2:
-+        return __cmpxchg_case_2(ptr, (uint32_t)-1, x);
-+    case 4:
-+        return __xchg_case_4(ptr, x);
-+    case 8:
-+        return __xchg_case_8(ptr, x);
-+    default:
-+        ASSERT_UNREACHABLE();
-+    }
-+
-+    return -1;
-+}
-+
-+#define xchg(ptr,x) \
-+({ \
-+    __typeof__(*(ptr)) ret__; \
-+    ret__ = (__typeof__(*(ptr))) \
-+            __xchg((ptr), (unsigned long)(x), sizeof(*(ptr))); \
-+    ret__; \
-+})
-+
-+#define xchg32(ptr, x) \
-+({ \
-+    BUILD_BUG_ON(sizeof(*(ptr)) != 4); \
-+    xchg((ptr), (x)); \
-+})
-+
-+#define xchg64(ptr, x) \
-+({ \
-+    BUILD_BUG_ON(sizeof(*(ptr)) != 8); \
-+    xchg((ptr), (x)); \
-+})
++#include <asm/byteorder.h>
 +
 +/*
-+ * Atomic compare and exchange.  Compare OLD with MEM, if identical,
-+ * store NEW in MEM.  Return the initial value in MEM.  Success is
-+ * indicated by comparing RETURN with OLD.
++ * The RISC-V ISA doesn't yet specify how to query or modify PMAs, so we can't
++ * change the properties of memory regions.  This should be fixed by the
++ * upcoming platform spec.
 + */
-+#define __cmpxchg_relaxed(ptr, old, new, size) \
-+({ \
-+    __typeof__(ptr) ptr__ = (ptr); \
-+    __typeof__(*(ptr)) __old = (old); \
-+    __typeof__(*(ptr)) new__ = (new); \
-+    __typeof__(*(ptr)) ret__; \
-+    register unsigned int __rc; \
-+    switch (size) \
-+	{ \
-+    case 4: \
-+        asm volatile( \
-+            "0:	lr.w %0, %2\n" \
-+            "	bne  %0, %z3, 1f\n" \
-+            "	sc.w %1, %z4, %2\n" \
-+            "	bnez %1, 0b\n" \
-+            "1:\n" \
-+            : "=&r" (ret__), "=&r" (__rc), "+A" (*ptr__) \
-+            : "rJ" (__old), "rJ" (new__) \
-+            : "memory"); \
-+        break; \
-+    case 8: \
-+        asm volatile( \
-+            "0:	lr.d %0, %2\n" \
-+            "	bne %0, %z3, 1f\n" \
-+            "	sc.d %1, %z4, %2\n" \
-+            "	bnez %1, 0b\n" \
-+            "1:\n" \
-+            : "=&r" (ret__), "=&r" (__rc), "+A" (*ptr__) \
-+            : "rJ" (__old), "rJ" (new__) \
-+            : "memory"); \
-+        break; \
-+    default: \
-+        ASSERT_UNREACHABLE(); \
-+    } \
-+    ret__; \
-+})
++#define ioremap_nocache(addr, size) ioremap((addr), (size))
++#define ioremap_wc(addr, size) ioremap((addr), (size))
++#define ioremap_wt(addr, size) ioremap((addr), (size))
 +
-+#define cmpxchg_relaxed(ptr, o, n) \
-+({ \
-+    __typeof__(*(ptr)) o_ = (o); \
-+    __typeof__(*(ptr)) n_ = (n); \
-+    (__typeof__(*(ptr))) __cmpxchg_relaxed((ptr), \
-+                    o_, n_, sizeof(*(ptr))); \
-+})
-+
-+#define __cmpxchg_acquire(ptr, old, new, size) \
-+({ \
-+    __typeof__(ptr) ptr__ = (ptr); \
-+    __typeof__(*(ptr)) __old = (old); \
-+    __typeof__(*(ptr)) new__ = (new); \
-+    __typeof__(*(ptr)) ret__; \
-+    register unsigned int __rc; \
-+    switch (size) \
-+	{ \
-+    case 4: \
-+        asm volatile( \
-+            "0:	lr.w %0, %2\n" \
-+            "	bne  %0, %z3, 1f\n" \
-+            "	sc.w %1, %z4, %2\n" \
-+            "	bnez %1, 0b\n" \
-+            RISCV_ACQUIRE_BARRIER \
-+            "1:\n"	 \
-+            : "=&r" (ret__), "=&r" (__rc), "+A" (*ptr__) \
-+            : "rJ" (__old), "rJ" (new__) \
-+            : "memory"); \
-+        break; \
-+    case 8: \
-+        asm volatile( \
-+            "0:	lr.d %0, %2\n" \
-+            "	bne %0, %z3, 1f\n" \
-+            "	sc.d %1, %z4, %2\n" \
-+            "	bnez %1, 0b\n" \
-+            RISCV_ACQUIRE_BARRIER \
-+            "1:\n" \
-+            : "=&r" (ret__), "=&r" (__rc), "+A" (*ptr__) \
-+            : "rJ" (__old), "rJ" (new__) \
-+            : "memory"); \
-+        break; \
-+    default: \
-+        ASSERT_UNREACHABLE(); \
-+    } \
-+    ret__; \
-+})
-+
-+#define cmpxchg_acquire(ptr, o, n) \
-+({ \
-+    __typeof__(*(ptr)) o_ = (o); \
-+    __typeof__(*(ptr)) n_ = (n); \
-+    (__typeof__(*(ptr))) __cmpxchg_acquire((ptr), o_, n_, sizeof(*(ptr))); \
-+})
-+
-+#define __cmpxchg_release(ptr, old, new, size) \
-+({									\
-+    __typeof__(ptr) ptr__ = (ptr); \
-+    __typeof__(*(ptr)) __old = (old); \
-+    __typeof__(*(ptr)) new__ = (new); \
-+    __typeof__(*(ptr)) ret__; \
-+    register unsigned int __rc; \
-+    switch (size) \
-+	{ \
-+    case 4: \
-+        asm volatile ( \
-+            RISCV_RELEASE_BARRIER \
-+            "0:	lr.w %0, %2\n" \
-+            "	bne  %0, %z3, 1f\n" \
-+            "	sc.w %1, %z4, %2\n" \
-+            "	bnez %1, 0b\n" \
-+            "1:\n" \
-+            : "=&r" (ret__), "=&r" (__rc), "+A" (*ptr__)	\
-+            : "rJ" (__old), "rJ" (new__) \
-+            : "memory" ); \
-+        break; \
-+    case 8: \
-+        asm volatile ( \
-+            RISCV_RELEASE_BARRIER \
-+            "0:	lr.d %0, %2\n" \
-+            "	bne %0, %z3, 1f\n" \
-+            "	sc.d %1, %z4, %2\n" \
-+            "	bnez %1, 0b\n" \
-+            "1:\n" \
-+            : "=&r" (ret__), "=&r" (__rc), "+A" (*ptr__) \
-+            : "rJ" (__old), "rJ" (new__) \
-+            : "memory" ); \
-+        break; \
-+    default: \
-+        ASSERT_UNREACHABLE(); \
-+    } \
-+    ret__; \
-+})
-+
-+#define cmpxchg_release(ptr, o, n) \
-+({ \
-+    __typeof__(*(ptr)) _o_ = (o); \
-+    __typeof__(*(ptr)) _n_ = (n); \
-+    (__typeof__(*(ptr))) __cmpxchg_release((ptr), _o_, _n_, sizeof(*(ptr))); \
-+})
-+
-+static always_inline uint32_t __cmpxchg_case_4(volatile uint32_t *ptr,
-+                                               uint32_t old,
-+                                               uint32_t new)
++/* Generic IO read/write.  These perform native-endian accesses. */
++#define __raw_writeb __raw_writeb
++static inline void __raw_writeb(u8 val, volatile void __iomem *addr)
 +{
-+    uint32_t ret;
-+    register uint32_t rc;
-+
-+    asm volatile (
-+        "0: lr.w %0, %2\n"
-+        "   bne  %0, %z3, 1f\n"
-+        "   sc.w.rl %1, %z4, %2\n"
-+        "   bnez %1, 0b\n"
-+        "   fence rw, rw\n"
-+        "1:\n"
-+        : "=&r" (ret), "=&r" (rc), "+A" (*ptr)
-+        : "rJ" (old), "rJ" (new)
-+        : "memory" );
-+
-+    return ret;
++	asm volatile("sb %0, 0(%1)" : : "r" (val), "r" (addr));
 +}
 +
-+static always_inline uint64_t __cmpxchg_case_8(volatile uint64_t *ptr,
-+                                               uint64_t old,
-+                                               uint64_t new)
++#define __raw_writew __raw_writew
++static inline void __raw_writew(u16 val, volatile void __iomem *addr)
 +{
-+    uint64_t ret;
-+    register uint32_t rc;
-+
-+    asm volatile(
-+        "0: lr.d %0, %2\n"
-+        "   bne %0, %z3, 1f\n"
-+        "   sc.d.rl %1, %z4, %2\n"
-+        "   bnez %1, 0b\n"
-+        "   fence rw, rw\n"
-+        "1:\n"
-+        : "=&r" (ret), "=&r" (rc), "+A" (*ptr)
-+        : "rJ" (old), "rJ" (new)
-+        : "memory");
-+
-+    return ret;
++	asm volatile("sh %0, 0(%1)" : : "r" (val), "r" (addr));
 +}
 +
-+#define __emulate_cmpxchg_case1_2(ptr, new, read_func, cmpxchg_func, swap_byte_mask_base)\
-+({                                                                              \
-+    __typeof__(*(ptr)) read_val;                                                \
-+    __typeof__(*(ptr)) swapped_new;                                             \
-+    __typeof__(*(ptr)) ret;                                                     \
-+    __typeof__(*(ptr)) new_ = (__typeof__(*(ptr)))new;                          \
-+                                                                                \
-+    __typeof__(ptr) aligned_ptr = (__typeof__(ptr))((unsigned long)ptr & ~3);   \
-+    __typeof__(*(ptr)) mask_off = ((unsigned long)ptr & 3) * 8;                 \
-+    __typeof__(*(ptr)) mask =                                                   \
-+      (__typeof__(*(ptr)))swap_byte_mask_base << mask_off;                      \
-+    __typeof__(*(ptr)) masked_new = (new_ << mask_off) & mask;                  \
-+                                                                                \
-+    do {                                                                        \
-+        read_val = read_func(aligned_ptr);                                      \
-+        swapped_new = read_val & ~mask;                                         \
-+        swapped_new |= masked_new;                                              \
-+        ret = cmpxchg_func(aligned_ptr, read_val, swapped_new);                 \
-+    } while ( ret != read_val );                                                \
-+                                                                                \
-+    ret = MASK_EXTR(swapped_new, mask);                                         \
-+    ret;                                                                        \
-+})
-+
-+static always_inline unsigned short __cmpxchg_case_2(volatile uint32_t *ptr,
-+                                                     uint32_t old,
-+                                                     uint32_t new)
++#define __raw_writel __raw_writel
++static inline void __raw_writel(u32 val, volatile void __iomem *addr)
 +{
-+    (void) old;
++	asm volatile("sw %0, 0(%1)" : : "r" (val), "r" (addr));
++}
 +
-+    if (((unsigned long)ptr & 3) == 3)
-+    {
 +#ifdef CONFIG_64BIT
-+        return __emulate_cmpxchg_case1_2((uint64_t *)ptr, new,
-+                                         readq, __cmpxchg_case_8, 0xffffU);
-+#else
-+        #error "add emulation support of cmpxchg for CONFIG_32BIT"
++#define __raw_writeq __raw_writeq
++static inline void __raw_writeq(u64 val, volatile void __iomem *addr)
++{
++	asm volatile("sd %0, 0(%1)" : : "r" (val), "r" (addr));
++}
 +#endif
-+    }
-+    else
-+        return __emulate_cmpxchg_case1_2((uint32_t *)ptr, new,
-+                                         readl, __cmpxchg_case_4, 0xffffU);
-+}
 +
-+static always_inline unsigned short __cmpxchg_case_1(volatile uint32_t *ptr,
-+                                                     uint32_t old,
-+                                                     uint32_t new)
++#define __raw_readb __raw_readb
++static inline u8 __raw_readb(const volatile void __iomem *addr)
 +{
-+    (void) old;
++	u8 val;
 +
-+    return __emulate_cmpxchg_case1_2((uint32_t *)ptr, new,
-+                                     readl, __cmpxchg_case_4, 0xffU);
++	asm volatile("lb %0, 0(%1)" : "=r" (val) : "r" (addr));
++	return val;
 +}
 +
-+static always_inline unsigned long __cmpxchg(volatile void *ptr,
-+                                             unsigned long old,
-+                                             unsigned long new,
-+                                             int size)
++#define __raw_readw __raw_readw
++static inline u16 __raw_readw(const volatile void __iomem *addr)
 +{
-+    switch (size)
-+    {
-+    case 1:
-+        return __cmpxchg_case_1(ptr, old, new);
-+    case 2:
-+        return __cmpxchg_case_2(ptr, old, new);
-+    case 4:
-+        return __cmpxchg_case_4(ptr, old, new);
-+    case 8:
-+        return __cmpxchg_case_8(ptr, old, new);
-+    default:
-+        ASSERT_UNREACHABLE();
-+    }
++	u16 val;
 +
-+    return old;
++	asm volatile("lh %0, 0(%1)" : "=r" (val) : "r" (addr));
++	return val;
 +}
 +
-+#define cmpxchg(ptr, o, n) \
-+({ \
-+    __typeof__(*(ptr)) ret__; \
-+    ret__ = (__typeof__(*(ptr))) \
-+            __cmpxchg((ptr), (unsigned long)(o), (unsigned long)(n), \
-+                      sizeof(*(ptr))); \
-+    ret__; \
-+})
++#define __raw_readl __raw_readl
++static inline u32 __raw_readl(const volatile void __iomem *addr)
++{
++	u32 val;
 +
-+#define cmpxchg_local(ptr, o, n) \
-+    (__cmpxchg_relaxed((ptr), (o), (n), sizeof(*(ptr))))
++	asm volatile("lw %0, 0(%1)" : "=r" (val) : "r" (addr));
++	return val;
++}
 +
-+#define cmpxchg32(ptr, o, n) \
-+({ \
-+    BUILD_BUG_ON(sizeof(*(ptr)) != 4); \
-+    cmpxchg((ptr), (o), (n)); \
-+})
++#ifdef CONFIG_64BIT
++#define __raw_readq __raw_readq
++static inline u64 __raw_readq(const volatile void __iomem *addr)
++{
++	u64 val;
 +
-+#define cmpxchg32_local(ptr, o, n) \
-+({ \
-+    BUILD_BUG_ON(sizeof(*(ptr)) != 4); \
-+    cmpxchg_relaxed((ptr), (o), (n)) \
-+})
++	asm volatile("ld %0, 0(%1)" : "=r" (val) : "r" (addr));
++	return val;
++}
++#endif
 +
-+#define cmpxchg64(ptr, o, n) \
-+({ \
-+    BUILD_BUG_ON(sizeof(*(ptr)) != 8); \
-+    cmpxchg((ptr), (o), (n)); \
-+})
++/*
++ * Unordered I/O memory access primitives.  These are even more relaxed than
++ * the relaxed versions, as they don't even order accesses between successive
++ * operations to the I/O regions.
++ */
++#define readb_cpu(c)		({ u8  __r = __raw_readb(c); __r; })
++#define readw_cpu(c)		({ u16 __r = le16_to_cpu((__force __le16)__raw_readw(c)); __r; })
++#define readl_cpu(c)		({ u32 __r = le32_to_cpu((__force __le32)__raw_readl(c)); __r; })
 +
-+#define cmpxchg64_local(ptr, o, n) \
-+({ \
-+    BUILD_BUG_ON(sizeof(*(ptr)) != 8); \
-+    cmpxchg_relaxed((ptr), (o), (n)); \
-+})
++#define writeb_cpu(v,c)		((void)__raw_writeb((v),(c)))
++#define writew_cpu(v,c)		((void)__raw_writew((__force u16)cpu_to_le16(v),(c)))
++#define writel_cpu(v,c)		((void)__raw_writel((__force u32)cpu_to_le32(v),(c)))
 +
-+#endif /* _ASM_RISCV_CMPXCHG_H */
++#ifdef CONFIG_64BIT
++#define readq_cpu(c)		({ u64 __r = le64_to_cpu((__force __le64)__raw_readq(c)); __r; })
++#define writeq_cpu(v,c)		((void)__raw_writeq((__force u64)cpu_to_le64(v),(c)))
++#endif
++
++/*
++ * I/O memory access primitives. Reads are ordered relative to any
++ * following Normal memory access. Writes are ordered relative to any prior
++ * Normal memory access.  The memory barriers here are necessary as RISC-V
++ * doesn't define any ordering between the memory space and the I/O space.
++ */
++#define __io_br()	do {} while (0)
++#define __io_ar(v)	__asm__ __volatile__ ("fence i,r" : : : "memory");
++#define __io_bw()	__asm__ __volatile__ ("fence w,o" : : : "memory");
++#define __io_aw()	do { } while (0)
++
++#define readb(c)	({ u8  __v; __io_br(); __v = readb_cpu(c); __io_ar(__v); __v; })
++#define readw(c)	({ u16 __v; __io_br(); __v = readw_cpu(c); __io_ar(__v); __v; })
++#define readl(c)	({ u32 __v; __io_br(); __v = readl_cpu(c); __io_ar(__v); __v; })
++
++#define writeb(v,c)	({ __io_bw(); writeb_cpu((v),(c)); __io_aw(); })
++#define writew(v,c)	({ __io_bw(); writew_cpu((v),(c)); __io_aw(); })
++#define writel(v,c)	({ __io_bw(); writel_cpu((v),(c)); __io_aw(); })
++
++#ifdef CONFIG_64BIT
++#define readq(c)	({ u64 __v; __io_br(); __v = readq_cpu(c); __io_ar(__v); __v; })
++#define writeq(v,c)	({ __io_bw(); writeq_cpu((v),(c)); __io_aw(); })
++#endif
++
++#endif /* _ASM_RISCV_IO_H */
 +
 +/*
 + * Local variables:
