@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 629CD81C6E3
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 09:52:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.659269.1028800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7750681C738
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 10:17:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.659276.1028809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGbGd-00028K-UP; Fri, 22 Dec 2023 08:52:27 +0000
+	id 1rGbe7-0005nR-MJ; Fri, 22 Dec 2023 09:16:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 659269.1028800; Fri, 22 Dec 2023 08:52:27 +0000
+Received: by outflank-mailman (output) from mailman id 659276.1028809; Fri, 22 Dec 2023 09:16:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGbGd-00025c-R4; Fri, 22 Dec 2023 08:52:27 +0000
-Received: by outflank-mailman (input) for mailman id 659269;
- Fri, 22 Dec 2023 08:52:27 +0000
+	id 1rGbe7-0005lm-JP; Fri, 22 Dec 2023 09:16:43 +0000
+Received: by outflank-mailman (input) for mailman id 659276;
+ Fri, 22 Dec 2023 09:16:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=r2k+=IB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rGbGd-00025W-1A
- for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 08:52:27 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=buqB=IB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rGbe6-0005lg-6r
+ for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 09:16:42 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6dde9984-a0a7-11ee-98eb-6d05b1d4d9a1;
- Fri, 22 Dec 2023 09:52:26 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-33666fb9318so1427760f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 00:52:26 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m8-20020a056000174800b00336652fed81sm3743363wrf.104.2023.12.22.00.52.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Dec 2023 00:52:25 -0800 (PST)
+ id d0f76559-a0aa-11ee-98eb-6d05b1d4d9a1;
+ Fri, 22 Dec 2023 10:16:40 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-50e3cdcf010so1847968e87.2
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 01:16:40 -0800 (PST)
+Received: from [192.168.220.211] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ f14-20020a05651232ce00b0050e2ceb395csm480739lfg.219.2023.12.22.01.16.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 22 Dec 2023 01:16:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +45,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dde9984-a0a7-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: d0f76559-a0aa-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703235145; x=1703839945; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=DMF9qpa006fmoOcrHG7PxSdDPszMqk3J09vRPTQOCuU=;
-        b=Z2A9lHoH0V/B2BnKvuCvFOYqFDnpRA1N+EJdkL9VtCz1DaMVGJ0yCp+v6uIoJ2rgrQ
-         7QX47LK3gOjo5EkEVs0aSxGasX8Zc+AeWNTsNoiN273PCA0AALCTxTgAcxDciuJsEuTH
-         DZv2Xt13zLFgnS/KpTczjg4HwoOTDaD/+9UD8qPpKYsHpU8lrUUYRgcggsyiMBliWRNe
-         R+fgQDctpwOP30zjFirM4ii1HQmnBCOwdLFG1fFNqysLsMMBZKt8ZQI6NJBDukDC2jBz
-         RNImmZHfLMnyvGT7BXSvSSjtTKf1iQcPMuughWrQ9k5j2X6S7Ih62rWiOBIkUxvPR2XU
-         rYgw==
+        d=gmail.com; s=20230601; t=1703236600; x=1703841400; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=+2BRkSyWdTjrfGeOtDYIpTNdh8fpcgTgPydWGvcBYTA=;
+        b=EBD+B+cWYR3M0ah0XWaNnFooT1WCDgUzMahLpEbjte8CsdTvT+FuWMQY+iCtOHd7lT
+         iwhu9IZ+n2AkCP/Sc6s85t92S/5fml0M/gg+6fktNcuzjyfP5O6iw3RVAXdrOSrB2lox
+         zd8ONxY1jr9Z91OQZkwgWcIddMvQerLl9h/qsXjZCc5roa5NKQAU5x4H14Klt8riW+ZW
+         AdYVtkFRNs49aqqBGpUpX5iQaQ21DnoLFmPzryD+ceHcSGCcuxe1IhupUaRDM7lrdH/G
+         xpkRTSV+emjacsTYCGuyxZtLKXu8oEvrZ0IZ4OaVxXjDwWLQaqG8rgZGjKiQjRX+f/kF
+         4mYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703235145; x=1703839945;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DMF9qpa006fmoOcrHG7PxSdDPszMqk3J09vRPTQOCuU=;
-        b=SlS5rj6Iu0R7t0Bv1HajZsTOjYo3NOWmYtfJRFQQitL2cRKYPxm03nT9L3kDP6B0j6
-         tOcfcUBIGy97fI8posayIgNx1Rt2Wjb/NGkjB/5dzQxT9ad9wlYB9ayw1An9tFhP5wRk
-         tJCusQIm8quXXaP+1NDb2WctaMzgav8T/xwwLHZ7BRa9bbTOzaBCeY+XLaDkAh41GYjV
-         vqgQ/9caOVoElL3RXeOPMbL0uU/YAcgSdonoGU4NgE1p76zhcqviZGHupJg4x5c9Wl0u
-         aCi3+kd/I8VILREADjF0qvWJBthVQBHWALHV2dG+Y5qMAPjd29D1Pr5B0edH7laq8REq
-         zKdw==
-X-Gm-Message-State: AOJu0YwByK1w4ADclUq4Zrg4OOe+2utagrswpCeExUHp85joWxC2rZp1
-	EB1KeoW2gBQEAkuNElDCnb1kqnAvL1fs
-X-Google-Smtp-Source: AGHT+IHBNYb1JTZBoCDq4e4ZBjiYbF5mfbyASe5iuhRfUApxJ6YGYCk0To9QSUwtLRRwCE1YOM3syg==
-X-Received: by 2002:adf:ef44:0:b0:336:78ae:8165 with SMTP id c4-20020adfef44000000b0033678ae8165mr534756wrp.19.1703235145475;
-        Fri, 22 Dec 2023 00:52:25 -0800 (PST)
-Message-ID: <c8e09053-53ae-47e0-a3a5-c9c6b58762d7@suse.com>
-Date: Fri, 22 Dec 2023 09:52:24 +0100
+        d=1e100.net; s=20230601; t=1703236600; x=1703841400;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+2BRkSyWdTjrfGeOtDYIpTNdh8fpcgTgPydWGvcBYTA=;
+        b=tJ0vEJsTji4FZkkysuNe3pZeF31jAr3RIVBLzz7Bgl9YfWVoAtGGNIYR+YB0sSdPZz
+         W9UNs3CTtFrAVBtS8wFCvuk59vljVSpZOlyiVozDwQV0duU3e+8ebmw3wsVS0NOhszVm
+         96kzm9LgWsD7qdEaeCWjznOCP+UHt51CyF7RsYlEYazxbGPQccUTCEfF3TDjI1NgW5/y
+         IxxDmjfcDRVf51bE+s9AhOpl0viDnoU64RUoAbjG8wnifO0F/eNeYfbl48lRXtqv3INR
+         /vPuUL7vTPRYElxLxujqC6f1KLGtlqpJzMgU5UuFUZkYJIqEGZ8fMNgSeyv6bYdlKVnC
+         5qow==
+X-Gm-Message-State: AOJu0Yy5jKC9xKzh2xWp1nMnCbI7g2K8nz1eXJtqwmXVUHu6vQC/kmiy
+	UQ6Lw1XdDcRJ2nJtyiOxEZE=
+X-Google-Smtp-Source: AGHT+IF7jclQs/ekIseNVDk4eD2I/jueIStd/pWFp5EOxdib5WQTh9ToH4u1cAtqVfacw3Q1A/cmUg==
+X-Received: by 2002:ac2:4649:0:b0:50e:3d69:6522 with SMTP id s9-20020ac24649000000b0050e3d696522mr284901lfo.175.1703236599903;
+        Fri, 22 Dec 2023 01:16:39 -0800 (PST)
+Message-ID: <11343301f5fc5193cf1ce959a3dbde37e3201b19.camel@gmail.com>
+Subject: Re: [PATCH v2 30/39] xen/riscv: define an address of frame table
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+ xen-devel@lists.xenproject.org
+Date: Fri, 22 Dec 2023 11:16:38 +0200
+In-Reply-To: <03651b8f-238a-4d64-8595-6b814a118d87@suse.com>
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+	 <13ad41657814e4fc235772fa0928de1723ae7c3d.1700761381.git.oleksii.kurochko@gmail.com>
+	 <b2c42d56-6bc8-4ea8-9e6f-cae259c274c5@suse.com>
+	 <5d3e7f9ad7ff0eb779e269eee1c42300d987b5a1.camel@gmail.com>
+	 <abacb997-99f4-49c3-b146-320cc9ff1a90@suse.com>
+	 <8deb45febe3d8061bca4a8376c280befeaa00fed.camel@gmail.com>
+	 <03651b8f-238a-4d64-8595-6b814a118d87@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 05/17] vpci: add hooks for PCI device assign/de-assign
-Content-Language: en-US
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20231202012556.2012281-1-volodymyr_babchuk@epam.com>
- <20231202012556.2012281-6-volodymyr_babchuk@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231202012556.2012281-6-volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 02.12.2023 02:27, Volodymyr Babchuk wrote:
-> @@ -886,6 +890,10 @@ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
->  
->      pdev->fault.count = 0;
->  
-> +    write_lock(&target->pci_lock);
-> +    ret = vpci_assign_device(pdev);
-> +    write_unlock(&target->pci_lock);
-> +
->   out:
->      if ( ret )
->          printk(XENLOG_G_ERR "%pd: deassign (%pp) failed (%d)\n",
+On Fri, 2023-12-22 at 09:08 +0100, Jan Beulich wrote:
+> On 21.12.2023 20:59, Oleksii wrote:
+> > On Mon, 2023-12-18 at 12:22 +0100, Jan Beulich wrote:
+> > > On 18.12.2023 11:36, Oleksii wrote:
+> > > > On Thu, 2023-12-14 at 16:48 +0100, Jan Beulich wrote:
+> > > > > On 24.11.2023 11:30, Oleksii Kurochko wrote:
+> > > > > > +#define SLOTN_ENTRY_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 SLOTN(1)
+> > > > > > +
+> > > > > > =C2=A0#define XEN_VIRT_START 0xFFFFFFFFC0000000 /* (_AC(-1, UL)
+> > > > > > + 1
+> > > > > > -
+> > > > > > GB(1)) */
+> > > > > > +
+> > > > > > +#define FRAMETABLE_VIRT_START=C2=A0=C2=A0 SLOTN(196)
+> > > > > > +#define FRAMETABLE_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 GB(3)
+> > > > > > +#define FRAMETABLE_NR=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 (FRAMETABLE_SIZE /
+> > > > > > sizeof(*frame_table))
+> > > > > > +#define FRAMETABLE_VIRT_END=C2=A0=C2=A0=C2=A0=C2=A0 (FRAMETABL=
+E_VIRT_START +
+> > > > > > FRAMETABLE_SIZE - 1)
+> > > > > > +
+> > > > > > +#define VMAP_VIRT_START=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 SLOTN(194)
+> > > > > > +#define VMAP_VIRT_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 GB(1)
+> > > > >=20
+> > > > > May I suggest that you keep these blocks sorted by slot
+> > > > > number?
+> > > > > Or
+> > > > > wait,
+> > > > > the layout comment further up is also in decreasing order, so
+> > > > > that's
+> > > > > fine here, but then can all of this please be moved next to
+> > > > > the
+> > > > > comment
+> > > > > actually providing the necessary context (thus eliminating
+> > > > > the
+> > > > > need
+> > > > > for
+> > > > > new comments)?
+> > > > Sure, I'll put this part close to layout comment.
+> > > >=20
+> > > > > =C2=A0You'll then also notice that the generalization here
+> > > > > (keeping basically the same layout for e.g. SATP_MODE_SV48,
+> > > > > just
+> > > > > shifted
+> > > > > by 9 bits) isn't in line with the comment there.
+> > > > Does it make sense to add another one table with updated
+> > > > addresses
+> > > > for
+> > > > SATP_MODE_SV48?
+> > >=20
+> > > Well, especially if you mean to support that mode, its layout
+> > > surely
+> > > wants writing down. I was hoping though that maybe you/we could
+> > > get
+> > > away
+> > > without multiple tables, but e.g. use one having multiple
+> > > columns.
+> > I came up with the following but I am not sure that it is really
+> > convient:
+> > /*
+> > =C2=A0* RISC-V64 Layout:
+> > =C2=A0*
+> > #if RV_STAGE1_MODE =3D=3D SATP_MODE_SV39
+> > =C2=A0*
+> > =C2=A0* From the riscv-privileged doc:
+> > =C2=A0*=C2=A0=C2=A0 When mapping between narrower and wider addresses,
+> > =C2=A0*=C2=A0=C2=A0 RISC-V zero-extends a narrower physical address to =
+a wider
+> > size.
+> > =C2=A0*=C2=A0=C2=A0 The mapping between 64-bit virtual addresses and th=
+e 39-bit
+> > usable
+> > =C2=A0*=C2=A0=C2=A0 address space of Sv39 is not based on zero-extensio=
+n but
+> > instead
+> > =C2=A0*=C2=A0=C2=A0 follows an entrenched convention that allows an OS =
+to use one
+> > or
+> > =C2=A0*=C2=A0=C2=A0 a few of the most-significant bits of a full-size (=
+64-bit)
+> > virtual
+> > =C2=A0*=C2=A0=C2=A0 address to quickly distinguish user and supervisor =
+address
+> > regions.
+> > =C2=A0*
+> > =C2=A0* It means that:
+> > =C2=A0*=C2=A0=C2=A0 top VA bits are simply ignored for the purpose of t=
+ranslating
+> > to
+> > PA.
+> > #endif
+> > =C2=A0*
+> > =C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 SATP_MODE_SV32=C2=A0=C2=A0 =
+SATP_MODE_SV39=C2=A0=C2=A0 SATP_MODE_SV48=C2=A0=20
+> > SATP_MODE_SV57
+> > =C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0 ---------------------------------------=
+---------------------
+> > ----
+> > -----------
+> > =C2=A0* BA0 | FFFFFFFFFFE00000 | FFFFFFFFC0000000 | FFFFFF8000000000 |
+> > FFFF000000000000
+> > =C2=A0* BA1 | 0000000019000000 | 0000003200000000 | 0000640000000000 |
+> > 00C8000000000000
+> > =C2=A0* BA2 | 0000000018800000 | 0000003100000000 | 0000620000000000 |
+> > 00C4000000000000
+> > =C2=A0* BA3 | 0000000018400000 | 0000003080000000 | 0000610000000000 |
+> > 00C2000000000000
+> > =C2=A0*=20
+> > =C2=A0*
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > =3D=3D=3D=3D
+> > =3D=3D=3D=3D=3D
+> > =C2=A0* Start addr=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 End addr=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 Size=C2=A0 | Slot=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |area
+> > description
+> > =C2=A0*
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > =3D=3D=3D=3D
+> > =3D=3D=3D=3D=3D
+> > =C2=A0* BA0 + 0x800000 |=C2=A0 FFFFFFFFFFFFFFFF=C2=A0=C2=A0 |1016 MB |
+> > L${HYP_PT_ROOT_LEVEL} 511=C2=A0=C2=A0=C2=A0=C2=A0 | Unused
+> > =C2=A0* BA0 + 0x400000 |=C2=A0 BA0 + 0x800000=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 2 MB=C2=A0 |
+> > L${HYP_PT_ROOT_LEVEL} 511=C2=A0=C2=A0=C2=A0=C2=A0 | Fixmap
+> > =C2=A0* BA0 + 0x200000 |=C2=A0 BA0 + 0x400000=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 4 MB=C2=A0 |
+> > L${HYP_PT_ROOT_LEVEL} 511=C2=A0=C2=A0=C2=A0=C2=A0 | FDT
+> > =C2=A0* BA0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 BA0 + 0x200000=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 MB=C2=A0 |
+> > L${HYP_PT_ROOT_LEVEL} 511=C2=A0=C2=A0=C2=A0=C2=A0 | Xen
+> > =C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
+1 GB=C2=A0 |
+> > L${HYP_PT_ROOT_LEVEL} 510=C2=A0=C2=A0=C2=A0=C2=A0 | Unused
+> > =C2=A0* BA1 + 0x000000 |=C2=A0 BA1 + 0x4D80000000 | 309 GB |
+> > L${HYP_PT_ROOT_LEVEL} 200-509 | Direct map
+> > =C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
+1 GB=C2=A0 |
+> > L${HYP_PT_ROOT_LEVEL} 199=C2=A0=C2=A0=C2=A0=C2=A0 | Unused
+> > =C2=A0* BA2 + 0x000000 |=C2=A0 BA2 + 0xC0000000=C2=A0=C2=A0 |=C2=A0 3 G=
+B=C2=A0 |
+> > L${HYP_PT_ROOT_LEVEL} 196-198 | Frametable
+> > =C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
+1 GB=C2=A0 |
+> > L${HYP_PT_ROOT_LEVEL} 195=C2=A0=C2=A0=C2=A0=C2=A0 | Unused
+> > =C2=A0* BA3 + 0x000000 |=C2=A0 BA3 + 0x40000000=C2=A0=C2=A0 |=C2=A0 1 G=
+B=C2=A0 |
+> > L${HYP_PT_ROOT_LEVEL} 194=C2=A0=C2=A0=C2=A0=C2=A0 | VMAP
+> > =C2=A0*=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ...=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 194 GB=
+ |
+> > L${HYP_PT_ROOT_LEVEL} 0 - 193 | Unused
+> > =C2=A0*
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > =3D=3D=3D=3D
+> > =3D=3D=3D=3D=3D
+> > =C2=A0*/
+> >=20
+> > Do you have better ideas?
+>=20
+> It doesn't look too bad imo, at the first glance, albeit the line
+> wrapping damage of course makes it a little hard to look at. In the
+> last table with all lines saying L${HYP_PT_ROOT_LEVEL}, perhaps that
+> could be put in the table heading (instead of "Slot" say e.g. "Root
+> PT slot")?
+Thanks for the remark. It would be definitely better.
 
-Considering the function we're in, I think this "assign" deserves a comment.
-It's necessary for hwdom only aiui, i.e. particularly not for the more
-typical case of putting the device in quarantine?
+~ Oleksii
 
-Jan
 
