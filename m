@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D66A781CC36
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:29:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.659612.1029322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E1B481CC1A
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:19:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.659498.1029203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhSt-0003y6-UN; Fri, 22 Dec 2023 15:29:31 +0000
+	id 1rGhJT-0002DH-4I; Fri, 22 Dec 2023 15:19:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 659612.1029322; Fri, 22 Dec 2023 15:29:31 +0000
+Received: by outflank-mailman (output) from mailman id 659498.1029203; Fri, 22 Dec 2023 15:19:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhSt-0003wE-Ro; Fri, 22 Dec 2023 15:29:31 +0000
-Received: by outflank-mailman (input) for mailman id 659612;
- Fri, 22 Dec 2023 15:29:30 +0000
+	id 1rGhJT-0002AE-14; Fri, 22 Dec 2023 15:19:47 +0000
+Received: by outflank-mailman (input) for mailman id 659498;
+ Fri, 22 Dec 2023 15:19:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=buqB=IB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rGhDm-0007Ie-IX
- for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:54 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
+ id 1rGhDn-0007Ie-MB
+ for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:55 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b81e5a7d-a0dc-11ee-98eb-6d05b1d4d9a1;
- Fri, 22 Dec 2023 16:13:53 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-50e67e37661so1185022e87.0
- for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:53 -0800 (PST)
+ id b8f8621c-a0dc-11ee-98eb-6d05b1d4d9a1;
+ Fri, 22 Dec 2023 16:13:55 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-50e2d00f99cso2278210e87.0
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:55 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.52
+ j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Dec 2023 07:13:52 -0800 (PST)
+ Fri, 22 Dec 2023 07:13:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +44,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b81e5a7d-a0dc-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: b8f8621c-a0dc-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703258033; x=1703862833; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1703258034; x=1703862834; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BIctziQEpONFKZE794AYy1MUnDyOQ/io/VpH00G6+uw=;
-        b=Pq69uNo9UmY8C/nDqOxqd9Lr074ks3H8e3ckjDuc1wdXcXG0dRa5eTQesDGtxLbpfj
-         C++bGR4jJacsMilflGlf5gC2ta3Y9WcRRH03tgKwKHT+gRDW+iUA9Ap1H1jIUOjf9GI8
-         yHn/BnL4tnYMvtD0VVbkxwxVxZu/HwDz9ToAJl8m2FZBg5pPxfErKJhJa/aDKbboKrDH
-         Zuipyc4HyfpwHjSS+67SBbX4htSlV1iafRiz8uUKxQlI1cbjIRPQtzAjuPRcB/8isdjl
-         tXJgz4fyG9YVN/gTOV2Zbfl0suHJD8G6vrSYrOkJmvsBrSof/THnR9A6LU1TqWYh5/+r
-         JKVA==
+        bh=x8FSka20emVR5MBynLJ4eD5Np71hFeYAHDuqjNk27Ic=;
+        b=Xr8WVsyMz4B78e7x78SypHC/PCBVWSY9rmU98hjGJh8bSrpznojDSDrKNpjfhZPx73
+         MX9rgmOIYvGI/Xa/N26lFPuQrRg8a5qyl/ik9D8HkjEH5cmCW95R2regd/cBRo4ZuPRs
+         W6UyZNqN6YlnrpfumTnoGmZYfCLKlSxur4VJPnIjY76TG2/lnAaOwJe79CpKp1MsgyNN
+         Y3mIG6D5EKpYvE19r4MW0aGT0UoksLFr5vgQDRpIp6jqR+lICW6pDh/PRwhKGPCF1YaE
+         tQGwZ+eOTCkfXxgmQmCPvMTqjr/wZAEi5hKkIl2TPQ7t1pTgC8Z8BFrPgEA0bhLBX6UZ
+         e2oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703258033; x=1703862833;
+        d=1e100.net; s=20230601; t=1703258034; x=1703862834;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=BIctziQEpONFKZE794AYy1MUnDyOQ/io/VpH00G6+uw=;
-        b=EUAtVIBMVQQifOTEvG3YylFd8tdVdPW/Z/x9ioULX6Aq8YJFsw7IDkWZ3d4KcyaPlZ
-         7LTCZKoX7feFVo2jBB0f4pB50cEEey7g80l9eRVrMtKLhY13NwroBIT9VIBE996IHXp4
-         YAOkD/nTqFRJ38EZ+jUgOmaWLTMWJLJL1026oRJ4zoy309dSsReA3glKY7+HMRiZhj4f
-         6VnSclFqMwc9Ec11KzI5pPOWFXZGgOg+63t2B4plLas3t/CVK4cwbu7lqoJnBRUrCDlV
-         LB3KzcRIkLHC4Ld3KOrcJnELabXgZ2aLRNg0LcXr78Zn1r+zbXyXiCobEYmK2oSzkCV+
-         z3DA==
-X-Gm-Message-State: AOJu0Yz9vCx7D9lwk7YtX6hCrXr7fkkrOokHVZ98/oSpMbVN5oV/wAgN
-	CxPREFZafD9D/zCSGMECH1EVheJKcZY=
-X-Google-Smtp-Source: AGHT+IGU38HlC5nYk6vnjGkSK+GHyHf2rC6zXqjN2QiH9rknKQBhCeW9LnhUCjN3t94czdDjLTn1YA==
-X-Received: by 2002:a19:5f54:0:b0:50e:6878:a715 with SMTP id a20-20020a195f54000000b0050e6878a715mr720490lfj.48.1703258033079;
+        bh=x8FSka20emVR5MBynLJ4eD5Np71hFeYAHDuqjNk27Ic=;
+        b=URm9NbvIoNfZhy+h9xhysyv1FvlSbf+kOvu8cn50wRmz+XXMnPgv1Meayje78EGf74
+         tWK2RXbvduY8neZDCN8FB6q1ESAl5D6/KRFohog/VA/ThyUaA/QOr2qmy0cABqLXFtoE
+         0YsJjaWsZYv+bTQ/09DECqPq6FOA70ox1UwDyCcO+gG/0lRgWy8n7+SHXwWvkAe1sW96
+         3v2Ae/zwMEeT7r1mCHzLaHc7nbENfROx6LycFKZpUBKiJi4daUX9to/2zRYizvYgh9nO
+         klj8wk9OAKOuhavSa9W3CIWrWS5+bVEGa/MyjSNQQ43ZZ5PNXvyw5jz8hUSDf4KaDg6Q
+         dsEw==
+X-Gm-Message-State: AOJu0Yw89FkzLTtm4baKk6jW6ZulgiLAdeGJocCeXMhkxHHtY9/d0A/c
+	gMuUJg98Y2qMhyPb7e+D+HRVk9GnTyU=
+X-Google-Smtp-Source: AGHT+IHjJ2HZBHWS5du2wbhHvQ9CEtfMPB0lh9DE4LLCqS2POsqWxKIBTwWu1DIuXeOnrNvcQXeuoQ==
+X-Received: by 2002:ac2:4352:0:b0:50e:3f2e:c726 with SMTP id o18-20020ac24352000000b0050e3f2ec726mr816019lfl.87.1703258033996;
         Fri, 22 Dec 2023 07:13:53 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -86,9 +86,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 29/34] xen/riscv: add minimal stuff to page.h to build full Xen
-Date: Fri, 22 Dec 2023 17:13:13 +0200
-Message-ID: <7aa26bdad9bf923fd57f7a90e41c049cab0cd5bd.1703255175.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 30/34] xen/riscv: add minimal stuff to processor.h to build full Xen
+Date: Fri, 22 Dec 2023 17:13:14 +0200
+Message-ID: <5bd7c5db6638f09dabdc13a6e12f0b204eacb234.1703255175.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1703255175.git.oleksii.kurochko@gmail.com>
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
@@ -96,89 +96,52 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in V3:
- - update the commit message
- - add implemetation of PAGE_HYPERVISOR macros
- - add Acked-by: Jan Beulich <jbeulich@suse.com>
- - drop definition of pfn_to_addr, and paddr_to_pfn in <asm/mm.h>
+ - Update the commit message
+ - rename get_processor_id to smp_processor_id
+ - code style fixes
+ - update the cpu_relax instruction: use pause instruction instead of div %0, %0, zero
 ---
 Changes in V2:
  - Nothing changed. Only rebase.
 ---
- xen/arch/riscv/include/asm/mm.h   |  3 ---
- xen/arch/riscv/include/asm/page.h | 22 ++++++++++++++++++++++
- 2 files changed, 22 insertions(+), 3 deletions(-)
+ xen/arch/riscv/include/asm/processor.h | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 07c7a0abba..57026e134d 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -5,9 +5,6 @@
+diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
+index 6db681d805..a3bff6c9c3 100644
+--- a/xen/arch/riscv/include/asm/processor.h
++++ b/xen/arch/riscv/include/asm/processor.h
+@@ -12,6 +12,9 @@
  
- #include <asm/page-bits.h>
- 
--#define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
--#define paddr_to_pfn(pa)  ((unsigned long)((pa) >> PAGE_SHIFT))
--
- extern unsigned char cpu0_boot_stack[];
- 
- void setup_initial_pagetables(void);
-diff --git a/xen/arch/riscv/include/asm/page.h b/xen/arch/riscv/include/asm/page.h
-index 95074e29b3..85176702d5 100644
---- a/xen/arch/riscv/include/asm/page.h
-+++ b/xen/arch/riscv/include/asm/page.h
-@@ -6,6 +6,7 @@
  #ifndef __ASSEMBLY__
  
- #include <xen/const.h>
-+#include <xen/bug.h>
- #include <xen/types.h>
- 
- #include <asm/mm.h>
-@@ -32,6 +33,10 @@
- #define PTE_LEAF_DEFAULT            (PTE_VALID | PTE_READABLE | PTE_WRITABLE)
- #define PTE_TABLE                   (PTE_VALID)
- 
-+#define PAGE_HYPERVISOR_RW          (PTE_VALID | PTE_READABLE | PTE_WRITABLE)
++/* TODO: need to be implemeted */
++#define smp_processor_id() 0
 +
-+#define PAGE_HYPERVISOR             PAGE_HYPERVISOR_RW
-+
- /* Calculate the offsets into the pagetables for a given VA */
- #define pt_linear_offset(lvl, va)   ((va) >> XEN_PT_LEVEL_SHIFT(lvl))
- 
-@@ -46,6 +51,9 @@ typedef struct {
- #endif
- } pte_t;
- 
-+#define pfn_to_paddr(pfn) ((paddr_t)(pfn) << PAGE_SHIFT)
-+#define paddr_to_pfn(pa)  ((unsigned long)((pa) >> PAGE_SHIFT))
-+
- static inline pte_t paddr_to_pte(paddr_t paddr,
-                                  unsigned int permissions)
+ /* On stack VCPU state */
+ struct cpu_user_regs
  {
-@@ -62,6 +70,20 @@ static inline bool pte_is_valid(pte_t p)
-     return p.pte & PTE_VALID;
- }
+@@ -53,6 +56,18 @@ struct cpu_user_regs
+     unsigned long pregs;
+ };
  
-+static inline void invalidate_icache(void)
++/* TODO: need to implement */
++#define cpu_to_core(cpu)   (0)
++#define cpu_to_socket(cpu) (0)
++
++static inline void cpu_relax(void)
 +{
-+    BUG();
++    /* Encoding of the pause instruction */
++    __asm__ __volatile__ ( ".insn 0x100000F" );
++
++    barrier();
 +}
 +
-+#define clear_page(page) memset((void *)(page), 0, PAGE_SIZE)
-+#define copy_page(dp, sp) memcpy(dp, sp, PAGE_SIZE)
-+
-+/* TODO: Flush the dcache for an entire page. */
-+static inline void flush_page_to_ram(unsigned long mfn, bool sync_icache)
-+{
-+    BUG();
-+}
-+
- #endif /* __ASSEMBLY__ */
- 
- #endif /* _ASM_RISCV_PAGE_H */
+ static inline void wfi(void)
+ {
+     __asm__ __volatile__ ("wfi");
 -- 
 2.43.0
 
