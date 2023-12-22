@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD92881CC25
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:24:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.659535.1029232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BB8981CC39
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 16:30:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.659616.1029332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhNb-0005c5-5b; Fri, 22 Dec 2023 15:24:03 +0000
+	id 1rGhTf-0005cM-6p; Fri, 22 Dec 2023 15:30:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 659535.1029232; Fri, 22 Dec 2023 15:24:03 +0000
+Received: by outflank-mailman (output) from mailman id 659616.1029332; Fri, 22 Dec 2023 15:30:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGhNb-0005aI-2m; Fri, 22 Dec 2023 15:24:03 +0000
-Received: by outflank-mailman (input) for mailman id 659535;
- Fri, 22 Dec 2023 15:24:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rGhTf-0005aH-4B; Fri, 22 Dec 2023 15:30:19 +0000
+Received: by outflank-mailman (input) for mailman id 659616;
+ Fri, 22 Dec 2023 15:30:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=buqB=IB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rGhDs-0000EM-1v
- for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:14:00 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b97f9e37-a0dc-11ee-9b0f-b553b5be7939;
- Fri, 22 Dec 2023 16:13:56 +0100 (CET)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-50e6ee5b7ffso192009e87.3
- for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:56 -0800 (PST)
+ id 1rGhDq-0007Ie-JV
+ for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 15:13:58 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ba256bba-a0dc-11ee-98eb-6d05b1d4d9a1;
+ Fri, 22 Dec 2023 16:13:57 +0100 (CET)
+Received: by mail-lf1-x130.google.com with SMTP id
+ 2adb3069b0e04-50e67e37661so1185101e87.0
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 07:13:57 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.54
+ j7-20020a056512108700b0050e6df07728sm45983lfg.180.2023.12.22.07.13.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 Dec 2023 07:13:54 -0800 (PST)
+ Fri, 22 Dec 2023 07:13:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b97f9e37-a0dc-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ba256bba-a0dc-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1703258035; x=1703862835; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1703258036; x=1703862836; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=frli1aD+HGGze4OEMxoJ745JDQDclWlmSm+0uAYhNCA=;
-        b=fr6dBkE1qS/XjHXGqx5HpFRMFuEohCBx4XiQkmmwBdhAQkQCvz740fIe50uRAudmJe
-         33/HgSJo8zJWqth9IzsXM57R4icHdgtRtKqWLjiZha7VoIgorahawtrWrdpkRVplNt+q
-         +lyuobcZAQmJp/+xZHRfoo7QKuGNXkyG9DPSPPYfdvrz52Ykz6LoBJUk835vW2R6rlTT
-         OL/QFCVHbrMZXiLaqQmOGtlVRGsEWHEmHsYcuEnecs4bw6v4y2/o3P/ZEFUyN5OT4qNY
-         KYb520uG8FfP+6TEenvTzBLNpHxQQ+nbWyVSoq7W1Z9dlPRFLPug0z4OnLL8Sur73JzI
-         nDYw==
+        bh=Uux9/ht9n0zyze2Voqi+gHdYW+rWh4M6V1sJINQk3xU=;
+        b=XYtdw4sGWjFmlKJTfyp0DHMe7ZmWOg1CbRr7H16hE5t+Pl7FXxmPwEtGbzT4w01SSi
+         wTPJILjUC0hFzINcp3VKJkHQeQfOYxttXPzLUWZL5ue7Z6FLilIKkstyZ6ARCyV76uYm
+         7EeXA+0YS3Q3376Sog9aBaGJLD4TXVKIejTbHQ03iziKKSCTpMgakLOV5zw+0eaBZ9Yw
+         nyY3FFYGV5QFIHjXRFi1przsXUYMK13z/LK4pPflnpbXUoTVIsaee+M0PMQC07jwb3hp
+         58DLwQHjaFllWvAAgbMIzCWUySKSy82NlnQBzddHG9MzBxh7Qni2C+tEccFMTxdDxdnp
+         8lZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703258035; x=1703862835;
+        d=1e100.net; s=20230601; t=1703258036; x=1703862836;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=frli1aD+HGGze4OEMxoJ745JDQDclWlmSm+0uAYhNCA=;
-        b=duhpVUAAx7XF9pvk7Rgh1y29RBuLeAW6hzfXl0E4OJvst4CXrkcLnfPH2vgz0KbVUm
-         wLQ2wt/xe2CJm0wlXTrQ+wGYx5BqEVBVwsG8Yq8xo9+1cUjxJRxt9YkYLlNxZeoC3Lo2
-         u7pug+49kawTpJe16FME/P2xQAo9x27RYRHSiaPyKWymywiyuwo+l40hj3MXHR1I3oXT
-         dtFo5e9deR+fNW+GEYb1UX0gQxRsG2h/v6oPvTZ9qiC6mn84dF1WL/1hOT1AZ9jDFrVF
-         uoiu4qfoodYx/InoJxN/WT9i+58lHfWYtTLX5Tgf8VDzvPXh9/8VCsSqkAdpkpeILgUB
-         OEKA==
-X-Gm-Message-State: AOJu0YxzGsM6xMkJa4d/YIqDZFuc1PYODRjDF9zG+5LOPwi2CEt+rnXn
-	I2dsdS5+cv6B99UoyMFuqsZoZNLDba0=
-X-Google-Smtp-Source: AGHT+IFZCNPquwefqv8QO+Do6E1jJO4MSuvYOlKcjviH7UvUQx1NL8Z7lBrk6DEahlfXPm4tCrV9AA==
-X-Received: by 2002:a05:6512:ea8:b0:50e:34df:7530 with SMTP id bi40-20020a0565120ea800b0050e34df7530mr1256572lfb.32.1703258035353;
-        Fri, 22 Dec 2023 07:13:55 -0800 (PST)
+        bh=Uux9/ht9n0zyze2Voqi+gHdYW+rWh4M6V1sJINQk3xU=;
+        b=fVLXyDjb0arnTgencPLiLWXq6LW3ZyZRsznI0881foVtKiGAf6UqSnCRU/PhlVTgiJ
+         Nuo79uslrZiw8e2UbzOd143Ruvv0/NyCrSUoOmu2T6kVcL3cXU/+AwUHbYuG6Zu+K3as
+         hKiDCn6Tsy7StiiRAtHDZ5U6rlbqSmU6fib8Wa8psNdqjv60e5pwURrOHlX1AosX+8UU
+         cXZxE1jrL4MwqdSSPkHgJ4a7KeSdvjLJ11HDbFIqBGnG5rPFIREeKTNDnNiQvo5A8EX+
+         FKCgfJ06l8EHcPyCxY53kHoukGamgx3a5ybEORxmH5DNIvNMZk7AM0w4hxgdSeEjciuJ
+         Vu1w==
+X-Gm-Message-State: AOJu0YxaskvRJh5vsHglEyQi3REgfYsoyRLc191fgtISNHwVys3fIm9G
+	ndpJGpCbR2mcy/67gjDDnjaxfHWPrew=
+X-Google-Smtp-Source: AGHT+IHt4XL5rDn3bEpiRVYVH6Zms098+K5COh19581fksN1rQs27jcWIB3PCkLPywoTig2bVM5vvA==
+X-Received: by 2002:ac2:5628:0:b0:50e:66b1:15f6 with SMTP id b8-20020ac25628000000b0050e66b115f6mr891368lff.100.1703258036274;
+        Fri, 22 Dec 2023 07:13:56 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -86,9 +86,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 31/34] xen/riscv: add minimal stuff to mm.h to build full Xen
-Date: Fri, 22 Dec 2023 17:13:15 +0200
-Message-ID: <4411f6af38586074b347cd6005f19f9c670faa74.1703255175.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v3 32/34] xen/rirscv: add minimal amount of stubs to build full Xen
+Date: Fri, 22 Dec 2023 17:13:16 +0200
+Message-ID: <e40d3e396733ec9e85d72fc3e9f05be97881a763.1703255175.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1703255175.git.oleksii.kurochko@gmail.com>
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
@@ -98,301 +98,784 @@ Content-Transfer-Encoding: 8bit
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V3:
- - update the commit message
- - introduce DIRECTMAP_VIRT_START.
- - drop changes related pfn_to_paddr() and paddr_to_pfn as they were remvoe in
-   [PATCH v2 32/39] xen/riscv: add minimal stuff to asm/page.h to build full Xen
  - code style fixes.
- - drop get_page_nr  and put_page_nr as they don't need for time being
- - drop CONFIG_STATIC_MEMORY related things
- - code style fixes
+ - update attribute for frametable_base_pdx  and frametable_virt_end to __ro_after_init.
+   insteaf of read_mostly.
+ - use BUG() instead of assert_failed/WARN for newly introduced stubs.
+ - drop "#include <public/vm_event.h>" in stubs.c and use forward declaration instead.
+ - drop ack_node() and end_node() as they aren't used now.
 ---
 Changes in V2:
- - define stub for arch_get_dma_bitsize(void)
+ - define udelay stub
+ - remove 'select HAS_PDX' from RISC-V Kconfig because of
+   https://lore.kernel.org/xen-devel/20231006144405.1078260-1-andrew.cooper3@citrix.com/
 ---
- xen/arch/riscv/include/asm/config.h |   2 +
- xen/arch/riscv/include/asm/mm.h     | 248 ++++++++++++++++++++++++++++
- 2 files changed, 250 insertions(+)
+ xen/arch/riscv/Makefile       |   1 +
+ xen/arch/riscv/early_printk.c | 168 --------------
+ xen/arch/riscv/mm.c           |  52 ++++-
+ xen/arch/riscv/setup.c        |   9 +-
+ xen/arch/riscv/stubs.c        | 422 ++++++++++++++++++++++++++++++++++
+ xen/arch/riscv/traps.c        |  25 ++
+ 6 files changed, 507 insertions(+), 170 deletions(-)
+ create mode 100644 xen/arch/riscv/stubs.c
 
-diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
-index fb9fc9daaa..400309f4ef 100644
---- a/xen/arch/riscv/include/asm/config.h
-+++ b/xen/arch/riscv/include/asm/config.h
-@@ -67,6 +67,8 @@
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 2fefe14e7c..5523191bb7 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -4,6 +4,7 @@ obj-y += mm.o
+ obj-$(CONFIG_RISCV_64) += riscv64/
+ obj-y += sbi.o
+ obj-y += setup.o
++obj-y += stubs.o
+ obj-y += traps.o
  
- #define XEN_VIRT_START 0xFFFFFFFFC0000000 /* (_AC(-1, UL) + 1 - GB(1)) */
+ $(TARGET): $(TARGET)-syms
+diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_printk.c
+index 60742a042d..610c814f54 100644
+--- a/xen/arch/riscv/early_printk.c
++++ b/xen/arch/riscv/early_printk.c
+@@ -40,171 +40,3 @@ void early_printk(const char *str)
+         str++;
+     }
+ }
+-
+-/*
+- * The following #if 1 ... #endif should be removed after printk
+- * and related stuff are ready.
+- */
+-#if 1
+-
+-#include <xen/stdarg.h>
+-#include <xen/string.h>
+-
+-/**
+- * strlen - Find the length of a string
+- * @s: The string to be sized
+- */
+-size_t (strlen)(const char * s)
+-{
+-    const char *sc;
+-
+-    for (sc = s; *sc != '\0'; ++sc)
+-        /* nothing */;
+-    return sc - s;
+-}
+-
+-/**
+- * memcpy - Copy one area of memory to another
+- * @dest: Where to copy to
+- * @src: Where to copy from
+- * @count: The size of the area.
+- *
+- * You should not use this function to access IO space, use memcpy_toio()
+- * or memcpy_fromio() instead.
+- */
+-void *(memcpy)(void *dest, const void *src, size_t count)
+-{
+-    char *tmp = (char *) dest, *s = (char *) src;
+-
+-    while (count--)
+-        *tmp++ = *s++;
+-
+-    return dest;
+-}
+-
+-int vsnprintf(char* str, size_t size, const char* format, va_list args)
+-{
+-    size_t i = 0; /* Current position in the output string */
+-    size_t written = 0; /* Total number of characters written */
+-    char* dest = str;
+-
+-    while ( format[i] != '\0' && written < size - 1 )
+-    {
+-        if ( format[i] == '%' )
+-        {
+-            i++;
+-
+-            if ( format[i] == '\0' )
+-                break;
+-
+-            if ( format[i] == '%' )
+-            {
+-                if ( written < size - 1 )
+-                {
+-                    dest[written] = '%';
+-                    written++;
+-                }
+-                i++;
+-                continue;
+-            }
+-
+-            /*
+-             * Handle format specifiers.
+-             * For simplicity, only %s and %d are implemented here.
+-             */
+-
+-            if ( format[i] == 's' )
+-            {
+-                char* arg = va_arg(args, char*);
+-                size_t arglen = strlen(arg);
+-
+-                size_t remaining = size - written - 1;
+-
+-                if ( arglen > remaining )
+-                    arglen = remaining;
+-
+-                memcpy(dest + written, arg, arglen);
+-
+-                written += arglen;
+-                i++;
+-            }
+-            else if ( format[i] == 'd' )
+-            {
+-                int arg = va_arg(args, int);
+-
+-                /* Convert the integer to string representation */
+-                char numstr[32]; /* Assumes a maximum of 32 digits */
+-                int numlen = 0;
+-                int num = arg;
+-                size_t remaining;
+-
+-                if ( arg < 0 )
+-                {
+-                    if ( written < size - 1 )
+-                    {
+-                        dest[written] = '-';
+-                        written++;
+-                    }
+-
+-                    num = -arg;
+-                }
+-
+-                do
+-                {
+-                    numstr[numlen] = '0' + num % 10;
+-                    num = num / 10;
+-                    numlen++;
+-                } while ( num > 0 );
+-
+-                /* Reverse the string */
+-                for (int j = 0; j < numlen / 2; j++)
+-                {
+-                    char tmp = numstr[j];
+-                    numstr[j] = numstr[numlen - 1 - j];
+-                    numstr[numlen - 1 - j] = tmp;
+-                }
+-
+-                remaining = size - written - 1;
+-
+-                if ( numlen > remaining )
+-                    numlen = remaining;
+-
+-                memcpy(dest + written, numstr, numlen);
+-
+-                written += numlen;
+-                i++;
+-            }
+-        }
+-        else
+-        {
+-            if ( written < size - 1 )
+-            {
+-                dest[written] = format[i];
+-                written++;
+-            }
+-            i++;
+-        }
+-    }
+-
+-    if ( size > 0 )
+-        dest[written] = '\0';
+-
+-    return written;
+-}
+-
+-void printk(const char *format, ...)
+-{
+-    static char buf[1024];
+-
+-    va_list args;
+-    va_start(args, format);
+-
+-    (void)vsnprintf(buf, sizeof(buf), format, args);
+-
+-    early_printk(buf);
+-
+-    va_end(args);
+-}
+-
+-#endif
+-
+diff --git a/xen/arch/riscv/mm.c b/xen/arch/riscv/mm.c
+index 053f043a3d..6cf6f45f7f 100644
+--- a/xen/arch/riscv/mm.c
++++ b/xen/arch/riscv/mm.c
+@@ -1,19 +1,23 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
  
-+#define DIRECTMAP_VIRT_START    SLOTN(200)
-+
- #define FRAMETABLE_VIRT_START   SLOTN(196)
- #define FRAMETABLE_SIZE         GB(3)
- #define FRAMETABLE_NR           (FRAMETABLE_SIZE / sizeof(*frame_table))
-diff --git a/xen/arch/riscv/include/asm/mm.h b/xen/arch/riscv/include/asm/mm.h
-index 57026e134d..14fce72fde 100644
---- a/xen/arch/riscv/include/asm/mm.h
-+++ b/xen/arch/riscv/include/asm/mm.h
-@@ -3,8 +3,251 @@
- #ifndef _ASM_RISCV_MM_H
- #define _ASM_RISCV_MM_H
++#include <xen/bug.h>
+ #include <xen/cache.h>
+ #include <xen/compiler.h>
+ #include <xen/init.h>
+ #include <xen/kernel.h>
+ #include <xen/macros.h>
++#include <xen/mm.h>
+ #include <xen/pfn.h>
  
-+#include <public/xen.h>
-+#include <xen/pdx.h>
-+#include <xen/types.h>
-+
-+#include <asm/page.h>
- #include <asm/page-bits.h>
+ #include <asm/early_printk.h>
+ #include <asm/csr.h>
+ #include <asm/current.h>
+-#include <asm/mm.h>
+ #include <asm/page.h>
+ #include <asm/processor.h>
  
-+#define paddr_to_pdx(pa)    mfn_to_pdx(maddr_to_mfn(pa))
-+#define gfn_to_gaddr(gfn)   pfn_to_paddr(gfn_x(gfn))
-+#define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
-+#define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
-+#define maddr_to_mfn(ma)    _mfn(paddr_to_pfn(ma))
-+#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)va))
-+#define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
-+#define paddr_to_pdx(pa)    mfn_to_pdx(maddr_to_mfn(pa))
-+#define gfn_to_gaddr(gfn)   pfn_to_paddr(gfn_x(gfn))
-+#define gaddr_to_gfn(ga)    _gfn(paddr_to_pfn(ga))
-+#define mfn_to_maddr(mfn)   pfn_to_paddr(mfn_x(mfn))
-+#define maddr_to_mfn(ma)    _mfn(paddr_to_pfn(ma))
-+#define vmap_to_mfn(va)     maddr_to_mfn(virt_to_maddr((vaddr_t)va))
-+#define vmap_to_page(va)    mfn_to_page(vmap_to_mfn(va))
++unsigned long __ro_after_init frametable_base_pdx;
++unsigned long __ro_after_init frametable_virt_end;
 +
-+#define virt_to_maddr(va) ((paddr_t)((vaddr_t)(va) & PADDR_MASK))
-+#define maddr_to_virt(pa) ((void *)((paddr_t)(pa) | DIRECTMAP_VIRT_START))
+ struct mmu_desc {
+     unsigned int num_levels;
+     unsigned int pgtbl_count;
+@@ -294,3 +298,49 @@ unsigned long __init calc_phys_offset(void)
+     phys_offset = load_start - XEN_VIRT_START;
+     return phys_offset;
+ }
 +
-+/* Convert between Xen-heap virtual addresses and machine frame numbers. */
-+#define __virt_to_mfn(va) (virt_to_maddr(va) >> PAGE_SHIFT)
-+#define __mfn_to_virt(mfn) maddr_to_virt((paddr_t)(mfn) << PAGE_SHIFT)
-+
-+/* Convert between Xen-heap virtual addresses and page-info structures. */
-+static inline struct page_info *virt_to_page(const void *v)
++void put_page(struct page_info *page)
 +{
 +    BUG();
-+    return NULL;
 +}
 +
-+/*
-+ * We define non-underscored wrappers for above conversion functions.
-+ * These are overriden in various source files while underscored version
-+ * remain intact.
-+ */
-+#define virt_to_mfn(va)     __virt_to_mfn(va)
-+#define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
-+
-+struct page_info
++unsigned long get_upper_mfn_bound(void)
 +{
-+    /* Each frame can be threaded onto a doubly-linked list. */
-+    struct page_list_entry list;
++    /* No memory hotplug yet, so current memory limit is the final one. */
++    return max_page - 1;
++}
 +
-+    /* Reference count and various PGC_xxx flags and fields. */
-+    unsigned long count_info;
++void arch_dump_shared_mem_info(void)
++{
++    BUG();
++}
 +
-+    /* Context-dependent fields follow... */
-+    union {
-+        /* Page is in use: ((count_info & PGC_count_mask) != 0). */
-+        struct {
-+            /* Type reference count and various PGT_xxx flags and fields. */
-+            unsigned long type_info;
-+        } inuse;
-+        /* Page is on a free list: ((count_info & PGC_count_mask) == 0). */
-+        union {
-+            struct {
-+                /*
-+                 * Index of the first *possibly* unscrubbed page in the buddy.
-+                 * One more bit than maximum possible order to accommodate
-+                 * INVALID_DIRTY_IDX.
-+                 */
-+#define INVALID_DIRTY_IDX ((1UL << (MAX_ORDER + 1)) - 1)
-+                unsigned long first_dirty:MAX_ORDER + 1;
++int populate_pt_range(unsigned long virt, unsigned long nr_mfns)
++{
++    BUG();
++    return -1;
++}
 +
-+                /* Do TLBs need flushing for safety before next page use? */
-+                bool need_tlbflush:1;
++int xenmem_add_to_physmap_one(struct domain *d, unsigned int space,
++                              union add_to_physmap_extra extra,
++                              unsigned long idx, gfn_t gfn)
++{
++    BUG();
 +
-+#define BUDDY_NOT_SCRUBBING    0
-+#define BUDDY_SCRUBBING        1
-+#define BUDDY_SCRUB_ABORT      2
-+                unsigned long scrub_state:2;
-+            };
++    return 0;
++}
 +
-+                unsigned long val;
-+            } free;
++int destroy_xen_mappings(unsigned long s, unsigned long e)
++{
++    BUG();
++    return -1;
++}
 +
-+    } u;
++int map_pages_to_xen(unsigned long virt,
++                     mfn_t mfn,
++                     unsigned long nr_mfns,
++                     unsigned int flags)
++{
++    BUG();
++    return -1;
++}
+diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+index 6593f601c1..8944e0ecfe 100644
+--- a/xen/arch/riscv/setup.c
++++ b/xen/arch/riscv/setup.c
+@@ -2,9 +2,16 @@
+ 
+ #include <xen/compile.h>
+ #include <xen/init.h>
++#include <xen/mm.h>
 +
-+    union {
-+        /* Page is in use, but not as a shadow. */
-+        struct {
-+            /* Owner of this page (zero if page is anonymous). */
-+            struct domain *domain;
-+        } inuse;
++#include <public/version.h>
+ 
+ #include <asm/early_printk.h>
+-#include <asm/mm.h>
 +
-+        /* Page is on a free list. */
-+        struct {
-+            /* Order-size of the free chunk this page is the head of. */
-+            unsigned int order;
-+        } free;
++void arch_get_xen_caps(xen_capabilities_info_t *info)
++{
++    assert_failed("need to be implemented");
++}
+ 
+ /* Xen stack for bringing up the first CPU. */
+ unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
+diff --git a/xen/arch/riscv/stubs.c b/xen/arch/riscv/stubs.c
+new file mode 100644
+index 0000000000..c69d5b5482
+--- /dev/null
++++ b/xen/arch/riscv/stubs.c
+@@ -0,0 +1,422 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#include <xen/cpumask.h>
++#include <xen/domain.h>
++#include <xen/irq.h>
++#include <xen/nodemask.h>
++#include <xen/time.h>
++#include <public/domctl.h>
 +
-+    } v;
++#include <asm/current.h>
 +
-+    union {
-+        /*
-+         * Timestamp from 'TLB clock', used to avoid extra safety flushes.
-+         * Only valid for: a) free pages, and b) pages with zero type count
-+         */
-+        uint32_t tlbflush_timestamp;
-+    };
-+    uint64_t pad;
++/* smpboot.c */
++
++cpumask_t cpu_online_map;
++cpumask_t cpu_present_map;
++cpumask_t cpu_possible_map;
++
++/* ID of the PCPU we're running on */
++DEFINE_PER_CPU(unsigned int, cpu_id);
++/* XXX these seem awfully x86ish... */
++/* representing HT siblings of each logical CPU */
++DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_mask);
++/* representing HT and core siblings of each logical CPU */
++DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_core_mask);
++
++nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
++
++/* time.c */
++
++unsigned long __read_mostly cpu_khz;  /* CPU clock frequency in kHz. */
++
++s_time_t get_s_time(void)
++{
++    BUG();
++}
++
++int reprogram_timer(s_time_t timeout)
++{
++    BUG();
++}
++
++void send_timer_event(struct vcpu *v)
++{
++    BUG();
++}
++
++void domain_set_time_offset(struct domain *d, int64_t time_offset_seconds)
++{
++    BUG();
++}
++
++/* shutdown.c */
++
++void machine_restart(unsigned int delay_millisecs)
++{
++    BUG();
++}
++
++void machine_halt(void)
++{
++    BUG();
++}
++
++/* vm_event.c */
++
++struct vm_event_st;
++
++void vm_event_fill_regs(struct vm_event_st *req)
++{
++    BUG();
++}
++
++void vm_event_set_registers(struct vcpu *v, struct vm_event_st *rsp)
++{
++    BUG();
++}
++
++void vm_event_monitor_next_interrupt(struct vcpu *v)
++{
++    /* Not supported on RISCV. */
++}
++
++void vm_event_reset_vmtrace(struct vcpu *v)
++{
++    /* Not supported on RISCV. */
++}
++
++/* domctl.c */
++
++long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
++                    XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
++{
++    BUG();
++}
++
++void arch_get_domain_info(const struct domain *d,
++                          struct xen_domctl_getdomaininfo *info)
++{
++    BUG();
++}
++
++void arch_get_info_guest(struct vcpu *v, vcpu_guest_context_u c)
++{
++    BUG();
++}
++
++/* monitor.c */
++
++int arch_monitor_domctl_event(struct domain *d,
++                              struct xen_domctl_monitor_op *mop)
++{
++    BUG();
++}
++
++/* smp.c */
++
++void arch_flush_tlb_mask(const cpumask_t *mask)
++{
++    BUG();
++}
++
++void smp_send_event_check_mask(const cpumask_t *mask)
++{
++    BUG();
++}
++
++void smp_send_call_function_mask(const cpumask_t *mask)
++{
++    BUG();
++}
++
++/* irq.c */
++
++struct pirq *alloc_pirq_struct(struct domain *d)
++{
++    BUG();
++}
++
++int pirq_guest_bind(struct vcpu *v, struct pirq *pirq, int will_share)
++{
++    BUG();
++}
++
++void pirq_guest_unbind(struct domain *d, struct pirq *pirq)
++{
++    BUG();
++}
++
++void pirq_set_affinity(struct domain *d, int pirq, const cpumask_t *mask)
++{
++    BUG();
++}
++
++hw_irq_controller no_irq_type = {
++    .typename = "none",
++    .startup = irq_startup_none,
++    .shutdown = irq_shutdown_none,
++    .enable = irq_enable_none,
++    .disable = irq_disable_none,
 +};
 +
-+#define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
-+
-+/* PDX of the first page in the frame table. */
-+extern unsigned long frametable_base_pdx;
-+
-+/* Convert between machine frame numbers and page-info structures. */
-+#define mfn_to_page(mfn)                                            \
-+    (frame_table + (mfn_to_pdx(mfn) - frametable_base_pdx))
-+#define page_to_mfn(pg)                                             \
-+    pdx_to_mfn((unsigned long)((pg) - frame_table) + frametable_base_pdx)
-+
-+static inline void *page_to_virt(const struct page_info *pg)
-+{
-+    return mfn_to_virt(mfn_x(page_to_mfn(pg)));
-+}
-+
-+/*
-+ * Common code requires get_page_type and put_page_type.
-+ * We don't care about typecounts so we just do the minimum to make it
-+ * happy.
-+ */
-+static inline int get_page_type(struct page_info *page, unsigned long type)
-+{
-+    return 1;
-+}
-+
-+static inline void put_page_type(struct page_info *page)
-+{
-+}
-+
-+static inline void put_page_and_type(struct page_info *page)
-+{
-+    put_page_type(page);
-+    put_page(page);
-+}
-+
-+/*
-+ * RISC-V does not have an M2P, but common code expects a handful of
-+ * M2P-related defines and functions. Provide dummy versions of these.
-+ */
-+#define INVALID_M2P_ENTRY        (~0UL)
-+#define SHARED_M2P_ENTRY         (~0UL - 1UL)
-+#define SHARED_M2P(_e)           ((_e) == SHARED_M2P_ENTRY)
-+
-+/* Xen always owns P2M on RISC-V */
-+#define set_gpfn_from_mfn(mfn, pfn) do { (void) (mfn), (void)(pfn); } while (0)
-+#define mfn_to_gfn(d, mfn) ((void)(d), _gfn(mfn_x(mfn)))
-+
-+#define PDX_GROUP_SHIFT (16 + 5)
-+
-+static inline unsigned long domain_get_maximum_gpfn(struct domain *d)
++int arch_init_one_irq_desc(struct irq_desc *desc)
 +{
 +    BUG();
-+    return 0;
 +}
 +
-+static inline long arch_memory_op(int op, XEN_GUEST_HANDLE_PARAM(void) arg)
++void smp_send_state_dump(unsigned int cpu)
 +{
 +    BUG();
-+    return 0;
 +}
 +
-+/*
-+ * On RISCV, all the RAM is currently direct mapped in Xen.
-+ * Hence return always true.
-+ */
-+static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
++/* domain.c */
++
++DEFINE_PER_CPU(struct vcpu *, curr_vcpu);
++unsigned long __per_cpu_offset[NR_CPUS];
++
++void context_switch(struct vcpu *prev, struct vcpu *next)
 +{
-+    return true;
++    BUG();
 +}
 +
-+#define PG_shift(idx)   (BITS_PER_LONG - (idx))
-+#define PG_mask(x, idx) (x ## UL << PG_shift(idx))
-+
-+#define PGT_none          PG_mask(0, 1)  /* no special uses of this page   */
-+#define PGT_writable_page PG_mask(1, 1)  /* has writable mappings?         */
-+#define PGT_type_mask     PG_mask(1, 1)  /* Bits 31 or 63.                 */
-+
-+ /* Count of uses of this frame as its current type. */
-+#define PGT_count_width   PG_shift(2)
-+#define PGT_count_mask    ((1UL<<PGT_count_width)-1)
-+
-+/*
-+ * Page needs to be scrubbed. Since this bit can only be set on a page that is
-+ * free (i.e. in PGC_state_free) we can reuse PGC_allocated bit.
-+ */
-+#define _PGC_need_scrub   _PGC_allocated
-+#define PGC_need_scrub    PGC_allocated
-+
-+//  /* Cleared when the owning guest 'frees' this page. */
-+#define _PGC_allocated    PG_shift(1)
-+#define PGC_allocated     PG_mask(1, 1)
-+  /* Page is Xen heap? */
-+#define _PGC_xen_heap     PG_shift(2)
-+#define PGC_xen_heap      PG_mask(1, 2)
-+/* Page is broken? */
-+#define _PGC_broken       PG_shift(7)
-+#define PGC_broken        PG_mask(1, 7)
-+ /* Mutually-exclusive page states: { inuse, offlining, offlined, free }. */
-+#define PGC_state         PG_mask(3, 9)
-+#define PGC_state_inuse   PG_mask(0, 9)
-+#define PGC_state_offlining PG_mask(1, 9)
-+#define PGC_state_offlined PG_mask(2, 9)
-+#define PGC_state_free    PG_mask(3, 9)
-+// #define page_state_is(pg, st) (((pg)->count_info&PGC_state) == PGC_state_##st)
-+
-+/* Count of references to this frame. */
-+#define PGC_count_width   PG_shift(9)
-+#define PGC_count_mask    ((1UL<<PGC_count_width)-1)
-+
-+#define page_state_is(pg, st) (((pg)->count_info&PGC_state) == PGC_state_##st)
-+
-+#define _PGC_extra        PG_shift(10)
-+#define PGC_extra         PG_mask(1, 10)
-+
-+#define is_xen_heap_page(page) ((page)->count_info & PGC_xen_heap)
-+#define is_xen_heap_mfn(mfn) \
-+    (mfn_valid(mfn) && is_xen_heap_page(mfn_to_page(mfn)))
-+
-+#define is_xen_fixed_mfn(mfn)                                   \
-+    ((mfn_to_maddr(mfn) >= virt_to_maddr(&_start)) &&           \
-+     (mfn_to_maddr(mfn) <= virt_to_maddr((vaddr_t)_end - 1)))
-+
-+#define page_get_owner(_p)    (_p)->v.inuse.domain
-+#define page_set_owner(_p,_d) ((_p)->v.inuse.domain = (_d))
-+
-+/* TODO: implement */
-+#define mfn_valid(mfn) ({ (void) (mfn); 0; })
-+
-+#define mfn_to_gfn(d, mfn) ((void)(d), _gfn(mfn_x(mfn)))
-+
-+#define domain_set_alloc_bitsize(d) ((void)0)
-+#define domain_clamp_alloc_bitsize(d, b) (b)
-+
-+#define PFN_ORDER(_pfn) ((_pfn)->v.free.order)
-+
- extern unsigned char cpu0_boot_stack[];
- 
- void setup_initial_pagetables(void);
-@@ -17,4 +260,9 @@ unsigned long calc_phys_offset(void);
- 
- void turn_on_mmu(unsigned long ra);
- 
-+static inline unsigned int arch_get_dma_bitsize(void)
++void continue_running(struct vcpu *same)
 +{
-+    return 32; /* TODO */
++    BUG();
 +}
 +
- #endif /* _ASM_RISCV_MM_H */
++void sync_local_execstate(void)
++{
++    BUG();
++}
++
++void sync_vcpu_execstate(struct vcpu *v)
++{
++    BUG();
++}
++
++void startup_cpu_idle_loop(void)
++{
++    BUG();
++}
++
++void free_domain_struct(struct domain *d)
++{
++    BUG();
++}
++
++void dump_pageframe_info(struct domain *d)
++{
++    BUG();
++}
++
++void free_vcpu_struct(struct vcpu *v)
++{
++    BUG();
++}
++
++int arch_vcpu_create(struct vcpu *v)
++{
++    BUG();
++}
++
++void arch_vcpu_destroy(struct vcpu *v)
++{
++    BUG();
++}
++
++void vcpu_switch_to_aarch64_mode(struct vcpu *v)
++{
++    BUG();
++}
++
++int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
++{
++    BUG();
++}
++
++int arch_domain_create(struct domain *d,
++                       struct xen_domctl_createdomain *config,
++                       unsigned int flags)
++{
++    BUG();
++}
++
++int arch_domain_teardown(struct domain *d)
++{
++    BUG();
++}
++
++void arch_domain_destroy(struct domain *d)
++{
++    BUG();
++}
++
++void arch_domain_shutdown(struct domain *d)
++{
++    BUG();
++}
++
++void arch_domain_pause(struct domain *d)
++{
++    BUG();
++}
++
++void arch_domain_unpause(struct domain *d)
++{
++    BUG();
++}
++
++int arch_domain_soft_reset(struct domain *d)
++{
++    BUG();
++}
++
++void arch_domain_creation_finished(struct domain *d)
++{
++    BUG();
++}
++
++int arch_set_info_guest(struct vcpu *v, vcpu_guest_context_u c)
++{
++    BUG();
++}
++
++int arch_initialise_vcpu(struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
++{
++    BUG();
++}
++
++int arch_vcpu_reset(struct vcpu *v)
++{
++    BUG();
++}
++
++int domain_relinquish_resources(struct domain *d)
++{
++    BUG();
++}
++
++void arch_dump_domain_info(struct domain *d)
++{
++    BUG();
++}
++
++void arch_dump_vcpu_info(struct vcpu *v)
++{
++    BUG();
++}
++
++void vcpu_mark_events_pending(struct vcpu *v)
++{
++    BUG();
++}
++
++void vcpu_update_evtchn_irq(struct vcpu *v)
++{
++    BUG();
++}
++
++void vcpu_block_unless_event_pending(struct vcpu *v)
++{
++    BUG();
++}
++
++void vcpu_kick(struct vcpu *v)
++{
++    BUG();
++}
++
++struct domain *alloc_domain_struct(void)
++{
++    BUG();
++}
++
++struct vcpu *alloc_vcpu_struct(const struct domain *d)
++{
++    BUG();
++}
++
++unsigned long
++hypercall_create_continuation(unsigned int op, const char *format, ...)
++{
++    BUG();
++}
++
++int __init parse_arch_dom0_param(const char *s, const char *e)
++{
++    BUG();
++}
++
++/* guestcopy.c */
++
++unsigned long raw_copy_to_guest(void *to, const void *from, unsigned int len)
++{
++    BUG();
++}
++
++unsigned long raw_copy_from_guest(void *to, const void __user *from,
++                                  unsigned int len)
++{
++    BUG();
++}
++
++/* sysctl.c */
++
++long arch_do_sysctl(struct xen_sysctl *sysctl,
++                    XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
++{
++    BUG();
++}
++
++void arch_do_physinfo(struct xen_sysctl_physinfo *pi)
++{
++    BUG();
++}
++
++/* p2m.c */
++
++int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
++{
++    BUG();
++}
++
++int unmap_mmio_regions(struct domain *d,
++                       gfn_t start_gfn,
++                       unsigned long nr,
++                       mfn_t mfn)
++{
++    BUG();
++}
++
++int map_mmio_regions(struct domain *d,
++                     gfn_t start_gfn,
++                     unsigned long nr,
++                     mfn_t mfn)
++{
++    BUG();
++}
++
++int set_foreign_p2m_entry(struct domain *d, const struct domain *fd,
++                          unsigned long gfn, mfn_t mfn)
++{
++    BUG();
++}
++
++/* Return the size of the pool, in bytes. */
++int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
++{
++    BUG();
++}
++
++/* delay.c */
++
++void udelay(unsigned long usecs)
++{
++    BUG_ON("unimplemented");
++}
++
++/* guest_access.h */ 
++
++static inline unsigned long raw_clear_guest(void *to, unsigned int len)
++{
++    BUG_ON("unimplemented");
++}
+diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
+index ccd3593f5a..ca56df75d8 100644
+--- a/xen/arch/riscv/traps.c
++++ b/xen/arch/riscv/traps.c
+@@ -4,6 +4,10 @@
+  *
+  * RISC-V Trap handlers
+  */
++
++#include <xen/lib.h>
++#include <xen/sched.h>
++
+ #include <asm/processor.h>
+ #include <asm/traps.h>
+ 
+@@ -11,3 +15,24 @@ void do_trap(struct cpu_user_regs *cpu_regs)
+ {
+     die();
+ }
++
++void vcpu_show_execution_state(struct vcpu *v)
++{
++    assert_failed("need to be implented");
++}
++
++void show_execution_state(const struct cpu_user_regs *regs)
++{
++    printk("implement show_execution_state(regs)\n");
++}
++
++void arch_hypercall_tasklet_result(struct vcpu *v, long res)
++{
++    assert_failed("need to be implented");
++}
++
++enum mc_disposition arch_do_multicall_call(struct mc_state *state)
++{
++    assert_failed("need to be implented");
++    return mc_continue;
++}
 -- 
 2.43.0
 
