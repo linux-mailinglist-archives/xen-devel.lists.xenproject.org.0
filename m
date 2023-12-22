@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A449B81C63E
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 09:10:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.659249.1028770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E26281C66F
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Dec 2023 09:23:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.659258.1028780 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGaad-0002Xj-8F; Fri, 22 Dec 2023 08:09:03 +0000
+	id 1rGao8-0005KQ-Gh; Fri, 22 Dec 2023 08:23:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 659249.1028770; Fri, 22 Dec 2023 08:09:03 +0000
+Received: by outflank-mailman (output) from mailman id 659258.1028780; Fri, 22 Dec 2023 08:23:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rGaad-0002Vs-3m; Fri, 22 Dec 2023 08:09:03 +0000
-Received: by outflank-mailman (input) for mailman id 659249;
- Fri, 22 Dec 2023 08:09:01 +0000
+	id 1rGao8-0005HJ-D9; Fri, 22 Dec 2023 08:23:00 +0000
+Received: by outflank-mailman (input) for mailman id 659258;
+ Fri, 22 Dec 2023 08:22:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=r2k+=IB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rGaab-0002VW-AL
- for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 08:09:01 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1rGao7-0005HD-2r
+ for xen-devel@lists.xenproject.org; Fri, 22 Dec 2023 08:22:59 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bb659db-a0a1-11ee-98eb-6d05b1d4d9a1;
- Fri, 22 Dec 2023 09:08:59 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40d483019d9so1794575e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 00:08:58 -0800 (PST)
+ id 50069f56-a0a3-11ee-98eb-6d05b1d4d9a1;
+ Fri, 22 Dec 2023 09:22:58 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40d4103aed7so13791905e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 Dec 2023 00:22:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- i15-20020a05600c354f00b0040d378510adsm8663243wmq.1.2023.12.22.00.08.57
+ fl25-20020a05600c0b9900b0040b3e26872dsm14065633wmb.8.2023.12.22.00.22.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Dec 2023 00:08:57 -0800 (PST)
+ Fri, 22 Dec 2023 00:22:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bb659db-a0a1-11ee-98eb-6d05b1d4d9a1
+X-Inumbo-ID: 50069f56-a0a3-11ee-98eb-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1703232538; x=1703837338; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1703233377; x=1703838177; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=iIot8+NpCUGBFT252AzQPoBtCvAJRNXPuQIXfUMk7l0=;
-        b=fu0KUGCZMEvjwFPAPL1c7sGZk5kaCooBUZMVHKIJy9LA0a1FjZrosx8A99PpuNEWpu
-         sUvxW9y9toarirGCbt/ZDtASy2t/QRs/jx+L3lTxdBHjfpipSIx4+VKJgKKGVmi1zcUH
-         opmf58pEP2toNOP2rPqsQzNWOFm9dOB3enWaCRYKWnvsFEAMFGMqkG3w0d2Fe0rPFnOJ
-         5mSFYUuNGP8Rv7W9YiuY1308gC97CI3pwuoKeKOCPsbJ4+qfcaP6vid1OUYJIv+oLMRH
-         PNVRBq1LAryIr4ZZ2Eq4tw2XIHzFwF9Up9W9sywyYCqIzfniUKmBtTcBKjx9fgTt2Lh1
-         RToQ==
+        bh=gpc+Qeppkd8l8XcSuu49p/Em4UUkjkka0UOhR2JQUqI=;
+        b=T1jnfme3TSxj2bQCEUgJjklRVe+WixWxJbvewlFbeIKKT30l78JQ7NBBRce8lcBCHn
+         N8TyuSjxpLs4h/CnrCDeDT4Cd6fPpG6W3RbEbCkOaLwcoOYAn0WRlGk2MqbMp+5vRKcn
+         OuxZKe4ma4KJOmXycIt6Ua52DxVcuqWHZ1x3NOKG64BpzVTQCh8P4XVGzR5VIV5r2VjR
+         fRiZMBGw19gxP4vhLqaabzfy0QL8g5gd7x38zACyy7UG4D/5EnZ7k3pKHcowp7YxjN01
+         mcSsK6NCz2dIzli8zG4czGLnlZPU7Sybrz3FjkONGcTMvysyNa3RJDr/eYlzoztOEqlM
+         4mgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1703232538; x=1703837338;
+        d=1e100.net; s=20230601; t=1703233377; x=1703838177;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iIot8+NpCUGBFT252AzQPoBtCvAJRNXPuQIXfUMk7l0=;
-        b=Q5/X7ugJu7TaiHujHYIvXKMiaQZivOs+EVJ4E6L0mNR/Gc7ttgzRH4TPFvoJPMNt+r
-         tDWMTmYbR2LvDr9Wa+OEhaQeuf0xW+3Eyb3Jr0A5cO2FHi2U3BKoqoLHWSMau9diVW+F
-         Qt4b8CdaVSBXoctYWvNpJx9fDSvvBXtrtpcHFV7/r4elUwJJmedCL4xtyWxkaLPqswPh
-         pWhRVQtp8NnfB4wFW9iO+YzGI7D+2WQ32gLijTWDkS8Rv/9wZneXlvBeU4lo5XDAL+Cv
-         lXoFOOGVQJmNmQzv4TJbD7EYOZk1UNZi/rgTXyATq6K3wRm/rrenOxagkjSxS3G0YilW
-         jktA==
-X-Gm-Message-State: AOJu0YyvEesz3LpIKYKLh28RDAytgcNXbqRfYbYVxxHHhq0UFzAZx/ZU
-	2bS0GmesMKz7ASq86Ne+tzr7daDaTBth
-X-Google-Smtp-Source: AGHT+IH9Zn7CPU6KU9E8JSnk1x7O5CUnme6rmXo5YaRxRBkN14LkJ9dKgvTuiGCpRAHTk58UFC//lg==
-X-Received: by 2002:a05:600c:4ecf:b0:40d:3ae6:4a42 with SMTP id g15-20020a05600c4ecf00b0040d3ae64a42mr481803wmq.99.1703232537923;
-        Fri, 22 Dec 2023 00:08:57 -0800 (PST)
-Message-ID: <03651b8f-238a-4d64-8595-6b814a118d87@suse.com>
-Date: Fri, 22 Dec 2023 09:08:56 +0100
+        bh=gpc+Qeppkd8l8XcSuu49p/Em4UUkjkka0UOhR2JQUqI=;
+        b=kyltcdRe+46jT9qnmg4UBmQDleEYdtoqLGe6+Sz7HNXzdLd//+AduM6i3/jV5Zn9qc
+         B4+SVYpDA3pWyF2iesbREz6YL1kWPEhvdmZCLACUOyCctzsuGEtb2tVaZZTOj6l6wQ8x
+         ls3AyBOPn5a+InYYCbVy71OVmTvmgPMMrycERZf8hyGcmoU0EKjDduQeYfWYSo7KAa5R
+         Q/Kl80iGSrk3wQEpQuiMgIZg5R/Qi97+QJWFXoNb9GKDgY/iP+ijSgv/7pHg4yBx/gRG
+         4pS2q8IgI9WJa+GrmRwIsXzKuLiYTO5wTeBvF67dEWj8oJ555AJOjVJZwByEtlPu2+NH
+         u/hQ==
+X-Gm-Message-State: AOJu0Ywjo/Z+Dea4PK61TYTi0xYDQs4IZJZfVF6RUt3Uu+MjZECh17o5
+	5KT9A2mpRRO/Qb8MExOqdchG/VcfYyzu
+X-Google-Smtp-Source: AGHT+IFUMvAUxcA8O5J8ZxdpGIX/icOCWXKvkRBV8tcu7oW0eAlqBKl4fFkATsyiszKIITBdf4j78g==
+X-Received: by 2002:a05:600c:4503:b0:40c:2e1c:8f87 with SMTP id t3-20020a05600c450300b0040c2e1c8f87mr541899wmo.164.1703233377412;
+        Fri, 22 Dec 2023 00:22:57 -0800 (PST)
+Message-ID: <03cf5145-2124-4150-9f20-904f08bcabda@suse.com>
+Date: Fri, 22 Dec 2023 09:22:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 30/39] xen/riscv: define an address of frame table
+Subject: Re: [PATCH v6 5/9] xen/asm-generic: introduce stub header numa.h
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+To: Julien Grall <julien@xen.org>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
  xen-devel@lists.xenproject.org
-References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
- <13ad41657814e4fc235772fa0928de1723ae7c3d.1700761381.git.oleksii.kurochko@gmail.com>
- <b2c42d56-6bc8-4ea8-9e6f-cae259c274c5@suse.com>
- <5d3e7f9ad7ff0eb779e269eee1c42300d987b5a1.camel@gmail.com>
- <abacb997-99f4-49c3-b146-320cc9ff1a90@suse.com>
- <8deb45febe3d8061bca4a8376c280befeaa00fed.camel@gmail.com>
+References: <cover.1703072575.git.oleksii.kurochko@gmail.com>
+ <08bca9a4158a190a0a953e5bc071a512cfe5f0f8.1703072575.git.oleksii.kurochko@gmail.com>
+ <341249d1-217f-4ad2-9455-b1aded4b9b56@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,133 +118,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8deb45febe3d8061bca4a8376c280befeaa00fed.camel@gmail.com>
+In-Reply-To: <341249d1-217f-4ad2-9455-b1aded4b9b56@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 21.12.2023 20:59, Oleksii wrote:
-> On Mon, 2023-12-18 at 12:22 +0100, Jan Beulich wrote:
->> On 18.12.2023 11:36, Oleksii wrote:
->>> On Thu, 2023-12-14 at 16:48 +0100, Jan Beulich wrote:
->>>> On 24.11.2023 11:30, Oleksii Kurochko wrote:
->>>>> +#define SLOTN_ENTRY_SIZE        SLOTN(1)
->>>>> +
->>>>>  #define XEN_VIRT_START 0xFFFFFFFFC0000000 /* (_AC(-1, UL) + 1
->>>>> -
->>>>> GB(1)) */
->>>>> +
->>>>> +#define FRAMETABLE_VIRT_START   SLOTN(196)
->>>>> +#define FRAMETABLE_SIZE         GB(3)
->>>>> +#define FRAMETABLE_NR           (FRAMETABLE_SIZE /
->>>>> sizeof(*frame_table))
->>>>> +#define FRAMETABLE_VIRT_END     (FRAMETABLE_VIRT_START +
->>>>> FRAMETABLE_SIZE - 1)
->>>>> +
->>>>> +#define VMAP_VIRT_START         SLOTN(194)
->>>>> +#define VMAP_VIRT_SIZE          GB(1)
->>>>
->>>> May I suggest that you keep these blocks sorted by slot number?
->>>> Or
->>>> wait,
->>>> the layout comment further up is also in decreasing order, so
->>>> that's
->>>> fine here, but then can all of this please be moved next to the
->>>> comment
->>>> actually providing the necessary context (thus eliminating the
->>>> need
->>>> for
->>>> new comments)?
->>> Sure, I'll put this part close to layout comment.
->>>
->>>>  You'll then also notice that the generalization here
->>>> (keeping basically the same layout for e.g. SATP_MODE_SV48, just
->>>> shifted
->>>> by 9 bits) isn't in line with the comment there.
->>> Does it make sense to add another one table with updated addresses
->>> for
->>> SATP_MODE_SV48?
+On 21.12.2023 20:09, Julien Grall wrote:
+> On 20/12/2023 14:08, Oleksii Kurochko wrote:
+>> <asm/numa.h> is common through some archs so it is moved
+>> to asm-generic.
 >>
->> Well, especially if you mean to support that mode, its layout surely
->> wants writing down. I was hoping though that maybe you/we could get
->> away
->> without multiple tables, but e.g. use one having multiple columns.
-> I came up with the following but I am not sure that it is really
-> convient:
-> /*
->  * RISC-V64 Layout:
->  *
-> #if RV_STAGE1_MODE == SATP_MODE_SV39
->  *
->  * From the riscv-privileged doc:
->  *   When mapping between narrower and wider addresses,
->  *   RISC-V zero-extends a narrower physical address to a wider size.
->  *   The mapping between 64-bit virtual addresses and the 39-bit usable
->  *   address space of Sv39 is not based on zero-extension but instead
->  *   follows an entrenched convention that allows an OS to use one or
->  *   a few of the most-significant bits of a full-size (64-bit) virtual
->  *   address to quickly distinguish user and supervisor address
-> regions.
->  *
->  * It means that:
->  *   top VA bits are simply ignored for the purpose of translating to
-> PA.
-> #endif
->  *
->  *       SATP_MODE_SV32   SATP_MODE_SV39   SATP_MODE_SV48  
-> SATP_MODE_SV57
->  *     ----------------------------------------------------------------
-> -----------
->  * BA0 | FFFFFFFFFFE00000 | FFFFFFFFC0000000 | FFFFFF8000000000 |
-> FFFF000000000000
->  * BA1 | 0000000019000000 | 0000003200000000 | 0000640000000000 |
-> 00C8000000000000
->  * BA2 | 0000000018800000 | 0000003100000000 | 0000620000000000 |
-> 00C4000000000000
->  * BA3 | 0000000018400000 | 0000003080000000 | 0000610000000000 |
-> 00C2000000000000
->  * 
->  *
-> =======================================================================
-> =====
->  * Start addr    |   End addr           |  Size  | Slot       |area
-> description
->  *
-> =======================================================================
-> =====
->  * BA0 + 0x800000 |  FFFFFFFFFFFFFFFF   |1016 MB |
-> L${HYP_PT_ROOT_LEVEL} 511     | Unused
->  * BA0 + 0x400000 |  BA0 + 0x800000     |  2 MB  |
-> L${HYP_PT_ROOT_LEVEL} 511     | Fixmap
->  * BA0 + 0x200000 |  BA0 + 0x400000     |  4 MB  |
-> L${HYP_PT_ROOT_LEVEL} 511     | FDT
->  * BA0            |  BA0 + 0x200000     |  2 MB  |
-> L${HYP_PT_ROOT_LEVEL} 511     | Xen
->  *                 ...                  |  1 GB  |
-> L${HYP_PT_ROOT_LEVEL} 510     | Unused
->  * BA1 + 0x000000 |  BA1 + 0x4D80000000 | 309 GB |
-> L${HYP_PT_ROOT_LEVEL} 200-509 | Direct map
->  *                 ...                  |  1 GB  |
-> L${HYP_PT_ROOT_LEVEL} 199     | Unused
->  * BA2 + 0x000000 |  BA2 + 0xC0000000   |  3 GB  |
-> L${HYP_PT_ROOT_LEVEL} 196-198 | Frametable
->  *                 ...                  |  1 GB  |
-> L${HYP_PT_ROOT_LEVEL} 195     | Unused
->  * BA3 + 0x000000 |  BA3 + 0x40000000   |  1 GB  |
-> L${HYP_PT_ROOT_LEVEL} 194     | VMAP
->  *                 ...                  | 194 GB |
-> L${HYP_PT_ROOT_LEVEL} 0 - 193 | Unused
->  *
-> =======================================================================
-> =====
->  */
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
+>> Acked-by: Shawn Anastasio <sanastasio@raptorengineering.com>
 > 
-> Do you have better ideas?
+> I think this patch will need to be rebased on top of the lastest staging 
+> as this should clash with 51ffb3311895.
 
-It doesn't look too bad imo, at the first glance, albeit the line
-wrapping damage of course makes it a little hard to look at. In the
-last table with all lines saying L${HYP_PT_ROOT_LEVEL}, perhaps that
-could be put in the table heading (instead of "Slot" say e.g. "Root
-PT slot")?
+No, and I'd like to withdraw my ack here. In this case a stub header isn't
+the right choice imo - the !NUMA case should be handled in common code. I
+would have submitted the patch I have, if only the first_valid_mfn patch
+hadn't been committed already (which I now need to re-base over).
 
 Jan
 
