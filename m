@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C0A081F09D
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Dec 2023 17:55:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.660130.1029711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 268B481F357
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Dec 2023 01:19:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.660175.1029720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rIXB8-00055G-LZ; Wed, 27 Dec 2023 16:54:46 +0000
+	id 1rIe6X-0000O0-4x; Thu, 28 Dec 2023 00:18:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 660130.1029711; Wed, 27 Dec 2023 16:54:46 +0000
+Received: by outflank-mailman (output) from mailman id 660175.1029720; Thu, 28 Dec 2023 00:18:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rIXB8-00053c-ID; Wed, 27 Dec 2023 16:54:46 +0000
-Received: by outflank-mailman (input) for mailman id 660130;
- Wed, 27 Dec 2023 16:54:45 +0000
+	id 1rIe6X-0000LE-0z; Thu, 28 Dec 2023 00:18:29 +0000
+Received: by outflank-mailman (input) for mailman id 660175;
+ Thu, 28 Dec 2023 00:18:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1EeP=IG=neowutran.ovh=xen@srs-se1.protection.inumbo.net>)
- id 1rIXB6-00053W-UN
- for xen-devel@lists.xenproject.org; Wed, 27 Dec 2023 16:54:45 +0000
-Received: from neowutran.ovh (core.neowutran.ovh [51.83.40.211])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7FLA=IH=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1rIe6V-0000L8-1U
+ for xen-devel@lists.xenproject.org; Thu, 28 Dec 2023 00:18:27 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a17d6212-a4d8-11ee-9b0f-b553b5be7939;
- Wed, 27 Dec 2023 17:54:42 +0100 (CET)
-Received: from neowutran.ovh (maisonhome.neowutran.ovh [82.65.3.49])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
- (No client certificate requested)
- by neowutran.ovh (Postfix) with ESMTPSA id 78B0760C59;
- Wed, 27 Dec 2023 16:54:40 +0000 (UTC)
+ id 9da79bfd-a516-11ee-9b0f-b553b5be7939;
+ Thu, 28 Dec 2023 01:18:24 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-55361b7f38eso6526442a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Dec 2023 16:18:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,78 +40,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a17d6212-a4d8-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=neowutran.ovh; s=mail;
-	t=1703696080; bh=8BYkaWflkhgBjERzagtQSSe50YwD0x8dC+MF//KIfSQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AP2QgVBd4IFI4o4XNKZOvbc2ImOaiNQMqlYVt4ia/9HvdIqO2hF3166K1DryrM9WU
-	 5c63u78SMRRN2yX9wzryvwz9/SqH4mYT1UdY762dtV3KoM55zgtX2HTyuEz0VwFF2i
-	 htubrbMNJQC1PaOqep1GFAPJJC4TOZY5x8i7gPZw4CEbUng5iQChPiuOJv3fUcrQQ4
-	 i68uubshEWibfdwQf+ou+DcFx0Jw8ftb5zBU9XwPv4SsEFWI9VVdwkdwh5cpNlPeRn
-	 RRaLNX+tGhfwwt5mH0sS9gOxq1RDg7FrzLjdA7FB78NLWKNvsnqwQxTEncMTN1pPDg
-	 q0liO8h34wLW2ncyJvau3QtrECnA5QXAHh80JQl2yN/ckbhurLSmdEYav3yM+uOj8+
-	 eGYhqto5udTou7gahvUFqI9qevSLxmEOsxzAPkw356X8KVd0JXAReMNpm8bnthrfpl
-	 BK3aiqbkO4/ZqjS5s6aYavZS+1ktzn0y+ABcXgBuaDLJe1QQBTImu2JW4dh6A0LUpm
-	 qOppyv/1/CQoyB+BOC785uRKvUJVMoGJ9eUto1NvjhEcJQfLkSLG6OsqRmY0xs1W5x
-	 tmTqXJOvH/4wKz2ZneFPCOKz6J4Ni9aPSX8bG5YXeU/Y7tpXXCHbDnPEaJmP5qtblv
-	 rNU/+e/vfppZX5huXz3KfWjE=
-Date: Wed, 27 Dec 2023 17:54:31 +0100
-From: Neowutran <xen@neowutran.ovh>
-To: 
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, Neowutran <xen@neowutran.ovh>, 
-	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
-	Juergen Gross <jgross@suse.com>
+X-Inumbo-ID: 9da79bfd-a516-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1703722704; x=1704327504; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ty1HrluIyWlwK9H1Q2n+4+yZjMwvSzLh2UT0uncqt3M=;
+        b=Jg1ItsrSgCFkQdmapDQFEKD0DWbh/IUDSFM8Y7wtEZyNM2N3TdWPRx99nJL9Jq2657
+         rSjZCCTvDIac5tSiS/QMgBMWkigbMzIy3b3Ri4WnJXlcqql52/Fk2aqzz6p6hjzIzTws
+         MT391Pt/Ehcpsm1C52OKgINM7jbuIIgTe5nPwoMrOYS4Zo/qIh6Yv5iO6XIdAHm+zI5Y
+         lavnbLvuQ480PpJd3KK/SCli+JVqSlA4iOt0mpBy+K0lHKIGhTQpVsF1AqtzTzRiQY8a
+         BLoqZl5hISAryWKEwTCi+P0flYjfdGHdk59jw5L/ddmcPHvVgNOrBqPML5NvmoOuqmdn
+         On4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1703722704; x=1704327504;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ty1HrluIyWlwK9H1Q2n+4+yZjMwvSzLh2UT0uncqt3M=;
+        b=eBkcid1zSAyy0XnZnOPKEWjNUr+yUut6NqFmSF7QdUg3+cuNl5jeY0wh47HllljAWO
+         MhHcD/iOYtiDjZKFUI06DZwHx3CqEEAMXBe8loEiEO1kKR1dYNDQGqfdKzXqH5HGk7cW
+         txCESk3Du22e5PwTvqLPaMDZQ9A5pHDOGaNgCRN0sBuEpOlnYHjt8HKymWArtRkGHIjz
+         ADxgm3EqPor+Ul2AtoWPSdGvrnbho20himViGmJIVtwB7vCmQp8TqfDsLl8WMjAunGnI
+         RrhmcdvL/btnVi3R0IF52Z9X8X580MFQ2GgWFg7qMdh9220uNfvMOTDf+5NeLiNN3vbs
+         S/5Q==
+X-Gm-Message-State: AOJu0YytyHNRr5kKmi4L0xlp8gZjuBb6jOCGBDlSWmcbfL1wGBuqXQCK
+	GzIXx+Hj+CHiqJvRn2N3/2l89S0ZBAgzvP8pkwo=
+X-Google-Smtp-Source: AGHT+IH+icQOdSmL+RmUd2rkZZgZLefJYIdwnl/forEw6n8Z14HqAecth59X0pozY0FoEPJvT9FtVYOm87a184fgFM0=
+X-Received: by 2002:a50:ab1d:0:b0:553:49f1:8366 with SMTP id
+ s29-20020a50ab1d000000b0055349f18366mr4425930edc.77.1703722704263; Wed, 27
+ Dec 2023 16:18:24 -0800 (PST)
+MIME-Version: 1.0
+References: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
+In-Reply-To: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 27 Dec 2023 19:18:12 -0500
+Message-ID: <CAKf6xpsa_8nRyR-dY8sTQ6HsywZBmDvu29WwerxNkvJFqHq+fQ@mail.gmail.com>
 Subject: Re: [PATCH] libxl: Disable relocating memory for qemu-xen in
  stubdomain too
-Message-ID: <dvzyuckd4w7vii3bytpsecdyyzizgbgxslyxiciobw3ac6wmlb@uolzr2buvi2k>
-References: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Neowutran <xen@neowutran.ovh>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2023-12-27 03:12, Marek Marczykowski-Górecki wrote:
+On Tue, Dec 26, 2023 at 11:49=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
+>
 > According to comments (and experiments) qemu-xen cannot handle memory
 > reolcation done by hvmloader. The code was already disabled when running
 > qemu-xen in dom0 (see libxl__spawn_local_dm()), but it was missed when
 > adding qemu-xen support to stubdomain. Adjust libxl__spawn_stub_dm() to
 > be consistent in this regard.
-> 
+>
 > Reported-by: Neowutran <xen@neowutran.ovh>
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> ---
->  tools/libs/light/libxl_dm.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-> index 14b593110f7c..ed620a9d8e14 100644
-> --- a/tools/libs/light/libxl_dm.c
-> +++ b/tools/libs/light/libxl_dm.c
-> @@ -2432,6 +2432,16 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
->                          "%s",
->                          libxl_bios_type_to_string(guest_config->b_info.u.hvm.bios));
->      }
-> +    /* Disable relocating memory to make the MMIO hole larger
-> +     * unless we're running qemu-traditional and vNUMA is not
-> +     * configured. */
-> +    libxl__xs_printf(gc, XBT_NULL,
-> +                     libxl__sprintf(gc, "%s/hvmloader/allow-memory-relocate",
-> +                                    libxl__xs_get_dompath(gc, guest_domid)),
-> +                     "%d",
-> +                     guest_config->b_info.device_model_version
-> +                        == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
-> +                     !libxl__vnuma_configured(&guest_config->b_info));
->      ret = xc_domain_set_target(ctx->xch, dm_domid, guest_domid);
->      if (ret<0) {
->          LOGED(ERROR, guest_domid, "setting target domain %d -> %d",
-> -- 
-> 2.41.0
+> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
 
-Seems to work as expected
+Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 
-Thanks, 
-Neowutran
-
+Thanks,
+Jason
 
