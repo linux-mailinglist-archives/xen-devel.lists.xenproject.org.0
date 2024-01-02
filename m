@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D22A82234D
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 22:37:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.660866.1030522 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC24822478
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 23:07:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.660871.1030533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKmRr-000296-0x; Tue, 02 Jan 2024 21:37:19 +0000
+	id 1rKmuL-00089i-Am; Tue, 02 Jan 2024 22:06:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 660866.1030522; Tue, 02 Jan 2024 21:37:18 +0000
+Received: by outflank-mailman (output) from mailman id 660871.1030533; Tue, 02 Jan 2024 22:06:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKmRq-00026y-UM; Tue, 02 Jan 2024 21:37:18 +0000
-Received: by outflank-mailman (input) for mailman id 660866;
- Tue, 02 Jan 2024 21:37:17 +0000
+	id 1rKmuL-00086O-7y; Tue, 02 Jan 2024 22:06:45 +0000
+Received: by outflank-mailman (input) for mailman id 660871;
+ Tue, 02 Jan 2024 22:06:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cwBk=IM=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1rKmRp-00026n-SN
- for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 21:37:17 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ (envelope-from <SRS0=g3W0=IM=intel.com=xin3.li@srs-se1.protection.inumbo.net>)
+ id 1rKmuI-00086F-Ri
+ for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 22:06:43 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18ccf019-a9b7-11ee-9b0f-b553b5be7939;
- Tue, 02 Jan 2024 22:37:15 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3367601a301so9586896f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jan 2024 13:37:15 -0800 (PST)
-Received: from [127.0.0.1] (dynamic-089-014-091-072.89.14.pool.telefonica.de.
- [89.14.91.72]) by smtp.gmail.com with ESMTPSA id
- p34-20020a05600c1da200b0040d8b4ebd55sm252596wms.0.2024.01.02.13.37.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jan 2024 13:37:14 -0800 (PST)
+ id 32f7670e-a9bb-11ee-9b0f-b553b5be7939;
+ Tue, 02 Jan 2024 23:06:39 +0100 (CET)
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jan 2024 14:06:37 -0800
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by orsmga002.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 02 Jan 2024 14:06:36 -0800
+Received: from orsmsx610.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35; Tue, 2 Jan 2024 14:06:35 -0800
+Received: from ORSEDG602.ED.cps.intel.com (10.7.248.7) by
+ orsmsx610.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Tue, 2 Jan 2024 14:06:35 -0800
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.169)
+ by edgegateway.intel.com (134.134.137.103) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.35; Tue, 2 Jan 2024 14:06:35 -0800
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com (2603:10b6:806:25d::22)
+ by CH0PR11MB5345.namprd11.prod.outlook.com (2603:10b6:610:b8::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Tue, 2 Jan
+ 2024 22:06:28 +0000
+Received: from SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::8ccb:4e83:8802:c277]) by SA1PR11MB6734.namprd11.prod.outlook.com
+ ([fe80::8ccb:4e83:8802:c277%4]) with mapi id 15.20.7135.023; Tue, 2 Jan 2024
+ 22:06:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,135 +63,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18ccf019-a9b7-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704231435; x=1704836235; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/j7/rdcZmoVQjecAI6/HxXOPJUcRBJCUvX9qQzCAcW8=;
-        b=gFH2EDqpSGxAYr7aZ2Oi3Xw7WftiluMIQEY3cu3akD6P0KRkduWDLZHEblbaWJYV8n
-         wnlFS+e8c7vNUWnUufahnWXvxNd3DpCYuLzc18Ti6LMygDrXiFqx6zNvvoQcL+eDwm6w
-         7Eiaf3yjXhGa0Rs3jODVa8TxZBV166Y/Py9wU5AxvYl3nLWZ+w5e0LszrDHlqv1288j/
-         wku+AezAagAXZ5xcKgIyZcfG/ieFbRc4IdIx+S1Rj2LupW/eUFwS2WEJr0aQHTV2wntZ
-         PcJkvWZ/Ff2kgrFeGtmy8oRASDJY6V0qE87HAR0/1iv0Lem3z2P/a16/qz2M+ooYfwGz
-         kCXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704231435; x=1704836235;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/j7/rdcZmoVQjecAI6/HxXOPJUcRBJCUvX9qQzCAcW8=;
-        b=Z1g8dRwlMaOg3Rt89sLW6fGKNpnMMY2Wm0qwGfN3Ric4H2tOXvFY7tNiQ+T2N0etdB
-         QbOj5eOk3jv5YoIgMBmpIMrIG95z5uMYFGlGJxYRXLmeAoz1xFcnyBzeKLViflQ7Hxx7
-         RPO64SX99Jzk3iCmsyKIvcZAXlhmiDKKaGWbXGiLSCP2W7zMJPf2nT9q8Zg1PQ02qSHp
-         NPh9pn5xdBIO6p1tfxsYN7sG0BkILXMkBimraZxNeHnytI9tpDKgmQN0az2dV0Bl2qGP
-         IC00binP7NcOHS+FhX6U+I+MfK4XH8uWHHgPT7ItY/Vgd00B8KhOUs2//JHFMWdTJZUm
-         nRWQ==
-X-Gm-Message-State: AOJu0YwMYGms6o0XIIKHKhAJ+jcmE7lOgV5c7jnJ4UyC8p7cH1jiL86u
-	IzUbb8f2cLfS/5ZCz6EmD/Y=
-X-Google-Smtp-Source: AGHT+IFrz+8G4XaufDC1u0mAfvhOGqc3F19J3DroZasFggdJGsufr8PGV5ZiaTqLN5DOoVoj9N8dAg==
-X-Received: by 2002:a7b:ce13:0:b0:40d:6f34:5c13 with SMTP id m19-20020a7bce13000000b0040d6f345c13mr2971570wmc.231.1704231434891;
-        Tue, 02 Jan 2024 13:37:14 -0800 (PST)
-Date: Tue, 02 Jan 2024 21:37:00 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
-CC: =?ISO-8859-1?Q?Daniel_P=2E_Berrang=E9?= <berrange@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Akihiko Odaki <akihiko.odaki@daynix.com>,
- Artyom Tarasenko <atar4qemu@gmail.com>, Paul Durrant <paul@xen.org>,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
- =?ISO-8859-1?Q?C=E9dric_Le_Goater?= <clg@kaod.org>,
- Paolo Bonzini <pbonzini@redhat.com>, BALATON Zoltan <balaton@eik.bme.hu>,
- Jagannathan Raman <jag.raman@oracle.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- Nicholas Piggin <npiggin@gmail.com>,
- David Gibson <david@gibson.dropbear.id.au>,
- Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
- Alexander Graf <agraf@csgraf.de>, Hailiang Zhang <zhanghailiang@xfusion.com>,
- Marcelo Tosatti <mtosatti@redhat.com>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
- Huacai Chen <chenhuacai@kernel.org>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>,
- Ilya Leoshkevich <iii@linux.ibm.com>, Peter Xu <peterx@redhat.com>,
- Hyman Huang <yong.huang@smartx.com>, Fam Zheng <fam@euphon.net>,
- Song Gao <gaosong@loongson.cn>, Alistair Francis <alistair.francis@wdc.com>,
- =?ISO-8859-1?Q?Marc-Andr=E9_Lureau?= <marcandre.lureau@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- David Woodhouse <dwmw2@infradead.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Aurelien Jarno <aurelien@aurel32.net>,
- Leonardo Bras <leobras@redhat.com>, Jiri Slaby <jslaby@suse.cz>,
- Eric Farman <farman@linux.ibm.com>, Thomas Huth <thuth@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- David Hildenbrand <david@redhat.com>, Michael Roth <michael.roth@amd.com>,
- Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- Gerd Hoffmann <kraxel@redhat.com>, Cameron Esfahani <dirty@apple.com>,
- qemu-ppc@nongnu.org, John Snow <jsnow@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- Weiwei Li <liwei1518@gmail.com>, Hanna Reitz <hreitz@redhat.com>,
- qemu-s390x@nongnu.org, qemu-block@nongnu.org,
- =?ISO-8859-1?Q?Alex_Benn=E9e?= <alex.bennee@linaro.org>, kvm@vger.kernel.org,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
- Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
- Andrey Smirnov <andrew.smirnov@gmail.com>,
- Reinoud Zandijk <reinoud@netbsd.org>, Kevin Wolf <kwolf@redhat.com>,
- Bin Meng <bin.meng@windriver.com>, Sunil Muthuswamy <sunilmut@microsoft.com>,
- Peter Maydell <peter.maydell@linaro.org>, qemu-riscv@nongnu.org,
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Stafford Horne <shorne@gmail.com>,
- Fabiano Rosas <farosas@suse.de>, Juan Quintela <quintela@redhat.com>,
- Markus Armbruster <armbru@redhat.com>, qemu-arm@nongnu.org,
- Jason Wang <jasowang@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
- Max Filippov <jcmvbkbc@gmail.com>,
- Jean-Christophe Dubois <jcd@tribudubois.net>, Eric Blake <eblake@redhat.com>,
- Roman Bolshakov <rbolshakov@ddn.com>, Halil Pasic <pasic@linux.ibm.com>,
- xen-devel@lists.xenproject.org,
- =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
- David Woodhouse <dwmw@amazon.co.uk>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_1/5=5D_system/cpus=3A_rename_?= =?US-ASCII?Q?qemu=5Fmutex=5Flock=5Fiothread=28=29_to_bql=5Flock=28=29?=
-In-Reply-To: <20231212153905.631119-2-stefanha@redhat.com>
-References: <20231212153905.631119-1-stefanha@redhat.com> <20231212153905.631119-2-stefanha@redhat.com>
-Message-ID: <CFD7EE4A-D216-4CE8-B963-0CCEEA623E53@gmail.com>
+X-Inumbo-ID: 32f7670e-a9bb-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1704233199; x=1735769199;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=3AZ7RQ/UaGnQPAdKdGT39AX9H5SWFi3wrLzKiPii1Eg=;
+  b=mKIWUlhWKawe+pf80IV+ZJ4Yh5uhLyoqaYKb9V5jpl1i/YdtKjny5KeN
+   33+Q7YjVcCoLRmo02aUUxIrvMD+SrjKMgDLiVuFC06hx2XKltiG5eUtX2
+   ItzEiNF3MNdbHEoWrqidJMOtjtChqnmUrfRp2g/G/ce09dEDRvrqFnSf3
+   gAhqjDzcGh9RrmP2rzZCa37apucp0mIyEZieUjoZS0y2yNpfNIjocT3zh
+   /l2LG5A6QCBvTbGowjp4HoSBOFst7uh4apPzcVz0mIm2uRmb1dNGSP3Bn
+   /eiPbizHoESaGpCwCPdpOGXSADzd/y0+QIUcBaaxVX2op0iFUXCjcMlQX
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10941"; a="3741694"
+X-IronPort-AV: E=Sophos;i="6.04,326,1695711600"; 
+   d="scan'208";a="3741694"
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10941"; a="779805682"
+X-IronPort-AV: E=Sophos;i="6.04,326,1695711600"; 
+   d="scan'208";a="779805682"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MKO1m3iK6dfaDwMIMPled7PGT/ILf9fmx8d+bMtAYQr4+SrzxsdwrksckY44UkPuaUzbC6WQmxxZzANQrdT3f4v3/x5m4ilh1dFViPMYUtT7A3aQyiZKslQRbqbYmT4dTaMGlcONh2QF2DgU7vYBsxx7/3R1hnMErKOqZwOvcj32D1qGs5i50kUZk2XyKzfpeK2Pn6+vqro5Z+++EoSerI5IKRm+tEr9oqspxMoxaDPz6f8QlGFgsP4/G2eXAgUPsvS9CPc4nJr27nD2cZ5WwhBAgt14/nX8P2nSslif0bNdyBkMyzxvI8HOEJO2khTS+zP4A1Eyp3Ocrw+Nhfrq+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3AZ7RQ/UaGnQPAdKdGT39AX9H5SWFi3wrLzKiPii1Eg=;
+ b=XoIl+89taw3wfs9f8rxM0WVnNat3DaV4AqQLc8e5wlIol1OchK9rO+TSqz96mJNEc7x6qIGh60AwhiWW9NqW600A+pIIWJXBW1Nlu+TBfEUecLjn71fXWEKFCQxugUvVyNmyQfeyRzhLLumEn1TkPFUIe8OzbNp3U273LbF0ehitYpBEj27t6NrQM9Pl8+3TSKSUwEaGrfFQhwZPXX5AY1EYl7ijO22GqQr1458iq2PszqwkRsBmTk4/4HkuTKM1fe3Y3mIY80sPvAZ0twRzYg37x1Fk6paseEMGmU5yGv9qGLaKhexVo5Eup3TzLx5+YteOU5TdE1Fb92GlHNX16A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+From: "Li, Xin3" <xin3.li@intel.com>
+To: Borislav Petkov <bp@alien8.de>
+CC: "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "tglx@linutronix.de" <tglx@linutronix.de>,
+	"mingo@redhat.com" <mingo@redhat.com>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>,
+	"hpa@zytor.com" <hpa@zytor.com>, "Lutomirski, Andy" <luto@kernel.org>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>, "seanjc@google.com"
+	<seanjc@google.com>, "peterz@infradead.org" <peterz@infradead.org>,
+	"jgross@suse.com" <jgross@suse.com>, "Shankar, Ravi V"
+	<ravi.v.shankar@intel.com>, "mhiramat@kernel.org" <mhiramat@kernel.org>,
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"jiangshanlai@gmail.com" <jiangshanlai@gmail.com>, "nik.borisov@suse.com"
+	<nik.borisov@suse.com>, "Kang, Shan" <shan.kang@intel.com>
+Subject: RE: [PATCH v13 01/35] x86/cpufeatures,opcode,msr: Add the WRMSRNS
+ instruction support
+Thread-Topic: [PATCH v13 01/35] x86/cpufeatures,opcode,msr: Add the WRMSRNS
+ instruction support
+Thread-Index: AQHaJ201kUjsNoxyR0GoMj8PcRD1drDG03sAgABsu1A=
+Date: Tue, 2 Jan 2024 22:06:27 +0000
+Message-ID: <SA1PR11MB67348F79B44BE92FD2C8F12DA861A@SA1PR11MB6734.namprd11.prod.outlook.com>
+References: <20231205105030.8698-1-xin3.li@intel.com>
+ <20231205105030.8698-2-xin3.li@intel.com>
+ <20240102153426.GBZZQtAiWSdGAgKoIL@fat_crate.local>
+In-Reply-To: <20240102153426.GBZZQtAiWSdGAgKoIL@fat_crate.local>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR11MB6734:EE_|CH0PR11MB5345:EE_
+x-ms-office365-filtering-correlation-id: 055a227c-2c25-4ce6-0dfb-08dc0bdf114c
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: XObTKZMf0w8tMOeNXIcdsCiizh6S2r8eDXMx4PWH1tlONSiz80t9sdKpC7jGcwK/F1Mb7czGEcsCNfOlKoGL5zTWGoaYX11VYzsxTqM+YwnyJVMXEgv6NGC8+gCOXEoM0CIgkbdbRDWae9F9w5V+Gsj7KM3xNRjehC28N8OQyys/jcG1I6E9Vb27lNf/+b2CDmiut+7Q661zhBvIk7RqQqal0CDaJ75r8MflEa88eIhuxoOVBEMMdX34jkWa/PZZO7y3PYJi5jMNL/hObfFhazn93Enq2H1fTgqDvYlCmV+tMwxRf4HDbYEHyj0f5asSpWvKrepyJf+2Are3KIcVy3n34tgprhJjqNZWtH+x4WRJU+wn7Z+YzIN0mQR+u6LriOszIrwaBv1BiJ9JlAvhNu98Yt3lsW05AAG3hTbgmFkUhuu41vDeftxgjVEUPStAwpA0MCPFypG6TzcwswLH983Bg566kEl0DInXWumj+isVwhd5qw+s4HuXxs8FTo4PGXNseEP+lbl+EkBqz9wlgSEUmhfmbd37ubeiS8WDTrNQsf3wk8fkbQCsKST2y8nfUFxS/5yzOAOA/NPpuusbbo/Iw61wNXEuCerkrDNQXY4u/6kqJ8pp8P+AJkVgK3Oo
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR11MB6734.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(346002)(136003)(39860400002)(366004)(396003)(376002)(230922051799003)(64100799003)(186009)(1800799012)(451199024)(55016003)(33656002)(9686003)(66946007)(64756008)(7696005)(6506007)(66446008)(66556008)(76116006)(38070700009)(86362001)(66476007)(4744005)(122000001)(38100700002)(41300700001)(26005)(83380400001)(2906002)(4326008)(5660300002)(71200400001)(7416002)(478600001)(6916009)(966005)(52536014)(54906003)(316002)(82960400001)(8936002)(8676002)(133343001);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?WkNJcUk0YlVhb1IwTktYRDdFd3Rjc0VKUjlwd2FKTE5tenpaM3dQSlZQaWhl?=
+ =?utf-8?B?eThvcHpuTGpTOGtxWWhtWlRsU08rS1Bzd01nQ0V2S2YvWGVTSnVJUTJUYlQ2?=
+ =?utf-8?B?SjdHZ1dRbnFnYnBVaDh5MkNaLzRwOW5iTGVPUUlyRTFRcEdQQnVNWjRiVUxj?=
+ =?utf-8?B?K1R1NitHTHNQcjBOM1ZsVFpjc2cvRzRpTEV1OUkycVZWRUdiR2tkblh3ektC?=
+ =?utf-8?B?V0hzbTZ0bTYxR0xLdDJBNVpBSTB1ZFpUdWpDZ1Q1cUZCQitWcVRBLy9qeU4y?=
+ =?utf-8?B?Q3V3R2pmLytwRFFuc09vRDdBbVp2MHRCbTNER3g1RFZkZUJhdFlzTjl3Wkt3?=
+ =?utf-8?B?cjAyd1RTSnI4QTJCQlhmRFhUSFZzWGs1QW1OWGtzdDZOdTJuWE50TVp4dlVO?=
+ =?utf-8?B?NjFmaHEyRCt6K0d2SmdNTFZGTGwwTEhncXJrSkJhZktQVUtCcjBYMUVzRVhO?=
+ =?utf-8?B?c24rZnhoT3BzcTBsaEMzb2w0UzREbWV5MXRoMHprODdYY3pRVEJHQjdiTnYy?=
+ =?utf-8?B?Uy92V3lrMUhPRVBoMENrUCs3N3hpRFdCcEdhbVlDK0ZNcWZ5MXRDU0xFdVQw?=
+ =?utf-8?B?R3ZtUWNoVFA0cDhqQmZwbWIrc1p0ZTVGc29xMWMxZGFxMHRTeHRsQ3pwTTJG?=
+ =?utf-8?B?TjBRNURuT3VyQ1NqV0VGOTN2ajUzSzVySnpGYmpCand3alhaN1NpVDdwbkRM?=
+ =?utf-8?B?b3pHS1Q3ODY0RXNFOXN3SEdSNWNHTFpEakNPeWp3VHFSSHJkNkx5SFhjaUZY?=
+ =?utf-8?B?dy9qaURlU3dEZ0pOUitoYnhvU1ZRVm4zNTNXbFl2L2NYcHNBT1pFWEJXRm8r?=
+ =?utf-8?B?dzJDWFFVeVh5VlY5TUdsblNDRUNXZUQ3Vms0ZnZCd0lvay9PbDlvenlVSHAx?=
+ =?utf-8?B?TG94aU1XdEgvbm5HVXRvTjJBN2loVlhOVGR4RkM2ejVUT3RoSVlNZ3NlNnBS?=
+ =?utf-8?B?cDNsRWVWdEx1cEVXS09mYXE2bjlFbUdxM1RQRC9MOGdLV2ZQMzZ5Tkt4Uk1K?=
+ =?utf-8?B?cUcrL2lmR3YvR0t3Y21Tb3pWUGlkZXNlNktsaVRYS2JZM0pCakgrZStreFpq?=
+ =?utf-8?B?ZVNBUFNvK0ZUR1BWajk4dlJPRW42SkZYbmNSc2QrZnlKV2hieXordytnUVhU?=
+ =?utf-8?B?YlFQVG5palJzOFVBcFZCRDNCQ1hKcC84RTBoRjJuTTd6a2xJbjdJVlFLY3k0?=
+ =?utf-8?B?T1krM3BWdzF4T1k0U1MyWEdCMlFKaWk1Z0NUcHdtWjhDc0liTC9UbHFZNzZK?=
+ =?utf-8?B?Ykh2ZnIxYWF1NkN0T0J1ZzVZSnhLb3FrbWl6VFlBT2dldlVidGI5UlZJcFJP?=
+ =?utf-8?B?aXZTWEU2NXZPOU9oejdzQzlWbUFNWlJuOVBtWmNiZUNQTU05MktST1haOXJS?=
+ =?utf-8?B?Yk1IRzd0V2RzRG9NbTBrV1QzZ0NnZVdYc2ZxTHBqNGt3REN3TGdHeG5rOUlG?=
+ =?utf-8?B?OTY5M2gzUnY3S1ExeXlEL3F4a3h4VDdwcHU1b0VPRFBnQjkyWjI5NjNtWlFo?=
+ =?utf-8?B?ak1JU0YwdlFsMTNBK0Naa0xhYlF3ajdyTDNzamhPMFJhQWovejFUVUswaWxN?=
+ =?utf-8?B?STZkY29kdjgvOTBLQ0NHOG4vZEo0N2VxMWdJaFppdWxKOHNxYUZRUTM5bWtX?=
+ =?utf-8?B?SWlIWnQxUW50NndFTjNrRFdhN1g0MVFnZTFVaSt1bjVRdStqTnlyUWc0TUox?=
+ =?utf-8?B?UlVoVXQyOXkySjVZK1BvOGRhQTFONXV2akJQZ2hybWdTdlRrci9LR2xGVkNX?=
+ =?utf-8?B?MGdwbHRScEl5MXJxVjRJRnRNVW5IbVVnMm16cFlHQnhiWGU2UzJqcjROcW55?=
+ =?utf-8?B?M1QyaVRycnhKYVp1RTBwelcvUE9LdkV1SDhGaUdrUXFqM1drTU9EVnhuTy95?=
+ =?utf-8?B?ak42WWZBMnU5d2lPd3NUY2kzQXhvMmY4b05Ob0RIOXZ4cVpHbmgxMko0MWZo?=
+ =?utf-8?B?YUd5UzZrOVdkUEJhb0dkYlZzV0lQUk03eitUa3FxREwrZXJlQ09EaVlFWkJ0?=
+ =?utf-8?B?aHlqVHFlM3VzNngzOFVqMXFGNlBFMS9KTHE0ZVk2NXduL2N0eGFWTWRYZWh0?=
+ =?utf-8?B?elN3YUNMZG1xeWtOcXQ3VngydTRraVRCdWozK1lOTVd4QllMcG1jcW9NbENM?=
+ =?utf-8?Q?YU/k=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB6734.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 055a227c-2c25-4ce6-0dfb-08dc0bdf114c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jan 2024 22:06:27.5496
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2AjJwpb/OVe4rVHsbyr5dxOPUeyXaI0feaWWD5AYXJA3lre91Hz6U7sq/zF0zmLa2MsnXZmdPl1RryHjcWY+BQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB5345
+X-OriginatorOrg: intel.com
 
-
-
-Am 12=2E Dezember 2023 15:39:00 UTC schrieb Stefan Hajnoczi <stefanha@redh=
-at=2Ecom>:
->The Big QEMU Lock (BQL) has many names and they are confusing=2E The
->actual QemuMutex variable is called qemu_global_mutex but it's commonly
->referred to as the BQL in discussions and some code comments=2E The
->locking APIs, however, are called qemu_mutex_lock_iothread() and
->qemu_mutex_unlock_iothread()=2E
->
->The "iothread" name is historic and comes from when the main thread was
->split into into KVM vcpu threads and the "iothread" (now called the main
-
-Duplicate "into" here=2E
-
->loop thread)=2E I have contributed to the confusion myself by introducing
->a separate --object iothread, a separate concept unrelated to the BQL=2E
->
->The "iothread" name is no longer appropriate for the BQL=2E Rename the
->locking APIs to:
->- void bql_lock(void)
->- void bql_unlock(void)
->- bool bql_locked(void)
->
->There are more APIs with "iothread" in their names=2E Subsequent patches
->will rename them=2E There are also comments and documentation that will b=
-e
->updated in later patches=2E
->
->Signed-off-by: Stefan Hajnoczi <stefanha@redhat=2Ecom>
->Reviewed-by: Paul Durrant <paul@xen=2Eorg>
->Acked-by: Fabiano Rosas <farosas@suse=2Ede>
->Acked-by: David Woodhouse <dwmw@amazon=2Eco=2Euk>
->Reviewed-by: C=C3=A9dric Le Goater <clg@kaod=2Eorg>
->Acked-by: Peter Xu <peterx@redhat=2Ecom>
->Acked-by: Eric Farman <farman@linux=2Eibm=2Ecom>
->Reviewed-by: Harsh Prateek Bora <harshpb@linux=2Eibm=2Ecom>
+PiA+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjEzIDAxLzM1XSB4ODYvY3B1ZmVhdHVyZXMsb3Bjb2Rl
+LG1zcjogQWRkIHRoZQ0KPiBXUk1TUk5TIGluc3RydWN0aW9uIHN1cHBvcnQNCj4gDQo+IE9yIHNp
+bXBseSAieDg2L2ZyZWQ6IEFkZCAuLi4gIg0KDQpEbyBJIG5lZWQgdG8gc2VuZCBhbiB1cGRhdGVk
+IHBhdGNoPw0KDQpPciBqdXN0IGxlYXZlIGl0IHRvIHRoZSBtYWludGFpbmVyIHdobyBpcyBnb2lu
+ZyB0byB0YWtlIGNhcmUgb2YgaXQ/DQoNCj4gDQo+IE90aGVyIHRoYW4gdGhhdCwNCj4gDQo+IEFj
+a2VkLWJ5OiBCb3Jpc2xhdiBQZXRrb3YgKEFNRCkgPGJwQGFsaWVuOC5kZT4NCg0KVGhhbmtzIGEg
+bG90IQ0KICAgIC1YaW4NCg0KPiANCj4gLS0NCj4gUmVnYXJkcy9HcnVzcywNCj4gICAgIEJvcmlz
+Lg0KPiANCj4gaHR0cHM6Ly9wZW9wbGUua2VybmVsLm9yZy90Z2x4L25vdGVzLWFib3V0LW5ldGlx
+dWV0dGUNCg==
 
