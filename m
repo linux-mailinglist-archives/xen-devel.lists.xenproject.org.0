@@ -2,39 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8A4B821DE4
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 15:40:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.660727.1030287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9B45821EC7
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 16:35:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.660733.1030297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKfwI-0004S6-Uu; Tue, 02 Jan 2024 14:40:18 +0000
+	id 1rKgmL-0006lC-VD; Tue, 02 Jan 2024 15:34:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 660727.1030287; Tue, 02 Jan 2024 14:40:18 +0000
+Received: by outflank-mailman (output) from mailman id 660733.1030297; Tue, 02 Jan 2024 15:34:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKfwI-0004PR-RS; Tue, 02 Jan 2024 14:40:18 +0000
-Received: by outflank-mailman (input) for mailman id 660727;
- Tue, 02 Jan 2024 14:40:17 +0000
+	id 1rKgmL-0006im-RZ; Tue, 02 Jan 2024 15:34:05 +0000
+Received: by outflank-mailman (input) for mailman id 660733;
+ Tue, 02 Jan 2024 15:34:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=11RI=IM=gmail.com=j.tretter@srs-se1.protection.inumbo.net>)
- id 1rKfwH-0004PL-Mq
- for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 14:40:17 +0000
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [2607:f8b0:4864:20::32d])
+ <SRS0=JX1x=IM=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1rKgmK-0006ie-FX
+ for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 15:34:04 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d71ed23e-a97c-11ee-9b0f-b553b5be7939;
- Tue, 02 Jan 2024 15:40:15 +0100 (CET)
-Received: by mail-ot1-x32d.google.com with SMTP id
- 46e09a7af769-6dbdbf680d6so3456643a34.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jan 2024 06:40:15 -0800 (PST)
-Received: from ?IPV6:2603:8080:a900:257c::1004?
- (2603-8080-a900-257c-0000-0000-0000-1004.res6.spectrum.com.
- [2603:8080:a900:257c::1004]) by smtp.gmail.com with ESMTPSA id
- r2-20020a056830134200b006dc0623b202sm1934543otq.73.2024.01.02.06.40.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jan 2024 06:40:13 -0800 (PST)
+ id 5914675a-a984-11ee-9b0f-b553b5be7939;
+ Tue, 02 Jan 2024 16:34:00 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-664-pzkIouvUPDeibrT9BgRP0w-1; Tue, 02 Jan 2024 10:33:56 -0500
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A0700881F02;
+ Tue,  2 Jan 2024 15:33:52 +0000 (UTC)
+Received: from localhost (unknown [10.39.193.188])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 79635492BFA;
+ Tue,  2 Jan 2024 15:33:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,226 +50,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: d71ed23e-a97c-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704206414; x=1704811214; darn=lists.xenproject.org;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:sender:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=4ONLUtK4TlZmu94GP5gLzTnRTXIraKo+f2GaDY4sCHU=;
-        b=CKtZ38ytPOQ+SF+90bR8QgrQQ3mKghWTf/edpMMvaZVpMzb/bKTOo+Zqgpqpj6KQKj
-         XhgkHm/l3UcCxrYqSbciag1qL3KP/4XTWogEXqTYHqL44uQ8mjBEdqc/TB0zV0eUvM3z
-         UbbxdhYknulGbfgtSsxplSclTMx2v/rnYVzsYBeZMkzCjGEuxoXoWKmel/oyMsUINV54
-         0TuHquQRm1YtdoFNxQBSBm2QoaPXm7qipMK3fzn889iShst9FyHsbL8XF0pABG3l4RBo
-         +yo69kmi4ja3QTqV6S9+viLonCelHz0k3jqWQ9LTHKWMBsrYpwUOsX1PDvUPetL2lsVA
-         KfFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704206414; x=1704811214;
-        h=in-reply-to:from:content-language:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:sender:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4ONLUtK4TlZmu94GP5gLzTnRTXIraKo+f2GaDY4sCHU=;
-        b=prX2E/t0ibK/XMa/0nFtNxhBFCnfZvsukZ7/EFtb2zCmnHKFch96P0wiUHHoTxi5Sd
-         QrlG6aXTmGNOqmNlPWgJ/2c5WYzF9UAj8iGa1hqEiKVhLujmcnXr4zdtgg4AExFy8n7E
-         4wYadzNXtPtKD7NlKF2E+UOu41l2BCgNV+2dp2EcEWLvLjl+6GbCQ11ZZ16rvu3dtIQe
-         3APXjun3KiKxhW7kQH3a9T6QStN6YTt8C+CpA1Q99/q4ACtDgT0Nc6Uu0zsHUj4Deqmb
-         PTHa/Jbl0nKe16pwvNLpjVEBUO+Hkn9mxbrWfYfM6dt3Rmm7reqDaw/6N0LigUJsSQQN
-         R+gA==
-X-Gm-Message-State: AOJu0YzfqoBVxsCFFyGe6LcktQv37MHTtndtOz9NH+l7At4zDxwSXl1B
-	hPIm1Hhx1ULFu506vxOiqDA=
-X-Google-Smtp-Source: AGHT+IFPVCme0Ogqf0jsAcCSjZLVKYqvVDpefFqDBd/0Z1IZ8nwiWjPPK+8PihzwcTGiMVNmBkDxUQ==
-X-Received: by 2002:a05:6830:22e8:b0:6dc:17a:663e with SMTP id t8-20020a05683022e800b006dc017a663emr5959912otc.70.1704206413742;
-        Tue, 02 Jan 2024 06:40:13 -0800 (PST)
-Sender: Joe Tretter <joerg.tretter@gmail.com>
-Content-Type: multipart/alternative;
- boundary="------------CGd0ViBKbw8it84gzjmsfZe0"
-Message-ID: <6f81654d-ff07-44c0-a625-d8465e3ac0ed@gmail.com>
-Date: Tue, 2 Jan 2024 08:42:40 -0600
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 5914675a-a984-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1704209638;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qivEXDFa8JGXsGjfK5660gJbyc7eHqwbc8ku83Ng7G0=;
+	b=iFSyC9bH860ROgz/wPSstuq6Jiw04sVIsTqGNcSkpFt2QUciV4C1I2zb7yKEIOFprPTYyd
+	JE1YMwPbZCB36cOqdBKosGeJs9eEdfzgTSS8J3Pi00Vx/lEJhlEZvB9OfImH/CwomBCAGp
+	N38JVFom7ARByQTB2bh+CVCrVYr3VLg=
+X-MC-Unique: pzkIouvUPDeibrT9BgRP0w-1
+Date: Tue, 2 Jan 2024 10:33:45 -0500
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Akihiko Odaki <akihiko.odaki@daynix.com>
+Cc: qemu-devel@nongnu.org,
+	Daniel =?iso-8859-1?Q?P=2E_Berrang=E9?= <berrange@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Artyom Tarasenko <atar4qemu@gmail.com>, Paul Durrant <paul@xen.org>,
+	Daniel Henrique Barboza <danielhb413@gmail.com>,
+	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	BALATON Zoltan <balaton@eik.bme.hu>,
+	Jagannathan Raman <jag.raman@oracle.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+	Alexander Graf <agraf@csgraf.de>,
+	Hailiang Zhang <zhanghailiang@xfusion.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Harsh Prateek Bora <harshpb@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>, Peter Xu <peterx@redhat.com>,
+	Hyman Huang <yong.huang@smartx.com>, Fam Zheng <fam@euphon.net>,
+	Song Gao <gaosong@loongson.cn>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	=?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Aurelien Jarno <aurelien@aurel32.net>,
+	Leonardo Bras <leobras@redhat.com>, Jiri Slaby <jslaby@suse.cz>,
+	Eric Farman <farman@linux.ibm.com>, Thomas Huth <thuth@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	David Hildenbrand <david@redhat.com>,
+	Michael Roth <michael.roth@amd.com>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Cameron Esfahani <dirty@apple.com>, qemu-ppc@nongnu.org,
+	John Snow <jsnow@redhat.com>,
+	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+	Weiwei Li <liwei1518@gmail.com>, Hanna Reitz <hreitz@redhat.com>,
+	qemu-s390x@nongnu.org, qemu-block@nongnu.org,
+	Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>,
+	kvm@vger.kernel.org, "Michael S. Tsirkin" <mst@redhat.com>,
+	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
+	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+	Andrey Smirnov <andrew.smirnov@gmail.com>,
+	Reinoud Zandijk <reinoud@netbsd.org>, Kevin Wolf <kwolf@redhat.com>,
+	Bin Meng <bin.meng@windriver.com>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	Peter Maydell <peter.maydell@linaro.org>, qemu-riscv@nongnu.org,
+	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+	Stafford Horne <shorne@gmail.com>, Fabiano Rosas <farosas@suse.de>,
+	Juan Quintela <quintela@redhat.com>,
+	Markus Armbruster <armbru@redhat.com>, qemu-arm@nongnu.org,
+	Jason Wang <jasowang@redhat.com>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Max Filippov <jcmvbkbc@gmail.com>,
+	Jean-Christophe Dubois <jcd@tribudubois.net>,
+	Eric Blake <eblake@redhat.com>,
+	Roman Bolshakov <rbolshakov@ddn.com>,
+	Halil Pasic <pasic@linux.ibm.com>, xen-devel@lists.xenproject.org,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: Re: [PATCH v2 1/5] system/cpus: rename qemu_mutex_lock_iothread() to
+ bql_lock()
+Message-ID: <20240102153345.GA485043@fedora>
+References: <20231212153905.631119-1-stefanha@redhat.com>
+ <20231212153905.631119-2-stefanha@redhat.com>
+ <389fff8c-9f5d-4b6b-acd2-bc3e2110a9b3@daynix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Possible bug in Xen
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <de8b87e2-a4a2-4e49-80f5-97c745f46500@gmail.com>
- <9cc86706-5791-4967-802c-3e665bc97804@citrix.com>
- <a0aa0326-398f-44a1-a5df-fde3e7fea138@gmail.com>
- <cd153225-5cef-4ff5-97e3-44e485c12305@citrix.com>
- <e787b9ba-7a30-4804-b64e-ef56c71f5ed3@gmail.com>
- <caf76de4-89f5-4ce4-b1e3-1de7a21325dc@citrix.com>
- <15ece71b-d1d1-49d8-b937-f697b50fac39@gmail.com>
- <1b1116d0-bbda-4fa3-ae41-321e69626641@citrix.com>
-Content-Language: en-US
-From: Joe Tretter <j.tretter@gmail.com>
-In-Reply-To: <1b1116d0-bbda-4fa3-ae41-321e69626641@citrix.com>
-
-This is a multi-part message in MIME format.
---------------CGd0ViBKbw8it84gzjmsfZe0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Happy New Year! I think it's time I send you an update:
-I have spent a considerable amount of time trying to get the latest 
-firmware working, but I find a way that does the job.
-When I replaced the file with yours, the machine directly restarts on 
-application of the firmware.
-All ways I have tried either result in the firmware not being considered 
-or the machine rebooting on application.
-The machine is dual boot with Archlinux and on Archlinux, I have the 
-latest firmware running.
-I have reached out to the Qubes people for help getting the latest 
-firmware working. I'll let you know when I succeed with that.
-
-~Joe
-
-On 12/19/23 11:00, Andrew Cooper wrote:
-> On 19/12/2023 4:28 pm, Joe Tretter wrote:
->> On 12/19/23 10:05, Andrew Cooper wrote:
->>> Is it always the same test which fails, or is it random?
->> Which test fails seems to be random (see attached screenshot).
->>> Looking athttps://github.com/Tarsnap/scrypt  it's only a trivial piece
->>> of userspace crypto.
->>>
->>> The fact that running multiple instances makes it fail more easily
->>> points towards some kind of register handling issue, but the fact that
->>> it repros only under Xen, and even with eager-fpu (which isn't the
->>> default on AMD, sadly), is weird.
->>>
->>> Looking at the scrypt source, it has alternative routines for the AESNI
->>> and SHANI instruction groups.  However, because it's a Zen1, we don't
->>> have a useful way of filtering visible for PV dom0 userspace.
->>>
->>> First of all, can you get the exact CPU model and microcode version.
->>> `head /proc/cpuinfo` will be enough.  But while you're at it, can you
->>> include `xl dmesg` too just in case there's something obvious showing up
->>> there too.
->>>
->> I have attachted text files with the (full) cpuinfo and the dmesg.
-> microcode    : 0x8001129
->
-> That's 0x08001129 when not rendered brokenly, and the up-to-date version
-> is 0x08001138 (which itself dates from 2019).
->
-> If you can, get a firmware update.  Given that it's a Dell, there's a
-> good chance it's already on LFVS/fwupd.  This is definitely the
-> preferred option.
->
-> If not, and you're willing to experiment in definitely unsupported
-> territory, then move /lib/firmware/amd-ucode/microcode_amd_fam17h.bin
-> sideways in dom0, and replace it with the attached SummitRidge-08001138
-> file (it's important to still be named microcode_amd_fam17h.bin in the
-> end), then rebuild the initrd and reboot.
->
-> You already have ucode=scan on Xen's command line, so after the reboot
-> you should see some messages about updating microcode too.
->
-> Irritatingly, AMD don't put client microcode into linux-firmware, but
-> there are various collections of blobs found in the wild online.  I've
-> picked the one which I think is right for your CPU, and packaged it it
-> appropriately for Xen.
->
->
-> Anyway, I'm not sure if this will fix anything, but life is too short to
-> be debugging stuff like this on out-of-date firmware/ucode.
->
-> ~Andrew
-
---------------CGd0ViBKbw8it84gzjmsfZe0
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html data-lt-installed="true">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body style="padding-bottom: 1px;">
-    Happy New Year! I think it's time I send you an update:<br>
-    I have spent a considerable amount of time trying to get the latest
-    firmware working, but I find a way that does the job.<br>
-    When I replaced the file with yours, the machine directly restarts
-    on application of the firmware.<br>
-    All ways I have tried either result in the firmware not being
-    considered or the machine rebooting on application.<br>
-    The machine is dual boot with Archlinux and on Archlinux, I have the
-    latest firmware running.<br>
-    I have reached out to the Qubes people for help getting the latest
-    firmware working. I'll let you know when I succeed with that.<br>
-    <br>
-    ~Joe<br>
-    <br>
-    <div class="moz-cite-prefix">On 12/19/23 11:00, Andrew Cooper wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1b1116d0-bbda-4fa3-ae41-321e69626641@citrix.com">
-      <pre class="moz-quote-pre" wrap="">On 19/12/2023 4:28 pm, Joe Tretter wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">On 12/19/23 10:05, Andrew Cooper wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Is it always the same test which fails, or is it random?
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">Which test fails seems to be random (see attached screenshot).
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Looking at <a class="moz-txt-link-freetext" href="https://github.com/Tarsnap/scrypt">https://github.com/Tarsnap/scrypt</a> it's only a trivial piece
-of userspace crypto.
-
-The fact that running multiple instances makes it fail more easily
-points towards some kind of register handling issue, but the fact that
-it repros only under Xen, and even with eager-fpu (which isn't the
-default on AMD, sadly), is weird.
-
-Looking at the scrypt source, it has alternative routines for the AESNI
-and SHANI instruction groups.  However, because it's a Zen1, we don't
-have a useful way of filtering visible for PV dom0 userspace.
-
-First of all, can you get the exact CPU model and microcode version. 
-`head /proc/cpuinfo` will be enough.  But while you're at it, can you
-include `xl dmesg` too just in case there's something obvious showing up
-there too.
-
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">I have attachted text files with the (full) cpuinfo and the dmesg.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-microcode    : 0x8001129
-
-That's 0x08001129 when not rendered brokenly, and the up-to-date version
-is 0x08001138 (which itself dates from 2019).
-
-If you can, get a firmware update.  Given that it's a Dell, there's a
-good chance it's already on LFVS/fwupd.  This is definitely the
-preferred option.
-
-If not, and you're willing to experiment in definitely unsupported
-territory, then move /lib/firmware/amd-ucode/microcode_amd_fam17h.bin
-sideways in dom0, and replace it with the attached SummitRidge-08001138
-file (it's important to still be named microcode_amd_fam17h.bin in the
-end), then rebuild the initrd and reboot.
-
-You already have ucode=scan on Xen's command line, so after the reboot
-you should see some messages about updating microcode too.
-
-Irritatingly, AMD don't put client microcode into linux-firmware, but
-there are various collections of blobs found in the wild online.  I've
-picked the one which I think is right for your CPU, and packaged it it
-appropriately for Xen.
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="DI3ersSYWO3ysvwX"
+Content-Disposition: inline
+In-Reply-To: <389fff8c-9f5d-4b6b-acd2-bc3e2110a9b3@daynix.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
 
 
-Anyway, I'm not sure if this will fix anything, but life is too short to
-be debugging stuff like this on out-of-date firmware/ucode.
+--DI3ersSYWO3ysvwX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-~Andrew</pre>
-    </blockquote>
-    <br>
-  </body>
-  <lt-container></lt-container>
-</html>
+On Wed, Dec 13, 2023 at 03:37:00PM +0900, Akihiko Odaki wrote:
+> On 2023/12/13 0:39, Stefan Hajnoczi wrote:
+> > @@ -312,58 +312,58 @@ bool qemu_in_main_thread(void);
+> >       } while (0)
+> >   /**
+> > - * qemu_mutex_lock_iothread: Lock the main loop mutex.
+> > + * bql_lock: Lock the Big QEMU Lock (BQL).
+> >    *
+> > - * This function locks the main loop mutex.  The mutex is taken by
+> > + * This function locks the Big QEMU Lock (BQL).  The lock is taken by
+> >    * main() in vl.c and always taken except while waiting on
+> > - * external events (such as with select).  The mutex should be taken
+> > + * external events (such as with select).  The lock should be taken
+> >    * by threads other than the main loop thread when calling
+> >    * qemu_bh_new(), qemu_set_fd_handler() and basically all other
+> >    * functions documented in this file.
+> >    *
+> > - * NOTE: tools currently are single-threaded and qemu_mutex_lock_iothr=
+ead
+> > + * NOTE: tools currently are single-threaded and bql_lock
+> >    * is a no-op there.
+> >    */
+> > -#define qemu_mutex_lock_iothread()                      \
+> > -    qemu_mutex_lock_iothread_impl(__FILE__, __LINE__)
+> > -void qemu_mutex_lock_iothread_impl(const char *file, int line);
+> > +#define bql_lock()                      \
+> > +    bql_lock_impl(__FILE__, __LINE__)
+>=20
+> This line break is no longer necessary.
 
---------------CGd0ViBKbw8it84gzjmsfZe0--
+Will fix in v3.
+
+Stefan
+
+--DI3ersSYWO3ysvwX
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmWULNkACgkQnKSrs4Gr
+c8gQ1wf/SKDGDIkJDmyj8M85Uyj3OSfk6tILO0qMqPCHK2Xyw3+EA0ugnFsOQ0eT
+UcvEcmAyA0hewn7VKrk4Ge1wuPQ6Qm9DgLNb6oojftMAxktuhOAwC8VRaYiUFIF/
+JP46P0qatEeghim4KwM4VV8EGGClPZU0vVsAQ/6rAxs2ZWbgBMPFfg9TSspauGWY
+4tObr3E/T3RO4aajdJMcobO9ocG3TTdJAGwcOY6nGHnfS+DE/+a2yr4NwmQrxgqS
+jcmYNPM+uSCzilu3csBqEtYtklAsVkArXGkf0pcSb73VmfgeBdHlIRupD0aCq3SE
+4rE39ETbAHOxe0+sS7oasRYcUNKBxA==
+=P1kw
+-----END PGP SIGNATURE-----
+
+--DI3ersSYWO3ysvwX--
+
 
