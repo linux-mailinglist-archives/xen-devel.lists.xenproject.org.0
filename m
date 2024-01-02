@@ -2,52 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CF8D8220B3
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 19:00:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.660820.1030446 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBC278221CA
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 20:10:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.660826.1030457 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKj3d-0000Zd-C6; Tue, 02 Jan 2024 18:00:05 +0000
+	id 1rKk92-0006tL-EG; Tue, 02 Jan 2024 19:09:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 660820.1030446; Tue, 02 Jan 2024 18:00:05 +0000
+Received: by outflank-mailman (output) from mailman id 660826.1030457; Tue, 02 Jan 2024 19:09:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKj3d-0000WK-8t; Tue, 02 Jan 2024 18:00:05 +0000
-Received: by outflank-mailman (input) for mailman id 660820;
- Tue, 02 Jan 2024 18:00:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oNM8=IM=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1rKj3b-00089d-Pk
- for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 18:00:03 +0000
-Received: from NAM02-BN1-obe.outbound.protection.outlook.com
- (mail-bn1nam02on20609.outbound.protection.outlook.com
- [2a01:111:f400:7eb2::609])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be40f6ae-a998-11ee-9b0f-b553b5be7939;
- Tue, 02 Jan 2024 18:59:59 +0100 (CET)
-Received: from BYAPR05CA0011.namprd05.prod.outlook.com (2603:10b6:a03:c0::24)
- by CY8PR12MB7338.namprd12.prod.outlook.com (2603:10b6:930:52::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7135.25; Tue, 2 Jan
- 2024 17:59:56 +0000
-Received: from MWH0EPF000989EB.namprd02.prod.outlook.com
- (2603:10b6:a03:c0:cafe::e) by BYAPR05CA0011.outlook.office365.com
- (2603:10b6:a03:c0::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.7 via Frontend
- Transport; Tue, 2 Jan 2024 17:59:55 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MWH0EPF000989EB.mail.protection.outlook.com (10.167.241.138) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7159.9 via Frontend Transport; Tue, 2 Jan 2024 17:59:55 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 2 Jan
- 2024 11:59:54 -0600
-Received: from [172.23.76.218] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Tue, 2 Jan 2024 11:59:53 -0600
+	id 1rKk92-0006qr-BN; Tue, 02 Jan 2024 19:09:44 +0000
+Received: by outflank-mailman (input) for mailman id 660826;
+ Tue, 02 Jan 2024 19:09:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rKk91-0006ql-Mf
+ for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 19:09:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rKk8x-00034K-1n; Tue, 02 Jan 2024 19:09:39 +0000
+Received: from [54.239.6.182] (helo=[10.95.76.173])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rKk8w-0003mb-Qi; Tue, 02 Jan 2024 19:09:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,107 +39,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be40f6ae-a998-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yg/ShcVHaU3auk6Py5D5evMVc3RKDdZ1Ud8TYzLzJIDOzWjz0MYilLbWHYmuQ+v1Zrin058jUapwHZWqpLEAJmTrsPBDCBdQakzkH7sg897DngeEo4ukSdOCF3silLjD8gAn1CVsktTicQ1Zsxa9jy+CjpaOaGvIdrvKG1NGtSkgGkmYICNBFA1SZFLN1BrHDbajXmPCfRYgY29LqZF4g/qk1sLP5xPnubIbmjj/qwMZWe/ho+BdMelx2Aw0oKgOGJh2CB4w+Fe5CcBM2DcVtlGi4mwRD2Z24g9Aui+xQWdkGZqDSH5n5xgVgzoebeihGJj7DKBTaCN9kgsLLjkdhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LNv9SfU0t1uskTV7tV/6zk668SUCL/wWCzQAB04Vwo0=;
- b=NEAn2HGv0897OisgeNLBEM7yj/wl62XEGGDEidHMBSlmH0Uuv5lrED4hOIuEtmil+UnD9cd5vGbPP2b/lDs1Pc5bi7/jK3McvcmW+pgLXKaNxYH6CaFjsC+9491Z5Bx8ZiuDZMR6cb6pH1jjABB8rdo94wOr8RDtxZAfOQ2YGlghZplqSl6qForAcgiWPXvtfIjawKSPUGIt+knUISk8vz0vbo8N7p15iCAy0wL07NsdOKPPzXoBZwb4qJ8/S/0VuOQS2pC++iHSZRjh17pGLevN2vBSGBZ7mpoaGxIWgh6gK4IYPN+lAeLQ3Om2/AqxTcIag5SVDWk2Y47KAwVjFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LNv9SfU0t1uskTV7tV/6zk668SUCL/wWCzQAB04Vwo0=;
- b=Ey1bgFrvQfxrNWfWBkl72nufpr5l9iZqHvzwqnocNfRAh8nB+NtUDX1Dikl7uKM9KT8u8UKdyKmajkGtpeAkgHVV4umPbMTLSeM9u8Gk2sgLzoTOKSuSWuTLg+a8ZsCuhWUdBFmFcz6NZbeQSIPZ7/G0G40m4+jHJ/FuzVDcTGc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <2c085876-fc9c-428e-b064-5be0d19c78e3@amd.com>
-Date: Tue, 2 Jan 2024 12:59:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ftVZ3aGf9z8uzFxxrchpWDI70XVg+aUI4vstfPeAkCE=; b=rmeFlXah8dYrBaFjf77bB0kbjX
+	mCsW9GHHLBhwqM8oJlLynPSrt/jNKlwIJQ2qrVToj/Eaw/sAR+i99w9XNzXAYl/Jk0/5Sau6MYYiE
+	YSjhIgvULKUNv0OHqziUrE9CqxAe14b7zqMVfgbMSN5U7EW6UrezF5EhLJO+vFfldwsg=;
+Message-ID: <d0daf858-eda8-4b2a-9cfe-82fff834df8f@xen.org>
+Date: Tue, 2 Jan 2024 19:09:36 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 05/17] vpci: add hooks for PCI device assign/de-assign
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, Jan Beulich
-	<jbeulich@suse.com>, Paul Durrant <paul@xen.org>
-References: <20231202012556.2012281-1-volodymyr_babchuk@epam.com>
- <20231202012556.2012281-6-volodymyr_babchuk@epam.com>
- <ZYRYDO2MPOIfx64b@macbook>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <ZYRYDO2MPOIfx64b@macbook>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989EB:EE_|CY8PR12MB7338:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ee0ce15-37f4-4b7b-116a-08dc0bbca055
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	8y74gQeAG8eI6h2vQ2qO2Ug92GI+e2gipzdmf167IwPJaF8LeZ4UxBvgBeGyg1/fRMMACCqL/sq5qXUI7RzBDXsWILWqfRFZBUgQn0t/N9QQr8IDBh/KQQnCq2Nd6j6dNa5djVAi7uh9sJG1mDrQx+598ymZ21haxTGmJ70fehtK4Sp4n41mIHgv3oO9k1OPAFUX3EukOp5jij50uV+ybzVXcFm6RgFSob6voCdRyfrR09D/3/F5zfLAjl/XE9/eHQcZf2lw4C8uPnnYjZk+p/NibqqjmI5W7rDeRAneEVAgnpgLosmkyAjT+AywUAhKC3VOEM/IR6pbgS6XWAYePi/n8TYbl8LfA/Sd7gfmWqolfl3jpbbWhesNs9OQw9SuEekEeUupqZGAQOLghYfyMqX1E64Rnz8DlNPICS5gWmBX6sJAGE/L4q3QRuWjHmgvhHoVpvumgHYFz5LklG6cIgWchvWweg5zH830HSCQn93uOnOYzFjtsOGk0jykzcQlQCuq4xY1+wR8HWVx5FSA5DGPpPm/7QYLWf34tZbGH/oA7q2ZEQpgEOYv9AndIg4ulQF38SKGfH2vDe4vQhsKr+23VhML094plN7C4ATS7lHCXeWEBkT0Nnr0qRc2TwmViYh8lLtxzxp0hyJGjxMGKFBPpxQGETAgvkFnCAqy4S9n79pQUPra0eetoHmQWAsw+EdNZVg2+iTdq1rVM81LbwwVyDv5zxToI61/33/TSLj9LLHlze0SKn0vGgzW+ox16eb00BvMcHO9Ck97Bo72cu3YkmDZ7bjIVemumIK2S4gIEWJz68RAC3lq4Fusq5yJ
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(376002)(39860400002)(346002)(136003)(230922051799003)(451199024)(1800799012)(64100799003)(82310400011)(186009)(36840700001)(46966006)(40470700004)(356005)(82740400003)(81166007)(36756003)(31686004)(31696002)(40480700001)(40460700003)(86362001)(2616005)(426003)(336012)(26005)(53546011)(47076005)(54906003)(4326008)(16576012)(316002)(478600001)(8936002)(8676002)(36860700001)(110136005)(70206006)(70586007)(41300700001)(5660300002)(44832011)(2906002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jan 2024 17:59:55.0048
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ee0ce15-37f4-4b7b-116a-08dc0bbca055
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000989EB.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7338
+Subject: Re: [PATCH v2 1/2] xen/x86: io_apic: Introduce a command line option
+ to skip timer check
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20231211122322.15815-1-julien@xen.org>
+ <20231211122322.15815-2-julien@xen.org>
+ <b17bb7d1-1206-4ad1-96b1-7b903a740c83@suse.com>
+ <8b8a62a0-f854-405e-b256-5eee4bfdcb6c@xen.org>
+ <b74f1f28-58da-4604-a7ef-370aeb0522ce@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <b74f1f28-58da-4604-a7ef-370aeb0522ce@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 12/21/23 10:21, Roger Pau Monné wrote:
-> On Sat, Dec 02, 2023 at 01:27:03AM +0000, Volodymyr Babchuk wrote:
->> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Hi Jan,
+
+On 14/12/2023 10:35, Jan Beulich wrote:
+> On 14.12.2023 11:14, Julien Grall wrote:
+>> On 14/12/2023 10:10, Jan Beulich wrote:
+>>> On 11.12.2023 13:23, Julien Grall wrote:
+>>>> --- a/xen/arch/x86/io_apic.c
+>>>> +++ b/xen/arch/x86/io_apic.c
+>>>> @@ -57,6 +57,14 @@ bool __initdata ioapic_ack_forced;
+>>>>    int __read_mostly nr_ioapic_entries[MAX_IO_APICS];
+>>>>    int __read_mostly nr_ioapics;
+>>>>    
+>>>> +/*
+>>>> + * The logic to check if the timer is working is expensive. So allow
+>>>> + * the admin to bypass it if they know their platform doesn't have
+>>>> + * a buggy timer.
+>>>> + */
+>>>> +static bool __initdata pit_irq_works;
+>>>> +boolean_param("pit-irq-works", pit_irq_works);
+>>>> +
+>>>>    /*
+>>>>     * Rough estimation of how many shared IRQs there are, can
+>>>>     * be changed anytime.
+>>>> @@ -1502,6 +1510,9 @@ static int __init timer_irq_works(void)
+>>>>    {
+>>>>        unsigned long t1, flags;
+>>>>    
+>>>> +    if ( pit_irq_works )
+>>>> +        return 1;
+>>>
+>>> When the check is placed here, what exactly use of the option means is
+>>> system dependent. I consider this somewhat risky, so I'd prefer if the
+>>> check was put on the "normal" path in check_timer(). That way it'll
+>>> affect only the one case which we can generally consider "known good",
+>>> but not the cases where the virtual wire setups are being probed. I.e.
+
+By "known good", do you mean the following:
+
+diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+index c89fbed8d675..c39d39ee951a 100644
+--- a/xen/arch/x86/io_apic.c
++++ b/xen/arch/x86/io_apic.c
+@@ -1960,7 +1959,8 @@ static void __init check_timer(void)
+           * Ok, does IRQ0 through the IOAPIC work?
+           */
+          unmask_IO_APIC_irq(irq_to_desc(0));
+-        if (timer_irq_works()) {
++        if (pit_irq_works || timer_irq_works()) {
++            printk("====== pirq_irq_works %d =====\n", pit_irq_works);
+              local_irq_restore(flags);
+              return;
+          }
+
 >>
->> When a PCI device gets assigned/de-assigned we need to
->> initialize/de-initialize vPCI state for the device.
->>
->> Also, rename vpci_add_handlers() to vpci_assign_device() and
->> vpci_remove_device() to vpci_deassign_device() to better reflect role
->> of the functions.
->>
->> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+>> I am not against restricting when we allow skipping the timer check. But
+>> in that case, I wonder why Linux is doing it differently?
 > 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> Sadly Linux'es git history doesn't go back far enough (begins only at past
+> 2.6.11), so I can't (easily) find the patch (and description) for the x86-64
+> change. The later i386 change is justified mainly by paravirt needs, so
+> isn't applicable here. I wouldn't therefore exclude that my point above
+> wasn't even taken into consideration. Furthermore their command line option
+> is "no_timer_check", which to me firmly says "don't check" without regard to
+> whether the source (PIT) is actually okay. That's different with the option
+> name you (imo validly) chose.
 
-Thanks!
+Just to note that the name was suggested by Roger. I have to admit that 
+I didn't check if this made sense for the existing placement.
 
-> 
->> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
->> index d743d96a10..75cfb532ee 100644
->> --- a/xen/include/xen/vpci.h
->> +++ b/xen/include/xen/vpci.h
->> @@ -25,11 +25,11 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
->>    static vpci_register_init_t *const x##_entry  \
->>                 __used_section(".data.vpci." p) = x
->>  
->> -/* Add vPCI handlers to device. */
->> -int __must_check vpci_add_handlers(struct pci_dev *pdev);
->> +/* Assign vPCI to device by adding handlers to device. */
-> 
-> Nit: the comment would likely benefit from removing the last device
-> before the full stop.
+Anyway, I tested the change on the HW where I wanted to skip the timer 
+check. And I can confirm this is still skipping the timer check.
 
-Will fix
+So I will send a new version with the diff above and some updated comments.
 
-> 
->> +int __must_check vpci_assign_device(struct pci_dev *pdev);
-> 
-> Thanks, Roger.
+Cheers,
+
+-- 
+Julien Grall
 
