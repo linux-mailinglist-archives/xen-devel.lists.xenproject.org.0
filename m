@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 676DE821B39
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 12:52:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.660652.1030212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0A20821B72
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 13:13:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.660667.1030221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKdJk-0003kD-Cf; Tue, 02 Jan 2024 11:52:20 +0000
+	id 1rKde6-0000jB-Aa; Tue, 02 Jan 2024 12:13:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 660652.1030212; Tue, 02 Jan 2024 11:52:20 +0000
+Received: by outflank-mailman (output) from mailman id 660667.1030221; Tue, 02 Jan 2024 12:13:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKdJk-0003gs-7c; Tue, 02 Jan 2024 11:52:20 +0000
-Received: by outflank-mailman (input) for mailman id 660652;
- Tue, 02 Jan 2024 11:52:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nGpE=IM=gmail.com=marcandre.lureau@srs-se1.protection.inumbo.net>)
- id 1rKdJi-0003fY-8I
- for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 11:52:18 +0000
-Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
- [2607:f8b0:4864:20::236])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 60134d43-a965-11ee-98ef-6d05b1d4d9a1;
- Tue, 02 Jan 2024 12:52:17 +0100 (CET)
-Received: by mail-oi1-x236.google.com with SMTP id
- 5614622812f47-3bbc755167fso4136440b6e.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jan 2024 03:52:17 -0800 (PST)
+	id 1rKde6-0000gE-7b; Tue, 02 Jan 2024 12:13:22 +0000
+Received: by outflank-mailman (input) for mailman id 660667;
+ Tue, 02 Jan 2024 12:13:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rKde5-0000g4-3Y; Tue, 02 Jan 2024 12:13:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rKde4-00038n-He; Tue, 02 Jan 2024 12:13:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rKde4-0000PJ-1U; Tue, 02 Jan 2024 12:13:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rKde4-0000jl-0y; Tue, 02 Jan 2024 12:13:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,274 +42,292 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 60134d43-a965-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704196336; x=1704801136; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hFmcKa0V1SXEd2KZZXGrlYbPhOuudVLjDBKA5R7e/lM=;
-        b=VB9sWVAyBmV4bZ71VAFd+pdX/caTJTRl6xspgbwE45fN7AB+O6i/YVIknTJs+nl7Ks
-         Y2xAMZNI/7uSTYUsr1QLyNzJbpyMZK1WpFmL5fWFZ0ML4nBVPZIomxFvlRgqDkUWeauL
-         lj/Ap2R85JWW1TekHBleHT10REEPhCGy38d1pS/zA4ug9uBNCneZXOW/4N/gDfDdEujM
-         0xj6Ra34stA4y5ZH8pkFysE92DUEN2FTtKkYORE1nkWmhWIiIdrFvyRnreQV1f5jina9
-         WowinuxlklfnKmBMRLUB42TnIbXe2VOsNDaaIrKvB3DfshaA96U77HBqAD8CD5K1faSY
-         /4Bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704196336; x=1704801136;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hFmcKa0V1SXEd2KZZXGrlYbPhOuudVLjDBKA5R7e/lM=;
-        b=STav0qJjFyswenrCo0CIUin+kmQLlNaTaTOspG70+khf6Fzbz31NLWgO2EEb/LHcRb
-         svza+kKgQ5RgvIBUCWcHe99aYkCXJNcyyQ9wwkLGyUEJg8FfcW9LJKpP+RTJx4ApIL4s
-         nQLbRFzSsm3cmV3bHmfhk2j44LZ5+jb0Lds5TsiyEs5tOWXrmdzE9pzFGBHmnxCErPZY
-         /a+DxsyOAft5EMxBQS90c3R8Z0/W5ZKFaeRJyWZwMWt6J41UmBmMdvPAISgJbGv2qtqp
-         90PNF2Pm9fPMGs5hLxO5jGjlUwVROzqoOnHAcSKSC7sHtZNo7gZAv6VDW52zOKTBiv5u
-         wAnw==
-X-Gm-Message-State: AOJu0Yw6zGPFPaZQcgzEBxx/yUxyMktd38K/PYREZ0ACLQLP0kUCOqXD
-	6wGEfPwFKbhXL3KBQL6pST751crTLaffJTk8VDU=
-X-Google-Smtp-Source: AGHT+IHudrFSrTiSo9q3MtaVIl5rejRXuPWYRNchd/Kok95sEO10YWSEraRSZCSSP/MkRfsU8pKG3dNaLS2KbqKkPDk=
-X-Received: by 2002:a05:6808:2f1a:b0:3bc:804:580e with SMTP id
- gu26-20020a0568082f1a00b003bc0804580emr4550071oib.99.1704196335863; Tue, 02
- Jan 2024 03:52:15 -0800 (PST)
-MIME-Version: 1.0
-References: <20231219075320.165227-1-ray.huang@amd.com> <20231219075320.165227-6-ray.huang@amd.com>
-In-Reply-To: <20231219075320.165227-6-ray.huang@amd.com>
-From: =?UTF-8?B?TWFyYy1BbmRyw6kgTHVyZWF1?= <marcandre.lureau@gmail.com>
-Date: Tue, 2 Jan 2024 15:52:04 +0400
-Message-ID: <CAJ+F1CKOsDk835H8j56mfS7e=8BusYjo3mJYwuPbdRPq1MmNzw@mail.gmail.com>
-Subject: Re: [PATCH v6 05/11] virtio-gpu: Introduce virgl_gpu_resource structure
-To: Huang Rui <ray.huang@amd.com>
-Cc: Akihiko Odaki <akihiko.odaki@daynix.com>, =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@linaro.org>, 
-	Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@citrix.com>, 
-	Antonio Caggiano <quic_acaggian@quicinc.com>, "Dr . David Alan Gilbert" <dgilbert@redhat.com>, 
-	Robert Beckett <bob.beckett@collabora.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
-	Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	qemu-devel@nongnu.org, xen-devel@lists.xenproject.org, 
-	Gurchetan Singh <gurchetansingh@chromium.org>, ernunes@redhat.com, 
-	Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, Stefano Stabellini <stefano.stabellini@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Xenia Ragiadakou <xenia.ragiadakou@amd.com>, 
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, Honglei Huang <honglei1.huang@amd.com>, 
-	Julia Zhang <julia.zhang@amd.com>, Chen Jiqian <Jiqian.Chen@amd.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=JgtkHNhIYtVcoU4fBf7e6hz08bV2EMCdDCRWU8xkDq8=; b=4AiMoIXr7yuoYkBVCouWp5X2jI
+	hqEcVfJqxA2f93mCt36VaHZ0zk0p8J4rSCiEUT4bVCwW4t4blMJvAgZVYYKwku2kp8+TrPhLloPf3
+	awVqtybswh3uEmGxloO1sLpbGvJv/Ej2PrsURfaUUwJ3zvzMNq59vZ4OrZiCdrXQKad4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184243-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable test] 184243: tolerable FAIL
+X-Osstest-Failures:
+    xen-unstable:test-armhf-armhf-libvirt-raw:guest-start:fail:heisenbug
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=49818cde637b5ec20383e46b71f93b2e7d867686
+X-Osstest-Versions-That:
+    xen=49818cde637b5ec20383e46b71f93b2e7d867686
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 02 Jan 2024 12:13:20 +0000
 
-Hi
+flight 184243 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184243/
 
-On Tue, Dec 19, 2023 at 11:55=E2=80=AFAM Huang Rui <ray.huang@amd.com> wrot=
-e:
->
-> Introduce a new virgl_gpu_resource data structure and helper functions
-> for virgl. It's used to add new member which is specific for virgl in
-> following patches of blob memory support.
->
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> ---
->
-> New patch:
-> - Introduce new struct virgl_gpu_resource to store virgl specific members=
-.
-> - Move resource initialization from path "virtio-gpu: Resource UUID" here=
-.
-> - Remove error handling of g_new0, because glib will abort() on OOM.
-> - Set iov and iov_cnt in struct virtio_gpu_simple_resource for all types
->   of resources.
->
->  hw/display/virtio-gpu-virgl.c | 84 ++++++++++++++++++++++++++---------
->  1 file changed, 64 insertions(+), 20 deletions(-)
->
-> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.=
-c
-> index 5bbc8071b2..faab374336 100644
-> --- a/hw/display/virtio-gpu-virgl.c
-> +++ b/hw/display/virtio-gpu-virgl.c
-> @@ -22,6 +22,23 @@
->
->  #include <virglrenderer.h>
->
-> +struct virgl_gpu_resource {
-> +    struct virtio_gpu_simple_resource res;
-> +};
-> +
-> +static struct virgl_gpu_resource *
-> +virgl_gpu_find_resource(VirtIOGPU *g, uint32_t resource_id)
-> +{
-> +    struct virtio_gpu_simple_resource *res;
-> +
-> +    res =3D virtio_gpu_find_resource(g, resource_id);
-> +    if (!res) {
-> +        return NULL;
-> +    }
-> +
-> +    return container_of(res, struct virgl_gpu_resource, res);
-> +}
-> +
->  #if VIRGL_RENDERER_CALLBACKS_VERSION >=3D 4
->  static void *
->  virgl_get_egl_display(G_GNUC_UNUSED void *cookie)
-> @@ -35,11 +52,19 @@ static void virgl_cmd_create_resource_2d(VirtIOGPU *g=
-,
->  {
->      struct virtio_gpu_resource_create_2d c2d;
->      struct virgl_renderer_resource_create_args args;
-> +    struct virgl_gpu_resource *vres;
->
->      VIRTIO_GPU_FILL_CMD(c2d);
->      trace_virtio_gpu_cmd_res_create_2d(c2d.resource_id, c2d.format,
->                                         c2d.width, c2d.height);
->
+Failures :-/ but no regressions.
 
-It should check the resource doesn't already exist (similar to 2d code)
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-libvirt-raw 13 guest-start                fail pass in 184241
 
-> +    vres =3D g_new0(struct virgl_gpu_resource, 1);
-> +    vres->res.width =3D c2d.width;
-> +    vres->res.height =3D c2d.height;
-> +    vres->res.format =3D c2d.format;
-> +    vres->res.resource_id =3D c2d.resource_id;
-> +    QTAILQ_INSERT_HEAD(&g->reslist, &vres->res, next);
-> +
->      args.handle =3D c2d.resource_id;
->      args.target =3D 2;
->      args.format =3D c2d.format;
-> @@ -59,11 +84,19 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g=
-,
->  {
->      struct virtio_gpu_resource_create_3d c3d;
->      struct virgl_renderer_resource_create_args args;
-> +    struct virgl_gpu_resource *vres;
->
->      VIRTIO_GPU_FILL_CMD(c3d);
->      trace_virtio_gpu_cmd_res_create_3d(c3d.resource_id, c3d.format,
->                                         c3d.width, c3d.height, c3d.depth)=
-;
->
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check fail in 184241 like 184239
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check fail in 184241 never pass
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184241
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184241
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 184241
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184241
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184241
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 184241
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 184241
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184241
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184241
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 184241
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184241
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-same
+version targeted for testing:
+ xen                  49818cde637b5ec20383e46b71f93b2e7d867686
+baseline version:
+ xen                  49818cde637b5ec20383e46b71f93b2e7d867686
 
-> +    vres =3D g_new0(struct virgl_gpu_resource, 1);
-> +    vres->res.width =3D c3d.width;
-> +    vres->res.height =3D c3d.height;
-> +    vres->res.format =3D c3d.format;
-> +    vres->res.resource_id =3D c3d.resource_id;
-> +    QTAILQ_INSERT_HEAD(&g->reslist, &vres->res, next);
-> +
->      args.handle =3D c3d.resource_id;
->      args.target =3D c3d.target;
->      args.format =3D c3d.format;
-> @@ -82,19 +115,23 @@ static void virgl_cmd_resource_unref(VirtIOGPU *g,
->                                       struct virtio_gpu_ctrl_command *cmd=
-)
->  {
->      struct virtio_gpu_resource_unref unref;
-> -    struct iovec *res_iovs =3D NULL;
-> -    int num_iovs =3D 0;
-> +    struct virgl_gpu_resource *vres;
->
->      VIRTIO_GPU_FILL_CMD(unref);
->      trace_virtio_gpu_cmd_res_unref(unref.resource_id);
->
-> -    virgl_renderer_resource_detach_iov(unref.resource_id,
-> -                                       &res_iovs,
-> -                                       &num_iovs);
-> -    if (res_iovs !=3D NULL && num_iovs !=3D 0) {
-> -        virtio_gpu_cleanup_mapping_iov(g, res_iovs, num_iovs);
-> +    vres =3D virgl_gpu_find_resource(g, unref.resource_id);
-> +    if (!vres) {
-> +        cmd->error =3D VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
-> +        return;
->      }
-> +
-> +    virgl_renderer_resource_detach_iov(unref.resource_id, NULL, NULL);
->      virgl_renderer_resource_unref(unref.resource_id);
-> +
-> +    QTAILQ_REMOVE(&g->reslist, &vres->res, next);
-> +    virtio_gpu_cleanup_mapping(g, &vres->res);
-> +    g_free(vres);
->  }
->
->  static void virgl_cmd_context_create(VirtIOGPU *g,
-> @@ -310,44 +347,51 @@ static void virgl_resource_attach_backing(VirtIOGPU=
- *g,
->                                            struct virtio_gpu_ctrl_command=
- *cmd)
->  {
->      struct virtio_gpu_resource_attach_backing att_rb;
-> -    struct iovec *res_iovs;
-> -    uint32_t res_niov;
-> +    struct virgl_gpu_resource *vres;
->      int ret;
->
->      VIRTIO_GPU_FILL_CMD(att_rb);
->      trace_virtio_gpu_cmd_res_back_attach(att_rb.resource_id);
->
-> +    vres =3D virgl_gpu_find_resource(g, att_rb.resource_id);
-> +    if (!vres) {
-> +        cmd->error =3D VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
-> +        return;
-> +    }
-> +
->      ret =3D virtio_gpu_create_mapping_iov(g, att_rb.nr_entries, sizeof(a=
-tt_rb),
-> -                                        cmd, NULL, &res_iovs, &res_niov)=
-;
-> +                                        cmd, NULL, &vres->res.iov,
-> +                                        &vres->res.iov_cnt);
->      if (ret !=3D 0) {
->          cmd->error =3D VIRTIO_GPU_RESP_ERR_UNSPEC;
->          return;
->      }
->
->      ret =3D virgl_renderer_resource_attach_iov(att_rb.resource_id,
-> -                                             res_iovs, res_niov);
-> +                                             vres->res.iov, vres->res.io=
-v_cnt);
->
-> -    if (ret !=3D 0)
-> -        virtio_gpu_cleanup_mapping_iov(g, res_iovs, res_niov);
-> +    if (ret !=3D 0) {
-> +        virtio_gpu_cleanup_mapping(g, &vres->res);
-> +    }
->  }
->
->  static void virgl_resource_detach_backing(VirtIOGPU *g,
->                                            struct virtio_gpu_ctrl_command=
- *cmd)
->  {
->      struct virtio_gpu_resource_detach_backing detach_rb;
-> -    struct iovec *res_iovs =3D NULL;
-> -    int num_iovs =3D 0;
-> +    struct virgl_gpu_resource *vres;
->
->      VIRTIO_GPU_FILL_CMD(detach_rb);
->      trace_virtio_gpu_cmd_res_back_detach(detach_rb.resource_id);
->
-> -    virgl_renderer_resource_detach_iov(detach_rb.resource_id,
-> -                                       &res_iovs,
-> -                                       &num_iovs);
-> -    if (res_iovs =3D=3D NULL || num_iovs =3D=3D 0) {
-> +    vres =3D virgl_gpu_find_resource(g, detach_rb.resource_id);
-> +    if (!vres) {
-> +        cmd->error =3D VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->          return;
->      }
-> -    virtio_gpu_cleanup_mapping_iov(g, res_iovs, num_iovs);
-> +
-> +    virgl_renderer_resource_detach_iov(detach_rb.resource_id, NULL, NULL=
-);
-> +    virtio_gpu_cleanup_mapping(g, &vres->res);
->  }
->
->
-> --
-> 2.25.1
->
->
+Last test of basis   184243  2024-01-02 01:55:39 Z    0 days
+Testing same since                          (not found)         0 attempts
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
---=20
-Marc-Andr=C3=A9 Lureau
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Published tested tree is already up to date.
+
 
