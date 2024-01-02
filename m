@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F6A682191E
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 10:52:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.660566.1030104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFD65821927
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 10:52:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.660567.1030118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKbRD-0007cw-Jw; Tue, 02 Jan 2024 09:51:55 +0000
+	id 1rKbRF-00083T-3x; Tue, 02 Jan 2024 09:51:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 660566.1030104; Tue, 02 Jan 2024 09:51:55 +0000
+Received: by outflank-mailman (output) from mailman id 660567.1030118; Tue, 02 Jan 2024 09:51:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKbRD-0007Uu-Ef; Tue, 02 Jan 2024 09:51:55 +0000
-Received: by outflank-mailman (input) for mailman id 660566;
- Tue, 02 Jan 2024 09:51:54 +0000
+	id 1rKbRE-0007wi-Su; Tue, 02 Jan 2024 09:51:56 +0000
+Received: by outflank-mailman (input) for mailman id 660567;
+ Tue, 02 Jan 2024 09:51:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mpFB=IM=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rKbRC-00060C-4f
- for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 09:51:54 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
+ id 1rKbRD-00060C-4x
+ for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 09:51:55 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e26080d-a954-11ee-9b0f-b553b5be7939;
- Tue, 02 Jan 2024 10:51:52 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-5534dcfdd61so15741353a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jan 2024 01:51:52 -0800 (PST)
+ id 8ebc50e0-a954-11ee-9b0f-b553b5be7939;
+ Tue, 02 Jan 2024 10:51:53 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a26f73732c5so591231466b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jan 2024 01:51:53 -0800 (PST)
 Received: from carlo-ubuntu.minervasys.tech (nonato.mo54.unimo.it.
  [155.185.85.8]) by smtp.gmail.com with ESMTPSA id
- s4-20020a1709066c8400b00a1f7ab65d3fsm11541845ejr.131.2024.01.02.01.51.50
+ s4-20020a1709066c8400b00a1f7ab65d3fsm11541845ejr.131.2024.01.02.01.51.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jan 2024 01:51:50 -0800 (PST)
+ Tue, 02 Jan 2024 01:51:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e26080d-a954-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 8ebc50e0-a954-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1704189111; x=1704793911; darn=lists.xenproject.org;
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1704189112; x=1704793912; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sP9qQ4nWMhVEqh2w5k34a2KqREJgBIKIufbFzw/gkj0=;
-        b=ecE6WAHRUfIqOWJvNjMbA71GLSIneRm3nz3q4CLSXM7OWfi/YYs6VGQiDVhI7iYZ80
-         tBJSV0DKdGIZ2+OU3aOlkACU6XnQd6gPMK/ZeZXgc+as6kMJ+cHyGdJLEHcCo93eKDck
-         /bQ5RsoXbLfPvv+jhOIs9rdaUg+cGpzhle45+9xkyBYCLEQZUD/4U3XJBLInIr26laGO
-         DMMeEelxTzTOnTSCFwu5qIilzroOjh0jpHpaZ0c+wH/FNKzjwl9F5nwe1AO5/jlXFDH7
-         9laCZbWKEqXlTVgdfPOJWPmg+dGSmxQ1gPZiPgi5pWtGXY8LtEewisLy2LzJxY0gHwAr
-         XjJA==
+        bh=CcRHPr39Ase6Icq3b5rN9tDIxrSmfJ7neiBccxr3jrg=;
+        b=p6D1+SqpkbGD0c8wn2kT8YuCLrQPOitpGYSbnr7vmmsAvsPtkcImJYwO653W1uJBpM
+         Ka+K0ZVi7xOBYTe1UL4BzjzUUkfS2RQWK4gnLDGIIBa8XRoWa6Bd4ZN95/TA8OkZCps1
+         VzEosBY8LX+5GX1RqOEA5AibCTA8fm9DX+KQAZsJBcV2zS5ng40cWuH5sXv6Hav1fHS4
+         l4IX18yAk5qz/y56/UeboSeCo0cwQgjXM4JfdggAcY0YrHALKOlQ6HbpiYLh8jvC/9sW
+         P4bfXBj22nX8NLERFON/3w57L4Qje9KcRG5HqBg0D0va6r4hDgiiQWrUycngoPTh7HvL
+         tegw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704189111; x=1704793911;
+        d=1e100.net; s=20230601; t=1704189112; x=1704793912;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=sP9qQ4nWMhVEqh2w5k34a2KqREJgBIKIufbFzw/gkj0=;
-        b=cpWUm+Mrd8GW7FY2FZg33GuT1St6KZsGrnYTFJhAY2V54HecHAfJFeqwq8b2rIwkqD
-         tZJrEb9S2PfB72UQBUbO5UlfA1MgkJoPwk5EOL/ZS04rPZ9IwmMbtO1vyUp/2TNJEfUw
-         RVHF7CPoOILA7aFxhA5O3pNDAeMVMji9ddxWl6hMw4AKmltJXdRnwjrRoFKlAJbJSjgb
-         F4R75nEOVKDemQK/p02kQ2e08/SICXr0I63t7awvH/IoxyzzZJPg1S+QKaR/gBJce7nx
-         jWIR1PUV4K2cHXtcGiCB5ud6Oz7WyqAZkz/kmK7mVug6jdrDLkq/PCHaB/E/gOVY7rjq
-         kjmA==
-X-Gm-Message-State: AOJu0YyGErk2wYI6i8s8SSh39iXyY5aikUDnORP9rFXtJnMokbeGm6+6
-	dCHvsKDnHGhQkkRyyICP9NzloeN/CUVLxzG95V0xB1Lkfl0=
-X-Google-Smtp-Source: AGHT+IEiZwHgqGDzuq+CofvQaRdVDEsDJPXCGOUEkAORhykUWO5dX2Iao98Y4vvHu0kxk7Vf/wPajw==
-X-Received: by 2002:a17:907:318c:b0:a27:a80a:917c with SMTP id xe12-20020a170907318c00b00a27a80a917cmr6506165ejb.2.1704189111430;
-        Tue, 02 Jan 2024 01:51:51 -0800 (PST)
+        bh=CcRHPr39Ase6Icq3b5rN9tDIxrSmfJ7neiBccxr3jrg=;
+        b=vc/HOjDI1bKj7poxxwDIxjn6U5D/7fk5hNAbx1zk3jGXDNkzg5mQ/5h5UIz+Fwdmsl
+         fMKyd8VBM+bNu5TraC2c5re7LwU5jdzwpZZ70tT9twjmDSzqF1CaI2D4y5yNgBLFSw2X
+         4u/bfgP8PRoM7n0Hjwc+gnijxvQpo2LTgcICpnFNrFqNNpDuWRJs+xpzOP4ELTaf3uGm
+         nTmYTb+SQieMCJ6P6hsaOddOBTEd4TcaF7dNMZhnFABlXRU2oNO6K9XxxELx9dpOqOfP
+         BEIyLG9Nx1J937m0BfAedAOWD9PScgSKb0txL4sbajkeDW3I3+M6K23Sp4NFm9iTQxSI
+         Miig==
+X-Gm-Message-State: AOJu0YwLDiJEBp2k77v2IjOo4Wm+qJYK47jQdkdVCTlxcW+5glHJyK+g
+	508zruPwh3JLuCB1ZVQAjsITz77MShL0DDJRKGKquC3GUwU=
+X-Google-Smtp-Source: AGHT+IFkKg2Atq8Mx1lI55ksS3FUhVs3unVFFXvmR1U7NRnE9JwsE85OqUkKJy1oOf0ZRrFChr1ioA==
+X-Received: by 2002:a17:906:58f:b0:a23:57a1:d85b with SMTP id 15-20020a170906058f00b00a2357a1d85bmr8264149ejn.74.1704189112379;
+        Tue, 02 Jan 2024 01:51:52 -0800 (PST)
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
 To: xen-devel@lists.xenproject.org
 Cc: Carlo Nonato <carlo.nonato@minervasys.tech>,
@@ -85,17 +85,23 @@ Cc: Carlo Nonato <carlo.nonato@minervasys.tech>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
 	Marco Solieri <marco.solieri@minervasys.tech>
-Subject: [PATCH v5 07/13] xen/page_alloc: introduce init_free_page_fields() helper
-Date: Tue,  2 Jan 2024 10:51:32 +0100
-Message-Id: <20240102095138.17933-8-carlo.nonato@minervasys.tech>
+Subject: [PATCH v5 08/13] xen/page_alloc: introduce preserved page flags macro
+Date: Tue,  2 Jan 2024 10:51:33 +0100
+Message-Id: <20240102095138.17933-9-carlo.nonato@minervasys.tech>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
 References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce a new helper to initialize fields that have different uses for
-free pages.
+PGC_static and PGC_extra are flags that needs to be preserved when assigning
+a page. Define a new macro that groups those flags and use it instead of
+or'ing every time.
+
+The new macro is used also in free_heap_pages() allowing future commits to
+extended it with other flags that must stop merging, as it now works for
+PGC_static. PGC_extra is no harm here since it's only ever being set on
+allocated pages.
 
 Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
 Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
@@ -103,50 +109,58 @@ Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
 v5:
 - new patch
 ---
- xen/common/page_alloc.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ xen/common/page_alloc.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index d874525916..9ee3981bb5 100644
+index 9ee3981bb5..3bf3120287 100644
 --- a/xen/common/page_alloc.c
 +++ b/xen/common/page_alloc.c
-@@ -928,6 +928,13 @@ static struct page_info *get_free_buddy(unsigned int zone_lo,
-     }
- }
+@@ -158,6 +158,8 @@
+ #define PGC_static 0
+ #endif
  
-+/* Initialise fields which have other uses for free pages. */
-+static void init_free_page_fields(struct page_info *pg)
-+{
-+    pg->u.inuse.type_info = PGT_TYPE_INFO_INITIALIZER;
-+    page_set_owner(pg, NULL);
-+}
++#define preserved_flags (PGC_extra | PGC_static)
 +
- /* Allocate 2^@order contiguous pages. */
- static struct page_info *alloc_heap_pages(
-     unsigned int zone_lo, unsigned int zone_hi,
-@@ -1036,10 +1043,7 @@ static struct page_info *alloc_heap_pages(
-             accumulate_tlbflush(&need_tlbflush, &pg[i],
-                                 &tlbflush_timestamp);
+ #ifndef PGT_TYPE_INFO_INITIALIZER
+ #define PGT_TYPE_INFO_INITIALIZER 0
+ #endif
+@@ -1504,7 +1506,7 @@ static void free_heap_pages(
+             /* Merge with predecessor block? */
+             if ( !mfn_valid(page_to_mfn(predecessor)) ||
+                  !page_state_is(predecessor, free) ||
+-                 (predecessor->count_info & PGC_static) ||
++                 (predecessor->count_info & preserved_flags) ||
+                  (PFN_ORDER(predecessor) != order) ||
+                  (page_to_nid(predecessor) != node) )
+                 break;
+@@ -1528,7 +1530,7 @@ static void free_heap_pages(
+             /* Merge with successor block? */
+             if ( !mfn_valid(page_to_mfn(successor)) ||
+                  !page_state_is(successor, free) ||
+-                 (successor->count_info & PGC_static) ||
++                 (successor->count_info & preserved_flags) ||
+                  (PFN_ORDER(successor) != order) ||
+                  (page_to_nid(successor) != node) )
+                 break;
+@@ -2365,7 +2367,7 @@ int assign_pages(
  
--        /* Initialise fields which have other uses for free pages. */
--        pg[i].u.inuse.type_info = PGT_TYPE_INFO_INITIALIZER;
--        page_set_owner(&pg[i], NULL);
--
-+        init_free_page_fields(&pg[i]);
+         for ( i = 0; i < nr; i++ )
+         {
+-            ASSERT(!(pg[i].count_info & ~(PGC_extra | PGC_static)));
++            ASSERT(!(pg[i].count_info & ~preserved_flags));
+             if ( pg[i].count_info & PGC_extra )
+                 extra_pages++;
+         }
+@@ -2425,7 +2427,7 @@ int assign_pages(
+         page_set_owner(&pg[i], d);
+         smp_wmb(); /* Domain pointer must be visible before updating refcnt. */
+         pg[i].count_info =
+-            (pg[i].count_info & (PGC_extra | PGC_static)) | PGC_allocated | 1;
++            (pg[i].count_info & preserved_flags) | PGC_allocated | 1;
+ 
+         page_list_add_tail(&pg[i], page_to_list(d, &pg[i]));
      }
- 
-     spin_unlock(&heap_lock);
-@@ -2802,9 +2806,7 @@ static bool prepare_staticmem_pages(struct page_info *pg, unsigned long nr_mfns,
-          * to PGC_state_inuse.
-          */
-         pg[i].count_info = PGC_static | PGC_state_inuse;
--        /* Initialise fields which have other uses for free pages. */
--        pg[i].u.inuse.type_info = PGT_TYPE_INFO_INITIALIZER;
--        page_set_owner(&pg[i], NULL);
-+        init_free_page_fields(&pg[i]);
-     }
- 
-     spin_unlock(&heap_lock);
 -- 
 2.34.1
 
