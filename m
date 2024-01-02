@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBC278221CA
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 20:10:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.660826.1030457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6227822273
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jan 2024 21:17:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.660831.1030467 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKk92-0006tL-EG; Tue, 02 Jan 2024 19:09:44 +0000
+	id 1rKlBt-0002UD-06; Tue, 02 Jan 2024 20:16:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 660826.1030457; Tue, 02 Jan 2024 19:09:44 +0000
+Received: by outflank-mailman (output) from mailman id 660831.1030467; Tue, 02 Jan 2024 20:16:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rKk92-0006qr-BN; Tue, 02 Jan 2024 19:09:44 +0000
-Received: by outflank-mailman (input) for mailman id 660826;
- Tue, 02 Jan 2024 19:09:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rKk91-0006ql-Mf
- for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 19:09:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rKk8x-00034K-1n; Tue, 02 Jan 2024 19:09:39 +0000
-Received: from [54.239.6.182] (helo=[10.95.76.173])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rKk8w-0003mb-Qi; Tue, 02 Jan 2024 19:09:38 +0000
+	id 1rKlBs-0002Rf-Ti; Tue, 02 Jan 2024 20:16:44 +0000
+Received: by outflank-mailman (input) for mailman id 660831;
+ Tue, 02 Jan 2024 20:16:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BNED=IM=gmail.com=rosbrookn@srs-se1.protection.inumbo.net>)
+ id 1rKlBs-0002RW-5h
+ for xen-devel@lists.xenproject.org; Tue, 02 Jan 2024 20:16:44 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d81d3cc9-a9ab-11ee-98ef-6d05b1d4d9a1;
+ Tue, 02 Jan 2024 21:16:42 +0100 (CET)
+Received: by mail-lf1-x12d.google.com with SMTP id
+ 2adb3069b0e04-50e7e6283bdso6543404e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jan 2024 12:16:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,112 +40,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ftVZ3aGf9z8uzFxxrchpWDI70XVg+aUI4vstfPeAkCE=; b=rmeFlXah8dYrBaFjf77bB0kbjX
-	mCsW9GHHLBhwqM8oJlLynPSrt/jNKlwIJQ2qrVToj/Eaw/sAR+i99w9XNzXAYl/Jk0/5Sau6MYYiE
-	YSjhIgvULKUNv0OHqziUrE9CqxAe14b7zqMVfgbMSN5U7EW6UrezF5EhLJO+vFfldwsg=;
-Message-ID: <d0daf858-eda8-4b2a-9cfe-82fff834df8f@xen.org>
-Date: Tue, 2 Jan 2024 19:09:36 +0000
+X-Inumbo-ID: d81d3cc9-a9ab-11ee-98ef-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1704226602; x=1704831402; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gG8DR5rZpNagP+W787Mka3E5XABWlS7AaAtnT6wDokk=;
+        b=Drw4cbaoiguTbigtjWcd2BeO4x/+sHf2YKntF51+saQ757bwt2rKemeBYe/jATkLBB
+         bbn/6GxyoVxVql7fRQd8g/iavra8Eb9df1271mjN4QokV5pggt48hUjOw1dy5pO3Sf82
+         PWHzWXDEKMKym7ooh+7cPlCNRYD6QEAb1koW9oHrbyk4YHdX3MqWIEJHAJKGe0f7psIL
+         CCd7Se0zrGfOngut3LjrvDdpFr34aWlMUDC/ZVg9F4igxLGndQJeUesap8Pnm91rV4Hl
+         h6bnwjvrCmaBaP8+1vslQDVIz0vBBWigIKYWvsYDhKb4igrNq7CpVnc0NzQUhcPMBYCa
+         Jvxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704226602; x=1704831402;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=gG8DR5rZpNagP+W787Mka3E5XABWlS7AaAtnT6wDokk=;
+        b=XqxuffUYtkX9/n7frfpG2mpquvkB96r0hhHQ5tjqsz/NCjE6OTLacfPNnSVzX071qA
+         kMl57vIGvxXZu4rtwf02TLNCLiidALpieQZmKE/AobEy4gb+sInwdZxFpMtA6RDluqEL
+         JCtiwchLEQISS6FPJv4E7o9F4rbtkOeIdRlqC+vJyKE72LlZ9qah/ey59XnzgpE7A8mQ
+         6sLsg/RbQpFmQjKpZg8wD0N+6ovJJQLiSkDKlFAx2y4hYYmn5Gfj93WvhCMR6p7FqhUp
+         /1A2RMWmLl4O6wCfS+BqYkdUlqrzBxQfFI3HvnD2uoFrs7aTBLki0gxu5ZAHmjpLyPMU
+         ObNg==
+X-Gm-Message-State: AOJu0YzUTujxL8lCVoJjO0OZN5uryqJAoSrR6CUQqgwiAzoezQozpuvl
+	XHrExkRYOUP6i8kmg2Slw7NInkut9KKEcnN5lwU=
+X-Google-Smtp-Source: AGHT+IGpeIgmAQgJeYkRE1kUnbYPBcRZAErv0zQOrWqSBJqnu3VhcQHXimxgCWVN0XgIiYlPfWZrIDrnefDzXHjl6hc=
+X-Received: by 2002:a05:6512:3d08:b0:50e:791f:2b07 with SMTP id
+ d8-20020a0565123d0800b0050e791f2b07mr3328264lfv.152.1704226601829; Tue, 02
+ Jan 2024 12:16:41 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen/x86: io_apic: Introduce a command line option
- to skip timer check
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20231211122322.15815-1-julien@xen.org>
- <20231211122322.15815-2-julien@xen.org>
- <b17bb7d1-1206-4ad1-96b1-7b903a740c83@suse.com>
- <8b8a62a0-f854-405e-b256-5eee4bfdcb6c@xen.org>
- <b74f1f28-58da-4604-a7ef-370aeb0522ce@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <b74f1f28-58da-4604-a7ef-370aeb0522ce@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20231110160804.29021-1-jgross@suse.com> <20231110160804.29021-16-jgross@suse.com>
+ <CAKf6xpty3ENpuPgTf7=Gk1Q-Ekn+FjOx=-ySMQF6v3kx7zntrw@mail.gmail.com>
+ <CAEBZRSdyoCH2CFP14imC9We+sTiGn8f-DWecQ1t+ftd0+=0xwg@mail.gmail.com> <CAKf6xpuamYUe_HPuw_m38PBO9cgLpq-H4f_1qjGt5C7ptSkCoA@mail.gmail.com>
+In-Reply-To: <CAKf6xpuamYUe_HPuw_m38PBO9cgLpq-H4f_1qjGt5C7ptSkCoA@mail.gmail.com>
+From: Nick Rosbrook <rosbrookn@gmail.com>
+Date: Tue, 2 Jan 2024 15:16:30 -0500
+Message-ID: <CAEBZRSeWjivhLgjQ-9_MKAx6-dOqWLeFMsMoV54fdwhhtJLDjQ@mail.gmail.com>
+Subject: Re: [PATCH v2 15/29] tools/libs/light: add backend type for 9pfs PV devices
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Jan,
+On Wed, Dec 6, 2023 at 1:53=E2=80=AFPM Jason Andryuk <jandryuk@gmail.com> w=
+rote:
+>
+> On Wed, Dec 6, 2023 at 12:44=E2=80=AFPM Nick Rosbrook <rosbrookn@gmail.co=
+m> wrote:
+> >
+> > On Wed, Dec 6, 2023 at 9:36=E2=80=AFAM Jason Andryuk <jandryuk@gmail.co=
+m> wrote:
+> > > FYI, these IDL changes will require golang binding regeneration.
+> > > (Maybe we shouldn't have generated code checked in...)
+> >
+> > The generated code needs to be checked in for it to work as a go module=
+.
+>
+> I don't follow. The build system generates the *.gen.go binding files
+> if they are missing.  They can then be used, installed or packaged.
+> Why do they need to be checked into the git repo?  Checked in, they
+> have a tendency to go stale.
+>
 
-On 14/12/2023 10:35, Jan Beulich wrote:
-> On 14.12.2023 11:14, Julien Grall wrote:
->> On 14/12/2023 10:10, Jan Beulich wrote:
->>> On 11.12.2023 13:23, Julien Grall wrote:
->>>> --- a/xen/arch/x86/io_apic.c
->>>> +++ b/xen/arch/x86/io_apic.c
->>>> @@ -57,6 +57,14 @@ bool __initdata ioapic_ack_forced;
->>>>    int __read_mostly nr_ioapic_entries[MAX_IO_APICS];
->>>>    int __read_mostly nr_ioapics;
->>>>    
->>>> +/*
->>>> + * The logic to check if the timer is working is expensive. So allow
->>>> + * the admin to bypass it if they know their platform doesn't have
->>>> + * a buggy timer.
->>>> + */
->>>> +static bool __initdata pit_irq_works;
->>>> +boolean_param("pit-irq-works", pit_irq_works);
->>>> +
->>>>    /*
->>>>     * Rough estimation of how many shared IRQs there are, can
->>>>     * be changed anytime.
->>>> @@ -1502,6 +1510,9 @@ static int __init timer_irq_works(void)
->>>>    {
->>>>        unsigned long t1, flags;
->>>>    
->>>> +    if ( pit_irq_works )
->>>> +        return 1;
->>>
->>> When the check is placed here, what exactly use of the option means is
->>> system dependent. I consider this somewhat risky, so I'd prefer if the
->>> check was put on the "normal" path in check_timer(). That way it'll
->>> affect only the one case which we can generally consider "known good",
->>> but not the cases where the virtual wire setups are being probed. I.e.
+That's not how go modules are typically consumed. E.g., the Debian
+packages with go source code are only there to satisfy Build-Depends
+of other packages. One can use locally installed go modules as
+overrides at build-time, but normally go modules are fetched via git
+(internally by the go tooling) according to what is specified in a
+project's go.mod file. See https://go.dev/blog/using-go-modules for
+more.
 
-By "known good", do you mean the following:
-
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index c89fbed8d675..c39d39ee951a 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -1960,7 +1959,8 @@ static void __init check_timer(void)
-           * Ok, does IRQ0 through the IOAPIC work?
-           */
-          unmask_IO_APIC_irq(irq_to_desc(0));
--        if (timer_irq_works()) {
-+        if (pit_irq_works || timer_irq_works()) {
-+            printk("====== pirq_irq_works %d =====\n", pit_irq_works);
-              local_irq_restore(flags);
-              return;
-          }
-
->>
->> I am not against restricting when we allow skipping the timer check. But
->> in that case, I wonder why Linux is doing it differently?
-> 
-> Sadly Linux'es git history doesn't go back far enough (begins only at past
-> 2.6.11), so I can't (easily) find the patch (and description) for the x86-64
-> change. The later i386 change is justified mainly by paravirt needs, so
-> isn't applicable here. I wouldn't therefore exclude that my point above
-> wasn't even taken into consideration. Furthermore their command line option
-> is "no_timer_check", which to me firmly says "don't check" without regard to
-> whether the source (PIT) is actually okay. That's different with the option
-> name you (imo validly) chose.
-
-Just to note that the name was suggested by Roger. I have to admit that 
-I didn't check if this made sense for the existing placement.
-
-Anyway, I tested the change on the HW where I wanted to skip the timer 
-check. And I can confirm this is still skipping the timer check.
-
-So I will send a new version with the diff above and some updated comments.
-
-Cheers,
-
--- 
-Julien Grall
+-Nick
 
