@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDB87823048
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jan 2024 16:15:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.660968.1030672 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70A538230F2
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jan 2024 17:03:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.660974.1030681 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rL2xO-0007rZ-96; Wed, 03 Jan 2024 15:14:58 +0000
+	id 1rL3h6-0007Xc-OT; Wed, 03 Jan 2024 16:02:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 660968.1030672; Wed, 03 Jan 2024 15:14:58 +0000
+Received: by outflank-mailman (output) from mailman id 660974.1030681; Wed, 03 Jan 2024 16:02:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rL2xO-0007oj-5R; Wed, 03 Jan 2024 15:14:58 +0000
-Received: by outflank-mailman (input) for mailman id 660968;
- Wed, 03 Jan 2024 15:14:56 +0000
+	id 1rL3h6-0007UY-Lf; Wed, 03 Jan 2024 16:02:12 +0000
+Received: by outflank-mailman (input) for mailman id 660974;
+ Wed, 03 Jan 2024 16:02:11 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rL2xM-0007od-U6
- for xen-devel@lists.xenproject.org; Wed, 03 Jan 2024 15:14:56 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rL3h5-0007UO-G6; Wed, 03 Jan 2024 16:02:11 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rL2xK-0001RO-Um; Wed, 03 Jan 2024 15:14:54 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=[192.168.6.12])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rL2xK-0002ZD-Ow; Wed, 03 Jan 2024 15:14:54 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rL3h5-00032I-80; Wed, 03 Jan 2024 16:02:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rL3h4-0002X7-PV; Wed, 03 Jan 2024 16:02:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rL3h4-0007Qo-Oy; Wed, 03 Jan 2024 16:02:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,84 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ypHAj2wdIO5QnT/ET1099BP7ySScEeYhwpu3zBJ78rU=; b=3rzcynuTMEg9Rlr2lOFJrNE/IT
-	dEioij6pj6aWAnO7Ht4Cbg6/au0NHcdsy8STzNr+1JY13ifFoZPrCWKuX3T+o3doNCJG48/WfdpO3
-	0r6CrKRyUFkf/SRLztylSPWsBDWeUsaSIgrzOjCfoAeUKtUHvnUjQesSZwlon2p07wBY=;
-Message-ID: <dcf4b52c-15a4-4a1b-85e0-1b95c653f0ce@xen.org>
-Date: Wed, 3 Jan 2024 15:14:52 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=h23pBEQkfEHnho+OoXDLF1ukqwV4WEoLxSOBSW7OPFA=; b=1LVLJByyj4288j17fBjDf7fw+J
+	4eoY7kFPW0cvaeGAfl5FLMfWlJwcHYTXSCfy9z9ruKmEh7M9G8VqMJEz73sOuNOIC4mnlR7DLIhOC
+	nZKpGXEKYYG0nhl86DSernPKUWiXL1M/EU/6vfUXVAxyn06tK5zTyovRC0Cpmw5TyAkI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184245-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/17] Device tree based NUMA support for Arm
-Content-Language: en-GB
-To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Community Manager <community.manager@xenproject.org>
-References: <20231120025431.14845-1-Henry.Wang@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20231120025431.14845-1-Henry.Wang@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 184245: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=7a5823f85be99b9a92751fcf4141f7982fa5cc80
+X-Osstest-Versions-That:
+    ovmf=d7d4f09ff815794761f84d06e307001afe6376c4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 03 Jan 2024 16:02:10 +0000
 
-Hi Henry,
+flight 184245 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184245/
 
-On 20/11/2023 02:54, Henry Wang wrote:
-> The preparation work to support NUMA on Arm has been merged
-> and can be found at [1] and [2]. The initial discussions of
-> the Arm NUMA support can be found at [3].
-> 
-> - Background of this series:
-> 
-> Xen memory allocation and scheduler modules are NUMA aware.
-> But actually, on x86 has implemented the architecture APIs
-> to support NUMA. Arm was providing a set of fake architecture
-> APIs to make it compatible with NUMA awared memory allocation
-> and scheduler.
-> 
-> Arm system was working well as a single node NUMA system with
-> these fake APIs, because we didn't have multiple nodes NUMA
-> system on Arm. But in recent years, more and more Arm devices
-> support multiple nodes NUMA system.
-> 
-> So now we have a new problem. When Xen is running on these Arm
-> devices, Xen still treat them as single node SMP systems. The
-> NUMA affinity capability of Xen memory allocation and scheduler
-> becomes meaningless. Because they rely on input data that does
-> not reflect real NUMA layout.
-> 
-> Xen still think the access time for all of the memory is the
-> same for all CPUs. However, Xen may allocate memory to a VM
-> from different NUMA nodes with different access speeds. This
-> difference can be amplified in workloads inside VM, causing
-> performance instability and timeouts.
-> 
-> So in this patch series, we implement a set of NUMA API to use
-> device tree to describe the NUMA layout. We reuse most of the
-> code of x86 NUMA to create and maintain the mapping between
-> memory and CPU, create the matrix between any two NUMA nodes.
-> Except ACPI and some x86 specified code, we have moved other
-> code to common. In next stage, when we implement ACPI based
-> NUMA for Arm64, we may move the ACPI NUMA code to common too,
-> but in current stage, we keep it as x86 only.
-> 
-> This patch serires has been tested and booted well on FVP in
-> Arm64 mode with NUMA configs in device tree and one HPE x86
-> NUMA machine.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 7a5823f85be99b9a92751fcf4141f7982fa5cc80
+baseline version:
+ ovmf                 d7d4f09ff815794761f84d06e307001afe6376c4
 
-This series doesn't seem to apply cleanly to staging. Do you have a tree 
-with the series applied? This would help to check some of the final 
-behavior.
+Last test of basis   184228  2023-12-27 00:12:45 Z    7 days
+Testing same since   184245  2024-01-03 14:14:26 Z    0 days    1 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jeff Brasen via groups.io <jbrasen=nvidia.com@groups.io>
 
--- 
-Julien Grall
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   d7d4f09ff8..7a5823f85b  7a5823f85be99b9a92751fcf4141f7982fa5cc80 -> xen-tested-master
 
