@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08762822F5E
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jan 2024 15:23:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.660958.1030652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AA0E823039
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jan 2024 16:11:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.660964.1030662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rL298-0008V3-Cn; Wed, 03 Jan 2024 14:23:02 +0000
+	id 1rL2tA-00073b-Pc; Wed, 03 Jan 2024 15:10:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 660958.1030652; Wed, 03 Jan 2024 14:23:02 +0000
+Received: by outflank-mailman (output) from mailman id 660964.1030662; Wed, 03 Jan 2024 15:10:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rL298-0008Rn-9l; Wed, 03 Jan 2024 14:23:02 +0000
-Received: by outflank-mailman (input) for mailman id 660958;
- Wed, 03 Jan 2024 14:23:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lN8p=IN=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1rL297-0008Rh-Er
- for xen-devel@lists.xenproject.org; Wed, 03 Jan 2024 14:23:01 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9833bc65-aa43-11ee-9b0f-b553b5be7939;
- Wed, 03 Jan 2024 15:22:59 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-556c3f0d6c5so893652a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jan 2024 06:22:59 -0800 (PST)
+	id 1rL2tA-00071O-Mw; Wed, 03 Jan 2024 15:10:36 +0000
+Received: by outflank-mailman (input) for mailman id 660964;
+ Wed, 03 Jan 2024 15:10:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rL2t9-00071I-M9
+ for xen-devel@lists.xenproject.org; Wed, 03 Jan 2024 15:10:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rL2t8-0001M8-Tu; Wed, 03 Jan 2024 15:10:34 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=[192.168.6.12])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rL2t8-0002Jv-MA; Wed, 03 Jan 2024 15:10:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,121 +39,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9833bc65-aa43-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1704291778; x=1704896578; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=sfUd50JuQ7t5eBNDEI5gQYk96jpnuEgj/78a/sZUKgg=;
-        b=Hw5RJHBdML0NfeG7RCMXrUvzOoX5MUpYcRd2wKQ83IR7fk1pp5IW/lxBzhVwINzRTx
-         hy6FxwmLmk7w4fnuIF27uEUNozIEV/4rQ1ph+EZ+Zxd5WJ99f3ueM3VNm8vlMQuHv+FU
-         Pp/1hNHKbthWr/kLXGFYta/9rZaN1E1ghlZj8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704291778; x=1704896578;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sfUd50JuQ7t5eBNDEI5gQYk96jpnuEgj/78a/sZUKgg=;
-        b=gjxRKKgDE6rA969EApcO4elWVNohQRDFDvQHSlhFDebC94jqxeP6XRf6DmBIMbWVLm
-         Az8X9j00hTxASx9zYzDbpIP8CiqfPjFNa9YyKUpVjuP1mGyjc97gva9yv0SQfU6jhjpH
-         bhR+wLFcItEKOFkiqmWQQJCbg0w5WmRaMlrGVRXkw86SixePM3Cu0J4a97M5LpjoLoZW
-         CSsQ2N6c/Md0VfCYQUlvPrsIRsPEK6rHbwAIaTrVwCCK88kzrGtKLW7THVceuWguZh4R
-         ncWYiZ9BaW+wxs+5B8aLrgt4ZdiN2RNgkNFB0hT9R6uPeehINp2RQCWGOIWSo5B94abA
-         u5Pw==
-X-Gm-Message-State: AOJu0YxM+FMZrlW9YaZC92Fdg193il54u3pHRG1cyac8O5DRGQnyas0X
-	ZFGaTdDUsUM6Fxx2B5lzKAgyxNLFmmhObr4oJ1qaSl6mlMVP7lkXvMMnhQAEgjqCvsQN
-X-Google-Smtp-Source: AGHT+IGiWfVumdl4kz71qOxQtdR5gjLwAZfSH4PxfevQ1UPZ3L0gzkRRfDuXnwOep7jjy8kg8caMieVRFQTPR+BWA/M=
-X-Received: by 2002:a50:c111:0:b0:556:c883:4763 with SMTP id
- l17-20020a50c111000000b00556c8834763mr312030edf.119.1704291778128; Wed, 03
- Jan 2024 06:22:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=z86yiwuWRdk7PWdIze4M68IkZGZ24eESYeRXBDOMy8E=; b=O5lGFMk+0EYL9nQcwTdMN9/cWF
+	00Ox51XKqDnpfAigDlGB8QuFW3Kz4Zb5M5t7JNjGNwiqtimjeM3sWf177HnNJRiClIkSV2lMwcVDO
+	f5XXGrO9IYp763luoMet1c1XmqWqJRLOvo8ZFX5ufyW0xY1YBZUohT2IwTeJtl6UJx/k=;
+Message-ID: <a19d8964-733a-4037-bef6-3cdd79f56f13@xen.org>
+Date: Wed, 3 Jan 2024 15:10:32 +0000
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Wed, 3 Jan 2024 14:22:21 +0000
-Message-ID: <CAO-mL=zSuaajjj7Ynxfvf9YhV5sR+M=njdxzCXYA9Pty1kw4Gg@mail.gmail.com>
-Subject: [ANNOUNCE] Call for agenda items for Community Call @ 1600 UTC, 18th
- Jan 2024
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000078885060e0b5abe"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 02/17] xen/arm: implement helpers to get and update
+ NUMA status
+Content-Language: en-GB
+To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
+Cc: Wei Chen <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20231120025431.14845-1-Henry.Wang@arm.com>
+ <20231120025431.14845-3-Henry.Wang@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20231120025431.14845-3-Henry.Wang@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---000000000000078885060e0b5abe
-Content-Type: text/plain; charset="UTF-8"
+Hi Henry,
 
-Hi all,
+On 20/11/2023 02:54, Henry Wang wrote:
+> From: Wei Chen <wei.chen@arm.com>
+> 
+> NUMA has one global and one implementation specific switches. For
+> ACPI NUMA implementation, Xen has acpi_numa, so we introduce
+> device_tree_numa for device tree NUMA implementation. And use
+> enumerations to indicate init, off and on status.
+> 
+> arch_numa_disabled will get device_tree_numa status, but for
+> arch_numa_setup we have not provided boot arguments to setup
+> device_tree_numa. So we just return -EINVAL in this patch.
+> 
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> ---
+> v3 -> v6:
+> - Rebase on top of staging without code changes.
+> v2 -> v3:
+> - Rename the first entry of enum dt_numa_status as DT_NUMA_DEFAULT.
+> - Make enum dt_numa_status device_tree_numa as __ro_after_init and
+> - assign it explicitly to DT_NUMA_DEFAULT.
+> - Update the year in copyright to 2023.
+> - Don't move the x86 numa_disabled() and make Arm's numa_disabled()
+>    a static inline function for !CONFIG_NUMA.
+> v1 -> v2:
+> - Use arch_numa_disabled to replace numa_enable_with_firmware.
+> - Introduce enumerations for device tree numa status.
+> - Use common numa_disabled, drop Arm version numa_disabled.
+> - Introduce arch_numa_setup for Arm.
+> - Rename bad_srat to numa_bad.
+> - Add numa_enable_with_firmware helper.
+> - Add numa_disabled helper.
+> - Refine commit message.
+> ---
+>   xen/arch/arm/include/asm/numa.h | 17 +++++++++++
+>   xen/arch/arm/numa.c             | 50 +++++++++++++++++++++++++++++++++
+>   2 files changed, 67 insertions(+)
+>   create mode 100644 xen/arch/arm/numa.c
+> 
+> diff --git a/xen/arch/arm/include/asm/numa.h b/xen/arch/arm/include/asm/numa.h
+> index 7d6ae36a19..83f60ad05b 100644
+> --- a/xen/arch/arm/include/asm/numa.h
+> +++ b/xen/arch/arm/include/asm/numa.h
+> @@ -22,6 +22,8 @@ typedef u8 nodeid_t;
+>    */
+>   #define NR_NODE_MEMBLKS NR_MEM_BANKS
+>   
+> +extern bool numa_disabled(void);
+> +
+>   #else
+>   
+>   /* Fake one node for now. See also node_online_map. */
+> @@ -39,6 +41,21 @@ extern mfn_t first_valid_mfn;
+>   #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
+>   #define __node_distance(a, b) (20)
+>   
+> +static inline bool numa_disabled(void)
+> +{
+> +    return true;
+> +}
+> +
+> +static inline bool arch_numa_unavailable(void)
+> +{
+> +    return true;
+> +}
+> +
+> +static inline bool arch_numa_broken(void)
+> +{
+> +    return true;
+> +}
+> +
+>   #endif
+>   
+>   #define arch_want_default_dmazone() (false)
+> diff --git a/xen/arch/arm/numa.c b/xen/arch/arm/numa.c
+> new file mode 100644
+> index 0000000000..eb5d0632cb
+> --- /dev/null
+> +++ b/xen/arch/arm/numa.c
+> @@ -0,0 +1,50 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
 
-Please add your proposed agenda and name next to any items in this *link
-here* <https://cryptpad.fr/pad/#/2/pad/edit/FoIa1svj6GD4rYr-H2DtEn9c/>
+Please use GPL-2.0-only for the SPDX tag.
 
-If any action items have been resolved, please remove them from the sheet.
+> +/*
+> + * Arm Architecture support layer for NUMA.
+> + *
+> + * Copyright (C) 2023 Arm Ltd
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License version 2 as
+> + * published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public License
+> + * along with this program. If not, see <http://www.gnu.org/licenses/>.
+> + *
 
-*CALL LINK: https://meet.jit.si/XenProjectCommunityCall
-<https://www.google.com/url?q=https://meet.jit.si/XenProjectCommunityCall&sa=D&source=calendar&ust=1699196661201312&usg=AOvVaw1FcogEsMjFSd1Pmi7V0cBc>*
+You provided a SPDX tag, so the full license txt should not be added.
 
-*DATE: Postponing till 18th January 2024 to allow everyone on PTO to join *
+> + */
+> +#include <xen/init.h>
+> +#include <xen/numa.h>
+> +
+> +enum dt_numa_status {
+> +    DT_NUMA_DEFAULT,
+> +    DT_NUMA_ON,
+> +    DT_NUMA_OFF,
+> +};
 
-*TIME: 1600 UTC (4 pm UK time)*
-Note the following administrative conventions for the call:
+NIT: I am guessing at some point we will want to support ACPI. So I 
+would consider to remove dt/DT from the name. So we avoid some churn in 
+the future.
 
-* To allow time to switch between meetings, we plan on starting the
-agenda at 16:05 UTC sharp.  Aim to join by 16:03 UTC if possible to allocate
-time to sort out technical difficulties.
+> +
+> +static enum dt_numa_status __ro_after_init device_tree_numa = DT_NUMA_DEFAULT;
+> +
+> +void __init numa_fw_bad(void)
+> +{
+> +    printk(KERN_ERR "NUMA: device tree numa info table not used.\n");
 
-* If you want to be CC'ed please add or remove yourself from the
-sign-up-sheet at
-https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
+KERN_ERR is used for compatibility with Linux. Given this is a Xen file, 
+then please use XENLOG_ERR.
 
-== Dial-in Information ==
-## Meeting time
-16:00 - 17:00 British time
-Further International meeting times:
-https://www.timeanddate.com/worldclock/meetingdetails.html?year=2024&month=1&day=18&hour=16&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
+Acked-by: Julien Grall <julien@xen.org>
 
-## Dial in details
-https://meet.jit.si/static/dialInInfo.html?room=XenProjectCommunityCall
+Cheers,
 
-Many thanks,
-Kelly Choi
-
-Community Manager
-Xen Project
-
---000000000000078885060e0b5abe
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<br><p>Please add your proposed agenda and name nex=
-t to any items in this=C2=A0<a href=3D"https://cryptpad.fr/pad/#/2/pad/edit=
-/FoIa1svj6GD4rYr-H2DtEn9c/" target=3D"_blank"><b>link here</b></a>=C2=A0</p=
-><p>If any action items have been resolved, please remove them from the she=
-et.=C2=A0</p><p><b><span class=3D"gmail-il">CALL</span>=C2=A0LINK:=C2=A0<a =
-href=3D"https://www.google.com/url?q=3Dhttps://meet.jit.si/XenProjectCommun=
-ityCall&amp;sa=3DD&amp;source=3Dcalendar&amp;ust=3D1699196661201312&amp;usg=
-=3DAOvVaw1FcogEsMjFSd1Pmi7V0cBc" target=3D"_blank">https://meet.jit.si/XenP=
-rojectCommunityCall</a></b></p><p><b>DATE: Postponing till 18th January 202=
-4 to allow everyone on PTO to join=C2=A0</b></p><p><b>TIME: 1600 UTC (4 pm =
-UK time)</b></p>Note the following administrative conventions for the=C2=A0=
-<span class=3D"gmail-il">call</span>:<div><br>* To allow time to switch bet=
-ween meetings, we plan on starting the<br>agenda at 16:05 UTC sharp.=C2=A0 =
-Aim to join by 16:03 UTC if possible to allocate<br>time to sort out techni=
-cal difficulties.<br><br>* If you want to be CC&#39;ed please add or remove=
- yourself from the<br>sign-up-sheet at=C2=A0<a href=3D"https://cryptpad.fr/=
-pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/" rel=3D"noreferrer" target=3D"_b=
-lank">https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/</a><br=
-><br>=3D=3D=C2=A0<span class=3D"gmail-il">Dial</span>-in Information =3D=3D=
-<br>## Meeting time<br>16:00 - 17:00 British time<br>Further International =
-meeting times:<br><a href=3D"https://www.timeanddate.com/worldclock/meeting=
-details.html?year=3D2024&amp;month=3D1&amp;day=3D18&amp;hour=3D16&amp;min=
-=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D37&amp;p3=3D224&amp;p4=3D179">https=
-://www.timeanddate.com/worldclock/meetingdetails.html?year=3D2024&amp;month=
-=3D1&amp;day=3D18&amp;hour=3D16&amp;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p=
-2=3D37&amp;p3=3D224&amp;p4=3D179</a><br><br>##=C2=A0<span class=3D"gmail-il=
-">Dial</span>=C2=A0in details<br><a href=3D"https://meet.jit.si/static/dial=
-InInfo.html?room=3DXenProjectCommunityCall" rel=3D"noreferrer" target=3D"_b=
-lank">https://meet.jit.si/static/dialInInfo.html?room=3DXenProjectCommunity=
-Call</a><div class=3D"gmail-yj6qo"></div><br class=3D"gmail-Apple-interchan=
-ge-newline"><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=
-=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,</div><div>Kelly Cho=
-i</div><div><br></div><div><div style=3D"color:rgb(136,136,136)">Community =
-Manager</div><div style=3D"color:rgb(136,136,136)">Xen Project=C2=A0<br></d=
-iv></div></div></div></div></div></div>
-
---000000000000078885060e0b5abe--
+-- 
+Julien Grall
 
