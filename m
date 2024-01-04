@@ -2,39 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2641824152
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 13:11:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661713.1031394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52EE382415C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 13:12:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661716.1031405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLMYh-0002mw-Fi; Thu, 04 Jan 2024 12:10:47 +0000
+	id 1rLMZm-0003s9-QQ; Thu, 04 Jan 2024 12:11:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661713.1031394; Thu, 04 Jan 2024 12:10:47 +0000
+Received: by outflank-mailman (output) from mailman id 661716.1031405; Thu, 04 Jan 2024 12:11:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLMYh-0002kb-D2; Thu, 04 Jan 2024 12:10:47 +0000
-Received: by outflank-mailman (input) for mailman id 661713;
- Thu, 04 Jan 2024 12:10:45 +0000
+	id 1rLMZm-0003po-Lq; Thu, 04 Jan 2024 12:11:54 +0000
+Received: by outflank-mailman (input) for mailman id 661716;
+ Thu, 04 Jan 2024 12:11:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PTP6=IO=daynix.com=akihiko.odaki@srs-se1.protection.inumbo.net>)
- id 1rLMYf-0002kV-FG
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 12:10:45 +0000
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [2607:f8b0:4864:20::632])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BdYS=IO=suse.cz=jack@srs-se1.protection.inumbo.net>)
+ id 1rLMZl-0003oB-4e
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 12:11:53 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 48f55c84-aafa-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 13:10:44 +0100 (CET)
-Received: by mail-pl1-x632.google.com with SMTP id
- d9443c01a7336-1d4c767d3a8so2658025ad.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 04:10:44 -0800 (PST)
-Received: from ?IPV6:2400:4050:a840:1e00:9ac7:6d57:2b16:6932?
- ([2400:4050:a840:1e00:9ac7:6d57:2b16:6932])
- by smtp.gmail.com with ESMTPSA id
- x22-20020a170902821600b001cfc1b931a9sm25324308pln.249.2024.01.04.04.10.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 04:10:42 -0800 (PST)
+ id 7184aca5-aafa-11ee-98ef-6d05b1d4d9a1;
+ Thu, 04 Jan 2024 13:11:52 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1152E1F805;
+ Thu,  4 Jan 2024 12:11:51 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E4BA2137E8;
+ Thu,  4 Jan 2024 12:11:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 63jMN4aglmWaEgAAD6G6ig
+ (envelope-from <jack@suse.cz>); Thu, 04 Jan 2024 12:11:50 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 3F4B9A07EF; Thu,  4 Jan 2024 13:11:50 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,120 +53,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 48f55c84-aafa-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=daynix-com.20230601.gappssmtp.com; s=20230601; t=1704370243; x=1704975043; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Q23i9yT7yrVEFxnf3fk5D4MyK0KHTuKJKDM3rop1kno=;
-        b=yE44NLqUwonY1rOBOjL8u4S1iR5hYGEvQlRfIUDZDUooSmdkiRlqgUZZeIV4j2rUzQ
-         E7kfjrAcWvXgSH83gnJTEj1TWL11B74KAzCWEuvNJbtdQeQdQqZNPveNxPgoOyDWDUU6
-         gQ6JUUbenTrcdcDJCsMLR6K/zWtWOTEhE0/GTwsXcjfftYy2MMc59HuW09O55beQWkue
-         IQO1s9FYTR9L+JdNwHQkxQfqK7js1hjpJLVqKqTTEuiBGNBKRYO+KNgfZKuA9r0lHqBu
-         xvD4wWq7rb74fjRn80gH4a0ffvDu1Rv4W+Pg9aYeqTE0FSKxDTuO09yCMLocYa7dKMMQ
-         llVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704370243; x=1704975043;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q23i9yT7yrVEFxnf3fk5D4MyK0KHTuKJKDM3rop1kno=;
-        b=jBR15QTJioY9Y37Sr6SS/3G/sksbeQGZfyI8WOBQWXTq5SHyjtNHF4dwx4am6tBN3i
-         XOsMa6kYhaFMRbW4m2RONfpIOfMcSxh698tpYdcz+wwRpM9O5aLq6h4zcRqQIuGA7PHL
-         yJYWQWMMP6akYNRWK30gHf6gN8IiCI4faUHmLDGbmy7wtaQNt7OXcnwyjna1wwW6OYta
-         KtTFuqkLwYhh32brSK7ZQLZOl34n8eFBWysdADGrUsID6M+EauXfrsWCti+WiaX0BkLG
-         eUJG7wdxt4KR4Sf4lsEOhHRWyL7wUPDiVGg9nhZxtNCzw1xqzcM0m1Xp6Ut1VKv86Blp
-         ciyw==
-X-Gm-Message-State: AOJu0YylrI0pharM+rA/A4A9Ch0g4gA4LwaT9jFqZGqep3kXHr37IPlL
-	s5DIFBpFlVpPVohG05qarBf1X2Qbvh13fw==
-X-Google-Smtp-Source: AGHT+IEvVniyWW6+pm7fNDiUCukxNFVRQmngQJsY2M7PnvRddXZwN4RLgEaC/QIRqiAw2JDtmofBpQ==
-X-Received: by 2002:a17:903:1d1:b0:1d4:2b5a:9cb7 with SMTP id e17-20020a17090301d100b001d42b5a9cb7mr365235plh.47.1704370243101;
-        Thu, 04 Jan 2024 04:10:43 -0800 (PST)
-Message-ID: <480302ec-4fb2-4e97-8940-8ec27846efc5@daynix.com>
-Date: Thu, 4 Jan 2024 21:10:26 +0900
+X-Inumbo-ID: 7184aca5-aafa-11ee-98ef-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1704370311; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9ZeDUh4C7zA3YQ4fYm2i65EzKNR/mQAuN7BWkbo24yo=;
+	b=e3sjw3qzaFj1bR2K3ph+SCgBs0W5KbKSkTDh6j9mOfMzcA4ll5T88VX7DvbyrfhjMaOgEU
+	ULNk5uKyzCEeOrIlpEpgveioXn6k/trmuztnPHJGyuhf31ImQ2Y/fqDPmQvtkeijr8KG0S
+	hbXlHYuGqhsgRPRLiscvp4MGINF5+lk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1704370311;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9ZeDUh4C7zA3YQ4fYm2i65EzKNR/mQAuN7BWkbo24yo=;
+	b=yQXb9LPjRaWSg2B28C8A0dOdwxgSX7f2zAKDyWfCb78V8RXDAvfljmM2SO6fP/MQIajAvj
+	t7RHhrFKNOkLHNCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1704370311; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9ZeDUh4C7zA3YQ4fYm2i65EzKNR/mQAuN7BWkbo24yo=;
+	b=e3sjw3qzaFj1bR2K3ph+SCgBs0W5KbKSkTDh6j9mOfMzcA4ll5T88VX7DvbyrfhjMaOgEU
+	ULNk5uKyzCEeOrIlpEpgveioXn6k/trmuztnPHJGyuhf31ImQ2Y/fqDPmQvtkeijr8KG0S
+	hbXlHYuGqhsgRPRLiscvp4MGINF5+lk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1704370311;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9ZeDUh4C7zA3YQ4fYm2i65EzKNR/mQAuN7BWkbo24yo=;
+	b=yQXb9LPjRaWSg2B28C8A0dOdwxgSX7f2zAKDyWfCb78V8RXDAvfljmM2SO6fP/MQIajAvj
+	t7RHhrFKNOkLHNCw==
+Date: Thu, 4 Jan 2024 13:11:50 +0100
+From: Jan Kara <jack@suse.cz>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
+	kent.overstreet@gmail.com, joern@lazybastard.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
+	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
+	dsterba@suse.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	nico@fluxnic.net, xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
+	adilger.kernel@dilger.ca, jack@suse.com, konishi.ryusuke@gmail.com,
+	willy@infradead.org, akpm@linux-foundation.org, hare@suse.de,
+	p.raghav@samsung.com, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-bcachefs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org, linux-nilfs@vger.kernel.org,
+	yukuai3@huawei.com, yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: Re: [PATCH RFC v3 for-6.8/block 13/17] jbd2: use bdev apis
+Message-ID: <20240104121150.cxrykpptpgnwkqge@quack3>
+References: <20231221085712.1766333-1-yukuai1@huaweicloud.com>
+ <20231221085846.1768977-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/5] Make Big QEMU Lock naming consistent
-Content-Language: en-US
-To: Stefan Hajnoczi <stefanha@redhat.com>, qemu-devel@nongnu.org
-Cc: Hanna Reitz <hreitz@redhat.com>, qemu-riscv@nongnu.org,
- Roman Bolshakov <rbolshakov@ddn.com>, =?UTF-8?Q?C=C3=A9dric_Le_Goater?=
- <clg@kaod.org>, Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- Eduardo Habkost <eduardo@habkost.net>, Thomas Huth <thuth@redhat.com>,
- qemu-block@nongnu.org, Andrey Smirnov <andrew.smirnov@gmail.com>,
- Peter Maydell <peter.maydell@linaro.org>, Huacai Chen
- <chenhuacai@kernel.org>, Fam Zheng <fam@euphon.net>,
- Gerd Hoffmann <kraxel@redhat.com>, David Gibson
- <david@gibson.dropbear.id.au>, John Snow <jsnow@redhat.com>,
- Stafford Horne <shorne@gmail.com>, Weiwei Li <liwei1518@gmail.com>,
- Jean-Christophe Dubois <jcd@tribudubois.net>,
- Cameron Esfahani <dirty@apple.com>, Alexander Graf <agraf@csgraf.de>,
- David Hildenbrand <david@redhat.com>, Juan Quintela <quintela@redhat.com>,
- Nicholas Piggin <npiggin@gmail.com>, Max Filippov <jcmvbkbc@gmail.com>,
- =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Daniel Henrique Barboza <danielhb413@gmail.com>,
- Markus Armbruster <armbru@redhat.com>, Peter Xu <peterx@redhat.com>,
- Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
- Richard Henderson <richard.henderson@linaro.org>, qemu-s390x@nongnu.org,
- Jiri Slaby <jslaby@suse.cz>, Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
- Eric Blake <eblake@redhat.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>,
- Sunil Muthuswamy <sunilmut@microsoft.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Fabiano Rosas <farosas@suse.de>, Michael Roth <michael.roth@amd.com>,
- Paul Durrant <paul@xen.org>, Jagannathan Raman <jag.raman@oracle.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Hyman Huang <yong.huang@smartx.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
- xen-devel@lists.xenproject.org, Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Song Gao <gaosong@loongson.cn>, Kevin Wolf <kwolf@redhat.com>,
- Ilya Leoshkevich <iii@linux.ibm.com>, Artyom Tarasenko
- <atar4qemu@gmail.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Reinoud Zandijk <reinoud@netbsd.org>, qemu-ppc@nongnu.org,
- Marcelo Tosatti <mtosatti@redhat.com>, David Woodhouse
- <dwmw2@infradead.org>, Aurelien Jarno <aurelien@aurel32.net>,
- Bin Meng <bin.meng@windriver.com>, qemu-arm@nongnu.org,
- Anthony Perard <anthony.perard@citrix.com>,
- Leonardo Bras <leobras@redhat.com>,
- Hailiang Zhang <zhanghailiang@xfusion.com>,
- Harsh Prateek Bora <harshpb@linux.ibm.com>, kvm@vger.kernel.org,
- Palmer Dabbelt <palmer@dabbelt.com>, Eric Farman <farman@linux.ibm.com>,
- BALATON Zoltan <balaton@eik.bme.hu>,
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>
-References: <20240102153529.486531-1-stefanha@redhat.com>
-From: Akihiko Odaki <akihiko.odaki@daynix.com>
-In-Reply-To: <20240102153529.486531-1-stefanha@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231221085846.1768977-1-yukuai1@huaweicloud.com>
+X-Spam-Score: 1.90
+X-Spamd-Result: default: False [1.90 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 R_RATELIMIT(0.00)[to_ip_from(RLdan9jouj5dxnqx1npfmn4ucx)];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 RCPT_COUNT_TWELVE(0.00)[48];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 FREEMAIL_CC(0.00)[kernel.dk,citrix.com,suse.de,gmail.com,lazybastard.org,bootlin.com,nod.at,ti.com,linux.ibm.com,oracle.com,fb.com,toxicpanda.com,suse.com,zeniv.linux.org.uk,kernel.org,fluxnic.net,mit.edu,dilger.ca,infradead.org,linux-foundation.org,samsung.com,vger.kernel.org,lists.xenproject.org,lists.infradead.org,lists.ozlabs.org,huawei.com];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[]
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spam-Level: *
+X-Spam-Flag: NO
 
-On 2024/01/03 0:35, Stefan Hajnoczi wrote:
-> v3:
-> - Rebase
-> - Define bql_lock() macro on a single line [Akihiko Odaki]
-> v2:
-> - Rename APIs bql_*() [PeterX]
-> - Spell out "Big QEMU Lock (BQL)" in doc comments [PeterX]
-> - Rename "iolock" variables in hw/remote/mpqemu-link.c [Harsh]
-> - Fix bql_auto_lock() indentation in Patch 2 [Ilya]
-> - "with BQL taken" -> "with the BQL taken" [Philippe]
-> - "under BQL" -> "under the BQL" [Philippe]
+On Thu 21-12-23 16:58:46, Yu Kuai wrote:
+> From: Yu Kuai <yukuai3@huawei.com>
 > 
-> The Big QEMU Lock ("BQL") has two other names: "iothread lock" and "QEMU global
-> mutex". The term "iothread lock" is easily confused with the unrelated --object
-> iothread (iothread.c).
+> Avoid to access bd_inode directly, prepare to remove bd_inode from
+> block_device.
 > 
-> This series updates the code and documentation to consistently use "BQL". This
-> makes the code easier to understand.
+> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 
-For the whole series,
-Reviewed-by: Akihiko Odaki <akihiko.odaki@daynix.com>
+Looks good to me. Feel free to add:
 
-Thank you for sorting this out.
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+But note there are changes pending to this code for the coming merge window
+so you'll have to rebase...
+
+								Honza
+
+> ---
+>  fs/jbd2/journal.c  | 3 +--
+>  fs/jbd2/recovery.c | 6 ++----
+>  2 files changed, 3 insertions(+), 6 deletions(-)
+> 
+> diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+> index ed53188472f9..f1b5ffeaf02a 100644
+> --- a/fs/jbd2/journal.c
+> +++ b/fs/jbd2/journal.c
+> @@ -2003,8 +2003,7 @@ static int __jbd2_journal_erase(journal_t *journal, unsigned int flags)
+>  		byte_count = (block_stop - block_start + 1) *
+>  				journal->j_blocksize;
+>  
+> -		truncate_inode_pages_range(journal->j_dev->bd_inode->i_mapping,
+> -				byte_start, byte_stop);
+> +		truncate_bdev_range(journal->j_dev, 0, byte_start, byte_stop);
+>  
+>  		if (flags & JBD2_JOURNAL_FLUSH_DISCARD) {
+>  			err = blkdev_issue_discard(journal->j_dev,
+> diff --git a/fs/jbd2/recovery.c b/fs/jbd2/recovery.c
+> index 01f744cb97a4..6b6a2c4585fa 100644
+> --- a/fs/jbd2/recovery.c
+> +++ b/fs/jbd2/recovery.c
+> @@ -290,7 +290,6 @@ int jbd2_journal_recover(journal_t *journal)
+>  
+>  	struct recovery_info	info;
+>  	errseq_t		wb_err;
+> -	struct address_space	*mapping;
+>  
+>  	memset(&info, 0, sizeof(info));
+>  	sb = journal->j_superblock;
+> @@ -309,8 +308,7 @@ int jbd2_journal_recover(journal_t *journal)
+>  	}
+>  
+>  	wb_err = 0;
+> -	mapping = journal->j_fs_dev->bd_inode->i_mapping;
+> -	errseq_check_and_advance(&mapping->wb_err, &wb_err);
+> +	bdev_wb_err_check_and_advance(journal->j_fs_dev, &wb_err);
+>  	err = do_one_pass(journal, &info, PASS_SCAN);
+>  	if (!err)
+>  		err = do_one_pass(journal, &info, PASS_REVOKE);
+> @@ -334,7 +332,7 @@ int jbd2_journal_recover(journal_t *journal)
+>  	err2 = sync_blockdev(journal->j_fs_dev);
+>  	if (!err)
+>  		err = err2;
+> -	err2 = errseq_check_and_advance(&mapping->wb_err, &wb_err);
+> +	err2 = bdev_wb_err_check_and_advance(journal->j_fs_dev, &wb_err);
+>  	if (!err)
+>  		err = err2;
+>  	/* Make sure all replayed data is on permanent storage */
+> -- 
+> 2.39.2
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
