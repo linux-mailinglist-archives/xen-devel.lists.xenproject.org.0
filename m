@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABF49824058
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:12:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661530.1031240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05CBD82405C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:13:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661539.1031250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLe6-0003I3-Tv; Thu, 04 Jan 2024 11:12:18 +0000
+	id 1rLLfJ-00041u-7r; Thu, 04 Jan 2024 11:13:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661530.1031240; Thu, 04 Jan 2024 11:12:18 +0000
+Received: by outflank-mailman (output) from mailman id 661539.1031250; Thu, 04 Jan 2024 11:13:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLe6-0003Fo-Pe; Thu, 04 Jan 2024 11:12:18 +0000
-Received: by outflank-mailman (input) for mailman id 661530;
- Thu, 04 Jan 2024 11:12:17 +0000
+	id 1rLLfJ-0003zC-4x; Thu, 04 Jan 2024 11:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 661539;
+ Thu, 04 Jan 2024 11:13:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0by4=IO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rLLe5-0003Fd-21
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:12:17 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wSyo=IO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rLLfH-0003z2-EO
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:13:31 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1d48fa82-aaf2-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 12:12:15 +0100 (CET)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2cd0c17e42bso4310461fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:12:14 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bo33-20020a056e02342100b003600705e58asm6456484ilb.48.2024.01.04.03.12.12
+ id 4a34cfb0-aaf2-11ee-98ef-6d05b1d4d9a1;
+ Thu, 04 Jan 2024 12:13:30 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-336979a566aso322072f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:13:30 -0800 (PST)
+Received: from [192.168.86.29] ([90.242.36.164])
+ by smtp.gmail.com with ESMTPSA id
+ a7-20020a5d4d47000000b00333404e9935sm32836721wru.54.2024.01.04.03.13.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 03:12:13 -0800 (PST)
+ Thu, 04 Jan 2024 03:13:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,118 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d48fa82-aaf2-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: 4a34cfb0-aaf2-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704366734; x=1704971534; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1704366809; x=1704971609; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=aq5rkbQj2KpX16nl0ZcGOiVf5PhrMNV5nU2YySiLBBg=;
-        b=McjU0ciBuXUy1FAbSrRvN/58ec1UjdSq/z6wid0ybaBpCQLzpbJMS8m/oWcFpksn0x
-         tBv8f9jVD3uG/Dz8DTCzf0ImnPrs93V72cPGq3JEkBUtHaNFXMFTQqNY94+2+dRHZa89
-         ruXiQ4OsyDt2BEy60gGzfJMtCxfU2kHeikEMHMq4OV/zUbBEmVDzmT5fN63Ki4N2DbNU
-         lU4p1c5s7TV7/TnMeKz83vX9JYrnW7pqFq6tqfrI0iVxyfosSx+o2v8z2MO54/RFSdM8
-         5pq5Tuk/p5b/nUuw+hhds9xUpL23J7jx+Aa5KznQ/79JFdedUl+KklMbXyNSiV+ol6x2
-         z9AA==
+        bh=i7eYwRrCjOmgEPtBtwjnCe/LynqOaTiHsclqYVnkFhU=;
+        b=lZBMVRoyG/VEzE/wpI4mJZH/5Wqby8eZi7s1HKvfvVzfAcLeo/RdzlrF5RKFG6xeu+
+         3RnedKgTI80w/MByfTHUsgX2vk1cjeJdUP85GOgUyLuiHkTiOBZMizGDKeY6xxdbI/4P
+         7qt+BJKexndJHOR/NZvbIqAHP1w3zaMHUySUo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704366734; x=1704971534;
+        d=1e100.net; s=20230601; t=1704366809; x=1704971609;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=aq5rkbQj2KpX16nl0ZcGOiVf5PhrMNV5nU2YySiLBBg=;
-        b=q68hPaV83KwlOoLqtIPmV4r/TgnWqglUdzhDVjRfppCOVqbUyLbFaIgn/IWAvz8FDd
-         b12SGSIHXYQhqSENnQ24E6fxxkSGGAog022LkCab9qXOkHkFN9wqt0z3SqIw2UxZ7agT
-         0NUT7jyuxA2DfHYzxEPlO5n1ts4ELtnEJ0NEeVnqp+JtPpyGVW/l3IjGB+VXAyCuy6c4
-         dYcRpkm3FyT2r3ARV1LZtlngIFO3Eo0g+wX9eKna3Q6DcPORiGWrwOv13zX7ilrl5bKI
-         gEPSjSVmgNPSEOc/BwKTGZWf6r8m0uTY6er35auFTHT4FhTXRgARoT20SAxEbigA1xpG
-         WLdg==
-X-Gm-Message-State: AOJu0YzSfaJsib91PBWDjo7xFapuJ6b3nIcqpvG0/nAXIGP1Xd6qJPPr
-	nyIoEn8W6P09NwoP6ipEF3ajzHrOASrG
-X-Google-Smtp-Source: AGHT+IFE0NtE1Sj3EF1oWdOTx2QPP6WZh2Evo1Klhlp3fTU3agn/4wJQ6nMY4QhVUHdI5Bu8NqResg==
-X-Received: by 2002:a05:651c:508:b0:2cd:1d5d:3240 with SMTP id o8-20020a05651c050800b002cd1d5d3240mr316200ljp.0.1704366734074;
-        Thu, 04 Jan 2024 03:12:14 -0800 (PST)
-Message-ID: <24b83048-7043-47a9-9fc9-3bb6cc849bad@suse.com>
-Date: Thu, 4 Jan 2024 12:12:22 +0100
+        bh=i7eYwRrCjOmgEPtBtwjnCe/LynqOaTiHsclqYVnkFhU=;
+        b=wmaJ6KBef1K2HJpzgURB4yTtZI0efu0nVmZLJG8nRhzVkznaNNKVJLJk5DdGNDqZNn
+         LgRnR95LqSNiPgyDMBQixgRVG/qLr5+tsttfzB6i5kbBhU4y1gBuAGoDMXPk7LSRCthK
+         a5HVTKrIVUg1xKg5oaiQoV1L4243y45pfEjsH/rwKD094yV/5RKNZzlHpwLEpol9uTYw
+         UXjZLvL/jOejkyQJtNTCQmmC2Cn2nmM6gPYksUn/USGVVe9PN6b74prBObMtqLf7laxq
+         ubPKBLC/buyLE+1Hvsz2T243LH7gwLa7B2rU9MLAmpMDf5Wb7vyTFZmUMgonsLFKYTdO
+         Qx/Q==
+X-Gm-Message-State: AOJu0YznurJzWl705JQO8KO+r+rWupZujhfpxMQaxfxq9h3zdIpehHiq
+	PphdQNL2CYVoaIFtjHNvoTdh2zfmLRiLhw==
+X-Google-Smtp-Source: AGHT+IGDsqOMTj98HBJxMJC1yNWHlIyfshFhCRyLd+Ncw6QlSVi0uTc0WG5ZuS1HkajTh3Aj0L3C9Q==
+X-Received: by 2002:a05:6000:1967:b0:336:8657:60df with SMTP id da7-20020a056000196700b00336865760dfmr250588wrb.79.1704366809494;
+        Thu, 04 Jan 2024 03:13:29 -0800 (PST)
+Message-ID: <a429369f-a4b1-44f7-86c2-c8afdee13e1b@citrix.com>
+Date: Thu, 4 Jan 2024 11:13:28 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] libxl: Disable relocating memory for qemu-xen in
- stubdomain too
-Content-Language: en-US
-To: Neowutran <xen@neowutran.ovh>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
- <dvzyuckd4w7vii3bytpsecdyyzizgbgxslyxiciobw3ac6wmlb@uolzr2buvi2k>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dvzyuckd4w7vii3bytpsecdyyzizgbgxslyxiciobw3ac6wmlb@uolzr2buvi2k>
+Subject: Re: [PATCH v3 07/34] xen/asm-generic: introdure nospec.h
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+ <a1360d3de3da8757c69f11c3fafd99ff65654ae8.1703255175.git.oleksii.kurochko@gmail.com>
+ <d096f14c-96ae-46a6-81fc-55ff8fcaaf39@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <d096f14c-96ae-46a6-81fc-55ff8fcaaf39@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 27.12.2023 17:54, Neowutran wrote:
-> On 2023-12-27 03:12, Marek Marczykowski-Górecki wrote:
->> According to comments (and experiments) qemu-xen cannot handle memory
->> reolcation done by hvmloader. The code was already disabled when running
->> qemu-xen in dom0 (see libxl__spawn_local_dm()), but it was missed when
->> adding qemu-xen support to stubdomain. Adjust libxl__spawn_stub_dm() to
->> be consistent in this regard.
+On 04/01/2024 11:06 am, Jan Beulich wrote:
+> On 22.12.2023 16:12, Oleksii Kurochko wrote:
+>> The <asm/nospec.h> header is similar between Arm, PPC, and RISC-V,
+>> so it has been moved to asm-generic.
 >>
->> Reported-by: Neowutran <xen@neowutran.ovh>
->> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
->> ---
->>  tools/libs/light/libxl_dm.c | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->>
->> diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
->> index 14b593110f7c..ed620a9d8e14 100644
->> --- a/tools/libs/light/libxl_dm.c
->> +++ b/tools/libs/light/libxl_dm.c
->> @@ -2432,6 +2432,16 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
->>                          "%s",
->>                          libxl_bios_type_to_string(guest_config->b_info.u.hvm.bios));
->>      }
->> +    /* Disable relocating memory to make the MMIO hole larger
->> +     * unless we're running qemu-traditional and vNUMA is not
->> +     * configured. */
->> +    libxl__xs_printf(gc, XBT_NULL,
->> +                     libxl__sprintf(gc, "%s/hvmloader/allow-memory-relocate",
->> +                                    libxl__xs_get_dompath(gc, guest_domid)),
->> +                     "%d",
->> +                     guest_config->b_info.device_model_version
->> +                        == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
->> +                     !libxl__vnuma_configured(&guest_config->b_info));
->>      ret = xc_domain_set_target(ctx->xch, dm_domid, guest_domid);
->>      if (ret<0) {
->>          LOGED(ERROR, guest_domid, "setting target domain %d -> %d",
->> -- 
->> 2.41.0
-> 
-> Seems to work as expected
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+>
+> A word may want saying though on ...
+>
+>> --- a/xen/arch/arm/include/asm/nospec.h
+>> +++ b/xen/include/asm-generic/nospec.h
+>> @@ -1,8 +1,8 @@
+>> -/* SPDX-License-Identifier: GPL-2.0 */
+>> -/* Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved. */
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +#ifndef _ASM_GENERIC_NOSPEC_H
+>> +#define _ASM_GENERIC_NOSPEC_H
+> ... the removal of the copyright line.
 
-May we translate this to Tested-by: ?
+That isn't a removal of ARM's copyright line.
 
-Jan
+The two files are similar enough to trigger git-diff's "this was a
+rename" logic (see the a vs b paths), despite not being a rename.
+
+It's unfortunate rendering in this case.
+
+~Andrew
 
