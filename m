@@ -2,35 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89F2A82418D
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 13:22:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661747.1031435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 072A0824197
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 13:22:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661751.1031444 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLMjN-0000zh-8t; Thu, 04 Jan 2024 12:21:49 +0000
+	id 1rLMjr-0001a7-HG; Thu, 04 Jan 2024 12:22:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661747.1031435; Thu, 04 Jan 2024 12:21:49 +0000
+Received: by outflank-mailman (output) from mailman id 661751.1031444; Thu, 04 Jan 2024 12:22:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLMjN-0000xX-5o; Thu, 04 Jan 2024 12:21:49 +0000
-Received: by outflank-mailman (input) for mailman id 661747;
- Thu, 04 Jan 2024 12:21:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rLMjr-0001YI-ES; Thu, 04 Jan 2024 12:22:19 +0000
+Received: by outflank-mailman (input) for mailman id 661751;
+ Thu, 04 Jan 2024 12:22:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rLMjL-0000xL-RN; Thu, 04 Jan 2024 12:21:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rLMjL-0001XF-Ns; Thu, 04 Jan 2024 12:21:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rLMjL-0000AF-8R; Thu, 04 Jan 2024 12:21:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rLMjL-000497-7y; Thu, 04 Jan 2024 12:21:47 +0000
+ (envelope-from <SRS0=BdYS=IO=suse.cz=jack@srs-se1.protection.inumbo.net>)
+ id 1rLMjq-0001Wl-3H
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 12:22:18 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e554c727-aafb-11ee-9b0f-b553b5be7939;
+ Thu, 04 Jan 2024 13:22:15 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C3FE921D3A;
+ Thu,  4 Jan 2024 12:22:14 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A408A137E8;
+ Thu,  4 Jan 2024 12:22:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id aIvDJ/ailmWuFQAAD6G6ig
+ (envelope-from <jack@suse.cz>); Thu, 04 Jan 2024 12:22:14 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 12451A07EF; Thu,  4 Jan 2024 13:22:14 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +54,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=AwPM9LCnYsvilaL90V06/4mWmJznxnQLhREL4UIuRYE=; b=p1dnSf5AnrNcyKBJe97y71yera
-	V+rmoLl4S1UhuVDCt6gAri380wlkuJHPQJKuLgrPIR6TP+8UPjAhhtBtyEGyExKX4prE1OvVDmK3b
-	WMjgZ3Pl0KzDIArUZ6ahFpJRH8SQNUsErueT2q1Lsi+mmZOsS21LENAlQ9okjk4pA/n4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184251-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: e554c727-aafb-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1704370935; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dEOhbl6BxUdU6y2PPLv5OY3ZqGBD0PFejfclreExChI=;
+	b=XFc8VLBsnl9aL7k3OjwpBjEyurAPHn/wozw7huEJg8Kh1XtexFXGnCOFrF5cdJObzIoVOB
+	WSl0qwfGcHDQRAYaR70hDrxP5dEBoB1H4OgNdM9BCSFoyD0dNvFgWPJz8qJrVSt4tKq5qM
+	SM0EzBf8FjQO8tP69JsU/iZJsUbAZBg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1704370935;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dEOhbl6BxUdU6y2PPLv5OY3ZqGBD0PFejfclreExChI=;
+	b=BRLIxIrqPa8P6c1xZvwUjFY/XF/4q/Hh7Fr9qUPo3HG8bI8kuWp+Geq4NwDCe18M+n1X29
+	u6rW+t5czthqMXCw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1704370934; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dEOhbl6BxUdU6y2PPLv5OY3ZqGBD0PFejfclreExChI=;
+	b=dWaipx2c9mtfXsouDbDbhmlJanWKJIihT+c3mI9H4+BEJ9hmUZtaN5Uu4ae2qTdtLH7xKW
+	DDYet+i2/F2cAa+agkhhbr3Cv4olBkJ/pv8A4qgM43c2v3EY3PHpUBczoq93IpuUDz4twc
+	YFhcZIKVsPkTvaHSTOYEQ6iZivXOeek=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1704370934;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dEOhbl6BxUdU6y2PPLv5OY3ZqGBD0PFejfclreExChI=;
+	b=VFhD00b5yP8kUic6tuTXvk6P7y+b439KNlXOG1em78AjaLBeb4nyWpSfko2ONapIBWJ8nM
+	q4ULVr0ImRgl9xDA==
+Date: Thu, 4 Jan 2024 13:22:14 +0100
+From: Jan Kara <jack@suse.cz>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
+	kent.overstreet@gmail.com, joern@lazybastard.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
+	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
+	dsterba@suse.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	nico@fluxnic.net, xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
+	adilger.kernel@dilger.ca, jack@suse.com, konishi.ryusuke@gmail.com,
+	willy@infradead.org, akpm@linux-foundation.org, hare@suse.de,
+	p.raghav@samsung.com, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-bcachefs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org, linux-nilfs@vger.kernel.org,
+	yukuai3@huawei.com, yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: Re: [PATCH RFC v3 for-6.8/block 14/17] buffer: add a new helper to
+ read sb block
+Message-ID: <20240104122214.jndsqygnmljxmj5d@quack3>
+References: <20231221085712.1766333-1-yukuai1@huaweicloud.com>
+ <20231221085853.1770062-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 184251: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=e449451770193c8eb36e4dc3a770c8ee353183aa
-X-Osstest-Versions-That:
-    ovmf=16c8cfc81054aa76e133eab1033560052727cab5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 04 Jan 2024 12:21:47 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231221085853.1770062-1-yukuai1@huaweicloud.com>
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-1.31 / 50.00];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	 TO_DN_SOME(0.00)[];
+	 R_RATELIMIT(0.00)[to_ip_from(RLhr85cyeg3mfw7iggddtjdkgs)];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_TRACE(0.00)[suse.cz:+];
+	 MX_GOOD(-0.01)[];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 BAYES_HAM(-3.00)[99.99%];
+	 ARC_NA(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 FROM_HAS_DN(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 RCPT_COUNT_TWELVE(0.00)[48];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[huawei.com:email,suse.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 FREEMAIL_CC(0.00)[kernel.dk,citrix.com,suse.de,gmail.com,lazybastard.org,bootlin.com,nod.at,ti.com,linux.ibm.com,oracle.com,fb.com,toxicpanda.com,suse.com,zeniv.linux.org.uk,kernel.org,fluxnic.net,mit.edu,dilger.ca,infradead.org,linux-foundation.org,samsung.com,vger.kernel.org,lists.xenproject.org,lists.infradead.org,lists.ozlabs.org,huawei.com];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[];
+	 RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=dWaipx2c;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=VFhD00b5
+X-Spam-Score: -1.31
+X-Rspamd-Queue-Id: C3FE921D3A
 
-flight 184251 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184251/
+On Thu 21-12-23 16:58:53, Yu Kuai wrote:
+> From: Yu Kuai <yukuai3@huawei.com>
+> 
+> Unlike __bread_gfp(), ext4 has special handing while reading sb block:
+> 
+> 1) __GFP_NOFAIL is not set, and memory allocation can fail;
+> 2) If buffer write failed before, set buffer uptodate and don't read
+>    block from disk;
+> 3) REQ_META is set for all IO, and REQ_PRIO is set for reading xattr;
+> 4) If failed, return error ptr instead of NULL;
+> 
+> This patch add a new helper __bread_gfp2() that will match above 2 and 3(
+> 1 will be used, and 4 will still be encapsulated by ext4), and prepare to
+> prevent calling mapping_gfp_constraint() directly on bd_inode->i_mapping
+> in ext4.
+> 
+> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 e449451770193c8eb36e4dc3a770c8ee353183aa
-baseline version:
- ovmf                 16c8cfc81054aa76e133eab1033560052727cab5
+I'm not enthusiastic about this but I guess it is as good as it gets
+without larger cleanups in this area. So feel free to add:
 
-Last test of basis   184246  2024-01-03 16:12:35 Z    0 days
-Testing same since   184251  2024-01-04 10:14:25 Z    0 days    1 attempts
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Hou, Wenxing <wenxing.hou@intel.com>
-  Wenxing Hou <wenxing.hou@intel.com>
+								Honza
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   16c8cfc810..e449451770  e449451770193c8eb36e4dc3a770c8ee353183aa -> xen-tested-master
+> ---
+>  fs/buffer.c                 | 68 ++++++++++++++++++++++++++-----------
+>  include/linux/buffer_head.h | 18 +++++++++-
+>  2 files changed, 65 insertions(+), 21 deletions(-)
+> 
+> diff --git a/fs/buffer.c b/fs/buffer.c
+> index 967f34b70aa8..188bd36c9fea 100644
+> --- a/fs/buffer.c
+> +++ b/fs/buffer.c
+> @@ -1255,16 +1255,19 @@ void __bforget(struct buffer_head *bh)
+>  }
+>  EXPORT_SYMBOL(__bforget);
+>  
+> -static struct buffer_head *__bread_slow(struct buffer_head *bh)
+> +static struct buffer_head *__bread_slow(struct buffer_head *bh,
+> +					blk_opf_t op_flags,
+> +					bool check_write_error)
+>  {
+>  	lock_buffer(bh);
+> -	if (buffer_uptodate(bh)) {
+> +	if (buffer_uptodate(bh) ||
+> +	    (check_write_error && buffer_uptodate_or_error(bh))) {
+>  		unlock_buffer(bh);
+>  		return bh;
+>  	} else {
+>  		get_bh(bh);
+>  		bh->b_end_io = end_buffer_read_sync;
+> -		submit_bh(REQ_OP_READ, bh);
+> +		submit_bh(REQ_OP_READ | op_flags, bh);
+>  		wait_on_buffer(bh);
+>  		if (buffer_uptodate(bh))
+>  			return bh;
+> @@ -1445,6 +1448,31 @@ void __breadahead(struct block_device *bdev, sector_t block, unsigned size)
+>  }
+>  EXPORT_SYMBOL(__breadahead);
+>  
+> +static struct buffer_head *
+> +bread_gfp(struct block_device *bdev, sector_t block, unsigned int size,
+> +	  blk_opf_t op_flags, gfp_t gfp, bool check_write_error)
+> +{
+> +	struct buffer_head *bh;
+> +
+> +	gfp |= mapping_gfp_constraint(bdev->bd_inode->i_mapping, ~__GFP_FS);
+> +
+> +	/*
+> +	 * Prefer looping in the allocator rather than here, at least that
+> +	 * code knows what it's doing.
+> +	 */
+> +	gfp |= __GFP_NOFAIL;
+> +
+> +	bh = bdev_getblk(bdev, block, size, gfp);
+> +	if (unlikely(!bh))
+> +		return NULL;
+> +
+> +	if (buffer_uptodate(bh) ||
+> +	    (check_write_error && buffer_uptodate_or_error(bh)))
+> +		return bh;
+> +
+> +	return __bread_slow(bh, op_flags, check_write_error);
+> +}
+> +
+>  /**
+>   *  __bread_gfp() - reads a specified block and returns the bh
+>   *  @bdev: the block_device to read from
+> @@ -1458,27 +1486,27 @@ EXPORT_SYMBOL(__breadahead);
+>   *  It returns NULL if the block was unreadable.
+>   */
+>  struct buffer_head *
+> -__bread_gfp(struct block_device *bdev, sector_t block,
+> -		   unsigned size, gfp_t gfp)
+> +__bread_gfp(struct block_device *bdev, sector_t block, unsigned int size,
+> +	    gfp_t gfp)
+>  {
+> -	struct buffer_head *bh;
+> -
+> -	gfp |= mapping_gfp_constraint(bdev->bd_inode->i_mapping, ~__GFP_FS);
+> -
+> -	/*
+> -	 * Prefer looping in the allocator rather than here, at least that
+> -	 * code knows what it's doing.
+> -	 */
+> -	gfp |= __GFP_NOFAIL;
+> -
+> -	bh = bdev_getblk(bdev, block, size, gfp);
+> -
+> -	if (likely(bh) && !buffer_uptodate(bh))
+> -		bh = __bread_slow(bh);
+> -	return bh;
+> +	return bread_gfp(bdev, block, size, 0, gfp, false);
+>  }
+>  EXPORT_SYMBOL(__bread_gfp);
+>  
+> +/*
+> + * This works like __bread_gfp() except:
+> + * 1) If buffer write failed before, set buffer uptodate and don't read
+> + * block from disk;
+> + * 2) Caller can pass in additional op_flags like REQ_META;
+> + */
+> +struct buffer_head *
+> +__bread_gfp2(struct block_device *bdev, sector_t block, unsigned int size,
+> +	     blk_opf_t op_flags, gfp_t gfp)
+> +{
+> +	return bread_gfp(bdev, block, size, op_flags, gfp, true);
+> +}
+> +EXPORT_SYMBOL(__bread_gfp2);
+> +
+>  static void __invalidate_bh_lrus(struct bh_lru *b)
+>  {
+>  	int i;
+> diff --git a/include/linux/buffer_head.h b/include/linux/buffer_head.h
+> index 5f23ee599889..751b2744b4ae 100644
+> --- a/include/linux/buffer_head.h
+> +++ b/include/linux/buffer_head.h
+> @@ -171,6 +171,18 @@ static __always_inline int buffer_uptodate(const struct buffer_head *bh)
+>  	return test_bit_acquire(BH_Uptodate, &bh->b_state);
+>  }
+>  
+> +static __always_inline int buffer_uptodate_or_error(struct buffer_head *bh)
+> +{
+> +	/*
+> +	 * If the buffer has the write error flag, data was failed to write
+> +	 * out in the block. In this case, set buffer uptodate to prevent
+> +	 * reading old data.
+> +	 */
+> +	if (buffer_write_io_error(bh))
+> +		set_buffer_uptodate(bh);
+> +	return buffer_uptodate(bh);
+> +}
+> +
+>  static inline unsigned long bh_offset(const struct buffer_head *bh)
+>  {
+>  	return (unsigned long)(bh)->b_data & (page_size(bh->b_page) - 1);
+> @@ -231,7 +243,11 @@ void __brelse(struct buffer_head *);
+>  void __bforget(struct buffer_head *);
+>  void __breadahead(struct block_device *, sector_t block, unsigned int size);
+>  struct buffer_head *__bread_gfp(struct block_device *,
+> -				sector_t block, unsigned size, gfp_t gfp);
+> +				sector_t block, unsigned int size, gfp_t gfp);
+> +struct buffer_head *__bread_gfp2(struct block_device *bdev, sector_t block,
+> +				 unsigned int size, blk_opf_t op_flags,
+> +				 gfp_t gfp);
+> +
+>  struct buffer_head *alloc_buffer_head(gfp_t gfp_flags);
+>  void free_buffer_head(struct buffer_head * bh);
+>  void unlock_buffer(struct buffer_head *bh);
+> -- 
+> 2.39.2
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
