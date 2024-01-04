@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05CBD82405C
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:13:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661539.1031250 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21115824077
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:19:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661547.1031260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLfJ-00041u-7r; Thu, 04 Jan 2024 11:13:33 +0000
+	id 1rLLk0-0005JL-Op; Thu, 04 Jan 2024 11:18:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661539.1031250; Thu, 04 Jan 2024 11:13:33 +0000
+Received: by outflank-mailman (output) from mailman id 661547.1031260; Thu, 04 Jan 2024 11:18:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLfJ-0003zC-4x; Thu, 04 Jan 2024 11:13:33 +0000
-Received: by outflank-mailman (input) for mailman id 661539;
- Thu, 04 Jan 2024 11:13:31 +0000
+	id 1rLLk0-0005H3-L8; Thu, 04 Jan 2024 11:18:24 +0000
+Received: by outflank-mailman (input) for mailman id 661547;
+ Thu, 04 Jan 2024 11:18:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wSyo=IO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rLLfH-0003z2-EO
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:13:31 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1rLLjy-0005Gw-J1
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:18:22 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a34cfb0-aaf2-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 12:13:30 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-336979a566aso322072f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:13:30 -0800 (PST)
+ id f80f917e-aaf2-11ee-98ef-6d05b1d4d9a1;
+ Thu, 04 Jan 2024 12:18:21 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-40d60c49ee7so3779265e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:18:21 -0800 (PST)
 Received: from [192.168.86.29] ([90.242.36.164])
  by smtp.gmail.com with ESMTPSA id
- a7-20020a5d4d47000000b00333404e9935sm32836721wru.54.2024.01.04.03.13.28
+ z6-20020a05600c0a0600b0040b3d8907fesm5431742wmp.29.2024.01.04.03.18.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 03:13:29 -0800 (PST)
+ Thu, 04 Jan 2024 03:18:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a34cfb0-aaf2-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: f80f917e-aaf2-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704366809; x=1704971609; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1704367101; x=1704971901; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=i7eYwRrCjOmgEPtBtwjnCe/LynqOaTiHsclqYVnkFhU=;
-        b=lZBMVRoyG/VEzE/wpI4mJZH/5Wqby8eZi7s1HKvfvVzfAcLeo/RdzlrF5RKFG6xeu+
-         3RnedKgTI80w/MByfTHUsgX2vk1cjeJdUP85GOgUyLuiHkTiOBZMizGDKeY6xxdbI/4P
-         7qt+BJKexndJHOR/NZvbIqAHP1w3zaMHUySUo=
+        bh=XLa52CHFF2nPw+ELspSX3vYQFc9qRUUli6m+PFBxg+U=;
+        b=hSpDoM/ZONMb9WCE56d92ofEHykm1xKl9VNKLFHbrozRT36Hh5C4pQg9aOcLz8i44t
+         McDwEoDdTO+3Ose8BxdtfITKruDrNqes5BXitb0NfSO2ID6nW7mTSUlsi7yrLzlKW3b3
+         SmN/LWlaGFzJNjDkGyHfD0uNukj7mA+vxVb50=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704366809; x=1704971609;
+        d=1e100.net; s=20230601; t=1704367101; x=1704971901;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=i7eYwRrCjOmgEPtBtwjnCe/LynqOaTiHsclqYVnkFhU=;
-        b=wmaJ6KBef1K2HJpzgURB4yTtZI0efu0nVmZLJG8nRhzVkznaNNKVJLJk5DdGNDqZNn
-         LgRnR95LqSNiPgyDMBQixgRVG/qLr5+tsttfzB6i5kbBhU4y1gBuAGoDMXPk7LSRCthK
-         a5HVTKrIVUg1xKg5oaiQoV1L4243y45pfEjsH/rwKD094yV/5RKNZzlHpwLEpol9uTYw
-         UXjZLvL/jOejkyQJtNTCQmmC2Cn2nmM6gPYksUn/USGVVe9PN6b74prBObMtqLf7laxq
-         ubPKBLC/buyLE+1Hvsz2T243LH7gwLa7B2rU9MLAmpMDf5Wb7vyTFZmUMgonsLFKYTdO
-         Qx/Q==
-X-Gm-Message-State: AOJu0YznurJzWl705JQO8KO+r+rWupZujhfpxMQaxfxq9h3zdIpehHiq
-	PphdQNL2CYVoaIFtjHNvoTdh2zfmLRiLhw==
-X-Google-Smtp-Source: AGHT+IGDsqOMTj98HBJxMJC1yNWHlIyfshFhCRyLd+Ncw6QlSVi0uTc0WG5ZuS1HkajTh3Aj0L3C9Q==
-X-Received: by 2002:a05:6000:1967:b0:336:8657:60df with SMTP id da7-20020a056000196700b00336865760dfmr250588wrb.79.1704366809494;
-        Thu, 04 Jan 2024 03:13:29 -0800 (PST)
-Message-ID: <a429369f-a4b1-44f7-86c2-c8afdee13e1b@citrix.com>
-Date: Thu, 4 Jan 2024 11:13:28 +0000
+        bh=XLa52CHFF2nPw+ELspSX3vYQFc9qRUUli6m+PFBxg+U=;
+        b=TrLhFVnXVZz9eCFXT2mWwtwdBxBqDT2D2N4TPZN21zeF+lug4c5w3QiZNuEnIhbwfe
+         zJ2hPsnKxTM11Si4DWhC1qPwJCKoUWg7m1rfh+ZbiAZnmbj/YslQF0Srnwoi69AGbE0z
+         BRV1xK52RUNA6U7ABN0ZSC2+k88IzVNfUPrZ+zDrOF14Md6rQqDYmuG6VtZWqoozYZph
+         ahYnh86yREyrGjBR7Nb6dlg+HsC8XARzrtgXUtw9a5NSrkqgv648Y4NS3Za5dD6n7Ilh
+         SoeuQJiqXPmUnihnjvqO0hz9NFJk2cRZwwUlhJ63FchwEC8K0CqRdLMUg/Pc98ETslCw
+         Nyhw==
+X-Gm-Message-State: AOJu0YwBHUXJzpzQkB5vlUC9jmSHV9pU2Ur7ApnthrfIdqn6y0dhn6mo
+	ARZQwcV95NZBZ0pXdQTHB8Jc0ty5I6UFoQ==
+X-Google-Smtp-Source: AGHT+IF3nvsOylzPkBKP1OD6OLKuFUnSr5g3MYzK7y1RVxbk5cVX5iN0haJPBejAm3FUR0YIQxdARg==
+X-Received: by 2002:a7b:ce0e:0:b0:40d:60a9:19f with SMTP id m14-20020a7bce0e000000b0040d60a9019fmr271608wmc.170.1704367101191;
+        Thu, 04 Jan 2024 03:18:21 -0800 (PST)
+Message-ID: <91a2464a-4c59-4431-8814-7671e1493657@citrix.com>
+Date: Thu, 4 Jan 2024 11:18:20 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/34] xen/asm-generic: introdure nospec.h
+Subject: Re: [PATCH] libxl: Disable relocating memory for qemu-xen in
+ stubdomain too
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <a1360d3de3da8757c69f11c3fafd99ff65654ae8.1703255175.git.oleksii.kurochko@gmail.com>
- <d096f14c-96ae-46a6-81fc-55ff8fcaaf39@suse.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
+Cc: Neowutran <xen@neowutran.ovh>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+References: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -136,36 +128,26 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <d096f14c-96ae-46a6-81fc-55ff8fcaaf39@suse.com>
+In-Reply-To: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/01/2024 11:06 am, Jan Beulich wrote:
-> On 22.12.2023 16:12, Oleksii Kurochko wrote:
->> The <asm/nospec.h> header is similar between Arm, PPC, and RISC-V,
->> so it has been moved to asm-generic.
->>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+On 27/12/2023 2:35 am, Marek Marczykowski-Górecki wrote:
+> According to comments (and experiments) qemu-xen cannot handle memory
+> reolcation done by hvmloader. The code was already disabled when running
+> qemu-xen in dom0 (see libxl__spawn_local_dm()), but it was missed when
+> adding qemu-xen support to stubdomain. Adjust libxl__spawn_stub_dm() to
+> be consistent in this regard.
 >
-> A word may want saying though on ...
->
->> --- a/xen/arch/arm/include/asm/nospec.h
->> +++ b/xen/include/asm-generic/nospec.h
->> @@ -1,8 +1,8 @@
->> -/* SPDX-License-Identifier: GPL-2.0 */
->> -/* Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved. */
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +#ifndef _ASM_GENERIC_NOSPEC_H
->> +#define _ASM_GENERIC_NOSPEC_H
-> ... the removal of the copyright line.
+> Reported-by: Neowutran <xen@neowutran.ovh>
+> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-That isn't a removal of ARM's copyright line.
+It turns out that it's unconditionally clobbered in XenServer too.
 
-The two files are similar enough to trigger git-diff's "this was a
-rename" logic (see the a vs b paths), despite not being a rename.
+https://github.com/xapi-project/xen-api/blob/53d2e8cdff76ca6805c7018948a9c414b9ac7c72/ocaml/xenopsd/scripts/qemu-wrapper#L146
 
-It's unfortunate rendering in this case.
+Not that I'm surprised - this falls squarely into guest-physmap mess
+which is broken in several well-documented ways already.
 
 ~Andrew
 
