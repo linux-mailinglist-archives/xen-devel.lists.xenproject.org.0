@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EFF0823F53
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 11:15:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661473.1031180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A251A823F60
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 11:20:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661480.1031189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLKjs-0003vA-CX; Thu, 04 Jan 2024 10:14:12 +0000
+	id 1rLKpD-00055q-3M; Thu, 04 Jan 2024 10:19:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661473.1031180; Thu, 04 Jan 2024 10:14:12 +0000
+Received: by outflank-mailman (output) from mailman id 661480.1031189; Thu, 04 Jan 2024 10:19:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLKjs-0003sM-9f; Thu, 04 Jan 2024 10:14:12 +0000
-Received: by outflank-mailman (input) for mailman id 661473;
- Thu, 04 Jan 2024 10:14:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rLKpD-00052d-0Y; Thu, 04 Jan 2024 10:19:43 +0000
+Received: by outflank-mailman (input) for mailman id 661480;
+ Thu, 04 Jan 2024 10:19:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Jyd=IO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rLKjr-0003sG-B4
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 10:14:11 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0084ea43-aaea-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 11:14:10 +0100 (CET)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2cce6bb9b48so3729131fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 02:14:10 -0800 (PST)
-Received: from [192.168.220.211] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- n4-20020a2ea5c4000000b002cd0651db11sm1671512ljp.50.2024.01.04.02.14.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jan 2024 02:14:09 -0800 (PST)
+ <SRS0=nu+b=IO=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rLKpB-00052X-G3
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 10:19:41 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c3f53e26-aaea-11ee-9b0f-b553b5be7939;
+ Thu, 04 Jan 2024 11:19:39 +0100 (CET)
+Received: from DM6PR07CA0100.namprd07.prod.outlook.com (2603:10b6:5:337::33)
+ by MW3PR12MB4425.namprd12.prod.outlook.com (2603:10b6:303:5e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.14; Thu, 4 Jan
+ 2024 10:19:34 +0000
+Received: from DS2PEPF0000343A.namprd02.prod.outlook.com
+ (2603:10b6:5:337:cafe::4e) by DM6PR07CA0100.outlook.office365.com
+ (2603:10b6:5:337::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.15 via Frontend
+ Transport; Thu, 4 Jan 2024 10:19:34 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS2PEPF0000343A.mail.protection.outlook.com (10.167.18.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7159.9 via Frontend Transport; Thu, 4 Jan 2024 10:19:33 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 4 Jan
+ 2024 04:19:33 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 4 Jan
+ 2024 04:19:32 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Thu, 4 Jan 2024 04:19:30 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +63,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0084ea43-aaea-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704363250; x=1704968050; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=zw1LvQiWrC4tM8/3EvC/l4uZmCCd2VC/xJIGQf4sNW0=;
-        b=NDmmcJxwBTktaR3LbJDO11fD/e0e2hOk6TM90+5xo0ErSoc7t5J2IkGH07ogk53DiR
-         SkMwEl1WDW9MWE+1kUn/Xb2FeIa9IW94rrpIb3WZvcAMkroIddNs8UvRq4yqxTSM8T6r
-         MebRlxlUuZogRgP5BXGQ9pD3gu5V0E3GMFiubGysRECqqh8+DIQCMMfQQ4vz06nqkmSv
-         LtKyPovYFeLx2ix7RSrM0Oa9MnPk3SPzbHt2zy+eEIuUgj93Evd3BxdfTYKKMnW1aK5G
-         HRbDuX1K1yW68/0boi4ppK3zBJtXoVnM3Fh1u5fXpw8fhhHemRSp6ufTbJy4Q2+fdVLT
-         zIxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704363250; x=1704968050;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zw1LvQiWrC4tM8/3EvC/l4uZmCCd2VC/xJIGQf4sNW0=;
-        b=w4GDKQcIJVGP35lfRQvdd8I+ZhNdJdR+1Iy3WGcQgKIh3yvkPM58ueQrBUgQKh9CMi
-         Nly+ArqiBzr0ZDmWnhnjeL0nBBaYVJPAu29M39yh0ijDIdQUHPak4qQ3qPGtxAFZhoz+
-         o75bMM8Wxt8yZ2+0nrdwrvC5W48OWvtSS5GqprQjRS5eiaSMFQ9bt61S4hpkqud2084f
-         CPB9gsXf+1XLbxjlk4C70xJDdJquDCO6NYX4WsXmbQdCR0Mst6//JqgpzySdqmo+dPi5
-         kl2Ug9YJu8rC6HEcvUYQoKC2lYpXIVEdx91GimopcOXsaMJUHZOAZKLtGs8uHDq0XIC2
-         EPXA==
-X-Gm-Message-State: AOJu0Yxe7dmHtqJqCNJpBBVPstqFJUowCtJ2Jd2906uHm2leQKZnhi++
-	zvyvOW/6WnUqe6QzJPvtU08=
-X-Google-Smtp-Source: AGHT+IEKHf9w29QHGu7PY/MSe7A004witrqud/4EIM9MrkNeOvm/tIZMVF345g6K2yPhJMoqbtdXHA==
-X-Received: by 2002:a05:651c:1992:b0:2cd:122a:7ed4 with SMTP id bx18-20020a05651c199200b002cd122a7ed4mr140659ljb.8.1704363249646;
-        Thu, 04 Jan 2024 02:14:09 -0800 (PST)
-Message-ID: <5055a7085e00725394210b5907abbeb8693cca31.camel@gmail.com>
-Subject: Re: Xen 4.19 release schedule proposal
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: community.manager@xenproject.org, julien@xen.org,
- sstabellini@kernel.org,  Bertrand.Marquis@arm.com,
- andrew.cooper3@citrix.com, jbeulich@suse.com,  roger.pau@citrix.com,
- anthony.perard@citrix.com, george.dunlap@cloud.com,  Wei.Chen@arm.com
-Date: Thu, 04 Jan 2024 12:14:08 +0200
-In-Reply-To: <9637302c-9fcf-46c5-9b70-ec44cd25f89d@suse.com>
-References: <cover.1703072575.git.oleksii.kurochko@gmail.com>
-	 <08bca9a4158a190a0a953e5bc071a512cfe5f0f8.1703072575.git.oleksii.kurochko@gmail.com>
-	 <341249d1-217f-4ad2-9455-b1aded4b9b56@xen.org>
-	 <03cf5145-2124-4150-9f20-904f08bcabda@suse.com>
-	 <9f8c4fe0a87742444b52a42aa5924cf046ee18b0.camel@gmail.com>
-	 <67bf2be7-53f4-40d0-a856-8ae631a054b0@suse.com>
-	 <955e9b02-20bd-4279-9f60-bb757cdf1a03@xen.org>
-	 <0f729b61-b839-48f6-89ae-b5570b1eae0b@xen.org>
-	 <26152790b0b8c3330d9cfc3c0462a1c072d6d598.camel@gmail.com>
-	 <9637302c-9fcf-46c5-9b70-ec44cd25f89d@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+X-Inumbo-ID: c3f53e26-aaea-11ee-9b0f-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Zqme9GvYB/3pHY6YJo5dFciA09NExqYQoZpXVmteaRCZ3uy1vGEk+APyyG8qG3Msu4ftUdYAqjHuZVMrAGNrmbtYevChATMR9j7Y1meCuBfeD3zZ4RAKhpsNJYVdKJXnsimFPhnB6Uqe7F8CDmZzBU/sPDsFzoW2hQwFEllU2zLQlVAf/8ln69JMQap55rQMzVF8+PHhZ2UsKSk4YB8CkSVEruGAuNVIq0n6CO4KhAJnDFATEaKJ/tiyb7ED4zHzzpKPeeJIq1hMq7pE/8JG2ce+tRzKQidiZ8S6JrSnHYpyiait5/0E5aWmeuibZE8hEyB37wfOa90FU8kJCKU14g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=56/EsmmJAImuc/HA8mpDJl0CaOzEPeNKFyL0hwjUg9o=;
+ b=BXaKHpRlKRuzo67VUXpZ/oT3dmlNg20Y21hF0FGuFUrR/Uc6SIl+BOtn7T9xAfNt/2Yb/I9zrLnpND97v1Eh4jJ/RWUkohIoyfI3i06PfbHfkzBuY3TqkzTAf9bKpNliwpCA4nRwKUv9zU59oOTZRDUUjGls3cxKS3Krc4dLSvu2MJJCaq7yzt0yCjw5jIc0f+XkNzXN89tHApL8Hbud0AClIefhn2O/0s4OWDE/Rn+HRPYKuGrV+W3D6VwsleigkCY5Ij81mrB6nbVfMdpA5n2IDPgZ4nqC9/gqZPmKZoP7cq94leRkWteOYys9Vvy+LoxxDj21deQaKNLIep+4IA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=minervasys.tech smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=56/EsmmJAImuc/HA8mpDJl0CaOzEPeNKFyL0hwjUg9o=;
+ b=M3+//y0Y8imNJ/ayYrAC7cWX/dZ+TXJo2HPlwIxuxFUTqAM5JzHRnmouKtXMj85tse1qdATSXhzN3NbkiZwzKy2V+p11fTfm9pCPB7LR2T35JEi+65xkP0cW5G4SmFK1aRqjlv/L40tGc0vOWIdIRxVrRJGGmgLIzkmjyAPTbug=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <fbe44fb6-2be3-4720-8b8e-3a05c0307d25@amd.com>
+Date: Thu, 4 Jan 2024 11:19:29 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 00/13] Arm cache coloring
+To: Carlo Nonato <carlo.nonato@minervasys.tech>, Stefano Stabellini
+	<sstabellini@kernel.org>
+CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu
+	<wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
+ <6d652309-50e1-4850-ac52-d086a3a32726@amd.com>
+ <alpine.DEB.2.22.394.2401031601180.1322202@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2401031748040.1322202@ubuntu-linux-20-04-desktop>
+ <CAG+AhRUAOcT9HTj+v4vfz6nqBG4FumYc1of9XcmyTYKtW-66yA@mail.gmail.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <CAG+AhRUAOcT9HTj+v4vfz6nqBG4FumYc1of9XcmyTYKtW-66yA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343A:EE_|MW3PR12MB4425:EE_
+X-MS-Office365-Filtering-Correlation-Id: a11536a5-ed60-4777-96a9-08dc0d0ea5a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Wpo6+kkQk8Aj4jZkBcD7TgQy2Nuf0cxpWGl4qhCyQyuV6S41gLNWqvVWcd6ZDyqAVwEI03O9V8ocJzcQz1UZCd7QaNH6yiGVp36Qq7dXhl6eVQtrbqMuyBHZaittbmNcD6tDyAtOXonm+EU14A+VYzuXAYcTRkt2aOf84g9MeWbdUxChTpY5TkaH34GJ99sNWwT5ap9NNkrHr68SUmuLpsJD3J7mVCLFBQ5DpNDfYuq1rqIeTfsFnqxIM83KJ6kCYKX2ma+dWjjIgtoyanYkX7OlGXY71UR0iEfwnFoQNUQbEENsMCjPCDaOw+z4roEHtdS1XjyzGVaNeQsqE1OtaLW6bPt6HkG2Lv42OBOwtlx+HRfCAXbuSCERtanRAAX08bafxZ/FGj8IAiEUahvCYDK6MWoXx4HqCCc1U7r0X3MaVLzc5O5LJYLQl3thWSMiGUFyCANewaVaDoB0dLO9p5I6FtlGSPAEv/NxgSpcbxnov+JP55BcqPVv5RnpJ2tKoDfh59RGkFc+e2oEjK5u0Ku5rBgx7XQEiuPlGTi9wVbvotN/U435cU0Qe4XCGM9KBKWg9eRQ67ZwKRPMBHYJjwt8svJ8y/p6O+z9jXyBqwjH8kuhTQUDyX+qw1qz2JTvDnpTA2SLnxQ5fPOy0oIeTFr1ZZFdlPdbk2vZAFLjmWql4/szWgj3anmC+BWvqcE6EQMMtfzi/UycKDqbFX+8Eo4RHU3lVBn+2maVMsszGyD1VaLGYut5+a3wdPQFwD58RZS9Z4T69nBPkE/1gjoeM5udfX4116BYB64i+JeQGsE2fUjE6BLwpV+co8codgnE
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(396003)(136003)(376002)(230922051799003)(64100799003)(451199024)(1800799012)(82310400011)(186009)(36840700001)(40470700004)(46966006)(86362001)(31696002)(36756003)(356005)(81166007)(478600001)(53546011)(70206006)(70586007)(31686004)(54906003)(16576012)(110136005)(26005)(336012)(2616005)(44832011)(426003)(7416002)(5660300002)(2906002)(8936002)(8676002)(316002)(4326008)(36860700001)(82740400003)(40480700001)(40460700003)(83380400001)(47076005)(41300700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2024 10:19:33.8575
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a11536a5-ed60-4777-96a9-08dc0d0ea5a9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF0000343A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4425
 
-On Wed, 2024-01-03 at 06:53 +0100, Juergen Gross wrote:
-> On 02.01.24 17:59, Oleksii wrote:
-> > Dear community,
-> >=20
-> > Wishing you a Happy New Year!
-> >=20
-> > I'd like to propose the release schedule for Xen 4.19.
-> >=20
-> > Based on the previous release schedules [1] and [2], it seems the
-> > next
-> > release date should be on Wednesday, July 10, 2024:
-> >=20
-> > ** Proposed option: Wed Jul 10, 2024 **
-> > (+9 months from Xen 4.18 release)
-> >=20
-> > - Last posting date=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 Fri Apr 26, 2024
-> >=20
-> > Patches adding new features are expected to be posted to the
-> > mailing
-> > list by this date, although perhaps not in their final version.
-> >=20
-> > - Feature freeze=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 Fri May 17, 2024 (+3 weeks from Last
-> > posting date)
-> >=20
-> > Patches adding new features should be committed by this date.
-> > Straightforward bugfixes may continue to be accepted by
-> > maintainers.
-> >=20
-> > - Code freeze=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Fri May 31, 2024 (+2 weeks from
-> > Feature
-> > freeze)
-> >=20
-> > Bugfixes only.
-> >=20
-> > - Hard code freeze=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 Fri Jun 21, 2024 (+3 weeks from Code
-> > freeze)
-> >=20
-> > Bugfixes for serious bugs (including regressions), and low-risk
-> > fixes
-> > only.
-> >=20
-> > - Final commits=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 Fri Jul 05, 2024 (+2 weeks from Hard
-> > code
-> > freeze)
-> >=20
-> > Branch off staging-4.19.
-> >=20
-> > - Release=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Wed Jul 10, 2024
-> >=20
-> > If there are no objections, we will stick to the proposed schedule.
-> >=20
-> > One more thing I'd like to discuss is whether to add a file
-> > (RELEASE.md) with the release schedule to the source code or update
-> > an
-> > existing one (xen-release-management.pandoc). I think it will help
-> > to
-> > find the final release schedule for the nearest release. For
-> > example,
-> > for the previous release, there are a lot of emails with proposed
-> > schedules, polls of Xen release schedules, and I found the final
-> > release schedule in just one of the replies (but probably I missed
-> > something).
->=20
-> What about putting it into the wiki under
-> Xen_Project_X.YY_Release_Notes?
-> That way it would already be accessible via SUPPORT.md (in the wiki
-> under
-> https://xenbits.xen.org/docs/unstable-staging/support-matrix.html=C2=A0).
-It makes sense to me. Thanks.
 
-~ Oleksii
+
+On 04/01/2024 10:37, Carlo Nonato wrote:
+> 
+> 
+> Hi Stefano,
+> 
+> On Thu, Jan 4, 2024 at 2:55 AM Stefano Stabellini
+> <sstabellini@kernel.org> wrote:
+>>
+>> On Wed, 3 Jan 2024, Stefano Stabellini wrote:
+>>> Also I tried this patch series on the "staging" branch and Xen failed to
+>>> boot, no messages at all from Xen so it must be an early boot failure. I
+>>> am passing this command line options to Xen and running it on QEMU:
+>>>
+>>> dom0_mem=1024M dom0_max_vcpus=1 xen-llc-colors=0 dom0-llc-colors=1-5 llc-way-size=65535 llc-coloring=true
+>>
+>> I managed to make it to work successfully with the following command
+>> line:
+>>
+>> xen-llc-colors=0 dom0-llc-colors=1-5 llc-way-size=64K llc-coloring=on
+>>
+>> I think the problem was llc-way-size that needs to be rounded up (64K
+>> instead of 65535).
+>>
+>> Also I found a few build issues when building for other architectures or
+>> different kconfig options. This patch addresses those issues (however it
+>> is not to be taken as is as the build issues should not be introduced in
+>> the first place and there are probably better way to fix them, but I
+>> hope it can help).
+>>
+>> Cheers,
+>>
+>> Stefano
+>>
+>>
+>> diff --git a/xen/arch/arm/llc-coloring.c b/xen/arch/arm/llc-coloring.c
+>> index f434efc45b..efe5cf3c23 100644
+>> --- a/xen/arch/arm/llc-coloring.c
+>> +++ b/xen/arch/arm/llc-coloring.c
+>> @@ -39,7 +39,7 @@ static unsigned int __ro_after_init xen_num_colors;
+>>
+>>  #define mfn_color_mask              (nr_colors - 1)
+>>  #define mfn_to_color(mfn)           (mfn_x(mfn) & mfn_color_mask)
+>> -#define mfn_set_color(mfn, color)   ((mfn_x(mfn) & ~mfn_color_mask) | (color))
+>> +#define mfn_set_color(mfn, color)   (_mfn((mfn_x(mfn) & ~mfn_color_mask) | (color)))
+> 
+> Thanks for spotting this.
+> 
+>>  /*
+>>   * Parse the coloring configuration given in the buf string, following the
+>> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+>> index 3bb0c9221f..bf16703e24 100644
+>> --- a/xen/arch/arm/mm.c
+>> +++ b/xen/arch/arm/mm.c
+>> @@ -610,10 +610,10 @@ void __init setup_pagetables(unsigned long boot_phys_offset, paddr_t xen_paddr)
+>>      pte.pt.table = 1;
+>>      xen_second[second_table_offset(FIXMAP_ADDR(0))] = pte;
+>>
+>> +#ifdef CONFIG_ARM_64
+>>      if ( llc_coloring_enabled )
+>>          ttbr = virt_to_maddr(virt_to_reloc_virt(xen_pgtable));
+>>      else
+>> -#ifdef CONFIG_ARM_64
+>>          ttbr = (uintptr_t) xen_pgtable + phys_offset;
+>>  #else
+>>          ttbr = (uintptr_t) cpu0_pgtable + phys_offset;
+>> diff --git a/xen/include/xen/llc-coloring.h b/xen/include/xen/llc-coloring.h
+>> index 7cd481e955..516139c4ff 100644
+>> --- a/xen/include/xen/llc-coloring.h
+>> +++ b/xen/include/xen/llc-coloring.h
+>> @@ -21,7 +21,27 @@
+>>  extern bool llc_coloring_enabled;
+>>  #define llc_coloring_enabled (llc_coloring_enabled)
+>>  #endif
+>> -
+>> +#else
+>> +static inline void *xen_remap_colored(mfn_t xen_fn, paddr_t xen_size)
+>> +{
+>> +    return NULL;
+>> +}
+>> +static inline int domain_set_llc_colors_from_str(struct domain *d, const char *str)
+>> +{
+>> +    return -ENOSYS;
+>> +}
+>> +static inline int dom0_set_llc_colors(struct domain *d)
+>> +{
+>> +    return 0;
+>> +}
+>> +static inline bool llc_coloring_init(void)
+>> +{
+>> +    return false;
+>> +}
+>> +static inline paddr_t xen_colored_map_size(paddr_t size)
+>> +{
+>> +    return 0;
+>> +}
+>>  #endif
+>>
+>>  #ifndef llc_coloring_enabled
+> 
+> Sorry for the compilation mess.
+> 
+> This is definitely a solution, but I wonder if the best thing to do would be
+> to move all signatures in the common header, without the stubs, relying again
+> on DCE. This seems a little strange to me because users of some of those
+> functions are only in arm code, and they always have to be protected with
+> llc_coloring_enabled global variable/macro if, but it works (now I'm
+> compiling also for arm32 and x86).
+There are a lot of places in Xen relying on DCE, so I'd be ok with that (you can wait
+for Stefano's opinion). Furthermore, you already rely on that in case of e.g. domain_set_llc_colors_domctl,
+domain_llc_coloring_free.
+
+~Michal
 
