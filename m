@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0003D824510
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 16:34:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661846.1031575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67F1082453C
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 16:44:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661850.1031585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLPj8-0002nY-6O; Thu, 04 Jan 2024 15:33:46 +0000
+	id 1rLPsd-0005D1-3R; Thu, 04 Jan 2024 15:43:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661846.1031575; Thu, 04 Jan 2024 15:33:46 +0000
+Received: by outflank-mailman (output) from mailman id 661850.1031585; Thu, 04 Jan 2024 15:43:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLPj8-0002kl-3g; Thu, 04 Jan 2024 15:33:46 +0000
-Received: by outflank-mailman (input) for mailman id 661846;
- Thu, 04 Jan 2024 15:33:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0by4=IO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rLPj6-0002jO-B9
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 15:33:44 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a3c3d27b-ab16-11ee-9b0f-b553b5be7939;
- Thu, 04 Jan 2024 16:33:42 +0100 (CET)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2ccb4adbffbso7641091fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 07:33:42 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- r5-20020a922a05000000b0035ff4335bd6sm7530093ile.19.2024.01.04.07.33.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 07:33:41 -0800 (PST)
+	id 1rLPsd-0005AL-0j; Thu, 04 Jan 2024 15:43:35 +0000
+Received: by outflank-mailman (input) for mailman id 661850;
+ Thu, 04 Jan 2024 15:43:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gVu/=IO=gmail.com=morel.dav@srs-se1.protection.inumbo.net>)
+ id 1rLPsc-0005AF-Ex
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 15:43:34 +0000
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 038350ff-ab18-11ee-98ef-6d05b1d4d9a1;
+ Thu, 04 Jan 2024 16:43:32 +0100 (CET)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-336755f1688so542527f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 07:43:32 -0800 (PST)
+Received: from raton (lfbn-idf1-1-1403-15.w90-79.abo.wanadoo.fr. [90.79.94.15])
+ by smtp.gmail.com with ESMTPSA id
+ j18-20020a5d5652000000b00336ca349bdesm23911759wrw.47.2024.01.04.07.43.30
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jan 2024 07:43:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,185 +45,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3c3d27b-ab16-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704382421; x=1704987221; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=D7+afRLTAZzEL3gTG8+aIdeS1qKWQF/ZgaHX5p3pp9Q=;
-        b=WBlVRKsSrwJw16pJSVN4oqk0HEaPIeun/u9kV9dr7Y41DS4JDsRl8NW46rqqeUMhGC
-         zqOil+a5hpDhvr6Y5YZimXOQvg2q1Q1LpVcrPJGz0A0XwC1/mIfdeVWI34DiMYthoYhy
-         1cBxZ/dwoGfxUlKuYpoIzGSTKzjOK15LHx47l/kz/mxsBA1SHbsBACqY/Fyl3c/h+ZiF
-         rT5Y8HlyqXC93HyzwfzsYodYLyo0rdnd9k3LC7ORu+X2IiX8UmvpEj2rSvhsux3S3FoQ
-         6I6ogdiNLUbzMyrolbPsXIXbMshjUJh/Ds67cUxs2OUijCzeIjJzCLK/ctfu1hyRg3uG
-         vFUg==
+X-Inumbo-ID: 038350ff-ab18-11ee-98ef-6d05b1d4d9a1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704382421; x=1704987221;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=D7+afRLTAZzEL3gTG8+aIdeS1qKWQF/ZgaHX5p3pp9Q=;
-        b=nHgcdIIpaD9Wl5eHBZ3/8I/lZYgsftiFGVPKyM1cXJpSvYZYEJ8aUza0Uo7cL3ODhM
-         kFN7YGwVGkBLATnP8blW779FkQry9L9wW5aFE0iwbesjuXiErjcMWLCV8DWio13vVrT9
-         S8uvEKS1foFNbCECnnhDpalmeZkZD2tIxKGF76uA71+EWVhQmdwsHP8+yRUk0Vw2ie+g
-         aNs0p3o3JgpOsC0uu3CVzQEZNHG7mErqYQ1+VYrfMOeySAWZBsTjjwFYCkVaARNpx++/
-         QKUS15u9AvD+jJrur/P/0BFd2yBwpiL+zUvCaH2Ig0db2ZKe4+CAUoIa3XdwyqpAZRI5
-         joPA==
-X-Gm-Message-State: AOJu0YyPEdIDdRX1F47W7138as8UJRGDbLaVGN1QhRtoWpSUlgYLSY8I
-	TvhRYlrH8+4ps375DJ/dFJQfKh0Mn8xU
-X-Google-Smtp-Source: AGHT+IFm7a5CoP2ST7F/19QiivJ+JsvxDKkljiEAP54J8urys4+q4T01PqZ4Kvz4xUlP2jFJom+MuQ==
-X-Received: by 2002:a05:651c:1690:b0:2cc:7575:edf9 with SMTP id bd16-20020a05651c169000b002cc7575edf9mr390451ljb.91.1704382421579;
-        Thu, 04 Jan 2024 07:33:41 -0800 (PST)
-Message-ID: <5fd69614-a236-4a5b-8ec1-8cfea6d28d32@suse.com>
-Date: Thu, 4 Jan 2024 16:33:38 +0100
+        d=1e100.net; s=20230601; t=1704383011; x=1704987811;
+        h=content-transfer-encoding:content-disposition:mime-version
+         :message-id:subject:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=M/jQ392ySSMapBNFvsK70mTOdSzLd1jVw2ztILM002o=;
+        b=S5vcMiwMBEwSiap6xKV39STamSlGKUcI/j9XXn7sjT6BHeyMxyYVKdnMxhueL5Amxj
+         1F3hsGa6Jw4C4D7Aw7WvLTueTh9FnWsyIXC8AllHKlDH0QE1iE58RDtwXF7uHV9+Wf2e
+         3XLhVN4xZgMKVJebgupOeV/ScOLselQJt3pq6CFfBFb+ngv9IJei8/SC3x1JgmgNyxKV
+         kxiKN8LthGuUvGSePfielmjggkaJKspcUrOutvKSRtotuWHB4HuzDFtAuAKYPVnB7HG2
+         EFMyzCE+U532CQhUvueLQcBqeJ2tWFILSkQIYrjI/DrydaqOggVTOpso+WBCJfxC6PB9
+         yg4g==
+X-Gm-Message-State: AOJu0YyJXA8zgLFUwDY8BWxKmYawdgSnzTVU+RY63CaBBnlZ/MjaGocv
+	0ET9PaCq0BToWzhUwFBHhiYgS2H2Tnz42nxY
+X-Google-Smtp-Source: AGHT+IH+mAbvgsB/H9ZDkLmkJ1Xi/nhSj6WBqoCDGsoXKdrPdNAjedsROeiiPEDXlDmn/3Ibl1KCjQ==
+X-Received: by 2002:adf:f741:0:b0:336:c9ab:593a with SMTP id z1-20020adff741000000b00336c9ab593amr470733wrp.141.1704383011183;
+        Thu, 04 Jan 2024 07:43:31 -0800 (PST)
+Date: Thu, 4 Jan 2024 16:43:28 +0100
+From: David Morel <david.morel@vates.tech>
+To: xen-devel@lists.xenproject.org
+Subject: AMD EPYC VM to VM performance investigation
+Message-ID: <ZZbSIH_pGjaQr5x-@raton>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Use -Wuninitialized and -Winit-self
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
- "consulting@bugseng.com" <consulting@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20231228193907.3052681-1-andrew.cooper3@citrix.com>
- <1248487f-4852-41f5-9ffd-d4d12897a622@suse.com>
- <7d35a648-a69b-4dfb-bf4f-d30272df5e9b@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7d35a648-a69b-4dfb-bf4f-d30272df5e9b@citrix.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
 
-On 04.01.2024 15:33, Andrew Cooper wrote:
-> On 04/01/2024 1:41 pm, Jan Beulich wrote:
->> On 28.12.2023 20:39, Andrew Cooper wrote:
->>> The use of uninitialised data is undefined behaviour.  At -O2 with trivial
->>> examples, both Clang and GCC delete the variable, and in the case of a
->>> function return, the caller gets whatever was stale in %rax prior to the call.
->>>
->>> Clang includes -Wuninitialized within -Wall, but GCC only includes it in
->>> -Wextra, which is not used by Xen at this time.
->>>
->>> Furthermore, the specific pattern of assigning a variable to itself in its
->>> declaration is only diagnosed by GCC with -Winit-self.  Clang does diagnoise
->>> simple forms of this pattern with a plain -Wuninitialized, but it fails to
->>> diagnose the instances in Xen that GCC manages to find.
->>>
->>> GCC, with -Wuninitialized and -Winit-self notices:
->>>
->>>   arch/x86/time.c: In function ‘read_pt_and_tsc’:
->>>   arch/x86/time.c:297:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
->>>     297 |     uint32_t best = best;
->>>         |              ^~~~
->>>   arch/x86/time.c: In function ‘read_pt_and_tmcct’:
->>>   arch/x86/time.c:1022:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
->>>    1022 |     uint64_t best = best;
->>>         |              ^~~~
->>>
->>> and both have logic paths where best can be returned while uninitalised.
->> I disagree. In both cases the variables are reliably set during the first
->> loop iteration.
-> 
-> I suggest you pay attention to the precision of the integers.
-> 
-> It is hard (likely prohibitively hard) to avoid entering the if(), but
-> it is not impossible.
+Hello,
 
-Okay, let's go into the details then. For initialization to be skipped,
-two successive rdtsc_ordered() (taking read_pt_and_tsc() as reference)
-need to return values 2^^64-1 apart. How do you see that happening, when
-(iirc) we've been in agreement more than once that TSC rollover isn't
-possible with current or foreseeable hardware?
+We have a customer and multiple users on our forum having performances that
+seems quite low related to the general performance of the machines on AMD EPYC
+Zen hosts when doing VM to VM networking.
 
-Things are naturally less unlikely in read_pt_and_tmcct(), for it being
-32-bit quantities there. Otoh iirc the APIC timer ticks at rate quite a
-bit lower than the TSC. So 2^^32-1 ticks are still a lot of time.
+Below you'll find a write up about what we had a look at and what's in the
+TODO on our side, but in the meantime we would like to ask here for some
+feedback, suggestions and possible leads.
 
-> The compiler really has emitted logic paths where stack rubble is returned.
+To sum up, the VM to VM performance on Zen generation server CPUs seems quite
+low, and only minimally scaling when adding threads. They are outperformed by
+10 year old AMD desktop cpu and pretty low frequency XEON bronze from 2014.
+CPU usage does not seem to be the limiting factor as neither the VM threads or
+the kthreads on host seems to go to a 100% cpu usage.
 
-Of course, since it can't make assumptions on realistic value ranges.
+As we're Vates, I'm talking about XCP-ng here, so Xen 4.13.5 and a dom0 kernel
+4.19. I did try a Xen 4.18-rc2 and kernel 6.1.56 on a Zen4 epyc, but as it was
+borrowed from a colleague I was unsure of the setup, so although it was
+actually worse than on my other test setups, I would not consider that a
+complete validation the issues is also present on recent Xen versions.
 
->> Furthermore this initialize-to-self is a well known pattern to suppress the
->> -Wuninitialized induced warnings, originally used by Linux'es
->> uninitialized_var().
-> 
-> I'm glad you cited this, because it proves my point.
-> 
-> Notice how it was purged from Linux slowly over the course of 8 years
-> because it had been shown to create real bugs, by hiding real uses of
-> uninitialised variables.
+1. Has anybody else noticed a similar behavior?
+2. Has anybody done any kind of investigation about it beside us?
+3. Any insight and suggestions of other points to look at would be welcome :)
 
-I'm fully aware of this. The construct was used wrongly in too many cases.
-Still I recall times where I was actively asked to use the construct.
+And now the lengthy part about what we tested, I tried to make it shorter and
+more legible than a full report…
 
-> I'm honestly surprised that it hasn't come up yet in the MISRA work.
-> 
->>  If we really want to use -Winit-self (and hence disallow
->> use of this pattern even in cases like the ones here, where they're used to
->> suppress false positive warnings), this should imo be done separately from
->> adding -Wuninitialized, and only after proper weighing of the pros and cons
->> (a wider Cc list would be required anyway for the xen/Makefile change).
-> 
-> There are exactly two uses of this antipattern in the entirety of Xen. 
-> They are both in x86 init code.
+Investigated
+------------
 
-These two instances aren't all that old. If you deem them antipatterns (I
-don't, albeit I see fair room for abuse), why did you not object (suggesting
-whatever better alternative)?
+- Bench various cpu with iperf2 (iperf3 is not actually multithreaded):
+  - amd fx8320e, xeon 3106: not impacted.
+  - epyc 7451, 7443, 7302p, 7313p, 9124: impacted, but the zen4 one scales a
+    bit more than zen1, 2 and 3.
+  - ryzen 5950x, ryzen 7600: performances should likely be better than
+    observed results, but still way better than epycs, and scaling nicely with
+    more threads.
+- Bench with tinymembench[1]: performances were as expected and didn't show
+  issues with rep movsb as discussed in this article[2] and issue[3]. Which
+  makes sense as it looks like this issues is related to ERMS support which is
+  not present on Zen1 and 2 where the issue has been raised.
+- Bench skb allocation with a small kernel module measuring cycles: actually
+  same or lower on epyc than on the xeon with higher frequency so can be
+  considered faster and likely not related to our issue.
+- mitigations: we tried disabling what can be disabled through boot
+  parameters, both for xen, dom0 and guests, but this made no differences.
+- disabling AVX; Zen cpus before zen4 are know to limit boost and cpu scaling
+  when doing heavy AVX load on one core, there was no reason to think this was
+  related, but it was a quick test and as expected had no effect.
+- localhost iperf bench on dom0 and guests: we noticed that on other machines
+  host/guest with 1 threads are almost 1:1, with 4 threads guests are about
+  generally not scaling as well in guests. On epyc machines, host tests were
+  significantly slower than guests both with 1 and 4 threads, first
+  investigation of profiling didn't help finding a cause yet. More in the
+  profiling and TODO.
+- cpu load: top/htop/xentop all seem to indicate that machines are not under
+  full load, queue allocations on dom0 for VIF are by default (1 per vcpu) and
+  seem to be all used when traffic is running but at a percentage below 100%
+  per core/thread.
+- pinning: manually pinning dom0 and guests to the same node and avoiding
+  sharing cpu "threads" between host and guests gives a minimal increase of a
+  few percents, but nothing drastic. Note, we do not know about the
+  ccd/ccx/node mapping on these cpus, so we are not sure all memory access are
+  "local".
+- sched weight: playing with sched weight to prioritize dom0 did not make a
+  difference either, which makes sense as the system are not under full load.
+- cpu scaling: it is unlikely the core of the issue, but indeed the cpu
+  scaling does not take advantage of the boost, never going above the base
+  clock of these cpus. Also it also seems that less cores that the number of
+  working kthreads/vcpus are going to base clock, may be normal in regard to
+  the system not being fully loaded, to be defined.
+  - QUESTION: is the powernow support in xen cpufreq implementation sufficient
+    for zen cpus? Recent kernels/distributions use acpi_cpufreq and can use
+    amd_pstate or even amd_pstate_epp. More concerning than the turbo boost
+    could be the handling of package power limitation used in Zen CPUs that
+    could prevent even all cores to base clock, to be checked…
 
-> Do you honestly think trying to block a patch this clear and obvious is
-> going to be a good use of anyone's time.
+Profiling
+---------
 
-Well, you're dong two things at a time, both of which may be clear and
-obvious to you. I agree for one half, but I have reservations with the
-other. Hence asking that you at least involve all REST maintainers by
-Cc-ing them on the patch submission isn't a waste of time, I don't think.
-And note, I'm not saying "no" to that second part of the change, but I
-do see downsides alongside the upsides you (and I) see.
+We profiled iperf on dom0 and guests on epyc, older amd desktop, and xeon
+machines and gathered profiling traces, but analysis are still ongoing.
 
->>>  In
->>> both cases, initialise to ~0 like the associated *_min variable which also
->>> gates updating best.
->> Considering the affected functions are both __init, this change isn't a big
->> problem. But if you were truly concerned of the one theoretical case, you
->> can't get away with this either: If the variables really remained unwritten,
->> by returning ~0 you'd end up confusing the caller.
-> 
-> The fact this is a crap API design doesn't make it ok to use undefined
-> behaviour.
+- localhost:
+Client and server were profiled both on dom0 and guests runs for a xeon, an
+old FX and a zen platform, to analyze the discrepancy shown by the localhost
+tests earlier. It shows we spend a larger chunk of time in the copyout() or
+copyin() functions on epyc and fx. This is likely related to the use of
+copy_user_generic_string() on epyc (zen1) and old FX, whereas xeon uses
+copy_user_enhanced_fast_string(), as it has ERMS support.  But on the same
+machine, guests are going way faster, and the implementation of
+copy_user_generic_string() is the same between the dom0 and guests, so this is
+likely related to other changes in kernel and userland, and not only to these
+function. Therefore it likely isn't directly linked to the issue.
 
-Thank you for wording it that way.
+- vm to vm: server, client & dom0 -> profiling traces to be analysed.
 
-> Getting ~0 back is strictly less bad than getting stack rubble because
-> at least it's obviously wrong.
+TODO
+----
 
-But then why not change things so there's no issue anymore? Plus I'm not
-sure how / whether "obviously wrong" would manifest. I expect it would
-be an entirely unobvious boot hang, or other misbehavior.
+- More Analysis of profiling traces in VM to VM case
+- X2APIC (not enabled on the machines and setup we are using)
+- Profiling at xen level / hypercalls
+- Tests on a clean install of a newer Xen version
+- Dig some more on cpu scaling, likely not the root of the problem but could
+  be some gain to make.
 
-Jan
+[1] https://github.com/ssvb/tinymembench
+[2] https://xuanwo.io/2023/04-rust-std-fs-slower-than-python/
+[3] https://bugs.launchpad.net/ubuntu/+source/glibc/+bug/2030515
+
+-- 
+David Morel
 
