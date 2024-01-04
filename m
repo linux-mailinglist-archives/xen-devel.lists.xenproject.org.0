@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21115824077
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:19:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661547.1031260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1721F824078
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:19:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661551.1031269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLk0-0005JL-Op; Thu, 04 Jan 2024 11:18:24 +0000
+	id 1rLLkh-0005nC-53; Thu, 04 Jan 2024 11:19:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661547.1031260; Thu, 04 Jan 2024 11:18:24 +0000
+Received: by outflank-mailman (output) from mailman id 661551.1031269; Thu, 04 Jan 2024 11:19:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLk0-0005H3-L8; Thu, 04 Jan 2024 11:18:24 +0000
-Received: by outflank-mailman (input) for mailman id 661547;
- Thu, 04 Jan 2024 11:18:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rLLkh-0005kc-26; Thu, 04 Jan 2024 11:19:07 +0000
+Received: by outflank-mailman (input) for mailman id 661551;
+ Thu, 04 Jan 2024 11:19:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wSyo=IO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rLLjy-0005Gw-J1
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:18:22 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f80f917e-aaf2-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 12:18:21 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40d60c49ee7so3779265e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:18:21 -0800 (PST)
-Received: from [192.168.86.29] ([90.242.36.164])
- by smtp.gmail.com with ESMTPSA id
- z6-20020a05600c0a0600b0040b3d8907fesm5431742wmp.29.2024.01.04.03.18.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 03:18:21 -0800 (PST)
+ <SRS0=Him7=IO=damsy.net=pierre-eric@srs-se1.protection.inumbo.net>)
+ id 1rLLkf-0005io-9o
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:19:05 +0000
+Received: from mail.damsy.net (mail.damsy.net [85.90.245.9])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10ceb6c7-aaf3-11ee-9b0f-b553b5be7939;
+ Thu, 04 Jan 2024 12:19:03 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,109 +36,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f80f917e-aaf2-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704367101; x=1704971901; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XLa52CHFF2nPw+ELspSX3vYQFc9qRUUli6m+PFBxg+U=;
-        b=hSpDoM/ZONMb9WCE56d92ofEHykm1xKl9VNKLFHbrozRT36Hh5C4pQg9aOcLz8i44t
-         McDwEoDdTO+3Ose8BxdtfITKruDrNqes5BXitb0NfSO2ID6nW7mTSUlsi7yrLzlKW3b3
-         SmN/LWlaGFzJNjDkGyHfD0uNukj7mA+vxVb50=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704367101; x=1704971901;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XLa52CHFF2nPw+ELspSX3vYQFc9qRUUli6m+PFBxg+U=;
-        b=TrLhFVnXVZz9eCFXT2mWwtwdBxBqDT2D2N4TPZN21zeF+lug4c5w3QiZNuEnIhbwfe
-         zJ2hPsnKxTM11Si4DWhC1qPwJCKoUWg7m1rfh+ZbiAZnmbj/YslQF0Srnwoi69AGbE0z
-         BRV1xK52RUNA6U7ABN0ZSC2+k88IzVNfUPrZ+zDrOF14Md6rQqDYmuG6VtZWqoozYZph
-         ahYnh86yREyrGjBR7Nb6dlg+HsC8XARzrtgXUtw9a5NSrkqgv648Y4NS3Za5dD6n7Ilh
-         SoeuQJiqXPmUnihnjvqO0hz9NFJk2cRZwwUlhJ63FchwEC8K0CqRdLMUg/Pc98ETslCw
-         Nyhw==
-X-Gm-Message-State: AOJu0YwBHUXJzpzQkB5vlUC9jmSHV9pU2Ur7ApnthrfIdqn6y0dhn6mo
-	ARZQwcV95NZBZ0pXdQTHB8Jc0ty5I6UFoQ==
-X-Google-Smtp-Source: AGHT+IF3nvsOylzPkBKP1OD6OLKuFUnSr5g3MYzK7y1RVxbk5cVX5iN0haJPBejAm3FUR0YIQxdARg==
-X-Received: by 2002:a7b:ce0e:0:b0:40d:60a9:19f with SMTP id m14-20020a7bce0e000000b0040d60a9019fmr271608wmc.170.1704367101191;
-        Thu, 04 Jan 2024 03:18:21 -0800 (PST)
-Message-ID: <91a2464a-4c59-4431-8814-7671e1493657@citrix.com>
-Date: Thu, 4 Jan 2024 11:18:20 +0000
+X-Inumbo-ID: 10ceb6c7-aaf3-11ee-9b0f-b553b5be7939
+Message-ID: <4acdfad6-ae3d-4b83-918f-a01019085547@damsy.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=damsy.net; s=201803;
+	t=1704367141;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=4b9ebvtppbjDbWObrdXgfDr/y7eRq4/3Oa5/eNGMebI=;
+	b=YyKPTawc/yifINUeC4lQ8vTQD+4oB7T2tpkTXWm3QJYY/zoqJmfPTVUgQrYp/r/cBnpykh
+	v/zs/Z2GeCyd3mD0vxBKRSj7DvyBCNZ7CsOel3DKBrBNRNCKUFZxUc/s1u0v//7QxZZHcv
+	ak1UDhHs/hZxoYZuwqLPObG6PWmPPa+8lfihbgdzMy103HxIhsD1fTKdmXp8wq+aKrAqX1
+	CXFWHYs0/+S7xRkZ9DIR5oMyAhBwRK0PQ7ByakxXzv5zSH1hdBjdkQcXU/sL6EcMAl0EJx
+	POQdnE7YCa6V+Hxcfd3pNXJsKSY1t6UEhR0LX/6p2YbN9kYjjzzp8pyPnm5Ctw==
+Date: Thu, 4 Jan 2024 12:19:00 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] libxl: Disable relocating memory for qemu-xen in
- stubdomain too
-Content-Language: en-GB
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org
-Cc: Neowutran <xen@neowutran.ovh>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
-References: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v6 11/11] virtio-gpu: make blob scanout use dmabuf fd
+Content-Language: fr
+To: Akihiko Odaki <akihiko.odaki@daynix.com>, Huang Rui <ray.huang@amd.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <quic_acaggian@quicinc.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>, ernunes@redhat.com,
+ Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>
+References: <20231219075320.165227-1-ray.huang@amd.com>
+ <20231219075320.165227-12-ray.huang@amd.com>
+ <a2c0a1f1-45a2-4957-9919-0d0cb19cd285@daynix.com>
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <a2c0a1f1-45a2-4957-9919-0d0cb19cd285@daynix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 27/12/2023 2:35 am, Marek Marczykowski-Górecki wrote:
-> According to comments (and experiments) qemu-xen cannot handle memory
-> reolcation done by hvmloader. The code was already disabled when running
-> qemu-xen in dom0 (see libxl__spawn_local_dm()), but it was missed when
-> adding qemu-xen support to stubdomain. Adjust libxl__spawn_stub_dm() to
-> be consistent in this regard.
->
-> Reported-by: Neowutran <xen@neowutran.ovh>
-> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 
-It turns out that it's unconditionally clobbered in XenServer too.
+Le 21/12/2023 à 07:25, Akihiko Odaki a écrit :
+> On 2023/12/19 16:53, Huang Rui wrote:
+>> From: Robert Beckett <bob.beckett@collabora.com>
+>>
+>> This relies on a virglrenderer change to include the dmabuf fd when
+>> returning resource info.
+>>
+>> Signed-off-by: Robert Beckett <bob.beckett@collabora.com>
+>> Signed-off-by: Huang Rui <ray.huang@amd.com>
+>> ---
+>>
+>> Changes in v6:
+>> - Add scanout_blob function for virtio-gpu-virgl.
+>> - Update for new virgl_gpu_resource.
+>>
+>>   hw/display/virtio-gpu-virgl.c  | 104 +++++++++++++++++++++++++++++++++
+>>   hw/display/virtio-gpu.c        |   4 +-
+>>   include/hw/virtio/virtio-gpu.h |   6 ++
+>>   3 files changed, 112 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+>> index c523a6717a..c384225a98 100644
+>> --- a/hw/display/virtio-gpu-virgl.c
+>> +++ b/hw/display/virtio-gpu-virgl.c
+>> @@ -18,6 +18,7 @@
+>>   #include "hw/virtio/virtio.h"
+>>   #include "hw/virtio/virtio-gpu.h"
+>>   #include "hw/virtio/virtio-gpu-bswap.h"
+>> +#include "hw/virtio/virtio-gpu-pixman.h"
+>>   #include "ui/egl-helpers.h"
+>> @@ -726,6 +727,106 @@ static void virgl_cmd_resource_unmap_blob(VirtIOGPU *g,
+>>       object_unparent(OBJECT(mr));
+>>   }
+>> +static void virgl_cmd_set_scanout_blob(VirtIOGPU *g,
+>> +                                       struct virtio_gpu_ctrl_command *cmd)
+>> +{
+>> +    struct virgl_gpu_resource *vres;
+>> +    struct virtio_gpu_framebuffer fb = { 0 };
+>> +    struct virtio_gpu_set_scanout_blob ss;
+>> +    struct virgl_renderer_resource_info info;
+>> +    uint64_t fbend;
+>> +
+>> +    VIRTIO_GPU_FILL_CMD(ss);
+>> +    virtio_gpu_scanout_blob_bswap(&ss);
+>> +    trace_virtio_gpu_cmd_set_scanout_blob(ss.scanout_id, ss.resource_id,
+>> +                                          ss.r.width, ss.r.height, ss.r.x,
+>> +                                          ss.r.y);
+>> +
+>> +    if (ss.scanout_id >= g->parent_obj.conf.max_outputs) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: illegal scanout id specified %d",
+>> +                      __func__, ss.scanout_id);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_SCANOUT_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    if (ss.resource_id == 0) {
+>> +        virtio_gpu_disable_scanout(g, ss.scanout_id);
+>> +        return;
+>> +    }
+>> +
+>> +    if (ss.width < 16 ||
+>> +        ss.height < 16 ||
+>> +        ss.r.x + ss.r.width > ss.width ||
+>> +        ss.r.y + ss.r.height > ss.height) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: illegal scanout %d bounds for"
+>> +                      " resource %d, rect (%d,%d)+%d,%d, fb %d %d\n",
+>> +                      __func__, ss.scanout_id, ss.resource_id,
+>> +                      ss.r.x, ss.r.y, ss.r.width, ss.r.height,
+>> +                      ss.width, ss.height);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER;
+>> +        return;
+>> +    }
+>> +
+>> +    if (!console_has_gl(g->parent_obj.scanout[ss.scanout_id].con)) {
+> 
+> Shouldn't OpenGL always be available for virgl?
+> 
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: unable to scanout blot without GL!\n", __func__);
+>> +        return;
+>> +    }
+>> +
+>> +    vres = virgl_gpu_find_resource(g, ss.resource_id);
+>> +    if (!vres) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR,
+>> +                      "%s: illegal resource specified %d\n",
+>> +                      __func__, ss.resource_id);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +    if (virgl_renderer_resource_get_info(ss.resource_id, &info)) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR,
+>> +                      "%s: illegal virgl resource specified %d\n",
+>> +                      __func__, ss.resource_id);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +    if (!vres->res.dmabuf_fd && info.fd)
+>> +        vres->res.dmabuf_fd = info.fd;
+>> +
+>> +    fb.format = virtio_gpu_get_pixman_format(ss.format);
+>> +    if (!fb.format) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR,
+>> +                      "%s: host couldn't handle guest format %d\n",
+>> +                      __func__, ss.format);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER;
+>> +        return;
+>> +    }
+>> +
+>> +    fb.bytes_pp = DIV_ROUND_UP(PIXMAN_FORMAT_BPP(fb.format), 8);
+>> +    fb.width = ss.width;
+>> +    fb.height = ss.height;
+>> +    fb.stride = ss.strides[0];
+>> +    fb.offset = ss.offsets[0] + ss.r.x * fb.bytes_pp + ss.r.y * fb.stride;
+>> +
+>> +    fbend = fb.offset;
+>> +    fbend += fb.stride * (ss.r.height - 1);
+>> +    fbend += fb.bytes_pp * ss.r.width;
+>> +    if (fbend > vres->res.blob_size) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR,
+>> +                      "%s: fb end out of range\n",
+>> +                      __func__);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER;
+>> +        return;
+>> +    }
+>> +
+>> +    g->parent_obj.enable = 1;
+>> +    if (virtio_gpu_update_dmabuf(g, ss.scanout_id, &vres->res,
+>> +                                 &fb, &ss.r)) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR,
+>> +                      "%s: failed to update dmabuf\n", __func__);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER;
+>> +        return;
+>> +    }
+>> +    virtio_gpu_update_scanout(g, ss.scanout_id, &vres->res, &ss.r);
+>> +}
+>> +
+>>   #endif /* HAVE_VIRGL_RESOURCE_BLOB */
+>>   void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+>> @@ -807,6 +908,9 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+>>       case VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB:
+>>           virgl_cmd_resource_unmap_blob(g, cmd);
+>>           break;
+>> +    case VIRTIO_GPU_CMD_SET_SCANOUT_BLOB:
+> 
+> VIRTIO_GPU_CMD_SET_SCANOUT_BLOB support should be added before allowing the user to enable the resource blob support.
 
-https://github.com/xapi-project/xen-api/blob/53d2e8cdff76ca6805c7018948a9c414b9ac7c72/ocaml/xenopsd/scripts/qemu-wrapper#L146
+It seems that two patches were squashed together:
 
-Not that I'm surprised - this falls squarely into guest-physmap mess
-which is broken in several well-documented ways already.
+- "virtio-gpu: Handle set scanout blob command" by Antonio Caggiano
+- "virtio-gpu: Handle set scanout blob command" by Bob Beckett
 
-~Andrew
+Restoring the original patches with the appropriate S-o-b tags seems the right thing to do.
+
+Thanks,
+Pierre-Eric
+> 
+> You should also check if virtio_vdev_has_feature(VIRTIO_DEVICE(g), VIRTIO_GPU_F_RESOURCE_BLOB). It also applies to other resource blob commands though I failed to note that for the earlier patch.
+> 
 
