@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D1B4823EC7
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 10:38:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661430.1031154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EFF0823F53
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 11:15:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661473.1031180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLKAC-0000Va-Ah; Thu, 04 Jan 2024 09:37:20 +0000
+	id 1rLKjs-0003vA-CX; Thu, 04 Jan 2024 10:14:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661430.1031154; Thu, 04 Jan 2024 09:37:20 +0000
+Received: by outflank-mailman (output) from mailman id 661473.1031180; Thu, 04 Jan 2024 10:14:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLKAC-0000Sh-7e; Thu, 04 Jan 2024 09:37:20 +0000
-Received: by outflank-mailman (input) for mailman id 661430;
- Thu, 04 Jan 2024 09:37:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rLKjs-0003sM-9f; Thu, 04 Jan 2024 10:14:12 +0000
+Received: by outflank-mailman (input) for mailman id 661473;
+ Thu, 04 Jan 2024 10:14:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qJxY=IO=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rLKAA-0000Sb-Am
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 09:37:18 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d89df275-aae4-11ee-9b0f-b553b5be7939;
- Thu, 04 Jan 2024 10:37:16 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a27e323fdd3so28987966b.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 01:37:15 -0800 (PST)
+ <SRS0=7Jyd=IO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rLKjr-0003sG-B4
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 10:14:11 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0084ea43-aaea-11ee-98ef-6d05b1d4d9a1;
+ Thu, 04 Jan 2024 11:14:10 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2cce6bb9b48so3729131fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 02:14:10 -0800 (PST)
+Received: from [192.168.220.211] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ n4-20020a2ea5c4000000b002cd0651db11sm1671512ljp.50.2024.01.04.02.14.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jan 2024 02:14:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,171 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d89df275-aae4-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 0084ea43-aaea-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1704361035; x=1704965835; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ZCOqmmciQjPCCpGOFfXlM0dgp1VyfSrjS3uCZxuDKoQ=;
-        b=y/D2ikuuK3Wxxi0Jhd9JUQrufuei05tSUUBQFfspV0EVxC50ELf22GFMF9c26MQjyC
-         Cmm3UMYnfRC2crbV49MltgJQ8jr/hqrUEO1f6ID32WxQUtO5wU1F5mNo2cVFFEqudalV
-         P5qdUqqEWX2/7Vl2A/Zhd0EsOvIKc288jSo7er06ZnU5Ky3srny+Oc6XP535bEpWp5MO
-         8aAp/sb0gMJ9sEiHn+2wHB9Z/XMsBEp4BaBSovwqril+loG8fg4NopI1IFkhRE6Z7Z1o
-         pPhLutlZL8cQVon1PJNEYI1LYOZO2Dv47umgsaqcmnlwPGJCI8S2s0p/36WLEKJjjChr
-         2org==
+        d=gmail.com; s=20230601; t=1704363250; x=1704968050; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=zw1LvQiWrC4tM8/3EvC/l4uZmCCd2VC/xJIGQf4sNW0=;
+        b=NDmmcJxwBTktaR3LbJDO11fD/e0e2hOk6TM90+5xo0ErSoc7t5J2IkGH07ogk53DiR
+         SkMwEl1WDW9MWE+1kUn/Xb2FeIa9IW94rrpIb3WZvcAMkroIddNs8UvRq4yqxTSM8T6r
+         MebRlxlUuZogRgP5BXGQ9pD3gu5V0E3GMFiubGysRECqqh8+DIQCMMfQQ4vz06nqkmSv
+         LtKyPovYFeLx2ix7RSrM0Oa9MnPk3SPzbHt2zy+eEIuUgj93Evd3BxdfTYKKMnW1aK5G
+         HRbDuX1K1yW68/0boi4ppK3zBJtXoVnM3Fh1u5fXpw8fhhHemRSp6ufTbJy4Q2+fdVLT
+         zIxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704361035; x=1704965835;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZCOqmmciQjPCCpGOFfXlM0dgp1VyfSrjS3uCZxuDKoQ=;
-        b=OZ1oruY4mOaSY8DtVA3eLKSfL5RZAkFthVvRqn+NGnznX5tOlpBK61lbfTcIyWtkx7
-         IrhKrUcOtxn3UwfFVhJuYXbsoSDerAHrVRXiKbtP5lzu8+ZpQwY9vlNoLfNtlhfC/GDN
-         fNKK//XKW4dvKriOg/pwYRMTVC/zJEG9QAW2lIqldLob2tInRCTRdXiNNfbIpmye5Klm
-         isZBExMaFTH4W2C1rlhwepzkg7o+xPPStYNlB26iAX/JiFDI6TRcja4WJedKtyw2sTAO
-         qRTLHwhFiJJIXuD7qm7M65bk8Xs0jEHSeMMt+Q9y/6T2zllLqKvNwZQaICUjYqVptwY3
-         YVyA==
-X-Gm-Message-State: AOJu0YxVbZoq9dkyyhEGedZEKNS0NpRqT7AJDvvpnIFJqARj3+/5yjXb
-	YbzwDYzOvMi+wuQgP2Kro8zivk80K/rAeCMyPQzWjkEmjyWf4Q==
-X-Google-Smtp-Source: AGHT+IErNAGVDRNS+GyL6w9fWLF6JVVSFMrk1NrLFzCzfEZXFVZTBRAiMw72JOy5eNCnV1nBidlyyQ7i6focAs4FoQM=
-X-Received: by 2002:a17:906:529a:b0:a23:5753:7ba5 with SMTP id
- c26-20020a170906529a00b00a2357537ba5mr146202ejm.47.1704361035457; Thu, 04 Jan
- 2024 01:37:15 -0800 (PST)
-MIME-Version: 1.0
-References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <6d652309-50e1-4850-ac52-d086a3a32726@amd.com> <alpine.DEB.2.22.394.2401031601180.1322202@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2401031748040.1322202@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2401031748040.1322202@ubuntu-linux-20-04-desktop>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Thu, 4 Jan 2024 10:37:04 +0100
-Message-ID: <CAG+AhRUAOcT9HTj+v4vfz6nqBG4FumYc1of9XcmyTYKtW-66yA@mail.gmail.com>
-Subject: Re: [PATCH v5 00/13] Arm cache coloring
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+        d=1e100.net; s=20230601; t=1704363250; x=1704968050;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zw1LvQiWrC4tM8/3EvC/l4uZmCCd2VC/xJIGQf4sNW0=;
+        b=w4GDKQcIJVGP35lfRQvdd8I+ZhNdJdR+1Iy3WGcQgKIh3yvkPM58ueQrBUgQKh9CMi
+         Nly+ArqiBzr0ZDmWnhnjeL0nBBaYVJPAu29M39yh0ijDIdQUHPak4qQ3qPGtxAFZhoz+
+         o75bMM8Wxt8yZ2+0nrdwrvC5W48OWvtSS5GqprQjRS5eiaSMFQ9bt61S4hpkqud2084f
+         CPB9gsXf+1XLbxjlk4C70xJDdJquDCO6NYX4WsXmbQdCR0Mst6//JqgpzySdqmo+dPi5
+         kl2Ug9YJu8rC6HEcvUYQoKC2lYpXIVEdx91GimopcOXsaMJUHZOAZKLtGs8uHDq0XIC2
+         EPXA==
+X-Gm-Message-State: AOJu0Yxe7dmHtqJqCNJpBBVPstqFJUowCtJ2Jd2906uHm2leQKZnhi++
+	zvyvOW/6WnUqe6QzJPvtU08=
+X-Google-Smtp-Source: AGHT+IEKHf9w29QHGu7PY/MSe7A004witrqud/4EIM9MrkNeOvm/tIZMVF345g6K2yPhJMoqbtdXHA==
+X-Received: by 2002:a05:651c:1992:b0:2cd:122a:7ed4 with SMTP id bx18-20020a05651c199200b002cd122a7ed4mr140659ljb.8.1704363249646;
+        Thu, 04 Jan 2024 02:14:09 -0800 (PST)
+Message-ID: <5055a7085e00725394210b5907abbeb8693cca31.camel@gmail.com>
+Subject: Re: Xen 4.19 release schedule proposal
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: community.manager@xenproject.org, julien@xen.org,
+ sstabellini@kernel.org,  Bertrand.Marquis@arm.com,
+ andrew.cooper3@citrix.com, jbeulich@suse.com,  roger.pau@citrix.com,
+ anthony.perard@citrix.com, george.dunlap@cloud.com,  Wei.Chen@arm.com
+Date: Thu, 04 Jan 2024 12:14:08 +0200
+In-Reply-To: <9637302c-9fcf-46c5-9b70-ec44cd25f89d@suse.com>
+References: <cover.1703072575.git.oleksii.kurochko@gmail.com>
+	 <08bca9a4158a190a0a953e5bc071a512cfe5f0f8.1703072575.git.oleksii.kurochko@gmail.com>
+	 <341249d1-217f-4ad2-9455-b1aded4b9b56@xen.org>
+	 <03cf5145-2124-4150-9f20-904f08bcabda@suse.com>
+	 <9f8c4fe0a87742444b52a42aa5924cf046ee18b0.camel@gmail.com>
+	 <67bf2be7-53f4-40d0-a856-8ae631a054b0@suse.com>
+	 <955e9b02-20bd-4279-9f60-bb757cdf1a03@xen.org>
+	 <0f729b61-b839-48f6-89ae-b5570b1eae0b@xen.org>
+	 <26152790b0b8c3330d9cfc3c0462a1c072d6d598.camel@gmail.com>
+	 <9637302c-9fcf-46c5-9b70-ec44cd25f89d@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+MIME-Version: 1.0
 
-Hi Stefano,
+On Wed, 2024-01-03 at 06:53 +0100, Juergen Gross wrote:
+> On 02.01.24 17:59, Oleksii wrote:
+> > Dear community,
+> >=20
+> > Wishing you a Happy New Year!
+> >=20
+> > I'd like to propose the release schedule for Xen 4.19.
+> >=20
+> > Based on the previous release schedules [1] and [2], it seems the
+> > next
+> > release date should be on Wednesday, July 10, 2024:
+> >=20
+> > ** Proposed option: Wed Jul 10, 2024 **
+> > (+9 months from Xen 4.18 release)
+> >=20
+> > - Last posting date=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 Fri Apr 26, 2024
+> >=20
+> > Patches adding new features are expected to be posted to the
+> > mailing
+> > list by this date, although perhaps not in their final version.
+> >=20
+> > - Feature freeze=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 Fri May 17, 2024 (+3 weeks from Last
+> > posting date)
+> >=20
+> > Patches adding new features should be committed by this date.
+> > Straightforward bugfixes may continue to be accepted by
+> > maintainers.
+> >=20
+> > - Code freeze=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Fri May 31, 2024 (+2 weeks from
+> > Feature
+> > freeze)
+> >=20
+> > Bugfixes only.
+> >=20
+> > - Hard code freeze=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 Fri Jun 21, 2024 (+3 weeks from Code
+> > freeze)
+> >=20
+> > Bugfixes for serious bugs (including regressions), and low-risk
+> > fixes
+> > only.
+> >=20
+> > - Final commits=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 Fri Jul 05, 2024 (+2 weeks from Hard
+> > code
+> > freeze)
+> >=20
+> > Branch off staging-4.19.
+> >=20
+> > - Release=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Wed Jul 10, 2024
+> >=20
+> > If there are no objections, we will stick to the proposed schedule.
+> >=20
+> > One more thing I'd like to discuss is whether to add a file
+> > (RELEASE.md) with the release schedule to the source code or update
+> > an
+> > existing one (xen-release-management.pandoc). I think it will help
+> > to
+> > find the final release schedule for the nearest release. For
+> > example,
+> > for the previous release, there are a lot of emails with proposed
+> > schedules, polls of Xen release schedules, and I found the final
+> > release schedule in just one of the replies (but probably I missed
+> > something).
+>=20
+> What about putting it into the wiki under
+> Xen_Project_X.YY_Release_Notes?
+> That way it would already be accessible via SUPPORT.md (in the wiki
+> under
+> https://xenbits.xen.org/docs/unstable-staging/support-matrix.html=C2=A0).
+It makes sense to me. Thanks.
 
-On Thu, Jan 4, 2024 at 2:55=E2=80=AFAM Stefano Stabellini
-<sstabellini@kernel.org> wrote:
->
-> On Wed, 3 Jan 2024, Stefano Stabellini wrote:
-> > Also I tried this patch series on the "staging" branch and Xen failed t=
-o
-> > boot, no messages at all from Xen so it must be an early boot failure. =
-I
-> > am passing this command line options to Xen and running it on QEMU:
-> >
-> > dom0_mem=3D1024M dom0_max_vcpus=3D1 xen-llc-colors=3D0 dom0-llc-colors=
-=3D1-5 llc-way-size=3D65535 llc-coloring=3Dtrue
->
-> I managed to make it to work successfully with the following command
-> line:
->
-> xen-llc-colors=3D0 dom0-llc-colors=3D1-5 llc-way-size=3D64K llc-coloring=
-=3Don
->
-> I think the problem was llc-way-size that needs to be rounded up (64K
-> instead of 65535).
->
-> Also I found a few build issues when building for other architectures or
-> different kconfig options. This patch addresses those issues (however it
-> is not to be taken as is as the build issues should not be introduced in
-> the first place and there are probably better way to fix them, but I
-> hope it can help).
->
-> Cheers,
->
-> Stefano
->
->
-> diff --git a/xen/arch/arm/llc-coloring.c b/xen/arch/arm/llc-coloring.c
-> index f434efc45b..efe5cf3c23 100644
-> --- a/xen/arch/arm/llc-coloring.c
-> +++ b/xen/arch/arm/llc-coloring.c
-> @@ -39,7 +39,7 @@ static unsigned int __ro_after_init xen_num_colors;
->
->  #define mfn_color_mask              (nr_colors - 1)
->  #define mfn_to_color(mfn)           (mfn_x(mfn) & mfn_color_mask)
-> -#define mfn_set_color(mfn, color)   ((mfn_x(mfn) & ~mfn_color_mask) | (c=
-olor))
-> +#define mfn_set_color(mfn, color)   (_mfn((mfn_x(mfn) & ~mfn_color_mask)=
- | (color)))
-
-Thanks for spotting this.
-
->  /*
->   * Parse the coloring configuration given in the buf string, following t=
-he
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index 3bb0c9221f..bf16703e24 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -610,10 +610,10 @@ void __init setup_pagetables(unsigned long boot_phy=
-s_offset, paddr_t xen_paddr)
->      pte.pt.table =3D 1;
->      xen_second[second_table_offset(FIXMAP_ADDR(0))] =3D pte;
->
-> +#ifdef CONFIG_ARM_64
->      if ( llc_coloring_enabled )
->          ttbr =3D virt_to_maddr(virt_to_reloc_virt(xen_pgtable));
->      else
-> -#ifdef CONFIG_ARM_64
->          ttbr =3D (uintptr_t) xen_pgtable + phys_offset;
->  #else
->          ttbr =3D (uintptr_t) cpu0_pgtable + phys_offset;
-> diff --git a/xen/include/xen/llc-coloring.h b/xen/include/xen/llc-colorin=
-g.h
-> index 7cd481e955..516139c4ff 100644
-> --- a/xen/include/xen/llc-coloring.h
-> +++ b/xen/include/xen/llc-coloring.h
-> @@ -21,7 +21,27 @@
->  extern bool llc_coloring_enabled;
->  #define llc_coloring_enabled (llc_coloring_enabled)
->  #endif
-> -
-> +#else
-> +static inline void *xen_remap_colored(mfn_t xen_fn, paddr_t xen_size)
-> +{
-> +    return NULL;
-> +}
-> +static inline int domain_set_llc_colors_from_str(struct domain *d, const=
- char *str)
-> +{
-> +    return -ENOSYS;
-> +}
-> +static inline int dom0_set_llc_colors(struct domain *d)
-> +{
-> +    return 0;
-> +}
-> +static inline bool llc_coloring_init(void)
-> +{
-> +    return false;
-> +}
-> +static inline paddr_t xen_colored_map_size(paddr_t size)
-> +{
-> +    return 0;
-> +}
->  #endif
->
->  #ifndef llc_coloring_enabled
-
-Sorry for the compilation mess.
-
-This is definitely a solution, but I wonder if the best thing to do would b=
-e
-to move all signatures in the common header, without the stubs, relying aga=
-in
-on DCE. This seems a little strange to me because users of some of those
-functions are only in arm code, and they always have to be protected with
-llc_coloring_enabled global variable/macro if, but it works (now I'm
-compiling also for arm32 and x86).
-
-Thanks.
+~ Oleksii
 
