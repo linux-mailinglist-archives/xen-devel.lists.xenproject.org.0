@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 306BD824855
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 19:40:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661879.1031634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BE10824872
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 19:54:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661883.1031645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLScs-0002hX-6Q; Thu, 04 Jan 2024 18:39:30 +0000
+	id 1rLSr3-0005qI-Do; Thu, 04 Jan 2024 18:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661879.1031634; Thu, 04 Jan 2024 18:39:30 +0000
+Received: by outflank-mailman (output) from mailman id 661883.1031645; Thu, 04 Jan 2024 18:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLScs-0002dK-3J; Thu, 04 Jan 2024 18:39:30 +0000
-Received: by outflank-mailman (input) for mailman id 661879;
- Thu, 04 Jan 2024 18:39:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rLScq-0002dE-6U
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 18:39:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rLScp-0000hC-Il; Thu, 04 Jan 2024 18:39:27 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rLScp-0006Uy-CA; Thu, 04 Jan 2024 18:39:27 +0000
+	id 1rLSr3-0005o5-A8; Thu, 04 Jan 2024 18:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 661883;
+ Thu, 04 Jan 2024 18:54:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NKvI=IO=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1rLSr2-0005nz-AE
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 18:54:08 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a31ba564-ab32-11ee-98ef-6d05b1d4d9a1;
+ Thu, 04 Jan 2024 19:54:07 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a28e6392281so92053866b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 10:54:06 -0800 (PST)
+Received: from EPUAKYIW03DD.. ([91.123.150.198])
+ by smtp.gmail.com with ESMTPSA id
+ d21-20020a170906305500b00a2699b0fd49sm13966430ejd.86.2024.01.04.10.54.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jan 2024 10:54:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,254 +45,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=IEc0qfpWPLF016jVroMDGdIFRKsenq5c6LXn4XMn20U=; b=GcSL04CzXS9G53al2WJUx/dvEx
-	uAJLvpFYLYLMC0xT7zaQG9hm3KxFA+jVtC2O3tahXMr4WEWAumCA2RPqr2PBiRc7M0rqZJrXyQtEh
-	QXau6YGwO/IFwbfNkPuYGNhXCOJFSx1WHgIqD1jwPomIo2VgQUJqzaKOlQNl05VxjYyA=;
-Message-ID: <a407d6da-1e9a-4d9d-8b9f-38696daf31dc@xen.org>
-Date: Thu, 4 Jan 2024 18:39:25 +0000
+X-Inumbo-ID: a31ba564-ab32-11ee-98ef-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1704394446; x=1704999246; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=jKANwIhqa+LvmlQt2znhD615O1LJ668Njt6YHHfEb+I=;
+        b=c7mCVOiiseVvh46CRE6azdsILwdIstpNV/8Zmp0FybiYBvWgFZ/AqMgK/fZmK7pjgX
+         72ZQQJoIK4gUXmYMYGpHK93t9/x9CBFazDOF8N7CoCtmGTPPJLKLMDfOEx7pMuNvZyWp
+         eU/ZJnVNvz4bvU5qG5MaW2DsBlSwS1xc0vsD+ja+W9hITQycdn5KOMOMlpko2KKHP6L0
+         qQsu7jJiZSb+oB3Sy5pL3geEJbWj0HoBwEN9bxocHYR0VKCeh+NwOI5gyvYOMutDjr+l
+         GbbizCEaV8bhAY2MC23KRrZmJRbS8qRCcsNkB49BItPUM0YiTBnjHVU/Ai9KOxhELSjm
+         6ZDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704394446; x=1704999246;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=jKANwIhqa+LvmlQt2znhD615O1LJ668Njt6YHHfEb+I=;
+        b=s4nmLyYqUtLuciuY5dslNTXzjhHzGewbco4rIOwnn2Svqw6LnDnI3vN1QdXsr+Pgh+
+         6nqBI4clJEHWdB0qY06AhIlOKFBnfo+EHsgPmauWER6i5bhzSDvWtqivYpmpQravATQC
+         lcjfetgDH5yfvai8V+F6PTqG7zrMqcDHCjYMb59pWYcD6VhuVxwX/HnD21kwLcJ7oOho
+         vFmj71DmzsAY4zc8wqyJ6oTmvaNdsqoMpAVJva8iAddB7LQ0KDKF6RYuCm7B2rLN/VIZ
+         iAmz6j4oX+cihN0MuCw15tK8mKnbtsbMqsR4WfTTp0ZtjlQ0j1z/R3ogQcbW41MICDJH
+         TOiA==
+X-Gm-Message-State: AOJu0Yw1/z/oO73l+1P2192K9MtaDZcv0vspfi5bmQ3oVbWtoZ3KRVuE
+	kb8OHtpleIR0xjlOtn+jetRwW+irAb0=
+X-Google-Smtp-Source: AGHT+IFhdU/VMhwpjMnGX2lcnofrQbURePzE/VM+99mptm3emNVixnMZdqIgEEfDKwqVyqXeZhYK+g==
+X-Received: by 2002:a17:906:f810:b0:a23:44e8:81b with SMTP id kh16-20020a170906f81000b00a2344e8081bmr562135ejb.73.1704394445767;
+        Thu, 04 Jan 2024 10:54:05 -0800 (PST)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] xen/gntdev: Fix the abuse of underlying struct page in DMA-buf import
+Date: Thu,  4 Jan 2024 20:53:27 +0200
+Message-Id: <20240104185327.177376-1-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/13] xen/common: add cache coloring common code
-To: Carlo Nonato <carlo.nonato@minervasys.tech>,
- xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@minervasys.tech>
-References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-2-carlo.nonato@minervasys.tech>
-Content-Language: en-GB
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240102095138.17933-2-carlo.nonato@minervasys.tech>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Carlo,
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-On 02/01/2024 09:51, Carlo Nonato wrote:
-> This commit adds the Last Level Cache (LLC) coloring common header, Kconfig
-> options and functions. Since this is an arch specific feature, actual
-> implementation is postponed to later patches and Kconfig options are placed
-> under xen/arch.
-> 
-> LLC colors are a property of the domain, so the domain struct has to be
-> extended.
+DO NOT access the underlying struct page of an sg table exported
+by DMA-buf in dmabuf_imp_to_refs(), this is not allowed.
+Please see drivers/dma-buf/dma-buf.c:mangle_sg_table() for details.
 
-The interface below looks ok. I have left some comments below.
+Fortunately, here (for special Xen device) we can avoid using
+pages and calculate gfns directly from dma addresses provided by
+the sg table.
 
-> 
-> Based on original work from: Luca Miccio <lucmiccio@gmail.com>
-> 
-> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
-> ---
-> v5:
-> - used - instead of _ for filenames
-> - removed domain_create_llc_colored()
-> - removed stub functions
-> - coloring domain fields are now #ifdef protected
-> v4:
-> - Kconfig options moved to xen/arch
-> - removed range for CONFIG_NR_LLC_COLORS
-> - added "llc_coloring_enabled" global to later implement the boot-time
->    switch
-> - added domain_create_llc_colored() to be able to pass colors
-> - added is_domain_llc_colored() macro
-> ---
->   xen/arch/Kconfig               | 16 ++++++++++++
->   xen/common/Kconfig             |  3 +++
->   xen/common/domain.c            |  4 +++
->   xen/common/keyhandler.c        |  4 +++
->   xen/include/xen/llc-coloring.h | 46 ++++++++++++++++++++++++++++++++++
->   xen/include/xen/sched.h        |  5 ++++
->   6 files changed, 78 insertions(+)
->   create mode 100644 xen/include/xen/llc-coloring.h
-> 
-> diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
-> index 67ba38f32f..aad7e9da38 100644
-> --- a/xen/arch/Kconfig
-> +++ b/xen/arch/Kconfig
-> @@ -31,3 +31,19 @@ config NR_NUMA_NODES
->   	  associated with multiple-nodes management. It is the upper bound of
->   	  the number of NUMA nodes that the scheduler, memory allocation and
->   	  other NUMA-aware components can handle.
-> +
-> +config LLC_COLORING
-> +	bool "Last Level Cache (LLC) coloring" if EXPERT
-> +	depends on HAS_LLC_COLORING
-> +
-> +config NR_LLC_COLORS
-> +	int "Maximum number of LLC colors"
-> +	default 128
-> +	depends on LLC_COLORING
-> +	help
-> +	  Controls the build-time size of various arrays associated with LLC
-> +	  coloring. Refer to cache coloring documentation for how to compute the
-> +	  number of colors supported by the platform. This is only an upper
-> +	  bound. The runtime value is autocomputed or manually set via cmdline.
-> +	  The default value corresponds to an 8 MiB 16-ways LLC, which should be
-> +	  more than what needed in the general case.
-> diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-> index 310ad4229c..e383f09d97 100644
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -71,6 +71,9 @@ config HAS_IOPORTS
->   config HAS_KEXEC
->   	bool
->   
-> +config HAS_LLC_COLORING
-> +	bool
-> +
->   config HAS_PMAP
->   	bool
->   
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index f6f5574996..491585b0bb 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -7,6 +7,7 @@
->   #include <xen/compat.h>
->   #include <xen/init.h>
->   #include <xen/lib.h>
-> +#include <xen/llc-coloring.h>
->   #include <xen/ctype.h>
->   #include <xen/err.h>
->   #include <xen/param.h>
-> @@ -1144,6 +1145,9 @@ static void cf_check complete_domain_destroy(struct rcu_head *head)
->       struct vcpu *v;
->       int i;
->   
-> +    if ( is_domain_llc_colored(d) )
-> +        domain_llc_coloring_free(d);
-> +
->       /*
->        * Flush all state for the vCPU previously having run on the current CPU.
->        * This is in particular relevant for x86 HVM ones on VMX, so that this
-> diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-> index 99a2d72a02..27c2d324d8 100644
-> --- a/xen/common/keyhandler.c
-> +++ b/xen/common/keyhandler.c
-> @@ -6,6 +6,7 @@
->   #include <xen/debugger.h>
->   #include <xen/delay.h>
->   #include <xen/keyhandler.h>
-> +#include <xen/llc-coloring.h>
->   #include <xen/param.h>
->   #include <xen/shutdown.h>
->   #include <xen/event.h>
-> @@ -307,6 +308,9 @@ static void cf_check dump_domains(unsigned char key)
->   
->           arch_dump_domain_info(d);
->   
-> +        if ( is_domain_llc_colored(d) )
-> +            domain_dump_llc_colors(d);
-> +
->           rangeset_domain_printk(d);
->   
->           dump_pageframe_info(d);
-> diff --git a/xen/include/xen/llc-coloring.h b/xen/include/xen/llc-coloring.h
-> new file mode 100644
-> index 0000000000..cedd97d4b5
-> --- /dev/null
-> +++ b/xen/include/xen/llc-coloring.h
-> @@ -0,0 +1,46 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
+Suggested-by: Daniel Vetter <daniel@ffwll.ch>
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+Please note, I didn't manage to test the patch against the latest master branch
+on real HW (patch was only build tested there). Patch was tested on Arm64
+guests using Linux v5.10.41 from vendor's BSP, this is the environment where
+running this use-case is possible and to which I have an access (Xen PV display
+with zero-copy and backend domain as a buffer provider - be-alloc=1, so dma-buf
+import part was involved). A little bit old, but the dma-buf import code
+in gntdev-dmabuf.c hasn't been changed much since that time, all context
+remains allmost the same according to my code inspection.
+---
+---
+ drivers/xen/gntdev-dmabuf.c | 42 +++++++++++++++----------------------
+ 1 file changed, 17 insertions(+), 25 deletions(-)
 
-For new SPDX we should use GPL-2.0-only. AFAIK, this is equivalent 
-license but with a clearer name.
-
-> +/*
-> + * Last Level Cache (LLC) coloring common header
-> + *
-> + * Copyright (C) 2022 Xilinx Inc.
-> + *
-> + * Authors:
-> + *    Carlo Nonato <carlo.nonato@minervasys.tech>
-
-NIT: We don't usually add the authors in the code and instead rely on 
-the Author/Signed-off-by in the commit.
-
-If you want to keep it, then I will query why you added yourself but not 
-Marco Solieri or Luca Miccio.
-
-> + */
-> +#ifndef __COLORING_H__
-> +#define __COLORING_H__
-> +
-> +#include <xen/sched.h>
-> +#include <public/domctl.h>
-> +
-> +#ifdef CONFIG_HAS_LLC_COLORING
-> +
-> +#include <asm/llc-coloring.h>
-> +
-> +#ifdef CONFIG_LLC_COLORING
-> +extern bool llc_coloring_enabled;
-> +#define llc_coloring_enabled (llc_coloring_enabled)
-
-I don't really understand why you need the define here. Wouldn't it be 
-clearer to have a #else and then ...
-
-> +#endif
-> +
-> +#endif
-> +
-> +#ifndef llc_coloring_enabled
-> +#define llc_coloring_enabled (false)
-
-... define llc_coloring_enabled?
-
-Also NIT: The parentheses are not necessary.
-
-> +#endif
-> +
-> +#define is_domain_llc_colored(d) (llc_coloring_enabled)
-
-You want to evaluate d. But here I would consider to use a static 
-inline. Nowadays, we favor static inline helpers over macros as they add 
-typesafety and you don't need to do trick (e.v. (void)(d)) to interpret 
-the arguments.
-
-> +
-> +void domain_llc_coloring_free(struct domain *d);
-> +void domain_dump_llc_colors(struct domain *d);
-
-Looking at the usage, 'd' could be const.
-
-> +
-> +#endif /* __COLORING_H__ */
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> index 9da91e0e62..dae7fab673 100644
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -626,6 +626,11 @@ struct domain
->   
->       /* Holding CDF_* constant. Internal flags for domain creation. */
->       unsigned int cdf;
-> +
-> +#ifdef CONFIG_LLC_COLORING
-> +    unsigned int *llc_colors;
-> +    unsigned int num_llc_colors;
-> +#endif
->   };
->   
->   static inline struct page_list_head *page_to_list(
-
-Cheers,
-
+diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+index 4440e626b797..0dde49fca9a5 100644
+--- a/drivers/xen/gntdev-dmabuf.c
++++ b/drivers/xen/gntdev-dmabuf.c
+@@ -11,6 +11,7 @@
+ #include <linux/kernel.h>
+ #include <linux/errno.h>
+ #include <linux/dma-buf.h>
++#include <linux/dma-direct.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/uaccess.h>
+@@ -50,7 +51,7 @@ struct gntdev_dmabuf {
+ 
+ 	/* Number of pages this buffer has. */
+ 	int nr_pages;
+-	/* Pages of this buffer. */
++	/* Pages of this buffer (only for dma-buf export). */
+ 	struct page **pages;
+ };
+ 
+@@ -484,7 +485,7 @@ static int dmabuf_exp_from_refs(struct gntdev_priv *priv, int flags,
+ /* DMA buffer import support. */
+ 
+ static int
+-dmabuf_imp_grant_foreign_access(struct page **pages, u32 *refs,
++dmabuf_imp_grant_foreign_access(unsigned long *gfns, u32 *refs,
+ 				int count, int domid)
+ {
+ 	grant_ref_t priv_gref_head;
+@@ -507,7 +508,7 @@ dmabuf_imp_grant_foreign_access(struct page **pages, u32 *refs,
+ 		}
+ 
+ 		gnttab_grant_foreign_access_ref(cur_ref, domid,
+-						xen_page_to_gfn(pages[i]), 0);
++						gfns[i], 0);
+ 		refs[i] = cur_ref;
+ 	}
+ 
+@@ -529,7 +530,6 @@ static void dmabuf_imp_end_foreign_access(u32 *refs, int count)
+ 
+ static void dmabuf_imp_free_storage(struct gntdev_dmabuf *gntdev_dmabuf)
+ {
+-	kfree(gntdev_dmabuf->pages);
+ 	kfree(gntdev_dmabuf->u.imp.refs);
+ 	kfree(gntdev_dmabuf);
+ }
+@@ -549,12 +549,6 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
+ 	if (!gntdev_dmabuf->u.imp.refs)
+ 		goto fail;
+ 
+-	gntdev_dmabuf->pages = kcalloc(count,
+-				       sizeof(gntdev_dmabuf->pages[0]),
+-				       GFP_KERNEL);
+-	if (!gntdev_dmabuf->pages)
+-		goto fail;
+-
+ 	gntdev_dmabuf->nr_pages = count;
+ 
+ 	for (i = 0; i < count; i++)
+@@ -576,7 +570,8 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
+ 	struct dma_buf *dma_buf;
+ 	struct dma_buf_attachment *attach;
+ 	struct sg_table *sgt;
+-	struct sg_page_iter sg_iter;
++	struct sg_dma_page_iter sg_iter;
++	unsigned long *gfns;
+ 	int i;
+ 
+ 	dma_buf = dma_buf_get(fd);
+@@ -624,26 +619,23 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
+ 
+ 	gntdev_dmabuf->u.imp.sgt = sgt;
+ 
+-	/* Now convert sgt to array of pages and check for page validity. */
++	gfns = kcalloc(count, sizeof(*gfns), GFP_KERNEL);
++	if (!gfns)
++		goto fail_unmap;
++
++	/* Now convert sgt to array of gfns without accessing underlying pages. */
+ 	i = 0;
+-	for_each_sgtable_page(sgt, &sg_iter, 0) {
+-		struct page *page = sg_page_iter_page(&sg_iter);
+-		/*
+-		 * Check if page is valid: this can happen if we are given
+-		 * a page from VRAM or other resources which are not backed
+-		 * by a struct page.
+-		 */
+-		if (!pfn_valid(page_to_pfn(page))) {
+-			ret = ERR_PTR(-EINVAL);
+-			goto fail_unmap;
+-		}
++	for_each_sgtable_dma_page(sgt, &sg_iter, 0) {
++		dma_addr_t addr = sg_page_iter_dma_address(&sg_iter);
++		unsigned long pfn = bfn_to_pfn(XEN_PFN_DOWN(dma_to_phys(dev, addr)));
+ 
+-		gntdev_dmabuf->pages[i++] = page;
++		gfns[i++] = pfn_to_gfn(pfn);
+ 	}
+ 
+-	ret = ERR_PTR(dmabuf_imp_grant_foreign_access(gntdev_dmabuf->pages,
++	ret = ERR_PTR(dmabuf_imp_grant_foreign_access(gfns,
+ 						      gntdev_dmabuf->u.imp.refs,
+ 						      count, domid));
++	kfree(gfns);
+ 	if (IS_ERR(ret))
+ 		goto fail_end_access;
+ 
 -- 
-Julien Grall
+2.34.1
+
 
