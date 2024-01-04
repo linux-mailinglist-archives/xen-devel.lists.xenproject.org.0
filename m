@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE7AB82494F
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 20:59:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661899.1031675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 348E68249B8
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 21:44:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661903.1031685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLTru-0000MG-Mo; Thu, 04 Jan 2024 19:59:06 +0000
+	id 1rLUZD-0000Sx-Tf; Thu, 04 Jan 2024 20:43:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661899.1031675; Thu, 04 Jan 2024 19:59:06 +0000
+Received: by outflank-mailman (output) from mailman id 661903.1031685; Thu, 04 Jan 2024 20:43:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLTru-0000Kc-K6; Thu, 04 Jan 2024 19:59:06 +0000
-Received: by outflank-mailman (input) for mailman id 661899;
- Thu, 04 Jan 2024 19:59:05 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rLTrt-0000KW-4Q
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 19:59:05 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rLTrs-00028X-SU; Thu, 04 Jan 2024 19:59:04 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235] helo=[192.168.4.89])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rLTrs-0001PJ-Lu; Thu, 04 Jan 2024 19:59:04 +0000
+	id 1rLUZD-0000R1-Qf; Thu, 04 Jan 2024 20:43:51 +0000
+Received: by outflank-mailman (input) for mailman id 661903;
+ Thu, 04 Jan 2024 20:43:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=d6V4=IO=bugseng.com=roberto.bagnara@srs-se1.protection.inumbo.net>)
+ id 1rLUZD-0000Qt-0o
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 20:43:51 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f4f9dce0-ab41-11ee-9b0f-b553b5be7939;
+ Thu, 04 Jan 2024 21:43:47 +0100 (CET)
+Received: from [192.168.1.219] (unknown [151.29.148.194])
+ by support.bugseng.com (Postfix) with ESMTPSA id 0BA5A4EE073C;
+ Thu,  4 Jan 2024 21:43:46 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,91 +39,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=pv1trKsXFHCTS8+oDtehFcg0Zr0OUhpUGoTqn1nNY/s=; b=EYVAr9GwKwidz2TZhsuyQbaYGf
-	UyeVyUC02rVtY4VcR2VRZh53r6gXkFLmXYmZScUXCoWTXuuobzb3u+VYFLTn/l+Wgp8C+kfiQ9zkM
-	eSlQWnKFgaV1ZUmXOdNh4pxHb9PnmFPAm+7S89lxXeZaxZ2ZashnQRmsz8exnP0iLEVU=;
-Message-ID: <1ac0e50d-0551-4abb-a929-03d5b0be25c1@xen.org>
-Date: Thu, 4 Jan 2024 19:59:02 +0000
+X-Inumbo-ID: f4f9dce0-ab41-11ee-9b0f-b553b5be7939
+Message-ID: <d1d43877-912c-4f83-aa9b-bc28be418a0c@bugseng.com>
+Date: Thu, 4 Jan 2024 21:43:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/13] xen/common: add cache coloring common code
-Content-Language: en-GB
-To: Carlo Nonato <carlo.nonato@minervasys.tech>,
- xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@minervasys.tech>
-References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-2-carlo.nonato@minervasys.tech>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240102095138.17933-2-carlo.nonato@minervasys.tech>
+Subject: Re: [PATCH] xen: Use -Wuninitialized and -Winit-self
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
+ "consulting@bugseng.com" <consulting@bugseng.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20231228193907.3052681-1-andrew.cooper3@citrix.com>
+ <1248487f-4852-41f5-9ffd-d4d12897a622@suse.com>
+ <7d35a648-a69b-4dfb-bf4f-d30272df5e9b@citrix.com>
+From: Roberto Bagnara <roberto.bagnara@bugseng.com>
+In-Reply-To: <7d35a648-a69b-4dfb-bf4f-d30272df5e9b@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
-
-On 02/01/2024 09:51, Carlo Nonato wrote:
-> This commit adds the Last Level Cache (LLC) coloring common header, Kconfig
-> options and functions. Since this is an arch specific feature, actual
-> implementation is postponed to later patches and Kconfig options are placed
-> under xen/arch.
+On 2024-01-04 15:33, Andrew Cooper wrote:
+> On 04/01/2024 1:41 pm, Jan Beulich wrote:
+>> On 28.12.2023 20:39, Andrew Cooper wrote:
+>>> The use of uninitialised data is undefined behaviour.  At -O2 with trivial
+>>> examples, both Clang and GCC delete the variable, and in the case of a
+>>> function return, the caller gets whatever was stale in %rax prior to the call.
+>>>
+>>> Clang includes -Wuninitialized within -Wall, but GCC only includes it in
+>>> -Wextra, which is not used by Xen at this time.
+>>>
+>>> Furthermore, the specific pattern of assigning a variable to itself in its
+>>> declaration is only diagnosed by GCC with -Winit-self.  Clang does diagnoise
+>>> simple forms of this pattern with a plain -Wuninitialized, but it fails to
+>>> diagnose the instances in Xen that GCC manages to find.
+>>>
+>>> GCC, with -Wuninitialized and -Winit-self notices:
+>>>
+>>>    arch/x86/time.c: In function ‘read_pt_and_tsc’:
+>>>    arch/x86/time.c:297:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
+>>>      297 |     uint32_t best = best;
+>>>          |              ^~~~
+>>>    arch/x86/time.c: In function ‘read_pt_and_tmcct’:
+>>>    arch/x86/time.c:1022:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
+>>>     1022 |     uint64_t best = best;
+>>>          |              ^~~~
+>>>
+>>> and both have logic paths where best can be returned while uninitalised.
+>> I disagree. In both cases the variables are reliably set during the first
+>> loop iteration.
 > 
-> LLC colors are a property of the domain, so the domain struct has to be
-> extended.
+> I suggest you pay attention to the precision of the integers.
 > 
-> Based on original work from: Luca Miccio <lucmiccio@gmail.com>
+> It is hard (likely prohibitively hard) to avoid entering the if(), but
+> it is not impossible.
 > 
-> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
-> ---
-> v5:
-> - used - instead of _ for filenames
-> - removed domain_create_llc_colored()
-> - removed stub functions
-> - coloring domain fields are now #ifdef protected
-> v4:
-> - Kconfig options moved to xen/arch
-> - removed range for CONFIG_NR_LLC_COLORS
-> - added "llc_coloring_enabled" global to later implement the boot-time
->    switch
-> - added domain_create_llc_colored() to be able to pass colors
-> - added is_domain_llc_colored() macro
-> ---
->   xen/arch/Kconfig               | 16 ++++++++++++
->   xen/common/Kconfig             |  3 +++
->   xen/common/domain.c            |  4 +++
->   xen/common/keyhandler.c        |  4 +++
->   xen/include/xen/llc-coloring.h | 46 ++++++++++++++++++++++++++++++++++
->   xen/include/xen/sched.h        |  5 ++++
->   6 files changed, 78 insertions(+)
->   create mode 100644 xen/include/xen/llc-coloring.h
+> The compiler really has emitted logic paths where stack rubble is returned.
 > 
-> diff --git a/xen/arch/Kconfig b/xen/arch/Kconfig
-> index 67ba38f32f..aad7e9da38 100644
-> --- a/xen/arch/Kconfig
-> +++ b/xen/arch/Kconfig
-> @@ -31,3 +31,19 @@ config NR_NUMA_NODES
->   	  associated with multiple-nodes management. It is the upper bound of
->   	  the number of NUMA nodes that the scheduler, memory allocation and
->   	  other NUMA-aware components can handle.
-> +
-> +config LLC_COLORING
-> +	bool "Last Level Cache (LLC) coloring" if EXPERT
+>> Furthermore this initialize-to-self is a well known pattern to suppress the
+>> -Wuninitialized induced warnings, originally used by Linux'es
+>> uninitialized_var().
+> 
+> I'm glad you cited this, because it proves my point.
+> 
+> Notice how it was purged from Linux slowly over the course of 8 years
+> because it had been shown to create real bugs, by hiding real uses of
+> uninitialised variables.
 
-While look at the rest of the series, I noticed that SUPPORT.md is not 
-updated. Can this be done?
+There is a worse problem for initialize-to-self: it is undefined behavior
+per se.  If this is done to suppress a warning, then what happens is
+paradoxical: in order to suppress a warning about a potential undefined
+behavior (the variable might indeed be always written before being read)
+one introduces a definite undefined behavior.
+Kind regards,
 
-I think the feature should be in experimental for now. We can decide to 
-switch to tech preview before Xen 4.19 is out and the support is completed.
-
-Stefano, what do you think?
-
-Cheers
-
--- 
-Julien Grall
+    Roberto
 
