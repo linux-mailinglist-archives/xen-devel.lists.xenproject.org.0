@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D593A824297
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 14:17:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661792.1031504 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42AA78242A8
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 14:25:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661795.1031515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLNaq-0004Cc-Ty; Thu, 04 Jan 2024 13:17:04 +0000
+	id 1rLNiH-0000VT-Nm; Thu, 04 Jan 2024 13:24:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661792.1031504; Thu, 04 Jan 2024 13:17:04 +0000
+Received: by outflank-mailman (output) from mailman id 661795.1031515; Thu, 04 Jan 2024 13:24:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLNaq-0004Am-RA; Thu, 04 Jan 2024 13:17:04 +0000
-Received: by outflank-mailman (input) for mailman id 661792;
- Thu, 04 Jan 2024 13:17:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rLNiH-0000Td-J9; Thu, 04 Jan 2024 13:24:45 +0000
+Received: by outflank-mailman (input) for mailman id 661795;
+ Thu, 04 Jan 2024 13:24:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0by4=IO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rLNaq-0004Ac-5b
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 13:17:04 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8c4e8ea3-ab03-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 14:17:02 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2cc7d2c1ff0so5726301fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 05:17:02 -0800 (PST)
+ id 1rLNiG-0000TX-Mu
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 13:24:44 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9e98994c-ab04-11ee-9b0f-b553b5be7939;
+ Thu, 04 Jan 2024 14:24:42 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2cce70ad1a3so6066871fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 05:24:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- b16-20020a92dcd0000000b0035fc82879a4sm9191412ilr.45.2024.01.04.05.17.00
+ bo18-20020a056638439200b0046993034c91sm7838595jab.77.2024.01.04.05.24.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 05:17:01 -0800 (PST)
+ Thu, 04 Jan 2024 05:24:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c4e8ea3-ab03-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: 9e98994c-ab04-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704374222; x=1704979022; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704374682; x=1704979482; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=kOI3oQwAgohong0NCjBRbivF8Iuh+3qejyQXg5mYyck=;
-        b=DXu/jTfWwGkT9fgw/sUOIF5cuX4fBHdEkWdsjKNhD9gYbytRyckFXlJv/tZ2Zpjzrj
-         8z1T22BIhiG60X4PYPCPw4WMX5ow1HsobX+Z80mO/GUeWalNunIaHmqTe+v1Kat/pqyo
-         zQhGA1m3Lli6W5IjwwhodptTTrdjawooy49mkwa+mptwGxpGMfof8lMBIlA2EGwsJasu
-         c9WO2fxo0LWpGDCAOpmAv+HCyeRDfgmjLvcQcJlnAgGpq7UvtYZdRUkaeyl9sidzgNVH
-         pQAj7REsWxiLh/s9yD0oabBzpsNa9Lv1V4Dg4dHfk5jEpSMJ/VwsGA2TMMAxPXN+Vdpm
-         5b0A==
+        bh=l/Y/pHB1cOv89Zwm8ZKzvm42bYzUtc5kUIKjcJZbFdY=;
+        b=By5shpZcS5qgiSQ78oMF2l3LC9TI0EOvYgJumy290vE69+KOPu8oSd9CQ/2JrCKdQK
+         SNr8ET1BYoQ8sbiPnZpDLMB6iY8+TklYYcHoAGFzmO7B8Ig9nM7LuxsLpjHzYw7FOi/a
+         NXlINFQV95jTgVLIk4ACVenGfsfaVInem9gls//9oAH+26hkWyPt87NvAka4oihyBRk5
+         wfFX+/jM8GzaqYUV70us7bohkNNqdwYtYyvJJ/O0aQuerjadupU3ce62JWq8cFwA3d/4
+         i72MLC/zpVCgx6QqKz5/HsQkLYYhivGdw7suEKWoKUhEDGgCYfiKVAl+QS2EptsHBNaA
+         pjWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704374222; x=1704979022;
+        d=1e100.net; s=20230601; t=1704374682; x=1704979482;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kOI3oQwAgohong0NCjBRbivF8Iuh+3qejyQXg5mYyck=;
-        b=MXDYBagDKDL3VhE1UNa49yRXIHNugYlHqJmP1s+I+anqOxB0FMJ5BRbjIKG99Hoqgr
-         ohxnRYfVGRprmFiabyFmuGuCk4Ux0vVTwcAaFKo6cqxhZHfImOyzs0NbeIxrmL3xJr0M
-         iLBPNyDBtp9JNQnS2wT47KpkENLs+4zwRlR3F8N4QTB3lfoPOK/YF6hm9lGe3Oh9Z9Zs
-         zgPYyBM2fw/xA3SHDSelkND/J4eNBRbmEOGQ4N7klLCEBoQDwCbCOEgYXs4PrlLQZPvW
-         jCF7vH60NiXBKBZCBCwPSjGVWM+CE1yGXjM5bLAQ69z1uj0V1r9qVILL3rNlxYOVSqPq
-         +JUg==
-X-Gm-Message-State: AOJu0Yyw1cK83YlnCmIezz0eR6SQ7l9/FuklBzPjWvZKEHxuvhHYqQxb
-	RgAVhIvbd51Y/Yq9jUwvtPaL2Q9rsnpwX5oZgJPUY1UjVw==
-X-Google-Smtp-Source: AGHT+IGdoM0B2091y9+sPMzB4uhxpFHnJZePS7ZFCek9c4bwgL2HKNRI0+YeEfuN90j8hZKcwApPEA==
-X-Received: by 2002:a05:6512:11c9:b0:50e:682a:3303 with SMTP id h9-20020a05651211c900b0050e682a3303mr340022lfr.54.1704374221814;
-        Thu, 04 Jan 2024 05:17:01 -0800 (PST)
-Message-ID: <6db70696-4b40-46d2-b19c-881820338ba4@suse.com>
-Date: Thu, 4 Jan 2024 14:16:59 +0100
+        bh=l/Y/pHB1cOv89Zwm8ZKzvm42bYzUtc5kUIKjcJZbFdY=;
+        b=gNjhnK4qGCQnG9SRPLJIiH7KdPkET6tbQ0HKssZjBd+VWrdaIjCQgHvBf46lBGWWsT
+         G+pYlv5vDyXIUnIPRgVOMFblMZxIO1XXxx5aukzk4Jy2T/ToAvXjgr8/8269YOhg7PGt
+         p09wkDt4Wsai1YU/lbG4jlmyRydr+kymNAtX/3l+eVYMGdfpyy93d7ORcACzbd+McxnA
+         1ruxG3pdRj0WojnsdEzLAknZivVlj+d1e4nktxnO2s6LPe0NjTitY+LkcDYN+XOIsExR
+         HC5Cy/8FRF93ObXibbU5hw6YSl9AAvCuxD6F2Ha8gF4lTWQWOtn44nX+H5RF9QvaK746
+         N9Tw==
+X-Gm-Message-State: AOJu0Yy1qPjEcd5X+/pUN+Lf6vx+FIpi9VnaeOWPI4sANYtJSNJ3a4kC
+	df9avJ1mkp6v5cvcknM/ny3XOIwezezq
+X-Google-Smtp-Source: AGHT+IEAnTbf13WwzQuShuJT0+HyMwTqhV1U5Clf6pe2mYMMZTLx2HFz/OuCWM84hi93QqX1j2RvTw==
+X-Received: by 2002:a2e:b170:0:b0:2cc:811f:f9ae with SMTP id a16-20020a2eb170000000b002cc811ff9aemr318969ljm.47.1704374682079;
+        Thu, 04 Jan 2024 05:24:42 -0800 (PST)
+Message-ID: <07c7d954-c0f8-447c-9205-646ca2a1de1d@suse.com>
+Date: Thu, 4 Jan 2024 14:24:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: hvmloader - allow_memory_relocate overlaps
+Subject: Re: [PATCH] xen/livepatch: Make check_for_livepatch_work() faster in
+ the common case
 Content-Language: en-US
-To: Neowutran <xen@neowutran.ovh>
-Cc: xen-devel@lists.xenproject.org, Anthony Perard
- <anthony.perard@citrix.com>, George Dunlap <george.dunlap@citrix.com>
-References: <7oe275z3eap7rhdwmrm4mvqnjnhrpag5cjwnfvwsf7rchhkyjv@pd3abzwdhg6v>
- <217649a9-8399-48d3-ba49-ae22cacf0d4b@suse.com>
- <lyqv62ezqqaybcfuhkvbhiltvnxyy32wzr36kclh7bzrupcvib@a5fpoe6atykl>
- <1c857c96-9f2d-4787-8804-799a63a00480@suse.com>
- <7lhrvh2ad46gjke5kvy4pbvrhstv7ihwm64suqrkle4v43tos6@oktohrjfupkc>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20231222220045.2840714-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,28 +112,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7lhrvh2ad46gjke5kvy4pbvrhstv7ihwm64suqrkle4v43tos6@oktohrjfupkc>
+In-Reply-To: <20231222220045.2840714-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 22.12.2023 16:49, Neowutran wrote:
-> Full logs without my patch to set allow-memory-relocate (https://github.com/neowutran/qubes-vmm-xen/blob/allowmemoryrelocate/ALLOWMEMORYRELOCATE.patch)
-> https://pastebin.com/g 
-> QGg55WZ
-> (GPU passthrough doesn't work, hvmloader overlaps with guest memory)
+On 22.12.2023 23:00, Andrew Cooper wrote:
+> When livepatching is enabled, this function is used all the time.  Really do
+> check the fastpath first, and annotate it likely() as this is the right answer
+> 100% of the time (to many significant figures).
+> 
+> This cuts out 3 pointer dereferences in the "nothing to do path", and it seems
+> the optimiser has an easier time too.  Bloat-o-meter reports:
+> 
+>   add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-57 (-57)
+>   Function                                     old     new   delta
+>   check_for_livepatch_work.cold               1201    1183     -18
+>   check_for_livepatch_work                    1021     982     -39
+> 
+> which isn't too shabby for no logical change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-So there are oddities, but I can't spot any overlaps. What's odd is that
-the two blocks already above 4Gb are accounted for (and later relocated)
-when calculating total MMIO size. BARs of size 2Gb and more shouldn't be
-accounted for at all when deciding whether low RAM needs relocating, as
-those can't live below 4Gb anyway. I vaguely recall pointing this out
-years ago, but it was thought we'd get away for a fair while. What's
-further odd is where the two blocks are moved to: F800000 moves (down)
-to C00000, while the smaller FC00000 moves further up to FC80000.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-I'll try to get to addressing at least the first oddity; if I can figure
-out why the second one occurs, I may try to address that as well.
+> I'm still a little disappointed with the code generation.  GCC still chooses
+> to set up the full stack frame (6 regs, +3 more slots) intermixed with the
+> per-cpu calculations.
+> 
+> In isolation, GCC can check the boolean without creating a stack frame:
+> 
+>   <work_to_to>:
+>     48 89 e2                mov    %rsp,%rdx
+>     48 8d 05 de e1 37 00    lea    0x37e1de(%rip),%rax        # ffff82d0405b6068 <per_cpu__work_to_do>
+>     48 81 ca ff 7f 00 00    or     $0x7fff,%rdx
+>     8b 4a c1                mov    -0x3f(%rdx),%ecx
+>     48 8d 15 45 aa 39 00    lea    0x39aa45(%rip),%rdx        # ffff82d0405d28e0 <__per_cpu_offset>
+>     48 8b 14 ca             mov    (%rdx,%rcx,8),%rdx
+>     0f b6 04 02             movzbl (%rdx,%rax,1),%eax
+>     c3                      retq
+> 
+> but I can't find a way to convince GCC that it would be worth not setting up a
+> stack frame in in the common case, and having a few extra mov reg/reg's later
+> in the uncommon case.
+> 
+> I haven't tried manually splitting the function into a check() and a do()
+> function.  Views on whether that might be acceptable?  At a guess, do() would
+> need to be a static noinline to avoid it turning back into what it currently
+> is.
+
+Or maybe move the fast-path check into an inline function, which calls the
+(renamed) out-of-line one only when the fast-path check passes? Downside
+would be that the per-CPU work_to_do variable then couldn't be static anymore.
 
 Jan
-
 
