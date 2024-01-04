@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3B3182404C
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:07:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661510.1031230 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABF49824058
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:12:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661530.1031240 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLYs-00014P-9n; Thu, 04 Jan 2024 11:06:54 +0000
+	id 1rLLe6-0003I3-Tv; Thu, 04 Jan 2024 11:12:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661510.1031230; Thu, 04 Jan 2024 11:06:54 +0000
+Received: by outflank-mailman (output) from mailman id 661530.1031240; Thu, 04 Jan 2024 11:12:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLYs-000114-6y; Thu, 04 Jan 2024 11:06:54 +0000
-Received: by outflank-mailman (input) for mailman id 661510;
- Thu, 04 Jan 2024 11:06:52 +0000
+	id 1rLLe6-0003Fo-Pe; Thu, 04 Jan 2024 11:12:18 +0000
+Received: by outflank-mailman (input) for mailman id 661530;
+ Thu, 04 Jan 2024 11:12:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0by4=IO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rLLYq-0000ek-TU
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:06:52 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
+ id 1rLLe5-0003Fd-21
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:12:17 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5cbd5caa-aaf1-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 12:06:51 +0100 (CET)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2cd0f4f306fso4421641fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:06:51 -0800 (PST)
+ id 1d48fa82-aaf2-11ee-98ef-6d05b1d4d9a1;
+ Thu, 04 Jan 2024 12:12:15 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2cd0c17e42bso4310461fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:12:14 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d4-20020a92d5c4000000b0035fac895f48sm9098175ilq.29.2024.01.04.03.06.48
+ bo33-20020a056e02342100b003600705e58asm6456484ilb.48.2024.01.04.03.12.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 03:06:50 -0800 (PST)
+ Thu, 04 Jan 2024 03:12:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5cbd5caa-aaf1-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: 1d48fa82-aaf2-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704366411; x=1704971211; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704366734; x=1704971534; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=vcDVCFcm680gqk+XNaj4OvK5RLa/d4T+NrZmRptQQLI=;
-        b=NJZuxowvvD5XGvoAWsGD9wjBC9H5tRoPuhQn3AwmJStYuQJxItPOuz360rC06sK9zi
-         /Ua3sAi1SsCimbPhBvpd3tNfif9bfFy7J6ON+j90kSoU45kPjK8hZVLl3QfWk26SFYcD
-         gJoOKB8LCYfAkDE4RwyOom79ga71zUMijogjfpH2JsCbWt2KdSX1laMbs3tmAC9atNI/
-         bDEsUP9UsYvtf7/WndsR1dVXze9mPuvK7ubXXpC5Lbh1FD0T7At9P80w6fU8oQNByMdZ
-         uIyvD/dyrF8kKELgT927gXkAQJzMNw+cyS6o8sqtS+oK5jTGGKXpaew/rxW6McBtKI0J
-         XvOg==
+        bh=aq5rkbQj2KpX16nl0ZcGOiVf5PhrMNV5nU2YySiLBBg=;
+        b=McjU0ciBuXUy1FAbSrRvN/58ec1UjdSq/z6wid0ybaBpCQLzpbJMS8m/oWcFpksn0x
+         tBv8f9jVD3uG/Dz8DTCzf0ImnPrs93V72cPGq3JEkBUtHaNFXMFTQqNY94+2+dRHZa89
+         ruXiQ4OsyDt2BEy60gGzfJMtCxfU2kHeikEMHMq4OV/zUbBEmVDzmT5fN63Ki4N2DbNU
+         lU4p1c5s7TV7/TnMeKz83vX9JYrnW7pqFq6tqfrI0iVxyfosSx+o2v8z2MO54/RFSdM8
+         5pq5Tuk/p5b/nUuw+hhds9xUpL23J7jx+Aa5KznQ/79JFdedUl+KklMbXyNSiV+ol6x2
+         z9AA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704366411; x=1704971211;
+        d=1e100.net; s=20230601; t=1704366734; x=1704971534;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vcDVCFcm680gqk+XNaj4OvK5RLa/d4T+NrZmRptQQLI=;
-        b=dRTjjZ7Gh+UhW9El9p7acOUzFbL6vUsW08Jnk545i7djpxz1Zj34z5Qn9HGkG2h0NS
-         Sl3Gu/YNVlvhLgKXqpnnplTK4XI+Rcb6SGnf/bwpCofn11m13CdzlaZ/69SXDjGEaIgd
-         ef/zlemz3s7xfDVoCVkOgkb3d7VwtnLVZD3gFIRpIB+KAjC0DQ98EzV7PEGwOAVzhjNU
-         k4RHP9dPUuHBUccFFDLNivQRlpg6YEe4+kFqNcHVkPAGubdQDgFtP9xUySyn9RvJwlCD
-         y5E2Q/sfJpOlShq1PVNlSfh9tyuz4hkEs30ATkm9yLmWcDtFEzwlqMRr4kTrJCQhmSkf
-         hBaw==
-X-Gm-Message-State: AOJu0YzLaWqNvMIKPPog7hElUbXovA9jNm9TCPrKZrMRJ6qhK86VnBal
-	4mbQyG5kZBm8T0cXfR1cnpr+DVQw6rLy
-X-Google-Smtp-Source: AGHT+IEiCKUtDSRqJpy8o1fbINsOv6noWCrar3jxK+dfqeRDgd9tFktKRr64aegL2OS5glwgcK7meA==
-X-Received: by 2002:a2e:99ca:0:b0:2cc:8f7d:4e11 with SMTP id l10-20020a2e99ca000000b002cc8f7d4e11mr274307ljj.21.1704366411023;
-        Thu, 04 Jan 2024 03:06:51 -0800 (PST)
-Message-ID: <d096f14c-96ae-46a6-81fc-55ff8fcaaf39@suse.com>
-Date: Thu, 4 Jan 2024 12:06:58 +0100
+        bh=aq5rkbQj2KpX16nl0ZcGOiVf5PhrMNV5nU2YySiLBBg=;
+        b=q68hPaV83KwlOoLqtIPmV4r/TgnWqglUdzhDVjRfppCOVqbUyLbFaIgn/IWAvz8FDd
+         b12SGSIHXYQhqSENnQ24E6fxxkSGGAog022LkCab9qXOkHkFN9wqt0z3SqIw2UxZ7agT
+         0NUT7jyuxA2DfHYzxEPlO5n1ts4ELtnEJ0NEeVnqp+JtPpyGVW/l3IjGB+VXAyCuy6c4
+         dYcRpkm3FyT2r3ARV1LZtlngIFO3Eo0g+wX9eKna3Q6DcPORiGWrwOv13zX7ilrl5bKI
+         gEPSjSVmgNPSEOc/BwKTGZWf6r8m0uTY6er35auFTHT4FhTXRgARoT20SAxEbigA1xpG
+         WLdg==
+X-Gm-Message-State: AOJu0YzSfaJsib91PBWDjo7xFapuJ6b3nIcqpvG0/nAXIGP1Xd6qJPPr
+	nyIoEn8W6P09NwoP6ipEF3ajzHrOASrG
+X-Google-Smtp-Source: AGHT+IFE0NtE1Sj3EF1oWdOTx2QPP6WZh2Evo1Klhlp3fTU3agn/4wJQ6nMY4QhVUHdI5Bu8NqResg==
+X-Received: by 2002:a05:651c:508:b0:2cd:1d5d:3240 with SMTP id o8-20020a05651c050800b002cd1d5d3240mr316200ljp.0.1704366734074;
+        Thu, 04 Jan 2024 03:12:14 -0800 (PST)
+Message-ID: <24b83048-7043-47a9-9fc9-3bb6cc849bad@suse.com>
+Date: Thu, 4 Jan 2024 12:12:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/34] xen/asm-generic: introdure nospec.h
+Subject: Re: [PATCH] libxl: Disable relocating memory for qemu-xen in
+ stubdomain too
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <a1360d3de3da8757c69f11c3fafd99ff65654ae8.1703255175.git.oleksii.kurochko@gmail.com>
+To: Neowutran <xen@neowutran.ovh>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+References: <20231227023544.1253277-1-marmarek@invisiblethingslab.com>
+ <dvzyuckd4w7vii3bytpsecdyyzizgbgxslyxiciobw3ac6wmlb@uolzr2buvi2k>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,30 +112,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a1360d3de3da8757c69f11c3fafd99ff65654ae8.1703255175.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <dvzyuckd4w7vii3bytpsecdyyzizgbgxslyxiciobw3ac6wmlb@uolzr2buvi2k>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.12.2023 16:12, Oleksii Kurochko wrote:
-> The <asm/nospec.h> header is similar between Arm, PPC, and RISC-V,
-> so it has been moved to asm-generic.
+On 27.12.2023 17:54, Neowutran wrote:
+> On 2023-12-27 03:12, Marek Marczykowski-Górecki wrote:
+>> According to comments (and experiments) qemu-xen cannot handle memory
+>> reolcation done by hvmloader. The code was already disabled when running
+>> qemu-xen in dom0 (see libxl__spawn_local_dm()), but it was missed when
+>> adding qemu-xen support to stubdomain. Adjust libxl__spawn_stub_dm() to
+>> be consistent in this regard.
+>>
+>> Reported-by: Neowutran <xen@neowutran.ovh>
+>> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>> ---
+>>  tools/libs/light/libxl_dm.c | 10 ++++++++++
+>>  1 file changed, 10 insertions(+)
+>>
+>> diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+>> index 14b593110f7c..ed620a9d8e14 100644
+>> --- a/tools/libs/light/libxl_dm.c
+>> +++ b/tools/libs/light/libxl_dm.c
+>> @@ -2432,6 +2432,16 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
+>>                          "%s",
+>>                          libxl_bios_type_to_string(guest_config->b_info.u.hvm.bios));
+>>      }
+>> +    /* Disable relocating memory to make the MMIO hole larger
+>> +     * unless we're running qemu-traditional and vNUMA is not
+>> +     * configured. */
+>> +    libxl__xs_printf(gc, XBT_NULL,
+>> +                     libxl__sprintf(gc, "%s/hvmloader/allow-memory-relocate",
+>> +                                    libxl__xs_get_dompath(gc, guest_domid)),
+>> +                     "%d",
+>> +                     guest_config->b_info.device_model_version
+>> +                        == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL &&
+>> +                     !libxl__vnuma_configured(&guest_config->b_info));
+>>      ret = xc_domain_set_target(ctx->xch, dm_domid, guest_domid);
+>>      if (ret<0) {
+>>          LOGED(ERROR, guest_domid, "setting target domain %d -> %d",
+>> -- 
+>> 2.41.0
 > 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Seems to work as expected
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-A word may want saying though on ...
-
-> --- a/xen/arch/arm/include/asm/nospec.h
-> +++ b/xen/include/asm-generic/nospec.h
-> @@ -1,8 +1,8 @@
-> -/* SPDX-License-Identifier: GPL-2.0 */
-> -/* Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved. */
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef _ASM_GENERIC_NOSPEC_H
-> +#define _ASM_GENERIC_NOSPEC_H
-
-... the removal of the copyright line.
+May we translate this to Tested-by: ?
 
 Jan
 
