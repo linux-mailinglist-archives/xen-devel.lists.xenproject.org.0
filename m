@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDB0582401C
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:02:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661490.1031199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFF02824030
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:04:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661499.1031210 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLTu-0007ZC-3l; Thu, 04 Jan 2024 11:01:46 +0000
+	id 1rLLWR-0008DO-Ha; Thu, 04 Jan 2024 11:04:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661490.1031199; Thu, 04 Jan 2024 11:01:46 +0000
+Received: by outflank-mailman (output) from mailman id 661499.1031210; Thu, 04 Jan 2024 11:04:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLTu-0007XI-1C; Thu, 04 Jan 2024 11:01:46 +0000
-Received: by outflank-mailman (input) for mailman id 661490;
- Thu, 04 Jan 2024 11:01:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rLLWR-0008Au-E1; Thu, 04 Jan 2024 11:04:23 +0000
+Received: by outflank-mailman (input) for mailman id 661499;
+ Thu, 04 Jan 2024 11:04:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0by4=IO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rLLTs-0007X9-1V
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:01:44 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a3713519-aaf0-11ee-9b0f-b553b5be7939;
- Thu, 04 Jan 2024 12:01:40 +0100 (CET)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2cd0c151cdcso4485141fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:01:40 -0800 (PST)
+ id 1rLLWP-0008Am-Kx
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:04:21 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 02cfe1ba-aaf1-11ee-98ef-6d05b1d4d9a1;
+ Thu, 04 Jan 2024 12:04:20 +0100 (CET)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2cd20d9d483so4325491fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:04:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 15-20020a5ea50f000000b007b6ea31bb14sm7864751iog.34.2024.01.04.03.01.38
+ w21-20020a029695000000b0046df10baf97sm235185jai.36.2024.01.04.03.04.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 03:01:39 -0800 (PST)
+ Thu, 04 Jan 2024 03:04:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3713519-aaf0-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 02cfe1ba-aaf1-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704366100; x=1704970900; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704366260; x=1704971060; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=lhH2TVX8jN54GBBzY6zIKmHsfVoMq1tKOHf+jzK3nCs=;
-        b=EtpKjVCfGCDEpeqf6ERGdsUxWiwDpNHJfuqLemD8X6gkoMNU1+Nbfyt83Tzh0b2nw8
-         ug46OO8sMv8nJ6cVMd/HMBexg216tYs2ZuCfAQhoYd11fr5nyMkS+vmpAFEroRuHOLlo
-         N4PlYtJCp9PfNHfTYeINCv/6fa7wfWbHTwc1bi58oXLfa3kYDIot9DCjh7mckpfy38TU
-         gx+zaAfGtGZ0vm8tusYZyexA1iQd39PeZZADfvxTAC2tQSEV9ajMoITLmBzBqPgMWVV0
-         xurHY3JdOggp/yOET1WMsmwt7jiBM3EpERM+9oFrhXIhYb1ni+bR0mt2wNMV44wkLUGf
-         HsyA==
+        bh=AGh4cn3QHmlAtXNzq7jjH9bBqsLN1Fv+teEIf7raKkQ=;
+        b=ClP3a6VvA2e4NYyy8oMG5nzefH5jI43AZFUXpCmEJBx6E4Co1nFyrfgSBh1qd8OJSX
+         57p4MRIIeQgYrMq6JMgZrp6QSrCk63HA7pldRR5H4QWyOwQUlIIjzwQFmHmSneLevVZ2
+         aTJthJixPGdj7LfZL2/QvyzEEIrEikyZ+3d23L/7oy8EYqdYyU8yq/SLYQDFTqxGeTnt
+         7dTTMjP3R0ZnqPfi94NWg8iWi0QzqMIs6AWVRsaRVXbuHwbD57u3vQT2Fl97uDfeaNXj
+         bsKDCkwSGed+IC58eMXAEx+cJLJFSmjpLSnCBfnUQx0duZyJBUyCJwadyBVRDFEy83xK
+         +U8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704366100; x=1704970900;
+        d=1e100.net; s=20230601; t=1704366260; x=1704971060;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lhH2TVX8jN54GBBzY6zIKmHsfVoMq1tKOHf+jzK3nCs=;
-        b=UMx++eRG4SBeM1aQBrAA/UhSXpcn7klk08eIoK9gEfR2wQ8iQBfz6rP9rpoRcLMTsU
-         oU9h+mJf5jPQ3iaNBvPoQvKkpV66PGZEknetWpiW0BWTjRwC9OG7Yil/ZvMsycL2XApi
-         +QX2i59R1OeANSHdlIMxCTVurWjfUaHwjGS+C/mtwWPv2hPYYM/tziaZ7zoO2777z5wj
-         ce6kbzukKZeiaODfMMCYHTAMkiDdem7lzoTi3mlX9VdBJ6g6uurLOIqqWFbBz/4P+2Rd
-         yt4VNyZZKmNRWuw7PTvrUo/09H2UK3jT8aK5Axy86f5sxWpx/ZglhyJAzhh8J5s4SvpL
-         P+7w==
-X-Gm-Message-State: AOJu0Yz6xkdqZjXKhU7oKaRSiBmikf9RSbUndT4cfJoPzD/TsaBIjv2B
-	6WYhQaMkzH2ZxwIXK3FFXgdnVWSII+GB
-X-Google-Smtp-Source: AGHT+IGRqp8CiKhOFODq3AcJHuS66zizR1bLSM2CN4TyWvgHe4ECETSq8dQEj7RDpQ3Lia8R+qc9tg==
-X-Received: by 2002:ac2:4307:0:b0:50e:885d:4d1d with SMTP id l7-20020ac24307000000b0050e885d4d1dmr227543lfh.37.1704366100165;
-        Thu, 04 Jan 2024 03:01:40 -0800 (PST)
-Message-ID: <e506cc91-c03c-436e-bfbe-8ff5a3039dc8@suse.com>
-Date: Thu, 4 Jan 2024 12:01:47 +0100
+        bh=AGh4cn3QHmlAtXNzq7jjH9bBqsLN1Fv+teEIf7raKkQ=;
+        b=eGmsZY1zG3qMVVfkZjjzUutOYoLkEUALOL2lq8iXhJsG86t6yrG0Mb3woiLfRNNwpJ
+         NyUnqQqYLCdrdt/YA49HDP+C6vD2Ce2jrci9oXH/Eoc/HSsOyxLvDFT5vgghaEKgPuoB
+         0nyLTsIdsHxhoQy+PC2Cf8BtixNtiBTppk2W0zeN3Mdvzf/xuWe17Fao25jMUx5VeI1I
+         VVs0nxVpI5Mu1VKWBLC1lEEWAGgCHGECaw9M+l0zyERZtmkbgJv7VitJz/VWx7BaorA0
+         YhYxSY8gFfDTRB991QY3W6i9JZIeRLxkzisVG5yS50K1dp2ISJzxLNKPRg1315CRHXi+
+         44hg==
+X-Gm-Message-State: AOJu0Yy/13PRrs5l/A888d+FOS0kOM6eoUgUwFdWWLONO34SDQir0Xka
+	S0V70h4aLnRZT1Nap4mtyqV/qVA8KJIq
+X-Google-Smtp-Source: AGHT+IH6MZFas3E8OV1QA/3GJzKgpY4strCZZfLqI8q0uuqhszBZ2GyeA6Pot63voqr6tfOXuNTOzg==
+X-Received: by 2002:a2e:b0f5:0:b0:2cc:7156:b631 with SMTP id h21-20020a2eb0f5000000b002cc7156b631mr267175ljl.9.1704366260302;
+        Thu, 04 Jan 2024 03:04:20 -0800 (PST)
+Message-ID: <b1731dc3-96e3-4763-9bd4-978f44e3a6a9@suse.com>
+Date: Thu, 4 Jan 2024 12:04:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/34] xen: add support in public/hvm/save.h for PPC
- and RISC-V
+Subject: Re: [PATCH v3 06/34] xen: avoid generation of empty asm/iommu.h
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+Cc: Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <365d4ab4591129af3a52176d991146b2f64f944b.1703255175.git.oleksii.kurochko@gmail.com>
+ <e2a51f6197fce8f2ad636885ed231a6725d4cd8a.1703255175.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,30 +110,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <365d4ab4591129af3a52176d991146b2f64f944b.1703255175.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <e2a51f6197fce8f2ad636885ed231a6725d4cd8a.1703255175.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.12.2023 16:12, Oleksii Kurochko wrote:
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Since you change how PPC is handled, this can't go without description (i.e.
-justification).
+The change looks okay-ish, but again needs a description: You want to
+explain why you use the absolute minimum of the scopes the two (or,
+in principle, possibly more) #ifdef-s cover.
 
 Jan
 
-> --- a/xen/include/public/hvm/save.h
-> +++ b/xen/include/public/hvm/save.h
-> @@ -89,8 +89,8 @@ DECLARE_HVM_SAVE_TYPE(END, 0, struct hvm_save_end);
->  #include "../arch-x86/hvm/save.h"
->  #elif defined(__arm__) || defined(__aarch64__)
->  #include "../arch-arm/hvm/save.h"
-> -#elif defined(__powerpc64__)
-> -#include "../arch-ppc.h"
-> +#elif defined(__powerpc64__) || defined(__riscv)
-> +/* no specific header to include */
->  #else
->  #error "unsupported architecture"
+> --- a/xen/include/xen/iommu.h
+> +++ b/xen/include/xen/iommu.h
+> @@ -337,7 +337,9 @@ extern int iommu_add_extra_reserved_device_memory(unsigned long start,
+>  extern int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
+>                                                    void *ctxt);
+>  
+> +#ifdef CONFIG_HAS_PASSTHROUGH
+>  #include <asm/iommu.h>
+> +#endif
+>  
+>  #ifndef iommu_call
+>  # define iommu_call(ops, fn, args...) ((ops)->fn(args))
+> @@ -345,7 +347,9 @@ extern int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
 >  #endif
+>  
+>  struct domain_iommu {
+> +#ifdef CONFIG_HAS_PASSTHROUGH
+>      struct arch_iommu arch;
+> +#endif
+>  
+>      /* iommu_ops */
+>      const struct iommu_ops *platform_ops;
 
 
