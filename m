@@ -2,38 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B344C8243E2
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 15:35:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661825.1031555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 491508244CF
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 16:17:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661835.1031565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLOnO-0005PL-Hx; Thu, 04 Jan 2024 14:34:06 +0000
+	id 1rLPSu-0006kA-MK; Thu, 04 Jan 2024 15:17:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661825.1031555; Thu, 04 Jan 2024 14:34:06 +0000
+Received: by outflank-mailman (output) from mailman id 661835.1031565; Thu, 04 Jan 2024 15:17:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLOnO-0005MT-Er; Thu, 04 Jan 2024 14:34:06 +0000
-Received: by outflank-mailman (input) for mailman id 661825;
- Thu, 04 Jan 2024 14:34:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wSyo=IO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rLOnN-0005MJ-EY
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 14:34:05 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3451d3ff-ab0e-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 15:33:19 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-3368b1e056eso473319f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 06:33:19 -0800 (PST)
-Received: from [192.168.86.29] ([90.242.36.164])
- by smtp.gmail.com with ESMTPSA id
- n15-20020a5d400f000000b0033662fb321esm33068774wrp.33.2024.01.04.06.33.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 06:33:18 -0800 (PST)
+	id 1rLPSu-0006iN-JJ; Thu, 04 Jan 2024 15:17:00 +0000
+Received: by outflank-mailman (input) for mailman id 661835;
+ Thu, 04 Jan 2024 15:16:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=BdYS=IO=suse.cz=jack@srs-se1.protection.inumbo.net>)
+ id 1rLPSt-0006iH-8Y
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 15:16:59 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c66696b-ab14-11ee-9b0f-b553b5be7939;
+ Thu, 04 Jan 2024 16:16:56 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B3CFB21D82;
+ Thu,  4 Jan 2024 15:16:55 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 88C6E13722;
+ Thu,  4 Jan 2024 15:16:55 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id CnlcIefLlmUgTAAAD6G6ig
+ (envelope-from <jack@suse.cz>); Thu, 04 Jan 2024 15:16:55 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 21D02A07EF; Thu,  4 Jan 2024 16:16:55 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,169 +53,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3451d3ff-ab0e-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704378798; x=1704983598; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=tdLWVidecd4pqMf0ialDaWCHom88oN+zLUYeachWikY=;
-        b=c1GO43n8fyAZanMUdeS3CzUdD9KiewOHOJnpwChBWrAXiSzMG+eEkrYlxnfHzkxlQy
-         23GjjWQcBPqF6tCo5nps5At/eH0IM54sTcozxLv4JIhsAdpi6q0cGPEHKox+or4au4Cb
-         J33S5poCUDgUDAcaQMRXQK6JX0ckR+l7+3+p4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704378798; x=1704983598;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=tdLWVidecd4pqMf0ialDaWCHom88oN+zLUYeachWikY=;
-        b=bDC5qcsCeeXN5ltqqk85j1qfXV7tDYtdPp/3XfATXdlRC89W0U2CdrFtda4wb9DULy
-         ptPJKzoMTZDTdu7woIkOXG/pqZs5Ne8JcvoCC2s7aMSWiI+FYxJ8zUa3sUX4wJKstwdf
-         qOcjLPVXF8he/NDgKXccsAVBWzdwDApH44is6Ttu/ffnMV/0RgVVTW1gBJGNZbbFdnfw
-         AIxaKUsydqTOXlBYpVNCP4Bbc8nZBJ4B5Cdw0wKzsgrZ8vtmRcC5agEYDiJnSbDOeRvR
-         04P//YgDoTMLajJ0XFk4Pbcj9euWsKZZlzqucNW2/mQJmEHPkvaIAUodj0v4cq8l4Bj6
-         6IWQ==
-X-Gm-Message-State: AOJu0YylU2UI2HovJlSQWARY3fSmLdre3BFqhomqqriXwPDiv9Kv2WZj
-	XfIu1adWLoUq+fEvU0qgDeYiWjdY3l5xrw==
-X-Google-Smtp-Source: AGHT+IFYEzXB/bjpfy6TJUyBflrImP8LFKWzGO+44MEIddFFbjJsV8GngFEa1IWvzdZrSu0xk0NLQw==
-X-Received: by 2002:adf:ed8c:0:b0:336:d9ca:5c6c with SMTP id c12-20020adfed8c000000b00336d9ca5c6cmr411705wro.137.1704378798676;
-        Thu, 04 Jan 2024 06:33:18 -0800 (PST)
-Message-ID: <7d35a648-a69b-4dfb-bf4f-d30272df5e9b@citrix.com>
-Date: Thu, 4 Jan 2024 14:33:17 +0000
+X-Inumbo-ID: 4c66696b-ab14-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1704381415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FMPvsZKYHk+D5kb1N2CM5rR4TjKGNh05qKhD/IuVB8c=;
+	b=mHk6v/mPh0nrF36XeRd9n1G+3dVH07YiQx9gWm/SG7NmXFbckEmPHT+psVuS+Q55O5Ewmm
+	fzZp736IzVr5FNkauue7PYolsCdGhN9oZfdxiUjjwUo5SvRhYKG4JdOSw0VhUWvKC+wi2H
+	9fs2A0RPq42k8lt/8HUXEBH2gHBffpc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1704381415;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FMPvsZKYHk+D5kb1N2CM5rR4TjKGNh05qKhD/IuVB8c=;
+	b=6J4uw5uqBb70vbWXOXdU9583F4KrmBOAGYenVBa6jTwgLx70IbxaS5CKgObceVLtg+Uuvf
+	BlSynn3hFCWD0KCQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1704381415; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FMPvsZKYHk+D5kb1N2CM5rR4TjKGNh05qKhD/IuVB8c=;
+	b=mHk6v/mPh0nrF36XeRd9n1G+3dVH07YiQx9gWm/SG7NmXFbckEmPHT+psVuS+Q55O5Ewmm
+	fzZp736IzVr5FNkauue7PYolsCdGhN9oZfdxiUjjwUo5SvRhYKG4JdOSw0VhUWvKC+wi2H
+	9fs2A0RPq42k8lt/8HUXEBH2gHBffpc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1704381415;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FMPvsZKYHk+D5kb1N2CM5rR4TjKGNh05qKhD/IuVB8c=;
+	b=6J4uw5uqBb70vbWXOXdU9583F4KrmBOAGYenVBa6jTwgLx70IbxaS5CKgObceVLtg+Uuvf
+	BlSynn3hFCWD0KCQ==
+Date: Thu, 4 Jan 2024 16:16:55 +0100
+From: Jan Kara <jack@suse.cz>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: Jan Kara <jack@suse.cz>, axboe@kernel.dk, roger.pau@citrix.com,
+	colyli@suse.de, kent.overstreet@gmail.com, joern@lazybastard.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
+	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
+	dsterba@suse.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	nico@fluxnic.net, xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
+	adilger.kernel@dilger.ca, jack@suse.com, konishi.ryusuke@gmail.com,
+	willy@infradead.org, akpm@linux-foundation.org, hare@suse.de,
+	p.raghav@samsung.com, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-bcachefs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org, linux-nilfs@vger.kernel.org,
+	yi.zhang@huawei.com, yangerkun@huawei.com,
+	"yukuai (C)" <yukuai3@huawei.com>
+Subject: Re: [PATCH RFC v3 for-6.8/block 02/17] xen/blkback: use bdev api in
+ xen_update_blkif_status()
+Message-ID: <20240104151655.oiqtn6onge2etlcn@quack3>
+References: <20231221085712.1766333-1-yukuai1@huaweicloud.com>
+ <20231221085712.1766333-3-yukuai1@huaweicloud.com>
+ <20240104110631.3vspsvxbbvcpdqdu@quack3>
+ <29bfcfc7-62b0-3876-78ce-f7ebe3506eb6@huaweicloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Use -Wuninitialized and -Winit-self
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>,
- Roberto Bagnara <roberto.bagnara@bugseng.com>,
- "consulting@bugseng.com" <consulting@bugseng.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20231228193907.3052681-1-andrew.cooper3@citrix.com>
- <1248487f-4852-41f5-9ffd-d4d12897a622@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <1248487f-4852-41f5-9ffd-d4d12897a622@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <29bfcfc7-62b0-3876-78ce-f7ebe3506eb6@huaweicloud.com>
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Score: 1.90
+X-Spam-Level: *
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [1.90 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 URIBL_BLOCKED(0.00)[suse.com:email,huawei.com:email];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 R_RATELIMIT(0.00)[to_ip_from(RLdan9jouj5dxnqx1npfmn4ucx)];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 RCPT_COUNT_TWELVE(0.00)[49];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,huawei.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 FREEMAIL_CC(0.00)[suse.cz,kernel.dk,citrix.com,suse.de,gmail.com,lazybastard.org,bootlin.com,nod.at,ti.com,linux.ibm.com,oracle.com,fb.com,toxicpanda.com,suse.com,zeniv.linux.org.uk,kernel.org,fluxnic.net,mit.edu,dilger.ca,infradead.org,linux-foundation.org,samsung.com,vger.kernel.org,lists.xenproject.org,lists.infradead.org,lists.ozlabs.org,huawei.com];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[]
 
-On 04/01/2024 1:41 pm, Jan Beulich wrote:
-> On 28.12.2023 20:39, Andrew Cooper wrote:
->> The use of uninitialised data is undefined behaviour.  At -O2 with trivial
->> examples, both Clang and GCC delete the variable, and in the case of a
->> function return, the caller gets whatever was stale in %rax prior to the call.
->>
->> Clang includes -Wuninitialized within -Wall, but GCC only includes it in
->> -Wextra, which is not used by Xen at this time.
->>
->> Furthermore, the specific pattern of assigning a variable to itself in its
->> declaration is only diagnosed by GCC with -Winit-self.  Clang does diagnoise
->> simple forms of this pattern with a plain -Wuninitialized, but it fails to
->> diagnose the instances in Xen that GCC manages to find.
->>
->> GCC, with -Wuninitialized and -Winit-self notices:
->>
->>   arch/x86/time.c: In function ‘read_pt_and_tsc’:
->>   arch/x86/time.c:297:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
->>     297 |     uint32_t best = best;
->>         |              ^~~~
->>   arch/x86/time.c: In function ‘read_pt_and_tmcct’:
->>   arch/x86/time.c:1022:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
->>    1022 |     uint64_t best = best;
->>         |              ^~~~
->>
->> and both have logic paths where best can be returned while uninitalised.
-> I disagree. In both cases the variables are reliably set during the first
-> loop iteration.
+Hi Kuai!
 
-I suggest you pay attention to the precision of the integers.
+On Thu 04-01-24 20:19:05, Yu Kuai wrote:
+> 在 2024/01/04 19:06, Jan Kara 写道:
+> > On Thu 21-12-23 16:56:57, Yu Kuai wrote:
+> > > From: Yu Kuai <yukuai3@huawei.com>
+> > > 
+> > > Avoid to access bd_inode directly, prepare to remove bd_inode from
+> > > block_devcie.
+> > > 
+> > > Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+> > > ---
+> > >   drivers/block/xen-blkback/xenbus.c | 3 +--
+> > >   1 file changed, 1 insertion(+), 2 deletions(-)
+> > > 
+> > > diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
+> > > index e34219ea2b05..e645afa4af57 100644
+> > > --- a/drivers/block/xen-blkback/xenbus.c
+> > > +++ b/drivers/block/xen-blkback/xenbus.c
+> > > @@ -104,8 +104,7 @@ static void xen_update_blkif_status(struct xen_blkif *blkif)
+> > >   		xenbus_dev_error(blkif->be->dev, err, "block flush");
+> > >   		return;
+> > >   	}
+> > > -	invalidate_inode_pages2(
+> > > -			blkif->vbd.bdev_handle->bdev->bd_inode->i_mapping);
+> > > +	invalidate_bdev(blkif->vbd.bdev_handle->bdev);
+> > 
+> > This function uses invalidate_inode_pages2() while invalidate_bdev() ends
+> > up using mapping_try_invalidate() and there are subtle behavioral
+> > differences between these two (for example invalidate_inode_pages2() tries
+> > to clean dirty pages using the ->launder_folio method). So I think you'll
+> > need helper like invalidate_bdev2() for this.
+> 
+> Thanks for reviewing this patch, I know the differenct between then,
+> what I don't understand is that why using invalidate_inode_pages2()
+> here.
 
-It is hard (likely prohibitively hard) to avoid entering the if(), but
-it is not impossible.
+Well, then the change in behavior should be at least noted in the
+changelog.
 
-The compiler really has emitted logic paths where stack rubble is returned.
+> sync_blockdev() is just called and 0 is returned, I think in this
+> case it's safe to call invalidate_bdev() directly, or am I missing
+> other things?
 
-> Furthermore this initialize-to-self is a well known pattern to suppress the
-> -Wuninitialized induced warnings, originally used by Linux'es
-> uninitialized_var().
+I still think there's a difference. invalidate_inode_pages2() also unmaps
+memory mappings which mapping_try_invalidate() does not do. That being said
+in xen_update_blkif_status() we seem to be bringing up a virtual block
+device so before this function is called, anybody would have hard time
+using anything in it. But this definitely needs a confirmation from Xen
+maintainers and a good documentation of the behavioral change in the
+changelog.
 
-I'm glad you cited this, because it proves my point.
-
-Notice how it was purged from Linux slowly over the course of 8 years
-because it had been shown to create real bugs, by hiding real uses of
-uninitialised variables.
-
-I'm honestly surprised that it hasn't come up yet in the MISRA work.
-
->  If we really want to use -Winit-self (and hence disallow
-> use of this pattern even in cases like the ones here, where they're used to
-> suppress false positive warnings), this should imo be done separately from
-> adding -Wuninitialized, and only after proper weighing of the pros and cons
-> (a wider Cc list would be required anyway for the xen/Makefile change).
-
-There are exactly two uses of this antipattern in the entirety of Xen. 
-They are both in x86 init code.
-
-Do you honestly think trying to block a patch this clear and obvious is
-going to be a good use of anyone's time.
-
->
->>  In
->> both cases, initialise to ~0 like the associated *_min variable which also
->> gates updating best.
-> Considering the affected functions are both __init, this change isn't a big
-> problem. But if you were truly concerned of the one theoretical case, you
-> can't get away with this either: If the variables really remained unwritten,
-> by returning ~0 you'd end up confusing the caller.
-
-The fact this is a crap API design doesn't make it ok to use undefined
-behaviour.
-
-Getting ~0 back is strictly less bad than getting stack rubble because
-at least it's obviously wrong.
-
-~Andrew
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
