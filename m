@@ -2,38 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFF02824030
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:04:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661499.1031210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F9B1824047
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 12:06:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661506.1031220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLWR-0008DO-Ha; Thu, 04 Jan 2024 11:04:23 +0000
+	id 1rLLYa-0000hx-TP; Thu, 04 Jan 2024 11:06:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661499.1031210; Thu, 04 Jan 2024 11:04:23 +0000
+Received: by outflank-mailman (output) from mailman id 661506.1031220; Thu, 04 Jan 2024 11:06:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLLWR-0008Au-E1; Thu, 04 Jan 2024 11:04:23 +0000
-Received: by outflank-mailman (input) for mailman id 661499;
- Thu, 04 Jan 2024 11:04:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rLLYa-0000ex-Pf; Thu, 04 Jan 2024 11:06:36 +0000
+Received: by outflank-mailman (input) for mailman id 661506;
+ Thu, 04 Jan 2024 11:06:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0by4=IO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rLLWP-0008Am-Kx
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:04:21 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 02cfe1ba-aaf1-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 12:04:20 +0100 (CET)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2cd20d9d483so4325491fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 03:04:20 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w21-20020a029695000000b0046df10baf97sm235185jai.36.2024.01.04.03.04.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 03:04:19 -0800 (PST)
+ (envelope-from <SRS0=BdYS=IO=suse.cz=jack@srs-se1.protection.inumbo.net>)
+ id 1rLLYZ-0000eg-3Y
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 11:06:35 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 516cd70b-aaf1-11ee-9b0f-b553b5be7939;
+ Thu, 04 Jan 2024 12:06:32 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B485A21DCD;
+ Thu,  4 Jan 2024 11:06:31 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A20CE13722;
+ Thu,  4 Jan 2024 11:06:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 8zOOJzeRlmXyfQAAD6G6ig
+ (envelope-from <jack@suse.cz>); Thu, 04 Jan 2024 11:06:31 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 3DC50A07EF; Thu,  4 Jan 2024 12:06:31 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,105 +54,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02cfe1ba-aaf1-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704366260; x=1704971060; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AGh4cn3QHmlAtXNzq7jjH9bBqsLN1Fv+teEIf7raKkQ=;
-        b=ClP3a6VvA2e4NYyy8oMG5nzefH5jI43AZFUXpCmEJBx6E4Co1nFyrfgSBh1qd8OJSX
-         57p4MRIIeQgYrMq6JMgZrp6QSrCk63HA7pldRR5H4QWyOwQUlIIjzwQFmHmSneLevVZ2
-         aTJthJixPGdj7LfZL2/QvyzEEIrEikyZ+3d23L/7oy8EYqdYyU8yq/SLYQDFTqxGeTnt
-         7dTTMjP3R0ZnqPfi94NWg8iWi0QzqMIs6AWVRsaRVXbuHwbD57u3vQT2Fl97uDfeaNXj
-         bsKDCkwSGed+IC58eMXAEx+cJLJFSmjpLSnCBfnUQx0duZyJBUyCJwadyBVRDFEy83xK
-         +U8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704366260; x=1704971060;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=AGh4cn3QHmlAtXNzq7jjH9bBqsLN1Fv+teEIf7raKkQ=;
-        b=eGmsZY1zG3qMVVfkZjjzUutOYoLkEUALOL2lq8iXhJsG86t6yrG0Mb3woiLfRNNwpJ
-         NyUnqQqYLCdrdt/YA49HDP+C6vD2Ce2jrci9oXH/Eoc/HSsOyxLvDFT5vgghaEKgPuoB
-         0nyLTsIdsHxhoQy+PC2Cf8BtixNtiBTppk2W0zeN3Mdvzf/xuWe17Fao25jMUx5VeI1I
-         VVs0nxVpI5Mu1VKWBLC1lEEWAGgCHGECaw9M+l0zyERZtmkbgJv7VitJz/VWx7BaorA0
-         YhYxSY8gFfDTRB991QY3W6i9JZIeRLxkzisVG5yS50K1dp2ISJzxLNKPRg1315CRHXi+
-         44hg==
-X-Gm-Message-State: AOJu0Yy/13PRrs5l/A888d+FOS0kOM6eoUgUwFdWWLONO34SDQir0Xka
-	S0V70h4aLnRZT1Nap4mtyqV/qVA8KJIq
-X-Google-Smtp-Source: AGHT+IH6MZFas3E8OV1QA/3GJzKgpY4strCZZfLqI8q0uuqhszBZ2GyeA6Pot63voqr6tfOXuNTOzg==
-X-Received: by 2002:a2e:b0f5:0:b0:2cc:7156:b631 with SMTP id h21-20020a2eb0f5000000b002cc7156b631mr267175ljl.9.1704366260302;
-        Thu, 04 Jan 2024 03:04:20 -0800 (PST)
-Message-ID: <b1731dc3-96e3-4763-9bd4-978f44e3a6a9@suse.com>
-Date: Thu, 4 Jan 2024 12:04:28 +0100
+X-Inumbo-ID: 516cd70b-aaf1-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1704366391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=z1IF2wF6kwKN1+MUgbe4SPYXy6b3fZ2jaH8f6LqUCAU=;
+	b=ed15D+gFpwqrClSMscoZXuYlaFPD5SRis5efpvHvwOFtmLvhKDT31k32lM3uAx1eRSCBKC
+	hGWnOxrPK5+SF+IRzKDbnKvvUPebbuYgLoeLF6ITUFuGcKaIsQsfKLkUxjC5o8/NojVblh
+	G6DHXJd4vsjP8BrQ30igQ2HAR83E4MQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1704366391;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=z1IF2wF6kwKN1+MUgbe4SPYXy6b3fZ2jaH8f6LqUCAU=;
+	b=d34IMjGxeazCejiFudncTLHw7CMgLsIjxWQRRZJ2xAsFnDqQbVIvRRVRb/OJinOkDWu2zI
+	4PZWPGF65Myy4bAA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1704366391; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=z1IF2wF6kwKN1+MUgbe4SPYXy6b3fZ2jaH8f6LqUCAU=;
+	b=ed15D+gFpwqrClSMscoZXuYlaFPD5SRis5efpvHvwOFtmLvhKDT31k32lM3uAx1eRSCBKC
+	hGWnOxrPK5+SF+IRzKDbnKvvUPebbuYgLoeLF6ITUFuGcKaIsQsfKLkUxjC5o8/NojVblh
+	G6DHXJd4vsjP8BrQ30igQ2HAR83E4MQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1704366391;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=z1IF2wF6kwKN1+MUgbe4SPYXy6b3fZ2jaH8f6LqUCAU=;
+	b=d34IMjGxeazCejiFudncTLHw7CMgLsIjxWQRRZJ2xAsFnDqQbVIvRRVRb/OJinOkDWu2zI
+	4PZWPGF65Myy4bAA==
+Date: Thu, 4 Jan 2024 12:06:31 +0100
+From: Jan Kara <jack@suse.cz>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+Cc: axboe@kernel.dk, roger.pau@citrix.com, colyli@suse.de,
+	kent.overstreet@gmail.com, joern@lazybastard.org,
+	miquel.raynal@bootlin.com, richard@nod.at, vigneshr@ti.com,
+	sth@linux.ibm.com, hoeppner@linux.ibm.com, hca@linux.ibm.com,
+	gor@linux.ibm.com, agordeev@linux.ibm.com, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, clm@fb.com, josef@toxicpanda.com,
+	dsterba@suse.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	nico@fluxnic.net, xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
+	adilger.kernel@dilger.ca, jack@suse.com, konishi.ryusuke@gmail.com,
+	willy@infradead.org, akpm@linux-foundation.org, hare@suse.de,
+	p.raghav@samsung.com, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-bcache@vger.kernel.org, linux-mtd@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+	linux-bcachefs@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org, linux-nilfs@vger.kernel.org,
+	yukuai3@huawei.com, yi.zhang@huawei.com, yangerkun@huawei.com
+Subject: Re: [PATCH RFC v3 for-6.8/block 02/17] xen/blkback: use bdev api in
+ xen_update_blkif_status()
+Message-ID: <20240104110631.3vspsvxbbvcpdqdu@quack3>
+References: <20231221085712.1766333-1-yukuai1@huaweicloud.com>
+ <20231221085712.1766333-3-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/34] xen: avoid generation of empty asm/iommu.h
-Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <e2a51f6197fce8f2ad636885ed231a6725d4cd8a.1703255175.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e2a51f6197fce8f2ad636885ed231a6725d4cd8a.1703255175.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20231221085712.1766333-3-yukuai1@huaweicloud.com>
+X-Spam-Level: **
+X-Spam-Level: 
+X-Spamd-Bar: /
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ed15D+gF;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=d34IMjGx
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [0.50 / 50.00];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 BAYES_SPAM(0.01)[44.94%];
+	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	 TO_DN_SOME(0.00)[];
+	 R_RATELIMIT(0.00)[to_ip_from(RLhr85cyeg3mfw7iggddtjdkgs)];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_TRACE(0.00)[suse.cz:+];
+	 MX_GOOD(-0.01)[];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 ARC_NA(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 FROM_HAS_DN(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 TAGGED_RCPT(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	 RCPT_COUNT_TWELVE(0.00)[48];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 MID_RHS_NOT_FQDN(0.50)[];
+	 FREEMAIL_CC(0.00)[kernel.dk,citrix.com,suse.de,gmail.com,lazybastard.org,bootlin.com,nod.at,ti.com,linux.ibm.com,oracle.com,fb.com,toxicpanda.com,suse.com,zeniv.linux.org.uk,kernel.org,fluxnic.net,mit.edu,dilger.ca,infradead.org,linux-foundation.org,samsung.com,vger.kernel.org,lists.xenproject.org,lists.infradead.org,lists.ozlabs.org,huawei.com];
+	 RCVD_TLS_ALL(0.00)[];
+	 SUSPICIOUS_RECIPS(1.50)[]
+X-Spam-Score: 0.50
+X-Rspamd-Queue-Id: B485A21DCD
+X-Spam-Flag: NO
 
-On 22.12.2023 16:12, Oleksii Kurochko wrote:
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On Thu 21-12-23 16:56:57, Yu Kuai wrote:
+> From: Yu Kuai <yukuai3@huawei.com>
+> 
+> Avoid to access bd_inode directly, prepare to remove bd_inode from
+> block_devcie.
+> 
+> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+> ---
+>  drivers/block/xen-blkback/xenbus.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
+> index e34219ea2b05..e645afa4af57 100644
+> --- a/drivers/block/xen-blkback/xenbus.c
+> +++ b/drivers/block/xen-blkback/xenbus.c
+> @@ -104,8 +104,7 @@ static void xen_update_blkif_status(struct xen_blkif *blkif)
+>  		xenbus_dev_error(blkif->be->dev, err, "block flush");
+>  		return;
+>  	}
+> -	invalidate_inode_pages2(
+> -			blkif->vbd.bdev_handle->bdev->bd_inode->i_mapping);
+> +	invalidate_bdev(blkif->vbd.bdev_handle->bdev);
 
-The change looks okay-ish, but again needs a description: You want to
-explain why you use the absolute minimum of the scopes the two (or,
-in principle, possibly more) #ifdef-s cover.
+This function uses invalidate_inode_pages2() while invalidate_bdev() ends
+up using mapping_try_invalidate() and there are subtle behavioral
+differences between these two (for example invalidate_inode_pages2() tries
+to clean dirty pages using the ->launder_folio method). So I think you'll
+need helper like invalidate_bdev2() for this.
 
-Jan
-
-> --- a/xen/include/xen/iommu.h
-> +++ b/xen/include/xen/iommu.h
-> @@ -337,7 +337,9 @@ extern int iommu_add_extra_reserved_device_memory(unsigned long start,
->  extern int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
->                                                    void *ctxt);
->  
-> +#ifdef CONFIG_HAS_PASSTHROUGH
->  #include <asm/iommu.h>
-> +#endif
->  
->  #ifndef iommu_call
->  # define iommu_call(ops, fn, args...) ((ops)->fn(args))
-> @@ -345,7 +347,9 @@ extern int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
->  #endif
->  
->  struct domain_iommu {
-> +#ifdef CONFIG_HAS_PASSTHROUGH
->      struct arch_iommu arch;
-> +#endif
->  
->      /* iommu_ops */
->      const struct iommu_ops *platform_ops;
-
+								Honza
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
 
