@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1F75823DF4
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 09:55:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661116.1030804 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA78C823E0E
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 10:01:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661121.1030813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLJUg-00061X-Jv; Thu, 04 Jan 2024 08:54:26 +0000
+	id 1rLJb7-0007bf-AD; Thu, 04 Jan 2024 09:01:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661116.1030804; Thu, 04 Jan 2024 08:54:26 +0000
+Received: by outflank-mailman (output) from mailman id 661121.1030813; Thu, 04 Jan 2024 09:01:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLJUg-0005zH-HA; Thu, 04 Jan 2024 08:54:26 +0000
-Received: by outflank-mailman (input) for mailman id 661116;
- Thu, 04 Jan 2024 08:54:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rLJb7-0007Zs-7c; Thu, 04 Jan 2024 09:01:05 +0000
+Received: by outflank-mailman (input) for mailman id 661121;
+ Thu, 04 Jan 2024 09:01:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0by4=IO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rLJUe-0005zA-S1
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 08:54:24 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id db3de34a-aade-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 09:54:23 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2cd0d05838fso3108071fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 00:54:23 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bg11-20020a056e02310b00b0035faf00c555sm8980889ilb.31.2024.01.04.00.54.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 00:54:22 -0800 (PST)
+ (envelope-from <SRS0=4u2H=IO=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rLJb5-0007Zm-5J
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 09:01:03 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de
+ [2a07:de40:b251:101:10:150:64:1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c7e0e578-aadf-11ee-9b0f-b553b5be7939;
+ Thu, 04 Jan 2024 10:01:01 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A2A5A21EE1;
+ Thu,  4 Jan 2024 09:00:59 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 676FF13722;
+ Thu,  4 Jan 2024 09:00:59 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id M8nwF8tzlmVwWAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 04 Jan 2024 09:00:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,165 +52,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db3de34a-aade-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704358463; x=1704963263; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=1eqeZzEvc5/VJZVlCnrJsCnmNWfBylCL5wi1ctFiICk=;
-        b=I4UpuZby4L0Ol3y5fichf4LN+KsSv4lAD1QDIC7lG2+Kv3VUcC2xDADg+EO9QjskRJ
-         6b6pDwhzCTZ7S56w7tdXACmEOGPFph+xRAc6JKncHxpWhpjVkZNMHBLRrZYqMVbwlGOO
-         rhS7BA6CL7vdvoYS35jF8FRFr+T2rdvv2Q52b62+fwwYeiAxbm9ZeOftlNFMGB+8WrLj
-         vgX22Id2UYodv8PqLjFJJZ6hfqD69tJ5/vYIM7W5ENkNlRW7APfuLF71X8+nJvAd2SZT
-         vJs4Qfa1+0/dJiYq80IIfV+m31/QzgoLKGL4fBDdI5JCFcjY7rbwWZ6HRN2wc4/N4gAm
-         pfuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704358463; x=1704963263;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1eqeZzEvc5/VJZVlCnrJsCnmNWfBylCL5wi1ctFiICk=;
-        b=VgIyYL6e8ntGKZ0tshc8c4yKZwTvCOyGsF5woNIbkYm5PefHaJh0rv+LE66yUsx9bL
-         CBjLpT4gHVvnXjpYLte4C9TaqW/1nq0Pt2LqFYtnhJsEGskVITH2GTPV2fo52ieT5n8J
-         vPfKH3EU/0eZ8mQaXAYIYSW0R0aqoUXS7861228vXhSa/6ZKCVzI3vhfpJwi/e79Q627
-         ANblnVhVLmLADHrvderOL/KzysPyto00c66tejmj2kLJciYanxIiPmXZad1BjJUAkyKT
-         AKhZJjXvZ7a+g30rZ/1AHeE9qrUnRkh26JuUIGUvGFPnXfM9Zgp6bVZfjETIRzWKEPfE
-         DFwA==
-X-Gm-Message-State: AOJu0Ywvqkd7qRk62oKq83eH8FnkNLlAWGpvQn47CB9q9DQlYaPfGUtC
-	wpUNK3gpf24k5KvMU+Sv6vl4+xacsNyv
-X-Google-Smtp-Source: AGHT+IFycV3qyEiC6pmNePQERjtxcUwQvvitgBlmsNTDdB8+wmoRlF/dBa2fzoLWYtKFzezQkJ+qWw==
-X-Received: by 2002:a05:651c:1a06:b0:2cc:769e:723d with SMTP id by6-20020a05651c1a0600b002cc769e723dmr201118ljb.87.1704358462874;
-        Thu, 04 Jan 2024 00:54:22 -0800 (PST)
-Message-ID: <3a0b6d8a-d9f3-41d0-9acc-e84b5d9d3e33@suse.com>
-Date: Thu, 4 Jan 2024 09:54:30 +0100
+X-Inumbo-ID: c7e0e578-aadf-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1704358859; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=tDJDwV+ksS3RcAqm58GYLupDCL+N1fVsF7xQ9JzawIY=;
+	b=oN/uwXM9xTVeWz4AiYt+Hjn3kHdi4fD3EMr2tRh2J9WzrmrHZjZlmGeEK8jclRHAuIvX5S
+	tB0D8cvteBAz9dtsacnpzgX9IhXlmovezZeA3sF1HJZ+dNCBAmI/vkBIhAQyjx46vnmkrl
+	OcL91DjbyJ0RAR9NhFCQDqfj0qidFxA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1704358859; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=tDJDwV+ksS3RcAqm58GYLupDCL+N1fVsF7xQ9JzawIY=;
+	b=oN/uwXM9xTVeWz4AiYt+Hjn3kHdi4fD3EMr2tRh2J9WzrmrHZjZlmGeEK8jclRHAuIvX5S
+	tB0D8cvteBAz9dtsacnpzgX9IhXlmovezZeA3sF1HJZ+dNCBAmI/vkBIhAQyjx46vnmkrl
+	OcL91DjbyJ0RAR9NhFCQDqfj0qidFxA=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Nick Rosbrook <rosbrookn@gmail.com>,
+	Julien Grall <julien@xen.org>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>
+Subject: [PATCH v3 00/33] tools: enable xenstore-stubdom to use 9pfs
+Date: Thu,  4 Jan 2024 10:00:22 +0100
+Message-Id: <20240104090055.27323-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen/x86: io_apic: Introduce a command line option
- to skip timer check
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20231211122322.15815-1-julien@xen.org>
- <20231211122322.15815-2-julien@xen.org>
- <b17bb7d1-1206-4ad1-96b1-7b903a740c83@suse.com>
- <8b8a62a0-f854-405e-b256-5eee4bfdcb6c@xen.org>
- <b74f1f28-58da-4604-a7ef-370aeb0522ce@suse.com>
- <d0daf858-eda8-4b2a-9cfe-82fff834df8f@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d0daf858-eda8-4b2a-9cfe-82fff834df8f@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Spam-Score: 1.90
+X-Spamd-Result: default: False [1.90 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 R_MISSING_CHARSET(2.50)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 BROKEN_CONTENT_TYPE(1.50)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 RCPT_COUNT_SEVEN(0.00)[8];
+	 MID_CONTAINS_FROM(1.00)[];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 FREEMAIL_CC(0.00)[suse.com,xen.org,citrix.com,gmail.com,ens-lyon.org];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%]
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: *
+X-Spam-Flag: NO
 
-On 02.01.2024 20:09, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 14/12/2023 10:35, Jan Beulich wrote:
->> On 14.12.2023 11:14, Julien Grall wrote:
->>> On 14/12/2023 10:10, Jan Beulich wrote:
->>>> On 11.12.2023 13:23, Julien Grall wrote:
->>>>> --- a/xen/arch/x86/io_apic.c
->>>>> +++ b/xen/arch/x86/io_apic.c
->>>>> @@ -57,6 +57,14 @@ bool __initdata ioapic_ack_forced;
->>>>>    int __read_mostly nr_ioapic_entries[MAX_IO_APICS];
->>>>>    int __read_mostly nr_ioapics;
->>>>>    
->>>>> +/*
->>>>> + * The logic to check if the timer is working is expensive. So allow
->>>>> + * the admin to bypass it if they know their platform doesn't have
->>>>> + * a buggy timer.
->>>>> + */
->>>>> +static bool __initdata pit_irq_works;
->>>>> +boolean_param("pit-irq-works", pit_irq_works);
->>>>> +
->>>>>    /*
->>>>>     * Rough estimation of how many shared IRQs there are, can
->>>>>     * be changed anytime.
->>>>> @@ -1502,6 +1510,9 @@ static int __init timer_irq_works(void)
->>>>>    {
->>>>>        unsigned long t1, flags;
->>>>>    
->>>>> +    if ( pit_irq_works )
->>>>> +        return 1;
->>>>
->>>> When the check is placed here, what exactly use of the option means is
->>>> system dependent. I consider this somewhat risky, so I'd prefer if the
->>>> check was put on the "normal" path in check_timer(). That way it'll
->>>> affect only the one case which we can generally consider "known good",
->>>> but not the cases where the virtual wire setups are being probed. I.e.
-> 
-> By "known good", do you mean the following:
-> 
-> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-> index c89fbed8d675..c39d39ee951a 100644
-> --- a/xen/arch/x86/io_apic.c
-> +++ b/xen/arch/x86/io_apic.c
-> @@ -1960,7 +1959,8 @@ static void __init check_timer(void)
->            * Ok, does IRQ0 through the IOAPIC work?
->            */
->           unmask_IO_APIC_irq(irq_to_desc(0));
-> -        if (timer_irq_works()) {
-> +        if (pit_irq_works || timer_irq_works()) {
-> +            printk("====== pirq_irq_works %d =====\n", pit_irq_works);
->               local_irq_restore(flags);
->               return;
->           }
+This series is adding 9pfs support to Xenstore-stubdom, enabling it
+to do logging to a dom0 directory.
 
-Yes.
+This is a prerequisite for the final goal to add live update support
+to Xenstore-stubdom, as it enables the stubdom to store its state in
+a dom0 file.
 
->>> I am not against restricting when we allow skipping the timer check. But
->>> in that case, I wonder why Linux is doing it differently?
->>
->> Sadly Linux'es git history doesn't go back far enough (begins only at past
->> 2.6.11), so I can't (easily) find the patch (and description) for the x86-64
->> change. The later i386 change is justified mainly by paravirt needs, so
->> isn't applicable here. I wouldn't therefore exclude that my point above
->> wasn't even taken into consideration. Furthermore their command line option
->> is "no_timer_check", which to me firmly says "don't check" without regard to
->> whether the source (PIT) is actually okay. That's different with the option
->> name you (imo validly) chose.
-> 
-> Just to note that the name was suggested by Roger. I have to admit that 
-> I didn't check if this made sense for the existing placement.
+The 9pfs backend is a new daemon written from scratch. Using a
+dedicated 9pfs daemon has several advantages:
 
-Roger, thoughts?
+- it is using much less resources than a full blown qemu process
+- it can serve multiple guests (the idea is to use it for other
+  infrastructure domains, like qemu-stubdom or driver domains, too)
+- it is designed to support several security enhancements, like
+  limiting the number of files for a guest, or limiting the allocated
+  file system space
+- it doesn't support file links (neither hard nor soft links) or
+  referencing parent directories via "..", minimizing the risk that
+  a guest can "escape" from its home directory
 
-Jan
+Note that for now the daemon only contains the minimal needed
+functionality to do logging from Xenstore-stubdom. I didn't want to
+add all the 9pfs commands and security add-ons in the beginning, in
+order to avoid needless efforts in case the idea of the daemon is
+being rejected.
 
-> Anyway, I tested the change on the HW where I wanted to skip the timer 
-> check. And I can confirm this is still skipping the timer check.
-> 
-> So I will send a new version with the diff above and some updated comments.
-> 
-> Cheers,
-> 
+Changes in V3:
+- new patches 1, 23-25
+- addressed review comments
+
+Changes in V2:
+- support of multiple rings per device
+- xenlogd->xen-9pfsd rename
+- addressed review comments
+- fixed some bugs
+
+Juergen Gross (33):
+  tools: add access macros for unaligned data
+  xen/public: add some more 9pfs xenstore paths
+  tools: add a new xen logging daemon
+  tools/xenlogd: connect to frontend
+  tools/xenlogd: add transport layer
+  tools/xenlogd: add 9pfs response generation support
+  tools/xenlogd: add 9pfs version request support
+  tools/xenlogd: add 9pfs attach request support
+  tools/xenlogd: add 9pfs walk request support
+  tools/xenlogd: add 9pfs open request support
+  tools/xenlogd: add 9pfs clunk request support
+  tools/xenlogd: add 9pfs create request support
+  tools/xenlogd: add 9pfs stat request support
+  tools/xenlogd: add 9pfs write request support
+  tools/xenlogd: add 9pfs read request support
+  tools/libs/light: add backend type for 9pfs PV devices
+  tools/xl: support new 9pfs backend xen-9pfsd
+  tools/helpers: allocate xenstore event channel for xenstore stubdom
+  tools/xenstored: rename xenbus_evtchn()
+  stubdom: extend xenstore stubdom configs
+  tools: add 9pfs device to xenstore-stubdom
+  tools/xenstored: add early_init() function
+  tools/xenstored: move systemd handling to posix.c
+  tools/xenstored: move all log-pipe handling into posix.c
+  tools/xenstored: move all socket handling into posix.c
+  tools/xenstored: get own domid in stubdom case
+  tools/xenstored: rework ring page (un)map functions
+  tools/xenstored: split domain_init()
+  tools/xenstored: map stubdom interface
+  tools/xenstored: mount 9pfs device in stubdom
+  tools/xenstored: add helpers for filename handling
+  tools/xenstored: support complete log capabilities in stubdom
+  tools/xenstored: have a single do_control_memreport()
+
+ docs/man/xl.cfg.5.pod.in                      |   36 +-
+ stubdom/xenstore-minios.cfg                   |    2 +-
+ stubdom/xenstorepvh-minios.cfg                |    2 +-
+ tools/Makefile                                |    1 +
+ tools/golang/xenlight/helpers.gen.go          |   10 +
+ tools/golang/xenlight/types.gen.go            |   12 +
+ tools/helpers/init-xenstore-domain.c          |    9 +
+ .../Linux/init.d/sysconfig.xencommons.in      |    1 -
+ tools/hotplug/Linux/launch-xenstore.in        |    1 +
+ tools/include/libxl.h                         |   17 +
+ tools/include/xen-tools/common-macros.h       |   17 +
+ tools/libs/light/libxl_9pfs.c                 |  174 +-
+ tools/libs/light/libxl_create.c               |    4 +-
+ tools/libs/light/libxl_dm.c                   |    2 +-
+ tools/libs/light/libxl_types.idl              |   11 +
+ tools/libs/light/libxl_types_internal.idl     |    1 +
+ tools/xen-9pfsd/.gitignore                    |    1 +
+ tools/xen-9pfsd/Makefile                      |   38 +
+ tools/xen-9pfsd/io.c                          | 1467 +++++++++++++++++
+ tools/xen-9pfsd/xen-9pfsd.c                   |  798 +++++++++
+ tools/xen-9pfsd/xen-9pfsd.h                   |   99 ++
+ tools/xenstored/Makefile.common               |    4 -
+ tools/xenstored/control.c                     |   29 +-
+ tools/xenstored/core.c                        |  250 +--
+ tools/xenstored/core.h                        |   35 +-
+ tools/xenstored/domain.c                      |   81 +-
+ tools/xenstored/domain.h                      |    2 +
+ tools/xenstored/lu_daemon.c                   |    4 +-
+ tools/xenstored/minios.c                      |   93 +-
+ tools/xenstored/posix.c                       |  251 ++-
+ tools/xl/xl_parse.c                           |   36 +
+ xen/include/public/io/9pfs.h                  |   34 +
+ 32 files changed, 3197 insertions(+), 325 deletions(-)
+ create mode 100644 tools/xen-9pfsd/.gitignore
+ create mode 100644 tools/xen-9pfsd/Makefile
+ create mode 100644 tools/xen-9pfsd/io.c
+ create mode 100644 tools/xen-9pfsd/xen-9pfsd.c
+ create mode 100644 tools/xen-9pfsd/xen-9pfsd.h
+
+-- 
+2.35.3
 
 
