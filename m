@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B4C78242CA
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 14:41:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.661811.1031535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56B87824327
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Jan 2024 14:57:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.661820.1031544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLNyR-0005YZ-FR; Thu, 04 Jan 2024 13:41:27 +0000
+	id 1rLODJ-0002RA-Nx; Thu, 04 Jan 2024 13:56:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 661811.1031535; Thu, 04 Jan 2024 13:41:27 +0000
+Received: by outflank-mailman (output) from mailman id 661820.1031544; Thu, 04 Jan 2024 13:56:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLNyR-0005Ve-CC; Thu, 04 Jan 2024 13:41:27 +0000
-Received: by outflank-mailman (input) for mailman id 661811;
- Thu, 04 Jan 2024 13:41:25 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rLODJ-0002PD-Ku; Thu, 04 Jan 2024 13:56:49 +0000
+Received: by outflank-mailman (input) for mailman id 661820;
+ Thu, 04 Jan 2024 13:56:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0by4=IO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rLNyP-0005VY-E5
- for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 13:41:25 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3b4b9ac-ab06-11ee-98ef-6d05b1d4d9a1;
- Thu, 04 Jan 2024 14:41:24 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2cc9fa5e8e1so6205221fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 05:41:24 -0800 (PST)
+ id 1rLODI-0002P7-4k
+ for xen-devel@lists.xenproject.org; Thu, 04 Jan 2024 13:56:48 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18fe7b23-ab09-11ee-9b0f-b553b5be7939;
+ Thu, 04 Jan 2024 14:56:45 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2cd0f4f306fso6188961fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 05:56:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- gi8-20020a05663869c800b004664ecd1249sm8105076jab.106.2024.01.04.05.41.22
+ cb7-20020a0566381b0700b0046dfa285b6esm1729jab.88.2024.01.04.05.56.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Jan 2024 05:41:23 -0800 (PST)
+ Thu, 04 Jan 2024 05:56:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f3b4b9ac-ab06-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: 18fe7b23-ab09-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704375684; x=1704980484; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704376605; x=1704981405; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=SoyA/SIWvN+N7kSIfA7Um37JqWaP5lPBVq9e7hfC48g=;
-        b=Djj4vqocMVNbGzeMzRGlpjmhJCxB/RDXL/YWPzh0xMDnQXFT83KMbb9UwljU6J/DwA
-         CR8DikhYUNkzCNI00ztVAIIibQtHgdoik1e7a75kmBUQIOeohkiTFHqOeHWVOGOj9Z/g
-         93RW5iUWbZxr6vn/hWWsfjCQ/vZrEDFASO1tbxGFUasuIkAt1lZnJKD+DdQaklr9ne8m
-         h1NmEgx/NT5JhiXFQNRz/p/iGyUFHg8XlVB+82eNsICg/mTO3fZOr4kkfNdhg4eXLitr
-         sE+0aQg+3PoTe2CRgtqT5ecYOCMhu8cLOuUgXD1z1d9C1CSnhl/Rzl4o3bIR+tCH98TU
-         g6Jg==
+        bh=NsK59aOcnwYik5dcJBcILgaEN9ETgllbPPj1XPFlj/4=;
+        b=cg7e3DlDKveo4CDg0+dEPbGKW/zJUbH0VuZyyONca3W3tBiAs0tDHAEkxxj2/C+1of
+         5BQV1j5f+s67mAoV+CeFbhofnrjua/nzJNjP5ftC+XS7RaxzVc3gVgHUWtE2lWSsFytN
+         7mseua3hZgc/HnJsF1SYYbwi/YVyY+n7XK4SyuU1Xc0hOyrE6jWtVZg7zKCrcjQ4uBQI
+         G2KRm41FalhSINpsh4+b9RTXnUlLjxb3OUBcUoQEAiIKqRg8VnkEfKWGSZW25T7FPhwj
+         9cVImBOkoG2vZNhMlT2SyFmA3v2JMpbz0FFsKtT9Yf7wuE5MqNMzj56hTBqX76jgIE0p
+         VWrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704375684; x=1704980484;
+        d=1e100.net; s=20230601; t=1704376605; x=1704981405;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=SoyA/SIWvN+N7kSIfA7Um37JqWaP5lPBVq9e7hfC48g=;
-        b=wqQFCk3MoEjnDrNgHg3Eg/EHbxsNMVqCxaJLpjo3SIvd0MJqz+scMDdxC85/oieB25
-         DwZdkyOXTXAYH83I0v5dgmR1lS+4vHM5kGBdQFYg6Ww/FL/B6ZtFyP5uPRhPmuDXuc4w
-         fHtWAEYD20Hw/vRUYd7+B9ndn0NVQlSVU/62q3/io138HUhaBIDkkrn0IRUIXMm/0yhA
-         aWLeFJ/501X/2z2rqm1rTD8boLm1PsTlEY8pnMbUNIyhZL/nq/dzn7OPMDCgMJ8ZcAVV
-         PX7nNnu0r7ELFnrVp639fTLioIm9JSQrzhhxKQ9riqDcGkLx90lSAKopLFjwsnbYsura
-         uMfw==
-X-Gm-Message-State: AOJu0Yyo+NZVix5bBuGt/x6hzeRZ2HXSnpY9Bnf6JnkCDPLrmuEMOluU
-	4BkYgOmyOVLWWUX0f7v612hsiZSyjuyL
-X-Google-Smtp-Source: AGHT+IFuZSDAsIvIZZCRYlvM1rEVgD8nn5fho7z7vauHy5FoVqHH9kSsb+F4LLXbEC60xUIrtvbzXQ==
-X-Received: by 2002:a2e:97d9:0:b0:2cc:6fe2:4ddc with SMTP id m25-20020a2e97d9000000b002cc6fe24ddcmr328734ljj.3.1704375683742;
-        Thu, 04 Jan 2024 05:41:23 -0800 (PST)
-Message-ID: <1248487f-4852-41f5-9ffd-d4d12897a622@suse.com>
-Date: Thu, 4 Jan 2024 14:41:21 +0100
+        bh=NsK59aOcnwYik5dcJBcILgaEN9ETgllbPPj1XPFlj/4=;
+        b=EvUBYdiy4IHGatHyFmOKHxUkaWsgWPqXs+MYjc3yp9AI0cdGbG7NNJPCCy/v/7PObg
+         /4rukWyFnvWh0lcWrcJ/smUjdHoKooPcXy1S3WQb/LR/3pFJ2/NWWdQZ1vNaTdI0afzN
+         1fH33bxRF43M+QX0eF1pE3xAeB9Mj+zvMAGocSkAofCDvjbKFl4/RMvKRwUK1aRcFh4H
+         J0lUzIn5uAfb+dp7vmcn14Db+9x1c8tUYagZRO67IM7qMRLVrPEoedsMHK/qw19WDIf5
+         RyopgXMcG7R+Yg1FonvEqyiJAFBFGOihmgWR4gLinOAzlCfVtRGzd0sSWL01mxKt4r+I
+         n60A==
+X-Gm-Message-State: AOJu0YzvMYUXwN4Ou1m0zzEphBr60uQsPUCPVvvFSjTRgLhO7dYXPGcj
+	H/+FbxKyUm1U62hni4YwrSq0+/wG/sOR
+X-Google-Smtp-Source: AGHT+IF0QlOxQTu5Mamq6M87IvXH53PkDyEv+1KhUMUJPYes7s2ozrRKKjhsKSVnfFh7uiYhBckXUg==
+X-Received: by 2002:a05:651c:2213:b0:2cc:8bd4:b860 with SMTP id y19-20020a05651c221300b002cc8bd4b860mr430123ljq.85.1704376605433;
+        Thu, 04 Jan 2024 05:56:45 -0800 (PST)
+Message-ID: <c604e8a5-6287-4175-93a0-3509d0e2686a@suse.com>
+Date: Thu, 4 Jan 2024 14:56:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Use -Wuninitialized and -Winit-self
+Subject: Re: [PATCH v2 29/39] xen/riscv: add definition of __read_mostly
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20231228193907.3052681-1-andrew.cooper3@citrix.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <cover.1700761381.git.oleksii.kurochko@gmail.com>
+ <7fec1c9f906ee120ebae606de59f9f70efb79aff.1700761381.git.oleksii.kurochko@gmail.com>
+ <95542550-5f95-4231-8210-79dc2419ce61@suse.com>
+ <3df1dad8-3476-458f-9022-160e0af57d39@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -109,57 +116,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231228193907.3052681-1-andrew.cooper3@citrix.com>
+In-Reply-To: <3df1dad8-3476-458f-9022-160e0af57d39@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 28.12.2023 20:39, Andrew Cooper wrote:
-> The use of uninitialised data is undefined behaviour.  At -O2 with trivial
-> examples, both Clang and GCC delete the variable, and in the case of a
-> function return, the caller gets whatever was stale in %rax prior to the call.
+On 21.12.2023 16:23, Andrew Cooper wrote:
+> On 12/12/2023 5:04 pm, Jan Beulich wrote:
+>> On 24.11.2023 11:30, Oleksii Kurochko wrote:
+>>> The definition of __read_mostly should be removed in:
+>>> https://lore.kernel.org/xen-devel/f25eb5c9-7c14-6e23-8535-2c66772b333e@suse.com/
+>> Andrew, can we settle on what to do with that patch? If you don't like me
+>> putting __read_mostly in xen/cache.h (consistent with __ro_after_init),
+>> would you please make an alternative suggestion?
 > 
-> Clang includes -Wuninitialized within -Wall, but GCC only includes it in
-> -Wextra, which is not used by Xen at this time.
-> 
-> Furthermore, the specific pattern of assigning a variable to itself in its
-> declaration is only diagnosed by GCC with -Winit-self.  Clang does diagnoise
-> simple forms of this pattern with a plain -Wuninitialized, but it fails to
-> diagnose the instances in Xen that GCC manages to find.
-> 
-> GCC, with -Wuninitialized and -Winit-self notices:
-> 
->   arch/x86/time.c: In function ‘read_pt_and_tsc’:
->   arch/x86/time.c:297:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
->     297 |     uint32_t best = best;
->         |              ^~~~
->   arch/x86/time.c: In function ‘read_pt_and_tmcct’:
->   arch/x86/time.c:1022:14: error: ‘best’ is used uninitialized in this function [-Werror=uninitialized]
->    1022 |     uint64_t best = best;
->         |              ^~~~
-> 
-> and both have logic paths where best can be returned while uninitalised.
+> xen/linkage.h?  xen/sections.h?
 
-I disagree. In both cases the variables are reliably set during the first
-loop iteration. Therefore I also disagree that there want to be Fixes: tags
-here. There's one case where initialization could be bypassed, but that's a
-purely theoretical case afaict.
+Well, that's the problem: There's no xen/sections.h (and I don't see why we'd
+introduce one just for this), and while xen/linkage.h is about to appear for
+the entry point annotations, I don't think it is a reasonable fit.
 
-Furthermore this initialize-to-self is a well known pattern to suppress the
--Wuninitialized induced warnings, originally used by Linux'es
-uninitialized_var(). If we really want to use -Winit-self (and hence disallow
-use of this pattern even in cases like the ones here, where they're used to
-suppress false positive warnings), this should imo be done separately from
-adding -Wuninitialized, and only after proper weighing of the pros and cons
-(a wider Cc list would be required anyway for the xen/Makefile change).
+Otoh with __ro_after_init ...
 
->  In
-> both cases, initialise to ~0 like the associated *_min variable which also
-> gates updating best.
+> Sorry - I didn't mean to block it specifically, but I do think
+> xen/cache.h is the wrong place for both to live and that it's a small
+> enough change to warrant sorting out nicely once and for all.
 
-Considering the affected functions are both __init, this change isn't a big
-problem. But if you were truly concerned of the one theoretical case, you
-can't get away with this either: If the variables really remained unwritten,
-by returning ~0 you'd end up confusing the caller.
+... living in xen/cache.h already, __read_mostly is even more logical to put
+there than __ro_after_init. For the latter I agree the purpose isn't really
+cache related, while for the former it is. From your original reply to the
+patch submission, I have to admit I don't really understand what
+"micro-architectural" detail you mean: The goal of avoiding unnecessary cache
+line ping-pong doesn't look to be what you mean, as imo that's a valid (and
+generic) goal. And that's what I think is the reason the #define presently
+lives in asm/cache.h, justifying my moving of it to xen/cache.h.
+
+So if you can't get yourself to accept xen/cache.h as the new (even if only
+temporary) location, I think you can be expected to make a better proposal.
+With "better" there meaning you supplying a reason for why you think that
+placement is better than xen/cache.h. For example, if I knew what you
+expected xen/sections.h to further contain (in the long run), I might find
+myself agreeing to that. Yet other section annotation #define-s live
+elsewhere anyway, with - in particular - __init and friends imo not likely
+to move out of their present header (xen/init.h).
 
 Jan
 
