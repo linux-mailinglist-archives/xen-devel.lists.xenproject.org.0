@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FA2B825B27
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 20:38:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662354.1032447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BC5A825C96
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 23:50:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662389.1032474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLq16-0007kS-Qk; Fri, 05 Jan 2024 19:38:04 +0000
+	id 1rLszd-0000dZ-Dv; Fri, 05 Jan 2024 22:48:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662354.1032447; Fri, 05 Jan 2024 19:38:04 +0000
+Received: by outflank-mailman (output) from mailman id 662389.1032474; Fri, 05 Jan 2024 22:48:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLq16-0007i8-O8; Fri, 05 Jan 2024 19:38:04 +0000
-Received: by outflank-mailman (input) for mailman id 662354;
- Fri, 05 Jan 2024 19:38:04 +0000
+	id 1rLszd-0000bS-An; Fri, 05 Jan 2024 22:48:45 +0000
+Received: by outflank-mailman (input) for mailman id 662389;
+ Fri, 05 Jan 2024 22:48:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EEqs=IP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rLq16-0007i2-7e
- for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 19:38:04 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ <SRS0=PmVw=IP=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rLszb-0000bM-H0
+ for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 22:48:43 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eff975dd-ac01-11ee-9b0f-b553b5be7939;
- Fri, 05 Jan 2024 20:38:01 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-336990fb8fbso1365952f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jan 2024 11:38:01 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- k4-20020a5d6284000000b00336c43b366fsm1942382wru.12.2024.01.05.11.38.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Jan 2024 11:38:00 -0800 (PST)
+ id 90bf74c6-ac1c-11ee-9b0f-b553b5be7939;
+ Fri, 05 Jan 2024 23:48:38 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id D9086B81E09;
+ Fri,  5 Jan 2024 22:48:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774ECC433C7;
+ Fri,  5 Jan 2024 22:48:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +41,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eff975dd-ac01-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704483481; x=1705088281; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QqdgfNCdld1H6TGYnTtWN5scasQkJ+Tlke64vk+CQzE=;
-        b=fOMxvvEoN9LR/ZB5hUwDKDmu5/Vi4GLNeLKDfLtR5j2bzveoHUJbEyV1GH40+iNen9
-         jl/nC27/2oL9/1/HIjpeiSOP4tRYMYu4+cRXM7mIqimbjVlJfsR+wNx/wQy8d7sWsMN2
-         zNHlHC8HW97ZPngcqgS07laHdWBrIrvHQLgl8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704483481; x=1705088281;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QqdgfNCdld1H6TGYnTtWN5scasQkJ+Tlke64vk+CQzE=;
-        b=Ixp85YC7bMvuBenvnA94UbLK8U8cuK+B5Lqgf685d1lDjRhOf52O2rUZ4q/O5u0lft
-         VTSi3zSyArEvmFAj45/1Elp4/Lp61/73pYn5sjarjUrPCDxM7P4mIib8I1btNIa9x5pj
-         EHtLSZEAl4Wkhm0zb+/dFu0Nw6459UjR2cNP4eIgYG6dR1BJOERFw05cTeBIehy8ez0G
-         eLQ7nGGXvCEjy1O/TC9Snu7fGlHozKf7CPqjljddL2tx5q9hn8GmZngE2xjb8NVttYZv
-         mebo/xGly40tFvJ9UHnrV9PoE2jmdpLlrJQIh/IBwk7dQHdaZNegH8iF67kS5Z6otDUl
-         GiJg==
-X-Gm-Message-State: AOJu0Ywh539fOtjOL60np82kNsqeL5QcpMCQ9bBzWSrk0+4gjr6CVcgg
-	ouRTjkyPz2aDUb3qeaq9FHxq66Ky4TDWVQ==
-X-Google-Smtp-Source: AGHT+IFKTWNkvdDVXgSELdy/5jp9h4WKAIYTf2LVe/W4defr6PzjuxUodMM2HG55BteuFObG/Gu23A==
-X-Received: by 2002:adf:c783:0:b0:336:6479:3b0a with SMTP id l3-20020adfc783000000b0033664793b0amr1858354wrg.122.1704483481187;
-        Fri, 05 Jan 2024 11:38:01 -0800 (PST)
-Message-ID: <64bc70ce-e9e8-482b-9cdc-61465d2e09b5@citrix.com>
-Date: Fri, 5 Jan 2024 19:38:00 +0000
+X-Inumbo-ID: 90bf74c6-ac1c-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1704494916;
+	bh=aU1WDkSjgKaa2cgEWCoozERaFcSneIEV3tBWAd/2mPw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=rUER8ZBQ2G8uDOSDRwOAxQoJ+iPyGgVCDmkcj3volmt+LR/YNLMog4EmInVw7qf2e
+	 LZdLkknke3o2PQJtHLXcvEkMu6lY7YN3BSwIHEX9jxPfdbC6CeECoBRWzDbPQpTooM
+	 cR/qwnly+ae7mAq0dZsC54f9TGiyogJ5dlzCg8V4tKpZA8bmQCT2xXsXFdWtL6bG05
+	 HzyNpsSA7gPkYGAMFZR5US8URUbPVsK1SDm9v+ZqIQfNlpcmn5NowIFEqHqlY5lLDB
+	 mFUuN9V/VHhbPhQcl2c7Ug42lvPZuKYvC+ZObQ6Dyv1+DQPtEfqKD5J09EiA8HsGvh
+	 2PNIouH4yI6kQ==
+Date: Fri, 5 Jan 2024 14:48:33 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Federico Serafini <federico.serafini@bugseng.com>
+cc: Jan Beulich <jbeulich@suse.com>, 
+    Nicola Vetrini <nicola.vetrini@bugseng.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, consulting@bugseng.com, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN RFC] x86/uaccess: remove __{put,get}_user_bad()
+In-Reply-To: <6a39fe3e-524f-4e39-81bc-ffb3d48ba306@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2401051445120.3675@ubuntu-linux-20-04-desktop>
+References: <9cf852da1c03b614bf5010132c58a18adc2a4161.1703155225.git.federico.serafini@bugseng.com> <a2050ac1-e205-4d7f-b9b1-aa625136e63a@suse.com> <0c5bbfde-4cf0-4878-b1ee-ccc8eb775464@citrix.com> <eb53449bd6595ea0931460e62dd57b9c@bugseng.com>
+ <1330c757-1ca3-4b07-898b-799cbfa67e8a@suse.com> <6a39fe3e-524f-4e39-81bc-ffb3d48ba306@bugseng.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mwait-idle: fix ubsan warning
-Content-Language: en-GB
-To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <f0ac3890b5e2e1e98bfd3fe5fffcf3c3c031e12c.1704388276.git.tamas.lengyel@intel.com>
- <ba53053f-a2c6-4e4f-a805-4d60970bae39@suse.com>
- <CABfawhmovqKjTSRbjgSqhY7kDhANyHrXFHYyPTGhsrnT1cdtBQ@mail.gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <CABfawhmovqKjTSRbjgSqhY7kDhANyHrXFHYyPTGhsrnT1cdtBQ@mail.gmail.com>
+Content-Type: multipart/mixed; boundary="8323329-291384912-1704494916=:3675"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-291384912-1704494916=:3675
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 8BIT
 
-On 05/01/2024 4:09 pm, Tamas K Lengyel wrote:
-> On Fri, Jan 5, 2024 at 2:34 AM Jan Beulich <jbeulich@suse.com> wrote:
->> On 04.01.2024 18:13, Tamas K Lengyel wrote:
->>> Fix warning:
->>> (XEN) UBSAN: Undefined behaviour in arch/x86/cpu/mwait-idle.c:1300:44
->>> (XEN) left shift of 15 by 28 places cannot be represented in type 'int'
->>>
->>> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
->>> Fixes: 5a211704e88 ("mwait-idle: prevent SKL-H boot failure when C8+C9+C10 enabled")
->> No matter that I appreciate the change, I think this wants fixing by a
->> patch to the (Linux) original, which we'd then import (like we do for
->> other changes, including the one referenced by the Fixes: tag).
-> Feel free to submit it to other projects if the same issue applies to
-> them. I only ran into this with Xen and can only test it with Xen.
+On Fri, 5 Jan 2024, Federico Serafini wrote:
+> Hello everyone,
+> 
+> On 21/12/23 13:41, Jan Beulich wrote:
+> > On 21.12.2023 13:01, Nicola Vetrini wrote:
+> > > Hi Andrew,
+> > > 
+> > > On 2023-12-21 12:03, Andrew Cooper wrote:
+> > > > On 21/12/2023 10:58 am, Jan Beulich wrote:
+> > > > > On 21.12.2023 11:53, Federico Serafini wrote:
+> > > > > > Remove declarations of __put_user_bad() and __get_user_bad()
+> > > > > > since they have no definition.
+> > > > > > Replace their uses with a break statement to address violations of
+> > > > > > MISRA C:2012 Rule 16.3 ("An unconditional `break' statement shall
+> > > > > > terminate every switch-clause").
+> > > > > > No functional change.
+> > > > > > 
+> > > > > > Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+> > > > > > ---
+> > > > > > Several violations of Rule 16.3 come from uses of macros
+> > > > > > get_unsafe_size() and put_unsafe_size().
+> > > > > > Looking at the macro definitions I found __get_user_bad() and
+> > > > > > __put_user_bad().
+> > > > > > I was wondering if instead of just adding the break statement I can
+> > > > > > also remove
+> > > > > > such functions which seem to not have a definition.
+> > > > > No, you can't. Try introducing a caller which "accidentally" uses the
+> > > > > wrong size. Without your change you'll observe the build failing (in
+> > > > > a somewhat obscure way, but still), while with your change bad code
+> > > > > will silently be generated.
+> > > > 
+> > > > The construct here is deliberate.  It's a build time assertion that bad
+> > > > sizes aren't used.
+> > > > 
+> > > > __bitop_bad_size() and __xsm_action_mismatch_detected() are the same
+> > > > pattern in other areas of code too, with the latter being more explicit
+> > > > because of how it's wrapped by LINKER_BUG_ON().
+> > > > 
+> > > > 
+> > > > It is slightly horrible, and not the most obvious construct for
+> > > > newcomers.  If there's an alternative way to get a build assertion, we
+> > > > could consider switching to a new pattern.
+> > > 
+> > > would you be in favour of a solution with a BUILD_BUG_ON in the default
+> > > branch followed by a break?
+> > > 
+> > > default:
+> > >       BUILD_BUG_ON(!size || size >=8 || (size & (size - 1)));
+> > >       break;
+> > 
+> > I don't think this would compile - BUILD_BUG_ON() wants a compile-time
+> > constant passed.
+> 
+> What do you think about adding the following macro to compiler.h:
+> 
+> #define static_assert_unreachable(identifier) \
+>     asm("unreachable " #identifier " reached")
+> 
+> It expands to an invalid assembly instruction that will lead to a
+> customizable error message generated by the assembler instead of the
+> linker (anticipating the error detection).
+> 
+> The use of this macro will indicate a program point considered
+> unreachable (and as such removed) by the static analysis performed by the
+> compiler, even at an optimization level -O0.
+> 
+> An example of use is in the default case of put_unsafe_size():
+> 
+> default: static_assert_unreachable(default);
+> 
+> In case a wrong size will be used, the following message will be
+> generated:
+> 
+> ./arch/x86/include/asm/uaccess.h: Assembler messages:
+> ./arch/x86/include/asm/uaccess.h:257: Error: no such instruction: `unreachable
+> default reached'
+> 
+> 
+> Note that adopting the macro and discussing its definition are two
+> separate things:
+> I think we can all agree on the fact that the use of such macro improves
+> readability, so I would suggest its adoption.
+> Whereas for its definition, if you don't like the invalid asm
+> instruction, we could discuss for a different solution, for example,
+> the following is something similar to what you are doing now:
+> 
+> #define static_assert_unreachable(identifier) \
+>     extern void identifier(void);             \
+>     identifier()
+> 
+> 
+> Note also that the problem of the missing break statement (that violates
+> Rule 16.3) is still present, it could be addressed by adding the break
+> or deviating for such special cases, do you have any preferences?
 
-Linux is affected by this, but a fix to Linux won't apply to Xen because
-Xen already diverged from Linux in this function.
+So overall for clarity you are suggesting:
 
-~Andrew
+
+diff --git a/xen/arch/x86/include/asm/uaccess.h b/xen/arch/x86/include/asm/uaccess.h
+index 7443519d5b..7e7ef77e49 100644
+--- a/xen/arch/x86/include/asm/uaccess.h
++++ b/xen/arch/x86/include/asm/uaccess.h
+@@ -208,7 +205,9 @@ do {                                                                       \
+     case 8:                                                                \
+         put_unsafe_asm(x, ptr, grd, retval, "q",  "", "ir", errret);       \
+         break;                                                             \
+-    default: __put_user_bad();                                             \
++    default:                                                               \
++        static_assert_unreachable(default);                                \
++        break;                                                             \
+     }                                                                      \
+     clac();                                                                \
+ } while ( false )
+
+
+I prefer static_assert_unreachable(default) over __put_user_bad()
+because it is even clearer about its intent and still generates a
+build-time error.
+
+Regarding the addition of the break, I think that's OK for me. But I am
+guessing that Jan will prefer to add static_assert_unreachable to
+docs/misra/deviations.rst like we did for BUG() so that we don't need to
+add the break.
+--8323329-291384912-1704494916=:3675--
 
