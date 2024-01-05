@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F7C8825088
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 10:04:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662038.1031954 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEFEF8250F7
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 10:39:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662045.1031965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLg7A-0007lz-39; Fri, 05 Jan 2024 09:03:40 +0000
+	id 1rLgey-0004u8-Qu; Fri, 05 Jan 2024 09:38:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662038.1031954; Fri, 05 Jan 2024 09:03:40 +0000
+Received: by outflank-mailman (output) from mailman id 662045.1031965; Fri, 05 Jan 2024 09:38:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLg79-0007jN-Vs; Fri, 05 Jan 2024 09:03:39 +0000
-Received: by outflank-mailman (input) for mailman id 662038;
- Fri, 05 Jan 2024 09:03:38 +0000
+	id 1rLgey-0004rc-Nb; Fri, 05 Jan 2024 09:38:36 +0000
+Received: by outflank-mailman (input) for mailman id 662045;
+ Fri, 05 Jan 2024 09:38:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Az7I=IP=gmail.com=morel.dav@srs-se1.protection.inumbo.net>)
- id 1rLg78-0007j7-3e
- for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 09:03:38 +0000
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4f4cbc43-aba9-11ee-98ef-6d05b1d4d9a1;
- Fri, 05 Jan 2024 10:03:36 +0100 (CET)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-40d604b4b30so1734245e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jan 2024 01:03:36 -0800 (PST)
-Received: from raton (lfbn-idf1-1-1403-15.w90-79.abo.wanadoo.fr. [90.79.94.15])
- by smtp.gmail.com with ESMTPSA id
- k3-20020a5d5243000000b0033668b27f8fsm1009350wrc.4.2024.01.05.01.03.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jan 2024 01:03:35 -0800 (PST)
+ <SRS0=upBt=IP=amd.com=Christian.Koenig@srs-se1.protection.inumbo.net>)
+ id 1rLgex-0004rW-K9
+ for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 09:38:35 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2416::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 30980c3b-abae-11ee-98ef-6d05b1d4d9a1;
+ Fri, 05 Jan 2024 10:38:33 +0100 (CET)
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ0PR12MB5488.namprd12.prod.outlook.com (2603:10b6:a03:3ad::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.17; Fri, 5 Jan
+ 2024 09:38:27 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7159.013; Fri, 5 Jan 2024
+ 09:38:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,181 +47,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f4cbc43-aba9-11ee-98ef-6d05b1d4d9a1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704445416; x=1705050216;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pmBzSiJQ9afgYbWWIaP5PBRvLmuTxmJEocWE0vpf3F8=;
-        b=XytEGY4f47NWaGeIaZCoQipCBYclcrpSC7CElI68mDbW365XMCFxO7z35BFX0v+kwA
-         EF+uECuvXj7TToZ1VbPtNjYKpIEh/3NOef/B1tyHyrytioxhe/9JhOv6VMomSkLnFzqv
-         xbp0irD6jMP1WFASMm/pQs2Iq/yKg6CwjF7uiGDzIq+/N/WrU7kbCbam0DRP9pKSF+3i
-         VphjtMsePHXWXlkywp2SXZPCpa5b7RMNjltjq7xj61JTw87c/+kCUqZUGZ8mXf6IctpE
-         TjEkK8X3x2xEVGaAXoNw7pJShb6LB33cV/InvVUyZUqap+bdQ3x5s/F+zVjsHZx6I5AW
-         eyzg==
-X-Gm-Message-State: AOJu0Yye1TAZKP+Y0XZ1zB5tf+4vcpUtIIwYTpAFxPzxfyDt1P43Q/ai
-	Bh+g2rgC3rQpOwobypzDYpDb+AZ2FWumgBFU90Y=
-X-Google-Smtp-Source: AGHT+IG91H6fg4Zln7kmjvbsOL9KppsKdkWkpd4DLeqmJ2XpOUN0NFyLenj/TdtsQaxtLgpfp61S/g==
-X-Received: by 2002:a05:600c:3846:b0:40e:364d:d526 with SMTP id s6-20020a05600c384600b0040e364dd526mr512926wmr.87.1704445415537;
-        Fri, 05 Jan 2024 01:03:35 -0800 (PST)
-Date: Fri, 5 Jan 2024 10:03:28 +0100
-From: David Morel <david.morel@vates.tech>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, xenia.ragiadakou@amd.com,
-	andrew.cooper3@citrix.com, Jan Beulich <jbeulich@suse.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: AMD EPYC VM to VM performance investigation
-Message-ID: <ZZfF4Pz1Dj1Xc9xu@raton>
-References: <ZZbSIH_pGjaQr5x-@raton>
- <alpine.DEB.2.22.394.2401041624500.1322202@ubuntu-linux-20-04-desktop>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 30980c3b-abae-11ee-98ef-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TrWXQrau2wC/HtAdeb7VniXixpzfii60Lb27ZHahD3914UGUv4FHCZYxYr91gTXPFqlPm/y5KKLByJDVB5VcWgwvrocgEDvsG67Sz6Uk52Z0OFxrcol8V1YipE8QD4AgCr1VJgD1fB9w+/IBS+DnXN/r9XcTgPGm7oPvrcAM9iHckReKHWxvSFK9/9fNKYuRyHdOzKs7Tg6APxwLu/wEBqxtUxJ9vDd6+iH+QWTVXjzs53BgG+RKIYjj0yakHfQNr83NOdnF0xaAerHDXUIHAPFHK5z6W6WmltI/Pl7yUsGQO7uA/POjip5SlBoWmllVifHKzklOlb2tgf4i06s4nA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j9rrwwJeKmFxJoHeXpV2sEnkUMJYcEVwJ70+NIhNCHE=;
+ b=UGG0er1YcGMZpronte5DHoNi9uo6V39W223jYmPTkk+B/es84GYx+5DmI4iR91qx8OnFn7L5l1FcGL/16mkT8Mq7xD4gPmPiHWXBP9bAE+dfZ4ginErZzJozmFegwIB6lEPw0Y5+UX2EHqaHicu07HAD8W1oH0Ryp8n+DGhNeMzd4b4JUxqw6MAPrE46IyBa47avdBRmwpCTWz1gIhVBRryKocgwLnL5F+tWolozN7pt0gHkOTeONPUaXHAxqSL2opQpZBJ1WvhGO3/zgYwkFW23mHiOaxi2bYiVL159QzvSNiqVob02NDwd1rLxTitVy1E/CPxykK1KcPQIaC+Jvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j9rrwwJeKmFxJoHeXpV2sEnkUMJYcEVwJ70+NIhNCHE=;
+ b=UANw19nmjIfvOUj6PCKTuWt1UxSK78xF45wTsL9XVCGOt+FR6BwDc9oXwwXLQvDFZavT0+Haipmv5meckYvBnrN43vi6U2xR38ijFeKbKliBvMptMreso60Ba1piYCCR8SaeoViIRFyFbfEnqaO+ZUUCh7rhBSRnrx4IgsIaafE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <e4952a68-82aa-4336-b287-7d03ed925a2e@amd.com>
+Date: Fri, 5 Jan 2024 10:38:21 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/gntdev: Fix the abuse of underlying struct page in
+ DMA-buf import
+Content-Language: en-US
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20240104185327.177376-1-olekstysh@gmail.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20240104185327.177376-1-olekstysh@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <alpine.DEB.2.22.394.2401041624500.1322202@ubuntu-linux-20-04-desktop>
+X-ClientProxiedBy: FR2P281CA0095.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB5488:EE_
+X-MS-Office365-Filtering-Correlation-Id: 39277d24-9b81-41a9-974a-08dc0dd211b4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ShCTAvQh9CC68/CDlerQGYGWdpkOzI0rXNn59m4RKfiJH4Z9aDIOwojN3sdOXlRK24zYngnanOVvwAwNtvds4Veu9cW29BEk3HN0iIsbGfcV7U1S26JPiCmRZ2T2KItWH9+KAIJjgSlVBwXbuwL1Q6Rd+G29YoTFVX2IJlE+7eEYPakw6ohFKGuR/FKe9Qc3yUtFmtmGqOhZWcfLIOxmKwvgQA1dL2oBuhBlw7IzL7yCEYlmN4KB7Rd9jUJReLORh8PPHbfJiVwALi7Jy+M44CM2zIxasEWGCtRpi6iD5ppzCodw97Z4Mq/SC/t5J5EZPVCm9LKuc29++JdriIlWtFKqbgEXzgev3CAA+GFTyhG/9BjBAweghxBhpt4ZfNZcsEFUcN9IC5PrqZ5kXCcUSxbWbb4hYLb3kX0MKnh4oafutxAKmOAHG8Af7E4YwYe2Vji8X/JofPLplO6pm5GFunhZHW47OI13ePPwzt4rIn/5cnPng/1A4pc84nCjjNCezQK/OHjLRclrBeNqRmiA01mvFN30oyl9VaEtcV8W/b3iSxzl6zZ4JXwl8JOcDP+TMT7HeYR7PmRpyTfR72JSpcZdgTyU2jofmsjvHati1xpNl1A20HXtU6OcaUqr4NRcAw/wNj6Ioh9aApr+eD74SQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(396003)(39860400002)(366004)(136003)(230922051799003)(186009)(64100799003)(1800799012)(451199024)(31686004)(2906002)(478600001)(5660300002)(4326008)(6666004)(41300700001)(316002)(54906003)(36756003)(66556008)(66946007)(66476007)(6486002)(6506007)(8936002)(8676002)(6512007)(2616005)(86362001)(31696002)(26005)(83380400001)(66574015)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MUdMQzNkZnk2cWRGNVFhYU1jbzVUZzFjVW1RQ3J6dlBpK0c5ZEQyN2wrYmFC?=
+ =?utf-8?B?UXBOVkQxekhMRjQ4czNFQnBsY1BsMDdCZXhIdjdUbzk4OXlRUkhnM0xBak5i?=
+ =?utf-8?B?OTZqT3NLYTVLZm1nVmNyZXplNDV3M3V3NGMrbFMvQllWQ2x5c3hXTWpuZzNt?=
+ =?utf-8?B?UkhtQXI1V1VZZm1SQndQRW5UT3ltUGNodGdpVGpma0g3Ky85aTFxTzN3VVJN?=
+ =?utf-8?B?Q3hMLzl5NG9aVFh4ZVl0ZkdvUjBCaEl2dTcyZlhWVzljTVdTREpuSEVoZlRp?=
+ =?utf-8?B?dGF0UGkyQ2xySGdCNm02eXBqYlcvVHZxcktac0VVSVNLNENHalJrYnBiNE8y?=
+ =?utf-8?B?Zy9za1VKeGl0TnJ0YmxCQnl5TE9PaktKTHg2RG1RYWI0UkIxR05jbWlIU3ha?=
+ =?utf-8?B?UVBIM2M4NTI2TlJWbnFqTEJOK0FZdGxUQ0R0bG1ia1RiUW53b1ZnOGs1azNL?=
+ =?utf-8?B?TjdLRWFVSEg0Mm56VFlJNDNMVmwwYmNMc3J3VU9hUkJLV3A1SDBWNWljaW1O?=
+ =?utf-8?B?R1FBU3IzOHZnVXcrdklzbU9pY3dwRDJKTjE2eEJvaHdNdmRCTkNsb3REMGZD?=
+ =?utf-8?B?ZHVVWFV5ckNJd1pIaXpTa0RuZmcrU28rQ1NYM2prN1FLelNvQkpoWmlaRElI?=
+ =?utf-8?B?YnlrbkkwZGFXUW5kYlhHR1dwMXNESjFjR3FNakY5NmJNeXBYWmUwVDBmTkYr?=
+ =?utf-8?B?S3JsbUZ2YThwRlhyUkQ0bGdrdXVYcEg4S1pqOXNqRmJZZnhsb3ZwTy9ZTmh2?=
+ =?utf-8?B?d2FQaGh5RmlUS1JNcFFSbTloeThiVzhmSFNzTE5PTlA4VE95MXlCTm03ZStz?=
+ =?utf-8?B?eUg0OWo4aDRqZnB3NllPdFpJVG9qTHVZQUFIZ21ILzVVYVNEd1BGdm80UlFV?=
+ =?utf-8?B?aDRTRW1iUldzN1ByZUpVK01yZEFjR0p0U3l6a1EzKzNyWkRraG9oOHBhb2V3?=
+ =?utf-8?B?cUt4OTB0cFFLalpENnJheXA0MUV3M0xrV2MrWmZOUVBjUG9vTDN2OE1ldDVp?=
+ =?utf-8?B?clBnSmNEQWowd1dCdHpTbVZSMyswemJySmpwVG5YS3NxeFNYZ2J0Ynkxek03?=
+ =?utf-8?B?bXg1VFNlb1EyRFZNN3JXQ1YyL1Z0MmgzMzdUU2lTNzJPQ3MrYzlTZzNueTZu?=
+ =?utf-8?B?eXZhYmZJWk82UkhqcFM4Q1ZNcmZxKzZGUEplcC92TlR4QmZuN3g4TDMvMUda?=
+ =?utf-8?B?REwvU2hYRHg3Vks3NVNNQm1jVm84Q245N05LazBFR3B3UkkyaExhejRXaFpW?=
+ =?utf-8?B?UWdIRjZSQitjcFBPZDRlSFhOMGNGVkZNQ0lab1VQcjNqWE5PTmZUTkhCQ1Jh?=
+ =?utf-8?B?d2NnRnRTOXJRYzQ2TXRoNE0rTHNWVHJmOCtUeUY1YkcrLzc5K1oxSEt4a2ho?=
+ =?utf-8?B?T2t3eEkrK1VsZ3VBaStZdUEzSFlqdHVKd1d1bkIrSHdoTzlNYVdCZEY5QjQ0?=
+ =?utf-8?B?bytzT0FWVGhVQ3ZoMkthY2JGalpRSHp5YWtPM0tuS29vZjZ3UTduajdNbVA0?=
+ =?utf-8?B?bWlVUzRYb3FwVEl5MkZrbGNtd0lRa1VVY3U5NmVBSEdBbFI3Q1pvbGp3TGhV?=
+ =?utf-8?B?S1Z4SmRvaWN4QkI0SDJNUmxjTHR0VGtOUTZaRmxwOURGMEdvOHRDd2ducDhN?=
+ =?utf-8?B?RG02MEFZcGNLQXJpOU5ObEVoa25LZjB1K0RrVU4wd2lubkpCb2llMmZnVXhW?=
+ =?utf-8?B?S2x4SFY3VVYyMXJaU2NncHFmWktLSHBWUUc4UlpiSFlxN2ZlZENtR1dJcjRV?=
+ =?utf-8?B?Qnlubm83aTB4VDdjV3ZZOWtObnlhclZSK2J2YWYxNXBBTUIxRkZEOGFsT3JQ?=
+ =?utf-8?B?b0hJd0d2bTFnc0pYVFVVaFJBWVhRclNZdWtNUU1uRmRvRHpRVjVscFlLdXFF?=
+ =?utf-8?B?S2ZpaHBKV2dYSTBQdlJGK3ZVTmp6L2I1aTlPL1NWdVNrTnRaZGhvT2NURmY5?=
+ =?utf-8?B?UWRnV2M5cWxteW9tK2NOT2VKWFkyMWJPRmdwZTlBU1l3UCtUbkE1UndYUHM3?=
+ =?utf-8?B?d3RaRmNPVlBvcDh5blBQL2ZsdHViVU9CMjdVMmJmTnJRSGp2VWtFeC9TeWh3?=
+ =?utf-8?B?WjI1Z3krYWtaYVYxSnFocUcxVzRUTFpsRUNWQWZhSFlFOTBxSFUzRDR4Y2xy?=
+ =?utf-8?Q?HaxBhl8ino7hjLF3Ny2TNowZv?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39277d24-9b81-41a9-974a-08dc0dd211b4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2024 09:38:27.2320
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sx6wQNRUOA57ZlltYcOl15bFQ1R4WESeZzqDIZ6t1PpMe8hlDf47Khx7obfbOS3H
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5488
 
-On Thu, Jan 04, 2024 at 16:39:46PM, Stefano Stabellini wrote:
-> On Thu, 4 Jan 2024, David Morel wrote:
-> > Hello,
-> > 
-> > We have a customer and multiple users on our forum having performances that
-> > seems quite low related to the general performance of the machines on AMD EPYC
-> > Zen hosts when doing VM to VM networking.
-> 
-> By "VM to VM networking" I take you mean VM-to-VM on the same host using
-> PV network?
+Am 04.01.24 um 19:53 schrieb Oleksandr Tyshchenko:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>
+> DO NOT access the underlying struct page of an sg table exported
+> by DMA-buf in dmabuf_imp_to_refs(), this is not allowed.
+> Please see drivers/dma-buf/dma-buf.c:mangle_sg_table() for details.
+>
+> Fortunately, here (for special Xen device) we can avoid using
+> pages and calculate gfns directly from dma addresses provided by
+> the sg table.
+>
+> Suggested-by: Daniel Vetter <daniel@ffwll.ch>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-Yes sorry, I though I mentionned it.
-> 
-> 
-> > Below you'll find a write up about what we had a look at and what's in the
-> > TODO on our side, but in the meantime we would like to ask here for some
-> > feedback, suggestions and possible leads.
-> > 
-> > To sum up, the VM to VM performance on Zen generation server CPUs seems quite
-> > low, and only minimally scaling when adding threads. They are outperformed by
-> > 10 year old AMD desktop cpu and pretty low frequency XEON bronze from 2014.
-> > CPU usage does not seem to be the limiting factor as neither the VM threads or
-> > the kthreads on host seems to go to a 100% cpu usage.
-> > 
-> > As we're Vates, I'm talking about XCP-ng here, so Xen 4.13.5 and a dom0 kernel
-> > 4.19. I did try a Xen 4.18-rc2 and kernel 6.1.56 on a Zen4 epyc, but as it was
-> > borrowed from a colleague I was unsure of the setup, so although it was
-> > actually worse than on my other test setups, I would not consider that a
-> > complete validation the issues is also present on recent Xen versions.
-> 
-> I think it might be difficult to triage this if you are working on a
-> Xen/Linux version that is so different from upstream
+I can't say that I can judge the full technical background, but that 
+looks reasonable to me.
 
-That's what I feared, also why I listed it here.
-> 
-> 
-> > 1. Has anybody else noticed a similar behavior?
-> > 2. Has anybody done any kind of investigation about it beside us?
-> > 3. Any insight and suggestions of other points to look at would be welcome :)
-> > 
-> > And now the lengthy part about what we tested, I tried to make it shorter and
-> > more legible than a full report…
-> > 
-> > Investigated
-> > ------------
-> > 
-> > - Bench various cpu with iperf2 (iperf3 is not actually multithreaded):
-> >   - amd fx8320e, xeon 3106: not impacted.
-> >   - epyc 7451, 7443, 7302p, 7313p, 9124: impacted, but the zen4 one scales a
-> >     bit more than zen1, 2 and 3.
-> >   - ryzen 5950x, ryzen 7600: performances should likely be better than
-> >     observed results, but still way better than epycs, and scaling nicely with
-> >     more threads.
-> > - Bench with tinymembench[1]: performances were as expected and didn't show
-> >   issues with rep movsb as discussed in this article[2] and issue[3]. Which
-> >   makes sense as it looks like this issues is related to ERMS support which is
-> >   not present on Zen1 and 2 where the issue has been raised.
-> > - Bench skb allocation with a small kernel module measuring cycles: actually
-> >   same or lower on epyc than on the xeon with higher frequency so can be
-> >   considered faster and likely not related to our issue.
-> > - mitigations: we tried disabling what can be disabled through boot
-> >   parameters, both for xen, dom0 and guests, but this made no differences.
-> > - disabling AVX; Zen cpus before zen4 are know to limit boost and cpu scaling
-> >   when doing heavy AVX load on one core, there was no reason to think this was
-> >   related, but it was a quick test and as expected had no effect.
-> > - localhost iperf bench on dom0 and guests: we noticed that on other machines
-> >   host/guest with 1 threads are almost 1:1, with 4 threads guests are about
-> >   generally not scaling as well in guests. On epyc machines, host tests were
-> >   significantly slower than guests both with 1 and 4 threads, first
-> >   investigation of profiling didn't help finding a cause yet. More in the
-> >   profiling and TODO.
-> 
-> Wait, are you saying that the localhost iperf benchmark is faster in a
-> VM compared to host ("host" I take means baremetal Linux without a
-> hypervisor) ?   Maybe you meant the other way around?
+Acked-by: Christian König <christian.koenig@amd.com>
 
-I meant it is faster on domUs than on dom0, as mentionned below in the
-profiling part, it does seem to come down to the kernel and/or userland,
-but unlike I thought at first, not from the copy_user_* functions as
-they are precisely the same, I was kind of hoping it could be related to
-a better handling of rep movsb in those on newer kernel... An
-additionnal test with an alma8 to have a closer environment to the dom0
-seems to yields similar performances as dom0.
+> ---
+> Please note, I didn't manage to test the patch against the latest master branch
+> on real HW (patch was only build tested there). Patch was tested on Arm64
+> guests using Linux v5.10.41 from vendor's BSP, this is the environment where
+> running this use-case is possible and to which I have an access (Xen PV display
+> with zero-copy and backend domain as a buffer provider - be-alloc=1, so dma-buf
+> import part was involved). A little bit old, but the dma-buf import code
+> in gntdev-dmabuf.c hasn't been changed much since that time, all context
+> remains allmost the same according to my code inspection.
+> ---
+> ---
+>   drivers/xen/gntdev-dmabuf.c | 42 +++++++++++++++----------------------
+>   1 file changed, 17 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+> index 4440e626b797..0dde49fca9a5 100644
+> --- a/drivers/xen/gntdev-dmabuf.c
+> +++ b/drivers/xen/gntdev-dmabuf.c
+> @@ -11,6 +11,7 @@
+>   #include <linux/kernel.h>
+>   #include <linux/errno.h>
+>   #include <linux/dma-buf.h>
+> +#include <linux/dma-direct.h>
+>   #include <linux/slab.h>
+>   #include <linux/types.h>
+>   #include <linux/uaccess.h>
+> @@ -50,7 +51,7 @@ struct gntdev_dmabuf {
+>   
+>   	/* Number of pages this buffer has. */
+>   	int nr_pages;
+> -	/* Pages of this buffer. */
+> +	/* Pages of this buffer (only for dma-buf export). */
+>   	struct page **pages;
+>   };
+>   
+> @@ -484,7 +485,7 @@ static int dmabuf_exp_from_refs(struct gntdev_priv *priv, int flags,
+>   /* DMA buffer import support. */
+>   
+>   static int
+> -dmabuf_imp_grant_foreign_access(struct page **pages, u32 *refs,
+> +dmabuf_imp_grant_foreign_access(unsigned long *gfns, u32 *refs,
+>   				int count, int domid)
+>   {
+>   	grant_ref_t priv_gref_head;
+> @@ -507,7 +508,7 @@ dmabuf_imp_grant_foreign_access(struct page **pages, u32 *refs,
+>   		}
+>   
+>   		gnttab_grant_foreign_access_ref(cur_ref, domid,
+> -						xen_page_to_gfn(pages[i]), 0);
+> +						gfns[i], 0);
+>   		refs[i] = cur_ref;
+>   	}
+>   
+> @@ -529,7 +530,6 @@ static void dmabuf_imp_end_foreign_access(u32 *refs, int count)
+>   
+>   static void dmabuf_imp_free_storage(struct gntdev_dmabuf *gntdev_dmabuf)
+>   {
+> -	kfree(gntdev_dmabuf->pages);
+>   	kfree(gntdev_dmabuf->u.imp.refs);
+>   	kfree(gntdev_dmabuf);
+>   }
+> @@ -549,12 +549,6 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
+>   	if (!gntdev_dmabuf->u.imp.refs)
+>   		goto fail;
+>   
+> -	gntdev_dmabuf->pages = kcalloc(count,
+> -				       sizeof(gntdev_dmabuf->pages[0]),
+> -				       GFP_KERNEL);
+> -	if (!gntdev_dmabuf->pages)
+> -		goto fail;
+> -
+>   	gntdev_dmabuf->nr_pages = count;
+>   
+>   	for (i = 0; i < count; i++)
+> @@ -576,7 +570,8 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
+>   	struct dma_buf *dma_buf;
+>   	struct dma_buf_attachment *attach;
+>   	struct sg_table *sgt;
+> -	struct sg_page_iter sg_iter;
+> +	struct sg_dma_page_iter sg_iter;
+> +	unsigned long *gfns;
+>   	int i;
+>   
+>   	dma_buf = dma_buf_get(fd);
+> @@ -624,26 +619,23 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
+>   
+>   	gntdev_dmabuf->u.imp.sgt = sgt;
+>   
+> -	/* Now convert sgt to array of pages and check for page validity. */
+> +	gfns = kcalloc(count, sizeof(*gfns), GFP_KERNEL);
+> +	if (!gfns)
+> +		goto fail_unmap;
+> +
+> +	/* Now convert sgt to array of gfns without accessing underlying pages. */
+>   	i = 0;
+> -	for_each_sgtable_page(sgt, &sg_iter, 0) {
+> -		struct page *page = sg_page_iter_page(&sg_iter);
+> -		/*
+> -		 * Check if page is valid: this can happen if we are given
+> -		 * a page from VRAM or other resources which are not backed
+> -		 * by a struct page.
+> -		 */
+> -		if (!pfn_valid(page_to_pfn(page))) {
+> -			ret = ERR_PTR(-EINVAL);
+> -			goto fail_unmap;
+> -		}
+> +	for_each_sgtable_dma_page(sgt, &sg_iter, 0) {
+> +		dma_addr_t addr = sg_page_iter_dma_address(&sg_iter);
+> +		unsigned long pfn = bfn_to_pfn(XEN_PFN_DOWN(dma_to_phys(dev, addr)));
+>   
+> -		gntdev_dmabuf->pages[i++] = page;
+> +		gfns[i++] = pfn_to_gfn(pfn);
+>   	}
+>   
+> -	ret = ERR_PTR(dmabuf_imp_grant_foreign_access(gntdev_dmabuf->pages,
+> +	ret = ERR_PTR(dmabuf_imp_grant_foreign_access(gfns,
+>   						      gntdev_dmabuf->u.imp.refs,
+>   						      count, domid));
+> +	kfree(gfns);
+>   	if (IS_ERR(ret))
+>   		goto fail_end_access;
+>   
 
-> > - cpu load: top/htop/xentop all seem to indicate that machines are not under
-> >   full load, queue allocations on dom0 for VIF are by default (1 per vcpu) and
-> >   seem to be all used when traffic is running but at a percentage below 100%
-> >   per core/thread.
-> > - pinning: manually pinning dom0 and guests to the same node and avoiding
-> >   sharing cpu "threads" between host and guests gives a minimal increase of a
-> >   few percents, but nothing drastic. Note, we do not know about the
-> >   ccd/ccx/node mapping on these cpus, so we are not sure all memory access are
-> >   "local".
-> > - sched weight: playing with sched weight to prioritize dom0 did not make a
-> >   difference either, which makes sense as the system are not under full load.
-> > - cpu scaling: it is unlikely the core of the issue, but indeed the cpu
-> >   scaling does not take advantage of the boost, never going above the base
-> >   clock of these cpus. Also it also seems that less cores that the number of
-> >   working kthreads/vcpus are going to base clock, may be normal in regard to
-> >   the system not being fully loaded, to be defined.
-> >   - QUESTION: is the powernow support in xen cpufreq implementation sufficient
-> >     for zen cpus? Recent kernels/distributions use acpi_cpufreq and can use
-> >     amd_pstate or even amd_pstate_epp. More concerning than the turbo boost
-> >     could be the handling of package power limitation used in Zen CPUs that
-> >     could prevent even all cores to base clock, to be checked…
-> > 
-> > Profiling
-> > ---------
-> > 
-> > We profiled iperf on dom0 and guests on epyc, older amd desktop, and xeon
-> > machines and gathered profiling traces, but analysis are still ongoing.
-> > 
-> > - localhost:
-> > Client and server were profiled both on dom0 and guests runs for a xeon, an
-> > old FX and a zen platform, to analyze the discrepancy shown by the localhost
-> > tests earlier. It shows we spend a larger chunk of time in the copyout() or
-> > copyin() functions on epyc and fx. This is likely related to the use of
-> > copy_user_generic_string() on epyc (zen1) and old FX, whereas xeon uses
-> > copy_user_enhanced_fast_string(), as it has ERMS support.  But on the same
-> > machine, guests are going way faster, and the implementation of
-> > copy_user_generic_string() is the same between the dom0 and guests, so this is
-> > likely related to other changes in kernel and userland, and not only to these
-> > function. Therefore it likely isn't directly linked to the issue.
-> > 
-> > - vm to vm: server, client & dom0 -> profiling traces to be analysed.
-> > 
-> > TODO
-> > ----
-> > 
-> > - More Analysis of profiling traces in VM to VM case
-> > - X2APIC (not enabled on the machines and setup we are using)
-> > - Profiling at xen level / hypercalls
-> > - Tests on a clean install of a newer Xen version
-> > - Dig some more on cpu scaling, likely not the root of the problem but could
-> >   be some gain to make.
-> > 
-> > [1] https://github.com/ssvb/tinymembench
-> > [2] https://xuanwo.io/2023/04-rust-std-fs-slower-than-python/
-> > [3] https://bugs.launchpad.net/ubuntu/+source/glibc/+bug/2030515
-> > 
-> > -- 
-> > David Morel
 
