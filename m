@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA20282570D
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 16:48:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662230.1032232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D023F8257BE
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 17:10:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662234.1032242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLmQp-0004bO-N4; Fri, 05 Jan 2024 15:48:23 +0000
+	id 1rLmlK-0001Bd-DM; Fri, 05 Jan 2024 16:09:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662230.1032232; Fri, 05 Jan 2024 15:48:23 +0000
+Received: by outflank-mailman (output) from mailman id 662234.1032242; Fri, 05 Jan 2024 16:09:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLmQp-0004Yu-Jv; Fri, 05 Jan 2024 15:48:23 +0000
-Received: by outflank-mailman (input) for mailman id 662230;
- Fri, 05 Jan 2024 15:48:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rLmlK-00018o-A6; Fri, 05 Jan 2024 16:09:34 +0000
+Received: by outflank-mailman (input) for mailman id 662234;
+ Fri, 05 Jan 2024 16:09:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EEqs=IP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rLmQo-0004Yo-U8
- for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 15:48:22 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d9c95374-abe1-11ee-9b0f-b553b5be7939;
- Fri, 05 Jan 2024 16:48:20 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id
- ffacd0b85a97d-3374c693f92so1225569f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jan 2024 07:48:20 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- e8-20020a5d5948000000b00336898daceasm1609008wri.96.2024.01.05.07.48.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Jan 2024 07:48:19 -0800 (PST)
+ <SRS0=c7fs=IP=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
+ id 1rLmlI-00018i-Ic
+ for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 16:09:32 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cec942ef-abe4-11ee-98ef-6d05b1d4d9a1;
+ Fri, 05 Jan 2024 17:09:30 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40d4a7f0c4dso17633875e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jan 2024 08:09:30 -0800 (PST)
+Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
+ d10-20020a056000114a00b00336710ddea0sm1647921wrx.59.2024.01.05.08.09.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jan 2024 08:09:29 -0800 (PST)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id 549BC5F933;
+ Fri,  5 Jan 2024 16:09:29 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +47,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9c95374-abe1-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: cec942ef-abe4-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704469700; x=1705074500; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+Zc+rMfjVudvak2rGkGjWrD94OPYcM/V1m5czJ96iFM=;
-        b=q6zbFRkscxvNUNh5FFTqoDyUvgoiOunaRkG7OYdRy+ecXPgUkwc1KWOoUdzZNQvU2V
-         F/UVPVJ1Zae1N1jV35go8ztAloLuDub8c5sc0XwWAQtj4c63XeIEBC7TElXJ4v8dJ4nE
-         H3JkDzwHsFKNod1MHr9JsqU3SQEciLojnUscA=
+        d=linaro.org; s=google; t=1704470970; x=1705075770; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JPjS24N6aCuE7w72QsslxPMj1wECkZRdY4dZFhSTMGQ=;
+        b=Yy3u/dOrTjJ9AXbQ/SOo6SUzSavmMFvBBIZAsWpfe/8yer1PufaisZx1BXodEMjEZU
+         P0CUwsO5krl7S+SnImAaRAlEDL5yFYZ9o8pnJ+/L7ehSpvVJI6xiLj3NFhEd+0EQSn+N
+         EuptaQ+PN2G650bDJHR6ajSuqmmGtPkAGEIwp+4LsQwrcymOPguNTrTSU6BPC0r8blHX
+         61E+g2bDOb+gJ9nhjg39KuXgk4A5Inxi6dgOO6ALcsomAN1ZMsSCseQpWsy+zE5ljXlj
+         7/s0hBr0kke4DLBFX0H93JEYwgfcvHtmt81oWLs50aAZHa6Gua+j+wehDv+m+FtwWH12
+         WVMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704469700; x=1705074500;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+Zc+rMfjVudvak2rGkGjWrD94OPYcM/V1m5czJ96iFM=;
-        b=PdlnOvJ3vS6pRSSJEAKxDZHqxsKHLFhnCF32zzZQoqyPs3dc+772kH+jJzmvy61vZh
-         bobeFAhB5pf/dcnPxBQkzv4scixMofOXlmmLs2im4lTea6lKB3ADJp1oYOWOal2y6fxA
-         Go50SZXB8L6KI+wYrgEIZ5dRY9h6CcW6hCGh5YTQbxEto2IJBbLHOXrULbohsKI1RxCd
-         8/2x1B2SbteFIVKt2fr2YNRod39reMbD+E8vwWt9oIcjpJRqFfHcLZxgQuLRF+OSMS46
-         2t7VgHwsCf3Tj+TEvHyq9V4wmeg3F63QTM0ke2mj5v1mw2i68onthFayTJys7ICh2DeB
-         bDLw==
-X-Gm-Message-State: AOJu0YxM/ufzx6VJI/ZAKIRiNuUjdG6YUYMGmr0g8nTSXBZkePrDS2FY
-	Jrqa9dyEAmgRItooD9LFGW63LUmf1WQHUw==
-X-Google-Smtp-Source: AGHT+IEOD/LO3dwrCR6VleskKHqWadqa1CSLc1/WYYcHaxQVdWZnxyziMx5tvBWFA9MJ9cZqXS1dfg==
-X-Received: by 2002:adf:fc90:0:b0:337:5c86:2055 with SMTP id g16-20020adffc90000000b003375c862055mr318661wrr.133.1704469700102;
-        Fri, 05 Jan 2024 07:48:20 -0800 (PST)
-Message-ID: <39250f3a-40f0-493d-b292-040773ab8427@citrix.com>
-Date: Fri, 5 Jan 2024 15:48:19 +0000
+        d=1e100.net; s=20230601; t=1704470970; x=1705075770;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=JPjS24N6aCuE7w72QsslxPMj1wECkZRdY4dZFhSTMGQ=;
+        b=sGkdrOwmfHt/VlPqmXM9P/yxJhtFRA/YDSoqfbsZfTndW913xlYfp9hVTbel2PItbU
+         BNcJVufc7BJgsg2NF4c7MdwBDwyoHheLRx3VjwglTJAxmIlTGoJNAbOEtf8DMZOUZWQS
+         5EFE+s2EZOGbUlEB2u9UcEx3XfOc/YvvxhhkWSLRGy+T1dVYam0VtJ9rAqYYdxEpT6yi
+         uIsjbt2OjgPXHdlETgArZy5XpjrDCZXP4rUAHwZSlnLHuGUNMfRuU/EU5tv4GZn0K8YC
+         ivvWSj8v157+4okTIPB0k0KlIvzdL6bz1+fl021Sk0WSL43BTomzTwnpOW6D5U0BDB8j
+         sKLw==
+X-Gm-Message-State: AOJu0Yxm7Sp1fBdcSaLqcEO7yaV4wRLKio56wMoGVb4ziP423rfgDiBm
+	9oQRhGGn3Ywwg0tHi9LVEd+i6bVPitzllg==
+X-Google-Smtp-Source: AGHT+IFVgvkYokI7P2l5tvklCXid3qCE3ppbuWAimO0DAMUHfSfSv1G9f9CVAS/MkVLQFzp2ejEE/A==
+X-Received: by 2002:a05:600c:3f8b:b0:40d:5fd4:ce2c with SMTP id fs11-20020a05600c3f8b00b0040d5fd4ce2cmr1261935wmb.53.1704470970048;
+        Fri, 05 Jan 2024 08:09:30 -0800 (PST)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Huang Rui <ray.huang@amd.com>
+Cc: Akihiko Odaki <akihiko.odaki@daynix.com>,  =?utf-8?Q?Marc-Andr=C3=A9?=
+ Lureau
+ <marcandre.lureau@gmail.com>,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
+ <philmd@linaro.org>,
+  Gerd Hoffmann <kraxel@redhat.com>,  "Michael S . Tsirkin"
+ <mst@redhat.com>,  "Stefano Stabellini" <sstabellini@kernel.org>,  Anthony
+ PERARD <anthony.perard@citrix.com>,  Antonio Caggiano
+ <quic_acaggian@quicinc.com>,  "Dr . David Alan Gilbert"
+ <dgilbert@redhat.com>,  Robert Beckett <bob.beckett@collabora.com>,
+  Dmitry Osipenko <dmitry.osipenko@collabora.com>,  Gert Wollny
+ <gert.wollny@collabora.com>,  <qemu-devel@nongnu.org>,
+  <xen-devel@lists.xenproject.org>,  Gurchetan Singh
+ <gurchetansingh@chromium.org>,  <ernunes@redhat.com>,  Alyssa Ross
+ <hi@alyssa.is>,  Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>,
+  Alex Deucher
+ <alexander.deucher@amd.com>,  Stefano Stabellini
+ <stefano.stabellini@amd.com>,  Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+  Xenia Ragiadakou <xenia.ragiadakou@amd.com>,  Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>,  "Honglei Huang"
+ <honglei1.huang@amd.com>,  Julia Zhang <julia.zhang@amd.com>,  "Chen
+ Jiqian" <Jiqian.Chen@amd.com>,  Manos Pitsidianakis
+ <manos.pitsidianakis@linaro.org>,  AKASHI Takahiro
+ <takahiro.akashi@linaro.org>
+Subject: Re: [PATCH v6 11/11] virtio-gpu: make blob scanout use dmabuf fd
+In-Reply-To: <87jzongb9u.fsf@draig.linaro.org> ("Alex =?utf-8?Q?Benn=C3=A9?=
+ =?utf-8?Q?e=22's?= message of
+	"Fri, 05 Jan 2024 13:28:13 +0000")
+References: <20231219075320.165227-1-ray.huang@amd.com>
+	<20231219075320.165227-12-ray.huang@amd.com>
+	<87jzongb9u.fsf@draig.linaro.org>
+User-Agent: mu4e 1.11.27; emacs 29.1
+Date: Fri, 05 Jan 2024 16:09:29 +0000
+Message-ID: <878r53g3t2.fsf@draig.linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/33] tools: add a new xen logging daemon
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Jason Andryuk <jandryuk@gmail.com>
-References: <20240104090055.27323-1-jgross@suse.com>
- <20240104090055.27323-4-jgross@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240104090055.27323-4-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Subject s/logging/9pfs/
+Alex Benn=C3=A9e <alex.bennee@linaro.org> writes:
 
-On 04/01/2024 9:00 am, Juergen Gross wrote:
-> diff --git a/tools/xen-9pfsd/xen-9pfsd.c b/tools/xen-9pfsd/xen-9pfsd.c
-> new file mode 100644
-> index 0000000000..22cfff0c4e
-> --- /dev/null
-> +++ b/tools/xen-9pfsd/xen-9pfsd.c
-> @@ -0,0 +1,145 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +/*
-> + * xen-9pfsd - Xen 9pfs daemon
-> + *
-> + * Copyright (C) 2023 Juergen Gross <jgross@suse.com>
+> Huang Rui <ray.huang@amd.com> writes:
+>
+>> From: Robert Beckett <bob.beckett@collabora.com>
+>>
+>> This relies on a virglrenderer change to include the dmabuf fd when
+>> returning resource info.
+>>
+> <snip>
+>> +static void virgl_cmd_set_scanout_blob(VirtIOGPU *g,
+>> +                                       struct virtio_gpu_ctrl_command *=
+cmd)
+>> +{
+>> +    struct virgl_gpu_resource *vres;
+>> +    struct virtio_gpu_framebuffer fb =3D { 0 };
+>> +    struct virtio_gpu_set_scanout_blob ss;
+>> +    struct virgl_renderer_resource_info info;
+>> +    uint64_t fbend;
+>> +
+>> +    VIRTIO_GPU_FILL_CMD(ss);
+>> +    virtio_gpu_scanout_blob_bswap(&ss);
+>> +    trace_virtio_gpu_cmd_set_scanout_blob(ss.scanout_id, ss.resource_id,
+>> +                                          ss.r.width, ss.r.height, ss.r=
+.x,
+>> +                                          ss.r.y);
+>> +
+>> +    if (ss.scanout_id >=3D g->parent_obj.conf.max_outputs) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: illegal scanout id specifie=
+d %d",
+>> +                      __func__, ss.scanout_id);
+>> +        cmd->error =3D VIRTIO_GPU_RESP_ERR_INVALID_SCANOUT_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    if (ss.resource_id =3D=3D 0) {
+>> +        virtio_gpu_disable_scanout(g, ss.scanout_id);
+>> +        return;
+>> +    }
+>> +
+>> +    if (ss.width < 16 ||
+>> +        ss.height < 16 ||
+>> +        ss.r.x + ss.r.width > ss.width ||
+>> +        ss.r.y + ss.r.height > ss.height) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: illegal scanout %d bounds f=
+or"
+>> +                      " resource %d, rect (%d,%d)+%d,%d, fb %d %d\n",
+>> +                      __func__, ss.scanout_id, ss.resource_id,
+>> +                      ss.r.x, ss.r.y, ss.r.width, ss.r.height,
+>> +                      ss.width, ss.height);
+>> +        cmd->error =3D VIRTIO_GPU_RESP_ERR_INVALID_PARAMETER;
+>> +        return;
+>> +    }
+>> +
+>> +    if (!console_has_gl(g->parent_obj.scanout[ss.scanout_id].con)) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: unable to scanout blot with=
+out GL!\n", __func__);
+>> +        return;
+>> +    }
+>> +
+>> +    vres =3D virgl_gpu_find_resource(g, ss.resource_id);
+>> +    if (!vres) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR,
+>> +                      "%s: illegal resource specified %d\n",
+>> +                      __func__, ss.resource_id);
+>> +        cmd->error =3D VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +    if (virgl_renderer_resource_get_info(ss.resource_id, &info)) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR,
+>> +                      "%s: illegal virgl resource specified %d\n",
+>> +                      __func__, ss.resource_id);
+>> +        cmd->error =3D VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>
+> Minor nit, the format of the following needs to include braces.
+>
+>> +    if (!vres->res.dmabuf_fd && info.fd)
+>> +        vres->res.dmabuf_fd =3D info.fd;
+>
+> However I'm seeing:
+>
+>   cc -m64 -mcx16 -Ilibcommon.fa.p -I../../common-user/host/x86_64 -I../..=
+/linux-user/include/host/x86_64 -I../../linux-user/include -Iui -I../../ui =
+-I/usr/include/capstone -I/usr/include/p11-kit-1 -I/usr/include/pixman-1 -I=
+/usr/include/libpng16 -I/usr/include/spice-server -I/usr/include/spice-1 -I=
+/usr/include/libusb-1.0 -I/usr/include/SDL2 -I/usr/include/glib-2.0 -I/usr/=
+lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/libmount -I/usr/includ=
+e/blkid -I/usr/include/gio-unix-2.0 -I/usr/include/slirp -I/usr/include/gtk=
+-3.0 -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/freety=
+pe2 -I/usr/include/fribidi -I/usr/include/cairo -I/usr/include/gdk-pixbuf-2=
+.0 -I/usr/include/x86_64-linux-gnu -I/usr/include/atk-1.0 -I/usr/include/at=
+-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/=
+x86_64-linux-gnu/dbus-1.0/include -I/usr/include/vte-2.91 -I/usr/include/vi=
+rgl -I/home/alex/lsrc/qemu.git/builds/extra.libs/install/include -I/usr/inc=
+lude/cacard -I/usr/include/nss -I/usr/include/nspr -I/usr/include/PCSC -I/u=
+sr/include/pipewire-0.3 -I/usr/include/spa-0.2 -fdiagnostics-color=3Dauto -=
+Wall -Winvalid-pch -Werror -std=3Dgnu11 -O2 -g -fstack-protector-strong -Wu=
+ndef -Wwrite-strings -Wmissing-prototypes -Wstrict-prototypes -Wredundant-d=
+ecls -Wold-style-declaration -Wold-style-definition -Wtype-limits -Wformat-=
+security -Wformat-y2k -Winit-self -Wignored-qualifiers -Wempty-body -Wneste=
+d-externs -Wendif-labels -Wexpansion-to-defined -Wimplicit-fallthrough=3D2 =
+-Wmissing-format-attribute -Wno-missing-include-dirs -Wno-shift-negative-va=
+lue -Wno-psabi -Wshadow=3Dlocal -isystem /home/alex/lsrc/qemu.git/linux-hea=
+ders -isystem linux-headers -iquote . -iquote /home/alex/lsrc/qemu.git -iqu=
+ote /home/alex/lsrc/qemu.git/include -iquote /home/alex/lsrc/qemu.git/host/=
+include/x86_64 -iquote /home/alex/lsrc/qemu.git/host/include/generic -iquot=
+e /home/alex/lsrc/qemu.git/tcg/i386 -pthread -D_GNU_SOURCE -D_FILE_OFFSET_B=
+ITS=3D64 -D_LARGEFILE_SOURCE -fno-strict-aliasing -fno-common -fwrapv -fPIE=
+ -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=3D600 -DNCURSES_WIDECHAR=3D1 -D_REENTRAN=
+T -DSTRUCT_IOVEC_DEFINED -MD -MQ libcommon.fa.p/hw_display_virtio-gpu-virgl=
+.c.o -MF libcommon.fa.p/hw_display_virtio-gpu-virgl.c.o.d -o libcommon.fa.p=
+/hw_display_virtio-gpu-virgl.c.o -c ../../hw/display/virtio-gpu-virgl.c
+>   ../../hw/display/virtio-gpu-virgl.c: In function =E2=80=98virgl_cmd_set=
+_scanout_blob=E2=80=99:
+>   ../../hw/display/virtio-gpu-virgl.c:790:37: error: =E2=80=98struct virg=
+l_renderer_resource_info=E2=80=99 has no member named =E2=80=98fd=E2=80=99
+>     790 |     if (!vres->res.dmabuf_fd && info.fd)
+>         |                                     ^
+>   ../../hw/display/virtio-gpu-virgl.c:791:35: error: =E2=80=98struct virg=
+l_renderer_resource_info=E2=80=99 has no member named =E2=80=98fd=E2=80=99
+>     791 |         vres->res.dmabuf_fd =3D info.fd;
+>         |                                   ^
+>
+> But searching my extra libs (for aemu/gfstream/rutabaga_ffi) I can see
+> the bindings.rs but nothing generated a header:
+>
+>   $ ag -r "virgl_renderer_resource_info"=20
+>   crosvm.git/rutabaga_gfx/src/generated/virgl_renderer_bindings.rs
+>   33:pub const VIRGL_RENDERER_RESOURCE_INFO_EXT_VERSION: u32 =3D 0;
+>   337:pub struct virgl_renderer_resource_info {
+>   351:pub struct virgl_renderer_resource_info_ext {
+>   353:    pub base: virgl_renderer_resource_info,
+>   359:impl Default for virgl_renderer_resource_info_ext {
+>   373:        info: *mut virgl_renderer_resource_info,
+>   379:        info: *mut virgl_renderer_resource_info_ext,
+>
+> Which makes me think a) its picked up the older virgl headers and b) the
+> crosvm/rutabaf_gfx install needs a fix.
 
-Presumably the year wants bumping now?
+Actually it was libvirglrenderer was too old (I got it the wrong way
+round, the rust bindings come from libvirglrenderer). As we want to
+build with older libvirglrenderers on older systems I think this needs a
+tweak to meson.build, maybe something like:
 
-Both can be fixed on commit.  This is otherwise looking fine now.
+    config_host_data.set('HAVE_VIRGL_RESOURCE_BLOB',
+                         cc.has_function('virgl_renderer_resource_create_bl=
+ob',
+                                          prefix: '#include <virglrenderer.=
+h>',
+                                          dependencies: virgl)
+                         and
+                         cc.has_member('struct virgl_renderer_resource_info=
+', 'fd',
+                                       prefix: '#include <virglrenderer.h>',
+                                       dependencies: virgl))
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, although one other
-suggestion
-
-> +static void do_err(const char *msg)
-> +{
-> +    syslog(LOG_ALERT, "%s, errno = %d", msg, errno);
-
-... errno %d, %s"
-
-also passing in strerror() for the benefit of those who don't know the
-errno number off by heart?
-
-~Andrew
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
 
