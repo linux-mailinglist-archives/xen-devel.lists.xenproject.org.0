@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAFA3824F1E
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 08:20:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662010.1031904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E99BF824F34
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 08:34:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662020.1031925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLeUf-0005un-P7; Fri, 05 Jan 2024 07:19:49 +0000
+	id 1rLei4-0002TC-C7; Fri, 05 Jan 2024 07:33:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662010.1031904; Fri, 05 Jan 2024 07:19:49 +0000
+Received: by outflank-mailman (output) from mailman id 662020.1031925; Fri, 05 Jan 2024 07:33:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLeUf-0005s9-Lx; Fri, 05 Jan 2024 07:19:49 +0000
-Received: by outflank-mailman (input) for mailman id 662010;
- Fri, 05 Jan 2024 07:19:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YI+5=IP=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1rLeUd-0005rx-Ji
- for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 07:19:47 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20601.outbound.protection.outlook.com
- [2a01:111:f403:2009::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cd2b13b5-ab9a-11ee-98ef-6d05b1d4d9a1;
- Fri, 05 Jan 2024 08:19:46 +0100 (CET)
-Received: from MN2PR03CA0030.namprd03.prod.outlook.com (2603:10b6:208:23a::35)
- by SA1PR12MB8988.namprd12.prod.outlook.com (2603:10b6:806:38e::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.16; Fri, 5 Jan
- 2024 07:19:42 +0000
-Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
- (2603:10b6:208:23a:cafe::53) by MN2PR03CA0030.outlook.office365.com
- (2603:10b6:208:23a::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.15 via Frontend
- Transport; Fri, 5 Jan 2024 07:19:42 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7159.9 via Frontend Transport; Fri, 5 Jan 2024 07:19:41 +0000
-Received: from cjq-desktop.amd.com (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 5 Jan
- 2024 01:19:38 -0600
+	id 1rLei4-0002Qs-91; Fri, 05 Jan 2024 07:33:40 +0000
+Received: by outflank-mailman (input) for mailman id 662020;
+ Fri, 05 Jan 2024 07:33:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nS5B=IP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rLei2-0002Qc-KT
+ for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 07:33:38 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bc26970a-ab9c-11ee-9b0f-b553b5be7939;
+ Fri, 05 Jan 2024 08:33:35 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2cd1eac006eso14085131fa.3
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Jan 2024 23:33:36 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ l22-20020a02ccf6000000b0046cd8bac20dsm282558jaq.12.2024.01.04.23.33.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 04 Jan 2024 23:33:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,140 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd2b13b5-ab9a-11ee-98ef-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CTAuZ/j+nsgq9fmtMqNnLUXRIy8V/hZOzfv1AChxlmmzo8jFULZ0tIsqZdRtzQ0tWTUiLGmJ0Qao2Tr8tY1Yk00mVCuRyki3W/6W0LAzqa0Oqvf4zdOEHeiZAB1Vgr8zaePThIOI1HMuEhAaqvrVNvh6+Fsu6xxIOqp+6c3DiT/Lbx5fOzO/HOLgf4tibqu/gFn7Q9SVJBqRbc+vmppzA12WYyHVT9FhYyxEHsPnHFijNFHj+jTRud/wH93/4INGVJy2vwN5X/MBwmYVvhEFp1AUs4RjpXNIUZacFU7S7xosMBOmcd3SXZCcZY6FdAQ6Wx0bhUYJScuJZIK3vb7qHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kYi3Wyegxmzc7EKOM+Ed9WYPUa0D9CsuJMsABf608SM=;
- b=eHQb57cVcUebcD9RgcrPksj1fhwtYaHl0ggtRTmp3ivI1FQ7AsxpHqFwqgWeGzLBTjO6dj72pLeEXe0dktr/fMcpAeG2ingPLixWEdfrU2mEs1aXgHmH9LzAj5VD2LZ3wuF3GN+ENox7U5kCcnZFxnoI75WWdT9m6ybovPq5+LLwlCop+euR7V/yKUy6SVLy9RwJjvWt2yadym6Lnb5Taa63QDL8UvcDV/G1GShxuDbIbBgxDzew2f/LERvlUPAHzNFNN+cL9s5TBVjUdah7eDGxUFbl5HZeVReRku5sVG1i/yr2xRDAnrhhIV9aFfwzPVyyANeSBk1B9HMzaJseXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=nongnu.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kYi3Wyegxmzc7EKOM+Ed9WYPUa0D9CsuJMsABf608SM=;
- b=nKVzNrI91PjbWfEFjtKKOXlHP9AxxQ1sfsiEgCJuGkpTb9B7v5m+8AGu9AQwBINCZc5EXgGZi6TFGvLEcw6/xA5TB5mOhRRXPnAPWWrPdM0tDvxe/mjohgGBISSMRE2rbxoOyEAC5/2cQcOt3cDfUm9PwWE2bsqq2O8znn13CWo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Jiqian Chen <Jiqian.Chen@amd.com>
-To: <qemu-devel@nongnu.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Anthony Perard
-	<anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
-	<xen-devel@lists.xenproject.org>, Huang Rui <Ray.Huang@amd.com>, Jiqian Chen
-	<Jiqian.Chen@amd.com>, Huang Rui <ray.huang@amd.com>
-Subject: [RFC QEMU PATCH v4 1/1] xen: Use gsi instead of irq for mapping pirq
-Date: Fri, 5 Jan 2024 15:19:19 +0800
-Message-ID: <20240105071919.350397-2-Jiqian.Chen@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20240105071919.350397-1-Jiqian.Chen@amd.com>
-References: <20240105071919.350397-1-Jiqian.Chen@amd.com>
+X-Inumbo-ID: bc26970a-ab9c-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1704440015; x=1705044815; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=43C2VMZ7ZAef5DrhPf+e+832iGWRVsljEjo0BGopKRA=;
+        b=dGQmBOZlg5x9inouGfcJzolZOR1/r+DeXSy3rJfR2PFdPdV65IuguX9SlZyOKyhJaV
+         i6HSHBwbQ6/D7qInsB24WXQnMoTdFrPVm7612BegIUwX+z95U4G19oue5PGf5EQdyN9o
+         1ELtxdyyaaUusCqydJJPhDPeoztnvopzChdDUQZt0Ag1T5DECCNm+fz2njJhn6DzYVAr
+         C+TxEHDgFBnlDy/sOzZg8C67IB5CdzgeJiO/haoGSkUkIR3r0j7Ha8EjqcYXfYgrKBBf
+         r4MlF1aJQIYH9LqomshU2ZPkoNekgEJPAI9Kl961Ig23AfxgTMy1bvMIXwQqMtsZPZx2
+         X+vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704440015; x=1705044815;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=43C2VMZ7ZAef5DrhPf+e+832iGWRVsljEjo0BGopKRA=;
+        b=TjB7jOoNsS4euIhhdIY9egr90MnkzbkXv3/bEeA2nCUNCSTzyi/teUWLfG6g/gppnw
+         8/bdOi2CuP60AgvN0pXJ0KPwhgiFQcrU5lXA3v/8nzWJV32R/nmSHPBK2jWwTKnuARhw
+         Cl/opng8lD3fBOoXkBdXJDm35Q7koHaqg78azEwSNxAIiT8i6EVkS9hLmOcFIHsJa73L
+         aspFcJhQCu/KP8B0VZiz4pkYIWcvLLISp8dFJacsr50Ot9K05/Otk9OW4IPWbf+YYW76
+         H0CRTNjUCObDBuPJBN9JrmvrVqL2+wEfh17UA3PhbdrAyvbgzUQb4QkyMVlFnwHOl6Cn
+         9wgw==
+X-Gm-Message-State: AOJu0YwqLyVJpGQt4Dx3dg/2Rbhj8CKVlck8EEc7D/oYjsZ8mEdaGvCB
+	lc3ECx37k4jLdA3UqkaodDooIHsw4ga5
+X-Google-Smtp-Source: AGHT+IEej+bw87r008nXU4E5tGcezvoPLbvJxqyqpEyoWZb41RLFuk0SeIl97RHqr+SkSfZtKkG0yg==
+X-Received: by 2002:a05:6512:220f:b0:50e:76b2:6c6a with SMTP id h15-20020a056512220f00b0050e76b26c6amr709701lfu.148.1704440015566;
+        Thu, 04 Jan 2024 23:33:35 -0800 (PST)
+Message-ID: <ba53053f-a2c6-4e4f-a805-4d60970bae39@suse.com>
+Date: Fri, 5 Jan 2024 08:33:32 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
- (10.181.40.145)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|SA1PR12MB8988:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a048163-0ff8-4cad-2bb6-08dc0dbeaf80
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	EQ11ChwosA938dS1k/ZPrzlGzTmF233umkMGTawenNS+fSeLg2QCaW24R29sRr1IHldgXrJOMirYKWhPGoPJo+ZIg8AKQIfhgqW1iRAuQjL0pomfP83BBVxEX6u0TW9Q6qOnzNwW3jkLoyjX3SwoRbfudBMJzFgpEqE/Zi79XsaYd2u6igL3ot8ZWcmtiVrTUPwrf1qrHbmRkMmElljKKNoAnmX4aDMO9XCGeoPvRd7BWtwR9qMdpNcAxyMJcW/mTUKW1SsWuwfd3HMrGjkaRko7SGWSkLZyayiBAKZs2e3UeuCBh6aQnvGECc7yXJgua/Va14hzGDHnC3eILaX8t86Lr/wT8H2m+TKn2Lw4OcoBiUZdgukrcCM58y5V/2xvFVAO59/Dc4iH2/Hje2UUVrWX6p3uBq3TdjgaYem+N4O7lKrOCNKRwa8stbg0A8OGfMxMSAiR3WWAYpqhN43bjB6nLmzAcKHNY1D0duEEHtytYzjoyxM22SGU0Wk0JU36GJuIAku8YjUPsf7XDnQP9/wcMVnC3ypg19r46iCrz4DYAOZPz6CLFKMylrZ2ZoDcQ5P+erIaDpYhPLb4U54xORkORdfdwBZAEw66nCX/UnXrVR/GEGFtRYArTgniLqnz2S3M+4CjOn+haJj3ewWz+XZtvQLUDSZUEtLI5Fv42y20XLDH933Qqxw362MYaHajWz1rCBzYo+kjIR9onPzFD9JGhgn1MasZXDlgi/p+oSrpyLdaoHw06Ky+2u4zg5OhzaIvghTpSY8Yd4H9Xc6aLg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(396003)(376002)(136003)(230922051799003)(82310400011)(451199024)(186009)(1800799012)(64100799003)(40470700004)(36840700001)(46966006)(40460700003)(40480700001)(2616005)(426003)(26005)(1076003)(336012)(7696005)(6666004)(478600001)(82740400003)(86362001)(36756003)(81166007)(356005)(2906002)(41300700001)(36860700001)(47076005)(16526019)(83380400001)(6916009)(70586007)(54906003)(316002)(70206006)(5660300002)(4326008)(8936002)(8676002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2024 07:19:41.3971
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a048163-0ff8-4cad-2bb6-08dc0dbeaf80
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD8.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8988
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mwait-idle: fix ubsan warning
+Content-Language: en-US
+To: Tamas K Lengyel <tamas.lengyel@intel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <f0ac3890b5e2e1e98bfd3fe5fffcf3c3c031e12c.1704388276.git.tamas.lengyel@intel.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <f0ac3890b5e2e1e98bfd3fe5fffcf3c3c031e12c.1704388276.git.tamas.lengyel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-In PVH dom0, it uses the linux local interrupt mechanism,
-when it allocs irq for a gsi, it is dynamic, and follow
-the principle of applying first, distributing first. And
-the irq number is alloced from small to large, but the
-applying gsi number is not, may gsi 38 comes before gsi
-28, that causes the irq number is not equal with the gsi
-number. And when passthrough a device, qemu wants to use
-gsi to map pirq, xen_pt_realize->xc_physdev_map_pirq, but
-the gsi number is got from file
-/sys/bus/pci/devices/<sbdf>/irq in current code, so it
-will fail when mapping.
+On 04.01.2024 18:13, Tamas K Lengyel wrote:
+> Fix warning:
+> (XEN) UBSAN: Undefined behaviour in arch/x86/cpu/mwait-idle.c:1300:44
+> (XEN) left shift of 15 by 28 places cannot be represented in type 'int'
+> 
+> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+> Fixes: 5a211704e88 ("mwait-idle: prevent SKL-H boot failure when C8+C9+C10 enabled")
 
-Add gsi into XenHostPCIDevice and use gsi number that
-read from gsi sysfs if it exists.
+No matter that I appreciate the change, I think this wants fixing by a
+patch to the (Linux) original, which we'd then import (like we do for
+other changes, including the one referenced by the Fixes: tag).
 
-Co-developed-by: Huang Rui <ray.huang@amd.com>
-Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
----
- hw/xen/xen-host-pci-device.c | 7 +++++++
- hw/xen/xen-host-pci-device.h | 1 +
- hw/xen/xen_pt.c              | 6 +++++-
- 3 files changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/hw/xen/xen-host-pci-device.c b/hw/xen/xen-host-pci-device.c
-index 8c6e9a1716a2..5be3279aa25b 100644
---- a/hw/xen/xen-host-pci-device.c
-+++ b/hw/xen/xen-host-pci-device.c
-@@ -370,6 +370,13 @@ void xen_host_pci_device_get(XenHostPCIDevice *d, uint16_t domain,
-     }
-     d->irq = v;
- 
-+    xen_host_pci_get_dec_value(d, "gsi", &v, errp);
-+    if (*errp) {
-+        d->gsi = -1;
-+    } else {
-+        d->gsi = v;
-+    }
-+
-     xen_host_pci_get_hex_value(d, "class", &v, errp);
-     if (*errp) {
-         goto error;
-diff --git a/hw/xen/xen-host-pci-device.h b/hw/xen/xen-host-pci-device.h
-index 4d8d34ecb024..74c552bb5548 100644
---- a/hw/xen/xen-host-pci-device.h
-+++ b/hw/xen/xen-host-pci-device.h
-@@ -27,6 +27,7 @@ typedef struct XenHostPCIDevice {
-     uint16_t device_id;
-     uint32_t class_code;
-     int irq;
-+    int gsi;
- 
-     XenHostPCIIORegion io_regions[PCI_NUM_REGIONS - 1];
-     XenHostPCIIORegion rom;
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 36e6f93c372f..d448f3a17306 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -839,7 +839,11 @@ static void xen_pt_realize(PCIDevice *d, Error **errp)
-         goto out;
-     }
- 
--    machine_irq = s->real_device.irq;
-+    if (s->real_device.gsi < 0) {
-+        machine_irq = s->real_device.irq;
-+    } else {
-+        machine_irq = s->real_device.gsi;
-+    }
-     if (machine_irq == 0) {
-         XEN_PT_LOG(d, "machine irq is 0\n");
-         cmd |= PCI_COMMAND_INTX_DISABLE;
--- 
-2.34.1
+Jan
 
 
