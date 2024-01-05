@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CB73825675
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 16:20:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662218.1032201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFD21825678
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 16:21:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662220.1032211 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLlzb-0006xk-4M; Fri, 05 Jan 2024 15:20:15 +0000
+	id 1rLm12-0007sM-EK; Fri, 05 Jan 2024 15:21:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662218.1032201; Fri, 05 Jan 2024 15:20:15 +0000
+Received: by outflank-mailman (output) from mailman id 662220.1032211; Fri, 05 Jan 2024 15:21:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLlzb-0006vS-1j; Fri, 05 Jan 2024 15:20:15 +0000
-Received: by outflank-mailman (input) for mailman id 662218;
- Fri, 05 Jan 2024 15:20:14 +0000
+	id 1rLm12-0007qN-Bk; Fri, 05 Jan 2024 15:21:44 +0000
+Received: by outflank-mailman (input) for mailman id 662220;
+ Fri, 05 Jan 2024 15:21:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EEqs=IP=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rLlzZ-0006vM-Up
- for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 15:20:13 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1rLm10-0007qA-Ds
+ for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 15:21:42 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ebd3d401-abdd-11ee-98ef-6d05b1d4d9a1;
- Fri, 05 Jan 2024 16:20:12 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40d4a222818so3880185e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jan 2024 07:20:12 -0800 (PST)
+ id 20a579b9-abde-11ee-98ef-6d05b1d4d9a1;
+ Fri, 05 Jan 2024 16:21:41 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40d89446895so3910755e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 05 Jan 2024 07:21:41 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- u7-20020a05600c138700b0040d8d11bf63sm1878411wmf.41.2024.01.05.07.20.11
+ u7-20020a05600c138700b0040d8d11bf63sm1878411wmf.41.2024.01.05.07.21.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Jan 2024 07:20:12 -0800 (PST)
+ Fri, 05 Jan 2024 07:21:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebd3d401-abdd-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: 20a579b9-abde-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704468012; x=1705072812; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1704468101; x=1705072901; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=apR7gjP2/pank4iw5nBEpEp5aZZs6/vmySBaf8Fp/sU=;
-        b=oZFasCLlXkSdRMSAybOS1vVNI2DXWdLvZvCNrcjQ5GJS28hYDENhxINwvP5zbWUZdj
-         K+Spfufptp4nxTi1B4sD9Meoli19qt5sThavII+z286GPxUaZsWVushiyDObWFm/D9MI
-         NLMOUUKIG5j0sd0VjjK7xe1uWMrtGwLWhPxdA=
+        bh=BpaRolvuHdXPIydnSYjUishtD4yDSzFcPvBDhNGqws8=;
+        b=Wmo8dCXf+MT2GN5Yo1ABZnkJYiT+x5XvYA+WwniXbywNcwc7UNt+J2M5LIsVT3w6W+
+         9kETbddEuN+H0lP4CJysxKUHf/kDm7gOD4v18kDIwMHr8wfwcDnx/pZ4Z4l4EaQSzmJq
+         8MWHJBAJe6uZNw/uvCX2/bls6lReBA8aUzQ3o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704468012; x=1705072812;
+        d=1e100.net; s=20230601; t=1704468101; x=1705072901;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=apR7gjP2/pank4iw5nBEpEp5aZZs6/vmySBaf8Fp/sU=;
-        b=EFBQSHIrvYlitOh7NSoXUtgL2gIVJJw17j0dJ6/5oLqCgV879Rz7f197Z7lHv9Gg7e
-         y8BUlCv6pfGTVy3tHee9ANN9F0qYCZqgspiJ/yhjIbkH0Lj8T6da2uGgnYjcj8iC6ril
-         8WBTP2GI8mYSwjI0ENb2QdT6CeUoLqJ9/s9OMh+yOHVQ/SdUI9S3m/gRusXu0zJlfZYO
-         oqpPHBork2F5nXVAjrje69LPqRQrU7y0BrpegL2R9H0ZZdvAb4vBEM+vkx4aZ90u1x4A
-         XxqGwIhviFrnBtJuw+m2f7Ls+s2ovBqZse2RPX3ircL3z4J6EVzeEEvf48MALX9hHXUf
-         sdjA==
-X-Gm-Message-State: AOJu0YzZ29qRydqMN5HcJ2vXq447g3EDSTttfNAJ2XxuRdvVYoqT+XNT
-	x9KjDuNKRJedbXjL3X0/upi/rGMkJC44iw==
-X-Google-Smtp-Source: AGHT+IFnULwq7TEqfxmgtdy9hBf8qAzd+QiXx5vSB6uC7HJeuKY+7nZQUDGqit8hb6/usrfWjXr2vQ==
-X-Received: by 2002:a7b:ca50:0:b0:40d:5aea:c89b with SMTP id m16-20020a7bca50000000b0040d5aeac89bmr1238576wml.64.1704468012370;
-        Fri, 05 Jan 2024 07:20:12 -0800 (PST)
-Message-ID: <db974c3d-7bd8-4317-8757-e7fd3ebda7b3@citrix.com>
-Date: Fri, 5 Jan 2024 15:20:11 +0000
+        bh=BpaRolvuHdXPIydnSYjUishtD4yDSzFcPvBDhNGqws8=;
+        b=JP/yS3wWwo8AXDvR0LaRwDoU5OiuoQ8B6NfG3icxV2VgLbi2zRyoMo9J6hT3nEmkAg
+         vdv0juBKbelaHUj4M3N/Sx8FBilgFMNbdGM9qBTeYRpxz9OOtVVgfSeriBhTeC6/lCca
+         ROzNRNq4QOwdC73WyVMhux7L1vpIMfd0Z56RrP/fjWi7C8Czn/BTKDfBAOKlLxkwpzDY
+         Brgu1MGyDVyhJlo+YtYvPgEps/OXB9pVJRsfO+T48a//coXyXPaJqPoElAXcMKEEmErg
+         Wr2XrkQWVzzy15qt3uzTOfsmDaeQ24XTTJ+meQESVhXV5je1USupcHhNLoQrmpNAeBcP
+         nLXA==
+X-Gm-Message-State: AOJu0Yz2eX45GsLf67ChWvYorZwwRUWY/stTKvvvCYWKOhdPqi9nWkHu
+	QWYSrvngJ+gmkWtkmtiI1rvCM/YEtnEJTA==
+X-Google-Smtp-Source: AGHT+IEytZUn5EQu+Dr9vQWVvXjMN6LNoqxgaMkeh9VvGGs9o2CpXUeQrvF5pXd1rs7LZk/3kAq2Gg==
+X-Received: by 2002:a05:600c:3145:b0:40d:61bc:cf55 with SMTP id h5-20020a05600c314500b0040d61bccf55mr1319558wmo.89.1704468101070;
+        Fri, 05 Jan 2024 07:21:41 -0800 (PST)
+Message-ID: <90e5c9b1-d6b8-44d4-a170-9ffcb13577cf@citrix.com>
+Date: Fri, 5 Jan 2024 15:21:40 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/33] tools: enable xenstore-stubdom to use 9pfs
+Subject: Re: [PATCH v3 01/33] tools: add access macros for unaligned data
 Content-Language: en-GB
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
- <rosbrookn@gmail.com>, Julien Grall <julien@xen.org>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
 References: <20240104090055.27323-1-jgross@suse.com>
+ <20240104090055.27323-2-jgross@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -128,29 +126,14 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240104090055.27323-1-jgross@suse.com>
+In-Reply-To: <20240104090055.27323-2-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 04/01/2024 9:00 am, Juergen Gross wrote:
->   tools: add a new xen logging daemon
->   tools/xenlogd: connect to frontend
->   tools/xenlogd: add transport layer
->   tools/xenlogd: add 9pfs response generation support
->   tools/xenlogd: add 9pfs version request support
->   tools/xenlogd: add 9pfs attach request support
->   tools/xenlogd: add 9pfs walk request support
->   tools/xenlogd: add 9pfs open request support
->   tools/xenlogd: add 9pfs clunk request support
->   tools/xenlogd: add 9pfs create request support
->   tools/xenlogd: add 9pfs stat request support
->   tools/xenlogd: add 9pfs write request support
->   tools/xenlogd: add 9pfs read request support
+> Add the basic access macros for unaligned data to common-macros.h.
+>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-These all need s/logd/9pfsd/, although I think mostly in the subject only.
-
-Can be fixed on commit, because some of them look like they're otherwise
-ready to go in.
-
-~Andrew
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
