@@ -2,40 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEFEF8250F7
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 10:39:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662045.1031965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB6FD82513A
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 10:52:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662049.1031975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLgey-0004u8-Qu; Fri, 05 Jan 2024 09:38:36 +0000
+	id 1rLgsB-0008MP-Ur; Fri, 05 Jan 2024 09:52:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662045.1031965; Fri, 05 Jan 2024 09:38:36 +0000
+Received: by outflank-mailman (output) from mailman id 662049.1031975; Fri, 05 Jan 2024 09:52:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLgey-0004rc-Nb; Fri, 05 Jan 2024 09:38:36 +0000
-Received: by outflank-mailman (input) for mailman id 662045;
- Fri, 05 Jan 2024 09:38:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rLgsB-0008KV-SD; Fri, 05 Jan 2024 09:52:15 +0000
+Received: by outflank-mailman (input) for mailman id 662049;
+ Fri, 05 Jan 2024 09:52:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=upBt=IP=amd.com=Christian.Koenig@srs-se1.protection.inumbo.net>)
- id 1rLgex-0004rW-K9
- for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 09:38:35 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2416::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 30980c3b-abae-11ee-98ef-6d05b1d4d9a1;
- Fri, 05 Jan 2024 10:38:33 +0100 (CET)
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB5488.namprd12.prod.outlook.com (2603:10b6:a03:3ad::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.17; Fri, 5 Jan
- 2024 09:38:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::e1fb:4123:48b1:653%4]) with mapi id 15.20.7159.013; Fri, 5 Jan 2024
- 09:38:27 +0000
+ <SRS0=5Pm0=IP=dingwall.me.uk=james@srs-se1.protection.inumbo.net>)
+ id 1rLgsA-0008KP-KW
+ for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 09:52:14 +0000
+Received: from smarthost01a.ixn.mail.zen.net.uk
+ (smarthost01a.ixn.mail.zen.net.uk [212.23.1.20])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 18c3cb3a-abb0-11ee-9b0f-b553b5be7939;
+ Fri, 05 Jan 2024 10:52:11 +0100 (CET)
+Received: from [217.155.64.189] (helo=mail0.xen.dingwall.me.uk)
+ by smarthost01a.ixn.mail.zen.net.uk with esmtpsa (TLS1.0) tls
+ TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (Exim 4.95)
+ (envelope-from <james@dingwall.me.uk>) id 1rLgs7-00C7TE-Dg;
+ Fri, 05 Jan 2024 09:52:11 +0000
+Received: from localhost (localhost [IPv6:::1])
+ by mail0.xen.dingwall.me.uk (Postfix) with ESMTP id 3E2D88F7761;
+ Fri,  5 Jan 2024 09:52:10 +0000 (GMT)
+Received: from mail0.xen.dingwall.me.uk ([127.0.0.1])
+ by localhost (mail0.xen.dingwall.me.uk [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id tRi9pq5r9c3B; Fri,  5 Jan 2024 09:52:10 +0000 (GMT)
+Received: from ghoul.dingwall.me.uk (ghoul.dingwall.me.uk [192.168.1.200])
+ by dingwall.me.uk (Postfix) with ESMTP id 1235B8F775E;
+ Fri,  5 Jan 2024 09:52:10 +0000 (GMT)
+Received: by ghoul.dingwall.me.uk (Postfix, from userid 1000)
+ id 0070D21C; Fri,  5 Jan 2024 09:52:09 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,243 +53,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30980c3b-abae-11ee-98ef-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TrWXQrau2wC/HtAdeb7VniXixpzfii60Lb27ZHahD3914UGUv4FHCZYxYr91gTXPFqlPm/y5KKLByJDVB5VcWgwvrocgEDvsG67Sz6Uk52Z0OFxrcol8V1YipE8QD4AgCr1VJgD1fB9w+/IBS+DnXN/r9XcTgPGm7oPvrcAM9iHckReKHWxvSFK9/9fNKYuRyHdOzKs7Tg6APxwLu/wEBqxtUxJ9vDd6+iH+QWTVXjzs53BgG+RKIYjj0yakHfQNr83NOdnF0xaAerHDXUIHAPFHK5z6W6WmltI/Pl7yUsGQO7uA/POjip5SlBoWmllVifHKzklOlb2tgf4i06s4nA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=j9rrwwJeKmFxJoHeXpV2sEnkUMJYcEVwJ70+NIhNCHE=;
- b=UGG0er1YcGMZpronte5DHoNi9uo6V39W223jYmPTkk+B/es84GYx+5DmI4iR91qx8OnFn7L5l1FcGL/16mkT8Mq7xD4gPmPiHWXBP9bAE+dfZ4ginErZzJozmFegwIB6lEPw0Y5+UX2EHqaHicu07HAD8W1oH0Ryp8n+DGhNeMzd4b4JUxqw6MAPrE46IyBa47avdBRmwpCTWz1gIhVBRryKocgwLnL5F+tWolozN7pt0gHkOTeONPUaXHAxqSL2opQpZBJ1WvhGO3/zgYwkFW23mHiOaxi2bYiVL159QzvSNiqVob02NDwd1rLxTitVy1E/CPxykK1KcPQIaC+Jvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j9rrwwJeKmFxJoHeXpV2sEnkUMJYcEVwJ70+NIhNCHE=;
- b=UANw19nmjIfvOUj6PCKTuWt1UxSK78xF45wTsL9XVCGOt+FR6BwDc9oXwwXLQvDFZavT0+Haipmv5meckYvBnrN43vi6U2xR38ijFeKbKliBvMptMreso60Ba1piYCCR8SaeoViIRFyFbfEnqaO+ZUUCh7rhBSRnrx4IgsIaafE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <e4952a68-82aa-4336-b287-7d03ed925a2e@amd.com>
-Date: Fri, 5 Jan 2024 10:38:21 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/gntdev: Fix the abuse of underlying struct page in
- DMA-buf import
-Content-Language: en-US
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Daniel Vetter <daniel@ffwll.ch>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20240104185327.177376-1-olekstysh@gmail.com>
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20240104185327.177376-1-olekstysh@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0095.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-Inumbo-ID: 18c3cb3a-abb0-11ee-9b0f-b553b5be7939
+X-Virus-Scanned: Debian amavisd-new at dingwall.me.uk
+Date: Fri, 5 Jan 2024 09:52:09 +0000
+From: James Dingwall <james-xen@dingwall.me.uk>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: James Dingwall <james-xen@dingwall.me.uk>,
+	xen-devel@lists.xenproject.org
+Subject: Re: XSA-446 relevance on Intel
+Message-ID: <ZZfRSU7mXCmmXCXI@dingwall.me.uk>
+References: <ZXgrQdVvDuQCbCRP@dingwall.me.uk>
+ <f4c7141c-5f37-4366-890c-ab8b86b6f5dd@citrix.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB5488:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39277d24-9b81-41a9-974a-08dc0dd211b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ShCTAvQh9CC68/CDlerQGYGWdpkOzI0rXNn59m4RKfiJH4Z9aDIOwojN3sdOXlRK24zYngnanOVvwAwNtvds4Veu9cW29BEk3HN0iIsbGfcV7U1S26JPiCmRZ2T2KItWH9+KAIJjgSlVBwXbuwL1Q6Rd+G29YoTFVX2IJlE+7eEYPakw6ohFKGuR/FKe9Qc3yUtFmtmGqOhZWcfLIOxmKwvgQA1dL2oBuhBlw7IzL7yCEYlmN4KB7Rd9jUJReLORh8PPHbfJiVwALi7Jy+M44CM2zIxasEWGCtRpi6iD5ppzCodw97Z4Mq/SC/t5J5EZPVCm9LKuc29++JdriIlWtFKqbgEXzgev3CAA+GFTyhG/9BjBAweghxBhpt4ZfNZcsEFUcN9IC5PrqZ5kXCcUSxbWbb4hYLb3kX0MKnh4oafutxAKmOAHG8Af7E4YwYe2Vji8X/JofPLplO6pm5GFunhZHW47OI13ePPwzt4rIn/5cnPng/1A4pc84nCjjNCezQK/OHjLRclrBeNqRmiA01mvFN30oyl9VaEtcV8W/b3iSxzl6zZ4JXwl8JOcDP+TMT7HeYR7PmRpyTfR72JSpcZdgTyU2jofmsjvHati1xpNl1A20HXtU6OcaUqr4NRcAw/wNj6Ioh9aApr+eD74SQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(346002)(396003)(39860400002)(366004)(136003)(230922051799003)(186009)(64100799003)(1800799012)(451199024)(31686004)(2906002)(478600001)(5660300002)(4326008)(6666004)(41300700001)(316002)(54906003)(36756003)(66556008)(66946007)(66476007)(6486002)(6506007)(8936002)(8676002)(6512007)(2616005)(86362001)(31696002)(26005)(83380400001)(66574015)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MUdMQzNkZnk2cWRGNVFhYU1jbzVUZzFjVW1RQ3J6dlBpK0c5ZEQyN2wrYmFC?=
- =?utf-8?B?UXBOVkQxekhMRjQ4czNFQnBsY1BsMDdCZXhIdjdUbzk4OXlRUkhnM0xBak5i?=
- =?utf-8?B?OTZqT3NLYTVLZm1nVmNyZXplNDV3M3V3NGMrbFMvQllWQ2x5c3hXTWpuZzNt?=
- =?utf-8?B?UkhtQXI1V1VZZm1SQndQRW5UT3ltUGNodGdpVGpma0g3Ky85aTFxTzN3VVJN?=
- =?utf-8?B?Q3hMLzl5NG9aVFh4ZVl0ZkdvUjBCaEl2dTcyZlhWVzljTVdTREpuSEVoZlRp?=
- =?utf-8?B?dGF0UGkyQ2xySGdCNm02eXBqYlcvVHZxcktac0VVSVNLNENHalJrYnBiNE8y?=
- =?utf-8?B?Zy9za1VKeGl0TnJ0YmxCQnl5TE9PaktKTHg2RG1RYWI0UkIxR05jbWlIU3ha?=
- =?utf-8?B?UVBIM2M4NTI2TlJWbnFqTEJOK0FZdGxUQ0R0bG1ia1RiUW53b1ZnOGs1azNL?=
- =?utf-8?B?TjdLRWFVSEg0Mm56VFlJNDNMVmwwYmNMc3J3VU9hUkJLV3A1SDBWNWljaW1O?=
- =?utf-8?B?R1FBU3IzOHZnVXcrdklzbU9pY3dwRDJKTjE2eEJvaHdNdmRCTkNsb3REMGZD?=
- =?utf-8?B?ZHVVWFV5ckNJd1pIaXpTa0RuZmcrU28rQ1NYM2prN1FLelNvQkpoWmlaRElI?=
- =?utf-8?B?YnlrbkkwZGFXUW5kYlhHR1dwMXNESjFjR3FNakY5NmJNeXBYWmUwVDBmTkYr?=
- =?utf-8?B?S3JsbUZ2YThwRlhyUkQ0bGdrdXVYcEg4S1pqOXNqRmJZZnhsb3ZwTy9ZTmh2?=
- =?utf-8?B?d2FQaGh5RmlUS1JNcFFSbTloeThiVzhmSFNzTE5PTlA4VE95MXlCTm03ZStz?=
- =?utf-8?B?eUg0OWo4aDRqZnB3NllPdFpJVG9qTHVZQUFIZ21ILzVVYVNEd1BGdm80UlFV?=
- =?utf-8?B?aDRTRW1iUldzN1ByZUpVK01yZEFjR0p0U3l6a1EzKzNyWkRraG9oOHBhb2V3?=
- =?utf-8?B?cUt4OTB0cFFLalpENnJheXA0MUV3M0xrV2MrWmZOUVBjUG9vTDN2OE1ldDVp?=
- =?utf-8?B?clBnSmNEQWowd1dCdHpTbVZSMyswemJySmpwVG5YS3NxeFNYZ2J0Ynkxek03?=
- =?utf-8?B?bXg1VFNlb1EyRFZNN3JXQ1YyL1Z0MmgzMzdUU2lTNzJPQ3MrYzlTZzNueTZu?=
- =?utf-8?B?eXZhYmZJWk82UkhqcFM4Q1ZNcmZxKzZGUEplcC92TlR4QmZuN3g4TDMvMUda?=
- =?utf-8?B?REwvU2hYRHg3Vks3NVNNQm1jVm84Q245N05LazBFR3B3UkkyaExhejRXaFpW?=
- =?utf-8?B?UWdIRjZSQitjcFBPZDRlSFhOMGNGVkZNQ0lab1VQcjNqWE5PTmZUTkhCQ1Jh?=
- =?utf-8?B?d2NnRnRTOXJRYzQ2TXRoNE0rTHNWVHJmOCtUeUY1YkcrLzc5K1oxSEt4a2ho?=
- =?utf-8?B?T2t3eEkrK1VsZ3VBaStZdUEzSFlqdHVKd1d1bkIrSHdoTzlNYVdCZEY5QjQ0?=
- =?utf-8?B?bytzT0FWVGhVQ3ZoMkthY2JGalpRSHp5YWtPM0tuS29vZjZ3UTduajdNbVA0?=
- =?utf-8?B?bWlVUzRYb3FwVEl5MkZrbGNtd0lRa1VVY3U5NmVBSEdBbFI3Q1pvbGp3TGhV?=
- =?utf-8?B?S1Z4SmRvaWN4QkI0SDJNUmxjTHR0VGtOUTZaRmxwOURGMEdvOHRDd2ducDhN?=
- =?utf-8?B?RG02MEFZcGNLQXJpOU5ObEVoa25LZjB1K0RrVU4wd2lubkpCb2llMmZnVXhW?=
- =?utf-8?B?S2x4SFY3VVYyMXJaU2NncHFmWktLSHBWUUc4UlpiSFlxN2ZlZENtR1dJcjRV?=
- =?utf-8?B?Qnlubm83aTB4VDdjV3ZZOWtObnlhclZSK2J2YWYxNXBBTUIxRkZEOGFsT3JQ?=
- =?utf-8?B?b0hJd0d2bTFnc0pYVFVVaFJBWVhRclNZdWtNUU1uRmRvRHpRVjVscFlLdXFF?=
- =?utf-8?B?S2ZpaHBKV2dYSTBQdlJGK3ZVTmp6L2I1aTlPL1NWdVNrTnRaZGhvT2NURmY5?=
- =?utf-8?B?UWRnV2M5cWxteW9tK2NOT2VKWFkyMWJPRmdwZTlBU1l3UCtUbkE1UndYUHM3?=
- =?utf-8?B?d3RaRmNPVlBvcDh5blBQL2ZsdHViVU9CMjdVMmJmTnJRSGp2VWtFeC9TeWh3?=
- =?utf-8?B?WjI1Z3krYWtaYVYxSnFocUcxVzRUTFpsRUNWQWZhSFlFOTBxSFUzRDR4Y2xy?=
- =?utf-8?Q?HaxBhl8ino7hjLF3Ny2TNowZv?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39277d24-9b81-41a9-974a-08dc0dd211b4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2024 09:38:27.2320
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sx6wQNRUOA57ZlltYcOl15bFQ1R4WESeZzqDIZ6t1PpMe8hlDf47Khx7obfbOS3H
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5488
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f4c7141c-5f37-4366-890c-ab8b86b6f5dd@citrix.com>
+X-Originating-smarthost01a-IP: [217.155.64.189]
+Feedback-ID: 217.155.64.189
 
-Am 04.01.24 um 19:53 schrieb Oleksandr Tyshchenko:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->
-> DO NOT access the underlying struct page of an sg table exported
-> by DMA-buf in dmabuf_imp_to_refs(), this is not allowed.
-> Please see drivers/dma-buf/dma-buf.c:mangle_sg_table() for details.
->
-> Fortunately, here (for special Xen device) we can avoid using
-> pages and calculate gfns directly from dma addresses provided by
-> the sg table.
->
-> Suggested-by: Daniel Vetter <daniel@ffwll.ch>
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On Tue, Dec 12, 2023 at 10:56:48AM +0000, Andrew Cooper wrote:
+> On 12/12/2023 9:43 am, James Dingwall wrote:
+> > Hi,
+> >
+> > We were experiencing a crash during PV domU boot on several different models
+> > of hardware but all with Intel CPUs.  The Xen version was based on stable-4.15
+> > at 4a4daf6bddbe8a741329df5cc8768f7dec664aed (XSA-444) with some local
+> > patches.  Since updating the branch to b918c4cdc7ab2c1c9e9a9b54fa9d9c595913e028
+> > (XSA-446) we have not observed the same crash.
+> 
+> That range covers:
+> 
+> 1f5f515da0f6 - iommu/amd-vi: use correct level for quarantine domain
+> page tables
+> b918c4cdc7ab - x86/spec-ctrl: Remove conditional IRQs-on-ness for INT
+> $0x80/0x82 paths
+> 
+> so yeah - not much in the way of change.
+> 
+> > The occurrence was on 1-2% of boots and we couldn't determine a particular
+> > sequence of events that would trigger it.  The kernel is based on Ubuntu's
+> > 5.15.0-91 tag but we also observed the same with -85.  Due to the low
+> > frequency it is possible that we simply haven't observed it again since
+> > updating our Xen build.
+> >
+> > If I have followed the early startup this is happening shortly after detection
+> > of possible CPU vulnerabilities and patching in alternative instructions.  As
+> > the RIP was native_irq_return_iret and XSA-446 related to interupt management
+> > I wondered if it was possible that despite "Xen is not believed to be vulnerable
+> > in default configurations on CPUs from other hardware vendors." there could
+> > be some conditions in which an Intel CPU is affected?
+> 
+> In short, XSA-446 isn't plausibly related.  It's completely internal to
+> Xen, with no alteration on guest state.
+> 
+> It is an error that Linux has ended up in native_irq_return_iret.  Linux
+> cannot return to itself with an IRET instruction, and must use
+> HYPERCALL_iret instead.
+> 
+> In recent versions of Linux, this is fixed up as about the earliest
+> action a PV kernel takes, but on older versions of Linux, any
+> interrupt/exception early enough on boot was fatal in this way.
+> 
+> 
+> This part of the backtrace is odd:
+> 
+> [    0.398962]  ? native_iret+0x7/0x7
+> [    0.398967]  ? insn_decode+0x79/0x100
+> [    0.398975]  ? insn_decode+0xcf/0x100
+> [    0.398980]  optimize_nops+0x68/0x150
+> 
+> as it's not clear how we've ended up in a case wanting to return back to
+> the kernel to begin with.  However, it's most likely a pagefault, as
+> optimize_nops() is making changes in arbitrary locations.
+> 
+> It is possible that a change in visible features has altered the
+> behaviour enough not to crash, but if everything is still the same as
+> far as you can tell, then it's likely just chance that you haven't seen
+> it again.
+> 
+> This is definitely a Linux bug, so I suspect something bad has been
+> backported into Ubuntu.
+> 
+> ~Andrew
 
-I can't say that I can judge the full technical background, but that 
-looks reasonable to me.
+Thanks for the response.  I had a look at the more recent kernels and managed
+to backport "x86/entry,xen: Early rewrite of restore_regs_and_return_to_kernel()"
+without too much trouble.  It may still be a coincidence that we haven't
+encountered the problem but it seems to have gone away for now. 
 
-Acked-by: Christian KÃ¶nig <christian.koenig@amd.com>
-
-> ---
-> Please note, I didn't manage to test the patch against the latest master branch
-> on real HW (patch was only build tested there). Patch was tested on Arm64
-> guests using Linux v5.10.41 from vendor's BSP, this is the environment where
-> running this use-case is possible and to which I have an access (Xen PV display
-> with zero-copy and backend domain as a buffer provider - be-alloc=1, so dma-buf
-> import part was involved). A little bit old, but the dma-buf import code
-> in gntdev-dmabuf.c hasn't been changed much since that time, all context
-> remains allmost the same according to my code inspection.
-> ---
-> ---
->   drivers/xen/gntdev-dmabuf.c | 42 +++++++++++++++----------------------
->   1 file changed, 17 insertions(+), 25 deletions(-)
->
-> diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-> index 4440e626b797..0dde49fca9a5 100644
-> --- a/drivers/xen/gntdev-dmabuf.c
-> +++ b/drivers/xen/gntdev-dmabuf.c
-> @@ -11,6 +11,7 @@
->   #include <linux/kernel.h>
->   #include <linux/errno.h>
->   #include <linux/dma-buf.h>
-> +#include <linux/dma-direct.h>
->   #include <linux/slab.h>
->   #include <linux/types.h>
->   #include <linux/uaccess.h>
-> @@ -50,7 +51,7 @@ struct gntdev_dmabuf {
->   
->   	/* Number of pages this buffer has. */
->   	int nr_pages;
-> -	/* Pages of this buffer. */
-> +	/* Pages of this buffer (only for dma-buf export). */
->   	struct page **pages;
->   };
->   
-> @@ -484,7 +485,7 @@ static int dmabuf_exp_from_refs(struct gntdev_priv *priv, int flags,
->   /* DMA buffer import support. */
->   
->   static int
-> -dmabuf_imp_grant_foreign_access(struct page **pages, u32 *refs,
-> +dmabuf_imp_grant_foreign_access(unsigned long *gfns, u32 *refs,
->   				int count, int domid)
->   {
->   	grant_ref_t priv_gref_head;
-> @@ -507,7 +508,7 @@ dmabuf_imp_grant_foreign_access(struct page **pages, u32 *refs,
->   		}
->   
->   		gnttab_grant_foreign_access_ref(cur_ref, domid,
-> -						xen_page_to_gfn(pages[i]), 0);
-> +						gfns[i], 0);
->   		refs[i] = cur_ref;
->   	}
->   
-> @@ -529,7 +530,6 @@ static void dmabuf_imp_end_foreign_access(u32 *refs, int count)
->   
->   static void dmabuf_imp_free_storage(struct gntdev_dmabuf *gntdev_dmabuf)
->   {
-> -	kfree(gntdev_dmabuf->pages);
->   	kfree(gntdev_dmabuf->u.imp.refs);
->   	kfree(gntdev_dmabuf);
->   }
-> @@ -549,12 +549,6 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
->   	if (!gntdev_dmabuf->u.imp.refs)
->   		goto fail;
->   
-> -	gntdev_dmabuf->pages = kcalloc(count,
-> -				       sizeof(gntdev_dmabuf->pages[0]),
-> -				       GFP_KERNEL);
-> -	if (!gntdev_dmabuf->pages)
-> -		goto fail;
-> -
->   	gntdev_dmabuf->nr_pages = count;
->   
->   	for (i = 0; i < count; i++)
-> @@ -576,7 +570,8 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
->   	struct dma_buf *dma_buf;
->   	struct dma_buf_attachment *attach;
->   	struct sg_table *sgt;
-> -	struct sg_page_iter sg_iter;
-> +	struct sg_dma_page_iter sg_iter;
-> +	unsigned long *gfns;
->   	int i;
->   
->   	dma_buf = dma_buf_get(fd);
-> @@ -624,26 +619,23 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
->   
->   	gntdev_dmabuf->u.imp.sgt = sgt;
->   
-> -	/* Now convert sgt to array of pages and check for page validity. */
-> +	gfns = kcalloc(count, sizeof(*gfns), GFP_KERNEL);
-> +	if (!gfns)
-> +		goto fail_unmap;
-> +
-> +	/* Now convert sgt to array of gfns without accessing underlying pages. */
->   	i = 0;
-> -	for_each_sgtable_page(sgt, &sg_iter, 0) {
-> -		struct page *page = sg_page_iter_page(&sg_iter);
-> -		/*
-> -		 * Check if page is valid: this can happen if we are given
-> -		 * a page from VRAM or other resources which are not backed
-> -		 * by a struct page.
-> -		 */
-> -		if (!pfn_valid(page_to_pfn(page))) {
-> -			ret = ERR_PTR(-EINVAL);
-> -			goto fail_unmap;
-> -		}
-> +	for_each_sgtable_dma_page(sgt, &sg_iter, 0) {
-> +		dma_addr_t addr = sg_page_iter_dma_address(&sg_iter);
-> +		unsigned long pfn = bfn_to_pfn(XEN_PFN_DOWN(dma_to_phys(dev, addr)));
->   
-> -		gntdev_dmabuf->pages[i++] = page;
-> +		gfns[i++] = pfn_to_gfn(pfn);
->   	}
->   
-> -	ret = ERR_PTR(dmabuf_imp_grant_foreign_access(gntdev_dmabuf->pages,
-> +	ret = ERR_PTR(dmabuf_imp_grant_foreign_access(gfns,
->   						      gntdev_dmabuf->u.imp.refs,
->   						      count, domid));
-> +	kfree(gfns);
->   	if (IS_ERR(ret))
->   		goto fail_end_access;
->   
-
+Regards,
+James
 
