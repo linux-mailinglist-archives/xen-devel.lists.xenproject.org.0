@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42AD48257ED
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 17:20:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662245.1032272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E43438257F9
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 17:21:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662249.1032282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLmvP-00053o-SK; Fri, 05 Jan 2024 16:19:59 +0000
+	id 1rLmwY-0006pK-5K; Fri, 05 Jan 2024 16:21:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662245.1032272; Fri, 05 Jan 2024 16:19:59 +0000
+Received: by outflank-mailman (output) from mailman id 662249.1032282; Fri, 05 Jan 2024 16:21:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLmvP-00050x-OR; Fri, 05 Jan 2024 16:19:59 +0000
-Received: by outflank-mailman (input) for mailman id 662245;
- Fri, 05 Jan 2024 16:19:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7et4=IP=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1rLmvO-00050r-Je
- for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 16:19:58 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4447f4e5-abe6-11ee-98ef-6d05b1d4d9a1;
- Fri, 05 Jan 2024 17:19:57 +0100 (CET)
-Received: from [192.168.1.15] (host-79-44-205-232.retail.telecomitalia.it
- [79.44.205.232])
- by support.bugseng.com (Postfix) with ESMTPSA id 877FE4EE073F;
- Fri,  5 Jan 2024 17:19:56 +0100 (CET)
+	id 1rLmwY-0006nO-1s; Fri, 05 Jan 2024 16:21:10 +0000
+Received: by outflank-mailman (input) for mailman id 662249;
+ Fri, 05 Jan 2024 16:21:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rLmwX-0006nE-AL; Fri, 05 Jan 2024 16:21:09 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rLmwW-0001fB-VL; Fri, 05 Jan 2024 16:21:08 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rLmwW-0005ZD-E3; Fri, 05 Jan 2024 16:21:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rLmwW-00063g-DZ; Fri, 05 Jan 2024 16:21:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,126 +42,315 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4447f4e5-abe6-11ee-98ef-6d05b1d4d9a1
-Message-ID: <6a39fe3e-524f-4e39-81bc-ffb3d48ba306@bugseng.com>
-Date: Fri, 5 Jan 2024 17:19:55 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN RFC] x86/uaccess: remove __{put,get}_user_bad()
-To: Jan Beulich <jbeulich@suse.com>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: consulting@bugseng.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>
-References: <9cf852da1c03b614bf5010132c58a18adc2a4161.1703155225.git.federico.serafini@bugseng.com>
- <a2050ac1-e205-4d7f-b9b1-aa625136e63a@suse.com>
- <0c5bbfde-4cf0-4878-b1ee-ccc8eb775464@citrix.com>
- <eb53449bd6595ea0931460e62dd57b9c@bugseng.com>
- <1330c757-1ca3-4b07-898b-799cbfa67e8a@suse.com>
-Content-Language: en-US, it
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <1330c757-1ca3-4b07-898b-799cbfa67e8a@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=E4WafRWy26Xg375flTYyfJ2STDs0Ls+KFM3N7dtwT98=; b=gNT76xK1AwAawKWTTwKinsezbm
+	tKoVAMQnZ7NsJWwTcbsenEz4q65cwZbZS6pFHmlzNxtsmrhbQsoYnzMhjkRGg8ZJlbK0rsp/s7lP+
+	UjBfqBxeH8wiyKKLTTsdF77y2QtCBkF3Q5K+jv/0ijY4LJHHQA/Do7NDkADvNATVn0Ew=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184256-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 184256: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=1f874787ed9a2d78ed59cb21d0d90ac0178eceb0
+X-Osstest-Versions-That:
+    linux=5eff55d725a4e0dc6fc7709c4b1ca4fe40588d07
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 05 Jan 2024 16:21:08 +0000
 
-Hello everyone,
+flight 184256 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184256/
 
-On 21/12/23 13:41, Jan Beulich wrote:
-> On 21.12.2023 13:01, Nicola Vetrini wrote:
->> Hi Andrew,
->>
->> On 2023-12-21 12:03, Andrew Cooper wrote:
->>> On 21/12/2023 10:58 am, Jan Beulich wrote:
->>>> On 21.12.2023 11:53, Federico Serafini wrote:
->>>>> Remove declarations of __put_user_bad() and __get_user_bad()
->>>>> since they have no definition.
->>>>> Replace their uses with a break statement to address violations of
->>>>> MISRA C:2012 Rule 16.3 ("An unconditional `break' statement shall
->>>>> terminate every switch-clause").
->>>>> No functional change.
->>>>>
->>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>>> ---
->>>>> Several violations of Rule 16.3 come from uses of macros
->>>>> get_unsafe_size() and put_unsafe_size().
->>>>> Looking at the macro definitions I found __get_user_bad() and
->>>>> __put_user_bad().
->>>>> I was wondering if instead of just adding the break statement I can
->>>>> also remove
->>>>> such functions which seem to not have a definition.
->>>> No, you can't. Try introducing a caller which "accidentally" uses the
->>>> wrong size. Without your change you'll observe the build failing (in
->>>> a somewhat obscure way, but still), while with your change bad code
->>>> will silently be generated.
->>>
->>> The construct here is deliberate.  It's a build time assertion that bad
->>> sizes aren't used.
->>>
->>> __bitop_bad_size() and __xsm_action_mismatch_detected() are the same
->>> pattern in other areas of code too, with the latter being more explicit
->>> because of how it's wrapped by LINKER_BUG_ON().
->>>
->>>
->>> It is slightly horrible, and not the most obvious construct for
->>> newcomers.  If there's an alternative way to get a build assertion, we
->>> could consider switching to a new pattern.
->>
->> would you be in favour of a solution with a BUILD_BUG_ON in the default
->> branch followed by a break?
->>
->> default:
->>       BUILD_BUG_ON(!size || size >=8 || (size & (size - 1)));
->>       break;
-> 
-> I don't think this would compile - BUILD_BUG_ON() wants a compile-time
-> constant passed.
+Failures :-/ but no regressions.
 
-What do you think about adding the following macro to compiler.h:
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184252
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184252
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184252
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184252
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184252
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184252
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184252
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184252
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-#define static_assert_unreachable(identifier) \
-     asm("unreachable " #identifier " reached")
+version targeted for testing:
+ linux                1f874787ed9a2d78ed59cb21d0d90ac0178eceb0
+baseline version:
+ linux                5eff55d725a4e0dc6fc7709c4b1ca4fe40588d07
 
-It expands to an invalid assembly instruction that will lead to a
-customizable error message generated by the assembler instead of the
-linker (anticipating the error detection).
+Last test of basis   184252  2024-01-04 19:43:56 Z    0 days
+Testing same since   184256  2024-01-05 04:22:32 Z    0 days    1 attempts
 
-The use of this macro will indicate a program point considered
-unreachable (and as such removed) by the static analysis performed by 
-the compiler, even at an optimization level -O0.
+------------------------------------------------------------
+People who touched revisions under test:
+  Aaron Conole <aconole@redhat.com>
+  Adrian Cinal <adriancinal1@gmail.com>
+  Adrian Cinal <adriancinal@gmail.com>
+  Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+  Alex Henrie <alexhenrie24@gmail.com>
+  Alexander Lobakin <aleksander.lobakin@intel.com>
+  Andrii Staikov <andrii.staikov@intel.com>
+  Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>
+  Bagas Sanjaya <bagasdotme@gmail.com>
+  Benjamin Berg <benjamin.berg@intel.com>
+  Benjamin Poirier <benjamin.poirier@gmail.com>
+  Bharathi Sreenivas <bharathi.sreenivas@intel.com>
+  Brad Cowie <brad@faucet.nz>
+  Chen Ni <nichen@iscas.ac.cn>
+  Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+  David S. Miller <davem@davemloft.net>
+  David Thompson <davthompson@nvidia.com>
+  Ding Hui <dinghui@sangfor.com.cn>
+  Dinghao Liu <dinghao.liu@zju.edu.cn>
+  Dmitry Safonov <dima@arista.com>
+  Doug Berger <opendmb@gmail.com>
+  Florian Fainelli <florian.fainelli@broadcom.com>
+  Geliang Tang <geliang.tang@linux.dev>
+  Hangbin Liu <liuhangbin@gmail.com>
+  Hangyu Hua <hbh25y@gmail.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jamal Hadi Salim <jhs@mojatatu.com>
+  Johannes Berg <johannes.berg@intel.com>
+  Jörn-Thorben Hinz <jthinz@mailbox.tu-berlin.de>
+  Kai-Heng Feng <kai.heng.feng@canonical.com>
+  Kalle Valo <kvalo@kernel.org>
+  Karen Ostrowska <karen.ostrowska@intel.com>
+  Katarzyna Wieczerzycka <katarzyna.wieczerzycka@intel.com>
+  Ke Xiao <xiaoke@sangfor.com.cn>
+  Kurt Kanzenbach <kurt@linutronix.de>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Lukas Bulwahn <lukas.bulwahn@gmail.com>
+  Marc Dionne <marc.dionne@auristor.com>
+  Marcin Wojtas <marcin.s.wojtas@gmail.com>
+  Mat Martineau <martineau@kernel.org>
+  Mateusz Palczewski <mateusz.palczewski@intel.com>
+  Matthieu Baerts <matttbe@kernel.org>
+  Michael Chan <michael.chan@broadcom.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Miri Korenblit <miriam.rachel.korenblit@intel.com>
+  Naama Meir <naamax.meir@linux.intel.com>
+  Naveen Mamindlapalli <naveenm@marvell.com>
+  Ngai-Mint Kwan <ngai-mint.kwan@intel.com>
+  Nithin Kumar Dabilpuram <ndabilpuram@marvell.com>
+  Noah Goldstein <goldstein.w.n@gmail.com>
+  Pablo Neira Ayuso <pablo@netfilter.org>
+  Paolo Abeni <pabeni@redhat.com>
+  Paul Greenwalt <paul.greenwalt@intel.com>
+  Pavan Kumar Linga <pavan.kumar.linga@intel.com>
+  Pucha Himasekhar Reddy <himasekharx.reddy.pucha@intel.com> (A Contingent worker at Intel)
+  Radu Pirea (NXP OSS) <radu-nicolae.pirea@oss.nxp.com>
+  Rafal Romanowski <rafal.romanowski@intel.com>
+  Randy Dunlap <rdunlap@infradead.org>
+  Rodrigo Cataldo <rodrigo.cadore@l-acoustics.com>
+  Sagi Maimon <maimon.sagi@gmail.com>
+  Sarannya S <quic_sarannya@quicinc.com>
+  Sarannya Sasikumar <quic_sarannya@quicinc.com>
+  Scott Register <scott.register@intel.com>
+  Siddh Raman Pant <code@siddh.me>
+  Sudheer Mogilappagari <sudheer.mogilappagari@intel.com>
+  Suman Ghosh <sumang@marvell.com>
+  Sunil Kovvuri Goutham <sgoutham@marvell.com>
+  Thomas Lange <thomas@corelatus.se>
+  Tony Nguyen <anthony.l.nguyen@intel.com>
+  Vinicius Costa Gomes <vinicius.gomes@intel.com>
+  wangkeqi <wangkeqiwang@didiglobal.com>
+  Wen Gu <guwen@linux.alibaba.com>
+  Wojciech Drewek <wojciech.drewek@intel.com>
+  Xin Long <lucien.xin@gmail.com>
+  Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+  Zhipeng Lu <alexious@zju.edu.cn>
 
-An example of use is in the default case of put_unsafe_size():
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-default: static_assert_unreachable(default);
 
-In case a wrong size will be used, the following message will be
-generated:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-./arch/x86/include/asm/uaccess.h: Assembler messages:
-./arch/x86/include/asm/uaccess.h:257: Error: no such instruction: 
-`unreachable default reached'
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Note that adopting the macro and discussing its definition are two
-separate things:
-I think we can all agree on the fact that the use of such macro improves
-readability, so I would suggest its adoption.
-Whereas for its definition, if you don't like the invalid asm
-instruction, we could discuss for a different solution, for example,
-the following is something similar to what you are doing now:
-
-#define static_assert_unreachable(identifier) \
-     extern void identifier(void);             \
-     identifier()
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Note also that the problem of the missing break statement (that violates
-Rule 16.3) is still present, it could be addressed by adding the break
-or deviating for such special cases, do you have any preferences?
+Pushing revision :
 
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   5eff55d725a4..1f874787ed9a  1f874787ed9a2d78ed59cb21d0d90ac0178eceb0 -> tested/linux-linus
 
