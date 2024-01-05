@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38BA682592C
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 18:38:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662277.1032331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E54F282594D
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jan 2024 18:44:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662284.1032341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLo98-0000R9-Rt; Fri, 05 Jan 2024 17:38:14 +0000
+	id 1rLoEw-0003Ib-JJ; Fri, 05 Jan 2024 17:44:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662277.1032331; Fri, 05 Jan 2024 17:38:14 +0000
+Received: by outflank-mailman (output) from mailman id 662284.1032341; Fri, 05 Jan 2024 17:44:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLo98-0000Oh-P7; Fri, 05 Jan 2024 17:38:14 +0000
-Received: by outflank-mailman (input) for mailman id 662277;
- Fri, 05 Jan 2024 17:38:13 +0000
+	id 1rLoEw-0003Fi-Gf; Fri, 05 Jan 2024 17:44:14 +0000
+Received: by outflank-mailman (input) for mailman id 662284;
+ Fri, 05 Jan 2024 17:44:13 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rLo97-0000Ob-Lx
- for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 17:38:13 +0000
+ (envelope-from <julien@xen.org>) id 1rLoEv-0003Fc-D9
+ for xen-devel@lists.xenproject.org; Fri, 05 Jan 2024 17:44:13 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rLo97-0003YP-2h; Fri, 05 Jan 2024 17:38:13 +0000
+ id 1rLoEu-0003jX-GE; Fri, 05 Jan 2024 17:44:12 +0000
 Received: from [54.239.6.189] (helo=[192.168.15.166])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rLo96-0007ic-Qf; Fri, 05 Jan 2024 17:38:12 +0000
+ id 1rLoEu-00084K-7C; Fri, 05 Jan 2024 17:44:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,238 +42,254 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=kf6T5i3vYgPyaEsZYkQZj+k2CJJCYSvVE8T0mj/9WPw=; b=ugOSRZiQSfQgIr+lDbACIeCUWQ
-	RTn02WPN1OWVmRMebdU+0KRBPRWz0WNITKiD9/kBaoGllMQ1Ji7Uwxk33vxO02nPuSUlJUWBLrum/
-	2ZfAj9FQ2fOzFr0ldjGeXml+l5x7tpHU1DErGNYoQHg1USjBOTcYGqbPAc0LvGe8Q39A=;
-Message-ID: <849b166d-a1a1-407e-8a9c-e0beac6ee955@xen.org>
-Date: Fri, 5 Jan 2024 17:38:10 +0000
+	bh=snDLMfYxl5ayrer8vruM9ZaCXAsIDpjf5hiwth4ksEU=; b=PU75kD94Z+maSDn2E2zG/V5idi
+	bAIrpaA7ERSDuqBrqvABIcdsgVNlkXBKhL0asjYwTUANT254W0Kh3j2H7vJiOievAeKaU+eYdV4M/
+	fVxGQVvyiOBSDtPJpyvVctyrDFM+6/ycuhFWXuiU+aH5wrDvvuoi9RRg51eoZkK+sSpM=;
+Message-ID: <6916e8d4-b528-4fa4-b5ac-403b6632b6dd@xen.org>
+Date: Fri, 5 Jan 2024 17:44:09 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 06/13] xen/arm: add support for cache coloring
- configuration via device-tree
+Subject: Re: [PATCH v5 02/13] xen/arm: add cache coloring initialization
 Content-Language: en-GB
-To: Carlo Nonato <carlo.nonato@minervasys.tech>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Marco Solieri <marco.solieri@minervasys.tech>
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Marco Solieri <marco.solieri@minervasys.tech>
 References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-7-carlo.nonato@minervasys.tech>
+ <20240102095138.17933-3-carlo.nonato@minervasys.tech>
+ <5eb9fa24-c95e-4ea0-84ef-be74c629c106@xen.org>
+ <CAG+AhRW5Xxy7BHVhmfkBqbdeKqRz7E1Mrc7wNv6F+ecM4P_QPw@mail.gmail.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240102095138.17933-7-carlo.nonato@minervasys.tech>
+In-Reply-To: <CAG+AhRW5Xxy7BHVhmfkBqbdeKqRz7E1Mrc7wNv6F+ecM4P_QPw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 Hi Carlo,
 
-On 02/01/2024 09:51, Carlo Nonato wrote:
-> This commit adds the "llc-colors" Device Tree attribute that can be used
-> for DomUs and Dom0less color configurations. The syntax is the same used
-> for every color config.
+On 05/01/2024 16:34, Carlo Nonato wrote:
+> On Thu, Jan 4, 2024 at 8:25 PM Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Carlo,
+>>
+>> On 02/01/2024 09:51, Carlo Nonato wrote:
+>>> This commit implements functions declared in the LLC coloring common header
+>>> for arm64 and adds documentation. It also adds two command line options: a
+>>> runtime switch for the cache coloring feature and the LLC way size
+>>> parameter.
+>>>
+>>> The feature init function consists of an auto probing of the cache layout
+>>> necessary to retrieve the LLC way size which is used to compute the number
+>>> of platform colors. It also adds a debug-key to dump general cache coloring
+>>> info.
+>>>
+>>> Static memory allocation and cache coloring are incompatible because static
+>>> memory can't be guaranteed to use only colors assigned to the domain.
+>>> Panic during domUs creation when both are enabled.
+>>>
+>>> Based on original work from: Luca Miccio <lucmiccio@gmail.com>
+>>>
+>>> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+>>> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+>>> ---
+>>> v5:
+>>> - used - instead of _ for filenames
+>>> - moved static-mem check in this patch
+>>> - moved dom0 colors parsing in next patch
+>>> - moved color allocation and configuration in next patch
+>>> - moved check_colors() in next patch
+>>> - colors are now printed in short form
+>>> v4:
+>>> - added "llc-coloring" cmdline option for the boot-time switch
+>>> - dom0 colors are now checked during domain init as for any other domain
+>>> - fixed processor.h masks bit width
+>>> - check for overflow in parse_color_config()
+>>> - check_colors() now checks also that colors are sorted and unique
+>>> ---
+>>>    docs/misc/arm/cache-coloring.rst        |  97 ++++++++++++++
+>>>    docs/misc/xen-command-line.pandoc       |  28 +++++
+>>>    xen/arch/arm/Kconfig                    |   1 +
+>>>    xen/arch/arm/Makefile                   |   1 +
+>>>    xen/arch/arm/dom0less-build.c           |   6 +
+>>>    xen/arch/arm/include/asm/llc-coloring.h |  28 +++++
+>>>    xen/arch/arm/include/asm/processor.h    |  16 +++
+>>>    xen/arch/arm/llc-coloring.c             | 161 ++++++++++++++++++++++++
+>>>    xen/arch/arm/setup.c                    |   7 ++
+>>>    9 files changed, 345 insertions(+)
+>>>    create mode 100644 docs/misc/arm/cache-coloring.rst
+>>>    create mode 100644 xen/arch/arm/include/asm/llc-coloring.h
+>>>    create mode 100644 xen/arch/arm/llc-coloring.c
+>>>
+>>> diff --git a/docs/misc/arm/cache-coloring.rst b/docs/misc/arm/cache-coloring.rst
+>>> new file mode 100644
+>>> index 0000000000..eabf8f5d1b
+>>> --- /dev/null
+>>> +++ b/docs/misc/arm/cache-coloring.rst
+>>> @@ -0,0 +1,97 @@
+>>> +Xen cache coloring user guide
+>>> +=============================
+>>> +
+>>> +The cache coloring support in Xen allows to reserve Last Level Cache (LLC)
+>>> +partitions for Dom0, DomUs and Xen itself. Currently only ARM64 is supported.
+>>> +
+>>> +To compile LLC coloring support set ``CONFIG_LLC_COLORING=y``.
+>>> +
+>>> +If needed, change the maximum number of colors with
+>>> +``CONFIG_NR_LLC_COLORS=<n>``.
+>>> +
+>>> +Compile Xen and the toolstack and then configure it via
+>>> +`Command line parameters`_.
+>>> +
+>>> +Background
+>>> +**********
+>>> +
+>>> +Cache hierarchy of a modern multi-core CPU typically has first levels dedicated
+>>> +to each core (hence using multiple cache units), while the last level is shared
+>>> +among all of them. Such configuration implies that memory operations on one
+>>> +core (e.g. running a DomU) are able to generate interference on another core
+>>> +(e.g .hosting another DomU). Cache coloring allows eliminating this
+>>> +mutual interference, and thus guaranteeing higher and more predictable
+>>> +performances for memory accesses.
+>>> +The key concept underlying cache coloring is a fragmentation of the memory
+>>> +space into a set of sub-spaces called colors that are mapped to disjoint cache
+>>> +partitions. Technically, the whole memory space is first divided into a number
+>>> +of subsequent regions. Then each region is in turn divided into a number of
+>>> +subsequent sub-colors. The generic i-th color is then obtained by all the
+>>> +i-th sub-colors in each region.
+>>> +
+>>> +::
+>>> +
+>>> +                            Region j            Region j+1
+>>> +                .....................   ............
+>>> +                .                     . .
+>>> +                .                       .
+>>> +            _ _ _______________ _ _____________________ _ _
+>>> +                |     |     |     |     |     |     |
+>>> +                | c_0 | c_1 |     | c_n | c_0 | c_1 |
+>>> +           _ _ _|_____|_____|_ _ _|_____|_____|_____|_ _ _
+>>> +                    :                       :
+>>> +                    :                       :...         ... .
+>>> +                    :                            color 0
+>>> +                    :...........................         ... .
+>>> +                                                :
+>>> +          . . ..................................:
+>>> +
+>>> +There are two pragmatic lesson to be learnt.
+>>> +
+>>> +1. If one wants to avoid cache interference between two domains, different
+>>> +   colors needs to be used for their memory.
+>>> +
+>>> +2. Color assignment must privilege contiguity in the partitioning. E.g.,
+>>> +   assigning colors (0,1) to domain I  and (2,3) to domain  J is better than
+>>> +   assigning colors (0,2) to I and (1,3) to J.
+>>> +
+>>> +How to compute the number of colors
+>>> +***********************************
+>>> +
+>>> +To compute the number of available colors for a specific platform, the size of
+>>> +an LLC way and the page size used by Xen must be known.
+>>
+>> Looking at the get_llc_way_size(), you are using CLIDR_EL1 which doesn't
+>> contains the system caches. They are invisible to the software but I
+>> guess could have an impact for cache coloring.
+>>
+>> Can you clarify if by Last Cache Level, you mean the last visible cache?
 > 
-> Based on original work from: Luca Miccio <lucmiccio@gmail.com>
+> We are targeting only Cortex-A53, A57 and A72 where the "last level" is L2.
+> This "generic" approach for last level computation is inevitably problematic,
+> but I think that defining it as the last visible cache is the best thing we
+> can do. Remember also that this computation is overridable with the
+> appropriate command line parameter, so it's still possible to target
+> cache architectures that aren't discovered by this code (which are rare cases
+> since cache-coloring is already a small niche).
+
+I understand that and I don't mind which definition is chosen. I just 
+want the documentation to be clear enough so there is little to no 
+interpretation left.
+
+[...]
+
+>>> +    {
+>>> +        printk(XENLOG_ERR "Number of LLC colors (%u) not in range [2, %u]\n",
+>>> +               nr_colors, CONFIG_NR_LLC_COLORS);
+>>> +        return false;
+>>> +    }
+>>> +
+>>> +    register_keyhandler('K', dump_coloring_info, "dump LLC coloring info", 1);
+>>> +
+>>> +    return true;
+>>> +}
+>>> +
+>>> +void domain_llc_coloring_free(struct domain *d)
+>>> +{
+>>> +    xfree(d->llc_colors);
+>>> +}
+>>> +
+>>> +void domain_dump_llc_colors(struct domain *d)
+>>> +{
+>>> +    printk("Domain %pd has %u LLC colors: ", d, d->num_llc_colors);
+>>> +    print_colors(d->llc_colors, d->num_llc_colors);
+>>> +}
+>>> +
+>>> +/*
+>>> + * Local variables:
+>>> + * mode: C
+>>> + * c-file-style: "BSD"
+>>> + * c-basic-offset: 4
+>>> + * tab-width: 4
+>>> + * indent-tabs-mode: nil
+>>> + * End:
+>>> + */
+>>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+>>> index 59dd9bb25a..4c16b566db 100644
+>>> --- a/xen/arch/arm/setup.c
+>>> +++ b/xen/arch/arm/setup.c
+>>> @@ -12,6 +12,7 @@
+>>>    #include <xen/device_tree.h>
+>>>    #include <xen/domain_page.h>
+>>>    #include <xen/grant_table.h>
+>>> +#include <xen/llc-coloring.h>
+>>>    #include <xen/types.h>
+>>>    #include <xen/string.h>
+>>>    #include <xen/serial.h>
+>>> @@ -746,6 +747,12 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
+>>>        printk("Command line: %s\n", cmdline);
+>>>        cmdline_parse(cmdline);
+>>>
+>>> +    if ( llc_coloring_enabled )
+>>
+>> I would consider to move llc_coloring_enabled in llc_coloring_init().
+>> But if you prefer to keep the check here, then I would at least request
+>> to merge the two ifs. I.e.
+>>
+>> if ( llc_coloring_enabled && !llc_coloring_init() )
+>>
+>> That said...
+>>
+>>> +    {
+>>> +        if ( !llc_coloring_init() )
+>>> +            panic("Xen LLC coloring support: setup failed\n");
+>>> +    }
+>>> +
+>>>        setup_mm();
+>>
+>> ... shouldn't the coloring happen in setup_mm()? After all, this is part
+>> of the memory subystem and I suspect this will not work with the
+>> upcoming MPU support.
 > 
-> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
-> ---
-> v5:
-> - static-mem check has been moved in a previous patch
-> - added domain_set_llc_colors_from_str() to set colors after domain creation
-> ---
->   docs/misc/arm/cache-coloring.rst        | 48 ++++++++++++++++++++++++-
->   docs/misc/arm/device-tree/booting.txt   |  4 +++
->   xen/arch/arm/dom0less-build.c           | 13 +++++++
->   xen/arch/arm/include/asm/llc-coloring.h |  1 +
->   xen/arch/arm/llc-coloring.c             | 17 +++++++++
->   5 files changed, 82 insertions(+), 1 deletion(-)
-> 
-> diff --git a/docs/misc/arm/cache-coloring.rst b/docs/misc/arm/cache-coloring.rst
-> index acf82c3df8..ae1dd8f4af 100644
-> --- a/docs/misc/arm/cache-coloring.rst
-> +++ b/docs/misc/arm/cache-coloring.rst
-> @@ -10,7 +10,7 @@ If needed, change the maximum number of colors with
->   ``CONFIG_NR_LLC_COLORS=<n>``.
->   
->   Compile Xen and the toolstack and then configure it via
-> -`Command line parameters`_.
-> +`Command line parameters`_. For DomUs follow `DomUs configuration`_.
->   
->   Background
->   **********
-> @@ -114,6 +114,52 @@ Examples:
->   | 0                 | [0]                         |
->   +-------------------+-----------------------------+
->   
-> +DomUs configuration
-> +*******************
-> +
-> +DomUs colors can be set via Device Tree, also for Dom0less configurations
-> +(documentation at `docs/misc/arm/device-tree/booting.txt`) using the
-> +``llc-colors`` option. For example:
-> +
-> +::
-> +
-> +    xen,xen-bootargs = "console=dtuart dtuart=serial0 dom0_mem=1G dom0_max_vcpus=1 sched=null llc-coloring=on llc-way-size=64K dom0-llc-colors=2-6";
-> +    xen,dom0-bootargs "console=hvc0 earlycon=xen earlyprintk=xen root=/dev/ram0"
-> +
-> +    dom0 {
-> +        compatible = "xen,linux-zimage" "xen,multiboot-module";
-> +        reg = <0x0 0x1000000 0x0 15858176>;
-> +    };
-> +
-> +    dom0-ramdisk {
-> +        compatible = "xen,linux-initrd" "xen,multiboot-module";
-> +        reg = <0x0 0x2000000 0x0 20638062>;
-> +    };
-> +
-> +    domU0 {
-> +        #address-cells = <0x1>;
-> +        #size-cells = <0x1>;
-> +        compatible = "xen,domain";
-> +        memory = <0x0 0x40000>;
-> +        llc-colors = "4-8,10,11,12";
-> +        cpus = <0x1>;
-> +        vpl011 = <0x1>;
-> +
-> +        module@2000000 {
-> +            compatible = "multiboot,kernel", "multiboot,module";
-> +            reg = <0x2000000 0xffffff>;
-> +            bootargs = "console=ttyAMA0";
-> +        };
-> +
-> +        module@30000000 {
-> +            compatible = "multiboot,ramdisk", "multiboot,module";
-> +            reg = <0x3000000 0xffffff>;
-> +        };
-> +    };
-> +
-> +**Note:** If no color configuration is provided for a domain, the default one,
-> +which corresponds to all available colors, is used instead.
+> Coloring initialization must happen before setup_pagetables() otherwise it
+> isn't possible to color the hypervisor code. In later patches
+> setup_pagetables() is moved after coloring init so I don't think it would
+> make sense to have it in setup_mm().
 
-Looking at your code, it will use *all* the colors. Some of the colors 
-might have been assigned to a domain. I am not entirely convinced this 
-is good idea to allow this as a default setup.
+If you decide to move setup_page_tables() just close to setup_mm(). 
+Then, I think the call should be moved to setup_mm().
 
-
-> +
->   Known issues and limitations
->   ****************************
->   
-> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> index bbd955e9c2..e9f9862e9c 100644
-> --- a/docs/misc/arm/device-tree/booting.txt
-> +++ b/docs/misc/arm/device-tree/booting.txt
-> @@ -162,6 +162,10 @@ with the following properties:
->   
->       An integer specifying the number of vcpus to allocate to the guest.
->   
-> +- llc-colors
-> +    A string specifying the LLC color configuration for the guest.
-> +    Refer to "docs/misc/arm/cache_coloring.rst" for syntax.
-> +
->   - vpl011
->   
->       An empty property to enable/disable a virtual pl011 for the guest to
-> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-> index 1142f7f74a..eb39f5291f 100644
-> --- a/xen/arch/arm/dom0less-build.c
-> +++ b/xen/arch/arm/dom0less-build.c
-> @@ -850,6 +850,7 @@ void __init create_domUs(void)
->       struct dt_device_node *node;
->       const struct dt_device_node *cpupool_node,
->                                   *chosen = dt_find_node_by_path("/chosen");
-> +    const char *llc_colors_str = NULL;
->   
->       BUG_ON(chosen == NULL);
->       dt_for_each_child_node(chosen, node)
-> @@ -993,6 +994,13 @@ void __init create_domUs(void)
->   #endif
->           }
->   
-> +        dt_property_read_string(node, "llc-colors", &llc_colors_str);
-> +        if ( llc_coloring_enabled && !llc_colors_str )
-> +            panic("'llc-colors' is required when LLC coloring is enabled\n");
-
-In the documentation you wrote:
-
-"**Note:** If no color configuration is provided for a domain, the 
-default one,which corresponds to all available colors, is used instead."
-
-I interpret as you want to continue rather than panic-ing. That said, I 
-much prefer the panic version.
-
-> +        else if ( !llc_coloring_enabled && llc_colors_str)
-> +            printk(XENLOG_WARNING
-> +                   "'llc-colors' found, but LLC coloring is disabled\n");
-> +
->           /*
->            * The variable max_init_domid is initialized with zero, so here it's
->            * very important to use the pre-increment operator to call
-> @@ -1003,6 +1011,11 @@ void __init create_domUs(void)
->               panic("Error creating domain %s (rc = %ld)\n",
->                     dt_node_name(node), PTR_ERR(d));
->   
-> +        if ( llc_coloring_enabled &&
-> +             (rc = domain_set_llc_colors_from_str(d, llc_colors_str)) )
-> +            panic("Error initializing LLC coloring for domain %s (rc = %d)\n",
-> +                  dt_node_name(node), rc);
-> +
->           d->is_console = true;
->           dt_device_set_used_by(node, d->domain_id);
->   
-> diff --git a/xen/arch/arm/include/asm/llc-coloring.h b/xen/arch/arm/include/asm/llc-coloring.h
-> index ee5551e3cc..5f9b0a8121 100644
-> --- a/xen/arch/arm/include/asm/llc-coloring.h
-> +++ b/xen/arch/arm/include/asm/llc-coloring.h
-> @@ -15,6 +15,7 @@
->   
->   bool __init llc_coloring_init(void);
->   int dom0_set_llc_colors(struct domain *d);
-> +int domain_set_llc_colors_from_str(struct domain *d, const char *str);
->   
->   #endif /* __ASM_ARM_COLORING_H__ */
->   
-> diff --git a/xen/arch/arm/llc-coloring.c b/xen/arch/arm/llc-coloring.c
-> index a08614ec36..d3de5f14cb 100644
-> --- a/xen/arch/arm/llc-coloring.c
-> +++ b/xen/arch/arm/llc-coloring.c
-> @@ -295,6 +295,23 @@ int domain_set_llc_colors_domctl(struct domain *d,
->       return domain_check_colors(d);
->   }
->   
-> +int domain_set_llc_colors_from_str(struct domain *d, const char *str)
-> +{
-> +    int err;
-> +
-> +    if ( domain_alloc_colors(d, nr_colors) )
-
-This code is somewhat confusing and would deserve some explanation. 
-AFAICT, you are allocating a large array because parse_color_config() 
-expects an array of nr_colors.
-
-d->num_llc_colors will also be set to nr_colors but then overriden by 
-parse_color_config().
-
-It feels to me that maybe set num_llc_colors() in domain_alloc_colors() 
-is not right.
-
-> +        return -ENOMEM;
-> +
-> +    err = parse_color_config(str, d->llc_colors, &d->num_llc_colors);
-> +    if ( err )
-> +    {
-> +        printk(XENLOG_ERR "Error parsing LLC color configuration.");
-> +        return err;
-> +    }
-> +
-> +    return domain_check_colors(d);
-> +}
-> +
->   /*
->    * Local variables:
->    * mode: C
+I will have a look at the rest of the series and come back to this point.
 
 Cheers,
 
