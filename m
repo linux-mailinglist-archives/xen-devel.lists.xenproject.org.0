@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B2F7825D92
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Jan 2024 02:12:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662416.1032534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F187825DCD
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Jan 2024 03:03:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662423.1032544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLvEU-0006tg-4v; Sat, 06 Jan 2024 01:12:14 +0000
+	id 1rLw1N-0007Rz-Ns; Sat, 06 Jan 2024 02:02:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662416.1032534; Sat, 06 Jan 2024 01:12:14 +0000
+Received: by outflank-mailman (output) from mailman id 662423.1032544; Sat, 06 Jan 2024 02:02:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rLvEU-0006rB-0p; Sat, 06 Jan 2024 01:12:14 +0000
-Received: by outflank-mailman (input) for mailman id 662416;
- Sat, 06 Jan 2024 01:12:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=g2yR=IQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rLvER-0006Lk-Q6
- for xen-devel@lists.xenproject.org; Sat, 06 Jan 2024 01:12:11 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d0c897f-ac30-11ee-98ef-6d05b1d4d9a1;
- Sat, 06 Jan 2024 02:12:10 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 93F2BCE09B1;
- Sat,  6 Jan 2024 01:12:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 237DBC433C7;
- Sat,  6 Jan 2024 01:12:04 +0000 (UTC)
+	id 1rLw1N-0007QF-IO; Sat, 06 Jan 2024 02:02:45 +0000
+Received: by outflank-mailman (input) for mailman id 662423;
+ Sat, 06 Jan 2024 02:02:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rLw1M-0007Q5-EF; Sat, 06 Jan 2024 02:02:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rLw1M-0004Zw-58; Sat, 06 Jan 2024 02:02:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rLw1L-0005ln-I3; Sat, 06 Jan 2024 02:02:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rLw1L-0007n7-HE; Sat, 06 Jan 2024 02:02:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,184 +42,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d0c897f-ac30-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1704503526;
-	bh=LZGW0rTnjiFVF+gq8jTRBgHQ8qC6OuDow6Brm+Fanw0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ptQD2iihbQAj4u5r2UceTsuNKJP9RVi3V/PLIMlO416/shwHHIMkodPqOPCvlWvLn
-	 kyBeqP3o8b//dFg8czWnglZH0kFyEYEnWyvwJkGp5O80n3EJETCUdGx+JXwmmaDwpR
-	 qrfHgftuVqukjj1jXLAmXMpySxo3vtOsNKMR4t0GidvX/vCZ8eGrrkdgbHR9Sy4hX9
-	 CFoJGc0Obz1ugxxCQKoKolrzyV3dVoSp2PptK3bHAAYqvxst9NBVQ21N8Vj3cxX81l
-	 er5pRXEK9x9mTHWcyquvOf6k4aYjkVxDCwrB0n0kWYvbchVxFwgjV5jvBNXXojRMQa
-	 MDU21wMb0Cujw==
-Date: Fri, 5 Jan 2024 17:12:03 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: Jiqian Chen <Jiqian.Chen@amd.com>, xen-devel@lists.xenproject.org, 
-    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
-    Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
-    Juergen Gross <jgross@suse.com>, 
-    Stewart Hildebrand <Stewart.Hildebrand@amd.com>, 
-    Huang Rui <Ray.Huang@amd.com>, Huang Rui <ray.huang@amd.com>
-Subject: Re: [RFC XEN PATCH v4 4/5] domctl: Use gsi to grant/revoke irq
- permission
-In-Reply-To: <alpine.DEB.2.22.394.2401051702200.3675@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2401051711300.3675@ubuntu-linux-20-04-desktop>
-References: <20240105070920.350113-1-Jiqian.Chen@amd.com> <20240105070920.350113-5-Jiqian.Chen@amd.com> <alpine.DEB.2.22.394.2401051702200.3675@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Yt3y3RMC01qhxDeZWusju7gFOTm6j9mf2UIU2IHpA/s=; b=W81FsEF4G6WNmagMbesO3x6bXt
+	/OVM1+gZghxDDCi1DqG5QM3RwnQeggG4xP/p//Epca03lWUmX1m2/hB0CveKiJ1L918lehfZiLvLQ
+	wwPLUgs4kWvQjBTPQ+PBUUlyXIKDxWmZqUhSKTybmS6ysDeIv631ghrYlDy1PpmtxAYM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184258-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [linux-linus test] 184258: trouble: broken/fail/pass
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:host-install(5):broken:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=6d0dc8559c847e2dcd66c5dd93dbab3d3d887ff5
+X-Osstest-Versions-That:
+    linux=1f874787ed9a2d78ed59cb21d0d90ac0178eceb0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 06 Jan 2024 02:02:43 +0000
 
-On Fri, 5 Jan 2024, Stefano Stabellini wrote:
-> On Fri, 5 Jan 2024, Jiqian Chen wrote:
-> > Some type of domain don't have PIRQ, like PVH, current
-> > implementation is not suitable for those domain.
-> > 
-> > When passthrough a device to guest on PVH dom0, this
-> > pci_add_dm_done->XEN_DOMCTL_irq_permission will failed
-> > at domain_pirq_to_irq.
-> > 
-> > So, change it to use gsi to grant/revoke irq permission.
-> > And change the caller of XEN_DOMCTL_irq_permission to
-> > pass gsi to it instead of pirq.
-> > 
-> > Co-developed-by: Huang Rui <ray.huang@amd.com>
-> > Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
-> 
-> I realize there is no explanation or comment right now, but I think this
-> change would benefit from a in-code comment in xen/include/public/domctl.h
-> E.g.:
-> 
-> /* XEN_DOMCTL_irq_permission */
-> struct xen_domctl_irq_permission {
->     uint32_t pirq;           /* pirq is the GSI on x86 */
->     uint8_t allow_access;    /* flag to specify enable/disable of IRQ access */
->     uint8_t pad[3];
-> };
-> 
-> 
-> > ---
-> >  tools/libs/light/libxl_pci.c |  6 ++++--
-> >  tools/libs/light/libxl_x86.c |  5 ++++-
-> >  xen/common/domctl.c          | 12 ++++++++++--
-> >  3 files changed, 18 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-> > index 96cb4da0794e..e1341d1e9850 100644
-> > --- a/tools/libs/light/libxl_pci.c
-> > +++ b/tools/libs/light/libxl_pci.c
-> > @@ -1418,6 +1418,7 @@ static void pci_add_dm_done(libxl__egc *egc,
-> >      unsigned long long start, end, flags, size;
-> >      int irq, i;
-> >      int r;
-> > +    int gsi;
+flight 184258 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184258/
 
-After reading patch #5 I think you could just rename the int irq local
-variable to int gsi.
+Failures and problems with tests :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemut-debianhvm-amd64    <job status>               broken
+ test-amd64-amd64-xl-qemut-debianhvm-amd64 5 host-install(5) broken REGR. vs. 184256
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184256
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184256
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184256
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184256
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184256
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184256
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184256
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184256
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+
+version targeted for testing:
+ linux                6d0dc8559c847e2dcd66c5dd93dbab3d3d887ff5
+baseline version:
+ linux                1f874787ed9a2d78ed59cb21d0d90ac0178eceb0
+
+Last test of basis   184256  2024-01-05 04:22:32 Z    0 days
+Testing same since   184258  2024-01-05 18:43:58 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Arnd Bergmann <arnd@arndb.de>
+  Jinghao Jia <jinghao7@illinois.edu>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Masami Hiramatsu (Google) <mhiramat@kernel.org>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Paul E. McKenney <paulmck@kernel.org>
+  Shyam Prasad N <sprasad@microsoft.com>
+  Stefan Wahren <wahrenst@gmx.net>
+  Steve French <stfrench@microsoft.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    broken  
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-> >      uint32_t flag = XEN_DOMCTL_DEV_RDM_RELAXED;
-> >      uint32_t domainid = domid;
-> >      bool isstubdom = libxl_is_stubdom(ctx, domid, &domainid);
-> > @@ -1486,6 +1487,7 @@ static void pci_add_dm_done(libxl__egc *egc,
-> >          goto out_no_irq;
-> >      }
-> >      if ((fscanf(f, "%u", &irq) == 1) && irq) {
-> > +        gsi = irq;
-> 
-> A question for Roger and Jan: are we always guaranteed that gsi == irq
-> (also in the PV case)?
-> 
-> Also I don't think we necessarily need the gsi local variable, I would
-> just add an in-code comment below...
-> 
-> 
-> >          r = xc_physdev_map_pirq(ctx->xch, domid, irq, &irq);
-> >          if (r < 0) {
-> >              LOGED(ERROR, domainid, "xc_physdev_map_pirq irq=%d (error=%d)",
-> > @@ -1494,10 +1496,10 @@ static void pci_add_dm_done(libxl__egc *egc,
-> >              rc = ERROR_FAIL;
-> >              goto out;
-> >          }
-> 
-> ... like this:
-> 
-> /* xc_domain_irq_permission takes a gsi, here we assume irq == gsi */
-> r = xc_domain_irq_permission(ctx->xch, domid, irq, 1);
-> 
-> 
-> > -        r = xc_domain_irq_permission(ctx->xch, domid, irq, 1);
-> > +        r = xc_domain_irq_permission(ctx->xch, domid, gsi, 1);
-> >          if (r < 0) {
-> >              LOGED(ERROR, domainid,
-> > -                  "xc_domain_irq_permission irq=%d (error=%d)", irq, r);
-> > +                  "xc_domain_irq_permission irq=%d (error=%d)", gsi, r);
-> >              fclose(f);
-> >              rc = ERROR_FAIL;
-> >              goto out;
-> > diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-> > index d16573e72cd4..88ad50cf6360 100644
-> > --- a/tools/libs/light/libxl_x86.c
-> > +++ b/tools/libs/light/libxl_x86.c
-> > @@ -654,12 +654,15 @@ out:
-> >  int libxl__arch_domain_map_irq(libxl__gc *gc, uint32_t domid, int irq)
-> 
-> you could just rename the int irq parameter to int gsi ?
-> 
-> 
-> >  {
-> >      int ret;
-> > +    int gsi;
-> > +
-> > +    gsi = irq;
-> >  
-> >      ret = xc_physdev_map_pirq(CTX->xch, domid, irq, &irq);
-> >      if (ret)
-> >          return ret;
-> >  
-> > -    ret = xc_domain_irq_permission(CTX->xch, domid, irq, 1);
-> > +    ret = xc_domain_irq_permission(CTX->xch, domid, gsi, 1);
-> >      return ret;
-> >  }
-> > diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-> > index f5a71ee5f78d..eeb975bd0194 100644
-> > --- a/xen/common/domctl.c
-> > +++ b/xen/common/domctl.c
-> > @@ -653,12 +653,20 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-> >          unsigned int pirq = op->u.irq_permission.pirq, irq;
-> >          int allow = op->u.irq_permission.allow_access;
-> 
-> here we could benefit from renaming pirq to gsi, at least it becomes
-> clear:
-> 
-> unsigned int gsi = op->u.irq_permission.pirq, irq;
-> 
-> 
-> > -        if ( pirq >= current->domain->nr_pirqs )
-> > +        if ( pirq >= nr_irqs_gsi )
-> >          {
-> >              ret = -EINVAL;
-> >              break;
-> >          }
-> > -        irq = pirq_access_permitted(current->domain, pirq);
-> > +
-> > +        if ( irq_access_permitted(current->domain, pirq) )
-> > +            irq = pirq;
-> > +        else
-> > +        {
-> > +            ret = -EPERM;
-> > +            break;
-> > +        }
-> > +
-> >          if ( !irq || xsm_irq_permission(XSM_HOOK, d, irq, allow) )
-> >              ret = -EPERM;
-> >          else if ( allow )
-> > -- 
-> > 2.34.1
-> > 
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job test-amd64-amd64-xl-qemut-debianhvm-amd64 broken
+broken-step test-amd64-amd64-xl-qemut-debianhvm-amd64 host-install(5)
+
+Not pushing.
+
+(No revision log; it would be 345 lines long.)
 
