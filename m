@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DADD8263C8
-	for <lists+xen-devel@lfdr.de>; Sun,  7 Jan 2024 11:36:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.662627.1032689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A643082648B
+	for <lists+xen-devel@lfdr.de>; Sun,  7 Jan 2024 15:46:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.662640.1032700 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMQV3-0001g5-UD; Sun, 07 Jan 2024 10:35:25 +0000
+	id 1rMUOV-00087K-Bh; Sun, 07 Jan 2024 14:44:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 662627.1032689; Sun, 07 Jan 2024 10:35:25 +0000
+Received: by outflank-mailman (output) from mailman id 662640.1032700; Sun, 07 Jan 2024 14:44:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMQV3-0001eV-RN; Sun, 07 Jan 2024 10:35:25 +0000
-Received: by outflank-mailman (input) for mailman id 662627;
- Sun, 07 Jan 2024 10:35:24 +0000
+	id 1rMUOV-00085i-8Z; Sun, 07 Jan 2024 14:44:55 +0000
+Received: by outflank-mailman (input) for mailman id 662640;
+ Sun, 07 Jan 2024 14:44:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oAu3=IR=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1rMQV2-0001eP-Ra
- for xen-devel@lists.xenproject.org; Sun, 07 Jan 2024 10:35:24 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7656d3eb-ad48-11ee-98ef-6d05b1d4d9a1;
- Sun, 07 Jan 2024 11:35:23 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id
- a640c23a62f3a-a28b0207c1dso64181566b.3
- for <xen-devel@lists.xenproject.org>; Sun, 07 Jan 2024 02:35:23 -0800 (PST)
-Received: from EPUAKYIW03DD.. ([91.123.150.198])
- by smtp.gmail.com with ESMTPSA id
- lk16-20020a170906cb1000b00a26afb7fd54sm2930074ejb.15.2024.01.07.02.35.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Jan 2024 02:35:21 -0800 (PST)
+ <SRS0=dc6+=IR=mg.gitlab.com=bounce+c66dc3.947b4-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1rMUOU-00085c-5g
+ for xen-devel@lists.xenproject.org; Sun, 07 Jan 2024 14:44:54 +0000
+Received: from m202-219.mailgun.net (m202-219.mailgun.net [161.38.202.219])
+ by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
+ id 4ee50b0a-ad6b-11ee-98ef-6d05b1d4d9a1;
+ Sun, 07 Jan 2024 15:44:52 +0100 (CET)
+Received: from mg.gitlab.com (16.226.74.34.bc.googleusercontent.com
+ [34.74.226.16]) by
+ fe365c0fa72d with SMTP id 659ab8df2bef4eea5833f59b (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Sun, 07 Jan 2024 14:44:47 GMT
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,197 +39,425 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7656d3eb-ad48-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704623722; x=1705228522; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ghpvrm/3AEBdzbWk8YZiHGiX3pwaQb2AEZTDUC3tmOs=;
-        b=ZNw59H7OjKe6neVRTDjKHjLkJ1BmzlzDHfvU3aH0JSTKNtNnmMOPM5eBoTNjcxU8VS
-         AfuwY7dxp0KYRwjGzhHVgkODUkd+cjmFACFefKXKppXWGzdWZgoDO3ZSZtYLtVqBuT+Y
-         28/r6+CUCx+KwR62SuiGwjc1ernPoPo9ZaennAewWefmgxwWPUkAjeU+M7kNMVRX0W7N
-         BXKdBkq/1IYQwN0cO+Ob6VsuNoXYmap89bN5Vn8A0xp+wbJ9ClTc2GbwAGdeJ9aYaPL4
-         cz8DcMP5e/7LRw0moZb1Jf2JLZgvH3zBXD9eut+8sAyJXa0gzASVpPQy+dZosE7fxMNC
-         qmqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704623722; x=1705228522;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Ghpvrm/3AEBdzbWk8YZiHGiX3pwaQb2AEZTDUC3tmOs=;
-        b=ZALxLe8gkHmNqTNN6qu7mrobOXRV5/Kfew99Zbrn0tiANc6I4/wPelaG25XEDtHnzp
-         kz5l2tFvKvWKyGT8EBn3qQA7mLeTHv8w0YNTRz2IjurhrqnB0KHI6//cfjhDxHHdJ84/
-         fdYglhg/sNqkhXnqBJODwmv/Gl8qEe72ap7UmGp9dNUNpJi1d67PGE99KdRHD0Y9LkrV
-         c21AORju5vnf6BjrAeYpdZYaZZaysraJPIVHcRQewRWCSNWk4tASpTMzzzfXiS6oteZI
-         LhW6BbUg4qnFP7aJeHwf9O1EXyP1pE4/5xZ9+UTsoPmk67iIPT692rQXdhnNNvz2FXoN
-         1UtQ==
-X-Gm-Message-State: AOJu0YweBUd3CLXJ03UAQ/0ouVvTUZU7DuugRGnt9sTGwQWtU0mbZkwD
-	k33GDCWdr7fziDahuhhnxU2AFwTKgtA=
-X-Google-Smtp-Source: AGHT+IEgl8h6+zpl6SUHiSqK5XScqK44QOXbHAyVzXhGtFSD7Qn2O6AOXZtqoHyFcj41HGl+ut3zuw==
-X-Received: by 2002:a17:906:711b:b0:a27:32a0:b836 with SMTP id x27-20020a170906711b00b00a2732a0b836mr999374ejj.40.1704623721850;
-        Sun, 07 Jan 2024 02:35:21 -0800 (PST)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2] xen/gntdev: Fix the abuse of underlying struct page in DMA-buf import
-Date: Sun,  7 Jan 2024 12:34:26 +0200
-Message-Id: <20240107103426.2038075-1-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4ee50b0a-ad6b-11ee-98ef-6d05b1d4d9a1
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=mg.gitlab.com;
+ q=dns/txt; s=mailo; t=1704638687; x=1704645887; h=List-Id:
+ Content-Transfer-Encoding: Content-Type: Mime-Version: Subject: Subject:
+ Message-ID: To: To: Reply-To: From: From: Date: Sender: Sender;
+ bh=ZRAY6OspYOKlvazQ+d2s7gWE1RBjiVEcuMfhP3wsRh4=;
+ b=TAekNvAsGZrPRnXQY58gnCamFLJJXW9I5eUj267T7Rgzk6B5m9ek7lDebC6EhDZnKosdfihlHbzAxQbie6qBMSDdJzEyiuEdhrCdBkh/2pRzKFW1+CDdFUGjcFe+67ldr2sqfMhwWf6pk9uIh/Fvx397X4+LgC6LjFDssIFzipg=
+X-Mailgun-Sending-Ip: 161.38.202.219
+X-Mailgun-Sid: WyI4YjA3MiIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsIjk0N2I0Il0=
+Sender: gitlab@mg.gitlab.com
+Date: Sun, 07 Jan 2024 14:44:47 +0000
+From: GitLab <gitlab@mg.gitlab.com>
+Reply-To: GitLab <noreply@gitlab.com>
+To: xen-devel@lists.xenproject.org
+Message-ID: <659ab8df78b06_2c36b30e584702ca@gitlab-sidekiq-catchall-v2-64b6fdf995-pdj4k.mail>
+Subject: xen | Successful pipeline for staging | 5a3ace21
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_659ab8df701bd_2c36b30e584701d8";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-GitLab-Project: xen
+X-GitLab-Project-Id: 2336572
+X-GitLab-Project-Path: xen-project/xen
+X-GitLab-Pipeline-Id: 1129775950
+X-GitLab-Pipeline-Ref: staging
+X-GitLab-Pipeline-Status: success
+Auto-Submitted: auto-generated
+X-Auto-Response-Suppress: All
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+----==_mimepart_659ab8df701bd_2c36b30e584701d8
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-DO NOT access the underlying struct page of an sg table exported
-by DMA-buf in dmabuf_imp_to_refs(), this is not allowed.
-Please see drivers/dma-buf/dma-buf.c:mangle_sg_table() for details.
 
-Fortunately, here (for special Xen device) we can avoid using
-pages and calculate gfns directly from dma addresses provided by
-the sg table.
 
-Suggested-by: Daniel Vetter <daniel@ffwll.ch>
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Acked-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
----
-Please note, I didn't manage to test the patch against the latest master branch
-on real HW (patch was only build tested there). Patch was tested on Arm64
-guests using Linux v5.10.41 from vendor's BSP, this is the environment where
-running this use-case is possible and to which I have an access (Xen PV display
-with zero-copy and backend domain as a buffer provider - be-alloc=1, so dma-buf
-import part was involved). A little bit old, but the dma-buf import code
-in gntdev-dmabuf.c hasn't been changed much since that time, all context
-remains allmost the same according to my code inspection.
+Pipeline #1129775950 has passed!
 
-  v2:
-   - add R-b and A-b
-   - fix build warning noticed by kernel test robot by initializing
-     "ret" in case of error
-     https://lore.kernel.org/oe-kbuild-all/202401062122.it6zvLG0-lkp@intel.com/
----
----
- drivers/xen/gntdev-dmabuf.c | 44 ++++++++++++++++---------------------
- 1 file changed, 19 insertions(+), 25 deletions(-)
+Project: xen ( https://gitlab.com/xen-project/xen )
+Branch: staging ( https://gitlab.com/xen-project/xen/-/commits/staging )
 
-diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-index 4440e626b797..272c0ab01ef5 100644
---- a/drivers/xen/gntdev-dmabuf.c
-+++ b/drivers/xen/gntdev-dmabuf.c
-@@ -11,6 +11,7 @@
- #include <linux/kernel.h>
- #include <linux/errno.h>
- #include <linux/dma-buf.h>
-+#include <linux/dma-direct.h>
- #include <linux/slab.h>
- #include <linux/types.h>
- #include <linux/uaccess.h>
-@@ -50,7 +51,7 @@ struct gntdev_dmabuf {
- 
- 	/* Number of pages this buffer has. */
- 	int nr_pages;
--	/* Pages of this buffer. */
-+	/* Pages of this buffer (only for dma-buf export). */
- 	struct page **pages;
- };
- 
-@@ -484,7 +485,7 @@ static int dmabuf_exp_from_refs(struct gntdev_priv *priv, int flags,
- /* DMA buffer import support. */
- 
- static int
--dmabuf_imp_grant_foreign_access(struct page **pages, u32 *refs,
-+dmabuf_imp_grant_foreign_access(unsigned long *gfns, u32 *refs,
- 				int count, int domid)
- {
- 	grant_ref_t priv_gref_head;
-@@ -507,7 +508,7 @@ dmabuf_imp_grant_foreign_access(struct page **pages, u32 *refs,
- 		}
- 
- 		gnttab_grant_foreign_access_ref(cur_ref, domid,
--						xen_page_to_gfn(pages[i]), 0);
-+						gfns[i], 0);
- 		refs[i] = cur_ref;
- 	}
- 
-@@ -529,7 +530,6 @@ static void dmabuf_imp_end_foreign_access(u32 *refs, int count)
- 
- static void dmabuf_imp_free_storage(struct gntdev_dmabuf *gntdev_dmabuf)
- {
--	kfree(gntdev_dmabuf->pages);
- 	kfree(gntdev_dmabuf->u.imp.refs);
- 	kfree(gntdev_dmabuf);
- }
-@@ -549,12 +549,6 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storage(int count)
- 	if (!gntdev_dmabuf->u.imp.refs)
- 		goto fail;
- 
--	gntdev_dmabuf->pages = kcalloc(count,
--				       sizeof(gntdev_dmabuf->pages[0]),
--				       GFP_KERNEL);
--	if (!gntdev_dmabuf->pages)
--		goto fail;
--
- 	gntdev_dmabuf->nr_pages = count;
- 
- 	for (i = 0; i < count; i++)
-@@ -576,7 +570,8 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
- 	struct dma_buf *dma_buf;
- 	struct dma_buf_attachment *attach;
- 	struct sg_table *sgt;
--	struct sg_page_iter sg_iter;
-+	struct sg_dma_page_iter sg_iter;
-+	unsigned long *gfns;
- 	int i;
- 
- 	dma_buf = dma_buf_get(fd);
-@@ -624,26 +619,25 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, struct device *dev,
- 
- 	gntdev_dmabuf->u.imp.sgt = sgt;
- 
--	/* Now convert sgt to array of pages and check for page validity. */
-+	gfns = kcalloc(count, sizeof(*gfns), GFP_KERNEL);
-+	if (!gfns) {
-+		ret = ERR_PTR(-ENOMEM);
-+		goto fail_unmap;
-+	}
-+
-+	/* Now convert sgt to array of gfns without accessing underlying pages. */
- 	i = 0;
--	for_each_sgtable_page(sgt, &sg_iter, 0) {
--		struct page *page = sg_page_iter_page(&sg_iter);
--		/*
--		 * Check if page is valid: this can happen if we are given
--		 * a page from VRAM or other resources which are not backed
--		 * by a struct page.
--		 */
--		if (!pfn_valid(page_to_pfn(page))) {
--			ret = ERR_PTR(-EINVAL);
--			goto fail_unmap;
--		}
-+	for_each_sgtable_dma_page(sgt, &sg_iter, 0) {
-+		dma_addr_t addr = sg_page_iter_dma_address(&sg_iter);
-+		unsigned long pfn = bfn_to_pfn(XEN_PFN_DOWN(dma_to_phys(dev, addr)));
- 
--		gntdev_dmabuf->pages[i++] = page;
-+		gfns[i++] = pfn_to_gfn(pfn);
- 	}
- 
--	ret = ERR_PTR(dmabuf_imp_grant_foreign_access(gntdev_dmabuf->pages,
-+	ret = ERR_PTR(dmabuf_imp_grant_foreign_access(gfns,
- 						      gntdev_dmabuf->u.imp.refs,
- 						      count, domid));
-+	kfree(gfns);
- 	if (IS_ERR(ret))
- 		goto fail_end_access;
- 
+Commit: 5a3ace21 ( https://gitlab.com/xen-project/xen/-/commit/5a3ace21f3d779b291a2d305824b2820d88de7f1 )
+Commit Message: xen/arm: smmu-v3: address violations of MISRA C...
+Commit Author: Federico Serafini
+Committed by: Stefano Stabellini
+
+
+
+Pipeline #1129775950 ( https://gitlab.com/xen-project/xen/-/pipelines/1129775950 ) triggered by Andrew Cooper ( https://gitlab.com/andyhhp )
+successfully completed 133 jobs in 3 stages.
+
 -- 
-2.34.1
+You're receiving this email because of your account on gitlab.com.
 
+
+
+
+----==_mimepart_659ab8df701bd_2c36b30e584701d8
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://ww=
+w.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en">=
+
+<head>
+<meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Type" =
+/>
+<meta content=3D"width=3Ddevice-width, initial-scale=3D1" name=3D"viewpor=
+t" />
+<meta content=3D"IE=3Dedge" http-equiv=3D"X-UA-Compatible" />
+<title>xen | Successful pipeline for staging | 5a3ace21</title>
+<style data-premailer=3D"ignore" type=3D"text/css">
+body,table,td,a{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}t=
+able,td{mso-table-lspace:0pt;mso-table-rspace:0pt}img{-ms-interpolation-m=
+ode:bicubic}.hidden{display:none !important;visibility:hidden !important}=
+a[x-apple-data-detectors]{color:inherit !important;text-decoration:none !=
+important;font-size:inherit !important;font-family:inherit !important;fon=
+t-weight:inherit !important;line-height:inherit !important}div[style*=3D'=
+margin: 16px 0']{margin:0 !important}@media only screen and (max-width: 6=
+39px){body,#body{min-width:320px !important}table.wrapper{width:100% !imp=
+ortant;min-width:320px !important}table.wrapper td.wrapper-cell{border-le=
+ft:0 !important;border-right:0 !important;border-radius:0 !important;padd=
+ing-left:10px !important;padding-right:10px !important}}
+
+</style>
+
+<style>body {
+margin: 0 !important; background-color: #fafafa; padding: 0; text-align: =
+center; min-width: 640px; width: 100%; height: 100%; font-family: "Helvet=
+ica Neue", Helvetica, Arial, sans-serif;
+}
+</style></head>
+<body style=3D"text-align: center; min-width: 640px; width: 100%; height:=
+ 100%; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-se=
+rif; margin: 0; padding: 0;" bgcolor=3D"#fafafa">
+
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" id=3D"body" style=
+=3D"text-align: center; min-width: 640px; width: 100%; margin: 0; padding=
+: 0;" bgcolor=3D"#fafafa">
+<tbody>
+<tr class=3D"line">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; height: 4px; font-size: 4px; line-height: 4px;" bgcolor=3D"#6b=
+4fbb"></td>
+</tr>
+<tr class=3D"header">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+
+<img alt=3D"GitLab" src=3D"https://gitlab.com/assets/mailers/gitlab_logo-=
+2957169c8ef64c58616a1ac3f4fc626e8a35ce4eb3ed31bb0d873712f2a041a0.png" wid=
+th=3D"55" height=3D"55" />
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"wrapper"=
+ style=3D"width: 640px; border-collapse: separate; border-spacing: 0; mar=
+gin: 0 auto;">
+<tbody>
+<tr>
+<td class=3D"wrapper-cell" style=3D"font-family: &quot;Helvetica Neue&quo=
+t;, Helvetica, Arial, sans-serif; border-radius: 3px; overflow: hidden; p=
+adding: 18px 25px; border: 1px solid #ededed;" align=3D"left" bgcolor=3D"=
+#fff">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"content"=
+ style=3D"width: 100%; border-collapse: separate; border-spacing: 0;">
+<tbody>
+<tr class=3D"table-success">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; font-size: 14px; line-height: 1.3; overflow: hidden; co=
+lor: #ffffff; padding: 10px;" align=3D"center" bgcolor=3D"#31af64">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff; padding-right: 5px;" align=3D"center" valign=3D"middle">
+<img alt=3D"&#10003;" height=3D"13" src=3D"https://gitlab.com/assets/mail=
+ers/ci_pipeline_notif_v1/icon-check-green-inverted-3fc3485096ebb83ce1d951=
+5883c8ca25ee5f382c4d643e064beb5da510aa26d5.gif" style=3D"display: block;"=
+ width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #ffffff;" align=3D"center" valign=3D"middle">
+Pipeline #1129775950 has passed!
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"section">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; bo=
+rder-radius: 3px; overflow: hidden; padding: 0 15px; border: 1px solid #e=
+deded;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"table-in=
+fo" style=3D"width: 100%;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; margin=
+: 0; padding: 14px 0;">
+Project
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; margin: 0; padding: 14px 0 14px 5px;">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project" style=3D"color=
+: #333333; text-decoration: none;">
+xen-project
+</a>
+/
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen" style=3D"c=
+olor: #333333; text-decoration: none;">
+xen
+</a>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Branch
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-branch-gray-53618a7fc19d4d32ccbabac2f6d59bebe67202a=
+9f2f1255e3f72c69756c0dd9c.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a class=3D"muted" href=3D"https://gitlab.com/xen-project/xen/-/commits/s=
+taging" style=3D"color: #333333; text-decoration: none;">
+staging
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 400; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" height=3D"13" src=3D"https://gitlab.com/assets/mailers/ci_p=
+ipeline_notif_v1/icon-commit-gray-c10243ac24cde64b549aec91de35e6b49c8739b=
+506b86472b54614c10d8b4aac.gif" style=3D"display: block;" width=3D"13" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<a href=3D"https://gitlab.com/xen-project/xen/-/commit/5a3ace21f3d779b291=
+a2d305824b2820d88de7f1" style=3D"color: #3777b0; text-decoration: none;">=
+5a3ace21</a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class=3D"commit" style=3D"color: #5c5c5c; font-weight: 300;">
+xen/arm: smmu-v3: address violations of MISRA C...
+</div>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Commit Author
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/7347c1427cde55f447d83dc392bce562?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<span>
+Federico Serafini
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #8c8c8c; font-weight: 300; border=
+-top-width: 1px; border-top-color: #ededed; border-top-style: solid; marg=
+in: 0; padding: 14px 0;">
+Committed by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; color: #333333; font-weight: 500; width:=
+ 75%; border-top-width: 1px; border-top-color: #ededed; border-top-style:=
+ solid; margin: 0; padding: 14px 0 14px 5px;">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; padding-right: 5px;" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/50b82a64e2a9f930cabefa3948871101?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"middle">
+<span>
+Stefano Stabellini
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr class=3D"spacer">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; he=
+ight: 18px; font-size: 18px; line-height: 18px;">
+&#160;
+</td>
+</tr>
+<tr class=3D"success-message">
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; co=
+lor: #333333; font-size: 15px; font-weight: 400; line-height: 1.4; paddin=
+g: 15px 5px 0;" align=3D"center">
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"img" sty=
+le=3D"border-collapse: collapse; margin: 0 auto;">
+<tbody>
+<tr>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500;" valign=3D"baseline">
+Pipeline <a href=3D"https://gitlab.com/xen-project/xen/-/pipelines/112977=
+5950" style=3D"color: #3777b0; text-decoration: none;">#1129775950</a> tr=
+iggered by
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4; font-weight: 500; padding-right: 5px; pa=
+dding-left: 5px;" width=3D"24" valign=3D"middle">
+<img alt=3D"" class=3D"avatar" height=3D"24" src=3D"https://secure.gravat=
+ar.com/avatar/4c68e59c4858f6dbd3465bd1ba226772?s=3D48&amp;d=3Didenticon" =
+style=3D"display: block; border-radius: 12px; margin: -2px 0;" width=3D"2=
+4" />
+</td>
+<td style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; fo=
+nt-size: 15px; line-height: 1.4;" valign=3D"baseline">
+<a class=3D"muted" href=3D"https://gitlab.com/andyhhp" style=3D"color: #3=
+33333; text-decoration: none;">
+Andrew Cooper
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan=3D"2" style=3D"font-family: 'Helvetica Neue',Helvetica,Arial,=
+sans-serif; color: #333333; font-size: 15px; font-weight: 300; line-heigh=
+t: 1.4; padding: 15px 5px;" align=3D"center">
+successfully completed 133 jobs in 3 stages.
+</td>
+</tr>
+
+
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+<tr class=3D"footer">
+<td style=3D"font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, s=
+ans-serif; font-size: 13px; line-height: 1.6; color: #5c5c5c; padding: 25=
+px 0;">
+<img alt=3D"GitLab" class=3D"footer-logo" src=3D"https://gitlab.com/asset=
+s/mailers/gitlab_logo_black_text-5430ca955baf2bbce6d3aa856a025da70ac5c959=
+5597537254f665c10beab7a5.png" style=3D"display: block; width: 90px; margi=
+n: 0 auto 1em;" />
+<div>
+You're receiving this email because of your account on <a target=3D"_blan=
+k" rel=3D"noopener noreferrer" href=3D"https://gitlab.com" style=3D"color=
+: #3777b0; text-decoration: none;">gitlab.com</a>. <a href=3D"https://git=
+lab.com/-/profile/notifications" target=3D"_blank" rel=3D"noopener norefe=
+rrer" class=3D"mng-notif-link" style=3D"color: #3777b0; text-decoration: =
+none;">Manage all notifications</a> &#183; <a href=3D"https://gitlab.com/=
+help" target=3D"_blank" rel=3D"noopener noreferrer" class=3D"help-link" s=
+tyle=3D"color: #3777b0; text-decoration: none;">Help</a>
+</div>
+</td>
+</tr>
+
+
+<tr>
+<td class=3D"footer-message" style=3D"font-family: &quot;Helvetica Neue&q=
+uot;, Helvetica, Arial, sans-serif; font-size: 13px; line-height: 1.6; co=
+lor: #5c5c5c; padding: 25px 0;">
+
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
+
+----==_mimepart_659ab8df701bd_2c36b30e584701d8--
 
