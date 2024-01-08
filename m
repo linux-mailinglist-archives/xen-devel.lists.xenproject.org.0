@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B32C827565
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 17:38:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663612.1033640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB24B827562
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 17:38:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663613.1033649 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMsdI-0003hq-Ug; Mon, 08 Jan 2024 16:37:48 +0000
+	id 1rMsdK-0003va-5l; Mon, 08 Jan 2024 16:37:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663612.1033640; Mon, 08 Jan 2024 16:37:48 +0000
+Received: by outflank-mailman (output) from mailman id 663613.1033649; Mon, 08 Jan 2024 16:37:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMsdI-0003fR-R5; Mon, 08 Jan 2024 16:37:48 +0000
-Received: by outflank-mailman (input) for mailman id 663612;
- Mon, 08 Jan 2024 16:37:46 +0000
+	id 1rMsdK-0003tt-2U; Mon, 08 Jan 2024 16:37:50 +0000
+Received: by outflank-mailman (input) for mailman id 663613;
+ Mon, 08 Jan 2024 16:37:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EZ8K=IS=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1rMsdG-0003cg-HJ
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 16:37:46 +0000
+ id 1rMsdJ-0003cg-Bw
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 16:37:49 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f1bfe12-ae44-11ee-9b0f-b553b5be7939;
- Mon, 08 Jan 2024 17:37:44 +0100 (CET)
+ id 4119f31c-ae44-11ee-9b0f-b553b5be7939;
+ Mon, 08 Jan 2024 17:37:47 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-642-S-QDLwRgPya2u5KWj3De2w-1; Mon,
- 08 Jan 2024 11:37:41 -0500
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-668-xwrQBWUfPzqlTw3k0NIoCA-1; Mon,
+ 08 Jan 2024 11:37:43 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2C281C06916;
- Mon,  8 Jan 2024 16:37:38 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 514A83C025AC;
+ Mon,  8 Jan 2024 16:37:41 +0000 (UTC)
 Received: from localhost (unknown [10.39.194.85])
- by smtp.corp.redhat.com (Postfix) with ESMTP id F3AF01C060AF;
- Mon,  8 Jan 2024 16:37:36 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 14E8B2026F95;
+ Mon,  8 Jan 2024 16:37:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,17 +51,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f1bfe12-ae44-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 4119f31c-ae44-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1704731863;
+	s=mimecast20190719; t=1704731866;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=rjva5D5HUZRLSUeQ7TC2x2FhyuCk/YO2hvk35Ore6vo=;
-	b=emMkfWRiCeoE26kf/1EbwD5l6tzShNxBnFclGPewePBsTOxuW2XROB5i7qqc1fBEJzipD/
-	aJ3hevD3KIjsCTohn2+Kf9YAVj+qJ4wDTJZjQicY1zh0R2NbWnv/J9FnXEvxpNlJ0lz1WG
-	0h3D7/meBw/oHP+jXEVhQMsg/8y5/PU=
-X-MC-Unique: S-QDLwRgPya2u5KWj3De2w-1
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8JyAVituzHKzz/zXpAv4OyXDfgV7BDAfn1K6NqR7fpw=;
+	b=gR0J0DJ3wPfFEWY18k72JlBsyAW9W0Sn6sjEIU2DeT69HKIPSPHvWhuR6y3kyVmYgelE4c
+	FE7v79Wg/mcHqRKhqOa6H2+tZQ0zBg3bQ7+K7gIfywxulLTEE1caVjB3Qdm2OORBjmPzmg
+	HS3y8rS1fs4BvYW1WwhObKD8/ynLK8M=
+X-MC-Unique: xwrQBWUfPzqlTw3k0NIoCA-1
 From: Stefan Hajnoczi <stefanha@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: qemu-s390x@nongnu.org,
@@ -140,168 +141,107 @@ Cc: qemu-s390x@nongnu.org,
 	Fabiano Rosas <farosas@suse.de>,
 	Akihiko Odaki <akihiko.odaki@daynix.com>,
 	David Hildenbrand <david@redhat.com>
-Subject: [PULL 0/6] Block patches
-Date: Mon,  8 Jan 2024 11:37:29 -0500
-Message-ID: <20240108163735.254732-1-stefanha@redhat.com>
+Subject: [PULL 1/6] iothread: Remove unused Error** argument in aio_context_set_aio_params
+Date: Mon,  8 Jan 2024 11:37:30 -0500
+Message-ID: <20240108163735.254732-2-stefanha@redhat.com>
+In-Reply-To: <20240108163735.254732-1-stefanha@redhat.com>
+References: <20240108163735.254732-1-stefanha@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.4
 
-The following changes since commit ffd454c67e38cc6df792733ebc5d967eee28ac0d:
+From: Philippe Mathieu-Daudé <philmd@linaro.org>
 
-  Merge tag 'pull-vfio-20240107' of https://github.com/legoater/qemu into staging (2024-01-08 10:28:42 +0000)
+aio_context_set_aio_params() doesn't use its undocumented
+Error** argument. Remove it to simplify.
 
-are available in the Git repository at:
+Note this removes a use of "unchecked Error**" in
+iothread_set_aio_context_params().
 
-  https://gitlab.com/stefanha/qemu.git tags/block-pull-request
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+Reviewed-by: Markus Armbruster <armbru@redhat.com>
+Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+Message-ID: <20231120171806.19361-1-philmd@linaro.org>
+---
+ include/block/aio.h | 3 +--
+ iothread.c          | 3 +--
+ util/aio-posix.c    | 3 +--
+ util/aio-win32.c    | 3 +--
+ util/main-loop.c    | 5 +----
+ 5 files changed, 5 insertions(+), 12 deletions(-)
 
-for you to fetch changes up to 0b2675c473f68f13bc5ca1dd1c43ce421542e7b8:
-
-  Rename "QEMU global mutex" to "BQL" in comments and docs (2024-01-08 10:45:43 -0500)
-
-----------------------------------------------------------------
-Pull request
-
-----------------------------------------------------------------
-
-Philippe Mathieu-Daudé (1):
-  iothread: Remove unused Error** argument in aio_context_set_aio_params
-
-Stefan Hajnoczi (5):
-  system/cpus: rename qemu_mutex_lock_iothread() to bql_lock()
-  qemu/main-loop: rename QEMU_IOTHREAD_LOCK_GUARD to BQL_LOCK_GUARD
-  qemu/main-loop: rename qemu_cond_wait_iothread() to
-    qemu_cond_wait_bql()
-  Replace "iothread lock" with "BQL" in comments
-  Rename "QEMU global mutex" to "BQL" in comments and docs
-
- docs/devel/multi-thread-tcg.rst      |   7 +-
- docs/devel/qapi-code-gen.rst         |   2 +-
- docs/devel/replay.rst                |   2 +-
- docs/devel/reset.rst                 |   2 +-
- docs/devel/multiple-iothreads.txt    |  14 ++--
- hw/display/qxl.h                     |   2 +-
- include/block/aio-wait.h             |   2 +-
- include/block/aio.h                  |   3 +-
- include/block/blockjob.h             |   6 +-
- include/exec/cpu-common.h            |   2 +-
- include/exec/memory.h                |   4 +-
- include/exec/ramblock.h              |   2 +-
- include/io/task.h                    |   2 +-
- include/migration/register.h         |   8 +-
- include/qemu/coroutine-core.h        |   2 +-
- include/qemu/coroutine.h             |   2 +-
- include/qemu/main-loop.h             |  68 ++++++++-------
- include/qemu/thread.h                |   2 +-
- target/arm/internals.h               |   4 +-
- accel/accel-blocker.c                |  10 +--
- accel/dummy-cpus.c                   |   8 +-
- accel/hvf/hvf-accel-ops.c            |   4 +-
- accel/kvm/kvm-accel-ops.c            |   4 +-
- accel/kvm/kvm-all.c                  |  22 ++---
- accel/tcg/cpu-exec.c                 |  26 +++---
- accel/tcg/cputlb.c                   |  20 ++---
- accel/tcg/tcg-accel-ops-icount.c     |   6 +-
- accel/tcg/tcg-accel-ops-mttcg.c      |  12 +--
- accel/tcg/tcg-accel-ops-rr.c         |  18 ++--
- accel/tcg/tcg-accel-ops.c            |   2 +-
- accel/tcg/translate-all.c            |   2 +-
- cpu-common.c                         |   4 +-
- dump/dump.c                          |   4 +-
- hw/block/dataplane/virtio-blk.c      |   8 +-
- hw/block/virtio-blk.c                |   2 +-
- hw/core/cpu-common.c                 |   6 +-
- hw/display/virtio-gpu.c              |   2 +-
- hw/i386/intel_iommu.c                |   6 +-
- hw/i386/kvm/xen_evtchn.c             |  30 +++----
- hw/i386/kvm/xen_gnttab.c             |   2 +-
- hw/i386/kvm/xen_overlay.c            |   2 +-
- hw/i386/kvm/xen_xenstore.c           |   2 +-
- hw/intc/arm_gicv3_cpuif.c            |   2 +-
- hw/intc/s390_flic.c                  |  18 ++--
- hw/mips/mips_int.c                   |   2 +-
- hw/misc/edu.c                        |   4 +-
- hw/misc/imx6_src.c                   |   2 +-
- hw/misc/imx7_src.c                   |   2 +-
- hw/net/xen_nic.c                     |   8 +-
- hw/ppc/pegasos2.c                    |   2 +-
- hw/ppc/ppc.c                         |   6 +-
- hw/ppc/spapr.c                       |   2 +-
- hw/ppc/spapr_events.c                |   2 +-
- hw/ppc/spapr_rng.c                   |   4 +-
- hw/ppc/spapr_softmmu.c               |   4 +-
- hw/remote/mpqemu-link.c              |  22 ++---
- hw/remote/vfio-user-obj.c            |   2 +-
- hw/s390x/s390-skeys.c                |   2 +-
- hw/scsi/virtio-scsi-dataplane.c      |   6 +-
- iothread.c                           |   3 +-
- migration/block-dirty-bitmap.c       |  14 ++--
- migration/block.c                    |  38 ++++-----
- migration/colo.c                     |  62 +++++++-------
- migration/dirtyrate.c                |  12 +--
- migration/migration.c                |  54 ++++++------
- migration/ram.c                      |  16 ++--
- net/tap.c                            |   2 +-
- replay/replay-internal.c             |   2 +-
- semihosting/console.c                |   8 +-
- stubs/iothread-lock.c                |   6 +-
- system/cpu-throttle.c                |   6 +-
- system/cpus.c                        |  55 +++++++------
- system/dirtylimit.c                  |   4 +-
- system/memory.c                      |   2 +-
- system/physmem.c                     |  14 ++--
- system/runstate.c                    |   2 +-
- system/watchpoint.c                  |   4 +-
- target/arm/arm-powerctl.c            |  14 ++--
- target/arm/helper.c                  |   6 +-
- target/arm/hvf/hvf.c                 |   8 +-
- target/arm/kvm.c                     |   8 +-
- target/arm/ptw.c                     |   6 +-
- target/arm/tcg/helper-a64.c          |   8 +-
- target/arm/tcg/m_helper.c            |   6 +-
- target/arm/tcg/op_helper.c           |  24 +++---
- target/arm/tcg/psci.c                |   2 +-
- target/hppa/int_helper.c             |   8 +-
- target/i386/hvf/hvf.c                |   6 +-
- target/i386/kvm/hyperv.c             |   4 +-
- target/i386/kvm/kvm.c                |  28 +++----
- target/i386/kvm/xen-emu.c            |  16 ++--
- target/i386/nvmm/nvmm-accel-ops.c    |   6 +-
- target/i386/nvmm/nvmm-all.c          |  20 ++---
- target/i386/tcg/sysemu/fpu_helper.c  |   6 +-
- target/i386/tcg/sysemu/misc_helper.c |   4 +-
- target/i386/whpx/whpx-accel-ops.c    |   6 +-
- target/i386/whpx/whpx-all.c          |  24 +++---
- target/loongarch/tcg/csr_helper.c    |   4 +-
- target/mips/kvm.c                    |   4 +-
- target/mips/tcg/sysemu/cp0_helper.c  |   4 +-
- target/openrisc/sys_helper.c         |  16 ++--
- target/ppc/excp_helper.c             |  14 ++--
- target/ppc/helper_regs.c             |   2 +-
- target/ppc/kvm.c                     |   4 +-
- target/ppc/misc_helper.c             |   8 +-
- target/ppc/timebase_helper.c         |   8 +-
- target/riscv/cpu_helper.c            |   4 +-
- target/s390x/kvm/kvm.c               |   4 +-
- target/s390x/tcg/misc_helper.c       | 118 +++++++++++++--------------
- target/sparc/int32_helper.c          |   2 +-
- target/sparc/int64_helper.c          |   6 +-
- target/sparc/win_helper.c            |  20 ++---
- target/xtensa/exc_helper.c           |   8 +-
- ui/spice-core.c                      |   6 +-
- util/aio-posix.c                     |   3 +-
- util/aio-win32.c                     |   3 +-
- util/async.c                         |   2 +-
- util/main-loop.c                     |  13 ++-
- util/qsp.c                           |   6 +-
- util/rcu.c                           |  16 ++--
- audio/coreaudio.m                    |   8 +-
- memory_ldst.c.inc                    |  18 ++--
- target/i386/hvf/README.md            |   2 +-
- ui/cocoa.m                           |  56 ++++++-------
- 124 files changed, 646 insertions(+), 655 deletions(-)
-
+diff --git a/include/block/aio.h b/include/block/aio.h
+index af05512a7d..c802a392e5 100644
+--- a/include/block/aio.h
++++ b/include/block/aio.h
+@@ -699,8 +699,7 @@ void aio_context_set_poll_params(AioContext *ctx, int64_t max_ns,
+  * @max_batch: maximum number of requests in a batch, 0 means that the
+  *             engine will use its default
+  */
+-void aio_context_set_aio_params(AioContext *ctx, int64_t max_batch,
+-                                Error **errp);
++void aio_context_set_aio_params(AioContext *ctx, int64_t max_batch);
+ 
+ /**
+  * aio_context_set_thread_pool_params:
+diff --git a/iothread.c b/iothread.c
+index b753286414..6c1fc8c856 100644
+--- a/iothread.c
++++ b/iothread.c
+@@ -170,8 +170,7 @@ static void iothread_set_aio_context_params(EventLoopBase *base, Error **errp)
+     }
+ 
+     aio_context_set_aio_params(iothread->ctx,
+-                               iothread->parent_obj.aio_max_batch,
+-                               errp);
++                               iothread->parent_obj.aio_max_batch);
+ 
+     aio_context_set_thread_pool_params(iothread->ctx, base->thread_pool_min,
+                                        base->thread_pool_max, errp);
+diff --git a/util/aio-posix.c b/util/aio-posix.c
+index 7f2c99729d..266c9dd35f 100644
+--- a/util/aio-posix.c
++++ b/util/aio-posix.c
+@@ -777,8 +777,7 @@ void aio_context_set_poll_params(AioContext *ctx, int64_t max_ns,
+     aio_notify(ctx);
+ }
+ 
+-void aio_context_set_aio_params(AioContext *ctx, int64_t max_batch,
+-                                Error **errp)
++void aio_context_set_aio_params(AioContext *ctx, int64_t max_batch)
+ {
+     /*
+      * No thread synchronization here, it doesn't matter if an incorrect value
+diff --git a/util/aio-win32.c b/util/aio-win32.c
+index 948ef47a4d..d144f9391f 100644
+--- a/util/aio-win32.c
++++ b/util/aio-win32.c
+@@ -438,7 +438,6 @@ void aio_context_set_poll_params(AioContext *ctx, int64_t max_ns,
+     }
+ }
+ 
+-void aio_context_set_aio_params(AioContext *ctx, int64_t max_batch,
+-                                Error **errp)
++void aio_context_set_aio_params(AioContext *ctx, int64_t max_batch)
+ {
+ }
+diff --git a/util/main-loop.c b/util/main-loop.c
+index 797b640c41..63b4cda84a 100644
+--- a/util/main-loop.c
++++ b/util/main-loop.c
+@@ -192,10 +192,7 @@ static void main_loop_update_params(EventLoopBase *base, Error **errp)
+         return;
+     }
+ 
+-    aio_context_set_aio_params(qemu_aio_context, base->aio_max_batch, errp);
+-    if (*errp) {
+-        return;
+-    }
++    aio_context_set_aio_params(qemu_aio_context, base->aio_max_batch);
+ 
+     aio_context_set_thread_pool_params(qemu_aio_context, base->thread_pool_min,
+                                        base->thread_pool_max, errp);
 -- 
 2.43.0
 
