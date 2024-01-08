@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07BD48270CC
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 15:14:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663507.1033454 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F1AE82714A
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 15:28:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663540.1033480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMqNr-00007Q-Rc; Mon, 08 Jan 2024 14:13:43 +0000
+	id 1rMqbW-00043G-Dh; Mon, 08 Jan 2024 14:27:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663507.1033454; Mon, 08 Jan 2024 14:13:43 +0000
+Received: by outflank-mailman (output) from mailman id 663540.1033480; Mon, 08 Jan 2024 14:27:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMqNr-00005K-Od; Mon, 08 Jan 2024 14:13:43 +0000
-Received: by outflank-mailman (input) for mailman id 663507;
- Mon, 08 Jan 2024 14:13:42 +0000
+	id 1rMqbW-00041C-8M; Mon, 08 Jan 2024 14:27:50 +0000
+Received: by outflank-mailman (input) for mailman id 663540;
+ Mon, 08 Jan 2024 14:27:49 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rMqNq-00005E-19
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 14:13:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rMqbV-00040y-K3; Mon, 08 Jan 2024 14:27:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rMqNo-0006IO-Da; Mon, 08 Jan 2024 14:13:40 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rMqNo-0006Fn-53; Mon, 08 Jan 2024 14:13:40 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rMqbV-0006Ww-Gj; Mon, 08 Jan 2024 14:27:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rMqbV-0008W2-3W; Mon, 08 Jan 2024 14:27:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rMqbV-00015a-36; Mon, 08 Jan 2024 14:27:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,86 +42,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=eLI9A289XDfWJr5oCt80Yy2BHMlJjvdnqOBlOKg9tCk=; b=FjKykE4wNH9VZ0ICkvB2oMhI42
-	IHMzh+pj1DIrMgjpj8tff+wSyNMB4AwOn+OOtySCvfZEcyaztiJ7FrZhcdfluRm1TL/MQFZ60TOlu
-	fYDZLSwFZFyxnfKIaFBwSgta5bmGl6FEMxSAKGFdUHZBwkvCFbezXexuIU5EVsmDA8gM=;
-Message-ID: <829125ea-c220-47e9-a9f4-343126787f27@xen.org>
-Date: Mon, 8 Jan 2024 14:13:38 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=z6NMEKCta9uQazLyBUqy/7NxCdPeVgpojverEMYdyJs=; b=TribzP+05tLRBIo8Q+H4CKMBa/
+	mQBHxDEyL0w3HcleCR6AQWT9L8rcDdnH+tKYqz72RksRoQOkN9/SsBoiViruZFZ2TVufaDng9k5gW
+	R4DTIwShAWNJG4ZIN1zh/XGtaOOttJ04Ypj/zs1fR/fFmy/jgGJfew/4bvDXo8hjcgHE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184277-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] NUMA: limit first_valid_mfn exposure
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <224db25e-bd4c-4415-aff8-6ff3e84343d8@suse.com>
- <a99d9d1a-2395-4771-95f3-5dab64e10ce7@xen.org>
- <0872306a-fefb-424b-b27a-b67ba21828c7@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <0872306a-fefb-424b-b27a-b67ba21828c7@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xtf test] 184277: all pass - PUSHED
+X-Osstest-Versions-This:
+    xtf=a5bd8d9e5d5c7b729d6d6122900d28f7a00aa6c0
+X-Osstest-Versions-That:
+    xtf=0a58a1471eb5f692700c0fd026ff96969b6ad7b0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 08 Jan 2024 14:27:49 +0000
 
-Hi Jan,
+flight 184277 xtf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184277/
 
-On 08/01/2024 11:43, Jan Beulich wrote:
-> On 08.01.2024 12:37, Julien Grall wrote:
->> On 08/01/2024 11:31, Jan Beulich wrote:
->>> Address the TODO regarding first_valid_mfn by making the variable static
->>> when NUMA=y, thus also addressing a Misra C:2012 rule 8.4 concern (on
->>> x86).
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>> ---
->>> Julien suggests something like
->>>
->>> STATIC_IF(CONFIG_NUMA) unsigned long first_valid_mfn;
->>>
->>> but I view this as non-scalable (or at least I can't see how to
->>> implement such in a scalabale way) and hence undesirable to introduce.
->>
->> I don't really see the scalability problem. Can you explain a bit more?
-> 
-> Well, when seeing your original suggestion, I first considered it quite
-> reasonable. But when thinking how to implement it, I couldn't see what
-> 
-> #define STATIC_IF(cfg)
-> 
-> should expand to. That's simply because a macro body cannot itself have
-> pre-processor directives. Hence all I could think of was
-> 
-> #ifdef CONFIG_NUMA
-> # define static_if_CONFIG_NUMA static
-> #else
-> # define static_if_CONFIG_NUMA
-> #endif
-> #define STATIC_IF(cfg) static_if_ ## cfg
-> 
-> And I think it is easy to see how this wouldn't scale across CONFIG_xyz.
-> Plus that that point STATIC_IF() itself would be pretty much redundant.
-> But maybe I'm simply overlooking the obvious ...
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xtf                  a5bd8d9e5d5c7b729d6d6122900d28f7a00aa6c0
+baseline version:
+ xtf                  0a58a1471eb5f692700c0fd026ff96969b6ad7b0
 
-You can use the same trick as for IS_ENABLED. The code below will select 
-static or nothing:
+Last test of basis   184247  2024-01-03 20:42:38 Z    4 days
+Testing same since   184277  2024-01-08 11:42:46 Z    0 days    1 attempts
 
-#define static_enabled(cfg) _static_enabled(cfg)
-#define _static_enabled(value) __static_enabled(__ARG_PLACEHOLDER_##value)
-#define __static_enabled(arg1_or_junk) ___static_enabled(arg1_or_junk 
-static,)
-#define ___static_enabled(__ignored, val, ...) val
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Bernhard Kaindl <bernhard.kaindl@cloud.com>
 
-#define STATIC_IF(option) static_enabled(option)
+jobs:
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-amd64-pvops                                            pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
 
-I have tested both with CONFIG_NUMA and !CONFIG_NUMA to confirm the 
-visibility of the variable will be correct.
 
-Cheers,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--- 
-Julien Grall
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xtf.git
+   0a58a14..a5bd8d9  a5bd8d9e5d5c7b729d6d6122900d28f7a00aa6c0 -> xen-tested-master
 
