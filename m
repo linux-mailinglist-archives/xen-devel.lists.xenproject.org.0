@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 763BB826D34
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 12:56:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663444.1033377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70C7B826D64
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 13:05:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663450.1033387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMoEF-0001ys-Jy; Mon, 08 Jan 2024 11:55:39 +0000
+	id 1rMoNs-0004eQ-KV; Mon, 08 Jan 2024 12:05:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663444.1033377; Mon, 08 Jan 2024 11:55:39 +0000
+Received: by outflank-mailman (output) from mailman id 663450.1033387; Mon, 08 Jan 2024 12:05:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMoEF-0001wG-H2; Mon, 08 Jan 2024 11:55:39 +0000
-Received: by outflank-mailman (input) for mailman id 663444;
- Mon, 08 Jan 2024 11:55:38 +0000
+	id 1rMoNs-0004cF-Hq; Mon, 08 Jan 2024 12:05:36 +0000
+Received: by outflank-mailman (input) for mailman id 663450;
+ Mon, 08 Jan 2024 12:05:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pvth=IS=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rMoEE-0001wA-Bo
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 11:55:38 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
+ <SRS0=p6sC=IS=ffwll.ch=daniel.vetter@srs-se1.protection.inumbo.net>)
+ id 1rMoNr-0004c9-2o
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 12:05:35 +0000
+Received: from mail-oa1-x2c.google.com (mail-oa1-x2c.google.com
+ [2001:4860:4864:20::2c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d5733d6e-ae1c-11ee-9b0f-b553b5be7939;
- Mon, 08 Jan 2024 12:55:36 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a28fb463a28so162609166b.3
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 03:55:36 -0800 (PST)
+ id 38b9c6a2-ae1e-11ee-9b0f-b553b5be7939;
+ Mon, 08 Jan 2024 13:05:32 +0100 (CET)
+Received: by mail-oa1-x2c.google.com with SMTP id
+ 586e51a60fabf-204b216e4easo403926fac.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 04:05:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,157 +40,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5733d6e-ae1c-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 38b9c6a2-ae1e-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1704714935; x=1705319735; darn=lists.xenproject.org;
+        d=ffwll.ch; s=google; t=1704715531; x=1705320331; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uAniKut4uEARyJKjz0n6VGdNJHr94yuj5i+tiN2adPI=;
-        b=hebK/DirheazOb7vcbIMjCWBTqEnH118gvPA5lfmEKNnZ7beHPHP/3UcmAW2DsRtwz
-         vLPSSTkyOOYcvF7pF28hWXygarjS60WT0Kf1FIQBKshEnpfg+jbOt1GJKQFUDBTNFnOD
-         zaMWyXQmBcY+qgyJvtTraVZO1XOHk3TmLrJNAwXTBM2MeZmvD55M3N/ZNZo/EPx38rt7
-         ZwejJED5+Z+6Y7DP6RtxtCfG3tefDRMbsd/OkGcRE/5V4Nfc09tgCd6KE8Gs/eOkcB4K
-         TqLG9QjqhX5hT6Zi60lFCujgGiX2bs+RbNuMupmBiFEDDYkXL/ydX8k+2u5OGHogqWCS
-         3rmw==
+        bh=E0ycSkS6Zak2ui1rQPyyxjJDorzRP8x1XQbB3KxyGEg=;
+        b=Pc/EZ925R9wnFgmKbD+kUI7EjKBma8Ph3Lug0eTnlHU6eDKnrODLRZrm7nHZg1UNy3
+         WS3OZCAjOpll6umHpg81ovV74h7PAOfOAQ/Ur7355lV9q0GVsoJR9ZdbowIL2lvSriBM
+         b6YU1n10PNcSaWYL2EXhEE4dMwnqyKS0WT5r4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704714935; x=1705319735;
+        d=1e100.net; s=20230601; t=1704715531; x=1705320331;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=uAniKut4uEARyJKjz0n6VGdNJHr94yuj5i+tiN2adPI=;
-        b=TGZsGAxsFwv2Ulyo/iHUFBt+QkhCAO+nfqqz0P4yb4YAuaNyWnGDuxHtyIxdm74UIS
-         rjcVCdTmWgv94wivy4Ec5ugggOd8Wl83gFyt8PLF7rfEHIDVNR7QFDT5T5tMTkmEapEd
-         5T6kYVpYPU+pNaKg8EAxBjzxxPRQOtHQwa+u5EWEAsRbcmdUm3hIwPfxE79h6zy2hjpC
-         19FN4ckV3Ee7hkIKusoAe4hJoyGKBne/FdIFY0T6OmrtnBb9rnYcuXM69XkipmxzC7ao
-         tmL9rTugEA2oJGwxyAl/eRTi8sF/fY2Qz9ZbgE+892jPseatUPq1Uawihxoda6b3oEIj
-         bnaQ==
-X-Gm-Message-State: AOJu0YzJwdhVM4orr/hue540IoXh7vV8fFbe3d1vK7kanTyjqSxkjyM/
-	rDsAlWki21e3aLuubLUITgkNSQEkPtGDg8hbXC9XwcKL3olWcD89Ot3pwGKyNgXTfQ==
-X-Google-Smtp-Source: AGHT+IH1g/M/0tHzdGO8aozGkNspQM+d2ZKRrlmirAHrIYTWYCBRXMMiUEYTL74mYiNqpzBCCZM1f7NZjqmKvjth7HM=
-X-Received: by 2002:a17:906:6409:b0:a27:ee21:58c with SMTP id
- d9-20020a170906640900b00a27ee21058cmr1268598ejm.155.1704714935315; Mon, 08
- Jan 2024 03:55:35 -0800 (PST)
+        bh=E0ycSkS6Zak2ui1rQPyyxjJDorzRP8x1XQbB3KxyGEg=;
+        b=V7Tfhb3COagLrjO6fWeaYOOXD2/iHNe7tU6aqWTJ0GfWLnHnFNqTeR69IWZfPfF/HX
+         cw5zwFFzl+KEnr93ey7F9+y35qoixciYB1qLJT8o0hYfDGbdTj5KhezyPZxVBGefdawh
+         05l5ARjmxBBBKPQ4LE/we6W39EXtLrJxBbxHbdIxXlwJO5LtBa7gZ+cvUtOLykDt5NBF
+         IYMZE8kc1txLGkC4o8ciPBhzaeXK24E4ULqiL/z9cYhoJWwExAjsbVXnQFvLfv2+eQIF
+         SLeDLtF+oLyGK17tFRo5me9bbdfXQbKjLc9XE9I9v/LQgefaKsyoLac230sL75nDFWba
+         zkSw==
+X-Gm-Message-State: AOJu0YxF1IC6aZWRgiMo8xC4oYJbvlpQ7g+TVuGFWE7TF4GffVXMI7x6
+	2w7tx+8dhLk3BZYVdILkDQbo1K8gQvc4eVcijmGlc9Vcez77EQ==
+X-Google-Smtp-Source: AGHT+IFzg0ncgiosaItJcS6EqUbmXIhJfdKj13esd/8B0OHht7SYAYuam+XXDGCU1LyVattVFje1kzEfWm/X5Nm9YOM=
+X-Received: by 2002:a05:6870:c115:b0:204:9066:c34f with SMTP id
+ f21-20020a056870c11500b002049066c34fmr6593653oad.5.1704715531309; Mon, 08 Jan
+ 2024 04:05:31 -0800 (PST)
 MIME-Version: 1.0
-References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-4-carlo.nonato@minervasys.tech> <046e9949-d126-42b1-90a6-12af540d63bf@xen.org>
- <CAG+AhRWm4N7GV3HfkTNCvXQw7-6Woq=+zBqdHAgN=-PgGr-WRg@mail.gmail.com>
- <0905b0f4-9a5e-48c7-8764-58cdd440130f@xen.org> <CAG+AhRVL8_YMkw+Z4EcTLZgM7m10+9DToSkaeNLMaFY3gcng7Q@mail.gmail.com>
- <4f8b3a59-c277-4f2e-a9de-82ea9ce2eda0@xen.org> <CAG+AhRUE8MQjW=1rLsp79=MisUtjiB-5daXYz8S6-8JX6kAosA@mail.gmail.com>
- <24e9adad-0f3d-4e0f-8202-33992718e9c3@xen.org>
-In-Reply-To: <24e9adad-0f3d-4e0f-8202-33992718e9c3@xen.org>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Mon, 8 Jan 2024 12:55:24 +0100
-Message-ID: <CAG+AhRWJbaUEFgm7rTTUT+Qz4=xSFXxLgBFRGbgStRNoP7MxKQ@mail.gmail.com>
-Subject: Re: [PATCH v5 03/13] xen/arm: add Dom0 cache coloring support
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
-	Marco Solieri <marco.solieri@minervasys.tech>
+References: <20240107103426.2038075-1-olekstysh@gmail.com>
+In-Reply-To: <20240107103426.2038075-1-olekstysh@gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Mon, 8 Jan 2024 13:05:20 +0100
+Message-ID: <CAKMK7uE07Uz-3yxH3+TNUEroKCobZ5xG+_HBPNWLOO0-cKAS+g@mail.gmail.com>
+Subject: Re: [PATCH v2] xen/gntdev: Fix the abuse of underlying struct page in
+ DMA-buf import
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jan 8, 2024 at 12:44=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
-:
+On Sun, 7 Jan 2024 at 11:35, Oleksandr Tyshchenko <olekstysh@gmail.com> wro=
+te:
 >
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >
+> DO NOT access the underlying struct page of an sg table exported
+> by DMA-buf in dmabuf_imp_to_refs(), this is not allowed.
+> Please see drivers/dma-buf/dma-buf.c:mangle_sg_table() for details.
 >
-> On 08/01/2024 11:04, Carlo Nonato wrote:
-> > Hi Julien,
-> >
-> > On Mon, Jan 8, 2024 at 11:25=E2=80=AFAM Julien Grall <julien@xen.org> w=
-rote:
-> >>
-> >> Hi Carlo,
-> >>
-> >> On 08/01/2024 10:06, Carlo Nonato wrote:
-> >>>> One of the reason is at least in the dom0less case, you will overrid=
-e
-> >>>> the value afterwards.
-> >>>
-> >>> In that case I need to allocate the array before parsing the string.
-> >>> I allocate a full array then the string is parsed and the actual size=
- is found
-> >>> at the end of this phase. Knowing the actual size would require two p=
-arsing
-> >>> stages. Yes I'm wasting a bit of memory by oversizing the array here.=
- Is it
-> >>> a problem?
-> >>
-> >> While wasting memory is indeed not nice. This wasn't the main reason o=
-f
-> >> this comment.
-> >>
-> >> The reason is that you seem to set d->num_lcc_colors will but will nev=
-er
-> >> be read before it gets overwritten. Looking again at the code, you are
-> >> also assuming parse_colors() will always take an array of nr_colors.
-> >
-> > Ok, I think I understood, but that happens only in dom0less case becaus=
-e
-> > d->num_llc_colors is overwritten after parsing. In other cases it's ok =
-to set
-> > it there. Anyway I can move the assignment out of the function if that =
-is
-> > clearer.
-> >
-> >> It would be better if parse_colors() takes the maximum size of the arr=
-ay
-> >> in parameter. This would harden the code and it makes more sense for
-> >> domain_alloc_colors() to set d->num_lcc_colors.
-> >
-> > I don't understand this. parse_colors() must take only arrays of nr_col=
-ors
-> > size (the global, maximum number of colors), otherwise the parsed strin=
-g
-> > config could exceed the array size. Since we don't know in advance the =
-real
-> > size before parsing, I think it's better to pass only arrays that are a=
-lready
-> > allocated with the maximum size.
+> Fortunately, here (for special Xen device) we can avoid using
+> pages and calculate gfns directly from dma addresses provided by
+> the sg table.
 >
-> My concern is there is a disconnect. From the code, it is not obvious at
-> all that parse_colors() only want to accept an array of nr_colors. If
-> you pass an extra argument (or re-use the one you pass) for the array
-> size and use within the code, then it makes more obvious that your array
-> is always the correct size.
+> Suggested-by: Daniel Vetter <daniel@ffwll.ch>
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> ---
+> Please note, I didn't manage to test the patch against the latest master =
+branch
+> on real HW (patch was only build tested there). Patch was tested on Arm64
+> guests using Linux v5.10.41 from vendor's BSP, this is the environment wh=
+ere
+> running this use-case is possible and to which I have an access (Xen PV d=
+isplay
+> with zero-copy and backend domain as a buffer provider - be-alloc=3D1, so=
+ dma-buf
+> import part was involved). A little bit old, but the dma-buf import code
+> in gntdev-dmabuf.c hasn't been changed much since that time, all context
+> remains allmost the same according to my code inspection.
 >
-> At least to me, this is a good practice in C to always pass the array
-> and its size together (other language have that embedded). But I can
-> appreciate this is not view like that for everyone. The minimum would be
-> to document this requirement in a comment
+>   v2:
+>    - add R-b and A-b
+>    - fix build warning noticed by kernel test robot by initializing
+>      "ret" in case of error
+>      https://lore.kernel.org/oe-kbuild-all/202401062122.it6zvLG0-lkp@inte=
+l.com/
+> ---
+> ---
+>  drivers/xen/gntdev-dmabuf.c | 44 ++++++++++++++++---------------------
+>  1 file changed, 19 insertions(+), 25 deletions(-)
+>
+> diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
+> index 4440e626b797..272c0ab01ef5 100644
+> --- a/drivers/xen/gntdev-dmabuf.c
+> +++ b/drivers/xen/gntdev-dmabuf.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/errno.h>
+>  #include <linux/dma-buf.h>
+> +#include <linux/dma-direct.h>
+>  #include <linux/slab.h>
+>  #include <linux/types.h>
+>  #include <linux/uaccess.h>
+> @@ -50,7 +51,7 @@ struct gntdev_dmabuf {
+>
+>         /* Number of pages this buffer has. */
+>         int nr_pages;
+> -       /* Pages of this buffer. */
+> +       /* Pages of this buffer (only for dma-buf export). */
+>         struct page **pages;
+>  };
+>
+> @@ -484,7 +485,7 @@ static int dmabuf_exp_from_refs(struct gntdev_priv *p=
+riv, int flags,
+>  /* DMA buffer import support. */
+>
+>  static int
+> -dmabuf_imp_grant_foreign_access(struct page **pages, u32 *refs,
+> +dmabuf_imp_grant_foreign_access(unsigned long *gfns, u32 *refs,
+>                                 int count, int domid)
+>  {
+>         grant_ref_t priv_gref_head;
+> @@ -507,7 +508,7 @@ dmabuf_imp_grant_foreign_access(struct page **pages, =
+u32 *refs,
+>                 }
+>
+>                 gnttab_grant_foreign_access_ref(cur_ref, domid,
+> -                                               xen_page_to_gfn(pages[i])=
+, 0);
+> +                                               gfns[i], 0);
+>                 refs[i] =3D cur_ref;
+>         }
+>
+> @@ -529,7 +530,6 @@ static void dmabuf_imp_end_foreign_access(u32 *refs, =
+int count)
+>
+>  static void dmabuf_imp_free_storage(struct gntdev_dmabuf *gntdev_dmabuf)
+>  {
+> -       kfree(gntdev_dmabuf->pages);
+>         kfree(gntdev_dmabuf->u.imp.refs);
+>         kfree(gntdev_dmabuf);
+>  }
+> @@ -549,12 +549,6 @@ static struct gntdev_dmabuf *dmabuf_imp_alloc_storag=
+e(int count)
+>         if (!gntdev_dmabuf->u.imp.refs)
+>                 goto fail;
+>
+> -       gntdev_dmabuf->pages =3D kcalloc(count,
+> -                                      sizeof(gntdev_dmabuf->pages[0]),
+> -                                      GFP_KERNEL);
+> -       if (!gntdev_dmabuf->pages)
+> -               goto fail;
+> -
+>         gntdev_dmabuf->nr_pages =3D count;
+>
+>         for (i =3D 0; i < count; i++)
+> @@ -576,7 +570,8 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv, s=
+truct device *dev,
+>         struct dma_buf *dma_buf;
+>         struct dma_buf_attachment *attach;
+>         struct sg_table *sgt;
+> -       struct sg_page_iter sg_iter;
+> +       struct sg_dma_page_iter sg_iter;
+> +       unsigned long *gfns;
+>         int i;
+>
+>         dma_buf =3D dma_buf_get(fd);
+> @@ -624,26 +619,25 @@ dmabuf_imp_to_refs(struct gntdev_dmabuf_priv *priv,=
+ struct device *dev,
+>
+>         gntdev_dmabuf->u.imp.sgt =3D sgt;
+>
+> -       /* Now convert sgt to array of pages and check for page validity.=
+ */
+> +       gfns =3D kcalloc(count, sizeof(*gfns), GFP_KERNEL);
+> +       if (!gfns) {
+> +               ret =3D ERR_PTR(-ENOMEM);
+> +               goto fail_unmap;
+> +       }
+> +
+> +       /* Now convert sgt to array of gfns without accessing underlying =
+pages. */
+>         i =3D 0;
+> -       for_each_sgtable_page(sgt, &sg_iter, 0) {
+> -               struct page *page =3D sg_page_iter_page(&sg_iter);
+> -               /*
+> -                * Check if page is valid: this can happen if we are give=
+n
+> -                * a page from VRAM or other resources which are not back=
+ed
+> -                * by a struct page.
+> -                */
+> -               if (!pfn_valid(page_to_pfn(page))) {
+> -                       ret =3D ERR_PTR(-EINVAL);
+> -                       goto fail_unmap;
+> -               }
+> +       for_each_sgtable_dma_page(sgt, &sg_iter, 0) {
 
-Ok got it. Thanks for the explanation.
+Maybe add a comment here to explain why this is done and why it's ok?
+Either way:
 
-> > Doing as you said I would still pass nr_colors as the maximum size, but=
- that
-> > would be strange since the global would still be accessible.
+Acked-by: Daniel Vetter <daniel@ffwll.ch>
+
+
+> +               dma_addr_t addr =3D sg_page_iter_dma_address(&sg_iter);
+> +               unsigned long pfn =3D bfn_to_pfn(XEN_PFN_DOWN(dma_to_phys=
+(dev, addr)));
 >
-> I don't really see the problem here. Your code doesn't need to use the
-> global variable.
+> -               gntdev_dmabuf->pages[i++] =3D page;
+> +               gfns[i++] =3D pfn_to_gfn(pfn);
+>         }
 >
-> > If domain_alloc_colors() setting d->num_llc_colors is so confusing,
-> > I will just move the assignment after the function call.
-> >
-> >> Also, I just noticed you have a global variable named nr_colors and th=
-e
-> >> function parse_colors() takes an argument called *num_colors. This is
-> >> quite confusing, can we have better name?
-> >>
-> >> Maybe rename nr_colors to nr_global_colors and and num_colors to
-> >> nr_array_colors?
-> >
-> > I agree with the fact that naming is confusing. I would opt for max_nr_=
-colors
-> > for the global.
->
-> I am fine with that.
->
-> Cheers,
+> -       ret =3D ERR_PTR(dmabuf_imp_grant_foreign_access(gntdev_dmabuf->pa=
+ges,
+> +       ret =3D ERR_PTR(dmabuf_imp_grant_foreign_access(gfns,
+>                                                       gntdev_dmabuf->u.im=
+p.refs,
+>                                                       count, domid));
+> +       kfree(gfns);
+>         if (IS_ERR(ret))
+>                 goto fail_end_access;
 >
 > --
-> Julien Grall
+> 2.34.1
+>
+
+
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 
