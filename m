@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A8D1827A14
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 22:14:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664084.1034239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 929AC8279FD
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 22:09:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664044.1034149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMwxB-0003wP-2l; Mon, 08 Jan 2024 21:14:37 +0000
+	id 1rMwsX-0005g1-CF; Mon, 08 Jan 2024 21:09:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664084.1034239; Mon, 08 Jan 2024 21:14:37 +0000
+Received: by outflank-mailman (output) from mailman id 664044.1034149; Mon, 08 Jan 2024 21:09:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMwxA-0003uO-UU; Mon, 08 Jan 2024 21:14:36 +0000
-Received: by outflank-mailman (input) for mailman id 664084;
- Mon, 08 Jan 2024 21:14:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rMwsX-0005eM-5w; Mon, 08 Jan 2024 21:09:49 +0000
+Received: by outflank-mailman (input) for mailman id 664044;
+ Mon, 08 Jan 2024 21:09:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=NrlO=IS=casper.srs.infradead.org=BATV+41a72dc6539c0dfbbc31+7442+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rMwaV-0000R6-9x
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 20:51:11 +0000
+ id 1rMwag-0000R5-9y
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 20:51:22 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a54de157-ae67-11ee-9b0f-b553b5be7939;
- Mon, 08 Jan 2024 21:51:07 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aba4e5f0-ae67-11ee-98ef-6d05b1d4d9a1;
+ Mon, 08 Jan 2024 21:51:18 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1rMwYi-008RPO-0H; Mon, 08 Jan 2024 20:49:21 +0000
+ id 1rMwYh-008RPP-WE; Mon, 08 Jan 2024 20:49:21 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96.2 #2 (Red
- Hat Linux)) id 1rMwYi-002NEB-22; Mon, 08 Jan 2024 20:49:20 +0000
+ Hat Linux)) id 1rMwYi-002NEF-2O; Mon, 08 Jan 2024 20:49:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: a54de157-ae67-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: aba4e5f0-ae67-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=cethWUh/RWDV/5OHSmNNy/kAHmyOEuR7joLxV258gbE=; b=UWpFdiGnLNbiORgtAtG7p/WIdU
-	nqFdfmvFAt8+yDpmkAnslA8FXZL1a921R8Kdz47iQJ7f17BTPcH4js6e2TxfDyTYvHNY1vVjWpW+m
-	Whc4h/FvtK2nvQOQsjYX3o41E5/ptjCAznwTkiO6CNzrlCyTe0eHM75LZR6L5bXa62NGM8JbcGUiG
-	nXsZwYmZ5A1JpV8dCV4PEggRIKS2aDRX8EC3nqa6ZIAI3ndlm5P39xBy+k5aD+gzf0mL8IjBKgRx5
-	Ikfo9pWQAFrvpUXLgIHi4y8C+yztqZohoFPmmZ09XXK8DdZpROKs9MJnq6Y8exAPocL+bH4EWAJFd
-	D2vqX0yA==;
+	bh=uc7qG2cne/6E8+t91EtiLDMAE+B8LUD5xbmCp8tTbzY=; b=W51OsUX6uNMef+WOdKoBKEPVPC
+	l0ml+H8yYOCuYD7wGi99UEZz8kAiuHDfQMnIowBKwdmBZgV/FseLB9wsfW9NBF/9hTlPSgKb8sPbT
+	Rz/dYde3PWiVF1nj1oHbdRjdIJWaFu4zzaTQjsQ2wZ6fsux/b1qrQucpKv5XdU09eB2CeQtn085kL
+	fPtGEs9Lyi+1jaCl3c8zXbiOKhWcdUaGNdQ/dL6CSW0S4V5PGqwF0YPEUjhr1MvpAur/nK6MRrk4S
+	knwoPsI53hHdtH+Pv7fm2VJ2RJuqW/JfFDzL+n2PAaKMLsC12mbjmRy67qQO0maB4G7TPJIPjgHmC
+	OoLgn7hw==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -119,9 +119,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v3 04/46] hw/pci: add pci_init_nic_devices(), pci_init_nic_in_slot()
-Date: Mon,  8 Jan 2024 20:26:33 +0000
-Message-ID: <20240108204909.564514-5-dwmw2@infradead.org>
+Subject: [PATCH v3 05/46] hw/i386/pc: use qemu_get_nic_info() and pci_init_nic_devices()
+Date: Mon,  8 Jan 2024 20:26:34 +0000
+Message-ID: <20240108204909.564514-6-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20240108204909.564514-1-dwmw2@infradead.org>
 References: <20240108204909.564514-1-dwmw2@infradead.org>
@@ -132,91 +132,83 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The loop over nd_table[] to add PCI NICs is repeated in quite a few
-places. Add a helper function to do it.
-
-Some platforms also try to instantiate a specific model in a specific
-slot, to match the real hardware. Add pci_init_nic_in_slot() for that
-purpose.
+Eliminate direct access to nd_table[] and nb_nics by processing the the
+Xen and ISA NICs first and then calling pci_init_nic_devices() for the
+rest.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Reviewed-by: Paul Durrant <paul@xen.org>
 ---
- hw/pci/pci.c         | 45 ++++++++++++++++++++++++++++++++++++++++++++
- include/hw/pci/pci.h |  4 +++-
- 2 files changed, 48 insertions(+), 1 deletion(-)
+ hw/i386/pc.c                | 26 ++++++++++++++++----------
+ include/hw/net/ne2000-isa.h |  2 --
+ 2 files changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/hw/pci/pci.c b/hw/pci/pci.c
-index 76080af580..5849606f66 100644
---- a/hw/pci/pci.c
-+++ b/hw/pci/pci.c
-@@ -1925,6 +1925,51 @@ PCIDevice *pci_nic_init_nofail(NICInfo *nd, PCIBus *rootbus,
-     return pci_dev;
+diff --git a/hw/i386/pc.c b/hw/i386/pc.c
+index 496498df3a..d80c536d88 100644
+--- a/hw/i386/pc.c
++++ b/hw/i386/pc.c
+@@ -658,8 +658,11 @@ static void pc_init_ne2k_isa(ISABus *bus, NICInfo *nd)
+ {
+     static int nb_ne2k = 0;
+ 
+-    if (nb_ne2k == NE2000_NB_MAX)
++    if (nb_ne2k == NE2000_NB_MAX) {
++        error_setg(&error_fatal,
++                   "maximum number of ISA NE2000 devices exceeded");
+         return;
++    }
+     isa_ne2000_init(bus, ne2000_io[nb_ne2k],
+                     ne2000_irq[nb_ne2k], nd);
+     nb_ne2k++;
+@@ -1297,23 +1300,26 @@ void pc_nic_init(PCMachineClass *pcmc, ISABus *isa_bus, PCIBus *pci_bus,
+                  BusState *xen_bus)
+ {
+     MachineClass *mc = MACHINE_CLASS(pcmc);
+-    int i;
++    bool default_is_ne2k = g_str_equal(mc->default_nic, TYPE_ISA_NE2000);
++    NICInfo *nd;
+ 
+     rom_set_order_override(FW_CFG_ORDER_OVERRIDE_NIC);
+-    for (i = 0; i < nb_nics; i++) {
+-        NICInfo *nd = &nd_table[i];
+-        const char *model = nd->model ? nd->model : mc->default_nic;
+ 
+-        if (xen_bus && (!nd->model || g_str_equal(model, "xen-net-device"))) {
++    if (xen_bus) {
++        while (nc = qemu_find_nic_info("xen-net-device", true, NULL)) {
+             DeviceState *dev = qdev_new("xen-net-device");
+             qdev_set_nic_properties(dev, nd);
+             qdev_realize_and_unref(dev, xen_bus, &error_fatal);
+-        } else if (g_str_equal(model, "ne2k_isa")) {
+-            pc_init_ne2k_isa(isa_bus, nd);
+-        } else {
+-            pci_nic_init_nofail(nd, pci_bus, model, NULL);
+         }
+     }
++
++    while ((nd = qemu_find_nic_info(TYPE_ISA_NE2000, default_is_ne2k, NULL))) {
++        pc_init_ne2k_isa(isa_bus, nd);
++    }
++
++    /* Anything remaining should be a PCI NIC */
++    pci_init_nic_devices(pci_bus, mc->default_nic);
++
+     rom_reset_order_override();
  }
  
-+void pci_init_nic_devices(PCIBus *bus, const char *default_model)
-+{
-+    qemu_create_nic_bus_devices(&bus->qbus, TYPE_PCI_DEVICE, default_model,
-+                                "virtio", "virtio-net-pci");
-+}
-+
-+bool pci_init_nic_in_slot(PCIBus *rootbus, const char *model,
-+                          const char *alias, const char *devaddr)
-+{
-+    NICInfo *nd = qemu_find_nic_info(model, true, alias);
-+    int dom, busnr, devfn;
-+    PCIDevice *pci_dev;
-+    unsigned slot;
-+    PCIBus *bus;
-+
-+    if (!nd) {
-+        return false;
-+    }
-+
-+    if (!devaddr || pci_parse_devaddr(devaddr, &dom, &busnr, &slot, NULL) < 0) {
-+        error_report("Invalid PCI device address %s for device %s",
-+                     devaddr, model);
-+        exit(1);
-+    }
-+
-+    if (dom != 0) {
-+        error_report("No support for non-zero PCI domains");
-+        exit(1);
-+    }
-+
-+    devfn = PCI_DEVFN(slot, 0);
-+
-+    bus = pci_find_bus_nr(rootbus, busnr);
-+    if (!bus) {
-+        error_report("Invalid PCI device address %s for device %s",
-+                     devaddr, model);
-+        exit(1);
-+    }
-+
-+    pci_dev = pci_new(devfn, model);
-+    qdev_set_nic_properties(&pci_dev->qdev, nd);
-+    pci_realize_and_unref(pci_dev, bus, &error_fatal);
-+    return true;
-+}
-+
- PCIDevice *pci_vga_init(PCIBus *bus)
+diff --git a/include/hw/net/ne2000-isa.h b/include/hw/net/ne2000-isa.h
+index af59ee0b02..73bae10ad1 100644
+--- a/include/hw/net/ne2000-isa.h
++++ b/include/hw/net/ne2000-isa.h
+@@ -22,8 +22,6 @@ static inline ISADevice *isa_ne2000_init(ISABus *bus, int base, int irq,
  {
-     vga_interface_created = true;
-diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
-index fa6313aabc..6ff0b95a02 100644
---- a/include/hw/pci/pci.h
-+++ b/include/hw/pci/pci.h
-@@ -317,7 +317,9 @@ void pci_device_reset(PCIDevice *dev);
- PCIDevice *pci_nic_init_nofail(NICInfo *nd, PCIBus *rootbus,
-                                const char *default_model,
-                                const char *default_devaddr);
--
-+void pci_init_nic_devices(PCIBus *bus, const char *default_model);
-+bool pci_init_nic_in_slot(PCIBus *rootbus, const char *default_model,
-+                          const char *alias, const char *devaddr);
- PCIDevice *pci_vga_init(PCIBus *bus);
+     ISADevice *d;
  
- static inline PCIBus *pci_get_bus(const PCIDevice *dev)
+-    qemu_check_nic_model(nd, "ne2k_isa");
+-
+     d = isa_try_new(TYPE_ISA_NE2000);
+     if (d) {
+         DeviceState *dev = DEVICE(d);
 -- 
 2.41.0
 
