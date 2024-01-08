@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2D618279CD
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 21:59:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663989.1034069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E7A4827A19
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 22:15:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664098.1034268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMwim-0006mq-6z; Mon, 08 Jan 2024 20:59:44 +0000
+	id 1rMwxr-00067w-OL; Mon, 08 Jan 2024 21:15:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663989.1034069; Mon, 08 Jan 2024 20:59:44 +0000
+Received: by outflank-mailman (output) from mailman id 664098.1034268; Mon, 08 Jan 2024 21:15:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMwim-0006lB-3N; Mon, 08 Jan 2024 20:59:44 +0000
-Received: by outflank-mailman (input) for mailman id 663989;
- Mon, 08 Jan 2024 20:59:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rMwxr-00065K-L0; Mon, 08 Jan 2024 21:15:19 +0000
+Received: by outflank-mailman (input) for mailman id 664098;
+ Mon, 08 Jan 2024 21:15:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CNLN=IS=desiato.srs.infradead.org=BATV+a33e3d7a5f0474923369+7442+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rMwad-0000R5-9o
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 20:51:19 +0000
+ id 1rMwai-0000R6-IQ
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 20:51:24 +0000
 Received: from desiato.infradead.org (desiato.infradead.org
  [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aac1ca38-ae67-11ee-98ef-6d05b1d4d9a1;
- Mon, 08 Jan 2024 21:51:16 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id acd38ddf-ae67-11ee-9b0f-b553b5be7939;
+ Mon, 08 Jan 2024 21:51:20 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1rMwYn-007wY4-1K; Mon, 08 Jan 2024 20:49:26 +0000
+ id 1rMwYn-007wY5-1J; Mon, 08 Jan 2024 20:49:27 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96.2 #2 (Red
- Hat Linux)) id 1rMwYl-002NHM-34; Mon, 08 Jan 2024 20:49:23 +0000
+ Hat Linux)) id 1rMwYm-002NHR-08; Mon, 08 Jan 2024 20:49:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: aac1ca38-ae67-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: acd38ddf-ae67-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=H8uo0pCflTks+jIWZUwcN6rKBxLFmITgxa+9iGQo6wc=; b=DYAuUj1/b3Aiz1Ro0D1uOcLOS2
-	fmkbWrwK8cH+8Kqsr2fBgtANEG2Xqc1y6z4oMUtgexhozrioVT7ym4qdEAmgUmfB98R6vXpQkwH+v
-	7efyS/FPX8AUfdLxUAEyHQdRNWduvPc62LwiJ0SwgIzBU4ROOxqwGryDlLeri8KNpYYfNpMz/10lH
-	JUm+eugn0mnWmH7MMMk27Z/P+w9+2arZpfk2IOzbYwXG+3DkrQactNCd2UoSTbJ1QTySEyjtKdlr7
-	tSVgFCsjOnU+Fc65A3MFEH1791jXTV+BgzIyyDnPOzrRVLtdU1rN6qbog2ITH/0/7+HrPk0xKMWS9
-	5FaID+kQ==;
+	bh=eaAFW36JmxXWmDyL503PHxB2uidAX+ONS5eunDGunx4=; b=bXRZhmKqy0KMbxNQ2VqUTO4fz9
+	scNM0xmLPjyWIYQ3Gl4ffbtEMSnh6B40MB53OrOF44rVR5KTqrbsIdpUv+PTciMO1S+sa9ElOmQI2
+	byu39cOOJs179txlBRh6J9Y4NL61hEy96HNxOFAKccIkhndFEN3ADJ+wkJjhDk7k3VuuX1BXTYWZP
+	Eip9ztAl8vl0duIqFNc1DBpbrw5MIp2r4Q/+9IEVC6J/ueW2VxOSOgs7sthH/5TNq6Z9QxjTn/shJ
+	2UdqNMrSnCO8dkrClsFTOfSf2OeTekne0NFfasFqnq3fBvh/52IPDe/dYHEqTx0MfR+ctal3Hq3rv
+	GugV2WmQ==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -119,9 +119,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v3 45/46] net: remove qemu_show_nic_models(), qemu_find_nic_model()
-Date: Mon,  8 Jan 2024 20:27:14 +0000
-Message-ID: <20240108204909.564514-46-dwmw2@infradead.org>
+Subject: [PATCH v3 46/46] net: make nb_nics and nd_table[] static in net/net.c
+Date: Mon,  8 Jan 2024 20:27:15 +0000
+Message-ID: <20240108204909.564514-47-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20240108204909.564514-1-dwmw2@infradead.org>
 References: <20240108204909.564514-1-dwmw2@infradead.org>
@@ -132,90 +132,55 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-These old functions can be removed now too. Let net_param_nic() print
-the full set of network devices directly, and also make it note that a
-list more specific to this platform/config will be available by using
-'-nic model=help' instead.
-
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- include/net/net.h |  3 ---
- net/net.c         | 39 ++++++---------------------------------
- 2 files changed, 6 insertions(+), 36 deletions(-)
+ include/net/net.h | 4 ----
+ net/net.c         | 3 +++
+ system/globals.c  | 2 --
+ 3 files changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/include/net/net.h b/include/net/net.h
-index 1be8b40074..19fb82833c 100644
+index 19fb82833c..766201c62c 100644
 --- a/include/net/net.h
 +++ b/include/net/net.h
-@@ -203,9 +203,6 @@ void qemu_set_vnet_hdr_len(NetClientState *nc, int len);
- int qemu_set_vnet_le(NetClientState *nc, bool is_le);
- int qemu_set_vnet_be(NetClientState *nc, bool is_be);
- void qemu_macaddr_default_if_unset(MACAddr *macaddr);
--int qemu_show_nic_models(const char *arg, const char *const *models);
--int qemu_find_nic_model(NICInfo *nd, const char * const *models,
--                        const char *default_model);
- NICInfo *qemu_find_nic_info(const char *typename, bool match_default,
-                             const char *alias);
- bool qemu_configure_nic_device(DeviceState *dev, bool match_default,
+@@ -247,10 +247,6 @@ struct NICInfo {
+     int nvectors;
+ };
+ 
+-extern int nb_nics;
+-extern NICInfo nd_table[MAX_NICS];
+-extern const char *host_net_devices[];
+-
+ /* from net.c */
+ extern NetClientStateList net_clients;
+ bool netdev_is_modern(const char *optstr);
 diff --git a/net/net.c b/net/net.c
-index ffd4b42d5a..09ab0889f5 100644
+index 09ab0889f5..71cccb19da 100644
 --- a/net/net.c
 +++ b/net/net.c
-@@ -977,38 +977,6 @@ GPtrArray *qemu_get_nic_models(const char *device_type)
-     return nic_models;
- }
+@@ -77,6 +77,9 @@ static NetdevQueue nd_queue = QSIMPLEQ_HEAD_INITIALIZER(nd_queue);
  
--int qemu_show_nic_models(const char *arg, const char *const *models)
--{
--    int i;
--
--    if (!arg || !is_help_option(arg)) {
--        return 0;
--    }
--
--    printf("Available NIC models:\n");
--    for (i = 0 ; models[i]; i++) {
--        printf("%s\n", models[i]);
--    }
--    return 1;
--}
--
--int qemu_find_nic_model(NICInfo *nd, const char * const *models,
--                        const char *default_model)
--{
--    int i;
--
--    if (!nd->model)
--        nd->model = g_strdup(default_model);
--
--    for (i = 0 ; models[i]; i++) {
--        if (strcmp(nd->model, models[i]) == 0)
--            return i;
--    }
--
--    error_report("Unsupported NIC model: %s", nd->model);
--    return -1;
--}
--
- static int net_init_nic(const Netdev *netdev, const char *name,
-                         NetClientState *peer, Error **errp)
- {
-@@ -1791,9 +1759,14 @@ static int net_param_nic(void *dummy, QemuOpts *opts, Error **errp)
-         }
-         if (is_help_option(type)) {
-             GPtrArray *nic_models = qemu_get_nic_models(TYPE_DEVICE);
-+            int i;
-             show_netdevs();
-             printf("\n");
--            qemu_show_nic_models(type, (const char **)nic_models->pdata);
-+            printf("Supported NIC models "
-+                   "(use -nic model=help for a filtered list):\n");
-+            for (i = 0 ; nic_models->pdata[i]; i++) {
-+                printf("%s\n", (char *)nic_models->pdata[i]);
-+            }
-             g_ptr_array_free(nic_models, true);
-             exit(0);
-         }
+ static GHashTable *nic_model_help;
+ 
++static int nb_nics;
++static NICInfo nd_table[MAX_NICS];
++
+ /***********************************************************/
+ /* network device redirectors */
+ 
+diff --git a/system/globals.c b/system/globals.c
+index e83b5428d1..b6d4e72530 100644
+--- a/system/globals.c
++++ b/system/globals.c
+@@ -36,8 +36,6 @@ int display_opengl;
+ const char* keyboard_layout;
+ bool enable_mlock;
+ bool enable_cpu_pm;
+-int nb_nics;
+-NICInfo nd_table[MAX_NICS];
+ int autostart = 1;
+ int vga_interface_type = VGA_NONE;
+ bool vga_interface_created;
 -- 
 2.41.0
 
