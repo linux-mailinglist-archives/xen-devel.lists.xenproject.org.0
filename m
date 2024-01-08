@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E28D9826995
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 09:37:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663215.1033061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C0FF8269B2
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 09:43:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663221.1033070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMl74-0004Qu-2N; Mon, 08 Jan 2024 08:36:02 +0000
+	id 1rMlE7-0006MX-TL; Mon, 08 Jan 2024 08:43:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663215.1033061; Mon, 08 Jan 2024 08:36:02 +0000
+Received: by outflank-mailman (output) from mailman id 663221.1033070; Mon, 08 Jan 2024 08:43:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMl73-0004Nf-VI; Mon, 08 Jan 2024 08:36:01 +0000
-Received: by outflank-mailman (input) for mailman id 663215;
- Mon, 08 Jan 2024 08:36:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rMlE7-0006K0-QR; Mon, 08 Jan 2024 08:43:19 +0000
+Received: by outflank-mailman (input) for mailman id 663221;
+ Mon, 08 Jan 2024 08:43:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KH4C=IS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rMl72-0004K9-RI
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 08:36:00 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f29b7a72-ae00-11ee-98ef-6d05b1d4d9a1;
- Mon, 08 Jan 2024 09:35:59 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-50e7dd8bce8so1593888e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 00:35:58 -0800 (PST)
+ id 1rMlE6-0006Jt-Ib
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 08:43:18 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f72ee75d-ae01-11ee-9b0f-b553b5be7939;
+ Mon, 08 Jan 2024 09:43:16 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a28ee72913aso442828266b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 00:43:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- hr12-20020a056638700c00b00469582ed60csm2119072jab.61.2024.01.08.00.35.56
+ m10-20020a0566380aca00b0046d18e358b3sm2109389jab.63.2024.01.08.00.43.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jan 2024 00:35:58 -0800 (PST)
+ Mon, 08 Jan 2024 00:43:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f29b7a72-ae00-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: f72ee75d-ae01-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704702958; x=1705307758; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704703395; x=1705308195; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=aIowORne6QRmiqCxDUAkw24OgGHYe/UNRsyG8FeGT3w=;
-        b=HBKkpBTMO86IXGHXy1Ym9wno1/N2wi4Re/QzqLp4BXJXD+RmCEwG+HmqHQssY/PJuA
-         f5KMu1Hyrt8ZHBsSI6JIhtoh0FczSincgFH0hkI+qvUR8nhfIF7vlwbtGyiuSGjic9fV
-         D9HxWHDpO5vctgDxjHROmAZowdOgPYgTkvpauAzzZYnM9kPBMf2nF45bmHlhucE4cL/i
-         aUTj3m4NKYrzsyFfBKDxs8thi9YwgpC7yZUx9GlYJmyngxWTNufcrVES1BsUGx3ueWtv
-         wJTpfW+XF4pRZrN4YSpqJFZGLrlxvFO/kntBug7hycZ2cWQG/PhBKgz/ez8cEt3CUf5P
-         Eq9w==
+        bh=N51FgBg7cRleoKQP0GgmnzFDKeG70I1Y4ktdJPwFM6k=;
+        b=M7zttbUw1dbWXhWf+6GbjTTSgc7J4/kCg4lBlWmaOjhrtyd/2qiqbyqb5nszCPuoaD
+         Rx1jKhCeqoGChbfdcrwnApa6TvF3bhYhIf6iya3r+sz6ci8fx1RpQJcc3lxEYrCFbFIo
+         6nJpKoF53tSjclsZ5gk+GrxCRs+gcmXTCl0JmB9ai78ID7mDtC04EEThgL7R6y/xL/t1
+         UPnAP6Te5IxosZSgm7OVBItr7VJyqdgGcYmutDFazW+tIBy67HCJouhYyRyEuw6NTdKD
+         rMFxglwWQhnRqv04+sCLEgTIGLzWEXJ927iORdYTUAd+seY8AjaXxhEezaIXOOLWQ217
+         8UsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704702958; x=1705307758;
+        d=1e100.net; s=20230601; t=1704703395; x=1705308195;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=aIowORne6QRmiqCxDUAkw24OgGHYe/UNRsyG8FeGT3w=;
-        b=jZABMSS1B41C7eDl4h8Ki02unGJOq0jx0E9X3gyvrzfjf25HOQCYJAcKH8HoQBPtHY
-         hEslL207R6QLravm7EV27GYAvm9CL8mVFGpCNgg6/HLunKC6CEu6JE9eTzTEYgtJPjO/
-         FifWmZG8Tz/2sWT1oKXvIvS0XC0M2Id/qh/3LsBkj0k236PnDeoYGvfU4TjCDLAkCgrE
-         6/IrAEsFzzzWqZl1YiuCNkf/2Efuy0PAWlAaM9k5JiVXgKJjPjoxorhB4WzE8buaqFjj
-         YFjzOsf85RS3iwmV9T1KZZXtg3ElgTx7ouBJntOf7GDQMkwgEX2pXmDZTTTJjZORoDhT
-         Pm/g==
-X-Gm-Message-State: AOJu0Yz4lZdhd7xacXbZYV0901X2c8zAEgPGioafKOUglFTZCCUHJnin
-	pzV7gA//R6wQf8g0K0M906uq9baF83Cx
-X-Google-Smtp-Source: AGHT+IFkP2dWLWUhtmVvSN8zZ1AOVHxKzGYVar7I2SM7TCNouKF0DQWyCB+zapU9tpJnpbW+le3g6Q==
-X-Received: by 2002:ac2:5308:0:b0:50e:3dd8:8bee with SMTP id c8-20020ac25308000000b0050e3dd88beemr1029105lfh.58.1704702958382;
-        Mon, 08 Jan 2024 00:35:58 -0800 (PST)
-Message-ID: <da1d08a0-701b-447e-b171-a1ce92eba67b@suse.com>
-Date: Mon, 8 Jan 2024 09:35:57 +0100
+        bh=N51FgBg7cRleoKQP0GgmnzFDKeG70I1Y4ktdJPwFM6k=;
+        b=u6TGbcjMLGy8W5Q1+ke5o6+A3b4nzcyKEZN+1IjkCa2+3XrRw2BmZw+pTC5kvBSuMy
+         YnJFFC4mnOyhHYhXhh5ku72/dnqve0qD00QihDeDqdcG1nZbmVW0sX9ozVq1/Z62QkAB
+         LI2M+H6tI2RnydkNXNHYBmKN08RmzGlQEXv2eaklhG6eEpT/10yHwM/gHY/wkPqRyE7r
+         xT/9/CltdmT3HMirW5ZqVRpl2bN1JIqUvfjLnPrzr7PU+BdEMwX1e9iJiupCARR6nmB7
+         k/SLuFRT5gVE4MSrsK3lY0hOuAtvplW5bZs6w5TCj/iV5jEFPIL/cNsuXDEnIgpf6RzP
+         Gd9g==
+X-Gm-Message-State: AOJu0YziOhKmzK+Mmb/Z8H+MsNtpz64XbjJY0BQwxrukqjAHXGjhlhb/
+	RSnOX1V327/e/4teni5q2wfq5GDctAUI
+X-Google-Smtp-Source: AGHT+IFmvOf3ha8DlMcu99ccDjiKo/uWJem5B4i6FhiGI6HTIbt7mJhOtSW9kbIGylHDbvUADaFnbQ==
+X-Received: by 2002:a17:906:494b:b0:a27:d3ee:2ef5 with SMTP id f11-20020a170906494b00b00a27d3ee2ef5mr5528819ejt.24.1704703395651;
+        Mon, 08 Jan 2024 00:43:15 -0800 (PST)
+Message-ID: <55c87867-8d1a-4bcf-92cc-f64a9960d1d8@suse.com>
+Date: Mon, 8 Jan 2024 09:43:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN RFC] x86/uaccess: remove __{put,get}_user_bad()
+Subject: Re: [PATCH v5 04/13] xen: extend domctl interface for cache coloring
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Federico Serafini <federico.serafini@bugseng.com>
-Cc: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, consulting@bugseng.com,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <9cf852da1c03b614bf5010132c58a18adc2a4161.1703155225.git.federico.serafini@bugseng.com>
- <a2050ac1-e205-4d7f-b9b1-aa625136e63a@suse.com>
- <0c5bbfde-4cf0-4878-b1ee-ccc8eb775464@citrix.com>
- <eb53449bd6595ea0931460e62dd57b9c@bugseng.com>
- <1330c757-1ca3-4b07-898b-799cbfa67e8a@suse.com>
- <6a39fe3e-524f-4e39-81bc-ffb3d48ba306@bugseng.com>
- <alpine.DEB.2.22.394.2401051445120.3675@ubuntu-linux-20-04-desktop>
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
+ <20240102095138.17933-5-carlo.nonato@minervasys.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,131 +115,119 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2401051445120.3675@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20240102095138.17933-5-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05.01.2024 23:48, Stefano Stabellini wrote:
-> On Fri, 5 Jan 2024, Federico Serafini wrote:
->> Hello everyone,
->>
->> On 21/12/23 13:41, Jan Beulich wrote:
->>> On 21.12.2023 13:01, Nicola Vetrini wrote:
->>>> Hi Andrew,
->>>>
->>>> On 2023-12-21 12:03, Andrew Cooper wrote:
->>>>> On 21/12/2023 10:58 am, Jan Beulich wrote:
->>>>>> On 21.12.2023 11:53, Federico Serafini wrote:
->>>>>>> Remove declarations of __put_user_bad() and __get_user_bad()
->>>>>>> since they have no definition.
->>>>>>> Replace their uses with a break statement to address violations of
->>>>>>> MISRA C:2012 Rule 16.3 ("An unconditional `break' statement shall
->>>>>>> terminate every switch-clause").
->>>>>>> No functional change.
->>>>>>>
->>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
->>>>>>> ---
->>>>>>> Several violations of Rule 16.3 come from uses of macros
->>>>>>> get_unsafe_size() and put_unsafe_size().
->>>>>>> Looking at the macro definitions I found __get_user_bad() and
->>>>>>> __put_user_bad().
->>>>>>> I was wondering if instead of just adding the break statement I can
->>>>>>> also remove
->>>>>>> such functions which seem to not have a definition.
->>>>>> No, you can't. Try introducing a caller which "accidentally" uses the
->>>>>> wrong size. Without your change you'll observe the build failing (in
->>>>>> a somewhat obscure way, but still), while with your change bad code
->>>>>> will silently be generated.
->>>>>
->>>>> The construct here is deliberate.  It's a build time assertion that bad
->>>>> sizes aren't used.
->>>>>
->>>>> __bitop_bad_size() and __xsm_action_mismatch_detected() are the same
->>>>> pattern in other areas of code too, with the latter being more explicit
->>>>> because of how it's wrapped by LINKER_BUG_ON().
->>>>>
->>>>>
->>>>> It is slightly horrible, and not the most obvious construct for
->>>>> newcomers.  If there's an alternative way to get a build assertion, we
->>>>> could consider switching to a new pattern.
->>>>
->>>> would you be in favour of a solution with a BUILD_BUG_ON in the default
->>>> branch followed by a break?
->>>>
->>>> default:
->>>>       BUILD_BUG_ON(!size || size >=8 || (size & (size - 1)));
->>>>       break;
->>>
->>> I don't think this would compile - BUILD_BUG_ON() wants a compile-time
->>> constant passed.
->>
->> What do you think about adding the following macro to compiler.h:
->>
->> #define static_assert_unreachable(identifier) \
->>     asm("unreachable " #identifier " reached")
->>
->> It expands to an invalid assembly instruction that will lead to a
->> customizable error message generated by the assembler instead of the
->> linker (anticipating the error detection).
->>
->> The use of this macro will indicate a program point considered
->> unreachable (and as such removed) by the static analysis performed by the
->> compiler, even at an optimization level -O0.
->>
->> An example of use is in the default case of put_unsafe_size():
->>
->> default: static_assert_unreachable(default);
->>
->> In case a wrong size will be used, the following message will be
->> generated:
->>
->> ./arch/x86/include/asm/uaccess.h: Assembler messages:
->> ./arch/x86/include/asm/uaccess.h:257: Error: no such instruction: `unreachable
->> default reached'
->>
->>
->> Note that adopting the macro and discussing its definition are two
->> separate things:
->> I think we can all agree on the fact that the use of such macro improves
->> readability, so I would suggest its adoption.
->> Whereas for its definition, if you don't like the invalid asm
->> instruction, we could discuss for a different solution, for example,
->> the following is something similar to what you are doing now:
->>
->> #define static_assert_unreachable(identifier) \
->>     extern void identifier(void);             \
->>     identifier()
->>
->>
->> Note also that the problem of the missing break statement (that violates
->> Rule 16.3) is still present, it could be addressed by adding the break
->> or deviating for such special cases, do you have any preferences?
-> 
-> So overall for clarity you are suggesting:
-> 
-> 
-> diff --git a/xen/arch/x86/include/asm/uaccess.h b/xen/arch/x86/include/asm/uaccess.h
-> index 7443519d5b..7e7ef77e49 100644
-> --- a/xen/arch/x86/include/asm/uaccess.h
-> +++ b/xen/arch/x86/include/asm/uaccess.h
-> @@ -208,7 +205,9 @@ do {                                                                       \
->      case 8:                                                                \
->          put_unsafe_asm(x, ptr, grd, retval, "q",  "", "ir", errret);       \
->          break;                                                             \
-> -    default: __put_user_bad();                                             \
-> +    default:                                                               \
-> +        static_assert_unreachable(default);                                \
-> +        break;                                                             \
->      }                                                                      \
->      clac();                                                                \
->  } while ( false )
+On 02.01.2024 10:51, Carlo Nonato wrote:
+> --- a/xen/arch/arm/llc-coloring.c
+> +++ b/xen/arch/arm/llc-coloring.c
+> @@ -9,6 +9,7 @@
+>   *    Carlo Nonato <carlo.nonato@minervasys.tech>
+>   */
+>  #include <xen/errno.h>
+> +#include <xen/guest_access.h>
+>  #include <xen/keyhandler.h>
+>  #include <xen/llc-coloring.h>
+>  #include <xen/param.h>
+> @@ -278,6 +279,22 @@ int dom0_set_llc_colors(struct domain *d)
+>      return domain_check_colors(d);
+>  }
+>  
+> +int domain_set_llc_colors_domctl(struct domain *d,
+> +                                 const struct xen_domctl_set_llc_colors *config)
+> +{
+> +    if ( d->num_llc_colors )
+> +        return -EEXIST;
+> +
+> +    if ( domain_alloc_colors(d, config->num_llc_colors) )
+> +        return -ENOMEM;
+> +
+> +    if ( copy_from_guest(d->llc_colors, config->llc_colors,
+> +                         config->num_llc_colors) )
+> +        return -EFAULT;
+> +
+> +    return domain_check_colors(d);
+> +}
 
-While this is an improvement over __put_user_bad(), as we're re-working
-this I think it would be helpful to make the resulting diagnostic point
-people in the right direction: The way it is above, two different switch()
-statements would both yield the same diagnostic, leaving one to guess. So
-at least the function name and/or source file/line would likely better be
-part of the diagnostic.
+What part of this is Arm-specific? I ask in particular because while you
+place this in an Arm-specific source file, ...
+
+> --- a/xen/common/domctl.c
+> +++ b/xen/common/domctl.c
+> @@ -8,6 +8,7 @@
+>  
+>  #include <xen/types.h>
+>  #include <xen/lib.h>
+> +#include <xen/llc-coloring.h>
+>  #include <xen/err.h>
+>  #include <xen/mm.h>
+>  #include <xen/sched.h>
+> @@ -858,6 +859,16 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>                  __HYPERVISOR_domctl, "h", u_domctl);
+>          break;
+>  
+> +    case XEN_DOMCTL_set_llc_colors:
+> +        if ( !llc_coloring_enabled )
+> +            break;
+> +
+> +        ret = domain_set_llc_colors_domctl(d, &op->u.set_llc_colors);
+> +        if ( ret == -EEXIST )
+> +            printk(XENLOG_ERR
+> +                   "Can't set LLC colors on an already created domain\n");
+> +        break;
+> +
+>      default:
+>          ret = arch_do_domctl(op, d, u_domctl);
+>          break;
+
+... you don't handle the new domctl in Arm's arch_do_domctl().
+
+> --- a/xen/include/public/domctl.h
+> +++ b/xen/include/public/domctl.h
+> @@ -21,7 +21,7 @@
+>  #include "hvm/save.h"
+>  #include "memory.h"
+>  
+> -#define XEN_DOMCTL_INTERFACE_VERSION 0x00000016
+> +#define XEN_DOMCTL_INTERFACE_VERSION 0x00000017
+
+There's no need for such a bump when ...
+
+> @@ -1190,6 +1190,12 @@ struct xen_domctl_vmtrace_op {
+>  typedef struct xen_domctl_vmtrace_op xen_domctl_vmtrace_op_t;
+>  DEFINE_XEN_GUEST_HANDLE(xen_domctl_vmtrace_op_t);
+>  
+> +struct xen_domctl_set_llc_colors {
+> +    /* IN LLC coloring parameters */
+> +    unsigned int num_llc_colors;
+> +    XEN_GUEST_HANDLE_64(uint) llc_colors;
+> +};
+> +
+>  struct xen_domctl {
+>      uint32_t cmd;
+>  #define XEN_DOMCTL_createdomain                   1
+> @@ -1277,6 +1283,7 @@ struct xen_domctl {
+>  #define XEN_DOMCTL_vmtrace_op                    84
+>  #define XEN_DOMCTL_get_paging_mempool_size       85
+>  #define XEN_DOMCTL_set_paging_mempool_size       86
+> +#define XEN_DOMCTL_set_llc_colors                87
+>  #define XEN_DOMCTL_gdbsx_guestmemio            1000
+>  #define XEN_DOMCTL_gdbsx_pausevcpu             1001
+>  #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
+> @@ -1339,6 +1346,7 @@ struct xen_domctl {
+>          struct xen_domctl_vuart_op          vuart_op;
+>          struct xen_domctl_vmtrace_op        vmtrace_op;
+>          struct xen_domctl_paging_mempool    paging_mempool;
+> +        struct xen_domctl_set_llc_colors    set_llc_colors;
+>          uint8_t                             pad[128];
+>      } u;
+>  };
+
+... all you do is add a new domctl.
+
+As to the new struct - you'll want to use uint<N>_t there, not
+unsigned int.
 
 Jan
 
