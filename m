@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62C348269BC
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 09:47:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663225.1033080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 704E98269C5
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 09:50:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663228.1033089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMlHo-0007da-Cj; Mon, 08 Jan 2024 08:47:08 +0000
+	id 1rMlLJ-0000dO-Rb; Mon, 08 Jan 2024 08:50:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663225.1033080; Mon, 08 Jan 2024 08:47:08 +0000
+Received: by outflank-mailman (output) from mailman id 663228.1033089; Mon, 08 Jan 2024 08:50:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMlHo-0007c1-9O; Mon, 08 Jan 2024 08:47:08 +0000
-Received: by outflank-mailman (input) for mailman id 663225;
- Mon, 08 Jan 2024 08:47:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rMlLJ-0000bo-Og; Mon, 08 Jan 2024 08:50:45 +0000
+Received: by outflank-mailman (input) for mailman id 663228;
+ Mon, 08 Jan 2024 08:50:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KH4C=IS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rMlHn-0007Yg-1p
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 08:47:07 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f9545de-ae02-11ee-9b0f-b553b5be7939;
- Mon, 08 Jan 2024 09:47:05 +0100 (CET)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2cd46e7ae8fso12662411fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 00:47:05 -0800 (PST)
+ id 1rMlLI-0000bi-4E
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 08:50:44 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 01902622-ae03-11ee-98ef-6d05b1d4d9a1;
+ Mon, 08 Jan 2024 09:50:43 +0100 (CET)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2cce6c719caso15711091fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 00:50:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 6-20020a056e020ca600b00360039199cesm2385053ilg.3.2024.01.08.00.47.02
+ v22-20020a5ec116000000b007bd82040498sm525036iol.6.2024.01.08.00.50.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jan 2024 00:47:04 -0800 (PST)
+ Mon, 08 Jan 2024 00:50:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f9545de-ae02-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 01902622-ae03-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704703624; x=1705308424; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704703842; x=1705308642; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=23SIozuRFcdxuTmn/9ayH7irJdmJq3+AJNjBt8lsocI=;
-        b=HcmzkQZQl2kqNe5E1w9h1RmojXe4/1Fg5XObgGyazn0O3VltfRqar51d+qbOWO8meV
-         zIBgvie8xhGz5QOjSnfhjPJRPr0wh8pQdz4XIpRJcdlDD2dsZCewtQ9HJJyxogctlAd3
-         e+0qH0xzogI1d2NnrroO0zjlvezTlvRtBVjQFzwRcJ42ZqT3FFRCJ6IhMpOYyfIp6wZi
-         iLrFQx0nJa9i/BSlWELungGEhNVY0SVWIpTlyxXoPFm5/GXnmsH8vXIIDDYbKV2P22QW
-         YKwxWq5SWAOlKmR6viyY2ucQ9KrmnVY0w17Hps1+mTtz7PoHWpdx0eD4vRjHHaR/YnE1
-         NlBQ==
+        bh=B4csWNLnnG9+bQHdS/9ZZ5TOsfFWVW9lY6Bdn1Ooero=;
+        b=Nc+cSZDaxsY/u1DMUXX4/TDjzDKQxUhG2Echf1QGxyFDxSoycUJJrKP7yWZuWr7UEW
+         gqWVp/Ixj07PyEzKM1A5Tgww/CuJ8YMyagUJ1wW7OBZk2UbIqHDIA0D5r2n4HiFjumD2
+         cc4RbdmWHNxQF4XPcVKzx7UZun8Jc9cL1h4+BeV1lpNrz17yp0VQYpBDQV6WjYQA8Gmh
+         PU0c0KKd0dQHKydvSI7SFoLbtGxhN2a1OV1xm2uaG8z4oiIvNiwUHFuYNJN+a2T7c2DC
+         pNjrJ19PIMMtmaIWPBolZRZ2w3kL9izdeT9oPyCQ5XJFkKkRyCIu8oLPzV6w2jUtWcN4
+         1IkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704703624; x=1705308424;
+        d=1e100.net; s=20230601; t=1704703842; x=1705308642;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=23SIozuRFcdxuTmn/9ayH7irJdmJq3+AJNjBt8lsocI=;
-        b=ZopodJAh8rakbFmaFrSYPRq+XfE7fLBc35UJJDoDvxg0W8QY2dP9ljQXaryAggO/l/
-         0UK2s0YfnNWeQ1ntfQq+ZSZgoCtQ9IHvXWLXYri/N3gIzCof4b+0ybrARXKfKO+hagFl
-         86feB9k1CsjJNWFR21T7xDVgSYrPTpORoznx5uuSTK0LE15wjqAaDro53XY8GjuRCbuA
-         wWIPEiVBd2YiOzT+3KbkSTUv1yRC9O2087zujiSGmiSUb8yLXVPLWAApONGc9bfEB6Nn
-         ejtVLsjkYOtjJmZyvjEvGOCz5qpFNc5xGSfaSCmOyXxcKSjoRP7c2z3k+TQdNqDmE7Y3
-         FXtA==
-X-Gm-Message-State: AOJu0YztoGegr3KPN8pd//gzndxWoq7rJWXybzWCYhMdMazzVFDEFDqY
-	SU/LqeDtDeyq0XzRNwHT74ZJ5+JPxe1V
-X-Google-Smtp-Source: AGHT+IH6ugZiTdpg8qD/44VBqbP5ZhOyMcTykCOrVQYeAbKpk9QvPjZ8yUlSztskPf5BfQjRIvvbGQ==
-X-Received: by 2002:a05:6512:10c5:b0:50e:44c9:b839 with SMTP id k5-20020a05651210c500b0050e44c9b839mr870598lfg.47.1704703624483;
-        Mon, 08 Jan 2024 00:47:04 -0800 (PST)
-Message-ID: <242dbf1f-ef3e-42cc-906e-5c5bb01d8e31@suse.com>
-Date: Mon, 8 Jan 2024 09:47:03 +0100
+        bh=B4csWNLnnG9+bQHdS/9ZZ5TOsfFWVW9lY6Bdn1Ooero=;
+        b=ne9AQRnOhqMojSBW/qaLy63gQuY78/7reav8XqYMKMr8B0GCeyDHJnV5AIQzKWz2Xf
+         xWAeE4OlBpP1VHgPWJI6b00LT/+vzpkwVHu5PMGKR1MQDbypomosKokBVJj+G4UOUxBR
+         RDYjI0XKHbXHtAyXS0pPgz4dPjpYxVcLEWKneJqXSENQ+RpQo4hAA7lVuqUFU01pEN0T
+         08UvhxoWXKw5SW9jORJ7/aSE7VX2gUd1nepZVFnGI42Add2JCeappbAe4DC0WKuiT1fw
+         HAjkioRSq8+MVbtaFPHW6y6QZ0nPJP6JXBEi2iKRGFS4OJfpHZ0Z2+iFREiDtQxgQv9Y
+         Ya3w==
+X-Gm-Message-State: AOJu0Yxx4nv2+3HPc2L9QZ5EA06FSjuMtxfU75gxb9hVLAhaPGQudfdS
+	KqW6Tr/7mBHyXzyds6t9FIroCwJWHPWz
+X-Google-Smtp-Source: AGHT+IFw3ArwREfnJ0Cfk0upXVFNFMgMsy5Gypj7BSgJJU+y00+q7FUrx5dDCwXe5zaKVGudWEibmA==
+X-Received: by 2002:a05:6512:3a86:b0:50e:c6f3:ab93 with SMTP id q6-20020a0565123a8600b0050ec6f3ab93mr167889lfu.5.1704703842599;
+        Mon, 08 Jan 2024 00:50:42 -0800 (PST)
+Message-ID: <5db2cde7-7fb1-460f-ab78-c462c3a1d46e@suse.com>
+Date: Mon, 8 Jan 2024 09:50:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v4 2/5] x86/pvh: Allow (un)map_pirq when caller
- isn't DOMID_SELF
+Subject: Re: [RFC XEN PATCH v4 3/5] x86/pvh: Add PHYSDEVOP_setup_gsi for PVH
+ dom0
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>,
  Jiqian Chen <Jiqian.Chen@amd.com>
@@ -92,8 +92,8 @@ Cc: xen-devel@lists.xenproject.org, Andrew Cooper
  Stewart Hildebrand <Stewart.Hildebrand@amd.com>,
  Huang Rui <Ray.Huang@amd.com>
 References: <20240105070920.350113-1-Jiqian.Chen@amd.com>
- <20240105070920.350113-3-Jiqian.Chen@amd.com>
- <alpine.DEB.2.22.394.2401051639240.3675@ubuntu-linux-20-04-desktop>
+ <20240105070920.350113-4-Jiqian.Chen@amd.com>
+ <alpine.DEB.2.22.394.2401051651270.3675@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,33 +118,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2401051639240.3675@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2401051651270.3675@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06.01.2024 01:46, Stefano Stabellini wrote:
+On 06.01.2024 01:54, Stefano Stabellini wrote:
 > On Fri, 5 Jan 2024, Jiqian Chen wrote:
->> @@ -72,8 +73,30 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>> On PVH dom0, the gsis don't get registered, but
+>> the gsi of a passthrough device must be configured for it to
+>> be able to be mapped into a hvm domU.
+>> On Linux kernel side, it calles PHYSDEVOP_setup_gsi for
+>> passthrough devices to register gsi when dom0 is PVH.
+>> So, add PHYSDEVOP_setup_gsi for above purpose.
+>>
+>> Co-developed-by: Huang Rui <ray.huang@amd.com>
+>> Signed-off-by: Jiqian Chen <Jiqian.Chen@amd.com>
+>> ---
+>>  xen/arch/x86/hvm/hypercall.c | 6 ++++++
+>>  1 file changed, 6 insertions(+)
+>>
+>> diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
+>> index 632a68be3cc4..e27d3ca15185 100644
+>> --- a/xen/arch/x86/hvm/hypercall.c
+>> +++ b/xen/arch/x86/hvm/hypercall.c
+>> @@ -97,6 +97,12 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>          break;
+>>      }
 >>  
->>      switch ( cmd )
->>      {
->> -    case PHYSDEVOP_map_pirq:
->> -    case PHYSDEVOP_unmap_pirq:
->> +    case PHYSDEVOP_map_pirq: {
->> +        physdev_map_pirq_t map;
->> +
->> +        if ( copy_from_guest(&map, arg, 1) != 0 )
->> +            return -EFAULT;
->> +
->> +        if ( !has_pirq(currd) && map.domid == DOMID_SELF )
+>> +    case PHYSDEVOP_setup_gsi:
+>> +        if ( is_hardware_domain(currd) && !has_pirq(currd) )
+>> +            break;
+>> +        else
 >> +            return -ENOSYS;
 > 
-> This looks OK to me although there is already another copy_from_guest in
-> do_physdev_op, but I don't see an easy way to make it better.
+> I am not sure what is the best "if" check for this situation but I am
+> guessing we don't need has_pirq(currd). Maybe this is sufficient:
+> 
+> if ( is_hardware_domain(currd) )
+>     break;
+> else
+>     return -ENOSYS;
 
-How can double reads of hypercall args ever be okay? The new check clearly
-needs to be inserted in the code path where the structure is being read
-already anyway.
+Maybe
+
+    if ( !is_hardware_domain(currd) )
+        return -EOPNOTSUPP;
+    ASSERT(!has_pirq(currd));
+    break;
+
+? What I primarily dislike in both earlier proposals is the (imo
+confusing) use of "else".
 
 Jan
 
