@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D33582756D
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 17:38:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663621.1033699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02749827589
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 17:41:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663635.1033710 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMsdf-0005nI-8J; Mon, 08 Jan 2024 16:38:11 +0000
+	id 1rMsgE-0001C2-LY; Mon, 08 Jan 2024 16:40:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663621.1033699; Mon, 08 Jan 2024 16:38:11 +0000
+Received: by outflank-mailman (output) from mailman id 663635.1033710; Mon, 08 Jan 2024 16:40:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMsdf-0005kY-4v; Mon, 08 Jan 2024 16:38:11 +0000
-Received: by outflank-mailman (input) for mailman id 663621;
- Mon, 08 Jan 2024 16:38:09 +0000
+	id 1rMsgE-00018q-Iq; Mon, 08 Jan 2024 16:40:50 +0000
+Received: by outflank-mailman (input) for mailman id 663635;
+ Mon, 08 Jan 2024 16:40:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EZ8K=IS=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
- id 1rMsdd-0003cg-E7
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 16:38:09 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KH4C=IS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rMsgD-00018i-S5
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 16:40:49 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4cbb4ca6-ae44-11ee-9b0f-b553b5be7939;
- Mon, 08 Jan 2024 17:38:07 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-287-P6Ntz1u8OGWXTHWfH-iwTQ-1; Mon, 08 Jan 2024 11:37:59 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5097D1019C97;
- Mon,  8 Jan 2024 16:37:57 +0000 (UTC)
-Received: from localhost (unknown [10.39.194.85])
- by smtp.corp.redhat.com (Postfix) with ESMTP id CF54C2166B33;
- Mon,  8 Jan 2024 16:37:55 +0000 (UTC)
+ id ace12d98-ae44-11ee-9b0f-b553b5be7939;
+ Mon, 08 Jan 2024 17:40:47 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2cd053d5683so22874731fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 08:40:47 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ z3-20020a02cea3000000b0046e13607c41sm54167jaq.1.2024.01.08.08.40.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jan 2024 08:40:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,387 +45,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4cbb4ca6-ae44-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1704731886;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xM4VAbKYt5bBYtmHmlEyW+nGKsdcNTrQLabNpuLOZVM=;
-	b=UlMqJ8WeYCIDS/BZ2714p7Oy2Eh8SFnmn5WYAqVUWXCtmL5lstDYY3usbmmSBHYy/0o8u/
-	EsTIbtwm7hA+DIvk3tkACQisLYIYJ5KdXR9I02K5kIqm+GQVtqOwj2rfBx/Z2cLzwO4G6d
-	G4KMCB6wf7GaiCDccKdZ9M35tEhNt+w=
-X-MC-Unique: P6Ntz1u8OGWXTHWfH-iwTQ-1
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: qemu-s390x@nongnu.org,
-	Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
-	qemu-block@nongnu.org,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Max Filippov <jcmvbkbc@gmail.com>,
-	kvm@vger.kernel.org,
-	Daniel Henrique Barboza <danielhb413@gmail.com>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	qemu-arm@nongnu.org,
-	Jean-Christophe Dubois <jcd@tribudubois.net>,
-	Jiri Slaby <jslaby@suse.cz>,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Eric Blake <eblake@redhat.com>,
-	Paul Durrant <paul@xen.org>,
-	BALATON Zoltan <balaton@eik.bme.hu>,
-	Kevin Wolf <kwolf@redhat.com>,
-	Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
-	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
-	Roman Bolshakov <rbolshakov@ddn.com>,
-	Reinoud Zandijk <reinoud@netbsd.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	xen-devel@lists.xenproject.org,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Weiwei Li <liwei1518@gmail.com>,
-	qemu-ppc@nongnu.org,
-	Sunil Muthuswamy <sunilmut@microsoft.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Song Gao <gaosong@loongson.cn>,
-	Aurelien Jarno <aurelien@aurel32.net>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	=?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
-	Andrey Smirnov <andrew.smirnov@gmail.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcelo Tosatti <mtosatti@redhat.com>,
-	qemu-riscv@nongnu.org,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexander Graf <agraf@csgraf.de>,
-	Markus Armbruster <armbru@redhat.com>,
-	John Snow <jsnow@redhat.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	Stefan Weil <sw@weilnetz.de>,
-	Harsh Prateek Bora <harshpb@linux.ibm.com>,
-	Hailiang Zhang <zhanghailiang@xfusion.com>,
-	Hyman Huang <yong.huang@smartx.com>,
-	Michael Roth <michael.roth@amd.com>,
-	Fam Zheng <fam@euphon.net>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
-	David Gibson <david@gibson.dropbear.id.au>,
-	Artyom Tarasenko <atar4qemu@gmail.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	Stafford Horne <shorne@gmail.com>,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Cameron Esfahani <dirty@apple.com>,
-	Eric Farman <farman@linux.ibm.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Hanna Reitz <hreitz@redhat.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Jagannathan Raman <jag.raman@oracle.com>,
-	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
-	Bin Meng <bin.meng@windriver.com>,
-	Fabiano Rosas <farosas@suse.de>,
-	Akihiko Odaki <akihiko.odaki@daynix.com>,
-	David Hildenbrand <david@redhat.com>
-Subject: [PULL 6/6] Rename "QEMU global mutex" to "BQL" in comments and docs
-Date: Mon,  8 Jan 2024 11:37:35 -0500
-Message-ID: <20240108163735.254732-7-stefanha@redhat.com>
-In-Reply-To: <20240108163735.254732-1-stefanha@redhat.com>
-References: <20240108163735.254732-1-stefanha@redhat.com>
+X-Inumbo-ID: ace12d98-ae44-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1704732047; x=1705336847; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=x7t3BxQOYKY6nG92p/jCI9MkeTzAq5t66aeT7ru3qPk=;
+        b=V8+hiX0ajSIGdRbGIaBJf+r2aM35QdfqFuSiKjzN4pdYzpyuxq53sZDeHNd99634Wp
+         TgWgnTVluM3BfcBmBUDhHg5vh/M89lovF9uJlmxZLH+uWEFNJKh/9nf4A29gSxJOcstQ
+         8QxIuHAU/X2X33mzYeEW/d/M6Wo/q7mKNSMImecegv06/Sy1pwOcbLeXbxnNYMwgZZhL
+         e4hH5LaEyQYEYOUx5ZP4pN0sIYvoh9wNE2Xfm2Mqmg+k+qvHO2exFP/He/S3/aEovrmK
+         NY4sIIcfb5r5CLrwtkJReb/3MBoqXbxCUO2s8hpDKGj24CQiFBYlyoqM+7JuAnbeELhF
+         tz6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704732047; x=1705336847;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=x7t3BxQOYKY6nG92p/jCI9MkeTzAq5t66aeT7ru3qPk=;
+        b=vjgJLepTEBz8ceFJnYdtsL4Tf25PoRriRo7TR5FWwGS15vC8cVDn8T1v2VK5iJQC8l
+         hHMoWdBi0PPU4SRjAL5a+KUqpc8b0L3YwGPrZSb6T58REtGzxClHY5wpnYKt9i3zuZC2
+         uAZOjhBFkksYOqRNroLRyMxLlUwmBUwcWY7+XnMP8DGx7BxZgEj3NgmresLfl58q/SHH
+         WluAul2E2MC2aStaVE7PmBajwzajDQ20ci4hd0tPRMOSKpEm3JOeSHgNNZXUM+fvOk4z
+         QHzLAZhEtQel6u/BiBq71W6Ps3wloBGrR2kbOaPvnjGMxgYU1WclMEoMV4NTYqwep5Je
+         c7Vg==
+X-Gm-Message-State: AOJu0Yyf/ucyWnvlGOki2vWHPrlpCXk5d0f3MWTlpiPkQgkKNka5TIqB
+	G5vix449rAC5H/2GW+JU60+8EIm/afY6
+X-Google-Smtp-Source: AGHT+IGksUYC2a1ufB8Ed0iHXTu7y/6n4D7GlqqCSt046O301fstg3oIplfAeG/MEFF0Rnks/GVJLQ==
+X-Received: by 2002:a05:651c:1044:b0:2cd:2c8d:b48d with SMTP id x4-20020a05651c104400b002cd2c8db48dmr1729427ljm.63.1704732047232;
+        Mon, 08 Jan 2024 08:40:47 -0800 (PST)
+Message-ID: <08b7535e-da40-4578-b865-9b350ace379c@suse.com>
+Date: Mon, 8 Jan 2024 17:40:43 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 04/13] xen: extend domctl interface for cache coloring
+Content-Language: en-US
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Marco Solieri <marco.solieri@minervasys.tech>, Julien Grall <julien@xen.org>
+References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
+ <20240102095138.17933-5-carlo.nonato@minervasys.tech>
+ <99295edf-6c9c-4d06-ba20-86db67100561@xen.org>
+ <CAG+AhRWd9E5sQPY-sxN+WGTSWtvRXGN2FnZC2Vy6LPyynKGLcQ@mail.gmail.com>
+ <4675a541-b9dc-476a-a6ff-0247a4403292@xen.org>
+ <CAG+AhRX6Y2U6A1v=27KgUeWip115R1o+csEWcyCCooxE2Tac6w@mail.gmail.com>
+ <33061994-0b49-4e4e-8698-d6901b9130dc@xen.org>
+ <CAG+AhRXPt_e4+OUxbRLhf6W0reH1nmO7cC9-XoFKe_G8BVxt7w@mail.gmail.com>
+ <e7029592-57e6-4c2a-ab11-f843047ce7f2@xen.org>
+ <CAG+AhRV8B4dcoVHXbP2KW5xsB8BQRt4NpPuXsmjc1X149GZRRw@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAG+AhRV8B4dcoVHXbP2KW5xsB8BQRt4NpPuXsmjc1X149GZRRw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
 
-The term "QEMU global mutex" is identical to the more widely used Big
-QEMU Lock ("BQL"). Update the code comments and documentation to use
-"BQL" instead of "QEMU global mutex".
+On 08.01.2024 17:31, Carlo Nonato wrote:
+> On Mon, Jan 8, 2024 at 4:32 PM Julien Grall <julien@xen.org> wrote:
+>> On 08/01/2024 15:18, Carlo Nonato wrote:
+>>>> No. I am saying that that we should not be able to allow changing the
+>>>> colors after the memory has been allocated. To give an example, your
+>>>> current code would allow:
+>>>>
+>>>>     1) Setup the P2M pools or allocate RAM
+>>>>     2) Set the color
+>>>>
+>>>> This would render the coloring configuration moot.
+>>>>
+>>>> Whether we want to allow changing the coloring before hand is a
+>>>> different question and as I wrote earlier on, I don't mind if you want
+>>>> to forbid that.
+>>>
+>>> At the moment I'm relying on the toolstack in the sense that I know that it
+>>> will set colors right after domain creation and before memory allocation.
+>>> Calling alloc_domheap_pages() without a coloring configuration makes Xen
+>>> crash, so it's mandatory to have the configuration done before any allocation.
+>>> I know that we shouldn't rely on the toolstack this much, but I didn't
+>>> find a better way. Given this assumption, looking for an already existing
+>>> color configuration of a domain is sufficient to avoid what you are saying.
+>>>
+>>> Is it possible to enforce such a constraint with domctl? > I mean to be sure that this domctl will be called at a precise time.
+>>
+>> Yes. You can...
+>>
+>>>
+>>> Thanks.
+>>>
+>>>>> I don't know what to check that.
+>>>>
+>>>> You can check the size of the P2M pool (d->arch.paging.p2m_total_pages)
+>>>> is still 0. I think for RAM, you can check d->tot_pages == 0.
+>>
+>> ... reject the call if either of the two fields are not zero.
+> 
+> What I'm saying is that Xen would crash before even reaching this point if no
+> colors were provided. Let's say that the toolstack or whatever hypercall user
+> isn't calling this domctl at all (or not at the right time), then the domain
+> colored allocator would always return null pages since there are no colors.
+> We would have a crash and your if (or mine) would be useless.
 
-Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
-Acked-by: Markus Armbruster <armbru@redhat.com>
-Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Reviewed-by: Paul Durrant <paul@xen.org>
-Reviewed-by: Akihiko Odaki <akihiko.odaki@daynix.com>
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
-Reviewed-by: Harsh Prateek Bora <harshpb@linux.ibm.com>
-Message-id: 20240102153529.486531-6-stefanha@redhat.com
-Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
----
- docs/devel/multi-thread-tcg.rst   |  7 +++----
- docs/devel/qapi-code-gen.rst      |  2 +-
- docs/devel/replay.rst             |  2 +-
- docs/devel/multiple-iothreads.txt | 14 +++++++-------
- include/block/blockjob.h          |  6 +++---
- include/io/task.h                 |  2 +-
- include/qemu/coroutine-core.h     |  2 +-
- include/qemu/coroutine.h          |  2 +-
- hw/block/dataplane/virtio-blk.c   |  8 ++++----
- hw/block/virtio-blk.c             |  2 +-
- hw/scsi/virtio-scsi-dataplane.c   |  6 +++---
- net/tap.c                         |  2 +-
- 12 files changed, 27 insertions(+), 28 deletions(-)
+Why is it that you can't simply allocated arbitrary memory if coloring
+information wasn't set up front? Aiui that'll be required anyway, as
+there shouldn't be a restriction that all domains have to use coloring.
 
-diff --git a/docs/devel/multi-thread-tcg.rst b/docs/devel/multi-thread-tcg.rst
-index c9541a7b20..7302c3bf53 100644
---- a/docs/devel/multi-thread-tcg.rst
-+++ b/docs/devel/multi-thread-tcg.rst
-@@ -226,10 +226,9 @@ instruction. This could be a future optimisation.
- Emulated hardware state
- -----------------------
- 
--Currently thanks to KVM work any access to IO memory is automatically
--protected by the global iothread mutex, also known as the BQL (Big
--QEMU Lock). Any IO region that doesn't use global mutex is expected to
--do its own locking.
-+Currently thanks to KVM work any access to IO memory is automatically protected
-+by the BQL (Big QEMU Lock). Any IO region that doesn't use the BQL is expected
-+to do its own locking.
- 
- However IO memory isn't the only way emulated hardware state can be
- modified. Some architectures have model specific registers that
-diff --git a/docs/devel/qapi-code-gen.rst b/docs/devel/qapi-code-gen.rst
-index 7f78183cd4..ea8228518c 100644
---- a/docs/devel/qapi-code-gen.rst
-+++ b/docs/devel/qapi-code-gen.rst
-@@ -594,7 +594,7 @@ blocking the guest and other background operations.
- Coroutine safety can be hard to prove, similar to thread safety.  Common
- pitfalls are:
- 
--- The global mutex isn't held across ``qemu_coroutine_yield()``, so
-+- The BQL isn't held across ``qemu_coroutine_yield()``, so
-   operations that used to assume that they execute atomically may have
-   to be more careful to protect against changes in the global state.
- 
-diff --git a/docs/devel/replay.rst b/docs/devel/replay.rst
-index 0244be8b9c..effd856f0c 100644
---- a/docs/devel/replay.rst
-+++ b/docs/devel/replay.rst
-@@ -184,7 +184,7 @@ modes.
- Reading and writing requests are created by CPU thread of QEMU. Later these
- requests proceed to block layer which creates "bottom halves". Bottom
- halves consist of callback and its parameters. They are processed when
--main loop locks the global mutex. These locks are not synchronized with
-+main loop locks the BQL. These locks are not synchronized with
- replaying process because main loop also processes the events that do not
- affect the virtual machine state (like user interaction with monitor).
- 
-diff --git a/docs/devel/multiple-iothreads.txt b/docs/devel/multiple-iothreads.txt
-index 4865196bde..de85767b12 100644
---- a/docs/devel/multiple-iothreads.txt
-+++ b/docs/devel/multiple-iothreads.txt
-@@ -5,7 +5,7 @@ the COPYING file in the top-level directory.
- 
- 
- This document explains the IOThread feature and how to write code that runs
--outside the QEMU global mutex.
-+outside the BQL.
- 
- The main loop and IOThreads
- ---------------------------
-@@ -29,13 +29,13 @@ scalability bottleneck on hosts with many CPUs.  Work can be spread across
- several IOThreads instead of just one main loop.  When set up correctly this
- can improve I/O latency and reduce jitter seen by the guest.
- 
--The main loop is also deeply associated with the QEMU global mutex, which is a
--scalability bottleneck in itself.  vCPU threads and the main loop use the QEMU
--global mutex to serialize execution of QEMU code.  This mutex is necessary
--because a lot of QEMU's code historically was not thread-safe.
-+The main loop is also deeply associated with the BQL, which is a
-+scalability bottleneck in itself.  vCPU threads and the main loop use the BQL
-+to serialize execution of QEMU code.  This mutex is necessary because a lot of
-+QEMU's code historically was not thread-safe.
- 
- The fact that all I/O processing is done in a single main loop and that the
--QEMU global mutex is contended by all vCPU threads and the main loop explain
-+BQL is contended by all vCPU threads and the main loop explain
- why it is desirable to place work into IOThreads.
- 
- The experimental virtio-blk data-plane implementation has been benchmarked and
-@@ -66,7 +66,7 @@ There are several old APIs that use the main loop AioContext:
- 
- Since they implicitly work on the main loop they cannot be used in code that
- runs in an IOThread.  They might cause a crash or deadlock if called from an
--IOThread since the QEMU global mutex is not held.
-+IOThread since the BQL is not held.
- 
- Instead, use the AioContext functions directly (see include/block/aio.h):
-  * aio_set_fd_handler() - monitor a file descriptor
-diff --git a/include/block/blockjob.h b/include/block/blockjob.h
-index e594c10d23..7061ab7201 100644
---- a/include/block/blockjob.h
-+++ b/include/block/blockjob.h
-@@ -54,7 +54,7 @@ typedef struct BlockJob {
- 
-     /**
-      * Speed that was set with @block_job_set_speed.
--     * Always modified and read under QEMU global mutex (GLOBAL_STATE_CODE).
-+     * Always modified and read under the BQL (GLOBAL_STATE_CODE).
-      */
-     int64_t speed;
- 
-@@ -66,7 +66,7 @@ typedef struct BlockJob {
- 
-     /**
-      * Block other operations when block job is running.
--     * Always modified and read under QEMU global mutex (GLOBAL_STATE_CODE).
-+     * Always modified and read under the BQL (GLOBAL_STATE_CODE).
-      */
-     Error *blocker;
- 
-@@ -89,7 +89,7 @@ typedef struct BlockJob {
- 
-     /**
-      * BlockDriverStates that are involved in this block job.
--     * Always modified and read under QEMU global mutex (GLOBAL_STATE_CODE).
-+     * Always modified and read under the BQL (GLOBAL_STATE_CODE).
-      */
-     GSList *nodes;
- } BlockJob;
-diff --git a/include/io/task.h b/include/io/task.h
-index dc7d32ebd0..0b5342ee84 100644
---- a/include/io/task.h
-+++ b/include/io/task.h
-@@ -149,7 +149,7 @@ typedef void (*QIOTaskWorker)(QIOTask *task,
-  * lookups) to be easily run non-blocking. Reporting the
-  * results in the main thread context means that the caller
-  * typically does not need to be concerned about thread
-- * safety wrt the QEMU global mutex.
-+ * safety wrt the BQL.
-  *
-  * For example, the socket_listen() method will block the caller
-  * while DNS lookups take place if given a name, instead of IP
-diff --git a/include/qemu/coroutine-core.h b/include/qemu/coroutine-core.h
-index 230bb56517..503bad6e0e 100644
---- a/include/qemu/coroutine-core.h
-+++ b/include/qemu/coroutine-core.h
-@@ -22,7 +22,7 @@
-  * rather than callbacks, for operations that need to give up control while
-  * waiting for events to complete.
-  *
-- * These functions are re-entrant and may be used outside the global mutex.
-+ * These functions are re-entrant and may be used outside the BQL.
-  *
-  * Functions that execute in coroutine context cannot be called
-  * directly from normal functions.  Use @coroutine_fn to mark such
-diff --git a/include/qemu/coroutine.h b/include/qemu/coroutine.h
-index a65be6697f..e6aff45301 100644
---- a/include/qemu/coroutine.h
-+++ b/include/qemu/coroutine.h
-@@ -26,7 +26,7 @@
-  * rather than callbacks, for operations that need to give up control while
-  * waiting for events to complete.
-  *
-- * These functions are re-entrant and may be used outside the global mutex.
-+ * These functions are re-entrant and may be used outside the BQL.
-  *
-  * Functions that execute in coroutine context cannot be called
-  * directly from normal functions.  Use @coroutine_fn to mark such
-diff --git a/hw/block/dataplane/virtio-blk.c b/hw/block/dataplane/virtio-blk.c
-index 97a302cf49..ba22732497 100644
---- a/hw/block/dataplane/virtio-blk.c
-+++ b/hw/block/dataplane/virtio-blk.c
-@@ -84,7 +84,7 @@ apply_vq_mapping(IOThreadVirtQueueMappingList *iothread_vq_mapping_list,
-     }
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- bool virtio_blk_data_plane_create(VirtIODevice *vdev, VirtIOBlkConf *conf,
-                                   VirtIOBlockDataPlane **dataplane,
-                                   Error **errp)
-@@ -148,7 +148,7 @@ bool virtio_blk_data_plane_create(VirtIODevice *vdev, VirtIOBlkConf *conf,
-     return true;
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- void virtio_blk_data_plane_destroy(VirtIOBlockDataPlane *s)
- {
-     VirtIOBlock *vblk;
-@@ -179,7 +179,7 @@ void virtio_blk_data_plane_destroy(VirtIOBlockDataPlane *s)
-     g_free(s);
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- int virtio_blk_data_plane_start(VirtIODevice *vdev)
- {
-     VirtIOBlock *vblk = VIRTIO_BLK(vdev);
-@@ -310,7 +310,7 @@ static void virtio_blk_data_plane_stop_vq_bh(void *opaque)
-     virtio_queue_host_notifier_read(host_notifier);
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- void virtio_blk_data_plane_stop(VirtIODevice *vdev)
- {
-     VirtIOBlock *vblk = VIRTIO_BLK(vdev);
-diff --git a/hw/block/virtio-blk.c b/hw/block/virtio-blk.c
-index 315b7b364c..b7a344ca97 100644
---- a/hw/block/virtio-blk.c
-+++ b/hw/block/virtio-blk.c
-@@ -1539,7 +1539,7 @@ static void virtio_blk_resize(void *opaque)
-     VirtIODevice *vdev = VIRTIO_DEVICE(opaque);
- 
-     /*
--     * virtio_notify_config() needs to acquire the global mutex,
-+     * virtio_notify_config() needs to acquire the BQL,
-      * so it can't be called from an iothread. Instead, schedule
-      * it to be run in the main context BH.
-      */
-diff --git a/hw/scsi/virtio-scsi-dataplane.c b/hw/scsi/virtio-scsi-dataplane.c
-index 135e23fe54..2806a121b2 100644
---- a/hw/scsi/virtio-scsi-dataplane.c
-+++ b/hw/scsi/virtio-scsi-dataplane.c
-@@ -20,7 +20,7 @@
- #include "scsi/constants.h"
- #include "hw/virtio/virtio-bus.h"
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- void virtio_scsi_dataplane_setup(VirtIOSCSI *s, Error **errp)
- {
-     VirtIOSCSICommon *vs = VIRTIO_SCSI_COMMON(s);
-@@ -93,7 +93,7 @@ static void virtio_scsi_dataplane_stop_bh(void *opaque)
-     }
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- int virtio_scsi_dataplane_start(VirtIODevice *vdev)
- {
-     int i;
-@@ -185,7 +185,7 @@ fail_guest_notifiers:
-     return -ENOSYS;
- }
- 
--/* Context: QEMU global mutex held */
-+/* Context: BQL held */
- void virtio_scsi_dataplane_stop(VirtIODevice *vdev)
- {
-     BusState *qbus = qdev_get_parent_bus(DEVICE(vdev));
-diff --git a/net/tap.c b/net/tap.c
-index c23d0323c2..c698b70475 100644
---- a/net/tap.c
-+++ b/net/tap.c
-@@ -219,7 +219,7 @@ static void tap_send(void *opaque)
- 
-         /*
-          * When the host keeps receiving more packets while tap_send() is
--         * running we can hog the QEMU global mutex.  Limit the number of
-+         * running we can hog the BQL.  Limit the number of
-          * packets that are processed per tap_send() callback to prevent
-          * stalling the guest.
-          */
--- 
-2.43.0
-
+Jan
 
