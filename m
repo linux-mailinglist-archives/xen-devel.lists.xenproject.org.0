@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE2008271BC
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 15:46:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663554.1033511 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B2938271C0
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 15:47:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663559.1033520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMqtH-0000pk-6c; Mon, 08 Jan 2024 14:46:11 +0000
+	id 1rMquE-0001KH-FR; Mon, 08 Jan 2024 14:47:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663554.1033511; Mon, 08 Jan 2024 14:46:11 +0000
+Received: by outflank-mailman (output) from mailman id 663559.1033520; Mon, 08 Jan 2024 14:47:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMqtH-0000mV-29; Mon, 08 Jan 2024 14:46:11 +0000
-Received: by outflank-mailman (input) for mailman id 663554;
- Mon, 08 Jan 2024 14:46:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HHUo=IS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rMqtG-0000mP-8U
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 14:46:10 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a866f5d2-ae34-11ee-98ef-6d05b1d4d9a1;
- Mon, 08 Jan 2024 15:46:09 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2cd56dac1adso10339091fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 06:46:08 -0800 (PST)
-Received: from [192.168.223.212] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- j11-20020a2e6e0b000000b002cd054fbb34sm1616496ljc.9.2024.01.08.06.46.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jan 2024 06:46:07 -0800 (PST)
+	id 1rMquE-0001Ii-BK; Mon, 08 Jan 2024 14:47:10 +0000
+Received: by outflank-mailman (input) for mailman id 663559;
+ Mon, 08 Jan 2024 14:47:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KH4C=IS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rMquD-0001GW-49
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 14:47:09 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cb7c7c4b-ae34-11ee-9b0f-b553b5be7939;
+ Mon, 08 Jan 2024 15:47:07 +0100 (CET)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2cd56dac1adso10353441fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 06:47:07 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ dp37-20020a0566381ca500b0046b4976c3ccsm2222810jab.138.2024.01.08.06.47.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jan 2024 06:47:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,83 +45,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a866f5d2-ae34-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: cb7c7c4b-ae34-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704725168; x=1705329968; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=htYOfdr6ndmWBD0eONTPZM6TsTMTN8C8nyd2KqyTMyA=;
-        b=TwJiTYfEVW6Si9qJ3vkw6k9rJaxwYxgorX8iwO5qjALPL/njgz/QGZ3WycclWw7RC3
-         n9Lt4WPwarWso7WSKES4G3SrESkdHIIOCbejR7b6Yp6a0+NOx8WT/VdNJDIi3tu91VdD
-         fbUNfNvU7+enq6vTu2iK/oNYaYG87PWTl1/R734kwnsfryT4hnhG7ZiJ7WbWTBD0438H
-         mp8HCVkBJrnNbDOUm6r0aV2u4Vqtjw5/M4EinGEzmP5NRN7mRF0trLP3H0bNf8HoEgBG
-         TxjLayQpd0y4iMU7IIJa8SKvV5ay+7NI4A4YlSc6I+COH/sh6btbLDyUz+ZrK2KDUYnt
-         G7Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704725168; x=1705329968;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1704725227; x=1705330027; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=htYOfdr6ndmWBD0eONTPZM6TsTMTN8C8nyd2KqyTMyA=;
-        b=D1yaUkwv9JvXEQBHYn3PTHLFO0iRCWkUbNwjyIBlR+OkhXHv1ObO9ibx4psy42RkJ0
-         pdFoImZyuzZHEPPoeYxH2i5lMspni/QAhoktiO5X9mW6bLhtn8hJoWfyshPFiSdukGMZ
-         cXedw4iz4qikgk9AcbaJKAq+UXEG78OLLFWdXM1b7EANsMt4oP6CVBcctC7Mo+j7krRf
-         RN83E2JA0yHxN6EvJUwJV1rQ436tKLVEGs3M0YvZIQfH/YZjgkklxJ4jTO5Pp3ZaqqdD
-         ICK6xGIzqsDZiu5mwDBw38oIalTwQ6Zb41W4tq0uRUuNvGWBQt470h90FkF8Y//soMAd
-         txYA==
-X-Gm-Message-State: AOJu0YxxfMfV0x25Er5HDEshjev/4NB3fCWrj1sV5tWa55hVnbaVhVGu
-	T/CkRrPC/UA3BEIATyRLARY=
-X-Google-Smtp-Source: AGHT+IFpao2OdE9TEdSoNpHf5pnQVb0OKNe4h6iUzsxh05VZVHASSSOW0SKNFwTOVq2+K8U6ie2biQ==
-X-Received: by 2002:a2e:2a43:0:b0:2cc:c794:57c2 with SMTP id q64-20020a2e2a43000000b002ccc79457c2mr1642832ljq.14.1704725167578;
-        Mon, 08 Jan 2024 06:46:07 -0800 (PST)
-Message-ID: <da5c455fb419998fa7d6d0df64e95510cf4b182a.camel@gmail.com>
-Subject: Re: [PATCH v3 03/34] xen: add support in public/hvm/save.h for PPC
- and RISC-V
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Mon, 08 Jan 2024 16:46:03 +0200
-In-Reply-To: <e506cc91-c03c-436e-bfbe-8ff5a3039dc8@suse.com>
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
-	 <365d4ab4591129af3a52176d991146b2f64f944b.1703255175.git.oleksii.kurochko@gmail.com>
-	 <e506cc91-c03c-436e-bfbe-8ff5a3039dc8@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=qBXcbuxcbGslj3Eq8Kn1uWjpLhwG0M/KZtqzHxQOPP0=;
+        b=a3oQgdCNfLr+pTjmNHeNyqGFk+9slPPgwcpuIrpXwYhD1rv7Ic2bhboyH729Mfads5
+         HvHm83udwT0NwWzxza5tX0jmxBAvD5FmS51Ty4G7+GsNKFfXylzkIPnJJmkoiTzMkDZS
+         Ld7WpJ1h0g/I1uQQ9VSOO3gHG2kRaWkjsmRsXRiD8hY/bdeRNVgtypPxYAnxGCVwf/QN
+         xRMZ+PpO37NgkdIQy3g261kIv5yqRfUHMtd/tJ4hgv99yLBKbCDBClYyPq94D+GnXbwO
+         6mQ5cEbAbDRdf+1KuSWcb86AiVmCaSkqoYtFrzOosIz5tmd2qVnXL/0OsDwr2f4qyDUk
+         3ylQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704725227; x=1705330027;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=qBXcbuxcbGslj3Eq8Kn1uWjpLhwG0M/KZtqzHxQOPP0=;
+        b=qfij6RjSNqO32BY9cyrkzQzXbLWLQ52+rsfMt0qUTx0gRY5Z3WX5VwPOWv5N+MFIRu
+         lzVcsp97jhFrY8XB9PN7d0hNqC9B6fi7eJ2ohLDk371WYqzyWUhTmb2iRQhflSOlsGiN
+         +w+CX14bsKICSNm1vCKzYwrY4Ih+ixmB1Y6URVXU4GYPTpgnTQ3dlX/4Md37dwifvYMr
+         xX+z4yVJAJttHYf/Sn63dyeximbVYW4KBmtlle66mfszQ3B9okgzQsVg9/Z52XVUaZ/p
+         PwCcMESHaR/4bWP/8G9NeukKcI6E2m1sKsBdb3Iyb5JsrAGuuREJCC20YJtcbmLhnNWR
+         HKMg==
+X-Gm-Message-State: AOJu0Yx00iYt9uqP6y+iN+K99FpVeWRBUS528tzSguKlgXGwNV51pL8r
+	CbR3IToiRUVKrJtocM5EFyUBU3fRP65qk0LILUnyH7hNWQ==
+X-Google-Smtp-Source: AGHT+IHiL/URIUOYDElLOx9ZdJFlomqnatzcJgkeedN/mfVIrMybyfc6yqnfgh77ZWPwAXEANjMKbA==
+X-Received: by 2002:a2e:8710:0:b0:2cc:a7ee:ce68 with SMTP id m16-20020a2e8710000000b002cca7eece68mr1891332lji.67.1704725226735;
+        Mon, 08 Jan 2024 06:47:06 -0800 (PST)
+Message-ID: <6889e19d-c6d4-43f0-9752-738d2a54e311@suse.com>
+Date: Mon, 8 Jan 2024 15:47:06 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] NUMA: limit first_valid_mfn exposure
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <224db25e-bd4c-4415-aff8-6ff3e84343d8@suse.com>
+ <a99d9d1a-2395-4771-95f3-5dab64e10ce7@xen.org>
+ <0872306a-fefb-424b-b27a-b67ba21828c7@suse.com>
+ <829125ea-c220-47e9-a9f4-343126787f27@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <829125ea-c220-47e9-a9f4-343126787f27@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2024-01-04 at 12:01 +0100, Jan Beulich wrote:
-> On 22.12.2023 16:12, Oleksii Kurochko wrote:
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->=20
-> Since you change how PPC is handled, this can't go without
-> description (i.e.
-> justification).
-I thought adding a comment in the code would be sufficient. I can
-include something similar in the commit message as well.
+On 08.01.2024 15:13, Julien Grall wrote:
+> Hi Jan,
+> 
+> On 08/01/2024 11:43, Jan Beulich wrote:
+>> On 08.01.2024 12:37, Julien Grall wrote:
+>>> On 08/01/2024 11:31, Jan Beulich wrote:
+>>>> Address the TODO regarding first_valid_mfn by making the variable static
+>>>> when NUMA=y, thus also addressing a Misra C:2012 rule 8.4 concern (on
+>>>> x86).
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> Julien suggests something like
+>>>>
+>>>> STATIC_IF(CONFIG_NUMA) unsigned long first_valid_mfn;
+>>>>
+>>>> but I view this as non-scalable (or at least I can't see how to
+>>>> implement such in a scalabale way) and hence undesirable to introduce.
+>>>
+>>> I don't really see the scalability problem. Can you explain a bit more?
+>>
+>> Well, when seeing your original suggestion, I first considered it quite
+>> reasonable. But when thinking how to implement it, I couldn't see what
+>>
+>> #define STATIC_IF(cfg)
+>>
+>> should expand to. That's simply because a macro body cannot itself have
+>> pre-processor directives. Hence all I could think of was
+>>
+>> #ifdef CONFIG_NUMA
+>> # define static_if_CONFIG_NUMA static
+>> #else
+>> # define static_if_CONFIG_NUMA
+>> #endif
+>> #define STATIC_IF(cfg) static_if_ ## cfg
+>>
+>> And I think it is easy to see how this wouldn't scale across CONFIG_xyz.
+>> Plus that that point STATIC_IF() itself would be pretty much redundant.
+>> But maybe I'm simply overlooking the obvious ...
+> 
+> You can use the same trick as for IS_ENABLED. The code below will select 
+> static or nothing:
+> 
+> #define static_enabled(cfg) _static_enabled(cfg)
+> #define _static_enabled(value) __static_enabled(__ARG_PLACEHOLDER_##value)
+> #define __static_enabled(arg1_or_junk) ___static_enabled(arg1_or_junk 
+> static,)
+> #define ___static_enabled(__ignored, val, ...) val
+> 
+> #define STATIC_IF(option) static_enabled(option)
+> 
+> I have tested both with CONFIG_NUMA and !CONFIG_NUMA to confirm the 
+> visibility of the variable will be correct.
 
+Hmm, okay. Then my 2nd scalability concern, in another dimension: What
+if static-ness ends up depending on two (or more) CONFIG_*?
 
-~ Oleksii
-
->=20
-> > --- a/xen/include/public/hvm/save.h
-> > +++ b/xen/include/public/hvm/save.h
-> > @@ -89,8 +89,8 @@ DECLARE_HVM_SAVE_TYPE(END, 0, struct
-> > hvm_save_end);
-> > =C2=A0#include "../arch-x86/hvm/save.h"
-> > =C2=A0#elif defined(__arm__) || defined(__aarch64__)
-> > =C2=A0#include "../arch-arm/hvm/save.h"
-> > -#elif defined(__powerpc64__)
-> > -#include "../arch-ppc.h"
-> > +#elif defined(__powerpc64__) || defined(__riscv)
-> > +/* no specific header to include */
-> > =C2=A0#else
-> > =C2=A0#error "unsupported architecture"
-> > =C2=A0#endif
->=20
-
+Jan
 
