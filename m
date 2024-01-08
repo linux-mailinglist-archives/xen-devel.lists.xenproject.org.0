@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32CE88275D0
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 17:54:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663666.1033750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4BAB827605
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 18:08:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663672.1033759 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMssp-0006go-Jj; Mon, 08 Jan 2024 16:53:51 +0000
+	id 1rMt6l-0001Sr-PM; Mon, 08 Jan 2024 17:08:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663666.1033750; Mon, 08 Jan 2024 16:53:51 +0000
+Received: by outflank-mailman (output) from mailman id 663672.1033759; Mon, 08 Jan 2024 17:08:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMssp-0006eH-Gf; Mon, 08 Jan 2024 16:53:51 +0000
-Received: by outflank-mailman (input) for mailman id 663666;
- Mon, 08 Jan 2024 16:53:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rMt6l-0001R1-Ma; Mon, 08 Jan 2024 17:08:15 +0000
+Received: by outflank-mailman (input) for mailman id 663672;
+ Mon, 08 Jan 2024 17:08:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KH4C=IS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rMssn-0006eB-Rd
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 16:53:49 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d89c69a-ae46-11ee-9b0f-b553b5be7939;
- Mon, 08 Jan 2024 17:53:47 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2cd0f4797aaso21323471fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 08:53:47 -0800 (PST)
+ id 1rMt6j-0001Qt-R0
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 17:08:13 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 813b0eb3-ae48-11ee-98ef-6d05b1d4d9a1;
+ Mon, 08 Jan 2024 18:08:12 +0100 (CET)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2ccbc328744so23289071fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 09:08:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s14-20020a92c5ce000000b0036002c8127asm52881ilt.5.2024.01.08.08.53.45
+ w8-20020a6b4a08000000b007baf1948186sm26180iob.42.2024.01.08.09.08.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 08 Jan 2024 08:53:46 -0800 (PST)
+ Mon, 08 Jan 2024 09:08:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d89c69a-ae46-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 813b0eb3-ae48-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704732827; x=1705337627; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704733692; x=1705338492; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=dX9HEPcwcljxT6hAJkXfpEA1cMZtqolfZ7RILMSrI94=;
-        b=gucXw5oDzDje4txOa+kX7Qd17DYdvBCAz/CFTDuhO2BRyuyQ54mSwwyRfqjus5HUxm
-         IYL/CUYQtY6G6/uPfF1OwYGaRYE3dYDzZNkK5Peo/NMGikl6CjNPuXTQI/eFg0mnw1Oo
-         AWngdCgHglUk2t2IICzwfERea4fHFFa9Rw0qIoASE9bFEYAcNLU+urAg2v+oRyzNH4xI
-         Aglf4MCueWdeiCRloelh/eqv+ZtRx/i7wDt5TL13JiKE7/QDpI/L0TXb6bh20xQ/FskI
-         iFfI0i9kz+Mtr4pPoLm2v43FSfgfqhWdbpgsn8ZVZOL2+jlNWVCgxWdtLGAm1usyDiiN
-         Cgmw==
+        bh=pzwnLO2m8gTM/EdlibVHVvJN0tKvFfHSV+R/M+KPd3c=;
+        b=fHa5B+FKR1kuf2PRtf0JmqVq6hJlJNbs7BYo56Gp+KCO7m2TvyCaU1YFVyEf7KcFB2
+         pIdQOQr7p4QBkeJXHhlD+JIR2Oo2mN3y1CjutHmUWzn7KInEaVKQKwkNa5eH4gfCs+fS
+         Q/omELaj+3WSQ9XEH4hYOuJS5I//piMWaiReoPsjcLefNzqpeED23CAYpA9vD5YWVjwX
+         ffnxXlyjJtUNzxCCm1ctT8XFsBm92IQozyOPlLARQ/Go/PCZMBAx5viqAKo6lghuXWCS
+         5F7f550BJJ0D5EAA8PgMKyiIH3oovLmYJP1LYkTxBHbV0fNTWRZJKAzV/VwIFr8x6mu9
+         F9WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704732827; x=1705337627;
+        d=1e100.net; s=20230601; t=1704733692; x=1705338492;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dX9HEPcwcljxT6hAJkXfpEA1cMZtqolfZ7RILMSrI94=;
-        b=M1C+4bKHNKVFuCeS8Mo5sh+IdpB+t2gDJBl537U3eoWjAb0KAaQThbpb7PvPHit71Q
-         lQ1fOHg4zbKjmcuSHTmPDSzma8mdMnWGi3WbGH9MLoiZldneKXm4/xjf3qHaulZwWIwM
-         ert9Ig+xuuIbCq7RU60dWHAyYlSsfP4yMmZRkVdDOaQ75VYX7fdZZ6+WOZwTIzXKbVHF
-         ypoKjI/r/sWBfD4usfGgPVozA6CpPbdycA4d46OgEs3hjVONT+qcCQuaOlyRQPQfCkQe
-         Zup/ocggoTc0d4N9idLUp/uFBNslXFH2DZ9YWMZQLTnGU19h2x2L+v+VqaWjjJoQ04DF
-         HF6Q==
-X-Gm-Message-State: AOJu0YyUYb8pkNobDhCiUO2QL1QZzfd0OCKpKJhDj6KXux8sh7V344S2
-	VmsYwDl41sMihq6dltAxcSqv9hu6LVHt
-X-Google-Smtp-Source: AGHT+IH9IbXHoOemNRnKU+I6aiiTfRmpPlFYcTUCNzLbeMeR3hvPEqLktJoUwpr/0eeyrhP8dMGUHw==
-X-Received: by 2002:a2e:a78e:0:b0:2cc:eeea:9e89 with SMTP id c14-20020a2ea78e000000b002cceeea9e89mr2046484ljf.7.1704732826830;
-        Mon, 08 Jan 2024 08:53:46 -0800 (PST)
-Message-ID: <feb5542a-081a-4677-b569-5d4218eb794d@suse.com>
-Date: Mon, 8 Jan 2024 17:53:43 +0100
+        bh=pzwnLO2m8gTM/EdlibVHVvJN0tKvFfHSV+R/M+KPd3c=;
+        b=pEKBoemuHKOnMh5YhTayx9v3VwwKVKpZBBAznEzuLmoO/oJMcQkRSU8mM53OTLAgRR
+         OS4MWhLj8tp1LQdRVgm+ME+oCinOV5e2bLK2Uhw/yRieLE/PMLXdYYdRJXuVuRPc+zHq
+         uN8QyfQQec4Ti026nKjy4UtUBfs1XERTlAQVlmC2xd6foQAA1fkheM17SzM3kBAKGRuz
+         8NyV2ODUjjGnsINjDFQYSYIpPproG6BXYRKjbFQF2HM2IX0cEoskSHhs1sybHGKG/kJk
+         35myJG2fyKO2bmzYp6wFeEVdVeNvBksJg8zPAvTmsOF1+G7Who/gH1Pp6Np07i3hJgqq
+         1Gnw==
+X-Gm-Message-State: AOJu0YyQAVH0sG0m9vCF6WBi2ViHWeWJXyF03XPUI3iCnfViutUiOG21
+	CS6URw4ErNHHRp8PwxNzF2oJod2oAuUD
+X-Google-Smtp-Source: AGHT+IHR8yZ24mAhD3h1j7k1or8/3ZK+cpqRSILs6G6qBGRkLCyxYx8AXVcc8Bvf915CKgk5FlBoAw==
+X-Received: by 2002:a2e:be1f:0:b0:2cd:619b:7810 with SMTP id z31-20020a2ebe1f000000b002cd619b7810mr22536ljq.46.1704733691948;
+        Mon, 08 Jan 2024 09:08:11 -0800 (PST)
+Message-ID: <dea5c6bc-e217-4229-9298-74fced9b7439@suse.com>
+Date: Mon, 8 Jan 2024 18:08:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 01/13] xen/common: add cache coloring common code
+Subject: Re: [PATCH v5 08/13] xen/page_alloc: introduce preserved page flags
+ macro
 Content-Language: en-US
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
+To: Carlo Nonato <carlo.nonato@minervasys.tech>,
+ xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+ Marco Solieri <marco.solieri@minervasys.tech>
 References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-2-carlo.nonato@minervasys.tech>
+ <20240102095138.17933-9-carlo.nonato@minervasys.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,139 +114,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240102095138.17933-2-carlo.nonato@minervasys.tech>
+In-Reply-To: <20240102095138.17933-9-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 02.01.2024 10:51, Carlo Nonato wrote:
-> This commit adds the Last Level Cache (LLC) coloring common header, Kconfig
-> options and functions. Since this is an arch specific feature, actual
-> implementation is postponed to later patches and Kconfig options are placed
-> under xen/arch.
+> PGC_static and PGC_extra are flags that needs to be preserved when assigning
+> a page. Define a new macro that groups those flags and use it instead of
+> or'ing every time.
+> 
+> The new macro is used also in free_heap_pages() allowing future commits to
+> extended it with other flags that must stop merging, as it now works for
+> PGC_static. PGC_extra is no harm here since it's only ever being set on
+> allocated pages.
 
-As a general remark / nit: "This commit", "this patch", or alike aren't
-well suited for descriptions.
+Is it? I can't see where free_domheap_pages() would clear it before calling
+free_heap_pages(). Or wait, that may happen in mark_page_free(), but then
+PGC_static would be cleared there, too. I must be missing something.
 
-> --- a/xen/arch/Kconfig
-> +++ b/xen/arch/Kconfig
-> @@ -31,3 +31,19 @@ config NR_NUMA_NODES
->  	  associated with multiple-nodes management. It is the upper bound of
->  	  the number of NUMA nodes that the scheduler, memory allocation and
->  	  other NUMA-aware components can handle.
-> +
-> +config LLC_COLORING
-> +	bool "Last Level Cache (LLC) coloring" if EXPERT
-> +	depends on HAS_LLC_COLORING
-> +
-> +config NR_LLC_COLORS
-> +	int "Maximum number of LLC colors"
-> +	default 128
-
-What if I set to value to 0? Or to an unreasonably large one? You don't
-bound the value range at all.
-
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -7,6 +7,7 @@
->  #include <xen/compat.h>
->  #include <xen/init.h>
->  #include <xen/lib.h>
-> +#include <xen/llc-coloring.h>
->  #include <xen/ctype.h>
->  #include <xen/err.h>
->  #include <xen/param.h>
-> @@ -1144,6 +1145,9 @@ static void cf_check complete_domain_destroy(struct rcu_head *head)
->      struct vcpu *v;
->      int i;
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -158,6 +158,8 @@
+>  #define PGC_static 0
+>  #endif
 >  
-> +    if ( is_domain_llc_colored(d) )
-> +        domain_llc_coloring_free(d);
+> +#define preserved_flags (PGC_extra | PGC_static)
 
-Would be nice if the freeing function could be called unconditionally,
-being a no-op for non-colored domains.
+I think this wants to (a) have a PGC_ prefix and (b) as a #define be all
+capitals.
 
-Further - is it really necessary to do this freeing this late?
+> @@ -1504,7 +1506,7 @@ static void free_heap_pages(
+>              /* Merge with predecessor block? */
+>              if ( !mfn_valid(page_to_mfn(predecessor)) ||
+>                   !page_state_is(predecessor, free) ||
+> -                 (predecessor->count_info & PGC_static) ||
+> +                 (predecessor->count_info & preserved_flags) ||
+>                   (PFN_ORDER(predecessor) != order) ||
+>                   (page_to_nid(predecessor) != node) )
+>                  break;
+> @@ -1528,7 +1530,7 @@ static void free_heap_pages(
+>              /* Merge with successor block? */
+>              if ( !mfn_valid(page_to_mfn(successor)) ||
+>                   !page_state_is(successor, free) ||
+> -                 (successor->count_info & PGC_static) ||
+> +                 (successor->count_info & preserved_flags) ||
+>                   (PFN_ORDER(successor) != order) ||
+>                   (page_to_nid(successor) != node) )
+>                  break;
 
-> --- a/xen/common/keyhandler.c
-> +++ b/xen/common/keyhandler.c
-> @@ -6,6 +6,7 @@
->  #include <xen/debugger.h>
->  #include <xen/delay.h>
->  #include <xen/keyhandler.h>
-> +#include <xen/llc-coloring.h>
->  #include <xen/param.h>
->  #include <xen/shutdown.h>
->  #include <xen/event.h>
-> @@ -307,6 +308,9 @@ static void cf_check dump_domains(unsigned char key)
->  
->          arch_dump_domain_info(d);
->  
-> +        if ( is_domain_llc_colored(d) )
-> +            domain_dump_llc_colors(d);
-
-I'm less concerned of the conditional here, but along the lines of the
-comment above, it could of course again be the function that simply is
-a no-op for non-colored domains.
-
-> --- /dev/null
-> +++ b/xen/include/xen/llc-coloring.h
-> @@ -0,0 +1,46 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Last Level Cache (LLC) coloring common header
-> + *
-> + * Copyright (C) 2022 Xilinx Inc.
-> + *
-> + * Authors:
-> + *    Carlo Nonato <carlo.nonato@minervasys.tech>
-> + */
-> +#ifndef __COLORING_H__
-> +#define __COLORING_H__
-> +
-> +#include <xen/sched.h>
-> +#include <public/domctl.h>
-> +
-> +#ifdef CONFIG_HAS_LLC_COLORING
-
-Why does this matter here? IOW why ...
-
-> +#include <asm/llc-coloring.h>
-> +
-> +#ifdef CONFIG_LLC_COLORING
-
-... is it not just this which is checked?
-
-> +extern bool llc_coloring_enabled;
-> +#define llc_coloring_enabled (llc_coloring_enabled)
-> +#endif
-> +
-> +#endif
-> +
-> +#ifndef llc_coloring_enabled
-> +#define llc_coloring_enabled (false)
-> +#endif
-
-+1 to the question Julien has raised here.
-
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -626,6 +626,11 @@ struct domain
->  
->      /* Holding CDF_* constant. Internal flags for domain creation. */
->      unsigned int cdf;
-> +
-> +#ifdef CONFIG_LLC_COLORING
-> +    unsigned int *llc_colors;
-
-Can the color values change over the lifetime of a domain? If not,
-it may be prudent to have this be pointer-to-const.
+Irrespective of the comment at the top, this looks like an abuse of the
+new constant: There's nothing inherently making preserved flags also
+suppress merging (assuming it was properly checked that both sided have
+the same flags set/clear).
 
 Jan
-
-> +    unsigned int num_llc_colors;
-> +#endif
->  };
->  
->  static inline struct page_list_head *page_to_list(
-
 
