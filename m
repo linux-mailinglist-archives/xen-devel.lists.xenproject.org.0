@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3B0B826864
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 08:05:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663200.1033040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BD6B82690D
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 09:03:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663210.1033050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMjgv-0005J2-Qb; Mon, 08 Jan 2024 07:04:57 +0000
+	id 1rMkaZ-0007Ta-Fz; Mon, 08 Jan 2024 08:02:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663200.1033040; Mon, 08 Jan 2024 07:04:57 +0000
+Received: by outflank-mailman (output) from mailman id 663210.1033050; Mon, 08 Jan 2024 08:02:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMjgv-0005H5-Ng; Mon, 08 Jan 2024 07:04:57 +0000
-Received: by outflank-mailman (input) for mailman id 663200;
- Mon, 08 Jan 2024 07:04:56 +0000
+	id 1rMkaZ-0007Qi-DB; Mon, 08 Jan 2024 08:02:27 +0000
+Received: by outflank-mailman (input) for mailman id 663210;
+ Mon, 08 Jan 2024 08:02:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=j0y/=IS=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rMjgu-0005Gz-3I
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 07:04:56 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2009::600])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KH4C=IS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rMkaX-0007Qa-8a
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 08:02:25 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 380181b2-adf4-11ee-9b0f-b553b5be7939;
- Mon, 08 Jan 2024 08:04:52 +0100 (CET)
-Received: from SA0PR11CA0100.namprd11.prod.outlook.com (2603:10b6:806:d1::15)
- by CH3PR12MB8511.namprd12.prod.outlook.com (2603:10b6:610:15c::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Mon, 8 Jan
- 2024 07:04:47 +0000
-Received: from SN1PEPF00026369.namprd02.prod.outlook.com
- (2603:10b6:806:d1:cafe::5d) by SA0PR11CA0100.outlook.office365.com
- (2603:10b6:806:d1::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.21 via Frontend
- Transport; Mon, 8 Jan 2024 07:04:46 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.13 via Frontend Transport; Mon, 8 Jan 2024 07:04:46 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 8 Jan
- 2024 01:04:46 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Mon, 8 Jan 2024 01:04:44 -0600
+ id 3fa5da62-adfc-11ee-9b0f-b553b5be7939;
+ Mon, 08 Jan 2024 09:02:21 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-50e7dd8bce8so1565205e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 00:02:20 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ck14-20020a056e02370e00b003608a649906sm929332ilb.43.2024.01.08.00.02.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 08 Jan 2024 00:02:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,210 +45,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 380181b2-adf4-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D/NfQfHS2wqN+6xs2nJufbnyXKNvH6Q26GiEdCtuMtUdoPfLyTB7ALKr/DPOt7iqPs6j5bvQyOu3OsGx5Jo8EPaFwNnRBO0EaoSN2nvZ9RXz0e4XcR/kM/2XyscorxA5Hy2hUG2yUdxlvsr1E7nS7quCfAtIcE1kLHTzJezlJzUzIznIgUJ6WeQDWRaySZ1OoBPDx4LwS19oNrLYLaHf2FW5oaSbO6HHaRixSFIXPtmJyVpNeYD/QIlWIpd4uMmHYqHmZ6QJiTDg4GTEyYjlazQPTclE2E+5FGe3M6cdemHxfoIS1Q8P/1DgpKCH4IXWLtc7ZnQtHKVwZCsjaBTKpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dKQtOyRkz5+WPtir3GirxqfxFG9EnfV5sTKwbH5cLf0=;
- b=CIN+1EED8+7y4VuwVSusfaXPKOiw+AluxQdGWDoKI7JbKsUlQY50SYV5zQfGGQLwkAFhedkbvawocIiKhM0Afz/VLXt/RArDdY66yvMixcjrUS3/qKTbcHtKsWA/aTBeFSkK0G5dtsQKYhM+o0l9b3+/NgB6InxXJDnBlr1sG1MqhKcKEUqZg6LdwvOSk/ie+AJY/wq1XpOjykW2kJc+GVE8z+fReh8WqWzTTyPbjpxinG7MHyX4YknOe8wuUvGq09ReRKuosZCx0vrYBiAtSJFnIJ4+kgTu6Pi5Opr3JKoHBzUZh4MzNwTWg5IR1eT07vy30RrD9K5mEToca1Aryw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dKQtOyRkz5+WPtir3GirxqfxFG9EnfV5sTKwbH5cLf0=;
- b=35CLdqK1JcnHPCEBZbzjCSwku451ac8ZU9osJ1fiJRW0U39XJTsXEtJp5LAZ33d9ZSa3m8PnBKyoKoDYPuk5M5vcxO5ZycLBcHjfbyBdqxR8X03hTLqpC9VZsIPOsfyIZ2YsMC9/e0xulaW36wEiw6XFbEdgs89aDMow1StaSz4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <d92fbb2b-4b2f-4647-a3f3-98d1a2c49537@amd.com>
-Date: Mon, 8 Jan 2024 08:04:39 +0100
+X-Inumbo-ID: 3fa5da62-adfc-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1704700940; x=1705305740; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=IP0J/gc1cKkC2WQdgSoJCEL9qdkY5gJvuh1HTYVz+48=;
+        b=ZiASWElWoLRql8ZQxUqBmDxSFMLfJ2K1X94u7eY3i3mJxRb9QY5SLDMMNCaqztDEhV
+         ZfHFBrcHdgyDMFvjGC4tIkopwyLyK8+dR+xVY0M+RbrJJ57uMlFRcdroRuNYSyr8JahK
+         eOLaqZeln7WT61lVAXdRdYSX9V7/Kq9pxR/HwPyjh5w9Ww+i2XbZshnueoEbNKYxd6IS
+         KNcy7fIoGlmbUXN+ir1a3dGfMf9G8KbF1+8dwO28UsU98/j2r1f+mjHU0hJUK7LDxwky
+         odBKbDrLZML6ak7I9XlNHYnLXU94XZHqSiA+7Wws1mK8wItkiqTg9VK0iZu+f4l9hm0Q
+         VtYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704700940; x=1705305740;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=IP0J/gc1cKkC2WQdgSoJCEL9qdkY5gJvuh1HTYVz+48=;
+        b=BHD8KxUkdVWSFcH/gr7PxZisym6umVD2U2PQq7xm8+lz0J4aBFoYD6N9gM0v0shuYz
+         RavNLY2B21Njri2vndWDIOCayswIiNI+sPkxqt7aO6mfFERuk7rBlEcia6UruR7kkXIC
+         171Ssp5n0t2rU+/il7mfKkLJ8qjfbNCvGfTfFVAh1+FHL+OsEDV/FbjKOe1fe+8uwfNU
+         cc77cs62BXIOSn5MUGAZ9PpPoizQyGo5NtdzMURMRBMkzghM+mtv4MIZek2O0gynWeys
+         fszhdDExSoTgoz3qWb2nN3KKwIkQUNnnVU0qK+9jZfYpmlmUpeiQRZrkAm4KBFycG8El
+         kpDA==
+X-Gm-Message-State: AOJu0YzcnZz3i4bBTTssUU/0s9sy/e66gavq9bAtmDG7swaJmU1z01Jk
+	4jbAoZ16RTVh08mNpG46E7XemtKfzwQj
+X-Google-Smtp-Source: AGHT+IGjm6de7jJJXXe98z19VxmQOH9enykjklk+L2VFo8TI48OyGZQhYPa0+tXALcMHo+6KYZ2QWA==
+X-Received: by 2002:a19:6556:0:b0:50e:b413:400f with SMTP id c22-20020a196556000000b0050eb413400fmr1127758lfj.49.1704700940097;
+        Mon, 08 Jan 2024 00:02:20 -0800 (PST)
+Message-ID: <192c393a-3702-4cc3-af60-e2711098ec6d@suse.com>
+Date: Mon, 8 Jan 2024 09:02:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [XEN v3 3/3] xen/arm: arm32: Add emulation of Debug Data Transfer
- Registers
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>
-References: <20240105112156.154807-1-ayan.kumar.halder@amd.com>
- <20240105112156.154807-4-ayan.kumar.halder@amd.com>
+Subject: Re: [XEN RFC] x86/uaccess: remove __{put,get}_user_bad()
 Content-Language: en-US
-In-Reply-To: <20240105112156.154807-4-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|CH3PR12MB8511:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48965583-2229-4e60-a3f7-08dc1018190e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	0nRmXWzDk2ZUEgOHGscH15lnjqHPXdItKOtNfr0JdQuFasxhrsTz/R6IwNo65agJ0rnGUJGQddWPqMSXSLDEoYmO7yupcGOUZb9L0ZHv1t6M2rAtVbIS0lMsrmbI0vHj+AGryYdpmthv7DKO6d/reHK73mjUp/zr2IVYl9S7vuUv6+mOqP1BgBp3vbGcm9IxaLpCxBoDzG/Tje37wKLKjZoB7yF+KLFxSXsW/fhTzRU9RWUhsZ+/Mr3lTXaYdhqda+DepCoAna/xxwTD5hG4xQjOJGJpb7r0+Gf9KOZn9ullONTqnzYGm0p9RnosawIJ8GKetO7NP7b9XLHatIPMiVV2yR+NY5fT8ae/A0vRCxXb/YA0n4E5dXDi5d1VAsrvUjEKDE7LrbXTVm0l16daBW0lznq04KsWTXIWit7m5nr76e+Vmkkl6xzuL8OL75kkvG5ZMZLYMvDIKqhAgy1HuE8osHguAzlkRZiHKg78MojS5X0LdFbeM4VAtVL+a0GxrA3rwD5RMBnLVboimKRQo7LqEB5zAXms4OzKJYRcAqje3wZ4CrofhvXLqP6VKFRgjNngK0+jg9gVyueDn0tnA18zH1dV+ml7+Loo10R7DuzpTPn7YsLk2lNXdrXJR7tsRWscMiruPtdlsRB+5qfrHDzB9LT30+ypkQRRf9fUICO5X7keWsgCBLZoWSQLmu2XNerrh8HDbovDzuhvCYUVIJU6sa2PCRB4NlyoK8KYUDy1LAznzMwrycE0eXfSlHgbSU5ZitAon/M8Ke3e3xVzb+ot/rV2M8E/frscFi6XMn9nJmMqXzQ6XR1GEPejjL2+MziY4BUxvIP7fP9JpKxHikEciX3Vp8lez1cg6E1Sm0Y=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(376002)(396003)(136003)(230922051799003)(230273577357003)(230173577357003)(1800799012)(186009)(82310400011)(451199024)(64100799003)(46966006)(36840700001)(40470700004)(36860700001)(47076005)(2906002)(2616005)(26005)(70586007)(70206006)(41300700001)(31686004)(86362001)(40480700001)(40460700003)(31696002)(36756003)(82740400003)(81166007)(356005)(5660300002)(4326008)(316002)(16576012)(54906003)(110136005)(426003)(336012)(83380400001)(53546011)(6666004)(44832011)(478600001)(8936002)(8676002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2024 07:04:46.4636
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48965583-2229-4e60-a3f7-08dc1018190e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00026369.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8511
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+References: <9cf852da1c03b614bf5010132c58a18adc2a4161.1703155225.git.federico.serafini@bugseng.com>
+ <a2050ac1-e205-4d7f-b9b1-aa625136e63a@suse.com>
+ <0c5bbfde-4cf0-4878-b1ee-ccc8eb775464@citrix.com>
+ <eb53449bd6595ea0931460e62dd57b9c@bugseng.com>
+ <1330c757-1ca3-4b07-898b-799cbfa67e8a@suse.com>
+ <6a39fe3e-524f-4e39-81bc-ffb3d48ba306@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6a39fe3e-524f-4e39-81bc-ffb3d48ba306@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Ayan,
+On 05.01.2024 17:19, Federico Serafini wrote:
+> Hello everyone,
+> 
+> On 21/12/23 13:41, Jan Beulich wrote:
+>> On 21.12.2023 13:01, Nicola Vetrini wrote:
+>>> Hi Andrew,
+>>>
+>>> On 2023-12-21 12:03, Andrew Cooper wrote:
+>>>> On 21/12/2023 10:58 am, Jan Beulich wrote:
+>>>>> On 21.12.2023 11:53, Federico Serafini wrote:
+>>>>>> Remove declarations of __put_user_bad() and __get_user_bad()
+>>>>>> since they have no definition.
+>>>>>> Replace their uses with a break statement to address violations of
+>>>>>> MISRA C:2012 Rule 16.3 ("An unconditional `break' statement shall
+>>>>>> terminate every switch-clause").
+>>>>>> No functional change.
+>>>>>>
+>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>>> ---
+>>>>>> Several violations of Rule 16.3 come from uses of macros
+>>>>>> get_unsafe_size() and put_unsafe_size().
+>>>>>> Looking at the macro definitions I found __get_user_bad() and
+>>>>>> __put_user_bad().
+>>>>>> I was wondering if instead of just adding the break statement I can
+>>>>>> also remove
+>>>>>> such functions which seem to not have a definition.
+>>>>> No, you can't. Try introducing a caller which "accidentally" uses the
+>>>>> wrong size. Without your change you'll observe the build failing (in
+>>>>> a somewhat obscure way, but still), while with your change bad code
+>>>>> will silently be generated.
+>>>>
+>>>> The construct here is deliberate.  It's a build time assertion that bad
+>>>> sizes aren't used.
+>>>>
+>>>> __bitop_bad_size() and __xsm_action_mismatch_detected() are the same
+>>>> pattern in other areas of code too, with the latter being more explicit
+>>>> because of how it's wrapped by LINKER_BUG_ON().
+>>>>
+>>>>
+>>>> It is slightly horrible, and not the most obvious construct for
+>>>> newcomers.  If there's an alternative way to get a build assertion, we
+>>>> could consider switching to a new pattern.
+>>>
+>>> would you be in favour of a solution with a BUILD_BUG_ON in the default
+>>> branch followed by a break?
+>>>
+>>> default:
+>>>       BUILD_BUG_ON(!size || size >=8 || (size & (size - 1)));
+>>>       break;
+>>
+>> I don't think this would compile - BUILD_BUG_ON() wants a compile-time
+>> constant passed.
+> 
+> What do you think about adding the following macro to compiler.h:
+> 
+> #define static_assert_unreachable(identifier) \
+>      asm("unreachable " #identifier " reached")
+> 
+> It expands to an invalid assembly instruction that will lead to a
+> customizable error message generated by the assembler instead of the
+> linker (anticipating the error detection).
+> 
+> The use of this macro will indicate a program point considered
+> unreachable (and as such removed) by the static analysis performed by 
+> the compiler, even at an optimization level -O0.
+> 
+> An example of use is in the default case of put_unsafe_size():
+> 
+> default: static_assert_unreachable(default);
+> 
+> In case a wrong size will be used, the following message will be
+> generated:
+> 
+> ./arch/x86/include/asm/uaccess.h: Assembler messages:
+> ./arch/x86/include/asm/uaccess.h:257: Error: no such instruction: 
+> `unreachable default reached'
 
-On 05/01/2024 12:21, Ayan Kumar Halder wrote:
-> DBGOSLSR is emulated in the same way as its AArch64 variant (ie OSLSR_EL1).
-> This is to ensure that DBGOSLSR.OSLK is 0, thus MDSCR_EL1.TXfull is treated
-> as UNK/SBZP.
-No need for this dot and yet another thus (it reads difficult).
-You explained the OSLK bit, but you are not emulating this reg as ro_raz. Instead you
-copied the code from AArch64 (ro_read_val) which also sets OSLM[1] bit. Do we want the same handling
-given that Linux on arm32 does not make use of it?
+Nice idea. To take it one step further, why not simply use the .error
+assembler directive then?
 
-> Thus only MDCCSR_EL0 can be emulated (which is DBGDSCRINT on arm32).
-> DBGDSCRINT can be accessed at EL0 as DBGDSCREXT is emulated as RAZ (as
-> DBGOSLSR.OSLK == 0). DBGDSCRINT.TXfull is set to 1.
-Even though this patch comes after the one explaining the need of emulating DCC
-I would still expect some reasoning here. Someone reading the vcpreg code and checking the commit
-behind would not know the rationale behind this patch.
+> Note that adopting the macro and discussing its definition are two
+> separate things:
+> I think we can all agree on the fact that the use of such macro improves
+> readability, so I would suggest its adoption.
+> Whereas for its definition, if you don't like the invalid asm
+> instruction, we could discuss for a different solution, for example,
+> the following is something similar to what you are doing now:
+> 
+> #define static_assert_unreachable(identifier) \
+>      extern void identifier(void);             \
+>      identifier()
+> 
+> 
+> Note also that the problem of the missing break statement (that violates
+> Rule 16.3) is still present, it could be addressed by adding the break
+> or deviating for such special cases, do you have any preferences?
 
-Allowing access DBGDSCRINT from EL0 is a fix, so I would make it clear by starting a sentence
-with "Take the opportunity to fix the minimum EL for DBGDSCRINT ...".
+Amend the new macro's expansion by unreachable()?
 
-> 
-> Refer ARM DDI 0487J.a ID042523, G8.3.19, DBGDTRTXint
-> "If TXfull is set to 1, set DTRTX to UNKNOWN".
-> So, DBGDTR[TR]XINT is emulated as RAZ/WI.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> Changes from
-> 
-> v1 :- 1. DBGDTR_EL0 does not emulate RXfull. This is to avoid giving the OS any
-> indication that the RX buffer is full and is waiting to be read.
-> 
-> 2. In Arm32, DBGOSLSR is emulated. Also DBGDTRTXINT is emulated at EL0 only.
-> 
-> 3. Fixed the commit message and inline code comments.
-> 
-> v2 :- 1. Split the patch into two (separate patches for arm64 and arm32).
-> 2. Fixed in line comments and style related issues.
-> 3. Updated commit message to mention DBGDSCRINT handling.
-> 
->  xen/arch/arm/include/asm/cpregs.h |  2 ++
->  xen/arch/arm/vcpreg.c             | 36 ++++++++++++++++++++++---------
->  2 files changed, 28 insertions(+), 10 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
-> index 6b083de204..aec9e8f329 100644
-> --- a/xen/arch/arm/include/asm/cpregs.h
-> +++ b/xen/arch/arm/include/asm/cpregs.h
-> @@ -75,6 +75,8 @@
->  #define DBGDIDR         p14,0,c0,c0,0   /* Debug ID Register */
->  #define DBGDSCRINT      p14,0,c0,c1,0   /* Debug Status and Control Internal */
->  #define DBGDSCREXT      p14,0,c0,c2,2   /* Debug Status and Control External */
-> +#define DBGDTRRXINT     p14,0,c0,c5,0   /* Debug Data Transfer Register, Receive */
-> +#define DBGDTRTXINT     p14,0,c0,c5,0   /* Debug Data Transfer Register, Transmit */
->  #define DBGVCR          p14,0,c0,c7,0   /* Vector Catch */
->  #define DBGBVR0         p14,0,c0,c0,4   /* Breakpoint Value 0 */
->  #define DBGBCR0         p14,0,c0,c0,5   /* Breakpoint Control 0 */
-> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
-> index a2d0500704..474f872b5f 100644
-> --- a/xen/arch/arm/vcpreg.c
-> +++ b/xen/arch/arm/vcpreg.c
-> @@ -493,11 +493,12 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
->       * ARMv8 (DDI 0487A.d): D1-1509 Table D1-58
->       *
->       * Unhandled:
-> -     *    DBGOSLSR
->       *    DBGPRCR
->       */
->      case HSR_CPREG32(DBGOSLAR):
->          return handle_wo_wi(regs, regidx, cp32.read, hsr, 1);
-> +    case HSR_CPREG32(DBGOSLSR):
-> +        return handle_ro_read_val(regs, regidx, cp32.read, hsr, 1, 1U << 3);
->      case HSR_CPREG32(DBGOSDLR):
->          return handle_raz_wi(regs, regidx, cp32.read, hsr, 1);
->  
-> @@ -509,8 +510,6 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
->       *
->       * Unhandled:
->       *    DBGDCCINT
-> -     *    DBGDTRRXint
-> -     *    DBGDTRTXint
->       *    DBGWFAR
->       *    DBGDTRTXext
->       *    DBGDTRRXext,
-> @@ -549,11 +548,24 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
->      }
->  
->      case HSR_CPREG32(DBGDSCRINT):
-> +    {
->          /*
-> -         * Read-only register. Accessible by EL0 if DBGDSCRext.UDCCdis
-> -         * is set to 0, which we emulated below.
-> +         * Xen doesn't expose a real (or emulated) Debug Communications Channel
-> +         * (DCC) to a domain. Yet the Arm ARM implies this is not an optional
-> +         * feature. So some domains may start to probe it. For instance, the
-> +         * HVC_DCC driver in Linux (since f377775dc083 and at least up to v6.7),
-> +         * will try to write some characters and check if the transmit buffer
-> +         * has emptied. By setting TX status bit to indicate the transmit buffer
-> +         * is full. This we would hint the OS that the DCC is probably not
-> +         * working.
-> +         *
-> +         * Bit 29: TX full
-> +         *
-> +         * Accessible by EL0 if DBGDSCRext.UDCCdis is set to 0, which we emulate
-> +         * as RAZ/WI in the next case.
->           */
-> -        return handle_ro_raz(regs, regidx, cp32.read, hsr, 1);
-> +        return handle_ro_read_val(regs, regidx, cp32.read, hsr, 0, 1U << 29);
-> +    }
->  
->      case HSR_CPREG32(DBGDSCREXT):
->          /*
-> @@ -562,6 +574,13 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
->           */
->          return handle_raz_wi(regs, regidx, cp32.read, hsr, 1);
->  
-> +#ifdef CONFIG_PARTIAL_EMULATION
-> +    /* DBGDTR[TR]XINT share the same encoding */
-> +    case HSR_CPREG32(DBGDTRTXINT):
-> +        if ( opt_partial_emulation )
-> +            return handle_raz_wi(regs, regidx, cp32.read, hsr, 0);
-> +#endif
-> +
->      case HSR_CPREG32(DBGVCR):
->      case HSR_CPREG32(DBGBVR0):
->      case HSR_CPREG32(DBGBCR0):
-> @@ -659,10 +678,7 @@ void do_cp14_dbg(struct cpu_user_regs *regs, const union hsr hsr)
->       * ARMv8 (DDI 0487A.d): D1-1509 Table D1-58
->       *
->       * Unhandled:
-> -     *    DBGDTRTXint
-> -     *    DBGDTRRXint
-> -     *
-> -     * And all other unknown registers.
-> +     * All unknown registers.
->       */
->      gdprintk(XENLOG_ERR,
->               "%s p14, %d, r%d, r%d, cr%d @ 0x%"PRIregister"\n",
-
-Same comments apply as for the arm64 patch.
-
-~Michal
-
+Jan
 
