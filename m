@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CE90826C0E
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 12:05:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663382.1033249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE13826C5E
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 12:16:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663387.1033257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMnRN-00079B-9g; Mon, 08 Jan 2024 11:05:09 +0000
+	id 1rMnc7-0001cH-4q; Mon, 08 Jan 2024 11:16:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663382.1033249; Mon, 08 Jan 2024 11:05:09 +0000
+Received: by outflank-mailman (output) from mailman id 663387.1033257; Mon, 08 Jan 2024 11:16:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMnRN-00076I-5w; Mon, 08 Jan 2024 11:05:09 +0000
-Received: by outflank-mailman (input) for mailman id 663382;
- Mon, 08 Jan 2024 11:05:07 +0000
+	id 1rMnc7-0001aD-20; Mon, 08 Jan 2024 11:16:15 +0000
+Received: by outflank-mailman (input) for mailman id 663387;
+ Mon, 08 Jan 2024 11:16:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pvth=IS=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rMnRL-00076C-Pf
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 11:05:07 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ <SRS0=O4yG=IS=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
+ id 1rMnc5-0001a7-Ax
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 11:16:13 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c762f8a5-ae15-11ee-98ef-6d05b1d4d9a1;
- Mon, 08 Jan 2024 12:05:05 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a28ee72913aso464795366b.1
- for <xen-devel@lists.xenproject.org>; Mon, 08 Jan 2024 03:05:06 -0800 (PST)
+ id 4fe8dc72-ae17-11ee-98ef-6d05b1d4d9a1;
+ Mon, 08 Jan 2024 12:16:04 +0100 (CET)
+Received: from [192.168.1.15] (host-79-44-205-232.retail.telecomitalia.it
+ [79.44.205.232])
+ by support.bugseng.com (Postfix) with ESMTPSA id DDB614EE0741;
+ Mon,  8 Jan 2024 12:16:03 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,122 +40,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c762f8a5-ae15-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1704711906; x=1705316706; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hzBzOiJjjKRatGkqE625KGrqN78Lf2l8iURJUB7hef8=;
-        b=HKP6E6ySmxL7iTclUs81g/d1lABZPcaP3igvH6ySnhsbfrL+wBdFqLtshDZGG3Xkjh
-         ymP/51XGTQ3kI5xjKLqoaqjDagwCW6zlutX5oZIBQnt6WnF6r53QeAhfZfFx2MlU/uL7
-         n0l34LAWUDPOMppYLVNa6WTsa8kbjDzwhYe817zenWAbY3SYWe82FUZEzcnAGmZAOmAO
-         mjUGZvFFyiYV0IeLhJSt+USpEi1t005gdVp+QWOdm9ZVXKxpQYYHDhyzci3Ifrn6tgi8
-         lX0IO0AoAR1zbJLKP4dZnb5914UQ7mauczPsuN6QuzWmeTCiyL6tDE5uANE729VxeEOB
-         YEPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704711906; x=1705316706;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=hzBzOiJjjKRatGkqE625KGrqN78Lf2l8iURJUB7hef8=;
-        b=wMzPKOx5GS60LZki9/B1o6ATZGgBORzF84lkgrh2i8YLmktyjkaOWCv5OSwZs98HB6
-         wqGYRIUURUtMRafmknLNOFHIlaEAYGTK2UHYDYKgs3aJNINTdcnL+iOdFurNvq1WDLz7
-         qhH0qq7nG6pdk3+jD/eflL2Ndq02O38rtY2vERiQpuCWjKQmzyAdWL7EOHBhiQNZrGYT
-         Pz2EQbJvQkjEagBgRPB9ji+2xv3WWn9mN4KQV8C4z8I2dtk4GgEvOHyIobaSp/1RwDz1
-         Q/ybh8W5GRAdmt8hSJDSN++lglb4QX/exmd90PNtvEIIN46ls8LWxMvtst6+4YLsrkMH
-         DHVA==
-X-Gm-Message-State: AOJu0YyAoivltJIM236+pEFWd8cltA6aiFRxqc6L4uOSamyPoa0SSnh4
-	AGLd6LYMGSEWNi6B1zZrew5VzKZ60JOTRGhCnucOQgQm8mtfjw==
-X-Google-Smtp-Source: AGHT+IH0ixCVGk4ir9/GNqwUzNgs9ARhzPG9aE2ItNt9uYje7NuQlqtPxK8XSEPArL9+qpqVYDIGLXJiGZCRtFMCZvs=
-X-Received: by 2002:a17:906:b10f:b0:a29:b31d:1dc6 with SMTP id
- u15-20020a170906b10f00b00a29b31d1dc6mr3442227ejy.6.1704711905728; Mon, 08 Jan
- 2024 03:05:05 -0800 (PST)
+X-Inumbo-ID: 4fe8dc72-ae17-11ee-98ef-6d05b1d4d9a1
+Message-ID: <8fa1f868-c7de-4a46-a827-a75c38513f6f@bugseng.com>
+Date: Mon, 8 Jan 2024 12:16:03 +0100
 MIME-Version: 1.0
-References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-4-carlo.nonato@minervasys.tech> <046e9949-d126-42b1-90a6-12af540d63bf@xen.org>
- <CAG+AhRWm4N7GV3HfkTNCvXQw7-6Woq=+zBqdHAgN=-PgGr-WRg@mail.gmail.com>
- <0905b0f4-9a5e-48c7-8764-58cdd440130f@xen.org> <CAG+AhRVL8_YMkw+Z4EcTLZgM7m10+9DToSkaeNLMaFY3gcng7Q@mail.gmail.com>
- <4f8b3a59-c277-4f2e-a9de-82ea9ce2eda0@xen.org>
-In-Reply-To: <4f8b3a59-c277-4f2e-a9de-82ea9ce2eda0@xen.org>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Mon, 8 Jan 2024 12:04:54 +0100
-Message-ID: <CAG+AhRUE8MQjW=1rLsp79=MisUtjiB-5daXYz8S6-8JX6kAosA@mail.gmail.com>
-Subject: Re: [PATCH v5 03/13] xen/arm: add Dom0 cache coloring support
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
-	Marco Solieri <marco.solieri@minervasys.tech>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN RFC] x86/uaccess: remove __{put,get}_user_bad()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>
+References: <9cf852da1c03b614bf5010132c58a18adc2a4161.1703155225.git.federico.serafini@bugseng.com>
+ <a2050ac1-e205-4d7f-b9b1-aa625136e63a@suse.com>
+ <0c5bbfde-4cf0-4878-b1ee-ccc8eb775464@citrix.com>
+ <eb53449bd6595ea0931460e62dd57b9c@bugseng.com>
+ <1330c757-1ca3-4b07-898b-799cbfa67e8a@suse.com>
+ <6a39fe3e-524f-4e39-81bc-ffb3d48ba306@bugseng.com>
+ <192c393a-3702-4cc3-af60-e2711098ec6d@suse.com>
+Content-Language: en-US, it
+From: Federico Serafini <federico.serafini@bugseng.com>
+Organization: BUGSENG srl
+In-Reply-To: <192c393a-3702-4cc3-af60-e2711098ec6d@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Julien,
+On 08/01/24 09:02, Jan Beulich wrote:
+> On 05.01.2024 17:19, Federico Serafini wrote:
+>> Hello everyone,
+>>
+>> On 21/12/23 13:41, Jan Beulich wrote:
+>>> On 21.12.2023 13:01, Nicola Vetrini wrote:
+>>>> Hi Andrew,
+>>>>
+>>>> On 2023-12-21 12:03, Andrew Cooper wrote:
+>>>>> On 21/12/2023 10:58 am, Jan Beulich wrote:
+>>>>>> On 21.12.2023 11:53, Federico Serafini wrote:
+>>>>>>> Remove declarations of __put_user_bad() and __get_user_bad()
+>>>>>>> since they have no definition.
+>>>>>>> Replace their uses with a break statement to address violations of
+>>>>>>> MISRA C:2012 Rule 16.3 ("An unconditional `break' statement shall
+>>>>>>> terminate every switch-clause").
+>>>>>>> No functional change.
+>>>>>>>
+>>>>>>> Signed-off-by: Federico Serafini <federico.serafini@bugseng.com>
+>>>>>>> ---
+>>>>>>> Several violations of Rule 16.3 come from uses of macros
+>>>>>>> get_unsafe_size() and put_unsafe_size().
+>>>>>>> Looking at the macro definitions I found __get_user_bad() and
+>>>>>>> __put_user_bad().
+>>>>>>> I was wondering if instead of just adding the break statement I can
+>>>>>>> also remove
+>>>>>>> such functions which seem to not have a definition.
+>>>>>> No, you can't. Try introducing a caller which "accidentally" uses the
+>>>>>> wrong size. Without your change you'll observe the build failing (in
+>>>>>> a somewhat obscure way, but still), while with your change bad code
+>>>>>> will silently be generated.
+>>>>>
+>>>>> The construct here is deliberate.  It's a build time assertion that bad
+>>>>> sizes aren't used.
+>>>>>
+>>>>> __bitop_bad_size() and __xsm_action_mismatch_detected() are the same
+>>>>> pattern in other areas of code too, with the latter being more explicit
+>>>>> because of how it's wrapped by LINKER_BUG_ON().
+>>>>>
+>>>>>
+>>>>> It is slightly horrible, and not the most obvious construct for
+>>>>> newcomers.  If there's an alternative way to get a build assertion, we
+>>>>> could consider switching to a new pattern.
+>>>>
+>>>> would you be in favour of a solution with a BUILD_BUG_ON in the default
+>>>> branch followed by a break?
+>>>>
+>>>> default:
+>>>>        BUILD_BUG_ON(!size || size >=8 || (size & (size - 1)));
+>>>>        break;
+>>>
+>>> I don't think this would compile - BUILD_BUG_ON() wants a compile-time
+>>> constant passed.
+>>
+>> What do you think about adding the following macro to compiler.h:
+>>
+>> #define static_assert_unreachable(identifier) \
+>>       asm("unreachable " #identifier " reached")
+>>
+>> It expands to an invalid assembly instruction that will lead to a
+>> customizable error message generated by the assembler instead of the
+>> linker (anticipating the error detection).
+>>
+>> The use of this macro will indicate a program point considered
+>> unreachable (and as such removed) by the static analysis performed by
+>> the compiler, even at an optimization level -O0.
+>>
+>> An example of use is in the default case of put_unsafe_size():
+>>
+>> default: static_assert_unreachable(default);
+>>
+>> In case a wrong size will be used, the following message will be
+>> generated:
+>>
+>> ./arch/x86/include/asm/uaccess.h: Assembler messages:
+>> ./arch/x86/include/asm/uaccess.h:257: Error: no such instruction:
+>> `unreachable default reached'
+> 
+> Nice idea. To take it one step further, why not simply use the .error
+> assembler directive then?
 
-On Mon, Jan 8, 2024 at 11:25=E2=80=AFAM Julien Grall <julien@xen.org> wrote=
-:
->
-> Hi Carlo,
->
-> On 08/01/2024 10:06, Carlo Nonato wrote:
-> >> One of the reason is at least in the dom0less case, you will override
-> >> the value afterwards.
-> >
-> > In that case I need to allocate the array before parsing the string.
-> > I allocate a full array then the string is parsed and the actual size i=
-s found
-> > at the end of this phase. Knowing the actual size would require two par=
-sing
-> > stages. Yes I'm wasting a bit of memory by oversizing the array here. I=
-s it
-> > a problem?
->
-> While wasting memory is indeed not nice. This wasn't the main reason of
-> this comment.
->
-> The reason is that you seem to set d->num_lcc_colors will but will never
-> be read before it gets overwritten. Looking again at the code, you are
-> also assuming parse_colors() will always take an array of nr_colors.
+It seems good.
 
-Ok, I think I understood, but that happens only in dom0less case because
-d->num_llc_colors is overwritten after parsing. In other cases it's ok to s=
-et
-it there. Anyway I can move the assignment out of the function if that is
-clearer.
+> 
+>> Note that adopting the macro and discussing its definition are two
+>> separate things:
+>> I think we can all agree on the fact that the use of such macro improves
+>> readability, so I would suggest its adoption.
+>> Whereas for its definition, if you don't like the invalid asm
+>> instruction, we could discuss for a different solution, for example,
+>> the following is something similar to what you are doing now:
+>>
+>> #define static_assert_unreachable(identifier) \
+>>       extern void identifier(void);             \
+>>       identifier()
+>>
+>>
+>> Note also that the problem of the missing break statement (that violates
+>> Rule 16.3) is still present, it could be addressed by adding the break
+>> or deviating for such special cases, do you have any preferences?
+> 
+> Amend the new macro's expansion by unreachable()?
 
-> It would be better if parse_colors() takes the maximum size of the array
-> in parameter. This would harden the code and it makes more sense for
-> domain_alloc_colors() to set d->num_lcc_colors.
+It would work only if we also add macro unreachable() to the allowed
+statements that can terminate a switch-clause.
 
-I don't understand this. parse_colors() must take only arrays of nr_colors
-size (the global, maximum number of colors), otherwise the parsed string
-config could exceed the array size. Since we don't know in advance the real
-size before parsing, I think it's better to pass only arrays that are alrea=
-dy
-allocated with the maximum size.
-Doing as you said I would still pass nr_colors as the maximum size, but tha=
-t
-would be strange since the global would still be accessible.
-If domain_alloc_colors() setting d->num_llc_colors is so confusing,
-I will just move the assignment after the function call.
+I'll take this opportunity to clarify the Rule 16.3 and the deviation
+system of ECLAIR for this rule (adding Julien in CC, he might be
+interested in this).
+The rationale of 16.3 is the avoidance of unintentional fall through.
+To do this, the rule says to put an unconditional break statement at
+the end of every switch-clause.
 
-> Also, I just noticed you have a global variable named nr_colors and the
-> function parse_colors() takes an argument called *num_colors. This is
-> quite confusing, can we have better name?
->
-> Maybe rename nr_colors to nr_global_colors and and num_colors to
-> nr_array_colors?
+Nothing is said about the semantics of the code within the
+switch-clause, e.g., the rule does not take into account if the fall
+through cannot happen because the code returns in every feasible path.
+The reason behind this is to keep the rule as simple as possible and
+above all, keep the rule to be decidable.
 
-I agree with the fact that naming is confusing. I would opt for max_nr_colo=
-rs
-for the global.
+Given the fact that 16.3 is a purely syntactic (and hence decidable)
+rule, the deviations that can be configured within ECLAIR are
+consequently purely syntactic.
+Currently, we configured the tool to allow also unconditional return,
+unconditional goto and unconditional continue as terminating statements.
+This means that, if you want also to deviate switch-clauses terminating
+with:
 
-Thanks.
+if ( cond ) return x; else return y;
 
-> Cheers,
->
-> --
-> Julien Grall
+then we need to explicitly configure the tool to consider also
+an if statement having this particular shape as allowed terminal
+statement (which is something I would not suggest since a rewriting
+would address the violation).
+
+The same applies to unreachable().
+No semantics checks are performed for Rule 16.3,
+hence we will need to add it to the allowed terminal statements.
+
+-- 
+Federico Serafini, M.Sc.
+
+Software Engineer, BUGSENG (http://bugseng.com)
 
