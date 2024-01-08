@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AC2A826854
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 07:59:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.663195.1033030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3B0B826864
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 08:05:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663200.1033040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMjbo-0003hm-4g; Mon, 08 Jan 2024 06:59:40 +0000
+	id 1rMjgv-0005J2-Qb; Mon, 08 Jan 2024 07:04:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 663195.1033030; Mon, 08 Jan 2024 06:59:40 +0000
+Received: by outflank-mailman (output) from mailman id 663200.1033040; Mon, 08 Jan 2024 07:04:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMjbo-0003g3-1h; Mon, 08 Jan 2024 06:59:40 +0000
-Received: by outflank-mailman (input) for mailman id 663195;
- Mon, 08 Jan 2024 06:59:37 +0000
+	id 1rMjgv-0005H5-Ng; Mon, 08 Jan 2024 07:04:57 +0000
+Received: by outflank-mailman (input) for mailman id 663200;
+ Mon, 08 Jan 2024 07:04:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=j0y/=IS=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rMjbl-0003fx-UX
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 06:59:37 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20627.outbound.protection.outlook.com
- [2a01:111:f400:7e88::627])
+ id 1rMjgu-0005Gz-3I
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 07:04:56 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2009::600])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ad3c777-adf3-11ee-9b0f-b553b5be7939;
- Mon, 08 Jan 2024 07:59:35 +0100 (CET)
-Received: from SA0PR11CA0097.namprd11.prod.outlook.com (2603:10b6:806:d1::12)
- by BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
+ id 380181b2-adf4-11ee-9b0f-b553b5be7939;
+ Mon, 08 Jan 2024 08:04:52 +0100 (CET)
+Received: from SA0PR11CA0100.namprd11.prod.outlook.com (2603:10b6:806:d1::15)
+ by CH3PR12MB8511.namprd12.prod.outlook.com (2603:10b6:610:15c::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.21; Mon, 8 Jan
- 2024 06:59:31 +0000
-Received: from SA2PEPF00001507.namprd04.prod.outlook.com
- (2603:10b6:806:d1:cafe::3d) by SA0PR11CA0097.outlook.office365.com
- (2603:10b6:806:d1::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Mon, 8 Jan
+ 2024 07:04:47 +0000
+Received: from SN1PEPF00026369.namprd02.prod.outlook.com
+ (2603:10b6:806:d1:cafe::5d) by SA0PR11CA0100.outlook.office365.com
+ (2603:10b6:806:d1::15) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.21 via Frontend
- Transport; Mon, 8 Jan 2024 06:59:31 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- SA2PEPF00001507.mail.protection.outlook.com (10.167.242.39) with Microsoft
+ Transport; Mon, 8 Jan 2024 07:04:46 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.12 via Frontend Transport; Mon, 8 Jan 2024 06:59:30 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.7181.13 via Frontend Transport; Mon, 8 Jan 2024 07:04:46 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 8 Jan
- 2024 00:59:30 -0600
+ 2024 01:04:46 -0600
 Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Mon, 8 Jan 2024 00:59:29 -0600
+ Transport; Mon, 8 Jan 2024 01:04:44 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,95 +59,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ad3c777-adf3-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 380181b2-adf4-11ee-9b0f-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T6O5ih3hTc8Zfb1+6ouhSU6xt4x8iIpaxRIJVmtH18Gl+WEZ1hCcwgZIHQYV75F3GJ7e5NA2NtlwgD+swh8QvrVaPTbk1pBsJo2p+RDrVl7mdOJOOFB5EmgKSOy8QoChxUsnD+LE22ZHuhHRmzC9VS2360Aiu0OlxPrKDCXEYYgXnO2AJdEqoj5omLPVuO26f9zEJdOwJkhXzTzWY/oSMpCVXiAZ4OvYjB3rk12EDB1kDMTSA0JFR161oBjTa1HlxWVwxGSaHRLEoj8QHuYv+1zWQaGIhcVj6nvUE/EyNkjZwyoDyNraiH4lxcGiiR7FIhoIqbQIeVDow9PnaVJ99A==
+ b=D/NfQfHS2wqN+6xs2nJufbnyXKNvH6Q26GiEdCtuMtUdoPfLyTB7ALKr/DPOt7iqPs6j5bvQyOu3OsGx5Jo8EPaFwNnRBO0EaoSN2nvZ9RXz0e4XcR/kM/2XyscorxA5Hy2hUG2yUdxlvsr1E7nS7quCfAtIcE1kLHTzJezlJzUzIznIgUJ6WeQDWRaySZ1OoBPDx4LwS19oNrLYLaHf2FW5oaSbO6HHaRixSFIXPtmJyVpNeYD/QIlWIpd4uMmHYqHmZ6QJiTDg4GTEyYjlazQPTclE2E+5FGe3M6cdemHxfoIS1Q8P/1DgpKCH4IXWLtc7ZnQtHKVwZCsjaBTKpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rajwxt7GjUZEjv59/gxjbv/KqtUjJWYAr3Kb9Y4lOsM=;
- b=JVDlyicRx/NYRrsbkNuK/x9+fvIWfnEB+ZYmfpnGctMEvWj77E1mr0ZC0KEGV6x0xPkheoWSIDtJW/pHly5ImSNxs8J3Q1tKkipkf4UeNPZW/nQeUFK59uAyhVnnTUoN5aOmHXEF2kM1MnhRdI0Xn88FkNVAqOwIFP5876veA9WVJ2n5VdYZuSzma7yAgOb+35bEpnIFAXsWqvk+cMdp1upl/z/u17MbSGp9zFM6BntgUIfA7gD3aResflIRkvxd3QyvTjLYW3zalC8wgL3mxlxSJTB/4ebVZOW2asO3Y/tsYHjAZSNOJnWwvXLvsvwOKT98FKdv9WrOD9GwfhL0Cg==
+ bh=dKQtOyRkz5+WPtir3GirxqfxFG9EnfV5sTKwbH5cLf0=;
+ b=CIN+1EED8+7y4VuwVSusfaXPKOiw+AluxQdGWDoKI7JbKsUlQY50SYV5zQfGGQLwkAFhedkbvawocIiKhM0Afz/VLXt/RArDdY66yvMixcjrUS3/qKTbcHtKsWA/aTBeFSkK0G5dtsQKYhM+o0l9b3+/NgB6InxXJDnBlr1sG1MqhKcKEUqZg6LdwvOSk/ie+AJY/wq1XpOjykW2kJc+GVE8z+fReh8WqWzTTyPbjpxinG7MHyX4YknOe8wuUvGq09ReRKuosZCx0vrYBiAtSJFnIJ4+kgTu6Pi5Opr3JKoHBzUZh4MzNwTWg5IR1eT07vy30RrD9K5mEToca1Aryw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rajwxt7GjUZEjv59/gxjbv/KqtUjJWYAr3Kb9Y4lOsM=;
- b=NpV2c1fJaHluqkalWnOgwANq+mlSRI4o0gHnJuEebBO60K6Z8cPy/eq2uMvkl6ajS39025yWIQdQiBeuOuyThvZRby18qTF7DlxglSO7HEAKs0wmllEszrlCBgaUrsZttts191kvrzDBvzfnMRDUBJo9hybUhA9+NMm+teRrNlQ=
+ bh=dKQtOyRkz5+WPtir3GirxqfxFG9EnfV5sTKwbH5cLf0=;
+ b=35CLdqK1JcnHPCEBZbzjCSwku451ac8ZU9osJ1fiJRW0U39XJTsXEtJp5LAZ33d9ZSa3m8PnBKyoKoDYPuk5M5vcxO5ZycLBcHjfbyBdqxR8X03hTLqpC9VZsIPOsfyIZ2YsMC9/e0xulaW36wEiw6XFbEdgs89aDMow1StaSz4=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <8da36c26-9e56-41df-8558-bd7f48274a37@amd.com>
-Date: Mon, 8 Jan 2024 07:59:28 +0100
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <d92fbb2b-4b2f-4647-a3f3-98d1a2c49537@amd.com>
+Date: Mon, 8 Jan 2024 08:04:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [XEN v3 2/3] xen/arm: arm64: Add emulation of Debug Data Transfer
+Subject: Re: [XEN v3 3/3] xen/arm: arm32: Add emulation of Debug Data Transfer
  Registers
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
 	<xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>
 References: <20240105112156.154807-1-ayan.kumar.halder@amd.com>
- <20240105112156.154807-3-ayan.kumar.halder@amd.com>
+ <20240105112156.154807-4-ayan.kumar.halder@amd.com>
 Content-Language: en-US
-In-Reply-To: <20240105112156.154807-3-ayan.kumar.halder@amd.com>
+In-Reply-To: <20240105112156.154807-4-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001507:EE_|BL1PR12MB5112:EE_
-X-MS-Office365-Filtering-Correlation-Id: debd1e3c-8f25-4f04-b05b-08dc10175ce4
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|CH3PR12MB8511:EE_
+X-MS-Office365-Filtering-Correlation-Id: 48965583-2229-4e60-a3f7-08dc1018190e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	TnHq8Vfkg4Rj+ZnChuMZLZ1qzRl9NNEyB16g01i/PyrHiAFrp/3qeFOyLHWhLAESosNXw6MdIoJv/KztheLOtmGkHCAr8nSByGmHeXn2Vh86bDXA2ZtqdxlxFSt1BAi7ga5VcNqNCMPRXLJW8IzkVDnyzyIIbw68vU2y8L5ibOBkyY8ZJSy0BVinBv2Fs15K9AYwzme5Xb4ZFXVl7/lVMzL/eWm3MOjBcuwoH0pSzK+DeAbCW1ej6sRyVBKZUGJJ5ASujtZKyIoot1ShfskfuZiNqGHpY/d+rfiSModNS94Cs1fWnhxRp8MGRyXPeW7aqCpfFWTgPjqXUWAJKPSuqGq1N9kLhn1dbqYaTkqiAANMlJRDL5jajea11VEaKqYe7DhBPug4x76qe2Ouv/wttzr8htvPC60f7+vhl7AUa+7WMegEUyk0n5clGZag3SKHDFStcX8Hc50rja7AkouS/wiksVtL48Sn51PSpEzhWRWTlBE74tM6TR8u3hp4/VQk0F16nJmPDd6ilVhTW7Hmtk21weQeed6dilGCH0lxeD2NhnqYBVeAJiQs704I10qxFv/doatVnZZXm3tYftfxVY5MXUUiIaEQjhm7XckPl7n7Xy3boHjy5jryom2TnH7XUp8uLXm3vfJ/+Sqo0kduSOBwW2MgIx8SSiPceNgk+7PHqxcRLZuXw+648Vv3W0EcswZSVNKpgtpOLW/4mi2Eiaa/0mzkegc1ZapHUJQZZz2RxQasGvqCp9DHDeOS6SVY/bGK1AhQMvT9ljEtUS8PY8tmWEXIaqMxgkMVZLW/IvVOEbyL8gTu5F6QTseRKuf7
+	0nRmXWzDk2ZUEgOHGscH15lnjqHPXdItKOtNfr0JdQuFasxhrsTz/R6IwNo65agJ0rnGUJGQddWPqMSXSLDEoYmO7yupcGOUZb9L0ZHv1t6M2rAtVbIS0lMsrmbI0vHj+AGryYdpmthv7DKO6d/reHK73mjUp/zr2IVYl9S7vuUv6+mOqP1BgBp3vbGcm9IxaLpCxBoDzG/Tje37wKLKjZoB7yF+KLFxSXsW/fhTzRU9RWUhsZ+/Mr3lTXaYdhqda+DepCoAna/xxwTD5hG4xQjOJGJpb7r0+Gf9KOZn9ullONTqnzYGm0p9RnosawIJ8GKetO7NP7b9XLHatIPMiVV2yR+NY5fT8ae/A0vRCxXb/YA0n4E5dXDi5d1VAsrvUjEKDE7LrbXTVm0l16daBW0lznq04KsWTXIWit7m5nr76e+Vmkkl6xzuL8OL75kkvG5ZMZLYMvDIKqhAgy1HuE8osHguAzlkRZiHKg78MojS5X0LdFbeM4VAtVL+a0GxrA3rwD5RMBnLVboimKRQo7LqEB5zAXms4OzKJYRcAqje3wZ4CrofhvXLqP6VKFRgjNngK0+jg9gVyueDn0tnA18zH1dV+ml7+Loo10R7DuzpTPn7YsLk2lNXdrXJR7tsRWscMiruPtdlsRB+5qfrHDzB9LT30+ypkQRRf9fUICO5X7keWsgCBLZoWSQLmu2XNerrh8HDbovDzuhvCYUVIJU6sa2PCRB4NlyoK8KYUDy1LAznzMwrycE0eXfSlHgbSU5ZitAon/M8Ke3e3xVzb+ot/rV2M8E/frscFi6XMn9nJmMqXzQ6XR1GEPejjL2+MziY4BUxvIP7fP9JpKxHikEciX3Vp8lez1cg6E1Sm0Y=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(376002)(39860400002)(346002)(396003)(230922051799003)(186009)(82310400011)(451199024)(1800799012)(64100799003)(36840700001)(46966006)(40470700004)(316002)(36860700001)(16576012)(336012)(426003)(110136005)(54906003)(31686004)(8936002)(47076005)(8676002)(36756003)(31696002)(83380400001)(44832011)(4326008)(53546011)(40460700003)(40480700001)(70586007)(70206006)(2616005)(478600001)(26005)(2906002)(82740400003)(5660300002)(41300700001)(81166007)(86362001)(356005)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(376002)(396003)(136003)(230922051799003)(230273577357003)(230173577357003)(1800799012)(186009)(82310400011)(451199024)(64100799003)(46966006)(36840700001)(40470700004)(36860700001)(47076005)(2906002)(2616005)(26005)(70586007)(70206006)(41300700001)(31686004)(86362001)(40480700001)(40460700003)(31696002)(36756003)(82740400003)(81166007)(356005)(5660300002)(4326008)(316002)(16576012)(54906003)(110136005)(426003)(336012)(83380400001)(53546011)(6666004)(44832011)(478600001)(8936002)(8676002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2024 06:59:30.7926
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2024 07:04:46.4636
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: debd1e3c-8f25-4f04-b05b-08dc10175ce4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48965583-2229-4e60-a3f7-08dc1018190e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF00001507.namprd04.prod.outlook.com
+	SN1PEPF00026369.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5112
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8511
 
 Hi Ayan,
 
 On 05/01/2024 12:21, Ayan Kumar Halder wrote:
-> From: Michal Orzel <michal.orzel@amd.com>
-> 
-> Currently if user enables HVC_DCC config option in Linux, it invokes access
-> to debug data transfer registers (ie DBGDTRTX_EL0 on arm64, DBGDTRTXINT on
-> arm32). As these registers are not emulated, Xen injects an undefined
-> exception to the VM and Linux (running as VM) crashes.
-> 
-> We wish to avoid this crash by adding a partial emulation of DBGDTRTX_EL0.
-> MDCCSR_EL0 is emulated as TXfull.
-> 
-> Refer ARM DDI 0487J.a ID042523, D19.3.8, DBGDTRTX_EL0
-> "If TXfull is set to 1, set DTRRX and DTRTX to UNKNOWN".
-> 
-> Thus, any OS is expected to read MDCCSR_EL0 and check for TXfull before
-> using DBGDTRTX_EL0. Linux does it via hvc_dcc_init() ---> hvc_dcc_check(),
-> it returns -ENODEV. In this way, we are preventing the VM from accessing
-> DBGDTRTX_EL0 register.
-AFAIK, we are preventing the VM from making use of HVC DCC as a console.
-DBGDTRTX_EL0 and MDCCSR_EL0 will be accessed at least once as part of hvc_dcc_check().
+> DBGOSLSR is emulated in the same way as its AArch64 variant (ie OSLSR_EL1).
+> This is to ensure that DBGOSLSR.OSLK is 0, thus MDSCR_EL1.TXfull is treated
+> as UNK/SBZP.
+No need for this dot and yet another thus (it reads difficult).
+You explained the OSLK bit, but you are not emulating this reg as ro_raz. Instead you
+copied the code from AArch64 (ro_read_val) which also sets OSLM[1] bit. Do we want the same handling
+given that Linux on arm32 does not make use of it?
+
+> Thus only MDCCSR_EL0 can be emulated (which is DBGDSCRINT on arm32).
+> DBGDSCRINT can be accessed at EL0 as DBGDSCREXT is emulated as RAZ (as
+> DBGOSLSR.OSLK == 0). DBGDSCRINT.TXfull is set to 1.
+Even though this patch comes after the one explaining the need of emulating DCC
+I would still expect some reasoning here. Someone reading the vcpreg code and checking the commit
+behind would not know the rationale behind this patch.
+
+Allowing access DBGDSCRINT from EL0 is a fix, so I would make it clear by starting a sentence
+with "Take the opportunity to fix the minimum EL for DBGDSCRINT ...".
 
 > 
-> We also emulate DBGDTR[TR]X_EL0 as RAZ/WI.
+> Refer ARM DDI 0487J.a ID042523, G8.3.19, DBGDTRTXint
+> "If TXfull is set to 1, set DTRTX to UNKNOWN".
+> So, DBGDTR[TR]XINT is emulated as RAZ/WI.
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 > Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 > ---
 > Changes from
@@ -160,81 +159,110 @@ DBGDTRTX_EL0 and MDCCSR_EL0 will be accessed at least once as part of hvc_dcc_ch
 > 3. Fixed the commit message and inline code comments.
 > 
 > v2 :- 1. Split the patch into two (separate patches for arm64 and arm32).
-> 2. Removed the "fail" label.
-> 3. Fixed the commit message.
+> 2. Fixed in line comments and style related issues.
+> 3. Updated commit message to mention DBGDSCRINT handling.
 > 
->  xen/arch/arm/arm64/vsysreg.c         | 25 +++++++++++++++++++++----
->  xen/arch/arm/include/asm/arm64/hsr.h |  3 +++
->  2 files changed, 24 insertions(+), 4 deletions(-)
+>  xen/arch/arm/include/asm/cpregs.h |  2 ++
+>  xen/arch/arm/vcpreg.c             | 36 ++++++++++++++++++++++---------
+>  2 files changed, 28 insertions(+), 10 deletions(-)
 > 
-> diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
-> index b5d54c569b..2f70eea2e5 100644
-> --- a/xen/arch/arm/arm64/vsysreg.c
-> +++ b/xen/arch/arm/arm64/vsysreg.c
-> @@ -159,9 +159,6 @@ void do_sysreg(struct cpu_user_regs *regs,
+> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
+> index 6b083de204..aec9e8f329 100644
+> --- a/xen/arch/arm/include/asm/cpregs.h
+> +++ b/xen/arch/arm/include/asm/cpregs.h
+> @@ -75,6 +75,8 @@
+>  #define DBGDIDR         p14,0,c0,c0,0   /* Debug ID Register */
+>  #define DBGDSCRINT      p14,0,c0,c1,0   /* Debug Status and Control Internal */
+>  #define DBGDSCREXT      p14,0,c0,c2,2   /* Debug Status and Control External */
+> +#define DBGDTRRXINT     p14,0,c0,c5,0   /* Debug Data Transfer Register, Receive */
+> +#define DBGDTRTXINT     p14,0,c0,c5,0   /* Debug Data Transfer Register, Transmit */
+>  #define DBGVCR          p14,0,c0,c7,0   /* Vector Catch */
+>  #define DBGBVR0         p14,0,c0,c0,4   /* Breakpoint Value 0 */
+>  #define DBGBCR0         p14,0,c0,c0,5   /* Breakpoint Control 0 */
+> diff --git a/xen/arch/arm/vcpreg.c b/xen/arch/arm/vcpreg.c
+> index a2d0500704..474f872b5f 100644
+> --- a/xen/arch/arm/vcpreg.c
+> +++ b/xen/arch/arm/vcpreg.c
+> @@ -493,11 +493,12 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
+>       * ARMv8 (DDI 0487A.d): D1-1509 Table D1-58
 >       *
 >       * Unhandled:
->       *    MDCCINT_EL1
-> -     *    DBGDTR_EL0
-> -     *    DBGDTRRX_EL0
-> -     *    DBGDTRTX_EL0
->       *    OSDTRRX_EL1
->       *    OSDTRTX_EL1
->       *    OSECCR_EL1
-> @@ -172,11 +169,31 @@ void do_sysreg(struct cpu_user_regs *regs,
->      case HSR_SYSREG_MDSCR_EL1:
->          return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
->      case HSR_SYSREG_MDCCSR_EL0:
+> -     *    DBGOSLSR
+>       *    DBGPRCR
+>       */
+>      case HSR_CPREG32(DBGOSLAR):
+>          return handle_wo_wi(regs, regidx, cp32.read, hsr, 1);
+> +    case HSR_CPREG32(DBGOSLSR):
+> +        return handle_ro_read_val(regs, regidx, cp32.read, hsr, 1, 1U << 3);
+>      case HSR_CPREG32(DBGOSDLR):
+>          return handle_raz_wi(regs, regidx, cp32.read, hsr, 1);
+>  
+> @@ -509,8 +510,6 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
+>       *
+>       * Unhandled:
+>       *    DBGDCCINT
+> -     *    DBGDTRRXint
+> -     *    DBGDTRTXint
+>       *    DBGWFAR
+>       *    DBGDTRTXext
+>       *    DBGDTRRXext,
+> @@ -549,11 +548,24 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
+>      }
+>  
+>      case HSR_CPREG32(DBGDSCRINT):
 > +    {
 >          /*
+> -         * Read-only register. Accessible by EL0 if DBGDSCRext.UDCCdis
+> -         * is set to 0, which we emulated below.
 > +         * Xen doesn't expose a real (or emulated) Debug Communications Channel
 > +         * (DCC) to a domain. Yet the Arm ARM implies this is not an optional
 > +         * feature. So some domains may start to probe it. For instance, the
 > +         * HVC_DCC driver in Linux (since f377775dc083 and at least up to v6.7),
 > +         * will try to write some characters and check if the transmit buffer
 > +         * has emptied. By setting TX status bit to indicate the transmit buffer
-> +         * is full, we would hint the OS that the DCC is probably not working.
+> +         * is full. This we would hint the OS that the DCC is probably not
+> +         * working.
 > +         *
 > +         * Bit 29: TX full
 > +         *
->           * Accessible at EL0 only if MDSCR_EL1.TDCC is set to 0. We emulate that
->           * register as RAZ/WI above. So RO at both EL0 and EL1.
+> +         * Accessible by EL0 if DBGDSCRext.UDCCdis is set to 0, which we emulate
+> +         * as RAZ/WI in the next case.
 >           */
-> -        return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr, 0);
-> +        return handle_ro_read_val(regs, regidx, hsr.sysreg.read, hsr, 0,
-> +                                  1U << 29);
-I would assume that if partial emulation is not enabled, we should stick to ro_raz
-instead of emulating TX set.
-
+> -        return handle_ro_raz(regs, regidx, cp32.read, hsr, 1);
+> +        return handle_ro_read_val(regs, regidx, cp32.read, hsr, 0, 1U << 29);
 > +    }
-> +#ifdef CONFIG_PARTIAL_EMULATION
-> +    case HSR_SYSREG_DBGDTR_EL0:
-> +    /* DBGDTR[TR]X_EL0 share the same encoding */
-> +    case HSR_SYSREG_DBGDTRTX_EL0:
-> +        if ( opt_partial_emulation )
-> +            return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 0);
-This is incorrect. What will happen if CONFIG_PARTIAL_EMULATION=y and opt_partial_emulation=false ?
-You would fall through to cases below and end up in RAZ/WI. Instead, you should jump to default case,
-so that we would inject undefined exception.
-
-> +#endif
->      HSR_SYSREG_DBG_CASES(DBGBVR):
->      HSR_SYSREG_DBG_CASES(DBGBCR):
->      HSR_SYSREG_DBG_CASES(DBGWVR):
-> diff --git a/xen/arch/arm/include/asm/arm64/hsr.h b/xen/arch/arm/include/asm/arm64/hsr.h
-> index e691d41c17..1495ccddea 100644
-> --- a/xen/arch/arm/include/asm/arm64/hsr.h
-> +++ b/xen/arch/arm/include/asm/arm64/hsr.h
-> @@ -47,6 +47,9 @@
->  #define HSR_SYSREG_OSDLR_EL1      HSR_SYSREG(2,0,c1,c3,4)
->  #define HSR_SYSREG_DBGPRCR_EL1    HSR_SYSREG(2,0,c1,c4,4)
->  #define HSR_SYSREG_MDCCSR_EL0     HSR_SYSREG(2,3,c0,c1,0)
-> +#define HSR_SYSREG_DBGDTR_EL0     HSR_SYSREG(2,3,c0,c4,0)
-> +#define HSR_SYSREG_DBGDTRTX_EL0   HSR_SYSREG(2,3,c0,c5,0)
-> +#define HSR_SYSREG_DBGDTRRX_EL0   HSR_SYSREG(2,3,c0,c5,0)
 >  
->  #define HSR_SYSREG_DBGBVRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,4)
->  #define HSR_SYSREG_DBGBCRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,5)
+>      case HSR_CPREG32(DBGDSCREXT):
+>          /*
+> @@ -562,6 +574,13 @@ void do_cp14_32(struct cpu_user_regs *regs, const union hsr hsr)
+>           */
+>          return handle_raz_wi(regs, regidx, cp32.read, hsr, 1);
+>  
+> +#ifdef CONFIG_PARTIAL_EMULATION
+> +    /* DBGDTR[TR]XINT share the same encoding */
+> +    case HSR_CPREG32(DBGDTRTXINT):
+> +        if ( opt_partial_emulation )
+> +            return handle_raz_wi(regs, regidx, cp32.read, hsr, 0);
+> +#endif
+> +
+>      case HSR_CPREG32(DBGVCR):
+>      case HSR_CPREG32(DBGBVR0):
+>      case HSR_CPREG32(DBGBCR0):
+> @@ -659,10 +678,7 @@ void do_cp14_dbg(struct cpu_user_regs *regs, const union hsr hsr)
+>       * ARMv8 (DDI 0487A.d): D1-1509 Table D1-58
+>       *
+>       * Unhandled:
+> -     *    DBGDTRTXint
+> -     *    DBGDTRRXint
+> -     *
+> -     * And all other unknown registers.
+> +     * All unknown registers.
+>       */
+>      gdprintk(XENLOG_ERR,
+>               "%s p14, %d, r%d, r%d, cr%d @ 0x%"PRIregister"\n",
+
+Same comments apply as for the arm64 patch.
 
 ~Michal
+
 
