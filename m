@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF90A827A13
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 22:14:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664082.1034229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D8C8279CE
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Jan 2024 21:59:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.663991.1034074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMwwz-0003Ts-Ko; Mon, 08 Jan 2024 21:14:25 +0000
+	id 1rMwim-0006t5-Gk; Mon, 08 Jan 2024 20:59:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664082.1034229; Mon, 08 Jan 2024 21:14:25 +0000
+Received: by outflank-mailman (output) from mailman id 663991.1034074; Mon, 08 Jan 2024 20:59:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rMwwz-0003Ri-Gg; Mon, 08 Jan 2024 21:14:25 +0000
-Received: by outflank-mailman (input) for mailman id 664082;
- Mon, 08 Jan 2024 21:14:23 +0000
+	id 1rMwim-0006my-CV; Mon, 08 Jan 2024 20:59:44 +0000
+Received: by outflank-mailman (input) for mailman id 663991;
+ Mon, 08 Jan 2024 20:59:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CNLN=IS=desiato.srs.infradead.org=BATV+a33e3d7a5f0474923369+7442+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rMwaZ-0000R6-HH
- for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 20:51:15 +0000
+ id 1rMwae-0000R6-Hh
+ for xen-devel@lists.xenproject.org; Mon, 08 Jan 2024 20:51:20 +0000
 Received: from desiato.infradead.org (desiato.infradead.org
  [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a7eac81c-ae67-11ee-9b0f-b553b5be7939;
- Mon, 08 Jan 2024 21:51:11 +0100 (CET)
+ id ab0ad459-ae67-11ee-9b0f-b553b5be7939;
+ Mon, 08 Jan 2024 21:51:17 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1rMwYm-007wXt-0F; Mon, 08 Jan 2024 20:49:24 +0000
+ id 1rMwYm-007wXu-0F; Mon, 08 Jan 2024 20:49:24 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.96.2 #2 (Red
- Hat Linux)) id 1rMwYl-002NGd-0y; Mon, 08 Jan 2024 20:49:23 +0000
+ Hat Linux)) id 1rMwYl-002NGi-1C; Mon, 08 Jan 2024 20:49:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: a7eac81c-ae67-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ab0ad459-ae67-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=fKzSEAzycsDrEiPWFhQoNqX9JuE8mZwP1mZzqxeZRVI=; b=heBk2HKstNixMCfGHrZOPLntIm
-	3ER50x76sGFR2x/zM4Mdza3n/WZnJmR281mpL1waE6lKWCg4EGMPULgiMZDSOgSE5jEjG7O5BYpL5
-	HPZF+v/DR9iBzkk7Rvd8f6AFxXoCJqlQSj5nfYekAsuL6wKs8mcZo/HvpRqcpeLT3Sg8wKV0euy8D
-	MCyQ8ppYR8RIsBhycfsDqXle4/codF94H9ZCTKDfsqVlzP3RYLTfLPgJv4acCK5aORbytCwpsTAFq
-	WF9F9NnrT/Iq0HqCfj/UIEYOXmtnOwbO7RzGBrfHRrGm5VL95TMhN64sMRjIsBT+OWZM4QMdqcIl9
-	jV/d1MGA==;
+	bh=1WN6S7P9khjjRDptuhw9wfAzdg/uT5NK3rR3MKpFEIQ=; b=PPEeq4uX8x6/nqsUejt6pI1XaC
+	ehm7vGRO+AeDJTn95tLLNTK6MCaBnw3TGnVndxXMuigBOvc0bp2fxfK+TJitEh886faEWTINhRz/Z
+	dRaiGbhvcYjxVSDG1cogfRLbVb9/ZSxdWZveefhh6Sm/Yk7oNQFjx7BDj5VQzgJbPOQJLzyE10nop
+	aVlZ5rmjSlPSKJ+zmpjuCM1yqlikPj3dCmhEJofR53U3jV9LUCUzJey80tr7JrolAVt4/CuMVI/sC
+	kwbXGKVFCAtoQ33Duv8DOIeSkjf49ZVomUSkU/LVmI4JAtdJUR53zRhRHSYcq+WKfNWqgG4mD5hhj
+	170FqWXA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -119,9 +119,9 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
 	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v3 36/46] hw/mips/jazz: use qemu_find_nic_info()
-Date: Mon,  8 Jan 2024 20:27:05 +0000
-Message-ID: <20240108204909.564514-37-dwmw2@infradead.org>
+Subject: [PATCH v3 37/46] hw/net/lasi_i82596: use qemu_configure_nic_device()
+Date: Mon,  8 Jan 2024 20:27:06 +0000
+Message-ID: <20240108204909.564514-38-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.41.0
 In-Reply-To: <20240108204909.564514-1-dwmw2@infradead.org>
 References: <20240108204909.564514-1-dwmw2@infradead.org>
@@ -132,54 +132,28 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Extract the MAC address from the NICInfo, or generate one explicitly if
-there was no corresponding NIC configuration, to put it in the PROM.
-
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- hw/mips/jazz.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ hw/net/lasi_i82596.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/hw/mips/jazz.c b/hw/mips/jazz.c
-index 0d2348aa5a..5bf3e328db 100644
---- a/hw/mips/jazz.c
-+++ b/hw/mips/jazz.c
-@@ -119,15 +119,19 @@ static const MemoryRegionOps dma_dummy_ops = {
-     .endianness = DEVICE_NATIVE_ENDIAN,
- };
+diff --git a/hw/net/lasi_i82596.c b/hw/net/lasi_i82596.c
+index 6a3147fe2d..2bb4f2c4ca 100644
+--- a/hw/net/lasi_i82596.c
++++ b/hw/net/lasi_i82596.c
+@@ -125,11 +125,10 @@ SysBusI82596State *lasi_82596_init(MemoryRegion *addr_space,
+     static const MACAddr HP_MAC = {
+         .a = { 0x08, 0x00, 0x09, 0xef, 0x34, 0xf6 } };
  
--static void mips_jazz_init_net(NICInfo *nd, IOMMUMemoryRegion *rc4030_dma_mr,
-+static void mips_jazz_init_net(IOMMUMemoryRegion *rc4030_dma_mr,
-                                DeviceState *rc4030, MemoryRegion *dp8393x_prom)
- {
-     DeviceState *dev;
-     SysBusDevice *sysbus;
-     int checksum, i;
-     uint8_t *prom;
-+    NICInfo *nd;
+-    qemu_check_nic_model(&nd_table[0], TYPE_LASI_82596);
+     dev = qdev_new(TYPE_LASI_82596);
+     s = SYSBUS_I82596(dev);
+     s->state.irq = lan_irq;
+-    qdev_set_nic_properties(dev, &nd_table[0]);
++    qemu_configure_nic_device(dev, true, NULL);
+     sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
+     s->state.conf.macaddr = HP_MAC; /* set HP MAC prefix */
  
--    qemu_check_nic_model(nd, "dp83932");
-+    nd = qemu_find_nic_info("dp8393x", true, "dp82932");
-+    if (!nd) {
-+        return;
-+    }
- 
-     dev = qdev_new("dp8393x");
-     qdev_set_nic_properties(dev, nd);
-@@ -324,12 +328,7 @@ static void mips_jazz_init(MachineState *machine,
-     }
- 
-     /* Network controller */
--    if (nb_nics == 1) {
--        mips_jazz_init_net(&nd_table[0], rc4030_dma_mr, rc4030, dp8393x_prom);
--    } else if (nb_nics > 1) {
--        error_report("This machine only supports one NIC");
--        exit(1);
--    }
-+    mips_jazz_init_net(rc4030_dma_mr, rc4030, dp8393x_prom);
- 
-     /* SCSI adapter */
-     dev = qdev_new(TYPE_SYSBUS_ESP);
 -- 
 2.41.0
 
