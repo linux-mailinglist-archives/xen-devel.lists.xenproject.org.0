@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A79E828516
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 12:30:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664558.1034627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EDE8828539
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 12:38:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664565.1034636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNAIf-00006C-Ug; Tue, 09 Jan 2024 11:29:41 +0000
+	id 1rNAR4-0002PI-S0; Tue, 09 Jan 2024 11:38:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664558.1034627; Tue, 09 Jan 2024 11:29:41 +0000
+Received: by outflank-mailman (output) from mailman id 664565.1034636; Tue, 09 Jan 2024 11:38:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNAIf-0008VV-RG; Tue, 09 Jan 2024 11:29:41 +0000
-Received: by outflank-mailman (input) for mailman id 664558;
- Tue, 09 Jan 2024 11:29:40 +0000
+	id 1rNAR4-0002KA-P9; Tue, 09 Jan 2024 11:38:22 +0000
+Received: by outflank-mailman (input) for mailman id 664565;
+ Tue, 09 Jan 2024 11:38:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RTBC=IT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNAIe-0008VO-KP
- for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 11:29:40 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
+ id 1rNAR3-0002K4-6S
+ for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 11:38:21 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5f7b09f1-aee2-11ee-9b0f-b553b5be7939;
- Tue, 09 Jan 2024 12:29:38 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2cd0f4f306fso32997001fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 03:29:38 -0800 (PST)
+ id 95f86c5f-aee3-11ee-9b0f-b553b5be7939;
+ Tue, 09 Jan 2024 12:38:19 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2cd1a1c5addso33032651fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 03:38:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- w2-20020a92d602000000b0035fea0268bcsm539064ilm.28.2024.01.09.03.29.36
+ fc17-20020a0566023fd100b007bbab8c40d2sm454270iob.44.2024.01.09.03.38.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jan 2024 03:29:37 -0800 (PST)
+ Tue, 09 Jan 2024 03:38:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5f7b09f1-aee2-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 95f86c5f-aee3-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704799778; x=1705404578; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704800299; x=1705405099; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ymzh+veCJQyspaR2r8sdrMtgLXSe3iH6pJZkruRUfeo=;
-        b=CYV8Shd/nf7fB5s2mCrew9IwFEEyC8C/jbDRk0QqKFkkeiIwY1/x54ziu8R2svXbMO
-         0AUmoXIydfc0rdSQS7Z8liWKB2F/0dO+AtQ7onDcxMCDEGl7tIWuDM/PlV+qmVQbg7V/
-         KGR8xeS2iIlBtY94QRO6LXbrnv6XbfRjXbHi8iqDghEWOjFv1JREuAWnW3KZgPChaRl9
-         jX6KHK+dxfuTnXxgom2TFI5Ru7KBUrTL4rn1WNbcfvoEbf7PyzDmZXeOsL8TzjRofQXo
-         uxc8vVrqKNhKEvetTo9tY62xdpDpnBELsvSrekbW2nJP7J7tbAUhdTacPyjkuwwJad5i
-         rWIA==
+        bh=p0NEhKQaHQAcnvQswzw8Cm4jgNXJTva5RD3N/moGfEc=;
+        b=DtVwtGaK3FD1y3SFykoAwKwHubqA/22IPqqkSn7gVHyP/7J1Yad7NxATPEWRIY7uit
+         dE3+eE/rQ+vFW39oyK6uEAuUbGkzjpxgNbMEmE6yag8Sor4g/q55RKK699jTUsAphRCI
+         cuSAQFZCMv7ow7J2KFU/1rt5t4/1L0hfxUCYiooJrf3Hm3mQIvXsPhnqG2HA7ZgSBLt5
+         ne5DkaeL7by+3mQSEjtDU7vGNGuF0cPi3zLmsTekBms7m2Jt9tDcXiQswhq8VTcQmnmT
+         ATzONhUbI+cL2QFwiTDDvrRcT3Gxr+yefKU0Na5PfibCesQPE6YDADQSILcoRt1w2Of2
+         W/EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704799778; x=1705404578;
+        d=1e100.net; s=20230601; t=1704800299; x=1705405099;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ymzh+veCJQyspaR2r8sdrMtgLXSe3iH6pJZkruRUfeo=;
-        b=rSc1qob1nTSVlKDDFoaZEaixRK9ounAnrp9Q6oQ+M3dZK/83hGF7vJPHk1ZYUhItLC
-         aH2KFWd+46OsqpEaMuPv9tarHgYpmqZUVZbqgkCP9wuvD6qNeuMvM46v2Efr8LV0k0dB
-         XbHfqqNwl79fKYG3yriaHIpjhNba/OZm65xfeEDBGkz0mzdfO4Vfq8D37gjpzglgmuzG
-         hPeiANasfH2KSJMgqqTgOPrNcS8C9hTwt/Uu/bolhgqCuaKW9NysSaAHY6PdF/VnVIjp
-         9h4YO+pDENRfuEVoIRO/GIlaXuMq/sfbWIOKjjYB6Jg/Oi5r+n+Lz0eKtRw2W4auoUYK
-         PqVQ==
-X-Gm-Message-State: AOJu0Ywubs3mKX26xNsHdB9MZPEIVjeS7zbSmEZkpPiJ4+UBbo8ofsSx
-	qVhTmZiIn4qhoZyGJtTAHMSsI4DJdKgc
-X-Google-Smtp-Source: AGHT+IFnqXaV0zD259BpMcc0zYc9xV7gJz7zRn3txHksb2SaVP7PRYMtrPTQizA7CnUfKuc5slMpow==
-X-Received: by 2002:a2e:9856:0:b0:2cc:f6b5:5193 with SMTP id e22-20020a2e9856000000b002ccf6b55193mr2105799ljj.102.1704799777857;
-        Tue, 09 Jan 2024 03:29:37 -0800 (PST)
-Message-ID: <1ed01809-a3b5-4075-a2ad-4fac1e46f0b3@suse.com>
-Date: Tue, 9 Jan 2024 12:29:35 +0100
+        bh=p0NEhKQaHQAcnvQswzw8Cm4jgNXJTva5RD3N/moGfEc=;
+        b=MRhL3owdP24bGbaIczV4Ubgos9WYlaphd0VB9QcfnjOefriiOPl0rwlxvrhLq9KW+C
+         nFUH46S7EgeWVE+Byly+UwpKpBehLyJpg0zrAHDAEzoJa6PLF1a3JR0xYkQtGIy+zto8
+         uI9jDPuVb9vzdZFSmTis9PaTAojAq9LV1pmL48lUxF5XADhr19RxBSI3I6QH4Jp+n2lm
+         o/9VjnxD7lo53GqNu7ee/sOR0KsoZCHxldgkUyc5IsROasjbY6kE1DatehPNP+vXbMD8
+         fU0MpiXft4rBqiCY3m1LmatbJyHbMKKjEvfTT2WhK/2Ao0cU7VgXV8L7HSK6Hpz9wXe+
+         4ypg==
+X-Gm-Message-State: AOJu0YzfmV12HlZUky+DjL8Vv1e9XSa8G66Gc6pprIgbTy8s7+yaGSuI
+	F8Z8BwZxIqp4yeR8arjS5USDZSIZ6lV/
+X-Google-Smtp-Source: AGHT+IG88wcpR/v4ewPpT51EALkxA6ugbP/ky+lcVfROmkPf6UWNNiYP3CrkMabKVRmjISmiDgezUA==
+X-Received: by 2002:a2e:a4ce:0:b0:2cd:6c8d:4c7 with SMTP id p14-20020a2ea4ce000000b002cd6c8d04c7mr240384ljm.38.1704800298757;
+        Tue, 09 Jan 2024 03:38:18 -0800 (PST)
+Message-ID: <cd2804ce-d846-46df-a1dd-2976e6198740@suse.com>
+Date: Tue, 9 Jan 2024 12:38:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/6] x86/iommu: introduce a rangeset to perform hwdom
- IOMMU setup
+Subject: Re: [PATCH v4 0/6] x86/iommu: improve setup time of hwdom IOMMU
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+To: Paul Durrant <paul@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Lukasz Hawrylko <lukasz@hawrylko.pl>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
+ Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
 References: <20231220134346.22430-1-roger.pau@citrix.com>
- <20231220134346.22430-4-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,26 +112,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20231220134346.22430-4-roger.pau@citrix.com>
+In-Reply-To: <20231220134346.22430-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 20.12.2023 14:43, Roger Pau Monne wrote:
-> This change just introduces the boilerplate code in order to use a rangeset
-> when setting up the hardware domain IOMMU mappings.  The rangeset is never
-> populated in this patch, so it's a non-functional change as far as the mappings
-> the domain gets established.
+> Hello,
 > 
-> Note there will be a change for HVM domains (ie: PVH dom0) when the code
-> introduced here gets used: the p2m mappings will be established using
-> map_mmio_regions() instead of p2m_add_identity_entry(), so that ranges can be
-> mapped with a single function call if possible.  Note that the interface of
-> map_mmio_regions() doesn't allow creating read-only mappings, but so far there
-> are no such mappings created for PVH dom0 in arch_iommu_hwdom_init().
+> The aim of the series is to reduce boot time setup of IOMMU page tables
+> for dom0.
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> First and second patches are a pre-req, as further patches can end up
+> attempting to create maps above the max RAM address, and hence without
+> properly setting the IOMMU page tables levels those attempts to map
+> would fail.
+> 
+> Last 4 patches rework the hardware domain IOMMU setup to use a rangeset
+> instead of iterating over all addresses up to the max RAM page.  See
+> patch 5/6 for performance figures.
+> 
+> Thanks, Roger.
+> 
+> Roger Pau Monne (6):
+>   x86/p2m: move and rename paging_max_paddr_bits()
+>   amd-vi: set IOMMU page table levels based on guest reported paddr
+>     width
+>   x86/iommu: introduce a rangeset to perform hwdom IOMMU setup
+>   x86/iommu: remove regions not to be mapped
+>   x86/iommu: switch hwdom IOMMU to use a rangeset
+>   x86/iommu: cleanup unused functions
+> 
+>  xen/arch/x86/cpu-policy.c                   |   2 +-
+>  xen/arch/x86/domain.c                       |  21 ++
+>  xen/arch/x86/hvm/io.c                       |  15 +-
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Paul,
 
+for the changes to this file, any chance of an ack for patches 4 and 6?
+
+Thanks, Jan
+
+>  xen/arch/x86/include/asm/domain.h           |   3 +
+>  xen/arch/x86/include/asm/hvm/io.h           |   4 +-
+>  xen/arch/x86/include/asm/paging.h           |  22 --
+>  xen/arch/x86/include/asm/setup.h            |   2 +-
+>  xen/arch/x86/setup.c                        |  81 +++---
+>  xen/arch/x86/tboot.c                        |   2 +-
+>  xen/drivers/passthrough/amd/pci_amd_iommu.c |  20 +-
+>  xen/drivers/passthrough/x86/iommu.c         | 271 +++++++++++++-------
+>  11 files changed, 262 insertions(+), 181 deletions(-)
+> 
 
 
