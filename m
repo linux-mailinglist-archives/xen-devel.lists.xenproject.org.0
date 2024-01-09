@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 324C6828437
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 11:46:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664397.1034597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEF2D828468
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 12:00:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664403.1034607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rN9d1-0007Yv-8p; Tue, 09 Jan 2024 10:46:39 +0000
+	id 1rN9os-0004wn-AF; Tue, 09 Jan 2024 10:58:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664397.1034597; Tue, 09 Jan 2024 10:46:39 +0000
+Received: by outflank-mailman (output) from mailman id 664403.1034607; Tue, 09 Jan 2024 10:58:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rN9d1-0007XF-68; Tue, 09 Jan 2024 10:46:39 +0000
-Received: by outflank-mailman (input) for mailman id 664397;
- Tue, 09 Jan 2024 10:46:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rN9os-0004v5-6v; Tue, 09 Jan 2024 10:58:54 +0000
+Received: by outflank-mailman (input) for mailman id 664403;
+ Tue, 09 Jan 2024 10:58:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RTBC=IT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rN9cz-0007Wy-95
- for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 10:46:37 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5bc0502e-aedc-11ee-9b0f-b553b5be7939;
- Tue, 09 Jan 2024 11:46:35 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2cd5b467209so18964141fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 02:46:35 -0800 (PST)
+ id 1rN9oq-0004uz-QE
+ for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 10:58:52 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1291011c-aede-11ee-98ef-6d05b1d4d9a1;
+ Tue, 09 Jan 2024 11:58:51 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2cd1232a2c7so32211621fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 02:58:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a1-20020a0566380b0100b0046e3e617619sm89329jab.129.2024.01.09.02.46.32
+ z8-20020a056638318800b0046923df89easm569064jak.158.2024.01.09.02.58.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jan 2024 02:46:34 -0800 (PST)
+ Tue, 09 Jan 2024 02:58:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bc0502e-aedc-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 1291011c-aede-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704797194; x=1705401994; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704797931; x=1705402731; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=s7d4cIB5bsW9KfOflQAbYSMNcJblVOTlRM+NdoN79qc=;
-        b=OyL6aLaB05gIUG3w3S0i0/A0BfwSlgdfyRa7wR8K0UIysoE3TyvDE4ONSHS0lP81P9
-         K0u8Y8wN85m5vjd+jVTz87KrW2xBzRVWT4wd94XIVSlgirNqT9ye4NYRGcgPf6RtM2kZ
-         WCsrEjqAP3k0wZM2/vdMFm6OHJ/txuyI7p8jjei1eaPknbyNqkHnrVDYfqisCifdmS+w
-         8XYxbPTkU34XRRug4YOa6IlKOqtwEPxOE1qi3zs5AUUN3F6hum5H2/RAOHtLleqigXup
-         nnWHi0A4DXv0jNTTQQtlraKWEtCyNljpR17FyGoUC08pvLtwClARggX0zHz6MN+nUM0g
-         V6jA==
+        bh=/oJ1jHaEX1jsRipvPZ7jDGys4mLWZkwv+2Oo9F2Cbs8=;
+        b=UehohF58g63TcsZ77mwu9e7YonuPr2Q4GsOE88Qi9YuJUyIfOV/l8uKhJXPFYJOC6v
+         z6p46wRuLsOH43bk6oXvZmQ9EzYomOy1RY1quMEwVkiT0gdSJGnxCOHpghrdlBrQb8eg
+         AZnahQmWfgbI1WhTYHKZY+W8pUKXXmJpVm81bKRag7hElAYm/9YEMO49/8HTzWRvAanq
+         zKx+I4v5mQDpodPaHmJmfw6FHDFfPVfDth8b3ZWcsI4AQQnjbA1t9rOkPlgpcOq5kmus
+         UjOhHEcoqNV5TT/W92huWiSpaUYW3dCIAsW1ftulD8+oDYM8A/9qprhQ9N8mgOVEoKzP
+         y+bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704797194; x=1705401994;
+        d=1e100.net; s=20230601; t=1704797931; x=1705402731;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=s7d4cIB5bsW9KfOflQAbYSMNcJblVOTlRM+NdoN79qc=;
-        b=xC89iilCismIEwsxyyUH+7hYekrX5/ElGzKTC/EnMHSRHK8KU1xENi3PW4cBG6B/wk
-         RyFmtElRK0sr3ml8lE0hVuhuXVHo0n15XFxH+o5N5UTuqaRg8xnU9zmVnAvcGKxRLsCX
-         wEZTM/7dJENfO4mJLWWkNKXxkLHa9Yjkcv+wikhEtxIasVX7ZGbK/B7ImMU2Lcihf9PJ
-         hBx2DzDH8Kh+5UXDexzo5CrA1bhXtMvOuED8DNdK38TZwc70z63LY+TG7srQHOUqWZ+H
-         dSQeocbcruN0kdQjeck9gTD1WjpyZqchpskjdJxOLnXS6egdeipztlPUzoKfOCDiECFk
-         9lQg==
-X-Gm-Message-State: AOJu0Yx2WGlxEYzz0vAdP/06XWBOBKZgY0fIQ2PhT9zmcPQNK70tGcux
-	XY2X3R/Kvqj+HqdICcBFFbugyXWnPLiF
-X-Google-Smtp-Source: AGHT+IFkgza7CCKM6tWVM7sGOMl7Bqr+8PZLAbyB31/dvhOndx1U8t4sE61hzO2toosgsNPPNGIHPA==
-X-Received: by 2002:a05:651c:4c6:b0:2cd:241c:849a with SMTP id e6-20020a05651c04c600b002cd241c849amr2701743lji.79.1704797194642;
-        Tue, 09 Jan 2024 02:46:34 -0800 (PST)
-Message-ID: <d9a363e2-db8d-4c14-af17-9ce02c53f7bf@suse.com>
-Date: Tue, 9 Jan 2024 11:46:30 +0100
+        bh=/oJ1jHaEX1jsRipvPZ7jDGys4mLWZkwv+2Oo9F2Cbs8=;
+        b=TzLzv6WpsrscdRfpb4RBE8P8Z4tb1v61YEtT0APZHq+wRO4+lOMK2GYEvvsgL4yGnQ
+         9HuQTaE3uJ1uJfXlloQOCOgI502ZM0R1jzr5BSn1MRLXzDAa0JPyGMY8GSY5N5ho6xs3
+         3GbHNBsd0mks8EmCNCEbeMlORgRBdj7vmlOUL4eJAiOwAwOLRaLSb50cgMQgIRk91pTK
+         cer8aYzxdvljEv04IKzwCEE0i/BehzKsm0QCAlFbqGfmS+f/HUAROoi4qJX9ojUMGxbU
+         J0gEaIrhwGddlpiit2X+SgZNge6bOqexxGBQA3+rkWOSlKFP/0S1MCztaFE5eeTayNuf
+         zvYQ==
+X-Gm-Message-State: AOJu0Yz1x4w+o9FeD3zGT1YU3xstmekce6VK+RrXR6m1rY5lcEs3hTQN
+	v3P/1BE1wta3Jphcq6QDTQjGnWg4bY+E
+X-Google-Smtp-Source: AGHT+IHkUsgeGY1JUBt3Iqh8iXFuGqy3RvMo+jU0cIG3+9K7HZQfLEo1Q8yoSSxqjYBh8o9cLQk7qA==
+X-Received: by 2002:a2e:b8c2:0:b0:2cd:4f03:ad4c with SMTP id s2-20020a2eb8c2000000b002cd4f03ad4cmr2042271ljp.80.1704797930851;
+        Tue, 09 Jan 2024 02:58:50 -0800 (PST)
+Message-ID: <77a1fdf8-f02d-4125-832c-f022d8750c87@suse.com>
+Date: Tue, 9 Jan 2024 11:58:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC XEN PATCH v4 4/5] domctl: Use gsi to grant/revoke irq
- permission
+Subject: Re: [PATCH v4 1/5] x86/HVM: split restore state checking from state
+ loading
 Content-Language: en-US
-To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- "Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-References: <20240105070920.350113-1-Jiqian.Chen@amd.com>
- <20240105070920.350113-5-Jiqian.Chen@amd.com>
- <alpine.DEB.2.22.394.2401051702200.3675@ubuntu-linux-20-04-desktop>
- <882bd39a-8a29-4f4f-b64f-765c4858b1c8@suse.com> <ZZwPSZoqyY6g9yhi@macbook>
- <BL1PR12MB58492746170F6BF777901141E76A2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <b4ed7764-a44c-4ac8-bb56-379fdeba16e8@suse.com>
- <BL1PR12MB58490E62825A5B1ACCE605EAE76A2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <1e855575-8c0f-4222-80ba-e64305ea714b@suse.com>
+ <05e69eea-79cc-4b3c-861b-855fa67c878a@suse.com> <ZYGqbboWvjVOGZkb@macbook>
+ <48b5a33e-19c8-49fd-9682-17056e0acb00@suse.com> <ZZ0fVDLQb__IvgT3@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,58 +112,101 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <BL1PR12MB58490E62825A5B1ACCE605EAE76A2@BL1PR12MB5849.namprd12.prod.outlook.com>
+In-Reply-To: <ZZ0fVDLQb__IvgT3@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.01.2024 11:16, Chen, Jiqian wrote:
-> On 2024/1/9 17:38, Jan Beulich wrote:
->> On 09.01.2024 09:18, Chen, Jiqian wrote:
->>> A new hypercall using for granting gsi? If so, how does the caller know to call which hypercall to grant permission, XEN_DOMCTL_irq_permission or that new hypercall?
+On 09.01.2024 11:26, Roger Pau Monné wrote:
+> On Tue, Dec 19, 2023 at 04:24:02PM +0100, Jan Beulich wrote:
+>> On 19.12.2023 15:36, Roger Pau Monné wrote:
+>>> On Mon, Dec 18, 2023 at 03:39:55PM +0100, Jan Beulich wrote:
+>>>> --- a/xen/arch/x86/domctl.c
+>>>> +++ b/xen/arch/x86/domctl.c
+>>>> @@ -379,8 +379,12 @@ long arch_do_domctl(
+>>>>          if ( copy_from_guest(c.data, domctl->u.hvmcontext.buffer, c.size) != 0 )
+>>>>              goto sethvmcontext_out;
+>>>>  
+>>>> +        ret = hvm_load(d, false, &c);
+>>>> +        if ( ret )
+>>>> +            goto sethvmcontext_out;
+>>>> +
+>>>>          domain_pause(d);
+>>>> -        ret = hvm_load(d, &c);
+>>>> +        ret = hvm_load(d, true, &c);
+>>>
+>>> Now that the check has been done ahead, do we want to somehow assert
+>>> that this cannot fail?  AIUI that's the expectation.
 >>
->> Either we add a feature indicator, or the caller simply tries the
->> new GSI interface first.
-> I am still not sure how to use and implement it.
-> Taking pci_add_dm_done as an example, for now its implementation is:
-> pci_add_dm_done
-> 	xc_physdev_map_pirq
-> 	xc_domain_irq_permission(,,pirq,)
-> 		XEN_DOMCTL_irq_permission
+>> We certainly can't until all checking was moved out of the load handlers.
+>> And even then I think there are still cases where load might produce an
+>> error. (In fact I would have refused a little more strongly to folding
+>> the prior hvm_check() into hvm_load() if indeed a separate hvm_load()
+>> could have ended up returning void in the long run.)
 > 
-> And assume the new hypercall is XEN_DOMCTL_gsi_permission, do you mean:
-> pci_add_dm_done
-> 	xc_physdev_map_pirq
-> 	ret = xc_domain_gsi_permission(,,gsi,)
-> 		XEN_DOMCTL_gsi_permission
-> 	if ( ret != 0 )
-> 		xc_domain_irq_permission(,,pirq,)
-> 			XEN_DOMCTL_irq_permission
+> I see, _load could fail even if all the data provided was correct, for
+> example because the hypervisor is OoM?
 
-No, falling back shouldn't be "blind". Fallback should only happen
-when the new sub-op isn't implemented (hence why a feature indicator
-may be necessary), and only if calling the existing sub-op promises
-to be useful (which iirc would limit that to the PV Dom0 case).
+That's the primary hypothetical cause for such a failure, yes.
 
-> But if so, I have a question that in XEN_DOMCTL_gsi_permission, when to fail and when to success?
+>>>> @@ -291,50 +295,91 @@ int hvm_load(struct domain *d, hvm_domai
+>>>>      if ( !hdr )
+>>>>          return -ENODATA;
+>>>>  
+>>>> -    rc = arch_hvm_load(d, hdr);
+>>>> -    if ( rc )
+>>>> -        return rc;
+>>>> +    rc = arch_hvm_check(d, hdr);
+>>>
+>>> Shouldn't this _check function only be called when real == false?
+>>
+>> Possibly. In v4 I directly transformed what I had in v3:
+>>
+>>     ASSERT(!arch_hvm_check(d, hdr));
+>>
+>> I.e. it is now the call above plus ...
+>>
+>>>> +    if ( real )
+>>>> +    {
+>>>> +        struct vcpu *v;
+>>>> +
+>>>> +        ASSERT(!rc);
+>>
+>> ... this assertion. Really the little brother of the call site assertion
+>> you're asking for (see above).
+>>
+>>>> +        arch_hvm_load(d, hdr);
+>>>>  
+>>>> -    /* Down all the vcpus: we only re-enable the ones that had state saved. */
+>>>> -    for_each_vcpu(d, v)
+>>>> -        if ( !test_and_set_bit(_VPF_down, &v->pause_flags) )
+>>>> -            vcpu_sleep_nosync(v);
+>>>> +        /*
+>>>> +         * Down all the vcpus: we only re-enable the ones that had state
+>>>> +         * saved.
+>>>> +         */
+>>>> +        for_each_vcpu(d, v)
+>>>> +            if ( !test_and_set_bit(_VPF_down, &v->pause_flags) )
+>>>> +                vcpu_sleep_nosync(v);
+>>>> +    }
+>>>> +    else if ( rc )
+>>>> +        return rc;
+> 
+> The issue I see with this is that when built with debug=n the call to
+> arch_hvm_check() with real == true is useless, as the result is never
+> evaluated - IOW: would be clearer to just avoid the call altogether.
 
-I'm afraid I don't understand the question. Behavior there isn't to
-be fundamentally different from that for XEN_DOMCTL_irq_permission.
-It's just that the incoming value is in another value space.
+Which, besides being imo slightly worse for then having two call sites,
+puts me in a difficult position: It may not have been here, but on
+another patch (but I think it was an earlier version of this one)
+where Andrew commented on
 
-> Or do you mean:
-> pci_add_dm_done
-> 	xc_physdev_map_pirq
-> 	ret = xc_domain_irq_permission(,,pirq,)
-> 		XEN_DOMCTL_irq_permission
-> 	if ( ret != 0 )
-> 		xc_domain_gsi_permission(,,gsi,)
-> 			XEN_DOMCTL_gsi_permission
+    ASSERT(func());
 
-No, this looks the wrong way round.
-
-> And in XEN_DOMCTL_gsi_permission, as long as the current domain has the access of gsi, then granting gsi to caller should be successful. Right?
-
-I think so; see above.
+as generally being a disliked pattern, for having a "side effect" in
+the expression of an assertion. Plus the call isn't pointless even in
+release builds, because of the log messages issued: Them appearing
+twice in close succession might be a good hint of something fishy
+going on.
 
 Jan
 
