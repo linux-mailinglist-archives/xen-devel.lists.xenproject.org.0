@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68693828420
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 11:40:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664382.1034567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A38C5828423
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 11:40:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664384.1034577 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rN9WW-0004zq-Vr; Tue, 09 Jan 2024 10:39:56 +0000
+	id 1rN9XF-0006KQ-8L; Tue, 09 Jan 2024 10:40:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664382.1034567; Tue, 09 Jan 2024 10:39:56 +0000
+Received: by outflank-mailman (output) from mailman id 664384.1034577; Tue, 09 Jan 2024 10:40:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rN9WW-0004xy-T7; Tue, 09 Jan 2024 10:39:56 +0000
-Received: by outflank-mailman (input) for mailman id 664382;
- Tue, 09 Jan 2024 10:39:55 +0000
+	id 1rN9XF-0006Ir-5c; Tue, 09 Jan 2024 10:40:41 +0000
+Received: by outflank-mailman (input) for mailman id 664384;
+ Tue, 09 Jan 2024 10:40:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RTBC=IT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rN9WV-0004xo-D8
- for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 10:39:55 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OpKn=IT=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rN9XD-0006If-Iu
+ for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 10:40:39 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6c3f2660-aedb-11ee-9b0f-b553b5be7939;
- Tue, 09 Jan 2024 11:39:53 +0100 (CET)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2ccae380df2so29704431fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 02:39:53 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k34-20020a056638372200b0046e29c56401sm566861jav.0.2024.01.09.02.39.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jan 2024 02:39:52 -0800 (PST)
+ id 86adf7c4-aedb-11ee-9b0f-b553b5be7939;
+ Tue, 09 Jan 2024 11:40:37 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a29a4f610b1so289803266b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 02:40:37 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ k5-20020a17090627c500b00a2b1080cba7sm876564ejc.208.2024.01.09.02.40.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 09 Jan 2024 02:40:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +44,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c3f2660-aedb-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 86adf7c4-aedb-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704796793; x=1705401593; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ChCLdSPHGvk+kvmsqaKEzcj9QdGiqx/L/a/o70wiuMU=;
-        b=UwCZ7sZlmJGbv9Ri3xJMx5PfwqMFIiPeiZWF9fcNbhGHwfQ2WaDXDgNDPqAVpWzgzs
-         B6H+34FpzZKUfywO9o+rf9e94xN8N4aAuH/rMHyVg7oc4oOGK4+OZq7igcHqzi5A61lA
-         aahJ7TR856V09ORjnjnHUUH9APixhaQNCkDPSduQcDWmqeZIaxRhqLiQ16vOGFCoGmKS
-         Gde28lxxyJ6AUZDLX1cTohLI5+gX5TEWIHMui2xj1nOeoo8qVvpizdclMJ0V910t6jtG
-         7Tr7CegtiaGL9fT3Rz0fcGHB9tC7PonG12y4iQfhNuCFyftNCYL32XVPsZzxadpKobOB
-         qQ4A==
+        d=citrix.com; s=google; t=1704796837; x=1705401637; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=OC/YbqzZnpAN8+MpDaU2gZEdBrAgJyHu38bdIhoY7mU=;
+        b=nBnF9/H4hG9g0Q3nhLxOkbgSdBsf2eBsR+1RkAKNR/b5uwuolGawGKnIqghIKfZPa7
+         nAeBFayT7qqat74zFxlTrVGOOOP3lY1H6dthO1Ud/5aC32v43Q4bvcNnO8mYg5T4l0NM
+         0lx+9OmfoORtNJUPGOHm4HGvbt0baqk9CLCY0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704796793; x=1705401593;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1704796837; x=1705401637;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ChCLdSPHGvk+kvmsqaKEzcj9QdGiqx/L/a/o70wiuMU=;
-        b=DIJZxdvF+Oay81GalW1Kloolur/0WkfgxS9vg3xOGIhGAhuXCHopVIIZejNYkn3+tb
-         fINaBmAtfk/5YaK8gdfpWy7EMbuKQ8Qy2G9isbjYxEzh+xgcRxnCGtvUanY832BgGUMy
-         LxCRjVYGlwCCCSbdO/DfYzZ8VlShbBrWYP1VzcXOJSDWqrG4yIGGfXvaljD48bLSuz/m
-         1f8GJzEFllQGcDZqtusvbxptfvjGHoXQ2A0eK7Y8zvQDFiDtjsjIlHGjWlaF3+mcSFsi
-         /ARdHLdni8YpHNOpSlZYvUmCaXTcImfhsLBG025mK0dm879ODOpCy9rdXGIn3xunmrx3
-         k3xA==
-X-Gm-Message-State: AOJu0Yx3tv3QWvFOQugncQzAUZvPNTZtBUQVzAfLpyvNuxeeX9k/8MV9
-	wWj6+vLk+mTdVSoO8vEedA9mMuKur8dQ
-X-Google-Smtp-Source: AGHT+IGCBaOz6BIrSFVgn1RHFsCHv+7rmSBcuQ+HesiDF+fJ36x77qb5oH3ugb8qVQ8fK80iL1764w==
-X-Received: by 2002:a05:651c:c5:b0:2cd:17aa:5216 with SMTP id 5-20020a05651c00c500b002cd17aa5216mr1914999ljr.86.1704796792840;
-        Tue, 09 Jan 2024 02:39:52 -0800 (PST)
-Message-ID: <772125e3-4745-4402-b0bb-4075cc10574b@suse.com>
-Date: Tue, 9 Jan 2024 11:39:49 +0100
+        bh=OC/YbqzZnpAN8+MpDaU2gZEdBrAgJyHu38bdIhoY7mU=;
+        b=W5snD0iBkj+mQqhclNTKxmsUF/B/3pS9pC6TkR2i3nanF9a1xGp4+Vv0GAIEJIs/HG
+         9Mw4YSCsC+SA+Qdtt0W69gW7QUPdjdy3db/PfgGe7bOjD5Qm8W/F42neVi7koPfhJjoo
+         iCbJ+Y+WrjPVoEgTlIJkrvv0+de/U0KC6CbA8UjLDHXLaaIcFSTbVmZb8v9e1OiDtZjj
+         NQkMRZ7QHH90yqHjXX2X6pZ7KA6O/P9ip8LvnpQqkuYQz8ZuG4hFd3BiG6IBAbrNDtVJ
+         AJULHhMz/16XIQ9RZG5Zf6VlIjWNMxxo1evB0rsXLBdBnSVU6+zpvzcI7lRQ0D5TPjtg
+         ntZQ==
+X-Gm-Message-State: AOJu0YxozViLR1saoKUWLA44DroaROtr3WbMgFCvU1EUhM+C3ygH7OO8
+	nLhNzsVA+x2JbT471XymLVJg2mNSdbY5nQ==
+X-Google-Smtp-Source: AGHT+IFPDmMpOxT0KNoyYz9sdV5GGtthi0mYKM4qVLzm7m3B3/3QQu6dQ08jlNptXF0xW5uWGqg7fw==
+X-Received: by 2002:a17:906:f887:b0:a2b:2c8a:9c49 with SMTP id lg7-20020a170906f88700b00a2b2c8a9c49mr444002ejb.16.1704796837191;
+        Tue, 09 Jan 2024 02:40:37 -0800 (PST)
+Date: Tue, 9 Jan 2024 11:40:36 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: "Chen, Jiqian" <Jiqian.Chen@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [RFC XEN PATCH v4 4/5] domctl: Use gsi to grant/revoke irq
+ permission
+Message-ID: <ZZ0ipBYirbJnLreJ@macbook>
+References: <20240105070920.350113-1-Jiqian.Chen@amd.com>
+ <20240105070920.350113-5-Jiqian.Chen@amd.com>
+ <alpine.DEB.2.22.394.2401051702200.3675@ubuntu-linux-20-04-desktop>
+ <882bd39a-8a29-4f4f-b64f-765c4858b1c8@suse.com>
+ <ZZwPSZoqyY6g9yhi@macbook>
+ <BL1PR12MB58492746170F6BF777901141E76A2@BL1PR12MB5849.namprd12.prod.outlook.com>
+ <b4ed7764-a44c-4ac8-bb56-379fdeba16e8@suse.com>
+ <BL1PR12MB58490E62825A5B1ACCE605EAE76A2@BL1PR12MB5849.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [xen-unstable test] 184285: regressions - FAIL
-Content-Language: en-US
-To: osstest service owner <osstest-admin@xenproject.org>
-References: <osstest-184285-mainreport@xen.org>
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <osstest-184285-mainreport@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <BL1PR12MB58490E62825A5B1ACCE605EAE76A2@BL1PR12MB5849.namprd12.prod.outlook.com>
 
-On 09.01.2024 10:54, osstest service owner wrote:
-> flight 184285 xen-unstable real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/184285/
+On Tue, Jan 09, 2024 at 10:16:26AM +0000, Chen, Jiqian wrote:
+> On 2024/1/9 17:38, Jan Beulich wrote:
+> > On 09.01.2024 09:18, Chen, Jiqian wrote:
+> >> On 2024/1/8 23:05, Roger Pau Monné wrote:
+> >>> On Mon, Jan 08, 2024 at 09:55:26AM +0100, Jan Beulich wrote:
+> >>>> On 06.01.2024 02:08, Stefano Stabellini wrote:
+> >>>>> On Fri, 5 Jan 2024, Jiqian Chen wrote:
+> >>>>>> --- a/tools/libs/light/libxl_pci.c
+> >>>>>> +++ b/tools/libs/light/libxl_pci.c
+> >>>>>> @@ -1418,6 +1418,7 @@ static void pci_add_dm_done(libxl__egc *egc,
+> >>>>>>      unsigned long long start, end, flags, size;
+> >>>>>>      int irq, i;
+> >>>>>>      int r;
+> >>>>>> +    int gsi;
+> >>>>>>      uint32_t flag = XEN_DOMCTL_DEV_RDM_RELAXED;
+> >>>>>>      uint32_t domainid = domid;
+> >>>>>>      bool isstubdom = libxl_is_stubdom(ctx, domid, &domainid);
+> >>>>>> @@ -1486,6 +1487,7 @@ static void pci_add_dm_done(libxl__egc *egc,
+> >>>>>>          goto out_no_irq;
+> >>>>>>      }
+> >>>>>>      if ((fscanf(f, "%u", &irq) == 1) && irq) {
+> >>>>>> +        gsi = irq;
+> >>>>>
+> >>>>> A question for Roger and Jan: are we always guaranteed that gsi == irq
+> >>>>> (also in the PV case)?
+> >>>>
+> >>>> Iirc for IO-APIC based IRQs that's always the case;
+> >>>
+> >>> I think that's always the case on Linux, because it calls
+> >>> PHYSDEVOP_map_pirq with index == pirq (see Linux
+> >>> pci_xen_initial_domain()).  But other OSes could possibly make the
+> >>> call with pirq == -1 and get a randomly allocated pirq for GSIs.
+> >> I don't think it's important whether pirq is randomly generated. What's important is whether irq always equals gsi in xen.
+
+My 'randomly generated' comment was in that direction, not so much as
+the pirq being truly random, but no longer matching the gsi.
+
+> >> If so, we can directly pass in and grant gsi. However, according to Jan's previous email reply, in the case of Msi, irq may not be equal to gsi, so my patch cannot meet this situation.
+> >> I am confusing if the current domain doesn't have PIRQ flag, then regarding to XEN_DOMCTL_irq_permission, which kind of irq we should grant to caller domain? The gsi or other irq?
+> >> Or can we add a check in XEN_DOMCTL_irq_permission, if the current domain has PRIQ, we can get irq from pirq(like the original implementation), if not we can assign gsi to irq, and then grant irq. Of course, that needs to require the caller to pass in both the pirq and gsi.
+> > 
+> > I expect MSI will need handling differently from GSIs. When MSI is
+> > set up for a device (and hence for a domain in possession of that
+> > device), access ought to be granted right away.
+> > 
+> >>> IOW: I don't think the pirq field in xen_domctl_irq_permission can be
+> >>> altered like proposed here to switch from passing a pirq to a GSI.  A
+> >>> new hypercall should be introduced that either is GSI specific, or
+> >>> contains a type field in order to specify the namespace the field
+> >>> targets.
+> >> A new hypercall using for granting gsi? If so, how does the caller know to call which hypercall to grant permission, XEN_DOMCTL_irq_permission or that new hypercall?
+> > 
+> > Either we add a feature indicator, or the caller simply tries the
+> > new GSI interface first.
+> I am still not sure how to use and implement it.
+> Taking pci_add_dm_done as an example, for now its implementation is:
+> pci_add_dm_done
+> 	xc_physdev_map_pirq
+> 	xc_domain_irq_permission(,,pirq,)
+> 		XEN_DOMCTL_irq_permission
 > 
-> Regressions :-(
+> And assume the new hypercall is XEN_DOMCTL_gsi_permission, do you mean:
+> pci_add_dm_done
+> 	xc_physdev_map_pirq
+> 	ret = xc_domain_gsi_permission(,,gsi,)
+> 		XEN_DOMCTL_gsi_permission
+
+Making this first call would also depend on whether the 'gsi' can be
+fetched from sysfs, otherwise the call should be avoided.
+
+> 	if ( ret != 0 )
+> 		xc_domain_irq_permission(,,pirq,)
+> 			XEN_DOMCTL_irq_permission
+
+You can only fallback when you have the pirq (ie: when in a PV dom0),
+on a PVH dom0 there's no pirq, so no fallback.
+
+The code in pci_add_dm_done() must be aware of this, and only fallback
+when in PV dom0.
+
+> But if so, I have a question that in XEN_DOMCTL_gsi_permission, when to fail and when to success?
 > 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->  build-arm64-pvops             6 kernel-build             fail REGR. vs. 184271
+> Or do you mean:
+> pci_add_dm_done
+> 	xc_physdev_map_pirq
+> 	ret = xc_domain_irq_permission(,,pirq,)
+> 		XEN_DOMCTL_irq_permission
+> 	if ( ret != 0 )
+> 		xc_domain_gsi_permission(,,gsi,)
+> 			XEN_DOMCTL_gsi_permission
+> And in XEN_DOMCTL_gsi_permission, as long as the current domain has the access of gsi, then granting gsi to caller should be successful. Right?
 
-In the earlier flight it was the qemu build where gcc ICE-ed, while here
-it's the Linux build. Is there really no compiler update available that
-addresses at least some of these recurring but random issues?
+No, I think that would be backwards, the logic above looks correct
+regarding the ordering of the hypercalls.
 
-Jan
-
+Thanks, Roger.
 
