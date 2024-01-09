@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41EF082840E
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 11:33:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664375.1034546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9382E828413
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 11:36:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664378.1034557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rN9Q9-0001ge-3L; Tue, 09 Jan 2024 10:33:21 +0000
+	id 1rN9T2-0002Hp-Gv; Tue, 09 Jan 2024 10:36:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664375.1034546; Tue, 09 Jan 2024 10:33:21 +0000
+Received: by outflank-mailman (output) from mailman id 664378.1034557; Tue, 09 Jan 2024 10:36:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rN9Q9-0001eS-0c; Tue, 09 Jan 2024 10:33:21 +0000
-Received: by outflank-mailman (input) for mailman id 664375;
- Tue, 09 Jan 2024 10:33:19 +0000
+	id 1rN9T2-0002FW-DV; Tue, 09 Jan 2024 10:36:20 +0000
+Received: by outflank-mailman (input) for mailman id 664378;
+ Tue, 09 Jan 2024 10:36:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RTBC=IT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rN9Q7-0001eK-Ju
- for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 10:33:19 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1rN9T1-0002FQ-HJ
+ for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 10:36:19 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 810bd256-aeda-11ee-98ef-6d05b1d4d9a1;
- Tue, 09 Jan 2024 11:33:18 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-50ea9daac4cso2848144e87.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 02:33:18 -0800 (PST)
+ id ec461078-aeda-11ee-98ef-6d05b1d4d9a1;
+ Tue, 09 Jan 2024 11:36:18 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id
+ a640c23a62f3a-a28bf46ea11so489702966b.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 02:36:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- hr6-20020a056638700600b0046dcd4d4229sm567942jab.125.2024.01.09.02.33.16
+ cq3-20020a056638478300b0046e06f936c7sm566234jab.167.2024.01.09.02.36.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jan 2024 02:33:17 -0800 (PST)
+ Tue, 09 Jan 2024 02:36:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 810bd256-aeda-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: ec461078-aeda-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704796398; x=1705401198; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=g+J4ZLm2rZK+JGtCB8kOJMKYQTOHLrdKcyDIyJLC9g4=;
-        b=TDpXHl39s2+WJmZchP4PnHSpsa17o7TZ9YpYkkhZjE+ONXj5+Yd2Tzrs4ooDVQJc6E
-         pjibf2WVbfo5oJJgTOw09uhYBZQXSMngDJtPV0Q7IjoKj3Tafcr4dQfKHU64v7Ofudlw
-         B+8BpXF8nDv5MY1H5lFyLoBXoTvHWDtxnRilHuS6IKvoneL/2cQEVfhvXpAWZTrgM4gS
-         bMqvJOZY+kaGx3ZSJbMlLm451w+EmDminHEBqB/BwPHF0MCgxk9ViiwuHgb7plqH4Aci
-         57DTO6RoNU+UPe9V3ws1/vvrj1S+aewx7IW2c82QfOzNZ1+iERiTf39tGMKwD8GMI6+/
-         673w==
+        d=suse.com; s=google; t=1704796578; x=1705401378; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=G6ARC/pWj23HPQoAKe8VjFJIo8AvvclGDv97J2g/O78=;
+        b=O33vhaY/2VBF/pevjmfphDRsonlYf64qaD+S4B2WmQJfpeXy3fcBpbXYY0QGPGmdVz
+         9elxrcVx/g6tlxiENbBDd/0CWlnt9sgYDSnaIfFIX45tHl8jRUI7Wxe3x5JbVqAfOJE7
+         6yhN3owZuwQ7tzuTxFY+7IMLsn/BO1JAq0yH5FVCxEwyc+sc75k0yFUtVZJ11llr1sQ/
+         dydo35n0wKQRXxagXx6RWtS6q9gwKPQB144TWtF1Bb1P7VrFJUOR2zGDnuSoEy3f7VZ9
+         boQyXlk5EZoF/RlQf4iESgp+wK2mn8qlysc7Jm1fJI5k/szOkJcCWIbux6ytGng4ftgu
+         qdEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704796398; x=1705401198;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=g+J4ZLm2rZK+JGtCB8kOJMKYQTOHLrdKcyDIyJLC9g4=;
-        b=jgencEPfBYu5U4NbRNT+9D+QCfo5axjmRkcaxI6xaD/PjfKDHtOZZe7eI4JCO8KTQ4
-         +dV5qnAEd39QSNooWT/FyY1LzKyjsjj+/kV2Y2XmPJlUt/gpPjPKcsMSjMukccqrdji4
-         nmy1qUsJXdl0LhNmKSZgI60myFOVfHNCsqpT96mRac2GH0gfaa32u+ll0Lsm1/YspPZQ
-         7Pa1djKskdZQk6qE+if1aX7B2iq56fSREXMcuBdDkqVE++dVh2mtG4sR76YJFXxbosii
-         SOw6fu4hFuNJjDKzSlCUmfJpgi4RpeMrrtpPqJNatStQklphyHRH2BQi4n2nWzpVHKZn
-         q9iw==
-X-Gm-Message-State: AOJu0YyQTlD92TkmF7q/+AymlejudNJ4eqOw4MmKcRVaqnJ9RjutUEIe
-	EuBniGUgUfDc7RWjQSva/NDrj+2o+OGm
-X-Google-Smtp-Source: AGHT+IGPfWmj8hW7ZYjIAyw4Bbhm88KR0yQhPyplUXaokVkyY5RdpCsFONQ7Ptq7msB+7liB5jJtyw==
-X-Received: by 2002:ac2:51b8:0:b0:50e:710b:a7c6 with SMTP id f24-20020ac251b8000000b0050e710ba7c6mr2008692lfk.138.1704796398318;
-        Tue, 09 Jan 2024 02:33:18 -0800 (PST)
-Message-ID: <101c638c-03ee-471b-a6c8-9c2c10772001@suse.com>
-Date: Tue, 9 Jan 2024 11:33:14 +0100
+        d=1e100.net; s=20230601; t=1704796578; x=1705401378;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=G6ARC/pWj23HPQoAKe8VjFJIo8AvvclGDv97J2g/O78=;
+        b=s/ZRpQ50Rbss24VbidYvzjqReVHZ8koc88eqkPVsz8aEf3V5ThAsISHtSBNL3fD+Ej
+         ZmG6YkTesUuPwp+wl3O11rBSxbR5+KjNH1PtNTC9CmH+Bf6BNZHp2jRQDdvnCUXJ3UDH
+         3UPAlQASp1uRw+N6b+BsDPoUrWNaJ+wgZsNBgKOwIRtF8gGb2xaaNm8a3LH7Pnf3vuOw
+         8/STOVDSYOPQ9+NjCAWQu1J/dIGiV1S6zo8PDKQTbA2GJrgYJYbeE4dN1ZdWlnqkiaGR
+         sC9Lr59oAOqSCr9i2U2ZSao1p1oitntsgKmWRYl3DQqZVywuNvC/0qR1wzPXg2jkviJV
+         PMiA==
+X-Gm-Message-State: AOJu0YwICXfKvJcytomuw/8xtnNuotzl2E9wR7DD4GwHK5D8+CFcKrxp
+	Xk/52pzoV/gntsGxTlF+2B0oPow6Sors
+X-Google-Smtp-Source: AGHT+IEC993dAhr5A/Hq6IeGEeqLI8fT3f/q/aBcYvs/Lw+Mb4xvStWcowIIkCm2SafJLX846an65g==
+X-Received: by 2002:a17:906:1b07:b0:a2b:130c:a897 with SMTP id o7-20020a1709061b0700b00a2b130ca897mr449201ejg.17.1704796578152;
+        Tue, 09 Jan 2024 02:36:18 -0800 (PST)
+Message-ID: <8212c8c3-762b-4163-b734-2c759c8c3b12@suse.com>
+Date: Tue, 9 Jan 2024 11:36:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/13] xen: add cache coloring allocator for domains
+Subject: Re: [PATCH v5 07/13] xen/page_alloc: introduce
+ init_free_page_fields() helper
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-10-carlo.nonato@minervasys.tech>
- <7fbe9526-60cf-4844-8b48-58ab69ec1b29@suse.com>
+ <20240102095138.17933-8-carlo.nonato@minervasys.tech>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,23 +113,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7fbe9526-60cf-4844-8b48-58ab69ec1b29@suse.com>
+In-Reply-To: <20240102095138.17933-8-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09.01.2024 11:28, Jan Beulich wrote:
-> On 02.01.2024 10:51, Carlo Nonato wrote:
->> v5:
->> - Carlo Nonato as the new author
->> - the colored allocator balances color usage for each domain and it searches
->>   linearly only in the number of colors (FIXME removed)
+On 02.01.2024 10:51, Carlo Nonato wrote:
+> Introduce a new helper to initialize fields that have different uses for
+> free pages.
 > 
-> While this addresses earlier concerns, meanwhile NUMA work has also
-> been progressing. What's the plan of interaction of coloring with it?
+> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
 
-Thinking of interactions - what about static memory? Is coloring incompatible
-with that? If so, should the two features be excluded to both be used at the
-same time?
+I might in principle ack this change, but what's the deal with this 2nd
+S-o-b? The typical expectation is for yours to be last, and the 1st one
+being the original author's (which generally means you can't be the
+original author in such a case, yet the absence of a From: suggests
+you are).
 
 Jan
 
