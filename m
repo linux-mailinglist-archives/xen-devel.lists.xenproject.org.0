@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DF21828AAF
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 18:06:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664809.1034936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E8A2828AAD
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 18:06:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664810.1034941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNFY7-0000Y1-VD; Tue, 09 Jan 2024 17:05:59 +0000
+	id 1rNFY8-0000dr-4X; Tue, 09 Jan 2024 17:06:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664809.1034936; Tue, 09 Jan 2024 17:05:59 +0000
+Received: by outflank-mailman (output) from mailman id 664810.1034941; Tue, 09 Jan 2024 17:06:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNFY7-0000WQ-PY; Tue, 09 Jan 2024 17:05:59 +0000
-Received: by outflank-mailman (input) for mailman id 664809;
- Tue, 09 Jan 2024 17:05:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rNFY8-0000Yc-1L; Tue, 09 Jan 2024 17:06:00 +0000
+Received: by outflank-mailman (input) for mailman id 664810;
+ Tue, 09 Jan 2024 17:05:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Qgrd=IT=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1rNFY5-0000WE-EW
- for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 17:05:57 +0000
+ id 1rNFY7-0000WK-4L
+ for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 17:05:59 +0000
 Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
  [2607:f8b0:4864:20::734])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 59b48abd-af11-11ee-9b0f-b553b5be7939;
- Tue, 09 Jan 2024 18:05:55 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5b5eaab1-af11-11ee-98ef-6d05b1d4d9a1;
+ Tue, 09 Jan 2024 18:05:58 +0100 (CET)
 Received: by mail-qk1-x734.google.com with SMTP id
- af79cd13be357-783293278adso114906585a.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 09:05:55 -0800 (PST)
+ af79cd13be357-7831e87ba13so220446385a.0
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 09:05:58 -0800 (PST)
 Received: from pm2-ws13.praxislan02.com
  (207-172-141-204.s8906.c3-0.slvr-cbr1.lnh-slvr.md.cable.rcncustomer.com.
  [207.172.141.204]) by smtp.gmail.com with ESMTPSA id
- dt15-20020a05620a478f00b0077f435ed844sm938738qkb.112.2024.01.09.09.05.52
+ dt15-20020a05620a478f00b0077f435ed844sm938738qkb.112.2024.01.09.09.05.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jan 2024 09:05:52 -0800 (PST)
+ Tue, 09 Jan 2024 09:05:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,60 +46,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59b48abd-af11-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5b5eaab1-af11-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704819953; x=1705424753; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=a2SwLljorVhWvgkSuH2ZFX21icy4tS63YsP+lvu7tic=;
-        b=i6Lfjx9M2hmopdYy4jEjuOuX2LZqaZIYgOgngyMXmpCAhVMh/sS+RUYStKX+NUNBSy
-         2OSiYg3Ob+Bsnc/H4gAAPh+m0qh8Gk6sudXwkSbHCzY5OFYH5FY+qmud22G0Ie5YTYJ0
-         YYog+jQx0FwnLIUenFkdOc7GirMdLaWVRjfjQBEHSsa9uDqVWNcgyqRteyqWiyfBEChW
-         jRI2NbTtx447SGDZz2I9opbWPTkmKgIKInTOpSifAgtMwK42p70QWJbmOxpnyRk3dMK3
-         SPOVNKp9d5gdL9Falr7oXaJmyiHRSjvFpo6fWmdtvwyDP8kahhlEUAWbxH/VMLb+DfV0
-         HiUg==
+        d=gmail.com; s=20230601; t=1704819957; x=1705424757; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=B0PZby6BxJlkqBCgAX+pIJcCzjfBuPqSrxzw4k3aYx8=;
+        b=ZDkJEtvdBKUQ7U9jJTdgZWobYYvCaQkFXL4k739XxGX67NWoJOdrNqlZ6FM1Vlif7q
+         UTkuXbkRm3yDn+baHgsD3YPu/HtsfO3Dg33FJWOiHUi10z7xLtpPcO4h3a8JELVvzidd
+         XUS3C8F2qzt8hBsK7zCdfTfClr1dfMIJSuVfxnh0HDBMIVq44cjrgo11I6vutTce/cbW
+         hBj8xB49/OEyr0dXFQHRmWO9CewL2wm0b2fkAD5NZFOuGsPxx/8MtqdD9UgEm1257OYx
+         ioxnxx9hthb81oE3vYAFR8ateksamXLFFkdt13nyAjWrilTq6IqdeqWMpParKr47SC7Z
+         k8aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704819953; x=1705424753;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=a2SwLljorVhWvgkSuH2ZFX21icy4tS63YsP+lvu7tic=;
-        b=tOJ3H9Kgp1QeRTj5+UznFpML656aL+onwi+EJ4juE9iUg6PHsXtn7F0egcNpEi1NYh
-         7nn/r1nbfRJ2uSNheKu9BmgixTxwvVlR3BszKTotgQfGsKXsCAsuD2qjmM9qHIySuSIP
-         5LClAydSFdSn2piluGZHcixXkgcws2KHCz1brH7BLCKGo9nKxSeWwlbDzN6FLKQ9yaLI
-         hZ5BcxQDqVs+aOueSFlABepnyJ1bSpPCxdZ2J6SSIlEDJjiqDU8R/LZaaKSu9Z9iKwnA
-         H8pcZ5yqYiX6oekB5nb026+D9H/quX4npIrcKr3f9n336i+JGg5H/RroTUEYhw/9RDKs
-         V00g==
-X-Gm-Message-State: AOJu0Yye/BSH4hbIe+W0cLyHihdr+AeyzIVRMmGH9Ui5eRLv59HXSgzJ
-	8XIxqfBoTFNywyY9+O8BAcNhQtCdGrg=
-X-Google-Smtp-Source: AGHT+IFo5XVNKn1BRUlDrYawuzLXG1w6fYgO5McNwSWHOEdOSwOvHMbdZy5okKGy/E2TaPGvXyaf7Q==
-X-Received: by 2002:a05:620a:29d5:b0:783:639:39d7 with SMTP id s21-20020a05620a29d500b00783063939d7mr6922552qkp.4.1704819953574;
-        Tue, 09 Jan 2024 09:05:53 -0800 (PST)
+        d=1e100.net; s=20230601; t=1704819957; x=1705424757;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=B0PZby6BxJlkqBCgAX+pIJcCzjfBuPqSrxzw4k3aYx8=;
+        b=xAPnoNJX1rbb8bzVaPh2din9oUkincbehlsucTrEOOpwsuYxPVsN9jTcGD1/Ods92J
+         PC2qJ4y1iqBBsdWr+dItuVsTqXv5nsRlkXVQW1l9SFCiTamn9u7MWbXIXvAs/erR7xmj
+         3hozkkTJPC0aRkMe7zUfE+BNG9crazvaTvJbwLaVsBfNAX4NztrjxxRxHFlibWCD+/no
+         ICHjONwvs76QHcNHqZ2EzrC8Ws7ncWdrVOaayXntkwyzdJ+V47KbvuMEc3pumWLJ5/wb
+         sK71U8lO+wU7xpbOQR2qgFbjb6JqdTsGTbX5nFhixmyMtqUSH9cr5ZvdGflUYufx5qsK
+         czFw==
+X-Gm-Message-State: AOJu0YyTg8AqcedM3+Yh1ZKnGlqlRalEei6fFDEJoLc5JhMoMWnla/1f
+	fPrCm6uix4rRT8BQicoG9o9UFXCfkx4=
+X-Google-Smtp-Source: AGHT+IEj7HQxGa690Yfp7Wjp6VYnpuyyqaztpvN+cfh8DppYJuymX/7PNvEPnu8bJOjC9KvJ7dCcmw==
+X-Received: by 2002:a05:620a:166f:b0:783:1c3e:6825 with SMTP id d15-20020a05620a166f00b007831c3e6825mr3984152qko.153.1704819956714;
+        Tue, 09 Jan 2024 09:05:56 -0800 (PST)
 From: Jason Andryuk <jandryuk@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jason Andryuk <jandryuk@gmail.com>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 0/2] libxl: devd support for QEMU 9pfs
-Date: Tue,  9 Jan 2024 12:05:38 -0500
-Message-ID: <20240109170540.38239-1-jandryuk@gmail.com>
+Subject: [PATCH 1/2] libxl: Fix segfault in device_model_spawn_outcome
+Date: Tue,  9 Jan 2024 12:05:39 -0500
+Message-ID: <20240109170540.38239-2-jandryuk@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240109170540.38239-1-jandryuk@gmail.com>
+References: <20240109170540.38239-1-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These two patches enable xl devd (in a service vm) to launch QEMU to
-provide 9pfs backends.
+libxl__spawn_qdisk_backend() explicitly sets guest_config to NULL when
+starting QEMU (the usual launch through libxl__spawn_local_dm() has a
+guest_config though).
 
-Jason Andryuk (2):
-  libxl: Fix segfault in device_model_spawn_outcome
-  libxl: devd: Spawn QEMU for 9pfs
+Bail early on a NULL guest_config/d_config.  This skips the QMP queries
+for chardevs and VNC, but this xenpv QEMU instance isn't expected to
+provide those - only qdisk (or 9pfs backends after an upcoming change).
 
- tools/libs/light/libxl_device.c   | 22 ++++++++++++----------
- tools/libs/light/libxl_dm.c       | 15 ++++++++-------
- tools/libs/light/libxl_internal.h |  4 ++--
- 3 files changed, 22 insertions(+), 19 deletions(-)
+Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+---
+ tools/libs/light/libxl_dm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
+index f7c796011d..6ef16ad2a0 100644
+--- a/tools/libs/light/libxl_dm.c
++++ b/tools/libs/light/libxl_dm.c
+@@ -3161,8 +3161,8 @@ static void device_model_spawn_outcome(libxl__egc *egc,
+ 
+     /* Check if spawn failed */
+     if (rc) goto out;
+-
+-    if (d_config->b_info.device_model_version
++    /* d_config is NULL for xl devd/libxl__spawn_qemu_xenpv_backend(). */
++    if (d_config && d_config->b_info.device_model_version
+             == LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN) {
+         rc = libxl__ev_time_register_rel(ao, &dmss->timeout,
+                                          devise_model_postconfig_timeout,
 -- 
 2.43.0
 
