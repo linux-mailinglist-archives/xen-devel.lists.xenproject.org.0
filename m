@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9382E828413
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 11:36:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664378.1034557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68693828420
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 11:40:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664382.1034567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rN9T2-0002Hp-Gv; Tue, 09 Jan 2024 10:36:20 +0000
+	id 1rN9WW-0004zq-Vr; Tue, 09 Jan 2024 10:39:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664378.1034557; Tue, 09 Jan 2024 10:36:20 +0000
+Received: by outflank-mailman (output) from mailman id 664382.1034567; Tue, 09 Jan 2024 10:39:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rN9T2-0002FW-DV; Tue, 09 Jan 2024 10:36:20 +0000
-Received: by outflank-mailman (input) for mailman id 664378;
- Tue, 09 Jan 2024 10:36:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rN9WW-0004xy-T7; Tue, 09 Jan 2024 10:39:56 +0000
+Received: by outflank-mailman (input) for mailman id 664382;
+ Tue, 09 Jan 2024 10:39:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RTBC=IT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rN9T1-0002FQ-HJ
- for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 10:36:19 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ec461078-aeda-11ee-98ef-6d05b1d4d9a1;
- Tue, 09 Jan 2024 11:36:18 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a28bf46ea11so489702966b.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 02:36:18 -0800 (PST)
+ id 1rN9WV-0004xo-D8
+ for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 10:39:55 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6c3f2660-aedb-11ee-9b0f-b553b5be7939;
+ Tue, 09 Jan 2024 11:39:53 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2ccae380df2so29704431fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 02:39:53 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cq3-20020a056638478300b0046e06f936c7sm566234jab.167.2024.01.09.02.36.16
+ k34-20020a056638372200b0046e29c56401sm566861jav.0.2024.01.09.02.39.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jan 2024 02:36:17 -0800 (PST)
+ Tue, 09 Jan 2024 02:39:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec461078-aeda-11ee-98ef-6d05b1d4d9a1
+X-Inumbo-ID: 6c3f2660-aedb-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704796578; x=1705401378; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=suse.com; s=google; t=1704796793; x=1705401593; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=G6ARC/pWj23HPQoAKe8VjFJIo8AvvclGDv97J2g/O78=;
-        b=O33vhaY/2VBF/pevjmfphDRsonlYf64qaD+S4B2WmQJfpeXy3fcBpbXYY0QGPGmdVz
-         9elxrcVx/g6tlxiENbBDd/0CWlnt9sgYDSnaIfFIX45tHl8jRUI7Wxe3x5JbVqAfOJE7
-         6yhN3owZuwQ7tzuTxFY+7IMLsn/BO1JAq0yH5FVCxEwyc+sc75k0yFUtVZJ11llr1sQ/
-         dydo35n0wKQRXxagXx6RWtS6q9gwKPQB144TWtF1Bb1P7VrFJUOR2zGDnuSoEy3f7VZ9
-         boQyXlk5EZoF/RlQf4iESgp+wK2mn8qlysc7Jm1fJI5k/szOkJcCWIbux6ytGng4ftgu
-         qdEg==
+        bh=ChCLdSPHGvk+kvmsqaKEzcj9QdGiqx/L/a/o70wiuMU=;
+        b=UwCZ7sZlmJGbv9Ri3xJMx5PfwqMFIiPeiZWF9fcNbhGHwfQ2WaDXDgNDPqAVpWzgzs
+         B6H+34FpzZKUfywO9o+rf9e94xN8N4aAuH/rMHyVg7oc4oOGK4+OZq7igcHqzi5A61lA
+         aahJ7TR856V09ORjnjnHUUH9APixhaQNCkDPSduQcDWmqeZIaxRhqLiQ16vOGFCoGmKS
+         Gde28lxxyJ6AUZDLX1cTohLI5+gX5TEWIHMui2xj1nOeoo8qVvpizdclMJ0V910t6jtG
+         7Tr7CegtiaGL9fT3Rz0fcGHB9tC7PonG12y4iQfhNuCFyftNCYL32XVPsZzxadpKobOB
+         qQ4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704796578; x=1705401378;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=1e100.net; s=20230601; t=1704796793; x=1705401593;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=G6ARC/pWj23HPQoAKe8VjFJIo8AvvclGDv97J2g/O78=;
-        b=s/ZRpQ50Rbss24VbidYvzjqReVHZ8koc88eqkPVsz8aEf3V5ThAsISHtSBNL3fD+Ej
-         ZmG6YkTesUuPwp+wl3O11rBSxbR5+KjNH1PtNTC9CmH+Bf6BNZHp2jRQDdvnCUXJ3UDH
-         3UPAlQASp1uRw+N6b+BsDPoUrWNaJ+wgZsNBgKOwIRtF8gGb2xaaNm8a3LH7Pnf3vuOw
-         8/STOVDSYOPQ9+NjCAWQu1J/dIGiV1S6zo8PDKQTbA2GJrgYJYbeE4dN1ZdWlnqkiaGR
-         sC9Lr59oAOqSCr9i2U2ZSao1p1oitntsgKmWRYl3DQqZVywuNvC/0qR1wzPXg2jkviJV
-         PMiA==
-X-Gm-Message-State: AOJu0YwICXfKvJcytomuw/8xtnNuotzl2E9wR7DD4GwHK5D8+CFcKrxp
-	Xk/52pzoV/gntsGxTlF+2B0oPow6Sors
-X-Google-Smtp-Source: AGHT+IEC993dAhr5A/Hq6IeGEeqLI8fT3f/q/aBcYvs/Lw+Mb4xvStWcowIIkCm2SafJLX846an65g==
-X-Received: by 2002:a17:906:1b07:b0:a2b:130c:a897 with SMTP id o7-20020a1709061b0700b00a2b130ca897mr449201ejg.17.1704796578152;
-        Tue, 09 Jan 2024 02:36:18 -0800 (PST)
-Message-ID: <8212c8c3-762b-4163-b734-2c759c8c3b12@suse.com>
-Date: Tue, 9 Jan 2024 11:36:14 +0100
+        bh=ChCLdSPHGvk+kvmsqaKEzcj9QdGiqx/L/a/o70wiuMU=;
+        b=DIJZxdvF+Oay81GalW1Kloolur/0WkfgxS9vg3xOGIhGAhuXCHopVIIZejNYkn3+tb
+         fINaBmAtfk/5YaK8gdfpWy7EMbuKQ8Qy2G9isbjYxEzh+xgcRxnCGtvUanY832BgGUMy
+         LxCRjVYGlwCCCSbdO/DfYzZ8VlShbBrWYP1VzcXOJSDWqrG4yIGGfXvaljD48bLSuz/m
+         1f8GJzEFllQGcDZqtusvbxptfvjGHoXQ2A0eK7Y8zvQDFiDtjsjIlHGjWlaF3+mcSFsi
+         /ARdHLdni8YpHNOpSlZYvUmCaXTcImfhsLBG025mK0dm879ODOpCy9rdXGIn3xunmrx3
+         k3xA==
+X-Gm-Message-State: AOJu0Yx3tv3QWvFOQugncQzAUZvPNTZtBUQVzAfLpyvNuxeeX9k/8MV9
+	wWj6+vLk+mTdVSoO8vEedA9mMuKur8dQ
+X-Google-Smtp-Source: AGHT+IGCBaOz6BIrSFVgn1RHFsCHv+7rmSBcuQ+HesiDF+fJ36x77qb5oH3ugb8qVQ8fK80iL1764w==
+X-Received: by 2002:a05:651c:c5:b0:2cd:17aa:5216 with SMTP id 5-20020a05651c00c500b002cd17aa5216mr1914999ljr.86.1704796792840;
+        Tue, 09 Jan 2024 02:39:52 -0800 (PST)
+Message-ID: <772125e3-4745-4402-b0bb-4075cc10574b@suse.com>
+Date: Tue, 9 Jan 2024 11:39:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/13] xen/page_alloc: introduce
- init_free_page_fields() helper
+Subject: Re: [xen-unstable test] 184285: regressions - FAIL
 Content-Language: en-US
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
-References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-8-carlo.nonato@minervasys.tech>
+To: osstest service owner <osstest-admin@xenproject.org>
+References: <osstest-184285-mainreport@xen.org>
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,22 +108,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240102095138.17933-8-carlo.nonato@minervasys.tech>
+In-Reply-To: <osstest-184285-mainreport@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.01.2024 10:51, Carlo Nonato wrote:
-> Introduce a new helper to initialize fields that have different uses for
-> free pages.
+On 09.01.2024 10:54, osstest service owner wrote:
+> flight 184285 xen-unstable real [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/184285/
 > 
-> Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+> Regressions :-(
+> 
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  build-arm64-pvops             6 kernel-build             fail REGR. vs. 184271
 
-I might in principle ack this change, but what's the deal with this 2nd
-S-o-b? The typical expectation is for yours to be last, and the 1st one
-being the original author's (which generally means you can't be the
-original author in such a case, yet the absence of a From: suggests
-you are).
+In the earlier flight it was the qemu build where gcc ICE-ed, while here
+it's the Linux build. Is there really no compiler update available that
+addresses at least some of these recurring but random issues?
 
 Jan
+
 
