@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A390682888F
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 15:55:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664679.1034759 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA4608288F6
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 16:24:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664689.1034769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNDVA-0004GL-1y; Tue, 09 Jan 2024 14:54:48 +0000
+	id 1rNDxi-0004Ba-AU; Tue, 09 Jan 2024 15:24:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664679.1034759; Tue, 09 Jan 2024 14:54:48 +0000
+Received: by outflank-mailman (output) from mailman id 664689.1034769; Tue, 09 Jan 2024 15:24:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNDV9-0004E9-VL; Tue, 09 Jan 2024 14:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 664679;
- Tue, 09 Jan 2024 14:54:47 +0000
+	id 1rNDxi-00049O-7P; Tue, 09 Jan 2024 15:24:18 +0000
+Received: by outflank-mailman (input) for mailman id 664689;
+ Tue, 09 Jan 2024 15:24:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/xjK=IT=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rNDV9-000451-3r
- for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 14:54:47 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ <SRS0=ONpl=IT=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1rNDxh-00049H-5Z
+ for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 15:24:17 +0000
+Received: from NAM04-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam04on2061d.outbound.protection.outlook.com
+ [2a01:111:f400:7e8c::61d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 074e9375-aeff-11ee-98ef-6d05b1d4d9a1;
- Tue, 09 Jan 2024 15:54:46 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-3374c693f92so2476174f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 06:54:45 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- je4-20020a05600c1f8400b0040e38b7cfdasm15202326wmb.4.2024.01.09.06.54.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 09 Jan 2024 06:54:45 -0800 (PST)
+ id 2549019d-af03-11ee-98ef-6d05b1d4d9a1;
+ Tue, 09 Jan 2024 16:24:15 +0100 (CET)
+Received: from BYAPR05CA0090.namprd05.prod.outlook.com (2603:10b6:a03:e0::31)
+ by MN0PR12MB6151.namprd12.prod.outlook.com (2603:10b6:208:3c5::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Tue, 9 Jan
+ 2024 15:24:09 +0000
+Received: from SJ1PEPF00001CDF.namprd05.prod.outlook.com
+ (2603:10b6:a03:e0:cafe::db) by BYAPR05CA0090.outlook.office365.com
+ (2603:10b6:a03:e0::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.15 via Frontend
+ Transport; Tue, 9 Jan 2024 15:24:08 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDF.mail.protection.outlook.com (10.167.242.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7181.14 via Frontend Transport; Tue, 9 Jan 2024 15:24:08 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 9 Jan
+ 2024 09:24:07 -0600
+Received: from [172.23.76.218] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Tue, 9 Jan 2024 09:24:06 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,191 +59,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 074e9375-aeff-11ee-98ef-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704812085; x=1705416885; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4zUxdBr5grWnHlsYsRvUHBI0zDSbY7yuz2MFDS6W2BY=;
-        b=lC4F1L/yZGHQsMu1zz48bzMl35TVE/rVY6pB2cicGnWkzzhCFCsS6Xxu8iV00Svfml
-         XiTfMYIYj49fPco58eoH2whH6VCiaDpNV6TvZiEuaJ4z3bpBmcLcOGGs1huif5FFn2EE
-         S1aA+NIkjbeIbfr7LQxc39khROrM/oMWrBpf0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704812085; x=1705416885;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4zUxdBr5grWnHlsYsRvUHBI0zDSbY7yuz2MFDS6W2BY=;
-        b=mIF7IVx7Xz1cZ4x0frLHei+3kRGwP1Am4HONfua0/F6F3uLie6rX0x9MhFCtBfydVv
-         hJsWNrMDc/dFIUfa4Y4p8YQbUhlnV5u/Opd1Gt85F5MLJRcqPnaRbAymoCyuW9C3K0id
-         kjmKyEI0nLGr5yAoFLGimHvOahQkrXWD4mpZRlo2Rpd3xKjcfmlU/EpnSGsgZ94gYh4S
-         JKP1E9yB1a7sgvJxzAtGeiGuWHAtqNzA+dM6JnInFNNqoxMLQBosdWKKGwvkvqO7Fibu
-         NOGB51nYVfcPBX4nV8bJHMhxZu7yqr0O49SnUMbMIDnkB6ctKCpTGGTsaXXtCQ5JwFnR
-         hK3w==
-X-Gm-Message-State: AOJu0YyF7Uo5kyhfRi3ZcCPQLnXGiNhtOVCxKUAbJWYMrAm0z4If+2/9
-	RBUIj1AOXJeKHMuZ22HjQAqqCNmWf8E81A==
-X-Google-Smtp-Source: AGHT+IFHZ/73ex6nB6+OAk9zHcLTjdi/YlM7jsGX0RUqWHABHJvyywFpuRVD3JklyxBxzflof79YVw==
-X-Received: by 2002:a5d:4f83:0:b0:336:67c9:1d9e with SMTP id d3-20020a5d4f83000000b0033667c91d9emr761653wru.79.1704812085313;
-        Tue, 09 Jan 2024 06:54:45 -0800 (PST)
-Message-ID: <3af7e3a7-c76d-4784-a215-06510171c66c@citrix.com>
-Date: Tue, 9 Jan 2024 14:54:44 +0000
+X-Inumbo-ID: 2549019d-af03-11ee-98ef-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HxxFuNEBkHDBaLE6eA+Ndxqe7neuvfTsPUGDgL7vx0H0HKPJTY/HvaUPTSEcRdDPGA8+r7nqBqOtrhx55tPYwzD3ZN13Fso3gPB5wNaaSPuF8yWnLgmeHwKZBp73R21/d9+n0eVcAxeDGbDS4drYBfiNAYdEAYsZNxa3HtNj0REZiV02lHrIzppXpwjZHVmLGImjK7qaPPfEsM8IRyqXAhpoT08LwNhz8CSPWNJDvOeoN3NhIVLmwqVkUin37yMZzgLjSYMVjHXLl3OpaFLst9ozOxUfcM49BkJGJ1lPhPy8Y1bhVtn6J2VfBaX//xS5SulHAjmWdu9WmYDUioKNlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u+HMJXyXGN7Yzen/DWfjQa/KINyran/Sq/l+V+dwkPA=;
+ b=ijfKQCBoMqPW4SrWO6roZoZn2eM+CQOkp989S4J3yGE2J9XhC/QjuJKqBeaAQMuIus36BvQlYPHBRSIlNpcwinIzhPGarGXhS66UlnaTubROBHfxmDlMaFDmRCL3Kkyiclym1M+x7DJQI339rmVQO82mVz10gKPjNZjjqdSFNjY+cCpD/5F9Q78kiBKM4lLdMRYmZNpQcl8/7YZ3mPUcPRWzROPSXKWzshG+LnlaNrrRpLeHqC18i3puAiJHoWHE6fRjWROzkBK8Riwcuii/CDvHpus7h+JIqzTdu8JAvo6ullXOgUjHKpm3QRVY7xP0hW45ieZ0FLZuoGU6OW4Qww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u+HMJXyXGN7Yzen/DWfjQa/KINyran/Sq/l+V+dwkPA=;
+ b=IwhcvrPG5OirW0fhCNwTpA9KkJSNxoy7JDwlxE2rQUeJIw8qCVFKpcMJ4I8IvyGcU4oamKnOJydx/5YH8K5L9iahdQVvCdDJXpLQhK5NQ6x3O6X/0wzgUEpC7yRdG3M9BboSgBVgn6qkEnlgvhz2ru355BXyfGKndfkotaREm6Y=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <70add06b-59c6-469a-8570-f7a6f5bc15fb@amd.com>
+Date: Tue, 9 Jan 2024 10:24:05 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 08/15] VMX: convert vmx_basic_msr
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Kevin Tian <kevin.tian@intel.com>,
- Jun Nakajima <jun.nakajima@intel.com>,
- George Dunlap <george.dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <b63b648f-02d0-4e52-a5e5-94ffd5666a14@suse.com>
- <d07fb86f-ef9c-4c2b-ba9a-f1e5c813d45d@suse.com>
- <e17d6e45-b03c-4906-9fb3-af4770aa3cf0@citrix.com>
- <beac1f7c-51cb-47a9-8e96-d09cb3ea6ab7@suse.com>
- <04992603-cb10-43ff-9eb3-b8f8f1dc765c@citrix.com>
- <83f266f1-c46b-4ace-9c29-b0b486f817a6@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <83f266f1-c46b-4ace-9c29-b0b486f817a6@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [RFC XEN PATCH v4 1/5] xen/vpci: Clear all vpci status of device
+Content-Language: en-US
+To: Jiqian Chen <Jiqian.Chen@amd.com>, <xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	"Juergen Gross" <jgross@suse.com>, Huang Rui <Ray.Huang@amd.com>
+References: <20240105070920.350113-1-Jiqian.Chen@amd.com>
+ <20240105070920.350113-2-Jiqian.Chen@amd.com>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <20240105070920.350113-2-Jiqian.Chen@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDF:EE_|MN0PR12MB6151:EE_
+X-MS-Office365-Filtering-Correlation-Id: e45a136e-d26d-4058-f076-08dc1127060a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	xgklTidAKq6Qhv/pFfq8UVhkqZZgJDYZHxkw5+DrOVTB7pSRjcWDXBCbYOWCDAFvxX0ckPoe+HXklcpuMeExuDYZ/3sOC4syjxt8xtTDPA3IcxKQV27w1LnJhgh/XQAPR6fV4uKtHG2hmutlmxvneYqZqGfZ7IO4X8/VWr6HEBP2XlDuFsSmvJbAica1BrnuTbCj97ei1NtB+s9i7DnM6E4Lv0CaGLlHuV1pS+HJ08lXXAu8DseL8i+89leCbxPHOSPOj9gRiZpxXPfFhjE8yCyx720uB173Vt+ZNSPGrsAQE10gggZwb328dbf2wHnKRRBq8oLIU7e0skwF9fsBNuwCmyDl8NYKyrgyXPJ3lu0B6RFCaPbsJqnEB5fGD26+MN0wK41Nqqun5f07Ao2zJzpsmwN7GNwsD2v1+lijWvexhb74CM3XJnDZy6G5PfCjOQe72nr9SKo8IBOIO35W6YDTm1FGlayEYOFzCR+BLiuRPEh4KOYoPR2CGue2B1zR6u1h5E1e1x9Gr9KYUDe6NtvjVmU0WVH6YL84PKD/pmjfDBBBxAedvkV6woe1s7Z/v15lF3qqgVsutmVyxGC35DxZc3lqfFUOn0iZq/wmyOlI3YRb48W5rDBkEBDOhqD+lToLnnX7ZPq5uNFj9l+flWV+If0WMB+07bFqc2GXBynOFQVT3SxdjKHpn3e61YvquvfNlUXZgYr0R1Ya0XMu94GueXd8wJRKUjwBTzmILDKaasey+SES9Ii97KHzOSDJhlrMO5NU8+io6mLMu00czmxD7lWY5S/Wiy0tQ413rP0uH1gjfLEBHvLAMEF3QcyQ
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(136003)(346002)(39860400002)(230922051799003)(1800799012)(82310400011)(64100799003)(186009)(451199024)(36840700001)(40470700004)(46966006)(2616005)(26005)(426003)(336012)(53546011)(478600001)(5660300002)(83380400001)(41300700001)(2906002)(36860700001)(16576012)(44832011)(70206006)(4326008)(70586007)(54906003)(110136005)(8676002)(8936002)(47076005)(316002)(82740400003)(356005)(86362001)(31696002)(36756003)(81166007)(7416002)(31686004)(40460700003)(40480700001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2024 15:24:08.1451
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e45a136e-d26d-4058-f076-08dc1127060a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00001CDF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6151
 
-On 09/01/2024 2:39 pm, Jan Beulich wrote:
-> On 18.12.2023 18:29, Andrew Cooper wrote:
->> On 27/11/2023 12:44 pm, Jan Beulich wrote:
->>> On 24.11.2023 23:41, Andrew Cooper wrote:
->>>> On 24/11/2023 8:41 am, Jan Beulich wrote:
->>>>> ... to a struct field, which is then going to be accompanied by other
->>>>> capability/control data presently living in individual variables. As
->>>>> this structure isn't supposed to be altered post-boot, put it in
->>>>> .data.ro_after_init right away.
->>>>>
->>>>> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
->>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>> For (usable) nested virt, we're going to need the VMX MSRs, in their
->>>> architectural form, in struct cpu_policy.  And just like CPUID features,
->>>> I want it to end up with nice bitfields to use.
->>>>
->>>> Looking through the rest of this series, vmx_caps ends up almost in
->>>> architectural form.
->>>>
->>>> Could I talk you into having a "struct vmx_msrs" (or similar - 'caps'
->>>> doesn't feel quite right here) in the policy object, and also
->>>> instantiating one instance of it for this purpose here?
->>> I was actually wondering while doing the conversion. The main reason I
->>> didn't go that route right away was that I wasn't really certain whether
->>> what I'd put there would the really be the (largely) final shape it
->>> wants to take there. (One thing you've likely noticed I didn't convert
->>> is _vmx_misc_cap, which right now only exists as a local variable in
->>> vmx_init_vmcs_config().)
->>>
->>>> AFAICT, it would only be a minor deviation to the latter half of this
->>>> series, but it would be an excellent start to fixing nested virt - and
->>>> getting this data in the policy really is the first task in getting the
->>>> ball rolling on nested virt.
->>> How much of a further change it would end up being (or where that change
->>> would occur) depends on another aspect: When put in cpu-policy.h (and I
->>> take it you mean the lib/ instance, not the asm/ one), it would seem
->>> natural and perhaps even necessary to properly introduce bitfields for
->>> each of the MSRs right away. That'll lead to a "raw" field as well. In
->>> VMX code (mostly its cpu_has_* #define-s), I'd then either need to use
->>> .raw (perhaps a little ugly here and there) or go with using the
->>> individual bitfields right away (likely eliminating the need for many of
->>> the constant #define-s), which increases the risk of inadvertent mistakes
->>> (and their overlooking during review).
->>>
->>>> I don't mind about serialising/de-serialsing it - that still has a bit
->>>> of userspace complexity to work out, and depends on some of the cleanup
->>>> still needing a repost.
->>>>
->>>> If you don't want to take the added space in cpu_policy yet, how about
->>>> having the declaration there and just forgo instantiating the subobject
->>>> in the short term?
->>> There's quite a bit of effectively dead space in the struct already; I
->>> think I wouldn't mind instantiating the struct there right away. So long
->>> as you're convinced it's going to be used there in not too distant a
->>> future.
->>>
->>> But: If I go as far, why would I introduce a global instance of the new
->>> struct? Wouldn't it then make more sense to use host_cpu_policy right
->>> away? I probably would keep populating it in vmx_init_vmcs_config() to
->>> limit churn for now, but consumers of the flags could then right away
->>> use the host policy.
->> George has stated an intent to pick nested virt up imminently.  I'll
->> have to defer to him on when this will actually start.
->>
->> But, sorting out this data in the policies is the next step, whenever
->> that occurs.
->>
->>
->> If you fancy going all the way to use the raw/host policy then great,
->> but I expect that would be a large amount of extra work, hence the
->> suggestion to just use the "inner" struct in the short term.
-> Even the inner struct plan falls apart pretty quickly (or grows what
-> needs doing by too much for my taste, in the context right here):
-> While for basic_msr this works, and it would apparently also work
-> for vmfunc and tertiary exec control (the latter is itself only part
-> of a yet to be reviewed / approved patch), it doesn't for all the
-> others with split 0-setting and 1-setting halves. This is because
-> what VMX code wants are the calculated values to put in the VMCS,
-> whereas imo in the policy we'd want to store both halves (and what
-> exactly wants to be in the host policy there isn't really clear to
-> me). As a result I can't create a single uniform structure properly
-> serving both purposes. Nor could I have VMX code use the host
-> policy for most of its capability checks.
->
-> Thought / ideas?
+On 1/5/24 02:09, Jiqian Chen wrote:
+> diff --git a/xen/drivers/pci/physdev.c b/xen/drivers/pci/physdev.c
+> index 42db3e6d133c..552ccbf747cb 100644
+> --- a/xen/drivers/pci/physdev.c
+> +++ b/xen/drivers/pci/physdev.c
+> @@ -67,6 +68,39 @@ ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>          break;
+>      }
+>  
+> +    case PHYSDEVOP_pci_device_state_reset: {
+> +        struct physdev_pci_device dev;
+> +        struct pci_dev *pdev;
+> +        pci_sbdf_t sbdf;
+> +
+> +        if ( !is_pci_passthrough_enabled() )
+> +            return -EOPNOTSUPP;
+> +
+> +        ret = -EFAULT;
+> +        if ( copy_from_guest(&dev, arg, 1) != 0 )
+> +            break;
+> +        sbdf = PCI_SBDF(dev.seg, dev.bus, dev.devfn);
+> +
+> +        ret = xsm_resource_setup_pci(XSM_PRIV, sbdf.sbdf);
+> +        if ( ret )
+> +            break;
+> +
+> +        pcidevs_lock();
+> +        pdev = pci_get_pdev(NULL, sbdf);
+> +        if ( !pdev )
+> +        {
+> +            pcidevs_unlock();
+> +            ret = -ENODEV;
+> +            break;
+> +        }
+> +
 
-If it's not actually trivial, then don't worry.
+        write_lock(&pdev->domain->pci_lock);
 
-The policy does need to hold the architectural representation.  The
-in-use settings need storing per-vCPU because they do (or need to me
-made to) vary based on the configuration of the VM, and because they're
-needed on every virtual vmentry when re-calculating VMCS02.
+> +        ret = vpci_reset_device_state(pdev);
 
-~Andrew
+        write_unlock(&pdev->domain->pci_lock);
+
+> +        pcidevs_unlock();
+> +        if ( ret )
+> +            printk(XENLOG_ERR "%pp: failed to reset PCI device state\n", &sbdf);
+> +        break;
+> +    }
+> +
+>      default:
+>          ret = -ENOSYS;
+>          break;
+> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+> index 72ef277c4f8e..3c64cb10ccbb 100644
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -107,6 +107,15 @@ int vpci_add_handlers(struct pci_dev *pdev)
+>  
+>      return rc;
+>  }
+> +
+> +int vpci_reset_device_state(struct pci_dev *pdev)
+> +{
+> +    ASSERT(pcidevs_locked());
+
+    ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
+
+> +
+> +    vpci_remove_device(pdev);
+> +    return vpci_add_handlers(pdev);
+> +}
+> +
+>  #endif /* __XEN__ */
+>  
+>  static int vpci_register_cmp(const struct vpci_register *r1,
 
