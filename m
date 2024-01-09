@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7884828F3C
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 22:52:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665013.1035194 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F41BA828F3F
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 22:52:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665018.1035205 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNK1K-00088x-Qc; Tue, 09 Jan 2024 21:52:26 +0000
+	id 1rNK1b-0000Ns-4m; Tue, 09 Jan 2024 21:52:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665013.1035194; Tue, 09 Jan 2024 21:52:26 +0000
+Received: by outflank-mailman (output) from mailman id 665018.1035205; Tue, 09 Jan 2024 21:52:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNK1K-000878-Me; Tue, 09 Jan 2024 21:52:26 +0000
-Received: by outflank-mailman (input) for mailman id 665013;
- Tue, 09 Jan 2024 21:52:25 +0000
+	id 1rNK1b-0000Kk-00; Tue, 09 Jan 2024 21:52:43 +0000
+Received: by outflank-mailman (input) for mailman id 665018;
+ Tue, 09 Jan 2024 21:52:41 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ONpl=IT=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1rNK1J-0007gG-Ls
- for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 21:52:25 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20601.outbound.protection.outlook.com
- [2a01:111:f403:2417::601])
+ id 1rNK1Z-0007gG-H2
+ for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 21:52:41 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061d.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::61d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ecfc8e2-af39-11ee-9b0f-b553b5be7939;
- Tue, 09 Jan 2024 22:52:23 +0100 (CET)
-Received: from SJ0PR05CA0083.namprd05.prod.outlook.com (2603:10b6:a03:332::28)
- by PH0PR12MB8049.namprd12.prod.outlook.com (2603:10b6:510:28f::17)
+ id 67b647c9-af39-11ee-9b0f-b553b5be7939;
+ Tue, 09 Jan 2024 22:52:39 +0100 (CET)
+Received: from BYAPR07CA0038.namprd07.prod.outlook.com (2603:10b6:a03:60::15)
+ by IA1PR12MB8222.namprd12.prod.outlook.com (2603:10b6:208:3f2::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.21; Tue, 9 Jan
- 2024 21:52:20 +0000
-Received: from SJ1PEPF00001CE4.namprd03.prod.outlook.com
- (2603:10b6:a03:332:cafe::4f) by SJ0PR05CA0083.outlook.office365.com
- (2603:10b6:a03:332::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.15 via Frontend
- Transport; Tue, 9 Jan 2024 21:52:19 +0000
+ 2024 21:52:32 +0000
+Received: from SJ1PEPF00001CEB.namprd03.prod.outlook.com
+ (2603:10b6:a03:60:cafe::76) by BYAPR07CA0038.outlook.office365.com
+ (2603:10b6:a03:60::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23 via Frontend
+ Transport; Tue, 9 Jan 2024 21:52:32 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- SJ1PEPF00001CE4.mail.protection.outlook.com (10.167.242.20) with Microsoft
+ SJ1PEPF00001CEB.mail.protection.outlook.com (10.167.242.27) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7181.14 via Frontend Transport; Tue, 9 Jan 2024 21:52:19 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ 15.20.7181.14 via Frontend Transport; Tue, 9 Jan 2024 21:52:31 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 9 Jan
- 2024 15:52:19 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 9 Jan
- 2024 15:52:18 -0600
+ 2024 15:52:31 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Tue, 9 Jan
+ 2024 13:52:30 -0800
 Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Tue, 9 Jan 2024 15:52:17 -0600
+ Transport; Tue, 9 Jan 2024 15:52:29 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,22 +63,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ecfc8e2-af39-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 67b647c9-af39-11ee-9b0f-b553b5be7939
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q9l3UghIyVCk+1hN3vH0tk526Pob2VuTeo94lsGNFBtDSSwSK7DFc5g9/ol4gtLiZOe1+VqOM18gQpm+4uU5XaljF03RXYzTJJBY8L8FUKo9ofq4duBDKZHA5cfEConNZbdeGD+i9LSjcdgjqVdSoYvrEIFsFqRzseWd579o0gpO/4II82TnU30oOjr9qunayZHXend9D5uKTg4mxbqk0VOIeyAQ9W+Cq9CjEiK7EFT9ANOZCjTlt++3vfpYPFa8r3WPBUUnnlKnfgLDZvKMoCGzkIvMaYpBTcLeTNlZC+JF6Q6bxJgtWt/gfiRINYqDi1MAdeWO6N1DUiHJXimvdw==
+ b=fPbIe4AGfLg5H0PbZGcMsjYQlGEej/LE1fqXDyhwi7toYFEj7KYD49a0/IqrxKH60x4CuikZhw9PVCTs1F2Bg7lbqEyqy2UCfeHyx/6XX59RwmNXjNJZtS4am8G/UF2XBFCwc2JJ+KlqzsQ2begBdo38JuDQUzPPVPZ9WelEx3VQQIfVe0anhMwCANcwk5MEf+J2KrLpt/2Jo/slg7sZB3ENwLw5U+fyESTciZre4avZtpQS8+NHUDIIXgsvOlqwPSWhsMefADQwDlTzZOPIAM7/WnSUXb9kXE5zeoxA8g5LDkFU7orRTkEHI7WJj3G3BMGbCwxIpmAOzl3x1Amg/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XB9PkT1l9t41YyMel2hU6TA5dMUGiXDLX5RX/vyOjHw=;
- b=VplYJ5P2tEeLBuOC12g+mizsei1kldMX4XbxIaYezuSKi45cJp6fGLlClfMZf03wY9tJ4crvD9Nhdj/pY08RooYp4e5lFDAzX+kxtplLB5WZZfZncLQnWF2UKRNiBwHVF+9vSylKcZ7r8n3b6GWu6fnESMQ9ymCmXzyGvJ29A0dgv0F/POcJPk8oBbl1Y3I2Ll2Q3i1yf5esdn3lOfc48ZSl8UVgJQeCSK5S36eCoCoOYCMURXQXtarfDlz8i0WI7Vq2ixhuAxTadCoAABVQahqhl/FIwzF7o5fIMUXHuLAbrsrFiX1RnGMiZ6ZDG/2ANYBtOCPAJvBAaJek+wtpGw==
+ bh=E94DHi+8iv4ojBdqEJ1iMS9iLwhVWhZwG3WSVolNNZs=;
+ b=TJKuLxN/j36qbc5UEdXNe7W1jlepvl+EmE6BLK/Z9lhgJ1umW8m6pxtERrTmn3v6Xn6QxnzTUIP7x1DBplWedEc0/U2m8X/c8/orHCOxaa47pRr6gsy/8657rMvkbXjLVXmD5BqZCVSELb9LEiXwDY0/saRbjHB8wx2N2XKw5b0fAJXVJvAcOVp/tgs4RN6hnUtjYKHUnxFLMStCbLIdWqVXTyijAQyGZONGq9Qux/QEq+WCo5LVEk6MCjdubte0oWe7CSsUFyEtHJi8xuSrBLsPWxy7YMkmXSV1lKvHjXXZbFYQWOar+4KUgrMr8PLPb7tbNaa8N2J4HoyoueCwCw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XB9PkT1l9t41YyMel2hU6TA5dMUGiXDLX5RX/vyOjHw=;
- b=AJxgA/DpUp5i2xH+4coEsrkxA9s2y2wPhbWPM5vqekBj9HT4LRhxHl03E5B2WLJjoATaW9qDUp4wp+eQ7cOqttz+V5t+Wp/HEhfxjTBwul2m+LDDPQIt2kLFqJyPljeqsULfr7gqErY3K51F02KoKUJlANgLJt6w2MRFC9lfP+4=
+ bh=E94DHi+8iv4ojBdqEJ1iMS9iLwhVWhZwG3WSVolNNZs=;
+ b=voZTB7MskqiJBx8TjC9BHBKzn/J+EeCWUYSlFtt9GULzDleqPMtPSD55PxNRdco7NaAGrN22wwHdeDPC9gplRFgMYi7llkBLLpqJnkX1oMUYNYLvcuXfxA5XzFWckesDRHwUGAo/YJ35DA4zT/2zRCM2FrGttKN1dWDn7Q+Oe7A=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -87,13 +87,14 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Jan Beulich
+	<jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Volodymyr
  Babchuk" <volodymyr_babchuk@epam.com>, Stewart Hildebrand
 	<stewart.hildebrand@amd.com>
-Subject: [PATCH v12 02/15] vpci: restrict unhandled read/write operations for guests
-Date: Tue, 9 Jan 2024 16:51:17 -0500
-Message-ID: <20240109215145.430207-3-stewart.hildebrand@amd.com>
+Subject: [PATCH v12 03/15] vpci: add hooks for PCI device assign/de-assign
+Date: Tue, 9 Jan 2024 16:51:18 -0500
+Message-ID: <20240109215145.430207-4-stewart.hildebrand@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240109215145.430207-1-stewart.hildebrand@amd.com>
 References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
@@ -102,80 +103,263 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE4:EE_|PH0PR12MB8049:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea1f000d-31b2-46cc-7f96-08dc115d40ec
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CEB:EE_|IA1PR12MB8222:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8a76ff7-9028-4648-a64c-08dc115d47fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	TweVXBUv8JtOkDCyh0xJ7XapFlUQKNLX26/pESydd7yWJocdiF3Ca0vuU+NRApmXIjsXAPAYj1VW94zwwLdZEiZfg4R4x6n2d4gqbDNGom6exdLuKRt3pOkrPPKVh/l7nv/ePME1xYnCilo+PWjinCCzABcgH5koivVYAFiBgaBBm8B/95YOA3qCs+iZVhI/UrNavV5/YMs3Jok53NInh9lFzE1f1E86cbVkESeyjYWR7CiTThqYqJhLRI90gZY0wi1cgITdr8Xj6x8KcxDcZUIc6iYon1lpTyw5iuW5EriwbepEasNVOlAYkdkKqRHTIgOcjtb+XvRRtOEDnIRD49DTdB40JgojdnOh2NweuEm66dRK1P36AnKGYuPZAKBndWIPRnmjXhcFQZGzsb9i7/ms10u8Rbpy3oXyyI+KXtHZRZn8KTOut+132fzUtnSIZtyeuCD4IG+Ty6Gt+bmckWLbB8hUnqJC4SvHO9XWdbEttYvesHaFJNyroREhcyBIl2TrONIMCwmqcWt5A0vG1ockRkuFc/epOCgEYMqLxH1O+0bT2AFtKu/t4aYGTYL/yF5LqRnIL6FIhXCqhAL3/UidCNywjq/OKwQmrnQVmKjgO0pkuliZuTTBfzcMyqg/KJQQlM5UoYwQZ0Anvotf7c44ng+6BZ5OyQ8McqbZOv3QBrRKQ21VGn3Q6vwSbKjzf7Mp4p3AuyDQo45kfpzsTPX+ZSb9lti84rb9YXg4/HE5DIKQ3tsSgVZV5gWwGjcRtXBExqN3xnHwSMdE+OcFGQ==
+	7T229zm9TmGhKkB5r1olrQAAAYXaH9dfzplmQvd/w9VYONGVkJp9z3WF+JellbLR37bz/rOuXkqtcJ9OXMt0HwmqFoJaxLmW+g7AdIpAB3pKJ66SHWAJDEq0Y8MR0G5mbkzHattZFH4bvxj7T/gPmX430Bc6wDZ9lwTfycZodnSHnUsWbhdFEEeF+eXJUZ3YI8ngYANvtJ6H5Ybs+ZtQghrSnYcQCKnv7LTbX16iVN2V7GOseNXPqcUrYYQ4JX6aXK6xn2vVyv3Uk6E7Te37tTOM9LVeaDVUSNy/j7UDVzhM2RAlHA3FoAkjAckecRoyw/8ZVR/YkXDk5TnJ9RYVORjcqXOfcQ4aFEKe/X/Y35jLXpEbuD3yMqzxEslugV0kNeDTnMU7U9N9UANB+6ZpDJI9KNYwNmxaU2TKb+BoEQ0+z8Tpy5kj82aZz9NwMXJt7EPfiQe4LWqTX+64mbrSlxi2j9LPnihsxNg8IorqKri+GiSDBmltQOincMFOFjT8YDQuu6dBN/4tuR8yV+Leobvx7sfSx+gJvrKe/CqKfay96RHlEgYH8Mb9PdIimqw+3NnAhLSmwHxHMb2aepuJxx6Nds4w6Ykyzr9J0BpKXuTbjMv4cS5v4VEm67gA+Bp0BfvMFLM9gZq3YmZDGnHOjSS4OvrjdYTYRUfl6pzjLxZFEbVKNQgkhBpruaXtZNRKghGJHP5+XG5jPwyi8wvDe88PPVfZliayOE1t5Mt1fDAByNAzT72a3dOjf+0BLonUvlRxgSxSytDwyhZT3XB2iRp2OFlofmnAdeYj45CNYTPqx8JcYa9jXmqazGi7hRGa
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(39860400002)(136003)(346002)(230922051799003)(451199024)(64100799003)(186009)(1800799012)(82310400011)(40470700004)(36840700001)(46966006)(36860700001)(478600001)(82740400003)(47076005)(40460700003)(40480700001)(81166007)(356005)(83380400001)(426003)(336012)(8676002)(26005)(2616005)(2906002)(316002)(5660300002)(44832011)(54906003)(8936002)(6916009)(36756003)(70206006)(86362001)(1076003)(4326008)(70586007)(41300700001)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(39860400002)(136003)(376002)(396003)(230922051799003)(230273577357003)(230173577357003)(1800799012)(82310400011)(186009)(451199024)(64100799003)(36840700001)(46966006)(40470700004)(36860700001)(47076005)(2906002)(2616005)(70586007)(1076003)(70206006)(41300700001)(86362001)(40480700001)(26005)(40460700003)(36756003)(82740400003)(356005)(81166007)(5660300002)(54906003)(316002)(426003)(336012)(6666004)(4326008)(44832011)(6916009)(478600001)(83380400001)(8936002)(8676002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2024 21:52:19.7545
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2024 21:52:31.5822
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea1f000d-31b2-46cc-7f96-08dc115d40ec
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8a76ff7-9028-4648-a64c-08dc115d47fb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE4.namprd03.prod.outlook.com
+	SJ1PEPF00001CEB.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8049
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8222
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-A guest would be able to read and write those registers which are not
-emulated and have no respective vPCI handlers, so it will be possible
-for it to access the hardware directly.
-In order to prevent a guest from reads and writes from/to the unhandled
-registers make sure only hardware domain can access the hardware directly
-and restrict guests from doing so.
+When a PCI device gets assigned/de-assigned we need to
+initialize/de-initialize vPCI state for the device.
 
-Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+Also, rename vpci_add_handlers() to vpci_assign_device() and
+vpci_remove_device() to vpci_deassign_device() to better reflect role
+of the functions.
+
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 ---
-Since v9:
-- removed stray formatting change
-- added Roger's R-b tag
-Since v6:
-- do not use is_hwdom parameter for vpci_{read|write}_hw and use
-  current->domain internally
-- update commit message
-New in v6
+In v12:
+ - Add Roger's R-b
+ - Clean up comment in xen/include/xen/vpci.h
+ - Add comment in xen/drivers/passthrough/pci.c:deassign_device() to
+   clarify vpci_assign_device() call
+In v11:
+- Call vpci_assign_device() in "deassign_device" if IOMMU call
+"reassign_device" was successful.
+In v10:
+- removed HAS_VPCI_GUEST_SUPPORT checks
+- HAS_VPCI_GUEST_SUPPORT config option (in Kconfig) as it is not used
+  anywhere
+In v9:
+- removed previous  vpci_[de]assign_device function and renamed
+  existing handlers
+- dropped attempts to handle errors in assign_device() function
+- do not call vpci_assign_device for dom_io
+- use d instead of pdev->domain
+- use IS_ENABLED macro
+In v8:
+- removed vpci_deassign_device
+In v6:
+- do not pass struct domain to vpci_{assign|deassign}_device as
+  pdev->domain can be used
+- do not leave the device assigned (pdev->domain == new domain) in case
+  vpci_assign_device fails: try to de-assign and if this also fails, then
+  crash the domain
+In v5:
+- do not split code into run_vpci_init
+- do not check for is_system_domain in vpci_{de}assign_device
+- do not use vpci_remove_device_handlers_locked and re-allocate
+  pdev->vpci completely
+- make vpci_deassign_device void
+In v4:
+ - de-assign vPCI from the previous domain on device assignment
+ - do not remove handlers in vpci_assign_device as those must not
+   exist at that point
+In v3:
+ - remove toolstack roll-back description from the commit message
+   as error are to be handled with proper cleanup in Xen itself
+ - remove __must_check
+ - remove redundant rc check while assigning devices
+ - fix redundant CONFIG_HAS_VPCI check for CONFIG_HAS_VPCI_GUEST_SUPPORT
+ - use REGISTER_VPCI_INIT machinery to run required steps on device
+   init/assign: add run_vpci_init helper
+In v2:
+- define CONFIG_HAS_VPCI_GUEST_SUPPORT so dead code is not compiled
+  for x86
+In v1:
+ - constify struct pci_dev where possible
+ - do not open code is_system_domain()
+ - extended the commit message
 ---
- xen/drivers/vpci/vpci.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ xen/drivers/passthrough/pci.c | 25 +++++++++++++++++++++----
+ xen/drivers/vpci/header.c     |  2 +-
+ xen/drivers/vpci/vpci.c       |  6 +++---
+ xen/include/xen/vpci.h        | 10 +++++-----
+ 4 files changed, 30 insertions(+), 13 deletions(-)
 
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index 3a973324bca1..a902de6a8693 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -755,7 +755,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+          * For devices not discovered by Xen during boot, add vPCI handlers
+          * when Dom0 first informs Xen about such devices.
+          */
+-        ret = vpci_add_handlers(pdev);
++        ret = vpci_assign_device(pdev);
+         if ( ret )
+         {
+             list_del(&pdev->domain_list);
+@@ -769,7 +769,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+         if ( ret )
+         {
+             write_lock(&hardware_domain->pci_lock);
+-            vpci_remove_device(pdev);
++            vpci_deassign_device(pdev);
+             list_del(&pdev->domain_list);
+             write_unlock(&hardware_domain->pci_lock);
+             pdev->domain = NULL;
+@@ -817,7 +817,7 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
+     list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
+         if ( pdev->bus == bus && pdev->devfn == devfn )
+         {
+-            vpci_remove_device(pdev);
++            vpci_deassign_device(pdev);
+             pci_cleanup_msi(pdev);
+             ret = iommu_remove_device(pdev);
+             if ( pdev->domain )
+@@ -875,6 +875,10 @@ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
+             goto out;
+     }
+ 
++    write_lock(&d->pci_lock);
++    vpci_deassign_device(pdev);
++    write_unlock(&d->pci_lock);
++
+     devfn = pdev->devfn;
+     ret = iommu_call(hd->platform_ops, reassign_device, d, target, devfn,
+                      pci_to_dev(pdev));
+@@ -886,6 +890,11 @@ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
+ 
+     pdev->fault.count = 0;
+ 
++    write_lock(&target->pci_lock);
++    /* Re-assign back to hardware_domain */
++    ret = vpci_assign_device(pdev);
++    write_unlock(&target->pci_lock);
++
+  out:
+     if ( ret )
+         printk(XENLOG_G_ERR "%pd: deassign (%pp) failed (%d)\n",
+@@ -1146,7 +1155,7 @@ static void __hwdom_init setup_one_hwdom_device(const struct setup_hwdom *ctxt,
+               PCI_SLOT(devfn) == PCI_SLOT(pdev->devfn) );
+ 
+     write_lock(&ctxt->d->pci_lock);
+-    err = vpci_add_handlers(pdev);
++    err = vpci_assign_device(pdev);
+     write_unlock(&ctxt->d->pci_lock);
+     if ( err )
+         printk(XENLOG_ERR "setup of vPCI for d%d failed: %d\n",
+@@ -1476,6 +1485,10 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
+     if ( pdev->broken && d != hardware_domain && d != dom_io )
+         goto done;
+ 
++    write_lock(&pdev->domain->pci_lock);
++    vpci_deassign_device(pdev);
++    write_unlock(&pdev->domain->pci_lock);
++
+     rc = pdev_msix_assign(d, pdev);
+     if ( rc )
+         goto done;
+@@ -1502,6 +1515,10 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
+                         pci_to_dev(pdev), flag);
+     }
+ 
++    write_lock(&d->pci_lock);
++    rc = vpci_assign_device(pdev);
++    write_unlock(&d->pci_lock);
++
+  done:
+     if ( rc )
+         printk(XENLOG_G_WARNING "%pd: assign (%pp) failed (%d)\n",
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index 8f5850b8cf6d..2f2d98ada012 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -191,7 +191,7 @@ bool vpci_process_pending(struct vcpu *v)
+              * killed in order to avoid leaking stale p2m mappings on
+              * failure.
+              */
+-            vpci_remove_device(v->vpci.pdev);
++            vpci_deassign_device(v->vpci.pdev);
+         write_unlock(&v->domain->pci_lock);
+     }
+ 
 diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index a1a004460491..e98693e1dc3e 100644
+index e98693e1dc3e..42eac85106a3 100644
 --- a/xen/drivers/vpci/vpci.c
 +++ b/xen/drivers/vpci/vpci.c
-@@ -268,6 +268,10 @@ static uint32_t vpci_read_hw(pci_sbdf_t sbdf, unsigned int reg,
- {
-     uint32_t data;
+@@ -40,7 +40,7 @@ extern vpci_register_init_t *const __start_vpci_array[];
+ extern vpci_register_init_t *const __end_vpci_array[];
+ #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
  
-+    /* Guest domains are not allowed to read real hardware. */
-+    if ( !is_hardware_domain(current->domain) )
-+        return ~(uint32_t)0;
-+
-     switch ( size )
-     {
-     case 4:
-@@ -311,6 +315,10 @@ static uint32_t vpci_read_hw(pci_sbdf_t sbdf, unsigned int reg,
- static void vpci_write_hw(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
-                           uint32_t data)
+-void vpci_remove_device(struct pci_dev *pdev)
++void vpci_deassign_device(struct pci_dev *pdev)
  {
-+    /* Guest domains are not allowed to write real hardware. */
-+    if ( !is_hardware_domain(current->domain) )
-+        return;
-+
-     switch ( size )
-     {
-     case 4:
+     ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
+ 
+@@ -73,7 +73,7 @@ void vpci_remove_device(struct pci_dev *pdev)
+     pdev->vpci = NULL;
+ }
+ 
+-int vpci_add_handlers(struct pci_dev *pdev)
++int vpci_assign_device(struct pci_dev *pdev)
+ {
+     unsigned int i;
+     const unsigned long *ro_map;
+@@ -107,7 +107,7 @@ int vpci_add_handlers(struct pci_dev *pdev)
+     }
+ 
+     if ( rc )
+-        vpci_remove_device(pdev);
++        vpci_deassign_device(pdev);
+ 
+     return rc;
+ }
+diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+index d20c301a3db3..99fe76f08ace 100644
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -25,11 +25,11 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
+   static vpci_register_init_t *const x##_entry  \
+                __used_section(".data.vpci." p) = x
+ 
+-/* Add vPCI handlers to device. */
+-int __must_check vpci_add_handlers(struct pci_dev *pdev);
++/* Assign vPCI to device by adding handlers. */
++int __must_check vpci_assign_device(struct pci_dev *pdev);
+ 
+ /* Remove all handlers and free vpci related structures. */
+-void vpci_remove_device(struct pci_dev *pdev);
++void vpci_deassign_device(struct pci_dev *pdev);
+ 
+ /* Add/remove a register handler. */
+ int __must_check vpci_add_register_mask(struct vpci *vpci,
+@@ -255,12 +255,12 @@ bool vpci_ecam_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int len,
+ #else /* !CONFIG_HAS_VPCI */
+ struct vpci_vcpu {};
+ 
+-static inline int vpci_add_handlers(struct pci_dev *pdev)
++static inline int vpci_assign_device(struct pci_dev *pdev)
+ {
+     return 0;
+ }
+ 
+-static inline void vpci_remove_device(struct pci_dev *pdev) { }
++static inline void vpci_deassign_device(struct pci_dev *pdev) { }
+ 
+ static inline void vpci_dump_msi(void) { }
+ 
 -- 
 2.43.0
 
