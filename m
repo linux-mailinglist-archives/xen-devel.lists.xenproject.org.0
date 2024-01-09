@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50EF8828920
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 16:38:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.664703.1034835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 182C3828926
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jan 2024 16:39:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.664700.1034811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNEBj-0000h5-Eg; Tue, 09 Jan 2024 15:38:47 +0000
+	id 1rNEBh-00006s-DJ; Tue, 09 Jan 2024 15:38:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 664703.1034835; Tue, 09 Jan 2024 15:38:47 +0000
+Received: by outflank-mailman (output) from mailman id 664700.1034811; Tue, 09 Jan 2024 15:38:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNEBj-0000eo-7t; Tue, 09 Jan 2024 15:38:47 +0000
-Received: by outflank-mailman (input) for mailman id 664703;
- Tue, 09 Jan 2024 15:38:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rNEBh-0008WQ-7l; Tue, 09 Jan 2024 15:38:45 +0000
+Received: by outflank-mailman (input) for mailman id 664700;
+ Tue, 09 Jan 2024 15:38:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C4Q/=IT=cloud.com=alejandro.vallejo@srs-se1.protection.inumbo.net>)
- id 1rNEBh-00081N-Lk
- for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 15:38:45 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2acaf547-af05-11ee-9b0f-b553b5be7939;
- Tue, 09 Jan 2024 16:38:42 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a28fb463a28so308664166b.3
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 07:38:42 -0800 (PST)
+ id 1rNEBf-00081L-PT
+ for xen-devel@lists.xenproject.org; Tue, 09 Jan 2024 15:38:43 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2b3888ba-af05-11ee-98ef-6d05b1d4d9a1;
+ Tue, 09 Jan 2024 16:38:43 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a28ab7ae504so297438766b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 09 Jan 2024 07:38:43 -0800 (PST)
 Received: from EMEAENGAAD19049.citrite.net
  (default-46-102-197-194.interdsl.co.uk. [46.102.197.194])
  by smtp.gmail.com with ESMTPSA id
  fi3-20020a170906da0300b00a2adb417051sm1153685ejb.216.2024.01.09.07.38.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 09 Jan 2024 07:38:41 -0800 (PST)
+ Tue, 09 Jan 2024 07:38:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,33 +46,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2acaf547-af05-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 2b3888ba-af05-11ee-98ef-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloud.com; s=cloud; t=1704814722; x=1705419522; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Z/Mi6cC8uykb3/316Hk1+e5LTrJjSyfEFqMapLdzQzU=;
-        b=IViI4yhHSDRuJkL+lOsd1cVKkAE1AiJJxXX1mvB0SF0ZHxqTzMT3XCo+wCL5FXgiP+
-         z937tQVBooFQ5UI75JONWqqmYlaEWH57u01vVn+K197x+/17/3CPsBFMAZ0MchWUvrgb
-         ulHVKTAHkqimtUIKP8Gm4UrqRCB0MGvQfNbiY=
+        bh=V9v48h63fj7+uc/V0QQbcMsF6YnV1T/2wiKWzNfz/LI=;
+        b=SDPpe2byTIkQ/t0jWOJ88cf43i8yaio67CN/DAA5UENn/CPI/tGwTPL4Whs9N3LUvu
+         BfT3dy1DSfYTOtHEjYOxN7q21U3OgDBVOqpOmK0paH/30pUgovewJZ8EJDjSTf1Guo+P
+         1O8DmaQbt6EqYl6Na7GFkJmTrIXWLU/xAF/ww=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20230601; t=1704814722; x=1705419522;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Z/Mi6cC8uykb3/316Hk1+e5LTrJjSyfEFqMapLdzQzU=;
-        b=lZ+RPMS6WMXRPVjvFd9GGLiAhy5ESC6pwPg1XA0zFaYKjZ+0S8wZGcL2OyNHvpNAoy
-         Bs2JkM1CSFzvJgZphlz8/+ukM/96XV3wHMCdfPjQtSRc3q+wMk0vvLrxwxZX012QkqHj
-         6UowgVXfJYbjvuglQgzOHk7texyPMXX91ytVClO0niTVQp2CiejOfQDfFewU4ShZGceK
-         LPzTvDmzBWcT+6HoHHQE+XCMXHeXy81LeMB1EQqhRSr0wGAaUccUgyiWYCE1wrlo8wTS
-         hcF23Mo93+qCvcMy3kFGn43KWD4lDA8TeHw0hHPj+k90yWy84AGZeQTDKY2Sg90bJ8iM
-         Gqlg==
-X-Gm-Message-State: AOJu0Yze1J3HQaMziTid7pLvJK7RDLF7chEV1Hi/lwvMW/XCw/ot+rrx
-	2oaLbnNSLRGpvcO6o+9NM07xERqrxhxQZoNgv7FeservqIc=
-X-Google-Smtp-Source: AGHT+IElL8SkPzR8ym/erEuOW/j52nGuVC8Q0DK5O9UwVPma0sgsQsnjC06cIgEky0KZlZPvm9yPVA==
-X-Received: by 2002:a17:906:a895:b0:a28:fdac:95e8 with SMTP id ha21-20020a170906a89500b00a28fdac95e8mr626937ejb.17.1704814721793;
-        Tue, 09 Jan 2024 07:38:41 -0800 (PST)
+        bh=V9v48h63fj7+uc/V0QQbcMsF6YnV1T/2wiKWzNfz/LI=;
+        b=f0/KqbyLFSeVqjb6un7urXE+8Zi1HzZztdOGYpb5i0nd7hPcE0kcyvR82X2npHQC1m
+         QCC7HHoTZtEvBs0YG3TLlcrVGFI0bufCHVmyXCXtnodZJi0e6WghqXxxIrgDpsOL8myh
+         77KG3PEGYZuvxkz9s4+9MYHLcIpBZpGusH/lTMHz6Z14S9PnJHr5uQu2Y5jpr0rJSkh/
+         QsCkMM56lX1T5WfpuCkTcOJSTKHF+LNzJ8V4arX4QvQsOC+6LaSnkzhhXzd3q1dV0qY5
+         Yxl9PSsain88ft1DBd3vRAX+Zi4AGje4cwRDcDC5W7Yat79ORJYAHBZLEcVf/vnKWnsi
+         vq7g==
+X-Gm-Message-State: AOJu0YyDQfrEo8yqBL4OorVIcWsPwEI+nF+tttTHoBUG82uYv6cuVnVG
+	2UpG2LJnxfY8LvOptG8SSe6+nSFQUOc6mxt1rujF16/DrcM=
+X-Google-Smtp-Source: AGHT+IEo1krAN+qcSUiH5qafdfWiu4LMfiL5nRv9wcOqzqwtnyUI88IYyLgyrMkG9RRrc7rpezawRQ==
+X-Received: by 2002:a17:907:c91b:b0:a28:bb1a:6209 with SMTP id ui27-20020a170907c91b00b00a28bb1a6209mr526126ejc.118.1704814722498;
+        Tue, 09 Jan 2024 07:38:42 -0800 (PST)
 From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
@@ -80,290 +80,279 @@ Cc: Alejandro Vallejo <alejandro.vallejo@cloud.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 4/6] tools/hvmloader: Use cpu_policy to determine APIC IDs
-Date: Tue,  9 Jan 2024 15:38:32 +0000
-Message-Id: <20240109153834.4192-5-alejandro.vallejo@cloud.com>
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH 5/6] xen/x86: Derive topologically correct x2APIC IDs from the policy
+Date: Tue,  9 Jan 2024 15:38:33 +0000
+Message-Id: <20240109153834.4192-6-alejandro.vallejo@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
 References: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As part of topology correction efforts, APIC IDs can no longer be derived
-strictly through the vCPU ID alone. Bring in the machinery for policy
-retrieval and parsing in order to generate the proper MADT table and wake
-the appropriate CPUs.
+Implements the helper for mapping vcpu_id to x2apic_id given a valid
+topology in a policy. The algo is written with the intention of extending
+it to leaves 0x1f and e26 in the future.
+
+Toolstack doesn't set leaf 0xb and the HVM default policy has it cleared,
+so the leaf is not implemented. In that case, the new helper just returns
+the legacy mapping.
 
 Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 ---
- tools/firmware/hvmloader/Makefile    |  7 +++++++
- tools/firmware/hvmloader/config.h    |  5 ++++-
- tools/firmware/hvmloader/hvmloader.c |  6 ++++++
- tools/firmware/hvmloader/util.c      |  3 ++-
- tools/libacpi/build.c                | 27 +++++++++++++++++++++------
- tools/libacpi/libacpi.h              |  5 ++++-
- tools/libs/light/libxl_x86_acpi.c    | 21 +++++++++++++++++++--
- 7 files changed, 63 insertions(+), 11 deletions(-)
+ tools/tests/cpu-policy/test-cpu-policy.c | 128 +++++++++++++++++++++++
+ xen/include/xen/lib/x86/cpu-policy.h     |   2 +
+ xen/lib/x86/policy.c                     |  75 +++++++++++--
+ 3 files changed, 199 insertions(+), 6 deletions(-)
 
-diff --git a/tools/firmware/hvmloader/Makefile b/tools/firmware/hvmloader/Makefile
-index e5de1ade17..503ef2e219 100644
---- a/tools/firmware/hvmloader/Makefile
-+++ b/tools/firmware/hvmloader/Makefile
-@@ -37,6 +37,13 @@ ifeq ($(debug),y)
- OBJS += tests.o
- endif
- 
-+CFLAGS += -I../../../xen/arch/x86/include/
-+
-+vpath cpuid.c ../../../xen/lib/x86/
-+OBJS += cpuid.o
-+vpath policy.c ../../../xen/lib/x86/
-+OBJS += policy.o
-+
- CIRRUSVGA_DEBUG ?= n
- 
- ROMBIOS_DIR := ../rombios
-diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
-index c82adf6dc5..3304b63cd8 100644
---- a/tools/firmware/hvmloader/config.h
-+++ b/tools/firmware/hvmloader/config.h
-@@ -3,10 +3,13 @@
- 
- #include <stdint.h>
- #include <stdbool.h>
-+#include <xen/lib/x86/cpu-policy.h>
- 
- enum virtual_vga { VGA_none, VGA_std, VGA_cirrus, VGA_pt };
- extern enum virtual_vga virtual_vga;
- 
-+extern struct cpu_policy cpu_policy;
-+
- extern unsigned long igd_opregion_pgbase;
- #define IGD_OPREGION_PAGES 3
- 
-@@ -50,7 +53,7 @@ extern uint8_t ioapic_version;
- #define IOAPIC_ID           0x01
- 
- #define LAPIC_BASE_ADDRESS  0xfee00000
--#define LAPIC_ID(vcpu_id)   ((vcpu_id) * 2)
-+#define LAPIC_ID(vcpu_id) x86_x2apic_id_from_vcpu_id(&cpu_policy, vcpu_id)
- 
- #define PCI_ISA_DEVFN       0x08    /* dev 1, fn 0 */
- #define PCI_ISA_IRQ_MASK    0x0c20U /* ISA IRQs 5,10,11 are PCI connected */
-diff --git a/tools/firmware/hvmloader/hvmloader.c b/tools/firmware/hvmloader/hvmloader.c
-index c58841e5b5..8874165c66 100644
---- a/tools/firmware/hvmloader/hvmloader.c
-+++ b/tools/firmware/hvmloader/hvmloader.c
-@@ -28,6 +28,7 @@
- #include <acpi2_0.h>
- #include <xen/version.h>
- #include <xen/hvm/params.h>
-+#include <xen/lib/x86/cpu-policy.h>
- #include <xen/arch-x86/hvm/start_info.h>
- 
- const struct hvm_start_info *hvm_start_info;
-@@ -118,6 +119,9 @@ uint8_t ioapic_version;
- 
- bool acpi_enabled;
- 
-+/* TODO: Remove after HVM ACPI building makes it to libxl */
-+struct cpu_policy cpu_policy;
-+
- static void init_hypercalls(void)
- {
-     uint32_t eax, ebx, ecx, edx;
-@@ -331,6 +335,8 @@ int main(void)
-     printf("HVM Loader\n");
-     BUG_ON(hvm_start_info->magic != XEN_HVM_START_MAGIC_VALUE);
- 
-+    x86_cpu_policy_fill_native(&cpu_policy);
-+
-     init_hypercalls();
- 
-     memory_map_setup();
-diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
-index e82047d993..25a0245c5c 100644
---- a/tools/firmware/hvmloader/util.c
-+++ b/tools/firmware/hvmloader/util.c
-@@ -30,6 +30,7 @@
- #include <xen/sched.h>
- #include <xen/hvm/hvm_xs_strings.h>
- #include <xen/hvm/params.h>
-+#include <xen/lib/x86/cpu-policy.h>
- 
- /*
-  * Check whether there exists overlap in the specified memory range.
-@@ -1041,7 +1042,7 @@ void hvmloader_acpi_build_tables(struct acpi_config *config,
-     ctxt.mem_ops.free = acpi_mem_free;
-     ctxt.mem_ops.v2p = acpi_v2p;
- 
--    acpi_build_tables(&ctxt, config);
-+    acpi_build_tables(&ctxt, config, &cpu_policy);
- 
-     hvm_param_set(HVM_PARAM_VM_GENERATION_ID_ADDR, config->vm_gid_addr);
- }
-diff --git a/tools/libacpi/build.c b/tools/libacpi/build.c
-index 2f29863db1..ab05e54c96 100644
---- a/tools/libacpi/build.c
-+++ b/tools/libacpi/build.c
-@@ -17,6 +17,7 @@
- #include <xen/hvm/hvm_xs_strings.h>
- #include <xen/hvm/params.h>
- #include <xen/memory.h>
-+#include <xen/lib/x86/cpu-policy.h>
- 
- #define ACPI_MAX_SECONDARY_TABLES 16
- 
-@@ -65,7 +66,8 @@ static void set_checksum(
- 
- static struct acpi_20_madt *construct_madt(struct acpi_ctxt *ctxt,
-                                            const struct acpi_config *config,
--                                           struct acpi_info *info)
-+                                           struct acpi_info *info,
-+                                           const struct cpu_policy *policy)
- {
-     struct acpi_20_madt           *madt;
-     struct acpi_20_madt_intsrcovr *intsrcovr;
-@@ -143,14 +145,25 @@ static struct acpi_20_madt *construct_madt(struct acpi_ctxt *ctxt,
-     info->madt_lapic0_addr = ctxt->mem_ops.v2p(ctxt, lapic);
-     for ( i = 0; i < hvminfo->nr_vcpus; i++ )
-     {
-+        uint32_t x2apic_id = x86_x2apic_id_from_vcpu_id(policy, i);
-+
-         memset(lapic, 0, sizeof(*lapic));
-         lapic->type    = ACPI_PROCESSOR_LOCAL_APIC;
-         lapic->length  = sizeof(*lapic);
-         /* Processor ID must match processor-object IDs in the DSDT. */
-         lapic->acpi_processor_id = i;
--        lapic->apic_id = config->lapic_id(i);
-+        lapic->apic_id = x2apic_id;
-         lapic->flags = (test_bit(i, hvminfo->vcpu_online)
-                         ? ACPI_LOCAL_APIC_ENABLED : 0);
-+
-+        /*
-+         * Error-out if the x2APIC ID doesn't fit in the entry
-+         *
-+         * TODO: Use "x2apic" entries if biggest x2apic_id > 254
-+         */
-+        if ( lapic->apic_id != x2apic_id )
-+            return NULL;
-+
-         lapic++;
+diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
+index 301df2c002..6ff5c1dd3d 100644
+--- a/tools/tests/cpu-policy/test-cpu-policy.c
++++ b/tools/tests/cpu-policy/test-cpu-policy.c
+@@ -650,6 +650,132 @@ static void test_is_compatible_failure(void)
      }
- 
-@@ -335,7 +348,8 @@ static int construct_passthrough_tables(struct acpi_ctxt *ctxt,
- static int construct_secondary_tables(struct acpi_ctxt *ctxt,
-                                       unsigned long *table_ptrs,
-                                       struct acpi_config *config,
--                                      struct acpi_info *info)
-+                                      struct acpi_info *info,
-+                                      const struct cpu_policy *policy)
- {
-     int nr_tables = 0;
-     struct acpi_20_madt *madt;
-@@ -349,7 +363,7 @@ static int construct_secondary_tables(struct acpi_ctxt *ctxt,
-     /* MADT. */
-     if ( (config->hvminfo->nr_vcpus > 1) || config->hvminfo->apic_mode )
-     {
--        madt = construct_madt(ctxt, config, info);
-+        madt = construct_madt(ctxt, config, info, policy);
-         if (!madt) return -1;
-         table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, madt);
-     }
-@@ -539,7 +553,8 @@ static int new_vm_gid(struct acpi_ctxt *ctxt,
-     return 1;
  }
  
--int acpi_build_tables(struct acpi_ctxt *ctxt, struct acpi_config *config)
-+int acpi_build_tables(struct acpi_ctxt *ctxt, struct acpi_config *config,
-+                      struct cpu_policy *policy)
- {
-     struct acpi_info *acpi_info;
-     struct acpi_20_rsdp *rsdp;
-@@ -667,7 +682,7 @@ int acpi_build_tables(struct acpi_ctxt *ctxt, struct acpi_config *config)
-     set_checksum(fadt, offsetof(struct acpi_header, checksum), fadt_size);
- 
-     nr_secondaries = construct_secondary_tables(ctxt, secondary_tables,
--                 config, acpi_info);
-+                 config, acpi_info, policy);
-     if ( nr_secondaries < 0 )
-         goto oom;
- 
-diff --git a/tools/libacpi/libacpi.h b/tools/libacpi/libacpi.h
-index deda39e5db..24f62aa5d4 100644
---- a/tools/libacpi/libacpi.h
-+++ b/tools/libacpi/libacpi.h
-@@ -28,6 +28,8 @@
- #define ACPI_HAS_CMOS_RTC          (1<<14)
- #define ACPI_HAS_SSDT_LAPTOP_SLATE (1<<15)
- 
-+struct cpu_policy;
++static void test_x2apic_id_from_vcpu_id_success(void)
++{
++    static struct test {
++        const char *name;
++        uint32_t vcpu_id;
++        uint32_t x2apic_id;
++        struct cpu_policy policy;
++    } tests[] = {
++        {
++            .name = "3v: 3 t/c, 8 c/s", .vcpu_id = 3, .x2apic_id = 1 << 2,
++            .policy = {
++                .x86_vendor = X86_VENDOR_AMD,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
++                    [1] = { .nr_logical = 8, .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++        {
++            .name = "6v: 3 t/c, 8 c/s", .vcpu_id = 6, .x2apic_id = 2 << 2,
++            .policy = {
++                .x86_vendor = X86_VENDOR_AMD,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
++                    [1] = { .nr_logical = 8, .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++        {
++            .name = "24v: 3 t/c, 8 c/s", .vcpu_id = 24, .x2apic_id = 1 << 5,
++            .policy = {
++                .x86_vendor = X86_VENDOR_AMD,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
++                    [1] = { .nr_logical = 8, .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++        {
++            .name = "35v: 3 t/c, 8 c/s", .vcpu_id = 35,
++            .x2apic_id = (35 % 3) | (((35 / 3) % 8)  << 2) | ((35 / 24) << 5),
++            .policy = {
++                .x86_vendor = X86_VENDOR_AMD,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 3, .level = 0, .type = 1, .id_shift = 2, },
++                    [1] = { .nr_logical = 8, .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++        {
++            .name = "96v: 7 t/c, 3 c/s", .vcpu_id = 96,
++            .x2apic_id = (96 % 7) | (((96 / 7) % 3)  << 3) | ((96 / 21) << 5),
++            .policy = {
++                .x86_vendor = X86_VENDOR_AMD,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 7, .level = 0, .type = 1, .id_shift = 3, },
++                    [1] = { .nr_logical = 3, .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++        {
++            .name = "3v: 3 t/c, 8 c/s", .vcpu_id = 3, .x2apic_id = 1 << 2,
++            .policy = {
++                .x86_vendor = X86_VENDOR_INTEL,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 3,  .level = 0, .type = 1, .id_shift = 2, },
++                    [1] = { .nr_logical = 24, .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++        {
++            .name = "6v: 3 t/c, 8 c/s", .vcpu_id = 6, .x2apic_id = 2 << 2,
++            .policy = {
++                .x86_vendor = X86_VENDOR_INTEL,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 3,  .level = 0, .type = 1, .id_shift = 2, },
++                    [1] = { .nr_logical = 24, .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++        {
++            .name = "24v: 3 t/c, 8 c/s", .vcpu_id = 24, .x2apic_id = 1 << 5,
++            .policy = {
++                .x86_vendor = X86_VENDOR_INTEL,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 3,  .level = 0, .type = 1, .id_shift = 2, },
++                    [1] = { .nr_logical = 24, .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++        {
++            .name = "35v: 3 t/c, 8 c/s", .vcpu_id = 35,
++            .x2apic_id = (35 % 3) | (((35 / 3) % 8)  << 2) | ((35 / 24) << 5),
++            .policy = {
++                .x86_vendor = X86_VENDOR_INTEL,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 3,  .level = 0, .type = 1, .id_shift = 2, },
++                    [1] = { .nr_logical = 24, .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++        {
++            .name = "96v: 7 t/c, 3 c/s", .vcpu_id = 96,
++            .x2apic_id = (96 % 7) | (((96 / 7) % 3)  << 3) | ((96 / 21) << 5),
++            .policy = {
++                .x86_vendor = X86_VENDOR_INTEL,
++                .topo.subleaf = {
++                    [0] = { .nr_logical = 7,   .level = 0, .type = 1, .id_shift = 3, },
++                    [1] = { .nr_logical = 21,  .level = 1, .type = 2, .id_shift = 5, },
++                },
++            },
++        },
++    };
 +
- struct xen_vmemrange;
- struct acpi_numa {
-     uint32_t nr_vmemranges;
-@@ -91,7 +93,8 @@ struct acpi_config {
-     uint8_t ioapic_id;
- };
- 
--int acpi_build_tables(struct acpi_ctxt *ctxt, struct acpi_config *config);
-+int acpi_build_tables(struct acpi_ctxt *ctxt, struct acpi_config *config,
-+                      struct cpu_policy *policy);
- 
- #endif /* __LIBACPI_H__ */
- 
-diff --git a/tools/libs/light/libxl_x86_acpi.c b/tools/libs/light/libxl_x86_acpi.c
-index 620f3c700c..a5bd42683e 100644
---- a/tools/libs/light/libxl_x86_acpi.c
-+++ b/tools/libs/light/libxl_x86_acpi.c
-@@ -158,11 +158,27 @@ int libxl__dom_load_acpi(libxl__gc *gc,
++    printf("Testing x2apic id from vcpu id success:\n");
++
++    for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
++    {
++        struct test *t = &tests[i];
++        uint32_t x2apic_id = x86_x2apic_id_from_vcpu_id(&t->policy, t->vcpu_id);
++        if ( x2apic_id != t->x2apic_id )
++            fail("FAIL - '%s'. bad x2apic_id: expected=%u actual=%u\n",
++                 t->name, t->x2apic_id, x2apic_id);
++    }
++}
++
+ int main(int argc, char **argv)
  {
-     struct acpi_config config = {0};
-     struct libxl_acpi_ctxt libxl_ctxt;
--    int rc = 0, acpi_pages_num;
-+    uint16_t domid = dom->guest_domid;
-+    int rc = 0, r, acpi_pages_num;
-+    xc_cpu_policy_t *policy = NULL;
+     printf("CPU Policy unit tests\n");
+@@ -667,6 +793,8 @@ int main(int argc, char **argv)
+     test_is_compatible_success();
+     test_is_compatible_failure();
  
-     if (b_info->type != LIBXL_DOMAIN_TYPE_PVH)
-         goto out;
++    test_x2apic_id_from_vcpu_id_success();
++
+     if ( nr_failures )
+         printf("Done: %u failures\n", nr_failures);
+     else
+diff --git a/xen/include/xen/lib/x86/cpu-policy.h b/xen/include/xen/lib/x86/cpu-policy.h
+index 65f6335b32..d81ae2f47c 100644
+--- a/xen/include/xen/lib/x86/cpu-policy.h
++++ b/xen/include/xen/lib/x86/cpu-policy.h
+@@ -550,6 +550,8 @@ int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
+ /**
+  * Calculates the x2APIC ID of a vCPU given a CPU policy
+  *
++ * If the policy lacks leaf 0xb falls back to legacy mapping of apic_id=cpu*2
++ *
+  * @param p          CPU policy of the domain.
+  * @param vcpu_id    vCPU ID of the vCPU.
+  * @returns x2APIC ID of the vCPU.
+diff --git a/xen/lib/x86/policy.c b/xen/lib/x86/policy.c
+index a3b24e6879..2a50bc076a 100644
+--- a/xen/lib/x86/policy.c
++++ b/xen/lib/x86/policy.c
+@@ -2,15 +2,78 @@
  
-+    policy = xc_cpu_policy_init();
-+    if (!policy) {
-+        LOGED(ERROR, domid, "xc_cpu_policy_init failed");
-+        rc = ERROR_NOMEM;
-+        goto out;
+ #include <xen/lib/x86/cpu-policy.h>
+ 
+-uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t vcpu_id)
++static uint32_t parts_per_higher_scoped_level(const struct cpu_policy *p, size_t lvl)
+ {
+     /*
+-     * TODO: Derive x2APIC ID from the topology information inside `p`
+-     *       rather than from vCPU ID. This bodge is a temporary measure
+-     *       until all infra is in place to retrieve or derive the initial
+-     *       x2APIC ID from migrated domains.
++     * `nr_logical` reported by Intel is the number of THREADS contained in
++     * the next topological scope. For example, assuming a system with 2
++     * threads/core and 3 cores/module in a fully symmetric topology,
++     * `nr_logical` at the core level will report 6. Because it's reporting
++     * the number of threads in a module.
++     *
++     * On AMD/Hygon, nr_logical is already normalized by the higher scoped
++     * level (cores/complex, etc) so we can return it as-is.
+      */
+-    return vcpu_id * 2;
++    if ( p->x86_vendor != X86_VENDOR_INTEL || !lvl )
++        return p->topo.subleaf[lvl].nr_logical;
++
++    return p->topo.subleaf[lvl].nr_logical / p->topo.subleaf[lvl - 1].nr_logical;
++}
++
++uint32_t x86_x2apic_id_from_vcpu_id(const struct cpu_policy *p, uint32_t id)
++{
++    uint32_t shift = 0, x2apic_id = 0;
++
++    /* In the absence of topology leaves, fallback to traditional mapping */
++    if ( !p->topo.subleaf[0].type )
++        return id * 2;
++
++    /*
++     * `id` means different things at different points of the algo
++     *
++     * At lvl=0: global thread_id (same as vcpu_id)
++     * At lvl=1: global core_id
++     * At lvl=2: global socket_id (actually complex_id in AMD, module_id
++     *                             in Intel, but the name is inconsequential)
++     *
++     *                 +--+
++     *            ____ |#0| ______           <= 1 socket
++     *           /     +--+       \+--+
++     *       __#0__              __|#1|__    <= 2 cores/socket
++     *      /   |  \        +--+/  +-|+  \
++     *    #0   #1   #2      |#3|    #4    #5 <= 3 threads/core
++     *                      +--+
++     *
++     * ... and so on. Global in this context means that it's a unique
++     * identifier for the whole topology, and not relative to the level
++     * it's in. For example, in the diagram shown above, we're looking at
++     * thread #3 in the global sense, though it's #0 within its core.
++     *
++     * Note that dividing a global thread_id by the number of threads per
++     * core returns the global core id that contains it. e.g: 0, 1 or 2
++     * divided by 3 returns core_id=0. 3, 4 or 5 divided by 3 returns core
++     * 1, and so on. An analogous argument holds for higher levels. This is
++     * the property we exploit to derive x2apic_id from vcpu_id.
++     *
++     * NOTE: `topo` is currently derived from leaf 0xb, which is bound to
++     * two levels, but once we track leaves 0x1f (or e26) there will be a
++     * few more. The algorithm is written to cope with that case.
++     */
++    for ( uint32_t i = 0; i < ARRAY_SIZE(p->topo.raw); i++ )
++    {
++        uint32_t nr_parts;
++
++        if ( !p->topo.subleaf[i].type )
++            /* sentinel subleaf */
++            break;
++
++        nr_parts = parts_per_higher_scoped_level(p, i);
++        x2apic_id |= (id % nr_parts) << shift;
++        id /= nr_parts;
++        shift = p->topo.subleaf[i].id_shift;
 +    }
 +
-+    r = xc_cpu_policy_get_domain(dom->xch, domid, policy);
-+    if (r < 0) {
-+        LOGED(ERROR, domid, "get_cpu_policy failed");
-+        rc = ERROR_FAIL;
-+        goto out;
-+    }
-+
-     libxl_ctxt.page_size = XC_DOM_PAGE_SIZE(dom);
-     libxl_ctxt.page_shift =  XC_DOM_PAGE_SHIFT(dom);
- 
-@@ -192,7 +208,7 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-     libxl_ctxt.guest_end += NUM_ACPI_PAGES * libxl_ctxt.page_size;
- 
-     /* Build the tables. */
--    rc = acpi_build_tables(&libxl_ctxt.c, &config);
-+    rc = acpi_build_tables(&libxl_ctxt.c, &config, &policy->policy);
-     if (rc) {
-         LOG(ERROR, "acpi_build_tables failed with %d", rc);
-         goto out;
-@@ -226,6 +242,7 @@ int libxl__dom_load_acpi(libxl__gc *gc,
-         libxl_ctxt.page_size;
- 
- out:
-+    xc_cpu_policy_destroy(policy);
-     return rc;
++    return (id << shift) | x2apic_id;
  }
  
+ int x86_cpu_policies_are_compatible(const struct cpu_policy *host,
 -- 
 2.34.1
 
