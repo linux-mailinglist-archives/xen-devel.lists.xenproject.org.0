@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF689829CF7
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 15:57:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665543.1035755 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67958829CFB
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 15:57:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665548.1035766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNa11-0006fN-ON; Wed, 10 Jan 2024 14:57:11 +0000
+	id 1rNa1Q-0007H8-64; Wed, 10 Jan 2024 14:57:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665543.1035755; Wed, 10 Jan 2024 14:57:11 +0000
+Received: by outflank-mailman (output) from mailman id 665548.1035766; Wed, 10 Jan 2024 14:57:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNa11-0006cp-LV; Wed, 10 Jan 2024 14:57:11 +0000
-Received: by outflank-mailman (input) for mailman id 665543;
- Wed, 10 Jan 2024 14:57:09 +0000
+	id 1rNa1Q-0007F9-2e; Wed, 10 Jan 2024 14:57:36 +0000
+Received: by outflank-mailman (input) for mailman id 665548;
+ Wed, 10 Jan 2024 14:57:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/O5u=IU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNa0z-0006ap-Ju
- for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 14:57:09 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1rNa1P-0006ap-63
+ for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 14:57:35 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8634b0bf-afc8-11ee-9b0f-b553b5be7939;
- Wed, 10 Jan 2024 15:57:07 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40e5a5b0fb5so1485455e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 06:57:07 -0800 (PST)
+ id 957a49f0-afc8-11ee-9b0f-b553b5be7939;
+ Wed, 10 Jan 2024 15:57:33 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40e4d515cdeso23217555e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 06:57:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bg3-20020a05600c3c8300b0040d91fa270fsm2449640wmb.36.2024.01.10.06.57.06
+ bg3-20020a05600c3c8300b0040d91fa270fsm2449640wmb.36.2024.01.10.06.57.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 06:57:06 -0800 (PST)
+ Wed, 10 Jan 2024 06:57:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8634b0bf-afc8-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 957a49f0-afc8-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704898627; x=1705503427; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704898653; x=1705503453; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=C+Ns9F9oXu8JWmZgiuS6JpNqxTmui1PVJh0bmPBcMr0=;
-        b=Mx6pf1HDgvmNX6mWNkvuFQ8aN7pqz73N+zVNPXhiNQTd/KTB6YWbJec8Ha1iqnPDy7
-         yKznLNnp16aqkQhRJ/uXF/8vYyhUV6znbPRRQhGlvIocHniveWpoWhnIi133FCGRxcSZ
-         HhU8tAL9jDdiJtA5lRIl4lEamfTEK5PqNeI765EQ9ugPe6NrTGxuIBFjn219erH/ZghG
-         NA/LyVWrxlF0lX2WsOmG26orEfAuPHGKz8AFQMDVVEmoUf3ew2bX5uM9fSk5jXGPxxL8
-         qffRWxdJPPPVz5v124TnjciWVEXWzcZrjlbhpHP2s9ICmuS1Ud9W7A2fUeJL/PvwtI1Z
-         bcbQ==
+        bh=3102lstaK73LzoqFwPAeE+Wj//RivVZPDGZVH12C8fY=;
+        b=gm+rv0xfPgNhYF706WrdwHRVUqQeZf+eYgRaU9iuv6Z8Ig88WTXHnqnimEV8FRNe0S
+         fFbC8bzxqO2y/rM8ZNLa2UVvaP0ZD1tvhEspPvw3WOY7HJpkV+IBkC1TMqaZCxv8aK2a
+         W7yxpkO17pu+qCFbn3HwSQAGUiVEDqkyzuBBQaNBEFHJ1BCQcjxpjqIOWpUZnCUmxc4z
+         KEYpIzhiK6Y2znP4mUbeEDiVLPUSA/Ybl7MN0OaS6+KTaINiveTDsW+3hHC5YE/+eUNC
+         KyzGBp0BrliuhRkVWgNwvixnynh8FinWfnEjESH31RWssLySzRfk+j5E0vNI6XJoJ0XB
+         /e1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704898627; x=1705503427;
+        d=1e100.net; s=20230601; t=1704898653; x=1705503453;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=C+Ns9F9oXu8JWmZgiuS6JpNqxTmui1PVJh0bmPBcMr0=;
-        b=SIcWCmHj6aIYLycF2YDIIdLlR0mq+5L2O6LQmWOItDSQsJCI5pPcFRxMv5bGbmsb+j
-         3oGLnCSHyKYP7WdgbGuZwR264GZ1/cWjS91iD8M8L7bAurtqUBHb8tU7dqonk5saQwDX
-         qO5IGG0/MNpbnFGVp8s+EwQyIfh69Y8h5EwvZE5pBb/r00zG+xcrW1f0nLo2fZEJ+xxs
-         V2s2eWktqWOvtW1kmMeLoX0z7ABC/H1H6H8ipMAuxTLFNzUzyNT8ZklBL6nejMh/UigY
-         HdUy+/yasmk26OFPLH9ZJ70NuH19lF4QMl+woxVmYoQX6kcDh4YjjlW9VZEVqHbLogrh
-         Fn8Q==
-X-Gm-Message-State: AOJu0YzjMOBpyfFc9aAR3vPd9eliaGujcA4jnUeb2f0l+58wPzVJUauP
-	znpSTqxHeX13ooM003B7k3QrGvelp7SIAj4KMkyXQCXU/w==
-X-Google-Smtp-Source: AGHT+IGwd4dDRXqLVlNJ8Knn15D1lvRQSiFU6wgYFjBngTtUJpgQwL87pfUkRcwNA3YuHcuzxz2yZg==
-X-Received: by 2002:a05:600c:3791:b0:40e:4f24:64d6 with SMTP id o17-20020a05600c379100b0040e4f2464d6mr640947wmr.41.1704898627129;
-        Wed, 10 Jan 2024 06:57:07 -0800 (PST)
-Message-ID: <88437dea-8448-4420-a608-957f3d861bba@suse.com>
-Date: Wed, 10 Jan 2024 15:57:06 +0100
+        bh=3102lstaK73LzoqFwPAeE+Wj//RivVZPDGZVH12C8fY=;
+        b=VM/hlJzyGnvKJVfckr3GrYXoLPfDnqe3B4RBoPB2QFE9gpQP8e29EjtlOkj94OcvYw
+         5q6JKLlUBxQfIuQzrDSvK3pGyq0HEaL+aAXDMyp6WTrTWw+RFglnYKACudlz6GjWECyz
+         cpweN1waXajlHMu0OtkO6JqUgG3WShkmwzZedc1agHyj8tgMOS4KWgtYgRr0vNwbwQ9H
+         rt8YVhtjSxqvWiNYRy28uH4BSS/ODunU996QMi+X28vSwseAzilCht09OAHLvIIpEdGI
+         V2+peLsbrZkGT4dRsmdJ4oAYkjh4mTIBpDJtdFi/7HYGFhkvCrD3rLoKSB6gR7+zsLMI
+         sR+Q==
+X-Gm-Message-State: AOJu0YzvOfMYCYHVogcaHBAXd/XpHTiVXgwjQBsDrEZCPAyi8ONYq/+f
+	HtSgI1GFoQZSAVZ3GsRhLkNzMcehWZoP+xbu0v61ZZ+ifg==
+X-Google-Smtp-Source: AGHT+IHDTaTydRkAfyTOn9O75WQzYwxcjetr6RQH5Ef5XnPum+MTJ3GqQR+w4sca2wiRH8biZ8e9Rg==
+X-Received: by 2002:a05:600c:4513:b0:40e:44c2:a3ed with SMTP id t19-20020a05600c451300b0040e44c2a3edmr603861wmo.61.1704898652774;
+        Wed, 10 Jan 2024 06:57:32 -0800 (PST)
+Message-ID: <c64d27cd-0a31-440d-a231-b27b01fa6b2d@suse.com>
+Date: Wed, 10 Jan 2024 15:57:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 1/5] x86/HVM: split restore state checking from state
- loading
+Subject: [PATCH v5 2/5] x86/HVM: adjust save/restore hook registration for
+ optional check handler
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -113,255 +113,231 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <8110e31e-5411-467e-9c59-06751902853a@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-..., at least as reasonably feasible without making a check hook
-mandatory (in particular strict vs relaxed/zero-extend length checking
-can't be done early this way).
+Register NULL uniformly as a first step.
 
-Note that only one of the two uses of "real" hvm_load() is accompanied
-with a "checking" one. The other directly consumes hvm_save() output,
-which ought to be well-formed. This means that while input data related
-checks don't need repeating in the "load" function when already done by
-the "check" one (albeit assertions to this effect may be desirable),
-domain state related checks (e.g. has_xyz(d)) will be required in both
-places.
-
-With the split arch_hvm_{check,load}(), also invoke the latter only
-after downing all the vCPU-s.
-
-Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-Do we really need all the copying involved in use of _hvm_read_entry()
-(backing hvm_load_entry()? Zero-extending loads are likely easier to
-handle that way, but for strict loads all we gain is a reduced risk of
-unaligned accesses (compared to simply pointing into h->data[]).
----
-v5: Add comment. Re-order vCPU-down vs arch_hvm_load().
-v4: Fold hvm_check() into hvm_load().
 v2: New.
 
---- a/xen/arch/x86/domctl.c
-+++ b/xen/arch/x86/domctl.c
-@@ -379,8 +379,12 @@ long arch_do_domctl(
-         if ( copy_from_guest(c.data, domctl->u.hvmcontext.buffer, c.size) != 0 )
-             goto sethvmcontext_out;
- 
-+        ret = hvm_load(d, false, &c);
-+        if ( ret )
-+            goto sethvmcontext_out;
-+
-         domain_pause(d);
--        ret = hvm_load(d, &c);
-+        ret = hvm_load(d, true, &c);
-         domain_unpause(d);
- 
-     sethvmcontext_out:
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -5391,7 +5391,7 @@ int hvm_copy_context_and_params(struct d
-     }
- 
-     c.cur = 0;
--    rc = hvm_load(dst, &c);
-+    rc = hvm_load(dst, true, &c);
- 
-  out:
-     vfree(c.data);
---- a/xen/arch/x86/hvm/save.c
-+++ b/xen/arch/x86/hvm/save.c
-@@ -30,7 +30,8 @@ static void arch_hvm_save(struct domain
-     d->arch.hvm.sync_tsc = rdtsc();
+--- a/xen/arch/x86/cpu/mcheck/vmce.c
++++ b/xen/arch/x86/cpu/mcheck/vmce.c
+@@ -374,7 +374,7 @@ static int cf_check vmce_load_vcpu_ctxt(
+     return err ?: vmce_restore_vcpu(v, &ctxt);
  }
  
--static int arch_hvm_load(struct domain *d, const struct hvm_save_header *hdr)
-+static int arch_hvm_check(const struct domain *d,
-+                          const struct hvm_save_header *hdr)
- {
-     uint32_t eax, ebx, ecx, edx;
+-HVM_REGISTER_SAVE_RESTORE(VMCE_VCPU, vmce_save_vcpu_ctxt,
++HVM_REGISTER_SAVE_RESTORE(VMCE_VCPU, vmce_save_vcpu_ctxt, NULL,
+                           vmce_load_vcpu_ctxt, 1, HVMSR_PER_VCPU);
+ #endif
  
-@@ -55,6 +56,11 @@ static int arch_hvm_load(struct domain *
-                "(%#"PRIx32") and restored on another (%#"PRIx32").\n",
-                d->domain_id, hdr->cpuid, eax);
- 
-+    return 0;
-+}
-+
-+static void arch_hvm_load(struct domain *d, const struct hvm_save_header *hdr)
-+{
-     /* Restore guest's preferred TSC frequency. */
-     if ( hdr->gtsc_khz )
-         d->arch.tsc_khz = hdr->gtsc_khz;
-@@ -66,13 +72,12 @@ static int arch_hvm_load(struct domain *
- 
-     /* VGA state is not saved/restored, so we nobble the cache. */
-     d->arch.hvm.stdvga.cache = STDVGA_CACHE_DISABLED;
--
--    return 0;
+--- a/xen/arch/x86/emul-i8254.c
++++ b/xen/arch/x86/emul-i8254.c
+@@ -458,7 +458,7 @@ static int cf_check pit_load(struct doma
+     return rc;
  }
  
- /* List of handlers for various HVM save and restore types */
- static struct {
-     hvm_save_handler save;
-+    hvm_check_handler check;
-     hvm_load_handler load;
-     const char *name;
-     size_t size;
-@@ -88,6 +93,7 @@ void __init hvm_register_savevm(uint16_t
- {
-     ASSERT(typecode <= HVM_SAVE_CODE_MAX);
-     ASSERT(hvm_sr_handlers[typecode].save == NULL);
-+    ASSERT(hvm_sr_handlers[typecode].check == NULL);
-     ASSERT(hvm_sr_handlers[typecode].load == NULL);
-     hvm_sr_handlers[typecode].save = save_state;
-     hvm_sr_handlers[typecode].load = load_state;
-@@ -275,12 +281,15 @@ int hvm_save(struct domain *d, hvm_domai
+-HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, pit_load, 1, HVMSR_PER_DOM);
++HVM_REGISTER_SAVE_RESTORE(PIT, pit_save, NULL, pit_load, 1, HVMSR_PER_DOM);
+ #endif
+ 
+ /* The intercept action for PIT DM retval: 0--not handled; 1--handled. */
+--- a/xen/arch/x86/hvm/hpet.c
++++ b/xen/arch/x86/hvm/hpet.c
+@@ -692,7 +692,7 @@ static int cf_check hpet_load(struct dom
      return 0;
  }
  
--int hvm_load(struct domain *d, hvm_domain_context_t *h)
-+/*
-+ * @real = false requests checking of the incoming state, while @real = true
-+ * requests actual loading, which will then assume that checking was already
-+ * done or is unnecessary.
-+ */
-+int hvm_load(struct domain *d, bool real, hvm_domain_context_t *h)
+-HVM_REGISTER_SAVE_RESTORE(HPET, hpet_save, hpet_load, 1, HVMSR_PER_DOM);
++HVM_REGISTER_SAVE_RESTORE(HPET, hpet_save, NULL, hpet_load, 1, HVMSR_PER_DOM);
+ 
+ static void hpet_set(HPETState *h)
  {
-     const struct hvm_save_header *hdr;
-     struct hvm_save_descriptor *desc;
--    hvm_load_handler handler;
--    struct vcpu *v;
-     int rc;
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -793,7 +793,7 @@ static int cf_check hvm_load_tsc_adjust(
+     return 0;
+ }
  
-     if ( d->is_dying )
-@@ -291,50 +300,92 @@ int hvm_load(struct domain *d, hvm_domai
-     if ( !hdr )
-         return -ENODATA;
+-HVM_REGISTER_SAVE_RESTORE(TSC_ADJUST, hvm_save_tsc_adjust,
++HVM_REGISTER_SAVE_RESTORE(TSC_ADJUST, hvm_save_tsc_adjust, NULL,
+                           hvm_load_tsc_adjust, 1, HVMSR_PER_VCPU);
  
--    rc = arch_hvm_load(d, hdr);
--    if ( rc )
--        return rc;
-+    rc = arch_hvm_check(d, hdr);
-+    if ( real )
-+    {
-+        struct vcpu *v;
-+
-+        ASSERT(!rc);
+ static int cf_check hvm_save_cpu_ctxt(struct vcpu *v, hvm_domain_context_t *h)
+@@ -1186,7 +1186,7 @@ static int cf_check hvm_load_cpu_ctxt(st
+     return 0;
+ }
  
--    /* Down all the vcpus: we only re-enable the ones that had state saved. */
--    for_each_vcpu(d, v)
--        if ( !test_and_set_bit(_VPF_down, &v->pause_flags) )
--            vcpu_sleep_nosync(v);
-+        /*
-+         * Down all the vcpus: we only re-enable the ones that had state
-+         * saved.
-+         */
-+        for_each_vcpu(d, v)
-+            if ( !test_and_set_bit(_VPF_down, &v->pause_flags) )
-+                vcpu_sleep_nosync(v);
-+
-+        arch_hvm_load(d, hdr);
-+    }
-+    else if ( rc )
-+        return rc;
+-HVM_REGISTER_SAVE_RESTORE(CPU, hvm_save_cpu_ctxt, hvm_load_cpu_ctxt, 1,
++HVM_REGISTER_SAVE_RESTORE(CPU, hvm_save_cpu_ctxt, NULL, hvm_load_cpu_ctxt, 1,
+                           HVMSR_PER_VCPU);
  
-     for ( ; ; )
-     {
-+        const char *name;
-+        hvm_load_handler load;
-+
-         if ( h->size - h->cur < sizeof(struct hvm_save_descriptor) )
-         {
-             /* Run out of data */
-             printk(XENLOG_G_ERR
-                    "HVM%d restore: save did not end with a null entry\n",
-                    d->domain_id);
-+            ASSERT(!real);
-             return -ENODATA;
-         }
+ #define HVM_CPU_XSAVE_SIZE(xcr0) (offsetof(struct hvm_hw_cpu_xsave, \
+@@ -1535,6 +1535,7 @@ static int __init cf_check hvm_register_
+     hvm_register_savevm(CPU_XSAVE_CODE,
+                         "CPU_XSAVE",
+                         hvm_save_cpu_xsave_states,
++                        NULL,
+                         hvm_load_cpu_xsave_states,
+                         HVM_CPU_XSAVE_SIZE(xfeature_mask) +
+                             sizeof(struct hvm_save_descriptor),
+@@ -1543,6 +1544,7 @@ static int __init cf_check hvm_register_
+     hvm_register_savevm(CPU_MSR_CODE,
+                         "CPU_MSR",
+                         hvm_save_cpu_msrs,
++                        NULL,
+                         hvm_load_cpu_msrs,
+                         HVM_CPU_MSR_SIZE(ARRAY_SIZE(msrs_to_send)) +
+                             sizeof(struct hvm_save_descriptor),
+--- a/xen/arch/x86/hvm/irq.c
++++ b/xen/arch/x86/hvm/irq.c
+@@ -784,9 +784,9 @@ static int cf_check irq_load_link(struct
+     return 0;
+ }
  
-         /* Read the typecode of the next entry  and check for the end-marker */
-         desc = (struct hvm_save_descriptor *)(&h->data[h->cur]);
--        if ( desc->typecode == 0 )
-+        if ( desc->typecode == HVM_SAVE_CODE(END) )
-+        {
-+            /* Reset cursor for hvm_load(, true, ). */
-+            if ( !real )
-+                h->cur = 0;
-             return 0;
-+        }
+-HVM_REGISTER_SAVE_RESTORE(PCI_IRQ, irq_save_pci, irq_load_pci,
++HVM_REGISTER_SAVE_RESTORE(PCI_IRQ, irq_save_pci, NULL, irq_load_pci,
+                           1, HVMSR_PER_DOM);
+-HVM_REGISTER_SAVE_RESTORE(ISA_IRQ, irq_save_isa, irq_load_isa,
++HVM_REGISTER_SAVE_RESTORE(ISA_IRQ, irq_save_isa, NULL, irq_load_isa,
+                           1, HVMSR_PER_DOM);
+-HVM_REGISTER_SAVE_RESTORE(PCI_LINK, irq_save_link, irq_load_link,
++HVM_REGISTER_SAVE_RESTORE(PCI_LINK, irq_save_link, NULL, irq_load_link,
+                           1, HVMSR_PER_DOM);
+--- a/xen/arch/x86/hvm/mtrr.c
++++ b/xen/arch/x86/hvm/mtrr.c
+@@ -773,7 +773,7 @@ static int cf_check hvm_load_mtrr_msr(st
+     return 0;
+ }
  
-         /* Find the handler for this entry */
--        if ( (desc->typecode > HVM_SAVE_CODE_MAX) ||
--             ((handler = hvm_sr_handlers[desc->typecode].load) == NULL) )
-+        if ( desc->typecode >= ARRAY_SIZE(hvm_sr_handlers) ||
-+             !(name = hvm_sr_handlers[desc->typecode].name) ||
-+             !(load = hvm_sr_handlers[desc->typecode].load) )
-         {
-             printk(XENLOG_G_ERR "HVM%d restore: unknown entry typecode %u\n",
-                    d->domain_id, desc->typecode);
-+            ASSERT(!real);
-             return -EINVAL;
-         }
+-HVM_REGISTER_SAVE_RESTORE(MTRR, hvm_save_mtrr_msr, hvm_load_mtrr_msr, 1,
++HVM_REGISTER_SAVE_RESTORE(MTRR, hvm_save_mtrr_msr, NULL, hvm_load_mtrr_msr, 1,
+                           HVMSR_PER_VCPU);
  
--        /* Load the entry */
--        printk(XENLOG_G_INFO "HVM%d restore: %s %"PRIu16"\n", d->domain_id,
--               hvm_sr_handlers[desc->typecode].name, desc->instance);
--        rc = handler(d, h);
-+        if ( real )
-+        {
-+            /* Load the entry */
-+            printk(XENLOG_G_INFO "HVM restore %pd: %s %"PRIu16"\n", d,
-+                   name, desc->instance);
-+            rc = load(d, h);
-+        }
-+        else
-+        {
-+            /* Check the entry. */
-+            hvm_check_handler check = hvm_sr_handlers[desc->typecode].check;
-+
-+            if ( !check )
-+            {
-+                if ( desc->length > h->size - h->cur - sizeof(*desc) )
-+                    return -ENODATA;
-+                h->cur += sizeof(*desc) + desc->length;
-+                rc = 0;
-+            }
-+            else
-+                rc = check(d, h);
-+        }
-+
-         if ( rc )
-         {
--            printk(XENLOG_G_ERR "HVM%d restore: failed to load entry %u/%u rc %d\n",
--                   d->domain_id, desc->typecode, desc->instance, rc);
-+            printk(XENLOG_G_ERR "HVM restore %pd: failed to %s %s:%u rc %d\n",
-+                   d, real ? "load" : "check", name, desc->instance, rc);
-             return rc;
-         }
-+
-         process_pending_softirqs();
-     }
+ void memory_type_changed(struct domain *d)
+--- a/xen/arch/x86/hvm/pmtimer.c
++++ b/xen/arch/x86/hvm/pmtimer.c
+@@ -300,7 +300,7 @@ static int cf_check acpi_load(struct dom
+     return 0;
+ }
  
+-HVM_REGISTER_SAVE_RESTORE(PMTIMER, acpi_save, acpi_load,
++HVM_REGISTER_SAVE_RESTORE(PMTIMER, acpi_save, NULL, acpi_load,
+                           1, HVMSR_PER_DOM);
+ 
+ int pmtimer_change_ioport(struct domain *d, uint64_t version)
+--- a/xen/arch/x86/hvm/rtc.c
++++ b/xen/arch/x86/hvm/rtc.c
+@@ -797,7 +797,7 @@ static int cf_check rtc_load(struct doma
+     return 0;
+ }
+ 
+-HVM_REGISTER_SAVE_RESTORE(RTC, rtc_save, rtc_load, 1, HVMSR_PER_DOM);
++HVM_REGISTER_SAVE_RESTORE(RTC, rtc_save, NULL, rtc_load, 1, HVMSR_PER_DOM);
+ 
+ void rtc_reset(struct domain *d)
+ {
+--- a/xen/arch/x86/hvm/save.c
++++ b/xen/arch/x86/hvm/save.c
+@@ -88,6 +88,7 @@ static struct {
+ void __init hvm_register_savevm(uint16_t typecode,
+                                 const char *name,
+                                 hvm_save_handler save_state,
++                                hvm_check_handler check_state,
+                                 hvm_load_handler load_state,
+                                 size_t size, int kind)
+ {
+@@ -96,6 +97,7 @@ void __init hvm_register_savevm(uint16_t
+     ASSERT(hvm_sr_handlers[typecode].check == NULL);
+     ASSERT(hvm_sr_handlers[typecode].load == NULL);
+     hvm_sr_handlers[typecode].save = save_state;
++    hvm_sr_handlers[typecode].check = check_state;
+     hvm_sr_handlers[typecode].load = load_state;
+     hvm_sr_handlers[typecode].name = name;
+     hvm_sr_handlers[typecode].size = size;
+--- a/xen/arch/x86/hvm/vioapic.c
++++ b/xen/arch/x86/hvm/vioapic.c
+@@ -631,7 +631,8 @@ static int cf_check ioapic_load(struct d
+     return 0;
+ }
+ 
+-HVM_REGISTER_SAVE_RESTORE(IOAPIC, ioapic_save, ioapic_load, 1, HVMSR_PER_DOM);
++HVM_REGISTER_SAVE_RESTORE(IOAPIC, ioapic_save, NULL, ioapic_load, 1,
++                          HVMSR_PER_DOM);
+ 
+ void vioapic_reset(struct domain *d)
+ {
+--- a/xen/arch/x86/hvm/viridian/viridian.c
++++ b/xen/arch/x86/hvm/viridian/viridian.c
+@@ -1145,7 +1145,7 @@ static int cf_check viridian_load_domain
+     return 0;
+ }
+ 
+-HVM_REGISTER_SAVE_RESTORE(VIRIDIAN_DOMAIN, viridian_save_domain_ctxt,
++HVM_REGISTER_SAVE_RESTORE(VIRIDIAN_DOMAIN, viridian_save_domain_ctxt, NULL,
+                           viridian_load_domain_ctxt, 1, HVMSR_PER_DOM);
+ 
+ static int cf_check viridian_save_vcpu_ctxt(
+@@ -1188,7 +1188,7 @@ static int cf_check viridian_load_vcpu_c
+     return 0;
+ }
+ 
+-HVM_REGISTER_SAVE_RESTORE(VIRIDIAN_VCPU, viridian_save_vcpu_ctxt,
++HVM_REGISTER_SAVE_RESTORE(VIRIDIAN_VCPU, viridian_save_vcpu_ctxt, NULL,
+                           viridian_load_vcpu_ctxt, 1, HVMSR_PER_VCPU);
+ 
+ static int __init cf_check parse_viridian_version(const char *arg)
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -1617,9 +1617,9 @@ static int cf_check lapic_load_regs(stru
+     return 0;
+ }
+ 
+-HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden,
++HVM_REGISTER_SAVE_RESTORE(LAPIC, lapic_save_hidden, NULL,
+                           lapic_load_hidden, 1, HVMSR_PER_VCPU);
+-HVM_REGISTER_SAVE_RESTORE(LAPIC_REGS, lapic_save_regs,
++HVM_REGISTER_SAVE_RESTORE(LAPIC_REGS, lapic_save_regs, NULL,
+                           lapic_load_regs, 1, HVMSR_PER_VCPU);
+ 
+ int vlapic_init(struct vcpu *v)
+--- a/xen/arch/x86/hvm/vpic.c
++++ b/xen/arch/x86/hvm/vpic.c
+@@ -449,7 +449,7 @@ static int cf_check vpic_load(struct dom
+     return 0;
+ }
+ 
+-HVM_REGISTER_SAVE_RESTORE(PIC, vpic_save, vpic_load, 2, HVMSR_PER_DOM);
++HVM_REGISTER_SAVE_RESTORE(PIC, vpic_save, NULL, vpic_load, 2, HVMSR_PER_DOM);
+ 
+ void vpic_reset(struct domain *d)
+ {
 --- a/xen/arch/x86/include/asm/hvm/save.h
 +++ b/xen/arch/x86/include/asm/hvm/save.h
-@@ -103,6 +103,8 @@ static inline unsigned int hvm_load_inst
-  * restoring.  Both return non-zero on error. */
- typedef int (*hvm_save_handler) (struct vcpu *v,
-                                  hvm_domain_context_t *h);
-+typedef int (*hvm_check_handler)(const struct domain *d,
-+                                 hvm_domain_context_t *h);
- typedef int (*hvm_load_handler) (struct domain *d,
-                                  hvm_domain_context_t *h);
+@@ -113,6 +113,7 @@ typedef int (*hvm_load_handler) (struct
+ void hvm_register_savevm(uint16_t typecode,
+                          const char *name, 
+                          hvm_save_handler save_state,
++                         hvm_check_handler check_state,
+                          hvm_load_handler load_state,
+                          size_t size, int kind);
  
-@@ -140,6 +142,6 @@ size_t hvm_save_size(struct domain *d);
- int hvm_save(struct domain *d, hvm_domain_context_t *h);
- int hvm_save_one(struct domain *d, unsigned int typecode, unsigned int instance,
-                  XEN_GUEST_HANDLE_64(uint8) handle, uint64_t *bufsz);
--int hvm_load(struct domain *d, hvm_domain_context_t *h);
-+int hvm_load(struct domain *d, bool real, hvm_domain_context_t *h);
+@@ -122,12 +123,13 @@ void hvm_register_savevm(uint16_t typeco
  
- #endif /* __XEN_HVM_SAVE_H__ */
+ /* Syntactic sugar around that function: specify the max number of
+  * saves, and this calculates the size of buffer needed */
+-#define HVM_REGISTER_SAVE_RESTORE(_x, _save, _load, _num, _k)             \
++#define HVM_REGISTER_SAVE_RESTORE(_x, _save, check, _load, _num, _k)      \
+ static int __init cf_check __hvm_register_##_x##_save_and_restore(void)   \
+ {                                                                         \
+     hvm_register_savevm(HVM_SAVE_CODE(_x),                                \
+                         #_x,                                              \
+                         &_save,                                           \
++                        check,                                            \
+                         &_load,                                           \
+                         (_num) * (HVM_SAVE_LENGTH(_x)                     \
+                                   + sizeof (struct hvm_save_descriptor)), \
 
 
