@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A3BE829568
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 09:51:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665344.1035524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE708295F0
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 10:11:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665350.1035534 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNUJI-00043U-7s; Wed, 10 Jan 2024 08:51:40 +0000
+	id 1rNUbx-0007e6-Ef; Wed, 10 Jan 2024 09:10:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665344.1035524; Wed, 10 Jan 2024 08:51:40 +0000
+Received: by outflank-mailman (output) from mailman id 665350.1035534; Wed, 10 Jan 2024 09:10:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNUJI-00041k-4z; Wed, 10 Jan 2024 08:51:40 +0000
-Received: by outflank-mailman (input) for mailman id 665344;
- Wed, 10 Jan 2024 08:51:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oG7w=IU=damsy.net=pierre-eric@srs-se1.protection.inumbo.net>)
- id 1rNUJF-00041Y-1D
- for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 08:51:38 +0000
-Received: from mail.damsy.net (mail.damsy.net [85.90.245.9])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7502a26c-af95-11ee-9b0f-b553b5be7939;
- Wed, 10 Jan 2024 09:51:34 +0100 (CET)
+	id 1rNUbx-0007al-B4; Wed, 10 Jan 2024 09:10:57 +0000
+Received: by outflank-mailman (input) for mailman id 665350;
+ Wed, 10 Jan 2024 09:10:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/O5u=IU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rNUbv-0007af-Tj
+ for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 09:10:55 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 287626c3-af98-11ee-98f0-6d05b1d4d9a1;
+ Wed, 10 Jan 2024 10:10:54 +0100 (CET)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2cd7e429429so2033681fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 01:10:54 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ y16-20020a02c010000000b0046b656f4618sm1181290jai.111.2024.01.10.01.10.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 10 Jan 2024 01:10:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,477 +45,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7502a26c-af95-11ee-9b0f-b553b5be7939
-Message-ID: <c986f552-60b8-471a-a439-a8714936fa47@damsy.net>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=damsy.net; s=201803;
-	t=1704876692;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S2fvswJdo6J2JGwBNLrVoFk8Od2kF+yoajWWFUZHpYc=;
-	b=aTvUsh2dkUxkLjC/FCfYwnMc4ThKi/NCM4KFDN40SLKaQCKF8chQGcOEKEg2gu0H+7cQ1+
-	GmUSflL7JueR4sdoBDJX+fa/WqGg4lLJ2Jxqgt71sRXqQdM7GNpka+K8ozn4+j8F6I1wcQ
-	s73s2Sri1Kh6I0L9NmlPS0Ii4jCvIfevg9iD5IO4SYicXTpWZsM82UU9e8/meoY3u0kQvw
-	yTNhaSIL1XlRE2DlvPGlhV+LU+Dv51B8sjRvT5v1mGhO32ofX476Pxhg6okpC4f5OewRI6
-	OLVx387dpB5U22sezxNImTFouZOI6xX+Li0nDA5ZPurOK3+4D3yaHzTUrREfiw==
-Date: Wed, 10 Jan 2024 09:51:31 +0100
+X-Inumbo-ID: 287626c3-af98-11ee-98f0-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1704877854; x=1705482654; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=JIQQBubYknC3wI0uWH6IRtt9CNL3HhXNugwo3F4kwuw=;
+        b=Th0SWsoVWliuErKUTfNRJgxCoIOq0Ng+Oli42aPPv8mezN2d12Mjs9C2j6hpE+eAiw
+         euBVbCmJyWRQRAzcMZ/Ghf3yp/I2UODDLF9nQ77KAqstcct7qAj2UgHWGA83QfD+QidP
+         R03qmI/iCH6JcAORiuZArZHMvFWi1SwsNlS4SqUy4SOvGWDqXQ2ly1aTinGHN2IR36ca
+         YiCVR67Rt2mbolLXoG5/Ssxs7E0X5giRrabyx2LYl8FlwRjg+HDsjMKvcyfd3sylhIX+
+         fqUUEGx1aVNvXEtw6Kn8pYFQ1xQHc8e8Whlruf1uaWRSvTOo5rb2zRhDD7UZAAR2DOH+
+         SwdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704877854; x=1705482654;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JIQQBubYknC3wI0uWH6IRtt9CNL3HhXNugwo3F4kwuw=;
+        b=BvP2ZRxwenHLGhAugn6Y6FJkPycdgjfIKuyltKRcwqKASSL5MfGzSi828eJwC0/D3S
+         5WoTrVzGHz1h5NBe6SCfwM5K11K2JvskbkJCUby2TK8uN8rmXaucgUb2FCRRgEpRpXcP
+         ojymmBJiCNywalU8OyZc93lcJi6VBvowb2OB/wUs4PBLSXluNp/w8+z37lTTC0XYyC8a
+         lTpbSyUtX1rNckkV/6A7TQI1ZpS7NiroAjpukBF8IkCEhI/JrCkLbbKZftoG10hbCj1W
+         yhvWZ5AWyduA0UxyOu5VDkCv9ii/EqYqhE7i/pKDl46Ainwc6SkNv+Ib6sxWnV0Oi+xL
+         9slA==
+X-Gm-Message-State: AOJu0Yz0Qr4OEpe0LvsGAeJftVdZ7sgf2GlCzaS7/PlXlQsMnhKMOnM8
+	FHH54SshDGBE7cx7Y7cjeUjHhU9YvsY1
+X-Google-Smtp-Source: AGHT+IFRuv8tjbbC2tMZ5XIUhZXPjTQQbVhwAzKO8freRZx1GNyFue+lR3gnermPYoZkNkZ8sSYQrw==
+X-Received: by 2002:a2e:930d:0:b0:2cc:e48d:d0f3 with SMTP id e13-20020a2e930d000000b002cce48dd0f3mr401916ljh.79.1704877853985;
+        Wed, 10 Jan 2024 01:10:53 -0800 (PST)
+Message-ID: <0f7c4c1a-5c20-4e89-bef9-2ebd02c0b141@suse.com>
+Date: Wed, 10 Jan 2024 10:10:49 +0100
 MIME-Version: 1.0
-Subject: Re: [PATCH v6 07/11] virtio-gpu: Handle resource blob commands
-From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
-To: Huang Rui <ray.huang@amd.com>, Akihiko Odaki <akihiko.odaki@daynix.com>,
- =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Antonio Caggiano <quic_acaggian@quicinc.com>,
- "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
- Robert Beckett <bob.beckett@collabora.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
- <alex.bennee@linaro.org>, qemu-devel@nongnu.org
-Cc: xen-devel@lists.xenproject.org,
- Gurchetan Singh <gurchetansingh@chromium.org>, ernunes@redhat.com,
- Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
- Chen Jiqian <Jiqian.Chen@amd.com>,
- Antonio Caggiano <antonio.caggiano@collabora.com>
-References: <20231219075320.165227-1-ray.huang@amd.com>
- <20231219075320.165227-8-ray.huang@amd.com>
- <ccc34ce0-44af-425e-8634-6f7a0583ee12@damsy.net>
-Content-Language: fr
-In-Reply-To: <ccc34ce0-44af-425e-8634-6f7a0583ee12@damsy.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/13] xen: add cache coloring allocator for domains
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Carlo Nonato <carlo.nonato@minervasys.tech>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
+ <20240102095138.17933-10-carlo.nonato@minervasys.tech>
+ <7fbe9526-60cf-4844-8b48-58ab69ec1b29@suse.com>
+ <alpine.DEB.2.22.394.2401091637160.3675@ubuntu-linux-20-04-desktop>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2401091637160.3675@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-
-Le 09/01/2024 à 17:50, Pierre-Eric Pelloux-Prayer a écrit :
-> 
-> 
-> Le 19/12/2023 à 08:53, Huang Rui a écrit :
->> From: Antonio Caggiano <antonio.caggiano@collabora.com>
+On 10.01.2024 01:46, Stefano Stabellini wrote:
+> On Tue, 9 Jan 2024, Jan Beulich wrote:
+>> On 02.01.2024 10:51, Carlo Nonato wrote:
+>>> This commit adds a new memory page allocator that implements the cache
+>>> coloring mechanism. The allocation algorithm enforces equal frequency
+>>> distribution of cache partitions, following the coloring configuration of a
+>>> domain. This allows an even utilization of cache sets for every domain.
+>>>
+>>> Pages are stored in a color-indexed array of lists. Those lists are filled
+>>> by a simple init function which computes the color of each page.
+>>> When a domain requests a page, the allocator extract the page from the list
+>>> with the maximum number of free pages between those that the domain can
+>>> access, given its coloring configuration.
+>>>
+>>> The allocator can only handle requests of order-0 pages. This allows for
+>>> easier implementation and since cache coloring targets only embedded systems,
+>>> it's assumed not to be a major problem.
 >>
->> Support BLOB resources creation, mapping and unmapping by calling the
->> new stable virglrenderer 0.10 interface. Only enabled when available and
->> via the blob config. E.g. -device virtio-vga-gl,blob=true
->>
->> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
->> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
->> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
->> Signed-off-by: Huang Rui <ray.huang@amd.com>
->> ---
->>
->> Changes in v6:
->> - Use new struct virgl_gpu_resource.
->> - Unmap, unref and destroy the resource only after the memory region
->>    has been completely removed.
->> - In unref check whether the resource is still mapped.
->> - In unmap_blob check whether the resource has been already unmapped.
->> - Fix coding style
->>
->>   hw/display/virtio-gpu-virgl.c | 274 +++++++++++++++++++++++++++++++++-
->>   hw/display/virtio-gpu.c       |   4 +-
->>   meson.build                   |   4 +
->>   3 files changed, 276 insertions(+), 6 deletions(-)
->>
->> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
->> index faab374336..5a3a292f79 100644
->> --- a/hw/display/virtio-gpu-virgl.c
->> +++ b/hw/display/virtio-gpu-virgl.c
->> @@ -17,6 +17,7 @@
->>   #include "trace.h"
->>   #include "hw/virtio/virtio.h"
->>   #include "hw/virtio/virtio-gpu.h"
->> +#include "hw/virtio/virtio-gpu-bswap.h"
->>   #include "ui/egl-helpers.h"
->> @@ -24,8 +25,62 @@
->>   struct virgl_gpu_resource {
->>       struct virtio_gpu_simple_resource res;
->> +    uint32_t ref;
->> +    VirtIOGPU *g;
->> +
->> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
->> +    /* only blob resource needs this region to be mapped as guest mmio */
->> +    MemoryRegion *region;
->> +#endif
->>   };
->> +static void vres_get_ref(struct virgl_gpu_resource *vres)
->> +{
->> +    uint32_t ref;
->> +
->> +    ref = qatomic_fetch_inc(&vres->ref);
->> +    g_assert(ref < INT_MAX);
->> +}
->> +
->> +static void virgl_resource_destroy(struct virgl_gpu_resource *vres)
->> +{
->> +    struct virtio_gpu_simple_resource *res;
->> +    VirtIOGPU *g;
->> +
->> +    if (!vres) {
->> +        return;
->> +    }
->> +
->> +    g = vres->g;
->> +    res = &vres->res;
->> +    QTAILQ_REMOVE(&g->reslist, res, next);
->> +    virtio_gpu_cleanup_mapping(g, res);
->> +    g_free(vres);
->> +}
->> +
->> +static void virgl_resource_unref(struct virgl_gpu_resource *vres)
->> +{
->> +    struct virtio_gpu_simple_resource *res;
->> +
->> +    if (!vres) {
->> +        return;
->> +    }
->> +
->> +    res = &vres->res;
->> +    virgl_renderer_resource_detach_iov(res->resource_id, NULL, NULL);
->> +    virgl_renderer_resource_unref(res->resource_id);
->> +}
->> +
->> +static void vres_put_ref(struct virgl_gpu_resource *vres)
->> +{
->> +    g_assert(vres->ref > 0);
->> +
->> +    if (qatomic_fetch_dec(&vres->ref) == 1) {
->> +        virgl_resource_unref(vres);
->> +        virgl_resource_destroy(vres);
->> +    }
->> +}
->> +
->>   static struct virgl_gpu_resource *
->>   virgl_gpu_find_resource(VirtIOGPU *g, uint32_t resource_id)
->>   {
->> @@ -59,6 +114,8 @@ static void virgl_cmd_create_resource_2d(VirtIOGPU *g,
->>                                          c2d.width, c2d.height);
->>       vres = g_new0(struct virgl_gpu_resource, 1);
->> +    vres_get_ref(vres);
->> +    vres->g = g;
->>       vres->res.width = c2d.width;
->>       vres->res.height = c2d.height;
->>       vres->res.format = c2d.format;
->> @@ -91,6 +148,8 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
->>                                          c3d.width, c3d.height, c3d.depth);
->>       vres = g_new0(struct virgl_gpu_resource, 1);
->> +    vres_get_ref(vres);
->> +    vres->g = g;
->>       vres->res.width = c3d.width;
->>       vres->res.height = c3d.height;
->>       vres->res.format = c3d.format;
->> @@ -126,12 +185,21 @@ static void virgl_cmd_resource_unref(VirtIOGPU *g,
->>           return;
->>       }
->> -    virgl_renderer_resource_detach_iov(unref.resource_id, NULL, NULL);
->> -    virgl_renderer_resource_unref(unref.resource_id);
->> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
->> +    if (vres->region) {
->> +        VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
->> +        MemoryRegion *mr = vres->region;
->> +
->> +        warn_report("%s: blob resource %d not unmapped",
->> +                    __func__, unref.resource_id);
->> +        vres->region = NULL;
+>> I'm curious about the specific properties of embedded systems that makes
+>> the performance implications of deeper page walks less of an issue for
+>> them.
 > 
-> Shouldn't there be a call to memory_region_unref(mr)?
+> I think Carlo meant to say that embedded systems tend to have a smaller
+> amount of RAM (our boards today have 4-8GB of total memory). So higher
+> level allocations (2MB/1GB) might not be possible.
 > 
->> +        memory_region_set_enabled(mr, false);
->> +        memory_region_del_subregion(&b->hostmem, mr);
->> +        object_unparent(OBJECT(mr));
->> +    }
->> +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
->> -    QTAILQ_REMOVE(&g->reslist, &vres->res, next);
->> -    virtio_gpu_cleanup_mapping(g, &vres->res);
->> -    g_free(vres);
->> +    vres_put_ref(vres);
->>   }
->>   static void virgl_cmd_context_create(VirtIOGPU *g,
->> @@ -470,6 +538,191 @@ static void virgl_cmd_get_capset(VirtIOGPU *g,
->>       g_free(resp);
->>   }
->> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
->> +
->> +static void virgl_resource_unmap(struct virgl_gpu_resource *vres)
->> +{
->> +    if (!vres) {
->> +        return;
->> +    }
->> +
->> +    virgl_renderer_resource_unmap(vres->res.resource_id);
->> +
->> +    vres_put_ref(vres);
->> +}
->> +
->> +static void virgl_resource_blob_async_unmap(void *obj)
->> +{
->> +    MemoryRegion *mr = MEMORY_REGION(obj);
->> +    struct virgl_gpu_resource *vres = mr->opaque;
->> +
->> +    virgl_resource_unmap(vres);
->> +
->> +    g_free(obj);
->> +}
->> +
->> +static void virgl_cmd_resource_create_blob(VirtIOGPU *g,
->> +                                           struct virtio_gpu_ctrl_command *cmd)
->> +{
->> +    struct virgl_gpu_resource *vres;
->> +    struct virtio_gpu_resource_create_blob cblob;
->> +    struct virgl_renderer_resource_create_blob_args virgl_args = { 0 };
->> +    int ret;
->> +
->> +    VIRTIO_GPU_FILL_CMD(cblob);
->> +    virtio_gpu_create_blob_bswap(&cblob);
->> +    trace_virtio_gpu_cmd_res_create_blob(cblob.resource_id, cblob.size);
->> +
->> +    if (cblob.resource_id == 0) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
->> +                      __func__);
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->> +        return;
->> +    }
->> +
->> +    vres = virgl_gpu_find_resource(g, cblob.resource_id);
->> +    if (vres) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already exists %d\n",
->> +                      __func__, cblob.resource_id);
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->> +        return;
->> +    }
->> +
->> +    vres = g_new0(struct virgl_gpu_resource, 1);
->> +    vres_get_ref(vres);
->> +    vres->g = g;
->> +    vres->res.resource_id = cblob.resource_id;
->> +    vres->res.blob_size = cblob.size;
->> +
->> +    if (cblob.blob_mem != VIRTIO_GPU_BLOB_MEM_HOST3D) {
->> +        ret = virtio_gpu_create_mapping_iov(g, cblob.nr_entries, sizeof(cblob),
->> +                                            cmd, &vres->res.addrs,
->> +                                            &vres->res.iov, &vres->res.iov_cnt);
->> +        if (!ret) {
->> +            g_free(vres);
->> +            cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
->> +            return;
->> +        }
->> +    }
->> +
->> +    QTAILQ_INSERT_HEAD(&g->reslist, &vres->res, next);
->> +
->> +    virgl_args.res_handle = cblob.resource_id;
->> +    virgl_args.ctx_id = cblob.hdr.ctx_id;
->> +    virgl_args.blob_mem = cblob.blob_mem;
->> +    virgl_args.blob_id = cblob.blob_id;
->> +    virgl_args.blob_flags = cblob.blob_flags;
->> +    virgl_args.size = cblob.size;
->> +    virgl_args.iovecs = vres->res.iov;
->> +    virgl_args.num_iovs = vres->res.iov_cnt;
->> +
->> +    ret = virgl_renderer_resource_create_blob(&virgl_args);
->> +    if (ret) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: virgl blob create error: %s\n",
->> +                      __func__, strerror(-ret));
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
->> +    }
->> +}
->> +
->> +static void virgl_cmd_resource_map_blob(VirtIOGPU *g,
->> +                                        struct virtio_gpu_ctrl_command *cmd)
->> +{
->> +    struct virgl_gpu_resource *vres;
->> +    struct virtio_gpu_resource_map_blob mblob;
->> +    int ret;
->> +    void *data;
->> +    uint64_t size;
->> +    struct virtio_gpu_resp_map_info resp;
->> +    VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
->> +
->> +    VIRTIO_GPU_FILL_CMD(mblob);
->> +    virtio_gpu_map_blob_bswap(&mblob);
->> +
->> +    if (mblob.resource_id == 0) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
->> +                      __func__);
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->> +        return;
->> +    }
->> +
->> +    vres = virgl_gpu_find_resource(g, mblob.resource_id);
->> +    if (!vres) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource does not exist %d\n",
->> +                      __func__, mblob.resource_id);
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->> +        return;
->> +    }
->> +    if (vres->region) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already mapped %d\n",
->> +                      __func__, mblob.resource_id);
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->> +        return;
->> +    }
->> +
->> +    ret = virgl_renderer_resource_map(vres->res.resource_id, &data, &size);
->> +    if (ret) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource map error: %s\n",
->> +                      __func__, strerror(-ret));
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->> +        return;
->> +    }
->> +
->> +    vres_get_ref(vres);
+> Also, domains that care about interrupt latency tend to be RTOSes (e.g.
+> Zephyr, FreeRTOS) and RTOSes are happy to run with less than 1MB of
+> total memory available. This is so true that I vaguely remember hitting
+> a bug in xl/libxl when I tried to create a domain with 128KB of memory. 
 > 
-> Why is this needed? And if it is, shouldn't virgl_cmd_resource_unmap_blob
-> call "vres_put_ref(vres)" ?
 > 
->> +    vres->region = g_new0(MemoryRegion, 1);
->> +    memory_region_init_ram_ptr(vres->region, OBJECT(g), NULL, size, data);
->> +    vres->region->opaque = vres;
->> +    OBJECT(vres->region)->free = virgl_resource_blob_async_unmap;
->> +    memory_region_add_subregion(&b->hostmem, mblob.offset, vres->region);
->> +    memory_region_set_enabled(vres->region, true);
->> +
->> +    memset(&resp, 0, sizeof(resp));
->> +    resp.hdr.type = VIRTIO_GPU_RESP_OK_MAP_INFO;
->> +    virgl_renderer_resource_get_map_info(mblob.resource_id, &resp.map_info);
->> +    virtio_gpu_ctrl_response(g, cmd, &resp.hdr, sizeof(resp));
->> +}
->> +
->> +static void virgl_cmd_resource_unmap_blob(VirtIOGPU *g,
->> +                                          struct virtio_gpu_ctrl_command *cmd)
->> +{
->> +    struct virgl_gpu_resource *vres;
->> +    struct virtio_gpu_resource_unmap_blob ublob;
->> +    VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
->> +    MemoryRegion *mr;
->> +
->> +    VIRTIO_GPU_FILL_CMD(ublob);
->> +    virtio_gpu_unmap_blob_bswap(&ublob);
->> +
->> +    if (ublob.resource_id == 0) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
->> +                      __func__);
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->> +        return;
->> +    }
->> +
->> +    vres = virgl_gpu_find_resource(g, ublob.resource_id);
->> +    if (!vres) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource does not exist %d\n",
->> +                      __func__, ublob.resource_id);
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->> +        return;
->> +    }
->> +
->> +    if (!vres->region) {
->> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already unmapped %d\n",
->> +                      __func__, ublob.resource_id);
->> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
->> +        return;
->> +    }
->> +
->> +    mr = vres->region;
->> +    vres->region = NULL;
+>> Nothing is said about address-constrained allocations. Are such entirely
+>> of no interest to domains on Arm, not even to Dom0 (e.g. for filling
+>> Linux'es swiotlb)?
 > 
-> memory_region_unref(mr)?
+> Cache coloring is useful if you can use an IOMMU with all the
+> dma-capable devices. If that is not the case, then not even Dom0 would
+> be able to boot with cache coloring enabled (because it wouldn't be 1:1
+> mapped).
 > 
-> Note that AFAICT without the added memory_region_unref() calls virgl_resource_unmap()
-> was never called.
+> On ARM we only support booting Dom0 1:1 mapped, or not-1:1-mapped but
+> relying on the IOMMU.
 
+So another constraint to be enforced both at the Kconfig level and at
+runtime? That said, Linux'es swiotlb allocation can't know whether an
+IOMMU is in use by Xen. If something like that was done in a Dom0, the
+respective allocations still wouldn't really work correctly (and the
+kernel may or may not choke on this).
 
-Xenia and I figured out the refcounting issue: this code is written based on the
-assumption that:
-  
-    object_unparent(OBJECT(mr));
-
-
-Will decrement the refcount. But this assumption is only true if mr->parent_obj.parent
-is non-NULL.
-
-The map_blob function uses the following arguments:
-
-    memory_region_init_ram_ptr(vres->region, OBJECT(g), NULL, size, data);
-
-Since name is NULL, mr won't be added as a child of 'g' and thus object_unparent()
-does nothing.
-
-I'd suggest 2 changes:
-    * use a name ("blob_memory"?) to so mr can be a child of g
-    * increment mr's refcount when setting vres->region and decrement it when clearing it.
-      This change is not needed technically but when a variable is refcounted it seems
-      clearer to increment/decrement the refcount in these situations.
-
-
-Pierre-Eric
-
-
-> 
->> +    memory_region_set_enabled(mr, false);
->> +    memory_region_del_subregion(&b->hostmem, mr);
->> +    object_unparent(OBJECT(mr));
->> +}
->> +
->> +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
->> +
->>   void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
->>                                         struct virtio_gpu_ctrl_command *cmd)
->>   {
->> @@ -536,6 +789,17 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
->>       case VIRTIO_GPU_CMD_GET_EDID:
->>           virtio_gpu_get_edid(g, cmd);
->>           break;
->> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
->> +    case VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB:
->> +        virgl_cmd_resource_create_blob(g, cmd);
->> +        break;
->> +    case VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB:
->> +        virgl_cmd_resource_map_blob(g, cmd);
->> +        break;
->> +    case VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB:
->> +        virgl_cmd_resource_unmap_blob(g, cmd);
->> +        break;
->> +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
->>       default:
->>           cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
->>           break;
->> diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
->> index 4c3ec9d0ea..8189c392dc 100644
->> --- a/hw/display/virtio-gpu.c
->> +++ b/hw/display/virtio-gpu.c
->> @@ -1449,10 +1449,12 @@ void virtio_gpu_device_realize(DeviceState *qdev, Error **errp)
->>               return;
->>           }
->> +#ifndef HAVE_VIRGL_RESOURCE_BLOB
->>           if (virtio_gpu_virgl_enabled(g->parent_obj.conf)) {
->> -            error_setg(errp, "blobs and virgl are not compatible (yet)");
->> +            error_setg(errp, "Linked virglrenderer does not support blob resources");
->>               return;
->>           }
->> +#endif
->>       }
->>       if (!virtio_gpu_base_device_realize(qdev,
->> diff --git a/meson.build b/meson.build
->> index ea52ef1b9c..629407128e 100644
->> --- a/meson.build
->> +++ b/meson.build
->> @@ -1054,6 +1054,10 @@ if not get_option('virglrenderer').auto() or have_system or have_vhost_user_gpu
->>                            cc.has_function('virgl_renderer_context_create_with_flags',
->>                                            prefix: '#include <virglrenderer.h>',
->>                                            dependencies: virgl))
->> +    config_host_data.set('HAVE_VIRGL_RESOURCE_BLOB',
->> +                         cc.has_function('virgl_renderer_resource_create_blob',
->> +                                         prefix: '#include <virglrenderer.h>',
->> +                                         dependencies: virgl))
->>     endif
->>   endif
->>   rutabaga = not_found
-> 
+Jan
 
