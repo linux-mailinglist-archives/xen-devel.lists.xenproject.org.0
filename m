@@ -2,49 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDCA8829AD1
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 14:00:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665431.1035643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D3B6829ACF
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 13:59:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665433.1035633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNYBX-0006be-8X; Wed, 10 Jan 2024 12:59:55 +0000
+	id 1rNYB5-0006Cj-WA; Wed, 10 Jan 2024 12:59:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665431.1035643; Wed, 10 Jan 2024 12:59:55 +0000
+Received: by outflank-mailman (output) from mailman id 665433.1035633; Wed, 10 Jan 2024 12:59:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNYBX-0006a8-5S; Wed, 10 Jan 2024 12:59:55 +0000
-Received: by outflank-mailman (input) for mailman id 665431;
- Wed, 10 Jan 2024 12:50:30 +0000
+	id 1rNYB5-0006Ag-TL; Wed, 10 Jan 2024 12:59:27 +0000
+Received: by outflank-mailman (input) for mailman id 665433;
+ Wed, 10 Jan 2024 12:59:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kDgC=IU=amazon.co.uk=prvs=732579c64=eliasely@srs-se1.protection.inumbo.net>)
- id 1rNY2Q-0005ae-H5
- for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 12:50:30 +0000
-Received: from smtp-fw-80008.amazon.com (smtp-fw-80008.amazon.com
- [99.78.197.219]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d387774d-afb6-11ee-9b0f-b553b5be7939;
- Wed, 10 Jan 2024 13:50:27 +0100 (CET)
-Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
- email-inbound-relay-pdx-2a-m6i4x-83883bdb.us-west-2.amazon.com)
- ([10.25.36.214]) by smtp-border-fw-80008.pdx80.corp.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Jan 2024 12:50:24 +0000
-Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
- (pdx2-ws-svc-p26-lb5-vlan2.pdx.amazon.com [10.39.38.66])
- by email-inbound-relay-pdx-2a-m6i4x-83883bdb.us-west-2.amazon.com (Postfix)
- with ESMTPS id 9D3EC60C68; Wed, 10 Jan 2024 12:50:23 +0000 (UTC)
-Received: from EX19MTAEUA002.ant.amazon.com [10.0.10.100:54762]
- by smtpin.naws.eu-west-1.prod.farcaster.email.amazon.dev [10.0.26.238:2525]
- with esmtp (Farcaster)
- id 21254f9c-3e38-441e-a230-621b679481c4; Wed, 10 Jan 2024 12:50:22 +0000 (UTC)
-Received: from EX19D018EUA002.ant.amazon.com (10.252.50.146) by
- EX19MTAEUA002.ant.amazon.com (10.252.50.126) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Wed, 10 Jan 2024 12:50:22 +0000
-Received: from [192.168.8.225] (10.106.82.23) by EX19D018EUA002.ant.amazon.com
- (10.252.50.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Wed, 10 Jan
- 2024 12:50:19 +0000
+ <SRS0=oG7w=IU=damsy.net=pierre-eric@srs-se1.protection.inumbo.net>)
+ id 1rNYB3-0006Aa-Nl
+ for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 12:59:26 +0000
+Received: from mail.damsy.net (mail.damsy.net [85.90.245.9])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 13a624f7-afb8-11ee-9b0f-b553b5be7939;
+ Wed, 10 Jan 2024 13:59:23 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,141 +34,86 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d387774d-afb6-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1704891027; x=1736427027;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=jMmmbWv6qx49xRxZS/Wny1+KtQ9OWQVIQIAlAph6n34=;
-  b=N4Hb9yYcK7zadl6wUv9MTvqWvPvsnGBQE1pDnaPAMJqQQxVZu6t+Mhab
-   iLd1ELWmBKKAvJqSgYzI6EPUaIYB4qtTbizNId1IqGa5HysW5mlsqDBn7
-   ImDOUlGL9q9Sw33aw3WJ2ui8YVlWEboV7bN9xvQSFUUotqoKDYC9AqxBF
-   0=;
-X-IronPort-AV: E=Sophos;i="6.04,184,1695686400"; 
-   d="scan'208";a="57272337"
-X-Farcaster-Flow-ID: 21254f9c-3e38-441e-a230-621b679481c4
-Message-ID: <b1879928-8e35-4506-a400-ece5c3096058@amazon.com>
-Date: Wed, 10 Jan 2024 12:50:15 +0000
+X-Inumbo-ID: 13a624f7-afb8-11ee-9b0f-b553b5be7939
+Message-ID: <aefe25cd-6d67-4594-a368-f8f424526c7d@damsy.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=damsy.net; s=201803;
+	t=1704891562;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=A4r8eZazLgjiMzk/DKUXZkBu5yIo/Yei+trtO5Q1vHc=;
+	b=tXwagdUZZJx73BpxwNt/W6hboXzr1kY06nolXMI7SwYX/ZI+Y8t53jiiIBPI02pos1lpHs
+	jcg2bZgS7JUsJgI0SXv2dr+4ZM6b7OAQRbi8VagYjc364QntbAjwZzZLReQ4fHYVVfyIyK
+	kDvgAKBa9imlvh5lDZLpxG8KXU4OjDVTKY39BF9mZx/b96TxQtD3jDBkngTDJ89Qc9DWDQ
+	Ef1tkfbGQNO40X/kycCb6SWUFCQGN4HTQDkej0+MjpyKiHFQTKHf+q305uQdZkoMpr+wDB
+	2n0etZdJ5L2KP0bbMtVHsJ5J/sMQAUNJ9m5HSKC+GNq5gzOfO8jAfKVJvZyMsQ==
+Date: Wed, 10 Jan 2024 13:59:21 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/22] x86/pv: rewrite how building PV dom0 handles
- domheap mappings
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-CC: Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Julien Grall
-	<jgrall@amazon.com>, <xen-devel@lists.xenproject.org>
-References: <20221216114853.8227-1-julien@xen.org>
- <20221216114853.8227-9-julien@xen.org>
- <1bd1de52-9f3b-6654-dbda-37001fce31d7@suse.com>
-From: "El Yandouzi, Elias" <eliasely@amazon.com>
-In-Reply-To: <1bd1de52-9f3b-6654-dbda-37001fce31d7@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.106.82.23]
-X-ClientProxiedBy: EX19D032UWB002.ant.amazon.com (10.13.139.190) To
- EX19D018EUA002.ant.amazon.com (10.252.50.146)
-Precedence: Bulk
+Subject: Re: [PATCH v6 07/11] virtio-gpu: Handle resource blob commands
+To: Akihiko Odaki <akihiko.odaki@daynix.com>, Huang Rui <ray.huang@amd.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <quic_acaggian@quicinc.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>, ernunes@redhat.com,
+ Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>,
+ Antonio Caggiano <antonio.caggiano@collabora.com>
+References: <20231219075320.165227-1-ray.huang@amd.com>
+ <20231219075320.165227-8-ray.huang@amd.com>
+ <0d08a014-cdf5-4b4f-a683-171ae4c8b6e0@daynix.com>
+Content-Language: fr
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <0d08a014-cdf5-4b4f-a683-171ae4c8b6e0@daynix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
 
-I have been looking at this series recently and tried my best
-to address your comments. I'll shortly to the other patches too.
 
-On 22/12/2022 11:48, Jan Beulich wrote:
-> On 16.12.2022 12:48, Julien Grall wrote:
->> From: Hongyan Xia <hongyxia@amazon.com>
+Le 21/12/2023 à 09:09, Akihiko Odaki a écrit :
+> On 2023/12/19 16:53, Huang Rui wrote:
+>> From: Antonio Caggiano <antonio.caggiano@collabora.com>
 >>
->> Building a PV dom0 is allocating from the domheap but uses it like the
->> xenheap. This is clearly wrong. Fix.
+>> Support BLOB resources creation, mapping and unmapping by calling the
+>> new stable virglrenderer 0.10 interface. Only enabled when available and
+>> via the blob config. E.g. -device virtio-vga-gl,blob=true
 > 
-> "Clearly wrong" would mean there's a bug here, at lest under certain
-> conditions. But there isn't: Even on huge systems, due to running on
-> idle page tables, all memory is mapped at present.
-
-I agree with you, I'll rephrase the commit message.
-
-> 
->> @@ -711,22 +715,32 @@ int __init dom0_construct_pv(struct domain *d,
->>           v->arch.pv.event_callback_cs    = FLAT_COMPAT_KERNEL_CS;
->>       }
->>   
->> +#define UNMAP_MAP_AND_ADVANCE(mfn_var, virt_var, maddr) \
->> +do {                                                    \
->> +    UNMAP_DOMAIN_PAGE(virt_var);                        \
-> 
-> Not much point using the macro when ...
-> 
->> +    mfn_var = maddr_to_mfn(maddr);                      \
->> +    maddr += PAGE_SIZE;                                 \
->> +    virt_var = map_domain_page(mfn_var);                \
-> 
-> ... the variable gets reset again to non-NULL unconditionally right
-> away.
-
-Sure, I'll change that.
-
-> 
->> +} while ( false )
-> 
-> This being a local macro and all use sites passing mpt_alloc as the
-> last argument, I think that parameter wants dropping, which would
-> improve readability.
-
-I have to disagree. It wouldn't improve readability but make only make 
-things more obscure. I'll keep the macro as is.
-
-> 
->> @@ -792,9 +808,9 @@ int __init dom0_construct_pv(struct domain *d,
->>               if ( !l3e_get_intpte(*l3tab) )
->>               {
->>                   maddr_to_page(mpt_alloc)->u.inuse.type_info = PGT_l2_page_table;
->> -                l2tab = __va(mpt_alloc); mpt_alloc += PAGE_SIZE;
->> -                clear_page(l2tab);
->> -                *l3tab = l3e_from_paddr(__pa(l2tab), L3_PROT);
->> +                UNMAP_MAP_AND_ADVANCE(l2start_mfn, l2start, mpt_alloc);
->> +                clear_page(l2start);
->> +                *l3tab = l3e_from_mfn(l2start_mfn, L3_PROT);
-> 
-> The l2start you map on the last iteration here can be re-used ...
-> 
->> @@ -805,9 +821,17 @@ int __init dom0_construct_pv(struct domain *d,
->>           unmap_domain_page(l2t);
->>       }
-> 
-> ... in the code the tail of which is visible here, eliminating a
-> redundant map/unmap pair.
-
-Good catch, I'll remove the redundant pair.
-
-> 
->> @@ -977,8 +1001,12 @@ int __init dom0_construct_pv(struct domain *d,
->>        * !CONFIG_VIDEO case so the logic here can be simplified.
->>        */
->>       if ( pv_shim )
->> +    {
->> +        l4start = map_domain_page(l4start_mfn);
->>           pv_shim_setup_dom(d, l4start, v_start, vxenstore_start, vconsole_start,
->>                             vphysmap_start, si);
->> +        UNMAP_DOMAIN_PAGE(l4start);
->> +    }
-> 
-> The, at the first glance, redundant re-mapping of the L4 table here could
-> do with explaining in the description. However, I further wonder in how
-> far in shim mode eliminating the direct map is actually useful. Which is
-> to say that I question the need for this change in the first place. Or
-> wait - isn't this (unlike the rest of this patch) actually a bug fix? At
-> this point we're on the domain's page tables, which may not cover the
-> page the L4 is allocated at (if a truly huge shim was configured). So I
-> guess the change is needed but wants breaking out, allowing to at least
-> consider whether to backport it.
+> I have another concern about delaying virgl_renderer_resource_unref() until the resource gets unmapped; the guest will expect the resource ID will be available for a new resource immediately after VIRTIO_GPU_CMD_RESOURCE_UNREF, but it will break the assumption and may corrupt things.
 > 
 
-I will create a separate patch for this change.
+Yes this is a problem.
 
-> Jan
-> 
+And another one is virglrenderer is not really thread-safe, so this callstack:
+
+#0  virgl_resource_blob_async_unmap ()
+#1  object_finalize ()
+#2  object_unref ()
+#3  memory_region_unref ()
+#4  flatview_destroy ()
+#5  call_rcu_thread ()
+#6  qemu_thread_start ()
+
+Will call into virgl_renderer_ctx_resource_unmap which in turn uses virgl_resource_lookup
+without any multithreading considerations.
+
+
+Regards,
+Pierre-Eric
 
