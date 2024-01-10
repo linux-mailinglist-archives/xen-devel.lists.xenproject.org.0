@@ -2,40 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31BB8829565
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 09:50:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665338.1035514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A3BE829568
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 09:51:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665344.1035524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNUHg-0002dq-Oq; Wed, 10 Jan 2024 08:50:00 +0000
+	id 1rNUJI-00043U-7s; Wed, 10 Jan 2024 08:51:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665338.1035514; Wed, 10 Jan 2024 08:50:00 +0000
+Received: by outflank-mailman (output) from mailman id 665344.1035524; Wed, 10 Jan 2024 08:51:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNUHg-0002ax-Lx; Wed, 10 Jan 2024 08:50:00 +0000
-Received: by outflank-mailman (input) for mailman id 665338;
- Wed, 10 Jan 2024 08:49:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rNUJI-00041k-4z; Wed, 10 Jan 2024 08:51:40 +0000
+Received: by outflank-mailman (input) for mailman id 665344;
+ Wed, 10 Jan 2024 08:51:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6bPZ=IU=amd.com=Jiqian.Chen@srs-se1.protection.inumbo.net>)
- id 1rNUHe-0002ar-Lu
- for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 08:49:58 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20601.outbound.protection.outlook.com
- [2a01:111:f403:2408::601])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3aee230e-af95-11ee-98f0-6d05b1d4d9a1;
- Wed, 10 Jan 2024 09:49:57 +0100 (CET)
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com (2603:10b6:208:384::18)
- by MW5PR12MB5652.namprd12.prod.outlook.com (2603:10b6:303:1a0::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Wed, 10 Jan
- 2024 08:49:53 +0000
-Received: from BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::bafd:1985:94e6:ef33]) by BL1PR12MB5849.namprd12.prod.outlook.com
- ([fe80::bafd:1985:94e6:ef33%6]) with mapi id 15.20.7181.015; Wed, 10 Jan 2024
- 08:49:53 +0000
+ <SRS0=oG7w=IU=damsy.net=pierre-eric@srs-se1.protection.inumbo.net>)
+ id 1rNUJF-00041Y-1D
+ for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 08:51:38 +0000
+Received: from mail.damsy.net (mail.damsy.net [85.90.245.9])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7502a26c-af95-11ee-9b0f-b553b5be7939;
+ Wed, 10 Jan 2024 09:51:34 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,159 +36,477 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3aee230e-af95-11ee-98f0-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X3RaG42MxSgbLwFSQoNhV+Lk6ILGQS7WhsCB85GXPOeAis0BuZDwjre7g7U9cIgUQ6SoUZlDcykOYOvOj9FVJ2TAr2kykbBs7Wuk0PSlcGfa2QZ0l8D5nGdvlGvZf93RL9d+lO3Az+MXVbclymQYMbvTvABD2b+fkZY8FkPLFXx2an8uOwjiqcaAnRsDTV2D4jg1onzj5ftmIJVVxPwqsVLahHpJk8FpipA2TjTkwAVBotdgAGyNeJFHLMFoHpUW6Z5JBeuY0CEdrro4rTjVuS3ttujhxNMKe0/2V79DB5SoBZ7v637cOazpYK63ZC9+RNXmy2gRi6XY3858D2hOxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lNC/m6Wg6FaUyMsWgAOZ2EL6+k1/Fx+GZGIBf8QCP+Q=;
- b=k8R75vJ4DK7wlYQ1E7rRg4eFSIHu4abto3v5heySdsRO+A8KZyrr8DPXtBSzmKiPfsiifP3SvXKKHo1M46L3l3TVuVqa5313XBSlxcEOStvSGxLbJ389h4uYK62XEe8ILj4beZXPBFsX7wPPH5cNXzfK3TmZbVWw9urslQmb+T13Z7GAnlil2+1FykAbr/e1ipHr0Fry2hHqFejAO6JxkhXMEtcL6XcvxoESDTZO129MWv52WluD+QIUcEL9bvx9qZZelqz6wW5+U4+P83ucDdM97DTlAwJFIsFMmQRb6CsrAvwqFZ+XvhJrWCyQVNfoGklfrto+p3/VtfAOrt92Zg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lNC/m6Wg6FaUyMsWgAOZ2EL6+k1/Fx+GZGIBf8QCP+Q=;
- b=ELQXJsqxZTn35I8naNaRHq5WJSbSTpXE4OT6jHInt6IXEFCVkFx4SP7sjPsUUchJDwZsC+5uZj38JBS0KdffMMXCue6EoSNvBkbUCKOrqyR+xm9SJDPvXghii7q+xmgKjoYHEWS2l9hoIHMqFYgjGdwPXwYEuE0BlG4y68swYsA=
-From: "Chen, Jiqian" <Jiqian.Chen@amd.com>
-To: Jan Beulich <jbeulich@suse.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
-	<roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, "Hildebrand,
- Stewart" <Stewart.Hildebrand@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, "Chen, Jiqian"
-	<Jiqian.Chen@amd.com>
-Subject: Re: [RFC XEN PATCH v4 4/5] domctl: Use gsi to grant/revoke irq
- permission
-Thread-Topic: [RFC XEN PATCH v4 4/5] domctl: Use gsi to grant/revoke irq
- permission
-Thread-Index:
- AQHaP6Y1pt0ckfKChE+VsjXCWSj8+LDL+oWAgAOnBgCAAGd3gIABof4A//+U/YCAAIregP//iA0AgAH3KYA=
-Date: Wed, 10 Jan 2024 08:49:53 +0000
-Message-ID:
- <BL1PR12MB584997CDCE9AFF6FEDAD891AE7692@BL1PR12MB5849.namprd12.prod.outlook.com>
-References: <20240105070920.350113-1-Jiqian.Chen@amd.com>
- <20240105070920.350113-5-Jiqian.Chen@amd.com>
- <alpine.DEB.2.22.394.2401051702200.3675@ubuntu-linux-20-04-desktop>
- <882bd39a-8a29-4f4f-b64f-765c4858b1c8@suse.com> <ZZwPSZoqyY6g9yhi@macbook>
- <BL1PR12MB58492746170F6BF777901141E76A2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <b4ed7764-a44c-4ac8-bb56-379fdeba16e8@suse.com>
- <BL1PR12MB58490E62825A5B1ACCE605EAE76A2@BL1PR12MB5849.namprd12.prod.outlook.com>
- <d9a363e2-db8d-4c14-af17-9ce02c53f7bf@suse.com>
-In-Reply-To: <d9a363e2-db8d-4c14-af17-9ce02c53f7bf@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-imapappendstamp: IA0PR12MB8932.namprd12.prod.outlook.com
- (15.20.7181.004)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5849:EE_|MW5PR12MB5652:EE_
-x-ms-office365-filtering-correlation-id: 714c91df-c254-4fbd-3cdb-08dc11b91cfe
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- OEzgb5TEMj3jDCUMLy3KibbrZf/an+S49ybzFmHmVaqzb5aFpQZ7lrRYK+ms73w/sdOcI7hxVDkJA43SgFEhoRcjs+/LDvX61lM+NrK4YHJ2VPbU1jsZTg7S59qnvKyYn6/tKFrkUg/E9pZupz5URhGrqR9XdOjQqK3ekPzzdrXN8HaVRRvnDU9DwqwiU35CaOnkfy7dSUkxMLDULZEDKto02Z5ATtFQGtx80PbDlNUfISZccIzsTTM2QaaX/ZUZQwpLf1VFbEDrxzKjmKJkc9870hMk4A9gFBn0m0ZdFArpUpi1JpYyer0AFus8hEZE6Kn4+OvJpeh6SQg5vR0XEELrqVsmVTyAGCNAI64ELtJ8nRGI10wVgvC6hPiXOVFNpV5J2ibj0F3MLtL7N96VGwdyglSUopLhm4JL4ZoB4IRGHh97y/o04ZaubDT/dHJiM+BQxMBK+uBjbnfsUESt8be+DXsDY6dTE/umapVPEX8/YUJ6vRVJOGrnufIIn1ADbLHuxVd1Q2uCX3MtYyq5m+Bj7KSm3dtqdrkxq+oHO9JbMx0BS3VzXX6JtZHb07Hbt5+THRpJBzmGwpOd3Ws19HYcUKXSH8VeCCQz2TwARR45d2WBU3MJ3Dq48UhnV2Nf
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5849.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(39860400002)(136003)(396003)(346002)(366004)(230922051799003)(1800799012)(64100799003)(186009)(451199024)(38100700002)(122000001)(38070700009)(55016003)(9686003)(6506007)(71200400001)(7696005)(53546011)(316002)(478600001)(4326008)(52536014)(26005)(76116006)(66556008)(83380400001)(66446008)(64756008)(110136005)(66476007)(33656002)(8676002)(8936002)(66946007)(54906003)(41300700001)(2906002)(5660300002)(7416002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?a3ZOSmpmeUNqWTh2R3RmOHNYT0NDdFg1SkRoazlLZmQvVEIxOW01MDhSOWZM?=
- =?utf-8?B?VFkwUkw3WUdMdVdzN1QyUW5pV1BOOGJrL2pqK05ONktmR2ZzbGxBUlY1NFk3?=
- =?utf-8?B?Ujh1VFk0aXF5dC9tMW1STFZQQy9IZUNOalFlQ08yemV0YXdkOThMaGJsNkE3?=
- =?utf-8?B?cXF2cWhPNGdEcmVPTVFrRUN2Q1FsN0I0VDRKREVpcXAyUy9oMStNMmtUalRt?=
- =?utf-8?B?NFdBU1Q1d3VPb3NqZkwzR1lVd2lSTklsYzlRWjlRR09FK3RudjBRUkNrTWN0?=
- =?utf-8?B?ckF5NUZGZm8xelZJZi9hbEhoMjZkcENOYmlFMUt1dUdMYVQ5bGpJSjE0a08x?=
- =?utf-8?B?azVZMzNsZUVpUkJyNFRwSHVZc1RyVmJvTTg1bXBSRkd3bE44WGc1VC8rNS9y?=
- =?utf-8?B?T1ZmeVZudU1DbzhqckFJeW42L0F6eWRRMEdxV25GUnAzMGVxbFV4VndLWXQz?=
- =?utf-8?B?bnhERnlqUUo1R0FJUmtRZFR2SUlzelNDcjc1elFWSWlpQjVEemRHQjJlRE1T?=
- =?utf-8?B?OEc5b1l5b1RQUHE0S3laQjVVdWhHRkhLSlBjYjNFL2pIVThTbnNzYjBYU3Vl?=
- =?utf-8?B?dnFpU1dkMVVBVnJQL3FuWGRuemhDRFNXZCtBdmtkWnNLWjMxWUZQbG5hak9H?=
- =?utf-8?B?LzlHTjJsNG0vNk9MclB1aUYwcXUyL1U2bnlhOUFtc1dRR0ZDYytZNStaS1ZI?=
- =?utf-8?B?ZmhVSTlhT3ZUM3RxUkpGMGprWVNWSHEyTE5qMFR6NmMrVThrVk5FUkliTVIv?=
- =?utf-8?B?bWlvQkxqb2c1Z08vczJHN3BzR1JnRWtFVFY0dUI5TGVTSEdWd3hqREVqdG0x?=
- =?utf-8?B?dzlTN2dCWU1BUlMzQTZWR2Z4dE9nSWdwZC9LNUdaS3B5RWxaaERERDJhNXUz?=
- =?utf-8?B?RTBGbHNmTU81bXBtbVgwdkEyRG4wNUxUdVhveUZmZ2JBVTl6SUFyVVpHSk52?=
- =?utf-8?B?YVRUSEJ1RVdzOThoMVkzcWx6SitVMHVKS1FzNDhjbklSbHMwYklrLzZVQXRl?=
- =?utf-8?B?YWI0c2gxMFV2bEJQekdFUWY3ZHpEdkRlVWtsa3VoU0RYeG1CcCt1SThWb2Vs?=
- =?utf-8?B?bFV6cEgrUkVrZW9jUUFtc24xamRYYm9ndVJDZFVzK005Si9keE1YYVRGOFJB?=
- =?utf-8?B?RHJlTmNUbHdza3Y5UE5iUXgxRE16N3lmR1A5RERFZEc0eXdBMWthN2FyNEJZ?=
- =?utf-8?B?aGdmTFpySlA2bStTQmdxVVpCRHRScmhNVHdQVTFkNnlIc1ptOHZ4Z0RMQUFP?=
- =?utf-8?B?V0N1YytuWmlhem5uUlVBeTdRbzhrME5QUTNwNmwxSThSYUdCRXVVaG5KSDBN?=
- =?utf-8?B?bnNacXd2M0xvSXVOV2Q3U0dKay9HbkhCb1JRYlpsZ3RIYkc3UDhmMDRQUDdy?=
- =?utf-8?B?aVBOZjFEVWlTTmZvd2U3SFR0bkcyMjl0aVRoNnVDZGs4L1lhNS8xd21VOWph?=
- =?utf-8?B?R1Zyd0FnOUNudlJremJLdDV5N3hUYzR0bTA4aE10N2VXdmtHK0tYMDF0TUx2?=
- =?utf-8?B?WlA3QW4rZEUxMEhZTmYwV1U4RWRHaVZvdkw0bGNKS0dZVFR1YnZVTndKTFhV?=
- =?utf-8?B?R1ZDUnY0bXZQdlZncnZ5dGxBZGhUZ3lzZmVySWhuNmVkZTFRK1dzL1daZXJk?=
- =?utf-8?B?WWJDM2FiNW1lU2FEMVpVazF3WExSYzM0ZUZpVldkbDB4S1M4R0xMOTVjNGh4?=
- =?utf-8?B?OFJJVWpkdEx1K1FjK0FTamhJY082dHI3cVZRa3ZKRmNvblI5eGZJamFkVVVo?=
- =?utf-8?B?S0Z1bnFjbzdEQXJHaWJlTXBzSEg0U0tkOFE5TkJOMHNObUlGQ0RRRGFuYVo3?=
- =?utf-8?B?NElHK1VwNFFERVFUSFRFV1JiRllaelZZaVFDS2l4ZzlRa2NSNXRJR09hcWxt?=
- =?utf-8?B?ZDlOUW43NVFHUWp3UFBBMnp0QzA3QzZRbysxVzd5MzNvYzgwb292akFqc3Zm?=
- =?utf-8?B?amJFQnV6dGRSTGhxTkdRalo3Smw5R0RTMU5LZUszb2grOW01TnB3VTQ1Zjhq?=
- =?utf-8?B?bzJFM3JENlN4YlZVNTdHU0JYenhVTkpMVmgxWkNjNUNxSDhSeDl0em1zUWVE?=
- =?utf-8?B?eWc4M0pubWV5VFN2Y2puSUFOVFIzVnEyeENTMVpkMndFUDZONlhabW5DTUti?=
- =?utf-8?Q?lMIg=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2F3D38CCEAAC794AACB0AB7E05F82668@amdcloud.onmicrosoft.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 7502a26c-af95-11ee-9b0f-b553b5be7939
+Message-ID: <c986f552-60b8-471a-a439-a8714936fa47@damsy.net>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=damsy.net; s=201803;
+	t=1704876692;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=S2fvswJdo6J2JGwBNLrVoFk8Od2kF+yoajWWFUZHpYc=;
+	b=aTvUsh2dkUxkLjC/FCfYwnMc4ThKi/NCM4KFDN40SLKaQCKF8chQGcOEKEg2gu0H+7cQ1+
+	GmUSflL7JueR4sdoBDJX+fa/WqGg4lLJ2Jxqgt71sRXqQdM7GNpka+K8ozn4+j8F6I1wcQ
+	s73s2Sri1Kh6I0L9NmlPS0Ii4jCvIfevg9iD5IO4SYicXTpWZsM82UU9e8/meoY3u0kQvw
+	yTNhaSIL1XlRE2DlvPGlhV+LU+Dv51B8sjRvT5v1mGhO32ofX476Pxhg6okpC4f5OewRI6
+	OLVx387dpB5U22sezxNImTFouZOI6xX+Li0nDA5ZPurOK3+4D3yaHzTUrREfiw==
+Date: Wed, 10 Jan 2024 09:51:31 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5849.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 714c91df-c254-4fbd-3cdb-08dc11b91cfe
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2024 08:49:53.2276
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: o32zMU9YzKVUNOT+BDQznVFnU+g9BV7Vo+rei5FXMrOGQ+2g6PGBIUexAxzba+xWX8ObxCcjkv0OTMcSGeN/iw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5652
+Subject: Re: [PATCH v6 07/11] virtio-gpu: Handle resource blob commands
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+To: Huang Rui <ray.huang@amd.com>, Akihiko Odaki <akihiko.odaki@daynix.com>,
+ =?UTF-8?Q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@gmail.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, "Michael S . Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Antonio Caggiano <quic_acaggian@quicinc.com>,
+ "Dr . David Alan Gilbert" <dgilbert@redhat.com>,
+ Robert Beckett <bob.beckett@collabora.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gert Wollny <gert.wollny@collabora.com>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
+ <alex.bennee@linaro.org>, qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org,
+ Gurchetan Singh <gurchetansingh@chromium.org>, ernunes@redhat.com,
+ Alyssa Ross <hi@alyssa.is>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Stefano Stabellini <stefano.stabellini@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xenia Ragiadakou <xenia.ragiadakou@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Julia Zhang <julia.zhang@amd.com>,
+ Chen Jiqian <Jiqian.Chen@amd.com>,
+ Antonio Caggiano <antonio.caggiano@collabora.com>
+References: <20231219075320.165227-1-ray.huang@amd.com>
+ <20231219075320.165227-8-ray.huang@amd.com>
+ <ccc34ce0-44af-425e-8634-6f7a0583ee12@damsy.net>
+Content-Language: fr
+In-Reply-To: <ccc34ce0-44af-425e-8634-6f7a0583ee12@damsy.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-VGhhbmsgSmFuIGFuZCBSb2dlciwgSSBtYXkga25vdyBob3cgdG8gYWRkIGEgbmV3IGh5cGVyY2Fs
-bCBYRU5fRE9NQ1RMX2dzaV9wZXJtaXNzaW9uLCBJIHdpbGwgaW1wbGVtZW50IGl0IGluIG5leHQg
-dmVyc2lvbi4NCg0KT24gMjAyNC8xLzkgMTg6NDYsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAw
-OS4wMS4yMDI0IDExOjE2LCBDaGVuLCBKaXFpYW4gd3JvdGU6DQo+PiBPbiAyMDI0LzEvOSAxNzoz
-OCwgSmFuIEJldWxpY2ggd3JvdGU6DQo+Pj4gT24gMDkuMDEuMjAyNCAwOToxOCwgQ2hlbiwgSmlx
-aWFuIHdyb3RlOg0KPj4+PiBBIG5ldyBoeXBlcmNhbGwgdXNpbmcgZm9yIGdyYW50aW5nIGdzaT8g
-SWYgc28sIGhvdyBkb2VzIHRoZSBjYWxsZXIga25vdyB0byBjYWxsIHdoaWNoIGh5cGVyY2FsbCB0
-byBncmFudCBwZXJtaXNzaW9uLCBYRU5fRE9NQ1RMX2lycV9wZXJtaXNzaW9uIG9yIHRoYXQgbmV3
-IGh5cGVyY2FsbD8NCj4+Pg0KPj4+IEVpdGhlciB3ZSBhZGQgYSBmZWF0dXJlIGluZGljYXRvciwg
-b3IgdGhlIGNhbGxlciBzaW1wbHkgdHJpZXMgdGhlDQo+Pj4gbmV3IEdTSSBpbnRlcmZhY2UgZmly
-c3QuDQo+PiBJIGFtIHN0aWxsIG5vdCBzdXJlIGhvdyB0byB1c2UgYW5kIGltcGxlbWVudCBpdC4N
-Cj4+IFRha2luZyBwY2lfYWRkX2RtX2RvbmUgYXMgYW4gZXhhbXBsZSwgZm9yIG5vdyBpdHMgaW1w
-bGVtZW50YXRpb24gaXM6DQo+PiBwY2lfYWRkX2RtX2RvbmUNCj4+IAl4Y19waHlzZGV2X21hcF9w
-aXJxDQo+PiAJeGNfZG9tYWluX2lycV9wZXJtaXNzaW9uKCwscGlycSwpDQo+PiAJCVhFTl9ET01D
-VExfaXJxX3Blcm1pc3Npb24NCj4+DQo+PiBBbmQgYXNzdW1lIHRoZSBuZXcgaHlwZXJjYWxsIGlz
-IFhFTl9ET01DVExfZ3NpX3Blcm1pc3Npb24sIGRvIHlvdSBtZWFuOg0KPj4gcGNpX2FkZF9kbV9k
-b25lDQo+PiAJeGNfcGh5c2Rldl9tYXBfcGlycQ0KPj4gCXJldCA9IHhjX2RvbWFpbl9nc2lfcGVy
-bWlzc2lvbigsLGdzaSwpDQo+PiAJCVhFTl9ET01DVExfZ3NpX3Blcm1pc3Npb24NCj4+IAlpZiAo
-IHJldCAhPSAwICkNCj4+IAkJeGNfZG9tYWluX2lycV9wZXJtaXNzaW9uKCwscGlycSwpDQo+PiAJ
-CQlYRU5fRE9NQ1RMX2lycV9wZXJtaXNzaW9uDQo+IA0KPiBObywgZmFsbGluZyBiYWNrIHNob3Vs
-ZG4ndCBiZSAiYmxpbmQiLiBGYWxsYmFjayBzaG91bGQgb25seSBoYXBwZW4NCj4gd2hlbiB0aGUg
-bmV3IHN1Yi1vcCBpc24ndCBpbXBsZW1lbnRlZCAoaGVuY2Ugd2h5IGEgZmVhdHVyZSBpbmRpY2F0
-b3INCj4gbWF5IGJlIG5lY2Vzc2FyeSksIGFuZCBvbmx5IGlmIGNhbGxpbmcgdGhlIGV4aXN0aW5n
-IHN1Yi1vcCBwcm9taXNlcw0KPiB0byBiZSB1c2VmdWwgKHdoaWNoIGlpcmMgd291bGQgbGltaXQg
-dGhhdCB0byB0aGUgUFYgRG9tMCBjYXNlKS4NCj4gDQo+PiBCdXQgaWYgc28sIEkgaGF2ZSBhIHF1
-ZXN0aW9uIHRoYXQgaW4gWEVOX0RPTUNUTF9nc2lfcGVybWlzc2lvbiwgd2hlbiB0byBmYWlsIGFu
-ZCB3aGVuIHRvIHN1Y2Nlc3M/DQo+IA0KPiBJJ20gYWZyYWlkIEkgZG9uJ3QgdW5kZXJzdGFuZCB0
-aGUgcXVlc3Rpb24uIEJlaGF2aW9yIHRoZXJlIGlzbid0IHRvDQo+IGJlIGZ1bmRhbWVudGFsbHkg
-ZGlmZmVyZW50IGZyb20gdGhhdCBmb3IgWEVOX0RPTUNUTF9pcnFfcGVybWlzc2lvbi4NCj4gSXQn
-cyBqdXN0IHRoYXQgdGhlIGluY29taW5nIHZhbHVlIGlzIGluIGFub3RoZXIgdmFsdWUgc3BhY2Uu
-DQo+IA0KPj4gT3IgZG8geW91IG1lYW46DQo+PiBwY2lfYWRkX2RtX2RvbmUNCj4+IAl4Y19waHlz
-ZGV2X21hcF9waXJxDQo+PiAJcmV0ID0geGNfZG9tYWluX2lycV9wZXJtaXNzaW9uKCwscGlycSwp
-DQo+PiAJCVhFTl9ET01DVExfaXJxX3Blcm1pc3Npb24NCj4+IAlpZiAoIHJldCAhPSAwICkNCj4+
-IAkJeGNfZG9tYWluX2dzaV9wZXJtaXNzaW9uKCwsZ3NpLCkNCj4+IAkJCVhFTl9ET01DVExfZ3Np
-X3Blcm1pc3Npb24NCj4gDQo+IE5vLCB0aGlzIGxvb2tzIHRoZSB3cm9uZyB3YXkgcm91bmQuDQo+
-IA0KPj4gQW5kIGluIFhFTl9ET01DVExfZ3NpX3Blcm1pc3Npb24sIGFzIGxvbmcgYXMgdGhlIGN1
-cnJlbnQgZG9tYWluIGhhcyB0aGUgYWNjZXNzIG9mIGdzaSwgdGhlbiBncmFudGluZyBnc2kgdG8g
-Y2FsbGVyIHNob3VsZCBiZSBzdWNjZXNzZnVsLiBSaWdodD8NCj4gDQo+IEkgdGhpbmsgc287IHNl
-ZSBhYm92ZS4NCj4gDQo+IEphbg0KDQotLSANCkJlc3QgcmVnYXJkcywNCkppcWlhbiBDaGVuLg0K
+
+
+Le 09/01/2024 à 17:50, Pierre-Eric Pelloux-Prayer a écrit :
+> 
+> 
+> Le 19/12/2023 à 08:53, Huang Rui a écrit :
+>> From: Antonio Caggiano <antonio.caggiano@collabora.com>
+>>
+>> Support BLOB resources creation, mapping and unmapping by calling the
+>> new stable virglrenderer 0.10 interface. Only enabled when available and
+>> via the blob config. E.g. -device virtio-vga-gl,blob=true
+>>
+>> Signed-off-by: Antonio Caggiano <antonio.caggiano@collabora.com>
+>> Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+>> Signed-off-by: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+>> Signed-off-by: Huang Rui <ray.huang@amd.com>
+>> ---
+>>
+>> Changes in v6:
+>> - Use new struct virgl_gpu_resource.
+>> - Unmap, unref and destroy the resource only after the memory region
+>>    has been completely removed.
+>> - In unref check whether the resource is still mapped.
+>> - In unmap_blob check whether the resource has been already unmapped.
+>> - Fix coding style
+>>
+>>   hw/display/virtio-gpu-virgl.c | 274 +++++++++++++++++++++++++++++++++-
+>>   hw/display/virtio-gpu.c       |   4 +-
+>>   meson.build                   |   4 +
+>>   3 files changed, 276 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/hw/display/virtio-gpu-virgl.c b/hw/display/virtio-gpu-virgl.c
+>> index faab374336..5a3a292f79 100644
+>> --- a/hw/display/virtio-gpu-virgl.c
+>> +++ b/hw/display/virtio-gpu-virgl.c
+>> @@ -17,6 +17,7 @@
+>>   #include "trace.h"
+>>   #include "hw/virtio/virtio.h"
+>>   #include "hw/virtio/virtio-gpu.h"
+>> +#include "hw/virtio/virtio-gpu-bswap.h"
+>>   #include "ui/egl-helpers.h"
+>> @@ -24,8 +25,62 @@
+>>   struct virgl_gpu_resource {
+>>       struct virtio_gpu_simple_resource res;
+>> +    uint32_t ref;
+>> +    VirtIOGPU *g;
+>> +
+>> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+>> +    /* only blob resource needs this region to be mapped as guest mmio */
+>> +    MemoryRegion *region;
+>> +#endif
+>>   };
+>> +static void vres_get_ref(struct virgl_gpu_resource *vres)
+>> +{
+>> +    uint32_t ref;
+>> +
+>> +    ref = qatomic_fetch_inc(&vres->ref);
+>> +    g_assert(ref < INT_MAX);
+>> +}
+>> +
+>> +static void virgl_resource_destroy(struct virgl_gpu_resource *vres)
+>> +{
+>> +    struct virtio_gpu_simple_resource *res;
+>> +    VirtIOGPU *g;
+>> +
+>> +    if (!vres) {
+>> +        return;
+>> +    }
+>> +
+>> +    g = vres->g;
+>> +    res = &vres->res;
+>> +    QTAILQ_REMOVE(&g->reslist, res, next);
+>> +    virtio_gpu_cleanup_mapping(g, res);
+>> +    g_free(vres);
+>> +}
+>> +
+>> +static void virgl_resource_unref(struct virgl_gpu_resource *vres)
+>> +{
+>> +    struct virtio_gpu_simple_resource *res;
+>> +
+>> +    if (!vres) {
+>> +        return;
+>> +    }
+>> +
+>> +    res = &vres->res;
+>> +    virgl_renderer_resource_detach_iov(res->resource_id, NULL, NULL);
+>> +    virgl_renderer_resource_unref(res->resource_id);
+>> +}
+>> +
+>> +static void vres_put_ref(struct virgl_gpu_resource *vres)
+>> +{
+>> +    g_assert(vres->ref > 0);
+>> +
+>> +    if (qatomic_fetch_dec(&vres->ref) == 1) {
+>> +        virgl_resource_unref(vres);
+>> +        virgl_resource_destroy(vres);
+>> +    }
+>> +}
+>> +
+>>   static struct virgl_gpu_resource *
+>>   virgl_gpu_find_resource(VirtIOGPU *g, uint32_t resource_id)
+>>   {
+>> @@ -59,6 +114,8 @@ static void virgl_cmd_create_resource_2d(VirtIOGPU *g,
+>>                                          c2d.width, c2d.height);
+>>       vres = g_new0(struct virgl_gpu_resource, 1);
+>> +    vres_get_ref(vres);
+>> +    vres->g = g;
+>>       vres->res.width = c2d.width;
+>>       vres->res.height = c2d.height;
+>>       vres->res.format = c2d.format;
+>> @@ -91,6 +148,8 @@ static void virgl_cmd_create_resource_3d(VirtIOGPU *g,
+>>                                          c3d.width, c3d.height, c3d.depth);
+>>       vres = g_new0(struct virgl_gpu_resource, 1);
+>> +    vres_get_ref(vres);
+>> +    vres->g = g;
+>>       vres->res.width = c3d.width;
+>>       vres->res.height = c3d.height;
+>>       vres->res.format = c3d.format;
+>> @@ -126,12 +185,21 @@ static void virgl_cmd_resource_unref(VirtIOGPU *g,
+>>           return;
+>>       }
+>> -    virgl_renderer_resource_detach_iov(unref.resource_id, NULL, NULL);
+>> -    virgl_renderer_resource_unref(unref.resource_id);
+>> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+>> +    if (vres->region) {
+>> +        VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
+>> +        MemoryRegion *mr = vres->region;
+>> +
+>> +        warn_report("%s: blob resource %d not unmapped",
+>> +                    __func__, unref.resource_id);
+>> +        vres->region = NULL;
+> 
+> Shouldn't there be a call to memory_region_unref(mr)?
+> 
+>> +        memory_region_set_enabled(mr, false);
+>> +        memory_region_del_subregion(&b->hostmem, mr);
+>> +        object_unparent(OBJECT(mr));
+>> +    }
+>> +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
+>> -    QTAILQ_REMOVE(&g->reslist, &vres->res, next);
+>> -    virtio_gpu_cleanup_mapping(g, &vres->res);
+>> -    g_free(vres);
+>> +    vres_put_ref(vres);
+>>   }
+>>   static void virgl_cmd_context_create(VirtIOGPU *g,
+>> @@ -470,6 +538,191 @@ static void virgl_cmd_get_capset(VirtIOGPU *g,
+>>       g_free(resp);
+>>   }
+>> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+>> +
+>> +static void virgl_resource_unmap(struct virgl_gpu_resource *vres)
+>> +{
+>> +    if (!vres) {
+>> +        return;
+>> +    }
+>> +
+>> +    virgl_renderer_resource_unmap(vres->res.resource_id);
+>> +
+>> +    vres_put_ref(vres);
+>> +}
+>> +
+>> +static void virgl_resource_blob_async_unmap(void *obj)
+>> +{
+>> +    MemoryRegion *mr = MEMORY_REGION(obj);
+>> +    struct virgl_gpu_resource *vres = mr->opaque;
+>> +
+>> +    virgl_resource_unmap(vres);
+>> +
+>> +    g_free(obj);
+>> +}
+>> +
+>> +static void virgl_cmd_resource_create_blob(VirtIOGPU *g,
+>> +                                           struct virtio_gpu_ctrl_command *cmd)
+>> +{
+>> +    struct virgl_gpu_resource *vres;
+>> +    struct virtio_gpu_resource_create_blob cblob;
+>> +    struct virgl_renderer_resource_create_blob_args virgl_args = { 0 };
+>> +    int ret;
+>> +
+>> +    VIRTIO_GPU_FILL_CMD(cblob);
+>> +    virtio_gpu_create_blob_bswap(&cblob);
+>> +    trace_virtio_gpu_cmd_res_create_blob(cblob.resource_id, cblob.size);
+>> +
+>> +    if (cblob.resource_id == 0) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
+>> +                      __func__);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    vres = virgl_gpu_find_resource(g, cblob.resource_id);
+>> +    if (vres) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already exists %d\n",
+>> +                      __func__, cblob.resource_id);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    vres = g_new0(struct virgl_gpu_resource, 1);
+>> +    vres_get_ref(vres);
+>> +    vres->g = g;
+>> +    vres->res.resource_id = cblob.resource_id;
+>> +    vres->res.blob_size = cblob.size;
+>> +
+>> +    if (cblob.blob_mem != VIRTIO_GPU_BLOB_MEM_HOST3D) {
+>> +        ret = virtio_gpu_create_mapping_iov(g, cblob.nr_entries, sizeof(cblob),
+>> +                                            cmd, &vres->res.addrs,
+>> +                                            &vres->res.iov, &vres->res.iov_cnt);
+>> +        if (!ret) {
+>> +            g_free(vres);
+>> +            cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+>> +            return;
+>> +        }
+>> +    }
+>> +
+>> +    QTAILQ_INSERT_HEAD(&g->reslist, &vres->res, next);
+>> +
+>> +    virgl_args.res_handle = cblob.resource_id;
+>> +    virgl_args.ctx_id = cblob.hdr.ctx_id;
+>> +    virgl_args.blob_mem = cblob.blob_mem;
+>> +    virgl_args.blob_id = cblob.blob_id;
+>> +    virgl_args.blob_flags = cblob.blob_flags;
+>> +    virgl_args.size = cblob.size;
+>> +    virgl_args.iovecs = vres->res.iov;
+>> +    virgl_args.num_iovs = vres->res.iov_cnt;
+>> +
+>> +    ret = virgl_renderer_resource_create_blob(&virgl_args);
+>> +    if (ret) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: virgl blob create error: %s\n",
+>> +                      __func__, strerror(-ret));
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+>> +    }
+>> +}
+>> +
+>> +static void virgl_cmd_resource_map_blob(VirtIOGPU *g,
+>> +                                        struct virtio_gpu_ctrl_command *cmd)
+>> +{
+>> +    struct virgl_gpu_resource *vres;
+>> +    struct virtio_gpu_resource_map_blob mblob;
+>> +    int ret;
+>> +    void *data;
+>> +    uint64_t size;
+>> +    struct virtio_gpu_resp_map_info resp;
+>> +    VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
+>> +
+>> +    VIRTIO_GPU_FILL_CMD(mblob);
+>> +    virtio_gpu_map_blob_bswap(&mblob);
+>> +
+>> +    if (mblob.resource_id == 0) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
+>> +                      __func__);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    vres = virgl_gpu_find_resource(g, mblob.resource_id);
+>> +    if (!vres) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource does not exist %d\n",
+>> +                      __func__, mblob.resource_id);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +    if (vres->region) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already mapped %d\n",
+>> +                      __func__, mblob.resource_id);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    ret = virgl_renderer_resource_map(vres->res.resource_id, &data, &size);
+>> +    if (ret) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource map error: %s\n",
+>> +                      __func__, strerror(-ret));
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    vres_get_ref(vres);
+> 
+> Why is this needed? And if it is, shouldn't virgl_cmd_resource_unmap_blob
+> call "vres_put_ref(vres)" ?
+> 
+>> +    vres->region = g_new0(MemoryRegion, 1);
+>> +    memory_region_init_ram_ptr(vres->region, OBJECT(g), NULL, size, data);
+>> +    vres->region->opaque = vres;
+>> +    OBJECT(vres->region)->free = virgl_resource_blob_async_unmap;
+>> +    memory_region_add_subregion(&b->hostmem, mblob.offset, vres->region);
+>> +    memory_region_set_enabled(vres->region, true);
+>> +
+>> +    memset(&resp, 0, sizeof(resp));
+>> +    resp.hdr.type = VIRTIO_GPU_RESP_OK_MAP_INFO;
+>> +    virgl_renderer_resource_get_map_info(mblob.resource_id, &resp.map_info);
+>> +    virtio_gpu_ctrl_response(g, cmd, &resp.hdr, sizeof(resp));
+>> +}
+>> +
+>> +static void virgl_cmd_resource_unmap_blob(VirtIOGPU *g,
+>> +                                          struct virtio_gpu_ctrl_command *cmd)
+>> +{
+>> +    struct virgl_gpu_resource *vres;
+>> +    struct virtio_gpu_resource_unmap_blob ublob;
+>> +    VirtIOGPUBase *b = VIRTIO_GPU_BASE(g);
+>> +    MemoryRegion *mr;
+>> +
+>> +    VIRTIO_GPU_FILL_CMD(ublob);
+>> +    virtio_gpu_unmap_blob_bswap(&ublob);
+>> +
+>> +    if (ublob.resource_id == 0) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource id 0 is not allowed\n",
+>> +                      __func__);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    vres = virgl_gpu_find_resource(g, ublob.resource_id);
+>> +    if (!vres) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource does not exist %d\n",
+>> +                      __func__, ublob.resource_id);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    if (!vres->region) {
+>> +        qemu_log_mask(LOG_GUEST_ERROR, "%s: resource already unmapped %d\n",
+>> +                      __func__, ublob.resource_id);
+>> +        cmd->error = VIRTIO_GPU_RESP_ERR_INVALID_RESOURCE_ID;
+>> +        return;
+>> +    }
+>> +
+>> +    mr = vres->region;
+>> +    vres->region = NULL;
+> 
+> memory_region_unref(mr)?
+> 
+> Note that AFAICT without the added memory_region_unref() calls virgl_resource_unmap()
+> was never called.
+
+
+Xenia and I figured out the refcounting issue: this code is written based on the
+assumption that:
+  
+    object_unparent(OBJECT(mr));
+
+
+Will decrement the refcount. But this assumption is only true if mr->parent_obj.parent
+is non-NULL.
+
+The map_blob function uses the following arguments:
+
+    memory_region_init_ram_ptr(vres->region, OBJECT(g), NULL, size, data);
+
+Since name is NULL, mr won't be added as a child of 'g' and thus object_unparent()
+does nothing.
+
+I'd suggest 2 changes:
+    * use a name ("blob_memory"?) to so mr can be a child of g
+    * increment mr's refcount when setting vres->region and decrement it when clearing it.
+      This change is not needed technically but when a variable is refcounted it seems
+      clearer to increment/decrement the refcount in these situations.
+
+
+Pierre-Eric
+
+
+> 
+>> +    memory_region_set_enabled(mr, false);
+>> +    memory_region_del_subregion(&b->hostmem, mr);
+>> +    object_unparent(OBJECT(mr));
+>> +}
+>> +
+>> +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
+>> +
+>>   void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+>>                                         struct virtio_gpu_ctrl_command *cmd)
+>>   {
+>> @@ -536,6 +789,17 @@ void virtio_gpu_virgl_process_cmd(VirtIOGPU *g,
+>>       case VIRTIO_GPU_CMD_GET_EDID:
+>>           virtio_gpu_get_edid(g, cmd);
+>>           break;
+>> +#ifdef HAVE_VIRGL_RESOURCE_BLOB
+>> +    case VIRTIO_GPU_CMD_RESOURCE_CREATE_BLOB:
+>> +        virgl_cmd_resource_create_blob(g, cmd);
+>> +        break;
+>> +    case VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB:
+>> +        virgl_cmd_resource_map_blob(g, cmd);
+>> +        break;
+>> +    case VIRTIO_GPU_CMD_RESOURCE_UNMAP_BLOB:
+>> +        virgl_cmd_resource_unmap_blob(g, cmd);
+>> +        break;
+>> +#endif /* HAVE_VIRGL_RESOURCE_BLOB */
+>>       default:
+>>           cmd->error = VIRTIO_GPU_RESP_ERR_UNSPEC;
+>>           break;
+>> diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
+>> index 4c3ec9d0ea..8189c392dc 100644
+>> --- a/hw/display/virtio-gpu.c
+>> +++ b/hw/display/virtio-gpu.c
+>> @@ -1449,10 +1449,12 @@ void virtio_gpu_device_realize(DeviceState *qdev, Error **errp)
+>>               return;
+>>           }
+>> +#ifndef HAVE_VIRGL_RESOURCE_BLOB
+>>           if (virtio_gpu_virgl_enabled(g->parent_obj.conf)) {
+>> -            error_setg(errp, "blobs and virgl are not compatible (yet)");
+>> +            error_setg(errp, "Linked virglrenderer does not support blob resources");
+>>               return;
+>>           }
+>> +#endif
+>>       }
+>>       if (!virtio_gpu_base_device_realize(qdev,
+>> diff --git a/meson.build b/meson.build
+>> index ea52ef1b9c..629407128e 100644
+>> --- a/meson.build
+>> +++ b/meson.build
+>> @@ -1054,6 +1054,10 @@ if not get_option('virglrenderer').auto() or have_system or have_vhost_user_gpu
+>>                            cc.has_function('virgl_renderer_context_create_with_flags',
+>>                                            prefix: '#include <virglrenderer.h>',
+>>                                            dependencies: virgl))
+>> +    config_host_data.set('HAVE_VIRGL_RESOURCE_BLOB',
+>> +                         cc.has_function('virgl_renderer_resource_create_blob',
+>> +                                         prefix: '#include <virglrenderer.h>',
+>> +                                         dependencies: virgl))
+>>     endif
+>>   endif
+>>   rutabaga = not_found
+> 
 
