@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38AA4829C86
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 15:28:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665528.1035726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 805E1829C9E
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Jan 2024 15:31:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665533.1035736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNZYt-0007s1-3K; Wed, 10 Jan 2024 14:28:07 +0000
+	id 1rNZcL-0001Lh-Ha; Wed, 10 Jan 2024 14:31:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665528.1035726; Wed, 10 Jan 2024 14:28:07 +0000
+Received: by outflank-mailman (output) from mailman id 665533.1035736; Wed, 10 Jan 2024 14:31:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNZYt-0007qS-0C; Wed, 10 Jan 2024 14:28:07 +0000
-Received: by outflank-mailman (input) for mailman id 665528;
- Wed, 10 Jan 2024 14:28:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rNZcL-0001K8-EN; Wed, 10 Jan 2024 14:31:41 +0000
+Received: by outflank-mailman (input) for mailman id 665533;
+ Wed, 10 Jan 2024 14:31:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/O5u=IU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNZYr-0007qM-5d
- for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 14:28:05 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 76bc84eb-afc4-11ee-98f0-6d05b1d4d9a1;
- Wed, 10 Jan 2024 15:28:03 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40e5508ecb9so13245565e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 06:28:03 -0800 (PST)
+ id 1rNZcK-0001K2-6C
+ for xen-devel@lists.xenproject.org; Wed, 10 Jan 2024 14:31:40 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f64304bb-afc4-11ee-9b0f-b553b5be7939;
+ Wed, 10 Jan 2024 15:31:37 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-40e4d64a3fbso23741445e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 06:31:37 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e30-20020a5d595e000000b0033776a50472sm4046555wri.10.2024.01.10.06.28.02
+ hn3-20020a05600ca38300b0040e4a7a7ca3sm2279388wmb.43.2024.01.10.06.31.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 06:28:03 -0800 (PST)
+ Wed, 10 Jan 2024 06:31:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76bc84eb-afc4-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: f64304bb-afc4-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704896883; x=1705501683; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sDzqTAl4diuv1EG4IwpVz89zKVt9xJK8wnRLqqkh1jM=;
-        b=DYUhHBKiQIc55BWBZcHzRxaKHOmw7x7mkhjdEebga/jWU2NGBdobXD4j7MkFO4tyKp
-         Z6JDWG3f+Y9m16I5Ns5nmr/GrgV2O97Koh8elGbtdBIJnDVnR6vZ0vE6/QVhPO3pYstM
-         F/OoUGNTHT2Jt6tZZaWTjjhw04lim7xalx+bIuXN3dPqzBiHjROZwYXpGd2L8hUsFuBF
-         Zxk6ZQI56w2st59V6Cl3uEVp5ERC/2HqgCZG/fuUIlGet+kYLPySCXE885UoRTbsMNx+
-         6BGIzKWUxP4q2SMf+6/wPA/CfOaxaBs1QwN6eBrJ4HZ0wEJ+y5NsMIYCKXSNTVw+q5t+
-         WAqA==
+        d=suse.com; s=google; t=1704897097; x=1705501897; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=sHxjG98LecqqReEuFxkx/WoqeZa3gn+LST6HBOBZTZw=;
+        b=W72yvK764El4z7oFGObXpNzl36Xrd+dHPiCMpIg1RettivtRlb6feDm0k4PQC+9afM
+         5vK63Qc0LVhnb5MhpFLg/3nm3qgweXHWdzJTladoomBGqYniMA6OTcDpHwm/6Wfi+tzf
+         VhygoFBWw48nkzgK0T4eU3oyb+xjT9mNkhQrDPGit0MizhtrrN/C5CI0LuQhZjQBG/P+
+         BLsmRD7bEImPrtqrqs86KC8cPTpRDPxWqpxdaCOpaXvZKkQjYy0Ptnhd7unWfOq7lQoq
+         mh+DkuMPaJAz3Alu1TgObjZxCI9xFzuJAXpgEd5n9U0i6XbZmvuCDYOHoEh+7Dt/NPOB
+         LQdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704896883; x=1705501683;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sDzqTAl4diuv1EG4IwpVz89zKVt9xJK8wnRLqqkh1jM=;
-        b=I+OZpmtTsl8IdaoSHWP8MuXdJ2IqUI7imVCeBMD52f+U/Lxb8khHlCBP2SHG0UW0Nv
-         MKgc808pttk5OC68PpTpLOCL2g1JfpsxVPEIycrJfrp8aL2TJzQ1dm2LlZsisKbV/cW+
-         STBB70jj2mG17xKcixWeqexKN2e0NgPyt2CfDuUg4N3+q27LiYqBKwq+idzBvOWAOn3Z
-         kfWbNdrqnoWXbqbbZ8wKrxwarbHpkmqzE+O6cjDR9lDDXCxz5GCilu9lrzX2t2W4RtPs
-         YqkQ4yfOryUp/PQcgwMLMXy00GyIXze9cNUAiUoIJNfea0/mqbscjYuTDTWtxsFBl4tR
-         smCA==
-X-Gm-Message-State: AOJu0YzzBI4Gb/KzGBoSojaheNnuWGOBMmBEP1q1eThSTFG3QsXE5BUC
-	W6bmE0DR1cuRjh+hWPOM880ubGIMTQi7
-X-Google-Smtp-Source: AGHT+IERVX0BD2KQkkT8Z3qD/brgt4Z4JzCTwrEhzbPFrF8lPhK81pdFn4oRel57OgHIWmyR3hDr0w==
-X-Received: by 2002:a05:600c:3107:b0:40c:610d:c2bf with SMTP id g7-20020a05600c310700b0040c610dc2bfmr651949wmo.16.1704896883211;
-        Wed, 10 Jan 2024 06:28:03 -0800 (PST)
-Message-ID: <5c1844d7-162b-430e-a054-274233d8982e@suse.com>
-Date: Wed, 10 Jan 2024 15:28:02 +0100
+        d=1e100.net; s=20230601; t=1704897097; x=1705501897;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sHxjG98LecqqReEuFxkx/WoqeZa3gn+LST6HBOBZTZw=;
+        b=v+5/8b/maxGCi8+oA5455HGDcGD+3BsOchZO2GDd0E9SpONa+FlQ8FcMaUa/ogrZ3q
+         YFwBpFlcqK/kb3Xl0s2hNtMQmNPdM1t71gvT4Ez/ntvfbTp1gQdXNBgaLZ+ileJfdP/J
+         U3XIz8Z97DoFyhvcZuONI0YHZu2/ft7U2wgI6LB+sZrkk6dasrjSVDcQVzyO8Uf0x1gQ
+         WxM88TRl0jsMWJT2gDShG99nOKv4PvStzE7CDeJ0S4CqMI/rWigcbk969d5F2P9VMhDl
+         /AL9zSRw0drJUm/1JkGtPWDqwllbeBloXiluBHxkEwBMZil/nsg2A6LmnSlSLDUimeip
+         089Q==
+X-Gm-Message-State: AOJu0YxiHZdSWX/rkhTQqw4JI0xKtqOQEitMVaZXWt2diRP3EaL8e1jc
+	fpCGRkioTcBrxRp1+hAwRMpOIXsvcuDIQUIPE/EfY+jn6A==
+X-Google-Smtp-Source: AGHT+IGswRAc/27csMag6lHzpYzhgYziv9XQyEb7c/QOhTkOoRH/MyrKH0xikXKQAbLeQhznC1GR/Q==
+X-Received: by 2002:a7b:cd17:0:b0:40e:5573:1b7 with SMTP id f23-20020a7bcd17000000b0040e557301b7mr575556wmj.103.1704897097174;
+        Wed, 10 Jan 2024 06:31:37 -0800 (PST)
+Message-ID: <4db3f6fd-ba51-43d2-89f7-adbdaf720874@suse.com>
+Date: Wed, 10 Jan 2024 15:31:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/6] xen/x86: Add topology generator
-Content-Language: en-US
-To: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240109153834.4192-1-alejandro.vallejo@cloud.com>
- <20240109153834.4192-7-alejandro.vallejo@cloud.com>
- <495da94f-4eff-4098-9f65-b056251704b0@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v3] NUMA: limit first_valid_mfn exposure
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,40 +109,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <495da94f-4eff-4098-9f65-b056251704b0@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.01.2024 15:16, Alejandro Vallejo wrote:
-> Review-to-self after running in Gitlab:
-> 
-> On 09/01/2024 15:38, Alejandro Vallejo wrote:
->> +    p->basic.lppp = 0xff;
->> +    if ( threads_per_pkg < 0xff )
->> +        p->basic.lppp = threads_per_pkg;
->> +
->> +    switch ( p->x86_vendor )
->> +    {
->> +        case X86_VENDOR_INTEL:
->> +            struct cpuid_cache_leaf *sl = p->cache.subleaf;
->> +            for ( size_t i = 0; sl->type &&
->> +                                i < ARRAY_SIZE(p->cache.raw); i++, sl++ )
->> +            {
->> +                sl->cores_per_package = cores_per_pkg - 1;
->> +                sl->threads_per_cache = threads_per_core - 1;
->> +                if ( sl->type == 3 /* unified cache */ )
->> +                    sl->threads_per_cache = threads_per_pkg - 1;
->> +            }
->> +            break;
->> +
->> +        case X86_VENDOR_AMD:
->> +        case X86_VENDOR_HYGON:
-> 
-> Missing braces around the INTEL block due to the variable declarared
-> there. I'll include that in v2 after the rest of the review comments
-> come through.
+Address the TODO regarding first_valid_mfn by making the variable static
+when NUMA=y, thus also addressing a Misra C:2012 rule 8.4 concern (on
+x86). To carry this out, introduce two new IS_ENABLED()-like macros
+conditionally inserting "static". One less macro expansion layer is
+sufficient though (I might guess that some early form of IS_ENABLED()
+pasted CONFIG_ onto the incoming argument, at which point the extra
+layer would have been necessary), and part of the existing helper macros
+can be re-used.
 
-And (just looking at the fragment above) too deep indentation as well.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v3: Introduce STATIC_IF{,_NOT}().
+v2: New, split off.
 
-Jan
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -255,12 +255,10 @@ static PAGE_LIST_HEAD(page_broken_list);
+  */
+ 
+ /*
+- * first_valid_mfn is exported because it is used when !CONFIG_NUMA.
+- *
+- * TODO: Consider if we can conditionally export first_valid_mfn based
+- * on whether NUMA is selected.
++ * When !CONFIG_NUMA first_valid_mfn is non-static, for use by respective
++ * stubs.
+  */
+-mfn_t first_valid_mfn = INVALID_MFN_INITIALIZER;
++STATIC_IF(CONFIG_NUMA) mfn_t first_valid_mfn = INVALID_MFN_INITIALIZER;
+ 
+ struct bootmem_region {
+     unsigned long s, e; /* MFNs @s through @e-1 inclusive are free */
+--- a/xen/include/xen/kconfig.h
++++ b/xen/include/xen/kconfig.h
+@@ -11,6 +11,8 @@
+ /* cppcheck is failing to parse the macro so use a dummy one */
+ #ifdef CPPCHECK
+ #define IS_ENABLED(option) option
++#define STATIC_IF(option) option
++#define STATIC_IF_NOT(option) option
+ #else
+ /*
+  * Getting something that works in C and CPP for an arg that may or may
+@@ -31,6 +33,17 @@
+  * otherwise.
+  */
+ #define IS_ENABLED(option) config_enabled(option)
++
++/* Use similar trickery for conditionally inserting "static". */
++#define static_if(value) _static_if(__ARG_PLACEHOLDER_##value)
++#define _static_if(arg1_or_junk) ___config_enabled(arg1_or_junk static,)
++
++#define STATIC_IF(option) static_if(option)
++
++#define static_if_not(value) _static_if_not(__ARG_PLACEHOLDER_##value)
++#define _static_if_not(arg1_or_junk) ___config_enabled(arg1_or_junk, static)
++
++#define STATIC_IF_NOT(option) static_if_not(option)
+ #endif
+ 
+ #endif /* __XEN_KCONFIG_H */
 
