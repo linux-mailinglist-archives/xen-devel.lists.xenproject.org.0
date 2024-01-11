@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C613582B1E3
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 16:33:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666399.1037007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E945D82B217
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 16:50:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666406.1037016 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNx3D-0001mi-LG; Thu, 11 Jan 2024 15:32:59 +0000
+	id 1rNxJO-0005xe-5o; Thu, 11 Jan 2024 15:49:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666399.1037007; Thu, 11 Jan 2024 15:32:59 +0000
+Received: by outflank-mailman (output) from mailman id 666406.1037016; Thu, 11 Jan 2024 15:49:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNx3D-0001jT-HW; Thu, 11 Jan 2024 15:32:59 +0000
-Received: by outflank-mailman (input) for mailman id 666399;
- Thu, 11 Jan 2024 15:32:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tS5E=IV=oss.nxp.com=andrei.cherechesu@srs-se1.protection.inumbo.net>)
- id 1rNx3B-0001jN-V3
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 15:32:58 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2061a.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::61a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b1598a18-b096-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 16:32:56 +0100 (CET)
-Received: from PA4PR04MB9565.eurprd04.prod.outlook.com (2603:10a6:102:26b::13)
- by VE1PR04MB7213.eurprd04.prod.outlook.com (2603:10a6:800:1b3::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.19; Thu, 11 Jan
- 2024 15:32:53 +0000
-Received: from PA4PR04MB9565.eurprd04.prod.outlook.com
- ([fe80::d191:ce86:2f34:296e]) by PA4PR04MB9565.eurprd04.prod.outlook.com
- ([fe80::d191:ce86:2f34:296e%3]) with mapi id 15.20.7159.020; Thu, 11 Jan 2024
- 15:32:53 +0000
+	id 1rNxJO-0005vz-1e; Thu, 11 Jan 2024 15:49:42 +0000
+Received: by outflank-mailman (input) for mailman id 666406;
+ Thu, 11 Jan 2024 15:49:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rNxJM-0005vs-7i
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 15:49:40 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 06056f35-b099-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 16:49:37 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-40e490c2115so26103655e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 07:49:37 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ t21-20020a05600c451500b0040e3ac9f4c8sm6194138wmo.28.2024.01.11.07.49.36
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Jan 2024 07:49:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,285 +45,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1598a18-b096-11ee-98f0-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ItZV8XfifJMrD+q3v+x4blQvAM+ZwbmJAY+Sn/bnXn1LGnvJInx+KvFRI7Pj1VMl/k1nwG0eAPvfoIW7jyR8KgTTpQB+UJCQrrmnpdobXRcUbxl/8c/bcAOtbJRNcXmvyFhlL557kZ2iLBXdbBk0VmaBYU/c5kCMRo/d1uHzzNTktHYmjOExnND8nH1lJULr6+TxZ3BZRGGoSD+pu2kcfXd6JT0ltlcpdCh3icUpB9on4iTzYvrkGOtd3Py7F4XGUL4jIDUG4nRGZA0L8CPdQltnBqv2sj/20ueBVFVoDRIFN7459g55lrQsF8pWQqBDPuS+1NSNeKT2ypEWG09Q5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gjgYrFIhS+4ANyNJYVr8jul6ptiDVCYdy2ncXhUBTwg=;
- b=FBA2DeURoiqt546Dm0m4v0s2/aUcFk0b4nrey5Lxqn1Md0Ylm43IaljnY4DcSrZfUxDLpe7CzIMZ+buq2OSZRDghSq1tipGIC61kiFfzAafMA3rvWfnPNpGJ4IMVVNwSZhmdzQ58ugV5n0BAzk5BvY2Rr+ZgUNoOJ5sH0OPpRIOxMU1hZ/JK4E3oLsERV5TS5L8BfP76I8M924TjBLmj7CyzvUTjViXvvB/rKlWJkR3i0gJuUydFmWWTGiNqe3i6eD/kw6qOnbAsv6C0lrk2imITXPy+pjAFm3gY6g441/M+EGgGfLjJA7Vg2FGTSt6mGli/OmG5QmzO7FbW+P/ttg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gjgYrFIhS+4ANyNJYVr8jul6ptiDVCYdy2ncXhUBTwg=;
- b=d0rsukexe8aUIFZbHQE0+r/IlsjPYSa4mDIn/YOtnBDU8q6O4C0wmU4Hw0CCrkBqOzaGGmYrfncJ2wnT1mxSzdj4dRvOOtbzSBNeU14mSCbbH1kPK4BHUvQMahyAmrrBzBx+FX/XmUm4/26sDMzoOZim8bFQ+dM0/68LepqnAng=
-From: "Andrei Cherechesu (OSS)" <andrei.cherechesu@oss.nxp.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, "viresh.kumar@linaro.org"
-	<viresh.kumar@linaro.org>, "olekstysh@gmail.com" <olekstysh@gmail.com>,
-	Julien Grall <julien@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrei
- Cherechesu <andrei.cherechesu@nxp.com>
-Subject: [VirtIO] Support for various devices in Xen
-Thread-Topic: [VirtIO] Support for various devices in Xen
-Thread-Index: AdpEoiWSqd5fkUgSQU6tkjSpwpXAbQ==
-Date: Thu, 11 Jan 2024 15:32:53 +0000
-Message-ID:
- <PA4PR04MB95655F653BBFE3A70A8CD0FBF9682@PA4PR04MB9565.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PA4PR04MB9565:EE_|VE1PR04MB7213:EE_
-x-ms-office365-filtering-correlation-id: ac0a2e4f-b7f4-4318-d6b2-08dc12ba93d1
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- /GEr/JYa0ZcJW921c2EV7mK8KM/vS5zzMdxpm8inojcFnQn0N6JWWNQ/pjJjFoMAW316QFq4QdiO+ldUUfL/osG5XRpwuAYDa8kYK/kOC92L7zXQyV+LEXw+/WJu0IAJ885m0+CrRhwWNE6FLjKQQqlF1kg34Je9dq0+YFTKuSCvlGXEzlq5qbTqKKDB6mXOquBjkgFjA9N3Q07VMpUVpMaVoK5B4fWwV6Y9+pi+7dfY1PtWCLlSh4Ot3mjhXa+h5pmFR7iBdecai+kxrzmnb4/sHnyL3v+ERlbhXmxVyPk88yxWI/BjvaLkJ6qGDPCYaYPNHi9vZ1eChJsg3FXsETej2iL4jdHFi3K35SJJIeMzy48YuWv9/A6rO8VX+uxdzpqH2Oh64jgxmB1F2UDsWYZ3XoWSLNhqbydQTDcLAC4UJQ95DN7G2fjUpk/rHiBoichpp2ZwipEDzPXTUkpO/SfakLKADz0AE/Oy21lu1pG/znwrtwR/6PFekfSK6xsTpu9VN1ypiYvYAS+npHJ+VPGblVktkcu+HlcN65lR8z4YTYt1RngD9NWcZazEU/6U3tdDOH5T5BMg/2OQsMjmC3fxp67cceyElhtuWealFf0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9565.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(136003)(346002)(376002)(396003)(366004)(39860400002)(230922051799003)(64100799003)(1800799012)(451199024)(186009)(9326002)(8936002)(8676002)(52536014)(5660300002)(4326008)(316002)(66446008)(54906003)(110136005)(64756008)(66476007)(66556008)(55016003)(2906002)(76116006)(66946007)(166002)(86362001)(966005)(38100700002)(122000001)(6506007)(33656002)(9686003)(7696005)(478600001)(41300700001)(26005)(38070700009)(83380400001)(71200400001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?IsgZqfL6ddw2fIkhDGIn93t0lJYujTz+B9cDKrtAp2eMoyDzc3QV8l+S2eom?=
- =?us-ascii?Q?cljyImUhaGAczyQYBIQImxVohKc2CKamYfTkuEyihypX+8t9cp1/A8WScCja?=
- =?us-ascii?Q?1YwYFrLz0DyH1VYSTon/cQmofriCls8fTF5UmVmXnDw+C4FLVuER4rdIz0Ay?=
- =?us-ascii?Q?WGVgy9H/Ni+nmvUqYCC0RJpuMuqJLLz0kCXcKT5vcO2qmxN5xtLRrCdFe5Oz?=
- =?us-ascii?Q?fbaaUpfP20Sd3ODsMCdXwDXlzRzcVKg4VmzVUcKU2voO82r7Uw7sTe8YDme9?=
- =?us-ascii?Q?ynYqnObDPORtYMjWucrZA8I4NoHXjiWS5FPXNNIIc60IlXV6N+5PzPGtfVC1?=
- =?us-ascii?Q?KBbls7xIbVxwnBYfRrKbC1MLcWYlKBooz4E51vsksB7MIyPEtyRPS93DSCbs?=
- =?us-ascii?Q?W/JkWrMbdhEO+3ijht+KpcqNuKCJNKZ51p3YMy0NCMPJWaoj0SYhMmp1C/eU?=
- =?us-ascii?Q?K6u0zCOzfUchAkcE6pY0AMB8N+RR9y6HdIGejmNP2pigr/fFYI2w0L+wCaBW?=
- =?us-ascii?Q?edbQ5AVGmih9jGvmSK4UonssKjgpAjWNafDe8nLYkaTVDLhC/8ElnIHahErn?=
- =?us-ascii?Q?xTIVwe18bFhC+9PBHZkvQ5Z3RlIwRcZrNVa67GjGF/7aOrOS/MdC1dIx8Vnb?=
- =?us-ascii?Q?sGhfaHDCiEumq7NIMV0kP87B/cCtNaq07m3h1BGXsEPY5scqlZ+JBwuJcYgz?=
- =?us-ascii?Q?7SZPvJu3XWJI/4quEAZzsPQkpPJCbbqcSK0Npj8BFcdcmnwMPFyIWpguHBzj?=
- =?us-ascii?Q?/fZ+Sd3Xmh4OkZmZ4pDjg9WzsWYWRC90I31tbCNFUvhWZSYuty0H9j+t8bUx?=
- =?us-ascii?Q?HeXRWP9jzyFO03TUbgcorMadgbBx8G1cK264YcPY8omBSf8KLUCv+v+ABKjB?=
- =?us-ascii?Q?dgqyzKtS8kiz8BvYTJjBe0ws6ECHFPeBEdvtmA40TnWZo4XNNunp6dFXXwCC?=
- =?us-ascii?Q?szoyiezNf/WjEaNHPkUJZuTt4CgIaKg/pl+oy98m4rXhH9CQr2pJEhMeZiM0?=
- =?us-ascii?Q?mtjWi9Bf+qy1wZBldNvCsb/PnGA6R1W2ZDUjS/xXKJD13h86hSj8Jnp8xM0g?=
- =?us-ascii?Q?DbQ9jp+Tn4yga7H5NG4aD2INMMtMCrYpSWEyDKzUkg3/QHVtrq+kkoasriA4?=
- =?us-ascii?Q?JYygB/62InZlMo1Yz1fElArGdiZr5ioOjjQ1TR9nI7Z4d49ddJwJq48TsQfP?=
- =?us-ascii?Q?JIlSTN2jDl4+GIeyRIVcvwIpoh8iA9Q8olJuspPOV2q/VtjoRBjIdD8K/vxy?=
- =?us-ascii?Q?Qmj/7w16FS8Dpmp6OwsuSKaBRes3KgSFGQLUXi6l3Nt/eTqFxJWc5ppzlGrH?=
- =?us-ascii?Q?qEj2MO4hBe/+VmaYxsR9i2lqmAOkMiIUXV1jlr95JgzNZypgZhFEbAb8N50H?=
- =?us-ascii?Q?bqBe72VMbC4aEMvu9siv00sXfvDu5UlUxT3sJz2IMVT9duy6jEcT/SkOUM46?=
- =?us-ascii?Q?DAzkT76vyokKSAHpmBstTlpXlUdNXmMd25yVjunJsG7Zi7Wxf09xfWm3k0cb?=
- =?us-ascii?Q?OQKxEXLuk3FWsgZ0MShL7363dv/qws0ztFqv9b43uq6xmiUczZXrQeCWIPZ1?=
- =?us-ascii?Q?C1LZurLISZVKWd2crFBaNP13JIQ2UN/ZIZmQOtcVatwhCpkHWclg2jtZDWMW?=
- =?us-ascii?Q?EQ=3D=3D?=
-Content-Type: multipart/alternative;
-	boundary="_000_PA4PR04MB95655F653BBFE3A70A8CD0FBF9682PA4PR04MB9565eurp_"
+X-Inumbo-ID: 06056f35-b099-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1704988177; x=1705592977; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=hjIw4X4riypAACb7Q/8zpAgWS9w3hXKdbzP2KL8WR+c=;
+        b=MzyfHa/MiYnkxbgPidrJj++6ADOpmeIoG7MqCUvM9ouBVVsjKrf9gef90RSCYifw6i
+         Hr8+mZRDgZY/fd/fSLxtIAKrcdXQnPLtJl13pnFU6+/xtqSJEL+3MPmsMztdJ+T0hN3t
+         G05qOYci6V0T9n/3lMQWm/We+h25m5L727DVUyCZj0jR1iPdeHBxTMbilBpmHeviUZHe
+         hW10mUhpnVQAuYuOwBtoGiW8/7WcIKk03t1SaTe7ZkOvmmz5SHCe+L5jQQug4+HvkDvQ
+         xWlITe6CCKE6ClYn19J6eU9Qyf/IBBBsNJAeoWW/n0Ameih/J0Uvgzf8vD+KhwkxoXNu
+         MBeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1704988177; x=1705592977;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hjIw4X4riypAACb7Q/8zpAgWS9w3hXKdbzP2KL8WR+c=;
+        b=VdPQU8DT3z0jHY2c+nHQB2KDGeR6E3XN8OcU1mC8dx/6uhXWTEHOUGQTvGNvaaHq+J
+         OjTsciS+IbePXdpwSm+cVx+p06ESsT+x1obImGt7tAeD7EU2AE+GrTZgwQT/SzeHHixf
+         7WQv8veC68xSPwwYxjiZqVjWvyBJd+00M5Ea0ZmKp+vQ2XzdfPr4iD5kZ5sZNOr0CVDY
+         D39M8HGUg0WY9Yd8n4N3kTaMnt2af4W4RpRt6C2Ot4dDnCGBy1/EcBw6L/1+KcSpqyTf
+         aY2H1Uwi2m34yZ4vMmq4qT4EOtCXrTdRuwk7Miu08lnNVHbHX9eoqJuO8ItUlBffY9F7
+         OTnA==
+X-Gm-Message-State: AOJu0Yw6LLaJ5Igf1kv0idqGdApYKcB3h5EFSeAugyn/UZoetdvGkQ6l
+	YlcaNAHLZ5zGpx2zeEHWFhxKBzyFl18r
+X-Google-Smtp-Source: AGHT+IGiluqWVPmSAn0HzTI3ZAdSyREpE71c7H/s0+MbilEcGqd2k8gSA0pskekowwNMXjjM+aJuLw==
+X-Received: by 2002:a7b:c40e:0:b0:40e:60d3:8e99 with SMTP id k14-20020a7bc40e000000b0040e60d38e99mr14472wmi.50.1704988176844;
+        Thu, 11 Jan 2024 07:49:36 -0800 (PST)
+Message-ID: <5fb290bc-ded2-4883-a726-caeed98e9445@suse.com>
+Date: Thu, 11 Jan 2024 16:49:35 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9565.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac0a2e4f-b7f4-4318-d6b2-08dc12ba93d1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jan 2024 15:32:53.2793
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Vymau3XsGr2B03ursM+PIoltHumjLvtU7CmsmuC2vKXN8YDkZ/wJ6VT9HwW0lQg4jC+qZpl5OsZJjz/gtcRNZ4LpmgibFj+x2Q7GWT9G81A=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7213
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] keyhandler: don't pass cpu_user_regs around
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
+ <dd1c24ec-4054-43e1-b0c9-6c2044b84046@suse.com>
+ <7d21e38d-d1f8-46df-89ef-809dd9c5a38b@citrix.com>
+ <aa0a0b1c-ffe0-456f-933f-2e62c9a47f82@suse.com>
+ <ea5c4f94-e4eb-471e-aa45-cf4b8a3a3763@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ea5c4f94-e4eb-471e-aa45-cf4b8a3a3763@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---_000_PA4PR04MB95655F653BBFE3A70A8CD0FBF9682PA4PR04MB9565eurp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 11.01.2024 16:24, Andrew Cooper wrote:
+> On 11/01/2024 12:11 pm, Jan Beulich wrote:
+>>>> Have
+>>>> handle_keypress() make the pointer available via a per-CPU variable,
+>>>> thus eliminating the need to pass it to all IRQ key handlers, making
+>>>> sure that a console-invoked key's handling can still nest inside a
+>>>> sysctl-invoked one's.
+>>> I know this is the current behaviour, and I'm not suggesting altering it
+>>> in this patch, but the sysctl was added so you had a way of using debug
+>>> keys without necessarily having a working serial connection.
+>>>
+>>> It was never expected or intended for both mechanisms to work
+>>> concurrently, and I don't think we need to take any care to make/keep it
+>>> working.
+>> Well, all it takes is the saving and restoring of keypress_regs in
+>> handle_keypress(). You you really think it would be better to risk
+>> a cash, but not doing that tiny bit of extra work?
+> 
+> I presume you mean crash?
 
-Hello,
+Oops, yes, I do.
 
-As I've mentioned in previous discussion threads in the xen-devel
-community, we are running Xen 4.17 (uprev to 4.18 in progress) on NXP
-S32G automotive processors (Cortex-A53 cores) and we wanted to know more
-about the support for various VirtIO device types in Xen.
+> I'm not advocating for leaving something explicitly unsafe, but I'm also
+> looking to see if we can avoid having keypress_regs to begin with.  i.e.
+> I think we've already got unnecessary complexity, and it would be good
+> to reduce it.
+>[...]
+>>> This just leaves dump regs, which I think can safely use get_irq_regs()
+>>> || guest_cpu_user_regs().  All it wants is something to dump_execstate()
+>>> to, which just wants to be the start of the path which led here.
+>> I don't think so - consider the case of 'd' hitting while handling an
+>> interrupt (and, say, stuck there in an infinite loop with IRQs enabled).
+>> We'd then wrongly dump the context of what the earlier IRQ interrupted.
+> 
+> The serial IRQ producing the 'd' keypress will push a irq frame, which
+> is what will be returned by get_irq_regs().
 
-In the Xen 4.17 release notes, the VirtIO standalone backends mentioned
-as supported and tested are: virtio-disk, virtio-net, virtio-i2c and
-virtio-gpio.
+Hmm, yes. I wonder what I was thinking ...
 
-However, we've only managed to successfully set up and try some
-use-cases with the virtio-disk standalone backend [0] (which Olexandr
-provided) based on the virtio-mmio transport.
+> It does occur to me that we're trying to accommodate for two behaviours
+> here.
+> 
+> For a real keypress, we want to dump from the the point the interrupt
+> hit because that's the interesting bit of stack to see.  For a SYSCTL,
+> there's nothing, and we're using BUGFRAME_run_fn to generate one.
 
-As such, we have a few questions, which we haven't been able to figure
-out from the mailing list discussions and/or code:
-    1. Are there any plans for the virtio-disk repo to have a stable
-    version? Is it going to be long-term hosted and maintained in the
-    xen-troops github repo? Or was it just an one-time PoC implementation
-    and the strategy for future VirtIO devices will be based on a more gene=
-ric
-    approach (i.e., without need for a specific standalone app)?
+There's three forms of handle_keypress() invocations really, and hence
+why (after having dropped the regs parameter already) I re-instated it.
 
-    2. With regards to the other backends, we want to try out and provide P=
-V
-    networking to a DomU based on virtio-net, but we haven't found any avai=
-lable
-    resources for it (e.g., the standalone backend implementation if needed=
- for
-    control plane, configuration examples, presentations, demos, docs). Doe=
-s it
-    rely on the QEMU virtio-net or vhost implementation? Are there any exam=
-ples
-    on how to set it up? Any required Xen/Linux Kernel/QEMU versions?
+As an aside - no, sysctl handling does not generate an exception frame.
+Is uses guest_cpu_user_regs() (and imo validly so).
 
-    3. What other VirtIO device types are there planned to be supported in =
-Xen?
-    I'm supposing libxl will also need changes to accomodate new configurat=
-ion
-    parameters for each of them. Or is there something I'm missing?
+> So actually we just simply want "regs = get_irq_regs();" here and retain
+> prior NULL check, don't we?
 
-    4. Also, while we're at it, are there any plans regarding SCMI
-    awareness for Xen (e.g., SCMI Mediator - where the RFC thread from 2022
-    seems discontinued)? Or is the preferred approach for sharing SCMI acce=
-ss
-    to guests through virtio-scmi?
+As per above, after I had it that way first, I backed off to accommodate
+all present use forms of handle_keypress(). But dealing with that (in
+whichever way we may end up deeming workable) can be separate anyway,
+afaict.
 
-Thank you very much for the support, once again, and we're also looking
-forward to the progress on the rust-vmm initiative.
-
-Regards,
-Andrei Cherechesu,
-NXP Semiconductors
-
-[0] https://github.com/xen-troops/virtio-disk
-
---_000_PA4PR04MB95655F653BBFE3A70A8CD0FBF9682PA4PR04MB9565eurp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72" style=3D"word-wrap:=
-break-word">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hello,<br>
-<br>
-As I've mentioned in previous discussion threads in the xen-devel<br>
-community, we are running Xen 4.17 (uprev to 4.18 in progress) on NXP<br>
-S32G automotive processors (Cortex-A53 cores) and we wanted to know more<br=
->
-about the support for various VirtIO device types in Xen.<br>
-<br>
-In the Xen 4.17 release notes, the VirtIO standalone backends mentioned<br>
-as supported and tested are: virtio-disk, virtio-net, virtio-i2c and<br>
-virtio-gpio.<br>
-<br>
-However, we've only managed to successfully set up and try some<br>
-use-cases with the virtio-disk standalone backend [0] (which Olexandr<br>
-provided) based on the virtio-mmio transport.<br>
-<br>
-As such, we have a few questions, which we haven't been able to figure<br>
-out from the mailing list discussions and/or code:<br>
-&nbsp;&nbsp;&nbsp; 1. Are there any plans for the virtio-disk repo to have =
-a stable<br>
-&nbsp;&nbsp;&nbsp; version? Is it going to be long-term hosted and maintain=
-ed in the<br>
-&nbsp;&nbsp;&nbsp; xen-troops github repo? Or was it just an one-time PoC i=
-mplementation<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; and the strategy for future VirtI=
-O devices will be based on a more generic<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; approach (i.e., without need for =
-a specific standalone app)?<o:p></o:p></p>
-<p class=3D"MsoNormal"><br>
-&nbsp;&nbsp;&nbsp; 2. With regards to the other backends, we want to try ou=
-t and provide PV<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; networking to a DomU based on vir=
-tio-net, but we haven't found any available<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; resources for it (e.g., the stand=
-alone backend implementation if needed for<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; control plane, configuration exam=
-ples, presentations, demos, docs). Does it<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; rely on the QEMU virtio-net or vh=
-ost implementation? Are there any examples<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; on how to set it up? Any required=
- Xen/Linux Kernel/QEMU versions?<o:p></o:p></p>
-<p class=3D"MsoNormal"><br>
-&nbsp;&nbsp;&nbsp; 3. What other VirtIO device types are there planned to b=
-e supported in Xen?<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; I'm supposing libxl will also nee=
-d changes to accomodate new configuration<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; parameters for each of them. Or i=
-s there something I'm missing?<o:p></o:p></p>
-<p class=3D"MsoNormal"><br>
-&nbsp;&nbsp;&nbsp; 4. Also, while we're at it, are there any plans regardin=
-g SCMI<br>
-&nbsp;&nbsp;&nbsp; awareness for Xen (e.g., SCMI Mediator - where the RFC t=
-hread from 2022<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; seems discontinued)? Or is the pr=
-eferred approach for sharing SCMI access<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; to guests through virtio-scmi?<br=
->
-<br>
-Thank you very much for the support, once again, and we're also looking<br>
-forward to the progress on the rust-vmm initiative.<br>
-<br>
-Regards,<br>
-Andrei Cherechesu,<br>
-NXP Semiconductors<br>
-<br>
-[0] <a href=3D"https://github.com/xen-troops/virtio-disk">https://github.co=
-m/xen-troops/virtio-disk</a><o:p></o:p></p>
-</div>
-</body>
-</html>
-
---_000_PA4PR04MB95655F653BBFE3A70A8CD0FBF9682PA4PR04MB9565eurp_--
+Jan
 
