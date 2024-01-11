@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F30182A848
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:26:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665907.1036226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE21B82A849
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:26:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665912.1036235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpRs-00037H-Jr; Thu, 11 Jan 2024 07:25:56 +0000
+	id 1rNpSN-0003bZ-QX; Thu, 11 Jan 2024 07:26:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665907.1036226; Thu, 11 Jan 2024 07:25:56 +0000
+Received: by outflank-mailman (output) from mailman id 665912.1036235; Thu, 11 Jan 2024 07:26:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpRs-00034h-G4; Thu, 11 Jan 2024 07:25:56 +0000
-Received: by outflank-mailman (input) for mailman id 665907;
- Thu, 11 Jan 2024 07:25:55 +0000
+	id 1rNpSN-0003ZG-Ni; Thu, 11 Jan 2024 07:26:27 +0000
+Received: by outflank-mailman (input) for mailman id 665912;
+ Thu, 11 Jan 2024 07:26:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpRr-00034Z-Nk
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:25:55 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1rNpSM-00034Z-E0
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:26:26 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7fe86f9-b052-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 08:25:54 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2ccbc328744so60129541fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:25:54 -0800 (PST)
+ id ba673b25-b052-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 08:26:25 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-336c8ab0b20so4433520f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:26:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o10-20020a056000010a00b00336cbbf2e0fsm441141wrx.27.2024.01.10.23.25.53
+ o10-20020a056000010a00b00336cbbf2e0fsm441141wrx.27.2024.01.10.23.26.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:25:54 -0800 (PST)
+ Wed, 10 Jan 2024 23:26:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7fe86f9-b052-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: ba673b25-b052-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704957954; x=1705562754; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704957985; x=1705562785; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2kKucQeG9hzCGGVi5VOoQwoW+K7wlDclKUZkgMvdu4E=;
-        b=P9JwASPq42J3f3OERQWWicQ9bPcc2MSyXzRXVe/q53QzuNJd+Jzu2Lq/tR+sCtY0HH
-         M3IYmukj0s6hNEavp4e5XSf7DQPwHOnJdpuB4JeGeNnlbvuMlLTUZXadTfC1Leo2f2jx
-         rZhVkU0SUFEDnndk5zJMOBJ4tBu88UwNPXPqk4+tHszv5KZPLHZ9wQU/WD0YWFxuaBtc
-         SbRkmrqF9JaJdxGO8k91K49Pa5KqsWTD9NkIVcyccaIgv8FNAC5krT6Ql44pMNaJR3v3
-         FDyGeSPNuDOWcur7/g3EyfehdiV1FgxfcGTelU/yExP66Nlngb2cVLvQvhZ2iR+gQalF
-         wxdw==
+        bh=zoKC8ochUFPTshQ5L/IkWmgj0imM/XqiSRmWYZZF9pU=;
+        b=dTn/ntqgsgEiCOKf2nr4uMQOVIJnQu/zf9UmQB7x3rd+4djT66ZRn9gvvqXhWuZ4Qy
+         pJoWEfgC8ibcLGBnSl9Ae8FptMadw3m+nhqvTZo/SzNWOjrT5JR6CLjn2lbNFdlkyS2m
+         lYq1Mv4o6Dakzdm+MxjMLJqYpNctTRdDeTvBgb+7eEFqMYLhMw7vjSUjyLlPCd1TVptU
+         TaC3KrenUrL/2E/6Ol52c0z4IK2x8NDTQ0rfNPPdZy3+ci9f1YKAW/+Hsadq/qcGRdHM
+         57e8qghDZDG1lg9XDlJS9zG1njsiMLHvL+4qngb8C4w0j9q70L+7zBR91lzphB8YM6JE
+         zz+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704957954; x=1705562754;
+        d=1e100.net; s=20230601; t=1704957985; x=1705562785;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=2kKucQeG9hzCGGVi5VOoQwoW+K7wlDclKUZkgMvdu4E=;
-        b=q3xV/3MSi92rWvEYyNpKkDkbGBM6TFTmCKREzYYo442gFxcrF7OGQwAtvAiTJXkdOn
-         HnrGI/orfGnmxYUDqvvDx0/dlm/W8Fs53zHC3cPgOwgKvZZEco5MzYss+ReBxC70Ki6S
-         Z3cDC61lumHHXkdH6lCfx3FMIRgxJOeo4i6Z7/hLx1NicrYBKG+2GxbdHii6+XfCcsy+
-         g6xkWKrM9m9BsD4ZwztK9HOVQw/RbDgu653oraZ7C4gif0/QeQzyK6Vd5UjpgQtWysNh
-         9u1uAi9/MM1h5bXTGJA1Shyk+RWjiko9+d/dFihLx+BDshbWHBYu4kOgA7Mm1pPIbVNB
-         o2og==
-X-Gm-Message-State: AOJu0YywSOaJjq+lE0W04Hx5bbcpW2ehQGMSGrkw7aLmC3QtJvL0JB2p
-	8IWGDN2A/bFERHoRsbRqHAvPH4+WGPoj44X2MMXCRYntEQ==
-X-Google-Smtp-Source: AGHT+IF4liWdDvfwb1UVGsXXM5DbkozxfiiAy6C/RW1K8AXp6tqlZPfz89MnEWTGaPWetzBiAJsHdg==
-X-Received: by 2002:a05:651c:204f:b0:2cc:78c5:7ffa with SMTP id t15-20020a05651c204f00b002cc78c57ffamr119364ljo.7.1704957954283;
-        Wed, 10 Jan 2024 23:25:54 -0800 (PST)
-Message-ID: <9ab12fd0-4b71-4ef7-9ab4-0ab38a4c94c6@suse.com>
-Date: Thu, 11 Jan 2024 08:25:53 +0100
+        bh=zoKC8ochUFPTshQ5L/IkWmgj0imM/XqiSRmWYZZF9pU=;
+        b=M87VQSZUKyWJBVqJ3slgQ5U9tiA+S+vz2gtdMv9JMuuNOVgPhioRZyK5TgmI4kQ1XZ
+         1W896mFtW2ikV2W/Wty75yXnFy7f86vkrwmxoKgKxXYSwmNqvgv2YR+fv2mkygI6xPVJ
+         Fu428AmW9X2oj03jMwgt95g0VZCICgZIe2rL04t6vLCLZMeudFUrW5vDozYsFXT7wW8D
+         dONvqlYcvLEyxQrGD29XLb/Z8mn54Xv7siys8QHMYXrIRyW4QBNF6Gv5zNoTlaM/5eYB
+         2KOLW7+4lfQc62g5ph/F+HKIGEXl8UxzyAhxzVB83siZWFQwfd2PBQfjcYRjwbv2XKkO
+         pZmA==
+X-Gm-Message-State: AOJu0YxI1Kod4byHONFMVtiqJE8uKedabMs198+RHDS6V8eNh10K7cNK
+	wJ9/PrTb3YLlh0wAmyCey/gSavjzlv7zYkeTD7kZFDX32g==
+X-Google-Smtp-Source: AGHT+IEi2S9lCWjDUsOeY8BYyOKk6jfWSv9fqqfawDOrRwj/+vk3szw4QRnPRNkIT+EWVnGoCiPIDg==
+X-Received: by 2002:a5d:620e:0:b0:337:2b76:30fe with SMTP id y14-20020a5d620e000000b003372b7630femr370509wru.37.1704957985246;
+        Wed, 10 Jan 2024 23:26:25 -0800 (PST)
+Message-ID: <d1361c45-2283-4fe9-b997-b524c82626f1@suse.com>
+Date: Thu, 11 Jan 2024 08:26:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 3/8] serial: drop serial_rx_fn's regs parameter
+Subject: [PATCH 4/8] PV-shim: drop pv_console_rx()'s regs parameter
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <5d6089a4-c597-49ce-b042-24f13922f581@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,83 +116,52 @@ In-Reply-To: <5d6089a4-c597-49ce-b042-24f13922f581@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In the one place where it's needed, get_irq_regs() can be used instead.
-This is in preparation of dropping the register parameters from IRQ
-handler functions.
+It's not needed anymore. This is in preparation of dropping the register
+parameters from IRQ handler functions.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -527,12 +527,12 @@ static void switch_serial_input(void)
-     printk("\n");
- }
+--- a/xen/arch/x86/guest/xen/xen.c
++++ b/xen/arch/x86/guest/xen/xen.c
+@@ -181,7 +181,7 @@ static void cf_check xen_evtchn_upcall(s
+             port += l1 * BITS_PER_LONG;
  
--static void __serial_rx(char c, struct cpu_user_regs *regs)
-+static void __serial_rx(char c)
- {
-     switch ( console_rx )
-     {
-     case 0:
--        return handle_keypress(c, regs);
-+        return handle_keypress(c, get_irq_regs());
- 
-     case 1:
-         /*
-@@ -579,7 +579,7 @@ static void __serial_rx(char c, struct c
- #endif
- }
- 
--static void cf_check serial_rx(char c, struct cpu_user_regs *regs)
-+static void cf_check serial_rx(char c)
- {
-     static int switch_code_count = 0;
- 
-@@ -595,10 +595,10 @@ static void cf_check serial_rx(char c, s
-     }
- 
-     for ( ; switch_code_count != 0; switch_code_count-- )
--        __serial_rx(switch_code, regs);
-+        __serial_rx(switch_code);
- 
-     /* Finally process the just-received character. */
--    __serial_rx(c, regs);
-+    __serial_rx(c);
- }
- 
- static void cf_check notify_dom0_con_ring(void *unused)
---- a/xen/drivers/char/serial.c
-+++ b/xen/drivers/char/serial.c
-@@ -68,7 +68,7 @@ void serial_rx_interrupt(struct serial_p
-     spin_unlock_irqrestore(&port->rx_lock, flags);
- 
-     if ( fn != NULL )
--        (*fn)(c & 0x7f, regs);
-+        fn(c & 0x7f);
- }
- 
- void serial_tx_interrupt(struct serial_port *port, struct cpu_user_regs *regs)
+             if ( pv_console && port == pv_console_evtchn() )
+-                pv_console_rx(regs);
++                pv_console_rx();
+             else if ( pv_shim )
+                 pv_shim_inject_evtchn(port);
+         }
 --- a/xen/drivers/char/xen_pv_console.c
 +++ b/xen/drivers/char/xen_pv_console.c
-@@ -118,7 +118,7 @@ size_t pv_console_rx(struct cpu_user_reg
-     {
-         c = cons_ring->in[MASK_XENCONS_IDX(cons++, cons_ring->in)];
-         if ( cons_rx_handler )
--            cons_rx_handler(c, regs);
-+            cons_rx_handler(c);
-         recv++;
-     }
+@@ -94,7 +94,7 @@ evtchn_port_t pv_console_evtchn(void)
+     return cons_evtchn;
+ }
  
---- a/xen/include/xen/serial.h
-+++ b/xen/include/xen/serial.h
-@@ -15,7 +15,7 @@
- struct cpu_user_regs;
+-size_t pv_console_rx(struct cpu_user_regs *regs)
++size_t pv_console_rx(void)
+ {
+     char c;
+     XENCONS_RING_IDX cons, prod;
+--- a/xen/include/xen/pv_console.h
++++ b/xen/include/xen/pv_console.h
+@@ -9,7 +9,7 @@ void pv_console_init(void);
+ void pv_console_set_rx_handler(serial_rx_fn fn);
+ void pv_console_init_postirq(void);
+ void pv_console_puts(const char *buf, size_t nr);
+-size_t pv_console_rx(struct cpu_user_regs *regs);
++size_t pv_console_rx(void);
+ evtchn_port_t pv_console_evtchn(void);
  
- /* Register a character-receive hook on the specified COM port. */
--typedef void (*serial_rx_fn)(char c, struct cpu_user_regs *regs);
-+typedef void (*serial_rx_fn)(char c);
- void serial_set_rx_handler(int handle, serial_rx_fn fn);
+ #else
+@@ -18,7 +18,7 @@ static inline void pv_console_init(void)
+ static inline void pv_console_set_rx_handler(serial_rx_fn fn) { }
+ static inline void pv_console_init_postirq(void) { }
+ static inline void pv_console_puts(const char *buf, size_t nr) { }
+-static inline size_t pv_console_rx(struct cpu_user_regs *regs) { return 0; }
++static inline size_t pv_console_rx(void) { return 0; }
  
- /* Number of characters we buffer for a polling receiver. */
+ #endif /* !CONFIG_XEN_GUEST */
+ #endif /* __XEN_PV_CONSOLE_H__ */
 
 
