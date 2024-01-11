@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8931982B5B4
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 21:12:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666521.1037215 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E87B82B6BD
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 22:38:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666531.1037226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rO1P2-0006XC-B5; Thu, 11 Jan 2024 20:11:48 +0000
+	id 1rO2jp-0000iM-GK; Thu, 11 Jan 2024 21:37:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666521.1037215; Thu, 11 Jan 2024 20:11:48 +0000
+Received: by outflank-mailman (output) from mailman id 666531.1037226; Thu, 11 Jan 2024 21:37:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rO1P2-0006Vf-8G; Thu, 11 Jan 2024 20:11:48 +0000
-Received: by outflank-mailman (input) for mailman id 666521;
- Thu, 11 Jan 2024 20:11:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ikTk=IV=citrix.com=prvs=733603de5=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1rO1P1-0006VZ-4n
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 20:11:47 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a26167c5-b0bd-11ee-9b0f-b553b5be7939;
- Thu, 11 Jan 2024 21:11:43 +0100 (CET)
+	id 1rO2jp-0000gO-Cy; Thu, 11 Jan 2024 21:37:21 +0000
+Received: by outflank-mailman (input) for mailman id 666531;
+ Thu, 11 Jan 2024 21:37:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rO2jn-0000gE-H5; Thu, 11 Jan 2024 21:37:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rO2jn-0007UW-5F; Thu, 11 Jan 2024 21:37:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rO2jm-0004OA-Qy; Thu, 11 Jan 2024 21:37:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rO2jm-0005Vg-QH; Thu, 11 Jan 2024 21:37:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,138 +42,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a26167c5-b0bd-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1705003903;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=vFvoMsqyWFHreX8Y6trU3e3hv4EtiqIn/i79xDFGmac=;
-  b=BRk1p8zv6fjsS3/crXgZJc6fxw2p86jl+MxcvqiuQUmls3JJCDzE+5FJ
-   WuMB01AKs1pWKvl3muSGXntdZFEQ7Te9UacKfk85MeLYeRpGoCK8WdQlO
-   fA/qKV++8madqfRxS/b+64/atC9z8yU5ulmaXNGDDWrNF39dbZqO9rkLg
-   s=;
-X-CSE-ConnectionGUID: Z6gQJUwJRXSzUt1GtVnlpQ==
-X-CSE-MsgGUID: XBKvECL9QaqVW/qcQqhyGA==
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 132139168
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.159.70
-X-Policy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:HbVQR6wdTe9Pyz4M73p6t+dsxirEfRIJ4+MujC+fZmUNrF6WrkUBx
- jBLDG2Da/zZZWTxeosibY3l9B8Pup/Vx981SgZpqiAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjPzOHvykTrecZkidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw/zF8E8HUMja4mtC4gRnPKkT5zcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KVMQ+
- sU6FS8vVCC4ld+qmZ2ndO9onv12eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
- ZBAL2MyPVKfO3WjOX9OYH46tM6uimPybHtzr1WNqLBsy2PS0BZwwP7mN9+9ltmiHJ4Pxx3J/
- zyWl4j/KiEwF8Ky4h7Uy3u1uNCIhCjCQYIDO5Tto5aGh3XMnzdOWXX6T2CTsfS/z0KzRd9bA
- 0gV4TY167g/8lSxSdvwVAH+p2SL1jYfXNxKGuF89wCJyYLT+Q+SAmVCRTlEAPQEnsIrQT0h1
- neSgsjkQzdotdW9Vna15rqS6zSoNkAowXQqPHFeC1Ffup+6/dB10Uqnostf/LCdvIP6IBPN3
- BKwnBMsuqlKotI10aGjxAWS696znaQlXjLZ9y2OATr5t1IhOtL4D7FE/2Q3+hqpEWp4crVil
- CJd8yRmxLpSZaxhbQTUKAn3IJmn5uyeLBrXikN1Ep8q+lyFoiH7IdkBumEhfRw4bq7onAMFh
- 2eK5GtsCGJ7ZiP2PcebnartYyjV8UQQPYu8Da2FBja/SpNwaBWG7ElTib24hgjQfLwXufhnY
- /+zKJ/8ZUv2/Iw7lFJasc9Bi+50rs3/rEuPLa3GI+OPi+PDNC7PFexZbzNjrIkRtcu5nekcy
- P4HX+Pi9vmVeLSWjvX/mWLLEW03EA==
-IronPort-HdrOrdr: A9a23:oCb/zqiiwEcBJgrbXYSNiDaBVnBQXuIji2hC6mlwRA09TySZ//
- rBoB19726MtN9xYgBHpTnuAsm9qB/nmaKdpLNhWItKPzOW31dATrsSjrcKqgeIc0aVm9K1l5
- 0QF5SWYOeAdWSS5vya3ODXKbkdKaG8gcKVuds=
-X-Talos-CUID: =?us-ascii?q?9a23=3AarVSNmqixpPXavSW+Oe3n9jmUfJ7fUT/8WjyGX+?=
- =?us-ascii?q?DG1t1EZKJd1mU4Joxxg=3D=3D?=
-X-Talos-MUID: 9a23:ZUiXgQv4xbmWCaDUlM2ntBtBKupDx/WXAVkzrtIfsPCdNT1fEmLI
-X-IronPort-AV: E=Sophos;i="6.04,187,1695700800"; 
-   d="scan'208";a="132139168"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Konrad Rzeszutek Wilk
-	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>, "Jan
- Beulich" <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v1-alt] xen/livepatch: Make check_for_livepatch_work() faster in the common case
-Date: Thu, 11 Jan 2024 20:11:29 +0000
-Message-ID: <20240111201129.4010175-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20231222220045.2840714-1-andrew.cooper3@citrix.com>
-References: <20231222220045.2840714-1-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=sKJvzihRX8GSh+zJn46l+p9SPn3t+HzYazW1CBRfS+A=; b=A3yKKC8XHUGpPsP6b2Gs+d1zow
+	fvSvc6vemKJr4KyIIC95Q4K6bLlv8P/x4IVr/y0uuNtAHKvROtvKOg72Wc+J1aZCBvznrqeHuTcEr
+	vNVv/dex0qn280aBUoUAwWbipS7Bc2GahDVCyGrKr1nbXOtoH1ZZT6izir+aIr2JMOzk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184316-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 184316: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt-raw:guest-start:fail:heisenbug
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=0e120bc43197a2d4099470f8932c37944a2fcc16
+X-Osstest-Versions-That:
+    libvirt=7cb03e6a28e465c49f0cabe8fe2e7d21edb5aadf
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 11 Jan 2024 21:37:18 +0000
 
-When livepatching is enabled, this function is used all the time.  Really do
-check the fastpath first, and annotate it likely() as this is the right answer
-100% of the time (to many significant figures).  This cuts out 3 pointer
-dereferences in the "nothing to do path".
+flight 184316 libvirt real [real]
+flight 184323 libvirt real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184316/
+http://logs.test-lab.xenproject.org/osstest/logs/184323/
 
-However, GCC still needs some help to persuade it not to set the full stack
-frame (6 spilled registers, 3 slots of locals) even on the fastpath.
+Failures :-/ but no regressions.
 
-Create a new check_for_livepatch_work() with the fastpath only, and make the
-"new" do_livepatch_work() noinline.  This causes the fastpath to need no stack
-frame, making it faster still.
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-libvirt-raw 13 guest-start         fail pass in 184323-retest
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-CC: Ross Lagerwall <ross.lagerwall@citrix.com>
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail blocked in 184301
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check fail in 184323 like 184301
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check fail in 184323 never pass
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184301
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-v1-alt:
- * Manually split the functions.
+version targeted for testing:
+ libvirt              0e120bc43197a2d4099470f8932c37944a2fcc16
+baseline version:
+ libvirt              7cb03e6a28e465c49f0cabe8fe2e7d21edb5aadf
 
-Experimenting with __attribute__((cold)) was disappointing.  Vs this patch, it
-creates an extra check_for_livepatch_work.cold function(and section) which is
-just `jmp do_livepatch_work`.
----
- xen/common/livepatch.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+Last test of basis   184301  2024-01-10 04:20:43 Z    1 days
+Testing same since   184316  2024-01-11 04:18:50 Z    0 days    1 attempts
 
-diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-index 1209fea2566c..2c4b84382798 100644
---- a/xen/common/livepatch.c
-+++ b/xen/common/livepatch.c
-@@ -1693,7 +1693,7 @@ static int livepatch_spin(atomic_t *counter, s_time_t timeout,
-  * The main function which manages the work of quiescing the system and
-  * patching code.
-  */
--void check_for_livepatch_work(void)
-+static void noinline do_livepatch_work(void)
- {
- #define ACTION(x) [LIVEPATCH_ACTION_##x] = #x
-     static const char *const names[] = {
-@@ -1711,10 +1711,6 @@ void check_for_livepatch_work(void)
-          !is_idle_domain(current->sched_unit->domain) )
-         return;
- 
--    /* Fast path: no work to do. */
--    if ( !per_cpu(work_to_do, cpu ) )
--        return;
--
-     smp_rmb();
-     /* In case we aborted, other CPUs can skip right away. */
-     if ( !livepatch_work.do_work )
-@@ -1864,6 +1860,17 @@ void check_for_livepatch_work(void)
-     }
- }
- 
-+void check_for_livepatch_work(void)
-+{
-+    unsigned int cpu = smp_processor_id();
-+
-+    /* Fast path: no work to do. */
-+    if ( likely(!per_cpu(work_to_do, cpu)) )
-+        return;
-+
-+    do_livepatch_work();
-+}
-+
- /*
-  * Only allow dependent payload is applied on top of the correct
-  * build-id.
--- 
-2.30.2
+------------------------------------------------------------
+People who touched revisions under test:
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Michal Privoznik <mprivozn@redhat.com>
+  Weblate <noreply@weblate.org>
 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   7cb03e6a28..0e120bc431  0e120bc43197a2d4099470f8932c37944a2fcc16 -> xen-tested-master
 
