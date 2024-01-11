@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BF1282A85B
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:31:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665924.1036256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53CC182A85D
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:32:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665931.1036266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpWw-0006H9-KD; Thu, 11 Jan 2024 07:31:10 +0000
+	id 1rNpXk-0006nO-Tq; Thu, 11 Jan 2024 07:32:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665924.1036256; Thu, 11 Jan 2024 07:31:10 +0000
+Received: by outflank-mailman (output) from mailman id 665931.1036266; Thu, 11 Jan 2024 07:32:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpWw-0006Eq-Gp; Thu, 11 Jan 2024 07:31:10 +0000
-Received: by outflank-mailman (input) for mailman id 665924;
- Thu, 11 Jan 2024 07:31:09 +0000
+	id 1rNpXk-0006ks-Qa; Thu, 11 Jan 2024 07:32:00 +0000
+Received: by outflank-mailman (input) for mailman id 665931;
+ Thu, 11 Jan 2024 07:31:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpWv-0006Ec-D8
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:31:09 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1rNpXi-0006km-Tg
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:31:58 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 62cd6c12-b053-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 08:31:08 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40e5508ecb9so23642955e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:31:08 -0800 (PST)
+ id 805b57fa-b053-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 08:31:57 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-3368b9bbeb4so4746911f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:31:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n16-20020a05600c4f9000b0040d62f97e3csm4686253wmq.10.2024.01.10.23.31.07
+ d6-20020a056000114600b003366a9cb0d1sm444087wrx.92.2024.01.10.23.31.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:31:07 -0800 (PST)
+ Wed, 10 Jan 2024 23:31:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62cd6c12-b053-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: 805b57fa-b053-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704958268; x=1705563068; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=M+5CGOukjfQO94V4R3Cj4aE/IhM5ucCz6YzI5SlI/Cg=;
-        b=NV9orLaBBS8oOfNri7NmlWI9J9hzSpMUaFkfb31XbLD8j8WnTNGi+fDeZT0w2571X9
-         ip5/c2nwON06AfpHq3ygXzP+CRj9zhZTQYSCmRAmXmu/YJMuHVetI1ix2P25JRJ97M4e
-         PV+YEq+rMw8cKguN5dFAm8BSr/bJNTt/Ver8M0LTeBuc2HU6nkMcbldfV0ucyFfpkmN8
-         HVk+4Ewt5yG5kRA0/v5kHgjWP0Z+jaHsV8w+ahXhWWiguwBCjXcMOFcGnEwGA2M9sJhH
-         ZmfRS0s/rbv9NzYejzkZBIKOIdImZhsDiJkFytN/2b/lNZJvj9KGrXKIjfWxbEMbowQX
-         4c4g==
+        d=suse.com; s=google; t=1704958317; x=1705563117; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=0ec8vWmu/5aIAhFU+GtuouuNHSKMP58o3QH8ANpxtGg=;
+        b=I/KoAXKqYCLKRnuVh9/rtkg/KW4c/RHFFgfayPD1jSp0jPNk7spZhZpKBTVI8uqSYB
+         6whUr8nKJBhnAdSJI4iELq/rdr4i3Rn0q0UmsADkUO5XO1e2ScdOaxo2hRidXFJtVZOi
+         5pb6qZStGvrMNHJTGV0I4T/SfNi7dqqst8+7Bc1HOkzDkTfxPmS1DM2/WRLc56KU3VEC
+         u+twnmqSFiPUWF/vtdI5C+bF+LtbiBUq4+/+YxRAHRrIb4+8Katp1EwierzRDXtPB1Uz
+         //Xu1X0HJFx9fLhLjuaJsUKml+sZSmZHPGwfFD586bJaA9oNuzEBqSpMc96tMMsSydYZ
+         M4Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704958268; x=1705563068;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=M+5CGOukjfQO94V4R3Cj4aE/IhM5ucCz6YzI5SlI/Cg=;
-        b=BPDWWd9eNvwjNpL7BhyLpXpALLgabet6pHj9J5aFqfaD/VnTqASOAvm0CS8C2j0nNx
-         GIjfKCv3m52bpZSwrtjNkC75wg1zWWrqD5uZV6kG0qWOAJMFN0rtcqHRtJJbREvOMTxK
-         HJAeAxvlddujAF1MO1RF6QxePVfwQRORxhCfVRiFqcTzh+y8FXJlsaVVoqYaJhAD2Pu9
-         or40r0WnveE4wezCINU5MVaxmetJWg5cPWcdGUL7/BHQHVXF0gbwwNHk9xqQMkiRgXcn
-         mvKjWOJw31QkoljAbQDzLqHKsvJuGtI63ZC7/AbD3+Zd36kcEqCLl8XSAsyJ/QkWqRPN
-         MVMQ==
-X-Gm-Message-State: AOJu0Yx6ePuvu7PR3N1lGMGWxSxXDliwNM4BAujSJ+fzDIU2L3ijna8f
-	Z1ijmCABijLo9xbmoruI9tAKLlc3y+2jFt6n0lJC6KSVoA==
-X-Google-Smtp-Source: AGHT+IEJnAO8j2RIu1MH/kul9OKGuKojB297y0gNoHuS1vTbmqiSHrCQOkyPkPaA3t7D4Kv+r6UYQw==
-X-Received: by 2002:a05:600c:283:b0:40d:9369:697f with SMTP id 3-20020a05600c028300b0040d9369697fmr141778wmk.144.1704958267838;
-        Wed, 10 Jan 2024 23:31:07 -0800 (PST)
-Message-ID: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
-Date: Thu, 11 Jan 2024 08:31:07 +0100
+        d=1e100.net; s=20230601; t=1704958317; x=1705563117;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0ec8vWmu/5aIAhFU+GtuouuNHSKMP58o3QH8ANpxtGg=;
+        b=AOfMA8KE83RQeyx2v8aW8YPrmAitod+2iJDCvPrCS0JrFa8LbInD/rwq3EsAgPatMV
+         ZhVauNNkeXlOzcZa034jpDfI0FQIjn4D/E5Kn49HJDRMoJxBdVUJ9lEOWzdkH+U3keNJ
+         W59wYkCNJvNzR7ZZ6QOlZ/m+rLHsf3zfPkB2QGTI0jImja9T0HrxfFHxhw9nmX8wpKvQ
+         Z3BLvuN0kXE/CxvsPC0hl+MgemqD18wQ/sCYQUXbRd1EEPsgsjxOPgBsbPoDR/vCypD5
+         EpW4+AVfSdXTMQkmA7AB42Kdrz/x40zspeRNcIox6VqoiFwXiCxohCM2eRWQCorbv2Qv
+         x45g==
+X-Gm-Message-State: AOJu0Yx5vQOlyCKrW1C72JvdYmWqDRr47mw001jXR5ihxBS3vsJPnXQc
+	GCwv4Y0Q+fp7AdH3ArqOSE7v4GrtiVgXkSbdbBxnWxRheg==
+X-Google-Smtp-Source: AGHT+IGhgxIDgO87l4RjWlKzB5FKF5WI1Cp6iqB39lTenwigtQLspP79tdMvxU216jd8w1rdt2tonQ==
+X-Received: by 2002:adf:e612:0:b0:32d:cd02:d4f3 with SMTP id p18-20020adfe612000000b0032dcd02d4f3mr149688wrm.40.1704958317480;
+        Wed, 10 Jan 2024 23:31:57 -0800 (PST)
+Message-ID: <dd1c24ec-4054-43e1-b0c9-6c2044b84046@suse.com>
+Date: Thu, 11 Jan 2024 08:31:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH 1/8] keyhandler: don't pass cpu_user_regs around
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/8] limit passing around of cpu_user_regs
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -109,21 +111,168 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Unlike (synchronous) exception handlers, interrupt handlers don't normally
-have a need to know the outer context's register state. Similarly, the vast
-majority of key handlers has no need for such.
+There are exactly two handlers which care about the registers. Have
+handle_keypress() make the pointer available via a per-CPU variable,
+thus eliminating the need to pass it to all IRQ key handlers, making
+sure that a console-invoked key's handling can still nest inside a
+sysctl-invoked one's.
 
-1: keyhandler: don't pass cpu_user_regs around
-2: IRQ: generalize [gs]et_irq_regs()
-3: serial: drop serial_rx_fn's regs parameter
-4: PV-shim: drop pv_console_rx()'s regs parameter
-5: serial: drop serial_[rt]x_interrupt()'s regs parameter
-6: IRQ: drop regs parameter from handler functions
-7: x86/vPMU: drop regs parameter from interrupt functions
-8: x86/APIC: drop regs parameter from direct vector handler functions
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Subsequently we may want to eliminate the fn/irq_fn union as well,
+along with dropping the now redundant irq_keyhandler_fn_t.
 
-Jan
+--- a/xen/common/keyhandler.c
++++ b/xen/common/keyhandler.c
+@@ -80,6 +80,7 @@ static void cf_check keypress_action(voi
+ }
+ 
+ static DECLARE_TASKLET(keypress_tasklet, keypress_action, NULL);
++static DEFINE_PER_CPU(struct cpu_user_regs *, keypress_regs);
+ 
+ void handle_keypress(unsigned char key, struct cpu_user_regs *regs)
+ {
+@@ -91,7 +92,16 @@ void handle_keypress(unsigned char key,
+     if ( !in_irq() || h->irq_callback )
+     {
+         console_start_log_everything();
+-        h->irq_callback ? h->irq_fn(key, regs) : h->fn(key);
++        if ( h->irq_callback )
++        {
++            struct cpu_user_regs *old = this_cpu(keypress_regs);
++
++            this_cpu(keypress_regs) = regs;
++            h->irq_fn(key);
++            this_cpu(keypress_regs) = old;
++        }
++        else
++            h->fn(key);
+         console_end_log_everything();
+     }
+     else
+@@ -171,8 +181,7 @@ void cf_check dump_execstate(struct cpu_
+     watchdog_enable();
+ }
+ 
+-static void cf_check dump_registers(
+-    unsigned char key, struct cpu_user_regs *regs)
++static void cf_check dump_registers(unsigned char key)
+ {
+     unsigned int cpu;
+ 
+@@ -185,8 +194,8 @@ static void cf_check dump_registers(
+     cpumask_copy(&dump_execstate_mask, &cpu_online_map);
+ 
+     /* Get local execution state out immediately, in case we get stuck. */
+-    if ( regs )
+-        dump_execstate(regs);
++    if ( this_cpu(keypress_regs) )
++        dump_execstate(this_cpu(keypress_regs));
+     else
+         run_in_exception_handler(dump_execstate);
+ 
+@@ -248,8 +257,7 @@ static void cf_check dump_hwdom_register
+     }
+ }
+ 
+-static void cf_check reboot_machine(
+-    unsigned char key, struct cpu_user_regs *regs)
++static void cf_check reboot_machine(unsigned char key)
+ {
+     printk("'%c' pressed -> rebooting machine\n", key);
+     machine_restart(0);
+@@ -477,8 +485,7 @@ static void cf_check run_all_nonirq_keyh
+ static DECLARE_TASKLET(run_all_keyhandlers_tasklet,
+                        run_all_nonirq_keyhandlers, NULL);
+ 
+-static void cf_check run_all_keyhandlers(
+-    unsigned char key, struct cpu_user_regs *regs)
++static void cf_check run_all_keyhandlers(unsigned char key)
+ {
+     struct keyhandler *h;
+     unsigned int k;
+@@ -494,7 +501,7 @@ static void cf_check run_all_keyhandlers
+         if ( !h->irq_fn || !h->diagnostic || !h->irq_callback )
+             continue;
+         printk("[%c: %s]\n", k, h->desc);
+-        h->irq_fn(k, regs);
++        h->irq_fn(k);
+     }
+ 
+     watchdog_enable();
+@@ -511,17 +518,16 @@ static void cf_check do_debugger_trap_fa
+     barrier();
+ }
+ 
+-static void cf_check do_debug_key(unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_debug_key(unsigned char key)
+ {
+     printk("'%c' pressed -> trapping into debugger\n", key);
+-    if ( regs )
+-        do_debugger_trap_fatal(regs);
++    if ( this_cpu(keypress_regs) )
++        do_debugger_trap_fatal(this_cpu(keypress_regs));
+     else
+         run_in_exception_handler(do_debugger_trap_fatal);
+ }
+ 
+-static void cf_check do_toggle_alt_key(
+-    unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_toggle_alt_key(unsigned char key)
+ {
+     alt_key_handling = !alt_key_handling;
+     printk("'%c' pressed -> using %s key handling\n", key,
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -280,7 +280,7 @@ static int *__read_mostly upper_thresh_a
+ static int *__read_mostly lower_thresh_adj = &xenlog_lower_thresh;
+ static const char *__read_mostly thresh_adj = "standard";
+ 
+-static void cf_check do_toggle_guest(unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_toggle_guest(unsigned char key)
+ {
+     if ( upper_thresh_adj == &xenlog_upper_thresh )
+     {
+@@ -307,13 +307,13 @@ static void do_adj_thresh(unsigned char
+            loglvl_str(*upper_thresh_adj));
+ }
+ 
+-static void cf_check do_inc_thresh(unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_inc_thresh(unsigned char key)
+ {
+     ++*lower_thresh_adj;
+     do_adj_thresh(key);
+ }
+ 
+-static void cf_check do_dec_thresh(unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_dec_thresh(unsigned char key)
+ {
+     if ( *lower_thresh_adj )
+         --*lower_thresh_adj;
+--- a/xen/include/xen/keyhandler.h
++++ b/xen/include/xen/keyhandler.h
+@@ -24,9 +24,7 @@ typedef void (keyhandler_fn_t)(unsigned
+  *
+  * Called in hardirq context with interrupts disabled.
+  */
+-struct cpu_user_regs;
+-typedef void (irq_keyhandler_fn_t)(unsigned char key,
+-                                   struct cpu_user_regs *regs);
++typedef void irq_keyhandler_fn_t(unsigned char key);
+ 
+ /* Initialize keytable with default handlers. */
+ void initialize_keytable(void);
+@@ -46,6 +44,7 @@ void register_irq_keyhandler(unsigned ch
+                              bool diagnostic);
+ 
+ /* Inject a keypress into the key-handling subsystem. */
++struct cpu_user_regs;
+ extern void handle_keypress(unsigned char key, struct cpu_user_regs *regs);
+ 
+ enum crash_reason {
+
 
