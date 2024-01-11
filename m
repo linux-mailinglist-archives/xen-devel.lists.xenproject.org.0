@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E33982ABA1
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 11:10:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666095.1036545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4473582ABA4
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 11:11:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666099.1036556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNs0x-0007Of-Gv; Thu, 11 Jan 2024 10:10:19 +0000
+	id 1rNs1p-0007zL-PM; Thu, 11 Jan 2024 10:11:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666095.1036545; Thu, 11 Jan 2024 10:10:19 +0000
+Received: by outflank-mailman (output) from mailman id 666099.1036556; Thu, 11 Jan 2024 10:11:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNs0x-0007MO-E3; Thu, 11 Jan 2024 10:10:19 +0000
-Received: by outflank-mailman (input) for mailman id 666095;
- Thu, 11 Jan 2024 10:10:17 +0000
+	id 1rNs1p-0007xl-MZ; Thu, 11 Jan 2024 10:11:13 +0000
+Received: by outflank-mailman (input) for mailman id 666099;
+ Thu, 11 Jan 2024 10:11:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nyxv=IV=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rNs0v-0007MI-DZ
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 10:10:17 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rNs1o-0007xX-J5
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 10:11:12 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9cf3c46c-b069-11ee-9b0f-b553b5be7939;
- Thu, 11 Jan 2024 11:10:14 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a2814fa68eeso425598466b.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 02:10:14 -0800 (PST)
+ id be2021cd-b069-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 11:11:10 +0100 (CET)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2ccae380df2so55412021fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 02:11:10 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ck12-20020a056e02370c00b003608a649906sm200808ilb.43.2024.01.11.02.11.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 11 Jan 2024 02:11:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,213 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cf3c46c-b069-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: be2021cd-b069-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1704967814; x=1705572614; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=i4QlDijI+0BlR7vvZB2GluE5/SYVSsNwQI26CiTSdEw=;
-        b=mwgY0e1c9XuG7+Ebv3yb9dWIC+u1FX4eOuiAx52YqCo5Yua7j+XV7jSEESLdfwo37X
-         E4vuDvjkoCgGnrRZqfp+J/MFzsUVzUN8427h9FgCgfhFZCP0YoEHg01IZ/ztxwVXy6VU
-         JMkneWPu/TtuKksD9VeGhdlZco1OOOBf2Mkz6j5jhzHvquaQrW+lkXWII+/PGX1FS7Pg
-         5xEYsR4wuHt4NYBaA1qlfTACqDpDtVbAp7HQPf/xWNrZqCB8QcYq6sFbGdFdKC3e/kvr
-         ZU5VBdB49bUD6C3dhQOl0E84OHEnqkeGiMEUmmtiBw49NPO7aWvF6T8nkMQ5p/Xl7cmC
-         T6xg==
+        d=suse.com; s=google; t=1704967870; x=1705572670; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=axkVMIwlcIEAxN9KjQ82rb+Wu0H2tBpV5wycGiRKvnw=;
+        b=BPzpGWUGE7OUPBs05b3XfWSzCxNlg5QhSJoIlCx9RazSM7oA6pceYJuhtDc8+akUTG
+         iUBfEMAHNl9Eqgw3goWy1YZ05aDrpOiuEuVo36wdu0aJq4z4E/SQWcMu/ukbkZeC9fwC
+         XVE4JytmRDJZ3kKnLv01pULlgUDhAbVcJACk6atDn9b0KThKlaNhMIeIuEFMY6fPNq/e
+         QRMp6f6kKcPMC2+Il9mSGzqUdFLPYoV7GIBVVR7Vh3xnW5+uao99A6TwjmtsNJ1HJA+y
+         iJzV9b6TBvLi8woxDnMsWf1sCAsnvlrdixLXxEdor6S/tuc4xJJ7CAgQ1G9iwfNQkHPm
+         QL5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704967814; x=1705572614;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=i4QlDijI+0BlR7vvZB2GluE5/SYVSsNwQI26CiTSdEw=;
-        b=BmqwMjsYOR4nkZNHdSJMQWdAm2cL51UASB5635y+XT2/fCQc4Nf1DtfRU3/+FhBk5T
-         CUZjmU8ODkFGyZJwuznuSFNmoX/6QIJt+qzoJMDzGO/QMXaCvF6hhB6Rsm8gki7xJLCj
-         6/emtMJc1CC24RKfeUCQWbyog+XtcMkt8S4jQtvnha2HPD1cx3zFTGC+shG9xK1tSBxL
-         kg/j29I6YwJ7F+LjzZ8saVpsSrIH4rBxgP3uwZnsR0v18mA7WN4IEhYkZEjVZLVARRNC
-         1zd5gyjIfYXSGGbQG5qlSF/pSvMyp9WjZRozKTdej0ObEObonbknqxHZaJT09aHxHITT
-         vtow==
-X-Gm-Message-State: AOJu0YxYlOoMGOhLSzriMvGppQUlrt1zYp0sj766DEX6A+/OePtWQC3b
-	NjEahyvKGUWeJir1ZHbyAgIkH2Q+nQPMQ1UOun+N5N/yIgyZmA==
-X-Google-Smtp-Source: AGHT+IG3wTPwDPvhZDzt2noVhl3WTd6T5eIh2H8ZMxJ1o4UvAJ9wK9gXq+ovsmFhNekDI9ddbkX55felhBA/eMMtedQ=
-X-Received: by 2002:a17:907:1c03:b0:a2a:7a55:5dd with SMTP id
- nc3-20020a1709071c0300b00a2a7a5505ddmr810424ejc.16.1704967814213; Thu, 11 Jan
- 2024 02:10:14 -0800 (PST)
+        d=1e100.net; s=20230601; t=1704967870; x=1705572670;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=axkVMIwlcIEAxN9KjQ82rb+Wu0H2tBpV5wycGiRKvnw=;
+        b=sitTYvdrrfrKzm+rAD7mRKbdMQkxNyx3z/FromFFM4cKr5ruX86+ToD+0+fxMubE2X
+         E6kd8NY93rn+B8mmD+p4Q2Rwy33RJjI4I3bqOCJ7G6zvc5DYy4bHp3/ucYAxaBIsIXkd
+         N7zPut2CJWEqvTxlE4KhcmUuZqudRLpZGMIEVYroIpjibF45UO4x+i2yGGgMYXq6kDtE
+         htSo9Eg2wjLsYoQ5hGSarcvy1yIgG/t9ccQTN2hL6NnGYHHyf+gZ/9Lt55eaTGSMl2Tc
+         dxQztx/Be32h0msSDWVQSC6JzslZGtucUKsrUosBOOBiAOndxMAEr7M7t6ZTTfAafDjJ
+         0KjQ==
+X-Gm-Message-State: AOJu0Yx8m0eMa0n3av1TS3zXLUR5h60c7B7dXZu/YigZU1syxvUibJKe
+	SiZP9/tduJzY3DxOlbmszVUx6YPxaPdQ
+X-Google-Smtp-Source: AGHT+IFXEj2AyW1Cbxpkt1VA1WI1r7z9eUBJHI4j6cK/G2ELw+3d/TakyETGzh6tlu2xCUSoIbKHtg==
+X-Received: by 2002:a2e:8782:0:b0:2cd:54d:482a with SMTP id n2-20020a2e8782000000b002cd054d482amr247468lji.59.1704967869863;
+        Thu, 11 Jan 2024 02:11:09 -0800 (PST)
+Message-ID: <3428928a-42d0-4e4b-9607-c184968c309d@suse.com>
+Date: Thu, 11 Jan 2024 11:11:07 +0100
 MIME-Version: 1.0
-References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-2-carlo.nonato@minervasys.tech> <feb5542a-081a-4677-b569-5d4218eb794d@suse.com>
-In-Reply-To: <feb5542a-081a-4677-b569-5d4218eb794d@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Thu, 11 Jan 2024 11:10:03 +0100
-Message-ID: <CAG+AhRWkasky8hrNBrtXsmmnmsJjf+-Nj3Nr7Nu4LfXvFYvwvQ@mail.gmail.com>
-Subject: Re: [PATCH v5 01/13] xen/common: add cache coloring common code
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/intel: ensure Global Performance Counter Control
+ is setup correctly
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240111090821.67594-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240111090821.67594-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+On 11.01.2024 10:08, Roger Pau Monne wrote:
+> When Architectural Performance Monitoring is available, the PERF_GLOBAL_CTRL
+> MSR contains per-counter enable bits that is ANDed with the enable bit in the
+> counter EVNTSEL MSR in order for a PMC counter to be enabled.
+> 
+> So far the watchdog code seems to have relied on the PERF_GLOBAL_CTRL enable
+> bits being set by default, but at least on some Intel Sapphire and Emerald
+> Rapids this is no longer the case, and Xen reports:
+> 
+> Testing NMI watchdog on all CPUs: 0 40 stuck
+> 
+> The first CPU on each package is started with PERF_GLOBAL_CTRL zeroed, so PMC0
+> doesn't start counting when the enable bit in EVNTSEL0 is set, due to the
+> relevant enable bit in PERF_GLOBAL_CTRL not being set.
+> 
+> Check and adjust PERF_GLOBAL_CTRL during CPU initialization so that all the
+> general-purpose PMCs are enabled.  Doing so brings the state of the package-BSP
+> PERF_GLOBAL_CTRL in line with the rest of the CPUs on the system.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+> Changes since v1:
+>  - Do the adjustment of PERF_GLOBAL_CTRL even if the watchdog is not used, and
+>    enable all counters.
+> ---
+> Unsure whether printing a warning if the value of PERF_GLOBAL_CTRL is not
+> correct is of any value, hence I haven't added it.
+> ---
+>  xen/arch/x86/cpu/intel.c | 18 +++++++++++++++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+> index dfee64689ffe..40d3eb0e18a7 100644
+> --- a/xen/arch/x86/cpu/intel.c
+> +++ b/xen/arch/x86/cpu/intel.c
+> @@ -533,9 +533,25 @@ static void cf_check init_intel(struct cpuinfo_x86 *c)
+>  	init_intel_cacheinfo(c);
+>  	if (c->cpuid_level > 9) {
+>  		unsigned eax = cpuid_eax(10);
+> +		unsigned int cnt = (uint8_t)(eax >> 8);
+> +
+>  		/* Check for version and the number of counters */
+> -		if ((eax & 0xff) && (((eax>>8) & 0xff) > 1))
+> +		if ((eax & 0xff) && (cnt > 1) && (cnt <= 32)) {
 
-On Mon, Jan 8, 2024 at 5:53=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 02.01.2024 10:51, Carlo Nonato wrote:
-> > This commit adds the Last Level Cache (LLC) coloring common header, Kco=
-nfig
-> > options and functions. Since this is an arch specific feature, actual
-> > implementation is postponed to later patches and Kconfig options are pl=
-aced
-> > under xen/arch.
->
-> As a general remark / nit: "This commit", "this patch", or alike aren't
-> well suited for descriptions.
->
-> > --- a/xen/arch/Kconfig
-> > +++ b/xen/arch/Kconfig
-> > @@ -31,3 +31,19 @@ config NR_NUMA_NODES
-> >         associated with multiple-nodes management. It is the upper boun=
-d of
-> >         the number of NUMA nodes that the scheduler, memory allocation =
-and
-> >         other NUMA-aware components can handle.
-> > +
-> > +config LLC_COLORING
-> > +     bool "Last Level Cache (LLC) coloring" if EXPERT
-> > +     depends on HAS_LLC_COLORING
-> > +
-> > +config NR_LLC_COLORS
-> > +     int "Maximum number of LLC colors"
-> > +     default 128
->
-> What if I set to value to 0? Or to an unreasonably large one? You don't
-> bound the value range at all.
+I may not have looked closely enough, but I didn't find the limit of
+32 being stated anywhere.
 
-I can reintroduce the range (it was there in previous versions). I just don=
-'t
-know what numbers to put.
-range 2 1024 seems reasonable since having 1 color only actually lowers
-performances because of the obvious sharing of resources. 1024 are the colo=
-rs
-that can fit into a standard 4KiB page. It's big enough for currently
-supported hardware that normally has 16 or 32 colors.
+> +			uint64_t global_ctrl;
+> +			unsigned int cnt_mask = (1UL << cnt) - 1;
 
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -7,6 +7,7 @@
-> >  #include <xen/compat.h>
-> >  #include <xen/init.h>
-> >  #include <xen/lib.h>
-> > +#include <xen/llc-coloring.h>
-> >  #include <xen/ctype.h>
-> >  #include <xen/err.h>
-> >  #include <xen/param.h>
-> > @@ -1144,6 +1145,9 @@ static void cf_check complete_domain_destroy(stru=
-ct rcu_head *head)
-> >      struct vcpu *v;
-> >      int i;
-> >
-> > +    if ( is_domain_llc_colored(d) )
-> > +        domain_llc_coloring_free(d);
->
-> Would be nice if the freeing function could be called unconditionally,
-> being a no-op for non-colored domains.
+Bits 2 + 4 * n have an additional qualification as per SDM vol 4.
 
-Ok.
+Jan
 
-> Further - is it really necessary to do this freeing this late?
+> +			/*
+> +			 * On (some?) Sapphire/Emerald Rapids platforms each
+> +			 * package-BSP starts with all the enable bits for the
+> +			 * general-purpose PMCs cleared.  Adjust so counters
+> +			 * can be enabled from EVNTSEL.
+> +			 */
+> +			rdmsrl(MSR_CORE_PERF_GLOBAL_CTRL, global_ctrl);
+> +			if ((global_ctrl & cnt_mask) != cnt_mask)
+> +				wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL,
+> +				       global_ctrl | cnt_mask);
+>  			__set_bit(X86_FEATURE_ARCH_PERFMON, c->x86_capability);
+> +		}
+>  	}
+>  
+>  	if ( !cpu_has(c, X86_FEATURE_XTOPOLOGY) )
 
-No, I can move it in domain_destroy().
-
-> > --- a/xen/common/keyhandler.c
-> > +++ b/xen/common/keyhandler.c
-> > @@ -6,6 +6,7 @@
-> >  #include <xen/debugger.h>
-> >  #include <xen/delay.h>
-> >  #include <xen/keyhandler.h>
-> > +#include <xen/llc-coloring.h>
-> >  #include <xen/param.h>
-> >  #include <xen/shutdown.h>
-> >  #include <xen/event.h>
-> > @@ -307,6 +308,9 @@ static void cf_check dump_domains(unsigned char key=
-)
-> >
-> >          arch_dump_domain_info(d);
-> >
-> > +        if ( is_domain_llc_colored(d) )
-> > +            domain_dump_llc_colors(d);
->
-> I'm less concerned of the conditional here, but along the lines of the
-> comment above, it could of course again be the function that simply is
-> a no-op for non-colored domains.
-
-Ok.
-
-> > --- /dev/null
-> > +++ b/xen/include/xen/llc-coloring.h
-> > @@ -0,0 +1,46 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +/*
-> > + * Last Level Cache (LLC) coloring common header
-> > + *
-> > + * Copyright (C) 2022 Xilinx Inc.
-> > + *
-> > + * Authors:
-> > + *    Carlo Nonato <carlo.nonato@minervasys.tech>
-> > + */
-> > +#ifndef __COLORING_H__
-> > +#define __COLORING_H__
-> > +
-> > +#include <xen/sched.h>
-> > +#include <public/domctl.h>
-> > +
-> > +#ifdef CONFIG_HAS_LLC_COLORING
->
-> Why does this matter here? IOW why ...
->
-> > +#include <asm/llc-coloring.h>
-> > +
-> > +#ifdef CONFIG_LLC_COLORING
->
-> ... is it not just this which is checked?
->
-> > +extern bool llc_coloring_enabled;
-> > +#define llc_coloring_enabled (llc_coloring_enabled)
-> > +#endif
-> > +
-> > +#endif
-> > +
-> > +#ifndef llc_coloring_enabled
-> > +#define llc_coloring_enabled (false)
-> > +#endif
->
-> +1 to the question Julien has raised here.
-
-Yes this whole block can be better structured.
-
-> > --- a/xen/include/xen/sched.h
-> > +++ b/xen/include/xen/sched.h
-> > @@ -626,6 +626,11 @@ struct domain
-> >
-> >      /* Holding CDF_* constant. Internal flags for domain creation. */
-> >      unsigned int cdf;
-> > +
-> > +#ifdef CONFIG_LLC_COLORING
-> > +    unsigned int *llc_colors;
->
-> Can the color values change over the lifetime of a domain? If not,
-> it may be prudent to have this be pointer-to-const.
-
-Can I free a pointer-to-const array?
-
-> Jan
->
-> > +    unsigned int num_llc_colors;
-> > +#endif
-> >  };
-> >
-> >  static inline struct page_list_head *page_to_list(
->
-
-Thanks.
 
