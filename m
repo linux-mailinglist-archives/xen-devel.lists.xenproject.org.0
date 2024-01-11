@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 202EB82B484
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 19:08:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666467.1037125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 682FF82B489
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 19:10:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666471.1037135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNzSy-00032f-AG; Thu, 11 Jan 2024 18:07:44 +0000
+	id 1rNzVV-00050m-Nt; Thu, 11 Jan 2024 18:10:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666467.1037125; Thu, 11 Jan 2024 18:07:44 +0000
+Received: by outflank-mailman (output) from mailman id 666471.1037135; Thu, 11 Jan 2024 18:10:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNzSy-000303-7U; Thu, 11 Jan 2024 18:07:44 +0000
-Received: by outflank-mailman (input) for mailman id 666467;
- Thu, 11 Jan 2024 18:07:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rNzVV-0004yN-Kf; Thu, 11 Jan 2024 18:10:21 +0000
+Received: by outflank-mailman (input) for mailman id 666471;
+ Thu, 11 Jan 2024 18:10:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YPRU=IV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rNzSw-0002yk-QE
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 18:07:42 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4dcea389-b0ac-11ee-9b0f-b553b5be7939;
- Thu, 11 Jan 2024 19:07:38 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40b5155e154so72268745e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 10:07:38 -0800 (PST)
+ id 1rNzVT-0004yA-Ay
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 18:10:19 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ad33ad77-b0ac-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 19:10:18 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40e5c317b34so12962945e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 10:10:18 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- f1-20020a5d6641000000b0033609584b9dsm1788483wrw.74.2024.01.11.10.07.37
+ jb13-20020a05600c54ed00b0040e418494absm2725315wmb.46.2024.01.11.10.10.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jan 2024 10:07:37 -0800 (PST)
+ Thu, 11 Jan 2024 10:10:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4dcea389-b0ac-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ad33ad77-b0ac-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704996458; x=1705601258; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1704996618; x=1705601418; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=+iF8o0/xbuMuQ0SG4Z3/J+WbK7BiSrX1PdDKAboasaI=;
-        b=RRRgoRudbGc/ARJlmnSvBC80ZPX/CNNTz/CxCKPPgbWegchoEk08rZmFOJEn6feqzq
-         bUI2vFfWglIovPzsj9MyMxMqtNbmZXP6FdOB/DZ1x3BRrXQ8Onxl9GTJ/GFlMEiT+EEB
-         /Hjcg3PYboFxTpy5nG7CYIZKCwCHmg3dC9Fd4=
+        bh=zMmvvtEPFVdzsifroa1irW9dUJCTEdtN9TGaUT8ZlX4=;
+        b=fOLCUwORd5COktVO91jxFeGVEOGKyVXoz1h4ZlJRBTQtlBvyTjmP+7MlGXTqneQZfC
+         8vcFdAgD7rCe2bpetkwZ/N1WjuX6A6z080zTC7jyl8/NRPT5RFAC54hgE+8p3u7OIwIL
+         0k1XvnkCr0RvZAcQZbxaQG8lsmE6kx0dT1PBU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704996458; x=1705601258;
+        d=1e100.net; s=20230601; t=1704996618; x=1705601418;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+iF8o0/xbuMuQ0SG4Z3/J+WbK7BiSrX1PdDKAboasaI=;
-        b=ecLaHiuWzOiA7wZRT5YhNJNgQMKx5IXFfPpFnxTPcOZ7VM69bftXpSTPTIxkIO/GBJ
-         AIfWT6AS1lN+0u2Jghy3V+d0CUVpTzS4Y2jij66ryt21F0hG0cBtKT3snG0vPDLim9FQ
-         4fpTXmcUn6PzWkLK8yC2I7Uc7svPmN9xZSjmCxdWzbjz31pT9J02lo/Vhvep3dninoqz
-         Tm0tNxybyfa9C03PEo+afcgyLeDa4wtxwFIZPPij2oMSRqbdVpNaTWVsfjZ7OO8JTF2n
-         yQL+uWfGZ/GQE2a4AC+5bNVuqlEBRV8uKShhLQizxx8pSR3myM86dz/U/UU0j3voyfvM
-         8olA==
-X-Gm-Message-State: AOJu0YxG1hux4A4/u1M+7v1FxabGHtXVlwa7mthvNJ7nfsN7co1kdySV
-	Pw9eoDVGsDQjD+uXeIbC4cJQF0TtFgfsVg==
-X-Google-Smtp-Source: AGHT+IGz8FcUfBAS2VgPqUcr3TMelgNYPXmvsXvmYLh8nwCDiP/jrtcYSqITZ5Aqxg7p+tLX+9JyiA==
-X-Received: by 2002:a05:600c:4446:b0:40e:3654:29f4 with SMTP id v6-20020a05600c444600b0040e365429f4mr109047wmn.32.1704996457750;
-        Thu, 11 Jan 2024 10:07:37 -0800 (PST)
-Message-ID: <485553fc-b91f-4a35-b01f-8bbd5964276b@citrix.com>
-Date: Thu, 11 Jan 2024 18:07:37 +0000
+        bh=zMmvvtEPFVdzsifroa1irW9dUJCTEdtN9TGaUT8ZlX4=;
+        b=rYmd+27i89KmpBcSkY7MBFVWAluq6qcaT1K1WXLgtQ64R49J6zsUEMAboYdjTrPaR0
+         5WwrvJefpSo6r/xLpDC1X3tINb5dnombvKxpNCNktq9bgUuCSn0f/X9XyYPoQqfYvz2x
+         HUmgbD1kaRLfTOW+GoY0QnhxFT7/P7B9Ky5ZU68fOpT1oqFHKaTFdeq4fTWSwvpLaNj7
+         oqvmPoE4QeY0SUreeP7/qJt4g4VqUy+aIzLDQlNmyBO+0a6JmM0SypP+2mJ2OjNfxU8C
+         ErP+wgNH7OrfER0CrpBr0zTxJqbBpwjYE0n2xyYBzkBy+TpPMjtZgFRrgi9n7tvpJ406
+         1EeA==
+X-Gm-Message-State: AOJu0Yz8Eda4vf7S6vsfv1Y4/NrSS7FMPgLJUYBzM5NzZU/8Bp1ypYlw
+	WD+I9lcBTmR5KvDO36E1kMmruuJvOcJGEFvwUFmTvbPFyxX24g==
+X-Google-Smtp-Source: AGHT+IEhY+sBgd57NFjrcABqT7TmoZkFP5VRgAfgb+w3WapI+esQeBuhSC6XddanimMdvCnolWTjOQ==
+X-Received: by 2002:a05:600c:4ecc:b0:40e:500c:23d8 with SMTP id g12-20020a05600c4ecc00b0040e500c23d8mr113878wmq.151.1704996617837;
+        Thu, 11 Jan 2024 10:10:17 -0800 (PST)
+Message-ID: <1e520de0-8698-499d-8187-c79f589c974d@citrix.com>
+Date: Thu, 11 Jan 2024 18:10:17 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] serial: drop serial_[rt]x_interrupt()'s regs
- parameter
+Subject: Re: [PATCH 6/8] IRQ: drop register parameter from handler functions
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
+ Michal Orzel <michal.orzel@amd.com>, Kevin Tian <kevin.tian@intel.com>
 References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
- <05b1284a-988c-4f91-9cde-4751332aaa96@suse.com>
+ <c6926627-aeb6-40dd-a85a-1be0b324bf49@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -131,75 +131,25 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <05b1284a-988c-4f91-9cde-4751332aaa96@suse.com>
+In-Reply-To: <c6926627-aeb6-40dd-a85a-1be0b324bf49@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/01/2024 7:34 am, Jan Beulich wrote:
-> In the the polling functions (ab)using set_irq_regs() is necessary
-> to balance the change.
+On 11/01/2024 7:35 am, Jan Beulich wrote:
+> It's simply not needed anymore. Note how Linux made this change many
+> years ago already, in 2.6.19 (late 2006, see [1]).
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=7d12e780e003f93433d49ce78cfedf4b4c52adc5
 
-I have to admit that I don't know what "balance the change" is supposed
-to refer to in this context.
+https://git.kernel.org/torvalds/c/7d12e780e003f93433d49ce78cfedf4b4c52adc5
 
-> --- a/xen/drivers/char/ehci-dbgp.c
-> +++ b/xen/drivers/char/ehci-dbgp.c
-> @@ -1268,11 +1269,16 @@ static void cf_check _ehci_dbgp_poll(str
->          spin_unlock_irqrestore(&port->tx_lock, flags);
->      }
->  
-> +    /* Mimic interrupt context. */
-> +    old_regs = set_irq_regs(regs);
-> +
->      if ( dbgp->in.chunk )
-> -        serial_rx_interrupt(port, regs);
-> +        serial_rx_interrupt(port);
->  
->      if ( empty )
-> -        serial_tx_interrupt(port, regs);
-> +        serial_tx_interrupt(port);
-> +
-> +    set_irq_regs(old_regs);
+See https://korg.docs.kernel.org/git-url-shorteners.html for full
+details, but this is a guaranteed-stable URL.
 
-Looking at this logic, it has occured to me that patch 2 probably ought
-to have ASSERT(!local_irqs_enabled()) in set_irq_regs().  While the main
-arch irq dispatch can reasonably have it as an implicit expectation,
-uses like this could do with the check.
+It's worth saying that despite that patch in Linux, they've still not
+yet managed to drop the regs parameter.
 
-
-This construct is very nasty.  What actually needs it?
-
-If it's only handle_keypress(), isn't there a latent issue between patch
-3 and 5, given that patch 3 uses set_irq_regs() before this patch sets
-it up?
-
-Might it be better to do this in the main handling of BUGFRAME_run_fn,
-rather than at a few select users?  We're already abusing
-BUGFRAME_run_fn to set up an IRQ-like context for these poll functions.
-
-I suppose a different question is what it would take to get rid of
-this.  Is it something a bit more cleanup would solve, or is there some
-more fundamental untangling required?
-
-
-> --- a/xen/drivers/char/xhci-dbc.c
-> +++ b/xen/drivers/char/xhci-dbc.c
-> @@ -1175,10 +1176,15 @@ static void cf_check dbc_uart_poll(void
->          spin_unlock_irqrestore(&port->tx_lock, flags);
->      }
->  
-> +    /* Mimic interrupt context. */
-> +    old_regs = set_irq_regs(guest_cpu_user_regs());
-
-This is not a bug in your patch, but...
-
-The use of guest_cpu_user_regs() here is different to all the other poll
-functions.  Is this actually correct?
-
-If we're really in interrupt context and then we fake up a poll like
-this, then we don't have a total order of frames recorded in the
-irq_regs pointer.  I can't see a specific issue, but it also doesn't
-feel as if it is something we should allow.
-
-~Andrew
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
