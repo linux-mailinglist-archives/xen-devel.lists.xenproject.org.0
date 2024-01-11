@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E92782A868
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:34:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665949.1036306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2553382A86F
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:35:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665955.1036315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpaF-0000Yv-4R; Thu, 11 Jan 2024 07:34:35 +0000
+	id 1rNpb5-0001AS-Fe; Thu, 11 Jan 2024 07:35:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665949.1036306; Thu, 11 Jan 2024 07:34:35 +0000
+Received: by outflank-mailman (output) from mailman id 665955.1036315; Thu, 11 Jan 2024 07:35:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpaE-0000XL-W4; Thu, 11 Jan 2024 07:34:34 +0000
-Received: by outflank-mailman (input) for mailman id 665949;
- Thu, 11 Jan 2024 07:34:33 +0000
+	id 1rNpb5-00018g-D5; Thu, 11 Jan 2024 07:35:27 +0000
+Received: by outflank-mailman (input) for mailman id 665955;
+ Thu, 11 Jan 2024 07:35:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpaD-0000XC-OO
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:34:33 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1rNpb4-00018Y-PB
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:35:26 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dc9aadaf-b053-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 08:34:32 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40e60e13581so1653715e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:34:32 -0800 (PST)
+ id fc2a3a49-b053-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 08:35:25 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-336755f1688so4272290f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:35:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d6-20020a056000114600b003366a9cb0d1sm444087wrx.92.2024.01.10.23.34.31
+ d6-20020a056000114600b003366a9cb0d1sm444087wrx.92.2024.01.10.23.35.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:34:31 -0800 (PST)
+ Wed, 10 Jan 2024 23:35:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc9aadaf-b053-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: fc2a3a49-b053-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704958472; x=1705563272; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704958525; x=1705563325; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oZKCYOY6gg3N8LW61PDUiaDApFPPurPi/J2T7sVSPdg=;
-        b=N2j4rO7/S+XmTPoGdFpAWuiF5LOKyPQeVsXICi3HUfxGYNjC8qYx2rtTQeSntGB83i
-         4n+MLfolAdp4ddeDqhWHJDILkOvU4rr6vkH1yUo/l5NMoD/v8kAqettQaSWlXcdmKwXi
-         qybgOFjsmCtERMZol5MaIN21eaji3GfQDxOyJJKT0tz6sKZAZSuAk8dlBmwrzSOWdh/Q
-         OMlVHYqGWIJuDtdYHi8CsJlY8vwonSn3OvUSbTUEQocNgDMbK6UrkY9Zp52ocr+uipWN
-         ctrQziUZuYwEn6DDSdazGMp2VHrMWwL9ASMxD7rw2D7fIyZl0/h9S1Zk16f3pg0ObclS
-         aGgg==
+        bh=TMrbBvkZhskVDNFDVa776VDzvxg6i1Meo4j2L0PFpIY=;
+        b=Ka9lgTFDG9SrMk16tJKPHQIDGylIVs1SfFFFHNdG1s55miL2E9asJCyQSskcL5kUjn
+         GbDzflDaGE2UzXEzT96SOHoeXnbX5ijireGrDtkpXy9hskQ55eD1anddNAelOE5tQV2q
+         Iz8Qbw3/EHt+AwCYS0KlwirEsIIH98cl0jC8iNITHW7Dwx0Ctb7BWpzz0h/HNIr1192j
+         es576RCLuZRmUMEtQb4irLw/rpDxn2fNueP5pojLqB2kQsTPUraDwI4Q3xhxQ9+mWpIy
+         glcTJ08WnRzMjxbZ0EVuuQrbfByuRMPvO0v1MnDZFFQYR/KhD0QIMpZcQ86UofMSODXf
+         gsdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704958472; x=1705563272;
+        d=1e100.net; s=20230601; t=1704958525; x=1705563325;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=oZKCYOY6gg3N8LW61PDUiaDApFPPurPi/J2T7sVSPdg=;
-        b=EKWn6BWSQFGTniCcbYOmQiCEwZGi9Ny2c995Omcq4o7GOV1SgFCzRFAmlXU9iBr0QY
-         8GyA+1w/3455rRbIct6yt+Bj4ILhJVJS5Pij1Qi8PYEDcGUAW+CMcgyqXFditZ/9NdEc
-         wd1dJPnv2auJC3zWDJfZsUnut5Zp+YKqHphqNUAmSnSVt8BfzCeyBghIoDg6ADJkhSCo
-         pSTUSaGhIGNscxhkPNEEZdeOfB44If8dIw6YQgYHRVj5CK2TfVXcbZF+gsthHvMAPR/I
-         Eo1qTjvAWsS6hlR91WXi4JQb7kUQy3UPiYoy2ykXNNnQeQcJPai2BK9+QyScEeQ+k1yn
-         VMWA==
-X-Gm-Message-State: AOJu0YzXwqqYcDj0v09+D/xu9Qnzx6DYSU+9yDMFflYWgPbn7CjW6Hf/
-	0xPofrACCtYXhNAlcUZmpVRda0+St+N1U2aDioXSUFruYg==
-X-Google-Smtp-Source: AGHT+IHLJlz2c/qbYVyOLjZctY3pLI6OSnMk/W+Ulnl4UM8Mb2lIMCrBge74IAUwiV/oUu+Fgj+CmQ==
-X-Received: by 2002:a05:600c:314f:b0:40e:49ac:e4a6 with SMTP id h15-20020a05600c314f00b0040e49ace4a6mr107078wmo.171.1704958472053;
-        Wed, 10 Jan 2024 23:34:32 -0800 (PST)
-Message-ID: <05b1284a-988c-4f91-9cde-4751332aaa96@suse.com>
-Date: Thu, 11 Jan 2024 08:34:31 +0100
+        bh=TMrbBvkZhskVDNFDVa776VDzvxg6i1Meo4j2L0PFpIY=;
+        b=tRI64Z/tFgDiqRLX4hT6ZiediXAfd12I++zd5w/gt+F5nHuNNSSVDx0/lfXNmsTlEh
+         6hsv7XM8OaG6iU5RDQMBAdlmL6hVp8YHcxWVLgiZuoIRpHE2nvYIi1UxERqO87xy86VY
+         nb3Tp9D4bH3Sj9mEb4vVUdzBbpdaPVvR4A9W+ePH6z1+gE50LVQHGaSRna5uzIJrmBsV
+         /xctGBh5nR1h0aPO4khNazyPkamCJMS+xcmYAPl5/MhPEOVX5SfsZJ8sXJ0BWp+92fj9
+         qtmcnrXAKCl1woRbT37hxNPdNSrYViflLrG712kB1NLr777bG+ZYUT7KIgQSiQeKuL1g
+         7D3w==
+X-Gm-Message-State: AOJu0YyfTRzdePQ4ldgktcfQyZIAv03yZCn0GAOhHRvjsddSCYWKA7EQ
+	0UOhwA32l++RKBzE+qDsLaqtMXycM1W3ETXo0B5dcTiaZg==
+X-Google-Smtp-Source: AGHT+IGvxnj4i0FkUHie6I9iC/M+vw+/zXVrk6qxwayAQIhoCucG+Q4PXg7/4v+ZtPGxmp/Qn/crhA==
+X-Received: by 2002:a5d:440e:0:b0:336:779b:97a1 with SMTP id z14-20020a5d440e000000b00336779b97a1mr298049wrq.74.1704958525128;
+        Wed, 10 Jan 2024 23:35:25 -0800 (PST)
+Message-ID: <c6926627-aeb6-40dd-a85a-1be0b324bf49@suse.com>
+Date: Thu, 11 Jan 2024 08:35:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 5/8] serial: drop serial_[rt]x_interrupt()'s regs parameter
+Subject: [PATCH 6/8] IRQ: drop register parameter from handler functions
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
+ Michal Orzel <michal.orzel@amd.com>, Kevin Tian <kevin.tian@intel.com>
 References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,280 +118,334 @@ In-Reply-To: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In the the polling functions (ab)using set_irq_regs() is necessary
-to balance the change. This is in preparation of dropping the register
-parameters from IRQ handler functions.
+It's simply not needed anymore. Note how Linux made this change many
+years ago already, in 2.6.19 (late 2006, see [1]).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=7d12e780e003f93433d49ce78cfedf4b4c52adc5
+
+--- a/xen/arch/arm/gic.c
++++ b/xen/arch/arm/gic.c
+@@ -397,7 +397,7 @@ void gic_interrupt(struct cpu_user_regs
+     } while (1);
+ }
+ 
+-static void maintenance_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
++static void maintenance_interrupt(int irq, void *dev_id)
+ {
+     /*
+      * This is a dummy interrupt handler.
+--- a/xen/arch/arm/irq.c
++++ b/xen/arch/arm/irq.c
+@@ -182,8 +182,7 @@ void irq_set_affinity(struct irq_desc *d
+ }
+ 
+ int request_irq(unsigned int irq, unsigned int irqflags,
+-                void (*handler)(int irq, void *dev_id,
+-                                struct cpu_user_regs *regs),
++                void (*handler)(int irq, void *dev_id),
+                 const char *devname, void *dev_id)
+ {
+     struct irqaction *action;
+@@ -276,7 +275,7 @@ void do_IRQ(struct cpu_user_regs *regs,
+ 
+     do
+     {
+-        action->handler(irq, action->dev_id, regs);
++        action->handler(irq, action->dev_id);
+         action = action->next;
+     } while ( action );
+ 
+--- a/xen/arch/arm/time.c
++++ b/xen/arch/arm/time.c
+@@ -241,7 +241,7 @@ int reprogram_timer(s_time_t timeout)
+ }
+ 
+ /* Handle the firing timer */
+-static void htimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
++static void htimer_interrupt(int irq, void *dev_id)
+ {
+     if ( unlikely(!(READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING)) )
+         return;
+@@ -255,7 +255,7 @@ static void htimer_interrupt(int irq, vo
+     WRITE_SYSREG(0, CNTHP_CTL_EL2);
+ }
+ 
+-static void vtimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
++static void vtimer_interrupt(int irq, void *dev_id)
+ {
+     /*
+      * Edge-triggered interrupts can be used for the virtual timer. Even
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -962,7 +962,7 @@ static int __init cf_check irq_ratelimit
+ __initcall(irq_ratelimit_init);
+ 
+ int __init request_irq(unsigned int irq, unsigned int irqflags,
+-        void (*handler)(int irq, void *dev_id, struct cpu_user_regs *regs),
++        void (*handler)(int irq, void *dev_id),
+         const char * devname, void *dev_id)
+ {
+     struct irqaction * action;
+@@ -2009,7 +2009,7 @@ void do_IRQ(struct cpu_user_regs *regs)
+         spin_unlock_irq(&desc->lock);
+ 
+         tsc_in = tb_init_done ? get_cycles() : 0;
+-        action->handler(irq, action->dev_id, regs);
++        action->handler(irq, action->dev_id);
+         TRACE_3D(TRC_HW_IRQ_HANDLED, irq, tsc_in, get_cycles());
+ 
+         spin_lock_irq(&desc->lock);
+--- a/xen/arch/x86/hpet.c
++++ b/xen/arch/x86/hpet.c
+@@ -237,8 +237,7 @@ again:
+     }
+ }
+ 
+-static void cf_check hpet_interrupt_handler(
+-    int irq, void *data, struct cpu_user_regs *regs)
++static void cf_check hpet_interrupt_handler(int irq, void *data)
+ {
+     struct hpet_event_channel *ch = data;
+ 
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -198,8 +198,7 @@ static void smp_send_timer_broadcast_ipi
+     }
+ }
+ 
+-static void cf_check timer_interrupt(
+-    int irq, void *dev_id, struct cpu_user_regs *regs)
++static void cf_check timer_interrupt(int irq, void *dev_id)
+ {
+     ASSERT(local_irq_is_enabled());
+ 
+--- a/xen/common/irq.c
++++ b/xen/common/irq.c
+@@ -29,7 +29,7 @@ int init_one_irq_desc(struct irq_desc *d
+     return err;
+ }
+ 
+-void cf_check no_action(int cpl, void *dev_id, struct cpu_user_regs *regs)
++void cf_check no_action(int cpl, void *dev_id)
+ {
+ }
+ 
 --- a/xen/drivers/char/cadence-uart.c
 +++ b/xen/drivers/char/cadence-uart.c
-@@ -51,7 +51,7 @@ static void cuart_interrupt(int irq, voi
-         /* ACK.  */
-         if ( status & UART_SR_INTR_RTRIG )
-         {
--            serial_rx_interrupt(port, regs);
-+            serial_rx_interrupt(port);
-             cuart_write(uart, R_UART_CISR, UART_SR_INTR_RTRIG);
-         }
-     } while ( status & UART_SR_INTR_RTRIG );
---- a/xen/drivers/char/ehci-dbgp.c
-+++ b/xen/drivers/char/ehci-dbgp.c
-@@ -1253,6 +1253,7 @@ static void cf_check _ehci_dbgp_poll(str
-     unsigned long flags;
-     unsigned int timeout = MICROSECS(DBGP_CHECK_INTERVAL);
-     bool empty = false;
-+    struct cpu_user_regs *old_regs;
+@@ -40,7 +40,7 @@ static struct cuart {
+ #define cuart_read(uart, off)           readl((uart)->regs + (off))
+ #define cuart_write(uart, off,val)      writel((val), (uart)->regs + (off))
  
-     if ( !dbgp->ehci_debug )
-         return;
-@@ -1268,11 +1269,16 @@ static void cf_check _ehci_dbgp_poll(str
-         spin_unlock_irqrestore(&port->tx_lock, flags);
-     }
- 
-+    /* Mimic interrupt context. */
-+    old_regs = set_irq_regs(regs);
-+
-     if ( dbgp->in.chunk )
--        serial_rx_interrupt(port, regs);
-+        serial_rx_interrupt(port);
- 
-     if ( empty )
--        serial_tx_interrupt(port, regs);
-+        serial_tx_interrupt(port);
-+
-+    set_irq_regs(old_regs);
- 
-     if ( spin_trylock_irqsave(&port->tx_lock, flags) )
-     {
+-static void cuart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void cuart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct cuart *uart = port->uart;
 --- a/xen/drivers/char/exynos4210-uart.c
 +++ b/xen/drivers/char/exynos4210-uart.c
-@@ -81,7 +81,7 @@ static void exynos4210_uart_interrupt(in
-         if ( status & (UINTM_RXD | UINTM_ERROR) )
-         {
-             /* uart->regs[UINTM] |= RXD|ERROR; */
--            serial_rx_interrupt(port, regs);
-+            serial_rx_interrupt(port);
-             /* uart->regs[UINTM] &= ~(RXD|ERROR); */
-             exynos4210_write(uart, UINTP, UINTM_RXD | UINTM_ERROR);
-         }
-@@ -89,7 +89,7 @@ static void exynos4210_uart_interrupt(in
-         if ( status & (UINTM_TXD | UINTM_MODEM) )
-         {
-             /* uart->regs[UINTM] |= TXD|MODEM; */
--            serial_tx_interrupt(port, regs);
-+            serial_tx_interrupt(port);
-             /* uart->regs[UINTM] &= ~(TXD|MODEM); */
-             exynos4210_write(uart, UINTP, UINTM_TXD | UINTM_MODEM);
-         }
+@@ -45,7 +45,7 @@ static struct exynos4210_uart {
+ #define exynos4210_read(uart, off)          readl((uart)->regs + off)
+ #define exynos4210_write(uart, off, val)    writel(val, (uart->regs) + off)
+ 
+-static void exynos4210_uart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void exynos4210_uart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct exynos4210_uart *uart = port->uart;
 --- a/xen/drivers/char/imx-lpuart.c
 +++ b/xen/drivers/char/imx-lpuart.c
-@@ -48,10 +48,10 @@ static void imx_lpuart_interrupt(int irq
-     rxcnt = imx_lpuart_read(uart, UARTWATER) >> UARTWATER_RXCNT_OFF;
+@@ -37,8 +37,7 @@ static struct imx_lpuart {
+     struct vuart_info vuart;
+ } imx8_com;
  
-     if ( (sts & UARTSTAT_RDRF) || (rxcnt > 0) )
--	    serial_rx_interrupt(port, regs);
-+	    serial_rx_interrupt(port);
- 
-     if ( sts & UARTSTAT_TDRE )
--	    serial_tx_interrupt(port, regs);
-+	    serial_tx_interrupt(port);
- 
-     imx_lpuart_write(uart, UARTSTAT, sts);
- }
+-static void imx_lpuart_interrupt(int irq, void *data,
+-                                 struct cpu_user_regs *regs)
++static void imx_lpuart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct imx_lpuart *uart = port->uart;
 --- a/xen/drivers/char/meson-uart.c
 +++ b/xen/drivers/char/meson-uart.c
-@@ -69,10 +69,10 @@ static void meson_uart_interrupt(int irq
-     uint32_t st = readl(uart->regs + AML_UART_STATUS_REG);
+@@ -61,8 +61,7 @@ static struct meson_uart {
+     struct vuart_info vuart;
+ } meson_com;
  
-     if ( !(st & AML_UART_RX_FIFO_EMPTY) )
--        serial_rx_interrupt(port, regs);
-+        serial_rx_interrupt(port);
- 
-     if ( !(st & AML_UART_TX_FIFO_FULL) )
--        serial_tx_interrupt(port, regs);
-+        serial_tx_interrupt(port);
- }
- 
- static void __init meson_uart_init_preirq(struct serial_port *port)
+-static void meson_uart_interrupt(int irq, void *data,
+-                                 struct cpu_user_regs *regs)
++static void meson_uart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct meson_uart *uart = port->uart;
 --- a/xen/drivers/char/mvebu-uart.c
 +++ b/xen/drivers/char/mvebu-uart.c
-@@ -76,10 +76,10 @@ static void mvebu3700_uart_interrupt(int
+@@ -67,8 +67,7 @@ static struct mvebu3700_uart {
+ #define mvebu3700_read(uart, off)           readl((uart)->regs + (off))
+ #define mvebu3700_write(uart, off, val)     writel(val, (uart)->regs + (off))
  
-     if ( st & (STATUS_RX_RDY | STATUS_OVR_ERR | STATUS_FRM_ERR |
-                STATUS_BRK_DET) )
--        serial_rx_interrupt(port, regs);
-+        serial_rx_interrupt(port);
- 
-     if ( st & STATUS_TX_RDY )
--        serial_tx_interrupt(port, regs);
-+        serial_tx_interrupt(port);
- }
- 
- static void __init mvebu3700_uart_init_preirq(struct serial_port *port)
+-static void mvebu3700_uart_interrupt(int irq, void *data,
+-                                     struct cpu_user_regs *regs)
++static void mvebu3700_uart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct mvebu3700_uart *uart = port->uart;
 --- a/xen/drivers/char/ns16550.c
 +++ b/xen/drivers/char/ns16550.c
-@@ -188,9 +188,9 @@ static void cf_check ns16550_interrupt(
-         u8 lsr = ns_read_reg(uart, UART_LSR);
- 
-         if ( (lsr & uart->lsr_mask) == uart->lsr_mask )
--            serial_tx_interrupt(port, regs);
-+            serial_tx_interrupt(port);
-         if ( lsr & UART_LSR_DR )
--            serial_rx_interrupt(port, regs);
-+            serial_rx_interrupt(port);
- 
-         /* A "busy-detect" condition is observed on Allwinner/sunxi UART
-          * after LCR is written during setup. It needs to be cleared at
-@@ -211,22 +211,27 @@ static void cf_check __ns16550_poll(stru
- {
-     struct serial_port *port = this_cpu(poll_port);
-     struct ns16550 *uart = port->uart;
-+    struct cpu_user_regs *old_regs;
- 
-     if ( uart->intr_works )
-         return; /* Interrupts work - no more polling */
- 
-+    /* Mimic interrupt context. */
-+    old_regs = set_irq_regs(regs);
-+
-     while ( ns_read_reg(uart, UART_LSR) & UART_LSR_DR )
-     {
-         if ( ns16550_ioport_invalid(uart) )
-             goto out;
- 
--        serial_rx_interrupt(port, regs);
-+        serial_rx_interrupt(port);
+@@ -175,8 +175,7 @@ static void handle_dw_usr_busy_quirk(str
      }
- 
-     if ( ( ns_read_reg(uart, UART_LSR) & uart->lsr_mask ) == uart->lsr_mask )
--        serial_tx_interrupt(port, regs);
-+        serial_tx_interrupt(port);
- 
- out:
-+    set_irq_regs(old_regs);
-     set_timer(&uart->timer, NOW() + MILLISECS(uart->timeout_ms));
  }
  
+-static void cf_check ns16550_interrupt(
+-    int irq, void *dev_id, struct cpu_user_regs *regs)
++static void cf_check ns16550_interrupt(int irq, void *dev_id)
+ {
+     struct serial_port *port = dev_id;
+     struct ns16550 *uart = port->uart;
 --- a/xen/drivers/char/omap-uart.c
 +++ b/xen/drivers/char/omap-uart.c
-@@ -70,9 +70,9 @@ static void omap_uart_interrupt(int irq,
-     {
-         lsr = omap_read(uart, UART_LSR) & 0xff;
- 	if ( lsr & UART_LSR_THRE )
--            serial_tx_interrupt(port, regs);
-+            serial_tx_interrupt(port);
- 	if ( lsr & UART_LSR_DR )
--            serial_rx_interrupt(port, regs);
-+            serial_rx_interrupt(port);
+@@ -59,7 +59,7 @@ static struct omap_uart {
+     struct vuart_info vuart;
+ } omap_com = {0};
  
-         if ( port->txbufc == port->txbufp ) {
-             reg = omap_read(uart, UART_IER);
+-static void omap_uart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void omap_uart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct omap_uart *uart = port->uart;
 --- a/xen/drivers/char/pl011.c
 +++ b/xen/drivers/char/pl011.c
-@@ -95,7 +95,7 @@ static void pl011_interrupt(int irq, voi
-             pl011_write(uart, ICR, status & ~(TXI|RTI|RXI));
+@@ -82,7 +82,7 @@ static unsigned int pl011_intr_status(st
+     return (pl011_read(uart, RIS) & pl011_read(uart, IMSC));
+ }
  
-             if ( status & (RTI|RXI) )
--                serial_rx_interrupt(port, regs);
-+                serial_rx_interrupt(port);
- 
-             /* TODO
-                 if ( status & (DSRMI|DCDMI|CTSMI|RIMI) )
-@@ -103,7 +103,7 @@ static void pl011_interrupt(int irq, voi
-             */
- 
-             if ( status & (TXI) )
--                serial_tx_interrupt(port, regs);
-+                serial_tx_interrupt(port);
- 
-             status = pl011_intr_status(uart);
-         } while (status != 0);
+-static void pl011_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void pl011_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct pl011 *uart = port->uart;
 --- a/xen/drivers/char/scif-uart.c
 +++ b/xen/drivers/char/scif-uart.c
-@@ -119,11 +119,11 @@ static void scif_uart_interrupt(int irq,
-     {
-         /* TX Interrupt */
-         if ( status & SCFSR_TDFE )
--            serial_tx_interrupt(port, regs);
-+            serial_tx_interrupt(port);
+@@ -102,7 +102,7 @@ static const struct port_params port_par
+     },
+ };
  
-         /* RX Interrupt */
-         if ( status & (SCFSR_RDF | SCFSR_DR) )
--            serial_rx_interrupt(port, regs);
-+            serial_rx_interrupt(port);
- 
-         /* Error Interrupt */
-         if ( status & params->error_mask )
---- a/xen/drivers/char/serial.c
-+++ b/xen/drivers/char/serial.c
-@@ -45,7 +45,7 @@ static inline void serial_stop_tx(struct
-         port->driver->stop_tx(port);
- }
- 
--void serial_rx_interrupt(struct serial_port *port, struct cpu_user_regs *regs)
-+void serial_rx_interrupt(struct serial_port *port)
+-static void scif_uart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void scif_uart_interrupt(int irq, void *data)
  {
-     char c;
-     serial_rx_fn fn = NULL;
-@@ -71,7 +71,7 @@ void serial_rx_interrupt(struct serial_p
-         fn(c & 0x7f);
- }
+     struct serial_port *port = data;
+     struct scif_uart *uart = port->uart;
+--- a/xen/drivers/passthrough/amd/iommu_init.c
++++ b/xen/drivers/passthrough/amd/iommu_init.c
+@@ -718,8 +718,7 @@ static void cf_check do_amd_iommu_irq(vo
  
--void serial_tx_interrupt(struct serial_port *port, struct cpu_user_regs *regs)
-+void serial_tx_interrupt(struct serial_port *port)
+ static DECLARE_SOFTIRQ_TASKLET(amd_iommu_irq_tasklet, do_amd_iommu_irq, NULL);
+ 
+-static void cf_check iommu_interrupt_handler(
+-    int irq, void *dev_id, struct cpu_user_regs *regs)
++static void cf_check iommu_interrupt_handler(int irq, void *dev_id)
  {
-     int i, n;
      unsigned long flags;
---- a/xen/drivers/char/xhci-dbc.c
-+++ b/xen/drivers/char/xhci-dbc.c
-@@ -1164,6 +1164,7 @@ static void cf_check dbc_uart_poll(void
-     struct dbc_uart *uart = port->uart;
-     struct dbc *dbc = &uart->dbc;
-     unsigned long flags = 0;
-+    struct cpu_user_regs *old_regs;
- 
-     if ( spin_trylock_irqsave(&port->tx_lock, flags) )
-     {
-@@ -1175,10 +1176,15 @@ static void cf_check dbc_uart_poll(void
-         spin_unlock_irqrestore(&port->tx_lock, flags);
-     }
- 
-+    /* Mimic interrupt context. */
-+    old_regs = set_irq_regs(guest_cpu_user_regs());
-+
-     while ( dbc_work_ring_size(&dbc->dbc_iwork) )
--        serial_rx_interrupt(port, guest_cpu_user_regs());
-+        serial_rx_interrupt(port);
-+
-+    serial_tx_interrupt(port);
- 
--    serial_tx_interrupt(port, guest_cpu_user_regs());
-+    set_irq_regs(old_regs);
-     set_timer(&uart->timer, NOW() + MICROSECS(DBC_POLL_INTERVAL));
+     struct amd_iommu *iommu = dev_id;
+--- a/xen/drivers/passthrough/arm/smmu.c
++++ b/xen/drivers/passthrough/arm/smmu.c
+@@ -1097,16 +1097,14 @@ static irqreturn_t arm_smmu_global_fault
  }
  
---- a/xen/include/xen/serial.h
-+++ b/xen/include/xen/serial.h
-@@ -12,8 +12,6 @@
- #include <xen/init.h>
- #include <xen/spinlock.h>
+ /* Xen: Interrupt handlers wrapper */
+-static void arm_smmu_context_fault_xen(int irq, void *dev,
+-				       struct cpu_user_regs *regs)
++static void arm_smmu_context_fault_xen(int irq, void *dev)
+ {
+ 	arm_smmu_context_fault(irq, dev);
+ }
  
--struct cpu_user_regs;
--
- /* Register a character-receive hook on the specified COM port. */
- typedef void (*serial_rx_fn)(char c);
- void serial_set_rx_handler(int handle, serial_rx_fn fn);
-@@ -155,8 +153,8 @@ void serial_register_uart(int idx, struc
- /* Place the serial port into asynchronous transmit mode. */
- void serial_async_transmit(struct serial_port *port);
- /* Process work in interrupt context. */
--void serial_rx_interrupt(struct serial_port *port, struct cpu_user_regs *regs);
--void serial_tx_interrupt(struct serial_port *port, struct cpu_user_regs *regs);
-+void serial_rx_interrupt(struct serial_port *port);
-+void serial_tx_interrupt(struct serial_port *port);
+ #define arm_smmu_context_fault arm_smmu_context_fault_xen
  
- /*
-  * Initialisers for individual uart drivers.
+-static void arm_smmu_global_fault_xen(int irq, void *dev,
+-				      struct cpu_user_regs *regs)
++static void arm_smmu_global_fault_xen(int irq, void *dev)
+ {
+ 	arm_smmu_global_fault(irq, dev);
+ }
+--- a/xen/drivers/passthrough/arm/smmu-v3.c
++++ b/xen/drivers/passthrough/arm/smmu-v3.c
+@@ -880,8 +880,7 @@ static void arm_smmu_priq_tasklet(void *
+ 
+ static int arm_smmu_device_disable(struct arm_smmu_device *smmu);
+ 
+-static void arm_smmu_gerror_handler(int irq, void *dev,
+-				struct cpu_user_regs *regs)
++static void arm_smmu_gerror_handler(int irq, void *dev)
+ {
+ 	u32 gerror, gerrorn, active;
+ 	struct arm_smmu_device *smmu = dev;
+@@ -926,8 +925,7 @@ static void arm_smmu_gerror_handler(int
+ 	writel(gerror, smmu->base + ARM_SMMU_GERRORN);
+ }
+ 
+-static void arm_smmu_combined_irq_handler(int irq, void *dev,
+-				struct cpu_user_regs *regs)
++static void arm_smmu_combined_irq_handler(int irq, void *dev)
+ {
+ 	struct arm_smmu_device *smmu = dev;
+ 
+@@ -945,16 +943,14 @@ static void arm_smmu_combined_irq_taskle
+ 		arm_smmu_priq_tasklet(dev);
+ }
+ 
+-static void arm_smmu_evtq_irq_tasklet(int irq, void *dev,
+-				struct cpu_user_regs *regs)
++static void arm_smmu_evtq_irq_tasklet(int irq, void *dev)
+ {
+ 	struct arm_smmu_device *smmu = dev;
+ 
+ 	tasklet_schedule(&(smmu->evtq_irq_tasklet));
+ }
+ 
+-static void arm_smmu_priq_irq_tasklet(int irq, void *dev,
+-				struct cpu_user_regs *regs)
++static void arm_smmu_priq_irq_tasklet(int irq, void *dev)
+ {
+ 	struct arm_smmu_device *smmu = dev;
+ 
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -1119,8 +1119,7 @@ static void cf_check do_iommu_page_fault
+         __do_iommu_page_fault(drhd->iommu);
+ }
+ 
+-static void cf_check iommu_page_fault(
+-    int irq, void *dev_id, struct cpu_user_regs *regs)
++static void cf_check iommu_page_fault(int irq, void *dev_id)
+ {
+     /*
+      * Just flag the tasklet as runnable. This is fine, according to VT-d
+--- a/xen/include/xen/irq.h
++++ b/xen/include/xen/irq.h
+@@ -18,7 +18,7 @@
+     ASSERT(!in_irq() && (local_irq_is_enabled() || num_online_cpus() <= 1))
+ 
+ struct irqaction {
+-    void (*handler)(int irq, void *dev_id, struct cpu_user_regs *regs);
++    void (*handler)(int irq, void *dev_id);
+     const char *name;
+     void *dev_id;
+     bool free_on_release;
+@@ -119,12 +119,11 @@ extern int setup_irq(unsigned int irq, u
+                      struct irqaction *new);
+ extern void release_irq(unsigned int irq, const void *dev_id);
+ extern int request_irq(unsigned int irq, unsigned int irqflags,
+-               void (*handler)(int irq, void *dev_id,
+-                     struct cpu_user_regs *regs),
++               void (*handler)(int irq, void *dev_id),
+                const char *devname, void *dev_id);
+ 
+ extern hw_irq_controller no_irq_type;
+-void cf_check no_action(int cpl, void *dev_id, struct cpu_user_regs *regs);
++void cf_check no_action(int cpl, void *dev_id);
+ unsigned int cf_check irq_startup_none(struct irq_desc *desc);
+ void cf_check irq_actor_none(struct irq_desc *desc);
+ #define irq_shutdown_none irq_actor_none
 
 
