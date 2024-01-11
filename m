@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB08D82A888
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:49:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665979.1036346 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB2E582A892
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:53:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665983.1036357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpnL-0005j7-40; Thu, 11 Jan 2024 07:48:07 +0000
+	id 1rNpsL-000052-OK; Thu, 11 Jan 2024 07:53:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665979.1036346; Thu, 11 Jan 2024 07:48:07 +0000
+Received: by outflank-mailman (output) from mailman id 665983.1036357; Thu, 11 Jan 2024 07:53:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpnL-0005gi-12; Thu, 11 Jan 2024 07:48:07 +0000
-Received: by outflank-mailman (input) for mailman id 665979;
- Thu, 11 Jan 2024 07:48:05 +0000
+	id 1rNpsL-0008U3-KH; Thu, 11 Jan 2024 07:53:17 +0000
+Received: by outflank-mailman (input) for mailman id 665983;
+ Thu, 11 Jan 2024 07:53:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpnJ-0005gc-95
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:48:05 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1rNpsJ-0008Tx-Li
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:53:15 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c0693d13-b055-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 08:48:04 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40e5f615a32so2841605e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:48:04 -0800 (PST)
+ id 796e4008-b056-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 08:53:14 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-3374eb61cbcso4532126f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:53:14 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dr18-20020a5d5f92000000b0033677a4e0d6sm491559wrb.13.2024.01.10.23.48.03
+ c28-20020adfa31c000000b0033775980d26sm500759wrb.2.2024.01.10.23.53.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:48:03 -0800 (PST)
+ Wed, 10 Jan 2024 23:53:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c0693d13-b055-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: 796e4008-b056-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704959284; x=1705564084; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704959594; x=1705564394; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=pzf1Z1/LdxTvPW5MTdHruq1krKzlVUJGRi+TTE6vyTk=;
-        b=Mr1m3pwhISWUsiUb/mb/quEtaYexlnQb72OxMLxt9DHt6zqqPfqF/Ba+9z30rW6gjG
-         oxM9Po5YsDO9DjHUr1YVR15mC0vy7Kuo1j/ItvyB7+8snJIlNqvHxLgWk1SCJSmRrNLz
-         WwzEJcO/2VscEChKB7G+2JR395qqe2IHz4X5jd7kjstV0yVDZ90CmzsvSTsG0A/n4IlO
-         b+guyVdZVg/7jbweyMBPP7AxrcVeLCs7BHqHy7dH4NHUWnnspaklog/UAJB4Yjr8D0ae
-         Kwyqfy4G3eadCEuVaa7ugIosl+aucoMsydTBDPH/+UyflyyXNmk4BHk5LxAinsJycESB
-         0ONw==
+        bh=4Jo74aMqjG6F5Mno+cxU3pwLqXDLTAUwkJrVylM525s=;
+        b=CIe7jfNV2I1SSly+56G6sN8xf8PLw2DjYo93J+iZM4iNjt69NJ+nhE0maNugISJImE
+         HIpHiCXXZ/8bm5DE31wXykGIY7tBHn2T12xWw6byt2Mq87wB0BPlvg6wMPqbO13YfTyC
+         0fmu/pNmwMuupW6zCT1sbOl1xI5eAjDdChybnBJHMRoX6cg4bdqc98ry4vg+CYBb+nM0
+         mfFS3EHyVjajXIgZ9Z6lKf901/zdQv1UmYovlnL/KuVzgW7CYGqCcPGe/FMqpTGsHQL7
+         rTeyZYoLmKlhRQbDGb9vremLfyW0shl3bjvMtKVggHiAeOmA5TEB2P+AaiT6mi5ATY96
+         fQQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704959284; x=1705564084;
+        d=1e100.net; s=20230601; t=1704959594; x=1705564394;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pzf1Z1/LdxTvPW5MTdHruq1krKzlVUJGRi+TTE6vyTk=;
-        b=P8JXQm7rLFWtQTceLM2b34SiGhU+NV3HGoXuyYRzwg/R4mUBgu4SYUuS6WfOnMl+mx
-         4uPV1xoRg3BAZ7dAo4OYUnZLQPlBhoQ07er4SpYeMF2N4uX3Y4eIq4wJbq1hdPsWHm99
-         gczrgywEfrfUrDO+ImyVLmVbYaE361CQCqz890qIHEre87BZNQ7pDDNCXYa2wupqSMNt
-         QesO5GLUrI5ZQ+pdlRqBufW7LrjdNRNcqKfI6wSkfBsPDxfGRsF8gOjTatzem34WfBKk
-         lrMc0n36rrz3kN0V+MMNKzdGmWjLuBvaifQck9VIULLbZckfxHErDgcu0yAPNcujWjMG
-         +Y0g==
-X-Gm-Message-State: AOJu0YybnO4kYr/cA295T7KgqmwXMP1uYtpsVWDLBqRMDbPdcinhlR0I
-	pT//yoZ4XnGd7+4KKfeRg62X/hCL2heI
-X-Google-Smtp-Source: AGHT+IFKeBt2YMbfrpuDJU/WKSSHjGnv9fXHma0CDLQLu0KDWY27oeRZTVlmd08SBijJfhu810chdQ==
-X-Received: by 2002:a05:600c:3b29:b0:40d:5b0c:768b with SMTP id m41-20020a05600c3b2900b0040d5b0c768bmr75967wms.206.1704959283753;
-        Wed, 10 Jan 2024 23:48:03 -0800 (PST)
-Message-ID: <195c7cfb-2495-49f5-96e0-fe6bd0942a83@suse.com>
-Date: Thu, 11 Jan 2024 08:48:02 +0100
+        bh=4Jo74aMqjG6F5Mno+cxU3pwLqXDLTAUwkJrVylM525s=;
+        b=mw4ayfenAkEuOOdazDQiCQui/Y73s7UwA4HtiLuGdEIybEZtLoBOKcxe+WH0QDAK+e
+         15/aHUcKETbYHrhPbihr08nqcf8e5zC8nNf3S1u9H4TbUW7TBLJk4UkfZuKH5jFAG5tO
+         m4tY33c6yc8Q5Upfu9U3gHWBOTe+t0WSimu1UlsLlU84D4btOzJKHLc7PAtMv+LeWcwV
+         Y62CTdEbgSb0qhZ7/SH59Bq7uI0rQok6224T4Hinid/36TNObMuVTfiKDSMClJw5YU8v
+         vpaPK8ZxRf7sPayTCKQCr87CPiZstRx+Mzphy2u3jf+P7Q6DvTLGE3QMfUzNx5QFB/ch
+         8Ftw==
+X-Gm-Message-State: AOJu0Yy+VQZnhk/SIqKbVcDHi0SY2ZIL7ejI2jIWmcjlEPt5/brnW7YY
+	bs3l2eJUTY34FJouaLRNSC2aIzwZwl7L
+X-Google-Smtp-Source: AGHT+IHS8iJEsP0zEPsgCcSyYY7klcQRM6mh9JtkTKtu5ECwx+81rZWmNq/6uEiSTV1FT1m/bCY+Rw==
+X-Received: by 2002:a5d:6644:0:b0:334:ada5:3835 with SMTP id f4-20020a5d6644000000b00334ada53835mr386369wrw.4.1704959594213;
+        Wed, 10 Jan 2024 23:53:14 -0800 (PST)
+Message-ID: <88d4cb45-f2e6-4acd-8ec4-060f90a444fc@suse.com>
+Date: Thu, 11 Jan 2024 08:53:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/vmx: Fix IRQ handling for EXIT_REASON_INIT
+Subject: Re: [PATCH 10/22] x86/mapcache: initialise the mapcache for the idle
+ domain
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Reima ISHII <ishiir@g.ecc.u-tokyo.ac.jp>,
+To: Elias El Yandouzi <eliasely@amazon.com>
+Cc: Hongyan Xia <hongyxia@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Tamas K Lengyel <tamas@tklengyel.com>,
- Takahiro Shinagawa <shina@ecc.u-tokyo.ac.jp>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20231101192058.3419310-1-andrew.cooper3@citrix.com>
- <20231101192058.3419310-2-andrew.cooper3@citrix.com>
- <8ea5ad46-dbdf-2d9b-1d90-14ff20d94ab8@suse.com>
- <9f8524b4-735e-4f8f-b12c-006dd178b575@citrix.com>
+ <wl@xen.org>, Wei Wang <wawei@amazon.de>, Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+References: <20221216114853.8227-1-julien@xen.org>
+ <20221216114853.8227-11-julien@xen.org>
+ <751ffdb3-651c-b8e6-dc33-5a6857e3c88d@suse.com>
+ <88024314-245f-404e-a6b7-7ea859bae309@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,35 +116,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9f8524b4-735e-4f8f-b12c-006dd178b575@citrix.com>
+In-Reply-To: <88024314-245f-404e-a6b7-7ea859bae309@amazon.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 10.01.2024 20:11, Andrew Cooper wrote:
-> On 02/11/2023 8:57 am, Jan Beulich wrote:
->> On 01.11.2023 20:20, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/hvm/vmx/vmx.c
->>> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->>> @@ -4097,10 +4097,6 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
->>>      case EXIT_REASON_MCE_DURING_VMENTRY:
->>>          do_machine_check(regs);
->>>          break;
->>> -
->>> -    case EXIT_REASON_INIT:
->>> -        printk(XENLOG_ERR "Error: INIT received - ignoring\n");
->>> -        return; /* Renter the guest without further processing */
->>>      }
->> Wouldn't the printk() better remain where it was, and just the "return" be
->> purged?
+On 10.01.2024 17:24, Elias El Yandouzi wrote:
+> On 22/12/2022 13:06, Jan Beulich wrote:
+>> On 16.12.2022 12:48, Julien Grall wrote:
+>>> --- a/xen/arch/x86/mm.c
+>>> +++ b/xen/arch/x86/mm.c
+>>> @@ -5963,6 +5963,9 @@ int create_perdomain_mapping(struct domain *d, unsigned long va,
+>>>           l3tab = __map_domain_page(pg);
+>>>           clear_page(l3tab);
+>>>           d->arch.perdomain_l3_pg = pg;
+>>> +        if ( is_idle_domain(d) )
+>>> +            idle_pg_table[l4_table_offset(PERDOMAIN_VIRT_START)] =
+>>> +                l4e_from_page(pg, __PAGE_HYPERVISOR_RW);
+>>
+>> Hmm, having an idle domain check here isn't very nice. I agree putting
+>> it in arch_domain_create()'s respective conditional isn't very neat
+>> either, but personally I'd consider this at least a little less bad.
+>> And the layering violation aspect isn't much worse than that of setting
+>> d->arch.ctxt_switch there as well.
 > 
-> Not really... that would hit the unknown vmexit path in the second.
+> Why do you think it would be less bad to move it in 
+> arch_domain_create()? To me, it would make things worse as it would 
+> spread the mapping stuff across different functions.
 
-Well, I didn't mean to suggest to purge the other hunk. Instead I meant ...
-
-> We actually have a variety of empty cases in the second.  We could add
-> another.
-
-... something along these lines - do nothing but "break;" there.
+Not sure what to add to what I said: create_perdomain_mapping() gaining
+such a check is a layering violation to me. arch_domain_create() otoh
+special cases the idle domain already.
 
 Jan
 
