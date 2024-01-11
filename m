@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2C3682B4CB
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 19:34:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666498.1037192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0872E82B565
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 20:48:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666513.1037205 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNzsk-00035U-6N; Thu, 11 Jan 2024 18:34:22 +0000
+	id 1rO118-0001Tl-D2; Thu, 11 Jan 2024 19:47:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666498.1037192; Thu, 11 Jan 2024 18:34:22 +0000
+Received: by outflank-mailman (output) from mailman id 666513.1037205; Thu, 11 Jan 2024 19:47:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNzsk-0002xk-1e; Thu, 11 Jan 2024 18:34:22 +0000
-Received: by outflank-mailman (input) for mailman id 666498;
- Thu, 11 Jan 2024 18:34:21 +0000
+	id 1rO118-0001Qn-A5; Thu, 11 Jan 2024 19:47:06 +0000
+Received: by outflank-mailman (input) for mailman id 666513;
+ Thu, 11 Jan 2024 19:47:05 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rNzsj-0002kT-5y
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 18:34:21 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rO117-0001Qd-0R; Thu, 11 Jan 2024 19:47:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rNzsi-000483-RD; Thu, 11 Jan 2024 18:34:20 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rNzsi-0000gW-GO; Thu, 11 Jan 2024 18:34:20 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rO116-0005XV-NE; Thu, 11 Jan 2024 19:47:04 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rO116-0008QO-5e; Thu, 11 Jan 2024 19:47:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rO116-0000PS-58; Thu, 11 Jan 2024 19:47:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,346 +42,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=qJJI5QEt+6FADEEnoFWOXuZuH35ZFWnjWnhkkG3wgoM=; b=J7WdqMUO2b954/IcmcRKZ5CtdS
-	+494fEPMyjbv+hqOQyA9lU8mcaPC2Wi6KkcgyaPpbSnw2m31SweWjyXA3qqTUpHqMeSfAN47TmwLi
-	wbubPtr3ZWSQQ04qR8hCN/04P7+Bqw+vMGkOZQXtmipWQQYAPP7kQdjt4LIOlir4dTWg=;
-From: Julien Grall <julien@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=UFMzj0vG0amwqELjvkFIK3Mk+srU5mWG9+6OhY8YvrM=; b=BN1pDnFbCgUOnO8zJPBLcynw3l
+	jtD3Uof7Yq+ZHUHmUku3fPyiVAtHFTBCDpNT2h+rVSa4wn2+qzMSsCroxs6bjYU7w5t1P2S+7a7xF
+	vPgMrRDOPXoDlOZ9hgX+Wq6rvdPgzRtFpC4oPW4T0IzpPF2yMEIQZ/OG5fQ8v8BfmBKY=;
 To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 2/2] xen/arm32: head: Improve logging in head.S
-Date: Thu, 11 Jan 2024 18:34:10 +0000
-Message-Id: <20240111183410.45566-3-julien@xen.org>
-X-Mailer: git-send-email 2.40.1
-In-Reply-To: <20240111183410.45566-1-julien@xen.org>
-References: <20240111183410.45566-1-julien@xen.org>
-MIME-Version: 1.0
+Message-ID: <osstest-184314-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 184314: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-xl-credit1:debian-install:fail:regression
+    linux-linus:test-arm64-arm64-xl:debian-install:fail:regression
+    linux-linus:test-arm64-arm64-xl-thunderx:debian-install:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:debian-install:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:debian-install:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:debian-install:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=de927f6c0b07d9e698416c5b287c521b07694cac
+X-Osstest-Versions-That:
+    linux=0dd3ee31125508cd67f7e7172247f05b7fd1753a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 11 Jan 2024 19:47:04 +0000
 
-From: Julien Grall <jgrall@amazon.com>
+flight 184314 linux-linus real [real]
+flight 184321 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184314/
+http://logs.test-lab.xenproject.org/osstest/logs/184321/
 
-The sequence to enable the MMU on arm32 is quite complex as we may need
-to jump to a temporary mapping to map Xen.
+Regressions :-(
 
-Recently, we had one bug in the logic (see f5a49eb7f8b3 ("xen/arm32:
-head: Add mising isb in switch_to_runtime_mapping()") and it was
-a pain to debug because there are no logging.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-credit1  12 debian-install           fail REGR. vs. 184270
+ test-arm64-arm64-xl          12 debian-install           fail REGR. vs. 184270
+ test-arm64-arm64-xl-thunderx 12 debian-install           fail REGR. vs. 184270
+ test-arm64-arm64-xl-credit2  12 debian-install           fail REGR. vs. 184270
+ test-arm64-arm64-xl-xsm      12 debian-install           fail REGR. vs. 184270
+ test-arm64-arm64-libvirt-xsm 12 debian-install           fail REGR. vs. 184270
 
-In order to improve the logging in the MMU switch we need to add
-support for early printk while running on the identity mapping
-and also on the temporary mapping.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184270
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184270
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184270
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184270
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184270
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184270
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184270
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184270
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
-For the identity mapping, we have only the first page of Xen mapped.
-So all the strings should reside in the first page. For that purpose
-a new macro PRINT_ID is introduced.
+version targeted for testing:
+ linux                de927f6c0b07d9e698416c5b287c521b07694cac
+baseline version:
+ linux                0dd3ee31125508cd67f7e7172247f05b7fd1753a
 
-For the temporary mapping, the fixmap is already linked in the temporary
-area (and so does the UART). So we just need to update the register
-storing the UART address (i.e. r11) to point to the UART temporary
-mapping.
+Last test of basis   184270  2024-01-07 20:42:19 Z    3 days
+Failing since        184283  2024-01-08 20:10:43 Z    2 days    5 attempts
+Testing same since   184314  2024-01-11 02:43:05 Z    0 days    1 attempts
 
-Take the opportunity to introduce mov_w_on_cond in order to
-conditionally execute mov_w and avoid branches.
+------------------------------------------------------------
+550 people touched revisions under test,
+not listing them all
 
-Signed-off-by: Julien Grall <jgrall@amazon.com>
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 fail    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-----
-    Changelog since v1:
-        - Rebase
-        - Move one hunk to the first patch to unbreak compilation
-        - Add more logging
-        - Remove duplicated entry
----
- xen/arch/arm/arm32/head.S               |  9 ------
- xen/arch/arm/arm32/mmu/head.S           | 39 +++++++++++++++++++++++++
- xen/arch/arm/include/asm/arm32/macros.h | 33 +++++++++++++++------
- xen/arch/arm/include/asm/asm_defns.h    |  6 ++--
- xen/arch/arm/include/asm/early_printk.h |  3 ++
- xen/arch/arm/include/asm/mmu/layout.h   |  4 +++
- xen/arch/arm/mmu/setup.c                |  3 ++
- xen/arch/arm/xen.lds.S                  |  1 +
- 8 files changed, 78 insertions(+), 20 deletions(-)
 
-diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-index 34ab14a9e228..99d7d4aa63d1 100644
---- a/xen/arch/arm/arm32/head.S
-+++ b/xen/arch/arm/arm32/head.S
-@@ -98,10 +98,6 @@ past_zImage:
-         b     enable_boot_cpu_mm
- 
- primary_switched:
--#ifdef CONFIG_EARLY_PRINTK
--        /* Use a virtual address to access the UART. */
--        mov_w r11, EARLY_UART_VIRTUAL_ADDRESS
--#endif
-         bl    zero_bss
-         PRINT("- Ready -\r\n")
-         /* Setup the arguments for start_xen and jump to C world */
-@@ -142,12 +138,7 @@ GLOBAL(init_secondary)
- 
-         mov_w lr, secondary_switched
-         b     enable_secondary_cpu_mm
--
- secondary_switched:
--#ifdef CONFIG_EARLY_PRINTK
--        /* Use a virtual address to access the UART. */
--        mov_w r11, EARLY_UART_VIRTUAL_ADDRESS
--#endif
-         PRINT("- Ready -\r\n")
-         /* Jump to C world */
-         mov_w r2, start_secondary
-diff --git a/xen/arch/arm/arm32/mmu/head.S b/xen/arch/arm/arm32/mmu/head.S
-index a90799ad5451..f4abd690b612 100644
---- a/xen/arch/arm/arm32/mmu/head.S
-+++ b/xen/arch/arm/arm32/mmu/head.S
-@@ -298,6 +298,21 @@ enable_mmu:
-         mcr   CP32(r0, HSCTLR)       /* now paging is enabled */
-         isb                          /* Now, flush the icache */
- 
-+        /*
-+         * At this stage, the UART address will depend on whether the
-+         * temporary mapping was created or not.
-+         *
-+         * If it was, then the UART will be mapped in the temporary
-+         * area. Otherwise, it will be mapped at runtime virtual
-+         * mapping.
-+         */
-+#ifdef CONFIG_EARLY_PRINTK
-+        teq   r12, #1               /* Was the temporary mapping created? */
-+        mov_w_on_cond eq, r11, TEMPORARY_EARLY_UART_VIRTUAL_ADDRESS
-+        mov_w_on_cond ne, r11, EARLY_UART_VIRTUAL_ADDRESS
-+#endif
-+        PRINT_ID("- Paging turned on -\r\n")
-+
-         /*
-          * The MMU is turned on and we are in the 1:1 mapping. Switch
-          * to the runtime mapping.
-@@ -307,6 +322,17 @@ enable_mmu:
-         b     switch_to_runtime_mapping
- 1:
-         mov   lr, r5                /* Restore LR */
-+
-+        /*
-+         * Now we are running at the runtime address. The UART can
-+         * be accessed using its runtime virtual address.
-+         */
-+#ifdef CONFIG_EARLY_PRINTK
-+        mov_w r11, EARLY_UART_VIRTUAL_ADDRESS
-+#endif
-+
-+        PRINT("- Switched to the runtime mapping -\r\n")
-+
-         /*
-          * At this point, either the 1:1 map or the temporary mapping
-          * will be present. The former may clash with other parts of the
-@@ -348,12 +374,14 @@ switch_to_runtime_mapping:
-         teq   r12, #0
-         beq   ready_to_switch
- 
-+        PRINT_ID("- Switching to the temporary mapping -\r\n")
-         /* We are still in the 1:1 mapping. Jump to the temporary Virtual address. */
-         mov_w r0, 1f
-         add   r0, r0, #XEN_TEMPORARY_OFFSET /* r0 := address in temporary mapping */
-         mov   pc, r0
- 
- 1:
-+        PRINT("- Running on the temporary mapping  -\r\n")
-         /* Remove boot_second_id */
-         mov   r2, #0
-         mov   r3, #0
-@@ -364,6 +392,8 @@ switch_to_runtime_mapping:
- 
-         flush_xen_tlb_local r0
- 
-+        PRINT("- 1:1 mapping removed -\r\n")
-+
-         /* Map boot_second into boot_pgtable */
-         mov_w r0, XEN_VIRT_START
-         create_table_entry boot_pgtable, boot_second, r0, 1
-@@ -376,7 +406,10 @@ switch_to_runtime_mapping:
-          */
-         isb
- 
-+        PRINT("- Runtime mapping mapped -\r\n")
- ready_to_switch:
-+        PRINT_ID("- Jumping to runtime address -\r\n")
-+
-         mov   pc, lr
- ENDPROC(switch_to_runtime_mapping)
- 
-@@ -404,6 +437,8 @@ ENTRY(enable_secondary_cpu_mm)
-         mov_w lr, 1f
-         b     enable_mmu
- 1:
-+        PRINT("- Switching to the runtime page-tables -\r\n")
-+
-         /*
-          * Non-boot CPUs need to move on to the proper pagetables, which were
-          * setup in prepare_secondary_mm.
-@@ -468,6 +503,8 @@ ENDPROC(enable_boot_cpu_mm)
-  * Clobbers r0 - r3
-  */
- remove_identity_mapping:
-+        PRINT("- Removing the identity mapping -\r\n")
-+
-         /* r2:r3 := invalid page-table entry */
-         mov   r2, #0x0
-         mov   r3, #0x0
-@@ -488,6 +525,8 @@ ENDPROC(remove_identity_mapping)
-  * Clobbers r0 - r3
-  */
- remove_temporary_mapping:
-+        PRINT("- Removing the temporary mapping -\r\n")
-+
-         /* r2:r3 := invalid page-table entry */
-         mov   r2, #0
-         mov   r3, #0
-diff --git a/xen/arch/arm/include/asm/arm32/macros.h b/xen/arch/arm/include/asm/arm32/macros.h
-index b84666c764d4..db681a7c7eaa 100644
---- a/xen/arch/arm/include/asm/arm32/macros.h
-+++ b/xen/arch/arm/include/asm/arm32/macros.h
-@@ -9,9 +9,13 @@
-  * Move an immediate constant into a 32-bit register using movw/movt
-  * instructions.
-  */
-+.macro mov_w_on_cond cond, reg, word
-+        movw\cond  \reg, #:lower16:\word
-+        movt\cond  \reg, #:upper16:\word
-+.endm
-+
- .macro mov_w reg, word
--        movw  \reg, #:lower16:\word
--        movt  \reg, #:upper16:\word
-+        mov_w_on_cond al, \reg, \word
- .endm
- 
- /*
-@@ -29,16 +33,26 @@
- 
- #ifdef CONFIG_EARLY_PRINTK
- /*
-- * Macro to print a string to the UART, if there is one.
-+ * Macros to print a string to the UART, if there is one.
-+ *
-+ * There are multiple flavors:
-+ *  - PRINT_SECT(section, string): The @string will be located in @section
-+ *  - PRINT(): The string will be located in .rodata.str.
-+ *  - PRINT_ID(): When Xen is running on the Identity Mapping, it is
-+ *    only possible to have a limited amount of Xen. This will create
-+ *    the string in .rodata.idmap which will always be mapped.
-  *
-  * Clobbers r0 - r3
-  */
--#define PRINT(_s)           \
--        mov   r3, lr       ;\
--        adr_l r0, 98f      ;\
--        bl    asm_puts     ;\
--        mov   lr, r3       ;\
--        RODATA_STR(98, _s)
-+#define PRINT_SECT(section, string)         \
-+        mov   r3, lr                       ;\
-+        adr_l r0, 98f                      ;\
-+        bl    asm_puts                     ;\
-+        mov   lr, r3                       ;\
-+        RODATA_SECT(section, 98, string)
-+
-+#define PRINT(string) PRINT_SECT(.rodata.str, string)
-+#define PRINT_ID(string) PRINT_SECT(.rodata.idmap, string)
- 
- /*
-  * Macro to print the value of register \rb
-@@ -54,6 +68,7 @@
- 
- #else /* CONFIG_EARLY_PRINTK */
- #define PRINT(s)
-+#define PRINT_ID(s)
- 
- .macro print_reg rb
- .endm
-diff --git a/xen/arch/arm/include/asm/asm_defns.h b/xen/arch/arm/include/asm/asm_defns.h
-index 29a9dbb002fa..ec803c0a370c 100644
---- a/xen/arch/arm/include/asm/asm_defns.h
-+++ b/xen/arch/arm/include/asm/asm_defns.h
-@@ -22,11 +22,13 @@
- # error "unknown ARM variant"
- #endif
- 
--#define RODATA_STR(label, msg)                  \
--.pushsection .rodata.str, "aMS", %progbits, 1 ; \
-+#define RODATA_SECT(section, label, msg)         \
-+.pushsection section, "aMS", %progbits, 1 ;     \
- label:  .asciz msg;                             \
- .popsection
- 
-+#define RODATA_STR(label, msg) RODATA_SECT(.rodata.str, label, msg)
-+
- #define ASM_INT(label, val)                 \
-     .p2align 2;                             \
- label: .long (val);                         \
-diff --git a/xen/arch/arm/include/asm/early_printk.h b/xen/arch/arm/include/asm/early_printk.h
-index c5149b2976da..c1e84f8b0009 100644
---- a/xen/arch/arm/include/asm/early_printk.h
-+++ b/xen/arch/arm/include/asm/early_printk.h
-@@ -19,6 +19,9 @@
- #define EARLY_UART_VIRTUAL_ADDRESS \
-     (FIXMAP_ADDR(FIXMAP_CONSOLE) + (CONFIG_EARLY_UART_BASE_ADDRESS & ~PAGE_MASK))
- 
-+#define TEMPORARY_EARLY_UART_VIRTUAL_ADDRESS \
-+    (TEMPORARY_FIXMAP_ADDR(FIXMAP_CONSOLE) + (CONFIG_EARLY_UART_BASE_ADDRESS & ~PAGE_MASK))
-+
- #endif /* !CONFIG_EARLY_PRINTK */
- 
- #endif
-diff --git a/xen/arch/arm/include/asm/mmu/layout.h b/xen/arch/arm/include/asm/mmu/layout.h
-index eac7eef885d6..a3b546465b5a 100644
---- a/xen/arch/arm/include/asm/mmu/layout.h
-+++ b/xen/arch/arm/include/asm/mmu/layout.h
-@@ -116,6 +116,10 @@
-       (TEMPORARY_AREA_FIRST_SLOT << XEN_PT_LEVEL_SHIFT(1)))
- 
- #define TEMPORARY_XEN_VIRT_START    TEMPORARY_AREA_ADDR(XEN_VIRT_START)
-+#define TEMPORARY_FIXMAP_VIRT_START TEMPORARY_AREA_ADDR(FIXMAP_VIRT_START)
-+
-+#define TEMPORARY_FIXMAP_ADDR(n)                    \
-+     (TEMPORARY_FIXMAP_VIRT_START + (n) * PAGE_SIZE)
- 
- #else /* ARM_64 */
- 
-diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
-index d5264e51bc44..72725840b6b7 100644
---- a/xen/arch/arm/mmu/setup.c
-+++ b/xen/arch/arm/mmu/setup.c
-@@ -120,7 +120,10 @@ static void __init __maybe_unused build_assertions(void)
- #ifdef CONFIG_ARM_32
-     CHECK_SAME_SLOT(first, TEMPORARY_XEN_VIRT_START, DOMHEAP_VIRT_START);
-     CHECK_DIFFERENT_SLOT(first, XEN_VIRT_START, TEMPORARY_XEN_VIRT_START);
-+    CHECK_SAME_SLOT(first, TEMPORARY_XEN_VIRT_START,
-+                    TEMPORARY_FIXMAP_VIRT_START);
-     CHECK_SAME_SLOT(second, XEN_VIRT_START, TEMPORARY_XEN_VIRT_START);
-+    CHECK_SAME_SLOT(second, FIXMAP_VIRT_START, TEMPORARY_FIXMAP_VIRT_START);
- #endif
- 
- #undef CHECK_SAME_SLOT
-diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-index 59b80d122fd0..20598c6963ce 100644
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -35,6 +35,7 @@ SECTIONS
-        _idmap_start = .;
-        *(.text.header)
-        *(.text.idmap)
-+       *(.rodata.idmap)
-        _idmap_end = .;
- 
-        *(.text.cold)
--- 
-2.40.1
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 58694 lines long.)
 
