@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682FF82B489
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 19:10:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666471.1037135 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C10D282B49F
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 19:14:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666478.1037146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNzVV-00050m-Nt; Thu, 11 Jan 2024 18:10:21 +0000
+	id 1rNzZF-0005e7-BW; Thu, 11 Jan 2024 18:14:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666471.1037135; Thu, 11 Jan 2024 18:10:21 +0000
+Received: by outflank-mailman (output) from mailman id 666478.1037146; Thu, 11 Jan 2024 18:14:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNzVV-0004yN-Kf; Thu, 11 Jan 2024 18:10:21 +0000
-Received: by outflank-mailman (input) for mailman id 666471;
- Thu, 11 Jan 2024 18:10:19 +0000
+	id 1rNzZF-0005cK-8X; Thu, 11 Jan 2024 18:14:13 +0000
+Received: by outflank-mailman (input) for mailman id 666478;
+ Thu, 11 Jan 2024 18:14:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YPRU=IV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rNzVT-0004yA-Ay
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 18:10:19 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1rNzZD-0005cE-R0
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 18:14:11 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ad33ad77-b0ac-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 19:10:18 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40e5c317b34so12962945e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 10:10:18 -0800 (PST)
+ id 37de9d96-b0ad-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 19:14:11 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-3367a304091so4843453f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 10:14:10 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- jb13-20020a05600c54ed00b0040e418494absm2725315wmb.46.2024.01.11.10.10.17
+ q5-20020adf9dc5000000b003376dbc75e9sm1773363wre.14.2024.01.11.10.14.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jan 2024 10:10:17 -0800 (PST)
+ Thu, 11 Jan 2024 10:14:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad33ad77-b0ac-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: 37de9d96-b0ad-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704996618; x=1705601418; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1704996850; x=1705601650; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zMmvvtEPFVdzsifroa1irW9dUJCTEdtN9TGaUT8ZlX4=;
-        b=fOLCUwORd5COktVO91jxFeGVEOGKyVXoz1h4ZlJRBTQtlBvyTjmP+7MlGXTqneQZfC
-         8vcFdAgD7rCe2bpetkwZ/N1WjuX6A6z080zTC7jyl8/NRPT5RFAC54hgE+8p3u7OIwIL
-         0k1XvnkCr0RvZAcQZbxaQG8lsmE6kx0dT1PBU=
+        bh=aPBAHuVD+D41eBNL4+vrA5FQG6lil0xOCzJbdFNUQE4=;
+        b=j/BaoXLu/nwc4u/dDzpaXrYtt68nhFvqg9KgnhL5swBnEFNaHQdzPeOV1eIk9HHToV
+         vALfg8gZ2WUgKVf2iVxuRUqe5++UKmUzNsmAgAs6H8MlLMPv0FMA4em19XbmnFlPJ3iE
+         oSTDQhfuJhIzPKsN2BpM8Dvg+tPFvS9ddJLBs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704996618; x=1705601418;
+        d=1e100.net; s=20230601; t=1704996850; x=1705601650;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zMmvvtEPFVdzsifroa1irW9dUJCTEdtN9TGaUT8ZlX4=;
-        b=rYmd+27i89KmpBcSkY7MBFVWAluq6qcaT1K1WXLgtQ64R49J6zsUEMAboYdjTrPaR0
-         5WwrvJefpSo6r/xLpDC1X3tINb5dnombvKxpNCNktq9bgUuCSn0f/X9XyYPoQqfYvz2x
-         HUmgbD1kaRLfTOW+GoY0QnhxFT7/P7B9Ky5ZU68fOpT1oqFHKaTFdeq4fTWSwvpLaNj7
-         oqvmPoE4QeY0SUreeP7/qJt4g4VqUy+aIzLDQlNmyBO+0a6JmM0SypP+2mJ2OjNfxU8C
-         ErP+wgNH7OrfER0CrpBr0zTxJqbBpwjYE0n2xyYBzkBy+TpPMjtZgFRrgi9n7tvpJ406
-         1EeA==
-X-Gm-Message-State: AOJu0Yz8Eda4vf7S6vsfv1Y4/NrSS7FMPgLJUYBzM5NzZU/8Bp1ypYlw
-	WD+I9lcBTmR5KvDO36E1kMmruuJvOcJGEFvwUFmTvbPFyxX24g==
-X-Google-Smtp-Source: AGHT+IEhY+sBgd57NFjrcABqT7TmoZkFP5VRgAfgb+w3WapI+esQeBuhSC6XddanimMdvCnolWTjOQ==
-X-Received: by 2002:a05:600c:4ecc:b0:40e:500c:23d8 with SMTP id g12-20020a05600c4ecc00b0040e500c23d8mr113878wmq.151.1704996617837;
-        Thu, 11 Jan 2024 10:10:17 -0800 (PST)
-Message-ID: <1e520de0-8698-499d-8187-c79f589c974d@citrix.com>
-Date: Thu, 11 Jan 2024 18:10:17 +0000
+        bh=aPBAHuVD+D41eBNL4+vrA5FQG6lil0xOCzJbdFNUQE4=;
+        b=xDZ3kPrLLZQo1IOAaDaBTBrdVOhz9tPAFU2tX1lZebVm50wI2RUqEWyh6aNglhGjy6
+         W+1Ix1FzLsta25NsS2HUawhcdqDb5COUJyywVAKazvVbwDodwZZyn3bGZj3UYUAb4Q2L
+         ozVyP/lP0sXUElULNQqR41jnCyt6b6BzzTpjrG9xhNRaSIv+694srjYUTWcSshQdzO12
+         ekUDJRXAbZHhdIxsl340X/1fXrIYdYUOf98sYnh2zQHJ16BfEVXIEoGF6zNZb4t9ifDS
+         QCZtPjVo5Zg0vSI04pHNncEPq1pcdpE6suL1QUB9sd7kHqPAU7ZCe/oTyE4TKaKLwX5y
+         nEbw==
+X-Gm-Message-State: AOJu0Yww2svgEQRVHwOYiqyKkRWWVKmZL+hC6KUinWgrlR+MQmUoonoM
+	YYjvfxPLCJSsZCDUUD6T+B9vw06oHwGMnA==
+X-Google-Smtp-Source: AGHT+IG7rJO9WeH/dbbMglaKSyosEZlyIZA3oSNMKOQqFIMj9S7yBPin6VOQ/kXvGUOEAZDfFdsr6Q==
+X-Received: by 2002:a5d:58cb:0:b0:337:6949:793a with SMTP id o11-20020a5d58cb000000b003376949793amr53688wrf.2.1704996850401;
+        Thu, 11 Jan 2024 10:14:10 -0800 (PST)
+Message-ID: <66593828-2924-4243-b604-01f8ff0da651@citrix.com>
+Date: Thu, 11 Jan 2024 18:14:09 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/8] IRQ: drop register parameter from handler functions
+Subject: Re: [PATCH 7/8] x86/vPMU: drop regs parameter from interrupt
+ functions
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Kevin Tian <kevin.tian@intel.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
- <c6926627-aeb6-40dd-a85a-1be0b324bf49@suse.com>
+ <a0078508-a0bf-4885-afdd-0f86cea611a4@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -131,25 +129,19 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <c6926627-aeb6-40dd-a85a-1be0b324bf49@suse.com>
+In-Reply-To: <a0078508-a0bf-4885-afdd-0f86cea611a4@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/01/2024 7:35 am, Jan Beulich wrote:
-> It's simply not needed anymore. Note how Linux made this change many
-> years ago already, in 2.6.19 (late 2006, see [1]).
+On 11/01/2024 7:36 am, Jan Beulich wrote:
+> The vendor functions don't use the respective parameters at all. In
+> vpmu_do_interrupt() there's only a very limited area where the
+> outer context's state would be needed, retrievable by get_irq_regs().
+>
+> This is in preparation of dropping the register parameters from direct
+> APIC vector handler functions.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=7d12e780e003f93433d49ce78cfedf4b4c52adc5
-
-https://git.kernel.org/torvalds/c/7d12e780e003f93433d49ce78cfedf4b4c52adc5
-
-See https://korg.docs.kernel.org/git-url-shorteners.html for full
-details, but this is a guaranteed-stable URL.
-
-It's worth saying that despite that patch in Linux, they've still not
-yet managed to drop the regs parameter.
 
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
