@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E945D82B217
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 16:50:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666406.1037016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00F9082B228
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 16:52:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666410.1037026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNxJO-0005xe-5o; Thu, 11 Jan 2024 15:49:42 +0000
+	id 1rNxLl-0007nz-Hd; Thu, 11 Jan 2024 15:52:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666406.1037016; Thu, 11 Jan 2024 15:49:42 +0000
+Received: by outflank-mailman (output) from mailman id 666410.1037026; Thu, 11 Jan 2024 15:52:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNxJO-0005vz-1e; Thu, 11 Jan 2024 15:49:42 +0000
-Received: by outflank-mailman (input) for mailman id 666406;
- Thu, 11 Jan 2024 15:49:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rNxLl-0007kU-EY; Thu, 11 Jan 2024 15:52:09 +0000
+Received: by outflank-mailman (input) for mailman id 666410;
+ Thu, 11 Jan 2024 15:52:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNxJM-0005vs-7i
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 15:49:40 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06056f35-b099-11ee-9b0f-b553b5be7939;
- Thu, 11 Jan 2024 16:49:37 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40e490c2115so26103655e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 07:49:37 -0800 (PST)
+ id 1rNxLj-0007kM-Ap
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 15:52:07 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ebce997-b099-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 16:52:06 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40e62979d41so2591865e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 07:52:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t21-20020a05600c451500b0040e3ac9f4c8sm6194138wmo.28.2024.01.11.07.49.36
+ m22-20020a05600c4f5600b0040d5b849f38sm6381216wmq.0.2024.01.11.07.52.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jan 2024 07:49:36 -0800 (PST)
+ Thu, 11 Jan 2024 07:52:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06056f35-b099-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 5ebce997-b099-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704988177; x=1705592977; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704988326; x=1705593126; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=hjIw4X4riypAACb7Q/8zpAgWS9w3hXKdbzP2KL8WR+c=;
-        b=MzyfHa/MiYnkxbgPidrJj++6ADOpmeIoG7MqCUvM9ouBVVsjKrf9gef90RSCYifw6i
-         Hr8+mZRDgZY/fd/fSLxtIAKrcdXQnPLtJl13pnFU6+/xtqSJEL+3MPmsMztdJ+T0hN3t
-         G05qOYci6V0T9n/3lMQWm/We+h25m5L727DVUyCZj0jR1iPdeHBxTMbilBpmHeviUZHe
-         hW10mUhpnVQAuYuOwBtoGiW8/7WcIKk03t1SaTe7ZkOvmmz5SHCe+L5jQQug4+HvkDvQ
-         xWlITe6CCKE6ClYn19J6eU9Qyf/IBBBsNJAeoWW/n0Ameih/J0Uvgzf8vD+KhwkxoXNu
-         MBeA==
+        bh=ZyeDIzL5o9UbJykHsE3RyvI3vWS7kpgDVoz2VYlxt3c=;
+        b=MudtX9aFHBw8zc2ZC1dVC16psa26Jeyy0E5Ib2SktRPNFjVmaw5LRoLkgLRT5iXOol
+         Se2qGDpjegbZJTdinJeflo6ESLcGDfGGe/YcHQM3D5luTdEe4qg6PHdJSCqlXceSp7yi
+         6byrmVMIzw3s8J0Xhx3PFUgLxBgK/CVsK6viBl/9I4qpav20Z1/0HbQh8lHGqil+Hy+/
+         1hTEvniiHhCoBYCHxMtGbxnL689cqhDUz5DrXVQrNaLqcS8xAI70/BIzGNy5ynjNKtxV
+         8wonPxtVmSG1r0KlPSQz0hANo3h955pNGcVrJutqA0jZjZTnA47x/4ayMJmikFQPGjyr
+         5QTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704988177; x=1705592977;
+        d=1e100.net; s=20230601; t=1704988326; x=1705593126;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hjIw4X4riypAACb7Q/8zpAgWS9w3hXKdbzP2KL8WR+c=;
-        b=VdPQU8DT3z0jHY2c+nHQB2KDGeR6E3XN8OcU1mC8dx/6uhXWTEHOUGQTvGNvaaHq+J
-         OjTsciS+IbePXdpwSm+cVx+p06ESsT+x1obImGt7tAeD7EU2AE+GrTZgwQT/SzeHHixf
-         7WQv8veC68xSPwwYxjiZqVjWvyBJd+00M5Ea0ZmKp+vQ2XzdfPr4iD5kZ5sZNOr0CVDY
-         D39M8HGUg0WY9Yd8n4N3kTaMnt2af4W4RpRt6C2Ot4dDnCGBy1/EcBw6L/1+KcSpqyTf
-         aY2H1Uwi2m34yZ4vMmq4qT4EOtCXrTdRuwk7Miu08lnNVHbHX9eoqJuO8ItUlBffY9F7
-         OTnA==
-X-Gm-Message-State: AOJu0Yw6LLaJ5Igf1kv0idqGdApYKcB3h5EFSeAugyn/UZoetdvGkQ6l
-	YlcaNAHLZ5zGpx2zeEHWFhxKBzyFl18r
-X-Google-Smtp-Source: AGHT+IGiluqWVPmSAn0HzTI3ZAdSyREpE71c7H/s0+MbilEcGqd2k8gSA0pskekowwNMXjjM+aJuLw==
-X-Received: by 2002:a7b:c40e:0:b0:40e:60d3:8e99 with SMTP id k14-20020a7bc40e000000b0040e60d38e99mr14472wmi.50.1704988176844;
-        Thu, 11 Jan 2024 07:49:36 -0800 (PST)
-Message-ID: <5fb290bc-ded2-4883-a726-caeed98e9445@suse.com>
-Date: Thu, 11 Jan 2024 16:49:35 +0100
+        bh=ZyeDIzL5o9UbJykHsE3RyvI3vWS7kpgDVoz2VYlxt3c=;
+        b=lg37kAdlVIIoI9K0NNlPdUghgDqyeWHijU4YUtGU7Kv2RtDt739u3hqGfeBHGAtD5I
+         p5CDR5CBz9u75u0KMkJ67y/c0W2bufUu5R1Z+Z6cnkeEMCkT4T0ZFY10aYV/Lfp8roYK
+         BRzmVxZlOV79uDTSaHzTq4pFvFqwh4tusxvgksaiGOQTVDigsrSNikjLHH9apfxNyLxM
+         O3zP+PQ332CDQeIKIqit4ZyNfF1pICprSYyDYMA06QTHE17bjZD5uE4zmJXZJmFI+WAO
+         TaDt4iuIRkaZXm0TZpuRjTtv3Gza6DJDAGfEUM3yh2txW0FBbosr6zwg/GLxF1ffHIAd
+         obsg==
+X-Gm-Message-State: AOJu0YwmEmYp9pCFfUkZ2gWZ+xWOVQLTCVYAwCOeUWRDmWUsFAPbl270
+	JTVNm29Opp8Nb9jD5iMXxstEL/h3z8Ei
+X-Google-Smtp-Source: AGHT+IFVSSSZKmzTn7IgdMp0Rrs0HFs92xF4ej58/GHpO/9HGkHTI3994vLPMw2NILK/pfh4OmYoLQ==
+X-Received: by 2002:a05:600c:4f91:b0:40d:4ee4:c73a with SMTP id n17-20020a05600c4f9100b0040d4ee4c73amr5072wmq.297.1704988325799;
+        Thu, 11 Jan 2024 07:52:05 -0800 (PST)
+Message-ID: <4574c9d6-eb6d-4b73-a9e1-20b5635b32db@suse.com>
+Date: Thu, 11 Jan 2024 16:52:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] keyhandler: don't pass cpu_user_regs around
+Subject: Re: [PATCH v2] x86/intel: ensure Global Performance Counter Control
+ is setup correctly
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
- <dd1c24ec-4054-43e1-b0c9-6c2044b84046@suse.com>
- <7d21e38d-d1f8-46df-89ef-809dd9c5a38b@citrix.com>
- <aa0a0b1c-ffe0-456f-933f-2e62c9a47f82@suse.com>
- <ea5c4f94-e4eb-471e-aa45-cf4b8a3a3763@citrix.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240111090821.67594-1-roger.pau@citrix.com>
+ <3428928a-42d0-4e4b-9607-c184968c309d@suse.com> <ZZ_FjFa9mILtDZgv@macbook>
+ <645e0c95-5a12-4202-8da6-3cc789a9e5c7@suse.com> <ZZ_di8pZB8bWtBuX@macbook>
+ <b1e76a5f-297b-4030-a69e-33cdf179c0ce@suse.com> <ZZ_4HSvdg0R9Dv1Y@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,69 +113,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ea5c4f94-e4eb-471e-aa45-cf4b8a3a3763@citrix.com>
+In-Reply-To: <ZZ_4HSvdg0R9Dv1Y@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 11.01.2024 16:24, Andrew Cooper wrote:
-> On 11/01/2024 12:11 pm, Jan Beulich wrote:
->>>> Have
->>>> handle_keypress() make the pointer available via a per-CPU variable,
->>>> thus eliminating the need to pass it to all IRQ key handlers, making
->>>> sure that a console-invoked key's handling can still nest inside a
->>>> sysctl-invoked one's.
->>> I know this is the current behaviour, and I'm not suggesting altering it
->>> in this patch, but the sysctl was added so you had a way of using debug
->>> keys without necessarily having a working serial connection.
->>>
->>> It was never expected or intended for both mechanisms to work
->>> concurrently, and I don't think we need to take any care to make/keep it
->>> working.
->> Well, all it takes is the saving and restoring of keypress_regs in
->> handle_keypress(). You you really think it would be better to risk
->> a cash, but not doing that tiny bit of extra work?
+On 11.01.2024 15:15, Roger Pau Monné wrote:
+> On Thu, Jan 11, 2024 at 03:01:01PM +0100, Jan Beulich wrote:
+>> On 11.01.2024 13:22, Roger Pau Monné wrote:
+>>> Oh, indeed, can adjust on this same patch if that's OK (seeing as the
+>>> issue was already there previous to my change).
+>>
+>> Well, I'm getting the impression that it was deliberate there, i.e. set
+>> setting of the feature flag may want to remain thus constrained.
 > 
-> I presume you mean crash?
-
-Oops, yes, I do.
-
-> I'm not advocating for leaving something explicitly unsafe, but I'm also
-> looking to see if we can avoid having keypress_regs to begin with.  i.e.
-> I think we've already got unnecessary complexity, and it would be good
-> to reduce it.
->[...]
->>> This just leaves dump regs, which I think can safely use get_irq_regs()
->>> || guest_cpu_user_regs().  All it wants is something to dump_execstate()
->>> to, which just wants to be the start of the path which led here.
->> I don't think so - consider the case of 'd' hitting while handling an
->> interrupt (and, say, stuck there in an infinite loop with IRQs enabled).
->> We'd then wrongly dump the context of what the earlier IRQ interrupted.
+> Hm, I find it weird, but the original commit message doesn't help at
+> all.  Xen itself only uses PMC0, and I don't find any other
+> justification in the current code to require at least 2 counters in
+> order to expose arch performance monitoring to be present.
 > 
-> The serial IRQ producing the 'd' keypress will push a irq frame, which
-> is what will be returned by get_irq_regs().
+> Looking at the SDM vol3, the figures there only contain PMC0 and PMC1,
+> so someone only reading that manual might assume there must always be
+> 2 global PMCs?
 
-Hmm, yes. I wonder what I was thinking ...
+That may have been the impression at the time. It may have been wrong
+already back then, or ...
 
-> It does occur to me that we're trying to accommodate for two behaviours
-> here.
-> 
-> For a real keypress, we want to dump from the the point the interrupt
-> hit because that's the interesting bit of stack to see.  For a SYSCTL,
-> there's nothing, and we're using BUGFRAME_run_fn to generate one.
+> (vol4 clarifies the that the number of global PMCs is variable).
 
-There's three forms of handle_keypress() invocations really, and hence
-why (after having dropped the regs parameter already) I re-instated it.
-
-As an aside - no, sysctl handling does not generate an exception frame.
-Is uses guest_cpu_user_regs() (and imo validly so).
-
-> So actually we just simply want "regs = get_irq_regs();" here and retain
-> prior NULL check, don't we?
-
-As per above, after I had it that way first, I backed off to accommodate
-all present use forms of handle_keypress(). But dealing with that (in
-whichever way we may end up deeming workable) can be separate anyway,
-afaict.
+... it may have been clarified in the SDM later on. My vague guess is
+that the > 1 check was to skip what may have been "obviously buggy"
+back at the time.
 
 Jan
 
