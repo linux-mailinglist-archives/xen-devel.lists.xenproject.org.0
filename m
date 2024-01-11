@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EFDE82B4AB
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 19:16:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666483.1037155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 315E582B4BC
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 19:26:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666490.1037166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNzbh-0006Bh-Mw; Thu, 11 Jan 2024 18:16:45 +0000
+	id 1rNzkX-0000G9-It; Thu, 11 Jan 2024 18:25:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666483.1037155; Thu, 11 Jan 2024 18:16:45 +0000
+Received: by outflank-mailman (output) from mailman id 666490.1037166; Thu, 11 Jan 2024 18:25:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNzbh-00069g-KL; Thu, 11 Jan 2024 18:16:45 +0000
-Received: by outflank-mailman (input) for mailman id 666483;
- Thu, 11 Jan 2024 18:16:44 +0000
+	id 1rNzkX-0000EY-Fw; Thu, 11 Jan 2024 18:25:53 +0000
+Received: by outflank-mailman (input) for mailman id 666490;
+ Thu, 11 Jan 2024 18:25:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YPRU=IV=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rNzbg-00069a-58
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 18:16:44 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 92992fae-b0ad-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 19:16:43 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40e62979feeso5469515e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 10:16:43 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- o8-20020a05600c4fc800b0040e549c77a1sm6769535wmq.32.2024.01.11.10.16.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jan 2024 10:16:42 -0800 (PST)
+ <SRS0=c5Cn=IV=amazon.co.uk=prvs=73372ff43=eliasely@srs-se1.protection.inumbo.net>)
+ id 1rNzkW-0000ES-5a
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 18:25:52 +0000
+Received: from smtp-fw-80009.amazon.com (smtp-fw-80009.amazon.com
+ [99.78.197.220]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d7e3ea18-b0ae-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 19:25:50 +0100 (CET)
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ email-inbound-relay-pdx-2a-m6i4x-af372327.us-west-2.amazon.com)
+ ([10.25.36.210]) by smtp-border-fw-80009.pdx80.corp.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Jan 2024 18:25:46 +0000
+Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
+ (pdx2-ws-svc-p26-lb5-vlan2.pdx.amazon.com [10.39.38.66])
+ by email-inbound-relay-pdx-2a-m6i4x-af372327.us-west-2.amazon.com (Postfix)
+ with ESMTPS id AA94060BC8; Thu, 11 Jan 2024 18:25:45 +0000 (UTC)
+Received: from EX19MTAEUA001.ant.amazon.com [10.0.43.254:36151]
+ by smtpin.naws.eu-west-1.prod.farcaster.email.amazon.dev [10.0.1.249:2525]
+ with esmtp (Farcaster)
+ id 6c268b41-c38a-4f00-846a-4f2358d60a99; Thu, 11 Jan 2024 18:25:44 +0000 (UTC)
+Received: from EX19D018EUA002.ant.amazon.com (10.252.50.146) by
+ EX19MTAEUA001.ant.amazon.com (10.252.50.50) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Thu, 11 Jan 2024 18:25:40 +0000
+Received: from [10.95.99.82] (10.95.99.82) by EX19D018EUA002.ant.amazon.com
+ (10.252.50.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Thu, 11 Jan
+ 2024 18:25:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,104 +54,126 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92992fae-b0ad-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: d7e3ea18-b0ae-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1704997002; x=1705601802; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=H4pjZ8AlbWXrM0IUsz+htvYCrTu3NHPUTNMuXk6Xqyo=;
-        b=vFLo0CyLtSb8ublwxAfWVUwe0lgM9MUx/DGRL12ACZKX7/nho1tNaG16SVaqMatdUh
-         s0CoFNzk2AiyBPyyT5uekrQziivdqQw/lJYq1OU2EgmbQ9tTGG2kxkNP/PfteVj/IrW6
-         g4C2rff/l9kSt7OfWmRyg4tHu5aoPsKa+NZEM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704997002; x=1705601802;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=H4pjZ8AlbWXrM0IUsz+htvYCrTu3NHPUTNMuXk6Xqyo=;
-        b=AuqkLZb6yTuOruLDiRVRXcqviPV3owtFf9zXRes4qCAHhhIeQqNk7PEjxqBxOjnoKr
-         Vu+EcqdrDwpCmEVlei1EtE6PXX820GIJZCyu2tMUu0kEm/9IpZrL5U/CRUx/BfwqsvDm
-         HrK04vgOdqyQO9kwUEzGU23DHvo5lFm1jVXC6j9p5yeAS2cU0Ffgzc688wGI5tUxJLVs
-         hgcfCxH7+I99kFhd8X/8ctlqpA4lY6RgyFgTqzkUAaz1bl6LkPnAMFKT+t5sLgMMgfGs
-         HypuYd9IY/sMhK9wr+Rmo5b31hDD1yDQPbCua//s2y3QEQ/FdXdvMmj2lhVW6irPBFR8
-         S7tA==
-X-Gm-Message-State: AOJu0Yy0sIEVZkmLJtJB1Ucl6/yp6bFTG++JK0heXYeF97sBCTAvT5/9
-	FVVPkv5g+fofqH4wbcQ/T2tMwClwjs5WmQ==
-X-Google-Smtp-Source: AGHT+IFPdlGF644JCUqNmyR/azzZb6GHyJrlyBC5SjauHAB9/5b6gv3VyYXlxinIwDr8ZKpWve66rQ==
-X-Received: by 2002:a1c:7415:0:b0:40e:4576:53f7 with SMTP id p21-20020a1c7415000000b0040e457653f7mr142051wmc.49.1704997002680;
-        Thu, 11 Jan 2024 10:16:42 -0800 (PST)
-Message-ID: <56e43caa-1a11-4d69-a98e-44ac7e810a29@citrix.com>
-Date: Thu, 11 Jan 2024 18:16:42 +0000
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1704997550; x=1736533550;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=vQmltPkN+rNAF/jizHqb0pq7BqTmbgPAPV2pSO6QOJ4=;
+  b=a09USRODQ6PrdPinjEM9GlCxOP+XRdEitBwziB1Ht4SicKhZWuOwQ4g/
+   tpuKbxKv1zxaRGS9XJ9Q0ePWoauyTs7zwfiqZ6egB1w5rD6/bHWLnOs1d
+   Sd2+YMsiR8jvoVlXF+ixmzEszaLO13pK23TJ8PxwGa2jXHKrOH498BNzZ
+   k=;
+X-IronPort-AV: E=Sophos;i="6.04,187,1695686400"; 
+   d="scan'208";a="57621535"
+X-Farcaster-Flow-ID: 6c268b41-c38a-4f00-846a-4f2358d60a99
+Message-ID: <0dcc54dd-b729-4e20-95af-fa4907a550c6@amazon.com>
+Date: Thu, 11 Jan 2024 18:25:31 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/8] x86/APIC: drop regs parameter from direct vector
- handler functions
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
-References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
- <0afca177-4dce-4d73-8790-82256a620ec3@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <0afca177-4dce-4d73-8790-82256a620ec3@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 11/22] x86: add a boot option to enable and disable the
+ direct map
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
+CC: Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, "Bertrand
+ Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20221216114853.8227-1-julien@xen.org>
+ <20221216114853.8227-12-julien@xen.org>
+ <fc70f967-34bb-9569-f514-7a3208e746c6@suse.com>
+ <bc989828-69b9-4919-9ff3-fdd53fb2def1@amazon.com>
+ <c736e4d9-5262-4adf-9e74-9b1be5ab13db@suse.com>
+ <4ab710c3-c628-4bbe-9533-88af75a9b9ec@xen.org>
+ <ba63d435-e26f-4c76-aedc-c027e8b03a6d@suse.com>
+From: Elias El Yandouzi <eliasely@amazon.com>
+In-Reply-To: <ba63d435-e26f-4c76-aedc-c027e8b03a6d@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.95.99.82]
+X-ClientProxiedBy: EX19D035UWB002.ant.amazon.com (10.13.138.97) To
+ EX19D018EUA002.ant.amazon.com (10.252.50.146)
+Precedence: Bulk
 
-On 11/01/2024 7:36 am, Jan Beulich wrote:
-> The only place it was needed is in the spurious handler, and there we
-> can use get_irq_regs() instead.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-I'd forgotten that we'd abused SPIV like that, but oh well.
+On 11/01/2024 14:09, Jan Beulich wrote:
+> On 11.01.2024 13:25, Julien Grall wrote:
+>> Hi Jan,
+>>
+>> On 11/01/2024 11:53, Jan Beulich wrote:
+>>> On 11.01.2024 11:47, Elias El Yandouzi wrote:
+>>>> On 22/12/2022 13:24, Jan Beulich wrote:
+>>>>> That said, I think this change comes too early in the series, or there is
+>>>>> something missing.
+>>>>
+>>>> At first, I had the same feeling but looking at the rest of the series,
+>>>> I can see that the option is needed in follow-up patches.
+>>>>
+>>>>> As said in reply to patch 10, while there the mapcache
+>>>>> is being initialized for the idle domain, I don't think it can be used
+>>>>> just yet. Read through mapcache_current_vcpu() to understand why I think
+>>>>> that way, paying particular attention to the ASSERT() near the end.
+>>>>
+>>>> Would be able to elaborate a bit more why you think that? I haven't been
+>>>> able to get your point.
+>>>
+>>> Why exactly I referred to the ASSERT() there I can't reconstruct. The
+>>> function as a whole looks problematic though when suddenly the idle
+>>> domain also gains a mapcache. I'm sorry, too much context was lost
+>>> from over a year ago; all of this will need looking at from scratch
+>>> again whenever a new version was posted.
+>>>
+>>>>> In preparation of this patch here I think the mfn_to_virt() uses have to all
+>>>>> disappear from map_domain_page(). Perhaps yet more strongly all
+>>>>> ..._to_virt() (except fix_to_virt() and friends) and __va() have to
+>>>>> disappear up front from x86 and any code path which can be taken on x86
+>>>>> (which may simply mean purging all respective x86 #define-s, without
+>>>>> breaking the build in any way).
+>>>>
+>>>> I agree with you on that one. I think it is what we're aiming for in the
+>>>> long term. However, as mentioned by Julien in the cover letter, the
+>>>> series's name is a misnomer and I am afraid we won't be able to remove
+>>>> all of them with this series. These helpers would still be used for
+>>>> xenheap pages or when the direct map is enabled.
+>>>
+>>> Leaving a hazard of certain uses not having been converted, or even
+>>> overlooked in patches going in at around the same time as this series?
+>>> I view this as pretty "adventurous".
+>>
+>> Until we get rid of the directmap completely (which is not the goal of
+>> this series), we will need to keep mfn_to_virt().
+>>
+>> In fact the one you ask to remove in map_domain_page() will need to be
+>> replaced with function doing the same thing. The same for the code that
+>> will initially prepare the directmap. This to avoid impacting
+>> performance when the user still wants to use the directmap.
+>>
+>> So are you just asking to remove most of the use and rename *_to_virt()
+>> to something that is more directmap specific (e.g. mfn_to_directmap_virt())?
+> 
+> Well, in a way. If done this way, mfn_to_virt() (and __va()) should have no
+> users by the end of the series, and it would be obvious that nothing was
+> missed (and by then purging the old ones we could also ensure no new uses
+> would appear).
+
+What about maddr_to_virt()? For instance, in the function 
+xen/arch/x86/dmi_scan.c:dmi_iterate(), we need to access a very low 
+machine address which isn't in the directmap range.
+
+How would you proceed? Calling vmap() seems to be a bit overkill for 
+just a temporary mapping and I don't really want to rework this function 
+to use map_domain_page().
+
+In such case, how would you proceed? What do you suggest?
+
+Cheers,
+
+-- 
+Elias
 
