@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C235A82A923
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 09:29:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666003.1036386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A6C782A937
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 09:37:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666010.1036396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNqRJ-00038b-7i; Thu, 11 Jan 2024 08:29:25 +0000
+	id 1rNqYw-0005LM-VR; Thu, 11 Jan 2024 08:37:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666003.1036386; Thu, 11 Jan 2024 08:29:25 +0000
+Received: by outflank-mailman (output) from mailman id 666010.1036396; Thu, 11 Jan 2024 08:37:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNqRJ-00036y-4N; Thu, 11 Jan 2024 08:29:25 +0000
-Received: by outflank-mailman (input) for mailman id 666003;
- Thu, 11 Jan 2024 08:29:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rNqYw-0005IE-Rw; Thu, 11 Jan 2024 08:37:18 +0000
+Received: by outflank-mailman (input) for mailman id 666010;
+ Thu, 11 Jan 2024 08:37:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNqRH-00035X-FA
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 08:29:23 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85656041-b05b-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 09:29:22 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-40e54b2e437so20814195e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 00:29:22 -0800 (PST)
+ id 1rNqYu-0005Hi-PS
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 08:37:16 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9f193eb4-b05c-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 09:37:14 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40e60e1373bso2038115e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 00:37:14 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ay12-20020a05600c1e0c00b0040d802a7619sm4992813wmb.38.2024.01.11.00.29.21
+ h16-20020a05600c351000b0040e4914f28dsm4860973wmq.18.2024.01.11.00.37.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jan 2024 00:29:21 -0800 (PST)
+ Thu, 11 Jan 2024 00:37:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85656041-b05b-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: 9f193eb4-b05c-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704961762; x=1705566562; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=suse.com; s=google; t=1704962234; x=1705567034; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Z0PjHh98gEH5wksriLm0NVgosyxNyT4FnoTbeXFZfGY=;
-        b=P0zSYsmXYPWLCe9DmFgYC4lO9WLPOW5v6BarTJz4wRbm+Ye/tF0baa7aRfwSbSNoZU
-         heqw86IWNBGUS5EZMUN+VW0a7QNs1+c5J+C8K98aPeRsZMPlgvo+nkj4qxsgOII8bPNX
-         ta4plnvkRhIgqPAbYUI2EhIb0nsJ/FBb45Akzg+fTv2qoiSEj2p5yZ5H66T2iOA2LKhP
-         G4EtlHWloKZMD4FVMwMWjKQ2IzadPZDxoIEN3O/2BvsoY7Fknwoa1HzvOCRp2uqaLnIt
-         1wCVi6XGff+yQ5OkO2ITSvqjKRqYzGL9JfYE1XqkFBnJubTYZBVGLzPXgUHCuwq75OrM
-         V4mQ==
+        bh=WqDaRMWjxFa+sEz0bxzLptucoToC2rAxXO+kGP63rF8=;
+        b=e7PoZpBM45mIsX64wbtlHY27sl/q4q5/JZTZfdglxityEGktnM9sRXX7RUkrr66P8Y
+         H5VAe4luHjK06LX92bX6DKcifR2GLGAMt2cflNbohaQ/uVdcFGMr/51UEn+NAavya6J3
+         neVU4HoDfhhchoDHSo4t9y789zI44WmghD5xMA7hpefO2WRiO6qq/aCdN/uG/lU6FDkO
+         QYYW8YeoXYjUZwyAoKCCHO8yef73ErS5tydQDwkYCoOxt+kBQ9+opqDNFU3Ar30WEaKg
+         CwjYlByDGXisL9JvHZ5OIhvchl5ivCWuNYY6C3FzR8HYL1zxWd7rV/xagUY8ItWytwrf
+         CKAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704961762; x=1705566562;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=1e100.net; s=20230601; t=1704962234; x=1705567034;
+        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Z0PjHh98gEH5wksriLm0NVgosyxNyT4FnoTbeXFZfGY=;
-        b=iNKSLnKSkZPLEQaD6Awl/mHSdARAeIcJYhnlSSNFGXPi+X85VXs77+/eCZZYK45zG0
-         02ZpBU1BGM13OB0AbDEBhIJAHJTl5v/S8oJ52wMMLE2NNSgRPCauAQ35fo7Rl99JXM24
-         KCYEibcgB+8GxU4BIT2Va/CW/GKiLgS2QiGBfuTLs4VcUjTwvgJMAPtoiL0+gAFXxkWN
-         iTZ1Pt4Zsl/QDEhBcHdgGbX5L/Oob99B3b/8yte9BSDyd8xdTZqkPxA2q8zeTHoDD2R2
-         6CT8QoEBBocDZqt1GKPTCgkC8yJZq64KU9DLrDbWhGxBQ5TW2MRDrxcf2ubLr/SukAJv
-         aPpA==
-X-Gm-Message-State: AOJu0Yz+ExWBpBaXkqmP3GFH7JAbOnkMVNq7OpecpbRkpKP2qcPDKJ/0
-	50F+ir/hyIlFEe+rQcF53HNTkw78nKpn
-X-Google-Smtp-Source: AGHT+IGBxRu3EXBgDwmnb2+jjgikni6JbE0nhxbrNY6YaVf0c8rpcKPbXAL4Ct5TWwPNEIQk2VrclQ==
-X-Received: by 2002:a05:600c:601a:b0:40e:4b16:a00f with SMTP id az26-20020a05600c601a00b0040e4b16a00fmr177106wmb.150.1704961761721;
-        Thu, 11 Jan 2024 00:29:21 -0800 (PST)
-Message-ID: <055945ed-86c8-48c1-851d-e87c4988c7a4@suse.com>
-Date: Thu, 11 Jan 2024 09:29:20 +0100
+        bh=WqDaRMWjxFa+sEz0bxzLptucoToC2rAxXO+kGP63rF8=;
+        b=kNNjVcpo+/PXjvtolV3ysDVp7s8asg69Jui9E2RvmZ2Px8joZnkUsRHb+FNWe75iwM
+         FY2Lx6C7F9gdQkLeSiyAfX25VuATUQmxT8EFDPmO+PLsnPLB44G+9CkmfHj+vpurTDoy
+         BZiHT4xs08EzDnchOV2atcHqrmkUJRnl8o4Dp9+9Ktarw23KiOqey5maUcFrJCKJDy6D
+         IPBqa+DZZ2qcFk5Fk4ZXcGCgA2GoeCvBWDcgUTRMQOZDbdgN7TDzsuMnOmspXCm2IYNY
+         kIgopoPQeotl1pO5NDnz9MRmAK1f8K7Ir4AIMaJ/CoYXaofD6PdxJEikBfsE9ckrxs74
+         1ToA==
+X-Gm-Message-State: AOJu0Yz9is8SFxpy46WWieqPbKDHst9NQuC62omHX6hBnPwo+YPKAI90
+	Z2iofcSd0loioi3I8JAegG7+adObJz55
+X-Google-Smtp-Source: AGHT+IHGhWt2atID/9nE+GUTF3q/5l0aTWqBhl4vvCCceO/JAEs8nmLU1qNpAnvRrsZ+K7eDPBk1AQ==
+X-Received: by 2002:a05:600c:501f:b0:40e:6106:3e53 with SMTP id n31-20020a05600c501f00b0040e61063e53mr199151wmr.11.1704962234291;
+        Thu, 11 Jan 2024 00:37:14 -0800 (PST)
+Message-ID: <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
+Date: Thu, 11 Jan 2024 09:37:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/nmi: ensure Global Performance Counter Control is
- setup correctly
+Subject: Re: E820 memory allocation issue on Threadripper platforms
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20240110153400.64017-1-roger.pau@citrix.com>
- <4bd7324f-69fc-42e5-9155-02a7e1a8a6e8@citrix.com> <ZZ7Mz0HymYQGpTna@macbook>
+To: Patrick Plenefisch <simonpatp@gmail.com>
+References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,98 +107,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZZ7Mz0HymYQGpTna@macbook>
+Cc: xen-devel@lists.xenproject.org
+In-Reply-To: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10.01.2024 17:58, Roger Pau Monné wrote:
-> On Wed, Jan 10, 2024 at 03:52:49PM +0000, Andrew Cooper wrote:
->> On 10/01/2024 3:34 pm, Roger Pau Monne wrote:
->>> When Architectural Performance Monitoring is available, the PERF_GLOBAL_CTRL
->>> MSR contains per-counter enable bits that is ANDed with the enable bit in the
->>> counter EVNTSEL MSR in order for a PMC counter to be enabled.
->>>
->>> So far the watchdog code seems to have relied on the PERF_GLOBAL_CTRL enable
->>> bits being set by default, but at least on some Intel Sapphire and Emerald
->>> Rapids this is no longer the case, and Xen reports:
->>>
->>> Testing NMI watchdog on all CPUs: 0 40 stuck
->>>
->>> The first CPU on each socket is started with PERF_GLOBAL_CTRL zeroed, so PMC0
->>> doesn't start counting when the enable bit in EVNTSEL0 is set, due to the
->>> relevant enable bit in PERF_GLOBAL_CTRL not being set.
->>>
->>> Fix by detecting when Architectural Performance Monitoring is available and
->>> making sure the enable bit for PMC0 is set in PERF_GLOBAL_CTRL.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>> The fact that it's only the first CPU on each socket that's started with
->>> PERF_GLOBAL_CTRL clear looks like a firmware bug to me, but in any case making
->>> sure PERF_GLOBAL_CTRL is properly setup should be done regardless.
->>
->> It's each package-BSP, and yes, this is clearly a firmware bug.  It's
->> probably worth saying that we're raising it with Intel, but this bug is
->> out in production firmware for SPR and EMR.
->>
->>> ---
->>>  xen/arch/x86/nmi.c | 13 +++++++++++++
->>>  1 file changed, 13 insertions(+)
->>>
->>> diff --git a/xen/arch/x86/nmi.c b/xen/arch/x86/nmi.c
->>> index dc79c25e3ffd..7a6601c4fd31 100644
->>> --- a/xen/arch/x86/nmi.c
->>> +++ b/xen/arch/x86/nmi.c
->>> @@ -335,6 +335,19 @@ static void setup_p6_watchdog(unsigned counter)
->>>           nmi_p6_event_width > BITS_PER_LONG )
->>>          return;
->>>  
->>> +    if ( cpu_has_arch_perfmon )
->>> +    {
->>> +        uint64_t global_ctrl;
->>> +
->>> +        rdmsrl(MSR_CORE_PERF_GLOBAL_CTRL, global_ctrl);
->>> +        /*
->>> +         * Make sure PMC0 is enabled in global control, as the enable bit in
->>> +         * PERF_GLOBAL_CTRL is AND'ed with the enable bit in EVNTSEL0.
->>> +         */
->>> +        if ( !(global_ctrl & 1) )
->>> +            wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, global_ctrl | 1);
->>
->> My gut feeling is that we ought to reinstate all bits, not just bit 1. 
->> If nothing else because that will make debugging using other counters
->> more reliable too.
+On 11.01.2024 03:29, Patrick Plenefisch wrote:
+> Hi,
 > 
-> Hm, yes, I was borderline on enabling all possible counters in
-> PERF_GLOBAL_CTRL, as reported by CPUID.0AH: EAX[15:8].
+> I ran into a memory allocation issue, I think. It is the same as
+> https://github.com/QubesOS/qubes-issues/issues/8791 and I saw at the end it
+> was recommended (by marmarek) that the issue reporter forward the issue to
+> this list. I searched the list, but as I didn't see it in the list already,
+> I'm doing that now.
 > 
-> But then wondered if it was going too far, as for the purposes here we
-> just care about PMC1.
+> Hardware:
+> I have an AMD Threadripper 7960X on a ASRock TRX50 WS motherboard. The
+> Qubes reporter had a Threadripper 3970X on an ASUS Prime TRX40-Pro
+> Motherboard. I saw a 3rd issue report of a similar issue on another
+> Threadripper, so I think this may be Threadripper-specific.
 > 
-> My reasoning for not doing it would be that such wide setup of
-> PERF_GLOBAL_CTRL would then be gated on the watchdog being enabled,
-> usages of other counters apart from PMC0 will be gated on the watchdog
-> being enabled.
+> Setup:
+> The QuebesOS reporter was using Qubes Installer.
+> My install was that I had a fresh install of Debian 12 (no gui), and then
+> did `apt install xen-system-amd64` and rebooted.
+> 
+> The issue:
+> Any boot of Xen on the hardware results in a halted machine. When
+> monitoring the logs with `vga=,keep`, we get:
+> 
+> (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+> (XEN) Freed 644kB init memory
+> mapping kernel into physical memory
+> about to get started…
+> xen hypervisor allocated kernel memory conflicts with E820
 
-Since Andrew didn't explicitly say so in his reply - imo this then means
-the adjustment wants moving out of setup_p6_watchdog().
+So first of all (the title doesn't say it) this is a Linux Dom0 issue.
+Whether or not needing addressing in Xen is unknown at this point.
+
+> (XEN) Hardware Dom0 halted: halting machine
+> 
+> None of the settings I or the Qubes reporter have tried have been able to
+> get past this failure.
+> 
+> I am happy to provide debugging support.
+
+Well, the crucial piece of data initially is going to be: What's the
+E820 map Xen gets to see, what's the E820 map Dom0 gets to see, and
+what address range is the conflict detected for? The first question
+is possible to answer by supplying a serial log. The second question
+likely means adding some debugging code to either Xen or Linux. The
+answer to third question may be possible to infer from the other
+data, but would likely be better to obtain explicitly by adjusting /
+amending the message Linux emits.
 
 Jan
-
->  It seems more reliable to me to either do the setting
-> of PERF_GLOBAL_CTRL as part of CPU initialization, or defer to each
-> user of a PMC to take care of enabling it in PERF_GLOBAL_CTRL.
-> 
->> vPMU (although mutually exclusive with watchdog) does context switch
->> this register as a whole.
->>
->> See how global_ctrl_mask gets set up, although I'm not sure how much of
->> that infrastructure we really want to reuse here.
-> 
-> Yes, if we want to enable all possible counters we would need to use
-> something similar to what's done there, albeit without the fixed
-> counter part.
-> 
-> Thanks, Roger.
-
 
