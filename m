@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A6C782A937
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 09:37:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666010.1036396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4EA982A9E6
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 09:58:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666015.1036405 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNqYw-0005LM-VR; Thu, 11 Jan 2024 08:37:18 +0000
+	id 1rNqsk-0002pl-Ir; Thu, 11 Jan 2024 08:57:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666010.1036396; Thu, 11 Jan 2024 08:37:18 +0000
+Received: by outflank-mailman (output) from mailman id 666015.1036405; Thu, 11 Jan 2024 08:57:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNqYw-0005IE-Rw; Thu, 11 Jan 2024 08:37:18 +0000
-Received: by outflank-mailman (input) for mailman id 666010;
- Thu, 11 Jan 2024 08:37:16 +0000
+	id 1rNqsk-0002oC-Fm; Thu, 11 Jan 2024 08:57:46 +0000
+Received: by outflank-mailman (input) for mailman id 666015;
+ Thu, 11 Jan 2024 08:57:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNqYu-0005Hi-PS
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 08:37:16 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1rNqsj-0002o3-Rg
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 08:57:45 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9f193eb4-b05c-11ee-9b0f-b553b5be7939;
- Thu, 11 Jan 2024 09:37:14 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40e60e1373bso2038115e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 00:37:14 -0800 (PST)
+ id 7ac8bb0c-b05f-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 09:57:43 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-336c9acec03so4430031f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 00:57:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h16-20020a05600c351000b0040e4914f28dsm4860973wmq.18.2024.01.11.00.37.13
+ b6-20020adfee86000000b00337478efa4fsm632929wro.60.2024.01.11.00.57.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jan 2024 00:37:14 -0800 (PST)
+ Thu, 11 Jan 2024 00:57:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f193eb4-b05c-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 7ac8bb0c-b05f-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704962234; x=1705567034; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WqDaRMWjxFa+sEz0bxzLptucoToC2rAxXO+kGP63rF8=;
-        b=e7PoZpBM45mIsX64wbtlHY27sl/q4q5/JZTZfdglxityEGktnM9sRXX7RUkrr66P8Y
-         H5VAe4luHjK06LX92bX6DKcifR2GLGAMt2cflNbohaQ/uVdcFGMr/51UEn+NAavya6J3
-         neVU4HoDfhhchoDHSo4t9y789zI44WmghD5xMA7hpefO2WRiO6qq/aCdN/uG/lU6FDkO
-         QYYW8YeoXYjUZwyAoKCCHO8yef73ErS5tydQDwkYCoOxt+kBQ9+opqDNFU3Ar30WEaKg
-         CwjYlByDGXisL9JvHZ5OIhvchl5ivCWuNYY6C3FzR8HYL1zxWd7rV/xagUY8ItWytwrf
-         CKAg==
+        d=suse.com; s=google; t=1704963462; x=1705568262; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=vEjp0lUxWg0eDA0qewml4+FtoJClOnbeXChKiBoeOOE=;
+        b=azuX5KXq8RRbvnCXuwyiZdIqVzdGQOM5gB76AAy6ENFpwAFxjm8A7lcpHBdINy94al
+         qyS33v6i1hdQXw/BMEgnMnDKf/2vXHkEZI64Q0QdTxYOLLYCMwS85ls3OEIePybUfLZn
+         ysxzdK9AOgJWprGdDbcxMoeJuYoPW8AbQk4X6GbLNfPQaEEVH4CV3EFZhXogUEAdc05r
+         UMH9ahMFLzAHAkdJfNO3Zj3BE7SJpkBsLBZjnUG0OkZcrZnrnvLzNjRcYqJdXCy3zD8A
+         xF/tyCIUstcOGCKfnGfJbZiZvBH+IFBzPXJmDNbELnb3TpoXleGUfvOhIfN/nazDlU2S
+         IaTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704962234; x=1705567034;
-        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from:references
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WqDaRMWjxFa+sEz0bxzLptucoToC2rAxXO+kGP63rF8=;
-        b=kNNjVcpo+/PXjvtolV3ysDVp7s8asg69Jui9E2RvmZ2Px8joZnkUsRHb+FNWe75iwM
-         FY2Lx6C7F9gdQkLeSiyAfX25VuATUQmxT8EFDPmO+PLsnPLB44G+9CkmfHj+vpurTDoy
-         BZiHT4xs08EzDnchOV2atcHqrmkUJRnl8o4Dp9+9Ktarw23KiOqey5maUcFrJCKJDy6D
-         IPBqa+DZZ2qcFk5Fk4ZXcGCgA2GoeCvBWDcgUTRMQOZDbdgN7TDzsuMnOmspXCm2IYNY
-         kIgopoPQeotl1pO5NDnz9MRmAK1f8K7Ir4AIMaJ/CoYXaofD6PdxJEikBfsE9ckrxs74
-         1ToA==
-X-Gm-Message-State: AOJu0Yz9is8SFxpy46WWieqPbKDHst9NQuC62omHX6hBnPwo+YPKAI90
-	Z2iofcSd0loioi3I8JAegG7+adObJz55
-X-Google-Smtp-Source: AGHT+IHGhWt2atID/9nE+GUTF3q/5l0aTWqBhl4vvCCceO/JAEs8nmLU1qNpAnvRrsZ+K7eDPBk1AQ==
-X-Received: by 2002:a05:600c:501f:b0:40e:6106:3e53 with SMTP id n31-20020a05600c501f00b0040e61063e53mr199151wmr.11.1704962234291;
-        Thu, 11 Jan 2024 00:37:14 -0800 (PST)
-Message-ID: <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
-Date: Thu, 11 Jan 2024 09:37:13 +0100
+        d=1e100.net; s=20230601; t=1704963462; x=1705568262;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vEjp0lUxWg0eDA0qewml4+FtoJClOnbeXChKiBoeOOE=;
+        b=lSu3lB22x8+jEbl0IykqDGlVULhYB/psWfXePtkXje6dApCyQfQ6h1GCK6PrEDbFeu
+         DUh8K8Cre1B4tnKe3iJMNlDlcU3LqOfBdaz/jnZvrjzI0t/2RtWWYLcFyj2FqRLZ2g4Z
+         1OvBjXY60BxXxfQr8qTqe0fYzVEWrEoFhcg8KXlaG461Gc6qT4SxytLgv4ZJyB8dHCc2
+         3PD+HM/qELextjwB9E+jMz/H5dqskMt2DYERwau7EOIud08fggK/67UdxCvuOPIcvdQv
+         fCIdXQ0w+Kt3m8xSOj3ShY1NSYYaIrp9R1rcKL5wGcTsHQ905kC7eKdA0UxrXsjXR173
+         pgQQ==
+X-Gm-Message-State: AOJu0YycBxOOsBILoyj0rAC8lq87DepqM2PsMV1M1SVpIFQBV2jdlGWw
+	EnESU9dCbwI3DQZ/h7kmYivJk9x4/fBiUZjhrOERPXL+NA==
+X-Google-Smtp-Source: AGHT+IHG7IhHxy1+Dw3aMjaT+D4AhEbfTQeMAP/iS7/yZsqDWjMuDsJmfrZSp6ocQ7jisTh36DZkDA==
+X-Received: by 2002:adf:e742:0:b0:336:873b:6b21 with SMTP id c2-20020adfe742000000b00336873b6b21mr427264wrn.33.1704963461980;
+        Thu, 11 Jan 2024 00:57:41 -0800 (PST)
+Message-ID: <9dd23064-c79e-4a50-9c71-c0e73b189944@suse.com>
+Date: Thu, 11 Jan 2024 09:57:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: E820 memory allocation issue on Threadripper platforms
-Content-Language: en-US
-To: Patrick Plenefisch <simonpatp@gmail.com>
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v4 0/8] x86emul: misc additions
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -107,59 +108,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Cc: xen-devel@lists.xenproject.org
-In-Reply-To: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11.01.2024 03:29, Patrick Plenefisch wrote:
-> Hi,
-> 
-> I ran into a memory allocation issue, I think. It is the same as
-> https://github.com/QubesOS/qubes-issues/issues/8791 and I saw at the end it
-> was recommended (by marmarek) that the issue reporter forward the issue to
-> this list. I searched the list, but as I didn't see it in the list already,
-> I'm doing that now.
-> 
-> Hardware:
-> I have an AMD Threadripper 7960X on a ASRock TRX50 WS motherboard. The
-> Qubes reporter had a Threadripper 3970X on an ASUS Prime TRX40-Pro
-> Motherboard. I saw a 3rd issue report of a similar issue on another
-> Threadripper, so I think this may be Threadripper-specific.
-> 
-> Setup:
-> The QuebesOS reporter was using Qubes Installer.
-> My install was that I had a fresh install of Debian 12 (no gui), and then
-> did `apt install xen-system-amd64` and rebooted.
-> 
-> The issue:
-> Any boot of Xen on the hardware results in a halted machine. When
-> monitoring the logs with `vga=,keep`, we get:
-> 
-> (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
-> (XEN) Freed 644kB init memory
-> mapping kernel into physical memory
-> about to get started…
-> xen hypervisor allocated kernel memory conflicts with E820
-
-So first of all (the title doesn't say it) this is a Linux Dom0 issue.
-Whether or not needing addressing in Xen is unknown at this point.
-
-> (XEN) Hardware Dom0 halted: halting machine
-> 
-> None of the settings I or the Qubes reporter have tried have been able to
-> get past this failure.
-> 
-> I am happy to provide debugging support.
-
-Well, the crucial piece of data initially is going to be: What's the
-E820 map Xen gets to see, what's the E820 map Dom0 gets to see, and
-what address range is the conflict detected for? The first question
-is possible to answer by supplying a serial log. The second question
-likely means adding some debugging code to either Xen or Linux. The
-answer to third question may be possible to infer from the other
-data, but would likely be better to obtain explicitly by adjusting /
-amending the message Linux emits.
+1: x86emul: support LKGS
+2: x86emul: support CMPccXADD
+3: VMX: tertiary execution control infrastructure
+4: x86emul+VMX: support {RD,WR}MSRLIST
+5: x86: introduce x86_seg_sys
+6: x86emul: support USER_MSR instructions
+7: x86/cpu-policy: re-arrange no-VMX logic
+8: VMX: support USER_MSR
 
 Jan
+
 
