@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB2E582A892
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:53:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665983.1036357 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A94882A8B8
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 09:05:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665992.1036366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpsL-000052-OK; Thu, 11 Jan 2024 07:53:17 +0000
+	id 1rNq3l-000403-11; Thu, 11 Jan 2024 08:05:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665983.1036357; Thu, 11 Jan 2024 07:53:17 +0000
+Received: by outflank-mailman (output) from mailman id 665992.1036366; Thu, 11 Jan 2024 08:05:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpsL-0008U3-KH; Thu, 11 Jan 2024 07:53:17 +0000
-Received: by outflank-mailman (input) for mailman id 665983;
- Thu, 11 Jan 2024 07:53:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpsJ-0008Tx-Li
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:53:15 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 796e4008-b056-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 08:53:14 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3374eb61cbcso4532126f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:53:14 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c28-20020adfa31c000000b0033775980d26sm500759wrb.2.2024.01.10.23.53.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:53:14 -0800 (PST)
+	id 1rNq3k-0003xH-U3; Thu, 11 Jan 2024 08:05:04 +0000
+Received: by outflank-mailman (input) for mailman id 665992;
+ Thu, 11 Jan 2024 08:05:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ETxW=IV=amd.com=Xenia.Ragiadakou@srs-se1.protection.inumbo.net>)
+ id 1rNq3j-0003xB-5a
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 08:05:03 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2408::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1db1f82c-b058-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 09:05:00 +0100 (CET)
+Received: from PR0P264CA0095.FRAP264.PROD.OUTLOOK.COM (2603:10a6:100:18::35)
+ by SA3PR12MB7998.namprd12.prod.outlook.com (2603:10b6:806:320::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.17; Thu, 11 Jan
+ 2024 08:04:57 +0000
+Received: from SA2PEPF000015C9.namprd03.prod.outlook.com
+ (2603:10a6:100:18:cafe::fc) by PR0P264CA0095.outlook.office365.com
+ (2603:10a6:100:18::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.19 via Frontend
+ Transport; Thu, 11 Jan 2024 08:04:56 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SA2PEPF000015C9.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7181.14 via Frontend Transport; Thu, 11 Jan 2024 08:04:55 +0000
+Received: from [10.0.2.15] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 11 Jan
+ 2024 02:04:50 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,107 +56,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 796e4008-b056-11ee-98f0-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704959594; x=1705564394; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4Jo74aMqjG6F5Mno+cxU3pwLqXDLTAUwkJrVylM525s=;
-        b=CIe7jfNV2I1SSly+56G6sN8xf8PLw2DjYo93J+iZM4iNjt69NJ+nhE0maNugISJImE
-         HIpHiCXXZ/8bm5DE31wXykGIY7tBHn2T12xWw6byt2Mq87wB0BPlvg6wMPqbO13YfTyC
-         0fmu/pNmwMuupW6zCT1sbOl1xI5eAjDdChybnBJHMRoX6cg4bdqc98ry4vg+CYBb+nM0
-         mfFS3EHyVjajXIgZ9Z6lKf901/zdQv1UmYovlnL/KuVzgW7CYGqCcPGe/FMqpTGsHQL7
-         rTeyZYoLmKlhRQbDGb9vremLfyW0shl3bjvMtKVggHiAeOmA5TEB2P+AaiT6mi5ATY96
-         fQQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704959594; x=1705564394;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4Jo74aMqjG6F5Mno+cxU3pwLqXDLTAUwkJrVylM525s=;
-        b=mw4ayfenAkEuOOdazDQiCQui/Y73s7UwA4HtiLuGdEIybEZtLoBOKcxe+WH0QDAK+e
-         15/aHUcKETbYHrhPbihr08nqcf8e5zC8nNf3S1u9H4TbUW7TBLJk4UkfZuKH5jFAG5tO
-         m4tY33c6yc8Q5Upfu9U3gHWBOTe+t0WSimu1UlsLlU84D4btOzJKHLc7PAtMv+LeWcwV
-         Y62CTdEbgSb0qhZ7/SH59Bq7uI0rQok6224T4Hinid/36TNObMuVTfiKDSMClJw5YU8v
-         vpaPK8ZxRf7sPayTCKQCr87CPiZstRx+Mzphy2u3jf+P7Q6DvTLGE3QMfUzNx5QFB/ch
-         8Ftw==
-X-Gm-Message-State: AOJu0Yy+VQZnhk/SIqKbVcDHi0SY2ZIL7ejI2jIWmcjlEPt5/brnW7YY
-	bs3l2eJUTY34FJouaLRNSC2aIzwZwl7L
-X-Google-Smtp-Source: AGHT+IHS8iJEsP0zEPsgCcSyYY7klcQRM6mh9JtkTKtu5ECwx+81rZWmNq/6uEiSTV1FT1m/bCY+Rw==
-X-Received: by 2002:a5d:6644:0:b0:334:ada5:3835 with SMTP id f4-20020a5d6644000000b00334ada53835mr386369wrw.4.1704959594213;
-        Wed, 10 Jan 2024 23:53:14 -0800 (PST)
-Message-ID: <88d4cb45-f2e6-4acd-8ec4-060f90a444fc@suse.com>
-Date: Thu, 11 Jan 2024 08:53:13 +0100
+X-Inumbo-ID: 1db1f82c-b058-11ee-9b0f-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jFUGJIQ623iRtxmnyu2dgn8OmaLL0SmjnP4AFIBVqPXiVBlfUqKczuA4uGVDtLFHSj/eBaQQ3j1jlRJk/W4VbXLZ5KPisBcwr/L93ZFyz9FexXTQkCbTKyQcCigJh61W6IJ0ferRiCWFl5ImqDB1Zlh/hRSgAQ47OzgTWQnGaUpUBtvTP3hr/WNNHc1B94CZXg953ia+fv5IxQ/RZ7cNe2ukq8L5tJ8oeppY0lVLZ/GoR7wOdFmd5JQKGpXSrHUgla/kxbAPVgQaFoQCiMqjdoV0ZPlg1mP9ZXKeJvM/ZckEdSxOxH4zRMaoFrwCDM6DBXK6ovz3ACQucMG8BnM7bQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=63dLLcSSXFG5ZIukg18Lpb8wdCW0FZwbt04IsoI/PC8=;
+ b=EKivEebmxPuIuJdsqsFiJYK0DBv93WRhRmAuI8LJ2b6/AgTJI4GbFoovf6ZeCQeyK+tVjdNSTRNLFZ3o1auq1udQwb8tGPpBdxjm7XREECrMdPjCipUWED1B2AgGt1sZ5LpbN4j51JbFcDbCMY92EWi2Gu3XMQFNdlDq3m8EZ82NsUpprR9hKazYdu1WxbPe6s5JSD4ZAtv3BbfHAohPmUhodtbVpXvmEuDGO0SwQkRtzcfgnQJpBL4999v2panO8BS8AkRYq9SD3JWBlbfZoHn0IGH2ibKcYJbKgd8DTOnNqB9+KP9oSyjCnez21KzoVA/OEgoh4+fI27rw6aYPDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=63dLLcSSXFG5ZIukg18Lpb8wdCW0FZwbt04IsoI/PC8=;
+ b=1rXua/8CMsJNlo3d4aT2G6ggpNYgCF6r9WAvrJsVGCXWa8bqvHVv3z1df3l46iR2rt0D43jAiJ4fTOg+yFMawbgogBY63sZqKMjYoa9c+t738BMurV4ewmciiAFvKC2m5SMrYCx5mvhLitvvHyB5VTiSIjo7gajXp5CePjuebJI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <6fe776cd-3fa6-421f-9d02-9350e85d5612@amd.com>
+Date: Thu, 11 Jan 2024 10:04:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/22] x86/mapcache: initialise the mapcache for the idle
- domain
+Subject: Re: [PATCH] x86/hvm: don't expose XENFEAT_hvm_pirqs by default
 Content-Language: en-US
-To: Elias El Yandouzi <eliasely@amazon.com>
-Cc: Hongyan Xia <hongyxia@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Wei Wang <wawei@amazon.de>, Julien Grall <jgrall@amazon.com>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
-References: <20221216114853.8227-1-julien@xen.org>
- <20221216114853.8227-11-julien@xen.org>
- <751ffdb3-651c-b8e6-dc33-5a6857e3c88d@suse.com>
- <88024314-245f-404e-a6b7-7ea859bae309@amazon.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <88024314-245f-404e-a6b7-7ea859bae309@amazon.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+	=?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20240110095311.61809-1-roger.pau@citrix.com>
+ <238b79f5-0510-4306-9c32-19dade08e819@suse.com>
+ <ef67e4b1-3b1e-4cca-b431-cc46464700ca@amd.com> <ZZ61-SNkrKo12cwb@macbook>
+From: Xenia Ragiadakou <xenia.ragiadakou@amd.com>
+In-Reply-To: <ZZ61-SNkrKo12cwb@macbook>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB04.amd.com (10.181.40.145) To SATLEXMB04.amd.com
+ (10.181.40.145)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C9:EE_|SA3PR12MB7998:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3935e00-38b8-4c01-0aa0-08dc127bffbe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	amFsIQtLlYJqmmM8FNRibTl+j830SdAPDtIf/EVDugRUe1PTGhiFezHkYZKxdtwFJXTcJccx0sjtaAwQgSwSLmlWWr4HC0cw9yLYPwmmoSHIP30ofcUmUuauXDixKxqyeCGJPOW3/7SbNh7TKoWNc3hi8S+qAEEbqn3tfhNDh0u16hCflC7Fcn+YovO6ZKBE2C9HGc3JyFwLp2/xlF8B3DxUxfLBFvZryXoxI1sB1DokXIIQFuOScmHfEMwKwNTvUOgXrYnYFHmtETSEX1aCDz0ehCUav9DsYtIaZ5W+SBO8DI9AkJX3g2PYiE6VLbsy//bZF06D0YGt61QKWYiE7VyX9z5JfExzNk4s4tDcdagQH8LPHMTvUFffnXC9ba7ZE+YhHCokV4XtHfB873XOgTdiqlWF0eDms4QAWM4pCUWuRR26XH1CLekl49PJOnxZWYpHYZ+IclDvStbex78lr7tOd9331BnKLDsTRm/9raBAiHXuixPoB8fc5AsCgzoQ/ffTBaj6g0MfjD4k0sHku47g2BycVNhXFKVSRt1ZWfCSGcndde1lbPqiEQBAu34qT3JlH4Hy7C4Cs+5vvJW2GRYjRPEQ9fP9qQuoYX3OXpU3B9yNKYbTGOYINvxMaANjyftL/vrf+KboToqpwjpGsw6es9N6BoNeEk+P8Qe05AmVR2aHS1FYcIk272xvNwW/+4EPOfL0JbTa9bTT/HO8NQ4dB8A/aZfo/83c5nlhKQzosrwCmcgeiOfZOTI9kH+19ZkHwbLs9IxdXuCtuejxZaiMn5L0UZery2haq3QsL2ZsBtAj08oMSG5/Bs+FQa1A
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(346002)(136003)(39860400002)(396003)(230922051799003)(1800799012)(451199024)(186009)(64100799003)(82310400011)(46966006)(40470700004)(36840700001)(16526019)(336012)(426003)(26005)(2616005)(83380400001)(6666004)(36860700001)(53546011)(4326008)(82740400003)(41300700001)(47076005)(6916009)(5660300002)(44832011)(8936002)(2906002)(478600001)(316002)(16576012)(8676002)(70206006)(54906003)(70586007)(31696002)(86362001)(36756003)(356005)(81166007)(31686004)(40480700001)(40460700003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2024 08:04:55.9908
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3935e00-38b8-4c01-0aa0-08dc127bffbe
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF000015C9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7998
 
-On 10.01.2024 17:24, Elias El Yandouzi wrote:
-> On 22/12/2022 13:06, Jan Beulich wrote:
->> On 16.12.2022 12:48, Julien Grall wrote:
->>> --- a/xen/arch/x86/mm.c
->>> +++ b/xen/arch/x86/mm.c
->>> @@ -5963,6 +5963,9 @@ int create_perdomain_mapping(struct domain *d, unsigned long va,
->>>           l3tab = __map_domain_page(pg);
->>>           clear_page(l3tab);
->>>           d->arch.perdomain_l3_pg = pg;
->>> +        if ( is_idle_domain(d) )
->>> +            idle_pg_table[l4_table_offset(PERDOMAIN_VIRT_START)] =
->>> +                l4e_from_page(pg, __PAGE_HYPERVISOR_RW);
+Hi Roger,
+
+On 10/1/24 17:21, Roger Pau Monné wrote:
+> On Wed, Jan 10, 2024 at 03:47:12PM +0200, Xenia Ragiadakou wrote:
 >>
->> Hmm, having an idle domain check here isn't very nice. I agree putting
->> it in arch_domain_create()'s respective conditional isn't very neat
->> either, but personally I'd consider this at least a little less bad.
->> And the layering violation aspect isn't much worse than that of setting
->> d->arch.ctxt_switch there as well.
+>>
+>> On 10/1/24 12:26, Jan Beulich wrote:
+>>> On 10.01.2024 10:53, Roger Pau Monne wrote:
+>>>> The HVM pirq feature allows routing interrupts from both physical and emulated
+>>>> devices over event channels, this was done a performance improvement.  However
+>>>> its usage is fully undocumented, and the only reference implementation is in
+>>>> Linux.  It defeats the purpose of local APIC hardware virtualization, because
+>>>> when using it interrupts avoid the usage of the local APIC altogether.
+>>>
+>>> So without sufficient APIC acceleration, isn't this arranging for degraded
+>>> performance then? IOW should the new default perhaps be dependent on the
+>>> degree of APIC acceleration?
+>>>
+>>>> It has also been reported to not work properly with certain devices, at least
+>>>> when using some AMD GPUs Linux attempts to route interrupts over event
+>>>> channels, but Xen doesn't correctly detect such routing, which leads to the
+>>>> hypervisor complaining with:
+>>>>
+>>>> (XEN) d15v0: Unsupported MSI delivery mode 7 for Dom15
+>>>>
+>>>> When MSIs are attempted to be routed over event channels the entry delivery
+>>>> mode is set to ExtINT, but Xen doesn't detect such routing and attempts to
+>>>> inject the interrupt following the native MSI path, and the ExtINT delivery
+>>>> mode is not supported.
+>>>
+>>> Shouldn't this be properly addressed nevertheless? The way it's described
+>>> it sounds as if MSI wouldn't work at all this way; I can't spot why the
+>>> issue would only be "with certain devices". Yet that in turn doesn't look
+>>> to be very likely - pass-through use cases, in particular SR-IOV ones,
+>>> would certainly have noticed.
+>>
+>> The issue gets triggered when the guest performs save/restore of MSIs,
+>> because PHYSDEVOP_map_pirq is not implemented for MSIs, and thus, QEMU
+>> cannot remap the MSI to the event channel once unmapped.
 > 
-> Why do you think it would be less bad to move it in 
-> arch_domain_create()? To me, it would make things worse as it would 
-> spread the mapping stuff across different functions.
+> I'm kind of confused by this sentence, PHYSDEVOP_map_pirq does support
+> MSIs, see xc_physdev_map_pirq_msi() helper in Xen code base.
+> 
 
-Not sure what to add to what I said: create_perdomain_mapping() gaining
-such a check is a layering violation to me. arch_domain_create() otoh
-special cases the idle domain already.
+Sorry I had to explain it better. For an HVM guest with 
+XENFEAT_hvm_pirqs set, physdev_hvm_map_pirq() will be called, that has 
+not support for MSI.
 
-Jan
+>> So, to fix this issue either would be needed to change QEMU to not unmap
+>> pirq-emulated MSIs or to implement PHYSDEVOP_map_pirq for MSIs.
+>>
+>> But still, even when no device has been passed-through, scheduling latencies
+>> (of hundreds of ms), were observed in the guest even when running a simple
+>> loop application, that disappear once the flag is disabled. We did not have
+>> the chance to root cause it further.
+> 
+> So XENFEAT_hvm_pirqs is causing such latency issues?  That I certainly
+> didn't notice.
+
+We 've seen that in a setup with an HVM guest using emulated MSIs. We 
+were running an application, like the one below, pinned on an isolated 
+and pinned vcpu.
+
+int main()
+{
+     struct timeval cur_time = {0}, prev_time = {0};
+     int diff;
+
+     gettimeofday(&prev_time, NULL);
+     do {
+         gettimeofday(&cur_time, NULL);
+
+         diff = (((cur_time.tv_sec - prev_time.tv_sec)*1000) + ((cur_time
+.tv_usec - prev_time.tv_usec)/1000));
+         if (diff>10)
+            printf("app scheduled after: %d msec\n",diff);
+
+         gettimeofday(&prev_time, NULL);
+     } while(1);
+}
+
+And we 're getting values of hundreds of ms like:
+app scheduled after: 985 msec
+
+> 
+> Regards, Roger.
 
