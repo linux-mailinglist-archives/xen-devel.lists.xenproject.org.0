@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE21B82A849
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:26:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665912.1036235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 002E682A856
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:30:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665921.1036246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpSN-0003bZ-QX; Thu, 11 Jan 2024 07:26:27 +0000
+	id 1rNpW5-0005T3-AP; Thu, 11 Jan 2024 07:30:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665912.1036235; Thu, 11 Jan 2024 07:26:27 +0000
+Received: by outflank-mailman (output) from mailman id 665921.1036246; Thu, 11 Jan 2024 07:30:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpSN-0003ZG-Ni; Thu, 11 Jan 2024 07:26:27 +0000
-Received: by outflank-mailman (input) for mailman id 665912;
- Thu, 11 Jan 2024 07:26:26 +0000
+	id 1rNpW5-0005Q4-79; Thu, 11 Jan 2024 07:30:17 +0000
+Received: by outflank-mailman (input) for mailman id 665921;
+ Thu, 11 Jan 2024 07:30:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpSM-00034Z-E0
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:26:26 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1rNpW3-0005Py-Tr
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:30:15 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ba673b25-b052-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 08:26:25 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-336c8ab0b20so4433520f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:26:25 -0800 (PST)
+ id 42eb26aa-b053-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 08:30:14 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-40e55c885d7so17677775e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:30:14 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o10-20020a056000010a00b00336cbbf2e0fsm441141wrx.27.2024.01.10.23.26.24
+ n16-20020a05600c4f9000b0040d62f97e3csm4686253wmq.10.2024.01.10.23.30.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:26:25 -0800 (PST)
+ Wed, 10 Jan 2024 23:30:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba673b25-b052-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: 42eb26aa-b053-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704957985; x=1705562785; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704958214; x=1705563014; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zoKC8ochUFPTshQ5L/IkWmgj0imM/XqiSRmWYZZF9pU=;
-        b=dTn/ntqgsgEiCOKf2nr4uMQOVIJnQu/zf9UmQB7x3rd+4djT66ZRn9gvvqXhWuZ4Qy
-         pJoWEfgC8ibcLGBnSl9Ae8FptMadw3m+nhqvTZo/SzNWOjrT5JR6CLjn2lbNFdlkyS2m
-         lYq1Mv4o6Dakzdm+MxjMLJqYpNctTRdDeTvBgb+7eEFqMYLhMw7vjSUjyLlPCd1TVptU
-         TaC3KrenUrL/2E/6Ol52c0z4IK2x8NDTQ0rfNPPdZy3+ci9f1YKAW/+Hsadq/qcGRdHM
-         57e8qghDZDG1lg9XDlJS9zG1njsiMLHvL+4qngb8C4w0j9q70L+7zBR91lzphB8YM6JE
-         zz+Q==
+        bh=vrbYM+k3rn2StvNS14c+H1vkqzUnxcZIY2WokHy7uas=;
+        b=HW1MM19UkCsR4osJyfSxs4+0bOOd0FFwi5KgAyZ2InM5ynVKKKvsWm7NwzrWsIQ6va
+         w3ACnHQPIcygcQa2R5MlEoeUqU5gD3GmjiEV2hKhuAPFShliYyksqKtkRJsLpS8ZBbS1
+         BMfMu5rYJKLum+N8c74apP7uv977p8zFmd5zXswggJkBfVk0jcUEK7BR2izmQdvZdqEx
+         KSbn0zNZbk0x+FV+PDvbQUQFcsaGse8qymMqOURCrTmHgA7XIWKK8uagp4ihp8pWgd6h
+         pH97uq+LyrRfjUcsUfvy4xlhpkCCdzu1E6CqQRnIN+CM6eQAzjgvrqfQPIHAjkUmexmo
+         PYnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704957985; x=1705562785;
+        d=1e100.net; s=20230601; t=1704958214; x=1705563014;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=zoKC8ochUFPTshQ5L/IkWmgj0imM/XqiSRmWYZZF9pU=;
-        b=M87VQSZUKyWJBVqJ3slgQ5U9tiA+S+vz2gtdMv9JMuuNOVgPhioRZyK5TgmI4kQ1XZ
-         1W896mFtW2ikV2W/Wty75yXnFy7f86vkrwmxoKgKxXYSwmNqvgv2YR+fv2mkygI6xPVJ
-         Fu428AmW9X2oj03jMwgt95g0VZCICgZIe2rL04t6vLCLZMeudFUrW5vDozYsFXT7wW8D
-         dONvqlYcvLEyxQrGD29XLb/Z8mn54Xv7siys8QHMYXrIRyW4QBNF6Gv5zNoTlaM/5eYB
-         2KOLW7+4lfQc62g5ph/F+HKIGEXl8UxzyAhxzVB83siZWFQwfd2PBQfjcYRjwbv2XKkO
-         pZmA==
-X-Gm-Message-State: AOJu0YxI1Kod4byHONFMVtiqJE8uKedabMs198+RHDS6V8eNh10K7cNK
-	wJ9/PrTb3YLlh0wAmyCey/gSavjzlv7zYkeTD7kZFDX32g==
-X-Google-Smtp-Source: AGHT+IEi2S9lCWjDUsOeY8BYyOKk6jfWSv9fqqfawDOrRwj/+vk3szw4QRnPRNkIT+EWVnGoCiPIDg==
-X-Received: by 2002:a5d:620e:0:b0:337:2b76:30fe with SMTP id y14-20020a5d620e000000b003372b7630femr370509wru.37.1704957985246;
-        Wed, 10 Jan 2024 23:26:25 -0800 (PST)
-Message-ID: <d1361c45-2283-4fe9-b997-b524c82626f1@suse.com>
-Date: Thu, 11 Jan 2024 08:26:24 +0100
+        bh=vrbYM+k3rn2StvNS14c+H1vkqzUnxcZIY2WokHy7uas=;
+        b=MrtF3iag5YpvTGatoLcz3dzUi38477eChpOCY5Gw9W0xw6kMtc88bIQCb3LC10FfHo
+         +BeniGzT3xy6MPUCMzsb6h2qy+YGMaQ0yFxhSgCYRP8Boz8rJyedwE7nymWwyYFhOMMu
+         +7t4FDKG+Zn3c7sNfpjt+bmeD5X9mCpDTmu/6/XHkoL72l37r1vAYTOdK8ufm9UnkP5x
+         aD5hlNfgYU+cLEKiKQfDNM2S3kmV182YuJ/x25aC1MvqoiXVnvgTw0q7ym8Zdow3PxS1
+         a79qJ6AeB2vfujpjQyOg9OsuGiSV3V/P5rZxzIPVZyO1+7hv4BjUUKIV6W/pnF+stmg9
+         V5fA==
+X-Gm-Message-State: AOJu0YyNcQPtgDx9NzuADySOhX4HUtMujUsnXL9AfCsntNynP31TekzD
+	WqLnZ4J65nqmk9zknZaNmY9DGt+03igLn6gNTKNOZC4GLQ==
+X-Google-Smtp-Source: AGHT+IFbCF0Cmn4ze8awRNj7NnD5DZnQdD+ckerlKPuU2k00VG6SDcDngHETqq6FGgzvFaBuAykVGw==
+X-Received: by 2002:a05:600c:3584:b0:40e:5f64:a6a3 with SMTP id p4-20020a05600c358400b0040e5f64a6a3mr128934wmq.173.1704958214279;
+        Wed, 10 Jan 2024 23:30:14 -0800 (PST)
+Message-ID: <264f1696-3555-426b-b88d-97c3f2d27eb5@suse.com>
+Date: Thu, 11 Jan 2024 08:30:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/8] PV-shim: drop pv_console_rx()'s regs parameter
+Subject: Re: [PATCH 0/8] limit passing around of cpu_user_regs
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 References: <5d6089a4-c597-49ce-b042-24f13922f581@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,52 +115,23 @@ In-Reply-To: <5d6089a4-c597-49ce-b042-24f13922f581@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-It's not needed anymore. This is in preparation of dropping the register
-parameters from IRQ handler functions.
+On 11.01.2024 08:21, Jan Beulich wrote:
+> Unlike (synchronous) exception handlers, interrupt handlers don't normally
+> have a need to know the outer context's register state. Similarly, the vast
+> majority of key handlers has no need for such.
+> 
+> 1: keyhandler: don't pass cpu_user_regs around
+> 2: IRQ: generalize [gs]et_irq_regs()
+> 3: serial: drop serial_rx_fn's regs parameter
+> 4: PV-shim: drop pv_console_rx()'s regs parameter
+> 5: serial: drop serial_[rt]x_interrupt()'s regs parameter
+> 6: IRQ: drop regs parameter from handler functions
+> 7: x86/vPMU: drop regs parameter from interrupt functions
+> 8: x86/APIC: drop regs parameter from direct vector handler functions
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+I'm sorry, I need to start over - somehow ordering got confused in the
+reply-to-s sent so far.
 
---- a/xen/arch/x86/guest/xen/xen.c
-+++ b/xen/arch/x86/guest/xen/xen.c
-@@ -181,7 +181,7 @@ static void cf_check xen_evtchn_upcall(s
-             port += l1 * BITS_PER_LONG;
- 
-             if ( pv_console && port == pv_console_evtchn() )
--                pv_console_rx(regs);
-+                pv_console_rx();
-             else if ( pv_shim )
-                 pv_shim_inject_evtchn(port);
-         }
---- a/xen/drivers/char/xen_pv_console.c
-+++ b/xen/drivers/char/xen_pv_console.c
-@@ -94,7 +94,7 @@ evtchn_port_t pv_console_evtchn(void)
-     return cons_evtchn;
- }
- 
--size_t pv_console_rx(struct cpu_user_regs *regs)
-+size_t pv_console_rx(void)
- {
-     char c;
-     XENCONS_RING_IDX cons, prod;
---- a/xen/include/xen/pv_console.h
-+++ b/xen/include/xen/pv_console.h
-@@ -9,7 +9,7 @@ void pv_console_init(void);
- void pv_console_set_rx_handler(serial_rx_fn fn);
- void pv_console_init_postirq(void);
- void pv_console_puts(const char *buf, size_t nr);
--size_t pv_console_rx(struct cpu_user_regs *regs);
-+size_t pv_console_rx(void);
- evtchn_port_t pv_console_evtchn(void);
- 
- #else
-@@ -18,7 +18,7 @@ static inline void pv_console_init(void)
- static inline void pv_console_set_rx_handler(serial_rx_fn fn) { }
- static inline void pv_console_init_postirq(void) { }
- static inline void pv_console_puts(const char *buf, size_t nr) { }
--static inline size_t pv_console_rx(struct cpu_user_regs *regs) { return 0; }
-+static inline size_t pv_console_rx(void) { return 0; }
- 
- #endif /* !CONFIG_XEN_GUEST */
- #endif /* __XEN_PV_CONSOLE_H__ */
+Jan
 
 
