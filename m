@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E75982A9F2
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 09:59:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666018.1036416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CED282A9F5
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 09:59:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666021.1036426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNquH-0003nz-Ue; Thu, 11 Jan 2024 08:59:21 +0000
+	id 1rNquc-0004Lq-9s; Thu, 11 Jan 2024 08:59:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666018.1036416; Thu, 11 Jan 2024 08:59:21 +0000
+Received: by outflank-mailman (output) from mailman id 666021.1036426; Thu, 11 Jan 2024 08:59:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNquH-0003kk-QV; Thu, 11 Jan 2024 08:59:21 +0000
-Received: by outflank-mailman (input) for mailman id 666018;
- Thu, 11 Jan 2024 08:59:20 +0000
+	id 1rNquc-0004I8-5i; Thu, 11 Jan 2024 08:59:42 +0000
+Received: by outflank-mailman (input) for mailman id 666021;
+ Thu, 11 Jan 2024 08:59:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNquG-0003ka-Cc
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 08:59:20 +0000
+ id 1rNqua-0003ka-80
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 08:59:40 +0000
 Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
  [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b3b579de-b05f-11ee-9b0f-b553b5be7939;
- Thu, 11 Jan 2024 09:59:18 +0100 (CET)
+ id bfdaba3b-b05f-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 09:59:38 +0100 (CET)
 Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-3377d45c178so963892f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 00:59:18 -0800 (PST)
+ ffacd0b85a97d-3368abe1093so4046176f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 00:59:38 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h6-20020adf9cc6000000b003375d8b0460sm643239wre.1.2024.01.11.00.59.16
+ h6-20020adf9cc6000000b003375d8b0460sm643239wre.1.2024.01.11.00.59.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jan 2024 00:59:17 -0800 (PST)
+ Thu, 11 Jan 2024 00:59:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3b579de-b05f-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: bfdaba3b-b05f-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704963557; x=1705568357; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+        d=suse.com; s=google; t=1704963578; x=1705568378; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=znZFpFdugFR9A56wiLGjbizRfrV+yEAUwi/XRqDEfaM=;
-        b=ZiGcRgS6gbop5mFJGa8JUv2sFnJm0KyrPDZoC5XDDMrwtG1nO6sSTkMIx8BIJZhpj/
-         jYXP3gAFPfBV7zCgZi7fys0TaKviFY8nrTV9XiyEgaxz7W+F4pL6cz8RZ5L+tzimrJkP
-         FzUMeyQotWNV8CUDNL/HJce9aYJ7y7HMNeFpeOKmw+HMndVFIqBnpA0CATYb8lbSScZc
-         5NubO7OycAcnQoi1Ix8lIKB7VrBdvEqrM70OYm8+N7yxEa6r8JEiCpgq/HAifedxjU28
-         wx9p75kVt/BeVruuiNliNVFV8nmngnH0mFruEZYyJiPah8g7AgYxzIdD9J43cG07WnlP
-         YPnA==
+        bh=ro9sYcIYrT3iuwke3NKdji6jgyYKriFbBKqrEoY/8E0=;
+        b=eCBkzuY9Qffcwj7vS0S0b1owvn9QM0RPfFMl1rFYuGIGihdGGjlVoTuPCwxcPOZRol
+         tJm5el+qBwsOuGTGT9m/zT9WhRsSgqz2C5kRr50YskwChzCl+HbbbOgeJnJ6fexBN8tx
+         lZ022WL0JtiMVTle+cUjryUuT7JIG7a4hGropyix6O2TdhLHK5anwF2A5XKgQb2WcTdX
+         O3OdIAgfxeGPEKbRq+PKU6wTiaFcax1hpt0fekLW5yMHDd/jSQ2L8+kvvdCdH2HNvn/p
+         BUunE1pWImfFlER/YxXQ40wu/1K7Eyo1nnsttnm8nWlVaBNwbEH38TdnMq1BnRhY+ALa
+         avjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704963557; x=1705568357;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
+        d=1e100.net; s=20230601; t=1704963578; x=1705568378;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=znZFpFdugFR9A56wiLGjbizRfrV+yEAUwi/XRqDEfaM=;
-        b=daqt6J3lLResYRw1XMYU9Rp7XA2DE7zTRyjMDxu5efoO8kH0torrPVDi05ay/Miq6c
-         WBCmPZucNQlBpScC/ev14Oh6mxc03QGsN90tGoCYXrGMjr8hT5s59hyUVrs9J2k25ohk
-         v6LLZDwCjktjtkvbzwpD8yL/VepIi/YMa2MTYLxvNjiOohOT5hqoy2tBcjzevBWKBbtn
-         jYM7YlLuuGHll1fz2o1iymo9ZkMNkejFwVM2P21DwXjTTbwm/wSdzjY9e9GL4xC7pOxm
-         t7ZhILvo7bfxrq1MmPUSaBfmx8/yL3rK74nWF6VcwfN5jASW7WxM2j8hFn8YF4FFuZGc
-         Hsfw==
-X-Gm-Message-State: AOJu0Yx38OkiL3IDbGxPcPqPDy5Ww5ae6aMcxv+hcRjZYpcptMhjBQqQ
-	rJaz65mMPdFkYwbevMxxsaSBP2L7rmP40HsaKxussbZL6w==
-X-Google-Smtp-Source: AGHT+IGlWrF4aJgeWzqLqIzbwftTZ3q1BJp0lUkAMTUhudUuD6s53E24JZ/CLX7bjhE4+8JBF/Hkdw==
-X-Received: by 2002:a05:600c:4a9d:b0:40e:59da:c7cd with SMTP id b29-20020a05600c4a9d00b0040e59dac7cdmr214202wmp.65.1704963557397;
-        Thu, 11 Jan 2024 00:59:17 -0800 (PST)
-Message-ID: <dd67cd34-8aa2-46d2-8c54-fe2afb1a96e1@suse.com>
-Date: Thu, 11 Jan 2024 09:59:16 +0100
+        bh=ro9sYcIYrT3iuwke3NKdji6jgyYKriFbBKqrEoY/8E0=;
+        b=XeRXknN950uNVv+abJfWZPO2DG0ZIY8xCWkE5cDoVvRvI7pNzyDaeRazhyVzWxLEbf
+         STULLJfrFo3SFIj91sDQXC1pD9pgXR+XpuSyzSplscqNOFczDWRLupYAK9VeJ1CQxaJh
+         Ls9q9lf5KisHnnQuZj9HQD/ZHBTCpRpBUJ/Fq2hVjEtzvBxy5ksRlYQ827VbR3SNtdrZ
+         0iPt65XmIaWStVykPw7O+jQGc5I/WwI+lE2n+t1scdPXrTEnu3kdJITDZjd3qaN7Unvz
+         a48jIDdeJuEV8+SQFMfv/+Nl/bdudF/IPZVYovGtBhL6U/sVT2EEkgI4iVHrX7/dkYzq
+         VRXQ==
+X-Gm-Message-State: AOJu0YxL6LeFUPsT1afAfSAFOjTm7tmI+B676L9553oJwQ11MVTy8OYn
+	DzKlGjL7RWXpTgRwpeuppWsZp83rm2KlRzULegnHRSDniw==
+X-Google-Smtp-Source: AGHT+IEQ3bPznbTKUgDDfHX8Lg2qgVKT6K+kQNtU3t8+Sq+KXLstHTdaWMhUJigNksqpzDDp5dmoGA==
+X-Received: by 2002:adf:f2d1:0:b0:332:cf4c:2a54 with SMTP id d17-20020adff2d1000000b00332cf4c2a54mr433085wrp.50.1704963577781;
+        Thu, 11 Jan 2024 00:59:37 -0800 (PST)
+Message-ID: <98587021-8c2e-44ab-a6f5-a66680e2df66@suse.com>
+Date: Thu, 11 Jan 2024 09:59:37 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 1/8] x86emul: support LKGS
+Subject: [PATCH v4 2/8] x86emul: support CMPccXADD
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 References: <9dd23064-c79e-4a50-9c71-c0e73b189944@suse.com>
-Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -114,295 +114,310 @@ In-Reply-To: <9dd23064-c79e-4a50-9c71-c0e73b189944@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Provide support for this insn, which is a prereq to FRED. CPUID-wise
-introduce both its and FRED's bit at this occasion, thus allowing to
-also express the dependency right away.
-
-While adding a testcase, also add a SWAPGS one. In order to not affect
-the behavior of pre-existing tests, install write_{segment,msr} hooks
-only transiently.
+Unconditionally wire this through the ->rmw() hook. Since x86_emul_rmw()
+now wants to construct and invoke a stub, make stub_exn available to it
+via a new field in the emulator state structure.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Instead of ->read_segment() we could of course also use ->read_msr() to
-fetch the original GS base. I don't think I can see a clear advantage of
-either approach; the way it's done it matches how we handle SWAPGS.
-
-For PV save_segments() would need adjustment, but the insn being
-restricted to ring 0 means PV guests can't use it anyway (unless we
-wanted to emulate it as another privileged insn).
----
 v3: Add dependency on LM. Re-base.
-v2: Use X86_EXC_*. Add comments.
+v2: Use X86_EXC_*. Move past introduction of stub_exn in struct
+    x86_emulate_state. Keep feature at just "a" for now.
+---
+SDE: -grr or -srf
 
 --- a/tools/misc/xen-cpuid.c
 +++ b/tools/misc/xen-cpuid.c
-@@ -190,7 +190,8 @@ static const char *const str_7a1[32] =
+@@ -186,6 +186,7 @@ static const char *const str_7d0[32] =
+ static const char *const str_7a1[32] =
+ {
+     [ 4] = "avx-vnni",      [ 5] = "avx512-bf16",
++    /* 6 */                 [ 7] = "cmpccxadd",
+ 
      [10] = "fzrm",          [11] = "fsrs",
      [12] = "fsrcs",
- 
--    /* 18 */                [19] = "wrmsrns",
-+    /* 16 */                [17] = "fred",
-+    [18] = "lkgs",          [19] = "wrmsrns",
- 
-     /* 22 */                [23] = "avx-ifma",
- };
 --- a/tools/tests/x86_emulator/predicates.c
 +++ b/tools/tests/x86_emulator/predicates.c
-@@ -326,6 +326,7 @@ static const struct {
-     { { 0x00, 0x18 }, { 2, 2 }, T, R }, /* ltr */
-     { { 0x00, 0x20 }, { 2, 2 }, T, R }, /* verr */
-     { { 0x00, 0x28 }, { 2, 2 }, T, R }, /* verw */
-+    { { 0x00, 0x30 }, { 0, 2 }, T, R, pfx_f2 }, /* lkgs */
-     { { 0x01, 0x00 }, { 2, 2 }, F, W }, /* sgdt */
-     { { 0x01, 0x08 }, { 2, 2 }, F, W }, /* sidt */
-     { { 0x01, 0x10 }, { 2, 2 }, F, R }, /* lgdt */
+@@ -1403,6 +1403,22 @@ static const struct vex {
+     { { 0xdd }, 2, T, R, pfx_66, WIG, Ln }, /* vaesenclast */
+     { { 0xde }, 2, T, R, pfx_66, WIG, Ln }, /* vaesdec */
+     { { 0xdf }, 2, T, R, pfx_66, WIG, Ln }, /* vaesdeclast */
++    { { 0xe0 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpoxadd */
++    { { 0xe1 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnoxadd */
++    { { 0xe2 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpbxadd */
++    { { 0xe3 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnbxadd */
++    { { 0xe4 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpexadd */
++    { { 0xe5 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnexadd */
++    { { 0xe6 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpbexadd */
++    { { 0xe7 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpaxadd */
++    { { 0xe8 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpsxadd */
++    { { 0xe9 }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnsxadd */
++    { { 0xea }, 2, F, W, pfx_66, Wn, L0 }, /* cmppxadd */
++    { { 0xeb }, 2, F, W, pfx_66, Wn, L0 }, /* cmpnpxadd */
++    { { 0xec }, 2, F, W, pfx_66, Wn, L0 }, /* cmplxadd */
++    { { 0xed }, 2, F, W, pfx_66, Wn, L0 }, /* cmpgexadd */
++    { { 0xee }, 2, F, W, pfx_66, Wn, L0 }, /* cmplexadd */
++    { { 0xef }, 2, F, W, pfx_66, Wn, L0 }, /* cmpgxadd */
+     { { 0xf2 }, 2, T, R, pfx_no, Wn, L0 }, /* andn */
+     { { 0xf3, 0x08 }, 2, T, R, pfx_no, Wn, L0 }, /* blsr */
+     { { 0xf3, 0x10 }, 2, T, R, pfx_no, Wn, L0 }, /* blsmsk */
 --- a/tools/tests/x86_emulator/test_x86_emulator.c
 +++ b/tools/tests/x86_emulator/test_x86_emulator.c
-@@ -680,6 +680,10 @@ static int blk(
-     return x86_emul_blk((void *)offset, p_data, bytes, eflags, state, ctxt);
- }
- 
-+#ifdef __x86_64__
-+static unsigned long gs_base, gs_base_shadow;
-+#endif
-+
- static int read_segment(
-     enum x86_segment seg,
-     struct segment_register *reg,
-@@ -689,8 +693,30 @@ static int read_segment(
-         return X86EMUL_UNHANDLEABLE;
-     memset(reg, 0, sizeof(*reg));
-     reg->p = 1;
-+
-+#ifdef __x86_64__
-+    if ( seg == x86_seg_gs )
-+        reg->base = gs_base;
-+#endif
-+
-+    return X86EMUL_OKAY;
-+}
-+
-+#ifdef __x86_64__
-+static int write_segment(
-+    enum x86_segment seg,
-+    const struct segment_register *reg,
-+    struct x86_emulate_ctxt *ctxt)
-+{
-+    if ( !is_x86_user_segment(seg) )
-+        return X86EMUL_UNHANDLEABLE;
-+
-+    if ( seg == x86_seg_gs )
-+        gs_base = reg->base;
-+
-     return X86EMUL_OKAY;
- }
-+#endif
- 
- static int read_msr(
-     unsigned int reg,
-@@ -703,6 +729,20 @@ static int read_msr(
-         *val = ctxt->addr_size > 32 ? 0x500 /* LME|LMA */ : 0;
-         return X86EMUL_OKAY;
- 
-+#ifdef __x86_64__
-+    case 0xc0000101: /* GS_BASE */
-+        if ( ctxt->addr_size < 64 )
-+            break;
-+        *val = gs_base;
-+        return X86EMUL_OKAY;
-+
-+    case 0xc0000102: /* SHADOW_GS_BASE */
-+        if ( ctxt->addr_size < 64 )
-+            break;
-+        *val = gs_base_shadow;
-+        return X86EMUL_OKAY;
-+#endif
-+
-     case 0xc0000103: /* TSC_AUX */
- #define TSC_AUX_VALUE 0xCACACACA
-         *val = TSC_AUX_VALUE;
-@@ -712,6 +752,31 @@ static int read_msr(
-     return X86EMUL_UNHANDLEABLE;
- }
- 
-+#ifdef __x86_64__
-+static int write_msr(
-+    unsigned int reg,
-+    uint64_t val,
-+    struct x86_emulate_ctxt *ctxt)
-+{
-+    switch ( reg )
-+    {
-+    case 0xc0000101: /* GS_BASE */
-+        if ( ctxt->addr_size < 64 || !is_canonical_address(val) )
-+            break;
-+        gs_base = val;
-+        return X86EMUL_OKAY;
-+
-+    case 0xc0000102: /* SHADOW_GS_BASE */
-+        if ( ctxt->addr_size < 64 || !is_canonical_address(val) )
-+            break;
-+        gs_base_shadow = val;
-+        return X86EMUL_OKAY;
-+    }
-+
-+    return X86EMUL_UNHANDLEABLE;
-+}
-+#endif
-+
- #define INVPCID_ADDR 0x12345678
- #define INVPCID_PCID 0x123
- 
-@@ -1345,6 +1410,41 @@ int main(int argc, char **argv)
-         printf("%u bytes read - ", bytes_read);
-         goto fail;
+@@ -1412,6 +1412,78 @@ int main(int argc, char **argv)
      }
-+    printf("okay\n");
-+
-+    emulops.write_segment = write_segment;
-+    emulops.write_msr     = write_msr;
-+
-+    printf("%-40s", "Testing swapgs...");
-+    instr[0] = 0x0f; instr[1] = 0x01; instr[2] = 0xf8;
-+    regs.eip = (unsigned long)&instr[0];
-+    gs_base = 0xffffeeeecccc8888UL;
-+    gs_base_shadow = 0x0000111122224444UL;
-+    rc = x86_emulate(&ctxt, &emulops);
-+    if ( (rc != X86EMUL_OKAY) ||
-+         (regs.eip != (unsigned long)&instr[3]) ||
-+         (gs_base != 0x0000111122224444UL) ||
-+         (gs_base_shadow != 0xffffeeeecccc8888UL) )
-+        goto fail;
-+    printf("okay\n");
-+
-+    printf("%-40s", "Testing lkgs 2(%rdx)...");
-+    instr[0] = 0xf2; instr[1] = 0x0f; instr[2] = 0x00; instr[3] = 0x72; instr[4] = 0x02;
-+    regs.eip = (unsigned long)&instr[0];
-+    regs.edx = (unsigned long)res;
-+    res[0]   = 0x00004444;
-+    res[1]   = 0x8888cccc;
-+    i = cp.extd.nscb; cp.extd.nscb = true; /* for AMD */
-+    rc = x86_emulate(&ctxt, &emulops);
-+    if ( (rc != X86EMUL_OKAY) ||
-+         (regs.eip != (unsigned long)&instr[5]) ||
-+         (gs_base != 0x0000111122224444UL) ||
-+         gs_base_shadow )
-+        goto fail;
-+
-+    cp.extd.nscb = i;
-+    emulops.write_segment = NULL;
-+    emulops.write_msr     = NULL;
- #endif
      printf("okay\n");
  
---- a/tools/tests/x86_emulator/x86-emulate.c
-+++ b/tools/tests/x86_emulator/x86-emulate.c
-@@ -86,6 +86,7 @@ bool emul_test_init(void)
-     cp.feat.adx = true;
-     cp.feat.avx512pf = cp.feat.avx512f;
-     cp.feat.rdpid = true;
-+    cp.feat.lkgs = true;
-     cp.feat.wrmsrns = true;
-     cp.extd.clzero = true;
++    printf("%-40s", "Testing cmpbxadd %rbx,%r9,(%rdx)...");
++    if ( stack_exec && cpu_has_cmpccxadd )
++    {
++        instr[0] = 0xc4; instr[1] = 0x62; instr[2] = 0xe1; instr[3] = 0xe2; instr[4] = 0x0a;
++        regs.rip = (unsigned long)&instr[0];
++        regs.eflags = EFLAGS_ALWAYS_SET;
++        res[0] = 0x11223344;
++        res[1] = 0x01020304;
++        regs.rdx = (unsigned long)res;
++        regs.r9  = 0x0001020300112233UL;
++        regs.rbx = 0x0101010101010101UL;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[5]) ||
++             (regs.r9 != 0x0102030411223344UL) ||
++             (regs.rbx != 0x0101010101010101UL) ||
++             ((regs.eflags & EFLAGS_MASK) !=
++              (X86_EFLAGS_PF | EFLAGS_ALWAYS_SET)) ||
++             (res[0] != 0x11223344) ||
++             (res[1] != 0x01020304) )
++            goto fail;
++
++        regs.rip = (unsigned long)&instr[0];
++        regs.r9 <<= 8;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[5]) ||
++             (regs.r9 != 0x0102030411223344UL) ||
++             (regs.rbx != 0x0101010101010101UL) ||
++             ((regs.eflags & EFLAGS_MASK) !=
++              (X86_EFLAGS_CF | X86_EFLAGS_PF | X86_EFLAGS_SF |
++               EFLAGS_ALWAYS_SET)) ||
++             (res[0] != 0x12233445) ||
++             (res[1] != 0x02030405) )
++            goto fail;
++        printf("okay\n");
++
++        printf("%-40s", "Testing cmpsxadd %r9d,%ebx,4(%r10)...");
++        instr[1] = 0xc2; instr[2] = 0x31; instr[3] = 0xe8; instr[4] = 0x5a; instr[5] = 0x04;
++        regs.rip = (unsigned long)&instr[0];
++        res[2] = res[0] = ~0;
++        regs.r10 = (unsigned long)res;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[6]) ||
++             (regs.r9 != 0x0102030411223344UL) ||
++             (regs.rbx != 0x02030405) ||
++             ((regs.eflags & EFLAGS_MASK) != EFLAGS_ALWAYS_SET) ||
++             (res[0] + 1) ||
++             (res[1] != 0x02030405) ||
++             (res[2] + 1) )
++            goto fail;
++
++        regs.rip = (unsigned long)&instr[0];
++        regs.rbx <<= 8;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[6]) ||
++             (regs.r9 != 0x0102030411223344UL) ||
++             (regs.rbx != 0x02030405) ||
++             ((regs.eflags & EFLAGS_MASK) !=
++              (X86_EFLAGS_CF | X86_EFLAGS_PF | X86_EFLAGS_SF |
++               EFLAGS_ALWAYS_SET)) ||
++             (res[0] + 1) ||
++             (res[1] != 0x13253749) ||
++             (res[2] + 1) )
++            goto fail;
++        printf("okay\n");
++    }
++    else
++        printf("skipped\n");
++
+     emulops.write_segment = write_segment;
+     emulops.write_msr     = write_msr;
  
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -178,6 +178,7 @@ void wrpkru(unsigned int val);
+ #define cpu_has_avx512_fp16 (cp.feat.avx512_fp16 && xcr0_mask(0xe6))
+ #define cpu_has_avx_vnni   (cp.feat.avx_vnni && xcr0_mask(6))
+ #define cpu_has_avx512_bf16 (cp.feat.avx512_bf16 && xcr0_mask(0xe6))
++#define cpu_has_cmpccxadd  cp.feat.cmpccxadd
+ #define cpu_has_avx_ifma   (cp.feat.avx_ifma && xcr0_mask(6))
+ #define cpu_has_avx_vnni_int8 (cp.feat.avx_vnni_int8 && xcr0_mask(6))
+ #define cpu_has_avx_ne_convert (cp.feat.avx_ne_convert && xcr0_mask(6))
+--- a/xen/arch/x86/include/asm/cpufeature.h
++++ b/xen/arch/x86/include/asm/cpufeature.h
+@@ -186,6 +186,7 @@ static inline bool boot_cpu_has(unsigned
+ /* CPUID level 0x00000007:1.eax */
+ #define cpu_has_avx_vnni        boot_cpu_has(X86_FEATURE_AVX_VNNI)
+ #define cpu_has_avx512_bf16     boot_cpu_has(X86_FEATURE_AVX512_BF16)
++#define cpu_has_cmpccxadd       boot_cpu_has(X86_FEATURE_CMPCCXADD)
+ #define cpu_has_avx_ifma        boot_cpu_has(X86_FEATURE_AVX_IFMA)
+ 
+ /* CPUID level 0x00000007:1.edx */
 --- a/xen/arch/x86/x86_emulate/decode.c
 +++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -741,8 +741,12 @@ decode_twobyte(struct x86_emulate_state
-         case 0:
-             s->desc |= DstMem | SrcImplicit | Mov;
-             break;
-+        case 6:
-+            if ( !(s->modrm_reg & 1) && mode_64bit() )
-+            {
-         case 2: case 4:
--            s->desc |= SrcMem16;
-+                s->desc |= SrcMem16;
-+            }
-             break;
-         }
+@@ -439,6 +439,7 @@ static const struct ext0f38_table {
+     [0xd7] = { .simd_size = simd_scalar_vexw, .d8s = d8s_dq },
+     [0xdb] = { .simd_size = simd_packed_int, .two_op = 1 },
+     [0xdc ... 0xdf] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
++    [0xe0 ... 0xef] = { .to_mem = 1 },
+     [0xf0] = { .two_op = 1 },
+     [0xf1] = { .to_mem = 1, .two_op = 1 },
+     [0xf2 ... 0xf3] = {},
+@@ -931,6 +932,8 @@ decode_0f38(struct x86_emulate_state *s,
+             ctxt->opcode |= MASK_INSR(s->vex.pfx, X86EMUL_OPC_PFX_MASK);
          break;
+ 
++    case X86EMUL_OPC_VEX_66(0, 0xe0) ...
++         X86EMUL_OPC_VEX_66(0, 0xef): /* cmp<cc>xadd */
+     case X86EMUL_OPC_VEX(0, 0xf2):    /* andn */
+     case X86EMUL_OPC_VEX(0, 0xf3):    /* Grp 17 */
+     case X86EMUL_OPC_VEX(0, 0xf5):    /* bzhi */
 --- a/xen/arch/x86/x86_emulate/private.h
 +++ b/xen/arch/x86/x86_emulate/private.h
-@@ -589,6 +589,7 @@ amd_like(const struct x86_emulate_ctxt *
+@@ -257,6 +257,7 @@ struct x86_emulate_state {
+         rmw_btc,
+         rmw_btr,
+         rmw_bts,
++        rmw_cmpccxadd,
+         rmw_dec,
+         rmw_inc,
+         rmw_neg,
+@@ -589,6 +590,7 @@ amd_like(const struct x86_emulate_ctxt *
  #define vcpu_has_avx512_fp16() (ctxt->cpuid->feat.avx512_fp16)
  #define vcpu_has_avx_vnni()    (ctxt->cpuid->feat.avx_vnni)
  #define vcpu_has_avx512_bf16() (ctxt->cpuid->feat.avx512_bf16)
-+#define vcpu_has_lkgs()        (ctxt->cpuid->feat.lkgs)
++#define vcpu_has_cmpccxadd()   (ctxt->cpuid->feat.cmpccxadd)
+ #define vcpu_has_lkgs()        (ctxt->cpuid->feat.lkgs)
  #define vcpu_has_wrmsrns()     (ctxt->cpuid->feat.wrmsrns)
  #define vcpu_has_avx_ifma()    (ctxt->cpuid->feat.avx_ifma)
- #define vcpu_has_avx_vnni_int8() (ctxt->cpuid->feat.avx_vnni_int8)
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -2869,8 +2869,35 @@ x86_emulate(
-                 break;
-             }
-             break;
--        default:
--            generate_exception_if(true, X86_EXC_UD);
-+        case 6: /* lkgs */
-+            generate_exception_if((modrm_reg & 1) || vex.pfx != vex_f2,
-+                                  X86_EXC_UD);
-+            generate_exception_if(!mode_64bit() || !mode_ring0(), X86_EXC_UD);
-+            vcpu_must_have(lkgs);
-+            fail_if(!ops->read_segment || !ops->read_msr ||
-+                    !ops->write_segment || !ops->write_msr);
-+            if ( (rc = ops->read_msr(MSR_SHADOW_GS_BASE, &msr_val,
-+                                     ctxt)) != X86EMUL_OKAY ||
-+                 (rc = ops->read_segment(x86_seg_gs, &sreg,
-+                                         ctxt)) != X86EMUL_OKAY )
-+                goto done;
-+            dst.orig_val = sreg.base; /* Preserve full GS Base. */
-+            if ( (rc = protmode_load_seg(x86_seg_gs, src.val, false, &sreg,
-+                                         ctxt, ops)) != X86EMUL_OKAY ||
-+                 /* Write (32-bit) base into SHADOW_GS. */
-+                 (rc = ops->write_msr(MSR_SHADOW_GS_BASE, sreg.base,
-+                                      ctxt)) != X86EMUL_OKAY )
-+                goto done;
-+            sreg.base = dst.orig_val; /* Reinstate full GS Base. */
-+            if ( (rc = ops->write_segment(x86_seg_gs, &sreg,
-+                                          ctxt)) != X86EMUL_OKAY )
-+            {
-+                /* Best effort unwind (i.e. no real error checking). */
-+                if ( ops->write_msr(MSR_SHADOW_GS_BASE, msr_val,
-+                                    ctxt) == X86EMUL_EXCEPTION )
-+                    x86_emul_reset_event(ctxt);
-+                goto done;
-+            }
-             break;
-         }
-         break;
+@@ -6934,6 +6934,15 @@ x86_emulate(
+ 
+ #endif /* !X86EMUL_NO_SIMD */
+ 
++    case X86EMUL_OPC_VEX_66(0x0f38, 0xe0) ...
++         X86EMUL_OPC_VEX_66(0x0f38, 0xef): /* cmp<cc>xadd r,r,m */
++        generate_exception_if(!mode_64bit() || dst.type != OP_MEM || vex.l,
++                              X86_EXC_UD);
++        host_and_vcpu_must_have(cmpccxadd);
++        fail_if(!ops->rmw);
++        state->rmw = rmw_cmpccxadd;
++        break;
++
+     case X86EMUL_OPC(0x0f38, 0xf0): /* movbe m,r */
+     case X86EMUL_OPC(0x0f38, 0xf1): /* movbe r,m */
+         vcpu_must_have(movbe);
+@@ -8207,14 +8216,20 @@ x86_emulate(
+     {
+         ea.val = src.val;
+         op_bytes = dst.bytes;
++        state->stub_exn = &stub_exn;
+         rc = ops->rmw(dst.mem.seg, dst.mem.off, dst.bytes, &_regs.eflags,
+                       state, ctxt);
++#ifdef __XEN__
++        if ( rc == X86EMUL_stub_failure )
++            goto emulation_stub_failure;
++#endif
+         if ( rc != X86EMUL_OKAY )
+             goto done;
+ 
+         /* Some operations require a register to be written. */
+         switch ( state->rmw )
+         {
++        case rmw_cmpccxadd:
+         case rmw_xchg:
+         case rmw_xadd:
+             switch ( dst.bytes )
+@@ -8489,6 +8504,7 @@ int x86_emul_rmw(
+     uint32_t *eflags,
+     struct x86_emulate_state *s,
+     struct x86_emulate_ctxt *ctxt)
++#define stub_exn (*s->stub_exn) /* for invoke_stub() */
+ {
+     unsigned long *dst = ptr;
+ 
+@@ -8554,6 +8570,37 @@ int x86_emul_rmw(
+ #undef BINOP
+ #undef SHIFT
+ 
++#ifdef __x86_64__
++    case rmw_cmpccxadd:
++    {
++        struct x86_emulate_stub stub = {};
++        uint8_t *buf = get_stub(stub);
++        typeof(s->vex) *pvex = container_of(buf + 1, typeof(s->vex),
++                                            raw[0]);
++        unsigned long dummy;
++
++        buf[0] = 0xc4;
++        *pvex = s->vex;
++        pvex->b = 1;
++        pvex->r = 1;
++        pvex->reg = 0xf; /* rAX */
++        buf[3] = ctxt->opcode;
++        buf[4] = 0x11; /* reg=rDX r/m=(%RCX) */
++        buf[5] = 0xc3;
++
++        *eflags &= ~EFLAGS_MASK;
++        invoke_stub("",
++                    _POST_EFLAGS("[eflags]", "[mask]", "[tmp]"),
++                    "+m" (*dst), "+d" (s->ea.val),
++                    [tmp] "=&r" (dummy), [eflags] "+g" (*eflags)
++                    : "a" (*decode_vex_gpr(s->vex.reg, ctxt->regs, ctxt)),
++                      "c" (dst), [mask] "i" (EFLAGS_MASK));
++
++        put_stub(stub);
++        break;
++    }
++#endif
++
+     case rmw_not:
+         switch ( s->op_bytes )
+         {
+@@ -8649,7 +8696,13 @@ int x86_emul_rmw(
+ #undef JCXZ
+ 
+     return X86EMUL_OKAY;
++
++#if defined(__XEN__) && defined(__x86_64__)
++ emulation_stub_failure:
++    return X86EMUL_stub_failure;
++#endif
+ }
++#undef stub_exn
+ 
+ static void __init __maybe_unused build_assertions(void)
+ {
 --- a/xen/include/public/arch-x86/cpufeatureset.h
 +++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -282,6 +282,8 @@ XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /
+@@ -279,6 +279,7 @@ XEN_CPUFEATURE(SSBD,          9*32+31) /
+ /* Intel-defined CPU features, CPUID level 0x00000007:1.eax, word 10 */
+ XEN_CPUFEATURE(AVX_VNNI,     10*32+ 4) /*A  AVX-VNNI Instructions */
+ XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /*A  AVX512 BFloat16 Instructions */
++XEN_CPUFEATURE(CMPCCXADD,    10*32+ 7) /*a  CMPccXADD Instructions */
  XEN_CPUFEATURE(FZRM,         10*32+10) /*A  Fast Zero-length REP MOVSB */
  XEN_CPUFEATURE(FSRS,         10*32+11) /*A  Fast Short REP STOSB */
  XEN_CPUFEATURE(FSRCS,        10*32+12) /*A  Fast Short REP CMPSB/SCASB */
-+XEN_CPUFEATURE(FRED,         10*32+17) /*   Flexible Return and Event Delivery */
-+XEN_CPUFEATURE(LKGS,         10*32+18) /*S  Load Kernel GS Base */
- XEN_CPUFEATURE(WRMSRNS,      10*32+19) /*S  WRMSR Non-Serialising */
- XEN_CPUFEATURE(AVX_IFMA,     10*32+23) /*A  AVX-IFMA Instructions */
- 
 --- a/xen/tools/gen-cpuid.py
 +++ b/xen/tools/gen-cpuid.py
 @@ -274,7 +274,7 @@ def crunch_numbers(state):
          # superpages, PCID and PKU are only available in 4 level paging.
          # NO_LMSL indicates the absense of Long Mode Segment Limits, which
          # have been dropped in hardware.
--        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL],
-+        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, LKGS],
+-        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, LKGS],
++        LM: [CX16, PCID, LAHF_LM, PAGE1GB, PKU, NO_LMSL, LKGS, CMPCCXADD],
  
          # AMD K6-2+ and K6-III processors shipped with 3DNow+, beyond the
          # standard 3DNow in the earlier K6 processors.
-@@ -332,6 +332,9 @@ def crunch_numbers(state):
- 
-         # The behaviour described by RRSBA depend on eIBRS being active.
-         EIBRS: [RRSBA],
-+
-+        # FRED builds on the LKGS instruction.
-+        LKGS: [FRED],
-     }
- 
-     deep_features = tuple(sorted(deps.keys()))
 
 
