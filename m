@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 031BF82AEAC
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 13:26:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666258.1036766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC3C382AEAF
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 13:27:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666267.1036775 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNu8E-00050s-Bh; Thu, 11 Jan 2024 12:25:58 +0000
+	id 1rNu9X-0005YJ-Md; Thu, 11 Jan 2024 12:27:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666258.1036766; Thu, 11 Jan 2024 12:25:58 +0000
+Received: by outflank-mailman (output) from mailman id 666267.1036775; Thu, 11 Jan 2024 12:27:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNu8E-0004yQ-8Y; Thu, 11 Jan 2024 12:25:58 +0000
-Received: by outflank-mailman (input) for mailman id 666258;
- Thu, 11 Jan 2024 12:25:56 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rNu8C-0004yK-Pm
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 12:25:56 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rNu88-0004qD-Lu; Thu, 11 Jan 2024 12:25:52 +0000
-Received: from [15.248.2.234] (helo=[10.24.67.34])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rNu88-0003Yv-Dc; Thu, 11 Jan 2024 12:25:52 +0000
+	id 1rNu9X-0005VJ-J3; Thu, 11 Jan 2024 12:27:19 +0000
+Received: by outflank-mailman (input) for mailman id 666267;
+ Thu, 11 Jan 2024 12:27:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WCg5=IV=bounce.vates.tech=bounce-md_30504962.659fdea2.v1-67bed4a62c204c4ab1070e00b57b904a@srs-se1.protection.inumbo.net>)
+ id 1rNu9W-0005T6-3z
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 12:27:18 +0000
+Received: from mail136-6.atl41.mandrillapp.com
+ (mail136-6.atl41.mandrillapp.com [198.2.136.6])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c0e4776f-b07c-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 13:27:16 +0100 (CET)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-6.atl41.mandrillapp.com (Mailchimp) with ESMTP id 4T9kSf68pSzlfcV4
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 12:27:14 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 67bed4a62c204c4ab1070e00b57b904a; Thu, 11 Jan 2024 12:27:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,93 +42,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=rG+TBeviSM+aZkx6WVDR2RBN6aR5W+It+rirODfxg/4=; b=7G7YtFPmNcNnQxpH9xI8mshciW
-	AwwtXLCoTHpSuuWI/3+hq2yW3pw7zB61g2cUPH9nsuxOqkmYOWE6w/0UT3aDlK3wfHFu27vfNbq53
-	IbtV7qF/jqcsMUwNz/1p04uhKWKHyCpdtggT7pLzZfDYAs/bQI1OvEZZ5GfTa0wC/sI4=;
-Message-ID: <4ab710c3-c628-4bbe-9533-88af75a9b9ec@xen.org>
-Date: Thu, 11 Jan 2024 12:25:49 +0000
+X-Inumbo-ID: c0e4776f-b07c-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1704976034; x=1705236534;
+	bh=GWJycRM1RMsGCNg44DODZ3MsQtz9ke7/m21LBuXqsT4=;
+	h=From:Subject:Message-Id:To:References:Cc:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=s6dF0u9xKDMEdabS75Eq7pEcF0WTmaTrdiXqcfN7Ek7UNY625kVGu4Nv9oBfbpFjg
+	 x1roGJOFxQkG6sXwo++413e+YJ9f95QdlZjkDSjlAVgv2UjcqSBEdkIqTM/807zp4c
+	 Eq/3VHzOiX9JsZCvceydYh3iyKMxdO+VYwgYAHJcDi+3pB14OTIJzo4/ujO030Fa1d
+	 FrFs4PuhDZjIlRFdM8Z0bY0zpim1RTItFSAmNxdgQswNCzsXm5E5R2h4Jo/vvt86wc
+	 qWoj7AaKvtNpOszmC5Xgt4NTl9akUFeMMYzHTXW3o9PmEc9WXWN65SK2VfhMK6yjwm
+	 ey+ACn5qsBRZA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+	s=mandrill; t=1704976034; x=1705236534; i=yann.dirson@vates.tech;
+	bh=GWJycRM1RMsGCNg44DODZ3MsQtz9ke7/m21LBuXqsT4=;
+	h=From:Subject:Message-Id:To:References:Cc:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=fU8mg0Nm+Z3YX7s3CoXbe1rbBUe5fF/yoKPgfPowGyahVRwVz+P261jKZzsuUDzbb
+	 /aLaPXwgu5yBJBcAfgArTCyA56IoEnNAZV9e3qe5aewzpPQKwZ0bcM2S3+RYUDrBht
+	 Qzp+zBEklvgOWh/AQfrz4OLeUgyKPsXELvN1FhOs=
+From: Yann Dirson <yann.dirson@vates.tech>
+Subject: =?utf-8?Q?Re:=20Next=20steps=20for=20Rust=20guest=20agent?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1704976032651
+Message-Id: <1be8f6f1-f977-4743-bd26-362ada960dc6@vates.tech>
+To: xen-devel@lists.xenproject.org
+References: <aea51d2e-5da8-4da8-954f-2ee2a43be73e@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Lunfan Zhang <Lunfan.Zhang@citrix.com>, Xihuan Yang <xihuan.yang@citrix.com>, dpsmith@apertussolutions.com, marmarek@invisiblethingslab.com
+In-Reply-To: <aea51d2e-5da8-4da8-954f-2ee2a43be73e@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.67bed4a62c204c4ab1070e00b57b904a?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20240111:md
+Date: Thu, 11 Jan 2024 12:27:14 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/22] x86: add a boot option to enable and disable the
- direct map
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Elias El Yandouzi <eliasely@amazon.com>
-Cc: Hongyan Xia <hongyxia@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
-References: <20221216114853.8227-1-julien@xen.org>
- <20221216114853.8227-12-julien@xen.org>
- <fc70f967-34bb-9569-f514-7a3208e746c6@suse.com>
- <bc989828-69b9-4919-9ff3-fdd53fb2def1@amazon.com>
- <c736e4d9-5262-4adf-9e74-9b1be5ab13db@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <c736e4d9-5262-4adf-9e74-9b1be5ab13db@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+On 12/8/23 10:38, Yann Dirson wrote:
+> Current status:
+> - primary goal: to have one guest agent all downstreams can use, in all
+> guests (with Linux and FreeBSD already supported), as efficient as
+> possible (with Netlink already supported on Linux)
+> - developed at https://gitlab.com/xen-project/xen-guest-agent (till now
+> using gitlab PRs)
+> - works fine as a replacement for the Xenserver xe-guest-utilities
 
-On 11/01/2024 11:53, Jan Beulich wrote:
-> On 11.01.2024 11:47, Elias El Yandouzi wrote:
->> On 22/12/2022 13:24, Jan Beulich wrote:
->>> That said, I think this change comes too early in the series, or there is
->>> something missing.
->>
->> At first, I had the same feeling but looking at the rest of the series,
->> I can see that the option is needed in follow-up patches.
->>
->>> As said in reply to patch 10, while there the mapcache
->>> is being initialized for the idle domain, I don't think it can be used
->>> just yet. Read through mapcache_current_vcpu() to understand why I think
->>> that way, paying particular attention to the ASSERT() near the end.
->>
->> Would be able to elaborate a bit more why you think that? I haven't been
->> able to get your point.
-> 
-> Why exactly I referred to the ASSERT() there I can't reconstruct. The
-> function as a whole looks problematic though when suddenly the idle
-> domain also gains a mapcache. I'm sorry, too much context was lost
-> from over a year ago; all of this will need looking at from scratch
-> again whenever a new version was posted.
-> 
->>> In preparation of this patch here I think the mfn_to_virt() uses have to all
->>> disappear from map_domain_page(). Perhaps yet more strongly all
->>> ..._to_virt() (except fix_to_virt() and friends) and __va() have to
->>> disappear up front from x86 and any code path which can be taken on x86
->>> (which may simply mean purging all respective x86 #define-s, without
->>> breaking the build in any way).
->>
->> I agree with you on that one. I think it is what we're aiming for in the
->> long term. However, as mentioned by Julien in the cover letter, the
->> series's name is a misnomer and I am afraid we won't be able to remove
->> all of them with this series. These helpers would still be used for
->> xenheap pages or when the direct map is enabled.
-> 
-> Leaving a hazard of certain uses not having been converted, or even
-> overlooked in patches going in at around the same time as this series?
-> I view this as pretty "adventurous".
+Let's try to reboot the discussion.
 
-Until we get rid of the directmap completely (which is not the goal of 
-this series), we will need to keep mfn_to_virt().
+> Some points raised during the community call:
+> - we likely want first to agree on a core set of collected information
 
-In fact the one you ask to remove in map_domain_page() will need to be 
-replaced with function doing the same thing. The same for the code that 
-will initially prepare the directmap. This to avoid impacting 
-performance when the user still wants to use the directmap.
+Currently I see the set of information collected as divided in the 
+following categories:
 
-So are you just asking to remove most of the use and rename *_to_virt() 
-to something that is more directmap specific (e.g. mfn_to_directmap_virt())?
+- those that are genuinely useful
+   - OS identifier (data/os_distro), and more detailed descriptive 
+string (data/os_name)
+   - kernel version (data/os_uname)
+   - IP addresses assigned to VIFs attached to the guest
 
-Cheers,
+- those that could be more useful but XAPI wants them
+   - free memory (data/meminfo_free) and total memory 
+(data/meminfo_total) according to guest OS (not necessarily well defined)
+   - control/feature-balloon=1 (necessary for XAPI's ballooning control 
+to do anything today)
+   - the version of the running agent, split in components 
+(attr/PVAddons/{Major,Minor,Micro,Build}Version) (including constraints 
+like Major being at least 1)
 
+- those we provide for XAPI to be but without which it seems to be not 
+too sad, and I'd happily drop
+   - OS major and minor version (data/os_majorver, data/os_minorver)
+
+What set of information (not necessarily from this list) do you think 
+would qualify as "core set of information to collect" ?
+
+
+> - could be made more configurable (eg. define a xenstore schema at
+> runtime, we don't want specific schemas needs to cause forks)
+>     -> it could be the agent requesting a specific xenstore schema
+
+I do find some appeal to the idea that a toolstack should decide what 
+info the guest should give it and where.  That could take the form of a 
+TBD string written to xenstore before the domain starts, e.g. matching 
+well-known IDs for pieces of information to xenstore paths.
+
+
+> - what should be the criteria to advertise it as official Xenproject
+> guest agent ?
+
+What do people think here?
+
+There is at least one known issue I'd like to address rapidly, which is 
+that the FreeBSD ports ship a buggy bash script [1] derived from 
+obsolete version of a XenServer tool.  Maybe at least it's not necessary 
+to wait before approaching them to replace that old script with the Rust 
+agent in its current state?
+
+[1] 
+https://github.com/freebsd/freebsd-ports/tree/main/sysutils/xe-guest-utilities
+
+Best regards,
 -- 
-Julien Grall
+Yann
+
+
+
+Yann Dirson | Vates Platform Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
