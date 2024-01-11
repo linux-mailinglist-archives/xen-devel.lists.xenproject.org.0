@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24ECA82A860
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:32:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665936.1036276 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C99B982A863
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:33:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665939.1036286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpYL-0007MX-AT; Thu, 11 Jan 2024 07:32:37 +0000
+	id 1rNpYn-0007sB-Iw; Thu, 11 Jan 2024 07:33:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665936.1036276; Thu, 11 Jan 2024 07:32:37 +0000
+Received: by outflank-mailman (output) from mailman id 665939.1036286; Thu, 11 Jan 2024 07:33:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpYL-0007KL-7N; Thu, 11 Jan 2024 07:32:37 +0000
-Received: by outflank-mailman (input) for mailman id 665936;
- Thu, 11 Jan 2024 07:32:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rNpYn-0007qb-F6; Thu, 11 Jan 2024 07:33:05 +0000
+Received: by outflank-mailman (input) for mailman id 665939;
+ Thu, 11 Jan 2024 07:33:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpYK-0006km-78
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:32:36 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96d048ed-b053-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 08:32:35 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-336c5b5c163so2976199f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:32:35 -0800 (PST)
+ id 1rNpYm-0007qR-JI
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:33:04 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a6dc1c08-b053-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 08:33:02 +0100 (CET)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2ccbc328744so60196421fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:33:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d6-20020a056000114600b003366a9cb0d1sm444087wrx.92.2024.01.10.23.32.34
+ d6-20020a056000114600b003366a9cb0d1sm444087wrx.92.2024.01.10.23.33.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:32:34 -0800 (PST)
+ Wed, 10 Jan 2024 23:33:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96d048ed-b053-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: a6dc1c08-b053-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704958355; x=1705563155; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704958382; x=1705563182; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wA+BZrWdWKLSqnO5cn9IF1o10HKUmp9PaScVUp+oxcs=;
-        b=GWHihiTglGv0/HCNKtwjOULUdNmcLNt1HROFvWHzZgz61z3eobUFE6pkx42TvC/Ixb
-         Bj+WLsNeVlkUxhf1wdbHbuGEMFJN0miAnjDc0xgjYanmVbTnRhf8e2jrMzscBcdzFUr/
-         BVhjzYcJ0BV7PIB1owtHDAo+e1zVj/KyL8qC0cuHJP1gE/lJnr47YfHkMG/JyaecUnCT
-         swyw+vkEggCIQW5I9q8NdnKiwYy5/Zl/26RCVDfi60Kgl7Ft2W9q6fC5Xv/3jMTIZvcW
-         LSSnOaIwqboExZjqvtKZKcYEn/PS7EW2Sv/hBx1crnUQzS3sEH+r3/V4xpRlerwkYq25
-         UJSQ==
+        bh=2kKucQeG9hzCGGVi5VOoQwoW+K7wlDclKUZkgMvdu4E=;
+        b=DAyc2LdCGcXPFuiKikfOwaS1lUkyNgmGyLP+t+iwK8P39JIC/U0KnWLd4W3nRgoMBJ
+         AuLMnVt0Vv/fbmxFmpZSCjAKh34D6KkpJFu3EFpWHDRRIWhFxVFvyiyqT2oa+oZexEiH
+         mxfJaiIv6AkgacfCma2AItwwc/QYdsKeazoiPDV0uDDsT8Z7rCvzFbWcAgcpVSrVhDcX
+         479l/EqwoS+8nstZvBx90dFzYKJw6+8YrXMNMhitzAXZFW/12MPiGWbM30DFBHHLzzQn
+         EE4a81jFdIlp9yjVrpIvO1v2+0HIC+RGg801Ltm5PRgHbIeRXlY7NNd2Z6EFzyIZOI/p
+         KPVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704958355; x=1705563155;
+        d=1e100.net; s=20230601; t=1704958382; x=1705563182;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=wA+BZrWdWKLSqnO5cn9IF1o10HKUmp9PaScVUp+oxcs=;
-        b=bfddBHLwF0o4K68/PglgnQGDk/s+JLz/a4zKDuQ/+EAMBJ00AwlJZxlQBSiSyhoPNn
-         jJ6i+adAGi+b2CYWhDIiArdeM4kBYSFS3xK/0aMwj6qysegm1CJTmmUO1dmGw237laHz
-         VjVO262Wh7YhZPlETv85v1XBgAHudgPF7y30CoKRsGLIRR3JVN/3CJoC7dYZLvPzpoJK
-         fpY55Y4ky9a2tbEpmFNgtLQ+M47VXvvEeL4KyIo50F7fJDcACm67MIuNvEJLWp9/jOON
-         Lss72Nu9RGv4/qlWnMo8PWfYF/hRANT1zMt7q9cqIfy6AFvQs2Vz+0S8aFjrGSgGhi/W
-         fVdQ==
-X-Gm-Message-State: AOJu0Yw1Ey4BOEBacZApr/f1WyjeeurtGsHABmuuwm7uWASAMuNpoujR
-	I+PBXgpbFKryA94U5gaspHmH5sn6qHxzkjjIgAy4fBkblA==
-X-Google-Smtp-Source: AGHT+IFtYbsBF5PPDoQ/YjTSVY769vqpu8ell/GA9dVTLANxBaEpgyWgzA0r2mIm0j986nNwl3zCpA==
-X-Received: by 2002:a5d:53cf:0:b0:336:61e1:a325 with SMTP id a15-20020a5d53cf000000b0033661e1a325mr160157wrw.35.1704958355022;
-        Wed, 10 Jan 2024 23:32:35 -0800 (PST)
-Message-ID: <4c6d11b0-32dd-4ce3-a157-a848b6fc3154@suse.com>
-Date: Thu, 11 Jan 2024 08:32:34 +0100
+        bh=2kKucQeG9hzCGGVi5VOoQwoW+K7wlDclKUZkgMvdu4E=;
+        b=kNQUnIC02UuPBsFATpzP9/0P8HNyJOWtjQ+J8rmKr5UKrAUWscuUKSbu7et3MbvOZJ
+         9Go5FllLmvpyo0RgF2f9kFa4FjWJJFZwn8wQR3OXG04CFIO3daVOKQ52sbXcLxkhTnDm
+         j5iec0Ra8nbE6TJ2cG077IOEd0btNpCJRxoYsfSOOIupywCKaERQ2n/I+Yvfe04kST5E
+         JMrIFqK/pHzss1pFPc/xlbLInw/wSabHjIcFiciupDvgvC3IJgYHgkxOa2h7XbY2th8d
+         2yf2ymlql2dAf559PvVNJm6QHOFolneLQzkh7Vz8Ug7NZSx5dJ5d9DXBU8Lks6w41LuE
+         WiNg==
+X-Gm-Message-State: AOJu0YyksScqybK7sQKGq3ucmv+TCJuCD4VK1X3nlmKn4xkj+uPW6epa
+	HWcUKVwTCMXkqX8BqYRppYm29JlrQWzxz+pPwIqMaik6Vw==
+X-Google-Smtp-Source: AGHT+IFQekxv9tUuiagrg5drhbJERoq26nkI56qXh+ZK1ZGc/hJ3bsOKg5LcG6KpV2NCbTOAozTDLQ==
+X-Received: by 2002:a2e:91cb:0:b0:2cc:d7a7:8ecb with SMTP id u11-20020a2e91cb000000b002ccd7a78ecbmr153085ljg.16.1704958381888;
+        Wed, 10 Jan 2024 23:33:01 -0800 (PST)
+Message-ID: <0087ad97-d315-4891-ab35-7a41e62d2f23@suse.com>
+Date: Thu, 11 Jan 2024 08:33:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/8] IRQ: generalize [gs]et_irq_regs()
+Subject: [PATCH 3/8] serial: drop serial_rx_fn's regs parameter
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,113 +115,83 @@ In-Reply-To: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Move functions (and their data) to common code, and invoke the functions
-on Arm as well. This is in preparation of dropping the register
-parameters from handler functions.
+In the one place where it's needed, get_irq_regs() can be used instead.
+This is in preparation of dropping the register parameters from IRQ
+handler functions.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-To limit visibility of the per-CPU data item, we may want to consider
-making the functions out-of-line ones (in common/irq.c).
 
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -221,6 +221,7 @@ void do_IRQ(struct cpu_user_regs *regs,
- {
-     struct irq_desc *desc = irq_to_desc(irq);
-     struct irqaction *action;
-+    struct cpu_user_regs *old_regs = set_irq_regs(regs);
- 
-     perfc_incr(irqs);
- 
-@@ -288,6 +289,7 @@ out:
- out_no_end:
-     spin_unlock(&desc->lock);
-     irq_exit();
-+    set_irq_regs(old_regs);
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -527,12 +527,12 @@ static void switch_serial_input(void)
+     printk("\n");
  }
  
- void release_irq(unsigned int irq, const void *dev_id)
---- a/xen/arch/x86/include/asm/irq.h
-+++ b/xen/arch/x86/include/asm/irq.h
-@@ -70,27 +70,6 @@ extern bool opt_noirqbalance;
- 
- extern int opt_irq_vector_map;
- 
--/*
-- * Per-cpu current frame pointer - the location of the last exception frame on
-- * the stack
-- */
--DECLARE_PER_CPU(struct cpu_user_regs *, __irq_regs);
--
--static inline struct cpu_user_regs *get_irq_regs(void)
--{
--	return this_cpu(__irq_regs);
--}
--
--static inline struct cpu_user_regs *set_irq_regs(struct cpu_user_regs *new_regs)
--{
--	struct cpu_user_regs *old_regs, **pp_regs = &this_cpu(__irq_regs);
--
--	old_regs = *pp_regs;
--	*pp_regs = new_regs;
--	return old_regs;
--}
--
--
- #define platform_legacy_irq(irq)	((irq) < 16)
- 
- void cf_check event_check_interrupt(struct cpu_user_regs *regs);
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -53,8 +53,6 @@ static DEFINE_SPINLOCK(vector_lock);
- 
- DEFINE_PER_CPU(vector_irq_t, vector_irq);
- 
--DEFINE_PER_CPU(struct cpu_user_regs *, __irq_regs);
--
- static LIST_HEAD(irq_ratelimit_list);
- static DEFINE_SPINLOCK(irq_ratelimit_lock);
- static struct timer irq_ratelimit_timer;
---- a/xen/common/irq.c
-+++ b/xen/common/irq.c
-@@ -1,6 +1,8 @@
- #include <xen/irq.h>
- #include <xen/errno.h>
- 
-+DEFINE_PER_CPU(struct cpu_user_regs *, irq_regs);
-+
- int init_one_irq_desc(struct irq_desc *desc)
+-static void __serial_rx(char c, struct cpu_user_regs *regs)
++static void __serial_rx(char c)
  {
-     int err;
---- a/xen/include/xen/irq.h
-+++ b/xen/include/xen/irq.h
-@@ -131,6 +131,26 @@ void cf_check irq_actor_none(struct irq_
- #define irq_disable_none irq_actor_none
- #define irq_enable_none irq_actor_none
+     switch ( console_rx )
+     {
+     case 0:
+-        return handle_keypress(c, regs);
++        return handle_keypress(c, get_irq_regs());
  
-+/*
-+ * Per-cpu interrupted context register state - the top-most interrupt frame
-+ * on the stack.
-+ */
-+DECLARE_PER_CPU(struct cpu_user_regs *, irq_regs);
-+
-+static inline struct cpu_user_regs *get_irq_regs(void)
-+{
-+	return this_cpu(irq_regs);
-+}
-+
-+static inline struct cpu_user_regs *set_irq_regs(struct cpu_user_regs *new_regs)
-+{
-+	struct cpu_user_regs *old_regs, **pp_regs = &this_cpu(irq_regs);
-+
-+	old_regs = *pp_regs;
-+	*pp_regs = new_regs;
-+	return old_regs;
-+}
-+
- struct domain;
- struct vcpu;
+     case 1:
+         /*
+@@ -579,7 +579,7 @@ static void __serial_rx(char c, struct c
+ #endif
+ }
  
+-static void cf_check serial_rx(char c, struct cpu_user_regs *regs)
++static void cf_check serial_rx(char c)
+ {
+     static int switch_code_count = 0;
+ 
+@@ -595,10 +595,10 @@ static void cf_check serial_rx(char c, s
+     }
+ 
+     for ( ; switch_code_count != 0; switch_code_count-- )
+-        __serial_rx(switch_code, regs);
++        __serial_rx(switch_code);
+ 
+     /* Finally process the just-received character. */
+-    __serial_rx(c, regs);
++    __serial_rx(c);
+ }
+ 
+ static void cf_check notify_dom0_con_ring(void *unused)
+--- a/xen/drivers/char/serial.c
++++ b/xen/drivers/char/serial.c
+@@ -68,7 +68,7 @@ void serial_rx_interrupt(struct serial_p
+     spin_unlock_irqrestore(&port->rx_lock, flags);
+ 
+     if ( fn != NULL )
+-        (*fn)(c & 0x7f, regs);
++        fn(c & 0x7f);
+ }
+ 
+ void serial_tx_interrupt(struct serial_port *port, struct cpu_user_regs *regs)
+--- a/xen/drivers/char/xen_pv_console.c
++++ b/xen/drivers/char/xen_pv_console.c
+@@ -118,7 +118,7 @@ size_t pv_console_rx(struct cpu_user_reg
+     {
+         c = cons_ring->in[MASK_XENCONS_IDX(cons++, cons_ring->in)];
+         if ( cons_rx_handler )
+-            cons_rx_handler(c, regs);
++            cons_rx_handler(c);
+         recv++;
+     }
+ 
+--- a/xen/include/xen/serial.h
++++ b/xen/include/xen/serial.h
+@@ -15,7 +15,7 @@
+ struct cpu_user_regs;
+ 
+ /* Register a character-receive hook on the specified COM port. */
+-typedef void (*serial_rx_fn)(char c, struct cpu_user_regs *regs);
++typedef void (*serial_rx_fn)(char c);
+ void serial_set_rx_handler(int handle, serial_rx_fn fn);
+ 
+ /* Number of characters we buffer for a polling receiver. */
 
 
