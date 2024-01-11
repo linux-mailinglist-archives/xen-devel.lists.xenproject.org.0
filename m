@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40FDD82A7AA
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 07:38:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665849.1036175 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F77B82A73B
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 06:21:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665870.1036165 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNogl-0003Pw-Pa; Thu, 11 Jan 2024 06:37:15 +0000
+	id 1rNnTv-00039b-5J; Thu, 11 Jan 2024 05:19:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665849.1036175; Thu, 11 Jan 2024 06:37:15 +0000
+Received: by outflank-mailman (output) from mailman id 665870.1036165; Thu, 11 Jan 2024 05:19:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNogl-0003OM-Mm; Thu, 11 Jan 2024 06:37:15 +0000
-Received: by outflank-mailman (input) for mailman id 665849;
- Thu, 11 Jan 2024 02:29:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wP2G=IV=gmail.com=simonpatp@srs-se1.protection.inumbo.net>)
- id 1rNkok-0006Dh-Lc
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 02:29:14 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3597a8f6-b029-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 03:29:13 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2cd5c55d6b8so40304861fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 18:29:13 -0800 (PST)
+	id 1rNnTv-000377-2g; Thu, 11 Jan 2024 05:19:55 +0000
+Received: by outflank-mailman (input) for mailman id 665870;
+ Thu, 11 Jan 2024 05:19:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rNnTt-00036x-F4; Thu, 11 Jan 2024 05:19:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rNnTt-0004gB-As; Thu, 11 Jan 2024 05:19:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rNnTs-0003xg-U3; Thu, 11 Jan 2024 05:19:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rNnTs-0007W1-TU; Thu, 11 Jan 2024 05:19:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,109 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3597a8f6-b029-11ee-98f0-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1704940153; x=1705544953; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=IMYtyjnz9qMfdlVNuO9e6CGKE+/OquWGdy8V+qQvres=;
-        b=jkdgf2yIdzWW2l3isMUANapUVXe/1d6RLRRkwOYNz7aef5NF4gtlUOKD3pFncuM6y6
-         UfoL6uaNGcYjfqoe+wJMA910yqgrH5GiuAnEQpfsMnhLGozCyN9s/BbzmfNGz/xehAUp
-         UqZW+p2zfrFmnYY/hKmjDhWTswXfX2TVw94xJarsySXojGMEQ8ePafnwutYEskeQigwQ
-         1gRYkGr25Ui/oP46tzpZ9mN/ugS+JRa+V6G21f0o2iduUor9LO7PLn9Ac6m9DszdDi5e
-         bA27qmQ7sm06ySktbwXuGau9lTG8uAOK4g3KmICFfzgwr1H3G8oPv26ovdqNq/dEsugy
-         YWqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704940153; x=1705544953;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IMYtyjnz9qMfdlVNuO9e6CGKE+/OquWGdy8V+qQvres=;
-        b=vcWJOfCVhxm0UZgix0pZUJhmswSlJoMNKh05zr8qxZDlfAGdyE4edOZGErM9EzUBjO
-         H7njgsF9sa5lyFN5QT4+UuI+dp3vqxj2xkdjbqoTM5NNKr1Cg/wP7PA7du41IfjhYLzC
-         StiWC39VuN1RYOgxHuY/aJ4CAq9QLCRSRVfRppvJ0cl3C5HdBmIV7h2mwGP+6Y42Qd1f
-         ZUU4unEwy4tEAtur4CmLdst2f/Rc9S3Wheq9ib5xraMCDc9iYHDamLesWg5QfAQO7QNP
-         Djey2rrV/u2wSRpmWo1NZz26PnXsz0v/RP0OIRsWiGbTSS6Ny4av6M2X9gpS1m/hn3k/
-         7JHQ==
-X-Gm-Message-State: AOJu0Yy7c1HDS2kH8SjvdnFUxILlUwYV0dfNnqPy66vlYJzxQBZnL1bn
-	HZBh8NOaPV85U/mJTnQc84uMrIGQ5vQ+HFYIU6qdQ2VXu8I=
-X-Google-Smtp-Source: AGHT+IHs8gX3igEkX2lpDOhXsbbNTqem7y2fMol2HW4/xuIzc6UpVI41ZGZDNiuZzj4KUeQJK2EKFcFxJfFEHgMXvl4=
-X-Received: by 2002:a2e:9245:0:b0:2cd:65f9:570d with SMTP id
- v5-20020a2e9245000000b002cd65f9570dmr137942ljg.40.1704940152637; Wed, 10 Jan
- 2024 18:29:12 -0800 (PST)
-MIME-Version: 1.0
-From: Patrick Plenefisch <simonpatp@gmail.com>
-Date: Wed, 10 Jan 2024 21:29:01 -0500
-Message-ID: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
-Subject: E820 memory allocation issue on Threadripper platforms
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xoV9saGmTg/85AoUdbP0tvGBEe4Uv6lNqWc67nbVMAU=; b=P6jE8Onx+uRHDMOqW4PFsAkBiW
+	uWG0MQDRzqE0GZVFiYMVymqq3o7MNnjOpohP0hae9h2zoEH3pR77jOwMS3x3VZuVXuUCtECz1/wQn
+	lmpze6khZGwdrKORTdjnK6MIllI25CwDDHb3Qpd4QEcmM04ylN/JiYS/hBVztfgihu8I=;
 To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000294dde060ea2500f"
-
---000000000000294dde060ea2500f
+Message-ID: <osstest-184315-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 184315: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=889535caf8869e3d4818b75f95f2fc910c84a4d2
+X-Osstest-Versions-That:
+    ovmf=e7cfdc5f14b408e85fcbcb335aae7c15bbce4dfb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 11 Jan 2024 05:19:52 +0000
 
-Hi,
+flight 184315 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184315/
 
-I ran into a memory allocation issue, I think. It is the same as
-https://github.com/QubesOS/qubes-issues/issues/8791 and I saw at the end it
-was recommended (by marmarek) that the issue reporter forward the issue to
-this list. I searched the list, but as I didn't see it in the list already,
-I'm doing that now.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 889535caf8869e3d4818b75f95f2fc910c84a4d2
+baseline version:
+ ovmf                 e7cfdc5f14b408e85fcbcb335aae7c15bbce4dfb
 
-Hardware:
-I have an AMD Threadripper 7960X on a ASRock TRX50 WS motherboard. The
-Qubes reporter had a Threadripper 3970X on an ASUS Prime TRX40-Pro
-Motherboard. I saw a 3rd issue report of a similar issue on another
-Threadripper, so I think this may be Threadripper-specific.
+Last test of basis   184310  2024-01-10 16:11:02 Z    0 days
+Testing same since   184315  2024-01-11 03:12:57 Z    0 days    1 attempts
 
-Setup:
-The QuebesOS reporter was using Qubes Installer.
-My install was that I had a fresh install of Debian 12 (no gui), and then
-did `apt install xen-system-amd64` and rebooted.
+------------------------------------------------------------
+People who touched revisions under test:
+  Junfeng Guan <junfengx.guan@intel.com>
 
-The issue:
-Any boot of Xen on the hardware results in a halted machine. When
-monitoring the logs with `vga=3D,keep`, we get:
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-(XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
-(XEN) Freed 644kB init memory
-mapping kernel into physical memory
-about to get started=E2=80=A6
-xen hypervisor allocated kernel memory conflicts with E820
-(XEN) Hardware Dom0 halted: halting machine
 
-None of the settings I or the Qubes reporter have tried have been able to
-get past this failure.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I am happy to provide debugging support.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Patrick
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---000000000000294dde060ea2500f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-<div dir=3D"ltr">Hi,<br><br>I ran into a memory allocation issue, I think. =
-It is the same as <a href=3D"https://github.com/QubesOS/qubes-issues/issues=
-/8791">https://github.com/QubesOS/qubes-issues/issues/8791</a> and I saw at=
- the end it was recommended (by marmarek) that the issue reporter forward t=
-he issue to this list. I searched the list, but as I didn&#39;t see it in t=
-he list already, I&#39;m doing that now.<br><br>Hardware:<br>I have an AMD =
-Threadripper 7960X on a ASRock TRX50 WS motherboard. The Qubes reporter had=
- a Threadripper 3970X on an ASUS Prime TRX40-Pro Motherboard. I saw a 3rd i=
-ssue report of a similar issue on another Threadripper, so I think this may=
- be Threadripper-specific.<br><br>Setup:<br>The QuebesOS reporter was using=
- Qubes Installer.<br>My install was that I had a fresh install of Debian 12=
- (no gui), and then did `apt install xen-system-amd64` and rebooted.<br><br=
->The issue:<br>Any boot of Xen on the hardware results in a halted machine.=
- When monitoring the logs with `vga=3D,keep`, we get:<br><br>(XEN) *** Seri=
-al input to DOM0 (type &#39;CTRL-a&#39; three times to switch input)<br>(XE=
-N) Freed 644kB init memory<br>mapping kernel into physical memory<br>about =
-to get started=E2=80=A6<br>xen hypervisor allocated kernel memory conflicts=
- with E820<br>(XEN) Hardware Dom0 halted: halting machine<br><br>None of th=
-e settings I or the Qubes reporter have tried have been able to get past th=
-is failure.<br><br><div>I am happy to provide debugging support.</div><div>=
-<br></div><div>Patrick<br></div></div>
 
---000000000000294dde060ea2500f--
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   e7cfdc5f14..889535caf8  889535caf8869e3d4818b75f95f2fc910c84a4d2 -> xen-tested-master
 
