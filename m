@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F9082B228
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 16:52:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666410.1037026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE65A82B240
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 16:57:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666415.1037035 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNxLl-0007nz-Hd; Thu, 11 Jan 2024 15:52:09 +0000
+	id 1rNxR2-0000Z7-4b; Thu, 11 Jan 2024 15:57:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666410.1037026; Thu, 11 Jan 2024 15:52:09 +0000
+Received: by outflank-mailman (output) from mailman id 666415.1037035; Thu, 11 Jan 2024 15:57:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNxLl-0007kU-EY; Thu, 11 Jan 2024 15:52:09 +0000
-Received: by outflank-mailman (input) for mailman id 666410;
- Thu, 11 Jan 2024 15:52:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rNxR2-0000Wh-1o; Thu, 11 Jan 2024 15:57:36 +0000
+Received: by outflank-mailman (input) for mailman id 666415;
+ Thu, 11 Jan 2024 15:57:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNxLj-0007kM-Ap
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 15:52:07 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ebce997-b099-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 16:52:06 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-40e62979d41so2591865e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 07:52:06 -0800 (PST)
+ id 1rNxR0-0000VL-Um
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 15:57:34 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 21610df3-b09a-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 16:57:32 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-40e629c5a42so3377445e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 07:57:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m22-20020a05600c4f5600b0040d5b849f38sm6381216wmq.0.2024.01.11.07.52.05
+ k20-20020a05600c1c9400b0040e54f15d3dsm6227949wms.31.2024.01.11.07.57.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jan 2024 07:52:05 -0800 (PST)
+ Thu, 11 Jan 2024 07:57:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ebce997-b099-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: 21610df3-b09a-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704988326; x=1705593126; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704988652; x=1705593452; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ZyeDIzL5o9UbJykHsE3RyvI3vWS7kpgDVoz2VYlxt3c=;
-        b=MudtX9aFHBw8zc2ZC1dVC16psa26Jeyy0E5Ib2SktRPNFjVmaw5LRoLkgLRT5iXOol
-         Se2qGDpjegbZJTdinJeflo6ESLcGDfGGe/YcHQM3D5luTdEe4qg6PHdJSCqlXceSp7yi
-         6byrmVMIzw3s8J0Xhx3PFUgLxBgK/CVsK6viBl/9I4qpav20Z1/0HbQh8lHGqil+Hy+/
-         1hTEvniiHhCoBYCHxMtGbxnL689cqhDUz5DrXVQrNaLqcS8xAI70/BIzGNy5ynjNKtxV
-         8wonPxtVmSG1r0KlPSQz0hANo3h955pNGcVrJutqA0jZjZTnA47x/4ayMJmikFQPGjyr
-         5QTA==
+        bh=NbNngV0ZkuaWRmYFsH2qhghgwAROKKFwy8xFB4Etjmo=;
+        b=H+AxrQqkxND6bEcYhXoZNEBfOYH9teTvhBjhIXZ92CYO/BglNZqbVO/L+9iXKdOcwO
+         iOpQ0wEeCRHFtep2hVLER0CPplJisOvFGUrqgoDJ9WWXm7EGU3t0BNb7QOlKCSVnKZ0T
+         79yCAOAx7NOtb1hbswJbuma6pdgwcDKVPe9Q9LEFz3tqjH5EQWhs1qYXfmJujUJoPEWV
+         lj9VWIEYyEN5E/Y7VqkGml3C6vlUpQ6MlqhNcqnxqjNZowo3ZOCLfMKaa0Xmt+afiKGS
+         yFm5zff7fynOEccyD+CJU5wXlhSEG0poWmRIEIvne5nLk+7Jtl7V4SBn3CfqaQ9384WJ
+         5zzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704988326; x=1705593126;
+        d=1e100.net; s=20230601; t=1704988652; x=1705593452;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZyeDIzL5o9UbJykHsE3RyvI3vWS7kpgDVoz2VYlxt3c=;
-        b=lg37kAdlVIIoI9K0NNlPdUghgDqyeWHijU4YUtGU7Kv2RtDt739u3hqGfeBHGAtD5I
-         p5CDR5CBz9u75u0KMkJ67y/c0W2bufUu5R1Z+Z6cnkeEMCkT4T0ZFY10aYV/Lfp8roYK
-         BRzmVxZlOV79uDTSaHzTq4pFvFqwh4tusxvgksaiGOQTVDigsrSNikjLHH9apfxNyLxM
-         O3zP+PQ332CDQeIKIqit4ZyNfF1pICprSYyDYMA06QTHE17bjZD5uE4zmJXZJmFI+WAO
-         TaDt4iuIRkaZXm0TZpuRjTtv3Gza6DJDAGfEUM3yh2txW0FBbosr6zwg/GLxF1ffHIAd
-         obsg==
-X-Gm-Message-State: AOJu0YwmEmYp9pCFfUkZ2gWZ+xWOVQLTCVYAwCOeUWRDmWUsFAPbl270
-	JTVNm29Opp8Nb9jD5iMXxstEL/h3z8Ei
-X-Google-Smtp-Source: AGHT+IFVSSSZKmzTn7IgdMp0Rrs0HFs92xF4ej58/GHpO/9HGkHTI3994vLPMw2NILK/pfh4OmYoLQ==
-X-Received: by 2002:a05:600c:4f91:b0:40d:4ee4:c73a with SMTP id n17-20020a05600c4f9100b0040d4ee4c73amr5072wmq.297.1704988325799;
-        Thu, 11 Jan 2024 07:52:05 -0800 (PST)
-Message-ID: <4574c9d6-eb6d-4b73-a9e1-20b5635b32db@suse.com>
-Date: Thu, 11 Jan 2024 16:52:04 +0100
+        bh=NbNngV0ZkuaWRmYFsH2qhghgwAROKKFwy8xFB4Etjmo=;
+        b=Twp1ZYkuZwOZ5z/6dDcY5jHxHsSxEot47L53H4uoSgsKcWYqfpRim8uneRl9k2H1nP
+         a+BMdkMPATvVnqJvvqR+fk9mSQnuC7+pog2XrSmH68JliPz4sCeEDSSsSbAxissA07vS
+         rrY4IAHcXUUHNW66H0ZgqZC8vNroQFbHVmT+Fwltdrplj2aam/DnkrfB6AQ25R2eLB1a
+         TGAvY/YM6T4wVmT/fpTBd7KAbQXoH63qB9IF6yfj4rlminZOe9AOK1VLKPoMIxCUsQOV
+         oQhaZCQVC8GI/qM1OYHPjJjpxJ5E1ZDHzupRSbfr+0tAqH/LO2MKiw/h0CtIicWQ2vyq
+         Fujw==
+X-Gm-Message-State: AOJu0YwiMG2q+wsliL/Jat18M8XDX0MCYn1IC8TUMSvNOnreRXsTMKol
+	VBFedxXBpr/D8ViUXSUcY6GK1GhGPuOw
+X-Google-Smtp-Source: AGHT+IGp1aF4ad8GY2mpba0fd5l4BDt2hpoGdpcopL93LR+B2zkK3lS0kW9UdTbiZeLDNdbUYhVVOw==
+X-Received: by 2002:a05:600c:a684:b0:40e:3b3f:51eb with SMTP id ip4-20020a05600ca68400b0040e3b3f51ebmr19020wmb.81.1704988652315;
+        Thu, 11 Jan 2024 07:57:32 -0800 (PST)
+Message-ID: <076d5ca3-90df-46ac-9309-a2a96ffc378d@suse.com>
+Date: Thu, 11 Jan 2024 16:57:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/intel: ensure Global Performance Counter Control
- is setup correctly
+Subject: Re: [PATCH v3 05/34] xen/riscv: introduce guest_atomics.h
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20240111090821.67594-1-roger.pau@citrix.com>
- <3428928a-42d0-4e4b-9607-c184968c309d@suse.com> <ZZ_FjFa9mILtDZgv@macbook>
- <645e0c95-5a12-4202-8da6-3cc789a9e5c7@suse.com> <ZZ_di8pZB8bWtBuX@macbook>
- <b1e76a5f-297b-4030-a69e-33cdf179c0ce@suse.com> <ZZ_4HSvdg0R9Dv1Y@macbook>
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+ <fdbe7261178d057d9868aacea19c1c2b82d2da16.1703255175.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,36 +114,48 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZZ_4HSvdg0R9Dv1Y@macbook>
+In-Reply-To: <fdbe7261178d057d9868aacea19c1c2b82d2da16.1703255175.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11.01.2024 15:15, Roger Pau Monné wrote:
-> On Thu, Jan 11, 2024 at 03:01:01PM +0100, Jan Beulich wrote:
->> On 11.01.2024 13:22, Roger Pau Monné wrote:
->>> Oh, indeed, can adjust on this same patch if that's OK (seeing as the
->>> issue was already there previous to my change).
->>
->> Well, I'm getting the impression that it was deliberate there, i.e. set
->> setting of the feature flag may want to remain thus constrained.
-> 
-> Hm, I find it weird, but the original commit message doesn't help at
-> all.  Xen itself only uses PMC0, and I don't find any other
-> justification in the current code to require at least 2 counters in
-> order to expose arch performance monitoring to be present.
-> 
-> Looking at the SDM vol3, the figures there only contain PMC0 and PMC1,
-> so someone only reading that manual might assume there must always be
-> 2 global PMCs?
+On 22.12.2023 16:12, Oleksii Kurochko wrote:
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in V3:
+>  - update the commit message
 
-That may have been the impression at the time. It may have been wrong
-already back then, or ...
+There (still) is none - what is the above about?
 
-> (vol4 clarifies the that the number of global PMCs is variable).
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/guest_atomics.h
+> @@ -0,0 +1,49 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef __ASM_RISCV_GUEST_ATOMICS_H
+> +#define __ASM_RISCV_GUEST_ATOMICS_H
+> +
+> +#define guest_testop(name)                                                  \
+> +static inline int guest_##name(struct domain *d, int nr, volatile void *p)  \
+> +{                                                                           \
+> +    (void) d;                                                               \
+> +    (void) nr;                                                              \
+> +    (void) p;                                                               \
 
-... it may have been clarified in the SDM later on. My vague guess is
-that the > 1 check was to skip what may have been "obviously buggy"
-back at the time.
+What are these and ...
+
+> +    ASSERT_UNREACHABLE();                                                   \
+> +                                                                            \
+> +    return 0;                                                               \
+> +}
+> +
+> +#define guest_bitop(name)                                                   \
+> +static inline void guest_##name(struct domain *d, int nr, volatile void *p) \
+> +{                                                                           \
+> +    (void) d;                                                               \
+> +    (void) nr;                                                              \
+> +    (void) p;                                                               \
+
+... these about? If there's a reason for having them, then (nit) there
+are stray blanks.
 
 Jan
 
