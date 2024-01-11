@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD68182A870
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:36:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665958.1036325 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56CBF82A872
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:37:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665968.1036335 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpbn-0001gN-Ot; Thu, 11 Jan 2024 07:36:11 +0000
+	id 1rNpcV-0002ES-1g; Thu, 11 Jan 2024 07:36:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665958.1036325; Thu, 11 Jan 2024 07:36:11 +0000
+Received: by outflank-mailman (output) from mailman id 665968.1036335; Thu, 11 Jan 2024 07:36:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpbn-0001e9-Lv; Thu, 11 Jan 2024 07:36:11 +0000
-Received: by outflank-mailman (input) for mailman id 665958;
- Thu, 11 Jan 2024 07:36:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rNpcU-0002BZ-V2; Thu, 11 Jan 2024 07:36:54 +0000
+Received: by outflank-mailman (input) for mailman id 665968;
+ Thu, 11 Jan 2024 07:36:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpbm-00018Y-GC
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:36:10 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 167aee1a-b054-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 08:36:09 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-33761e291c1so2929717f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:36:09 -0800 (PST)
+ id 1rNpcT-000203-Df
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:36:53 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2f7f94bc-b054-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 08:36:51 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40e5bfa260bso6194715e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:36:51 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d6-20020a056000114600b003366a9cb0d1sm444087wrx.92.2024.01.10.23.36.08
+ d6-20020a056000114600b003366a9cb0d1sm444087wrx.92.2024.01.10.23.36.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:36:09 -0800 (PST)
+ Wed, 10 Jan 2024 23:36:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 167aee1a-b054-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: 2f7f94bc-b054-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704958569; x=1705563369; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704958611; x=1705563411; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wsJ7I3Jk/zIngfzbN4LmAFxnYbDQ+MHJGcXuNQpvhR0=;
-        b=RlGdGYBIY3n2TtmHTQuesvPhoFS0+uPksPAUd2mqCJeBc7vpfAXK6txTjPuhBapKWN
-         GzCfFNeuFGnf8b9buECKLPSEN003zpuJX8KWZBgRmUwj5KjMAhD1aXPcIRnU0NDUZPRb
-         lLevMxIsSCUcnaFQHunK5BK4KxWxiDoelOchK+omRRRmD8DBqYAZ8u45dtbl4ZAurxqk
-         WY2Udahagp4/cseKCaK4jDu/ZI++qg5pfU/ZJ/HGeyxzeZqXT8gEiOavqa9JZY6Hw9FU
-         mFbTnMa2TimDQs74HYDTZlfDkmXpdZ4rj52rK9UMNHtLN86Zl0TCRxmt3dTxcvyg8OnT
-         KF2Q==
+        bh=GfRv3gongelxjdY816blQolB01Qj493E2xtw5+iJNEY=;
+        b=ZZURtIiCjV5cM4DLpCWgATUShi9sa+8B0p199ITGP4lDFvamkDetwn2o/8Y/z4KB5b
+         WQglwyX6smtoAtbrhV/L7R3wpdk5mZwoaS25SEAtw6OPQZwJ4/8QoEqIRvZG700RXpls
+         mno1bql8Zekf1H5bPg5lluViLIY4hktp23U57/9BpKsEa9bhJNKrDImeJyT41tzycUeN
+         z3TUaNLMxmpqGXcXAPkuXhTrp+Bgf4YI/rDJZXQXhxAS/PFfFwP/iapyFEkvKDF2WFSR
+         OCwVC9d8hn2mcsKEZtxsgIJVGpwMFAyNB+ny/YgjSTLFjBgCTDsUxbx3sswJ/mjQEEal
+         DjHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704958569; x=1705563369;
+        d=1e100.net; s=20230601; t=1704958611; x=1705563411;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=wsJ7I3Jk/zIngfzbN4LmAFxnYbDQ+MHJGcXuNQpvhR0=;
-        b=fpJyPOXYlpU670dmkm2091ej2vknp3sJb8GUfbjkiti5f73XT4TVsDU9LLl6YduDvy
-         Tx86lClXByNXZk7H05xuglFDyMgGg3L/SoWGEz4d/F0X8SlUYFODPwZviQbwkMXF2Bt7
-         CtNDE4jcTD96wv34DirvxWDB/6ou7tP6aXgMDQlR8FtVHRbU5nUaIptsfuBgFwQWDN3m
-         o9aF+tQf0GmpmN64GPpRB+mH4lTNUFqM3XN6UmVRQvEE/JNg4Mbcat7Iz9CRk7V6Pzxf
-         OfiD8w8H9cphvywyXArIyRf2ujZ3ThYnIVnneKypjdtA5788FSgAJhsmhMoLob4uFkSL
-         Xzmw==
-X-Gm-Message-State: AOJu0YxtmNdOJCBuPaVme0B1YHp28o/Ncq52bftplSwgwQBV5C7iIcb3
-	oUT/4sSWxbAdRPwPS3J9fp8gJn8vfEGlhViCqSFu8tNDUA==
-X-Google-Smtp-Source: AGHT+IE3hOSLi7u6eZsceZeT2j0xRdDCG/3bXrXJZVUUgBtflr46yVh4GcwSgLEbkryx8nxxJNW/8A==
-X-Received: by 2002:a05:600c:354a:b0:40d:891e:a0f1 with SMTP id i10-20020a05600c354a00b0040d891ea0f1mr119263wmq.7.1704958569288;
-        Wed, 10 Jan 2024 23:36:09 -0800 (PST)
-Message-ID: <a0078508-a0bf-4885-afdd-0f86cea611a4@suse.com>
-Date: Thu, 11 Jan 2024 08:36:08 +0100
+        bh=GfRv3gongelxjdY816blQolB01Qj493E2xtw5+iJNEY=;
+        b=MhGBp0Is1iegFQ/Q/7Z2BkdI0B9PlHBbN9zT+2ByIclhrOg3UePOzt30iSBiNWjRtj
+         jb4CxxhJYvzjbX6tn3jJAGkDexrlMv4dDIIxfcHjAgt1Ffm4vt6ni35bXtq2i1mBJKYG
+         QoGqY/YA7ssSjO8271W5MMfZkz8BRZd8C8lX3mzS1tfJaYcExTy1XToer3u5dcLtLxuB
+         vmL4uSfG9E31odJIf2TDIRJS4oeBI9Juwi2qn/ilE/KclFHolJnXvxmgRMn7LiClbk06
+         CfGLQjrXS3TaSpu39X2vnMklYBprMHjN60f5ut7n4CoXjM+Ru7DPZKwenluR8C5yoYSP
+         OdVA==
+X-Gm-Message-State: AOJu0YyJumr+hqB5XPFwqhbwSY69y+U/Q13hlJEshLIMZDYdDbl2ZRwU
+	eN/diDYkndyHTqTW+77LueLT8GzUJUFjmQFImQzJnbADmQ==
+X-Google-Smtp-Source: AGHT+IG3tnoyxIZ9O3Bq7VsN87C/tYpYyQ1jZygtip84+LEZW3cYmflTHGa0hbvjQW32umKq7BSsLg==
+X-Received: by 2002:a7b:c44d:0:b0:40d:9534:d214 with SMTP id l13-20020a7bc44d000000b0040d9534d214mr66929wmi.223.1704958611319;
+        Wed, 10 Jan 2024 23:36:51 -0800 (PST)
+Message-ID: <0afca177-4dce-4d73-8790-82256a620ec3@suse.com>
+Date: Thu, 11 Jan 2024 08:36:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 7/8] x86/vPMU: drop regs parameter from interrupt functions
+Subject: [PATCH 8/8] x86/APIC: drop regs parameter from direct vector handler
+ functions
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
 References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,95 +117,202 @@ In-Reply-To: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The vendor functions don't use the respective parameters at all. In
-vpmu_do_interrupt() there's only a very limited area where the
-outer context's state would be needed, retrievable by get_irq_regs().
-
-This is in preparation of dropping the register parameters from direct
-APIC vector handler functions.
+The only place it was needed is in the spurious handler, and there we
+can use get_irq_regs() instead.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/apic.c
 +++ b/xen/arch/x86/apic.c
-@@ -1412,7 +1412,7 @@ static void cf_check error_interrupt(str
- static void cf_check pmu_interrupt(struct cpu_user_regs *regs)
+@@ -1324,7 +1324,7 @@ int reprogram_timer(s_time_t timeout)
+     return apic_tmict || !timeout;
+ }
+ 
+-static void cf_check apic_timer_interrupt(struct cpu_user_regs *regs)
++static void cf_check apic_timer_interrupt(void)
  {
      ack_APIC_irq();
--    vpmu_do_interrupt(regs);
-+    vpmu_do_interrupt();
- }
- 
- void __init apic_intr_init(void)
---- a/xen/arch/x86/cpu/vpmu.c
-+++ b/xen/arch/x86/cpu/vpmu.c
-@@ -158,7 +158,7 @@ static inline struct vcpu *choose_hwdom_
-     return hardware_domain->vcpu[idx];
- }
- 
--void vpmu_do_interrupt(struct cpu_user_regs *regs)
-+void vpmu_do_interrupt(void)
+     perfc_incr(apic_timer);
+@@ -1343,7 +1343,7 @@ void smp_send_state_dump(unsigned int cp
+ /*
+  * Spurious interrupts should _never_ happen with our APIC/SMP architecture.
+  */
+-static void cf_check spurious_interrupt(struct cpu_user_regs *regs)
++static void cf_check spurious_interrupt(void)
  {
-     struct vcpu *sampled = current, *sampling;
-     struct vpmu_struct *vpmu;
-@@ -239,6 +239,7 @@ void vpmu_do_interrupt(struct cpu_user_r
-         else
- #endif
-         {
-+            const struct cpu_user_regs *regs = get_irq_regs();
-             struct xen_pmu_regs *r = &vpmu->xenpmu_data->pmu.r.regs;
+     /*
+      * Check if this is a vectored interrupt (most likely, as this is probably
+@@ -1357,7 +1357,7 @@ static void cf_check spurious_interrupt(
+         is_spurious = !nmi_check_continuation();
+         if (this_cpu(state_dump_pending)) {
+             this_cpu(state_dump_pending) = false;
+-            dump_execstate(regs);
++            dump_execstate(get_irq_regs());
+             is_spurious = false;
+         }
  
-             if ( (vpmu_mode & XENPMU_MODE_SELF) )
-@@ -301,7 +302,7 @@ void vpmu_do_interrupt(struct cpu_user_r
-     /* We don't support (yet) HVM dom0 */
-     ASSERT(sampling == sampled);
+@@ -1374,7 +1374,7 @@ static void cf_check spurious_interrupt(
+  * This interrupt should never happen with our APIC/SMP architecture
+  */
  
--    if ( !alternative_call(vpmu_ops.do_interrupt, regs) ||
-+    if ( !alternative_call(vpmu_ops.do_interrupt) ||
-          !is_vlapic_lvtpc_enabled(vlapic) )
-         return;
- 
---- a/xen/arch/x86/cpu/vpmu_amd.c
-+++ b/xen/arch/x86/cpu/vpmu_amd.c
-@@ -175,7 +175,7 @@ static void amd_vpmu_unset_msr_bitmap(st
-     msr_bitmap_off(vpmu);
- }
- 
--static int cf_check amd_vpmu_do_interrupt(struct cpu_user_regs *regs)
-+static int cf_check amd_vpmu_do_interrupt(void)
+-static void cf_check error_interrupt(struct cpu_user_regs *regs)
++static void cf_check error_interrupt(void)
  {
-     return 1;
+     static const char *const esr_fields[] = {
+         ", Send CS error",
+@@ -1409,7 +1409,7 @@ static void cf_check error_interrupt(str
+  * This interrupt handles performance counters interrupt
+  */
+ 
+-static void cf_check pmu_interrupt(struct cpu_user_regs *regs)
++static void cf_check pmu_interrupt(void)
+ {
+     ack_APIC_irq();
+     vpmu_do_interrupt();
+--- a/xen/arch/x86/cpu/mcheck/mce_intel.c
++++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
+@@ -58,7 +58,7 @@ bool __read_mostly lmce_support;
+ #define MCE_RING                0x1
+ static DEFINE_PER_CPU(int, last_state);
+ 
+-static void cf_check intel_thermal_interrupt(struct cpu_user_regs *regs)
++static void cf_check intel_thermal_interrupt(void)
+ {
+     uint64_t msr_content;
+     unsigned int cpu = smp_processor_id();
+@@ -642,7 +642,7 @@ static void cpu_mcheck_disable(void)
+         clear_cmci();
  }
---- a/xen/arch/x86/cpu/vpmu_intel.c
-+++ b/xen/arch/x86/cpu/vpmu_intel.c
-@@ -772,7 +772,7 @@ static void cf_check core2_vpmu_dump(con
+ 
+-static void cf_check cmci_interrupt(struct cpu_user_regs *regs)
++static void cf_check cmci_interrupt(void)
+ {
+     mctelem_cookie_t mctc;
+     struct mca_summary bs;
+--- a/xen/arch/x86/guest/xen/xen.c
++++ b/xen/arch/x86/guest/xen/xen.c
+@@ -158,7 +158,7 @@ static void __init init_memmap(void)
      }
  }
  
--static int cf_check core2_vpmu_do_interrupt(struct cpu_user_regs *regs)
-+static int cf_check core2_vpmu_do_interrupt(void)
+-static void cf_check xen_evtchn_upcall(struct cpu_user_regs *regs)
++static void cf_check xen_evtchn_upcall(void)
  {
-     struct vcpu *v = current;
-     u64 msr_content;
---- a/xen/arch/x86/include/asm/vpmu.h
-+++ b/xen/arch/x86/include/asm/vpmu.h
-@@ -31,7 +31,7 @@ struct arch_vpmu_ops {
-     int (*initialise)(struct vcpu *v);
-     int (*do_wrmsr)(unsigned int msr, uint64_t msr_content);
-     int (*do_rdmsr)(unsigned int msr, uint64_t *msr_content);
--    int (*do_interrupt)(struct cpu_user_regs *regs);
-+    int (*do_interrupt)(void);
-     void (*arch_vpmu_destroy)(struct vcpu *v);
-     int (*arch_vpmu_save)(struct vcpu *v, bool to_guest);
-     int (*arch_vpmu_load)(struct vcpu *v, bool from_guest);
-@@ -99,7 +99,7 @@ static inline bool vpmu_are_all_set(cons
+     struct vcpu_info *vcpu_info = this_cpu(vcpu_info);
+     unsigned long pending;
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2773,7 +2773,7 @@ static struct hvm_function_table __initd
+ };
  
- void vpmu_lvtpc_update(uint32_t val);
- int vpmu_do_msr(unsigned int msr, uint64_t *msr_content, bool is_write);
--void vpmu_do_interrupt(struct cpu_user_regs *regs);
-+void vpmu_do_interrupt(void);
- void vpmu_initialise(struct vcpu *v);
- void vpmu_destroy(struct vcpu *v);
- void vpmu_save(struct vcpu *v);
+ /* Handle VT-d posted-interrupt when VCPU is blocked. */
+-static void cf_check pi_wakeup_interrupt(struct cpu_user_regs *regs)
++static void cf_check pi_wakeup_interrupt(void)
+ {
+     struct vmx_vcpu *vmx, *tmp;
+     spinlock_t *lock = &per_cpu(vmx_pi_blocking, smp_processor_id()).lock;
+@@ -2805,7 +2805,7 @@ static void cf_check pi_wakeup_interrupt
+ }
+ 
+ /* Handle VT-d posted-interrupt when VCPU is running. */
+-static void cf_check pi_notification_interrupt(struct cpu_user_regs *regs)
++static void cf_check pi_notification_interrupt(void)
+ {
+     ack_APIC_irq();
+     this_cpu(irq_count)++;
+--- a/xen/arch/x86/include/asm/irq.h
++++ b/xen/arch/x86/include/asm/irq.h
+@@ -72,17 +72,15 @@ extern int opt_irq_vector_map;
+ 
+ #define platform_legacy_irq(irq)	((irq) < 16)
+ 
+-void cf_check event_check_interrupt(struct cpu_user_regs *regs);
+-void cf_check invalidate_interrupt(struct cpu_user_regs *regs);
+-void cf_check call_function_interrupt(struct cpu_user_regs *regs);
+-void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs);
++void cf_check event_check_interrupt(void);
++void cf_check invalidate_interrupt(void);
++void cf_check call_function_interrupt(void);
++void cf_check irq_move_cleanup_interrupt(void);
+ 
+ uint8_t alloc_hipriority_vector(void);
+ 
+-void set_direct_apic_vector(
+-    uint8_t vector, void (*handler)(struct cpu_user_regs *regs));
+-void alloc_direct_apic_vector(
+-    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs));
++void set_direct_apic_vector(uint8_t vector, void (*handler)(void));
++void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void));
+ 
+ void do_IRQ(struct cpu_user_regs *regs);
+ 
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -743,7 +743,7 @@ void move_native_irq(struct irq_desc *de
+     desc->handler->enable(desc);
+ }
+ 
+-void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs)
++void cf_check irq_move_cleanup_interrupt(void)
+ {
+     unsigned vector, me;
+ 
+@@ -913,16 +913,14 @@ uint8_t alloc_hipriority_vector(void)
+     return next++;
+ }
+ 
+-static void (*direct_apic_vector[X86_NR_VECTORS])(struct cpu_user_regs *regs);
+-void set_direct_apic_vector(
+-    uint8_t vector, void (*handler)(struct cpu_user_regs *regs))
++static void (*direct_apic_vector[X86_NR_VECTORS])(void);
++void set_direct_apic_vector(uint8_t vector, void (*handler)(void))
+ {
+     BUG_ON(direct_apic_vector[vector] != NULL);
+     direct_apic_vector[vector] = handler;
+ }
+ 
+-void alloc_direct_apic_vector(
+-    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs))
++void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void))
+ {
+     static DEFINE_SPINLOCK(lock);
+ 
+@@ -1907,7 +1905,7 @@ void do_IRQ(struct cpu_user_regs *regs)
+     if ( irq < 0 )
+     {
+         if ( direct_apic_vector[vector] )
+-            direct_apic_vector[vector](regs);
++            direct_apic_vector[vector]();
+         else
+         {
+             const char *kind = ", LAPIC";
+--- a/xen/arch/x86/smp.c
++++ b/xen/arch/x86/smp.c
+@@ -245,7 +245,7 @@ static cpumask_t flush_cpumask;
+ static const void *flush_va;
+ static unsigned int flush_flags;
+ 
+-void cf_check invalidate_interrupt(struct cpu_user_regs *regs)
++void cf_check invalidate_interrupt(void)
+ {
+     unsigned int flags = flush_flags;
+     ack_APIC_irq();
+@@ -387,14 +387,14 @@ void smp_send_nmi_allbutself(void)
+     send_IPI_mask(&cpu_online_map, APIC_DM_NMI);
+ }
+ 
+-void cf_check event_check_interrupt(struct cpu_user_regs *regs)
++void cf_check event_check_interrupt(void)
+ {
+     ack_APIC_irq();
+     perfc_incr(ipis);
+     this_cpu(irq_count)++;
+ }
+ 
+-void cf_check call_function_interrupt(struct cpu_user_regs *regs)
++void cf_check call_function_interrupt(void)
+ {
+     ack_APIC_irq();
+     perfc_incr(ipis);
 
 
