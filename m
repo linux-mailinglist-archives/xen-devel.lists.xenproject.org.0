@@ -2,44 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D6A182B7FC
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 00:25:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666575.1037306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C20A82B802
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 00:26:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666581.1037315 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rO4Pm-0001r4-Qi; Thu, 11 Jan 2024 23:24:46 +0000
+	id 1rO4Qs-0002RA-6f; Thu, 11 Jan 2024 23:25:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666575.1037306; Thu, 11 Jan 2024 23:24:46 +0000
+Received: by outflank-mailman (output) from mailman id 666581.1037315; Thu, 11 Jan 2024 23:25:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rO4Pm-0001pT-NV; Thu, 11 Jan 2024 23:24:46 +0000
-Received: by outflank-mailman (input) for mailman id 666575;
- Thu, 11 Jan 2024 23:24:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rO4Qs-0002P4-45; Thu, 11 Jan 2024 23:25:54 +0000
+Received: by outflank-mailman (input) for mailman id 666581;
+ Thu, 11 Jan 2024 23:25:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ifVr=IV=raptorengineering.com=sanastasio@srs-se1.protection.inumbo.net>)
- id 1rO4Pl-0001pN-8K
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 23:24:45 +0000
-Received: from raptorengineering.com (mail.raptorengineering.com
- [23.155.224.40]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 992a2a26-b0d8-11ee-9b0f-b553b5be7939;
- Fri, 12 Jan 2024 00:24:43 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id ED5DE82853FF;
- Thu, 11 Jan 2024 17:24:41 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id PwSK3NfgIfZ6; Thu, 11 Jan 2024 17:24:41 -0600 (CST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.rptsys.com (Postfix) with ESMTP id 5868E8285585;
- Thu, 11 Jan 2024 17:24:41 -0600 (CST)
-Received: from mail.rptsys.com ([127.0.0.1])
- by localhost (vali.starlink.edu [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id dmVeHTwLH0M1; Thu, 11 Jan 2024 17:24:41 -0600 (CST)
-Received: from raptor-ewks-026.2lan (5.edge.rptsys.com [23.155.224.38])
- by mail.rptsys.com (Postfix) with ESMTPSA id C59C982853FF;
- Thu, 11 Jan 2024 17:24:40 -0600 (CST)
+ <SRS0=wd/Q=IV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rO4Qr-0002Ow-5T
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 23:25:53 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c27cbd42-b0d8-11ee-98f0-6d05b1d4d9a1;
+ Fri, 12 Jan 2024 00:25:51 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by ams.source.kernel.org (Postfix) with ESMTP id 3EAB0B8217F;
+ Thu, 11 Jan 2024 23:25:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FF37C433C7;
+ Thu, 11 Jan 2024 23:25:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,76 +41,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 992a2a26-b0d8-11ee-9b0f-b553b5be7939
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.rptsys.com 5868E8285585
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=raptorengineering.com; s=B8E824E6-0BE2-11E6-931D-288C65937AAD;
-	t=1705015481; bh=H90w1xQrYjxfrgBat3wPt+rF605mPXis1SY2TqBYf/k=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=doJwMMy0hYmf9Z2H/lqxkhrupR8KbJral+2ulD03XPxTdJY+3Gs/Mqd47sq4bjPhf
-	 AMrVbRJ0SqpJ8DqUnReDWZOjiTogtdxyQ3zfSBZAMBThjSCtO56i99oVqHPDaHTy75
-	 qiBMqNFrhG8wuZGtD4lOOSeqCOfFeJY04QzxSB4g=
-X-Virus-Scanned: amavisd-new at rptsys.com
-From: Shawn Anastasio <sanastasio@raptorengineering.com>
-To: xen-devel@lists.xenproject.org
-Cc: Timothy Pearson <tpearson@raptorengineering.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2] xen/arm: bootfdt: Harden handling of malformed mem reserve map
-Date: Thu, 11 Jan 2024 17:24:22 -0600
-Message-Id: <20240111232422.2610495-1-sanastasio@raptorengineering.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: c27cbd42-b0d8-11ee-98f0-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1705015550;
+	bh=O6zWO/7B8m/R3qlw5KF+MLUk4ZsCs+Zrzh03eQXSYnk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=BnzfF0i5aNpLqjC5OMMzJpWb+pE6r6OntsIfh0MACy9mkD518kwdAjUnaWj35YkVk
+	 KCFJfscI2cXwvdSSGbfeWaDrMn5iITdK8GJLOwdWMHu2/zjWGDQ0m+5yGUCqxxwDGP
+	 CNbGAIW7R29Sw4rbwheaaJ6glxor2pfaQP/OFFdf4LZqUkYNBPeCN4W91SyysfvAq/
+	 OfHfp1LuifMszkm49HnBjntPpu83hFWgo0s1iOLIZGc3K8ElgTGBYCi9IOWy7pFdwI
+	 iDSQ65RhhP+0e/xqNG5Q3d4gh3GA6kF9xilO4VYDRXLhOW/k055lA7Zwv/jCPVq0QI
+	 /Tia0tWtFrMFw==
+Date: Thu, 11 Jan 2024 15:25:47 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Carlo Nonato <carlo.nonato@minervasys.tech>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Michal Orzel <michal.orzel@amd.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+    Marco Solieri <marco.solieri@minervasys.tech>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v5 09/13] xen: add cache coloring allocator for domains
+In-Reply-To: <0f7c4c1a-5c20-4e89-bef9-2ebd02c0b141@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2401111525320.3675@ubuntu-linux-20-04-desktop>
+References: <20240102095138.17933-1-carlo.nonato@minervasys.tech> <20240102095138.17933-10-carlo.nonato@minervasys.tech> <7fbe9526-60cf-4844-8b48-58ab69ec1b29@suse.com> <alpine.DEB.2.22.394.2401091637160.3675@ubuntu-linux-20-04-desktop>
+ <0f7c4c1a-5c20-4e89-bef9-2ebd02c0b141@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-The early_print_info routine in bootfdt.c incorrectly stores the result
-of a call to fdt_num_mem_rsv() in an unsigned int, which results in the
-negative error code being interpreted incorrectly in a subsequent loop
-in the case where the device tree is malformed. Fix this by properly
-checking the return code for an error and calling panic().
+On Wed, 10 Jan 2024, Jan Beulich wrote:
+> On 10.01.2024 01:46, Stefano Stabellini wrote:
+> > On Tue, 9 Jan 2024, Jan Beulich wrote:
+> >> On 02.01.2024 10:51, Carlo Nonato wrote:
+> >>> This commit adds a new memory page allocator that implements the cache
+> >>> coloring mechanism. The allocation algorithm enforces equal frequency
+> >>> distribution of cache partitions, following the coloring configuration of a
+> >>> domain. This allows an even utilization of cache sets for every domain.
+> >>>
+> >>> Pages are stored in a color-indexed array of lists. Those lists are filled
+> >>> by a simple init function which computes the color of each page.
+> >>> When a domain requests a page, the allocator extract the page from the list
+> >>> with the maximum number of free pages between those that the domain can
+> >>> access, given its coloring configuration.
+> >>>
+> >>> The allocator can only handle requests of order-0 pages. This allows for
+> >>> easier implementation and since cache coloring targets only embedded systems,
+> >>> it's assumed not to be a major problem.
+> >>
+> >> I'm curious about the specific properties of embedded systems that makes
+> >> the performance implications of deeper page walks less of an issue for
+> >> them.
+> > 
+> > I think Carlo meant to say that embedded systems tend to have a smaller
+> > amount of RAM (our boards today have 4-8GB of total memory). So higher
+> > level allocations (2MB/1GB) might not be possible.
+> > 
+> > Also, domains that care about interrupt latency tend to be RTOSes (e.g.
+> > Zephyr, FreeRTOS) and RTOSes are happy to run with less than 1MB of
+> > total memory available. This is so true that I vaguely remember hitting
+> > a bug in xl/libxl when I tried to create a domain with 128KB of memory. 
+> > 
+> > 
+> >> Nothing is said about address-constrained allocations. Are such entirely
+> >> of no interest to domains on Arm, not even to Dom0 (e.g. for filling
+> >> Linux'es swiotlb)?
+> > 
+> > Cache coloring is useful if you can use an IOMMU with all the
+> > dma-capable devices. If that is not the case, then not even Dom0 would
+> > be able to boot with cache coloring enabled (because it wouldn't be 1:1
+> > mapped).
+> > 
+> > On ARM we only support booting Dom0 1:1 mapped, or not-1:1-mapped but
+> > relying on the IOMMU.
+> 
+> So another constraint to be enforced both at the Kconfig level and at
+> runtime?
 
-Signed-off-by: Shawn Anastasio <sanastasio@raptorengineering.com>
----
-v2:
-  - panic() if the fdt_num_mem_rsv() call fails
-  - Reword commit message to clarify that the error condition can only
-  be triggered by a malformed device tree
-  - Rebase to standalone patch instead of a part of my patch series
-  '[PATCH v2 0/7] Early Boot Allocation on Power'
+Yeah potentially
 
----
- xen/arch/arm/bootfdt.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-index 1cbac3cb2a..35dbdf3384 100644
---- a/xen/arch/arm/bootfdt.c
-+++ b/xen/arch/arm/bootfdt.c
-@@ -463,7 +463,8 @@ static void __init early_print_info(void)
-     struct meminfo *mem_resv = &bootinfo.reserved_mem;
-     struct bootmodules *mods = &bootinfo.modules;
-     struct bootcmdlines *cmds = &bootinfo.cmdlines;
--    unsigned int i, j, nr_rsvd;
-+    unsigned int i, j;
-+    int nr_rsvd;
+> That said, Linux'es swiotlb allocation can't know whether an
+> IOMMU is in use by Xen.
 
-     for ( i = 0; i < mi->nr_banks; i++ )
-         printk("RAM: %"PRIpaddr" - %"PRIpaddr"\n",
-@@ -478,6 +479,9 @@ static void __init early_print_info(void)
-                 boot_module_kind_as_string(mods->module[i].kind));
+Well, not exactly but we have XENFEAT_direct_mapped and
+XENFEAT_not_direct_mapped, that is how normally the kernel knows how to
+behave
 
-     nr_rsvd = fdt_num_mem_rsv(device_tree_flattened);
-+    if ( nr_rsvd < 0 )
-+        panic("Parsing FDT memory reserve map failed (%d)\n", nr_rsvd);
-+
-     for ( i = 0; i < nr_rsvd; i++ )
-     {
-         paddr_t s, e;
---
-2.30.2
 
+> If something like that was done in a Dom0, the
+> respective allocations still wouldn't really work correctly (and the
+> kernel may or may not choke on this).
+ 
 
