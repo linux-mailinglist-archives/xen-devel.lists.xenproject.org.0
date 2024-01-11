@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B90F82A845
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:24:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665898.1036205 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C91282A847
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:25:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665901.1036215 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpQG-00022j-TP; Thu, 11 Jan 2024 07:24:16 +0000
+	id 1rNpR1-0002Xg-6l; Thu, 11 Jan 2024 07:25:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665898.1036205; Thu, 11 Jan 2024 07:24:16 +0000
+Received: by outflank-mailman (output) from mailman id 665901.1036215; Thu, 11 Jan 2024 07:25:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpQG-000206-Qf; Thu, 11 Jan 2024 07:24:16 +0000
-Received: by outflank-mailman (input) for mailman id 665898;
- Thu, 11 Jan 2024 07:24:15 +0000
+	id 1rNpR1-0002V3-3I; Thu, 11 Jan 2024 07:25:03 +0000
+Received: by outflank-mailman (input) for mailman id 665901;
+ Thu, 11 Jan 2024 07:25:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpQF-000200-FB
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:24:15 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
+ id 1rNpQz-000200-HB
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:25:01 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6abee138-b052-11ee-9b0f-b553b5be7939;
- Thu, 11 Jan 2024 08:24:12 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-3376555b756so2871906f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:24:12 -0800 (PST)
+ id 85e7ffb2-b052-11ee-9b0f-b553b5be7939;
+ Thu, 11 Jan 2024 08:24:57 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40e5521dab6so17014645e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:24:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o10-20020a056000010a00b00336cbbf2e0fsm441141wrx.27.2024.01.10.23.24.11
+ o10-20020a056000010a00b00336cbbf2e0fsm441141wrx.27.2024.01.10.23.24.57
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:24:12 -0800 (PST)
+ Wed, 10 Jan 2024 23:24:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6abee138-b052-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 85e7ffb2-b052-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704957852; x=1705562652; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704957898; x=1705562698; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=0ec8vWmu/5aIAhFU+GtuouuNHSKMP58o3QH8ANpxtGg=;
-        b=ONNAVtEf07iJts9lW9wgn7Bpn1MQpPFQFiKdqFXYmRbbKXtV6uhSmx9oM4oS5+qVrZ
-         4xGG+IOnqb3+0EslsWnLAdOkH3P2IYkapwvOBLCktekSGoNYwHAdl/SSexNI6/fZ4Slj
-         VuDoQLMsKdhcRhXJp7t/tEgRxFwHJvpl5yzj6addLE8yHI2pYBhB++PY1gq1eEelFynx
-         Ye4kmIcR9nfOH8pp383PAGnDfa9TDCs1lddMrjLrrNmUcA9mjBceVivX5tLP2azl6Nrb
-         H/mgRQ7rLMoFJueqBUs/j99RxbXBsTCU0hAGOcj3VpLLBOzn3rUACn5ULWMHTYHp8rk7
-         y/Bw==
+        bh=TMrbBvkZhskVDNFDVa776VDzvxg6i1Meo4j2L0PFpIY=;
+        b=f9q3IunMP2mNKM30IDclIprKiUzhZkNca2qxAbspxbxWRajt3IPU010KerhZEhhMD4
+         BdR/R5RUiQwD6YR/5z+ieDu/PEINUSRm4pKg8Kr5Nwgw1mq7bKnqZk5TjGqBD6YMcJxB
+         NVrAgJHlY1fDjMwnCuI3wWHl2nl3JbaRrQDrWSj3Y3iSdESpJv8qUsTZmHH+BcZRj7Lb
+         GbT1lrSpPurx1HrnJM1jxnRPWl9g292XvZ27azWwhc0JvJ0VxE5w/m0aX98yPYTE9NUZ
+         9qWuGo/wsn7X99n6AQweVfdU2VONv5qDR6y5VsMR2jXMLMEcHLbAke5eezxkcSyMeTCk
+         lenw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704957852; x=1705562652;
+        d=1e100.net; s=20230601; t=1704957898; x=1705562698;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0ec8vWmu/5aIAhFU+GtuouuNHSKMP58o3QH8ANpxtGg=;
-        b=r9Ie8ogk8lQpoZ0fsjvPb1U7jBrSqWMDSz8bLtUFOeVBNk9RQjVOw+4larspBPoKA0
-         46kNQic/To5HuE237ODG/cNZuA8yP/WjX9tZdfwH11cJwC53ecwgwyYjzy4XK8CqNkgM
-         Gz29fsA6NltPmGZcCkB+xcLLVF3AcC3c4A+O5iE6GqRMO00olAkfh++vOrLHzgvLA9zV
-         38Q607+DsoDCG+ehvOYaWp9+l4IuMbHWcZw57TEeQ3A3bnv7GtZMro+iC0GQj6cEzqCi
-         8l+MWBbd8pRYLQeYqXydBwsj+M6PRHbgblUFE9EJRRLBkzFEbD8J0lutQxSwBQTKrhXK
-         Gg6Q==
-X-Gm-Message-State: AOJu0YwowPaTtfQ0+D99hAWnuXbSkOyNFX6/pBDKGEmUaYT5AxpT5ulH
-	AuH1CvanfyIZTxmgdrJ1iglsRPOZjCaOcKe0x828DViALQ==
-X-Google-Smtp-Source: AGHT+IF1iJxaRdntkDF6jKFL3SB64XOqnl8kfYx8ByE0l/AFs6MuYV1rrBHuaqDcYD6+FxYvkPCG+Q==
-X-Received: by 2002:adf:9bc6:0:b0:337:7ac9:7920 with SMTP id e6-20020adf9bc6000000b003377ac97920mr158295wrc.22.1704957852399;
-        Wed, 10 Jan 2024 23:24:12 -0800 (PST)
-Message-ID: <2b7dd916-9e5e-4226-94d5-5439d403644d@suse.com>
-Date: Thu, 11 Jan 2024 08:24:11 +0100
+        bh=TMrbBvkZhskVDNFDVa776VDzvxg6i1Meo4j2L0PFpIY=;
+        b=FfZ/JxGSRLlIexN+PcKGViVZjspXxkffOUlnilKFmLp48HBjRrq17q/KP1qr7K1f5W
+         /tt8khXEl+kbaE9l+DcQSh7lN5oBU3dNTWlQqiLxAk1IYNRXt7ZzyG3jNC+YBcjvTkfP
+         ejffNHog9zYyJLwHSBuXUK+/+tmrG+WbU8gv/0IC80+okQFm/tub8IdislHxcBJ7xHMu
+         wPJr0vFcf4xuFj5mMD9DUlANbaScGS9X3vKH7+XnH8+mcSjwlo7DdsCNMz2nf29YQZxr
+         +IW0uSh+ePIBosaca4cRNI8k1TgnpPq29lA7uztlubJ5vOysIpnPBVUm7YixPJk1JEIy
+         dyUA==
+X-Gm-Message-State: AOJu0YxarOeydYL76htBlcc5O1fL9Pcm2CySvX9OiN4w2a0Jt1A2Fpm8
+	kfbnTKsIuzDMGczQUPRHHf6ZeC7gJuUNdvsI7sYSBmL/Rw==
+X-Google-Smtp-Source: AGHT+IGeUfAWvi25VR9asNnMH2taWeWh7VmwFy1OrMb8DuOS6N7UX272NqHrAYOJ4l5AI/xKdCw5Bg==
+X-Received: by 2002:a05:600c:3145:b0:40e:499d:5ce2 with SMTP id h5-20020a05600c314500b0040e499d5ce2mr145295wmo.1.1704957897927;
+        Wed, 10 Jan 2024 23:24:57 -0800 (PST)
+Message-ID: <086ab61f-fa9d-4b2e-b8b7-5a4d06effe5a@suse.com>
+Date: Thu, 11 Jan 2024 08:24:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/8] limit passing around of cpu_user_regs
+Subject: [PATCH 2/8] IRQ: drop register parameter from handler functions
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
 References: <5d6089a4-c597-49ce-b042-24f13922f581@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,164 +118,334 @@ In-Reply-To: <5d6089a4-c597-49ce-b042-24f13922f581@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-There are exactly two handlers which care about the registers. Have
-handle_keypress() make the pointer available via a per-CPU variable,
-thus eliminating the need to pass it to all IRQ key handlers, making
-sure that a console-invoked key's handling can still nest inside a
-sysctl-invoked one's.
+It's simply not needed anymore. Note how Linux made this change many
+years ago already, in 2.6.19 (late 2006, see [1]).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Subsequently we may want to eliminate the fn/irq_fn union as well,
-along with dropping the now redundant irq_keyhandler_fn_t.
 
---- a/xen/common/keyhandler.c
-+++ b/xen/common/keyhandler.c
-@@ -80,6 +80,7 @@ static void cf_check keypress_action(voi
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=7d12e780e003f93433d49ce78cfedf4b4c52adc5
+
+--- a/xen/arch/arm/gic.c
++++ b/xen/arch/arm/gic.c
+@@ -397,7 +397,7 @@ void gic_interrupt(struct cpu_user_regs
+     } while (1);
  }
  
- static DECLARE_TASKLET(keypress_tasklet, keypress_action, NULL);
-+static DEFINE_PER_CPU(struct cpu_user_regs *, keypress_regs);
- 
- void handle_keypress(unsigned char key, struct cpu_user_regs *regs)
+-static void maintenance_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
++static void maintenance_interrupt(int irq, void *dev_id)
  {
-@@ -91,7 +92,16 @@ void handle_keypress(unsigned char key,
-     if ( !in_irq() || h->irq_callback )
+     /*
+      * This is a dummy interrupt handler.
+--- a/xen/arch/arm/irq.c
++++ b/xen/arch/arm/irq.c
+@@ -182,8 +182,7 @@ void irq_set_affinity(struct irq_desc *d
+ }
+ 
+ int request_irq(unsigned int irq, unsigned int irqflags,
+-                void (*handler)(int irq, void *dev_id,
+-                                struct cpu_user_regs *regs),
++                void (*handler)(int irq, void *dev_id),
+                 const char *devname, void *dev_id)
+ {
+     struct irqaction *action;
+@@ -276,7 +275,7 @@ void do_IRQ(struct cpu_user_regs *regs,
+ 
+     do
      {
-         console_start_log_everything();
--        h->irq_callback ? h->irq_fn(key, regs) : h->fn(key);
-+        if ( h->irq_callback )
-+        {
-+            struct cpu_user_regs *old = this_cpu(keypress_regs);
-+
-+            this_cpu(keypress_regs) = regs;
-+            h->irq_fn(key);
-+            this_cpu(keypress_regs) = old;
-+        }
-+        else
-+            h->fn(key);
-         console_end_log_everything();
+-        action->handler(irq, action->dev_id, regs);
++        action->handler(irq, action->dev_id);
+         action = action->next;
+     } while ( action );
+ 
+--- a/xen/arch/arm/time.c
++++ b/xen/arch/arm/time.c
+@@ -241,7 +241,7 @@ int reprogram_timer(s_time_t timeout)
+ }
+ 
+ /* Handle the firing timer */
+-static void htimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
++static void htimer_interrupt(int irq, void *dev_id)
+ {
+     if ( unlikely(!(READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING)) )
+         return;
+@@ -255,7 +255,7 @@ static void htimer_interrupt(int irq, vo
+     WRITE_SYSREG(0, CNTHP_CTL_EL2);
+ }
+ 
+-static void vtimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
++static void vtimer_interrupt(int irq, void *dev_id)
+ {
+     /*
+      * Edge-triggered interrupts can be used for the virtual timer. Even
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -962,7 +962,7 @@ static int __init cf_check irq_ratelimit
+ __initcall(irq_ratelimit_init);
+ 
+ int __init request_irq(unsigned int irq, unsigned int irqflags,
+-        void (*handler)(int irq, void *dev_id, struct cpu_user_regs *regs),
++        void (*handler)(int irq, void *dev_id),
+         const char * devname, void *dev_id)
+ {
+     struct irqaction * action;
+@@ -2009,7 +2009,7 @@ void do_IRQ(struct cpu_user_regs *regs)
+         spin_unlock_irq(&desc->lock);
+ 
+         tsc_in = tb_init_done ? get_cycles() : 0;
+-        action->handler(irq, action->dev_id, regs);
++        action->handler(irq, action->dev_id);
+         TRACE_3D(TRC_HW_IRQ_HANDLED, irq, tsc_in, get_cycles());
+ 
+         spin_lock_irq(&desc->lock);
+--- a/xen/arch/x86/hpet.c
++++ b/xen/arch/x86/hpet.c
+@@ -237,8 +237,7 @@ again:
      }
-     else
-@@ -171,8 +181,7 @@ void cf_check dump_execstate(struct cpu_
-     watchdog_enable();
  }
  
--static void cf_check dump_registers(
--    unsigned char key, struct cpu_user_regs *regs)
-+static void cf_check dump_registers(unsigned char key)
+-static void cf_check hpet_interrupt_handler(
+-    int irq, void *data, struct cpu_user_regs *regs)
++static void cf_check hpet_interrupt_handler(int irq, void *data)
  {
-     unsigned int cpu;
+     struct hpet_event_channel *ch = data;
  
-@@ -185,8 +194,8 @@ static void cf_check dump_registers(
-     cpumask_copy(&dump_execstate_mask, &cpu_online_map);
- 
-     /* Get local execution state out immediately, in case we get stuck. */
--    if ( regs )
--        dump_execstate(regs);
-+    if ( this_cpu(keypress_regs) )
-+        dump_execstate(this_cpu(keypress_regs));
-     else
-         run_in_exception_handler(dump_execstate);
- 
-@@ -248,8 +257,7 @@ static void cf_check dump_hwdom_register
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -198,8 +198,7 @@ static void smp_send_timer_broadcast_ipi
      }
  }
  
--static void cf_check reboot_machine(
--    unsigned char key, struct cpu_user_regs *regs)
-+static void cf_check reboot_machine(unsigned char key)
+-static void cf_check timer_interrupt(
+-    int irq, void *dev_id, struct cpu_user_regs *regs)
++static void cf_check timer_interrupt(int irq, void *dev_id)
  {
-     printk("'%c' pressed -> rebooting machine\n", key);
-     machine_restart(0);
-@@ -477,8 +485,7 @@ static void cf_check run_all_nonirq_keyh
- static DECLARE_TASKLET(run_all_keyhandlers_tasklet,
-                        run_all_nonirq_keyhandlers, NULL);
+     ASSERT(local_irq_is_enabled());
  
--static void cf_check run_all_keyhandlers(
--    unsigned char key, struct cpu_user_regs *regs)
-+static void cf_check run_all_keyhandlers(unsigned char key)
+--- a/xen/common/irq.c
++++ b/xen/common/irq.c
+@@ -29,7 +29,7 @@ int init_one_irq_desc(struct irq_desc *d
+     return err;
+ }
+ 
+-void cf_check no_action(int cpl, void *dev_id, struct cpu_user_regs *regs)
++void cf_check no_action(int cpl, void *dev_id)
  {
-     struct keyhandler *h;
-     unsigned int k;
-@@ -494,7 +501,7 @@ static void cf_check run_all_keyhandlers
-         if ( !h->irq_fn || !h->diagnostic || !h->irq_callback )
-             continue;
-         printk("[%c: %s]\n", k, h->desc);
--        h->irq_fn(k, regs);
-+        h->irq_fn(k);
+ }
+ 
+--- a/xen/drivers/char/cadence-uart.c
++++ b/xen/drivers/char/cadence-uart.c
+@@ -40,7 +40,7 @@ static struct cuart {
+ #define cuart_read(uart, off)           readl((uart)->regs + (off))
+ #define cuart_write(uart, off,val)      writel((val), (uart)->regs + (off))
+ 
+-static void cuart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void cuart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct cuart *uart = port->uart;
+--- a/xen/drivers/char/exynos4210-uart.c
++++ b/xen/drivers/char/exynos4210-uart.c
+@@ -45,7 +45,7 @@ static struct exynos4210_uart {
+ #define exynos4210_read(uart, off)          readl((uart)->regs + off)
+ #define exynos4210_write(uart, off, val)    writel(val, (uart->regs) + off)
+ 
+-static void exynos4210_uart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void exynos4210_uart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct exynos4210_uart *uart = port->uart;
+--- a/xen/drivers/char/imx-lpuart.c
++++ b/xen/drivers/char/imx-lpuart.c
+@@ -37,8 +37,7 @@ static struct imx_lpuart {
+     struct vuart_info vuart;
+ } imx8_com;
+ 
+-static void imx_lpuart_interrupt(int irq, void *data,
+-                                 struct cpu_user_regs *regs)
++static void imx_lpuart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct imx_lpuart *uart = port->uart;
+--- a/xen/drivers/char/meson-uart.c
++++ b/xen/drivers/char/meson-uart.c
+@@ -61,8 +61,7 @@ static struct meson_uart {
+     struct vuart_info vuart;
+ } meson_com;
+ 
+-static void meson_uart_interrupt(int irq, void *data,
+-                                 struct cpu_user_regs *regs)
++static void meson_uart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct meson_uart *uart = port->uart;
+--- a/xen/drivers/char/mvebu-uart.c
++++ b/xen/drivers/char/mvebu-uart.c
+@@ -67,8 +67,7 @@ static struct mvebu3700_uart {
+ #define mvebu3700_read(uart, off)           readl((uart)->regs + (off))
+ #define mvebu3700_write(uart, off, val)     writel(val, (uart)->regs + (off))
+ 
+-static void mvebu3700_uart_interrupt(int irq, void *data,
+-                                     struct cpu_user_regs *regs)
++static void mvebu3700_uart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct mvebu3700_uart *uart = port->uart;
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -175,8 +175,7 @@ static void handle_dw_usr_busy_quirk(str
      }
- 
-     watchdog_enable();
-@@ -511,17 +518,16 @@ static void cf_check do_debugger_trap_fa
-     barrier();
  }
  
--static void cf_check do_debug_key(unsigned char key, struct cpu_user_regs *regs)
-+static void cf_check do_debug_key(unsigned char key)
+-static void cf_check ns16550_interrupt(
+-    int irq, void *dev_id, struct cpu_user_regs *regs)
++static void cf_check ns16550_interrupt(int irq, void *dev_id)
  {
-     printk("'%c' pressed -> trapping into debugger\n", key);
--    if ( regs )
--        do_debugger_trap_fatal(regs);
-+    if ( this_cpu(keypress_regs) )
-+        do_debugger_trap_fatal(this_cpu(keypress_regs));
-     else
-         run_in_exception_handler(do_debugger_trap_fatal);
+     struct serial_port *port = dev_id;
+     struct ns16550 *uart = port->uart;
+--- a/xen/drivers/char/omap-uart.c
++++ b/xen/drivers/char/omap-uart.c
+@@ -59,7 +59,7 @@ static struct omap_uart {
+     struct vuart_info vuart;
+ } omap_com = {0};
+ 
+-static void omap_uart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void omap_uart_interrupt(int irq, void *data)
+ {
+     struct serial_port *port = data;
+     struct omap_uart *uart = port->uart;
+--- a/xen/drivers/char/pl011.c
++++ b/xen/drivers/char/pl011.c
+@@ -82,7 +82,7 @@ static unsigned int pl011_intr_status(st
+     return (pl011_read(uart, RIS) & pl011_read(uart, IMSC));
  }
  
--static void cf_check do_toggle_alt_key(
--    unsigned char key, struct cpu_user_regs *regs)
-+static void cf_check do_toggle_alt_key(unsigned char key)
+-static void pl011_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void pl011_interrupt(int irq, void *data)
  {
-     alt_key_handling = !alt_key_handling;
-     printk("'%c' pressed -> using %s key handling\n", key,
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -280,7 +280,7 @@ static int *__read_mostly upper_thresh_a
- static int *__read_mostly lower_thresh_adj = &xenlog_lower_thresh;
- static const char *__read_mostly thresh_adj = "standard";
+     struct serial_port *port = data;
+     struct pl011 *uart = port->uart;
+--- a/xen/drivers/char/scif-uart.c
++++ b/xen/drivers/char/scif-uart.c
+@@ -102,7 +102,7 @@ static const struct port_params port_par
+     },
+ };
  
--static void cf_check do_toggle_guest(unsigned char key, struct cpu_user_regs *regs)
-+static void cf_check do_toggle_guest(unsigned char key)
+-static void scif_uart_interrupt(int irq, void *data, struct cpu_user_regs *regs)
++static void scif_uart_interrupt(int irq, void *data)
  {
-     if ( upper_thresh_adj == &xenlog_upper_thresh )
-     {
-@@ -307,13 +307,13 @@ static void do_adj_thresh(unsigned char
-            loglvl_str(*upper_thresh_adj));
+     struct serial_port *port = data;
+     struct scif_uart *uart = port->uart;
+--- a/xen/drivers/passthrough/amd/iommu_init.c
++++ b/xen/drivers/passthrough/amd/iommu_init.c
+@@ -718,8 +718,7 @@ static void cf_check do_amd_iommu_irq(vo
+ 
+ static DECLARE_SOFTIRQ_TASKLET(amd_iommu_irq_tasklet, do_amd_iommu_irq, NULL);
+ 
+-static void cf_check iommu_interrupt_handler(
+-    int irq, void *dev_id, struct cpu_user_regs *regs)
++static void cf_check iommu_interrupt_handler(int irq, void *dev_id)
+ {
+     unsigned long flags;
+     struct amd_iommu *iommu = dev_id;
+--- a/xen/drivers/passthrough/arm/smmu.c
++++ b/xen/drivers/passthrough/arm/smmu.c
+@@ -1097,16 +1097,14 @@ static irqreturn_t arm_smmu_global_fault
  }
  
--static void cf_check do_inc_thresh(unsigned char key, struct cpu_user_regs *regs)
-+static void cf_check do_inc_thresh(unsigned char key)
+ /* Xen: Interrupt handlers wrapper */
+-static void arm_smmu_context_fault_xen(int irq, void *dev,
+-				       struct cpu_user_regs *regs)
++static void arm_smmu_context_fault_xen(int irq, void *dev)
  {
-     ++*lower_thresh_adj;
-     do_adj_thresh(key);
+ 	arm_smmu_context_fault(irq, dev);
  }
  
--static void cf_check do_dec_thresh(unsigned char key, struct cpu_user_regs *regs)
-+static void cf_check do_dec_thresh(unsigned char key)
+ #define arm_smmu_context_fault arm_smmu_context_fault_xen
+ 
+-static void arm_smmu_global_fault_xen(int irq, void *dev,
+-				      struct cpu_user_regs *regs)
++static void arm_smmu_global_fault_xen(int irq, void *dev)
  {
-     if ( *lower_thresh_adj )
-         --*lower_thresh_adj;
---- a/xen/include/xen/keyhandler.h
-+++ b/xen/include/xen/keyhandler.h
-@@ -24,9 +24,7 @@ typedef void (keyhandler_fn_t)(unsigned
-  *
-  * Called in hardirq context with interrupts disabled.
-  */
--struct cpu_user_regs;
--typedef void (irq_keyhandler_fn_t)(unsigned char key,
--                                   struct cpu_user_regs *regs);
-+typedef void irq_keyhandler_fn_t(unsigned char key);
+ 	arm_smmu_global_fault(irq, dev);
+ }
+--- a/xen/drivers/passthrough/arm/smmu-v3.c
++++ b/xen/drivers/passthrough/arm/smmu-v3.c
+@@ -880,8 +880,7 @@ static void arm_smmu_priq_tasklet(void *
  
- /* Initialize keytable with default handlers. */
- void initialize_keytable(void);
-@@ -46,6 +44,7 @@ void register_irq_keyhandler(unsigned ch
-                              bool diagnostic);
+ static int arm_smmu_device_disable(struct arm_smmu_device *smmu);
  
- /* Inject a keypress into the key-handling subsystem. */
-+struct cpu_user_regs;
- extern void handle_keypress(unsigned char key, struct cpu_user_regs *regs);
+-static void arm_smmu_gerror_handler(int irq, void *dev,
+-				struct cpu_user_regs *regs)
++static void arm_smmu_gerror_handler(int irq, void *dev)
+ {
+ 	u32 gerror, gerrorn, active;
+ 	struct arm_smmu_device *smmu = dev;
+@@ -926,8 +925,7 @@ static void arm_smmu_gerror_handler(int
+ 	writel(gerror, smmu->base + ARM_SMMU_GERRORN);
+ }
  
- enum crash_reason {
+-static void arm_smmu_combined_irq_handler(int irq, void *dev,
+-				struct cpu_user_regs *regs)
++static void arm_smmu_combined_irq_handler(int irq, void *dev)
+ {
+ 	struct arm_smmu_device *smmu = dev;
+ 
+@@ -945,16 +943,14 @@ static void arm_smmu_combined_irq_taskle
+ 		arm_smmu_priq_tasklet(dev);
+ }
+ 
+-static void arm_smmu_evtq_irq_tasklet(int irq, void *dev,
+-				struct cpu_user_regs *regs)
++static void arm_smmu_evtq_irq_tasklet(int irq, void *dev)
+ {
+ 	struct arm_smmu_device *smmu = dev;
+ 
+ 	tasklet_schedule(&(smmu->evtq_irq_tasklet));
+ }
+ 
+-static void arm_smmu_priq_irq_tasklet(int irq, void *dev,
+-				struct cpu_user_regs *regs)
++static void arm_smmu_priq_irq_tasklet(int irq, void *dev)
+ {
+ 	struct arm_smmu_device *smmu = dev;
+ 
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -1119,8 +1119,7 @@ static void cf_check do_iommu_page_fault
+         __do_iommu_page_fault(drhd->iommu);
+ }
+ 
+-static void cf_check iommu_page_fault(
+-    int irq, void *dev_id, struct cpu_user_regs *regs)
++static void cf_check iommu_page_fault(int irq, void *dev_id)
+ {
+     /*
+      * Just flag the tasklet as runnable. This is fine, according to VT-d
+--- a/xen/include/xen/irq.h
++++ b/xen/include/xen/irq.h
+@@ -18,7 +18,7 @@
+     ASSERT(!in_irq() && (local_irq_is_enabled() || num_online_cpus() <= 1))
+ 
+ struct irqaction {
+-    void (*handler)(int irq, void *dev_id, struct cpu_user_regs *regs);
++    void (*handler)(int irq, void *dev_id);
+     const char *name;
+     void *dev_id;
+     bool free_on_release;
+@@ -119,12 +119,11 @@ extern int setup_irq(unsigned int irq, u
+                      struct irqaction *new);
+ extern void release_irq(unsigned int irq, const void *dev_id);
+ extern int request_irq(unsigned int irq, unsigned int irqflags,
+-               void (*handler)(int irq, void *dev_id,
+-                     struct cpu_user_regs *regs),
++               void (*handler)(int irq, void *dev_id),
+                const char *devname, void *dev_id);
+ 
+ extern hw_irq_controller no_irq_type;
+-void cf_check no_action(int cpl, void *dev_id, struct cpu_user_regs *regs);
++void cf_check no_action(int cpl, void *dev_id);
+ unsigned int cf_check irq_startup_none(struct irq_desc *desc);
+ void cf_check irq_actor_none(struct irq_desc *desc);
+ #define irq_shutdown_none irq_actor_none
 
 
