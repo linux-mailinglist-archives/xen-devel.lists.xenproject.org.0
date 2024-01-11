@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4BC482A866
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:33:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.665944.1036296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E92782A868
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Jan 2024 08:34:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.665949.1036306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpZD-0008P9-Pb; Thu, 11 Jan 2024 07:33:31 +0000
+	id 1rNpaF-0000Yv-4R; Thu, 11 Jan 2024 07:34:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 665944.1036296; Thu, 11 Jan 2024 07:33:31 +0000
+Received: by outflank-mailman (output) from mailman id 665949.1036306; Thu, 11 Jan 2024 07:34:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rNpZD-0008Mu-MB; Thu, 11 Jan 2024 07:33:31 +0000
-Received: by outflank-mailman (input) for mailman id 665944;
- Thu, 11 Jan 2024 07:33:30 +0000
+	id 1rNpaE-0000XL-W4; Thu, 11 Jan 2024 07:34:34 +0000
+Received: by outflank-mailman (input) for mailman id 665949;
+ Thu, 11 Jan 2024 07:34:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YFj+=IV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rNpZC-0008BU-F0
- for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:33:30 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1rNpaD-0000XC-OO
+ for xen-devel@lists.xenproject.org; Thu, 11 Jan 2024 07:34:33 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b721da82-b053-11ee-98f0-6d05b1d4d9a1;
- Thu, 11 Jan 2024 08:33:29 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-40e60e13581so1644855e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:33:29 -0800 (PST)
+ id dc9aadaf-b053-11ee-98f0-6d05b1d4d9a1;
+ Thu, 11 Jan 2024 08:34:32 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-40e60e13581so1653715e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Jan 2024 23:34:32 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d6-20020a056000114600b003366a9cb0d1sm444087wrx.92.2024.01.10.23.33.28
+ d6-20020a056000114600b003366a9cb0d1sm444087wrx.92.2024.01.10.23.34.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Jan 2024 23:33:29 -0800 (PST)
+ Wed, 10 Jan 2024 23:34:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b721da82-b053-11ee-98f0-6d05b1d4d9a1
+X-Inumbo-ID: dc9aadaf-b053-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1704958409; x=1705563209; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1704958472; x=1705563272; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zoKC8ochUFPTshQ5L/IkWmgj0imM/XqiSRmWYZZF9pU=;
-        b=b8cIvKacQ6v3ddGkl7jW7lW/Hf6aABTV9kBdI3Fuxg0r3GGRkpDykFYWjiAYdiYUXV
-         cbxxFc3/FMP0utm9kS/Z8F5F+usw7T+z5EaTA43AvKvF6bvgFsbCi+yG0r+hIiEE2e/y
-         xcfwA14pJjMRc2ZoSfWSOvk+UZRrQkdSfUqGtAUJgeBppEnd6jhpuDfg9dUu9KU6axFX
-         4/VExv32NTZwtpqofvGnummRpn+YFHuTq1d9eVgiuKjsYlPuktce163932CD3XZUigPx
-         1lceiaaOI82RiA72UsKNBrJvtXXQrmbVPcJ8DMdh/fJ4RwA2plz8n6yyZ81vvamDMnGo
-         m+lg==
+        bh=oZKCYOY6gg3N8LW61PDUiaDApFPPurPi/J2T7sVSPdg=;
+        b=N2j4rO7/S+XmTPoGdFpAWuiF5LOKyPQeVsXICi3HUfxGYNjC8qYx2rtTQeSntGB83i
+         4n+MLfolAdp4ddeDqhWHJDILkOvU4rr6vkH1yUo/l5NMoD/v8kAqettQaSWlXcdmKwXi
+         qybgOFjsmCtERMZol5MaIN21eaji3GfQDxOyJJKT0tz6sKZAZSuAk8dlBmwrzSOWdh/Q
+         OMlVHYqGWIJuDtdYHi8CsJlY8vwonSn3OvUSbTUEQocNgDMbK6UrkY9Zp52ocr+uipWN
+         ctrQziUZuYwEn6DDSdazGMp2VHrMWwL9ASMxD7rw2D7fIyZl0/h9S1Zk16f3pg0ObclS
+         aGgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1704958409; x=1705563209;
+        d=1e100.net; s=20230601; t=1704958472; x=1705563272;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=zoKC8ochUFPTshQ5L/IkWmgj0imM/XqiSRmWYZZF9pU=;
-        b=Yndq0IIeE7Vb09cbfQ82tlE7VdmSsOMrlKsGt8cCY2r4/g7/zB3UvjI3XRfvHpt2+a
-         PYXn+j/eWL+GFXtwnnVaRiy9q9jal/aWsmVZbyo1/6wOhNL4Bagqm4zL073UY7JAUfgr
-         4cAWMi7QpNonhiYJwp6/wZ0IqHBbpe0dSN4hHDNZcznahE/3ZYPWkWUkBYzmGPaErtig
-         WTMQxwmdUrSiA1mhMpM+Kdj+cUPnE7zwKlO/NGN7mXPJU7o6noG5Cc35X7TC87D3vbFF
-         q/Puw+tdV5yT4tDI3TCERRPbJw+2X/UStTQs2eiktgA67GtoMlRVTnrDMJGr5bzbNcGk
-         44Eg==
-X-Gm-Message-State: AOJu0YwWAYAuHQLd8tLFTHtHHCUn6ZD8NFYW4piLWfmJ2t0xKCLf8ygd
-	YEabZ3kMXjtJDxUfa9MC+O91wr63Rufq4pL8YLTAAI1auw==
-X-Google-Smtp-Source: AGHT+IHyTbTJlMfyu1Skg6ua3LsV/wsiVNoYjRHuZms4oBZQdS7LsfVCbB1nUCObOrSCjMPgo+R/ZA==
-X-Received: by 2002:a05:600c:a002:b0:40d:3e8b:855e with SMTP id jg2-20020a05600ca00200b0040d3e8b855emr90591wmb.142.1704958409333;
-        Wed, 10 Jan 2024 23:33:29 -0800 (PST)
-Message-ID: <a770f13f-ee71-4fb1-b8d4-62e25584dd39@suse.com>
-Date: Thu, 11 Jan 2024 08:33:28 +0100
+        bh=oZKCYOY6gg3N8LW61PDUiaDApFPPurPi/J2T7sVSPdg=;
+        b=EKWn6BWSQFGTniCcbYOmQiCEwZGi9Ny2c995Omcq4o7GOV1SgFCzRFAmlXU9iBr0QY
+         8GyA+1w/3455rRbIct6yt+Bj4ILhJVJS5Pij1Qi8PYEDcGUAW+CMcgyqXFditZ/9NdEc
+         wd1dJPnv2auJC3zWDJfZsUnut5Zp+YKqHphqNUAmSnSVt8BfzCeyBghIoDg6ADJkhSCo
+         pSTUSaGhIGNscxhkPNEEZdeOfB44If8dIw6YQgYHRVj5CK2TfVXcbZF+gsthHvMAPR/I
+         Eo1qTjvAWsS6hlR91WXi4JQb7kUQy3UPiYoy2ykXNNnQeQcJPai2BK9+QyScEeQ+k1yn
+         VMWA==
+X-Gm-Message-State: AOJu0YzXwqqYcDj0v09+D/xu9Qnzx6DYSU+9yDMFflYWgPbn7CjW6Hf/
+	0xPofrACCtYXhNAlcUZmpVRda0+St+N1U2aDioXSUFruYg==
+X-Google-Smtp-Source: AGHT+IHLJlz2c/qbYVyOLjZctY3pLI6OSnMk/W+Ulnl4UM8Mb2lIMCrBge74IAUwiV/oUu+Fgj+CmQ==
+X-Received: by 2002:a05:600c:314f:b0:40e:49ac:e4a6 with SMTP id h15-20020a05600c314f00b0040e49ace4a6mr107078wmo.171.1704958472053;
+        Wed, 10 Jan 2024 23:34:32 -0800 (PST)
+Message-ID: <05b1284a-988c-4f91-9cde-4751332aaa96@suse.com>
+Date: Thu, 11 Jan 2024 08:34:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/8] PV-shim: drop pv_console_rx()'s regs parameter
+Subject: [PATCH 5/8] serial: drop serial_[rt]x_interrupt()'s regs parameter
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
 References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,52 +117,280 @@ In-Reply-To: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-It's not needed anymore. This is in preparation of dropping the register
+In the the polling functions (ab)using set_irq_regs() is necessary
+to balance the change. This is in preparation of dropping the register
 parameters from IRQ handler functions.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/guest/xen/xen.c
-+++ b/xen/arch/x86/guest/xen/xen.c
-@@ -181,7 +181,7 @@ static void cf_check xen_evtchn_upcall(s
-             port += l1 * BITS_PER_LONG;
- 
-             if ( pv_console && port == pv_console_evtchn() )
--                pv_console_rx(regs);
-+                pv_console_rx();
-             else if ( pv_shim )
-                 pv_shim_inject_evtchn(port);
+--- a/xen/drivers/char/cadence-uart.c
++++ b/xen/drivers/char/cadence-uart.c
+@@ -51,7 +51,7 @@ static void cuart_interrupt(int irq, voi
+         /* ACK.  */
+         if ( status & UART_SR_INTR_RTRIG )
+         {
+-            serial_rx_interrupt(port, regs);
++            serial_rx_interrupt(port);
+             cuart_write(uart, R_UART_CISR, UART_SR_INTR_RTRIG);
          }
---- a/xen/drivers/char/xen_pv_console.c
-+++ b/xen/drivers/char/xen_pv_console.c
-@@ -94,7 +94,7 @@ evtchn_port_t pv_console_evtchn(void)
-     return cons_evtchn;
+     } while ( status & UART_SR_INTR_RTRIG );
+--- a/xen/drivers/char/ehci-dbgp.c
++++ b/xen/drivers/char/ehci-dbgp.c
+@@ -1253,6 +1253,7 @@ static void cf_check _ehci_dbgp_poll(str
+     unsigned long flags;
+     unsigned int timeout = MICROSECS(DBGP_CHECK_INTERVAL);
+     bool empty = false;
++    struct cpu_user_regs *old_regs;
+ 
+     if ( !dbgp->ehci_debug )
+         return;
+@@ -1268,11 +1269,16 @@ static void cf_check _ehci_dbgp_poll(str
+         spin_unlock_irqrestore(&port->tx_lock, flags);
+     }
+ 
++    /* Mimic interrupt context. */
++    old_regs = set_irq_regs(regs);
++
+     if ( dbgp->in.chunk )
+-        serial_rx_interrupt(port, regs);
++        serial_rx_interrupt(port);
+ 
+     if ( empty )
+-        serial_tx_interrupt(port, regs);
++        serial_tx_interrupt(port);
++
++    set_irq_regs(old_regs);
+ 
+     if ( spin_trylock_irqsave(&port->tx_lock, flags) )
+     {
+--- a/xen/drivers/char/exynos4210-uart.c
++++ b/xen/drivers/char/exynos4210-uart.c
+@@ -81,7 +81,7 @@ static void exynos4210_uart_interrupt(in
+         if ( status & (UINTM_RXD | UINTM_ERROR) )
+         {
+             /* uart->regs[UINTM] |= RXD|ERROR; */
+-            serial_rx_interrupt(port, regs);
++            serial_rx_interrupt(port);
+             /* uart->regs[UINTM] &= ~(RXD|ERROR); */
+             exynos4210_write(uart, UINTP, UINTM_RXD | UINTM_ERROR);
+         }
+@@ -89,7 +89,7 @@ static void exynos4210_uart_interrupt(in
+         if ( status & (UINTM_TXD | UINTM_MODEM) )
+         {
+             /* uart->regs[UINTM] |= TXD|MODEM; */
+-            serial_tx_interrupt(port, regs);
++            serial_tx_interrupt(port);
+             /* uart->regs[UINTM] &= ~(TXD|MODEM); */
+             exynos4210_write(uart, UINTP, UINTM_TXD | UINTM_MODEM);
+         }
+--- a/xen/drivers/char/imx-lpuart.c
++++ b/xen/drivers/char/imx-lpuart.c
+@@ -48,10 +48,10 @@ static void imx_lpuart_interrupt(int irq
+     rxcnt = imx_lpuart_read(uart, UARTWATER) >> UARTWATER_RXCNT_OFF;
+ 
+     if ( (sts & UARTSTAT_RDRF) || (rxcnt > 0) )
+-	    serial_rx_interrupt(port, regs);
++	    serial_rx_interrupt(port);
+ 
+     if ( sts & UARTSTAT_TDRE )
+-	    serial_tx_interrupt(port, regs);
++	    serial_tx_interrupt(port);
+ 
+     imx_lpuart_write(uart, UARTSTAT, sts);
+ }
+--- a/xen/drivers/char/meson-uart.c
++++ b/xen/drivers/char/meson-uart.c
+@@ -69,10 +69,10 @@ static void meson_uart_interrupt(int irq
+     uint32_t st = readl(uart->regs + AML_UART_STATUS_REG);
+ 
+     if ( !(st & AML_UART_RX_FIFO_EMPTY) )
+-        serial_rx_interrupt(port, regs);
++        serial_rx_interrupt(port);
+ 
+     if ( !(st & AML_UART_TX_FIFO_FULL) )
+-        serial_tx_interrupt(port, regs);
++        serial_tx_interrupt(port);
  }
  
--size_t pv_console_rx(struct cpu_user_regs *regs)
-+size_t pv_console_rx(void)
+ static void __init meson_uart_init_preirq(struct serial_port *port)
+--- a/xen/drivers/char/mvebu-uart.c
++++ b/xen/drivers/char/mvebu-uart.c
+@@ -76,10 +76,10 @@ static void mvebu3700_uart_interrupt(int
+ 
+     if ( st & (STATUS_RX_RDY | STATUS_OVR_ERR | STATUS_FRM_ERR |
+                STATUS_BRK_DET) )
+-        serial_rx_interrupt(port, regs);
++        serial_rx_interrupt(port);
+ 
+     if ( st & STATUS_TX_RDY )
+-        serial_tx_interrupt(port, regs);
++        serial_tx_interrupt(port);
+ }
+ 
+ static void __init mvebu3700_uart_init_preirq(struct serial_port *port)
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -188,9 +188,9 @@ static void cf_check ns16550_interrupt(
+         u8 lsr = ns_read_reg(uart, UART_LSR);
+ 
+         if ( (lsr & uart->lsr_mask) == uart->lsr_mask )
+-            serial_tx_interrupt(port, regs);
++            serial_tx_interrupt(port);
+         if ( lsr & UART_LSR_DR )
+-            serial_rx_interrupt(port, regs);
++            serial_rx_interrupt(port);
+ 
+         /* A "busy-detect" condition is observed on Allwinner/sunxi UART
+          * after LCR is written during setup. It needs to be cleared at
+@@ -211,22 +211,27 @@ static void cf_check __ns16550_poll(stru
+ {
+     struct serial_port *port = this_cpu(poll_port);
+     struct ns16550 *uart = port->uart;
++    struct cpu_user_regs *old_regs;
+ 
+     if ( uart->intr_works )
+         return; /* Interrupts work - no more polling */
+ 
++    /* Mimic interrupt context. */
++    old_regs = set_irq_regs(regs);
++
+     while ( ns_read_reg(uart, UART_LSR) & UART_LSR_DR )
+     {
+         if ( ns16550_ioport_invalid(uart) )
+             goto out;
+ 
+-        serial_rx_interrupt(port, regs);
++        serial_rx_interrupt(port);
+     }
+ 
+     if ( ( ns_read_reg(uart, UART_LSR) & uart->lsr_mask ) == uart->lsr_mask )
+-        serial_tx_interrupt(port, regs);
++        serial_tx_interrupt(port);
+ 
+ out:
++    set_irq_regs(old_regs);
+     set_timer(&uart->timer, NOW() + MILLISECS(uart->timeout_ms));
+ }
+ 
+--- a/xen/drivers/char/omap-uart.c
++++ b/xen/drivers/char/omap-uart.c
+@@ -70,9 +70,9 @@ static void omap_uart_interrupt(int irq,
+     {
+         lsr = omap_read(uart, UART_LSR) & 0xff;
+ 	if ( lsr & UART_LSR_THRE )
+-            serial_tx_interrupt(port, regs);
++            serial_tx_interrupt(port);
+ 	if ( lsr & UART_LSR_DR )
+-            serial_rx_interrupt(port, regs);
++            serial_rx_interrupt(port);
+ 
+         if ( port->txbufc == port->txbufp ) {
+             reg = omap_read(uart, UART_IER);
+--- a/xen/drivers/char/pl011.c
++++ b/xen/drivers/char/pl011.c
+@@ -95,7 +95,7 @@ static void pl011_interrupt(int irq, voi
+             pl011_write(uart, ICR, status & ~(TXI|RTI|RXI));
+ 
+             if ( status & (RTI|RXI) )
+-                serial_rx_interrupt(port, regs);
++                serial_rx_interrupt(port);
+ 
+             /* TODO
+                 if ( status & (DSRMI|DCDMI|CTSMI|RIMI) )
+@@ -103,7 +103,7 @@ static void pl011_interrupt(int irq, voi
+             */
+ 
+             if ( status & (TXI) )
+-                serial_tx_interrupt(port, regs);
++                serial_tx_interrupt(port);
+ 
+             status = pl011_intr_status(uart);
+         } while (status != 0);
+--- a/xen/drivers/char/scif-uart.c
++++ b/xen/drivers/char/scif-uart.c
+@@ -119,11 +119,11 @@ static void scif_uart_interrupt(int irq,
+     {
+         /* TX Interrupt */
+         if ( status & SCFSR_TDFE )
+-            serial_tx_interrupt(port, regs);
++            serial_tx_interrupt(port);
+ 
+         /* RX Interrupt */
+         if ( status & (SCFSR_RDF | SCFSR_DR) )
+-            serial_rx_interrupt(port, regs);
++            serial_rx_interrupt(port);
+ 
+         /* Error Interrupt */
+         if ( status & params->error_mask )
+--- a/xen/drivers/char/serial.c
++++ b/xen/drivers/char/serial.c
+@@ -45,7 +45,7 @@ static inline void serial_stop_tx(struct
+         port->driver->stop_tx(port);
+ }
+ 
+-void serial_rx_interrupt(struct serial_port *port, struct cpu_user_regs *regs)
++void serial_rx_interrupt(struct serial_port *port)
  {
      char c;
-     XENCONS_RING_IDX cons, prod;
---- a/xen/include/xen/pv_console.h
-+++ b/xen/include/xen/pv_console.h
-@@ -9,7 +9,7 @@ void pv_console_init(void);
- void pv_console_set_rx_handler(serial_rx_fn fn);
- void pv_console_init_postirq(void);
- void pv_console_puts(const char *buf, size_t nr);
--size_t pv_console_rx(struct cpu_user_regs *regs);
-+size_t pv_console_rx(void);
- evtchn_port_t pv_console_evtchn(void);
+     serial_rx_fn fn = NULL;
+@@ -71,7 +71,7 @@ void serial_rx_interrupt(struct serial_p
+         fn(c & 0x7f);
+ }
  
- #else
-@@ -18,7 +18,7 @@ static inline void pv_console_init(void)
- static inline void pv_console_set_rx_handler(serial_rx_fn fn) { }
- static inline void pv_console_init_postirq(void) { }
- static inline void pv_console_puts(const char *buf, size_t nr) { }
--static inline size_t pv_console_rx(struct cpu_user_regs *regs) { return 0; }
-+static inline size_t pv_console_rx(void) { return 0; }
+-void serial_tx_interrupt(struct serial_port *port, struct cpu_user_regs *regs)
++void serial_tx_interrupt(struct serial_port *port)
+ {
+     int i, n;
+     unsigned long flags;
+--- a/xen/drivers/char/xhci-dbc.c
++++ b/xen/drivers/char/xhci-dbc.c
+@@ -1164,6 +1164,7 @@ static void cf_check dbc_uart_poll(void
+     struct dbc_uart *uart = port->uart;
+     struct dbc *dbc = &uart->dbc;
+     unsigned long flags = 0;
++    struct cpu_user_regs *old_regs;
  
- #endif /* !CONFIG_XEN_GUEST */
- #endif /* __XEN_PV_CONSOLE_H__ */
+     if ( spin_trylock_irqsave(&port->tx_lock, flags) )
+     {
+@@ -1175,10 +1176,15 @@ static void cf_check dbc_uart_poll(void
+         spin_unlock_irqrestore(&port->tx_lock, flags);
+     }
+ 
++    /* Mimic interrupt context. */
++    old_regs = set_irq_regs(guest_cpu_user_regs());
++
+     while ( dbc_work_ring_size(&dbc->dbc_iwork) )
+-        serial_rx_interrupt(port, guest_cpu_user_regs());
++        serial_rx_interrupt(port);
++
++    serial_tx_interrupt(port);
+ 
+-    serial_tx_interrupt(port, guest_cpu_user_regs());
++    set_irq_regs(old_regs);
+     set_timer(&uart->timer, NOW() + MICROSECS(DBC_POLL_INTERVAL));
+ }
+ 
+--- a/xen/include/xen/serial.h
++++ b/xen/include/xen/serial.h
+@@ -12,8 +12,6 @@
+ #include <xen/init.h>
+ #include <xen/spinlock.h>
+ 
+-struct cpu_user_regs;
+-
+ /* Register a character-receive hook on the specified COM port. */
+ typedef void (*serial_rx_fn)(char c);
+ void serial_set_rx_handler(int handle, serial_rx_fn fn);
+@@ -155,8 +153,8 @@ void serial_register_uart(int idx, struc
+ /* Place the serial port into asynchronous transmit mode. */
+ void serial_async_transmit(struct serial_port *port);
+ /* Process work in interrupt context. */
+-void serial_rx_interrupt(struct serial_port *port, struct cpu_user_regs *regs);
+-void serial_tx_interrupt(struct serial_port *port, struct cpu_user_regs *regs);
++void serial_rx_interrupt(struct serial_port *port);
++void serial_tx_interrupt(struct serial_port *port);
+ 
+ /*
+  * Initialisers for individual uart drivers.
 
 
