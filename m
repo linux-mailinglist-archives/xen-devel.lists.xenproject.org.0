@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D9FF82BBEF
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 08:43:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666672.1037456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EFD582BC01
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 08:46:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666675.1037465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOCBX-0001FX-7M; Fri, 12 Jan 2024 07:42:35 +0000
+	id 1rOCFE-0001rv-LC; Fri, 12 Jan 2024 07:46:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666672.1037456; Fri, 12 Jan 2024 07:42:35 +0000
+Received: by outflank-mailman (output) from mailman id 666675.1037465; Fri, 12 Jan 2024 07:46:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOCBX-0001De-3y; Fri, 12 Jan 2024 07:42:35 +0000
-Received: by outflank-mailman (input) for mailman id 666672;
- Fri, 12 Jan 2024 07:42:33 +0000
+	id 1rOCFE-0001oj-IU; Fri, 12 Jan 2024 07:46:24 +0000
+Received: by outflank-mailman (input) for mailman id 666675;
+ Fri, 12 Jan 2024 07:46:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nnUc=IW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rOCBV-0001DW-Gb
- for xen-devel@lists.xenproject.org; Fri, 12 Jan 2024 07:42:33 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=12w8=IW=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rOCFD-0001oY-JW
+ for xen-devel@lists.xenproject.org; Fri, 12 Jan 2024 07:46:23 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20625.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::625])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22d844b0-b11e-11ee-9b0f-b553b5be7939;
- Fri, 12 Jan 2024 08:42:28 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-336c8ab0b20so5278496f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 11 Jan 2024 23:42:28 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m7-20020a5d4a07000000b003365fc41bcasm3072184wrq.51.2024.01.11.23.42.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Jan 2024 23:42:28 -0800 (PST)
+ id ac3a7c06-b11e-11ee-9b0f-b553b5be7939;
+ Fri, 12 Jan 2024 08:46:20 +0100 (CET)
+Received: from SJ0PR05CA0103.namprd05.prod.outlook.com (2603:10b6:a03:334::18)
+ by BL1PR12MB5192.namprd12.prod.outlook.com (2603:10b6:208:311::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.19; Fri, 12 Jan
+ 2024 07:46:16 +0000
+Received: from SJ1PEPF00001CE0.namprd05.prod.outlook.com
+ (2603:10b6:a03:334:cafe::bb) by SJ0PR05CA0103.outlook.office365.com
+ (2603:10b6:a03:334::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.14 via Frontend
+ Transport; Fri, 12 Jan 2024 07:46:16 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE0.mail.protection.outlook.com (10.167.242.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7181.14 via Frontend Transport; Fri, 12 Jan 2024 07:46:15 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 12 Jan
+ 2024 01:46:15 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Fri, 12 Jan 2024 01:46:13 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,117 +59,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22d844b0-b11e-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705045348; x=1705650148; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QT1C3FSHhpricvIXjSOLqDvVjkwYhGsA2Lvue9KpjtE=;
-        b=aK7p8QTyzjDgpTceEScEu6CuDpZickdIui1olR/NrefpjNtNG/ambaC7wNusNvmj1m
-         1GRj8SWy4f/7w0Fm9134GT29WXNVDzT2dnMRBAi6nZMboaqYgvVLclwXx6bCRaQmgsi8
-         nUcfdypb+EithBKepDb486QEJOwouzkRlwoLLrJPGaYhNly8W9KjEIO3axjwfCc6ZImg
-         yP731moeFPGqLnvz4S7FwUV7cDex0NIrDGVsb3n5NQ6OjRphlDqK+ARBubRIaENpyjuU
-         E4ar2MGvDsUEmAmbAIg/WSrN4JGPF6RA17WICiCW8MAlbQ6VM28dwBSJUbEQAaCfxc/n
-         hE9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705045348; x=1705650148;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QT1C3FSHhpricvIXjSOLqDvVjkwYhGsA2Lvue9KpjtE=;
-        b=FtlZq38RF0gC4ApgtrJmgvymyUEgM3QwhffEs8h+yaL+QO9jTuvZJDtL2FBq+xm/A+
-         Am34/mKTHzNEM+69DK1z4d0QIoHEcqfT8fVobMwNJEfLDZt6HlXohIrh2VEgsGBg5uVz
-         GQHajjaie6bNDMsxIre1rAiOl2u5Y4YEbF7OdMiywt1YFRbJ6UTjrLyC9m7psshcc6lh
-         9SQmrOzMSEZ+pl7ZupVWOzNyBT9iZ5fh9KQV0zE6kkgFFV4+1gIT6IfD6Nc/LyMlhGxG
-         P/eAAqKARxP+TZyrdVy5VarUz8DFgJVhennv8HHcTI24kfKl6BkEI3bxyzdnhmP6jmy2
-         J+pQ==
-X-Gm-Message-State: AOJu0YwnXqJfJWA67/ehDbI2v8sVEPZ9gMLi/auXrHRlLzoKGCHjx6JG
-	NwXBGPbnE12HkaS457ONDSjdQr80jeMF
-X-Google-Smtp-Source: AGHT+IF9RKB1JJGMykkGp3gseV4nZ5D3UvLKRjAJ+oDAj6drkh53PjsNjllv9mOjGz4jpkR5MZvT+g==
-X-Received: by 2002:a05:6000:10c8:b0:337:7bde:f03e with SMTP id b8-20020a05600010c800b003377bdef03emr550310wrx.16.1705045348359;
-        Thu, 11 Jan 2024 23:42:28 -0800 (PST)
-Message-ID: <b2412d90-e368-405f-813f-20a95f99ff21@suse.com>
-Date: Fri, 12 Jan 2024 08:42:27 +0100
+X-Inumbo-ID: ac3a7c06-b11e-11ee-9b0f-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mKdHEDxHvKJkvaFl8rAcLP4AYLywqpJEq8RMx94YQZNvNgoUUm/A0TxqX2RO8r0l/tp/xhxGdpNMlLypTTIW4DPpWtM6UT4p06FacAl//7sZxJ7B15b6GWSlKycXrUxT3rJ75aKDs3cCwGk74aarjSVBopmYgi7VR3NExaC64trjZrLLFhDBz03Owp/o6pTY0FkPsZWpGyq5yr/h+PzH9TUr9CAuueYU6/twLak8FeD9zRBRybdJiuyn/Z/ToMKvxMyUlpp6J4SvvqnunvU3RNcNIIYQp7UEc2K0Zu8hy+sqSJZOfeJreueQC92j3WlcGQXwKoXkbDzH+WkeKHSrRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bnd7J5FANgzq3NBtty+tCjcs0vY7BqLpDfokzVuEKQE=;
+ b=JmmsOjP5BhvSiOPX2Bt0UuO/0yivVjXBVp3iyt18gClog7ngikDEjmgejpmC/ZH5VntPxrqRO0GNU7uJuVDOyPtLDffH3EG2jGfV28YG3SsGb/ScfkqTrQjfX3ww83puzXKAbfJpv9Eu2CUS1lrppP/jwE+YwqhYZmzx70amxxG/isWHulUtFbuGNmysbT19HPqR7fd9Z3a1mdI8rHM3AiPc85Qq23UUpO9iBoixA0VWyv9V/6h3AM7soMWey1Cb+NU10HsdvkjjpP9YU+iaSVntY/0zI/W3gHrWJxU73LzhX2eSIc2JNv8aAWYSrjdQmAHvKuyy2DSTU0ycT9IGvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bnd7J5FANgzq3NBtty+tCjcs0vY7BqLpDfokzVuEKQE=;
+ b=NTzIT+JTcPucuS7BuPOIT+eFAOM1mW790WrWyzEaBO5yzlDcQn93TdYlvRSpJdnTmcE0sKEzC5QM/y4XnL0Ko+60pwd/b9paLAWW3jJOcQ3DvA8H8hjm+5Sq07YUbZnnl6E6ZkMTd7rwkU0HINZqL1RZ88vCDJSjfocJ/spsmiA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <a079dabf-b938-431b-bbde-1f15b3a9a757@amd.com>
+Date: Fri, 12 Jan 2024 08:46:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/intel: ensure Global Performance Counter Control
- is setup correctly
+Subject: Re: [PATCH v2 1/2] xen/arm32: head: Rework how the fixmap and early
+ UART mapping are prepared
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Julien Grall <jgrall@amazon.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240111183410.45566-1-julien@xen.org>
+ <20240111183410.45566-2-julien@xen.org>
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240111090821.67594-1-roger.pau@citrix.com>
- <3428928a-42d0-4e4b-9607-c184968c309d@suse.com> <ZZ_FjFa9mILtDZgv@macbook>
- <645e0c95-5a12-4202-8da6-3cc789a9e5c7@suse.com> <ZZ_di8pZB8bWtBuX@macbook>
- <b1e76a5f-297b-4030-a69e-33cdf179c0ce@suse.com> <ZZ_4HSvdg0R9Dv1Y@macbook>
- <4574c9d6-eb6d-4b73-a9e1-20b5635b32db@suse.com> <ZaAdEqHzbD8L_mRo@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZaAdEqHzbD8L_mRo@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240111183410.45566-2-julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE0:EE_|BL1PR12MB5192:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9df7123-c163-47b0-7efb-08dc13428e92
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ZNeaqI16V/HhwGM0T19PhB9UBXEkOV1B+E7+KcZfuqV6P5hQ3zJLC5N3SYp4vGeCi1rAQCLuZbeVj5QfUtXk+V/ZRqFtnAT1dhfz7o57Sxs32mXkyQ4PjmXXHas32JMoG3cEFWXFsAZigNfcs3AaexkQ+5+cxjFhSqr99YxIDkfHTtqibEEX88HKFKpqoNPIUddjT5+2J9CFiAV9672SOB81Dfbao/VZVvLYFVFazKI8CvMElxTuVJigIkpTAgdZ+cV7Q9ViYpxGMighJY6xHtAZCU9dsHV7obvX5vRFpa5+lAj+ZFTjtMQDShSNnUT7JRAkSEs6rxQvQTviCMfX6ZnjTniQeYeDI+IZPuUeMhOapdMxlzi4HE5Gn02LlH6m6axQ8xGSP0cqwpX4/6moqypCOUcToEaPWUZtdHdG6Da5KHh0bjnYMyKJIqP8SXz6WSoL5AIzXpdOeGHtx1k7JksG38hPLj6RJSMfL26lsoI4CAsaNnhOTNlYMYJYiKTbxKeAb2kf+k9iP+hO3525TGW6vjF5hB8BtOVs8fkk6TWJqWh0VPaSPU6XVOpQIrBza5NlO9FCankjMUpZlmGAiNM614UR3rVio5CdsWMRP1Uhe/Zs7KCQzBIb5aDoU/cTmFOcIhqAmMlCshPiqsfnVIZjb9wCslDvlg/JpUFBMK0u8OgEGneJUEECsyiwyI7PpXgmPCGaqcdyHjdA82xg0Bv0F0MNSsJ3ajIe+RgZSetlcK2SZ1AMEOGKnk75D4nQbfI4UCopBTgVUluOA2SDzOzoD1yod0UG3YP0UC6Ytzi4pJkDM+52WelFqpUQTVag
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(346002)(136003)(39860400002)(396003)(230922051799003)(186009)(1800799012)(82310400011)(64100799003)(451199024)(46966006)(36840700001)(40470700004)(83380400001)(316002)(16576012)(47076005)(70206006)(54906003)(70586007)(110136005)(53546011)(31696002)(44832011)(5660300002)(26005)(426003)(336012)(2616005)(81166007)(8676002)(8936002)(40480700001)(40460700003)(4326008)(82740400003)(356005)(36756003)(86362001)(31686004)(36860700001)(45080400002)(41300700001)(478600001)(2906002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2024 07:46:15.9252
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9df7123-c163-47b0-7efb-08dc13428e92
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00001CE0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5192
 
-On 11.01.2024 17:53, Roger Pau Monné wrote:
-> On Thu, Jan 11, 2024 at 04:52:04PM +0100, Jan Beulich wrote:
->> On 11.01.2024 15:15, Roger Pau Monné wrote:
->>> On Thu, Jan 11, 2024 at 03:01:01PM +0100, Jan Beulich wrote:
->>>> On 11.01.2024 13:22, Roger Pau Monné wrote:
->>>>> Oh, indeed, can adjust on this same patch if that's OK (seeing as the
->>>>> issue was already there previous to my change).
->>>>
->>>> Well, I'm getting the impression that it was deliberate there, i.e. set
->>>> setting of the feature flag may want to remain thus constrained.
->>>
->>> Hm, I find it weird, but the original commit message doesn't help at
->>> all.  Xen itself only uses PMC0, and I don't find any other
->>> justification in the current code to require at least 2 counters in
->>> order to expose arch performance monitoring to be present.
->>>
->>> Looking at the SDM vol3, the figures there only contain PMC0 and PMC1,
->>> so someone only reading that manual might assume there must always be
->>> 2 global PMCs?
->>
->> That may have been the impression at the time. It may have been wrong
->> already back then, or ...
->>
->>> (vol4 clarifies the that the number of global PMCs is variable).
->>
->> ... it may have been clarified in the SDM later on. My vague guess is
->> that the > 1 check was to skip what may have been "obviously buggy"
->> back at the time.
+Hi Julien,
+
+On 11/01/2024 19:34, Julien Grall wrote:
 > 
-> Let me know if you are OK with the adjustment in v3, or whether you
-> would rather leave the > 1 check as-is (or maybe adjust in a different
-> patch).
+> 
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> Since commit 5e213f0f4d2c ("xen/arm32: head: Widen the use of the
+> temporary mapping"), boot_second (used to cover regions like Xen and
+> the fixmap) will not be mapped if the identity mapping overlap.
+> 
+> So it is ok to prepare the fixmap table and link it in boot_second
+> earlier. With that, the fixmap can also be used earlier via the
+> temporary mapping.
+> 
+> Therefore split setup_fixmap() in two:
+>     * The table is now linked in create_page_tables() because
+>       the boot page tables needs to be recreated for every CPU.
+>     * The early UART mapping is only added for the boot CPU0 as the
+>       fixmap table is not cleared when secondary CPUs boot.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Well, I haven't been able to make up my mind as to whether the original
-check was wrong. Without clear indication, I think we should retain the
-original behavior by having the __set_bit() gated by an additional if().
-Then, since the line needs touching anyway, a further question would be
-whether to properly switch to setup_force_cpu_cap() at the same time.
+with below 2 adjustments:
+> 
+> ----
+> 
+>     Changelog since v1:
+>         * Rebase
+>         * Move the UART mapping enable_mm_boot_cpu()
+> ---
+>  xen/arch/arm/arm32/mmu/head.S | 61 ++++++++---------------------------
+>  1 file changed, 14 insertions(+), 47 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm32/mmu/head.S b/xen/arch/arm/arm32/mmu/head.S
+> index 4e6395e7876d..a90799ad5451 100644
+> --- a/xen/arch/arm/arm32/mmu/head.S
+> +++ b/xen/arch/arm/arm32/mmu/head.S
+> @@ -165,11 +165,6 @@
+>   * Rebuild the boot pagetable's first-level entries. The structure
+>   * is described in mm.c.
+>   *
+> - * After the CPU enables paging it will add the fixmap mapping
+> - * to these page tables, however this may clash with the 1:1
+> - * mapping. So each CPU must rebuild the page tables here with
+> - * the 1:1 in place.
+> - *
+>   * Inputs:
+>   *   r9 : paddr(start)
+>   *   r10: phys offset
+> @@ -197,6 +192,10 @@ create_page_tables:
+>          add   r5, r5, #PAGE_SIZE            /* r5 := Next table */
+>  .endr
+> 
+> +        /* Map the fixmap into boot_second */
+> +        mov_w r0, FIXMAP_ADDR(0)
+> +        create_table_entry boot_second, xen_fixmap, r0, 2
+> +
+>          /*
+>           * Find the size of Xen in pages and multiply by the size of a
+>           * PTE. This will then be compared in the mapping loop below.
+> @@ -442,19 +441,20 @@ ENDPROC(enable_secondary_cpu_mm)
+>  ENTRY(enable_boot_cpu_mm)
+>          mov   r6, lr
+> 
+> +#ifdef CONFIG_EARLY_PRINTK
+> +        /*
+> +         * Add the UART mapping to the fixmap so the UART can be used
+> +         * as the MMU is on. This only need to do done on the boot CPU.
+s/need to do done/needs to be done/
 
-Jan
+> +         */
+> +        mov_w r0, EARLY_UART_VIRTUAL_ADDRESS
+> +        create_mapping_entry xen_fixmap, r0, r11, type=PT_DEV_L3
+Would you mind listing r11 in the Input section of a comment?
+
+~Michal
 
