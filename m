@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C7C782BF72
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 12:47:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666855.1037785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80A2482BF82
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 12:55:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666858.1037795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOG06-00052K-Qs; Fri, 12 Jan 2024 11:47:02 +0000
+	id 1rOG84-0008US-J8; Fri, 12 Jan 2024 11:55:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666855.1037785; Fri, 12 Jan 2024 11:47:02 +0000
+Received: by outflank-mailman (output) from mailman id 666858.1037795; Fri, 12 Jan 2024 11:55:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOG06-00050J-Na; Fri, 12 Jan 2024 11:47:02 +0000
-Received: by outflank-mailman (input) for mailman id 666855;
- Fri, 12 Jan 2024 11:47:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QRUo=IW=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rOG05-00050D-Q3
- for xen-devel@lists.xenproject.org; Fri, 12 Jan 2024 11:47:01 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4c00edda-b140-11ee-98f0-6d05b1d4d9a1;
- Fri, 12 Jan 2024 12:47:00 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-50e7af5f618so7298882e87.1
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jan 2024 03:47:00 -0800 (PST)
+	id 1rOG84-0008SN-GU; Fri, 12 Jan 2024 11:55:16 +0000
+Received: by outflank-mailman (input) for mailman id 666858;
+ Fri, 12 Jan 2024 11:55:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rOG82-0008SE-PF
+ for xen-devel@lists.xenproject.org; Fri, 12 Jan 2024 11:55:14 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rOG82-0008Cq-2j; Fri, 12 Jan 2024 11:55:14 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rOG81-0001QQ-Ta; Fri, 12 Jan 2024 11:55:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,79 +39,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c00edda-b140-11ee-98f0-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1705060020; x=1705664820; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XERSsMREHJUGBE4kRO3dIeaXL6/4OylYGvOJ3gdq530=;
-        b=Q29JMsuSlMWD4H4mCEZrHcv/y3FhiRPUN+aEwinyEtKcos8Yoe89oMVCRudoc0lXwL
-         nQ3Xl7Xc3ghMBb8TQ8oKbs9M5nnlt3V6V9XoFh/EIf/1yoLMaF6tDt6E5KZOGsnM5Wg2
-         tDD0tm6dcKt5V9x+HgzeRcDO5ifEnZ9fimndw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705060020; x=1705664820;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=XERSsMREHJUGBE4kRO3dIeaXL6/4OylYGvOJ3gdq530=;
-        b=EK0zvMHcCfGhoStxA7XMtoQWufZ/fRr3RZgr68vzB/Vt6XfadFTtEo6UGd8BLIadBi
-         T2OXxkW2fIpLT3hvLqPMnpQc3rfLbrP0+Td0P7sdV3Bf1VDFrsUrh1CXb/lzaQHoFQ7S
-         PHymzpzuyuyYtCMne8DfZLccdri67sxdpNn/iZP21L/MPivuoPZfveP8oC1Ew5L4NMNO
-         U4dFuZ7LI1DitcASPYJfve6nA9K5hBTOOafTbhyWL5ot3LObYgyleTDNmTFu/Qjl93SC
-         9+t4k5NaQx7zi+umJqNmnaj2PYaVghsXF+4gpDphOLbvk89vDZN2toRlZqkaaBL9FsVo
-         aNSg==
-X-Gm-Message-State: AOJu0YzqXVy0ddcmxo9tJRycxA5idHjAo9Iq+cHyN9/oL5guQ7LhT8DZ
-	ehH6VRsnDvMf8K9/lxE4nUC4pa3qZS5dYPV9HHw56c9A9xH1+BQX7TJZ1Mtt
-X-Google-Smtp-Source: AGHT+IF+xLx6roTdvIRp2aW7rW0C/79GM8zycpdwXE9FWpj0vNpoij+IXZrZOuBSX7EX+Fr8psdnpRh2X7EmXwM42Yo=
-X-Received: by 2002:a05:6512:224f:b0:50e:74c6:8960 with SMTP id
- i15-20020a056512224f00b0050e74c68960mr681672lfu.96.1705060020188; Fri, 12 Jan
- 2024 03:47:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ZLo3nAB/Nbgl2/KRcGrKclifdZ8eIU9XGts2JGAItlk=; b=KRuVZVPlh6S/2syqflMVJB+qxm
+	5D5VYKdX3jTHK6dt+bM/ceiasNct1hVpEWBIbHpm95cIDhBoxlBFs4/X07I+uHslykIv7ACbB5SEA
+	PqKOKYVr47TYxMGRw+GA7OJ7ENKAd4SuDQsfnw1c6AQRAGvVvNipJpyjyyKZdGDnkq10=;
+Message-ID: <da0c98ec-85e1-4b71-97da-840015773a2c@xen.org>
+Date: Fri, 12 Jan 2024 11:55:12 +0000
 MIME-Version: 1.0
-References: <20240109215145.430207-1-stewart.hildebrand@amd.com> <20240109215145.430207-12-stewart.hildebrand@amd.com>
-In-Reply-To: <20240109215145.430207-12-stewart.hildebrand@amd.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Fri, 12 Jan 2024 11:46:49 +0000
-Message-ID: <CA+zSX=Z33cixDd1w10zwC-c80z-sB4E8Nu__nTNi30n-FW6GwA@mail.gmail.com>
-Subject: Re: [PATCH v12 11/15] vpci: add initial support for virtual PCI bus topology
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] xen/arm32: head: Improve logging in head.S
+Content-Language: en-GB
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240111183410.45566-1-julien@xen.org>
+ <20240111183410.45566-3-julien@xen.org>
+ <58d2e455-2894-4b1f-948a-3b486bb84499@amd.com>
+ <bb7d0581-6e47-4dce-afa3-0f3d55db9ebf@xen.org>
+ <a154f9c4-6905-4f51-a8fd-36f3ca652f1d@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <a154f9c4-6905-4f51-a8fd-36f3ca652f1d@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jan 9, 2024 at 9:54=E2=80=AFPM Stewart Hildebrand
-<stewart.hildebrand@amd.com> wrote:
-> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> index 37f5922f3206..b58a822847be 100644
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -484,6 +484,14 @@ struct domain
->       * 2. pdev->vpci->lock
->       */
->      rwlock_t pci_lock;
-> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-> +    /*
-> +     * The bitmap which shows which device numbers are already used by t=
-he
-> +     * virtual PCI bus topology and is used to assign a unique SBDF to t=
-he
-> +     * next passed through virtual PCI device.
-> +     */
-> +    DECLARE_BITMAP(vpci_dev_assigned_map, VPCI_MAX_VIRT_DEV);
-> +#endif
->  #endif
+Hi Michal,
 
-Without digging through the whole series, how big do we expect this
-bitmap to be on typical systems?
+On 12/01/2024 11:25, Michal Orzel wrote:
+> 
+> 
+> On 12/01/2024 11:58, Julien Grall wrote:
+>>
+>>
+>> On 12/01/2024 08:49, Michal Orzel wrote:
+>>> Hi Julien,
+>>
+>> Hi Michal,
+>>
+>>> On 11/01/2024 19:34, Julien Grall wrote:
+>>>>
+>>>>
+>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>
+>>>> The sequence to enable the MMU on arm32 is quite complex as we may need
+>>>> to jump to a temporary mapping to map Xen.
+>>>>
+>>>> Recently, we had one bug in the logic (see f5a49eb7f8b3 ("xen/arm32:
+>>>> head: Add mising isb in switch_to_runtime_mapping()") and it was
+>>>> a pain to debug because there are no logging.
+>>>>
+>>>> In order to improve the logging in the MMU switch we need to add
+>>>> support for early printk while running on the identity mapping
+>>>> and also on the temporary mapping.
+>>>>
+>>>> For the identity mapping, we have only the first page of Xen mapped.
+>>>> So all the strings should reside in the first page. For that purpose
+>>>> a new macro PRINT_ID is introduced.
+>>>>
+>>>> For the temporary mapping, the fixmap is already linked in the temporary
+>>>> area (and so does the UART). So we just need to update the register
+>>>> storing the UART address (i.e. r11) to point to the UART temporary
+>>>> mapping.
+>>>>
+>>>> Take the opportunity to introduce mov_w_on_cond in order to
+>>>> conditionally execute mov_w and avoid branches.
+>>>>
+>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+>>
+>> Thanks!
+>>
+>>>>    /*
+>>>> @@ -29,16 +33,26 @@
+>>>>
+>>>>    #ifdef CONFIG_EARLY_PRINTK
+>>>>    /*
+>>>> - * Macro to print a string to the UART, if there is one.
+>>>> + * Macros to print a string to the UART, if there is one.
+>>>> + *
+>>>> + * There are multiple flavors:
+>>>> + *  - PRINT_SECT(section, string): The @string will be located in @section
+>>>> + *  - PRINT(): The string will be located in .rodata.str.
+>>>> + *  - PRINT_ID(): When Xen is running on the Identity Mapping, it is
+>>>> + *    only possible to have a limited amount of Xen. This will create
+>>>> + *    the string in .rodata.idmap which will always be mapped.
+>>>>     *
+>>>>     * Clobbers r0 - r3
+>>>>     */
+>>>> -#define PRINT(_s)           \
+>>>> -        mov   r3, lr       ;\
+>>>> -        adr_l r0, 98f      ;\
+>>>> -        bl    asm_puts     ;\
+>>>> -        mov   lr, r3       ;\
+>>>> -        RODATA_STR(98, _s)
+>>>> +#define PRINT_SECT(section, string)         \
+>>>> +        mov   r3, lr                       ;\
+>>>> +        adr_l r0, 98f                      ;\
+>>>> +        bl    asm_puts                     ;\
+>>>> +        mov   lr, r3                       ;\
+>>>> +        RODATA_SECT(section, 98, string)
+>>>> +
+>>>> +#define PRINT(string) PRINT_SECT(.rodata.str, string)
+>>>> +#define PRINT_ID(string) PRINT_SECT(.rodata.idmap, string)
+>>> I know this is just a macro but does it make sense to have something MMU specific in common header?
+>>> I don't expect MPU to use it.
+>> For cache coloring, I would like secondary boot CPUs to start directly
+>> on the colored Xen. This means that any message used before enabling the
+>> MMU will need to be part of the .rodata.idmap.
+>>
+>> I know that 32-bit is not in scope for the cache coloring series. But I
+>> would like to keep 32-bit and 64-bit boot logic fairly similar.
+>>
+>> With that in mind, would you be happy if I keep PRINT_ID() in macros.h?
+>> Note that I would be ok to move in mmu/head.S and move back in macros.h
+>> later on. I just wanted to avoid code movement :).
+> With the above explanation it does not make sense to move it back and forth, so let's keep it as is.
 
-If it's only going to be a handful of bytes, keeping it around for all
-guests would be OK; but it's large, it would be better as a pointer,
-since it's unused on the vast majority of guests.
+Thanks! If that's change, we will move PRINT_ID() to mmu/head.S
 
- -George
+I have committed the patch.
+
+Cheers,
+
+-- 
+Julien Grall
 
