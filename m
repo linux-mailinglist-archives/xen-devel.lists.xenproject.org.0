@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06BA682BF22
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 12:19:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666839.1037755 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8CF582BF31
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 12:26:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666845.1037764 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOFYw-0004SE-71; Fri, 12 Jan 2024 11:18:58 +0000
+	id 1rOFfT-0006Jq-Vl; Fri, 12 Jan 2024 11:25:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666839.1037755; Fri, 12 Jan 2024 11:18:58 +0000
+Received: by outflank-mailman (output) from mailman id 666845.1037764; Fri, 12 Jan 2024 11:25:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOFYw-0004Q0-3Y; Fri, 12 Jan 2024 11:18:58 +0000
-Received: by outflank-mailman (input) for mailman id 666839;
- Fri, 12 Jan 2024 11:18:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rOFfT-0006IG-T8; Fri, 12 Jan 2024 11:25:43 +0000
+Received: by outflank-mailman (input) for mailman id 666845;
+ Fri, 12 Jan 2024 11:25:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jnEz=IW=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rOFYu-0004OZ-EC
- for xen-devel@lists.xenproject.org; Fri, 12 Jan 2024 11:18:56 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5ee6b79e-b13c-11ee-9b0f-b553b5be7939;
- Fri, 12 Jan 2024 12:18:54 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40d5336986cso80769705e9.1
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jan 2024 03:18:54 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- r19-20020a05600c459300b0040e42391a12sm5390876wmo.13.2024.01.12.03.18.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 12 Jan 2024 03:18:53 -0800 (PST)
+ <SRS0=12w8=IW=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rOFfS-0006IA-QT
+ for xen-devel@lists.xenproject.org; Fri, 12 Jan 2024 11:25:43 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20600.outbound.protection.outlook.com
+ [2a01:111:f403:200a::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 50a4dd8b-b13d-11ee-98f0-6d05b1d4d9a1;
+ Fri, 12 Jan 2024 12:25:41 +0100 (CET)
+Received: from MW4PR04CA0265.namprd04.prod.outlook.com (2603:10b6:303:88::30)
+ by CY8PR12MB7364.namprd12.prod.outlook.com (2603:10b6:930:50::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.23; Fri, 12 Jan
+ 2024 11:25:37 +0000
+Received: from CO1PEPF000044F6.namprd21.prod.outlook.com
+ (2603:10b6:303:88:cafe::ba) by MW4PR04CA0265.outlook.office365.com
+ (2603:10b6:303:88::30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.21 via Frontend
+ Transport; Fri, 12 Jan 2024 11:25:37 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF000044F6.mail.protection.outlook.com (10.167.241.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.4 via Frontend Transport; Fri, 12 Jan 2024 11:25:36 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 12 Jan
+ 2024 05:25:35 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Fri, 12 Jan
+ 2024 05:25:34 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Fri, 12 Jan 2024 05:25:32 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,136 +63,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ee6b79e-b13c-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705058334; x=1705663134; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=oU9o5JKKXTW4GrHJtIRxMttdhs29ICYJGsisDCRDS1w=;
-        b=aFOudQ2HJGJp91czyIc35osVq3W1aqB2qx3jdMLIwkfU4ZF28IEyMqt813/8b6ALZp
-         vDYlJhqt572bKHM9S1svlrRUfSAyYu6B7V3bPmkz6grwgy0Ll1pm78miEDIZZYopXpm8
-         fRv/1AUp09fMeS194+JenUuO78c3g4PwVFBdQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705058334; x=1705663134;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=oU9o5JKKXTW4GrHJtIRxMttdhs29ICYJGsisDCRDS1w=;
-        b=EIndjvMqAZyOn51yJNQ5v21siqCf4h6fE3fo6gZPCyv6zrOZUJwhh5TYo/BP1fQ+U5
-         bQ+z/Zo54jUDzgehzmd/jk2QR2zPBYKB4xSRGAicmNqfXZTm9m8Thg80Psuje+f23qmA
-         C1WDh6jB9j/gZ6d4Ryw7iXUkWvGflevAC3Fcs8/mEpVe15fWAXr8ZZQgmE2Au+FVu+O+
-         MQMbviPzSOgTqUKlDG2Mw2TL7g1IiO7/2lfc/xsE7rM+swJLdcOci1gEpuIIylGNm3xZ
-         jVkuP5e9RcemOo9ul/4va377CcNRzMzd99mZLNKPAJFlktlyy+5wIeFXJ5vMpZbv1y9P
-         y44A==
-X-Gm-Message-State: AOJu0Yz624R9YKogzxaYiG51MSkymK2NUswAqg8m3Cil87jjx7dMGDiE
-	wzfTpPDU6dwGqk4gCl7E0dnlfIzCHyWDmQ==
-X-Google-Smtp-Source: AGHT+IEWOElTsRTnsb7jrXpDys5yiu6U1YGnOH/ChI8e+YSNp3oGxtqN7sxD60tA7Dk8YOFOKYp1mQ==
-X-Received: by 2002:a05:600c:19d2:b0:40e:541e:d5b with SMTP id u18-20020a05600c19d200b0040e541e0d5bmr614549wmq.192.1705058333811;
-        Fri, 12 Jan 2024 03:18:53 -0800 (PST)
-Message-ID: <9eab7ca8-7c28-461b-8527-e3e7d650e921@citrix.com>
-Date: Fri, 12 Jan 2024 11:18:53 +0000
+X-Inumbo-ID: 50a4dd8b-b13d-11ee-98f0-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Po4NJN5GcH4D12RICatAa72u6kazovCU0CVV4tTSHrOGBISC7FqvsEicXUuJaN10zoqGmAHGC/GXT0eHLbAEn7xS66iZBPn3Rm6AdR+7hPyG7xONPDH13z5is93TVR8fI12+dltm9wESjw5kroQqw1Jn1GanCQJ3hSLg0i/ZsvAVxiraPRf6PoFfxY0Ktvm6CRVcxbwGbe3fBHImriU2zidSXrZQUTgE3X1UZKUvCVNhcS0LjKMp+fDLUz/ceuhsW7VoXz7uIrKS3pc63dJW3mAonfp0nTr4HyV7I9pOgDO12qnNmACpMExx3Ozmcsw8ETg+xdICfhWxMAxcEinfXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AsDre6F0jXp/nVBwmuF/N0dFA525Ew6TBX8RCdgMuks=;
+ b=Ody8VE/pHo3w8sQO+5L5b7xT5NQrDn1c7GVDMgLO6V2QokdSQAGiXMhenlWGbz8htfIXHz2J97NCLJGVkWtXHJEvPKNKKBGz4FoxGclt9Foev3YRfGmwqrlrUigu9q77SY2X2zAAJmyHMZOIOVIP49+7NNmESfhbJ9UvjGIhYZijN2eTWiPT5sFG805osahC8rjscrseA4qz2mn16z8E+txf4ugNLcXo6vbDsh4meNBsxYJfwrZJmT2zGH25U6+Pf/liWC4Tq+vj7d5m7tK9Zt/FupTooBS+y7JTYqeNBrw5S8+j3VK3HSFsT8zWwO2LBiiA9EjiuqCvQzNXmeyqCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AsDre6F0jXp/nVBwmuF/N0dFA525Ew6TBX8RCdgMuks=;
+ b=5JT8fDgDDoinMRQtfW/Fj9EPOLO9IanZApDYWMd+9b+Th2/Eudodd/J9gjUNqtYbKMzEYelSDgYEmBBvDucO1pnHuiliWDYzCCZg7jMz+5EdYVEn85sGtojFFzljXI2rDXuGxPR82wCujZUifUWeup3fi4APhIqxiZQeDV5lK8c=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <a154f9c4-6905-4f51-a8fd-36f3ca652f1d@amd.com>
+Date: Fri, 12 Jan 2024 12:25:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] x86/vmx: Disallow the use of inactivity states
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Reima Ishii <ishiir@g.ecc.u-tokyo.ac.jp>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Tamas K Lengyel <tamas@tklengyel.com>,
- Takahiro Shinagawa <shina@ecc.u-tokyo.ac.jp>,
- George Dunlap <george.dunlap@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240111231323.4043461-1-andrew.cooper3@citrix.com>
- <20240111231323.4043461-4-andrew.cooper3@citrix.com>
- <d9d9ee2b-ff95-4d5e-bb81-b1722681a4a5@suse.com>
- <8225cfd3-73d6-4a93-92b4-185399ab0ad3@citrix.com>
- <b25c0ff6-b2da-4e5b-b6b9-dca7843816d2@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <b25c0ff6-b2da-4e5b-b6b9-dca7843816d2@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 2/2] xen/arm32: head: Improve logging in head.S
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Julien Grall <jgrall@amazon.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240111183410.45566-1-julien@xen.org>
+ <20240111183410.45566-3-julien@xen.org>
+ <58d2e455-2894-4b1f-948a-3b486bb84499@amd.com>
+ <bb7d0581-6e47-4dce-afa3-0f3d55db9ebf@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <bb7d0581-6e47-4dce-afa3-0f3d55db9ebf@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000044F6:EE_|CY8PR12MB7364:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8f9e805c-ab24-4553-48b4-08dc136132fd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	V9e6vGMmjtHJpSULG1GOxvD3gtqIu1pzMJaafiDEF08hAzm0Mr5fuUezzLzoKMg762N336EvF93eZxoA0KS8KQ25V2PuGhZBFKMAlRXTZqZh8YKgf3+oNecYidqYopC5sCqR7Eh0yWp8QFDKW/dB7cmDnzbv0OjhdWKMmfOpb9IuwQ/7pKw3PGkJwpUbNeORvyM6NoCsWw/WH0TUWJV55ZNE1OXcfARPwSacGKHgW7UfJH+jideujn0UKhsNbdGT88A67KcM/SNVXu7/Y5UtOqDhzF/wyqgj//BkTJxbPmt3gBsRy/CZamBELPkaY1HADdegFdyTSMN3WYQVDrXcXMEVDsfgcj0ShPYvciF0na1wyXKcnBUZZDWNWG8Yl5qZ5xPNnJADxtMnd7PFxm1jKg6/AnTpp+/Xi81EquCPi4TqRgSlzaridx1okMBdMZMXv/GbvwDNmVJrL9ksR1TgnfL4pdQlXkI4KuWb9DRNasRTAKrUVBjryafcp+B44RQDFIKp+QU0mY0e4J/NbHJF66zHHZ8ZIFscZsSLegFRpMfjJ/mWr2GgKHehcNkkedQfZJnsLPzy1bcgGPn5jFUMX+vD+tCc/NPpkRTzPb6Hn4ikoTarufnMPHuPQnI8ZXE+6wrha+Q3pgsipBfm0PS+W6y6IpuW8ZVu7wPKvsJFIfMs5Xjgr//Rg0Nw9NdtqDCOIrEIlkE4c+GkyYxYp8OxpvgFERwSUCvuDJqU/8f39BTvC9Rcvm+NjtKKPYCYUoU+jaekMxF1hKxr8LyeIerfKH3RLY9NwgJ88W33aEJWPA0KmwEkB+f9L5X4W0MdK6ti
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(346002)(136003)(39860400002)(230922051799003)(1800799012)(451199024)(64100799003)(82310400011)(186009)(46966006)(40470700004)(36840700001)(86362001)(36756003)(8676002)(83380400001)(26005)(356005)(81166007)(82740400003)(336012)(2616005)(4326008)(8936002)(316002)(54906003)(16576012)(110136005)(2906002)(44832011)(5660300002)(45080400002)(41300700001)(426003)(6666004)(70586007)(70206006)(53546011)(36860700001)(47076005)(31696002)(478600001)(40480700001)(31686004)(40460700003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2024 11:25:36.6577
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f9e805c-ab24-4553-48b4-08dc136132fd
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF000044F6.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7364
 
-On 12/01/2024 11:04 am, Jan Beulich wrote:
-> On 12.01.2024 11:43, Andrew Cooper wrote:
->> On 12/01/2024 10:37 am, Jan Beulich wrote:
->>> On 12.01.2024 00:13, Andrew Cooper wrote:
->>>> --- a/xen/arch/x86/hvm/vmx/vmx.c
->>>> +++ b/xen/arch/x86/hvm/vmx/vmx.c
->>>> @@ -1551,7 +1551,10 @@ static void cf_check vmx_set_nonreg_state(struct vcpu *v,
->>>>  {
->>>>      vmx_vmcs_enter(v);
->>>>  
->>>> -    __vmwrite(GUEST_ACTIVITY_STATE, nrs->vmx.activity_state);
->>>> +    if ( nrs->vmx.activity_state )
->>>> +        domain_crash(v->domain, "Attempt to set activity_state %#lx\n",
->>>> +                     nrs->vmx.activity_state);
->>> Might be useful to log the offending vCPU here?
->> Already covered.  the innards of __domain_crash() does:
->>
->>     else if ( d == current->domain )
->>     {
->>         printk("Domain %d (vcpu#%d) crashed on cpu#%d:\n",
->>         ...
-> Except that afaict v != current here at all times (at least as far as
-> current use of the function goes).
 
-Hmm.  That's irritating.
 
-In this case, it's a dead logic path - hence why in v1 I simply deleted it.
+On 12/01/2024 11:58, Julien Grall wrote:
+> 
+> 
+> On 12/01/2024 08:49, Michal Orzel wrote:
+>> Hi Julien,
+> 
+> Hi Michal,
+> 
+>> On 11/01/2024 19:34, Julien Grall wrote:
+>>>
+>>>
+>>> From: Julien Grall <jgrall@amazon.com>
+>>>
+>>> The sequence to enable the MMU on arm32 is quite complex as we may need
+>>> to jump to a temporary mapping to map Xen.
+>>>
+>>> Recently, we had one bug in the logic (see f5a49eb7f8b3 ("xen/arm32:
+>>> head: Add mising isb in switch_to_runtime_mapping()") and it was
+>>> a pain to debug because there are no logging.
+>>>
+>>> In order to improve the logging in the MMU switch we need to add
+>>> support for early printk while running on the identity mapping
+>>> and also on the temporary mapping.
+>>>
+>>> For the identity mapping, we have only the first page of Xen mapped.
+>>> So all the strings should reside in the first page. For that purpose
+>>> a new macro PRINT_ID is introduced.
+>>>
+>>> For the temporary mapping, the fixmap is already linked in the temporary
+>>> area (and so does the UART). So we just need to update the register
+>>> storing the UART address (i.e. r11) to point to the UART temporary
+>>> mapping.
+>>>
+>>> Take the opportunity to introduce mov_w_on_cond in order to
+>>> conditionally execute mov_w and avoid branches.
+>>>
+>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> 
+> Thanks!
+> 
+>>>   /*
+>>> @@ -29,16 +33,26 @@
+>>>
+>>>   #ifdef CONFIG_EARLY_PRINTK
+>>>   /*
+>>> - * Macro to print a string to the UART, if there is one.
+>>> + * Macros to print a string to the UART, if there is one.
+>>> + *
+>>> + * There are multiple flavors:
+>>> + *  - PRINT_SECT(section, string): The @string will be located in @section
+>>> + *  - PRINT(): The string will be located in .rodata.str.
+>>> + *  - PRINT_ID(): When Xen is running on the Identity Mapping, it is
+>>> + *    only possible to have a limited amount of Xen. This will create
+>>> + *    the string in .rodata.idmap which will always be mapped.
+>>>    *
+>>>    * Clobbers r0 - r3
+>>>    */
+>>> -#define PRINT(_s)           \
+>>> -        mov   r3, lr       ;\
+>>> -        adr_l r0, 98f      ;\
+>>> -        bl    asm_puts     ;\
+>>> -        mov   lr, r3       ;\
+>>> -        RODATA_STR(98, _s)
+>>> +#define PRINT_SECT(section, string)         \
+>>> +        mov   r3, lr                       ;\
+>>> +        adr_l r0, 98f                      ;\
+>>> +        bl    asm_puts                     ;\
+>>> +        mov   lr, r3                       ;\
+>>> +        RODATA_SECT(section, 98, string)
+>>> +
+>>> +#define PRINT(string) PRINT_SECT(.rodata.str, string)
+>>> +#define PRINT_ID(string) PRINT_SECT(.rodata.idmap, string)
+>> I know this is just a macro but does it make sense to have something MMU specific in common header?
+>> I don't expect MPU to use it.
+> For cache coloring, I would like secondary boot CPUs to start directly
+> on the colored Xen. This means that any message used before enabling the
+> MMU will need to be part of the .rodata.idmap.
+> 
+> I know that 32-bit is not in scope for the cache coloring series. But I
+> would like to keep 32-bit and 64-bit boot logic fairly similar.
+> 
+> With that in mind, would you be happy if I keep PRINT_ID() in macros.h?
+> Note that I would be ok to move in mmu/head.S and move back in macros.h
+> later on. I just wanted to avoid code movement :).
+With the above explanation it does not make sense to move it back and forth, so let's keep it as is.
 
-But I would prefer not to have to rely on a human getting an error
-message right in order to get proper logging.
-
-I suppose what we really want is a vcpu_crash(), but this is now firmly
-in the realms of the cleanup patch I still haven't had time to repost.
-
-I think I'll extend this with %pv for now, which can be dropped when
-vcpu_crash() appears.
-
-~Andrew
+~Michal
 
