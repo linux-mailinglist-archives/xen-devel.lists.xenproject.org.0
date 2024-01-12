@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 742EA82C2E2
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 16:38:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666924.1037872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9DF882C342
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 17:03:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666928.1037881 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOJbG-0001mb-4c; Fri, 12 Jan 2024 15:37:38 +0000
+	id 1rOK09-0007Pr-39; Fri, 12 Jan 2024 16:03:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666924.1037872; Fri, 12 Jan 2024 15:37:38 +0000
+Received: by outflank-mailman (output) from mailman id 666928.1037881; Fri, 12 Jan 2024 16:03:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOJbG-0001k7-1I; Fri, 12 Jan 2024 15:37:38 +0000
-Received: by outflank-mailman (input) for mailman id 666924;
- Fri, 12 Jan 2024 15:37:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=XUEQ=IW=linutronix.de=bigeasy@srs-se1.protection.inumbo.net>)
- id 1rOJbE-0001k1-4q
- for xen-devel@lists.xenproject.org; Fri, 12 Jan 2024 15:37:36 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 808a430b-b160-11ee-98f0-6d05b1d4d9a1;
- Fri, 12 Jan 2024 16:37:34 +0100 (CET)
+	id 1rOK09-0007Ne-0X; Fri, 12 Jan 2024 16:03:21 +0000
+Received: by outflank-mailman (input) for mailman id 666928;
+ Fri, 12 Jan 2024 16:03:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rOK08-0007NU-EZ; Fri, 12 Jan 2024 16:03:20 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rOK08-0004om-2D; Fri, 12 Jan 2024 16:03:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rOK07-0004CT-M0; Fri, 12 Jan 2024 16:03:19 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rOK07-0004zx-Lf; Fri, 12 Jan 2024 16:03:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,80 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 808a430b-b160-11ee-98f0-6d05b1d4d9a1
-Date: Fri, 12 Jan 2024 16:37:29 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1705073851;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BbMbE7TF8i1sZXppGrqoHHjUY3M11JhDxCtzDdAUuRw=;
-	b=1GGf1DU68xr+ui1Avv/QWcHvqsdOuManS53L5hKHadiHJXCRP3Y8kk99lV9FjsQNjSF1nO
-	nd7IXO8qvMHZcOmpIelxtpx32TDUeBOVEp1/kXueuR1rPRQ9XvlgQfZmn+Z/I2dC8JsgIr
-	1MUL3nBT/t6g/FU0b9WPzkss5hz5wQCruZHqnZTUs/o0V4Z6GIj4lDVJnisVRC8l0qgGx7
-	mXi0mJ00yAkRAG26UCcMiCcBNLXf6PaujYD6CNKC13FNEltl/MWVGqXp5sUx8NZqswynxn
-	KMFIocRjpwH0NGzuCJnFJe/y5AAxWHlKqVgIFlQDtBRw4v0YNjcU6DEFx27kKg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1705073851;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=BbMbE7TF8i1sZXppGrqoHHjUY3M11JhDxCtzDdAUuRw=;
-	b=fvlnJbYLOwIgdowsO9OyVTF9juUCvJAx60fsmA5ZO/FIGj8AXSun0fRnqtBhGeFwd4GU/P
-	FS9aiBohTk/VYFAw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Daniel Borkmann <daniel@iogearbox.net>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	"David S. Miller" <davem@davemloft.net>,
-	Boqun Feng <boqun.feng@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Waiman Long <longman@redhat.com>, Will Deacon <will@kernel.org>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>, Hao Luo <haoluo@google.com>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	Jiri Olsa <jolsa@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Juergen Gross <jgross@suse.com>, KP Singh <kpsingh@kernel.org>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@google.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wei.liu@kernel.org>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Yonghong Song <yonghong.song@linux.dev>, bpf@vger.kernel.org,
-	virtualization@lists.linux.dev, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH net-next 16/24] net: netkit, veth, tun, virt*: Use
- nested-BH locking for XDP redirect.
-Message-ID: <20240112153729.A68q4xsA@linutronix.de>
-References: <20231215171020.687342-1-bigeasy@linutronix.de>
- <20231215171020.687342-17-bigeasy@linutronix.de>
- <74feb818-7109-cb1e-8eec-a037c17a2871@iogearbox.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=nh7oYgjVJkF54n3Kb4gOdm9bjOB9+oAVh91RSCV79XA=; b=quwZDtNTDz2qLZdlcXFyg253EK
+	/PsUBU9wyGMJwhzTaz3z9Qgvpuh/9hTKyMmR5rSALhvGs/xXcCWPvim7y+jIHMmVKtiEzIvoautFQ
+	rKV28/OU+Z+kaJI8TZwX8k9JdmlQCtmVzEkI62EXPwawZf2ETxmaVPipTlJgHwGd/Xw8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184333-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <74feb818-7109-cb1e-8eec-a037c17a2871@iogearbox.net>
+Subject: [xen-unstable-smoke test] 184333: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=1ec3fe1f664fa837daf31e9fa8938f6109464f28
+X-Osstest-Versions-That:
+    xen=c27c8922f2c6995d688437b0758cec6a27d18320
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 12 Jan 2024 16:03:19 +0000
 
-On 2023-12-18 09:52:05 [+0100], Daniel Borkmann wrote:
-> Hi Sebastian,
-Hi Daniel,
+flight 184333 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184333/
 
-> Please exclude netkit from this set given it does not support XDP, but
-> instead only accepts tc BPF typed programs.
+Failures :-/ but no regressions.
 
-okay, thank you.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> Thanks,
-> Daniel
+version targeted for testing:
+ xen                  1ec3fe1f664fa837daf31e9fa8938f6109464f28
+baseline version:
+ xen                  c27c8922f2c6995d688437b0758cec6a27d18320
 
-Sebastian
+Last test of basis   184295  2024-01-09 14:00:26 Z    3 days
+Testing same since   184333  2024-01-12 12:03:48 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Javi Merino <javi.merino@cloud.com>
+  Julien Grall <jgrall@amazon.com>
+  Shawn Anastasio <sanastasio@raptorengineering.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   c27c8922f2..1ec3fe1f66  1ec3fe1f664fa837daf31e9fa8938f6109464f28 -> smoke
 
