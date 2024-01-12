@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB45382BE08
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 11:02:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.666713.1037529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E045A82BE19
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Jan 2024 11:09:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.666718.1037538 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOEMF-0000gc-Be; Fri, 12 Jan 2024 10:01:47 +0000
+	id 1rOETA-0001xm-5O; Fri, 12 Jan 2024 10:08:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 666713.1037529; Fri, 12 Jan 2024 10:01:47 +0000
+Received: by outflank-mailman (output) from mailman id 666718.1037538; Fri, 12 Jan 2024 10:08:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOEMF-0000eZ-8e; Fri, 12 Jan 2024 10:01:47 +0000
-Received: by outflank-mailman (input) for mailman id 666713;
- Fri, 12 Jan 2024 10:01:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rOETA-0001v0-2s; Fri, 12 Jan 2024 10:08:56 +0000
+Received: by outflank-mailman (input) for mailman id 666718;
+ Fri, 12 Jan 2024 10:08:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OJSm=IW=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rOEMD-0000eT-TB
- for xen-devel@lists.xenproject.org; Fri, 12 Jan 2024 10:01:45 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 955c8f7b-b131-11ee-9b0f-b553b5be7939;
- Fri, 12 Jan 2024 11:01:41 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-55745901085so7824458a12.0
- for <xen-devel@lists.xenproject.org>; Fri, 12 Jan 2024 02:01:41 -0800 (PST)
+ <SRS0=flvc=IW=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rOET7-0001uu-Uu
+ for xen-devel@lists.xenproject.org; Fri, 12 Jan 2024 10:08:53 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 968b3dab-b132-11ee-98f0-6d05b1d4d9a1;
+ Fri, 12 Jan 2024 11:08:52 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-3376d424a79so4230435f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 12 Jan 2024 02:08:52 -0800 (PST)
+Received: from localhost ([213.195.127.70]) by smtp.gmail.com with ESMTPSA id
+ e16-20020a5d65d0000000b003365951cef9sm3417296wrw.55.2024.01.12.02.08.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 12 Jan 2024 02:08:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,126 +44,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 955c8f7b-b131-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 968b3dab-b132-11ee-98f0-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1705053701; x=1705658501; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JXzBeWK6MOh6MFCMvlg2jq3gV6x6lL9pDwBY1YfITOI=;
-        b=xiw+Tcmtbt0LCi/nlNDja6QyoSyeNka9yVBR4XXPfVmosOst4VKuvMjdMBrMXqPVcE
-         Y4kE+GO/E8a7TxH5B8h+XSxCPcMhYB3G3VfprTVSNGROltvkqIFQ9/Uhg5yF/XvWA1Do
-         r3tBSbRk7HtGt2vnRgA2xokgmIfpo5A3hphRtxFGU+8283BCc3ACwsY0wYPBmtU3lNHV
-         Dxo1EvO4BibzFjWxmS7FZdFybGk95cQD5+E8WP/yZWPoO21ntLRKd3+P54Px3ZeE+j4N
-         DHPBSjhn18m+E8XieDFIy5kYUQDXGSYZGxS1ftg42fUslIQJurDCHPMW02TOUohJON++
-         ip/w==
+        d=citrix.com; s=google; t=1705054132; x=1705658932; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=XC1nUnroBTR3MD1SKJe6TqIqJfhJyXvoLRJCpKfBaYY=;
+        b=YY0tZ+Oy94ew+fVsJEK17Eaojc0n1KmwuEnZDaeYej8y57a6B/vrcm1qt3qOKvDAMz
+         idQKI//EML8/9vSbpE1VfM3PRtLjsUQ2IFEVRtArzNlGxoRHFiq6dzipFAfWlygyYxI6
+         gofGDDMN161iD1IMnyuYzeDcYYq8asdm8cXRg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705053701; x=1705658501;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=JXzBeWK6MOh6MFCMvlg2jq3gV6x6lL9pDwBY1YfITOI=;
-        b=w5FrdaK2RsD3x96ckGrDN8LSwej7BzU6MBEulSHweGkNjeGRyfPLdN06IVn6EgZiz0
-         zrd1PITksmkSttDvKsduYzs8d9IHz42nWpP6o7MKLXpuKI+Q77M0iNcpfUlwYsYhCLZ7
-         yvjfGQ4xi4xdlGDUvIWMYqCvIAC3S1JSE1kqCrz8GMv3IfINUiUNygOTLuLSKnB7WFKM
-         fWoQD3rhfx9anmoH3m0xtMb2nzK5FICjBGTC1QaAgfOq7vC5s36Cd/+gn/9TN3nUm6Bm
-         k/KpmI/edHIA1Lfdhh9hIiDes9fHAbx2JKpUPdIM10b5UUos6Nses6z/OJx8298cZ6D2
-         35MA==
-X-Gm-Message-State: AOJu0YyrTYKHXXopU6pLLA4+1nDaQ2JaaJmdWRp9iTw+R9PZim4BkDN3
-	DcbSgPR+m5ijvhTVrzebwvHUM1EYSh4sWoD/uakay08AjYKJ5A==
-X-Google-Smtp-Source: AGHT+IFtdQNJnqRbyS27RyrDOU1f8t/2iJT4Mk+bWM7FYtCIpzU76UCemiE5QlCMK8+9qkZMQqZaENLiM4z62Rp08sY=
-X-Received: by 2002:a17:906:36d6:b0:a2b:a027:467a with SMTP id
- b22-20020a17090636d600b00a2ba027467amr591618ejc.141.1705053700773; Fri, 12
- Jan 2024 02:01:40 -0800 (PST)
-MIME-Version: 1.0
-References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-9-carlo.nonato@minervasys.tech> <dea5c6bc-e217-4229-9298-74fced9b7439@suse.com>
-In-Reply-To: <dea5c6bc-e217-4229-9298-74fced9b7439@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Fri, 12 Jan 2024 11:01:29 +0100
-Message-ID: <CAG+AhRWvUipcxzXhKce2pgMYmz039QO_ccWy8fGmcijoYty+-g@mail.gmail.com>
-Subject: Re: [PATCH v5 08/13] xen/page_alloc: introduce preserved page flags macro
+        d=1e100.net; s=20230601; t=1705054132; x=1705658932;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=XC1nUnroBTR3MD1SKJe6TqIqJfhJyXvoLRJCpKfBaYY=;
+        b=V9Ygna8bzJM0E220u1OKiu6B0f5VqNGkvXu8e/CTIPOvsI36rUwUDzl8UXafPAkSuw
+         +VdRlzCIqkBl66kEoLK61eTdxE3YA5F6AVo2TuAwm14MK7Lm56YyeYAKM8yJaphkvIj0
+         E++FQ0HjswuM5SN+AdQnlDS87NmtVcWNsqxI7N6dDXX2z1bsxfROxYKrP14L6WCDjmOF
+         8k1bjDLIGVa1zxsYOcsn/JUU5CzRTvmEyPeD7KAJ1N7kYslJHL8oy6g//eGSDoDK1xTv
+         3K4ePovwlSchj/9UoiGbCEGkB73vq4IPA8qAiWNqsbps/qJZAcbZjNuZLXrEn4MPMZ8M
+         KsnA==
+X-Gm-Message-State: AOJu0YyPnhMBTuTcvi5yO8gfWew6rYamO0mropteZqxvI5hnd9doWSvh
+	dno7kO5s9vysPuVlhZpCnddnUDX7dnLRcA==
+X-Google-Smtp-Source: AGHT+IEKqGXbLV6JwEo6LUq5DIIQhCtaRbE5wpDEdn14UpiyhE7VvGCn/JtmKxcRfksuCpWZqFta/Q==
+X-Received: by 2002:a05:6000:400c:b0:333:3f5d:63d2 with SMTP id cp12-20020a056000400c00b003333f5d63d2mr689184wrb.3.1705054132354;
+        Fri, 12 Jan 2024 02:08:52 -0800 (PST)
+Date: Fri, 12 Jan 2024 11:08:51 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	Marco Solieri <marco.solieri@minervasys.tech>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] x86/intel: ensure Global Performance Counter Control
+ is setup correctly
+Message-ID: <ZaEPs5Y0SUgcOb3c@macbook>
+References: <20240111090821.67594-1-roger.pau@citrix.com>
+ <3428928a-42d0-4e4b-9607-c184968c309d@suse.com>
+ <ZZ_FjFa9mILtDZgv@macbook>
+ <645e0c95-5a12-4202-8da6-3cc789a9e5c7@suse.com>
+ <ZZ_di8pZB8bWtBuX@macbook>
+ <b1e76a5f-297b-4030-a69e-33cdf179c0ce@suse.com>
+ <ZZ_4HSvdg0R9Dv1Y@macbook>
+ <4574c9d6-eb6d-4b73-a9e1-20b5635b32db@suse.com>
+ <ZaAdEqHzbD8L_mRo@macbook>
+ <b2412d90-e368-405f-813f-20a95f99ff21@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b2412d90-e368-405f-813f-20a95f99ff21@suse.com>
 
-Hi Jan,
+On Fri, Jan 12, 2024 at 08:42:27AM +0100, Jan Beulich wrote:
+> On 11.01.2024 17:53, Roger Pau Monné wrote:
+> > On Thu, Jan 11, 2024 at 04:52:04PM +0100, Jan Beulich wrote:
+> >> On 11.01.2024 15:15, Roger Pau Monné wrote:
+> >>> On Thu, Jan 11, 2024 at 03:01:01PM +0100, Jan Beulich wrote:
+> >>>> On 11.01.2024 13:22, Roger Pau Monné wrote:
+> >>>>> Oh, indeed, can adjust on this same patch if that's OK (seeing as the
+> >>>>> issue was already there previous to my change).
+> >>>>
+> >>>> Well, I'm getting the impression that it was deliberate there, i.e. set
+> >>>> setting of the feature flag may want to remain thus constrained.
+> >>>
+> >>> Hm, I find it weird, but the original commit message doesn't help at
+> >>> all.  Xen itself only uses PMC0, and I don't find any other
+> >>> justification in the current code to require at least 2 counters in
+> >>> order to expose arch performance monitoring to be present.
+> >>>
+> >>> Looking at the SDM vol3, the figures there only contain PMC0 and PMC1,
+> >>> so someone only reading that manual might assume there must always be
+> >>> 2 global PMCs?
+> >>
+> >> That may have been the impression at the time. It may have been wrong
+> >> already back then, or ...
+> >>
+> >>> (vol4 clarifies the that the number of global PMCs is variable).
+> >>
+> >> ... it may have been clarified in the SDM later on. My vague guess is
+> >> that the > 1 check was to skip what may have been "obviously buggy"
+> >> back at the time.
+> > 
+> > Let me know if you are OK with the adjustment in v3, or whether you
+> > would rather leave the > 1 check as-is (or maybe adjust in a different
+> > patch).
+> 
+> Well, I haven't been able to make up my mind as to whether the original
+> check was wrong. Without clear indication, I think we should retain the
+> original behavior by having the __set_bit() gated by an additional if().
+> Then, since the line needs touching anyway, a further question would be
+> whether to properly switch to setup_force_cpu_cap() at the same time.
 
-On Mon, Jan 8, 2024 at 6:08=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 02.01.2024 10:51, Carlo Nonato wrote:
-> > PGC_static and PGC_extra are flags that needs to be preserved when assi=
-gning
-> > a page. Define a new macro that groups those flags and use it instead o=
-f
-> > or'ing every time.
-> >
-> > The new macro is used also in free_heap_pages() allowing future commits=
- to
-> > extended it with other flags that must stop merging, as it now works fo=
-r
-> > PGC_static. PGC_extra is no harm here since it's only ever being set on
-> > allocated pages.
->
-> Is it? I can't see where free_domheap_pages() would clear it before calli=
-ng
-> free_heap_pages(). Or wait, that may happen in mark_page_free(), but then
-> PGC_static would be cleared there, too. I must be missing something.
->
-> > --- a/xen/common/page_alloc.c
-> > +++ b/xen/common/page_alloc.c
-> > @@ -158,6 +158,8 @@
-> >  #define PGC_static 0
-> >  #endif
-> >
-> > +#define preserved_flags (PGC_extra | PGC_static)
->
-> I think this wants to (a) have a PGC_ prefix and (b) as a #define be all
-> capitals.
->
-> > @@ -1504,7 +1506,7 @@ static void free_heap_pages(
-> >              /* Merge with predecessor block? */
-> >              if ( !mfn_valid(page_to_mfn(predecessor)) ||
-> >                   !page_state_is(predecessor, free) ||
-> > -                 (predecessor->count_info & PGC_static) ||
-> > +                 (predecessor->count_info & preserved_flags) ||
-> >                   (PFN_ORDER(predecessor) !=3D order) ||
-> >                   (page_to_nid(predecessor) !=3D node) )
-> >                  break;
-> > @@ -1528,7 +1530,7 @@ static void free_heap_pages(
-> >              /* Merge with successor block? */
-> >              if ( !mfn_valid(page_to_mfn(successor)) ||
-> >                   !page_state_is(successor, free) ||
-> > -                 (successor->count_info & PGC_static) ||
-> > +                 (successor->count_info & preserved_flags) ||
-> >                   (PFN_ORDER(successor) !=3D order) ||
-> >                   (page_to_nid(successor) !=3D node) )
-> >                  break;
->
-> Irrespective of the comment at the top, this looks like an abuse of the
-> new constant: There's nothing inherently making preserved flags also
-> suppress merging (assuming it was properly checked that both sided have
-> the same flags set/clear).
+Having looked at Linux, it has exactly the same check for > 1, which I
+guess is to be expected since the code in Xen is quite likely adapted
+from the code in Linux.
 
-Sorry, I may have misinterpreted your comments on the previous version of t=
-he
-series (I know it was a really long time ago)
+Overall, it might be best to leave the check as > 1.  It's possible (as
+I think you also mention in a previous email) that there's simply no
+hardware with 1 counter.  This might no longer be true when
+virtualized, but given the current checks in both Xen and Linux any
+virtualization environment that attempts to expose arch perf support
+would need to expose at least 2 PMCs.
 
-https://patchew.org/Xen/20230123154735.74832-1-carlo.nonato@minervasys.tech=
-/20230123154735.74832-8-carlo.nonato@minervasys.tech/#c843b031-52f7-056d-e8=
-c0-75fe9c426343@suse.com
+My suggestion is to leave the cnt > 1 check as it is in v2.
 
-Anyway, would the solution here be to have two distinct #define? One for
-suppress merging and the other for preserved flags. This would probably als=
-o
-remove any confusion with the usage of PGC_extra.
+I can send a v4 with that check fixed if there's nothing else in v3
+that needs fixing.
 
-Thanks.
+IMO doing the adjustment to PERF_GLOBAL_CTRL without setting
+ARCH_PERFMON would be contradictory.  Either we set ARCH_PERFMON
+support and consequently adjust PERF_GLOBAL_CTRL, or we don't.
 
-> Jan
+Thanks, Roger.
 
