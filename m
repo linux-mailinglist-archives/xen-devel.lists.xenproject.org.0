@@ -2,38 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 652CF82D07E
-	for <lists+xen-devel@lfdr.de>; Sun, 14 Jan 2024 13:23:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667113.1038136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8826682D083
+	for <lists+xen-devel@lfdr.de>; Sun, 14 Jan 2024 13:26:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667115.1038147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOzVE-00009j-3p; Sun, 14 Jan 2024 12:22:12 +0000
+	id 1rOzYq-0000j0-Js; Sun, 14 Jan 2024 12:25:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667113.1038136; Sun, 14 Jan 2024 12:22:12 +0000
+Received: by outflank-mailman (output) from mailman id 667115.1038147; Sun, 14 Jan 2024 12:25:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rOzVE-000075-12; Sun, 14 Jan 2024 12:22:12 +0000
-Received: by outflank-mailman (input) for mailman id 667113;
- Sun, 14 Jan 2024 12:22:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rOzYq-0000gC-Gb; Sun, 14 Jan 2024 12:25:56 +0000
+Received: by outflank-mailman (input) for mailman id 667115;
+ Sun, 14 Jan 2024 12:25:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rPIO=IY=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1rOzVC-00006z-NU
- for xen-devel@lists.xenproject.org; Sun, 14 Jan 2024 12:22:10 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8944d22d-b2d7-11ee-9b0f-b553b5be7939;
- Sun, 14 Jan 2024 13:22:08 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-50eaaf2c7deso8800177e87.2
- for <xen-devel@lists.xenproject.org>; Sun, 14 Jan 2024 04:22:08 -0800 (PST)
-Received: from [127.0.0.1] (dynamic-077-183-249-018.77.183.pool.telefonica.de.
- [77.183.249.18]) by smtp.gmail.com with ESMTPSA id
- d14-20020a170906c20e00b00a298e2f6b3csm3998496ejz.213.2024.01.14.04.22.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 14 Jan 2024 04:22:06 -0800 (PST)
+ (envelope-from <SRS0=mcEk=IY=redhat.com=mst@srs-se1.protection.inumbo.net>)
+ id 1rOzYp-0000g6-Aq
+ for xen-devel@lists.xenproject.org; Sun, 14 Jan 2024 12:25:55 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0f153fc9-b2d8-11ee-98f1-6d05b1d4d9a1;
+ Sun, 14 Jan 2024 13:25:54 +0100 (CET)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-84-tce3z_0eOMmRkmou_Mpliw-1; Sun, 14 Jan 2024 07:25:46 -0500
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-3368abe10c5so5175702f8f.0
+ for <xen-devel@lists.xenproject.org>; Sun, 14 Jan 2024 04:25:46 -0800 (PST)
+Received: from redhat.com ([2.52.131.87]) by smtp.gmail.com with ESMTPSA id
+ v16-20020adfa1d0000000b003379d475928sm3925626wrv.18.2024.01.14.04.25.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Jan 2024 04:25:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +48,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8944d22d-b2d7-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1705234928; x=1705839728; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=N4WLy0Jn5L0bRVN3nquFYC5ivaTwn2STN2BPox24LN8=;
-        b=kvm6ZrrK7SJK4IQwSP14cWbXYv76LwQK6i1802bREt6NrJOAy9J0g2WvLZFB/2hvTS
-         Nk9tqMusG1/QBJoMqoYvTBuJBXeDRswhlrffA/QxgN0zUJvrm2uJcCPOv4Yj79LHYEqr
-         335aYewkojUwys+4AKWL1KjNogjt6qczH/voLzPrXe45SgixU2TJtoMZIf8FQ9lBzqTh
-         O/Y/qGYsic2fXE4IHKeWJ6hLy3aNKkpS7XJ6+eM486gNuSIcPi9Viy5DZfZJlqOVuohc
-         m81hqkY7/cxBw+655DA19aLSFne8CSEXyrSTX8nUgh+3QTSSiainJozasyC2h0cKHNiX
-         KvJg==
+X-Inumbo-ID: 0f153fc9-b2d8-11ee-98f1-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1705235152;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tAkYy2esf7Pd2G69r02QQxGJJf+2ehPe/4HNxSRnO8Q=;
+	b=GuZten3p7IF8CHOvqANyZR5pm7ztQvl6plpYTkyRWjzWz1GXZHbRs2ZZAxLHvmnq8nwDCk
+	GZMpnZLwYLgRGMUvmc3I4yD1ST23FRFtGkdYvrV8UOk0Ot33HpX6tAjHj/MumeiviLwipG
+	3AbcnR33eSq+COBDrHN5TQvWSIqJ1c0=
+X-MC-Unique: tce3z_0eOMmRkmou_Mpliw-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705234928; x=1705839728;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=N4WLy0Jn5L0bRVN3nquFYC5ivaTwn2STN2BPox24LN8=;
-        b=ZviKduUr37Ymy0+49FB4IubJS2uyhqAfO7Koo6n6MCFGftDnaezITBb8g2X59LgLlk
-         VVB6M+zh/4nIkiv258HmN8HA1NEWZIEDRspyxigLTYd6XMo6Ni50NHGubdiP7tCeLDbO
-         fmVVi1ruOWCwtH5E/zm9S6oKZRVnoFGwRB5DSeuLMD/Y/3bOs4zAyMJ+8XnLdrvZqHn6
-         i8o6dMohXscfi5ti/OJtCKpWrUljSKzhY57hI/zkUAzJuk0wUDPo5xlWhYCn6iBx8fhd
-         we5uO1irbnwXDTzN/98gfWhSKslLU4KzUjPkGGtPpkWJoGYLn9/Q26Auld8JOdCM3Wcs
-         ys9g==
-X-Gm-Message-State: AOJu0YxkuTjRmlPqbyht/PE9/02UHEfB1Ejhuv8w20x1jSy0FhRsDjlo
-	6p1IpUqgFKjqv6Y5gVeaO8E=
-X-Google-Smtp-Source: AGHT+IGffXqbfcTbgvg/M/WX4Vodo0S9K719nbuFypYeXJPw/acIGJ2/C85yJ2piMEImH0Z207xfCg==
-X-Received: by 2002:a05:6512:39d5:b0:50e:aa46:2a95 with SMTP id k21-20020a05651239d500b0050eaa462a95mr2216499lfu.18.1705234927908;
-        Sun, 14 Jan 2024 04:22:07 -0800 (PST)
-Date: Sun, 14 Jan 2024 12:21:59 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: qemu-devel@nongnu.org
-CC: Chuck Zmudzinski <brchuckz@aol.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- David Woodhouse <dwmw2@infradead.org>, Eduardo Habkost <eduardo@habkost.net>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Paul Durrant <paul@xen.org>,
- Richard Henderson <richard.henderson@linaro.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_hw/i386/pc=5Fpiix=3A_Make_piix=5Fintx=5Fr?= =?US-ASCII?Q?outing=5Fnotifier=5Fxen=28=29_more_device_independent?=
-In-Reply-To: <20240107231623.5282-1-shentey@gmail.com>
+        d=1e100.net; s=20230601; t=1705235145; x=1705839945;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tAkYy2esf7Pd2G69r02QQxGJJf+2ehPe/4HNxSRnO8Q=;
+        b=g6Uiuo38qauIKwjvgSJUBQpYX6cYtxKrxY3YLUx6S8fu8npEzKd4+cXN6M56cnw19T
+         7tD6m5YUUP8v9COPGkCvYUOBfnEK2fWHW38Tn3CxF6kGek2Bl+Domrr0fuKr4xtGSRj4
+         q1qlGE2Nyuc5bYQ9Y4/yUqpu/LjpB3oxxuwcGsOuCrnYDccjaLYL2azZ59J/p9r0uFEt
+         qG1l3BVodYCfFFBC1S8IzV8iF814/Jh/6fH+zD3Ou3VlC1gQJs6GFIJOcGtGzIwYV+NJ
+         EaT+uqbK4qnwlRjQCu0DwTTzqF+MbOnwilmC5kkBEUauaERxvcXbzZBWMwsPKGcduJO0
+         3AMg==
+X-Gm-Message-State: AOJu0YzHuYQextH5H6KKxw8l6fmeWhnPlXOMNRLTnRJec6WQFPZ4PUqX
+	a9WDbkoNwB6cUXewrfQDVkc7fbvdnU9o3eRivW/BcT11+ppibWXBoU5PeYWvU2b5d4Qxwr8JlO8
+	lmRQTz5U/s41lv9G7wD4OLMlFH0D5WnO5D1w=
+X-Received: by 2002:a5d:6283:0:b0:337:4fa6:2306 with SMTP id k3-20020a5d6283000000b003374fa62306mr1473321wru.158.1705235145122;
+        Sun, 14 Jan 2024 04:25:45 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IGcs6wlsSgQGa8meTzrVry5X6WKhXJy+/DmR/kQta9Vn0vh4yGyp1UV+e1xl3ZaOJo+HPKNTQ==
+X-Received: by 2002:a5d:6283:0:b0:337:4fa6:2306 with SMTP id k3-20020a5d6283000000b003374fa62306mr1473311wru.158.1705235144683;
+        Sun, 14 Jan 2024 04:25:44 -0800 (PST)
+Date: Sun, 14 Jan 2024 07:25:40 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Bernhard Beschow <shentey@gmail.com>
+Cc: qemu-devel@nongnu.org, Chuck Zmudzinski <brchuckz@aol.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org,
+	David Woodhouse <dwmw2@infradead.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Paul Durrant <paul@xen.org>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH] hw/i386/pc_piix: Make piix_intx_routing_notifier_xen()
+ more device independent
+Message-ID: <20240114072529-mutt-send-email-mst@kernel.org>
 References: <20240107231623.5282-1-shentey@gmail.com>
-Message-ID: <B404ABCE-E6B5-4716-BA60-3CEE74B72701@gmail.com>
+ <B404ABCE-E6B5-4716-BA60-3CEE74B72701@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <B404ABCE-E6B5-4716-BA60-3CEE74B72701@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Sun, Jan 14, 2024 at 12:21:59PM +0000, Bernhard Beschow wrote:
+> 
+> 
+> Am 7. Januar 2024 23:16:23 UTC schrieb Bernhard Beschow <shentey@gmail.com>:
+> >This is a follow-up on commit 89965db43cce "hw/isa/piix3: Avoid Xen-specific
+> >variant of piix3_write_config()" which introduced
+> >piix_intx_routing_notifier_xen(). This function is implemented in board code but
+> >accesses the PCI configuration space of the PIIX ISA function to determine the
+> >PCI interrupt routes. Avoid this by reusing pci_device_route_intx_to_irq() which
+> >makes piix_intx_routing_notifier_xen() more device-agnostic.
+> >
+> >One remaining improvement would be making piix_intx_routing_notifier_xen()
+> >agnostic towards the number of PCI interrupt routes and move it to xen-hvm.
+> >This might be useful for possible Q35 Xen efforts but remains a future exercise
+> >for now.
+> >
+> >Signed-off-by: Bernhard Beschow <shentey@gmail.com>
+> 
+> Hi Michael,
+> 
+> could you tag this, too? Or do we need another R-b?
+> 
+> Best regards,
+> Bernhard
 
+tagged, too.
 
-Am 7=2E Januar 2024 23:16:23 UTC schrieb Bernhard Beschow <shentey@gmail=
-=2Ecom>:
->This is a follow-up on commit 89965db43cce "hw/isa/piix3: Avoid Xen-speci=
-fic
->variant of piix3_write_config()" which introduced
->piix_intx_routing_notifier_xen()=2E This function is implemented in board=
- code but
->accesses the PCI configuration space of the PIIX ISA function to determin=
-e the
->PCI interrupt routes=2E Avoid this by reusing pci_device_route_intx_to_ir=
-q() which
->makes piix_intx_routing_notifier_xen() more device-agnostic=2E
->
->One remaining improvement would be making piix_intx_routing_notifier_xen(=
-)
->agnostic towards the number of PCI interrupt routes and move it to xen-hv=
-m=2E
->This might be useful for possible Q35 Xen efforts but remains a future ex=
-ercise
->for now=2E
->
->Signed-off-by: Bernhard Beschow <shentey@gmail=2Ecom>
+> >---
+> > hw/i386/pc_piix.c | 9 +++------
+> > 1 file changed, 3 insertions(+), 6 deletions(-)
+> >
+> >diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+> >index 042c13cdbc..abfcfe4d2b 100644
+> >--- a/hw/i386/pc_piix.c
+> >+++ b/hw/i386/pc_piix.c
+> >@@ -92,13 +92,10 @@ static void piix_intx_routing_notifier_xen(PCIDevice *dev)
+> > {
+> >     int i;
+> > 
+> >-    /* Scan for updates to PCI link routes (0x60-0x63). */
+> >+    /* Scan for updates to PCI link routes. */
+> >     for (i = 0; i < PIIX_NUM_PIRQS; i++) {
+> >-        uint8_t v = dev->config_read(dev, PIIX_PIRQCA + i, 1);
+> >-        if (v & 0x80) {
+> >-            v = 0;
+> >-        }
+> >-        v &= 0xf;
+> >+        const PCIINTxRoute route = pci_device_route_intx_to_irq(dev, i);
+> >+        const uint8_t v = route.mode == PCI_INTX_ENABLED ? route.irq : 0;
+> >         xen_set_pci_link_route(i, v);
+> >     }
+> > }
 
-Hi Michael,
-
-could you tag this, too? Or do we need another R-b?
-
-Best regards,
-Bernhard
-
->---
-> hw/i386/pc_piix=2Ec | 9 +++------
-> 1 file changed, 3 insertions(+), 6 deletions(-)
->
->diff --git a/hw/i386/pc_piix=2Ec b/hw/i386/pc_piix=2Ec
->index 042c13cdbc=2E=2Eabfcfe4d2b 100644
->--- a/hw/i386/pc_piix=2Ec
->+++ b/hw/i386/pc_piix=2Ec
->@@ -92,13 +92,10 @@ static void piix_intx_routing_notifier_xen(PCIDevice =
-*dev)
-> {
->     int i;
->=20
->-    /* Scan for updates to PCI link routes (0x60-0x63)=2E */
->+    /* Scan for updates to PCI link routes=2E */
->     for (i =3D 0; i < PIIX_NUM_PIRQS; i++) {
->-        uint8_t v =3D dev->config_read(dev, PIIX_PIRQCA + i, 1);
->-        if (v & 0x80) {
->-            v =3D 0;
->-        }
->-        v &=3D 0xf;
->+        const PCIINTxRoute route =3D pci_device_route_intx_to_irq(dev, i=
-);
->+        const uint8_t v =3D route=2Emode =3D=3D PCI_INTX_ENABLED ? route=
-=2Eirq : 0;
->         xen_set_pci_link_route(i, v);
->     }
-> }
 
