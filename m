@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7356C82DC50
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 16:27:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667469.1038752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C050982DC5D
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 16:32:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667472.1038762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPOrF-0001XY-0E; Mon, 15 Jan 2024 15:26:37 +0000
+	id 1rPOwT-0004jI-I7; Mon, 15 Jan 2024 15:32:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667469.1038752; Mon, 15 Jan 2024 15:26:36 +0000
+Received: by outflank-mailman (output) from mailman id 667472.1038762; Mon, 15 Jan 2024 15:32:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPOrE-0001US-Tr; Mon, 15 Jan 2024 15:26:36 +0000
-Received: by outflank-mailman (input) for mailman id 667469;
- Mon, 15 Jan 2024 15:26:35 +0000
+	id 1rPOwT-0004hA-FU; Mon, 15 Jan 2024 15:32:01 +0000
+Received: by outflank-mailman (input) for mailman id 667472;
+ Mon, 15 Jan 2024 15:31:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y0sJ=IZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rPOrD-0001UM-2j
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 15:26:35 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
+ <SRS0=tunR=IZ=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rPOwR-0004h4-DS
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 15:31:59 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7638cc81-b3ba-11ee-9b0f-b553b5be7939;
- Mon, 15 Jan 2024 16:26:32 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-55965fd00aeso703531a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 07:26:32 -0800 (PST)
-Received: from localhost ([213.195.127.68]) by smtp.gmail.com with ESMTPSA id
- k8-20020a056402048800b00558a6025397sm5326623edv.14.2024.01.15.07.26.31
+ id 37dd0e5a-b3bb-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 16:31:57 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-336746c7b6dso7601975f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 07:31:57 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ dr3-20020a5d5f83000000b00336ca349bdesm12274649wrb.47.2024.01.15.07.31.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jan 2024 07:26:31 -0800 (PST)
+ Mon, 15 Jan 2024 07:31:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,82 +45,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7638cc81-b3ba-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 37dd0e5a-b3bb-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705332392; x=1705937192; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=Uyi7bdC/N/hyelN5IZYPeFrmv8yIwaedlu/QmVak+tA=;
-        b=IvVBfw09tuLWNpwUdUmOgEYASZFyGwFIkjcaqukhWA/2dj/gEm3J1EtGMceSOuH/eQ
-         OJs+017hCRnJIqRmVx5R+koF5oA071LBrG7X1/o481XmDpTzHn/7dw6B+ob0etzuVG7u
-         rQXqyfpIPvd7BgEzEmvjJHgJpHrwyBZkwBxws=
+        d=citrix.com; s=google; t=1705332717; x=1705937517; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=JHAWqQkH6zAOHcspM8GtHmviVe+n90/bHhVj77LgGcI=;
+        b=HoXcgdqpt46B658UquKFrIPI/H0Lwz7Jw7Dd5aK2OvXxtpKgaxxZNGjpekWvyMT4/r
+         VE7mlY2MacYOv0NAcb5bOgVy/r2pbadeyQsPtGaR0x08aI14CtZitwveMzO49yVJxiJh
+         A1hdcY0v1nI9l3D0sk0Fxx65ruHLAlO07zJIM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705332392; x=1705937192;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Uyi7bdC/N/hyelN5IZYPeFrmv8yIwaedlu/QmVak+tA=;
-        b=LecfSpep8p0hcpB/UNi+oOgJa/Z8Dnje8FPqdKTfG+wTYxD6kbzZbZAdnRSkEbSvKj
-         idfjJ2cPpu+88wvcBgZPfZO1qpuQnjq8Hi/nnyncUvmtjqYM8PcAvSKPwxoTd2SyzuZZ
-         Q7e91eKDFZLWDFHWO/u1hjRqxgmXDpOLTuo3Jlr8w+fZS5CRXEP7lPD+hoP7+3i1gRkN
-         bf/pdSPS756rcQ8/MgdjMz60IkZlDLcLanMNJ48jY6BHDZ8WEP9b+QhUc4BsbTYqrzYo
-         MFnDB0QQnA2F3VfvASzHwMPenOObrin7wNhP6XYqybZCTlCgsEMcbYwxfDdSuzt4Sg2u
-         OoLg==
-X-Gm-Message-State: AOJu0Yw9vjEuQtiVtpRKwA/HcAHQBbyUERD4jzlGHrNsViAvA3Wg6tjY
-	g2uQlSPuAYr+IJ82HcaCgBUiZgWQkluB1g==
-X-Google-Smtp-Source: AGHT+IFuKDvY70ngqv07BBITMIxE/f1J3x2ajnlp3wRd4nrK8JVYOj/xqy41mvCkuNqPEgiQBZgxiw==
-X-Received: by 2002:aa7:cd62:0:b0:557:9018:9980 with SMTP id ca2-20020aa7cd62000000b0055790189980mr2736902edb.52.1705332391988;
-        Mon, 15 Jan 2024 07:26:31 -0800 (PST)
-Date: Mon, 15 Jan 2024 16:26:30 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, iwj@xenproject.org,
-	Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH] osstest: bump /boot partition to 1G
-Message-ID: <ZaVOpt3H0-Pn8Zf9@macbook>
-References: <20240115141837.82983-1-roger.pau@citrix.com>
- <b552ee37-c5c8-438e-98fe-ecebad296bf7@perard>
+        d=1e100.net; s=20230601; t=1705332717; x=1705937517;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=JHAWqQkH6zAOHcspM8GtHmviVe+n90/bHhVj77LgGcI=;
+        b=oPS9PW8rf2d4InAPudM6pzPvlfeMkWzirwMijMs+049ZGdIF2Z9WcQw4QwA6lS9grx
+         KlB/XtJr9l6E5tYGfhflD2MuP+aT0mI7qx1ZEc4uZSi5WCnm4siukF6GSVE3fYh7ryKv
+         9JVPVknuO01bgOOdgnd9ui75udYi8bgJL94urV+tx4JhfmnkHIeULlK25sSgGb0YRD7q
+         9xrAo/D170bLbQllsQJyaY1LsuXbQ1Cyooyr8Or+sNVjhmpbKSNtROi3hZWZ2KeLIsHz
+         kDc5w7Ru30KlNIZtgV6WxELoSh7sJfdge5/92ZSddcQyb+DoiGfaR4GZtRwCqTAfdnFI
+         b7zA==
+X-Gm-Message-State: AOJu0YwwOfXLOYJzWKhY/bl4zh5SnoNBgfIT3HqMsX22JKc2rlYbUl6a
+	vzJsHwFYwhgWQ/DSgNPUiy8ndCI7qNAMfA==
+X-Google-Smtp-Source: AGHT+IGlOdlyj8u0ybHIAKRHtsQImammuEo3VF2mbljoDLhYHbq++Am8ABi+1d0z0Ww/AZnKN37V2w==
+X-Received: by 2002:a5d:4403:0:b0:337:9fc0:67df with SMTP id z3-20020a5d4403000000b003379fc067dfmr1745106wrq.22.1705332716875;
+        Mon, 15 Jan 2024 07:31:56 -0800 (PST)
+Date: Mon, 15 Jan 2024 15:31:56 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+	Julien Grall <julien@xen.org>, Jason Andryuk <jandryuk@gmail.com>
+Subject: Re: [PATCH v3 21/33] tools: add 9pfs device to xenstore-stubdom
+Message-ID: <55c49bed-4039-449c-bb79-412ea9c2b5e2@perard>
+References: <20240104090055.27323-1-jgross@suse.com>
+ <20240104090055.27323-22-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b552ee37-c5c8-438e-98fe-ecebad296bf7@perard>
+In-Reply-To: <20240104090055.27323-22-jgross@suse.com>
 
-On Mon, Jan 15, 2024 at 03:08:19PM +0000, Anthony PERARD wrote:
-> On Mon, Jan 15, 2024 at 03:18:37PM +0100, Roger Pau Monne wrote:
-> > Increase the size of the boot partition, as arm64 initrd is already exhausting
-> > all the space:
-> > 
-> > update-initramfs: Generating /boot/initrd.img-6.7.0+
-> > gzip: stdout: No space left on device
-> > 
-> > Reported-by: Jan Beulich <jbeulich@suse.com>
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> >  Osstest.pm | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/Osstest.pm b/Osstest.pm
-> > index 7776ba88c6e2..a559ca4ea8b6 100644
-> > --- a/Osstest.pm
-> > +++ b/Osstest.pm
-> > @@ -94,7 +94,7 @@ our %c = qw(
-> >      HostProp_GenEtherPrefixBase 5e:36:0e:f5
-> >  
-> >      HostDiskESP    300
-> > -    HostDiskBoot   300
-> > +    HostDiskBoot  1000
+On Thu, Jan 04, 2024 at 10:00:43AM +0100, Juergen Gross wrote:
+> Add a 9pfs device to Xenstore stubdom in order to allow it to do e.g.
+> logging into a dom0 file.
 > 
-> Did you tried this change on the arm32 machine as well? If so:
-> Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+> Use the following parameters for the new device:
 > 
-> (Or I guess we can find out the result of the test on commit.)
+> - tag = "xen"
 
-Only tested on the arm64 box, I can run a full flight, but we
-might as well send it to pre-test and see what we get.
+Is it ok to have here tag "xen" when the default tag is "Xen" ?
 
-Let me know if you are OK with that.
+> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+> index 907aa0a330..00693264f7 100644
+> --- a/tools/include/libxl.h
+> +++ b/tools/include/libxl.h
+> @@ -2060,6 +2067,16 @@ int libxl_console_add_xenstore(libxl_ctx *ctx, uint32_t domid, uint32_t backend,
+>                                 const libxl_asyncop_how *ao_how)
+>                                 LIBXL_EXTERNAL_CALLERS_ONLY;
+>  
+> +/* libxl_p9_add_xenstore writes the Xenstore entries for a domain's
+> + * primary 9pfs device based on domid, backend type and device parameters.
+> + */
+> +int libxl_p9_add_xenstore(libxl_ctx *ctx, uint32_t domid, uint32_t backend,
+> +                          libxl_p9_type type, char *tag, char *path,
+> +                          char *security_model, unsigned int max_space,
+> +                          unsigned int max_files, unsigned int max_open_files,
+> +                          bool auto_delete, const libxl_asyncop_how *ao_how)
 
-Thanks, Roger.
+Could we simply pass a "libxl_device_p9*" instead of all these
+parameters? It would also mean that we can update the list of parameters
+without having to change the function prototype.
+
+These functions tend to be called "libxl_device_*_add()", is it possible
+to follow the same schema? In particular, I don't see anything xenstore
+specific in the function.
+
+Thanks,
+
+-- 
+Anthony PERARD
 
