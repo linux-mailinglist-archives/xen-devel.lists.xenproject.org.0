@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D717682D527
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 09:41:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667208.1038243 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB6A182D539
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 09:44:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667214.1038252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPIWa-0008Hu-It; Mon, 15 Jan 2024 08:40:52 +0000
+	id 1rPIa0-0000WF-4Z; Mon, 15 Jan 2024 08:44:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667208.1038243; Mon, 15 Jan 2024 08:40:52 +0000
+Received: by outflank-mailman (output) from mailman id 667214.1038252; Mon, 15 Jan 2024 08:44:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPIWa-0008F5-Ek; Mon, 15 Jan 2024 08:40:52 +0000
-Received: by outflank-mailman (input) for mailman id 667208;
- Mon, 15 Jan 2024 08:40:51 +0000
+	id 1rPIa0-0000UL-1p; Mon, 15 Jan 2024 08:44:24 +0000
+Received: by outflank-mailman (input) for mailman id 667214;
+ Mon, 15 Jan 2024 08:44:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPIWY-0008En-Vw
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 08:40:51 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ id 1rPIZy-0000UF-Lr
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 08:44:22 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c8454c31-b381-11ee-98f1-6d05b1d4d9a1;
- Mon, 15 Jan 2024 09:40:49 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3373a30af67so7602178f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 00:40:48 -0800 (PST)
+ id 4706e65c-b382-11ee-98f1-6d05b1d4d9a1;
+ Mon, 15 Jan 2024 09:44:21 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40e7fce1abcso607585e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 00:44:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- k20-20020a05600c1c9400b0040e54f15d3dsm18874249wms.31.2024.01.15.00.40.47
+ g7-20020a7bc4c7000000b0040d5c58c41dsm14739655wmk.24.2024.01.15.00.44.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 00:40:48 -0800 (PST)
+ Mon, 15 Jan 2024 00:44:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c8454c31-b381-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 4706e65c-b382-11ee-98f1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705308048; x=1705912848; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705308261; x=1705913061; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=6QYpGqzwgqtT7SMPfxn3FeVOClAMt3sOK/qR9eQ9SI8=;
-        b=GOC/TGCwuJ9LBqp7RJnkc61+yFWwRp8uFWnM1PDsN6sBdKk5P4qku7uFcMyndEbUeW
-         hwGnZrCTJk2Y24M7F9oKJ7OlnzEsoMqmoU6H0gVz0raj0ZLW/MiQCfdRw5ierj4gpiM7
-         4lS1Jj/4DtmlcOoZjSBrBL5Y4QkrG2sTKALHoGwOQ1KfbS5VHR9WtFMpw6l3fgn9JvEN
-         lbezQzpD42o151lWZomA1PqDXCOrPTGCF3tNc6EnwvmN9jL+vdX6CaY5z8mpZ6hyjhrd
-         oSKJ8kfMkoNAE7jVv0Lm7ZzBTsiFEVZR5PwRrgyLMstT+8NWFupd+3GslK/6jirBYUdT
-         z9zw==
+        bh=U01Ehwgs5B6LmAPaY3WKSiwDxNPutwx/aEutUDHSZBM=;
+        b=LVg/TGD4FvelmEeKFbySlRPEcvksOBvYr2hggbbKPVi5yfe77LLgFBk+rDMztVyiN3
+         +bfwuizVkxtx0KV0ZvRzg03DjEjgx+ldyx9KJTdxQz3jZ3nO2KKVlJn8SnR8yrY1IO4q
+         w38HRFYfxItGyLki69agGPKL6IDRVW14Vhf18+9sgU7Yl3wHYAblsgSalOw6ZvWXWAx4
+         WWUE4Y8UfYzxmd531E04nMw5aOk5oGA0EWh/4vaYu0qzVF4sycYEha2cyFLhlSM3tVZQ
+         fQXWRQS3hORhaR7tj82nX7/oXHijx31JHqh4GLJNJa58V14eJwwHRwcFXD2tDI2GNODS
+         iTPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705308048; x=1705912848;
+        d=1e100.net; s=20230601; t=1705308261; x=1705913061;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6QYpGqzwgqtT7SMPfxn3FeVOClAMt3sOK/qR9eQ9SI8=;
-        b=PXyZ3Te2x9MkOc+8Ivl6Oa48t+JxE5ElDzq89Jz22MLJ1bOfz0JJn+Y5CTn8MzryR0
-         ItUraYOrApZQeOiLABYixQRPygBhPhRQ18VZ67yzKRQ+q/iHojsA07TrVI+1SFdXVDjG
-         deC0Voh17m0Ha+5OvvgPlK71f5VzDNejHnojZHCko/pyD0br1gjC3h5gFRYVlLtqksoW
-         nXE8M27NMAZ0SQjHkUs+TWG49yinLIeeORsuLs07cyt2+GPwtGpHuh1KWO3gTKRT2C1O
-         OjbnREin+4cpNCpJMqGk2wAQgPDjJfn3ZRV9wrkkqjurIeYWT9hjpqQiO8NOZxtGwo1N
-         Dauw==
-X-Gm-Message-State: AOJu0YyPBlBtgaQc8ohXCUXZP3lHBE+pO8sok2rzR4yd3cbFbLP4o/Fx
-	ry9EfqUgEdfYmY+rsNVfk04r39wGqW1A
-X-Google-Smtp-Source: AGHT+IHoWrka2zHvPJJj4GaaYa7lgbvFhLZfPzIC79Elr7pOd4vk+oTSKRmN1V1Rmv5+FZzXjxXv1w==
-X-Received: by 2002:a05:600c:54ef:b0:40e:55aa:3bc8 with SMTP id jb15-20020a05600c54ef00b0040e55aa3bc8mr1728598wmb.169.1705308048323;
-        Mon, 15 Jan 2024 00:40:48 -0800 (PST)
-Message-ID: <e37230c1-1ced-41af-adac-cad5fc2cb0e8@suse.com>
-Date: Mon, 15 Jan 2024 09:40:50 +0100
+        bh=U01Ehwgs5B6LmAPaY3WKSiwDxNPutwx/aEutUDHSZBM=;
+        b=gKXX7kypjnbuo4pmR4mz1Ptrp9oc+AtdtJ37mjAdyJKDgzCOZ6/xpX1sGZd/KJGSWM
+         kGf97tM+lIt0o7Hn5E8/Qbl9O3F7VR7erVbhGuirMP0aKLyIPl/jS3ad0fSf71h4k7kF
+         B1xr0S0CHTLq78wedwtnfLSwKV2/d5GN8eI7tkNUQVMHEPLb9S5wkoSbON3363hUQiNK
+         so8jnOnfF6TI0J4H1YSOiC9laY4RG82HvPpJvZ/ipSpejEgT83hdgIuwFiYptyXtMQXp
+         8Vi98gF0xuE0AgqOsISukLPgdL2eZZCX0FxjrGHWgP2nPBdt+WKcY6XVJm0V/7hpZ5HC
+         8Ngw==
+X-Gm-Message-State: AOJu0YzgBKyO0B7SJcKzafOGRtYprcF+yc3nUBzFSEG7tB1KgrQFwIzL
+	Bcc+L/QNLfrnmA/pzfh4J/N0NzEThUzT
+X-Google-Smtp-Source: AGHT+IGikOcJFJnyUcas44nyO2HvFpUl0O0+WNCooWxHfVXCROYMpL9ijRivBV9on04hny6pgZmOKA==
+X-Received: by 2002:a7b:cb93:0:b0:40e:7d47:661e with SMTP id m19-20020a7bcb93000000b0040e7d47661emr254374wmi.51.1705308261035;
+        Mon, 15 Jan 2024 00:44:21 -0800 (PST)
+Message-ID: <859202f5-b946-4cb7-8ef4-3d74afc8128c@suse.com>
+Date: Mon, 15 Jan 2024 09:44:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] serial: drop serial_[rt]x_interrupt()'s regs
- parameter
+Subject: Re: [PATCH 6/8] IRQ: drop register parameter from handler functions
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+ Michal Orzel <michal.orzel@amd.com>, Kevin Tian <kevin.tian@intel.com>
 References: <1ab231ec-5e3c-4662-8530-2213bc52bb7c@suse.com>
- <05b1284a-988c-4f91-9cde-4751332aaa96@suse.com>
- <485553fc-b91f-4a35-b01f-8bbd5964276b@citrix.com>
+ <c6926627-aeb6-40dd-a85a-1be0b324bf49@suse.com>
+ <1e520de0-8698-499d-8187-c79f589c974d@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,120 +115,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <485553fc-b91f-4a35-b01f-8bbd5964276b@citrix.com>
+In-Reply-To: <1e520de0-8698-499d-8187-c79f589c974d@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11.01.2024 19:07, Andrew Cooper wrote:
-> On 11/01/2024 7:34 am, Jan Beulich wrote:
->> In the the polling functions (ab)using set_irq_regs() is necessary
->> to balance the change.
+On 11.01.2024 19:10, Andrew Cooper wrote:
+> On 11/01/2024 7:35 am, Jan Beulich wrote:
+>> It's simply not needed anymore. Note how Linux made this change many
+>> years ago already, in 2.6.19 (late 2006, see [1]).
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit?id=7d12e780e003f93433d49ce78cfedf4b4c52adc5
 > 
-> I have to admit that I don't know what "balance the change" is supposed
-> to refer to in this context.
-
-Maybe just a lack of proper English on my part. What I'm trying to say is
-that the removal of the function parameter comes with the need to make
-the pointer available via set_irq_regs() (which is, in a way at least, an
-abuse of the function).
-
->> --- a/xen/drivers/char/ehci-dbgp.c
->> +++ b/xen/drivers/char/ehci-dbgp.c
->> @@ -1268,11 +1269,16 @@ static void cf_check _ehci_dbgp_poll(str
->>          spin_unlock_irqrestore(&port->tx_lock, flags);
->>      }
->>  
->> +    /* Mimic interrupt context. */
->> +    old_regs = set_irq_regs(regs);
->> +
->>      if ( dbgp->in.chunk )
->> -        serial_rx_interrupt(port, regs);
->> +        serial_rx_interrupt(port);
->>  
->>      if ( empty )
->> -        serial_tx_interrupt(port, regs);
->> +        serial_tx_interrupt(port);
->> +
->> +    set_irq_regs(old_regs);
+> https://git.kernel.org/torvalds/c/7d12e780e003f93433d49ce78cfedf4b4c52adc5
 > 
-> Looking at this logic, it has occured to me that patch 2 probably ought
-> to have ASSERT(!local_irqs_enabled()) in set_irq_regs().  While the main
-> arch irq dispatch can reasonably have it as an implicit expectation,
-> uses like this could do with the check.
+> See https://korg.docs.kernel.org/git-url-shorteners.html for full
+> details, but this is a guaranteed-stable URL.
 
-Why would IRQs need to be off for set_irq_regs()? It's all a matter of
-proper nesting, and any IRQ (nested into here or nested inside another
-IRQ) would properly save/restore the outer context's pointer
-(irrespective of what kind of context that actually is).
+Okay, changed. I'll try to keep this in mind.
 
-Note also how __ns16550_poll() doesn't itself disable interrupts.
-While apparently not the case right now, I'm also of the opinion that
-IRQs could in principle be turned back on transiently while handling
-BUGFRAME_run_fn (and perhaps also BUGFRAME_warn).
+> It's worth saying that despite that patch in Linux, they've still not
+> yet managed to drop the regs parameter.
 
-> This construct is very nasty.  What actually needs it?
-> 
-> If it's only handle_keypress(), isn't there a latent issue between patch
-> 3 and 5, given that patch 3 uses set_irq_regs() before this patch sets
-> it up?
+How that, when they have
 
-I think you're right - looks like I need to re-order (or fold, in case
-there would then be a build issue).
+typedef irqreturn_t (*irq_handler_t)(int, void *);
 
-> Might it be better to do this in the main handling of BUGFRAME_run_fn,
-> rather than at a few select users?  We're already abusing
-> BUGFRAME_run_fn to set up an IRQ-like context for these poll functions.
+?
 
-Hmm. It would then look at least a little less abusive, I suppose. Otoh
-the handler function being passed registers is quite natural imo, for
-being exception (not interrupt) related. Or are you suggesting to "pass"
-registers both ways (i.e. keep the handler function parameter while
-additionally also using set_irq_regs())? That would feel a little odd,
-for being redundant.
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Also I've never viewed use of BUGFRAME_run_fn here as having the purpose
-of setting up an IRQ-like context. I've always understood it as merely a
-means to get at a meaningful struct cpu_user_regs instance (i.e. covering
-the case of running in idle vCPU context; see below). Much like
-BUGFRAME_warn imo has only this as a purpose of involving generation of
-an exception.
-
-> I suppose a different question is what it would take to get rid of
-> this.  Is it something a bit more cleanup would solve, or is there some
-> more fundamental untangling required?
-
-Well, what exactly is "this" here? Something needs to set the pointer,
-even if I add a patch to switch handle_keypress() itself to not take a
-regs parameter anymore.
-
->> --- a/xen/drivers/char/xhci-dbc.c
->> +++ b/xen/drivers/char/xhci-dbc.c
->> @@ -1175,10 +1176,15 @@ static void cf_check dbc_uart_poll(void
->>          spin_unlock_irqrestore(&port->tx_lock, flags);
->>      }
->>  
->> +    /* Mimic interrupt context. */
->> +    old_regs = set_irq_regs(guest_cpu_user_regs());
-> 
-> This is not a bug in your patch, but...
-> 
-> The use of guest_cpu_user_regs() here is different to all the other poll
-> functions.  Is this actually correct?
-
-I think it is okay-ish right now, but indeed I meant to have a post-
-commit-message remark about this. In particular, ...
-
-> If we're really in interrupt context and then we fake up a poll like
-> this, then we don't have a total order of frames recorded in the
-> irq_regs pointer.  I can't see a specific issue, but it also doesn't
-> feel as if it is something we should allow.
-
-... I don't see any ordering constraint. dbc_uart_poll() is a timer
-handler, so will never itself run in interrupt context. And any IRQ
-would cleanly nest. Nevertheless register state will likely not be
-very meaningful when the timer ends up running in the context of an
-idle vCPU. Marek, what's the background of you having done this
-differently to other poll handlers?
+Thanks.
 
 Jan
 
