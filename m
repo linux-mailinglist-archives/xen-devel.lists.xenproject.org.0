@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4B482D794
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 11:42:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667287.1038404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA9282D7FA
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 12:02:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667294.1038413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPKPd-0004mT-Qy; Mon, 15 Jan 2024 10:41:49 +0000
+	id 1rPKiS-00019o-F4; Mon, 15 Jan 2024 11:01:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667287.1038404; Mon, 15 Jan 2024 10:41:49 +0000
+Received: by outflank-mailman (output) from mailman id 667294.1038413; Mon, 15 Jan 2024 11:01:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPKPd-0004jN-N7; Mon, 15 Jan 2024 10:41:49 +0000
-Received: by outflank-mailman (input) for mailman id 667287;
- Mon, 15 Jan 2024 10:41:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Y0sJ=IZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rPKPc-0004jH-5S
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 10:41:48 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ae5cebe6-b392-11ee-98f1-6d05b1d4d9a1;
- Mon, 15 Jan 2024 11:41:46 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-3368ac0f74dso6254369f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 02:41:46 -0800 (PST)
-Received: from localhost ([213.195.127.68]) by smtp.gmail.com with ESMTPSA id
- b6-20020adfee86000000b00337478efa4fsm11455234wro.60.2024.01.15.02.41.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jan 2024 02:41:45 -0800 (PST)
+	id 1rPKiS-000170-Bp; Mon, 15 Jan 2024 11:01:16 +0000
+Received: by outflank-mailman (input) for mailman id 667294;
+ Mon, 15 Jan 2024 11:01:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rPKiQ-00016u-91
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 11:01:14 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 64c2da33-b395-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 12:01:11 +0100 (CET)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2ccbc328744so103259711fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 03:01:11 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ z15-20020a6bc90f000000b007bf05f618f3sm2414781iof.55.2024.01.15.03.01.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jan 2024 03:01:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,265 +45,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae5cebe6-b392-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 64c2da33-b395-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705315306; x=1705920106; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mMD2PDDnJJu11V1BVyI/L+cq92NPn+wMLESE0L2eU+c=;
-        b=gsWNBDq5fFpbiEA00q//9eZCeKL3Ul+6lglAX/aIaEPtqk5c55xMLhcUiZGy9b4R/M
-         Xw3uzOzuifJrmhB9JvwIXh2KanFF9dTUK8p3PwA2rZiS6nNiUVTvIpe93OUtn2LbhBEA
-         dvsdB8mEZRvC1aI9fqGrRroDMxowBC2qMrRgM=
+        d=suse.com; s=google; t=1705316471; x=1705921271; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wuAsbI4N3KCf8fOkgguZHZdTspuwvGCauC8OkwkHco4=;
+        b=GIelxCSgSmmtZK+vk2ws6CtXdgBiLhWInFu0EjE14b4o71wedRR86DHZpYYKlGtPUe
+         AczLjI0EKnsrCUEa2LgdZXrFu83GHkMRgzqbm5QQ3qEsQENcUAINT0GApz6seLEP83OG
+         t9aogXtRrbe1GnGh6I8ME6UNZY1Vm4/39wgk+kGANcA04cG0/TqjQx3X80glFQvUPYqz
+         SOKi96S3dMixyZ3ozUAeoRnHlP8LNBCIp0/wZ18YPVR/QNwXYUEL5AusfJs8WPukd7cl
+         D7ZieXN6dQVb+gSdX6p5e9nWCWCYBZARt8O3PzoSbvA1v4Yb+iBJMWQTBAHHCmzaz5Eb
+         I98w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705315306; x=1705920106;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mMD2PDDnJJu11V1BVyI/L+cq92NPn+wMLESE0L2eU+c=;
-        b=auC/b1jEpa+b08RxLIFwUgZJAM16MJzWFQEuXXmD3yOuGcQzXxPuf20itPIVwnkG0Z
-         IlkBnQ2AB+ulDWIDqAlH4Z9duNCaE7HwBrSPYnzmwpdXIzFvsI4GkSqV0kl0DknHOt/B
-         KK1C0mKdXLRdDRkFzHw5PjqAr4azEeHJ1T3lCvHnWIa59EPIgom2jQtbE8yNc7FXSLUv
-         GGE5egQg5FubUEPQxYg8MYHQs8yDBYs/IaUUeCWfiPSISNRzCSIHlhxjpBbOg+tb0uaH
-         t/goQ2ACRjJ6zMHvfnWcIAFUSLjB1bBft2Qe7pAKpS5xYx2Z03IkNlYdd0Wm/iM58UCk
-         W5DA==
-X-Gm-Message-State: AOJu0YzW8mC218FTIDLmLOI41avdjtNuTYRahup/Ropaftf2rfGIYpty
-	nDyzPprKjKC9vM03/aLUyPFZx/eNKVp23IH+4hwwUfgdCRE=
-X-Google-Smtp-Source: AGHT+IF/xMA9/RcGk4inBUUd2n8DVwM+hPv3BgLo+a4Y9NvKCDRo7FPQr25B0tgIDqHNa1ZzCMKHFw==
-X-Received: by 2002:a5d:595f:0:b0:336:ded0:a21f with SMTP id e31-20020a5d595f000000b00336ded0a21fmr2715646wri.105.1705315305994;
-        Mon, 15 Jan 2024 02:41:45 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v3] x86/hvm: don't expose XENFEAT_hvm_pirqs by default
-Date: Mon, 15 Jan 2024 11:40:15 +0100
-Message-ID: <20240115104015.81452-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20230601; t=1705316471; x=1705921271;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wuAsbI4N3KCf8fOkgguZHZdTspuwvGCauC8OkwkHco4=;
+        b=pkmoFnXTMNuZRMecoVC1QfP92I85S4FOGR/k9yYcrKdttlJRGB7cZwbeh9+twAthkv
+         7CpwasIyeWE0TyqwN5UiA7I4tYyfv3m17S9MPwhCqIQ+9PwnSA/7nxBIJA4scQ5oE4qk
+         Ixoa9JqsR5tkKLl2UUBAjjRXma4ytDPnTO540uFRaUAWp/+uK65rIT0H7SLR4R5RAwqS
+         wExQn5+WQrqyMzd/dtoFNiATsp8BfChAW2x7vxD48rA2DqirTVaaYpMjoE/dSvPUOFVS
+         mVQFvZF3amTHE2dZ5bBbcHW04fLDfmyyuzL4frx4Imak0bhdDm6LnnqJv7CxXnODRKum
+         7Vyg==
+X-Gm-Message-State: AOJu0Yz5tIyFV2K4u+gQHTv1j61HqQT996x56Y8bTMRPiVQTkB5Z1ntY
+	CZngB/Zfy8wt4/PFoBGp5B7qveurk1w1
+X-Google-Smtp-Source: AGHT+IGNqy1aJbZFFzXiNoqAuNAqdIqFFehe5qiQF01GtBb1MYv1/QXZtSdJRxWIrU7cFvABYwyxMg==
+X-Received: by 2002:a2e:a23b:0:b0:2cc:f135:8d60 with SMTP id i27-20020a2ea23b000000b002ccf1358d60mr2159211ljm.91.1705316471280;
+        Mon, 15 Jan 2024 03:01:11 -0800 (PST)
+Message-ID: <c1abf4ca-d69a-4a17-b23c-18f06b8fddda@suse.com>
+Date: Mon, 15 Jan 2024 12:01:11 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 21/34] xen/riscv: introduce p2m.h
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org,
+ Julien Grall <julien@xen.org>
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+ <c3b1f24aea1ba01505697717b240c8d036abfee1.1703255175.git.oleksii.kurochko@gmail.com>
+ <abeafa19-7867-46b2-bc0e-b39eaa0f5036@xen.org>
+ <abef4701c3f2292e672679f1a18c826d699e1af2.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <abef4701c3f2292e672679f1a18c826d699e1af2.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The HVM pirq feature allows routing interrupts from both physical and emulated
-devices over event channels, this was done a performance improvement.  However
-its usage is fully undocumented, and the only reference implementation is in
-Linux.  It defeats the purpose of local APIC hardware virtualization, because
-when using it interrupts avoid the usage of the local APIC altogether.
+On 15.01.2024 11:35, Oleksii wrote:
+> Hi Julien,
+> 
+> On Fri, 2024-01-12 at 10:39 +0000, Julien Grall wrote:
+>> Hi Oleksii,
+>>
+>> On 22/12/2023 15:13, Oleksii Kurochko wrote:
+>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>> ---
+>>> Changes in V3:
+>>>   - add SPDX
+>>>   - drop unneeded for now p2m types.
+>>>   - return false in all functions implemented with BUG() inside.
+>>>   - update the commit message
+>>> ---
+>>> Changes in V2:
+>>>   - Nothing changed. Only rebase.
+>>> ---
+>>>   xen/arch/ppc/include/asm/p2m.h   |   3 +-
+>>>   xen/arch/riscv/include/asm/p2m.h | 102
+>>> +++++++++++++++++++++++++++++++
+>>>   2 files changed, 103 insertions(+), 2 deletions(-)
+>>>   create mode 100644 xen/arch/riscv/include/asm/p2m.h
+>>>
+>>> diff --git a/xen/arch/ppc/include/asm/p2m.h
+>>> b/xen/arch/ppc/include/asm/p2m.h
+>>> index 25ba054668..3bc05b7c05 100644
+>>> --- a/xen/arch/ppc/include/asm/p2m.h
+>>> +++ b/xen/arch/ppc/include/asm/p2m.h
+>>> @@ -50,8 +50,7 @@ static inline void memory_type_changed(struct
+>>> domain *d)
+>>>   static inline int guest_physmap_mark_populate_on_demand(struct
+>>> domain *d, unsigned long gfn,
+>>>                                                           unsigned
+>>> int order)
+>>>   {
+>>> -    BUG_ON("unimplemented");
+>>> -    return 1;
+>>> +    return -EOPNOTSUPP;
+>>>   }
+>>>   
+>>>   static inline int guest_physmap_add_entry(struct domain *d,
+>>> diff --git a/xen/arch/riscv/include/asm/p2m.h
+>>> b/xen/arch/riscv/include/asm/p2m.h
+>>> new file mode 100644
+>>> index 0000000000..d270ef6635
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/include/asm/p2m.h
+>>> @@ -0,0 +1,102 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +#ifndef __ASM_RISCV_P2M_H__
+>>> +#define __ASM_RISCV_P2M_H__
+>>> +
+>>> +#include <asm/page-bits.h>
+>>> +
+>>> +#define paddr_bits PADDR_BITS
+>>> +
+>>> +/*
+>>> + * List of possible type for each page in the p2m entry.
+>>> + * The number of available bit per page in the pte for this
+>>> purpose is 4 bits.
+>>> + * So it's possible to only have 16 fields. If we run out of value
+>>> in the
+>>> + * future, it's possible to use higher value for pseudo-type and
+>>> don't store
+>>> + * them in the p2m entry.
+>>> + */
+>>
+>> This looks like a verbatim copy from Arm. Did you actually check
+>> RISC-V 
+>> has 4 bits available in the PTE to store this value?
+> Thanks for noticing that, in RISC-V it is available only 2 bits ( bits
+> 8 and 9), so I'll update the comment:
+> 53                   10 9    8 7 6 5 4 3 2 1 0
+>  Physical Page Number     RSV  D A G U X W R V
 
-It has also been reported to not work properly with certain devices, at least
-when using some AMD GPUs Linux attempts to route interrupts over event
-channels, but Xen doesn't correctly detect such routing, which leads to the
-hypervisor complaining with:
+It's RSW (Reserved for Supervisor softWare use), not RSV, which is pretty
+important in this context.
 
-(XEN) d15v0: Unsupported MSI delivery mode 7 for Dom15
+> It seems that I missed something in the Arm code/architecture.As far as I recall, in Arm, bits 5-8 are ignored by the MMU, and they
+> are expected
+> to be used by the hypervisor for its purpose.
+> However, in the code, I notice that these bits are utilized for storing
+> a reference counter.
 
-When MSIs are attempted to be routed over event channels the entry delivery
-mode is set to ExtINT, but Xen doesn't detect such routing and attempts to
-inject the interrupt following the native MSI path, and the ExtINT delivery
-mode is not supported.
+Why "however"? Hardware still is going to ignore these bits.
 
-Disable HVM PIRQs by default and provide a per-domain option in xl.cfg to
-enable such feature.  Also for backwards compatibility keep the feature enabled
-for any resumed domains that don't have an explicit selection.
-
-Note that the only user of the feature (Linux) is also able to handle native
-interrupts fine, as the feature was already not used if Xen reported local APIC
-hardware virtualization active.
-
-Link: https://github.com/QubesOS/qubes-issues/issues/7971
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
----
-Changes since v2:
- - Add changelog entry.
-
-Changes since v1:
- - Fix libxl for PV guests.
----
- CHANGELOG.md                      |  2 ++
- docs/man/xl.cfg.5.pod.in          |  7 +++++++
- tools/include/libxl.h             |  7 +++++++
- tools/libs/light/libxl_create.c   |  7 +++++--
- tools/libs/light/libxl_types.idl  |  1 +
- tools/libs/light/libxl_x86.c      | 12 +++++++++---
- tools/python/xen/lowlevel/xc/xc.c |  4 +++-
- tools/xl/xl_parse.c               |  1 +
- xen/arch/x86/domain.c             |  4 +++-
- 9 files changed, 38 insertions(+), 7 deletions(-)
-
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 723d06425431..ddb3ab8db4e7 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
- ### Changed
-  - Changed flexible array definitions in public I/O interface headers to not
-    use "1" as the number of array elements.
-+ - On x86:
-+   - HVM PIRQs are disabled by default.
- 
- ### Added
-  - On x86:
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 2e234b450efb..ea8d41727d8e 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -2460,6 +2460,13 @@ The viridian option can be specified as a boolean. A value of true (1)
- is equivalent to the list [ "defaults" ], and a value of false (0) is
- equivalent to an empty list.
- 
-+=item B<hvm_pirq=BOOLEAN>
-+
-+Select whether the guest is allowed to route interrupts from devices (either
-+emulated or passed through) over event channels.
-+
-+This option is disabled by default.
-+
- =back
- 
- =head3 Emulated VGA Graphics Device
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 907aa0a3303a..f1652b1664f0 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -608,6 +608,13 @@
-  * executable in order to not run it as the same user as libxl.
-  */
- 
-+/*
-+ * LIBXL_HAVE_HVM_PIRQ indicates the presence of the u.hvm.pirq filed in
-+ * libxl_domain_build_info that signals whether an HVM guest has accesses to
-+ * the XENFEAT_hvm_pirqs feature.
-+ */
-+#define LIBXL_HAVE_HVM_PIRQ 1
-+
- /*
-  * libxl memory management
-  *
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index ce1d43110336..0008fac607e3 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -376,6 +376,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-         libxl_defbool_setdefault(&b_info->u.hvm.usb,                false);
-         libxl_defbool_setdefault(&b_info->u.hvm.vkb_device,         true);
-         libxl_defbool_setdefault(&b_info->u.hvm.xen_platform_pci,   true);
-+        libxl_defbool_setdefault(&b_info->u.hvm.pirq,               false);
- 
-         libxl_defbool_setdefault(&b_info->u.hvm.spice.enable, false);
-         if (!libxl_defbool_val(b_info->u.hvm.spice.enable) &&
-@@ -2375,10 +2376,12 @@ int libxl_domain_create_restore(libxl_ctx *ctx, libxl_domain_config *d_config,
- 
-     /*
-      * When restoring (either from a save file or for a migration domain) set
--     * the MSR relaxed mode for compatibility with older Xen versions if the
--     * option is not set as part of the original configuration.
-+     * the MSR relaxed mode and HVM PIRQs for compatibility with older Xen
-+     * versions if the options are not set as part of the original
-+     * configuration.
-      */
-     libxl_defbool_setdefault(&d_config->b_info.arch_x86.msr_relaxed, true);
-+    libxl_defbool_setdefault(&d_config->b_info.u.hvm.pirq, true);
- 
-     return do_domain_create(ctx, d_config, domid, restore_fd, send_back_fd,
-                             params, ao_how, aop_console_how);
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 7d8bd5d21667..899ad3096926 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -692,6 +692,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
-                                        ("rdm", libxl_rdm_reserve),
-                                        ("rdm_mem_boundary_memkb", MemKB),
-                                        ("mca_caps",         uint64),
-+                                       ("pirq",             libxl_defbool),
-                                        ])),
-                  ("pv", Struct(None, [("kernel", string, {'deprecated_by': 'kernel'}),
-                                       ("slack_memkb", MemKB),
-diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-index d16573e72cd4..a50ec37eb3eb 100644
---- a/tools/libs/light/libxl_x86.c
-+++ b/tools/libs/light/libxl_x86.c
-@@ -9,6 +9,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-     switch(d_config->c_info.type) {
-     case LIBXL_DOMAIN_TYPE_HVM:
-         config->arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
-+        if (!libxl_defbool_val(d_config->b_info.u.hvm.pirq))
-+            config->arch.emulation_flags &= ~XEN_X86_EMU_USE_PIRQ;
-         break;
-     case LIBXL_DOMAIN_TYPE_PVH:
-         config->arch.emulation_flags = XEN_X86_EMU_LAPIC;
-@@ -864,15 +866,19 @@ void libxl__arch_update_domain_config(libxl__gc *gc,
-                                       const libxl_domain_config *src)
- {
-     /*
--     * Force MSR relaxed to be set (either to true or false) so it's part of
--     * the domain configuration when saving or performing a live-migration.
-+     * Force MSR relaxed and HVM pirq to be set (either to true or false) so
-+     * it's part of the domain configuration when saving or performing a
-+     * live-migration.
-      *
--     * Doing so allows the recovery side to figure out whether the flag should
-+     * Doing so allows the recovery side to figure out whether the flags should
-      * be set to true in order to keep backwards compatibility with already
-      * started domains.
-      */
-     libxl_defbool_setdefault(&dst->b_info.arch_x86.msr_relaxed,
-                     libxl_defbool_val(src->b_info.arch_x86.msr_relaxed));
-+    if (src->c_info.type == LIBXL_DOMAIN_TYPE_HVM )
-+        libxl_defbool_setdefault(&dst->b_info.u.hvm.pirq,
-+                                 libxl_defbool_val(src->b_info.u.hvm.pirq));
- }
- 
- /*
-diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowlevel/xc/xc.c
-index d3ea350e07b9..9feb12ae2b16 100644
---- a/tools/python/xen/lowlevel/xc/xc.c
-+++ b/tools/python/xen/lowlevel/xc/xc.c
-@@ -159,7 +159,9 @@ static PyObject *pyxc_domain_create(XcObject *self,
- 
- #if defined (__i386) || defined(__x86_64__)
-     if ( config.flags & XEN_DOMCTL_CDF_hvm )
--        config.arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
-+        config.arch.emulation_flags = XEN_X86_EMU_ALL &
-+                                      ~(XEN_X86_EMU_VPCI |
-+                                        XEN_X86_EMU_USE_PIRQ);
- #elif defined (__arm__) || defined(__aarch64__)
-     config.arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
- #else
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index ed983200c3f8..9b358f11b88e 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -1801,6 +1801,7 @@ void parse_config_data(const char *config_source,
-         xlu_cfg_get_defbool(config, "hpet", &b_info->u.hvm.hpet, 0);
-         xlu_cfg_get_defbool(config, "vpt_align", &b_info->u.hvm.vpt_align, 0);
-         xlu_cfg_get_defbool(config, "apic", &b_info->apic, 0);
-+        xlu_cfg_get_defbool(config, "hvm_pirq", &b_info->u.hvm.pirq, 0);
- 
-         switch (xlu_cfg_get_list(config, "viridian",
-                                  &viridian, &num_viridian, 1))
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 8a31d18f6967..bda853e3c92b 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -725,7 +725,9 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
-              emflags != (X86_EMU_VPCI | X86_EMU_LAPIC | X86_EMU_IOAPIC) )
-             return false;
-         if ( !is_hardware_domain(d) &&
--             emflags != (X86_EMU_ALL & ~X86_EMU_VPCI) &&
-+             /* HVM PIRQ feature is user-selectable. */
-+             (emflags & ~X86_EMU_USE_PIRQ) !=
-+             (X86_EMU_ALL & ~(X86_EMU_VPCI | X86_EMU_USE_PIRQ)) &&
-              emflags != X86_EMU_LAPIC )
-             return false;
-     }
--- 
-2.43.0
-
+Jan
 
