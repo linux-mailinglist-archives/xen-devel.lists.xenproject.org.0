@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5A0782D56C
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 09:58:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667224.1038273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CDD382D58A
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 10:07:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667230.1038283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPInE-00038Z-Gy; Mon, 15 Jan 2024 08:58:04 +0000
+	id 1rPIw3-0004d7-BU; Mon, 15 Jan 2024 09:07:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667224.1038273; Mon, 15 Jan 2024 08:58:04 +0000
+Received: by outflank-mailman (output) from mailman id 667230.1038283; Mon, 15 Jan 2024 09:07:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPInE-00035O-E7; Mon, 15 Jan 2024 08:58:04 +0000
-Received: by outflank-mailman (input) for mailman id 667224;
- Mon, 15 Jan 2024 08:58:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rPIw3-0004bi-89; Mon, 15 Jan 2024 09:07:11 +0000
+Received: by outflank-mailman (input) for mailman id 667230;
+ Mon, 15 Jan 2024 09:07:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPInD-00035I-TV
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 08:58:03 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3087d2ca-b384-11ee-98f1-6d05b1d4d9a1;
- Mon, 15 Jan 2024 09:58:02 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40e80046263so441845e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 00:58:02 -0800 (PST)
+ id 1rPIw1-0004bc-O0
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 09:07:09 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 75551a1d-b385-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 10:07:07 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id
+ 2adb3069b0e04-50e9e5c97e1so10536339e87.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 01:07:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c11-20020a05600c0a4b00b0040d53588d94sm19151579wmq.46.2024.01.15.00.58.01
+ t30-20020a02b19e000000b0046d950cf82bsm2200479jah.85.2024.01.15.01.07.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 00:58:02 -0800 (PST)
+ Mon, 15 Jan 2024 01:07:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3087d2ca-b384-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 75551a1d-b385-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705309082; x=1705913882; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705309627; x=1705914427; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Gg3E6MfcDuJwlFR9OvjQblrNS1r9dvoSxV9oblVARg8=;
-        b=PD8ilqJv00o2LYYoPHETYHPVwxQpmOkmsSXUGSZJKIqNPEvOt3mEeU6NVh6CtUo6VI
-         Q8AV3M+IpdKrloocJjIMEZyuExblOVFOwtPE5V0CBDG8APwcjH9mtpmK+M3+yU9wk0PN
-         V/9ZkuvDVKJOJvNImJXMLXMCWUSldgnFzrqHz8FONUyRe2/qGVCd3zNQPYe/qsmL+7AC
-         SL9cQ52Ic+DbL72gUkG2ZSQ7PeoH8J8B7GCpd+6DWfcAqksaI3OtJBdGxDL9Ohomnztp
-         DILLFan+AjeXDoJIitb1LxKRt20psmV3ck8JNG8UyEhkqKM4W/FBU5Vri8d5Op7GHw46
-         LLKw==
+        bh=7lTwm/RchhPfKQClcsMYPVfiFqGv8zg/eFQBRH1aqGw=;
+        b=YC6zwR0bPs4STKg4hroNG5+QgQtrXbOTmMw5vwpnv+n9QKk1NtqokSA1jMkyqU1hk1
+         oD0eCDbcuywsIZDM5WbibGfEOw+nI5K0dR568J5DNAyzSd/h282F2+T/cjPkxWlNC0p4
+         4897t097eipfkgcNIpWVzaaIO6ZAZdYxeJdS8+cKfi/NNktsmsr80XIl0OJ3HxgEpJ9u
+         NL0k3xkKh3JAojn0osA67lR4v+m01l/gL9YO4WQovmdOOeAXbp76VGR7eHzq3iL+2CX1
+         7DsPIZ9azvoIgC6ax7JbXH/BbSmqp3Cmxwov6zv61iahSGyJrJJ/FpZ6t/Fj2elz9XKy
+         YdgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705309082; x=1705913882;
+        d=1e100.net; s=20230601; t=1705309627; x=1705914427;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gg3E6MfcDuJwlFR9OvjQblrNS1r9dvoSxV9oblVARg8=;
-        b=c4Ht2y54hpExjlnsM4qpydVJaxfv3akkFe62/OLMPH561/QwPuZ6o4yi+ZoWPMh1Qn
-         myS9Cj80APzcOedUil7ZM020VOta5ZLk+F/6IujF4/MiKrTGwkVvKkjNwysl1lvzejv3
-         vw6LnvtPXABTLXo65bJ6hdlYWYZyoTQNihdoqR3/tOFiC4/rQkEnB7bizsHCnvRRHi4K
-         GLyeysLykGXRRYQU8cPaBV3smF6tE+9tGiyeCClvtlj4HnTQfFWNvfgmBpZtaWXaq/HE
-         9FrugXB1Nm8l13lWFgsS9Ptxhf9+rFsKG/IwSMFd+qoaPMGGTV7AP/+vQBRx8/KRbmIq
-         tvJw==
-X-Gm-Message-State: AOJu0YxVXaMQ6SDPZxtP9SQ+/QaNXB54AIVTNIVb53v1mBKzTD/CnP81
-	/A5zhHi/A+L2KZlLl7QaVWzGSzuiuUcx
-X-Google-Smtp-Source: AGHT+IEzutio8nveGpjeJIFQcWn4WHddqPTPbOu8Yl4TY5GnVDpDAMthsFEjakbX8fL3Bz/FLrc4Pw==
-X-Received: by 2002:a05:600c:5103:b0:40e:76b5:1463 with SMTP id o3-20020a05600c510300b0040e76b51463mr732241wms.29.1705309082264;
-        Mon, 15 Jan 2024 00:58:02 -0800 (PST)
-Message-ID: <34b4cbf1-989d-43a0-aaea-717f06a79960@suse.com>
-Date: Mon, 15 Jan 2024 09:58:04 +0100
+        bh=7lTwm/RchhPfKQClcsMYPVfiFqGv8zg/eFQBRH1aqGw=;
+        b=WpPu/JdkZwibJ9ce9/ZslVdlzPj3hTDa3zrrse/q4h8hnyvm8N6MK8mic20TeOodK9
+         h0FZWPhT0UOVcr7vZNb+tePV1JQsQrM169Rp0oGb20OuqjL2TMOrDW8NcNJtyRuJjnA5
+         TfkFW5LjEwc7IRNyj07TWyJw8ZsFdLZcE99Gzp7OrLb4p2Z5O/y5aTNSQA7ifF4KLkKd
+         hN5sDQxWI4NvVabZp72YmoCu3uqbe4PFDf2aiU0pmJ91esOzAZfsPf+gHl76jRfMXZqs
+         QQD6lCc7Ey034UQWePdC1jRlBgoMZg9n8Kv6F+O0TQGs2fTsUjAfuiZXptJM6q5nlPTs
+         ZcBg==
+X-Gm-Message-State: AOJu0Yz+0ThmhK3tB7RK0rqZYqh/izapDFnPXrLqTw44pYtq8e6HPmD4
+	bWfY5fTfP5lIn/a8J8x7+zqT3o1a0yQq
+X-Google-Smtp-Source: AGHT+IHSs1iH3qQYiN0gDEEbCUZYDCg0PnStPvVs0K+4Akvy9Ay5Iway5xFwdfVDoP3Muy8izb2ykQ==
+X-Received: by 2002:ac2:4294:0:b0:50e:b301:f386 with SMTP id m20-20020ac24294000000b0050eb301f386mr1953929lfh.104.1705309627178;
+        Mon, 15 Jan 2024 01:07:07 -0800 (PST)
+Message-ID: <2e2bc9b7-f0c0-4924-89f6-8717e10266de@suse.com>
+Date: Mon, 15 Jan 2024 10:07:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12.1 01/15] vpci: use per-domain PCI lock to protect vpci
- structure
+Subject: Re: [PATCH v12 09/15] vpci/header: program p2m with guest BAR view
 Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Paul Durrant <paul@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- xen-devel@lists.xenproject.org
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-2-stewart.hildebrand@amd.com>
- <ZaFDS7uZgW5l0eHG@macbook> <590a157a-b9d4-4d2d-8aff-6584da3045c3@amd.com>
- <20240112181442.674031-1-stewart.hildebrand@amd.com>
+ <20240109215145.430207-10-stewart.hildebrand@amd.com>
+ <ZaFVhaVvpDljEgdM@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,82 +114,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240112181442.674031-1-stewart.hildebrand@amd.com>
+In-Reply-To: <ZaFVhaVvpDljEgdM@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 12.01.2024 19:14, Stewart Hildebrand wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+On 12.01.2024 16:06, Roger Pau Monné wrote:
+> On Tue, Jan 09, 2024 at 04:51:24PM -0500, Stewart Hildebrand wrote:
+>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>> +        /*
+>> +         * Make sure that the guest set address has the same page offset
+>> +         * as the physical address on the host or otherwise things won't work as
+>> +         * expected.
+>> +         */
+>> +        if ( PAGE_OFFSET(bar->guest_addr) != PAGE_OFFSET(bar->addr) )
+>> +        {
+>> +            gprintk(XENLOG_G_WARNING,
+>> +                    "%pp: Can't map BAR%d because of page offset mismatch: %lx vs %lx\n",
+>                                            ^u
 > 
-> Use the per-domain PCI read/write lock to protect the presence of the
-> pci device vpci field. This lock can be used (and in a few cases is used
-> right away) so that vpci removal can be performed while holding the lock
-> in write mode. Previously such removal could race with vpci_read for
-> example.
+> Also when using the x modifier it's better to also use # to print the
+> 0x prefix.  You can also reduce the length of the message using
+> s/because of/due to/ IMO:
 > 
-> When taking both d->pci_lock and pdev->vpci->lock, they should be
-> taken in this exact order: d->pci_lock then pdev->vpci->lock to avoid
-> possible deadlock situations.
-> 
-> 1. Per-domain's pci_lock is used to protect pdev->vpci structure
-> from being removed.
-> 
-> 2. Writing the command register and ROM BAR register may trigger
-> modify_bars to run, which in turn may access multiple pdevs while
-> checking for the existing BAR's overlap. The overlapping check, if
-> done under the read lock, requires vpci->lock to be acquired on both
-> devices being compared, which may produce a deadlock. It is not
-> possible to upgrade read lock to write lock in such a case. So, in
-> order to prevent the deadlock, use d->pci_lock in write mode instead.
-> 
-> All other code, which doesn't lead to pdev->vpci destruction and does
-> not access multiple pdevs at the same time, can still use a
-> combination of the read lock and pdev->vpci->lock.
-> 
-> 3. Drop const qualifier where the new rwlock is used and this is
-> appropriate.
-> 
-> 4. Do not call process_pending_softirqs with any locks held. For that
-> unlock prior the call and re-acquire the locks after. After
-> re-acquiring the lock there is no need to check if pdev->vpci exists:
->  - in apply_map because of the context it is called (no race condition
->    possible)
->  - for MSI/MSI-X debug code because it is called at the end of
->    pdev->vpci access and no further access to pdev->vpci is made
-> 
-> 5. Use d->pci_lock around for_each_pdev and pci_get_pdev_by_domain
-> while accessing pdevs in vpci code.
-> 
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> %pp: Can't map BAR%u due to offset mismatch: %lx vs %lx
 
-While I know Roger did offer the tag with certain adjustments, ...
+Or even
 
-> @@ -913,7 +911,12 @@ int vpci_msix_arch_print(const struct vpci_msix *msix)
->              struct pci_dev *pdev = msix->pdev;
->  
->              spin_unlock(&msix->pdev->vpci->lock);
-> +            read_unlock(&pdev->domain->pci_lock);
->              process_pending_softirqs();
-> +
-> +            if ( !read_trylock(&pdev->domain->pci_lock) )
-> +                return -EBUSY;
-> +
->              /* NB: we assume that pdev cannot go away for an alive domain. */
->              if ( !pdev->vpci || !spin_trylock(&pdev->vpci->lock) )
->                  return -EBUSY;
+%pp: can't map BAR%u - offset mismatch: %lx vs %lx
 
-... I'm sure he was assuming you would get this right, in also
-dropping the 1st-try-acquired lock when this 2nd try-lock fails.
-Personally I feel this is the kind of change one would better not
-offer (or take) R-b ahead of time.
-
-I further think the respective comment in vpci_dump_msi() also wants
-adjusting from singular to plural.
+? Note also my use of lower-case 'c', which brings this log message in
+line with all pre-existing (prior to the whole series) vPCI log messages
+starting with "%pp: " (when not limiting to thus-prefixed there are a
+couple of "Failed to ..." outliers).
 
 Jan
 
