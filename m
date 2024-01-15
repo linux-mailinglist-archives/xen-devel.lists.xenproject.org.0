@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48F4082DB61
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 15:36:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667411.1038643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 683C082DB62
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 15:36:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667414.1038654 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPO4C-0008SQ-Ou; Mon, 15 Jan 2024 14:35:56 +0000
+	id 1rPO4s-0000Wj-3D; Mon, 15 Jan 2024 14:36:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667411.1038643; Mon, 15 Jan 2024 14:35:56 +0000
+Received: by outflank-mailman (output) from mailman id 667414.1038654; Mon, 15 Jan 2024 14:36:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPO4C-0008Pw-Lh; Mon, 15 Jan 2024 14:35:56 +0000
-Received: by outflank-mailman (input) for mailman id 667411;
- Mon, 15 Jan 2024 14:35:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rPO4r-0000Tc-Ug; Mon, 15 Jan 2024 14:36:37 +0000
+Received: by outflank-mailman (input) for mailman id 667414;
+ Mon, 15 Jan 2024 14:36:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPO4A-0008Pj-Qo
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 14:35:54 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 62a5b556-b3b3-11ee-98f1-6d05b1d4d9a1;
- Mon, 15 Jan 2024 15:35:53 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-3367601a301so7611299f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 06:35:53 -0800 (PST)
+ id 1rPO4q-0000TM-Hb
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 14:36:36 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b66d45b-b3b3-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 15:36:34 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40e80046246so2658585e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 06:36:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j27-20020adfb31b000000b00336e32338f3sm12166221wrd.70.2024.01.15.06.35.52
+ j27-20020adfb31b000000b00336e32338f3sm12166221wrd.70.2024.01.15.06.36.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 06:35:52 -0800 (PST)
+ Mon, 15 Jan 2024 06:36:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62a5b556-b3b3-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 7b66d45b-b3b3-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705329352; x=1705934152; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705329394; x=1705934194; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f1C+rppgzTNnRF/Pqgedt1f2Tofhn86tPcLKmKXp7wk=;
-        b=YnwJhDSb+1aNgogFQq1WXGKeHlsbrHpnIeZbNeTrumTlfNsVRhkFN5fTKHBqUXSGXI
-         lNpQlwkXAP7HMwqgdUDEcy54TQqmXHO+BygyJHFTEStzMePJnLVoYJurn8g18Klbmnhb
-         jIkeU8FAoFNUce19zOFni9WmXKc+oIOedfrktqWnUZEssKw2XYcb4r1yjhs0HW27esLK
-         4gyHLnW9pCFFKwdHO5VTETF/hEKH9uv9NxaHIaowaKEohO6BbnBt4+5bS+WQAx6esMag
-         4+5SUCr+69fnwyLKb99wut363TsT/2KQCvVMatL6Y7uP6FdReLLl7iArm0v/YZsbaHdV
-         XyBw==
+        bh=e/vLrJhMfgT6/QpkaKU7E9tT/DlCGICDK2Ql9bfvWrE=;
+        b=B4jHIn2+ICkwlOBSeeuEUqDsX0YoRUY//rXeksUgyxxCnvqHx567MCFHzgjWSntwUp
+         /9CW7hXo/tlZr9YEjLqHw3j5UKwcb9AaemrN8pvJvZUwhbP8YaalgDMvglkWRDGoP6Ad
+         VV3wmE++D0Pqi+8kRB27UQHEunAG9z1YD9jCEItEuvShAX2uM6zN8okcJ6UNg56a829j
+         Zftx6wFfQyNJqVDwV3t5XLeJSzHjBjg1CmwsdoGggv/MQX/et4FeozHh6Hh6i6xfqq2g
+         CH2Q5VdB4LW+VdDrhbs4TVdsa8Os0NbGZI5BTNTWqkKwbhF00nwgZxwOcKfVbee488Q5
+         AIFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705329352; x=1705934152;
+        d=1e100.net; s=20230601; t=1705329394; x=1705934194;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=f1C+rppgzTNnRF/Pqgedt1f2Tofhn86tPcLKmKXp7wk=;
-        b=fPvzhtv2tl+IOLqsx+N7MwEzdiikoKN8fmSKNrXfcjsiDv7z5XaRpgwPr5BXz8Jrd3
-         wVVyiFkANUGAaQccudGbCBapE/dG9F41y0d0HKcgDpgJTxYZ2Xort31jhaHh23sk81+R
-         sCuDTIIrEDNYK3kGQ9apoq4NdIqvcXz4BgfTdGRHuv7i6/JyVrF8nfzZjfUKWsDvQ1BG
-         IXUUCPxTLrYcFErk3iR8slbnw6H9gapjLBEDy1fwALI/TVdLZ5ccaIzRm1jbcz+ymzp1
-         LjxfFUv2yd7GGG9kXouIlH36XZvZhq6SetvLs73kPca2TyVl25e8+J5uc6n4zVihqF+1
-         a6VQ==
-X-Gm-Message-State: AOJu0Ywc8wGrRo7ezgZZOKlVMfKiVookNwWUaMMu2j/x4iIMcdHPMbV5
-	Bt15rJlZHy5RWFovIbUkCcypygIBmF6uUhGTEGV5tPJsxg==
-X-Google-Smtp-Source: AGHT+IGX+tq8xYYgAgp0/quQgemYqyrfWtWcRx5Jibskl1EE2xes/OmGyTSnvJ1B07cd6yi9RZxuMg==
-X-Received: by 2002:adf:ab1b:0:b0:337:5c70:304 with SMTP id q27-20020adfab1b000000b003375c700304mr2296044wrc.15.1705329352708;
-        Mon, 15 Jan 2024 06:35:52 -0800 (PST)
-Message-ID: <bbc1c26a-e511-4710-8803-2b915c750d70@suse.com>
-Date: Mon, 15 Jan 2024 15:35:52 +0100
+        bh=e/vLrJhMfgT6/QpkaKU7E9tT/DlCGICDK2Ql9bfvWrE=;
+        b=MbwG3E+0VAqpPmcDDqHrjuCmB6JT5EVVFuSuSUL3WBCfBOcl/fuUaKbDm5rlMyZ/gc
+         El7y57NmNOc/MKyFarKICERq61mJu0yf8KmaBrkyISF6BqtP9nJdPN1HvVz1cOHP5fVJ
+         zZqXWIfHW+5eBtX55ecPOT7fsqB4Xs5fD0SgUWAEJ0ZIGPyFx236yjHkMc10wLnlyq9B
+         uRaiy3GrpTHL94VGjNJAUZXcOOpld+BACpwCEyCHu/qR/HcodK4OL3CVrbMSrjPeobRV
+         xvhzuRGqqWAgj4VnCSgLu3KIsw2XI6e/R8/tYDKUKrGOF/IA75+Sndzk/3fBJaqXNXnE
+         a+yA==
+X-Gm-Message-State: AOJu0YwmO1yRtmT1GXf0dyWH13tB0ELYg3UoNQzOVpT+iKoTQa/qGYk/
+	fbRvdAE5vd8RJ1i2sIeuMXG+1MrlxjVKBBdhtQJY51eh8A==
+X-Google-Smtp-Source: AGHT+IGWxkLJBKgklwKLc6qGoDjPPjv7jwlTgeKRLNLYC1BrohudykjGpxPIL8NGYQHWKTN8/cZLHg==
+X-Received: by 2002:a05:600c:379a:b0:40e:4a88:fd6c with SMTP id o26-20020a05600c379a00b0040e4a88fd6cmr3181632wmr.61.1705329394216;
+        Mon, 15 Jan 2024 06:36:34 -0800 (PST)
+Message-ID: <7871702a-b5ca-4430-b282-148b46fccc71@suse.com>
+Date: Mon, 15 Jan 2024 15:36:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 3/8] x86: also mark assembler globals hidden
+Subject: [PATCH v5 4/8] Arm: annotate entry points with type and size
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- George Dunlap <george.dunlap@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ George Dunlap <george.dunlap@citrix.com>, Michal Orzel <michal.orzel@amd.com>
 References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
  <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -115,46 +115,103 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Let's have assembler symbols be consistent with C ones. In principle
-there are (a few) cases where gas can produce smaller code this way,
-just that for now there's a gas bug causing smaller code to be emitted
-even when that shouldn't be the case.
+Use the generic framework in xen/linkage.h. No change in generated code
+except for the changed padding value (noticable when config.gz isn't a
+multiple of 4 in size). Plus of course the converted symbols change to
+be hidden ones.
+
+Note that ASM_INT() is switched to DATA(), not DATA_LOCAL(), as the only
+use site wants the symbol global anyway.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
-v5: Re-base over changes earlier in the series.
-v3: Re-base over generalization of the annotations.
-v2: New.
+Only one each of the assembly files is being converted for now. More
+could be done right here or as follow-on in separate patches.
 
---- a/xen/arch/x86/include/asm/config.h
-+++ b/xen/arch/x86/include/asm/config.h
-@@ -47,11 +47,11 @@
- #define CODE_FILL 0x90
- #define ALIGN .align CODE_ALIGN, CODE_FILL
+The ASM_INT() redundancy of .global will be eliminated by a subsequent
+patch.
+---
+v3: New.
+
+--- a/xen/arch/arm/arm32/lib/div64.S
++++ b/xen/arch/arm/arm32/lib/div64.S
+@@ -42,7 +42,7 @@
+  * Clobbered regs: xl, ip
+  */
+ 
+-ENTRY(__do_div64)
++FUNC(__do_div64)
+ UNWIND(.fnstart)
+ 
+ 	@ Test for easy paths first.
+@@ -206,4 +206,4 @@ Ldiv0_64:
+ 	ldr	pc, [sp], #8
+ 
+ UNWIND(.fnend)
+-ENDPROC(__do_div64)
++END(__do_div64)
+--- a/xen/arch/arm/arm64/lib/clear_page.S
++++ b/xen/arch/arm/arm64/lib/clear_page.S
+@@ -22,7 +22,7 @@
+  * Parameters:
+  *	x0 - dest
+  */
+-ENTRY(clear_page)
++FUNC(clear_page)
+ 	mrs	x1, dczid_el0
+ 	and	w1, w1, #0xf
+ 	mov	x2, #4
+@@ -33,4 +33,4 @@ ENTRY(clear_page)
+ 	tst	x0, #(PAGE_SIZE - 1)
+ 	b.ne	1b
+ 	ret
+-ENDPROC(clear_page)
++END(clear_page)
+--- a/xen/arch/arm/include/asm/asm_defns.h
++++ b/xen/arch/arm/include/asm/asm_defns.h
+@@ -5,6 +5,7 @@
+ /* NB. Auto-generated from arch/.../asm-offsets.c */
+ #include <asm/asm-offsets.h>
+ #endif
++#include <xen/linkage.h>
+ #include <asm/processor.h>
+ 
+ /* Macros for generic assembly code */
+@@ -30,10 +31,7 @@ label:  .asciz msg;
+ #define RODATA_STR(label, msg) RODATA_SECT(.rodata.str, label, msg)
+ 
+ #define ASM_INT(label, val)                 \
+-    .p2align 2;                             \
+-label: .long (val);                         \
+-    .size label, . - label;                 \
+-    .type label, %object
++    DATA(label, 4) .long (val); END(label)
+ 
+ #endif /* __ARM_ASM_DEFNS_H__ */
+ /*
+--- a/xen/arch/arm/include/asm/config.h
++++ b/xen/arch/arm/include/asm/config.h
+@@ -53,7 +53,8 @@
+ 
+ /* Linkage for ARM */
+ #ifdef __ASSEMBLY__
+-#define ALIGN .align 2
++#define CODE_ALIGN 4
++#define ALIGN .balign CODE_ALIGN
  #define ENTRY(name)                             \
--  .globl name;                                  \
+   .globl name;                                  \
    ALIGN;                                        \
--  name:
-+  GLOBAL(name)
+@@ -61,8 +62,6 @@
  #define GLOBAL(name)                            \
    .globl name;                                  \
-+  .hidden name;                                 \
    name:
- #endif
- 
---- a/xen/include/xen/linkage.h
-+++ b/xen/include/xen/linkage.h
-@@ -19,7 +19,7 @@
- 
- #define SYM_ALIGN(align...) .balign align
- 
--#define SYM_L_GLOBAL(name) .globl name
-+#define SYM_L_GLOBAL(name) .globl name; .hidden name
- #define SYM_L_WEAK(name)   .weak name
- #define SYM_L_LOCAL(name)  /* nothing */
- 
+-#define END(name) \
+-  .size name, .-name
+ #define ENDPROC(name) \
+   .type name, %function; \
+   END(name)
 
 
