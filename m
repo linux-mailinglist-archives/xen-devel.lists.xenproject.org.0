@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF8EB82DCE1
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 17:05:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667496.1038813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20FB582DCFD
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 17:08:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667499.1038823 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPPSA-0007fD-TM; Mon, 15 Jan 2024 16:04:46 +0000
+	id 1rPPVb-0000Gx-BH; Mon, 15 Jan 2024 16:08:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667496.1038813; Mon, 15 Jan 2024 16:04:46 +0000
+Received: by outflank-mailman (output) from mailman id 667499.1038823; Mon, 15 Jan 2024 16:08:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPPSA-0007d0-Pu; Mon, 15 Jan 2024 16:04:46 +0000
-Received: by outflank-mailman (input) for mailman id 667496;
- Mon, 15 Jan 2024 16:04:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rPPVb-0000Ek-7w; Mon, 15 Jan 2024 16:08:19 +0000
+Received: by outflank-mailman (input) for mailman id 667499;
+ Mon, 15 Jan 2024 16:08:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPPS8-0007cu-TC
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 16:04:44 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cb362d0e-b3bf-11ee-9b0f-b553b5be7939;
- Mon, 15 Jan 2024 17:04:42 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2cd33336b32so116487621fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 08:04:42 -0800 (PST)
+ id 1rPPVZ-0000Ee-36
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 16:08:17 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4a8b3a04-b3c0-11ee-98f1-6d05b1d4d9a1;
+ Mon, 15 Jan 2024 17:08:16 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2cd853c159eso51127881fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 08:08:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5-20020a6b1505000000b007bf2c9bbdd6sm1685623iov.50.2024.01.15.08.04.40
+ fa1-20020a056638618100b0046e4e92e0aesm2438604jab.174.2024.01.15.08.08.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 08:04:41 -0800 (PST)
+ Mon, 15 Jan 2024 08:08:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb362d0e-b3bf-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 4a8b3a04-b3c0-11ee-98f1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705334682; x=1705939482; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705334896; x=1705939696; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=QCc5gGShZi5EVXBN8KRKI8Xy/r8mgNWyBwfE1SiFBSc=;
-        b=bC2poJ4kubNyybM/bqW8cQdt9NI0MY/1jho4RP9pdsQPc+kd1oZQoNtrH8c3DGiTKh
-         rTIrnWHxwCRYhDdzWm3+gnqhvOUPm8Re9RxolFNvllsuPEh+eMTbVBuuL7dHqakpq8TS
-         xmyXr1dZiBk4hQnXej7ODCWqOjfdAncpQKhcvqJfavTPZmhdlBmU1fFAATUZrdFVwTxs
-         nzwQ+B1v3r851wMmn+66wHSIXJgH3nzOIShKN6WIkCyzcOKzlGoK7S8KHeP5oI+d1cA8
-         vhORd2eqTbFuWWC+D/9+nF7JVg9lM5qCrdkNO//KQtxeIgmF7iBhCfDZnMEmecXF3RXY
-         97pg==
+        bh=lE0eudnGHo8w4a3AubvqhY+42NwJjhy0HH3HoGUR5Qk=;
+        b=MeBqbyS99CZV7waUjyBNQ/MW5+66EKmjG2OCwn+8dp20QSgyDvsQzIv4v7yvjtAzS6
+         AZjcqU8FNHIdpU/uqJKfAjW+Lekoqry3EGVsdndInNMFJMzY7dSSbviigEMzVILX7IvC
+         ngqvu7xOBjbiA5UNF2f2jjqJf5uuTTYuU/OLDfrn/l7AGhLJ0nf23x6RO6rg9NQhJ/O0
+         KcgP6VtGPxzqvpP38qvjHb2MWEmbXBK/T1MsH95k5f/ekIO4WqxjpyuyBzZXLEavDLfz
+         KTMWyMnNVhVPo+JfUSn3vC3BrrmLGMXTDBmtM82m+oZftIdGczLX0porFjk0cKQaEnZv
+         P0jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705334682; x=1705939482;
+        d=1e100.net; s=20230601; t=1705334896; x=1705939696;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QCc5gGShZi5EVXBN8KRKI8Xy/r8mgNWyBwfE1SiFBSc=;
-        b=MmPhJz3mqdyzaXLNxqzWfFZgW4PoYJvw6o56yvVkWhQ666FPF/nrjlZKt3VzxTRknA
-         14J6LZ+5hwOy/59BMud8rniPAi4LVAI2LiMfRt5k4M/0+3LcWTOAb/ZEZq1OjyTd0M1j
-         WnIxlWsKW4ibnvFytVd+IIG/jTKQUeOCF0knNzfMC0/Sh5mnft0FkXPx/RldwxXe7AKP
-         QbqOhZK40OHO5pU8OyDTCp56l7QWwCcPz2zI4QG96xHa8CQhhVL7WMsFrKgQ1fleb0iM
-         ov0uaDRJBLKqzojN1IIuLpAEp6dcKoBhS7bSQYKH4+TjCj4Ls3M4qhiEjvbVcahso7D+
-         G4Pw==
-X-Gm-Message-State: AOJu0Yxrpy1lMMqdPyo9jZ+bq7U7QBraNrF5oCeRvFpDmLafw1G4Agmm
-	3RU0rY4v9L34JW3dpvLVu1BETSMi46FVg2+Uus2VIDD8aw==
-X-Google-Smtp-Source: AGHT+IH7/sFTV+ZLF0+QI/eezDMnNfQ88ntDnr9nmyyA4EpXyb3BL9vTgi3drzxaEwq2e4m2s/6brg==
-X-Received: by 2002:a05:651c:168f:b0:2cc:effb:cbb2 with SMTP id bd15-20020a05651c168f00b002cceffbcbb2mr2618061ljb.52.1705334682043;
-        Mon, 15 Jan 2024 08:04:42 -0800 (PST)
-Message-ID: <e2e66d36-5545-40e4-847d-be3b3a523944@suse.com>
-Date: Mon, 15 Jan 2024 17:04:39 +0100
+        bh=lE0eudnGHo8w4a3AubvqhY+42NwJjhy0HH3HoGUR5Qk=;
+        b=U/GVfQFPAaG8oemUexs34MqbD67HX/a8NAb/ZfO6FFbODz8pQpsVPvrhgDaDli3r/S
+         fpgnEPaVUPDybNyjvScJgZsoTMunA5ROzzB56EVxDqOOjTlrRD9So7MabShRSn+GIu4w
+         pNAWY+jVpmR4FEnsDL6vV3ybtzpVMMjEtSmUDrK8tg2FSserB3JOMKM2N6GnF9VzS/KQ
+         9/g6UbQf1UyzgPtlJd6ts4GLMnMBQWpbrvlMxCCODPIrdYLNTaG1cAH9PgHGJIgbpb+m
+         GtYIfxa1IxRcRDurTN/5tEjOSO0QrHHbRGbHZPw0Q26fplAm4bD1vJkLAMJVxP2dpiaQ
+         PZPA==
+X-Gm-Message-State: AOJu0Yz0zRy3+EQuRSYhrOh61a1BUE0Q5QqKE3yVfe0yClRxZJ5lWiPa
+	Mttfc4jMLiCLUl0Ct8WFSa9znNeJbnUqexQTybfOBZggWQ==
+X-Google-Smtp-Source: AGHT+IFRbHVTiwlQR0YepCbbEHE3F1iv1DiYYbVaWzuC/iFgJJhTAGNkxjaXINvnoH87ZZNa0QSDIw==
+X-Received: by 2002:a2e:2419:0:b0:2cd:56ab:caa1 with SMTP id k25-20020a2e2419000000b002cd56abcaa1mr2487316ljk.5.1705334895737;
+        Mon, 15 Jan 2024 08:08:15 -0800 (PST)
+Message-ID: <c48df0a3-f837-4e03-84d8-ef63c09b6da7@suse.com>
+Date: Mon, 15 Jan 2024 17:08:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: HWP vs "xenpm get-cpufreq-..."
+Subject: [PATCH] x86/APIC: finish genapic conversion to altcall
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -110,22 +111,88 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Jason,
+While .probe() doesn't need fiddling with for being run only very early,
+init_apic_ldr() wants converting too despite not being on a frequently
+executed path: This way all pre-filled struct genapic instances can
+become __initconst_cf_clobber, thus allowing to eliminate 15 more ENDBR
+during the 2nd phase of alternatives patching.
 
-I thought I'd try hwp on a SapphireRapids system, and of course - short
-of easy other ways of seeing whether it actually has any apparent
-effect - I've looked at "xenpm get-cpufreq-states" output. Just to find
-that according to this, the system never enters any of the designated
-Pn states (all CPUs are always claimed to be in P0), while at the same
-time the P0 residencies remain in the hundreds of milliseconds. The
-latter suggests CPUs do leave P0, yet it's then unclear what state they
-are in during such time periods.
+While fiddling with section annotations here, also move "genapic" itself
+to .data.ro_after_init.
 
-I was also a little puzzled when comparing "xenpm get-cpufreq-para"
-output with hwp against that with acpi-cpufreq: The latter lists a range
-of 800MHz ... 2501MHz, while with hwp base is 2500MHz and max is 4800MHz.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Do you have any explanation for these apparent anomalies?
-
-Thanks, Jan
+--- a/xen/arch/x86/genapic/bigsmp.c
++++ b/xen/arch/x86/genapic/bigsmp.c
+@@ -44,7 +44,7 @@ static int __init cf_check probe_bigsmp(
+ 	return def_to_bigsmp;
+ } 
+ 
+-const struct genapic __initconstrel apic_bigsmp = {
++const struct genapic __initconst_cf_clobber apic_bigsmp = {
+ 	APIC_INIT("bigsmp", probe_bigsmp),
+ 	GENAPIC_PHYS
+ };
+--- a/xen/arch/x86/genapic/default.c
++++ b/xen/arch/x86/genapic/default.c
+@@ -14,7 +14,7 @@
+ #include <asm/io_apic.h>
+ 
+ /* should be called last. */
+-const struct genapic __initconstrel apic_default = {
++const struct genapic __initconst_cf_clobber apic_default = {
+ 	APIC_INIT("default", NULL),
+ 	GENAPIC_FLAT
+ };
+--- a/xen/arch/x86/genapic/probe.c
++++ b/xen/arch/x86/genapic/probe.c
+@@ -16,7 +16,7 @@
+ #include <asm/mach-generic/mach_apic.h>
+ #include <asm/setup.h>
+ 
+-struct genapic __read_mostly genapic;
++struct genapic __ro_after_init genapic;
+ 
+ static const struct genapic *const __initconstrel apic_probe[] = {
+ 	&apic_bigsmp, 
+--- a/xen/arch/x86/genapic/x2apic.c
++++ b/xen/arch/x86/genapic/x2apic.c
+@@ -158,7 +158,7 @@ static void cf_check send_IPI_mask_x2api
+     local_irq_restore(flags);
+ }
+ 
+-static const struct genapic __initconstrel apic_x2apic_phys = {
++static const struct genapic __initconst_cf_clobber apic_x2apic_phys = {
+     APIC_INIT("x2apic_phys", NULL),
+     .int_delivery_mode = dest_Fixed,
+     .int_dest_mode = 0 /* physical delivery */,
+@@ -169,7 +169,7 @@ static const struct genapic __initconstr
+     .send_IPI_self = send_IPI_self_x2apic
+ };
+ 
+-static const struct genapic __initconstrel apic_x2apic_cluster = {
++static const struct genapic __initconst_cf_clobber apic_x2apic_cluster = {
+     APIC_INIT("x2apic_cluster", NULL),
+     .int_delivery_mode = dest_LowestPrio,
+     .int_dest_mode = 1 /* logical delivery */,
+@@ -187,7 +187,7 @@ static const struct genapic __initconstr
+  * IPIs to be more efficiently delivered by not having to perform an ICR write
+  * for each target CPU.
+  */
+-static const struct genapic __initconstrel apic_x2apic_mixed = {
++static const struct genapic __initconst_cf_clobber apic_x2apic_mixed = {
+     APIC_INIT("x2apic_mixed", NULL),
+ 
+     /*
+--- a/xen/arch/x86/include/asm/mach-generic/mach_apic.h
++++ b/xen/arch/x86/include/asm/mach-generic/mach_apic.h
+@@ -10,7 +10,7 @@
+ #define INT_DELIVERY_MODE (genapic.int_delivery_mode)
+ #define INT_DEST_MODE (genapic.int_dest_mode)
+ #define TARGET_CPUS ((const typeof(cpu_online_map) *)&cpu_online_map)
+-#define init_apic_ldr (genapic.init_apic_ldr)
++#define init_apic_ldr() alternative_vcall(genapic.init_apic_ldr)
+ #define cpu_mask_to_apicid(mask) ({ \
+ 	/* \
+ 	 * There are a number of places where the address of a local variable \
 
