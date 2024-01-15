@@ -2,38 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6356282DB79
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 15:40:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667439.1038702 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA9CC82DBD3
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 15:51:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667450.1038713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPO8U-0005K5-Jx; Mon, 15 Jan 2024 14:40:22 +0000
+	id 1rPOIH-0007NY-GQ; Mon, 15 Jan 2024 14:50:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667439.1038702; Mon, 15 Jan 2024 14:40:22 +0000
+Received: by outflank-mailman (output) from mailman id 667450.1038713; Mon, 15 Jan 2024 14:50:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPO8U-0005Hk-HI; Mon, 15 Jan 2024 14:40:22 +0000
-Received: by outflank-mailman (input) for mailman id 667439;
- Mon, 15 Jan 2024 14:40:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPO8T-00046P-KH
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 14:40:21 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0244fda4-b3b4-11ee-98f1-6d05b1d4d9a1;
- Mon, 15 Jan 2024 15:40:21 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40e78238db9so9629195e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 06:40:21 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j27-20020adfb31b000000b00336e32338f3sm12166221wrd.70.2024.01.15.06.40.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 06:40:20 -0800 (PST)
+	id 1rPOIH-0007LL-Di; Mon, 15 Jan 2024 14:50:29 +0000
+Received: by outflank-mailman (input) for mailman id 667450;
+ Mon, 15 Jan 2024 14:50:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3fTV=IZ=amazon.co.uk=prvs=737ebf78a=eliasely@srs-se1.protection.inumbo.net>)
+ id 1rPOIF-0007Jt-H2
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 14:50:27 +0000
+Received: from smtp-fw-52004.amazon.com (smtp-fw-52004.amazon.com
+ [52.119.213.154]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6a0bfcbe-b3b5-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 15:50:25 +0100 (CET)
+Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
+ email-inbound-relay-pdx-2c-m6i4x-5eae960a.us-west-2.amazon.com) ([10.43.8.2])
+ by smtp-border-fw-52004.iad7.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jan 2024 14:50:22 +0000
+Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
+ (pdx2-ws-svc-p26-lb5-vlan2.pdx.amazon.com [10.39.38.66])
+ by email-inbound-relay-pdx-2c-m6i4x-5eae960a.us-west-2.amazon.com (Postfix)
+ with ESMTPS id 2A46340D66; Mon, 15 Jan 2024 14:50:21 +0000 (UTC)
+Received: from EX19MTAEUA001.ant.amazon.com [10.0.10.100:30023]
+ by smtpin.naws.eu-west-1.prod.farcaster.email.amazon.dev [10.0.36.219:2525]
+ with esmtp (Farcaster)
+ id b3361114-5814-41eb-b6f6-0f03ac11b31e; Mon, 15 Jan 2024 14:50:20 +0000 (UTC)
+Received: from EX19D018EUA002.ant.amazon.com (10.252.50.146) by
+ EX19MTAEUA001.ant.amazon.com (10.252.50.192) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Mon, 15 Jan 2024 14:50:20 +0000
+Received: from [192.168.9.238] (10.106.82.11) by EX19D018EUA002.ant.amazon.com
+ (10.252.50.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 15 Jan
+ 2024 14:50:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,247 +54,93 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0244fda4-b3b4-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 6a0bfcbe-b3b5-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705329620; x=1705934420; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PGc0X6Yaf/cUmP7O9RP4fKCBRUMgrpx1/OYaXtfQg1k=;
-        b=c8rwg4O9FQDUsc73rQ9+joRT4ZCz3fCZtRYWADVeG7JsmgG3/DMUmjwcWvZSAM0WSb
-         MvPEnJTg9pPy9iX6vEgkha8lB0obPYCWaURVQmnS0V+4VGTA1DdY/GgB7WP8s0zaoCeX
-         NO1UT7f9mOVLLqHw+/Zwj9cM0Ot2SAON/0EIvJ1Q8rYehbd+xhEDlwWGCnZyVOFfUaDF
-         5WhDdkJ/ncKLqZZSFFXL99UiPwVOcO0C/SJ9+3nXQRfJF9tyjAsRv7pKxbFdtpuuk+O4
-         pFoY9HdHG6Xb75Z5s8TxYiR1oFIBrUkVsiLu7DR81GwUwRFqDrKJV40AGuA8qZMrhX4u
-         swAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705329620; x=1705934420;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=PGc0X6Yaf/cUmP7O9RP4fKCBRUMgrpx1/OYaXtfQg1k=;
-        b=BS6C0IAbcIwfE7z8LGUL7QJF27TxQvB+a1B67kS/1+Ryw4H1fCRfK2PmxhQflYBPpX
-         TB8AuzWaBfY/eDZOQHMlWE7FZ61/yyMEWP2WLMlCtPv1nkee996wIBGfjYURZBFxNRUh
-         HnwFqPBGC6aYQfl7rnU93bKY9wiXMNHDjVFGmAwAnpfEvDuY42r4tvU6E6vPoMyzKMB8
-         TTe7Z5Jf2TJc+ZyWGxtuEemvs0Sm2Pv5aQHNLn5HfjWqnvv0a5QF8zmAkKeexNTY5ix1
-         HE9VtdR6cGYAXFN8jbu7hAatcTUcJuaypcLVheDwZOVUj0cg+fYrt+3U9RPhMtzCOvKR
-         yftQ==
-X-Gm-Message-State: AOJu0YwOY36IH+ZJmPyHDsmTAB4ASabeynI1NxL+3eIOHh3wLlfER/ls
-	QXhJNFzNcSPJ1iS+lz8sXKD2Dp7Ohik6Tv9Fhy8OCZkYpA==
-X-Google-Smtp-Source: AGHT+IEoPhR57xV8FSVKgZ6TMjy/XaNhigGL4lCN5GQks/jeVjwsFpysbxkv5z0/PeovruV90mmC5g==
-X-Received: by 2002:a5d:67cc:0:b0:337:4ce2:a601 with SMTP id n12-20020a5d67cc000000b003374ce2a601mr3282252wrw.76.1705329620403;
-        Mon, 15 Jan 2024 06:40:20 -0800 (PST)
-Message-ID: <5df1d87d-8e54-4e15-b1fb-46b274cb66ef@suse.com>
-Date: Mon, 15 Jan 2024 15:40:19 +0100
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1705330225; x=1736866225;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=meDL39+ncIXuHvEulZaOqvZaF2LlMEJqAeoyskQhtnQ=;
+  b=NT+T6B8/RnDi8nxyhL7kUS6wwgurkhhJNlnAqA3EKpBabXv06YF/RyIH
+   G8zb2wD5os5Y/dPhROv8oloxAvn8Mu2vdxLGaIUkhq2jZY+g9+s22tiEv
+   vF/woIczcEHrKxogs9x4OtWw0Uau9VVNhaRyE/0ncOEbnl/6qTLpWC+DF
+   Y=;
+X-IronPort-AV: E=Sophos;i="6.04,196,1695686400"; 
+   d="scan'208";a="178127180"
+X-Farcaster-Flow-ID: b3361114-5814-41eb-b6f6-0f03ac11b31e
+Message-ID: <fcfb79c5-0509-4ed3-be58-bd3d0935a21e@amazon.com>
+Date: Mon, 15 Jan 2024 14:50:11 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v5 8/8] common: honor CONFIG_CC_SPLIT_SECTIONS also for
- assembly functions
+Subject: Re: [PATCH 11/22] x86: add a boot option to enable and disable the
+ direct map
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
+CC: Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, "Bertrand
+ Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20221216114853.8227-1-julien@xen.org>
+ <20221216114853.8227-12-julien@xen.org>
+ <fc70f967-34bb-9569-f514-7a3208e746c6@suse.com>
+ <bc989828-69b9-4919-9ff3-fdd53fb2def1@amazon.com>
+ <c736e4d9-5262-4adf-9e74-9b1be5ab13db@suse.com>
+ <4ab710c3-c628-4bbe-9533-88af75a9b9ec@xen.org>
+ <ba63d435-e26f-4c76-aedc-c027e8b03a6d@suse.com>
+ <0dcc54dd-b729-4e20-95af-fa4907a550c6@amazon.com>
+ <6926f363-3994-4059-b7e1-cb8e45367be8@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Bobby Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
- <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
-Content-Type: text/plain; charset=UTF-8
+From: Elias El Yandouzi <eliasely@amazon.com>
+In-Reply-To: <6926f363-3994-4059-b7e1-cb8e45367be8@suse.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.106.82.11]
+X-ClientProxiedBy: EX19D038UWC003.ant.amazon.com (10.13.139.209) To
+ EX19D018EUA002.ant.amazon.com (10.252.50.146)
+Precedence: Bulk
 
-Leverage the new infrastructure in xen/linkage.h to also switch to per-
-function sections (when configured), deriving the specific name from the
-"base" section in use at the time FUNC() is invoked.
+Hi,
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-TBD: Since we use .subsection in UNLIKELY_START(), a perhaps not really
-     wanted side effect of this change is that respective out-of-line
-     code now moves much closer to its original (invoking) code.
+On 12/01/2024 07:47, Jan Beulich wrote:
+> On 11.01.2024 19:25, Elias El Yandouzi wrote:
+>> On 11/01/2024 14:09, Jan Beulich wrote:
+>>
+>> What about maddr_to_virt()? For instance, in the function
+>> xen/arch/x86/dmi_scan.c:dmi_iterate(), we need to access a very low
+>> machine address which isn't in the directmap range.
+> 
+> I'm afraid I don't follow: Very low addresses are always in the
+> direct map range, which - on x86 - always starts at 0.
+> 
 
-TBD: Of course something with the same overall effect, but less
-     impactful might do in Config.mk. E.g. $(filter-out -D%,$(3))
-     instead of $(firstword (3)).
+I reckon it was poorly phrased. IIUC, we'd like to remove every use of 
+*_to_virt() in the case the directmap option is disabled.
+So I meant that in this situation, the helper arch_mfns_in_direct_map() 
+would return false.
 
-TBD: On top of Roger's respective patch (for livepatch), also respect
-     CONFIG_FUNCTION_ALIGNMENT.
+>> How would you proceed? Calling vmap() seems to be a bit overkill for
+>> just a temporary mapping and I don't really want to rework this function
+>> to use map_domain_page().
+>>
+>> In such case, how would you proceed? What do you suggest?
+> 
+> fixmap may be an option to consider, but I also don't see why you
+> apparently think using vmap() would be a possibility while at the
+> same time making use of map_domain_page() is too much effort.
 
-Note that we'd need to split DATA() in order to separate r/w and r/o
-contributions. Further splitting might be needed to also support more
-advanced attributes (e.g. merge), hence why this isn't done right here.
-Sadly while a new section's name can be derived from the presently in
-use, its attributes cannot be. Perhaps the only thing we can do is give
-DATA() a 2nd mandatory parameter. Then again I guess most data
-definitions could be moved to C anyway.
----
-v5: Re-base over changes earlier in the series.
-v4: Re-base.
-v2: Make detection properly fail on old gas (by adjusting
-    cc-option-add-closure).
+I thought about using vmap() as it allows to map a contiguous region 
+easily. It is also used in the follow-up patch 17/22, so I thought it 
+could be viable.
 
---- a/Config.mk
-+++ b/Config.mk
-@@ -102,7 +102,7 @@ cc-option = $(shell if $(1) $(2:-Wno-%=-
- # Usage: $(call cc-option-add CFLAGS,CC,-march=winchip-c6)
- cc-option-add = $(eval $(call cc-option-add-closure,$(1),$(2),$(3)))
- define cc-option-add-closure
--    ifneq ($$(call cc-option,$$($(2)),$(3),n),n)
-+    ifneq ($$(call cc-option,$$($(2)),$(firstword $(3)),n),n)
-         $(1) += $(3)
-     endif
- endef
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -409,6 +409,9 @@ AFLAGS += -D__ASSEMBLY__
- 
- $(call cc-option-add,AFLAGS,CC,-Wa$$(comma)--noexecstack)
- 
-+# Check to see whether the assmbler supports the --sectname-subst option.
-+$(call cc-option-add,AFLAGS,CC,-Wa$$(comma)--sectname-subst -DHAVE_AS_SECTNAME_SUBST)
-+
- LDFLAGS-$(call ld-option,--warn-rwx-segments) += --no-warn-rwx-segments
- 
- CFLAGS += $(CFLAGS-y)
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -156,6 +156,9 @@ SECTIONS
-   .init.text : {
-        _sinittext = .;
-        *(.init.text)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+       *(.init.text.*)
-+#endif
-        _einittext = .;
-        . = ALIGN(PAGE_SIZE);        /* Avoid mapping alt insns executable */
-        *(.altinstr_replacement)
---- a/xen/arch/ppc/xen.lds.S
-+++ b/xen/arch/ppc/xen.lds.S
-@@ -104,6 +104,9 @@ SECTIONS
-     .init.text : {
-         _sinittext = .;
-         *(.init.text)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+        *(.init.text.*)
-+#endif
-         _einittext = .;
-         . = ALIGN(PAGE_SIZE);        /* Avoid mapping alt insns executable */
-     } :text
---- a/xen/arch/riscv/xen.lds.S
-+++ b/xen/arch/riscv/xen.lds.S
-@@ -104,6 +104,9 @@ SECTIONS
-     .init.text : {
-         _sinittext = .;
-         *(.init.text)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+        *(.init.text.*)
-+#endif
-         _einittext = .;
-         . = ALIGN(PAGE_SIZE);        /* Avoid mapping alt insns executable */
-     } :text
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -86,6 +86,9 @@ SECTIONS
-        . = ALIGN(PAGE_SIZE);
-        _stextentry = .;
-        *(.text.entry)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+       *(.text.entry.*)
-+#endif
-        . = ALIGN(PAGE_SIZE);
-        _etextentry = .;
- 
-@@ -214,6 +217,9 @@ SECTIONS
- #endif
-        _sinittext = .;
-        *(.init.text)
-+#ifdef CONFIG_CC_SPLIT_SECTIONS
-+       *(.init.text.*)
-+#endif
-        *(.text.startup)
-        _einittext = .;
-        /*
---- a/xen/include/xen/linkage.h
-+++ b/xen/include/xen/linkage.h
-@@ -19,6 +19,14 @@
- 
- #define SYM_ALIGN(align...) .balign align
- 
-+#if defined(HAVE_AS_SECTNAME_SUBST) && defined(CONFIG_CC_SPLIT_SECTIONS)
-+# define SYM_PUSH_SECTION(name, attr) \
-+         .pushsection %S.name, attr, %progbits; \
-+         .equ .Lsplit_section, 1
-+#else
-+# define SYM_PUSH_SECTION(name, attr)
-+#endif
-+
- #define SYM_L_GLOBAL(name) .globl name; .hidden name
- #define SYM_L_WEAK(name)   .weak name
- #define SYM_L_LOCAL(name)  /* nothing */
-@@ -33,7 +41,14 @@
-         SYM_ALIGN(align);                         \
-         name:
- 
--#define END(name) .size name, . - name
-+#define END(name) \
-+        .size name, . - name; \
-+        .ifdef .Lsplit_section; \
-+            .if .Lsplit_section; \
-+                .popsection; \
-+                .equ .Lsplit_section, 0; \
-+            .endif; \
-+        .endif
- 
- /*
-  * CODE_FILL in particular may need to expand to nothing (e.g. for RISC-V), in
-@@ -47,6 +62,7 @@
- #endif
- 
- #define FUNC(name, align...) \
-+        SYM_PUSH_SECTION(name, "ax"); \
-         SYM(name, FUNC, GLOBAL, DO_CODE_ALIGN(align))
- #define LABEL(name, align...) \
-         SYM(name, NONE, GLOBAL, DO_CODE_ALIGN(align))
-@@ -54,6 +70,7 @@
-         SYM(name, DATA, GLOBAL, LASTARG(DATA_ALIGN, ## align), DATA_FILL)
- 
- #define FUNC_LOCAL(name, align...) \
-+        SYM_PUSH_SECTION(name, "ax"); \
-         SYM(name, FUNC, LOCAL, DO_CODE_ALIGN(align))
- #define LABEL_LOCAL(name, align...) \
-         SYM(name, NONE, LOCAL, DO_CODE_ALIGN(align))
+I was reluctant to use map_domain_page() for two reasons. 1) it only 
+allows to map one page at the time, so I'd need to rework more deeply 
+the function dmi_iterate() 2) because the mapcache wouldn't be ready to 
+use at that time, the mapping would end up in PMAP which is meant to map 
+the page tables, nothing else.
 
+-- 
+Elias
 
