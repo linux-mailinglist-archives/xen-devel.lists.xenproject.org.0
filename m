@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AF4682DDE5
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 17:50:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667532.1038893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78E8B82DE0E
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 17:58:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667536.1038902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPQAR-0001Wm-Vz; Mon, 15 Jan 2024 16:50:31 +0000
+	id 1rPQHS-0003KK-Lx; Mon, 15 Jan 2024 16:57:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667532.1038893; Mon, 15 Jan 2024 16:50:31 +0000
+Received: by outflank-mailman (output) from mailman id 667536.1038902; Mon, 15 Jan 2024 16:57:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPQAR-0001Un-TG; Mon, 15 Jan 2024 16:50:31 +0000
-Received: by outflank-mailman (input) for mailman id 667532;
- Mon, 15 Jan 2024 16:50:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rPQHS-0003IF-JL; Mon, 15 Jan 2024 16:57:46 +0000
+Received: by outflank-mailman (input) for mailman id 667536;
+ Mon, 15 Jan 2024 16:57:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPQAQ-0001Uh-RB
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 16:50:30 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 309d442c-b3c6-11ee-98f1-6d05b1d4d9a1;
- Mon, 15 Jan 2024 17:50:29 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2cca8eb0509so109840981fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 08:50:29 -0800 (PST)
+ id 1rPQHQ-0003I6-R2
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 16:57:44 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3280d25a-b3c7-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 17:57:42 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-3377d45c178so4046482f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 08:57:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o15-20020a92c04f000000b0035ff59f9ffcsm2967233ilf.62.2024.01.15.08.50.28
+ h10-20020adf9cca000000b00337afd67f40sm743410wre.1.2024.01.15.08.57.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 08:50:28 -0800 (PST)
+ Mon, 15 Jan 2024 08:57:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 309d442c-b3c6-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 3280d25a-b3c7-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705337429; x=1705942229; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705337862; x=1705942662; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gGx3HHEx1eMnvP9RBHECTf+SVCi4B1rDNyRaJ7O+qMk=;
-        b=CVays0LEzBn1wk8I/yUf8nz53885EiM9ZBIg6ZmndHFvvNOspL/PM6mBQUWbHgzuIb
-         T+QdmvIKhYuSOCGhW2xPeRDJ5ulTM3hL+3tHJXQz2/Ub2JReuApil7nfh0LFuDI5Hpat
-         ZlwtEkrFTxgVJZfMHQS+MZCe6EJg1eBkC3MG5bTpMu5h5iEXtEE96bET7YDZxdZBuP/6
-         DmtCMBvFeW85XvSH+lW/GaQJQ3f8EyLRNwNtm0UBKhUKBzbkiPRIqEMxHMhCodXu0MwF
-         8Id0/JSb1oH/2Ucw0v8eIVQXYfr5N6mKYkWzpLqqMxiw/WFe4xR76Ty7XB27hMTEoSmK
-         l1pA==
+        bh=r4fSiXYYvn6DzFWiSOodaMBkMpNATUVGIXjGxzfXFrc=;
+        b=QOueYT0b1VKE13Wbq6alP0OVxcaTht0pHNO/g0AkA2lkspCkbaPbe6BKqSHQ2Tf60U
+         QNZm8znuqFRDpNM1TPkPal6TUed6P68X3VR+4FbRF5KMC/Trjhag4xRtozktr1vcTDAs
+         LNR1KmbbNpOydWNrKYOnDkv6hhcXg0/mxW0i6itGieQsBfc5r3bGhHJo58XF+7J9ATFs
+         1RZJe6uy29X3JN+0YFHPvsoxQe34epv6OEfpc3DRz+K6/Bj3fsFLsuKBUXzRCWwTgXlz
+         DB3DQ13gMK33u4BBRxmxmFYZXYQrtCND3NJmmXrVNhzJ/ptH3DivvmuRKmx9eDB23QUi
+         ZuFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705337429; x=1705942229;
+        d=1e100.net; s=20230601; t=1705337862; x=1705942662;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gGx3HHEx1eMnvP9RBHECTf+SVCi4B1rDNyRaJ7O+qMk=;
-        b=DAh8FsgUaoadd55Xjd45mdTIIf+An9SdxuOf46qSLFTI/+I5MOWoJnhjaNirN0P8fG
-         vxxSrHilSfDXinP/mQZPHmmAQq/0XhwL8RlKM52FzyzZ+2JMCkT5O7sdSWclrJVEmUcq
-         7BfQr78fw1k2K1zgvQuAJMDKsAj46d8es8Re28KSMbit4aSbBex5PU8QeGQ/YIYUX98e
-         aTyJGJ0KfhIwi5zIInQ8pLd5qOFUGTPzvMMukRHtW9bHuy0AMV5PUC2Fv6Xy19RFjJHT
-         cxnSG6XWAF75Agb/fJCBAW4LjVWfp3JlBo7bXeFuLE9Lms96tukjX8SnAzCX7WcxDwbQ
-         g7Yw==
-X-Gm-Message-State: AOJu0Yy1z7+4bsE06Ew+Be+RRQsFtMiVKcl3ZTvxT9nyLRQQAUlFAAi6
-	1RZSD4goq17KTfDZPda0niBmSbeXLeZz
-X-Google-Smtp-Source: AGHT+IFyGtT4/a8f7OfZqPF0OfhHdWPEf3deP0sOguX4asQ4lZdqizAHERimxt+7ss2sNy/+8Qqkug==
-X-Received: by 2002:a2e:968a:0:b0:2cc:fe00:c6ee with SMTP id q10-20020a2e968a000000b002ccfe00c6eemr2528890lji.95.1705337429071;
-        Mon, 15 Jan 2024 08:50:29 -0800 (PST)
-Message-ID: <39a0477d-a4ad-40e7-8a16-0b2d514e8097@suse.com>
-Date: Mon, 15 Jan 2024 17:50:26 +0100
+        bh=r4fSiXYYvn6DzFWiSOodaMBkMpNATUVGIXjGxzfXFrc=;
+        b=vKLPaXbgvXvmDap6uoU48djwDxxUl8IEy1/cuNbz+mEMAvgNrmROYATzgsPjqiID6+
+         NUYm5HS6zy3SPm4XOQ5hCmFqfcrWKvZMYq0M8WNzp7VhH0ez/vnKhQyqKp4rPlgW2D/R
+         Q1OkQGoABL+DJwPcm+/2qwEd55FxXwFtcXEsBK7gE2f/+8GCgseB5Aq/BvMnbz0ngBHC
+         QsFiOkvjwJGah0SvJRj3ds+1DhKTiakp9IqQNq9HJSa2NkOo4dKql0BtGAHjnzSj3vUn
+         Z0mudNstl7Oy5jGtttoxfL+u2N3x0Dm5E8ZEOX7vrowUh6rQZVE+vlhHZ9O/beJv2j0N
+         h0oA==
+X-Gm-Message-State: AOJu0YxevTWyzynLsJgU4LFpATDmapg3oQRn/aE3M5WFK8cQkoPIWKDG
+	CGll90QBKPeLfZRGt/UaYPIPm1zYSnV1
+X-Google-Smtp-Source: AGHT+IFNaOJXeqV4T+X3U07/HWezPTcGbhnyC0fHA7va+N46JC4ZHCkFl9BkPb8vXznL38FZatxONg==
+X-Received: by 2002:a05:6000:1089:b0:337:2994:15b7 with SMTP id y9-20020a056000108900b00337299415b7mr3227181wrw.125.1705337861716;
+        Mon, 15 Jan 2024 08:57:41 -0800 (PST)
+Message-ID: <895a60ba-547c-4064-9e4b-4ebf07dea5fb@suse.com>
+Date: Mon, 15 Jan 2024 17:57:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: HWP vs "xenpm get-cpufreq-..."
+Subject: Re: [PATCH v3 14/34] xen/riscv: introduce io.h
 Content-Language: en-US
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e2e66d36-5545-40e4-847d-be3b3a523944@suse.com>
- <CAKf6xpsdtUZ8ugO3rtdU1ZMSR=UzhxpGhe4XSef9odnVhofz0w@mail.gmail.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+ <5d2c032481792a3fe5bd5f1cae42d95f6e9b54b1.1703255175.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -109,50 +114,145 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKf6xpsdtUZ8ugO3rtdU1ZMSR=UzhxpGhe4XSef9odnVhofz0w@mail.gmail.com>
+In-Reply-To: <5d2c032481792a3fe5bd5f1cae42d95f6e9b54b1.1703255175.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 15.01.2024 17:45, Jason Andryuk wrote:
-> On Mon, Jan 15, 2024 at 11:04 AM Jan Beulich <jbeulich@suse.com> wrote:
->> I thought I'd try hwp on a SapphireRapids system, and of course - short
->> of easy other ways of seeing whether it actually has any apparent
->> effect - I've looked at "xenpm get-cpufreq-states" output. Just to find
->> that according to this, the system never enters any of the designated
->> Pn states (all CPUs are always claimed to be in P0), while at the same
->> time the P0 residencies remain in the hundreds of milliseconds. The
->> latter suggests CPUs do leave P0, yet it's then unclear what state they
->> are in during such time periods.
-> 
-> The `xenpm get-cpufreq-states` output may be stale under HWP.  If
-> normally the acpi-cpufreq driver is updating them, they won't be
-> updated under HWP.  I'll have to look into that more, but I guess they
-> shouldn't be returned under HWP.
+On 22.12.2023 16:12, Oleksii Kurochko wrote:
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/io.h
+> @@ -0,0 +1,142 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * {read,write}{b,w,l,q} based on arch/arm64/include/asm/io.h
+> + *   which was based on arch/arm/include/io.h
+> + *
+> + * Copyright (C) 1996-2000 Russell King
+> + * Copyright (C) 2012 ARM Ltd.
+> + * Copyright (C) 2014 Regents of the University of California
+> + */
+> +
+> +
+> +#ifndef _ASM_RISCV_IO_H
+> +#define _ASM_RISCV_IO_H
+> +
+> +#include <asm/byteorder.h>
+> +
+> +/*
+> + * The RISC-V ISA doesn't yet specify how to query or modify PMAs, so we can't
+> + * change the properties of memory regions.  This should be fixed by the
+> + * upcoming platform spec.
+> + */
+> +#define ioremap_nocache(addr, size) ioremap((addr), (size))
+> +#define ioremap_wc(addr, size) ioremap((addr), (size))
+> +#define ioremap_wt(addr, size) ioremap((addr), (size))
 
-Likely - anything that conveys no real information (and hence is at
-best confusing) would better be avoided.
+Nit: No need for the inner parentheses.
 
->> I was also a little puzzled when comparing "xenpm get-cpufreq-para"
->> output with hwp against that with acpi-cpufreq: The latter lists a range
->> of 800MHz ... 2501MHz, while with hwp base is 2500MHz and max is 4800MHz.
->>
->> Do you have any explanation for these apparent anomalies?
-> 
-> The 1 in 2501 indicates the ACPI entry for the turbo frequencies.
-> It's a limitation of the ACPI tables, AFAIU.  The tables weren't
-> designed for turbo mode where the thermal constraints dynamically
-> limit the maximum speed.  On systems I've looked at, there would also
-> be a 2500MHz ACPI entry, which matches the HWP base.
-> 
-> The HWP 2500MHz & 4800MHz values are taken from cpuid output - I feel
-> confident they are correct.  The output of `xenpm get-cpufreq-average`
-> under HWP looks reasonable for scaling all the way up to 4800MHz
-> (which can only be hit briefly before throttling down) - I think I've
-> only seen ~4700MHz as a maximum in my use, and they it may drop to
-> ~4200MHz for extended preiods.  Maybe try that command on your test
-> system?
+> +/* Generic IO read/write.  These perform native-endian accesses. */
+> +#define __raw_writeb __raw_writeb
+> +static inline void __raw_writeb(u8 val, volatile void __iomem *addr)
+> +{
+> +	asm volatile("sb %0, 0(%1)" : : "r" (val), "r" (addr));
+> +}
+> +
+> +#define __raw_writew __raw_writew
+> +static inline void __raw_writew(u16 val, volatile void __iomem *addr)
+> +{
+> +	asm volatile("sh %0, 0(%1)" : : "r" (val), "r" (addr));
+> +}
+> +
+> +#define __raw_writel __raw_writel
+> +static inline void __raw_writel(u32 val, volatile void __iomem *addr)
+> +{
+> +	asm volatile("sw %0, 0(%1)" : : "r" (val), "r" (addr));
+> +}
+> +
+> +#ifdef CONFIG_64BIT
+> +#define __raw_writeq __raw_writeq
+> +static inline void __raw_writeq(u64 val, volatile void __iomem *addr)
+> +{
+> +	asm volatile("sd %0, 0(%1)" : : "r" (val), "r" (addr));
+> +}
+> +#endif
+> +
+> +#define __raw_readb __raw_readb
+> +static inline u8 __raw_readb(const volatile void __iomem *addr)
+> +{
+> +	u8 val;
+> +
+> +	asm volatile("lb %0, 0(%1)" : "=r" (val) : "r" (addr));
+> +	return val;
+> +}
+> +
+> +#define __raw_readw __raw_readw
+> +static inline u16 __raw_readw(const volatile void __iomem *addr)
+> +{
+> +	u16 val;
+> +
+> +	asm volatile("lh %0, 0(%1)" : "=r" (val) : "r" (addr));
+> +	return val;
+> +}
+> +
+> +#define __raw_readl __raw_readl
+> +static inline u32 __raw_readl(const volatile void __iomem *addr)
+> +{
+> +	u32 val;
+> +
+> +	asm volatile("lw %0, 0(%1)" : "=r" (val) : "r" (addr));
+> +	return val;
+> +}
+> +
+> +#ifdef CONFIG_64BIT
+> +#define __raw_readq __raw_readq
+> +static inline u64 __raw_readq(const volatile void __iomem *addr)
+> +{
+> +	u64 val;
+> +
+> +	asm volatile("ld %0, 0(%1)" : "=r" (val) : "r" (addr));
+> +	return val;
+> +}
+> +#endif
+> +
+> +/*
+> + * Unordered I/O memory access primitives.  These are even more relaxed than
+> + * the relaxed versions, as they don't even order accesses between successive
+> + * operations to the I/O regions.
+> + */
+> +#define readb_cpu(c)		({ u8  __r = __raw_readb(c); __r; })
+> +#define readw_cpu(c)		({ u16 __r = le16_to_cpu((__force __le16)__raw_readw(c)); __r; })
+> +#define readl_cpu(c)		({ u32 __r = le32_to_cpu((__force __le32)__raw_readl(c)); __r; })
+> +
+> +#define writeb_cpu(v,c)		((void)__raw_writeb((v),(c)))
+> +#define writew_cpu(v,c)		((void)__raw_writew((__force u16)cpu_to_le16(v),(c)))
+> +#define writel_cpu(v,c)		((void)__raw_writel((__force u32)cpu_to_le32(v),(c)))
+> +
+> +#ifdef CONFIG_64BIT
+> +#define readq_cpu(c)		({ u64 __r = le64_to_cpu((__force __le64)__raw_readq(c)); __r; })
+> +#define writeq_cpu(v,c)		((void)__raw_writeq((__force u64)cpu_to_le64(v),(c)))
+> +#endif
 
-I'll try to remember to check that next time round.
+How come there are endianness assumptions here on the MMIO accessed?
+
+As a file-wide remark: While I don't mind you using u<N> here for now,
+presumably to stay close to Linux, eventually - as we make progress with
+the conversion to uint<N>_t - this will need to diverge anyway.
+
+> +/*
+> + * I/O memory access primitives. Reads are ordered relative to any
+> + * following Normal memory access. Writes are ordered relative to any prior
+> + * Normal memory access.  The memory barriers here are necessary as RISC-V
+> + * doesn't define any ordering between the memory space and the I/O space.
+> + */
+> +#define __io_br()	do {} while (0)
+
+Nit: Why are this and ...
+
+> +#define __io_ar(v)	__asm__ __volatile__ ("fence i,r" : : : "memory");
+> +#define __io_bw()	__asm__ __volatile__ ("fence w,o" : : : "memory");
+> +#define __io_aw()	do { } while (0)
+
+... this not expanding exactly the same?
 
 Jan
 
