@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0E9182DC27
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 16:14:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667462.1038743 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7356C82DC50
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 16:27:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667469.1038752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPOf5-0006Fe-UL; Mon, 15 Jan 2024 15:14:03 +0000
+	id 1rPOrF-0001XY-0E; Mon, 15 Jan 2024 15:26:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667462.1038743; Mon, 15 Jan 2024 15:14:03 +0000
+Received: by outflank-mailman (output) from mailman id 667469.1038752; Mon, 15 Jan 2024 15:26:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPOf5-0006E5-Qv; Mon, 15 Jan 2024 15:14:03 +0000
-Received: by outflank-mailman (input) for mailman id 667462;
- Mon, 15 Jan 2024 15:14:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rPOrE-0001US-Tr; Mon, 15 Jan 2024 15:26:36 +0000
+Received: by outflank-mailman (input) for mailman id 667469;
+ Mon, 15 Jan 2024 15:26:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tunR=IZ=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rPOf4-0006Dz-L0
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 15:14:02 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b6c13732-b3b8-11ee-98f1-6d05b1d4d9a1;
- Mon, 15 Jan 2024 16:14:01 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-40e80046246so2949455e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 07:14:01 -0800 (PST)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- r20-20020a05600c35d400b0040d8eca092esm20244013wmq.47.2024.01.15.07.14.00
+ <SRS0=Y0sJ=IZ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rPOrD-0001UM-2j
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 15:26:35 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7638cc81-b3ba-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 16:26:32 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-55965fd00aeso703531a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 07:26:32 -0800 (PST)
+Received: from localhost ([213.195.127.68]) by smtp.gmail.com with ESMTPSA id
+ k8-20020a056402048800b00558a6025397sm5326623edv.14.2024.01.15.07.26.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Jan 2024 07:14:01 -0800 (PST)
+ Mon, 15 Jan 2024 07:26:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,82 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6c13732-b3b8-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 7638cc81-b3ba-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705331641; x=1705936441; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+hzePe3fUFW6Q7NvaSwYvslxeKT/vQ8h/FWEisb5kGQ=;
-        b=peu09xLw/EhcmgdrcBxzILeZIuE3MFGjS24Kx+lPnRD6X6u1eltYu+f2tYIQhEBKKw
-         paKOGTdBLG+ajcc1iScGbM/Zr/EhCpegWCrA2xKOFZJiQb3kymP6xsPcYLoBMxRMD9/O
-         TkmDS1oTIcT5/S/drOE9fq+UqPsCZP9N1wIAM=
+        d=citrix.com; s=google; t=1705332392; x=1705937192; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Uyi7bdC/N/hyelN5IZYPeFrmv8yIwaedlu/QmVak+tA=;
+        b=IvVBfw09tuLWNpwUdUmOgEYASZFyGwFIkjcaqukhWA/2dj/gEm3J1EtGMceSOuH/eQ
+         OJs+017hCRnJIqRmVx5R+koF5oA071LBrG7X1/o481XmDpTzHn/7dw6B+ob0etzuVG7u
+         rQXqyfpIPvd7BgEzEmvjJHgJpHrwyBZkwBxws=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705331641; x=1705936441;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+hzePe3fUFW6Q7NvaSwYvslxeKT/vQ8h/FWEisb5kGQ=;
-        b=qJPgVQNcwmTf+mzKThtN48QxE2kV4ImrQTCPTEEKKSY7nFISVFdN7JFB4XzBxb1O4R
-         t/04zMo5aYyVtPtHQ1Hiyb5NVLNj1FektUARh4jeku5raLvRm33WqCSnAnH+Igw0/Yz4
-         MmIxGuYSQWMPuO5dfH/7kjXWfubvdm5Huh7+ulAKw0KxIXLe4iMPJFfnWf6jFAbodUYh
-         9CAvjM48GJ8bf2jIMtL7eDDQIzGPZhRfSMxMlovz1K+tcvsg6KGcGnaIVaL527w2w7za
-         vsegkFidYVW3KTaVNC9EjNfd8R4uU1GD5dWan+l7CvpUIO8ZfUzsDfNZmgARP66wg1Do
-         egPQ==
-X-Gm-Message-State: AOJu0YwqiCf/iV9n+tzcGDXlvMUKd6nRilv5+o/VFj48by18d5DvLWiu
-	ZwbawwSJocih+68pFdZzxzK0dZlI2kSuXA==
-X-Google-Smtp-Source: AGHT+IGng3lKWQ40PQR8nFimpuYG2bWbdlp/ufA/x+UJXbvAbom1GkwdcEorQC40nMa8OLtgtCm7vQ==
-X-Received: by 2002:a7b:cbd4:0:b0:40e:6529:37d with SMTP id n20-20020a7bcbd4000000b0040e6529037dmr2571675wmi.119.1705331641307;
-        Mon, 15 Jan 2024 07:14:01 -0800 (PST)
-Date: Mon, 15 Jan 2024 15:14:00 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
-	Jason Andryuk <jandryuk@gmail.com>
-Subject: Re: [PATCH v3 17/33] tools/xl: support new 9pfs backend xen-9pfsd
-Message-ID: <43cb6d28-34da-47b9-b61f-0be8298f9d8b@perard>
-References: <20240104090055.27323-1-jgross@suse.com>
- <20240104090055.27323-18-jgross@suse.com>
+        d=1e100.net; s=20230601; t=1705332392; x=1705937192;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Uyi7bdC/N/hyelN5IZYPeFrmv8yIwaedlu/QmVak+tA=;
+        b=LecfSpep8p0hcpB/UNi+oOgJa/Z8Dnje8FPqdKTfG+wTYxD6kbzZbZAdnRSkEbSvKj
+         idfjJ2cPpu+88wvcBgZPfZO1qpuQnjq8Hi/nnyncUvmtjqYM8PcAvSKPwxoTd2SyzuZZ
+         Q7e91eKDFZLWDFHWO/u1hjRqxgmXDpOLTuo3Jlr8w+fZS5CRXEP7lPD+hoP7+3i1gRkN
+         bf/pdSPS756rcQ8/MgdjMz60IkZlDLcLanMNJ48jY6BHDZ8WEP9b+QhUc4BsbTYqrzYo
+         MFnDB0QQnA2F3VfvASzHwMPenOObrin7wNhP6XYqybZCTlCgsEMcbYwxfDdSuzt4Sg2u
+         OoLg==
+X-Gm-Message-State: AOJu0Yw9vjEuQtiVtpRKwA/HcAHQBbyUERD4jzlGHrNsViAvA3Wg6tjY
+	g2uQlSPuAYr+IJ82HcaCgBUiZgWQkluB1g==
+X-Google-Smtp-Source: AGHT+IFuKDvY70ngqv07BBITMIxE/f1J3x2ajnlp3wRd4nrK8JVYOj/xqy41mvCkuNqPEgiQBZgxiw==
+X-Received: by 2002:aa7:cd62:0:b0:557:9018:9980 with SMTP id ca2-20020aa7cd62000000b0055790189980mr2736902edb.52.1705332391988;
+        Mon, 15 Jan 2024 07:26:31 -0800 (PST)
+Date: Mon, 15 Jan 2024 16:26:30 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, iwj@xenproject.org,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] osstest: bump /boot partition to 1G
+Message-ID: <ZaVOpt3H0-Pn8Zf9@macbook>
+References: <20240115141837.82983-1-roger.pau@citrix.com>
+ <b552ee37-c5c8-438e-98fe-ecebad296bf7@perard>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20240104090055.27323-18-jgross@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b552ee37-c5c8-438e-98fe-ecebad296bf7@perard>
 
-On Thu, Jan 04, 2024 at 10:00:39AM +0100, Juergen Gross wrote:
-> @@ -2242,6 +2256,28 @@ void parse_config_data(const char *config_source,
->  
->              libxl_string_list_dispose(&pairs);
->  
-> +            if (p9->type == LIBXL_P9_TYPE_UNKNOWN) {
-> +                p9->type = LIBXL_P9_TYPE_QEMU;
+On Mon, Jan 15, 2024 at 03:08:19PM +0000, Anthony PERARD wrote:
+> On Mon, Jan 15, 2024 at 03:18:37PM +0100, Roger Pau Monne wrote:
+> > Increase the size of the boot partition, as arm64 initrd is already exhausting
+> > all the space:
+> > 
+> > update-initramfs: Generating /boot/initrd.img-6.7.0+
+> > gzip: stdout: No space left on device
+> > 
+> > Reported-by: Jan Beulich <jbeulich@suse.com>
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> >  Osstest.pm | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/Osstest.pm b/Osstest.pm
+> > index 7776ba88c6e2..a559ca4ea8b6 100644
+> > --- a/Osstest.pm
+> > +++ b/Osstest.pm
+> > @@ -94,7 +94,7 @@ our %c = qw(
+> >      HostProp_GenEtherPrefixBase 5e:36:0e:f5
+> >  
+> >      HostDiskESP    300
+> > -    HostDiskBoot   300
+> > +    HostDiskBoot  1000
+> 
+> Did you tried this change on the arm32 machine as well? If so:
+> Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+> 
+> (Or I guess we can find out the result of the test on commit.)
 
-The defaulting is normally done in libxl, so that it works for all users
-of libxl. Can this be done instead in libxl? Hopefully, it's enough to
-do it in libxl__device_p9_setdefault().
+Only tested on the arm64 box, I can run a full flight, but we
+might as well send it to pre-test and see what we get.
 
-Same question for the followup checks and default values.
+Let me know if you are OK with that.
 
-> +            }
-> +            if (p9->type == LIBXL_P9_TYPE_QEMU &&
-> +                (p9->max_files || p9->max_open_files || p9->max_space ||
-> +                 p9->auto_delete)) {
-> +                fprintf(stderr, "Illegal 9pfs parameter combination\n");
-> +                exit(1);
-> +            }
-> +            if (p9->type == LIBXL_P9_TYPE_XEN_9PFSD) {
-> +                if (!p9->tag) {
-> +                    replace_string(&p9->tag, "Xen");
-> +                }
-> +                if (!p9->path) {
-> +                    char *path;
-> +
-> +                    xasprintf(&path, XEN_LOG_DIR "/guests/%s", c_info->name);
-> +                    replace_string(&p9->path, path);
-> +                    free(path);
-> +                }
-> +            }
-
-Thanks,
-
--- 
-Anthony PERARD
+Thanks, Roger.
 
