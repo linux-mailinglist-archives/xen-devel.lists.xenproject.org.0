@@ -2,52 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D303682DC87
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 16:42:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667482.1038794 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5520382DC8B
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 16:44:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667488.1038802 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPP6e-0000Xs-Ui; Mon, 15 Jan 2024 15:42:32 +0000
+	id 1rPP8D-0001Jb-Ck; Mon, 15 Jan 2024 15:44:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667482.1038794; Mon, 15 Jan 2024 15:42:32 +0000
+Received: by outflank-mailman (output) from mailman id 667488.1038802; Mon, 15 Jan 2024 15:44:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPP6e-0000UR-QZ; Mon, 15 Jan 2024 15:42:32 +0000
-Received: by outflank-mailman (input) for mailman id 667482;
- Mon, 15 Jan 2024 15:42:32 +0000
+	id 1rPP8D-0001HB-9T; Mon, 15 Jan 2024 15:44:09 +0000
+Received: by outflank-mailman (input) for mailman id 667488;
+ Mon, 15 Jan 2024 15:44:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ghqi=IZ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1rPP6d-0000TC-VT
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 15:42:32 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20621.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::621])
+ <SRS0=nyhf=IZ=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1rPP8B-0001H3-Ks
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 15:44:07 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afbefa0a-b3bc-11ee-9b0f-b553b5be7939;
- Mon, 15 Jan 2024 16:42:29 +0100 (CET)
-Received: from MN2PR04CA0006.namprd04.prod.outlook.com (2603:10b6:208:d4::19)
- by CY8PR12MB7196.namprd12.prod.outlook.com (2603:10b6:930:58::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.21; Mon, 15 Jan
- 2024 15:42:25 +0000
-Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
- (2603:10b6:208:d4:cafe::7e) by MN2PR04CA0006.outlook.office365.com
- (2603:10b6:208:d4::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.23 via Frontend
- Transport; Mon, 15 Jan 2024 15:42:24 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Mon, 15 Jan 2024 15:42:24 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 15 Jan
- 2024 09:42:24 -0600
-Received: from [172.23.114.18] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Mon, 15 Jan 2024 09:42:22 -0600
+ id e9bdf737-b3bc-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 16:44:05 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a2e0be86878so117204266b.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 07:44:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,154 +40,330 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afbefa0a-b3bc-11ee-9b0f-b553b5be7939
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CWGKTIVKeOxsWiJTb18zYT0WOCdc5U3wgjEoGNFaL5VEnvf8pEb3MWsWKzYpw69z0xNrJ4ZVOzSze51Abw3kklkbmpNrvsxaFJlcP6sKdUt0vI2ecyfWCUG8oRBqrnVPNkFeRvuV2Ms2PQjFyR/itChzoabwVspk2zBFibUb+sBySChKdEevElhGjpdZ5pveBJMyPAj/gWPsYl601QAttFst7rGRqPs3gvegrXAhjOkd5+c/9atQ9uJWXa6RQbURblCWklsVN2/AW3ozndl6Uxs71AEMSGznxJwHIpG14qrs3zfsEpIWhT0tUBh6DriIt/BTVXHZI0QNA1Qkvg59mg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X8LyQ3kFZs9jUVPfPzYWAGrMiG0wFz6CBulE1PQ/kcE=;
- b=KJwPHYtH1Ef8Tom54z2UQBgfnN759fXIpmTkYy7xuNpGLZ+CcAt2ZjAx38Is6qB6yeTowUjQbkNpktOskEsm+Qyx6chDj5vt1ZW9DztkBTNH1X/SA6VSztqk+JlZPZq3OnfisZA+r3oqJx+dl1jOmTRSpxHfN3CFYv82tZ4CHzM5czk+7PazR0Ybzr3QZcZU7WzeRJkHWZj1++MqtVMtw82+sR0RLVVk6+EsrIpWED02RXpBi0W6jdsAw/sbfbt0chemAjIIbCmBqcwomC2NkrCCnpzTFf2oaYZNTLI6T9jMZAyj6tT8l7mqwKZk9xNWNVqm3/UYSyGkQ4p917kHoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X8LyQ3kFZs9jUVPfPzYWAGrMiG0wFz6CBulE1PQ/kcE=;
- b=seeQB8YtdXXdkHxUaKgl8CakDR6vjE+fUlGUH5bygc3JsID+SU5T9MVt13nD2cGH/BB1s0SYL+UPDsORYqLXDZzUL+ayL9yaUkSO8/p6mqrOf6g0Ye/AkbbZmmUevnfl2QbElojAnpYk8rTprVe16JLG1fGhUgX1Bm/6PAY8kZw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <ad4b7b5b-8abb-4693-9f7e-ef94bcb0d3a4@amd.com>
-Date: Mon, 15 Jan 2024 10:42:21 -0500
+X-Inumbo-ID: e9bdf737-b3bc-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1705333445; x=1705938245; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LJ+Dh41xEK+vcsGhMgIJAiumhJP32vBNNcJ2LshoHds=;
+        b=zypFcJJnfFEF4KRuyJoCEi3xBVS9ZlRudXraYqsop/iix5ZGuyraMklDTUr6rX8S1I
+         3UbUgt4sEhn8YfwS21VfauO8vXj0M2T/ID+tYqSQ6m66QwHVNG9izgKgR4IcmSp8K2Bp
+         qw4nXqqslukHHsy0/+/HWFnpt+WPKCDwpW1j/98x2RkQfu8casw/HzyopTR/I9JlzV4B
+         vtvu8GNl5AoPfSpg6biEj3obDFsSacFTKT4IcOIy3O2mnSTHpIrr24t0GF+7TbCdTpJm
+         DLJJGsvrutdt2oAqCFWEbU9CNNMG/cPqmbOS6M5dKAb/sgHzQ1wz5LRPcA1/hAMchH0S
+         jYew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705333445; x=1705938245;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LJ+Dh41xEK+vcsGhMgIJAiumhJP32vBNNcJ2LshoHds=;
+        b=LL2fgyDWLRP5aEB5DjDt7WYpkjPyRvRFjcn1qv50hURqUqIMvZY4Rt7avBhG5MSXqK
+         7ZJBMRvnZyy4CZ7qIWDhRgat7rdZgjpSoO9k2u9RW4HhktbdI5YZiwi48eEtzi22ANaX
+         nKv+8qDWU/jh1LW6a3giQg/Czc7211B/z+OFCnF1BWyDCSPCukYvhsNqgomamuN+8/Ra
+         7bwK6g/35KsyHnoCR4cVeOvAFtvKM0K8d9SUqG5Bf9F2ZfdI7Ag6qKk1iXExG5x/Oy2k
+         G/BO/IkfBfDmkovsBykS8Gv0BintsWzH4HYfXo6zlMtIKBw4eItmyxz2DeYaKwzX2LUF
+         jN/w==
+X-Gm-Message-State: AOJu0YwH6fmYgBkqR9IJx4d5b6MMjul6Po8S/r+ZVUmqQDKwIaKBxyYW
+	Igm/cje+xHh/vPFxNk5dURzcfTElNQO1EvD67X3V+8WOz98j/w==
+X-Google-Smtp-Source: AGHT+IGGNWC1+U10KVr9pKZWsn2JpWeDFE6AmhU7Y9/ohshiSkoC2gufp1FzgZ3Jx+uQ1NQ1JxRyZCr11pi4CStPimk=
+X-Received: by 2002:a17:906:bc89:b0:a2d:4474:8fc1 with SMTP id
+ lv9-20020a170906bc8900b00a2d44748fc1mr3349121ejb.50.1705333444662; Mon, 15
+ Jan 2024 07:44:04 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12.1 01/15] vpci: use per-domain PCI lock to protect vpci
- structure
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, Paul Durrant <paul@xen.org>, Volodymyr Babchuk
-	<volodymyr_babchuk@epam.com>, <xen-devel@lists.xenproject.org>
-References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-2-stewart.hildebrand@amd.com>
- <ZaFDS7uZgW5l0eHG@macbook> <590a157a-b9d4-4d2d-8aff-6584da3045c3@amd.com>
- <20240112181442.674031-1-stewart.hildebrand@amd.com>
- <34b4cbf1-989d-43a0-aaea-717f06a79960@suse.com>
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <34b4cbf1-989d-43a0-aaea-717f06a79960@suse.com>
+References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
+ <20240102095138.17933-14-carlo.nonato@minervasys.tech> <4553cc26-deb5-42ed-87b9-6cba2a5099eb@xen.org>
+ <CAG+AhRXHfGJksqUrPXoHqNze+D654jJV0kVYBZaPLYwccdEz5Q@mail.gmail.com>
+ <aa064f8f-d30e-4ac1-9239-daba5a806794@xen.org> <CAG+AhRXUPvKGu-y9qbVmhc0_ThCdxFvG=BYwCQMBH=mjo45qHw@mail.gmail.com>
+ <985e1a2a-45eb-496c-8043-5f0c3c9f7766@xen.org>
+In-Reply-To: <985e1a2a-45eb-496c-8043-5f0c3c9f7766@xen.org>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Mon, 15 Jan 2024 16:43:53 +0100
+Message-ID: <CAG+AhRVKbM-n8ieg-CMbRG-4RgUXMSZL=ZER8EAWvGJgpEzUwA@mail.gmail.com>
+Subject: Re: [PATCH v5 13/13] xen/arm: add cache coloring support for Xen
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Marco Solieri <marco.solieri@minervasys.tech>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|CY8PR12MB7196:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42303067-9fb2-4838-0eee-08dc15e09201
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	9DW+XHcZEZmKoPzO0j3hLhccyTPptkbC3tK+OaFSyFFwKdNNNpd3ic2hL+t3xZ0uR2oAensuxolUkKWWGKBVpOuDc2QmZ8X80qbZXdSDUrystzbSVRC8fRRP6d6LOInTdLOqCBASGONf2dno2Pmuf2jX6HAQxuzykGkvNNxm5uv2YT+M9M4shsqf+spShb0x3ecVZqXsXoFLUL5Iko80anZ9weebXOx4USD9R/C7/jfF0zb5G2zjItHiIfeF4QBjcGT3Be0JK8hW/I7AVk0OyJBspa4Mjq/JBDwi3Y01NHTPG/tXX+0gX51F+9dgH76sj8TnMiWqX4x3Mp2gt6x9xX3+K6dHOHJMJTUhBleSya3yLjWAMA6WRweWhOd4tGB7YqHXtGvUYCNg0zX5KWe8CGYNSXrNIAqWeib9MK/xoTWL4cEAEpPHyJywfl2/3RJ9wCF69f0ieAnMir8kCNE1bGplnRhdqr6jGNlTRQzaH2uGg10vkWdgS62ON8GnpSZsb/TjBx6KJ81I2nVo2Dq2MnmO8Xr+Yui4LDl/eo3HvwG9F2X32yeVDOSzGNSWsgyHtHfhgJEWOmFU1aRWvIF4H+0rPeRI/GoUDAS++VjtlIoZTYkSohBAUYsHxzJrOAK9PP1nXuWrJXtaUb++9nT0RNV89fYUxXnUpzOeIgpwmrljdXx3jqpvip8iMVFgfVH52ontiSnCW8n/gLfiD+7i8p2uxqoymg7VYNr/4n1XjCBHYPG6Wy92xUC1iD0haLcSNlDx01UR1nC1f1q5NN9zSlo5xtTwutd8Joo/ewWVhWiPxCjPhG87/5kh8WSQMIZS
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(396003)(346002)(39860400002)(376002)(230922051799003)(82310400011)(64100799003)(1800799012)(451199024)(186009)(46966006)(40470700004)(36840700001)(40480700001)(31686004)(40460700003)(66899024)(83380400001)(70586007)(81166007)(31696002)(86362001)(36756003)(356005)(70206006)(41300700001)(47076005)(36860700001)(5660300002)(82740400003)(426003)(54906003)(336012)(26005)(2616005)(478600001)(8936002)(316002)(16576012)(53546011)(44832011)(110136005)(2906002)(8676002)(4326008)(7416002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2024 15:42:24.5699
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42303067-9fb2-4838-0eee-08dc15e09201
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E4.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7196
+Content-Transfer-Encoding: quoted-printable
 
-On 1/15/24 03:58, Jan Beulich wrote:
-> On 12.01.2024 19:14, Stewart Hildebrand wrote:
->> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>
->> Use the per-domain PCI read/write lock to protect the presence of the
->> pci device vpci field. This lock can be used (and in a few cases is used
->> right away) so that vpci removal can be performed while holding the lock
->> in write mode. Previously such removal could race with vpci_read for
->> example.
->>
->> When taking both d->pci_lock and pdev->vpci->lock, they should be
->> taken in this exact order: d->pci_lock then pdev->vpci->lock to avoid
->> possible deadlock situations.
->>
->> 1. Per-domain's pci_lock is used to protect pdev->vpci structure
->> from being removed.
->>
->> 2. Writing the command register and ROM BAR register may trigger
->> modify_bars to run, which in turn may access multiple pdevs while
->> checking for the existing BAR's overlap. The overlapping check, if
->> done under the read lock, requires vpci->lock to be acquired on both
->> devices being compared, which may produce a deadlock. It is not
->> possible to upgrade read lock to write lock in such a case. So, in
->> order to prevent the deadlock, use d->pci_lock in write mode instead.
->>
->> All other code, which doesn't lead to pdev->vpci destruction and does
->> not access multiple pdevs at the same time, can still use a
->> combination of the read lock and pdev->vpci->lock.
->>
->> 3. Drop const qualifier where the new rwlock is used and this is
->> appropriate.
->>
->> 4. Do not call process_pending_softirqs with any locks held. For that
->> unlock prior the call and re-acquire the locks after. After
->> re-acquiring the lock there is no need to check if pdev->vpci exists:
->>  - in apply_map because of the context it is called (no race condition
->>    possible)
->>  - for MSI/MSI-X debug code because it is called at the end of
->>    pdev->vpci access and no further access to pdev->vpci is made
->>
->> 5. Use d->pci_lock around for_each_pdev and pci_get_pdev_by_domain
->> while accessing pdevs in vpci code.
->>
->> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
->> Suggested-by: Jan Beulich <jbeulich@suse.com>
->> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
->> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
->> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> While I know Roger did offer the tag with certain adjustments, ...
-> 
->> @@ -913,7 +911,12 @@ int vpci_msix_arch_print(const struct vpci_msix *msix)
->>              struct pci_dev *pdev = msix->pdev;
->>  
->>              spin_unlock(&msix->pdev->vpci->lock);
->> +            read_unlock(&pdev->domain->pci_lock);
->>              process_pending_softirqs();
->> +
->> +            if ( !read_trylock(&pdev->domain->pci_lock) )
->> +                return -EBUSY;
->> +
->>              /* NB: we assume that pdev cannot go away for an alive domain. */
->>              if ( !pdev->vpci || !spin_trylock(&pdev->vpci->lock) )
->>                  return -EBUSY;
-> 
-> ... I'm sure he was assuming you would get this right, in also
-> dropping the 1st-try-acquired lock when this 2nd try-lock fails.
+Hi Julien,
 
-Thanks for catching this, and I appreciate the suggestion. I'll make sure both locks are dropped if needed on all error paths in vpci_msix_arch_print(), and adjust vpci_dump_msi() accordingly.
+On Mon, Jan 15, 2024 at 12:18=E2=80=AFPM Julien Grall <julien@xen.org> wrot=
+e:
+> On 15/01/2024 10:11, Carlo Nonato wrote:
+> > Hi Julien,
+>
+> Hi Carlo,
+>
+> > On Sun, Jan 14, 2024 at 8:22=E2=80=AFPM Julien Grall <julien@xen.org> w=
+rote:
+> >>
+> >> Hi Carlo,
+> >>
+> >> On 13/01/2024 17:07, Carlo Nonato wrote:
+> >>>>> diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
+> >>>>> index 37b6d230ad..66b674eeab 100644
+> >>>>> --- a/xen/arch/arm/mmu/setup.c
+> >>>>> +++ b/xen/arch/arm/mmu/setup.c
+> >>>>> @@ -7,6 +7,7 @@
+> >>>>>
+> >>>>>     #include <xen/init.h>
+> >>>>>     #include <xen/libfdt/libfdt.h>
+> >>>>> +#include <xen/llc-coloring.h>
+> >>>>>     #include <xen/sizes.h>
+> >>>>>     #include <xen/vmap.h>
+> >>>>>
+> >>>>> @@ -39,6 +40,10 @@ DEFINE_PER_CPU(lpae_t *, xen_pgtable);
+> >>>>>     static DEFINE_PAGE_TABLE(cpu0_pgtable);
+> >>>>>     #endif
+> >>>>>
+> >>>>> +#ifdef CONFIG_LLC_COLORING
+> >>>>> +static DEFINE_PAGE_TABLE(xen_colored_temp);
+> >>>>> +#endif
+> >>>>
+> >>>> Does this actually need to be static?
+> >>>
+> >>> Why it shouldn't be static? I don't want to access it from another fi=
+le.
+> >>
+> >> My question was whether this could be allocated dynamically (or possib=
+ly
+> >> re-use an existing set of page tables). In particular with the fact th=
+at
+> >> we will need more than 1 page to cover the whole Xen binary.
+> >>
+> >> Looking at the use xen_colored_temp. This is pretty much the same as
+> >> xen_map[i] but with different permissions. So what you could do is
+> >> preparing xen_map[i] with very permissive permissions (i.e. RWX) and
+> >> then enforcing the permission once the TTBR has been switched.
+> >>
+> >> Something like that (tested without cache coloring):
+> >>
+> >> diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
+> >> index a3a263a5d94b..f7ac5cabf92c 100644
+> >> --- a/xen/arch/arm/mmu/setup.c
+> >> +++ b/xen/arch/arm/mmu/setup.c
+> >> @@ -306,7 +306,11 @@ void __init setup_pagetables(unsigned long
+> >> boot_phys_offset, paddr_t xen_paddr)
+> >>        p[0].pt.table =3D 1;
+> >>        p[0].pt.xn =3D 0;
+> >>
+> >> -    /* Break up the Xen mapping into pages and protect them separatel=
+y. */
+> >> +    /*
+> >> +     * Break up the Xen mapping into pages. We will protect the
+> >> +     * permissions later in order to allow xen_xenmap to be used for
+> >> +     * when relocating Xen.
+> >> +     */
+> >>        for ( i =3D 0; i < XEN_NR_ENTRIES(3); i++ )
+> >>        {
+> >>            vaddr_t va =3D XEN_VIRT_START + (i << PAGE_SHIFT);
+> >> @@ -315,13 +319,7 @@ void __init setup_pagetables(unsigned long
+> >> boot_phys_offset, paddr_t xen_paddr)
+> >>                break;
+> >>            pte =3D pte_of_xenaddr(va);
+> >>            pte.pt.table =3D 1; /* third level mappings always have thi=
+s bit
+> >> set */
+> >> -        if ( is_kernel_text(va) || is_kernel_inittext(va) )
+> >> -        {
+> >> -            pte.pt.xn =3D 0;
+> >> -            pte.pt.ro =3D 1;
+> >> -        }
+> >> -        if ( is_kernel_rodata(va) )
+> >> -            pte.pt.ro =3D 1;
+> >> +        pte.pt.xn =3D 0; /* Permissions will be enforced later. Allow
+> >> execution */
+> >>            xen_xenmap[i] =3D pte;
+> >>        }
+> >>
+> >> @@ -352,6 +350,37 @@ void __init setup_pagetables(unsigned long
+> >> boot_phys_offset, paddr_t xen_paddr)
+> >>
+> >>        switch_ttbr(ttbr);
+> >>
+> >> +    /* Protect Xen */
+> >> +    for ( i =3D 0; i < XEN_NR_ENTRIES(3); i++ )
+> >> +    {
+> >> +        vaddr_t va =3D XEN_VIRT_START + (i << PAGE_SHIFT);
+> >> +        lpae_t *entry =3D xen_xenmap + i;
+> >> +
+> >> +        if ( !is_kernel(va) )
+> >> +            break;
+> >> +
+> >> +        pte =3D read_atomic(entry);
+> >> +
+> >> +        if ( is_kernel_text(va) || is_kernel_inittext(va) )
+> >> +        {
+> >> +            pte.pt.xn =3D 0;
+> >> +            pte.pt.ro =3D 1;
+> >> +        } else if ( is_kernel_rodata(va) ) {
+> >> +            pte.pt.ro =3D 1;
+> >> +            pte.pt.xn =3D 1;
+> >> +        } else {
+> >> +            pte.pt.xn =3D 1;
+> >> +            pte.pt.ro =3D 0;
+> >> +        }
+> >> +
+> >> +        write_pte(entry, pte);
+> >> +    }
+> >> +
+> >> +    /*
+> >> +     * We modified live page-tables. Ensure the TBLs are invalidated
+> >> +     * before setting enforcing the WnX permissions.
+> >> +     */
+> >> +    flush_xen_tlb_local();
+> >>        xen_pt_enforce_wnx();
+> >>
+> >>    #ifdef CONFIG_ARM_32
+> >
+> > I understand what you're talking about, and it seems reasonable to get =
+rid of
+> > xen_colored_temp[] and create_llc_coloring_mappings() since in the end =
+they
+> > serve the purpose of mapping the physically colored space that is alrea=
+dy
+> > mapped using xen_xenmap[] pagetables.
+> > What I don't understand is then how to copy/relocate Xen since I don't =
+have a
+> > destination virtual space anymore to use in relocate_xen().
+>
+> You will need to link xen_xenmap[] in boot_second[...] as well. With
+> that, you will be able to access the new Xen through the temporary area.
 
-> Personally I feel this is the kind of change one would better not
-> offer (or take) R-b ahead of time.
+Wouldn't it result in overwriting the current virtual space mapping?
+boot_second is the live page table and if I link xen_xenmap[] then
+XEN_VIRT_START would point to the new colored space which is still empty at
+this stage...
 
-I'll drop Roger's R-b for v12.2.
+> [...]
+>
+> >> Note that this means the init_ttbr cannot be written directly. But you
+> >> can solve this problem by re-mapping the address.
+> >
+> > How to remap a single address?
+>
+> You should be able to use map_domain_page() to map the page where
+> init_ttbr is.
+>
+> > And if moving init_ttbr in the identity-mapped area means that it's no =
+longer
+> > writable, so that I need to remap it, why moving it in that area in the=
+ first
+> > place. Again I think I'm missing something.
+>
+> The goal is to have everything used (code, data) before the MMU is
+> turned on residing in a single page. So secondary CPUs can directly jump
+> to the colored Xen without any trouble.
 
-> 
-> I further think the respective comment in vpci_dump_msi() also wants
-> adjusting from singular to plural.
+This is what confuses me. Why having everything on a single page makes
+secondary cpus able to jump directly to colored Xen? (also see below)
 
-I'll fix for v12.2, thanks for suggesting this.
+> >>>
+> >>> 3) To access the identity mapping area I would need some accessor tha=
+t takes
+> >>> an address and returns it + phys_offset, or is there a better way to =
+do it?
+> >>
+> >> I am not sure I understand what you mean. Can you clarify?
+> >
+> > In my idea, I would use the identity mapping to access the "old" variab=
+les,
+> > where "old" means non physically colored. init_ttbr is an example. When
+> > Xen it's copied on the new physical space, init_ttbr is copied with it =
+and
+> > if the boot cpu modifies this variable, it's actually touching the colo=
+red
+> > one and not the old one. This means that secondary CPUs that still have=
+n't
+> > jumped to the new space, won't be able to see the new value and will ne=
+ver
+> > go online.
+> > So to access this "old" init_ttbr variable I need it's identity address=
+,
+> > which is its current virtual address + some physical offset. I was aski=
+ng
+> > you if this is the right approach to use the identity mapping.
+>
+> Secondary CPUs would directly start on the colored Xen. So they will be
+> able to access the "new" init_ttbr & co.
+
+How can this be true? I mean, in call_psci_cpu_on() I can start those CPUs =
+in
+the colored space, but they still use the boot_* pagetables and there I can=
+'t
+easily link the new colored space, or, at least, I'm not succeding in doing
+that. What I tried at the moment is to link xen_xenmap in boot_second after
+switch_ttbr because of the problem I described above. But then secondary
+CPUs never go online...
+
+> [...]
+>
+> >> ... as I wrote ealier your current approach seems to have a flaw. As y=
+ou
+> >> overwrite xen_bootmodule->{start, size}. setup_mm() will end up to add
+> >> the old Xen region to the boot allocator. This is before any secondary
+> >> CPUs are booted up.
+> >>
+> >> IOW, the allocator may provide some memory from the old Xen and nothin=
+g
+> >> good will happen from that.
+> >>
+> >> The only way to solve it is to add another module. So the memory is
+> >> skipped by setup_mm(). However see below.
+> >>
+> >>>
+> >>> Yes that should be memory that in the end would not be needed so it m=
+ust
+> >>> return to the boot-allocator (if that's what you mean). But how to do
+> >>> that?
+> >>
+> >> You can't really discard the old temporary Xen. This may work today
+> >> because we don't support CPU hotplug or suspend/resume. But there was
+> >> some series on the ML to enable it and I don't see any reason why
+> >> someone would not want to use the features with cache coloring.
+> >>
+> >> So the old temporary Xen would have to be kept around forever. This is
+> >> up to 8MB of memory wasted.
+> >>
+> >> The right approach is to have the secondary CPU boot code (including t=
+he
+> >> variables it is using) fitting in the same page (or possibly multiple =
+so
+> >> long this is small and physically contiguous). With that it doesn't
+> >> matter where is the trampoline, it could stay at the old place, but we
+> >> would only waste a few pages rather than up 8MB as it is today.
+> >
+> > So what are you suggesting is to create a new section in the linker scr=
+ipt
+> > for the trampoline code and data,
+>
+> We already have a section for that in place (see .idmap.*) which happens
+> to be at the beginning of Xen. Right now, the section is in text. Which
+> is why it is read-only executable.
+>
+> > then in setup_mm() we would skip this
+> > memory?
+>
+> We should not need this. Secondary boot CPUs should boot direclty on the
+> colored Xen.
+>
+> > Am I following you correctly? Sorry those topics are a little out
+> > of my preparation as you probably already guessed.
+>
+> No worries. I am happy to go in as much details as necessary. I can also
+> attempt to write a patch if that helps. (unless someone else in the Arm
+> maintainers want to give a try).
+
+Yes this would help. Thanks.
+
+>
+> Cheers,
+>
+> --
+> Julien Grall
 
