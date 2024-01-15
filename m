@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CDD382D58A
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 10:07:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667230.1038283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0212D82D595
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 10:12:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667235.1038292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPIw3-0004d7-BU; Mon, 15 Jan 2024 09:07:11 +0000
+	id 1rPJ0v-0006e5-0y; Mon, 15 Jan 2024 09:12:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667230.1038283; Mon, 15 Jan 2024 09:07:11 +0000
+Received: by outflank-mailman (output) from mailman id 667235.1038292; Mon, 15 Jan 2024 09:12:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPIw3-0004bi-89; Mon, 15 Jan 2024 09:07:11 +0000
-Received: by outflank-mailman (input) for mailman id 667230;
- Mon, 15 Jan 2024 09:07:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rPJ0u-0006bg-UW; Mon, 15 Jan 2024 09:12:12 +0000
+Received: by outflank-mailman (input) for mailman id 667235;
+ Mon, 15 Jan 2024 09:12:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPIw1-0004bc-O0
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 09:07:09 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75551a1d-b385-11ee-9b0f-b553b5be7939;
- Mon, 15 Jan 2024 10:07:07 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-50e9e5c97e1so10536339e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 01:07:07 -0800 (PST)
+ id 1rPJ0t-0006bY-FC
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 09:12:11 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 299b1df8-b386-11ee-98f1-6d05b1d4d9a1;
+ Mon, 15 Jan 2024 10:12:10 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40e80046264so727315e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 01:12:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t30-20020a02b19e000000b0046d950cf82bsm2200479jah.85.2024.01.15.01.07.05
+ k9-20020a05600c1c8900b0040d772030c2sm15067359wms.44.2024.01.15.01.12.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 01:07:06 -0800 (PST)
+ Mon, 15 Jan 2024 01:12:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75551a1d-b385-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 299b1df8-b386-11ee-98f1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705309627; x=1705914427; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=suse.com; s=google; t=1705309929; x=1705914729; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=7lTwm/RchhPfKQClcsMYPVfiFqGv8zg/eFQBRH1aqGw=;
-        b=YC6zwR0bPs4STKg4hroNG5+QgQtrXbOTmMw5vwpnv+n9QKk1NtqokSA1jMkyqU1hk1
-         oD0eCDbcuywsIZDM5WbibGfEOw+nI5K0dR568J5DNAyzSd/h282F2+T/cjPkxWlNC0p4
-         4897t097eipfkgcNIpWVzaaIO6ZAZdYxeJdS8+cKfi/NNktsmsr80XIl0OJ3HxgEpJ9u
-         NL0k3xkKh3JAojn0osA67lR4v+m01l/gL9YO4WQovmdOOeAXbp76VGR7eHzq3iL+2CX1
-         7DsPIZ9azvoIgC6ax7JbXH/BbSmqp3Cmxwov6zv61iahSGyJrJJ/FpZ6t/Fj2elz9XKy
-         YdgQ==
+        bh=CUIdAHMbyBcA5TI/c11EvN3FbqEVX14Ws80LcvSbcds=;
+        b=P8lIrR+PP5e7O/0kQ3IaDI6XsxLik3EGgpGR32dP2ngZiQ1r0JfZR5h3Yko+tyY32k
+         iBDhipqbhwZnPqOy4BR8gR551T/OhZK7hjBhlRcjchksSGIZlB84Rq/M9dTFHsBBNOZD
+         UEsMvwaI7YW3dJNppMWMNOZn/wls1+NIFpCigFwzy3+uJanU5IL7l3tDZZiLJWCcZbPo
+         2Aslz9KThs94tmbxNbwVVJzvfeuXCneKnKNaHkwCSg3FSPvPabNxyxExYxN89K2uk7YN
+         +x4vJtH4NM8M6qlRI+zdjT16or4znRPMaHw87qpfuMjniLM1/DPmK+fiHxLmssrY6hbK
+         xzwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705309627; x=1705914427;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=1e100.net; s=20230601; t=1705309929; x=1705914729;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7lTwm/RchhPfKQClcsMYPVfiFqGv8zg/eFQBRH1aqGw=;
-        b=WpPu/JdkZwibJ9ce9/ZslVdlzPj3hTDa3zrrse/q4h8hnyvm8N6MK8mic20TeOodK9
-         h0FZWPhT0UOVcr7vZNb+tePV1JQsQrM169Rp0oGb20OuqjL2TMOrDW8NcNJtyRuJjnA5
-         TfkFW5LjEwc7IRNyj07TWyJw8ZsFdLZcE99Gzp7OrLb4p2Z5O/y5aTNSQA7ifF4KLkKd
-         hN5sDQxWI4NvVabZp72YmoCu3uqbe4PFDf2aiU0pmJ91esOzAZfsPf+gHl76jRfMXZqs
-         QQD6lCc7Ey034UQWePdC1jRlBgoMZg9n8Kv6F+O0TQGs2fTsUjAfuiZXptJM6q5nlPTs
-         ZcBg==
-X-Gm-Message-State: AOJu0Yz+0ThmhK3tB7RK0rqZYqh/izapDFnPXrLqTw44pYtq8e6HPmD4
-	bWfY5fTfP5lIn/a8J8x7+zqT3o1a0yQq
-X-Google-Smtp-Source: AGHT+IHSs1iH3qQYiN0gDEEbCUZYDCg0PnStPvVs0K+4Akvy9Ay5Iway5xFwdfVDoP3Muy8izb2ykQ==
-X-Received: by 2002:ac2:4294:0:b0:50e:b301:f386 with SMTP id m20-20020ac24294000000b0050eb301f386mr1953929lfh.104.1705309627178;
-        Mon, 15 Jan 2024 01:07:07 -0800 (PST)
-Message-ID: <2e2bc9b7-f0c0-4924-89f6-8717e10266de@suse.com>
-Date: Mon, 15 Jan 2024 10:07:07 +0100
+        bh=CUIdAHMbyBcA5TI/c11EvN3FbqEVX14Ws80LcvSbcds=;
+        b=mCl27UMAToNHj7928YlVXMnILKOZjxkLHS4sWYJan/C1i6N260y2revPYnkJ+Y6PcG
+         0fem9Oz0O08j7AZiPwHnPRnhonAUbMjWDXbU+pj/J/YEr2lMi2SwbH+JQCix0vf8LB1Z
+         1NX1Q0GRbCglIGR/KyTUWN+43hxlOh/HeMBe5s5PdCgYJZ0Zln20seUlYklDCCV7IUgp
+         sMJLuucaqaejiYLxvzHAz6C6lp0Fj9z66JP2upgSfjyx2K3LcMv3RbuTVsSarOi6or42
+         kMcwMgHYnA3EAeQ7s7UXRywdQ4B1UF5KksDBNzBI/BxPsokhyCpJLfr+88SAL/lsI0AS
+         SlZw==
+X-Gm-Message-State: AOJu0YwfkwU3Do3h088gwXyfs2f/WARxvpUE3kR4bCj22l54A0wPwCOq
+	QaKtFbWJxYGcnl7/wSRWInelnH4YxxT2E+tJcILpJFcpKw==
+X-Google-Smtp-Source: AGHT+IFB9CehI+j208HVGlwOGQTTQxOaWyKHEwJXFaa/jF5WTe8IQ+NGn5OJmeEsFiwZ5pttjEM0bA==
+X-Received: by 2002:a05:600c:4686:b0:40e:3511:2c39 with SMTP id p6-20020a05600c468600b0040e35112c39mr3219720wmo.172.1705309929552;
+        Mon, 15 Jan 2024 01:12:09 -0800 (PST)
+Message-ID: <b6b92c4e-6331-4f32-8c98-312847537e26@suse.com>
+Date: Mon, 15 Jan 2024 10:12:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 09/15] vpci/header: program p2m with guest BAR view
+Subject: Re: [linux-linus test] 184346: regressions - FAIL
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-10-stewart.hildebrand@amd.com>
- <ZaFVhaVvpDljEgdM@macbook>
+To: osstest service owner <osstest-admin@xenproject.org>
+References: <osstest-184346-mainreport@xen.org>
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,38 +108,184 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZaFVhaVvpDljEgdM@macbook>
+In-Reply-To: <osstest-184346-mainreport@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 12.01.2024 16:06, Roger Pau Monné wrote:
-> On Tue, Jan 09, 2024 at 04:51:24PM -0500, Stewart Hildebrand wrote:
->> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->> +        /*
->> +         * Make sure that the guest set address has the same page offset
->> +         * as the physical address on the host or otherwise things won't work as
->> +         * expected.
->> +         */
->> +        if ( PAGE_OFFSET(bar->guest_addr) != PAGE_OFFSET(bar->addr) )
->> +        {
->> +            gprintk(XENLOG_G_WARNING,
->> +                    "%pp: Can't map BAR%d because of page offset mismatch: %lx vs %lx\n",
->                                            ^u
+On 15.01.2024 09:39, osstest service owner wrote:
+> flight 184346 linux-linus real [real]
+> flight 184349 linux-linus real-retest [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/184346/
+> http://logs.test-lab.xenproject.org/osstest/logs/184349/
 > 
-> Also when using the x modifier it's better to also use # to print the
-> 0x prefix.  You can also reduce the length of the message using
-> s/because of/due to/ IMO:
+> Regressions :-(
 > 
-> %pp: Can't map BAR%u due to offset mismatch: %lx vs %lx
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  test-arm64-arm64-xl-credit1  12 debian-install           fail REGR. vs. 184270
+>  test-arm64-arm64-xl-xsm      12 debian-install           fail REGR. vs. 184270
+>  test-arm64-arm64-xl          12 debian-install           fail REGR. vs. 184270
 
-Or even
+Taking this as example:
 
-%pp: can't map BAR%u - offset mismatch: %lx vs %lx
+gzip: stdout: No space left on device
 
-? Note also my use of lower-case 'c', which brings this log message in
-line with all pre-existing (prior to the whole series) vPCI log messages
-starting with "%pp: " (when not limiting to thus-prefixed there are a
-couple of "Failed to ..." outliers).
+No idea whether we've been running very close to the edge, or whether
+something caused a drastic increase of disk space requirements.
 
 Jan
+
+>  test-arm64-arm64-xl-thunderx 12 debian-install           fail REGR. vs. 184270
+>  test-arm64-arm64-xl-credit2  12 debian-install           fail REGR. vs. 184270
+>  test-arm64-arm64-libvirt-xsm 12 debian-install           fail REGR. vs. 184270
+> 
+> Tests which did not succeed, but are not blocking:
+>  test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184270
+>  test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184270
+>  test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184270
+>  test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184270
+>  test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184270
+>  test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184270
+>  test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184270
+>  test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184270
+>  test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+>  test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+>  test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+>  test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+>  test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+>  test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+>  test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+>  test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+>  test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+>  test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+>  test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+>  test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+>  test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+>  test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+>  test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+>  test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+>  test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+> 
+> version targeted for testing:
+>  linux                052d534373b7ed33712a63d5e17b2b6cdbce84fd
+> baseline version:
+>  linux                0dd3ee31125508cd67f7e7172247f05b7fd1753a
+> 
+> Last test of basis   184270  2024-01-07 20:42:19 Z    7 days
+> Failing since        184283  2024-01-08 20:10:43 Z    6 days   11 attempts
+> Testing same since   184338  2024-01-13 05:40:28 Z    2 days    4 attempts
+> 
+> ------------------------------------------------------------
+> 1701 people touched revisions under test,
+> not listing them all
+> 
+> jobs:
+>  build-amd64-xsm                                              pass    
+>  build-arm64-xsm                                              pass    
+>  build-i386-xsm                                               pass    
+>  build-amd64                                                  pass    
+>  build-arm64                                                  pass    
+>  build-armhf                                                  pass    
+>  build-i386                                                   pass    
+>  build-amd64-libvirt                                          pass    
+>  build-arm64-libvirt                                          pass    
+>  build-armhf-libvirt                                          pass    
+>  build-i386-libvirt                                           pass    
+>  build-amd64-pvops                                            pass    
+>  build-arm64-pvops                                            pass    
+>  build-armhf-pvops                                            pass    
+>  build-i386-pvops                                             pass    
+>  test-amd64-amd64-xl                                          pass    
+>  test-amd64-coresched-amd64-xl                                pass    
+>  test-arm64-arm64-xl                                          fail    
+>  test-armhf-armhf-xl                                          pass    
+>  test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+>  test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+>  test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+>  test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+>  test-amd64-amd64-libvirt-xsm                                 pass    
+>  test-arm64-arm64-libvirt-xsm                                 fail    
+>  test-amd64-amd64-xl-xsm                                      pass    
+>  test-arm64-arm64-xl-xsm                                      fail    
+>  test-amd64-amd64-qemuu-nested-amd                            fail    
+>  test-amd64-amd64-xl-pvhv2-amd                                pass    
+>  test-amd64-amd64-dom0pvh-xl-amd                              pass    
+>  test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+>  test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+>  test-amd64-amd64-freebsd11-amd64                             pass    
+>  test-amd64-amd64-freebsd12-amd64                             pass    
+>  test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+>  test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+>  test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+>  test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+>  test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+>  test-armhf-armhf-xl-arndale                                  pass    
+>  test-amd64-amd64-examine-bios                                pass    
+>  test-amd64-amd64-xl-credit1                                  pass    
+>  test-arm64-arm64-xl-credit1                                  fail    
+>  test-armhf-armhf-xl-credit1                                  pass    
+>  test-amd64-amd64-xl-credit2                                  pass    
+>  test-arm64-arm64-xl-credit2                                  fail    
+>  test-armhf-armhf-xl-credit2                                  pass    
+>  test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+>  test-amd64-amd64-examine                                     pass    
+>  test-arm64-arm64-examine                                     pass    
+>  test-armhf-armhf-examine                                     pass    
+>  test-amd64-amd64-qemuu-nested-intel                          pass    
+>  test-amd64-amd64-xl-pvhv2-intel                              pass    
+>  test-amd64-amd64-dom0pvh-xl-intel                            pass    
+>  test-amd64-amd64-libvirt                                     pass    
+>  test-armhf-armhf-libvirt                                     pass    
+>  test-amd64-amd64-xl-multivcpu                                pass    
+>  test-armhf-armhf-xl-multivcpu                                pass    
+>  test-amd64-amd64-pair                                        pass    
+>  test-amd64-amd64-libvirt-pair                                pass    
+>  test-amd64-amd64-xl-pvshim                                   pass    
+>  test-amd64-amd64-pygrub                                      pass    
+>  test-amd64-amd64-libvirt-qcow2                               pass    
+>  test-armhf-armhf-libvirt-qcow2                               pass    
+>  test-amd64-amd64-libvirt-raw                                 pass    
+>  test-arm64-arm64-libvirt-raw                                 pass    
+>  test-armhf-armhf-libvirt-raw                                 pass    
+>  test-amd64-amd64-xl-rtds                                     pass    
+>  test-armhf-armhf-xl-rtds                                     pass    
+>  test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+>  test-amd64-amd64-xl-shadow                                   pass    
+>  test-arm64-arm64-xl-thunderx                                 fail    
+>  test-amd64-amd64-examine-uefi                                pass    
+>  test-amd64-amd64-xl-vhd                                      pass    
+>  test-arm64-arm64-xl-vhd                                      pass    
+>  test-armhf-armhf-xl-vhd                                      pass    
+> 
+> 
+> ------------------------------------------------------------
+> sg-report-flight on osstest.test-lab.xenproject.org
+> logs: /home/logs/logs
+> images: /home/logs/images
+> 
+> Logs, config files, etc. are available at
+>     http://logs.test-lab.xenproject.org/osstest/logs
+> 
+> Explanation of these reports, and of osstest in general, is at
+>     http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+>     http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> 
+> Test harness code can be found at
+>     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> 
+> 
+> Not pushing.
+> 
+> (No revision log; it would be 204832 lines long.)
+> 
+
 
