@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B96B982D808
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 12:05:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667300.1038432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8148382D819
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 12:07:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667307.1038443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPKmT-0002FB-51; Mon, 15 Jan 2024 11:05:25 +0000
+	id 1rPKoi-0002nl-HJ; Mon, 15 Jan 2024 11:07:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667300.1038432; Mon, 15 Jan 2024 11:05:25 +0000
+Received: by outflank-mailman (output) from mailman id 667307.1038443; Mon, 15 Jan 2024 11:07:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPKmT-0002Cj-2C; Mon, 15 Jan 2024 11:05:25 +0000
-Received: by outflank-mailman (input) for mailman id 667300;
- Mon, 15 Jan 2024 11:05:24 +0000
+	id 1rPKoi-0002lE-E3; Mon, 15 Jan 2024 11:07:44 +0000
+Received: by outflank-mailman (input) for mailman id 667307;
+ Mon, 15 Jan 2024 11:07:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nyhf=IZ=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rPKmS-0002Cd-9H
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 11:05:24 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ id 1rPKog-0002l8-Uj
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 11:07:42 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fa131b70-b395-11ee-9b0f-b553b5be7939;
- Mon, 15 Jan 2024 12:05:22 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a28b2e1a13fso905367066b.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 03:05:22 -0800 (PST)
+ id 4cb82ac0-b396-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 12:07:41 +0100 (CET)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2cd33336b32so112240851fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 03:07:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,143 +40,268 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa131b70-b395-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 4cb82ac0-b396-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1705316722; x=1705921522; darn=lists.xenproject.org;
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1705316860; x=1705921660; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=q+1A3r8A/mtSHOVUpe7XomgsOGCCJ7c+QcdSEI0IBXs=;
-        b=Zi9/E3AKRMHrK38KnloeOPgJYtZzIEi++KA2LvuEcwOut2KFGG0Mh53Vna/+DPH/Y5
-         r6A/pu4ksF1nJabvLS3lo7W0VhSETubwyKr7ai92U3DY/F3h9oiz3TqbAzfH/ATVuNgW
-         aexISNHTEgNMQQnQxI2F5YOE0kbaMRRG2gnMaQOlwgROZ5nbt97cxA3A1EdlmnIoJDIt
-         MKlu8HGvvAj81c6OolcwrDmPYgk5vSLtMD3xUn1AM6aHBhigwZf3r3fVOSTpFavGG+Dz
-         bYQWUadJo8pQ2tzvBwxTo+mleYGBhYWNB9Mox7cB8Oet0QL2lGzq48/CmBZ0XJYkvfDd
-         we4w==
+        bh=TeVHDkO9IKAn0SnE591ikiHtFW1jLd3OhEB1XJbKsJg=;
+        b=R7CEekcchOrVeopjnnE7oOac1xit1UoRenOe4Blgwo23sQujOpuAbAci2pt4SbRgTE
+         SLPc3emxdYDMLhFlAizLZOQ4YilUPBMq4gLt6dSOCzA+So5Pn45attCAFyOYdTaydg5H
+         Mg/UWQY4Gbp+fj7LcxbCk7UVrIBCmaon8dqmMBRL+urVagV7h1JNlMY8rqvTrjFHC5pW
+         cRExZw2Feyrxg9RnpazrNQl2AAbmAW9oxR57XA7zBH72kDh0Max1Ts2WP2NmxacTI0wP
+         0A+mmSpDMZWzh6YZ15PP5rz2OoUyMUoNawGQCr9VRSU5cJox3VJANaN3jq0rPGw6RFVK
+         Ne3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705316722; x=1705921522;
+        d=1e100.net; s=20230601; t=1705316860; x=1705921660;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=q+1A3r8A/mtSHOVUpe7XomgsOGCCJ7c+QcdSEI0IBXs=;
-        b=jj8qVskm6afgmIzCgLH1X+dsDukmqP4HS0fSdWPihdtF54ebaKvo2muD6mQcdAK76V
-         Fp/ZLyg3LRhcVWDOW9G7I2RWIuIXXg5Sy/xhai10mNX2d+hgXlBaJIFGmarC1iNd+CSC
-         iDheZQ4mPaOgjopCojcbPezE8a4jfUBn7JHKp/Q7r6yNdjywXFrBu3zIKy/TgA6o2SMx
-         ZHx6/uWjiUgAeiVgI3OkJybnjRWVlf6MLz+3GLMTYhqCNqZs0FqEf2ekKOL/l78bK6zf
-         iwB+dlnVSvaFfcw5iEOkdJkhQFDD3RPsx+NvK4mKYDw10ToktiancU5f7/AEOQqh4JSw
-         isnw==
-X-Gm-Message-State: AOJu0YwCJulzPvNqZNnnBBh4Y9c2y9ZwMo6fBpalL22xo3e9+vQ8Qzus
-	3V47dCsRWE+XnzKhdDC5AUru1sFUCOWECoy/vCuw16X6T5Sxdg==
-X-Google-Smtp-Source: AGHT+IEXxsiJEK8g0TGxdQ1mNIa1GlA/I2w249GnNy8k4Y+86wKVOJgDbjuFCc36B1YBNbmfuxoqk5Je3+a1G+QX/+k=
-X-Received: by 2002:a17:907:a08b:b0:a28:d132:c4a9 with SMTP id
- hu11-20020a170907a08b00b00a28d132c4a9mr2795255ejc.17.1705316721876; Mon, 15
- Jan 2024 03:05:21 -0800 (PST)
+        bh=TeVHDkO9IKAn0SnE591ikiHtFW1jLd3OhEB1XJbKsJg=;
+        b=eMUkM10EnsiN0KqExPAbf5mdNQkkb9toO1MIR70MdRzR7r2IWCT30ZegrIqvZ1JVwt
+         NZH6eIemffrCSdo6cQOWIk9IVmnOrYoY6jR6neEH4vxwTylR7F95/pt4SFtuAFVMV8wg
+         XuLX8WMQxkQyigmAeSaeGiYr0D+o9lxTJ/rvkOUEEACF3s7h55i0nUtXQ4B14/pHwT/8
+         2jcy4BefmpSksMihIi8NMV65/t3wnuOwpQRbNYqvf4XJkM7DixR3VgNqNU6RBgdImW0z
+         BWfNG3dOtGc9abSopszSGrMr9eEVpS9o5AALVbVjJPNFy+ZqYbt16V+9zElTvyxOgKf/
+         X9zQ==
+X-Gm-Message-State: AOJu0YyIkrU5NaWl4399ZcqA38a3aHfC8RkuYSlHZGwpWCcwzMiuyUo2
+	0yQDnB2sg6dnB6Po5tcwvzyox+y5C1F1EDzWyJ5istBNXQgUOA==
+X-Google-Smtp-Source: AGHT+IFS2bZCDtelUD2IC2wmkkpOf0zmFg5Q/FR6T+lYalz1jK/OOpCbbPZlVKXTX9P9YTTIemUyrmHrFiYXnLa8Zzs=
+X-Received: by 2002:a2e:2410:0:b0:2cc:a5b8:efaf with SMTP id
+ k16-20020a2e2410000000b002cca5b8efafmr2453903ljk.55.1705316860235; Mon, 15
+ Jan 2024 03:07:40 -0800 (PST)
 MIME-Version: 1.0
 References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-3-carlo.nonato@minervasys.tech> <5eb9fa24-c95e-4ea0-84ef-be74c629c106@xen.org>
- <CAG+AhRW5Xxy7BHVhmfkBqbdeKqRz7E1Mrc7wNv6F+ecM4P_QPw@mail.gmail.com>
- <CAG+AhRUw23a92v7geAwoDX-vqPLTPUEg3uoyOTThiUzL1CTk7w@mail.gmail.com> <c31bf4a3-979a-4445-905c-6a5545f8a36b@xen.org>
-In-Reply-To: <c31bf4a3-979a-4445-905c-6a5545f8a36b@xen.org>
+ <20240102095138.17933-10-carlo.nonato@minervasys.tech> <7fbe9526-60cf-4844-8b48-58ab69ec1b29@suse.com>
+In-Reply-To: <7fbe9526-60cf-4844-8b48-58ab69ec1b29@suse.com>
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Mon, 15 Jan 2024 12:05:11 +0100
-Message-ID: <CAG+AhRUs_O5XKGTm+0x68PUGYHavdSC+tJ-F5jnyb=J-mLhG=Q@mail.gmail.com>
-Subject: Re: [PATCH v5 02/13] xen/arm: add cache coloring initialization
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, 
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
-	Marco Solieri <marco.solieri@minervasys.tech>
+Date: Mon, 15 Jan 2024 12:07:29 +0100
+Message-ID: <CAG+AhRXFME0hzhhpRaAZ8AfK3A-npHWcGf=pHw_feVEA7SkaiQ@mail.gmail.com>
+Subject: Re: [PATCH v5 09/13] xen: add cache coloring allocator for domains
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+	Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Julien,
+Hi Jan,
 
-On Thu, Jan 11, 2024 at 11:44=E2=80=AFAM Julien Grall <julien@xen.org> wrot=
-e:
-> On 11/01/2024 10:17, Carlo Nonato wrote:
-> > Hi Julien,
+On Tue, Jan 9, 2024 at 11:28=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
 >
-> Hi Carlo,
->
-> >>>> +bool __init llc_coloring_init(void)
-> >>>> +{
-> >>>> +    if ( !llc_way_size && !(llc_way_size =3D get_llc_way_size()) )
-> >>>> +    {
-> >>>> +        printk(XENLOG_ERR
-> >>>> +               "Probed LLC way size is 0 and no custom value provid=
-ed\n");
-> >>>> +        return false;
-> >>>> +    }
-> >>>> +
-> >>>> +    /*
-> >>>> +     * The maximum number of colors must be a power of 2 in order t=
-o correctly
-> >>>> +     * map them to bits of an address, so also the LLC way size mus=
-t be so.
-> >>>> +     */
-> >>>> +    if ( llc_way_size & (llc_way_size - 1) )
-> >>>> +    {
-> >>>> +        printk(XENLOG_WARNING "LLC way size (%u) isn't a power of 2=
-.\n",
-> >>>> +               llc_way_size);
-> >>>> +        llc_way_size =3D 1U << flsl(llc_way_size);
-> >>>> +        printk(XENLOG_WARNING
-> >>>> +               "Using %u instead. Performances will be suboptimal\n=
-",
-> >>>> +               llc_way_size);
-> >>>> +    }
-> >>>> +
-> >>>> +    nr_colors =3D llc_way_size >> PAGE_SHIFT;
-> >>>> +
-> >>>> +    if ( nr_colors < 2 || nr_colors > CONFIG_NR_LLC_COLORS )
-> >>>
-> >>> I didn't find any documentation explaining why we need at least two
-> >>> colors. I guess you want to make sure that there is a color for Xen a=
-nd
-> >>> domain. But I wonder what could wrong with just one color (other than
-> >>> been pointless)?
-> >>
-> >> Yes, it would just be pointless. I'll change it to 1.
+> On 02.01.2024 10:51, Carlo Nonato wrote:
+> > This commit adds a new memory page allocator that implements the cache
+> > coloring mechanism. The allocation algorithm enforces equal frequency
+> > distribution of cache partitions, following the coloring configuration =
+of a
+> > domain. This allows an even utilization of cache sets for every domain.
 > >
-> > Just wanted to correct myself here. Having just a single color introduc=
-es a
-> > clear sharing of the cache between Xen and domains. So it's not just
-> > pointless, but also inefficient. I would discourage such a configuratio=
-n, so I
-> > plan to better describe this with a range in the Kconfig option (see
-> > discussion in #1).
+> > Pages are stored in a color-indexed array of lists. Those lists are fil=
+led
+> > by a simple init function which computes the color of each page.
+> > When a domain requests a page, the allocator extract the page from the =
+list
+> > with the maximum number of free pages between those that the domain can
+> > access, given its coloring configuration.
+> >
+> > The allocator can only handle requests of order-0 pages. This allows fo=
+r
+> > easier implementation and since cache coloring targets only embedded sy=
+stems,
+> > it's assumed not to be a major problem.
 >
-> I understand this could be inneficient. But you are also allowing the
-> user to not specify the color configuration (at least for dom0less
-> domain). So the colors would end up to shared with everyone (including Xe=
-n).
+> I'm curious about the specific properties of embedded systems that makes
+> the performance implications of deeper page walks less of an issue for
+> them.
 >
-> I don't particularly mind which way you want to go, but I think we need
-> some coherency. If we want to avoid innefficiency, then we should
-> prevent all the setups.
+> Nothing is said about address-constrained allocations. Are such entirely
+> of no interest to domains on Arm, not even to Dom0 (e.g. for filling
+> Linux'es swiotlb)? Certainly alloc_color_heap_page() should at least
+> fail when it can't satisfy the passed in memflags.
+>
+> > ---
+> > v5:
+> > - Carlo Nonato as the new author
+> > - the colored allocator balances color usage for each domain and it sea=
+rches
+> >   linearly only in the number of colors (FIXME removed)
+>
+> While this addresses earlier concerns, meanwhile NUMA work has also
+> been progressing. What's the plan of interaction of coloring with it?
+>
+> > --- a/xen/arch/Kconfig
+> > +++ b/xen/arch/Kconfig
+> > @@ -47,3 +47,15 @@ config NR_LLC_COLORS
+> >         bound. The runtime value is autocomputed or manually set via cm=
+dline.
+> >         The default value corresponds to an 8 MiB 16-ways LLC, which sh=
+ould be
+> >         more than what needed in the general case.
+> > +
+> > +config BUDDY_ALLOCATOR_SIZE
+> > +     int "Buddy allocator reserved memory size (MiB)"
+> > +     default "64"
+> > +     depends on LLC_COLORING
+> > +     help
+> > +       Amount of memory reserved for the buddy allocator to work along=
+side
+> > +       the colored one. The colored allocator is meant as an alternati=
+ve to
+> > +       the buddy allocator because its allocation policy is by definit=
+ion
+> > +       incompatible with the generic one. Since the Xen heap is not co=
+lored
+> > +       yet, we need to support the coexistence of the two allocators a=
+nd some
+> > +       memory must be left for the buddy one.
+>
+> Imo help text should be about the specific option, not general
+> documentation. How about
+>
+>           Amount of memory reserved for the buddy allocator, to serve Xen=
+'s
+>           heap, to work alongside the colored one.
+>
+> or some such?
+>
+> > --- a/xen/arch/arm/llc-coloring.c
+> > +++ b/xen/arch/arm/llc-coloring.c
+> > @@ -30,6 +30,9 @@ static unsigned int __ro_after_init nr_colors =3D CON=
+FIG_NR_LLC_COLORS;
+> >  static unsigned int __ro_after_init dom0_colors[CONFIG_NR_LLC_COLORS];
+> >  static unsigned int __ro_after_init dom0_num_colors;
+> >
+> > +#define mfn_color_mask              (nr_colors - 1)
+>
+> This is used solely ...
+>
+> > +#define mfn_to_color(mfn)           (mfn_x(mfn) & mfn_color_mask)
+>
+> ... here, and this one in turn is used solely ...
+>
+> > @@ -312,6 +315,16 @@ int domain_set_llc_colors_from_str(struct domain *=
+d, const char *str)
+> >      return domain_check_colors(d);
+> >  }
+> >
+> > +unsigned int page_to_llc_color(const struct page_info *pg)
+> > +{
+> > +    return mfn_to_color(page_to_mfn(pg));
+> > +}
+>
+> ... here. What's the point in having those (private) macros?
 
-I definitely don't want to check for overlapping configurations since that
-could also be a desired setup, but I do want sane defaults. You found some
-inchoerency there cause Xen and the domains share one color. Maybe the best
-solution would be to have a default configuration for domains that doesn't
-overlap with the Xen one.
+They will be used in later patches (#13).
 
-Back to the original point, having a single color for the whole platform is
-just stupid, not only pointless. It defeats completely the coloring idea.
-On the other hand the default configuration is something that could have an
-application (still pretty "basic").
+> > @@ -1946,6 +1951,162 @@ static unsigned long avail_heap_pages(
+> >      return free_pages;
+> >  }
+> >
+> > +/*************************
+> > + * COLORED SIDE-ALLOCATOR
+> > + *
+> > + * Pages are grouped by LLC color in lists which are globally referred=
+ to as the
+> > + * color heap. Lists are populated in end_boot_allocator().
+> > + * After initialization there will be N lists where N is the number of
+> > + * available colors on the platform.
+> > + */
+> > +static struct page_list_head *__ro_after_init _color_heap;
+> > +static unsigned long *__ro_after_init free_colored_pages;
+>
+> It's "just" two pointers, but still - what use are they when ...
+>
+> > +/* Memory required for buddy allocator to work with colored one */
+> > +#ifdef CONFIG_LLC_COLORING
+>
+> ... this isn't defined?
+>
+> > +static unsigned long __initdata buddy_alloc_size =3D
+> > +    MB(CONFIG_BUDDY_ALLOCATOR_SIZE);
+> > +size_param("buddy-alloc-size", buddy_alloc_size);
+> > +
+> > +#define domain_num_llc_colors(d) ((d)->num_llc_colors)
+> > +#define domain_llc_color(d, i)   ((d)->llc_colors[(i)])
+>
+> Nit: No need to parenthesize i when used like this.
+>
+> > +#else
+> > +static unsigned long __initdata buddy_alloc_size;
+> > +
+> > +#define domain_num_llc_colors(d) 0
+> > +#define domain_llc_color(d, i)   0
+> > +#define page_to_llc_color(p)     0
+> > +#define get_nr_llc_colors()      0
+> > +#endif
+> > +
+> > +#define color_heap(color) (&_color_heap[color])
+> > +
+> > +void free_color_heap_page(struct page_info *pg, bool need_scrub)
+>
+> Likely applicable further down as well - this is dead code when
+> !CONFIG_LLC_COLORING. Besides me, Misra also won't like this. The
+> function also looks to want to be static, at which point DCE would
+> apparently take care of removing it (and others, and then hopefully
+> also the two static variables commented on above).
+>
+> > +struct page_info *alloc_color_heap_page(unsigned int memflags, struct =
+domain *d)
+>
+> I don't think d is written through in the function, so it wants to
+> be pointer-to-const.
+>
+> > +void __init init_color_heap_pages(struct page_info *pg, unsigned long =
+nr_pages)
+> > +{
+> > +    unsigned int i;
+> > +    bool need_scrub =3D (system_state < SYS_STATE_active &&
+>
+> Can this part of the condition be false, seeing we're in an __init
+> function?
 
-In patch #5 (dom0less) there is some contradiction where Xen panics when no
-configuration is provided. I also misuderstood your comment on that patch
-and it can't actually panic in that case, but instead use the default
-configuration.
+Nope. I'll drop it.
+
+> > +                       opt_bootscrub =3D=3D BOOTSCRUB_IDLE);
+> > +
+> > +    if ( buddy_alloc_size )
+> > +    {
+> > +        unsigned long buddy_pages =3D min(PFN_DOWN(buddy_alloc_size), =
+nr_pages);
+> > +
+> > +        init_heap_pages(pg, buddy_pages);
+> > +        nr_pages -=3D buddy_pages;
+> > +        buddy_alloc_size -=3D buddy_pages << PAGE_SHIFT;
+> > +        pg +=3D buddy_pages;
+> > +    }
+>
+> So whatever is passed into this function first is going to fill the
+> Xen heap, without regard to address. I expect you're sure this won't
+> cause issues on Arm. On x86 certain constraints exist which would
+> require lower address ranges to be preferred.
+>
+> > +void dump_color_heap(void)
+> > +{
+> > +    unsigned int color;
+> > +
+> > +    printk("Dumping color heap info\n");
+> > +    for ( color =3D 0; color < get_nr_llc_colors(); color++ )
+> > +        if ( free_colored_pages[color] > 0 )
+> > +            printk("Color heap[%u]: %lu pages\n",
+> > +                   color, free_colored_pages[color]);
+> > +}
+>
+> What's a typical range of number of colors on a system? I expect more
+> than 9, but I'm not sure about a reasonable upper bound. For the
+> output to be easy to consume, [%u] may want to become at least [%2u].
+
+16 or 32 colors are pretty typical. In the past we set an upper bound at
+128 colors.
 
 Thanks.
 
-> Cheers,
->
-> --
-> Julien Grall
+> Jan
 
