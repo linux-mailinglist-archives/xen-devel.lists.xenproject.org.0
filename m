@@ -2,49 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA9CC82DBD3
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 15:51:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667450.1038713 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63B2E82DC1E
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 16:09:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667454.1038722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPOIH-0007NY-GQ; Mon, 15 Jan 2024 14:50:29 +0000
+	id 1rPOZe-0003G2-W8; Mon, 15 Jan 2024 15:08:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667450.1038713; Mon, 15 Jan 2024 14:50:29 +0000
+Received: by outflank-mailman (output) from mailman id 667454.1038722; Mon, 15 Jan 2024 15:08:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPOIH-0007LL-Di; Mon, 15 Jan 2024 14:50:29 +0000
-Received: by outflank-mailman (input) for mailman id 667450;
- Mon, 15 Jan 2024 14:50:27 +0000
+	id 1rPOZe-0003FK-TS; Mon, 15 Jan 2024 15:08:26 +0000
+Received: by outflank-mailman (input) for mailman id 667454;
+ Mon, 15 Jan 2024 15:08:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3fTV=IZ=amazon.co.uk=prvs=737ebf78a=eliasely@srs-se1.protection.inumbo.net>)
- id 1rPOIF-0007Jt-H2
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 14:50:27 +0000
-Received: from smtp-fw-52004.amazon.com (smtp-fw-52004.amazon.com
- [52.119.213.154]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a0bfcbe-b3b5-11ee-9b0f-b553b5be7939;
- Mon, 15 Jan 2024 15:50:25 +0100 (CET)
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-pdx-2c-m6i4x-5eae960a.us-west-2.amazon.com) ([10.43.8.2])
- by smtp-border-fw-52004.iad7.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Jan 2024 14:50:22 +0000
-Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
- (pdx2-ws-svc-p26-lb5-vlan2.pdx.amazon.com [10.39.38.66])
- by email-inbound-relay-pdx-2c-m6i4x-5eae960a.us-west-2.amazon.com (Postfix)
- with ESMTPS id 2A46340D66; Mon, 15 Jan 2024 14:50:21 +0000 (UTC)
-Received: from EX19MTAEUA001.ant.amazon.com [10.0.10.100:30023]
- by smtpin.naws.eu-west-1.prod.farcaster.email.amazon.dev [10.0.36.219:2525]
- with esmtp (Farcaster)
- id b3361114-5814-41eb-b6f6-0f03ac11b31e; Mon, 15 Jan 2024 14:50:20 +0000 (UTC)
-Received: from EX19D018EUA002.ant.amazon.com (10.252.50.146) by
- EX19MTAEUA001.ant.amazon.com (10.252.50.192) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Mon, 15 Jan 2024 14:50:20 +0000
-Received: from [192.168.9.238] (10.106.82.11) by EX19D018EUA002.ant.amazon.com
- (10.252.50.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1118.40; Mon, 15 Jan
- 2024 14:50:16 +0000
+ <SRS0=tunR=IZ=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rPOZc-0003Do-L4
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 15:08:24 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eb898bd3-b3b7-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 16:08:20 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-40e760e5b49so12546475e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 07:08:20 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ h5-20020a05600c314500b0040e5e21cd7bsm16036394wmo.11.2024.01.15.07.08.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Jan 2024 07:08:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,93 +43,81 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a0bfcbe-b3b5-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: eb898bd3-b3b7-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1705330225; x=1736866225;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=meDL39+ncIXuHvEulZaOqvZaF2LlMEJqAeoyskQhtnQ=;
-  b=NT+T6B8/RnDi8nxyhL7kUS6wwgurkhhJNlnAqA3EKpBabXv06YF/RyIH
-   G8zb2wD5os5Y/dPhROv8oloxAvn8Mu2vdxLGaIUkhq2jZY+g9+s22tiEv
-   vF/woIczcEHrKxogs9x4OtWw0Uau9VVNhaRyE/0ncOEbnl/6qTLpWC+DF
-   Y=;
-X-IronPort-AV: E=Sophos;i="6.04,196,1695686400"; 
-   d="scan'208";a="178127180"
-X-Farcaster-Flow-ID: b3361114-5814-41eb-b6f6-0f03ac11b31e
-Message-ID: <fcfb79c5-0509-4ed3-be58-bd3d0935a21e@amazon.com>
-Date: Mon, 15 Jan 2024 14:50:11 +0000
+        d=citrix.com; s=google; t=1705331300; x=1705936100; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=K9rzUaYZpXYTEVeRrX4tj1tEK4S5W1ku9LxNIp/QaXc=;
+        b=j++JAe76lf+Ylj9eGYbaeIHkO9YwpKHLNewsrfJ9JI7m9nUoAbiGpW21mQhbxyTdGD
+         ahwyteFxmNwV9cPPCwDM4Fsmqm36Wa5eP1i8cTXRDjxtwqh8tebQbUWEwX6B9S/qXjAU
+         zHg0Mk/osXOcE+jv0YIcGyG47hfU1L6pkixMo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705331300; x=1705936100;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=K9rzUaYZpXYTEVeRrX4tj1tEK4S5W1ku9LxNIp/QaXc=;
+        b=lAdFe6sdtbG5qExTOC9jGSEIvkF1cHEHs7kdOAAEzBND+pnzL2q0w1+mVcX6GyzIoZ
+         AWk0FLn9Q5ruWGwZw5ZEfWs9uUVuPjkvc0NeQ8dFRPJaxo3CMBGhrPR97TsZy6JdSbWy
+         pwXD92slrPd57nJx87PpBmzLDqr2H06klQPq0dtE0UKREby+zv/jDxFrPCo99asZMT1p
+         bWtqJY2z6ZzsA9UnMx5fGYUHk+8lgOgMgK/ZR9yUsxtYc+XWZP+4RVXbYeinh9lMU6q2
+         uV/8eQaS4Tp8iM6xBHvRe6J/T1d+AuoH4f0bubuv75L7dmlzp6xNru9gthZ+3ZB6N/1O
+         83KA==
+X-Gm-Message-State: AOJu0YyEtNnLs+4wZI74BaNild0t1ImMYg9vs1EhpSkVQKi2KLPb0CN+
+	t2gZP7dHmP+z8QJW8IKPzPHF7bhUVeFCGA==
+X-Google-Smtp-Source: AGHT+IHjHfZST8cOJudRJHiiJkqeyNeIZVR2pL/XAulQ9cJEW05ul0HQPE2Y0v+WEu7vpW7JfXb+LQ==
+X-Received: by 2002:a7b:c8c4:0:b0:40e:43fa:b8b8 with SMTP id f4-20020a7bc8c4000000b0040e43fab8b8mr2170359wml.90.1705331300378;
+        Mon, 15 Jan 2024 07:08:20 -0800 (PST)
+Date: Mon, 15 Jan 2024 15:08:19 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, iwj@xenproject.org,
+	Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] osstest: bump /boot partition to 1G
+Message-ID: <b552ee37-c5c8-438e-98fe-ecebad296bf7@perard>
+References: <20240115141837.82983-1-roger.pau@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/22] x86: add a boot option to enable and disable the
- direct map
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-CC: Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Julien Grall <jgrall@amazon.com>,
-	<xen-devel@lists.xenproject.org>
-References: <20221216114853.8227-1-julien@xen.org>
- <20221216114853.8227-12-julien@xen.org>
- <fc70f967-34bb-9569-f514-7a3208e746c6@suse.com>
- <bc989828-69b9-4919-9ff3-fdd53fb2def1@amazon.com>
- <c736e4d9-5262-4adf-9e74-9b1be5ab13db@suse.com>
- <4ab710c3-c628-4bbe-9533-88af75a9b9ec@xen.org>
- <ba63d435-e26f-4c76-aedc-c027e8b03a6d@suse.com>
- <0dcc54dd-b729-4e20-95af-fa4907a550c6@amazon.com>
- <6926f363-3994-4059-b7e1-cb8e45367be8@suse.com>
-Content-Language: en-US
-From: Elias El Yandouzi <eliasely@amazon.com>
-In-Reply-To: <6926f363-3994-4059-b7e1-cb8e45367be8@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.106.82.11]
-X-ClientProxiedBy: EX19D038UWC003.ant.amazon.com (10.13.139.209) To
- EX19D018EUA002.ant.amazon.com (10.252.50.146)
-Precedence: Bulk
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240115141837.82983-1-roger.pau@citrix.com>
 
-Hi,
-
-On 12/01/2024 07:47, Jan Beulich wrote:
-> On 11.01.2024 19:25, Elias El Yandouzi wrote:
->> On 11/01/2024 14:09, Jan Beulich wrote:
->>
->> What about maddr_to_virt()? For instance, in the function
->> xen/arch/x86/dmi_scan.c:dmi_iterate(), we need to access a very low
->> machine address which isn't in the directmap range.
+On Mon, Jan 15, 2024 at 03:18:37PM +0100, Roger Pau Monne wrote:
+> Increase the size of the boot partition, as arm64 initrd is already exhausting
+> all the space:
 > 
-> I'm afraid I don't follow: Very low addresses are always in the
-> direct map range, which - on x86 - always starts at 0.
+> update-initramfs: Generating /boot/initrd.img-6.7.0+
+> gzip: stdout: No space left on device
 > 
-
-I reckon it was poorly phrased. IIUC, we'd like to remove every use of 
-*_to_virt() in the case the directmap option is disabled.
-So I meant that in this situation, the helper arch_mfns_in_direct_map() 
-would return false.
-
->> How would you proceed? Calling vmap() seems to be a bit overkill for
->> just a temporary mapping and I don't really want to rework this function
->> to use map_domain_page().
->>
->> In such case, how would you proceed? What do you suggest?
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> ---
+>  Osstest.pm | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> fixmap may be an option to consider, but I also don't see why you
-> apparently think using vmap() would be a possibility while at the
-> same time making use of map_domain_page() is too much effort.
+> diff --git a/Osstest.pm b/Osstest.pm
+> index 7776ba88c6e2..a559ca4ea8b6 100644
+> --- a/Osstest.pm
+> +++ b/Osstest.pm
+> @@ -94,7 +94,7 @@ our %c = qw(
+>      HostProp_GenEtherPrefixBase 5e:36:0e:f5
+>  
+>      HostDiskESP    300
+> -    HostDiskBoot   300
+> +    HostDiskBoot  1000
 
-I thought about using vmap() as it allows to map a contiguous region 
-easily. It is also used in the follow-up patch 17/22, so I thought it 
-could be viable.
+Did you tried this change on the arm32 machine as well? If so:
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
-I was reluctant to use map_domain_page() for two reasons. 1) it only 
-allows to map one page at the time, so I'd need to rework more deeply 
-the function dmi_iterate() 2) because the mapcache wouldn't be ready to 
-use at that time, the mapping would end up in PMAP which is meant to map 
-the page tables, nothing else.
+(Or I guess we can find out the result of the test on commit.)
+
+Thanks,
+
 
 -- 
-Elias
+Anthony PERARD
 
