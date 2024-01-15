@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8523382D891
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 12:49:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667332.1038493 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 403B782D892
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 12:50:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667335.1038503 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPLSP-0007Jw-LF; Mon, 15 Jan 2024 11:48:45 +0000
+	id 1rPLTa-00085C-UH; Mon, 15 Jan 2024 11:49:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667332.1038493; Mon, 15 Jan 2024 11:48:45 +0000
+Received: by outflank-mailman (output) from mailman id 667335.1038503; Mon, 15 Jan 2024 11:49:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPLSP-0007IM-Hm; Mon, 15 Jan 2024 11:48:45 +0000
-Received: by outflank-mailman (input) for mailman id 667332;
- Mon, 15 Jan 2024 11:48:44 +0000
+	id 1rPLTa-00082M-RC; Mon, 15 Jan 2024 11:49:58 +0000
+Received: by outflank-mailman (input) for mailman id 667335;
+ Mon, 15 Jan 2024 11:49:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JaYU=IZ=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rPLSO-0007ID-Hh
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 11:48:44 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rPLTZ-00082E-8R
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 11:49:57 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 07dcd2a5-b39c-11ee-9b0f-b553b5be7939;
- Mon, 15 Jan 2024 12:48:42 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-50e759ece35so9865985e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 03:48:42 -0800 (PST)
+ id 333d5c82-b39c-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 12:49:55 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40e69b3149fso28317355e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 03:49:55 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ay18-20020a05600c1e1200b0040e6f6a3dcbsm7472077wmb.5.2024.01.15.03.49.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jan 2024 03:49:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,94 +45,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07dcd2a5-b39c-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 333d5c82-b39c-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1705319322; x=1705924122; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bFIlhrybhO+sljsKgOTurLEBsQ668No2Ssxyu2yEUfQ=;
-        b=h4ClJs1VV+WZh4oGcDQgT3ndOVCvnbzVnyAeErxLxWJ89VdnINA+pZirxF9uDOn5JD
-         LFu90xD5Qyy8iBJFhFBcSxlXpx5SFhptTGD6ncOX/AHe+01f6OdaUW+0L+HXEQ/b/RfM
-         38WAna6bruLtrSfDSnBglzNzEkKB25r+xfaAA=
+        d=suse.com; s=google; t=1705319395; x=1705924195; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FQdtE2Uq0z7VNPl+S6ZtIaAnlNPEvujJTf+jCmkgdew=;
+        b=Nv/a1d4GxSb9u9aG8qF85eodBtbGzzRNN76dcrwK/a/THILsyqKLu2+KKVhg8tyghx
+         MfK+zhweWn4IRb54+uUJbVvXdZ0/9TnR4Boyd1NJW4/6dm2M6YeQJvcBuRE3Tk0nMZ84
+         W0UOpEsBMOCvU0Uwqzib9XtpwB7Ac5w5Apk8ZyDQRF4R90MbpombxIKQb36W4qV1CXf8
+         ZZSHR8PQAf/5MAugHgrvRdTsj2ZdK5Hpxw4cYvczZRdYhmYDP4Sxtoy2Ql567unDbdfc
+         QjJtFYU3mdVeCgVO19/6sHekbHR46VeDJ4DucAX78+5arZHbKO6ep200Tdj4mbfgtB+L
+         0OCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705319322; x=1705924122;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bFIlhrybhO+sljsKgOTurLEBsQ668No2Ssxyu2yEUfQ=;
-        b=fq9JN1Cix8jQzPSOfV70V+ckrit1DH0kPgvIWScO1qsbaKCGL25iACNakA0i053xFK
-         1nDgU2s6k0vbACf/tehjzeYFcuV4LJrhtofT5n6jfTu7k+Pw1BGGxZnoL4Za/1LAB40r
-         OmVKHdzIp0GB3dGc5i9432leiYNyiZS+q7WHJHT0A/7aON4p/d4sPkKB74nwa46kh7L5
-         XluJ7oKn89mM+ZRHz4iou/e5XZndvMcjnlp3OXeqwwGfZryqEaDTkflViGCIbplGLthd
-         spe5IcLa3NQsj3bm8TNqtsdKCkNgi3JabdYUk1CFv4b3NczQbhysGhuoXJ0ez91q18lj
-         AfuA==
-X-Gm-Message-State: AOJu0YyUWtMlj0r2MAgnz7GMPjwenbtO27hdGj79DyXcTUzxzPJMHlcq
-	GLB879K+fyuqQRmUVwlZDJyhsooxsINIEsXK7Ps2n3yDx3Bg3g==
-X-Google-Smtp-Source: AGHT+IHtUWQa5erx+MxhAgpsypVEmwtRRGihZqNMzfcFv0DNqbzTFJi4c+DnJUBffc0PpmjAZXqZkFCXNQcqjqRzSRY=
-X-Received: by 2002:a05:6512:2256:b0:50e:e168:9fcd with SMTP id
- i22-20020a056512225600b0050ee1689fcdmr2916492lfu.26.1705319321871; Mon, 15
- Jan 2024 03:48:41 -0800 (PST)
+        d=1e100.net; s=20230601; t=1705319395; x=1705924195;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FQdtE2Uq0z7VNPl+S6ZtIaAnlNPEvujJTf+jCmkgdew=;
+        b=TZaTCtSrYXBXZDzZ3IxZukOOeOzkmoaK6B34vurV6JrI7n/JHcVbhMM+t+dXxJr83a
+         KBNLV/Uyw+osgf5tUp5iyfm+kBMCcRMvIplUutXqZfimGVYe2+xwbNKk/uAfSQAu8Q97
+         J6vx74AXjVzW6kaoEepsuVzNe+fBuC3khJvqfBmzP2BOASVFEr4PGOMuXK15eDxy5nKj
+         6e86KpdqKA4w5bkYc3Q5Mmhd6UTiE+0MoExg3HEyJsNTd8K3hLK16CbxMLtUtPo4k6oU
+         xVRIVaAF5JKQx7uHeTF8vLuowm8p4LlibOYI0up+PBpPHY5NBZ+xv9xColYqkUoBE1kG
+         +Mbg==
+X-Gm-Message-State: AOJu0Yx57Qz0idaOMblCEGC7eGPr3pMR+cHhTbEKjUfEbov4fAuiD8zi
+	YJJVjPDWZFHYVg4EEH/k4jhFFSNAMOCQ
+X-Google-Smtp-Source: AGHT+IEZSs0u2it1KoXz++jouHWxbmoXlwi1pU7KVNSiF8dlJOzVCnhZkotChBd1q/wwQ1cdoRvvGw==
+X-Received: by 2002:a05:600c:2809:b0:40e:6272:b5a2 with SMTP id m9-20020a05600c280900b0040e6272b5a2mr2899485wmb.83.1705319394741;
+        Mon, 15 Jan 2024 03:49:54 -0800 (PST)
+Message-ID: <b86de549-4ebc-41d9-bf43-23dd7812614c@suse.com>
+Date: Mon, 15 Jan 2024 12:49:57 +0100
 MIME-Version: 1.0
-References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-12-stewart.hildebrand@amd.com> <CA+zSX=Z33cixDd1w10zwC-c80z-sB4E8Nu__nTNi30n-FW6GwA@mail.gmail.com>
- <39c114b7-2384-4209-bae5-edabb243226e@amd.com>
-In-Reply-To: <39c114b7-2384-4209-bae5-edabb243226e@amd.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 15 Jan 2024 11:48:30 +0000
-Message-ID: <CA+zSX=Zk4sSThR49xYY1eW8hiHwLq-jQ=ODcq9=6B+QO4RsqcA@mail.gmail.com>
-Subject: Re: [PATCH v12 11/15] vpci: add initial support for virtual PCI bus topology
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] x86/intel: ensure Global Performance Counter Control
+ is setup correctly
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240112110946.75582-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240112110946.75582-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jan 12, 2024 at 1:50=E2=80=AFPM Stewart Hildebrand
-<stewart.hildebrand@amd.com> wrote:
->
-> On 1/12/24 06:46, George Dunlap wrote:
-> > On Tue, Jan 9, 2024 at 9:54=E2=80=AFPM Stewart Hildebrand
-> > <stewart.hildebrand@amd.com> wrote:
-> >> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> >> index 37f5922f3206..b58a822847be 100644
-> >> --- a/xen/include/xen/sched.h
-> >> +++ b/xen/include/xen/sched.h
-> >> @@ -484,6 +484,14 @@ struct domain
-> >>       * 2. pdev->vpci->lock
-> >>       */
-> >>      rwlock_t pci_lock;
-> >> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-> >> +    /*
-> >> +     * The bitmap which shows which device numbers are already used b=
-y the
-> >> +     * virtual PCI bus topology and is used to assign a unique SBDF t=
-o the
-> >> +     * next passed through virtual PCI device.
-> >> +     */
-> >> +    DECLARE_BITMAP(vpci_dev_assigned_map, VPCI_MAX_VIRT_DEV);
-> >> +#endif
-> >>  #endif
-> >
-> > Without digging through the whole series, how big do we expect this
-> > bitmap to be on typical systems?
-> >
-> > If it's only going to be a handful of bytes, keeping it around for all
-> > guests would be OK; but it's large, it would be better as a pointer,
-> > since it's unused on the vast majority of guests.
->
-> Since the bitmap is an unsigned long type it will typically be 8 bytes, a=
-lthough only 4 bytes are actually used. VPCI_MAX_VIRT_DEV is currently fixe=
-d at 32, as we are only tracking D (not the whole SBDF) in the bitmap so fa=
-r.
+On 12.01.2024 12:09, Roger Pau Monne wrote:
+> When Architectural Performance Monitoring is available, the PERF_GLOBAL_CTRL
+> MSR contains per-counter enable bits that is ANDed with the enable bit in the
+> counter EVNTSEL MSR in order for a PMC counter to be enabled.
+> 
+> So far the watchdog code seems to have relied on the PERF_GLOBAL_CTRL enable
+> bits being set by default, but at least on some Intel Sapphire and Emerald
+> Rapids this is no longer the case, and Xen reports:
+> 
+> Testing NMI watchdog on all CPUs: 0 40 stuck
+> 
+> The first CPU on each package is started with PERF_GLOBAL_CTRL zeroed, so PMC0
+> doesn't start counting when the enable bit in EVNTSEL0 is set, due to the
+> relevant enable bit in PERF_GLOBAL_CTRL not being set.
+> 
+> Check and adjust PERF_GLOBAL_CTRL during CPU initialization so that all the
+> general-purpose PMCs are enabled.  Doing so brings the state of the package-BSP
+> PERF_GLOBAL_CTRL in line with the rest of the CPUs on the system.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-OK, that's fine with me.  (FYI I replied because I thought you needed
-my ack specifically for sched.h; looks like any of THE REST will do,
-however.)
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
- -George
+
 
