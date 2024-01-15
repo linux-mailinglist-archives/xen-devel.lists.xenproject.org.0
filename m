@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5152882D7FB
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 12:02:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667296.1038423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B96B982D808
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 12:05:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667300.1038432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPKj9-0001c4-OB; Mon, 15 Jan 2024 11:01:59 +0000
+	id 1rPKmT-0002FB-51; Mon, 15 Jan 2024 11:05:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667296.1038423; Mon, 15 Jan 2024 11:01:59 +0000
+Received: by outflank-mailman (output) from mailman id 667300.1038432; Mon, 15 Jan 2024 11:05:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPKj9-0001Zy-Kc; Mon, 15 Jan 2024 11:01:59 +0000
-Received: by outflank-mailman (input) for mailman id 667296;
- Mon, 15 Jan 2024 11:01:57 +0000
+	id 1rPKmT-0002Cj-2C; Mon, 15 Jan 2024 11:05:25 +0000
+Received: by outflank-mailman (input) for mailman id 667300;
+ Mon, 15 Jan 2024 11:05:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1TER=IZ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rPKj7-00016u-PC
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 11:01:57 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ <SRS0=nyhf=IZ=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1rPKmS-0002Cd-9H
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 11:05:24 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f2633f3-b395-11ee-9b0f-b553b5be7939;
- Mon, 15 Jan 2024 12:01:56 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a29058bb2ceso916985666b.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 03:01:56 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- a23-20020a1709062b1700b00a2a67731f31sm5099665ejg.109.2024.01.15.03.01.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 03:01:55 -0800 (PST)
+ id fa131b70-b395-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 12:05:22 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a28b2e1a13fso905367066b.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 03:05:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,99 +40,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f2633f3-b395-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: fa131b70-b395-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705316515; x=1705921315; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sv/QjmJSggjPLqJihTOZzuwyxSejKrYTfPobr1dVrQQ=;
-        b=pVUf6+cmCdpFt0ocvKCXjYgxrZ+PSkAsuny+/2jnusQkqCS09UlnKcWLNonTSfOIyL
-         cXhV7fwrg/flV72+l4PYHA6na1cZzh7fyn4t1J5m4sAG0J2bf5oZtGY8zD0cgT5SDhsJ
-         BXWJNawJ3+NroyrYMSPAb8iz8+nB2t54g5nvs=
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1705316722; x=1705921522; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=q+1A3r8A/mtSHOVUpe7XomgsOGCCJ7c+QcdSEI0IBXs=;
+        b=Zi9/E3AKRMHrK38KnloeOPgJYtZzIEi++KA2LvuEcwOut2KFGG0Mh53Vna/+DPH/Y5
+         r6A/pu4ksF1nJabvLS3lo7W0VhSETubwyKr7ai92U3DY/F3h9oiz3TqbAzfH/ATVuNgW
+         aexISNHTEgNMQQnQxI2F5YOE0kbaMRRG2gnMaQOlwgROZ5nbt97cxA3A1EdlmnIoJDIt
+         MKlu8HGvvAj81c6OolcwrDmPYgk5vSLtMD3xUn1AM6aHBhigwZf3r3fVOSTpFavGG+Dz
+         bYQWUadJo8pQ2tzvBwxTo+mleYGBhYWNB9Mox7cB8Oet0QL2lGzq48/CmBZ0XJYkvfDd
+         we4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705316515; x=1705921315;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sv/QjmJSggjPLqJihTOZzuwyxSejKrYTfPobr1dVrQQ=;
-        b=R59J+nrrRQdK+Ea8IBgRTBCdT2GVEp07Od4GSuKBqXdilprv7/GhTiOhPNj8alfvIT
-         ONO0E3vkhPAu70DNFBAJUf0Dig7K56mPfb7bhqsoldie53K6POgr3UT5ANdeQX9q3MTL
-         LxLhl+nhxYN6znIgqh+fA/5L4p78cAJwv2ltBaonthihrboCbU7v7liTnVb+80JCis6p
-         puQm9ErwpR6u7J4/xFQhjaVptcWl5F4oga/3WCv1zxQdXd7HEf1jqBoX+HaUPp24jKPj
-         kTjjn+p7lsAY6eRRBnjMmifmUdUgc1qMJct7m70QDtYUPevttNZ5MPUxPmpDDWNKULRo
-         NrhQ==
-X-Gm-Message-State: AOJu0YzhGcKi3NaMIWWrtg9W3lb35KgJt6dKCB8Aa+qNHOBGhJa4DZEQ
-	nwPisPcjdDkF0++dOIMdpiD20/c/3pa44qQuXiey8zCQxdAD2Q==
-X-Google-Smtp-Source: AGHT+IFaXXPlC1+6FrVwaTJiRLVNMZlmVksLEE2FQc+HCOuKqxdSNLtZnbOlTozYSaPfiiruPQ+CSQ==
-X-Received: by 2002:a17:907:830a:b0:a27:f865:4a14 with SMTP id mq10-20020a170907830a00b00a27f8654a14mr1457943ejc.141.1705316515544;
-        Mon, 15 Jan 2024 03:01:55 -0800 (PST)
-Message-ID: <854db64e-a3c1-4c2f-8a68-8557f7f5a5d1@citrix.com>
-Date: Mon, 15 Jan 2024 11:01:54 +0000
+        d=1e100.net; s=20230601; t=1705316722; x=1705921522;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=q+1A3r8A/mtSHOVUpe7XomgsOGCCJ7c+QcdSEI0IBXs=;
+        b=jj8qVskm6afgmIzCgLH1X+dsDukmqP4HS0fSdWPihdtF54ebaKvo2muD6mQcdAK76V
+         Fp/ZLyg3LRhcVWDOW9G7I2RWIuIXXg5Sy/xhai10mNX2d+hgXlBaJIFGmarC1iNd+CSC
+         iDheZQ4mPaOgjopCojcbPezE8a4jfUBn7JHKp/Q7r6yNdjywXFrBu3zIKy/TgA6o2SMx
+         ZHx6/uWjiUgAeiVgI3OkJybnjRWVlf6MLz+3GLMTYhqCNqZs0FqEf2ekKOL/l78bK6zf
+         iwB+dlnVSvaFfcw5iEOkdJkhQFDD3RPsx+NvK4mKYDw10ToktiancU5f7/AEOQqh4JSw
+         isnw==
+X-Gm-Message-State: AOJu0YwCJulzPvNqZNnnBBh4Y9c2y9ZwMo6fBpalL22xo3e9+vQ8Qzus
+	3V47dCsRWE+XnzKhdDC5AUru1sFUCOWECoy/vCuw16X6T5Sxdg==
+X-Google-Smtp-Source: AGHT+IEXxsiJEK8g0TGxdQ1mNIa1GlA/I2w249GnNy8k4Y+86wKVOJgDbjuFCc36B1YBNbmfuxoqk5Je3+a1G+QX/+k=
+X-Received: by 2002:a17:907:a08b:b0:a28:d132:c4a9 with SMTP id
+ hu11-20020a170907a08b00b00a28d132c4a9mr2795255ejc.17.1705316721876; Mon, 15
+ Jan 2024 03:05:21 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CirrusCI: drop FreeBSD 12
-Content-Language: en-GB
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20240115102718.81294-1-roger.pau@citrix.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240115102718.81294-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
+ <20240102095138.17933-3-carlo.nonato@minervasys.tech> <5eb9fa24-c95e-4ea0-84ef-be74c629c106@xen.org>
+ <CAG+AhRW5Xxy7BHVhmfkBqbdeKqRz7E1Mrc7wNv6F+ecM4P_QPw@mail.gmail.com>
+ <CAG+AhRUw23a92v7geAwoDX-vqPLTPUEg3uoyOTThiUzL1CTk7w@mail.gmail.com> <c31bf4a3-979a-4445-905c-6a5545f8a36b@xen.org>
+In-Reply-To: <c31bf4a3-979a-4445-905c-6a5545f8a36b@xen.org>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Mon, 15 Jan 2024 12:05:11 +0100
+Message-ID: <CAG+AhRUs_O5XKGTm+0x68PUGYHavdSC+tJ-F5jnyb=J-mLhG=Q@mail.gmail.com>
+Subject: Re: [PATCH v5 02/13] xen/arm: add cache coloring initialization
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
+	Marco Solieri <marco.solieri@minervasys.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 15/01/2024 10:27 am, Roger Pau Monne wrote:
-> Went EOL by the end of December 2023, and the pkg repos have been shut down.
+Hi Julien,
+
+On Thu, Jan 11, 2024 at 11:44=E2=80=AFAM Julien Grall <julien@xen.org> wrot=
+e:
+> On 11/01/2024 10:17, Carlo Nonato wrote:
+> > Hi Julien,
 >
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Hi Carlo,
+>
+> >>>> +bool __init llc_coloring_init(void)
+> >>>> +{
+> >>>> +    if ( !llc_way_size && !(llc_way_size =3D get_llc_way_size()) )
+> >>>> +    {
+> >>>> +        printk(XENLOG_ERR
+> >>>> +               "Probed LLC way size is 0 and no custom value provid=
+ed\n");
+> >>>> +        return false;
+> >>>> +    }
+> >>>> +
+> >>>> +    /*
+> >>>> +     * The maximum number of colors must be a power of 2 in order t=
+o correctly
+> >>>> +     * map them to bits of an address, so also the LLC way size mus=
+t be so.
+> >>>> +     */
+> >>>> +    if ( llc_way_size & (llc_way_size - 1) )
+> >>>> +    {
+> >>>> +        printk(XENLOG_WARNING "LLC way size (%u) isn't a power of 2=
+.\n",
+> >>>> +               llc_way_size);
+> >>>> +        llc_way_size =3D 1U << flsl(llc_way_size);
+> >>>> +        printk(XENLOG_WARNING
+> >>>> +               "Using %u instead. Performances will be suboptimal\n=
+",
+> >>>> +               llc_way_size);
+> >>>> +    }
+> >>>> +
+> >>>> +    nr_colors =3D llc_way_size >> PAGE_SHIFT;
+> >>>> +
+> >>>> +    if ( nr_colors < 2 || nr_colors > CONFIG_NR_LLC_COLORS )
+> >>>
+> >>> I didn't find any documentation explaining why we need at least two
+> >>> colors. I guess you want to make sure that there is a color for Xen a=
+nd
+> >>> domain. But I wonder what could wrong with just one color (other than
+> >>> been pointless)?
+> >>
+> >> Yes, it would just be pointless. I'll change it to 1.
+> >
+> > Just wanted to correct myself here. Having just a single color introduc=
+es a
+> > clear sharing of the cache between Xen and domains. So it's not just
+> > pointless, but also inefficient. I would discourage such a configuratio=
+n, so I
+> > plan to better describe this with a range in the Kconfig option (see
+> > discussion in #1).
+>
+> I understand this could be inneficient. But you are also allowing the
+> user to not specify the color configuration (at least for dom0less
+> domain). So the colors would end up to shared with everyone (including Xe=
+n).
+>
+> I don't particularly mind which way you want to go, but I think we need
+> some coherency. If we want to avoid innefficiency, then we should
+> prevent all the setups.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I definitely don't want to check for overlapping configurations since that
+could also be a desired setup, but I do want sane defaults. You found some
+inchoerency there cause Xen and the domains share one color. Maybe the best
+solution would be to have a default configuration for domains that doesn't
+overlap with the Xen one.
 
-We'll need to backport this, I guess ?
+Back to the original point, having a single color for the whole platform is
+just stupid, not only pointless. It defeats completely the coloring idea.
+On the other hand the default configuration is something that could have an
+application (still pretty "basic").
+
+In patch #5 (dom0less) there is some contradiction where Xen panics when no
+configuration is provided. I also misuderstood your comment on that patch
+and it can't actually panic in that case, but instead use the default
+configuration.
+
+Thanks.
+
+> Cheers,
+>
+> --
+> Julien Grall
 
