@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5369B82D874
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 12:38:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667328.1038483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8523382D891
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 12:49:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667332.1038493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPLHj-00043I-MP; Mon, 15 Jan 2024 11:37:43 +0000
+	id 1rPLSP-0007Jw-LF; Mon, 15 Jan 2024 11:48:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667328.1038483; Mon, 15 Jan 2024 11:37:43 +0000
+Received: by outflank-mailman (output) from mailman id 667332.1038493; Mon, 15 Jan 2024 11:48:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPLHj-00041m-JL; Mon, 15 Jan 2024 11:37:43 +0000
-Received: by outflank-mailman (input) for mailman id 667328;
- Mon, 15 Jan 2024 11:37:42 +0000
+	id 1rPLSP-0007IM-Hm; Mon, 15 Jan 2024 11:48:45 +0000
+Received: by outflank-mailman (input) for mailman id 667332;
+ Mon, 15 Jan 2024 11:48:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPLHi-00041g-66
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 11:37:42 +0000
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [2a00:1450:4864:20::136])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JaYU=IZ=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rPLSO-0007ID-Hh
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 11:48:44 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7cfc396a-b39a-11ee-9b0f-b553b5be7939;
- Mon, 15 Jan 2024 12:37:39 +0100 (CET)
-Received: by mail-lf1-x136.google.com with SMTP id
- 2adb3069b0e04-50e67e37661so11776889e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 03:37:39 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d1-20020a6b6e01000000b007bc47488033sm2218542ioh.1.2024.01.15.03.37.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 03:37:39 -0800 (PST)
+ id 07dcd2a5-b39c-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 12:48:42 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id
+ 2adb3069b0e04-50e759ece35so9865985e87.3
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 03:48:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,96 +40,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7cfc396a-b39a-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 07dcd2a5-b39c-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705318659; x=1705923459; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eb8W0WyrxdsCOcLv2saulZtSn7fUcurs+4+Usg8qA7o=;
-        b=Ir0oK1/6FeXlZ3CPs2j9ivDB6uUkwT9rkgwGO2lYXNJPN9wgx4swefA2HtK05ViVrE
-         9uFH1y6K1rHtObuVD9/3aLCnP/QTD2LIac9zpHyupE2CwiTe5QYjxhXUf9qiISuB2Maz
-         DdC35frDOVqve7Yg+Jf2hYJVIJ401ehJgLvCYq24GBUdWSd95kOGmdYt3lm1R1FnWSqs
-         Jo+FKiXgsK+dAkJXzUd4+vQsdZZW/hXtg4kmeiMrs+OISB/p8MukCBaf0TJcBQ32vMZ7
-         OmuyzVrG5um0abjpct6TQlPLiSTN9UWHpRfcofKbE0e2RMyqkkRCR3WMEu0OTGoH9tTB
-         KjUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705318659; x=1705923459;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+        d=cloud.com; s=cloud; t=1705319322; x=1705924122; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=eb8W0WyrxdsCOcLv2saulZtSn7fUcurs+4+Usg8qA7o=;
-        b=BZ5otinKPv3wSPemWQNp7L/Z00Jk7YFLMpfgbwmLrMGg+Tqo+tDKdaLKOOSLBMajKI
-         AqUyijNf2sgMxzIXsHtt/j2dDhg3qvDznQ6N2A1m11BepTEPCKJvx6vVgIqTpHXOm4OG
-         1NPq75kDpJyZrbOfagTCpskChluRriG3uIhQZrjJkVe2HLG05WECGgll9ieuW6mpfpnq
-         46wrlyTZlHkZtFpLRlvOhCiBxHm0KO/HEJPln+9mhvdKHRhxQVLR+AEPWYV2JWcro+ib
-         JLlOeJrQWud/NtdpJCVKy6YwCH3vnCdioCgnFbNTjiLaHDbGnjL21zyvJG/W08n0NAcG
-         1POw==
-X-Gm-Message-State: AOJu0YxtF94FKYT4BR3dcCPnZUL3c+AcnTpFxFY+EPF7mPyB4e1kgGKB
-	ME+YJjbi6JywvzBggB8vmOdBGDm2URKO
-X-Google-Smtp-Source: AGHT+IGnfiHTw3c/Hydr9kuU7B7aKFCZjTkDJDxGjvC+w7hNYtjnwwDaXE1lwCfpxgOEgsWphMmpig==
-X-Received: by 2002:ac2:5635:0:b0:50e:75f8:ac9f with SMTP id b21-20020ac25635000000b0050e75f8ac9fmr2275388lff.28.1705318659456;
-        Mon, 15 Jan 2024 03:37:39 -0800 (PST)
-Message-ID: <6528658a-5cb7-4f9b-a92d-a4ca43f6352b@suse.com>
-Date: Mon, 15 Jan 2024 12:37:39 +0100
+        bh=bFIlhrybhO+sljsKgOTurLEBsQ668No2Ssxyu2yEUfQ=;
+        b=h4ClJs1VV+WZh4oGcDQgT3ndOVCvnbzVnyAeErxLxWJ89VdnINA+pZirxF9uDOn5JD
+         LFu90xD5Qyy8iBJFhFBcSxlXpx5SFhptTGD6ncOX/AHe+01f6OdaUW+0L+HXEQ/b/RfM
+         38WAna6bruLtrSfDSnBglzNzEkKB25r+xfaAA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705319322; x=1705924122;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=bFIlhrybhO+sljsKgOTurLEBsQ668No2Ssxyu2yEUfQ=;
+        b=fq9JN1Cix8jQzPSOfV70V+ckrit1DH0kPgvIWScO1qsbaKCGL25iACNakA0i053xFK
+         1nDgU2s6k0vbACf/tehjzeYFcuV4LJrhtofT5n6jfTu7k+Pw1BGGxZnoL4Za/1LAB40r
+         OmVKHdzIp0GB3dGc5i9432leiYNyiZS+q7WHJHT0A/7aON4p/d4sPkKB74nwa46kh7L5
+         XluJ7oKn89mM+ZRHz4iou/e5XZndvMcjnlp3OXeqwwGfZryqEaDTkflViGCIbplGLthd
+         spe5IcLa3NQsj3bm8TNqtsdKCkNgi3JabdYUk1CFv4b3NczQbhysGhuoXJ0ez91q18lj
+         AfuA==
+X-Gm-Message-State: AOJu0YyUWtMlj0r2MAgnz7GMPjwenbtO27hdGj79DyXcTUzxzPJMHlcq
+	GLB879K+fyuqQRmUVwlZDJyhsooxsINIEsXK7Ps2n3yDx3Bg3g==
+X-Google-Smtp-Source: AGHT+IHtUWQa5erx+MxhAgpsypVEmwtRRGihZqNMzfcFv0DNqbzTFJi4c+DnJUBffc0PpmjAZXqZkFCXNQcqjqRzSRY=
+X-Received: by 2002:a05:6512:2256:b0:50e:e168:9fcd with SMTP id
+ i22-20020a056512225600b0050ee1689fcdmr2916492lfu.26.1705319321871; Mon, 15
+ Jan 2024 03:48:41 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CirrusCI: drop FreeBSD 12
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-References: <20240115102718.81294-1-roger.pau@citrix.com>
- <854db64e-a3c1-4c2f-8a68-8557f7f5a5d1@citrix.com> <ZaUU_qqqOs_F4qe0@macbook>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZaUU_qqqOs_F4qe0@macbook>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
+ <20240109215145.430207-12-stewart.hildebrand@amd.com> <CA+zSX=Z33cixDd1w10zwC-c80z-sB4E8Nu__nTNi30n-FW6GwA@mail.gmail.com>
+ <39c114b7-2384-4209-bae5-edabb243226e@amd.com>
+In-Reply-To: <39c114b7-2384-4209-bae5-edabb243226e@amd.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Mon, 15 Jan 2024 11:48:30 +0000
+Message-ID: <CA+zSX=Zk4sSThR49xYY1eW8hiHwLq-jQ=ODcq9=6B+QO4RsqcA@mail.gmail.com>
+Subject: Re: [PATCH v12 11/15] vpci: add initial support for virtual PCI bus topology
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 15.01.2024 12:20, Roger Pau Monné wrote:
-> On Mon, Jan 15, 2024 at 11:01:54AM +0000, Andrew Cooper wrote:
->> On 15/01/2024 10:27 am, Roger Pau Monne wrote:
->>> Went EOL by the end of December 2023, and the pkg repos have been shut down.
->>>
->>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>
->> We'll need to backport this, I guess ?
-> 
-> Yup, but it might not apply cleanly without the rest of the changes to
-> the file backported also.
+On Fri, Jan 12, 2024 at 1:50=E2=80=AFPM Stewart Hildebrand
+<stewart.hildebrand@amd.com> wrote:
+>
+> On 1/12/24 06:46, George Dunlap wrote:
+> > On Tue, Jan 9, 2024 at 9:54=E2=80=AFPM Stewart Hildebrand
+> > <stewart.hildebrand@amd.com> wrote:
+> >> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> >> index 37f5922f3206..b58a822847be 100644
+> >> --- a/xen/include/xen/sched.h
+> >> +++ b/xen/include/xen/sched.h
+> >> @@ -484,6 +484,14 @@ struct domain
+> >>       * 2. pdev->vpci->lock
+> >>       */
+> >>      rwlock_t pci_lock;
+> >> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> >> +    /*
+> >> +     * The bitmap which shows which device numbers are already used b=
+y the
+> >> +     * virtual PCI bus topology and is used to assign a unique SBDF t=
+o the
+> >> +     * next passed through virtual PCI device.
+> >> +     */
+> >> +    DECLARE_BITMAP(vpci_dev_assigned_map, VPCI_MAX_VIRT_DEV);
+> >> +#endif
+> >>  #endif
+> >
+> > Without digging through the whole series, how big do we expect this
+> > bitmap to be on typical systems?
+> >
+> > If it's only going to be a handful of bytes, keeping it around for all
+> > guests would be OK; but it's large, it would be better as a pointer,
+> > since it's unused on the vast majority of guests.
+>
+> Since the bitmap is an unsigned long type it will typically be 8 bytes, a=
+lthough only 4 bytes are actually used. VPCI_MAX_VIRT_DEV is currently fixe=
+d at 32, as we are only tracking D (not the whole SBDF) in the bitmap so fa=
+r.
 
-Looks to apply fine to .18 and .17, which it what I'll queue it for.
-If and when we need it on .16 and/or .15 as well, adjusting the patch
-rather then taking further (not really) prereqs may be preferable.
+OK, that's fine with me.  (FYI I replied because I thought you needed
+my ack specifically for sched.h; looks like any of THE REST will do,
+however.)
 
-Jan
+ -George
 
