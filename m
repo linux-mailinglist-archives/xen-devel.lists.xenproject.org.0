@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E51B82DB4A
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 15:30:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667401.1038613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9549482DB59
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jan 2024 15:34:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667405.1038623 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPNzC-0006kY-ON; Mon, 15 Jan 2024 14:30:46 +0000
+	id 1rPO2W-0007N5-64; Mon, 15 Jan 2024 14:34:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667401.1038613; Mon, 15 Jan 2024 14:30:46 +0000
+Received: by outflank-mailman (output) from mailman id 667405.1038623; Mon, 15 Jan 2024 14:34:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPNzC-0006iB-LE; Mon, 15 Jan 2024 14:30:46 +0000
-Received: by outflank-mailman (input) for mailman id 667401;
- Mon, 15 Jan 2024 14:30:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rPO2W-0007LE-2Q; Mon, 15 Jan 2024 14:34:12 +0000
+Received: by outflank-mailman (input) for mailman id 667405;
+ Mon, 15 Jan 2024 14:34:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jLm1=IZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPNzB-0006hz-Da
- for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 14:30:45 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id aa818fff-b3b2-11ee-98f1-6d05b1d4d9a1;
- Mon, 15 Jan 2024 15:30:44 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40e68d0dbf9so28487865e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 06:30:44 -0800 (PST)
+ id 1rPO2U-0007L8-Jg
+ for xen-devel@lists.xenproject.org; Mon, 15 Jan 2024 14:34:10 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 244fb6bd-b3b3-11ee-9b0f-b553b5be7939;
+ Mon, 15 Jan 2024 15:34:08 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id
+ ffacd0b85a97d-336990fb8fbso6981551f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jan 2024 06:34:08 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- b6-20020adfee86000000b00337478efa4fsm11982183wro.60.2024.01.15.06.30.42
+ j27-20020adfb31b000000b00336e32338f3sm12166221wrd.70.2024.01.15.06.34.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 15 Jan 2024 06:30:43 -0800 (PST)
+ Mon, 15 Jan 2024 06:34:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa818fff-b3b2-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 244fb6bd-b3b3-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705329044; x=1705933844; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705329248; x=1705934048; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=khlMCG6Lb9J8bmE3Xh+hVWhqFVltOB8R4ef78zKo+9U=;
-        b=LnC3HeGDQtIytKDnD/xHpGzbfSEaTismMZzNpA4HXXyhDiTwhOxRhvOHS/mK1TDmD1
-         bkTw5tcCOcHVAs0LzdsrgEpD+ZEmsrYBwJ9tBKe/FqxpSrq6YCr6gD9luWVEMrv6Q1bN
-         TKXuTTPIcoMmYvC5E/GHaRxmPI48sgF66VgEJVUh0KPc+OUsCOlKtUtpkuXjg0YwhD7Z
-         KyvlyItgfd2mIPps+qQj+1MHAbzQ4R1qPPAxXBlWUDf7hvdYfwWJOKwvUNDkkCSZxlyy
-         dn/0lx9AKxSjO8lZAwpb0mB+sEJJ5jSEFVIGk5OvV8sD3ei63ceJzjnUQ9ZpgccuWfMb
-         Pmcg==
+        bh=DhGYC5xunoV+JtWHCdjOaB9LbyhgNpSYq/w1/ajKmNQ=;
+        b=gYOwCgSVWGQxiWxu068OA3ETFHZSPuSndxT5wxwx07sCC3alnGPjtQOvwkshFy2VXT
+         3BtthMrcI8Pdvqka8V7hDDBqYO0VlbfJqtNkBwt5Iy3uBcnhhMh5cGwLZGo5qevbDOMA
+         wMVFeRvUj1jG5LIaH2io96+JcbGvEvzI2VzFTTOQwi8mu3ePiNDcGjNdBsNv3wEsdOcM
+         lRMnsjFIxKcPCqWcfwSxELAoqeKKvGG45LZxjSsdRDU4JiwOXssYOd7eMcMHqEbgrtSX
+         g94sVL8EKITc7TiIxoxUYitlkFHWwe7b06WeHnuY9VzBtKHEhx0KAXv5UOJ4tCKxpmtr
+         Uu4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705329044; x=1705933844;
+        d=1e100.net; s=20230601; t=1705329248; x=1705934048;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
+         :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=khlMCG6Lb9J8bmE3Xh+hVWhqFVltOB8R4ef78zKo+9U=;
-        b=h7Wgc5HsXStyUUj/AeWFh7ANe3khVKGzYnTNdzyyJxWDVxWBEYTP2KQ9/4oST3tP4H
-         SYxwGkvXBxLbAvaBMQ6GNAkOPgpk2WdE9yYVRDwGLxk7nzq96+paY59oGxjOrafoJU2A
-         YqVMsor8QS9pAjnRhYKZVWrWEOKDLuAYpo+hpvXOwQ3EMOLj36N4ugnmvOWJY0gYNHP9
-         GQ69vGx+tqSyJveB5usJQpxhe5UMr0ZPCpv3zDcK1pdvh6qg+ApPnHZb9omtb3AYakEl
-         n9+El+0Mw+e2jntJFmQEBbam4kqij239JmFIPFRbAvyiuKduamZjseGsEhoI7TdyDzme
-         xyMg==
-X-Gm-Message-State: AOJu0YwITzRfA4qXNqDgyKttrc5IS/1GkOC7zfrsS44PGGw9CxBFb0s3
-	RrKqk3Cadl4Tkp8dnd2SkLX1XkH1t1+Sxfg/7ofp4JZC3w==
-X-Google-Smtp-Source: AGHT+IGGTk/AZfU1HlLk7T4DHAEWlJvMqBUGMer07PXDHh/9j0zmLR+TdI+25dEFTVPC02HRca/6pQ==
-X-Received: by 2002:a05:600c:154d:b0:40e:621a:bfca with SMTP id f13-20020a05600c154d00b0040e621abfcamr1555400wmg.30.1705329043676;
-        Mon, 15 Jan 2024 06:30:43 -0800 (PST)
-Message-ID: <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
-Date: Mon, 15 Jan 2024 15:30:42 +0100
+        bh=DhGYC5xunoV+JtWHCdjOaB9LbyhgNpSYq/w1/ajKmNQ=;
+        b=B5zHUScJAxe9mJiqvM/0Qu0qx1hH8gygvgPrQjOxheVbZJT+OX1dFHfQjxoJrvZYbx
+         xYLwDigoiEmIaniG2mrsJVsJWE149wy2KytM01BbObTAuisny/txBcF6VHiBlCrq0dED
+         hgTSIjBD/Zp+zI4L3FUZJDLQ5O5OWK1ac/VbYEAmEDafcLopZe4f3upFyUNkbqP8SIrM
+         xXn3ETKjKvTuJdXIukE+M2iQaD2rmqlnX7MW75lobN9csJvcx4B6kwKDdFP/d6mmtk8y
+         lzBzY7j7ZcOusiUuGFC/F+hSM4Y0P7Vog3yrJRtCh1RrFFjbxrD/vfofIQHBPPfWolZw
+         HCSA==
+X-Gm-Message-State: AOJu0YwNj4MsnBpeDBXEddnlGOwrTMGuJeS550ZNARTuQealgDmyTLSD
+	i7vSUDNIxAF6oHe0Th4K52u+vQWp8aZTMGdwk0u44T6rjw==
+X-Google-Smtp-Source: AGHT+IEbL4YAIAz4BJr2LEx28p98YovKKsD5FVF4ZkpcxIETid1bcqstUeK/zBjnrNRHsIaBFDSFkg==
+X-Received: by 2002:a05:6000:91:b0:337:4202:6166 with SMTP id m17-20020a056000009100b0033742026166mr3560027wrx.80.1705329246587;
+        Mon, 15 Jan 2024 06:34:06 -0800 (PST)
+Message-ID: <38de36da-0822-4452-9594-8d50a5a77335@suse.com>
+Date: Mon, 15 Jan 2024 15:34:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH v5 1/8] common: assembly entry point type/size annotations
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v5 0/8] annotate entry points with type and size
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Bobby Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Michal Orzel <michal.orzel@amd.com>
+ George Dunlap <george.dunlap@citrix.com>
 References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
+ <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -119,23 +113,112 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
+In-Reply-To: <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The model introduced in patch 1 is now arch-agnostic, and all arch-es
-are being switched at least partly (to at least give examples of how
-things will look like); PPC and RISC-V are still small enough to switch
-completely in one go.
+Recent gas versions generate minimalistic Dwarf debug info for items
+annotated as functions and having their sizes specified [1]. Furthermore
+generating live patches wants items properly annotated. "Borrow" Arm's
+END() and (remotely) derive other annotation infrastructure from
+Linux'es, for all architectures to use.
 
-1: common: assembly entry point type/size annotations
-2: x86: annotate entry points with type and size
-3: x86: also mark assembler globals hidden
-4: Arm: annotate entry points with type and size
-5: RISC-V: annotate entry points with type and size
-6: PPC: switch entry point annotations to common model
-7: tools/binfile: switch to common annotations model
-8: common: honor CONFIG_CC_SPLIT_SECTIONS also for assembly functions
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+[1] https://sourceware.org/git?p=binutils-gdb.git;a=commitdiff;h=591cc9fbbfd6d51131c0f1d4a92e7893edcc7a28
+---
+v5: Drop CODE_ALIGN fallback. s/algn/align/g.
+v3: New, generalized from earlier x86-only version. LAST() (now
+    LASTARG()) moved to macros.h.
+---
+TBD: {CODE,DATA}_ALIGN are byte granular, such that a value of 0 can be
+     specified (in case this has some special meaning on an arch;
+     conceivably it could mean to use some kind of arch default). We may
+     not strictly need that, and hence we could also make these power-
+     of-2 values (using .p2align).
+
+Note that we can't use ALIGN() (in place of SYM_ALIGN()) as long as we
+still have ALIGN.
+
+Note further that FUNC()'s etc "align" parameter is intended to allow
+for only no or a single argument. If we wanted to also make the fill
+value customizable per call site, the constructs would need re-doing to
+some degree.
+
+--- /dev/null
++++ b/xen/include/xen/linkage.h
+@@ -0,0 +1,54 @@
++#ifndef __LINKAGE_H__
++#define __LINKAGE_H__
++
++#ifdef __ASSEMBLY__
++
++#include <xen/macros.h>
++
++/* CODE_ALIGN needs to be specified by every architecture. */
++#ifndef CODE_FILL
++# define CODE_FILL ~0
++#endif
++
++#ifndef DATA_ALIGN
++# define DATA_ALIGN 0
++#endif
++#ifndef DATA_FILL
++# define DATA_FILL ~0
++#endif
++
++#define SYM_ALIGN(align...) .balign align
++
++#define SYM_L_GLOBAL(name) .globl name
++#define SYM_L_WEAK(name)   .weak name
++#define SYM_L_LOCAL(name)  /* nothing */
++
++#define SYM_T_FUNC         STT_FUNC
++#define SYM_T_DATA         STT_OBJECT
++#define SYM_T_NONE         STT_NOTYPE
++
++#define SYM(name, typ, linkage, align...)         \
++        .type name, SYM_T_ ## typ;                \
++        SYM_L_ ## linkage(name);                  \
++        SYM_ALIGN(align);                         \
++        name:
++
++#define END(name) .size name, . - name
++
++#define FUNC(name, align...) \
++        SYM(name, FUNC, GLOBAL, LASTARG(CODE_ALIGN, ## align), CODE_FILL)
++#define LABEL(name, align...) \
++        SYM(name, NONE, GLOBAL, LASTARG(CODE_ALIGN, ## align), CODE_FILL)
++#define DATA(name, align...) \
++        SYM(name, DATA, GLOBAL, LASTARG(DATA_ALIGN, ## align), DATA_FILL)
++
++#define FUNC_LOCAL(name, align...) \
++        SYM(name, FUNC, LOCAL, LASTARG(CODE_ALIGN, ## align), CODE_FILL)
++#define LABEL_LOCAL(name, align...) \
++        SYM(name, NONE, LOCAL, LASTARG(CODE_ALIGN, ## align), CODE_FILL)
++#define DATA_LOCAL(name, align...) \
++        SYM(name, DATA, LOCAL, LASTARG(DATA_ALIGN, ## align), DATA_FILL)
++
++#endif /*  __ASSEMBLY__ */
++
++#endif /* __LINKAGE_H__ */
+--- a/xen/include/xen/macros.h
++++ b/xen/include/xen/macros.h
+@@ -21,6 +21,15 @@
+ #define count_args(args...) \
+     count_args_(., ## args, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+ 
++#define ARG1_(x, y...) (x)
++#define ARG2_(x, y...) ARG1_(y)
++#define ARG3_(x, y...) ARG2_(y)
++#define ARG4_(x, y...) ARG3_(y)
++
++#define ARG__(nr) ARG ## nr ## _
++#define ARG_(nr)  ARG__(nr)
++#define LASTARG(x, y...) ARG_(count_args(x, ## y))(x, ## y)
++
+ /* Indirect macros required for expanded argument pasting. */
+ #define PASTE_(a, b) a ## b
+ #define PASTE(a, b) PASTE_(a, b)
+
 
