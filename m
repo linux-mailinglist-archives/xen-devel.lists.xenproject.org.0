@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E21E882F2B3
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 17:56:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667908.1039595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A5182F2C7
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 17:59:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667914.1039604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPmjY-0005JJ-SC; Tue, 16 Jan 2024 16:56:16 +0000
+	id 1rPmmF-0006OD-8q; Tue, 16 Jan 2024 16:59:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667908.1039595; Tue, 16 Jan 2024 16:56:16 +0000
+Received: by outflank-mailman (output) from mailman id 667914.1039604; Tue, 16 Jan 2024 16:59:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPmjY-0005HO-Or; Tue, 16 Jan 2024 16:56:16 +0000
-Received: by outflank-mailman (input) for mailman id 667908;
- Tue, 16 Jan 2024 16:56:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rPmmF-0006LS-5i; Tue, 16 Jan 2024 16:59:03 +0000
+Received: by outflank-mailman (input) for mailman id 667914;
+ Tue, 16 Jan 2024 16:59:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=MjSB=I2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPmjX-0005HD-LS
- for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 16:56:15 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2809021b-b490-11ee-9b0f-b553b5be7939;
- Tue, 16 Jan 2024 17:56:13 +0100 (CET)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2cd64022164so117390591fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 08:56:13 -0800 (PST)
+ id 1rPmmE-0006K8-FI
+ for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 16:59:02 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8c1c9a73-b490-11ee-98f1-6d05b1d4d9a1;
+ Tue, 16 Jan 2024 17:59:01 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2cca8eb0509so124646511fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 08:59:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e34-20020a028625000000b0046e3023b444sm3023535jai.32.2024.01.16.08.56.11
+ bs10-20020a056638450a00b0046e9ad3dbe3sm446602jab.128.2024.01.16.08.58.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jan 2024 08:56:12 -0800 (PST)
+ Tue, 16 Jan 2024 08:59:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2809021b-b490-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 8c1c9a73-b490-11ee-98f1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705424173; x=1706028973; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705424341; x=1706029141; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Y/GRuPPUmvfZCzOlb947NDD95I7idQBnhAGh1UNVobI=;
-        b=cbz51S264xPyXZh5V5gSKOpndpHnw2YSLd1I/zZq/jSd6w2VXnPe2FBjPq8I0dp9gm
-         SVJAb9tfsCv+Yj8NaNoewSeoWmTD4uQJ7f9fUSrouB8zYNcd5gLnVLfle45LattBDlc0
-         +YMqpY6/fG6rpTSJiIXmZczor+g5va17Op1MUeTjZPs6orIdhdwxN+oywZq9GS9ntTQj
-         ROV+cJalJr/KHEHAsmFUocAJhGS7Oz3B1aiMnMNY4NBtvRmh63QKOi/W5/34r0nbyDTk
-         C4/F+E7OCWJa1DS3wM80u6iLxlq3+y8lELqSTliTEyrhfgMEik04rIHqtYStBIXTWTdT
-         pWBA==
+        bh=pC3awBdfkOU+DgeWa6Gv9VA13lRqs0I2JhFJq/TvClQ=;
+        b=cMKbAEOmfRT47y4Eu4pEEPcvOSwxXLRb+HpCWfslWlB+xiqfqLlgM1Zg6ADhQJ/WJB
+         mUTRBglhvgj+Jt1CPwb/E8fEkq0QXLVNg0A5Ka7n7EUGJk+KTxuKoCWdXe+J9eTD5zLw
+         8fRj4MAekzXp8rqOA1b5i3Dm/kyGhcyN6cQ5WaPJSus2Q1BWSw1wwQmYYurF4AljV136
+         ph7n5SqJwtR4dVsYeKWQPCLXpirsGI1Z4r+2SWaXGVizcbwiVZvO1qr1NjQTYmRgm2pL
+         hLRECEIJDiTMnsyb6cKQwMWuLmFu6fhxLys0hihgcJKWhL2Bqz1kwuTT4tMgwlhM68cq
+         myAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705424173; x=1706028973;
+        d=1e100.net; s=20230601; t=1705424341; x=1706029141;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y/GRuPPUmvfZCzOlb947NDD95I7idQBnhAGh1UNVobI=;
-        b=CUTOUO3r/Xj2bATjZUazUQEaqJwag1NZumz9L0G6mXlp+HWqQi2KB12Q+FYAPaw1kt
-         LI0ZBJ3k/xj1/D74WA3BPsE3BDq7Y5oudzQr2UcoW9bXUeOmeQ9Q1X9AECBVThHFgYEp
-         As7YuQsz2X4JoZ9aRdFoRRcozffK5EBW8rBpQTZ0VLzrMprt81BEbWSZkwugNpmdUqfi
-         qhhGkcpUYWo35e8QUCREu2upMQemaZttQFq9HHSv+tU76iWm+mdg9kMMeI00u5o7lVjA
-         /tD82z0o7RhBX9ycFvYE88KJDOEhw2Gt+Wo/hqzWOezDme+Q8Qdv8VZM92/u6XV2AQ4c
-         vG8g==
-X-Gm-Message-State: AOJu0YxXKAMF1DMJYI8Sfnynvq3phW0/szK6pMzIG2y5KcGhgLfTB0Bm
-	TfvQ1/Hk0/z5rUMKPSMfZqPnIf2KKoY8G3DgB7sWav0rWA==
-X-Google-Smtp-Source: AGHT+IG+oU+cC64Kwr7WB7wZmwyAKxA5SizWTm6wyRokJ2f2Mtpb90zOYKpnhkZxS6sqjrNBv/0uSQ==
-X-Received: by 2002:a2e:9448:0:b0:2cd:7830:5796 with SMTP id o8-20020a2e9448000000b002cd78305796mr4008932ljh.5.1705424173036;
-        Tue, 16 Jan 2024 08:56:13 -0800 (PST)
-Message-ID: <34e88794-8a62-4787-baf1-e4443ec45a01@suse.com>
-Date: Tue, 16 Jan 2024 17:56:10 +0100
+        bh=pC3awBdfkOU+DgeWa6Gv9VA13lRqs0I2JhFJq/TvClQ=;
+        b=aMlsO32hUUC6Qe3eoPRJKBW3OG7oUDlXtErIrtJxT4PHXNx0oyJZBhRjqzKt7y7QFn
+         kZKD+jld09hv7H8mTQJTApTHC/Ck1/zBPMqQIMmDAcIM0VftrDkY5CDiol5+mtxfrYxa
+         D4g29yEwUTvWi0m4b8TNZXff9nZfVbXqksCjBCBHre9ZKDGYD8lOArvikpghvTri+ubX
+         y9hNdUa2PZ690Xngf32PnjAMsCfsO5JLyM/nhGtz1KZ+4ZqneNFVtvy74tdPutNDQ56A
+         NwORzySB1L0XGPT6aEUt9cWz7kn5FjIXlP2etwTWBjqNpYbM3/KI0dPZVJeKIAg0FgK7
+         11BQ==
+X-Gm-Message-State: AOJu0Yw4P5+4Jm4KBa0ILWPdWb1ltdTNaDdsywnetAuqj7Ur6ZPfiqSK
+	tnNPophLHbS5PY1wMIe9AjYCl2d4sw7qjWaw5vvR4tu+hg==
+X-Google-Smtp-Source: AGHT+IFWeLLASNg6p9Vo36TSvTSFg+DW7XJb5ZwxrTR0WBzHqoKMPHD9w54TAxqLbAlhqb5WUTH43Q==
+X-Received: by 2002:a2e:7c06:0:b0:2cd:463f:6c34 with SMTP id x6-20020a2e7c06000000b002cd463f6c34mr3405756ljc.78.1705424341046;
+        Tue, 16 Jan 2024 08:59:01 -0800 (PST)
+Message-ID: <5f7afa11-3216-4175-b05b-3ff78920fa00@suse.com>
+Date: Tue, 16 Jan 2024 17:58:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -84,7 +84,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/HPET: avoid an indirect call
+Subject: [PATCH] x86/PV: use altcall for I/O emulation quirk hook
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -111,90 +111,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-When this code was written, indirect branches still weren't considered
-much of a problem (besides being a little slower). Instead of a function
-pointer, pass a boolean to _disable_pit_irq(), thus allowing to
-eliminate two ENDBR (one of them in .text).
+This way we can arrange for ioemul_handle_proliant_quirk()'s ENDBR to
+also be zapped. Utilize existing data rather than introducing another
+otherwise unused static variable (array); eventually (if any new quirk
+was in need of adding) we may want to use .callback and .driver_data
+anyway.
+
+For the decision to be taken before the 2nd alternative patching pass,
+the initcall needs to become a pre-SMP one.
+
+While touching this code, also arrange for it to not be built at all
+when !PV - that way the respective ENDBR won't be there from the
+beginning.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Obviously the file may want moving to pv/ then. I wasn't sure whether
+to also fold doing so right into here.
 
---- a/xen/arch/x86/hpet.c
-+++ b/xen/arch/x86/hpet.c
-@@ -563,7 +563,7 @@ static void cf_check handle_rtc_once(uin
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -45,7 +45,7 @@ obj-$(CONFIG_LIVEPATCH) += alternative.o
+ obj-y += msi.o
+ obj-y += msr.o
+ obj-$(CONFIG_INDIRECT_THUNK) += indirect-thunk.o
+-obj-y += ioport_emulate.o
++obj-$(CONFIG_PV) += ioport_emulate.o
+ obj-y += irq.o
+ obj-$(CONFIG_KEXEC) += machine_kexec.o
+ obj-y += mm.o x86_64/mm.o
+--- a/xen/arch/x86/ioport_emulate.c
++++ b/xen/arch/x86/ioport_emulate.c
+@@ -36,7 +36,7 @@ static unsigned int cf_check ioemul_hand
+ }
+ 
+ /* This table is the set of system-specific I/O emulation hooks. */
+-static const struct dmi_system_id __initconstrel ioport_quirks_tbl[] = {
++static const struct dmi_system_id __initconst_cf_clobber ioport_quirks_tbl[] = {
+     /*
+      * I/O emulation hook for certain HP ProLiant servers with
+      * 'special' SMM goodness.
+@@ -46,6 +46,8 @@ static const struct dmi_system_id __init
+         DMI_MATCH2(
+             DMI_MATCH(DMI_BIOS_VENDOR, "HP"),
+             DMI_MATCH(DMI_PRODUCT_NAME, "ProLiant DL3")),
++        /* Need in one entry only as long as .callback isn't also used. */
++        .driver_data = ioemul_handle_proliant_quirk,
+     },
+     {
+         .ident = "HP ProLiant DL5xx",
+@@ -99,7 +101,7 @@ static int __init cf_check ioport_quirks
+ 
+     return 0;
+ }
+-__initcall(ioport_quirks_init);
++presmp_initcall(ioport_quirks_init);
+ 
+ /*
+  * Local variables:
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -112,7 +112,8 @@ static io_emul_stub_t *io_emul_stub_setu
+     /* Some platforms might need to quirk the stub for specific inputs. */
+     if ( unlikely(ioemul_handle_quirk) )
+     {
+-        quirk_bytes = ioemul_handle_quirk(opcode, p, ctxt->ctxt.regs);
++        quirk_bytes = alternative_call(ioemul_handle_quirk, opcode, p,
++                                       ctxt->ctxt.regs);
+         p += quirk_bytes;
      }
- }
  
--void __init cf_check hpet_broadcast_init(void)
-+void __init hpet_broadcast_init(void)
- {
-     u64 hpet_rate = hpet_setup();
-     u32 hpet_id, cfg;
-@@ -634,7 +634,7 @@ void __init cf_check hpet_broadcast_init
-         hpet_events->flags = HPET_EVT_LEGACY;
- }
- 
--void cf_check hpet_broadcast_resume(void)
-+void hpet_broadcast_resume(void)
- {
-     u32 cfg;
-     unsigned int i, n;
---- a/xen/arch/x86/include/asm/hpet.h
-+++ b/xen/arch/x86/include/asm/hpet.h
-@@ -89,8 +89,8 @@ void hpet_disable_legacy_replacement_mod
-  * Temporarily use an HPET event counter for timer interrupt handling,
-  * rather than using the LAPIC timer. Used for Cx state entry.
-  */
--void cf_check hpet_broadcast_init(void);
--void cf_check hpet_broadcast_resume(void);
-+void hpet_broadcast_init(void);
-+void hpet_broadcast_resume(void);
- void cf_check hpet_broadcast_enter(void);
- void cf_check hpet_broadcast_exit(void);
- int hpet_broadcast_is_available(void);
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -2427,7 +2427,7 @@ void __init early_time_init(void)
- }
- 
- /* keep pit enabled for pit_broadcast working while cpuidle enabled */
--static int _disable_pit_irq(void(*hpet_broadcast_setup)(void))
-+static int _disable_pit_irq(bool init)
- {
-     int ret = 1;
- 
-@@ -2442,13 +2442,13 @@ static int _disable_pit_irq(void(*hpet_b
-      */
-     if ( cpuidle_using_deep_cstate() && !boot_cpu_has(X86_FEATURE_ARAT) )
-     {
--        hpet_broadcast_setup();
-+        init ? hpet_broadcast_init() : hpet_broadcast_resume();
-         if ( !hpet_broadcast_is_available() )
-         {
-             if ( xen_cpuidle > 0 )
-             {
--                printk("%ps() failed, turning to PIT broadcast\n",
--                       hpet_broadcast_setup);
-+                printk("hpet_broadcast_%s() failed, turning to PIT broadcast\n",
-+                       init ? "init" : "resume");
-                 return -1;
-             }
-             ret = 0;
-@@ -2465,7 +2465,7 @@ static int _disable_pit_irq(void(*hpet_b
- 
- static int __init cf_check disable_pit_irq(void)
- {
--    if ( !_disable_pit_irq(hpet_broadcast_init) )
-+    if ( !_disable_pit_irq(true) )
-     {
-         xen_cpuidle = 0;
-         printk("CPUIDLE: disabled due to no HPET. "
-@@ -2526,7 +2526,7 @@ int time_resume(void)
- 
-     resume_platform_timer();
- 
--    if ( !_disable_pit_irq(hpet_broadcast_resume) )
-+    if ( !_disable_pit_irq(false) )
-         BUG();
- 
-     init_percpu_time();
 
