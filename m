@@ -2,33 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F85582F417
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 19:20:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667940.1039654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 297DE82F4A5
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 19:52:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667947.1039669 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPo2h-0004Lk-VT; Tue, 16 Jan 2024 18:20:07 +0000
+	id 1rPoXE-0002Z2-Lv; Tue, 16 Jan 2024 18:51:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667940.1039654; Tue, 16 Jan 2024 18:20:07 +0000
+Received: by outflank-mailman (output) from mailman id 667947.1039669; Tue, 16 Jan 2024 18:51:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPo2h-0004K5-Sq; Tue, 16 Jan 2024 18:20:07 +0000
-Received: by outflank-mailman (input) for mailman id 667940;
- Tue, 16 Jan 2024 18:20:06 +0000
+	id 1rPoXE-0002Wg-Hn; Tue, 16 Jan 2024 18:51:40 +0000
+Received: by outflank-mailman (input) for mailman id 667947;
+ Tue, 16 Jan 2024 18:51:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/Syk=I2=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1rPo2g-0004Ex-6o
- for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 18:20:06 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id def8b9eb-b49b-11ee-98f1-6d05b1d4d9a1;
- Tue, 16 Jan 2024 19:20:05 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-557bfc7f7b4so15548069a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 10:20:05 -0800 (PST)
+ <SRS0=wmx9=I2=amazon.co.uk=prvs=738631f0b=eliasely@srs-se1.protection.inumbo.net>)
+ id 1rPoXD-0002UD-8m
+ for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 18:51:39 +0000
+Received: from smtp-fw-9102.amazon.com (smtp-fw-9102.amazon.com
+ [207.171.184.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 45fd0d18-b4a0-11ee-98f1-6d05b1d4d9a1;
+ Tue, 16 Jan 2024 19:51:37 +0100 (CET)
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
+ email-inbound-relay-iad-1e-m6i4x-3e1fab07.us-east-1.amazon.com)
+ ([10.25.36.214]) by smtp-border-fw-9102.sea19.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jan 2024 18:51:29 +0000
+Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
+ (iad7-ws-svc-p70-lb3-vlan3.iad.amazon.com [10.32.235.38])
+ by email-inbound-relay-iad-1e-m6i4x-3e1fab07.us-east-1.amazon.com (Postfix)
+ with ESMTPS id 16BED8225B; Tue, 16 Jan 2024 18:51:24 +0000 (UTC)
+Received: from EX19MTAUEA002.ant.amazon.com [10.0.29.78:52782]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.89.133:2525]
+ with esmtp (Farcaster)
+ id 51de375d-ff58-48f6-9b91-037c1e05f0a8; Tue, 16 Jan 2024 18:51:23 +0000 (UTC)
+Received: from EX19D008UEA001.ant.amazon.com (10.252.134.62) by
+ EX19MTAUEA002.ant.amazon.com (10.252.134.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Tue, 16 Jan 2024 18:51:23 +0000
+Received: from EX19MTAUWB001.ant.amazon.com (10.250.64.248) by
+ EX19D008UEA001.ant.amazon.com (10.252.134.62) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Tue, 16 Jan 2024 18:51:22 +0000
+Received: from dev-dsk-eliasely-1a-fd74790f.eu-west-1.amazon.com
+ (10.253.91.118) by mail-relay.amazon.com (10.250.64.254) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40 via Frontend Transport; Tue, 16 Jan 2024 18:51:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,236 +58,227 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: def8b9eb-b49b-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 45fd0d18-b4a0-11ee-98f1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1705429204; x=1706034004; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=djvNaPGdNM6JP18DEgpQPNZqqxx2Mkl0btfjrLqJIUY=;
-        b=P6hC0tSIlnZs2gszhjdv/mLQbuKsQVdOQh3y+LVsmawna/oKrbkc+1RqEyg3riBTXy
-         BANho9AI5s//5fmtBBWOiKoGGO2o7A53TD1aDRJam97E+GIGEbjGH2WNTzNXhaiWGnof
-         qRM8gykmL3pP3AHHs5cJenAE7cbOMAwoAbuME=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705429204; x=1706034004;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=djvNaPGdNM6JP18DEgpQPNZqqxx2Mkl0btfjrLqJIUY=;
-        b=oafycZQXt95rAe6Xi8qgN4XkTPKrGWOy2bxdfRXLzZwUGSylaOoEcmn8I0lNsStW78
-         gx1zsj587qPKse/KnH6uzKSmO7Fy/TpJyxOGG8vLNj/2Zr+CI8/Se/jmwf3D0st3nYlp
-         weKJq8m/csMbNBmy+syNiXYn9R/lDji05UbH+//9nbtPKKv3fo/Rfh7DwLvzZ2/l7fpi
-         +ZFiLpT5gg8R8tgWMjOYk1JTElzOh1BpF/QETuxfZB0Py4ojg8M6/YnyfRdakGQIi6Lc
-         CAT4Q4zaD6R5D4mPhXKYXPhvnnhXRmCfcZEUlMw1wakDq+Bfqo3WC/IofGxL7tGyl3GN
-         bI3g==
-X-Gm-Message-State: AOJu0YyjpmBPcQTNfOyE9yU/Eb7SOpY2/giRhB8V3qs89aIJHJ6Qb9iD
-	amZr3gWLSg5GsFbpLXcMa0ZpJ9wKyA7mEg77zKXL1XxQv/ewhlcvLSXs9wlRwyQ=
-X-Google-Smtp-Source: AGHT+IE8hKRkESJQx4huWqgmeYQJEJpsdfWRjac+i1MjYYMxZEdEDnPtSAn5bb7K+Zh7VqxbCjJvfrpnUU5a+Rip/aY=
-X-Received: by 2002:a17:907:a78b:b0:a2c:ea05:66b2 with SMTP id
- vx11-20020a170907a78b00b00a2cea0566b2mr7314967ejc.45.1705429204179; Tue, 16
- Jan 2024 10:20:04 -0800 (PST)
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+  t=1705431097; x=1736967097;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=xKWNH6kJRXsg48ZEc5dzphr9is8CTmsp5C95JI51wQI=;
+  b=dLhb4FFUZpj4EednQMAUpURDD0srbq9H06wJm+Mb+Dq6tbLQpviIPGeD
+   mQnoDFs07fe/yykwsMZtnEuFaPAEwOJL+p73GSrW/b2kWcyVpUqTWVKtN
+   Hplmb2GsWOPyWYW1afot3J+MClwPoqPm/8fRo6/G/Voh/3R1rFrP2SyuN
+   8=;
+X-IronPort-AV: E=Sophos;i="6.05,200,1701129600"; 
+   d="scan'208";a="390202365"
+X-Farcaster-Flow-ID: 51de375d-ff58-48f6-9b91-037c1e05f0a8
+From: Elias El Yandouzi <eliasely@amazon.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, "Elias El
+ Yandouzi" <eliasely@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, "Bertrand
+ Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Lukasz Hawrylko
+	<lukasz@hawrylko.pl>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>
+Subject: [PATCH v2] Remove the directmap
+Date: Tue, 16 Jan 2024 18:50:29 +0000
+Message-ID: <20240116185056.15000-1-eliasely@amazon.com>
+X-Mailer: git-send-email 2.40.1
 MIME-Version: 1.0
-References: <CAO-mL=xGuvvD24WCD6xsCVJDCgb44uh-214GO-ueTWqqeDrgjQ@mail.gmail.com>
-In-Reply-To: <CAO-mL=xGuvvD24WCD6xsCVJDCgb44uh-214GO-ueTWqqeDrgjQ@mail.gmail.com>
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Tue, 16 Jan 2024 18:19:27 +0000
-Message-ID: <CAO-mL=z43+rfwWAdjFbVuvToiFPrSNYzNLYkUMcEnT6jxnQeRQ@mail.gmail.com>
-Subject: Re: Governance change proposal on small updates
-To: xen-devel@lists.xenproject.org
-Cc: committers@xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000e7b4a9060f142df9"
-
---000000000000e7b4a9060f142df9
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Precedence: Bulk
 
 Hi all,
 
-I have not had any further feedback opposing this proposal and will go
-ahead with the changes.
+A few years ago, Wei Liu implemented a PoC to remove the directmap
+from Xen. The last version was sent by Hongyan Xia [1].
 
-Many thanks,
-Kelly Choi
+I will start with thanking both Wei and Hongyan for the initial work
+to upstream the feature. A lot of patches already went in and this is
+the last few patches missing to effectively enable the feature.
 
-Community Manager
-Xen Project
+=== What is the directmap? ===
 
+At the moment, on both arm64 and x86, most of the RAM is mapped
+in Xen address space. This means that domain memory is easily
+accessible in Xen.
 
-On Thu, Dec 21, 2023 at 1:00=E2=80=AFPM Kelly Choi <kelly.choi@cloud.com> w=
-rote:
+=== Why do we want to remove the directmap? ===
 
-> Hi all,
->
-> I am proposing a small change in how we update non-trivial matters in our
-> governance.
->
-> Currently, any governance change requires a formal vote. However, there
-> will be times when this is unnecessary and would hinder progress in the
-> project. For example, my previous email proposal on changes to clarity an=
-d
-> inclusivity language. As it stands, I have not received any pushback or
-> feedback from the community.
->
-> To help us progress faster, I would suggest the following:
-> -* Small changes will still need to be proposed to xen-devel and the
-> community*
-> *- The community is welcome to give as much feedback as necessary before
-> any changes are made*
-> *- Proposals can be changed/updated as needed, then resubmitted to the
-> community *
-> *- Anyone can object to these changes or call a vote within 30 days of th=
-e
-> proposal if deemed necessary*
-> *- A committer must ack the change for it to go ahead*
-> *- If the community manager does not hear any feedback within 30 days, th=
-e
-> changes can be acked by a committer and put into the governance*
-> *- All important matters and policy changes to the community will still g=
-o
-> through a formal voting process. This change only applies to small matter=
-s
-> within the governance. *
->
-> Examples:
-> *- Wording or spelling changes*
-> *- Updating small sentences or clarity changes*
-> *- Adding examples to existing code of conduct policies*
->
-> I welcome your thoughts on the above proposal.
-> Please reply by 14th January 2024 should you have any objections to this.
-> If by lazy consensus I do not hear back from this date, I will assume I
-> have your agreement on this.
->
-> Many thanks,
-> Kelly Choi
->
-> Community Manager
-> Xen Project
->
->
-> On Fri, Nov 24, 2023 at 10:57=E2=80=AFAM Kelly Choi <kelly.choi@cloud.com=
-> wrote:
->
->> Hi all,
->>
->> Please see an updated Governance PR on GitLab here:
->> https://gitlab.com/xen-project/governance/governance/-/merge_requests/1
->>
->> Comments:
->>
->> Revise code of conduct for enhanced clarity, inclusivity, and
->> accountability
->>
->> In response to valuable feedback from community members and in alignment
->> with our ongoing commitment to creating a safe and welcoming space for
->> collaboration, this commit refines the code of conduct. The changes focu=
-s
->> on:
->>
->>    - *Clarity:* Rewording sections to eliminate ambiguity and ensure
->>    that expectations are clearly communicated.
->>    - *Inclusivity:* Adding language to emphasize our dedication to
->>    diversity and inclusion, and providing examples to illustrate the typ=
-es of
->>    behavior we encourage.
->>
->> These updates aim to foster a more positive and collaborative atmosphere
->> within our community. Please review the changes and don't hesitate to
->> provide further input or suggestions.
->>
->> Note that the patches should be read as a whole; I'm still learning git
->> and using the gitlab UI, which doesn't have a way to do history editing.
->> Many thanks,
->> Kelly Choi
->>
->> Open Source Community Manager
->> XenServer, Cloud Software Group
->>
->
+(Summarizing my understanding of the previous discussion)
 
---000000000000e7b4a9060f142df9
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Speculation attacks (like Spectre SP1) rely on loading piece of memory
+in the cache. If the region is not mapped then it can't be loaded.
 
-<div dir=3D"ltr">Hi all,<div><br></div><div>I have not had any further feed=
-back opposing this proposal and will go ahead with the changes.=C2=A0</div>=
-<div><br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_signature" data=
--smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,</div><div=
->Kelly Choi</div><div><br></div><div><div style=3D"color:rgb(136,136,136)">=
-Community Manager</div><div style=3D"color:rgb(136,136,136)">Xen Project=C2=
-=A0<br></div></div></div></div></div><br></div></div><br><div class=3D"gmai=
-l_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Dec 21, 2023 at 1:00=
-=E2=80=AFPM Kelly Choi &lt;<a href=3D"mailto:kelly.choi@cloud.com">kelly.ch=
-oi@cloud.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr">Hi all,<div><br></div><div>I =
-am proposing a small change in how we update non-trivial matters in our gov=
-ernance.</div><div><br></div><div>Currently, any governance=C2=A0change req=
-uires a formal vote. However, there will be times when this is unnecessary =
-and would hinder progress in the project. For example, my previous email pr=
-oposal on changes to clarity and inclusivity language. As it stands, I have=
- not received any pushback or feedback from the community.=C2=A0</div><div>=
-<br></div><div>To help us progress faster, I would suggest the following:</=
-div><div>-<i>=C2=A0Small changes will still need to be proposed to xen-deve=
-l and the community</i></div><div><i>- The community is welcome to give as =
-much feedback as necessary before any changes are made</i><i><br></i></div>=
-<div><i>- Proposals can be changed/updated as needed, then resubmitted to t=
-he community=C2=A0</i></div><div><i>- Anyone can object to these changes or=
- call a vote within 30 days of the proposal if deemed necessary</i></div><d=
-iv><i>- A committer must ack the change for it to go ahead</i></div><div><i=
->- If the community manager does not hear any feedback within 30 days, the =
-changes can be acked=C2=A0by a committer and put into the governance</i></d=
-iv><div><i><b>- All important matters and policy changes to the community w=
-ill still go through a formal voting process. This change only applies to s=
-mall matters within the governance.=C2=A0</b></i></div><div><br></div><div>=
-Examples:</div><div><i>- Wording or spelling changes</i></div><div><i>- Upd=
-ating small sentences or clarity changes</i></div><div><i>- Adding examples=
- to existing code of conduct policies</i></div><div><br></div><div>I welcom=
-e your thoughts on the above proposal.=C2=A0</div><div><font color=3D"#ff00=
-00">Please reply by 14th January 2024 should you have any objections to thi=
-s.=C2=A0</font></div><div>If by lazy consensus I do not hear back from this=
- date, I will assume I have your agreement on this.=C2=A0</div><div><br cle=
-ar=3D"all"><div><div dir=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"=
-><div>Many thanks,</div><div>Kelly Choi</div><div><br></div><div><div style=
-=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb(=
-136,136,136)">Xen Project=C2=A0<br></div></div></div></div></div><br></div>=
-</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=
-On Fri, Nov 24, 2023 at 10:57=E2=80=AFAM Kelly Choi &lt;<a href=3D"mailto:k=
-elly.choi@cloud.com" target=3D"_blank">kelly.choi@cloud.com</a>&gt; wrote:<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"=
->Hi all,=C2=A0<div><br></div><div>Please see an updated Governance PR on Gi=
-tLab here:</div><div><a href=3D"https://gitlab.com/xen-project/governance/g=
-overnance/-/merge_requests/1" target=3D"_blank">https://gitlab.com/xen-proj=
-ect/governance/governance/-/merge_requests/1</a>=C2=A0<br></div><div><p>Com=
-ments:</p><p dir=3D"auto">Revise code of conduct for enhanced clarity, incl=
-usivity, and accountability</p>
-<p dir=3D"auto">In response to valuable feedback from community members and=
- in alignment with our ongoing commitment to creating a safe and welcoming =
-space for collaboration, this commit refines the code of conduct. The chang=
-es focus on:</p>
-<ul dir=3D"auto">
-<li>
-<strong>Clarity:</strong> Rewording sections to eliminate ambiguity and ens=
-ure that expectations are clearly communicated.</li>
-<li>
-<strong>Inclusivity:</strong> Adding language to emphasize our dedication t=
-o diversity and inclusion, and providing examples to illustrate the types o=
-f behavior we encourage.</li>
-</ul>
-<p dir=3D"auto">These updates aim to foster a more positive and collaborati=
-ve atmosphere within our community. Please review the changes and don&#39;t=
- hesitate to provide further input or suggestions.</p>
-<p dir=3D"auto">Note that the patches should be read as a whole; I&#39;m st=
-ill learning git and using the gitlab UI, which doesn&#39;t have a way to d=
-o history editing.</p></div><div><div><div dir=3D"ltr" class=3D"gmail_signa=
-ture"><div dir=3D"ltr"><div>Many thanks,</div><div>Kelly Choi</div><div><br=
-></div><div><div style=3D"color:rgb(136,136,136)">Open Source Community Man=
-ager</div><div style=3D"color:rgb(136,136,136)">XenServer, Cloud Software G=
-roup</div></div></div></div></div></div></div>
-</blockquote></div></div>
-</blockquote></div>
+So removing reducing the amount of memory mapped in Xen will also
+reduce the surface attack.
 
---000000000000e7b4a9060f142df9--
+=== What's the performance impact? ===
+
+As the guest memory is not always mapped, then the cost of mapping
+will increase. I haven't done the numbers with this new version, but
+some measurement were provided in the previous version for x86.
+
+=== Improvement possible ===
+
+The known area to improve on x86 are:
+   * Mapcache: There was a patch sent by Hongyan:
+     https://lore.kernel.org/xen-devel/4058e92ce21627731c49b588a95809dc0affd83a.1581015491.git.hongyxia@amazon.com/
+   * EPT: At the moment an guest page-tabel walk requires about 20 map/unmap.
+     This will have an very high impact on the performance. We need to decide
+     whether keep the EPT always mapped is a problem
+
+The original series didn't have support for Arm64. But as there were
+some interest, I have provided a PoC.
+
+There are more extra work for Arm64:
+   * The mapcache is quite simple. We would investigate the performance
+   * The mapcache should be made compliant to the Arm Arm (this is now
+     more critical).
+   * We will likely have the same problem as for the EPT.
+   * We have no support for merging table to a superpage, neither
+     free empty page-tables. (See more below)
+
+=== Implementation ===
+
+The subject is probably a misnomer. The directmap is still present but
+the RAM is not mapped by default. Instead, the region will still be used
+to map pages allocate via alloc_xenheap_pages().
+
+The advantage is the solution is simple (so IHMO good enough for been
+merged as a tech preview). The disadvantage is the page allocator is not
+trying to keep all the xenheap pages together. So we may end up to have
+an increase of page table usage.
+
+In the longer term, we should consider to remove the direct map
+completely and switch to vmap(). The main problem with this approach
+is it is frequent to use mfn_to_virt() in the code. So we would need
+to cache the mapping (maybe in the struct page_info).
+
+=== Why arm32 is not covered? ===
+
+On Arm32, the domheap and xenheap is always separated. So by design
+the guest memory is not mapped by default.
+
+At this stage, it seems unnecessary to have to map/unmap xenheap pages
+every time they are allocated.
+
+=== Why not using a separate domheap and xenheap? ===
+
+While a separate xenheap/domheap reduce the page-table usage (all
+xenheap pages are contiguous and could be always mapped), it is also
+currently less scalable because the split is fixed at boot time (XXX:
+Can this be dynamic?).
+
+=== Future of secret-free hypervisor ===
+
+There are some information in an e-mail from Andrew a few years ago:
+
+https://lore.kernel.org/xen-devel/e3219697-0759-39fc-2486-715cdec1ca9e@citrix.com/
+
+Cheers,
+
+[1] https://lore.kernel.org/xen-devel/cover.1588278317.git.hongyxia@amazon.com/
+
+*** BLURB HERE ***
+
+Elias El Yandouzi (3):
+  xen/x86: Add build assertion for fixmap entries
+  Rename mfn_to_virt() calls
+  Rename maddr_to_virt() calls
+
+Hongyan Xia (13):
+  acpi: vmap pages in acpi_os_alloc_memory
+  xen/numa: vmap the pages for memnodemap
+  x86/srat: vmap the pages for acpi_slit
+  x86: Map/unmap pages in restore_all_guests
+  x86/pv: Rewrite how building PV dom0 handles domheap mappings
+  x86/pv: Map L4 page table for shim domain
+  x86/mapcache: Initialise the mapcache for the idle domain
+  x86: Add a boot option to enable and disable the direct map
+  x86/domain_page: Remove the fast paths when mfn is not in the
+    directmap
+  xen/page_alloc: Add a path for xenheap when there is no direct map
+  x86/setup: Leave early boot slightly earlier
+  x86/setup: vmap heap nodes when they are outside the direct map
+  x86/setup: Do not create valid mappings when directmap=no
+
+Julien Grall (8):
+  xen/vmap: Check the page has been mapped in vm_init_type()
+  xen/vmap: Introduce vmap_size() and use it
+  xen/arm: fixmap: Rename the fixmap slots to follow the x86 convention
+  xen/x86: Add support for the PMAP
+  xen/arm32: mm: Rename 'first' to 'root' in init_secondary_pagetables()
+  xen/arm64: mm: Use per-pCPU page-tables
+  xen/arm64: Implement a mapcache for arm64
+  xen/arm64: Allow the admin to enable/disable the directmap
+
+Wei Liu (3):
+  x86/setup: Move vm_init() before acpi calls
+  x86/pv: Domheap pages should be mapped while relocating initrd
+  x86: Lift mapcache variable to the arch level
+
+ docs/misc/xen-command-line.pandoc             |  12 ++
+ xen/arch/arm/Kconfig                          |   3 +-
+ xen/arch/arm/acpi/lib.c                       |  18 +--
+ xen/arch/arm/arm64/mmu/mm.c                   |  45 +++++-
+ xen/arch/arm/domain_page.c                    |  50 ++++++-
+ xen/arch/arm/include/asm/arm32/mm.h           |   8 --
+ xen/arch/arm/include/asm/arm64/mm.h           |   7 +-
+ xen/arch/arm/include/asm/domain_page.h        |  13 ++
+ xen/arch/arm/include/asm/early_printk.h       |   2 +-
+ xen/arch/arm/include/asm/fixmap.h             |  16 +--
+ xen/arch/arm/include/asm/mm.h                 |   9 ++
+ xen/arch/arm/include/asm/mmu/layout.h         |  13 +-
+ xen/arch/arm/include/asm/mmu/mm.h             |   2 +
+ xen/arch/arm/mm.c                             |   1 +
+ xen/arch/arm/mmu/pt.c                         |  12 +-
+ xen/arch/arm/mmu/setup.c                      |  33 ++---
+ xen/arch/arm/mmu/smpboot.c                    |  32 ++---
+ xen/arch/arm/setup.c                          |   6 +-
+ xen/arch/x86/Kconfig                          |   2 +
+ xen/arch/x86/dmi_scan.c                       |   4 +-
+ xen/arch/x86/domain.c                         |  12 +-
+ xen/arch/x86/domain_page.c                    |  74 +++++++---
+ xen/arch/x86/hvm/dom0_build.c                 |   4 +-
+ xen/arch/x86/include/asm/config.h             |  12 +-
+ xen/arch/x86/include/asm/domain.h             |  13 +-
+ xen/arch/x86/include/asm/fixmap.h             |   9 ++
+ .../x86/include/asm/mach-default/bios_ebda.h  |   2 +-
+ xen/arch/x86/include/asm/mm.h                 |  10 +-
+ xen/arch/x86/include/asm/page.h               |   8 +-
+ xen/arch/x86/include/asm/pmap.h               |  25 ++++
+ xen/arch/x86/include/asm/x86_64/page.h        |   2 +-
+ xen/arch/x86/mm.c                             |  18 ++-
+ xen/arch/x86/mpparse.c                        |   2 +-
+ xen/arch/x86/pv/dom0_build.c                  |  73 +++++++---
+ xen/arch/x86/pv/domain.c                      |  34 +++++
+ xen/arch/x86/setup.c                          | 129 +++++++++++++++---
+ xen/arch/x86/srat.c                           |   4 +-
+ xen/arch/x86/tboot.c                          |   2 +-
+ xen/arch/x86/x86_64/asm-offsets.c             |   1 +
+ xen/arch/x86/x86_64/entry.S                   |   8 ++
+ xen/arch/x86/x86_64/mm.c                      |  26 ++--
+ xen/common/Kconfig                            |  17 +++
+ xen/common/efi/boot.c                         |  23 ++--
+ xen/common/numa.c                             |   9 +-
+ xen/common/page_alloc.c                       |  89 ++++++++++--
+ xen/common/pmap.c                             |   8 +-
+ xen/common/trace.c                            |   8 +-
+ xen/common/vmap.c                             |  62 ++++++---
+ xen/drivers/acpi/osl.c                        |  14 +-
+ xen/include/xen/mm.h                          |   7 +
+ xen/include/xen/vmap.h                        |   4 +
+ 51 files changed, 753 insertions(+), 244 deletions(-)
+ create mode 100644 xen/arch/arm/include/asm/domain_page.h
+ create mode 100644 xen/arch/x86/include/asm/pmap.h
+
+-- 
+2.40.1
+
 
