@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19A1082F4CA
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 20:01:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667996.1039805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 336B582F4AC
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 19:52:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667963.1039764 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPogz-00033A-8w; Tue, 16 Jan 2024 19:01:45 +0000
+	id 1rPoXo-0006N0-GQ; Tue, 16 Jan 2024 18:52:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667996.1039805; Tue, 16 Jan 2024 19:01:45 +0000
+Received: by outflank-mailman (output) from mailman id 667963.1039764; Tue, 16 Jan 2024 18:52:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPogz-00031b-6F; Tue, 16 Jan 2024 19:01:45 +0000
-Received: by outflank-mailman (input) for mailman id 667996;
- Tue, 16 Jan 2024 19:01:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rPoXo-0006JV-C4; Tue, 16 Jan 2024 18:52:16 +0000
+Received: by outflank-mailman (input) for mailman id 667963;
+ Tue, 16 Jan 2024 18:52:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wmx9=I2=amazon.co.uk=prvs=738631f0b=eliasely@srs-se1.protection.inumbo.net>)
- id 1rPoXm-0002UD-4f
+ id 1rPoXm-0003xp-9U
  for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 18:52:14 +0000
-Received: from smtp-fw-9102.amazon.com (smtp-fw-9102.amazon.com
- [207.171.184.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5b316841-b4a0-11ee-98f1-6d05b1d4d9a1;
+Received: from smtp-fw-52002.amazon.com (smtp-fw-52002.amazon.com
+ [52.119.213.150]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5b94df11-b4a0-11ee-9b0f-b553b5be7939;
  Tue, 16 Jan 2024 19:52:12 +0100 (CET)
-Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
- email-inbound-relay-iad-1box-1dm6-7f722725.us-east-1.amazon.com)
- ([10.25.36.214]) by smtp-border-fw-9102.sea19.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jan 2024 18:52:10 +0000
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-iad-1e-m6i4x-6e7a78d7.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-52002.iad7.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jan 2024 18:52:11 +0000
 Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
  (iad7-ws-svc-p70-lb3-vlan2.iad.amazon.com [10.32.235.34])
- by email-inbound-relay-iad-1box-1dm6-7f722725.us-east-1.amazon.com (Postfix)
- with ESMTPS id 4C12986ECA; Tue, 16 Jan 2024 18:52:07 +0000 (UTC)
-Received: from EX19MTAUEA001.ant.amazon.com [10.0.44.209:54377]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.95.118:2525]
- with esmtp (Farcaster)
- id 9e06fc42-65ec-4c14-b51d-213d16eee67d; Tue, 16 Jan 2024 18:52:06 +0000 (UTC)
-Received: from EX19D008UEA004.ant.amazon.com (10.252.134.191) by
- EX19MTAUEA001.ant.amazon.com (10.252.134.203) with Microsoft SMTP Server
+ by email-inbound-relay-iad-1e-m6i4x-6e7a78d7.us-east-1.amazon.com (Postfix)
+ with ESMTPS id 1DA768032A; Tue, 16 Jan 2024 18:52:08 +0000 (UTC)
+Received: from EX19MTAUEC002.ant.amazon.com [10.0.29.78:60336]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.3.20:2525] with
+ esmtp (Farcaster)
+ id 1934339f-4f50-41ac-9c8d-421e1f1e4d14; Tue, 16 Jan 2024 18:52:07 +0000 (UTC)
+Received: from EX19D008UEC004.ant.amazon.com (10.252.135.170) by
+ EX19MTAUEC002.ant.amazon.com (10.252.135.253) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Tue, 16 Jan 2024 18:51:59 +0000
+ 15.2.1118.40; Tue, 16 Jan 2024 18:52:01 +0000
 Received: from EX19MTAUWB001.ant.amazon.com (10.250.64.248) by
- EX19D008UEA004.ant.amazon.com (10.252.134.191) with Microsoft SMTP Server
+ EX19D008UEC004.ant.amazon.com (10.252.135.170) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Tue, 16 Jan 2024 18:51:58 +0000
+ 15.2.1118.40; Tue, 16 Jan 2024 18:52:01 +0000
 Received: from dev-dsk-eliasely-1a-fd74790f.eu-west-1.amazon.com
  (10.253.91.118) by mail-relay.amazon.com (10.250.64.254) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Tue, 16 Jan 2024 18:51:56 +0000
+ 15.2.1118.40 via Frontend Transport; Tue, 16 Jan 2024 18:51:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,31 +59,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b316841-b4a0-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 5b94df11-b4a0-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1705431133; x=1736967133;
+  t=1705431132; x=1736967132;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=OwpyHZJCgfsvXgrpfF3qQCU4NbQDoI500a3pBhrqpBY=;
-  b=lTC2y5xp1rEfaDu/+8cUL02edy9LtvvvaSXhzlVtiNPglFYrn4zCeYU1
-   m0tfQrJRqTBWYng0IwbggLWtqlq6zPf19PoV/qrsqd0FKTVTMDokNLL0X
-   8yPcFIveCbTihCzWrAmy7I9SqmMwdwdIrWmsS1ODwyIzZKNuEEeNYLyAL
-   A=;
+  bh=wuXlYkg7+aoOLvwI5g/1GuKiK7EGIYHkmtLupKWUrjI=;
+  b=W7CUbFJ6CCFHWZuY1IP7Fq1UMNjuk8qPubp2rzcbn8T/apnpTWMpwaWS
+   hf72r5vC2sbe4eBfZ32yjLwJNrPctFynEBSf3uhRaBxQn/UKMEZ4HMRmA
+   le3fCQskCdR/d+q7FBUq4BJ3vZjU8Ca+hkfOtPecdIVIHSDXNXEEPMedI
+   0=;
 X-IronPort-AV: E=Sophos;i="6.05,200,1701129600"; 
-   d="scan'208";a="390202576"
-X-Farcaster-Flow-ID: 9e06fc42-65ec-4c14-b51d-213d16eee67d
+   d="scan'208";a="606811514"
+X-Farcaster-Flow-ID: 1934339f-4f50-41ac-9c8d-421e1f1e4d14
 From: Elias El Yandouzi <eliasely@amazon.com>
 To: <xen-devel@lists.xenproject.org>
-CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, Hongyan Xia
-	<hongyxia@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
- Dunlap" <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Julien Grall
-	<jgrall@amazon.com>
-Subject: [PATCH v2] x86: Add a boot option to enable and disable the direct map
-Date: Tue, 16 Jan 2024 18:50:42 +0000
-Message-ID: <20240116185056.15000-14-eliasely@amazon.com>
+CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, Julien Grall
+	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, "Bertrand
+ Marquis" <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Wei Liu <wl@xen.org>, Elias El Yandouzi
+	<eliasely@amazon.com>, Henry Wang <Henry.Wang@arm.com>
+Subject: [PATCH v2] xen/arm: fixmap: Rename the fixmap slots to follow the x86 convention
+Date: Tue, 16 Jan 2024 18:50:43 +0000
+Message-ID: <20240116185056.15000-15-eliasely@amazon.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240116185056.15000-1-eliasely@amazon.com>
 References: <20240116185056.15000-1-eliasely@amazon.com>
@@ -92,163 +93,187 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 Precedence: Bulk
 
-From: Hongyan Xia <hongyxia@amazon.com>
+From: Julien Grall <jgrall@amazon.com>
 
-Also add a helper function to retrieve it. Change arch_mfns_in_direct_map
-to check this option before returning.
+At the moment the fixmap slots are prefixed differently between arm and
+x86.
 
-This is added as a Kconfig option as well as a boot command line option.
-While being generic, the Kconfig option is only usable for x86 at the moment.
+Some of them (e.g. the PMAP slots) are used in common code. So it would
+be better if they are named the same way to avoid having to create
+aliases.
 
-Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
+I have decided to use the x86 naming because they are less change. So
+all the Arm fixmap slots will now be prefixed with FIX rather than
+FIXMAP.
+
 Signed-off-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
+
+Reviewed-by: Henry Wang <Henry.Wang@arm.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 ----
 
-    Changes in V2:
-        * Introduce a Kconfig option
-        * Reword the commit message
-        * Make opt_directmap and helper generic
+    Note that potentially more renaming that could be done to share
+    more code in future. I have decided to not do that to avoid going
+    down a rabbit hole.
 
-    Changes since Hongyan's version:
-        * Reword the commit message
-        * opt_directmap is only modified during boot so mark it as
-          __ro_after_init
-
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 8e65f8bd18..63c946f482 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -799,6 +799,18 @@ that enabling this option cannot guarantee anything beyond what underlying
- hardware guarantees (with, where available and known to Xen, respective
- tweaks applied).
+diff --git a/xen/arch/arm/acpi/lib.c b/xen/arch/arm/acpi/lib.c
+index 41d521f720..736cf09eca 100644
+--- a/xen/arch/arm/acpi/lib.c
++++ b/xen/arch/arm/acpi/lib.c
+@@ -40,10 +40,10 @@ char *__acpi_map_table(paddr_t phys, unsigned long size)
+         return NULL;
  
-+### directmap (x86)
-+> `= <boolean>`
-+
-+> Default: `true`
-+
-+Enable or disable the direct map region in Xen.
-+
-+By default, Xen creates the direct map region which maps physical memory
-+in that region. Setting this to no will remove the direct map, blocking
-+exploits that leak secrets via speculative memory access in the direct
-+map.
-+
- ### dma_bits
- > `= <integer>`
+     offset = phys & (PAGE_SIZE - 1);
+-    base = FIXMAP_ADDR(FIXMAP_ACPI_BEGIN) + offset;
++    base = FIXMAP_ADDR(FIX_ACPI_BEGIN) + offset;
  
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 1acdffc51c..350f41b832 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -29,6 +29,7 @@ config X86
- 	select HAS_UBSAN
- 	select HAS_VPCI if HVM
- 	select NEEDS_LIBELF
-+	select HAS_SECRET_HIDING
+     /* Check the fixmap is big enough to map the region */
+-    if ( (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE - base) < size )
++    if ( (FIXMAP_ADDR(FIX_ACPI_END) + PAGE_SIZE - base) < size )
+         return NULL;
  
- config ARCH_DEFCONFIG
- 	string
-diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
-index 7d26d9cd2f..4aae270a78 100644
---- a/xen/arch/x86/include/asm/mm.h
-+++ b/xen/arch/x86/include/asm/mm.h
-@@ -620,10 +620,18 @@ void write_32bit_pse_identmap(uint32_t *l2);
- /*
-  * x86 maps part of physical memory via the directmap region.
-  * Return whether the range of MFN falls in the directmap region.
-+ *
-+ * When boot command line sets directmap=no, we will not have a direct map at
-+ * all so this will always return false.
-  */
- static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
- {
--    unsigned long eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
-+    unsigned long eva;
-+
-+    if ( !has_directmap() )
-+        return false;
-+
-+    eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
+     /* With the fixmap, we can only map one region at the time */
+@@ -54,7 +54,7 @@ char *__acpi_map_table(paddr_t phys, unsigned long size)
  
-     return (mfn + nr) <= (virt_to_mfn(eva - 1) + 1);
- }
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 4d0c90b7a0..b813ea75b5 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1512,6 +1512,8 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-     if ( highmem_start )
-         xenheap_max_mfn(PFN_DOWN(highmem_start - 1));
+     size += offset;
+     mfn = maddr_to_mfn(phys);
+-    idx = FIXMAP_ACPI_BEGIN;
++    idx = FIX_ACPI_BEGIN;
  
-+    printk("Booting with directmap %s\n", has_directmap() ? "on" : "off");
-+
+     do {
+         set_fixmap(idx, mfn, PAGE_HYPERVISOR);
+@@ -72,8 +72,8 @@ bool __acpi_unmap_table(const void *ptr, unsigned long size)
+     unsigned int idx;
+ 
+     /* We are only handling fixmap address in the arch code */
+-    if ( (vaddr < FIXMAP_ADDR(FIXMAP_ACPI_BEGIN)) ||
+-         (vaddr >= (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE)) )
++    if ( (vaddr < FIXMAP_ADDR(FIX_ACPI_BEGIN)) ||
++         (vaddr >= (FIXMAP_ADDR(FIX_ACPI_END) + PAGE_SIZE)) )
+         return false;
+ 
      /*
-      * Walk every RAM region and map it in its entirety (on x86/64, at least)
-      * and notify it to the boot allocator.
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 310ad4229c..9a24c89ac5 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -83,6 +83,23 @@ config HAS_UBSAN
- config MEM_ACCESS_ALWAYS_ON
- 	bool
+@@ -81,16 +81,16 @@ bool __acpi_unmap_table(const void *ptr, unsigned long size)
+      * for the ACPI fixmap region. The caller is expected to free with
+      * the same address.
+      */
+-    ASSERT((vaddr & PAGE_MASK) == FIXMAP_ADDR(FIXMAP_ACPI_BEGIN));
++    ASSERT((vaddr & PAGE_MASK) == FIXMAP_ADDR(FIX_ACPI_BEGIN));
  
-+config HAS_SECRET_HIDING
-+	bool
-+
-+config SECRET_HIDING
-+    bool "Secret hiding"
-+    depends on HAS_SECRET_HIDING
-+    ---help---
-+    The directmap contains mapping for most of the RAM which makes domain
-+    memory easily accessible. While making the performance better, it also makes
-+    the hypervisor more vulnerable to speculation attacks.
-+
-+    Enabling this feature will allow the user to decide whether the memory
-+    is always mapped at boot or mapped only on demand (see the command line
-+    option "directmap").
-+
-+    If unsure, say N.
-+
- config MEM_ACCESS
- 	def_bool MEM_ACCESS_ALWAYS_ON
- 	prompt "Memory Access and VM events" if !MEM_ACCESS_ALWAYS_ON
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 740b6f0ff7..a3746cfbcf 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -173,6 +173,11 @@ paddr_t __ro_after_init mem_hotplug;
- static char __initdata opt_badpage[100] = "";
- string_param("badpage", opt_badpage);
+     /* The region allocated fit in the ACPI fixmap region. */
+-    ASSERT(size < (FIXMAP_ADDR(FIXMAP_ACPI_END) + PAGE_SIZE - vaddr));
++    ASSERT(size < (FIXMAP_ADDR(FIX_ACPI_END) + PAGE_SIZE - vaddr));
+     ASSERT(fixmap_inuse);
  
-+bool __ro_after_init opt_directmap = true;
-+#ifdef CONFIG_HAS_SECRET_HIDING
-+boolean_param("directmap", opt_directmap);
-+#endif
-+
- /*
-  * no-bootscrub -> Free pages are not zeroed during boot.
+     fixmap_inuse = false;
+ 
+-    size += vaddr - FIXMAP_ADDR(FIXMAP_ACPI_BEGIN);
+-    idx = FIXMAP_ACPI_BEGIN;
++    size += vaddr - FIXMAP_ADDR(FIX_ACPI_BEGIN);
++    idx = FIX_ACPI_BEGIN;
+ 
+     do
+     {
+diff --git a/xen/arch/arm/include/asm/early_printk.h b/xen/arch/arm/include/asm/early_printk.h
+index c1e84f8b00..f444e89a86 100644
+--- a/xen/arch/arm/include/asm/early_printk.h
++++ b/xen/arch/arm/include/asm/early_printk.h
+@@ -17,7 +17,7 @@
+ 
+ /* need to add the uart address offset in page to the fixmap address */
+ #define EARLY_UART_VIRTUAL_ADDRESS \
+-    (FIXMAP_ADDR(FIXMAP_CONSOLE) + (CONFIG_EARLY_UART_BASE_ADDRESS & ~PAGE_MASK))
++    (FIXMAP_ADDR(FIX_CONSOLE) + (CONFIG_EARLY_UART_BASE_ADDRESS & ~PAGE_MASK))
+ 
+ #define TEMPORARY_EARLY_UART_VIRTUAL_ADDRESS \
+     (TEMPORARY_FIXMAP_ADDR(FIXMAP_CONSOLE) + (CONFIG_EARLY_UART_BASE_ADDRESS & ~PAGE_MASK))
+diff --git a/xen/arch/arm/include/asm/fixmap.h b/xen/arch/arm/include/asm/fixmap.h
+index 734eb9b1d4..a823456ecb 100644
+--- a/xen/arch/arm/include/asm/fixmap.h
++++ b/xen/arch/arm/include/asm/fixmap.h
+@@ -8,17 +8,17 @@
+ #include <xen/pmap.h>
+ 
+ /* Fixmap slots */
+-#define FIXMAP_CONSOLE  0  /* The primary UART */
+-#define FIXMAP_MISC     1  /* Ephemeral mappings of hardware */
+-#define FIXMAP_ACPI_BEGIN  2  /* Start mappings of ACPI tables */
+-#define FIXMAP_ACPI_END    (FIXMAP_ACPI_BEGIN + NUM_FIXMAP_ACPI_PAGES - 1)  /* End mappings of ACPI tables */
+-#define FIXMAP_PMAP_BEGIN (FIXMAP_ACPI_END + 1) /* Start of PMAP */
+-#define FIXMAP_PMAP_END (FIXMAP_PMAP_BEGIN + NUM_FIX_PMAP - 1) /* End of PMAP */
++#define FIX_CONSOLE  0  /* The primary UART */
++#define FIX_MISC     1  /* Ephemeral mappings of hardware */
++#define FIX_ACPI_BEGIN  2  /* Start mappings of ACPI tables */
++#define FIX_ACPI_END    (FIX_ACPI_BEGIN + NUM_FIXMAP_ACPI_PAGES - 1)  /* End mappings of ACPI tables */
++#define FIX_PMAP_BEGIN (FIX_ACPI_END + 1) /* Start of PMAP */
++#define FIX_PMAP_END (FIX_PMAP_BEGIN + NUM_FIX_PMAP - 1) /* End of PMAP */
+ 
+-#define FIXMAP_LAST FIXMAP_PMAP_END
++#define FIX_LAST FIX_PMAP_END
+ 
+ #define FIXADDR_START FIXMAP_ADDR(0)
+-#define FIXADDR_TOP FIXMAP_ADDR(FIXMAP_LAST)
++#define FIXADDR_TOP FIXMAP_ADDR(FIX_LAST)
+ 
+ #ifndef __ASSEMBLY__
+ 
+diff --git a/xen/arch/arm/mmu/setup.c b/xen/arch/arm/mmu/setup.c
+index 72725840b6..57f1b46499 100644
+--- a/xen/arch/arm/mmu/setup.c
++++ b/xen/arch/arm/mmu/setup.c
+@@ -351,7 +351,7 @@ void free_init_memory(void)
   */
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index 3d9b2d05a5..f860e98ee4 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -165,6 +165,13 @@ extern unsigned long max_page;
- extern unsigned long total_pages;
- extern paddr_t mem_hotplug;
+ void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
+ {
+-    void *src = (void *)FIXMAP_ADDR(FIXMAP_MISC);
++    void *src = (void *)FIXMAP_ADDR(FIX_MISC);
  
-+extern bool opt_directmap;
-+
-+static inline bool has_directmap(void)
-+{
-+    return opt_directmap;
-+}
-+
- /*
-  * Extra fault info types which are used to further describe
-  * the source of an access violation.
+     while (len) {
+         unsigned long l, s;
+@@ -359,10 +359,10 @@ void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
+         s = paddr & (PAGE_SIZE - 1);
+         l = min(PAGE_SIZE - s, len);
+ 
+-        set_fixmap(FIXMAP_MISC, maddr_to_mfn(paddr), PAGE_HYPERVISOR_WC);
++        set_fixmap(FIX_MISC, maddr_to_mfn(paddr), PAGE_HYPERVISOR_WC);
+         memcpy(dst, src + s, l);
+         clean_dcache_va_range(dst, l);
+-        clear_fixmap(FIXMAP_MISC);
++        clear_fixmap(FIX_MISC);
+ 
+         paddr += l;
+         dst += l;
+diff --git a/xen/common/pmap.c b/xen/common/pmap.c
+index 14517198aa..6e3ba9298d 100644
+--- a/xen/common/pmap.c
++++ b/xen/common/pmap.c
+@@ -32,8 +32,8 @@ void *__init pmap_map(mfn_t mfn)
+ 
+     __set_bit(idx, inuse);
+ 
+-    slot = idx + FIXMAP_PMAP_BEGIN;
+-    ASSERT(slot >= FIXMAP_PMAP_BEGIN && slot <= FIXMAP_PMAP_END);
++    slot = idx + FIX_PMAP_BEGIN;
++    ASSERT(slot >= FIX_PMAP_BEGIN && slot <= FIX_PMAP_END);
+ 
+     /*
+      * We cannot use set_fixmap() here. We use PMAP when the domain map
+@@ -53,10 +53,10 @@ void __init pmap_unmap(const void *p)
+     unsigned int slot = virt_to_fix((unsigned long)p);
+ 
+     ASSERT(system_state < SYS_STATE_smp_boot);
+-    ASSERT(slot >= FIXMAP_PMAP_BEGIN && slot <= FIXMAP_PMAP_END);
++    ASSERT(slot >= FIX_PMAP_BEGIN && slot <= FIX_PMAP_END);
+     ASSERT(!in_irq());
+ 
+-    idx = slot - FIXMAP_PMAP_BEGIN;
++    idx = slot - FIX_PMAP_BEGIN;
+ 
+     __clear_bit(idx, inuse);
+     arch_pmap_unmap(slot);
 -- 
 2.40.1
 
