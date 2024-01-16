@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B582182F518
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 20:13:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668060.1039935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B58982F501
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 20:06:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668019.1039861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPorw-0004tC-Ho; Tue, 16 Jan 2024 19:13:04 +0000
+	id 1rPol7-0006jA-6d; Tue, 16 Jan 2024 19:06:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668060.1039935; Tue, 16 Jan 2024 19:13:04 +0000
+Received: by outflank-mailman (output) from mailman id 668019.1039861; Tue, 16 Jan 2024 19:06:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPorw-0004qq-EO; Tue, 16 Jan 2024 19:13:04 +0000
-Received: by outflank-mailman (input) for mailman id 668060;
- Tue, 16 Jan 2024 19:13:02 +0000
+	id 1rPol7-0006eO-1E; Tue, 16 Jan 2024 19:06:01 +0000
+Received: by outflank-mailman (input) for mailman id 668019;
+ Tue, 16 Jan 2024 19:05:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wmx9=I2=amazon.co.uk=prvs=738631f0b=eliasely@srs-se1.protection.inumbo.net>)
- id 1rPoXu-0002UD-Ne
- for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 18:52:22 +0000
-Received: from smtp-fw-6001.amazon.com (smtp-fw-6001.amazon.com [52.95.48.154])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6111cb44-b4a0-11ee-98f1-6d05b1d4d9a1;
- Tue, 16 Jan 2024 19:52:22 +0100 (CET)
-Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-iad-1a-m6i4x-617e30c2.us-east-1.amazon.com) ([10.43.8.2])
- by smtp-border-fw-6001.iad6.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jan 2024 18:52:21 +0000
+ id 1rPoXx-0002UD-Ug
+ for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 18:52:25 +0000
+Received: from smtp-fw-80008.amazon.com (smtp-fw-80008.amazon.com
+ [99.78.197.219]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 627ddc1f-b4a0-11ee-98f1-6d05b1d4d9a1;
+ Tue, 16 Jan 2024 19:52:25 +0100 (CET)
+Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
+ email-inbound-relay-iad-1a-m6i4x-bbc6e425.us-east-1.amazon.com)
+ ([10.25.36.214]) by smtp-border-fw-80008.pdx80.corp.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jan 2024 18:52:22 +0000
 Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
- (iad7-ws-svc-p70-lb3-vlan2.iad.amazon.com [10.32.235.34])
- by email-inbound-relay-iad-1a-m6i4x-617e30c2.us-east-1.amazon.com (Postfix)
- with ESMTPS id 9AAA1693DD; Tue, 16 Jan 2024 18:52:18 +0000 (UTC)
-Received: from EX19MTAUEB001.ant.amazon.com [10.0.44.209:29814]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.57.22:2525]
+ (iad7-ws-svc-p70-lb3-vlan3.iad.amazon.com [10.32.235.38])
+ by email-inbound-relay-iad-1a-m6i4x-bbc6e425.us-east-1.amazon.com (Postfix)
+ with ESMTPS id 3DD0D807A3; Tue, 16 Jan 2024 18:52:20 +0000 (UTC)
+Received: from EX19MTAUEC001.ant.amazon.com [10.0.44.209:4913]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.15.248:2525]
  with esmtp (Farcaster)
- id 180acf2c-dc78-4ccd-a737-249d135ec91b; Tue, 16 Jan 2024 18:52:18 +0000 (UTC)
-Received: from EX19D008UEC004.ant.amazon.com (10.252.135.170) by
- EX19MTAUEB001.ant.amazon.com (10.252.135.108) with Microsoft SMTP Server
+ id de871c36-9ec9-4ec7-b295-f240a8062615; Tue, 16 Jan 2024 18:52:19 +0000 (UTC)
+Received: from EX19D008UEA004.ant.amazon.com (10.252.134.191) by
+ EX19MTAUEC001.ant.amazon.com (10.252.135.222) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Tue, 16 Jan 2024 18:52:12 +0000
+ 15.2.1118.40; Tue, 16 Jan 2024 18:52:14 +0000
 Received: from EX19MTAUWB001.ant.amazon.com (10.250.64.248) by
- EX19D008UEC004.ant.amazon.com (10.252.135.170) with Microsoft SMTP Server
+ EX19D008UEA004.ant.amazon.com (10.252.134.191) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Tue, 16 Jan 2024 18:52:11 +0000
+ 15.2.1118.40; Tue, 16 Jan 2024 18:52:14 +0000
 Received: from dev-dsk-eliasely-1a-fd74790f.eu-west-1.amazon.com
  (10.253.91.118) by mail-relay.amazon.com (10.250.64.254) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Tue, 16 Jan 2024 18:52:10 +0000
+ 15.2.1118.40 via Frontend Transport; Tue, 16 Jan 2024 18:52:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,30 +59,30 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6111cb44-b4a0-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 627ddc1f-b4a0-11ee-98f1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1705431143; x=1736967143;
+  t=1705431145; x=1736967145;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=fVoEyNUTrAzw7YTY+W9724IaRNR5eJ6bcUYtN3Z0rYg=;
-  b=YeUeEJfJDbGgM+/EUyvvDZftEyBzIAtb31AgL7NYA9PeOwa5P0Bup5Dz
-   GiVitK+4jGMofgply68Lb5F3J9N44MrkOg/WLJwRHUpYO7QjCQ7WSJMzS
-   k/qQC+zls5EW9FOm6Tl1FUOZsCrGxnL2aRsziHfI2berWCibhSC/khddG
+  bh=BQwz5u8QWnu4kJOr/giiJYPgo6aRgBqNBhniW2zo2FE=;
+  b=YnGdkP68oU7GJgEKFaNf9M2PKn2jARFRFUtMEsE/EnoNrrF2c7ynHdYu
+   O2ZU1Qasr/RXagzDM2zgNciApWsOPRrOkyoUzXPP623TL2zQ1bUq7W/T8
+   XFPAstHRAIREJmT5wN+el6VeY0jpgMw5RtOwqVQFUDAuB78wF7V/Ycxgb
    Q=;
 X-IronPort-AV: E=Sophos;i="6.05,200,1701129600"; 
-   d="scan'208";a="382569755"
-X-Farcaster-Flow-ID: 180acf2c-dc78-4ccd-a737-249d135ec91b
+   d="scan'208";a="58742934"
+X-Farcaster-Flow-ID: de871c36-9ec9-4ec7-b295-f240a8062615
 From: Elias El Yandouzi <eliasely@amazon.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, Hongyan Xia
-	<hongyxia@amazon.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Julien Grall
+	<hongyxia@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
+ Dunlap" <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
 	<jgrall@amazon.com>, Elias El Yandouzi <eliasely@amazon.com>
-Subject: [PATCH v2] x86/setup: Leave early boot slightly earlier
-Date: Tue, 16 Jan 2024 18:50:48 +0000
-Message-ID: <20240116185056.15000-20-eliasely@amazon.com>
+Subject: [PATCH v2] x86/setup: vmap heap nodes when they are outside the direct map
+Date: Tue, 16 Jan 2024 18:50:49 +0000
+Message-ID: <20240116185056.15000-21-eliasely@amazon.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240116185056.15000-1-eliasely@amazon.com>
 References: <20240116185056.15000-1-eliasely@amazon.com>
@@ -93,58 +93,97 @@ Precedence: Bulk
 
 From: Hongyan Xia <hongyxia@amazon.com>
 
-When we do not have a direct map, memory for metadata of heap nodes in
-init_node_heap() is allocated from xenheap, which needs to be mapped and
-unmapped on demand. However, we cannot just take memory from the boot
-allocator to create the PTEs while we are passing memory to the heap
-allocator.
+When we do not have a direct map, archs_mfn_in_direct_map() will always
+return false, thus init_node_heap() will allocate xenheap pages from an
+existing node for the metadata of a new node. This means that the
+metadata of a new node is in a different node, slowing down heap
+allocation.
 
-To solve this race, we leave early boot slightly sooner so that Xen PTE
-pages are allocated from the heap instead of the boot allocator. We can
-do this because the metadata for the 1st node is statically allocated,
-and by the time we need memory to create mappings for the 2nd node, we
-already have enough memory in the heap allocator in the 1st node.
+Since we now have early vmap, vmap the metadata locally in the new node.
 
 Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 Signed-off-by: Julien Grall <jgrall@amazon.com>
 Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
 
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index b813ea75b5..3b698c8c41 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1746,6 +1746,22 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
+----
+
+    Changes in v2:
+        * vmap_contig_pages() was renamed to vmap_contig()
+        * Fix indentation and coding style
+
+    Changes from Hongyan's version:
+        * arch_mfn_in_direct_map() was renamed to
+          arch_mfns_in_direct_map()
+        * Use vmap_contig_pages() rather than __vmap(...).
+        * Add missing include (xen/vmap.h) so it compiles on Arm
+
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 52934ec5c1..42b9aaae1c 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -136,6 +136,7 @@
+ #include <xen/sched.h>
+ #include <xen/softirq.h>
+ #include <xen/spinlock.h>
++#include <xen/vmap.h>
  
-     numa_initmem_init(0, raw_max_page);
- 
-+    /*
-+     * When we do not have a direct map, memory for metadata of heap nodes in
-+     * init_node_heap() is allocated from xenheap, which needs to be mapped and
-+     * unmapped on demand. However, we cannot just take memory from the boot
-+     * allocator to create the PTEs while we are passing memory to the heap
-+     * allocator during end_boot_allocator().
-+     *
-+     * To solve this race, we need to leave early boot before
-+     * end_boot_allocator() so that Xen PTE pages are allocated from the heap
-+     * instead of the boot allocator. We can do this because the metadata for
-+     * the 1st node is statically allocated, and by the time we need memory to
-+     * create mappings for the 2nd node, we already have enough memory in the
-+     * heap allocator in the 1st node.
-+     */
-+    system_state = SYS_STATE_boot;
-+
-     if ( max_page - 1 > virt_to_mfn(HYPERVISOR_VIRT_END - 1) )
+ #include <asm/flushtlb.h>
+ #include <asm/numa.h>
+@@ -604,22 +605,44 @@ static unsigned long init_node_heap(int node, unsigned long mfn,
+         needed = 0;
+     }
+     else if ( *use_tail && nr >= needed &&
+-              arch_mfns_in_directmap(mfn + nr - needed, needed) &&
+               (!xenheap_bits ||
+-               !((mfn + nr - 1) >> (xenheap_bits - PAGE_SHIFT))) )
++              !((mfn + nr - 1) >> (xenheap_bits - PAGE_SHIFT))) )
      {
-         unsigned long lo = virt_to_mfn(HYPERVISOR_VIRT_END - 1);
-@@ -1777,8 +1793,6 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-     else
-         end_boot_allocator();
- 
--    system_state = SYS_STATE_boot;
--
-     bsp_stack = cpu_alloc_stack(0);
-     if ( !bsp_stack )
-         panic("No memory for BSP stack\n");
+-        _heap[node] = mfn_to_virt(mfn + nr - needed);
+-        avail[node] = mfn_to_virt(mfn + nr - 1) +
+-                      PAGE_SIZE - sizeof(**avail) * NR_ZONES;
++        if ( arch_mfns_in_directmap(mfn + nr - needed, needed) )
++        {
++            _heap[node] = mfn_to_virt(mfn + nr - needed);
++            avail[node] = mfn_to_virt(mfn + nr - 1) +
++                          PAGE_SIZE - sizeof(**avail) * NR_ZONES;
++        }
++        else
++        {
++            mfn_t needed_start = _mfn(mfn + nr - needed);
++
++            _heap[node] = vmap_contig(needed_start, needed);
++            BUG_ON(!_heap[node]);
++            avail[node] = (void *)(_heap[node]) + (needed << PAGE_SHIFT) -
++                          sizeof(**avail) * NR_ZONES;
++        }
+     }
+     else if ( nr >= needed &&
+-              arch_mfns_in_directmap(mfn, needed) &&
+               (!xenheap_bits ||
+-               !((mfn + needed - 1) >> (xenheap_bits - PAGE_SHIFT))) )
++              !((mfn + needed - 1) >> (xenheap_bits - PAGE_SHIFT))) )
+     {
+-        _heap[node] = mfn_to_virt(mfn);
+-        avail[node] = mfn_to_virt(mfn + needed - 1) +
+-                      PAGE_SIZE - sizeof(**avail) * NR_ZONES;
++        if ( arch_mfns_in_directmap(mfn, needed) )
++        {
++            _heap[node] = mfn_to_virt(mfn);
++            avail[node] = mfn_to_virt(mfn + needed - 1) +
++                          PAGE_SIZE - sizeof(**avail) * NR_ZONES;
++        }
++        else
++        {
++            mfn_t needed_start = _mfn(mfn);
++
++            _heap[node] = vmap_contig(needed_start, needed);
++            BUG_ON(!_heap[node]);
++            avail[node] = (void *)(_heap[node]) + (needed << PAGE_SHIFT) -
++                          sizeof(**avail) * NR_ZONES;
++        }
+         *use_tail = false;
+     }
+     else if ( get_order_from_bytes(sizeof(**_heap)) ==
 -- 
 2.40.1
 
