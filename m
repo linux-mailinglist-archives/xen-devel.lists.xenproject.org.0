@@ -2,38 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 277FF82EFAE
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 14:24:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667763.1039341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 070A682EFB1
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 14:27:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667767.1039350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPjQa-0005fh-Bl; Tue, 16 Jan 2024 13:24:28 +0000
+	id 1rPjTM-0006Cp-Of; Tue, 16 Jan 2024 13:27:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667763.1039341; Tue, 16 Jan 2024 13:24:28 +0000
+Received: by outflank-mailman (output) from mailman id 667767.1039350; Tue, 16 Jan 2024 13:27:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPjQa-0005cS-82; Tue, 16 Jan 2024 13:24:28 +0000
-Received: by outflank-mailman (input) for mailman id 667763;
- Tue, 16 Jan 2024 13:24:26 +0000
+	id 1rPjTM-0006AP-Lm; Tue, 16 Jan 2024 13:27:20 +0000
+Received: by outflank-mailman (input) for mailman id 667767;
+ Tue, 16 Jan 2024 13:27:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MjSB=I2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPjQY-0005cL-RC
- for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 13:24:26 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
+ (envelope-from <SRS0=WH2v=I2=redhat.com=thuth@srs-se1.protection.inumbo.net>)
+ id 1rPjTL-0006AJ-DX
+ for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 13:27:19 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 90dbbef2-b472-11ee-9b0f-b553b5be7939;
- Tue, 16 Jan 2024 14:24:24 +0100 (CET)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2cd1232a2c7so121199841fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 05:24:24 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ba30-20020a0566383a9e00b0046dda6b83c1sm2906894jab.25.2024.01.16.05.24.21
+ id f70b6113-b472-11ee-9b0f-b553b5be7939;
+ Tue, 16 Jan 2024 14:27:17 +0100 (CET)
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-175-dcfYfaZmM36Xcmjcj7gslg-1; Tue, 16 Jan 2024 08:27:14 -0500
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-429a1d383c3so105623641cf.1
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 05:27:14 -0800 (PST)
+Received: from [192.168.0.9] (ip-109-43-179-227.web.vodafone.de.
+ [109.43.179.227]) by smtp.gmail.com with ESMTPSA id
+ fg25-20020a05622a581900b00429be14d3bbsm4848111qtb.13.2024.01.16.05.27.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jan 2024 05:24:23 -0800 (PST)
+ Tue, 16 Jan 2024 05:27:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,185 +49,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90dbbef2-b472-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705411464; x=1706016264; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=17Yq9y2+qC9IoudMhbozuPkVnchduP15fO4mVknJ9rc=;
-        b=IjjJp2ViEKnxf3Kkrd595lRZr+tGhARf34shedHGz2UWnWbRdhx368lbWa73AfBrj4
-         RkXV/7gaZDIm6SWSIBVvbhBFs6ML/jpXWrvgXBUSSYag9Jl2zfGaFhJYpe0LHPUP/RPz
-         3deJ1DPN0t2XyrSysnm8A9hd+ri1fOyiifF8SwBr5VPqB1m90ZdoewsyMCa3eo+oy29g
-         SOXc91Hzq9JqyYROpMAXtNJ7vKz2aM7mw5kaIcFmutRXVhQmeqqZ4uz3C3qP8hoGPlvY
-         N86e6XDzu48ORJRZg5e70/TgyMN/Xk1lkSGu4d0yLhL9bbJ/bVLwoUICYtL5jDkxv+kT
-         BaxA==
+X-Inumbo-ID: f70b6113-b472-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1705411635;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=micPVCS03YcsiQYgBq8kGJGsDZ34dwZb843rKaoq/8w=;
+	b=VdI/u5CU5t7gMwV6uOCMvq809E+sn/qIH1bLFmCAZ1nPWnOdLpcShcGArHFLOuSVuRJ7Kb
+	tOwTs/D4JVaDYyln3gCNh3UG1ShyKPRVa/9BAHYFOMw+lxNtBdtibVY5D0G5UG8yBPdt/C
+	2x9wMWvq6Lg9vaLGW6stanGyvrFhcAk=
+X-MC-Unique: dcfYfaZmM36Xcmjcj7gslg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705411464; x=1706016264;
+        d=1e100.net; s=20230601; t=1705411634; x=1706016434;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=17Yq9y2+qC9IoudMhbozuPkVnchduP15fO4mVknJ9rc=;
-        b=NEv5pu8nzYdtCji3ZzsXA6PS3MPVccxfX1+lMA3NbwXmP7EXiVkBjMEsEREX09AHpn
-         ptAHUmtc5MIxw+1PXyiMl+Ibgqgr92sQX3AQpMFQv9d2lMRzOLV7iCmX6sDF7Dnp5NKb
-         6xF3uRqoNsyjkl90REsUsFw3TRoToW4H0b0m3I+1G/f5UutBQ55WxFZK3Mu2VVIPcdGA
-         wtJn89pJ0ovC8f8wmdIcmQjcLMcukDcEqIDQP96/B3N2MOr79fQQd78i46Jrz/AzqvP/
-         3ZkAnOR9Od6xP0QPlrWNi2yUcSjtY6iqTXxxK4q3spT+OUWwCFN34w317JvB4aauLu77
-         z1rA==
-X-Gm-Message-State: AOJu0YwDttlTXCvZ2FlUbFUD0QR4+D01ODOQrl9LZ8X6mLKW5cT5FSB6
-	g/z79QzOhIQkXewNEHxj2vfJdLO8aDvF
-X-Google-Smtp-Source: AGHT+IGtWnBkWDfKcheW8zADACbDWUbOVdStx79/OoJWvUigqpdiNX+XVT+m5mG7Ip3198xv4TykYA==
-X-Received: by 2002:a2e:b604:0:b0:2cd:c1af:4c3e with SMTP id r4-20020a2eb604000000b002cdc1af4c3emr1570046ljn.42.1705411463983;
-        Tue, 16 Jan 2024 05:24:23 -0800 (PST)
-Message-ID: <88df7ccd-8d14-4b00-900d-04cc87d9f230@suse.com>
-Date: Tue, 16 Jan 2024 14:24:20 +0100
+        bh=micPVCS03YcsiQYgBq8kGJGsDZ34dwZb843rKaoq/8w=;
+        b=SgeBl6HTFlQwTlsDceU1LkvV1beCAp8gGkInZKARZLVotLBF/6WYnxLTrEC4coq4+V
+         fLCjhCP3yZaptapUA727ToP/cVE3qbGaJhiPtms9INQn3doXt7HJAMuXKfuc0mxIEepJ
+         mvtUy+u9cBj3QvO5022KsS9KZuClWPH+S/EWzsO8puJf1U7P00eWkR9XrEToBYoylHHA
+         9K4y47Zs662kf2uGfo33J2QWs2xfup4/01dcn079+MzjGRsBIf7t/oSUu/ykm6471NH/
+         T9Uz0dxKhn3YpKZ/W7u/zZtqABdoiquNzmND1oeraRnvua/aV6fMHIlczFYXZ1zNKln5
+         A+sQ==
+X-Gm-Message-State: AOJu0YxUZAIF9qQfswej/e8DwSa/kpxw3P9P4Lsq1HLGjCKOZrRcz25U
+	ShOpGleQAH3qycUoPUW66e0Xsg3CCbxnhCoTwnGrLTER5ynOKPJdAV8O26MZ/FV4NRMm+cij6AU
+	ANlOLr5l6J9iAg85L6iFcjgzdLtxtEKSTR9o=
+X-Received: by 2002:a05:622a:3cf:b0:429:c715:1b1 with SMTP id k15-20020a05622a03cf00b00429c71501b1mr10244573qtx.111.1705411633671;
+        Tue, 16 Jan 2024 05:27:13 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFfOVvI9b5J3pQbLjk/6HTmGtAD6L1/IYtPkUNMmrxkvcLJrPzDAEsx5im3gi3cIE1dHjJZFg==
+X-Received: by 2002:a05:622a:3cf:b0:429:c715:1b1 with SMTP id k15-20020a05622a03cf00b00429c71501b1mr10244506qtx.111.1705411633351;
+        Tue, 16 Jan 2024 05:27:13 -0800 (PST)
+Message-ID: <8d1b083e-1bc7-4ee3-87da-9f1129784b3d@redhat.com>
+Date: Tue, 16 Jan 2024 14:26:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/34] xen/riscv: introduce bitops.h
+Subject: Re: [PATCH v3 40/46] hw/s390x/s390-virtio-ccw: use
+ qemu_create_nic_device()
+To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
+Cc: Richard Henderson <richard.henderson@linaro.org>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
+ Niek Linnenbank <nieklinnenbank@gmail.com>, =?UTF-8?Q?C=C3=A9dric_Le_Goater?=
+ <clg@kaod.org>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, Igor Mitsyanko <i.mitsyanko@gmail.com>,
+ Jean-Christophe Dubois <jcd@tribudubois.net>,
+ Andrey Smirnov <andrew.smirnov@gmail.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Rob Herring <robh@kernel.org>, Subbaraya Sundeep <sundeep.lkml@gmail.com>,
+ Jan Kiszka <jan.kiszka@web.de>, Tyrone Ting <kfting@nuvoton.com>,
+ Hao Wu <wuhaotsh@google.com>, Radoslaw Biernacki <rad@semihalf.com>,
+ Leif Lindholm <quic_llindhol@quicinc.com>,
+ Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>, Helge Deller <deller@gmx.de>,
+ Paolo Bonzini <pbonzini@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Song Gao
+ <gaosong@loongson.cn>, Thomas Huth <huth@tuxfamily.org>,
+ Laurent Vivier <laurent@vivier.eu>, Huacai Chen <chenhuacai@kernel.org>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Jason Wang <jasowang@redhat.com>,
+ Jia Liu <proljc@gmail.com>, Stafford Horne <shorne@gmail.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>, Bin Meng
+ <bin.meng@windriver.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Weiwei Li <liwei1518@gmail.com>, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Eric Farman <farman@linux.ibm.com>, David Hildenbrand <david@redhat.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Magnus Damm <magnus.damm@gmail.com>, Artyom Tarasenko <atar4qemu@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Max Filippov <jcmvbkbc@gmail.com>, qemu-arm@nongnu.org, qemu-ppc@nongnu.org,
+ qemu-riscv@nongnu.org, qemu-s390x@nongnu.org,
+ xen-devel@lists.xenproject.org, David Woodhouse <dwmw@amazon.co.uk>
+References: <20240108204909.564514-1-dwmw2@infradead.org>
+ <20240108204909.564514-41-dwmw2@infradead.org>
+From: Thomas Huth <thuth@redhat.com>
+Autocrypt: addr=thuth@redhat.com; keydata=
+ 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
+In-Reply-To: <20240108204909.564514-41-dwmw2@infradead.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <841d59c3950970f4937da200cf8f04aa39132e14.1703255175.git.oleksii.kurochko@gmail.com>
- <23f1212a-66a8-47b0-904b-08b2ab54c72b@suse.com>
- <17d9fe474e244a15aa5955e630d553a62b0080fd.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <17d9fe474e244a15aa5955e630d553a62b0080fd.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 16.01.2024 14:06, Oleksii wrote:
-> On Mon, 2024-01-15 at 17:44 +0100, Jan Beulich wrote:
->> On 22.12.2023 16:12, Oleksii Kurochko wrote:
->>> +#define test_and_set_bit   __test_and_set_bit
->>> +#define test_and_clear_bit __test_and_clear_bit
->>
->> I realize test-and-change have no present users, despite being made
->> available by Arm and x86, but I think they would better be provided
->> right away, rather than someone introducing a use then needing to
->> fiddle with RISC-V (and apparently also PPC) code.
-> Sure, it makes sense. I'll add test-and-change too.
+On 08/01/2024 21.27, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
 > 
->> I'm also puzzled by this aliasing: Aren't there cheaper non-atomic
->> insn forms that could be used for the double-underscore-prefixed
->> variants?
-> It will be cheaper, but I assume that this API should be safe in the
-> case of SMP where different CPUs can access the same variable or
-> similar cases with simultaneous access to the variable.
-
-Of course, that's what test_and_...() are for. __test_and_...() are
-for cases where there's no concurrency, when hence the cheaper forms
-can be used. Thus my asking about the aliasing done above.
-
->>> +#if BITS_PER_LONG == 64
->>> +    if ((word & 0xffffffff) == 0) {
->>> +        num += 32;
->>> +        word >>= 32;
->>> +    }
->>
->> You're ending up with neither Xen nor Linux style this way. May I
->> suggest to settle on either?
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+>   hw/s390x/s390-virtio-ccw.c | 11 ++---------
+>   1 file changed, 2 insertions(+), 9 deletions(-)
 > 
-> Will it fine to rework header from Linux to Xen style? Does it make
-> sense?
-> I think this file can be reworked to Xen style as I don't expect that
-> it will be changed since it will be merged.
+> diff --git a/hw/s390x/s390-virtio-ccw.c b/hw/s390x/s390-virtio-ccw.c
+> index 1169e20b94..202c378131 100644
+> --- a/hw/s390x/s390-virtio-ccw.c
+> +++ b/hw/s390x/s390-virtio-ccw.c
+> @@ -221,16 +221,9 @@ static void s390_init_ipl_dev(const char *kernel_filename,
+>   
+>   static void s390_create_virtio_net(BusState *bus, const char *name)
+>   {
+> -    int i;
+> -
+> -    for (i = 0; i < nb_nics; i++) {
+> -        NICInfo *nd = &nd_table[i];
+> -        DeviceState *dev;
+> -
+> -        qemu_check_nic_model(nd, "virtio");
+> +    DeviceState *dev;
+>   
+> -        dev = qdev_new(name);
+> -        qdev_set_nic_properties(dev, nd);
+> +    while ((dev = qemu_create_nic_device(name, true, "virtio"))) {
+>           qdev_realize_and_unref(dev, bus, &error_fatal);
+>       }
+>   }
 
-You may keep Linux style or fully switch to Xen style - which one is
-largely up to you. All I'm asking is to avoid introducing further
-mixed-style source files.
+Acked-by: Thomas Huth <thuth@redhat.com>
 
->>> --- /dev/null
->>> +++ b/xen/include/asm-generic/bitops/bitops-bits.h
->>> @@ -0,0 +1,10 @@
->>> +/* SPDX-License-Identifier: GPL-2.0 */
->>> +#ifndef _ASM_GENERIC_BITOPS_BITS_H_
->>> +#define _ASM_GENERIC_BITOPS_BITS_H_
->>> +
->>> +#define BITOP_BITS_PER_WORD     32
->>> +#define BITOP_MASK(nr)          (1UL << ((nr) %
->>> BITOP_BITS_PER_WORD))
->>
->> Why 1UL and not just 1U, when bits per word is 32?
-> There is no specific reason, should 1U. ( I originally used
-> BITOPS_BITS_PER_LONG ) and with introduction of asm-generic bitops
-> decided to follow what other archs provide.
-> 
-> Regarding to the second part of the question, I don't understand it
-> fully. Considering BITOP_BIT_PER_WORD definition for other archs ( ARM
-> and PPC ) it is expected that word is 32 bits.
-
-The 2nd part was explaining why I'm asking. It wasn't another question.
-
->>> --- /dev/null
->>> +++ b/xen/include/asm-generic/bitops/test-bit.h
->>> @@ -0,0 +1,16 @@
->>> +/* SPDX-License-Identifier: GPL-2.0 */
->>> +#ifndef _ASM_GENERIC_BITOPS_TESTBIT_H_
->>> +#define _ASM_GENERIC_BITOPS_TESTBIT_H_
->>> +
->>> +/**
->>> + * test_bit - Determine whether a bit is set
->>> + * @nr: bit number to test
->>> + * @addr: Address to start counting from
->>> + */
->>> +static inline int test_bit(int nr, const volatile void *addr)
->>> +{
->>> +    const volatile unsigned int *p = addr;
->>
->> With BITOP_BITS_PER_WORD I think you really mean uint32_t here.
-> Isn't it the same: 'unsigned int' and 'uint32_t'?
-
-No, or else there wouldn't have been a need to introduce uint<N>_t (and
-others) in C99. It just so happens that right now all architectures Xen
-can be built for have sizeof(int) == 4 and CHAR_BITS == 8. In an arch-
-specific header I would see this as less of an issue, but in a generic
-header we'd better avoid encoding wrong assumptions. The one assumption
-we generally make is that sizeof(int) >= 4 and CHAR_BITS >= 8 (albeit I
-bet really in various places we assume CHAR_BITS == 8).
-
->> Also you want to make sure asm-generic/bitops/bitops-bits.h is
->> really in use here, or else an arch overriding / not using that
->> header may end up screwed.
-> I am not really understand what do you mean. Could you please explain a
-> little bit more.
-
-Whichever type you use here, it needs to be in sync with
-BITOP_BITS_PER_WORD. Hence you want to include the _local_ bitops-bits.h
-here, such that in case of an inconsistent override by an arch the
-compiler would complain about the two differring #define-s. (IOW an
-arch overriding BITOP_BITS_PER_WORD cannot re-use this header as-is.)
-
-The same may, btw, be true for others of the new headers you add - the
-same #include would therefore be needed there as well.
-
-Jan
 
