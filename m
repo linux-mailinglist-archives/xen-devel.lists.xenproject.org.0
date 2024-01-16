@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E41B482F4A2
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 19:52:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667950.1039704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B79D82F4AE
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 19:52:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667952.1039720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPoXU-0003jq-JD; Tue, 16 Jan 2024 18:51:56 +0000
+	id 1rPoXZ-0004CQ-51; Tue, 16 Jan 2024 18:52:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667950.1039704; Tue, 16 Jan 2024 18:51:56 +0000
+Received: by outflank-mailman (output) from mailman id 667952.1039720; Tue, 16 Jan 2024 18:52:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPoXU-0003fm-Fv; Tue, 16 Jan 2024 18:51:56 +0000
-Received: by outflank-mailman (input) for mailman id 667950;
- Tue, 16 Jan 2024 18:51:55 +0000
+	id 1rPoXZ-00049s-0w; Tue, 16 Jan 2024 18:52:01 +0000
+Received: by outflank-mailman (input) for mailman id 667952;
+ Tue, 16 Jan 2024 18:51:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wmx9=I2=amazon.co.uk=prvs=738631f0b=eliasely@srs-se1.protection.inumbo.net>)
- id 1rPoXT-0002UD-1D
- for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 18:51:55 +0000
-Received: from smtp-fw-6002.amazon.com (smtp-fw-6002.amazon.com [52.95.49.90])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 506eb8b9-b4a0-11ee-98f1-6d05b1d4d9a1;
- Tue, 16 Jan 2024 19:51:54 +0100 (CET)
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-pdx-2b-m6i4x-189d700f.us-west-2.amazon.com) ([10.43.8.6])
- by smtp-border-fw-6002.iad6.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jan 2024 18:51:52 +0000
+ id 1rPoXX-0002UD-5J
+ for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 18:51:59 +0000
+Received: from smtp-fw-80009.amazon.com (smtp-fw-80009.amazon.com
+ [99.78.197.220]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5282b318-b4a0-11ee-98f1-6d05b1d4d9a1;
+ Tue, 16 Jan 2024 19:51:58 +0100 (CET)
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ email-inbound-relay-iad-1d-m6i4x-b404fda3.us-east-1.amazon.com)
+ ([10.25.36.210]) by smtp-border-fw-80009.pdx80.corp.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Jan 2024 18:51:53 +0000
 Received: from smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev
- (pdx2-ws-svc-p26-lb5-vlan3.pdx.amazon.com [10.39.38.70])
- by email-inbound-relay-pdx-2b-m6i4x-189d700f.us-west-2.amazon.com (Postfix)
- with ESMTPS id BC74840DB4; Tue, 16 Jan 2024 18:51:49 +0000 (UTC)
-Received: from EX19MTAUEA001.ant.amazon.com [10.0.44.209:44190]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.53.69:2525]
+ (iad7-ws-svc-p70-lb3-vlan3.iad.amazon.com [10.32.235.38])
+ by email-inbound-relay-iad-1d-m6i4x-b404fda3.us-east-1.amazon.com (Postfix)
+ with ESMTPS id 30D2380718; Tue, 16 Jan 2024 18:51:51 +0000 (UTC)
+Received: from EX19MTAUEC002.ant.amazon.com [10.0.29.78:46358]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.89.133:2525]
  with esmtp (Farcaster)
- id 4e784bda-cfc0-4339-b7e4-8735f2c30050; Tue, 16 Jan 2024 18:51:49 +0000 (UTC)
+ id 30b6ac54-b3b1-41eb-98bd-7e364c531f5a; Tue, 16 Jan 2024 18:51:50 +0000 (UTC)
 Received: from EX19D008UEA004.ant.amazon.com (10.252.134.191) by
- EX19MTAUEA001.ant.amazon.com (10.252.134.203) with Microsoft SMTP Server
+ EX19MTAUEC002.ant.amazon.com (10.252.135.253) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Tue, 16 Jan 2024 18:51:39 +0000
+ 15.2.1118.40; Tue, 16 Jan 2024 18:51:41 +0000
 Received: from EX19MTAUWB001.ant.amazon.com (10.250.64.248) by
  EX19D008UEA004.ant.amazon.com (10.252.134.191) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Tue, 16 Jan 2024 18:51:38 +0000
+ 15.2.1118.40; Tue, 16 Jan 2024 18:51:41 +0000
 Received: from dev-dsk-eliasely-1a-fd74790f.eu-west-1.amazon.com
  (10.253.91.118) by mail-relay.amazon.com (10.250.64.254) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40 via Frontend Transport; Tue, 16 Jan 2024 18:51:36 +0000
+ 15.2.1118.40 via Frontend Transport; Tue, 16 Jan 2024 18:51:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,20 +59,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 506eb8b9-b4a0-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 5282b318-b4a0-11ee-98f1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1705431115; x=1736967115;
+  t=1705431118; x=1736967118;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=OfEYXQrUMYXPAWM79GmQhfyI8aqQMCL5v2pGd2UmDoQ=;
-  b=tTT9yHH3piRmJ3UQltT4VKySuiB1TsXg/j3+mBd2HQR0v/JPMxb5LaGW
-   PG/fbhsYVkmlFjggK0onWvWmU48hZb8cttmlWcY1B4G6veWSa/nKgzKGM
-   IYhpAo/gjdHCBLXFwgY3TBBO9raHWpJ1H4HXJR6eACnE9DIhXx6ZE8A2o
-   Y=;
+  bh=FgFciMpLuDVe/Ws8Mo0D+wl9Af+6on00mUDD4ztD+mE=;
+  b=PPkOaRVpZpcU+TtYPbkbsohqN77V345hXbeskyzRGOh5NpIsD0z22Kii
+   G7n+1tl4mYEw9bUWezzfD312QoUoRAAWA81SjdONnZBTydyXzpUNlxUxo
+   mvGb9wC2bIIh9Itv/4OOGZmKt0anpiGLS7Ph+nbyZUVLOVWJOOGkBHoXI
+   Q=;
 X-IronPort-AV: E=Sophos;i="6.05,200,1701129600"; 
-   d="scan'208";a="380173152"
-X-Farcaster-Flow-ID: 4e784bda-cfc0-4339-b7e4-8735f2c30050
+   d="scan'208";a="58691940"
+X-Farcaster-Flow-ID: 30b6ac54-b3b1-41eb-98bd-7e364c531f5a
 From: Elias El Yandouzi <eliasely@amazon.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, Hongyan Xia
@@ -80,9 +80,9 @@ CC: <julien@xen.org>, <pdurrant@amazon.com>, <dwmw@amazon.com>, Hongyan Xia
  Dunlap" <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Stefano
  Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
 	<jgrall@amazon.com>, Elias El Yandouzi <eliasely@amazon.com>
-Subject: [PATCH v2] acpi: vmap pages in acpi_os_alloc_memory
-Date: Tue, 16 Jan 2024 18:50:33 +0000
-Message-ID: <20240116185056.15000-5-eliasely@amazon.com>
+Subject: [PATCH v2] xen/numa: vmap the pages for memnodemap
+Date: Tue, 16 Jan 2024 18:50:34 +0000
+Message-ID: <20240116185056.15000-6-eliasely@amazon.com>
 X-Mailer: git-send-email 2.40.1
 In-Reply-To: <20240116185056.15000-1-eliasely@amazon.com>
 References: <20240116185056.15000-1-eliasely@amazon.com>
@@ -93,16 +93,10 @@ Precedence: Bulk
 
 From: Hongyan Xia <hongyxia@amazon.com>
 
-Also, introduce a wrapper around vmap that maps a contiguous range for
-boot allocations. Unfortunately, the new helper cannot be a static inline
-because the dependencies are a mess. We would need to re-include
-asm/page.h (was removed in aa4b9d1ee653 "include: don't use asm/page.h
-from common headers") and it doesn't look to be enough anymore
-because bits from asm/cpufeature.h is used in the definition of PAGE_NX.
+This avoids the assumption that there is a direct map and boot pages
+fall inside the direct map.
 
-Lastly, with the move to vmap(), it is now easier to find the size
-of the mapping. So pass the whole area to init_boot_pages() rather than
-just the first page.
+Clean up the variables so that mfn actually stores a type-safe mfn.
 
 Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 Signed-off-by: Julien Grall <jgrall@amazon.com>
@@ -110,74 +104,39 @@ Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
 
 ----
 
+    See the discussion in the next patch about using panic().
+
     Changes in v2:
-        * Rename vmap_contig_pages() to vmap_contig()
-        * Rename nr_pages to nr to be consistent with vmap() parameters
-        * Pass the whole region to init_boot_pages()
+        * vmap_contig_pages() was renamed to vmap_contig()
+        * Replace the BUG_ON() with a panic()
 
-    Changes since Hongyan's version:
-        * Rename vmap_boot_pages() to vmap_contig_pages()
-        * Move the new helper in vmap.c to avoid compilation issue
-        * Don't use __pa() to translate the virtual address
+    Changes compare to Hongyan's version:
+        * The function modified was moved to common code. So rebase it
+        * vmap_boot_pages() was renamed to vmap_contig_pages()
 
-diff --git a/xen/common/vmap.c b/xen/common/vmap.c
-index 171271fae3..966a7e763f 100644
---- a/xen/common/vmap.c
-+++ b/xen/common/vmap.c
-@@ -245,6 +245,11 @@ void *vmap(const mfn_t *mfn, unsigned int nr)
-     return __vmap(mfn, 1, nr, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
- }
- 
-+void *vmap_contig(mfn_t mfn, unsigned int nr)
-+{
-+    return __vmap(&mfn, nr, 1, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
-+}
-+
- unsigned int vmap_size(const void *va)
+diff --git a/xen/common/numa.c b/xen/common/numa.c
+index f454c4d894..ef13ec2255 100644
+--- a/xen/common/numa.c
++++ b/xen/common/numa.c
+@@ -424,13 +424,14 @@ static int __init populate_memnodemap(const struct node *nodes,
+ static int __init allocate_cachealigned_memnodemap(void)
  {
-     unsigned int pages = vm_size(va, VMAP_DEFAULT);
-diff --git a/xen/drivers/acpi/osl.c b/xen/drivers/acpi/osl.c
-index 389505f786..ab80d6b2a9 100644
---- a/xen/drivers/acpi/osl.c
-+++ b/xen/drivers/acpi/osl.c
-@@ -221,7 +221,11 @@ void *__init acpi_os_alloc_memory(size_t sz)
- 	void *ptr;
+     unsigned long size = PFN_UP(memnodemapsize * sizeof(*memnodemap));
+-    unsigned long mfn = mfn_x(alloc_boot_pages(size, 1));
++    mfn_t mfn = alloc_boot_pages(size, 1);
  
- 	if (system_state == SYS_STATE_early_boot)
--		return mfn_to_virt(mfn_x(alloc_boot_pages(PFN_UP(sz), 1)));
-+	{
-+		mfn_t mfn = alloc_boot_pages(PFN_UP(sz), 1);
-+
-+		return vmap_contig(mfn, PFN_UP(sz));
-+	}
+-    memnodemap = mfn_to_virt(mfn);
+-    mfn <<= PAGE_SHIFT;
++    memnodemap = vmap_contig(mfn, size);
++    if ( !memnodemap )
++        panic("Unable to map the ACPI SLIT. Retry with numa=off");
+     size <<= PAGE_SHIFT;
+     printk(KERN_DEBUG "NUMA: Allocated memnodemap from %lx - %lx\n",
+-           mfn, mfn + size);
++           mfn_to_maddr(mfn), mfn_to_maddr(mfn) + size);
+     memnodemapsize = size / sizeof(*memnodemap);
  
- 	ptr = xmalloc_bytes(sz);
- 	ASSERT(!ptr || is_xmalloc_memory(ptr));
-@@ -246,5 +250,11 @@ void __init acpi_os_free_memory(void *ptr)
- 	if (is_xmalloc_memory(ptr))
- 		xfree(ptr);
- 	else if (ptr && system_state == SYS_STATE_early_boot)
--		init_boot_pages(__pa(ptr), __pa(ptr) + PAGE_SIZE);
-+	{
-+		paddr_t addr = mfn_to_maddr(vmap_to_mfn(ptr));
-+		unsigned int nr = vmap_size(ptr);
-+
-+		vunmap(ptr);
-+		init_boot_pages(addr, addr + nr * PAGE_SIZE);
-+	}
- }
-diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
-index 24c85de490..0c16baa85f 100644
---- a/xen/include/xen/vmap.h
-+++ b/xen/include/xen/vmap.h
-@@ -15,6 +15,7 @@ void vm_init_type(enum vmap_region type, void *start, void *end);
- void *__vmap(const mfn_t *mfn, unsigned int granularity, unsigned int nr,
-              unsigned int align, unsigned int flags, enum vmap_region type);
- void *vmap(const mfn_t *mfn, unsigned int nr);
-+void *vmap_contig(mfn_t mfn, unsigned int nr);
- void vunmap(const void *va);
- 
- void *vmalloc(size_t size);
+     return 0;
 -- 
 2.40.1
 
