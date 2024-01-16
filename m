@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013E682EB2C
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 09:56:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667667.1039155 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 850C782EB36
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 10:01:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667671.1039164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPfES-0002PX-PO; Tue, 16 Jan 2024 08:55:40 +0000
+	id 1rPfJQ-0004LF-HR; Tue, 16 Jan 2024 09:00:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667667.1039155; Tue, 16 Jan 2024 08:55:40 +0000
+Received: by outflank-mailman (output) from mailman id 667671.1039164; Tue, 16 Jan 2024 09:00:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPfES-0002Nx-MR; Tue, 16 Jan 2024 08:55:40 +0000
-Received: by outflank-mailman (input) for mailman id 667667;
- Tue, 16 Jan 2024 08:55:39 +0000
+	id 1rPfJQ-0004Je-En; Tue, 16 Jan 2024 09:00:48 +0000
+Received: by outflank-mailman (input) for mailman id 667671;
+ Tue, 16 Jan 2024 09:00:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MjSB=I2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPfER-0002Nr-Pe
- for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 08:55:39 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lstz=I2=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1rPfJP-0004JY-4Y
+ for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 09:00:47 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05099d92-b44d-11ee-98f1-6d05b1d4d9a1;
- Tue, 16 Jan 2024 09:55:38 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40e6275e9beso23985955e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 00:55:38 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n18-20020a05600c501200b0040e77ce8768sm6678643wmr.16.2024.01.16.00.55.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jan 2024 00:55:37 -0800 (PST)
+ id bb8401ca-b44d-11ee-98f1-6d05b1d4d9a1;
+ Tue, 16 Jan 2024 10:00:45 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a28b0207c1dso777136766b.3
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 01:00:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,108 +40,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05099d92-b44d-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: bb8401ca-b44d-11ee-98f1-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705395338; x=1706000138; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6TAJ6zjWtLRXEZkSjTX+7HP+Qbx3hDt9G2TlnRtXvGU=;
-        b=KukTinMemRFi2F5Gic3nkmcXprsKqTSuqR1gw7J5oGR4zd3jNS8hCGmzg6AF4UsSxF
-         b+e0+25eC+OZXoMjL6e5LTrzQqwzUaRCeomL82AzfGAlspvvB/Z6XDQz3cTZoa1vw2s1
-         w1y5g+Fm2/z1pP6pWl7BiXfCy01yH9iiin8JqwXezC80HC+5pJnmLW6kziyZHD76Cqsp
-         UfL9YPZvj6o75hkB6d2LN3jbfVqXPvtkGdhzvN/Us307+/JrlDoGSYrs0yft8h9SBTDA
-         OYG4CUGjXYL9mqXnZ3he4ARwm7/1OhWIqzJE+W9JVbJBfB+TOjyp52UPcvKMYmrkN//g
-         jVlw==
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1705395644; x=1706000444; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kyjnL1za0r89dP1OokXK0TAUeUj/Xlsyon8HZwa1NpE=;
+        b=NOVuwAdU5LHxxT5veIsCb0HJPtegPJsvzXzqOPgXXR9oZTxpDQfXN6WRa35a0pVfYB
+         +5w6sK/CDJVJB7q2O3nb6+2A3TSb8llRkrfvrZKOV9cTtkwFGHlOiLHe7675SKbFo2Jv
+         q6Ys5zRxPB8s+jhQth1Xw7foBJONyVt8QAH6y/kGfEhA4V/nOzwGxCiYNElUz6zHfuXp
+         M+3leMOwydoTjKmgHRYAyowm1ZPen7uns2kvJCX2op2pHWBap7/13c9pCXIRklgjT6cZ
+         btSb19llpjz4ex8eFB5S1DVuxFeS4n3HMz9jtMxBlUGVZXUhx2mrTyBShXl2iVCFzCpw
+         dbnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705395338; x=1706000138;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=6TAJ6zjWtLRXEZkSjTX+7HP+Qbx3hDt9G2TlnRtXvGU=;
-        b=bXKYnJWnh2DZJYPsRTmJhY82X0oddGw61wojqt3h5ByOu+7sQhGnZ1CdyUySe5CRom
-         ibcdit+ZXARfxq+kv436e0LpYRUatMyyJ3+u4XQ78hH83AVlUFrXzHX5Ud2de3PdjZvf
-         Pt3YqW9JHvVQGwRj5rYKlHOP6DArKwyuffwh8L/IFYRWjhoNwOjC48VwMNRDAa/5YtUz
-         4tKNyBW6eE2aLG8HVpKk6GdjttcsyAZqaVo+KnXxpK38BFxippgHFbD3y6rEkamm4+ih
-         7Auw1JfhfW2BR/GQyC/SbQz62W0RLRW4O5oFp3YdPzzTwJjoP6F9jkmP241/RNJWTZob
-         W1wA==
-X-Gm-Message-State: AOJu0YwuOYv8+sYoOTMjEEn1441ZmmvZXdAvYbv7yepLrgiPe2yNRg21
-	+uvqArqKj7wtH3gNzbcoX6G8KS2+kxpZOyUtsDJ8bfRY1g==
-X-Google-Smtp-Source: AGHT+IGQbJv5tKt80iP6Bbmne5HWOK5QYrp1GRTDHDIAhgIEgBTXYE+FM5Qkus9ggNELqgxa68cOkQ==
-X-Received: by 2002:a7b:c856:0:b0:40e:56ea:d9c3 with SMTP id c22-20020a7bc856000000b0040e56ead9c3mr3369722wml.47.1705395338138;
-        Tue, 16 Jan 2024 00:55:38 -0800 (PST)
-Message-ID: <b4532c37-1caf-481a-9621-ca4754a72ee4@suse.com>
-Date: Tue, 16 Jan 2024 09:55:37 +0100
+        d=1e100.net; s=20230601; t=1705395644; x=1706000444;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=kyjnL1za0r89dP1OokXK0TAUeUj/Xlsyon8HZwa1NpE=;
+        b=PmUeLdpSiL4B2ddrzxvYJTZYxppxkRS6CM3LwFfJAjw+UnhZ5lh1WGr9lCHMjY+ikj
+         6iL0IOD5eEQL6Xh9rg/c0UVjzWlTttU7DOl46CK/wMg4PZFqAwbCJBSTAb7rbfZJgWca
+         W/hXTaYYrX+hZo8Piy8QJ+oMScrCIW+QrfIAAkoUGGEVQd6FE4uue0uzM7Fel8zQL29C
+         UknEbwxWGtv3Mdqmy1Le2GtiDUTszbIlWKnmc+Ehy7AHl1i6CSJk1wjjiE1In0lrE1Gk
+         UaRLx9//OOCRbIjMFdvOVFXrVf+P5WebVlAU2ojXvLXhKkJF9Ow/ZmZ7M2sbZAe6ZQRu
+         gZTg==
+X-Gm-Message-State: AOJu0Yw+CBCvlPQG3456QuhtGNkc15/SuLUFf+P5VmPLqUDmNF2i0Qko
+	NJzzOz+SWm5OiIIggEfONKCLapYyFdlev2jWIVMDjmTE+X4pkg==
+X-Google-Smtp-Source: AGHT+IGSRCo6awZJOe/2+XG77RbwKBrTsP+KXpLrzgQHJhia8XT5R9OEG2H6wWp3dWjbpWTgrGSC2YS7PKMY74zsuWA=
+X-Received: by 2002:a17:907:c26:b0:a28:aee4:cbd1 with SMTP id
+ ga38-20020a1709070c2600b00a28aee4cbd1mr4148782ejc.7.1705395644282; Tue, 16
+ Jan 2024 01:00:44 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/CPU: convert vendor hook invocations to altcall
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <ece45cf6-51c8-413e-9963-21144fe64f2a@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ece45cf6-51c8-413e-9963-21144fe64f2a@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
+ <20240102095138.17933-14-carlo.nonato@minervasys.tech> <4553cc26-deb5-42ed-87b9-6cba2a5099eb@xen.org>
+ <CAG+AhRXHfGJksqUrPXoHqNze+D654jJV0kVYBZaPLYwccdEz5Q@mail.gmail.com>
+ <aa064f8f-d30e-4ac1-9239-daba5a806794@xen.org> <CAG+AhRXUPvKGu-y9qbVmhc0_ThCdxFvG=BYwCQMBH=mjo45qHw@mail.gmail.com>
+ <985e1a2a-45eb-496c-8043-5f0c3c9f7766@xen.org> <CAG+AhRVKbM-n8ieg-CMbRG-4RgUXMSZL=ZER8EAWvGJgpEzUwA@mail.gmail.com>
+ <ca2a64f8-ac0d-4b61-8f48-34478371bcbc@xen.org>
+In-Reply-To: <ca2a64f8-ac0d-4b61-8f48-34478371bcbc@xen.org>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Tue, 16 Jan 2024 10:00:32 +0100
+Message-ID: <CAG+AhRVxBt=L-ioAcy9HH_kZq6jN84hLSK7UrkykO9LJVFGraA@mail.gmail.com>
+Subject: Re: [PATCH v5 13/13] xen/arm: add cache coloring support for Xen
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Marco Solieri <marco.solieri@minervasys.tech>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 16.01.2024 09:41, Jan Beulich wrote:
-> While not performance critical, these hook invocations still want
-> converting: This way all pre-filled struct cpu_dev instances can become
-> __initconst_cf_clobber, thus allowing to eliminate further 8 ENDBR
-> during the 2nd phase of alternatives patching (besides moving previously
-> resident data to .init.*).
-> 
-> Since all use sites need touching anyway, take the opportunity and also
-> address a Misra C:2012 Rule 5.5 violation: Rename the this_cpu static
-> variable.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> With LTO it might end up necessary to tag as __used more than just
-> "default_cpu".
+Hi Julien,
 
-Yet then ...
+On Mon, Jan 15, 2024 at 5:16=E2=80=AFPM Julien Grall <julien@xen.org> wrote=
+:
+> On 15/01/2024 15:43, Carlo Nonato wrote:
+> > Hi Julien,
+>
+> Hi Carlo,
+>
+> > On Mon, Jan 15, 2024 at 12:18=E2=80=AFPM Julien Grall <julien@xen.org> =
+wrote:
+> >> On 15/01/2024 10:11, Carlo Nonato wrote:
+> >>> I understand what you're talking about, and it seems reasonable to ge=
+t rid of
+> >>> xen_colored_temp[] and create_llc_coloring_mappings() since in the en=
+d they
+> >>> serve the purpose of mapping the physically colored space that is alr=
+eady
+> >>> mapped using xen_xenmap[] pagetables.
+> >>> What I don't understand is then how to copy/relocate Xen since I don'=
+t have a
+> >>> destination virtual space anymore to use in relocate_xen().
+> >>
+> >> You will need to link xen_xenmap[] in boot_second[...] as well. With
+> >> that, you will be able to access the new Xen through the temporary are=
+a.
+> >
+> > Wouldn't it result in overwriting the current virtual space mapping?
+> > boot_second is the live page table and if I link xen_xenmap[] then
+> > XEN_VIRT_START would point to the new colored space which is still empt=
+y at
+> > this stage...
+>
+> If you link at XEN_VIRT_START then yes. But you could link at
+> BOOT_RELOC_VIRT_START like you already do today.
 
-> --- a/xen/arch/x86/cpu/common.c
-> +++ b/xen/arch/x86/cpu/common.c
-> @@ -113,10 +113,10 @@ static void cf_check default_init(struct
->  	__clear_bit(X86_FEATURE_SEP, c->x86_capability);
->  }
->  
-> -static const struct cpu_dev default_cpu = {
-> +static const struct cpu_dev __initconst_cf_clobber default_cpu = {
+Ok I think I got it.
 
-... I sent a stale patch, where __used was still missing here.
+> >
+> >> [...]
+> >>
+> >>>> Note that this means the init_ttbr cannot be written directly. But y=
+ou
+> >>>> can solve this problem by re-mapping the address.
+> >>>
+> >>> How to remap a single address?
+> >>
+> >> You should be able to use map_domain_page() to map the page where
+> >> init_ttbr is.
+> >>
+> >>> And if moving init_ttbr in the identity-mapped area means that it's n=
+o longer
+> >>> writable, so that I need to remap it, why moving it in that area in t=
+he first
+> >>> place. Again I think I'm missing something.
+> >>
+> >> The goal is to have everything used (code, data) before the MMU is
+> >> turned on residing in a single page. So secondary CPUs can directly ju=
+mp
+> >> to the colored Xen without any trouble.
+> >
+> > This is what confuses me. Why having everything on a single page makes
+> > secondary cpus able to jump directly to colored Xen? (also see below)
+>
+> Because the code running with the MMU off can access easily access
+> everything.
 
-Considering the intention behind __initconst_cf_clobber I wonder
-whether we wouldn't better integrate __used into that macro, such
-that we become independent of optimizations the tool chain may be
-doing.
+This was what I got wrong. Now it's clear.
 
-Jan
+> >
+> >>>>>
+> >>>>> 3) To access the identity mapping area I would need some accessor t=
+hat takes
+> >>>>> an address and returns it + phys_offset, or is there a better way t=
+o do it?
+> >>>>
+> >>>> I am not sure I understand what you mean. Can you clarify?
+> >>>
+> >>> In my idea, I would use the identity mapping to access the "old" vari=
+ables,
+> >>> where "old" means non physically colored. init_ttbr is an example. Wh=
+en
+> >>> Xen it's copied on the new physical space, init_ttbr is copied with i=
+t and
+> >>> if the boot cpu modifies this variable, it's actually touching the co=
+lored
+> >>> one and not the old one. This means that secondary CPUs that still ha=
+ven't
+> >>> jumped to the new space, won't be able to see the new value and will =
+never
+> >>> go online.
+> >>> So to access this "old" init_ttbr variable I need it's identity addre=
+ss,
+> >>> which is its current virtual address + some physical offset. I was as=
+king
+> >>> you if this is the right approach to use the identity mapping.
+> >>
+> >> Secondary CPUs would directly start on the colored Xen. So they will b=
+e
+> >> able to access the "new" init_ttbr & co.
+> >
+> > How can this be true? I mean, in call_psci_cpu_on() I can start those C=
+PUs in
+> > the colored space, but they still use the boot_* pagetables
+>
+> Are you looking at the 64-bit or 32-bit code? For 64-bit, staging is not
+> using boot_* pagetable anymore for secondary CPUs. Instead, they
+> directly jump to the runtime page-tables.
+
+Again, my fault. Got it.
+
+> > and there I can't
+> > easily link the new colored space, or, at least, I'm not succeding in d=
+oing
+> > that. What I tried at the moment is to link xen_xenmap in boot_second a=
+fter
+> > switch_ttbr because of the problem I described above. But then secondar=
+y
+> > CPUs never go online...
+>
+> It would be helpful if you share some code.
+
+Given the newfound knowledge, I'll think I can get further.
+
+Thanks.
+
+> >
+> >> [...]
+> >>
+> >>>> ... as I wrote ealier your current approach seems to have a flaw. As=
+ you
+> >>>> overwrite xen_bootmodule->{start, size}. setup_mm() will end up to a=
+dd
+> >>>> the old Xen region to the boot allocator. This is before any seconda=
+ry
+> >>>> CPUs are booted up.
+> >>>>
+> >>>> IOW, the allocator may provide some memory from the old Xen and noth=
+ing
+> >>>> good will happen from that.
+> >>>>
+> >>>> The only way to solve it is to add another module. So the memory is
+> >>>> skipped by setup_mm(). However see below.
+> >>>>
+> >>>>>
+> >>>>> Yes that should be memory that in the end would not be needed so it=
+ must
+> >>>>> return to the boot-allocator (if that's what you mean). But how to =
+do
+> >>>>> that?
+> >>>>
+> >>>> You can't really discard the old temporary Xen. This may work today
+> >>>> because we don't support CPU hotplug or suspend/resume. But there wa=
+s
+> >>>> some series on the ML to enable it and I don't see any reason why
+> >>>> someone would not want to use the features with cache coloring.
+> >>>>
+> >>>> So the old temporary Xen would have to be kept around forever. This =
+is
+> >>>> up to 8MB of memory wasted.
+> >>>>
+> >>>> The right approach is to have the secondary CPU boot code (including=
+ the
+> >>>> variables it is using) fitting in the same page (or possibly multipl=
+e so
+> >>>> long this is small and physically contiguous). With that it doesn't
+> >>>> matter where is the trampoline, it could stay at the old place, but =
+we
+> >>>> would only waste a few pages rather than up 8MB as it is today.
+> >>>
+> >>> So what are you suggesting is to create a new section in the linker s=
+cript
+> >>> for the trampoline code and data,
+> >>
+> >> We already have a section for that in place (see .idmap.*) which happe=
+ns
+> >> to be at the beginning of Xen. Right now, the section is in text. Whic=
+h
+> >> is why it is read-only executable.
+> >>
+> >>> then in setup_mm() we would skip this
+> >>> memory?
+> >>
+> >> We should not need this. Secondary boot CPUs should boot direclty on t=
+he
+> >> colored Xen.
+> >>
+> >>> Am I following you correctly? Sorry those topics are a little out
+> >>> of my preparation as you probably already guessed.
+> >>
+> >> No worries. I am happy to go in as much details as necessary. I can al=
+so
+> >> attempt to write a patch if that helps. (unless someone else in the Ar=
+m
+> >> maintainers want to give a try).
+> >
+> > Yes this would help. Thanks.
+>
+> I will try to have a look this evening. If I can't, it may have to wait
+> a couple of weeks unless someone has time before hand.
+>
+> Cheers,
+>
+> --
+> Julien Grall
 
