@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 470B582F241
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 17:18:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.667854.1039529 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF9B882F259
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Jan 2024 17:24:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.667857.1039539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPm8b-0001nc-I4; Tue, 16 Jan 2024 16:18:05 +0000
+	id 1rPmDg-0003rx-5C; Tue, 16 Jan 2024 16:23:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 667854.1039529; Tue, 16 Jan 2024 16:18:05 +0000
+Received: by outflank-mailman (output) from mailman id 667857.1039539; Tue, 16 Jan 2024 16:23:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPm8b-0001kP-FK; Tue, 16 Jan 2024 16:18:05 +0000
-Received: by outflank-mailman (input) for mailman id 667854;
- Tue, 16 Jan 2024 16:18:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=MjSB=I2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rPm8a-0001kJ-8R
- for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 16:18:04 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2d551b8-b48a-11ee-98f1-6d05b1d4d9a1;
- Tue, 16 Jan 2024 17:18:03 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-337b583453bso677467f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 08:18:03 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a14-20020a056000100e00b003371e7113d4sm14880384wrx.24.2024.01.16.08.18.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jan 2024 08:18:02 -0800 (PST)
+	id 1rPmDg-0003pa-1K; Tue, 16 Jan 2024 16:23:20 +0000
+Received: by outflank-mailman (input) for mailman id 667857;
+ Tue, 16 Jan 2024 16:23:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/Syk=I2=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1rPmDe-0003pK-Du
+ for xen-devel@lists.xenproject.org; Tue, 16 Jan 2024 16:23:18 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8cb14a9f-b48b-11ee-9b0f-b553b5be7939;
+ Tue, 16 Jan 2024 17:23:15 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id
+ 4fb4d7f45d1cf-559c0bfcd59so473354a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 08:23:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,154 +40,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2d551b8-b48a-11ee-98f1-6d05b1d4d9a1
+X-Inumbo-ID: 8cb14a9f-b48b-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705421882; x=1706026682; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=R0WcANJNpKhRuw+mmHBLk5Gzs0zDll/Cs9N/rtXlcvg=;
-        b=c6MGMcYEha+/K+z/EW3QNCpEO4+wIGUze/5XL3JXs98YoICelmsG1+SmjiiO+fZkG8
-         2CZvXNPn2tJJuA+2xNJpqII40SFTkZZ4xVJxHQ+cGlM1OOfDFv7YKdmxBkUuRSV+vjEH
-         mU/DjcGqJGqHD+G+h1RJ0yOjRmDzeCHM14234SDGnx6UTMN2mP7uwoA006SJLXZK/UO1
-         MofN3j+rmFLQw1SCiEpWy6+moab90CpmV8AmuZ01fnGkolmGzaGKLa5P4V4cilOe/LEe
-         v9EeSYbQ0ioqBfgtyz6rhJ4BDudFWu/PrqiyZSxj1f1OmfP15HCvOvP63dSGk8FVu1Wg
-         HaIQ==
+        d=cloud.com; s=cloud; t=1705422194; x=1706026994; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=SgRxYqdXM1quSO/y9E/+N6LzCx+oDdi1r5uEP/2Mp+Y=;
+        b=OPTL1GM+MemHILSVQOhbrkYegO7UB5gZHcjckgn/kJm1Gvtvb3pI6xFZALpMcOMKvl
+         JF8zFtJ+HVIUwdUUaKaJ8z/+RZHFBtcN/pgVFRHUZkD4Fd7NMFUxttEg8xFuRrR7yh61
+         inEqpXdHnsofgn/8kYt43/m7ti/cjGk653+fU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705421882; x=1706026682;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=R0WcANJNpKhRuw+mmHBLk5Gzs0zDll/Cs9N/rtXlcvg=;
-        b=fMfDo3TSEKlUNj4NhVuq9xXo/8NhjlGz5XP1RfoJIuGCK86jujfDubrm523RfBrHUU
-         6LEu0yg35zq0Vzz3msidlkg/4A+7D2DNnKqTtVj7hdMrGe1TP470Sd5L/wqy83cpa0X4
-         7uKZ/xYc1kdOCk/L2I9cLX/a01K4sUepNKHWvFsL+1bTCm2ca6OP/fxisuV6dmAtnJTK
-         nhixB1y2D+nzDu6TT/X4rUTbab+/ZiqRnZEPz6CxpktZT7anfL4JdxuAX8TnxyyxrRPq
-         fQUm/Hc8NbEXxnAw/CmNwhGt6MX4SFUble5gHYmXnncPc3DJDlJZxvXZ4q6a7EFAkM53
-         xe1Q==
-X-Gm-Message-State: AOJu0Yxy0rUIlKl12/0Gz4/+7OL5ZCskyHbwdMEsKH/qufQkyoOZradl
-	3uN7qv2/+p+hj2LyJUqK4jvu7YrKCQoR
-X-Google-Smtp-Source: AGHT+IFt/bS0sgXmLSQG+8S3z2Jz3jX91jtMtJEdqqiuTJ6eUm54dNKeg3RsxMBNOxAYeJOeFBgR7w==
-X-Received: by 2002:a5d:45cb:0:b0:337:5b58:9a7e with SMTP id b11-20020a5d45cb000000b003375b589a7emr2820124wrs.67.1705421882611;
-        Tue, 16 Jan 2024 08:18:02 -0800 (PST)
-Message-ID: <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com>
-Date: Tue, 16 Jan 2024 17:18:01 +0100
+        d=1e100.net; s=20230601; t=1705422194; x=1706026994;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SgRxYqdXM1quSO/y9E/+N6LzCx+oDdi1r5uEP/2Mp+Y=;
+        b=VXRb8PGE1/tJeUYoEX0M6KkdZ9GDU8RGMpB1OCTnPDTCX8KZfjJBymNC17cl34OVb+
+         WIf0qefotnvLDnlK91Jy8mUpvdMsMeaY/ltrUtUjBCckmEpo+tN2lCspYUswKsbqKeO9
+         AXIxJYOhbQ1HE7jaty8qzLcxo7vPBc4IEklGFPAdwI9qA/swUsBYYZO6J8JLH+C97m7u
+         Z3k4Sbm7kp4uDjwWODt476dHeUpb5H5M6oIODG3QVltcVp6JCas0nGkGyZSjuC+0IUwT
+         B2gNlevEUxYJzheyrkKb1P5YatsiBzJF0dz6ajhivwBvFbjWO/MuuhOopIA1deuSQw4/
+         8peQ==
+X-Gm-Message-State: AOJu0YzSQjcy02Q7/xIrBxIm5fj2h3QfNWL3FcwUGdrr8u2Xv0MSuJuk
+	q3BoIQUA0QoEjs91fgAj0tyi95lInQH+O+2dIkSJ8gMttgLegWvz/Ad/A/zGmPY=
+X-Google-Smtp-Source: AGHT+IF1QkuGs5oiDkLHFp8ZGVNuSTiS7B04bR+CONEBR7EBSbyivLCu7+dAx8ZdXsvzDWDBWKTgRTGDRxBA/9XmsYc=
+X-Received: by 2002:a05:6402:27c8:b0:558:fbad:f98c with SMTP id
+ c8-20020a05640227c800b00558fbadf98cmr2713872ede.80.1705422194329; Tue, 16 Jan
+ 2024 08:23:14 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
-Content-Language: en-US
-To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <CAKm-UmYZcsY=C2Yhmy_EeZi0iAguVH0Eqy83upBLa_ikQtPwnw@mail.gmail.com>
- <CAKm-Umapq5LW9yhSOGk8TOg1iuvUogUDKbEXbUcE5T5-vVzW3w@mail.gmail.com>
- <CAKm-UmaUZ=rj-F3RvMoR7H3OvBHm1iy4PTRZAjyi=MQUVTuYVg@mail.gmail.com>
- <CAKm-Umat77MTh6=GEuH+bf1WRX+_B4-N5hY4xwADALfhj4QCPA@mail.gmail.com>
- <6ba9568a-ff8e-48ad-907f-74303e04d3a2@suse.com>
- <CAKm-UmZVoUhidEV15Xk+J_XN5a2GsBqMbXL9wqdFdoAFf_u5AA@mail.gmail.com>
- <bcbceba7-42ac-45be-80ab-e3dfe7741ec6@suse.com>
- <2eafe45b-fd97-472c-a173-459d6ff0b957@suse.com>
- <CAKm-Umbs2D7NHFE+NW2xKOu7-AZhFpH4uzE5QTuQusnGA_eNWA@mail.gmail.com>
- <f539144c-885a-461c-a506-bdb73e626a65@suse.com>
- <CAKm-UmY126AfdGhWcZ3s9vwN9+ksVRRFEhOu0ZFMoDvxrqOibw@mail.gmail.com>
- <CAKm-UmYt3iV8zOhSmtqMGhi_8T93c_nCbnefs4m3UC+3UABqeQ@mail.gmail.com>
- <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
- <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAO-mL=yuK+t344CBL+KLFKUFc1kLfyj-eJxtHQ4t5Ltw777vFA@mail.gmail.com>
+In-Reply-To: <CAO-mL=yuK+t344CBL+KLFKUFc1kLfyj-eJxtHQ4t5Ltw777vFA@mail.gmail.com>
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Tue, 16 Jan 2024 16:22:38 +0000
+Message-ID: <CAO-mL=ypHd_wAMYXz+x+YPRdPENiocC2f0reM5NMjzW0Tk+sUA@mail.gmail.com>
+Subject: Re: Xen Project Annual Survey
+To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org, 
+	xen-announce@lists.xenproject.org
+Cc: committers@xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000015e5fe060f128c70"
 
-On 16.01.2024 16:52, Sébastien Chaumat wrote:
-> Le mar. 2 janv. 2024 à 21:23, Sébastien Chaumat <euidzero@gmail.com> a
-> écrit :
-> 
->>
->>  output of gpioinfo
->>>
->>> kernel alone :
->>>
->>>         line   5: unnamed         input active-low consumer=interrupt
->>>         line  84: unnamed         input active-low consumer=interrupt
->>>
->>> xen:
->>>
->>>         line   5: unnamed         input active-low
->>>         line  84: unnamed         input active-low
->>>
->>> xen with skipping IRQ7 double init :
->>>
->>>         line   5: unnamed         input active-low consumer=interrupt
->>>         line  84: unnamed         input active-low
->>>
->>>
->>> So definitely progressing.
->>>
->>
->> Checking /sys/kernel/irq/7
->>
->> kernel alone :
->>  actions: pinctrl_amd
->>  chip_name: IR-IO-APIC
->>  hwirq: 7
->>  name: fasteoi
->>  per_cpu_count: 0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0
->>  type: level
->>  wakeup: enabled
->>
->> xen skipping IRQ7 double init :
->>
->> actions: pinctrl_amd
->>  chip_name: xen-pirq
->>  hwirq:
->>  name: ioapic-level
->>  per_cpu_count: 0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
->>  type: edge
->>  wakeup: disabled
->>
->> So the skip of IRQ7 in pci_xen_initial_domain() sets the correct handler
->>  (IIUC xen uses the ioapic-level and handles the eoi separately), but not
->> the correct type (still edge).
->> I guess this may explains the results above.
->>
->>
->  Mario (in CC) patched the pinctrl_amd to flush pending interrupt before
-> starting the driver for the GPIO.
-> 
-> This helped in  the sense of there's no more pending interrupt on IRQ7
-> (whatever the handler is, level or edge) but then the touchpad is not
-> detected by i2c-hid.
-> 
-> Is there any work in progress related to the incorrect IRQ configuration ?
+--00000000000015e5fe060f128c70
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I'm not aware of any. As per my recollection it's still not entirely
-clear where in the kernel things go astray. And to be honest I don't
-feel comfortable trying to half-blindly address this, e.g. by trying
-to circumvent / defer the early setting up of the low 16 IRQs.
+Hi all,
 
-Jan
+A reminder to fill out the Xen Project Annual survey!
+
+Many thanks,
+Kelly Choi
+
+Community Manager
+Xen Project
+
+
+On Tue, Jan 9, 2024 at 1:21=E2=80=AFPM Kelly Choi <kelly.choi@cloud.com> wr=
+ote:
+
+> Happy New Year Xen Community,
+>
+> As we start the New Year, I'd like to ask you to reflect on how the
+> project went in 2023. This will help us track the health of the community
+> and also give you a chance to express your ideas and feedback.
+>
+> The survey can be answered anonymously and should take less than 10
+> minutes.
+>
+> *Link: https://cryptpad.fr/form/#/2/form/view/uG22fJfe8UILyP9+jJ-YesXsINK=
+MZRpuWh2c58bhBYI/
+> <https://cryptpad.fr/form/#/2/form/view/uG22fJfe8UILyP9+jJ-YesXsINKMZRpuW=
+h2c58bhBYI/> *
+> *Deadline: 31st January 2024. *
+>
+> Many thanks,
+> Kelly Choi
+>
+> Community Manager
+> Xen Project
+>
+
+--00000000000015e5fe060f128c70
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hi all,</div><div dir=3D"ltr"><br></div><=
+div dir=3D"ltr">A reminder to fill out the Xen Project Annual survey!=C2=A0=
+</div><div dir=3D"ltr"><br clear=3D"all"><div><div dir=3D"ltr" class=3D"gma=
+il_signature"><div dir=3D"ltr"><div>Many thanks,</div><div>Kelly Choi</div>=
+<div><br></div><div><div style=3D"color:rgb(136,136,136)">Community Manager=
+</div><div style=3D"color:rgb(136,136,136)">Xen Project=C2=A0<br></div></di=
+v></div></div></div><br></div><br><div class=3D"gmail_quote"><div dir=3D"lt=
+r" class=3D"gmail_attr">On Tue, Jan 9, 2024 at 1:21=E2=80=AFPM Kelly Choi &=
+lt;<a href=3D"mailto:kelly.choi@cloud.com">kelly.choi@cloud.com</a>&gt; wro=
+te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"=
+ltr">Happy New Year Xen Community,<div><br></div><div>As we start the New Y=
+ear, I&#39;d like to ask you to reflect on how the project went in 2023. Th=
+is will help us track the health of the community and also give you a chanc=
+e to express your ideas and feedback.=C2=A0</div><div><br></div><div>The su=
+rvey can be answered anonymously and should take less than 10 minutes.</div=
+><div><br></div><div><b>Link:=C2=A0<a href=3D"https://cryptpad.fr/form/#/2/=
+form/view/uG22fJfe8UILyP9+jJ-YesXsINKMZRpuWh2c58bhBYI/" target=3D"_blank">h=
+ttps://cryptpad.fr/form/#/2/form/view/uG22fJfe8UILyP9+jJ-YesXsINKMZRpuWh2c5=
+8bhBYI/</a>=C2=A0</b></div><div><b>Deadline: 31st January 2024.=C2=A0</b></=
+div><div><br></div><div><div><div dir=3D"ltr" class=3D"gmail_signature"><di=
+v dir=3D"ltr"><div>Many thanks,</div><div>Kelly Choi</div><div><br></div><d=
+iv><div style=3D"color:rgb(136,136,136)">Community Manager</div><div style=
+=3D"color:rgb(136,136,136)">Xen Project=C2=A0<br></div></div></div></div></=
+div></div></div>
+</blockquote></div></div>
+
+--00000000000015e5fe060f128c70--
 
