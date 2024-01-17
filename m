@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBFE483026E
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 10:37:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668322.1040417 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 628128302BD
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 10:49:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668326.1040427 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ2M6-00050n-F4; Wed, 17 Jan 2024 09:37:06 +0000
+	id 1rQ2XI-0000Yb-Fv; Wed, 17 Jan 2024 09:48:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668322.1040417; Wed, 17 Jan 2024 09:37:06 +0000
+Received: by outflank-mailman (output) from mailman id 668326.1040427; Wed, 17 Jan 2024 09:48:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ2M6-0004yK-Bq; Wed, 17 Jan 2024 09:37:06 +0000
-Received: by outflank-mailman (input) for mailman id 668322;
- Wed, 17 Jan 2024 09:37:04 +0000
+	id 1rQ2XI-0000WH-CA; Wed, 17 Jan 2024 09:48:40 +0000
+Received: by outflank-mailman (input) for mailman id 668326;
+ Wed, 17 Jan 2024 09:48:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yGoF=I3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rQ2M4-0004wC-I1
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 09:37:04 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1rQ2XG-0000GL-4o
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 09:48:38 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f825b2f6-b51b-11ee-9b0f-b553b5be7939;
- Wed, 17 Jan 2024 10:37:02 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-40e72a567eeso32556055e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 01:37:02 -0800 (PST)
+ id 9592069f-b51d-11ee-9b0f-b553b5be7939;
+ Wed, 17 Jan 2024 10:48:36 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40e8cf57d03so1021995e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 01:48:36 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- b16-20020adfe650000000b00337a81a0a89sm1207581wrn.114.2024.01.17.01.37.01
+ j17-20020a05600c1c1100b0040c46719966sm25793590wms.25.2024.01.17.01.48.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jan 2024 01:37:02 -0800 (PST)
+ Wed, 17 Jan 2024 01:48:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f825b2f6-b51b-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 9592069f-b51d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705484222; x=1706089022; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fFqWW5VsBqyLXFmEo7/4sxcjiyzuJkj0f+lb546UJ40=;
-        b=cmAULrSxsu7/InZOz6U4EORF+C1dWk0LC207WcRKGXTZ8sOX6IbCGMbA5yXOLO3FPk
-         xW9qbUq/Qlg75D1afSTI4hcRX8XztXyqCYh9TxSdJLXj3FrAE44kxB0avw1j53jJd+m6
-         7j8sbbnqEXVqNdeIjcrxBsQWaKJt9dZzNmi21kTS/1B84MRBM87p8F97v4JDRjNMJ2yX
-         2LKhE5JYzSNgDDneGqQU6QX8HDtwUnxzJo5gBsU9nPF2wmF4d3w1Wnui8uvEVAN24Xgs
-         b8/mKQetsHJCaZauDzX7I+J2IneDntfRd1dQiVP4QgvRd16QQE5iB0NDR7TrfgVYNvQH
-         H/WA==
+        d=suse.com; s=google; t=1705484916; x=1706089716; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9AeZxYgcXWdukIKJMsfb62BEeokrAbqbADDujzYqQyI=;
+        b=GOhChJ86cfaLoUvKPZIf5wT9ufH8Rs+nnGL/EgpvfiKEtC2DI3uwsM8IjLsQRAgvT0
+         Dv4axNwthfab9NBg5zfdt/LXgVFHcOMfs/94/xYW2gnXvIf63ZmAMEqcIXRnOAuAxs3e
+         h21slZ/Sh62YoWIChxMA77i7zGjRKi+ebIpZVw9afaOrpHPYfmRyGLEHsfjDee7PVT/Y
+         KQpUJGExfBhNYz+wDXPC7AlOrktOPZG6qlxJyBL8VXsIEDAzsVQRtJris7YvcSUWn6Ol
+         yMxlnQvQ1YWZmO+35ZmQR/CYCDS/5xOQXz5ky2Ef29NcDe7EnsmQl6VjB2VZ4pHFjwC/
+         Z1hQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705484222; x=1706089022;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fFqWW5VsBqyLXFmEo7/4sxcjiyzuJkj0f+lb546UJ40=;
-        b=wq2nJs8Y7mCCyFbOxuNjAwsrRZn1ahxzAGpm0lsNxBFM4lmH3Jcn9SdaJlr6G3dtl7
-         SFdKnJDXTYTN+4oaT3qWWY8EVnRtnQ/XYEfKGrliu5J97fqlNep6cZGOLbiVD1XO4J9a
-         2s3pEMlmk6/J8+mxJXZmYaTopOV/GBIEEP6KnZUIXLSCfSiinG+eaY+/WHhAtXqjN7Fv
-         02OK/p10lhEJnefS3RhYRsS7PSKNtp8jPrIoJwEzlxGKdcuze7jS2riFyBHj3ucunDlb
-         f/BJQviMT4OvpsUMpS8+SkwPSLktWe0B+slUVaVD/uYlCEuLY/4OoCZ7aW0uFGuhy58E
-         VFGw==
-X-Gm-Message-State: AOJu0YzFw6T9COTMzjZYVkkog8xQ5X9qTHjUx9wbyk8UGf5jxNmn5+b/
-	denYe09fcv0gK+MoWgY+LxqqX2KB38uqoZybklVMyiYtzg==
-X-Google-Smtp-Source: AGHT+IHgyd8afn6XbClzUUL+fC+1zLdh2cUL+Iq7vApGCsszqBVEKKypKkSyFySw7QbV1uXIg58CFA==
-X-Received: by 2002:a05:600c:1f86:b0:40b:5f03:b3b1 with SMTP id je6-20020a05600c1f8600b0040b5f03b3b1mr2784312wmb.211.1705484222341;
-        Wed, 17 Jan 2024 01:37:02 -0800 (PST)
-Message-ID: <28b46611-ff98-45cd-a2b0-ffe36b8f0ccf@suse.com>
-Date: Wed, 17 Jan 2024 10:37:01 +0100
+        d=1e100.net; s=20230601; t=1705484916; x=1706089716;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=9AeZxYgcXWdukIKJMsfb62BEeokrAbqbADDujzYqQyI=;
+        b=wOggsNx4HLy3zWf0gn34v0wps34655N9ZhUH/AjrCc1pYu/md+H8jArpYmR6gci7vA
+         TuYhS3C34MDhyX7YDCK6ANz4sm6bENChk5J4RtJeuf1uJXmhh4kgC+dDNhIq2BtIP4qE
+         vNBL21d7dM9hndZVaH7gnz5VLBA9H+gMZLhAPv0xTYy94WWNYjI2rRjRbvX1ACkvDSuL
+         UCQhXiPQV4UpyeLevutFpNdolbEYxLEBpU1pRZMvrPzHtbP9uLynpxZsPmVcY7eqIp/h
+         ad6nGzbpOx9hNWcutxA7VPhISjSXCiLO9K69j/oGR/7zvXH0oKzeDfUNo8+lJxXIqq/7
+         VZYw==
+X-Gm-Message-State: AOJu0Yx0xJetK+zwvleFXSOqYTP4SLMxn8R/cptUzLaUyqexTzs57wu8
+	+e538GbgYW13UIQE2pNyNQ4ZJ9b4rym2JA9VaVXPCF644A==
+X-Google-Smtp-Source: AGHT+IGbRYDkdCjbUvpp75I9fKf0QqnPUL+QcCoPmUVweSN9jHDfQpIPKDchVl675kUNdxtfQDLaeg==
+X-Received: by 2002:a05:600c:705:b0:40d:8ff4:ea02 with SMTP id i5-20020a05600c070500b0040d8ff4ea02mr5032784wmn.86.1705484915886;
+        Wed, 17 Jan 2024 01:48:35 -0800 (PST)
+Message-ID: <bab76b76-1f79-4fb2-9c56-2ce000b2055c@suse.com>
+Date: Wed, 17 Jan 2024 10:48:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cpufreq: finish genapic conversion to altcall
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86/PV: avoid indirect call for I/O emulation quirk hook
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <7da816ba-f5bd-491c-a6a8-b750e3ff2222@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -108,93 +112,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7da816ba-f5bd-491c-a6a8-b750e3ff2222@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-This way ioemul_handle_proliant_quirk() won't need ENDBR anymore.
+On 15.01.2024 17:10, Jan Beulich wrote:
+> Even functions used on infrequently executed paths want converting: This
+> way all pre-filled struct cpufreq_driver instances can become
+> __initconst_cf_clobber, thus allowing to eliminate another 15 ENDBR
+> during the 2nd phase of alternatives patching.
+> 
+> For acpi-cpufreq's optionally populated .get hook make sure alternatives
+> patching can actually see the pointer. See also the code comment.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-While touching this code, also
-- arrange for it to not be built at all when !PV,
-- add "const" to the last function parameter and bring the definition
-  in sync with the declaration (for Misra).
+Sadly it was only after pushing that I noticed the stray "genapic" in the
+title here.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Obviously the file may want moving to pv/ then. I wasn't sure whether
-to also fold doing so right into here.
-
-Of course things could also be done the other way around: Have
-ioemul_handle_quirk as function name and ioemul_handle_proliant_quirk
-be the boolean.
----
-v2: Don't use alternative_call(); drop indirect call altogether.
-
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -45,7 +45,7 @@ obj-$(CONFIG_LIVEPATCH) += alternative.o
- obj-y += msi.o
- obj-y += msr.o
- obj-$(CONFIG_INDIRECT_THUNK) += indirect-thunk.o
--obj-y += ioport_emulate.o
-+obj-$(CONFIG_PV) += ioport_emulate.o
- obj-y += irq.o
- obj-$(CONFIG_KEXEC) += machine_kexec.o
- obj-y += mm.o x86_64/mm.o
---- a/xen/arch/x86/include/asm/io.h
-+++ b/xen/arch/x86/include/asm/io.h
-@@ -47,10 +47,14 @@ __OUT(b,"b",char)
- __OUT(w,"w",short)
- __OUT(l,,int)
- 
--/* Function pointer used to handle platform specific I/O port emulation. */
-+/*
-+ * Boolean indicator and function used to handle platform specific I/O port
-+ * emulation.
-+ */
- #define IOEMUL_QUIRK_STUB_BYTES 9
-+extern bool ioemul_handle_quirk;
- struct cpu_user_regs;
--extern unsigned int (*ioemul_handle_quirk)(
--    uint8_t opcode, char *io_emul_stub, struct cpu_user_regs *regs);
-+unsigned int ioemul_handle_proliant_quirk(
-+    uint8_t opcode, char *io_emul_stub, const struct cpu_user_regs *regs);
- 
- #endif
---- a/xen/arch/x86/ioport_emulate.c
-+++ b/xen/arch/x86/ioport_emulate.c
-@@ -8,11 +8,10 @@
- #include <xen/sched.h>
- #include <xen/dmi.h>
- 
--unsigned int (*__read_mostly ioemul_handle_quirk)(
--    uint8_t opcode, char *io_emul_stub, struct cpu_user_regs *regs);
-+bool __ro_after_init ioemul_handle_quirk;
- 
--static unsigned int cf_check ioemul_handle_proliant_quirk(
--    u8 opcode, char *io_emul_stub, struct cpu_user_regs *regs)
-+unsigned int ioemul_handle_proliant_quirk(
-+    uint8_t opcode, char *io_emul_stub, const struct cpu_user_regs *regs)
- {
-     static const char stub[] = {
-         0x9c,       /*    pushf           */
-@@ -95,7 +94,7 @@ static const struct dmi_system_id __init
- static int __init cf_check ioport_quirks_init(void)
- {
-     if ( dmi_check_system(ioport_quirks_tbl) )
--        ioemul_handle_quirk = ioemul_handle_proliant_quirk;
-+        ioemul_handle_quirk = true;
- 
-     return 0;
- }
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -112,7 +112,7 @@ static io_emul_stub_t *io_emul_stub_setu
-     /* Some platforms might need to quirk the stub for specific inputs. */
-     if ( unlikely(ioemul_handle_quirk) )
-     {
--        quirk_bytes = ioemul_handle_quirk(opcode, p, ctxt->ctxt.regs);
-+        quirk_bytes = ioemul_handle_proliant_quirk(opcode, p, ctxt->ctxt.regs);
-         p += quirk_bytes;
-     }
- 
+Jan
 
