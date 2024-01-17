@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D1C2830214
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 10:19:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668300.1040367 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C05EC830251
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 10:30:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668304.1040377 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ23r-0007Wm-1k; Wed, 17 Jan 2024 09:18:15 +0000
+	id 1rQ2F1-0001lf-1H; Wed, 17 Jan 2024 09:29:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668300.1040367; Wed, 17 Jan 2024 09:18:15 +0000
+Received: by outflank-mailman (output) from mailman id 668304.1040377; Wed, 17 Jan 2024 09:29:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ23q-0007UF-Um; Wed, 17 Jan 2024 09:18:14 +0000
-Received: by outflank-mailman (input) for mailman id 668300;
- Wed, 17 Jan 2024 09:18:13 +0000
+	id 1rQ2F0-0001jO-Um; Wed, 17 Jan 2024 09:29:46 +0000
+Received: by outflank-mailman (input) for mailman id 668304;
+ Wed, 17 Jan 2024 09:29:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yGoF=I3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rQ23p-0007U9-Bi
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 09:18:13 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1rQ2Ez-0001jI-2W
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 09:29:45 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 556ef412-b519-11ee-9b0f-b553b5be7939;
- Wed, 17 Jan 2024 10:18:10 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40e8d3b29f2so31075e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 01:18:10 -0800 (PST)
+ id f1d302ba-b51a-11ee-9b0f-b553b5be7939;
+ Wed, 17 Jan 2024 10:29:42 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-3368abe1093so8388664f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 01:29:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fk4-20020a05600c0cc400b0040e7efb1ff2sm7552202wmb.37.2024.01.17.01.18.09
+ l14-20020adffe8e000000b00336755f15b0sm1196574wrr.68.2024.01.17.01.29.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jan 2024 01:18:09 -0800 (PST)
+ Wed, 17 Jan 2024 01:29:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 556ef412-b519-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: f1d302ba-b51a-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705483090; x=1706087890; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=M8DyqexMij1sKwKdg5LgDvK53F3Eitit3+gAFfHBcek=;
-        b=OMVN1yPOMWfRNikjq0icIAIJDoXnsjp2rqRIJbiG3kf/cE+T7ndBsl2iMQiTMfXbU+
-         8O5pheHcnbp1FBLrmjcyMazAkO2HB8BuyDyvtvp8f0SyaN1KGG2xprDnvD+Jsv/9U5br
-         dgs+KPjG1BTtVkHGCJZqhOGCdtWdqe6rEYB7osS5u7mE8/eM+7J1xu5LzsnDAUAYRjMv
-         IEZPTEGoyH8Y08LgvRza+XTA6hZ5Oj6jpsWgiu0lgXJaB15P8F0CBkbhA4ZB9RXkOD7I
-         caSJMSHHgGyQlgtM43ccRk3o2G+3sxmlSuTlUFpZzBaB1N1r4hWlhYsi5Je3qaXF/99z
-         Xotw==
+        d=suse.com; s=google; t=1705483782; x=1706088582; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=EgV5Q9KvqQ7PhZNunAtTlFJQbxXoBPUKSUdE+lKAOH0=;
+        b=JUg9ofi/uUwzLsYNvZcBxGqc/dCXrmwW7TMm5xuU8Xn1tk+6Nwurj7RoP8aG40GvhE
+         kJAbUVXC1jaA/zdcFt6oYSUYcFokfDwJGfkrO5AbIo3lWfKPN1sh11o9DMkTlbBgVx4B
+         FdtHX18LlFj4Q5vlba+uyqgwsBpZQdlWumW6T8pIJPrnynjOU09PF4ypAL7nusXg2sQL
+         AfXILoNoRdWleCaQ6uaqE3XssA+Y20oVX0lgrY4ZDo1X/l3/KWQpurjp1yk/m2lJFCNA
+         rPVEPI2haWrVBJtPoxV2ttWN1Qmom5Oy+JRdQe4U1Q/V8PnsImWfNI0Ecyzyj7gRiZZO
+         VNVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705483090; x=1706087890;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=M8DyqexMij1sKwKdg5LgDvK53F3Eitit3+gAFfHBcek=;
-        b=OubMHDRoOk7xiYINdELrL2Kf3iX2ibmULKuNVk1PC9sVu+6hqzN1kqncywKQzvhgE/
-         fp+0Uy4jzREMaXCqt/82Pjx0OOB2hivV9lS3Js6P6PVcly6GTX1WuFEeSGOl4fvuMA8+
-         jzXfajfGkfUmi2oF9lDZWT3fuKHHGyN/Nf6pYMYvfMZAYzNnBI/RypsiooHFxgTKsjiQ
-         yvTRrJCbiRcy0UdhvLkZHPnEmjJALuNu58/2/3tAcuIkG8y76EjgYwXmSp8F7e7HXiMR
-         cE9FyyPepP/fALGmZwj+eMJWMnXFQUYjI5o4r1h2izi2Y2ggnOwRnMhiRe3ZZ4wzFmf0
-         Elbg==
-X-Gm-Message-State: AOJu0YyRIdcLJ0xmnM/EpXAfQQl26NYia5rGy+AdpfB/J3INIOjsYN68
-	dCeRnngn1muQd0oGBs1D0GeY4vBAlWFV
-X-Google-Smtp-Source: AGHT+IFF+Ki7pCzdu5FBIAaRrUZHVIAQWVw609Zt5d3lA/yJkk0wMRXKI6TeV6zeEiR9bEV99jrjew==
-X-Received: by 2002:a05:600c:2611:b0:40e:4bb0:14b3 with SMTP id h17-20020a05600c261100b0040e4bb014b3mr3275986wma.191.1705483090296;
-        Wed, 17 Jan 2024 01:18:10 -0800 (PST)
-Message-ID: <244e13fe-a79f-41b3-9410-dae622cab3e9@suse.com>
-Date: Wed, 17 Jan 2024 10:18:08 +0100
+        d=1e100.net; s=20230601; t=1705483782; x=1706088582;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=EgV5Q9KvqQ7PhZNunAtTlFJQbxXoBPUKSUdE+lKAOH0=;
+        b=VP4D2/69M/KWVi3EfJ7DZXlJ1yl6JZK0HS8fLSXQ/85jPQF+XjpaUD1orP04/27fV0
+         a0of2fpnvN++EW46BVjHo3WTDy60ns1c4VE2VwpU2tYHFtlF9TtmXA2EsUezKEKuMwdd
+         yz8mt+zdnmvarZGT9ulDOkEMXJI6lhRRM08UIAhzBhzTabyW14hpYKDuR/FpagJu452n
+         oKyAa3OP6zyA/XBrDoA8iILgFL45CbK9Mtr0dAS+OHZMQtDfD1OIUUNQv0+Fwc519JUr
+         rtYbB30HvouNJJ9uRZSajezGJQNY+9QZTCBQulS2DA3rLjuBhQP7D6qFC9EsoCL0v3yT
+         r0KA==
+X-Gm-Message-State: AOJu0YwaITe3KsbBOSCJeukQEqCjO95gl4NMckVjcqa5C87PkfzGAAmC
+	OMYOrzFuaWzzaXh7RWgVi61Nb6//lReIWWRn3CFMRnvOQQ==
+X-Google-Smtp-Source: AGHT+IFhc0fO/fpLB47nIBBVLLrf8vEqOlxE4zEQMMrqFCKgQJgpoyi6prGhOHmiK0eN4PxIDJzoNA==
+X-Received: by 2002:a5d:54c6:0:b0:337:6eac:2cad with SMTP id x6-20020a5d54c6000000b003376eac2cadmr5156252wrv.133.1705483782218;
+        Wed, 17 Jan 2024 01:29:42 -0800 (PST)
+Message-ID: <3b2842b2-a2fe-49e7-9ea3-4f55cbc95738@suse.com>
+Date: Wed, 17 Jan 2024 10:29:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/PV: use altcall for I/O emulation quirk hook
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <5f7afa11-3216-4175-b05b-3ff78920fa00@suse.com>
- <3623ab9b-903e-4576-81b9-c6debe0f900c@citrix.com>
 Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] core-parking: use alternative_call()
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -112,56 +110,87 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3623ab9b-903e-4576-81b9-c6debe0f900c@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 16.01.2024 18:31, Andrew Cooper wrote:
-> On 16/01/2024 4:58 pm, Jan Beulich wrote:
->> This way we can arrange for ioemul_handle_proliant_quirk()'s ENDBR to
->> also be zapped. Utilize existing data rather than introducing another
->> otherwise unused static variable (array); eventually (if any new quirk
->> was in need of adding) we may want to use .callback and .driver_data
->> anyway.
->>
->> For the decision to be taken before the 2nd alternative patching pass,
->> the initcall needs to become a pre-SMP one.
->>
->> While touching this code, also arrange for it to not be built at all
->> when !PV - that way the respective ENDBR won't be there from the
->> beginning.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Obviously the file may want moving to pv/ then. I wasn't sure whether
->> to also fold doing so right into here.
-> 
-> For PVH dom0, we allow almost blanket IO port access.  We could do the
-> same for PV dom0 by setting up a suitable TSS IO port bitmap.
-> 
-> That said, x86-S is soon to revoke the ability to do that, so maybe we
-> just save ourselves the work...
-> 
-> 
-> I'm confused about "rather than introducing another otherwise unused
-> static variable (array)".  Why an array?
+This way we can arrange for core_parking_{performance,power}()'s ENDBR
+to also be zapped.
 
-(Again) in anticipation of there being a need for another such quirk.
-Imo that would have been only consistent with the use of a function
-pointer. However, ...
+For the decision to be taken before the 2nd alternative patching pass,
+the initcall needs to become a pre-SMP one, though.
 
-> In this instance, you could use the same trick as the ctxt switch mask. 
-> Whether we match DMI or not, it's safe to clobber the ENDBR.  We could
-> also consider a __{read_mostly,ro_after_init}_cf_clobber sections.
-> 
-> 
-> However, it's probably better still to have a `bool prolient_quirk` and
-> a direct call.  No extra vendor hooks have been added since this was
-> introduced in 2007, and I really don't foresee this changing in the near
-> future.  Lets just simplify it and drop all the alternatives/clobbering
-> games entirely.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-... I've now done this. Will send a v2 soon.
-
-Jan
+--- a/xen/common/core_parking.c
++++ b/xen/common/core_parking.c
+@@ -30,10 +30,11 @@ static DEFINE_SPINLOCK(accounting_lock);
+ static uint32_t cur_idle_nums;
+ static unsigned int core_parking_cpunum[NR_CPUS] = {[0 ... NR_CPUS-1] = -1};
+ 
+-static const struct cp_policy {
++struct cp_policy {
+     char name[30];
+     unsigned int (*next)(unsigned int event);
+-} *__read_mostly core_parking_policy;
++};
++static struct cp_policy __ro_after_init core_parking_policy;
+ 
+ static enum core_parking_controller {
+     POWER_FIRST,
+@@ -175,12 +176,13 @@ long cf_check core_parking_helper(void *
+     unsigned int cpu;
+     int ret = 0;
+ 
+-    if ( !core_parking_policy )
++    if ( !core_parking_policy.next )
+         return -EINVAL;
+ 
+     while ( cur_idle_nums < idle_nums )
+     {
+-        cpu = core_parking_policy->next(CORE_PARKING_INCREMENT);
++        cpu = alternative_call(core_parking_policy.next,
++                               CORE_PARKING_INCREMENT);
+         ret = cpu_down(cpu);
+         if ( ret )
+             return ret;
+@@ -193,7 +195,8 @@ long cf_check core_parking_helper(void *
+ 
+     while ( cur_idle_nums > idle_nums )
+     {
+-        cpu = core_parking_policy->next(CORE_PARKING_DECREMENT);
++        cpu = alternative_call(core_parking_policy.next,
++                               CORE_PARKING_DECREMENT);
+         ret = cpu_up(cpu);
+         if ( ret )
+             return ret;
+@@ -239,12 +242,12 @@ uint32_t get_cur_idle_nums(void)
+     return cur_idle_nums;
+ }
+ 
+-static const struct cp_policy power_first = {
++static const struct cp_policy __initconst_cf_clobber power_first = {
+     .name = "power",
+     .next = core_parking_power,
+ };
+ 
+-static const struct cp_policy performance_first = {
++static const struct cp_policy __initconst_cf_clobber performance_first = {
+     .name = "performance",
+     .next = core_parking_performance,
+ };
+@@ -254,7 +257,7 @@ static int __init register_core_parking_
+     if ( !policy || !policy->next )
+         return -EINVAL;
+ 
+-    core_parking_policy = policy;
++    core_parking_policy = *policy;
+     return 0;
+ }
+ 
+@@ -269,4 +272,4 @@ static int __init cf_check core_parking_
+ 
+     return ret;
+ }
+-__initcall(core_parking_init);
++presmp_initcall(core_parking_init);
 
