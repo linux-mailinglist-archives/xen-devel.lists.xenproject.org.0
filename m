@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63B0A830356
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 11:14:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668357.1040487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 750EA830378
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 11:25:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668362.1040497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ2vc-0003Lp-Ud; Wed, 17 Jan 2024 10:13:48 +0000
+	id 1rQ36Z-0007CU-Tn; Wed, 17 Jan 2024 10:25:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668357.1040487; Wed, 17 Jan 2024 10:13:48 +0000
+Received: by outflank-mailman (output) from mailman id 668362.1040497; Wed, 17 Jan 2024 10:25:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ2vc-0003Im-Rd; Wed, 17 Jan 2024 10:13:48 +0000
-Received: by outflank-mailman (input) for mailman id 668357;
- Wed, 17 Jan 2024 10:13:47 +0000
+	id 1rQ36Z-00079s-Qs; Wed, 17 Jan 2024 10:25:07 +0000
+Received: by outflank-mailman (input) for mailman id 668362;
+ Wed, 17 Jan 2024 10:25:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nKNn=I3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rQ2vb-0003Ig-F4
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 10:13:47 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ id 1rQ36Y-00079g-Na
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 10:25:06 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 19918270-b521-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 11:13:46 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-40e88012233so7560035e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 02:13:46 -0800 (PST)
+ id ae65a50d-b522-11ee-98f2-6d05b1d4d9a1;
+ Wed, 17 Jan 2024 11:25:05 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-336c8ab0b20so9510439f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 02:25:05 -0800 (PST)
 Received: from localhost ([213.195.127.68]) by smtp.gmail.com with ESMTPSA id
- t6-20020a05600c198600b0040e48abec33sm25832806wmq.45.2024.01.17.02.13.45
+ n5-20020adff085000000b00337b47ae539sm1326306wro.42.2024.01.17.02.25.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jan 2024 02:13:45 -0800 (PST)
+ Wed, 17 Jan 2024 02:25:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,122 +44,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19918270-b521-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: ae65a50d-b522-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705486426; x=1706091226; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=cqODN6HsCQ4V/AYR2PUI1Wy+AgPS0bX/hXyt93QoHms=;
-        b=aSkoqwcsvJ9xgTnMxhNpaeXpc+gxgeMisGyfH37YYAxq0NsiUFE947POgZBF5Dk+oJ
-         McOv965cXS8iohaWqpZAuw/qrPbO6iwxMpEmnV3SQ6UHQPFEQAy5L5mBuPRqF7na32MB
-         jnCurVrB1ehvj2Ptl5aH7TOo8EyuS6IX7ijh0=
+        d=citrix.com; s=google; t=1705487105; x=1706091905; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=uG9FrMn8jAcHEgP71mtu/aFaa+6/OSS1qBkYLl6mAHU=;
+        b=klA1e4YmyIY6FIxBNYXN0gW8TJsysFdABy/OOHDRk+5Oiv4f13SftzjFP8tSj6loXM
+         L7F+Ny2CJQEpY8SV2ik55Nr/hnULeUl8fRTr+lXZsi0Hp2NPd2v8bRf6UL5qobCLrjn3
+         FqAcDePIFFO4Msg0MAhPlmOgu8tAIfMlm7wng=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705486426; x=1706091226;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cqODN6HsCQ4V/AYR2PUI1Wy+AgPS0bX/hXyt93QoHms=;
-        b=eTWjmAkXWyLNTDvT0AArBPKyLrO+4Tnjo3xyZJm84jrtf/Nn83UTDr8sdjZptql6hr
-         agd/PYJkIy7joU6lGIxw0NWFFvRXEn7nh8KxXtIysC0nGbdruznn8gY1v9N6y7k83cYY
-         hnC9DT06kRTnc1wE9cXEbWp/p5w3IwH37nSCUlr6kDnJ3eTwEKtznd0h2+Kff/1FqCtY
-         Fz2cItJt0F++bpLG98x9DLpS71NPv46MI0oL5MTbPP9aYhpAS36noPL1LfKhoRUt5aDW
-         MHVKWuEIcmCtkfRvWkpQ2+QBwwioRZLliv6H/U2m5uZZoXP5HCYX0B7qtr1zEK2O3hen
-         IqAg==
-X-Gm-Message-State: AOJu0YygAi8KE9dzhGsxlErN7C5yrRjXiCUn3t+s4VvYsTP8Es3Jbe+C
-	s7G69Ct/IJSU5L1aLJfZZmUNC7I/2IQLXA==
-X-Google-Smtp-Source: AGHT+IGzw0uQrRpmTV3pus5VVF4anOHA+Y8sKfTXz+SL+atzdgiHSvfKO0bbGI3w9r1kEGJyDgDGqA==
-X-Received: by 2002:a05:600c:91c:b0:40e:45c0:ad66 with SMTP id m28-20020a05600c091c00b0040e45c0ad66mr5077856wmp.175.1705486425812;
-        Wed, 17 Jan 2024 02:13:45 -0800 (PST)
-Date: Wed, 17 Jan 2024 11:13:44 +0100
+        d=1e100.net; s=20230601; t=1705487105; x=1706091905;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uG9FrMn8jAcHEgP71mtu/aFaa+6/OSS1qBkYLl6mAHU=;
+        b=c9GijOe9bA/dKF2cO7ab/QyHaCx2oqVJr6Zo3Qk6caD9yjDHcO+Og8o3/awRdvJmLl
+         Qq5x6mP9j3eTCmDKRQkxaolglE3FW3gmtvzkRvPCh3Zgt0W/Tc550xGvwkZU8I3K2eci
+         WUtvxXopUNSq9mtiCnBM04iOb4odqxGFLonIFXcHaHf2+bTy7b0yGsmm8QWMEZ6hfWEj
+         F4VJgNFHWtZMq6V3ZjhhkJIsQsQDP++oH3oYQHrnTL/je1uwlvlum+0xawWiL/F5nFYT
+         3pzSR56xWtCPbjzlArY9dWcrsYllSqIv/ZChuIW2Ugb0jG6rnDv1ibE6J1mHBUy78z77
+         8ZyA==
+X-Gm-Message-State: AOJu0Ywn36yItkELIULlVSzbqvbNAbYyXLVIIDaydF3MLQgAyqClwvlp
+	s9UyH+yTNQSVIApnQp5AgEhY6JjzEBdsWQ==
+X-Google-Smtp-Source: AGHT+IFcL3Yl3bsSniuzcelDmUMX88SoFJfTrqpzqidvJZEw2ruz2d3EC4Ps9b+Llu074DiQGPWxgQ==
+X-Received: by 2002:a5d:4b8b:0:b0:337:2acd:6260 with SMTP id b11-20020a5d4b8b000000b003372acd6260mr5076205wrt.95.1705487105046;
+        Wed, 17 Jan 2024 02:25:05 -0800 (PST)
+Date: Wed, 17 Jan 2024 11:25:04 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Patrick Plenefisch <simonpatp@gmail.com>,
-	xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
-Subject: Re: E820 memory allocation issue on Threadripper platforms
-Message-ID: <ZaeoWBV8IEZap2mr@macbook>
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
- <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
- <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
- <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
- <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
- <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
- <fa23a590-5869-4e11-8998-1d03742c5919@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] x86/PVH: Dom0 "broken ELF" reporting adjustments
+Message-ID: <ZaerAAt1EnFAZpo3@macbook>
+References: <fda7586f-a1d1-4500-a6c4-d0e010223ee2@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fa23a590-5869-4e11-8998-1d03742c5919@suse.com>
+In-Reply-To: <fda7586f-a1d1-4500-a6c4-d0e010223ee2@suse.com>
 
-On Wed, Jan 17, 2024 at 09:46:27AM +0100, Jan Beulich wrote:
-> On 17.01.2024 07:12, Patrick Plenefisch wrote:
-> > On Tue, Jan 16, 2024 at 4:33 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >> On 16.01.2024 01:22, Patrick Plenefisch wrote:
-> >> It remains to be seen in how far it is reasonably possible to work
-> >> around this in the kernel. While (sadly) still unsupported, in the
-> >> meantime you may want to consider running Dom0 in PVH mode.
-> >>
-> > 
-> > I tried this by adding dom0=pvh, and instead got this boot error:
-> > 
-> > (XEN) xenoprof: Initialization failed. AMD processor family 25 is not
-> > supported
-> > (XEN) NX (Execute Disable) protection active
-> > (XEN) Dom0 has maximum 1400 PIRQs
-> > (XEN) *** Building a PVH Dom0 ***
-> > (XEN) Failed to load kernel: -1
-> > (XEN) Xen dom0 kernel broken ELF: <NULL>
-> > (XEN) Failed to load Dom0 kernel
-> > (XEN)
-> > (XEN) ****************************************
-> > (XEN) Panic on CPU 0:
-> > (XEN) Could not construct domain 0
-> > (XEN) ****************************************
-> > (XEN)
-> > (XEN) Reboot in five seconds...
+On Wed, Jan 17, 2024 at 09:53:26AM +0100, Jan Beulich wrote:
+> elf_load_binary() isn't the primary source of brokenness being
+> indicated. Therefore make the respective log message there conditional
+> (much like PV has it), and add another instance when elf_xen_parse()
+> failed (again matching behavior in the PV case).
 > 
-> Hmm, that's sad. The more that the error messages aren't really
-> informative. You did check though that your kernel is PVH-capable?
-> (With a debug build of Xen, and with suitably high logging level,
-> various of the ELF properties would be logged. Such output may or
-> may not give further hints towards what's actually wrong. Albeit
-> you using 4.17 this would further require you to pull in commit
-> ea3dabfb80d7 ["x86/PVH: allow Dom0 ELF parsing to be verbose"].)
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> But wait - aren't you running into the same collision there with
-> that memory region? I think that explains the unhelpful output.
+> --- a/xen/arch/x86/hvm/dom0_build.c
+> +++ b/xen/arch/x86/hvm/dom0_build.c
+> @@ -570,6 +570,8 @@ static int __init pvh_load_kernel(struct
+>      if ( (rc = elf_xen_parse(&elf, &parms, true)) != 0 )
+>      {
+>          printk("Unable to parse kernel for ELFNOTES\n");
+> +        if ( elf_check_broken(&elf) )
+> +            printk("Xen dom0 kernel broken ELF: %s\n", elf_check_broken(&elf));
 
-I think so, elf_memcpy() in elf_load_image() is failing to load on the
-given destination address.  Error messages should be more helpful
-there.
-
-> Whereas I assume the native kernel can deal with that as long as
-> it's built with CONFIG_RELOCATABLE=y. I don't think we want to
-> get into the business of interpreting the kernel's internal
-> representation of the relocations needed, so it's not really
-> clear to me what we might do in such a case. Perhaps the only way
-> is to signal to the kernel that it needs to apply relocations
-> itself (which in turn would require the kernel to signal to us
-> that it's capable of doing so). Cc-ing Roger in case he has any
-> neat idea.
-
-Hm, no, not really.
-
-We could do like multiboot2: the kernel provides us with some
-placement data (min/max addresses, alignment), and Xen let's the
-kernel deal with relocations itself.
-
-Additionally we could support the kernel providing a section with the
-relocations and apply them from Xen, but that's likely hm, complicated
-at best, as I don't even know which kinds of relocations we would have
-to support.
-
-I'm not sure how Linux deals with this in the bare metal case, are
-relocations done after decompressing and before jumping into the entry
-point?
-
-I would also need to check FreeBSD at least to have an idea of how
-it's done there.
+I would rather use "%pd: kernel broken ELF: %s\n", in case this gets
+used for loading more than dom0 in the dom0less case.  The 'Xen'
+prefix is IMO useless here (I know it was here before).
 
 Thanks, Roger.
 
