@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B668883073D
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 14:41:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668473.1040712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15FEE830740
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 14:42:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668476.1040724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ69m-0008Em-Tt; Wed, 17 Jan 2024 13:40:38 +0000
+	id 1rQ6Bf-0000M8-9c; Wed, 17 Jan 2024 13:42:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668473.1040712; Wed, 17 Jan 2024 13:40:38 +0000
+Received: by outflank-mailman (output) from mailman id 668476.1040724; Wed, 17 Jan 2024 13:42:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ69m-0008Cj-Qu; Wed, 17 Jan 2024 13:40:38 +0000
-Received: by outflank-mailman (input) for mailman id 668473;
- Wed, 17 Jan 2024 13:40:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rQ6Bf-0000It-6e; Wed, 17 Jan 2024 13:42:35 +0000
+Received: by outflank-mailman (input) for mailman id 668476;
+ Wed, 17 Jan 2024 13:42:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yGoF=I3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rQ69l-0008CW-Fh
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 13:40:37 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe608fc5-b53d-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 14:40:36 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40e7065b7bdso39403375e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 05:40:36 -0800 (PST)
+ id 1rQ6Be-0000In-IM
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 13:42:34 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 434dd71a-b53e-11ee-9b0f-b553b5be7939;
+ Wed, 17 Jan 2024 14:42:31 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-337c5bcf79fso283650f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 05:42:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d6-20020adff846000000b0033725783839sm1696798wrq.110.2024.01.17.05.40.34
+ n18-20020a05600c501200b0040e77ce8768sm10678109wmr.16.2024.01.17.05.42.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jan 2024 05:40:35 -0800 (PST)
+ Wed, 17 Jan 2024 05:42:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe608fc5-b53d-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 434dd71a-b53e-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705498835; x=1706103635; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705498951; x=1706103751; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=G66dl/KqyndMo1mUlVWk9m/3TFebwmIfDaKJUoPv2D4=;
-        b=XkNKlSvBCe1sO9Cdg5kBTh8UQLkkjLxpggAlkSLdjAdVrdM0JPOT6FjlTAk5H/IaCq
-         IaCEPHbgtl1y+1RCn//qADw9aJP5UwCQslOScJ905MhUKWz3MLz8YtoVNHXP8UTzQ2n3
-         lVusdoAQDgMShbxZEYQWVIh4k3tyAG4t6Hcy0SeF5IuPs8zFu6u4FfuI/KPtOEgB8d0K
-         CV145m3HiZ/GHGoZSuPSs+hd5HM7W1ZKJxFWkbMEIIAXVfLJ8ZdILoZ5FlGlgo0rE8Uh
-         SHAZCaR610Gh12VxYbHyDPviBtjhfaV/CX0s5FoDImgHtSvW0YMq4b8F63R1u2JIDXTZ
-         lNnA==
+        bh=DxbF+vzCDpdp6J+pw4BlS9ANgujZV7xOr5VIt/PUDYU=;
+        b=YX61Za6F1oglIQllVMQIkFXJ5r2qtJBJDEoSLSiXs08ODuP43jzMnRLaY8YY+PxKGn
+         f15VYhxOhEycL+3DnS5HWBM0CAUNRvIQrsEanKwnnnY53BBy+n+RO9uwii1nhTJ3zDeh
+         JOP2P5ReUDgdpwDMvCwMAtVdDKuw9VxUYaQ1I/jTOCp/6v1607BSVKffidYrR7ZHG54t
+         diGi/u+Dg+lmCws9gNXLQcfmBHFLA3YET6l39KY+n3nbxMBXtAoy0Svh6eFT62BePyTW
+         nnsWMa4K+i+iI/e5TY23MBSGmFEZzUvG6IIkE0OkGltyiqbMddgTaqrR0iSB0nzR7oL1
+         aUNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705498835; x=1706103635;
+        d=1e100.net; s=20230601; t=1705498951; x=1706103751;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=G66dl/KqyndMo1mUlVWk9m/3TFebwmIfDaKJUoPv2D4=;
-        b=KuSlS7FdSBUNJlEl6OtoTReekUTQKwHDTsc5/o0rNKSD7LT5cbAFGO0Quh40e00Rh+
-         TAIJfIK+JzuG0wpBtpu6O61ueZzGWN0OL7YcDxD1K7+svYkgYW9tCOf2PWkRvugRpkhP
-         sVFVkl+BTZcbMPHvrSmIIKNCEsCpQFWEb/cGKNEppjSqc8vITLFsvL61/7CobyF9E4ca
-         +2yqXD2amZeShVlMc08nuVGALmhJwDwHMAOzdeFlACdm+OKbbC2jxpEF9kq9KahnAEbT
-         hA333+3p0DCLkpadD+5ASoOCn88CZkHOhz3DvpTS6qysvtetsZKFZfWbSMarIf1StA7M
-         gaKg==
-X-Gm-Message-State: AOJu0YxhlAA/MpuDrwm+WDWpMhPjie+RA7VZALey/tlQ8/QVbx3fKcwd
-	sWHzguGTMEy2YeZIyhsbmDf31Q8LRdwz
-X-Google-Smtp-Source: AGHT+IHnIE97+jjPydDRhah2NKMpAvaHc/rckeUwz36BlXqrKmBCOWBK4fieCHd31ekqio/sNdUeDA==
-X-Received: by 2002:a05:600c:4795:b0:40e:470a:d867 with SMTP id k21-20020a05600c479500b0040e470ad867mr3179135wmo.222.1705498835562;
-        Wed, 17 Jan 2024 05:40:35 -0800 (PST)
-Message-ID: <825e49e2-5270-4257-9c4f-c8f17c41267c@suse.com>
-Date: Wed, 17 Jan 2024 14:40:33 +0100
+        bh=DxbF+vzCDpdp6J+pw4BlS9ANgujZV7xOr5VIt/PUDYU=;
+        b=XObPXNVKQRHI2I4OTQraW4yTbb4EhuXAGQnLbpkeG+GWesIl4F8wMq026UfCsHU+AN
+         u3v2BJXuPGaeOQc0WtiV/fjF5Fu/XCRo9tk+U37YT+pCZA6Kf696BKShPLVl5Kvry73j
+         6XpsiEAdNP+e0dz/vl9tnrLBU1X1ZVyYpnqTJhWvNuXIua7mOOvBeIievR2rzzVD9r+y
+         M5CKB0b0j4IN8vtUhoHyIqpKMht545ly2Ps1XeCLMBWFJnTRBMoAHl0zp+XTvZDCZjMS
+         ffZMKQhmPLvwQjMYLV4Rdua+5KLpG0yVEN0EyYNnUR56eTBdJ2wyotlWKvQrY8yY96lW
+         fF0Q==
+X-Gm-Message-State: AOJu0YwJJXyzEBXiUIHprx0u6fb+xNiFVhDeK4pzj95fhE/6+1MFwRCT
+	FSbGCpGD2sLZykFmK8lxy6vF+prQ2+va
+X-Google-Smtp-Source: AGHT+IEhUjVp2QrYjG59Dp4SEUEFGhrcUwxBeZ+1czrqIiNCBhvpUYchHJXbYi0jsMlrW7TopkBVyg==
+X-Received: by 2002:a05:600c:4583:b0:40e:4656:dc2b with SMTP id r3-20020a05600c458300b0040e4656dc2bmr4507412wmo.168.1705498951325;
+        Wed, 17 Jan 2024 05:42:31 -0800 (PST)
+Message-ID: <23955665-8bd8-4872-a1a5-e3a3711c9512@suse.com>
+Date: Wed, 17 Jan 2024 14:42:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: E820 memory allocation issue on Threadripper platforms
+Subject: Re: [PATCH v3 10/34] xen/riscv: introduce bitops.h
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Patrick Plenefisch <simonpatp@gmail.com>, xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
- <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
- <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
- <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
- <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com> <ZafC3apB4rjFUOXP@mail-itl>
- <ZafPJvsIarRdy6BH@macbook>
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+ <841d59c3950970f4937da200cf8f04aa39132e14.1703255175.git.oleksii.kurochko@gmail.com>
+ <23f1212a-66a8-47b0-904b-08b2ab54c72b@suse.com>
+ <17d9fe474e244a15aa5955e630d553a62b0080fd.camel@gmail.com>
+ <88df7ccd-8d14-4b00-900d-04cc87d9f230@suse.com>
+ <863b09f03d37e96d737ab6bda4cc8923f75550fd.camel@gmail.com>
+ <2e10b170-5a75-4ae0-8d2f-c6c1ad9951a5@suse.com>
+ <1b20fefd125598e2bb62d516495783650da75271.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,74 +120,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZafPJvsIarRdy6BH@macbook>
+In-Reply-To: <1b20fefd125598e2bb62d516495783650da75271.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17.01.2024 13:59, Roger Pau Monné wrote:
-> On Wed, Jan 17, 2024 at 01:06:53PM +0100, Marek Marczykowski-Górecki wrote:
->> On Tue, Jan 16, 2024 at 10:33:26AM +0100, Jan Beulich wrote:
->>> ... as per
+On 17.01.2024 12:37, Oleksii wrote:
+>>>>
+>>>>>> Also you want to make sure asm-generic/bitops/bitops-bits.h
+>>>>>> is
+>>>>>> really in use here, or else an arch overriding / not using
+>>>>>> that
+>>>>>> header may end up screwed.
+>>>>> I am not really understand what do you mean. Could you please
+>>>>> explain a
+>>>>> little bit more.
+>>>>
+>>>> Whichever type you use here, it needs to be in sync with
+>>>> BITOP_BITS_PER_WORD. Hence you want to include the _local_
+>>>> bitops-
+>>>> bits.h
+>>>> here, such that in case of an inconsistent override by an arch
+>>>> the
+>>>> compiler would complain about the two differring #define-s. (IOW
+>>>> an
+>>>> arch overriding BITOP_BITS_PER_WORD cannot re-use this header as-
+>>>> is.)
+>>>>
+>>>> The same may, btw, be true for others of the new headers you add
+>>>> -
+>>>> the
+>>>> same #include would therefore be needed there as well.
+>>> Now it clear to me.
 >>>
->>> (XEN)  Dom0 kernel: 64-bit, PAE, lsb, paddr 0x1000000 -> 0x4a00000
 >>>
->>> there's an overlap with not exactly a hole, but with an
->>> EfiACPIMemoryNVS region:
+>>> It seems like BITOP_BITS_PER_WORD, BITOP_MASK, BITOP_WORD, and
+>>> BITS_PER_BYTE are defined in {arm, ppc,
+>>> riscv}/include/asm/bitops.h.
+>>> I expected that any architecture planning to use asm-
+>>> generic/bitops/bitops-bits.h would include it at the beginning of
+>>> <arch>/include/asm/bitops.h, similar to what is done for RISC-V:
+>>>    #ifndef _ASM_RISCV_BITOPS_H
+>>>    #define _ASM_RISCV_BITOPS_H
+>>>    
+>>>    #include <asm/system.h>
+>>>    
+>>>    #include <asm-generic/bitops/bitops-bits.h>
+>>>    ...
 >>>
->>> (XEN)  0000000100000-0000003159fff type=2 attr=000000000000000f
->>> (XEN)  000000315a000-0000003ffffff type=7 attr=000000000000000f
->>> (XEN)  0000004000000-0000004045fff type=10 attr=000000000000000f
->>> (XEN)  0000004046000-0000009afefff type=7 attr=000000000000000f
+>>> But in this case, to allow architecture overrides macros, it is
+>>> necessary to update asm-generic/bitops/bitops-bits.h:
+>>>     #ifndef BITOP_BITS_PER_WORD
+>>>     #define BITOP_BITS_PER_WORD     32
+>>>     #endif
+>>>    ...
+>>> Therefore,  if an architecture needs to override something, it will
+>>> add
+>>> #define ... before #include <asm-generic/bitops/bitops-bits.h>.
 >>>
->>> (the 3rd of the 4 lines). Considering there's another region higher
->>> up:
->>>
->>> (XEN)  00000a747f000-00000a947efff type=10 attr=000000000000000f
->>>
->>> I'm inclined to say it is poor firmware (or, far less likely, boot
->>> loader) behavior to clobber a rather low and entirely arbitrary RAM
->>> range, rather than consolidating all such regions near the top of
->>> RAM below 4Gb.
+>>> Does it make sense?
 >>
->> FWIW, we have two more similar reports, with different motherboards and
->> firmware versions, but the common factor is Threadripper CPU. It doesn't
->> exclude firmware issue (it can be an issue in some common template, like
->> edk2?), but makes it a bit less likely.
->>
->>> There are further such odd regions, btw:
->>>
->>> (XEN)  0000009aff000-0000009ffffff type=0 attr=000000000000000f
->>> ...
->>> (XEN)  000000b000000-000000b020fff type=0 attr=000000000000000f
->>>
->>> If the kernel image was sufficiently much larger, these could become
->>> a problem as well. Otoh if the kernel wasn't built with
->>> CONFIG_PHYSICAL_START=0x1000000, i.e. to start at 16Mb, but at, say,
->>> 2Mb, things should apparently work even with this unusual memory
->>> layout (until the kernel would grow enough to again run into that
->>> very region).
->>
->> Shouldn't CONFIG_RELOCATABLE=y take care of this?
-> 
-> No, because PV doesn't use the native entry point.
-> 
->> At least in the case
->> of Qubes OS, it's enabled and the issue still happens.
-> 
-> I think for PV it should be possible to workaround this in Linux
-> itself, maybe by changing the pfn -> mfn relations of the kernel
-> area?
+>> Sure. But then the arch also needs to provide a corresponding typedef
+>> (and bitops-bits.h the fallback one), for use wherever you use any of
+>> those #define-s.
+> Which one typedef is needed to provide?
+> <asm-generic/bitops/bitops-bits.h> contains only macros.
 
-Right, that's what I understand Jürgen is intending to look into once
-he's back.
+A new one, to replace where right now you use "unsigned int" and I
+initially said you need to use "uint32_t" instead. With what you said
+earlier, uint32_t won't work there (anymore).
 
 Jan
-
-> Those overlaps are not real, as the loaded kernel is scattered across
-> mfns, and those certainly belong to RAM regions in the memory map.
-> 
-> For PVH it's going to require some changes in Xen itself.
-> 
-> Roger.
-
 
