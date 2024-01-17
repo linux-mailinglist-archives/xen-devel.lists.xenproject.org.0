@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFD47830309
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 11:00:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668343.1040467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C6CC830351
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 11:12:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668352.1040477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ2iW-0007Pd-EV; Wed, 17 Jan 2024 10:00:16 +0000
+	id 1rQ2u1-0002Lp-HB; Wed, 17 Jan 2024 10:12:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668343.1040467; Wed, 17 Jan 2024 10:00:16 +0000
+Received: by outflank-mailman (output) from mailman id 668352.1040477; Wed, 17 Jan 2024 10:12:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ2iW-0007Ni-BB; Wed, 17 Jan 2024 10:00:16 +0000
-Received: by outflank-mailman (input) for mailman id 668343;
- Wed, 17 Jan 2024 10:00:14 +0000
+	id 1rQ2u1-0002JE-Ci; Wed, 17 Jan 2024 10:12:09 +0000
+Received: by outflank-mailman (input) for mailman id 668352;
+ Wed, 17 Jan 2024 10:12:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yGoF=I3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rQ2iU-0007K4-L1
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 10:00:14 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bFEv=I3=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1rQ2tz-0002Hp-SR
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 10:12:08 +0000
+Received: from mail-oo1-xc2c.google.com (mail-oo1-xc2c.google.com
+ [2607:f8b0:4864:20::c2c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34fb0fc7-b51f-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 11:00:13 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40e8d3b29f2so416945e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 02:00:13 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s8-20020a05600c45c800b0040e527602c8sm26023093wmo.9.2024.01.17.02.00.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jan 2024 02:00:12 -0800 (PST)
+ id dce6c8ff-b520-11ee-98f2-6d05b1d4d9a1;
+ Wed, 17 Jan 2024 11:12:06 +0100 (CET)
+Received: by mail-oo1-xc2c.google.com with SMTP id
+ 006d021491bc7-598bcccca79so3007899eaf.2
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 02:12:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,459 +40,682 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34fb0fc7-b51f-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: dce6c8ff-b520-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705485613; x=1706090413; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vREreRDX9LMqGtvWcecYgobHNabcN+0PAlDNZTRFwQA=;
-        b=O5z3JSUz3y3YIK4/fg90ujp1wFLIpJhugNhUzXdp19FJ3GjRb3DbYD1sv1+sZ34a4g
-         Xtg81fCN++7oP9LQG96R28BTX/+Ahy/IVkg4gJcBBgZ3/xq6neM/j7yY8YyA3xqgilny
-         wuJiEbXulOptm/Ws+Dp4u+vNRxJp0g708Ux3RnGHm4oofebpOvfO95LzU9tl8Dq+sEDW
-         KDLvQXms6yPiYjSNJ2oReFKIGak8dTuwiltjV/DBt65uE7052Ak9VtAIBpKeLhQuDlDC
-         C5fvh3fKKdFByIGA9ir6VS6b5Qz3OkbF2ySJzB3qHvsU5Rc4UMbEQGfs8iXzajE0EnSx
-         txEg==
+        d=linaro.org; s=google; t=1705486324; x=1706091124; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Q/XXe5UvqHnIb0Jv0+n1QtDe02fY/UNY8xIANbHog4U=;
+        b=t5kgZDQk+tXny4JM7IHDqoJc44avSMSSG/drnL7fvBHq/Jb55bVi20EwCplux46Wgk
+         8CNnz2kNnV1QZ4RGe7ERhJno4XnU2x9tzWuU608uLa4hL+JZcKWLp7EWCXqB1zrJbx+k
+         zXTiWtqSjI4mX90wd/eRdd4GyLxjvr2+eOBZhRSHnTUohvdQteGPceEzo/PTM5qS2f6o
+         iVtYSZfZebJl5ZOyr4CbU5lo72VEmB0XbFeYCV0C8ol/smEIcrvlcs9nXz/q8DaVuSa6
+         mm+aeyZONV8KOvQl9hjMOJ30nn+d84dZIl/RGD0brr9y5zX1QE4YV83wL5gov0p2U9Jf
+         64ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705485613; x=1706090413;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vREreRDX9LMqGtvWcecYgobHNabcN+0PAlDNZTRFwQA=;
-        b=U+OZrZpIbAr7I2eNMdBDPBTB08whbbjsQyfBOPGNkCxlCkMa8N2CxfHkeeT+yzXFdn
-         7K2b71BNm136GCTKp8ESC2w376Dxwf8RbKe3S+Uqgz5VX/qQSA2jMNumQgFz0zIXKAbi
-         79Lbsy3Lay5vZoXoSOaI+0LvT1tRyi/+8nfD640K9QlxClitjTi98oh7WheLeDh5Xn/p
-         ILUd7WUSBH4JOT4NCsXQ2bAnzs0mdlC5GACwNnmds/Ng+FKjsmYR8AFtNOOLDtRM4krA
-         UBLisPSG5E/Fup9mTh+DqopVEYWKVJC9A6r+9+Uu5xYx60KlVtvIyetp36RiyC27+9YN
-         w7KA==
-X-Gm-Message-State: AOJu0YwU8cl+/jYvAQ+hWz+5V02TcXIXn/OeEm9CAKKaR2AQMOKzl/33
-	MgK7h891v3p3YUGpsKnbVGKDGp5yowtFwbhmzzGu/SNJNA==
-X-Google-Smtp-Source: AGHT+IFyewiTkgrNoTGXpEpPW2+PgOCt7EPZlj0s/APz/lct0lSREN4/aCLougsFsQhhJN6Io6w1AQ==
-X-Received: by 2002:a7b:c5cb:0:b0:40e:4921:5038 with SMTP id n11-20020a7bc5cb000000b0040e49215038mr3279439wmk.91.1705485612718;
-        Wed, 17 Jan 2024 02:00:12 -0800 (PST)
-Message-ID: <00444077-4a43-4069-bf57-ea7aa7e0dca4@suse.com>
-Date: Wed, 17 Jan 2024 11:00:11 +0100
+        d=1e100.net; s=20230601; t=1705486324; x=1706091124;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Q/XXe5UvqHnIb0Jv0+n1QtDe02fY/UNY8xIANbHog4U=;
+        b=KnyHufigZ/HPFEd+pfcidkNHQuvphLZVnG2g5AX0w3tAQPkE4WSUIra1PgKdtd0g/R
+         hnf6BmI8nl5A8evmbGNoXWgu7e8nXTnS4PhQmb3vwbcFRz6CrCRxJ3TCHEhwY3eqw/WY
+         OhEmauH4WKzBM3tZBQRTdmzfMGdLOhsYETMyIdpFjG4xnS6c2v1Y0aoGMA5ON94eRuz4
+         ZgSsCgMH5l9mqhsNOjTgZg3PTlXA2iocTDapizmLfNFKk4P+x5rpWoybHbQUZ1/chzmF
+         t5l0DeiBGnWl7BG9JU99k2FvLVAoOY2Q3sggBIveUj39HI7qm6WEBr/863SUTHf7aju0
+         ODOg==
+X-Gm-Message-State: AOJu0YyWoXdka+6eG9GzDm64mS3Lb/aho8lEOJfOXbc3gx8g3CagHghs
+	zFuH4r0iHzdFCqw2JmGxUoK4mvNfA11L3wkoHuJ3qYVCOOUhww==
+X-Google-Smtp-Source: AGHT+IFXfM4d5TcJ1Fas7NQHo8nbvNHtZmEB/avCVYfyDXJt7zSc90gueU/QO5qfah7J4fqwkrLG19p6G+pbnL476IQ=
+X-Received: by 2002:a4a:9d19:0:b0:598:6603:e4d with SMTP id
+ w25-20020a4a9d19000000b0059866030e4dmr4750605ooj.18.1705486323820; Wed, 17
+ Jan 2024 02:12:03 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/2] x86/MCE: switch some callback invocations to altcall
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <0fb20fcf-1580-41c9-946b-7daf865f4b49@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0fb20fcf-1580-41c9-946b-7daf865f4b49@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20231213112557.2393086-1-jens.wiklander@linaro.org> <766738F2-9DE5-4B75-8579-5D49DEA5BC1D@arm.com>
+In-Reply-To: <766738F2-9DE5-4B75-8579-5D49DEA5BC1D@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 17 Jan 2024 11:11:52 +0100
+Message-ID: <CAHUa44HFg_-zo71x3c_tdmpM4anTafpsnSyiU5EaEkgpW7V18w@mail.gmail.com>
+Subject: Re: [XEN PATCH v2] xen/arm: ffa: reclaim shared memory on guest destroy
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	"patches@linaro.org" <patches@linaro.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-While not performance critical, these hook invocations still would
-better be converted: This way all pre-filled (and newly introduced)
-struct mce_callback instances can become __initconst_cf_clobber, thus
-allowing to eliminate another 9 ENDBR during the 2nd phase of
-alternatives patching.
+Hi Bertrand,
 
-While this means registering callbacks a little earlier, doing so is
-perhaps even advantageous, for having pointers be non-NULL earlier on.
-Only one set of callbacks would only ever be registered anyway, and
-neither of the respective initialization function can (subsequently)
-fail.
+On Mon, Jan 15, 2024 at 12:15=E2=80=AFPM Bertrand Marquis
+<Bertrand.Marquis@arm.com> wrote:
+>
+> Hi Jens,
+>
+> Very sorry for the long delay.
+>
+> > On 13 Dec 2023, at 12:25, Jens Wiklander <jens.wiklander@linaro.org> wr=
+ote:
+> >
+> > When an FF-A enabled guest is destroyed it may leave behind memory
+> > shared with SPs. This memory must be reclaimed before it's reused or an
+> > SP may make changes to memory used by a new unrelated guest. So when th=
+e
+> > domain is teared down add FF-A requests to reclaim all remaining shared
+> > memory.
+> >
+> > SPs in the secure world are notified using VM_DESTROYED that a guest ha=
+s
+> > been destroyed. An SP is supposed to relinquish all shared memory to al=
+low
+> > reclaiming the memory. The relinquish operation may need to be delayed =
+if
+> > the shared memory is for instance part of a DMA operation.
+> >
+> > The domain reference counter is increased when the first FF-A shared
+> > memory is registered and the counter is decreased again when the last
+> > shared memory is reclaimed. If FF-A shared memory registrations remain
+> > at the end of of ffa_domain_teardown() a timer is set to try to reclaim
+> > the shared memory every second until the memory is reclaimed.
+> >
+> > Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+> > ---
+> > Hi,
+> >
+> > This is a follow-up to the RFC patch. In this patch, I take an explicit
+> > reference on the domain when FF-A shared memory is registered. I've
+> > discovered that it might not be strictly necessary until all the shared
+> > pages are released with put_page() they also keep a reference to the
+> > domain.
+> >
+> > I'm not entirely sure what is the status of the shared memory when the
+> > domain has turned into a zombie. We still hold references on the shared
+> > pages until put_page() is called on each. Is that enough to guarantee t=
+hat
+> > they will not be reused?
+> >
+> > Thanks,
+> > Jens
+> >
+> > v2:
+> > - Update commit message to match the new implementation
+> > - Using a per domain bitfield to keep track of which SPs has been notif=
+ied
+> >  with VM_DESTROYED
+> > - Holding a domain reference counter to keep the domain as a zombie dom=
+ain
+> >  while there still is shared memory registrations remaining to be recla=
+imed
+> > - Using a timer to retry reclaiming remaining shared memory registratio=
+ns
+> >
+> > ---
+> > xen/arch/arm/tee/ffa.c | 270 ++++++++++++++++++++++++++++++++++-------
+> > 1 file changed, 224 insertions(+), 46 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+> > index 183528d13388..22906a6e1cff 100644
+> > --- a/xen/arch/arm/tee/ffa.c
+> > +++ b/xen/arch/arm/tee/ffa.c
+> > @@ -54,6 +54,7 @@
+> > #include <xen/mm.h>
+> > #include <xen/sched.h>
+> > #include <xen/sizes.h>
+> > +#include <xen/timer.h>
+> > #include <xen/types.h>
+> >
+> > #include <asm/event.h>
+> > @@ -384,11 +385,6 @@ struct ffa_ctx {
+> >     unsigned int page_count;
+> >     /* FF-A version used by the guest */
+> >     uint32_t guest_vers;
+> > -    /*
+> > -     * Number of SPs that we have sent a VM created signal to, used in
+> > -     * ffa_domain_teardown() to know which SPs need to be signalled.
+> > -     */
+> > -    uint16_t create_signal_count;
+> >     bool rx_is_free;
+> >     /* Used shared memory objects, struct ffa_shm_mem */
+> >     struct list_head shm_list;
+> > @@ -402,6 +398,15 @@ struct ffa_ctx {
+> >     spinlock_t tx_lock;
+> >     spinlock_t rx_lock;
+> >     spinlock_t lock;
+> > +    /* Used if domain can't be teared down immediately */
+> > +    struct domain *teardown_d;
+> > +    struct list_head teardown_list;
+> > +    s_time_t teardown_expire;
+> > +    /*
+> > +     * Used for ffa_domain_teardown() to keep track of which SPs shoul=
+d be
+> > +     * notified that this guest is being destroyed.
+> > +     */
+> > +    unsigned long vm_destroy_bitmap[];
+> > };
+> >
+> > struct ffa_shm_mem {
+> > @@ -436,6 +441,12 @@ static void *ffa_tx __read_mostly;
+> > static DEFINE_SPINLOCK(ffa_rx_buffer_lock);
+> > static DEFINE_SPINLOCK(ffa_tx_buffer_lock);
+> >
+> > +
+> > +/* Used if domain can't be teared down immediately */
+>
+> Please adapt the comment as this for all domains.
+> Suggest: Used to track domains that could not be teared down immediately.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-RFC: Of course there's concern about alternatives patching happening
-     only after setting CR4.MCE, meaning that #MC could actually be
-     raised while patching. If this is deemed unacceptable, a (not
-     really nice) option may be to defer setting the bit until after the
-     first alternatives patching pass.
+I'll update.
 
-Of course this could be split to convert every previously separate
-function pointer individually. But I think it's better done all in one
-go. (This change could of course also be folded with the prereq one.)
+>
+> > +static struct timer ffa_teardown_timer;
+> > +static struct list_head ffa_teardown_head;
+> > +static DEFINE_SPINLOCK(ffa_teardown_lock);
+> > +
+> > static bool ffa_get_version(uint32_t *vers)
+> > {
+> >     const struct arm_smccc_1_2_regs arg =3D {
+> > @@ -850,7 +861,6 @@ static int32_t handle_partition_info_get(uint32_t w=
+1, uint32_t w2, uint32_t w3,
+> >             goto out_rx_release;
+> >         }
+> >
+> > -
+>
+> You have several style changes like that in the patch.
+> Those are not major so I am ok if you keep them in the patch but please
+> mention in the commit messages that you do some code style fixes.
 
---- a/xen/arch/x86/cpu/mcheck/mcaction.c
-+++ b/xen/arch/x86/cpu/mcheck/mcaction.c
-@@ -27,13 +27,6 @@ mci_action_add_pageoffline(int bank, str
-     return rec;
- }
- 
--mce_check_addr_t mc_check_addr = NULL;
--
--void __init mce_register_addrcheck(mce_check_addr_t cbfunc)
--{
--    mc_check_addr = cbfunc;
--}
--
- void
- mc_memerr_dhandler(struct mca_binfo *binfo,
-                    enum mce_result *result,
-@@ -48,7 +41,8 @@ mc_memerr_dhandler(struct mca_binfo *bin
-     int vmce_vcpuid;
-     unsigned int mc_vcpuid;
- 
--    if ( !mc_check_addr(bank->mc_status, bank->mc_misc, MC_ADDR_PHYSICAL) )
-+    if ( !alternative_call(mce_callbacks.check_addr, bank->mc_status,
-+                           bank->mc_misc, MC_ADDR_PHYSICAL) )
-     {
-         dprintk(XENLOG_WARNING,
-                 "No physical address provided for memory error\n");
---- a/xen/arch/x86/cpu/mcheck/mcaction.h
-+++ b/xen/arch/x86/cpu/mcheck/mcaction.h
-@@ -12,9 +12,4 @@ mc_memerr_dhandler(struct mca_binfo *bin
- #define MC_ADDR_PHYSICAL  0
- #define MC_ADDR_VIRTUAL   1
- 
--typedef bool (*mce_check_addr_t)(uint64_t status, uint64_t misc, int addr_type);
--extern void mce_register_addrcheck(mce_check_addr_t cbfunc);
--
--extern mce_check_addr_t mc_check_addr;
--
- #endif
---- a/xen/arch/x86/cpu/mcheck/mce.c
-+++ b/xen/arch/x86/cpu/mcheck/mce.c
-@@ -82,47 +82,21 @@ static void cf_check unexpected_machine_
-     fatal_trap(regs, 1);
- }
- 
--static x86_mce_vector_t _machine_check_vector = unexpected_machine_check;
--
--void __init x86_mce_vector_register(x86_mce_vector_t hdlr)
--{
--    _machine_check_vector = hdlr;
--}
-+struct mce_callbacks __ro_after_init mce_callbacks = {
-+    .handler = unexpected_machine_check,
-+};
-+static const typeof(mce_callbacks.handler) __initconst_cf_clobber __used
-+    default_handler = unexpected_machine_check;
- 
- /* Call the installed machine check handler for this CPU setup. */
- 
- void do_machine_check(const struct cpu_user_regs *regs)
- {
-     mce_enter();
--    _machine_check_vector(regs);
-+    alternative_vcall(mce_callbacks.handler, regs);
-     mce_exit();
- }
- 
--/*
-- * Init machine check callback handler
-- * It is used to collect additional information provided by newer
-- * CPU families/models without the need to duplicate the whole handler.
-- * This avoids having many handlers doing almost nearly the same and each
-- * with its own tweaks ands bugs.
-- */
--static x86_mce_callback_t mc_callback_bank_extended = NULL;
--
--void __init x86_mce_callback_register(x86_mce_callback_t cbfunc)
--{
--    mc_callback_bank_extended = cbfunc;
--}
--
--/*
-- * Machine check recoverable judgement callback handler
-- * It is used to judge whether an UC error is recoverable by software
-- */
--static mce_recoverable_t mc_recoverable_scan = NULL;
--
--void __init mce_recoverable_register(mce_recoverable_t cbfunc)
--{
--    mc_recoverable_scan = cbfunc;
--}
--
- struct mca_banks *mcabanks_alloc(unsigned int nr)
- {
-     struct mca_banks *mb;
-@@ -174,19 +148,6 @@ static void mcabank_clear(int banknum)
- }
- 
- /*
-- * Judging whether to Clear Machine Check error bank callback handler
-- * According to Intel latest MCA OS Recovery Writer's Guide,
-- * whether the error MCA bank needs to be cleared is decided by the mca_source
-- * and MCi_status bit value.
-- */
--static mce_need_clearbank_t mc_need_clearbank_scan = NULL;
--
--void __init mce_need_clearbank_register(mce_need_clearbank_t cbfunc)
--{
--    mc_need_clearbank_scan = cbfunc;
--}
--
--/*
-  * mce_logout_lock should only be used in the trap handler,
-  * while MCIP has not been cleared yet in the global status
-  * register. Other use is not safe, since an MCE trap can
-@@ -226,7 +187,8 @@ static void mca_init_bank(enum mca_sourc
- 
-     if ( (mib->mc_status & MCi_STATUS_MISCV) &&
-          (mib->mc_status & MCi_STATUS_ADDRV) &&
--         (mc_check_addr(mib->mc_status, mib->mc_misc, MC_ADDR_PHYSICAL)) &&
-+         alternative_call(mce_callbacks.check_addr, mib->mc_status,
-+                          mib->mc_misc, MC_ADDR_PHYSICAL) &&
-          (who == MCA_POLLER || who == MCA_CMCI_HANDLER) &&
-          (mfn_valid(_mfn(paddr_to_pfn(mib->mc_addr)))) )
-     {
-@@ -326,7 +288,7 @@ mcheck_mca_logout(enum mca_source who, s
-      * If no mc_recovery_scan callback handler registered,
-      * this error is not recoverable
-      */
--    recover = mc_recoverable_scan ? 1 : 0;
-+    recover = mce_callbacks.recoverable_scan;
- 
-     for ( i = 0; i < this_cpu(nr_mce_banks); i++ )
-     {
-@@ -343,8 +305,9 @@ mcheck_mca_logout(enum mca_source who, s
-          * decide whether to clear bank by MCi_STATUS bit value such as
-          * OVER/UC/EN/PCC/S/AR
-          */
--        if ( mc_need_clearbank_scan )
--            need_clear = mc_need_clearbank_scan(who, status);
-+        if ( mce_callbacks.need_clearbank_scan )
-+            need_clear = alternative_call(mce_callbacks.need_clearbank_scan,
-+                                          who, status);
- 
-         /*
-          * If this is the first bank with valid MCA DATA, then
-@@ -380,12 +343,12 @@ mcheck_mca_logout(enum mca_source who, s
- 
-         if ( recover && uc )
-             /* uc = true, recover = true, we need not panic. */
--            recover = mc_recoverable_scan(status);
-+            recover = alternative_call(mce_callbacks.recoverable_scan, status);
- 
-         mca_init_bank(who, mci, i);
- 
--        if ( mc_callback_bank_extended )
--            mc_callback_bank_extended(mci, i, status);
-+        if ( mce_callbacks.info_collect )
-+            alternative_vcall(mce_callbacks.info_collect, mci, i, status);
- 
-         /* By default, need_clear = true */
-         if ( who != MCA_MCE_SCAN && need_clear )
-@@ -1913,9 +1876,11 @@ static void cf_check mce_softirq(void)
-  * will help to collect and log those MCE errors.
-  * Round2: Do all MCE processing logic as normal.
-  */
--void __init mce_handler_init(void)
-+void __init mce_handler_init(const struct mce_callbacks *cb)
- {
-     /* callback register, do we really need so many callback? */
-+    mce_callbacks = *cb;
-+
-     /* mce handler data initialization */
-     spin_lock_init(&mce_logout_lock);
-     open_softirq(MACHINE_CHECK_SOFTIRQ, mce_softirq);
---- a/xen/arch/x86/cpu/mcheck/mce.h
-+++ b/xen/arch/x86/cpu/mcheck/mce.h
-@@ -63,20 +63,12 @@ void x86_mc_get_cpu_info(unsigned cpu, u
-                          unsigned *ncores, unsigned *ncores_active,
-                          unsigned *nthreads);
- 
--/* Register a handler for machine check exceptions. */
--typedef void (*x86_mce_vector_t)(const struct cpu_user_regs *regs);
--extern void x86_mce_vector_register(x86_mce_vector_t hdlr);
--
- /*
-  * Common generic MCE handler that implementations may nominate
-  * via x86_mce_vector_register.
-  */
- void cf_check mcheck_cmn_handler(const struct cpu_user_regs *regs);
- 
--/* Register a handler for judging whether mce is recoverable. */
--typedef bool (*mce_recoverable_t)(uint64_t status);
--extern void mce_recoverable_register(mce_recoverable_t cbfunc);
--
- /* Read an MSR, checking for an interposed value first */
- extern struct intpose_ent *intpose_lookup(unsigned int cpu_nr, uint64_t msr,
-     uint64_t *valp);
-@@ -137,30 +129,6 @@ extern mctelem_cookie_t mcheck_mca_logou
-                                           struct mca_summary *sp,
-                                           struct mca_banks *clear_bank);
- 
--/*
-- * Register callbacks to be made during bank telemetry logout.
-- * Those callbacks are only available to those machine check handlers
-- * that call to the common mcheck_cmn_handler or who use the common
-- * telemetry logout function mcheck_mca_logout in error polling.
-- */
--
--/* Register a handler for judging whether the bank need to be cleared */
--typedef bool (*mce_need_clearbank_t)(enum mca_source who, u64 status);
--extern void mce_need_clearbank_register(mce_need_clearbank_t cbfunc);
--
--/*
-- * Register a callback to collect additional information (typically non-
-- * architectural) provided by newer CPU families/models without the need
-- * to duplicate the whole handler resulting in various handlers each with
-- * its own tweaks and bugs. The callback receives an struct mc_info pointer
-- * which it can use with x86_mcinfo_reserve to add additional telemetry,
-- * the current MCA bank number we are reading telemetry from, and the
-- * MCi_STATUS value for that bank.
-- */
--typedef struct mcinfo_extended *(*x86_mce_callback_t)
--    (struct mc_info *mi, uint16_t bank, uint64_t status);
--extern void x86_mce_callback_register(x86_mce_callback_t cbfunc);
--
- void *x86_mcinfo_reserve(struct mc_info *mi,
-                          unsigned int size, unsigned int type);
- void x86_mcinfo_dump(struct mc_info *mi);
-@@ -201,8 +169,44 @@ static inline int mce_bank_msr(const str
-     return 0;
- }
- 
--/* MC softirq */
--void mce_handler_init(void);
-+struct mce_callbacks {
-+    void (*handler)(const struct cpu_user_regs *regs);
-+    bool (*check_addr)(uint64_t status, uint64_t misc, int addr_type);
-+
-+    /* Handler for judging whether mce is recoverable. */
-+    bool (*recoverable_scan)(uint64_t status);
-+
-+    /*
-+     * Callbacks to be made during bank telemetry logout.
-+     * They are only available to those machine check handlers
-+     * that call to the common mcheck_cmn_handler or who use the common
-+     * telemetry logout function mcheck_mca_logout in error polling.
-+     */
-+
-+    /*
-+     * Judging whether to Clear Machine Check error bank callback handler.
-+     * According to Intel latest MCA OS Recovery Writer's Guide, whether
-+     * the error MCA bank needs to be cleared is decided by the mca_source
-+     * and MCi_status bit value.
-+     */
-+    bool (*need_clearbank_scan)(enum mca_source who, u64 status);
-+
-+    /*
-+     * Callback to collect additional information (typically non-
-+     * architectural) provided by newer CPU families/models without the need
-+     * to duplicate the whole handler resulting in various handlers each with
-+     * its own tweaks and bugs. The callback receives an struct mc_info pointer
-+     * which it can use with x86_mcinfo_reserve to add additional telemetry,
-+     * the current MCA bank number we are reading telemetry from, and the
-+     * MCi_STATUS value for that bank.
-+     */
-+    struct mcinfo_extended *(*info_collect)
-+        (struct mc_info *mi, uint16_t bank, uint64_t status);
-+};
-+
-+extern struct mce_callbacks mce_callbacks;
-+
-+void mce_handler_init(const struct mce_callbacks *cb);
- 
- extern const struct mca_error_handler *mce_dhandlers;
- extern const struct mca_error_handler *mce_uhandlers;
---- a/xen/arch/x86/cpu/mcheck/mce_amd.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_amd.c
-@@ -271,6 +271,19 @@ int vmce_amd_rdmsr(const struct vcpu *v,
-     return 1;
- }
- 
-+static const struct mce_callbacks __initconst_cf_clobber k8_callbacks = {
-+    .handler = mcheck_cmn_handler,
-+    .need_clearbank_scan = amd_need_clearbank_scan,
-+};
-+
-+static const struct mce_callbacks __initconst_cf_clobber k10_callbacks = {
-+    .handler = mcheck_cmn_handler,
-+    .check_addr = mc_amd_addrcheck,
-+    .recoverable_scan = mc_amd_recoverable_scan,
-+    .need_clearbank_scan = amd_need_clearbank_scan,
-+    .info_collect = amd_f10_handler,
-+};
-+
- enum mcheck_type
- amd_mcheck_init(const struct cpuinfo_x86 *c, bool bsp)
- {
-@@ -283,11 +296,7 @@ amd_mcheck_init(const struct cpuinfo_x86
-     /* Assume that machine check support is available.
-      * The minimum provided support is at least the K8. */
-     if ( bsp )
--    {
--        mce_handler_init();
--        x86_mce_vector_register(mcheck_cmn_handler);
--        mce_need_clearbank_register(amd_need_clearbank_scan);
--    }
-+        mce_handler_init(c->x86 == 0xf ? &k8_callbacks : &k10_callbacks);
- 
-     for ( i = 0; i < this_cpu(nr_mce_banks); i++ )
-     {
-@@ -327,13 +336,6 @@ amd_mcheck_init(const struct cpuinfo_x86
-             ppin_msr = MSR_AMD_PPIN;
-     }
- 
--    if ( bsp )
--    {
--        x86_mce_callback_register(amd_f10_handler);
--        mce_recoverable_register(mc_amd_recoverable_scan);
--        mce_register_addrcheck(mc_amd_addrcheck);
--    }
--
-     return c->x86_vendor == X86_VENDOR_HYGON ?
-             mcheck_hygon : mcheck_amd_famXX;
- }
---- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -849,11 +849,6 @@ static void intel_init_mce(bool bsp)
-     if ( !bsp )
-         return;
- 
--    x86_mce_vector_register(mcheck_cmn_handler);
--    mce_recoverable_register(intel_recoverable_scan);
--    mce_need_clearbank_register(intel_need_clearbank_scan);
--    mce_register_addrcheck(intel_checkaddr);
--
-     mce_dhandlers = intel_mce_dhandlers;
-     mce_dhandler_num = ARRAY_SIZE(intel_mce_dhandlers);
-     mce_uhandlers = intel_mce_uhandlers;
-@@ -963,6 +958,13 @@ static int cf_check cpu_callback(
-     return notifier_from_errno(rc);
- }
- 
-+static const struct mce_callbacks __initconst_cf_clobber intel_callbacks = {
-+    .handler = mcheck_cmn_handler,
-+    .check_addr = intel_checkaddr,
-+    .recoverable_scan = intel_recoverable_scan,
-+    .need_clearbank_scan = intel_need_clearbank_scan,
-+};
-+
- static struct notifier_block cpu_nfb = {
-     .notifier_call = cpu_callback
- };
-@@ -989,7 +991,7 @@ enum mcheck_type intel_mcheck_init(struc
-     intel_init_mca(c);
- 
-     if ( bsp )
--        mce_handler_init();
-+        mce_handler_init(&intel_callbacks);
- 
-     intel_init_mce(bsp);
- 
+OK
 
+>
+> >         memcpy(ctx->rx, ffa_rx, sz);
+> >     }
+> >     ctx->rx_is_free =3D false;
+> > @@ -989,53 +999,75 @@ static void put_shm_pages(struct ffa_shm_mem *shm=
+)
+> >     }
+> > }
+> >
+> > -static bool inc_ctx_shm_count(struct ffa_ctx *ctx)
+> > +static bool inc_ctx_shm_count(struct domain *d, struct ffa_ctx *ctx)
+> > {
+> >     bool ret =3D true;
+> >
+> >     spin_lock(&ctx->lock);
+> > +
+> > +    /*
+> > +     * If this is the first shm added, increase the domain reference
+> > +     * counter as we may need to domain around a bit longer to reclaim=
+ the
+>
+> This sentence needs fixing (need to keep the domain..)
+
+OK, I'll remove the word "may".
+
+>
+> > +     * shared memory in the teardown path.
+> > +     */
+> > +    if ( !ctx->shm_count )
+> > +        get_knownalive_domain(d);
+> > +
+> >     if (ctx->shm_count >=3D FFA_MAX_SHM_COUNT)
+> >         ret =3D false;
+> >     else
+> >         ctx->shm_count++;
+> > +
+> >     spin_unlock(&ctx->lock);
+> >
+> >     return ret;
+> > }
+> >
+> > -static void dec_ctx_shm_count(struct ffa_ctx *ctx)
+> > +static void dec_ctx_shm_count(struct domain *d, struct ffa_ctx *ctx)
+> > {
+> >     spin_lock(&ctx->lock);
+> > +
+> >     ASSERT(ctx->shm_count > 0);
+> >     ctx->shm_count--;
+> > +
+> > +    /*
+> > +     * If this was the last shm removed, let go of the domain referenc=
+e we
+> > +     * took in inc_ctx_shm_count() above.
+> > +     */
+> > +    if ( !ctx->shm_count )
+> > +        put_domain(d);
+> > +
+> >     spin_unlock(&ctx->lock);
+> > }
+> >
+> > -static struct ffa_shm_mem *alloc_ffa_shm_mem(struct ffa_ctx *ctx,
+> > +static struct ffa_shm_mem *alloc_ffa_shm_mem(struct domain *d,
+> >                                              unsigned int page_count)
+> > {
+> > +    struct ffa_ctx *ctx =3D d->arch.tee;
+> >     struct ffa_shm_mem *shm;
+> >
+> >     if ( page_count >=3D FFA_MAX_SHM_PAGE_COUNT )
+> >         return NULL;
+> > -    if ( !inc_ctx_shm_count(ctx) )
+> > +    if ( !inc_ctx_shm_count(d, ctx) )
+> >         return NULL;
+> >
+> >     shm =3D xzalloc_flex_struct(struct ffa_shm_mem, pages, page_count);
+> >     if ( shm )
+> >         shm->page_count =3D page_count;
+> >     else
+> > -        dec_ctx_shm_count(ctx);
+> > +        dec_ctx_shm_count(d, ctx);
+> >
+> >     return shm;
+> > }
+> >
+> > -static void free_ffa_shm_mem(struct ffa_ctx *ctx, struct ffa_shm_mem *=
+shm)
+> > +static void free_ffa_shm_mem(struct domain *d, struct ffa_shm_mem *shm=
+)
+> > {
+> > +    struct ffa_ctx *ctx =3D d->arch.tee;
+> > +
+> >     if ( !shm )
+> >         return;
+> >
+> > -    dec_ctx_shm_count(ctx);
+> > +    dec_ctx_shm_count(d, ctx);
+> >     put_shm_pages(shm);
+> >     xfree(shm);
+> > }
+> > @@ -1303,7 +1335,7 @@ static void handle_mem_share(struct cpu_user_regs=
+ *regs)
+> >         goto out_unlock;
+> >     }
+> >
+> > -    shm =3D alloc_ffa_shm_mem(ctx, page_count);
+> > +    shm =3D alloc_ffa_shm_mem(d, page_count);
+> >     if ( !shm )
+> >     {
+> >         ret =3D FFA_RET_NO_MEMORY;
+> > @@ -1347,7 +1379,7 @@ static void handle_mem_share(struct cpu_user_regs=
+ *regs)
+> >
+> > out:
+> >     if ( ret )
+> > -        free_ffa_shm_mem(ctx, shm);
+> > +        free_ffa_shm_mem(d, shm);
+> > out_unlock:
+> >     spin_unlock(&ctx->tx_lock);
+> >
+> > @@ -1398,7 +1430,7 @@ static int handle_mem_reclaim(uint64_t handle, ui=
+nt32_t flags)
+> >     }
+> >     else
+> >     {
+> > -        free_ffa_shm_mem(ctx, shm);
+> > +        free_ffa_shm_mem(d, shm);
+> >     }
+> >
+> >     return ret;
+> > @@ -1481,6 +1513,41 @@ static bool ffa_handle_call(struct cpu_user_regs=
+ *regs)
+> >     }
+> > }
+> >
+> > +static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start,
+> > +                              uint16_t end, uint16_t sp_id)
+> > +{
+> > +    unsigned int n;
+> > +
+> > +    for ( n =3D start; n < end; n++ )
+> > +    {
+> > +        if ( subscr[n] =3D=3D sp_id )
+> > +            return true;
+> > +    }
+> > +
+> > +    return false;
+> > +}
+> > +
+> > +static void vm_destroy_bitmap_init(struct ffa_ctx *ctx,
+> > +                                   unsigned int create_signal_count)
+> > +{
+> > +    unsigned int n;
+> > +
+> > +    for ( n =3D 0; n < subscr_vm_destroyed_count; n++ )
+> > +    {
+> > +        /*
+> > +         * Skip SPs subscribed to the VM created event that never was
+> > +         * notified of the VM creation due to an error during
+> > +         * ffa_domain_init().
+> > +         */
+> > +        if ( is_in_subscr_list(subscr_vm_created, create_signal_count,
+> > +                               subscr_vm_created_count,
+> > +                               subscr_vm_destroyed[n]) )
+> > +            continue;
+> > +
+> > +        set_bit(n, ctx->vm_destroy_bitmap);
+> > +    }
+> > +}
+> > +
+> > static int ffa_domain_init(struct domain *d)
+> > {
+> >     struct ffa_ctx *ctx;
+> > @@ -1496,11 +1563,14 @@ static int ffa_domain_init(struct domain *d)
+> >     if ( d->domain_id >=3D UINT16_MAX)
+> >         return -ERANGE;
+> >
+> > -    ctx =3D xzalloc(struct ffa_ctx);
+> > +    ctx =3D xzalloc_flex_struct(struct ffa_ctx, vm_destroy_bitmap,
+> > +                              BITS_TO_LONGS(subscr_vm_destroyed_count)=
+);
+> >     if ( !ctx )
+> >         return -ENOMEM;
+> >
+> >     d->arch.tee =3D ctx;
+> > +    ctx->teardown_d =3D d;
+> > +    INIT_LIST_HEAD(&ctx->shm_list);
+> >
+> >     for ( n =3D 0; n < subscr_vm_created_count; n++ )
+> >     {
+> > @@ -1510,64 +1580,169 @@ static int ffa_domain_init(struct domain *d)
+> >         {
+> >             printk(XENLOG_ERR "ffa: Failed to report creation of vm_id =
+%u to  %u: res %d\n",
+> >                    get_vm_id(d), subscr_vm_created[n], res);
+> > -            ctx->create_signal_count =3D n;
+> > +            vm_destroy_bitmap_init(ctx, n);
+>
+> Here you could just break and ..
+>
+> >             return -EIO;
+> >         }
+> >     }
+> > -    ctx->create_signal_count =3D subscr_vm_created_count;
+> > -
+> > -    INIT_LIST_HEAD(&ctx->shm_list);
+> > +    vm_destroy_bitmap_init(ctx, subscr_vm_created_count);
+>
+> call with n and return -EIO if n !=3D vm_created_count.
+
+OK
+
+>
+> >
+> >     return 0;
+> > }
+> >
+> > -static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start,
+> > -                              uint16_t end, uint16_t sp_id)
+> > +static void send_vm_destroyed(struct domain *d)
+> > {
+> > +    struct ffa_ctx *ctx =3D d->arch.tee;
+> >     unsigned int n;
+> > +    int32_t res;
+> >
+> > -    for ( n =3D start; n < end; n++ )
+> > +    for ( n =3D 0; n < subscr_vm_destroyed_count; n++ )
+> >     {
+> > -        if ( subscr[n] =3D=3D sp_id )
+> > -            return true;
+> > -    }
+> > +        if ( !test_bit(n, ctx->vm_destroy_bitmap) )
+> > +            continue;
+> >
+> > -    return false;
+> > +        res =3D ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_=
+id(d),
+> > +                                     FFA_MSG_SEND_VM_DESTROYED);
+> > +
+> > +        if ( res )
+> > +        {
+> > +            printk(XENLOG_ERR "%pd: ffa: Failed to report destruction =
+of vm_id %u to %u: res %d\n",
+> > +                   d, get_vm_id(d), subscr_vm_destroyed[n], res);
+> > +        }
+> > +        else
+> > +        {
+> > +            clear_bit(n, ctx->vm_destroy_bitmap);
+> > +        }
+> > +    }
+> > }
+> >
+> > -/* This function is supposed to undo what ffa_domain_init() has done *=
+/
+> > -static int ffa_domain_teardown(struct domain *d)
+> > +static void reclaim_shms(struct domain *d)
+> > {
+> >     struct ffa_ctx *ctx =3D d->arch.tee;
+> > -    unsigned int n;
+> > +    struct ffa_shm_mem *shm, *tmp;
+> >     int32_t res;
+> >
+> > +    list_for_each_entry_safe(shm, tmp, &ctx->shm_list, list)
+> > +    {
+> > +        register_t handle_hi;
+> > +        register_t handle_lo;
+> > +
+> > +        uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
+> > +        res =3D ffa_mem_reclaim(handle_lo, handle_hi, 0);
+> > +        if ( res )
+> > +        {
+> > +            printk(XENLOG_G_INFO "%pd: ffa: Failed to reclaim handle %=
+#lx : %d\n",
+> > +                   d, shm->handle, res);
+> > +        }
+> > +        else
+> > +        {
+> > +            printk(XENLOG_G_DEBUG "%pd: ffa: Reclaimed handle %#lx\n",
+> > +                   d, shm->handle);
+> > +            list_del(&shm->list);
+> > +            free_ffa_shm_mem(d, shm);
+> > +        }
+> > +    }
+> > +}
+> > +
+> > +static bool ffa_domain_teardown_continue(struct ffa_ctx *ctx)
+> > +{
+> > +    send_vm_destroyed(ctx->teardown_d);
+> > +    reclaim_shms(ctx->teardown_d);
+> > +
+> > +    if ( ctx->shm_count )
+> > +    {
+> > +        printk(XENLOG_G_INFO "%pd: ffa: Remaining unclaimed handles, r=
+etrying\n", ctx->teardown_d);
+> > +        return false;
+> > +    }
+> > +    else
+> > +    {
+> > +        return true;
+> > +    }
+> > +}
+> > +
+> > +static void ffa_teardown_timer_callback(void *arg)
+> > +{
+> > +    struct ffa_ctx *ctx;
+> > +    bool do_free;
+> > +
+> > +    spin_lock(&ffa_teardown_lock);
+> > +    ctx =3D list_first_entry_or_null(&ffa_teardown_head, struct ffa_ct=
+x,
+> > +                                   teardown_list);
+> > +    spin_unlock(&ffa_teardown_lock);
+> > +
+> >     if ( !ctx )
+> > -        return 0;
+> > +    {
+> > +        printk(XENLOG_G_ERR "%s: teardown list is empty\n", __func__);
+> > +        return;
+> > +    }
+> >
+> > -    for ( n =3D 0; n < subscr_vm_destroyed_count; n++ )
+> > +    do_free =3D ffa_domain_teardown_continue(ctx);
+> > +
+> > +    spin_lock(&ffa_teardown_lock);
+> > +    list_del(&ctx->teardown_list);
+> > +    if ( !do_free )
+> > +    {
+> > +        ctx->teardown_expire =3D NOW() + SECONDS(1);
+> > +        list_add_tail(&ctx->teardown_list, &ffa_teardown_head);
+> > +    }
+> > +    spin_unlock(&ffa_teardown_lock);
+> > +
+> > +    if ( do_free )
+> >     {
+> >         /*
+> > -         * Skip SPs subscribed to the VM created event that never was
+> > -         * notified of the VM creation due to an error during
+> > -         * ffa_domain_init().
+> > +         * domain_destroy() has likely been called (via put_domain() i=
+n
+> > +         * reclaim_shms()) by now, so we can't touch the domain
+> > +         * structure anymore.
+> >          */
+> > -        if ( is_in_subscr_list(subscr_vm_created, ctx->create_signal_c=
+ount,
+> > -                               subscr_vm_created_count,
+> > -                               subscr_vm_destroyed[n]) )
+> > -            continue;
+> > +        xfree(ctx);
+> > +    }
+> >
+> > -        res =3D ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_=
+id(d),
+> > -                                     FFA_MSG_SEND_VM_DESTROYED);
+> > +    spin_lock(&ffa_teardown_lock);
+> > +    ctx =3D list_first_entry_or_null(&ffa_teardown_head, struct ffa_ct=
+x,
+> > +                                   teardown_list);
+>
+> Why not using list_empty here ?
+
+Because we need the first ctx if there is any in the list. If there's
+more than one, it's not the one we used above since that's last in the
+list now.
+
+>
+> > +    spin_unlock(&ffa_teardown_lock);
+> >
+> > -        if ( res )
+> > -            printk(XENLOG_ERR "ffa: Failed to report destruction of vm=
+_id %u to  %u: res %d\n",
+> > -                   get_vm_id(d), subscr_vm_destroyed[n], res);
+> > -    }
+> > +    if ( ctx )
+> > +        set_timer(&ffa_teardown_timer, ctx->teardown_expire);
+>
+> I am a bit lost in the teardown_expire here.
+>
+> Why not just always set the timer to NOW() + SECONDS(1) ?
+
+teardown_expire is assigned when ctx is added to the list. The
+elements in the list is ordered with the one to expire the soonest
+first. So two ctx'es in the list are not necessarily torn down with
+one seconds delay between them, it depends on when they were added to
+the list.
+
+> Don't you have the risk of using an entry where the value was set previou=
+sly and would now
+> be in the past ?
+
+Yes, there's a risk of that. Is that a problem? The reason I'm doing
+it one at a time is to take as few CPU cycles at a time and at the
+same time try to tear down after the expected delay.
+
+>
+> By the way could you create a proper define for the SECONDS(1) part so
+> that one wanting to do this more or less frequently would just have to ch=
+ange
+> one define value instead ?
+
+Sure, I'll fix.
+
+>
+> > +}
+> > +
+> > +static void ffa_queue_ctx_teardown(struct ffa_ctx *ctx)
+> > +{
+> > +    ctx->teardown_expire =3D  NOW() + SECONDS(1);
+> > +
+> > +    spin_lock(&ffa_teardown_lock);
+> > +
+> > +    /*
+> > +     * The timer is already active if there are queued teardown entrie=
+s.
+> > +     */
+> > +    if ( list_empty(&ffa_teardown_head) )
+> > +        set_timer(&ffa_teardown_timer, ctx->teardown_expire);
+> > +
+> > +    list_add_tail(&ctx->teardown_list, &ffa_teardown_head);
+> > +
+> > +    spin_unlock(&ffa_teardown_lock);
+> > +}
+> > +
+> > +/* This function is supposed to undo what ffa_domain_init() has done *=
+/
+> > +static int ffa_domain_teardown(struct domain *d)
+> > +{
+> > +    struct ffa_ctx *ctx =3D d->arch.tee;
+> > +
+> > +    if ( !ctx )
+> > +        return 0;
+> >
+> >     if ( ctx->rx )
+> >         rxtx_unmap(ctx);
+> >
+> > +    send_vm_destroyed(d);
+> > +    reclaim_shms(d);
+> > +
+> > +    if ( ctx->shm_count )
+> > +    {
+> > +        printk(XENLOG_G_INFO "%pd: ffa: Remaining unclaimed handles, r=
+etrying\n", d);
+>
+> This block of code is the same as ffa_domain_teardown_continue so you cou=
+ld just call it and ..
+>
+> > +        ffa_queue_ctx_teardown(ctx);
+>
+> call this if it returns false.
+>
+> Overall i am a bit thinking that we could just have a generic function fo=
+r one
+> context doing:
+> - try send vm_destroy
+> - try reclaim shms
+> - if succeed free tee
+> - if not put the context at the end of the teardown list and refire the t=
+imer if needed
+>
+> It feels that we have a bit of code duplication here that might be possib=
+le to reduce a bit.
+>
+
+I'll try to reduce the code duplication.
+
+Thanks,
+Jens
+
+>
+> > +        return 0;
+> > +    }
+> > +
+> >     XFREE(d->arch.tee);
+> >
+> >     return 0;
+> > @@ -1733,6 +1908,9 @@ static bool ffa_probe(void)
+> >     if ( !init_sps() )
+> >         goto err_free_ffa_tx;
+> >
+> > +    INIT_LIST_HEAD(&ffa_teardown_head);
+> > +    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL,=
+ 0);
+> > +
+> >     return true;
+> >
+> > err_free_ffa_tx:
+> > --
+> > 2.34.1
+>
+> Cheers
+> Bertrand
+>
 
