@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C49383042C
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 12:07:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668388.1040557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECC49830454
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 12:14:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668395.1040572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ3kl-0005qZ-5p; Wed, 17 Jan 2024 11:06:39 +0000
+	id 1rQ3ri-0001Vz-7p; Wed, 17 Jan 2024 11:13:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668388.1040557; Wed, 17 Jan 2024 11:06:39 +0000
+Received: by outflank-mailman (output) from mailman id 668395.1040572; Wed, 17 Jan 2024 11:13:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ3kl-0005oA-2f; Wed, 17 Jan 2024 11:06:39 +0000
-Received: by outflank-mailman (input) for mailman id 668388;
- Wed, 17 Jan 2024 11:06:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rQ3ri-0001P9-4J; Wed, 17 Jan 2024 11:13:50 +0000
+Received: by outflank-mailman (input) for mailman id 668395;
+ Wed, 17 Jan 2024 11:13:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bFEv=I3=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1rQ3kj-0005nd-Fw
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 11:06:37 +0000
-Received: from mail-il1-x135.google.com (mail-il1-x135.google.com
- [2607:f8b0:4864:20::135])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ac5b594-b528-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 12:06:36 +0100 (CET)
-Received: by mail-il1-x135.google.com with SMTP id
- e9e14a558f8ab-3606e11d9cbso52765945ab.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 03:06:36 -0800 (PST)
-Received: from localhost.localdomain (h-217-31-164-171.A175.priv.bahnhof.se.
- [217.31.164.171]) by smtp.gmail.com with ESMTPSA id
- u1-20020a92d1c1000000b0036192ec5752sm608732ilg.70.2024.01.17.03.06.32
+ <SRS0=sm03=I3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rQ3rg-0001NP-IQ
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 11:13:48 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b39b22a-b529-11ee-9b0f-b553b5be7939;
+ Wed, 17 Jan 2024 12:13:46 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-555e07761acso13200188a12.0
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 03:13:46 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ cx6-20020a170907168600b00a2d5ef80043sm4876717ejd.129.2024.01.17.03.13.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jan 2024 03:06:34 -0800 (PST)
+ Wed, 17 Jan 2024 03:13:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,519 +45,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ac5b594-b528-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 7b39b22a-b529-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1705489595; x=1706094395; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=lp2/sjObl8jdBo6LiHF2HIUI463phOr/yBZy0H6KbQU=;
-        b=VZtjxnOr//fpROMdu+1hUYwcknO9gFtyfg6RaMzvrzl9KrgJrVz4oETBStS5E119Is
-         ysSHStJ2qKMXZMPm4Qwo61huJhCKRCeV5cTeSZ1FFgutIwonTaBSNNVrOkMLte1e5Jrd
-         1dlGYY+q5M/wnjAUIMGTjvA7Px1DMuzqZTOFmP6En4gUcMBLbJgDQVT1bZJbBd3q2+8o
-         SFe5QBAcHsuVUTw365aNWxRlX3rw824wbHS7SRM1N3YJ+08Gq+iOMCRSXapREUfX2BOL
-         t7JjjzByUMQNYX12xpBsUc4IZvrdoR/e0wViCG4hOdvQLHVe/JGScIoM7vrgYEspv95/
-         IVjw==
+        d=gmail.com; s=20230601; t=1705490026; x=1706094826; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6Amlk1eEeQb7XbTJL9ZRY4OoMVIX3ScciVYH4NF5UAE=;
+        b=Xa8o1dxusPBdS0e4o6iknX1Nwx3uHmhZVskZQbZB98MFgOIzTJDObBNUwmH0E70Yoo
+         j3aQ5e2erJmcIZx+ZbdY0Bhusb+4sNIilKjTV/XFdymjPaNKlLWbrVbZLMm2sWrkDj/5
+         liqxQi47AAHzciArIDhYX1dWFAUMx1MedZGfATx1y36Q0qJ5vxWwzl/Wz+isfRoOrlsc
+         +npjeBurRFLLhc2VE2GFoRGUU0KbB6EEAk2rR7sDGlgCHevtBaXeXWrqw2DUrLTf9k/Q
+         o5DSFayGoqKVnhD2KTBlaxclPprnr9mp0ejgSmSKOCEbOmhLPpxV/K3RqgmhhhNHQm4y
+         XrJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705489595; x=1706094395;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lp2/sjObl8jdBo6LiHF2HIUI463phOr/yBZy0H6KbQU=;
-        b=JsHH9gJINxQLxq2N2viuu9pdLPpSV7U/0ZaGFG2Xiobtu7QzMcPjUszusZp828bPC6
-         0pUYejWk98XWvUcoVcERst01GssePBp5t5EVIW1s73lfFlufHom7dkS5jZWhWaYV9CVh
-         7dsjEd9RI6pZu0rXWoLDerltAmzCc2fww/lrjEloT+cDjsH/eUlQGX1C+3aFbUsYIN+P
-         4RHT5+Ts77rr8OX7mP3bWw+iy+BxUr9WI9kuw3HdXfFrMQDnE+Ux76EA0SHSDg2+SoLw
-         PZR+tKQySBVM+wOQfLwWuuTUjeQLZfVE7qEwuTD5/s7TF9YyJHUIDAyGY+shtyELkjAR
-         RjTg==
-X-Gm-Message-State: AOJu0YzuajwQBJGsG44P4gmZQT/az1ZLid/Xa19gsALHA/Pz9/PCxVUL
-	HmAtQDrwHP9MzP5ayxEHL+se+K+f/eewVoGiRRjV7YT2jsA=
-X-Google-Smtp-Source: AGHT+IF7bbeHyTj1AkrLXf1k1/Dbkmi0koRF7ZZ14NYQx1xnX3DJYyeyn0JbQ+C7U0c2F1RWi4Otng==
-X-Received: by 2002:a05:6e02:1a4d:b0:35f:eaab:ab1 with SMTP id u13-20020a056e021a4d00b0035feaab0ab1mr11780404ilv.15.1705489594779;
-        Wed, 17 Jan 2024 03:06:34 -0800 (PST)
-From: Jens Wiklander <jens.wiklander@linaro.org>
-To: xen-devel@lists.xenproject.org
-Cc: patches@linaro.org,
-	Jens Wiklander <jens.wiklander@linaro.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [XEN PATCH v3] xen/arm: ffa: reclaim shared memory on guest destroy
-Date: Wed, 17 Jan 2024 12:06:18 +0100
-Message-Id: <20240117110618.2183977-1-jens.wiklander@linaro.org>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20230601; t=1705490026; x=1706094826;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6Amlk1eEeQb7XbTJL9ZRY4OoMVIX3ScciVYH4NF5UAE=;
+        b=YkP5TbwJC+Z7yyhO/ETqCwa8C0tB9msHV+cS73+fUhgzHimiVvDam/mtK5Y9IND8JW
+         DE/bP1KeR5klVq8KRwS373BcLMr9OsWxD/HWYRyf3CyKP3Cxd4bzKiogY6mFOwSrjzFi
+         dltLmzrxkbRMRYnKfIlnvG0JLuBcB5dn7qC2/xwFgThntZN+nNfcEPuwEQof3XiLEUcZ
+         ndYGd2hBN4ho1ieIztBqbyObDxZL2b4DBnPvK/VD3jd4lS8P9+T4svuYVbmJ9Ikj83Tw
+         iY3egbdpReIX8OCMHLc+kUGVR2BpB9ncQiLOH/TvI8+w8xsxv3YtpYFQGVPq5uLzBCPp
+         smDA==
+X-Gm-Message-State: AOJu0YzOaB5kTkSUAOK9hJk/0HB+79LdG9yZPHC+vVav0PoyaF9CLA6e
+	ToBkJpPlNRqOd5fOPhVMiIA=
+X-Google-Smtp-Source: AGHT+IFuGqcyI66FEfotU1fFis5H3unJ4KlbG52F08yDbsODtXsl+n4yox9qwR6z5CAamWpHAeuEAQ==
+X-Received: by 2002:a17:906:f18f:b0:a28:b79a:37a0 with SMTP id gs15-20020a170906f18f00b00a28b79a37a0mr3086970ejb.222.1705490025464;
+        Wed, 17 Jan 2024 03:13:45 -0800 (PST)
+Message-ID: <863b09f03d37e96d737ab6bda4cc8923f75550fd.camel@gmail.com>
+Subject: Re: [PATCH v3 10/34] xen/riscv: introduce bitops.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+ xen-devel@lists.xenproject.org
+Date: Wed, 17 Jan 2024 13:13:44 +0200
+In-Reply-To: <88df7ccd-8d14-4b00-900d-04cc87d9f230@suse.com>
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+	 <841d59c3950970f4937da200cf8f04aa39132e14.1703255175.git.oleksii.kurochko@gmail.com>
+	 <23f1212a-66a8-47b0-904b-08b2ab54c72b@suse.com>
+	 <17d9fe474e244a15aa5955e630d553a62b0080fd.camel@gmail.com>
+	 <88df7ccd-8d14-4b00-900d-04cc87d9f230@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When an FF-A enabled guest is destroyed it may leave behind memory
-shared with SPs. This memory must be reclaimed before it's reused or an
-SP may make changes to memory used by a new unrelated guest. So when the
-domain is teared down add FF-A requests to reclaim all remaining shared
-memory.
+On Tue, 2024-01-16 at 14:24 +0100, Jan Beulich wrote:
+> On 16.01.2024 14:06, Oleksii wrote:
+> > On Mon, 2024-01-15 at 17:44 +0100, Jan Beulich wrote:
+> > > On 22.12.2023 16:12, Oleksii Kurochko wrote:
+> > > > +#define test_and_set_bit=C2=A0=C2=A0 __test_and_set_bit
+> > > > +#define test_and_clear_bit __test_and_clear_bit
+> > >=20
+> > > I realize test-and-change have no present users, despite being
+> > > made
+> > > available by Arm and x86, but I think they would better be
+> > > provided
+> > > right away, rather than someone introducing a use then needing to
+> > > fiddle with RISC-V (and apparently also PPC) code.
+> > Sure, it makes sense. I'll add test-and-change too.
+> >=20
+> > > I'm also puzzled by this aliasing: Aren't there cheaper non-
+> > > atomic
+> > > insn forms that could be used for the double-underscore-prefixed
+> > > variants?
+> > It will be cheaper, but I assume that this API should be safe in
+> > the
+> > case of SMP where different CPUs can access the same variable or
+> > similar cases with simultaneous access to the variable.
+>=20
+> Of course, that's what test_and_...() are for. __test_and_...() are
+> for cases where there's no concurrency, when hence the cheaper forms
+> can be used. Thus my asking about the aliasing done above.
+Then it makes sense to update __test_and...() to use non-atomic insn.
+I'll do that in the next patch version.
 
-SPs in the secure world are notified using VM_DESTROYED that a guest has
-been destroyed. An SP is supposed to relinquish all shared memory to allow
-reclaiming the memory. The relinquish operation may need to be delayed if
-the shared memory is for instance part of a DMA operation.
+Thanks for explanation.
 
-The domain reference counter is increased when the first FF-A shared
-memory is registered and the counter is decreased again when the last
-shared memory is reclaimed. If FF-A shared memory registrations remain
-at the end of of ffa_domain_teardown() a timer is set to try to reclaim
-the shared memory every second until the memory is reclaimed.
+>=20
+> > > > +#if BITS_PER_LONG =3D=3D 64
+> > > > +=C2=A0=C2=A0=C2=A0 if ((word & 0xffffffff) =3D=3D 0) {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 num +=3D 32;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 word >>=3D 32;
+> > > > +=C2=A0=C2=A0=C2=A0 }
+> > >=20
+> > > You're ending up with neither Xen nor Linux style this way. May I
+> > > suggest to settle on either?
+> >=20
+> > Will it fine to rework header from Linux to Xen style? Does it make
+> > sense?
+> > I think this file can be reworked to Xen style as I don't expect
+> > that
+> > it will be changed since it will be merged.
+>=20
+> You may keep Linux style or fully switch to Xen style - which one is
+> largely up to you. All I'm asking is to avoid introducing further
+> mixed-style source files.
+I'll be consistent in code style.
 
-A few minor style fixes with a removed empty line here and an added new
-line there.
+>=20
+> > > > --- /dev/null
+> > > > +++ b/xen/include/asm-generic/bitops/bitops-bits.h
+> > > > @@ -0,0 +1,10 @@
+> > > > +/* SPDX-License-Identifier: GPL-2.0 */
+> > > > +#ifndef _ASM_GENERIC_BITOPS_BITS_H_
+> > > > +#define _ASM_GENERIC_BITOPS_BITS_H_
+> > > > +
+> > > > +#define BITOP_BITS_PER_WORD=C2=A0=C2=A0=C2=A0=C2=A0 32
+> > > > +#define BITOP_MASK(nr)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 (1UL << ((nr) %
+> > > > BITOP_BITS_PER_WORD))
+> > >=20
+> > > Why 1UL and not just 1U, when bits per word is 32?
+> > There is no specific reason, should 1U. ( I originally used
+> > BITOPS_BITS_PER_LONG ) and with introduction of asm-generic bitops
+> > decided to follow what other archs provide.
+> >=20
+> > Regarding to the second part of the question, I don't understand it
+> > fully. Considering BITOP_BIT_PER_WORD definition for other archs (
+> > ARM
+> > and PPC ) it is expected that word is 32 bits.
+>=20
+> The 2nd part was explaining why I'm asking. It wasn't another
+> question.
+>=20
+> > > > --- /dev/null
+> > > > +++ b/xen/include/asm-generic/bitops/test-bit.h
+> > > > @@ -0,0 +1,16 @@
+> > > > +/* SPDX-License-Identifier: GPL-2.0 */
+> > > > +#ifndef _ASM_GENERIC_BITOPS_TESTBIT_H_
+> > > > +#define _ASM_GENERIC_BITOPS_TESTBIT_H_
+> > > > +
+> > > > +/**
+> > > > + * test_bit - Determine whether a bit is set
+> > > > + * @nr: bit number to test
+> > > > + * @addr: Address to start counting from
+> > > > + */
+> > > > +static inline int test_bit(int nr, const volatile void *addr)
+> > > > +{
+> > > > +=C2=A0=C2=A0=C2=A0 const volatile unsigned int *p =3D addr;
+> > >=20
+> > > With BITOP_BITS_PER_WORD I think you really mean uint32_t here.
+> > Isn't it the same: 'unsigned int' and 'uint32_t'?
+>=20
+> No, or else there wouldn't have been a need to introduce uint<N>_t
+> (and
+> others) in C99. It just so happens that right now all architectures
+> Xen
+> can be built for have sizeof(int) =3D=3D 4 and CHAR_BITS =3D=3D 8. In an
+> arch-
+> specific header I would see this as less of an issue, but in a
+> generic
+> header we'd better avoid encoding wrong assumptions. The one
+> assumption
+> we generally make is that sizeof(int) >=3D 4 and CHAR_BITS >=3D 8 (albeit
+> I
+> bet really in various places we assume CHAR_BITS =3D=3D 8).
+In this case we have to switch to uint<N>_t.
+Thanks for the explanation. I'll update this part of code in the next
+patch version.
 
-Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
----
+>=20
+> > > Also you want to make sure asm-generic/bitops/bitops-bits.h is
+> > > really in use here, or else an arch overriding / not using that
+> > > header may end up screwed.
+> > I am not really understand what do you mean. Could you please
+> > explain a
+> > little bit more.
+>=20
+> Whichever type you use here, it needs to be in sync with
+> BITOP_BITS_PER_WORD. Hence you want to include the _local_ bitops-
+> bits.h
+> here, such that in case of an inconsistent override by an arch the
+> compiler would complain about the two differring #define-s. (IOW an
+> arch overriding BITOP_BITS_PER_WORD cannot re-use this header as-is.)
+>=20
+> The same may, btw, be true for others of the new headers you add -
+> the
+> same #include would therefore be needed there as well.
+Now it clear to me.
 
-v3:
-- Mentioning in the commit message that there are some style fixes
-- Addressing review comments
-- Refactor the ffa_domain_teardown() path to let
-  ffa_domain_teardown_continue() do most of the work.
 
-v2:
-- Update commit message to match the new implementation
-- Using a per domain bitfield to keep track of which SPs has been notified
-  with VM_DESTROYED
-- Holding a domain reference counter to keep the domain as a zombie domain
-  while there still is shared memory registrations remaining to be reclaimed
-- Using a timer to retry reclaiming remaining shared memory registrations
----
- xen/arch/arm/tee/ffa.c | 253 +++++++++++++++++++++++++++++++++--------
- 1 file changed, 204 insertions(+), 49 deletions(-)
+It seems like BITOP_BITS_PER_WORD, BITOP_MASK, BITOP_WORD, and
+BITS_PER_BYTE are defined in {arm, ppc, riscv}/include/asm/bitops.h.
+I expected that any architecture planning to use asm-
+generic/bitops/bitops-bits.h would include it at the beginning of
+<arch>/include/asm/bitops.h, similar to what is done for RISC-V:
+   #ifndef _ASM_RISCV_BITOPS_H
+   #define _ASM_RISCV_BITOPS_H
+  =20
+   #include <asm/system.h>
+  =20
+   #include <asm-generic/bitops/bitops-bits.h>
+   ...
 
-diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-index 0793c1c7585d..80ebbf4f01c6 100644
---- a/xen/arch/arm/tee/ffa.c
-+++ b/xen/arch/arm/tee/ffa.c
-@@ -54,6 +54,7 @@
- #include <xen/mm.h>
- #include <xen/sched.h>
- #include <xen/sizes.h>
-+#include <xen/timer.h>
- #include <xen/types.h>
- 
- #include <asm/event.h>
-@@ -144,6 +145,12 @@
-  */
- #define FFA_MAX_SHM_COUNT               32
- 
-+/*
-+ * The time we wait until trying to tear down a domain again if it was
-+ * blocked initially.
-+ */
-+#define FFA_CTX_TEARDOWN_DELAY          SECONDS(1)
-+
- /* FF-A-1.1-REL0 section 10.9.2 Memory region handle, page 167 */
- #define FFA_HANDLE_HYP_FLAG             BIT(63, ULL)
- #define FFA_HANDLE_INVALID              0xffffffffffffffffULL
-@@ -384,11 +391,6 @@ struct ffa_ctx {
-     unsigned int page_count;
-     /* FF-A version used by the guest */
-     uint32_t guest_vers;
--    /*
--     * Number of SPs that we have sent a VM created signal to, used in
--     * ffa_domain_teardown() to know which SPs need to be signalled.
--     */
--    uint16_t create_signal_count;
-     bool rx_is_free;
-     /* Used shared memory objects, struct ffa_shm_mem */
-     struct list_head shm_list;
-@@ -402,6 +404,15 @@ struct ffa_ctx {
-     spinlock_t tx_lock;
-     spinlock_t rx_lock;
-     spinlock_t lock;
-+    /* Used if domain can't be torn down immediately */
-+    struct domain *teardown_d;
-+    struct list_head teardown_list;
-+    s_time_t teardown_expire;
-+    /*
-+     * Used for ffa_domain_teardown() to keep track of which SPs should be
-+     * notified that this guest is being destroyed.
-+     */
-+    unsigned long vm_destroy_bitmap[];
- };
- 
- struct ffa_shm_mem {
-@@ -436,6 +447,12 @@ static void *ffa_tx __read_mostly;
- static DEFINE_SPINLOCK(ffa_rx_buffer_lock);
- static DEFINE_SPINLOCK(ffa_tx_buffer_lock);
- 
-+
-+/* Used to track domains that could not be torn down immediately. */
-+static struct timer ffa_teardown_timer;
-+static struct list_head ffa_teardown_head;
-+static DEFINE_SPINLOCK(ffa_teardown_lock);
-+
- static bool ffa_get_version(uint32_t *vers)
- {
-     const struct arm_smccc_1_2_regs arg = {
-@@ -853,7 +870,6 @@ static int32_t handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
-             goto out_rx_release;
-         }
- 
--
-         memcpy(ctx->rx, ffa_rx, sz);
-     }
-     ctx->rx_is_free = false;
-@@ -992,53 +1008,75 @@ static void put_shm_pages(struct ffa_shm_mem *shm)
-     }
- }
- 
--static bool inc_ctx_shm_count(struct ffa_ctx *ctx)
-+static bool inc_ctx_shm_count(struct domain *d, struct ffa_ctx *ctx)
- {
-     bool ret = true;
- 
-     spin_lock(&ctx->lock);
-+
-+    /*
-+     * If this is the first shm added, increase the domain reference
-+     * counter as we need to keep domain around a bit longer to reclaim the
-+     * shared memory in the teardown path.
-+     */
-+    if ( !ctx->shm_count )
-+        get_knownalive_domain(d);
-+
-     if (ctx->shm_count >= FFA_MAX_SHM_COUNT)
-         ret = false;
-     else
-         ctx->shm_count++;
-+
-     spin_unlock(&ctx->lock);
- 
-     return ret;
- }
- 
--static void dec_ctx_shm_count(struct ffa_ctx *ctx)
-+static void dec_ctx_shm_count(struct domain *d, struct ffa_ctx *ctx)
- {
-     spin_lock(&ctx->lock);
-+
-     ASSERT(ctx->shm_count > 0);
-     ctx->shm_count--;
-+
-+    /*
-+     * If this was the last shm removed, let go of the domain reference we
-+     * took in inc_ctx_shm_count() above.
-+     */
-+    if ( !ctx->shm_count )
-+        put_domain(d);
-+
-     spin_unlock(&ctx->lock);
- }
- 
--static struct ffa_shm_mem *alloc_ffa_shm_mem(struct ffa_ctx *ctx,
-+static struct ffa_shm_mem *alloc_ffa_shm_mem(struct domain *d,
-                                              unsigned int page_count)
- {
-+    struct ffa_ctx *ctx = d->arch.tee;
-     struct ffa_shm_mem *shm;
- 
-     if ( page_count >= FFA_MAX_SHM_PAGE_COUNT )
-         return NULL;
--    if ( !inc_ctx_shm_count(ctx) )
-+    if ( !inc_ctx_shm_count(d, ctx) )
-         return NULL;
- 
-     shm = xzalloc_flex_struct(struct ffa_shm_mem, pages, page_count);
-     if ( shm )
-         shm->page_count = page_count;
-     else
--        dec_ctx_shm_count(ctx);
-+        dec_ctx_shm_count(d, ctx);
- 
-     return shm;
- }
- 
--static void free_ffa_shm_mem(struct ffa_ctx *ctx, struct ffa_shm_mem *shm)
-+static void free_ffa_shm_mem(struct domain *d, struct ffa_shm_mem *shm)
- {
-+    struct ffa_ctx *ctx = d->arch.tee;
-+
-     if ( !shm )
-         return;
- 
--    dec_ctx_shm_count(ctx);
-+    dec_ctx_shm_count(d, ctx);
-     put_shm_pages(shm);
-     xfree(shm);
- }
-@@ -1306,7 +1344,7 @@ static void handle_mem_share(struct cpu_user_regs *regs)
-         goto out_unlock;
-     }
- 
--    shm = alloc_ffa_shm_mem(ctx, page_count);
-+    shm = alloc_ffa_shm_mem(d, page_count);
-     if ( !shm )
-     {
-         ret = FFA_RET_NO_MEMORY;
-@@ -1350,7 +1388,7 @@ static void handle_mem_share(struct cpu_user_regs *regs)
- 
- out:
-     if ( ret )
--        free_ffa_shm_mem(ctx, shm);
-+        free_ffa_shm_mem(d, shm);
- out_unlock:
-     spin_unlock(&ctx->tx_lock);
- 
-@@ -1401,7 +1439,7 @@ static int handle_mem_reclaim(uint64_t handle, uint32_t flags)
-     }
-     else
-     {
--        free_ffa_shm_mem(ctx, shm);
-+        free_ffa_shm_mem(d, shm);
-     }
- 
-     return ret;
-@@ -1486,6 +1524,41 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
-     }
- }
- 
-+static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start,
-+                              uint16_t end, uint16_t sp_id)
-+{
-+    unsigned int n;
-+
-+    for ( n = start; n < end; n++ )
-+    {
-+        if ( subscr[n] == sp_id )
-+            return true;
-+    }
-+
-+    return false;
-+}
-+
-+static void vm_destroy_bitmap_init(struct ffa_ctx *ctx,
-+                                   unsigned int create_signal_count)
-+{
-+    unsigned int n;
-+
-+    for ( n = 0; n < subscr_vm_destroyed_count; n++ )
-+    {
-+        /*
-+         * Skip SPs subscribed to the VM created event that never was
-+         * notified of the VM creation due to an error during
-+         * ffa_domain_init().
-+         */
-+        if ( is_in_subscr_list(subscr_vm_created, create_signal_count,
-+                               subscr_vm_created_count,
-+                               subscr_vm_destroyed[n]) )
-+            continue;
-+
-+        set_bit(n, ctx->vm_destroy_bitmap);
-+    }
-+}
-+
- static int ffa_domain_init(struct domain *d)
- {
-     struct ffa_ctx *ctx;
-@@ -1501,11 +1574,14 @@ static int ffa_domain_init(struct domain *d)
-     if ( d->domain_id >= UINT16_MAX)
-         return -ERANGE;
- 
--    ctx = xzalloc(struct ffa_ctx);
-+    ctx = xzalloc_flex_struct(struct ffa_ctx, vm_destroy_bitmap,
-+                              BITS_TO_LONGS(subscr_vm_destroyed_count));
-     if ( !ctx )
-         return -ENOMEM;
- 
-     d->arch.tee = ctx;
-+    ctx->teardown_d = d;
-+    INIT_LIST_HEAD(&ctx->shm_list);
- 
-     for ( n = 0; n < subscr_vm_created_count; n++ )
-     {
-@@ -1515,65 +1591,141 @@ static int ffa_domain_init(struct domain *d)
-         {
-             printk(XENLOG_ERR "ffa: Failed to report creation of vm_id %u to  %u: res %d\n",
-                    get_vm_id(d), subscr_vm_created[n], res);
--            ctx->create_signal_count = n;
--            return -EIO;
-+            break;
-         }
-     }
--    ctx->create_signal_count = subscr_vm_created_count;
--
--    INIT_LIST_HEAD(&ctx->shm_list);
-+    vm_destroy_bitmap_init(ctx, n);
-+    if ( n != subscr_vm_created_count )
-+        return -EIO;
- 
-     return 0;
- }
- 
--static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start,
--                              uint16_t end, uint16_t sp_id)
-+static void send_vm_destroyed(struct domain *d)
- {
-+    struct ffa_ctx *ctx = d->arch.tee;
-     unsigned int n;
-+    int32_t res;
- 
--    for ( n = start; n < end; n++ )
-+    for ( n = 0; n < subscr_vm_destroyed_count; n++ )
-     {
--        if ( subscr[n] == sp_id )
--            return true;
--    }
-+        if ( !test_bit(n, ctx->vm_destroy_bitmap) )
-+            continue;
- 
--    return false;
-+        res = ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_id(d),
-+                                     FFA_MSG_SEND_VM_DESTROYED);
-+
-+        if ( res )
-+        {
-+            printk(XENLOG_ERR "%pd: ffa: Failed to report destruction of vm_id %u to %u: res %d\n",
-+                   d, get_vm_id(d), subscr_vm_destroyed[n], res);
-+        }
-+        else
-+        {
-+            clear_bit(n, ctx->vm_destroy_bitmap);
-+        }
-+    }
- }
- 
--/* This function is supposed to undo what ffa_domain_init() has done */
--static int ffa_domain_teardown(struct domain *d)
-+static void reclaim_shms(struct domain *d)
- {
-     struct ffa_ctx *ctx = d->arch.tee;
--    unsigned int n;
-+    struct ffa_shm_mem *shm, *tmp;
-     int32_t res;
- 
--    if ( !ctx )
--        return 0;
-+    list_for_each_entry_safe(shm, tmp, &ctx->shm_list, list)
-+    {
-+        register_t handle_hi;
-+        register_t handle_lo;
- 
--    for ( n = 0; n < subscr_vm_destroyed_count; n++ )
-+        uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
-+        res = ffa_mem_reclaim(handle_lo, handle_hi, 0);
-+        if ( res )
-+        {
-+            printk(XENLOG_G_INFO "%pd: ffa: Failed to reclaim handle %#lx : %d\n",
-+                   d, shm->handle, res);
-+        }
-+        else
-+        {
-+            printk(XENLOG_G_DEBUG "%pd: ffa: Reclaimed handle %#lx\n",
-+                   d, shm->handle);
-+            list_del(&shm->list);
-+            free_ffa_shm_mem(d, shm);
-+        }
-+    }
-+}
-+
-+static void ffa_domain_teardown_continue(struct ffa_ctx *ctx, bool first_time)
-+{
-+    struct ffa_ctx *next_ctx = NULL;
-+
-+    send_vm_destroyed(ctx->teardown_d);
-+    reclaim_shms(ctx->teardown_d);
-+
-+    if ( ctx->shm_count )
-+    {
-+        printk(XENLOG_G_INFO "%pd: ffa: Remaining unclaimed handles, retrying\n", ctx->teardown_d);
-+
-+        ctx->teardown_expire = NOW() + FFA_CTX_TEARDOWN_DELAY;
-+
-+        spin_lock(&ffa_teardown_lock);
-+        list_add_tail(&ctx->teardown_list, &ffa_teardown_head);
-+        /* Need to set a new timer for the next ctx in line */
-+        next_ctx = list_first_entry(&ffa_teardown_head, struct ffa_ctx,
-+                                    teardown_list);
-+        spin_unlock(&ffa_teardown_lock);
-+    }
-+    else
-     {
-         /*
--         * Skip SPs subscribed to the VM created event that never was
--         * notified of the VM creation due to an error during
--         * ffa_domain_init().
-+         * domain_destroy() might have been called (via put_domain() in
-+         * reclaim_shms()), so we can't touch the domain structure anymore.
-          */
--        if ( is_in_subscr_list(subscr_vm_created, ctx->create_signal_count,
--                               subscr_vm_created_count,
--                               subscr_vm_destroyed[n]) )
--            continue;
-+        xfree(ctx);
- 
--        res = ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_id(d),
--                                     FFA_MSG_SEND_VM_DESTROYED);
--
--        if ( res )
--            printk(XENLOG_ERR "ffa: Failed to report destruction of vm_id %u to  %u: res %d\n",
--                   get_vm_id(d), subscr_vm_destroyed[n], res);
-+        /* Only check if there has been a change to the teardown queue */
-+        if ( !first_time )
-+        {
-+            spin_lock(&ffa_teardown_lock);
-+            next_ctx = list_first_entry_or_null(&ffa_teardown_head,
-+                                                struct ffa_ctx, teardown_list);
-+            spin_unlock(&ffa_teardown_lock);
-+        }
-     }
- 
-+    if ( next_ctx )
-+        set_timer(&ffa_teardown_timer, next_ctx->teardown_expire);
-+}
-+
-+static void ffa_teardown_timer_callback(void *arg)
-+{
-+    struct ffa_ctx *ctx;
-+
-+    spin_lock(&ffa_teardown_lock);
-+    ctx = list_first_entry_or_null(&ffa_teardown_head, struct ffa_ctx,
-+                                   teardown_list);
-+    if ( ctx )
-+        list_del(&ctx->teardown_list);
-+    spin_unlock(&ffa_teardown_lock);
-+
-+    if ( ctx )
-+        ffa_domain_teardown_continue(ctx, false /* !first_time */);
-+    else
-+        printk(XENLOG_G_ERR "%s: teardown list is empty\n", __func__);
-+}
-+
-+/* This function is supposed to undo what ffa_domain_init() has done */
-+static int ffa_domain_teardown(struct domain *d)
-+{
-+    struct ffa_ctx *ctx = d->arch.tee;
-+
-+    if ( !ctx )
-+        return 0;
-+
-     if ( ctx->rx )
-         rxtx_unmap(ctx);
- 
--    XFREE(d->arch.tee);
-+    ffa_domain_teardown_continue(ctx, true /* first_time */);
- 
-     return 0;
- }
-@@ -1739,6 +1891,9 @@ static bool ffa_probe(void)
-     if ( !init_sps() )
-         goto err_free_ffa_tx;
- 
-+    INIT_LIST_HEAD(&ffa_teardown_head);
-+    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
-+
-     return true;
- 
- err_free_ffa_tx:
--- 
-2.34.1
+But in this case, to allow architecture overrides macros, it is
+necessary to update asm-generic/bitops/bitops-bits.h:
+    #ifndef BITOP_BITS_PER_WORD
+    #define BITOP_BITS_PER_WORD     32
+    #endif
+   ...
+Therefore,  if an architecture needs to override something, it will add
+#define ... before #include <asm-generic/bitops/bitops-bits.h>.
+
+Does it make sense?
+
+~ Oleksii
+
 
 
