@@ -2,37 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E389983017A
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 09:47:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668279.1040336 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5FAB83018F
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 09:53:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668284.1040358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ1ZU-000637-8K; Wed, 17 Jan 2024 08:46:52 +0000
+	id 1rQ1fz-0000gj-8M; Wed, 17 Jan 2024 08:53:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668279.1040336; Wed, 17 Jan 2024 08:46:52 +0000
+Received: by outflank-mailman (output) from mailman id 668284.1040358; Wed, 17 Jan 2024 08:53:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ1ZU-00060S-57; Wed, 17 Jan 2024 08:46:52 +0000
-Received: by outflank-mailman (input) for mailman id 668279;
- Wed, 17 Jan 2024 08:46:51 +0000
+	id 1rQ1fz-0000dR-37; Wed, 17 Jan 2024 08:53:35 +0000
+Received: by outflank-mailman (input) for mailman id 668284;
+ Wed, 17 Jan 2024 08:53:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nKNn=I3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rQ1ZT-0005dn-DC
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 08:46:51 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ <SRS0=2QPC=I3=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rQ1fx-0000Nt-DP
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 08:53:33 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2408::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f4cce620-b514-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 09:46:50 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40e88012233so6832655e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 00:46:50 -0800 (PST)
-Received: from localhost ([213.195.127.68]) by smtp.gmail.com with ESMTPSA id
- s15-20020a5d510f000000b00336aa190139sm1131065wrt.5.2024.01.17.00.46.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jan 2024 00:46:50 -0800 (PST)
+ id e3e15294-b515-11ee-98f2-6d05b1d4d9a1;
+ Wed, 17 Jan 2024 09:53:32 +0100 (CET)
+Received: from DS7PR03CA0323.namprd03.prod.outlook.com (2603:10b6:8:2b::12) by
+ DS0PR12MB7897.namprd12.prod.outlook.com (2603:10b6:8:146::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.7181.21; Wed, 17 Jan 2024 08:53:29 +0000
+Received: from DS1PEPF00017099.namprd05.prod.outlook.com
+ (2603:10b6:8:2b:cafe::51) by DS7PR03CA0323.outlook.office365.com
+ (2603:10b6:8:2b::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23 via Frontend
+ Transport; Wed, 17 Jan 2024 08:53:29 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.16 via Frontend Transport; Wed, 17 Jan 2024 08:53:28 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 17 Jan
+ 2024 02:53:28 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Wed, 17 Jan 2024 02:53:26 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,84 +59,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4cce620-b514-11ee-98f2-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705481210; x=1706086010; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=4795QVuBXQRA8W3EjLVdmXbAH84YHjJbA2oiYBRns/A=;
-        b=VEwtrsZ/7MSubG2jU7hCXUYmIyzGEGb88Jd4CJMrXDLiNWRsDagYzDcEC5v3N64xu5
-         6nGL+jHL+ml2jB5JlmzyanSIsWes0xoa/YtbrfVE+OTsbp+759UspcgQ2aqGq7BG4yH3
-         jDPTHfPM/uFeF0arSZoWLy3bNrd0sJTGnMwrw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705481210; x=1706086010;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4795QVuBXQRA8W3EjLVdmXbAH84YHjJbA2oiYBRns/A=;
-        b=klROV2PcbLtg1+/HdvvhEqtzpLjXPCo1S692ovvjcrQGCYGvSwlAJ+viE/wQTCb2Bk
-         fIeR+GsOsSk8vlgNrUCPoRlDqPiaCsRa5tRL4qqbkv/jGvhXfzNHxAi2r4AYQ3gTXBrt
-         7Wc7BvjIRxyqhL0fAxfW5hERkyXpvL3SVACaX7oPFMc7YipA/CjoKIyjc2P91tTR5Qt4
-         6KI9/hMQYWnveW7WlG+Z1JgR18lB60fYd1/Jmg5rr4DceRKZ6//GfSZwCy+d0hXIxxF+
-         76wzrUtR5Oxc7gEykMQjqjCyHEXomnO0Rc13h8BsBipIKsbmbbf+Us1Nya5if68NmPvl
-         yP+A==
-X-Gm-Message-State: AOJu0YxEl22qYaLTWlqFEoPogBSSe0hQNkQgmPTB3+1P2pxwMknlyrai
-	t+5WTSVWC/heqyjPS9bmf/sr1zvnmsI2mA==
-X-Google-Smtp-Source: AGHT+IEh9r4Wd1c+hdgjwLI7PgkPlu9EFWlQ5+kn/NWp5p9WCsUr4xghWVLNBM8N+BM+oG+dmQvTLg==
-X-Received: by 2002:a05:600c:2482:b0:40e:4800:a0ee with SMTP id 2-20020a05600c248200b0040e4800a0eemr4513835wms.171.1705481210202;
-        Wed, 17 Jan 2024 00:46:50 -0800 (PST)
-Date: Wed, 17 Jan 2024 09:46:49 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Patrick Plenefisch <simonpatp@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: E820 memory allocation issue on Threadripper platforms
-Message-ID: <ZaeT-ZqDYiE_BiWE@macbook>
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
- <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
- <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
- <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
- <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
- <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
+X-Inumbo-ID: e3e15294-b515-11ee-98f2-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BmSzU8gc79pZlLtFpU5sYsKsYcnR3z/ZaxwCIq4MUCigYHNuAAswU0qnqzAxfyp3ffYG/kGbYW+cPOlK8McS4WlQC9flNWjZzFWvK3vKidj7VfVjwwJE0Q35DHEVDmKqLy5D2nu4q9ruyBqSJXM17cjg4DpTM6VPupWOpdmsoxUdRTdFoH4tlmtB66Hm2VVznEHoQuFcGhvhuBQvUGJhAqpj7IDHW27LoSvXNHNctg8XephhoOyHOcRg2rSSPIqAqjodellCMAKp9V9ldlEjGy1PO6V5KXzP1g0ODc5XyhQXLlRcRy1Q7AsoqNGtnD3ot6acWAqv5MatAYUnJbog4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GuKXlyvNJYO6qNaSaDORjBiWcPPhFaUhPVsI/G3B0mY=;
+ b=LBvcqs0Tp5qLYA33iDi5t3imF6DJz5cMLSwjc/JUqXKfPGTU6pjcMS3t1GMonOf/z2OtcupuZCbygylmQ0QACEIvE+e3jEZ6vBjJ6vXla5ohh4jeDFlw7VmLoLF/+xkWyraI0LJ/xhGWvl7qekwTtowo3MD7iRwb9O33KGmRkwHIT75Z8+sA9MdzhOXrhcsG+6N28LDyvY3C48dFsD5hc7QaB7k0rnln8ax3AJjWPgqCZ23NyK3d3NqqDJagExbckCh4OJzXZYuPkLOr8MbHnQ3WVQG5LcA3+o7CnN2Qj3oGaVtTrfU9mrmiAqZUvh0qefNScAW9S0b+umAT0pNEgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GuKXlyvNJYO6qNaSaDORjBiWcPPhFaUhPVsI/G3B0mY=;
+ b=MJStk190iCSAQeLIwkXxKexnim2VCqeCqh1xFvdU+ZUjtiZ8f3Yyrs74jryqBwmV03KF3z8Cyk/1kEV6hQBkhEnUXGV3NkqHBu1Ex+0yqyPM7dGgPW2CqZuOLwKSC/LBvw46vx5+BE64bL7GemS3WAo4o7wB90DuUZxpK6iLCsQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <25e9e83b-10c4-463b-8850-2ca57ac76376@amd.com>
+Date: Wed, 17 Jan 2024 09:53:26 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 repost 3/4] xen/arm64: head: Use PRINT_ID() for
+ secondary CPU MMU-off boot code
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: <carlo.nonato@minervasys.tech>, Julien Grall <jgrall@amazon.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240116143709.86584-1-julien@xen.org>
+ <20240116143709.86584-4-julien@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240116143709.86584-4-julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|DS0PR12MB7897:EE_
+X-MS-Office365-Filtering-Correlation-Id: c4598987-5d93-44c6-74e7-08dc1739c679
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	h76p8mW4XYojAnWDjkf3ZSKvKgqqnUwrHsFPnb5i/D1yifYm3U/mtZql/hb0aB5JmcLEuwdq1cxo7nOrAsqOyc5Kp+sxdn94ecnkrvZiR1zNyTz/hYGENazH2jCyu+JAjZu92vMKtZlxwPS7q+Gf8CKskav/aCBJAAoQBupHpGCVAj8WruUSZny5FkSyZNbPkZFf3vnoiI3uTKLxdYn07MUMWIr960UWx7P/TbXzcJqoFrFMdR4GsHWADWKgVJwMMO8Xxl4dLmr5RKT7YPos9mWsLsXgwstb7vdPrvNtliKeySsYihVwg/Dkrg+P77zvVJpENXEorNiDkZdzn+YDtQ4qu90XY5rcUzwJAartMdVvkWoHT/nRibB1mJnWhr7OkqzVLf0NzTGGFbpfD9F6zvckND7wolLehjufezQw98NTRC5fi5CNw/+ijx9MbN//imjpt8j1XexxNLwWCRoap++ki8yKxN+BAYlb3hIzdt+dHY+8oP+klLD5lRCD2GdvPFO3nlHlTN9QAWVsF6w3tKLfP0jVTLQjuethJANM+gug+cEopQtGQzZLgMUhU3AdPujkdFCofEINbr6zqNWmf/UsWMi+jSrzXWiOK+yc87O2bIMi1XhV1vvNBtBk7WPn4MD57EsKNfZgZvppGjxjVJV9swcdhlfkiv88OOuVLL3N31vF27OVFwGra83orrmpriAOPv2b/PPYxEWwvAO+yH5nnDFnO/6yku1T79KyPJ0EYU7bC+9azX8qrj9qqFGMfN6rLSt6SI5fk556zL98gXJbmAq/sg5nJP0Ch0oJEAArQF0Ad4gdgQzrjvE4ep9y
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(396003)(136003)(376002)(346002)(230922051799003)(1800799012)(451199024)(82310400011)(64100799003)(186009)(46966006)(36840700001)(40470700004)(31686004)(40480700001)(40460700003)(83380400001)(70586007)(41300700001)(36756003)(356005)(31696002)(86362001)(81166007)(82740400003)(70206006)(478600001)(47076005)(36860700001)(26005)(336012)(2616005)(426003)(44832011)(2906002)(8936002)(16576012)(53546011)(110136005)(4326008)(316002)(8676002)(5660300002)(54906003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2024 08:53:28.9409
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4598987-5d93-44c6-74e7-08dc1739c679
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017099.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7897
 
-On Wed, Jan 17, 2024 at 01:12:30AM -0500, Patrick Plenefisch wrote:
-> On Tue, Jan 16, 2024 at 4:33 AM Jan Beulich <jbeulich@suse.com> wrote:
-> 
-> > On 16.01.2024 01:22, Patrick Plenefisch wrote:
-> > It remains to be seen in how far it is reasonably possible to work
-> > around this in the kernel. While (sadly) still unsupported, in the
-> > meantime you may want to consider running Dom0 in PVH mode.
-> >
-> 
-> I tried this by adding dom0=pvh, and instead got this boot error:
-> 
-> (XEN) xenoprof: Initialization failed. AMD processor family 25 is not
-> supported
-> (XEN) NX (Execute Disable) protection active
-> (XEN) Dom0 has maximum 1400 PIRQs
-> (XEN) *** Building a PVH Dom0 ***
-> (XEN) Failed to load kernel: -1
-> (XEN) Xen dom0 kernel broken ELF: <NULL>
-> (XEN) Failed to load Dom0 kernel
-> (XEN)
-> (XEN) ****************************************
-> (XEN) Panic on CPU 0:
-> (XEN) Could not construct domain 0
-> (XEN) ****************************************
-> (XEN)
-> (XEN) Reboot in five seconds...
 
-PVH dom0 also re-uses the host memory map in order to build the dom0
-memory map, and will fail to load the kernel if the ELF program
-headers physical addresses are not between RAM regions (or destination
-guest physical addresses where hvm_copy_to_guest_phys() returns
-failure).
 
-Roger.
+On 16/01/2024 15:37, Julien Grall wrote:
+> 
+> 
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> With the upcoming work to color Xen, the binary will not be anymore
+> physically contiguous. This will be a problem during boot as the
+> assembly code will need to work out where each piece of Xen reside.
+> 
+> An easy way to solve the issue is to have all code/data accessed
+> by the secondary CPUs while the MMU is off within a single page.
+> 
+> Right now, most of the early printk messages are using PRINT() which
+> will add the message in .rodata. This is unlikely to be within the
+> same page as the rest of the idmap.
+> 
+> So replace all the PRINT() that can be reachable by the secondary
+> CPU with MMU-off with PRINT_ID().
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+
+with some remarks below
+
+> ---
+>  xen/arch/arm/arm64/head.S               | 14 +++++++-------
+>  xen/arch/arm/arm64/mmu/head.S           |  2 +-
+>  xen/arch/arm/include/asm/arm64/macros.h |  9 ++++++---
+>  3 files changed, 14 insertions(+), 11 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+> index cfc04c755400..fa8b00b6f1db 100644
+> --- a/xen/arch/arm/arm64/head.S
+> +++ b/xen/arch/arm/arm64/head.S
+> @@ -289,9 +289,9 @@ GLOBAL(init_secondary)
+> 
+>  #ifdef CONFIG_EARLY_PRINTK
+>          ldr   x23, =CONFIG_EARLY_UART_BASE_ADDRESS /* x23 := UART base address */
+> -        PRINT("- CPU ")
+> +        PRINT_ID("- CPU ")
+>          print_reg x24
+> -        PRINT(" booting -\r\n")
+> +        PRINT_ID(" booting -\r\n")
+>  #endif
+>          bl    check_cpu_mode
+>          bl    cpu_init
+> @@ -314,10 +314,10 @@ ENDPROC(init_secondary)
+>   * Clobbers x0 - x5
+>   */
+>  check_cpu_mode:
+> -        PRINT("- Current EL ")
+> +        PRINT_ID("- Current EL ")
+>          mrs   x5, CurrentEL
+>          print_reg x5
+> -        PRINT(" -\r\n")
+> +        PRINT_ID(" -\r\n")
+> 
+>          /* Are we in EL2 */
+>          cmp   x5, #PSR_MODE_EL2t
+> @@ -326,8 +326,8 @@ check_cpu_mode:
+>          ret
+>  1:
+>          /* OK, we're boned. */
+> -        PRINT("- Xen must be entered in NS EL2 mode -\r\n")
+> -        PRINT("- Please update the bootloader -\r\n")
+> +        PRINT_ID("- Xen must be entered in NS EL2 mode -\r\n")
+> +        PRINT_ID("- Please update the bootloader -\r\n")
+>          b fail
+What about the PRINT in fail?
+
+>  ENDPROC(check_cpu_mode)
+> 
+> @@ -361,7 +361,7 @@ ENDPROC(zero_bss)
+>   * Clobbers x0 - x3
+>   */
+>  cpu_init:
+> -        PRINT("- Initialize CPU -\r\n")
+> +        PRINT_ID("- Initialize CPU -\r\n")
+> 
+>          /* Set up memory attribute type tables */
+>          ldr   x0, =MAIRVAL
+> diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
+> index 92b62ae94ce5..fa40b696ddc8 100644
+> --- a/xen/arch/arm/arm64/mmu/head.S
+> +++ b/xen/arch/arm/arm64/mmu/head.S
+> @@ -276,7 +276,7 @@ ENDPROC(create_page_tables)
+>  enable_mmu:
+>          mov   x4, x0
+>          mov   x5, x1
+> -        PRINT("- Turning on paging -\r\n")
+> +        PRINT_ID("- Turning on paging -\r\n")
+> 
+>          /*
+>           * The state of the TLBs is unknown before turning on the MMU.
+> diff --git a/xen/arch/arm/include/asm/arm64/macros.h b/xen/arch/arm/include/asm/arm64/macros.h
+> index 10e652041f57..6a0108f778a2 100644
+> --- a/xen/arch/arm/include/asm/arm64/macros.h
+> +++ b/xen/arch/arm/include/asm/arm64/macros.h
+> @@ -39,9 +39,12 @@
+>   * There are multiple flavors:
+>   *  - PRINT_SECT(section, string): The @string will be located in @section
+>   *  - PRINT(): The string will be located in .rodata.str.
+> - *  - PRINT_ID(): When Xen is running on the Identity Mapping, it is
+> - *    only possible to have a limited amount of Xen. This will create
+> - *    the string in .rodata.idmap which will always be mapped.
+> + *  - PRINT_ID(): This will create the string in .rodata.idmap which
+> + *    will always be accessible. This is used when:
+> + *      - Xen is running on the identity mapping because not all of Xen is mapped
+> + *      - Running with the MMU-off on secondary boots as Xen may not be
+s/boots/CPUs
+
+> + *        physically contiguous in memory (e.g. in the case of cache
+> + *        coloring).
+>   *
+>   * Clobbers x0 - x3
+>   */
+> --
+> 2.40.1
+> 
+
+~Michal
 
