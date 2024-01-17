@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E34A2830007
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 07:13:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668242.1040288 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22C7C83014B
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 09:31:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668267.1040307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPzAM-0002q8-UN; Wed, 17 Jan 2024 06:12:46 +0000
+	id 1rQ1JT-0002h8-BJ; Wed, 17 Jan 2024 08:30:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668242.1040288; Wed, 17 Jan 2024 06:12:46 +0000
+Received: by outflank-mailman (output) from mailman id 668267.1040307; Wed, 17 Jan 2024 08:30:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rPzAM-0002ox-Qb; Wed, 17 Jan 2024 06:12:46 +0000
-Received: by outflank-mailman (input) for mailman id 668242;
- Wed, 17 Jan 2024 06:12:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rQ1JT-0002ed-7m; Wed, 17 Jan 2024 08:30:19 +0000
+Received: by outflank-mailman (input) for mailman id 668267;
+ Wed, 17 Jan 2024 08:30:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=U1SL=I3=gmail.com=simonpatp@srs-se1.protection.inumbo.net>)
- id 1rPzAK-0002oo-OQ
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 06:12:44 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6c816309-b4ff-11ee-9b0f-b553b5be7939;
- Wed, 17 Jan 2024 07:12:42 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2cddf596321so16160161fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 16 Jan 2024 22:12:42 -0800 (PST)
+ <SRS0=2QPC=I3=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rQ1JR-0002eX-CG
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 08:30:17 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7eae::600])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a3940b96-b512-11ee-98f2-6d05b1d4d9a1;
+ Wed, 17 Jan 2024 09:30:15 +0100 (CET)
+Received: from CYXPR02CA0083.namprd02.prod.outlook.com (2603:10b6:930:ce::18)
+ by BL3PR12MB6619.namprd12.prod.outlook.com (2603:10b6:208:38e::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7181.28; Wed, 17 Jan
+ 2024 08:30:11 +0000
+Received: from CY4PEPF0000E9D8.namprd05.prod.outlook.com
+ (2603:10b6:930:ce:cafe::6f) by CYXPR02CA0083.outlook.office365.com
+ (2603:10b6:930:ce::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.23 via Frontend
+ Transport; Wed, 17 Jan 2024 08:30:11 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D8.mail.protection.outlook.com (10.167.241.83) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7181.14 via Frontend Transport; Wed, 17 Jan 2024 08:30:10 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 17 Jan
+ 2024 02:30:09 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 17 Jan
+ 2024 02:30:09 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Wed, 17 Jan 2024 02:30:07 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,246 +63,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c816309-b4ff-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1705471962; x=1706076762; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=+Wzitacmlpqu4h9AJBfhSPZE45fuDpcnpe1j8XVCyFo=;
-        b=jgMeVN6AWpPtlIRaeBBNhoY5oWEAEt6nweu/ILWfd2o5/aHp7ds5y3a6bp3ncDQytH
-         15kWJ8qKI7XXuRDhJ3XQSyz4cKkQTgRRx3mZCXfCZu+TRxM8YRwyOiTIQ2JJ3NV3smPT
-         A4KoeJp5cJYycVEaE27GCQgMyDJsfrZ4CYK6eNhXAI9gUL3jLZ9e6h/bw5efHDZYhJCf
-         ZcjAeILzYmPRo59UhuQ+8gB59tWmcPTYAuHMh8d0tT8mVJ/I/JMv/3tthiGM2qBmqzmW
-         IU280zvA+WlgtOGCjlcDmtJYjmQoiIwAlqzcVyBbSq8Vtk/Popqzx0tEVMgkM04rrUqL
-         lwSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705471962; x=1706076762;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+Wzitacmlpqu4h9AJBfhSPZE45fuDpcnpe1j8XVCyFo=;
-        b=uNwuIPtfxxAySGz3M4DErzVaz2S51sWtXS4DEdWIPPuqi2pNCDmtnYcNMZQU4h42g6
-         Oy65YNOBw1X8dK3D2gpEzd8aj+CrrOuEZxEcnd7oAca+8oIVcVKk1Zj7WOfX+iIF9b03
-         gaq0S4DfVXhbYa0lbXqHc145Zmgk/FQMTTxD6tk16TSg7BeH7IHSKuk/9Ce86ffPQRv2
-         l+PHxRwjnBTyha/wKRlcYRKpj9mBIFyFL7Pa4g+jwuwpDlpD1QcTpvnqzgIg++UNbuM2
-         ALpQy5ST/Q//XncECq+QbIWecPjiaGcAOSD35mUP+SAIXeuzRzRuENy8CKrwxRRHBwC1
-         tZyg==
-X-Gm-Message-State: AOJu0Yzgg92itzRO4bw7isQUgKUlNhryNHWxx5K0WxoYDa47Eq+1PCsA
-	sYM9ulo6S9Gq4zx1Uxwdr32mIxlZac3IhThiWQfdxFyJs38=
-X-Google-Smtp-Source: AGHT+IE0IFA1zuHsS9YbZTjlRK5sFdelCEHC6XxLohH5nZ7WhM2kwdJUTom/+i5OeCk/FaNBVj6IF7oUPbbPSRo/3FM=
-X-Received: by 2002:a2e:9b51:0:b0:2cc:ddb9:e458 with SMTP id
- o17-20020a2e9b51000000b002ccddb9e458mr3719336ljj.28.1705471961727; Tue, 16
- Jan 2024 22:12:41 -0800 (PST)
+X-Inumbo-ID: a3940b96-b512-11ee-98f2-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hlmC72qkb2iuP/wg7osjV15YcRlXDupfcWE81hRjeNTzS9MyHZjgDfEXNYGqBGhOG/d0oa35SWeVvAn4UNkHrSfAHyoFWkv7fCNOP7v9Cb8NyGxgeqy/T6zqAStVMlImmd9a6nZKyl/tpn1L/T24dqWbYSmu2K05nopazz1Uixb/nGkhetUcqqTU6Ao3MQNAFzydgx+CYllIrcJWQXX3NW9e3O7kknmx6HBygtoO/EjlcIYx9cbrnfA5CkZo7+d8Eujg0VAHtU030x8QpnF5JaRJibwwsJt8IlNk/kD7ZX0rGjhAEM4EvmFxKgAezTrYnxgczRH7c39BtWS/jsCn+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zexvQ98nuwYij04/6SoRcy1xqGxy1CX19dR0GVD/N/Q=;
+ b=drS8A1Xibqd3j+y4KqDdH5ewHptLmySzyThXXdsOCnjd52tShxI/nyMhCIGKWMYoiX3gT9TeKnvhOEotQAc2Xd8CxdDR7wX7gzRuxtq923+d/YPNfm3XmYgw1TT2qjlN7uCqHN7JlQlah3vqs9B8zt4jBP2x4xB6Qbs2FJ6EIWI8zXvsj4jRuiOTX/3f08kY9pHa5XOEia5of4tTF27GFG0z4sP4PtOYmSLWibGci3cvhDRfR5XC36DaaOnOAInZe0Iq6LbTNaYfw7FtIQydt4vZ8qHLvlOgHUs2uygkKqc6MXZ8/uCJvN9EA1T6vPthryRk+RnLoFERfeoRbmSJCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zexvQ98nuwYij04/6SoRcy1xqGxy1CX19dR0GVD/N/Q=;
+ b=b8hI+GE5ECAZ4MLj+hg0o5bmj0Q4zEP81Cmfr1damy1sl1gYfvP86dNabMOb+7IZP3vTmYK77eGWKvlIMktwGehwYV6Q2m9KqNxESJYcV7Y2rKDPsHHwoImIh4zov/ZlmZsoY8fgdVZmEus4w/RJpkLnkcL7JUK/nj2n9VTjV7I=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <6b4bfccf-4455-40c0-b6bb-c5dd7c154ac3@amd.com>
+Date: Wed, 17 Jan 2024 09:30:02 +0100
 MIME-Version: 1.0
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
- <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com> <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
- <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com> <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
-In-Reply-To: <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
-From: Patrick Plenefisch <simonpatp@gmail.com>
-Date: Wed, 17 Jan 2024 01:12:30 -0500
-Message-ID: <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
-Subject: Re: E820 memory allocation issue on Threadripper platforms
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
-Content-Type: multipart/alternative; boundary="0000000000007407da060f1e2218"
-
---0000000000007407da060f1e2218
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 repost 1/4] arm/mmu: Move init_ttbr to a new section
+ .data.idmap
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: <carlo.nonato@minervasys.tech>, Julien Grall <jgrall@amazon.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20240116143709.86584-1-julien@xen.org>
+ <20240116143709.86584-2-julien@xen.org>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20240116143709.86584-2-julien@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D8:EE_|BL3PR12MB6619:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4b2890b-3f76-4765-8e63-08dc17368523
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	O79bypX5OQcRG6CYk75XCbbKft4LkI67l30zdtM/NCtblnHiK7Rx2m2XY1/UKBPFjRaR/gzMlW71kfkrZw6Qy/FCiZf627uu4xtnj2agTeVUnto60FN3CabRXD3zPua62fNBi3czjBNTgNMmWe4fJ4MxOaG8XTtOYE4YxjzfsCzoYZQxEk3b9txUafi/R2T1o40adfYwpNNbfsPquvbeBpIi3vf2vN/2JlLKstuuvVy/Ly+CNKQfW0lYUKDg/GwIn5IKRBpG2d1MgkU6DpF54n61wDGpaCQ5nuTeVSp5jCmaDh43+cHsszleqVblmBH+0Rng2kGscYeIBLPYM1m3o8BJi+eus0yNMNmKupFLqvlqJSeHf2tVZcOy6oFj7MJe+k2nhD0P3037mxsjAD4j3nX70BSPYAXxfkJvbnDRaisGvmjaXLZ8m3rvVV03QQKwWjFc0FSCfEd+tJK7n71Y1OvMHyy2DgUpopZzd7G3Bo65EYbk+Pl85NoIB1FgNFxlpdTLFQR20WqzbU6tXfydpdviJrLGnjmjTd0haHSjIcLyFCBurHI3+6vIzWzDQ4jwyL9BOEe3k4qVJXTh2BiUaThXpkWlpO0rTCv2Uype73gN0k9ARl7U6qPwEbuX3LfgJPpXThqekxG/l3A//fGchMGhbrBv7ml+phgF90Ts/IeoLBXhndSP8l+h3Oc1NZwCedzzGBrKzweeucgbTc3T3jmQlPGHOq0HzqkNxKgyR4wGONkird0BJD+5X/sVfpEumYg+/bnBoi0XWTiMjYdBeYmx2PTUKPYSwgOBL8jXU14ymm15FkxZJV2uLZyydfpiUj0Jwo7FW4cJCnii/Ih2eA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(136003)(39860400002)(396003)(376002)(230922051799003)(64100799003)(451199024)(82310400011)(1800799012)(186009)(36840700001)(46966006)(40470700004)(6666004)(83380400001)(426003)(36860700001)(82740400003)(47076005)(2906002)(41300700001)(31696002)(86362001)(36756003)(356005)(81166007)(53546011)(54906003)(70206006)(8936002)(70586007)(316002)(16576012)(478600001)(5660300002)(336012)(4326008)(2616005)(26005)(44832011)(8676002)(110136005)(40460700003)(31686004)(40480700001)(142923001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2024 08:30:10.8046
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4b2890b-3f76-4765-8e63-08dc17368523
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6619
 
-On Tue, Jan 16, 2024 at 4:33=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
+Hi Julien,
 
-> On 16.01.2024 01:22, Patrick Plenefisch wrote:
-> > I managed to set up serial access and saved the output with the request=
-ed
-> > flags as the attached logs
->
-> Thanks. While you didn't ...
->
->
-> ... fiddle with the Linux message,  ...
->
+On 16/01/2024 15:37, Julien Grall wrote:
+> 
+> 
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> With the upcoming work to color Xen, the binary will not be anymore
+> physically contiguous. This will be a problem during boot as the
+> assembly code will need to work out where each piece of Xen reside.
+> 
+> An easy way to solve the issue is to have all code/data accessed
+> by the secondary CPUs while the MMU is off within a single page.
+> 
+> Right now, init_ttbr is used by secondary CPUs to find there page-tables
+> before the MMU is on. Yet it is currently in .data which is unlikely
+> to be within the same page as the rest of the idmap.
+> 
+> Create a new section .data.idmap that will be used for variables
+> accessed by the early boot code. The first one is init_ttbr.
+> 
+> The idmap is currently part of the text section and therefore will
+> be mapped read-only executable. This means that we need to temporarily
+> remap init_ttbr in order to update it.
+> 
+> Introduce a new function set_init_ttbr() for this purpose so the code
+> is not duplicated between arm64 and arm32.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-I last built the kernel over a decade ago, and so was hoping to not have to
-look up how to do that again, but I can research how to go about that again
-if it would help?
+with ...
 
+> ---
+>  xen/arch/arm/mmu/smpboot.c | 34 +++++++++++++++++++++++++++++-----
+>  xen/arch/arm/xen.lds.S     |  1 +
+>  2 files changed, 30 insertions(+), 5 deletions(-)
+> 
+> diff --git a/xen/arch/arm/mmu/smpboot.c b/xen/arch/arm/mmu/smpboot.c
+> index b6fc0aae07f1..f1cf9252710c 100644
+> --- a/xen/arch/arm/mmu/smpboot.c
+> +++ b/xen/arch/arm/mmu/smpboot.c
+> @@ -9,6 +9,10 @@
+> 
+>  #include <asm/setup.h>
+> 
+> +/* Override macros from asm/page.h to make them work with mfn_t */
+> +#undef virt_to_mfn
+> +#define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
+> +
+>  /*
+>   * Static start-of-day pagetables that we use before the allocators
+>   * are up. These are used by all CPUs during bringup before switching
+> @@ -44,7 +48,7 @@ DEFINE_BOOT_PAGE_TABLE(boot_second);
+>  DEFINE_BOOT_PAGE_TABLES(boot_third, XEN_NR_ENTRIES(2));
+> 
+>  /* Non-boot CPUs use this to find the correct pagetables. */
+> -uint64_t init_ttbr;
+> +uint64_t __section(".data.idmap") init_ttbr;
+Do we need to keep the declaration in mmu/mm.h? This variable is only used in this file
+and in assembly, so maybe better to drop declaration and use asmlinkage instead?
 
->
-> ... as per
->
-> (XEN)  Dom0 kernel: 64-bit, PAE, lsb, paddr 0x1000000 -> 0x4a00000
->
-> there's an overlap with not exactly a hole, but with an
-> EfiACPIMemoryNVS region:
->
-> (XEN)  0000000100000-0000003159fff type=3D2 attr=3D000000000000000f
-> (XEN)  000000315a000-0000003ffffff type=3D7 attr=3D000000000000000f
-> (XEN)  0000004000000-0000004045fff type=3D10 attr=3D000000000000000f
-> (XEN)  0000004046000-0000009afefff type=3D7 attr=3D000000000000000f
->
-> (the 3rd of the 4 lines). Considering there's another region higher
-> up:
->
-> (XEN)  00000a747f000-00000a947efff type=3D10 attr=3D000000000000000f
->
-> I'm inclined to say it is poor firmware (or, far less likely, boot
-> loader) behavior to clobber a rather low and entirely arbitrary RAM
->
+> 
+>  /* Clear a translation table and clean & invalidate the cache */
+>  static void clear_table(void *table)
+> @@ -68,6 +72,27 @@ static void clear_boot_pagetables(void)
+>      clear_table(boot_third);
+>  }
+> 
+> +static void set_init_ttbr(lpae_t *root)
+> +{
+> +    /*
+> +     * init_ttbr is part of the identity mapping which is read-only. So
+> +     * We need to re-map the region so it can be updated
+Would you mind fixing s/So We/So we/ and add a full stop after last sentence?
 
-Bootloader is Grub 2.06 EFI platform as packaged by Debian 12
+> +     */
+> +    void *ptr = map_domain_page(virt_to_mfn(&init_ttbr));
+> +
+> +    ptr += PAGE_OFFSET(&init_ttbr);
+> +
+> +    *(uint64_t *)ptr = virt_to_maddr(root);
+> +
+> +    /*
+> +     * init_ttbr will be accessed with the MMU off, so ensure the update
+> +     * is visible by cleaning the cache.
+> +     */
+> +    clean_dcache(ptr);
+> +
+> +    unmap_domain_page(ptr);
+> +}
+> +
+>  #ifdef CONFIG_ARM_64
+>  int prepare_secondary_mm(int cpu)
+>  {
+> @@ -77,8 +102,8 @@ int prepare_secondary_mm(int cpu)
+>       * Set init_ttbr for this CPU coming up. All CPUs share a single setof
+>       * pagetables, but rewrite it each time for consistency with 32 bit.
+>       */
+> -    init_ttbr = virt_to_maddr(xen_pgtable);
+> -    clean_dcache(init_ttbr);
+> +    set_init_ttbr(xen_pgtable);
+> +
+>      return 0;
+>  }
+>  #else
+> @@ -109,8 +134,7 @@ int prepare_secondary_mm(int cpu)
+>      clear_boot_pagetables();
+> 
+>      /* Set init_ttbr for this CPU coming up */
+> -    init_ttbr = __pa(first);
+> -    clean_dcache(init_ttbr);
+> +    set_init_ttbr(first);
+> 
+>      return 0;
+>  }
+> diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
+> index 20598c6963ce..470c8f22084f 100644
+> --- a/xen/arch/arm/xen.lds.S
+> +++ b/xen/arch/arm/xen.lds.S
+> @@ -36,6 +36,7 @@ SECTIONS
+>         *(.text.header)
+>         *(.text.idmap)
+>         *(.rodata.idmap)
+> +       *(.data.idmap)
+>         _idmap_end = .;
+> 
+>         *(.text.cold)
+> --
+> 2.40.1
+> 
 
-
-
-> range, rather than consolidating all such regions near the top of
-> RAM below 4Gb. There are further such odd regions, btw:
->
-> (XEN)  0000009aff000-0000009ffffff type=3D0 attr=3D000000000000000f
-> ...
-> (XEN)  000000b000000-000000b020fff type=3D0 attr=3D000000000000000f
->
-> If the kernel image was sufficiently much larger, these could become
-> a problem as well. Otoh if the kernel wasn't built with
-> CONFIG_PHYSICAL_START=3D0x1000000, i.e. to start at 16Mb, but at, say,
-> 2Mb, things should apparently work even with this unusual memory
-> layout (until the kernel would grow enough to again run into that
-> very region).
->
-
-I'm currently talking to the vendor's support team and testing a beta BIOS
-for unrelated reasons, is there something specific I should forward to
-them, either as a question or as a request for a fix?
-
-As someone who hasn't built a kernel in over a decade, should I figure out
-how to do a kernel build with CONFIG_PHYSICAL_START=3D0x2000000 and report
-back?
-
-
-> It remains to be seen in how far it is reasonably possible to work
-> around this in the kernel. While (sadly) still unsupported, in the
-> meantime you may want to consider running Dom0 in PVH mode.
->
-
-I tried this by adding dom0=3Dpvh, and instead got this boot error:
-
-(XEN) xenoprof: Initialization failed. AMD processor family 25 is not
-supported
-(XEN) NX (Execute Disable) protection active
-(XEN) Dom0 has maximum 1400 PIRQs
-(XEN) *** Building a PVH Dom0 ***
-(XEN) Failed to load kernel: -1
-(XEN) Xen dom0 kernel broken ELF: <NULL>
-(XEN) Failed to load Dom0 kernel
-(XEN)
-(XEN) ****************************************
-(XEN) Panic on CPU 0:
-(XEN) Could not construct domain 0
-(XEN) ****************************************
-(XEN)
-(XEN) Reboot in five seconds...
-
-
-
-
->
-> Jan
->
-
---0000000000007407da060f1e2218
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jan 16, 2024 at 4:33=E2=80=AF=
-AM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</=
-a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On=
- 16.01.2024 01:22, Patrick Plenefisch wrote:<br>
-&gt; I managed to set up serial access and saved the output with the reques=
-ted<br>
-&gt; flags as the attached logs<br>
-<br>
-Thanks. While you didn&#39;t ...<br>
-<br>
-<br>
-... fiddle with the Linux message,=C2=A0 ... <br></blockquote><div><br></di=
-v><div>I last built the kernel over a decade ago, and so was hoping to not =
-have to look up how to do that again, but I can research how to go about th=
-at again if it would help?<br></div><div>=C2=A0<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex">
-<br>
-... as per<br>
-<br>
-(XEN)=C2=A0 Dom0 kernel: 64-bit, PAE, lsb, paddr 0x1000000 -&gt; 0x4a00000<=
-br>
-<br>
-there&#39;s an overlap with not exactly a hole, but with an<br>
-EfiACPIMemoryNVS region:<br>
-<br>
-(XEN)=C2=A0 0000000100000-0000003159fff type=3D2 attr=3D000000000000000f<br=
->
-(XEN)=C2=A0 000000315a000-0000003ffffff type=3D7 attr=3D000000000000000f<br=
->
-(XEN)=C2=A0 0000004000000-0000004045fff type=3D10 attr=3D000000000000000f<b=
-r>
-(XEN)=C2=A0 0000004046000-0000009afefff type=3D7 attr=3D000000000000000f<br=
->
-<br>
-(the 3rd of the 4 lines). Considering there&#39;s another region higher<br>
-up:<br>
-<br>
-(XEN)=C2=A0 00000a747f000-00000a947efff type=3D10 attr=3D000000000000000f<b=
-r>
-<br>
-I&#39;m inclined to say it is poor firmware (or, far less likely, boot<br>
-loader) behavior to clobber a rather low and entirely arbitrary RAM<br></bl=
-ockquote><div>=C2=A0</div><div>Bootloader is Grub 2.06 EFI platform as pack=
-aged by Debian 12<br></div><div><br></div><div>=C2=A0</div><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
-gb(204,204,204);padding-left:1ex">
-range, rather than consolidating all such regions near the top of<br>
-RAM below 4Gb. There are further such odd regions, btw:<br>
-<br>
-(XEN)=C2=A0 0000009aff000-0000009ffffff type=3D0 attr=3D000000000000000f<br=
->
-...<br>
-(XEN)=C2=A0 000000b000000-000000b020fff type=3D0 attr=3D000000000000000f<br=
->
-<br>
-If the kernel image was sufficiently much larger, these could become<br>
-a problem as well. Otoh if the kernel wasn&#39;t built with<br>
-CONFIG_PHYSICAL_START=3D0x1000000, i.e. to start at 16Mb, but at, say,<br>
-2Mb, things should apparently work even with this unusual memory<br>
-layout (until the kernel would grow enough to again run into that<br>
-very region).<br></blockquote><div><br></div><div>I&#39;m currently talking=
- to the vendor&#39;s support team and testing a beta BIOS for unrelated rea=
-sons, is there something specific I should forward to them, either as a que=
-stion or as a request for a fix?</div><div><br></div><div>As someone who ha=
-sn&#39;t built a kernel in over a decade, should I figure out how to do a k=
-ernel build with CONFIG_PHYSICAL_START=3D0x2000000 and report back?<br></di=
-v><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-It remains to be seen in how far it is reasonably possible to work<br>
-around this in the kernel. While (sadly) still unsupported, in the<br>
-meantime you may want to consider running Dom0 in PVH mode.<br></blockquote=
-><div><br></div><div>I tried this by adding dom0=3Dpvh, and instead got thi=
-s boot error:<br></div><div><br></div><div>(XEN) xenoprof: Initialization f=
-ailed. AMD processor family 25 is not supported<br>(XEN) NX (Execute Disabl=
-e) protection active<br>(XEN) Dom0 has maximum 1400 PIRQs<br>(XEN) *** Buil=
-ding a PVH Dom0 ***<br>(XEN) Failed to load kernel: -1<br>(XEN) Xen dom0 ke=
-rnel broken ELF: &lt;NULL&gt;<br>(XEN) Failed to load Dom0 kernel<br>(XEN) =
-<br>(XEN) ****************************************<br>(XEN) Panic on CPU 0:=
-<br>(XEN) Could not construct domain 0<br>(XEN) ***************************=
-*************<br>(XEN) <br>(XEN) Reboot in five seconds...</div><div><br></=
-div><div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">
-<br>
-Jan<br>
-</blockquote></div></div>
-
---0000000000007407da060f1e2218--
+~Michal
 
