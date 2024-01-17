@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01A23830259
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 10:32:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668307.1040387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB18F83025C
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 10:32:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668310.1040397 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ2GH-0003Hw-C6; Wed, 17 Jan 2024 09:31:05 +0000
+	id 1rQ2HG-0003ks-KT; Wed, 17 Jan 2024 09:32:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668307.1040387; Wed, 17 Jan 2024 09:31:05 +0000
+Received: by outflank-mailman (output) from mailman id 668310.1040397; Wed, 17 Jan 2024 09:32:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ2GH-0003FF-8E; Wed, 17 Jan 2024 09:31:05 +0000
-Received: by outflank-mailman (input) for mailman id 668307;
- Wed, 17 Jan 2024 09:31:04 +0000
+	id 1rQ2HG-0003j9-H1; Wed, 17 Jan 2024 09:32:06 +0000
+Received: by outflank-mailman (input) for mailman id 668310;
+ Wed, 17 Jan 2024 09:32:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yGoF=I3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rQ2GG-0003F8-OT
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 09:31:04 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sm03=I3=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rQ2HF-0003j3-F1
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 09:32:05 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 21cfe5ca-b51b-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 10:31:03 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40e779f030aso16926085e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 01:31:03 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l14-20020adffe8e000000b00336755f15b0sm1196574wrr.68.2024.01.17.01.31.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jan 2024 01:31:02 -0800 (PST)
+ id 4617bf7d-b51b-11ee-98f2-6d05b1d4d9a1;
+ Wed, 17 Jan 2024 10:32:04 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a27733ae1dfso1242648366b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 01:32:04 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ k6-20020a170906128600b00a2b0b0fc80esm7513507ejb.193.2024.01.17.01.32.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 17 Jan 2024 01:32:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +45,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21cfe5ca-b51b-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 4617bf7d-b51b-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705483863; x=1706088663; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=r7d5yqvWynTJK0DON1Pp2j9n2EnKryr1JAOIGpNMoy8=;
-        b=OhgixGAjdwAFevS8qmpVaPHhQaRV8mkRFo3RIMwuOg2QxPYb5uoRyDo98avg89dBvc
-         er08VIdfJ+FJ02M0X43NWQ+JohTlI4Lza21TxR538FcSnEoA+kP8LrwMFwUAMBumF4gy
-         r2/Z9Sy9u828Xk72B+8j1vvkXxKoHaSJEIGdmw1bs3H+gcQDSEyvbzR4YzcrPMFuCAGC
-         8nZqx4SnMmiSR9rA+6b8KDJq0K2bvVNlS7XSHUJO14+/Lr2DXqaCYs6nxY0SYXXPMM0X
-         hvMvVtTtmxeS05p/oRrVsuHh1Zrxw8yQbvmePAdra/A17Q22f8ios/U7/mlfpMVerWE0
-         awdA==
+        d=gmail.com; s=20230601; t=1705483924; x=1706088724; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=/5DcSU7Y1vSJUQo+6aPVW3U6Viw4nzWrVTue6XGKaMw=;
+        b=HrfrByMito2MUQS/fNvoxnQZ+oCgRfIV1e0OM8USpj6Pu6COCqq56b/GLOrUFV+n4U
+         pF57eEo6JmeHcUyFF1iZ3vR77oRZro/xSCqUriotA19PlUgpBR2/dyVRIYUA1YLmaYAY
+         fVJ40ad/jU36CJ1ASgjzQDEI0Ism7rGO2eu18vsYeyUrZn3LqZmNwhJl4AswQuzdbkSc
+         bKzsKtHvDBHgzxcAgqGpWsp/zzXmh8QRutJDYqwuQgg9CbdFtpv7PQeR/MqJ3jGc8l+j
+         fBLyRlQ2eHTgBLH2sfSdnwd5jA3n3gyVsnb3p5fCm0+hgWqiKip4eHPUX+Ln+khDqx/S
+         zldw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705483863; x=1706088663;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=r7d5yqvWynTJK0DON1Pp2j9n2EnKryr1JAOIGpNMoy8=;
-        b=uiMiXKN/XI5kpQa1X88+AW5JeREyINJ2iNHcNXvT3zedOZq1jwa0id3VuGAVspMe0n
-         wuAiFLLuV5rlxmEnq3QtcX3ifntidKCFDZ6jIkT6CkzL+KJe9KscbYWZm+v1VpA465t4
-         Twwt+ty7G4fdCTFSRX8fwXxPGaMiJ4jAIH2aLBz9BB2L3ViyUuHWgmlK88X/Omoitlo/
-         W9XSBHqEeR6GotvjzpbnlB0OhlB7GykQhRWNLfi3T1qP7Dk1KnkjopwrYnq+ttA93qx3
-         yT1AbAQvAquhOfGGduxeAPj5PBpXTSkN25PB5ZP8EMyUguXIl3grrJHoiTdOdDDuQgxI
-         YHnw==
-X-Gm-Message-State: AOJu0YzQAzKSm/AJuPTxoH9yq+UBe/hkmTJvZ54Yg90CyJ124wbQ3qYJ
-	pm9tldQFf0sE4Wu//4Ri809Ztm6MkSZBVpAm/0L+XLK+Cw==
-X-Google-Smtp-Source: AGHT+IG3/dFyK74fsbs14901TkS6LYRk9/VQLopE0GCu3Ur11sM9D/QWqFUf+Hla+6rjnHNnCLA7ig==
-X-Received: by 2002:a05:600c:26d6:b0:40e:52e6:ccc3 with SMTP id 22-20020a05600c26d600b0040e52e6ccc3mr287114wmv.48.1705483863003;
-        Wed, 17 Jan 2024 01:31:03 -0800 (PST)
-Message-ID: <65fb766e-ab5a-49ab-a904-01ee9711d42d@suse.com>
-Date: Wed, 17 Jan 2024 10:31:02 +0100
+        d=1e100.net; s=20230601; t=1705483924; x=1706088724;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/5DcSU7Y1vSJUQo+6aPVW3U6Viw4nzWrVTue6XGKaMw=;
+        b=lqnl9yzuU4GuiqCjPWl97L/8AP0jb6opqRIdbWpBDakpjqvmrojpSBW99L5RHxippq
+         VHYzWMCEyRz/9mOixMa9ZLZj5yOxspq6kzplxbFt2qjr+qlikc0nXbQNrfHfj+UwVs1S
+         blT21/gH+Tag+hibU2zZeOsLddyH/oWDgiXb3p9Bn4ccDBKvHy9XGWDzIsOCYn8xIguy
+         vxLK+gsoVxeASQDY2+jZTKLcMuxJZkrD9VKJLq6Kn7/iVLXScAj6sbdWFmfhvCMGhdXK
+         mefxNmN/p0cNMPaGTpxpIWAq7ZG8RD6ki4CW3Rf3QuCN8234FwK35vJcSucnxyloFlJH
+         1odA==
+X-Gm-Message-State: AOJu0Ywnm4awrb+UXHDOZbGC0fTziO33f2qOnShkBa1hLSPFBkg/PsbI
+	15WryGciP6lnkp0VW/xwcdI=
+X-Google-Smtp-Source: AGHT+IEXyT/7E61wbpgooW/TT+2j3nrNATAsgbEzvNZNuvKUVOBZK4d/7Q2uE4+tTSCSH0DDaQunvA==
+X-Received: by 2002:a17:907:31c6:b0:a29:1419:f522 with SMTP id xf6-20020a17090731c600b00a291419f522mr2827794ejb.72.1705483923533;
+        Wed, 17 Jan 2024 01:32:03 -0800 (PST)
+Message-ID: <3e11cf09b1a9b98e3bd4a82e7f0bd2bcde2ed67d.camel@gmail.com>
+Subject: Re: [PATCH v3 21/34] xen/riscv: introduce p2m.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: Shawn Anastasio <sanastasio@raptorengineering.com>, Alistair Francis
+	 <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Connor
+	Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+Date: Wed, 17 Jan 2024 11:32:02 +0200
+In-Reply-To: <402ece4f-a3bf-4eab-ac4c-ae36490ae114@xen.org>
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+	 <c3b1f24aea1ba01505697717b240c8d036abfee1.1703255175.git.oleksii.kurochko@gmail.com>
+	 <abeafa19-7867-46b2-bc0e-b39eaa0f5036@xen.org>
+	 <abef4701c3f2292e672679f1a18c826d699e1af2.camel@gmail.com>
+	 <c1abf4ca-d69a-4a17-b23c-18f06b8fddda@suse.com>
+	 <5bf15f83be5a1cf38bff58d996e74a6de6b044b5.camel@gmail.com>
+	 <402ece4f-a3bf-4eab-ac4c-ae36490ae114@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/guest: finish conversion to altcall
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-While .setup() and .e820_fixup() don't need fiddling with for being run
-only very early, both .ap_setup() and .resume() want converting too:
-This way both pre-filled struct hypervisor_ops instances can become
-__initconst_cf_clobber, thus allowing to eliminate up to 5 more ENDBR
-(configuration dependent) during the 2nd phase of alternatives patching.
+Hi Julien,
 
-While fiddling with section annotations here, also move "ops" itself to
-.data.ro_after_init.
+On Tue, 2024-01-16 at 17:12 +0000, Julien Grall wrote:
+> Hi Oleksii,
+>=20
+> On 16/01/2024 09:44, Oleksii wrote:
+> > On Mon, 2024-01-15 at 12:01 +0100, Jan Beulich wrote:
+> > > On 15.01.2024 11:35, Oleksii wrote:
+> > > > Hi Julien,
+> > > >=20
+> > > > On Fri, 2024-01-12 at 10:39 +0000, Julien Grall wrote:
+> > > > > Hi Oleksii,
+> > > > >=20
+> > > > > On 22/12/2023 15:13, Oleksii Kurochko wrote:
+> > > > > > Signed-off-by: Oleksii Kurochko
+> > > > > > <oleksii.kurochko@gmail.com>
+> > > > > > ---
+> > > > > > Changes in V3:
+> > > > > > =C2=A0=C2=A0 - add SPDX
+> > > > > > =C2=A0=C2=A0 - drop unneeded for now p2m types.
+> > > > > > =C2=A0=C2=A0 - return false in all functions implemented with B=
+UG()
+> > > > > > inside.
+> > > > > > =C2=A0=C2=A0 - update the commit message
+> > > > > > ---
+> > > > > > Changes in V2:
+> > > > > > =C2=A0=C2=A0 - Nothing changed. Only rebase.
+> > > > > > ---
+> > > > > > =C2=A0=C2=A0 xen/arch/ppc/include/asm/p2m.h=C2=A0=C2=A0 |=C2=A0=
+=C2=A0 3 +-
+> > > > > > =C2=A0=C2=A0 xen/arch/riscv/include/asm/p2m.h | 102
+> > > > > > +++++++++++++++++++++++++++++++
+> > > > > > =C2=A0=C2=A0 2 files changed, 103 insertions(+), 2 deletions(-)
+> > > > > > =C2=A0=C2=A0 create mode 100644 xen/arch/riscv/include/asm/p2m.=
+h
+> > > > > >=20
+> > > > > > diff --git a/xen/arch/ppc/include/asm/p2m.h
+> > > > > > b/xen/arch/ppc/include/asm/p2m.h
+> > > > > > index 25ba054668..3bc05b7c05 100644
+> > > > > > --- a/xen/arch/ppc/include/asm/p2m.h
+> > > > > > +++ b/xen/arch/ppc/include/asm/p2m.h
+> > > > > > @@ -50,8 +50,7 @@ static inline void
+> > > > > > memory_type_changed(struct
+> > > > > > domain *d)
+> > > > > > =C2=A0=C2=A0 static inline int
+> > > > > > guest_physmap_mark_populate_on_demand(struct
+> > > > > > domain *d, unsigned long gfn,
+> > > > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=20
+> > > > > > unsigned
+> > > > > > int order)
+> > > > > > =C2=A0=C2=A0 {
+> > > > > > -=C2=A0=C2=A0=C2=A0 BUG_ON("unimplemented");
+> > > > > > -=C2=A0=C2=A0=C2=A0 return 1;
+> > > > > > +=C2=A0=C2=A0=C2=A0 return -EOPNOTSUPP;
+> > > > > > =C2=A0=C2=A0 }
+> > > > > > =C2=A0=C2=A0=20
+> > > > > > =C2=A0=C2=A0 static inline int guest_physmap_add_entry(struct d=
+omain
+> > > > > > *d,
+> > > > > > diff --git a/xen/arch/riscv/include/asm/p2m.h
+> > > > > > b/xen/arch/riscv/include/asm/p2m.h
+> > > > > > new file mode 100644
+> > > > > > index 0000000000..d270ef6635
+> > > > > > --- /dev/null
+> > > > > > +++ b/xen/arch/riscv/include/asm/p2m.h
+> > > > > > @@ -0,0 +1,102 @@
+> > > > > > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > > > > > +#ifndef __ASM_RISCV_P2M_H__
+> > > > > > +#define __ASM_RISCV_P2M_H__
+> > > > > > +
+> > > > > > +#include <asm/page-bits.h>
+> > > > > > +
+> > > > > > +#define paddr_bits PADDR_BITS
+> > > > > > +
+> > > > > > +/*
+> > > > > > + * List of possible type for each page in the p2m entry.
+> > > > > > + * The number of available bit per page in the pte for
+> > > > > > this
+> > > > > > purpose is 4 bits.
+> > > > > > + * So it's possible to only have 16 fields. If we run out
+> > > > > > of
+> > > > > > value
+> > > > > > in the
+> > > > > > + * future, it's possible to use higher value for pseudo-
+> > > > > > type
+> > > > > > and
+> > > > > > don't store
+> > > > > > + * them in the p2m entry.
+> > > > > > + */
+> > > > >=20
+> > > > > This looks like a verbatim copy from Arm. Did you actually
+> > > > > check
+> > > > > RISC-V
+> > > > > has 4 bits available in the PTE to store this value?
+> > > > Thanks for noticing that, in RISC-V it is available only 2 bits
+> > > > (
+> > > > bits
+> > > > 8 and 9), so I'll update the comment:
+> > > > 53=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 10 9=C2=A0=C2=A0=C2=A0 8 7 6 =
+5 4 3 2 1 0
+> > > > =C2=A0=C2=A0Physical Page Number=C2=A0=C2=A0=C2=A0=C2=A0 RSV=C2=A0 =
+D A G U X W R V
+> > >=20
+> > > It's RSW (Reserved for Supervisor softWare use), not RSV, which
+> > > is
+> > > pretty
+> > > important in this context.
+> > Yes, you are right it is RSW. Thanks for the correction.
+> >=20
+> > >=20
+> > > > It seems that I missed something in the Arm
+> > > > code/architecture.As
+> > > > far as I recall, in Arm, bits 5-8 are ignored by the MMU, and
+> > > > they
+> > > > are expected
+> > > > to be used by the hypervisor for its purpose.
+> > > > However, in the code, I notice that these bits are utilized for
+> > > > storing
+> > > > a reference counter.
+> > >=20
+> > > Why "however"? Hardware still is going to ignore these bits.
+> > Sure, these bits are ignored by hardware. What I meant is that,
+> > according to the code, these bits are used for storing a reference
+> > counter, not p2m_type_t. I guess I am missing something...
+>=20
+> I can only guess where you saw the field used for reference counting.
+> This was the domain map page infrastruture, right?
+Yes, you are right.
+>=20
+> If so, this is for stage-1 page-table (aka hypervisor table) and not
+> the=20
+> stage-2 (e.g. P2M). For the latter, we would use the p2m_type_t.
+I confused stage-1 & stage-2. Now everything fell into place. Thanks.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/arch/x86/guest/hyperv/hyperv.c
-+++ b/xen/arch/x86/guest/hyperv/hyperv.c
-@@ -207,7 +207,7 @@ static int cf_check flush_tlb(
-     return hyperv_flush_tlb(mask, va, flags);
- }
- 
--static const struct hypervisor_ops __initconstrel ops = {
-+static const struct hypervisor_ops __initconst_cf_clobber ops = {
-     .name = "Hyper-V",
-     .setup = setup,
-     .ap_setup = ap_setup,
---- a/xen/arch/x86/guest/hypervisor.c
-+++ b/xen/arch/x86/guest/hypervisor.c
-@@ -13,7 +13,7 @@
- #include <asm/cache.h>
- #include <asm/guest.h>
- 
--static struct hypervisor_ops __read_mostly ops;
-+static struct hypervisor_ops __ro_after_init ops;
- 
- const char *__init hypervisor_probe(void)
- {
-@@ -49,7 +49,7 @@ void __init hypervisor_setup(void)
- int hypervisor_ap_setup(void)
- {
-     if ( ops.ap_setup )
--        return ops.ap_setup();
-+        return alternative_call(ops.ap_setup);
- 
-     return 0;
- }
-@@ -57,7 +57,7 @@ int hypervisor_ap_setup(void)
- void hypervisor_resume(void)
- {
-     if ( ops.resume )
--        ops.resume();
-+        alternative_vcall(ops.resume);
- }
- 
- void __init hypervisor_e820_fixup(void)
---- a/xen/arch/x86/guest/xen/xen.c
-+++ b/xen/arch/x86/guest/xen/xen.c
-@@ -318,7 +318,7 @@ static int cf_check flush_tlb(
-     return xen_hypercall_hvm_op(HVMOP_flush_tlbs, NULL);
- }
- 
--static const struct hypervisor_ops __initconstrel ops = {
-+static const struct hypervisor_ops __initconst_cf_clobber ops = {
-     .name = "Xen",
-     .setup = setup,
-     .ap_setup = ap_setup,
+~ Oleksii
 
