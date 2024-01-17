@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15FEE830740
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 14:42:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668476.1040724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C9E9830789
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 15:05:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668481.1040732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ6Bf-0000M8-9c; Wed, 17 Jan 2024 13:42:35 +0000
+	id 1rQ6Wr-0005ZP-WB; Wed, 17 Jan 2024 14:04:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668476.1040724; Wed, 17 Jan 2024 13:42:35 +0000
+Received: by outflank-mailman (output) from mailman id 668481.1040732; Wed, 17 Jan 2024 14:04:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ6Bf-0000It-6e; Wed, 17 Jan 2024 13:42:35 +0000
-Received: by outflank-mailman (input) for mailman id 668476;
- Wed, 17 Jan 2024 13:42:34 +0000
+	id 1rQ6Wr-0005Wr-TI; Wed, 17 Jan 2024 14:04:29 +0000
+Received: by outflank-mailman (input) for mailman id 668481;
+ Wed, 17 Jan 2024 14:04:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=yGoF=I3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rQ6Be-0000In-IM
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 13:42:34 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3JKZ=I3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rQ6Wq-0005Wl-RP
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 14:04:28 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 434dd71a-b53e-11ee-9b0f-b553b5be7939;
- Wed, 17 Jan 2024 14:42:31 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-337c5bcf79fso283650f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 05:42:31 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n18-20020a05600c501200b0040e77ce8768sm10678109wmr.16.2024.01.17.05.42.30
+ id 51f46b48-b541-11ee-9b0f-b553b5be7939;
+ Wed, 17 Jan 2024 15:04:24 +0100 (CET)
+Received: by mail-lj1-x229.google.com with SMTP id
+ 38308e7fff4ca-2cd8b64a52dso68836461fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 06:04:24 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ n17-20020a0568080a1100b003bc144dc4f5sm1951829oij.1.2024.01.17.06.04.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jan 2024 05:42:31 -0800 (PST)
+ Wed, 17 Jan 2024 06:04:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +45,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 434dd71a-b53e-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 51f46b48-b541-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705498951; x=1706103751; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1705500264; x=1706105064; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=DxbF+vzCDpdp6J+pw4BlS9ANgujZV7xOr5VIt/PUDYU=;
-        b=YX61Za6F1oglIQllVMQIkFXJ5r2qtJBJDEoSLSiXs08ODuP43jzMnRLaY8YY+PxKGn
-         f15VYhxOhEycL+3DnS5HWBM0CAUNRvIQrsEanKwnnnY53BBy+n+RO9uwii1nhTJ3zDeh
-         JOP2P5ReUDgdpwDMvCwMAtVdDKuw9VxUYaQ1I/jTOCp/6v1607BSVKffidYrR7ZHG54t
-         diGi/u+Dg+lmCws9gNXLQcfmBHFLA3YET6l39KY+n3nbxMBXtAoy0Svh6eFT62BePyTW
-         nnsWMa4K+i+iI/e5TY23MBSGmFEZzUvG6IIkE0OkGltyiqbMddgTaqrR0iSB0nzR7oL1
-         aUNQ==
+        bh=2aemawLA3iCvzglpFZnEamU6EC3TRHK9yCISUSoUoBo=;
+        b=A9uAIOZh5djxhdzduMbNFUhnUeDbDxpzRM62zx8NabBcxh+BEAcjKaWQsXXDcAYyln
+         KCbKtRONKuKPX6cSTCfBn13+1+KHneY75GRs5kyq9HYt22PVlSGdEurBDG2gQIPyd8Sr
+         xsAoC+N+yZmNOPU7K+TY93hKsYmMMEued+Bp4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705498951; x=1706103751;
+        d=1e100.net; s=20230601; t=1705500264; x=1706105064;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=DxbF+vzCDpdp6J+pw4BlS9ANgujZV7xOr5VIt/PUDYU=;
-        b=XObPXNVKQRHI2I4OTQraW4yTbb4EhuXAGQnLbpkeG+GWesIl4F8wMq026UfCsHU+AN
-         u3v2BJXuPGaeOQc0WtiV/fjF5Fu/XCRo9tk+U37YT+pCZA6Kf696BKShPLVl5Kvry73j
-         6XpsiEAdNP+e0dz/vl9tnrLBU1X1ZVyYpnqTJhWvNuXIua7mOOvBeIievR2rzzVD9r+y
-         M5CKB0b0j4IN8vtUhoHyIqpKMht545ly2Ps1XeCLMBWFJnTRBMoAHl0zp+XTvZDCZjMS
-         ffZMKQhmPLvwQjMYLV4Rdua+5KLpG0yVEN0EyYNnUR56eTBdJ2wyotlWKvQrY8yY96lW
-         fF0Q==
-X-Gm-Message-State: AOJu0YwJJXyzEBXiUIHprx0u6fb+xNiFVhDeK4pzj95fhE/6+1MFwRCT
-	FSbGCpGD2sLZykFmK8lxy6vF+prQ2+va
-X-Google-Smtp-Source: AGHT+IEhUjVp2QrYjG59Dp4SEUEFGhrcUwxBeZ+1czrqIiNCBhvpUYchHJXbYi0jsMlrW7TopkBVyg==
-X-Received: by 2002:a05:600c:4583:b0:40e:4656:dc2b with SMTP id r3-20020a05600c458300b0040e4656dc2bmr4507412wmo.168.1705498951325;
-        Wed, 17 Jan 2024 05:42:31 -0800 (PST)
-Message-ID: <23955665-8bd8-4872-a1a5-e3a3711c9512@suse.com>
-Date: Wed, 17 Jan 2024 14:42:29 +0100
+        bh=2aemawLA3iCvzglpFZnEamU6EC3TRHK9yCISUSoUoBo=;
+        b=P/GyHAIdz3de+HJUVaug3+EqdKHQ0zauwcn/89aQgrqhrKKX+rCkQMKZuX24MTCiPd
+         /8t9Nf5UIYE1Bt8B1/slUl2+YaLHrhlEvzVEsIj3c4dd2LvjNoFa0mW9P+0MDygwrghE
+         gujQqHW98cqCIMfwtRKgny0r5sgu/V7CkR53BNy62z8ZTa2T/1trVzcFdB9zLYP2V6Ux
+         35Vu5+zDbt3VxnwqfgkXCI5gsaaw/H/DWw+njzDM9MXtcEnJezf59Vjafzv5hVPNlShU
+         TuoQlKDqpxA3K58bxEywaAxfmZ0MfmTTOrTTEnYuStd8HSPqli+b7DOIvSirpXw8H4r/
+         9tmw==
+X-Gm-Message-State: AOJu0YwcoDtQ7yZJRSf+c3kf2wcbl1QkVbaUmQuZ93HPQDoSr1E3J+M5
+	qclX2/GsXf87cgDAbu1NReGn1qPHoAVgqQ==
+X-Google-Smtp-Source: AGHT+IFQsdMNxqv3jAZi0ECngE1NbS+4/X3M89Vy7vPOFe9a5K4RL25qVpXkQ7VmFexo308Z+nk/5A==
+X-Received: by 2002:a2e:9094:0:b0:2cd:360:136b with SMTP id l20-20020a2e9094000000b002cd0360136bmr3983189ljg.91.1705500264279;
+        Wed, 17 Jan 2024 06:04:24 -0800 (PST)
+Message-ID: <6cc50e9d-ac06-4f1d-9d8b-dc233e0e658c@citrix.com>
+Date: Wed, 17 Jan 2024 14:04:21 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 10/34] xen/riscv: introduce bitops.h
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <841d59c3950970f4937da200cf8f04aa39132e14.1703255175.git.oleksii.kurochko@gmail.com>
- <23f1212a-66a8-47b0-904b-08b2ab54c72b@suse.com>
- <17d9fe474e244a15aa5955e630d553a62b0080fd.camel@gmail.com>
- <88df7ccd-8d14-4b00-900d-04cc87d9f230@suse.com>
- <863b09f03d37e96d737ab6bda4cc8923f75550fd.camel@gmail.com>
- <2e10b170-5a75-4ae0-8d2f-c6c1ad9951a5@suse.com>
- <1b20fefd125598e2bb62d516495783650da75271.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1b20fefd125598e2bb62d516495783650da75271.camel@gmail.com>
+Subject: Re: [PATCH] x86/MTRR: avoid several indirect calls
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <f5c8e38c-66cb-4f21-b66b-056061e37383@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <f5c8e38c-66cb-4f21-b66b-056061e37383@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17.01.2024 12:37, Oleksii wrote:
->>>>
->>>>>> Also you want to make sure asm-generic/bitops/bitops-bits.h
->>>>>> is
->>>>>> really in use here, or else an arch overriding / not using
->>>>>> that
->>>>>> header may end up screwed.
->>>>> I am not really understand what do you mean. Could you please
->>>>> explain a
->>>>> little bit more.
->>>>
->>>> Whichever type you use here, it needs to be in sync with
->>>> BITOP_BITS_PER_WORD. Hence you want to include the _local_
->>>> bitops-
->>>> bits.h
->>>> here, such that in case of an inconsistent override by an arch
->>>> the
->>>> compiler would complain about the two differring #define-s. (IOW
->>>> an
->>>> arch overriding BITOP_BITS_PER_WORD cannot re-use this header as-
->>>> is.)
->>>>
->>>> The same may, btw, be true for others of the new headers you add
->>>> -
->>>> the
->>>> same #include would therefore be needed there as well.
->>> Now it clear to me.
->>>
->>>
->>> It seems like BITOP_BITS_PER_WORD, BITOP_MASK, BITOP_WORD, and
->>> BITS_PER_BYTE are defined in {arm, ppc,
->>> riscv}/include/asm/bitops.h.
->>> I expected that any architecture planning to use asm-
->>> generic/bitops/bitops-bits.h would include it at the beginning of
->>> <arch>/include/asm/bitops.h, similar to what is done for RISC-V:
->>>    #ifndef _ASM_RISCV_BITOPS_H
->>>    #define _ASM_RISCV_BITOPS_H
->>>    
->>>    #include <asm/system.h>
->>>    
->>>    #include <asm-generic/bitops/bitops-bits.h>
->>>    ...
->>>
->>> But in this case, to allow architecture overrides macros, it is
->>> necessary to update asm-generic/bitops/bitops-bits.h:
->>>     #ifndef BITOP_BITS_PER_WORD
->>>     #define BITOP_BITS_PER_WORD     32
->>>     #endif
->>>    ...
->>> Therefore,  if an architecture needs to override something, it will
->>> add
->>> #define ... before #include <asm-generic/bitops/bitops-bits.h>.
->>>
->>> Does it make sense?
->>
->> Sure. But then the arch also needs to provide a corresponding typedef
->> (and bitops-bits.h the fallback one), for use wherever you use any of
->> those #define-s.
-> Which one typedef is needed to provide?
-> <asm-generic/bitops/bitops-bits.h> contains only macros.
+On 17/01/2024 9:32 am, Jan Beulich wrote:
+> The use of (supposedly) vendor-specific hooks is a relic from the days
+> when Xen was still possible to build as 32-bit binary. There's no
+> expectation that a new need for such an abstraction would arise. Convert
+> mttr_if to a mere boolean and all prior calls through it to direct ones,
+> thus allowing to eliminate 6 ENDBR from .text.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-A new one, to replace where right now you use "unsigned int" and I
-initially said you need to use "uint32_t" instead. With what you said
-earlier, uint32_t won't work there (anymore).
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Jan
+> ---
+> Strictly speaking mtrr_if could go apparently away as well, for
+> effectively mirroring cpu_has_mtrr now (once mtrr_bp_init() has run).
+> Replacing the variable uses would be further code churn, though.
+
+There's loads more cleanup I'd like to do, but that doesn't invalidate
+this as an improvement.
+
+Bloat-o-meter reports:
+
+    add/remove: 7/8 grow/shrink: 1/14 up/down: 1354/-1803 (-449)
+
+for this change, which definitely welcome.  That said ...
+
+> --- a/xen/arch/x86/cpu/mtrr/generic.c
+> +++ b/xen/arch/x86/cpu/mtrr/generic.c
+> @@ -586,21 +586,9 @@ int cf_check generic_validate_add_page(
+>  }
+>  
+>  
+> -static int cf_check generic_have_wrcomb(void)
+> +bool mtrr_have_wrcomb(void)
+>  {
+>  	unsigned long config;
+>  	rdmsrl(MSR_MTRRcap, config);
+>  	return (config & (1ULL << 10));
+>  }
+
+... I do have half a mind to fix this as a followon.  We really don't
+want to be re-reading the caps MSR for every call to mtrr_add_page().
+
+~Andrew
 
