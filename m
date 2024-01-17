@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31FD18303C3
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 11:41:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668366.1040506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4278E8303CB
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 11:43:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668372.1040526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ3LP-0004bZ-5s; Wed, 17 Jan 2024 10:40:27 +0000
+	id 1rQ3Ns-0006LI-Oe; Wed, 17 Jan 2024 10:43:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668366.1040506; Wed, 17 Jan 2024 10:40:27 +0000
+Received: by outflank-mailman (output) from mailman id 668372.1040526; Wed, 17 Jan 2024 10:43:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ3LP-0004ZF-2m; Wed, 17 Jan 2024 10:40:27 +0000
-Received: by outflank-mailman (input) for mailman id 668366;
- Wed, 17 Jan 2024 10:40:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rQ3Ns-0006Jj-M0; Wed, 17 Jan 2024 10:43:00 +0000
+Received: by outflank-mailman (input) for mailman id 668372;
+ Wed, 17 Jan 2024 10:42:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yGoF=I3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rQ3LO-0004Z9-3t
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 10:40:26 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2472f89-b524-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 11:40:24 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2cddf596321so18518471fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 02:40:24 -0800 (PST)
+ id 1rQ3Nr-0006Jc-3g
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 10:42:59 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2d045206-b525-11ee-9b0f-b553b5be7939;
+ Wed, 17 Jan 2024 11:42:56 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2ccae380df2so119866491fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 02:42:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- q11-20020a02c8cb000000b0046e50cca693sm343973jao.4.2024.01.17.02.40.22
+ z15-20020a6bc90f000000b007bf05f618f3sm3548526iof.55.2024.01.17.02.42.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jan 2024 02:40:23 -0800 (PST)
+ Wed, 17 Jan 2024 02:42:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2472f89-b524-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 2d045206-b525-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705488024; x=1706092824; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705488176; x=1706092976; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=MF6y/tF24JXdoAFBG+DBL49jGWEbFq6auPY3ZL2jjec=;
-        b=CTbAPuOuNHuDpyIxGCudaRhHbZWOShmlDv4IAjnmmQALmk1MAXIntoyvIh5Je5jtVK
-         kDeDg6I+5B7/2POuJ+lTS+j+5Cc3uG2HzaqjOW6BpTUAhs/P0aZUdE6oFzhM0xljAat6
-         6a0cyrSuzewgFvNfmV5QhT5QSenqRq4vMOvDgni9vOL7ETDRVNix4U84MsKS+kM8Tife
-         C2BGPyrjRSMpZ7hnH43HZ+k2Je1koVPOQzPyVRGKkg5eUlTtJr5qg5aUR0ZIeerxlPaf
-         n5poll480hOJ+7QRVy2UHdE8T+Z8Itdv/HsMpVsCOAeORyJLc8MeAEZOgAohnQ1eHlqh
-         xFRw==
+        bh=5ZTquu/nci3a9YyU16W8yowwYX69uyLpF8pBSNkNIKQ=;
+        b=gaGc1ALyYm82NSfzIRvewnXl+jecxIr4miJSfxKb7Y47jrvnAjdodbEeqAaeavyhkF
+         vneIAyS4LAd8H4zrxz/yRpvjv/U3XQ5uQODydNzHn6uITyAzATcbUpk/ZgJAjXpwXyiX
+         XQF87FaSQ8QUwQlMHVNtUaPmJz67vlSNNzv8uxWQBfwkppAMrq7QLtSNNmMG+LQm/h3H
+         IFGMfdvZVlBemscKjQhbxDBfZxvoL4myM6twLHxHE7szMLIDv+Bok7UYRr1fXIYHs7N7
+         uCNPEOO0WbADkDQfTCB9lK07Gx1Fl91+c92KBYK7WGgRQeysvRMioghcY7VLRCe93HyK
+         /k3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705488024; x=1706092824;
+        d=1e100.net; s=20230601; t=1705488176; x=1706092976;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MF6y/tF24JXdoAFBG+DBL49jGWEbFq6auPY3ZL2jjec=;
-        b=lthp87ZCFzbfxDAnNSD3dD/sIiJ7zzjHF7/iAdgel4AkjjHehWKpXIRxuVFSEHBQUD
-         Oeoh/HecCs3tfR3iWVOxHI0urdtBrIrxnr0p2PdrXKP/VxvwwNbZOZ2XUgnNSixqhpE4
-         mPEHntyWH3pFXeDA7CvyWPh4jFdxhwTNMA2sX9ZAtpeN8uH53+JKHnrS4GYbvvGsrDDK
-         ahHP4vUkuZLNdadNfyLCqmyXthVhHuFpItYIJpEIFNDj9efCLK6qc9YwfgbfDgu5lh9E
-         ppSw5ceCAsMWC3M5e83Mn76JalDWqAiDArvTQputtpj/yqWzSagw9tmdrVQYZYPqm1/Q
-         M5Gg==
-X-Gm-Message-State: AOJu0YxCJGbTYJrxwx8+L5QEdobIndmY4BE0ojxnhJbPHHcOQKsOp1HA
-	AbIXwg1loUkEn1fODtWMN+JFAxyi4FEw
-X-Google-Smtp-Source: AGHT+IFVENkTUqECNbBT/owJlNvyMbUq1QTIvSdtZ2JYlFvyxaVzPWNMYYx6Lfaldyy2g02mUVQf+g==
-X-Received: by 2002:a05:651c:150c:b0:2cd:a873:473d with SMTP id e12-20020a05651c150c00b002cda873473dmr4867289ljf.0.1705488024063;
-        Wed, 17 Jan 2024 02:40:24 -0800 (PST)
-Message-ID: <15dcef46-aaa8-4f71-bd5c-355001dd9188@suse.com>
-Date: Wed, 17 Jan 2024 11:40:20 +0100
+        bh=5ZTquu/nci3a9YyU16W8yowwYX69uyLpF8pBSNkNIKQ=;
+        b=OKo08M9ChglHTUDnjDNmrEqPWVmhHpdI58oy06gWUC1CyA89tVwsGLLiowvxZ2XbGQ
+         4urqGBF5ImpiG9fhDO4iwiH4G52mghXe7or/tmY3Ln4A23wFb83lF336fs284bSHpDaV
+         q/kpU+9jI5NAkG6nI4rNj5i59jY/CSfNxPQn59RmkPlRd/TgmzMcAgaOR7B9SRKB/3Iz
+         JYJ0bvefDj9hs43AqdGGjWAQJz+3JUtXc8brhbUz97GxVA+iUSZfZ1vXaRpsI4bEAsI0
+         yJXhEQVGxiBiqzHOf7GJsOAxOem7Dp36qYAgbEOYUdi5n96itBaoE/+GG7uaXo/4vMrJ
+         dMMQ==
+X-Gm-Message-State: AOJu0YyHAjxwvYQjO7KyRe/kGpM1whp6OkPpaYPV0zI/0DprkO/1/uxY
+	I5rufMxsTW98F4C/VLLwFX6x9hw9MWux
+X-Google-Smtp-Source: AGHT+IFBe11GNB/3WvfBRwJJyzPYHi1LUYnAeePno6uS8Us8ZIzYyUx0d4anjI1D4OvDnL+3BaaGNQ==
+X-Received: by 2002:a2e:7e0a:0:b0:2cd:65f9:575e with SMTP id z10-20020a2e7e0a000000b002cd65f9575emr3637502ljc.107.1705488176530;
+        Wed, 17 Jan 2024 02:42:56 -0800 (PST)
+Message-ID: <de31c22f-6cb8-40dd-bb00-1e523fc3e9be@suse.com>
+Date: Wed, 17 Jan 2024 11:42:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: E820 memory allocation issue on Threadripper platforms
+Subject: Re: [PATCH] x86/PVH: Dom0 "broken ELF" reporting adjustments
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Patrick Plenefisch <simonpatp@gmail.com>, xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
- <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
- <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
- <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
- <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
- <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
- <fa23a590-5869-4e11-8998-1d03742c5919@suse.com> <ZaeoWBV8IEZap2mr@macbook>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+References: <fda7586f-a1d1-4500-a6c4-d0e010223ee2@suse.com>
+ <ZaerAAt1EnFAZpo3@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,59 +110,34 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZaeoWBV8IEZap2mr@macbook>
+In-Reply-To: <ZaerAAt1EnFAZpo3@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17.01.2024 11:13, Roger Pau Monné wrote:
-> On Wed, Jan 17, 2024 at 09:46:27AM +0100, Jan Beulich wrote:
->> Whereas I assume the native kernel can deal with that as long as
->> it's built with CONFIG_RELOCATABLE=y. I don't think we want to
->> get into the business of interpreting the kernel's internal
->> representation of the relocations needed, so it's not really
->> clear to me what we might do in such a case. Perhaps the only way
->> is to signal to the kernel that it needs to apply relocations
->> itself (which in turn would require the kernel to signal to us
->> that it's capable of doing so). Cc-ing Roger in case he has any
->> neat idea.
+On 17.01.2024 11:25, Roger Pau Monné wrote:
+> On Wed, Jan 17, 2024 at 09:53:26AM +0100, Jan Beulich wrote:
+>> elf_load_binary() isn't the primary source of brokenness being
+>> indicated. Therefore make the respective log message there conditional
+>> (much like PV has it), and add another instance when elf_xen_parse()
+>> failed (again matching behavior in the PV case).
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/arch/x86/hvm/dom0_build.c
+>> +++ b/xen/arch/x86/hvm/dom0_build.c
+>> @@ -570,6 +570,8 @@ static int __init pvh_load_kernel(struct
+>>      if ( (rc = elf_xen_parse(&elf, &parms, true)) != 0 )
+>>      {
+>>          printk("Unable to parse kernel for ELFNOTES\n");
+>> +        if ( elf_check_broken(&elf) )
+>> +            printk("Xen dom0 kernel broken ELF: %s\n", elf_check_broken(&elf));
 > 
-> Hm, no, not really.
-> 
-> We could do like multiboot2: the kernel provides us with some
-> placement data (min/max addresses, alignment), and Xen let's the
-> kernel deal with relocations itself.
+> I would rather use "%pd: kernel broken ELF: %s\n", in case this gets
+> used for loading more than dom0 in the dom0less case.  The 'Xen'
+> prefix is IMO useless here (I know it was here before).
 
-Requiring the kernel's entry point to take a sufficiently different
-flow then compared to how it's today, I expect.
-
-> Additionally we could support the kernel providing a section with the
-> relocations and apply them from Xen, but that's likely hm, complicated
-> at best, as I don't even know which kinds of relocations we would have
-> to support.
-
-If the kernel was properly linked to a PIE, there'd generally be only
-one kind of relocation (per arch) that ought to need dealing with -
-for x86-64 that's R_X86_64_RELATIVE iirc. Hence why (I suppose) they
-don't use ELF relocation structures (for being wastefully large), but
-rather a more compact custom representation. Even without building PIE
-(presumably in part not possible because of how per-CPU data needs
-dealing with), they get away with handling just very few relocs (and
-from looking at the reloc processing code I'm getting the impression
-they mistreat R_X86_64_32 as being the same as R_X86_64_32S, when it
-isn't; needing to get such quirks right is one more aspect of why I
-think we should leave relocation handling to the kernel).
-
-> I'm not sure how Linux deals with this in the bare metal case, are
-> relocations done after decompressing and before jumping into the entry
-> point?
-
-That's how it was last time I looked, yes.
+Can do. But if I do, I'd like to bring PV in sync with this as well,
+right in the same patch. I hope you don't mind that.
 
 Jan
-
-> I would also need to check FreeBSD at least to have an idea of how
-> it's done there.
-> 
-> Thanks, Roger.
-
 
