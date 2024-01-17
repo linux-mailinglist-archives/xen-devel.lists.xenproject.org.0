@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6CED830170
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 09:45:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668271.1040317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F60F830179
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 09:46:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668277.1040326 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ1Xj-00055i-Js; Wed, 17 Jan 2024 08:45:03 +0000
+	id 1rQ1ZC-0005ga-W9; Wed, 17 Jan 2024 08:46:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668271.1040317; Wed, 17 Jan 2024 08:45:03 +0000
+Received: by outflank-mailman (output) from mailman id 668277.1040326; Wed, 17 Jan 2024 08:46:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ1Xj-00053E-Fo; Wed, 17 Jan 2024 08:45:03 +0000
-Received: by outflank-mailman (input) for mailman id 668271;
- Wed, 17 Jan 2024 08:45:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2QPC=I3=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rQ1Xh-000538-L1
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 08:45:01 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2062b.outbound.protection.outlook.com
- [2a01:111:f400:7e88::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b2b550e0-b514-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 09:44:59 +0100 (CET)
-Received: from BL1PR13CA0308.namprd13.prod.outlook.com (2603:10b6:208:2c1::13)
- by DS7PR12MB6117.namprd12.prod.outlook.com (2603:10b6:8:9b::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7181.26; Wed, 17 Jan 2024 08:44:56 +0000
-Received: from MN1PEPF0000F0E1.namprd04.prod.outlook.com
- (2603:10b6:208:2c1:cafe::5d) by BL1PR13CA0308.outlook.office365.com
- (2603:10b6:208:2c1::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.17 via Frontend
- Transport; Wed, 17 Jan 2024 08:44:56 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- MN1PEPF0000F0E1.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Wed, 17 Jan 2024 08:44:55 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 17 Jan
- 2024 02:44:54 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 17 Jan
- 2024 02:44:54 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Wed, 17 Jan 2024 02:44:53 -0600
+	id 1rQ1ZC-0005eB-TU; Wed, 17 Jan 2024 08:46:34 +0000
+Received: by outflank-mailman (input) for mailman id 668277;
+ Wed, 17 Jan 2024 08:46:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yGoF=I3=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rQ1ZB-0005e5-Ji
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 08:46:33 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e91baa5c-b514-11ee-9b0f-b553b5be7939;
+ Wed, 17 Jan 2024 09:46:31 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ccae380df2so118541211fa.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 00:46:31 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ t29-20020a02b19d000000b0046ea3aea39csm299376jah.100.2024.01.17.00.46.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 17 Jan 2024 00:46:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,188 +45,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2b550e0-b514-11ee-98f2-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AsA+Rn2UZ5mFgRfQ87eLyyIJC8j6VL7rJ3lnOwThJH6gIfTzoK3dVZZSoZ+73GyrREzrzAf69S8GL5Zik8gZs3JbJtfAJ+Bx0R3ghPJT4cEEuBlYhJC6+PkLkKWsC5CYh/u+aUwmFkVwG7Zx6+Y/gMkMUI7QMAKVILM0cj2ifWuUqqFh7bScQ0rMIRQVdxG26OuTK+bTuBNJpCHIEL+P39Dgxt0vnu+IvA5LclFQW2Ym3GmOiaXmmhDGX8f9tabyH/rMUWzvf22cLeiVW0e/FXftzMXvKNCQ7J3lP0ABNKgmduOuZqeJfLC7N2tLfgKkvFNaahGwNu7uMycswyxUvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EUbtqdvo3GpJwXmE7D5yDqsLhv3XYv2VeIIcbIDtvHE=;
- b=XvR/KYYVEgEVHNth1WqXtromoVtDY2XIaQUydfrg0dj+pci14fcFce+aQLcBwhuFoXPVouoN5fEkH9lL+/QeS2qoYBJIp13JAxE+h/2OlYiaIStABSclp10EuHilFd83zrnbuRiNNTGkx3tZ+nU78uKtde1Bm3JxMGzEhzgwjVU++ht1M9Dz7MCjqX0w0ewSgJw6M2lTJAHeBW82q71bqtMgzU2PG3BaZ3O9NuZtXnOU0ru5mTYdpr9bHLnEHNgi0XlmF0ycAstKaLNbolRkSv2ZXnAe4jF6Wo+L7LkNMZaESWdcvxZ54prJ0mrLNb/HXd+XtugpZphOtINssjOFIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EUbtqdvo3GpJwXmE7D5yDqsLhv3XYv2VeIIcbIDtvHE=;
- b=S/Di6sRSxljcjtHbckKKR+dV16ReW0Fengcmn3PlXfHscNu+ZA/Wzis3shIa1IGYIVR6YScU9JFLpejccf1jn93rKEGvuN+ux7PJPcwtB+QUxiTbuHwnUR9joGny0L0N5E8GL/GlgpxXaMV3FIHNhIFWUEqjLVXZee92wIzmer8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <c603bf7d-e38c-4ee9-87a6-cd3c75c59fad@amd.com>
-Date: Wed, 17 Jan 2024 09:44:52 +0100
+X-Inumbo-ID: e91baa5c-b514-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1705481190; x=1706085990; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4Np57fW2Bhi2x3xAxytZojcxeDVk9duFP9A0OVsVwUM=;
+        b=Z2NMOy2w8m8ik0zTW7GbuJ0AAzANd/uBtm2RnePjyMuBYd6bDFYtVW7EejE7msnFRj
+         lI2F1rKCQmga27OpT9oB5IMWiT8jGyvgi8Jp3qM16vJglhj/uEExftYH39aqDXw37BtL
+         JqEEgOL8RXxrm/Nx8jn5ke4p1GPtWbZEZTNGQSEwgxYalobdPdxGniIhy9iz/fKwkQ4T
+         1zUXJUBboQLVPvx4zYVHOqSs+1GU3A8UW4C5unUJmNNIex183c11WqXgNZOTkWRuIdhp
+         snKTlmjhLiwzzu5kIFV9Z7wlurb2nFdutp2zawbPcE7WQ5ZlKKCz/9i3PkuCBjc7Akca
+         DUdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705481190; x=1706085990;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=4Np57fW2Bhi2x3xAxytZojcxeDVk9duFP9A0OVsVwUM=;
+        b=RkAbAG+97bBaekhHN407n5BTsPRrbSdLgLAcC8Q8/fiQc1s/qQW3ftLPpiRRsWZmFP
+         KsknvqrBOZP0YZCJBMX/a2QHOoRCwX4IlGTCOUJ6mDdLjgDfceIMOkSXYHwpC7hQA6Vv
+         6BQZOseUiKEHX0OY08n6Vo3KnEjS3UdKF1nbv59OihLAX0oatiN88H0NZzrXVRV24RcA
+         7CZ+9Y22kVIrN9Xg+Cy892ZvTNNKH2262mxNfgXvemPQIK29sMx5N2/Fg2f/ZLTXvpKW
+         YMhp5dpjUohUQ8GBTL+oEVZheRot3d3QQcrfhzXBtYBpgx9EVOgJdajlo45/uKP4UM7Y
+         2Xcg==
+X-Gm-Message-State: AOJu0Yykmrme98mXuqaW8W0+v6kOp8D/mZqkzEvRbJ5OjF6fH/k9YsdX
+	uAu3a2grCg2ZhEexTmyV2dpszqpac5Hp
+X-Google-Smtp-Source: AGHT+IHpQMN83NTfg4ZuKM4YwxWRQa+ir+bQUSg+LiW6bzlDDYWofBueWJpni+zehcIic2TEXY40rA==
+X-Received: by 2002:a2e:150f:0:b0:2cb:5b8a:7013 with SMTP id s15-20020a2e150f000000b002cb5b8a7013mr3748879ljd.75.1705481190566;
+        Wed, 17 Jan 2024 00:46:30 -0800 (PST)
+Message-ID: <fa23a590-5869-4e11-8998-1d03742c5919@suse.com>
+Date: Wed, 17 Jan 2024 09:46:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 repost 2/4] arm/smpboot: Move smp_up_cpu to a new
- section .data.idmap
+Subject: Re: E820 memory allocation issue on Threadripper platforms
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: <carlo.nonato@minervasys.tech>, Julien Grall <jgrall@amazon.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20240116143709.86584-1-julien@xen.org>
- <20240116143709.86584-3-julien@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20240116143709.86584-3-julien@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E1:EE_|DS7PR12MB6117:EE_
-X-MS-Office365-Filtering-Correlation-Id: 782958d3-d923-40a8-326e-08dc17389429
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Y44yAPvY45IqhMHYU9bgVQHYlNb/RWXRHFusSwcQ0rBP0xbjwI6ZX4+MpW8eFB0LhjNLtptJ1Dr74YJCPaB1ouKNtNlWD5IcTpaeWsauEuvuq2CPgA9Fo+n6JII4SFaMv4MZgU3+yeHeHUttApsaLjKSACuHKNAjLY6leex3i/WUXIqv0fLvc2WFhkXlXQleVJz5cvW0upamNPM9N3h3LgeFVoOt+GN2ty5Ggg4HsjfuAk1ulWwtW6dg3vaEFvol85az8FTxuc/mQChoZJz/f49oF70Npbs/WnS5j2nEn8OcwHMHihIQ2WOtZq8zR9bUK4QUlw1orTm5Una9TZx+JZPfQ9Pg0pdHTJ0SqdmVgZKomsskBKKI0uX2DfDJE9LxoOOoxDNuDuNRpirjz5fJCbQ1dlLEYJ+HVZMfHj1LZ+ivrK1wAkvcdL14dEUzYNcwioJ3QFAvqi+IunXByqzYBstTQFNgHXkCd0foFkiJIH7hfKwZzBZbkXjQXNrnJaFvjDmk2Z8r11Rznl7n/aE3fjAH6fVo457LEq7e33wxv2mWdEKL4jbsj/S/X1TUYctbVTnHiR8p7HuYNIg6CzBhuR1HPy0P2Nn97IM/maL9/h3mR+q3YaLU2nz4p+zY6OIylzU3Gd5MxeXzEKSasxv1/6C2Goeb9boihpbdMenomwWu5YwJtK0vyNGXTrZNagsIhcPQa6+BBpeAkRb6fh1wsFtOslXfpwqmAk9MgJP7BtPrnzdBEIQ85eqoo4M1QIdwXg0kRm0BOETGNSQLiD0/LbotmwTkZVs0paulsihiP/OIjIojL0T/jdCxnsjTeVuo8ir9C/8h42MkofdX/GertA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(346002)(376002)(136003)(39860400002)(396003)(230922051799003)(186009)(64100799003)(451199024)(82310400011)(1800799012)(36840700001)(40470700004)(46966006)(31686004)(40460700003)(40480700001)(83380400001)(47076005)(31696002)(86362001)(2616005)(36756003)(82740400003)(356005)(81166007)(36860700001)(8676002)(5660300002)(4326008)(70206006)(8936002)(336012)(426003)(26005)(53546011)(54906003)(44832011)(70586007)(316002)(110136005)(2906002)(41300700001)(478600001)(16576012)(142923001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2024 08:44:55.0790
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 782958d3-d923-40a8-326e-08dc17389429
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E1.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6117
+To: Patrick Plenefisch <simonpatp@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
+ <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
+ <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
+ <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
+ <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
+ <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Julien,
+On 17.01.2024 07:12, Patrick Plenefisch wrote:
+> On Tue, Jan 16, 2024 at 4:33 AM Jan Beulich <jbeulich@suse.com> wrote:
+> 
+>> On 16.01.2024 01:22, Patrick Plenefisch wrote:
+>>> I managed to set up serial access and saved the output with the requested
+>>> flags as the attached logs
+>>
+>> Thanks. While you didn't ...
+>>
+>>
+>> ... fiddle with the Linux message,  ...
+>>
+> 
+> I last built the kernel over a decade ago, and so was hoping to not have to
+> look up how to do that again, but I can research how to go about that again
+> if it would help?
+> 
+> 
+>>
+>> ... as per
+>>
+>> (XEN)  Dom0 kernel: 64-bit, PAE, lsb, paddr 0x1000000 -> 0x4a00000
+>>
+>> there's an overlap with not exactly a hole, but with an
+>> EfiACPIMemoryNVS region:
+>>
+>> (XEN)  0000000100000-0000003159fff type=2 attr=000000000000000f
+>> (XEN)  000000315a000-0000003ffffff type=7 attr=000000000000000f
+>> (XEN)  0000004000000-0000004045fff type=10 attr=000000000000000f
+>> (XEN)  0000004046000-0000009afefff type=7 attr=000000000000000f
+>>
+>> (the 3rd of the 4 lines). Considering there's another region higher
+>> up:
+>>
+>> (XEN)  00000a747f000-00000a947efff type=10 attr=000000000000000f
+>>
+>> I'm inclined to say it is poor firmware (or, far less likely, boot
+>> loader) behavior to clobber a rather low and entirely arbitrary RAM
+>>
+> 
+> Bootloader is Grub 2.06 EFI platform as packaged by Debian 12
+> 
+> 
+> 
+>> range, rather than consolidating all such regions near the top of
+>> RAM below 4Gb. There are further such odd regions, btw:
+>>
+>> (XEN)  0000009aff000-0000009ffffff type=0 attr=000000000000000f
+>> ...
+>> (XEN)  000000b000000-000000b020fff type=0 attr=000000000000000f
+>>
+>> If the kernel image was sufficiently much larger, these could become
+>> a problem as well. Otoh if the kernel wasn't built with
+>> CONFIG_PHYSICAL_START=0x1000000, i.e. to start at 16Mb, but at, say,
+>> 2Mb, things should apparently work even with this unusual memory
+>> layout (until the kernel would grow enough to again run into that
+>> very region).
+> 
+> I'm currently talking to the vendor's support team and testing a beta BIOS
+> for unrelated reasons, is there something specific I should forward to
+> them, either as a question or as a request for a fix?
 
-On 16/01/2024 15:37, Julien Grall wrote:
-> 
-> 
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> With the upcoming work to color Xen, the binary will not be anymore
-> physically contiguous. This will be a problem during boot as the
-> assembly code will need to work out where each piece of Xen reside.
-> 
-> An easy way to solve the issue is to have all code/data accessed
-> by the secondary CPUs while the MMU is off within a single page.
-> 
-> Right now, smp_up_cpu is used by secondary CPUs to wait there turn for
-s/there/their ?
+Well, first it would need figuring whether the "interesting" regions
+are being put in place by firmware of the boot loader. If it's firmware
+(pretty likely at least for the region you're having trouble with), you
+may want to ask them to re-do where they place that specific data.
 
-> booting before the MMU is on. Yet it is currently in .data which is
-> unlikely to be within the same page as the rest of the idmap.
-> 
-> Move smp_up_cpu to the recently create section .data.idmap. The idmap is
-s/create/created
+> As someone who hasn't built a kernel in over a decade, should I figure out
+> how to do a kernel build with CONFIG_PHYSICAL_START=0x2000000 and report
+> back?
 
-> currently part of the text section and therefore will be mapped read-onl
-s/onl/only
+That was largely a suggestion to perhaps allow you to gain some
+workable setup. It would be of interest to us largely for completeness.
 
-> executable. This means that we need to temporarily remap
-> smp_up_cpu in order to update it.
+>> It remains to be seen in how far it is reasonably possible to work
+>> around this in the kernel. While (sadly) still unsupported, in the
+>> meantime you may want to consider running Dom0 in PVH mode.
+>>
 > 
-> Introduce a new function set_smp_up_cpu() for this purpose so the code
-> is not duplicated between when opening and closing the gate.
+> I tried this by adding dom0=pvh, and instead got this boot error:
 > 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> (XEN) xenoprof: Initialization failed. AMD processor family 25 is not
+> supported
+> (XEN) NX (Execute Disable) protection active
+> (XEN) Dom0 has maximum 1400 PIRQs
+> (XEN) *** Building a PVH Dom0 ***
+> (XEN) Failed to load kernel: -1
+> (XEN) Xen dom0 kernel broken ELF: <NULL>
+> (XEN) Failed to load Dom0 kernel
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 0:
+> (XEN) Could not construct domain 0
+> (XEN) ****************************************
+> (XEN)
+> (XEN) Reboot in five seconds...
 
-> ---
->  xen/arch/arm/smpboot.c | 36 +++++++++++++++++++++++++++++++-----
->  1 file changed, 31 insertions(+), 5 deletions(-)
-> 
-> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
-> index 7110bc11fc05..8d508a1bb258 100644
-> --- a/xen/arch/arm/smpboot.c
-> +++ b/xen/arch/arm/smpboot.c
-> @@ -29,6 +29,10 @@
->  #include <asm/psci.h>
->  #include <asm/acpi.h>
-> 
-> +/* Override macros from asm/page.h to make them work with mfn_t */
-> +#undef virt_to_mfn
-> +#define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
-> +
->  cpumask_t cpu_online_map;
->  cpumask_t cpu_present_map;
->  cpumask_t cpu_possible_map;
-> @@ -56,7 +60,7 @@ struct init_info init_data =
->  };
-> 
->  /* Shared state for coordinating CPU bringup */
-> -unsigned long smp_up_cpu = MPIDR_INVALID;
-> +unsigned long __section(".data.idmap") smp_up_cpu = MPIDR_INVALID;
->  /* Shared state for coordinating CPU teardown */
->  static bool cpu_is_dead;
-> 
-> @@ -429,6 +433,28 @@ void stop_cpu(void)
->          wfi();
->  }
-> 
-> +static void set_smp_up_cpu(unsigned long mpidr)
-> +{
-> +    /*
-> +     * smp_up_cpu is part of the identity mapping which is read-only. So
-> +     * We need to re-map the region so it can be updated.
-> +     */
-> +    void *ptr = map_domain_page(virt_to_mfn(&smp_up_cpu));
-> +
-> +    ptr += PAGE_OFFSET(&smp_up_cpu);
-> +
-> +    *(unsigned long *)ptr = mpidr;
-> +
-> +    /*
-> +     * init_ttbr will be accessed with the MMU off, so ensure the update
-smp_up_cpu instead of init_ttbr
+Hmm, that's sad. The more that the error messages aren't really
+informative. You did check though that your kernel is PVH-capable?
+(With a debug build of Xen, and with suitably high logging level,
+various of the ELF properties would be logged. Such output may or
+may not give further hints towards what's actually wrong. Albeit
+you using 4.17 this would further require you to pull in commit
+ea3dabfb80d7 ["x86/PVH: allow Dom0 ELF parsing to be verbose"].)
 
-> +     * is visible by cleaning the cache.
-> +     */
-> +    clean_dcache(ptr);
-> +
-> +    unmap_domain_page(ptr);
-> +
-> +}
-> +
->  int __init cpu_up_send_sgi(int cpu)
->  {
->      /* We don't know the GIC ID of the CPU until it has woken up, so just
-> @@ -460,8 +486,7 @@ int __cpu_up(unsigned int cpu)
->      init_data.cpuid = cpu;
-> 
->      /* Open the gate for this CPU */
-> -    smp_up_cpu = cpu_logical_map(cpu);
-> -    clean_dcache(smp_up_cpu);
-> +    set_smp_up_cpu(cpu_logical_map(cpu));
-> 
->      rc = arch_cpu_up(cpu);
-> 
-> @@ -497,8 +522,9 @@ int __cpu_up(unsigned int cpu)
->       */
->      init_data.stack = NULL;
->      init_data.cpuid = ~0;
-> -    smp_up_cpu = MPIDR_INVALID;
-> -    clean_dcache(smp_up_cpu);
-> +
-> +    set_smp_up_cpu(MPIDR_INVALID);
-> +
->      arch_cpu_up_finish();
-> 
->      if ( !cpu_online(cpu) )
-> --
-> 2.40.1
-> 
+But wait - aren't you running into the same collision there with
+that memory region? I think that explains the unhelpful output.
+Whereas I assume the native kernel can deal with that as long as
+it's built with CONFIG_RELOCATABLE=y. I don't think we want to
+get into the business of interpreting the kernel's internal
+representation of the relocations needed, so it's not really
+clear to me what we might do in such a case. Perhaps the only way
+is to signal to the kernel that it needs to apply relocations
+itself (which in turn would require the kernel to signal to us
+that it's capable of doing so). Cc-ing Roger in case he has any
+neat idea.
 
-~Michal
-
+Jan
 
