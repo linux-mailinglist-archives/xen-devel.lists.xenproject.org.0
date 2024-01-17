@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 742F4830BA4
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 18:04:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668538.1040797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F1EF830BBF
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 18:11:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668544.1040807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ9Jf-0000H2-FK; Wed, 17 Jan 2024 17:03:03 +0000
+	id 1rQ9Ro-0002es-CQ; Wed, 17 Jan 2024 17:11:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668538.1040797; Wed, 17 Jan 2024 17:03:03 +0000
+Received: by outflank-mailman (output) from mailman id 668544.1040807; Wed, 17 Jan 2024 17:11:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ9Jf-0000Ep-BH; Wed, 17 Jan 2024 17:03:03 +0000
-Received: by outflank-mailman (input) for mailman id 668538;
- Wed, 17 Jan 2024 17:03:02 +0000
+	id 1rQ9Ro-0002cW-8V; Wed, 17 Jan 2024 17:11:28 +0000
+Received: by outflank-mailman (input) for mailman id 668544;
+ Wed, 17 Jan 2024 17:11:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nKNn=I3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rQ9Je-0000Bp-4f
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 17:03:02 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ <SRS0=dRDO=I3=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1rQ9Rm-0002cL-RW
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 17:11:26 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44c11bc6-b55a-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 18:03:00 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40e8cc3b738so5779165e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 09:03:00 -0800 (PST)
-Received: from localhost ([213.195.127.68]) by smtp.gmail.com with ESMTPSA id
- i16-20020a5d55d0000000b00337c7423b95sm280136wrw.61.2024.01.17.09.02.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jan 2024 09:02:59 -0800 (PST)
+ id 71fd0e08-b55b-11ee-98f2-6d05b1d4d9a1;
+ Wed, 17 Jan 2024 18:11:25 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id
+ a640c23a62f3a-a2d7e2e7fe0so678332066b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 09:11:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,110 +40,252 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44c11bc6-b55a-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 71fd0e08-b55b-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705510979; x=1706115779; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=zvp026MHz3JkS6+UT/ZQDhxHa937cgigcAz8wghcck0=;
-        b=Lgb49DtKr9RKN8JmMfpT1CC9GOtXN6cpzjkjYqC0lsafKk5P9il9s+AcEKJtZGsQKE
-         1Sp8ApUz+uugi7DEuKZSXN/c/TEtyVz464Pp1WbKLYApT09G5DT2btI5woA75EA8nBPz
-         ACIwnYOw63cCb9gYrsrPqONS3Qg9gNx2nZQOI=
+        d=cloud.com; s=cloud; t=1705511485; x=1706116285; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=nq+2887gg+xtjC3MkkUi5eTxPb1C4M1HFnUIAVlcTyM=;
+        b=Wbw7hnEIVSob0LAtM889qHWn9bUi7Akrzt0tMsRY75dyvtdG+OxYL3pVcGBcjxXdZ6
+         vDWXB/KoG/kN79XzqOaLdhMxWB9t3xXythiEddzzZHx88cSIZk1pOlzOtzgjv+m8PRxT
+         fXs4jdsz2Vj3pc4Z70eBOGRlXN2mwewikSkuE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705510979; x=1706115779;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zvp026MHz3JkS6+UT/ZQDhxHa937cgigcAz8wghcck0=;
-        b=mdGde3i5XXEPAoaojf+0VeTfXexGpthRk1gf6YtzF0FGBvXl5Gg5L/1HCqOXL+ofbE
-         KKIQDk+myny101kViYVrtUwW13LqBMX9pa8XKz2JUtlW3piL8lZkhSFkg/9HRpg+Ug03
-         yF3djFTE8VRCgpIEEFryIr/PAiwfcLmsSWLSXzVosow8QooGlooYl0ONgw8phBhOQh64
-         iLZsSJYG+F+6QpTe1sDP3n+GzRfxgzj/b5sHeI/jw0ps+BSCiZ9KPgQn8MLduPU/2zFw
-         iWXKgp6kPScSVgmr0xs6GaqkZGuqhzZzPzdjp8cerSNW7j+N7Yoxta/NXmPHh4YG6E98
-         U0SQ==
-X-Gm-Message-State: AOJu0YxrEAK3yagdtG2ZoRsd7UJFfT4XZuS2bjFXBn/4W52vuSKUcMwu
-	pUkv53DF/+2/6pBgPnRPjZ5qeuqjRgWpbw==
-X-Google-Smtp-Source: AGHT+IGftehkKxIZ7xSzzAug4JJBDxAS3ii84iNehj++CNjxP/+3qQf7GcK16hPBCZRm/REfxNRfGg==
-X-Received: by 2002:a05:600c:45ca:b0:40e:44af:8b1e with SMTP id s10-20020a05600c45ca00b0040e44af8b1emr5168435wmo.160.1705510979588;
-        Wed, 17 Jan 2024 09:02:59 -0800 (PST)
-Date: Wed, 17 Jan 2024 18:02:58 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	George Dunlap <george.dunlap@citrix.com>
-Subject: Re: [PATCH v5 1/8] common: assembly entry point type/size annotations
-Message-ID: <ZagIQkyR0SoScaAc@macbook>
-References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
- <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
- <38de36da-0822-4452-9594-8d50a5a77335@suse.com>
+        d=1e100.net; s=20230601; t=1705511485; x=1706116285;
+        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=nq+2887gg+xtjC3MkkUi5eTxPb1C4M1HFnUIAVlcTyM=;
+        b=hnPUw4siWH7ZdCyOMzsMJY6V5fwGUq0JuVzEgiHZNv5PmzACJuB4a6Xw59vy0S9AES
+         kfuPZTCdJH3YUY4VcBBOiZ8MPTYf8mpww3Qzqcv5ImWrc6r1HfLYFlvtM8sNJ7sbryqk
+         zAC7ernezYDa0ypzBDRL9ycezZM5OVIuiEISN32UgyJKAyYQ4ctGq2m8S1Jmaz6YsoEf
+         83vj5SE4rZf6B9ydL+mD4VkO/N5bNfWES0EIVVzQE6GPw42bx4GNaPZOfJeaDwTzu6Zy
+         6LKoTNi9j8Q5Gbat6pcXtelHdgN7NsSapWktl2gUr/M9ke/7Qcu+BRn+R2PViBSqi2J0
+         06Fw==
+X-Gm-Message-State: AOJu0Yw2v5j9ekLv/PwZVjNyzzmYINb0/vGdYTpeRja6fsDL99r/eHKn
+	8MUlf4DzcALoldY4wAS10jHBspfv97KzSMNfGwKdiO8C0kVMEh4lnZyQf0xxcDI=
+X-Google-Smtp-Source: AGHT+IErvU+F/0uGwKGzc7WHIdPXsMHg69ALK7qH6o8L7zcSzgy5kkL7NRz8jPASdxibxenmZ9jp1LLlu+bejQtlVP0=
+X-Received: by 2002:a17:906:b389:b0:a2e:c311:c6fe with SMTP id
+ uh9-20020a170906b38900b00a2ec311c6femr998127ejc.10.1705511484640; Wed, 17 Jan
+ 2024 09:11:24 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <38de36da-0822-4452-9594-8d50a5a77335@suse.com>
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Wed, 17 Jan 2024 17:10:48 +0000
+Message-ID: <CAO-mL=yvVWjnOHSFSqcrknoXOqk-N3JY76qObQnzftrkmsq6xw@mail.gmail.com>
+Subject: Community Process Group - Proposal
+To: xen-devel@lists.xenproject.org, xen-announce@lists.xenproject.org
+Cc: committers@xenproject.org, advisory-board@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="00000000000033e5d0060f2756a8"
 
-On Mon, Jan 15, 2024 at 03:34:05PM +0100, Jan Beulich wrote:
-> Recent gas versions generate minimalistic Dwarf debug info for items
-> annotated as functions and having their sizes specified [1]. Furthermore
-> generating live patches wants items properly annotated. "Borrow" Arm's
-> END() and (remotely) derive other annotation infrastructure from
-> Linux'es, for all architectures to use.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+--00000000000033e5d0060f2756a8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Hi everyone,
 
-> 
-> [1] https://sourceware.org/git?p=binutils-gdb.git;a=commitdiff;h=591cc9fbbfd6d51131c0f1d4a92e7893edcc7a28
-> ---
-> v5: Drop CODE_ALIGN fallback. s/algn/align/g.
-> v3: New, generalized from earlier x86-only version. LAST() (now
->     LASTARG()) moved to macros.h.
-> ---
-> TBD: {CODE,DATA}_ALIGN are byte granular, such that a value of 0 can be
->      specified (in case this has some special meaning on an arch;
->      conceivably it could mean to use some kind of arch default). We may
->      not strictly need that, and hence we could also make these power-
->      of-2 values (using .p2align).
-> 
-> Note that we can't use ALIGN() (in place of SYM_ALIGN()) as long as we
-> still have ALIGN.
+I've spent a bit of time talking to various individuals and the advisory
+board about setting up a new Community Process Group.
 
-SYM_ALIGN seems fine for the purpose here.
+A survey was recently conducted to identify how the community as a whole
+feels about a certain situation. It was not intended to ban specific
+wording or create a policy to do so, but more to give context that the
+community has a wide range of ideas, and individuals may agree and disagree
+a lot more frequently than we as individuals might think. It helps us
+understand that as a community there are many situations where it is not
+clear. As such, the results indicated a very even split among the
+community, which indicates a larger problem as we may not always come to
+agreement.
 
-> 
-> Note further that FUNC()'s etc "align" parameter is intended to allow
-> for only no or a single argument. If we wanted to also make the fill
-> value customizable per call site, the constructs would need re-doing to
-> some degree.
-> 
-> --- /dev/null
-> +++ b/xen/include/xen/linkage.h
-> @@ -0,0 +1,54 @@
-> +#ifndef __LINKAGE_H__
-> +#define __LINKAGE_H__
-> +
-> +#ifdef __ASSEMBLY__
-> +
-> +#include <xen/macros.h>
-> +
-> +/* CODE_ALIGN needs to be specified by every architecture. */
-> +#ifndef CODE_FILL
-> +# define CODE_FILL ~0
-> +#endif
-> +
-> +#ifndef DATA_ALIGN
-> +# define DATA_ALIGN 0
-> +#endif
-> +#ifndef DATA_FILL
-> +# define DATA_FILL ~0
+There is obvious frustration with how certain matters are handled, as some
+members may want the project to move faster, whereas others like to take a
+cautious approach. Given we are an open source project, differences in
+opinion are likely to happen and what we don=E2=80=99t want to do is cause =
+further
+frustration.
 
-I find the fills a bit odd, compared to what we use now (nops for x86
-IIRC).
+*This is where I would like to propose the idea of a =E2=80=98Community Pro=
+cess
+Group=E2=80=99.*
 
-Thanks, Roger.
+A CPG can help as they will be able to advise members on similar issues
+regarding community processes or appeals and decide on the best way
+forward. To help with this process, I have consulted with various
+individuals including some committers and conduct team members.
+
+*What is a CPG=E2=80=99s purpose?*
+In the first instance, we would expect an informal vote resolves most
+disagreements. However, there will be certain circumstances where the
+outcome is not always agreed on.
+
+A CPG will be your second point of call, where you can escalate matters
+quickly for a democratic solution.
+
+Their purpose is to resolve process issues and informal vote appeals to
+avoid matters going to a formal vote, but also act as a representative on
+behalf of others in the community on future matters.
+
+For example:
+
+   - Naming conventions
+   - Whether feedback requesting changes on a patch series is acceptable
+   - How to move forward in case of non-actionable feedback to a patch
+   series
+   - How to move forward when a contributor or reviewer has not been
+   responsive
+   - Policy questions not related to the code of conduct
+
+*What is their role and responsibility?*
+
+The CPG has the authority to propose a resolution to situations where there
+are disagreements, that don=E2=80=99t involve large technical decisions. Th=
+eir
+decision proposed should be accepted as final since members will have
+discussed the best steps and come to a consensus vote.
+
+The CPG does not aim to replace the committers' authority or the advisory
+board but instead holds the authority to make decisions that are in the
+best interest of the community in relation to processes. Committers still
+hold the power should there be a formal escalation regarding technical
+decisions, but this would be extremely rare. Advisory Board members hold
+the final power regarding project and business-wide decisions.
+
+*How are members selected?*
+The CPG will be composed of 5 randomly selected members in total.
+An odd number has been purposely selected to avoid an impasse during
+decisions.
+
+The criteria:
+Individual members must be active contributors and are willing to help the
+community succeed. As such they must be a part of the following groups:
+
+   - Committers
+   - Active Maintainers: maintainers with >=3D 20 reviews in the last 2
+   releases
+   - Active Contributors: contributors with >=3D 10 commits in the last 2
+   releases
+
+Future rotations of CPG members:
+New members will be selected randomly for each new release to ensure
+fairness.
+
+*Expectations*
+CPG members are expected to use their best judgement of what is best for
+the community in terms of conflict resolution and process improvements.
+They can propose an outcome that progresses the project forward.
+The CPG is also expected to address wider concerns, feedback, and ideas
+during a monthly meeting with all community members.
+
+For example:
+
+   - If someone is displaying repeated concerning behaviour that disrupts
+   the community, members can ask the CPG for help on a solution. (This is
+   different from a code of conduct violation which would be for serious
+   offences only.)
+   - Help drive discussions on how much we deviate from technical
+   specifications
+
+*Next steps*
+Given this suggestion is a big change in what I hope is a positive
+direction, we will require your feedback and a final formal vote on the
+process, before it is implemented into the governance policies. The
+specific wording can be decided after this proposal.
+
+This will hopefully help us overcome some of the frustrations and issues we
+have seen in the community from a difference in opinion as a collective
+discussion will now be made. Should we need to, the process can be reviewed
+to improve at later stages.
+
+I welcome your feedback as a community on this proposal.
+
+Many thanks,
+Kelly Choi
+
+Community Manager
+Xen Project
+
+--00000000000033e5d0060f2756a8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi everyone,</div><div><br></div><div>I&#39;ve spent =
+a bit of time talking to various individuals and the advisory board about s=
+etting up a new Community Process Group.=C2=A0</div><div><br></div><div>A s=
+urvey was recently conducted to identify how the community as a whole feels=
+ about a certain situation. It was not intended to ban specific wording or =
+create a policy to do so, but more to give context that the community has a=
+ wide range of ideas, and individuals may agree and disagree a lot more fre=
+quently than we as individuals might think. It helps us understand that as =
+a community there are many situations where it is not clear. As such, the r=
+esults indicated a very even split among the community, which indicates a l=
+arger problem as we may not always come to agreement.<br><br>There is obvio=
+us frustration with how certain matters are handled, as some members may wa=
+nt the project to move faster, whereas others like to take a cautious appro=
+ach. Given we are an open source project, differences in opinion are likely=
+ to happen and what we don=E2=80=99t want to do is cause further frustratio=
+n.<br><br><b>This is where I would like to propose the idea of a =E2=80=98C=
+ommunity Process Group=E2=80=99.</b><br><br>A=C2=A0<span>CPG</span>=C2=A0ca=
+n help as they will be able to advise members on similar issues regarding c=
+ommunity processes or appeals and decide on the best way forward. To help w=
+ith this process, I have consulted with various individuals including some =
+committers and conduct team members.<br><b><br>What is a=C2=A0<span>CPG</sp=
+an>=E2=80=99s purpose?</b><br>In the first instance, we would expect an inf=
+ormal vote resolves most disagreements. However, there will be certain circ=
+umstances where the outcome is not always agreed on.<br><br>A=C2=A0<span>CP=
+G</span>=C2=A0will be your second point of call, where you can escalate mat=
+ters quickly for a democratic solution.<br><br>Their purpose is to resolve =
+process issues and informal vote appeals to avoid matters going to a formal=
+ vote, but also act as a representative on behalf of others in the communit=
+y on future matters. =C2=A0<br><br>For example:<br><ul><li style=3D"margin-=
+left:15px">Naming conventions</li><li style=3D"margin-left:15px">Whether fe=
+edback requesting changes on a patch series is acceptable</li><li style=3D"=
+margin-left:15px">How to move forward in case of non-actionable feedback to=
+ a patch series</li><li style=3D"margin-left:15px">How to move forward when=
+ a contributor or reviewer has not been responsive</li><li style=3D"margin-=
+left:15px">Policy questions not related to the code of conduct</li></ul><b>=
+What is their role and responsibility?</b><br><br>The=C2=A0<span>CPG</span>=
+=C2=A0has the authority to propose a resolution to situations where there a=
+re disagreements, that don=E2=80=99t involve large technical decisions. The=
+ir decision proposed should be accepted as final since members will have di=
+scussed the best steps and come to a consensus vote.<br><br>The=C2=A0<span>=
+CPG</span>=C2=A0does not aim to replace the committers&#39; authority or th=
+e advisory board but instead holds the authority to make decisions that are=
+ in the best interest of the community in relation to processes. Committers=
+ still hold the power should there be a formal escalation regarding technic=
+al decisions, but this would be extremely rare. Advisory Board members hold=
+ the final power regarding project and business-wide decisions.<br><br><b>H=
+ow are members selected?</b><br>The=C2=A0<span>CPG</span>=C2=A0will be comp=
+osed of 5 randomly selected members in total.<br>An odd number has been pur=
+posely selected to avoid an impasse during decisions.<br><br>The criteria:<=
+br>Individual members must be active contributors and are willing to help t=
+he community succeed. As such they must be a part of the following groups:<=
+br><ul><li style=3D"margin-left:15px">Committers</li><li style=3D"margin-le=
+ft:15px">Active Maintainers: maintainers with &gt;=3D 20 reviews in the las=
+t 2 releases</li><li style=3D"margin-left:15px">Active Contributors: contri=
+butors with &gt;=3D 10 commits in the last 2 releases</li></ul>Future rotat=
+ions of=C2=A0<span>CPG</span>=C2=A0members:<br>New members will be selected=
+ randomly for each new release to ensure fairness.<br><br><b>Expectations</=
+b><br><span>CPG</span>=C2=A0members are expected to use their best judgemen=
+t of what is best for the community in terms of conflict resolution and pro=
+cess improvements. They can propose an outcome that progresses the project =
+forward.<br>The=C2=A0<span>CPG</span>=C2=A0is also expected to address wide=
+r concerns, feedback, and ideas during a monthly meeting with all community=
+ members.<br><br>For example:<br><ul><li style=3D"margin-left:15px">If some=
+one is displaying repeated concerning behaviour that disrupts the community=
+, members can ask the=C2=A0<span>CPG</span>=C2=A0for help on a solution. (T=
+his is different from a code of conduct violation which would be for seriou=
+s offences only.)</li><li style=3D"margin-left:15px">Help drive discussions=
+ on how much we deviate from technical specifications</li></ul><b>Next step=
+s</b><br>Given this suggestion is a big change in what I hope is a positive=
+ direction, we will require your feedback and a final formal vote on the pr=
+ocess, before it is implemented into the governance policies. The specific =
+wording can be decided after this proposal.</div><div><br></div><div>This w=
+ill hopefully help us overcome some of the frustrations and issues we have =
+seen in the community from a difference in opinion as a collective discussi=
+on will now be made. Should we need to, the process can be reviewed to impr=
+ove at later stages.<br></div><div><br></div><div>I welcome your feedback a=
+s a community on this proposal.=C2=A0<br><br></div><div><div dir=3D"ltr" cl=
+ass=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"=
+><div>Many thanks,</div><div>Kelly Choi</div><div><br></div><div><div style=
+=3D"color:rgb(136,136,136)">Community Manager</div><div style=3D"color:rgb(=
+136,136,136)">Xen Project=C2=A0<br></div></div></div></div></div></div>
+
+--00000000000033e5d0060f2756a8--
 
