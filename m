@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3843830639
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 13:55:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668451.1040673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F50F830665
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 13:59:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668456.1040683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ5RT-0002uT-RA; Wed, 17 Jan 2024 12:54:51 +0000
+	id 1rQ5Vq-0004no-Be; Wed, 17 Jan 2024 12:59:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668451.1040673; Wed, 17 Jan 2024 12:54:51 +0000
+Received: by outflank-mailman (output) from mailman id 668456.1040683; Wed, 17 Jan 2024 12:59:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQ5RT-0002sK-OZ; Wed, 17 Jan 2024 12:54:51 +0000
-Received: by outflank-mailman (input) for mailman id 668451;
- Wed, 17 Jan 2024 12:54:51 +0000
+	id 1rQ5Vq-0004kc-8S; Wed, 17 Jan 2024 12:59:22 +0000
+Received: by outflank-mailman (input) for mailman id 668456;
+ Wed, 17 Jan 2024 12:59:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nKNn=I3=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rQ5RS-0002sE-WA
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 12:54:51 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ id 1rQ5Vp-0004kW-4p
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 12:59:21 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9943bc3e-b537-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 13:54:49 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-40e60e137aaso60826255e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 04:54:49 -0800 (PST)
+ id 3a9df651-b538-11ee-98f2-6d05b1d4d9a1;
+ Wed, 17 Jan 2024 13:59:20 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-40e8cc3b738so2898755e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 04:59:20 -0800 (PST)
 Received: from localhost ([213.195.127.68]) by smtp.gmail.com with ESMTPSA id
- jb13-20020a05600c54ed00b0040e418494absm21929628wmb.46.2024.01.17.04.54.48
+ e9-20020a05600c4e4900b0040e8c7b9411sm1179783wmq.19.2024.01.17.04.59.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jan 2024 04:54:48 -0800 (PST)
+ Wed, 17 Jan 2024 04:59:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,114 +44,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9943bc3e-b537-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 3a9df651-b538-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705496089; x=1706100889; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1705496360; x=1706101160; darn=lists.xenproject.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=dXCFiU0YaL1AnK8tUu+koqeYBAV6Ng2H3kVkXKaw4+U=;
-        b=lohJHMZkA/0exCnBbhTDmRZI9tsXzmjm4Gr2XSMBeoMmXLyuD/6/TPamxJL288xvsE
-         Qg1rn6LhrUxo8ZZitS6rDmu7Wy0tbizOiTgJaqEy21rCtJ6qBLlv050E9HibrghQP2kB
-         CJ1JbJYa7UgZbseIX7bBnahfwRftlKt67TTZU=
+        bh=PTX1eUiRR4nspm5GZvpKIOvCezwaO1Tg0E+Cg+Y2+2E=;
+        b=GjO5nVs5BqeQfkdR7sOReqWhzO54jpxwhQR2N+9eN3XaabKMq9Ur03Hh82GbGum1+v
+         S6XYTCnRqbFMr2WptWeUJqekQ4OhBkkn/hqfpALneZQierPCUqdauLBpJ78p5486qv/L
+         aNIjMZ8vAXIu+gF3//2uBWCw+v+3XMqWc70QI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705496089; x=1706100889;
+        d=1e100.net; s=20230601; t=1705496360; x=1706101160;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dXCFiU0YaL1AnK8tUu+koqeYBAV6Ng2H3kVkXKaw4+U=;
-        b=uCsoKEqK8AlfZa+oUkmEAnLv64nwmh/PEh3E0LKRpmn9LBqOu+T/LVcaokHq5zG5Yh
-         oqzOMMgPGJ39XtC8eKFglh/czvC1ygXCX1NlhBmt8Ib/HbgWjOAH/ZPPSakT/U3wAIAq
-         VOuQXz9vzaARmDO3JL9o8UpY40ZC5rVbXcTF+roHLMUPRWO6ORFt7J69+fT+rMLERDGU
-         ZHZGZQ+izi6heqVVSDGe4Gvl9FWE964iNCNqDZ2Tj4o06q3vNDw9IS6TwUHYVH7aAjg2
-         GChrFBS5ewwv2uJCnYkeWfL86Wlr8WMOvvjVEX1lho1BRyqscWkOgTOT1HgWxFcypD8Y
-         c5MA==
-X-Gm-Message-State: AOJu0YymhGwBOpf6iksOwtraxKqSFhYK/TGQbHaPoJdm72B66jhq84Zk
-	VFTDoD+1FXC+Y9CZjShAfhqtvXSX4gldAg==
-X-Google-Smtp-Source: AGHT+IHEUeT5dJOasaA7AvqgXg4MUZWWMdY8nnH7Sm/9aPRAYLA/igWvkyOJcaMnmMPKTXxklf4DTg==
-X-Received: by 2002:a05:600c:a08:b0:40e:5303:6d22 with SMTP id z8-20020a05600c0a0800b0040e53036d22mr4708916wmp.96.1705496089061;
-        Wed, 17 Jan 2024 04:54:49 -0800 (PST)
-Date: Wed, 17 Jan 2024 13:54:48 +0100
+        bh=PTX1eUiRR4nspm5GZvpKIOvCezwaO1Tg0E+Cg+Y2+2E=;
+        b=XmVlapDGsbhL4k1/uUAGQbOsrvqrquqZ3u4YNMBfsZzeDgfXLlFzeuZvHCmWLUBcK4
+         XGCgK6AjgTGlVtIV28WxmsVsqKf7md8eJXSSK3p46uJezOZNEKJfARLgsNOt2gdEOv3Q
+         cNJ1R6Zb/wXs4ENtfgthThS+0MB/7lsHFZUEgcxZZkQlez+AWhqmzraIDbMVQ/EqtwiM
+         vJ1IV2N7kYafIJ/lm2OQVj2KVX6cWKwhin6O13a6OY2oJPu7OBudN7vJh70S1W3nC0Jp
+         k4DcRz+0e9zqd+rdzkXhMoGNZxLr6mI5w/OlXwAjM8Z/+0hSoMreDg36K/7mMa2P89tE
+         PcdQ==
+X-Gm-Message-State: AOJu0YyFLYZ31c1bZadlPQfbChUQcM1HEQNlrXRqCY4nkJ7Vii59mzaE
+	ihyEnhl65A5B/E7kJKy5TcZSx1GIIXvtDA==
+X-Google-Smtp-Source: AGHT+IHKV+dSIdDNOW01n9+iRO8tbH08k3OgdudI647JE0YVzuS48lfht/LjeCM2qk14JTp5fpuSVQ==
+X-Received: by 2002:a05:600c:1f09:b0:40e:6182:43ca with SMTP id bd9-20020a05600c1f0900b0040e618243camr5464292wmb.127.1705496359737;
+        Wed, 17 Jan 2024 04:59:19 -0800 (PST)
+Date: Wed, 17 Jan 2024 13:59:18 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Patrick Plenefisch <simonpatp@gmail.com>,
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Patrick Plenefisch <simonpatp@gmail.com>,
 	xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
 Subject: Re: E820 memory allocation issue on Threadripper platforms
-Message-ID: <ZafOGEwms01OFaVJ@macbook>
+Message-ID: <ZafPJvsIarRdy6BH@macbook>
 References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
  <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
  <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
  <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
  <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
- <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
- <fa23a590-5869-4e11-8998-1d03742c5919@suse.com>
- <ZaeoWBV8IEZap2mr@macbook>
- <15dcef46-aaa8-4f71-bd5c-355001dd9188@suse.com>
+ <ZafC3apB4rjFUOXP@mail-itl>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <15dcef46-aaa8-4f71-bd5c-355001dd9188@suse.com>
+In-Reply-To: <ZafC3apB4rjFUOXP@mail-itl>
 
-On Wed, Jan 17, 2024 at 11:40:20AM +0100, Jan Beulich wrote:
-> On 17.01.2024 11:13, Roger Pau Monné wrote:
-> > On Wed, Jan 17, 2024 at 09:46:27AM +0100, Jan Beulich wrote:
-> >> Whereas I assume the native kernel can deal with that as long as
-> >> it's built with CONFIG_RELOCATABLE=y. I don't think we want to
-> >> get into the business of interpreting the kernel's internal
-> >> representation of the relocations needed, so it's not really
-> >> clear to me what we might do in such a case. Perhaps the only way
-> >> is to signal to the kernel that it needs to apply relocations
-> >> itself (which in turn would require the kernel to signal to us
-> >> that it's capable of doing so). Cc-ing Roger in case he has any
-> >> neat idea.
+On Wed, Jan 17, 2024 at 01:06:53PM +0100, Marek Marczykowski-Górecki wrote:
+> On Tue, Jan 16, 2024 at 10:33:26AM +0100, Jan Beulich wrote:
+> > ... as per
 > > 
-> > Hm, no, not really.
+> > (XEN)  Dom0 kernel: 64-bit, PAE, lsb, paddr 0x1000000 -> 0x4a00000
 > > 
-> > We could do like multiboot2: the kernel provides us with some
-> > placement data (min/max addresses, alignment), and Xen let's the
-> > kernel deal with relocations itself.
+> > there's an overlap with not exactly a hole, but with an
+> > EfiACPIMemoryNVS region:
+> > 
+> > (XEN)  0000000100000-0000003159fff type=2 attr=000000000000000f
+> > (XEN)  000000315a000-0000003ffffff type=7 attr=000000000000000f
+> > (XEN)  0000004000000-0000004045fff type=10 attr=000000000000000f
+> > (XEN)  0000004046000-0000009afefff type=7 attr=000000000000000f
+> > 
+> > (the 3rd of the 4 lines). Considering there's another region higher
+> > up:
+> > 
+> > (XEN)  00000a747f000-00000a947efff type=10 attr=000000000000000f
+> > 
+> > I'm inclined to say it is poor firmware (or, far less likely, boot
+> > loader) behavior to clobber a rather low and entirely arbitrary RAM
+> > range, rather than consolidating all such regions near the top of
+> > RAM below 4Gb.
 > 
-> Requiring the kernel's entry point to take a sufficiently different
-> flow then compared to how it's today, I expect.
-
-Indeed, I would expect that.
-
-> > Additionally we could support the kernel providing a section with the
-> > relocations and apply them from Xen, but that's likely hm, complicated
-> > at best, as I don't even know which kinds of relocations we would have
-> > to support.
+> FWIW, we have two more similar reports, with different motherboards and
+> firmware versions, but the common factor is Threadripper CPU. It doesn't
+> exclude firmware issue (it can be an issue in some common template, like
+> edk2?), but makes it a bit less likely.
 > 
-> If the kernel was properly linked to a PIE, there'd generally be only
-> one kind of relocation (per arch) that ought to need dealing with -
-> for x86-64 that's R_X86_64_RELATIVE iirc. Hence why (I suppose) they
-> don't use ELF relocation structures (for being wastefully large), but
-> rather a more compact custom representation. Even without building PIE
-> (presumably in part not possible because of how per-CPU data needs
-> dealing with), they get away with handling just very few relocs (and
-> from looking at the reloc processing code I'm getting the impression
-> they mistreat R_X86_64_32 as being the same as R_X86_64_32S, when it
-> isn't; needing to get such quirks right is one more aspect of why I
-> think we should leave relocation handling to the kernel).
-
-Would have to look into more detail, but I think leaving any relocs
-for the OS to perform would be my initial approach.
-
-> > I'm not sure how Linux deals with this in the bare metal case, are
-> > relocations done after decompressing and before jumping into the entry
-> > point?
+> > There are further such odd regions, btw:
+> > 
+> > (XEN)  0000009aff000-0000009ffffff type=0 attr=000000000000000f
+> > ...
+> > (XEN)  000000b000000-000000b020fff type=0 attr=000000000000000f
+> > 
+> > If the kernel image was sufficiently much larger, these could become
+> > a problem as well. Otoh if the kernel wasn't built with
+> > CONFIG_PHYSICAL_START=0x1000000, i.e. to start at 16Mb, but at, say,
+> > 2Mb, things should apparently work even with this unusual memory
+> > layout (until the kernel would grow enough to again run into that
+> > very region).
 > 
-> That's how it was last time I looked, yes.
+> Shouldn't CONFIG_RELOCATABLE=y take care of this?
 
-I've created a gitlab ticket for it:
+No, because PV doesn't use the native entry point.
 
-https://gitlab.com/xen-project/xen/-/issues/180
+> At least in the case
+> of Qubes OS, it's enabled and the issue still happens.
 
-So that we don't forget, as I don't have time to work into this right
-now, but I think it's important enough that we don't forget.
+I think for PV it should be possible to workaround this in Linux
+itself, maybe by changing the pfn -> mfn relations of the kernel
+area?
 
-For PV it's a bit more unclear how we want to deal with it, as it's
-IMO a specific Linux behavior that makes it fail to boot.
+Those overlaps are not real, as the loaded kernel is scattered across
+mfns, and those certainly belong to RAM regions in the memory map.
+
+For PVH it's going to require some changes in Xen itself.
 
 Roger.
 
