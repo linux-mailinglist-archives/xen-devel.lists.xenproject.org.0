@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A61A4830F33
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 23:31:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668577.1040873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 001A5830F43
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 23:38:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668583.1040883 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQERA-00037n-Sd; Wed, 17 Jan 2024 22:31:08 +0000
+	id 1rQEXq-0003z0-IG; Wed, 17 Jan 2024 22:38:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668577.1040873; Wed, 17 Jan 2024 22:31:08 +0000
+Received: by outflank-mailman (output) from mailman id 668583.1040883; Wed, 17 Jan 2024 22:38:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQERA-00036G-Oz; Wed, 17 Jan 2024 22:31:08 +0000
-Received: by outflank-mailman (input) for mailman id 668577;
- Wed, 17 Jan 2024 22:31:07 +0000
+	id 1rQEXq-0003x6-FA; Wed, 17 Jan 2024 22:38:02 +0000
+Received: by outflank-mailman (input) for mailman id 668583;
+ Wed, 17 Jan 2024 22:38:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3JKZ=I3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rQER9-000368-7b
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 22:31:07 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ id 1rQEXp-0003x0-WA
+ for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 22:38:01 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1a9bacfa-b588-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 23:31:06 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-40e88bb6d2bso722295e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 14:31:06 -0800 (PST)
+ id 11cff288-b589-11ee-98f2-6d05b1d4d9a1;
+ Wed, 17 Jan 2024 23:38:01 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-40e8ff22382so335825e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 14:38:01 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- s20-20020a05600c45d400b0040e76a7c585sm4640764wmo.0.2024.01.17.14.31.05
+ z10-20020a05600c0a0a00b0040e4bcfd826sm24226109wmp.47.2024.01.17.14.38.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jan 2024 14:31:05 -0800 (PST)
+ Wed, 17 Jan 2024 14:38:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a9bacfa-b588-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 11cff288-b589-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705530666; x=1706135466; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1705531080; x=1706135880; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zSizEFJcZg6N6rnzReqh6iaL9cCK2FzZYuLmwUW6SRU=;
-        b=UIR+psFKpYkX4ClXPOct2ImQOs3auZn0kOQCgW2JXTQIJTC/3aDf6mm0KTfFVtjXkt
-         J0jV65B59YCa3XQjaZZn2gnWBCcraZ0jNTB2O7OWf9f1rBUO15GyiEaYO/iXEuljDKdh
-         lioNvZ0CzJTDMtE44YIoBj0xpI2yaT17rVfoc=
+        bh=m8pEVg34jAhHPf30zrjux/7EK3YJeh7BZAw49Q11zqI=;
+        b=T0Cn8t4cGKdKNTwWTr4/TSZ4g5S9Bqvkf8NpwWmSLOmnBVRp3ny8NX3zjkq8tG6O3V
+         GZsua0xJXIWlu8cg8Uf7NWN4vzxd2O/BDxBoIm42xf4PE3eUGrOqhEj6DyZvRMDpmhOK
+         go2joYshHE9zP68D629CREy0BGeXrXcG4SazY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705530666; x=1706135466;
+        d=1e100.net; s=20230601; t=1705531080; x=1706135880;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zSizEFJcZg6N6rnzReqh6iaL9cCK2FzZYuLmwUW6SRU=;
-        b=FCQKBSA3wABMdB6Rv9lquXpQ7pAEffmh9tzNZ0w5H5cFH1vTdbpgpW4JcFGXIn/0Q1
-         a61B0dGZzIJblhJJhhAl86JBOI1VDiqtgM/srBT3frFlfJ8ERRk7tMfXf0hncw3fYiyD
-         QOuwXJcGjlrLzCtSTkjb84gwOSBrcmMuoqJk7yUZ+euLPuS44ewkXswXXI4+zOpWqwF7
-         juHmb06Ui5QzcwbeZ15YM/kEVuL8DBU+0X4N3Qsc72zR/2gqJp0F3rs3D4MAJeV6yj/f
-         1ZwpIYXxh281aoDValCoesrttjKY0ETO0vh2BJCjwSLdJrk9N5iRasEo+3COniBlstPB
-         yjMw==
-X-Gm-Message-State: AOJu0YxMcLWXWxEd0MLRKXcxkroETntRoeVmr+LhsMkI67MHHyH5PSPJ
-	dMMgKiw+4gkMCoNICfezNk6UHASD5v+HzA==
-X-Google-Smtp-Source: AGHT+IHK70V28MCuJ68XIlrnRLbExR57HR6ndviY4fMPhpCfuQhzgxjDFj4uJ8SfDS19HPPcYDGtaw==
-X-Received: by 2002:a05:600c:54d2:b0:40e:4ac0:8da with SMTP id iw18-20020a05600c54d200b0040e4ac008damr817759wmb.144.1705530665613;
-        Wed, 17 Jan 2024 14:31:05 -0800 (PST)
-Message-ID: <811d8bd7-0c42-4abd-99f2-bd038b1d26e8@citrix.com>
-Date: Wed, 17 Jan 2024 22:31:05 +0000
+        bh=m8pEVg34jAhHPf30zrjux/7EK3YJeh7BZAw49Q11zqI=;
+        b=ENp9OrbiI+s/BMfWxLVQKmsjZUNOj7+xJUR+Gqk1DqIay55FQ9v82jDESnFdSp/QPI
+         oj4fPQn/GwatR38c+JiBEBxenPqYAZix8GrTmSEmdzUVM5sVR51ISVGrYTy6rswcv1Df
+         suNtitsTJA1QfBKArdZfEkhOifJq9sKbpjLG8IUwKl+flWf2Nmc8Hbd2Xu3DQnE2vtb7
+         1gpFrq7wZxQNRXdO2i79Lzu0ykzVA0hLCcPuqycFYnH2J28EoKiv+0vp+UpD8NFxN2Ls
+         zMHPrNDZiykxN1afirq4f6UGALzgYfcGeIUU70cU9v5xTQYqC99Kmlb6HTnYjM201+0I
+         g7Og==
+X-Gm-Message-State: AOJu0YyfE9gsD1agP1QV6bYDs0oBAGWhTBfcDXktL596wV4Am+Hs3nLF
+	HX8c5Iq6CyPyvfQdrHQful7QQu+n4ZfVTg==
+X-Google-Smtp-Source: AGHT+IFdmXnUDD2IOeM3WV2KAiL1zlUsYWKvJuswA3Nzj0q+U78ffZ68JUgXnmmMMhTQ4BuauhnKZw==
+X-Received: by 2002:a05:600c:2182:b0:40e:53f7:a254 with SMTP id e2-20020a05600c218200b0040e53f7a254mr5288682wme.73.1705531080508;
+        Wed, 17 Jan 2024 14:38:00 -0800 (PST)
+Message-ID: <8ab88630-3445-4b35-bdb4-c6223024c2ff@citrix.com>
+Date: Wed, 17 Jan 2024 22:37:59 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] core-parking: use alternative_call()
+Subject: Re: [PATCH 0/2] x86/MCE: arrange for some ENDBR zapping
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <3b2842b2-a2fe-49e7-9ea3-4f55cbc95738@suse.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <0fb20fcf-1580-41c9-946b-7daf865f4b49@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -128,18 +127,13 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <3b2842b2-a2fe-49e7-9ea3-4f55cbc95738@suse.com>
+In-Reply-To: <0fb20fcf-1580-41c9-946b-7daf865f4b49@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17/01/2024 9:29 am, Jan Beulich wrote:
-> This way we can arrange for core_parking_{performance,power}()'s ENDBR
-> to also be zapped.
->
-> For the decision to be taken before the 2nd alternative patching pass,
-> the initcall needs to become a pre-SMP one, though.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 17/01/2024 9:58 am, Jan Beulich wrote:
+> 1: separate BSP-only initialization
+> 2: switch some callback invocations to altcall
 
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
