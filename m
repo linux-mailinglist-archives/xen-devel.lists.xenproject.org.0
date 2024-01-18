@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD7708315D1
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 10:29:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668664.1041033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44DF9831612
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 10:44:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668672.1041042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQOhx-00023R-PD; Thu, 18 Jan 2024 09:29:09 +0000
+	id 1rQOwC-0005ZS-Vn; Thu, 18 Jan 2024 09:43:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668664.1041033; Thu, 18 Jan 2024 09:29:09 +0000
+Received: by outflank-mailman (output) from mailman id 668672.1041042; Thu, 18 Jan 2024 09:43:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQOhx-00020T-Lv; Thu, 18 Jan 2024 09:29:09 +0000
-Received: by outflank-mailman (input) for mailman id 668664;
- Thu, 18 Jan 2024 09:29:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rQOhw-00020N-1q
- for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 09:29:08 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rQOhv-0001K6-DU; Thu, 18 Jan 2024 09:29:07 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rQOhv-0006q8-7j; Thu, 18 Jan 2024 09:29:07 +0000
+	id 1rQOwC-0005XG-T6; Thu, 18 Jan 2024 09:43:52 +0000
+Received: by outflank-mailman (input) for mailman id 668672;
+ Thu, 18 Jan 2024 09:43:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sFDf=I4=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rQOwB-0005XA-DX
+ for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 09:43:51 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 14d52879-b5e6-11ee-9b0f-b553b5be7939;
+ Thu, 18 Jan 2024 10:43:49 +0100 (CET)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2cd2f472665so127782791fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jan 2024 01:43:49 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ s17-20020a2eb8d1000000b002cccbb7ca38sm2162963ljp.2.2024.01.18.01.43.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Jan 2024 01:43:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,247 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=nXXfGlfj7oqC4R87039N8AgS6/vwZJqFfCM9wG0obn4=; b=vADbWllGiqUwhk2Vr3YBnU8JDn
-	IUqDTJk/AfoOPFcEDtvXtg4MSaes5a7NDGJCy+If+Icm/1LPy7HDs/B65CDMLo4Duip+T/Ip0MCOB
-	EO4yWskzyEPVXvje5aaxO7rY/BsC6UuEKZJU9jCfQhk0k91GxYzgc2cm6XtS19jKFgu0=;
-Message-ID: <275ea736-faff-4a6c-8388-1503cf0b8df9@xen.org>
-Date: Thu, 18 Jan 2024 09:29:05 +0000
+X-Inumbo-ID: 14d52879-b5e6-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1705571029; x=1706175829; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=5k74dhetbsOQhnnb8hZ++JwGAouX+7xHDEJphkDkr5I=;
+        b=TpKIqtfQvACZknGHWY0LlM5jtjCnO4QCx434Z9u8zvkVwvQ5TyVjsPL/qy+16N32pO
+         ruDrBBn3Z16ol6yjPtERp3jak4dt8s+Q5qavaL82cSFCssaKJow97KVKbMgUuGGYquBX
+         ulQQtS8BXURYDhFUwG5iy8ZpWKdmfUUsSHTs4eoj2JsnTaaZ/Wjah/G1MCts5j5izzO1
+         uqCkHc9lkwV/x3Pcr3stHBRH0XXBY7UO8G9xMC+QRVtAt5qIH78gguo9GM2PM3V/Ss25
+         sEqPvxDL7MoflSnfJd3tHHed1fpyRFctmuf6gmasbRvi3yn59gIC7jU559Ti6SJyuuQ0
+         e5BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705571029; x=1706175829;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5k74dhetbsOQhnnb8hZ++JwGAouX+7xHDEJphkDkr5I=;
+        b=bK/wwnJMiJDh0/aAY+xlYzjjBjVgPANR7SQh895HFJIlnNj80jpQSGpXYdqVU1zghI
+         X2gcMod6CAMYl7jUKoRQlwAeHfKlBeoMG0pSDh780VlGxkmdHS3i6hBto8N6EPsst9/b
+         euQmGOaJY6drGXX87PPmWA9HNxkiin1BaL554pWEDv+GQbxlZZVjRSc1DgYjFciscQ1M
+         4mAULgCXSRhS1PG0g4to6EaBhXTsQOWCh/+BxA3ouTwltSfoxnPbZ/MUSF8Eoh3Gj6Wt
+         nq20bgLZBBUAlOjQYWC0MUdy40QGo2fxxAn//Cc0yQnYd/sUcXRBvfYhr9uSQk5IlOWl
+         gWEA==
+X-Gm-Message-State: AOJu0YxnfIpPuo0VcihxbJKOxZqhw3lZhIlsJ6wMk/7hXf2CWMSAS+iS
+	0zlXqaIa4fM3N6g9H+pkR8sUMJ7lU8evVwzxJQC7+HT0g0lAIvTp
+X-Google-Smtp-Source: AGHT+IHlBe5oP/7QjfhotJHoTd71T2jdki+jHkWaNzLxpdFYnn7z30wmcTk6Pke5OejKlHkcG1+ZIA==
+X-Received: by 2002:a2e:7e0d:0:b0:2cd:2329:24b3 with SMTP id z13-20020a2e7e0d000000b002cd232924b3mr297516ljc.64.1705571028445;
+        Thu, 18 Jan 2024 01:43:48 -0800 (PST)
+Message-ID: <1c0eb1cdef1fac7695c4fc416128e2bb81cf13aa.camel@gmail.com>
+Subject: Re: [PATCH v3 10/34] xen/riscv: introduce bitops.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+ xen-devel@lists.xenproject.org
+Date: Thu, 18 Jan 2024 11:43:40 +0200
+In-Reply-To: <23955665-8bd8-4872-a1a5-e3a3711c9512@suse.com>
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+	 <841d59c3950970f4937da200cf8f04aa39132e14.1703255175.git.oleksii.kurochko@gmail.com>
+	 <23f1212a-66a8-47b0-904b-08b2ab54c72b@suse.com>
+	 <17d9fe474e244a15aa5955e630d553a62b0080fd.camel@gmail.com>
+	 <88df7ccd-8d14-4b00-900d-04cc87d9f230@suse.com>
+	 <863b09f03d37e96d737ab6bda4cc8923f75550fd.camel@gmail.com>
+	 <2e10b170-5a75-4ae0-8d2f-c6c1ad9951a5@suse.com>
+	 <1b20fefd125598e2bb62d516495783650da75271.camel@gmail.com>
+	 <23955665-8bd8-4872-a1a5-e3a3711c9512@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/13] xen/arm: add cache coloring support for Xen
-Content-Language: en-GB
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Marco Solieri <marco.solieri@minervasys.tech>
-References: <20240102095138.17933-1-carlo.nonato@minervasys.tech>
- <20240102095138.17933-14-carlo.nonato@minervasys.tech>
- <4553cc26-deb5-42ed-87b9-6cba2a5099eb@xen.org>
- <CAG+AhRXHfGJksqUrPXoHqNze+D654jJV0kVYBZaPLYwccdEz5Q@mail.gmail.com>
- <aa064f8f-d30e-4ac1-9239-daba5a806794@xen.org>
- <CAG+AhRXUPvKGu-y9qbVmhc0_ThCdxFvG=BYwCQMBH=mjo45qHw@mail.gmail.com>
- <985e1a2a-45eb-496c-8043-5f0c3c9f7766@xen.org>
- <CAG+AhRVKbM-n8ieg-CMbRG-4RgUXMSZL=ZER8EAWvGJgpEzUwA@mail.gmail.com>
- <ca2a64f8-ac0d-4b61-8f48-34478371bcbc@xen.org>
- <5b017673-3b51-4da2-86dd-ab1a62fbc1be@xen.org>
- <CAG+AhRVQrB4DZLuRPBvEnn7kr3r0k=hp3bn2a_k-Aqi6GhOQhQ@mail.gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <CAG+AhRVQrB4DZLuRPBvEnn7kr3r0k=hp3bn2a_k-Aqi6GhOQhQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-Hi Carlo,
+On Wed, 2024-01-17 at 14:42 +0100, Jan Beulich wrote:
+> On 17.01.2024 12:37, Oleksii wrote:
+> > > > >=20
+> > > > > > > Also you want to make sure asm-generic/bitops/bitops-
+> > > > > > > bits.h
+> > > > > > > is
+> > > > > > > really in use here, or else an arch overriding / not
+> > > > > > > using
+> > > > > > > that
+> > > > > > > header may end up screwed.
+> > > > > > I am not really understand what do you mean. Could you
+> > > > > > please
+> > > > > > explain a
+> > > > > > little bit more.
+> > > > >=20
+> > > > > Whichever type you use here, it needs to be in sync with
+> > > > > BITOP_BITS_PER_WORD. Hence you want to include the _local_
+> > > > > bitops-
+> > > > > bits.h
+> > > > > here, such that in case of an inconsistent override by an
+> > > > > arch
+> > > > > the
+> > > > > compiler would complain about the two differring #define-s.
+> > > > > (IOW
+> > > > > an
+> > > > > arch overriding BITOP_BITS_PER_WORD cannot re-use this header
+> > > > > as-
+> > > > > is.)
+> > > > >=20
+> > > > > The same may, btw, be true for others of the new headers you
+> > > > > add
+> > > > > -
+> > > > > the
+> > > > > same #include would therefore be needed there as well.
+> > > > Now it clear to me.
+> > > >=20
+> > > >=20
+> > > > It seems like BITOP_BITS_PER_WORD, BITOP_MASK, BITOP_WORD, and
+> > > > BITS_PER_BYTE are defined in {arm, ppc,
+> > > > riscv}/include/asm/bitops.h.
+> > > > I expected that any architecture planning to use asm-
+> > > > generic/bitops/bitops-bits.h would include it at the beginning
+> > > > of
+> > > > <arch>/include/asm/bitops.h, similar to what is done for RISC-
+> > > > V:
+> > > > =C2=A0=C2=A0 #ifndef _ASM_RISCV_BITOPS_H
+> > > > =C2=A0=C2=A0 #define _ASM_RISCV_BITOPS_H
+> > > > =C2=A0=C2=A0=20
+> > > > =C2=A0=C2=A0 #include <asm/system.h>
+> > > > =C2=A0=C2=A0=20
+> > > > =C2=A0=C2=A0 #include <asm-generic/bitops/bitops-bits.h>
+> > > > =C2=A0=C2=A0 ...
+> > > >=20
+> > > > But in this case, to allow architecture overrides macros, it is
+> > > > necessary to update asm-generic/bitops/bitops-bits.h:
+> > > > =C2=A0=C2=A0=C2=A0 #ifndef BITOP_BITS_PER_WORD
+> > > > =C2=A0=C2=A0=C2=A0 #define BITOP_BITS_PER_WORD=C2=A0=C2=A0=C2=A0=C2=
+=A0 32
+> > > > =C2=A0=C2=A0=C2=A0 #endif
+> > > > =C2=A0=C2=A0 ...
+> > > > Therefore,=C2=A0 if an architecture needs to override something, it
+> > > > will
+> > > > add
+> > > > #define ... before #include <asm-generic/bitops/bitops-bits.h>.
+> > > >=20
+> > > > Does it make sense?
+> > >=20
+> > > Sure. But then the arch also needs to provide a corresponding
+> > > typedef
+> > > (and bitops-bits.h the fallback one), for use wherever you use
+> > > any of
+> > > those #define-s.
+> > Which one typedef is needed to provide?
+> > <asm-generic/bitops/bitops-bits.h> contains only macros.
+>=20
+> A new one, to replace where right now you use "unsigned int" and I
+> initially said you need to use "uint32_t" instead. With what you said
+> earlier, uint32_t won't work there (anymore).
+Wouldn't it be enough just to "#include <xen/types.h>" in headers where
+"uint32_t" is used?
 
-On 17/01/2024 17:38, Carlo Nonato wrote:
-> On Tue, Jan 16, 2024 at 12:59 PM Julien Grall <julien@xen.org> wrote:
->>
->> Hi,
->>
->> On 15/01/2024 16:16, Julien Grall wrote:
->>> On 15/01/2024 15:43, Carlo Nonato wrote:
->>>> Hi Julien,
->>>
->>> Hi Carlo,
->>>
->>>> On Mon, Jan 15, 2024 at 12:18 PM Julien Grall <julien@xen.org> wrote:
->>>>> On 15/01/2024 10:11, Carlo Nonato wrote:
->>>>>> I understand what you're talking about, and it seems reasonable to
->>>>>> get rid of
->>>>>> xen_colored_temp[] and create_llc_coloring_mappings() since in the
->>>>>> end they
->>>>>> serve the purpose of mapping the physically colored space that is
->>>>>> already
->>>>>> mapped using xen_xenmap[] pagetables.
->>>>>> What I don't understand is then how to copy/relocate Xen since I
->>>>>> don't have a
->>>>>> destination virtual space anymore to use in relocate_xen().
->>>>>
->>>>> You will need to link xen_xenmap[] in boot_second[...] as well. With
->>>>> that, you will be able to access the new Xen through the temporary area.
->>>>
->>>> Wouldn't it result in overwriting the current virtual space mapping?
->>>> boot_second is the live page table and if I link xen_xenmap[] then
->>>> XEN_VIRT_START would point to the new colored space which is still
->>>> empty at
->>>> this stage...
->>>
->>> If you link at XEN_VIRT_START then yes. But you could link at
->>> BOOT_RELOC_VIRT_START like you already do today.
->>>
->>>>
->>>>> [...]
->>>>>
->>>>>>> Note that this means the init_ttbr cannot be written directly. But you
->>>>>>> can solve this problem by re-mapping the address.
->>>>>>
->>>>>> How to remap a single address?
->>>>>
->>>>> You should be able to use map_domain_page() to map the page where
->>>>> init_ttbr is.
->>>>>
->>>>>> And if moving init_ttbr in the identity-mapped area means that it's
->>>>>> no longer
->>>>>> writable, so that I need to remap it, why moving it in that area in
->>>>>> the first
->>>>>> place. Again I think I'm missing something.
->>>>>
->>>>> The goal is to have everything used (code, data) before the MMU is
->>>>> turned on residing in a single page. So secondary CPUs can directly jump
->>>>> to the colored Xen without any trouble.
->>>>
->>>> This is what confuses me. Why having everything on a single page makes
->>>> secondary cpus able to jump directly to colored Xen? (also see below)
->>>
->>> Because the code running with the MMU off can access easily access
->>> everything.
->>>
->>>>
->>>>>>>>
->>>>>>>> 3) To access the identity mapping area I would need some accessor
->>>>>>>> that takes
->>>>>>>> an address and returns it + phys_offset, or is there a better way
->>>>>>>> to do it?
->>>>>>>
->>>>>>> I am not sure I understand what you mean. Can you clarify?
->>>>>>
->>>>>> In my idea, I would use the identity mapping to access the "old"
->>>>>> variables,
->>>>>> where "old" means non physically colored. init_ttbr is an example. When
->>>>>> Xen it's copied on the new physical space, init_ttbr is copied with
->>>>>> it and
->>>>>> if the boot cpu modifies this variable, it's actually touching the
->>>>>> colored
->>>>>> one and not the old one. This means that secondary CPUs that still
->>>>>> haven't
->>>>>> jumped to the new space, won't be able to see the new value and will
->>>>>> never
->>>>>> go online.
->>>>>> So to access this "old" init_ttbr variable I need it's identity
->>>>>> address,
->>>>>> which is its current virtual address + some physical offset. I was
->>>>>> asking
->>>>>> you if this is the right approach to use the identity mapping.
->>>>>
->>>>> Secondary CPUs would directly start on the colored Xen. So they will be
->>>>> able to access the "new" init_ttbr & co.
->>>>
->>>> How can this be true? I mean, in call_psci_cpu_on() I can start those
->>>> CPUs in
->>>> the colored space, but they still use the boot_* pagetables
->>>
->>> Are you looking at the 64-bit or 32-bit code? For 64-bit, staging is not
->>> using boot_* pagetable anymore for secondary CPUs. Instead, they
->>> directly jump to the runtime page-tables.
->>>
->>>> and there I can't
->>>> easily link the new colored space, or, at least, I'm not succeding in
->>>> doing
->>>> that. What I tried at the moment is to link xen_xenmap in boot_second
->>>> after
->>>> switch_ttbr because of the problem I described above. But then secondary
->>>> CPUs never go online...
->>>
->>> It would be helpful if you share some code.
->>>
->>>>
->>>>> [...]
->>>>>
->>>>>>> ... as I wrote ealier your current approach seems to have a flaw.
->>>>>>> As you
->>>>>>> overwrite xen_bootmodule->{start, size}. setup_mm() will end up to add
->>>>>>> the old Xen region to the boot allocator. This is before any secondary
->>>>>>> CPUs are booted up.
->>>>>>>
->>>>>>> IOW, the allocator may provide some memory from the old Xen and
->>>>>>> nothing
->>>>>>> good will happen from that.
->>>>>>>
->>>>>>> The only way to solve it is to add another module. So the memory is
->>>>>>> skipped by setup_mm(). However see below.
->>>>>>>
->>>>>>>>
->>>>>>>> Yes that should be memory that in the end would not be needed so
->>>>>>>> it must
->>>>>>>> return to the boot-allocator (if that's what you mean). But how to do
->>>>>>>> that?
->>>>>>>
->>>>>>> You can't really discard the old temporary Xen. This may work today
->>>>>>> because we don't support CPU hotplug or suspend/resume. But there was
->>>>>>> some series on the ML to enable it and I don't see any reason why
->>>>>>> someone would not want to use the features with cache coloring.
->>>>>>>
->>>>>>> So the old temporary Xen would have to be kept around forever. This is
->>>>>>> up to 8MB of memory wasted.
->>>>>>>
->>>>>>> The right approach is to have the secondary CPU boot code
->>>>>>> (including the
->>>>>>> variables it is using) fitting in the same page (or possibly
->>>>>>> multiple so
->>>>>>> long this is small and physically contiguous). With that it doesn't
->>>>>>> matter where is the trampoline, it could stay at the old place, but we
->>>>>>> would only waste a few pages rather than up 8MB as it is today.
->>>>>>
->>>>>> So what are you suggesting is to create a new section in the linker
->>>>>> script
->>>>>> for the trampoline code and data,
->>>>>
->>>>> We already have a section for that in place (see .idmap.*) which happens
->>>>> to be at the beginning of Xen. Right now, the section is in text. Which
->>>>> is why it is read-only executable.
->>>>>
->>>>>> then in setup_mm() we would skip this
->>>>>> memory?
->>>>>
->>>>> We should not need this. Secondary boot CPUs should boot direclty on the
->>>>> colored Xen.
->>>>>
->>>>>> Am I following you correctly? Sorry those topics are a little out
->>>>>> of my preparation as you probably already guessed.
->>>>>
->>>>> No worries. I am happy to go in as much details as necessary. I can also
->>>>> attempt to write a patch if that helps. (unless someone else in the Arm
->>>>> maintainers want to give a try).
->>>>
->>>> Yes this would help. Thanks.
->>>
->>> I will try to have a look this evening. If I can't, it may have to wait
->>> a couple of weeks unless someone has time before hand.
->>
->> Series sent [1]. This is not fully complete for cache coloring. You will
->> need to modify the identity functions to take into account that the
->> identity map will be different.
->>
->> You will also want to check the new identity map area is still below
->> (see the check in prepare_boot_identity_mapping()).
->>
->> Cheers,
->>
->> [1] https://lore.kernel.org/xen-devel/20240116115509.77545-1-julien@xen.org/
-> 
-> Thank you very much for your help. I succeeded in applying your patches and
-> reworking setup_pagetables() as we discussed previously. I dropped
-> xen_colored_temp[], the temporary mapping at the end of setup_pagetables()
-> and remove_llc_coloring_mappings().
-> 
-> Now, what to do with your patches? Will you push those before this series?
+~ Olkesii
 
-Michal reviewed the patches. I still want to give an opportunity for the 
-other Arm maintainers to reply, so I plan to commit the patches early 
-next week. You can then rebase your code on top.
-
-If your v6 is ready earlier, you could apply the first 3 patches of the 
-series (patch #4 is just for testing) and send your work. If you plan to 
-do that, then please mention it in the cover letter (better if you can 
-even provide a branch with everything applied).
-
-Cheers,
-
--- 
-Julien Grall
 
