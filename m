@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09E3B83182F
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 12:12:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668726.1041126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7E268318E2
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 13:07:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668743.1041136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQQJS-0003a1-Uy; Thu, 18 Jan 2024 11:11:58 +0000
+	id 1rQRAm-0005w4-5i; Thu, 18 Jan 2024 12:07:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668726.1041126; Thu, 18 Jan 2024 11:11:58 +0000
+Received: by outflank-mailman (output) from mailman id 668743.1041136; Thu, 18 Jan 2024 12:07:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQQJS-0003XP-Rg; Thu, 18 Jan 2024 11:11:58 +0000
-Received: by outflank-mailman (input) for mailman id 668726;
- Thu, 18 Jan 2024 11:11:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rQRAm-0005uB-1o; Thu, 18 Jan 2024 12:07:04 +0000
+Received: by outflank-mailman (input) for mailman id 668743;
+ Thu, 18 Jan 2024 12:07:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bYS5=I4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rQQJR-0003XJ-7n
- for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 11:11:57 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 64151252-b5f2-11ee-98f2-6d05b1d4d9a1;
- Thu, 18 Jan 2024 12:11:56 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-337c4f0f9daso1220877f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jan 2024 03:11:56 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- r6-20020a5d4986000000b00337c6819af6sm2493618wrq.51.2024.01.18.03.11.55
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jan 2024 03:11:55 -0800 (PST)
+ <SRS0=fkFQ=I4=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rQRAk-0005u5-Ln
+ for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 12:07:02 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20600.outbound.protection.outlook.com
+ [2a01:111:f403:2009::600])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 13d50504-b5fa-11ee-9b0f-b553b5be7939;
+ Thu, 18 Jan 2024 13:06:58 +0100 (CET)
+Received: from BYAPR06CA0036.namprd06.prod.outlook.com (2603:10b6:a03:d4::49)
+ by CH3PR12MB8548.namprd12.prod.outlook.com (2603:10b6:610:165::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Thu, 18 Jan
+ 2024 12:06:53 +0000
+Received: from SJ5PEPF000001CD.namprd05.prod.outlook.com
+ (2603:10b6:a03:d4:cafe::c9) by BYAPR06CA0036.outlook.office365.com
+ (2603:10b6:a03:d4::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24 via Frontend
+ Transport; Thu, 18 Jan 2024 12:06:52 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ SJ5PEPF000001CD.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7202.16 via Frontend Transport; Thu, 18 Jan 2024 12:06:52 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 18 Jan
+ 2024 06:06:51 -0600
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34
+ via Frontend Transport; Thu, 18 Jan 2024 06:06:49 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,173 +59,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64151252-b5f2-11ee-98f2-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705576316; x=1706181116; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=OFdxeABCVXiS+gOfeqbPbtAo2kXFzO1rv5WslpzpwB0=;
-        b=ThztL7GlVgHOMekRy5kNE6LDNCbw4FBVaVr1F7S9Pfl9Jt2JzAN0g3VRKIq433gazh
-         B2YPZhueWExJz2VIYmxYKjy4s6KhDKafiGa6jn+Cseg7XFP116Or+Em1WerFc/i5ePIE
-         J4DSgUDSJslBcZRFows+k0ag2dzQGiPEF+Zc8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705576316; x=1706181116;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OFdxeABCVXiS+gOfeqbPbtAo2kXFzO1rv5WslpzpwB0=;
-        b=NRCfKzBTylkIWqzsRszfQxmWYkdj3Ml6+kz2bqtTqktOILe8xOqahVQdduT0VYQZ6D
-         e19T2Fu6cAWDrdXLG0IN8haGei4X/5a09RmeD/newFeajMgy2N/UUweM0qbxqQpl6L4G
-         tkIJxyq86eFaplBgRjbbcGZWveqh7LIoIVu6nthojNz4yRQ1X93kEo6wE0KVeizeMwTI
-         1HL2m9/etNcjXiShZd/jxOVXsqnrYkrC1PgBB61CUAAA8ebYIobgsoTRY4QuSW+TyJiC
-         /Qa+ofZ/nU60tDcYQpn53wdtnjo/eTcRz0pauEdxpIxfLpn7i5+J0gP7Dej+VCLeWPeG
-         i25A==
-X-Gm-Message-State: AOJu0YxQtbhxJvQ1Rsm8tWk9nm6fKSdBQ4Y29YtQg3e6eWu4NmSefyrj
-	Bh5dXZnegqMTYS8EGSDSjhxCiWxHUDOIocQjM5Nv5U7s9F4bhgGQY+uN7yp+N1U=
-X-Google-Smtp-Source: AGHT+IGucdEnnhLRUu4bJ8nNiQ5Z5NihmXaZWs2LV5Oy42f++r+DndM7ya7PWHImxlCwz91RaMdSKw==
-X-Received: by 2002:a5d:5392:0:b0:337:8fd0:e612 with SMTP id d18-20020a5d5392000000b003378fd0e612mr374302wrv.68.1705576315692;
-        Thu, 18 Jan 2024 03:11:55 -0800 (PST)
-Message-ID: <14ad2b63-f455-4a5d-bba2-a73b88f188ce@citrix.com>
-Date: Thu, 18 Jan 2024 11:11:55 +0000
+X-Inumbo-ID: 13d50504-b5fa-11ee-9b0f-b553b5be7939
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RpWNW6QVqTuud5b1jU3EeLBffx5X44O/JVXcqglWVKNEyAUrH+cmgY96X8WoFarMrKQ1l0m4OGu9oneuBZI4J9ISGy3BBz1pij0Ir/OfcQN6ikQnRddgXHBy8NEBlBJDG8MF+ZcFU7gEn8GEQBnxc9yHT0EaTmUxP8+2wcCCenA8FIm1F5gPswYbg+S5mUKkZdyHQtI4TiuheTeKXQXpyZywEGJbeDUDQZOqoIuqST00GRDFERDKXidJZAniH2B580MNWswcn+UFtdOfrVXUkUWLGX5Rebt0nRe4Cbxs5jwtwkO8vLtK9rU0GseXMlPbGdiA0T1uRZv86WZiu/WoYQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V+kg6+IJHxqILiPqgSli5P1UDg1reVgTH5m++TngXLs=;
+ b=ZF54wH2w5vy1kkzD0Ww88HLYajMWd2TAZXRdktA6GFdqUnnSLNlfqQPo2U4PldrUq9zNt0P2vfOZ0SkdAfKMsNfRMQBTKlDtzxW9Xx3eWKai5BK2HOWM0nxashHSk/KSopPcpYpF+/cTf4to20KBJR6jXTXzUVDO1RPPgXiXxpNdc+IFyMBSaXFItbbqy0LiqkGszAhI2JM5Lucyf6YlIb5vHUDGmDY8an1zA2/H/J/R83Zs32ExkyosMRGoH/5ReWpYK1Q+9vkzhAlUJUj0c3v7Y+nHe1RT0/I6gZX/+qDOVxQa8OY0WPZCtOE6QJiethVgPqvs2GNcu4+vJe5bQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V+kg6+IJHxqILiPqgSli5P1UDg1reVgTH5m++TngXLs=;
+ b=YR2c9NVqJN+LmTfsMebBghi1YHjUMd/Q3mmEqBMVDIVerByz+IoAmFkjZGKBuxBhuepRfqao7355FEQDrTJuvBbC685qG+7JIm+52/GJgGeFOK49Ss7gNl44u6wpM+L0nVtv8a2zdHNoOLbwlckA3kuic9oKolvHrb3S4zQNtrY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Javi Merino
+	<javi.merino@cloud.com>
+Subject: [PATCH] coverage: filter out lib{fdt,elf}-temp.o
+Date: Thu, 18 Jan 2024 13:06:41 +0100
+Message-ID: <20240118120641.24824-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] x86/PV: avoid indirect call for I/O emulation quirk
- hook
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <28b46611-ff98-45cd-a2b0-ffe36b8f0ccf@suse.com>
- <9ea43cac-e1f2-4585-b1e0-a64ac6952df9@citrix.com>
- <b62bd658-6c84-40af-9518-57d88857479b@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <b62bd658-6c84-40af-9518-57d88857479b@suse.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|CH3PR12MB8548:EE_
+X-MS-Office365-Filtering-Correlation-Id: b8b1c237-1059-4f2c-f5e7-08dc181df4ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	DBAwF0J7tnOueh0Zi7T3QuiRkv3iaDnhaC993VJ8bGNsfGlpBR6ZBZzTX+5ZIuUcaR8/OOXOU5DJKEkotDYnDYVfaO2u7uSr3WXbOuBmk0RA0VlWrJS8y/YK/vmBpzitFo9ox4+TOcQgepeW+n80SAcxQ1B7jTd7i+l+CQFPjpEDSe0XPjSs1u6YeImR98gKGm6AtJ+AI9baC8hI3AZ/UoRX/JWX+k8C3gZB8yQEemiZmQYn7sbhPf4BsRQlYwkF7pmCyRjGvdX1e2sBAvXPjr2H97hhNyJGAY7gbhWkJ7B8xAdm3QQQgCuZBXDFIww6lbq8LzTU/b8whdmdUXj5dUZqJ+pHiyZqSso4daDKol3hLH9+2nC4+2Brh1LxLNR/Ft+hu+4Vyyouz9eEA74LN/D/pTLvqTvGoOtC9ouLPYZv1uZzuQZbg1Ylz2LjwqkNhZIJch8ltB3Ew1anhn0s2p4MNJeAu+1PpouxF8N5ukYR+TskxN9TMplVEf99v3IM+5b/iANvDVpFdpWsmOg99lLOUCmoCKeZWSrDBKwGk4DWCe62HHJ3zkHYrp08kkwzq4CWH/I+02E0F4N76cJMh741vi7rSBfmlBHC9a1uHE/KeDdh3pA2FQp4Ap1GTO2g64FNbBmmW0m5Puj1tm5LuP5WIBUjrDTKJVM1Gku7MXo8eNw5WTTdFt9jsnn4eSLb93AFXnS9lkM8FUjkaunP5Y3OM6X3XmcSVvv/sDhhfrVKCraswMkI9LUcM+TOfjU2q14JXG0+e4+fUmDHgQtesg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(39860400002)(396003)(136003)(346002)(230922051799003)(64100799003)(82310400011)(1800799012)(186009)(451199024)(36840700001)(40470700004)(46966006)(36860700001)(47076005)(4326008)(8936002)(8676002)(81166007)(36756003)(356005)(41300700001)(2906002)(86362001)(82740400003)(44832011)(5660300002)(26005)(40480700001)(40460700003)(1076003)(426003)(336012)(478600001)(6666004)(83380400001)(2616005)(54906003)(316002)(6916009)(70206006)(70586007)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2024 12:06:52.0937
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8b1c237-1059-4f2c-f5e7-08dc181df4ee
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001CD.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8548
 
-On 18/01/2024 11:09 am, Jan Beulich wrote:
-> On 18.01.2024 12:04, Andrew Cooper wrote:
->> On 17/01/2024 9:37 am, Jan Beulich wrote:
->>> --- a/xen/arch/x86/ioport_emulate.c
->>> +++ b/xen/arch/x86/ioport_emulate.c
->>> @@ -8,11 +8,10 @@
->>>  #include <xen/sched.h>
->>>  #include <xen/dmi.h>
->>>  
->>> -unsigned int (*__read_mostly ioemul_handle_quirk)(
->>> -    uint8_t opcode, char *io_emul_stub, struct cpu_user_regs *regs);
->>> +bool __ro_after_init ioemul_handle_quirk;
->>>  
->>> -static unsigned int cf_check ioemul_handle_proliant_quirk(
->>> -    u8 opcode, char *io_emul_stub, struct cpu_user_regs *regs)
->>> +unsigned int ioemul_handle_proliant_quirk(
->>> +    uint8_t opcode, char *io_emul_stub, const struct cpu_user_regs *regs)
->>>  {
->>>      static const char stub[] = {
->>>          0x9c,       /*    pushf           */
->> Something occurred to me.
->>
->> diff --git a/xen/arch/x86/ioport_emulate.c b/xen/arch/x86/ioport_emulate.c
->> index 23cba842b22e..70f94febe255 100644
->> --- a/xen/arch/x86/ioport_emulate.c
->> +++ b/xen/arch/x86/ioport_emulate.c
->> @@ -13,7 +13,7 @@ bool __ro_after_init ioemul_handle_quirk;
->>  unsigned int ioemul_handle_proliant_quirk(
->>      uint8_t opcode, char *io_emul_stub, const struct cpu_user_regs *regs)
->>  {
->> -    static const char stub[] = {
->> +    const char stub[] = {
->>          0x9c,       /*    pushf           */
->>          0xfa,       /*    cli             */
->>          0xee,       /*    out %al, %dx    */
->>
->> is an improvement, confirmed by bloat-o-meter:
->>
->> add/remove: 0/1 grow/shrink: 1/0 up/down: 1/-9 (-8)
->> Function                                     old     new   delta
->> ioemul_handle_proliant_quirk                  58      59      +1
->> stub                                           9       -      -9
->>
->> The reason is that we've got a 9 byte object that's decomposed into two
->> rip-relative accesses.  i.e. we've got more pointer than data in this case.
-> I wouldn't mind this as a separate change, but I don't see how it would
-> fit right here.
+At the moment, trying to run xencov read/reset (calling SYSCTL_coverage_op
+under the hood) results in a crash. This is due to an attempt to
+access code in the .init.* sections (libfdt for Arm and libelf for x86)
+that are stripped after boot. Normally, the build system compiles any
+*.init.o file without COV_FLAGS. However, these two libraries are
+handled differently as sections will be renamed to init after linking.
 
-I'm not suggesting changing this patch.  I just linked here because I
-noticed it because of this patch.
+This worked until e321576f4047 ("xen/build: start using if_changed")
+that added lib{fdt,elf}-temp.o to extra-y. Any file listed there without
+*.init.o suffix will be part of non-init-objects for which COV_FLAGS
+will be appended. In such case, the solution is to add a file to nocov-y.
 
-We've got similar patterns elsewhere, so I was intending to do a patch
-covering all of them.
+Also, for libfdt, append to nocov-y only if CONFIG_OVERLAY_DTB is not
+set. Otherwise, there is no section renaming and we should be able to
+run the coverage.
 
->
->> But this adjustment seems to tickle a GCC bug.  With that change in
->> place, GCC emits:
->>
->> <ioemul_handle_proliant_quirk>:
->>        48 83 ec 10             sub    $0x10,%rsp
->>        ...
->>        48 83 c4 10             add    $0x10,%rsp
->>        c3                      retq
->>
->> i.e. we get a stack frame (space at least, no initialisation) despite
->> the object having been converted entirely to instruction immediates.
->>
->> Or in other words, there's a further 12 byte saving available when GCC
->> can be persuaded to not even emit the stack frame.
->>
->> What is even more weird is that I see this GCC-10, and a build of gcc
->> master from last week, but not when I try to reproduce in
->> https://godbolt.org/z/PnachbznW so there's probably some other setting
->> used by Xen which tickles this bug.
-> Yeah, I've observed such pointless frame allocation elsewhere as well,
-> so far without being able what exactly triggers it.
+Fixes: e321576f4047 ("xen/build: start using if_changed")
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+ xen/common/libelf/Makefile | 2 +-
+ xen/common/libfdt/Makefile | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Ok - more experimentation required, I guess.
+diff --git a/xen/common/libelf/Makefile b/xen/common/libelf/Makefile
+index 8a4522e4e141..f618f70d5c8e 100644
+--- a/xen/common/libelf/Makefile
++++ b/xen/common/libelf/Makefile
+@@ -1,5 +1,5 @@
+ obj-bin-y := libelf.o
+-nocov-y += libelf.o
++nocov-y += libelf.o libelf-temp.o
+ libelf-objs := libelf-tools.o libelf-loader.o libelf-dominfo.o
+ 
+ SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
+diff --git a/xen/common/libfdt/Makefile b/xen/common/libfdt/Makefile
+index d50487aa6e32..fb0d8a48eee2 100644
+--- a/xen/common/libfdt/Makefile
++++ b/xen/common/libfdt/Makefile
+@@ -5,10 +5,10 @@ SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
+ # For CONFIG_OVERLAY_DTB, libfdt functionalities will be needed during runtime.
+ ifneq ($(CONFIG_OVERLAY_DTB),y)
+ OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section .$(s)=.init.$(s))
++nocov-y += libfdt.o libfdt-temp.o
+ endif
+ 
+ obj-y += libfdt.o
+-nocov-y += libfdt.o
+ 
+ CFLAGS-y += -I$(srctree)/include/xen/libfdt/
+ 
+-- 
+2.25.1
 
-~Andrew
 
