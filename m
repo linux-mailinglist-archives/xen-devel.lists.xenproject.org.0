@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D3F8831AC3
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 14:44:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668756.1041166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E301831ACE
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 14:49:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668761.1041175 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQSfa-0007y4-3R; Thu, 18 Jan 2024 13:42:58 +0000
+	id 1rQSlX-0000t5-Pa; Thu, 18 Jan 2024 13:49:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668756.1041166; Thu, 18 Jan 2024 13:42:58 +0000
+Received: by outflank-mailman (output) from mailman id 668761.1041175; Thu, 18 Jan 2024 13:49:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQSfa-0007wP-0J; Thu, 18 Jan 2024 13:42:58 +0000
-Received: by outflank-mailman (input) for mailman id 668756;
- Thu, 18 Jan 2024 13:42:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rQSlX-0000rC-N5; Thu, 18 Jan 2024 13:49:07 +0000
+Received: by outflank-mailman (input) for mailman id 668761;
+ Thu, 18 Jan 2024 13:49:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bYS5=I4=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rQSfY-0007wJ-El
- for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 13:42:56 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7ad64dc2-b607-11ee-9b0f-b553b5be7939;
- Thu, 18 Jan 2024 14:42:53 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40e8d3b32eeso14754035e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jan 2024 05:42:53 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- ay39-20020a05600c1e2700b0040e92521b24sm1857946wmb.30.2024.01.18.05.42.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jan 2024 05:42:53 -0800 (PST)
+ <SRS0=YzO2=I4=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
+ id 1rQSlW-0000r6-BF
+ for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 13:49:06 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3b723893-b608-11ee-98f2-6d05b1d4d9a1;
+ Thu, 18 Jan 2024 14:48:17 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a28a997f3dfso921490566b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jan 2024 05:48:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +40,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ad64dc2-b607-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 3b723893-b608-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705585373; x=1706190173; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=cloud.com; s=cloud; t=1705585696; x=1706190496; darn=lists.xenproject.org;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=3ZaiCVBtnocRL75ohOQsDLYqVZUERIZS0hZjZfRrlro=;
-        b=v8tTxpxC8rOLHZoGeWt8pxjdXnHI5q1bbP98O67URN4/8RsoqYrPWKbLaGCL0tv1aA
-         0odQqVnSwWSg5/9MEiU0ehFT0QJ6rDOQWVIC6PT0niobEB5dZEDZlQW/RAa7VxtneYUG
-         T/vpG0qX69+T0cACWv++fdHCxfq57Xo6qSzno=
+        bh=j1WRU52iOvdInzP8A1XSNb/3ngHFP6I+/lXdWUhFpDk=;
+        b=YwTZdQdT0XBxbQErhdr7BugN1VrJBT539Gp3amCdn8DheKbWFe/A+Mz1CL5pzdwmOS
+         kmB2KTi/ADDAloGv+Ywmf1EQMCkUJblVlBB3x+c+ppxVR9GPs7wGsm5A+eEEuY751/3Z
+         AFJUolClVtgkjtVx883ndAoYbv9PXagLlmjPk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705585373; x=1706190173;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1705585696; x=1706190496;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=3ZaiCVBtnocRL75ohOQsDLYqVZUERIZS0hZjZfRrlro=;
-        b=RuI9kWLT0dTgP8sYD/20LK3b9Z1883FXTWwplkrprQQbAEZrdYUXdgyj+JpFNWhkLi
-         tFCBmHiINc7CsZ3nNHKl9A5tg9pq826c5fnsmYTms35aYqP81k5vx/Jhu1l8fHw2ZlBZ
-         HqRZx6kTXXik9GjSJbQd618pFnlp8UaXKzkOq074UUelYu/CS1ygimCCXI1CeLfHH3y4
-         FJYJnOOFu18yq4EdnE8zzoReKk+joEzLPlH+0WmAJIED7UzLxIPQbjeXPGJPgez+SUPD
-         xb5cH9IlrFk7tQkeEMq+pRDSFC9/2dA9q+D0C/gTUEvjasiOZkSpZOvPiA81gKdHVUGX
-         Chkg==
-X-Gm-Message-State: AOJu0YywOdtp1FbrPTXKKJ8LcIhnoch/+VlNcpHvdAn8YG2+ZiTphCNY
-	FaKGCa4Va0TnFLgK0dyAduoTrSvZO8v7oORe93WLIxxDqJYSS9vMDbok3gBrktQ=
-X-Google-Smtp-Source: AGHT+IFtYJruI5V28zc5ybi5NPiItcgo22Scq76b4vpfgYUUgvbbGBDaT8jx7y+Eh2yJdyxDUc7SUQ==
-X-Received: by 2002:a7b:c8da:0:b0:40e:54f1:5d39 with SMTP id f26-20020a7bc8da000000b0040e54f15d39mr517205wml.117.1705585373269;
-        Thu, 18 Jan 2024 05:42:53 -0800 (PST)
-Message-ID: <05537bed-8041-42f5-8747-9a078d42d068@citrix.com>
-Date: Thu, 18 Jan 2024 13:42:52 +0000
+        bh=j1WRU52iOvdInzP8A1XSNb/3ngHFP6I+/lXdWUhFpDk=;
+        b=OLN9WuKHeCBhpM2HqSbFRdUURspUBVmO6FWsiLf/6y9iaW0JPMLSQIz3UL1erlzCCV
+         Z6dJxsLE9/LoD3VtG4hz8QbxOD5ptlWofbxNDdXwuhlv2VmGywhgKMk65A8ROSDi7r3V
+         Kjhl3zqaG5+5xhPUNBu7CHncsHyxuED9fsyj0GASxn4NetjFxXlMTiqEwdLwIthglC7I
+         5wxHULhKx2mx0Xm++aZgtkA7HWWSp18prQQbcH6Wo/gQ0Usht6DrDi/Oo3CWEiXfSa3w
+         FSa3I4Q+P8kEBm8cFTupHVzd+kCwjPPjg0OqgwPG2NR61y1ffnsVksPXUWwsG6kwbcai
+         gXeg==
+X-Gm-Message-State: AOJu0YyRCAqjBmUTDRPLE2hCt/j3TWbf20BVF/V2HafjCnHQJukihDHe
+	w/vL2N0ZtA5Io0meK6rpTdT7XBVqSK+kkeGp/00RLbw7HPoTqiwzK+UYJgxb8GMZPM6ZbsK6FmQ
+	x4SQnaX3fVm9FD3AKaznL3IJvM+BsegEb0A3pNc70ES602Rxs38WlEw==
+X-Google-Smtp-Source: AGHT+IGkPKJeU/66fLkO0fR1xotYBFG+WW2Xt4eqWnxTkqwbta37GNXd5ON2bfw+z6qdY8Nwxg6X9ATBw44dLdcw3Fw=
+X-Received: by 2002:a17:906:1392:b0:a28:b35d:f240 with SMTP id
+ f18-20020a170906139200b00a28b35df240mr599202ejc.10.1705585696086; Thu, 18 Jan
+ 2024 05:48:16 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] coverage: filter out lib{fdt,elf}-temp.o
-Content-Language: en-GB
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Javi Merino <javi.merino@cloud.com>
-References: <20240118120641.24824-1-michal.orzel@amd.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240118120641.24824-1-michal.orzel@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAO-mL=zSuaajjj7Ynxfvf9YhV5sR+M=njdxzCXYA9Pty1kw4Gg@mail.gmail.com>
+In-Reply-To: <CAO-mL=zSuaajjj7Ynxfvf9YhV5sR+M=njdxzCXYA9Pty1kw4Gg@mail.gmail.com>
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Thu, 18 Jan 2024 13:47:40 +0000
+Message-ID: <CAO-mL=zVn4ewTK=b7zFR+uuf5hbuZPxYd4XB=ebx8+SACjQ=Ww@mail.gmail.com>
+Subject: REMINDER: Community Call today @ 1600 UTC, 18th Jan 2024
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000008cb5c5060f389d05"
 
-On 18/01/2024 12:06 pm, Michal Orzel wrote:
-> At the moment, trying to run xencov read/reset (calling SYSCTL_coverage_op
-> under the hood) results in a crash. This is due to an attempt to
-> access code in the .init.* sections
+--0000000000008cb5c5060f389d05
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Minor point, but for coverage it's only data.  It's the per-basic-block
-counters.
+Hi all,
 
-~Andrew
+A reminder that we have our community call today.
+Please find details below on how to join.
+
+Many thanks,
+Kelly Choi
+
+Community Manager
+Xen Project
+
+
+---------- Forwarded message ---------
+From: Kelly Choi <kelly.choi@cloud.com>
+Date: Wed, Jan 3, 2024 at 2:22=E2=80=AFPM
+Subject: [ANNOUNCE] Call for agenda items for Community Call @ 1600 UTC,
+18th Jan 2024
+To: <xen-devel@lists.xenproject.org>
+
+
+Hi all,
+
+Please add your proposed agenda and name next to any items in this *link
+here* <https://cryptpad.fr/pad/#/2/pad/edit/FoIa1svj6GD4rYr-H2DtEn9c/>
+
+If any action items have been resolved, please remove them from the sheet.
+
+*CALL LINK: https://meet.jit.si/XenProjectCommunityCall
+<https://www.google.com/url?q=3Dhttps://meet.jit.si/XenProjectCommunityCall=
+&sa=3DD&source=3Dcalendar&ust=3D1699196661201312&usg=3DAOvVaw1FcogEsMjFSd1P=
+mi7V0cBc>*
+
+*DATE: Postponing till 18th January 2024 to allow everyone on PTO to join *
+
+*TIME: 1600 UTC (4 pm UK time)*
+Note the following administrative conventions for the call:
+
+* To allow time to switch between meetings, we plan on starting the
+agenda at 16:05 UTC sharp.  Aim to join by 16:03 UTC if possible to allocat=
+e
+time to sort out technical difficulties.
+
+* If you want to be CC'ed please add or remove yourself from the
+sign-up-sheet at
+https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
+
+=3D=3D Dial-in Information =3D=3D
+## Meeting time
+16:00 - 17:00 British time
+Further International meeting times:
+https://www.timeanddate.com/worldclock/meetingdetails.html?year=3D2024&mont=
+h=3D1&day=3D18&hour=3D16&min=3D0&sec=3D0&p1=3D1234&p2=3D37&p3=3D224&p4=3D17=
+9
+
+## Dial in details
+https://meet.jit.si/static/dialInInfo.html?room=3DXenProjectCommunityCall
+
+Many thanks,
+Kelly Choi
+
+Community Manager
+Xen Project
+
+--0000000000008cb5c5060f389d05
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi all,<div><br></div><div>A reminder that we have our com=
+munity call today.</div><div>Please find details below on how to join.</div=
+><div><br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_signature" dat=
+a-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,</div><di=
+v>Kelly Choi</div><div><br></div><div><div style=3D"color:rgb(136,136,136)"=
+>Community Manager</div><div style=3D"color:rgb(136,136,136)">Xen Project=
+=C2=A0<br></div></div></div></div></div><br><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">---------- Forwarded message --------=
+-<br>From: <strong class=3D"gmail_sendername" dir=3D"auto">Kelly Choi</stro=
+ng> <span dir=3D"auto">&lt;<a href=3D"mailto:kelly.choi@cloud.com">kelly.ch=
+oi@cloud.com</a>&gt;</span><br>Date: Wed, Jan 3, 2024 at 2:22=E2=80=AFPM<br=
+>Subject: [ANNOUNCE] Call for agenda items for Community Call @ 1600 UTC, 1=
+8th Jan 2024<br>To:  &lt;<a href=3D"mailto:xen-devel@lists.xenproject.org">=
+xen-devel@lists.xenproject.org</a>&gt;<br></div><br><br><div dir=3D"ltr">Hi=
+ all,<br><p>Please add your proposed agenda and name next to any items in t=
+his=C2=A0<a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/FoIa1svj6GD4rYr-H2=
+DtEn9c/" target=3D"_blank"><b>link here</b></a>=C2=A0</p><p>If any action i=
+tems have been resolved, please remove them from the sheet.=C2=A0</p><p><b>=
+<span>CALL</span>=C2=A0LINK:=C2=A0<a href=3D"https://www.google.com/url?q=
+=3Dhttps://meet.jit.si/XenProjectCommunityCall&amp;sa=3DD&amp;source=3Dcale=
+ndar&amp;ust=3D1699196661201312&amp;usg=3DAOvVaw1FcogEsMjFSd1Pmi7V0cBc" tar=
+get=3D"_blank">https://meet.jit.si/XenProjectCommunityCall</a></b></p><p><b=
+>DATE: Postponing till 18th January 2024 to allow everyone on PTO to join=
+=C2=A0</b></p><p><b>TIME: 1600 UTC (4 pm UK time)</b></p>Note the following=
+ administrative conventions for the=C2=A0<span>call</span>:<div><br>* To al=
+low time to switch between meetings, we plan on starting the<br>agenda at 1=
+6:05 UTC sharp.=C2=A0 Aim to join by 16:03 UTC if possible to allocate<br>t=
+ime to sort out technical difficulties.<br><br>* If you want to be CC&#39;e=
+d please add or remove yourself from the<br>sign-up-sheet at=C2=A0<a href=
+=3D"https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/" rel=3D"=
+noreferrer" target=3D"_blank">https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihP=
+xxAOe6RFPz0sRCf+/</a><br><br>=3D=3D=C2=A0<span>Dial</span>-in Information =
+=3D=3D<br>## Meeting time<br>16:00 - 17:00 British time<br>Further Internat=
+ional meeting times:<br><a href=3D"https://www.timeanddate.com/worldclock/m=
+eetingdetails.html?year=3D2024&amp;month=3D1&amp;day=3D18&amp;hour=3D16&amp=
+;min=3D0&amp;sec=3D0&amp;p1=3D1234&amp;p2=3D37&amp;p3=3D224&amp;p4=3D179" t=
+arget=3D"_blank">https://www.timeanddate.com/worldclock/meetingdetails.html=
+?year=3D2024&amp;month=3D1&amp;day=3D18&amp;hour=3D16&amp;min=3D0&amp;sec=
+=3D0&amp;p1=3D1234&amp;p2=3D37&amp;p3=3D224&amp;p4=3D179</a><br><br>##=C2=
+=A0<span>Dial</span>=C2=A0in details<br><a href=3D"https://meet.jit.si/stat=
+ic/dialInInfo.html?room=3DXenProjectCommunityCall" rel=3D"noreferrer" targe=
+t=3D"_blank">https://meet.jit.si/static/dialInInfo.html?room=3DXenProjectCo=
+mmunityCall</a><div></div><br><div><div dir=3D"ltr" class=3D"gmail_signatur=
+e" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,</d=
+iv><div>Kelly Choi</div><div><br></div><div><div style=3D"color:rgb(136,136=
+,136)">Community Manager</div><div style=3D"color:rgb(136,136,136)">Xen Pro=
+ject=C2=A0<br></div></div></div></div></div></div></div>
+</div></div></div>
+
+--0000000000008cb5c5060f389d05--
 
