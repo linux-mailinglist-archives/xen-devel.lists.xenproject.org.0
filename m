@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91D2C8315A6
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 10:22:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668653.1041002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 549598315A9
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 10:23:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668658.1041013 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQObm-0007gQ-Ku; Thu, 18 Jan 2024 09:22:46 +0000
+	id 1rQOck-0008Id-06; Thu, 18 Jan 2024 09:23:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668653.1041002; Thu, 18 Jan 2024 09:22:46 +0000
+Received: by outflank-mailman (output) from mailman id 668658.1041013; Thu, 18 Jan 2024 09:23:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQObm-0007er-HV; Thu, 18 Jan 2024 09:22:46 +0000
-Received: by outflank-mailman (input) for mailman id 668653;
- Thu, 18 Jan 2024 09:22:45 +0000
+	id 1rQOcj-0008G5-Td; Thu, 18 Jan 2024 09:23:45 +0000
+Received: by outflank-mailman (input) for mailman id 668658;
+ Thu, 18 Jan 2024 09:23:44 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rQObl-0007eg-5r
- for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 09:22:45 +0000
+ (envelope-from <julien@xen.org>) id 1rQOci-0008Fu-MD
+ for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 09:23:44 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rQObk-0001Ac-Nz; Thu, 18 Jan 2024 09:22:44 +0000
+ id 1rQOci-0001DT-9e; Thu, 18 Jan 2024 09:23:44 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rQObk-0006Vb-GY; Thu, 18 Jan 2024 09:22:44 +0000
+ id 1rQOci-0006Vb-3t; Thu, 18 Jan 2024 09:23:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,15 +42,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=9O59O8rlJG5UDUVfAWUvXXBN6TRsXQMGYCiCUJtBND0=; b=aRmXHBdWYF4asn8CRK8YFeNlVo
-	bFsnGAjh3xH3tBFWDK66lk4sOanVeoJZn8VTBCz6+3Xd0xIbyGZU8mRghOOCLEZpxhzg6ZWQJFi42
-	XzboeXHCNC7UKaepskLn9DoEOXfCDbHtsRwqCEVxebPLR8efKp9DvRwij46qG09Kub1c=;
-Message-ID: <1a49b6e0-c399-4d34-bedf-92c14261a141@xen.org>
-Date: Thu, 18 Jan 2024 09:22:43 +0000
+	bh=eECqgVN/n0Uf+9zk71LebvCf4ByImf8hScvBWK0/VZY=; b=Pc249tbfjQlfJow3q5t8/qFs1g
+	CvFLztzlM+lU2hP5ybwqlrysYXOqKpspBiwfCMrVkhBO9gOiEsAG144pu6hIvsLpzPAGO1TrAgbve
+	oboshTijq9enFVJOgpQP+/ueMvoHT39gyyFJp6KeTClgA/NYtT6PK8EcRrUkiOH6sUEo=;
+Message-ID: <c3713641-7292-420a-8454-4945e68fded7@xen.org>
+Date: Thu, 18 Jan 2024 09:23:43 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 repost 2/4] arm/smpboot: Move smp_up_cpu to a new
- section .data.idmap
+Subject: Re: [PATCH v1 repost 3/4] xen/arm64: head: Use PRINT_ID() for
+ secondary CPU MMU-off boot code
 Content-Language: en-GB
 To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
 Cc: carlo.nonato@minervasys.tech, Julien Grall <jgrall@amazon.com>,
@@ -58,20 +58,17 @@ Cc: carlo.nonato@minervasys.tech, Julien Grall <jgrall@amazon.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20240116143709.86584-1-julien@xen.org>
- <20240116143709.86584-3-julien@xen.org>
- <c603bf7d-e38c-4ee9-87a6-cd3c75c59fad@amd.com>
+ <20240116143709.86584-4-julien@xen.org>
+ <25e9e83b-10c4-463b-8850-2ca57ac76376@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <c603bf7d-e38c-4ee9-87a6-cd3c75c59fad@amd.com>
+In-Reply-To: <25e9e83b-10c4-463b-8850-2ca57ac76376@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-
-On 17/01/2024 08:44, Michal Orzel wrote:
-> Hi Julien,
-
 Hi Michal,
 
+On 17/01/2024 08:53, Michal Orzel wrote:
+> 
 > 
 > On 16/01/2024 15:37, Julien Grall wrote:
 >>
@@ -85,82 +82,121 @@ Hi Michal,
 >> An easy way to solve the issue is to have all code/data accessed
 >> by the secondary CPUs while the MMU is off within a single page.
 >>
->> Right now, smp_up_cpu is used by secondary CPUs to wait there turn for
-> s/there/their ?
-
-Yes. I will fix it on commit.
-
-> 
->> booting before the MMU is on. Yet it is currently in .data which is
->> unlikely to be within the same page as the rest of the idmap.
+>> Right now, most of the early printk messages are using PRINT() which
+>> will add the message in .rodata. This is unlikely to be within the
+>> same page as the rest of the idmap.
 >>
->> Move smp_up_cpu to the recently create section .data.idmap. The idmap is
-> s/create/created
-> 
->> currently part of the text section and therefore will be mapped read-onl
-> s/onl/only
-> 
->> executable. This means that we need to temporarily remap
->> smp_up_cpu in order to update it.
->>
->> Introduce a new function set_smp_up_cpu() for this purpose so the code
->> is not duplicated between when opening and closing the gate.
+>> So replace all the PRINT() that can be reachable by the secondary
+>> CPU with MMU-off with PRINT_ID().
 >>
 >> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 > 
+> with some remarks below
+> 
 >> ---
->>   xen/arch/arm/smpboot.c | 36 +++++++++++++++++++++++++++++++-----
->>   1 file changed, 31 insertions(+), 5 deletions(-)
+>>   xen/arch/arm/arm64/head.S               | 14 +++++++-------
+>>   xen/arch/arm/arm64/mmu/head.S           |  2 +-
+>>   xen/arch/arm/include/asm/arm64/macros.h |  9 ++++++---
+>>   3 files changed, 14 insertions(+), 11 deletions(-)
 >>
->> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
->> index 7110bc11fc05..8d508a1bb258 100644
->> --- a/xen/arch/arm/smpboot.c
->> +++ b/xen/arch/arm/smpboot.c
->> @@ -29,6 +29,10 @@
->>   #include <asm/psci.h>
->>   #include <asm/acpi.h>
+>> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+>> index cfc04c755400..fa8b00b6f1db 100644
+>> --- a/xen/arch/arm/arm64/head.S
+>> +++ b/xen/arch/arm/arm64/head.S
+>> @@ -289,9 +289,9 @@ GLOBAL(init_secondary)
 >>
->> +/* Override macros from asm/page.h to make them work with mfn_t */
->> +#undef virt_to_mfn
->> +#define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
->> +
->>   cpumask_t cpu_online_map;
->>   cpumask_t cpu_present_map;
->>   cpumask_t cpu_possible_map;
->> @@ -56,7 +60,7 @@ struct init_info init_data =
->>   };
+>>   #ifdef CONFIG_EARLY_PRINTK
+>>           ldr   x23, =CONFIG_EARLY_UART_BASE_ADDRESS /* x23 := UART base address */
+>> -        PRINT("- CPU ")
+>> +        PRINT_ID("- CPU ")
+>>           print_reg x24
+>> -        PRINT(" booting -\r\n")
+>> +        PRINT_ID(" booting -\r\n")
+>>   #endif
+>>           bl    check_cpu_mode
+>>           bl    cpu_init
+>> @@ -314,10 +314,10 @@ ENDPROC(init_secondary)
+>>    * Clobbers x0 - x5
+>>    */
+>>   check_cpu_mode:
+>> -        PRINT("- Current EL ")
+>> +        PRINT_ID("- Current EL ")
+>>           mrs   x5, CurrentEL
+>>           print_reg x5
+>> -        PRINT(" -\r\n")
+>> +        PRINT_ID(" -\r\n")
 >>
->>   /* Shared state for coordinating CPU bringup */
->> -unsigned long smp_up_cpu = MPIDR_INVALID;
->> +unsigned long __section(".data.idmap") smp_up_cpu = MPIDR_INVALID;
->>   /* Shared state for coordinating CPU teardown */
->>   static bool cpu_is_dead;
->>
->> @@ -429,6 +433,28 @@ void stop_cpu(void)
->>           wfi();
->>   }
->>
->> +static void set_smp_up_cpu(unsigned long mpidr)
->> +{
->> +    /*
->> +     * smp_up_cpu is part of the identity mapping which is read-only. So
->> +     * We need to re-map the region so it can be updated.
->> +     */
->> +    void *ptr = map_domain_page(virt_to_mfn(&smp_up_cpu));
->> +
->> +    ptr += PAGE_OFFSET(&smp_up_cpu);
->> +
->> +    *(unsigned long *)ptr = mpidr;
->> +
->> +    /*
->> +     * init_ttbr will be accessed with the MMU off, so ensure the update
-> smp_up_cpu instead of init_ttbr
+>>           /* Are we in EL2 */
+>>           cmp   x5, #PSR_MODE_EL2t
+>> @@ -326,8 +326,8 @@ check_cpu_mode:
+>>           ret
+>>   1:
+>>           /* OK, we're boned. */
+>> -        PRINT("- Xen must be entered in NS EL2 mode -\r\n")
+>> -        PRINT("- Please update the bootloader -\r\n")
+>> +        PRINT_ID("- Xen must be entered in NS EL2 mode -\r\n")
+>> +        PRINT_ID("- Please update the bootloader -\r\n")
+>>           b fail
+> What about the PRINT in fail?
 
-Doh. I just copied/pasted the code from init_ttbr. I will update it.
+It should be modified. I will update it on commit.
 
-BTW, I thought about trying to consolidate the code between 
-set_init_ttbr() and set_smp_up_cpu() but it didn't seem to be worth it.
+> 
+>>   ENDPROC(check_cpu_mode)
+>>
+>> @@ -361,7 +361,7 @@ ENDPROC(zero_bss)
+>>    * Clobbers x0 - x3
+>>    */
+>>   cpu_init:
+>> -        PRINT("- Initialize CPU -\r\n")
+>> +        PRINT_ID("- Initialize CPU -\r\n")
+>>
+>>           /* Set up memory attribute type tables */
+>>           ldr   x0, =MAIRVAL
+>> diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
+>> index 92b62ae94ce5..fa40b696ddc8 100644
+>> --- a/xen/arch/arm/arm64/mmu/head.S
+>> +++ b/xen/arch/arm/arm64/mmu/head.S
+>> @@ -276,7 +276,7 @@ ENDPROC(create_page_tables)
+>>   enable_mmu:
+>>           mov   x4, x0
+>>           mov   x5, x1
+>> -        PRINT("- Turning on paging -\r\n")
+>> +        PRINT_ID("- Turning on paging -\r\n")
+>>
+>>           /*
+>>            * The state of the TLBs is unknown before turning on the MMU.
+>> diff --git a/xen/arch/arm/include/asm/arm64/macros.h b/xen/arch/arm/include/asm/arm64/macros.h
+>> index 10e652041f57..6a0108f778a2 100644
+>> --- a/xen/arch/arm/include/asm/arm64/macros.h
+>> +++ b/xen/arch/arm/include/asm/arm64/macros.h
+>> @@ -39,9 +39,12 @@
+>>    * There are multiple flavors:
+>>    *  - PRINT_SECT(section, string): The @string will be located in @section
+>>    *  - PRINT(): The string will be located in .rodata.str.
+>> - *  - PRINT_ID(): When Xen is running on the Identity Mapping, it is
+>> - *    only possible to have a limited amount of Xen. This will create
+>> - *    the string in .rodata.idmap which will always be mapped.
+>> + *  - PRINT_ID(): This will create the string in .rodata.idmap which
+>> + *    will always be accessible. This is used when:
+>> + *      - Xen is running on the identity mapping because not all of Xen is mapped
+>> + *      - Running with the MMU-off on secondary boots as Xen may not be
+> s/boots/CPUs
+
+I will fix it.
+
+> 
+>> + *        physically contiguous in memory (e.g. in the case of cache
+>> + *        coloring).
+>>    *
+>>    * Clobbers x0 - x3
+>>    */
+>> --
+>> 2.40.1
+>>
+> 
+> ~Michal
 
 Cheers,
 
