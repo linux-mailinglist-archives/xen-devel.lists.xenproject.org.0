@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C14C831CC8
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 16:49:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668830.1041314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1C1831D1B
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 17:01:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668835.1041325 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQUda-0004LA-U6; Thu, 18 Jan 2024 15:49:02 +0000
+	id 1rQUoP-00004w-Rm; Thu, 18 Jan 2024 16:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668830.1041314; Thu, 18 Jan 2024 15:49:02 +0000
+Received: by outflank-mailman (output) from mailman id 668835.1041325; Thu, 18 Jan 2024 16:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQUda-0004JS-RJ; Thu, 18 Jan 2024 15:49:02 +0000
-Received: by outflank-mailman (input) for mailman id 668830;
- Thu, 18 Jan 2024 15:49:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rQUoP-0008UL-OU; Thu, 18 Jan 2024 16:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 668835;
+ Thu, 18 Jan 2024 16:00:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=2mYN=I4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rQUda-0004JM-34
- for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 15:49:02 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18850251-b619-11ee-9b0f-b553b5be7939;
- Thu, 18 Jan 2024 16:48:59 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-40e5afc18f5so80937845e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jan 2024 07:48:59 -0800 (PST)
+ id 1rQUoO-0008UF-G8
+ for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 16:00:12 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a88daccf-b61a-11ee-98f2-6d05b1d4d9a1;
+ Thu, 18 Jan 2024 17:00:11 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a2e0be86878so172219666b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jan 2024 08:00:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fc11-20020a05600c524b00b0040e86fbd772sm7418234wmb.38.2024.01.18.07.48.58
+ gu12-20020a0566382e0c00b0046df4450843sm1025984jab.50.2024.01.18.08.00.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Jan 2024 07:48:59 -0800 (PST)
+ Thu, 18 Jan 2024 08:00:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18850251-b619-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: a88daccf-b61a-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705592939; x=1706197739; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705593610; x=1706198410; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=CUfHsBZg1o5efKphDQQGpo9k5ziKDu078UEQb2CoKYQ=;
-        b=MsYW4hNkOfcXGNNIe5B+KvikuXpbWe2YVm4ORLf1x6O1qJNdz9yarfkIzW3UgfNRVY
-         bMARZiEuIEM9IPxY9MxVD0YoUYPeKgnCwVZTecUP/jgiUIkjVeiKUXspsJy3cbui5/o/
-         sqVsR43n4PXl5P5T/7UWp+MUgaXUorgAbBn8tVCV2Zhftbbzf8dKnpIE96RZ8d81WF5G
-         j+r5e/eMH4qHMiT/8CO4eZ53i678XNiGuKjRhu5CrOTmNwxNlJeUDev9NTGQ+Myjepaz
-         Ts+r68tZCQSC+XI36b4ccGrhetK7g3Q0mwg+XjycCS2vZ6BUKw8cEeLipLEJz3ItVQu7
-         zLLQ==
+        bh=Imm3giTj2XYmflJYbY88fLmhBZY/5fcDZEEkEQe2smU=;
+        b=OBd4arrcfIQcE7s0X1QYX5iolY6AJsONajkOSRL8ea4F0LFxuF45EnXiTMa1V19OvM
+         i1LsOuUqN7ymuooyip1F58PM8WXAEFXecd9juDUSn/Qvl5MwPoMHCZFUVQ5iCLCep1qU
+         BKAPGcCEcmw4lISx0CL67yzdrNpvifXioGgnqL7IGsqp0xM9PNqUsz6xMELPzi7+kycV
+         gIFtScR/LQRSKBbeSaL7MUwI2AMosdjc+SbIfYjj+yezsncDCJtD1Cm1MyWiDmJKf+1B
+         SltQRyWKTgfeoyVVJNfSpgeHzrSP8TiRiz6L0bMpjyggs5hMtHUaOjLkPe6Q1uB5gOsU
+         CWiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705592939; x=1706197739;
+        d=1e100.net; s=20230601; t=1705593610; x=1706198410;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CUfHsBZg1o5efKphDQQGpo9k5ziKDu078UEQb2CoKYQ=;
-        b=V2NSZ+PH16fQoump1CMCMCMkRlkq7w6nCGSn7eUqpAz3FxobUsIF9KwuAIlRCTlbjJ
-         7AGLhCWwwTz9CiHERJ13Kv5f/bHXOC9lFbzDEBbUb/lIWRS9TvWiWhjy/BXDCx0PQ28Q
-         4rPjomsYRsimuMgXa5X252XJrB18hGWZUpbKMQ1/TCa66a8sDBY9FLRZQFJHI/lSrrIW
-         H83m/kPTS1IxGIGYcXFsSaKVMF6dvQyMoJzIAlbHcdFoyAs2WRteb/CwsOdGo7jIN/FG
-         wHtpuu7RjI01lg0X9nHeeeLnrhvMP8alLOQ/NGcPZTZALOgsdQMTUk1vuCZoIlU7r9hn
-         RuhA==
-X-Gm-Message-State: AOJu0Ywduqb0UTvTbUSLdqiYAaFDLbZvQqR66x07/2PxAlxr/XBer8BB
-	XdNpYhIibh+DRKkPhFiRAXC0zMw99md04/Z9WxgqZtaoof63EcpDJ2lHQv4WEpKRnR5S19ZY0kE
-	=
-X-Google-Smtp-Source: AGHT+IEGvcWPMzGZUvG9tlQDIwNF0ZwvutE/ao+X34c548aMxmq519eNRUXg3IgfXLvecnwYCOgLXQ==
-X-Received: by 2002:a05:600c:ada:b0:40e:6357:5ff9 with SMTP id c26-20020a05600c0ada00b0040e63575ff9mr609164wmr.183.1705592939332;
-        Thu, 18 Jan 2024 07:48:59 -0800 (PST)
-Message-ID: <6ad6a2be-473a-4ec2-ae97-a9d777e83a0b@suse.com>
-Date: Thu, 18 Jan 2024 16:48:57 +0100
+        bh=Imm3giTj2XYmflJYbY88fLmhBZY/5fcDZEEkEQe2smU=;
+        b=iMVd7YpfpfRLFDqDrIvpI+I4qU6+TfyfqkE0faOH/mT1l+ahgLKxkXIb7Pfg9wbNa6
+         8Wp8peidf3IF62dotmYHMYM3qvCu0Nrhmp5jSSJx096NspHZzpxcj/+rTmylMvMjqM4P
+         sCEMtloFM+W9KqwXNaEY+X16VZghkrvrStRgTpbr6U66nWarN5OamFikSttw5VyARm/8
+         dZDb+edL8ndZgn1cbNtYDY+r63oZjT6ZPcW9FOe9lRtFh6wHRESDK0RAs2oiQrCffgYs
+         7XyxF2SACXaUW78a0DVO2DZAmvuS2lEZ0G/ngDr7fhBMXHmtR6SKGuZ6caF8so6bs2vZ
+         GMVQ==
+X-Gm-Message-State: AOJu0YxETkX8R/YyYWmcFCAplFewGj/a5C6iex4OkocKx7HwRk9JicmR
+	OH5vGu2vBl0vg4OenARZpv6jUUkbuSeinnXBgdO097NkW0473n4tkddCRP7I3g==
+X-Google-Smtp-Source: AGHT+IH5tFTvnv+6oxGBHPNjtGoJKFZ31/qcz4LPMx1aNFXIlrq0cqODpCFiE5Y1yR3i5tphxqW7uw==
+X-Received: by 2002:a17:906:906:b0:a2e:e5b:d3fc with SMTP id i6-20020a170906090600b00a2e0e5bd3fcmr2986293ejd.19.1705593610477;
+        Thu, 18 Jan 2024 08:00:10 -0800 (PST)
+Message-ID: <7ca08488-acc5-4846-86dd-b81b6e4fe3fc@suse.com>
+Date: Thu, 18 Jan 2024 17:00:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 1/8] common: assembly entry point type/size annotations
@@ -89,7 +88,7 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  George Dunlap <george.dunlap@citrix.com>
 References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
  <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
- <38de36da-0822-4452-9594-8d50a5a77335@suse.com> <ZagIQkyR0SoScaAc@macbook>
+ <38de36da-0822-4452-9594-8d50a5a77335@suse.com> <Zak7Rmbj_izBvcC4@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,11 +113,11 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZagIQkyR0SoScaAc@macbook>
+In-Reply-To: <Zak7Rmbj_izBvcC4@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17.01.2024 18:02, Roger Pau Monné wrote:
+On 18.01.2024 15:52, Roger Pau Monné wrote:
 > On Mon, Jan 15, 2024 at 03:34:05PM +0100, Jan Beulich wrote:
 >> Recent gas versions generate minimalistic Dwarf debug info for items
 >> annotated as functions and having their sizes specified [1]. Furthermore
@@ -127,11 +126,27 @@ On 17.01.2024 18:02, Roger Pau Monné wrote:
 >> Linux'es, for all architectures to use.
 >>
 >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
-
+>>
+>> [1] https://sourceware.org/git?p=binutils-gdb.git;a=commitdiff;h=591cc9fbbfd6d51131c0f1d4a92e7893edcc7a28
+>> ---
+>> v5: Drop CODE_ALIGN fallback. s/algn/align/g.
+>> v3: New, generalized from earlier x86-only version. LAST() (now
+>>     LASTARG()) moved to macros.h.
+>> ---
+>> TBD: {CODE,DATA}_ALIGN are byte granular, such that a value of 0 can be
+>>      specified (in case this has some special meaning on an arch;
+>>      conceivably it could mean to use some kind of arch default). We may
+>>      not strictly need that, and hence we could also make these power-
+>>      of-2 values (using .p2align).
+>>
+>> Note that we can't use ALIGN() (in place of SYM_ALIGN()) as long as we
+>> still have ALIGN.
+>>
+>> Note further that FUNC()'s etc "align" parameter is intended to allow
+>> for only no or a single argument. If we wanted to also make the fill
+>> value customizable per call site, the constructs would need re-doing to
+>> some degree.
+>>
 >> --- /dev/null
 >> +++ b/xen/include/xen/linkage.h
 >> @@ -0,0 +1,54 @@
@@ -152,13 +167,56 @@ Thanks.
 >> +#endif
 >> +#ifndef DATA_FILL
 >> +# define DATA_FILL ~0
+>> +#endif
+>> +
+>> +#define SYM_ALIGN(align...) .balign align
+>> +
+>> +#define SYM_L_GLOBAL(name) .globl name
+>> +#define SYM_L_WEAK(name)   .weak name
+>> +#define SYM_L_LOCAL(name)  /* nothing */
+>> +
+>> +#define SYM_T_FUNC         STT_FUNC
+>> +#define SYM_T_DATA         STT_OBJECT
+>> +#define SYM_T_NONE         STT_NOTYPE
+>> +
+>> +#define SYM(name, typ, linkage, align...)         \
+>> +        .type name, SYM_T_ ## typ;                \
+>> +        SYM_L_ ## linkage(name);                  \
+>> +        SYM_ALIGN(align);                         \
+>> +        name:
+>> +
+>> +#define END(name) .size name, . - name
+>> +
+>> +#define FUNC(name, align...) \
+>> +        SYM(name, FUNC, GLOBAL, LASTARG(CODE_ALIGN, ## align), CODE_FILL)
+>> +#define LABEL(name, align...) \
+>> +        SYM(name, NONE, GLOBAL, LASTARG(CODE_ALIGN, ## align), CODE_FILL)
+>> +#define DATA(name, align...) \
+>> +        SYM(name, DATA, GLOBAL, LASTARG(DATA_ALIGN, ## align), DATA_FILL)
+>> +
+>> +#define FUNC_LOCAL(name, align...) \
+>> +        SYM(name, FUNC, LOCAL, LASTARG(CODE_ALIGN, ## align), CODE_FILL)
+>> +#define LABEL_LOCAL(name, align...) \
+>> +        SYM(name, NONE, LOCAL, LASTARG(CODE_ALIGN, ## align), CODE_FILL)
 > 
-> I find the fills a bit odd, compared to what we use now (nops for x86
-> IIRC).
+> One thing that I've noticed while reviewing further patches, the usage
+> of CODE_ALIGN and CODE_FILL in LABEL_LOCAL() means that CODE_FILL must
+> always be a nop, or else the assembler will put garbage while padding
+> the symbol, and hence the preceding code will no longer fallthrough
+> into the label?
 
-Well, these are generic defaults. X86 then overrides CODE_FILL for it
-to remain NOP. ~0 is the best I can think of as an arch-agnostic default,
-considering the half dozen architectures I know at least a little.
+Well, except when an arch has no such cases, it'll need to override
+CODE_FILL. Hence why for now Arm and PPC architectures get away without
+such an override. It may well be that at least Arm will need to gain
+one as soon as the first case of falling through is converted to this
+new model. See also the RISC-V change, where it becomes permissible for
+CODE_FILL to expand to nothing (thus using assembler built-in defaults).
+
+> Looking further, LABEL_LOCAL() is always used when there's no
+> fallthrough, but it's IMO not obvious from the description here.
+
+Not sure what adjustment to the description you are thinking of. What's
+used where isn't dictated by this patch / framework.
 
 Jan
 
