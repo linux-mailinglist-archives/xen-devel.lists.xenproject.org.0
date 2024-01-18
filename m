@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 001A5830F43
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jan 2024 23:38:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668583.1040883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E89AF831075
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 01:25:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668587.1040892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQEXq-0003z0-IG; Wed, 17 Jan 2024 22:38:02 +0000
+	id 1rQGCF-0005aG-QH; Thu, 18 Jan 2024 00:23:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668583.1040883; Wed, 17 Jan 2024 22:38:02 +0000
+Received: by outflank-mailman (output) from mailman id 668587.1040892; Thu, 18 Jan 2024 00:23:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQEXq-0003x6-FA; Wed, 17 Jan 2024 22:38:02 +0000
-Received: by outflank-mailman (input) for mailman id 668583;
- Wed, 17 Jan 2024 22:38:02 +0000
+	id 1rQGCF-0005XZ-Nc; Thu, 18 Jan 2024 00:23:51 +0000
+Received: by outflank-mailman (input) for mailman id 668587;
+ Thu, 18 Jan 2024 00:23:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3JKZ=I3=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rQEXp-0003x0-WA
- for xen-devel@lists.xenproject.org; Wed, 17 Jan 2024 22:38:01 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ <SRS0=HmWB=I4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rQGCE-0005XS-3Q
+ for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 00:23:50 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 11cff288-b589-11ee-98f2-6d05b1d4d9a1;
- Wed, 17 Jan 2024 23:38:01 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40e8ff22382so335825e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 17 Jan 2024 14:38:01 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- z10-20020a05600c0a0a00b0040e4bcfd826sm24226109wmp.47.2024.01.17.14.38.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 17 Jan 2024 14:38:00 -0800 (PST)
+ id d8575085-b597-11ee-98f2-6d05b1d4d9a1;
+ Thu, 18 Jan 2024 01:23:47 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 8725D611BD;
+ Thu, 18 Jan 2024 00:23:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08071C433F1;
+ Thu, 18 Jan 2024 00:23:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +41,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11cff288-b589-11ee-98f2-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705531080; x=1706135880; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=m8pEVg34jAhHPf30zrjux/7EK3YJeh7BZAw49Q11zqI=;
-        b=T0Cn8t4cGKdKNTwWTr4/TSZ4g5S9Bqvkf8NpwWmSLOmnBVRp3ny8NX3zjkq8tG6O3V
-         GZsua0xJXIWlu8cg8Uf7NWN4vzxd2O/BDxBoIm42xf4PE3eUGrOqhEj6DyZvRMDpmhOK
-         go2joYshHE9zP68D629CREy0BGeXrXcG4SazY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705531080; x=1706135880;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=m8pEVg34jAhHPf30zrjux/7EK3YJeh7BZAw49Q11zqI=;
-        b=ENp9OrbiI+s/BMfWxLVQKmsjZUNOj7+xJUR+Gqk1DqIay55FQ9v82jDESnFdSp/QPI
-         oj4fPQn/GwatR38c+JiBEBxenPqYAZix8GrTmSEmdzUVM5sVR51ISVGrYTy6rswcv1Df
-         suNtitsTJA1QfBKArdZfEkhOifJq9sKbpjLG8IUwKl+flWf2Nmc8Hbd2Xu3DQnE2vtb7
-         1gpFrq7wZxQNRXdO2i79Lzu0ykzVA0hLCcPuqycFYnH2J28EoKiv+0vp+UpD8NFxN2Ls
-         zMHPrNDZiykxN1afirq4f6UGALzgYfcGeIUU70cU9v5xTQYqC99Kmlb6HTnYjM201+0I
-         g7Og==
-X-Gm-Message-State: AOJu0YyfE9gsD1agP1QV6bYDs0oBAGWhTBfcDXktL596wV4Am+Hs3nLF
-	HX8c5Iq6CyPyvfQdrHQful7QQu+n4ZfVTg==
-X-Google-Smtp-Source: AGHT+IFdmXnUDD2IOeM3WV2KAiL1zlUsYWKvJuswA3Nzj0q+U78ffZ68JUgXnmmMMhTQ4BuauhnKZw==
-X-Received: by 2002:a05:600c:2182:b0:40e:53f7:a254 with SMTP id e2-20020a05600c218200b0040e53f7a254mr5288682wme.73.1705531080508;
-        Wed, 17 Jan 2024 14:38:00 -0800 (PST)
-Message-ID: <8ab88630-3445-4b35-bdb4-c6223024c2ff@citrix.com>
-Date: Wed, 17 Jan 2024 22:37:59 +0000
+X-Inumbo-ID: d8575085-b597-11ee-98f2-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1705537426;
+	bh=oMN7iGxlui6PGKt8UYEPiXmJ4zyg6QjhOVJ5duxrvDY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=LYrdEMlAZOtgfU5QjdsqwbFkdpU551TznZvB7h9X9m0HGyxLwsnVQLk3ffHtQSQH5
+	 VbiDmk5x8euLTrykkdFvYIAt+dz+hf6UDuy2GeKcHQaCvIFj681jTJK7u9qZbVzzpl
+	 Er9Lx8zO6TWxhpdTn6hkGBFdIS7UeLThpTrD37ItKHcQ2LWbqt7fTHgFFiK7ZbrXpX
+	 /oifcnZdbVZlAM9wUUNsYGaT9o9ulB7VwNU71n7QFtT4PhZZ251RYwaywvNMe8/6AL
+	 xUl5k02wJVG7EHmWfNR2tsE7XaUyh3F8amM05bSo2F3Kgj7C1AWyBrxLQbx75YmzB+
+	 DfiJPriSLzYxg==
+Date: Wed, 17 Jan 2024 16:23:40 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: Carlo Nonato <carlo.nonato@minervasys.tech>, 
+    xen-devel@lists.xenproject.org, Luca Miccio <lucmiccio@gmail.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Marco Solieri <marco.solieri@minervasys.tech>
+Subject: Re: [PATCH v4 03/11] xen/arm: add Dom0 cache coloring support
+In-Reply-To: <a7a06a26-ae79-402c-96a4-a1ebfe8b5862@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2401171617320.2287888@ubuntu-linux-20-04-desktop>
+References: <20230123154735.74832-1-carlo.nonato@minervasys.tech> <20230123154735.74832-4-carlo.nonato@minervasys.tech> <a7a06a26-ae79-402c-96a4-a1ebfe8b5862@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] x86/MCE: arrange for some ENDBR zapping
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <0fb20fcf-1580-41c9-946b-7daf865f4b49@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <0fb20fcf-1580-41c9-946b-7daf865f4b49@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 17/01/2024 9:58 am, Jan Beulich wrote:
-> 1: separate BSP-only initialization
-> 2: switch some callback invocations to altcall
+On Fri, 12 Jan 2024, Michal Orzel wrote:
+> Hi Carlo,
+> 
+> On 23/01/2023 16:47, Carlo Nonato wrote:
+> > 
+> > 
+> > From: Luca Miccio <lucmiccio@gmail.com>
+> > 
+> > This commit allows the user to set the cache coloring configuration for
+> > Dom0 via a command line parameter.
+> > Since cache coloring and static memory are incompatible, direct mapping
+> > Dom0 isn't possible when coloring is enabled.
+> > 
+> > Here is also introduced a common configuration syntax for cache colors.
+> > 
+> > Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+> > Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+> > Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> > ---
+> > v4:
+> > - dom0 colors are dynamically allocated as for any other domain
+> >   (colors are duplicated in dom0_colors and in the new array, but logic
+> >   is simpler)
+> > ---
+> >  docs/misc/arm/cache-coloring.rst        | 32 ++++++++++++++++++++++---
+> >  xen/arch/arm/domain_build.c             | 17 +++++++++++--
+> >  xen/arch/arm/include/asm/llc_coloring.h |  4 ++++
+> >  xen/arch/arm/llc_coloring.c             | 14 +++++++++++
+> >  4 files changed, 62 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/docs/misc/arm/cache-coloring.rst b/docs/misc/arm/cache-coloring.rst
+> > index 0244d2f606..c2e0e87426 100644
+> > --- a/docs/misc/arm/cache-coloring.rst
+> > +++ b/docs/misc/arm/cache-coloring.rst
+> > @@ -83,12 +83,38 @@ manually set the way size it's left for the user to overcome failing situations
+> >  or for debugging/testing purposes. See `Coloring parameters and domain
+> >  configurations`_ section for more information on that.
+> > 
+> > +Colors selection format
+> > +***********************
+> > +
+> > +Regardless of the memory pool that has to be colored (Xen, Dom0/DomUs),
+> > +the color selection can be expressed using the same syntax. In particular a
+> > +comma-separated list of colors or ranges of colors is used.
+> > +Ranges are hyphen-separated intervals (such as `0-4`) and are inclusive on both
+> > +sides.
+> > +
+> > +Note that:
+> > + - no spaces are allowed between values.
+> > + - no overlapping ranges or duplicated colors are allowed.
+> > + - values must be written in ascending order.
+> > +
+> > +Examples:
+> > +
+> > ++---------------------+-----------------------------------+
+> > +|**Configuration**    |**Actual selection**               |
+> > ++---------------------+-----------------------------------+
+> > +|  1-2,5-8            | [1, 2, 5, 6, 7, 8]                |
+> > ++---------------------+-----------------------------------+
+> > +|  4-8,10,11,12       | [4, 5, 6, 7, 8, 10, 11, 12]       |
+> > ++---------------------+-----------------------------------+
+> > +|  0                  | [0]                               |
+> > ++---------------------+-----------------------------------+
+> > +
+> >  Coloring parameters and domain configurations
+> >  *********************************************
+> > 
+> > -LLC way size (as previously discussed) can be set using the appropriate command
+> > -line parameter. See the relevant documentation in
+> > -"docs/misc/xen-command-line.pandoc".
+> > +LLC way size (as previously discussed) and Dom0 colors can be set using the
+> > +appropriate command line parameters. See the relevant documentation
+> > +in "docs/misc/xen-command-line.pandoc".
+> > 
+> >  **Note:** If no color configuration is provided for a domain, the default one,
+> >  which corresponds to all available colors, is used instead.
+> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> > index f35f4d2456..093d4ad6f6 100644
+> > --- a/xen/arch/arm/domain_build.c
+> > +++ b/xen/arch/arm/domain_build.c
+> > @@ -2,6 +2,7 @@
+> >  #include <xen/init.h>
+> >  #include <xen/compile.h>
+> >  #include <xen/lib.h>
+> > +#include <xen/llc_coloring.h>
+> >  #include <xen/mm.h>
+> >  #include <xen/param.h>
+> >  #include <xen/domain_page.h>
+> > @@ -4014,7 +4015,10 @@ static int __init construct_dom0(struct domain *d)
+> >      /* type must be set before allocate_memory */
+> >      d->arch.type = kinfo.type;
+> >  #endif
+> > -    allocate_memory_11(d, &kinfo);
+> > +    if ( is_domain_llc_colored(d) )
+> > +        allocate_memory(d, &kinfo);
+> While doing some checks, I realized that the issue from previous series is still present.
+> Given that dom0 is hwdom, how are you going to prevent conflicts between allocated RAM and HW resources
+> that are to be mapped to dom0?
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Are you referring to the address ranges picked for RAM region and how to
+make sure they don't conflict with something else (e.g. the MMIO region
+of a device)?
+
+I thought that for dom0 we were reusing the same address layout of the
+host, so device MMIO would be mapped 1:1, memory would not be mapped 1:1
+(due to cache coloring) but it would be mapped to the same guest address
+ranges corresponding to RAM addresses on the host. Is it not the case in
+this version of the patch series?
 
