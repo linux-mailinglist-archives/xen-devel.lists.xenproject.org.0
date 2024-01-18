@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81EC8831D2B
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 17:04:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668841.1041335 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A1D831E89
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jan 2024 18:39:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668852.1041350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQUsB-0000xo-EB; Thu, 18 Jan 2024 16:04:07 +0000
+	id 1rQWL8-0002SG-2e; Thu, 18 Jan 2024 17:38:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668841.1041335; Thu, 18 Jan 2024 16:04:07 +0000
+Received: by outflank-mailman (output) from mailman id 668852.1041350; Thu, 18 Jan 2024 17:38:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQUsB-0000wD-BR; Thu, 18 Jan 2024 16:04:07 +0000
-Received: by outflank-mailman (input) for mailman id 668841;
- Thu, 18 Jan 2024 16:04:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rQWL7-0002QL-VM; Thu, 18 Jan 2024 17:38:05 +0000
+Received: by outflank-mailman (input) for mailman id 668852;
+ Thu, 18 Jan 2024 17:38:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fErA=I4=gmail.com=simonpatp@srs-se1.protection.inumbo.net>)
- id 1rQUs9-0000w5-OR
- for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 16:04:05 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 338f1b1d-b61b-11ee-98f2-6d05b1d4d9a1;
- Thu, 18 Jan 2024 17:04:04 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2cceb5f0918so131364221fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jan 2024 08:04:04 -0800 (PST)
+ <SRS0=YsoE=I4=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rQWL5-0002QF-TO
+ for xen-devel@lists.xenproject.org; Thu, 18 Jan 2024 17:38:03 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 526ea0d2-b628-11ee-9b0f-b553b5be7939;
+ Thu, 18 Jan 2024 18:37:59 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-40e959b1867so5918885e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jan 2024 09:37:59 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ p9-20020a05600c1d8900b0040e95632357sm1768493wms.26.2024.01.18.09.37.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 18 Jan 2024 09:37:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,131 +45,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 338f1b1d-b61b-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 526ea0d2-b628-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1705593843; x=1706198643; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=TKtKOWW1ww90uIePsRdVa5LNuR/oS4oGJ0D+giWI9AU=;
-        b=T8L7RAisdNZbmv5+9JGG5iOwlhRq4qQQm/+5sGxO1xj5wcjfi7mBdVteoPhFuu4/gu
-         JF3KgFZiWMEXTHdUIgjsQ2NExl2It9XniG+ILZy+GCAcaS9S7y1PFVURhJBtDdbaowvs
-         SKQx1xoL9aNJkO+b6hAsFwL/il0FKELelOClqOvzCfiWU3ORzXD9xBoPbSOgNsbxkpDL
-         igR08NPfe2ubBcHLyGmWKjeyYH0SrQTWW4FtPd5a4JEj9Okm9nVJ9NKnceBi8nRcK6Gy
-         42QMWftACs2RYAexs389WETsedSSe8HJkfDjxs1Ti6uZ9z/GNa7gcLAckT7fWjPWSd91
-         BB9A==
+        d=citrix.com; s=google; t=1705599479; x=1706204279; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Odkw6lBmhr0HNRPsHIor/laqkbwOgrGwsu5YxKAVXMI=;
+        b=t6Yzjt3M9nS4AGkN2/OIdXGO1MjU5CCt4OiSPVr3vIQJZp6YaXQ/2C4n2WL6NoTr2v
+         ipR49fMHOHChoRvJ2t6tlCtGZ87UghUyYrcuYisFSma2/xkeEWbGUaofONqTiOJEi/Tm
+         uD+Yq+MSfhqk9BCk+0gyTFXFzTn9Xb407jYNo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705593843; x=1706198643;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TKtKOWW1ww90uIePsRdVa5LNuR/oS4oGJ0D+giWI9AU=;
-        b=r+kqjM9kSD7HxFSCn6kr60+KtFmVsQf0iV2nmQUy98x1KkfQTM5BvDZN7KqS/oiYjV
-         V11N38IwHDVkzbrFmVBgKesiivEDn70Nn1j6auKJNVglf7oYGaUqwPq9RayYKkrJGf4T
-         KWEDBlqcZEt2qqzF4g6FnnEtrSv9Qumj0RDAllOViU5WwhrlcJINooQEtVGzPKyheKEI
-         yNxr2GKz9DeKWyVDnqeuM/Ckle77F9hgXjMYm1jSppWlkb4A4OgNTgSQxgBa6zQVqrkF
-         Kmnpatbb9Bv0jIvg7VmrjUnPnRJJQQskYjTw2YXeqGPR13jKuVNqR1TJPviswmo++AcP
-         9JKA==
-X-Gm-Message-State: AOJu0Yy8OtgUr8sVCh43io0g7pVP/Jts8NeGaYUX0BptF8Qn7vQ6OreH
-	kwCtB02BCXmZDNM0NsFAe54QSW2Vt2JNNXblOcs8BxO+aDMiU4d+BD6LoE4Y2LPl9GMEHEAShER
-	9dwuWf32BV3fFNivycblrPqAvKFc=
-X-Google-Smtp-Source: AGHT+IHo4aD34Bivhv/cWMi1W1hGYTP7pQaj/qkbwZHfFramqRKnm74WFj7MpDhbUi30XIUMEatg/quapaOhg2VVGQo=
-X-Received: by 2002:a2e:9c47:0:b0:2cc:d864:124e with SMTP id
- t7-20020a2e9c47000000b002ccd864124emr371952ljj.18.1705593843302; Thu, 18 Jan
- 2024 08:04:03 -0800 (PST)
+        d=1e100.net; s=20230601; t=1705599479; x=1706204279;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Odkw6lBmhr0HNRPsHIor/laqkbwOgrGwsu5YxKAVXMI=;
+        b=MzbHsakW68aINxBdPqKVmGl7Pjvab1azUX1c6Fs7KaMDqwMtlLIirSGMEDdGHx+K0j
+         O+f2ptleMABjk/i93AxkUCLIfxGs934Rw7Y/6bj0aZjW8bMQmdTqiWkhoQ9iKkvm4jSQ
+         JpdvVd0bq51xjkYy2/P0VNjz/GvbFq/ns0gqMADT+IEjCqvJbUIfdK6E9Wh7utxNyyt9
+         dIZp4oOw81S5lD9OomrXJYOry4JTN1FdwZPeHPa6O6/Iz3y2yDhd9fcZ+86cuQTdjtVp
+         iZfQ7ty8OcO4rorsSBvcYaDs9dhALej9UnQ+gjglakkKGbnJciWJTjBQtObM7/wPRcaG
+         UGKA==
+X-Gm-Message-State: AOJu0Yww0/JEeopgo+9BTSUVk+a8G6akANUWZvQ1yompjqaCf/wewLhy
+	cgpEx4i1p3IfQkPkYtHwhRwglCA/t1baExKNwyxMq7+tv6hU6g1wjebTtn9cqbk=
+X-Google-Smtp-Source: AGHT+IGVU8q4FcjPAiTchxnTCtSZdh1D0y4So0T2vM0KKNX+VpDFugRPqOLvIFUeEoYJobPw+ayQqQ==
+X-Received: by 2002:a05:600c:3ca1:b0:40e:532d:50c4 with SMTP id bg33-20020a05600c3ca100b0040e532d50c4mr723641wmb.130.1705599478933;
+        Thu, 18 Jan 2024 09:37:58 -0800 (PST)
+Date: Thu, 18 Jan 2024 17:37:58 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Michal Orzel <michal.orzel@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] coverage: filter out lib{fdt,elf}-temp.o
+Message-ID: <e399890c-0299-4ec5-884e-0637ae6cb5b0@perard>
+References: <20240118120641.24824-1-michal.orzel@amd.com>
+ <8057ae41-43b5-4469-b691-4e7f16b8dd4d@suse.com>
 MIME-Version: 1.0
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
- <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com> <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
- <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
- <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com> <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
- <fa23a590-5869-4e11-8998-1d03742c5919@suse.com> <CAOCpoWf4CMkCWx8uR2NbFrZrKSS78wj1-hFsAUqsjCfsmqooVA@mail.gmail.com>
- <Zajg1O7Z52VTBq31@macbook> <CAOCpoWeO9h7b_CjJb9jtKaEUVv_=XDSVkr55QSg3ArFc4n8G2w@mail.gmail.com>
- <ZajzcpArQYQhdj3T@macbook>
-In-Reply-To: <ZajzcpArQYQhdj3T@macbook>
-From: Patrick Plenefisch <simonpatp@gmail.com>
-Date: Thu, 18 Jan 2024 11:03:51 -0500
-Message-ID: <CAOCpoWdx=h-RDZ0j6tthaiGeZo_4GidLsic4Js1G-F+kswzuoQ@mail.gmail.com>
-Subject: Re: E820 memory allocation issue on Threadripper platforms
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org, 
-	Juergen Gross <jgross@suse.com>
-Content-Type: multipart/alternative; boundary="000000000000294764060f3a837a"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8057ae41-43b5-4469-b691-4e7f16b8dd4d@suse.com>
 
---000000000000294764060f3a837a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Thu, Jan 18, 2024 at 02:12:21PM +0100, Jan Beulich wrote:
+> On 18.01.2024 13:06, Michal Orzel wrote:
+> > At the moment, trying to run xencov read/reset (calling SYSCTL_coverage_op
+> > under the hood) results in a crash. This is due to an attempt to
+> > access code in the .init.* sections (libfdt for Arm and libelf for x86)
+> > that are stripped after boot. Normally, the build system compiles any
+> > *.init.o file without COV_FLAGS. However, these two libraries are
+> > handled differently as sections will be renamed to init after linking.
+> > 
+> > This worked until e321576f4047 ("xen/build: start using if_changed")
+> > that added lib{fdt,elf}-temp.o to extra-y. Any file listed there without
+> > *.init.o suffix will be part of non-init-objects for which COV_FLAGS
+> > will be appended.
+> 
+> While this is true, aiui COV_FLAGS would be empty for anything listed
+> in nocov-y and all of the prerequisites of those objects (iirc target-
+> specific variable settings propagate to prerequisites). Therefore ...
+> 
+> > In such case, the solution is to add a file to nocov-y.
+> 
+> ... libelf.o / libfdt.o already being listed there ought to suffice.
+> Alternatively listing only libelf-temp.o / libfdt-temp.o ought to
+> suffice as well.
+> 
+> Since you apparently observed things not working, I must be missing
+> something.
 
-On Thu, Jan 18, 2024 at 4:46=E2=80=AFAM Roger Pau Monn=C3=A9 <roger.pau@cit=
-rix.com>
-wrote:
+Yes, $(extra-y) is like $(obj-y), but objects there will not be added
+"built_in.o". So, make is likely building "libelf-temp.o" and deps
+because it's in $(extra-y) rather than because it's a prerequisite of
+"libelf.o". We could ask make to process prerequisite in a reverse
+order, and suddenly, the command line to make all "libelf-*.o" is
+different: `make --shuffle=reverse V=2`.
 
-> >
-> > Luckily linux logs are mercifully short. Append this to
-> > xen-4.18p_grub_linuxoffset_pvh.log:
-> >
-> > [    0.778770] i2c_designware AMDI0010:00: Unknown Synopsys component
-> type:
-> > 0xffffffff
-> > [    0.914664] amd_gpio AMDI0030:00: error -EINVAL: IRQ index 0 not fou=
-nd
-> > [    0.930112] xen_mcelog: Failed to get CPU numbers
-> > [    8.324907] ccp 0000:06:00.5: pcim_iomap_regions failed (-16)
-> > [    8.338604] sp5100-tco sp5100-tco: Watchdog hardware is disabled
-> > [    8.909366] [drm:radeon_get_bios [radeon]] *ERROR* ACPI VFCT table
-> > present but broken (too short #2)
->
-> Hm, interesting.  I will have to add more debug in order to check
-> what's going on here, seems like the table is corrupted somehow.
->
-> Would you be able to build a new version of Xen if I provide you with
-> an extra debug patch?
->
+So, adding extra object to $(nocov-y) is a workaround, but I think a
+better fix would be to add those objects to $(targets) instead of
+$(extra-y). I think I've made a mistake by using $(extra-y) instead of
+$(targets) in that original commit.
 
-Yes, I now have a build env setup for testing xen and the linux kernel.
+Cheers,
 
-
->
-> Thanks, Roger.
->
-
---000000000000294764060f3a837a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Jan 18, 2024 at 4:46=E2=80=AF=
-AM Roger Pau Monn=C3=A9 &lt;<a href=3D"mailto:roger.pau@citrix.com">roger.p=
-au@citrix.com</a>&gt; wrote:</div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">
-&gt; <br>
-&gt; Luckily linux logs are mercifully short. Append this to<br>
-&gt; xen-4.18p_grub_linuxoffset_pvh.log:<br>
-&gt; <br>
-&gt; [=C2=A0 =C2=A0 0.778770] i2c_designware AMDI0010:00: Unknown Synopsys =
-component type:<br>
-&gt; 0xffffffff<br>
-&gt; [=C2=A0 =C2=A0 0.914664] amd_gpio AMDI0030:00: error -EINVAL: IRQ inde=
-x 0 not found<br>
-&gt; [=C2=A0 =C2=A0 0.930112] xen_mcelog: Failed to get CPU numbers<br>
-&gt; [=C2=A0 =C2=A0 8.324907] ccp 0000:06:00.5: pcim_iomap_regions failed (=
--16)<br>
-&gt; [=C2=A0 =C2=A0 8.338604] sp5100-tco sp5100-tco: Watchdog hardware is d=
-isabled<br>
-&gt; [=C2=A0 =C2=A0 8.909366] [drm:radeon_get_bios [radeon]] *ERROR* ACPI V=
-FCT table<br>
-&gt; present but broken (too short #2)<br>
-<br>
-Hm, interesting.=C2=A0 I will have to add more debug in order to check<br>
-what&#39;s going on here, seems like the table is corrupted somehow.<br>
-<br>
-Would you be able to build a new version of Xen if I provide you with<br>
-an extra debug patch?<br></blockquote><div><br></div><div>Yes, I now have a=
- build env setup for testing xen and the linux kernel.</div><div>=C2=A0<br>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
-order-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-Thanks, Roger.<br>
-</blockquote></div></div>
-
---000000000000294764060f3a837a--
+-- 
+Anthony PERARD
 
