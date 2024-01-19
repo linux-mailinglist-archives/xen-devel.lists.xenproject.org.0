@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E679583265E
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jan 2024 10:15:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.668958.1041469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4496832669
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jan 2024 10:17:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.668965.1041479 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQkxk-0006Qo-Bd; Fri, 19 Jan 2024 09:14:56 +0000
+	id 1rQkzc-000736-Pk; Fri, 19 Jan 2024 09:16:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 668958.1041469; Fri, 19 Jan 2024 09:14:56 +0000
+Received: by outflank-mailman (output) from mailman id 668965.1041479; Fri, 19 Jan 2024 09:16:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQkxk-0006PE-8B; Fri, 19 Jan 2024 09:14:56 +0000
-Received: by outflank-mailman (input) for mailman id 668958;
- Fri, 19 Jan 2024 09:14:54 +0000
+	id 1rQkzc-00070a-Mx; Fri, 19 Jan 2024 09:16:52 +0000
+Received: by outflank-mailman (input) for mailman id 668965;
+ Fri, 19 Jan 2024 09:16:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hPDw=I5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rQkxi-0006P6-Tq
- for xen-devel@lists.xenproject.org; Fri, 19 Jan 2024 09:14:54 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ePSo=I5=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rQkza-0006zW-SW
+ for xen-devel@lists.xenproject.org; Fri, 19 Jan 2024 09:16:50 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34292d3b-b6ab-11ee-9b0f-b553b5be7939;
- Fri, 19 Jan 2024 10:14:52 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-40e9fd483e2so1372025e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jan 2024 01:14:52 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j7-20020a05600c190700b0040e52cac976sm31834034wmq.29.2024.01.19.01.14.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Jan 2024 01:14:51 -0800 (PST)
+ id 79a026f6-b6ab-11ee-9b0f-b553b5be7939;
+ Fri, 19 Jan 2024 10:16:49 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-50e7e55c0f6so683866e87.0
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jan 2024 01:16:49 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ g22-20020a056512119600b0050e7a97ae32sm903075lfr.78.2024.01.19.01.16.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Jan 2024 01:16:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +45,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34292d3b-b6ab-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 79a026f6-b6ab-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705655692; x=1706260492; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rFsQ0akVQdH3W5JdVz3aqW5/NI9U1738dvXdj+LE/HM=;
-        b=a0Y8rsZ7Lu0jqLBlvDw8EXeoQGx9Fch+dMbmjpdVYBm7h6YYm86yAVpGAWq3C8uYGI
-         u3ved57+CwGpKsKZF2F19LH0N+wM5iJ3heWYhUBd2Ewm9ZlxvyI+9n8D7zPd0Y5llTlc
-         vDlP4B85nS9K4ksJrqWjPCVzmPIdrVY5aySRjfnLk5yv0HGKqL9RmAHuvYshjfCRnUPO
-         S2N0i5hJzEziZdRvob+aRpsptqI1oFS0BK8dKv34Sg8UQ7Y2GYunE6nH6ONE8mNRxP54
-         BtDIeOR7p/O2L2gDZyOkIgoU6al+/E8slnQhxTwVt1lTd460lxeOe3OPoXuGvIEwifv1
-         mE9w==
+        d=gmail.com; s=20230601; t=1705655809; x=1706260609; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=eyoZO+bmF/YBvavD8DvX/SVdsTD2uXFDUFXYDReg7co=;
+        b=dCgbGGpwHbJfJguiHVbM91OQdJ1D8VS0nV2P2htbfrFeiz6OXif4hYf4RxvOozcPc1
+         4AQy7aNEoVR4EXfx04aie3EQMFl6jYB36NkpCxodNUDvsfTMw8dBoIYFJgyIQrAeFjEK
+         g3Ae28I4PaxUx9sAKFFHE4f4mIyRYfNdy7WeCACc3FgwQ9GijFoIhARusp9CYluOaa1k
+         FQRt5ZSH88N1zsSdZet9NVzQteWjQNK3ivPBQJ7dtIb7JJUhH+BjzTt51jfZMzWApY4I
+         xKfS1AhwRE4cWNg5Kiooz4BB3Xp6CRz8WmXI80PsvunkHiJo1DjvGnVUE7gSVLB8+qCi
+         MvlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705655692; x=1706260492;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rFsQ0akVQdH3W5JdVz3aqW5/NI9U1738dvXdj+LE/HM=;
-        b=qWObTvBE+iCn7Ojs/WfIjiI9xQscJAnGYiLyEgHyjzX9Cvda5o1CzyioEwZwvEjc5W
-         RMYxXJoEoisehK4jd7LxAD8KZ/qaV1KpU8tczZDeeq7mY96O+J65lORKL1UQU0uvh2MO
-         QKvHE3EX6mE+5cRuyM7tIlbCMVcpwD5Io/n9maJb2+9dKCBMIS3GC6iS0r9IG5xRHIg/
-         g6FjrHtDaNXt+MJIuK+74pMq0IlvJ7/BerpFsd4EAUhcuyPYUT6LAoDm/9/3b2ZOZvwT
-         jkY/RodZ61eprxWkCnM1+DWNye4dW8maHDJQTeH5eb7gXdxCukVOb+DUp/s0gSvRIfwX
-         q0Xw==
-X-Gm-Message-State: AOJu0Yy23V5J+zanVGs2nAL2hAUTK8Z34Xw5em5J4LGq8LKgX6DYjz3d
-	3MOEdeXoSQLpGKmkg9mvSGvaG/UH4k9uVSVL288GUkzpxCrzipNb/NwqG3VO3g==
-X-Google-Smtp-Source: AGHT+IG2g1DiXb8BoSc51qum0P0/k7uBCnZcTmmcipRKg/h1E4w41V6eejnk/uDiqhoF92Ih5U6wqQ==
-X-Received: by 2002:a7b:ce0f:0:b0:40e:95eb:863a with SMTP id m15-20020a7bce0f000000b0040e95eb863amr905373wmc.75.1705655692219;
-        Fri, 19 Jan 2024 01:14:52 -0800 (PST)
-Message-ID: <df4ffb88-616e-45c3-8b9d-eaea8a4fed3a@suse.com>
-Date: Fri, 19 Jan 2024 10:14:50 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+        d=1e100.net; s=20230601; t=1705655809; x=1706260609;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=eyoZO+bmF/YBvavD8DvX/SVdsTD2uXFDUFXYDReg7co=;
+        b=XfXNeTVcNNeXa245/GUQ6KaX6YjplEqL6nDExMzjYNrntpApQBX7rj15evhgJTjKeU
+         qepD2kaBehfG0S5kNNvhVjRd2EXyP7XS+zklR0OEaR+rryB6B1hTm2ubwm2MACVaXFIl
+         S7xS2bXH9RsHnLs2ZR8xspzvNZGC7l0oAELwm4DcwN3JZ9FjxUBYQTMG0DEpddfomjuU
+         AoV4CN8aZ0nGKhaY4veQXFIyBUbbPzTZoMjTxkOsEYcJzm6Upzva0cCUzUm/20fXFHD3
+         eyNcoCNW1eFZxF/wek7J4X3tUcNQrXHZZf017I+WF2BFpzDT5/y2k5dqxJ7btLK+8h/T
+         kUxg==
+X-Gm-Message-State: AOJu0YwAIU5fa5gu/SkT/L6xepJSFSVmGGcXgEOSgGmTvz7I08+Xzerp
+	AiOh4uwyVoparoeeg6nEat8s14lFmWskpNuCIwX2G+XYoD/hr7RH
+X-Google-Smtp-Source: AGHT+IGpiw524WYe1ebF4McY3svRwsWP+vURiltjJbnyttM98Ucu0F/I4mtv/zUKDNb2qsEKV3Sqhg==
+X-Received: by 2002:ac2:52b6:0:b0:50e:7f8b:ec51 with SMTP id r22-20020ac252b6000000b0050e7f8bec51mr229384lfm.210.1705655808372;
+        Fri, 19 Jan 2024 01:16:48 -0800 (PST)
+Message-ID: <ba1dbfbdd84811b09593425664f02a0cfe9430c3.camel@gmail.com>
 Subject: Re: [PATCH v3 10/34] xen/riscv: introduce bitops.h
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
  xen-devel@lists.xenproject.org
+Date: Fri, 19 Jan 2024 11:16:46 +0200
+In-Reply-To: <ac43d7a3-f662-4985-9aaf-4cad1c517f35@suse.com>
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <841d59c3950970f4937da200cf8f04aa39132e14.1703255175.git.oleksii.kurochko@gmail.com>
- <f6e13ad0-5401-41f7-9f3b-ef8f1bf9c1df@suse.com>
- <af71f5ce0ac6af9a2d87a31a154ba051a0841e3a.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <af71f5ce0ac6af9a2d87a31a154ba051a0841e3a.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+	 <841d59c3950970f4937da200cf8f04aa39132e14.1703255175.git.oleksii.kurochko@gmail.com>
+	 <23f1212a-66a8-47b0-904b-08b2ab54c72b@suse.com>
+	 <17d9fe474e244a15aa5955e630d553a62b0080fd.camel@gmail.com>
+	 <88df7ccd-8d14-4b00-900d-04cc87d9f230@suse.com>
+	 <863b09f03d37e96d737ab6bda4cc8923f75550fd.camel@gmail.com>
+	 <2e10b170-5a75-4ae0-8d2f-c6c1ad9951a5@suse.com>
+	 <1b20fefd125598e2bb62d516495783650da75271.camel@gmail.com>
+	 <23955665-8bd8-4872-a1a5-e3a3711c9512@suse.com>
+	 <1c0eb1cdef1fac7695c4fc416128e2bb81cf13aa.camel@gmail.com>
+	 <ac43d7a3-f662-4985-9aaf-4cad1c517f35@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+MIME-Version: 1.0
 
-On 19.01.2024 10:09, Oleksii wrote:
-> On Thu, 2024-01-18 at 12:03 +0100, Jan Beulich wrote:
->> On 22.12.2023 16:12, Oleksii Kurochko wrote:
->>> --- /dev/null
->>> +++ b/xen/include/asm-generic/bitops/bitops-bits.h
->>> @@ -0,0 +1,10 @@
->>> +/* SPDX-License-Identifier: GPL-2.0 */
->>> +#ifndef _ASM_GENERIC_BITOPS_BITS_H_
->>> +#define _ASM_GENERIC_BITOPS_BITS_H_
->>> +
->>> +#define BITOP_BITS_PER_WORD     32
->>> +#define BITOP_MASK(nr)          (1UL << ((nr) %
->>> BITOP_BITS_PER_WORD))
->>> +#define BITOP_WORD(nr)          ((nr) / BITOP_BITS_PER_WORD)
->>> +#define BITS_PER_BYTE           8
->>
->> Btw, I can't spot a use of BITS_PER_BYTE. Why do you add it? And if
->> it really needed adding, it surely wouldn't belong here.
-> It is used in common/bitmap.c and ns16550.c, and inside some arch code,
-> but it is not used by RISC-V right now.
-> 
-> Would it be better to define it in config.h?
+On Thu, 2024-01-18 at 12:01 +0100, Jan Beulich wrote:
+> On 18.01.2024 10:43, Oleksii wrote:
+> > On Wed, 2024-01-17 at 14:42 +0100, Jan Beulich wrote:
+> > > On 17.01.2024 12:37, Oleksii wrote:
+> > > > > > >=20
+> > > > > > > > > Also you want to make sure asm-generic/bitops/bitops-
+> > > > > > > > > bits.h
+> > > > > > > > > is
+> > > > > > > > > really in use here, or else an arch overriding / not
+> > > > > > > > > using
+> > > > > > > > > that
+> > > > > > > > > header may end up screwed.
+> > > > > > > > I am not really understand what do you mean. Could you
+> > > > > > > > please
+> > > > > > > > explain a
+> > > > > > > > little bit more.
+> > > > > > >=20
+> > > > > > > Whichever type you use here, it needs to be in sync with
+> > > > > > > BITOP_BITS_PER_WORD. Hence you want to include the
+> > > > > > > _local_
+> > > > > > > bitops-
+> > > > > > > bits.h
+> > > > > > > here, such that in case of an inconsistent override by an
+> > > > > > > arch
+> > > > > > > the
+> > > > > > > compiler would complain about the two differring #define-
+> > > > > > > s.
+> > > > > > > (IOW
+> > > > > > > an
+> > > > > > > arch overriding BITOP_BITS_PER_WORD cannot re-use this
+> > > > > > > header
+> > > > > > > as-
+> > > > > > > is.)
+> > > > > > >=20
+> > > > > > > The same may, btw, be true for others of the new headers
+> > > > > > > you
+> > > > > > > add
+> > > > > > > -
+> > > > > > > the
+> > > > > > > same #include would therefore be needed there as well.
+> > > > > > Now it clear to me.
+> > > > > >=20
+> > > > > >=20
+> > > > > > It seems like BITOP_BITS_PER_WORD, BITOP_MASK, BITOP_WORD,
+> > > > > > and
+> > > > > > BITS_PER_BYTE are defined in {arm, ppc,
+> > > > > > riscv}/include/asm/bitops.h.
+> > > > > > I expected that any architecture planning to use asm-
+> > > > > > generic/bitops/bitops-bits.h would include it at the
+> > > > > > beginning
+> > > > > > of
+> > > > > > <arch>/include/asm/bitops.h, similar to what is done for
+> > > > > > RISC-
+> > > > > > V:
+> > > > > > =C2=A0=C2=A0 #ifndef _ASM_RISCV_BITOPS_H
+> > > > > > =C2=A0=C2=A0 #define _ASM_RISCV_BITOPS_H
+> > > > > > =C2=A0=C2=A0=20
+> > > > > > =C2=A0=C2=A0 #include <asm/system.h>
+> > > > > > =C2=A0=C2=A0=20
+> > > > > > =C2=A0=C2=A0 #include <asm-generic/bitops/bitops-bits.h>
+> > > > > > =C2=A0=C2=A0 ...
+> > > > > >=20
+> > > > > > But in this case, to allow architecture overrides macros,
+> > > > > > it is
+> > > > > > necessary to update asm-generic/bitops/bitops-bits.h:
+> > > > > > =C2=A0=C2=A0=C2=A0 #ifndef BITOP_BITS_PER_WORD
+> > > > > > =C2=A0=C2=A0=C2=A0 #define BITOP_BITS_PER_WORD=C2=A0=C2=A0=C2=
+=A0=C2=A0 32
+> > > > > > =C2=A0=C2=A0=C2=A0 #endif
+> > > > > > =C2=A0=C2=A0 ...
+> > > > > > Therefore,=C2=A0 if an architecture needs to override something=
+,
+> > > > > > it
+> > > > > > will
+> > > > > > add
+> > > > > > #define ... before #include <asm-generic/bitops/bitops-
+> > > > > > bits.h>.
+> > > > > >=20
+> > > > > > Does it make sense?
+> > > > >=20
+> > > > > Sure. But then the arch also needs to provide a corresponding
+> > > > > typedef
+> > > > > (and bitops-bits.h the fallback one), for use wherever you
+> > > > > use
+> > > > > any of
+> > > > > those #define-s.
+> > > > Which one typedef is needed to provide?
+> > > > <asm-generic/bitops/bitops-bits.h> contains only macros.
+> > >=20
+> > > A new one, to replace where right now you use "unsigned int" and
+> > > I
+> > > initially said you need to use "uint32_t" instead. With what you
+> > > said
+> > > earlier, uint32_t won't work there (anymore).
+> > Wouldn't it be enough just to "#include <xen/types.h>" in headers
+> > where
+> > "uint32_t" is used?
+>=20
+> No, my point wasn't to make uint32_t available. We need a _separate_
+> typedef which matches the #define-s. Otherwise, if an arch defines
+> BITOP_BITS_PER_WORD to, say, 64, this generic code would do the wrong
+> thing.
+Oh, yeah this is true.
 
-Yes, perhaps. Imo this shouldn't have a "generic" fallback; every arch
-should explicitly state this (along with e.g. BITS_PER_LONG).
+We have to introduce in bitops-bits.h:
+   typedef uint_32t bitops_type;=20
 
-Jan
+And then use it in function such as test_bit:
+   static inline int test_bit(int nr, const volatile void *addr)
+   {
+       const volatile bitops_type *p =3D addr;
+       return 1 & (p[BITOP_WORD(nr)] >> (nr & (BITOP_BITS_PER_WORD -
+   1)));
+   }
+
+Thanks for clarification.
+
+~ Oleksii
 
