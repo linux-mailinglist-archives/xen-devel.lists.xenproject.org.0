@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F5F3832AA5
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jan 2024 14:40:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669049.1041631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDA92832AA9
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jan 2024 14:42:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669052.1041642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQp6d-0001M7-K4; Fri, 19 Jan 2024 13:40:23 +0000
+	id 1rQp8m-0001ts-0J; Fri, 19 Jan 2024 13:42:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669049.1041631; Fri, 19 Jan 2024 13:40:23 +0000
+Received: by outflank-mailman (output) from mailman id 669052.1041642; Fri, 19 Jan 2024 13:42:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQp6d-0001JP-Gl; Fri, 19 Jan 2024 13:40:23 +0000
-Received: by outflank-mailman (input) for mailman id 669049;
- Fri, 19 Jan 2024 13:40:22 +0000
+	id 1rQp8l-0001qW-Sg; Fri, 19 Jan 2024 13:42:35 +0000
+Received: by outflank-mailman (input) for mailman id 669052;
+ Fri, 19 Jan 2024 13:42:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TJ2q=I5=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rQp6b-0001JH-VN
- for xen-devel@lists.xenproject.org; Fri, 19 Jan 2024 13:40:22 +0000
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 47f43681-b6d0-11ee-9b0f-b553b5be7939;
- Fri, 19 Jan 2024 14:40:18 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 6B4CE3200ADB;
- Fri, 19 Jan 2024 08:40:15 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 19 Jan 2024 08:40:15 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 19 Jan 2024 08:40:13 -0500 (EST)
+ <SRS0=xVsr=I5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rQp8k-0001q9-QN
+ for xen-devel@lists.xenproject.org; Fri, 19 Jan 2024 13:42:34 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 98b8a200-b6d0-11ee-9b0f-b553b5be7939;
+ Fri, 19 Jan 2024 14:42:32 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-40e913e3f03so8918945e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jan 2024 05:42:32 -0800 (PST)
+Received: from localhost ([213.195.127.68]) by smtp.gmail.com with ESMTPSA id
+ v4-20020a05600c470400b0040e5945307esm29308109wmo.40.2024.01.19.05.42.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 19 Jan 2024 05:42:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,123 +44,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47f43681-b6d0-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1705671614;
-	 x=1705758014; bh=bKRJytPaVVHYQd0BqnQ8SWnr+G8qm+sktgYsg/SsISc=; b=
-	L9myp6wPsFtgA67yt9QrwoEsSG7aJ4RFIXsCpPN3GZ6eouZDjAdFZQTOQje7l4+k
-	tijKoNsq39rRAk3acfMdsQp9B4UdxxnkS81sNTgtDB7W6hp4L2ENuTcirGvyr8fu
-	wMywREfv7GSyiJX5LOyKtc65uRn+acuobrxxkSgMI47s/lej075pwzbC624Mpn13
-	WYRjQCyDEj8SvMWB9hYAHSTNqx9oaQQFYZCAWAUHcdiP+OBVjmZYg8mb52QM0HNX
-	7GYI9Iv445hSmee5lMRrAG+nKAxLFEe0F2Ru3ZDL2O0TL+qNuKKXeyPzcFfGJhzu
-	7uvdGGW+gYHemFjCQpDJ6w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1705671614; x=1705758014; bh=bKRJytPaVVHYQd0BqnQ8SWnr+G8q
-	m+sktgYsg/SsISc=; b=JQEdRDy/wLrEQjNGMe/Kyis7jMiPmlKTALlF/PIHz6YH
-	DVBPbuh9vj8FcdYrG2V0jlSYZC8UrPEEfqUFLa9eTJFxdFWBO/mY4jQxpSWWF2eN
-	+y2vaB/YWeNrZRZDkjLblsMe3msXHaSqxwZrIdqGxQWbId/rZ0fYOBT+ecLPmYiY
-	os9QGqSB1CCURhVwW6UPb6P6fBD4zqt0G5y05WjvT9vsqgI/xcTq0rR+VcE1ixZz
-	ypFYk7yHIiU15oq+eZep1ALlI5vEfV5WRnPoFuTcDPR0uQIkrM3xTwne46MBlT6P
-	XS4gakUskhItiBun49wJRc1F3hwMDnjrj6LiTo/6VA==
-X-ME-Sender: <xms:vnuqZX3zQpjlf90DDa-hsO4o-sZfT-Bzsff6J_b4Q3Kkc7xuDf-_-w>
-    <xme:vnuqZWEWdiDUJlZbFj3j30-RndBoFiYrxfqso3WrflEgSzhQu6eboV78qV_XfkitR
-    tLFKJhH0dxTpg>
-X-ME-Received: <xmr:vnuqZX4FL6H3N__K_xiCe1rD9gwUNTvq29_eI5log4WOTuhaI24l0ML8Zx3KwNjriJ89zNdTbZeYXtQcvTlOIps1CQGVRkzl2A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdektddgheegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:vnuqZc32_3h_xzaUZ6O9K_7vjNK8Df1UbpgA-orgnYdzpLHmLxATCA>
-    <xmx:vnuqZaEH-APuY53zdd5p6827XnxyuYjznHWHg63UeD5VPltU3NQm0g>
-    <xmx:vnuqZd-ByK6I8pogvHwVngT623zcDxGtCbaboKBZc3RDjJ1MzLnoSQ>
-    <xmx:vnuqZfQHxmX7YrEAIULPnAwqPtC9c6dnI-Kjlg6znDcqgMqqbSVW7A>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 19 Jan 2024 14:40:06 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Patrick Plenefisch <simonpatp@gmail.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: E820 memory allocation issue on Threadripper platforms
-Message-ID: <Zap7uX3k0kfoMOoF@mail-itl>
-References: <CAOCpoWdOH=xGxiQSC1c5Ueb1THxAjH4WiZbCZq-QT+d_KAk3SA@mail.gmail.com>
- <1708c3d7-662a-44bc-b9b3-4ab9f8642d7b@suse.com>
- <dcaf9d8d-ad5a-4714-936b-79ed0e587f9d@suse.com>
- <CAOCpoWeowZPuQTeBp9nu8p8CDtE=u++wN_UqRoABZtB57D50Qw@mail.gmail.com>
- <ac742d12-ec91-4215-bb42-82a145924b4f@suse.com>
- <CAOCpoWfQmkhN3hms1xuotSUZzVzR99i9cNGGU2r=yD5PjysMiQ@mail.gmail.com>
- <fa23a590-5869-4e11-8998-1d03742c5919@suse.com>
- <CAOCpoWf4CMkCWx8uR2NbFrZrKSS78wj1-hFsAUqsjCfsmqooVA@mail.gmail.com>
+X-Inumbo-ID: 98b8a200-b6d0-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1705671752; x=1706276552; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=hs7dwlUBPz9cZp16YJ/Cd9oFx062tW1i5m/v8g2rnFM=;
+        b=fJjFGZ6K8Wt/BFyb/PIZCGfYablduF4mNzT9zBqn37/2aeGh+ZxRTIHhTiEqR6N3+a
+         Fw7MH3ismZ5q2UEQJN6nPLkohbv7pgHp6v0SPbIuq7JGSrpNiQsX33ekY+uR+TdYlIe8
+         s0sVL96B96/oaAdPlETfLmTEPL10ZH14pvSKA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705671752; x=1706276552;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=hs7dwlUBPz9cZp16YJ/Cd9oFx062tW1i5m/v8g2rnFM=;
+        b=ZFSvUsPwM5poc00Ef6v3zZ9yVARx2hk5q0r6mVZxAEXfjFD0Enr862oGUojejhcUSZ
+         BoLQCYE0kWfRH37gUmsEoIRKrasQFhbYLC0vOVPDKqc3ld9NIgJppHNoMqfnvUqfMWs+
+         rzx+eRF3RvHeDK+QiJVI/4saYyUix8lKSB9gEIIS+mXASKt207O5LVG9EdZlqCkvsffs
+         BVOHD1sbygs9JMcSdCsWvnwzFSi6RYmudT7AdmJL14kgwQ20ZVea60zTXSKX4ubTMRKL
+         dY6q2dJI7GQDXynwkzmxblOH7E6Ao2CSG3GEl3Zjt/ElYABKgP5wcpGGFxgDiPisiXtJ
+         k00Q==
+X-Gm-Message-State: AOJu0Yy7wAn9TpSCOXxzgP/YSlFXVRNPGnS7+ynX6ewHWnO63E5D+AyC
+	edkv6ysoF8GZCAvt2JEr25Y7xZj+WFP3vhq03JoQD04fOWMrHK+uxJeIWK97V9U=
+X-Google-Smtp-Source: AGHT+IHKwgO+RxZjEi4/Xwu1G8MFLxP2Ix4AouNushWf1EGo33bHUigAGOLN5XJvlgMeu3P9aWyrWA==
+X-Received: by 2002:a1c:4b11:0:b0:40e:4133:44da with SMTP id y17-20020a1c4b11000000b0040e413344damr1688353wma.26.1705671752239;
+        Fri, 19 Jan 2024 05:42:32 -0800 (PST)
+Date: Fri, 19 Jan 2024 14:42:31 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect
+ vpci structure
+Message-ID: <Zap8R5Q0wTPQ3lOP@macbook>
+References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
+ <20240109215145.430207-2-stewart.hildebrand@amd.com>
+ <20240115194309.45683-1-stewart.hildebrand@amd.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="PNmSiVhT5vUfc3R7"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAOCpoWf4CMkCWx8uR2NbFrZrKSS78wj1-hFsAUqsjCfsmqooVA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240115194309.45683-1-stewart.hildebrand@amd.com>
 
+On Mon, Jan 15, 2024 at 02:43:08PM -0500, Stewart Hildebrand wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> Use the per-domain PCI read/write lock to protect the presence of the
+> pci device vpci field. This lock can be used (and in a few cases is used
+> right away) so that vpci removal can be performed while holding the lock
+> in write mode. Previously such removal could race with vpci_read for
+> example.
+> 
+> When taking both d->pci_lock and pdev->vpci->lock, they should be
+> taken in this exact order: d->pci_lock then pdev->vpci->lock to avoid
+> possible deadlock situations.
+> 
+> 1. Per-domain's pci_lock is used to protect pdev->vpci structure
+> from being removed.
+> 
+> 2. Writing the command register and ROM BAR register may trigger
+> modify_bars to run, which in turn may access multiple pdevs while
+> checking for the existing BAR's overlap. The overlapping check, if
+> done under the read lock, requires vpci->lock to be acquired on both
+> devices being compared, which may produce a deadlock. It is not
+> possible to upgrade read lock to write lock in such a case. So, in
+> order to prevent the deadlock, use d->pci_lock in write mode instead.
+> 
+> All other code, which doesn't lead to pdev->vpci destruction and does
+> not access multiple pdevs at the same time, can still use a
+> combination of the read lock and pdev->vpci->lock.
+> 
+> 3. Drop const qualifier where the new rwlock is used and this is
+> appropriate.
+> 
+> 4. Do not call process_pending_softirqs with any locks held. For that
+> unlock prior the call and re-acquire the locks after. After
+> re-acquiring the lock there is no need to check if pdev->vpci exists:
+>  - in apply_map because of the context it is called (no race condition
+>    possible)
+>  - for MSI/MSI-X debug code because it is called at the end of
+>    pdev->vpci access and no further access to pdev->vpci is made
+> 
+> 5. Use d->pci_lock around for_each_pdev and pci_get_pdev_by_domain
+> while accessing pdevs in vpci code.
+> 
+> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
---PNmSiVhT5vUfc3R7
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 19 Jan 2024 14:40:06 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Patrick Plenefisch <simonpatp@gmail.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: E820 memory allocation issue on Threadripper platforms
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-On Thu, Jan 18, 2024 at 01:23:56AM -0500, Patrick Plenefisch wrote:
-> On Wed, Jan 17, 2024 at 3:46=E2=80=AFAM Jan Beulich <jbeulich@suse.com> w=
-rote:
-> > On 17.01.2024 07:12, Patrick Plenefisch wrote:
-> > > As someone who hasn't built a kernel in over a decade, should I figure
-> > out
-> > > how to do a kernel build with CONFIG_PHYSICAL_START=3D0x2000000 and r=
-eport
-> > > back?
-> >
-> > That was largely a suggestion to perhaps allow you to gain some
-> > workable setup. It would be of interest to us largely for completeness.
-> >
->=20
-> Typo aside, setting the boot to 2MiB works! It works better for PV
-
-Are there any downsides of running kernel with
-CONFIG_PHYSICAL_START=3D0x200000? I can confirm it fixes the issue on
-another affected system, and if there aren't any practical downsides,
-I'm tempted to change it the default kernel in Qubes OS.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---PNmSiVhT5vUfc3R7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmWqe7kACgkQ24/THMrX
-1yxXwgf9FLeYuLDgT9jy6Me0tB/M2egM1T6lUv7HgLq87Al0Q8hshcL1VnGyWDmF
-phHifLuvxLEPk8F6A1ir0fNW63Qxryx3cu0KNcMOlrAg32jJl+JbB0qzKsZWLfUE
-N85fDlEccDHZX4aArGe39Qn65ipu9aG6+SCird1OKSec5Aae230joMxUp8JgR/PB
-/G1vcf/ujnZLCtuvD6xJWloPnT9s6XbyT6CheDZnNj7Yg9NjvK60e+Pncs9XeaHD
-TkqIlrzOrbqAc1cCYkmekkGWAOfN59Xcuiiic7AehTUngBgAZWEU/u78RDiQYNMD
-/BljlE7vUkDwIwiUGpb5xK/3TLuFrw==
-=t1m9
------END PGP SIGNATURE-----
-
---PNmSiVhT5vUfc3R7--
+Thanks, Roger.
 
