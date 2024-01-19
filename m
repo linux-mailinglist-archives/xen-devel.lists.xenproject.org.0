@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDA92832AA9
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jan 2024 14:42:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669052.1041642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA98C832AAC
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jan 2024 14:43:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669056.1041652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQp8m-0001ts-0J; Fri, 19 Jan 2024 13:42:36 +0000
+	id 1rQp9e-0002dz-8H; Fri, 19 Jan 2024 13:43:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669052.1041642; Fri, 19 Jan 2024 13:42:35 +0000
+Received: by outflank-mailman (output) from mailman id 669056.1041652; Fri, 19 Jan 2024 13:43:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rQp8l-0001qW-Sg; Fri, 19 Jan 2024 13:42:35 +0000
-Received: by outflank-mailman (input) for mailman id 669052;
- Fri, 19 Jan 2024 13:42:34 +0000
+	id 1rQp9e-0002bc-4i; Fri, 19 Jan 2024 13:43:30 +0000
+Received: by outflank-mailman (input) for mailman id 669056;
+ Fri, 19 Jan 2024 13:43:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xVsr=I5=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rQp8k-0001q9-QN
- for xen-devel@lists.xenproject.org; Fri, 19 Jan 2024 13:42:34 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1rQp9c-0002bU-TG
+ for xen-devel@lists.xenproject.org; Fri, 19 Jan 2024 13:43:28 +0000
+Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
+ [2a00:1450:4864:20::42c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 98b8a200-b6d0-11ee-9b0f-b553b5be7939;
- Fri, 19 Jan 2024 14:42:32 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-40e913e3f03so8918945e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 19 Jan 2024 05:42:32 -0800 (PST)
+ id b903264b-b6d0-11ee-9b0f-b553b5be7939;
+ Fri, 19 Jan 2024 14:43:27 +0100 (CET)
+Received: by mail-wr1-x42c.google.com with SMTP id
+ ffacd0b85a97d-3387ef9fc62so675219f8f.2
+ for <xen-devel@lists.xenproject.org>; Fri, 19 Jan 2024 05:43:27 -0800 (PST)
 Received: from localhost ([213.195.127.68]) by smtp.gmail.com with ESMTPSA id
- v4-20020a05600c470400b0040e5945307esm29308109wmo.40.2024.01.19.05.42.31
+ q9-20020adff789000000b00337d6aa3912sm3107801wrp.10.2024.01.19.05.43.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 Jan 2024 05:42:32 -0800 (PST)
+ Fri, 19 Jan 2024 05:43:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,107 +44,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 98b8a200-b6d0-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: b903264b-b6d0-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1705671752; x=1706276552; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hs7dwlUBPz9cZp16YJ/Cd9oFx062tW1i5m/v8g2rnFM=;
-        b=fJjFGZ6K8Wt/BFyb/PIZCGfYablduF4mNzT9zBqn37/2aeGh+ZxRTIHhTiEqR6N3+a
-         Fw7MH3ismZ5q2UEQJN6nPLkohbv7pgHp6v0SPbIuq7JGSrpNiQsX33ekY+uR+TdYlIe8
-         s0sVL96B96/oaAdPlETfLmTEPL10ZH14pvSKA=
+        d=citrix.com; s=google; t=1705671806; x=1706276606; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=cHVXDrHsrue1kpxD3c+cDLtoqNC4QjTpLB8mCj2VBAQ=;
+        b=QrthPVgWFkzpmhuM6aTY4fgOWcQ/tlPplq7mam8PNtYtMHULJs7n4MCo/8IkMtCm2m
+         n0C1Z4WrGyyurZhWdLwXNrPgNhyr/5AwU+SQQ0fUFxJYXmHsh0KaIztWnT95i/TvFmFE
+         NeTTVuPdVNF7lfgY+cBQuZkUw8F5yNlAfiQic=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705671752; x=1706276552;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=hs7dwlUBPz9cZp16YJ/Cd9oFx062tW1i5m/v8g2rnFM=;
-        b=ZFSvUsPwM5poc00Ef6v3zZ9yVARx2hk5q0r6mVZxAEXfjFD0Enr862oGUojejhcUSZ
-         BoLQCYE0kWfRH37gUmsEoIRKrasQFhbYLC0vOVPDKqc3ld9NIgJppHNoMqfnvUqfMWs+
-         rzx+eRF3RvHeDK+QiJVI/4saYyUix8lKSB9gEIIS+mXASKt207O5LVG9EdZlqCkvsffs
-         BVOHD1sbygs9JMcSdCsWvnwzFSi6RYmudT7AdmJL14kgwQ20ZVea60zTXSKX4ubTMRKL
-         dY6q2dJI7GQDXynwkzmxblOH7E6Ao2CSG3GEl3Zjt/ElYABKgP5wcpGGFxgDiPisiXtJ
-         k00Q==
-X-Gm-Message-State: AOJu0Yy7wAn9TpSCOXxzgP/YSlFXVRNPGnS7+ynX6ewHWnO63E5D+AyC
-	edkv6ysoF8GZCAvt2JEr25Y7xZj+WFP3vhq03JoQD04fOWMrHK+uxJeIWK97V9U=
-X-Google-Smtp-Source: AGHT+IHKwgO+RxZjEi4/Xwu1G8MFLxP2Ix4AouNushWf1EGo33bHUigAGOLN5XJvlgMeu3P9aWyrWA==
-X-Received: by 2002:a1c:4b11:0:b0:40e:4133:44da with SMTP id y17-20020a1c4b11000000b0040e413344damr1688353wma.26.1705671752239;
-        Fri, 19 Jan 2024 05:42:32 -0800 (PST)
-Date: Fri, 19 Jan 2024 14:42:31 +0100
+        d=1e100.net; s=20230601; t=1705671806; x=1706276606;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cHVXDrHsrue1kpxD3c+cDLtoqNC4QjTpLB8mCj2VBAQ=;
+        b=P/KQeJZ0vp+8bLe4hJLwPIg5+PETGsAHM/DNfaRsPtY1BOywvAu8gYX2Cgi7RulUl3
+         8LGxsiWeuZ0MbiadRv2ob7SdlaJ0tGkBNhPwQmHAspd0UhteYBXhk79XodKsCDifI6uO
+         ZraDdVt1tcfR3hHEfeairG9/9vIRuxc10teymh7z5fh+CwOOv2IAfhBbmTfK+LtsB8jN
+         I7Q28awVDDeaZCmipUNNcBnNsb6vQDxSJ+kkaS7G+JkgOLKqm0bTmZKqDiR/U2+xTwqN
+         dKW9dUB2wzrDEgVOaw/c1QLbX3fCcxmblGxazQIhTKCjINKiepTzzpXPtuDRNPkE7WOt
+         mO4A==
+X-Gm-Message-State: AOJu0YwMMedKpBh53kphOvQuphmnyDdLsxLC52dIpi7vn6mes1bodea3
+	VzuYK8Au2+5ckCuX3AFByuHmL+OhbsYgrSXw7W8bGs9PTmE48HplACio33Q7g/k=
+X-Google-Smtp-Source: AGHT+IGmqfutxua1VXCg4x0Vi1g6ObFbzX8v00gLWTRPwJ9xyeHagFZGjZMOl/orTylT9ia3b+95LA==
+X-Received: by 2002:a5d:5187:0:b0:337:c0cb:38cd with SMTP id k7-20020a5d5187000000b00337c0cb38cdmr1461038wrv.71.1705671806509;
+        Fri, 19 Jan 2024 05:43:26 -0800 (PST)
+Date: Fri, 19 Jan 2024 14:43:25 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Stewart Hildebrand <stewart.hildebrand@amd.com>
 Cc: xen-devel@lists.xenproject.org,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect
- vpci structure
-Message-ID: <Zap8R5Q0wTPQ3lOP@macbook>
+Subject: Re: [PATCH v12.2 09/15] vpci/header: program p2m with guest BAR view
+Message-ID: <Zap8fUPGTa0P5reU@macbook>
 References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-2-stewart.hildebrand@amd.com>
- <20240115194309.45683-1-stewart.hildebrand@amd.com>
+ <20240109215145.430207-10-stewart.hildebrand@amd.com>
+ <20240115194406.45711-1-stewart.hildebrand@amd.com>
+ <05298b1e-118d-41ed-8b6d-45c69bb09ea9@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240115194309.45683-1-stewart.hildebrand@amd.com>
+In-Reply-To: <05298b1e-118d-41ed-8b6d-45c69bb09ea9@amd.com>
 
-On Mon, Jan 15, 2024 at 02:43:08PM -0500, Stewart Hildebrand wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+On Tue, Jan 16, 2024 at 10:01:24PM -0500, Stewart Hildebrand wrote:
+> On 1/15/24 14:44, Stewart Hildebrand wrote:
+> > diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> > index feccd070ddd0..8483404c5e91 100644
+> > --- a/xen/drivers/vpci/header.c
+> > +++ b/xen/drivers/vpci/header.c
+> > @@ -41,13 +42,24 @@ static int cf_check map_range(
+> >      unsigned long s, unsigned long e, void *data, unsigned long *c)
+> >  {
+> >      const struct map_data *map = data;
+> > +    /* Start address of the BAR as seen by the guest. */
+> > +    unsigned long start_gfn = PFN_DOWN(map->bar->guest_addr);
+> > +    /* Physical start address of the BAR. */
+> > +    unsigned long start_mfn = PFN_DOWN(map->bar->addr);
+> >      int rc;
+> >  
+> >      for ( ; ; )
+> >      {
+> >          unsigned long size = e - s + 1;
+> > +        /*
+> > +         * Ranges to be mapped don't always start at the BAR start address, as
+> > +         * there can be holes or partially consumed ranges. Account for the
+> > +         * offset of the current address from the BAR start.
+> > +         */
+> > +        unsigned long map_mfn = start_mfn + s - start_gfn;
+> > +        unsigned long m_end = map_mfn + size - 1;
+> >  
+> > -        if ( !iomem_access_permitted(map->d, s, e) )
+> > +        if ( !iomem_access_permitted(map->d, map_mfn, m_end) )
 > 
-> Use the per-domain PCI read/write lock to protect the presence of the
-> pci device vpci field. This lock can be used (and in a few cases is used
-> right away) so that vpci removal can be performed while holding the lock
-> in write mode. Previously such removal could race with vpci_read for
-> example.
+> Nit: since this check will now use map_mfn and m_end...
 > 
-> When taking both d->pci_lock and pdev->vpci->lock, they should be
-> taken in this exact order: d->pci_lock then pdev->vpci->lock to avoid
-> possible deadlock situations.
+> >          {
+> >              printk(XENLOG_G_WARNING
+> >                     "%pd denied access to MMIO range [%#lx, %#lx]\n",
+> >                     map->d, s, e);
 > 
-> 1. Per-domain's pci_lock is used to protect pdev->vpci structure
-> from being removed.
-> 
-> 2. Writing the command register and ROM BAR register may trigger
-> modify_bars to run, which in turn may access multiple pdevs while
-> checking for the existing BAR's overlap. The overlapping check, if
-> done under the read lock, requires vpci->lock to be acquired on both
-> devices being compared, which may produce a deadlock. It is not
-> possible to upgrade read lock to write lock in such a case. So, in
-> order to prevent the deadlock, use d->pci_lock in write mode instead.
-> 
-> All other code, which doesn't lead to pdev->vpci destruction and does
-> not access multiple pdevs at the same time, can still use a
-> combination of the read lock and pdev->vpci->lock.
-> 
-> 3. Drop const qualifier where the new rwlock is used and this is
-> appropriate.
-> 
-> 4. Do not call process_pending_softirqs with any locks held. For that
-> unlock prior the call and re-acquire the locks after. After
-> re-acquiring the lock there is no need to check if pdev->vpci exists:
->  - in apply_map because of the context it is called (no race condition
->    possible)
->  - for MSI/MSI-X debug code because it is called at the end of
->    pdev->vpci access and no further access to pdev->vpci is made
-> 
-> 5. Use d->pci_lock around for_each_pdev and pci_get_pdev_by_domain
-> while accessing pdevs in vpci code.
-> 
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> ... I'd like to also update the arguments passed to this print statement.
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Indeed.  You will need a new version.
 
 Thanks, Roger.
 
