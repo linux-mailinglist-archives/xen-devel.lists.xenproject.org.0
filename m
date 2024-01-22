@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 714ED836C0C
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 17:56:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670024.1042589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 266D6836C7B
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 18:07:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670028.1042599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRxak-0002c6-6v; Mon, 22 Jan 2024 16:56:10 +0000
+	id 1rRxl2-0004xQ-6M; Mon, 22 Jan 2024 17:06:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670024.1042589; Mon, 22 Jan 2024 16:56:10 +0000
+Received: by outflank-mailman (output) from mailman id 670028.1042599; Mon, 22 Jan 2024 17:06:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRxak-0002aB-3Y; Mon, 22 Jan 2024 16:56:10 +0000
-Received: by outflank-mailman (input) for mailman id 670024;
- Mon, 22 Jan 2024 16:56:09 +0000
+	id 1rRxl2-0004vP-22; Mon, 22 Jan 2024 17:06:48 +0000
+Received: by outflank-mailman (input) for mailman id 670028;
+ Mon, 22 Jan 2024 17:06:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VPlZ=JA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rRxaj-0002a5-Bw
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 16:56:09 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=v1fX=JA=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
+ id 1rRxl0-0004vJ-My
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 17:06:46 +0000
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [2607:f8b0:4864:20::1031])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 21e8bfcc-b947-11ee-98f2-6d05b1d4d9a1;
- Mon, 22 Jan 2024 17:56:05 +0100 (CET)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2cddf596321so35438681fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 08:56:05 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z15-20020a6bc90f000000b007bf05f618f3sm6643571iof.55.2024.01.22.08.56.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 08:56:04 -0800 (PST)
+ id 9ecdbb59-b948-11ee-98f2-6d05b1d4d9a1;
+ Mon, 22 Jan 2024 18:06:45 +0100 (CET)
+Received: by mail-pj1-x1031.google.com with SMTP id
+ 98e67ed59e1d1-290a55f3feaso795968a91.2
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 09:06:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,162 +40,270 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21e8bfcc-b947-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 9ecdbb59-b948-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705942565; x=1706547365; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pRp/lGCqYXGJxDgbw21vw0U/btwbfb4OSgaAF8MF18A=;
-        b=RHsYCEDs1WmR9wRKmf3tk4a0LTYB6NUREkArC3fauYKhxr8eyDyCibDLo7LdC+bLkX
-         G2wTe9puR6Mkb0gddt5z8Z0K3xWT+FI5kStgMubJn6IEpkNNaIzzfXj5u95InXtLbNRh
-         Bc9srzG+q92VAr3JnFceXKqhEc+hWjh+vpD8zejl6QRtqkGo+c/aaCKDy4PN9mb/LObx
-         DCjAV7XbQ/1zl3Hy3qiq7TNh8xzIoSczRybO6mOIdg5PaBKtijnJtaSooEiDh6SyONMM
-         gWY5IrfJKKgiHnadU+1O8N52dBJkixnTL/ew3HdK4OjWRq5KkkBltWV9ihtCAIqHAwEM
-         Hqww==
+        d=gmail.com; s=20230601; t=1705943204; x=1706548004; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=/PolFGSx8X5PcHNhFYQmMDWcmM6L0GZrTiL9HH5fX0A=;
+        b=SePPVqAeaHlQLIkUR+jClNFb1jXa+bm3P2Bp1xnojrv98E1Jt555rlN+wrPKduQuG8
+         n0ZZd623XnF8Pjri+SJcNFf6UpdbR22Eva/r3pJZTob6joirOjRwGTUS4562MAXKqWWv
+         cSFA+CYvzIMPKLvIpllGvfMpWFCrYsXq3xd2SXbZdCSC5+Nc8s1lIRWoCdAC4njiuRcK
+         abYHJvGUofJug4Mm7Zfj9i5sAunRWaSqFjGUVkdKSJwn5ynBMuffUZ+k3BgKVVwnp4pA
+         8xa8ODinyUgboG5WWfaWTYxcksqkLjOludk7MLgQJLMROcP3QE286xTXYLtm2ofik28O
+         mMUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705942565; x=1706547365;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pRp/lGCqYXGJxDgbw21vw0U/btwbfb4OSgaAF8MF18A=;
-        b=pOyzdzAaY5jr2oF2AptgK3n7godOWsh/BxXILzmlgDnmEqvFQHho/+uG9H8H4U5wiq
-         jj0RpPGG5fenFbGvD1c/uN89+wdjDhBBM5hRgM8Rq7vcgqnNJ3OtoDCnX7Ot3TgRNRll
-         k8M8JEdytXtB+TKrs6i7dWZLpdeVAVzr0rKkTZCBcEXGoFG9Q8hZjQL44k3r3MP0OgOX
-         WJcwfB4xfmdDhyBYZUUTvnjxpjfRW3xK409/8vAGuMyaY/UQT6loThWAV0SGBBX/8/cn
-         dlavOuTSxqLKB0Yt9Yo6+vqcHcjxmI2bKdpWsevPkT2R9PTa9BzwC6wqjaIegvGMIUD6
-         5XVA==
-X-Gm-Message-State: AOJu0YzB29sZSYyw5+nJJVpO/nrhpBGfcBABtIUos3GKngRKaqTwQSLR
-	1bGPcvUpgjnhmPLyG5iGlaDaVn4KN8ulhgOp3r71l3TmdluSE2nNUuMVMiRi+A==
-X-Google-Smtp-Source: AGHT+IGSliYbjVT1qB2AtyuC0L604r7g1UBHocATtNbWa0MOckoxkiRtPY8PUtyYqEucFMXSJaG9qA==
-X-Received: by 2002:a2e:b70e:0:b0:2cd:7b5e:7358 with SMTP id j14-20020a2eb70e000000b002cd7b5e7358mr1856573ljo.25.1705942565348;
-        Mon, 22 Jan 2024 08:56:05 -0800 (PST)
-Message-ID: <2429395f-3ce8-4f17-aabe-78af2446ff6d@suse.com>
-Date: Mon, 22 Jan 2024 17:56:01 +0100
+        d=1e100.net; s=20230601; t=1705943204; x=1706548004;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/PolFGSx8X5PcHNhFYQmMDWcmM6L0GZrTiL9HH5fX0A=;
+        b=YCZ3SjZXzvOo2kIpdUgYSZwVBy7m6tvbRJRLoiYz9x2l8DAA0HvKobPdmOofcjSl+G
+         LXRYt8K2uq+rCkpltOXMD8O3OxV2Emkqm/T7+fmQhcr+9M5V8Spz6qbIzxvCjPLhonDs
+         SRaXi6G2Yk4N+53bkeU3FNbXqorGuZpD2G7nkvn+uT5zYshjeCCKx0WQRDr3SQLDxkYC
+         mk7/oD9WgHTLLyJYaM9Z0Cuk1MAyRYB2EftZdhKQHMLKTQVuJkVY+yvrIP85Mkysss7M
+         T0EoB4o7DlJn8EWxnzXJ4Bc5SjguG8eBmAJ1tKlMe4gvXFpdwTT4fetJfKmpqwfTX0GQ
+         LpMQ==
+X-Gm-Message-State: AOJu0Yy50rQMQk9wmP2I+sEADo4JSb+ChOv6lYFQDqUIHrWwhFkwPdvF
+	qv2SPdDN3IIAwAevelj2dHtxNlHL2K8yhT80vblylH6h/6vuZcxfNjl63ONOX3zIYYARnDTpcch
+	VEzr/TEyKyRLfozjtQ4p1tJlMlJM=
+X-Google-Smtp-Source: AGHT+IF8WzDo38Z0yUxrkTkvNNnZZDRCO73ktXWM3JmiQoLFQHUMpPt+OxmeR0ZnOZTQj76kjFLdEAJlOl0YjmUeTrg=
+X-Received: by 2002:a17:90a:de89:b0:290:6e27:4e4b with SMTP id
+ n9-20020a17090ade8900b002906e274e4bmr1535302pjv.15.1705943204010; Mon, 22 Jan
+ 2024 09:06:44 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/34] xen/riscv: introduce atomic.h
-Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <54f5f13a4ee3de3c3cf4ba2b4d0347bb77bb7d08.1703255175.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <54f5f13a4ee3de3c3cf4ba2b4d0347bb77bb7d08.1703255175.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <CAKm-Umapq5LW9yhSOGk8TOg1iuvUogUDKbEXbUcE5T5-vVzW3w@mail.gmail.com>
+ <CAKm-UmaUZ=rj-F3RvMoR7H3OvBHm1iy4PTRZAjyi=MQUVTuYVg@mail.gmail.com>
+ <CAKm-Umat77MTh6=GEuH+bf1WRX+_B4-N5hY4xwADALfhj4QCPA@mail.gmail.com>
+ <6ba9568a-ff8e-48ad-907f-74303e04d3a2@suse.com> <CAKm-UmZVoUhidEV15Xk+J_XN5a2GsBqMbXL9wqdFdoAFf_u5AA@mail.gmail.com>
+ <bcbceba7-42ac-45be-80ab-e3dfe7741ec6@suse.com> <2eafe45b-fd97-472c-a173-459d6ff0b957@suse.com>
+ <CAKm-Umbs2D7NHFE+NW2xKOu7-AZhFpH4uzE5QTuQusnGA_eNWA@mail.gmail.com>
+ <f539144c-885a-461c-a506-bdb73e626a65@suse.com> <CAKm-UmY126AfdGhWcZ3s9vwN9+ksVRRFEhOu0ZFMoDvxrqOibw@mail.gmail.com>
+ <CAKm-UmYt3iV8zOhSmtqMGhi_8T93c_nCbnefs4m3UC+3UABqeQ@mail.gmail.com>
+ <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
+ <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
+ <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com> <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
+In-Reply-To: <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
+From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+Date: Mon, 22 Jan 2024 18:06:32 +0100
+Message-ID: <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org, 
+	Juergen Gross <jgross@suse.com>
+Content-Type: multipart/alternative; boundary="000000000000ae9d52060f8bdac7"
 
-On 22.12.2023 16:12, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/atomic.h
-> @@ -0,0 +1,384 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Taken and modified from Linux.
-> + * 
-> + * Copyright (C) 2007 Red Hat, Inc. All Rights Reserved.
-> + * Copyright (C) 2012 Regents of the University of California
-> + * Copyright (C) 2017 SiFive
-> + * Copyright (C) 2021 Vates SAS
-> + */
-> +
-> +#ifndef _ASM_RISCV_ATOMIC_H
-> +#define _ASM_RISCV_ATOMIC_H
-> +
-> +#include <xen/atomic.h>
-> +#include <asm/cmpxchg.h>
-> +#include <asm/fence.h>
-> +#include <asm/io.h>
-> +#include <asm/system.h>
-> +
-> +void __bad_atomic_size(void);
-> +
-> +static always_inline void read_atomic_size(const volatile void *p,
-> +                                           void *res,
-> +                                           unsigned int size)
-> +{
-> +    switch ( size )
-> +    {
-> +    case 1: *(uint8_t *)res = readb((const uint8_t *)p); break;
-> +    case 2: *(uint16_t *)res = readw((const uint16_t *)p); break;
-> +    case 4: *(uint32_t *)res = readl((const uint32_t *)p); break;
-> +    case 8: *(uint32_t *)res  = readq((const uint64_t *)p); break;
+--000000000000ae9d52060f8bdac7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Just like const, you should also avoid casting away volatile.
+Le mer. 17 janv. 2024 =C3=A0 03:20, Mario Limonciello <mario.limonciello@am=
+d.com>
+a =C3=A9crit :
 
-> +    default: __bad_atomic_size(); break;
-> +    }
-> +}
-> +
-> +#define read_atomic(p) ({                                               \
-> +    union { typeof(*p) val; char c[0]; } x_;                            \
-> +    read_atomic_size(p, x_.c, sizeof(*p));                              \
-> +    x_.val;                                                             \
-> +})
-> +
-> +
+> On 1/16/2024 10:18, Jan Beulich wrote:
+> > On 16.01.2024 16:52, S=C3=A9bastien Chaumat wrote:
+> >> Le mar. 2 janv. 2024 =C3=A0 21:23, S=C3=A9bastien Chaumat <euidzero@gm=
+ail.com> a
+> >> =C3=A9crit :
+> >>
+> >>>
+> >>>   output of gpioinfo
+> >>>>
+> >>>> kernel alone :
+> >>>>
+> >>>>          line   5: unnamed         input active-low consumer=3Dinter=
+rupt
+> >>>>          line  84: unnamed         input active-low consumer=3Dinter=
+rupt
+> >>>>
+> >>>> xen:
+> >>>>
+> >>>>          line   5: unnamed         input active-low
+> >>>>          line  84: unnamed         input active-low
+> >>>>
+> >>>> xen with skipping IRQ7 double init :
+> >>>>
+> >>>>          line   5: unnamed         input active-low consumer=3Dinter=
+rupt
+> >>>>          line  84: unnamed         input active-low
+> >>>>
+> >>>>
+> >>>> So definitely progressing.
+> >>>>
+> >>>
+> >>> Checking /sys/kernel/irq/7
+> >>>
+> >>> kernel alone :
+> >>>   actions: pinctrl_amd
+> >>>   chip_name: IR-IO-APIC
+> >>>   hwirq: 7
+> >>>   name: fasteoi
+> >>>   per_cpu_count: 0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0
+> >>>   type: level
+> >>>   wakeup: enabled
+> >>>
+> >>> xen skipping IRQ7 double init :
+> >>>
+> >>> actions: pinctrl_amd
+> >>>   chip_name: xen-pirq
+> >>>   hwirq:
+> >>>   name: ioapic-level
+> >>>   per_cpu_count: 0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+> >>>   type: edge
+> >>>   wakeup: disabled
+> >>>
+> >>> So the skip of IRQ7 in pci_xen_initial_domain() sets the correct
+> handler
+> >>>   (IIUC xen uses the ioapic-level and handles the eoi separately), bu=
+t
+> not
+> >>> the correct type (still edge).
+> >>> I guess this may explains the results above.
+> >>>
+> >>>
+> >>   Mario (in CC) patched the pinctrl_amd to flush pending interrupt
+> before
+> >> starting the driver for the GPIO.
+> >>
+> >> This helped in  the sense of there's no more pending interrupt on IRQ7
+> >> (whatever the handler is, level or edge) but then the touchpad is not
+> >> detected by i2c-hid.
+> >>
+> >> Is there any work in progress related to the incorrect IRQ
+> configuration ?
+> >
+> > I'm not aware of any. As per my recollection it's still not entirely
+> > clear where in the kernel things go astray. And to be honest I don't
+> > feel comfortable trying to half-blindly address this, e.g. by trying
+> > to circumvent / defer the early setting up of the low 16 IRQs.
+> >
+> > Jan
+>
+> Shot in the dark - but could this be a problem where PCAT_COMPAT from
+> the MADT is being ignored causing PIC not to be setup properly in the
+> Xen case?
+>
+> See https://lore.kernel.org/all/875y2u5s8g.ffs@tglx/ for some context.
+>
+> At least we know that no MADT override is found by xen for INT7 as no
+INT_SRC_OVR message is printed.
 
-Nit: No double blank lines please.
+Do we expect one @Mario Limonciello <mario.limonciello@amd.com>  ?
 
-> +#define write_atomic(p, x) ({                                           \
-> +    typeof(*p) x__ = (x);                                               \
-> +    switch ( sizeof(*p) )												\
-> +    {                                             						\
+--000000000000ae9d52060f8bdac7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-These lines look excessively long, possibly as a result of leaving hard tabs
-in place.
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">Le=C2=A0mer. 17 janv. 2024 =C3=A0=C2=
+=A003:20, Mario Limonciello &lt;<a href=3D"mailto:mario.limonciello@amd.com=
+">mario.limonciello@amd.com</a>&gt; a =C3=A9crit=C2=A0:<br></div><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
+olid rgb(204,204,204);padding-left:1ex">On 1/16/2024 10:18, Jan Beulich wro=
+te:<br>
+&gt; On 16.01.2024 16:52, S=C3=A9bastien Chaumat wrote:<br>
+&gt;&gt; Le mar. 2 janv. 2024 =C3=A0 21:23, S=C3=A9bastien Chaumat &lt;<a h=
+ref=3D"mailto:euidzero@gmail.com" target=3D"_blank">euidzero@gmail.com</a>&=
+gt; a<br>
+&gt;&gt; =C3=A9crit :<br>
+&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0output of gpioinfo<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; kernel alone :<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 line=C2=A0 =C2=A05: unna=
+med=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0input active-low consumer=3Dinterrupt<=
+br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 line=C2=A0 84: unnamed=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0input active-low consumer=3Dinterrupt<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; xen:<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 line=C2=A0 =C2=A05: unna=
+med=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0input active-low<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 line=C2=A0 84: unnamed=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0input active-low<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; xen with skipping IRQ7 double init :<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 line=C2=A0 =C2=A05: unna=
+med=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0input active-low consumer=3Dinterrupt<=
+br>
+&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 line=C2=A0 84: unnamed=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0input active-low<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt; So definitely progressing.<br>
+&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Checking /sys/kernel/irq/7<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; kernel alone :<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0actions: pinctrl_amd<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0chip_name: IR-IO-APIC<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0hwirq: 7<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0name: fasteoi<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0per_cpu_count: 0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0<br=
+>
+&gt;&gt;&gt;=C2=A0 =C2=A0type: level<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0wakeup: enabled<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; xen skipping IRQ7 double init :<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; actions: pinctrl_amd<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0chip_name: xen-pirq<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0hwirq:<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0name: ioapic-level<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0per_cpu_count: 0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0type: edge<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0wakeup: disabled<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; So the skip of IRQ7 in pci_xen_initial_domain() sets the corre=
+ct handler<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0(IIUC xen uses the ioapic-level and handles the eo=
+i separately), but not<br>
+&gt;&gt;&gt; the correct type (still edge).<br>
+&gt;&gt;&gt; I guess this may explains the results above.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;=C2=A0 =C2=A0Mario (in CC) patched the pinctrl_amd to flush pending=
+ interrupt before<br>
+&gt;&gt; starting the driver for the GPIO.<br>
+&gt;&gt;<br>
+&gt;&gt; This helped in=C2=A0 the sense of there&#39;s no more pending inte=
+rrupt on IRQ7<br>
+&gt;&gt; (whatever the handler is, level or edge) but then the touchpad is =
+not<br>
+&gt;&gt; detected by i2c-hid.<br>
+&gt;&gt;<br>
+&gt;&gt; Is there any work in progress related to the incorrect IRQ configu=
+ration ?<br>
+&gt; <br>
+&gt; I&#39;m not aware of any. As per my recollection it&#39;s still not en=
+tirely<br>
+&gt; clear where in the kernel things go astray. And to be honest I don&#39=
+;t<br>
+&gt; feel comfortable trying to half-blindly address this, e.g. by trying<b=
+r>
+&gt; to circumvent / defer the early setting up of the low 16 IRQs.<br>
+&gt; <br>
+&gt; Jan<br>
+<br>
+Shot in the dark - but could this be a problem where PCAT_COMPAT from <br>
+the MADT is being ignored causing PIC not to be setup properly in the <br>
+Xen case?<br>
+<br>
+See <a href=3D"https://lore.kernel.org/all/875y2u5s8g.ffs@tglx/" rel=3D"nor=
+eferrer" target=3D"_blank">https://lore.kernel.org/all/875y2u5s8g.ffs@tglx/=
+</a> for some context.<br>
+<br></blockquote><div>At least we know that no MADT override is found by xe=
+n for INT7 as no INT_SRC_OVR message is printed.<br></div><div><br></div><d=
+iv>Do we expect one <a class=3D"gmail_plusreply" id=3D"plusReplyChip-0" hre=
+f=3D"mailto:mario.limonciello@amd.com" tabindex=3D"-1">@Mario Limonciello</=
+a>=C2=A0 ?<br></div></div></div>
 
-Overall some of the style comments on the earlier patch seem to apply here
-as well.
-
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/fence.h
-> @@ -0,0 +1,13 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +#ifndef _ASM_RISCV_FENCE_H
-> +#define _ASM_RISCV_FENCE_H
-> +
-> +#ifdef CONFIG_SMP
-> +#define RISCV_ACQUIRE_BARRIER		"\tfence r , rw\n"
-> +#define RISCV_RELEASE_BARRIER		"\tfence rw,  w\n"
-> +#else
-> +#define RISCV_ACQUIRE_BARRIER
-> +#define RISCV_RELEASE_BARRIER
-> +#endif
-
-Do you really care about the !SMP case? On x86 at least we stopped special-
-casing that configuration many years ago (the few cases where for typically
-build reasons it matters, using CONFIG_NR_CPUS is sufficient). If you care
-about it, there needs to be somewhere you actually #define CONFIG_SMP.
-
-Jan
+--000000000000ae9d52060f8bdac7--
 
