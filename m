@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F3E7835F19
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 11:07:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669730.1042090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16820835F40
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 11:16:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669733.1042100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRrDG-00035C-4W; Mon, 22 Jan 2024 10:07:30 +0000
+	id 1rRrL6-0004qC-SW; Mon, 22 Jan 2024 10:15:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669730.1042090; Mon, 22 Jan 2024 10:07:30 +0000
+Received: by outflank-mailman (output) from mailman id 669733.1042100; Mon, 22 Jan 2024 10:15:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRrDG-00032z-1l; Mon, 22 Jan 2024 10:07:30 +0000
-Received: by outflank-mailman (input) for mailman id 669730;
- Mon, 22 Jan 2024 10:07:28 +0000
+	id 1rRrL6-0004oB-Pi; Mon, 22 Jan 2024 10:15:36 +0000
+Received: by outflank-mailman (input) for mailman id 669733;
+ Mon, 22 Jan 2024 10:15:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kGu3=JA=web.de=Markus.Elfring@srs-se1.protection.inumbo.net>)
- id 1rRrDE-00031W-I0
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 10:07:28 +0000
-Received: from mout.web.de (mout.web.de [217.72.192.78])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VPlZ=JA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rRrL5-0004o5-AZ
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 10:15:35 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b06fd13-b90e-11ee-9b0f-b553b5be7939;
- Mon, 22 Jan 2024 11:07:26 +0100 (CET)
-Received: from [192.168.178.21] ([94.31.87.95]) by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N1d7i-1qzQGl1nD6-011tRs; Mon, 22
- Jan 2024 11:07:03 +0100
+ id 2d3edd6e-b90f-11ee-9b0f-b553b5be7939;
+ Mon, 22 Jan 2024 11:15:33 +0100 (CET)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2cddb11b2e2so35194901fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 02:15:33 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ c25-20020a5d9759000000b007bf78513320sm2218986ioo.1.2024.01.22.02.15.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jan 2024 02:15:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b06fd13-b90e-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
-	t=1705918023; x=1706522823; i=markus.elfring@web.de;
-	bh=fTg1GKoElQXtI92ElzyjxQkY95Oc2Gw5CPCoF4BKwq8=;
-	h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:
-	 In-Reply-To;
-	b=XbLTyj35Lb7jl1Yxk5KWnYotJUTzEV/OahrmTGAuvwBNAl3a+VwS5Yj6WbV0eTWT
-	 F8XF4+XunIdby/uzCcMOOXrbW1nz0ynfe+q8vz86czFsJHriEmDKJWjHye5gDjekJ
-	 3zJdBiB8SvV6FuY74cI9jSzvCGCSRC5rAZdb8vLb9G06jExBKLSY6l4PqdiFcDwB8
-	 Ce3nIBc9znPGdYrOIH8xCam1LgCpl7GlXMfteTWW3HyMt7yYNleZj0VLEuSafpBJX
-	 LdY5ZefXx197/9mhH7YnobqgSJ8w7SeTv9fyjuS3g01X41Md/kH696KNsDSTb+nmR
-	 fDZwscOeNJL4O01/SA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Message-ID: <b0b1ba48-1d48-4163-afc5-ac92121ee14c@web.de>
-Date: Mon, 22 Jan 2024 11:06:57 +0100
+X-Inumbo-ID: 2d3edd6e-b90f-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1705918532; x=1706523332; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=HbjozXWzpx1hqffCkCwx2d/eeX4UlVOkuwO/uwYb+E0=;
+        b=gA34OfAUZ1AfyomxVvBmB/3+FGiuVpyma1eMCVj5I2JI83dcZHxcHDEFh/chT0eBE5
+         hmhBGwd723llcLdowbgeuaSaWxfts6xvNFy9/D0dvDXLc7wsQg1WYh7zqb1BB3CNbgLL
+         b2jq8IJ0JiZGKairzDyu8Jdrk8P4ofs7yIQN1vF4YfucyjwO2YuO8NrPr6ZZ7m3ookNX
+         /Jh6eyDWCT+IPcF8fXbbQtpoLplk22b1LLAqfqM1Laynt/TQNBsImKIGEnnuz7exzQh+
+         n8sel7c032j/okD6VV5dL3w6CguYVnUw6cLYIBU3TzGDuRmE1XC4ezMk01ygY8tacL2E
+         TXqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705918532; x=1706523332;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=HbjozXWzpx1hqffCkCwx2d/eeX4UlVOkuwO/uwYb+E0=;
+        b=AeC4gv61HKITJYKR8jSRWkZlOXBuFycUutdEUt2uTOMe2KkdR8pX9akqaxbbIc1/NZ
+         IR95C0bm/eu7SZZD6YfDGZQY6Xq7gQHNe/eYsX/ZOEdNRn3DxLnC/7OLGQbWo0ay655J
+         SsLlFDc7tSmvoMrARaCJ1nUfJax6bX9Wr5jEtazNGaFHNLR+VhGd8flrs06dlKywFp1c
+         DQXs0VG+HXFOw05pr8DcP9SUVKMF7ITVyrkFaxLXCJwao2sEGZHY7q+EDiCURpkTLrgP
+         NbT842+YfiV250OdFNx7An37cjQNIcXP8tiV78sJkPekPX7L3gxlAiWGGCbAcbf1+dK9
+         WPRA==
+X-Gm-Message-State: AOJu0Yww0iho/ejkJsfp8SzlGJV26ujXQnB5Kkn8xneayOOb8tyAn12Z
+	O+OmcmDBJRjUrLHaAKtpJvajOEKRMCehbUOtWQV71Tm3IbwIjk6eP04mrT1cqw==
+X-Google-Smtp-Source: AGHT+IEThq9FD8Q/ImCmARC2lxADcNrcuZuZenUuKTpn3dtGoC7nubZNNPusVRaqehc7B7BFea5C9g==
+X-Received: by 2002:a2e:3806:0:b0:2cd:1ca6:87bf with SMTP id f6-20020a2e3806000000b002cd1ca687bfmr1625550lja.8.1705918532556;
+        Mon, 22 Jan 2024 02:15:32 -0800 (PST)
+Message-ID: <fb6c7b54-d63d-4e83-ba33-58dc61f4528f@suse.com>
+Date: Mon, 22 Jan 2024 11:15:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [v2] x86/xen: Add some null pointer checking to smp.c
-Content-Language: en-GB
-To: Dan Carpenter <dan.carpenter@linaro.org>, Kunwu Chan
- <chentao@kylinos.cn>, xen-devel@lists.xenproject.org,
- kernel-janitors@vger.kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>, kernel test robot <lkp@intel.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
- <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
- =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Thomas Gleixner <tglx@linutronix.de>, x86@kernel.org,
- Jonathan Corbet <corbet@lwn.net>
-References: <20240117090018.152031-1-chentao@kylinos.cn>
- <1705655941162581.825.seg@mailgw>
- <517fae75-c4e7-4576-81ff-6a14a3eb9cd7@kylinos.cn>
- <dfb6de51-3ebc-41fc-a750-cf5ca2ac05aa@moroto.mountain>
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <dfb6de51-3ebc-41fc-a750-cf5ca2ac05aa@moroto.mountain>
+Subject: Re: Community Process Group - Proposal
+To: Kelly Choi <kelly.choi@cloud.com>
+Cc: xen-devel@lists.xenproject.org, committers@xenproject.org,
+ Yann Dirson <yann.dirson@vates.tech>
+References: <CAO-mL=yvVWjnOHSFSqcrknoXOqk-N3JY76qObQnzftrkmsq6xw@mail.gmail.com>
+ <509c9419-650a-4a7c-83e4-7a5204c53645@vates.tech>
+ <CAO-mL=zL2gknk5OE0NBcQjoq8sE=2c=Zs+9KhzKMxKcwtx4wpA@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAO-mL=zL2gknk5OE0NBcQjoq8sE=2c=Zs+9KhzKMxKcwtx4wpA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:TVWkH58C8d+xxHWHzHB64epa3s2plijd4rtx+6kS7ddQj8Suzvv
- naMuUTuD5EWLL2maurgo9AVz+dfWzvKtULBa/5Ve/rZFZcwKc9G46OszjBW7AP9yBR2RipX
- lK43Pd+vVigt/FjZRtStKTTDI5ju3W3XLb/WimEdl4OICVTk1/YmHkjTr/9CBQ1xYQ94yFA
- aDAE639lz9NSS4qWe7X9A==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:dU6CzvMVSpk=;fSHtYB/+Ly6z8pY0YGpGVG3ymD3
- S5R+AQd74kyXPO7x6bf/abdvDEWT2fFiA5grBn0s2z1asUGulEyqknQZVKJwf0tKu2SFstgor
- C/k1kCa4Q1jtgtl3ehPa0kPjTNaru70z78epFuFQTTS6fKSCe3ZrV7ekGai8+G8Hk7yOgiQXU
- FgIixZkdWM3rkJ54x8VUy6DnkxGN1mIkWIVQT87i2xg/BRetp7hS+LYad+RpxlHzxvABYaFMS
- yTWm8/CYgyNkKb64NqBPX/4EETyRZmoh4Pg/ONAtpFP6K6RRshD3XLN+LTIsf/dt4hPZ/OO6K
- zhJ3Jcd1jHt3rZbRkLwlP1aQTms2E3DXa/sPOTYIHuawGiZL43TXPy1nvG5Qu5XUD+uLR3UcV
- MSUBMqfOBKib4NuW2aKzkwhtbtHAoj5OPdJkdO0KL00ZXjJYha9ar9z4FwFEyZ1uJuyeyouRP
- /RqzuWH97IyQeevzIJ4G4ujdTPtemaWdj8C97cgBcFTGQaxF+AjXHFLnDnOeGwka7ehoySB4X
- WEQB4wDsnXTCEppwuZwANErLkf/0Pvy94yrRC2T6DmIt6v2LaBYQMXpvj02MO/hbZgv3mS7VR
- WC+u/TOo2Es1jI67Vg0HD/nGJCfItmhF37j4A2V3sXpaVksjIlhhi0btsiu+4OQdcvfv5633N
- daXMmq0nbOUPsumFU3SHFodudI05p3k4JBAYBudav4Z2nhG+sPc9ZQWskqP+FkFUVkln+jFT3
- nhXJMMD1BxRr77e5AdkLzRBhX7B63C6MBSR9TfPXbS0+4aAQs2fzLWb9SsX3rDAPwldNNrgpa
- C3enyvAYKhgNNxSEoKwSHU0BTHyxrTSyvXXnSABRXE+7SqHuxuNl5W1vih1+iMORigNwPmFqs
- w0CgqXRGAAG4XNsHi8qw5xoGBkcwrbwWz964mjZpoza6mVBLAMBLcTHqiNvV8IEoGtqzH/hV/
- lNYuYA==
+Content-Transfer-Encoding: 8bit
 
->>> How do you think about to use another label like =E2=80=9Ce_nomem=E2=
-=80=9D?
->> I'll add a new label to simply the code.
->
-> I'm not a Xen maintainer so I can't really comment on their style choice=
-s.
+On 19.01.2024 17:37, Kelly Choi wrote:
+> On Thu, Jan 18, 2024 at 10:09 AM Yann Dirson <yann.dirson@vates.tech> wrote:
+>> On 1/17/24 18:10, Kelly Choi wrote:
+>>> A survey was recently conducted to identify how the community as a whole
+>>> feels about a certain situation. It was not intended to ban specific
+>>> wording or create a policy to do so, but more to give context that the
+>>> community has a wide range of ideas, and individuals may agree and
+>>> disagree a lot more frequently than we as individuals might think. It
+>>> helps us understand that as a community there are many situations where
+>>> it is not clear. As such, the results indicated a very even split among
+>>> the community, which indicates a larger problem as we may not always
+>>> come to agreement.
+>>>
+>>> There is obvious frustration with how certain matters are handled, as
+>>> some members may want the project to move faster, whereas others like to
+>>> take a cautious approach. Given we are an open source project,
+>>> differences in opinion are likely to happen and what we don’t want to do
+>>> is cause further frustration.
+>>>
+>>> *This is where I would like to propose the idea of a ‘Community Process
+>>> Group’.*
+>>
+>> That made me look for a list of official roles in the project, which I
+>> found at [0].  How up-to-date is this list?  The Release Manager role is
+>> mentioned there but not described, the Community Manager role is not
+>> mentioned at all, and the only link to get project leadership info [1]
+>> redirects to unrelated information.
+>>
+>> [0] https://xenproject.org/developers/governance/#roles-local
+>> [1] https://xenproject.org/developers/teams/hypervisor
+>>
+>> I feel it would be necessary to have a clear view on the current
+>> situation, before adding more structures.
+>>
+> 
+> Aspects of the information on the website are outdated and do require
+> reviewing as part of a wider governance update.
+> However, the majority of the information such as the roles of committers is
+> still accurate. In this specific instance, the CPG would act fairly similar
+> to a project lead in terms of progressing the project forward. Rather than
+> it being one person, it will be a collective group of elected members. From
+> my understanding, we haven't had a project lead for a very long time within
+> the project and this was before the governance was formalized. If the
+> community is happy, we can replace the project lead role with the CPG.
 
-Linux contributors can discuss various implementation details.
+It was my understanding that with the departure of Keir, it was intentional
+that the "project lead" became a team (the committers) rather than again a
+(then largely randomly selected) individual. If that understanding of mine
+matches that of others, I don't think there's a need to change anything.
 
-
-> However, as one of the kernel-janitors list people, I would
-> say that not everyone agrees with Markus's style preferences.
-
-Can a corresponding document be improved accordingly?
-
-Centralized exiting of functions
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
-cumentation/process/coding-style.rst?h=3Dv6.8-rc1#n526
-
-Do you find a related information source helpful?
-https://wiki.sei.cmu.edu/confluence/display/c/MEM12-C.+Consider+using+a+go=
-to+chain+when+leaving+a+function+on+error+when+using+and+releasing+resourc=
-es
-
-Regards,
-Markus
+Jan
 
