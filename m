@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3741A83A4AB
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 09:57:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670818.1043847 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BA4583A6C1
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 11:27:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670150.1043970 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSZ3y-0006lz-3L; Wed, 24 Jan 2024 08:56:50 +0000
+	id 1rSaTf-0002BG-2W; Wed, 24 Jan 2024 10:27:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670818.1043847; Wed, 24 Jan 2024 08:56:50 +0000
+Received: by outflank-mailman (output) from mailman id 670150.1043970; Wed, 24 Jan 2024 10:27:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSZ3x-0006jb-Vx; Wed, 24 Jan 2024 08:56:49 +0000
-Received: by outflank-mailman (input) for mailman id 670818;
- Wed, 24 Jan 2024 08:56:48 +0000
+	id 1rSaTe-00029e-VX; Wed, 24 Jan 2024 10:27:26 +0000
+Received: by outflank-mailman (input) for mailman id 670150;
+ Mon, 22 Jan 2024 20:59:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bgOV=JC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSZ3w-0006jF-TU
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 08:56:48 +0000
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
- [2a00:1450:4864:20::22c])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=bVzE=JA=amd.com=Mario.Limonciello@srs-se1.protection.inumbo.net>)
+ id 1rS1OC-0002b9-3R
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 20:59:28 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20615.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::615])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 817f5d03-ba96-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 09:56:47 +0100 (CET)
-Received: by mail-lj1-x22c.google.com with SMTP id
- 38308e7fff4ca-2cddb0ee311so56379441fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 00:56:48 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x4-20020a056e020f0400b00361b6a1e6aasm2960866ilj.87.2024.01.24.00.56.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 00:56:47 -0800 (PST)
+ id 1fcc0145-b969-11ee-98f3-6d05b1d4d9a1;
+ Mon, 22 Jan 2024 21:59:26 +0100 (CET)
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
+ by SN7PR12MB8001.namprd12.prod.outlook.com (2603:10b6:806:340::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Mon, 22 Jan
+ 2024 20:59:21 +0000
+Received: from MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::ce8d:7121:cb06:91ba]) by MN0PR12MB6101.namprd12.prod.outlook.com
+ ([fe80::ce8d:7121:cb06:91ba%4]) with mapi id 15.20.7202.034; Mon, 22 Jan 2024
+ 20:59:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,151 +47,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 817f5d03-ba96-11ee-98f5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706086608; x=1706691408; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ts+uFTaRePmueIU5jH7HQYe7b0R4U5xP6OKpShqXZGM=;
-        b=VXSHbqz+zHmIVyPxpWIUOl2QmXrDWt4/Fv4EYXlCzBlhZth70W0WNUNCae8rWCdKZU
-         GGRAQnZMhxqCHgeAl8jFIPrOz/jqoH9NfPaKyFpPVUlYrUyCftsUqDZYcl8a5H2ZE8OH
-         XZaJewA77+77+lHkez5nsg4xo0mL0g+heGRFMY/teNkZr0UvO/y0VAK3YTKbmqAE4Ygq
-         4F5t1Z74UhbD7YN3udrcjGtcYyXj1Q0LHWijbwfP7AaJJXm2+76pUjiD/LzQuJLTsXoc
-         l4Z72amPiyRgat4LrSbmgp0WtxTMUnQuDLQ0C3qbCQpXospzzCzyPEtP+LfGKkyrAffB
-         VMbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706086608; x=1706691408;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ts+uFTaRePmueIU5jH7HQYe7b0R4U5xP6OKpShqXZGM=;
-        b=G7QyeFbmunAZTXsYUi2jVLlP0mmkxYIQCf9rZzETX4mm+eLux1LiIbw+8thAUtJ+CP
-         jiGyfyfYx9wwX5EHfwJVtKkGaHCpcU/IXIefWoreF62zTo/1zfFnLqgTGHXmdTC+C+li
-         3wDfwpOOPUA3WH0lW8JC6sqmDboZUYP2cf1wh60o7cLEgaLH29XAquEThqt35r6UOlFO
-         +cdHgiOzdOP+g1et+hA7Yxp171CIs8VzmIrjZ+e33PoPPIU9l/+pVvT24s/WlEbKzq7F
-         OdxZNxy7cG8UYzX1+HDXoej4iYFGIB8+i51JUAkybYjyx4IG4ikut5Ojfyb/0fkSuvZt
-         Tmjw==
-X-Gm-Message-State: AOJu0YwIyW40MSjny/nEXuJ1inYCor3/H3TgRH+hA3HiAaAZILSytObH
-	Ll87L1lC5XOR22i+uLUa6Yx8U7D7wguEjJgMuqDi1qlSUM368N1Avyk8DItEDw==
-X-Google-Smtp-Source: AGHT+IEktw8YQL1QsTGtPHYfVIvIAqHfFfuMJhmykcW5kDjvFdOojsSt3azW5f3I3hSZyqnacnto3g==
-X-Received: by 2002:a2e:9e46:0:b0:2cc:c895:7140 with SMTP id g6-20020a2e9e46000000b002ccc8957140mr251279ljk.73.1706086607717;
-        Wed, 24 Jan 2024 00:56:47 -0800 (PST)
-Message-ID: <c8792489-3e61-4c2e-af80-97832a3622b7@suse.com>
-Date: Wed, 24 Jan 2024 09:56:42 +0100
-MIME-Version: 1.0
+X-Inumbo-ID: 1fcc0145-b969-11ee-98f3-6d05b1d4d9a1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iges5od8jLRyOpYXXPsAkBB4aGhemAeo+LhEaR/Sm1enCRHgIRCHRZXEEozwkdaY9wQ+P/hCgCHLaDxWF48Pbktr/E1YpwylJC2fPoIXO85p6/++ozS2b6VVKRYBG+PU2yU2GPp4vTVifjAOc6xltV+RuLz4eIZH2caUjpE/O0Ha2Zs8CLTSVNHGQacfbPZBfjbzVRJW6mLsn6Daz+yHElI7XPG6QYBdBkNqUeEAXS2omyQG4v+AKRFDRKAQlByx7pvG4IrXEqh1i96tBgmG6/VZns8kPSDrL+hZYc0QrnzsPepmqh96OXbG5X4VdboJZOb0wuJ0FeRz0DyCyod0yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pP1qwKcJmkLgycbmU3ILh1EJRkrNlepdGndJ2gdfWIU=;
+ b=CzzcRnid90m3sfs2dNwhqa7SPSf12MeO3iH9ziJnc2/a+MATVY30mv2fx2U75tTqXZadFV2uVwEDplcHNzAu+s2OZaIP+z6TinGVq6JEGUEse6ON2XnoGaX9qKMeC8DHG4Nnld+5N4xeB8uvSK5wmQMFUa7ecZ2m0yWwoNfCRNHpZ2Pw3upztX0J122exPU6uKh6poAbjRREXhHiJ8Dew+kz6/NT8YMtM5dUR34nXxKnWDIQnq2eCWpQOxThigJBmqG9i6z+7nJyH2Y9tqAxprG9/AGgK3esTTeTUKY2LHaAeUPtPmaqhVO+xfeirrAzBCK78DN9Rwhh23bEfebA2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pP1qwKcJmkLgycbmU3ILh1EJRkrNlepdGndJ2gdfWIU=;
+ b=MrmqsV6l2P99conRmTgYE8MneVBwudPL1z+JYynmBzzgxfIBAOu28KU5BR+XPYD/bjH7Vx9BNqgDW6OZooME6PfSg4BsIWzePYVU9uK+bbmgBlG0My0oqmYcaGBper76xc0Y5IQloTwIEk8VRQhL5oqBOpN4t9ZpCIRj1/U3BqU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <214585d5-689d-4ba6-bd48-359428a7ed8f@amd.com>
+Date: Mon, 22 Jan 2024 14:59:19 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect vpci
- structure
+Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
+To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
+ Juergen Gross <jgross@suse.com>
+References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
+ <CAKm-UmaUZ=rj-F3RvMoR7H3OvBHm1iy4PTRZAjyi=MQUVTuYVg@mail.gmail.com>
+ <CAKm-Umat77MTh6=GEuH+bf1WRX+_B4-N5hY4xwADALfhj4QCPA@mail.gmail.com>
+ <6ba9568a-ff8e-48ad-907f-74303e04d3a2@suse.com>
+ <CAKm-UmZVoUhidEV15Xk+J_XN5a2GsBqMbXL9wqdFdoAFf_u5AA@mail.gmail.com>
+ <bcbceba7-42ac-45be-80ab-e3dfe7741ec6@suse.com>
+ <2eafe45b-fd97-472c-a173-459d6ff0b957@suse.com>
+ <CAKm-Umbs2D7NHFE+NW2xKOu7-AZhFpH4uzE5QTuQusnGA_eNWA@mail.gmail.com>
+ <f539144c-885a-461c-a506-bdb73e626a65@suse.com>
+ <CAKm-UmY126AfdGhWcZ3s9vwN9+ksVRRFEhOu0ZFMoDvxrqOibw@mail.gmail.com>
+ <CAKm-UmYt3iV8zOhSmtqMGhi_8T93c_nCbnefs4m3UC+3UABqeQ@mail.gmail.com>
+ <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
+ <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
+ <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com>
+ <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
+ <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Paul Durrant <paul@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-2-stewart.hildebrand@amd.com>
- <20240115194309.45683-1-stewart.hildebrand@amd.com>
- <18ec3401-4334-40c0-82a0-31abfd9797d0@suse.com> <Za_Z_WlLbBgb0EzF@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Za_Z_WlLbBgb0EzF@macbook>
-Content-Type: text/plain; charset=UTF-8
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: DS0PR17CA0008.namprd17.prod.outlook.com
+ (2603:10b6:8:191::15) To MN0PR12MB6101.namprd12.prod.outlook.com
+ (2603:10b6:208:3cb::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SN7PR12MB8001:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01c7d922-88bd-40df-ec89-08dc1b8d01b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	0VyKvwbX3UrZ/gc1kvUnNePYX2yrLcT2yBbDLNsspo/qJAosp9tG1430ZGyE9QXXgQYcImC8KESzQvRb+SAgbMQ/iO8oKO8bQrS4NZS3kl89gsmzui3WOoxyn2PvOErwZknk4av4b6MEZHxZ4cZagi6qRJJCEczHMW6DkkBlJe43ZRPeNZr0HGYt+ya+BHhWzZ6kHLmBoiMF6JimlaPKwNsX6YWKZw4gXqI5mbjgoIUsO4I35EJahXi8WdInavYqHqYptSb+LEiRQqjucuBB65i+QvBcsELzTqBSU6efzg2coYu6EYy1hxeSIFlNJ0ZuSPhJjLDYnCdTGbS6dUmXFdh64dQTFG71wVBHU3vo93fr6gZjG4G8tQTk5Ky13bnj8bG9AMRvx1Gal+chPdvQ/We7JBNsBaI7Ktlmnwah4ZQP7mvVji2QLSWrBYSnz82NxUKPlTT0MZVm4WiiNuGx5vjcud3n/frkyYJINCJr9/PrnobrNgw74fb7DAm0inFz3/GMvR5uzQ4S8dHm7cIyzbcQh5yNFgvj1Acr59DlUojq2Wfqxmdm740f58g0eNx2fk4vRZpptKIrUxesn6It5oPorflxM03l94CTqhKrQc73NIefssAqr17B0mcjCM/M
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(39860400002)(396003)(136003)(366004)(346002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(31686004)(38100700002)(31696002)(478600001)(2906002)(316002)(54906003)(966005)(6486002)(66946007)(66556008)(6916009)(4326008)(44832011)(26005)(83380400001)(86362001)(66476007)(8676002)(8936002)(6506007)(66574015)(5660300002)(6512007)(41300700001)(2616005)(36756003)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eXVhbnUwUXZSV3lxb08yM01oelhKSE51cHdQQnpBdnU4Z3UrL3Y1ZVdyV3o5?=
+ =?utf-8?B?alNHWkFTWXdzaUdVSFlFT01KTnNHdEU4L1pMT3NqcTkzVkxaWFpFWmp1ZHk1?=
+ =?utf-8?B?U3l6RC9STEZHN0dtZ2hCMzYwRDdCUmVCTGR3UDRWNGZZOU9FaGZlTXlKdUkr?=
+ =?utf-8?B?TStyVmZXTU5lLzN5aTdwRWl2OTZVdU5Edk53ckVrYkJlYjZWWmFkSWhCYWVa?=
+ =?utf-8?B?WktwYzVSQnp6UGZzTlBZYTJTdGVsTkZtZWdtUGFpNWpaZ0tKZzJsWkhWR2h5?=
+ =?utf-8?B?YzlEam05Z2EwbzMyUU00UWdpc0lNNFlzTXdvQWpOSGpoNlVRNWJqbVF4Rlp2?=
+ =?utf-8?B?TkhZZFRuSXJ5ak8rSlVFbHozcER2WTYzQTFZVkRjUkdzV1kyYktKbHBjdlU3?=
+ =?utf-8?B?UGxLaXdXQ3pUOGFYZU1idkFTQTlMTlAwYUNvcWVWdVh4djBMeExZZ2oyU0w0?=
+ =?utf-8?B?dkliMzhOOGtDRW9pR0h5OU5DQ05iSHFvSGREYnJoNVR6ZFhjMFNtYldlY05p?=
+ =?utf-8?B?YXlES0xuVFNDRk94SkFiTXBpajZWMExzcTd2VVFleXg1SHlES0taNmJLU0Q4?=
+ =?utf-8?B?TWFMVG1uRDJpVzBma2ppZjZwL3l1T1pVNndqbituK0Z6VzhQbTcvVndEaGxv?=
+ =?utf-8?B?Tys0V2dPK0EvcFJyMG9uSnhYQ25temFoY3llTUJpRWl0alZIdWxVSHRzajVQ?=
+ =?utf-8?B?TWRCNXRTSm1JS0Y5VTA5Wkhja0NxVjNNUWdnNmI0MVlhamxVSHNkRVlndXd3?=
+ =?utf-8?B?WjJPY1RaVko2cXlsR1YxMkU3eWhhbjU3SXNFZXBDazdkdlhrckU0Vk5HMS9X?=
+ =?utf-8?B?MEczRnYzMHU1QWNDT2U2eFV3ZERIb1QvTnNMRG1QR05PSS9samRrcmdOOUE2?=
+ =?utf-8?B?YnFySHBCSUErUHF4bGYwYWpVWFBrWlBUVEdvY09hVnk4ZGx3Y2Vxcy92cDNC?=
+ =?utf-8?B?eDRpYW1qTGM4KzVaNzBuUEd1czI1T2QxTDEyRUpJRktqaytYSTFFR1JBY01i?=
+ =?utf-8?B?WTA1VHdUamcwdFNhaFBhdjF4MmhDYWlESkl4WjB1QmF5NFE4Z2F1azVHdlVo?=
+ =?utf-8?B?NVN6VytXeExhdy9PalZ2KzBIWHVLQ0RuZHZ4eUxsVEZuazBObVJnbVE4cngx?=
+ =?utf-8?B?YTlKQUk1eU9PYzBrSXBRTUVFUFZpajFpQ09TbFI3SHFUTndYckl0cWtjcW9N?=
+ =?utf-8?B?QTVxVUhCeHE2c2I2a09BWGI2NE9QK3VhZFJ4MjBTUDdNUGRhZG44RU9aSklQ?=
+ =?utf-8?B?L3QrYXB6UEJmNElodXl0U1k0RlNpVjJuWkRQcGhFS1ZzYXdKdDRpb1N0azVK?=
+ =?utf-8?B?Mzdma05XM1B5THRYdnJPVDBodjgzb1VpdjBJOFhDdlkvL0hHcXZ1bFR4QVVj?=
+ =?utf-8?B?RWx3ZmlhVy9WTUZDeS94ZHM3ZS9RZm1pUkFSTjB5RWZHU0FFL3p5bk9RRFpw?=
+ =?utf-8?B?b3E3aGhSV2R5SFdXaDVxbXlvRkVNbUtUeHJpRkFqcjZPZk8wdm5kMmZjcDVz?=
+ =?utf-8?B?cFF5OFNuSUxkcSt1UGExdVFjMlhOU21uaXNyWHMrTWpCZFU1TFEwY3JEMFlK?=
+ =?utf-8?B?akYyaEp1WHNzVlVKWS82bnd5b1cxVm1wVjRsS1VkU1FtQzZ4WEpjZ1NCWTMy?=
+ =?utf-8?B?cmNyVWpaRVAzdXpCR29lZ3dqQllIM2ErZHNuOVZrb1UrRmxUMVk1bDljMi9m?=
+ =?utf-8?B?QitUakN0TU9HNGNQeWh6UHdzVVNVR1BSeHJRNXRZSm1XcDBHS3ZpNkxLU2tm?=
+ =?utf-8?B?aEprNXR6TTRxL0JUV244cVNYck80VGdOb0x2VWoyNUplU1cvMDYveFR0Z21F?=
+ =?utf-8?B?VTdyL3ZVY01KS3BWZnZ6SnRNbUdzN0MvV3FVY0orN3NvSW9Jd0JiUFlLaUk3?=
+ =?utf-8?B?S0xKRzduZVVQZ2ZEcnVPSVVzcHFoTGUyaEEzUjhEL05Mei9KYkNXNkpCb2NK?=
+ =?utf-8?B?dVNDWmE2NGxZMTJCOXV4NkZEYVNhL2QzbkUrUms1cnM2aDRBVDZNTTRKeXRC?=
+ =?utf-8?B?RE9uTXZIalJYVXlzNGJRak0vK1pNVGpMSGdCK1cvTVlyc21kUFV6bE1sQ2U5?=
+ =?utf-8?B?cjNySzVwN09XUTVhWkhGa05iN0J5Umh6THlkd2xnVkx4eFZmZ25waS9tZkdT?=
+ =?utf-8?Q?VCj5sm4AmD2pJACjzX6HUUnUl?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01c7d922-88bd-40df-ec89-08dc1b8d01b7
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 20:59:21.4481
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V49VGfPpVz6Sug6E8Ybs3ZqgheeFGnUkyiZSlIB+15LH9U1Up4H1HbYbXiCmdX1KIpL4mwE/BjzltX4Re/m3Kg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8001
 
-On 23.01.2024 16:23, Roger Pau Monné wrote:
-> On Tue, Jan 23, 2024 at 03:26:26PM +0100, Jan Beulich wrote:
->> On 15.01.2024 20:43, Stewart Hildebrand wrote:
->>> --- a/xen/arch/x86/hvm/vmsi.c
->>> +++ b/xen/arch/x86/hvm/vmsi.c
->>> @@ -468,7 +468,7 @@ int msixtbl_pt_register(struct domain *d, struct pirq *pirq, uint64_t gtable)
->>>      struct msixtbl_entry *entry, *new_entry;
->>>      int r = -EINVAL;
->>>  
->>> -    ASSERT(pcidevs_locked());
->>> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
->>>      ASSERT(rw_is_write_locked(&d->event_lock));
->>>  
->>>      if ( !msixtbl_initialised(d) )
->>> @@ -538,7 +538,7 @@ void msixtbl_pt_unregister(struct domain *d, struct pirq *pirq)
->>>      struct pci_dev *pdev;
->>>      struct msixtbl_entry *entry;
->>>  
->>> -    ASSERT(pcidevs_locked());
->>> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
->>>      ASSERT(rw_is_write_locked(&d->event_lock));
->>
->> I was hoping to just ack this patch, but the two changes above look
->> questionable to me: How can it be that holding _either_ lock is okay?
->> It's not obvious in this context that consumers have to hold both
->> locks now. In fact consumers looks to be the callers of
->> msixtbl_find_entry(), yet the list is RCU-protected. Whereas races
->> against themselves or against one another are avoided by holding
->> d->event_lock.
+On 1/22/2024 11:06, Sébastien Chaumat wrote:
 > 
-> The reason for the change here is that msixtbl_pt_{un,}register() gets
-> called by pt_irq_{create,destroy}_bind(), which is in turn called by
-> vPCI code (pcidevs_locked()) that has been switched to not take the
-> pcidevs lock anymore, and hence the ASSERT would trigger.
-
-I understand this is the motivation for the change, but that doesn't
-(alone) render the construct above sensible / correct.
-
->> My only guess then for the original need of holding pcidevs_lock is
->> the use of msi_desc->dev, with the desire for the device to not go
->> away. Yet the description doesn't talk about interactions of the per-
->> domain PCI lock with that one at all; it all circles around the
->> domain'd vPCI lock.
 > 
-> I do agree that it looks like the original intention of holding
-> pcidevs_lock is to prevent msi_desc->dev from being removed - yet I'm
-> not sure it's possible for the device to go away while the domain
-> event_lock is hold, as device removal would need to take that same
-> lock in order to destroy the irq_desc.
-
-Yes, that matches an observation of mine as well. If we can simplify
-(rather then complicate) locking, I'd prefer if we did. May need to
-be a separate (prereq) patch, though.
-
->> Feels like I'm missing something that's obvious to everyone else.
->> Or maybe this part of the patch is actually unrelated, and should be
->> split off (with its own [proper] justification)? Or wouldn't it then
->> be better to also change the other paths leading here to acquire the
->> per-domain PCI lock?
+> Le mer. 17 janv. 2024 à 03:20, Mario Limonciello 
+> <mario.limonciello@amd.com <mailto:mario.limonciello@amd.com>> a écrit :
 > 
-> Other paths in vPCI vpci_msi_update(), vpci_msi_arch_update(),
-> vpci_msi_arch_enable()... are switched in this patch to use the
-> per-domain pci_lock instead of pcidevs lock.
+>     On 1/16/2024 10:18, Jan Beulich wrote:
+>      > On 16.01.2024 16:52, Sébastien Chaumat wrote:
+>      >> Le mar. 2 janv. 2024 à 21:23, Sébastien Chaumat
+>     <euidzero@gmail.com <mailto:euidzero@gmail.com>> a
+>      >> écrit :
+>      >>
+>      >>>
+>      >>>   output of gpioinfo
+>      >>>>
+>      >>>> kernel alone :
+>      >>>>
+>      >>>>          line   5: unnamed         input active-low
+>     consumer=interrupt
+>      >>>>          line  84: unnamed         input active-low
+>     consumer=interrupt
+>      >>>>
+>      >>>> xen:
+>      >>>>
+>      >>>>          line   5: unnamed         input active-low
+>      >>>>          line  84: unnamed         input active-low
+>      >>>>
+>      >>>> xen with skipping IRQ7 double init :
+>      >>>>
+>      >>>>          line   5: unnamed         input active-low
+>     consumer=interrupt
+>      >>>>          line  84: unnamed         input active-low
+>      >>>>
+>      >>>>
+>      >>>> So definitely progressing.
+>      >>>>
+>      >>>
+>      >>> Checking /sys/kernel/irq/7
+>      >>>
+>      >>> kernel alone :
+>      >>>   actions: pinctrl_amd
+>      >>>   chip_name: IR-IO-APIC
+>      >>>   hwirq: 7
+>      >>>   name: fasteoi
+>      >>>   per_cpu_count: 0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0
+>      >>>   type: level
+>      >>>   wakeup: enabled
+>      >>>
+>      >>> xen skipping IRQ7 double init :
+>      >>>
+>      >>> actions: pinctrl_amd
+>      >>>   chip_name: xen-pirq
+>      >>>   hwirq:
+>      >>>   name: ioapic-level
+>      >>>   per_cpu_count: 0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+>      >>>   type: edge
+>      >>>   wakeup: disabled
+>      >>>
+>      >>> So the skip of IRQ7 in pci_xen_initial_domain() sets the
+>     correct handler
+>      >>>   (IIUC xen uses the ioapic-level and handles the eoi
+>     separately), but not
+>      >>> the correct type (still edge).
+>      >>> I guess this may explains the results above.
+>      >>>
+>      >>>
+>      >>   Mario (in CC) patched the pinctrl_amd to flush pending
+>     interrupt before
+>      >> starting the driver for the GPIO.
+>      >>
+>      >> This helped in  the sense of there's no more pending interrupt
+>     on IRQ7
+>      >> (whatever the handler is, level or edge) but then the touchpad
+>     is not
+>      >> detected by i2c-hid.
+>      >>
+>      >> Is there any work in progress related to the incorrect IRQ
+>     configuration ?
+>      >
+>      > I'm not aware of any. As per my recollection it's still not entirely
+>      > clear where in the kernel things go astray. And to be honest I don't
+>      > feel comfortable trying to half-blindly address this, e.g. by trying
+>      > to circumvent / defer the early setting up of the low 16 IRQs.
+>      >
+>      > Jan
+> 
+>     Shot in the dark - but could this be a problem where PCAT_COMPAT from
+>     the MADT is being ignored causing PIC not to be setup properly in the
+>     Xen case?
+> 
+>     See https://lore.kernel.org/all/875y2u5s8g.ffs@tglx/
+>     <https://lore.kernel.org/all/875y2u5s8g.ffs@tglx/> for some context.
+> 
+> At least we know that no MADT override is found by xen for INT7 as no 
+> INT_SRC_OVR message is printed.
+> 
+> Do we expect one @Mario Limonciello <mailto:mario.limonciello@amd.com>  ?
 
-Hence my question: Can't we consolidate to all paths only using the
-per-domain lock? That would make these odd-looking assertions become
-normal-looking again.
+No; the INT_SRV_OVR you'll see on Framework 13 AMD is on IRQ 2 and IRQ 9.
 
-Jan
 
