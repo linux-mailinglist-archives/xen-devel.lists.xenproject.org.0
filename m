@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48F92835B5D
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 08:05:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669666.1042005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E877F835BE0
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 08:44:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669673.1042014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRoMo-00024R-97; Mon, 22 Jan 2024 07:05:10 +0000
+	id 1rRoy8-0007ML-3s; Mon, 22 Jan 2024 07:43:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669666.1042005; Mon, 22 Jan 2024 07:05:10 +0000
+Received: by outflank-mailman (output) from mailman id 669673.1042014; Mon, 22 Jan 2024 07:43:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRoMo-000223-60; Mon, 22 Jan 2024 07:05:10 +0000
-Received: by outflank-mailman (input) for mailman id 669666;
- Mon, 22 Jan 2024 07:05:08 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rRoMm-00021r-Sn; Mon, 22 Jan 2024 07:05:08 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rRoMm-00088t-Ow; Mon, 22 Jan 2024 07:05:08 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rRoMm-0006cR-8l; Mon, 22 Jan 2024 07:05:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rRoMm-0005nG-7w; Mon, 22 Jan 2024 07:05:08 +0000
+	id 1rRoy8-0007Km-1E; Mon, 22 Jan 2024 07:43:44 +0000
+Received: by outflank-mailman (input) for mailman id 669673;
+ Mon, 22 Jan 2024 07:43:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Tj5a=JA=kylinos.cn=chentao@srs-se1.protection.inumbo.net>)
+ id 1rRoy5-0007Ke-Q3
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 07:43:41 +0000
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f1edc655-b8f9-11ee-9b0f-b553b5be7939;
+ Mon, 22 Jan 2024 08:43:36 +0100 (CET)
+Received: from mail.kylinos.cn [(39.156.73.10)] by mailgw
+ (envelope-from <chentao@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1393669554; Mon, 22 Jan 2024 15:43:20 +0800
+Received: from mail.kylinos.cn (localhost [127.0.0.1])
+ by mail.kylinos.cn (NSMail) with SMTP id 7F0F3E000EB9;
+ Mon, 22 Jan 2024 15:43:20 +0800 (CST)
+Received: from [172.20.15.234] (unknown [172.20.15.234])
+ by mail.kylinos.cn (NSMail) with ESMTPA id 7C470E000EB9;
+ Mon, 22 Jan 2024 15:43:16 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +45,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=dClBnt2bvsgKolqvEAHsu6QtAsAEptgwSslmnU+Sjjo=; b=T6sIZtaNIiUbO8zhe68jQKS2KJ
-	ATPKuRIlI9cWojtwswsA/1tkYo6TKWfVwl+Aj4BvfXtjGMxeiAsEve64a9E9qCJnG7/RoXcJcnN+6
-	Ow1IWe+CziJwJ7GuQ+ModJJwsAY96YdIdmQZEB1AtyiwFEom6q9rYIEOAqW6eZ82gJ1c=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184421-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f1edc655-b8f9-11ee-9b0f-b553b5be7939
+X-UUID: 0b78ecab05a04d719b47471461e9eca0-20240122
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.35,REQID:2c7f558f-ccf3-45f4-a733-29bf9d7726bb,IP:10,
+	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:-3,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:7
+X-CID-INFO: VERSION:1.1.35,REQID:2c7f558f-ccf3-45f4-a733-29bf9d7726bb,IP:10,UR
+	L:0,TC:0,Content:0,EDM:0,RT:0,SF:-3,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:7
+X-CID-META: VersionHash:5d391d7,CLOUDID:e96f838e-e2c0-40b0-a8fe-7c7e47299109,B
+	ulkID:240119184126L868QB56,BulkQuantity:10,Recheck:0,SF:64|38|24|100|17|66
+	|19|44|101|102,TC:nil,Content:0,EDM:-3,IP:-2,URL:0,File:nil,Bulk:40,QS:nil
+	,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD,TF_CID_SPAM_FSI,
+	TF_CID_SPAM_OBB
+X-UUID: 0b78ecab05a04d719b47471461e9eca0-20240122
+X-ns-mid: postfix-65AE1C98-394330182
+Message-ID: <6f25f54f-eecc-4765-bdc4-248674836e77@kylinos.cn>
+Date: Mon, 22 Jan 2024 15:43:15 +0800
 MIME-Version: 1.0
-Subject: [ovmf test] 184421: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=0c6d29be8b1731ff6880d59e0189184395e45968
-X-Osstest-Versions-That:
-    ovmf=da228b29bdf5d52c029166b51538c9f1d76c88da
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 22 Jan 2024 07:05:08 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] x86/xen: Add some null pointer checking to smp.c
+Content-Language: en-US
+To: Markus Elfring <Markus.Elfring@web.de>, xen-devel@lists.xenproject.org,
+ kernel-janitors@vger.kernel.org, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Ingo Molnar <mingo@redhat.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>, Thomas Gleixner <tglx@linutronix.de>, x86@kernel.org
+Cc: kernel test robot <lkp@intel.com>, LKML <linux-kernel@vger.kernel.org>,
+ Ilya Dryomov <idryomov@gmail.com>, Jean Delvare <jdelvare@suse.de>,
+ Jonathan Corbet <corbet@lwn.net>
+References: <20240119094948.275390-1-chentao@kylinos.cn>
+ <26ef811d-214c-4ce4-a9f8-4fa4cfdefe29@web.de>
+From: Kunwu Chan <chentao@kylinos.cn>
+In-Reply-To: <26ef811d-214c-4ce4-a9f8-4fa4cfdefe29@web.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-flight 184421 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184421/
+On 2024/1/20 22:45, Markus Elfring wrote:
+>> kasprintf() returns a pointer to dynamically allocated memory
+>> which can be NULL upon failure. Ensure the allocation was successful
+>> by checking the pointer validity.
+>=20
+> How do you think about to refer to the function name
+> instead of the file name in the patch subject?
+>=20
+The main goal is to assign a errno to rc. So use 'fail_mem is good to=20
+understand.
+>=20
+> =E2=80=A6
+>> +++ b/arch/x86/xen/smp.c
+> =E2=80=A6
+>> @@ -114,6 +124,8 @@ int xen_smp_intr_init(unsigned int cpu)
+>>
+>>   	return 0;
+>>
+>> + fail_mem:
+>> +	rc =3D -ENOMEM;
+>>    fail:
+>>   	xen_smp_intr_free(cpu);
+>>   	return rc;
+>=20
+> Is it currently preferred to start labels in the first text column?
+Just the same as the old one. I could fix it if necessary.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 0c6d29be8b1731ff6880d59e0189184395e45968
-baseline version:
- ovmf                 da228b29bdf5d52c029166b51538c9f1d76c88da
+>=20
+> Regards,
+> Markus
+--=20
+Thanks,
+   Kunwu
 
-Last test of basis   184411  2024-01-20 06:43:05 Z    2 days
-Testing same since   184421  2024-01-22 03:11:07 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Hou, Wenxing <wenxing.hou@intel.com>
-  Wenxing Hou <wenxing.hou@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   da228b29bd..0c6d29be8b  0c6d29be8b1731ff6880d59e0189184395e45968 -> xen-tested-master
 
