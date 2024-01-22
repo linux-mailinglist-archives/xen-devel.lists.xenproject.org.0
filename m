@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF042836492
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 14:41:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669895.1042386 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C45978364A8
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 14:46:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669898.1042396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRuYC-0005bV-L5; Mon, 22 Jan 2024 13:41:20 +0000
+	id 1rRucd-0006Mp-7V; Mon, 22 Jan 2024 13:45:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669895.1042386; Mon, 22 Jan 2024 13:41:20 +0000
+Received: by outflank-mailman (output) from mailman id 669898.1042396; Mon, 22 Jan 2024 13:45:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRuYC-0005ZX-IG; Mon, 22 Jan 2024 13:41:20 +0000
-Received: by outflank-mailman (input) for mailman id 669895;
- Mon, 22 Jan 2024 13:41:19 +0000
+	id 1rRucd-0006Ko-3K; Mon, 22 Jan 2024 13:45:55 +0000
+Received: by outflank-mailman (input) for mailman id 669898;
+ Mon, 22 Jan 2024 13:45:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VPlZ=JA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rRuYB-0005Y4-7j
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 13:41:19 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ id 1rRucb-0006Ki-7m
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 13:45:53 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb5eab41-b92b-11ee-98f2-6d05b1d4d9a1;
- Mon, 22 Jan 2024 14:41:17 +0100 (CET)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2cca8eb0509so35336151fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 05:41:17 -0800 (PST)
+ id 8eeb5774-b92c-11ee-98f2-6d05b1d4d9a1;
+ Mon, 22 Jan 2024 14:45:52 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2ccb4adbffbso33472301fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 05:45:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bm7-20020a056e02330700b003627e7b69c8sm603276ilb.76.2024.01.22.05.41.16
+ x16-20020a029710000000b0046ed9f3c5e3sm1120132jai.21.2024.01.22.05.45.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 05:41:17 -0800 (PST)
+ Mon, 22 Jan 2024 05:45:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb5eab41-b92b-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 8eeb5774-b92c-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705930877; x=1706535677; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705931152; x=1706535952; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
          :from:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=gQiTUoB8bG3hbenFnAZCwyFKHLeA13w6e6iDnvkSNlE=;
-        b=KyFRthheAO0xbqlwC6UXO9NicuV6ENjI1ilZEwAoO2GqA0uikSHk9iJLGd9cKXw0lA
-         ezrz9qXEM0qF1jVGogwO88RxY9bE2zCF6uoTNGwymlMuuzuOMl9GZRub92lcT2rC/PoE
-         9acWjn76wqFCRnM/v1EhuqUbPFF+PoZmgbVksRrjLlTeXQhtm1sAaj005FGzJLPq4X/G
-         XfdRSr7gM+vPwBzcTDF1NeH12jaEIK8FGousqCblCRPxBCWVsUE19YQSx2lTjR9oDwIK
-         AdxPVUW8z0+jjGoc6k+8GWdVP8oet8XalwDTtN8mp8kHxkl1r+GqZO2y+AwyTsH3gm94
-         XegQ==
+        bh=YRwVioz00eWZdvoO1XCcPZDoKnDH0Aiwl24RFYm/tGM=;
+        b=Y+wn1Unq7hVacZ3DAYVITHCT29/9CX6BWInA4CCPaqKbGawPlVTh23QEBbp/B0NO4m
+         3ZBmD5JnNY5s9xSgOUwCtMS3Vn5oWZbMtWq6SuwaucIivLt06xAxwwhMlyW/ZkT41yZx
+         j2dBExkseFLeqYzebYvywoSsKP0+C6Qx756M/9J0qG5QchkDwVtD4KPLGWEVPTca+LAA
+         9lgjjHIpJsz9b/3Utn8r3tdRwfnqGIsW7HSEGbEjX/lcCcyO9KCX3NJEDQmZlOmNTEOR
+         hlnkqvfK4eKa/g8/4GmLQOSXi4/0nbNJ4TRbAknj8wEL9mq6yUdnnJDFtFrxmUirDWkW
+         AF8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705930877; x=1706535677;
+        d=1e100.net; s=20230601; t=1705931152; x=1706535952;
         h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
          :from:user-agent:mime-version:date:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gQiTUoB8bG3hbenFnAZCwyFKHLeA13w6e6iDnvkSNlE=;
-        b=XZTt/rl2/uGDiujSynKaxAlhjRC3lu2RzPwn6xjndWxBbPwozxw7aabnfiOenwsJ6E
-         hTu9xMyBvCJUsw4xbbNEqR0gsQ8deoq4flZ/G+GS/NOysntnlrN9R0I1II8LteVqs/q9
-         n6u6/N17tbhU6LQI9K44ukU60Duh+zt0zrey+2Rb146MbTeeqOyj4Vzfio4bViolyjYg
-         Ggmfanb/wD4/qJefvQDxTIF2NFf/iiMXJFM9pBtGDdg5xoT7H4eA7kVQcj7XIcphohPr
-         rZRz5jUL+ANAobbUjrCHyDR1pP3u+7rVKj6gS77jj5B6rMPv3cZHM+kHHfsYkW+v9pbx
-         TitQ==
-X-Gm-Message-State: AOJu0YyJokoKO1tGhr+PLQp6u2uAz4lGJuKpb/VDd3dUZK0h5wEuWLjR
-	yJN/lG56srocw4M//45BGGfAQCkjcFxryaz7J9/gglRjqGANPPacQ+ANu68mOvzgSbhTx9vLfCs
+        bh=YRwVioz00eWZdvoO1XCcPZDoKnDH0Aiwl24RFYm/tGM=;
+        b=fArO6lBLQqsCnAiaQ2Fje/vPgLJ0MnBHCaFIYYbpZXYXyd/owi3C74ywZYgHmXC9FQ
+         VQRVKzM0fliIxRnnAWuP34ZDr/jBF2cURVznf3WZuNNyWWeox7ItLvBvYyJwxAS/CSXh
+         gU/J1P4OYWkywWoLBkke4Wxu6ElkUExcQh3Gb0czFdT6HWpsqRpuL3SMU9oWYajvS0wo
+         u9voqFbWPdwcJ7431Qih6CmAKQFcP2J0/dabzTo4G+dLfnADuGIczXz5w+9q2+lVJdIH
+         AcWxwLrQSkaMCRBofnLBgqknQpijRJqXWWqRsZdhqLm1zrKIurfwG1c3D851qQlgtaed
+         H9Nw==
+X-Gm-Message-State: AOJu0Yy00eBrdAqv8kWlCf1AWvhEpnU2hbCWAFbHfYId8i8wQlxeOk3j
+	Fh88cGyJU8G2pGcLh+mYlMVr3cVdR5A2arJ4kijVgXDgfDXGyCnuC/94BCOv363TQ8ctYQTEjXY
 	=
-X-Google-Smtp-Source: AGHT+IF2OFhBV/MCaRblskpSFb5QCSm+rYtJLQDdV72NpQx7Egq5O1/8RO6hr3vPLu/7JJQUaHfBsg==
-X-Received: by 2002:a2e:7a1a:0:b0:2cc:6d87:9a91 with SMTP id v26-20020a2e7a1a000000b002cc6d879a91mr1606703ljc.72.1705930877499;
-        Mon, 22 Jan 2024 05:41:17 -0800 (PST)
-Message-ID: <7edea456-81ba-4e83-9441-0e82333ce168@suse.com>
-Date: Mon, 22 Jan 2024 14:41:14 +0100
+X-Google-Smtp-Source: AGHT+IHr7JIJPdn5F1XI5WO/U5ki/EGKvxGkng+Sw2ahOuN3Hsm/xn5DOQ5hx5ExNN8UQiLi5pJFig==
+X-Received: by 2002:a2e:a550:0:b0:2cc:d60b:adbb with SMTP id e16-20020a2ea550000000b002ccd60badbbmr2343621ljn.49.1705931151972;
+        Mon, 22 Jan 2024 05:45:51 -0800 (PST)
+Message-ID: <33db57a2-b569-4fa8-b0b0-36ea92528d7b@suse.com>
+Date: Mon, 22 Jan 2024 14:45:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2] x86: Dom0 "broken ELF" reporting adjustments
+Subject: [PATCH v2 0/8] limit passing around of cpu_user_regs
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,48 +113,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-elf_load_binary() isn't the primary source of brokenness being
-indicated. Therefore make the respective PVH log message there
-conditional (much like PV has it), and add another instance when
-elf_xen_parse() failed (again matching behavior in the PV case).
+Unlike (synchronous) exception handlers, interrupt handlers don't normally
+have a need to know the outer context's register state. Similarly, the vast
+majority of key handlers has no need for such.
 
-Make the PV side match the (new) use of %pd here.
+1: IRQ: generalize [gs]et_irq_regs()
+2: serial: fake IRQ-regs context in poll handlers
+3: keyhandler: drop regs parameter from handle_keyregs()
+4: serial: drop serial_rx_fn's regs parameter
+5: PV-shim: drop pv_console_rx()'s regs parameter
+6: serial: drop serial_[rt]x_interrupt()'s regs parameter
+7: IRQ: drop regs parameter from handler functions
+8: x86/APIC: drop regs parameter from direct vector handler functions
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Use %pd and bring PV in line with that as well.
-
---- a/xen/arch/x86/hvm/dom0_build.c
-+++ b/xen/arch/x86/hvm/dom0_build.c
-@@ -570,6 +570,8 @@ static int __init pvh_load_kernel(struct
-     if ( (rc = elf_xen_parse(&elf, &parms, true)) != 0 )
-     {
-         printk("Unable to parse kernel for ELFNOTES\n");
-+        if ( elf_check_broken(&elf) )
-+            printk("%pd kernel: broken ELF: %s\n", d, elf_check_broken(&elf));
-         return rc;
-     }
- 
-@@ -588,7 +590,8 @@ static int __init pvh_load_kernel(struct
-     if ( rc < 0 )
-     {
-         printk("Failed to load kernel: %d\n", rc);
--        printk("Xen dom0 kernel broken ELF: %s\n", elf_check_broken(&elf));
-+        if ( elf_check_broken(&elf) )
-+            printk("%pd kernel: broken ELF: %s\n", d, elf_check_broken(&elf));
-         return rc;
-     }
- 
---- a/xen/arch/x86/pv/dom0_build.c
-+++ b/xen/arch/x86/pv/dom0_build.c
-@@ -1041,8 +1041,7 @@ int __init dom0_construct_pv(struct doma
- 
- out:
-     if ( elf_check_broken(&elf) )
--        printk(XENLOG_WARNING "Dom0 kernel broken ELF: %s\n",
--               elf_check_broken(&elf));
-+        printk("%pd kernel: broken ELF: %s\n", d, elf_check_broken(&elf));
- 
-     return rc;
- }
+Jan
 
