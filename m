@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BABDF83645F
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 14:22:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669886.1042375 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF042836492
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 14:41:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669895.1042386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRuFc-0008Pw-3O; Mon, 22 Jan 2024 13:22:08 +0000
+	id 1rRuYC-0005bV-L5; Mon, 22 Jan 2024 13:41:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669886.1042375; Mon, 22 Jan 2024 13:22:08 +0000
+Received: by outflank-mailman (output) from mailman id 669895.1042386; Mon, 22 Jan 2024 13:41:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRuFc-0008NS-0r; Mon, 22 Jan 2024 13:22:08 +0000
-Received: by outflank-mailman (input) for mailman id 669886;
- Mon, 22 Jan 2024 13:22:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rRuYC-0005ZX-IG; Mon, 22 Jan 2024 13:41:20 +0000
+Received: by outflank-mailman (input) for mailman id 669895;
+ Mon, 22 Jan 2024 13:41:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VPlZ=JA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rRuFa-0008NG-DY
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 13:22:06 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3bcc1891-b929-11ee-9b0f-b553b5be7939;
- Mon, 22 Jan 2024 14:22:04 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2cdeb954640so32033761fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 05:22:04 -0800 (PST)
+ id 1rRuYB-0005Y4-7j
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 13:41:19 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eb5eab41-b92b-11ee-98f2-6d05b1d4d9a1;
+ Mon, 22 Jan 2024 14:41:17 +0100 (CET)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2cca8eb0509so35336151fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 05:41:17 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 19-20020a056e0211b300b00361a84b89cfsm2495832ilj.51.2024.01.22.05.22.02
+ bm7-20020a056e02330700b003627e7b69c8sm603276ilb.76.2024.01.22.05.41.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 05:22:03 -0800 (PST)
+ Mon, 22 Jan 2024 05:41:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3bcc1891-b929-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: eb5eab41-b92b-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705929724; x=1706534524; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xrEr0s+vULsLiDCmFWcy2xaYI8X1OhqjvVU2ut3dePQ=;
-        b=VidTBv1Mkw9J+fIemCcpefxme8FuJAvI4tn1zNHRwl68bKLaXzX6/rvg0yAmxtFEY2
-         dZR0rU0JKk4jG0G72VDW3MbifDUoToXPJ8dH4s6qJ1KAkxmgs6ZI1TrfUWKONhJQtsGw
-         idrNo0K9uCalYHEuga6Oq+f8r5eRpA50cqx9x9BWaA8LufHN8mLZqLY4GZfQEVq+lJTi
-         6VwCX3PRz0uETRfw7eiLzJAjZwAyEH9II6UEDoPJOJ2VfzIgkCIl722Thquf13u3qWro
-         +k/tWnoE8b/4XSMLLZkh5QexQ9VOvayj47z0qCBpEr1Fd0Hg5Wiwz0zcDRC4hpdR7nqj
-         cB5g==
+        d=suse.com; s=google; t=1705930877; x=1706535677; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=gQiTUoB8bG3hbenFnAZCwyFKHLeA13w6e6iDnvkSNlE=;
+        b=KyFRthheAO0xbqlwC6UXO9NicuV6ENjI1ilZEwAoO2GqA0uikSHk9iJLGd9cKXw0lA
+         ezrz9qXEM0qF1jVGogwO88RxY9bE2zCF6uoTNGwymlMuuzuOMl9GZRub92lcT2rC/PoE
+         9acWjn76wqFCRnM/v1EhuqUbPFF+PoZmgbVksRrjLlTeXQhtm1sAaj005FGzJLPq4X/G
+         XfdRSr7gM+vPwBzcTDF1NeH12jaEIK8FGousqCblCRPxBCWVsUE19YQSx2lTjR9oDwIK
+         AdxPVUW8z0+jjGoc6k+8GWdVP8oet8XalwDTtN8mp8kHxkl1r+GqZO2y+AwyTsH3gm94
+         XegQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705929724; x=1706534524;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xrEr0s+vULsLiDCmFWcy2xaYI8X1OhqjvVU2ut3dePQ=;
-        b=cXufTV7zbKEbkw1khI/whLe8O1TmXfkR+kfoVH5LMR3MDMaSfc3bsuIXPo+hCVgB+k
-         A9IsfYRsR+Hburh8+Erqd3aTIHSGbRKnnIS8dagIScZFPfsVBdo6119uOqXdlBzEEnzo
-         KRzg/1/TCGOmQ3fLFmHfD98AtHgKxqnEHK8mOJ9XZJJLxpA68LY4zjqYpaWwjMXKEIL7
-         C7ubQt5nl56HvCEzqaSofRvIpqHQVDFxeL0g4lpHoWvRn+dGPOE9agArhoysr5PfBlEa
-         zq2O8bkqmcFQcEA5gfKt933HnjSdgn5LWVjVte9rk4vconAh4PkvNVzr+tSSyhEvDDZI
-         7oSQ==
-X-Gm-Message-State: AOJu0YyY/AKpsBfGF6MG3T1C+8EQuO1lRxenagI2Soa6Ftr5phvKM7MD
-	Xw8+Vb+tf0s5Hnijt5gB2BrRp1HYeIvLWfIa76Ih2x0RZolecP5H/Pe3w9JmrA==
-X-Google-Smtp-Source: AGHT+IE27jCk0c3GM+W7lT7StpttsRWc49ETu+Q9z32125Z45BJ4T9QGBqUWMoMQVOEQ3wkwMOFx7A==
-X-Received: by 2002:a2e:8ec8:0:b0:2cd:4ead:9103 with SMTP id e8-20020a2e8ec8000000b002cd4ead9103mr1536527ljl.97.1705929723966;
-        Mon, 22 Jan 2024 05:22:03 -0800 (PST)
-Message-ID: <362fb92c-98a9-4ec8-a715-cebbc5321b36@suse.com>
-Date: Mon, 22 Jan 2024 14:22:01 +0100
+        d=1e100.net; s=20230601; t=1705930877; x=1706535677;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=gQiTUoB8bG3hbenFnAZCwyFKHLeA13w6e6iDnvkSNlE=;
+        b=XZTt/rl2/uGDiujSynKaxAlhjRC3lu2RzPwn6xjndWxBbPwozxw7aabnfiOenwsJ6E
+         hTu9xMyBvCJUsw4xbbNEqR0gsQ8deoq4flZ/G+GS/NOysntnlrN9R0I1II8LteVqs/q9
+         n6u6/N17tbhU6LQI9K44ukU60Duh+zt0zrey+2Rb146MbTeeqOyj4Vzfio4bViolyjYg
+         Ggmfanb/wD4/qJefvQDxTIF2NFf/iiMXJFM9pBtGDdg5xoT7H4eA7kVQcj7XIcphohPr
+         rZRz5jUL+ANAobbUjrCHyDR1pP3u+7rVKj6gS77jj5B6rMPv3cZHM+kHHfsYkW+v9pbx
+         TitQ==
+X-Gm-Message-State: AOJu0YyJokoKO1tGhr+PLQp6u2uAz4lGJuKpb/VDd3dUZK0h5wEuWLjR
+	yJN/lG56srocw4M//45BGGfAQCkjcFxryaz7J9/gglRjqGANPPacQ+ANu68mOvzgSbhTx9vLfCs
+	=
+X-Google-Smtp-Source: AGHT+IF2OFhBV/MCaRblskpSFb5QCSm+rYtJLQDdV72NpQx7Egq5O1/8RO6hr3vPLu/7JJQUaHfBsg==
+X-Received: by 2002:a2e:7a1a:0:b0:2cc:6d87:9a91 with SMTP id v26-20020a2e7a1a000000b002cc6d879a91mr1606703ljc.72.1705930877499;
+        Mon, 22 Jan 2024 05:41:17 -0800 (PST)
+Message-ID: <7edea456-81ba-4e83-9441-0e82333ce168@suse.com>
+Date: Mon, 22 Jan 2024 14:41:14 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/8] Arm: annotate entry points with type and size
-Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-To: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
- <7a133ed9-9d13-4e2c-893a-00c083c8a35d@suse.com>
- <7871702a-b5ca-4430-b282-148b46fccc71@suse.com>
+Subject: [PATCH v2] x86: Dom0 "broken ELF" reporting adjustments
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,30 +109,51 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7871702a-b5ca-4430-b282-148b46fccc71@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 15.01.2024 15:36, Jan Beulich wrote:
-> Use the generic framework in xen/linkage.h. No change in generated code
-> except for the changed padding value (noticable when config.gz isn't a
-> multiple of 4 in size). Plus of course the converted symbols change to
-> be hidden ones.
-> 
-> Note that ASM_INT() is switched to DATA(), not DATA_LOCAL(), as the only
-> use site wants the symbol global anyway.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
-> ---
-> Only one each of the assembly files is being converted for now. More
-> could be done right here or as follow-on in separate patches.
+elf_load_binary() isn't the primary source of brokenness being
+indicated. Therefore make the respective PVH log message there
+conditional (much like PV has it), and add another instance when
+elf_xen_parse() failed (again matching behavior in the PV case).
 
-As this was meanwhile committed, I'd like to understand you preference
-for further conversion steps: I can certainly see to find time to make
-some actual progress here, but it might also be that you prefer to do
-so yourself. Please let me know.
+Make the PV side match the (new) use of %pd here.
 
-Jan
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: Use %pd and bring PV in line with that as well.
 
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -570,6 +570,8 @@ static int __init pvh_load_kernel(struct
+     if ( (rc = elf_xen_parse(&elf, &parms, true)) != 0 )
+     {
+         printk("Unable to parse kernel for ELFNOTES\n");
++        if ( elf_check_broken(&elf) )
++            printk("%pd kernel: broken ELF: %s\n", d, elf_check_broken(&elf));
+         return rc;
+     }
+ 
+@@ -588,7 +590,8 @@ static int __init pvh_load_kernel(struct
+     if ( rc < 0 )
+     {
+         printk("Failed to load kernel: %d\n", rc);
+-        printk("Xen dom0 kernel broken ELF: %s\n", elf_check_broken(&elf));
++        if ( elf_check_broken(&elf) )
++            printk("%pd kernel: broken ELF: %s\n", d, elf_check_broken(&elf));
+         return rc;
+     }
+ 
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -1041,8 +1041,7 @@ int __init dom0_construct_pv(struct doma
+ 
+ out:
+     if ( elf_check_broken(&elf) )
+-        printk(XENLOG_WARNING "Dom0 kernel broken ELF: %s\n",
+-               elf_check_broken(&elf));
++        printk("%pd kernel: broken ELF: %s\n", d, elf_check_broken(&elf));
+ 
+     return rc;
+ }
 
