@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3C3F8364BB
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 14:49:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669913.1042456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B2368364BE
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 14:49:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669920.1042466 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRufg-0001bB-0S; Mon, 22 Jan 2024 13:49:04 +0000
+	id 1rRug3-0002Lo-Bx; Mon, 22 Jan 2024 13:49:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669913.1042456; Mon, 22 Jan 2024 13:49:03 +0000
+Received: by outflank-mailman (output) from mailman id 669920.1042466; Mon, 22 Jan 2024 13:49:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRuff-0001YN-Ta; Mon, 22 Jan 2024 13:49:03 +0000
-Received: by outflank-mailman (input) for mailman id 669913;
- Mon, 22 Jan 2024 13:49:02 +0000
+	id 1rRug3-0002JH-8R; Mon, 22 Jan 2024 13:49:27 +0000
+Received: by outflank-mailman (input) for mailman id 669920;
+ Mon, 22 Jan 2024 13:49:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VPlZ=JA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rRufe-0007Lx-Lp
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 13:49:02 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ id 1rRug1-0007Lx-FT
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 13:49:25 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff5cc492-b92c-11ee-9b0f-b553b5be7939;
- Mon, 22 Jan 2024 14:49:01 +0100 (CET)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2cddb2c2b54so29739741fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 05:49:00 -0800 (PST)
+ id 0cf04a59-b92d-11ee-9b0f-b553b5be7939;
+ Mon, 22 Jan 2024 14:49:23 +0100 (CET)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2cd880ceaf2so34543561fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 05:49:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cw13-20020a05663849cd00b0046e627dbc4csm3035114jab.121.2024.01.22.05.48.59
+ cw13-20020a05663849cd00b0046e627dbc4csm3035114jab.121.2024.01.22.05.49.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 05:49:00 -0800 (PST)
+ Mon, 22 Jan 2024 05:49:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff5cc492-b92c-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 0cf04a59-b92d-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705931340; x=1706536140; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705931363; x=1706536163; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ozjB5J6HgFQRbYi1xrcNJWW3dzIQpHOtBsFN5IPmgeU=;
-        b=AmmVygo/CZDpNNYwne3iqjpqKGlfPkj3QXiSh4K/lOkYQo1yva/OK0gpNDDMGVzO35
-         +qd/vVY/gkRXc7ByIgPZFAOzPdzfrxTDjVYPNTVwtFqaTsa4dX2w1TznF6/BsO0t04U8
-         +6XEtPtyKpmp9acvcE0ZmXr/3dww4sM5t1rjsI4kbitJ03+mr6/0JBx4Dbl3HonUngU1
-         Z4hxh8nHDdm2Rguzr31jyevYCbAkvzUnECPQxRJrx8dPbyQY3DS5rJ4WH4+AY3u9cKVN
-         PualTACx86V+99qCnEwdW/8WiQE+hhJEAxCSFGfRxwuhD9Hum1wTKiSaKgVuayoFwV6Z
-         b1EQ==
+        bh=Ro3tacV+Cx2+fVIZpZoKa/X2F9kQbo9bRfxSzAFGBaM=;
+        b=eEeR5Q8k0zH+TxAn28OQbOUSx5MVJPKHjFWez0XZGTUZ/oAETTlqJguTaHz23d9qqJ
+         4CpNWg+wGAo0FsIgcd31Cw000mpOzpJARJlvF5NIhn9SaTzZKkh//zMtcOqOxzkLXxqf
+         lFidsM35nUQQK4W+yA1fmrI50aqFvYrHHaqX34CYVvuBr3X84STQeaLdxee4IPpfirDh
+         9F5d5GTnXUVPsx22gFQv2Tj0TpOjTALBftPa7yIZfUb9U2d/sPtMMHSvI858PPOz4+UG
+         po5mXT6m8cpTOK3XRpv17mjK/lAMzdshUsqjoUBKKzjaS3caeqzayq1qOiYar+/L9h1V
+         RTOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705931340; x=1706536140;
+        d=1e100.net; s=20230601; t=1705931363; x=1706536163;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=ozjB5J6HgFQRbYi1xrcNJWW3dzIQpHOtBsFN5IPmgeU=;
-        b=PE9otAvDwFSNj1sdZwFX+vlbAsniI20H8U9Xdzz3L2qFR1TfWvFXafxPH5VGRI5h2u
-         VKQEpn3BFZKa5ATCwUE4xhTz5jlIXlNrTL1EdA500MkJYC9nskwHmPJEpiiiHZNiJmTN
-         MbOxsp/1w1NI6C0MnnNfkqTch62jUx0BW1XAIiw8lJiw3eqBTfgHVxsp0Ra1RhDAxTKZ
-         k0X48KAp/UiT2NHlXcuNzf2Z2cOfrfkamRcY8DfVlrb2qH4kv3zCr0ErCeiBvDN9m6/t
-         Q13uT2r1X20OyXBZ44FbdDomSiSR965JExbQ2VXfoZ3MmSYKv8BJTO1zitXTY/Of4CQL
-         z09Q==
-X-Gm-Message-State: AOJu0Yx5mn9Xiq3jfB40UnrqKH+Ir3g1309Zvd75SNRlgII+kCbwqKZy
-	p7VI1AkgaKg70DEWowbLmiG/roc90dobo5rOskkQ9ao+Uyx2LWEKoQyhy3+10K3QLeYj+6Q1tPU
+        bh=Ro3tacV+Cx2+fVIZpZoKa/X2F9kQbo9bRfxSzAFGBaM=;
+        b=ckw8htldl1QgQ7gfVgbgcsCqUEyXftCH50vQZI/wStqJDgusuOooT0nFUUYfG77+aO
+         xiXW4D+JUUWI1lgodMpYs0NExlliHSNNZCRdovxseLjigwDDwvhtqrszh+y8UWr7S12P
+         462MhUuO9BLarks/tGdb0IGsEghJgQqJtJ9loHeqLORa3pKPg8i1XBNAOhodizy6Tdtv
+         RSmvdHw8AcYHSq/XRhYsuRp7BWz/3pgS3MZw+uRZgGUZzZsptRceVahspNgG0OPs7Qz6
+         VWqoTyIbucXQy4spuX32LJhfZhWJ7yThZGXp+xlt3gzJxrCcz0hOUp+X6MQnxYobpPXY
+         RscQ==
+X-Gm-Message-State: AOJu0YweoOyHPrWF7lcGzhIBj3ZQWSiQuPDr/rVEB+sU37tYdZBE8LqY
+	ASkUoEF77QH+h+qMGPodUvQUZgHZ3SVIWSMWobhlRaT4kH/Pne9Mik+BpsHb+pLBhe9Xb5PY8zw
 	=
-X-Google-Smtp-Source: AGHT+IFKt7nIuw0Mpt1DPTm+e+/wh44JMrTgeYWpK7fTmq9NxDSx1vv6RLdBKm/+/ANeQip6xgkt3A==
-X-Received: by 2002:a2e:a992:0:b0:2cc:7814:11b with SMTP id x18-20020a2ea992000000b002cc7814011bmr2504641ljq.65.1705931340676;
-        Mon, 22 Jan 2024 05:49:00 -0800 (PST)
-Message-ID: <058e0b9f-51f8-4e20-a328-20b968e8ebb0@suse.com>
-Date: Mon, 22 Jan 2024 14:48:58 +0100
+X-Google-Smtp-Source: AGHT+IHL1dfd46V/LaVagjznxYEfU6kkJwJnBT3ES4IVsZM41AhQHWRiwerW0sYtTUXVhzG2lMIaZA==
+X-Received: by 2002:a2e:a54e:0:b0:2cc:c6e0:fbb with SMTP id e14-20020a2ea54e000000b002ccc6e00fbbmr2264172ljn.20.1705931363314;
+        Mon, 22 Jan 2024 05:49:23 -0800 (PST)
+Message-ID: <34fba5ac-84e2-477f-8333-afd39c54ad71@suse.com>
+Date: Mon, 22 Jan 2024 14:49:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 2/8] serial: fake IRQ-regs context in poll handlers
+Subject: [PATCH v2 3/8] keyhandler: drop regs parameter from handle_keyregs()
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 References: <33db57a2-b569-4fa8-b0b0-36ea92528d7b@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,102 +116,193 @@ In-Reply-To: <33db57a2-b569-4fa8-b0b0-36ea92528d7b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-In preparation of dropping the register parameters from
-serial_[rt]x_interrupt() and in turn from IRQ handler functions,
-register state needs making available another way for the few key
-handlers which need it. Fake IRQ-like state.
+In preparation for further removal of regs parameters, drop it here. In
+the two places where it's actually needed, retrieve IRQ context if
+available, or else guest context.
 
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-The use of guest_cpu_user_regs() in dbc_uart_poll() is inconsistent with
-other console poll functions we have, and it's unclear whether that's
-actually generally correct.
-
-Andrew suggested to move set_irq_regs() to BUGFRAME_run_fn handling;
-it's not clear to me whether that would be (a) correct from an abstract
-pov (that's exception, not interrupt context after all) and (b) really
-beneficial.
+As an alternative to the new boolean parameter, I wonder if we couldn't
+special-case the idle vCPU case: It's only there where we would not have
+proper context retrievable via guest_cpu_user_regs().
 ---
 v2: New.
 
---- a/xen/drivers/char/ehci-dbgp.c
-+++ b/xen/drivers/char/ehci-dbgp.c
-@@ -1253,6 +1253,7 @@ static void cf_check _ehci_dbgp_poll(str
-     unsigned long flags;
-     unsigned int timeout = MICROSECS(DBGP_CHECK_INTERVAL);
-     bool empty = false;
-+    struct cpu_user_regs *old_regs;
+--- a/xen/common/keyhandler.c
++++ b/xen/common/keyhandler.c
+@@ -76,12 +76,12 @@ static struct keyhandler {
  
-     if ( !dbgp->ehci_debug )
-         return;
-@@ -1268,12 +1269,17 @@ static void cf_check _ehci_dbgp_poll(str
-         spin_unlock_irqrestore(&port->tx_lock, flags);
-     }
- 
-+    /* Mimic interrupt context. */
-+    old_regs = set_irq_regs(regs);
-+
-     if ( dbgp->in.chunk )
-         serial_rx_interrupt(port, regs);
- 
-     if ( empty )
-         serial_tx_interrupt(port, regs);
- 
-+    set_irq_regs(old_regs);
-+
-     if ( spin_trylock_irqsave(&port->tx_lock, flags) )
-     {
-         if ( dbgp->state == dbgp_idle && !dbgp->in.chunk &&
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -211,10 +211,14 @@ static void cf_check __ns16550_poll(stru
+ static void cf_check keypress_action(void *unused)
  {
-     struct serial_port *port = this_cpu(poll_port);
-     struct ns16550 *uart = port->uart;
-+    struct cpu_user_regs *old_regs;
- 
-     if ( uart->intr_works )
-         return; /* Interrupts work - no more polling */
- 
-+    /* Mimic interrupt context. */
-+    old_regs = set_irq_regs(regs);
-+
-     while ( ns_read_reg(uart, UART_LSR) & UART_LSR_DR )
-     {
-         if ( ns16550_ioport_invalid(uart) )
-@@ -227,6 +231,7 @@ static void cf_check __ns16550_poll(stru
-         serial_tx_interrupt(port, regs);
- 
- out:
-+    set_irq_regs(old_regs);
-     set_timer(&uart->timer, NOW() + MILLISECS(uart->timeout_ms));
+-    handle_keypress(keypress_key, NULL);
++    handle_keypress(keypress_key, true);
  }
  
---- a/xen/drivers/char/xhci-dbc.c
-+++ b/xen/drivers/char/xhci-dbc.c
-@@ -1164,6 +1164,7 @@ static void cf_check dbc_uart_poll(void
-     struct dbc_uart *uart = port->uart;
-     struct dbc *dbc = &uart->dbc;
-     unsigned long flags = 0;
-+    struct cpu_user_regs *old_regs;
+ static DECLARE_TASKLET(keypress_tasklet, keypress_action, NULL);
  
-     if ( spin_trylock_irqsave(&port->tx_lock, flags) )
+-void handle_keypress(unsigned char key, struct cpu_user_regs *regs)
++void handle_keypress(unsigned char key, bool need_context)
+ {
+     struct keyhandler *h;
+ 
+@@ -91,7 +91,7 @@ void handle_keypress(unsigned char key,
+     if ( !in_irq() || h->irq_callback )
      {
-@@ -1175,10 +1176,15 @@ static void cf_check dbc_uart_poll(void
-         spin_unlock_irqrestore(&port->tx_lock, flags);
+         console_start_log_everything();
+-        h->irq_callback ? h->irq_fn(key, regs) : h->fn(key);
++        h->irq_callback ? h->irq_fn(key, need_context) : h->fn(key);
+         console_end_log_everything();
+     }
+     else
+@@ -172,7 +172,7 @@ void cf_check dump_execstate(struct cpu_
+ }
+ 
+ static void cf_check dump_registers(
+-    unsigned char key, struct cpu_user_regs *regs)
++    unsigned char key, bool need_context)
+ {
+     unsigned int cpu;
+ 
+@@ -185,8 +185,8 @@ static void cf_check dump_registers(
+     cpumask_copy(&dump_execstate_mask, &cpu_online_map);
+ 
+     /* Get local execution state out immediately, in case we get stuck. */
+-    if ( regs )
+-        dump_execstate(regs);
++    if ( !need_context )
++        dump_execstate(get_irq_regs() ?: guest_cpu_user_regs());
+     else
+         run_in_exception_handler(dump_execstate);
+ 
+@@ -248,8 +248,7 @@ static void cf_check dump_hwdom_register
+     }
+ }
+ 
+-static void cf_check reboot_machine(
+-    unsigned char key, struct cpu_user_regs *regs)
++static void cf_check reboot_machine(unsigned char key, bool unused)
+ {
+     printk("'%c' pressed -> rebooting machine\n", key);
+     machine_restart(0);
+@@ -477,8 +476,7 @@ static void cf_check run_all_nonirq_keyh
+ static DECLARE_TASKLET(run_all_keyhandlers_tasklet,
+                        run_all_nonirq_keyhandlers, NULL);
+ 
+-static void cf_check run_all_keyhandlers(
+-    unsigned char key, struct cpu_user_regs *regs)
++static void cf_check run_all_keyhandlers(unsigned char key, bool need_context)
+ {
+     struct keyhandler *h;
+     unsigned int k;
+@@ -494,7 +492,7 @@ static void cf_check run_all_keyhandlers
+         if ( !h->irq_fn || !h->diagnostic || !h->irq_callback )
+             continue;
+         printk("[%c: %s]\n", k, h->desc);
+-        h->irq_fn(k, regs);
++        h->irq_fn(k, need_context);
      }
  
-+    /* Mimic interrupt context. */
-+    old_regs = set_irq_regs(guest_cpu_user_regs());
-+
-     while ( dbc_work_ring_size(&dbc->dbc_iwork) )
-         serial_rx_interrupt(port, guest_cpu_user_regs());
- 
-     serial_tx_interrupt(port, guest_cpu_user_regs());
-+
-+    set_irq_regs(old_regs);
-     set_timer(&uart->timer, NOW() + MICROSECS(DBC_POLL_INTERVAL));
+     watchdog_enable();
+@@ -511,17 +509,16 @@ static void cf_check do_debugger_trap_fa
+     barrier();
  }
  
+-static void cf_check do_debug_key(unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_debug_key(unsigned char key, bool need_context)
+ {
+     printk("'%c' pressed -> trapping into debugger\n", key);
+-    if ( regs )
+-        do_debugger_trap_fatal(regs);
++    if ( !need_context )
++        do_debugger_trap_fatal(get_irq_regs() ?: guest_cpu_user_regs());
+     else
+         run_in_exception_handler(do_debugger_trap_fatal);
+ }
+ 
+-static void cf_check do_toggle_alt_key(
+-    unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_toggle_alt_key(unsigned char key, bool unused)
+ {
+     alt_key_handling = !alt_key_handling;
+     printk("'%c' pressed -> using %s key handling\n", key,
+@@ -586,7 +583,7 @@ void keyhandler_crash_action(enum crash_
+         if ( *action == '+' )
+             mdelay(10);
+         else
+-            handle_keypress(*action, NULL);
++            handle_keypress(*action, true);
+         action++;
+     }
+ }
+--- a/xen/common/sysctl.c
++++ b/xen/common/sysctl.c
+@@ -134,7 +134,7 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xe
+         {
+             if ( copy_from_guest_offset(&c, op->u.debug_keys.keys, i, 1) )
+                 goto out;
+-            handle_keypress(c, guest_cpu_user_regs());
++            handle_keypress(c, false);
+         }
+         ret = 0;
+         copyback = 0;
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -280,7 +280,7 @@ static int *__read_mostly upper_thresh_a
+ static int *__read_mostly lower_thresh_adj = &xenlog_lower_thresh;
+ static const char *__read_mostly thresh_adj = "standard";
+ 
+-static void cf_check do_toggle_guest(unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_toggle_guest(unsigned char key, bool unused)
+ {
+     if ( upper_thresh_adj == &xenlog_upper_thresh )
+     {
+@@ -307,13 +307,13 @@ static void do_adj_thresh(unsigned char
+            loglvl_str(*upper_thresh_adj));
+ }
+ 
+-static void cf_check do_inc_thresh(unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_inc_thresh(unsigned char key, bool unused)
+ {
+     ++*lower_thresh_adj;
+     do_adj_thresh(key);
+ }
+ 
+-static void cf_check do_dec_thresh(unsigned char key, struct cpu_user_regs *regs)
++static void cf_check do_dec_thresh(unsigned char key, bool unused)
+ {
+     if ( *lower_thresh_adj )
+         --*lower_thresh_adj;
+@@ -532,7 +532,7 @@ static void __serial_rx(char c, struct c
+     switch ( console_rx )
+     {
+     case 0:
+-        return handle_keypress(c, regs);
++        return handle_keypress(c, false);
+ 
+     case 1:
+         /*
+--- a/xen/include/xen/keyhandler.h
++++ b/xen/include/xen/keyhandler.h
+@@ -24,9 +24,8 @@ typedef void (keyhandler_fn_t)(unsigned
+  *
+  * Called in hardirq context with interrupts disabled.
+  */
+-struct cpu_user_regs;
+ typedef void (irq_keyhandler_fn_t)(unsigned char key,
+-                                   struct cpu_user_regs *regs);
++                                   bool need_context);
+ 
+ /* Initialize keytable with default handlers. */
+ void initialize_keytable(void);
+@@ -46,7 +45,7 @@ void register_irq_keyhandler(unsigned ch
+                              bool diagnostic);
+ 
+ /* Inject a keypress into the key-handling subsystem. */
+-extern void handle_keypress(unsigned char key, struct cpu_user_regs *regs);
++extern void handle_keypress(unsigned char key, bool need_context);
+ 
+ enum crash_reason {
+     CRASHREASON_PANIC,
 
 
