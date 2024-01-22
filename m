@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A3DA8358CB
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 00:48:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669634.1041964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D5CC835900
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 01:32:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669641.1041974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRhWo-0005cR-Sk; Sun, 21 Jan 2024 23:47:02 +0000
+	id 1rRiEE-0003p9-5b; Mon, 22 Jan 2024 00:31:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669634.1041964; Sun, 21 Jan 2024 23:47:02 +0000
+Received: by outflank-mailman (output) from mailman id 669641.1041974; Mon, 22 Jan 2024 00:31:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRhWo-0005av-PQ; Sun, 21 Jan 2024 23:47:02 +0000
-Received: by outflank-mailman (input) for mailman id 669634;
- Sun, 21 Jan 2024 23:47:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rRiEE-0003n5-2X; Mon, 22 Jan 2024 00:31:54 +0000
+Received: by outflank-mailman (input) for mailman id 669641;
+ Mon, 22 Jan 2024 00:31:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LZiN=I7=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1rRhWn-0005ap-97
- for xen-devel@lists.xenproject.org; Sun, 21 Jan 2024 23:47:01 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5acc27a2-b8b7-11ee-9b0f-b553b5be7939;
- Mon, 22 Jan 2024 00:46:57 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 122835C0080;
- Sun, 21 Jan 2024 18:46:53 -0500 (EST)
+ <SRS0=Ce26=JA=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1rRiED-0003mz-GJ
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 00:31:53 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a10545eb-b8bd-11ee-98f2-6d05b1d4d9a1;
+ Mon, 22 Jan 2024 01:31:50 +0100 (CET)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 952523200A02;
+ Sun, 21 Jan 2024 19:31:46 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Sun, 21 Jan 2024 18:46:53 -0500
+ by compute3.internal (MEProxy); Sun, 21 Jan 2024 19:31:46 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 21 Jan 2024 18:46:52 -0500 (EST)
+ 21 Jan 2024 19:31:45 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,222 +43,254 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5acc27a2-b8b7-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: a10545eb-b8bd-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1705880813;
-	 x=1705967213; bh=HaZQTPI+xO6ABE8/4flVpKxnRDJ8SQMCUWJkaqYL73A=; b=
-	R5KPUsw6R5VcuAWM6U4h+QH4dU41NzYzUI0c3e3gaEbUm458jaGsjIj1M4AEkLLu
-	kNg02ZA5ZNhjI5p7NoIlLUHy9iGlJE04YNXeINfyKfROAemR9vRlKJ1kBNYv0IZ9
-	6or+q4chAzNxU0fvGyycDiz3XQdIHSFc1DoeustnTIDMVbaJqNW8cTAUkYpLVIL3
-	VxaQmKlAzt3CMXIHWNnNhRevILqQBg3w0Dhsa31zqRFh/sanxAz49GeAGaDggcj9
-	S2IX9zQ9b22eE+iCJmhJ2mG8svc3OqSzvcCRNqRq01euHRouX1e4Si2O8PF5n2wV
-	t4z+bCUUvOfGAMgPs7CX6g==
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1705883506;
+	 x=1705969906; bh=8Vt5SiKGAB+IJKjMb4XsC9KY6fPUzYPBwsMpVZcFlhI=; b=
+	hjyJqCn26qBytWgis/xek91SKsWdmE5eXju9GmprL97xUH2iCmMVKZ9CSwcwPoVo
+	TKYmw+8xTqBunsbGuClAcncOXsoQLDJ7wLxe0APmlzkBzzcwodIgAMdbSw47tsl/
+	x0tZAMCpfJ1xd50JGoHyHIkTBL1z10DIv1m+KJaTfejtOHdpNjH/nJjDnzdV/4lJ
+	bWaPqQFD46q+3AzzZQ4PNv21nnGqY4+Z2yE/ubBlycIflbo6AIB1XnOMdtqMj5ja
+	5wuDwo7Wt8w+NyO2seiDOYtCvDgZ2khnfMycU3DamgNHr+m7KW88zJVvTAtXKJtn
+	2s+RGhI9UzfK29Uvyo/8xw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1705880813; x=1705967213; bh=HaZQTPI+xO6ABE8/4flVpKxnRDJ8
-	SQMCUWJkaqYL73A=; b=ZIlK5jjIvfwI/ProXRtvPcJDeZg+A7FQYLJ5BEXnWCNm
-	U027IfZ/+J19xp0r6IuVzO2sIA7uUFfqQAIGbd2MuKFqHsO+P1ujBvDhXEV3m2aQ
-	JnBVrQVx6kDoTcnA0TIJgz9wwSYOoRCbJzsYt6j4V6Sj7Ds6E/cKWyUXjxLMdoEA
-	JzZ6sHlXejwm0eI8ncmUsAk5qAKzXcCQRlCEI2Fd9eRxjE2ga7iSKG8AQgLpcHas
-	Id4N1HwbwdheVJxH7Z3DBJ2rAyXEZdpRtDshf3imWSWTQ/EQecWzZN4lBk77UTak
-	25QZPuGdvo59KNQDTnEKsliXAquo8i3xGu49j7tmjQ==
-X-ME-Sender: <xms:7KytZfTpBlxDs-9wdh5LJoqhdc7vS_N-pUH545ayQwbzgp0LcGDW3Q>
-    <xme:7KytZQzxCPITyVmMKv7RM08Bps9W0pFHF8vR7E6OMXdj3D_N_j1c5JBinQoGxiNOM
-    sBNUf6FnSt3w1w>
-X-ME-Received: <xmr:7KytZU3Cz6zQq_K3ti6laVaxFWlXX03xMtkHUJITN9PI9u2w-eq4RAg28x3RqUpK8vB2NO7lot6ZXTXw9u4DVKG5r54RJdKicj2jtj_Mqu6DHRci>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdekhedgudegucetufdoteggodetrfdotf
+	fm3; t=1705883506; x=1705969906; bh=8Vt5SiKGAB+IJKjMb4XsC9KY6fPU
+	zYPBwsMpVZcFlhI=; b=jbHTwtoMCQ84JNSoAHfT/WMs/wKR7nrSsayCnDy5hlu0
+	8MoiQJqliRMU4C9T8CQEIFrCAUAI92KWABkC75SFMrQSL2rDkCixmzSci5iNdTxt
+	8Fw8pfR6S/n6ihs9/oFxVgSe7xWKNYrcrT2raslrDtqFcvo+x78vVQzbLMTAbPaG
+	eF112xYoIAIrRFjx75CiM/ZwFT40Je6kBH7tV1c3UY4wdawDF1c9Za4DWlqaozLM
+	Q/j6qwrSkfqUw+4SwEA8CzDfVWBBk9EaE8qtBJcFLwSaw5Rnl55KEANF43rEiLAp
+	984rFwRzvHRhwJKC0Rfjlzf1CArE0KcnZJDQ3QXJng==
+X-ME-Sender: <xms:cbetZdOy68sAGjKttdYWP74kRjWKvOJKTyUEVPlteiIGhCgR7Zjf2g>
+    <xme:cbetZf_RfrJdwjjPV1R1_YIY936alT0cwQEmABZK0fg20eYFX1KVugGdhKoFac5Lp
+    fNgbCFPN5Dwipc>
+X-ME-Received: <xmr:cbetZcTbHqHDJqKcRmt_CdgWvCN2C5LFX8HKBT7w6_beCNjNImZRGygRsK1W_eWf_bH-sW1g0-H5bIy8NhFQlBZG3k1vkgKS4AZFQgiRA1fN_1_l>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvkedrvdekhedgvdefucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
     cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
     ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeetffekvddvgfejueffleegleei
-    ueeuvdehffettedvgeeugeegjeduheevueeinecuffhomhgrihhnpeihohhuthhusggvrd
-    gtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhep
-    uggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:7KytZfBU5mbKXvrgg6Co2OnWvwI2wbs6Gqe9LyjVXE2T8oAViExcqA>
-    <xmx:7KytZYiO5WnwLqSyNQ6WJszA8nqCeT2b7lizE4bcxOJVoxwpSBoHxA>
-    <xmx:7KytZTp8Eis199EeRh3QBauvsJmbzQvR9FQA4KwYM2bbyk6uNRqUZA>
-    <xmx:7aytZbvkkAh6wKSOoh98f7abou-jx60VnnBy7ZWPhmCItsseL0X0vg>
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleefjeeukeehkeegiedtgeekkeel
+    tedvhfduudefgfffheffheeuvedvieelfefhnecuffhomhgrihhnpehkvghrnhgvlhdroh
+    hrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegu
+    vghmihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:cbetZZsWKSkKjBqTUhKBkEMgrNQiABLxt4MqyBGcMzbuWVZF6xTSOg>
+    <xmx:cbetZVem9e1N6GkMa2aU98nY-OC-Dj0QQ8QaoqZ9BDahOcCKv4lsvg>
+    <xmx:cbetZV2ZJFDX4-stQtXQIO0Z_q0L9c_LjC9fO5VRctZYPLlB5lWPDw>
+    <xmx:cretZWqHWA8oiYxTnSg-X8F-YdsiWkKIsCk_Q66E1mI6YdhSlAXRUA>
 Feedback-ID: iac594737:Fastmail
-Date: Sun, 21 Jan 2024 18:46:36 -0500
+Date: Sun, 21 Jan 2024 19:31:41 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
+To: George Dunlap <george.dunlap@cloud.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>,
 	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 Subject: Re: Sketch of an idea for handling the "mixed workload" problem
-Message-ID: <Za2s69ZTbTVGlcJi@itl-email>
+Message-ID: <Za23cKyEOl1WTvhZ@itl-email>
 References: <CA+zSX=Z904nF0yD1grRZc1miEOhdTHqAd4j-S1j8GY+1bo9COw@mail.gmail.com>
- <ZRivEkG8Ox213H2A@itl-email>
- <CA+zSX=Zy0C_XMmMUxxk5TF88L0cXwFHihQdYDxaY+tMuTm3GQQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4WUr8S6XVR2NVM4P"
+	protocol="application/pgp-signature"; boundary="G1NvchryUuwGpy0H"
 Content-Disposition: inline
-In-Reply-To: <CA+zSX=Zy0C_XMmMUxxk5TF88L0cXwFHihQdYDxaY+tMuTm3GQQ@mail.gmail.com>
+In-Reply-To: <CA+zSX=Z904nF0yD1grRZc1miEOhdTHqAd4j-S1j8GY+1bo9COw@mail.gmail.com>
 
 
---4WUr8S6XVR2NVM4P
+--G1NvchryUuwGpy0H
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 21 Jan 2024 18:46:36 -0500
+Date: Sun, 21 Jan 2024 19:31:41 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
+To: George Dunlap <george.dunlap@cloud.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Juergen Gross <jgross@suse.com>,
 	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 Subject: Re: Sketch of an idea for handling the "mixed workload" problem
 
-On Mon, Oct 02, 2023 at 12:20:31PM +0100, George Dunlap wrote:
-> On Sun, Oct 1, 2023 at 12:28=E2=80=AFAM Demi Marie Obenour
-> <demi@invisiblethingslab.com> wrote:
-> >
-> > On Fri, Sep 29, 2023 at 05:42:16PM +0100, George Dunlap wrote:
-> > > The basic credit2 algorithm goes something like this:
-> > >
-> > > 1. All vcpus start with the same number of credits; about 10ms worth
-> > > if everyone has the same weight
-> >
-> > > 2. vcpus burn credits as they consume cpu, based on the relative
-> > > weights: higher weights burn slower, lower weights burn faster
-> > >
-> > > 3. At any given point in time, the runnable vcpu with the highest
-> > > credit is allowed to run
-> > >
-> > > 4. When the "next runnable vcpu" on a runqueue is negative, credit is
-> > > reset: everyone gets another 10ms, and can carry over at most 2ms of
-> > > credit over the reset.
-> >
-> > One relevant aspect of Qubes OS is that it is very very heavily
-> > oversubscribed: having more VMs running than physical CPUs is (at least
-> > in my usage) not uncommon, and each of those VMs will typically have at
-> > least two vCPUs.  With a credit of 10ms and 36 vCPUs, I could easily see
-> > a vCPU not being allowed to execute for 200ms or more.  For audio or
-> > video, workloads, this is a disaster.
-> >
-> > 10ms is a LOT for desktop workloads or for anyone who cares about
-> > latency.  At 60Hz it is 3/5 of a frame, and with a 120Hz monitor and a
-> > heavily contended system frame drops are guaranteed.
+On Fri, Sep 29, 2023 at 05:42:16PM +0100, George Dunlap wrote:
+> The basic credit2 algorithm goes something like this:
 >=20
-> You'd probably benefit from understanding better how the various
-> algorithms actually work.  I'm sorry I don't have any really good
-> "virtualization scheduling for dummies" resources; the best I have is
-> a few talks I gave on the subject; e.g.:
+> 1. All vcpus start with the same number of credits; about 10ms worth
+> if everyone has the same weight
 >=20
-> https://www.youtube.com/watch?v=3DC3jjvkr6fgQ
+> 2. vcpus burn credits as they consume cpu, based on the relative
+> weights: higher weights burn slower, lower weights burn faster
 >=20
-> For one, when I say "oversubscribed", I don't mean "vcpus / pcpus"; I
-> mean "requested vcpu execution time / vcpus".  If you have 18 vcpus on
-> a single pcpu, and all of them *on an empty system* would have run at
-> 5%, you're totally fine.  If you have 18 vcpus on a single pcpu, and
-> all of them on an empty system would have averaged 100%, there's only
-> so much the scheduler can do to avoid problems.
+> 3. At any given point in time, the runnable vcpu with the highest
+> credit is allowed to run
+>=20
+> 4. When the "next runnable vcpu" on a runqueue is negative, credit is
+> reset: everyone gets another 10ms, and can carry over at most 2ms of
+> credit over the reset.
+>=20
+> Generally speaking, vcpus that use less than their quota and have lots
+> of interrupts are scheduled immediately, since when they wake up they
+> always have more credit than the vcpus who are burning through their
+> slices.
+>=20
+> But what about a situation as described recently on Matrix, where a VM
+> uses a non-negligible amount of cpu doing un-accelerated encryption
+> and decryption, which can be delayed by a few MS, as well as handling
+> audio events?  How can we make sure that:
+>=20
+> 1. We can run whenever interrupts happen
+> 2. We get no more than our fair share of the cpu?
+>=20
+> The counter-intuitive key here is that in order to achieve the above,
+> you need to *deschedule or preempt early*, so that when the interrupt
+> comes, you have spare credit to run the interrupt handler.  How do we
+> manage that?
+>=20
+> The idea I'm working out comes from a phrase I used in the Matrix
+> discussion, about a vcpu that "foolishly burned all its credits".
+> Naturally the thing you want to do to have credits available is to
+> save them up.
+>=20
+> So the idea would be this.  Each vcpu would have a "boost credit
+> ratio" and a "default boost interval"; there would be sensible
+> defaults based on typical workloads, but these could be tweaked for
+> individual VMs.
+>=20
+> When credit is assigned, all VMs would get the same amount of credit,
+> but divided into two "buckets", according to the boost credit ratio.
+>=20
+> Under certain conditions, a vcpu would be considered "boosted"; this
+> state would last either until the default boost interval, or until
+> some other event (such as a de-boost yield).
+>=20
+> The queue would be sorted thus:
+>=20
+> * Boosted vcpus, by boost credit available
+> * Non-boosted vcpus, by non-boost credit available
+>=20
+> Getting more boost credit means having lower priority when not
+> boosted; and burning through your boost credit means not being
+> scheduled when you need to be.
+>=20
+> Other ways we could consider putting a vcpu into a boosted state (some
+> discussed on Matrix or emails linked from Matrix):
+> * Xen is about to preempt, but finds that the vcpu interrupts are
+> blocked (this sort of overlaps with the "when we deliver an interrupt"
+> one)
+> * Xen is about to preempt, but finds that the (currently out-of-tree)
+> "dont_desched" bit has been set in the shared memory area
 
-If each vCPU would have spent 4% time doing realtime tasks, it should be
-possible to give all of the realtime tasks all the time they need, while
-the remaining 100 - 4 * 18 =3D 28% of time is available to non-realtime
-tasks.  That=E2=80=99s not awesome, but it might be enough to prevent audio=
- from
-glitching.
+I think both of these would be good.  Another one would be when Xen is
+about to deliver an interrupt to a guest, provided that there is no
+storm of interrupts.  I=E2=80=99ve seen a USB webcam cause a system-wide la=
+tency
+spike through what I presume is an interrupt storm, and I suspect that
+others have observed similar behavior with USB external drives.
 
-> Secondly, while on credit1 a vcpu is allowed to run for 10ms without
-> stopping (and then must wait for 18x that time to get the same credit
-> back, if there are 18 other vcpus running on that same pcpu), this is
-> not the case for credit2.  The exact calculation can be found in
-> xen/common/sched/credit2.c:sched2_runtime(), but generally here's the
-> general algorithm from the comment:
->=20
-> /* General algorithm:
->  * 1) Run until snext's credit will be 0.
->  * 2) But if someone is waiting, run until snext's credit is equal
->  *    to his.
->  * 3) But, if we are capped, never run more than our budget.
->  * 4) And never run longer than MAX_TIMER or shorter than MIN_TIMER or
->  *    the ratelimit time.
->  */
->=20
-> Default MIN_TIMER is 500us, and is configurable via sysctl; default
-> MAX_TIMER is... hmm, I'm pretty sure this started out as 2ms, but now
-> it seems to be 10ms.  Looks like this was changed in da92ec5bd1 ("xen:
-> credit2: "relax" CSCHED2_MAX_TIMER") in 2016.  (MAX_TIMER isn't
-> configurable, but arguably it should be; and making it configurable
-> should just be a matter of duplicating the logic around MIN_TIMER.)
+> Other ways to consider de-boosting:
+> * There's a way to trigger a VMEXIT when interrupts have been
+> re-enabled; setting this up when the VM is in the boost state
 
-Maybe MAX_TIMER should be lowered to e.g. 1ms?
+That=E2=80=99s a good idea, but should be conditional on =E2=80=9Cdont_desc=
+hed=E2=80=9D _not_
+being set.  This handles the case where the guest is running a realtime
+thread.
 
-> That's not yet the last word though: If a VM that was a sleep wakes
-> up, and it has credit than the running vcpu, then it will generally
-> preempt that cpu.
->=20
-> All that to say, that it should be very rare for a cpu to run for a
-> full 10ms under credit2.
+Generally, I=E2=80=99d like to see something like this:
 
-That=E2=80=99s good.
+- A vCPU with sufficient boost credit is boosted by Xen under the
+  following conditions:
 
-> > > Other ways we could consider putting a vcpu into a boosted state (some
-> > > discussed on Matrix or emails linked from Matrix):
-> > > * Xen is about to preempt, but finds that the vcpu interrupts are
-> > > blocked (this sort of overlaps with the "when we deliver an interrupt"
-> > > one)
-> >
-> > This is also a good heuristic for "vCPU owns a spinlock", which is
-> > definitely a bad time to preempt.
->=20
-> Not all spinlocks disable IRQs, but certainly some do.
->=20
-> > > Getting the defaults right might take some thinking.  If you set the
-> > > default "boost credit ratio" to 25% and the "default boost interval"
-> > > to 500ms, then you'd basically have five "boosts" per scheduling
-> > > window.  The window depends on how active other vcpus are, but if it's
-> > > longer than 20ms your system is too overloaded.
-> >
-> > An interval of 500ms seems rather long to me.  Did you mean 500=CE=BCs?
->=20
-> Yes, I did mean 500us, sorry.
->=20
-> I'll respond to the other suggestions later.
->=20
-> > > Demi, what kinds of interrupt counts are you getting for your VM?
-> >
-> > I didn't measure it, but I can check the next time I am on a video call
-> > or doing audio recoring.
->=20
-> Running xentrace would be really interesting too; those are another
-> good way to nerd-snipe me. :-)
->=20
->  -George
+  1. Xen interrupts the guest.
+  2. Xen is about to preempt, but detects that =E2=80=9Cdont_desched=E2=80=
+=9D is set.
+  3. Xen is about to preempt, but detects that interrupts are disabled.
 
-That would certainly be a good idea!
+- A vCPU is deboosted if:
+
+  1. It runs out of boost credit, even if =E2=80=9Cdont_desched=E2=80=9D is=
+ set.
+  2. An interrupt handler returns, but only if =E2=80=9Cdont_desched=E2=80=
+=9D is not set.
+  3. Interrupts are re-enabled, but only if =E2=80=9Cdont_desched=E2=80=9D =
+is not set.
+
+  The first case is an abnormal condition and typically means that
+  either the system is overloaded or a vCPU is running boosted for too
+  long.  To help debug this situation, Xen will log a warning and
+  increment both a system-wide and a per-domain counter.  dom0 can
+  retrieve counters for any domain, and a domain can read its own
+  counter.
+
+- When to set =E2=80=9Cdont_desched=E2=80=9D is entirely up to the guest ke=
+rnel, but
+  there are some general rules guests should follow:
+
+  - Only set =E2=80=9Cdont_desched=E2=80=9D if there is a good reason, and =
+unset it as
+    soon as possible.  Xen gives vCPUs with =E2=80=9Cdont_desched=E2=80=9D =
+set priority
+    over all other vCPUs on the system, but the amount of time a vCPU is
+    allowed to run with an elevated priority is limited.  Xen will log a
+    warning if a guest tries to run with elevated priority for too long.
+   =20
+  - Xen boosts vCPUs before delivering an interrupt, but there should be
+    a way for a vCPU to deboost itself even before returning from the
+    interrupt handler.
+
+  - Guests should always set =E2=80=9Cdont_desched=E2=80=9D when running ha=
+rd-realtime
+    threads (used for e.g. audio processing), even when the thread is in
+    userspace.  This ensures that Xen gives the underlying vCPU priority
+    over vCPUs=20
+
+  - Guests should always set =E2=80=9Cdont_desched=E2=80=9D when holding a =
+spin lock,
+    but it is even better to use paravirtualized spin locks (which make
+    a hypercall into Xen and therefore allow other vCPUs to run).
+
+  - Xen does not implement priority inheritance, so guests need to do
+    that.
+
+- Max boost credits can be set by dom0 via a hypercall.
+
+The advantage of this approach is that it keeps almost all policy out of
+Xen.  The only exception is the boosting when an interrupt is received,
+but a well-behaved guest will deboost itself very quickly (by enabling
+interrupts) if the boost was not actually needed, so this should have
+very limited impact.  I think this should be enough for realtime audio,
+and it is somewhat related to (but hopefully simpler than) the KVM RFC
+=66rom Google [1].
+
+Any thoughts on this?
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
 
---4WUr8S6XVR2NVM4P
+[1]: https://lore.kernel.org/kvm/20231214024727.3503870-1-vineeth@bitbytewo=
+rd.org/
+
+--G1NvchryUuwGpy0H
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmWtrOoACgkQsoi1X/+c
-IsHHuRAAv0RHvjQFAIzlT5dePOrUK4ulrwP8czznRhknqxaYFz59q7P9T2JaotbQ
-kJo0cKuorKWJ9tbgmt7WRshMh7SZqeEZb+C7PLHXt6+DXvJU+TAEWqczMJRPKcvC
-cyehdtAGyWU4t2MTjT3WIYxI2wrYt0y0dwPvwFFqY7vb8RAes2esJJq88P+ZKK5z
-IINaF5LSc2l1zEWuZBHjLi6nVQwQAChtvNCUMLaYWhkJno9AJUyDbER8hNILKcwP
-bRhlM/oJtXXIaywuHN71Qbnot/bv75eNwlTQsMajWyTzib3yCGJKmbvzpa8sAy0D
-l5GT5xe2AzOLle36V+EGV6J4GDiTc8l4f0AwhpE7ZDiTSIVIspoPbhrQiByBeEBX
-D/g2vQP2yImBHYWL3TDgA/ufZuVg2Cli8MrMrxR5Rq+7LFUc7dIuTUiex7Aqc/8T
-ZBwPPHbXNfkM/JQ6e2+BCAx4YTGaLp3QrqQtwtgA/HTuiZtyA/8fJRF6sNiDfhzF
-rkjihXvfXL7Oc2hkPMIPQwHnbPVVx+Ed+PEoQdHsONYb6nIexT7SQNAaHz+mYWBV
-RiPPZ3mEZMLIbNjFbDpvCsdy3wvUB7EE24aTzWdCRnZrO41FwqzhgfuQRBk4Q40c
-B6YyExqJCvO+eW8VRLm8euxa9DjigCoKS3eu2dqlRjt2EQb9zsM=
-=lymM
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmWtt3AACgkQsoi1X/+c
+IsELLA/8DLi4obtIN8Nic3OgPrXwvJyHkUbRmMkf9CZtDuUMQeJ4P2WUHLDEJlB6
+a0Ge/YiqTowzbnthMSY2snLxX+k9Dhr9dzeHwa9a3lzgZhIHjDkP0rUKZ11RvnLW
+tTR7Sb4I+i6ATyGZDBNyVhxHQ9jL0KheRkWbP2oDSBzV35iAnQTl8O3giO1VrzlK
+eOd5hXHY6EArzVWvOuxNujTt0AQ5bt4yJhce8HZ+B4mWrhBZaQ+49l0jIUr1NKUi
+NmEl+VJC8bLWNpTXKWHEWjzTqymgIOJY4UR6RKk0dNZYexBQzoW1nda0x30I5B+U
+rNySDPqnanepuPuMEy+m7Kzekp4YJCd2Wo4o/+y/oYtKHPO/C0Jk2FQ2UnpabMAX
+WajQngkpfFpud8td2stoEilG9kWghn0HtvPKluFzqY2bEXAk8XT5IcYnRqJcYJvL
+pcLGKG5Qy+laL7n/6jhAuJpEYhBv+LpOZLUJZ9r3fbhSH6Z1JpyIlu8s6xNav94k
+XCYPJStLhamDHacl6njajLe3szNb3Qyx0KDWj4tnatxI5ky+6CNXq0jk8g2d89R0
+IAk6z0i2vcPQcYaFSL5tJwS+f+WKF0tnHF0g94ldmvlDuuUz69kcXumbxXRfVhWq
+vbzV4dJH/GlxZsrk2KAegtBVyYdctn8rPbtuXb2OUnEgT9FXYQ8=
+=1yz4
 -----END PGP SIGNATURE-----
 
---4WUr8S6XVR2NVM4P--
+--G1NvchryUuwGpy0H--
 
