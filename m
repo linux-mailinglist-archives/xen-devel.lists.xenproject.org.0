@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEB318364C9
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 14:52:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669938.1042506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 280488364F6
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 15:03:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669954.1042516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRujB-0005gg-Ip; Mon, 22 Jan 2024 13:52:41 +0000
+	id 1rRusn-0000SZ-Iw; Mon, 22 Jan 2024 14:02:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669938.1042506; Mon, 22 Jan 2024 13:52:41 +0000
+Received: by outflank-mailman (output) from mailman id 669954.1042516; Mon, 22 Jan 2024 14:02:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRujB-0005f1-FF; Mon, 22 Jan 2024 13:52:41 +0000
-Received: by outflank-mailman (input) for mailman id 669938;
- Mon, 22 Jan 2024 13:52:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rRusn-0000Qr-FH; Mon, 22 Jan 2024 14:02:37 +0000
+Received: by outflank-mailman (input) for mailman id 669954;
+ Mon, 22 Jan 2024 14:02:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VPlZ=JA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rRujA-0005c3-Mw
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 13:52:40 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 81de4e49-b92d-11ee-98f2-6d05b1d4d9a1;
- Mon, 22 Jan 2024 14:52:40 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2cca5d81826so36964431fa.2
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 05:52:40 -0800 (PST)
+ id 1rRusl-0000Qj-FW
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 14:02:35 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e38875f9-b92e-11ee-9b0f-b553b5be7939;
+ Mon, 22 Jan 2024 15:02:33 +0100 (CET)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-50e6ee8e911so4166041e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 06:02:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cw13-20020a05663849cd00b0046e627dbc4csm3035114jab.121.2024.01.22.05.52.38
+ v8-20020a056638250800b0046ec687b028sm1786179jat.0.2024.01.22.06.02.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 05:52:39 -0800 (PST)
+ Mon, 22 Jan 2024 06:02:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 81de4e49-b92d-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: e38875f9-b92e-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705931559; x=1706536359; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=t0UgnOP68BxJCm+ns2eSiUnCsXGTkJgNp1lvTQv+pgE=;
-        b=OvLzCc1uumgr5gOU5vJ5txxgj0VWTogmREzeA/oPFo6Ajvc9NLjAKFyaNdKw9SGBy6
-         RQIAZzqpkQeReM+Hbbx0Wx3tALVzon8ETrtF0Q++eOiYCR0u9Xm94MFygMTSCDiKd9Ef
-         2uNIIVzRnEW4VxmTlQTGBmD6bC8cZbKF8jXFDlQwl8BQWOIYf+yE5jS1OJ4ItU+bcJ1z
-         ANoiAbhQDf40wQbwhhI89aDzq1l8MB6fS+K5ltFSPCBwAwsa+RKHRees+rJHER5mRWW7
-         0WMoCsUizPx3XHDOJL2/zZqLE/zrh/QIAThNxHjoPtSCfcqBQsuZpyt13pBmW895HCdg
-         4H0w==
+        d=suse.com; s=google; t=1705932153; x=1706536953; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PQTxoVeYOUeGdoKPF5RL1ljbfwZL7WC5tU/+ttHKeHc=;
+        b=OLmarbUuO68QstyBG1EVw5xKmHHFzsKPEcmYxGZGJx+UOdFezYpziUM3cwdH3Q8tnH
+         iP/9SXosCQ61u5IJuXSwUm6HLKCC4xZDjQMMiRnQ28pjY5fSEdTAyUfCk9im1Y8GmFWs
+         GKXHGRLhktMzK3ZMRWdBwm2Rft5Cjevbc5Bm2qYAafWm/J9rvjC9hz98w8taOW2IpxSp
+         4nOOXdqjh/KJgrA6jMraO4C7N1EwfGM9DeNRV3d/6+05UQSPtIZVnwcC/eYak9vrImD0
+         +4GG7eM0hKqPhaapJhX84bGVThEBKgfKsU3NoXuocTwhlkdIGtYl1byKK4Yr27Xu6Ani
+         ZlWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705931559; x=1706536359;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=t0UgnOP68BxJCm+ns2eSiUnCsXGTkJgNp1lvTQv+pgE=;
-        b=n/lO40nPQjIqAScFNa67HnNQUz2ysd8Ym7QF4+EeTB//oEdrBn9w8NmgFSSRofINvo
-         BAy35yUe/vuKhLG12nMr/goWdhXSIM6qLJtSqdxSfR79n9uIUY2fgugKs/aQKdCCeC58
-         vmes4RqSRDdCv4iPH9OyoCa9KXowA2GqKP2jt4qg0U4HFCq436V+dm/I2R81x/yXDo2M
-         iTpArEU00quzNCGpa4s3f+5ePIKjBvLLzEW82J8rwptsDzy6VL8fVE0zBt/nWexe6fPB
-         Sh7Z0nxV8GZfoLuvo9rNmwCeC6wlN/227O1G/e72kXAFA3hDKfIidhOgGap8MsTLtHXa
-         HwYQ==
-X-Gm-Message-State: AOJu0Ywiby/TR20GwOolgWVAUhtkEmWejB5aWh2yeTt7ZT0Al0NbQx05
-	+Z5LIHNAMy1pbbZ4m7aD4ehToRJSHTkkJGkAdqqgHNtkpYds1ybNueDnhWi7MFv6yI3/eztKC80
-	=
-X-Google-Smtp-Source: AGHT+IGQ/1fgxj6jJoB6zQ0kfRBSvEDgjZN0Tn3TAA8oFx7WYj7j6uVLAm52kbFwopUmrdgYy/JcNw==
-X-Received: by 2002:a05:651c:b28:b0:2cf:13d:4c5e with SMTP id b40-20020a05651c0b2800b002cf013d4c5emr538190ljr.7.1705931559518;
-        Mon, 22 Jan 2024 05:52:39 -0800 (PST)
-Message-ID: <7e020077-be19-4075-b21c-5a493a8d0cda@suse.com>
-Date: Mon, 22 Jan 2024 14:52:38 +0100
+        d=1e100.net; s=20230601; t=1705932153; x=1706536953;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PQTxoVeYOUeGdoKPF5RL1ljbfwZL7WC5tU/+ttHKeHc=;
+        b=niEePro3y+yN+ujgBgNmC/ts6kqo/fTx8MLz3Z7sSu1VPMDMXzlfD6/S6+0fNOpa3L
+         gnJSan1JOUzdOpFKkb/FRwWyzTfL+sDK8CNUtLfAHHMrus0pGxfFrTx6NwpCgO7asfFG
+         bpth6q8XBUb2BPbT5/Ums9cTg1xqeiaDpAtKwY+nnuY/Qc55mV2NZVvbhoVJu0hyjfUw
+         dvqGGCjTFhUqkOlYK/EMlNUjgXKsemlt042wtsNrOg7kAPI4Z57xv1T1TB77BIVlvpt1
+         jJjsHRe2gt6Ekvi1Rfx/t77hraoQZ6z36OXn9oiDEFn22Ko5TNzLDgxsF2H91ug+FkLJ
+         tI1A==
+X-Gm-Message-State: AOJu0Yx7L6DjNDSZS+K9h/jokonZST+EAMgDrEGNud/7tdeIop3QRvrE
+	CeGNLQ/OqzJZZf7Of/nzbq79XUasyPWlnskK1XmT0dmDnfPRdQH74XqVzrOlPA==
+X-Google-Smtp-Source: AGHT+IG50Vv0nwZJkR1Pg5GkMBMTGNwSg1FIAZdlR3b1g1ptvhgann7asvEyJ+SyRLImJI+QuMWrBg==
+X-Received: by 2002:ac2:4101:0:b0:50f:1a9b:ef48 with SMTP id b1-20020ac24101000000b0050f1a9bef48mr1560724lfi.69.1705932152697;
+        Mon, 22 Jan 2024 06:02:32 -0800 (PST)
+Message-ID: <d4e5b1c0-bb44-4482-b86f-ff9f0947f338@suse.com>
+Date: Mon, 22 Jan 2024 15:02:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 8/8] x86/APIC: drop regs parameter from direct vector
- handler functions
+Subject: Re: [XEN PATCH 1/3] xen: introduce static_assert_unreachable()
 Content-Language: en-US
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1705930767.git.federico.serafini@bugseng.com>
+ <01c57c7e5131d699cf622be96fea7cd8e03c23f9.1705930767.git.federico.serafini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <33db57a2-b569-4fa8-b0b0-36ea92528d7b@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,207 +112,44 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <33db57a2-b569-4fa8-b0b0-36ea92528d7b@suse.com>
+In-Reply-To: <01c57c7e5131d699cf622be96fea7cd8e03c23f9.1705930767.git.federico.serafini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The only place it was needed is in the spurious handler, and there we
-can use get_irq_regs() instead.
+On 22.01.2024 14:48, Federico Serafini wrote:
+> Introduce macro static_asser_unreachable() to check that a program
+> point is considered unreachable by the static analysis performed by the
+> compiler, even at optimization level -O0.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Is it really intended to limit use of this macro to cases where even
+at -O0 the compiler would eliminate respective code? Note that right
+now even debug builds are done with some optimization, and some of
+the DCE we're relying depends on that (iirc).
 
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -1324,7 +1324,7 @@ int reprogram_timer(s_time_t timeout)
-     return apic_tmict || !timeout;
- }
- 
--static void cf_check apic_timer_interrupt(struct cpu_user_regs *regs)
-+static void cf_check apic_timer_interrupt(void)
- {
-     ack_APIC_irq();
-     perfc_incr(apic_timer);
-@@ -1343,7 +1343,7 @@ void smp_send_state_dump(unsigned int cp
- /*
-  * Spurious interrupts should _never_ happen with our APIC/SMP architecture.
-  */
--static void cf_check spurious_interrupt(struct cpu_user_regs *regs)
-+static void cf_check spurious_interrupt(void)
- {
-     /*
-      * Check if this is a vectored interrupt (most likely, as this is probably
-@@ -1357,7 +1357,7 @@ static void cf_check spurious_interrupt(
-         is_spurious = !nmi_check_continuation();
-         if (this_cpu(state_dump_pending)) {
-             this_cpu(state_dump_pending) = false;
--            dump_execstate(regs);
-+            dump_execstate(get_irq_regs());
-             is_spurious = false;
-         }
- 
-@@ -1374,7 +1374,7 @@ static void cf_check spurious_interrupt(
-  * This interrupt should never happen with our APIC/SMP architecture
-  */
- 
--static void cf_check error_interrupt(struct cpu_user_regs *regs)
-+static void cf_check error_interrupt(void)
- {
-     static const char *const esr_fields[] = {
-         ", Send CS error",
-@@ -1409,7 +1409,7 @@ static void cf_check error_interrupt(str
-  * This interrupt handles performance counters interrupt
-  */
- 
--static void cf_check pmu_interrupt(struct cpu_user_regs *regs)
-+static void cf_check pmu_interrupt(void)
- {
-     ack_APIC_irq();
-     vpmu_do_interrupt();
---- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -58,7 +58,7 @@ bool __read_mostly lmce_support;
- #define MCE_RING                0x1
- static DEFINE_PER_CPU(int, last_state);
- 
--static void cf_check intel_thermal_interrupt(struct cpu_user_regs *regs)
-+static void cf_check intel_thermal_interrupt(void)
- {
-     uint64_t msr_content;
-     unsigned int cpu = smp_processor_id();
-@@ -642,7 +642,7 @@ static void cpu_mcheck_disable(void)
-         clear_cmci();
- }
- 
--static void cf_check cmci_interrupt(struct cpu_user_regs *regs)
-+static void cf_check cmci_interrupt(void)
- {
-     mctelem_cookie_t mctc;
-     struct mca_summary bs;
---- a/xen/arch/x86/guest/xen/xen.c
-+++ b/xen/arch/x86/guest/xen/xen.c
-@@ -158,7 +158,7 @@ static void __init init_memmap(void)
-     }
- }
- 
--static void cf_check xen_evtchn_upcall(struct cpu_user_regs *regs)
-+static void cf_check xen_evtchn_upcall(void)
- {
-     struct vcpu_info *vcpu_info = this_cpu(vcpu_info);
-     unsigned long pending;
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -2776,7 +2776,7 @@ static struct hvm_function_table __initd
- };
- 
- /* Handle VT-d posted-interrupt when VCPU is blocked. */
--static void cf_check pi_wakeup_interrupt(struct cpu_user_regs *regs)
-+static void cf_check pi_wakeup_interrupt(void)
- {
-     struct vmx_vcpu *vmx, *tmp;
-     spinlock_t *lock = &per_cpu(vmx_pi_blocking, smp_processor_id()).lock;
-@@ -2808,7 +2808,7 @@ static void cf_check pi_wakeup_interrupt
- }
- 
- /* Handle VT-d posted-interrupt when VCPU is running. */
--static void cf_check pi_notification_interrupt(struct cpu_user_regs *regs)
-+static void cf_check pi_notification_interrupt(void)
- {
-     ack_APIC_irq();
-     this_cpu(irq_count)++;
---- a/xen/arch/x86/include/asm/irq.h
-+++ b/xen/arch/x86/include/asm/irq.h
-@@ -72,17 +72,15 @@ extern int opt_irq_vector_map;
- 
- #define platform_legacy_irq(irq)	((irq) < 16)
- 
--void cf_check event_check_interrupt(struct cpu_user_regs *regs);
--void cf_check invalidate_interrupt(struct cpu_user_regs *regs);
--void cf_check call_function_interrupt(struct cpu_user_regs *regs);
--void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs);
-+void cf_check event_check_interrupt(void);
-+void cf_check invalidate_interrupt(void);
-+void cf_check call_function_interrupt(void);
-+void cf_check irq_move_cleanup_interrupt(void);
- 
- uint8_t alloc_hipriority_vector(void);
- 
--void set_direct_apic_vector(
--    uint8_t vector, void (*handler)(struct cpu_user_regs *regs));
--void alloc_direct_apic_vector(
--    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs));
-+void set_direct_apic_vector(uint8_t vector, void (*handler)(void));
-+void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void));
- 
- void do_IRQ(struct cpu_user_regs *regs);
- 
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -743,7 +743,7 @@ void move_native_irq(struct irq_desc *de
-     desc->handler->enable(desc);
- }
- 
--void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs)
-+void cf_check irq_move_cleanup_interrupt(void)
- {
-     unsigned vector, me;
- 
-@@ -913,16 +913,14 @@ uint8_t alloc_hipriority_vector(void)
-     return next++;
- }
- 
--static void (*direct_apic_vector[X86_NR_VECTORS])(struct cpu_user_regs *regs);
--void set_direct_apic_vector(
--    uint8_t vector, void (*handler)(struct cpu_user_regs *regs))
-+static void (*direct_apic_vector[X86_NR_VECTORS])(void);
-+void set_direct_apic_vector(uint8_t vector, void (*handler)(void))
- {
-     BUG_ON(direct_apic_vector[vector] != NULL);
-     direct_apic_vector[vector] = handler;
- }
- 
--void alloc_direct_apic_vector(
--    uint8_t *vector, void (*handler)(struct cpu_user_regs *regs))
-+void alloc_direct_apic_vector(uint8_t *vector, void (*handler)(void))
- {
-     static DEFINE_SPINLOCK(lock);
- 
-@@ -1907,7 +1905,7 @@ void do_IRQ(struct cpu_user_regs *regs)
-     if ( irq < 0 )
-     {
-         if ( direct_apic_vector[vector] )
--            direct_apic_vector[vector](regs);
-+            direct_apic_vector[vector]();
-         else
-         {
-             const char *kind = ", LAPIC";
---- a/xen/arch/x86/smp.c
-+++ b/xen/arch/x86/smp.c
-@@ -245,7 +245,7 @@ static cpumask_t flush_cpumask;
- static const void *flush_va;
- static unsigned int flush_flags;
- 
--void cf_check invalidate_interrupt(struct cpu_user_regs *regs)
-+void cf_check invalidate_interrupt(void)
- {
-     unsigned int flags = flush_flags;
-     ack_APIC_irq();
-@@ -387,14 +387,14 @@ void smp_send_nmi_allbutself(void)
-     send_IPI_mask(&cpu_online_map, APIC_DM_NMI);
- }
- 
--void cf_check event_check_interrupt(struct cpu_user_regs *regs)
-+void cf_check event_check_interrupt(void)
- {
-     ack_APIC_irq();
-     perfc_incr(ipis);
-     this_cpu(irq_count)++;
- }
- 
--void cf_check call_function_interrupt(struct cpu_user_regs *regs)
-+void cf_check call_function_interrupt(void)
- {
-     ack_APIC_irq();
-     perfc_incr(ipis);
+> --- a/xen/include/xen/compiler.h
+> +++ b/xen/include/xen/compiler.h
+> @@ -64,6 +64,14 @@
+>  # define fallthrough        do {} while (0)  /* fallthrough */
+>  #endif
+>  
+> +/*
+> + * Add the following macro to check that a program point is considered
+> + * unreachable by the static analysis performed by the compiler,
+> + * even at optimization level -O0.
+> + */
+> +#define static_assert_unreachable() \
+> +    asm(".error \"unreachable program point reached\"");
 
+Did you check the diagnostic that results when this check actually
+triggers? I expect it will be not really obvious from the message
+you introduce where the issue actually is. I expect we will want
+to use some of __FILE__ / __LINE__ / __FUNCTION__ to actually
+supply such context.
+
+Also: Stray semicolon and (nit) missing blanks.
+
+Finally I wonder about case: We have ASSERT_UNREACHABLE() and it
+may be indicated to use all uppercase her as well.
+
+Jan
 
