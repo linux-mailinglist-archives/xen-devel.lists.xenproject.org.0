@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7F2B835F07
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 11:05:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669722.1042078 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3E7835F19
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 11:07:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669730.1042090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRrAd-0002Qy-NG; Mon, 22 Jan 2024 10:04:47 +0000
+	id 1rRrDG-00035C-4W; Mon, 22 Jan 2024 10:07:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669722.1042078; Mon, 22 Jan 2024 10:04:47 +0000
+Received: by outflank-mailman (output) from mailman id 669730.1042090; Mon, 22 Jan 2024 10:07:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRrAd-0002O7-JJ; Mon, 22 Jan 2024 10:04:47 +0000
-Received: by outflank-mailman (input) for mailman id 669722;
- Mon, 22 Jan 2024 10:04:46 +0000
+	id 1rRrDG-00032z-1l; Mon, 22 Jan 2024 10:07:30 +0000
+Received: by outflank-mailman (input) for mailman id 669730;
+ Mon, 22 Jan 2024 10:07:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VPlZ=JA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rRrAc-0002O1-6y
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 10:04:46 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kGu3=JA=web.de=Markus.Elfring@srs-se1.protection.inumbo.net>)
+ id 1rRrDE-00031W-I0
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 10:07:28 +0000
+Received: from mout.web.de (mout.web.de [217.72.192.78])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id aa27e285-b90d-11ee-9b0f-b553b5be7939;
- Mon, 22 Jan 2024 11:04:43 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2cd8bd6ce1bso28820331fa.1
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 02:04:43 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- q6-20020a056638238600b0046ef34ae391sm40671jat.99.2024.01.22.02.04.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 02:04:42 -0800 (PST)
+ id 0b06fd13-b90e-11ee-9b0f-b553b5be7939;
+ Mon, 22 Jan 2024 11:07:26 +0100 (CET)
+Received: from [192.168.178.21] ([94.31.87.95]) by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1N1d7i-1qzQGl1nD6-011tRs; Mon, 22
+ Jan 2024 11:07:03 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,104 +39,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: aa27e285-b90d-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705917883; x=1706522683; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=x+rf32GmCPQOsHmXK9Mo+KAY16DOZ0NexQtH0ATNr04=;
-        b=fzKCfIL4cunAcACBFfjlVe6UMEodH/z69vJFxIc10W6faPwTMRtQSLxNfZZeW8LtwE
-         t/A6th/YeRA6fLV7cQwIXjuYi9O+InsXwUrD9o6Cp75zXYbWjlk2RvT5IlGoRk8ae4Yu
-         v+u/UQeJGxS5wFefuy7r1bZSGx9iT5SEAZORknyJoO1yX8kpa6VPAWvePBPR4qEbd1vP
-         WZClyULtK/GWR1Z9ZCjFN3D8DO2+GzhzQaEFlwexyygw0FwjmNtLlBSjGJ+TYZ8ti7Kz
-         58ShdQk5g3zOXsjTIxQ68yHaeXApTPQwKlqhqit48d1o4J7ZEkkoZ1ZayKxg0uQNyC+m
-         yEIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705917883; x=1706522683;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=x+rf32GmCPQOsHmXK9Mo+KAY16DOZ0NexQtH0ATNr04=;
-        b=uG3Zmhhw6kUdN3AKEOf1hE6w/tSQuycxBVZ/eq/WsUvnotgjjmAIC6yUSbt40NZmAQ
-         jOLk3A4aRE5k9sdfgCLFoqh0NqR2r8MYLsVfdSC7seCelTRxTZZu/jzf1MdYE/Ri/tCT
-         YF9Dhz4Js2nF3wk7SrkWTDcVyA7YdlByQBle3NwD39ukY0r1onsLhzHX+z8LGByKXVgI
-         tNj5Sqo7FvgQG9CkTarfIWTG1rqR6vrHN2BKuq70elNyP8GBJvJf6y7KkgOKyr58H0bf
-         N/fK3SVDwPxYAQnY8KED0cUOuWF4x+JnunLJQlg4TxcFWx0cFrZcAGd+Nl3vbpvwYpAJ
-         HjlA==
-X-Gm-Message-State: AOJu0YyMx6qpjKsvLgLf0mlUAMPMQJHhDh2E35KaB3aVMDbbJCHgo63z
-	TdzQZZmfu3WGrWc4Q/3F6CXsn3VFm23taD4LAtM4ApChwLWX5zhLkUAkqXTIkQ==
-X-Google-Smtp-Source: AGHT+IEtoU+NsZeYjTWN2b6KOKmBMMl14Zp9zPWvwhG+e99i4tpHvYbalJCdL35uYwUDTMiXuRJW7g==
-X-Received: by 2002:a05:651c:b0e:b0:2cd:f588:8b8 with SMTP id b14-20020a05651c0b0e00b002cdf58808b8mr1116986ljr.107.1705917883147;
-        Mon, 22 Jan 2024 02:04:43 -0800 (PST)
-Message-ID: <0437c4eb-8438-44a8-a749-aef6c4c93ef0@suse.com>
-Date: Mon, 22 Jan 2024 11:04:41 +0100
+X-Inumbo-ID: 0b06fd13-b90e-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de; s=s29768273;
+	t=1705918023; x=1706522823; i=markus.elfring@web.de;
+	bh=fTg1GKoElQXtI92ElzyjxQkY95Oc2Gw5CPCoF4BKwq8=;
+	h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:
+	 In-Reply-To;
+	b=XbLTyj35Lb7jl1Yxk5KWnYotJUTzEV/OahrmTGAuvwBNAl3a+VwS5Yj6WbV0eTWT
+	 F8XF4+XunIdby/uzCcMOOXrbW1nz0ynfe+q8vz86czFsJHriEmDKJWjHye5gDjekJ
+	 3zJdBiB8SvV6FuY74cI9jSzvCGCSRC5rAZdb8vLb9G06jExBKLSY6l4PqdiFcDwB8
+	 Ce3nIBc9znPGdYrOIH8xCam1LgCpl7GlXMfteTWW3HyMt7yYNleZj0VLEuSafpBJX
+	 LdY5ZefXx197/9mhH7YnobqgSJ8w7SeTv9fyjuS3g01X41Md/kH696KNsDSTb+nmR
+	 fDZwscOeNJL4O01/SA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Message-ID: <b0b1ba48-1d48-4163-afc5-ac92121ee14c@web.de>
+Date: Mon, 22 Jan 2024 11:06:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] coverage: filter out lib{fdt,elf}-temp.o
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Javi Merino <javi.merino@cloud.com>, xen-devel@lists.xenproject.org,
- Michal Orzel <michal.orzel@amd.com>
-References: <20240118120641.24824-1-michal.orzel@amd.com>
- <8057ae41-43b5-4469-b691-4e7f16b8dd4d@suse.com>
- <e399890c-0299-4ec5-884e-0637ae6cb5b0@perard>
- <9d552e6d-eb5d-4ccf-a35d-a359df7c4478@amd.com>
- <0a1c749b-8169-43b5-9921-961096f8570d@perard>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0a1c749b-8169-43b5-9921-961096f8570d@perard>
+Subject: Re: [v2] x86/xen: Add some null pointer checking to smp.c
+Content-Language: en-GB
+To: Dan Carpenter <dan.carpenter@linaro.org>, Kunwu Chan
+ <chentao@kylinos.cn>, xen-devel@lists.xenproject.org,
+ kernel-janitors@vger.kernel.org
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel test robot <lkp@intel.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Borislav Petkov
+ <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>,
+ =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Thomas Gleixner <tglx@linutronix.de>, x86@kernel.org,
+ Jonathan Corbet <corbet@lwn.net>
+References: <20240117090018.152031-1-chentao@kylinos.cn>
+ <1705655941162581.825.seg@mailgw>
+ <517fae75-c4e7-4576-81ff-6a14a3eb9cd7@kylinos.cn>
+ <dfb6de51-3ebc-41fc-a750-cf5ca2ac05aa@moroto.mountain>
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <dfb6de51-3ebc-41fc-a750-cf5ca2ac05aa@moroto.mountain>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:TVWkH58C8d+xxHWHzHB64epa3s2plijd4rtx+6kS7ddQj8Suzvv
+ naMuUTuD5EWLL2maurgo9AVz+dfWzvKtULBa/5Ve/rZFZcwKc9G46OszjBW7AP9yBR2RipX
+ lK43Pd+vVigt/FjZRtStKTTDI5ju3W3XLb/WimEdl4OICVTk1/YmHkjTr/9CBQ1xYQ94yFA
+ aDAE639lz9NSS4qWe7X9A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:dU6CzvMVSpk=;fSHtYB/+Ly6z8pY0YGpGVG3ymD3
+ S5R+AQd74kyXPO7x6bf/abdvDEWT2fFiA5grBn0s2z1asUGulEyqknQZVKJwf0tKu2SFstgor
+ C/k1kCa4Q1jtgtl3ehPa0kPjTNaru70z78epFuFQTTS6fKSCe3ZrV7ekGai8+G8Hk7yOgiQXU
+ FgIixZkdWM3rkJ54x8VUy6DnkxGN1mIkWIVQT87i2xg/BRetp7hS+LYad+RpxlHzxvABYaFMS
+ yTWm8/CYgyNkKb64NqBPX/4EETyRZmoh4Pg/ONAtpFP6K6RRshD3XLN+LTIsf/dt4hPZ/OO6K
+ zhJ3Jcd1jHt3rZbRkLwlP1aQTms2E3DXa/sPOTYIHuawGiZL43TXPy1nvG5Qu5XUD+uLR3UcV
+ MSUBMqfOBKib4NuW2aKzkwhtbtHAoj5OPdJkdO0KL00ZXjJYha9ar9z4FwFEyZ1uJuyeyouRP
+ /RqzuWH97IyQeevzIJ4G4ujdTPtemaWdj8C97cgBcFTGQaxF+AjXHFLnDnOeGwka7ehoySB4X
+ WEQB4wDsnXTCEppwuZwANErLkf/0Pvy94yrRC2T6DmIt6v2LaBYQMXpvj02MO/hbZgv3mS7VR
+ WC+u/TOo2Es1jI67Vg0HD/nGJCfItmhF37j4A2V3sXpaVksjIlhhi0btsiu+4OQdcvfv5633N
+ daXMmq0nbOUPsumFU3SHFodudI05p3k4JBAYBudav4Z2nhG+sPc9ZQWskqP+FkFUVkln+jFT3
+ nhXJMMD1BxRr77e5AdkLzRBhX7B63C6MBSR9TfPXbS0+4aAQs2fzLWb9SsX3rDAPwldNNrgpa
+ C3enyvAYKhgNNxSEoKwSHU0BTHyxrTSyvXXnSABRXE+7SqHuxuNl5W1vih1+iMORigNwPmFqs
+ w0CgqXRGAAG4XNsHi8qw5xoGBkcwrbwWz964mjZpoza6mVBLAMBLcTHqiNvV8IEoGtqzH/hV/
+ lNYuYA==
 
-On 19.01.2024 16:25, Anthony PERARD wrote:
-> On Fri, Jan 19, 2024 at 09:43:30AM +0100, Michal Orzel wrote:
->> Is my understanding correct that by switching from extra-y to targets we are preventing these objects to
->> appear in non-init-objects (and thus having COV_FLAGS appended) while retaining the proper if_changed behavior?
->>
->> According to docs/misc/xen-makefiles/makefiles.rst:
->> Any target that utilises if_changed must be listed in $(targets),
->> otherwise the command line check will fail, and the target will
->> always be built.
-> 
-> Indeed, and $(extra-y) is added to $(targets) via
-> $(targets-for-builtin).
-> 
-> While switching from $(extra-y) to $(targets) prevents the objects from
-> been added to $(non-init-objets), it doesn't matter because "libelf.o"
-> is in that variable, so $(COV_FLAGS) is added to $(_c_flags) and its
-> value is used in all the prerequisites of "libelf.o" which includes
-> "libelf-temp.o" and for example "libelf-dominfo.o". So the only thing
-> preventing $(COV_FLAGS) from been added when building "libelf-tools.o"
-> for example is that we set `COV_FLAGS:=` for "libelf.o".
+>>> How do you think about to use another label like =E2=80=9Ce_nomem=E2=
+=80=9D?
+>> I'll add a new label to simply the code.
+>
+> I'm not a Xen maintainer so I can't really comment on their style choice=
+s.
 
-Yet doesn't that (again) mean things should actually work as-is, yet
-Michal is observing this not being the case?
+Linux contributors can discuss various implementation details.
 
-Jan
+
+> However, as one of the kernel-janitors list people, I would
+> say that not everyone agrees with Markus's style preferences.
+
+Can a corresponding document be improved accordingly?
+
+Centralized exiting of functions
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/coding-style.rst?h=3Dv6.8-rc1#n526
+
+Do you find a related information source helpful?
+https://wiki.sei.cmu.edu/confluence/display/c/MEM12-C.+Consider+using+a+go=
+to+chain+when+leaving+a+function+on+error+when+using+and+releasing+resourc=
+es
+
+Regards,
+Markus
 
