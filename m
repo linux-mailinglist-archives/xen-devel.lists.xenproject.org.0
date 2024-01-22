@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC1088374A9
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 21:54:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670146.1042757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FE35837682
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 23:48:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670216.1042801 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rS1IG-0001MO-8L; Mon, 22 Jan 2024 20:53:20 +0000
+	id 1rS35G-000423-3l; Mon, 22 Jan 2024 22:48:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670146.1042757; Mon, 22 Jan 2024 20:53:20 +0000
+Received: by outflank-mailman (output) from mailman id 670216.1042801; Mon, 22 Jan 2024 22:48:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rS1IG-0001Kp-5Q; Mon, 22 Jan 2024 20:53:20 +0000
-Received: by outflank-mailman (input) for mailman id 670146;
- Mon, 22 Jan 2024 20:53:19 +0000
+	id 1rS35G-000404-16; Mon, 22 Jan 2024 22:48:02 +0000
+Received: by outflank-mailman (input) for mailman id 670216;
+ Mon, 22 Jan 2024 22:48:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LWrC=JA=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1rS1IF-0001Kj-38
- for xen-devel@lists.xen.org; Mon, 22 Jan 2024 20:53:19 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=94D3=JA=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rS35E-0003z6-9C
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 22:48:00 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 41f78cc2-b968-11ee-9b0f-b553b5be7939;
- Mon, 22 Jan 2024 21:53:14 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 40MKr3NJ062650
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Mon, 22 Jan 2024 15:53:09 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.17.1/8.15.2/Submit) id 40MKr3nY062649;
- Mon, 22 Jan 2024 12:53:03 -0800 (PST) (envelope-from ehem)
+ id 4792ded0-b978-11ee-9b0f-b553b5be7939;
+ Mon, 22 Jan 2024 23:47:56 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 7084ECE2B6D;
+ Mon, 22 Jan 2024 22:47:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016FEC43390;
+ Mon, 22 Jan 2024 22:47:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,57 +41,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 41f78cc2-b968-11ee-9b0f-b553b5be7939
-Date: Mon, 22 Jan 2024 12:53:03 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: xen-devel@lists.xen.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Thoughts on current Xen EDAC/MCE situation
-Message-ID: <Za7Vr+Rb25y/+MSy@mattapan.m5p.com>
+X-Inumbo-ID: 4792ded0-b978-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1705963670;
+	bh=VmK+3y7dwKhhngQRRtVEzYsN0JFlJcij5RpzL4YRllw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=X5id4WE/iE7OPLSx6NnW+juOLwma81m1jAgvFbv4bNzDdjcE77UeHmlbJq9PWsgAt
+	 PZ/TpeW4Rh84DyUilvr4n4CxRuAkvWVE+v1jrcs2FRQoJp0NvNrgxL3QqoE+KFK+FC
+	 95QLWPf3Emq98o6iZsBLuca87ctag8bEZFRVwXDPN3BSnHBHUArB6Hwi3U1OXWr1Lw
+	 ZEWdtjsI2vwnC/AxDVUiNm2KRB04xy+gVAboNFWuWJXtFX3AsBoiOVVmvgtqWJTInz
+	 pB62vmSWWVFw8lfb6plvWmHNozWV2RrsW/HmUbv/Gl3vcckSFcgsVqPnQYtJWfQ40S
+	 wvzZeVf+5UVXg==
+Date: Mon, 22 Jan 2024 14:47:48 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Kelly Choi <kelly.choi@cloud.com>, committers@xenproject.org, 
+    advisory-board@lists.xenproject.org, xen-devel@lists.xenproject.org
+Subject: Re: Community Process Group - Proposal
+In-Reply-To: <5309e7d3-7b3c-4522-99dc-bbd7734aeb34@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2401221434440.2287888@ubuntu-linux-20-04-desktop>
+References: <CAO-mL=yvVWjnOHSFSqcrknoXOqk-N3JY76qObQnzftrkmsq6xw@mail.gmail.com> <5309e7d3-7b3c-4522-99dc-bbd7734aeb34@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
+Content-Type: text/plain; charset=US-ASCII
 
-I've been mentioning this on a regular basis, but the state of MCE
-handling with Xen seems poor.
-
-I find the present handling of MCE in Xen an odd choice.  Having Xen do
-most of the handling of MCE events is a behavior matching a traditional
-stand-alone hypervisor.  Yet Xen was originally pushing any task not
-requiring hypervisor action onto Domain 0.
-
-MCE seems a perfect match for sharing responsibility with Domain 0.
-Domain 0 needs to know about any MCE event, this is where system
-administrators will expect to find logs.  In fact, if the event is a
-Correctable Error, then *only* Domain 0 needs to know.  For a CE, Xen
-may need no action at all (an implementation could need help) and
-the effected domain would need no action.  It is strictly for
-Uncorrectable Errors that action beside logging is needed.
-
-For a UE memory error, the best approach might be for Domain 0 to decode
-the error.  Once Domain 0 determines it is UE, invoke a hypercall to pass
-the GPFN to Xen.  Xen would then forcibly unmap the page (similar to what
-Linux does to userspace for corrupted pages).  Xen would then identify
-what the page was used for, alert the domain and return that to Domain 0.
+I am only addressing a couple of Jan's points below.
 
 
-The key advantage of this approach is it makes MCE handling act very
-similar to MCE handling without Xen.  Documentation about how MCEs are
-reported/decoded would apply equally to Xen.  Another rather important
-issue is it means less maintenance work to keep MCE handling working with
-cutting-edge hardware.  I've noticed one vendor being sluggish about
-getting patches into Linux and I fear similar issues may apply more
-severely to Xen.
+On Mon, 22 Jan 2024, Jan Beulich wrote:
+> > A CPG will be your second point of call, where you can escalate matters
+> > quickly for a democratic solution.
+> 
+> Between informal voting and this "second point of call", where does
+> formal voting go?
+
+Formal voting is still available as "third point of call" after informal
+voting and CPG.
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+> > *How are members selected?*
+> > The CPG will be composed of 5 randomly selected members in total.
+> > An odd number has been purposely selected to avoid an impasse during
+> > decisions.
+> > 
+> > The criteria:
+> > Individual members must be active contributors and are willing to help the
+> > community succeed. As such they must be a part of the following groups:
+> > 
+> >    - Committers
+> >    - Active Maintainers: maintainers with >= 20 reviews in the last 2
+> >    releases
+> >    - Active Contributors: contributors with >= 10 commits in the last 2
+> >    releases
+> 
+> I'm afraid I can't leave this uncommented, as matching a common pattern
+> I'm generally unhappy with. Whatever the numbers you select in such
+> criteria, they'll open up an easy road for faking. At the same time it
+> of course is difficult to come up with any non-numeric or not-only-
+> numeric criteria. For example, I'd be heavily inclined to ask that
+> "non-trivial" be added to both of the numbers. Yet then there arises a
+> judgement issue: What's non-trivial can be entirely different
+> depending on who you ask.
+
+I share your observations and thoughts on the matter. I understand and
+share your thinking about adding "non-trivial" but then it is becomes a
+judgment call, as you wrote. I think it would be best if the criteria
+doesn't require human judgment.
 
 
+> What definitely needs clarifying is what "review" is: Are R-b tags
+> counted, or is it the number of replies sent commenting on patches?
+
+Yes, I think this needs to be clarified. I would say Reviewed-by tags.
 
