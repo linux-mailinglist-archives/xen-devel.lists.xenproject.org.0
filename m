@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AEE3836F8B
+	by mail.lfdr.de (Postfix) with ESMTPS id 864B2836F89
 	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 19:17:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670053.1042644 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.670054.1042650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRyrS-0002hd-Uf; Mon, 22 Jan 2024 18:17:30 +0000
+	id 1rRyrT-0002nJ-7G; Mon, 22 Jan 2024 18:17:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670053.1042644; Mon, 22 Jan 2024 18:17:30 +0000
+Received: by outflank-mailman (output) from mailman id 670054.1042650; Mon, 22 Jan 2024 18:17:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRyrS-0002gE-Rg; Mon, 22 Jan 2024 18:17:30 +0000
-Received: by outflank-mailman (input) for mailman id 670053;
- Mon, 22 Jan 2024 18:17:29 +0000
+	id 1rRyrT-0002ic-3f; Mon, 22 Jan 2024 18:17:31 +0000
+Received: by outflank-mailman (input) for mailman id 670054;
+ Mon, 22 Jan 2024 18:17:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EdLN=JA=citrix.com=prvs=74474809d=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1rRyrR-0002ee-IW
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 18:17:29 +0000
+ id 1rRyrS-0002ee-7u
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 18:17:30 +0000
 Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
  [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7f6d6917-b952-11ee-98f2-6d05b1d4d9a1;
- Mon, 22 Jan 2024 19:17:28 +0100 (CET)
+ id 80a42b0b-b952-11ee-98f2-6d05b1d4d9a1;
+ Mon, 22 Jan 2024 19:17:29 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,76 +36,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f6d6917-b952-11ee-98f2-6d05b1d4d9a1
+X-Inumbo-ID: 80a42b0b-b952-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1705947448;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=UOoglNsFMfZVcHPwpDLLBcSo2RQx5ClWaZKuA5F9ss8=;
-  b=S4UQWbos//390ObDMIBlrX5rMP2WhEp8W90O8swoU1ogx4qPdKq6UnPw
-   DtJOsyyBfyHzeyg2wqGa7HVGjRCjMxlErIU+ZlUKG9k5f+lbUaG1HrlHh
-   GxXoB8YmIZ0Ttih8kG3Uu0b0x/sIwUUYhQxIXn2IIYivpBvr6Q49lgMna
-   Q=;
+  d=citrix.com; s=securemail; t=1705947449;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=HFRrMhhOeGY2Gr1UMSgwTgZBg4tGjjmtfbyh4y4EHqU=;
+  b=OtOw3HJSyQn/Nkm+n/l9kJyUpbf4iF7iWP+pQL3WLw3RnlQJrXKe+AvC
+   CRJe+S1zGgvahZF9DpAKyVMK9tRQeuYNTXnvWVmSJ8aCpwhUfgnb8t2fB
+   Xco5j4Q8+UXk01lazepQ2y3w8Pg4AfpwE234yuHokJXSEi+Dx1i2i29mG
+   8=;
 X-CSE-ConnectionGUID: FCbAE902SjqaC0PT4u4YkQ==
-X-CSE-MsgGUID: 5wRHdVzFSXuDO5oZp51RKg==
+X-CSE-MsgGUID: OnkEHIj2TSiL73DBDu9phg==
 Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 132366779
+X-MesageID: 132366780
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.159.70
 X-Policy: $RELAYED
 X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:POnXvqtb9QdNhken1SwIdkxotufnVAteMUV32f8akzHdYApBsoF/q
- tZmKWqBOP6PZGvyeNlwbY+19x4EupGAmoAyHAA+qigwQSoS+JbJXdiXEBz9bniYRiHhoOCLz
- O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVaicfHg3HFc4IMsYoUoLs/YjhYJ1isSODQqIu
- Nfjy+XSI1bg0DNvWo4uw/vrRChH4rKq5Vv0gnRkPaoX5AaEziFOZH4iDfrZw0XQE9E88tGSH
- 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
- Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
- fMwBhsHRz3S37iNwquyYbFUupg+cPjoBdZK0p1g5Wmx4fcORJnCR+PB5MNC3Sd2jcdLdRrcT
- 5NHM3w1Nk2GOkAefAhPYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27B/
- TidoTqmXUBy2Nq3lCW/0n6SlMH0rT7Xf98VJqXlr8RJjwjGroAUIEJPDgbqyRWjsWauVtQaJ
- 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O88Q5RyJy6HUyx2EHWVCRTlEAPQ5sOcmSDps0
- UWG9/vqAjp1ubHTVnOZ9Z+Ttzq5PSVTJmgHDRLoViNcvYOl+ttqyEuSH5A8SMZZk+EZBxne6
- DqjgXlm3Y4RlMcgj52HoU2bsjGV882hohEO2unHYo60xlomPNP0Pdz2sQWz0BpWEGqOorC8U
- Jk4dyu2trlm4WmlznDlfQn0NOjBCwy5GDPdm0VzOJIq6i6g/XWuFagJv2kjdBkzaJZaIWO5C
- KM2he+2zMYNVEZGkIctO97hYyjU5faI+SvZugD8MYMVP8kZmP6v9yByf0+At13QfLwXufhnY
- /+zKJ/8ZUv2/Iw7lFJasc9Bi+50rs3/rEuPLa3GI+OPjeLDOSPPGOZbWLZMB8hghJ65TMzu2
- 443H6O3J993CYUSvgG/HVYvEG03
-IronPort-HdrOrdr: A9a23:hCmENaA7gOuK5PnlHemg55DYdb4zR+YMi2TC1yhKJyC9Ffbo8P
- xG/c5rsSMc5wxwZJhNo7y90cq7MBbhHPxOkOos1N6ZNWGM0gaVxelZnO3fKlbbehEWmNQz6U
- 4ZSdkdNOHN
-X-Talos-CUID: =?us-ascii?q?9a23=3A40l/OWslj6GeWXlJoJBB2G1J6IsLWXf04SaIeXS?=
- =?us-ascii?q?6EG9CEIWpFULMyaBdxp8=3D?=
-X-Talos-MUID: 9a23:TIh+OAZ//GW3ZeBT6iDWpD1cJulT07mCLx0Ko41b4vOnOnkl
+IronPort-Data: A9a23:PWfb4q/5HpDMyDNvy+UVDrUD3X6TJUtcMsCJ2f8bNWPcYEJGY0x3z
+ zNKXWmFbqyJZWr2fogkatmwpkoC7JDUnNRqGlQ4rn08E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjVAOK6UKidYnwZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ird7ksy1BjOkGlA5ABmPKoS5AS2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklg3
+ vYxBWFVNCuBnuudmIqHFvQwt8caeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUWGPEUn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZwOxB3G+
+ D2WpwwVBDk9Mt+y6RuHqE6Xh8uQxg/RdJ9DDL23o6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
+ 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0efBdDuk74wGl0bfP7kCSAW1sZiFFQMwrsokxXzNC/
+ lyOmcngCXpwsbmWYXWH/7yQoHW5Pi19EIMZTXZaF01fuYCl+dxiyE2XJjp+LEKrpvPeExjdk
+ mjQlyonjp5LtfJXyvmK/mmS1lpAuaP1oh4JChT/Bz39s1IjNND9OuSVBU7nAeGsxbt1r2VtX
+ 1BewqByFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf8Jd0AvmskdBkxbpZsldrVj
+ Kj74F052XOuFCHyMf8fj3yZVazGMpQM5fy6D6uJP7Kik7B6dROd/TEGWHN8K1vFyRB2+YlmY
+ MfzTCpZJSpCYUiR5GbsFrh1PH5C7nxW+F4/srinl0n6jODPNSD9pHVsGALmU93VJZis+G39m
+ +uz/ePTo/mDeIUSuhXqzLM=
+IronPort-HdrOrdr: A9a23:e3arv6HrG1oFJQ5tpLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5r
+ mTdZUgpHnJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
+ YZT0EUMrzN5DZB4voSmDPIceod/A==
+X-Talos-CUID: 9a23:5SLJpWP203BX8e5DdgJt3WNFQpoecGTU5y/oHxOlVVdqcejA
+X-Talos-MUID: =?us-ascii?q?9a23=3A8s9yQQ4L6miWseHlVPZB43alxoxP5aeDKGEPy6k?=
+ =?us-ascii?q?9uu3bbgBaFyrMlDS4F9o=3D?=
 X-IronPort-AV: E=Sophos;i="6.05,211,1701147600"; 
-   d="scan'208";a="132366779"
+   d="scan'208";a="132366780"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk
 	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH 0/3] x86/entry: ELF fixes and improvments
-Date: Mon, 22 Jan 2024 18:17:10 +0000
-Message-ID: <20240122181714.1543738-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 1/3] x86/entry: Fix ELF metadata for NMI and handle_ist_exception
+Date: Mon, 22 Jan 2024 18:17:11 +0000
+Message-ID: <20240122181714.1543738-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20240122181714.1543738-1-andrew.cooper3@citrix.com>
+References: <20240122181714.1543738-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Patch 1 is a bugfix.  Patches 2 and 3 are to improve livepatchability.
+handle_ist_exception isn't part of the NMI handler, just like handle_exception
+isn't part of #PF.
 
-Andrew Cooper (3):
-  x86/entry: Fix ELF metadata for NMI and handle_ist_exception
-  x86/entry: Make #PF/NMI/INT0x82 more amenable to livepatching
-  x86/entry: Make intra-funciton symbols properly local
+Fixes: b3a9037550df ("x86: annotate entry points with type and size")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+CC: Ross Lagerwall <ross.lagerwall@citrix.com>
+---
+ xen/arch/x86/x86_64/entry.S | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
- xen/arch/x86/x86_64/compat/entry.S | 21 ++++++++++----------
- xen/arch/x86/x86_64/entry.S        | 31 +++++++++++++++++-------------
- 2 files changed, 29 insertions(+), 23 deletions(-)
-
-
-base-commit: 4900c939cb9b876c51cfc7a4c854f54c722a30b5
+diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+index 482c91d4f533..c3f6b667a72a 100644
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -1023,7 +1023,9 @@ FUNC(entry_NMI)
+         ENDBR64
+         pushq $0
+         movl  $X86_EXC_NMI, 4(%rsp)
+-handle_ist_exception:
++END(entry_NMI)
++
++FUNC(handle_ist_exception)
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         SAVE_ALL
+ 
+@@ -1150,7 +1152,7 @@ handle_ist_exception:
+         ASSERT_CONTEXT_IS_XEN
+         jmp   restore_all_xen
+ #endif
+-END(entry_NMI)
++END(handle_ist_exception)
+ 
+ FUNC(entry_MC)
+         ENDBR64
 -- 
 2.30.2
 
