@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7908836A72
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 17:28:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670019.1042579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 714ED836C0C
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 17:56:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670024.1042589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRx9I-0005eK-1g; Mon, 22 Jan 2024 16:27:48 +0000
+	id 1rRxak-0002c6-6v; Mon, 22 Jan 2024 16:56:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670019.1042579; Mon, 22 Jan 2024 16:27:48 +0000
+Received: by outflank-mailman (output) from mailman id 670024.1042589; Mon, 22 Jan 2024 16:56:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRx9H-0005cj-VE; Mon, 22 Jan 2024 16:27:47 +0000
-Received: by outflank-mailman (input) for mailman id 670019;
- Mon, 22 Jan 2024 16:27:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rRxak-0002aB-3Y; Mon, 22 Jan 2024 16:56:10 +0000
+Received: by outflank-mailman (input) for mailman id 670024;
+ Mon, 22 Jan 2024 16:56:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VPlZ=JA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rRx9F-0005cZ-Sc
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 16:27:45 +0000
-Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
- [2a00:1450:4864:20::230])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b10c012-b943-11ee-9b0f-b553b5be7939;
- Mon, 22 Jan 2024 17:27:43 +0100 (CET)
-Received: by mail-lj1-x230.google.com with SMTP id
- 38308e7fff4ca-2cd33336b32so43706771fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 08:27:43 -0800 (PST)
+ id 1rRxaj-0002a5-Bw
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 16:56:09 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 21e8bfcc-b947-11ee-98f2-6d05b1d4d9a1;
+ Mon, 22 Jan 2024 17:56:05 +0100 (CET)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2cddf596321so35438681fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 08:56:05 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ds11-20020a056638284b00b0046ebd521561sm2305440jab.41.2024.01.22.08.27.40
+ z15-20020a6bc90f000000b007bf05f618f3sm6643571iof.55.2024.01.22.08.56.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 08:27:42 -0800 (PST)
+ Mon, 22 Jan 2024 08:56:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b10c012-b943-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 21e8bfcc-b947-11ee-98f2-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705940863; x=1706545663; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705942565; x=1706547365; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=QbO6XI0O7nDBZSphJ0CiEP2A+ycKfNSk0yFkAJE58hA=;
-        b=UGOxTwYP+mlIILlAdI6msmCDH3Kqa0R/paEDLIMODni9uNi7GfsJO6dHAUMmJdXryu
-         6gtjBtdaWeVgmpreYqR+4rAjLg2x6ym9yrc/LLk5h+4ngiRRtYYj2DgUPUSwMVzold3k
-         5MIEj5T27DRrGhH3bjrDX4DSV5moBhgo0OTEVJYtNG4j3cL4N8Bd59jxeiSfgOzmb/aY
-         gp8KaM7WJ3OudbDd4k4hl/hNpgbc1VtzHzSCtOBCzr1cxHlCrIBB9YabD/5JyAIcHr7B
-         mAEdNhC/q5tfmN1+ZvDbZvAguhTcLf/TFQR0mNkRc8GPjimOhRo3D5hGU3ZXbmbImDO5
-         kh0A==
+        bh=pRp/lGCqYXGJxDgbw21vw0U/btwbfb4OSgaAF8MF18A=;
+        b=RHsYCEDs1WmR9wRKmf3tk4a0LTYB6NUREkArC3fauYKhxr8eyDyCibDLo7LdC+bLkX
+         G2wTe9puR6Mkb0gddt5z8Z0K3xWT+FI5kStgMubJn6IEpkNNaIzzfXj5u95InXtLbNRh
+         Bc9srzG+q92VAr3JnFceXKqhEc+hWjh+vpD8zejl6QRtqkGo+c/aaCKDy4PN9mb/LObx
+         DCjAV7XbQ/1zl3Hy3qiq7TNh8xzIoSczRybO6mOIdg5PaBKtijnJtaSooEiDh6SyONMM
+         gWY5IrfJKKgiHnadU+1O8N52dBJkixnTL/ew3HdK4OjWRq5KkkBltWV9ihtCAIqHAwEM
+         Hqww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705940863; x=1706545663;
+        d=1e100.net; s=20230601; t=1705942565; x=1706547365;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QbO6XI0O7nDBZSphJ0CiEP2A+ycKfNSk0yFkAJE58hA=;
-        b=IFAUfnU1QJwOcE7pUanYszAVSkw2spu58Qnd8htr8rcw78p2BCXh9JEWC3EaHiQuQE
-         bPblT/A6K4z7pQdpOz99fFM/CwJ0MdhpGDJHOr5n1e0ylUMJbAgaGctfODfhmolknzqj
-         WF8MgCTaWsZYWOPj00G15XQD/7aTiKt/HYY61a62RADPICyM+lJHCcMDJCKEUwOgqWSw
-         W+sLM799cmOwUzzrOHj6Ucnmyb6kj5Gyz+XUTs16lwCyuO466vQ5ja2mUE9wSy+MUSM7
-         hREPSVyYlBsb6Vkw0ACm9rpU+d6y4DthGIxa6IYsY9wv63wDXPpf0y7Ozi/MDqxe+Kkt
-         /8GQ==
-X-Gm-Message-State: AOJu0YxYL077UInr7Qu/m8uz+wTQ/pgd6LBLkJMn8zLSp3shWpIA8Fo7
-	4i+37ssFOgtMM30Bnd93dY4q54XCnUWKxq0bqr4PMKUQ+mQHewPmveWuW2+paA==
-X-Google-Smtp-Source: AGHT+IFdKjrHP6SNj6Oxg4Kvx/9LSyPFQZVVNgrhhfwvzpGf1KXcbbxz0JYcaxX6qm+RncSNXkqKCg==
-X-Received: by 2002:a2e:9e45:0:b0:2cc:9cf1:aec2 with SMTP id g5-20020a2e9e45000000b002cc9cf1aec2mr1945615ljk.24.1705940862692;
-        Mon, 22 Jan 2024 08:27:42 -0800 (PST)
-Message-ID: <8ee35a76-f3ef-4143-93ef-8e6089f82a80@suse.com>
-Date: Mon, 22 Jan 2024 17:27:38 +0100
+        bh=pRp/lGCqYXGJxDgbw21vw0U/btwbfb4OSgaAF8MF18A=;
+        b=pOyzdzAaY5jr2oF2AptgK3n7godOWsh/BxXILzmlgDnmEqvFQHho/+uG9H8H4U5wiq
+         jj0RpPGG5fenFbGvD1c/uN89+wdjDhBBM5hRgM8Rq7vcgqnNJ3OtoDCnX7Ot3TgRNRll
+         k8M8JEdytXtB+TKrs6i7dWZLpdeVAVzr0rKkTZCBcEXGoFG9Q8hZjQL44k3r3MP0OgOX
+         WJcwfB4xfmdDhyBYZUUTvnjxpjfRW3xK409/8vAGuMyaY/UQT6loThWAV0SGBBX/8/cn
+         dlavOuTSxqLKB0Yt9Yo6+vqcHcjxmI2bKdpWsevPkT2R9PTa9BzwC6wqjaIegvGMIUD6
+         5XVA==
+X-Gm-Message-State: AOJu0YzB29sZSYyw5+nJJVpO/nrhpBGfcBABtIUos3GKngRKaqTwQSLR
+	1bGPcvUpgjnhmPLyG5iGlaDaVn4KN8ulhgOp3r71l3TmdluSE2nNUuMVMiRi+A==
+X-Google-Smtp-Source: AGHT+IGSliYbjVT1qB2AtyuC0L604r7g1UBHocATtNbWa0MOckoxkiRtPY8PUtyYqEucFMXSJaG9qA==
+X-Received: by 2002:a2e:b70e:0:b0:2cd:7b5e:7358 with SMTP id j14-20020a2eb70e000000b002cd7b5e7358mr1856573ljo.25.1705942565348;
+        Mon, 22 Jan 2024 08:56:05 -0800 (PST)
+Message-ID: <2429395f-3ce8-4f17-aabe-78af2446ff6d@suse.com>
+Date: Mon, 22 Jan 2024 17:56:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/34] xen/riscv: introduce cmpxchg.h
+Subject: Re: [PATCH v3 15/34] xen/riscv: introduce atomic.h
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <214bfd61c8ccf2a5b2c640b815ebfa6a705f6234.1703255175.git.oleksii.kurochko@gmail.com>
+ <54f5f13a4ee3de3c3cf4ba2b4d0347bb77bb7d08.1703255175.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,295 +115,92 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <214bfd61c8ccf2a5b2c640b815ebfa6a705f6234.1703255175.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <54f5f13a4ee3de3c3cf4ba2b4d0347bb77bb7d08.1703255175.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.12.2023 16:12, Oleksii Kurochko wrote:
 > --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/cmpxchg.h
-> @@ -0,0 +1,496 @@
+> +++ b/xen/arch/riscv/include/asm/atomic.h
+> @@ -0,0 +1,384 @@
 > +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/* Copyright (C) 2014 Regents of the University of California */
+> +/*
+> + * Taken and modified from Linux.
+> + * 
+> + * Copyright (C) 2007 Red Hat, Inc. All Rights Reserved.
+> + * Copyright (C) 2012 Regents of the University of California
+> + * Copyright (C) 2017 SiFive
+> + * Copyright (C) 2021 Vates SAS
+> + */
 > +
-> +#ifndef _ASM_RISCV_CMPXCHG_H
-> +#define _ASM_RISCV_CMPXCHG_H
+> +#ifndef _ASM_RISCV_ATOMIC_H
+> +#define _ASM_RISCV_ATOMIC_H
 > +
-> +#include <xen/compiler.h>
-> +#include <xen/lib.h>
-> +
+> +#include <xen/atomic.h>
+> +#include <asm/cmpxchg.h>
 > +#include <asm/fence.h>
 > +#include <asm/io.h>
 > +#include <asm/system.h>
 > +
-> +#define __xchg_relaxed(ptr, new, size) \
-> +({ \
-> +    __typeof__(ptr) ptr__ = (ptr); \
-> +    __typeof__(new) new__ = (new); \
-> +    __typeof__(*(ptr)) ret__; \
-
-I expect the types of new and *ptr want to actually match. Which
-you then want to enforce, so that issues at use sites would either
-be reported by the compiler, or be permitted by a type conversion
-of new.
-
-> +    switch (size) \
-> +	{ \
-
-Nit: Hard tab left here. (Also again you want to either stick to
-Linux style or fully switch to Xen style.)
-
-> +    case 4: \
-> +        asm volatile( \
-> +            "	amoswap.w %0, %2, %1\n" \
-
-I don't think a leading tab (or leading whitespace in general) is
-needed in single-line-output asm()s. The trailing \n also isn't
-needed if I'm not mistaken.
-
-> +            : "=r" (ret__), "+A" (*ptr__) \
-> +            : "r" (new__) \
-> +            : "memory" ); \
-> +        break; \
-> +    case 8: \
-> +        asm volatile( \
-> +            "	amoswap.d %0, %2, %1\n" \
-> +            : "=r" (ret__), "+A" (*ptr__) \
-> +            : "r" (new__) \
-> +            : "memory" ); \
-> +        break; \
-> +    default: \
-> +        ASSERT_UNREACHABLE(); \
-
-If at all possible this wants to trigger a build failure, not a runtime
-one.
-
-> +    } \
-> +    ret__; \
-> +})
+> +void __bad_atomic_size(void);
 > +
-> +#define xchg_relaxed(ptr, x) \
-> +({ \
-> +    __typeof__(*(ptr)) x_ = (x); \
-> +    (__typeof__(*(ptr))) __xchg_relaxed((ptr), x_, sizeof(*(ptr))); \
-
-Nit: Stray blank after cast. For readability I'd also suggest to
-drop parentheses in cases like the first argument passed to
-__xchg_relaxed() here.
-
-> +})
-
-For both: What does "relaxed" describe? I'm asking because it's not
-really clear whether the memory clobbers are actually needed.
-
-> +#define __xchg_acquire(ptr, new, size) \
-> +({ \
-> +    __typeof__(ptr) ptr__ = (ptr); \
-> +    __typeof__(new) new__ = (new); \
-> +    __typeof__(*(ptr)) ret__; \
-> +    switch (size) \
-> +	{ \
-> +    case 4: \
-> +        asm volatile( \
-> +            "	amoswap.w %0, %2, %1\n" \
-> +            RISCV_ACQUIRE_BARRIER \
-> +            : "=r" (ret__), "+A" (*ptr__) \
-> +            : "r" (new__) \
-> +            : "memory" ); \
-> +        break; \
-> +    case 8: \
-> +        asm volatile( \
-> +            "	amoswap.d %0, %2, %1\n" \
-> +            RISCV_ACQUIRE_BARRIER \
-> +            : "=r" (ret__), "+A" (*ptr__) \
-> +            : "r" (new__) \
-> +            : "memory" ); \
-> +        break; \
-> +    default: \
-> +        ASSERT_UNREACHABLE(); \
-> +    } \
-> +    ret__; \
-> +})
-
-If I'm not mistaken this differs from __xchg_relaxed() only in the use
-of RISCV_ACQUIRE_BARRIER, and ...
-
-> +#define xchg_acquire(ptr, x) \
-> +({ \
-> +    __typeof__(*(ptr)) x_ = (x); \
-> +    (__typeof__(*(ptr))) __xchg_acquire((ptr), x_, sizeof(*(ptr))); \
-> +})
-> +
-> +#define __xchg_release(ptr, new, size) \
-> +({ \
-> +    __typeof__(ptr) ptr__ = (ptr); \
-> +    __typeof__(new) new__ = (new); \
-> +    __typeof__(*(ptr)) ret__; \
-> +    switch (size) \
-> +	{ \
-> +    case 4: \
-> +        asm volatile ( \
-> +            RISCV_RELEASE_BARRIER \
-> +            "	amoswap.w %0, %2, %1\n" \
-> +            : "=r" (ret__), "+A" (*ptr__) \
-> +            : "r" (new__) \
-> +            : "memory"); \
-> +        break; \
-> +    case 8: \
-> +        asm volatile ( \
-> +            RISCV_RELEASE_BARRIER \
-> +            "	amoswap.d %0, %2, %1\n" \
-> +            : "=r" (ret__), "+A" (*ptr__) \
-> +            : "r" (new__) \
-> +            : "memory"); \
-> +        break; \
-> +    default: \
-> +        ASSERT_UNREACHABLE(); \
-> +    } \
-> +    ret__; \
-> +})
-
-this only in the use of RISCV_RELEASE_BARRIER. If so they likely want
-folding, to limit redundancy and make eventual updating easier. (Same
-for the cmpxchg helper further down, as it seems.)
-
-> +#define xchg_release(ptr, x) \
-> +({ \
-> +    __typeof__(*(ptr)) x_ = (x); \
-> +    (__typeof__(*(ptr))) __xchg_release((ptr), x_, sizeof(*(ptr))); \
-> +})
-> +
-> +static always_inline uint32_t __xchg_case_4(volatile uint32_t *ptr,
-> +                                            uint32_t new)
+> +static always_inline void read_atomic_size(const volatile void *p,
+> +                                           void *res,
+> +                                           unsigned int size)
 > +{
-> +    __typeof__(*(ptr)) ret;
-> +
-> +    asm volatile (
-> +        "   amoswap.w.aqrl %0, %2, %1\n"
-> +        : "=r" (ret), "+A" (*ptr)
-> +        : "r" (new)
-> +        : "memory" );
-> +
-> +    return ret;
-> +}
-> +
-> +static always_inline uint64_t __xchg_case_8(volatile uint64_t *ptr,
-> +                                            uint64_t new)
-> +{
-> +    __typeof__(*(ptr)) ret;
-> +
-> +    asm volatile( \
-> +        "   amoswap.d.aqrl %0, %2, %1\n" \
-> +        : "=r" (ret), "+A" (*ptr) \
-> +        : "r" (new) \
-> +        : "memory" ); \
-> +
-> +    return ret;
-> +}
-> +
-> +static always_inline unsigned short __cmpxchg_case_2(volatile uint32_t *ptr,
-> +                                                     uint32_t old,
-> +                                                     uint32_t new);
-
-Don't you consistently mean uint16_t here (incl the return type) and ...
-
-> +static always_inline unsigned short __cmpxchg_case_1(volatile uint32_t *ptr,
-> +                                                     uint32_t old,
-> +                                                     uint32_t new);
-
-... uint8_t here?
-
-> +static inline unsigned long __xchg(volatile void *ptr, unsigned long x, int size)
-> +{
-> +    switch (size) {
-> +    case 1:
-> +        return __cmpxchg_case_1(ptr, (uint32_t)-1, x);
-> +    case 2:
-> +        return __cmpxchg_case_2(ptr, (uint32_t)-1, x);
-
-How are these going to work? You'll compare against ~0, and if the value
-in memory isn't ~0, memory won't be updated; you will only (correctly)
-return the value found in memory.
-
-Or wait - looking at __cmpxchg_case_{1,2}() far further down, you ignore
-"old" there. Which apparently means they'll work for the use here, but
-not for the use in __cmpxchg().
-
-> +    case 4:
-> +        return __xchg_case_4(ptr, x);
-> +    case 8:
-> +        return __xchg_case_8(ptr, x);
-> +    default:
-> +        ASSERT_UNREACHABLE();
-> +    }
-> +
-> +    return -1;
-> +}
-> +
-> +#define xchg(ptr,x) \
-> +({ \
-> +    __typeof__(*(ptr)) ret__; \
-> +    ret__ = (__typeof__(*(ptr))) \
-> +            __xchg((ptr), (unsigned long)(x), sizeof(*(ptr))); \
-> +    ret__; \
-> +})
-> +
-> +#define xchg32(ptr, x) \
-> +({ \
-> +    BUILD_BUG_ON(sizeof(*(ptr)) != 4); \
-> +    xchg((ptr), (x)); \
-> +})
-> +
-> +#define xchg64(ptr, x) \
-> +({ \
-> +    BUILD_BUG_ON(sizeof(*(ptr)) != 8); \
-> +    xchg((ptr), (x)); \
-> +})
-
-What are these two (and their cmpxchg counterparts) needed for?
-
-> +/*
-> + * Atomic compare and exchange.  Compare OLD with MEM, if identical,
-> + * store NEW in MEM.  Return the initial value in MEM.  Success is
-> + * indicated by comparing RETURN with OLD.
-> + */
-> +#define __cmpxchg_relaxed(ptr, old, new, size) \
-> +({ \
-> +    __typeof__(ptr) ptr__ = (ptr); \
-> +    __typeof__(*(ptr)) __old = (old); \
-
-Leftover leading underscores?
-
-> +    __typeof__(*(ptr)) new__ = (new); \
-
-Related to my earlier comment on types needing to be compatible - see
-how here you're using "ptr" throughout.
-
-> +    __typeof__(*(ptr)) ret__; \
-> +    register unsigned int __rc; \
-
-More leftover leading underscores?
-
-> +static always_inline unsigned short __cmpxchg_case_2(volatile uint32_t *ptr,
-> +                                                     uint32_t old,
-> +                                                     uint32_t new)
-> +{
-> +    (void) old;
-> +
-> +    if (((unsigned long)ptr & 3) == 3)
+> +    switch ( size )
 > +    {
-> +#ifdef CONFIG_64BIT
-> +        return __emulate_cmpxchg_case1_2((uint64_t *)ptr, new,
-> +                                         readq, __cmpxchg_case_8, 0xffffU);
+> +    case 1: *(uint8_t *)res = readb((const uint8_t *)p); break;
+> +    case 2: *(uint16_t *)res = readw((const uint16_t *)p); break;
+> +    case 4: *(uint32_t *)res = readl((const uint32_t *)p); break;
+> +    case 8: *(uint32_t *)res  = readq((const uint64_t *)p); break;
 
-What if ((unsigned long)ptr & 7) == 7 (which is a sub-case of what the
-if() above checks for? Isn't it more reasonable to require aligned
-16-bit quantities here? Or if mis-aligned addresses are okay, you could
-as well emulate using __cmpxchg_case_4().
+Just like const, you should also avoid casting away volatile.
 
-Also you shouldn't be casting away volatile (here and below). Avoiding
-the casts (by suitable using volatile void * parameter types) would
-likely be best.
+> +    default: __bad_atomic_size(); break;
+> +    }
+> +}
+> +
+> +#define read_atomic(p) ({                                               \
+> +    union { typeof(*p) val; char c[0]; } x_;                            \
+> +    read_atomic_size(p, x_.c, sizeof(*p));                              \
+> +    x_.val;                                                             \
+> +})
+> +
+> +
+
+Nit: No double blank lines please.
+
+> +#define write_atomic(p, x) ({                                           \
+> +    typeof(*p) x__ = (x);                                               \
+> +    switch ( sizeof(*p) )												\
+> +    {                                             						\
+
+These lines look excessively long, possibly as a result of leaving hard tabs
+in place.
+
+Overall some of the style comments on the earlier patch seem to apply here
+as well.
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/fence.h
+> @@ -0,0 +1,13 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +#ifndef _ASM_RISCV_FENCE_H
+> +#define _ASM_RISCV_FENCE_H
+> +
+> +#ifdef CONFIG_SMP
+> +#define RISCV_ACQUIRE_BARRIER		"\tfence r , rw\n"
+> +#define RISCV_RELEASE_BARRIER		"\tfence rw,  w\n"
+> +#else
+> +#define RISCV_ACQUIRE_BARRIER
+> +#define RISCV_RELEASE_BARRIER
+> +#endif
+
+Do you really care about the !SMP case? On x86 at least we stopped special-
+casing that configuration many years ago (the few cases where for typically
+build reasons it matters, using CONFIG_NR_CPUS is sufficient). If you care
+about it, there needs to be somewhere you actually #define CONFIG_SMP.
 
 Jan
 
