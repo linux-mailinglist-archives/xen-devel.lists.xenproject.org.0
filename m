@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B88A683610B
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 12:20:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.669774.1042184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B841836124
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jan 2024 12:22:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.669780.1042194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRsL0-0002Mm-76; Mon, 22 Jan 2024 11:19:34 +0000
+	id 1rRsNG-0003lp-I8; Mon, 22 Jan 2024 11:21:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 669774.1042184; Mon, 22 Jan 2024 11:19:34 +0000
+Received: by outflank-mailman (output) from mailman id 669780.1042194; Mon, 22 Jan 2024 11:21:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rRsL0-0002KU-45; Mon, 22 Jan 2024 11:19:34 +0000
-Received: by outflank-mailman (input) for mailman id 669774;
- Mon, 22 Jan 2024 11:19:32 +0000
+	id 1rRsNG-0003jo-F1; Mon, 22 Jan 2024 11:21:54 +0000
+Received: by outflank-mailman (input) for mailman id 669780;
+ Mon, 22 Jan 2024 11:21:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dZf3=JA=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rRsKy-0002KO-Gj
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 11:19:32 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061d.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::61d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VPlZ=JA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rRsNF-0003jg-IK
+ for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 11:21:53 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1c4e7d9d-b918-11ee-98f2-6d05b1d4d9a1;
- Mon, 22 Jan 2024 12:19:31 +0100 (CET)
-Received: from DS7P222CA0013.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::22) by
- PH0PR12MB5481.namprd12.prod.outlook.com (2603:10b6:510:d4::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.7202.34; Mon, 22 Jan 2024 11:19:25 +0000
-Received: from DS1PEPF00017099.namprd05.prod.outlook.com
- (2603:10b6:8:2e:cafe::b0) by DS7P222CA0013.outlook.office365.com
- (2603:10b6:8:2e::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.34 via Frontend
- Transport; Mon, 22 Jan 2024 11:19:24 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Mon, 22 Jan 2024 11:19:24 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 22 Jan
- 2024 05:19:24 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Mon, 22 Jan 2024 05:19:22 -0600
+ id 712cbdcf-b918-11ee-98f2-6d05b1d4d9a1;
+ Mon, 22 Jan 2024 12:21:52 +0100 (CET)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2cdb50d8982so32589751fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 03:21:52 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ m1-20020a056e021c2100b00362772f67a1sm1044137ilh.20.2024.01.22.03.21.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 22 Jan 2024 03:21:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,130 +45,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c4e7d9d-b918-11ee-98f2-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IPHcWQ9kJmS0gyV1OztmXpG0+CqUP6K5WljNo8ltCX/quIi4v/LpB5yMlw6Ane9++bBMV7zeXWN0fbHtBXeGTbyhn5pm5QflPOVOVfXU2VHAAVXjkjyKqxHJIW7PXKTMQSG6zJef/+ow8mfUxP942t3+24bxlT/rh3aAG6I8V4e51VpLbRGay/jqyMN8pGjGbCmzYPaOrM77zGNc4efl7nrWlcHNPzDK52U0wu7l031NNI3B/fJjJ9CL+sHHZUCsmKPwfD8PKMFUhfPqIyaQnwBedCTOToN13ivjhNr/Gb/OA3kgtzTYuLhhDW/KClPC1mqUl9KTeTQj7lCniA99Rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EGQvmtIofyN7O9/Qk/4JVihYSkBbWHQUWSyRZo2mQ+8=;
- b=Dxrfg7fG8/4aPyDDpl2LNQtBgZqojBDVme5OvXDarAATafdHQA2yizAAXrlTZRjMPDBPusJDZwOZZXfZXjbYuPttnnMOANqQ7oD90XphDkYPpftQ6uo3pCB9mzEnGIpF8bxWPe+IYUVB4z4f7x9K1yJGPGaQiTgt0hn8VcwKuzJmYWe5B77CaiTyjAnH/4S4AGlS21lirNdxJTMqa0CEEbGxoJUB5F/8ugxnjOCKZ2i7NWcT1xoDA7TkdhY5fA60LwiFKuA61UPXirxiUVCnaFbnAIP0QO4UOXhB2Nle1nFkSA1vfkLKUrgKSOeTzcm1Tu+BqznM1TwnjQSJrPrZJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EGQvmtIofyN7O9/Qk/4JVihYSkBbWHQUWSyRZo2mQ+8=;
- b=hPoQPB7cKEyqExDs/f3eP/+nnwA1zvzK4HV5qqDaFng3mHH47o2KpVjakqnkQ7jWQnGxZOE2HFuCsSAgKV6fvd6BKn5uImO8jsvGiFC2hGxLTEeMQh5SyFqM/vDPz9OjeFn3QFcHO2k+mSsE6wt6w2BxFu5wLZ8xtUEtvSigRfo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <5f5f7867-439f-4abf-9f46-5f0d7fdcab3b@amd.com>
-Date: Mon, 22 Jan 2024 12:19:22 +0100
+X-Inumbo-ID: 712cbdcf-b918-11ee-98f2-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1705922512; x=1706527312; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kHBGqnsb4oN+WzK3qGlJoxKuVtHXhfOeG4UuXN/xmGA=;
+        b=cqLeImj12OI/ckjVJWAZohQFxJ6pH0tGhnmG2Ah+EagCXhml859qBB+YlbA4hOSUMz
+         FgcAyclGDYJUPzxpQpYbyj9oSs3KRMdMj78hX20wGQzsSu0WLvuese7MIYv0GolyQfEK
+         +dlVoYyrHFLL4Lk1/WrgtgAxIECG173ZK20s3FazTBvOTL/md9iiX3ho/tZmaec5foLk
+         pYkXhYEWm/NGlE6IY9b3vPf8tGnS1VjKivw7vAO9vlCmwpB8SjgFiOh8bBothdN5dgTy
+         /ge4mApP+9Hg2S6Wty/W6hOY1xqwtkMr5J9wELaHGFclDg4AlXVqurA8DznmZFtfE2Fs
+         sBUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1705922512; x=1706527312;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=kHBGqnsb4oN+WzK3qGlJoxKuVtHXhfOeG4UuXN/xmGA=;
+        b=jQSGY/RkDTQ6JlXHa6wck9eO35xEiduSY774BU4pbNlv9X6qtOPcOf2PsnQAY6jNzv
+         a+EsDCUwjZTOyQNErhk3lpfvsNqvYo2JHEqKCkOeJjqJmZPuQ7QZKiNKbin1qIqQQAkD
+         hLB2FfplrhZGZ2Ovfkm4iSte/2ZzKE878zYYqB+s45s7o/xtd4YbhGu4kXEDEJwU/1FH
+         6qGPzAJ9u3j8vcxLb5cpJiISq87ZFDmROAFzln7qAbzsbjzYYQM3NDo8n0lYikuYgZBy
+         UvcosIidRJ7NbPat1mEmw2s9V4FoBKAq5/1qSVES5RFAtIN9vNy8I919KYtafJTDqtkk
+         eeBA==
+X-Gm-Message-State: AOJu0YyjcJxMZxvgyRq3hoMsW183xtdwHP36SBij1BjqMn2I25lOS3ts
+	KZIRRu9rn2Ic+eTXCZwW7WDEwCbBZ+eIGkGkrUdH3A/4C8Qrd96y+o/JLUf7og==
+X-Google-Smtp-Source: AGHT+IHOPdIU/Y1MpiffzGMWgDWgAIy2JnWSHTyOiORPgyjGeXgHq3D2t4V1Gr1u35MP2QKX74EdpA==
+X-Received: by 2002:a2e:b0f4:0:b0:2cc:603f:5cd7 with SMTP id h20-20020a2eb0f4000000b002cc603f5cd7mr1608848ljl.6.1705922511950;
+        Mon, 22 Jan 2024 03:21:51 -0800 (PST)
+Message-ID: <013210fd-6ea3-4719-afcd-1da97d9cd17f@suse.com>
+Date: Mon, 22 Jan 2024 12:21:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] coverage: filter out lib{fdt,elf}-temp.o
+Subject: Re: [PATCH v5] x86/livepatch: align functions to ensure minimal
+ distance between entry points
 Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Javi Merino
-	<javi.merino@cloud.com>, <xen-devel@lists.xenproject.org>
-References: <20240118120641.24824-1-michal.orzel@amd.com>
- <8057ae41-43b5-4469-b691-4e7f16b8dd4d@suse.com>
- <e399890c-0299-4ec5-884e-0637ae6cb5b0@perard>
- <9d552e6d-eb5d-4ccf-a35d-a359df7c4478@amd.com>
- <0a1c749b-8169-43b5-9921-961096f8570d@perard>
- <0437c4eb-8438-44a8-a749-aef6c4c93ef0@suse.com>
- <01dd5e72-c33c-49c7-838a-4e0eba454c05@perard>
- <d4842805-7e94-49ce-8f14-78642f469e02@perard>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <d4842805-7e94-49ce-8f14-78642f469e02@perard>
-Content-Type: text/plain; charset="UTF-8"
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20240122110244.14091-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240122110244.14091-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|PH0PR12MB5481:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2a30eb9-f77c-4e6e-017f-08dc1b3bfd76
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	gwzFgvx0PHgz7T8+kDEa07pBRDG/TaEfwa7j5bJj1/X2nFHOynrvwVPnmMwAsyRpc9M1hXO790ukS+48KQZt7bGGimRXHAJuA3mfROY7PmOiOLa83OO7AFUtOpXsna3WspLXneqtL7Uv1dHCyaCTJYZIOSjWZXoKu86VIPiFTmpqD0LcnJftu8Ml/OUNuFvpbCXGVr7jcny14zriifpVS+dYhbugxXVgkZdu45wTunkMJqOwFIpllZ2b0S5mHxTyayFrzK9pd3snGyLK2JhxEFNdgpgYTodfBEfE5pinPjwczgWMudBFxYoSgopq3HntU1rS7M9m9LmTb1YwnGc0any8wKeMi+85/EgVuvLCarbvRhaxl3Ds98v6KEtXmriSpTL5v4V1q9eV4MhDdZxA4xbWsgXmineUXaQVlC3yUBKvJLhnlO65glaa4QM1DBFOP/iVdhYAzH/AmzGo9jEiwyPvyMhzax89LnSYUcxSSr95Qos1GPKYNoZeKrcX2fluogs0VWiyad4svW6wpX1q++6zKT8DmwmfNASxoGolZMDhX/HyMhIbLTBN/iZLfkFMnjG3somIMetbafOfarg2gT47cCMGl35SW4Y+otowcZXbbjPQU1iOH/GO9JfN/5l0mMpFTLPiFwWjinYxKZfEvGW+FQ7UCkOkcnWzAztzUNyvUP1QYs788t4VXjw/LTOS48FsdESVPuHrirTSSgX6xaXWglPQIBfSH3pcAKNUAz35dWZ73DpFWxLsrRYbyXmOWJL3Fixd0vV4uk2u9uiZ/jOy4U++Xc27iMtQ/lUHE3oi5etihUJ5XZRHcSjZRTtS
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(396003)(346002)(39860400002)(136003)(230922051799003)(64100799003)(186009)(82310400011)(451199024)(1800799012)(46966006)(40470700004)(36840700001)(31686004)(40460700003)(40480700001)(336012)(426003)(53546011)(26005)(2616005)(31696002)(86362001)(82740400003)(81166007)(36756003)(356005)(41300700001)(44832011)(36860700001)(5660300002)(2906002)(47076005)(478600001)(8936002)(4326008)(8676002)(110136005)(70206006)(70586007)(16576012)(316002)(54906003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 11:19:24.8376
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2a30eb9-f77c-4e6e-017f-08dc1b3bfd76
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF00017099.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5481
 
+On 22.01.2024 12:02, Roger Pau Monne wrote:
+> The minimal function size requirements for an x86 livepatch are either 5 bytes
+> (for jmp) or 9 bytes (for endbr + jmp), and always 4 bytes on Arm.  Ensure that
+> distance between functions entry points is always at least of the minimal
+> required size for livepatch instruction replacement to be successful.
+> 
+> Add an additional align directive to the linker script, in order to ensure that
+> the next section placed after the .text.* (per-function sections) is also
+> aligned to the required boundary, so that the distance of the last function
+> entry point with the next symbol is also of minimal size.
+> 
+> Note that it's possible for the compiler to end up using a higher function
+> alignment regardless of the passed value, so this change just make sure that
+> the minimum required for livepatch to work is present.  Different compilers
+> handle the option differently, as clang will ignore -falign-functions value
+> if it's smaller than the one that would be set by the optimization level, while
+> gcc seems to always honor the function alignment passed in -falign-functions.
+> In order to cope with this behavior and avoid that setting -falign-functions
+> results in an alignment inferior to what the optimization level would have
+> selected force x86 release builds to use a function alignment of 16 bytes.
 
+Nit: A comma after "selected" may help readability.
 
-On 22/01/2024 12:05, Anthony PERARD wrote:
-> 
-> 
-> On Mon, Jan 22, 2024 at 10:54:13AM +0000, Anthony PERARD wrote:
->> On Mon, Jan 22, 2024 at 11:04:41AM +0100, Jan Beulich wrote:
->>> On 19.01.2024 16:25, Anthony PERARD wrote:
->>>> On Fri, Jan 19, 2024 at 09:43:30AM +0100, Michal Orzel wrote:
->>>>> Is my understanding correct that by switching from extra-y to targets we are preventing these objects to
->>>>> appear in non-init-objects (and thus having COV_FLAGS appended) while retaining the proper if_changed behavior?
->>>>>
->>>>> According to docs/misc/xen-makefiles/makefiles.rst:
->>>>> Any target that utilises if_changed must be listed in $(targets),
->>>>> otherwise the command line check will fail, and the target will
->>>>> always be built.
->>>>
->>>> Indeed, and $(extra-y) is added to $(targets) via
->>>> $(targets-for-builtin).
->>>>
->>>> While switching from $(extra-y) to $(targets) prevents the objects from
->>>> been added to $(non-init-objets), it doesn't matter because "libelf.o"
->>>> is in that variable, so $(COV_FLAGS) is added to $(_c_flags) and its
->>>> value is used in all the prerequisites of "libelf.o" which includes
->>>> "libelf-temp.o" and for example "libelf-dominfo.o". So the only thing
->>>> preventing $(COV_FLAGS) from been added when building "libelf-tools.o"
->>>> for example is that we set `COV_FLAGS:=` for "libelf.o".
->>>
->>> Yet doesn't that (again) mean things should actually work as-is, [...]
->>
->> No, because I've explain how it should work, in the hypothetical world
->> where we have `targets += libelf-temp.o $(libelf-objs)`.
-> 
-> The problem is that there's currently two "paths" to build libelf-temp.o
-> (and even three I think for libelf-tools.o libelf-loader.o
-> libelf-dominfo.o):
-> 
-> Simplified makefile:
-> 
->     obj-y := libelf.o
->     extra-y := libelf-temp.o
->     COV_FLAGS := -fcoverage
-> 
->     __build: $(extra-y) built_in.o
->     built_in.o: $(obj-y)
->     libelf.o: COV_FLAGS :=
->     libelf.o: libelf-temp.o
-> 
-> So, make can build "libelf-temp.o" as prerequisite of "__build" the
-> default target, or as prerequisite of "libelf.o".
-> In the first case, COV_FLAGS would have all the flags, and in the second
-> case, COV_FLAGS would be reset, but that second case is too late as make
-> is more likely to have already built libelf-temp.o with all the flags.
+> --- a/xen/Kconfig
+> +++ b/xen/Kconfig
+> @@ -37,6 +37,27 @@ config CC_HAS_VISIBILITY_ATTRIBUTE
+>  config CC_SPLIT_SECTIONS
+>  	bool
+>  
+> +# Set function alignment.
+> +#
+> +# Allow setting on a boolean basis, and then convert such selection to an
+> +# integer for the build system and code to consume more easily.
+> +#
+> +# Requires clang >= 7.0.0
+> +config CC_HAS_FUNCTION_ALIGNMENT
+> +	def_bool $(cc-option,-falign-functions)
 
-Thanks for detailed explanation. I will follow your rationale in v2.
+Nit: Maybe better have a blank line here?
 
-~Michal
+> +config FUNCTION_ALIGNMENT_4B
+> +	bool
+> +config FUNCTION_ALIGNMENT_8B
+> +	bool
+> +config FUNCTION_ALIGNMENT_16B
+> +	bool
+> +config FUNCTION_ALIGNMENT
+> +	int
+> +	depends on CC_HAS_FUNCTION_ALIGNMENT
+> +	default 16 if FUNCTION_ALIGNMENT_16B
+> +	default  8 if  FUNCTION_ALIGNMENT_8B
+> +	default  4 if  FUNCTION_ALIGNMENT_4B
+> +
+>  source "arch/$(SRCARCH)/Kconfig"
+>  
+>  config DEFCONFIG_LIST
+>[...]
+> --- a/xen/arch/x86/xen.lds.S
+> +++ b/xen/arch/x86/xen.lds.S
+> @@ -99,6 +99,10 @@ SECTIONS
+>         *(.text)
+>  #ifdef CONFIG_CC_SPLIT_SECTIONS
+>         *(.text.*)
+> +#endif
+> +#ifdef CONFIG_FUNCTION_ALIGNMENT
+> +       /* Ensure enough distance with the next placed section. */
+> +       . = ALIGN(CONFIG_FUNCTION_ALIGNMENT);
+>  #endif
+>         *(.text.__x86_indirect_thunk_*)
+
+I continue to fail to see how an alignment directive can guarantee minimum
+distance. In the worst case such a directive inserts nothing at all. IOW
+at the very least there's a non-spelled-out assumption here about the last
+item in the earlier section having suitable alignment and thus, if small
+in size, being suitably padded. Personally I don't think merely spelling
+out such a requirement would help - it would end up being a trap for
+someone to fall into.
+
+I'm further curious why .text.__x86_indirect_thunk_* is left past the
+inserted alignment. While pretty unlikely, isn't it in principle possible
+for the thunks there to also need patching? Aren't we instead requiring
+then that assembly functions (and thunks) all be suitably aligned as well?
+
+Jan
 
