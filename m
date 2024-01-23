@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90B2F839049
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 14:37:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670475.1043272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3DC83904A
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 14:37:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670477.1043281 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSGxh-0001rg-QL; Tue, 23 Jan 2024 13:37:09 +0000
+	id 1rSGy4-0002JT-2I; Tue, 23 Jan 2024 13:37:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670475.1043272; Tue, 23 Jan 2024 13:37:09 +0000
+Received: by outflank-mailman (output) from mailman id 670477.1043281; Tue, 23 Jan 2024 13:37:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSGxh-0001oT-N6; Tue, 23 Jan 2024 13:37:09 +0000
-Received: by outflank-mailman (input) for mailman id 670475;
- Tue, 23 Jan 2024 13:37:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSGxf-0001oN-UT
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 13:37:07 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7f7227f7-b9f4-11ee-9b0f-b553b5be7939;
- Tue, 23 Jan 2024 14:37:05 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2cc9fa5e8e1so46454341fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 05:37:05 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d69-20020a6bcd48000000b007baf1948186sm7086283iog.42.2024.01.23.05.37.03
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 05:37:04 -0800 (PST)
+	id 1rSGy3-0002Gu-VI; Tue, 23 Jan 2024 13:37:31 +0000
+Received: by outflank-mailman (input) for mailman id 670477;
+ Tue, 23 Jan 2024 13:37:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=gDjx=JB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rSGy2-0002F8-GM
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 13:37:30 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8d89fe61-b9f4-11ee-98f4-6d05b1d4d9a1;
+ Tue, 23 Jan 2024 14:37:29 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40ebf373130so5390205e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 05:37:29 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ fl6-20020a05600c0b8600b0040ea9ba9d58sm9508115wmb.37.2024.01.23.05.37.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jan 2024 05:37:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,146 +44,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f7227f7-b9f4-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 8d89fe61-b9f4-11ee-98f4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706017025; x=1706621825; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8lzjifM8tNePZ/JouruoJaj9hrHv1zlwJTdDd8CFT7M=;
-        b=c3IT8JhjNNZEpKMYBZ/tnmcAgDdqXpnobkbw41QjbcJY2WRRAHgPi2tfFJrW0pIzYJ
-         23noYkRZMX5zVA194R8M1EtJOG1sX7drMe380NzQuOVuiz+FGFd4BY5JSi+xuShTtpTE
-         Zr7vTuFSTFX9w8crmoVYeIk15AwJGcmUxlENkIW48jVEu0C7j+vLC9/PUxHqDb+UHPTS
-         CsCrfcjUeWEptRrWgzgkBADeDzfeZF/xRsdTdoRFrofM9Z+cftMbwTu/bFNfbaQ5M4Z2
-         I9MyMNXXYojtcL3E7BU3qAJuBFlKGKVEQnzXlg+JhFN+8LqbuELJWoBLQcXlxe9NuD/Y
-         OKDA==
+        d=citrix.com; s=google; t=1706017049; x=1706621849; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=nJsaQUsn7L0dALlfRc4Oa9nxZ6l6MhVmm78MjTwBpCY=;
+        b=WDa37uF6cI+N96fnBbR0MA+cDiI45rSKSgdjmNzXvvxYXSgZiMs6EIxZxV4UYs2YLC
+         bTJY2DKirNUisMDbkedNjD9Da8LS5F2ya18E39/1zR9R6iNKIeTcfRVTRSx9Z+g+64FE
+         BqQ/6J/nemcT0tcX7d5xQPKOVgId5PrWhLedY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706017025; x=1706621825;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8lzjifM8tNePZ/JouruoJaj9hrHv1zlwJTdDd8CFT7M=;
-        b=QG5iskPdDefcj7XKrw2m9SPBW39+laEXTbJu0sXkGtscaiuLwpmB9lWx6F8/T/kGXv
-         hxBlstvIezCA512O5fV9GI6kTKaPvsFvb0cZDA1+sWJo0ad+FFJwR8MzNQLh/CsIbxut
-         /irkIfJR6oXEJGX7HUSqBT4M6EMP+FFYtbPSpYEYfi/WX8M6LelL0tyQrO2NsiT+iUG2
-         0CT6VhEPXnEdb8Coljb4jW8n6J7LREFu7Zqw/e7NBEjPZTZaPLwV5xqeLnLrXiFyebPe
-         0ldciYjJMND5mQp2zc+EkstXlwMJ7uM/rXBEexcQfBuvDhxNgXVJ1g0Rj8+/eLMri5tF
-         uazA==
-X-Gm-Message-State: AOJu0YyBIk9TW7lQdPqRtfMcEwornEnT1XyufeAj74QKVO83OHeMn/Xs
-	U6/Mmsh46IsNuxQ0vFO7c/ADRCRr0ZVqIoZqqP7kG9tB82lt4avZK21BcfLNcg==
-X-Google-Smtp-Source: AGHT+IGQkqRiR815pMi3jjQfDVXWbMS19XUac9C5oCUxd5c/UOro2ecpyZyTn3NsVKMk6e0j1fxtdg==
-X-Received: by 2002:a2e:bc85:0:b0:2cc:dc54:872b with SMTP id h5-20020a2ebc85000000b002ccdc54872bmr3178838ljf.67.1706017025244;
-        Tue, 23 Jan 2024 05:37:05 -0800 (PST)
-Message-ID: <8e60f998-aeb4-4648-a3e9-d083bb8eefde@suse.com>
-Date: Tue, 23 Jan 2024 14:37:01 +0100
+        d=1e100.net; s=20230601; t=1706017049; x=1706621849;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nJsaQUsn7L0dALlfRc4Oa9nxZ6l6MhVmm78MjTwBpCY=;
+        b=V3nt+IpNG8RzDCBhS4d1f4P90+xVd1pKsUzfExYswoqbT9o5SKWbsqFpFryOlmVAK/
+         BlOk16QSjG/sIng9GCk/qOLngz3PUpVxDNGNEjXLS9B+EFIoNeCnbKQJ8hicJRGUGvrA
+         JPzTHrONUAon3+Pknu4+PVKCBAWN3H/xWd7L2BR23j9IhRGa7PZKL7m//nWeh5YZM6Mb
+         BeXQz4kyUMB+FMNWr5TX23VHWK3HrnDc/yvqOR3aJWX6fNMz25mMeBuUzYZNPuPQTiaM
+         tCEWoGxnruEqOdkS4oby7PbJsbaP4nw6NFzBRy2HCOHLuyx0qGAGIlBBCn/RBKu+aOOx
+         jEGQ==
+X-Gm-Message-State: AOJu0Yy6auWdTvVCJRKOVM8D9K5R5aRNeojdhTnmjNBHugSDxa86DHhp
+	VTCNN6rNxfDkdNzQM0lFCbUOzPQSsQVJlYRpdubKvTiUuk+1yVzwZDpG7rhLpl0=
+X-Google-Smtp-Source: AGHT+IEwQyGyIb9BzKxwiOuSogyKmcJ8NuBsfad4Wr6vr85oQfqERrWJ42V+rSN3rUg/k8E3K2vGqQ==
+X-Received: by 2002:a7b:c7c6:0:b0:40e:5e29:cca2 with SMTP id z6-20020a7bc7c6000000b0040e5e29cca2mr532565wmk.44.1706017048806;
+        Tue, 23 Jan 2024 05:37:28 -0800 (PST)
+Date: Tue, 23 Jan 2024 14:37:27 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Ross Lagerwall <ross.lagerwall@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 2/3] x86/entry: Make #PF/NMI/INT0x82 more amenable to
+ livepatching
+Message-ID: <Za_BF_wr0qWH5eKC@macbook>
+References: <20240122181714.1543738-1-andrew.cooper3@citrix.com>
+ <20240122181714.1543738-3-andrew.cooper3@citrix.com>
+ <0edeb969-6fef-46f4-b216-0858edbaefa6@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 16/34] xen/lib: introduce generic find next bit
- operations
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <bb47caf6c275d8aea307b96e79828831eab4a703.1703255175.git.oleksii.kurochko@gmail.com>
- <81e5cac4-90f0-4fff-b891-53ca73c61832@suse.com>
- <05d685b0b7ccd329454a336b20351979bdf91ea4.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <05d685b0b7ccd329454a336b20351979bdf91ea4.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <0edeb969-6fef-46f4-b216-0858edbaefa6@suse.com>
 
-On 23.01.2024 13:34, Oleksii wrote:
-> On Tue, 2024-01-23 at 12:14 +0100, Jan Beulich wrote:
->> On 22.12.2023 16:13, Oleksii Kurochko wrote:
->>> --- a/xen/common/Kconfig
->>> +++ b/xen/common/Kconfig
->>> @@ -47,6 +47,9 @@ config ARCH_MAP_DOMAIN_PAGE
->>>  config GENERIC_BUG_FRAME
->>>  	bool
->>>  
->>> +config GENERIC_FIND_NEXT_BIT
->>> +	bool
->>
->> There's no need for this, as ...
->>
->>> --- a/xen/lib/Makefile
->>> +++ b/xen/lib/Makefile
->>> @@ -3,6 +3,7 @@ obj-$(CONFIG_X86) += x86/
->>>  lib-y += bsearch.o
->>>  lib-y += ctors.o
->>>  lib-y += ctype.o
->>> +lib-$(CONFIG_GENERIC_FIND_NEXT_BIT) += find-next-bit.o
->>
->> ... you're moving this to lib/. Or have you encountered any issue
->> with building this uniformly, and you forgot to mention this in
->> the description?
-> I didn't check. My intention was to provide opportunity to check if an
-> architecture want to use generic version or not. Otherwise, I expected
-> that we will have multiple definiotion of the funcion.
+On Tue, Jan 23, 2024 at 10:22:10AM +0100, Jan Beulich wrote:
+> On 22.01.2024 19:17, Andrew Cooper wrote:
+> > It is bad form to have inter-function fallthrough.  It only functions right
+> > now because alignment padding bytes are NOPs.
 > 
-> But considering that they are all defined under #ifdef...#endif we can
-> remove the declaration of the config GENERIC_FIND_NEXT_BIT.
+> But that's a requirement anyway in executable sections.
 
-What #ifdef / #endif would matter here? Whats in lib/ is intended to be
-generic anyway. And what is in the resulting lib.a won't be used by an
-arch if it has an arch-specific implementation. Problems could arise if
-an arch had an inline function colliding with the out-of-line one. But
-that's about the old case where I could see a need to make the building
-of one of the objects conditional. And you'll note that withing this
-Makefile there are pretty few conditionals.
+Really?  I was under the impression we wanted to replace the padding
+nops with rets maybe, or even poison the padding with int3 or ud2.
 
->>> --- /dev/null
->>> +++ b/xen/lib/find-next-bit.c
->>>[...]
->>
->> I was going to ask that you convince git to actually present a proper
->> diff, to make visible what changes. But other than the description
->> says
->> you don't really move the file, you copy it. Judging from further
->> titles
->> there's also nowhere you'd make Arm actually use this now generic
->> code.
-> I wanted to do it separately, outside this patch series to simplify
-> review and not have Arm specific changes in RISC-V patch series.
+> > --- a/xen/arch/x86/x86_64/compat/entry.S
+> > +++ b/xen/arch/x86/x86_64/compat/entry.S
+> > @@ -29,6 +29,7 @@ FUNC(entry_int82)
+> >  
+> >          mov   %rsp, %rdi
+> >          call  do_entry_int82
+> > +        jmp   compat_test_all_events
+> >  END(entry_int82)
+> >  
+> >  /* %rbx: struct vcpu */
+> > diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+> > index c3f6b667a72a..fc64ef1fd460 100644
+> > --- a/xen/arch/x86/x86_64/entry.S
+> > +++ b/xen/arch/x86/x86_64/entry.S
+> > @@ -723,7 +723,9 @@ END(common_interrupt)
+> >  FUNC(entry_PF)
+> >          ENDBR64
+> >          movl  $X86_EXC_PF, 4(%rsp)
+> > +        jmp   handle_exception
+> >  END(entry_PF)
+> > +
+> >  /* No special register assumptions. */
+> >  FUNC(handle_exception, 0)
+> >          ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+> > @@ -1023,6 +1025,7 @@ FUNC(entry_NMI)
+> >          ENDBR64
+> >          pushq $0
+> >          movl  $X86_EXC_NMI, 4(%rsp)
+> > +        jmp   handle_ist_exception
+> >  END(entry_NMI)
+> >  
+> >  FUNC(handle_ist_exception)
+> 
+> Hmm, so here you (partly) do what I was meaning to do in the one patch
+> left from the entry point annotations series, "common: honor
+> CONFIG_CC_SPLIT_SECTIONS also for assembly functions". However, I'm
+> wrapping the JMPs there in #ifdef CONFIG_CC_SPLIT_SECTIONS. Thoughts?
+> I view the JMPs as pretty useless otherwise, even if there is a
+> small risk of a future code change not respecting the ordering
+> requirements. Yet such would be noticed pretty quickly, I suppose.
 
-Then do it the other way around: Make a separate _prereq_ change truly
-moving the file.
+I think it's clearer with the jumps.
 
-> Regarding a proper diff, you would like me to make git shows that it
-> was copy from Arm and it is not newly created file. Am I understand you
-> correctly?
-
-Not quite, I think. Git has move detection (and we've seen that in
-action in other patches of yours). So when truly moving a file, what
-(if anything) is changed is easily visible.
-
-Jan
+Thanks, Roger.
 
