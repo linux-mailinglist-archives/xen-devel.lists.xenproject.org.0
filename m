@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7294F8391BA
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 15:50:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670515.1043351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09384839216
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 16:07:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670520.1043362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSI5m-0005SB-Ny; Tue, 23 Jan 2024 14:49:34 +0000
+	id 1rSIMq-0001Am-9B; Tue, 23 Jan 2024 15:07:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670515.1043351; Tue, 23 Jan 2024 14:49:34 +0000
+Received: by outflank-mailman (output) from mailman id 670520.1043362; Tue, 23 Jan 2024 15:07:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSI5m-0005Q9-Kt; Tue, 23 Jan 2024 14:49:34 +0000
-Received: by outflank-mailman (input) for mailman id 670515;
- Tue, 23 Jan 2024 14:49:33 +0000
+	id 1rSIMq-00017Z-6G; Tue, 23 Jan 2024 15:07:12 +0000
+Received: by outflank-mailman (input) for mailman id 670520;
+ Tue, 23 Jan 2024 15:07:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OrDF=JB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rSI5l-0005Q3-5Z
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 14:49:33 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
+ <SRS0=gDjx=JB=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rSIMo-00017T-Ps
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 15:07:10 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9e213e5f-b9fe-11ee-98f4-6d05b1d4d9a1;
- Tue, 23 Jan 2024 15:49:32 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2cf0eba6a30so11202301fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 06:49:32 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- i26-20020a0564020f1a00b0055c0dba33b7sm419591eda.18.2024.01.23.06.49.30
+ id 1445f9d7-ba01-11ee-98f4-6d05b1d4d9a1;
+ Tue, 23 Jan 2024 16:07:09 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-40eb0836f8dso17530885e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 07:07:09 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ jb13-20020a05600c54ed00b0040e418494absm41756335wmb.46.2024.01.23.07.07.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jan 2024 06:49:31 -0800 (PST)
+ Tue, 23 Jan 2024 07:07:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,91 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e213e5f-b9fe-11ee-98f4-6d05b1d4d9a1
+X-Inumbo-ID: 1445f9d7-ba01-11ee-98f4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706021371; x=1706626171; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=k5SU8HDvJXS/miUkS75zneZmkLhT6LXjtdvOtw/xfB8=;
-        b=MVS7rkSJpg3qTQryz1yMwRhSNvEJQtfTy+QrcU+ZfKB6/KI4X1sBPKJCnvYSMFj+HC
-         jRo+cr4wd+Fuf7mURA7CpUP+yTmTuszB8sO5zdwPshblaBQXMijxKdduOLKeyBMqdZ9V
-         AmFks02QhXQ8n4zGxxauius/Y8Pp+1ZP5s4Vm+wVJniVqxdRl7BEfkpWPnnmNiz59dqZ
-         YD8Wh9SuhltyHLnbITao83MaCXor2B6yi8PU0lWaSeKL7yLIlfbQa9rXgZWzBBGqrTNV
-         TBPfoCOMIyknj4JyztoqC7p75z9uNuDEdHPmTTABHZpWtRzGN3pCSZOF6QRRBIQ03eCb
-         otDA==
+        d=citrix.com; s=google; t=1706022429; x=1706627229; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=I7wM/1rXgOuon42oEldfXYPMXxsGK00QIox6AXmIImk=;
+        b=MB53cY2/xk0N1vuKakOkYgNrxu+HGJUZH8eSM/YawNsKntt8jPfQ36kQGAMO/B+l8M
+         2YzY+vF1p3PmeEdHmhhc7YSFVTBUoT2Qlvf3XwimhpTHWEvDbTzJBWmfCNfaawuqr917
+         sOugXkYT6Wc2sm8Rf6GCqlp/rJDjMffOlbxd4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706021371; x=1706626171;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=k5SU8HDvJXS/miUkS75zneZmkLhT6LXjtdvOtw/xfB8=;
-        b=C0n62uBca3f/SKzWzRes0DCek987FZGv/h2NScPgphyJsIAXvj+88gPnc5l9gmpKSj
-         f503UIVfWn4eihXjYXX0FtvyiFf6FwZt8EMozfXxW1kX3supLlN7bYVvXkapTL74OgfO
-         kPznzlUBxK+0cYIyxwDKTZC5L/FmL4aTStVPqtExZ9RwK0kIyKkTt2DhNJ+aHf3OAUTw
-         9jgluK99//odgUVikiXYyf0gdGAj94e/RVHjYdwgiqa/xLXGEXK2hF21RNgv3ehMBEHQ
-         6SVzOWtzLY336fWJP91LgBtI4KJf8DXth4L4JwkCG9p3M+SgsRUMe2F8pxgUmLcxAC8D
-         TDTw==
-X-Gm-Message-State: AOJu0YzZQQGJcSGdyXkVVBiOdMOMh30fpvWdk9AEkfqxeBIbILAPfXC/
-	lMWlVRg3fA9zodg/zT1wSfv1TVW0OWIUmhMQq/U0HuViM3l48CjR
-X-Google-Smtp-Source: AGHT+IG/0FblsiWLtU4/K7R26t84d394TWAaUzDgPifOCNJkiB4aafDAv/WKpDvYulsJ1ZQ+br/C4Q==
-X-Received: by 2002:a2e:a445:0:b0:2cd:f62d:adb2 with SMTP id v5-20020a2ea445000000b002cdf62dadb2mr2793785ljn.87.1706021371368;
-        Tue, 23 Jan 2024 06:49:31 -0800 (PST)
-Message-ID: <2a08cae2c6db049dc08db59f38c4e75573e37064.camel@gmail.com>
-Subject: Re: [PATCH v3 34/34] xen/README: add compiler and binutils versions
- for RISC-V64
-From: Oleksii <oleksii.kurochko@gmail.com>
+        d=1e100.net; s=20230601; t=1706022429; x=1706627229;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=I7wM/1rXgOuon42oEldfXYPMXxsGK00QIox6AXmIImk=;
+        b=oA4lZmZ/43/TwagPn1lw+8xXDVOIytloT16sxMpeDzsPKBYGERjMGjRUY2SEmEGwBQ
+         69be8glJGy5M1XRE4JOFeiLTC+LOJHCxHLw5zQhCWSAtCuwT9cha9SIOZRmtvmgLVRxw
+         HaCiuP4pfAylj8RgHiyJiOJ66umNSmZcJirLbxCcZm0Cq8KHpRJhnIGJ6VBoP7aWyzGE
+         2v7GepyoytgymxIsAtv/tqSuTgWdR32YOMP36AoU1ww5qIBzNvdfEX9jAIn6ahJGbwbq
+         VcQbwJyhW6EK5SfCJA3yWJtbxMUNwt+VhJeQ5QYe9+6mcAQda7XVIHM7tqarzhfB2z9S
+         kuXg==
+X-Gm-Message-State: AOJu0YzPXYDKbRPIK39nq/TAVj5fezmlb8Oi9Iw/hTixfVz+V3Sel+SY
+	s1bLJD62VJLIbeeDJiiOwHGPS2qYreSxOXvPAAAtykS9CD/4B+OegdYZ7LEKTdU=
+X-Google-Smtp-Source: AGHT+IFwM7oCdmc+lXsPO9Mkme4/uVgP+h3bwOFqLSTvTIcvItX+TRbtFYPUXOqpjTyF+sIO6aKEqA==
+X-Received: by 2002:a05:600c:21d0:b0:40d:3112:a2c3 with SMTP id x16-20020a05600c21d000b0040d3112a2c3mr227449wmj.73.1706022428890;
+        Tue, 23 Jan 2024 07:07:08 -0800 (PST)
+Date: Tue, 23 Jan 2024 16:07:07 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Tue, 23 Jan 2024 16:49:30 +0200
-In-Reply-To: <88a7e5af-197b-41ef-b3c2-7d4f85a3cb85@suse.com>
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
-	 <c4d579f02b431d6ac9366dee73ebd7ab74e44715.1703255175.git.oleksii.kurochko@gmail.com>
-	 <88a7e5af-197b-41ef-b3c2-7d4f85a3cb85@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect
+ vpci structure
+Message-ID: <Za_WGzS14Eqt8yZF@macbook>
+References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
+ <20240109215145.430207-2-stewart.hildebrand@amd.com>
+ <20240115194309.45683-1-stewart.hildebrand@amd.com>
+ <715e40c9-1776-4677-9565-dac1565a2aa8@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <715e40c9-1776-4677-9565-dac1565a2aa8@suse.com>
 
-On Tue, 2024-01-23 at 12:22 +0100, Jan Beulich wrote:
-> On 22.12.2023 16:13, Oleksii Kurochko wrote:
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > =C2=A0Changes in V3:
-> > =C2=A0 - new patch
-> > ---
-> > =C2=A0README | 3 +++
-> > =C2=A01 file changed, 3 insertions(+)
-> >=20
-> > diff --git a/README b/README
-> > index c8a108449e..1015a285c0 100644
-> > --- a/README
-> > +++ b/README
-> > @@ -48,6 +48,9 @@ provided by your OS distributor:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - For ARM 64-bit:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GCC 5.1 or later
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GNU Binutils 2.24 or=
- later
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - For RISC-V 64-bit:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GCC 13.2.1 or later
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GNU Binutils 2.40 or late=
-r
->=20
-> That's pretty new. For gcc that's even newer than the newest release.
-> If older versions really won't do, I don't think you can leave this
-> unjustified (by having an empty description). Till now gcc 13.2 has
-> served me well, and iirc 13.1, 12.3, and 12.2 were fine, too.
-It can be 12.2.0 for GCC and 2.39 for GNU Binutils. ( it is toolchain
-which is used by contrainer for RISC-V in Xen ). I'll update versions
-then.
+On Tue, Jan 23, 2024 at 03:32:12PM +0100, Jan Beulich wrote:
+> On 15.01.2024 20:43, Stewart Hildebrand wrote:
+> > @@ -2888,6 +2888,8 @@ int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
+> >  {
+> >      int irq, pirq, ret;
+> >  
+> > +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
+> 
+> If either lock is sufficient to hold here, ...
+> 
+> > --- a/xen/arch/x86/physdev.c
+> > +++ b/xen/arch/x86/physdev.c
+> > @@ -123,7 +123,9 @@ int physdev_map_pirq(domid_t domid, int type, int *index, int *pirq_p,
+> >  
+> >      case MAP_PIRQ_TYPE_MSI:
+> >      case MAP_PIRQ_TYPE_MULTI_MSI:
+> > +        pcidevs_lock();
+> >          ret = allocate_and_map_msi_pirq(d, *index, pirq_p, type, msi);
+> > +        pcidevs_unlock();
+> >          break;
+> 
 
-But could you please explain again why it can't be 13.2.1 ( it is a
-version which I have in my distribution, so it is the reason why I used
-this version in README file ) ?
+IIRC (Stewart can further comment) this is done holding the pcidevs
+lock to keep the path unmodified, as there's no need to hold the
+per-domain rwlock.
 
-~ Oleksii
-
+Roger.
 
