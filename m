@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86F4B83916F
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 15:33:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670507.1043331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A31C7839186
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 15:37:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670510.1043341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSHpT-0001K7-5f; Tue, 23 Jan 2024 14:32:43 +0000
+	id 1rSHtU-0001ux-Lg; Tue, 23 Jan 2024 14:36:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670507.1043331; Tue, 23 Jan 2024 14:32:43 +0000
+Received: by outflank-mailman (output) from mailman id 670510.1043341; Tue, 23 Jan 2024 14:36:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSHpT-0001H9-2g; Tue, 23 Jan 2024 14:32:43 +0000
-Received: by outflank-mailman (input) for mailman id 670507;
- Tue, 23 Jan 2024 14:32:41 +0000
+	id 1rSHtU-0001sT-J2; Tue, 23 Jan 2024 14:36:52 +0000
+Received: by outflank-mailman (input) for mailman id 670510;
+ Tue, 23 Jan 2024 14:36:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSHpR-0001F1-P1
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 14:32:41 +0000
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [2a00:1450:4864:20::236])
+ id 1rSHtT-0001sN-Kn
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 14:36:51 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4376576d-b9fc-11ee-98f4-6d05b1d4d9a1;
- Tue, 23 Jan 2024 15:32:41 +0100 (CET)
-Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2cf13c259f3so6287871fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 06:32:41 -0800 (PST)
+ id d8220ca2-b9fc-11ee-98f4-6d05b1d4d9a1;
+ Tue, 23 Jan 2024 15:36:50 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2cd33336b32so57954671fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 06:36:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t2-20020a02b182000000b0046ee05df6a7sm1406554jah.16.2024.01.23.06.32.22
+ t15-20020a05663801ef00b0046d4105b7e8sm3604437jaq.49.2024.01.23.06.36.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 06:32:30 -0800 (PST)
+ Tue, 23 Jan 2024 06:36:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4376576d-b9fc-11ee-98f4-6d05b1d4d9a1
+X-Inumbo-ID: d8220ca2-b9fc-11ee-98f4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706020360; x=1706625160; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706020610; x=1706625410; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=kvWJCvJuGAeg8lqD+WdXSInkBlSfSl/Dljpdds/q3Ps=;
-        b=VaLVQYh7ON8fXAjqmB+AX++ZvTsGjE8SN4rsucamjRuWHjG3tqBvE4JqZZCmsYk1Zd
-         QRXnnARTSYJZl74J2Aq9NxQuCiXSCqzQXYNzZn/4uZrAwJj+7enZVSTKqMyDQEAPJpSI
-         FiFyallf3hRxVABDhqUfYIoxlEy+K/KZdyeX5M7xoy8hv6CpLTMw1lQjMQgGVrsrExkK
-         XRRA+UigmcLbZbiJGkBiooWsGzW/d0lXR5irRIl+IygIWKoGTpKNhxGPeqkdQB34USTh
-         rNJudNfotY/NicPzuRCSSE2IhbKgTLVPfonVH9AIS7FH3cuCnRDk3CwGaF43WyoEYtZ5
-         227g==
+        bh=gw/q+zCha9+NhwmsgQc4y/QnuZt6k+sWrwVp12yjy68=;
+        b=gPlnWMLUiF46egPqEFXDK4eGJbxkFGAQYyjVt7xXjZkyzjf3HEMx+Ek7JLj+r/8nQT
+         aSjeek/Nf0hV0352ukoKywxJZUKvt7ZpvJdTnfdiELboh+qqi7SnwyjQnCq6HNe5csDt
+         O7yf4+1DXICej6wfoTuCOnNPNXa/nYafauBsneG0qM9ew20PuWNLH8NlS4mBPjJv09bX
+         HJMwpQQx5hek0Ik+8lK6W3WgVWZLJ73WK4M3nksWsf1bK1tIVi1pK/AdoLuIpGNdPqDM
+         QmG4XSlUyfjrekqJm/egzAYHicOlfeNZFnJdqouEDxaCK1esI2bGkrYrIw/IfE+P2AIm
+         WA0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706020360; x=1706625160;
+        d=1e100.net; s=20230601; t=1706020610; x=1706625410;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kvWJCvJuGAeg8lqD+WdXSInkBlSfSl/Dljpdds/q3Ps=;
-        b=B5TA22xnqlIW01PipAIZzNEnXo5JfT8FOEOhWfmUqnT5btN2tbEiaQQZOFBy7pakqK
-         N8uCggbcvdbPoNaZbPetdmciLC/MhDJa54S4LTG7WeC1Aa+X77GsZfBSrlglumNl3P1G
-         hJojLh0UiYCmoMcU/tQpO+CWAsM4KgAab2YD+7qcz70AlU3c2+Xw2jjiaVa0N72e7WBy
-         a6pTwKinPdQEMFx7CTPJBSE+CHKxBz2laZBM7nxDQm8S+KqR4+ddpMcJIOeUnJK5mx9F
-         yQ9L3feEcsxlVCBuTOKnQmFlO8J+7bMmbv+MxDO1n7vb7iU4zgrj1D/l6hOg89ShDDkS
-         +vyQ==
-X-Gm-Message-State: AOJu0YykI1F/6iqhbpFtqS+vQEVmK1jyserwJ/gaA6unk0KfCj0NqOVv
-	YHlzMRWkHm5EaxgylqyP4pFl50bag101cypYWbSW2SwiejrkUoupLhFaj8594Q==
-X-Google-Smtp-Source: AGHT+IFmMiWx+6FFGwumuyGs3B/Ce+Ou2pi3pOGIN6c/rKKE2h57nNyaxbnslP3yjVP1Qu2UGBoPfw==
-X-Received: by 2002:a05:651c:1422:b0:2cd:633c:55d6 with SMTP id u34-20020a05651c142200b002cd633c55d6mr1500731lje.25.1706020360574;
-        Tue, 23 Jan 2024 06:32:40 -0800 (PST)
-Message-ID: <715e40c9-1776-4677-9565-dac1565a2aa8@suse.com>
-Date: Tue, 23 Jan 2024 15:32:12 +0100
+        bh=gw/q+zCha9+NhwmsgQc4y/QnuZt6k+sWrwVp12yjy68=;
+        b=ttt2Y0R9scOvmC2Ofd3D8y7JZ5PrPXiQQNvNWgFAtZ3gRaGyHVJw7bIOxnrn90ncvU
+         R1gterUNjSvhZrOWpOz2BZrZR1AIcNwIya1TrqjTvhq59BuVujZHBr7o3xJkTFZ+lkUA
+         PZnkUxAdjWYYj+jo9Wps7+IGc5uaqYmNzZYrcG1tOG7OT1KzpT7mkgqjBBlb1D1DDgsr
+         0B1sJ4DeN1P5Vri5gpD+2NNaK6VNTCk/nHiqnSEfILkyuIxjZLKHvbSiAHwBecfhhxOW
+         jS4n+VYV14RHlrDG3XLWf+AF5dz9GNb5/e5QnfEC1fbn+htvfw1SfGuZHSQwO19/SssY
+         MuXQ==
+X-Gm-Message-State: AOJu0YwxLGnBSqnc1b2y9LnkJOKAIoLBeoS7nvqzrJETKyP3XALt45CS
+	W/e9sQDTARC6/Pp3kq81m2/EwOJdsuwdhQbAxNCnGThtH/doANd3UNQvXTOAEsPWB6Kiye6sjn0
+	=
+X-Google-Smtp-Source: AGHT+IGP4kZjPq8uxD34denwthb1n6yAXtuqwKhTKov2SnxLZGmZHk2dI9So4sRzyPk4GRZrAlooLw==
+X-Received: by 2002:a2e:8906:0:b0:2cc:e708:adab with SMTP id d6-20020a2e8906000000b002cce708adabmr2857485lji.99.1706020610058;
+        Tue, 23 Jan 2024 06:36:50 -0800 (PST)
+Message-ID: <d1154d3a-769e-45c4-8f0e-265799756cb8@suse.com>
+Date: Tue, 23 Jan 2024 15:36:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect vpci
- structure
+Subject: Re: [PATCH v12 03/15] vpci: add hooks for PCI device assign/de-assign
 Content-Language: en-US
 To: Stewart Hildebrand <stewart.hildebrand@amd.com>
 Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Paul Durrant <paul@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
  xen-devel@lists.xenproject.org
 References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-2-stewart.hildebrand@amd.com>
- <20240115194309.45683-1-stewart.hildebrand@amd.com>
+ <20240109215145.430207-4-stewart.hildebrand@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,31 +113,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240115194309.45683-1-stewart.hildebrand@amd.com>
+In-Reply-To: <20240109215145.430207-4-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15.01.2024 20:43, Stewart Hildebrand wrote:
-> @@ -2888,6 +2888,8 @@ int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
->  {
->      int irq, pirq, ret;
->  
-> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
+On 09.01.2024 22:51, Stewart Hildebrand wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> When a PCI device gets assigned/de-assigned we need to
+> initialize/de-initialize vPCI state for the device.
+> 
+> Also, rename vpci_add_handlers() to vpci_assign_device() and
+> vpci_remove_device() to vpci_deassign_device() to better reflect role
+> of the functions.
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
-If either lock is sufficient to hold here, ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-> --- a/xen/arch/x86/physdev.c
-> +++ b/xen/arch/x86/physdev.c
-> @@ -123,7 +123,9 @@ int physdev_map_pirq(domid_t domid, int type, int *index, int *pirq_p,
->  
->      case MAP_PIRQ_TYPE_MSI:
->      case MAP_PIRQ_TYPE_MULTI_MSI:
-> +        pcidevs_lock();
->          ret = allocate_and_map_msi_pirq(d, *index, pirq_p, type, msi);
-> +        pcidevs_unlock();
->          break;
 
-... why is it the global lock that's being acquired here?
-
-Jan
 
