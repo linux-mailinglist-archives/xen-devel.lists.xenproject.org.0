@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBE78838C00
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 11:30:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670348.1043059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5DB7838C52
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 11:44:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670358.1043072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSE2v-0000RC-6Z; Tue, 23 Jan 2024 10:30:21 +0000
+	id 1rSEGI-0003Hm-Ep; Tue, 23 Jan 2024 10:44:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670348.1043059; Tue, 23 Jan 2024 10:30:21 +0000
+Received: by outflank-mailman (output) from mailman id 670358.1043072; Tue, 23 Jan 2024 10:44:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSE2v-0000Pb-3l; Tue, 23 Jan 2024 10:30:21 +0000
-Received: by outflank-mailman (input) for mailman id 670348;
- Tue, 23 Jan 2024 10:30:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rSEGI-0003El-C8; Tue, 23 Jan 2024 10:44:10 +0000
+Received: by outflank-mailman (input) for mailman id 670358;
+ Tue, 23 Jan 2024 10:44:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSE2u-0000PV-Dx
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 10:30:20 +0000
+ id 1rSEGH-0003Ef-Jt
+ for xen-devel@lists.xen.org; Tue, 23 Jan 2024 10:44:09 +0000
 Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
  [2a00:1450:4864:20::236])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 681117bd-b9da-11ee-98f4-6d05b1d4d9a1;
- Tue, 23 Jan 2024 11:30:19 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 55631ac4-b9dc-11ee-9b0f-b553b5be7939;
+ Tue, 23 Jan 2024 11:44:07 +0100 (CET)
 Received: by mail-lj1-x236.google.com with SMTP id
- 38308e7fff4ca-2cdb50d8982so47067191fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 02:30:19 -0800 (PST)
+ 38308e7fff4ca-2cf16f2445bso2163211fa.2
+ for <xen-devel@lists.xen.org>; Tue, 23 Jan 2024 02:44:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j8-20020a92c208000000b00361bae6cd64sm2180946ilo.88.2024.01.23.02.30.17
+ q4-20020a056e02096400b00361b2452601sm2429839ilt.15.2024.01.23.02.44.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 02:30:18 -0800 (PST)
+ Tue, 23 Jan 2024 02:44:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 681117bd-b9da-11ee-98f4-6d05b1d4d9a1
+X-Inumbo-ID: 55631ac4-b9dc-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706005819; x=1706610619; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706006647; x=1706611447; darn=lists.xen.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=v1Qw0Jicl3vB72v1DQ3wjIpKJygKCma5W+5fiFVygX4=;
-        b=YFEO1Pb8EeMDAXiqS17E+6iOQOiV72VJhaRkahTadNE/dn9Y8/KUxIixi4I/wdnLvZ
-         vyOkqfrGLvQMZ1r7mHciyKYFNHYRRTsAP11X2OJbM9y1pMtmKPAsb28v08UxF8zNY05l
-         xEub7Ze+Abb6OO+EMdgKJAku0gYFFlW642Ad7p6KKirTKij2nSDWnl8emXx26YLilzAF
-         US+Rnto/PTjbC5uD07yMV8lk/dzDO98fwNXoRpupEy02Hf1Z0ijo1qsyfZHxGfzPZLOH
-         +OW8pjR5wYHWTtk92MueOes1i9UjCugOIjNNUdgPQlMW9rcdnReKo5iBfQM7L8i6Tq8S
-         XTGg==
+        bh=tkE06AkiI7dJJtx8WaJ2ABwZaTr/7y/Xn5/Szq9POUk=;
+        b=exxKNWigHJCNKMcLRUqJL8iMGj0Nfc99ftVqvFtpGjyEHRCXsddjOpfac14YcPXTkV
+         qX3GZsf/RRMw02oy2sRiY7muXEY4kjh5T2m/Qq1Oy5tbQN+5hPkGeRbsU50laKFutPSe
+         v7d0QYRC39GXP94/EAaX50Nrcna7cTzThATFg5AVdaGke0QkJsqJo8jv+XrUiiE2LbKG
+         /scNlkKB4Fdd0/gYa0Zk2xMyPhhux+IqARdgX2hxwS2hdi48C8wv/nPyM5Mtoz4Yi5gV
+         /+vlLeuDfGoNOSln9jnroOo1dPCfhp8yZ2dc7qJSK8adiJBN76oK3MFA0J+0g7ZEQapt
+         Y/EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706005819; x=1706610619;
+        d=1e100.net; s=20230601; t=1706006647; x=1706611447;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=v1Qw0Jicl3vB72v1DQ3wjIpKJygKCma5W+5fiFVygX4=;
-        b=vbLpHWONfILygABwGFHD/KrCmaAU/hNtEeFxTTNOWOlIYplN5jFQ921n4HkX7CUmW3
-         xE2/r1vd/v5q4FHdtyKh6Ue88tA/tFOrU8BoZc47E29/EXNq0ehEuTL0a6OYdZd2NVma
-         F0EKIPSnWqSu64HMgnLx+3izIJq3xFnfz6rEIyR1VtjNDWL6Ew5if34sQvskZTOZC0O2
-         RaWqLCBK7+178275MLirga1bDqWGxlkd1QiCNN/SHJJSg//3BkzWdhBFqQa3fmC1M9mp
-         MujG5npxyhqEkJIYXnqQIAv7arDlhbCU1zMQz4WxxOCe+XHGW4Y/iAiaWKnc2M83ACwH
-         9Eag==
-X-Gm-Message-State: AOJu0YzOrXC8BnfhxhzD11taDI2U/rb+1BbD0ni2iVBKIAx5WN/w95oE
-	7fzgTf212WNbsjuocfyIYVVq+TzfXHHzW8I8J/Tz7do6nWk4P8Mnru7WWJsXlw==
-X-Google-Smtp-Source: AGHT+IFWYfGfvpetZh1mhNFUib+lZKhXuTmTHUQXtJwEesOi0HrUjiaek6cWnMDIfBf7ZjgocwZuZA==
-X-Received: by 2002:a2e:a71e:0:b0:2cf:1355:aa6a with SMTP id s30-20020a2ea71e000000b002cf1355aa6amr268885lje.12.1706005819208;
-        Tue, 23 Jan 2024 02:30:19 -0800 (PST)
-Message-ID: <6aa39fac-fef6-47ce-8c27-4941d83c138a@suse.com>
-Date: Tue, 23 Jan 2024 11:30:15 +0100
+        bh=tkE06AkiI7dJJtx8WaJ2ABwZaTr/7y/Xn5/Szq9POUk=;
+        b=iXefK7fAtpYiHIHAwT7WPc4/Q71Ihh/8v5ZrB42BjlKfA+Dtx8ddyYT8n/4ZgcHJyB
+         wgKLrvML9x84nU7TJnMffgjV0UyuvUf1xKgJFvVYSiUm9FSdhHfn6ERHsebtrJUwn+l5
+         kYFjPQ0PK9w5LaqOte2ZC1eOpL8EXh6ip9UhPSclbhYPrzx9ole9uJsITgGL3ocNjykK
+         F/LkGScT6dx3QgEhplf3k//LCEZPyNl7Ldm4rjJDZ7B7W6Wzhj48BiQD9bSdXrTgFQfo
+         4U/6j0u4d6uRpxcrXaxcuSM2yO3tEphKJqmXH8OxNdKLmrtAEmUdrXpFvzXadLRb21TB
+         MZhg==
+X-Gm-Message-State: AOJu0Yz2BgozRilIoxemqsJNYrEtyfKUd605JNNHKc6wxMhZ8romt150
+	YzDjxeedqPTUzGmfkz449fgELqMDsC5YQHX9bRNOPsi0gv7jZj7eAZszocZWRMfK/NyGb7Aa07E
+	=
+X-Google-Smtp-Source: AGHT+IHWScdAzyUgxwyCGLn3LGShOw14e/OF43+q3ufLN2CIDbDVfRksn2JY7pAhh4LyxznZdldQtw==
+X-Received: by 2002:a05:651c:1551:b0:2cc:6e7a:37a4 with SMTP id y17-20020a05651c155100b002cc6e7a37a4mr3382155ljp.69.1706006646652;
+        Tue, 23 Jan 2024 02:44:06 -0800 (PST)
+Message-ID: <111f5551-70fa-4ded-a62a-e0aa967b3c29@suse.com>
+Date: Tue, 23 Jan 2024 11:44:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 15/34] xen/riscv: introduce atomic.h
+Subject: Re: Thoughts on current Xen EDAC/MCE situation
 Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <54f5f13a4ee3de3c3cf4ba2b4d0347bb77bb7d08.1703255175.git.oleksii.kurochko@gmail.com>
- <2429395f-3ce8-4f17-aabe-78af2446ff6d@suse.com>
- <92d7caf20a37b68dce7676812c2780bc2fbc00cf.camel@gmail.com>
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xen.org
+References: <Za7Vr+Rb25y/+MSy@mattapan.m5p.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,41 +109,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <92d7caf20a37b68dce7676812c2780bc2fbc00cf.camel@gmail.com>
+In-Reply-To: <Za7Vr+Rb25y/+MSy@mattapan.m5p.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23.01.2024 11:21, Oleksii wrote:
-> On Mon, 2024-01-22 at 17:56 +0100, Jan Beulich wrote:
->> On 22.12.2023 16:12, Oleksii Kurochko wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/include/asm/fence.h
->>> @@ -0,0 +1,13 @@
->>> +/* SPDX-License-Identifier: GPL-2.0-or-later */
->>> +#ifndef _ASM_RISCV_FENCE_H
->>> +#define _ASM_RISCV_FENCE_H
->>> +
->>> +#ifdef CONFIG_SMP
->>> +#define RISCV_ACQUIRE_BARRIER		"\tfence r , rw\n"
->>> +#define RISCV_RELEASE_BARRIER		"\tfence rw,  w\n"
->>> +#else
->>> +#define RISCV_ACQUIRE_BARRIER
->>> +#define RISCV_RELEASE_BARRIER
->>> +#endif
->>
->> Do you really care about the !SMP case? On x86 at least we stopped
->> special-
->> casing that configuration many years ago (the few cases where for
->> typically
->> build reasons it matters, using CONFIG_NR_CPUS is sufficient). If you
->> care
->> about it, there needs to be somewhere you actually #define
->> CONFIG_SMP.
-> Can't we use instead of CONFIG_SMP - CONFIG_NR_CPUS?
+On 22.01.2024 21:53, Elliott Mitchell wrote:
+> I've been mentioning this on a regular basis, but the state of MCE
+> handling with Xen seems poor.
 
-You can. Question is whether there's a point in doing so. Do you
-expect people to actually want to run Xen on single-CPU systems?
-They're generally not overly well suited for virtualization ...
+I certainly agree here.
+
+> I find the present handling of MCE in Xen an odd choice.  Having Xen do
+> most of the handling of MCE events is a behavior matching a traditional
+> stand-alone hypervisor.  Yet Xen was originally pushing any task not
+> requiring hypervisor action onto Domain 0.
+
+Not exactly. Xen in particular deals with all of CPU and all of memory.
+Dom0 may be unaware of the full amount of CPUs in the system, nor the
+full memory map (without resorting to interfaces specifically making
+that information available, but not to be used for Dom0 kernel's own
+acting as a kernel).
+
+> MCE seems a perfect match for sharing responsibility with Domain 0.
+> Domain 0 needs to know about any MCE event, this is where system
+> administrators will expect to find logs.  In fact, if the event is a
+> Correctable Error, then *only* Domain 0 needs to know.  For a CE, Xen
+> may need no action at all (an implementation could need help) and
+> the effected domain would need no action.  It is strictly for
+> Uncorrectable Errors that action beside logging is needed.
+> 
+> For a UE memory error, the best approach might be for Domain 0 to decode
+> the error.  Once Domain 0 determines it is UE, invoke a hypercall to pass
+> the GPFN to Xen.
+
+What GPFN? Decoding can only possibly find machine addresses in what
+hardware supplies.
+
+>  Xen would then forcibly unmap the page (similar to what
+> Linux does to userspace for corrupted pages).  Xen would then identify
+> what the page was used for, alert the domain and return that to Domain 0.
+
+Some of this is already in place. How well it functions is a different
+question.
+
+> The key advantage of this approach is it makes MCE handling act very
+> similar to MCE handling without Xen.
+
+While that's true, you're completely omitting all implications towards
+what it means to hand off most handling to Dom0. While it is perhaps
+possible to make Linux'es chipset-specific EDAC drivers Xen PV aware,
+it might be yet harder to achieve the same in a PVH Dom0.
+
+>  Documentation about how MCEs are
+> reported/decoded would apply equally to Xen.  Another rather important
+> issue is it means less maintenance work to keep MCE handling working with
+> cutting-edge hardware.  I've noticed one vendor being sluggish about
+> getting patches into Linux and I fear similar issues may apply more
+> severely to Xen.
+
+With all of your suggestions: Who do you think is going to do all of
+the work involved here (properly writing down a design, to take care
+of all known difficulties, and then actually implement everything)?
+We're already short on people, as you're very likely aware.
 
 Jan
 
