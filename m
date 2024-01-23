@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B2DF83884F
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 08:53:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670273.1042919 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87A1C83885D
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 08:56:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670277.1042928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSBb1-00083M-8Y; Tue, 23 Jan 2024 07:53:23 +0000
+	id 1rSBdP-0000CK-KO; Tue, 23 Jan 2024 07:55:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670273.1042919; Tue, 23 Jan 2024 07:53:23 +0000
+Received: by outflank-mailman (output) from mailman id 670277.1042928; Tue, 23 Jan 2024 07:55:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSBb1-00080G-5l; Tue, 23 Jan 2024 07:53:23 +0000
-Received: by outflank-mailman (input) for mailman id 670273;
- Tue, 23 Jan 2024 07:53:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rSBdP-00009d-Hb; Tue, 23 Jan 2024 07:55:51 +0000
+Received: by outflank-mailman (input) for mailman id 670277;
+ Tue, 23 Jan 2024 07:55:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSBaz-000808-L8
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 07:53:21 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79dd899b-b9c4-11ee-98f4-6d05b1d4d9a1;
- Tue, 23 Jan 2024 08:53:20 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2cf12a9be5bso3744091fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 23:53:20 -0800 (PST)
+ id 1rSBdO-00009V-RR
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 07:55:50 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d25e6468-b9c4-11ee-9b0f-b553b5be7939;
+ Tue, 23 Jan 2024 08:55:49 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2cf1288097aso3016271fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 23:55:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 3-20020a056e0220c300b00361bc7aa20bsm2109638ilq.11.2024.01.22.23.53.17
+ a8-20020a029408000000b0046edc723291sm1426989jai.78.2024.01.22.23.55.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 23:53:19 -0800 (PST)
+ Mon, 22 Jan 2024 23:55:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79dd899b-b9c4-11ee-98f4-6d05b1d4d9a1
+X-Inumbo-ID: d25e6468-b9c4-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705996400; x=1706601200; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1705996548; x=1706601348; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=cLsRTpIUOlBKq1lGMPDxP726lbbRJPfyITbW3xnmpBQ=;
-        b=IXqTfxpbmeB6z60rqNwhg6qyeCc3NVSGN+rOPtS1rQwGIdTlg9BCKDEZJsjQ3jMtLH
-         V1iWEIB2DWId0EH4ONXxckrLgU/LxiHBKbLU5UT07dkP/dxoFfPg/WHTeI9OBgluSZWP
-         UsQdGX3lcFcedppC+3zYEBdNQcYNcLY2RUDjutEzpSPnbvgpka6avmnIYA4L/HAsSSfV
-         7z0i1erPqgAZXv2j6xOYs7ak6qsQMSn2tJyv0e7UAPkFOTtU/gmLjI4h80k1WlWkK0+x
-         Y8rqNjiPizZPFOUUaon6NyAz4HnEOlx+u9n7HLSGL5glqUJ2LhajJbrns1fI438RzmaA
-         SLBQ==
+        bh=TcDZ9mN+FRhUYNa88zGuloBXNab4ChQevtTM4gkLaHM=;
+        b=ZwvngqLAgJeYTHhBbNudAgSCyh5mBmGA6DGMxsSIUr338bNsfDTAv1B5YQAI1zZ+Uv
+         opYyNCGf+oMXQ9somCsnJHmEM9qDuXx1XvftC1/kHS3JiFYfRGphMNAKhrq0TA2wvhx9
+         ZNzHCUSpBGAUE7FE7n8xqpZw6MUdrynhTgXwhialxnNRhnq85qU6tTyx+1k3npXkLUN/
+         fNodjs71G7mGFjuwBJXuXpT3pHqeA3EBmx0aJIXugXnj9vtG9gHOUMiQmXTqPHH9pXfQ
+         /f5u+Pkq05ZUh8v9xutE4izEGDAqF6nAodzgQjtwn2kLmdu5ZpCqA0AIBwIMzwYvzk5H
+         rhqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705996400; x=1706601200;
+        d=1e100.net; s=20230601; t=1705996548; x=1706601348;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cLsRTpIUOlBKq1lGMPDxP726lbbRJPfyITbW3xnmpBQ=;
-        b=t4Sh6RvTb2unnst75vQwoprS64LnF8UHbjeTZi51jRU3AzpdeklJwd5gGb6q2//3RJ
-         oFWVFFwD3djZvP/NnPVkehdZAbGmTonHnIlXeS2pIr56sy4bxotrx/oVYmRFBDdSphfy
-         BWzBv0Gm31V2AiyBPEt2XbOZXyBtXC1MHmFisoo7NXi/gmtKGWlzDeHUCFf/YcQdL8Hj
-         v6WJoWov1600AWJFhFO5p4LVVUM4aihthUp2VXQnlUIAfhyfv4TdojFJEtL8PZs3ez2k
-         wmTyCOk4UImCd+nsiG5VI22CmH7I4cugJHXZDwSdeNfAA/LtmMT28p7tNm1ie3guGrsJ
-         v0XQ==
-X-Gm-Message-State: AOJu0YwDYuXw1q52iMfkZC0OJfpBZg/34FNReGs+l0f4MVAI4zq/8XzE
-	y94NsH2FKf3/faVKQ8TARu9wKLcsU5pX8s2BtsABZv0xBmV+pxwItxa3Zncr/Q==
-X-Google-Smtp-Source: AGHT+IFRQMFyakGYQktiparn9y5c8qG0L2LfEc+8NlwlpfAauLi25EOCPORCtNPMk9Gu38SOxIbxYw==
-X-Received: by 2002:a2e:9813:0:b0:2cc:eefc:20af with SMTP id a19-20020a2e9813000000b002cceefc20afmr2072154ljj.52.1705996399985;
-        Mon, 22 Jan 2024 23:53:19 -0800 (PST)
-Message-ID: <ab34df2d-ba47-46c0-a0f2-9c051f640906@suse.com>
-Date: Tue, 23 Jan 2024 08:53:15 +0100
+        bh=TcDZ9mN+FRhUYNa88zGuloBXNab4ChQevtTM4gkLaHM=;
+        b=t/SipWx6XpkE0+ERJO6eAx/TfGCFWTilfbSiUTqLOZW82AWXbgAJop8+oC8ORLlWha
+         qxgR+qmXdw791CKBb/zUKczsAJwkx/Imk/GIhWAR79u3CUFujSnKOsLhofBU1UGtAyCC
+         9HnOLfn+nYii/xoMXFzBwOS98hKjmMnLRuKc5zNOSRiFoFPbD/hQ/3UuW6BzVREfHfJL
+         2rkWgNN47eEt63CZiASWW++EWLfMwnrOsv8XlhKOqVeTVpe506Wpa6dLcjLJoRlDLmSw
+         aeAiMyPuhtmg5T8vlGHeG/sxAgfS6SNuIBhoSbPzw+1DIwqjRWRYxFrjmJj1pdEZ53SJ
+         zTnw==
+X-Gm-Message-State: AOJu0Yw4DAJyfbA42dM9WIlTJEoN349FSdCzTUJ5LjFQUqZ/l65sIK40
+	6QoaU2LT3MAc+Isi1Tu3PgCPwzvFzi0SQPGnqhRO7IpXqlp9VQkyxu3Y2zYFww==
+X-Google-Smtp-Source: AGHT+IGOFZkXrAicjcWyVjNqJjubZsBeK8Mb6x8RXvRNYGfYb5g2wOo5JsA3FPRz9L6sUcwYs42zyg==
+X-Received: by 2002:a05:651c:b0c:b0:2cf:124b:a2aa with SMTP id b12-20020a05651c0b0c00b002cf124ba2aamr266588ljr.2.1705996548598;
+        Mon, 22 Jan 2024 23:55:48 -0800 (PST)
+Message-ID: <35ff4947-7863-40da-b0e7-3b84e17c6163@suse.com>
+Date: Tue, 23 Jan 2024 08:55:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] x86/livepatch: align functions to ensure minimal
- distance between entry points
+Subject: Re: [PATCH 80/82] xen-netback: Refactor intentional wrap-around test
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20240122110244.14091-1-roger.pau@citrix.com>
- <013210fd-6ea3-4719-afcd-1da97d9cd17f@suse.com> <Za6laZtVdQtFP4F5@macbook>
+To: Kees Cook <keescook@chromium.org>
+Cc: Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20240122235208.work.748-kees@kernel.org>
+ <20240123002814.1396804-80-keescook@chromium.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,95 +115,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Za6laZtVdQtFP4F5@macbook>
+In-Reply-To: <20240123002814.1396804-80-keescook@chromium.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 22.01.2024 18:27, Roger Pau Monné wrote:
-> On Mon, Jan 22, 2024 at 12:21:47PM +0100, Jan Beulich wrote:
->> On 22.01.2024 12:02, Roger Pau Monne wrote:
->>> --- a/xen/arch/x86/xen.lds.S
->>> +++ b/xen/arch/x86/xen.lds.S
->>> @@ -99,6 +99,10 @@ SECTIONS
->>>         *(.text)
->>>  #ifdef CONFIG_CC_SPLIT_SECTIONS
->>>         *(.text.*)
->>> +#endif
->>> +#ifdef CONFIG_FUNCTION_ALIGNMENT
->>> +       /* Ensure enough distance with the next placed section. */
->>> +       . = ALIGN(CONFIG_FUNCTION_ALIGNMENT);
->>>  #endif
->>>         *(.text.__x86_indirect_thunk_*)
->>
->> I continue to fail to see how an alignment directive can guarantee minimum
->> distance. In the worst case such a directive inserts nothing at all.
-> 
-> I'm confused, you did provide a RB for this in v4:
-> 
-> https://lore.kernel.org/xen-devel/4cad003f-dda0-4e22-a770-5a5ff56f4d35@suse.com/
-> 
-> Which is basically the same code with a few comments and wording
-> adjustments.
+On 23.01.2024 01:27, Kees Cook wrote:
+> --- a/drivers/net/xen-netback/hash.c
+> +++ b/drivers/net/xen-netback/hash.c
+> @@ -345,7 +345,7 @@ u32 xenvif_set_hash_mapping(struct xenvif *vif, u32 gref, u32 len,
+>  		.flags = GNTCOPY_source_gref
+>  	}};
+>  
+> -	if ((off + len < off) || (off + len > vif->hash.size) ||
+> +	if ((add_would_overflow(off, len)) || (off + len > vif->hash.size) ||
 
-Hmm, yes. I think the aspect above was raised before, but then (perhaps)
-kind of addressed. (I'm puzzled then too: Why did you drop the R-b, when
-nothing substantially changed?) Yet re-reading the description, there's
-nothing said to this effect. Specifically ...
-
->> IOW
->> at the very least there's a non-spelled-out assumption here about the last
->> item in the earlier section having suitable alignment and thus, if small
->> in size, being suitably padded.
-> 
-> Please bear with me, but I'm afraid I don't understand your concerns.
-> 
-> For livepatch build tools (which is the only consumer of such
-> alignments) we already have the requirement that a function in order
-> to be suitable for being live patched must reside in it's own
-> section.
-> 
-> We do want to aim for functions (even assembly ones) to live in their
-> own sections in order to be live patched, and to be properly aligned.
-> However it's also fine for functions to use a different (smaller)
-> alignment, the livepatch build tools will detect this and use the
-> alignment reported.
-
-... I don't think this and ...
-
-> While we want to get to a point where everything that we care to patch
-> lives in it's own section, and is properly padded to ensure minimal
-> required space, I don't see why the proposed approach here should be
-> blocked, as it's a step in the right direction of achieving the
-> goal.
-> 
-> Granted, there's still assembly code that won't be suitably padded,
-> but the livepatch build tools won't assume it to be padded.
-
-... this is being pointed out. Which I think is relevant to make
-explicit not the least because the build tools aren't part of the main
-Xen tree. Plus many (like me) may not be overly familiar with how they
-work.
-
->  After
-> your series to enable assembly annotations we can also make sure the
-> assembly annotated functions live in separate sections and are
-> suitably aligned.
-> 
->> Personally I don't think merely spelling
->> out such a requirement would help - it would end up being a trap for
->> someone to fall into.
-> 
->> I'm further curious why .text.__x86_indirect_thunk_* is left past the
->> inserted alignment. While pretty unlikely, isn't it in principle possible
->> for the thunks there to also need patching? Aren't we instead requiring
->> then that assembly functions (and thunks) all be suitably aligned as well?
-> 
-> Those are defined in assembly, so requires CONFIG_FUNCTION_ALIGNMENT
-> to also be applied to the function entry points in assembly files.
-
-I see. Yet the question then remains: Why is the alignment not inserted
-after them? Or will the insertion need to move later on (which would feel
-odd)?
+I'm not maintainer of this code, but if I was I would ask that the
+excess parentheses be removed, to improve readability.
 
 Jan
 
