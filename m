@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D708B838FAC
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 14:21:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670461.1043241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 753A5838FD4
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 14:28:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670465.1043253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSGhG-0005iy-Ql; Tue, 23 Jan 2024 13:20:10 +0000
+	id 1rSGoR-0007BI-JG; Tue, 23 Jan 2024 13:27:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670461.1043241; Tue, 23 Jan 2024 13:20:10 +0000
+Received: by outflank-mailman (output) from mailman id 670465.1043253; Tue, 23 Jan 2024 13:27:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSGhG-0005hP-Np; Tue, 23 Jan 2024 13:20:10 +0000
-Received: by outflank-mailman (input) for mailman id 670461;
- Tue, 23 Jan 2024 13:20:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rSGoR-000783-Fs; Tue, 23 Jan 2024 13:27:35 +0000
+Received: by outflank-mailman (input) for mailman id 670465;
+ Tue, 23 Jan 2024 13:27:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSGhG-0005hJ-0T
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 13:20:10 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 212ce1ef-b9f2-11ee-98f4-6d05b1d4d9a1;
- Tue, 23 Jan 2024 14:20:08 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2cf1288097aso5987061fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 05:20:08 -0800 (PST)
+ id 1rSGoQ-00077x-NM
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 13:27:34 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 292f2f1d-b9f3-11ee-9b0f-b553b5be7939;
+ Tue, 23 Jan 2024 14:27:31 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2ccec119587so55166511fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 05:27:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x8-20020a056e02194800b003627f685d1dsm1255464ilu.39.2024.01.23.05.20.05
+ i25-20020a02c619000000b0046eae1a6315sm3266967jan.72.2024.01.23.05.27.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 05:20:07 -0800 (PST)
+ Tue, 23 Jan 2024 05:27:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 212ce1ef-b9f2-11ee-98f4-6d05b1d4d9a1
+X-Inumbo-ID: 292f2f1d-b9f3-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706016008; x=1706620808; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706016451; x=1706621251; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=MNpkTzW8tlphLuctg+GxMzUFCbqwaCnOHkPrxRRG6I4=;
-        b=J3NiO9KnoMm8/GDuDJnH6bk8XX68UobtET+QpknbNJP+TkynG1nGFQ6xmmuLBsVJ8/
-         Dw6d6Copv6JYNZ9km9CMCUt4PgwlqGC7c5Hok8y6lcO3eOkXIZXLo+WvASLPsA0GiJUr
-         A8vdyUs3HVEfjcSm6eqIkEDC9Bnp6K9Bh6QrIYb3FTaXyjOF89U4cHHSUkAJ/vsf7NBY
-         Bs4s+22csi1GnQZi6mCamoxtTWoHHzWjR+RtNPqWpx6OXBMURNef1BRDEndD3Tq2RllS
-         nwHRVSB69TSMteVjXJtmGqCqRSOv0/hqObJu754eDwL+FL3+IRU7avlATohF282zS1+C
-         Byag==
+        bh=9a3jHtmMOkulxjo3AkPWd9rRNL8eV9mCiBoXs6cGBdg=;
+        b=C+6Q7Amm7qNZJbSz77tXIGmKEMMSAZiMuNRYQTmMuXy0RcX2fP6e9tFeGeD5VHE7sF
+         DYyft+tYVze67RDRx6l+zwu4PP5mUFQIFGA7q+BacnCUsiPKMAaXS5Zu4tvMDIKDStWd
+         RvIvH4a/KWg2YQcCQf4f9fpqnFYEN0pOyksDZh9LmqqkC7AnF8kadmpte+1sD4ETrUmw
+         yoxa2FBdt8Ood+egR7z2PUzKWW6+9BdiM0gMFEMPUYlFTLVjfkH4chSbpY1dzixzr1rS
+         RCpUzbWeiiXwrsvh906kKOTnJbXZXtGp6COnUSymLJ3kimScT0m1oS9v5+lxWyzrdbhO
+         q+PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706016008; x=1706620808;
+        d=1e100.net; s=20230601; t=1706016451; x=1706621251;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MNpkTzW8tlphLuctg+GxMzUFCbqwaCnOHkPrxRRG6I4=;
-        b=VQ4u0M/u2leUMYhn4eAMp0OgsXmLE8b8CVbWjT0usNk2bmcILZDZwP085ZtgMucOpe
-         TE2Apw3obDvtqq3wCJ6eagXZAHr5YcFJVDLyEdpuj+yJEBEu+OR27GdpvzGXuj352lkX
-         +zn2JkGdnuKhavVAdvt5dU/IDnfA7DWihi7mM+UPQVOnTA14tKbtDs/M42PwoFNeY3A9
-         CaKNR4p6/EfhH2tuVCLUd9wXXpsTXynV+kZ2B264rlyWOcf7jO9UEgKaWGEw/k2SsG1k
-         sYCEo6xt7/W4MDpeIHnSgl+m1UA8nWQoUpZz0p0atx+bdkz56VBmbPfDB0G0mZXt56FZ
-         EBBw==
-X-Gm-Message-State: AOJu0YzZT5+6O4y87966USkxCydc8/7QTPRJgfTpUODGmNMiE9ggX3wH
-	bEoZu2kbQUvvgGHz/Pr6naUISGVZoYIoZolxmlNxNU3mpx3eX5MpRDxSXcwAVQ==
-X-Google-Smtp-Source: AGHT+IH0uO5ZUAZB/FwbDupMMtqvMpu4Kmo/vwLFM711p489jBQhux/GdFHCOcUv3NK6WdJrg7ibWg==
-X-Received: by 2002:a05:651c:116:b0:2ce:4d4:6f1c with SMTP id a22-20020a05651c011600b002ce04d46f1cmr2649880ljb.45.1706016008013;
-        Tue, 23 Jan 2024 05:20:08 -0800 (PST)
-Message-ID: <de4c3443-cede-487b-b3b3-28e92d3dc6e7@suse.com>
-Date: Tue, 23 Jan 2024 14:20:03 +0100
+        bh=9a3jHtmMOkulxjo3AkPWd9rRNL8eV9mCiBoXs6cGBdg=;
+        b=hU0pf5Ow4Lh3Z1mJwODlTX2XQrsk+jkTkzgf5RD0mzVnyTUncoo4Z1OwGc3YQrmj4m
+         AdugFcGRc0XYR6oy4SJHPn1QjiK+5roHueV9KZgCwP32RY2zzXYbV/8a2Njr8rvoNZ/W
+         EPmXhivAZArYXfYFaGUmRCeLdkHDRqlWVv5oy4H+HvAQ/iGIl6BV6mvEqdqx8/piweWQ
+         zqxijhaX8qpVErKjsQBLzo5CeTLKfpTppSvxWnmmdzrR/1g+1qPqei2Et+p++7UxkxRG
+         Ej9qm0hMiZKlN2s9/aCCyojp8zT3cUCqH6s0iDLzwy0Qbp0dyM0pS4TPVGGgaxsaoL0x
+         1dfg==
+X-Gm-Message-State: AOJu0Ywu+23s0U3hg4UWmtrWw3hFT13qfhXiO4DNJEjoSoZVN5dOBETW
+	Acc7wzbRmLtP5+hP3r5RNe3OVUWT7lKirY2yR6mX+QjsKNdwVmHiLTIYmIpseg==
+X-Google-Smtp-Source: AGHT+IEjqa/Qv9HRlcdpQWbu3WdNTTHIyur0FqMt3TjO8NbgkZouFvKym5ujUi/xNywtGwgrOjha/A==
+X-Received: by 2002:a05:651c:1511:b0:2cc:f5b6:91ed with SMTP id e17-20020a05651c151100b002ccf5b691edmr3818222ljf.23.1706016451000;
+        Tue, 23 Jan 2024 05:27:31 -0800 (PST)
+Message-ID: <c57e17ed-61db-4da2-975b-083bfabcbe47@suse.com>
+Date: Tue, 23 Jan 2024 14:27:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 32/34] xen/rirscv: add minimal amount of stubs to build
- full Xen
+Subject: Re: [PATCH v3 13/34] xen/riscv: introduce cmpxchg.h
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: Oleksii <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
  Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
  <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -90,7 +89,11 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <e40d3e396733ec9e85d72fc3e9f05be97881a763.1703255175.git.oleksii.kurochko@gmail.com>
+ <214bfd61c8ccf2a5b2c640b815ebfa6a705f6234.1703255175.git.oleksii.kurochko@gmail.com>
+ <8ee35a76-f3ef-4143-93ef-8e6089f82a80@suse.com>
+ <56c23efdd79c0b1393ceef1adfcb45f66d4d1cf6.camel@gmail.com>
+ <c5872ae0-a26a-4f51-bad6-08fd0c37d488@suse.com>
+ <835c58c1deb89db2fa500bd7cd767facd5b5fb78.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,299 +118,110 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e40d3e396733ec9e85d72fc3e9f05be97881a763.1703255175.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <835c58c1deb89db2fa500bd7cd767facd5b5fb78.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22.12.2023 16:13, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/early_printk.c
-> +++ b/xen/arch/riscv/early_printk.c
-> @@ -40,171 +40,3 @@ void early_printk(const char *str)
->          str++;
->      }
->  }
-> -
-> -/*
-> - * The following #if 1 ... #endif should be removed after printk
-> - * and related stuff are ready.
-> - */
-> -#if 1
-> -
-> -#include <xen/stdarg.h>
-> -#include <xen/string.h>
-> -
-> -/**
-> - * strlen - Find the length of a string
-> - * @s: The string to be sized
-> - */
-> -size_t (strlen)(const char * s)
-> -{
-> -    const char *sc;
-> -
-> -    for (sc = s; *sc != '\0'; ++sc)
-> -        /* nothing */;
-> -    return sc - s;
-> -}
-> -
-> -/**
-> - * memcpy - Copy one area of memory to another
-> - * @dest: Where to copy to
-> - * @src: Where to copy from
-> - * @count: The size of the area.
-> - *
-> - * You should not use this function to access IO space, use memcpy_toio()
-> - * or memcpy_fromio() instead.
-> - */
-> -void *(memcpy)(void *dest, const void *src, size_t count)
-> -{
-> -    char *tmp = (char *) dest, *s = (char *) src;
-> -
-> -    while (count--)
-> -        *tmp++ = *s++;
-> -
-> -    return dest;
-> -}
-> -
-> -int vsnprintf(char* str, size_t size, const char* format, va_list args)
-> -{
-> -    size_t i = 0; /* Current position in the output string */
-> -    size_t written = 0; /* Total number of characters written */
-> -    char* dest = str;
-> -
-> -    while ( format[i] != '\0' && written < size - 1 )
-> -    {
-> -        if ( format[i] == '%' )
-> -        {
-> -            i++;
-> -
-> -            if ( format[i] == '\0' )
-> -                break;
-> -
-> -            if ( format[i] == '%' )
-> -            {
-> -                if ( written < size - 1 )
-> -                {
-> -                    dest[written] = '%';
-> -                    written++;
-> -                }
-> -                i++;
-> -                continue;
-> -            }
-> -
-> -            /*
-> -             * Handle format specifiers.
-> -             * For simplicity, only %s and %d are implemented here.
-> -             */
-> -
-> -            if ( format[i] == 's' )
-> -            {
-> -                char* arg = va_arg(args, char*);
-> -                size_t arglen = strlen(arg);
-> -
-> -                size_t remaining = size - written - 1;
-> -
-> -                if ( arglen > remaining )
-> -                    arglen = remaining;
-> -
-> -                memcpy(dest + written, arg, arglen);
-> -
-> -                written += arglen;
-> -                i++;
-> -            }
-> -            else if ( format[i] == 'd' )
-> -            {
-> -                int arg = va_arg(args, int);
-> -
-> -                /* Convert the integer to string representation */
-> -                char numstr[32]; /* Assumes a maximum of 32 digits */
-> -                int numlen = 0;
-> -                int num = arg;
-> -                size_t remaining;
-> -
-> -                if ( arg < 0 )
-> -                {
-> -                    if ( written < size - 1 )
-> -                    {
-> -                        dest[written] = '-';
-> -                        written++;
-> -                    }
-> -
-> -                    num = -arg;
-> -                }
-> -
-> -                do
-> -                {
-> -                    numstr[numlen] = '0' + num % 10;
-> -                    num = num / 10;
-> -                    numlen++;
-> -                } while ( num > 0 );
-> -
-> -                /* Reverse the string */
-> -                for (int j = 0; j < numlen / 2; j++)
-> -                {
-> -                    char tmp = numstr[j];
-> -                    numstr[j] = numstr[numlen - 1 - j];
-> -                    numstr[numlen - 1 - j] = tmp;
-> -                }
-> -
-> -                remaining = size - written - 1;
-> -
-> -                if ( numlen > remaining )
-> -                    numlen = remaining;
-> -
-> -                memcpy(dest + written, numstr, numlen);
-> -
-> -                written += numlen;
-> -                i++;
-> -            }
-> -        }
-> -        else
-> -        {
-> -            if ( written < size - 1 )
-> -            {
-> -                dest[written] = format[i];
-> -                written++;
-> -            }
-> -            i++;
-> -        }
-> -    }
-> -
-> -    if ( size > 0 )
-> -        dest[written] = '\0';
-> -
-> -    return written;
-> -}
-> -
-> -void printk(const char *format, ...)
-> -{
-> -    static char buf[1024];
-> -
-> -    va_list args;
-> -    va_start(args, format);
-> -
-> -    (void)vsnprintf(buf, sizeof(buf), format, args);
-> -
-> -    early_printk(buf);
-> -
-> -    va_end(args);
-> -}
-> -
-> -#endif
-> -
+On 23.01.2024 13:18, Oleksii wrote:
+> On Tue, 2024-01-23 at 11:28 +0100, Jan Beulich wrote:
+>> On 23.01.2024 11:15, Oleksii wrote:
+>>> On Mon, 2024-01-22 at 17:27 +0100, Jan Beulich wrote:
+>>>> On 22.12.2023 16:12, Oleksii Kurochko wrote:
+>>>>> +static inline unsigned long __xchg(volatile void *ptr,
+>>>>> unsigned
+>>>>> long x, int size)
+>>>>> +{
+>>>>> +    switch (size) {
+>>>>> +    case 1:
+>>>>> +        return __cmpxchg_case_1(ptr, (uint32_t)-1, x);
+>>>>> +    case 2:
+>>>>> +        return __cmpxchg_case_2(ptr, (uint32_t)-1, x);
+>>>>
+>>>> How are these going to work? You'll compare against ~0, and if
+>>>> the
+>>>> value
+>>>> in memory isn't ~0, memory won't be updated; you will only
+>>>> (correctly)
+>>>> return the value found in memory.
+>>>>
+>>>> Or wait - looking at __cmpxchg_case_{1,2}() far further down, you
+>>>> ignore
+>>>> "old" there. Which apparently means they'll work for the use
+>>>> here,
+>>>> but
+>>>> not for the use in __cmpxchg().
+>>> Yes, the trick is that old is ignored and is read in
+>>> __emulate_cmpxchg_case1_2() before __cmpxchg_case_4 is called:
+>>>     do
+>>> {                                                              
+>>>         read_val =
+>>> read_func(aligned_ptr);                            
+>>>         swapped_new = read_val &
+>>> ~mask;                               
+>>>         swapped_new |=
+>>> masked_new;                                    
+>>>         ret = cmpxchg_func(aligned_ptr, read_val,
+>>> swapped_new);       
+>>>     } while ( ret != read_val
+>>> );                                      
+>>> read_val it is 'old'.
+>>>
+>>> But now I am not 100% sure that it is correct for __cmpxchg...
+>>
+>> It just can't be correct - you can't ignore "old" there. I think you
+>> want simple cmpxchg primitives, which xchg then uses in a loop (while
+>> cmpxchg uses them plainly).
+> But xchg doesn't require 'old' value, so it should be ignored in some
+> way by cmpxchg.
 
-Aren't you transiently breaking the build by removing these here, rather
-than in the next patch?
+Well, no. If you have only cmpxchg, I think your only choice is - as
+said - to read the old value and then loop over cmpxchg until that
+succeeds. Not really different from other operations which need
+emulating using cmpxchg.
 
-> --- /dev/null
-> +++ b/xen/arch/riscv/stubs.c
-> @@ -0,0 +1,422 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#include <xen/cpumask.h>
-> +#include <xen/domain.h>
-> +#include <xen/irq.h>
-> +#include <xen/nodemask.h>
-> +#include <xen/time.h>
-> +#include <public/domctl.h>
-> +
-> +#include <asm/current.h>
-> +
-> +/* smpboot.c */
-> +
-> +cpumask_t cpu_online_map;
-> +cpumask_t cpu_present_map;
-> +cpumask_t cpu_possible_map;
-> +
-> +/* ID of the PCPU we're running on */
-> +DEFINE_PER_CPU(unsigned int, cpu_id);
-> +/* XXX these seem awfully x86ish... */
-> +/* representing HT siblings of each logical CPU */
-> +DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_sibling_mask);
-> +/* representing HT and core siblings of each logical CPU */
-> +DEFINE_PER_CPU_READ_MOSTLY(cpumask_var_t, cpu_core_mask);
-> +
-> +nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
-> +
-> +/* time.c */
-> +
-> +unsigned long __read_mostly cpu_khz;  /* CPU clock frequency in kHz. */
+>>>>> +static always_inline unsigned short __cmpxchg_case_2(volatile
+>>>>> uint32_t *ptr,
+>>>>> +                                                     uint32_t
+>>>>> old,
+>>>>> +                                                     uint32_t
+>>>>> new)
+>>>>> +{
+>>>>> +    (void) old;
+>>>>> +
+>>>>> +    if (((unsigned long)ptr & 3) == 3)
+>>>>> +    {
+>>>>> +#ifdef CONFIG_64BIT
+>>>>> +        return __emulate_cmpxchg_case1_2((uint64_t *)ptr, new,
+>>>>> +                                         readq,
+>>>>> __cmpxchg_case_8,
+>>>>> 0xffffU);
+>>>>
+>>>> What if ((unsigned long)ptr & 7) == 7 (which is a sub-case of
+>>>> what
+>>>> the
+>>>> if() above checks for? Isn't it more reasonable to require
+>>>> aligned
+>>>> 16-bit quantities here? Or if mis-aligned addresses are okay, you
+>>>> could
+>>>> as well emulate using __cmpxchg_case_4().
+>>> Yes, it will be more reasonable. I'll use IS_ALIGNED instead.
+>>
+>> Not sure I get your use of "instead" here correctly. There's more
+>> to change here than just the if() condition.
+> I meant something like:
+> 
+> if ( IS_ALIGNED(ptr, 16) )
+>     __emulate_cmpxchg_case1_2(...);
+> else
+>     assert_failed("ptr isn't aligned\n");
 
-__ro_after_init?
+Except that you'd better not use assert_failed() directly anywhere,
+and the above is easier as
 
-> +s_time_t get_s_time(void)
-> +{
-> +    BUG();
-> +}
-> +
-> +int reprogram_timer(s_time_t timeout)
-> +{
-> +    BUG();
-> +}
-> +
-> +void send_timer_event(struct vcpu *v)
-> +{
-> +    BUG();
-> +}
-> +
-> +void domain_set_time_offset(struct domain *d, int64_t time_offset_seconds)
-> +{
-> +    BUG();
-> +}
-> +
-> +/* shutdown.c */
-> +
-> +void machine_restart(unsigned int delay_millisecs)
-> +{
-> +    BUG();
-> +}
-> +
-> +void machine_halt(void)
-> +{
-> +    BUG();
-> +}
-> +
-> +/* vm_event.c */
-> +
-> +struct vm_event_st;
-> +
-> +void vm_event_fill_regs(struct vm_event_st *req)
-> +{
-> +    BUG();
-> +}
-> +
-> +void vm_event_set_registers(struct vcpu *v, struct vm_event_st *rsp)
-> +{
-> +    BUG();
-> +}
-> +
-> +void vm_event_monitor_next_interrupt(struct vcpu *v)
-> +{
-> +    /* Not supported on RISCV. */
-> +}
-> +
-> +void vm_event_reset_vmtrace(struct vcpu *v)
-> +{
-> +    /* Not supported on RISCV. */
-> +}
+    ASSERT(IS_ALIGNED(ptr, 16));
+    __emulate_cmpxchg_case1_2(...);
 
-Judging from the comments these last two are in their final shape.
-Wouldn't it make sense to put them in vm_event.c right away then? And
-then perhaps together with the two stubs?
-
-Yet then - Arm gets away without vm_event_reset_vmtrace()? Can you
-explain why the same isn't true for RISC-V?
-
-> @@ -11,3 +15,24 @@ void do_trap(struct cpu_user_regs *cpu_regs)
->  {
->      die();
->  }
-> +
-> +void vcpu_show_execution_state(struct vcpu *v)
-> +{
-> +    assert_failed("need to be implented");
-
-Just to mention it again - the expectation is that all instances will
-use the same "canonical" pattern for identifying yet-to-be-implemented
-functions.
+anyway (leaving aside that I guess you mean 2, not 16).
 
 Jan
 
