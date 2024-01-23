@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D425839153
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 15:27:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670492.1043302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB18983915E
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 15:29:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670495.1043312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSHjW-00069a-Ve; Tue, 23 Jan 2024 14:26:34 +0000
+	id 1rSHmL-0007IJ-Dp; Tue, 23 Jan 2024 14:29:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670492.1043302; Tue, 23 Jan 2024 14:26:34 +0000
+Received: by outflank-mailman (output) from mailman id 670495.1043312; Tue, 23 Jan 2024 14:29:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSHjW-00066y-PF; Tue, 23 Jan 2024 14:26:34 +0000
-Received: by outflank-mailman (input) for mailman id 670492;
- Tue, 23 Jan 2024 14:26:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rSHmL-0007FX-Am; Tue, 23 Jan 2024 14:29:29 +0000
+Received: by outflank-mailman (input) for mailman id 670495;
+ Tue, 23 Jan 2024 14:29:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSHjV-00066s-Fz
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 14:26:33 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6716754b-b9fb-11ee-9b0f-b553b5be7939;
- Tue, 23 Jan 2024 15:26:31 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id
- 38308e7fff4ca-2ccae380df2so43674461fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 06:26:31 -0800 (PST)
+ id 1rSHmJ-0007FR-Ro
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 14:29:27 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ce538e02-b9fb-11ee-98f4-6d05b1d4d9a1;
+ Tue, 23 Jan 2024 15:29:24 +0100 (CET)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2cdf69bb732so46208161fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 06:29:24 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v10-20020a92ab0a000000b0036063b51610sm8247913ilh.27.2024.01.23.06.26.28
+ eq20-20020a0566384e3400b0046ee630f7e6sm1128876jab.68.2024.01.23.06.29.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 06:26:30 -0800 (PST)
+ Tue, 23 Jan 2024 06:29:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6716754b-b9fb-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: ce538e02-b9fb-11ee-98f4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706019991; x=1706624791; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706020164; x=1706624964; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=nEWfr3iWm7zMtXJTKNzc34KH0j51M4YyuWJgkir/YZk=;
-        b=bMPIHjBch4O72wOiFS7CY00OpBhEXmnKPQbeWNUllSN4Od44+e3D6jZn4PGsT01OuJ
-         LZfp3RYryle2fOZeTUAMvoeSr7+pddrao1/IflCaM9LclSiJwa0/Mht19oDlXVSuUOtT
-         JLGQLTe+9QkuU4GgeHqfvtvDFq+TBop4XXDbEzm1Szr3+T0mdcmzos/xBfSnFCe7E96t
-         UHG0maFx64WBh6Q+z44dvgeMnH61s0DDL95t3vExTRefO9FnTXfMQH9bJU/8DEx9XSvb
-         IVOGvl1skzB+7caqsyRfw3Wh+YphSGgqq5WgnUXuNPQZ6cR+N87beDbDinxVcqvAawLp
-         spEg==
+        bh=r/pVBQV0OnfutPDX+eXse7QjVivNya4UiKymNinMK3M=;
+        b=ch0N74JVNtoNRR1/7KQCzVpEotihxjgfl+RggXf6QJV+kywzwbmRyILKknOFn7zKN5
+         6YFZ9dGqwmX+JRmb/V4K62y9FM+ZxGd2xHrB+w+nruiO/JeJjy3iIW+52hHduN3CAcW5
+         Trapp4xxnMQZmZz3pxjf5/jRW68yVTpoVc6sV5J37PoEhLkImiKfmlTT0Z8mLaaXDpPA
+         JKhDv5X0Q75eD3INoP0fmNjN1Mj/RumtzzEzCZB5xYfnjK43D+rnCJHnWLUFp1czfwwz
+         7YRF+KoLWxvIkRHo6/H5iBDbqceceYUMzPW4QKZ/5WrhhVmQbj9beAUdsy1iNTx1+is0
+         xRnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706019991; x=1706624791;
+        d=1e100.net; s=20230601; t=1706020164; x=1706624964;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nEWfr3iWm7zMtXJTKNzc34KH0j51M4YyuWJgkir/YZk=;
-        b=qBc2Z/mIKX6QT3AHzHWslEnwHZ/jamCkFufOLOQU7F2avSbGnPa+ixS/IILD4GK/LJ
-         W5PKXOR0ZsBHTjl3a6WuZQOXnSU2Vz20ImdVzug3sUpGyoPr8v6lQ7XD1X11tkt4qHYf
-         XYr2YyjNJeAy0bsrfyRG6NMdVRXIbJ2mJl8Hz3BLJQF/bQBpxlbGrP3bgIIGxwa6mz/o
-         qqq/+dvAplTaDhR+MNDleBYmscRE91jpjah9wRRiD5yQSO0eQdf1flWQLgnE92fJOTcf
-         DY6IzH+YjjkDzaDWSNvq6jTmGeVUFXaO3Q/ed9UPE86fabkpZ5cynU5orlSK+YvMCZKj
-         ARTQ==
-X-Gm-Message-State: AOJu0YwKwspFAnZpirg1g0Vnb0C7bV2VJd76F9iGj+5bzsCetJiq/kIC
-	oTpGdcRUlmIzGjTG5JlIpRnrW81w1nddal7/rlN4M1vxtVP1y7ZezqoHSFhpqw==
-X-Google-Smtp-Source: AGHT+IEdivCrB0Q9cHg3jR2H3qcChKDjerjC02CQyiNE/zgbafGDiNA4XtwOSGAYrZRBIE+Teb+5eg==
-X-Received: by 2002:a2e:80c2:0:b0:2cc:daca:2e81 with SMTP id r2-20020a2e80c2000000b002ccdaca2e81mr2232206ljg.15.1706019990812;
-        Tue, 23 Jan 2024 06:26:30 -0800 (PST)
-Message-ID: <18ec3401-4334-40c0-82a0-31abfd9797d0@suse.com>
-Date: Tue, 23 Jan 2024 15:26:26 +0100
+        bh=r/pVBQV0OnfutPDX+eXse7QjVivNya4UiKymNinMK3M=;
+        b=RRd2lb95CY78QssUwuZJ+ElBiOS5eIofkGmh+azCzYLBR7XtwWE1rO2gibZILPvjvP
+         XQ+WBLdy6ti93BK7nl1XyR+hv3R2k+DHpJsF53/i8IFtrTyyMf9KvNM0NvLQ1+yab2Ro
+         vd8x59KNtDVtJ6pTsmttNzuO/a26p3d5W/LrdQm5DVQcCa54TIpMQkyD5YpJfrt2vTim
+         /AR+yKtc1Nwm7wFhF2WXXmVV/DiKt62RDpQUA9xzcFjZeTdv6xSWxX5nqRXVII3IdpSt
+         HuWs+C1Tunv+NLBQoA7A+BrjyL/x9Yja1S+0gLVKNAAWMAxPls2EQgek8jI2DOEZcFqH
+         Ov3Q==
+X-Gm-Message-State: AOJu0Ywbpnu2hu9kvgNEXWm/vWeo6+QutjFwm9WRVqEV2uan6O9cf7iZ
+	wInUXzwsR8ziMuy93v8LqX/9WwdfCZbGOplJiKfyL5EItlMp50O6f0KbhQbM5g==
+X-Google-Smtp-Source: AGHT+IFw7v0OoMTVWg72hL46SOuQp2O9cG7xPW67ymEWDERvSejqkVr0xP4G/7vn3PtKCSa/P56y/w==
+X-Received: by 2002:a2e:b706:0:b0:2cd:4fd1:92d7 with SMTP id j6-20020a2eb706000000b002cd4fd192d7mr1240974ljo.178.1706020164164;
+        Tue, 23 Jan 2024 06:29:24 -0800 (PST)
+Message-ID: <7e936e6a-3218-4c4a-ac68-a58cd363a11d@suse.com>
+Date: Tue, 23 Jan 2024 15:29:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect vpci
@@ -123,57 +123,22 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 15.01.2024 20:43, Stewart Hildebrand wrote:
-> --- a/xen/arch/x86/hvm/vmsi.c
-> +++ b/xen/arch/x86/hvm/vmsi.c
-> @@ -468,7 +468,7 @@ int msixtbl_pt_register(struct domain *d, struct pirq *pirq, uint64_t gtable)
->      struct msixtbl_entry *entry, *new_entry;
->      int r = -EINVAL;
+> @@ -1043,11 +1043,11 @@ static int __pci_enable_msix(struct pci_dev *pdev, struct msi_info *msi,
+>  {
+>      struct msi_desc *old_desc;
 >  
 > -    ASSERT(pcidevs_locked());
-> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
->      ASSERT(rw_is_write_locked(&d->event_lock));
+> -
+>      if ( !pdev || !pdev->msix )
+>          return -ENODEV;
 >  
->      if ( !msixtbl_initialised(d) )
-> @@ -538,7 +538,7 @@ void msixtbl_pt_unregister(struct domain *d, struct pirq *pirq)
->      struct pci_dev *pdev;
->      struct msixtbl_entry *entry;
->  
-> -    ASSERT(pcidevs_locked());
-> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
->      ASSERT(rw_is_write_locked(&d->event_lock));
+> +    ASSERT(pcidevs_locked() || rw_is_locked(&pdev->domain->pci_lock));
+> +
+>      if ( msi->entry_nr >= pdev->msix->nr_entries )
+>          return -EINVAL;
 
-I was hoping to just ack this patch, but the two changes above look
-questionable to me: How can it be that holding _either_ lock is okay?
-It's not obvious in this context that consumers have to hold both
-locks now. In fact consumers looks to be the callers of
-msixtbl_find_entry(), yet the list is RCU-protected. Whereas races
-against themselves or against one another are avoided by holding
-d->event_lock.
-
-My only guess then for the original need of holding pcidevs_lock is
-the use of msi_desc->dev, with the desire for the device to not go
-away. Yet the description doesn't talk about interactions of the per-
-domain PCI lock with that one at all; it all circles around the
-domain'd vPCI lock.
-
-Feels like I'm missing something that's obvious to everyone else.
-Or maybe this part of the patch is actually unrelated, and should be
-split off (with its own [proper] justification)? Or wouldn't it then
-be better to also change the other paths leading here to acquire the
-per-domain PCI lock?
-
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -413,7 +413,7 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
->  
->      spin_unlock_irq(&desc->lock);
->  
-> -    ASSERT(pcidevs_locked());
-> +    ASSERT(pcidevs_locked() || rw_is_locked(&msi_desc->dev->domain->pci_lock));
->  
->      return iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
-
-This then falls in the same category. And apparently there are more.
+Further looking at this - is dereferencing pdev actually safe without holding
+the global lock?
 
 Jan
 
