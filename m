@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82E9A838A07
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 10:11:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670301.1042958 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E667D838A33
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 10:22:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670306.1042968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSCnh-0006Cp-74; Tue, 23 Jan 2024 09:10:33 +0000
+	id 1rSCz4-0008FZ-7Q; Tue, 23 Jan 2024 09:22:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670301.1042958; Tue, 23 Jan 2024 09:10:33 +0000
+Received: by outflank-mailman (output) from mailman id 670306.1042968; Tue, 23 Jan 2024 09:22:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSCnh-0006AO-42; Tue, 23 Jan 2024 09:10:33 +0000
-Received: by outflank-mailman (input) for mailman id 670301;
- Tue, 23 Jan 2024 09:10:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rSCz4-0008DH-4k; Tue, 23 Jan 2024 09:22:18 +0000
+Received: by outflank-mailman (input) for mailman id 670306;
+ Tue, 23 Jan 2024 09:22:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSCnf-0006AI-Sm
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 09:10:31 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4091828c-b9cf-11ee-9b0f-b553b5be7939;
- Tue, 23 Jan 2024 10:10:28 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2cd33336b32so53290611fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 01:10:28 -0800 (PST)
+ id 1rSCz2-0008DB-DP
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 09:22:16 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e55d579d-b9d0-11ee-98f4-6d05b1d4d9a1;
+ Tue, 23 Jan 2024 10:22:15 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-50ec948ad31so4572993e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 01:22:14 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f69-20020a0284cb000000b0046e4a8367c0sm3621954jai.140.2024.01.23.01.10.26
+ g9-20020a056e021a2900b003627b32dcbdsm1479457ile.37.2024.01.23.01.22.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 01:10:28 -0800 (PST)
+ Tue, 23 Jan 2024 01:22:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4091828c-b9cf-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: e55d579d-b9d0-11ee-98f4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706001028; x=1706605828; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706001734; x=1706606534; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ihJrOyY9MpuNfuAwcIceINBruwbUfjSSDbHMFrPqTYg=;
-        b=Dy+kly2Eok98nPKYPKSA3pzbfIJQtlIvaPk8whOFttOL9iof4+mhcrgtwMbJY82ZB/
-         ciox8Pl94T8iLdxqTaxE9kvJprVd5YWTVIXDBQy93BR669aKqivv+K54uTKE88BftcLK
-         sD5wNsEVXatKhONUzSYRwRk5nQr0Tg0aIjKRq0AT+karRfYX5+Uh01MEa1c8bJRYcvT5
-         DGmklOJL8CLVobxNcCPqAL4MLxE67QlIdL3G44aPAFfwlOsjnZYzUbFN8tRhTnxMHvQj
-         OHqwDYqUVaUuc/slwtvdkxu/EyqBeTPgwNixZhT7hKnU3+f1aH+9sW79gkRzCulyessg
-         PuhA==
+        bh=UAU2ewVq//0Fi9u+Ur8kwLvu3uT4csuFqOyzJKs4X/4=;
+        b=YkKXMUG5Og6gSYD9k8euNvLvlNMVvGlYRG5Q5xlN/TEWjS9ZuSXp7Ioz93RMyGnhA0
+         cyttTw31ivy2utgVAQnnJ9eumyla0iq+wDBMV0FTFj/IPOEr6GTBI8eZ22eRu734FBcF
+         C7IWD4iQppZmzKADxl3EN8QW6jV+bNMAWfQfNotFggP6LB8PBCwdCxPefU8mUWgj2vp9
+         phfVRf/XYp88azfMn7PkygUgP1oY2xyjJgdb12bBUr2hUGYdRItkhAM1ax/4JnbvVNlq
+         vJ+GA0ZzZXxKCHc0utFow2gQ+H+lxaf6pK8T1/LtgxlsKJf6JjeNcwyptqvgs3kbO5H1
+         hZuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706001028; x=1706605828;
+        d=1e100.net; s=20230601; t=1706001734; x=1706606534;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ihJrOyY9MpuNfuAwcIceINBruwbUfjSSDbHMFrPqTYg=;
-        b=PjTAql38u8mOd/oQJfJ9qZvNghnd5KY82Yo+CLpDpojKytGoF0hqwoaIWyCur2BNDb
-         9I6nwDgzlzmZhq+gHIroYXFzPverg1oEu4L7mk3vhCdAVREb9ViqT1cA+0yGnY5VphXr
-         M/55zF/lw0P63QNert4DJwt7TMONe2WTLZZeztYLwKYVtA4Q+IZy/ZYomGkUw5IsYgRh
-         zSV9jix0PZFxtha7TrrJGdU09gkWwyympxsrGonLVkJ1OnP83L7LGrcJnbkfjsjNJN7o
-         E2ckicf0oB0C84RHMb7+1RJrODwakkJphJels8RlNUtJZvJhjWgIcK1RiveT6lZ6rwth
-         Qakg==
-X-Gm-Message-State: AOJu0YznXiTsGc6AJbfj+/BQSZ5O9X0S4OpgBnfZiJX2DfIVmPTU9yib
-	pVAbPO2HCKPYYn/wHsg9BktJroED18AwIrSpXBy6SNJrQrRiFeKv/LVAcsrMnr4UJJkFDI9XsXo
-	=
-X-Google-Smtp-Source: AGHT+IHG5GMhJwDLyzRRVewsAWqxfeymqzexnyQo7avOqfPQ9/92TvROtDbNIOI6lMwYRw++C+k3UA==
-X-Received: by 2002:a2e:7e11:0:b0:2cd:2c8d:1ee6 with SMTP id z17-20020a2e7e11000000b002cd2c8d1ee6mr2600952ljc.83.1706001028401;
-        Tue, 23 Jan 2024 01:10:28 -0800 (PST)
-Message-ID: <6b67b05d-fba0-47a7-8b89-573b7c88e3d6@suse.com>
-Date: Tue, 23 Jan 2024 10:10:24 +0100
+        bh=UAU2ewVq//0Fi9u+Ur8kwLvu3uT4csuFqOyzJKs4X/4=;
+        b=uXU33+abQrBKnyCqUb1CFbXjIgk4nUTrb7u/GHXBr9g99VKtXuFidCLp4gb1+TDzHn
+         hTVEH6wQpbxX0eWYCcv6xzWQDmH2mx4fSlrMR9dGJT4ZWXjIn2Fkb58BuRS56NktZZT7
+         R2c/dJfeOfen2fmyytXSfp4ScjA37jpUt+rqqKT43/b+r/uWl4+kBv++B4FIexlLjuiU
+         k85OCtuUIUOVkTRpEN1TiXkTsXQ2LC2fRClQ5af7ixgc6Da3k6XmwXh6M4FwI/7h3FJd
+         7T6Z+a1aSNqhKmuv31aCKTb4mqUGX0BjVvAZKi3v/MgVWbZvfFzychLalMfq2j/5Rlk0
+         R4pw==
+X-Gm-Message-State: AOJu0YxWrBDncaDSejCzFLGUu28kZ8NZaFZTmvpc+OoUw5279/+JHBgJ
+	Pu53AHcRuE6mpymde+4Ysai34bNLjwK1N0zi0GPCvAhAM8vO0CWEogaXn7bvbA==
+X-Google-Smtp-Source: AGHT+IFNKpXNC2ytmUg0S1W+qxCWIxnTOX83L8CENbTI7G3LPBpbMlTJvTbu+sFmgfc9D33vYZCrig==
+X-Received: by 2002:a19:9141:0:b0:50e:e1e8:6cb with SMTP id y1-20020a199141000000b0050ee1e806cbmr2125402lfj.3.1706001734285;
+        Tue, 23 Jan 2024 01:22:14 -0800 (PST)
+Message-ID: <0edeb969-6fef-46f4-b216-0858edbaefa6@suse.com>
+Date: Tue, 23 Jan 2024 10:22:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/entry: Fix ELF metadata for NMI and
- handle_ist_exception
+Subject: Re: [PATCH 2/3] x86/entry: Make #PF/NMI/INT0x82 more amenable to
+ livepatching
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -89,7 +88,7 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Ross Lagerwall <ross.lagerwall@citrix.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20240122181714.1543738-1-andrew.cooper3@citrix.com>
- <20240122181714.1543738-2-andrew.cooper3@citrix.com>
+ <20240122181714.1543738-3-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,24 +113,56 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240122181714.1543738-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20240122181714.1543738-3-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.01.2024 19:17, Andrew Cooper wrote:
-> handle_ist_exception isn't part of the NMI handler, just like handle_exception
-> isn't part of #PF.
-> 
-> Fixes: b3a9037550df ("x86: annotate entry points with type and size")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> It is bad form to have inter-function fallthrough.  It only functions right
+> now because alignment padding bytes are NOPs.
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+But that's a requirement anyway in executable sections.
 
-It's a matter of consistency, yes, but personally I wouldn't consider this a
-bug (and hence I see no reason for Fixes:). But I can see how different
-perspectives here are possible. One this went in, I'll have to remember to
-also deal with this case in "common: honor CONFIG_CC_SPLIT_SECTIONS also for
-assembly functions".
+> --- a/xen/arch/x86/x86_64/compat/entry.S
+> +++ b/xen/arch/x86/x86_64/compat/entry.S
+> @@ -29,6 +29,7 @@ FUNC(entry_int82)
+>  
+>          mov   %rsp, %rdi
+>          call  do_entry_int82
+> +        jmp   compat_test_all_events
+>  END(entry_int82)
+>  
+>  /* %rbx: struct vcpu */
+> diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+> index c3f6b667a72a..fc64ef1fd460 100644
+> --- a/xen/arch/x86/x86_64/entry.S
+> +++ b/xen/arch/x86/x86_64/entry.S
+> @@ -723,7 +723,9 @@ END(common_interrupt)
+>  FUNC(entry_PF)
+>          ENDBR64
+>          movl  $X86_EXC_PF, 4(%rsp)
+> +        jmp   handle_exception
+>  END(entry_PF)
+> +
+>  /* No special register assumptions. */
+>  FUNC(handle_exception, 0)
+>          ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+> @@ -1023,6 +1025,7 @@ FUNC(entry_NMI)
+>          ENDBR64
+>          pushq $0
+>          movl  $X86_EXC_NMI, 4(%rsp)
+> +        jmp   handle_ist_exception
+>  END(entry_NMI)
+>  
+>  FUNC(handle_ist_exception)
+
+Hmm, so here you (partly) do what I was meaning to do in the one patch
+left from the entry point annotations series, "common: honor
+CONFIG_CC_SPLIT_SECTIONS also for assembly functions". However, I'm
+wrapping the JMPs there in #ifdef CONFIG_CC_SPLIT_SECTIONS. Thoughts?
+I view the JMPs as pretty useless otherwise, even if there is a
+small risk of a future code change not respecting the ordering
+requirements. Yet such would be noticed pretty quickly, I suppose.
 
 Jan
 
