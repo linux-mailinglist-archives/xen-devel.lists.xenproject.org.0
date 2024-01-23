@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C9A83905B
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 14:43:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670483.1043291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D425839153
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 15:27:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670492.1043302 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSH3h-000582-LV; Tue, 23 Jan 2024 13:43:21 +0000
+	id 1rSHjW-00069a-Ve; Tue, 23 Jan 2024 14:26:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670483.1043291; Tue, 23 Jan 2024 13:43:21 +0000
+Received: by outflank-mailman (output) from mailman id 670492.1043302; Tue, 23 Jan 2024 14:26:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSH3h-00056S-Id; Tue, 23 Jan 2024 13:43:21 +0000
-Received: by outflank-mailman (input) for mailman id 670483;
- Tue, 23 Jan 2024 13:43:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rSHjW-00066y-PF; Tue, 23 Jan 2024 14:26:34 +0000
+Received: by outflank-mailman (input) for mailman id 670492;
+ Tue, 23 Jan 2024 14:26:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSH3g-00056M-8K
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 13:43:20 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5df5fdc4-b9f5-11ee-98f4-6d05b1d4d9a1;
- Tue, 23 Jan 2024 14:43:19 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2cddb2c2b54so42744591fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 05:43:19 -0800 (PST)
+ id 1rSHjV-00066s-Fz
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 14:26:33 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6716754b-b9fb-11ee-9b0f-b553b5be7939;
+ Tue, 23 Jan 2024 15:26:31 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2ccae380df2so43674461fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 06:26:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cv3-20020a056e023b8300b00362865d8591sm940079ilb.6.2024.01.23.05.43.16
+ v10-20020a92ab0a000000b0036063b51610sm8247913ilh.27.2024.01.23.06.26.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 05:43:18 -0800 (PST)
+ Tue, 23 Jan 2024 06:26:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5df5fdc4-b9f5-11ee-98f4-6d05b1d4d9a1
+X-Inumbo-ID: 6716754b-b9fb-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706017398; x=1706622198; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706019991; x=1706624791; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1tS0w6p9g3sL/5YssAm6miZo36N75fZuBsDHZipCPSU=;
-        b=UDJK6Q4MlpOJqOLE+Nkz+nmeHOZAGnxdfpNmmkIRFROQh42vaItG0HaUHfUk9zibdS
-         i1T/mKYgHdT+148gSf7tj1iRoVOdLPcrnWpj/hNCZrovYJ3Cuc8cSQvibbhes5fyjsE8
-         fpM+FTw8uqbpgkkzXTKnAcWwC/btW3xiicUZmbGp5af2FKdujtSNHVVw9h/rJHe8LE3P
-         HukxqhZoyMpI/jE2oQEFJkHBH981ceC6fVjtlepqxhZvoOVp0tZ32Qz5LYl3tY32NcOZ
-         sKKj4COKV25ybd2tFWYJjFnxp+i2KDNyvysvdYYGrHlXPZnA6sLb9nEqu4e+Wxe228Py
-         8Ecw==
+        bh=nEWfr3iWm7zMtXJTKNzc34KH0j51M4YyuWJgkir/YZk=;
+        b=bMPIHjBch4O72wOiFS7CY00OpBhEXmnKPQbeWNUllSN4Od44+e3D6jZn4PGsT01OuJ
+         LZfp3RYryle2fOZeTUAMvoeSr7+pddrao1/IflCaM9LclSiJwa0/Mht19oDlXVSuUOtT
+         JLGQLTe+9QkuU4GgeHqfvtvDFq+TBop4XXDbEzm1Szr3+T0mdcmzos/xBfSnFCe7E96t
+         UHG0maFx64WBh6Q+z44dvgeMnH61s0DDL95t3vExTRefO9FnTXfMQH9bJU/8DEx9XSvb
+         IVOGvl1skzB+7caqsyRfw3Wh+YphSGgqq5WgnUXuNPQZ6cR+N87beDbDinxVcqvAawLp
+         spEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706017398; x=1706622198;
+        d=1e100.net; s=20230601; t=1706019991; x=1706624791;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1tS0w6p9g3sL/5YssAm6miZo36N75fZuBsDHZipCPSU=;
-        b=aMjfM+fJBr20OIcqMuxsy5wBvdGVGNlfZc4rpdt4x58MphI6PvTS0XyrvrD9o+NTQs
-         9LVWSWH8Hh2X0VhrHWFQyldhu9G4TxWB3Ej1ybbU+3K+k30MMytsb3SJsQaiOyvZBLNh
-         hIKJGHgb71VPXlmfk0Eup2HsCPMFPKgyTGt8J+KvM6705KWEdaF5j83kp6sCoT/bcQYx
-         LanzW6zEpIeR6JPikeejqEEk0kiBpOZ/u9qPdfPfN2gOgumvTTFSs78GQMZGM9An+7GI
-         dInWW4PEuN2OKHQqafUQPE22WQmSYT0SV1dM+0gAZrAQ3b6CceOAiKT+RzuV90fzg/VY
-         w3pw==
-X-Gm-Message-State: AOJu0Yxay8TBnyIi5bw1lNSS7eyBAp76PTBb067YlTkiuU3MrBa4gNHH
-	kx48RBZe1xPXFxTU7syMgPjMH33ndHNT1lbHbPxkjGO98d1UHSk860h2YQBshg==
-X-Google-Smtp-Source: AGHT+IGUKhiYMvG72NQl1/Gi1j9N3vMEowDRCqUxZiTWrUVVlrtiA87n/ri8Qmenibx9uSSvFaMBxg==
-X-Received: by 2002:a05:651c:c9a:b0:2cd:3731:9c2d with SMTP id bz26-20020a05651c0c9a00b002cd37319c2dmr4244268ljb.83.1706017398478;
-        Tue, 23 Jan 2024 05:43:18 -0800 (PST)
-Message-ID: <ebdfc495-b8bc-4468-8b41-d5fdb2a85adb@suse.com>
-Date: Tue, 23 Jan 2024 14:43:15 +0100
+        bh=nEWfr3iWm7zMtXJTKNzc34KH0j51M4YyuWJgkir/YZk=;
+        b=qBc2Z/mIKX6QT3AHzHWslEnwHZ/jamCkFufOLOQU7F2avSbGnPa+ixS/IILD4GK/LJ
+         W5PKXOR0ZsBHTjl3a6WuZQOXnSU2Vz20ImdVzug3sUpGyoPr8v6lQ7XD1X11tkt4qHYf
+         XYr2YyjNJeAy0bsrfyRG6NMdVRXIbJ2mJl8Hz3BLJQF/bQBpxlbGrP3bgIIGxwa6mz/o
+         qqq/+dvAplTaDhR+MNDleBYmscRE91jpjah9wRRiD5yQSO0eQdf1flWQLgnE92fJOTcf
+         DY6IzH+YjjkDzaDWSNvq6jTmGeVUFXaO3Q/ed9UPE86fabkpZ5cynU5orlSK+YvMCZKj
+         ARTQ==
+X-Gm-Message-State: AOJu0YwKwspFAnZpirg1g0Vnb0C7bV2VJd76F9iGj+5bzsCetJiq/kIC
+	oTpGdcRUlmIzGjTG5JlIpRnrW81w1nddal7/rlN4M1vxtVP1y7ZezqoHSFhpqw==
+X-Google-Smtp-Source: AGHT+IEdivCrB0Q9cHg3jR2H3qcChKDjerjC02CQyiNE/zgbafGDiNA4XtwOSGAYrZRBIE+Teb+5eg==
+X-Received: by 2002:a2e:80c2:0:b0:2cc:daca:2e81 with SMTP id r2-20020a2e80c2000000b002ccdaca2e81mr2232206ljg.15.1706019990812;
+        Tue, 23 Jan 2024 06:26:30 -0800 (PST)
+Message-ID: <18ec3401-4334-40c0-82a0-31abfd9797d0@suse.com>
+Date: Tue, 23 Jan 2024 15:26:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] x86/entry: Make #PF/NMI/INT0x82 more amenable to
- livepatching
+Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect vpci
+ structure
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240122181714.1543738-1-andrew.cooper3@citrix.com>
- <20240122181714.1543738-3-andrew.cooper3@citrix.com>
- <0edeb969-6fef-46f4-b216-0858edbaefa6@suse.com> <Za_BF_wr0qWH5eKC@macbook>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Paul Durrant <paul@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
+ <20240109215145.430207-2-stewart.hildebrand@amd.com>
+ <20240115194309.45683-1-stewart.hildebrand@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,27 +118,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Za_BF_wr0qWH5eKC@macbook>
+In-Reply-To: <20240115194309.45683-1-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 23.01.2024 14:37, Roger Pau Monné wrote:
-> On Tue, Jan 23, 2024 at 10:22:10AM +0100, Jan Beulich wrote:
->> On 22.01.2024 19:17, Andrew Cooper wrote:
->>> It is bad form to have inter-function fallthrough.  It only functions right
->>> now because alignment padding bytes are NOPs.
->>
->> But that's a requirement anyway in executable sections.
-> 
-> Really?  I was under the impression we wanted to replace the padding
-> nops with rets maybe, or even poison the padding with int3 or ud2.
+On 15.01.2024 20:43, Stewart Hildebrand wrote:
+> --- a/xen/arch/x86/hvm/vmsi.c
+> +++ b/xen/arch/x86/hvm/vmsi.c
+> @@ -468,7 +468,7 @@ int msixtbl_pt_register(struct domain *d, struct pirq *pirq, uint64_t gtable)
+>      struct msixtbl_entry *entry, *new_entry;
+>      int r = -EINVAL;
+>  
+> -    ASSERT(pcidevs_locked());
+> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
+>      ASSERT(rw_is_write_locked(&d->event_lock));
+>  
+>      if ( !msixtbl_initialised(d) )
+> @@ -538,7 +538,7 @@ void msixtbl_pt_unregister(struct domain *d, struct pirq *pirq)
+>      struct pci_dev *pdev;
+>      struct msixtbl_entry *entry;
+>  
+> -    ASSERT(pcidevs_locked());
+> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
+>      ASSERT(rw_is_write_locked(&d->event_lock));
 
-Well, that would be a decision of ours. Which then imo can't be described as
-"only functions right now because ..." The assembler can't[1] use other than
-NOPs by default, as it can't know whether fall-through is intended.
+I was hoping to just ack this patch, but the two changes above look
+questionable to me: How can it be that holding _either_ lock is okay?
+It's not obvious in this context that consumers have to hold both
+locks now. In fact consumers looks to be the callers of
+msixtbl_find_entry(), yet the list is RCU-protected. Whereas races
+against themselves or against one another are avoided by holding
+d->event_lock.
+
+My only guess then for the original need of holding pcidevs_lock is
+the use of msi_desc->dev, with the desire for the device to not go
+away. Yet the description doesn't talk about interactions of the per-
+domain PCI lock with that one at all; it all circles around the
+domain'd vPCI lock.
+
+Feels like I'm missing something that's obvious to everyone else.
+Or maybe this part of the patch is actually unrelated, and should be
+split off (with its own [proper] justification)? Or wouldn't it then
+be better to also change the other paths leading here to acquire the
+per-domain PCI lock?
+
+> --- a/xen/arch/x86/hvm/vmx/vmx.c
+> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+> @@ -413,7 +413,7 @@ static int cf_check vmx_pi_update_irte(const struct vcpu *v,
+>  
+>      spin_unlock_irq(&desc->lock);
+>  
+> -    ASSERT(pcidevs_locked());
+> +    ASSERT(pcidevs_locked() || rw_is_locked(&msi_desc->dev->domain->pci_lock));
+>  
+>      return iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
+
+This then falls in the same category. And apparently there are more.
 
 Jan
-
-[1] minus bugs - see e.g. https://sourceware.org/git/?p=binutils-gdb.git;a=commitdiff;h=d164359dbc14c8ae4c7a117d236f5b7de4af671a
-
 
