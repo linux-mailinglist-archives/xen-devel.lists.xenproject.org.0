@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A31C7839186
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 15:37:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670510.1043341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7294F8391BA
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 15:50:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670515.1043351 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSHtU-0001ux-Lg; Tue, 23 Jan 2024 14:36:52 +0000
+	id 1rSI5m-0005SB-Ny; Tue, 23 Jan 2024 14:49:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670510.1043341; Tue, 23 Jan 2024 14:36:52 +0000
+Received: by outflank-mailman (output) from mailman id 670515.1043351; Tue, 23 Jan 2024 14:49:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSHtU-0001sT-J2; Tue, 23 Jan 2024 14:36:52 +0000
-Received: by outflank-mailman (input) for mailman id 670510;
- Tue, 23 Jan 2024 14:36:51 +0000
+	id 1rSI5m-0005Q9-Kt; Tue, 23 Jan 2024 14:49:34 +0000
+Received: by outflank-mailman (input) for mailman id 670515;
+ Tue, 23 Jan 2024 14:49:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSHtT-0001sN-Kn
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 14:36:51 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OrDF=JB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rSI5l-0005Q3-5Z
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 14:49:33 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8220ca2-b9fc-11ee-98f4-6d05b1d4d9a1;
- Tue, 23 Jan 2024 15:36:50 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2cd33336b32so57954671fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 06:36:50 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t15-20020a05663801ef00b0046d4105b7e8sm3604437jaq.49.2024.01.23.06.36.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 06:36:49 -0800 (PST)
+ id 9e213e5f-b9fe-11ee-98f4-6d05b1d4d9a1;
+ Tue, 23 Jan 2024 15:49:32 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2cf0eba6a30so11202301fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 06:49:32 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ i26-20020a0564020f1a00b0055c0dba33b7sm419591eda.18.2024.01.23.06.49.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jan 2024 06:49:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +45,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8220ca2-b9fc-11ee-98f4-6d05b1d4d9a1
+X-Inumbo-ID: 9e213e5f-b9fe-11ee-98f4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706020610; x=1706625410; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=gw/q+zCha9+NhwmsgQc4y/QnuZt6k+sWrwVp12yjy68=;
-        b=gPlnWMLUiF46egPqEFXDK4eGJbxkFGAQYyjVt7xXjZkyzjf3HEMx+Ek7JLj+r/8nQT
-         aSjeek/Nf0hV0352ukoKywxJZUKvt7ZpvJdTnfdiELboh+qqi7SnwyjQnCq6HNe5csDt
-         O7yf4+1DXICej6wfoTuCOnNPNXa/nYafauBsneG0qM9ew20PuWNLH8NlS4mBPjJv09bX
-         HJMwpQQx5hek0Ik+8lK6W3WgVWZLJ73WK4M3nksWsf1bK1tIVi1pK/AdoLuIpGNdPqDM
-         QmG4XSlUyfjrekqJm/egzAYHicOlfeNZFnJdqouEDxaCK1esI2bGkrYrIw/IfE+P2AIm
-         WA0g==
+        d=gmail.com; s=20230601; t=1706021371; x=1706626171; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=k5SU8HDvJXS/miUkS75zneZmkLhT6LXjtdvOtw/xfB8=;
+        b=MVS7rkSJpg3qTQryz1yMwRhSNvEJQtfTy+QrcU+ZfKB6/KI4X1sBPKJCnvYSMFj+HC
+         jRo+cr4wd+Fuf7mURA7CpUP+yTmTuszB8sO5zdwPshblaBQXMijxKdduOLKeyBMqdZ9V
+         AmFks02QhXQ8n4zGxxauius/Y8Pp+1ZP5s4Vm+wVJniVqxdRl7BEfkpWPnnmNiz59dqZ
+         YD8Wh9SuhltyHLnbITao83MaCXor2B6yi8PU0lWaSeKL7yLIlfbQa9rXgZWzBBGqrTNV
+         TBPfoCOMIyknj4JyztoqC7p75z9uNuDEdHPmTTABHZpWtRzGN3pCSZOF6QRRBIQ03eCb
+         otDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706020610; x=1706625410;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gw/q+zCha9+NhwmsgQc4y/QnuZt6k+sWrwVp12yjy68=;
-        b=ttt2Y0R9scOvmC2Ofd3D8y7JZ5PrPXiQQNvNWgFAtZ3gRaGyHVJw7bIOxnrn90ncvU
-         R1gterUNjSvhZrOWpOz2BZrZR1AIcNwIya1TrqjTvhq59BuVujZHBr7o3xJkTFZ+lkUA
-         PZnkUxAdjWYYj+jo9Wps7+IGc5uaqYmNzZYrcG1tOG7OT1KzpT7mkgqjBBlb1D1DDgsr
-         0B1sJ4DeN1P5Vri5gpD+2NNaK6VNTCk/nHiqnSEfILkyuIxjZLKHvbSiAHwBecfhhxOW
-         jS4n+VYV14RHlrDG3XLWf+AF5dz9GNb5/e5QnfEC1fbn+htvfw1SfGuZHSQwO19/SssY
-         MuXQ==
-X-Gm-Message-State: AOJu0YwxLGnBSqnc1b2y9LnkJOKAIoLBeoS7nvqzrJETKyP3XALt45CS
-	W/e9sQDTARC6/Pp3kq81m2/EwOJdsuwdhQbAxNCnGThtH/doANd3UNQvXTOAEsPWB6Kiye6sjn0
-	=
-X-Google-Smtp-Source: AGHT+IGP4kZjPq8uxD34denwthb1n6yAXtuqwKhTKov2SnxLZGmZHk2dI9So4sRzyPk4GRZrAlooLw==
-X-Received: by 2002:a2e:8906:0:b0:2cc:e708:adab with SMTP id d6-20020a2e8906000000b002cce708adabmr2857485lji.99.1706020610058;
-        Tue, 23 Jan 2024 06:36:50 -0800 (PST)
-Message-ID: <d1154d3a-769e-45c4-8f0e-265799756cb8@suse.com>
-Date: Tue, 23 Jan 2024 15:36:46 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 03/15] vpci: add hooks for PCI device assign/de-assign
-Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+        d=1e100.net; s=20230601; t=1706021371; x=1706626171;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=k5SU8HDvJXS/miUkS75zneZmkLhT6LXjtdvOtw/xfB8=;
+        b=C0n62uBca3f/SKzWzRes0DCek987FZGv/h2NScPgphyJsIAXvj+88gPnc5l9gmpKSj
+         f503UIVfWn4eihXjYXX0FtvyiFf6FwZt8EMozfXxW1kX3supLlN7bYVvXkapTL74OgfO
+         kPznzlUBxK+0cYIyxwDKTZC5L/FmL4aTStVPqtExZ9RwK0kIyKkTt2DhNJ+aHf3OAUTw
+         9jgluK99//odgUVikiXYyf0gdGAj94e/RVHjYdwgiqa/xLXGEXK2hF21RNgv3ehMBEHQ
+         6SVzOWtzLY336fWJP91LgBtI4KJf8DXth4L4JwkCG9p3M+SgsRUMe2F8pxgUmLcxAC8D
+         TDTw==
+X-Gm-Message-State: AOJu0YzZQQGJcSGdyXkVVBiOdMOMh30fpvWdk9AEkfqxeBIbILAPfXC/
+	lMWlVRg3fA9zodg/zT1wSfv1TVW0OWIUmhMQq/U0HuViM3l48CjR
+X-Google-Smtp-Source: AGHT+IG/0FblsiWLtU4/K7R26t84d394TWAaUzDgPifOCNJkiB4aafDAv/WKpDvYulsJ1ZQ+br/C4Q==
+X-Received: by 2002:a2e:a445:0:b0:2cd:f62d:adb2 with SMTP id v5-20020a2ea445000000b002cdf62dadb2mr2793785ljn.87.1706021371368;
+        Tue, 23 Jan 2024 06:49:31 -0800 (PST)
+Message-ID: <2a08cae2c6db049dc08db59f38c4e75573e37064.camel@gmail.com>
+Subject: Re: [PATCH v3 34/34] xen/README: add compiler and binutils versions
+ for RISC-V64
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-4-stewart.hildebrand@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240109215145.430207-4-stewart.hildebrand@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 23 Jan 2024 16:49:30 +0200
+In-Reply-To: <88a7e5af-197b-41ef-b3c2-7d4f85a3cb85@suse.com>
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+	 <c4d579f02b431d6ac9366dee73ebd7ab74e44715.1703255175.git.oleksii.kurochko@gmail.com>
+	 <88a7e5af-197b-41ef-b3c2-7d4f85a3cb85@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+MIME-Version: 1.0
 
-On 09.01.2024 22:51, Stewart Hildebrand wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> When a PCI device gets assigned/de-assigned we need to
-> initialize/de-initialize vPCI state for the device.
-> 
-> Also, rename vpci_add_handlers() to vpci_assign_device() and
-> vpci_remove_device() to vpci_deassign_device() to better reflect role
-> of the functions.
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+On Tue, 2024-01-23 at 12:22 +0100, Jan Beulich wrote:
+> On 22.12.2023 16:13, Oleksii Kurochko wrote:
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > =C2=A0Changes in V3:
+> > =C2=A0 - new patch
+> > ---
+> > =C2=A0README | 3 +++
+> > =C2=A01 file changed, 3 insertions(+)
+> >=20
+> > diff --git a/README b/README
+> > index c8a108449e..1015a285c0 100644
+> > --- a/README
+> > +++ b/README
+> > @@ -48,6 +48,9 @@ provided by your OS distributor:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - For ARM 64-bit:
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GCC 5.1 or later
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GNU Binutils 2.24 or=
+ later
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - For RISC-V 64-bit:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GCC 13.2.1 or later
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GNU Binutils 2.40 or late=
+r
+>=20
+> That's pretty new. For gcc that's even newer than the newest release.
+> If older versions really won't do, I don't think you can leave this
+> unjustified (by having an empty description). Till now gcc 13.2 has
+> served me well, and iirc 13.1, 12.3, and 12.2 were fine, too.
+It can be 12.2.0 for GCC and 2.39 for GNU Binutils. ( it is toolchain
+which is used by contrainer for RISC-V in Xen ). I'll update versions
+then.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+But could you please explain again why it can't be 13.2.1 ( it is a
+version which I have in my distribution, so it is the reason why I used
+this version in README file ) ?
 
+~ Oleksii
 
 
