@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 061DA839666
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 18:28:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670570.1043451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 734EB839672
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 18:32:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670573.1043461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSKYp-0007wi-VB; Tue, 23 Jan 2024 17:27:43 +0000
+	id 1rSKcp-0001iu-Dc; Tue, 23 Jan 2024 17:31:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670570.1043451; Tue, 23 Jan 2024 17:27:43 +0000
+Received: by outflank-mailman (output) from mailman id 670573.1043461; Tue, 23 Jan 2024 17:31:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSKYp-0007uR-SA; Tue, 23 Jan 2024 17:27:43 +0000
-Received: by outflank-mailman (input) for mailman id 670570;
- Tue, 23 Jan 2024 17:27:42 +0000
+	id 1rSKcp-0001gh-B0; Tue, 23 Jan 2024 17:31:51 +0000
+Received: by outflank-mailman (input) for mailman id 670573;
+ Tue, 23 Jan 2024 17:31:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OrDF=JB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rSKYo-0007uL-Gg
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 17:27:42 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1rSKcn-0001gb-92
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 17:31:49 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b5e39de2-ba14-11ee-98f4-6d05b1d4d9a1;
- Tue, 23 Jan 2024 18:27:41 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-50e7abe4be4so6223113e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 09:27:41 -0800 (PST)
+ id 494b587d-ba15-11ee-98f4-6d05b1d4d9a1;
+ Tue, 23 Jan 2024 18:31:48 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2ccec119587so59267121fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 09:31:48 -0800 (PST)
 Received: from [192.168.206.239] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- fc21-20020a056512139500b0050eba4e0eadsm2331213lfb.90.2024.01.23.09.27.39
+ h19-20020a2e9ed3000000b002cd35d8b018sm3769191ljk.113.2024.01.23.09.31.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jan 2024 09:27:40 -0800 (PST)
+ Tue, 23 Jan 2024 09:31:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b5e39de2-ba14-11ee-98f4-6d05b1d4d9a1
+X-Inumbo-ID: 494b587d-ba15-11ee-98f4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706030860; x=1706635660; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1706031108; x=1706635908; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=yrq22DPNPC2JEUvBycO+PioR+yMMNZG2s+BJtBtj4Eg=;
-        b=VMgGvu37WV9ALqubr6468ava7I3Khucyy2bEjRjuKz72vfKeOBNZJsLfv1qRDHHf1X
-         Fi+pfec9FsVMhEIs6mQ5MDmPNwAuJpCRyENAKAo+JVV4qUc0DlwzaPhJzR2nzIetLytP
-         GVGDEkQjYTST2sG57D15tKojOmcKV/nigHnL6ikpZKmqepkrG1JnMxL/GkQCZoeUUnSC
-         /5agjkr47cweripFXDnajzzf05SjTc6u+Y0/F4kvOXgMm8N42bxJkVoJOWB2SY//mt+d
-         PXjl1T4p2Emzv0g7z2q20F20NgKr1R4M0X640pc0GOd0PZA/oCnGD5W2/POcwh4tiGNg
-         hXnw==
+        bh=zkZzCCcTah0VUomWsPyIHmO6qiLqr3J0C7cC9SWEewI=;
+        b=T9te6FqEmSZSPSWDGXFMXiS8cjTKNAxpUDucLhDHkv1a8ejOdc3+l7JPAovHyp8+YX
+         07sSmZ5gPCIwa1r/NPOYTY8P+JpZKYJl6MeDv7UBuX5N7rC/u3c54Ra5oCEjEtW7HvcS
+         mWSyLZGNL//WEqLPcmK4MvDNFgLmdXkkkpsBG9931/+yPbjp83DlJWBj91iIxj5JA/TW
+         n9NORsV317+K2PtzTZ/XTa9H43tVPYpy+3/6mlYWh3eXQ9BOqiwCjWMzTsp/ZM9gZ8Jz
+         xVYDrHnDFUl3XpMxgtXHvPMIGVkeAEiPbZgCYVp4wcGbMivJ8++SeHHVENvm79ZWhxVM
+         Eg1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706030860; x=1706635660;
+        d=1e100.net; s=20230601; t=1706031108; x=1706635908;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=yrq22DPNPC2JEUvBycO+PioR+yMMNZG2s+BJtBtj4Eg=;
-        b=JPh1nuI9GxvOjcvnwGImLO3GmkGbGHLK3MsqQSR7+vPCQudpEU/AESmC0ti5HlfOSC
-         5TYeW+GI6FXnQeX0+X9eAj/URSKQh+iQerGS0AA2QWpOGBYrapUK0cRhGu/V2KhCkId4
-         vI4nsoepZbAIfsHRafPo4QZopW77kpiep4L8I2ks+xoQydHJ1bRShO/Y4L55esPknRvR
-         rnB3rWd+Z6R7+2+SP+/tLC+p/vwoiFUhXBkcr6Bw0fXk5gFZBQsV92mK7OjUPXXQhjpp
-         2CMqaMrZsu0w1rnmFQLoYSxp0ZIiwJMldcBVntSK2CQ7fUjnIrfqflXZ5ds++hCG1dI8
-         guBQ==
-X-Gm-Message-State: AOJu0YyKsjlSSt8K+I/Pdi06/zXwBiZckSaT/BBLd3fCYGtu/SMIwoou
-	acQxVG1qpDIngVPrUNSRqFMtumrmLdT8Zl0ou8t3/u/km2HC8LlK
-X-Google-Smtp-Source: AGHT+IFh2VJZX+o4s8tNWp13bWT9vsabwEbfwXl3egzu3Gu8tZ+XkTinqQGX03E4/IaadzWPPaR4CA==
-X-Received: by 2002:a05:6512:3b0c:b0:50e:e2e2:a273 with SMTP id f12-20020a0565123b0c00b0050ee2e2a273mr4016455lfv.26.1706030860287;
-        Tue, 23 Jan 2024 09:27:40 -0800 (PST)
-Message-ID: <7ba286f9f1255cbf5c0957f0a0a92e5e18f2bc8d.camel@gmail.com>
-Subject: Re: [PATCH v3 31/34] xen/riscv: add minimal stuff to mm.h to build
- full Xen
+        bh=zkZzCCcTah0VUomWsPyIHmO6qiLqr3J0C7cC9SWEewI=;
+        b=UP1q1Bpu/ae/1NRFCQCBuWb5UcnH2cPIbnkU7HCm4l7WhVgGGf6MljFrsAiBGrqZQx
+         sq8b2pCaW6GKzfsYSyNTLyE6L2oRba7r/q6b+T394PiNh0L64K8iassCcW0aiQq1tS2R
+         gAW6M5H+brb2VLbbNxRQY3NIznI19Qj2mbwR+kazgg6jA1VbjYWSyv8RlbCW8L5hUE0+
+         4q5Zc1UEDaZ1ZA6RElSI9zV/zsnZK8O4mnBNEGEhyV59Twmf+GU9UdvsCwNiUFkhrRpV
+         dRIPGdMcUMN5kg87xJEpPtOueqQjQhXUw45GuQhw+ZKyJvbpw+FKtr/pS0Nz7S4PwhNd
+         9C5Q==
+X-Gm-Message-State: AOJu0Yz3qLyK00z/sIIMAMiPuHqWHp8n10NhoYTB7ofn9gNHjfWIfWaD
+	wZ+DqnwZnF6tGk7HrtjkJ82SLrdOvKLRznl6NhZ+Lg4eyjmp2uSk
+X-Google-Smtp-Source: AGHT+IHkYciniqf+tyGUx25fiKNZ7L6iu9PpEHEH3PEWHupw6Jlm7xYwePWbkC2YCqJfzHt63qv3HQ==
+X-Received: by 2002:a2e:9c85:0:b0:2cc:f126:8b16 with SMTP id x5-20020a2e9c85000000b002ccf1268b16mr73478lji.69.1706031107561;
+        Tue, 23 Jan 2024 09:31:47 -0800 (PST)
+Message-ID: <2c5107197ba092f66888460318cfeb54ce7ff7ee.camel@gmail.com>
+Subject: Re: [PATCH v3 32/34] xen/rirscv: add minimal amount of stubs to
+ build full Xen
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
@@ -86,454 +86,181 @@ Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
  <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
  Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
  xen-devel@lists.xenproject.org
-Date: Tue, 23 Jan 2024 19:27:38 +0200
-In-Reply-To: <d347c4d9-e93b-4937-8e33-e5fbbdcd6bfb@suse.com>
+Date: Tue, 23 Jan 2024 19:31:46 +0200
+In-Reply-To: <de4c3443-cede-487b-b3b3-28e92d3dc6e7@suse.com>
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
-	 <4411f6af38586074b347cd6005f19f9c670faa74.1703255175.git.oleksii.kurochko@gmail.com>
-	 <d347c4d9-e93b-4937-8e33-e5fbbdcd6bfb@suse.com>
+	 <e40d3e396733ec9e85d72fc3e9f05be97881a763.1703255175.git.oleksii.kurochko@gmail.com>
+	 <de4c3443-cede-487b-b3b3-28e92d3dc6e7@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
 
-On Tue, 2024-01-23 at 14:03 +0100, Jan Beulich wrote:
-> On 22.12.2023 16:13, Oleksii Kurochko wrote:
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > Changes in V3:
-> > =C2=A0- update the commit message
->=20
-> ??? (yet again)
-asm/mm.h was changed to mm.h
->=20
-> > --- a/xen/arch/riscv/include/asm/mm.h
-> > +++ b/xen/arch/riscv/include/asm/mm.h
-> > @@ -3,8 +3,251 @@
-> > =C2=A0#ifndef _ASM_RISCV_MM_H
-> > =C2=A0#define _ASM_RISCV_MM_H
-> > =C2=A0
-> > +#include <public/xen.h>
-> > +#include <xen/pdx.h>
-> > +#include <xen/types.h>
-> > +
-> > +#include <asm/page.h>
-> > =C2=A0#include <asm/page-bits.h>
-> > =C2=A0
-> > +#define paddr_to_pdx(pa)=C2=A0=C2=A0=C2=A0 mfn_to_pdx(maddr_to_mfn(pa)=
-)
-> > +#define gfn_to_gaddr(gfn)=C2=A0=C2=A0 pfn_to_paddr(gfn_x(gfn))
-> > +#define gaddr_to_gfn(ga)=C2=A0=C2=A0=C2=A0 _gfn(paddr_to_pfn(ga))
-> > +#define mfn_to_maddr(mfn)=C2=A0=C2=A0 pfn_to_paddr(mfn_x(mfn))
-> > +#define maddr_to_mfn(ma)=C2=A0=C2=A0=C2=A0 _mfn(paddr_to_pfn(ma))
-> > +#define vmap_to_mfn(va)=C2=A0=C2=A0=C2=A0=C2=A0
-> > maddr_to_mfn(virt_to_maddr((vaddr_t)va))
-> > +#define vmap_to_page(va)=C2=A0=C2=A0=C2=A0 mfn_to_page(vmap_to_mfn(va)=
-)
->=20
-> Everything you have above ...
->=20
-> > +#define paddr_to_pdx(pa)=C2=A0=C2=A0=C2=A0 mfn_to_pdx(maddr_to_mfn(pa)=
-)
-> > +#define gfn_to_gaddr(gfn)=C2=A0=C2=A0 pfn_to_paddr(gfn_x(gfn))
-> > +#define gaddr_to_gfn(ga)=C2=A0=C2=A0=C2=A0 _gfn(paddr_to_pfn(ga))
-> > +#define mfn_to_maddr(mfn)=C2=A0=C2=A0 pfn_to_paddr(mfn_x(mfn))
-> > +#define maddr_to_mfn(ma)=C2=A0=C2=A0=C2=A0 _mfn(paddr_to_pfn(ma))
-> > +#define vmap_to_mfn(va)=C2=A0=C2=A0=C2=A0=C2=A0
-> > maddr_to_mfn(virt_to_maddr((vaddr_t)va))
-> > +#define vmap_to_page(va)=C2=A0=C2=A0=C2=A0 mfn_to_page(vmap_to_mfn(va)=
-)
->=20
-> ... appears a 2nd time right afterwards.
-Hmm, looks like rebase issue. I'll drop a copy. Thanks.
->=20
-> > +#define virt_to_maddr(va) ((paddr_t)((vaddr_t)(va) & PADDR_MASK))
-> > +#define maddr_to_virt(pa) ((void *)((paddr_t)(pa) |
-> > DIRECTMAP_VIRT_START))
-> > +
-> > +/* Convert between Xen-heap virtual addresses and machine frame
-> > numbers. */
-> > +#define __virt_to_mfn(va) (virt_to_maddr(va) >> PAGE_SHIFT)
-> > +#define __mfn_to_virt(mfn) maddr_to_virt((paddr_t)(mfn) <<
-> > PAGE_SHIFT)
->=20
-> These would imo better use maddr_to_mfn() and mfn_to_maddr(), rather
-> than
-> kind of open-coding them. The former could also use PFN_DOWN() as an
-> alternative.
-Thanks. I'll take that into account.
+T24gVHVlLCAyMDI0LTAxLTIzIGF0IDE0OjIwICswMTAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBP
+biAyMi4xMi4yMDIzIDE2OjEzLCBPbGVrc2lpIEt1cm9jaGtvIHdyb3RlOgo+ID4gLS0tIGEveGVu
+L2FyY2gvcmlzY3YvZWFybHlfcHJpbnRrLmMKPiA+ICsrKyBiL3hlbi9hcmNoL3Jpc2N2L2Vhcmx5
+X3ByaW50ay5jCj4gPiBAQCAtNDAsMTcxICs0MCwzIEBAIHZvaWQgZWFybHlfcHJpbnRrKGNvbnN0
+IGNoYXIgKnN0cikKPiA+IMKgwqDCoMKgwqDCoMKgwqAgc3RyKys7Cj4gPiDCoMKgwqDCoCB9Cj4g
+PiDCoH0KPiA+IC0KPiA+IC0vKgo+ID4gLSAqIFRoZSBmb2xsb3dpbmcgI2lmIDEgLi4uICNlbmRp
+ZiBzaG91bGQgYmUgcmVtb3ZlZCBhZnRlciBwcmludGsKPiA+IC0gKiBhbmQgcmVsYXRlZCBzdHVm
+ZiBhcmUgcmVhZHkuCj4gPiAtICovCj4gPiAtI2lmIDEKPiA+IC0KPiA+IC0jaW5jbHVkZSA8eGVu
+L3N0ZGFyZy5oPgo+ID4gLSNpbmNsdWRlIDx4ZW4vc3RyaW5nLmg+Cj4gPiAtCj4gPiAtLyoqCj4g
+PiAtICogc3RybGVuIC0gRmluZCB0aGUgbGVuZ3RoIG9mIGEgc3RyaW5nCj4gPiAtICogQHM6IFRo
+ZSBzdHJpbmcgdG8gYmUgc2l6ZWQKPiA+IC0gKi8KPiA+IC1zaXplX3QgKHN0cmxlbikoY29uc3Qg
+Y2hhciAqIHMpCj4gPiAtewo+ID4gLcKgwqDCoCBjb25zdCBjaGFyICpzYzsKPiA+IC0KPiA+IC3C
+oMKgwqAgZm9yIChzYyA9IHM7ICpzYyAhPSAnXDAnOyArK3NjKQo+ID4gLcKgwqDCoMKgwqDCoMKg
+IC8qIG5vdGhpbmcgKi87Cj4gPiAtwqDCoMKgIHJldHVybiBzYyAtIHM7Cj4gPiAtfQo+ID4gLQo+
+ID4gLS8qKgo+ID4gLSAqIG1lbWNweSAtIENvcHkgb25lIGFyZWEgb2YgbWVtb3J5IHRvIGFub3Ro
+ZXIKPiA+IC0gKiBAZGVzdDogV2hlcmUgdG8gY29weSB0bwo+ID4gLSAqIEBzcmM6IFdoZXJlIHRv
+IGNvcHkgZnJvbQo+ID4gLSAqIEBjb3VudDogVGhlIHNpemUgb2YgdGhlIGFyZWEuCj4gPiAtICoK
+PiA+IC0gKiBZb3Ugc2hvdWxkIG5vdCB1c2UgdGhpcyBmdW5jdGlvbiB0byBhY2Nlc3MgSU8gc3Bh
+Y2UsIHVzZQo+ID4gbWVtY3B5X3RvaW8oKQo+ID4gLSAqIG9yIG1lbWNweV9mcm9taW8oKSBpbnN0
+ZWFkLgo+ID4gLSAqLwo+ID4gLXZvaWQgKihtZW1jcHkpKHZvaWQgKmRlc3QsIGNvbnN0IHZvaWQg
+KnNyYywgc2l6ZV90IGNvdW50KQo+ID4gLXsKPiA+IC3CoMKgwqAgY2hhciAqdG1wID0gKGNoYXIg
+KikgZGVzdCwgKnMgPSAoY2hhciAqKSBzcmM7Cj4gPiAtCj4gPiAtwqDCoMKgIHdoaWxlIChjb3Vu
+dC0tKQo+ID4gLcKgwqDCoMKgwqDCoMKgICp0bXArKyA9ICpzKys7Cj4gPiAtCj4gPiAtwqDCoMKg
+IHJldHVybiBkZXN0Owo+ID4gLX0KPiA+IC0KPiA+IC1pbnQgdnNucHJpbnRmKGNoYXIqIHN0ciwg
+c2l6ZV90IHNpemUsIGNvbnN0IGNoYXIqIGZvcm1hdCwgdmFfbGlzdAo+ID4gYXJncykKPiA+IC17
+Cj4gPiAtwqDCoMKgIHNpemVfdCBpID0gMDsgLyogQ3VycmVudCBwb3NpdGlvbiBpbiB0aGUgb3V0
+cHV0IHN0cmluZyAqLwo+ID4gLcKgwqDCoCBzaXplX3Qgd3JpdHRlbiA9IDA7IC8qIFRvdGFsIG51
+bWJlciBvZiBjaGFyYWN0ZXJzIHdyaXR0ZW4gKi8KPiA+IC3CoMKgwqAgY2hhciogZGVzdCA9IHN0
+cjsKPiA+IC0KPiA+IC3CoMKgwqAgd2hpbGUgKCBmb3JtYXRbaV0gIT0gJ1wwJyAmJiB3cml0dGVu
+IDwgc2l6ZSAtIDEgKQo+ID4gLcKgwqDCoCB7Cj4gPiAtwqDCoMKgwqDCoMKgwqAgaWYgKCBmb3Jt
+YXRbaV0gPT0gJyUnICkKPiA+IC3CoMKgwqDCoMKgwqDCoCB7Cj4gPiAtwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCBpKys7Cj4gPiAtCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIGZvcm1h
+dFtpXSA9PSAnXDAnICkKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7
+Cj4gPiAtCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIGZvcm1hdFtpXSA9PSAnJScg
+KQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgewo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBpZiAoIHdyaXR0ZW4gPCBzaXplIC0gMSApCj4gPiAtwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIHsKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBkZXN0W3dyaXR0ZW5dID0gJyUnOwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHdyaXR0ZW4rKzsKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpKys7Cj4gPiAtwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRpbnVlOwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgfQo+ID4gLQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyoKPiA+IC3CoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgKiBIYW5kbGUgZm9ybWF0IHNwZWNpZmllcnMuCj4gPiAtwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgICogRm9yIHNpbXBsaWNpdHksIG9ubHkgJXMgYW5kICVkIGFyZSBp
+bXBsZW1lbnRlZAo+ID4gaGVyZS4KPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKi8KPiA+
+IC0KPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICggZm9ybWF0W2ldID09ICdzJyApCj4g
+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB7Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGNoYXIqIGFyZyA9IHZhX2FyZyhhcmdzLCBjaGFyKik7Cj4gPiAtwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHNpemVfdCBhcmdsZW4gPSBzdHJsZW4oYXJnKTsKPiA+IC0KPiA+
+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2l6ZV90IHJlbWFpbmluZyA9IHNpemUg
+LSB3cml0dGVuIC0gMTsKPiA+IC0KPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+aWYgKCBhcmdsZW4gPiByZW1haW5pbmcgKQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGFyZ2xlbiA9IHJlbWFpbmluZzsKPiA+IC0KPiA+IC3CoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgbWVtY3B5KGRlc3QgKyB3cml0dGVuLCBhcmcsIGFyZ2xlbik7Cj4g
+PiAtCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHdyaXR0ZW4gKz0gYXJnbGVu
+Owo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpKys7Cj4gPiAtwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCB9Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlbHNlIGlmICggZm9y
+bWF0W2ldID09ICdkJyApCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB7Cj4gPiAtwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGludCBhcmcgPSB2YV9hcmcoYXJncywgaW50KTsKPiA+
+IC0KPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLyogQ29udmVydCB0aGUgaW50
+ZWdlciB0byBzdHJpbmcgcmVwcmVzZW50YXRpb24gKi8KPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgY2hhciBudW1zdHJbMzJdOyAvKiBBc3N1bWVzIGEgbWF4aW11bSBvZiAzMiBk
+aWdpdHMKPiA+ICovCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGludCBudW1s
+ZW4gPSAwOwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbnQgbnVtID0gYXJn
+Owo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzaXplX3QgcmVtYWluaW5nOwo+
+ID4gLQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIGFyZyA8IDAgKQo+
+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB7Cj4gPiAtwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKCB3cml0dGVuIDwgc2l6ZSAtIDEgKQo+ID4gLcKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHsKPiA+IC3CoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRlc3Rbd3JpdHRlbl0gPSAnLSc7Cj4g
+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB3cml0dGVu
+Kys7Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+ID4gLQo+
+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG51bSA9IC1hcmc7Cj4g
+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0KPiA+IC0KPiA+IC3CoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgZG8KPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgewo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG51bXN0cltu
+dW1sZW5dID0gJzAnICsgbnVtICUgMTA7Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgbnVtID0gbnVtIC8gMTA7Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgbnVtbGVuKys7Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIH0gd2hpbGUgKCBudW0gPiAwICk7Cj4gPiAtCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIC8qIFJldmVyc2UgdGhlIHN0cmluZyAqLwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBmb3IgKGludCBqID0gMDsgaiA8IG51bWxlbiAvIDI7IGorKykKPiA+IC3C
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgewo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGNoYXIgdG1wID0gbnVtc3RyW2pdOwo+ID4gLcKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG51bXN0cltqXSA9IG51bXN0cltudW1sZW4gLSAx
+IC0gal07Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbnVtc3Ry
+W251bWxlbiAtIDEgLSBqXSA9IHRtcDsKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfQo+ID4gLQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZW1haW5pbmcg
+PSBzaXplIC0gd3JpdHRlbiAtIDE7Cj4gPiAtCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGlmICggbnVtbGVuID4gcmVtYWluaW5nICkKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBudW1sZW4gPSByZW1haW5pbmc7Cj4gPiAtCj4gPiAtwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1lbWNweShkZXN0ICsgd3JpdHRlbiwgbnVtc3RyLCBu
+dW1sZW4pOwo+ID4gLQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB3cml0dGVu
+ICs9IG51bWxlbjsKPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaSsrOwo+ID4g
+LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+ID4gLcKgwqDCoMKgwqDCoMKgIH0KPiA+IC3CoMKg
+wqDCoMKgwqDCoCBlbHNlCj4gPiAtwqDCoMKgwqDCoMKgwqAgewo+ID4gLcKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgaWYgKCB3cml0dGVuIDwgc2l6ZSAtIDEgKQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgewo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXN0W3dyaXR0ZW5d
+ID0gZm9ybWF0W2ldOwo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB3cml0dGVu
+Kys7Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBpKys7Cj4gPiAtwqDCoMKgwqDCoMKgwqAgfQo+ID4gLcKgwqDCoCB9Cj4gPiAtCj4gPiAt
+wqDCoMKgIGlmICggc2l6ZSA+IDAgKQo+ID4gLcKgwqDCoMKgwqDCoMKgIGRlc3Rbd3JpdHRlbl0g
+PSAnXDAnOwo+ID4gLQo+ID4gLcKgwqDCoCByZXR1cm4gd3JpdHRlbjsKPiA+IC19Cj4gPiAtCj4g
+PiAtdm9pZCBwcmludGsoY29uc3QgY2hhciAqZm9ybWF0LCAuLi4pCj4gPiAtewo+ID4gLcKgwqDC
+oCBzdGF0aWMgY2hhciBidWZbMTAyNF07Cj4gPiAtCj4gPiAtwqDCoMKgIHZhX2xpc3QgYXJnczsK
+PiA+IC3CoMKgwqAgdmFfc3RhcnQoYXJncywgZm9ybWF0KTsKPiA+IC0KPiA+IC3CoMKgwqAgKHZv
+aWQpdnNucHJpbnRmKGJ1Ziwgc2l6ZW9mKGJ1ZiksIGZvcm1hdCwgYXJncyk7Cj4gPiAtCj4gPiAt
+wqDCoMKgIGVhcmx5X3ByaW50ayhidWYpOwo+ID4gLQo+ID4gLcKgwqDCoCB2YV9lbmQoYXJncyk7
+Cj4gPiAtfQo+ID4gLQo+ID4gLSNlbmRpZgo+ID4gLQo+IAo+IEFyZW4ndCB5b3UgdHJhbnNpZW50
+bHkgYnJlYWtpbmcgdGhlIGJ1aWxkIGJ5IHJlbW92aW5nIHRoZXNlIGhlcmUsCj4gcmF0aGVyCj4g
+dGhhbiBpbiB0aGUgbmV4dCBwYXRjaD8KSXQgc2hvdWxkIGJyZWFrLiBJJ2xsIGRvdWJsZSBjaGVj
+ay4gSWYgaXQgd2lsbCwgdGhlbiBJJ2xsIG1vdmUgdGhlc2UKY2hhbmdlcyBpbiB0aGUgbmV4dCBw
+YXRjaC4KPiAKPiA+IC0tLSAvZGV2L251bGwKPiA+ICsrKyBiL3hlbi9hcmNoL3Jpc2N2L3N0dWJz
+LmMKPiA+IEBAIC0wLDAgKzEsNDIyIEBACj4gPiArLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6
+IEdQTC0yLjAtb25seSAqLwo+ID4gKyNpbmNsdWRlIDx4ZW4vY3B1bWFzay5oPgo+ID4gKyNpbmNs
+dWRlIDx4ZW4vZG9tYWluLmg+Cj4gPiArI2luY2x1ZGUgPHhlbi9pcnEuaD4KPiA+ICsjaW5jbHVk
+ZSA8eGVuL25vZGVtYXNrLmg+Cj4gPiArI2luY2x1ZGUgPHhlbi90aW1lLmg+Cj4gPiArI2luY2x1
+ZGUgPHB1YmxpYy9kb21jdGwuaD4KPiA+ICsKPiA+ICsjaW5jbHVkZSA8YXNtL2N1cnJlbnQuaD4K
+PiA+ICsKPiA+ICsvKiBzbXBib290LmMgKi8KPiA+ICsKPiA+ICtjcHVtYXNrX3QgY3B1X29ubGlu
+ZV9tYXA7Cj4gPiArY3B1bWFza190IGNwdV9wcmVzZW50X21hcDsKPiA+ICtjcHVtYXNrX3QgY3B1
+X3Bvc3NpYmxlX21hcDsKPiA+ICsKPiA+ICsvKiBJRCBvZiB0aGUgUENQVSB3ZSdyZSBydW5uaW5n
+IG9uICovCj4gPiArREVGSU5FX1BFUl9DUFUodW5zaWduZWQgaW50LCBjcHVfaWQpOwo+ID4gKy8q
+IFhYWCB0aGVzZSBzZWVtIGF3ZnVsbHkgeDg2aXNoLi4uICovCj4gPiArLyogcmVwcmVzZW50aW5n
+IEhUIHNpYmxpbmdzIG9mIGVhY2ggbG9naWNhbCBDUFUgKi8KPiA+ICtERUZJTkVfUEVSX0NQVV9S
+RUFEX01PU1RMWShjcHVtYXNrX3Zhcl90LCBjcHVfc2libGluZ19tYXNrKTsKPiA+ICsvKiByZXBy
+ZXNlbnRpbmcgSFQgYW5kIGNvcmUgc2libGluZ3Mgb2YgZWFjaCBsb2dpY2FsIENQVSAqLwo+ID4g
+K0RFRklORV9QRVJfQ1BVX1JFQURfTU9TVExZKGNwdW1hc2tfdmFyX3QsIGNwdV9jb3JlX21hc2sp
+Owo+ID4gKwo+ID4gK25vZGVtYXNrX3QgX19yZWFkX21vc3RseSBub2RlX29ubGluZV9tYXAgPSB7
+IHsgWzBdID0gMVVMIH0gfTsKPiA+ICsKPiA+ICsvKiB0aW1lLmMgKi8KPiA+ICsKPiA+ICt1bnNp
+Z25lZCBsb25nIF9fcmVhZF9tb3N0bHkgY3B1X2toejvCoCAvKiBDUFUgY2xvY2sgZnJlcXVlbmN5
+IGluCj4gPiBrSHouICovCj4gCj4gX19yb19hZnRlcl9pbml0PwpZZXMsIGl0IHNob3VsZCBiZSBf
+X3JvX2FmdGVyX2luaXQuIFRoYW5rcy4KCj4gCj4gPiArc190aW1lX3QgZ2V0X3NfdGltZSh2b2lk
+KQo+ID4gK3sKPiA+ICvCoMKgwqAgQlVHKCk7Cj4gPiArfQo+ID4gKwo+ID4gK2ludCByZXByb2dy
+YW1fdGltZXIoc190aW1lX3QgdGltZW91dCkKPiA+ICt7Cj4gPiArwqDCoMKgIEJVRygpOwo+ID4g
+K30KPiA+ICsKPiA+ICt2b2lkIHNlbmRfdGltZXJfZXZlbnQoc3RydWN0IHZjcHUgKnYpCj4gPiAr
+ewo+ID4gK8KgwqDCoCBCVUcoKTsKPiA+ICt9Cj4gPiArCj4gPiArdm9pZCBkb21haW5fc2V0X3Rp
+bWVfb2Zmc2V0KHN0cnVjdCBkb21haW4gKmQsIGludDY0X3QKPiA+IHRpbWVfb2Zmc2V0X3NlY29u
+ZHMpCj4gPiArewo+ID4gK8KgwqDCoCBCVUcoKTsKPiA+ICt9Cj4gPiArCj4gPiArLyogc2h1dGRv
+d24uYyAqLwo+ID4gKwo+ID4gK3ZvaWQgbWFjaGluZV9yZXN0YXJ0KHVuc2lnbmVkIGludCBkZWxh
+eV9taWxsaXNlY3MpCj4gPiArewo+ID4gK8KgwqDCoCBCVUcoKTsKPiA+ICt9Cj4gPiArCj4gPiAr
+dm9pZCBtYWNoaW5lX2hhbHQodm9pZCkKPiA+ICt7Cj4gPiArwqDCoMKgIEJVRygpOwo+ID4gK30K
+PiA+ICsKPiA+ICsvKiB2bV9ldmVudC5jICovCj4gPiArCj4gPiArc3RydWN0IHZtX2V2ZW50X3N0
+Owo+ID4gKwo+ID4gK3ZvaWQgdm1fZXZlbnRfZmlsbF9yZWdzKHN0cnVjdCB2bV9ldmVudF9zdCAq
+cmVxKQo+ID4gK3sKPiA+ICvCoMKgwqAgQlVHKCk7Cj4gPiArfQo+ID4gKwo+ID4gK3ZvaWQgdm1f
+ZXZlbnRfc2V0X3JlZ2lzdGVycyhzdHJ1Y3QgdmNwdSAqdiwgc3RydWN0IHZtX2V2ZW50X3N0Cj4g
+PiAqcnNwKQo+ID4gK3sKPiA+ICvCoMKgwqAgQlVHKCk7Cj4gPiArfQo+ID4gKwo+ID4gK3ZvaWQg
+dm1fZXZlbnRfbW9uaXRvcl9uZXh0X2ludGVycnVwdChzdHJ1Y3QgdmNwdSAqdikKPiA+ICt7Cj4g
+PiArwqDCoMKgIC8qIE5vdCBzdXBwb3J0ZWQgb24gUklTQ1YuICovCj4gPiArfQo+ID4gKwo+ID4g
+K3ZvaWQgdm1fZXZlbnRfcmVzZXRfdm10cmFjZShzdHJ1Y3QgdmNwdSAqdikKPiA+ICt7Cj4gPiAr
+wqDCoMKgIC8qIE5vdCBzdXBwb3J0ZWQgb24gUklTQ1YuICovCj4gPiArfQo+IAo+IEp1ZGdpbmcg
+ZnJvbSB0aGUgY29tbWVudHMgdGhlc2UgbGFzdCB0d28gYXJlIGluIHRoZWlyIGZpbmFsIHNoYXBl
+Lgo+IFdvdWxkbid0IGl0IG1ha2Ugc2Vuc2UgdG8gcHV0IHRoZW0gaW4gdm1fZXZlbnQuYyByaWdo
+dCBhd2F5IHRoZW4/IEFuZAo+IHRoZW4gcGVyaGFwcyB0b2dldGhlciB3aXRoIHRoZSB0d28gc3R1
+YnM/ClllcywgaXQgbWFrZXMgc2Vuc2UuCgo+IAo+IFlldCB0aGVuIC0gQXJtIGdldHMgYXdheSB3
+aXRob3V0IHZtX2V2ZW50X3Jlc2V0X3ZtdHJhY2UoKT8gQ2FuIHlvdQo+IGV4cGxhaW4gd2h5IHRo
+ZSBzYW1lIGlzbid0IHRydWUgZm9yIFJJU0MtVj8KSXQgc2hvdWxkIHRydWUgYW5kIGZvciBSSVND
+LVYuIEknbGwgbG9vayBhdCB3aGVuIHRoZXkgZ2V0cyBhd2F5CnZtX2V2ZW50X3Jlc2V0X3ZtdHJh
+Y2UoKS4KCj4gCj4gPiBAQCAtMTEsMyArMTUsMjQgQEAgdm9pZCBkb190cmFwKHN0cnVjdCBjcHVf
+dXNlcl9yZWdzICpjcHVfcmVncykKPiA+IMKgewo+ID4gwqDCoMKgwqAgZGllKCk7Cj4gPiDCoH0K
+PiA+ICsKPiA+ICt2b2lkIHZjcHVfc2hvd19leGVjdXRpb25fc3RhdGUoc3RydWN0IHZjcHUgKnYp
+Cj4gPiArewo+ID4gK8KgwqDCoCBhc3NlcnRfZmFpbGVkKCJuZWVkIHRvIGJlIGltcGxlbnRlZCIp
+Owo+IAo+IEp1c3QgdG8gbWVudGlvbiBpdCBhZ2FpbiAtIHRoZSBleHBlY3RhdGlvbiBpcyB0aGF0
+IGFsbCBpbnN0YW5jZXMgd2lsbAo+IHVzZSB0aGUgc2FtZSAiY2Fub25pY2FsIiBwYXR0ZXJuIGZv
+ciBpZGVudGlmeWluZyB5ZXQtdG8tYmUtCj4gaW1wbGVtZW50ZWQKPiBmdW5jdGlvbnMuClN1cmUs
+IEknbGwgdXBkYXRlIHVzaW5nIEJVR19PTigidW5pbXBsZW1lbnRlZCIpOwoKVGhhbmtzIGZvciBy
+ZXZpZXcuCgp+IE9sZWtzaWkK
 
->=20
-> > +/* Convert between Xen-heap virtual addresses and page-info
-> > structures. */
-> > +static inline struct page_info *virt_to_page(const void *v)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 BUG();
-> > +=C2=A0=C2=A0=C2=A0 return NULL;
-> > +}
-> > +
-> > +/*
-> > + * We define non-underscored wrappers for above conversion
-> > functions.
-> > + * These are overriden in various source files while underscored
-> > version
-> > + * remain intact.
-> > + */
-> > +#define virt_to_mfn(va)=C2=A0=C2=A0=C2=A0=C2=A0 __virt_to_mfn(va)
-> > +#define mfn_to_virt(mfn)=C2=A0=C2=A0=C2=A0 __mfn_to_virt(mfn)
->=20
-> Is this really still needed? Would be pretty nice if in a new port we
-> could get to start cleanly right away (i.e. by not needing per-file
-> overrides, but using type-safe expansions here right away).
-Yes, we can just rename __virt_to_mfn and __mfn_to_virt and updated it
-accordingly to your previous comment.
-
-
->=20
-> > +struct page_info
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 /* Each frame can be threaded onto a doubly-linked =
-list. */
-> > +=C2=A0=C2=A0=C2=A0 struct page_list_entry list;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 /* Reference count and various PGC_xxx flags and fi=
-elds. */
-> > +=C2=A0=C2=A0=C2=A0 unsigned long count_info;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 /* Context-dependent fields follow... */
-> > +=C2=A0=C2=A0=C2=A0 union {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Page is in use: ((count_=
-info & PGC_count_mask) !=3D 0).
-> > */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* =
-Type reference count and various PGT_xxx flags and
-> > fields. */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uns=
-igned long type_info;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } inuse;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Page is on a free list: =
-((count_info & PGC_count_mask)
-> > =3D=3D 0). */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 union {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 str=
-uct {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Index of the first *possibly* unscrubbed page
-> > in the buddy.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 * One more bit than maximum possible order to
-> > accommodate
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 * INVALID_DIRTY_IDX.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +#define INVALID_DIRTY_IDX ((1UL << (MAX_ORDER + 1)) - 1)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 unsigned long first_dirty:MAX_ORDER + 1;
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 /* Do TLBs need flushing for safety before next
-> > page use? */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 bool need_tlbflush:1;
-> > +
-> > +#define BUDDY_NOT_SCRUBBING=C2=A0=C2=A0=C2=A0 0
-> > +#define BUDDY_SCRUBBING=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 1
-> > +#define BUDDY_SCRUB_ABORT=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 2
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 unsigned long scrub_state:2;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 unsigned long val;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } f=
-ree;
->=20
-> Indentation is wrong (and thus misleading) for these two lines.
-I'll correct it.
-
->=20
-> > +
-> > +=C2=A0=C2=A0=C2=A0 } u;
->=20
-> Nit: I don't see the value of the trailing blank line inside the
-> union.
-Sure, there is no any sense.
-
->=20
-> > +=C2=A0=C2=A0=C2=A0 union {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Page is in use, but not =
-as a shadow. */
->=20
-> I question the appicability of "shadow" here.
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* =
-Owner of this page (zero if page is anonymous). */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 str=
-uct domain *domain;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } inuse;
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Page is on a free list. =
-*/
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* =
-Order-size of the free chunk this page is the head
-> > of. */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uns=
-igned int order;
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 } free;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 } v;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 union {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Timestamp from 'TLB=
- clock', used to avoid extra safety
-> > flushes.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Only valid for: a) =
-free pages, and b) pages with zero
-> > type count
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uint32_t tlbflush_timestamp=
-;
-> > +=C2=A0=C2=A0=C2=A0 };
-> > +=C2=A0=C2=A0=C2=A0 uint64_t pad;
-> > +};
-> > +
-> > +#define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
-> > +
-> > +/* PDX of the first page in the frame table. */
-> > +extern unsigned long frametable_base_pdx;
->=20
-> From this I conclude memory on RISC-V systems may not start at (or
-> near) 0?
-I am not sure that it is impossible at all, but all platforms I saw it
-was always not 0 and pretty big values. For example, on real platform,
-there is =3D0000004000000000. In QEMU, it is 0x800...0
-
->=20
-> > +/* Convert between machine frame numbers and page-info structures.
-> > */
-> > +#define
-> > mfn_to_page(mfn)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > +=C2=A0=C2=A0=C2=A0 (frame_table + (mfn_to_pdx(mfn) - frametable_base_p=
-dx))
-> > +#define
-> > page_to_mfn(pg)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > +=C2=A0=C2=A0=C2=A0 pdx_to_mfn((unsigned long)((pg) - frame_table) +
-> > frametable_base_pdx)
-> > +
-> > +static inline void *page_to_virt(const struct page_info *pg)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 return mfn_to_virt(mfn_x(page_to_mfn(pg)));
-> > +}
-> > +
-> > +/*
-> > + * Common code requires get_page_type and put_page_type.
-> > + * We don't care about typecounts so we just do the minimum to
-> > make it
-> > + * happy.
-> > + */
-> > +static inline int get_page_type(struct page_info *page, unsigned
-> > long type)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 return 1;
-> > +}
-> > +
-> > +static inline void put_page_type(struct page_info *page)
-> > +{
-> > +}
-> > +
-> > +static inline void put_page_and_type(struct page_info *page)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 put_page_type(page);
-> > +=C2=A0=C2=A0=C2=A0 put_page(page);
-> > +}
-> > +
-> > +/*
-> > + * RISC-V does not have an M2P, but common code expects a handful
-> > of
-> > + * M2P-related defines and functions. Provide dummy versions of
-> > these.
-> > + */
-> > +#define INVALID_M2P_ENTRY=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (~=
-0UL)
-> > +#define SHARED_M2P_ENTRY=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 (~0UL - 1UL)
-> > +#define SHARED_M2P(_e)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 ((_e) =3D=3D SHARED_M2P_ENTRY)
-> > +
-> > +/* Xen always owns P2M on RISC-V */
-> > +#define set_gpfn_from_mfn(mfn, pfn) do { (void) (mfn),
-> > (void)(pfn); } while (0)
->=20
-> Nit: Stray blank again after cast.
-I'll update this. Thanks.
-
->=20
-> > +#define mfn_to_gfn(d, mfn) ((void)(d), _gfn(mfn_x(mfn)))
->=20
-> What's the relation of the comment with these two #define-s?
-I don't know, it was copied just from Arm. I think it would be better
-to drop a comment and just define macros as BUG_ON("uimplemented") for
-time being.
-
->=20
-> > +#define PDX_GROUP_SHIFT (16 + 5)
-> > +
-> > +static inline unsigned long domain_get_maximum_gpfn(struct domain
-> > *d)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 BUG();
-> > +=C2=A0=C2=A0=C2=A0 return 0;
-> > +}
-> > +
-> > +static inline long arch_memory_op(int op,
-> > XEN_GUEST_HANDLE_PARAM(void) arg)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 BUG();
-> > +=C2=A0=C2=A0=C2=A0 return 0;
-> > +}
-> > +
-> > +/*
-> > + * On RISCV, all the RAM is currently direct mapped in Xen.
-> > + * Hence return always true.
-> > + */
-> > +static inline bool arch_mfns_in_directmap(unsigned long mfn,
-> > unsigned long nr)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 return true;
-> > +}
-> > +
-> > +#define PG_shift(idx)=C2=A0=C2=A0 (BITS_PER_LONG - (idx))
-> > +#define PG_mask(x, idx) (x ## UL << PG_shift(idx))
-> > +
-> > +#define PGT_none=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- PG_mask(0, 1)=C2=A0 /* no special uses of
-> > this page=C2=A0=C2=A0 */
-> > +#define PGT_writable_page PG_mask(1, 1)=C2=A0 /* has writable
-> > mappings?=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +#define PGT_type_mask=C2=A0=C2=A0=C2=A0=C2=A0 PG_mask(1, 1)=C2=A0 /* B=
-its 31 or
-> > 63.=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +
-> > + /* Count of uses of this frame as its current type. */
-> > +#define PGT_count_width=C2=A0=C2=A0 PG_shift(2)
-> > +#define PGT_count_mask=C2=A0=C2=A0=C2=A0 ((1UL<<PGT_count_width)-1)
->=20
-> Nit: Style (missing blanks around binary operators). Also a few more
-> times further down.
-Thanks. I'll update.
->=20
-> > +/*
-> > + * Page needs to be scrubbed. Since this bit can only be set on a
-> > page that is
-> > + * free (i.e. in PGC_state_free) we can reuse PGC_allocated bit.
-> > + */
-> > +#define _PGC_need_scrub=C2=A0=C2=A0 _PGC_allocated
-> > +#define PGC_need_scrub=C2=A0=C2=A0=C2=A0 PGC_allocated
-> > +
-> > +//=C2=A0 /* Cleared when the owning guest 'frees' this page. */
->=20
-> Why a commented out comment?
-Missed to remove, my IDE using this type of comment by default. and I
-commented all the file when tried to find minimal of changes needed for
-Xen build.
-
->=20
-> > +#define _PGC_allocated=C2=A0=C2=A0=C2=A0 PG_shift(1)
-> > +#define PGC_allocated=C2=A0=C2=A0=C2=A0=C2=A0 PG_mask(1, 1)
-> > +=C2=A0 /* Page is Xen heap? */
-> > +#define _PGC_xen_heap=C2=A0=C2=A0=C2=A0=C2=A0 PG_shift(2)
-> > +#define PGC_xen_heap=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PG_mask(1, 2)
-> > +/* Page is broken? */
-> > +#define _PGC_broken=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PG_shift(7)
-> > +#define PGC_broken=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PG_mask(1=
-, 7)
-> > + /* Mutually-exclusive page states: { inuse, offlining, offlined,
-> > free }. */
->=20
-> Can similar comments in this block please all be similarly indented
-> (or not)?
-Sure. I'll update that.
-
->=20
-> > +#define PGC_state=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PG_m=
-ask(3, 9)
-> > +#define PGC_state_inuse=C2=A0=C2=A0 PG_mask(0, 9)
-> > +#define PGC_state_offlining PG_mask(1, 9)
-> > +#define PGC_state_offlined PG_mask(2, 9)
-> > +#define PGC_state_free=C2=A0=C2=A0=C2=A0 PG_mask(3, 9)
-> > +// #define page_state_is(pg, st) (((pg)->count_info&PGC_state) =3D=3D
-> > PGC_state_##st)
->=20
-> ???
-The same as above, just missed to remove that line.
-
->=20
-> > +/* Count of references to this frame. */
-> > +#define PGC_count_width=C2=A0=C2=A0 PG_shift(9)
-> > +#define PGC_count_mask=C2=A0=C2=A0=C2=A0 ((1UL<<PGC_count_width)-1)
-> > +
-> > +#define page_state_is(pg, st) (((pg)->count_info&PGC_state) =3D=3D
-> > PGC_state_##st)
->=20
-> And here it then "properly" appears?
->=20
-> > +#define _PGC_extra=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PG_shift(=
-10)
-> > +#define PGC_extra=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PG_m=
-ask(1, 10)
-> > +
-> > +#define is_xen_heap_page(page) ((page)->count_info & PGC_xen_heap)
-> > +#define is_xen_heap_mfn(mfn) \
-> > +=C2=A0=C2=A0=C2=A0 (mfn_valid(mfn) && is_xen_heap_page(mfn_to_page(mfn=
-)))
-> > +
-> > +#define is_xen_fixed_mfn(mfn)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
-> > +=C2=A0=C2=A0=C2=A0 ((mfn_to_maddr(mfn) >=3D virt_to_maddr(&_start)) &&=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 (mfn_to_maddr(mfn) <=3D virt_to_maddr((vaddr_=
-t)_end - 1)))
->=20
-> Why does _start need prefixing wuth & and _end prefixing with a cast?
-> First and foremost both want to be consistent. And then preferably
-> with as little extra clutter as possible.
-This is how it was defined in Arm. I think it both can be casted.
-I'll update that.
-Thanks.
->=20
-> > +#define page_get_owner(_p)=C2=A0=C2=A0=C2=A0 (_p)->v.inuse.domain
-> > +#define page_set_owner(_p,_d) ((_p)->v.inuse.domain =3D (_d))
-> > +
-> > +/* TODO: implement */
-> > +#define mfn_valid(mfn) ({ (void) (mfn); 0; })
-> > +
-> > +#define mfn_to_gfn(d, mfn) ((void)(d), _gfn(mfn_x(mfn)))
->=20
-> This appeared further up already.
->=20
-> > +#define domain_set_alloc_bitsize(d) ((void)0)
->=20
-> Better ((void)(d)) ? And then ...
->=20
-> > +#define domain_clamp_alloc_bitsize(d, b) (b)
->=20
-> ... ((void)(d), (b)) here?
-I'll update properly. Thanks.
-
-~ Oleksii
 
