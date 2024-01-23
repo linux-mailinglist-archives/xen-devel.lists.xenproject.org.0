@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13D53839AB7
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 22:00:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670605.1043501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2435839B39
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 22:33:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670611.1043512 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSNsE-0001F3-Ie; Tue, 23 Jan 2024 20:59:58 +0000
+	id 1rSONu-0006QF-VX; Tue, 23 Jan 2024 21:32:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670605.1043501; Tue, 23 Jan 2024 20:59:58 +0000
+Received: by outflank-mailman (output) from mailman id 670611.1043512; Tue, 23 Jan 2024 21:32:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSNsE-0001Cs-Fq; Tue, 23 Jan 2024 20:59:58 +0000
-Received: by outflank-mailman (input) for mailman id 670605;
- Tue, 23 Jan 2024 20:59:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rSONu-0006OH-Si; Tue, 23 Jan 2024 21:32:42 +0000
+Received: by outflank-mailman (input) for mailman id 670611;
+ Tue, 23 Jan 2024 21:32:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=agvZ=JB=citrix.com=prvs=745b95a7f=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1rSNsD-0001Cm-9i
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 20:59:57 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5a7445ca-ba32-11ee-98f5-6d05b1d4d9a1;
- Tue, 23 Jan 2024 21:59:55 +0100 (CET)
+ <SRS0=1h7C=JB=chromium.org=keescook@srs-se1.protection.inumbo.net>)
+ id 1rSONt-0006OB-2W
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 21:32:41 +0000
+Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
+ [2607:f8b0:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ed67a1a5-ba36-11ee-9b0f-b553b5be7939;
+ Tue, 23 Jan 2024 22:32:37 +0100 (CET)
+Received: by mail-pl1-x62c.google.com with SMTP id
+ d9443c01a7336-1d74045c463so18846825ad.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 13:32:37 -0800 (PST)
+Received: from www.outflux.net ([198.0.35.241])
+ by smtp.gmail.com with ESMTPSA id
+ g8-20020a170902740800b001d714ccf7b3sm8100220pll.180.2024.01.23.13.32.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Jan 2024 13:32:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,143 +45,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5a7445ca-ba32-11ee-98f5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1706043594;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=XYENZ7mntZ4BXqj5Lh3OmMQDbH2kjvI/Djnjt3ZMeu0=;
-  b=SXiJlqP6tlbIshz7Gsd0fUNKbXq1yGjOB7jdUdpQALwJNz2QUBte4ZeL
-   L123C1NaTb8AZjiD9TEqQRwGelhj6xRtLCrBDxj57QVpa/GG639vNYpxt
-   b6FtwW8Uv0nvX7FwwTKySVY3+LDMkO5joyxqPB/A6iTV6WXvAaFfSHkWD
-   c=;
-X-CSE-ConnectionGUID: A5MugA1pSxKNAiNoeJMjkg==
-X-CSE-MsgGUID: PoWjPfzWQOyHw2wNCU/UvQ==
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 129487174
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.159.70
-X-Policy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:FSul4a1Zmia99i6POvbD5Zdxkn2cJEfYwER7XKvMYLTBsI5bpzZRy
- DEdWTjSaPqCYjHzetEja9vgpxgD6MSGm4UwSgBtpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliOfQAOK6UbaYUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8teTb9XuDgNyo4GlE5gVkPqgX1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfKDxr6
- PMxcSg2fjOlruOQx7+Zb+tviZF2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
- ZNfMGc+KkuYC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TTH5QJzhnB+
- T6uE2LROhYlNuSR2wW81WOMmbXQuwjGH78MLejtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHsljw2VsdUEuY6wBqQ0aeS6AGcbkAbShZRZdpgs9U5LQHGz
- XfQwYmvX2Y29uTIGDTCrt94sA9eJwA8cEofagZdVTAVwP/Koac0gzDqTNVsRfvdYsLOJd3g/
- 9ybhHFh3+tL1JJahvjTwLzRv967SnH0ou8JCub/BDvNAvtRPtLNWmBRwQGzAQx8BIiYVEKdm
- 3MPhtKT6usDZbnUy3TTGL5QRujwu6jdWNE5vbKIN8B/nwlBBlb5JdwAiN2ADBkB3jk4lc/BP
- xaI5FI5CG57N3q2d65nC7+M5zAR5fG4T7zND6mEBueil7AtLGdrCgkyPx/Pt40s+WBw+ZwC1
- WCzK5n0XS9EWP06lVJbhY41iNcW+8z3/kuLLbiT8vht+eP2iKK9IVvdDGazUw==
-IronPort-HdrOrdr: A9a23:oJG7qapmlFrTp3nY/1xfUjYaV5oneYIsimQD101hICG8cqSj+f
- xG+85rsiMc6QxhPE3I9urhBEDtex/hHP1OkOws1NWZLWrbUQKTRekIh+bfKlXbakvDH4VmtJ
- uIHZIQNDSJNykZsfrH
-X-Talos-CUID: 9a23:SgiSf2N8Al33fe5DcXRC6UE9Q9geYl775Xb2JEKaLGRqR+jA
-X-Talos-MUID: =?us-ascii?q?9a23=3AIabMegyCp4g35AjVp50/b0oj9IKaqJypN0I1n4c?=
- =?us-ascii?q?5gu6VFTMqJBG2sXOKXLZyfw=3D=3D?=
-X-IronPort-AV: E=Sophos;i="6.05,215,1701147600"; 
-   d="scan'208";a="129487174"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/ucode: Fix stability of the Raw CPU Policy rescan
-Date: Tue, 23 Jan 2024 20:59:48 +0000
-Message-ID: <20240123205948.1782556-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: ed67a1a5-ba36-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1706045556; x=1706650356; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=swQh+tXC7wjzygjmlvxoa7jnM24RYNaNqlf/2tnlFpM=;
+        b=YyTLJJi+lkIfGK++NhomAsr86JNL7Kemr2LURxY93gmh/UbbPqD+NI1nIrt7mFb/aX
+         E6VPZOiQiMcr/mDRU9UGrAKqLvK8Dmvjor3IJzUJkiBDH8hRh/0WEgFcLkWmfDgeoEpe
+         NLij+hHRoU8afZZ63222CMEyhTtCkXaKVxvp0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706045556; x=1706650356;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=swQh+tXC7wjzygjmlvxoa7jnM24RYNaNqlf/2tnlFpM=;
+        b=jIiYdZ8cUXPDZAx31Vc/2+1932REC2o3bc8SVRca1YDHKmo7VJXROb0K/YQFsyaC7q
+         q4YHi5HbcUIJKaZ3oBfB+5weip9CoTn8zF7yPO7iwcY6G51hTqQkJc7CV5QqQIHtATYY
+         0S8sH2w+JH+oZwHHh2vJGppmE3sVRjw1xJ3A8glxxHUHi7F4CjVwoJESftAn19papibG
+         v6rX82kqdoY67EFSGpksuShpaynbx96VEx4wjv6P34g5bREDnLGI8OV3wgO/ezSGlzjl
+         i59aGAAg2Lw1PON4Cyryunj96mlgTW/e8NSl1Z19HTD0yP/Z2clUJoAC247FKg7UPFXT
+         VLWg==
+X-Gm-Message-State: AOJu0YyYsCrzefudQKxWh0Zh1vC8onLiVAbhGhlE5U1dlreYMaczLZz3
+	AxwRcFoEQwIvsiz82gd+4O5ibV9vXHyC29UO7v5V4V73nCwGMumWwLsxhf2Ywg==
+X-Google-Smtp-Source: AGHT+IEQgobK3CRi+ljenTCG6shvI0FXYyD3FQGn2ZQQGUseg7yif9UwvyOavRLNcvr02zSwCtZc7A==
+X-Received: by 2002:a17:903:120d:b0:1d5:7316:c9fb with SMTP id l13-20020a170903120d00b001d57316c9fbmr3866864plh.37.1706045556284;
+        Tue, 23 Jan 2024 13:32:36 -0800 (PST)
+Date: Tue, 23 Jan 2024 13:32:35 -0800
+From: Kees Cook <keescook@chromium.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Subject: Re: [PATCH 80/82] xen-netback: Refactor intentional wrap-around test
+Message-ID: <202401231331.0BD2925D4E@keescook>
+References: <20240122235208.work.748-kees@kernel.org>
+ <20240123002814.1396804-80-keescook@chromium.org>
+ <35ff4947-7863-40da-b0e7-3b84e17c6163@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <35ff4947-7863-40da-b0e7-3b84e17c6163@suse.com>
 
-Always run microcode_update_helper() on the BSP, so the the updated Raw CPU
-policy doesn't get non-BSP topology details included.
+On Tue, Jan 23, 2024 at 08:55:44AM +0100, Jan Beulich wrote:
+> On 23.01.2024 01:27, Kees Cook wrote:
+> > --- a/drivers/net/xen-netback/hash.c
+> > +++ b/drivers/net/xen-netback/hash.c
+> > @@ -345,7 +345,7 @@ u32 xenvif_set_hash_mapping(struct xenvif *vif, u32 gref, u32 len,
+> >  		.flags = GNTCOPY_source_gref
+> >  	}};
+> >  
+> > -	if ((off + len < off) || (off + len > vif->hash.size) ||
+> > +	if ((add_would_overflow(off, len)) || (off + len > vif->hash.size) ||
+> 
+> I'm not maintainer of this code, but if I was I would ask that the
+> excess parentheses be removed, to improve readability.
 
-Have calculate_raw_cpu_policy() clear the instantanious XSTATE sizes.  The
-value XCR0 | MSR_XSS had when we scanned the policy isn't terribly interesting
-to report.
+Good call. I will adjust that. Thanks!
 
-When CPUID Masking is active, it affects CPUID instructions issued by Xen
-too.  Transiently disable masking to get a clean scan.
+-Kees
 
-Fixes: 694d79ed5aac ("x86/ucode: Refresh raw CPU policy after microcode load")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-
-I debased adding named fields for the instantious xstate sizes, but decided
-not to.  There's no (other) case where I can see them reasonably being used.
----
- xen/arch/x86/cpu-policy.c         |  7 +++++++
- xen/arch/x86/cpu/microcode/core.c | 20 +++++++++++++++++---
- 2 files changed, 24 insertions(+), 3 deletions(-)
-
-diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
-index 76efb050edf7..82b10de03efd 100644
---- a/xen/arch/x86/cpu-policy.c
-+++ b/xen/arch/x86/cpu-policy.c
-@@ -353,6 +353,13 @@ void calculate_raw_cpu_policy(void)
-     /* Nothing good will come from Xen and libx86 disagreeing on vendor. */
-     ASSERT(p->x86_vendor == boot_cpu_data.x86_vendor);
- 
-+    /*
-+     * Clear the truly dynamic fields.  These vary with the in-context XCR0
-+     * and MSR_XSS, and aren't interesting fields in the raw policy.
-+     */
-+    p->xstate.raw[0].ebx = 0;
-+    p->xstate.raw[1].ebx = 0;
-+
-     /* 0x000000ce  MSR_INTEL_PLATFORM_INFO */
-     /* Was already added by probe_cpuid_faulting() */
- }
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 120a11d5036d..6f95f7bbe223 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -680,8 +680,18 @@ static long cf_check microcode_update_helper(void *data)
-         microcode_update_cache(patch);
-         spin_unlock(&microcode_mutex);
- 
--        /* Refresh the raw CPU policy, in case the features have changed. */
-+        /*
-+         * Refresh the raw CPU policy, in case the features have changed.
-+         * Disable CPUID masking if in use, to avoid having current's
-+         * cpu_policy affect the rescan.
-+         */
-+	if ( ctxt_switch_masking )
-+            alternative_vcall(ctxt_switch_masking, NULL);
-+
-         calculate_raw_cpu_policy();
-+
-+	if ( ctxt_switch_masking )
-+            alternative_vcall(ctxt_switch_masking, current);
-     }
-     else
-         microcode_free_patch(patch);
-@@ -721,8 +731,12 @@ int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len)
-     }
-     buffer->len = len;
- 
--    return continue_hypercall_on_cpu(smp_processor_id(),
--                                     microcode_update_helper, buffer);
-+    /*
-+     * Always queue microcode_update_helper() on CPU0.  Most of the logic
-+     * won't care, but the update of the Raw CPU policy wants to (re)run on
-+     * the BSP.
-+     */
-+    return continue_hypercall_on_cpu(0, microcode_update_helper, buffer);
- }
- 
- static int __init cf_check microcode_init(void)
 -- 
-2.30.2
-
+Kees Cook
 
