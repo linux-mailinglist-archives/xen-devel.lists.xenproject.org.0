@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F54838E9A
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 13:35:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670441.1043213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82C1A838EE8
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 13:56:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670448.1043221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSFzG-0002V7-V0; Tue, 23 Jan 2024 12:34:42 +0000
+	id 1rSGJc-0007eL-KT; Tue, 23 Jan 2024 12:55:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670441.1043213; Tue, 23 Jan 2024 12:34:42 +0000
+Received: by outflank-mailman (output) from mailman id 670448.1043221; Tue, 23 Jan 2024 12:55:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSFzG-0002Rs-Rz; Tue, 23 Jan 2024 12:34:42 +0000
-Received: by outflank-mailman (input) for mailman id 670441;
- Tue, 23 Jan 2024 12:34:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OrDF=JB=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rSFzE-0002Rk-JZ
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 12:34:40 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c5d7918b-b9eb-11ee-9b0f-b553b5be7939;
- Tue, 23 Jan 2024 13:34:38 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-a2dc7827a97so463384966b.2
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 04:34:38 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- l18-20020a17090612d200b00a28fd9607a8sm14316503ejb.81.2024.01.23.04.34.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jan 2024 04:34:37 -0800 (PST)
+	id 1rSGJc-0007cm-Gs; Tue, 23 Jan 2024 12:55:44 +0000
+Received: by outflank-mailman (input) for mailman id 670448;
+ Tue, 23 Jan 2024 12:55:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rSGJb-0007ca-AO; Tue, 23 Jan 2024 12:55:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rSGJb-0006lo-6h; Tue, 23 Jan 2024 12:55:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rSGJa-0007Nz-Lc; Tue, 23 Jan 2024 12:55:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rSGJa-0005cm-L4; Tue, 23 Jan 2024 12:55:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,420 +42,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5d7918b-b9eb-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706013278; x=1706618078; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=4YID5zeWxTcKedNchaS9M/Sss886vPmOHYTrMvovnLY=;
-        b=llN5HtdtZ57zjV+pgc/HOzvzJwlSnyBdsh6/jofn97UhFzQ5daEJQeanIBnmhKjt9t
-         n/pviBZ2aZgIU526ENmYbRMEs4ay1DEscXTbMpm2HdlsC8Zf4MrtcSTse6x08HP7Tw2W
-         SDbXSCOJyjXQLl4k2WNbB/WiIPETDSSzGFumiFPYa5NWL7Zi+Lt3Q0qH/jEyf7r+DrU8
-         g1EwKVzKDvmkwgEJgmJ3/9Yzjpkz3bV54TQPwwA6q3zEj7yr42i35Kr9tDyA5TWrrTqW
-         VtsTpNAsxN9np76r47ct8kpMIKQJStxVn6moZCDpguLBdwrkWDQYFDaqVpDtmy3n8sfs
-         NAgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706013278; x=1706618078;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4YID5zeWxTcKedNchaS9M/Sss886vPmOHYTrMvovnLY=;
-        b=R3df6BiMpxrlBVyXl+bGjrrsUEZXp9IizG8w8AeOixL3di3d/0qqzguv9Uw5atR+22
-         mXama2iLp5NY8oFYUSZfHfcOJ+AQAfR/FLPzguYJ0vzswuEKCSmxfoMVKriZoNjNNbuo
-         Lijv7qUlvyrMDpuBfOaZUfyII0fhJkXcBr1qcRpI0UbEmWejmRit//KcqGJg7qBhVTo5
-         uHl05694dGuuYMzKWcnmG+j1sxsGkX3SWaJRFgnr5IHXdcQ1ictU6liJPSnuDlZh5oWT
-         QfAupr3a31iFoh7/171fWyx9zOKgc/pP8FJGnXwxM7tmpN1BdOccoJKR4UvRF7Yn/6SR
-         HLuw==
-X-Gm-Message-State: AOJu0YwLfdLQ2bmMfVBsFGq50605+b6t18IP272WF21VLT0Bu0XJ995I
-	0DINU8ljRZZQNI1fbVHAw+x8sYoBiC+xuCvYd7FCsWHydxyquFVj
-X-Google-Smtp-Source: AGHT+IGBOLV2mYT3VUmuMCuf2hgxP1v9o+YwCzRI/4sB5COLHsGgZ5zLo6qT/uvlBTBqUGTQZ8UpLw==
-X-Received: by 2002:a17:907:a70c:b0:a30:92d4:cc81 with SMTP id vw12-20020a170907a70c00b00a3092d4cc81mr1239790ejc.86.1706013277496;
-        Tue, 23 Jan 2024 04:34:37 -0800 (PST)
-Message-ID: <05d685b0b7ccd329454a336b20351979bdf91ea4.camel@gmail.com>
-Subject: Re: [PATCH v3 16/34] xen/lib: introduce generic find next bit
- operations
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Tue, 23 Jan 2024 14:34:36 +0200
-In-Reply-To: <81e5cac4-90f0-4fff-b891-53ca73c61832@suse.com>
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
-	 <bb47caf6c275d8aea307b96e79828831eab4a703.1703255175.git.oleksii.kurochko@gmail.com>
-	 <81e5cac4-90f0-4fff-b891-53ca73c61832@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=a4v2+SNPbvSxq6Yy+6LlpIxs7v3O21yg15icq+lfq68=; b=dWpj1fkExPDpsrPZxm+DkdWEYq
+	y/NqWBH3QXM+3YHh0OKD+blpSM/dCMHREjhbHMQtBYDsPBhoj41y5pwRer6cG0NIyglSqErdauA8J
+	bI0lBbfLMXkGaMqOYXiz8wo9IDHQz+zPsJXXN/dQeMYt3v2/t/nmWepqPSyvRNm8ikm0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184431-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
+Subject: [libvirt test] 184431: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=642af05e3e58b90cb9d15936678f16bd7e454d26
+X-Osstest-Versions-That:
+    libvirt=1785eb8dc93be6a027b97678d4b73afd3806ba0f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 23 Jan 2024 12:55:42 +0000
 
-On Tue, 2024-01-23 at 12:14 +0100, Jan Beulich wrote:
-> On 22.12.2023 16:13, Oleksii Kurochko wrote:
-> > --- a/xen/arch/riscv/include/asm/fence.h
-> > +++ b/xen/arch/riscv/include/asm/fence.h
-> > @@ -1,4 +1,4 @@
-> > -/* SPDX-License-Identifier: GPL-2.0-or-later */
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > =C2=A0#ifndef _ASM_RISCV_FENCE_H
-> > =C2=A0#define _ASM_RISCV_FENCE_H
-> > =C2=A0
-> > @@ -11,3 +11,12 @@
-> > =C2=A0#endif
-> > =C2=A0
-> > =C2=A0#endif	/* _ASM_RISCV_FENCE_H */
-> > +
-> > +/*
-> > + * Local variables:
-> > + * mode: C
-> > + * c-file-style: "BSD"
-> > + * c-basic-offset: 4
-> > + * indent-tabs-mode: nil
-> > + * End:
-> > + */
->=20
-> Surely all of this wants doing in the previous patch, where the
-> header
-> is introduced?
-Yes, it should be in the previous patch. I'll do the proper rebase.
+flight 184431 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184431/
 
->=20
-> > --- a/xen/common/Kconfig
-> > +++ b/xen/common/Kconfig
-> > @@ -47,6 +47,9 @@ config ARCH_MAP_DOMAIN_PAGE
-> > =C2=A0config GENERIC_BUG_FRAME
-> > =C2=A0	bool
-> > =C2=A0
-> > +config GENERIC_FIND_NEXT_BIT
-> > +	bool
->=20
-> There's no need for this, as ...
->=20
-> > --- a/xen/lib/Makefile
-> > +++ b/xen/lib/Makefile
-> > @@ -3,6 +3,7 @@ obj-$(CONFIG_X86) +=3D x86/
-> > =C2=A0lib-y +=3D bsearch.o
-> > =C2=A0lib-y +=3D ctors.o
-> > =C2=A0lib-y +=3D ctype.o
-> > +lib-$(CONFIG_GENERIC_FIND_NEXT_BIT) +=3D find-next-bit.o
->=20
-> ... you're moving this to lib/. Or have you encountered any issue
-> with building this uniformly, and you forgot to mention this in
-> the description?
-I didn't check. My intention was to provide opportunity to check if an
-architecture want to use generic version or not. Otherwise, I expected
-that we will have multiple definiotion of the funcion.
+Failures :-/ but no regressions.
 
-But considering that they are all defined under #ifdef...#endif we can
-remove the declaration of the config GENERIC_FIND_NEXT_BIT.
->=20
-> > --- /dev/null
-> > +++ b/xen/lib/find-next-bit.c
-> > @@ -0,0 +1,281 @@
-> > +/* find_next_bit.c: fallback find next bit implementation
-> > + *
-> > + * Copyright (C) 2004 Red Hat, Inc. All Rights Reserved.
-> > + * Written by David Howells (dhowells@redhat.com)
-> > + *
-> > + * This program is free software; you can redistribute it and/or
-> > + * modify it under the terms of the GNU General Public License
-> > + * as published by the Free Software Foundation; either version
-> > + * 2 of the License, or (at your option) any later version.
-> > + */
-> > +#include <xen/bitops.h>
-> > +
-> > +#include <asm/byteorder.h>
-> > +
-> > +#ifndef find_next_bit
-> > +/*
-> > + * Find the next set bit in a memory region.
-> > + */
-> > +unsigned long find_next_bit(const unsigned long *addr, unsigned
-> > long size,
-> > +			=C2=A0=C2=A0=C2=A0 unsigned long offset)
-> > +{
-> > +	const unsigned long *p =3D addr + BIT_WORD(offset);
-> > +	unsigned long result =3D offset & ~(BITS_PER_LONG-1);
-> > +	unsigned long tmp;
-> > +
-> > +	if (offset >=3D size)
-> > +		return size;
-> > +	size -=3D result;
-> > +	offset %=3D BITS_PER_LONG;
-> > +	if (offset) {
-> > +		tmp =3D *(p++);
-> > +		tmp &=3D (~0UL << offset);
-> > +		if (size < BITS_PER_LONG)
-> > +			goto found_first;
-> > +		if (tmp)
-> > +			goto found_middle;
-> > +		size -=3D BITS_PER_LONG;
-> > +		result +=3D BITS_PER_LONG;
-> > +	}
-> > +	while (size & ~(BITS_PER_LONG-1)) {
-> > +		if ((tmp =3D *(p++)))
-> > +			goto found_middle;
-> > +		result +=3D BITS_PER_LONG;
-> > +		size -=3D BITS_PER_LONG;
-> > +	}
-> > +	if (!size)
-> > +		return result;
-> > +	tmp =3D *p;
-> > +
-> > +found_first:
-> > +	tmp &=3D (~0UL >> (BITS_PER_LONG - size));
-> > +	if (tmp =3D=3D 0UL)		/* Are any bits set? */
-> > +		return result + size;	/* Nope. */
-> > +found_middle:
-> > +	return result + __ffs(tmp);
-> > +}
-> > +EXPORT_SYMBOL(find_next_bit);
-> > +#endif
-> > +
-> > +#ifndef find_next_zero_bit
-> > +/*
-> > + * This implementation of find_{first,next}_zero_bit was stolen
-> > from
-> > + * Linus' asm-alpha/bitops.h.
-> > + */
-> > +unsigned long find_next_zero_bit(const unsigned long *addr,
-> > unsigned long size,
-> > +				 unsigned long offset)
-> > +{
-> > +	const unsigned long *p =3D addr + BIT_WORD(offset);
-> > +	unsigned long result =3D offset & ~(BITS_PER_LONG-1);
-> > +	unsigned long tmp;
-> > +
-> > +	if (offset >=3D size)
-> > +		return size;
-> > +	size -=3D result;
-> > +	offset %=3D BITS_PER_LONG;
-> > +	if (offset) {
-> > +		tmp =3D *(p++);
-> > +		tmp |=3D ~0UL >> (BITS_PER_LONG - offset);
-> > +		if (size < BITS_PER_LONG)
-> > +			goto found_first;
-> > +		if (~tmp)
-> > +			goto found_middle;
-> > +		size -=3D BITS_PER_LONG;
-> > +		result +=3D BITS_PER_LONG;
-> > +	}
-> > +	while (size & ~(BITS_PER_LONG-1)) {
-> > +		if (~(tmp =3D *(p++)))
-> > +			goto found_middle;
-> > +		result +=3D BITS_PER_LONG;
-> > +		size -=3D BITS_PER_LONG;
-> > +	}
-> > +	if (!size)
-> > +		return result;
-> > +	tmp =3D *p;
-> > +
-> > +found_first:
-> > +	tmp |=3D ~0UL << size;
-> > +	if (tmp =3D=3D ~0UL)	/* Are any bits zero? */
-> > +		return result + size;	/* Nope. */
-> > +found_middle:
-> > +	return result + ffz(tmp);
-> > +}
-> > +EXPORT_SYMBOL(find_next_zero_bit);
-> > +#endif
-> > +
-> > +#ifndef find_first_bit
-> > +/*
-> > + * Find the first set bit in a memory region.
-> > + */
-> > +unsigned long find_first_bit(const unsigned long *addr, unsigned
-> > long size)
-> > +{
-> > +	const unsigned long *p =3D addr;
-> > +	unsigned long result =3D 0;
-> > +	unsigned long tmp;
-> > +
-> > +	while (size & ~(BITS_PER_LONG-1)) {
-> > +		if ((tmp =3D *(p++)))
-> > +			goto found;
-> > +		result +=3D BITS_PER_LONG;
-> > +		size -=3D BITS_PER_LONG;
-> > +	}
-> > +	if (!size)
-> > +		return result;
-> > +
-> > +	tmp =3D (*p) & (~0UL >> (BITS_PER_LONG - size));
-> > +	if (tmp =3D=3D 0UL)		/* Are any bits set? */
-> > +		return result + size;	/* Nope. */
-> > +found:
-> > +	return result + __ffs(tmp);
-> > +}
-> > +EXPORT_SYMBOL(find_first_bit);
-> > +#endif
-> > +
-> > +#ifndef find_first_zero_bit
-> > +/*
-> > + * Find the first cleared bit in a memory region.
-> > + */
-> > +unsigned long find_first_zero_bit(const unsigned long *addr,
-> > unsigned long size)
-> > +{
-> > +	const unsigned long *p =3D addr;
-> > +	unsigned long result =3D 0;
-> > +	unsigned long tmp;
-> > +
-> > +	while (size & ~(BITS_PER_LONG-1)) {
-> > +		if (~(tmp =3D *(p++)))
-> > +			goto found;
-> > +		result +=3D BITS_PER_LONG;
-> > +		size -=3D BITS_PER_LONG;
-> > +	}
-> > +	if (!size)
-> > +		return result;
-> > +
-> > +	tmp =3D (*p) | (~0UL << size);
-> > +	if (tmp =3D=3D ~0UL)	/* Are any bits zero? */
-> > +		return result + size;	/* Nope. */
-> > +found:
-> > +	return result + ffz(tmp);
-> > +}
-> > +EXPORT_SYMBOL(find_first_zero_bit);
-> > +#endif
-> > +
-> > +#ifdef __BIG_ENDIAN
-> > +
-> > +/* include/linux/byteorder does not support "unsigned long" type
-> > */
-> > +static inline unsigned long ext2_swabp(const unsigned long * x)
-> > +{
-> > +#if BITS_PER_LONG =3D=3D 64
-> > +	return (unsigned long) __swab64p((u64 *) x);
-> > +#elif BITS_PER_LONG =3D=3D 32
-> > +	return (unsigned long) __swab32p((u32 *) x);
-> > +#else
-> > +#error BITS_PER_LONG not defined
-> > +#endif
-> > +}
-> > +
-> > +/* include/linux/byteorder doesn't support "unsigned long" type */
-> > +static inline unsigned long ext2_swab(const unsigned long y)
-> > +{
-> > +#if BITS_PER_LONG =3D=3D 64
-> > +	return (unsigned long) __swab64((u64) y);
-> > +#elif BITS_PER_LONG =3D=3D 32
-> > +	return (unsigned long) __swab32((u32) y);
-> > +#else
-> > +#error BITS_PER_LONG not defined
-> > +#endif
-> > +}
-> > +
-> > +#ifndef find_next_zero_bit_le
-> > +unsigned long find_next_zero_bit_le(const void *addr, unsigned
-> > +		long size, unsigned long offset)
-> > +{
-> > +	const unsigned long *p =3D addr;
-> > +	unsigned long result =3D offset & ~(BITS_PER_LONG - 1);
-> > +	unsigned long tmp;
-> > +
-> > +	if (offset >=3D size)
-> > +		return size;
-> > +	p +=3D BIT_WORD(offset);
-> > +	size -=3D result;
-> > +	offset &=3D (BITS_PER_LONG - 1UL);
-> > +	if (offset) {
-> > +		tmp =3D ext2_swabp(p++);
-> > +		tmp |=3D (~0UL >> (BITS_PER_LONG - offset));
-> > +		if (size < BITS_PER_LONG)
-> > +			goto found_first;
-> > +		if (~tmp)
-> > +			goto found_middle;
-> > +		size -=3D BITS_PER_LONG;
-> > +		result +=3D BITS_PER_LONG;
-> > +	}
-> > +
-> > +	while (size & ~(BITS_PER_LONG - 1)) {
-> > +		if (~(tmp =3D *(p++)))
-> > +			goto found_middle_swap;
-> > +		result +=3D BITS_PER_LONG;
-> > +		size -=3D BITS_PER_LONG;
-> > +	}
-> > +	if (!size)
-> > +		return result;
-> > +	tmp =3D ext2_swabp(p);
-> > +found_first:
-> > +	tmp |=3D ~0UL << size;
-> > +	if (tmp =3D=3D ~0UL)	/* Are any bits zero? */
-> > +		return result + size; /* Nope. Skip ffz */
-> > +found_middle:
-> > +	return result + ffz(tmp);
-> > +
-> > +found_middle_swap:
-> > +	return result + ffz(ext2_swab(tmp));
-> > +}
-> > +EXPORT_SYMBOL(find_next_zero_bit_le);
-> > +#endif
-> > +
-> > +#ifndef find_next_bit_le
-> > +unsigned long find_next_bit_le(const void *addr, unsigned
-> > +		long size, unsigned long offset)
-> > +{
-> > +	const unsigned long *p =3D addr;
-> > +	unsigned long result =3D offset & ~(BITS_PER_LONG - 1);
-> > +	unsigned long tmp;
-> > +
-> > +	if (offset >=3D size)
-> > +		return size;
-> > +	p +=3D BIT_WORD(offset);
-> > +	size -=3D result;
-> > +	offset &=3D (BITS_PER_LONG - 1UL);
-> > +	if (offset) {
-> > +		tmp =3D ext2_swabp(p++);
-> > +		tmp &=3D (~0UL << offset);
-> > +		if (size < BITS_PER_LONG)
-> > +			goto found_first;
-> > +		if (tmp)
-> > +			goto found_middle;
-> > +		size -=3D BITS_PER_LONG;
-> > +		result +=3D BITS_PER_LONG;
-> > +	}
-> > +
-> > +	while (size & ~(BITS_PER_LONG - 1)) {
-> > +		tmp =3D *(p++);
-> > +		if (tmp)
-> > +			goto found_middle_swap;
-> > +		result +=3D BITS_PER_LONG;
-> > +		size -=3D BITS_PER_LONG;
-> > +	}
-> > +	if (!size)
-> > +		return result;
-> > +	tmp =3D ext2_swabp(p);
-> > +found_first:
-> > +	tmp &=3D (~0UL >> (BITS_PER_LONG - size));
-> > +	if (tmp =3D=3D 0UL)		/* Are any bits set? */
-> > +		return result + size; /* Nope. */
-> > +found_middle:
-> > +	return result + __ffs(tmp);
-> > +
-> > +found_middle_swap:
-> > +	return result + __ffs(ext2_swab(tmp));
-> > +}
-> > +EXPORT_SYMBOL(find_next_bit_le);
-> > +#endif
-> > +
-> > +#endif /* __BIG_ENDIAN */
->=20
-> I was going to ask that you convince git to actually present a proper
-> diff, to make visible what changes. But other than the description
-> says
-> you don't really move the file, you copy it. Judging from further
-> titles
-> there's also nowhere you'd make Arm actually use this now generic
-> code.
-I wanted to do it separately, outside this patch series to simplify
-review and not have Arm specific changes in RISC-V patch series.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184409
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184409
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184409
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-Regarding a proper diff, you would like me to make git shows that it
-was copy from Arm and it is not newly created file. Am I understand you
-correctly?
+version targeted for testing:
+ libvirt              642af05e3e58b90cb9d15936678f16bd7e454d26
+baseline version:
+ libvirt              1785eb8dc93be6a027b97678d4b73afd3806ba0f
 
-~ Oleksii
+Last test of basis   184409  2024-01-20 04:18:56 Z    3 days
+Testing same since   184431  2024-01-23 04:20:35 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Biswapriyo Nath <nathbappai@gmail.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Mariam Low-Ghelaghutashvili <mariamlow@zusmail.xyz>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   1785eb8dc9..642af05e3e  642af05e3e58b90cb9d15936678f16bd7e454d26 -> xen-tested-master
 
