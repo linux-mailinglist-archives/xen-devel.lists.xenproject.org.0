@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87A1C83885D
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 08:56:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670277.1042928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 200F68388B3
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 09:18:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670289.1042939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSBdP-0000CK-KO; Tue, 23 Jan 2024 07:55:51 +0000
+	id 1rSByj-0004XR-WF; Tue, 23 Jan 2024 08:17:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670277.1042928; Tue, 23 Jan 2024 07:55:51 +0000
+Received: by outflank-mailman (output) from mailman id 670289.1042939; Tue, 23 Jan 2024 08:17:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSBdP-00009d-Hb; Tue, 23 Jan 2024 07:55:51 +0000
-Received: by outflank-mailman (input) for mailman id 670277;
- Tue, 23 Jan 2024 07:55:50 +0000
+	id 1rSByj-0004UC-TD; Tue, 23 Jan 2024 08:17:53 +0000
+Received: by outflank-mailman (input) for mailman id 670289;
+ Tue, 23 Jan 2024 08:17:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSBdO-00009V-RR
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 07:55:50 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ id 1rSByh-0004Sp-TC
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 08:17:51 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d25e6468-b9c4-11ee-9b0f-b553b5be7939;
- Tue, 23 Jan 2024 08:55:49 +0100 (CET)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2cf1288097aso3016271fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jan 2024 23:55:49 -0800 (PST)
+ id e52c9e30-b9c7-11ee-9b0f-b553b5be7939;
+ Tue, 23 Jan 2024 09:17:49 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-55c6bc3dd54so1714350a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 00:17:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- a8-20020a029408000000b0046edc723291sm1426989jai.78.2024.01.22.23.55.46
+ q9-20020a056e02106900b00361a24b9e06sm3354482ilj.18.2024.01.23.00.17.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 22 Jan 2024 23:55:48 -0800 (PST)
+ Tue, 23 Jan 2024 00:17:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d25e6468-b9c4-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: e52c9e30-b9c7-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1705996548; x=1706601348; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=suse.com; s=google; t=1705997869; x=1706602669; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=TcDZ9mN+FRhUYNa88zGuloBXNab4ChQevtTM4gkLaHM=;
-        b=ZwvngqLAgJeYTHhBbNudAgSCyh5mBmGA6DGMxsSIUr338bNsfDTAv1B5YQAI1zZ+Uv
-         opYyNCGf+oMXQ9somCsnJHmEM9qDuXx1XvftC1/kHS3JiFYfRGphMNAKhrq0TA2wvhx9
-         ZNzHCUSpBGAUE7FE7n8xqpZw6MUdrynhTgXwhialxnNRhnq85qU6tTyx+1k3npXkLUN/
-         fNodjs71G7mGFjuwBJXuXpT3pHqeA3EBmx0aJIXugXnj9vtG9gHOUMiQmXTqPHH9pXfQ
-         /f5u+Pkq05ZUh8v9xutE4izEGDAqF6nAodzgQjtwn2kLmdu5ZpCqA0AIBwIMzwYvzk5H
-         rhqA==
+        bh=A2+/Lfn09rqLE813xJe+1NFkr7IfISjem2apRMUbjBY=;
+        b=c7rkkkDg9Lx5Ap/Ubi0S/mKjKgwkIWcUA4TVHmugzOckkrlDfFNJjHD/5GD8LhNdRP
+         YYOp/JQ8erCYpWy7uA7rjfFPnPayGyQZiGZzP4XoKqyD5GOPn8EIw3wNU9n83OUQtClC
+         UY31K2ZxaoJjHrymH0ulNCUMkBxN0XdmPtpdtYlrSgctK/3dnCqG8Z5WjQkH86cLev8K
+         7BV/bQtwRk+uXoJrWuZBL0vB0Y/OwZ/fZvg22a6CsKhm9cNSoXnh07eme/MRE7zezOym
+         +A8Nzi8srtTw3rhDeuLfWoOinVPegN0lVxLwvKVrIUhI2Q+flW64slMf5KLu7kYZ6eaj
+         AnxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1705996548; x=1706601348;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+        d=1e100.net; s=20230601; t=1705997869; x=1706602669;
+        h=content-transfer-encoding:in-reply-to:cc:autocrypt:from:references
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=TcDZ9mN+FRhUYNa88zGuloBXNab4ChQevtTM4gkLaHM=;
-        b=t/SipWx6XpkE0+ERJO6eAx/TfGCFWTilfbSiUTqLOZW82AWXbgAJop8+oC8ORLlWha
-         qxgR+qmXdw791CKBb/zUKczsAJwkx/Imk/GIhWAR79u3CUFujSnKOsLhofBU1UGtAyCC
-         9HnOLfn+nYii/xoMXFzBwOS98hKjmMnLRuKc5zNOSRiFoFPbD/hQ/3UuW6BzVREfHfJL
-         2rkWgNN47eEt63CZiASWW++EWLfMwnrOsv8XlhKOqVeTVpe506Wpa6dLcjLJoRlDLmSw
-         aeAiMyPuhtmg5T8vlGHeG/sxAgfS6SNuIBhoSbPzw+1DIwqjRWRYxFrjmJj1pdEZ53SJ
-         zTnw==
-X-Gm-Message-State: AOJu0Yw4DAJyfbA42dM9WIlTJEoN349FSdCzTUJ5LjFQUqZ/l65sIK40
-	6QoaU2LT3MAc+Isi1Tu3PgCPwzvFzi0SQPGnqhRO7IpXqlp9VQkyxu3Y2zYFww==
-X-Google-Smtp-Source: AGHT+IGOFZkXrAicjcWyVjNqJjubZsBeK8Mb6x8RXvRNYGfYb5g2wOo5JsA3FPRz9L6sUcwYs42zyg==
-X-Received: by 2002:a05:651c:b0c:b0:2cf:124b:a2aa with SMTP id b12-20020a05651c0b0c00b002cf124ba2aamr266588ljr.2.1705996548598;
-        Mon, 22 Jan 2024 23:55:48 -0800 (PST)
-Message-ID: <35ff4947-7863-40da-b0e7-3b84e17c6163@suse.com>
-Date: Tue, 23 Jan 2024 08:55:44 +0100
+        bh=A2+/Lfn09rqLE813xJe+1NFkr7IfISjem2apRMUbjBY=;
+        b=vHWeYw1dMWQMYG7Du3TrCQ4Bn2NZDOudQXZ7kDzyF9sRJX0hBI/M/0s1eWGwbypqRS
+         PZkG545OP2SuMxBa7Ov0DnRAxS91O6LtbVP7Huom7r3qmjE9yZJ9jXkeE/FDYEXFXv8T
+         WThTBfH059g7XdXz5U7dMmDwTWCIwcZHEdEvyDO8ewf3E7Lk2e1qeEH4wvPlF5O/bWR/
+         YjFwmqTWsQyfphjHTtiELoM1Ph0ORlET7QmMI372/HG8IOoExjNYSmAbJ4O2G1zs9/te
+         2MboEQ6nS2mKyD7dpbLx1uPV+bYT8VNg4rYNoexYNTz3yN39pE1I+vTcD6DlCN8/eSpy
+         bRIw==
+X-Gm-Message-State: AOJu0YzTbIJXdbrQF7SYZBIBwVCDldpV3Yx8xN/OjP9MkZUS3YeZi9d9
+	QwjwVFgaNeCv08x+a2Bt7nHmhMTY5EnyJdYb0MbMhSZtO6YjkVwOfL6cAnN+rQ==
+X-Google-Smtp-Source: AGHT+IFW5jZUWFtGp2eZjJkj8U4wyXLYcuxUvUvB+Mo4aiFemn6v3FkoIHZebXaDu0Gb4NiV7y/m7w==
+X-Received: by 2002:a17:907:778c:b0:a2f:6053:2ab7 with SMTP id ky12-20020a170907778c00b00a2f60532ab7mr6879072ejc.11.1705997869255;
+        Tue, 23 Jan 2024 00:17:49 -0800 (PST)
+Message-ID: <0a02a53c-9163-428d-a5d9-6cf2234d7b9c@suse.com>
+Date: Tue, 23 Jan 2024 09:17:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 80/82] xen-netback: Refactor intentional wrap-around test
+Subject: Re: [PATCH] pmstat: Limit hypercalls under HWP
 Content-Language: en-US
-To: Kees Cook <keescook@chromium.org>
-Cc: Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-References: <20240122235208.work.748-kees@kernel.org>
- <20240123002814.1396804-80-keescook@chromium.org>
+To: Jason Andryuk <jandryuk@gmail.com>
+References: <20240122190934.52080-1-jandryuk@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,22 +107,39 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240123002814.1396804-80-keescook@chromium.org>
+Cc: xen-devel@lists.xenproject.org
+In-Reply-To: <20240122190934.52080-1-jandryuk@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.01.2024 01:27, Kees Cook wrote:
-> --- a/drivers/net/xen-netback/hash.c
-> +++ b/drivers/net/xen-netback/hash.c
-> @@ -345,7 +345,7 @@ u32 xenvif_set_hash_mapping(struct xenvif *vif, u32 gref, u32 len,
->  		.flags = GNTCOPY_source_gref
->  	}};
->  
-> -	if ((off + len < off) || (off + len > vif->hash.size) ||
-> +	if ((add_would_overflow(off, len)) || (off + len > vif->hash.size) ||
+On 22.01.2024 20:09, Jason Andryuk wrote:
+> When HWP is active, the cpufreq P-state information is not updated.  In
+> that case, return -ENODEV instead of bogus, incomplete info.  The xenpm
+> command already supports skipping results when -ENODEV is returned, so
+> it is re-used when -EOPNOTSUPP might be more accurate.
+> 
+> Similarly, set_cpufreq_para() is not applicable when HWP is active.
+> Many of the options already checked the governor and were inaccessible,
+> but SCALING_MIN/MAX_FREQ was still accessible (though it would do
+> nothing).  Add an ealier HWP check to handle all cases.
+> 
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> ---
+> `xenpm get-cpufreq-states` now doesn't return any output.  It also exits
+> successfully since xenpm doesn't check the returns there.
 
-I'm not maintainer of this code, but if I was I would ask that the
-excess parentheses be removed, to improve readability.
+This isn't very nice. Is there nothing sensible that can be output
+instead in the HWP case? If not, I think it would help if
+inapplicability of the command would be indicated by at least one line
+of output. Or might it make sense to at least fall back to
+get-cpufreq-average in that case?
+
+>  Other
+> commands will fail:
+> xenpm set-scaling-maxfreq 11 1100000
+> failed to set scaling max freq (95 - Operation not supported)
+
+This is fine imo.
 
 Jan
 
