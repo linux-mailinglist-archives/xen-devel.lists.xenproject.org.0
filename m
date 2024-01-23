@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2435839B39
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 22:33:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670611.1043512 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78FC0839C55
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 23:36:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670616.1043522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSONu-0006QF-VX; Tue, 23 Jan 2024 21:32:42 +0000
+	id 1rSPMc-0006Kn-GC; Tue, 23 Jan 2024 22:35:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670611.1043512; Tue, 23 Jan 2024 21:32:42 +0000
+Received: by outflank-mailman (output) from mailman id 670616.1043522; Tue, 23 Jan 2024 22:35:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSONu-0006OH-Si; Tue, 23 Jan 2024 21:32:42 +0000
-Received: by outflank-mailman (input) for mailman id 670611;
- Tue, 23 Jan 2024 21:32:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rSPMc-0006JE-Cx; Tue, 23 Jan 2024 22:35:26 +0000
+Received: by outflank-mailman (input) for mailman id 670616;
+ Tue, 23 Jan 2024 22:35:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1h7C=JB=chromium.org=keescook@srs-se1.protection.inumbo.net>)
- id 1rSONt-0006OB-2W
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 21:32:41 +0000
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [2607:f8b0:4864:20::62c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ed67a1a5-ba36-11ee-9b0f-b553b5be7939;
- Tue, 23 Jan 2024 22:32:37 +0100 (CET)
-Received: by mail-pl1-x62c.google.com with SMTP id
- d9443c01a7336-1d74045c463so18846825ad.3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 13:32:37 -0800 (PST)
-Received: from www.outflux.net ([198.0.35.241])
- by smtp.gmail.com with ESMTPSA id
- g8-20020a170902740800b001d714ccf7b3sm8100220pll.180.2024.01.23.13.32.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jan 2024 13:32:35 -0800 (PST)
+ <SRS0=yj1f=JB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rSPMb-0006J0-Lj
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 22:35:25 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b1a4be37-ba3f-11ee-98f5-6d05b1d4d9a1;
+ Tue, 23 Jan 2024 23:35:23 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 77D1561F7E;
+ Tue, 23 Jan 2024 22:35:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A862C433F1;
+ Tue, 23 Jan 2024 22:35:20 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,72 +41,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed67a1a5-ba36-11ee-9b0f-b553b5be7939
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1706045556; x=1706650356; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=swQh+tXC7wjzygjmlvxoa7jnM24RYNaNqlf/2tnlFpM=;
-        b=YyTLJJi+lkIfGK++NhomAsr86JNL7Kemr2LURxY93gmh/UbbPqD+NI1nIrt7mFb/aX
-         E6VPZOiQiMcr/mDRU9UGrAKqLvK8Dmvjor3IJzUJkiBDH8hRh/0WEgFcLkWmfDgeoEpe
-         NLij+hHRoU8afZZ63222CMEyhTtCkXaKVxvp0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706045556; x=1706650356;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=swQh+tXC7wjzygjmlvxoa7jnM24RYNaNqlf/2tnlFpM=;
-        b=jIiYdZ8cUXPDZAx31Vc/2+1932REC2o3bc8SVRca1YDHKmo7VJXROb0K/YQFsyaC7q
-         q4YHi5HbcUIJKaZ3oBfB+5weip9CoTn8zF7yPO7iwcY6G51hTqQkJc7CV5QqQIHtATYY
-         0S8sH2w+JH+oZwHHh2vJGppmE3sVRjw1xJ3A8glxxHUHi7F4CjVwoJESftAn19papibG
-         v6rX82kqdoY67EFSGpksuShpaynbx96VEx4wjv6P34g5bREDnLGI8OV3wgO/ezSGlzjl
-         i59aGAAg2Lw1PON4Cyryunj96mlgTW/e8NSl1Z19HTD0yP/Z2clUJoAC247FKg7UPFXT
-         VLWg==
-X-Gm-Message-State: AOJu0YyYsCrzefudQKxWh0Zh1vC8onLiVAbhGhlE5U1dlreYMaczLZz3
-	AxwRcFoEQwIvsiz82gd+4O5ibV9vXHyC29UO7v5V4V73nCwGMumWwLsxhf2Ywg==
-X-Google-Smtp-Source: AGHT+IEQgobK3CRi+ljenTCG6shvI0FXYyD3FQGn2ZQQGUseg7yif9UwvyOavRLNcvr02zSwCtZc7A==
-X-Received: by 2002:a17:903:120d:b0:1d5:7316:c9fb with SMTP id l13-20020a170903120d00b001d57316c9fbmr3866864plh.37.1706045556284;
-        Tue, 23 Jan 2024 13:32:36 -0800 (PST)
-Date: Tue, 23 Jan 2024 13:32:35 -0800
-From: Kees Cook <keescook@chromium.org>
+X-Inumbo-ID: b1a4be37-ba3f-11ee-98f5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706049321;
+	bh=KSrO2rZ+3ODRCauXR6xbnnuySM+RGFulujTdvDNhoVA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=NVtMuyBPWUw2oVO9uvbxNX9vtW8Y0invMKxbaER5u3LCSNrQX1Zzz5ufVB0YoXo2g
+	 Cm82Q0NEuBc1UYAm1CT32IrJW8/TZyNvUFYJrmhZCLkExm4uhWhhavNqIyTzQySq4X
+	 Y25AZyYvgOjPnfkXiAjlLH+idcZ92bYUH/TV0t24s/mY8rI91suqsJQQvTxEkFO7eF
+	 FBFG+VI3YedBm8taxjLjomKSTE0O0xr4Y2oZmnvwIZi93ZMjnM3R6KY8bmpIymkKTt
+	 WzT7P9GhzytZcuypnsj7IMHRJRKtRBltEmccaK+KFj9UR+OeITdaqy72RJP3N5K+Eo
+	 v/ix/ounpDrFw==
+Date: Tue, 23 Jan 2024 14:35:19 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 80/82] xen-netback: Refactor intentional wrap-around test
-Message-ID: <202401231331.0BD2925D4E@keescook>
-References: <20240122235208.work.748-kees@kernel.org>
- <20240123002814.1396804-80-keescook@chromium.org>
- <35ff4947-7863-40da-b0e7-3b84e17c6163@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Kelly Choi <kelly.choi@cloud.com>, committers@xenproject.org, 
+    advisory-board@lists.xenproject.org, xen-devel@lists.xenproject.org
+Subject: Re: Community Process Group - Proposal
+In-Reply-To: <ecddb385-fc87-412b-a956-0a08237cc120@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2401231435140.2287888@ubuntu-linux-20-04-desktop>
+References: <CAO-mL=yvVWjnOHSFSqcrknoXOqk-N3JY76qObQnzftrkmsq6xw@mail.gmail.com> <5309e7d3-7b3c-4522-99dc-bbd7734aeb34@suse.com> <alpine.DEB.2.22.394.2401221434440.2287888@ubuntu-linux-20-04-desktop> <ecddb385-fc87-412b-a956-0a08237cc120@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <35ff4947-7863-40da-b0e7-3b84e17c6163@suse.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Jan 23, 2024 at 08:55:44AM +0100, Jan Beulich wrote:
-> On 23.01.2024 01:27, Kees Cook wrote:
-> > --- a/drivers/net/xen-netback/hash.c
-> > +++ b/drivers/net/xen-netback/hash.c
-> > @@ -345,7 +345,7 @@ u32 xenvif_set_hash_mapping(struct xenvif *vif, u32 gref, u32 len,
-> >  		.flags = GNTCOPY_source_gref
-> >  	}};
-> >  
-> > -	if ((off + len < off) || (off + len > vif->hash.size) ||
-> > +	if ((add_would_overflow(off, len)) || (off + len > vif->hash.size) ||
+On Tue, 23 Jan 2024, Jan Beulich wrote:
+> On 22.01.2024 23:47, Stefano Stabellini wrote:
+> > On Mon, 22 Jan 2024, Jan Beulich wrote:
+> >> What definitely needs clarifying is what "review" is: Are R-b tags
+> >> counted, or is it the number of replies sent commenting on patches?
+> > 
+> > Yes, I think this needs to be clarified. I would say Reviewed-by tags.
 > 
-> I'm not maintainer of this code, but if I was I would ask that the
-> excess parentheses be removed, to improve readability.
+> Which may end up unfair. It's not uncommon for one person to do a lot
+> of review on a patch, and for someone else to then ack the final
+> version that goes in. In the end this is then no different from basing
+> the decision on simple numbers, without regard to actual (potentially
+> heavily differing) effort behind each individual instance.
 
-Good call. I will adjust that. Thanks!
+I had thought about the case you describe too. This is why it is stated
+as "maintainers with >= 20 reviews in the last 2 releases". So it
+requires for the person to also be a maintainer. The bar to become a
+maintainer is already pretty high. Random individuals that subscribe to
+xen-devel and start replying Reviewed-by to every patch would be
+excluded.
 
--Kees
-
--- 
-Kees Cook
+On the other hand, it would not account for reviews done by
+non-maintainers. However, non-maintainers are likely to be contributors
+so they would probably fall within the other category.
 
