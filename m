@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E877838D8D
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 12:36:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670398.1043152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3043838D99
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jan 2024 12:40:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670401.1043161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSF50-0001XJ-44; Tue, 23 Jan 2024 11:36:34 +0000
+	id 1rSF8Q-0003Yq-It; Tue, 23 Jan 2024 11:40:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670398.1043152; Tue, 23 Jan 2024 11:36:34 +0000
+Received: by outflank-mailman (output) from mailman id 670401.1043161; Tue, 23 Jan 2024 11:40:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSF50-0001Uq-0o; Tue, 23 Jan 2024 11:36:34 +0000
-Received: by outflank-mailman (input) for mailman id 670398;
- Tue, 23 Jan 2024 11:36:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rSF8Q-0003XY-Fa; Tue, 23 Jan 2024 11:40:06 +0000
+Received: by outflank-mailman (input) for mailman id 670401;
+ Tue, 23 Jan 2024 11:40:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9pmr=JB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSF4z-0001Uk-I2
- for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 11:36:33 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a79ecd3d-b9e3-11ee-9b0f-b553b5be7939;
- Tue, 23 Jan 2024 12:36:31 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2cd1a1c5addso49195591fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 03:36:31 -0800 (PST)
+ id 1rSF8P-0003Fr-0V
+ for xen-devel@lists.xenproject.org; Tue, 23 Jan 2024 11:40:05 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 26153c0f-b9e4-11ee-98f4-6d05b1d4d9a1;
+ Tue, 23 Jan 2024 12:40:03 +0100 (CET)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2cd0d05838fso49597621fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 03:40:03 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x8-20020a026f08000000b0046e7ae3fea8sm3655326jab.148.2024.01.23.03.36.29
+ eq20-20020a0566384e3400b0046ee630f7e6sm1069869jab.68.2024.01.23.03.40.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 03:36:30 -0800 (PST)
+ Tue, 23 Jan 2024 03:40:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a79ecd3d-b9e3-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 26153c0f-b9e4-11ee-98f4-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706009791; x=1706614591; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706010003; x=1706614803; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=gR2W2+aUmN73hKzxOAqCNHrTKCX2JPE9i3JZ6u0A0a4=;
-        b=BJZy/OgSKMFNNS0EVrY/C92p/+VFcqsI6g2vfN8zDHSWin0pp1msdELlF7WzULVpP1
-         T1n3hbpHBrQsOTDi5BXdNJE5eG+bj1xN2zJvy0SEIqAXHU/GDPTJxU3a+PMg8jrr+xJt
-         WUI3ZeccK07LS/dBOy4HSvQ1fraMUL6FNQ3GmzFO74qkX4nqxTg5zIKtT27Q+yKOnQ+t
-         kSxRZUKTBMAziSiT4GAiNJi5BoDKvdMlVAqJKrA/UVPyUJagbpm7367cee6Rx1F8baX8
-         J3CSa8qZooDY3qjdjuMy4i4uVBIOSHdba4mRZo/Cs2lTv8zIHgVjngUQUtH4saB5d4Iz
-         tbcg==
+        bh=72pT3y6l6U2uDtrN2pMLqOENXODOtIeLSFYz3VS30v8=;
+        b=UeU4Fr+vPm2uRGm1WZB158SoFcbi7ch/HWEacEHSspOScrJOX33DlHpUA3u1YtnLof
+         nwYmjtnNGtDHECl0e+Ipz5+NZFF7ZYv5v5EFoldj2nkcXhCLhe18qzMyDc8cFc1uRqPV
+         jGHXuDbM2HyNKrLDA1vzQdPG41Hq8DLHSLFPRdHECQBJtvoNxkjEu6bE4eoczjQWmmNm
+         maBNQ5BFCNd+T9oG5F7E/vqlE1SAPP1kBzye9FzD/DYcH3vM0qkXNhs5AvFCUHOszFa4
+         uvZBF5vve2wLzSkSR3WEexJCKJ1BDcv369HR4Uug56CoT2I7NM65eU0PMymB++o+iZO5
+         56aA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706009791; x=1706614591;
+        d=1e100.net; s=20230601; t=1706010003; x=1706614803;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gR2W2+aUmN73hKzxOAqCNHrTKCX2JPE9i3JZ6u0A0a4=;
-        b=vKAvmVew8ZshteeLMesRHKVBz023/sozi0b0c6jq8nWHIGj03EMOvG8AXjEcWuWpaU
-         S+Yzsrwljy0OvM6n93SUap9VbgrtZoXeXLzHpPUQizdedF0ClCvDU9KOZbtkG1ZQVwTg
-         BLHoyj5HpcdzakVTFvet/Ee76fT5LVip9FkzDHy4bLq3Qx/1+Xs9ZlwKZrTtV6DyM2Hk
-         S9dhnB9giEU+LWRWxk/mIm2C8MWRvN/uv+Lk6ZQYcwTTdKcwc9OAsNe+3+f1xJ2d1W5m
-         rHvAA2ZNrFpLezgtHax5qTjZTFtCn2eDT5mxFOKGuNNARwuCCgWXguCBdpYXWQ422LJa
-         MvKw==
-X-Gm-Message-State: AOJu0YzOLV5o2bf4JnBmJ/f5bS4hFyi6MbpwXAWm80RJVnOqLNUc6QRd
-	G/PIa8Whn++SQRd7BAlcjl3yfpnRV2iLoc5L6N8gFOvBKivd1gF6hRVp04E2yQ==
-X-Google-Smtp-Source: AGHT+IFjcCH211PcePi1YWBKCZpQcCUNJIyOegNwlyFRaK9Ct4H9/P+WocGlQLWpr3pRbTEVTL0Tew==
-X-Received: by 2002:a2e:a0d7:0:b0:2cd:b6cd:f258 with SMTP id f23-20020a2ea0d7000000b002cdb6cdf258mr2445371ljm.65.1706009791261;
-        Tue, 23 Jan 2024 03:36:31 -0800 (PST)
-Message-ID: <0740cab9-be2e-4aae-8b03-e3ec95d0b0ef@suse.com>
-Date: Tue, 23 Jan 2024 12:36:28 +0100
+        bh=72pT3y6l6U2uDtrN2pMLqOENXODOtIeLSFYz3VS30v8=;
+        b=lAaVvofJjeXyEKicjwWTgnXCqGeXMK7rEw5TFF3WZaFxg6WVVGp6ZnNOPL/CNI95V/
+         dKnfOLotp3sfKIIVYB6J9MtMXgNKoZvv6/CsE9sOJFcTAJRQ57Qt3LXBXZTj+dwgekV7
+         M/K9WmSQ8zOCFnPzOOL8/4tY3RDlxdstEXsCpUv1db0GfPPffvbDHeq4cMXz7z/h8HJw
+         MKcqH7upYKGX+3qalQZd9IwOsyv2OclNXXkuFYhQ8kfmV/93IHGDqEFdLEVag1rA2S+b
+         RrB+k+YabrETZbO6QHHwYa+kJPG+uK6vqHERnESiqFjg4ynT3NkphjZi6vjAdCW23pOf
+         z8ug==
+X-Gm-Message-State: AOJu0YxNw/wAi43623iKic/3g8pMu2rA78toqQNynk+3LYDkHnukX1df
+	TEp5o/6ZUhdyKa/9y0linITLFu7BaKBFTyFWDjG4dqldXFjD2QyQSqId9pM5Aw==
+X-Google-Smtp-Source: AGHT+IF8LUrdePdmT1dzzIL9r9hgZsl1TRHUoPu1eRAYq/bW66VS3VClL6pb5AeCqp+pQ1MZctPKqw==
+X-Received: by 2002:a2e:a615:0:b0:2cd:122a:7edd with SMTP id v21-20020a2ea615000000b002cd122a7eddmr2202994ljp.44.1706010003386;
+        Tue, 23 Jan 2024 03:40:03 -0800 (PST)
+Message-ID: <aa4d18c5-a8e0-44a6-ae7e-16fd9cd029b4@suse.com>
+Date: Tue, 23 Jan 2024 12:39:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 29/34] xen/riscv: add minimal stuff to page.h to build
- full Xen
+Subject: Re: [PATCH v3 30/34] xen/riscv: add minimal stuff to processor.h to
+ build full Xen
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
@@ -90,7 +90,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <7aa26bdad9bf923fd57f7a90e41c049cab0cd5bd.1703255175.git.oleksii.kurochko@gmail.com>
+ <5bd7c5db6638f09dabdc13a6e12f0b204eacb234.1703255175.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,19 +115,36 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7aa26bdad9bf923fd57f7a90e41c049cab0cd5bd.1703255175.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <5bd7c5db6638f09dabdc13a6e12f0b204eacb234.1703255175.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 22.12.2023 16:13, Oleksii Kurochko wrote:
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
 > ---
 > Changes in V3:
->  - update the commit message
+>  - Update the commit message
 
-Once again I find this puzzling, considering there's no commit message
-at all.
+??? (again)
+
+> @@ -53,6 +56,18 @@ struct cpu_user_regs
+>      unsigned long pregs;
+>  };
+>  
+> +/* TODO: need to implement */
+> +#define cpu_to_core(cpu)   (0)
+> +#define cpu_to_socket(cpu) (0)
+> +
+> +static inline void cpu_relax(void)
+> +{
+> +    /* Encoding of the pause instruction */
+> +    __asm__ __volatile__ ( ".insn 0x100000F" );
+
+binutils 2.40 knows "pause" - why use .insn then?
+
+> +    barrier();
+
+Why?
 
 Jan
 
