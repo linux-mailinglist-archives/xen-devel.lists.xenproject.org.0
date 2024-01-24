@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D47EC83A6B0
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 11:23:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670878.1043959 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6421583A725
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 11:48:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670921.1044007 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSaPh-0000nr-Ed; Wed, 24 Jan 2024 10:23:21 +0000
+	id 1rSan4-0000Zg-7k; Wed, 24 Jan 2024 10:47:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670878.1043959; Wed, 24 Jan 2024 10:23:21 +0000
+Received: by outflank-mailman (output) from mailman id 670921.1044007; Wed, 24 Jan 2024 10:47:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSaPh-0000lx-Bk; Wed, 24 Jan 2024 10:23:21 +0000
-Received: by outflank-mailman (input) for mailman id 670878;
- Wed, 24 Jan 2024 10:23:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3b7Y=JC=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rSaPf-0000lp-Ig
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 10:23:19 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 979a3c2d-baa2-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 11:23:18 +0100 (CET)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2cf2a381b86so2801231fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 02:23:18 -0800 (PST)
+	id 1rSan4-0000WR-3K; Wed, 24 Jan 2024 10:47:30 +0000
+Received: by outflank-mailman (input) for mailman id 670921;
+ Wed, 24 Jan 2024 10:47:28 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rSan2-0000WG-F7; Wed, 24 Jan 2024 10:47:28 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rSan2-0001xh-8g; Wed, 24 Jan 2024 10:47:28 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rSan1-0004Uw-Tk; Wed, 24 Jan 2024 10:47:27 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rSan1-0002Pr-TH; Wed, 24 Jan 2024 10:47:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,58 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 979a3c2d-baa2-11ee-98f5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1706091798; x=1706696598; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=T/R2PbYdjMJQy9yYJWmrpzNFr0xsjltHxJHwJoARcmo=;
-        b=GkWE8GQ+FxNvAHaqZvsuh+E/cWwZTOoIC2KrWMO78fjlpKZaF7gv2pIZagsqLVr5RB
-         IwBAkp0CtkXPI9YV9n7zHS2DvOI+dpQgohgfF+GnDd5GeLhh1rK0IrzpDygwbRDp+QSM
-         njxuEw4HdH2FeVP4XaQYZSuxDb1udv3LhNBlc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706091798; x=1706696598;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=T/R2PbYdjMJQy9yYJWmrpzNFr0xsjltHxJHwJoARcmo=;
-        b=czXzT255xUn5XXNfYMq4qiIiuhe1rdTBRcUwR8hu0ecY6scelUG1NM1qRzSRWkEz7O
-         qqMek3DR0sMqtDS4kEd+MyRayItSprhQbMaV6AIghW5mSP6JbIdWfhkHcYjROktG5ad+
-         nx6G1fMgVagMWVK/piuunJMs2XXFpgSzRWklgpOJoQYTNkj3bdH3z4+uHNOgJKuCbZzr
-         /hGn8ESMlYilLnPftUacUwy0ea/3dxHKStvbTrP01ebnSpn4nBRGf/6VnVVuw1NYtlxD
-         etcCJgitugPqsjx766wgi+6X1pjDG6EtVwF4r5COLk0fTWU+QdlVzPuFsZ4DaM9NL/Mk
-         l3gA==
-X-Gm-Message-State: AOJu0YwZKdKOYaZ4aK7Uc2VRisCFagWEUQDEstFa0abnsM9216HS1mpz
-	rS+HNDrf+qeglzXP+LF8evjduoxIvu9EH/YJp9byvxnTov0TeaEH5kpQEgjUVSGc6sU4zeP9ktm
-	zmzZq0mGRppsj744qfkJZMQNsRZjKVof0Glg8ew==
-X-Google-Smtp-Source: AGHT+IEXgvPp0kb4+oJYDfSMtGl+Y5OXT30CLfTVOxX6dPf0xK8C+xV3gR+6CwQbikNrk3ArDCrJlCyuKar8AW6YCkA=
-X-Received: by 2002:a05:651c:2d9:b0:2cf:81d:3abf with SMTP id
- f25-20020a05651c02d900b002cf081d3abfmr589072ljo.50.1706091798208; Wed, 24 Jan
- 2024 02:23:18 -0800 (PST)
-MIME-Version: 1.0
-References: <20240124083742.24324-1-roger.pau@citrix.com>
-In-Reply-To: <20240124083742.24324-1-roger.pau@citrix.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Wed, 24 Jan 2024 10:23:07 +0000
-Message-ID: <CA+zSX=b=nU0TtY_ejC7fyBMVz99zcqPZxDyZ9=Pw23xwMR8sXg@mail.gmail.com>
-Subject: Re: [PATCH] x86/p2m-pt: fix off by one in entry check assert
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=fbflBwBIAoib9i96yTpfFjWRK6DPmnWy66tRZ6b1PZ4=; b=B1ehYm+15Hc7P+pgQjZkZDAIms
+	RcXCnQKuJd+ElKtxoMzUAo3/29jnu7MguNqkKm0DirBnMgRAq6VrE7WzTopye3a9DaCg9qSzlZJwK
+	rm7TLLkLauvLVTjv8WRQZcTQb+CBP1RbayKhVUqNPmJqBMGi2hBOYK1k56yaueW6NrrE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184448-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 184448: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=97e1ef87300cdf01f5b21cd4c5ee1d8df6ae1f39
+X-Osstest-Versions-That:
+    ovmf=d24187a81f724fc2af4f739ad92a9b158c9254df
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 24 Jan 2024 10:47:27 +0000
 
-On Wed, Jan 24, 2024 at 8:45=E2=80=AFAM Roger Pau Monne <roger.pau@citrix.c=
-om> wrote:
->
-> The MMIO RO rangeset overlap check is bogus: the rangeset is inclusive so=
- the
-> passed end mfn should be the last mfn to be mapped (not last + 1).
->
-> Fixes: 6fa1755644d0 ('amd/npt/shadow: replace assert that prevents creati=
-ng 2M/1G MMIO entries')
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+flight 184448 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184448/
 
-Reviewed-by: George Dunlap <george.dunlap@cloud.com>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 97e1ef87300cdf01f5b21cd4c5ee1d8df6ae1f39
+baseline version:
+ ovmf                 d24187a81f724fc2af4f739ad92a9b158c9254df
+
+Last test of basis   184446  2024-01-24 06:41:04 Z    0 days
+Testing same since   184448  2024-01-24 08:42:37 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  devel@edk2.groups.io <devel@edk2.groups.io>
+  Jeff Brasen <jbrasen@nvidia.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   d24187a81f..97e1ef8730  97e1ef87300cdf01f5b21cd4c5ee1d8df6ae1f39 -> xen-tested-master
 
