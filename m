@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BA4583A6C1
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 11:27:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670150.1043970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E535983A6C0
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 11:27:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670657.1043975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSaTf-0002BG-2W; Wed, 24 Jan 2024 10:27:27 +0000
+	id 1rSaTf-0002EL-9x; Wed, 24 Jan 2024 10:27:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670150.1043970; Wed, 24 Jan 2024 10:27:27 +0000
+Received: by outflank-mailman (output) from mailman id 670657.1043975; Wed, 24 Jan 2024 10:27:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSaTe-00029e-VX; Wed, 24 Jan 2024 10:27:26 +0000
-Received: by outflank-mailman (input) for mailman id 670150;
- Mon, 22 Jan 2024 20:59:28 +0000
+	id 1rSaTf-0002BC-5C; Wed, 24 Jan 2024 10:27:27 +0000
+Received: by outflank-mailman (input) for mailman id 670657;
+ Wed, 24 Jan 2024 01:12:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bVzE=JA=amd.com=Mario.Limonciello@srs-se1.protection.inumbo.net>)
- id 1rS1OC-0002b9-3R
- for xen-devel@lists.xenproject.org; Mon, 22 Jan 2024 20:59:28 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20615.outbound.protection.outlook.com
- [2a01:111:f400:7eaa::615])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YSeL=JC=nxp.com=peng.fan@srs-se1.protection.inumbo.net>)
+ id 1rSRoi-0005UB-J3
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 01:12:36 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2613::601])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1fcc0145-b969-11ee-98f3-6d05b1d4d9a1;
- Mon, 22 Jan 2024 21:59:26 +0100 (CET)
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by SN7PR12MB8001.namprd12.prod.outlook.com (2603:10b6:806:340::5)
+ id a7ee1535-ba55-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 02:12:35 +0100 (CET)
+Received: from DU0PR04MB9417.eurprd04.prod.outlook.com (2603:10a6:10:358::11)
+ by AS1PR04MB9430.eurprd04.prod.outlook.com (2603:10a6:20b:4da::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.24; Mon, 22 Jan
- 2024 20:59:21 +0000
-Received: from MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ce8d:7121:cb06:91ba]) by MN0PR12MB6101.namprd12.prod.outlook.com
- ([fe80::ce8d:7121:cb06:91ba%4]) with mapi id 15.20.7202.034; Mon, 22 Jan 2024
- 20:59:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.36; Wed, 24 Jan
+ 2024 01:12:32 +0000
+Received: from DU0PR04MB9417.eurprd04.prod.outlook.com
+ ([fe80::c499:8cef:9bb1:ced6]) by DU0PR04MB9417.eurprd04.prod.outlook.com
+ ([fe80::c499:8cef:9bb1:ced6%3]) with mapi id 15.20.7202.031; Wed, 24 Jan 2024
+ 01:12:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,213 +47,241 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fcc0145-b969-11ee-98f3-6d05b1d4d9a1
+X-Inumbo-ID: a7ee1535-ba55-11ee-98f5-6d05b1d4d9a1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iges5od8jLRyOpYXXPsAkBB4aGhemAeo+LhEaR/Sm1enCRHgIRCHRZXEEozwkdaY9wQ+P/hCgCHLaDxWF48Pbktr/E1YpwylJC2fPoIXO85p6/++ozS2b6VVKRYBG+PU2yU2GPp4vTVifjAOc6xltV+RuLz4eIZH2caUjpE/O0Ha2Zs8CLTSVNHGQacfbPZBfjbzVRJW6mLsn6Daz+yHElI7XPG6QYBdBkNqUeEAXS2omyQG4v+AKRFDRKAQlByx7pvG4IrXEqh1i96tBgmG6/VZns8kPSDrL+hZYc0QrnzsPepmqh96OXbG5X4VdboJZOb0wuJ0FeRz0DyCyod0yA==
+ b=G5qMPJZGa+RmHXqmfby8a3KMvRyOlZYQ1UNF3LqOVkGaFIU1Tp4VgYJ75t7F9NQSV22aCF/loVGguw1/VHB1XzhkmDf2aumKBqDIBPMOXlcihRw2fuixE20qLeetJg0W3IccK9zbtiOPyuEy9c2gJwh+bULjVzkNHZsmFCMFh7iJCCLVJ3JSQCR53hSO/eCBfUtITAYbPtw7vhkNIxkMTN3LhAdBPm5hzUcdwcKlYEa12wS9mceuPlOhX5ymqjOMRLZjEj5Q4kxqSfv6bNOoAP1QwjxYgK0SRTQwAjZ6nu7WvKkAPaIVnrC79Hl8Tnxz+9c68J5ld1KJXGb6p5MZLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pP1qwKcJmkLgycbmU3ILh1EJRkrNlepdGndJ2gdfWIU=;
- b=CzzcRnid90m3sfs2dNwhqa7SPSf12MeO3iH9ziJnc2/a+MATVY30mv2fx2U75tTqXZadFV2uVwEDplcHNzAu+s2OZaIP+z6TinGVq6JEGUEse6ON2XnoGaX9qKMeC8DHG4Nnld+5N4xeB8uvSK5wmQMFUa7ecZ2m0yWwoNfCRNHpZ2Pw3upztX0J122exPU6uKh6poAbjRREXhHiJ8Dew+kz6/NT8YMtM5dUR34nXxKnWDIQnq2eCWpQOxThigJBmqG9i6z+7nJyH2Y9tqAxprG9/AGgK3esTTeTUKY2LHaAeUPtPmaqhVO+xfeirrAzBCK78DN9Rwhh23bEfebA2g==
+ bh=1Uh5Uuewj3HrZv8HvNW0sw98JGv5swA2ITXbEp8Fm9k=;
+ b=Rxanh8BPZ1gw3c2ybkkb9CfWF3OkaElyTODzUJpaPs9Yd2N7k8nxsEF/oIfk8PG7/AIZW9beiyX/NEcyxeOFXpq/nOXimHRGluCPa1n0WWdqdVr4+MRP+dCIpzwpDoMJ/4Lc15zYnR7NgmdFXXNwrRJ3L2HQp7MoQiUDR2lMjAzgnWxwMCuGWJwd6+jF5M/V7ZGT3ORVEm8EMDjP3Mw0qP/qE1ikXflbg0vB7UaT2hUtMXINzpA5VkuFpsZt5Ct1JXkTaaeiqpk55SxPH1kSvwtNY9C3KWF239TF7XWwa0NogcUc3HxDk+PU0jamk4FBT/+Jg/DVzgfhZyk1y928EQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pP1qwKcJmkLgycbmU3ILh1EJRkrNlepdGndJ2gdfWIU=;
- b=MrmqsV6l2P99conRmTgYE8MneVBwudPL1z+JYynmBzzgxfIBAOu28KU5BR+XPYD/bjH7Vx9BNqgDW6OZooME6PfSg4BsIWzePYVU9uK+bbmgBlG0My0oqmYcaGBper76xc0Y5IQloTwIEk8VRQhL5oqBOpN4t9ZpCIRj1/U3BqU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <214585d5-689d-4ba6-bd48-359428a7ed8f@amd.com>
-Date: Mon, 22 Jan 2024 14:59:19 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
-To: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
- Juergen Gross <jgross@suse.com>
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <CAKm-UmaUZ=rj-F3RvMoR7H3OvBHm1iy4PTRZAjyi=MQUVTuYVg@mail.gmail.com>
- <CAKm-Umat77MTh6=GEuH+bf1WRX+_B4-N5hY4xwADALfhj4QCPA@mail.gmail.com>
- <6ba9568a-ff8e-48ad-907f-74303e04d3a2@suse.com>
- <CAKm-UmZVoUhidEV15Xk+J_XN5a2GsBqMbXL9wqdFdoAFf_u5AA@mail.gmail.com>
- <bcbceba7-42ac-45be-80ab-e3dfe7741ec6@suse.com>
- <2eafe45b-fd97-472c-a173-459d6ff0b957@suse.com>
- <CAKm-Umbs2D7NHFE+NW2xKOu7-AZhFpH4uzE5QTuQusnGA_eNWA@mail.gmail.com>
- <f539144c-885a-461c-a506-bdb73e626a65@suse.com>
- <CAKm-UmY126AfdGhWcZ3s9vwN9+ksVRRFEhOu0ZFMoDvxrqOibw@mail.gmail.com>
- <CAKm-UmYt3iV8zOhSmtqMGhi_8T93c_nCbnefs4m3UC+3UABqeQ@mail.gmail.com>
- <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
- <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
- <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com>
- <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
- <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
+ bh=1Uh5Uuewj3HrZv8HvNW0sw98JGv5swA2ITXbEp8Fm9k=;
+ b=fL86yTR7Uq+xMmbNB5XLFekOlN80piDURrt7wDY+OdFzR5htWbUaTFcoXIQBnSJ4mGs5khXvdBrLLEPhknLNKIh0p1IL7rbY9q25/yHRA/+tl2yDeT4WzT9GfqTmkS/M9meNmGLrspoRUe3DrHbT/Ssx87lnJDkYuy6mgJM5m+k=
+From: Peng Fan <peng.fan@nxp.com>
+To: Stefano Stabellini <sstabellini@kernel.org>, "Peng Fan (OSS)"
+	<peng.fan@oss.nxp.com>
+CC: "anthony.perard@citrix.com" <anthony.perard@citrix.com>, "paul@xen.org"
+	<paul@xen.org>, "vikram.garhwal@amd.com" <vikram.garhwal@amd.com>,
+	"viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>
+Subject: RE: [PATCH] xen: Drop out of coroutine context
+ xen_invalidate_map_cache_entry
+Thread-Topic: [PATCH] xen: Drop out of coroutine context
+ xen_invalidate_map_cache_entry
+Thread-Index: AQHaSIFf0aPvG3VKVE6r93sE3K93tLDoL1+AgAACyxA=
+Date: Wed, 24 Jan 2024 01:12:31 +0000
+Message-ID:
+ <DU0PR04MB9417727EDAF25B0CCC228DD4887B2@DU0PR04MB9417.eurprd04.prod.outlook.com>
+References: <20240116143622.6641-1-peng.fan@oss.nxp.com>
+ <alpine.DEB.2.22.394.2401231655530.2287888@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2401231655530.2287888@ubuntu-linux-20-04-desktop>
+Accept-Language: en-US
 Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DS0PR17CA0008.namprd17.prod.outlook.com
- (2603:10b6:8:191::15) To MN0PR12MB6101.namprd12.prod.outlook.com
- (2603:10b6:208:3cb::10)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU0PR04MB9417:EE_|AS1PR04MB9430:EE_
+x-ms-office365-filtering-correlation-id: 4b6c043a-ecf9-49be-4a78-08dc1c798a5f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 36W8ezj0V81gaIVN0yS4oETonN+jBsNleCvduOBT9dx0T/MMzVaSCD+55m1NeXVKt8JIW6bJi7xwNfPgw4ppT6r4mwwv+7YwOfFQOVqjQ+LM2Hztyi9nF7tNNXakSQux500cmWxiwC7ivwCAuqo9iVeofSi1BvP8LWMfVi9kbGhG8Hz4EiAZiv94kV/yUbBDtOoO6JeO6ZgcLQZlesDWny3IbLVDabL9tTyRz4MzMqN15uLDJy0jFvjvjhzTjPSBf0VHsrvJXPsxAdqeJqHMrSttsNYVxVMwfzpqnnQLPhcg0+hoG4qPdG0Arz4z5car9DRjzIMhNONyDhMSRBE99q4dY1iyDdyBys8Zrbbi5roJG5WIIELXkyAabsaTIDnjOrM0SL3GeZTmap/kVxzuVojv8fZqGqDYxqAA89W+dWkLKHqvkRMIwfejbGd7zcGGh74trQwmzMfPNlDDzIf/IgrdICE1tKZy1JO+R/nlVKlYxQuLnL/aUSM1CjThShXlwa+nPBuw/lx3jItXQRA88xRRrzwILk1dHPBOeLbNMg7JyRyVU/cjvgEux4pjd4L35T5eyhwzDCBP09zpUujl1KyVhGiRx27oU0B+OVIr+IEBNUBBB9+cnQPDyaCRS5CX
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9417.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(376002)(366004)(346002)(136003)(39860400002)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(478600001)(55016003)(71200400001)(83380400001)(52536014)(38100700002)(122000001)(5660300002)(44832011)(6506007)(8676002)(7696005)(4326008)(8936002)(2906002)(26005)(66946007)(66446008)(86362001)(9686003)(33656002)(41300700001)(316002)(38070700009)(54906003)(66556008)(66476007)(76116006)(64756008)(110136005);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?yeKfW96zKjWEQpwO/8Yd+25E/IQJIZkNVhBQFH09ki8d2o/IJmQ9ameDVuja?=
+ =?us-ascii?Q?Z0u6OnnF//0nMReKF75fUA81GsvBgpKgAlmzBuQspmwUSP1GlIO9eBmatRWd?=
+ =?us-ascii?Q?ByBeXFBREg78eFvOHT3vt2Z57pPOGcLRbp0z/fG1cgX5svsjmr3oYfLoL6fR?=
+ =?us-ascii?Q?o5isyyHmXq4XC9p6nsOVQTlxbbhmoS76VJaa5zBa4M72zIGKhJ5KcFy31s1h?=
+ =?us-ascii?Q?jg7hbz1H/ziIK6AYaItDx61ILz4dBhVz96EQB/nlngPQK4axftmA3eWV6nkt?=
+ =?us-ascii?Q?sJZb29nIRM9159qTfvsqjLqpAujaHHmzeqTLHU0biop2xgt9MQ9AFvI/OszQ?=
+ =?us-ascii?Q?ujFbq+ybrVM7qpGBUmI4VdA+eL4jrbu59iVHgtrvVIhb6PSFGvuYiqUhEykX?=
+ =?us-ascii?Q?Hm6gpFCq/uDFHYcH+czIrwV8pzNuBWCS/vStZ2sGgPblYq5cQi6NGavwhiTx?=
+ =?us-ascii?Q?o1GZY+wLWGosTlEDGWqRyD9qKF9iVTnnJm3DkRgbfKDyefQXhfFzhreN6nDf?=
+ =?us-ascii?Q?I9OvtuIn3MHmsSNjLT1lDmLhzJDUM31f1Od4w4H2RIc1k/Fi9aaAqIb8sAh8?=
+ =?us-ascii?Q?dDuyRqlvpo9LT/5LlwdaXt6MvJy9V+gkE/r4xhwrrg7TlzIwC1qocftphgQK?=
+ =?us-ascii?Q?T6USKruCSZmW+RC19HCETluym9/FppZtYOte/PNXuIKoG8sfSbWQz7XR/OqY?=
+ =?us-ascii?Q?y5mhXTyooGR/PTqv8BT5OsSK3E/GNJF5ONBLdFTZYayKzVXTLAtAmQUKz4Am?=
+ =?us-ascii?Q?Q7rECc+PIc9nu6QtU5rmE3P1U/nEOjTELIchz4P9/pcGDYVs95M8AiGt3a11?=
+ =?us-ascii?Q?UPEluY3XwziBj/vsXOcvWXgaT5DnS018wc1Z0ySzutAG13d/6w4bpJeqRMic?=
+ =?us-ascii?Q?LmUTUEgqFdfHoxJpgy2hLw+cei4rdeZkdOIiWn/MqCKY1O7oeDJEdR2GZ6BG?=
+ =?us-ascii?Q?5obcwUoEe7iuS55XYNrcdZovyA7zw/86WkBZtQEGCLuw9mJ1X6Mg61oZB86F?=
+ =?us-ascii?Q?UCRuAPb6HueL/5lE8+CuKXvhd3wy7sJ9NY+18X+95KmdP2Dign7RjtfZ8YkH?=
+ =?us-ascii?Q?ESRr6swyYzFMWUMELARXUC5WihuQCeDxIGJ7Oe87GnuJa3wjn4gfqlO79sJ9?=
+ =?us-ascii?Q?fIMGDU27H5Fd1x5m8D6mzw43OLi+lmhWjtSIn79U6iGesEZk54nftzYNpXH5?=
+ =?us-ascii?Q?dpitzNJG5wq8WWXUfnMQxhc9PzXOdTXmW47sqrCgIyhHhBgBSNGz7ZvAX8MH?=
+ =?us-ascii?Q?cc+BtOqZ6TC1AJmOGJM0LxaN76xSYes5qaPUO/+BvgySh9W/c8JjC3aWEtul?=
+ =?us-ascii?Q?ytf5DJX0kWE+y3bSJ88ndemPZEXcZSm+MZl/d5FvpQENVDE2DUzmqazofXVF?=
+ =?us-ascii?Q?4mwd8jnm4nBu5HWemxzS4kaD4s54Xn226VZwTEDkCpkG2vZHUrTSxpF0y1Gq?=
+ =?us-ascii?Q?Se4GSIU2t11mWOZapFmQpPKhsIhf4LA6AZxydtpY6OEQq/6tQxViWxO2Isgp?=
+ =?us-ascii?Q?PR9C997/+5syDn6690EvR8tfKD9sNymOiZVsmQnOgp+IYe9aHAd0UD5aSbfw?=
+ =?us-ascii?Q?hm2WSh/+sPQxnvcQPyk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|SN7PR12MB8001:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01c7d922-88bd-40df-ec89-08dc1b8d01b7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	0VyKvwbX3UrZ/gc1kvUnNePYX2yrLcT2yBbDLNsspo/qJAosp9tG1430ZGyE9QXXgQYcImC8KESzQvRb+SAgbMQ/iO8oKO8bQrS4NZS3kl89gsmzui3WOoxyn2PvOErwZknk4av4b6MEZHxZ4cZagi6qRJJCEczHMW6DkkBlJe43ZRPeNZr0HGYt+ya+BHhWzZ6kHLmBoiMF6JimlaPKwNsX6YWKZw4gXqI5mbjgoIUsO4I35EJahXi8WdInavYqHqYptSb+LEiRQqjucuBB65i+QvBcsELzTqBSU6efzg2coYu6EYy1hxeSIFlNJ0ZuSPhJjLDYnCdTGbS6dUmXFdh64dQTFG71wVBHU3vo93fr6gZjG4G8tQTk5Ky13bnj8bG9AMRvx1Gal+chPdvQ/We7JBNsBaI7Ktlmnwah4ZQP7mvVji2QLSWrBYSnz82NxUKPlTT0MZVm4WiiNuGx5vjcud3n/frkyYJINCJr9/PrnobrNgw74fb7DAm0inFz3/GMvR5uzQ4S8dHm7cIyzbcQh5yNFgvj1Acr59DlUojq2Wfqxmdm740f58g0eNx2fk4vRZpptKIrUxesn6It5oPorflxM03l94CTqhKrQc73NIefssAqr17B0mcjCM/M
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6101.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(39860400002)(396003)(136003)(366004)(346002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(31686004)(38100700002)(31696002)(478600001)(2906002)(316002)(54906003)(966005)(6486002)(66946007)(66556008)(6916009)(4326008)(44832011)(26005)(83380400001)(86362001)(66476007)(8676002)(8936002)(6506007)(66574015)(5660300002)(6512007)(41300700001)(2616005)(36756003)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eXVhbnUwUXZSV3lxb08yM01oelhKSE51cHdQQnpBdnU4Z3UrL3Y1ZVdyV3o5?=
- =?utf-8?B?alNHWkFTWXdzaUdVSFlFT01KTnNHdEU4L1pMT3NqcTkzVkxaWFpFWmp1ZHk1?=
- =?utf-8?B?U3l6RC9STEZHN0dtZ2hCMzYwRDdCUmVCTGR3UDRWNGZZOU9FaGZlTXlKdUkr?=
- =?utf-8?B?TStyVmZXTU5lLzN5aTdwRWl2OTZVdU5Edk53ckVrYkJlYjZWWmFkSWhCYWVa?=
- =?utf-8?B?WktwYzVSQnp6UGZzTlBZYTJTdGVsTkZtZWdtUGFpNWpaZ0tKZzJsWkhWR2h5?=
- =?utf-8?B?YzlEam05Z2EwbzMyUU00UWdpc0lNNFlzTXdvQWpOSGpoNlVRNWJqbVF4Rlp2?=
- =?utf-8?B?TkhZZFRuSXJ5ak8rSlVFbHozcER2WTYzQTFZVkRjUkdzV1kyYktKbHBjdlU3?=
- =?utf-8?B?UGxLaXdXQ3pUOGFYZU1idkFTQTlMTlAwYUNvcWVWdVh4djBMeExZZ2oyU0w0?=
- =?utf-8?B?dkliMzhOOGtDRW9pR0h5OU5DQ05iSHFvSGREYnJoNVR6ZFhjMFNtYldlY05p?=
- =?utf-8?B?YXlES0xuVFNDRk94SkFiTXBpajZWMExzcTd2VVFleXg1SHlES0taNmJLU0Q4?=
- =?utf-8?B?TWFMVG1uRDJpVzBma2ppZjZwL3l1T1pVNndqbituK0Z6VzhQbTcvVndEaGxv?=
- =?utf-8?B?Tys0V2dPK0EvcFJyMG9uSnhYQ25temFoY3llTUJpRWl0alZIdWxVSHRzajVQ?=
- =?utf-8?B?TWRCNXRTSm1JS0Y5VTA5Wkhja0NxVjNNUWdnNmI0MVlhamxVSHNkRVlndXd3?=
- =?utf-8?B?WjJPY1RaVko2cXlsR1YxMkU3eWhhbjU3SXNFZXBDazdkdlhrckU0Vk5HMS9X?=
- =?utf-8?B?MEczRnYzMHU1QWNDT2U2eFV3ZERIb1QvTnNMRG1QR05PSS9samRrcmdOOUE2?=
- =?utf-8?B?YnFySHBCSUErUHF4bGYwYWpVWFBrWlBUVEdvY09hVnk4ZGx3Y2Vxcy92cDNC?=
- =?utf-8?B?eDRpYW1qTGM4KzVaNzBuUEd1czI1T2QxTDEyRUpJRktqaytYSTFFR1JBY01i?=
- =?utf-8?B?WTA1VHdUamcwdFNhaFBhdjF4MmhDYWlESkl4WjB1QmF5NFE4Z2F1azVHdlVo?=
- =?utf-8?B?NVN6VytXeExhdy9PalZ2KzBIWHVLQ0RuZHZ4eUxsVEZuazBObVJnbVE4cngx?=
- =?utf-8?B?YTlKQUk1eU9PYzBrSXBRTUVFUFZpajFpQ09TbFI3SHFUTndYckl0cWtjcW9N?=
- =?utf-8?B?QTVxVUhCeHE2c2I2a09BWGI2NE9QK3VhZFJ4MjBTUDdNUGRhZG44RU9aSklQ?=
- =?utf-8?B?L3QrYXB6UEJmNElodXl0U1k0RlNpVjJuWkRQcGhFS1ZzYXdKdDRpb1N0azVK?=
- =?utf-8?B?Mzdma05XM1B5THRYdnJPVDBodjgzb1VpdjBJOFhDdlkvL0hHcXZ1bFR4QVVj?=
- =?utf-8?B?RWx3ZmlhVy9WTUZDeS94ZHM3ZS9RZm1pUkFSTjB5RWZHU0FFL3p5bk9RRFpw?=
- =?utf-8?B?b3E3aGhSV2R5SFdXaDVxbXlvRkVNbUtUeHJpRkFqcjZPZk8wdm5kMmZjcDVz?=
- =?utf-8?B?cFF5OFNuSUxkcSt1UGExdVFjMlhOU21uaXNyWHMrTWpCZFU1TFEwY3JEMFlK?=
- =?utf-8?B?akYyaEp1WHNzVlVKWS82bnd5b1cxVm1wVjRsS1VkU1FtQzZ4WEpjZ1NCWTMy?=
- =?utf-8?B?cmNyVWpaRVAzdXpCR29lZ3dqQllIM2ErZHNuOVZrb1UrRmxUMVk1bDljMi9m?=
- =?utf-8?B?QitUakN0TU9HNGNQeWh6UHdzVVNVR1BSeHJRNXRZSm1XcDBHS3ZpNkxLU2tm?=
- =?utf-8?B?aEprNXR6TTRxL0JUV244cVNYck80VGdOb0x2VWoyNUplU1cvMDYveFR0Z21F?=
- =?utf-8?B?VTdyL3ZVY01KS3BWZnZ6SnRNbUdzN0MvV3FVY0orN3NvSW9Jd0JiUFlLaUk3?=
- =?utf-8?B?S0xKRzduZVVQZ2ZEcnVPSVVzcHFoTGUyaEEzUjhEL05Mei9KYkNXNkpCb2NK?=
- =?utf-8?B?dVNDWmE2NGxZMTJCOXV4NkZEYVNhL2QzbkUrUms1cnM2aDRBVDZNTTRKeXRC?=
- =?utf-8?B?RE9uTXZIalJYVXlzNGJRak0vK1pNVGpMSGdCK1cvTVlyc21kUFV6bE1sQ2U5?=
- =?utf-8?B?cjNySzVwN09XUTVhWkhGa05iN0J5Umh6THlkd2xnVkx4eFZmZ25waS9tZkdT?=
- =?utf-8?Q?VCj5sm4AmD2pJACjzX6HUUnUl?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01c7d922-88bd-40df-ec89-08dc1b8d01b7
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
+X-OriginatorOrg: nxp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2024 20:59:21.4481
+X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9417.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b6c043a-ecf9-49be-4a78-08dc1c798a5f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jan 2024 01:12:31.7535
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V49VGfPpVz6Sug6E8Ybs3ZqgheeFGnUkyiZSlIB+15LH9U1Up4H1HbYbXiCmdX1KIpL4mwE/BjzltX4Re/m3Kg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8001
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: m9ZqRwUusv1bNBY+eWITgJK8s0fU3d5T2gAeKVrkFjEH9REvlgJEOmMQyfDoX36VijHE/wnrOyBA3Qzx7s2Jww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9430
 
-On 1/22/2024 11:06, Sébastien Chaumat wrote:
-> 
-> 
-> Le mer. 17 janv. 2024 à 03:20, Mario Limonciello 
-> <mario.limonciello@amd.com <mailto:mario.limonciello@amd.com>> a écrit :
-> 
->     On 1/16/2024 10:18, Jan Beulich wrote:
->      > On 16.01.2024 16:52, Sébastien Chaumat wrote:
->      >> Le mar. 2 janv. 2024 à 21:23, Sébastien Chaumat
->     <euidzero@gmail.com <mailto:euidzero@gmail.com>> a
->      >> écrit :
->      >>
->      >>>
->      >>>   output of gpioinfo
->      >>>>
->      >>>> kernel alone :
->      >>>>
->      >>>>          line   5: unnamed         input active-low
->     consumer=interrupt
->      >>>>          line  84: unnamed         input active-low
->     consumer=interrupt
->      >>>>
->      >>>> xen:
->      >>>>
->      >>>>          line   5: unnamed         input active-low
->      >>>>          line  84: unnamed         input active-low
->      >>>>
->      >>>> xen with skipping IRQ7 double init :
->      >>>>
->      >>>>          line   5: unnamed         input active-low
->     consumer=interrupt
->      >>>>          line  84: unnamed         input active-low
->      >>>>
->      >>>>
->      >>>> So definitely progressing.
->      >>>>
->      >>>
->      >>> Checking /sys/kernel/irq/7
->      >>>
->      >>> kernel alone :
->      >>>   actions: pinctrl_amd
->      >>>   chip_name: IR-IO-APIC
->      >>>   hwirq: 7
->      >>>   name: fasteoi
->      >>>   per_cpu_count: 0,0,0,0,0,20,0,0,0,0,0,0,0,0,0,0
->      >>>   type: level
->      >>>   wakeup: enabled
->      >>>
->      >>> xen skipping IRQ7 double init :
->      >>>
->      >>> actions: pinctrl_amd
->      >>>   chip_name: xen-pirq
->      >>>   hwirq:
->      >>>   name: ioapic-level
->      >>>   per_cpu_count: 0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
->      >>>   type: edge
->      >>>   wakeup: disabled
->      >>>
->      >>> So the skip of IRQ7 in pci_xen_initial_domain() sets the
->     correct handler
->      >>>   (IIUC xen uses the ioapic-level and handles the eoi
->     separately), but not
->      >>> the correct type (still edge).
->      >>> I guess this may explains the results above.
->      >>>
->      >>>
->      >>   Mario (in CC) patched the pinctrl_amd to flush pending
->     interrupt before
->      >> starting the driver for the GPIO.
->      >>
->      >> This helped in  the sense of there's no more pending interrupt
->     on IRQ7
->      >> (whatever the handler is, level or edge) but then the touchpad
->     is not
->      >> detected by i2c-hid.
->      >>
->      >> Is there any work in progress related to the incorrect IRQ
->     configuration ?
->      >
->      > I'm not aware of any. As per my recollection it's still not entirely
->      > clear where in the kernel things go astray. And to be honest I don't
->      > feel comfortable trying to half-blindly address this, e.g. by trying
->      > to circumvent / defer the early setting up of the low 16 IRQs.
->      >
->      > Jan
-> 
->     Shot in the dark - but could this be a problem where PCAT_COMPAT from
->     the MADT is being ignored causing PIC not to be setup properly in the
->     Xen case?
-> 
->     See https://lore.kernel.org/all/875y2u5s8g.ffs@tglx/
->     <https://lore.kernel.org/all/875y2u5s8g.ffs@tglx/> for some context.
-> 
-> At least we know that no MADT override is found by xen for INT7 as no 
-> INT_SRC_OVR message is printed.
-> 
-> Do we expect one @Mario Limonciello <mailto:mario.limonciello@amd.com>  ?
+> Subject: Re: [PATCH] xen: Drop out of coroutine context
+> xen_invalidate_map_cache_entry
+>=20
+> On Tue, 16 Jan 2024, Peng Fan (OSS) wrote:
+> > From: Peng Fan <peng.fan@nxp.com>
+> >
+> > xen_invalidate_map_cache_entry is not expected to run in a coroutine.
+> > Without this, there is crash:
+> >
+> >     signo=3Dsigno@entry=3D6, no_tid=3Dno_tid@entry=3D0) at pthread_kill=
+.c:44
+> >     threadid=3D<optimized out>) at pthread_kill.c:78
+> >     at /usr/src/debug/glibc/2.38+git-r0/sysdeps/posix/raise.c:26
+> >     fmt=3D0xffff9e1ca8a8 "%s%s%s:%u: %s%sAssertion `%s' failed.\n%n",
+> >     assertion=3Dassertion@entry=3D0xaaaae0d25740 "!qemu_in_coroutine()"=
+,
+> >     file=3Dfile@entry=3D0xaaaae0d301a8 "../qemu-xen-dir-remote/block/gr=
+aph-
+> lock.c", line=3Dline@entry=3D260,
+> >     function=3Dfunction@entry=3D0xaaaae0e522c0 <__PRETTY_FUNCTION__.3>
+> "bdrv_graph_rdlock_main_loop") at assert.c:92
+> >     assertion=3Dassertion@entry=3D0xaaaae0d25740 "!qemu_in_coroutine()"=
+,
+> >     file=3Dfile@entry=3D0xaaaae0d301a8 "../qemu-xen-dir-remote/block/gr=
+aph-
+> lock.c", line=3Dline@entry=3D260,
+> >     function=3Dfunction@entry=3D0xaaaae0e522c0 <__PRETTY_FUNCTION__.3>
+> "bdrv_graph_rdlock_main_loop") at assert.c:101
+> >     at ../qemu-xen-dir-remote/block/graph-lock.c:260
+> >     at /home/Freenix/work/sw-stash/xen/upstream/tools/qemu-xen-dir-
+> remote/include/block/graph-lock.h:259
+> >     host=3Dhost@entry=3D0xffff742c8000, size=3Dsize@entry=3D2097152)
+> >     at ../qemu-xen-dir-remote/block/io.c:3362
+> >     host=3D0xffff742c8000, size=3D2097152)
+> >     at ../qemu-xen-dir-remote/block/block-backend.c:2859
+> >     host=3D<optimized out>, size=3D<optimized out>, max_size=3D<optimiz=
+ed out>)
+> >     at ../qemu-xen-dir-remote/block/block-ram-registrar.c:33
+> >     size=3D2097152, max_size=3D2097152)
+> >     at ../qemu-xen-dir-remote/hw/core/numa.c:883
+> >     buffer=3Dbuffer@entry=3D0xffff743c5000 "")
+> >     at ../qemu-xen-dir-remote/hw/xen/xen-mapcache.c:475
+> >     buffer=3Dbuffer@entry=3D0xffff743c5000 "")
+> >     at ../qemu-xen-dir-remote/hw/xen/xen-mapcache.c:487
+> >     as=3Das@entry=3D0xaaaae1ca3ae8 <address_space_memory>,
+> buffer=3D0xffff743c5000,
+> >     len=3D<optimized out>, is_write=3Dis_write@entry=3Dtrue,
+> >     access_len=3Daccess_len@entry=3D32768)
+> >     at ../qemu-xen-dir-remote/system/physmem.c:3199
+> >     dir=3DDMA_DIRECTION_FROM_DEVICE, len=3D<optimized out>,
+> >     buffer=3D<optimized out>, as=3D0xaaaae1ca3ae8 <address_space_memory=
+>)
+> >     at /home/Freenix/work/sw-stash/xen/upstream/tools/qemu-xen-dir-
+> remote/include/sysemu/dma.h:236
+> >     elem=3Delem@entry=3D0xaaaaf620aa30, len=3Dlen@entry=3D32769)
+> >     at ../qemu-xen-dir-remote/hw/virtio/virtio.c:758
+> >     elem=3Delem@entry=3D0xaaaaf620aa30, len=3Dlen@entry=3D32769,
+> idx=3Didx@entry=3D0)
+> >     at ../qemu-xen-dir-remote/hw/virtio/virtio.c:919
+> >     elem=3Delem@entry=3D0xaaaaf620aa30, len=3D32769)
+> >     at ../qemu-xen-dir-remote/hw/virtio/virtio.c:994
+> >     req=3Dreq@entry=3D0xaaaaf620aa30, status=3Dstatus@entry=3D0 '\000')
+> >     at ../qemu-xen-dir-remote/hw/block/virtio-blk.c:67
+> >     ret=3D0) at ../qemu-xen-dir-remote/hw/block/virtio-blk.c:136
+> >     at ../qemu-xen-dir-remote/block/block-backend.c:1559
+> > --Type <RET> for more, q to quit, c to continue without paging--
+> >     at ../qemu-xen-dir-remote/block/block-backend.c:1614
+> >     i1=3D<optimized out>) at ../qemu-xen-dir-remote/util/coroutine-
+> ucontext.c:177
+> >     at ../sysdeps/unix/sysv/linux/aarch64/setcontext.S:123
+> >
+> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+>=20
+> Hi Peng! Many thanks for the patch and for the investigation!
+>=20
+> Only one minor question below
+>=20
+>=20
+> > ---
+> >  hw/xen/xen-mapcache.c | 31 +++++++++++++++++++++++++++++--
+> >  1 file changed, 29 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c index
+> > f7d974677d..4e1bb665ee 100644
+> > --- a/hw/xen/xen-mapcache.c
+> > +++ b/hw/xen/xen-mapcache.c
+> > @@ -481,11 +481,38 @@ static void
+> xen_invalidate_map_cache_entry_unlocked(uint8_t *buffer)
+> >      g_free(entry);
+> >  }
+> >
+> > -void xen_invalidate_map_cache_entry(uint8_t *buffer)
+> > +typedef struct XenMapCacheData {
+> > +    Coroutine *co;
+> > +    uint8_t *buffer;
+> > +    int ret;
+>=20
+> Do we need int ret? It doesn't look like we are using it.
 
-No; the INT_SRV_OVR you'll see on Framework 13 AMD is on IRQ 2 and IRQ 9.
+Good catch, it is not needed, I will drop it in V2.
 
+Thanks,
+Peng.
+
+>=20
+>=20
+> > +} XenMapCacheData;
+> > +
+> > +static void xen_invalidate_map_cache_entry_bh(void *opaque)
+> >  {
+> > +    XenMapCacheData *data =3D opaque;
+> > +
+> >      mapcache_lock();
+> > -    xen_invalidate_map_cache_entry_unlocked(buffer);
+> > +    xen_invalidate_map_cache_entry_unlocked(data->buffer);
+> >      mapcache_unlock();
+> > +
+> > +    aio_co_wake(data->co);
+> > +}
+> > +
+> > +void coroutine_mixed_fn xen_invalidate_map_cache_entry(uint8_t
+> > +*buffer) {
+> > +    if (qemu_in_coroutine()) {
+> > +        XenMapCacheData data =3D {
+> > +            .co =3D qemu_coroutine_self(),
+> > +            .buffer =3D buffer,
+> > +        };
+> > +        aio_bh_schedule_oneshot(qemu_get_current_aio_context(),
+> > +                                xen_invalidate_map_cache_entry_bh, &da=
+ta);
+> > +        qemu_coroutine_yield();
+> > +    } else {
+> > +        mapcache_lock();
+> > +        xen_invalidate_map_cache_entry_unlocked(buffer);
+> > +        mapcache_unlock();
+> > +    }
+> >  }
+> >
+> >  void xen_invalidate_map_cache(void)
+> > --
+> > 2.35.3
+> >
 
