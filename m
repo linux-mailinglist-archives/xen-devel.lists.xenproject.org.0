@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F9F383B044
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 18:44:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671180.1044418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D1F983B06B
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 18:52:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671198.1044431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rShHu-0004EI-7M; Wed, 24 Jan 2024 17:43:46 +0000
+	id 1rShPE-0007ry-0f; Wed, 24 Jan 2024 17:51:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671180.1044418; Wed, 24 Jan 2024 17:43:46 +0000
+Received: by outflank-mailman (output) from mailman id 671198.1044431; Wed, 24 Jan 2024 17:51:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rShHu-00049V-2I; Wed, 24 Jan 2024 17:43:46 +0000
-Received: by outflank-mailman (input) for mailman id 671180;
- Wed, 24 Jan 2024 17:43:44 +0000
+	id 1rShPD-0007ps-UE; Wed, 24 Jan 2024 17:51:19 +0000
+Received: by outflank-mailman (input) for mailman id 671198;
+ Wed, 24 Jan 2024 17:51:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=V3ap=JC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rShHs-0003pm-LT
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 17:43:44 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1rShPC-0007oN-IM
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 17:51:18 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1dc0bf3c-bae0-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 18:43:43 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40ec048e0c1so16821445e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 09:43:43 -0800 (PST)
+ id 2c8ed2d4-bae1-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 18:51:17 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-40eb99a72dcso22337935e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 09:51:17 -0800 (PST)
 Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- dq15-20020a0560000ccf00b00339336660d4sm8910859wrb.9.2024.01.24.09.43.41
+ jg25-20020a05600ca01900b0040e5034d8e0sm348758wmb.43.2024.01.24.09.51.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jan 2024 09:43:41 -0800 (PST)
+ Wed, 24 Jan 2024 09:51:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,210 +44,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1dc0bf3c-bae0-11ee-98f5-6d05b1d4d9a1
+X-Inumbo-ID: 2c8ed2d4-bae1-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706118222; x=1706723022; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2ZrLEkQUk8aM9B2yvHvaZ4PCpBx3ctjQNdrs96yJVB0=;
-        b=TokWcNMy5fWzHUmBb+mEg7FeSoO4Lhpn/yy2p4UguAO2BI4NjlrjcQYTr++nEo9v3H
-         oPueGI6t3VpgVfR7h1pF8k5j2wQOyusWz5cI5AIyCW+5CG+tudyYVPPB4+zcYnjjHvHc
-         S3h8G+DEf09GAtrFvTU0XeAlzI2FZ/YKk7kyk=
+        d=citrix.com; s=google; t=1706118677; x=1706723477; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Qkv9S6EA2vAXDWj+0n1XIHPUiPzgbSxqqzLliHK3F5A=;
+        b=TJAfZHM/xMy/ioLoGLrPhvZxgcKprzQPAo/YxumpzAdGP7edlBc7iPumpZDN2qiLyL
+         oV6YYU+Qr7F3ozMfVTiq+W9uY5U9wcFAFaMMUQ+VNtX5pUsQzS8TU0WmyhqJTU+sLJPo
+         oDU4hj36grCgF/iXAXgX8cUKEqtvbR0tbbaUc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706118222; x=1706723022;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=2ZrLEkQUk8aM9B2yvHvaZ4PCpBx3ctjQNdrs96yJVB0=;
-        b=P6rIPMOzVHU+XKjnQ64bvlMZm6Ieq0FZ3M+IooKK+9X46PFkXsRhBtv8kjeEI92j3c
-         PkA/EH0ivF3jA+C90672ZXKyQA6bgRiPQSEsJ6YDUQ0l3wa4dR3qFNBE7iLMwfazUz3W
-         YW1bXrJpWVSJP2DwyYS89NZ4P5xO1Ocgaomq6iieRp6Rj0Gybx00AP0xgoG6UlaHPy6C
-         5aFK5n6APjAKGGG1lfsZL7ZPifx778s/4DblS2Y+kJ2D7xzcbsrgKqHVKX1REk86pfzR
-         TVM1JFG8h+PaDoZHhVp2VZWKX54Ttl5zj61PRFSWNFKjdndTCHBeA5Czy8M/dPRHOXnO
-         NvPw==
-X-Gm-Message-State: AOJu0YwL8f3EIuhWQQN7BrzHO0h2iIhXad6w7fWOb3UQ98Tn6jujhU1h
-	JmuNhdxsRRiZNPX6SlpZGGry7Nll15Ly02EIo2Yxqal7ElLxshwHD4Mw2M7Io5ahKVxCzyL8yfp
-	1
-X-Google-Smtp-Source: AGHT+IH5AzWiSaq4eLMTqR/LLEusMUTSCBemKLBGdhiYMc57QJ3dIHk4Rw9lEyiuHT68bhBymEyUrg==
-X-Received: by 2002:a05:600c:314d:b0:40e:53ef:8ecb with SMTP id h13-20020a05600c314d00b0040e53ef8ecbmr2041557wmo.5.1706118221947;
-        Wed, 24 Jan 2024 09:43:41 -0800 (PST)
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Lukasz Hawrylko <lukasz@hawrylko.pl>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Mateusz=20M=C3=B3wka?= <mateusz.mowka@intel.com>
-Subject: [PATCH v5 3/3] x86/iommu: cleanup unused functions
-Date: Wed, 24 Jan 2024 18:29:53 +0100
-Message-ID: <20240124172953.29814-4-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240124172953.29814-1-roger.pau@citrix.com>
-References: <20240124172953.29814-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1706118677; x=1706723477;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Qkv9S6EA2vAXDWj+0n1XIHPUiPzgbSxqqzLliHK3F5A=;
+        b=Zn3emvTBdRWxYtyzN/XDHGCZh+eTWWyva+Kyf34icwYDZRXkQ+V5O3sjXtyxP9hZMv
+         r8dmWa739cn20zhhtgn5DONOjLBI9lJMv6Sd64XmcwS5CpkFN+0vf2h58VBVal5KzY5M
+         HDtCJN+v073KU8Q99NRqTLLXistyer3gGh/iIFm+4fTratfeuggaVSR6KazAtdsFFb1U
+         aEoeMdUo00DkNRllT9F7/6fRb+vRoED1CQhos6IyckDp4DsAiXm/THXYY02JeVhaxNZp
+         EDhpBHVVGTC6dyW9Wxl8IMh4J45z4yyKgCe8GuWFvY6s+hWvIyd9dRMRBqkNliNQiSz8
+         tQOQ==
+X-Gm-Message-State: AOJu0Yxpf6dz7DnHJXNRLsJ/jSHRjukW3wOejXF6jXUG0Wn4vz5r5hgv
+	MbyjgQVNS75vrHnUCVM+rwAs2rrSvH7xT9mD1O2WBXtf2jjRkW/FhXCigPzW7eM=
+X-Google-Smtp-Source: AGHT+IEoWhWHv7rFIGr98dunGN5WlqLrM11UcJZMpc7liQDhZtKnWjaep/901ESi4fZGY6tOmXh96g==
+X-Received: by 2002:a05:600c:880f:b0:40e:49c4:43c7 with SMTP id gy15-20020a05600c880f00b0040e49c443c7mr1334489wmb.159.1706118676900;
+        Wed, 24 Jan 2024 09:51:16 -0800 (PST)
+Date: Wed, 24 Jan 2024 18:51:15 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect
+ vpci structure
+Message-ID: <ZbFOE6kV7NXFrNjb@macbook>
+References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
+ <20240109215145.430207-2-stewart.hildebrand@amd.com>
+ <20240115194309.45683-1-stewart.hildebrand@amd.com>
+ <715e40c9-1776-4677-9565-dac1565a2aa8@suse.com>
+ <Za_WGzS14Eqt8yZF@macbook>
+ <ae7a57f2-2433-4b75-ab45-c8be55d489c9@suse.com>
+ <ZbDXXyucJhLJ4u9H@macbook>
+ <a3233487-965b-49ae-bebe-e5476fcda29c@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <a3233487-965b-49ae-bebe-e5476fcda29c@suse.com>
 
-Remove xen_in_range() and vpci_is_mmcfg_address() now that hey are unused.
+On Wed, Jan 24, 2024 at 12:34:10PM +0100, Jan Beulich wrote:
+> On 24.01.2024 10:24, Roger Pau Monné wrote:
+> > On Wed, Jan 24, 2024 at 09:48:35AM +0100, Jan Beulich wrote:
+> >> On 23.01.2024 16:07, Roger Pau Monné wrote:
+> >>> On Tue, Jan 23, 2024 at 03:32:12PM +0100, Jan Beulich wrote:
+> >>>> On 15.01.2024 20:43, Stewart Hildebrand wrote:
+> >>>>> @@ -2888,6 +2888,8 @@ int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
+> >>>>>  {
+> >>>>>      int irq, pirq, ret;
+> >>>>>  
+> >>>>> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
+> >>>>
+> >>>> If either lock is sufficient to hold here, ...
+> >>>>
+> >>>>> --- a/xen/arch/x86/physdev.c
+> >>>>> +++ b/xen/arch/x86/physdev.c
+> >>>>> @@ -123,7 +123,9 @@ int physdev_map_pirq(domid_t domid, int type, int *index, int *pirq_p,
+> >>>>>  
+> >>>>>      case MAP_PIRQ_TYPE_MSI:
+> >>>>>      case MAP_PIRQ_TYPE_MULTI_MSI:
+> >>>>> +        pcidevs_lock();
+> >>>>>          ret = allocate_and_map_msi_pirq(d, *index, pirq_p, type, msi);
+> >>>>> +        pcidevs_unlock();
+> >>>>>          break;
+> >>>>
+> >>>
+> >>> IIRC (Stewart can further comment) this is done holding the pcidevs
+> >>> lock to keep the path unmodified, as there's no need to hold the
+> >>> per-domain rwlock.
+> >>
+> >> Yet why would we prefer to acquire a global lock when a per-domain one
+> >> suffices?
+> > 
+> > I was hoping to introduce less changes, specially if they are not
+> > strictly required, as it's less risk.  I'm always quite worry of
+> > locking changes.
+> 
+> In which case more description / code commenting is needed. The pattern
+> of the assertions looks dangerous.
 
-Adjust comments to point to the new functions that replace the existing ones.
+Is such dangerousness perception because you fear some of the pcidevs
+lock usage might be there not just for preventing the pdev from going
+away, but also to guarantee exclusive access to certain state?
 
-No functional change.
+> Even if (as you say in a later reply)
+> this is only temporary, we all know how long "temporary" can be. It
+> might even be advisable to introduce a helper construct.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-Changes since v2:
- - Do remove vpci_is_mmcfg_address().
----
-Can be squashed with the previous patch if desired, split as a separate patch
-for clarity.
----
- xen/arch/x86/hvm/io.c             |  5 ---
- xen/arch/x86/include/asm/hvm/io.h |  3 --
- xen/arch/x86/include/asm/setup.h  |  1 -
- xen/arch/x86/setup.c              | 53 ++-----------------------------
- xen/arch/x86/tboot.c              |  2 +-
- 5 files changed, 3 insertions(+), 61 deletions(-)
+The aim here was to modify as little as possible, in order to avoid
+having to analyze all possible users of pcidevs lock, and thus not
+block the vPCI work on the probably lengthy and difficult analysis.
 
-diff --git a/xen/arch/x86/hvm/io.c b/xen/arch/x86/hvm/io.c
-index a42854c52b65..06283b41c463 100644
---- a/xen/arch/x86/hvm/io.c
-+++ b/xen/arch/x86/hvm/io.c
-@@ -364,11 +364,6 @@ static const struct hvm_mmcfg *vpci_mmcfg_find(const struct domain *d,
-     return NULL;
- }
- 
--bool vpci_is_mmcfg_address(const struct domain *d, paddr_t addr)
--{
--    return vpci_mmcfg_find(d, addr);
--}
--
- int __hwdom_init vpci_subtract_mmcfg(const struct domain *d, struct rangeset *r)
- {
-     const struct hvm_mmcfg *mmcfg;
-diff --git a/xen/arch/x86/include/asm/hvm/io.h b/xen/arch/x86/include/asm/hvm/io.h
-index e1e5e6fe7491..24d1b6134f02 100644
---- a/xen/arch/x86/include/asm/hvm/io.h
-+++ b/xen/arch/x86/include/asm/hvm/io.h
-@@ -153,9 +153,6 @@ int register_vpci_mmcfg_handler(struct domain *d, paddr_t addr,
- /* Destroy tracked MMCFG areas. */
- void destroy_vpci_mmcfg(struct domain *d);
- 
--/* Check if an address is between a MMCFG region for a domain. */
--bool vpci_is_mmcfg_address(const struct domain *d, paddr_t addr);
--
- /* Remove MMCFG regions from a given rangeset. */
- int vpci_subtract_mmcfg(const struct domain *d, struct rangeset *r);
- 
-diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
-index cd07d98101d8..1ced1299c77b 100644
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -36,7 +36,6 @@ unsigned long initial_images_nrpages(nodeid_t node);
- void discard_initial_images(void);
- void *bootstrap_map(const module_t *mod);
- 
--int xen_in_range(unsigned long mfn);
- int remove_xen_ranges(struct rangeset *r);
- 
- extern uint8_t kbd_shift_flags;
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index c9f65c3a70b8..8082aac303e0 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1343,7 +1343,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-         relocated = true;
- 
-         /*
--         * This needs to remain in sync with xen_in_range() and the
-+         * This needs to remain in sync with remove_xen_ranges() and the
-          * respective reserve_e820_ram() invocation below. No need to
-          * query efi_boot_mem_unused() here, though.
-          */
-@@ -1495,7 +1495,7 @@ void asmlinkage __init noreturn __start_xen(unsigned long mbi_p)
-     if ( using_2M_mapping() )
-         efi_boot_mem_unused(NULL, NULL);
- 
--    /* This needs to remain in sync with xen_in_range(). */
-+    /* This needs to remain in sync with remove_xen_ranges(). */
-     if ( efi_boot_mem_unused(&eb_start, &eb_end) )
-     {
-         reserve_e820_ram(&boot_e820, __pa(_stext), __pa(eb_start));
-@@ -2089,55 +2089,6 @@ void arch_get_xen_caps(xen_capabilities_info_t *info)
-     }
- }
- 
--int __hwdom_init xen_in_range(unsigned long mfn)
--{
--    paddr_t start, end;
--    int i;
--
--    enum { region_s3, region_ro, region_rw, region_bss, nr_regions };
--    static struct {
--        paddr_t s, e;
--    } xen_regions[nr_regions] __hwdom_initdata;
--
--    /* initialize first time */
--    if ( !xen_regions[0].s )
--    {
--        /* S3 resume code (and other real mode trampoline code) */
--        xen_regions[region_s3].s = bootsym_phys(trampoline_start);
--        xen_regions[region_s3].e = bootsym_phys(trampoline_end);
--
--        /*
--         * This needs to remain in sync with the uses of the same symbols in
--         * - __start_xen() (above)
--         * - is_xen_fixed_mfn()
--         * - tboot_shutdown()
--         */
--
--        /* hypervisor .text + .rodata */
--        xen_regions[region_ro].s = __pa(&_stext);
--        xen_regions[region_ro].e = __pa(&__2M_rodata_end);
--        /* hypervisor .data + .bss */
--        xen_regions[region_rw].s = __pa(&__2M_rwdata_start);
--        xen_regions[region_rw].e = __pa(&__2M_rwdata_end);
--        if ( efi_boot_mem_unused(&start, &end) )
--        {
--            ASSERT(__pa(start) >= xen_regions[region_rw].s);
--            ASSERT(__pa(end) <= xen_regions[region_rw].e);
--            xen_regions[region_rw].e = __pa(start);
--            xen_regions[region_bss].s = __pa(end);
--            xen_regions[region_bss].e = __pa(&__2M_rwdata_end);
--        }
--    }
--
--    start = (paddr_t)mfn << PAGE_SHIFT;
--    end = start + PAGE_SIZE;
--    for ( i = 0; i < nr_regions; i++ )
--        if ( (start < xen_regions[i].e) && (end > xen_regions[i].s) )
--            return 1;
--
--    return 0;
--}
--
- int __hwdom_init remove_xen_ranges(struct rangeset *r)
- {
-     paddr_t start, end;
-diff --git a/xen/arch/x86/tboot.c b/xen/arch/x86/tboot.c
-index 86c4c22cacb8..4c254b4e34b4 100644
---- a/xen/arch/x86/tboot.c
-+++ b/xen/arch/x86/tboot.c
-@@ -321,7 +321,7 @@ void tboot_shutdown(uint32_t shutdown_type)
- 
-         /*
-          * Xen regions for tboot to MAC. This needs to remain in sync with
--         * xen_in_range().
-+         * remove_xen_ranges().
-          */
-         g_tboot_shared->num_mac_regions = 3;
-         /* S3 resume code (and other real mode trampoline code) */
--- 
-2.43.0
+Not sure adding a construct makes is much better, as I didn't want to
+give the impression all checks for the pcidevs lock can merely be
+replaced by the new construct.
 
+Thanks, Roger.
 
