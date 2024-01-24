@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9336583A2E1
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 08:28:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670729.1043695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8791D83A3BD
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 09:08:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670742.1043705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSXgJ-0002FQ-2r; Wed, 24 Jan 2024 07:28:19 +0000
+	id 1rSYIi-0008Jh-Fy; Wed, 24 Jan 2024 08:08:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670729.1043695; Wed, 24 Jan 2024 07:28:19 +0000
+Received: by outflank-mailman (output) from mailman id 670742.1043705; Wed, 24 Jan 2024 08:08:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSXgI-0002Cb-Vz; Wed, 24 Jan 2024 07:28:18 +0000
-Received: by outflank-mailman (input) for mailman id 670729;
- Wed, 24 Jan 2024 07:28:17 +0000
+	id 1rSYIi-0008H4-CR; Wed, 24 Jan 2024 08:08:00 +0000
+Received: by outflank-mailman (input) for mailman id 670742;
+ Wed, 24 Jan 2024 08:07:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bgOV=JC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSXgH-0002CV-KM
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 07:28:17 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
+ id 1rSYIh-0008Gy-4l
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 08:07:59 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2360b9b1-ba8a-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 08:28:15 +0100 (CET)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2cf0390eddbso29594731fa.3
- for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 23:28:16 -0800 (PST)
+ id af46d7b6-ba8f-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 09:07:58 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2cf108f6a2dso17984401fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 00:07:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bp15-20020a056e02348f00b00362768a8dccsm2544939ilb.30.2024.01.23.23.28.13
+ c8-20020a056e020cc800b0036197f7f157sm2837097ilj.2.2024.01.24.00.07.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 23:28:15 -0800 (PST)
+ Wed, 24 Jan 2024 00:07:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2360b9b1-ba8a-11ee-98f5-6d05b1d4d9a1
+X-Inumbo-ID: af46d7b6-ba8f-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706081295; x=1706686095; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706083677; x=1706688477; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=13J/573p5yTOl4Bv2jB6f75mu7N4YGoeH7GAbsuZwXk=;
-        b=U+XySo6RRQVHFvO3S/ZtfD0G+VkJKB9UcuBwwUCxc0Tz9DUU1yR2vjxo+3Tu6bPec4
-         Qg9KsTzbrC+lwUKjY1Pis15uINumvsep79tJhZMlBW9vvsZoRLE3IpmnKZ32629kOZ2e
-         7J8+t+hqHXmefBOi5flxgNiDkxtflkSiPPe0hR1BHv1mIagrERUxTLRI0bf4O6IwhJEN
-         w4GmOTfXzwEMGp5Fh7e90JMeYJRbjjKOeE6bNf9yXsNmhBjdsYTFqEN2UuJ9LKJqaeTe
-         nThxaoUy3uZ/CxxVi1q5ZD8FbRVKNLrCkLfJi1YTdu5IMHRaiAGgngbAfuh9H8Wsygts
-         QLog==
+        bh=oydzX1fgiau+XzsIwkm0mdErCi3ZW6pW/Kj3UVBTZDI=;
+        b=IALKg70Zx7jFl71wJ9fd6jO/Ok3oZHNtje5nUr+qPBbbkn0ZVNABWn8aR3w+NKSSZc
+         rO41aqxOrDeJ6zr/9LwjYqJxRIE+ppny/kJkFYS9KZ0/E+g5/tmvPkeqyz9Ki8CAWIPc
+         Cfo5Iy1EwuNmN2TJEYmTiZOcyf/p6oo7kebSxVmZGHGsQ1U93kyrODoUdITnVwEJjXi5
+         IKtXrJSziE4zRscK/y0r/mrcd+eAqDbx9D2TZc12aoT5ISE84vJEjiwK22Mg0MJ+ozVJ
+         QnHduf24SrhPdGSSMpnCAD+WfWQKIVLQ6Uo9fhZzxqNOcFysvfHcfoPEzTAVN+SFv+QG
+         6LLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706081295; x=1706686095;
+        d=1e100.net; s=20230601; t=1706083677; x=1706688477;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=13J/573p5yTOl4Bv2jB6f75mu7N4YGoeH7GAbsuZwXk=;
-        b=G0e6NvtkaFxQHvhDLfddxxTgS3+Y/8QbhgskWDURd/btTlkYB1AAEv0baY7I6q+3cc
-         xFvJUOJGtlVLHdu+zf/YTSPRXTVylNKZop+Py3PqVSJWuo/mTaqBANKuZPlflTtUZiHv
-         MRaIqXFt2FP7cyuGNWi3CE/xizHxc1ejvwE4dUurfAG5UCoc7LiGlphFkCTuMHPJ0So9
-         jQABzQFDAXnRFYtYJZLEY8W665U7dIpj6Dsl93DvRA8LFZ1Zn9nz9gB1/Nh9jKEowc6A
-         FN9q3R5oADV2yoRWyv/C+nqbNvawNRNrha1jkdpvhIZsbAKN8ZTkDoP7TBYiX7Ub/9qx
-         DdWA==
-X-Gm-Message-State: AOJu0YzOnuO4XUjyO/Pn4V0gIhoP8UpC295bCoHhzavaEWd6GFfBVwRP
-	sKt3gIECtdobntO2hYdwiVDFS11cIcY5thZ49KoOARyHWT3+WbkVCgJxyD2ZoA==
-X-Google-Smtp-Source: AGHT+IFevQRJWrlFfmpyhLUhWszya8KaKTrlU+ZT1o+xmbzitNjTi+zr+uP17fWY3tmz1gEmlrnTnA==
-X-Received: by 2002:a2e:b163:0:b0:2cc:dcb6:5191 with SMTP id a3-20020a2eb163000000b002ccdcb65191mr567619ljm.62.1706081295529;
-        Tue, 23 Jan 2024 23:28:15 -0800 (PST)
-Message-ID: <665b7ea9-77d9-4bbc-a67c-1ac0d9ba908a@suse.com>
-Date: Wed, 24 Jan 2024 08:28:10 +0100
+        bh=oydzX1fgiau+XzsIwkm0mdErCi3ZW6pW/Kj3UVBTZDI=;
+        b=FOptgTQaH9xAniNs7ql9l0ehA+6W9mT7/s3Y1xecNZ1dvURBtiPDur8yXGF411Jryl
+         c1pgjm8InjenajVVBUqvRTOyQ97ybKQqEZycvwQGhJPqu9GieUFN0nexLLwpW9wUOOiP
+         kLIFE+k9hKedxqZ0qisyTUE8OetFMLMdyDjhZ8Nai9s80wbG4DvaxJAeqM1kZdeXM7CW
+         XO4A804+VozB2Bcpzu7mQmv0mx9LKKsMguWVSD6Kg82LXZoPxj9JUlcYl0cPy7gwLRwa
+         p8JHJasbboAtaEC+YqFRDxYfRULhgHbVbi7cbuHFSQJMkW+anrN0lj5eQ7FG/ucbuoaj
+         tukg==
+X-Gm-Message-State: AOJu0YwyEOtADxtquhDm19UILjBmWWxZ6K1A+/D7qey9sOSzxgReYLfi
+	1w1M65wwQiUnaYnnMEc1zpHJwrQiP4E0GlosDhvBrrnncdMdle4LFI8T7225AA==
+X-Google-Smtp-Source: AGHT+IHFCklphROpCt7dbUm9nz7Vvd5QPBLRt6sGEH1A3gVytYNZas5nGdLDmv0c5uUNH+32wpR+Yg==
+X-Received: by 2002:a2e:8916:0:b0:2cf:1b7b:11d2 with SMTP id d22-20020a2e8916000000b002cf1b7b11d2mr553716lji.105.1706083677371;
+        Wed, 24 Jan 2024 00:07:57 -0800 (PST)
+Message-ID: <b6dd4bff-d40a-47c7-9c18-913ed2bd07c1@suse.com>
+Date: Wed, 24 Jan 2024 09:07:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] consolidate do_bug_frame() / bug_fn_t
+Subject: Re: [PATCH v3 27/34] xen/riscv: define an address of frame table
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Federico Serafini <federico.serafini@bugseng.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <d466eb44-1160-4b57-a41f-752dbf626748@suse.com>
- <alpine.DEB.2.22.394.2401231731570.2287888@ubuntu-linux-20-04-desktop>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+ <d0a357e3b9597479b539e88915731b3f15489c04.1703255175.git.oleksii.kurochko@gmail.com>
+ <39837f92-d139-49c3-9e5f-a79dd585f050@suse.com>
+ <2267a8dc4b1be495be65c2d7e22378cd2394829c.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,43 +116,175 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2401231731570.2287888@ubuntu-linux-20-04-desktop>
+In-Reply-To: <2267a8dc4b1be495be65c2d7e22378cd2394829c.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24.01.2024 02:34, Stefano Stabellini wrote:
-> I managed to get back to read the mailing list and noticed this patch.
-> 
-> Is it still relevant and needs to be reviewed?
-> 
-> Are there any outstanding disagreements between maintainers on the
-> approach to take here?  Or should I just go ahead and review it?
-
-It is still relevant from my pov, and everything that may be controversial
-is said ...
-
-> On Tue, 9 Jan 2024, Jan Beulich wrote:
->> The type not being used in do_bug_frame() is suspicious. Apparently
->> that's solely because the type uses a pointer-to-const parameter,
->> when run_in_exception_handler() wants functions taking pointer-to-non-
->> const. Drop the const, in turn requiring Arm's do_bug_frame() to also
->> have its const dropped. This then brings that function also closer to
->> the common one, with Arm's use of vaddr_t remaining as a difference.
+On 23.01.2024 17:50, Oleksii wrote:
+> On Tue, 2024-01-23 at 12:32 +0100, Jan Beulich wrote:
+>> On 22.12.2023 16:13, Oleksii Kurochko wrote:
+>>> @@ -22,25 +30,56 @@
+>>>   *
+>>>   * It means that:
+>>>   *   top VA bits are simply ignored for the purpose of translating
+>>> to PA.
+>>> +#endif
+>>>   *
+>>> - *
+>>> ===================================================================
+>>> =========
+>>> - *    Start addr    |   End addr        |  Size  | Slot      
+>>> |area description
+>>> - *
+>>> ===================================================================
+>>> =========
+>>> - * FFFFFFFFC0800000 |  FFFFFFFFFFFFFFFF |1016 MB | L2 511     |
+>>> Unused
+>>> - * FFFFFFFFC0600000 |  FFFFFFFFC0800000 |  2 MB  | L2 511     |
+>>> Fixmap
+>>> - * FFFFFFFFC0200000 |  FFFFFFFFC0600000 |  4 MB  | L2 511     |
+>>> FDT
+>>> - * FFFFFFFFC0000000 |  FFFFFFFFC0200000 |  2 MB  | L2 511     |
+>>> Xen
+>>> - *                 ...                  |  1 GB  | L2 510     |
+>>> Unused
+>>> - * 0000003200000000 |  0000007F80000000 | 309 GB | L2 200-509 |
+>>> Direct map
+>>> - *                 ...                  |  1 GB  | L2 199     |
+>>> Unused
+>>> - * 0000003100000000 |  00000031C0000000 |  3 GB  | L2 196-198 |
+>>> Frametable
+>>> - *                 ...                  |  1 GB  | L2 195     |
+>>> Unused
+>>> - * 0000003080000000 |  00000030C0000000 |  1 GB  | L2 194     |
+>>> VMAP
+>>> - *                 ...                  | 194 GB | L2 0 - 193 |
+>>> Unused
+>>> - *
+>>> ===================================================================
+>>> =========
+>>> + *       SATP_MODE_SV32   | SATP_MODE_SV39   | SATP_MODE_SV48   |
+>>> SATP_MODE_SV57
+>>> + *     
+>>> ==================|==================|==================|==========
+>>> =======
+>>> + * BA0 | FFFFFFFFFFE00000 | FFFFFFFFC0000000 | FFFFFF8000000000 |
+>>> FFFF000000000000
+>>> + * BA1 | 0000000019000000 | 0000003200000000 | 0000640000000000 |
+>>> 00C8000000000000
+>>> + * BA2 | 0000000018800000 | 0000003100000000 | 0000620000000000 |
+>>> 00C4000000000000
+>>> + * BA3 | 0000000018400000 | 0000003080000000 | 0000610000000000 |
+>>> 00C2000000000000
+>>>   *
+>>> -#endif
+>>> + *
+>>> ===================================================================
+>>> ============
+>>> + * Start addr     |   End addr          |  Size  | Root PT slot |
+>>> Area description
+>>> + *
+>>> ===================================================================
+>>> ============
+>>> + * BA0 + 0x800000 |  FFFFFFFFFFFFFFFF   |1016 MB |     511      |
+>>> Unused
+>>> + * BA0 + 0x400000 |  BA0 + 0x800000     |  2 MB  |     511      |
+>>> Fixmap
+>>> + * BA0 + 0x200000 |  BA0 + 0x400000     |  4 MB  |     511      |
+>>> FDT
+>>> + * BA0            |  BA0 + 0x200000     |  2 MB  |     511      |
+>>> Xen
+>>> + *                 ...                  |  1 GB  |     510      |
+>>> Unused
+>>> + * BA1 + 0x000000 |  BA1 + 0x4D80000000 | 309 GB |   200-509    |
+>>> Direct map
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> This is an alternative proposal to
->> https://lists.xen.org/archives/html/xen-devel/2023-12/msg01385.html,
->> albeit without paving a road towards Andrew's desire of getting rid of
->> show_execution_state_nonconst() again. Retaining (and propagating) the
->> const would imply the need to cast away the const-ness somewhere on (at
->> least) the path to invoking gdb stub code. Personally I'm averse to such
->> casting away of const-ness ...
+>> This definitely can't be right for SV32. Others may be problematic,
+>> too, like ...
+>>
+>>> + *                 ...                  |  1 GB  |     199      |
+>>> Unused
+>>> + * BA2 + 0x000000 |  BA2 + 0xC0000000   |  3 GB  |   196-198    |
+>>> Frametable
+>>
+>> ... this one. Otoh I'd expect both to potentially be much larger in
+>> SV48 and SV57 modes.
+> Regarding Sv32, it looks to me the only BA0 and End addr at the first
+> line isn't correct as address size is 32.
+> 
+> Regarding other modes, yes, it should be changed Size column. Also, the
+> size of frame table should be recalculated.
+> 
+> Do we really need size column?
+> 
+> Wouldn't it be enough only have PT slot number?
 
-... here. Without Andrew commenting, I'm afraid it's not actually clear
-whether he objects to this approach, or is meaning to tolerate it
-silently, or actually views it as a step in a good direction, even if
-not quite getting where earlier on he thought we may want to move to.
+Perhaps.
+
+> Would it be better to have separate table for each mode?
+
+Don't know.
+
+>>> +#define VPN_BITS    (9)
+>>
+>> This need to move ...
+>>
+>>> +#define HYP_PT_ROOT_LEVEL (CONFIG_PAGING_LEVELS - 1)
+>>> +
+>>> +#ifdef CONFIG_RISCV_64
+>>
+>> ... here, I think, for not being applicable to SV32?
+> You are right, it is not applicable for Sv32. In case of Sv32, it
+> should be 10.
+> But I am not sure that it is correct only to move this definition as
+> RISCV-64 can also use Sv32. So it looks like VPN_BITS should be "#ifdef
+> RV_STAGE1_MODE == Sv32".
+
+Can it? The spec talks of SXLEN=32 implying SV32, while SXLEN=64 permits
+SV39, SV48, and SV57. No mention of SV32 there.
+
+>>> +#define SLOTN_ENTRY_BITS        (HYP_PT_ROOT_LEVEL * VPN_BITS +
+>>> PAGE_SHIFT)
+>>> +#define SLOTN(slot)             (_AT(vaddr_t, slot) <<
+>>> SLOTN_ENTRY_BITS)
+>>> +#define SLOTN_ENTRY_SIZE        SLOTN(1)
+>>
+>> Do you have any example of how/where this going to be used?
+> Yes, it will be used to define DIRECTMAP_SIZE:
+> #define DIRECTMAP_SIZE          (SLOTN_ENTRY_SIZE * (509-200))
+
+How about
+
+#define DIRECTMAP_SIZE          (SLOTN(509) - SLOTN(200))
+
+instead?
+
+>>> +#define XEN_VIRT_START 0xFFFFFFFFC0000000 /* (_AC(-1, UL) + 1 -
+>>> GB(1)) */
+>>
+>> Won't /* -GB(1) */ do, thus allowing the line to also be padded such
+>> that
+>> it matches neighboring ones in layout?
+> Could you please clarify what do you mean by padded here? The intention
+> was to show that 1 GB is used for Xen, FDT and fixmap.
+
+I'm talking of blank padding in the source file. Note how preceding and
+following #define-s blank-pad expansions so they all align. Just this
+one in the middle does not.
 
 Jan
+
+>>> +#define FRAMETABLE_VIRT_START   SLOTN(196)
+>>> +#define FRAMETABLE_SIZE         GB(3)
+>>> +#define FRAMETABLE_NR           (FRAMETABLE_SIZE /
+>>> sizeof(*frame_table))
+>>> +#define FRAMETABLE_VIRT_END     (FRAMETABLE_VIRT_START +
+>>> FRAMETABLE_SIZE - 1)
+>>> +
+>>> +#define VMAP_VIRT_START         SLOTN(194)
+>>> +#define VMAP_VIRT_SIZE          GB(1)
+>>> [...]
+>>
+> 
+
 
