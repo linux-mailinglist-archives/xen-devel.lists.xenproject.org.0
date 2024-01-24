@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AD2E83A672
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 11:12:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670871.1043950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D47EC83A6B0
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 11:23:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670878.1043959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSaEq-0006yc-Fe; Wed, 24 Jan 2024 10:12:08 +0000
+	id 1rSaPh-0000nr-Ed; Wed, 24 Jan 2024 10:23:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670871.1043950; Wed, 24 Jan 2024 10:12:08 +0000
+Received: by outflank-mailman (output) from mailman id 670878.1043959; Wed, 24 Jan 2024 10:23:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSaEq-0006wo-Cj; Wed, 24 Jan 2024 10:12:08 +0000
-Received: by outflank-mailman (input) for mailman id 670871;
- Wed, 24 Jan 2024 10:12:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rSaPh-0000lx-Bk; Wed, 24 Jan 2024 10:23:21 +0000
+Received: by outflank-mailman (input) for mailman id 670878;
+ Wed, 24 Jan 2024 10:23:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=k9jB=JC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rSaEo-0006wb-ND
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 10:12:06 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 05e03193-baa1-11ee-9b0f-b553b5be7939;
- Wed, 24 Jan 2024 11:12:04 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id
- 4fb4d7f45d1cf-55a5e7fa471so4694190a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 02:12:04 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- vq7-20020a170907a4c700b00a2cf537042asm13555299ejc.192.2024.01.24.02.12.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jan 2024 02:12:03 -0800 (PST)
+ <SRS0=3b7Y=JC=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
+ id 1rSaPf-0000lp-Ig
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 10:23:19 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 979a3c2d-baa2-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 11:23:18 +0100 (CET)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2cf2a381b86so2801231fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 02:23:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,125 +40,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05e03193-baa1-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 979a3c2d-baa2-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706091124; x=1706695924; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=5S1d5nGLnkvwjU2iypUDNHqS2WDMTAXYy+547mpozjA=;
-        b=iNpLg9J53WDJlE8iufuAhPEtqspLmv4129e2tzh+3lHUjyGcZx6+Mo9p0ccjJ62MPm
-         Irrff/EfHxTpATH0xmocb1PwhUOfQU4RITxlVdKihHDRbOB9hwD6tW3DhArr5Qa6Xsak
-         YQVgQV03nsmxCs966GpPxz8Mh6hlXrHD9vqDaELAzrOg0MbAmAnkMfe0f3bP2MsC/V7G
-         Sn+fWCwf2vyvCfTlpgMZfC+CKMx6TjW3aQsEUWOFP1iRpJ8fuCVlcuZhcYsbXsu1/10N
-         K8C5Oc2FL7tjqhRCpRo04OxHIwAmz09M17rd2rEv9AjeBdVvgjBzudhhlaquun/jijWu
-         lQaQ==
+        d=cloud.com; s=cloud; t=1706091798; x=1706696598; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=T/R2PbYdjMJQy9yYJWmrpzNFr0xsjltHxJHwJoARcmo=;
+        b=GkWE8GQ+FxNvAHaqZvsuh+E/cWwZTOoIC2KrWMO78fjlpKZaF7gv2pIZagsqLVr5RB
+         IwBAkp0CtkXPI9YV9n7zHS2DvOI+dpQgohgfF+GnDd5GeLhh1rK0IrzpDygwbRDp+QSM
+         njxuEw4HdH2FeVP4XaQYZSuxDb1udv3LhNBlc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706091124; x=1706695924;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=5S1d5nGLnkvwjU2iypUDNHqS2WDMTAXYy+547mpozjA=;
-        b=YyF2KjL1FCc0MT8yr0emuWyHOUJsSeXhKRbJaOdcSuNLAcd38XBKMgfWjH5rFkRwUj
-         vrBeuFyZQ811qdCnJNAr7I8DxF9NMrkDhX5wISTz4AILwRyx2pr0viXH8uTE0GVppTJW
-         TS6Seq6fdIe032wvAYg9S9BYqInmJzGs6NO4CvDjzbOlrvI7Z9kBL9Nufx9tVg4518/D
-         TjIDn2uyfKTMI8f+oNTmuOxqI26fbRlm7NWH/ZHghhXNq7KDgSf+6mmQ6R4jHIMgDrtk
-         J30yfuauCfX8xA99K8tlBGCfY8PgY2uGGyTApXN8zyB2WhZYut0EiuZh2ME38J1sj2pw
-         AVaw==
-X-Gm-Message-State: AOJu0Yyj8e/04vwLwzZaRANQpfQ9DDmYWwAbPGgadVRTrivdU1PYWYI6
-	Q6euWxaPIp+zoh3qTgwUuhglhNghHMdK5/8RuYIGs3vxbNWpl02e
-X-Google-Smtp-Source: AGHT+IEr/9jk6Pq1XUiE/jtR/DQ7IfPSE9sdidH6+SB1Nvt29yX2AGj1YoV7QkVWRuA+sG+oLKphYQ==
-X-Received: by 2002:a17:906:899:b0:a2c:2437:101c with SMTP id n25-20020a170906089900b00a2c2437101cmr655535eje.13.1706091124020;
-        Wed, 24 Jan 2024 02:12:04 -0800 (PST)
-Message-ID: <22a0c2444201262202cd60d6d5a1cdff62c236bf.camel@gmail.com>
-Subject: Re: [PATCH v3 30/34] xen/riscv: add minimal stuff to processor.h to
- build full Xen
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Wed, 24 Jan 2024 12:12:02 +0200
-In-Reply-To: <b8f47c93-43c4-4c61-a569-7d07e811c6ab@suse.com>
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
-	 <5bd7c5db6638f09dabdc13a6e12f0b204eacb234.1703255175.git.oleksii.kurochko@gmail.com>
-	 <aa4d18c5-a8e0-44a6-ae7e-16fd9cd029b4@suse.com>
-	 <5f8291916b01a2b29a16bd1345fc20e3d4f29cab.camel@gmail.com>
-	 <b8f47c93-43c4-4c61-a569-7d07e811c6ab@suse.com>
+        d=1e100.net; s=20230601; t=1706091798; x=1706696598;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=T/R2PbYdjMJQy9yYJWmrpzNFr0xsjltHxJHwJoARcmo=;
+        b=czXzT255xUn5XXNfYMq4qiIiuhe1rdTBRcUwR8hu0ecY6scelUG1NM1qRzSRWkEz7O
+         qqMek3DR0sMqtDS4kEd+MyRayItSprhQbMaV6AIghW5mSP6JbIdWfhkHcYjROktG5ad+
+         nx6G1fMgVagMWVK/piuunJMs2XXFpgSzRWklgpOJoQYTNkj3bdH3z4+uHNOgJKuCbZzr
+         /hGn8ESMlYilLnPftUacUwy0ea/3dxHKStvbTrP01ebnSpn4nBRGf/6VnVVuw1NYtlxD
+         etcCJgitugPqsjx766wgi+6X1pjDG6EtVwF4r5COLk0fTWU+QdlVzPuFsZ4DaM9NL/Mk
+         l3gA==
+X-Gm-Message-State: AOJu0YwZKdKOYaZ4aK7Uc2VRisCFagWEUQDEstFa0abnsM9216HS1mpz
+	rS+HNDrf+qeglzXP+LF8evjduoxIvu9EH/YJp9byvxnTov0TeaEH5kpQEgjUVSGc6sU4zeP9ktm
+	zmzZq0mGRppsj744qfkJZMQNsRZjKVof0Glg8ew==
+X-Google-Smtp-Source: AGHT+IEXgvPp0kb4+oJYDfSMtGl+Y5OXT30CLfTVOxX6dPf0xK8C+xV3gR+6CwQbikNrk3ArDCrJlCyuKar8AW6YCkA=
+X-Received: by 2002:a05:651c:2d9:b0:2cf:81d:3abf with SMTP id
+ f25-20020a05651c02d900b002cf081d3abfmr589072ljo.50.1706091798208; Wed, 24 Jan
+ 2024 02:23:18 -0800 (PST)
+MIME-Version: 1.0
+References: <20240124083742.24324-1-roger.pau@citrix.com>
+In-Reply-To: <20240124083742.24324-1-roger.pau@citrix.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Wed, 24 Jan 2024 10:23:07 +0000
+Message-ID: <CA+zSX=b=nU0TtY_ejC7fyBMVz99zcqPZxDyZ9=Pw23xwMR8sXg@mail.gmail.com>
+Subject: Re: [PATCH] x86/p2m-pt: fix off by one in entry check assert
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
-MIME-Version: 1.0
 
-On Wed, 2024-01-24 at 09:19 +0100, Jan Beulich wrote:
-> On 23.01.2024 18:08, Oleksii wrote:
-> > On Tue, 2024-01-23 at 12:39 +0100, Jan Beulich wrote:
-> > > On 22.12.2023 16:13, Oleksii Kurochko wrote:
-> > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > > > ---
-> > > > Changes in V3:
-> > > > =C2=A0- Update the commit message
-> > >=20
-> > > ??? (again)
-> > The same as with previous. asm/processor.h was changed to
-> > processor.h
-> >=20
-> > >=20
-> > > > @@ -53,6 +56,18 @@ struct cpu_user_regs
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0 unsigned long pregs;
-> > > > =C2=A0};
-> > > > =C2=A0
-> > > > +/* TODO: need to implement */
-> > > > +#define cpu_to_core(cpu)=C2=A0=C2=A0 (0)
-> > > > +#define cpu_to_socket(cpu) (0)
-> > > > +
-> > > > +static inline void cpu_relax(void)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 /* Encoding of the pause instruction */
-> > > > +=C2=A0=C2=A0=C2=A0 __asm__ __volatile__ ( ".insn 0x100000F" );
-> > >=20
-> > > binutils 2.40 knows "pause" - why use .insn then?
-> > I thought that for this instruction it is needed to have extension
-> > ZIHINTPAUSE ( according to Linux Kernel source code [1] ) and to
-> > cover
-> > older version.
->=20
-> Well, of course you'll need to enable the extension then for gas. But
-> as long as you use the insn unconditionally, that's all fine and
-> natural. Another thing would be if you meant to also run on systems
-> not supporting the extension: Then the above use of .insn would need
-> to become conditional anyway.
-Then it makes sense to use "pause".=C2=A0
-Let's assume that for now we are running only on systems which support
-the extension until we won't face compilation issue for some system.
+On Wed, Jan 24, 2024 at 8:45=E2=80=AFAM Roger Pau Monne <roger.pau@citrix.c=
+om> wrote:
+>
+> The MMIO RO rangeset overlap check is bogus: the rangeset is inclusive so=
+ the
+> passed end mfn should be the last mfn to be mapped (not last + 1).
+>
+> Fixes: 6fa1755644d0 ('amd/npt/shadow: replace assert that prevents creati=
+ng 2M/1G MMIO entries')
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
->=20
-> > > > +=C2=A0=C2=A0=C2=A0 barrier();
-> > >=20
-> > > Why?
-> > Just to be aligned with Linux kernel implemetation from where this
-> > function was taken.
->=20
-> Hmm, looking more closely we have an (open-coded) barrier even on
-> x86.
-> So I suppose it's really wanted (to keep the compiler from moving
-> memory accesses around this construct), but then you may want to
-> consider using
->=20
-> =C2=A0=C2=A0=C2=A0 __asm__ __volatile__ ( "pause" ::: "memory" );
->=20
-> here. First and foremost because at least in the general case two
-> separate asm()s aren't the same as one combined one (volatile ones
-> are more restricted, but I'd always err on the safe side, even if
-> just to avoid giving bad examples which later on may be taken as a
-> basis for deriving other code).
-It makes sense, I'll update inline assembler line code.
-
-Thanks.
-
-~ Oleksii
-
+Reviewed-by: George Dunlap <george.dunlap@cloud.com>
 
