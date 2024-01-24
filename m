@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 520D583A2D3
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 08:24:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670725.1043684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9336583A2E1
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 08:28:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670729.1043695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSXba-0001Rw-JR; Wed, 24 Jan 2024 07:23:26 +0000
+	id 1rSXgJ-0002FQ-2r; Wed, 24 Jan 2024 07:28:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670725.1043684; Wed, 24 Jan 2024 07:23:26 +0000
+Received: by outflank-mailman (output) from mailman id 670729.1043695; Wed, 24 Jan 2024 07:28:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSXba-0001QU-GA; Wed, 24 Jan 2024 07:23:26 +0000
-Received: by outflank-mailman (input) for mailman id 670725;
- Wed, 24 Jan 2024 07:23:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rSXgI-0002Cb-Vz; Wed, 24 Jan 2024 07:28:18 +0000
+Received: by outflank-mailman (input) for mailman id 670729;
+ Wed, 24 Jan 2024 07:28:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bgOV=JC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSXbY-0001PK-AU
- for xen-devel@lists.xen.org; Wed, 24 Jan 2024 07:23:24 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 72532c85-ba89-11ee-9b0f-b553b5be7939;
- Wed, 24 Jan 2024 08:23:20 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id
- a640c23a62f3a-a30e445602cso166118966b.0
- for <xen-devel@lists.xen.org>; Tue, 23 Jan 2024 23:23:19 -0800 (PST)
+ id 1rSXgH-0002CV-KM
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 07:28:17 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2360b9b1-ba8a-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 08:28:15 +0100 (CET)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2cf0390eddbso29594731fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Jan 2024 23:28:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- y4-20020a05663824c400b0046993034c91sm3862625jat.77.2024.01.23.23.23.17
+ bp15-20020a056e02348f00b00362768a8dccsm2544939ilb.30.2024.01.23.23.28.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 23 Jan 2024 23:23:18 -0800 (PST)
+ Tue, 23 Jan 2024 23:28:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72532c85-ba89-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 2360b9b1-ba8a-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706080999; x=1706685799; darn=lists.xen.org;
+        d=suse.com; s=google; t=1706081295; x=1706686095; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=VSE4kQ/hPcHD6nbAQ9d8843Yfcvkq/XWY737A3Us3WI=;
-        b=dval/+RGR8UNDrAhLtZRZUvageuHHUoqo/DzxpCETbgTdZd8x+OuHptNCGHO0copfP
-         aTass94T4xf/vfdttQkxhhA6wzSHUsftugrVyHnlRY/XXEasncNk5xt50URfXJ3fgaSI
-         MAV45dvR6GUSWH3ZTQ4SVjupV3YcZ4IvIHR5s5YivdUFZ8erEVhJFpbYNkHLukk51bxB
-         GauCMopes4Cqy1zfdWYO8zP957jOqPAM30m6BPDntuiBpzdt1dqHZz/m7Up2zmtLtrJ3
-         uJ1XDk+2mNw/c/i/jlLZMfjPks8K/g1MWAwSOsYP8liSWtq5Sw5omyJ8dyW0Cb5ld9Oh
-         QkWg==
+        bh=13J/573p5yTOl4Bv2jB6f75mu7N4YGoeH7GAbsuZwXk=;
+        b=U+XySo6RRQVHFvO3S/ZtfD0G+VkJKB9UcuBwwUCxc0Tz9DUU1yR2vjxo+3Tu6bPec4
+         Qg9KsTzbrC+lwUKjY1Pis15uINumvsep79tJhZMlBW9vvsZoRLE3IpmnKZ32629kOZ2e
+         7J8+t+hqHXmefBOi5flxgNiDkxtflkSiPPe0hR1BHv1mIagrERUxTLRI0bf4O6IwhJEN
+         w4GmOTfXzwEMGp5Fh7e90JMeYJRbjjKOeE6bNf9yXsNmhBjdsYTFqEN2UuJ9LKJqaeTe
+         nThxaoUy3uZ/CxxVi1q5ZD8FbRVKNLrCkLfJi1YTdu5IMHRaiAGgngbAfuh9H8Wsygts
+         QLog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706080999; x=1706685799;
+        d=1e100.net; s=20230601; t=1706081295; x=1706686095;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=VSE4kQ/hPcHD6nbAQ9d8843Yfcvkq/XWY737A3Us3WI=;
-        b=UcqalVVj9T5uShI+sathoR2dcNr3U7VV4Deo53lmoUc1GccsDIdSyno8UL82ydXTyW
-         poi4Rr4BHnv+zMJM+CzBIpMN+XJLX/jeSaJ+2fTR4F1pUgcNXpdlCNX6pwUQ32ImwuxI
-         KvXctRRSBay8N9H4N2Zhu0LsG9f+4o9nIaC74ucaVJPVcuYD/ipl2fZ/ZnriserYxWTl
-         opVt7iBXhmDx82h8dK1MuE+BV4EuG0+pmU9AbzLedDb4roPew8jYbwVbZRhJP6SGGqNH
-         OClbowCFqVS1iQMvpq/n0mauZZeLaDUnQ4V4YvqyaZcTTpH6DAY/VSyQ5ztAnZzuLrEw
-         Rrlw==
-X-Gm-Message-State: AOJu0YwZNXcKdpiXj/BLlI5wR3CMLIrbpKsNeIWVgLTJF7bQEuTnWKqP
-	z92ewU/sPdfAAYIEvohOmJ2oov1BdTzvfVx1YQtVnYJkr+jBRLDzerDt5iWwOA==
-X-Google-Smtp-Source: AGHT+IF4VP3QmJG+4fbChWciNa+ZL8MsSwLzBO19zc3oDhnHSVEN4wd37RARJGGdWWCcHxeSCMdtfg==
-X-Received: by 2002:a17:906:5399:b0:a2e:7f37:8301 with SMTP id g25-20020a170906539900b00a2e7f378301mr793830ejo.27.1706080998926;
-        Tue, 23 Jan 2024 23:23:18 -0800 (PST)
-Message-ID: <e7d67831-d7b9-48fd-9478-f89e85ce0422@suse.com>
-Date: Wed, 24 Jan 2024 08:23:15 +0100
+        bh=13J/573p5yTOl4Bv2jB6f75mu7N4YGoeH7GAbsuZwXk=;
+        b=G0e6NvtkaFxQHvhDLfddxxTgS3+Y/8QbhgskWDURd/btTlkYB1AAEv0baY7I6q+3cc
+         xFvJUOJGtlVLHdu+zf/YTSPRXTVylNKZop+Py3PqVSJWuo/mTaqBANKuZPlflTtUZiHv
+         MRaIqXFt2FP7cyuGNWi3CE/xizHxc1ejvwE4dUurfAG5UCoc7LiGlphFkCTuMHPJ0So9
+         jQABzQFDAXnRFYtYJZLEY8W665U7dIpj6Dsl93DvRA8LFZ1Zn9nz9gB1/Nh9jKEowc6A
+         FN9q3R5oADV2yoRWyv/C+nqbNvawNRNrha1jkdpvhIZsbAKN8ZTkDoP7TBYiX7Ub/9qx
+         DdWA==
+X-Gm-Message-State: AOJu0YzOnuO4XUjyO/Pn4V0gIhoP8UpC295bCoHhzavaEWd6GFfBVwRP
+	sKt3gIECtdobntO2hYdwiVDFS11cIcY5thZ49KoOARyHWT3+WbkVCgJxyD2ZoA==
+X-Google-Smtp-Source: AGHT+IFevQRJWrlFfmpyhLUhWszya8KaKTrlU+ZT1o+xmbzitNjTi+zr+uP17fWY3tmz1gEmlrnTnA==
+X-Received: by 2002:a2e:b163:0:b0:2cc:dcb6:5191 with SMTP id a3-20020a2eb163000000b002ccdcb65191mr567619ljm.62.1706081295529;
+        Tue, 23 Jan 2024 23:28:15 -0800 (PST)
+Message-ID: <665b7ea9-77d9-4bbc-a67c-1ac0d9ba908a@suse.com>
+Date: Wed, 24 Jan 2024 08:28:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Thoughts on current Xen EDAC/MCE situation
+Subject: Re: [PATCH] consolidate do_bug_frame() / bug_fn_t
 Content-Language: en-US
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xen.org
-References: <Za7Vr+Rb25y/+MSy@mattapan.m5p.com>
- <111f5551-70fa-4ded-a62a-e0aa967b3c29@suse.com>
- <ZbBDJGKqTU9rdpgD@mattapan.m5p.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Federico Serafini <federico.serafini@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>
+References: <d466eb44-1160-4b57-a41f-752dbf626748@suse.com>
+ <alpine.DEB.2.22.394.2401231731570.2287888@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -110,61 +114,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZbBDJGKqTU9rdpgD@mattapan.m5p.com>
+In-Reply-To: <alpine.DEB.2.22.394.2401231731570.2287888@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23.01.2024 23:52, Elliott Mitchell wrote:
-> On Tue, Jan 23, 2024 at 11:44:03AM +0100, Jan Beulich wrote:
->> On 22.01.2024 21:53, Elliott Mitchell wrote:
+On 24.01.2024 02:34, Stefano Stabellini wrote:
+> I managed to get back to read the mailing list and noticed this patch.
+> 
+> Is it still relevant and needs to be reviewed?
+> 
+> Are there any outstanding disagreements between maintainers on the
+> approach to take here?  Or should I just go ahead and review it?
+
+It is still relevant from my pov, and everything that may be controversial
+is said ...
+
+> On Tue, 9 Jan 2024, Jan Beulich wrote:
+>> The type not being used in do_bug_frame() is suspicious. Apparently
+>> that's solely because the type uses a pointer-to-const parameter,
+>> when run_in_exception_handler() wants functions taking pointer-to-non-
+>> const. Drop the const, in turn requiring Arm's do_bug_frame() to also
+>> have its const dropped. This then brings that function also closer to
+>> the common one, with Arm's use of vaddr_t remaining as a difference.
 >>
->>> I find the present handling of MCE in Xen an odd choice.  Having Xen do
->>> most of the handling of MCE events is a behavior matching a traditional
->>> stand-alone hypervisor.  Yet Xen was originally pushing any task not
->>> requiring hypervisor action onto Domain 0.
->>
->> Not exactly. Xen in particular deals with all of CPU and all of memory.
->> Dom0 may be unaware of the full amount of CPUs in the system, nor the
->> full memory map (without resorting to interfaces specifically making
->> that information available, but not to be used for Dom0 kernel's own
->> acting as a kernel).
-> 
-> Why would this be an issue?
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> This is an alternative proposal to
+>> https://lists.xen.org/archives/html/xen-devel/2023-12/msg01385.html,
+>> albeit without paving a road towards Andrew's desire of getting rid of
+>> show_execution_state_nonconst() again. Retaining (and propagating) the
+>> const would imply the need to cast away the const-ness somewhere on (at
+>> least) the path to invoking gdb stub code. Personally I'm averse to such
+>> casting away of const-ness ...
 
-Well, counter question: For all of ...
-
-> I would expect the handling to be roughly:  NMI -> Xen; Xen schedules a
-> Dom0 vCPU which is eligible to run on the pCPU onto the pCPU; Dom0
-> examines registers/MSRs, Dom0 then issues a hypercall to Xen telling
-> Xen how to resolve the issue (no action, fix memory contents, kill page).
-> 
-> Ideally there would be an idle Dom0 vCPU, but interrupting a busy vCPU
-> would be viable.  It would even be reasonable to ignore affinity and
-> grab any Dom0 vCPU.
-> 
-> Dom0 has 2 purposes for the address.  First, to pass it back to Xen.
-> Second, to report it to a system administrator so they could restart the
-> system with that address marked as bad.  Dom0 wouldn't care whether the
-> address was directly accessible to it or not.
-> 
-> The proposed hypercall should report back what was effected by a UE
-> event.  A given site might have a policy that if $some_domain is hit by a
-> UE, everything is restarted.  Meanwhile Dom0 or Xen being the winner
-> could deserve urgent action.
-
-... this, did you first look at code and figure how what you suggest
-could be seamlessly integrated? Part of your suggestion (if I got it
-right) is, after all, to make maintenance on the Dom0 kernel side easy.
-I expect such adjustments being not overly intrusive would also be an
-acceptance criteria by the maintainers.
-
-Second - since you specifically talk about UE: The more code is involved
-in handling, the higher the chance of the #MC ending up fatal to the
-system.
-
-Third, as to Dom0's purposes of having the address: If all it is to use
-it for is to pass it back to Xen, paths in the respective drivers will
-necessarily be entirely different for the Xen vs the native cases.
+... here. Without Andrew commenting, I'm afraid it's not actually clear
+whether he objects to this approach, or is meaning to tolerate it
+silently, or actually views it as a step in a good direction, even if
+not quite getting where earlier on he thought we may want to move to.
 
 Jan
 
