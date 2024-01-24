@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EA6E83A552
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 10:25:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670840.1043900 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00DFF83A588
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 10:34:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670850.1043909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSZV5-000824-5T; Wed, 24 Jan 2024 09:24:51 +0000
+	id 1rSZe7-0002w6-VF; Wed, 24 Jan 2024 09:34:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670840.1043900; Wed, 24 Jan 2024 09:24:51 +0000
+Received: by outflank-mailman (output) from mailman id 670850.1043909; Wed, 24 Jan 2024 09:34:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSZV5-0007zU-2D; Wed, 24 Jan 2024 09:24:51 +0000
-Received: by outflank-mailman (input) for mailman id 670840;
- Wed, 24 Jan 2024 09:24:50 +0000
+	id 1rSZe7-0002u1-SG; Wed, 24 Jan 2024 09:34:11 +0000
+Received: by outflank-mailman (input) for mailman id 670850;
+ Wed, 24 Jan 2024 09:34:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V3ap=JC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rSZV3-0007zH-Uo
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 09:24:49 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
+ <SRS0=k9jB=JC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rSZe6-0002ts-Ju
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 09:34:10 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6bae4eb4-ba9a-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 10:24:49 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id
- a640c23a62f3a-a2dc7827a97so577998566b.2
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 01:24:49 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- c3-20020a17090654c300b00a2a2426728bsm15379886ejp.178.2024.01.24.01.24.48
+ id b9c6265e-ba9b-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 10:34:09 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-510133ed214so305811e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 01:34:09 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ h12-20020a0564020e8c00b00557aa8d72c9sm16167140eda.25.2024.01.24.01.34.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jan 2024 01:24:48 -0800 (PST)
+ Wed, 24 Jan 2024 01:34:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,95 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bae4eb4-ba9a-11ee-98f5-6d05b1d4d9a1
+X-Inumbo-ID: b9c6265e-ba9b-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706088288; x=1706693088; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=V4EwUoOZBbZsvLoA6UXEk6Wj7UQEbhyHy+fuu11Fi7A=;
-        b=O2JnU1fwQeSUbjsGzGYJQg36Fb3M/oSzhKVqFoWxcLwPmJoGahX1PVwhRW+4VWHWQw
-         W0+lSukOOd2pMEuupaqHrjp1gpwkDeNmdM41UHxM1bgEsfCVLkw5RAJvA1zexXOE2BFV
-         0w6CJ8m4yfDDyokMwBctoPjfMKh2rrFqPBSXM=
+        d=gmail.com; s=20230601; t=1706088849; x=1706693649; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=UzfRtJKxBWFrwkUQPlxfRl0S//YXEUIvD8RXNlzy1hk=;
+        b=UE1+9lMGvsnqodXSnbCzOTWmLkN6ErQvLB8WAHp4KZjFsjy4ShReLMFLFnzGVmdJIa
+         JgsUGZJ3FTqjHLXNE+HR2ppeGxM94Sp3WXhGDZkVyIJLo/iC5aD1EJe/WWg5WKYPSslq
+         FVc0JYT2dyfpJsAu/ppGYlOoLXe6rpUW4yeU444oV4r6HmlUA/yBMyPPm9BCtOqP46W1
+         hV/vROZRvrEYuxLVnVj7YIq8kaoQYxRRe9OD/wvTfS7qczW9nZXNW6EqQq8BgV7dyMFS
+         TGn8lStfBiRJ2PJV4L4jlNZP+gPsPzc00bXafBDWKATZy7rYReWHPhx7DPlSOFk3SSar
+         tmZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706088288; x=1706693088;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=V4EwUoOZBbZsvLoA6UXEk6Wj7UQEbhyHy+fuu11Fi7A=;
-        b=khT0VWtQtfQ7r5lusa+CP/SHKU4+oxtglRUOqDadE7pWJkWiaHT15B0YUITG17KPvA
-         Wk2rQWOwfiKvyWwXn4Jo2fQpUbs1Izln/bo1JLTJi2jubhewB5G0lwzx5MKNkBnRQjD2
-         ceAX2dZOXpvqtlZHmMbEPKAdUuUZ8qK/rtRnTbrCZO9QntFKX+6DhcyrlVrH5BaXjiIl
-         OhkAq4IJif6AEGYy8LF5V3zka03av49MLqde2MbkOJtEAxuQhtarjaQvCiDIC8s14Pei
-         Skf2STbE3g2TVVWrQWk5l8cIdwOoe/IABb9NrNzstJarmrRAV247TzzCrAliTcChz0Fm
-         Ly6Q==
-X-Gm-Message-State: AOJu0YxpBumz8s8prC40HRlFAiaxfmjKnO06gxNrDjgp+2eZt9hnvwmm
-	YOVE9qS4EhYvZFF8QbYI8oeP9DTmd0LbuMS/Z3LEwXIIw30RIAF1tUYbNMY/XHs=
-X-Google-Smtp-Source: AGHT+IG1vDeZ++GJaS0LfVwQt0h7tKWomTY+/CT2b92EEpDlL4zJFnBWj8It7Ej/cv4yym8EOjO3TQ==
-X-Received: by 2002:a17:906:f8d4:b0:a2e:70b4:28b0 with SMTP id lh20-20020a170906f8d400b00a2e70b428b0mr627726ejb.3.1706088288593;
-        Wed, 24 Jan 2024 01:24:48 -0800 (PST)
-Date: Wed, 24 Jan 2024 10:24:47 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1706088849; x=1706693649;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=UzfRtJKxBWFrwkUQPlxfRl0S//YXEUIvD8RXNlzy1hk=;
+        b=V1sV5DiUfzH8vyb66GIljLy/6znymHiR9xwzTwaVvLIyp7z8J3f/w/0jK8no0Oj6bk
+         58EhIHKX/6QPPV4g/yFFi/4OrMSTdEFvE/J7ApIS2lWvqxs+rvoYZs5lNwjnYdPnM+vP
+         BRm158woK2Sg60VuMWCxrfAW1h929DZzNyJubPA8s0yiqQkGxkJfAn7Q8U/eHWb+dR1Y
+         6tViWZRgOaTYQibCS62iqYLhia0UxG3XXt7k1yQDUUrZSdA1ULhZRJ9PHl8B64FGk30b
+         jmv4sWfPQR+F6zx5vq9h9N+HgtXHeU4wA8uK14+0aM3TxMEsn6JHdazifOCC71kFwFY+
+         3R1g==
+X-Gm-Message-State: AOJu0YxFE15gNQn7mQUC0duCCS9MRK8S3xtdy+mmJemKs9d4ZorIyFr1
+	T4Ji1qoJgo++fkxj35Nn02AozenQ8fDXY6rVbVPh440Tf2GpMMiO
+X-Google-Smtp-Source: AGHT+IEPZhHAUxhu2MAXxAn8Jc/Xtm9Zat35sWOpXWnm4qNL68kOxMCp4aAaQsLSWTDjSXsSieEgsw==
+X-Received: by 2002:a05:6512:2206:b0:50e:3fbc:7c12 with SMTP id h6-20020a056512220600b0050e3fbc7c12mr3635733lfu.126.1706088848779;
+        Wed, 24 Jan 2024 01:34:08 -0800 (PST)
+Message-ID: <2974faee197b0a60d6e7ac54356639706c2ecb43.camel@gmail.com>
+Subject: Re: [PATCH v3 16/34] xen/lib: introduce generic find next bit
+ operations
+From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect
- vpci structure
-Message-ID: <ZbDXXyucJhLJ4u9H@macbook>
-References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-2-stewart.hildebrand@amd.com>
- <20240115194309.45683-1-stewart.hildebrand@amd.com>
- <715e40c9-1776-4677-9565-dac1565a2aa8@suse.com>
- <Za_WGzS14Eqt8yZF@macbook>
- <ae7a57f2-2433-4b75-ab45-c8be55d489c9@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+ xen-devel@lists.xenproject.org
+Date: Wed, 24 Jan 2024 11:34:07 +0200
+In-Reply-To: <8e60f998-aeb4-4648-a3e9-d083bb8eefde@suse.com>
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+	 <bb47caf6c275d8aea307b96e79828831eab4a703.1703255175.git.oleksii.kurochko@gmail.com>
+	 <81e5cac4-90f0-4fff-b891-53ca73c61832@suse.com>
+	 <05d685b0b7ccd329454a336b20351979bdf91ea4.camel@gmail.com>
+	 <8e60f998-aeb4-4648-a3e9-d083bb8eefde@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ae7a57f2-2433-4b75-ab45-c8be55d489c9@suse.com>
 
-On Wed, Jan 24, 2024 at 09:48:35AM +0100, Jan Beulich wrote:
-> On 23.01.2024 16:07, Roger Pau Monné wrote:
-> > On Tue, Jan 23, 2024 at 03:32:12PM +0100, Jan Beulich wrote:
-> >> On 15.01.2024 20:43, Stewart Hildebrand wrote:
-> >>> @@ -2888,6 +2888,8 @@ int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
-> >>>  {
-> >>>      int irq, pirq, ret;
-> >>>  
-> >>> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
-> >>
-> >> If either lock is sufficient to hold here, ...
-> >>
-> >>> --- a/xen/arch/x86/physdev.c
-> >>> +++ b/xen/arch/x86/physdev.c
-> >>> @@ -123,7 +123,9 @@ int physdev_map_pirq(domid_t domid, int type, int *index, int *pirq_p,
-> >>>  
-> >>>      case MAP_PIRQ_TYPE_MSI:
-> >>>      case MAP_PIRQ_TYPE_MULTI_MSI:
-> >>> +        pcidevs_lock();
-> >>>          ret = allocate_and_map_msi_pirq(d, *index, pirq_p, type, msi);
-> >>> +        pcidevs_unlock();
-> >>>          break;
-> >>
-> > 
-> > IIRC (Stewart can further comment) this is done holding the pcidevs
-> > lock to keep the path unmodified, as there's no need to hold the
-> > per-domain rwlock.
-> 
-> Yet why would we prefer to acquire a global lock when a per-domain one
-> suffices?
+On Tue, 2024-01-23 at 14:37 +0100, Jan Beulich wrote:
+> On 23.01.2024 13:34, Oleksii wrote:
+> > On Tue, 2024-01-23 at 12:14 +0100, Jan Beulich wrote:
+> > > On 22.12.2023 16:13, Oleksii Kurochko wrote:
+> > > > --- a/xen/common/Kconfig
+> > > > +++ b/xen/common/Kconfig
+> > > > @@ -47,6 +47,9 @@ config ARCH_MAP_DOMAIN_PAGE
+> > > > =C2=A0config GENERIC_BUG_FRAME
+> > > > =C2=A0	bool
+> > > > =C2=A0
+> > > > +config GENERIC_FIND_NEXT_BIT
+> > > > +	bool
+> > >=20
+> > > There's no need for this, as ...
+> > >=20
+> > > > --- a/xen/lib/Makefile
+> > > > +++ b/xen/lib/Makefile
+> > > > @@ -3,6 +3,7 @@ obj-$(CONFIG_X86) +=3D x86/
+> > > > =C2=A0lib-y +=3D bsearch.o
+> > > > =C2=A0lib-y +=3D ctors.o
+> > > > =C2=A0lib-y +=3D ctype.o
+> > > > +lib-$(CONFIG_GENERIC_FIND_NEXT_BIT) +=3D find-next-bit.o
+> > >=20
+> > > ... you're moving this to lib/. Or have you encountered any issue
+> > > with building this uniformly, and you forgot to mention this in
+> > > the description?
+> > I didn't check. My intention was to provide opportunity to check if
+> > an
+> > architecture want to use generic version or not. Otherwise, I
+> > expected
+> > that we will have multiple definiotion of the funcion.
+> >=20
+> > But considering that they are all defined under #ifdef...#endif we
+> > can
+> > remove the declaration of the config GENERIC_FIND_NEXT_BIT.
+>=20
+> What #ifdef / #endif would matter here? Whats in lib/ is intended to
+> be
+> generic anyway. And what is in the resulting lib.a won't be used by
+> an
+> arch if it has an arch-specific implementation.=C2=A0
+If what is implemented in lib.a won't be used by an arch if it has an
+arch-specific implementation then, for sure, I have to drop
+CONFIG_GENERIC_FIND_NEXT_BIT.
+But I am not really understand if lib.a is linked with Xen, then it
+should be an issue then if some arch implement find-next-bit function
+we will have to multiple definitions ( one in lib.a and one arch
+specific ). Probably, I have to look at how it is done.
 
-I was hoping to introduce less changes, specially if they are not
-strictly required, as it's less risk.  I'm always quite worry of
-locking changes.
+> Problems could arise if
+> an arch had an inline function colliding with the out-of-line one.
+> But
+> that's about the old case where I could see a need to make the
+> building
+> of one of the objects conditional. And you'll note that withing this
+> Makefile there are pretty few conditionals.
+Could you please clarify What does it mean "out-of-line" ?
+>=20
+> > > > --- /dev/null
+> > > > +++ b/xen/lib/find-next-bit.c
+> > > > [...]
+> > >=20
+> > > I was going to ask that you convince git to actually present a
+> > > proper
+> > > diff, to make visible what changes. But other than the
+> > > description
+> > > says
+> > > you don't really move the file, you copy it. Judging from further
+> > > titles
+> > > there's also nowhere you'd make Arm actually use this now generic
+> > > code.
+> > I wanted to do it separately, outside this patch series to simplify
+> > review and not have Arm specific changes in RISC-V patch series.
+>=20
+> Then do it the other way around: Make a separate _prereq_ change
+> truly
+> moving the file.
+So this one patch should be separated by 2? One which moves find-next-
+bit.c from Arm to xen/lib, and second where xen/lib/Makefile is
+updated.
 
-Thanks, Roger.
+>=20
+> > Regarding a proper diff, you would like me to make git shows that
+> > it
+> > was copy from Arm and it is not newly created file. Am I understand
+> > you
+> > correctly?
+>=20
+> Not quite, I think. Git has move detection (and we've seen that in
+> action in other patches of yours). So when truly moving a file, what
+> (if anything) is changed is easily visible.
+I think I am still a little bit confused. But I think the answer on my
+question above can clarify that.
+
+~ Oleksii
 
