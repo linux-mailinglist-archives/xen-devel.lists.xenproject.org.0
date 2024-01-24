@@ -2,56 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1237583A0E7
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 06:08:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670719.1043675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 520D583A2D3
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 08:24:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670725.1043684 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSVUW-0000sQ-Vu; Wed, 24 Jan 2024 05:08:00 +0000
+	id 1rSXba-0001Rw-JR; Wed, 24 Jan 2024 07:23:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670719.1043675; Wed, 24 Jan 2024 05:08:00 +0000
+Received: by outflank-mailman (output) from mailman id 670725.1043684; Wed, 24 Jan 2024 07:23:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSVUW-0000pu-Rl; Wed, 24 Jan 2024 05:08:00 +0000
-Received: by outflank-mailman (input) for mailman id 670719;
- Wed, 24 Jan 2024 05:07:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=87Ys=JC=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1rSVUV-0000po-QA
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 05:07:59 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20600.outbound.protection.outlook.com
- [2a01:111:f403:2412::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8937d9dc-ba76-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 06:07:58 +0100 (CET)
-Received: from DS7PR05CA0065.namprd05.prod.outlook.com (2603:10b6:8:57::10) by
- IA1PR12MB7494.namprd12.prod.outlook.com (2603:10b6:208:41a::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.37; Wed, 24 Jan
- 2024 05:07:53 +0000
-Received: from DS2PEPF00003445.namprd04.prod.outlook.com
- (2603:10b6:8:57:cafe::70) by DS7PR05CA0065.outlook.office365.com
- (2603:10b6:8:57::10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7228.21 via Frontend
- Transport; Wed, 24 Jan 2024 05:07:53 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DS2PEPF00003445.mail.protection.outlook.com (10.167.17.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7202.16 via Frontend Transport; Wed, 24 Jan 2024 05:07:52 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 23 Jan
- 2024 23:07:50 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Tue, 23 Jan
- 2024 23:07:30 -0600
-Received: from [172.23.114.18] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Tue, 23 Jan 2024 23:07:29 -0600
+	id 1rSXba-0001QU-GA; Wed, 24 Jan 2024 07:23:26 +0000
+Received: by outflank-mailman (input) for mailman id 670725;
+ Wed, 24 Jan 2024 07:23:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bgOV=JC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rSXbY-0001PK-AU
+ for xen-devel@lists.xen.org; Wed, 24 Jan 2024 07:23:24 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 72532c85-ba89-11ee-9b0f-b553b5be7939;
+ Wed, 24 Jan 2024 08:23:20 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id
+ a640c23a62f3a-a30e445602cso166118966b.0
+ for <xen-devel@lists.xen.org>; Tue, 23 Jan 2024 23:23:19 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ y4-20020a05663824c400b0046993034c91sm3862625jat.77.2024.01.23.23.23.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Jan 2024 23:23:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,103 +45,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8937d9dc-ba76-11ee-98f5-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L/CsqmI6xQ1u9J+TChrM13XqHI8r2WNuqM9T+HWVmkiljwb5TXB34goX97Bi8XDVPeh2VKM8pnQ5TT8OrppfClleVmIwLrJYsf8VrFt3uCcORljGK0fSgnZDjpyZXyK6kH/mGX74+tuhZvdopkIXhhoEIXbX5MzIEwnNEvIFDOvFvM/xq60gf83Lqn6aiO7YzqVP4V33g2O5u8D0/altoSGSOqGkE63eTfe1kVti4Y16UU0vHz7Tm6tZ5rbdViSWIRYiBFR/8eS5nrcEnoi/sVge2LnE6def9sxeiCS/kkk8JzGtsawTsaRso2Vkfi5Joav1IExkJtLILrTz4EYUqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p7OQkgaHwt2qt3q0A5mrs+QCPeRPZNHKYNn+J+Chwu4=;
- b=liFhjt3LThU8JbySdiaP8KEWxbzohVUPt7Rvv1HP7aJCygpNaiM1kaCdlLr7IqW1+Q/tFjQSlvkzPmWWVOCGFx4pQ7LJgOVTsoQKrjBxt6TyyEwRmwg1mUvobEz69vdaxZEh4hkiJ67qnu1H0eXD8koVxpyI3pBY7ZjERZpzpbfupGEv4EmAdZQ1K5kfv8sPse3xpXMd0ZySwJ1vcnKg/gS4V+7W9q/bhsmNSuEXDdpiDvbHuUFNl7g5MBOxLimVQK1uU2wEaVbb9wPrhxJupTI4sOvCnUuDQ+UZe9z4eT5DZMvcrRKskkv95WqLV0xSRe5XwsD25Mey5IhVnTyWhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p7OQkgaHwt2qt3q0A5mrs+QCPeRPZNHKYNn+J+Chwu4=;
- b=ILpgiMWLx9CfcVzXrQTa1+Y6+lGAgGopY5tBETusssyjDEXzyRvUjuOj4KwtwJCuuAs+xaxnlzmzBYoeXXwoySoU5ZVCb8Ts+s17R3uq1qYKsrfJwoqkURgAgmWCmppMBOTuMnWnVY7B2byDYvqyUiLKd5RA5MZ5DCsQa0XC7ng=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <e05e63ab-a86f-45c4-bd80-2b7d6b99aa3d@amd.com>
-Date: Wed, 24 Jan 2024 00:07:28 -0500
+X-Inumbo-ID: 72532c85-ba89-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1706080999; x=1706685799; darn=lists.xen.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=VSE4kQ/hPcHD6nbAQ9d8843Yfcvkq/XWY737A3Us3WI=;
+        b=dval/+RGR8UNDrAhLtZRZUvageuHHUoqo/DzxpCETbgTdZd8x+OuHptNCGHO0copfP
+         aTass94T4xf/vfdttQkxhhA6wzSHUsftugrVyHnlRY/XXEasncNk5xt50URfXJ3fgaSI
+         MAV45dvR6GUSWH3ZTQ4SVjupV3YcZ4IvIHR5s5YivdUFZ8erEVhJFpbYNkHLukk51bxB
+         GauCMopes4Cqy1zfdWYO8zP957jOqPAM30m6BPDntuiBpzdt1dqHZz/m7Up2zmtLtrJ3
+         uJ1XDk+2mNw/c/i/jlLZMfjPks8K/g1MWAwSOsYP8liSWtq5Sw5omyJ8dyW0Cb5ld9Oh
+         QkWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706080999; x=1706685799;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=VSE4kQ/hPcHD6nbAQ9d8843Yfcvkq/XWY737A3Us3WI=;
+        b=UcqalVVj9T5uShI+sathoR2dcNr3U7VV4Deo53lmoUc1GccsDIdSyno8UL82ydXTyW
+         poi4Rr4BHnv+zMJM+CzBIpMN+XJLX/jeSaJ+2fTR4F1pUgcNXpdlCNX6pwUQ32ImwuxI
+         KvXctRRSBay8N9H4N2Zhu0LsG9f+4o9nIaC74ucaVJPVcuYD/ipl2fZ/ZnriserYxWTl
+         opVt7iBXhmDx82h8dK1MuE+BV4EuG0+pmU9AbzLedDb4roPew8jYbwVbZRhJP6SGGqNH
+         OClbowCFqVS1iQMvpq/n0mauZZeLaDUnQ4V4YvqyaZcTTpH6DAY/VSyQ5ztAnZzuLrEw
+         Rrlw==
+X-Gm-Message-State: AOJu0YwZNXcKdpiXj/BLlI5wR3CMLIrbpKsNeIWVgLTJF7bQEuTnWKqP
+	z92ewU/sPdfAAYIEvohOmJ2oov1BdTzvfVx1YQtVnYJkr+jBRLDzerDt5iWwOA==
+X-Google-Smtp-Source: AGHT+IF4VP3QmJG+4fbChWciNa+ZL8MsSwLzBO19zc3oDhnHSVEN4wd37RARJGGdWWCcHxeSCMdtfg==
+X-Received: by 2002:a17:906:5399:b0:a2e:7f37:8301 with SMTP id g25-20020a170906539900b00a2e7f378301mr793830ejo.27.1706080998926;
+        Tue, 23 Jan 2024 23:23:18 -0800 (PST)
+Message-ID: <e7d67831-d7b9-48fd-9478-f89e85ce0422@suse.com>
+Date: Wed, 24 Jan 2024 08:23:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect vpci
- structure
-To: Jan Beulich <jbeulich@suse.com>
-CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
-	<kevin.tian@intel.com>, Paul Durrant <paul@xen.org>, Volodymyr Babchuk
-	<volodymyr_babchuk@epam.com>, <xen-devel@lists.xenproject.org>
-References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-2-stewart.hildebrand@amd.com>
- <20240115194309.45683-1-stewart.hildebrand@amd.com>
- <7e936e6a-3218-4c4a-ac68-a58cd363a11d@suse.com>
+Subject: Re: Thoughts on current Xen EDAC/MCE situation
 Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <7e936e6a-3218-4c4a-ac68-a58cd363a11d@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xen.org
+References: <Za7Vr+Rb25y/+MSy@mattapan.m5p.com>
+ <111f5551-70fa-4ded-a62a-e0aa967b3c29@suse.com>
+ <ZbBDJGKqTU9rdpgD@mattapan.m5p.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ZbBDJGKqTU9rdpgD@mattapan.m5p.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003445:EE_|IA1PR12MB7494:EE_
-X-MS-Office365-Filtering-Correlation-Id: be886803-73d8-4bbe-d163-08dc1c9a6b4c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	FixAuo4ZpyT4LsTNkGhOiwCKwdsReiHQUeacYvCMd0uTsA1b/gq/XLZ67fRlTkpgZtm+k8GKiLTXmfigVHlno4iIsqLQ1WI+IgN62/cXjxLy79vsOVTm+FEyi8NNjmzE5AOldP+xpRNuilpD3S59I4mAqj372DQyWTMzMsal6LJKsi9n1zMKlBzvGukoxEzgV+3O7J3rAIV+zPMn1CXoKbVUKP8aOhhlkujUozc+QK5WlKlzI6MPxI4onPakn2e7/BxEZOQbV9CZVWWIEm88oJoGcfECBzOSlScbUo9Lns4yubIP1jCDOfmgfpmoYMpipZCAkG+opf5IzrDERQylAQNVyiSPh+ijgVkjRwmxqIMrXw/W6Hla/yKpzJB/ESxID8E6pCQVCPQiPJX9JJpnBjMOVzgUMHSUxgqL1woT9Tw8sJJ1O8zXgScMMaQ7a2Hveqd/re7mnDjm07iDaJxCN7lj8sX494UoKDksXrAkZTxOUNMkyC/NLTvow8J+f1RGg7mIEJJKxhxP4WE7JWZQom4lsqerkcT2Q45hiDQnonaXW6HtHDlIdF6kbG8B41OLx2yHhLz1bOraUbXNCc7clpHH4rcbzvaHK/cTkBCKRUZf98Iltf/NoL+Ii8+DJNCgsK7XO1hqheh8QjTMxaFrRKF3aiiPpTwMx7TmFPINHwck3FGtlDwAQQtbc/B9Lhnd/1GqPKbk5bLsenDEEapMEJ4aQyfapN4sAznv3xjIZxA9BSfLknHnFJH33f8wqA4iJCyAH/NFRXBWfsMn+IqBwSHTzeyF7IaLk27BQ7RFXYY=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(39860400002)(376002)(396003)(346002)(230922051799003)(64100799003)(186009)(1800799012)(82310400011)(451199024)(36840700001)(46966006)(40470700004)(36860700001)(2906002)(81166007)(40460700003)(40480700001)(82740400003)(5660300002)(41300700001)(31686004)(7416002)(47076005)(44832011)(86362001)(70586007)(70206006)(356005)(54906003)(31696002)(36756003)(966005)(16576012)(6916009)(426003)(8676002)(316002)(8936002)(4326008)(478600001)(26005)(2616005)(53546011)(83380400001)(336012)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2024 05:07:52.9568
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be886803-73d8-4bbe-d163-08dc1c9a6b4c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003445.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7494
 
-On 1/23/24 09:29, Jan Beulich wrote:
-> On 15.01.2024 20:43, Stewart Hildebrand wrote:
->> @@ -1043,11 +1043,11 @@ static int __pci_enable_msix(struct pci_dev *pdev, struct msi_info *msi,
->>  {
->>      struct msi_desc *old_desc;
->>  
->> -    ASSERT(pcidevs_locked());
->> -
->>      if ( !pdev || !pdev->msix )
->>          return -ENODEV;
->>  
->> +    ASSERT(pcidevs_locked() || rw_is_locked(&pdev->domain->pci_lock));
->> +
->>      if ( msi->entry_nr >= pdev->msix->nr_entries )
->>          return -EINVAL;
+On 23.01.2024 23:52, Elliott Mitchell wrote:
+> On Tue, Jan 23, 2024 at 11:44:03AM +0100, Jan Beulich wrote:
+>> On 22.01.2024 21:53, Elliott Mitchell wrote:
+>>
+>>> I find the present handling of MCE in Xen an odd choice.  Having Xen do
+>>> most of the handling of MCE events is a behavior matching a traditional
+>>> stand-alone hypervisor.  Yet Xen was originally pushing any task not
+>>> requiring hypervisor action onto Domain 0.
+>>
+>> Not exactly. Xen in particular deals with all of CPU and all of memory.
+>> Dom0 may be unaware of the full amount of CPUs in the system, nor the
+>> full memory map (without resorting to interfaces specifically making
+>> that information available, but not to be used for Dom0 kernel's own
+>> acting as a kernel).
 > 
-> Further looking at this - is dereferencing pdev actually safe without holding
-> the global lock?
+> Why would this be an issue?
 
-Are you referring to the new placement of the ASSERT, which opens up the possibility that pdev could be dereferenced and the function return before the ASSERT? If that is what you mean, I see your point. The ASSERT was placed there simply because we wanted to check that pdev != NULL first. See prior discussion at [1]. Hmm.. How about splitting the pdev-checking condition? E.g.:
+Well, counter question: For all of ...
 
-    if ( !pdev )
-        return -ENODEV;
+> I would expect the handling to be roughly:  NMI -> Xen; Xen schedules a
+> Dom0 vCPU which is eligible to run on the pCPU onto the pCPU; Dom0
+> examines registers/MSRs, Dom0 then issues a hypercall to Xen telling
+> Xen how to resolve the issue (no action, fix memory contents, kill page).
+> 
+> Ideally there would be an idle Dom0 vCPU, but interrupting a busy vCPU
+> would be viable.  It would even be reasonable to ignore affinity and
+> grab any Dom0 vCPU.
+> 
+> Dom0 has 2 purposes for the address.  First, to pass it back to Xen.
+> Second, to report it to a system administrator so they could restart the
+> system with that address marked as bad.  Dom0 wouldn't care whether the
+> address was directly accessible to it or not.
+> 
+> The proposed hypercall should report back what was effected by a UE
+> event.  A given site might have a policy that if $some_domain is hit by a
+> UE, everything is restarted.  Meanwhile Dom0 or Xen being the winner
+> could deserve urgent action.
 
-    ASSERT(pcidevs_locked() || rw_is_locked(&pdev->domain->pci_lock));
+... this, did you first look at code and figure how what you suggest
+could be seamlessly integrated? Part of your suggestion (if I got it
+right) is, after all, to make maintenance on the Dom0 kernel side easy.
+I expect such adjustments being not overly intrusive would also be an
+acceptance criteria by the maintainers.
 
-    if ( !pdev->msix )
-        return -ENODEV;
+Second - since you specifically talk about UE: The more code is involved
+in handling, the higher the chance of the #MC ending up fatal to the
+system.
 
+Third, as to Dom0's purposes of having the address: If all it is to use
+it for is to pass it back to Xen, paths in the respective drivers will
+necessarily be entirely different for the Xen vs the native cases.
 
-[1] https://lore.kernel.org/xen-devel/85a52f8d-d6db-4478-92b1-2b6305769c96@amd.com/
+Jan
 
