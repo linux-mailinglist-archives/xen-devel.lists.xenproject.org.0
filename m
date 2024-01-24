@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2818D83ADD4
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:55:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671140.1044332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B47483AE4F
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 17:25:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671148.1044341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSfat-0001N5-Gk; Wed, 24 Jan 2024 15:55:15 +0000
+	id 1rSg3h-00016c-PE; Wed, 24 Jan 2024 16:25:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671140.1044332; Wed, 24 Jan 2024 15:55:15 +0000
+Received: by outflank-mailman (output) from mailman id 671148.1044341; Wed, 24 Jan 2024 16:25:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSfat-0001Jn-E1; Wed, 24 Jan 2024 15:55:15 +0000
-Received: by outflank-mailman (input) for mailman id 671140;
- Wed, 24 Jan 2024 15:55:14 +0000
+	id 1rSg3h-00014c-MR; Wed, 24 Jan 2024 16:25:01 +0000
+Received: by outflank-mailman (input) for mailman id 671148;
+ Wed, 24 Jan 2024 16:25:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Zgc/=JC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rSfas-0001Jh-3b
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:55:14 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
+ id 1rSg3f-00014W-Uu
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 16:24:59 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4b9b75d-bad0-11ee-9b0f-b553b5be7939;
- Wed, 24 Jan 2024 16:55:11 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-337d99f9cdfso4922185f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:55:11 -0800 (PST)
+ id 1d51f4eb-bad5-11ee-9b0f-b553b5be7939;
+ Wed, 24 Jan 2024 17:24:57 +0100 (CET)
+Received: by mail-lj1-x22b.google.com with SMTP id
+ 38308e7fff4ca-2cf0390eddbso37265901fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 08:24:57 -0800 (PST)
 Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- v11-20020a05600c470b00b0040e813f1f31sm72117wmo.25.2024.01.24.07.55.10
+ qa32-20020a17090786a000b00a26f1e3093asm45708ejc.49.2024.01.24.08.24.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 07:55:11 -0800 (PST)
+ Wed, 24 Jan 2024 08:24:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4b9b75d-bad0-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 1d51f4eb-bad5-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706111711; x=1706716511; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1706113497; x=1706718297; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=T3DK6SgLV+TwDxouGwRyDRJ797FHhET1Iy792u2WG6g=;
-        b=ijcPxWKd9+vRDR/FeX15jlreoTCPQ20GWjfipoO0WQ/TNZqHSkqNw3lxuWPUCxPKFI
-         XVgQ9H07F1QXc6Pf3Y9BKMgu3oseO4uZMGCZ6YMq8iQyzsw7dv579FuW2wd+GukIbl9R
-         hJwtf4e7M6HtzS6e892VvWXFKrWtavXFXCIbE=
+        bh=MMKz5CptMuNtGt+EBWiwk2MAAOeXuEqdjAeN7o3H6DU=;
+        b=nlnwADHwfwUZP8mPwIMf9n/QWbWLvVMDruKtHCuSHWsqtM30L7cwIP+EwSbS+jGRfp
+         hoJfFZrkNN3koAurG0rjTtSQB+svve5ebNioW3n5pOZATsuc0s51acYpuz+EJS4jxIgA
+         ExbBpK2dJHu9b/9KZJe8RSTpWmkL7FxB4xeZ4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706111711; x=1706716511;
+        d=1e100.net; s=20230601; t=1706113497; x=1706718297;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=T3DK6SgLV+TwDxouGwRyDRJ797FHhET1Iy792u2WG6g=;
-        b=Unh4a+fJTuK7YJvDveEuEU8npxMFFxTbs27iNLyuvQfWk/i1SFM8OCsX7cHqthrK8H
-         9vqchCiMwrAXkcBV6xZH2XXT2DhGZAvIKgvTTJ/UcN8whSHhYk76fAqZmbfXuLqKo3Fj
-         erwj/04O7oLOSB7aDzDGyvBmBuVUNQJsAY6xMdAkI3j9JOvYpAlyOPZRQa3RUUZuxvnm
-         uUbE2uAMm+KmZ4wrEWkiAivKuaTh9rNG27qhZvleSSkH/mcvz3+zODHbiN/9uQZHm0Za
-         PmsF+cditB5Vo/SBXWQX/b+PoCVs1L1rrxR0SDn2llJUAJZKB0J91GQn8U9WmkrollrD
-         g7jA==
-X-Gm-Message-State: AOJu0YyjfVfkTsd7luDa1AyptcAojLI+qRQe+qO78v5gj+NH2O26Q39w
-	+L3hKfIVSX0oaHybpsmmBBASPYn7V48QxVu+QvBW9SkI0NZhIIHniQQB0UWVcgM=
-X-Google-Smtp-Source: AGHT+IFT/A0DvqmlLzIbXy/5KnvvujIO4t1MzQDxz9ZXeER3m0n5Uh2jnQHHyqe/Mrzza7LOPIafuQ==
-X-Received: by 2002:a05:600c:3490:b0:40e:ccd5:e7bd with SMTP id a16-20020a05600c349000b0040eccd5e7bdmr195520wmq.67.1706111711287;
-        Wed, 24 Jan 2024 07:55:11 -0800 (PST)
-Message-ID: <add9b6b3-cc50-4165-8f63-cd4541a3ba23@citrix.com>
-Date: Wed, 24 Jan 2024 15:55:10 +0000
+        bh=MMKz5CptMuNtGt+EBWiwk2MAAOeXuEqdjAeN7o3H6DU=;
+        b=xKeVRkqRCnK1WS0gGui3ByPKThilWbon4lSYGot7vVRUm2iuJNPzKXlmXW5Pq8NJ+b
+         nnLawdQVxXu9AskHRpG/pQ7hkDORgf034NC1Bwguvik+KTHVviBS/LOLwwvC8SmWtho5
+         /fVShdhvwArubVAalcMrJv69Fr89JYhXb/Q5d7zUDdxEOn42r53IHW2clksstSUwikF5
+         J6sjlZpzbsLTxNN+ItKvZjxYpYJ/e0yp8fVqKkqucSF1RF0BUFIVc9NLQUs9BDJeFTlU
+         y913ms0PzqGMWJH9PePRexQlHLv2+A4PlsvBgGnQM7n3922jQwJis4RBJAYNnwz9uCbv
+         Q0OA==
+X-Gm-Message-State: AOJu0YyjdslUMG6BFAqLZbV1Q5TJ25UDDfO0mfZxxpuqKX5R5lijGFzz
+	g8lCiSvGH+LekPZh89rNSoQ0aOgYhyrGGA6uWAkK6NLrGqHJIyynphG/frjULiw=
+X-Google-Smtp-Source: AGHT+IF0oOv4bZBenh47isSuOEjVw5uXj7fpSLUPsDfAitrqZfczle/PnveJSK6UtgV3WXHCuubjmA==
+X-Received: by 2002:a05:6512:3ca8:b0:510:1620:939b with SMTP id h40-20020a0565123ca800b005101620939bmr523854lfv.0.1706113497343;
+        Wed, 24 Jan 2024 08:24:57 -0800 (PST)
+Message-ID: <e6dcf78b-bd68-49bc-8711-381befc25f02@citrix.com>
+Date: Wed, 24 Jan 2024 16:24:56 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/NMI: refine "watchdog stuck" log message
+Subject: Re: [PATCH] x86: amend 'n' debug-key output with SMI count
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>
-References: <87108f1d-4b13-4c1e-9432-4f14d4f5c12d@suse.com>
+References: <50978ef4-9f11-4c70-952b-94107616f265@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -127,35 +127,87 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <87108f1d-4b13-4c1e-9432-4f14d4f5c12d@suse.com>
+In-Reply-To: <50978ef4-9f11-4c70-952b-94107616f265@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24/01/2024 3:21 pm, Jan Beulich wrote:
-> Observing
->
-> "Testing NMI watchdog on all CPUs: 0 stuck"
->
-> it felt like it's not quite right, but I still read it as "no CPU stuck;
-> all good", when really the system suffered from what 6bdb965178bb
-> ("x86/intel: ensure Global Performance Counter Control is setup
-> correctly") works around. Convert this to
->
-> "Testing NMI watchdog on all CPUs: {0} stuck"
->
-> or, with multiple CPUs having an issue, e.g.
->
-> "Testing NMI watchdog on all CPUs: {0,40} stuck"
->
-> to make more obvious that a lone number is not a count of CPUs.
+On 24/01/2024 3:27 pm, Jan Beulich wrote:
+> ... if available only, of course.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>
+> --- a/xen/arch/x86/cpu/common.c
+> +++ b/xen/arch/x86/cpu/common.c
+> @@ -406,9 +406,15 @@ void __init early_cpu_init(bool verbose)
+>  		paddr_bits -= (ebx >> 6) & 0x3f;
+>  	}
+>  
+> -	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)))
+> +	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON))) {
+> +		uint64_t smi_count;
+> +
+>  		park_offline_cpus = opt_mce;
+>  
+> +		if (!verbose && !rdmsr_safe(MSR_SMI_COUNT, smi_count))
+> +			setup_force_cpu_cap(X86_FEATURE_SMI_COUNT);
+> +	}
+> +
 
-I'd forgotten it was still opencoded like this.
+I know you're re-using an existing condition, but I think it's more
+likely that it's Intel-only than common to VIA and Shanghai.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, but if you felt
-turning this into using a scratch cpumask and %*pb then I think that
-would be nicer still.
+Also, why is gated on verbose?
+
+(I think I can see why this is rhetorical question, and I expect you can
+guess what the feedback will be.)
+
+>  	initialize_cpu_data(0);
+>  }
+>  
+> --- a/xen/arch/x86/include/asm/cpufeatures.h
+> +++ b/xen/arch/x86/include/asm/cpufeatures.h
+> @@ -24,7 +24,7 @@ XEN_CPUFEATURE(APERFMPERF,        X86_SY
+>  XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
+>  XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
+>  XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
+> -/* Bit 12 unused. */
+> +XEN_CPUFEATURE(SMI_COUNT,         X86_SYNTH(12)) /* MSR_SMI_COUNT exists */
+>  XEN_CPUFEATURE(IND_THUNK_LFENCE,  X86_SYNTH(13)) /* Use IND_THUNK_LFENCE */
+>  XEN_CPUFEATURE(IND_THUNK_JMP,     X86_SYNTH(14)) /* Use IND_THUNK_JMP */
+>  XEN_CPUFEATURE(SC_NO_BRANCH_HARDEN, X86_SYNTH(15)) /* (Disable) Conditional branch hardening */
+> --- a/xen/arch/x86/include/asm/msr-index.h
+> +++ b/xen/arch/x86/include/asm/msr-index.h
+> @@ -28,6 +28,8 @@
+>  #define  TEST_CTRL_SPLITLOCK_DETECT         (_AC(1, ULL) << 29)
+>  #define  TEST_CTRL_SPLITLOCK_DISABLE        (_AC(1, ULL) << 31)
+>  
+> +#define MSR_SMI_COUNT                       0x00000034
+> +
+>  #define MSR_INTEL_CORE_THREAD_COUNT         0x00000035
+>  #define  MSR_CTC_THREAD_MASK                0x0000ffff
+>  #define  MSR_CTC_CORE_MASK                  _AC(0xffff0000, U)
+> --- a/xen/arch/x86/nmi.c
+> +++ b/xen/arch/x86/nmi.c
+> @@ -589,9 +589,20 @@ static void cf_check do_nmi_stats(unsign
+>      unsigned int cpu;
+>      bool pend, mask;
+>  
+> -    printk("CPU\tNMI\n");
+> +    printk("CPU\tNMI%s\n", boot_cpu_has(X86_FEATURE_SMI_COUNT) ? "\tSMI" : "");
+>      for_each_online_cpu ( cpu )
+> -        printk("%3u\t%3u\n", cpu, per_cpu(nmi_count, cpu));
+> +    {
+> +        printk("%3u\t%3u", cpu, per_cpu(nmi_count, cpu));
+> +        if ( boot_cpu_has(X86_FEATURE_SMI_COUNT) )
+> +        {
+> +            unsigned int smi_count, dummy;
+> +
+> +            rdmsr(MSR_SMI_COUNT, smi_count, dummy);
+> +            printk("\t%3u\n", smi_count);
+
+This reads MSR_SMI_COUNT repeatedly on the same CPU.
+
+You'll need to IPI all CPUs to dump the count into a per-cpu variable.
 
 ~Andrew
 
