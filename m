@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC78483A53B
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 10:23:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670833.1043880 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ADC983A541
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 10:23:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670835.1043890 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSZT8-0006t2-IQ; Wed, 24 Jan 2024 09:22:50 +0000
+	id 1rSZTa-0007O5-RX; Wed, 24 Jan 2024 09:23:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670833.1043880; Wed, 24 Jan 2024 09:22:50 +0000
+Received: by outflank-mailman (output) from mailman id 670835.1043890; Wed, 24 Jan 2024 09:23:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSZT8-0006rK-F5; Wed, 24 Jan 2024 09:22:50 +0000
-Received: by outflank-mailman (input) for mailman id 670833;
- Wed, 24 Jan 2024 09:22:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rSZTa-0007Lr-Nk; Wed, 24 Jan 2024 09:23:18 +0000
+Received: by outflank-mailman (input) for mailman id 670835;
+ Wed, 24 Jan 2024 09:23:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V3ap=JC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rSZT7-0006rC-MK
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 09:22:49 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23a2b365-ba9a-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 10:22:48 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-50e766937ddso6206330e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 01:22:48 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- ef5-20020a05640228c500b00557d839727esm16290583edb.7.2024.01.24.01.22.47
+ <SRS0=k9jB=JC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rSZTZ-0007AZ-6z
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 09:23:17 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 33f177ec-ba9a-11ee-9b0f-b553b5be7939;
+ Wed, 24 Jan 2024 10:23:15 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a310f4b3597so45614966b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 01:23:15 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ hy7-20020a1709068a6700b00a280944f775sm15232251ejc.153.2024.01.24.01.23.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jan 2024 01:22:47 -0800 (PST)
+ Wed, 24 Jan 2024 01:23:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,73 +45,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23a2b365-ba9a-11ee-98f5-6d05b1d4d9a1
+X-Inumbo-ID: 33f177ec-ba9a-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706088167; x=1706692967; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=shxK/mjfxX+fUVfht29zbiJG7ZSk3Mn0kuammqyAbD8=;
-        b=qUUT34pRGr3I/eDs7RzWydvc/sqL424epF/A3Q119BxzfKj8a391egj7gFSIX3Z9Ep
-         RIf211dBT+3LY8yBG47Dv7iceAVejVtsmKsVQQCganMvearKpwuOldegg3VBk1xypLyV
-         MBYNYxEXRgXzFvjANXoLcBUbY7NYIPZQ/AGA0=
+        d=gmail.com; s=20230601; t=1706088195; x=1706692995; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=q2iakNn+EEOiV5rOhMK/NZwK16rBRN56Kv/2r6MIdvM=;
+        b=Qy/ci3YC6fjXSNRPnMbwELccad3+DRvhrt4obXfvPC7pz5Qyo/Hdc47weCHPnFihTi
+         R3TOXD0JyJjHFHpejPXiyqAbPc8CX3BztpqZy2h3FQ1SyHiQrRtxMsIp4F6FWtqjOY/P
+         m14clqsCAa1Tr1GlsZL8LrtkHZyjWqUYFyUGeAv8gNL80rrMGMfrQa39TCvBZ4H8EfqJ
+         WoDieX8vRwro+G5FjUl67lDaJFSArf81tZTZ0OEaU3Zy6foD/Q+EgFdK016mhnQyFd7o
+         CyaxM2GQwR+qznAtu51iL0TJrOghCb5HHCwVS+dxJG8Y/kdTAXhPaqQRDWHLrYmWGu9f
+         9cmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706088167; x=1706692967;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=shxK/mjfxX+fUVfht29zbiJG7ZSk3Mn0kuammqyAbD8=;
-        b=bpmWO6bIqQSnqjY2+7NmJvi2Ci+6ILoBmfkvtlKXHj1CqbRkBtm6NF2cMtv+kHcvTu
-         uVIT0bT41RAVdomgbAFHhGu85VJJhSdhwzsRx+LQy6vZbdprPSLCzbKhk0LqIERKfnye
-         oWvNVesGaZREzId95r9TJNlZ6+TbXFBMD/L9ns9qIJ8Nai+hkN3m+RGe9/WWu7IstShR
-         lJ/W/3z2XME7nQdHQ2R9VTAbgHX8zRQjvhun79nxoeYFJ4yPmgyym2GmroF9yaULy2ki
-         ZB1hpln3gKDj/Ao8mNWB/Dwj9zg8Sa23cKO9R6oXHdpkwv1u9vDOOAkrf5ZmuvWC7LcG
-         dH4w==
-X-Gm-Message-State: AOJu0YwCR7ZMHZ6v0NbXLiAIbLSoQx24AOKrqvNDHFcOft/FIZSp3m8H
-	+FDQyeXwE02gnjedlyKLJzaEPOqfo+RqW+1yLdbqbE4FpbNQmojFIw1NWWAvndw=
-X-Google-Smtp-Source: AGHT+IGIatMlXAIT9wtFN4TVKhyxS8oAmqGfVN2/qMY8nODju2VQwelodI3MBQqSNPKI+RmLV0f68g==
-X-Received: by 2002:a19:7405:0:b0:50f:152b:48a9 with SMTP id v5-20020a197405000000b0050f152b48a9mr2744170lfe.122.1706088167663;
-        Wed, 24 Jan 2024 01:22:47 -0800 (PST)
-Date: Wed, 24 Jan 2024 10:22:46 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1706088195; x=1706692995;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=q2iakNn+EEOiV5rOhMK/NZwK16rBRN56Kv/2r6MIdvM=;
+        b=HuEDVeaDC75J3DG8dKuzvbLQHMLWrA+C5yQLaUTvphf+Di9xMNM02yBDDMbQ311AZQ
+         nI4Nj4MtzgIJIuPPWjDypR4rLIBJ9o7I3j6gtaTdFNm+Rs2XyvzB9HzAFS/OEFeq311S
+         lTZjo2hvOmzF2qEgxQCcC+LjVW1MqQMErLU5HeMvADBGHbeu/MJZK6AVtK7IjGA3j9kd
+         YulwOJLVcvOTvcIwq8WsXuJAoAPa9vop14Gqlqj69djHkT9DOYjPG6lWjKnVVN22Bg16
+         T+gTvlMB2q9mqmC08bspZBk4avBo8kkm6X108JV9oaqwirUbdKbvsxGQPGvi5jQmlQAL
+         SNOg==
+X-Gm-Message-State: AOJu0Ywm0RJUg1T9RYJqrv2lyxNh/1zYY7hRhVKSCWJa6b0QInDIuMH5
+	H9REjYv/eCHVBtVJMHZcJjUSu7dtczByF2iccQlJh1G3W7sDcEsb
+X-Google-Smtp-Source: AGHT+IH0OaQwllYiup9B7T8Xnl3urN8fel4PAc4WEJjXtu1sOLGUIuSl/lN8UqPmxDKzUVsYNlXD+g==
+X-Received: by 2002:a17:906:57ce:b0:a30:d4f2:1603 with SMTP id u14-20020a17090657ce00b00a30d4f21603mr735516ejr.15.1706088194692;
+        Wed, 24 Jan 2024 01:23:14 -0800 (PST)
+Message-ID: <b0c23db4b8162e5859347a582b43050c1601c10b.camel@gmail.com>
+Subject: Re: [PATCH v3 15/34] xen/riscv: introduce atomic.h
+From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 2/3] x86/entry: Make #PF/NMI/INT0x82 more amenable to
- livepatching
-Message-ID: <ZbDW5nCuHW7xCYOo@macbook>
-References: <20240122181714.1543738-1-andrew.cooper3@citrix.com>
- <20240122181714.1543738-3-andrew.cooper3@citrix.com>
- <0edeb969-6fef-46f4-b216-0858edbaefa6@suse.com>
- <Za_BF_wr0qWH5eKC@macbook>
- <ebdfc495-b8bc-4468-8b41-d5fdb2a85adb@suse.com>
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+ <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+ xen-devel@lists.xenproject.org
+Date: Wed, 24 Jan 2024 11:23:13 +0200
+In-Reply-To: <d33fe182-8283-4552-bc0e-3eac90f20d31@suse.com>
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+	 <54f5f13a4ee3de3c3cf4ba2b4d0347bb77bb7d08.1703255175.git.oleksii.kurochko@gmail.com>
+	 <2429395f-3ce8-4f17-aabe-78af2446ff6d@suse.com>
+	 <92d7caf20a37b68dce7676812c2780bc2fbc00cf.camel@gmail.com>
+	 <6aa39fac-fef6-47ce-8c27-4941d83c138a@suse.com>
+	 <d7f89e6f4aae5c8cfa5215bd893b62a3d542ce4c.camel@gmail.com>
+	 <d33fe182-8283-4552-bc0e-3eac90f20d31@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ebdfc495-b8bc-4468-8b41-d5fdb2a85adb@suse.com>
 
-On Tue, Jan 23, 2024 at 02:43:15PM +0100, Jan Beulich wrote:
-> On 23.01.2024 14:37, Roger Pau Monné wrote:
-> > On Tue, Jan 23, 2024 at 10:22:10AM +0100, Jan Beulich wrote:
-> >> On 22.01.2024 19:17, Andrew Cooper wrote:
-> >>> It is bad form to have inter-function fallthrough.  It only functions right
-> >>> now because alignment padding bytes are NOPs.
-> >>
-> >> But that's a requirement anyway in executable sections.
-> > 
-> > Really?  I was under the impression we wanted to replace the padding
-> > nops with rets maybe, or even poison the padding with int3 or ud2.
-> 
-> Well, that would be a decision of ours. Which then imo can't be described as
-> "only functions right now because ..." The assembler can't[1] use other than
-> NOPs by default, as it can't know whether fall-through is intended.
+On Tue, 2024-01-23 at 14:30 +0100, Jan Beulich wrote:
+> On 23.01.2024 13:24, Oleksii wrote:
+> > On Tue, 2024-01-23 at 11:30 +0100, Jan Beulich wrote:
+> > > On 23.01.2024 11:21, Oleksii wrote:
+> > > > On Mon, 2024-01-22 at 17:56 +0100, Jan Beulich wrote:
+> > > > > On 22.12.2023 16:12, Oleksii Kurochko wrote:
+> > > > > > --- /dev/null
+> > > > > > +++ b/xen/arch/riscv/include/asm/fence.h
+> > > > > > @@ -0,0 +1,13 @@
+> > > > > > +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> > > > > > +#ifndef _ASM_RISCV_FENCE_H
+> > > > > > +#define _ASM_RISCV_FENCE_H
+> > > > > > +
+> > > > > > +#ifdef CONFIG_SMP
+> > > > > > +#define RISCV_ACQUIRE_BARRIER		"\tfence r , rw\n"
+> > > > > > +#define RISCV_RELEASE_BARRIER		"\tfence rw,=C2=A0 w\n"
+> > > > > > +#else
+> > > > > > +#define RISCV_ACQUIRE_BARRIER
+> > > > > > +#define RISCV_RELEASE_BARRIER
+> > > > > > +#endif
+> > > > >=20
+> > > > > Do you really care about the !SMP case? On x86 at least we
+> > > > > stopped
+> > > > > special-
+> > > > > casing that configuration many years ago (the few cases where
+> > > > > for
+> > > > > typically
+> > > > > build reasons it matters, using CONFIG_NR_CPUS is
+> > > > > sufficient). If
+> > > > > you
+> > > > > care
+> > > > > about it, there needs to be somewhere you actually #define
+> > > > > CONFIG_SMP.
+> > > > Can't we use instead of CONFIG_SMP - CONFIG_NR_CPUS?
+> > >=20
+> > > You can. Question is whether there's a point in doing so. Do you
+> > > expect people to actually want to run Xen on single-CPU systems?
+> > > They're generally not overly well suited for virtualization ...
+> > Just to clarify.
+> >=20
+> > Do you mean physically single based CPU?
+> > Then I don't expect to run Xen on such systems and it is not
+> > nesessary
+> > to define *_BARRIER in this case. Should we have to add build error
+> > notification that we don't support single-CPU systems in this
+> > header?
+> >=20
+> > If you are speaking about we have ,let it be, 4 CPUs and only 1 CPU
+> > is
+> > currently supported by Xen then it still makes sense.
+>=20
+> No, that's still not what I mean. The question is: Is it useful for
+> you
+> to _special case_ the NR_CPUS=3D1 case? Or is it instead simpler to
+> handle
+> NR_CPUS=3D1 the same as NR_CPUS>1 (accepting less than ideal
+> performance,
+> on the basis that in reality nobody's expected to use such in
+> production
+> anyway)?
+NR_CPUS=3D1 sometimes is useful for debugging. At least, at the start I
+used that several times, but ITBO I don't remember when I used that
+case after SMP support was added and context_switch() was fixed.
 
-So it's not a strict requirement of ELF that padding is done using
-nops, it's just the default decision of the assembler because it
-doesn't know better.
+Probably, I misunderstand the real idea of NR_CPUS. Does NR_CPUS
+represent a number of logical CPUs which can be different from physical
+amount of CPU?
+If yes, then what I wrote above it was about physical CPU and then in
+context of logical CPUs I don't need a special case when NR_CPUS=3D1.
 
-Thanks, Roger.
+~ Oleksii
+
 
