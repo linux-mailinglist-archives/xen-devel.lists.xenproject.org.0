@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E535983A6C0
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 11:27:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670657.1043975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 078B783A4FA
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 10:16:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670824.1043859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSaTf-0002EL-9x; Wed, 24 Jan 2024 10:27:27 +0000
+	id 1rSZM0-0003L0-Ge; Wed, 24 Jan 2024 09:15:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670657.1043975; Wed, 24 Jan 2024 10:27:27 +0000
+Received: by outflank-mailman (output) from mailman id 670824.1043859; Wed, 24 Jan 2024 09:15:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSaTf-0002BC-5C; Wed, 24 Jan 2024 10:27:27 +0000
-Received: by outflank-mailman (input) for mailman id 670657;
- Wed, 24 Jan 2024 01:12:36 +0000
+	id 1rSZM0-0003JQ-E0; Wed, 24 Jan 2024 09:15:28 +0000
+Received: by outflank-mailman (input) for mailman id 670824;
+ Wed, 24 Jan 2024 09:15:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YSeL=JC=nxp.com=peng.fan@srs-se1.protection.inumbo.net>)
- id 1rSRoi-0005UB-J3
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 01:12:36 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20601.outbound.protection.outlook.com
- [2a01:111:f403:2613::601])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=k9jB=JC=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rSZLy-0003Iy-IW
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 09:15:26 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7ee1535-ba55-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 02:12:35 +0100 (CET)
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com (2603:10a6:10:358::11)
- by AS1PR04MB9430.eurprd04.prod.outlook.com (2603:10a6:20b:4da::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7202.36; Wed, 24 Jan
- 2024 01:12:32 +0000
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::c499:8cef:9bb1:ced6]) by DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::c499:8cef:9bb1:ced6%3]) with mapi id 15.20.7202.031; Wed, 24 Jan 2024
- 01:12:31 +0000
+ id 1bbfbc24-ba99-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 10:15:25 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-55cca88b6a5so210831a12.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 01:15:25 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ h9-20020a0564020e0900b00559736b84ffsm11044750edh.89.2024.01.24.01.15.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jan 2024 01:15:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,241 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7ee1535-ba55-11ee-98f5-6d05b1d4d9a1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G5qMPJZGa+RmHXqmfby8a3KMvRyOlZYQ1UNF3LqOVkGaFIU1Tp4VgYJ75t7F9NQSV22aCF/loVGguw1/VHB1XzhkmDf2aumKBqDIBPMOXlcihRw2fuixE20qLeetJg0W3IccK9zbtiOPyuEy9c2gJwh+bULjVzkNHZsmFCMFh7iJCCLVJ3JSQCR53hSO/eCBfUtITAYbPtw7vhkNIxkMTN3LhAdBPm5hzUcdwcKlYEa12wS9mceuPlOhX5ymqjOMRLZjEj5Q4kxqSfv6bNOoAP1QwjxYgK0SRTQwAjZ6nu7WvKkAPaIVnrC79Hl8Tnxz+9c68J5ld1KJXGb6p5MZLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1Uh5Uuewj3HrZv8HvNW0sw98JGv5swA2ITXbEp8Fm9k=;
- b=Rxanh8BPZ1gw3c2ybkkb9CfWF3OkaElyTODzUJpaPs9Yd2N7k8nxsEF/oIfk8PG7/AIZW9beiyX/NEcyxeOFXpq/nOXimHRGluCPa1n0WWdqdVr4+MRP+dCIpzwpDoMJ/4Lc15zYnR7NgmdFXXNwrRJ3L2HQp7MoQiUDR2lMjAzgnWxwMCuGWJwd6+jF5M/V7ZGT3ORVEm8EMDjP3Mw0qP/qE1ikXflbg0vB7UaT2hUtMXINzpA5VkuFpsZt5Ct1JXkTaaeiqpk55SxPH1kSvwtNY9C3KWF239TF7XWwa0NogcUc3HxDk+PU0jamk4FBT/+Jg/DVzgfhZyk1y928EQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Uh5Uuewj3HrZv8HvNW0sw98JGv5swA2ITXbEp8Fm9k=;
- b=fL86yTR7Uq+xMmbNB5XLFekOlN80piDURrt7wDY+OdFzR5htWbUaTFcoXIQBnSJ4mGs5khXvdBrLLEPhknLNKIh0p1IL7rbY9q25/yHRA/+tl2yDeT4WzT9GfqTmkS/M9meNmGLrspoRUe3DrHbT/Ssx87lnJDkYuy6mgJM5m+k=
-From: Peng Fan <peng.fan@nxp.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, "Peng Fan (OSS)"
-	<peng.fan@oss.nxp.com>
-CC: "anthony.perard@citrix.com" <anthony.perard@citrix.com>, "paul@xen.org"
-	<paul@xen.org>, "vikram.garhwal@amd.com" <vikram.garhwal@amd.com>,
-	"viresh.kumar@linaro.org" <viresh.kumar@linaro.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>
-Subject: RE: [PATCH] xen: Drop out of coroutine context
- xen_invalidate_map_cache_entry
-Thread-Topic: [PATCH] xen: Drop out of coroutine context
- xen_invalidate_map_cache_entry
-Thread-Index: AQHaSIFf0aPvG3VKVE6r93sE3K93tLDoL1+AgAACyxA=
-Date: Wed, 24 Jan 2024 01:12:31 +0000
-Message-ID:
- <DU0PR04MB9417727EDAF25B0CCC228DD4887B2@DU0PR04MB9417.eurprd04.prod.outlook.com>
-References: <20240116143622.6641-1-peng.fan@oss.nxp.com>
- <alpine.DEB.2.22.394.2401231655530.2287888@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2401231655530.2287888@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU0PR04MB9417:EE_|AS1PR04MB9430:EE_
-x-ms-office365-filtering-correlation-id: 4b6c043a-ecf9-49be-4a78-08dc1c798a5f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 36W8ezj0V81gaIVN0yS4oETonN+jBsNleCvduOBT9dx0T/MMzVaSCD+55m1NeXVKt8JIW6bJi7xwNfPgw4ppT6r4mwwv+7YwOfFQOVqjQ+LM2Hztyi9nF7tNNXakSQux500cmWxiwC7ivwCAuqo9iVeofSi1BvP8LWMfVi9kbGhG8Hz4EiAZiv94kV/yUbBDtOoO6JeO6ZgcLQZlesDWny3IbLVDabL9tTyRz4MzMqN15uLDJy0jFvjvjhzTjPSBf0VHsrvJXPsxAdqeJqHMrSttsNYVxVMwfzpqnnQLPhcg0+hoG4qPdG0Arz4z5car9DRjzIMhNONyDhMSRBE99q4dY1iyDdyBys8Zrbbi5roJG5WIIELXkyAabsaTIDnjOrM0SL3GeZTmap/kVxzuVojv8fZqGqDYxqAA89W+dWkLKHqvkRMIwfejbGd7zcGGh74trQwmzMfPNlDDzIf/IgrdICE1tKZy1JO+R/nlVKlYxQuLnL/aUSM1CjThShXlwa+nPBuw/lx3jItXQRA88xRRrzwILk1dHPBOeLbNMg7JyRyVU/cjvgEux4pjd4L35T5eyhwzDCBP09zpUujl1KyVhGiRx27oU0B+OVIr+IEBNUBBB9+cnQPDyaCRS5CX
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9417.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(396003)(376002)(366004)(346002)(136003)(39860400002)(230922051799003)(1800799012)(186009)(64100799003)(451199024)(478600001)(55016003)(71200400001)(83380400001)(52536014)(38100700002)(122000001)(5660300002)(44832011)(6506007)(8676002)(7696005)(4326008)(8936002)(2906002)(26005)(66946007)(66446008)(86362001)(9686003)(33656002)(41300700001)(316002)(38070700009)(54906003)(66556008)(66476007)(76116006)(64756008)(110136005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?yeKfW96zKjWEQpwO/8Yd+25E/IQJIZkNVhBQFH09ki8d2o/IJmQ9ameDVuja?=
- =?us-ascii?Q?Z0u6OnnF//0nMReKF75fUA81GsvBgpKgAlmzBuQspmwUSP1GlIO9eBmatRWd?=
- =?us-ascii?Q?ByBeXFBREg78eFvOHT3vt2Z57pPOGcLRbp0z/fG1cgX5svsjmr3oYfLoL6fR?=
- =?us-ascii?Q?o5isyyHmXq4XC9p6nsOVQTlxbbhmoS76VJaa5zBa4M72zIGKhJ5KcFy31s1h?=
- =?us-ascii?Q?jg7hbz1H/ziIK6AYaItDx61ILz4dBhVz96EQB/nlngPQK4axftmA3eWV6nkt?=
- =?us-ascii?Q?sJZb29nIRM9159qTfvsqjLqpAujaHHmzeqTLHU0biop2xgt9MQ9AFvI/OszQ?=
- =?us-ascii?Q?ujFbq+ybrVM7qpGBUmI4VdA+eL4jrbu59iVHgtrvVIhb6PSFGvuYiqUhEykX?=
- =?us-ascii?Q?Hm6gpFCq/uDFHYcH+czIrwV8pzNuBWCS/vStZ2sGgPblYq5cQi6NGavwhiTx?=
- =?us-ascii?Q?o1GZY+wLWGosTlEDGWqRyD9qKF9iVTnnJm3DkRgbfKDyefQXhfFzhreN6nDf?=
- =?us-ascii?Q?I9OvtuIn3MHmsSNjLT1lDmLhzJDUM31f1Od4w4H2RIc1k/Fi9aaAqIb8sAh8?=
- =?us-ascii?Q?dDuyRqlvpo9LT/5LlwdaXt6MvJy9V+gkE/r4xhwrrg7TlzIwC1qocftphgQK?=
- =?us-ascii?Q?T6USKruCSZmW+RC19HCETluym9/FppZtYOte/PNXuIKoG8sfSbWQz7XR/OqY?=
- =?us-ascii?Q?y5mhXTyooGR/PTqv8BT5OsSK3E/GNJF5ONBLdFTZYayKzVXTLAtAmQUKz4Am?=
- =?us-ascii?Q?Q7rECc+PIc9nu6QtU5rmE3P1U/nEOjTELIchz4P9/pcGDYVs95M8AiGt3a11?=
- =?us-ascii?Q?UPEluY3XwziBj/vsXOcvWXgaT5DnS018wc1Z0ySzutAG13d/6w4bpJeqRMic?=
- =?us-ascii?Q?LmUTUEgqFdfHoxJpgy2hLw+cei4rdeZkdOIiWn/MqCKY1O7oeDJEdR2GZ6BG?=
- =?us-ascii?Q?5obcwUoEe7iuS55XYNrcdZovyA7zw/86WkBZtQEGCLuw9mJ1X6Mg61oZB86F?=
- =?us-ascii?Q?UCRuAPb6HueL/5lE8+CuKXvhd3wy7sJ9NY+18X+95KmdP2Dign7RjtfZ8YkH?=
- =?us-ascii?Q?ESRr6swyYzFMWUMELARXUC5WihuQCeDxIGJ7Oe87GnuJa3wjn4gfqlO79sJ9?=
- =?us-ascii?Q?fIMGDU27H5Fd1x5m8D6mzw43OLi+lmhWjtSIn79U6iGesEZk54nftzYNpXH5?=
- =?us-ascii?Q?dpitzNJG5wq8WWXUfnMQxhc9PzXOdTXmW47sqrCgIyhHhBgBSNGz7ZvAX8MH?=
- =?us-ascii?Q?cc+BtOqZ6TC1AJmOGJM0LxaN76xSYes5qaPUO/+BvgySh9W/c8JjC3aWEtul?=
- =?us-ascii?Q?ytf5DJX0kWE+y3bSJ88ndemPZEXcZSm+MZl/d5FvpQENVDE2DUzmqazofXVF?=
- =?us-ascii?Q?4mwd8jnm4nBu5HWemxzS4kaD4s54Xn226VZwTEDkCpkG2vZHUrTSxpF0y1Gq?=
- =?us-ascii?Q?Se4GSIU2t11mWOZapFmQpPKhsIhf4LA6AZxydtpY6OEQq/6tQxViWxO2Isgp?=
- =?us-ascii?Q?PR9C997/+5syDn6690EvR8tfKD9sNymOiZVsmQnOgp+IYe9aHAd0UD5aSbfw?=
- =?us-ascii?Q?hm2WSh/+sPQxnvcQPyk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 1bbfbc24-ba99-11ee-98f5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1706087725; x=1706692525; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=9BEar1HU8T7eftDSQ6Z4GKnAGz6bSQ3j5Ys1+r4Vbgg=;
+        b=UCtHggJDPwimFiDBntRtJO4IXXx5jPKjjWT0r3g586+nDcbhBFl3rdrPdX/sWPDyvz
+         b6N9vkdodUkQdcHn11myLl9KPDRXG91xRwLEbBw2b4gdrmDEW/4Sgr7jHWcoIVJHuVv2
+         61es+xCLUDEH0pkEM3N7iI5PvUcha2eLIvuaRxkKakbhbGXjFFu5Ol79NiAKegsN5Y4B
+         Q9CK/lGVLrzVxqkueFk2r6W1f3EFvr0/S0fz3F+4HxpK2K7gb0/iJjxozgmAb8594N+g
+         UTC8eA4x9MUh4FPOjWLnAkerC/k8qn27HgQDgvovkJc75T+HWLG2j3xQWH2n5gUyzmeD
+         tsmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706087725; x=1706692525;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=9BEar1HU8T7eftDSQ6Z4GKnAGz6bSQ3j5Ys1+r4Vbgg=;
+        b=BfjKT89BIlkP2ArY5XbywBCn2SZUZlGMf8+QIKvkczAHmO2TIqItnSGYYuRXkMJwaY
+         drKzkNv2lnX0N+M2lm7o3JFkLgbeCncPOGht2tO+QzIhAZfq6AQynjUypx8lUEPVEYXc
+         AIyuoqXNsxjf6w1/kQAco69kRWtQ+MxwsA78xtQv7OWDTC0q24qxdQtZHmuCNfSz0Awx
+         D3oIXzOa9ream1spjeBF2MYb5i7qVFOOgBCuMXR2Kv4drDU8qyBlMzRj+WJEC8ClaI1q
+         X2TvkkSLEDJz715C2kje0iJL/U+nDv64je+mp++l2j284qvJdLO1NJrH3Lh/8H7G+2dW
+         h0ZQ==
+X-Gm-Message-State: AOJu0YzjjazK+obelSp7nbQYpazbm+WBgLfVQTkkPUnMP3D7G6YTSgXs
+	uV49YhwGNgTOSJwBsXRp7ZnffvH3RNdOoLtXcWakvTzwe5H5IBk4
+X-Google-Smtp-Source: AGHT+IEBM+V/cjbnzJ2r80lvSZKH9FPCZ7UZoWjBENcm6ZiwxHzb1I+sF8CBsvr8ESwl4jhJVRwczg==
+X-Received: by 2002:aa7:d399:0:b0:559:f4b4:3077 with SMTP id x25-20020aa7d399000000b00559f4b43077mr1996589edq.45.1706087724677;
+        Wed, 24 Jan 2024 01:15:24 -0800 (PST)
+Message-ID: <3c6aead1a067c6202474e9752b343d268c335b8c.camel@gmail.com>
+Subject: Re: [PATCH v3 13/34] xen/riscv: introduce cmpxchg.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>,  Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+ xen-devel@lists.xenproject.org
+Date: Wed, 24 Jan 2024 11:15:23 +0200
+In-Reply-To: <c57e17ed-61db-4da2-975b-083bfabcbe47@suse.com>
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+	 <214bfd61c8ccf2a5b2c640b815ebfa6a705f6234.1703255175.git.oleksii.kurochko@gmail.com>
+	 <8ee35a76-f3ef-4143-93ef-8e6089f82a80@suse.com>
+	 <56c23efdd79c0b1393ceef1adfcb45f66d4d1cf6.camel@gmail.com>
+	 <c5872ae0-a26a-4f51-bad6-08fd0c37d488@suse.com>
+	 <835c58c1deb89db2fa500bd7cd767facd5b5fb78.camel@gmail.com>
+	 <c57e17ed-61db-4da2-975b-083bfabcbe47@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9417.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b6c043a-ecf9-49be-4a78-08dc1c798a5f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jan 2024 01:12:31.7535
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: m9ZqRwUusv1bNBY+eWITgJK8s0fU3d5T2gAeKVrkFjEH9REvlgJEOmMQyfDoX36VijHE/wnrOyBA3Qzx7s2Jww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9430
 
-> Subject: Re: [PATCH] xen: Drop out of coroutine context
-> xen_invalidate_map_cache_entry
->=20
-> On Tue, 16 Jan 2024, Peng Fan (OSS) wrote:
-> > From: Peng Fan <peng.fan@nxp.com>
-> >
-> > xen_invalidate_map_cache_entry is not expected to run in a coroutine.
-> > Without this, there is crash:
-> >
-> >     signo=3Dsigno@entry=3D6, no_tid=3Dno_tid@entry=3D0) at pthread_kill=
-.c:44
-> >     threadid=3D<optimized out>) at pthread_kill.c:78
-> >     at /usr/src/debug/glibc/2.38+git-r0/sysdeps/posix/raise.c:26
-> >     fmt=3D0xffff9e1ca8a8 "%s%s%s:%u: %s%sAssertion `%s' failed.\n%n",
-> >     assertion=3Dassertion@entry=3D0xaaaae0d25740 "!qemu_in_coroutine()"=
-,
-> >     file=3Dfile@entry=3D0xaaaae0d301a8 "../qemu-xen-dir-remote/block/gr=
-aph-
-> lock.c", line=3Dline@entry=3D260,
-> >     function=3Dfunction@entry=3D0xaaaae0e522c0 <__PRETTY_FUNCTION__.3>
-> "bdrv_graph_rdlock_main_loop") at assert.c:92
-> >     assertion=3Dassertion@entry=3D0xaaaae0d25740 "!qemu_in_coroutine()"=
-,
-> >     file=3Dfile@entry=3D0xaaaae0d301a8 "../qemu-xen-dir-remote/block/gr=
-aph-
-> lock.c", line=3Dline@entry=3D260,
-> >     function=3Dfunction@entry=3D0xaaaae0e522c0 <__PRETTY_FUNCTION__.3>
-> "bdrv_graph_rdlock_main_loop") at assert.c:101
-> >     at ../qemu-xen-dir-remote/block/graph-lock.c:260
-> >     at /home/Freenix/work/sw-stash/xen/upstream/tools/qemu-xen-dir-
-> remote/include/block/graph-lock.h:259
-> >     host=3Dhost@entry=3D0xffff742c8000, size=3Dsize@entry=3D2097152)
-> >     at ../qemu-xen-dir-remote/block/io.c:3362
-> >     host=3D0xffff742c8000, size=3D2097152)
-> >     at ../qemu-xen-dir-remote/block/block-backend.c:2859
-> >     host=3D<optimized out>, size=3D<optimized out>, max_size=3D<optimiz=
-ed out>)
-> >     at ../qemu-xen-dir-remote/block/block-ram-registrar.c:33
-> >     size=3D2097152, max_size=3D2097152)
-> >     at ../qemu-xen-dir-remote/hw/core/numa.c:883
-> >     buffer=3Dbuffer@entry=3D0xffff743c5000 "")
-> >     at ../qemu-xen-dir-remote/hw/xen/xen-mapcache.c:475
-> >     buffer=3Dbuffer@entry=3D0xffff743c5000 "")
-> >     at ../qemu-xen-dir-remote/hw/xen/xen-mapcache.c:487
-> >     as=3Das@entry=3D0xaaaae1ca3ae8 <address_space_memory>,
-> buffer=3D0xffff743c5000,
-> >     len=3D<optimized out>, is_write=3Dis_write@entry=3Dtrue,
-> >     access_len=3Daccess_len@entry=3D32768)
-> >     at ../qemu-xen-dir-remote/system/physmem.c:3199
-> >     dir=3DDMA_DIRECTION_FROM_DEVICE, len=3D<optimized out>,
-> >     buffer=3D<optimized out>, as=3D0xaaaae1ca3ae8 <address_space_memory=
->)
-> >     at /home/Freenix/work/sw-stash/xen/upstream/tools/qemu-xen-dir-
-> remote/include/sysemu/dma.h:236
-> >     elem=3Delem@entry=3D0xaaaaf620aa30, len=3Dlen@entry=3D32769)
-> >     at ../qemu-xen-dir-remote/hw/virtio/virtio.c:758
-> >     elem=3Delem@entry=3D0xaaaaf620aa30, len=3Dlen@entry=3D32769,
-> idx=3Didx@entry=3D0)
-> >     at ../qemu-xen-dir-remote/hw/virtio/virtio.c:919
-> >     elem=3Delem@entry=3D0xaaaaf620aa30, len=3D32769)
-> >     at ../qemu-xen-dir-remote/hw/virtio/virtio.c:994
-> >     req=3Dreq@entry=3D0xaaaaf620aa30, status=3Dstatus@entry=3D0 '\000')
-> >     at ../qemu-xen-dir-remote/hw/block/virtio-blk.c:67
-> >     ret=3D0) at ../qemu-xen-dir-remote/hw/block/virtio-blk.c:136
-> >     at ../qemu-xen-dir-remote/block/block-backend.c:1559
-> > --Type <RET> for more, q to quit, c to continue without paging--
-> >     at ../qemu-xen-dir-remote/block/block-backend.c:1614
-> >     i1=3D<optimized out>) at ../qemu-xen-dir-remote/util/coroutine-
-> ucontext.c:177
-> >     at ../sysdeps/unix/sysv/linux/aarch64/setcontext.S:123
-> >
-> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
->=20
-> Hi Peng! Many thanks for the patch and for the investigation!
->=20
-> Only one minor question below
->=20
->=20
-> > ---
-> >  hw/xen/xen-mapcache.c | 31 +++++++++++++++++++++++++++++--
-> >  1 file changed, 29 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c index
-> > f7d974677d..4e1bb665ee 100644
-> > --- a/hw/xen/xen-mapcache.c
-> > +++ b/hw/xen/xen-mapcache.c
-> > @@ -481,11 +481,38 @@ static void
-> xen_invalidate_map_cache_entry_unlocked(uint8_t *buffer)
-> >      g_free(entry);
-> >  }
-> >
-> > -void xen_invalidate_map_cache_entry(uint8_t *buffer)
-> > +typedef struct XenMapCacheData {
-> > +    Coroutine *co;
-> > +    uint8_t *buffer;
-> > +    int ret;
->=20
-> Do we need int ret? It doesn't look like we are using it.
+T24gVHVlLCAyMDI0LTAxLTIzIGF0IDE0OjI3ICswMTAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBP
+biAyMy4wMS4yMDI0IDEzOjE4LCBPbGVrc2lpIHdyb3RlOgo+ID4gT24gVHVlLCAyMDI0LTAxLTIz
+IGF0IDExOjI4ICswMTAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiA+ID4gT24gMjMuMDEuMjAyNCAx
+MToxNSwgT2xla3NpaSB3cm90ZToKPiA+ID4gPiBPbiBNb24sIDIwMjQtMDEtMjIgYXQgMTc6Mjcg
+KzAxMDAsIEphbiBCZXVsaWNoIHdyb3RlOgo+ID4gPiA+ID4gT24gMjIuMTIuMjAyMyAxNjoxMiwg
+T2xla3NpaSBLdXJvY2hrbyB3cm90ZToKPiA+ID4gPiA+ID4gK3N0YXRpYyBpbmxpbmUgdW5zaWdu
+ZWQgbG9uZyBfX3hjaGcodm9sYXRpbGUgdm9pZCAqcHRyLAo+ID4gPiA+ID4gPiB1bnNpZ25lZAo+
+ID4gPiA+ID4gPiBsb25nIHgsIGludCBzaXplKQo+ID4gPiA+ID4gPiArewo+ID4gPiA+ID4gPiAr
+wqDCoMKgIHN3aXRjaCAoc2l6ZSkgewo+ID4gPiA+ID4gPiArwqDCoMKgIGNhc2UgMToKPiA+ID4g
+PiA+ID4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiBfX2NtcHhjaGdfY2FzZV8xKHB0ciwgKHVpbnQz
+Ml90KS0xLCB4KTsKPiA+ID4gPiA+ID4gK8KgwqDCoCBjYXNlIDI6Cj4gPiA+ID4gPiA+ICvCoMKg
+wqDCoMKgwqDCoCByZXR1cm4gX19jbXB4Y2hnX2Nhc2VfMihwdHIsICh1aW50MzJfdCktMSwgeCk7
+Cj4gPiA+ID4gPiAKPiA+ID4gPiA+IEhvdyBhcmUgdGhlc2UgZ29pbmcgdG8gd29yaz8gWW91J2xs
+IGNvbXBhcmUgYWdhaW5zdCB+MCwgYW5kCj4gPiA+ID4gPiBpZgo+ID4gPiA+ID4gdGhlCj4gPiA+
+ID4gPiB2YWx1ZQo+ID4gPiA+ID4gaW4gbWVtb3J5IGlzbid0IH4wLCBtZW1vcnkgd29uJ3QgYmUg
+dXBkYXRlZDsgeW91IHdpbGwgb25seQo+ID4gPiA+ID4gKGNvcnJlY3RseSkKPiA+ID4gPiA+IHJl
+dHVybiB0aGUgdmFsdWUgZm91bmQgaW4gbWVtb3J5Lgo+ID4gPiA+ID4gCj4gPiA+ID4gPiBPciB3
+YWl0IC0gbG9va2luZyBhdCBfX2NtcHhjaGdfY2FzZV97MSwyfSgpIGZhciBmdXJ0aGVyIGRvd24s
+Cj4gPiA+ID4gPiB5b3UKPiA+ID4gPiA+IGlnbm9yZQo+ID4gPiA+ID4gIm9sZCIgdGhlcmUuIFdo
+aWNoIGFwcGFyZW50bHkgbWVhbnMgdGhleSdsbCB3b3JrIGZvciB0aGUgdXNlCj4gPiA+ID4gPiBo
+ZXJlLAo+ID4gPiA+ID4gYnV0Cj4gPiA+ID4gPiBub3QgZm9yIHRoZSB1c2UgaW4gX19jbXB4Y2hn
+KCkuCj4gPiA+ID4gWWVzLCB0aGUgdHJpY2sgaXMgdGhhdCBvbGQgaXMgaWdub3JlZCBhbmQgaXMg
+cmVhZCBpbgo+ID4gPiA+IF9fZW11bGF0ZV9jbXB4Y2hnX2Nhc2UxXzIoKSBiZWZvcmUgX19jbXB4
+Y2hnX2Nhc2VfNCBpcyBjYWxsZWQ6Cj4gPiA+ID4gwqDCoMKgIGRvCj4gPiA+ID4ge8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IAo+ID4gPiA+IMKgwqDCoMKgwqDCoMKgIHJlYWRfdmFsID0KPiA+ID4gPiByZWFkX2Z1bmMoYWxp
+Z25lZF9wdHIpO8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCAKPiA+ID4gPiDCoMKgwqDCoMKgwqDCoCBzd2FwcGVkX25ldyA9IHJlYWRfdmFsICYK
+PiA+ID4gPiB+bWFzazvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgCj4gPiA+ID4gwqDCoMKgwqDCoMKgwqAgc3dhcHBlZF9uZXcgfD0K
+PiA+ID4gPiBtYXNrZWRfbmV3O8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgCj4gPiA+ID4gwqDCoMKgwqDCoMKgwqAg
+cmV0ID0gY21weGNoZ19mdW5jKGFsaWduZWRfcHRyLCByZWFkX3ZhbCwKPiA+ID4gPiBzd2FwcGVk
+X25ldyk7wqDCoMKgwqDCoMKgIAo+ID4gPiA+IMKgwqDCoCB9IHdoaWxlICggcmV0ICE9IHJlYWRf
+dmFsCj4gPiA+ID4gKTvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAKPiA+ID4gPiByZWFkX3ZhbCBpdCBpcyAn
+b2xkJy4KPiA+ID4gPiAKPiA+ID4gPiBCdXQgbm93IEkgYW0gbm90IDEwMCUgc3VyZSB0aGF0IGl0
+IGlzIGNvcnJlY3QgZm9yIF9fY21weGNoZy4uLgo+ID4gPiAKPiA+ID4gSXQganVzdCBjYW4ndCBi
+ZSBjb3JyZWN0IC0geW91IGNhbid0IGlnbm9yZSAib2xkIiB0aGVyZS4gSSB0aGluawo+ID4gPiB5
+b3UKPiA+ID4gd2FudCBzaW1wbGUgY21weGNoZyBwcmltaXRpdmVzLCB3aGljaCB4Y2hnIHRoZW4g
+dXNlcyBpbiBhIGxvb3AKPiA+ID4gKHdoaWxlCj4gPiA+IGNtcHhjaGcgdXNlcyB0aGVtIHBsYWlu
+bHkpLgo+ID4gQnV0IHhjaGcgZG9lc24ndCByZXF1aXJlICdvbGQnIHZhbHVlLCBzbyBpdCBzaG91
+bGQgYmUgaWdub3JlZCBpbgo+ID4gc29tZQo+ID4gd2F5IGJ5IGNtcHhjaGcuCj4gCj4gV2VsbCwg
+bm8uIElmIHlvdSBoYXZlIG9ubHkgY21weGNoZywgSSB0aGluayB5b3VyIG9ubHkgY2hvaWNlIGlz
+IC0gYXMKPiBzYWlkIC0gdG8gcmVhZCB0aGUgb2xkIHZhbHVlIGFuZCB0aGVuIGxvb3Agb3ZlciBj
+bXB4Y2hnIHVudGlsIHRoYXQKPiBzdWNjZWVkcy4gTm90IHJlYWxseSBkaWZmZXJlbnQgZnJvbSBv
+dGhlciBvcGVyYXRpb25zIHdoaWNoIG5lZWQKPiBlbXVsYXRpbmcgdXNpbmcgY21weGNoZy4KVGhl
+biBpdCBsb29rcyBsaWtlIHRoZSBtYWluIGVycm9yIGluIF9fZW11bGF0ZV9jbXB4Y2hnX2Nhc2Ux
+XzIgaXMgdGhhdApJIHJlYWQgdGhlIHZhbHVlIGVhY2ggdGltZSwgc28gcmVhZF92YWwgPSByZWFk
+X2Z1bmMoYWxpZ25lZF9wdHIpOyAKc2hvdWxkIGJlIGJlZm9yZSB0aGUgZG8gey4uLn0gd2hpbGUo
+KS4gQWxzbywgaXQgd291bGQgYmUgYmV0dGVyIHRvCnJlbmFtZSBpdCB0byBvbGRfdmFsIG9yIGp1
+c3Qgb2xkLgoKPiAKPiA+ID4gPiA+ID4gK3N0YXRpYyBhbHdheXNfaW5saW5lIHVuc2lnbmVkIHNo
+b3J0Cj4gPiA+ID4gPiA+IF9fY21weGNoZ19jYXNlXzIodm9sYXRpbGUKPiA+ID4gPiA+ID4gdWlu
+dDMyX3QgKnB0ciwKPiA+ID4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgCj4gPiA+ID4gPiA+IHVpbnQzMl90Cj4gPiA+ID4gPiA+IG9sZCwKPiA+
+ID4gPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+Cj4gPiA+ID4gPiA+IHVpbnQzMl90Cj4gPiA+ID4gPiA+IG5ldykKPiA+ID4gPiA+ID4gK3sKPiA+
+ID4gPiA+ID4gK8KgwqDCoCAodm9pZCkgb2xkOwo+ID4gPiA+ID4gPiArCj4gPiA+ID4gPiA+ICvC
+oMKgwqAgaWYgKCgodW5zaWduZWQgbG9uZylwdHIgJiAzKSA9PSAzKQo+ID4gPiA+ID4gPiArwqDC
+oMKgIHsKPiA+ID4gPiA+ID4gKyNpZmRlZiBDT05GSUdfNjRCSVQKPiA+ID4gPiA+ID4gK8KgwqDC
+oMKgwqDCoMKgIHJldHVybiBfX2VtdWxhdGVfY21weGNoZ19jYXNlMV8yKCh1aW50NjRfdCAqKXB0
+ciwKPiA+ID4gPiA+ID4gbmV3LAo+ID4gPiA+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+cmVhZHEsCj4gPiA+ID4gPiA+IF9fY21weGNoZ19jYXNlXzgsCj4gPiA+ID4gPiA+IDB4ZmZmZlUp
+Owo+ID4gPiA+ID4gCj4gPiA+ID4gPiBXaGF0IGlmICgodW5zaWduZWQgbG9uZylwdHIgJiA3KSA9
+PSA3ICh3aGljaCBpcyBhIHN1Yi1jYXNlIG9mCj4gPiA+ID4gPiB3aGF0Cj4gPiA+ID4gPiB0aGUK
+PiA+ID4gPiA+IGlmKCkgYWJvdmUgY2hlY2tzIGZvcj8gSXNuJ3QgaXQgbW9yZSByZWFzb25hYmxl
+IHRvIHJlcXVpcmUKPiA+ID4gPiA+IGFsaWduZWQKPiA+ID4gPiA+IDE2LWJpdCBxdWFudGl0aWVz
+IGhlcmU/IE9yIGlmIG1pcy1hbGlnbmVkIGFkZHJlc3NlcyBhcmUgb2theSwKPiA+ID4gPiA+IHlv
+dQo+ID4gPiA+ID4gY291bGQKPiA+ID4gPiA+IGFzIHdlbGwgZW11bGF0ZSB1c2luZyBfX2NtcHhj
+aGdfY2FzZV80KCkuCj4gPiA+ID4gWWVzLCBpdCB3aWxsIGJlIG1vcmUgcmVhc29uYWJsZS4gSSds
+bCB1c2UgSVNfQUxJR05FRCBpbnN0ZWFkLgo+ID4gPiAKPiA+ID4gTm90IHN1cmUgSSBnZXQgeW91
+ciB1c2Ugb2YgImluc3RlYWQiIGhlcmUgY29ycmVjdGx5LiBUaGVyZSdzIG1vcmUKPiA+ID4gdG8g
+Y2hhbmdlIGhlcmUgdGhhbiBqdXN0IHRoZSBpZigpIGNvbmRpdGlvbi4KPiA+IEkgbWVhbnQgc29t
+ZXRoaW5nIGxpa2U6Cj4gPiAKPiA+IGlmICggSVNfQUxJR05FRChwdHIsIDE2KSApCj4gPiDCoMKg
+wqAgX19lbXVsYXRlX2NtcHhjaGdfY2FzZTFfMiguLi4pOwo+ID4gZWxzZQo+ID4gwqDCoMKgIGFz
+c2VydF9mYWlsZWQoInB0ciBpc24ndCBhbGlnbmVkXG4iKTsKPiAKPiBFeGNlcHQgdGhhdCB5b3Un
+ZCBiZXR0ZXIgbm90IHVzZSBhc3NlcnRfZmFpbGVkKCkgZGlyZWN0bHkgYW55d2hlcmUsCj4gYW5k
+IHRoZSBhYm92ZSBpcyBlYXNpZXIgYXMKPiAKPiDCoMKgwqAgQVNTRVJUKElTX0FMSUdORUQocHRy
+LCAxNikpOwo+IMKgwqDCoCBfX2VtdWxhdGVfY21weGNoZ19jYXNlMV8yKC4uLik7Cj4gCj4gYW55
+d2F5IChsZWF2aW5nIGFzaWRlIHRoYXQgSSBndWVzcyB5b3UgbWVhbiAyLCBub3QgMTYpLgpZZWFo
+LCBpdCBzaG91bGQgYmUgMi4gVGhhbmtzLgoKfiBPbGVrc2lpCg==
 
-Good catch, it is not needed, I will drop it in V2.
-
-Thanks,
-Peng.
-
->=20
->=20
-> > +} XenMapCacheData;
-> > +
-> > +static void xen_invalidate_map_cache_entry_bh(void *opaque)
-> >  {
-> > +    XenMapCacheData *data =3D opaque;
-> > +
-> >      mapcache_lock();
-> > -    xen_invalidate_map_cache_entry_unlocked(buffer);
-> > +    xen_invalidate_map_cache_entry_unlocked(data->buffer);
-> >      mapcache_unlock();
-> > +
-> > +    aio_co_wake(data->co);
-> > +}
-> > +
-> > +void coroutine_mixed_fn xen_invalidate_map_cache_entry(uint8_t
-> > +*buffer) {
-> > +    if (qemu_in_coroutine()) {
-> > +        XenMapCacheData data =3D {
-> > +            .co =3D qemu_coroutine_self(),
-> > +            .buffer =3D buffer,
-> > +        };
-> > +        aio_bh_schedule_oneshot(qemu_get_current_aio_context(),
-> > +                                xen_invalidate_map_cache_entry_bh, &da=
-ta);
-> > +        qemu_coroutine_yield();
-> > +    } else {
-> > +        mapcache_lock();
-> > +        xen_invalidate_map_cache_entry_unlocked(buffer);
-> > +        mapcache_unlock();
-> > +    }
-> >  }
-> >
-> >  void xen_invalidate_map_cache(void)
-> > --
-> > 2.35.3
-> >
 
