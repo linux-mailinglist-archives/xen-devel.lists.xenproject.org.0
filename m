@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 997CD83ABC5
+	by mail.lfdr.de (Postfix) with ESMTPS id ACAD083ABC6
 	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 15:30:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671014.1044136 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.671016.1044146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSeFY-00084i-UC; Wed, 24 Jan 2024 14:29:08 +0000
+	id 1rSeGF-0008UJ-5p; Wed, 24 Jan 2024 14:29:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671014.1044136; Wed, 24 Jan 2024 14:29:08 +0000
+Received: by outflank-mailman (output) from mailman id 671016.1044146; Wed, 24 Jan 2024 14:29:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSeFY-00082C-R0; Wed, 24 Jan 2024 14:29:08 +0000
-Received: by outflank-mailman (input) for mailman id 671014;
- Wed, 24 Jan 2024 14:29:07 +0000
+	id 1rSeGF-0008SV-2g; Wed, 24 Jan 2024 14:29:51 +0000
+Received: by outflank-mailman (input) for mailman id 671016;
+ Wed, 24 Jan 2024 14:29:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RVUo=JC=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1rSeFX-000826-S9
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 14:29:07 +0000
+ id 1rSeGD-0008QV-Ke
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 14:29:49 +0000
 Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb8ce1a0-bac4-11ee-9b0f-b553b5be7939;
- Wed, 24 Jan 2024 15:29:04 +0100 (CET)
+ id 0507374d-bac5-11ee-9b0f-b553b5be7939;
+ Wed, 24 Jan 2024 15:29:46 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9B3D6CE3131;
- Wed, 24 Jan 2024 14:28:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99AB0C433A6;
- Wed, 24 Jan 2024 14:28:49 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id E22E0CE3161;
+ Wed, 24 Jan 2024 14:29:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B995BC433B2;
+ Wed, 24 Jan 2024 14:29:34 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,17 +41,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb8ce1a0-bac4-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 0507374d-bac5-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706106530;
+	s=k20201202; t=1706106576;
 	bh=6FfN1GzAtURfOQTJtQ8dKYe9y+zDqRTWUeydka0I57o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=QEzV0nwRM9NUaAdv4p65JnRWWLrKcd05SQ9dz4qwf/H7X3Gnkx58CR6WDE9YFxbeu
-	 QLEknnCQRqFoytqS9iD0wLFCcXX4/AgJ5ABqZOBwIxZtMp+F4zm0uKJPZ6gj2Y7Pu+
-	 mL9bXzi6rOubl7qoOvovBIRlNa7kSIbjL3stkqOQq4f9URhe+1NWxVcErXiBAVSE4y
-	 FrK6Z6FUDQpHWWhB0457PKa4OiIEsHQx6S4ekOttMiu60Pkc9HFxNcXVcqFNkUab0s
-	 BosGAm2rjzi2XDHR8ubekdoxQxEqF9XuGSZ/eYhgsAY8cZ6LDfmnL1H/QCGfM+PDR/
-	 RD+sGkicI/iNw==
+	b=O47LrhDTGz8MNnbZS/pWzoFcmO5zKUuMKVjb8owayXYob6LNoU8bKLcwZPCnSKPzI
+	 cBC9pOfv+Wn1ekegjPPi3V8qiptS4JYVpZK8xssitnOx29EPsI9q/Jum7eoIWq8Iz/
+	 NUU7uJ8z3Ki5pCekxDNVRa49rFTbqb8GUP3REKwNp7g8Fyydk2kGFh4SOTjmhuKxJg
+	 jTt8C8XnkJGgCM5wyUYG7OYBZv+I5i6LaOnTDHMpUiHg9uI8VLtFI/AVkkQf5G3RhV
+	 MDekWMT/hPfxFDA2L98h9uzufUD2KBTBTjETj+prDWr+9yyijt7wiWRlAMH0Agzpoc
+	 tjiWJxZm8KBww==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -62,17 +62,17 @@ Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Juergen Gross <jgross@suse.com>,
 	Sasha Levin <sashal@kernel.org>,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 6.7 11/13] xen/gntdev: Fix the abuse of underlying struct page in DMA-buf import
-Date: Wed, 24 Jan 2024 09:28:04 -0500
-Message-ID: <20240124142820.1283206-11-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.6 09/11] xen/gntdev: Fix the abuse of underlying struct page in DMA-buf import
+Date: Wed, 24 Jan 2024 09:28:52 -0500
+Message-ID: <20240124142907.1283546-9-sashal@kernel.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240124142820.1283206-1-sashal@kernel.org>
-References: <20240124142820.1283206-1-sashal@kernel.org>
+In-Reply-To: <20240124142907.1283546-1-sashal@kernel.org>
+References: <20240124142907.1283546-1-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.7.1
+X-stable-base: Linux 6.6.13
 Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
