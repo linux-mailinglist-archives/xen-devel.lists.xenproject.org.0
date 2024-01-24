@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2E9883AD7D
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:37:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671114.1044282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE43F83AD86
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:39:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671117.1044292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSfJd-0002cv-6O; Wed, 24 Jan 2024 15:37:25 +0000
+	id 1rSfLE-0003V6-Fo; Wed, 24 Jan 2024 15:39:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671114.1044282; Wed, 24 Jan 2024 15:37:25 +0000
+Received: by outflank-mailman (output) from mailman id 671117.1044292; Wed, 24 Jan 2024 15:39:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSfJd-0002bM-2j; Wed, 24 Jan 2024 15:37:25 +0000
-Received: by outflank-mailman (input) for mailman id 671114;
- Wed, 24 Jan 2024 15:37:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rSfLE-0003TM-CZ; Wed, 24 Jan 2024 15:39:04 +0000
+Received: by outflank-mailman (input) for mailman id 671117;
+ Wed, 24 Jan 2024 15:39:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bgOV=JC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSfJc-0002bG-Dr
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:37:24 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77d6fc01-bace-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 16:37:23 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a30e445602cso241080366b.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:37:23 -0800 (PST)
+ id 1rSfLD-0003TC-Kv
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:39:03 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b2679247-bace-11ee-9b0f-b553b5be7939;
+ Wed, 24 Jan 2024 16:39:01 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2cf2adac1ccso6369801fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:39:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c14-20020a056602334e00b007bc102fb67asm7117305ioz.10.2024.01.24.07.37.21
+ c14-20020a056602334e00b007bc102fb67asm7117305ioz.10.2024.01.24.07.38.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 07:37:22 -0800 (PST)
+ Wed, 24 Jan 2024 07:39:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77d6fc01-bace-11ee-98f5-6d05b1d4d9a1
+X-Inumbo-ID: b2679247-bace-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706110643; x=1706715443; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706110741; x=1706715541; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=XvSbzhrxHs2/32DEGN2m/4q8IW70rWnO9+XaRiyIRAc=;
-        b=Q6hGhR+RJhnv/UAtmL7PUZRPkCfN8d9QkcHSnvADj7j7mEQ7oqqEPu1OApjCzFdwa6
-         Gk/41kQG/QhaFXOwezzm6Ib6eDLe1FYkaANe8rlKK37ozyFl8hKotfBj4iYgvn6LVFIt
-         PWVQnl2aXkrFQtmLyLyAeW5XL78pumdVpY667IhRSF1ujsmsWe+ikJhvDJdL3XZWXEsU
-         1Tx7YHwxxIWXDO12rF0aBQCDWVsd0EWrw5XnqLSknvyB8vcupM1mf6SeRX4/JQMHtT3J
-         +OzsV5NeGc/poW2o2ntpacaX3rKFCevLvP7D8CkHObym9SIStetrGeOkaY/bdGohtt6w
-         F4QA==
+        bh=RJdTcsHHmhCivDIdfqM2GogOA2EJXp4CKFcm36Ko+K8=;
+        b=bbIZZG8XRg/VT273W+J52s9HuiIubxORneyhalRbs+ejGj5d1hdNMuRz+3NJ63+J0h
+         ekluC1mqNH+RCuqwG52VC3D2+suF8PdDv/xHe1ca2MKIw+Z+Zxv/xcbrF3veok+NOpJo
+         fCyOydRnvm+F0pKJp/STGtGg2ZQSAslr4oiXmOEmffVPVUYcnLHstGVMl5L6wQbGAe12
+         B/VV55rLu9myvzU2tPmxDEY7dAy6yiwl0L02ojL7Ek3Evmly/DGyZTfjtLqE1Wi9hwVs
+         yX1cE5JxEhnsPHiKmeU/DwRFe5MNmT23LEJ9CW+RnkEyYg/rsF/yGceSoi7M73H1NUgw
+         jNMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706110643; x=1706715443;
+        d=1e100.net; s=20230601; t=1706110741; x=1706715541;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XvSbzhrxHs2/32DEGN2m/4q8IW70rWnO9+XaRiyIRAc=;
-        b=ljAI8x9MOCSbl81H2JT1cDJbp00kZqVTLfRWEqOkzmk2e92BBetdacI0MUkMR9piTB
-         JGUhw0cuZnCqfEZUm7S0uPZZKu8zeMcW1Hp5O2v8NZNs4dlgv6nScx0KnYCMmsJmOHDy
-         dsKpmonuB5a0Wv56TTdaSFpbnfo/Gr5c6ftQcQNVxOyEIFR6oCR/U+rdytSKsCU0tJ9s
-         w3yoQ9V18OC9+/1/VzO7HdKLbTjtQ+efUPiOVncCLSUTW8GAGoqniDdn9ENz1fSliT5a
-         Ts9DJ7yoZReges4+k8YePaw0f02wKhEDWYJjm35miHsJ2yfYB0e+HMqfaTuKiOhq5T5O
-         qtbw==
-X-Gm-Message-State: AOJu0YwICw4nd8gQCSnWYsp3iifag5X4rktwZvGKmw4UvYlA7aDiEc5c
-	O4XHv6lQcGaeZlUAyB7/jHQvSVpZuSUx+28flRns6jEb+zoVF12Zh+0buiYfpw==
-X-Google-Smtp-Source: AGHT+IEoEqyG3fgVrLmBRylmgNYzku7dBD60YakiVnwaMfupmn1VhmLrEhQWRwmHn43pKPsa0Bplhg==
-X-Received: by 2002:a17:906:53d6:b0:a2b:4ee:3b6c with SMTP id p22-20020a17090653d600b00a2b04ee3b6cmr1649201ejo.7.1706110642830;
-        Wed, 24 Jan 2024 07:37:22 -0800 (PST)
-Message-ID: <090f64ae-ecf3-4edc-a6c6-8be3a09ea1ba@suse.com>
-Date: Wed, 24 Jan 2024 16:37:19 +0100
+        bh=RJdTcsHHmhCivDIdfqM2GogOA2EJXp4CKFcm36Ko+K8=;
+        b=xQfexLQ3Tfkzpu7ZbnR7RoVE9EXdBrZUtOnNOPFafSa04q1OuF84ROKlLghrnishM4
+         z7eNiADI5sXe9i6LHdS5JEFgcxNPscaasphEGSphtIi1ECYszWA/Pktsr6drkLAJ985a
+         Y/SrWWtr6hEJgG+F3gqgTFL4EmuVetsvEPMBvYVk8IDXzaOfYg0WrYecSz1RyV7XUNvf
+         xBYbRYi/ESgZpL5Ha5xzDkHvi0U7/miCGjE/t5PaUEp2vuDUzgHGFcNVVKL6YuvNWCwZ
+         xwYiyesfrXLg1osadzG+Cwv9yALbrwf/ScTey+3G1KE1U00Of3HXyckLw62jN8+eWv5m
+         Ns8w==
+X-Gm-Message-State: AOJu0Yxjhv2kFNrSEo++quSOJE/Lfbpi/AA4Ze1/W6tuHS3Qxk25RL5H
+	0FcMEO7j8rg0jre1Jdms1W7GE9KKE85zWNYEtrZa5R2LCymEdZ4Q4BORDt9vog==
+X-Google-Smtp-Source: AGHT+IEdr1koSfnRHgSWbfNM5XoNg93TyHuftmK1c3Fnbm82Plfy98cT1NN+u+W7dQHqGjkum697pA==
+X-Received: by 2002:a2e:9911:0:b0:2cd:633c:55b6 with SMTP id v17-20020a2e9911000000b002cd633c55b6mr865359lji.46.1706110740974;
+        Wed, 24 Jan 2024 07:39:00 -0800 (PST)
+Message-ID: <4a64f394-2c01-44a9-be5b-ffdcb3616cc6@suse.com>
+Date: Wed, 24 Jan 2024 16:38:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/ucode: Fix stability of the Raw CPU Policy rescan
+Subject: Re: [PATCH v3 30/34] xen/riscv: add minimal stuff to processor.h to
+ build full Xen
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240123205948.1782556-1-andrew.cooper3@citrix.com>
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+ <5bd7c5db6638f09dabdc13a6e12f0b204eacb234.1703255175.git.oleksii.kurochko@gmail.com>
+ <aa4d18c5-a8e0-44a6-ae7e-16fd9cd029b4@suse.com>
+ <5f8291916b01a2b29a16bd1345fc20e3d4f29cab.camel@gmail.com>
+ <b8f47c93-43c4-4c61-a569-7d07e811c6ab@suse.com>
+ <22a0c2444201262202cd60d6d5a1cdff62c236bf.camel@gmail.com>
+ <5f6c35ed-de1f-4a47-897d-33ed979b28db@suse.com>
+ <3ae77a2a9c37f0ea68ec7641f72f931ffc92f304.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -109,30 +121,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240123205948.1782556-1-andrew.cooper3@citrix.com>
+In-Reply-To: <3ae77a2a9c37f0ea68ec7641f72f931ffc92f304.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23.01.2024 21:59, Andrew Cooper wrote:
-> Always run microcode_update_helper() on the BSP, so the the updated Raw CPU
-> policy doesn't get non-BSP topology details included.
-
-Wouldn't it be better (and consistent with ...
-
-> Have calculate_raw_cpu_policy() clear the instantanious XSTATE sizes.  The
-> value XCR0 | MSR_XSS had when we scanned the policy isn't terribly interesting
-> to report.
-
-... this) to purge these details from the raw policy as well then?
-
-> When CPUID Masking is active, it affects CPUID instructions issued by Xen
-> too.  Transiently disable masking to get a clean scan.
+On 24.01.2024 16:33, Oleksii wrote:
+> On Wed, 2024-01-24 at 12:27 +0100, Jan Beulich wrote:
+>> On 24.01.2024 11:12, Oleksii wrote:
+>>> On Wed, 2024-01-24 at 09:19 +0100, Jan Beulich wrote:
+>>>> On 23.01.2024 18:08, Oleksii wrote:
+>>>>> On Tue, 2024-01-23 at 12:39 +0100, Jan Beulich wrote:
+>>>>>> On 22.12.2023 16:13, Oleksii Kurochko wrote:
+>>>>>>> @@ -53,6 +56,18 @@ struct cpu_user_regs
+>>>>>>>      unsigned long pregs;
+>>>>>>>  };
+>>>>>>>  
+>>>>>>> +/* TODO: need to implement */
+>>>>>>> +#define cpu_to_core(cpu)   (0)
+>>>>>>> +#define cpu_to_socket(cpu) (0)
+>>>>>>> +
+>>>>>>> +static inline void cpu_relax(void)
+>>>>>>> +{
+>>>>>>> +    /* Encoding of the pause instruction */
+>>>>>>> +    __asm__ __volatile__ ( ".insn 0x100000F" );
+>>>>>>
+>>>>>> binutils 2.40 knows "pause" - why use .insn then?
+>>>>> I thought that for this instruction it is needed to have
+>>>>> extension
+>>>>> ZIHINTPAUSE ( according to Linux Kernel source code [1] ) and
+>>>>> to
+>>>>> cover
+>>>>> older version.
+>>>>
+>>>> Well, of course you'll need to enable the extension then for gas.
+>>>> But
+>>>> as long as you use the insn unconditionally, that's all fine and
+>>>> natural. Another thing would be if you meant to also run on
+>>>> systems
+>>>> not supporting the extension: Then the above use of .insn would
+>>>> need
+>>>> to become conditional anyway.
+>>> Then it makes sense to use "pause". 
+>>> Let's assume that for now we are running only on systems which
+>>> support
+>>> the extension until we won't face compilation issue for some
+>>> system.
+>>
+>> Gives me the impression that you still don't properly separate the
+>> two
+>> aspects: One is what systems Xen is to run on, and other is what's
+>> needed to make Xen build properly. The first needs documenting (and
+>> ideally at some point actually enforcing), while the latter may
+>> require
+>> e.g. compiler command line option adjustments.
+> I understand that it will be required update "-march=..._zihintpause"
+> and it should be a check that this extension is supported by a
+> toolchain.
 > 
-> Fixes: 694d79ed5aac ("x86/ucode: Refresh raw CPU policy after microcode load")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> But I am not sure that I know how can I enforce that a system should
+> have this extension, and considering Linux kernel implementation which
+> uses always pause instruction, it looks like all available systems
+> support this extension.
 
-Irrespective of the question above, I'm also okay with the change as is:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Which is why I said documenting will suffice, at least for now.
 
 Jan
 
