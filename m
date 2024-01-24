@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 038EF839D4B
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 00:39:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670636.1043555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82102839DC4
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 01:58:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670645.1043564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSQM8-0007HT-JU; Tue, 23 Jan 2024 23:39:00 +0000
+	id 1rSRZY-0000B8-4F; Wed, 24 Jan 2024 00:56:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670636.1043555; Tue, 23 Jan 2024 23:39:00 +0000
+Received: by outflank-mailman (output) from mailman id 670645.1043564; Wed, 24 Jan 2024 00:56:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSQM8-0007F5-G2; Tue, 23 Jan 2024 23:39:00 +0000
-Received: by outflank-mailman (input) for mailman id 670636;
- Tue, 23 Jan 2024 23:38:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rSQM6-0007Ev-WF; Tue, 23 Jan 2024 23:38:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rSQM6-0002Qh-Rw; Tue, 23 Jan 2024 23:38:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rSQM6-0000di-Db; Tue, 23 Jan 2024 23:38:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rSQM6-0001Wn-D3; Tue, 23 Jan 2024 23:38:58 +0000
+	id 1rSRZY-00008V-1Q; Wed, 24 Jan 2024 00:56:56 +0000
+Received: by outflank-mailman (input) for mailman id 670645;
+ Wed, 24 Jan 2024 00:56:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qnut=JC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rSRZV-00008O-Oh
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 00:56:53 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 74c69c0a-ba53-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 01:56:51 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 48267CE3030;
+ Wed, 24 Jan 2024 00:56:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77849C433C7;
+ Wed, 24 Jan 2024 00:56:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,76 +41,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=IQOOe6EwbC0iwKptFSjogpCUXpHUCDVzgdlJvz05Km0=; b=zh6vKygS7sDW2t7zDCCe7DfK3I
-	b7K7/iFncxiOioiuLG+ivS78r9MlXDSmbVwQpSoqgWLjakl6g8Q5LMiyVw8zfKWxQ8JSA/IG4jFWB
-	34NdNjmn1hte16z1BWOFYi5OcXnEMRUhyVJccz+tbFJPm1C1X4X3/dL9W64UV5XJYNPU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184441-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 74c69c0a-ba53-11ee-98f5-6d05b1d4d9a1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706057803;
+	bh=bHReAgxWlYCDbjV6niWqJhCLRMaShBkmb4HS9kUp5Gg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=CbdZZq4tbZxdNxHG/2VEkTWhNg2zqnw0yHHTwJsmqVT3CQS4xQXWDAk6fqt73AqVU
+	 h1nLInAovIlLCRGnx7M0ljo/HAzWry706kYVWtVOGthvVecVhN0DTgiuj5Z98hAixl
+	 zvstEvwSSpKyrQfxSWjK9E4wej31OAQ0HZ/EbS5sQufeRyt0CjiiuuXhQ2tXzdHN2B
+	 uXhJvXgRHRWJXLR/GCrF6wqPM/5tCZK0NAp1EX6U2ok5NcRngLBjab/ZuZf726pOYg
+	 PRn+jWP0PKuI5KLwocSktsTEaJVJhUCGvMZRpnGeYPFhsbbRphfC3t+HEn1PpIaVb4
+	 Z/9R2QGxPe5mg==
+Date: Tue, 23 Jan 2024 16:56:41 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+cc: sstabellini@kernel.org, anthony.perard@citrix.com, paul@xen.org, 
+    vikram.garhwal@amd.com, viresh.kumar@linaro.org, 
+    xen-devel@lists.xenproject.org, qemu-devel@nongnu.org, 
+    Peng Fan <peng.fan@nxp.com>
+Subject: Re: [PATCH] xen: Drop out of coroutine context
+ xen_invalidate_map_cache_entry
+In-Reply-To: <20240116143622.6641-1-peng.fan@oss.nxp.com>
+Message-ID: <alpine.DEB.2.22.394.2401231655530.2287888@ubuntu-linux-20-04-desktop>
+References: <20240116143622.6641-1-peng.fan@oss.nxp.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 184441: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=417ebe6d1d6052b6cf023332da07558363d7fd08
-X-Osstest-Versions-That:
-    ovmf=d97f3a1d80fc4880da9726d9a5d7504d3c31da70
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 23 Jan 2024 23:38:58 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 184441 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184441/
+On Tue, 16 Jan 2024, Peng Fan (OSS) wrote:
+> From: Peng Fan <peng.fan@nxp.com>
+> 
+> xen_invalidate_map_cache_entry is not expected to run in a
+> coroutine. Without this, there is crash:
+> 
+>     signo=signo@entry=6, no_tid=no_tid@entry=0) at pthread_kill.c:44
+>     threadid=<optimized out>) at pthread_kill.c:78
+>     at /usr/src/debug/glibc/2.38+git-r0/sysdeps/posix/raise.c:26
+>     fmt=0xffff9e1ca8a8 "%s%s%s:%u: %s%sAssertion `%s' failed.\n%n",
+>     assertion=assertion@entry=0xaaaae0d25740 "!qemu_in_coroutine()",
+>     file=file@entry=0xaaaae0d301a8 "../qemu-xen-dir-remote/block/graph-lock.c", line=line@entry=260,
+>     function=function@entry=0xaaaae0e522c0 <__PRETTY_FUNCTION__.3> "bdrv_graph_rdlock_main_loop") at assert.c:92
+>     assertion=assertion@entry=0xaaaae0d25740 "!qemu_in_coroutine()",
+>     file=file@entry=0xaaaae0d301a8 "../qemu-xen-dir-remote/block/graph-lock.c", line=line@entry=260,
+>     function=function@entry=0xaaaae0e522c0 <__PRETTY_FUNCTION__.3> "bdrv_graph_rdlock_main_loop") at assert.c:101
+>     at ../qemu-xen-dir-remote/block/graph-lock.c:260
+>     at /home/Freenix/work/sw-stash/xen/upstream/tools/qemu-xen-dir-remote/include/block/graph-lock.h:259
+>     host=host@entry=0xffff742c8000, size=size@entry=2097152)
+>     at ../qemu-xen-dir-remote/block/io.c:3362
+>     host=0xffff742c8000, size=2097152)
+>     at ../qemu-xen-dir-remote/block/block-backend.c:2859
+>     host=<optimized out>, size=<optimized out>, max_size=<optimized out>)
+>     at ../qemu-xen-dir-remote/block/block-ram-registrar.c:33
+>     size=2097152, max_size=2097152)
+>     at ../qemu-xen-dir-remote/hw/core/numa.c:883
+>     buffer=buffer@entry=0xffff743c5000 "")
+>     at ../qemu-xen-dir-remote/hw/xen/xen-mapcache.c:475
+>     buffer=buffer@entry=0xffff743c5000 "")
+>     at ../qemu-xen-dir-remote/hw/xen/xen-mapcache.c:487
+>     as=as@entry=0xaaaae1ca3ae8 <address_space_memory>, buffer=0xffff743c5000,
+>     len=<optimized out>, is_write=is_write@entry=true,
+>     access_len=access_len@entry=32768)
+>     at ../qemu-xen-dir-remote/system/physmem.c:3199
+>     dir=DMA_DIRECTION_FROM_DEVICE, len=<optimized out>,
+>     buffer=<optimized out>, as=0xaaaae1ca3ae8 <address_space_memory>)
+>     at /home/Freenix/work/sw-stash/xen/upstream/tools/qemu-xen-dir-remote/include/sysemu/dma.h:236
+>     elem=elem@entry=0xaaaaf620aa30, len=len@entry=32769)
+>     at ../qemu-xen-dir-remote/hw/virtio/virtio.c:758
+>     elem=elem@entry=0xaaaaf620aa30, len=len@entry=32769, idx=idx@entry=0)
+>     at ../qemu-xen-dir-remote/hw/virtio/virtio.c:919
+>     elem=elem@entry=0xaaaaf620aa30, len=32769)
+>     at ../qemu-xen-dir-remote/hw/virtio/virtio.c:994
+>     req=req@entry=0xaaaaf620aa30, status=status@entry=0 '\000')
+>     at ../qemu-xen-dir-remote/hw/block/virtio-blk.c:67
+>     ret=0) at ../qemu-xen-dir-remote/hw/block/virtio-blk.c:136
+>     at ../qemu-xen-dir-remote/block/block-backend.c:1559
+> --Type <RET> for more, q to quit, c to continue without paging--
+>     at ../qemu-xen-dir-remote/block/block-backend.c:1614
+>     i1=<optimized out>) at ../qemu-xen-dir-remote/util/coroutine-ucontext.c:177
+>     at ../sysdeps/unix/sysv/linux/aarch64/setcontext.S:123
+> 
+> Signed-off-by: Peng Fan <peng.fan@nxp.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 417ebe6d1d6052b6cf023332da07558363d7fd08
-baseline version:
- ovmf                 d97f3a1d80fc4880da9726d9a5d7504d3c31da70
+Hi Peng! Many thanks for the patch and for the investigation!
 
-Last test of basis   184438  2024-01-23 16:11:23 Z    0 days
-Testing same since   184441  2024-01-23 21:14:28 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-  levi.yun <yeoreum.yun@arm.com>
-  Nhi Pham <nhi@os.amperecomputing.com>
-  Suqiang Ren <suqiangx.ren@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Only one minor question below
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> ---
+>  hw/xen/xen-mapcache.c | 31 +++++++++++++++++++++++++++++--
+>  1 file changed, 29 insertions(+), 2 deletions(-)
+> 
+> diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+> index f7d974677d..4e1bb665ee 100644
+> --- a/hw/xen/xen-mapcache.c
+> +++ b/hw/xen/xen-mapcache.c
+> @@ -481,11 +481,38 @@ static void xen_invalidate_map_cache_entry_unlocked(uint8_t *buffer)
+>      g_free(entry);
+>  }
+>  
+> -void xen_invalidate_map_cache_entry(uint8_t *buffer)
+> +typedef struct XenMapCacheData {
+> +    Coroutine *co;
+> +    uint8_t *buffer;
+> +    int ret;
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Do we need int ret? It doesn't look like we are using it.
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   d97f3a1d80..417ebe6d1d  417ebe6d1d6052b6cf023332da07558363d7fd08 -> xen-tested-master
+> +} XenMapCacheData;
+> +
+> +static void xen_invalidate_map_cache_entry_bh(void *opaque)
+>  {
+> +    XenMapCacheData *data = opaque;
+> +
+>      mapcache_lock();
+> -    xen_invalidate_map_cache_entry_unlocked(buffer);
+> +    xen_invalidate_map_cache_entry_unlocked(data->buffer);
+>      mapcache_unlock();
+> +
+> +    aio_co_wake(data->co);
+> +}
+> +
+> +void coroutine_mixed_fn xen_invalidate_map_cache_entry(uint8_t *buffer)
+> +{
+> +    if (qemu_in_coroutine()) {
+> +        XenMapCacheData data = {
+> +            .co = qemu_coroutine_self(),
+> +            .buffer = buffer,
+> +        };
+> +        aio_bh_schedule_oneshot(qemu_get_current_aio_context(),
+> +                                xen_invalidate_map_cache_entry_bh, &data);
+> +        qemu_coroutine_yield();
+> +    } else {
+> +        mapcache_lock();
+> +        xen_invalidate_map_cache_entry_unlocked(buffer);
+> +        mapcache_unlock();
+> +    }
+>  }
+>  
+>  void xen_invalidate_map_cache(void)
+> -- 
+> 2.35.3
+> 
 
