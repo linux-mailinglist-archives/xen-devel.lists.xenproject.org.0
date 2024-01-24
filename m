@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE43F83AD86
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:39:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671117.1044292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6E5A83ADA3
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:44:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671126.1044302 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSfLE-0003V6-Fo; Wed, 24 Jan 2024 15:39:04 +0000
+	id 1rSfQE-0005lv-14; Wed, 24 Jan 2024 15:44:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671117.1044292; Wed, 24 Jan 2024 15:39:04 +0000
+Received: by outflank-mailman (output) from mailman id 671126.1044302; Wed, 24 Jan 2024 15:44:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSfLE-0003TM-CZ; Wed, 24 Jan 2024 15:39:04 +0000
-Received: by outflank-mailman (input) for mailman id 671117;
- Wed, 24 Jan 2024 15:39:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bgOV=JC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSfLD-0003TC-Kv
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:39:03 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b2679247-bace-11ee-9b0f-b553b5be7939;
- Wed, 24 Jan 2024 16:39:01 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2cf2adac1ccso6369801fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:39:01 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c14-20020a056602334e00b007bc102fb67asm7117305ioz.10.2024.01.24.07.38.58
+	id 1rSfQD-0005jB-Td; Wed, 24 Jan 2024 15:44:13 +0000
+Received: by outflank-mailman (input) for mailman id 671126;
+ Wed, 24 Jan 2024 15:44:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Zgc/=JC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rSfQC-0005j5-NT
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:44:12 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6b3db283-bacf-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 16:44:11 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40e60e135a7so54832505e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:44:11 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ fs20-20020a05600c3f9400b0040e88fbe051sm25728wmb.48.2024.01.24.07.44.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 07:39:00 -0800 (PST)
+ Wed, 24 Jan 2024 07:44:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,145 +45,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2679247-bace-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 6b3db283-bacf-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706110741; x=1706715541; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1706111051; x=1706715851; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=RJdTcsHHmhCivDIdfqM2GogOA2EJXp4CKFcm36Ko+K8=;
-        b=bbIZZG8XRg/VT273W+J52s9HuiIubxORneyhalRbs+ejGj5d1hdNMuRz+3NJ63+J0h
-         ekluC1mqNH+RCuqwG52VC3D2+suF8PdDv/xHe1ca2MKIw+Z+Zxv/xcbrF3veok+NOpJo
-         fCyOydRnvm+F0pKJp/STGtGg2ZQSAslr4oiXmOEmffVPVUYcnLHstGVMl5L6wQbGAe12
-         B/VV55rLu9myvzU2tPmxDEY7dAy6yiwl0L02ojL7Ek3Evmly/DGyZTfjtLqE1Wi9hwVs
-         yX1cE5JxEhnsPHiKmeU/DwRFe5MNmT23LEJ9CW+RnkEyYg/rsF/yGceSoi7M73H1NUgw
-         jNMQ==
+        bh=bevsPldzJp2EWfjr/PsMBVA92fFKcQKQOrHnPmaRaIc=;
+        b=oEiLGMdek+poMA2U/ZWjOFuEK1kEF31Ur4I7Ijt/IA/M0vmnD52cYUnLIC54TWxyUq
+         HPzGI4nTAFVZEobtIOk+l/P1i2xez+NUMgQnIsCYQ++wvhxcLtmsFogGOoUD4NkksZ8F
+         t/enSGPharqsaG2L4k9VCdR4/KHFBgWFqAGsM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706110741; x=1706715541;
+        d=1e100.net; s=20230601; t=1706111051; x=1706715851;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=RJdTcsHHmhCivDIdfqM2GogOA2EJXp4CKFcm36Ko+K8=;
-        b=xQfexLQ3Tfkzpu7ZbnR7RoVE9EXdBrZUtOnNOPFafSa04q1OuF84ROKlLghrnishM4
-         z7eNiADI5sXe9i6LHdS5JEFgcxNPscaasphEGSphtIi1ECYszWA/Pktsr6drkLAJ985a
-         Y/SrWWtr6hEJgG+F3gqgTFL4EmuVetsvEPMBvYVk8IDXzaOfYg0WrYecSz1RyV7XUNvf
-         xBYbRYi/ESgZpL5Ha5xzDkHvi0U7/miCGjE/t5PaUEp2vuDUzgHGFcNVVKL6YuvNWCwZ
-         xwYiyesfrXLg1osadzG+Cwv9yALbrwf/ScTey+3G1KE1U00Of3HXyckLw62jN8+eWv5m
-         Ns8w==
-X-Gm-Message-State: AOJu0Yxjhv2kFNrSEo++quSOJE/Lfbpi/AA4Ze1/W6tuHS3Qxk25RL5H
-	0FcMEO7j8rg0jre1Jdms1W7GE9KKE85zWNYEtrZa5R2LCymEdZ4Q4BORDt9vog==
-X-Google-Smtp-Source: AGHT+IEdr1koSfnRHgSWbfNM5XoNg93TyHuftmK1c3Fnbm82Plfy98cT1NN+u+W7dQHqGjkum697pA==
-X-Received: by 2002:a2e:9911:0:b0:2cd:633c:55b6 with SMTP id v17-20020a2e9911000000b002cd633c55b6mr865359lji.46.1706110740974;
-        Wed, 24 Jan 2024 07:39:00 -0800 (PST)
-Message-ID: <4a64f394-2c01-44a9-be5b-ffdcb3616cc6@suse.com>
-Date: Wed, 24 Jan 2024 16:38:58 +0100
+        bh=bevsPldzJp2EWfjr/PsMBVA92fFKcQKQOrHnPmaRaIc=;
+        b=vYdsavB6US+G42aTofZ2BRFyTYCBPQMQ+0T6Ll0ggAXDQe7476ueQOQvqSXI3xBJh5
+         kwAJQYLfRa+g/ES67G1F1AkksAVRM2sCq3dX56P01BcGjwoo7/sUkpiz2+/fMY9sLX1M
+         S4R6ML1MTr5Ihw4eTAAL4wCd40pZOKxkpctvBsuyP5c4j8z6T5QndtgPS4PahMvnysND
+         BkrfydDmHVwRUFQPCG+Tvylcjo1pmiOeJoLuIA0mu5n/BM3MEStUGbi4fSciP01KJ58u
+         fvHD7vqPYQbL9jDBANcnXgs3bRnZyQR3D4QMuPyT6u44PTpeL7N/3yw8mmrF8FM9/vRJ
+         t3uA==
+X-Gm-Message-State: AOJu0YzBRdqpSRvp+wp8DgKN1zwetzghb7uWURi6bRg6xiXdTrHkUZnp
+	ZXRfJRsP/BRJn2zmS8B3R9CiwYn1uqM/ULl8CNvUlMbn6mZcgeKBG7F7xpNEmXg=
+X-Google-Smtp-Source: AGHT+IH4lHzcvtSJQDviJI9x85Acv81CmsEHTUZHRJ5D2xigd2fx6tWOF/M3p92g10tPBdG9NKHiEw==
+X-Received: by 2002:a05:600c:354d:b0:40e:af37:547e with SMTP id i13-20020a05600c354d00b0040eaf37547emr1811016wmq.25.1706111050937;
+        Wed, 24 Jan 2024 07:44:10 -0800 (PST)
+Message-ID: <f26ec4af-a524-459a-b907-70985ad5fafd@citrix.com>
+Date: Wed, 24 Jan 2024 15:44:10 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 30/34] xen/riscv: add minimal stuff to processor.h to
- build full Xen
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <5bd7c5db6638f09dabdc13a6e12f0b204eacb234.1703255175.git.oleksii.kurochko@gmail.com>
- <aa4d18c5-a8e0-44a6-ae7e-16fd9cd029b4@suse.com>
- <5f8291916b01a2b29a16bd1345fc20e3d4f29cab.camel@gmail.com>
- <b8f47c93-43c4-4c61-a569-7d07e811c6ab@suse.com>
- <22a0c2444201262202cd60d6d5a1cdff62c236bf.camel@gmail.com>
- <5f6c35ed-de1f-4a47-897d-33ed979b28db@suse.com>
- <3ae77a2a9c37f0ea68ec7641f72f931ffc92f304.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3ae77a2a9c37f0ea68ec7641f72f931ffc92f304.camel@gmail.com>
+Subject: Re: [PATCH] x86/entry: replace two GET_CURRENT() uses
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <3a2345f2-c4a5-4265-b96f-8eed0f193706@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <3a2345f2-c4a5-4265-b96f-8eed0f193706@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.01.2024 16:33, Oleksii wrote:
-> On Wed, 2024-01-24 at 12:27 +0100, Jan Beulich wrote:
->> On 24.01.2024 11:12, Oleksii wrote:
->>> On Wed, 2024-01-24 at 09:19 +0100, Jan Beulich wrote:
->>>> On 23.01.2024 18:08, Oleksii wrote:
->>>>> On Tue, 2024-01-23 at 12:39 +0100, Jan Beulich wrote:
->>>>>> On 22.12.2023 16:13, Oleksii Kurochko wrote:
->>>>>>> @@ -53,6 +56,18 @@ struct cpu_user_regs
->>>>>>>      unsigned long pregs;
->>>>>>>  };
->>>>>>>  
->>>>>>> +/* TODO: need to implement */
->>>>>>> +#define cpu_to_core(cpu)   (0)
->>>>>>> +#define cpu_to_socket(cpu) (0)
->>>>>>> +
->>>>>>> +static inline void cpu_relax(void)
->>>>>>> +{
->>>>>>> +    /* Encoding of the pause instruction */
->>>>>>> +    __asm__ __volatile__ ( ".insn 0x100000F" );
->>>>>>
->>>>>> binutils 2.40 knows "pause" - why use .insn then?
->>>>> I thought that for this instruction it is needed to have
->>>>> extension
->>>>> ZIHINTPAUSE ( according to Linux Kernel source code [1] ) and
->>>>> to
->>>>> cover
->>>>> older version.
->>>>
->>>> Well, of course you'll need to enable the extension then for gas.
->>>> But
->>>> as long as you use the insn unconditionally, that's all fine and
->>>> natural. Another thing would be if you meant to also run on
->>>> systems
->>>> not supporting the extension: Then the above use of .insn would
->>>> need
->>>> to become conditional anyway.
->>> Then it makes sense to use "pause". 
->>> Let's assume that for now we are running only on systems which
->>> support
->>> the extension until we won't face compilation issue for some
->>> system.
->>
->> Gives me the impression that you still don't properly separate the
->> two
->> aspects: One is what systems Xen is to run on, and other is what's
->> needed to make Xen build properly. The first needs documenting (and
->> ideally at some point actually enforcing), while the latter may
->> require
->> e.g. compiler command line option adjustments.
-> I understand that it will be required update "-march=..._zihintpause"
-> and it should be a check that this extension is supported by a
-> toolchain.
-> 
-> But I am not sure that I know how can I enforce that a system should
-> have this extension, and considering Linux kernel implementation which
-> uses always pause instruction, it looks like all available systems
-> support this extension.
+On 24/01/2024 3:23 pm, Jan Beulich wrote:
+> Now that we have %r14 set up using GET_STACK_END() in a number of
+> places, in two places we can eliminate the redundancy of GET_CURRENT()
+> also invoking that macro. In handle_ist_exception() actually go a step
+> farther and avoid using %rbx altogether when retrieving the processor
+> ID: Obtain the current vCPU pointer only in the PV32-specific code
+> actually needing it.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Which is why I said documenting will suffice, at least for now.
-
-Jan
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
