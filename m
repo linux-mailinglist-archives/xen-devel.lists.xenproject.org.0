@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7557783AD23
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:21:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671086.1044231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E686B83AD2D
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:24:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671093.1044242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSf4F-000632-Ss; Wed, 24 Jan 2024 15:21:31 +0000
+	id 1rSf6e-0006vC-90; Wed, 24 Jan 2024 15:24:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671086.1044231; Wed, 24 Jan 2024 15:21:31 +0000
+Received: by outflank-mailman (output) from mailman id 671093.1044242; Wed, 24 Jan 2024 15:24:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSf4F-00060G-Po; Wed, 24 Jan 2024 15:21:31 +0000
-Received: by outflank-mailman (input) for mailman id 671086;
- Wed, 24 Jan 2024 15:21:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rSf6e-0006tL-5P; Wed, 24 Jan 2024 15:24:00 +0000
+Received: by outflank-mailman (input) for mailman id 671093;
+ Wed, 24 Jan 2024 15:23:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bgOV=JC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSf4E-0005y3-R1
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:21:30 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3eb6add8-bacc-11ee-9b0f-b553b5be7939;
- Wed, 24 Jan 2024 16:21:28 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id
- a640c23a62f3a-a2e0be86878so1248754366b.1
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:21:28 -0800 (PST)
+ id 1rSf6c-0006tB-Fo
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:23:58 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 978b6f0e-bacc-11ee-98f5-6d05b1d4d9a1;
+ Wed, 24 Jan 2024 16:23:57 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2cdeb954640so67458931fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:23:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g14-20020a056638060e00b0046e80c50d73sm4012598jar.22.2024.01.24.07.21.26
+ h3-20020a05660224c300b007ba7365ef13sm7073466ioe.51.2024.01.24.07.23.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 07:21:27 -0800 (PST)
+ Wed, 24 Jan 2024 07:23:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3eb6add8-bacc-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 978b6f0e-bacc-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706109688; x=1706714488; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706109837; x=1706714637; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=NHbry3mGxalDD+ohiGv55543evF0oBb72dJrX/9cbxU=;
-        b=g0eQMNi3nwJak5DAYfp3KYdYGMj/TDMcShmuUo6tVFcp5+x+6flM41sYK6QX1Zr0V1
-         vszjOQXt7YxOHh6uD7TKZ2LGeIJZRzx8hdzslB+NQ8TyXO1fcIQfjtaaxxaGbmYN3wOW
-         mmHEiqOJNvWVBMHU4/nmjrc/bO/Px99Je8wugYyRgV6NhNQbVI/xKeX7ZNoL8d7sOwOx
-         /S5Wnl+BS0is995wZ9TNv2S90K0cCl1D2NyGJa773SJM82vwjnKeYxL5j7PLhQZvM4Yw
-         2G07mZhFEvUzPJ0ns0GV/PI6QivjLaxrm4zf77zsCtKTcWcQUVFJrQJpxiJYDAeI/xnH
-         laSw==
+        bh=HiFe89OlB0ztEDTTtlTEcBTLBXtT94hlr0TSVcs2b+E=;
+        b=Lfww/1dBJdRPTxMjVxJGyhI8jWzmlbnt5r4814+o32lEUiYXvY977f3robu2KLa3pq
+         H0iNS7YPdwpPkkriDHRfr/ivk53CFuLXaMuCZHa/k3A/h25v8pDCRtTxPIL9KjsRDFTe
+         4LlVEXm5T+oeBS/0GqseYpeFk7rcXh3FH4WFgWRIdgbg/Xlq9kvrRRJyy2+vJ86Z+L4f
+         c43cmxiZz3IBqvS+hyYOu1vilvXPsRdr6C7yGr5jHNLzP2m2N+PCp/k4Ean3UAYt5vnu
+         5pUFD3IehfHcW0nJ7WjFaW64nVTcxY62NwdkAcU/wZs5sMnHhvz+WeH6pZOZpGaTRx4E
+         3hJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706109688; x=1706714488;
+        d=1e100.net; s=20230601; t=1706109837; x=1706714637;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=NHbry3mGxalDD+ohiGv55543evF0oBb72dJrX/9cbxU=;
-        b=RCfAECMgoyYD5XhH/1sdNA28oO9uvfGtdmmLEm3bOzUct1RfZFW6NgjjDjPEkxxzIu
-         kKMM7mybEzDP4gWJqewW4k+sv13aws7kxqTIWANe2WJoV4efq7VYrJ/2cBqoSRvHeY2n
-         qWpQVeIz9WdG5XgCdnKnXGkBqPrNwswoF7uK/3GYF8oix/c0/ahYNTz2jLAkP3O3gnmq
-         gg5oYhgLmoWzRknqbBM0peWkKIGh88m0hTpbT8xBR+eCUfHaNaffGAdJn1nSb931ktIU
-         2KYhxDQUykB3bZe9dBJgiXNH6PP0ZptnlzCpKiavTAJykZ0b6YKLSdvglgTaSX04QWww
-         PhOg==
-X-Gm-Message-State: AOJu0YzMRd47w9sAjgzrUQEJXvhLXWjnnDrbl63e46xBT7LDgXdWS59z
-	kumecMocX/6e1IwZdmrlx0K+F4mE3zdJ9tnw5BY3OFMzk4A+xaRcUOU5dvrKxxh2fyAOirIvN6o
+        bh=HiFe89OlB0ztEDTTtlTEcBTLBXtT94hlr0TSVcs2b+E=;
+        b=aRkw42QDFjgMneVzzdiMIOzMykWTf2+rn4MELR/rlbfgd0MxdvOt8oE93JY3/Avlca
+         Yc8YwMOI5vgdBJrlt4+mdAyY5nvEGNO2zfnRyOC0vHqb4J13YYiTaFaLabMIJBSl+zXt
+         f9ZmEHf0ac4TN1Y7hgwfrQI6R0Kc1rRi38OeER5FHQnaXIY5R9gY6nMGL88BQzWuNjRZ
+         CjHzLxZFayFNs03St+81nlwNWGt3bfMGSu5l1CQghtvn6yA1vy5sUs6aLzJa/CsxPSwy
+         UYy4fil4Ge/6WzUByksGFfYmUrVJAsT9HOAvwcKEe9v0NFTvjbdtU1LJJPFFFeaJbgD/
+         0IOQ==
+X-Gm-Message-State: AOJu0YwJ+a4iadt8Qx1mC+/IHd3RsFk3FAJPG1AEm2hEYvXnOS7BHN4H
+	kyTXMdLHJEKHdva/pvU+8hNHhfqZLukL0XpVfjYbJaDUnSUPZYNllo1uze9QCgO3KBVhaUWZWAo
 	=
-X-Google-Smtp-Source: AGHT+IGFAWesxPFXDEhnQFwicGj5Lqr8yL+IrGWtPHfdfw/eLrxDtZeWMLnBeixehsMhO4ra2PppNA==
-X-Received: by 2002:a17:906:51a:b0:a26:f7ea:7cb6 with SMTP id j26-20020a170906051a00b00a26f7ea7cb6mr1539539eja.16.1706109687954;
-        Wed, 24 Jan 2024 07:21:27 -0800 (PST)
-Message-ID: <87108f1d-4b13-4c1e-9432-4f14d4f5c12d@suse.com>
-Date: Wed, 24 Jan 2024 16:21:24 +0100
+X-Google-Smtp-Source: AGHT+IGV+ClFAcCU/Sm/fLZ72mgavjoi7hja4VvglCxK6aPfBpO4QKyje84qoTmeX8vOOxmYbq3BSQ==
+X-Received: by 2002:a2e:80d9:0:b0:2cd:3487:9a05 with SMTP id r25-20020a2e80d9000000b002cd34879a05mr824693ljg.88.1706109836883;
+        Wed, 24 Jan 2024 07:23:56 -0800 (PST)
+Message-ID: <3a2345f2-c4a5-4265-b96f-8eed0f193706@suse.com>
+Date: Wed, 24 Jan 2024 16:23:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -85,7 +85,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/NMI: refine "watchdog stuck" log message
+Subject: [PATCH] x86/entry: replace two GET_CURRENT() uses
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -112,61 +112,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Observing
-
-"Testing NMI watchdog on all CPUs: 0 stuck"
-
-it felt like it's not quite right, but I still read it as "no CPU stuck;
-all good", when really the system suffered from what 6bdb965178bb
-("x86/intel: ensure Global Performance Counter Control is setup
-correctly") works around. Convert this to
-
-"Testing NMI watchdog on all CPUs: {0} stuck"
-
-or, with multiple CPUs having an issue, e.g.
-
-"Testing NMI watchdog on all CPUs: {0,40} stuck"
-
-to make more obvious that a lone number is not a count of CPUs.
+Now that we have %r14 set up using GET_STACK_END() in a number of
+places, in two places we can eliminate the redundancy of GET_CURRENT()
+also invoking that macro. In handle_ist_exception() actually go a step
+farther and avoid using %rbx altogether when retrieving the processor
+ID: Obtain the current vCPU pointer only in the PV32-specific code
+actually needing it.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-In principle "sep" could also fulfill the job of "ok"; it felt to me as
-if this may not be liked very much, though.
 
---- a/xen/arch/x86/nmi.c
-+++ b/xen/arch/x86/nmi.c
-@@ -167,13 +167,14 @@ static void __init cf_check wait_for_nmi
- void __init check_nmi_watchdog(void)
- {
-     static unsigned int __initdata prev_nmi_count[NR_CPUS];
--    int cpu;
-+    unsigned int cpu;
-+    char sep = '{';
-     bool ok = true;
+--- a/xen/arch/x86/x86_64/asm-offsets.c
++++ b/xen/arch/x86/x86_64/asm-offsets.c
+@@ -118,6 +118,7 @@ void __dummy__(void)
+ #endif
  
-     if ( nmi_watchdog == NMI_NONE )
-         return;
+     OFFSET(CPUINFO_guest_cpu_user_regs, struct cpu_info, guest_cpu_user_regs);
++    OFFSET(CPUINFO_processor_id, struct cpu_info, processor_id);
+     OFFSET(CPUINFO_verw_sel, struct cpu_info, verw_sel);
+     OFFSET(CPUINFO_current_vcpu, struct cpu_info, current_vcpu);
+     OFFSET(CPUINFO_per_cpu_offset, struct cpu_info, per_cpu_offset);
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -749,7 +749,7 @@ FUNC(handle_exception, 0)
+ .Lxcpt_cr3_okay:
  
--    printk("Testing NMI watchdog on all CPUs:");
-+    printk("Testing NMI watchdog on all CPUs: ");
+ handle_exception_saved:
+-        GET_CURRENT(bx)
++        mov   STACK_CPUINFO_FIELD(current_vcpu)(%r14), %rbx
+         testb $X86_EFLAGS_IF>>8,UREGS_eflags+1(%rsp)
+         jz    exception_with_ints_disabled
  
-     for_each_online_cpu ( cpu )
-         prev_nmi_count[cpu] = per_cpu(nmi_count, cpu);
-@@ -189,12 +190,13 @@ void __init check_nmi_watchdog(void)
-     {
-         if ( per_cpu(nmi_count, cpu) - prev_nmi_count[cpu] < 2 )
-         {
--            printk(" %d", cpu);
-+            printk("%c%u", sep, cpu);
-+            sep = ',';
-             ok = false;
-         }
-     }
- 
--    printk(" %s\n", ok ? "ok" : "stuck");
-+    printk("%s\n", ok ? "ok" : "} stuck");
- 
-     /*
-      * Now that we know it works we can reduce NMI frequency to
+@@ -1128,9 +1128,8 @@ handle_ist_exception:
+ #ifdef CONFIG_PV
+         testb $3,UREGS_cs(%rsp)
+         jz    restore_all_xen
+-        GET_CURRENT(bx)
+         /* Send an IPI to ourselves to cover for the lack of event checking. */
+-        movl  VCPU_processor(%rbx),%eax
++        mov   STACK_CPUINFO_FIELD(processor_id)(%r14), %eax
+         shll  $IRQSTAT_shift,%eax
+         leaq  irq_stat+IRQSTAT_softirq_pending(%rip),%rcx
+         cmpl  $0,(%rcx,%rax,1)
+@@ -1139,6 +1138,7 @@ handle_ist_exception:
+         call  send_IPI_self
+ 1:
+ #ifdef CONFIG_PV32
++        mov   STACK_CPUINFO_FIELD(current_vcpu)(%r14), %rbx
+         movq  VCPU_domain(%rbx),%rax
+         cmpb  $0,DOMAIN_is_32bit_pv(%rax)
+         je    restore_all_guest
 
