@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6E5A83ADA3
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:44:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671126.1044302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C321283ADBE
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:49:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671131.1044311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSfQE-0005lv-14; Wed, 24 Jan 2024 15:44:14 +0000
+	id 1rSfVT-0007EQ-MC; Wed, 24 Jan 2024 15:49:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671126.1044302; Wed, 24 Jan 2024 15:44:13 +0000
+Received: by outflank-mailman (output) from mailman id 671131.1044311; Wed, 24 Jan 2024 15:49:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSfQD-0005jB-Td; Wed, 24 Jan 2024 15:44:13 +0000
-Received: by outflank-mailman (input) for mailman id 671126;
- Wed, 24 Jan 2024 15:44:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rSfVT-0007Bi-JV; Wed, 24 Jan 2024 15:49:39 +0000
+Received: by outflank-mailman (input) for mailman id 671131;
+ Wed, 24 Jan 2024 15:49:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Zgc/=JC=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rSfQC-0005j5-NT
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:44:12 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b3db283-bacf-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 16:44:11 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40e60e135a7so54832505e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:44:11 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- fs20-20020a05600c3f9400b0040e88fbe051sm25728wmb.48.2024.01.24.07.44.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 07:44:10 -0800 (PST)
+ <SRS0=A7cU=JC=citrix.com=prvs=74624b4f2=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1rSfVR-0007Bc-FS
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:49:37 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2a8741b2-bad0-11ee-9b0f-b553b5be7939;
+ Wed, 24 Jan 2024 16:49:34 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,101 +36,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b3db283-bacf-11ee-98f5-6d05b1d4d9a1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706111051; x=1706715851; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=bevsPldzJp2EWfjr/PsMBVA92fFKcQKQOrHnPmaRaIc=;
-        b=oEiLGMdek+poMA2U/ZWjOFuEK1kEF31Ur4I7Ijt/IA/M0vmnD52cYUnLIC54TWxyUq
-         HPzGI4nTAFVZEobtIOk+l/P1i2xez+NUMgQnIsCYQ++wvhxcLtmsFogGOoUD4NkksZ8F
-         t/enSGPharqsaG2L4k9VCdR4/KHFBgWFqAGsM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706111051; x=1706715851;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=bevsPldzJp2EWfjr/PsMBVA92fFKcQKQOrHnPmaRaIc=;
-        b=vYdsavB6US+G42aTofZ2BRFyTYCBPQMQ+0T6Ll0ggAXDQe7476ueQOQvqSXI3xBJh5
-         kwAJQYLfRa+g/ES67G1F1AkksAVRM2sCq3dX56P01BcGjwoo7/sUkpiz2+/fMY9sLX1M
-         S4R6ML1MTr5Ihw4eTAAL4wCd40pZOKxkpctvBsuyP5c4j8z6T5QndtgPS4PahMvnysND
-         BkrfydDmHVwRUFQPCG+Tvylcjo1pmiOeJoLuIA0mu5n/BM3MEStUGbi4fSciP01KJ58u
-         fvHD7vqPYQbL9jDBANcnXgs3bRnZyQR3D4QMuPyT6u44PTpeL7N/3yw8mmrF8FM9/vRJ
-         t3uA==
-X-Gm-Message-State: AOJu0YzBRdqpSRvp+wp8DgKN1zwetzghb7uWURi6bRg6xiXdTrHkUZnp
-	ZXRfJRsP/BRJn2zmS8B3R9CiwYn1uqM/ULl8CNvUlMbn6mZcgeKBG7F7xpNEmXg=
-X-Google-Smtp-Source: AGHT+IH4lHzcvtSJQDviJI9x85Acv81CmsEHTUZHRJ5D2xigd2fx6tWOF/M3p92g10tPBdG9NKHiEw==
-X-Received: by 2002:a05:600c:354d:b0:40e:af37:547e with SMTP id i13-20020a05600c354d00b0040eaf37547emr1811016wmq.25.1706111050937;
-        Wed, 24 Jan 2024 07:44:10 -0800 (PST)
-Message-ID: <f26ec4af-a524-459a-b907-70985ad5fafd@citrix.com>
-Date: Wed, 24 Jan 2024 15:44:10 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/entry: replace two GET_CURRENT() uses
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <3a2345f2-c4a5-4265-b96f-8eed0f193706@suse.com>
+X-Inumbo-ID: 2a8741b2-bad0-11ee-9b0f-b553b5be7939
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1706111372;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=/Ks0Tz6y1kJHaOSNrHjkYGWTxSUYLTBOLahsv0s7EdI=;
+  b=BPCW0Gb3c5Rk+Cn50Eev6KZHKdCJMLISeRsC0M4v/56/PVgA8oq0k+Oy
+   JUyQDgNIqMRj1NM/WHjWz6sogV9oRW3+0jCtw7BMb1P8bPBljRQRYbnnF
+   WUSAwa19i/KrBWzVEBMp4g/Okxktm0nAD6inniTigi/Je93kBZkOpdpj4
+   A=;
+X-CSE-ConnectionGUID: ucEQqUatSFKl2NPySWASpw==
+X-CSE-MsgGUID: X4c0d06oSxqT0Ma6LMJJxg==
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 129634936
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.159.70
+X-Policy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:q/xzEKyVI0hgSPl4vZN6t+dzxirEfRIJ4+MujC+fZmUNrF6WrkUPz
+ WtNXm2FM/mCajSkctF/aNjioxkD65eGzYNlTgo4rCAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjPzOHvykTrecZkidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw/zF8E4HUMja4mtC4gRnP6wT5TcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KXxF2
+ MUBFTkRVT6gg7iQ+KOAdcBXntt2eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
+ ZBAL2MyPVKfO3WjOX9OYH46tM6uimPybHtzr1WNqLBsy2PS0BZwwP7mN9+9ltmiHJ8EwB3E9
+ zmYl4j/KiFGP4STkWSCyWK1urfqlH3ffaAwBLLto5aGh3XMnzdOWXX6T2CTsfS/z0KzRd9bA
+ 0gV4TY167g/8lSxSdvwVAH+p2SL1jY+cddNF+wx6CmW17HZpQ2eAwAsUTppeNEg8sgsSlQXO
+ kShxo2zQ2Y16fvMFCPbqe/8QS6O1TY9MGQvXDY5RBc+zfrn+qcLnynwZ+17D/vg5jHqIg0c0
+ wxmvQBn2O1N1JZSiv/klW0rlQ5AsXQgc+LU2uk0djj8hu+BTNT5D7FEEHCChRq6EK6XT0Oao
+ F8PkNWE4eYFAPmlzXPVHr1WQevwvqrbaFUwZGKD+LF4qVyQF4OLJ9gMsFmS2m83Wir7RdMZS
+ BCK4l4AjHOiFHCrcbV2c+qMNije9oC5TY6NfqmNPrJzjm1ZKFfvENdGORTBgAgAUSEEzckCB
+ HtsWZzyVyhCV/g7nWHeqiV0+eZD+x3SDFj7HfjTpylLG5LHDJJJYd/p6GezU90=
+IronPort-HdrOrdr: A9a23:+cmPZKu47Aatkd7d6esc9kh67skDetV00zEX/kB9WHVpmszxra
+ 6TdZMgpHjJYVcqKRUdcL+7WJVoLUmxyXcX2/h1AV7BZniEhILAFugLhuGO/9SJIVyZygc378
+ ZdmsZFZ+EYdWIK7/rH3A==
+X-Talos-CUID: 9a23:URkREG2nw4ya8kZJnW/ik7xfB8sIS2TgxWvrDWy8U0BRWYaqYGSI5/Yx
+X-Talos-MUID: =?us-ascii?q?9a23=3A4t3lOA7lrRnegwBJMVuQLjWXxoxYv6/2BBhTlq4?=
+ =?us-ascii?q?WovXcECUuHxK/riS4F9o=3D?=
+X-IronPort-AV: E=Sophos;i="6.05,216,1701147600"; 
+   d="scan'208";a="129634936"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <3a2345f2-c4a5-4265-b96f-8eed0f193706@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/entry: Avoid register spilling in cr4_pv32_restore()
+Date: Wed, 24 Jan 2024 15:49:28 +0000
+Message-ID: <20240124154928.2147423-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 24/01/2024 3:23 pm, Jan Beulich wrote:
-> Now that we have %r14 set up using GET_STACK_END() in a number of
-> places, in two places we can eliminate the redundancy of GET_CURRENT()
-> also invoking that macro. In handle_ist_exception() actually go a step
-> farther and avoid using %rbx altogether when retrieving the processor
-> ID: Obtain the current vCPU pointer only in the PV32-specific code
-> actually needing it.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+cr4_pv32_restore() needs two registers.  Right now, it spills %rdx and
+clobbers %rax.
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+However, %rcx is free to use at all callsites.  Annotate CR4_PV32_RESTORE with
+our usual clobber comments, and swap %rdx for %rcx in the non-fatal paths
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+
+I suspect we can further improve this by using %r14 rather than
+GET_CPUINFO_FIELD(), but I'll leave that to a future change.
+---
+ xen/arch/x86/x86_64/compat/entry.S | 17 +++++++----------
+ xen/arch/x86/x86_64/entry.S        |  8 ++++----
+ 2 files changed, 11 insertions(+), 14 deletions(-)
+
+diff --git a/xen/arch/x86/x86_64/compat/entry.S b/xen/arch/x86/x86_64/compat/entry.S
+index 49811a56e965..d4f0e4804090 100644
+--- a/xen/arch/x86/x86_64/compat/entry.S
++++ b/xen/arch/x86/x86_64/compat/entry.S
+@@ -23,7 +23,7 @@ FUNC(entry_int82)
+ 
+         sti
+ 
+-        CR4_PV32_RESTORE
++        CR4_PV32_RESTORE /* Clob: ac */
+ 
+         GET_CURRENT(bx)
+ 
+@@ -163,17 +163,15 @@ FUNC(compat_restore_all_guest)
+         _ASM_PRE_EXTABLE(.Lft0, handle_exception)
+ END(compat_restore_all_guest)
+ 
+-/* This mustn't modify registers other than %rax. */
++/* Callers can cope with both %rax and %rcx being clobbered. */
+ FUNC(cr4_pv32_restore)
+-        push  %rdx
+-        GET_CPUINFO_FIELD(cr4, dx)
+-        mov   (%rdx), %rax
++        GET_CPUINFO_FIELD(cr4, cx)
++        mov   (%rcx), %rax
+         test  $XEN_CR4_PV32_BITS, %eax
+         jnz   0f
+         or    cr4_pv32_mask(%rip), %rax
+         mov   %rax, %cr4
+-        mov   %rax, (%rdx)
+-        pop   %rdx
++        mov   %rax, (%rcx)
+         ret
+ 0:
+ #ifndef NDEBUG
+@@ -191,7 +189,6 @@ FUNC(cr4_pv32_restore)
+         BUG
+ 1:
+ #endif
+-        pop   %rdx
+         xor   %eax, %eax
+         ret
+ END(cr4_pv32_restore)
+@@ -227,7 +224,7 @@ UNLIKELY_END(compat_syscall_gpf)
+ END(compat_syscall)
+ 
+ FUNC(compat_sysenter)
+-        CR4_PV32_RESTORE
++        CR4_PV32_RESTORE /* Clob: ac */
+         movq  VCPU_trap_ctxt(%rbx),%rcx
+         cmpb  $X86_EXC_GP, UREGS_entry_vector(%rsp)
+         movzwl VCPU_sysenter_sel(%rbx),%eax
+@@ -242,7 +239,7 @@ FUNC(compat_sysenter)
+ END(compat_sysenter)
+ 
+ FUNC(compat_int80_direct_trap)
+-        CR4_PV32_RESTORE
++        CR4_PV32_RESTORE /* Clob: ac */
+         call  compat_create_bounce_frame
+         jmp   compat_test_all_events
+ END(compat_int80_direct_trap)
+diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
+index c3f6b667a72a..6c53c0091168 100644
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -309,7 +309,7 @@ FUNC(cstar_enter)
+ .Lcstar_cr3_okay:
+         sti
+ 
+-        CR4_PV32_RESTORE
++        CR4_PV32_RESTORE /* Clob: ac */
+ 
+         movq  STACK_CPUINFO_FIELD(current_vcpu)(%rbx), %rbx
+ 
+@@ -712,7 +712,7 @@ FUNC(common_interrupt)
+         cmovnz %r12d, %ebx
+ .Lintr_cr3_okay:
+ 
+-        CR4_PV32_RESTORE
++        CR4_PV32_RESTORE /* Clob: ac */
+         movq %rsp,%rdi
+         callq do_IRQ
+         mov   %r15, STACK_CPUINFO_FIELD(xen_cr3)(%r14)
+@@ -762,7 +762,7 @@ handle_exception_saved:
+         jz    .Lcr4_pv32_done
+         cmpb  $0,DOMAIN_is_32bit_pv(%rax)
+         je    .Lcr4_pv32_done
+-        call  cr4_pv32_restore
++        call  cr4_pv32_restore /* Clob: ac */
+         /*
+          * An NMI or #MC may occur between clearing CR4.SMEP / CR4.SMAP in
+          * compat_restore_all_guest and it actually returning to guest
+@@ -1046,7 +1046,7 @@ FUNC(handle_ist_exception)
+ .List_cr3_okay:
+ 
+ #ifdef CONFIG_PV
+-        CR4_PV32_RESTORE
++        CR4_PV32_RESTORE /* Clob: ac */
+         testb $3,UREGS_cs(%rsp)
+         jz    1f
+         /*
+
+base-commit: 98ae35cab0e40e59963f9f58345bf378b9522d74
+-- 
+2.30.2
+
 
