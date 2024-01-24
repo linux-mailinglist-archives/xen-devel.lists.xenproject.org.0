@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21AD483A412
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 09:23:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.670764.1043755 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1140A83A415
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 09:24:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.670766.1043766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSYXc-00051j-Ly; Wed, 24 Jan 2024 08:23:24 +0000
+	id 1rSYY3-0005Y3-Vv; Wed, 24 Jan 2024 08:23:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 670764.1043755; Wed, 24 Jan 2024 08:23:24 +0000
+Received: by outflank-mailman (output) from mailman id 670766.1043766; Wed, 24 Jan 2024 08:23:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSYXc-0004zh-Iq; Wed, 24 Jan 2024 08:23:24 +0000
-Received: by outflank-mailman (input) for mailman id 670764;
- Wed, 24 Jan 2024 08:23:23 +0000
+	id 1rSYY3-0005Uu-S5; Wed, 24 Jan 2024 08:23:51 +0000
+Received: by outflank-mailman (input) for mailman id 670766;
+ Wed, 24 Jan 2024 08:23:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bgOV=JC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSYXb-0004zS-3X
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 08:23:23 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=V3ap=JC=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rSYY2-0004zS-3C
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 08:23:50 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d592c1a7-ba91-11ee-9b0f-b553b5be7939;
- Wed, 24 Jan 2024 09:23:21 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2cf206e4d56so3357041fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 00:23:21 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- b17-20020a026f51000000b0046ebc973227sm3301326jae.147.2024.01.24.00.23.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 00:23:20 -0800 (PST)
+ id e5cd737d-ba91-11ee-9b0f-b553b5be7939;
+ Wed, 24 Jan 2024 09:23:48 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40e60e137aaso56909045e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 00:23:48 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ q4-20020adfab04000000b00337d603fd01sm15139816wrc.66.2024.01.24.00.23.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 24 Jan 2024 00:23:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,106 +44,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d592c1a7-ba91-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: e5cd737d-ba91-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706084601; x=1706689401; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kQWS33Fiea3Nb95RU7aDCCT7AN5Bju0X0QtjG/gLrkI=;
-        b=cg6G+zgkqgfUuiH04HzsRbdZsvyvBlWN4icQhs3UnfwdN1j1C1PptvCgvFm+uy8otH
-         fhbxbHcP3O9XTH5USp4eJ/odT3Ee6dPd1izJjYbA1vS+X7mRrdLpBBAVPuiFaCzhAR7l
-         VdLH42uCkPsnvc4lW8W/Ed8U2ehZZQLXDU5igG6PSeyEXy1W7LfYv/pgs8n4JYlLEk3e
-         1gS2P3PTNgmdqN/rpl8qBj26gSewROiO2oSAvyTfDEinKdbvjvXfZ4oqRX+naxIXaOBO
-         06qaDifJQDQ3H1SeJXXC5BubmzSsdLw6mzxGj7upxKHlGvkejMrcbALeIRqNeLvPDrV9
-         zuKA==
+        d=citrix.com; s=google; t=1706084628; x=1706689428; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=sMTmGFnBSW53su+bP0T0HtTbdX+NNUS1jw36GND5eYk=;
+        b=wLN1NPDoaKzA5rdsS+V2YHEMkQ9CV2YFsRTjbDKkTZwvDZpGjeRdpUjVUhTmd6gwol
+         kC1o7UuvrVu0VtDs6clQuumTG4422CH7xy2iz3IVtvndgHfZoUV4COMAlr6TGrCU3QzL
+         Trw/NRDVW/COP11x/I/C7K7VDpTsDGscdJp+8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706084601; x=1706689401;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1706084628; x=1706689428;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kQWS33Fiea3Nb95RU7aDCCT7AN5Bju0X0QtjG/gLrkI=;
-        b=YY4exFbcuaLueQRx85NId8XpSHO4YVl4l64blGhRHa91nMiq00GMxq1/GbQYYyVu+m
-         RFRMcoxi3RnBhHEHlwz/qvnsoP9gBuPYuRns/bVSAqFTcB9Fk2RfjQz2OQ/A5WDaQ127
-         r0x6Pzc7p7UFVQYz17F8hUpQy5PejLsAPQiviob7ZYD/Y38mEmytbeGANpTG3RBWrhav
-         hO+guZCTG59szIFX0KzgeB2mmZUKkN3jYXaQePhgLosuv+Y6pyxWi9ko8+230G+42LPM
-         bwcSjH4HSU4wUXl0CbJcPZNsGOuBkIlyL60tkpAqwqyACvpNr0P9KfNgIdvbIlLcUbss
-         rD2A==
-X-Gm-Message-State: AOJu0Yw1wH+zBwR6egJFNDmeAIvct0pEpdRQ63TosV8omF7G6lpj8HGM
-	RWKI80EWiv9exDYjCQ+omhQZnD2cD1qi4/vfBwtmQWotzyLPI8xA3c+o5oM26mmpDjiz5utHqeU
-	=
-X-Google-Smtp-Source: AGHT+IFEzP4wFIIJ/hILEMqS/7sBmRs1+eSkOv7e1HRdQDZaEhfTHrx/Y6qafHI92obxcE3L8qLFBA==
-X-Received: by 2002:a2e:b889:0:b0:2cf:1c9c:a43b with SMTP id r9-20020a2eb889000000b002cf1c9ca43bmr438612ljp.18.1706084600782;
-        Wed, 24 Jan 2024 00:23:20 -0800 (PST)
-Message-ID: <bb1bcfe9-333f-4e7b-b4a8-3d376931985e@suse.com>
-Date: Wed, 24 Jan 2024 09:23:17 +0100
+        bh=sMTmGFnBSW53su+bP0T0HtTbdX+NNUS1jw36GND5eYk=;
+        b=RU9W2Bfxno/aHk3/GcxRvy169UOSjNHDbzJBAgPVMXllhqHgBtbrrHQOYxBvBEi8Ai
+         4LuLFEw3m2ExNv8zs0nzgquF422OrLu5RbOqoIp3Zsq7bRatpRodDUb1fGpX71PEfZ53
+         GK1CynDUr/oYSTcEkInIlRaD1sUkOLgXmvCpD9ByowyU4tHtMcHQyNXonJGrxchrqtCp
+         OG1W3RauMCx4NH9Ef7YFjh5L5tIpOBWhW3wky/NYCh5EwkbGK8QwBYmNpqz0ptMb1xTS
+         jTJn3uURMnBGJZ88isYizcsEzHb6Gyd3kgkDtEEY0BO+8FJfY9X1df4hvh96gHOF9z1e
+         8qIA==
+X-Gm-Message-State: AOJu0YzyBr+fzR/SOQwnftYX2kabGAjOc6z81WWBnoxx+wBha2lUn9yh
+	vPBGnRm2VfZmYxFdjquC4OwnmzZhHAMJLpYwACy5sKuIOFanQNeUV60jGyEtomWCD4ITlRTBnrE
+	R
+X-Google-Smtp-Source: AGHT+IG63QNj63g37SiP7EfxFvXpxHw5WerdYpBTDDcJ3BVjaJ9muCu1C+pPSHomHhDb5sXcNMKjWg==
+X-Received: by 2002:a05:600c:3b04:b0:40e:bfba:5c0d with SMTP id m4-20020a05600c3b0400b0040ebfba5c0dmr1165714wms.171.1706084627943;
+        Wed, 24 Jan 2024 00:23:47 -0800 (PST)
+Date: Wed, 24 Jan 2024 09:23:47 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Patrick Plenefisch <simonpatp@gmail.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
+	Juergen Gross <jgross@suse.com>, Huang Rui <ray.huang@amd.com>,
+	Jiqian Chen <Jiqian.Chen@amd.com>
+Subject: Re: ACPI VFCT table too short on PVH dom0 (was: Re: E820 memory
+ allocation issue on Threadripper platforms)
+Message-ID: <ZbDJE-tMhnQoXkPK@macbook>
+References: <fa23a590-5869-4e11-8998-1d03742c5919@suse.com>
+ <CAOCpoWf4CMkCWx8uR2NbFrZrKSS78wj1-hFsAUqsjCfsmqooVA@mail.gmail.com>
+ <Zajg1O7Z52VTBq31@macbook>
+ <CAOCpoWeO9h7b_CjJb9jtKaEUVv_=XDSVkr55QSg3ArFc4n8G2w@mail.gmail.com>
+ <ZajzcpArQYQhdj3T@macbook>
+ <ZakcdfS3UwEb0oh2@macbook>
+ <CAOCpoWdL3YnpitZxEoFgdvtZ6juy8oykYj6fX_tv4QLvj2Fv0g@mail.gmail.com>
+ <ZapXoOKdhWgJFxbF@macbook>
+ <CAOCpoWccvC91FiJr_MpVxXYqOfZxAn6bKkr6vQG+6p4WbxT03A@mail.gmail.com>
+ <CAOCpoWf0pfp72=X9iqziP+uVkLwB0HRp3gvQhPOsHWEtFzZgVA@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 31/34] xen/riscv: add minimal stuff to mm.h to build
- full Xen
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
- <4411f6af38586074b347cd6005f19f9c670faa74.1703255175.git.oleksii.kurochko@gmail.com>
- <d347c4d9-e93b-4937-8e33-e5fbbdcd6bfb@suse.com>
- <7ba286f9f1255cbf5c0957f0a0a92e5e18f2bc8d.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7ba286f9f1255cbf5c0957f0a0a92e5e18f2bc8d.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOCpoWf0pfp72=X9iqziP+uVkLwB0HRp3gvQhPOsHWEtFzZgVA@mail.gmail.com>
 
-On 23.01.2024 18:27, Oleksii wrote:
-> On Tue, 2024-01-23 at 14:03 +0100, Jan Beulich wrote:
->> On 22.12.2023 16:13, Oleksii Kurochko wrote:
->>> +#define _PGC_extra        PG_shift(10)
->>> +#define PGC_extra         PG_mask(1, 10)
->>> +
->>> +#define is_xen_heap_page(page) ((page)->count_info & PGC_xen_heap)
->>> +#define is_xen_heap_mfn(mfn) \
->>> +    (mfn_valid(mfn) && is_xen_heap_page(mfn_to_page(mfn)))
->>> +
->>> +#define is_xen_fixed_mfn(mfn)                                   \
->>> +    ((mfn_to_maddr(mfn) >= virt_to_maddr(&_start)) &&           \
->>> +     (mfn_to_maddr(mfn) <= virt_to_maddr((vaddr_t)_end - 1)))
->>
->> Why does _start need prefixing wuth & and _end prefixing with a cast?
->> First and foremost both want to be consistent. And then preferably
->> with as little extra clutter as possible.
-> This is how it was defined in Arm. I think it both can be casted.
-> I'll update that.
+On Tue, Jan 23, 2024 at 08:27:18PM -0500, Patrick Plenefisch wrote:
+> On Sat, Jan 20, 2024 at 8:33 PM Patrick Plenefisch <simonpatp@gmail.com>
+> wrote:
+> 
+> >
+> >
+> > On Fri, Jan 19, 2024 at 6:06 AM Roger Pau Monné <roger.pau@citrix.com>
+> > wrote:
+> >
+> >> On Fri, Jan 19, 2024 at 02:44:35AM -0500, Patrick Plenefisch wrote:
+> >> > On Thu, Jan 18, 2024 at 7:41 AM Roger Pau Monné <roger.pau@citrix.com>
+> >> > wrote:
+> >> >
+> >> > >
+> >> > > From that environment (PVH dom0) can you see if you can dump the
+> >> > > contents of the VFCT table?  I don't have a system with that table, so
+> >> > > not sure if this will work (because iasl is unlikely to know how to
+> >> > > decode it):
+> >> > >
+> >> > > # acpidump -n VFCT -o table.dump
+> >> > > # acpixtract -a table.dump
+> >> > > # iasl -d vfct.dat
+> >> > > # cat vfct.dsl
+> >> > >
+> >> > > Would be good if you can compare the output from what you get on a PV
+> >> > > dom0 or when running native Linux.
+> >> > >
+> >> > > I'm also adding some AMD folks, as IIRC they did some fixes to Linux
+> >> > > in order to get some AMD graphics cards running on a PVH dom0, maybe
+> >> > > they can provide some additional input.
+> >> > >
+> >> > >
+> >> > Well, this is pretty weird. I'll go into more details because it may be
+> >> > relevant.
+> >>
+> >> Wow, you have certainly gone out of the beaten path here.
+> >>
+> >
+> > Yeah, I wasn't expecting this many issues for being an early adopter of
+> > Threaderipper 7000!
+> >
+> >
+> >>
+> >> > I had been working with ASRock support ever since I got my brand
+> >> > new motherboard because I couldn't see the BIOS/UEFI screens. I could
+> >> boot
+> >> > up, and once native linux took control amdgpu got the screens/gpu
+> >> working
+> >> > fine. I finally managed to be able to see the UEFI/BIOS setup screens by
+> >> > patching my VBIOS: I extracted the VBIOS image of a cheap R5 430 OEM,
+> >> ran
+> >> > GOPupd to update the VBIOS UEFI component (GOP) from version 1.60 to
+> >> 1.67.
+> >> > That allowed the UEFI to actually initialize and use a screen. However,
+> >> I
+> >> > later realized that only 1 monitor was lighting up in the bios: my
+> >> monitor
+> >> > plugged into the Radeon RX 480 that was still on VBIOS GOP 1.60. It
+> >> appears
+> >> > the GOP was initializing the RX 480 too, despite not being flashed with
+> >> the
+> >> > latest itself. I am working on an email to asrock support about that.
+> >> Once
+> >> > I get into linux (native or PV), both monitors light up as expected.
+> >> Also,
+> >> > If I boot linux PVH from grub, they also work.
+> >>
+> >> OK, that's good, so that would be UEFI -> grub -> Xen -> Linux PVH?
+> >>
+> >
+> > Correct. Inserting grub into the chain "fixes" the acpi tables and things
+> > work correctly.
+> >
+> 
+> Ok, I am not sure what I did the other day to get it to work, but I can't
+> replicate *any* PVH success today. One driver (radeon or amdgpu) always
+> complains the VFCT table is wrong, and leads to the symptoms previously
+> reported.
 
-Judging from your present use of virt_to_maddr(&_start), I'd assume
-you're fine without casts. And when casts aren't needed, they're
-better avoided.
+Are you sure you are using Xen 4.18?  Some of the Xen logs you
+provided did use Xen 4.17, which doesn't have the VFCT fix.
 
-Jan
+Can you please provide the `xl dmesg` for the non-working case when
+using grub2?
+
+Thanks, Roger.
 
