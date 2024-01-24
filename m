@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E686B83AD2D
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:24:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671093.1044242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC4D283AD46
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jan 2024 16:27:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671099.1044252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSf6e-0006vC-90; Wed, 24 Jan 2024 15:24:00 +0000
+	id 1rSf9r-0007Td-MZ; Wed, 24 Jan 2024 15:27:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671093.1044242; Wed, 24 Jan 2024 15:24:00 +0000
+Received: by outflank-mailman (output) from mailman id 671099.1044252; Wed, 24 Jan 2024 15:27:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSf6e-0006tL-5P; Wed, 24 Jan 2024 15:24:00 +0000
-Received: by outflank-mailman (input) for mailman id 671093;
- Wed, 24 Jan 2024 15:23:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rSf9r-0007Ra-JJ; Wed, 24 Jan 2024 15:27:19 +0000
+Received: by outflank-mailman (input) for mailman id 671099;
+ Wed, 24 Jan 2024 15:27:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=bgOV=JC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSf6c-0006tB-Fo
- for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:23:58 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 978b6f0e-bacc-11ee-98f5-6d05b1d4d9a1;
- Wed, 24 Jan 2024 16:23:57 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2cdeb954640so67458931fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:23:57 -0800 (PST)
+ id 1rSf9q-0007RT-JN
+ for xen-devel@lists.xenproject.org; Wed, 24 Jan 2024 15:27:18 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0e2c3da8-bacd-11ee-9b0f-b553b5be7939;
+ Wed, 24 Jan 2024 16:27:16 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2cf1fd1cc5bso9360421fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 07:27:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h3-20020a05660224c300b007ba7365ef13sm7073466ioe.51.2024.01.24.07.23.55
+ bz6-20020a056e02268600b003619a43268asm2288009ilb.34.2024.01.24.07.27.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 07:23:56 -0800 (PST)
+ Wed, 24 Jan 2024 07:27:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 978b6f0e-bacc-11ee-98f5-6d05b1d4d9a1
+X-Inumbo-ID: 0e2c3da8-bacd-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706109837; x=1706714637; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706110036; x=1706714836; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=HiFe89OlB0ztEDTTtlTEcBTLBXtT94hlr0TSVcs2b+E=;
-        b=Lfww/1dBJdRPTxMjVxJGyhI8jWzmlbnt5r4814+o32lEUiYXvY977f3robu2KLa3pq
-         H0iNS7YPdwpPkkriDHRfr/ivk53CFuLXaMuCZHa/k3A/h25v8pDCRtTxPIL9KjsRDFTe
-         4LlVEXm5T+oeBS/0GqseYpeFk7rcXh3FH4WFgWRIdgbg/Xlq9kvrRRJyy2+vJ86Z+L4f
-         c43cmxiZz3IBqvS+hyYOu1vilvXPsRdr6C7yGr5jHNLzP2m2N+PCp/k4Ean3UAYt5vnu
-         5pUFD3IehfHcW0nJ7WjFaW64nVTcxY62NwdkAcU/wZs5sMnHhvz+WeH6pZOZpGaTRx4E
-         3hJw==
+        bh=zzXHmr1qvA0UdSLvnaXumfuQjNmGkhE1FDpYmZ+o+Cg=;
+        b=E3OnNoDM5WYad4xohgd/jQ7A/tp+T01Qd7EgTOO7/y6c4zgsl6JqVO6gBe5Iy65vnA
+         +fynKVGszp0/9Gb2HBl/BKidaPXepnCczY0cVCMCAPfeZZdH54qhiENh+vXYIFrLT+Iw
+         8lhDO0GlNg5b5EAgu6P38fECXauNw3glzuZWy3yIUPuNnVSlaEBp9LucHRFxPBUPh0dD
+         vHskjmu/0ozrLQIzD+tf0gxIzUih+Eu5BqPDBhHer6jkEWgcVoTpueFbNRdvETCCsnCu
+         SkTw2TnHX5a3DZgO7jrUM8fLbHPiVKwbbWEyL4Jymd4qP9sUWzhFAT231yVprQb3SxKx
+         BcQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706109837; x=1706714637;
+        d=1e100.net; s=20230601; t=1706110036; x=1706714836;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HiFe89OlB0ztEDTTtlTEcBTLBXtT94hlr0TSVcs2b+E=;
-        b=aRkw42QDFjgMneVzzdiMIOzMykWTf2+rn4MELR/rlbfgd0MxdvOt8oE93JY3/Avlca
-         Yc8YwMOI5vgdBJrlt4+mdAyY5nvEGNO2zfnRyOC0vHqb4J13YYiTaFaLabMIJBSl+zXt
-         f9ZmEHf0ac4TN1Y7hgwfrQI6R0Kc1rRi38OeER5FHQnaXIY5R9gY6nMGL88BQzWuNjRZ
-         CjHzLxZFayFNs03St+81nlwNWGt3bfMGSu5l1CQghtvn6yA1vy5sUs6aLzJa/CsxPSwy
-         UYy4fil4Ge/6WzUByksGFfYmUrVJAsT9HOAvwcKEe9v0NFTvjbdtU1LJJPFFFeaJbgD/
-         0IOQ==
-X-Gm-Message-State: AOJu0YwJ+a4iadt8Qx1mC+/IHd3RsFk3FAJPG1AEm2hEYvXnOS7BHN4H
-	kyTXMdLHJEKHdva/pvU+8hNHhfqZLukL0XpVfjYbJaDUnSUPZYNllo1uze9QCgO3KBVhaUWZWAo
+        bh=zzXHmr1qvA0UdSLvnaXumfuQjNmGkhE1FDpYmZ+o+Cg=;
+        b=IeS1kBoYouYLam8QuNAbOJ5Rrt8ZnDussGFhNNPIGcaAcHgWyXpccYBbmbNWejmvtE
+         tgBZWJh4E4L4FD5s63xdMSFhlyRsg5MI/CDmzGiB2uMERdwaJ0ojI4gZjfn7xgUkFT1K
+         yBFU46K2SLS4upc0Ew6jRq/pOic8+ycC8PqCXIMuTMnjnlCN02uDRPkba8i6fZVs2dQe
+         5Xu39Fnxnhgyg5JBq/m3olyn8WPmuKLlfvB8jpXlLVihHb6d3xCnQ35yhpYfcD+eLILk
+         y9JqGdBAA3UtYT8zsB8bKSnity/f7FkH5ldcanfMyW9tzHoPpXMGKmGF/gth+RXaA7Fq
+         a1hw==
+X-Gm-Message-State: AOJu0YzLH9iHuaDhB2h/bIfK/BdO1iHkTwMw2viNgGnRm2zByt+jRaOZ
+	1Wrtb0Dpj/+m1VmGScmD4/nHyR2jjJaXAmpfc9y5r0UOLeNSVYQVoJ8RDCRB+b+tU93gDE8nx+g
 	=
-X-Google-Smtp-Source: AGHT+IGV+ClFAcCU/Sm/fLZ72mgavjoi7hja4VvglCxK6aPfBpO4QKyje84qoTmeX8vOOxmYbq3BSQ==
-X-Received: by 2002:a2e:80d9:0:b0:2cd:3487:9a05 with SMTP id r25-20020a2e80d9000000b002cd34879a05mr824693ljg.88.1706109836883;
-        Wed, 24 Jan 2024 07:23:56 -0800 (PST)
-Message-ID: <3a2345f2-c4a5-4265-b96f-8eed0f193706@suse.com>
-Date: Wed, 24 Jan 2024 16:23:53 +0100
+X-Google-Smtp-Source: AGHT+IER3uXpZGaS8FSK8Bp7CJgbAR7fB3/HfCvQH3Miq8/g98au1H0X0DSyL3JiNT2HnQ+NquKcVw==
+X-Received: by 2002:a2e:8199:0:b0:2cd:d7eb:4fce with SMTP id e25-20020a2e8199000000b002cdd7eb4fcemr1060786ljg.80.1706110036039;
+        Wed, 24 Jan 2024 07:27:16 -0800 (PST)
+Message-ID: <50978ef4-9f11-4c70-952b-94107616f265@suse.com>
+Date: Wed, 24 Jan 2024 16:27:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -85,7 +85,7 @@ To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/entry: replace two GET_CURRENT() uses
+Subject: [PATCH] x86: amend 'n' debug-key output with SMI count
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -112,53 +112,74 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Now that we have %r14 set up using GET_STACK_END() in a number of
-places, in two places we can eliminate the redundancy of GET_CURRENT()
-also invoking that macro. In handle_ist_exception() actually go a step
-farther and avoid using %rbx altogether when retrieving the processor
-ID: Obtain the current vCPU pointer only in the PV32-specific code
-actually needing it.
+... if available only, of course.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/x86_64/asm-offsets.c
-+++ b/xen/arch/x86/x86_64/asm-offsets.c
-@@ -118,6 +118,7 @@ void __dummy__(void)
- #endif
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -406,9 +406,15 @@ void __init early_cpu_init(bool verbose)
+ 		paddr_bits -= (ebx >> 6) & 0x3f;
+ 	}
  
-     OFFSET(CPUINFO_guest_cpu_user_regs, struct cpu_info, guest_cpu_user_regs);
-+    OFFSET(CPUINFO_processor_id, struct cpu_info, processor_id);
-     OFFSET(CPUINFO_verw_sel, struct cpu_info, verw_sel);
-     OFFSET(CPUINFO_current_vcpu, struct cpu_info, current_vcpu);
-     OFFSET(CPUINFO_per_cpu_offset, struct cpu_info, per_cpu_offset);
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -749,7 +749,7 @@ FUNC(handle_exception, 0)
- .Lxcpt_cr3_okay:
+-	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)))
++	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON))) {
++		uint64_t smi_count;
++
+ 		park_offline_cpus = opt_mce;
  
- handle_exception_saved:
--        GET_CURRENT(bx)
-+        mov   STACK_CPUINFO_FIELD(current_vcpu)(%r14), %rbx
-         testb $X86_EFLAGS_IF>>8,UREGS_eflags+1(%rsp)
-         jz    exception_with_ints_disabled
++		if (!verbose && !rdmsr_safe(MSR_SMI_COUNT, smi_count))
++			setup_force_cpu_cap(X86_FEATURE_SMI_COUNT);
++	}
++
+ 	initialize_cpu_data(0);
+ }
  
-@@ -1128,9 +1128,8 @@ handle_ist_exception:
- #ifdef CONFIG_PV
-         testb $3,UREGS_cs(%rsp)
-         jz    restore_all_xen
--        GET_CURRENT(bx)
-         /* Send an IPI to ourselves to cover for the lack of event checking. */
--        movl  VCPU_processor(%rbx),%eax
-+        mov   STACK_CPUINFO_FIELD(processor_id)(%r14), %eax
-         shll  $IRQSTAT_shift,%eax
-         leaq  irq_stat+IRQSTAT_softirq_pending(%rip),%rcx
-         cmpl  $0,(%rcx,%rax,1)
-@@ -1139,6 +1138,7 @@ handle_ist_exception:
-         call  send_IPI_self
- 1:
- #ifdef CONFIG_PV32
-+        mov   STACK_CPUINFO_FIELD(current_vcpu)(%r14), %rbx
-         movq  VCPU_domain(%rbx),%rax
-         cmpb  $0,DOMAIN_is_32bit_pv(%rax)
-         je    restore_all_guest
+--- a/xen/arch/x86/include/asm/cpufeatures.h
++++ b/xen/arch/x86/include/asm/cpufeatures.h
+@@ -24,7 +24,7 @@ XEN_CPUFEATURE(APERFMPERF,        X86_SY
+ XEN_CPUFEATURE(MFENCE_RDTSC,      X86_SYNTH( 9)) /* MFENCE synchronizes RDTSC */
+ XEN_CPUFEATURE(XEN_SMEP,          X86_SYNTH(10)) /* SMEP gets used by Xen itself */
+ XEN_CPUFEATURE(XEN_SMAP,          X86_SYNTH(11)) /* SMAP gets used by Xen itself */
+-/* Bit 12 unused. */
++XEN_CPUFEATURE(SMI_COUNT,         X86_SYNTH(12)) /* MSR_SMI_COUNT exists */
+ XEN_CPUFEATURE(IND_THUNK_LFENCE,  X86_SYNTH(13)) /* Use IND_THUNK_LFENCE */
+ XEN_CPUFEATURE(IND_THUNK_JMP,     X86_SYNTH(14)) /* Use IND_THUNK_JMP */
+ XEN_CPUFEATURE(SC_NO_BRANCH_HARDEN, X86_SYNTH(15)) /* (Disable) Conditional branch hardening */
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -28,6 +28,8 @@
+ #define  TEST_CTRL_SPLITLOCK_DETECT         (_AC(1, ULL) << 29)
+ #define  TEST_CTRL_SPLITLOCK_DISABLE        (_AC(1, ULL) << 31)
+ 
++#define MSR_SMI_COUNT                       0x00000034
++
+ #define MSR_INTEL_CORE_THREAD_COUNT         0x00000035
+ #define  MSR_CTC_THREAD_MASK                0x0000ffff
+ #define  MSR_CTC_CORE_MASK                  _AC(0xffff0000, U)
+--- a/xen/arch/x86/nmi.c
++++ b/xen/arch/x86/nmi.c
+@@ -589,9 +589,20 @@ static void cf_check do_nmi_stats(unsign
+     unsigned int cpu;
+     bool pend, mask;
+ 
+-    printk("CPU\tNMI\n");
++    printk("CPU\tNMI%s\n", boot_cpu_has(X86_FEATURE_SMI_COUNT) ? "\tSMI" : "");
+     for_each_online_cpu ( cpu )
+-        printk("%3u\t%3u\n", cpu, per_cpu(nmi_count, cpu));
++    {
++        printk("%3u\t%3u", cpu, per_cpu(nmi_count, cpu));
++        if ( boot_cpu_has(X86_FEATURE_SMI_COUNT) )
++        {
++            unsigned int smi_count, dummy;
++
++            rdmsr(MSR_SMI_COUNT, smi_count, dummy);
++            printk("\t%3u\n", smi_count);
++        }
++        else
++            printk("\n");
++    }
+ 
+     if ( !hardware_domain || !(v = domain_vcpu(hardware_domain, 0)) )
+         return;
 
