@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CE1283BAEB
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 08:44:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671339.1044624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ADFA83BAF2
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 08:49:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671344.1044633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSuOK-0006kK-Ln; Thu, 25 Jan 2024 07:43:16 +0000
+	id 1rSuUC-0007bY-9F; Thu, 25 Jan 2024 07:49:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671339.1044624; Thu, 25 Jan 2024 07:43:16 +0000
+Received: by outflank-mailman (output) from mailman id 671344.1044633; Thu, 25 Jan 2024 07:49:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSuOK-0006ht-J2; Thu, 25 Jan 2024 07:43:16 +0000
-Received: by outflank-mailman (input) for mailman id 671339;
- Thu, 25 Jan 2024 07:43:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rSuUC-0007ZJ-6i; Thu, 25 Jan 2024 07:49:20 +0000
+Received: by outflank-mailman (input) for mailman id 671344;
+ Thu, 25 Jan 2024 07:49:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSuOJ-0006hn-8A
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 07:43:15 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 63450968-bb55-11ee-9b0f-b553b5be7939;
- Thu, 25 Jan 2024 08:43:10 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2cdeb954640so78552931fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 23:43:11 -0800 (PST)
+ id 1rSuUA-0007ZD-I4
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 07:49:18 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3de736b5-bb56-11ee-98f5-6d05b1d4d9a1;
+ Thu, 25 Jan 2024 08:49:17 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2cf1288097aso29030631fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 23:49:17 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x8-20020a056e02194800b003627f685d1dsm2516020ilu.39.2024.01.24.23.43.07
+ he1-20020a0566386d0100b0046f2873f6c9sm72013jab.79.2024.01.24.23.49.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 23:43:10 -0800 (PST)
+ Wed, 24 Jan 2024 23:49:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63450968-bb55-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 3de736b5-bb56-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706168590; x=1706773390; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706168957; x=1706773757; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=63RQ+M57HbberoytkjsN2ecRdeKnenHpzQByihc0hSM=;
-        b=H7nmr5A3ZdimUkRO952HstEjuyPWirbMt2ItL80mN0p5mrEelSHSYYPBRzjsxgqx0b
-         uligtiXqx8XArW622pSxcgmtgAjuqVRi9gAiRPVXDV8yABmbQSbXU6EYlyg+C9bEl2iM
-         FFtOvBfJU+dbVFg2lGgMenhYW9Oe9kKhe9otnDmMyULkRM2R8SN0EuxxDMhHY7XFPzKy
-         eErErlrBEShoiVZy/rcYxTn20HvgJp13z1hHwQvQDmcnTNFWzoYJBcBSpPyPgta5uhWY
-         HSLgxYhLYY2uAAc0YKITOVk43IZWSBAtJWGVMvd2Xsn+R9n8bt9u3Cj2EcG7hSBiYFO3
-         FLew==
+        bh=eiEwNBI+YcpU2tqYvaVI5Vi3emYhfk5Pf1daxAbIN2E=;
+        b=NZXtAmUlU8ZlFbXmp1E+etppom/yk6w/lz+YUgdSTVgkXx16suRahiC/o61f06WJVE
+         PqWFBrN7gELu9k5Rygq6DInn8CzAbCjDUd9Rk6h/t8E7+C6mzv9KsFayK1bPsX+6YX/+
+         k8Jhpk1yuhbrsZydgE+0UIF7ujlw89VGskW9eGxosN32MKrKV1tFfqVodr/R3DY9h125
+         eq2Wrs6JN+mSzju4ZI/dZAkKA7RN4gHxTBMBT5qdNfaSSC8aCUPHdTADARTdWLs+51TQ
+         M8Qv52HNdqO+YmVnw1r4QTbdc4F3xdrlKo1pae2JL2Y67Nz11BDkJzRuV1tXOeyHn/tA
+         UGlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706168590; x=1706773390;
+        d=1e100.net; s=20230601; t=1706168957; x=1706773757;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=63RQ+M57HbberoytkjsN2ecRdeKnenHpzQByihc0hSM=;
-        b=Sr67RltyMrXkXoDQwyOZTMSXHJmR4AuoASewiJvaNEBYdkdIXTB+dgvOehJYWRKqXq
-         mvBjKVDZwv7c1YH9T8PvAofezj1A1O+8OXLkLcfYXmtVWjdO+a6bcgjHBAEBnCugnbV2
-         2OZ1AcFKacrCbNdpa+JwJIgqh0Emj9hw/cpVdSZE03xbOn8YhWhNZZINf00iZHK4P5q3
-         wRg5C/0U+H0C4E63SXrkrmzUJgGCNk1Gi526zZ95WnF/KE5W35SdJSNGq0b/vtzylBK3
-         VbHCZadMET43evKhANCvwpZ8n7G3kvyLKjhpT5rK+MHqf8pLKO2mHOpnSdaqD14iqZvi
-         COrg==
-X-Gm-Message-State: AOJu0YxhnRMGjqWL6tyysrUveTK6bDwMkTNaxr7/WfmeYOdBEGIzW6E+
-	H62W+oHh0YF2qattXtvr7qg3UGNcuxf5mWdHj14mcexJfo2YiiOm8/zuodhEXA==
-X-Google-Smtp-Source: AGHT+IExOEfx+11MoK3uxVnzR7iTGGUfUvTIpDBxcDssBiFE/UFxa8/pYTLzSQvJgG8Tfr8uQZVlTg==
-X-Received: by 2002:a2e:a99c:0:b0:2ce:fc2b:c739 with SMTP id x28-20020a2ea99c000000b002cefc2bc739mr392169ljq.104.1706168590551;
-        Wed, 24 Jan 2024 23:43:10 -0800 (PST)
-Message-ID: <fa7df700-06f1-4110-bc76-c59d59e5d887@suse.com>
-Date: Thu, 25 Jan 2024 08:43:05 +0100
+        bh=eiEwNBI+YcpU2tqYvaVI5Vi3emYhfk5Pf1daxAbIN2E=;
+        b=ISXdvoHbj4B1so9EeB8lAhesavPt4m13q5unQNobK/RdMU1JsiVzPlMtZ/wLGrUKoi
+         oYnQ/13jlTC5NRbP4uDIoxG7GSEkWV5eEMI0gaYe1jS3Ii7s1ggivALLY7ReLZQNs5AK
+         x5CPCYAwdNG8vU/VIjTqWAEZYihJrpR3LPtkmYT43uT8R7HLTrsqwPnH4VAKbttfj8v+
+         zS0ANQ/foRf3Ly8LJCArxJPqj/DWAL/ZGmkrUeeVsw0ZVw9uP+jnPQYB/NOA7Au5NNuU
+         Jr7Fgpwlp5TDRnYeURPLzrf/MnWXV0aHAoScC2NH2qZGGOcmdSpF0RcWJWkZcl6zhRQG
+         0u0w==
+X-Gm-Message-State: AOJu0YyLxgpDNBcVlF3seZw/5Mo7bYhfIrXnXi55UL82bPAYlNbJHflh
+	UoKvZXS/okdQZksjSPruDKDjPNmP/alT12fZ7wMy4zb9JhxfVExX+y0bsowj2w==
+X-Google-Smtp-Source: AGHT+IF1IdCvR9dfDFMFZFjO+rW5IIRTpawFafXhLxbAfPWyQxXqn/UjXtDALrRgvsb0PcGTuj/hWg==
+X-Received: by 2002:a2e:9b94:0:b0:2cd:4d27:2086 with SMTP id z20-20020a2e9b94000000b002cd4d272086mr313826lji.100.1706168957098;
+        Wed, 24 Jan 2024 23:49:17 -0800 (PST)
+Message-ID: <0be02b31-a50b-4ed3-9bb8-90cc61f0f20d@suse.com>
+Date: Thu, 25 Jan 2024 08:49:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12.2 01/15] vpci: use per-domain PCI lock to protect vpci
- structure
+Subject: Re: [PATCH] x86/ucode: Fix stability of the Raw CPU Policy rescan
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Paul Durrant <paul@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-2-stewart.hildebrand@amd.com>
- <20240115194309.45683-1-stewart.hildebrand@amd.com>
- <715e40c9-1776-4677-9565-dac1565a2aa8@suse.com> <Za_WGzS14Eqt8yZF@macbook>
- <ae7a57f2-2433-4b75-ab45-c8be55d489c9@suse.com> <ZbDXXyucJhLJ4u9H@macbook>
- <a3233487-965b-49ae-bebe-e5476fcda29c@suse.com> <ZbFOE6kV7NXFrNjb@macbook>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240123205948.1782556-1-andrew.cooper3@citrix.com>
+ <090f64ae-ecf3-4edc-a6c6-8be3a09ea1ba@suse.com>
+ <95a1f94e-7c82-4996-8f24-87c6628bc81a@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,76 +111,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZbFOE6kV7NXFrNjb@macbook>
+In-Reply-To: <95a1f94e-7c82-4996-8f24-87c6628bc81a@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 24.01.2024 18:51, Roger Pau Monné wrote:
-> On Wed, Jan 24, 2024 at 12:34:10PM +0100, Jan Beulich wrote:
->> On 24.01.2024 10:24, Roger Pau Monné wrote:
->>> On Wed, Jan 24, 2024 at 09:48:35AM +0100, Jan Beulich wrote:
->>>> On 23.01.2024 16:07, Roger Pau Monné wrote:
->>>>> On Tue, Jan 23, 2024 at 03:32:12PM +0100, Jan Beulich wrote:
->>>>>> On 15.01.2024 20:43, Stewart Hildebrand wrote:
->>>>>>> @@ -2888,6 +2888,8 @@ int allocate_and_map_msi_pirq(struct domain *d, int index, int *pirq_p,
->>>>>>>  {
->>>>>>>      int irq, pirq, ret;
->>>>>>>  
->>>>>>> +    ASSERT(pcidevs_locked() || rw_is_locked(&d->pci_lock));
->>>>>>
->>>>>> If either lock is sufficient to hold here, ...
->>>>>>
->>>>>>> --- a/xen/arch/x86/physdev.c
->>>>>>> +++ b/xen/arch/x86/physdev.c
->>>>>>> @@ -123,7 +123,9 @@ int physdev_map_pirq(domid_t domid, int type, int *index, int *pirq_p,
->>>>>>>  
->>>>>>>      case MAP_PIRQ_TYPE_MSI:
->>>>>>>      case MAP_PIRQ_TYPE_MULTI_MSI:
->>>>>>> +        pcidevs_lock();
->>>>>>>          ret = allocate_and_map_msi_pirq(d, *index, pirq_p, type, msi);
->>>>>>> +        pcidevs_unlock();
->>>>>>>          break;
->>>>>>
->>>>>
->>>>> IIRC (Stewart can further comment) this is done holding the pcidevs
->>>>> lock to keep the path unmodified, as there's no need to hold the
->>>>> per-domain rwlock.
->>>>
->>>> Yet why would we prefer to acquire a global lock when a per-domain one
->>>> suffices?
->>>
->>> I was hoping to introduce less changes, specially if they are not
->>> strictly required, as it's less risk.  I'm always quite worry of
->>> locking changes.
+On 24.01.2024 18:23, Andrew Cooper wrote:
+> On 24/01/2024 3:37 pm, Jan Beulich wrote:
+>> On 23.01.2024 21:59, Andrew Cooper wrote:
+>>> Always run microcode_update_helper() on the BSP, so the the updated Raw CPU
+>>> policy doesn't get non-BSP topology details included.
+>> Wouldn't it be better (and consistent with ...
 >>
->> In which case more description / code commenting is needed. The pattern
->> of the assertions looks dangerous.
+>>> Have calculate_raw_cpu_policy() clear the instantanious XSTATE sizes.  The
+>>> value XCR0 | MSR_XSS had when we scanned the policy isn't terribly interesting
+>>> to report.
+>> ... this) to purge these details from the raw policy as well then?
 > 
-> Is such dangerousness perception because you fear some of the pcidevs
-> lock usage might be there not just for preventing the pdev from going
-> away, but also to guarantee exclusive access to certain state?
-
-Indeed. In my view the main purpose of locks is to guard state. Their
-use here to guard against devices here is imo rather an abuse; as
-mentioned before this should instead be achieved e.g via refcounting.
-And it's bad enough already that pcidevs_lock() alone has been abused
-this way, without proper marking (leaving us to guess in many places).
-It gets worse when a second lock can now also serve this same purpose.
-
->> Even if (as you say in a later reply)
->> this is only temporary, we all know how long "temporary" can be. It
->> might even be advisable to introduce a helper construct.
+> I did spend some time considering this.
 > 
-> The aim here was to modify as little as possible, in order to avoid
-> having to analyze all possible users of pcidevs lock, and thus not
-> block the vPCI work on the probably lengthy and difficult analysis.
-> 
-> Not sure adding a construct makes is much better, as I didn't want to
-> give the impression all checks for the pcidevs lock can merely be
-> replaced by the new construct.
+> Rerunning on the same CPU is more resilient to new topology leaves, so
+> we'd want to be doing that irrespective.
 
-Of course such a construct could only be used in places where it can
-be shown to be appropriate.
+I'm afraid I don't understand this: If a ucode update surfaced new leaves,
+they surely would appear on all CPUs? IOW my question still stands: Wouldn't
+we better zap topology data from the raw policy (thus also not propagating
+it into other policies)? At which point retrieval becomes independent of
+what CPU it is run on (if there were any other CPU-specific pieces of data,
+similar zapping should happen for them).
+
+Surely using CPU0 here isn't much of a problem, as this is a pretty
+infrequent event. But generally I'd like to avoid "preferring" CPU0 as much
+as possible. Hence I'd prefer if even in cases like this one we could avoid
+it.
+
+> The XCR0/XSS state really is transient, and the useful information is
+> everywhere else in leaf 0xd.
+
+Sure, but this is still independent on what CPU the retrieval is run on.
 
 Jan
 
