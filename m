@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D232283BBCE
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 09:23:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671380.1044694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBCCE83BC16
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 09:35:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671386.1044704 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSv0s-0008Tv-Fs; Thu, 25 Jan 2024 08:23:06 +0000
+	id 1rSvCB-0002Yx-Jg; Thu, 25 Jan 2024 08:34:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671380.1044694; Thu, 25 Jan 2024 08:23:06 +0000
+Received: by outflank-mailman (output) from mailman id 671386.1044704; Thu, 25 Jan 2024 08:34:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSv0s-0008SN-C0; Thu, 25 Jan 2024 08:23:06 +0000
-Received: by outflank-mailman (input) for mailman id 671380;
- Thu, 25 Jan 2024 08:23:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rSvCB-0002Vl-Gr; Thu, 25 Jan 2024 08:34:47 +0000
+Received: by outflank-mailman (input) for mailman id 671386;
+ Thu, 25 Jan 2024 08:34:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSv0r-0008SH-At
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 08:23:05 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f501e472-bb5a-11ee-9b0f-b553b5be7939;
- Thu, 25 Jan 2024 09:23:02 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-5100fdd37f7so2452739e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 00:23:02 -0800 (PST)
+ id 1rSvCA-0002Vf-8r
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 08:34:46 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 97a77fc9-bb5c-11ee-98f5-6d05b1d4d9a1;
+ Thu, 25 Jan 2024 09:34:45 +0100 (CET)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2cf1b770833so25755291fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 00:34:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- l21-20020a02ccf5000000b0046e6063e2c0sm4516250jaq.107.2024.01.25.00.23.00
+ t5-20020a5edd05000000b007bfbe4e309asm96222iop.27.2024.01.25.00.34.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 00:23:01 -0800 (PST)
+ Thu, 25 Jan 2024 00:34:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f501e472-bb5a-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: 97a77fc9-bb5c-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706170982; x=1706775782; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706171684; x=1706776484; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=m3E4knhkWBU1uhlMvX/fdydLJX4MEs/nNUhxgOJklns=;
-        b=PV8iqCcn5PBQ//rhox1btOgb7k/bUxjvGvN5qlcAfmmHf0TS1ZkGhfIbzwpIUunraP
-         KqqCPqm2G7nDSxWpdfnYEqsGLbPlcL/n7zxuoCrX8dMHgCmh79Alzlx+mFaJo68lKY3M
-         jT2SfkOoAXvXO0lkQuD2IQN4Bm4Ke5LbGllZjL8KX2KSVpUPteQctixOf/CdDnrYF7bv
-         QHGY6mW8qRALsXL+spqL5eojCKwe+lY4V2OJfIFrOQ0XbYkl9KbCZs4AFp9QNEVDCfqY
-         EMHvy20sK/dpNoL9wJs4UW6IfG24eUDj40BWwaIwgFiF/wJZCbYNqOIdUJT7dhl0BlHB
-         b0mA==
+        bh=6TUw9FUDv+Cjc8ukj2KeedkIP/sjen5jeo28MzoMBx4=;
+        b=Je/7oOfU7Git/MtUI6+nopOqolGfoX50bToa2ucfDYfXifjx+bsZbqS/ug3oyweXHb
+         qz08haFRRy+LYnqF/6Tw5SlTjFM1t5WxQA3eeXuLeG5/v3xl2OXvebe1yG6tZxzWF5jK
+         q8uN5iAwugHqxU+CO3O05TTNjA7PN2tjRBfK6qUs0WBhlojrVfbKJ4yKwT2/he7zAyjU
+         9X6t6qRUbeRVxAO3E2+2cTPdkgWfD/PRk0yYRnAhCc7XFWt9ldAWX5EvenXqo2gqPdqB
+         Mdt2cThheyTPnoPMb2B72u3yFMwxfNrheP2hcasmT3xi8CQGfDiW20trSwpulaNigt4r
+         W49g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706170982; x=1706775782;
+        d=1e100.net; s=20230601; t=1706171684; x=1706776484;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=m3E4knhkWBU1uhlMvX/fdydLJX4MEs/nNUhxgOJklns=;
-        b=bwaA+Yi4ijYITmECLuoESFFnIpvMhOAyyAnZu/R1TXQqzd1HKkgWwBWOnTTA/R4HE6
-         cW2r+6fUVHBVFGa2WfViYhslsK5EySvnGi6NmtEDBzIwd1xw0CHa/tD2QyXmzrwT8v0s
-         VkDxC1kq+DABHqfYtfZJRlrfIsAOiZzYmnkNG/Yy9NIUQCUU80vQMSpC1L6twc5dHu2M
-         v8cn176hlZAwoFzSLte6pdJumWK+Dlc3WT4FcgWzo7IdU0qHiYwIkhnZZIQIY91Rh/Ky
-         f05LRoW6V6aF9/jrpXkmOj+GeI5kcpcqIVkx16GIHjDRD3ZPc+1Q99yfblka3SKCTGpa
-         1IQw==
-X-Gm-Message-State: AOJu0YzS2zYSEj6KH9wrjP34AT9BSQiAjvOhjBcQNPfLO63g6uHgiRrG
-	WrbmGKVZKziNfZXB8nDLjrOjCnJIz7Q2KMvwB7Z02yPxy0vBjtvhTudMFGU52w==
-X-Google-Smtp-Source: AGHT+IFhPhVk7GZNmxQRA7JZsT7D8LrfoEf61NLHRghutGFew+dewPdwr78oPGF9MmX/O92dLIXY/Q==
-X-Received: by 2002:a2e:b0cb:0:b0:2cf:321a:17d7 with SMTP id g11-20020a2eb0cb000000b002cf321a17d7mr403728ljl.69.1706170982313;
-        Thu, 25 Jan 2024 00:23:02 -0800 (PST)
-Message-ID: <dcbd607f-f7ff-4dd3-98d1-39aec51fd81b@suse.com>
-Date: Thu, 25 Jan 2024 09:22:58 +0100
+        bh=6TUw9FUDv+Cjc8ukj2KeedkIP/sjen5jeo28MzoMBx4=;
+        b=BO0n96gInb7xOGY3tgDCt7cG2VdvN4rf3UMV86h9jFJgfAHo2tgG2UjgV1XwpMbzj7
+         owoEmAwnAMUfaZUXwpXRdxeOBtig0DBBwTAsW20s23ItZcRjLdk0fFDMu/2Nu9sXX8bx
+         E183YLCgKZZgH0934AzOQlVqCV/+IsUlQQjQvI0T3W5Wdgm0RJ5P+rdrW+/lAsvcFpRQ
+         76jlGxe0i9ppJTkYBs6sr4NVJWlN8qWAyJZigc9HtN0ggZ26S+Td7HrupdB9EVIKAAoj
+         t4PdLF+3g3Co7BtxDdbIqnxicbg3pNzRmsLyNHIsz91ExRZYge8qf/jsW0NyD1RCrO+9
+         89UQ==
+X-Gm-Message-State: AOJu0YxNmJy0br5d9WNi5GHg+dNsYSgJT99VMu6NArMtzzhAzQsSHNYB
+	LEvvKs0AXwmoAUhwuG8rAyVKx/X47Xog8UY9hEVwmgGkD4An4jEgkk8+dJaV4Q==
+X-Google-Smtp-Source: AGHT+IFeb2YZ/0f1mwIivcBGoPrye2uctxkUJnIYkKwSeIX6Qa2IOtOIn1gEzoI38rn0p4B3Ag48iQ==
+X-Received: by 2002:a05:651c:1cd:b0:2cc:78c5:7ffa with SMTP id d13-20020a05651c01cd00b002cc78c57ffamr447310ljn.7.1706171684577;
+        Thu, 25 Jan 2024 00:34:44 -0800 (PST)
+Message-ID: <ad178469-15c3-4ae5-8538-e927f1116a42@suse.com>
+Date: Thu, 25 Jan 2024 09:34:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] consolidate do_bug_frame() / bug_fn_t
+Subject: Re: [PATCH v5 1/3] x86/iommu: remove regions not to be mapped
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Federico Serafini <federico.serafini@bugseng.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <d466eb44-1160-4b57-a41f-752dbf626748@suse.com>
- <alpine.DEB.2.22.394.2401231731570.2287888@ubuntu-linux-20-04-desktop>
- <665b7ea9-77d9-4bbc-a67c-1ac0d9ba908a@suse.com>
- <37afd0b1-a6b3-41aa-8338-c99b68592c92@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20240124172953.29814-1-roger.pau@citrix.com>
+ <20240124172953.29814-2-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,52 +110,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <37afd0b1-a6b3-41aa-8338-c99b68592c92@citrix.com>
+In-Reply-To: <20240124172953.29814-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 25.01.2024 02:14, Andrew Cooper wrote:
-> On 24/01/2024 7:28 am, Jan Beulich wrote:
->> On 24.01.2024 02:34, Stefano Stabellini wrote:
->>> I managed to get back to read the mailing list and noticed this patch.
->>>
->>> Is it still relevant and needs to be reviewed?
->>>
->>> Are there any outstanding disagreements between maintainers on the
->>> approach to take here?  Or should I just go ahead and review it?
->> It is still relevant from my pov, and everything that may be controversial
->> is said ...
-> 
-> BUGFRAME_* cannot legitimately modify the interrupted context.  Two are
-> fatal paths, and other two are side-effect-less as far as C can tell.
-> 
-> So the infrastructure ought to take a const pointer.
-> 
-> The reason why this pointer is non-const is to do with the interaction
-> of the serial and keyhandler infrastructures.  Because we're adjusting
-> that for other reasons, I was hoping it would subsequently be easy to
-> switch Xen to being properly const in this regard.
-> 
-> Turns out it is:
-> 
->  
-> https://gitlab.com/xen-project/people/andyhhp/xen/-/commit/4f857075005da1d28632e4f9198c2e7d0f404b9a
-> 
-> with a couple of caveats.  (Only the buster-gcc-ibt run failed, so I've
-> got some cf_check-ing to adjust, but all the other builds worked fine).
-> 
-> 
-> To make the serial code compile, I ended up having to revert patch 2 of
-> the regs series, which I believe is safe to do following patch 3-5 which
-> un-plumb the regs pointer deeper in the call chain.  If this is turns
-> out to be true, then the patch ought to be added and reverted in the
-> same series so it isn't left hanging about after the fact.
+On 24.01.2024 18:29, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/hvm/io.c
+> +++ b/xen/arch/x86/hvm/io.c
+> @@ -369,6 +369,22 @@ bool vpci_is_mmcfg_address(const struct domain *d, paddr_t addr)
+>      return vpci_mmcfg_find(d, addr);
+>  }
+>  
+> +int __hwdom_init vpci_subtract_mmcfg(const struct domain *d, struct rangeset *r)
+> +{
+> +    const struct hvm_mmcfg *mmcfg;
+> +
+> +    list_for_each_entry ( mmcfg, &d->arch.hvm.mmcfg_regions, next )
+> +    {
+> +        int rc = rangeset_remove_range(r, PFN_DOWN(mmcfg->addr),
+> +                                       PFN_DOWN(mmcfg->addr + mmcfg->size - 1));
 
-Looking further into this, I can't see how reverting ought to be possible,
-even less so specifically after patch 5. Patches 4 and 5 merely eliminate
-now unused parameters. Hence imo if it could be reverted after 5, it also
-ought to be fine to revert after 3. Which in turn it would mean it's not
-needed at all. Which I simply cannot see (yet?).
+Along the lines of this, ...
+
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -2138,6 +2138,54 @@ int __hwdom_init xen_in_range(unsigned long mfn)
+>      return 0;
+>  }
+>  
+> +int __hwdom_init remove_xen_ranges(struct rangeset *r)
+> +{
+> +    paddr_t start, end;
+> +    int rc;
+> +
+> +    /* S3 resume code (and other real mode trampoline code) */
+> +    rc = rangeset_remove_range(r, PFN_DOWN(bootsym_phys(trampoline_start)),
+> +                               PFN_DOWN(bootsym_phys(trampoline_end)) - 1);
+
+... did you perhaps mean
+
+                               PFN_DOWN(bootsym_phys(trampoline_end) - 1));
+
+here (and then similarly below, except there the difference is benign I
+think, for the labels being page-aligned)?
 
 Jan
 
