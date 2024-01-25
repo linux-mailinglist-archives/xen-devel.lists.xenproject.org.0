@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4690383C47B
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 15:14:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671544.1044944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B982683C48A
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 15:18:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671557.1044953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT0UK-0007Or-S0; Thu, 25 Jan 2024 14:13:52 +0000
+	id 1rT0YK-0008Hm-Cf; Thu, 25 Jan 2024 14:18:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671544.1044944; Thu, 25 Jan 2024 14:13:52 +0000
+Received: by outflank-mailman (output) from mailman id 671557.1044953; Thu, 25 Jan 2024 14:18:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT0UK-0007Ls-PL; Thu, 25 Jan 2024 14:13:52 +0000
-Received: by outflank-mailman (input) for mailman id 671544;
- Thu, 25 Jan 2024 14:13:52 +0000
+	id 1rT0YK-0008FN-A3; Thu, 25 Jan 2024 14:18:00 +0000
+Received: by outflank-mailman (input) for mailman id 671557;
+ Thu, 25 Jan 2024 14:17:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rT0UK-0007Lm-0m
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 14:13:52 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
+ id 1rT0YI-0008FH-OG
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 14:17:58 +0000
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [2a00:1450:4864:20::231])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f6a2b520-bb8b-11ee-8a42-1f161083a0e0;
- Thu, 25 Jan 2024 15:13:50 +0100 (CET)
-Received: by mail-lj1-x22b.google.com with SMTP id
- 38308e7fff4ca-2cf108d8dbeso35930861fa.3
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 06:13:50 -0800 (PST)
+ id 89cb61b0-bb8c-11ee-8a42-1f161083a0e0;
+ Thu, 25 Jan 2024 15:17:57 +0100 (CET)
+Received: by mail-lj1-x231.google.com with SMTP id
+ 38308e7fff4ca-2cf1524cb17so35162571fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 06:17:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- h9-20020a0566380f0900b0046e3bcd98eesm4625016jas.172.2024.01.25.06.13.49
+ ck12-20020a056e02370c00b003627a7f95a7sm3152941ilb.0.2024.01.25.06.17.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 06:13:50 -0800 (PST)
+ Thu, 25 Jan 2024 06:17:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6a2b520-bb8b-11ee-8a42-1f161083a0e0
+X-Inumbo-ID: 89cb61b0-bb8c-11ee-8a42-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706192030; x=1706796830; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fte/AGoa1OQ1snzZ1FbmIm+pebnFcv8JkyWs6so/7+k=;
-        b=MpjttVWqbJYVCGCI1frqyRVL+onJg9js62OV31rX6j6JaIQJhoywAfuVYSuRX52nik
-         OM+tYy0tFehZ2NM6ewhDM7C9EZALT3DYpPmXSO2/GWXB/kukyuIUctDz7Ez93gkXAodC
-         eRk25seK5BJTij/grX2oJl3+Phagv+JZTpWsUfTpRHd1CV9MDNTsJhdcBmBeV2A817tN
-         npP4j9Poch0gMcfHLw9jxWaeIXMU3v9fB1p1jcUxrDfF1wRscdhN5zWqB0lIpsaTh4QC
-         S+VhanSqlGybAQ1NYyQgP85ISb4ZWdhAJEIDbjxnjRAXnJ5Zccx+wLFOkrFzpKJ6kUPM
-         eftA==
+        d=suse.com; s=google; t=1706192277; x=1706797077; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=r5fQXMPxMD8d8Klb1wbUEWroUKuBsn+nFLixeJAmMys=;
+        b=DIjgRlMz2XuRzBy55fPIovZMuPSeNNSA2Pf77dc6vtL/79sK77ZSRW4aOKIMgjk5If
+         lwIBEI+XKhhIzQLAbuI86bqRze29nKtQz9KoML+1++vcnw5ru0gGFZr4n6RZ4/sC0HKb
+         3/a1YTDSEsu8I7IYIURfgzeW8+Yc7H548FfJz6SB5BzK+1U31mVLV8eAvlszjFpmiKQ3
+         ncGvRxPK0UwwfTrFRDkDPeqAqUSXpyKXhhdW9wt7FUJ64xjDq0OimPcqEI4ToDsHi2d3
+         3O3x/JnXBw3Zy2LYtlqrVHHFm0tCDEbXWHIkXgHlr9UKUqGCpnOWf3a4CU/gttax/56V
+         w2Ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706192030; x=1706796830;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1706192277; x=1706797077;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fte/AGoa1OQ1snzZ1FbmIm+pebnFcv8JkyWs6so/7+k=;
-        b=JaMhaCo8V1gR8p2Y0gkTb7BIDO+OBicIeHQkemie28YvjyuZY9xFohrsf52hAOAi0j
-         1RZowkexlR/VeHe568IPi0l52xknc9W5D3hksmE0LC1CXrdfcKz3yNtX6sFj1ZRfMegF
-         s6m1ZP0mqo7bibvgXOIWrNDPxC/1VL2PDFxIQT1kNDzFVuB54wl6WGNnKDKgfSJ5H7VG
-         X5TQfQ78S9tnKpYo9ckEqbsULnvLDxBVzn/WkwncNmLJ2deT4sMNKDmj7LQqRC/DuMM8
-         IJg9eUawhWXTGbG3fLnb6kV+SBp3b3Vu38Zgr3KdrxU2BO2dHgKFo0Rdwete7gwEFSxG
-         zmhw==
-X-Gm-Message-State: AOJu0YzAzkCak2wBjUZEejXkIFAeCylFCbB59oYbwKVLRdZkOA5BHOV6
-	73eexdp/ciw9I17P6wStERD8z1JCIWFzKQ4CScEq59ZAtDg/Pb8DLGUCt1Plag1JEVKzU5LSlBY
-	=
-X-Google-Smtp-Source: AGHT+IFr/NLG6YrzJ/iL57m1TN8wG7bOWM1Kl/ylxE1Z+SLzwGZAMiI+3RKpZpkvCk3gABYGpR7TOw==
-X-Received: by 2002:a2e:a984:0:b0:2cf:3fd3:507a with SMTP id x4-20020a2ea984000000b002cf3fd3507amr281642ljq.99.1706192030399;
-        Thu, 25 Jan 2024 06:13:50 -0800 (PST)
-Message-ID: <fd1e8ff0-0d85-47bd-85d6-6cfbfdd8813a@suse.com>
-Date: Thu, 25 Jan 2024 15:13:48 +0100
+        bh=r5fQXMPxMD8d8Klb1wbUEWroUKuBsn+nFLixeJAmMys=;
+        b=FNAWubIT9pVthATXhKhI3IMqZa52hjPOLAQinCy6dJru7h1t97y9WRaoxcN1x/qWNs
+         5GEH7hKK5xs2FOlz9375+Rk1k4AHaBX4rcy6MsNS1pw2Wo4tHBUucfNrkB6B/NaZHhtb
+         T2KWMg/RPSP81UKOFtivLtFnVph0BNIgyO8cYqF1uG4HdGPVNROG+EBKR6xNAVQQx66m
+         p+XnT1RwfYumx/rBhhLass5wHMMMUxsqpBYYoIamLZTE4gdb4mOi6heEMXq25S5aFfkE
+         gSZtViuJLi7siM+8mCpqueHoOT2Qjf4SKEpo81OclQMW9G3v8Ooz9aitkhcWIdBs2d45
+         9gyQ==
+X-Gm-Message-State: AOJu0YzWGn/4SGlpDyBJ/1/J2DWE3tU4Kp9MOZEQYetm7mkxx9+KDIb8
+	uOFChcAZ8QuqpfY/PKlPVKZe5m2UuoH2BPnce+K6yEPmP54LbLFs3TTW/KWbLA==
+X-Google-Smtp-Source: AGHT+IHHn1IECyxt7jsjj6zdwojDaJKS6OyOvWzDPZTgjn/xWwMtYN1IyUI0T7RsMQxvdj9q+b9GjA==
+X-Received: by 2002:a2e:9158:0:b0:2cf:3238:ebe3 with SMTP id q24-20020a2e9158000000b002cf3238ebe3mr494846ljg.55.1706192277336;
+        Thu, 25 Jan 2024 06:17:57 -0800 (PST)
+Message-ID: <719c3002-46f8-47de-afd7-c17fded0e4e6@suse.com>
+Date: Thu, 25 Jan 2024 15:17:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/3] x86/iommu: switch hwdom IOMMU to use a rangeset
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20240124172953.29814-1-roger.pau@citrix.com>
+ <20240124172953.29814-3-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: purge NMI_IO_APIC
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -109,38 +111,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240124172953.29814-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Even going back to 3.2 source code, I can't spot how this watchdog mode
-could ever have been enabled in Xen. The only effect its presence had
-for all the years was the retaining of a dead string literal.
+On 24.01.2024 18:29, Roger Pau Monne wrote:
+> The current loop that iterates from 0 to the maximum RAM address in order to
+> setup the IOMMU mappings is highly inefficient, and it will get worse as the
+> amount of RAM increases.  It's also not accounting for any reserved regions
+> past the last RAM address.
+> 
+> Instead of iterating over memory addresses, iterate over the memory map regions
+> and use a rangeset in order to keep track of which ranges need to be identity
+> mapped in the hardware domain physical address space.
+> 
+> On an AMD EPYC 7452 with 512GiB of RAM, the time to execute
+> arch_iommu_hwdom_init() in nanoseconds is:
+> 
+> x old
+> + new
+>     N           Min           Max        Median           Avg        Stddev
+> x   5 2.2364154e+10  2.338244e+10 2.2474685e+10 2.2622409e+10 4.2949869e+08
+> +   5       1025012       1033036       1026188     1028276.2     3623.1194
+> Difference at 95.0% confidence
+>         -2.26214e+10 +/- 4.42931e+08
+>         -99.9955% +/- 9.05152e-05%
+>         (Student's t, pooled s = 3.03701e+08)
+> 
+> Execution time of arch_iommu_hwdom_init() goes down from ~22s to ~0.001s.
+> 
+> Note there's a change for HVM domains (ie: PVH dom0) that get switched to
+> create the p2m mappings using map_mmio_regions() instead of
+> p2m_add_identity_entry(), so that ranges can be mapped with a single function
+> call if possible.  Note that the interface of map_mmio_regions() doesn't
+> allow creating read-only mappings, but so far there are no such mappings
+> created for PVH dom0 in arch_iommu_hwdom_init().
+> 
+> No change intended in the resulting mappings that a hardware domain gets.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/include/asm/apic.h
-+++ b/xen/arch/x86/include/asm/apic.h
-@@ -186,7 +186,6 @@ extern void check_nmi_watchdog(void);
- 
- extern unsigned int nmi_watchdog;
- #define NMI_NONE	0
--#define NMI_IO_APIC	1
--#define NMI_LOCAL_APIC	2
-+#define NMI_LOCAL_APIC	1
- 
- #endif /* __ASM_APIC_H */
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -2004,11 +2004,6 @@ static void __init check_timer(void)
-     }
-     printk(" failed.\n");
- 
--    if (nmi_watchdog == NMI_IO_APIC) {
--        printk(KERN_WARNING "timer doesn't work through the IO-APIC - disabling NMI Watchdog!\n");
--        nmi_watchdog = 0;
--    }
--
-     printk(KERN_INFO "...trying to set up timer as Virtual Wire IRQ...");
- 
-     disable_8259A_irq(irq_to_desc(0));
+
 
