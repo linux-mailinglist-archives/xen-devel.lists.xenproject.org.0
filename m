@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBCCE83BC16
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 09:35:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671386.1044704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B1D483BC42
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 09:48:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671395.1044714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSvCB-0002Yx-Jg; Thu, 25 Jan 2024 08:34:47 +0000
+	id 1rSvOK-000536-Lg; Thu, 25 Jan 2024 08:47:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671386.1044704; Thu, 25 Jan 2024 08:34:47 +0000
+Received: by outflank-mailman (output) from mailman id 671395.1044714; Thu, 25 Jan 2024 08:47:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSvCB-0002Vl-Gr; Thu, 25 Jan 2024 08:34:47 +0000
-Received: by outflank-mailman (input) for mailman id 671386;
- Thu, 25 Jan 2024 08:34:46 +0000
+	id 1rSvOK-00050e-IT; Thu, 25 Jan 2024 08:47:20 +0000
+Received: by outflank-mailman (input) for mailman id 671395;
+ Thu, 25 Jan 2024 08:47:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSvCA-0002Vf-8r
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 08:34:46 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=etx6=JD=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rSvOI-00050U-Vq
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 08:47:19 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97a77fc9-bb5c-11ee-98f5-6d05b1d4d9a1;
- Thu, 25 Jan 2024 09:34:45 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2cf1b770833so25755291fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 00:34:45 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t5-20020a5edd05000000b007bfbe4e309asm96222iop.27.2024.01.25.00.34.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 00:34:44 -0800 (PST)
+ id 57a3005b-bb5e-11ee-98f5-6d05b1d4d9a1;
+ Thu, 25 Jan 2024 09:47:16 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-55a45a453eeso8132757a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 00:47:17 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ n20-20020a05640205d400b0055d07073cc6sm210687edx.80.2024.01.25.00.47.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Jan 2024 00:47:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +44,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97a77fc9-bb5c-11ee-98f5-6d05b1d4d9a1
+X-Inumbo-ID: 57a3005b-bb5e-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706171684; x=1706776484; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=6TUw9FUDv+Cjc8ukj2KeedkIP/sjen5jeo28MzoMBx4=;
-        b=Je/7oOfU7Git/MtUI6+nopOqolGfoX50bToa2ucfDYfXifjx+bsZbqS/ug3oyweXHb
-         qz08haFRRy+LYnqF/6Tw5SlTjFM1t5WxQA3eeXuLeG5/v3xl2OXvebe1yG6tZxzWF5jK
-         q8uN5iAwugHqxU+CO3O05TTNjA7PN2tjRBfK6qUs0WBhlojrVfbKJ4yKwT2/he7zAyjU
-         9X6t6qRUbeRVxAO3E2+2cTPdkgWfD/PRk0yYRnAhCc7XFWt9ldAWX5EvenXqo2gqPdqB
-         Mdt2cThheyTPnoPMb2B72u3yFMwxfNrheP2hcasmT3xi8CQGfDiW20trSwpulaNigt4r
-         W49g==
+        d=citrix.com; s=google; t=1706172436; x=1706777236; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=nOPKVww7bzuKHViPxmqAo+KZYz+GyO21TmYZk/zuNNM=;
+        b=XX/fyuNbZNNxDOU3w29C2rV3GYL5zZlfcDj+op4psfH3uutyD2pF81TUB2i3H/+Bof
+         hkdRcbJfvWCTcvmBEVNZ5jwvWpCcJe/mkOJ8JV9UvFHbz985rrbwdrR00OnFw3AQZK74
+         BpxzlEB4urj05fs3uoFD+6v6+rK2vb1r5TsXE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706171684; x=1706776484;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6TUw9FUDv+Cjc8ukj2KeedkIP/sjen5jeo28MzoMBx4=;
-        b=BO0n96gInb7xOGY3tgDCt7cG2VdvN4rf3UMV86h9jFJgfAHo2tgG2UjgV1XwpMbzj7
-         owoEmAwnAMUfaZUXwpXRdxeOBtig0DBBwTAsW20s23ItZcRjLdk0fFDMu/2Nu9sXX8bx
-         E183YLCgKZZgH0934AzOQlVqCV/+IsUlQQjQvI0T3W5Wdgm0RJ5P+rdrW+/lAsvcFpRQ
-         76jlGxe0i9ppJTkYBs6sr4NVJWlN8qWAyJZigc9HtN0ggZ26S+Td7HrupdB9EVIKAAoj
-         t4PdLF+3g3Co7BtxDdbIqnxicbg3pNzRmsLyNHIsz91ExRZYge8qf/jsW0NyD1RCrO+9
-         89UQ==
-X-Gm-Message-State: AOJu0YxNmJy0br5d9WNi5GHg+dNsYSgJT99VMu6NArMtzzhAzQsSHNYB
-	LEvvKs0AXwmoAUhwuG8rAyVKx/X47Xog8UY9hEVwmgGkD4An4jEgkk8+dJaV4Q==
-X-Google-Smtp-Source: AGHT+IFeb2YZ/0f1mwIivcBGoPrye2uctxkUJnIYkKwSeIX6Qa2IOtOIn1gEzoI38rn0p4B3Ag48iQ==
-X-Received: by 2002:a05:651c:1cd:b0:2cc:78c5:7ffa with SMTP id d13-20020a05651c01cd00b002cc78c57ffamr447310ljn.7.1706171684577;
-        Thu, 25 Jan 2024 00:34:44 -0800 (PST)
-Message-ID: <ad178469-15c3-4ae5-8538-e927f1116a42@suse.com>
-Date: Thu, 25 Jan 2024 09:34:40 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] x86/iommu: remove regions not to be mapped
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1706172436; x=1706777236;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=nOPKVww7bzuKHViPxmqAo+KZYz+GyO21TmYZk/zuNNM=;
+        b=qYcWmY5t0IVT78uX24E/gPeqWtQ0kU1ijD+jvtMFpjItDJQKfqruCImLR5tb0zuPJx
+         9eOWlypzsChK6loSJnXy508vmUF5rEIgp1KRyhWwFUssiS0j4u3QQQ9mBx9JA6sLAMbP
+         QE1k2lk9JMXvFLL6y4eMbQLNYmZR/ncZ/vUz4bgV+l6kjahJqaGRiRGn1l3M7LZHzNDr
+         4I6E5Yz88O4Osx/R3JbWrb02B8lkCVw9c88DOsx8/WSbu0rREDgSdumhUflgLjZUEMPb
+         j9THh8UVZCYQFp97bNvLKrGffd+MzkPO08Soec5OrGAe7Fk24KvzKkK9K7lw0mjmQvpH
+         TbUA==
+X-Gm-Message-State: AOJu0Yy4fEH4aQ0WrMwq8sUbmeuQP9HvVxFq3UA9WUOTuc+Erq+t+QaC
+	k2SSyEnoxi1z2NTF6BtHio3D51ObSzCd6YyrNcyuFCxtPInejrAEpsNgzAYRe5o=
+X-Google-Smtp-Source: AGHT+IFpLUCv/rnBIyP18spKrrYjzTOcMsiBBxznXs5pn/MgWBw2fqcsJ08xEH2q/Nwb54KDe0gpuQ==
+X-Received: by 2002:a50:9f03:0:b0:559:e715:8424 with SMTP id b3-20020a509f03000000b00559e7158424mr456845edf.31.1706172436583;
+        Thu, 25 Jan 2024 00:47:16 -0800 (PST)
+Date: Thu, 25 Jan 2024 09:47:15 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
 Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v5 1/3] x86/iommu: remove regions not to be mapped
+Message-ID: <ZbIgE8exXDVicN8D@macbook>
 References: <20240124172953.29814-1-roger.pau@citrix.com>
  <20240124172953.29814-2-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240124172953.29814-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ <ad178469-15c3-4ae5-8538-e927f1116a42@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ad178469-15c3-4ae5-8538-e927f1116a42@suse.com>
 
-On 24.01.2024 18:29, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/hvm/io.c
-> +++ b/xen/arch/x86/hvm/io.c
-> @@ -369,6 +369,22 @@ bool vpci_is_mmcfg_address(const struct domain *d, paddr_t addr)
->      return vpci_mmcfg_find(d, addr);
->  }
->  
-> +int __hwdom_init vpci_subtract_mmcfg(const struct domain *d, struct rangeset *r)
-> +{
-> +    const struct hvm_mmcfg *mmcfg;
-> +
-> +    list_for_each_entry ( mmcfg, &d->arch.hvm.mmcfg_regions, next )
-> +    {
-> +        int rc = rangeset_remove_range(r, PFN_DOWN(mmcfg->addr),
-> +                                       PFN_DOWN(mmcfg->addr + mmcfg->size - 1));
+On Thu, Jan 25, 2024 at 09:34:40AM +0100, Jan Beulich wrote:
+> On 24.01.2024 18:29, Roger Pau Monne wrote:
+> > --- a/xen/arch/x86/hvm/io.c
+> > +++ b/xen/arch/x86/hvm/io.c
+> > @@ -369,6 +369,22 @@ bool vpci_is_mmcfg_address(const struct domain *d, paddr_t addr)
+> >      return vpci_mmcfg_find(d, addr);
+> >  }
+> >  
+> > +int __hwdom_init vpci_subtract_mmcfg(const struct domain *d, struct rangeset *r)
+> > +{
+> > +    const struct hvm_mmcfg *mmcfg;
+> > +
+> > +    list_for_each_entry ( mmcfg, &d->arch.hvm.mmcfg_regions, next )
+> > +    {
+> > +        int rc = rangeset_remove_range(r, PFN_DOWN(mmcfg->addr),
+> > +                                       PFN_DOWN(mmcfg->addr + mmcfg->size - 1));
+> 
+> Along the lines of this, ...
+> 
+> > --- a/xen/arch/x86/setup.c
+> > +++ b/xen/arch/x86/setup.c
+> > @@ -2138,6 +2138,54 @@ int __hwdom_init xen_in_range(unsigned long mfn)
+> >      return 0;
+> >  }
+> >  
+> > +int __hwdom_init remove_xen_ranges(struct rangeset *r)
+> > +{
+> > +    paddr_t start, end;
+> > +    int rc;
+> > +
+> > +    /* S3 resume code (and other real mode trampoline code) */
+> > +    rc = rangeset_remove_range(r, PFN_DOWN(bootsym_phys(trampoline_start)),
+> > +                               PFN_DOWN(bootsym_phys(trampoline_end)) - 1);
+> 
+> ... did you perhaps mean
+> 
+>                                PFN_DOWN(bootsym_phys(trampoline_end) - 1));
+> 
+> here (and then similarly below, except there the difference is benign I
+> think, for the labels being page-aligned)?
 
-Along the lines of this, ...
+They are all page aligned, so I didn't care much,  but now that you
+point it might be safer to do the subtraction from the address instead
+of the frame number, just in case.
 
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -2138,6 +2138,54 @@ int __hwdom_init xen_in_range(unsigned long mfn)
->      return 0;
->  }
->  
-> +int __hwdom_init remove_xen_ranges(struct rangeset *r)
-> +{
-> +    paddr_t start, end;
-> +    int rc;
-> +
-> +    /* S3 resume code (and other real mode trampoline code) */
-> +    rc = rangeset_remove_range(r, PFN_DOWN(bootsym_phys(trampoline_start)),
-> +                               PFN_DOWN(bootsym_phys(trampoline_end)) - 1);
-
-... did you perhaps mean
-
-                               PFN_DOWN(bootsym_phys(trampoline_end) - 1));
-
-here (and then similarly below, except there the difference is benign I
-think, for the labels being page-aligned)?
-
-Jan
+Thanks, Roger.
 
