@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7654C83C873
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F29083C874
 	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:46:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671661.1045124 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.671662.1045133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2rP-0006Qv-CU; Thu, 25 Jan 2024 16:45:51 +0000
+	id 1rT2rk-0006nQ-OM; Thu, 25 Jan 2024 16:46:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671661.1045124; Thu, 25 Jan 2024 16:45:51 +0000
+Received: by outflank-mailman (output) from mailman id 671662.1045133; Thu, 25 Jan 2024 16:46:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2rP-0006Ni-98; Thu, 25 Jan 2024 16:45:51 +0000
-Received: by outflank-mailman (input) for mailman id 671661;
- Thu, 25 Jan 2024 16:45:49 +0000
+	id 1rT2rk-0006ko-LY; Thu, 25 Jan 2024 16:46:12 +0000
+Received: by outflank-mailman (input) for mailman id 671662;
+ Thu, 25 Jan 2024 16:46:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+DBC=JD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rT2rN-0006Nc-NK
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:45:49 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rT2rj-0006Nc-3H
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:46:11 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3100729d-bba1-11ee-8a42-1f161083a0e0;
- Thu, 25 Jan 2024 17:45:48 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-40ed2333c8fso9170975e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:45:48 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- l1-20020a05600c4f0100b0040e549c77a1sm3227637wmq.32.2024.01.25.08.45.47
+ id 3d1a6ab1-bba1-11ee-8a42-1f161083a0e0;
+ Thu, 25 Jan 2024 17:46:08 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2cf205dc075so24520841fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:46:08 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5-20020a6b1505000000b007bf2c9bbdd6sm7616710iov.50.2024.01.25.08.46.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 08:45:47 -0800 (PST)
+ Thu, 25 Jan 2024 08:46:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,100 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3100729d-bba1-11ee-8a42-1f161083a0e0
+X-Inumbo-ID: 3d1a6ab1-bba1-11ee-8a42-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706201148; x=1706805948; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706201168; x=1706805968; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=WgVwAW5QZiKkSMI6onyy0wKX+GR8T1FmIY5QV7mUsII=;
-        b=nG1TcmRFX6aC9DuBfzdUt1T+yu2HjtINq0L1D3VAn9sPjoG4UqT92S6czLebBnBfVs
-         a8z32emZUaicsAVjVBU5yaSBGbW1iV27camP17NqPfm78flf1C+8U3ccK0nkkeeyZxEd
-         9jfCLFvcEiEyZ3yoDB5lrrZTfSXLFn0EsbIcQ=
+        bh=+2zNLH228gIijs1yWo5a80VfczrzNbWVli54+hLosIs=;
+        b=R7+wgcJQNz6HwgnzuMgmxVCXuMaqFQuKE3V8EsSoVrhWECiFEckWXRQKN6l0leqUHG
+         qrGaQr5gTkHs1f8Z74xmX77qyTPd2ZWiO2DenrY3proD7q7bDHlJrBVKcOehXeINGuCc
+         6rNqVBUg6okgPJaNWAUczhS0OJI4SnukgI8vH2iVfqDwxvtZawm3tD6+063T8VxSBsvq
+         pV1gTZMiLnmETrWf24JT6Yof18Qk1UaHO6h3Ak7VSbdD9BDrmfuUOUoW5glyy4EY6G/2
+         N+yfJGTeJZl4JMZiABNqVZdyajHeltkXIZ6fFo7IUAlGU93l33d1OC/ATaa0nALRKBPA
+         CCaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706201148; x=1706805948;
+        d=1e100.net; s=20230601; t=1706201168; x=1706805968;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WgVwAW5QZiKkSMI6onyy0wKX+GR8T1FmIY5QV7mUsII=;
-        b=t/41fPFmjKHA8r9/5cnIaR7hFOqOr2pCxlvdzB+HkGpsPXdx5/AjNwsdwEK3sopGEv
-         t+PDM0uGNMAIQP50Fi7M87DVJy1xE4z0FJudh9b414ssJ6J6Kd1Ejb1xwt1LYpGmVi+N
-         lkmPLRZZpFADOiN+0bcmNb2AUZJ1weH/RBqIcSvsxkj90v+xfyeaPgg1Jz2A4DJMdd8S
-         Lvvi0piR2uC8HkcBRDt+1BaTW96LIn41zMtUJLry0OtIhqPnLLf+UySCI3F6KwcUBkse
-         S3OvX45pzjDV11gNGGcV6gJYQuq+Mj8xau9YX+OBIedHkgLkCVDa5B6yJf0S1t1ItHPd
-         BN/Q==
-X-Gm-Message-State: AOJu0YxtUmeYx6MpyQ5DhA3+SG9Y0jh+d/6wjoXegjiySWzQPIXMMrAn
-	+a3Fw3oCLdnWor2Ub5U1MW+vhlwoV5nzcPF4+qPKk5dHPae9SvFtGWwN67UpIHs=
-X-Google-Smtp-Source: AGHT+IER1LVpbeQ6Su2uj4kIirksuZ2Qknuhy2iH1gqeiPk7XzesrvJWBEeNA4KS1RjHbA2dRIrvAg==
-X-Received: by 2002:a7b:c30e:0:b0:40e:76d9:e5ce with SMTP id k14-20020a7bc30e000000b0040e76d9e5cemr2035wmj.219.1706201147728;
-        Thu, 25 Jan 2024 08:45:47 -0800 (PST)
-Message-ID: <6758d47e-95f6-45af-8ce4-7ebfe8f24669@citrix.com>
-Date: Thu, 25 Jan 2024 16:45:47 +0000
+        bh=+2zNLH228gIijs1yWo5a80VfczrzNbWVli54+hLosIs=;
+        b=AWKZ7UAdwwxxG0IML60V/ahasF5TW4jLFitxZ6SxCWCQnNylwOuPwJnvlw9gaP72u9
+         KQPtYr1e/tIZNLMeP7YC5ZZVpHJ6MGJfER30htYXlgotMsPdTyx0FwLkqqQWuGgY7xML
+         5RceGb3wFHs66W4PLw6FvTiT/54QWh+GyFBADSz6dYe8q0i2Rj06ns47mX/2PwbtTeL2
+         9t9Sdbpxx4D3Bf7zVAj0iVmmtW6+5KJ7WssUHMbB+YqyP4rD/izn+yp6TYreCTkAUQhF
+         95ZyHDkZeJnhWA3if9aixMaZbKNyNRangW4FE3VWbNS2BzXvsU6hYdd+hW6K5F5R16yN
+         BDNQ==
+X-Gm-Message-State: AOJu0YwyFHhetX2z4gvSurPE6Xro4XZiJg+MwWESikfzjBKa1bxf+ldc
+	IlmNvvXe+4JuOexi2fb+4wiLQ4icQUnrwnaVaRE4gyDaEhvwqEHvMjcIf1YpBQ==
+X-Google-Smtp-Source: AGHT+IHWdPur9nNqDN1s5T+7s7ULD6UTGdc4aj6G8KXAuSGl/4q6QjscWQMEm9tA6b8bcN9vgP9COA==
+X-Received: by 2002:a05:651c:cc:b0:2cb:2d48:334 with SMTP id 12-20020a05651c00cc00b002cb2d480334mr659742ljr.60.1706201167993;
+        Thu, 25 Jan 2024 08:46:07 -0800 (PST)
+Message-ID: <8bfc95ea-9d0b-4ef5-8179-5e345a318af4@suse.com>
+Date: Thu, 25 Jan 2024 17:46:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: purge NMI_IO_APIC
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <fd1e8ff0-0d85-47bd-85d6-6cfbfdd8813a@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <fd1e8ff0-0d85-47bd-85d6-6cfbfdd8813a@suse.com>
+Subject: Re: [PATCH v6 1/3] x86/iommu: remove regions not to be mapped
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20240124172953.29814-2-roger.pau@citrix.com>
+ <20240125132626.34553-1-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240125132626.34553-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25/01/2024 2:13 pm, Jan Beulich wrote:
-> Even going back to 3.2 source code, I can't spot how this watchdog mode
-> could ever have been enabled in Xen. The only effect its presence had
-> for all the years was the retaining of a dead string literal.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 25.01.2024 14:26, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -2138,6 +2138,54 @@ int __hwdom_init xen_in_range(unsigned long mfn)
+>      return 0;
+>  }
+>  
+> +int __hwdom_init remove_xen_ranges(struct rangeset *r)
+> +{
+> +    paddr_t start, end;
+> +    int rc;
+> +
+> +    /* S3 resume code (and other real mode trampoline code) */
+> +    rc = rangeset_remove_range(r, PFN_DOWN(bootsym_phys(trampoline_start)),
+> +                               PFN_DOWN(bootsym_phys(trampoline_end) - 1));
 
-We have far too much junk here.
+With the understanding that we've settled on us not quite being at the
+point where only one page of the trampoline is kept mapped:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Jan
 
