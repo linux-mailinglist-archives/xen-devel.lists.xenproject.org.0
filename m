@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 396DB83C60D
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 16:05:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671595.1045014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2815B83C70B
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 16:40:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671603.1045023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT1Hz-00059e-3s; Thu, 25 Jan 2024 15:05:11 +0000
+	id 1rT1pq-0005FA-Ka; Thu, 25 Jan 2024 15:40:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671595.1045014; Thu, 25 Jan 2024 15:05:11 +0000
+Received: by outflank-mailman (output) from mailman id 671603.1045023; Thu, 25 Jan 2024 15:40:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT1Hz-000585-0x; Thu, 25 Jan 2024 15:05:11 +0000
-Received: by outflank-mailman (input) for mailman id 671595;
- Thu, 25 Jan 2024 15:05:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rT1pq-0005DH-Hd; Thu, 25 Jan 2024 15:40:10 +0000
+Received: by outflank-mailman (input) for mailman id 671603;
+ Thu, 25 Jan 2024 15:40:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KpLG=JD=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1rT1Hx-00057z-2a
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 15:05:09 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 204c901f-bb93-11ee-98f5-efadbce2ee36;
- Thu, 25 Jan 2024 16:05:07 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-5100ed2b33dso3134416e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 07:05:07 -0800 (PST)
+ <SRS0=+DBC=JD=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rT1pp-0005Bx-6A
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 15:40:09 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0457d418-bb98-11ee-8a42-1f161083a0e0;
+ Thu, 25 Jan 2024 16:40:08 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-339289fead2so5840135f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 07:40:07 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ l6-20020a5d5606000000b0033922468707sm15741024wrv.83.2024.01.25.07.40.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 25 Jan 2024 07:40:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,80 +45,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 204c901f-bb93-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 0457d418-bb98-11ee-8a42-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1706195107; x=1706799907; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ujVQl2eHoFIN1NSaiWIIT/EwOKwIdEPVDpBXFuNHGPY=;
-        b=mMKMrUdIpDihORht6UrMYwZNt/14fsJmj9CBg3OwYipyp4F+yaShchKP2EMzbOEX3r
-         jOCOkps2gyFoQiRMkJG9E5QxoM7hLhoeR81cnePj41hO8N3YtiV/+dJ0GgSSyuxw3/R7
-         IZtWqypiB+mB6qegVo+CAIe1v+pwpRSNhJew7dJMJg77l2uABv/1qj6vIQHBy9TuR5BF
-         STxxwh30zlgb070VX4+umeLFOB52NEQdBhFnzLfleDso70F9d9bQrzRkSfNQbJAsvyiv
-         n/mc1jkVrR+S4oxGskmMCTq8k6d+wbsjeKH2JJy+q6H64RW0Eh+qsRpEGL2HoB3jUzD0
-         wMXw==
+        d=citrix.com; s=google; t=1706197207; x=1706802007; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8+V74Fe0DEXs1Ie5BHBfh7yvIkP5GDGrO1LDElEb+oc=;
+        b=fjH2LlmMCxTS5/gwLnUjuaefR4XNbkO/q18WgF0l7G93FStl2fj/OVPq3eEmGyoZbz
+         EitUDS22kT3z18ZPzreDWuXtBZCLQz7W8Lw6lkEK62504/hZCTKrI93236hNnplaPLxI
+         sHWuEONbFvFMfXU/P1yEQMTVIxBzYRyXBbh7A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706195107; x=1706799907;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ujVQl2eHoFIN1NSaiWIIT/EwOKwIdEPVDpBXFuNHGPY=;
-        b=Al+hFhbDzdcmVjppf0mf/L1bjLFEcq0DzhCcOmwGMLOAqvUEelLWqJmr4Zt0sspOeA
-         +Lgikbsb5nohiBU8gP6d1dmL1QEIBVnX39ZoHyLOdz+xZ1QgGR0JZ4HgPrAbY7OIbi0q
-         ypRvN+rE5ZZd/y0Meo9+UI1RuWNinXV5vnYeIgyC1Ouq52sMLC9NLgJx4aEUDeaFdYa3
-         M4ZFiEggasap2D4yklepIU1g+naqp+HX0AVvhyjO6BlpURAzJilQQdHjiHd8KKBxZhif
-         sYxAmn2aKGE1uLyN10QJFwUhFxuZAMlnusnVMAbpij7HJCIMs4as+Kg4FZsgziyKb7Po
-         5RFw==
-X-Gm-Message-State: AOJu0YzjkvpzQE3FaXwxrx0gZyKsbirbmwPdhj03893OsfmN+2s4bCX7
-	e1BSsPPDZSHOKnF2SjXrUdzC4ipLEm0/MKotaXExQBwAPgZMc88KMbRYzyN9YZU/WVbeWPVFsOj
-	I6f28cGRAFtwVftpTPDPajotAoa4=
-X-Google-Smtp-Source: AGHT+IF2GsjJao73A40LDKWcVvT06jIqx2xkwjQejp3diA32/kINlerhHNfs/OC1cs2/HVghJCA0zJmv26F/1G8WuM0=
-X-Received: by 2002:a05:6512:3d21:b0:510:c62:bcd4 with SMTP id
- d33-20020a0565123d2100b005100c62bcd4mr824535lfv.55.1706195106499; Thu, 25 Jan
- 2024 07:05:06 -0800 (PST)
+        d=1e100.net; s=20230601; t=1706197207; x=1706802007;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8+V74Fe0DEXs1Ie5BHBfh7yvIkP5GDGrO1LDElEb+oc=;
+        b=wS9ixWJ6IqdYhhyUhWjQPijC3qZ0VawmU+lTcWaN44XFJ2pCVELegLcvxcwWK1CWof
+         pUy2V3C8agv+MJs0UqluiIdd7/btuwm0UAonaNjDwJPe4wTn+DyxBpC4qI54oszfl9OT
+         hWStItgQCpO6WlSWeXEB/fMXbw8Z+V/NwLx7kfkojQrhKa8guMKYdx1RkeozryEUVra1
+         zC0MHPoyK4hCaQTnLmvs8RR2OnK2sz9SkGaGQtnjzGu9wcmnyM7jkuUV63AnBdB0C7OV
+         NcFg00JFQerZpRZwP5rf2RaqONpxMVXit7ngL3HTkibJ76KuPRD3qDDWvEM9elkbSeDk
+         epfA==
+X-Gm-Message-State: AOJu0YzdD0AdH5dXIm7HEwQe/CpQkQNnmKg5cNGa/KGIPlFplOPMBNLJ
+	UYAq5p7xGU3eYvOUUIUC9s2h0TzELO5l9Im5HsJ80Jz8BLFPea2NZCoigsYjWx8=
+X-Google-Smtp-Source: AGHT+IE6FxWbCHFG7TcbnaZ9GICY8M/yNvc7Iuyr0yDrvvjEN5Kbji3WpaDKBZ08zpD2jgKiqiOOxg==
+X-Received: by 2002:a05:6000:1b06:b0:339:2214:ada6 with SMTP id f6-20020a0560001b0600b003392214ada6mr662345wrz.48.1706197207342;
+        Thu, 25 Jan 2024 07:40:07 -0800 (PST)
+Message-ID: <323d0100-8e7d-43d9-b193-2c8cb4eb6ebc@citrix.com>
+Date: Thu, 25 Jan 2024 15:40:06 +0000
 MIME-Version: 1.0
-References: <20240124205922.67266-1-jandryuk@gmail.com> <20240124205922.67266-3-jandryuk@gmail.com>
- <a9d6efce-8185-4dc8-b1d3-097ec49e3b28@suse.com>
-In-Reply-To: <a9d6efce-8185-4dc8-b1d3-097ec49e3b28@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Thu, 25 Jan 2024 10:04:54 -0500
-Message-ID: <CAKf6xpvR3DYseUM0BTmpoDy+WZN7vrdB-7gM4D5F4sOrBXa7rw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] xenpm: Print message for disabled commands
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/APIC: purge {GET,SET}_APIC_DELIVERY_MODE()
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <6842ceff-a6cd-475d-b3bb-c828eee6c83a@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <6842ceff-a6cd-475d-b3bb-c828eee6c83a@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 25, 2024 at 9:31=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 24.01.2024 21:59, Jason Andryuk wrote:
-> > xenpm get-cpufreq-states currently just prints no output when cpufreq i=
-s
-> > disabled or HWP is running.  Have it print an appropriate message.  The
-> > cpufreq disabled one mirros the cpuidle disabled one.
-> >
-> > cpufreq disabled:
-> > $ xenpm get-cpufreq-states
-> > Either Xen cpufreq is disabled or no valid information is registered!
-> >
-> > Under HWP:
-> > $ xenpm get-cpufreq-states
-> > P-State information not supported.  Try get-cpufreq-average or start.
-> >
-> > Also allow xenpm to handle EOPNOTSUPP from the pmstat hypercalls.
-> > EOPNOTSUPP is returned when HWP is active in some cases and allows the
-> > differentiation from cpufreq being disabled.
-> >
-> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
->
-> Largely okay, but a number of cosmetic remarks / nits:
+On 25/01/2024 2:08 pm, Jan Beulich wrote:
+> --- a/xen/arch/x86/cpu/vpmu.c
+> +++ b/xen/arch/x86/cpu/vpmu.c
+> @@ -308,12 +308,12 @@ void vpmu_do_interrupt(void)
+>  
+>      vlapic_lvtpc = vlapic_get_reg(vlapic, APIC_LVTPC);
+>  
+> -    switch ( GET_APIC_DELIVERY_MODE(vlapic_lvtpc) )
+> +    switch ( vlapic_lvtpc & APIC_DM_MASK )
+>      {
+> -    case APIC_MODE_FIXED:
+> +    case APIC_DM_FIXED:
+>          vlapic_set_irq(vlapic, vlapic_lvtpc & APIC_VECTOR_MASK, 0);
+>          break;
+> -    case APIC_MODE_NMI:
+> +    case APIC_DM_NMI:
+>          sampling->arch.nmi_pending = true;
+>          break;
+>      }
 
-Thanks for taking a look.  Sorry about the cosmetic issues.  All your
-suggestions are good with me.
+Looking at the asm diff between the two, this is the only function with
+any delta at all.
 
-Thanks,
-Jason
+This transformation does shift the case literals by 8 bits, but I'm
+reasonably confident the result is still logically the same.
+
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
