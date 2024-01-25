@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD34083C7EE
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:28:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671642.1045093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD1C583C80D
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:31:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671647.1045104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2ad-0001G5-Ji; Thu, 25 Jan 2024 16:28:31 +0000
+	id 1rT2cx-000302-UB; Thu, 25 Jan 2024 16:30:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671642.1045093; Thu, 25 Jan 2024 16:28:31 +0000
+Received: by outflank-mailman (output) from mailman id 671647.1045104; Thu, 25 Jan 2024 16:30:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2ad-0001EW-Gf; Thu, 25 Jan 2024 16:28:31 +0000
-Received: by outflank-mailman (input) for mailman id 671642;
- Thu, 25 Jan 2024 16:28:31 +0000
+	id 1rT2cx-0002yG-Rd; Thu, 25 Jan 2024 16:30:55 +0000
+Received: by outflank-mailman (input) for mailman id 671647;
+ Thu, 25 Jan 2024 16:30:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rT2ac-0001EQ-VY
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:28:30 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
+ id 1rT2cw-0002yA-Tw
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:30:54 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c57415f1-bb9e-11ee-98f5-efadbce2ee36;
- Thu, 25 Jan 2024 17:28:28 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id
- 4fb4d7f45d1cf-55cdaa96f34so1772918a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:28:28 -0800 (PST)
+ id 1b408e6b-bb9f-11ee-98f5-efadbce2ee36;
+ Thu, 25 Jan 2024 17:30:52 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-55cd798b394so1794198a12.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:30:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c8-20020a056e020cc800b0036197f7f157sm3760360ilj.2.2024.01.25.08.28.26
+ dh7-20020a056e021f0700b0035ff0206ae6sm9706806ilb.17.2024.01.25.08.30.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 08:28:27 -0800 (PST)
+ Thu, 25 Jan 2024 08:30:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c57415f1-bb9e-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 1b408e6b-bb9f-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706200108; x=1706804908; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706200252; x=1706805052; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=7pQid3mXTBuu2fPYArxOPPVeK5fmBM9o7miluHzNukM=;
-        b=NSQuqGLaJrbhTORHNH27AUAk9NUoTZOQ93x0Kq/l6MbnlPtPFiTuLjrNgpgRjW2BvA
-         KcTBN/EsktZr/SCHXjJl8huGBbo6tc2kht4LrKgIogMdPlufJGHNl16dkLdQw9P19cLz
-         uVmtOVkB/QAbV+uUlMuRt/Nxinja3p8k9T7ysOAjOwF7s02m98mzH+p0G+1jBCDsBOPZ
-         5DQqt5xBncb1zGWMOLLw3oXfr6rDoxf/yWDA4TtTZQbYU0eHbPKuFICQRFWVUFlBIntK
-         YxDTqnl35WMOoqk8GeUD9/CJmqd3ev61gp6XeMwUlbuPHrTfPumhxrM2lVJ0/74O5mhZ
-         2EdA==
+        bh=jpBBixWO47Get8Mb1/AylK/t47FYEgf3+z0r8OD2wPY=;
+        b=X5VOsvsuQ62lAHWuzce8gz+YQbXPzHuBybmizjL/Ks/oX5Cxt6IXZ2nHbk6D6wnMPa
+         U+d5MwUwTQOsdu2E/r9iBuOvkZtU+PQnHdW0g7vyuQFMwN3pC+F5kf2I4L65uT103OJY
+         jCbidxTODEe9WARrBU4oUaE8xZx1O+4Y3hWp/Q1redg3aTfgbGgziTVLiooM2VwA0YiN
+         6BPTlbD0pNsFQctV3lM7QOpA9fDcy7FKrNvEyOzC6kEA21dmdFnosUAt4WP+tn0lDzTz
+         R2klWXCjIwhUgmoEGJVP4FE9yKj4Hbku/ieB2t7ZP066BFB+QEbA+WNPBgYIb0584UZI
+         4wow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706200108; x=1706804908;
+        d=1e100.net; s=20230601; t=1706200252; x=1706805052;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=7pQid3mXTBuu2fPYArxOPPVeK5fmBM9o7miluHzNukM=;
-        b=HLyUai0cleTHu7h9IONh7uvvMAYh/pYIgTuE+KfamK5otcMqCmApOIjKrzP3+0+kys
-         S3HKW9vjod4M5hdLh94w9uFs0RVGOOalubpexVRiJAjGC+GdfIR4sOouWomKkdg+ZLHm
-         k6q7fSy7tc9Waqyqbk6hNywkuM9Dr0D9BvcdY0UZ1KGCIAsWHel5X6qa6GpmZnmjizNP
-         yrWHkC+6fxppvy2Kz27jKshmz7ncFuJ8keCmlwrRZaVDoLX/X/HCqR8uLFK9DECseD2A
-         EIGiqz4A8+m8Uv6sOmsBRSS5YY29oMHyL79SYA1Qpf0ftT8RXMMEYQB8HOa6ogu1mRGS
-         Y32A==
-X-Gm-Message-State: AOJu0YxXnZX6wBTb4MJ3WGnxUXtj5ppLjOwFEbSc9lLeht7jx0/FhV7M
-	X1d8nwi6XE0B8bXs7iTb+vlgNwnPTvw4cSCHz6CVRTMX9dNC5byMfPi2BJlrng==
-X-Google-Smtp-Source: AGHT+IEFpJsA+MLudHTE9ZnetRgYlKLjKi16iZCopjx1vfBq5aDfxxFq17R3AipJqGUxT8xtpFQj9w==
-X-Received: by 2002:a17:906:fcd9:b0:a2f:ebb:f200 with SMTP id qx25-20020a170906fcd900b00a2f0ebbf200mr146015ejb.9.1706200108317;
-        Thu, 25 Jan 2024 08:28:28 -0800 (PST)
-Message-ID: <316b72bf-177b-4bcb-8941-e1013096f7cd@suse.com>
-Date: Thu, 25 Jan 2024 17:28:25 +0100
+        bh=jpBBixWO47Get8Mb1/AylK/t47FYEgf3+z0r8OD2wPY=;
+        b=F6/odaPJE2pJHBPWTuGfsxeY+nj8yITmJfAKCnmjpOBr8/XfBoNqClMakM2n+0qFJ+
+         JNQNqs1ZLiFXREk5qm8EEPQpPgXNkrdrYEV8qik0ZoI8swwqf82yC7JyDuOZqvv98EHT
+         /hrJCDv35Pg7WFF+Axs0qbQUjmJWA74OnwHpLd16+FOmDJPu7kP1VKulV9+LAH6yt+l3
+         Rpic81JIvmcMfAUtipJ0oPZp4eyheVsUMFT7BP2cZ06gzcsu7La049lNMmq+BWocSpmk
+         1Ddu0KiGiaLm6PtqOG/dRB16tbSE4YgqYqgXcVOTxmjwzGFPVv0aQnGddHbPb6Yc7zlh
+         yvyw==
+X-Gm-Message-State: AOJu0YyutEd66rQwDWG6I7H0BoNt+hQulYmIfYHgqtzdLp4gLSg17ml7
+	cI29Ux0NZ4MQUmwAxa5EfwezI8KpV9YvvWew9Y9lTch/grTIQssOAPnu2khppQ==
+X-Google-Smtp-Source: AGHT+IGFBPFsEv0BPkxNcVFm7mvc1d5BPT8/6dnaXKkUs7dMk7YEdCnw/i4AtO0B0UiKQE/rziz6Ww==
+X-Received: by 2002:a17:906:4749:b0:a2b:f7d:5b5d with SMTP id j9-20020a170906474900b00a2b0f7d5b5dmr126728ejs.32.1706200252319;
+        Thu, 25 Jan 2024 08:30:52 -0800 (PST)
+Message-ID: <df2fb038-680f-41be-b378-9ff7514fcb68@suse.com>
+Date: Thu, 25 Jan 2024 17:30:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 (resend) 04/27] acpi: vmap pages in
- acpi_os_alloc_memory
+Subject: Re: [PATCH v2 (resend) 05/27] xen/numa: vmap the pages for memnodemap
 Content-Language: en-US
 To: Elias El Yandouzi <eliasely@amazon.com>
 Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
@@ -89,7 +88,7 @@ Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
 References: <20240116192611.41112-1-eliasely@amazon.com>
- <20240116192611.41112-5-eliasely@amazon.com>
+ <20240116192611.41112-6-eliasely@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,29 +113,30 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240116192611.41112-5-eliasely@amazon.com>
+In-Reply-To: <20240116192611.41112-6-eliasely@amazon.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 16.01.2024 20:25, Elias El Yandouzi wrote:
-> From: Hongyan Xia <hongyxia@amazon.com>
-> 
-> Also, introduce a wrapper around vmap that maps a contiguous range for
-> boot allocations. Unfortunately, the new helper cannot be a static inline
-> because the dependencies are a mess. We would need to re-include
-> asm/page.h (was removed in aa4b9d1ee653 "include: don't use asm/page.h
-> from common headers") and it doesn't look to be enough anymore
-> because bits from asm/cpufeature.h is used in the definition of PAGE_NX.
-> 
-> Lastly, with the move to vmap(), it is now easier to find the size
-> of the mapping. So pass the whole area to init_boot_pages() rather than
-> just the first page.
-> 
-> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
+> --- a/xen/common/numa.c
+> +++ b/xen/common/numa.c
+> @@ -424,13 +424,14 @@ static int __init populate_memnodemap(const struct node *nodes,
+>  static int __init allocate_cachealigned_memnodemap(void)
+>  {
+>      unsigned long size = PFN_UP(memnodemapsize * sizeof(*memnodemap));
+> -    unsigned long mfn = mfn_x(alloc_boot_pages(size, 1));
+> +    mfn_t mfn = alloc_boot_pages(size, 1);
+>  
+> -    memnodemap = mfn_to_virt(mfn);
+> -    mfn <<= PAGE_SHIFT;
+> +    memnodemap = vmap_contig(mfn, size);
+> +    if ( !memnodemap )
+> +        panic("Unable to map the ACPI SLIT. Retry with numa=off");
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Looks like a copy-and-paste mistake from the next patch (which I expect
+to have a similar panic(), with the text then actually applicable). With
+this adjusted (could also be done while committing):
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-
+Jan
 
