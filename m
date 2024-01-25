@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD43783C7AB
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:15:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671622.1045054 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A79A83C7B9
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:17:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671625.1045064 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2N7-00059P-N8; Thu, 25 Jan 2024 16:14:33 +0000
+	id 1rT2Pq-0005i2-41; Thu, 25 Jan 2024 16:17:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671622.1045054; Thu, 25 Jan 2024 16:14:33 +0000
+Received: by outflank-mailman (output) from mailman id 671625.1045064; Thu, 25 Jan 2024 16:17:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2N7-000575-Jo; Thu, 25 Jan 2024 16:14:33 +0000
-Received: by outflank-mailman (input) for mailman id 671622;
- Thu, 25 Jan 2024 16:14:31 +0000
+	id 1rT2Pq-0005fP-0j; Thu, 25 Jan 2024 16:17:22 +0000
+Received: by outflank-mailman (input) for mailman id 671625;
+ Thu, 25 Jan 2024 16:17:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rT2N5-00056z-Pn
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:14:31 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1rT2Po-0005e1-Ai
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:17:20 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d12f69ac-bb9c-11ee-98f5-efadbce2ee36;
- Thu, 25 Jan 2024 17:14:29 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2cddb2c2b54so70867611fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:14:29 -0800 (PST)
+ id 35eb3cad-bb9d-11ee-98f5-efadbce2ee36;
+ Thu, 25 Jan 2024 17:17:18 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2cf3a0b2355so6780251fa.0
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:17:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z15-20020a6bc90f000000b007bf05f618f3sm8447933iof.55.2024.01.25.08.14.26
+ h9-20020a0566380f0900b0046e3bcd98eesm4673182jas.172.2024.01.25.08.17.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 08:14:28 -0800 (PST)
+ Thu, 25 Jan 2024 08:17:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d12f69ac-bb9c-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 35eb3cad-bb9d-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706199269; x=1706804069; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706199438; x=1706804238; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=47RlakhfRyn8lW4fs3dY8kIWGczXx47Izar2AGiOFD0=;
-        b=MsKHzf0B+XAQf/+efimFUZgc4byFE828JzOEuwKfbT6FiVCHI9wutUp9MJ2/tUyE71
-         9iDpU8oRx+7grULjLtqaNDAxkVZijR5xPXYMoMv/bHrK21vE6nfjXM20iGYNgUHye4y+
-         EGbrgqlMyYhXucwAWipLhMyNHNP4imxvCUjyoc/zP4Xn0kHlS8bfBJ13rbiM9hdck9Sv
-         vpNhxrRSzXJABUU6KC7S7cKDUQ+uQ9ST8CIjMsmLhi0V+6tsDux1Pd0OQPiMczT0p6YF
-         pSBYnovnOSE7x3CRghREMVMWGccZiKX71z/5eYC4gRDkSeLl54e+xrY6RRBioh4EYX8Q
-         dFbA==
+        bh=NkaWoOXuQsLCXKe2CZtneDrD9FozKeNnFxnTxr7pM6M=;
+        b=Dg/2oRvILcXojzCNaFI0yPE9B+d50GcyZZNbeQDJHkC48827B8YC+w/AN1rCsAfwW6
+         9oWtMc5Lf7S7asKANHe/nizMEVLDXPrt1FDikx9RYiYLocu16e72h8zJmXXBUBDGwpPs
+         amyVVncA0hnoUvjxFIe+FWe+UwMzBVT5CEBCj2Vd0xYJQ2hkR45Qbhzq/B+m38AqWmu7
+         Wln/NNVkAxS3+M6vIIGMRqdmD8jPTGTO+go30CBc+gnlxlA32DmiS8aoizUWBQqZzz8x
+         RsCJkdywxwEPORTxI25bqDJ3hT2jt+af9CWTrs4q8oMerBI31eXL16fDCj+SOR8oCB/o
+         Ghrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706199269; x=1706804069;
+        d=1e100.net; s=20230601; t=1706199438; x=1706804238;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=47RlakhfRyn8lW4fs3dY8kIWGczXx47Izar2AGiOFD0=;
-        b=WKDougIyIZ1QukIT4dcg7f1uu9fN6mMYtQuKLIb/zvGWHang6s/66/V88OBRoedy9G
-         wEKFtTP6Ye9BKFaUbHsG6ZxSJIiTofg8mAt5C+zZgPn7tp3AEcBaswPoXCpLyoGqJU5x
-         17EBDnjROdsdZYTXZfO9hs1kOWORQGb6O5RL55Z4JXDn+WocZJWi7pwGR3zCbwiy5p1N
-         uJPd9G4+pk7iqloZPnOMnLCfpqGxBkwpllhoa24W1MT1qLoGLR5nLp6euKCY94f6+Sai
-         1zFAsuJuTbAv7KTwyQ+yM3JCvJ5getpIdbobxR+86rYMK52d4ahcte9bQPMu4ypfGNFj
-         5qwA==
-X-Gm-Message-State: AOJu0YwKGF7aU7KgDlCoc0lpHvJcZLsh/HtiGwFtV+B15hr2gHTGwqTB
-	had/ID+34I1tysYcwF67kopudAtPuzeeq4hqLw6yPrRzO54Sfk4CFZ/8yNKrBw==
-X-Google-Smtp-Source: AGHT+IGnV2BAc1rBJmqif0CVVC49QD09Sl+Ye8LjwoaYvu7i87Vgtrq5VNMgDAon4DCkSFspqPGDHQ==
-X-Received: by 2002:a2e:7805:0:b0:2cc:f5b6:91ed with SMTP id t5-20020a2e7805000000b002ccf5b691edmr1054623ljc.23.1706199269004;
-        Thu, 25 Jan 2024 08:14:29 -0800 (PST)
-Message-ID: <076a05e7-aa62-45bd-9f11-4a7cea0af396@suse.com>
-Date: Thu, 25 Jan 2024 17:14:24 +0100
+        bh=NkaWoOXuQsLCXKe2CZtneDrD9FozKeNnFxnTxr7pM6M=;
+        b=XTWSSeL7Rj//bkaVEjs2kltvDrPiBq0lH0GqthTEno76CPN8HUY03D1E7ONiiAUiCz
+         JSWPaEoiTubfaArZlfnQn2YkBHsIIynFAAGGIBHo+i2POYoYTtrzdlExk7582AOTrzF0
+         7hgp1f8Wsg/NzZ4xGM2CxjyoOIZxQ/p1jrd0XJQXAD4josT564uM4B1BiQcZ6XN9ZjBJ
+         HXpwVLyy0WtyjrPFDqx2yumpzUZKsyYN0XzowZDUj6lxpi5UbWgq5OBs3au25Z0+HQEK
+         I26hQtaf0q7CzTu1nU3Nm6Wxcvhc7i0luo++6hF5DgKuz2hyyEis4x6f7jyWwIXYzquZ
+         vdcw==
+X-Gm-Message-State: AOJu0YzXBri31S5KV+FCCyKEtX4TJ/c1PYbj3ug6tD9Td16wO15ZE6TI
+	rBtsaeXKTddHw7XpdOO629uX8ymRq09xKvnPmvbV3CSHFeNp9H0DGqVmSEpKzQ==
+X-Google-Smtp-Source: AGHT+IFWw0VCcq32QzPxdochEblVROzkwVYSrq5tY03HKgqhMrTvZNsPlsFeWDX6pyaTsa8veh0vLQ==
+X-Received: by 2002:a2e:3217:0:b0:2cd:98e3:42b3 with SMTP id y23-20020a2e3217000000b002cd98e342b3mr686908ljy.24.1706199438061;
+        Thu, 25 Jan 2024 08:17:18 -0800 (PST)
+Message-ID: <6fc809af-9662-47fd-b91e-533fd75d0473@suse.com>
+Date: Thu, 25 Jan 2024 17:17:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 (resend) 01/27] xen/vmap: Check the page has been
- mapped in vm_init_type()
+Subject: Re: [PATCH v2 (resend) 02/27] x86/setup: Move vm_init() before acpi
+ calls
 Content-Language: en-US
 To: Elias El Yandouzi <eliasely@amazon.com>
 Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
- Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+ Wei Liu <wei.liu2@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ David Woodhouse <dwmw2@amazon.com>, Hongyan Xia <hongyxia@amazon.com>,
+ Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
 References: <20240116192611.41112-1-eliasely@amazon.com>
- <20240116192611.41112-2-eliasely@amazon.com>
+ <20240116192611.41112-3-eliasely@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,27 +119,55 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240116192611.41112-2-eliasely@amazon.com>
+In-Reply-To: <20240116192611.41112-3-eliasely@amazon.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 16.01.2024 20:25, Elias El Yandouzi wrote:
-> From: Julien Grall <jgrall@amazon.com>
+> From: Wei Liu <wei.liu2@citrix.com>
 > 
-> The function map_pages_to_xen() could fail if it can't allocate the
-> underlying page tables or (at least on Arm) if the area was already
-> mapped.
+> After the direct map removal, pages from the boot allocator are not
+> going to be mapped in the direct map. Although we have map_domain_page,
+> they are ephemeral and are less helpful for mappings that are more than a
+> page, so we want a mechanism to globally map a range of pages, which is
+> what vmap is for. Therefore, we bring vm_init into early boot stage.
 > 
-> The first error is caught by clear_page() because it would fault.
-> However, the second error while very unlikely is not caught at all.
+> To allow vmap to be initialised and used in early boot, we need to
+> modify vmap to receive pages from the boot allocator during early boot
+> stage.
 > 
-> As this is boot code, use BUG_ON() to check if map_pages_to_xen() has
-> succeeded.
-> 
+> Signed-off-by: Wei Liu <wei.liu2@citrix.com>
+> Signed-off-by: David Woodhouse <dwmw2@amazon.com>
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 > Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+albeit ...
 
+> --- a/xen/arch/arm/setup.c
+> +++ b/xen/arch/arm/setup.c
+> @@ -748,6 +748,8 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
+>  
+>      setup_mm();
+>  
+> +    vm_init();
+> +
+>      /* Parse the ACPI tables for possible boot-time configuration */
+>      acpi_boot_table_init();
+>  
+> @@ -759,8 +761,6 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
+>       */
+>      system_state = SYS_STATE_boot;
+>  
+> -    vm_init();
+> -
+>      if ( acpi_disabled )
+>      {
+>          printk("Booting using Device Tree\n");
 
+... with this change the title claiming x86 isn't quite right. Hopefully
+Arm folks will spot the need for an ack there nevertheless.
+
+Jan
 
