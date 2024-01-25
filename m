@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F29083C874
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:46:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671662.1045133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4654683C8D8
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:56:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671673.1045145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2rk-0006nQ-OM; Thu, 25 Jan 2024 16:46:12 +0000
+	id 1rT30z-0001Ik-KW; Thu, 25 Jan 2024 16:55:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671662.1045133; Thu, 25 Jan 2024 16:46:12 +0000
+Received: by outflank-mailman (output) from mailman id 671673.1045145; Thu, 25 Jan 2024 16:55:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2rk-0006ko-LY; Thu, 25 Jan 2024 16:46:12 +0000
-Received: by outflank-mailman (input) for mailman id 671662;
- Thu, 25 Jan 2024 16:46:11 +0000
+	id 1rT30z-0001G7-GS; Thu, 25 Jan 2024 16:55:45 +0000
+Received: by outflank-mailman (input) for mailman id 671673;
+ Thu, 25 Jan 2024 16:55:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rT2rj-0006Nc-3H
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:46:11 +0000
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [2a00:1450:4864:20::232])
+ id 1rT30y-0001G0-RV
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:55:44 +0000
+Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
+ [2a00:1450:4864:20::62c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d1a6ab1-bba1-11ee-8a42-1f161083a0e0;
- Thu, 25 Jan 2024 17:46:08 +0100 (CET)
-Received: by mail-lj1-x232.google.com with SMTP id
- 38308e7fff4ca-2cf205dc075so24520841fa.2
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:46:08 -0800 (PST)
+ id 93f409e2-bba2-11ee-8a42-1f161083a0e0;
+ Thu, 25 Jan 2024 17:55:43 +0100 (CET)
+Received: by mail-ej1-x62c.google.com with SMTP id
+ a640c23a62f3a-a2e0be86878so188767966b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:55:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5-20020a6b1505000000b007bf2c9bbdd6sm7616710iov.50.2024.01.25.08.46.06
+ s4-20020a92c5c4000000b00361a7db24e4sm4852224ilt.57.2024.01.25.08.55.41
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 08:46:07 -0800 (PST)
+ Thu, 25 Jan 2024 08:55:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d1a6ab1-bba1-11ee-8a42-1f161083a0e0
+X-Inumbo-ID: 93f409e2-bba2-11ee-8a42-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706201168; x=1706805968; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+2zNLH228gIijs1yWo5a80VfczrzNbWVli54+hLosIs=;
-        b=R7+wgcJQNz6HwgnzuMgmxVCXuMaqFQuKE3V8EsSoVrhWECiFEckWXRQKN6l0leqUHG
-         qrGaQr5gTkHs1f8Z74xmX77qyTPd2ZWiO2DenrY3proD7q7bDHlJrBVKcOehXeINGuCc
-         6rNqVBUg6okgPJaNWAUczhS0OJI4SnukgI8vH2iVfqDwxvtZawm3tD6+063T8VxSBsvq
-         pV1gTZMiLnmETrWf24JT6Yof18Qk1UaHO6h3Ak7VSbdD9BDrmfuUOUoW5glyy4EY6G/2
-         N+yfJGTeJZl4JMZiABNqVZdyajHeltkXIZ6fFo7IUAlGU93l33d1OC/ATaa0nALRKBPA
-         CCaw==
+        d=suse.com; s=google; t=1706201743; x=1706806543; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=GoAzlCIARaqGmBCt9LvtfR+hrmC+N8QP92P3NFqBjuc=;
+        b=eG7Wki/uhCwrfPCSKNyAp5oYL4Yn5UYGioo99yHY+1DbmFg7BM4tNKtls1TDnCdiSt
+         dTc6JDLlQYIOd4Nap68vuEh+sxe1nFVtKGgtaiv9jxypTKwiHblSGwZHaMJirZEyMuCb
+         rEGO7w9TOMoXDVIbLl8O2Ka/J/c6SPeyad7NzoiRtyRkz0QntdeOMqQza2oaFM+5O+F6
+         5qylzXAMJaWnbjO0el0NM5NsBnQgXtmg0Rny2Sk22GrWZVg9LJ17INF/5zY9QZQOrLT5
+         KzRvmN/nLCYQZeWdXPcqHUv12JBxniNlHvHAEi3mOcjFNsiEEoMuzkPrdYES9/uHUyi/
+         pzXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706201168; x=1706805968;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1706201743; x=1706806543;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+2zNLH228gIijs1yWo5a80VfczrzNbWVli54+hLosIs=;
-        b=AWKZ7UAdwwxxG0IML60V/ahasF5TW4jLFitxZ6SxCWCQnNylwOuPwJnvlw9gaP72u9
-         KQPtYr1e/tIZNLMeP7YC5ZZVpHJ6MGJfER30htYXlgotMsPdTyx0FwLkqqQWuGgY7xML
-         5RceGb3wFHs66W4PLw6FvTiT/54QWh+GyFBADSz6dYe8q0i2Rj06ns47mX/2PwbtTeL2
-         9t9Sdbpxx4D3Bf7zVAj0iVmmtW6+5KJ7WssUHMbB+YqyP4rD/izn+yp6TYreCTkAUQhF
-         95ZyHDkZeJnhWA3if9aixMaZbKNyNRangW4FE3VWbNS2BzXvsU6hYdd+hW6K5F5R16yN
-         BDNQ==
-X-Gm-Message-State: AOJu0YwyFHhetX2z4gvSurPE6Xro4XZiJg+MwWESikfzjBKa1bxf+ldc
-	IlmNvvXe+4JuOexi2fb+4wiLQ4icQUnrwnaVaRE4gyDaEhvwqEHvMjcIf1YpBQ==
-X-Google-Smtp-Source: AGHT+IHWdPur9nNqDN1s5T+7s7ULD6UTGdc4aj6G8KXAuSGl/4q6QjscWQMEm9tA6b8bcN9vgP9COA==
-X-Received: by 2002:a05:651c:cc:b0:2cb:2d48:334 with SMTP id 12-20020a05651c00cc00b002cb2d480334mr659742ljr.60.1706201167993;
-        Thu, 25 Jan 2024 08:46:07 -0800 (PST)
-Message-ID: <8bfc95ea-9d0b-4ef5-8179-5e345a318af4@suse.com>
-Date: Thu, 25 Jan 2024 17:46:04 +0100
+        bh=GoAzlCIARaqGmBCt9LvtfR+hrmC+N8QP92P3NFqBjuc=;
+        b=HkQB0eglVPYNVYZfMlrRJjzTsY/uZcejrk9Hy1o+OaphIzoLNl3AnrezUsjnRLvBCr
+         bZUXTvAj5/XTk62cLt7/R+mQdWb9G1deicm7xG6Ktx+9zxuvxH2d6R6p5g94oK9fDqDt
+         +uXauiNGxvu1pj0ZEtr7I71TMwvOIG86xrOvDxIbPBFm/yXgJW/ohepXBkdUCfZprZqX
+         mtfP2XBVuVp+IUt3czLpfEB3lLCWj3dNxYmdsaLXdyi2ynd++bcUdaGAaAl29jcYwAdm
+         Cow0J4uVo7hmbOoznp7uM9ry5igXgoaeBkx8+JiTWs+6eeOTHdpvZKf9HMbIDflSfSQP
+         w2nQ==
+X-Gm-Message-State: AOJu0YxdXLYpe5TNockoyhdsLKQfBZshj+dRc8M62MmRwWOvlBnKkFYo
+	gpE6ePReiVULUqyDTJ+1hE7VOu1fGIBTEgVM/qa24S3GmMjnMXG4vQBzx6VvADRIh7EnXgk+T4c
+	=
+X-Google-Smtp-Source: AGHT+IH20hRUPdzUzKnR7qdOZAKJ0Z7NZXuIYsBgnYpgYfkgtpGmZqyBUtJp8QlXGH45l9yc3IYmww==
+X-Received: by 2002:a17:906:847c:b0:a31:8299:3781 with SMTP id hx28-20020a170906847c00b00a3182993781mr169788ejc.20.1706201743258;
+        Thu, 25 Jan 2024 08:55:43 -0800 (PST)
+Message-ID: <d5fd3646-18b3-4dae-8da7-6afa187f930e@suse.com>
+Date: Thu, 25 Jan 2024 17:55:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/3] x86/iommu: remove regions not to be mapped
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20240124172953.29814-2-roger.pau@citrix.com>
- <20240125132626.34553-1-roger.pau@citrix.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86: increase NMI timer frequency if necessary
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -110,29 +109,131 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240125132626.34553-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 25.01.2024 14:26, Roger Pau Monne wrote:
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -2138,6 +2138,54 @@ int __hwdom_init xen_in_range(unsigned long mfn)
->      return 0;
->  }
->  
-> +int __hwdom_init remove_xen_ranges(struct rangeset *r)
-> +{
-> +    paddr_t start, end;
-> +    int rc;
-> +
-> +    /* S3 resume code (and other real mode trampoline code) */
-> +    rc = rangeset_remove_range(r, PFN_DOWN(bootsym_phys(trampoline_start)),
-> +                               PFN_DOWN(bootsym_phys(trampoline_end) - 1));
+Since the performance counters used for the NMI watchdog count non-
+halted cycles, they may count at a rate higher than cpu_khz. Thus the
+watchdog tick may occur more frequently than invocations of the timer
+if we don't account for the ratio between nominal and maximum CPU clock
+speeds, which would be a problem in particular when "watchdog_timeout=1"
+is in effect (for high enough ratios even larger timout values may pose
+a problem).
 
-With the understanding that we've settled on us not quite being at the
-point where only one page of the trampoline is kept mapped:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Leverage the so far display-only data we collect on newer Intel and AMD
+CPUs. On older CPUs we just have to (continue to) hope that the default
+frequency of 1 Hz is okay(-ish) to use.
 
-Jan
+While adding the new variable, also move the (now adjacent) cpu_khz to
+.data.ro_after_init.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+This renders the "log" in the function names somewhat stale, but I don't
+think this strictly warrants renaming the functions right away.
+
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -657,12 +657,18 @@ void amd_log_freq(const struct cpuinfo_x
+ 		                     : (((v) & 0xff) * 25 * 8) / (((v) >> 8) & 0x3f))
+ 	if (idx && idx < h &&
+ 	    !rdmsr_safe(0xC0010064 + idx, val) && (val >> 63) &&
+-	    !rdmsr_safe(0xC0010064, hi) && (hi >> 63))
++	    !rdmsr_safe(0xC0010064, hi) && (hi >> 63)) {
++		if (c == &boot_cpu_data)
++			cpu_max_mhz = FREQ(hi);
+ 		printk("CPU%u: %lu (%lu ... %lu) MHz\n",
+ 		       smp_processor_id(), FREQ(val), FREQ(lo), FREQ(hi));
+-	else if (h && !rdmsr_safe(0xC0010064, hi) && (hi >> 63))
++	}
++	else if (h && !rdmsr_safe(0xC0010064, hi) && (hi >> 63)) {
++		if (c == &boot_cpu_data)
++			cpu_max_mhz = FREQ(hi);
+ 		printk("CPU%u: %lu ... %lu MHz\n",
+ 		       smp_processor_id(), FREQ(lo), FREQ(hi));
++	}
+ 	else
+ 		printk("CPU%u: %lu MHz\n", smp_processor_id(), FREQ(lo));
+ #undef FREQ
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -456,7 +456,11 @@ static void intel_log_freq(const struct
+             if ( eax )
+                 printk(" base: %u MHz", eax);
+             if ( ebx )
++            {
++                if ( c == &boot_cpu_data )
++                    cpu_max_mhz = ebx;
+                 printk(" max: %u MHz", ebx);
++            }
+             printk("\n");
+         }
+     }
+@@ -522,6 +526,8 @@ static void intel_log_freq(const struct
+     printk("CPU%u: ", smp_processor_id());
+     if ( min_ratio )
+         printk("%u ... ", (factor * min_ratio + 50) / 100);
++    if ( c == &boot_cpu_data && !cpu_max_mhz )
++        cpu_max_mhz = (factor * max_ratio + 50) / 100;
+     printk("%u MHz\n", (factor * max_ratio + 50) / 100);
+ }
+ 
+--- a/xen/arch/x86/include/asm/time.h
++++ b/xen/arch/x86/include/asm/time.h
+@@ -8,6 +8,8 @@ typedef u64 cycles_t;
+ 
+ extern bool disable_tsc_sync;
+ 
++extern unsigned int cpu_max_mhz;
++
+ static inline cycles_t get_cycles(void)
+ {
+     return rdtsc_ordered();
+--- a/xen/arch/x86/nmi.c
++++ b/xen/arch/x86/nmi.c
+@@ -213,10 +213,12 @@ void __init check_nmi_watchdog(void)
+     return;
+ }
+ 
++static unsigned int __ro_after_init timer_gap = MILLISECS(1000);
++
+ static void cf_check nmi_timer_fn(void *unused)
+ {
+     this_cpu(nmi_timer_ticks)++;
+-    set_timer(&this_cpu(nmi_timer), NOW() + MILLISECS(1000));
++    set_timer(&this_cpu(nmi_timer), NOW() + timer_gap);
+ }
+ 
+ void disable_lapic_nmi_watchdog(void)
+@@ -477,8 +479,17 @@ bool watchdog_enabled(void)
+ 
+ int __init watchdog_setup(void)
+ {
++    unsigned long cpu_mhz = cpu_khz / 1000;
+     unsigned int cpu;
+ 
++    if ( cpu_max_mhz > cpu_mhz )
++    {
++        timer_gap = timer_gap * cpu_mhz / cpu_max_mhz;
++        /* To be on the safe side, bound to 1ms. */
++        if ( timer_gap < MILLISECS(1) )
++            timer_gap = MILLISECS(1);
++    }
++
+     /*
+      * Activate periodic heartbeats. We cannot do this earlier during 
+      * setup because the timer infrastructure is not available.
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -47,7 +47,9 @@
+ static char __initdata opt_clocksource[10];
+ string_param("clocksource", opt_clocksource);
+ 
+-unsigned long __read_mostly cpu_khz;  /* CPU clock frequency in kHz. */
++unsigned long __ro_after_init cpu_khz;    /* CPU clock frequency in kHz. */
++unsigned int __ro_after_init cpu_max_mhz; /* CPU max (known) clkfreq in MHz. */
++
+ DEFINE_SPINLOCK(rtc_lock);
+ unsigned long pit0_ticks;
+ 
 
