@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6740E83C70D
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 16:43:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671606.1045034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 422C683C769
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:01:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671617.1045044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT1ss-00067M-29; Thu, 25 Jan 2024 15:43:18 +0000
+	id 1rT29N-0002Td-GP; Thu, 25 Jan 2024 16:00:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671606.1045034; Thu, 25 Jan 2024 15:43:18 +0000
+Received: by outflank-mailman (output) from mailman id 671617.1045044; Thu, 25 Jan 2024 16:00:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT1sr-00064A-V7; Thu, 25 Jan 2024 15:43:17 +0000
-Received: by outflank-mailman (input) for mailman id 671606;
- Thu, 25 Jan 2024 15:43:17 +0000
+	id 1rT29N-0002Rq-DY; Thu, 25 Jan 2024 16:00:21 +0000
+Received: by outflank-mailman (input) for mailman id 671617;
+ Thu, 25 Jan 2024 16:00:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rT1sr-000642-Bx
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 15:43:17 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ id 1rT29M-0002Re-AU
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:00:20 +0000
+Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
+ [2a00:1450:4864:20::22f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7482083a-bb98-11ee-8a42-1f161083a0e0;
- Thu, 25 Jan 2024 16:43:16 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-50f11e3ba3aso10204190e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 07:43:16 -0800 (PST)
+ id d64edbce-bb9a-11ee-8a42-1f161083a0e0;
+ Thu, 25 Jan 2024 17:00:19 +0100 (CET)
+Received: by mail-lj1-x22f.google.com with SMTP id
+ 38308e7fff4ca-2cf372b8b88so9514911fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:00:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- b8-20020a056638150800b0046ef7300541sm1545075jat.46.2024.01.25.07.43.13
+ j2-20020a6b3102000000b007bf197d6ca8sm7411664ioa.25.2024.01.25.08.00.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 07:43:15 -0800 (PST)
+ Thu, 25 Jan 2024 08:00:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7482083a-bb98-11ee-8a42-1f161083a0e0
+X-Inumbo-ID: d64edbce-bb9a-11ee-8a42-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706197395; x=1706802195; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706198418; x=1706803218; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=lCGR6bn0TzcMbOqkBkqdazW4hbhSiHYr5AtmBgjFngI=;
-        b=XyW0r8VW6NCDQudxHzhIDiqCBxmCnIiQJXebDO6BMkeD1Cons+zjA9+2IliWkIR5M5
-         Fptua7FxjBRZDVqOuo2HEByBHKXsftNA8lzDzKxa+1KCANI7cn0ySMh8tUmkZDsAQ9TS
-         0Bjbe83+p6VnRzsD8fMW04FFxrQIyrASUSUoE4BdDb570akaF1YKUwpQ6g3p3M7v3oTs
-         8EhHYMoNcrBkcbLWKtdg5HRihG4Fb7G2nslqILlPxvV25HQDZjiZm9hJWzipI1hEwGgG
-         Ht6uye8pm2dwZwj5x9rd6E9pbNE3nKk0LUPkVl0hIDPO/3Ziwx+h5Q5mMYO2TOnuVxyX
-         1sig==
+        bh=qDLNJiSQ8imt2bLpfcLEQ4kFYJtLrv523F/k+eVGwmo=;
+        b=Ku/u4OPM+hMcQqKK3hcFScBA+chwIHrl9lzv/oAf6aNQ2i2GRTQeDJKpBhSPFRUXZd
+         41KcSpS7txEA8amX6ulucBL4cgnHCagGezJ7tAoVZnYZ7fEpr4KwSKpirbhxETgzeSW7
+         eFinSFOVvNK89D154bcg6dYCpTpZ1OkAoBcVEGB0EJ4mCQZzrNbU/gbnSQZ9OFzGMJwL
+         TT7QcgDD91x4VI+WbzAwX4fDjN4OYJqfhI8w7hYMYTAhmOKnThMg5FLa/qTOavYaUTN/
+         YFsiC1lW/vTlSq97CUa+cd72HTWJOm9BaZQEUULiUUiDT8iz6wzP0xPlVQ5aM+CSuCsM
+         ywhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706197395; x=1706802195;
+        d=1e100.net; s=20230601; t=1706198418; x=1706803218;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lCGR6bn0TzcMbOqkBkqdazW4hbhSiHYr5AtmBgjFngI=;
-        b=hyiE34ts9asKNSIZm5/UCNnVP1Bxm0FYjeu6O84mhO4wGbe75O50VLKp8w/JCC45ep
-         mE95sDXI0II8m9lu18cYuQtPoVS+w/HPLyW4WpAKNyhW3NLy0SWOZCqhNXur3hlPXTcV
-         ij1m3T444gpKx1hVyzR1/5Dq6JKoxeQey6RbnchQP+GK2i3qrfZ8DujkWB4UCFyDGSbR
-         taL4CBs1tjoZJCmp+uSZuqQM//YEpGj3cHz2Y7G7Dv7/GPuIMB8nQvK+0Y9fgupnT3Ol
-         p/eRhMtZ2geZHR+SdC15t2OWOlI2z81B/wB610cwYnAKJXyi2vFeiiUoVD4QtqdwuAM9
-         DjoQ==
-X-Gm-Message-State: AOJu0Yw1WL9enMkhIxhB/qg5JwXYLg/SPH927EjYCbmS3egmSFzjtoLS
-	hdOFPr81Jvm8Bf6UQvcTlVI3APnqMu4N35+UFjFcp/Yr/ZDoo9Wrv4r4OdAIhw==
-X-Google-Smtp-Source: AGHT+IFrgwMXQ4IiviEwmjYqKl3oA7NphOzhTxEII6lMAiyIC88HDYop0ZBsvITnJi2qSnqZ1MOeHA==
-X-Received: by 2002:a2e:980f:0:b0:2cd:7fe1:3a1 with SMTP id a15-20020a2e980f000000b002cd7fe103a1mr993330ljj.66.1706197395525;
-        Thu, 25 Jan 2024 07:43:15 -0800 (PST)
-Message-ID: <50e79338-b2fd-40e9-b754-4e725e27ceb3@suse.com>
-Date: Thu, 25 Jan 2024 16:43:11 +0100
+        bh=qDLNJiSQ8imt2bLpfcLEQ4kFYJtLrv523F/k+eVGwmo=;
+        b=uqdgf4GuywfuifnrLWDULrLED1do0H0D9Ztu7xY58gVxNLo2ckhJ1O5gZsCrj1Q/sl
+         wsJhQR3PR0IC6qHZFgQUpvhPx8qFMHGCl5N5j1UJFygQrooXhx31HVLTNJShOsfVIekq
+         GW5Vt0+vQfeL+qYnIkSvAdcBCPtmhEbtP2ZqfNMikNo2z+zHLmNF3asK/gnW8hJneF/T
+         gVtyo6M2CjUe3RmyhGlg58UWRJ8NPB5YaaiAVfyFLgcCWJSch8FxvYKFdyAnLyXt+wHK
+         FuwbJjvCVnHbpeo4jCNwVwqBXDS/cXt0GHGCow1tZVLo4IsyD8s5lbfM9XkaPOVWI865
+         PwPQ==
+X-Gm-Message-State: AOJu0YyRF93xYx7pmaUJ6DSry2E+LLfFblNgs3wEmCwAGkyv0SO5kSf3
+	RE8cVo+eH4Ijj8q+NgM1fMr8I/CKvWNg407FcKAolUZsN0xM3llw1uJtNxX6Fw==
+X-Google-Smtp-Source: AGHT+IElXlHNdBX0EkXvZw84KF29OQhHoHURyIc2Hh7WKtDv6RqWM3DLAoS/lRgsCFJDDI6LMZ8YKA==
+X-Received: by 2002:a2e:878d:0:b0:2cc:c567:e539 with SMTP id n13-20020a2e878d000000b002ccc567e539mr796743lji.101.1706198418541;
+        Thu, 25 Jan 2024 08:00:18 -0800 (PST)
+Message-ID: <ec947a93-3026-4119-84dc-09785fab8f7f@suse.com>
+Date: Thu, 25 Jan 2024 17:00:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 10/15] vpci/header: emulate PCI_COMMAND register for
- guests
+Subject: Re: [PATCH v12 11/15] vpci: add initial support for virtual PCI bus
+ topology
 Content-Language: en-US
 To: Stewart Hildebrand <stewart.hildebrand@amd.com>
 Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
  xen-devel@lists.xenproject.org
 References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
- <20240109215145.430207-11-stewart.hildebrand@amd.com>
+ <20240109215145.430207-12-stewart.hildebrand@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,110 +116,91 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240109215145.430207-11-stewart.hildebrand@amd.com>
+In-Reply-To: <20240109215145.430207-12-stewart.hildebrand@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 09.01.2024 22:51, Stewart Hildebrand wrote:
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -168,6 +168,9 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
->      if ( !rom_only )
->      {
->          pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
-> +        /* Show DomU that we updated P2M */
-> +        header->guest_cmd &= ~PCI_COMMAND_MEMORY;
-> +        header->guest_cmd |= cmd & PCI_COMMAND_MEMORY;
->          header->bars_mapped = map;
->      }
-
-I don't follow what the comment means to say. The bit in question has no
-real connection to the P2M, and the guest also may have no notion of the
-underlying hypervisor's internals. Likely connected to ...
-
-> @@ -524,9 +527,26 @@ static void cf_check cmd_write(
->  {
->      struct vpci_header *header = data;
+> --- a/xen/drivers/Kconfig
+> +++ b/xen/drivers/Kconfig
+> @@ -15,4 +15,8 @@ source "drivers/video/Kconfig"
+>  config HAS_VPCI
+>  	bool
 >  
-> +    if ( !is_hardware_domain(pdev->domain) )
-> +    {
-> +        const struct vpci *vpci = pdev->vpci;
-> +
-> +        if ( (vpci->msi && vpci->msi->enabled) ||
-> +             (vpci->msix && vpci->msix->enabled) )
-> +            cmd |= PCI_COMMAND_INTX_DISABLE;
-> +
-> +        /*
-> +         * Do not show change to PCI_COMMAND_MEMORY bit until we finish
-> +         * modifying P2M mappings.
-> +         */
-> +        header->guest_cmd = (cmd & ~PCI_COMMAND_MEMORY) |
-> +                            (header->guest_cmd & PCI_COMMAND_MEMORY);
-> +    }
+> +config HAS_VPCI_GUEST_SUPPORT
+> +	bool
+> +	depends on HAS_VPCI
 
-... the comment here, but then shouldn't it be that the guest can't even
-issue a 2nd cfg space access until the present write has been carried out?
-Otherwise I'd be inclined to claim that such a partial update is unlikely
-to be spec-conformant.
+Wouldn't this better be "select", or even just "imply"?
 
-> @@ -843,6 +885,15 @@ static int cf_check init_header(struct pci_dev *pdev)
->      if ( cmd & PCI_COMMAND_MEMORY )
->          pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd & ~PCI_COMMAND_MEMORY);
+> --- a/xen/drivers/vpci/vpci.c
+> +++ b/xen/drivers/vpci/vpci.c
+> @@ -40,6 +40,49 @@ extern vpci_register_init_t *const __start_vpci_array[];
+>  extern vpci_register_init_t *const __end_vpci_array[];
+>  #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
 >  
+> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> +static int add_virtual_device(struct pci_dev *pdev)
+> +{
+> +    struct domain *d = pdev->domain;
+> +    unsigned int new_dev_number;
+> +
+> +    if ( is_hardware_domain(d) )
+> +        return 0;
+> +
+> +    ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
+> +
 > +    /*
-> +     * Clear PCI_COMMAND_MEMORY and PCI_COMMAND_IO for DomUs, so they will
-> +     * always start with memory decoding disabled and to ensure that we will not
-> +     * call modify_bars() at the end of this function.
+> +     * Each PCI bus supports 32 devices/slots at max or up to 256 when
+> +     * there are multi-function ones which are not yet supported.
 > +     */
-> +    if ( !is_hwdom )
-> +        cmd &= ~(PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
-> +    header->guest_cmd = cmd;
-
-With PCI_COMMAND_MEMORY clear, the hw reg won't further be written on the
-success return path. Yet wouldn't we better clear PCI_COMMAND_IO also in
-hardware (until we properly support it)?
-
-I also think the insertion point for the new code isn't well chosen: The
-comment just out of context indicates that the code in context above is
-connected to the subsequent code. Whereas the addition is not.
-
-> --- a/xen/drivers/vpci/msi.c
-> +++ b/xen/drivers/vpci/msi.c
-> @@ -70,6 +70,15 @@ static void cf_check control_write(
->  
->          if ( vpci_msi_arch_enable(msi, pdev, vectors) )
->              return;
-> +
-> +        /*
-> +         * Make sure domU doesn't enable INTx while enabling MSI.
-> +         */
-
-Nit: This ought to be a single line comment, just like ...
-
-> +        if ( !is_hardware_domain(pdev->domain) )
-> +        {
-> +            pci_intx(pdev, false);
-> +            pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
-> +        }
->      }
->      else
->          vpci_msi_arch_disable(msi, pdev);
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -135,6 +135,13 @@ static void cf_check control_write(
->          }
->      }
->  
-> +    /* Make sure domU doesn't enable INTx while enabling MSI-X. */
-> +    if ( new_enabled && !msix->enabled && !is_hardware_domain(pdev->domain) )
+> +    if ( pdev->info.is_extfn && !pdev->info.is_virtfn )
 > +    {
-> +        pci_intx(pdev, false);
-> +        pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
-> +    }
+> +        gdprintk(XENLOG_ERR, "%pp: only function 0 passthrough supported\n",
+> +                 &pdev->sbdf);
 
-... the similar code here has it.
+The message suggests you ought to check pdev->devfn to have the low
+three bits clear. Yet what you check are two booleans.
 
-In both cases, is it really appropriate to set the bit in guest view?
+Further doesn't this require the multi-function bit to be emulated
+clear? And finally don't you then also need to disallow assignment of
+devices with phantom functions?
+
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -484,6 +484,14 @@ struct domain
+>       * 2. pdev->vpci->lock
+>       */
+>      rwlock_t pci_lock;
+> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> +    /*
+> +     * The bitmap which shows which device numbers are already used by the
+> +     * virtual PCI bus topology and is used to assign a unique SBDF to the
+> +     * next passed through virtual PCI device.
+> +     */
+> +    DECLARE_BITMAP(vpci_dev_assigned_map, VPCI_MAX_VIRT_DEV);
+> +#endif
+>  #endif
+
+With this the 2nd #endif would likely better gain a comment.
+
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -21,6 +21,13 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
+>  
+>  #define VPCI_ECAM_BDF(addr)     (((addr) & 0x0ffff000) >> 12)
+>  
+> +/*
+> + * Maximum number of devices supported by the virtual bus topology:
+> + * each PCI bus supports 32 devices/slots at max or up to 256 when
+> + * there are multi-function ones which are not yet supported.
+> + */
+> +#define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
+
+The limit being this means only bus 0 / seg 0 is supported, which I
+think the comment would better also say. (In add_virtual_device(),
+which has a similar comment, there's then at least a 2nd one saying
+so.)
 
 Jan
 
