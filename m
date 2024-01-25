@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ADFA83BAF2
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 08:49:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671344.1044633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D41283BB1C
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 08:59:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671349.1044644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSuUC-0007bY-9F; Thu, 25 Jan 2024 07:49:20 +0000
+	id 1rSudl-00012J-7r; Thu, 25 Jan 2024 07:59:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671344.1044633; Thu, 25 Jan 2024 07:49:20 +0000
+Received: by outflank-mailman (output) from mailman id 671349.1044644; Thu, 25 Jan 2024 07:59:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSuUC-0007ZJ-6i; Thu, 25 Jan 2024 07:49:20 +0000
-Received: by outflank-mailman (input) for mailman id 671344;
- Thu, 25 Jan 2024 07:49:18 +0000
+	id 1rSudl-0000zd-3p; Thu, 25 Jan 2024 07:59:13 +0000
+Received: by outflank-mailman (input) for mailman id 671349;
+ Thu, 25 Jan 2024 07:59:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSuUA-0007ZD-I4
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 07:49:18 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1rSudi-0000zX-SV
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 07:59:10 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3de736b5-bb56-11ee-98f5-6d05b1d4d9a1;
- Thu, 25 Jan 2024 08:49:17 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2cf1288097aso29030631fa.0
- for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 23:49:17 -0800 (PST)
+ id 9ef09e0b-bb57-11ee-98f5-6d05b1d4d9a1;
+ Thu, 25 Jan 2024 08:59:09 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id
+ 2adb3069b0e04-5100893015fso3338482e87.1
+ for <xen-devel@lists.xenproject.org>; Wed, 24 Jan 2024 23:59:09 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- he1-20020a0566386d0100b0046f2873f6c9sm72013jab.79.2024.01.24.23.49.15
+ h16-20020a056602155000b007bc45c52f55sm7466419iow.13.2024.01.24.23.59.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 24 Jan 2024 23:49:16 -0800 (PST)
+ Wed, 24 Jan 2024 23:59:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3de736b5-bb56-11ee-98f5-6d05b1d4d9a1
+X-Inumbo-ID: 9ef09e0b-bb57-11ee-98f5-6d05b1d4d9a1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706168957; x=1706773757; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706169549; x=1706774349; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=eiEwNBI+YcpU2tqYvaVI5Vi3emYhfk5Pf1daxAbIN2E=;
-        b=NZXtAmUlU8ZlFbXmp1E+etppom/yk6w/lz+YUgdSTVgkXx16suRahiC/o61f06WJVE
-         PqWFBrN7gELu9k5Rygq6DInn8CzAbCjDUd9Rk6h/t8E7+C6mzv9KsFayK1bPsX+6YX/+
-         k8Jhpk1yuhbrsZydgE+0UIF7ujlw89VGskW9eGxosN32MKrKV1tFfqVodr/R3DY9h125
-         eq2Wrs6JN+mSzju4ZI/dZAkKA7RN4gHxTBMBT5qdNfaSSC8aCUPHdTADARTdWLs+51TQ
-         M8Qv52HNdqO+YmVnw1r4QTbdc4F3xdrlKo1pae2JL2Y67Nz11BDkJzRuV1tXOeyHn/tA
-         UGlQ==
+        bh=NgHQziVKHREXn1KO8sOhxHpYyzc78sndffEbjiPRUfQ=;
+        b=D75qZHVdKDOxzEZT+Q38BnTaNBlEaM8jj8Q6fL5ged+k2x5Ye0FR9NkSFyHmt2ANE/
+         gHGQFa41mB1uaTa2UvFbL5jnGbCI81/rUFYFKMKCfl2mt1577EmiT/48cBqhj+OZpmR7
+         tjpAMSXshy/4Dhtucjh1pFtXZmEHhbSn/p2fTdXTXDVnKnyPea+sS92BzV/ljt1GRV+X
+         pWUW2MAx4k//1B//Zk5C7lGZSBrrnsTxZHW8+QQ1ttSH+3PCyMkjDEKYCrIo1fnzj80X
+         AmKg6hCCrqIdRfQJLHwCbZTmy7bXdZnxEglTealjScQkB06kMtk9fAoLZgRtc2W9HQts
+         VXDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706168957; x=1706773757;
+        d=1e100.net; s=20230601; t=1706169549; x=1706774349;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eiEwNBI+YcpU2tqYvaVI5Vi3emYhfk5Pf1daxAbIN2E=;
-        b=ISXdvoHbj4B1so9EeB8lAhesavPt4m13q5unQNobK/RdMU1JsiVzPlMtZ/wLGrUKoi
-         oYnQ/13jlTC5NRbP4uDIoxG7GSEkWV5eEMI0gaYe1jS3Ii7s1ggivALLY7ReLZQNs5AK
-         x5CPCYAwdNG8vU/VIjTqWAEZYihJrpR3LPtkmYT43uT8R7HLTrsqwPnH4VAKbttfj8v+
-         zS0ANQ/foRf3Ly8LJCArxJPqj/DWAL/ZGmkrUeeVsw0ZVw9uP+jnPQYB/NOA7Au5NNuU
-         Jr7Fgpwlp5TDRnYeURPLzrf/MnWXV0aHAoScC2NH2qZGGOcmdSpF0RcWJWkZcl6zhRQG
-         0u0w==
-X-Gm-Message-State: AOJu0YyLxgpDNBcVlF3seZw/5Mo7bYhfIrXnXi55UL82bPAYlNbJHflh
-	UoKvZXS/okdQZksjSPruDKDjPNmP/alT12fZ7wMy4zb9JhxfVExX+y0bsowj2w==
-X-Google-Smtp-Source: AGHT+IF1IdCvR9dfDFMFZFjO+rW5IIRTpawFafXhLxbAfPWyQxXqn/UjXtDALrRgvsb0PcGTuj/hWg==
-X-Received: by 2002:a2e:9b94:0:b0:2cd:4d27:2086 with SMTP id z20-20020a2e9b94000000b002cd4d272086mr313826lji.100.1706168957098;
-        Wed, 24 Jan 2024 23:49:17 -0800 (PST)
-Message-ID: <0be02b31-a50b-4ed3-9bb8-90cc61f0f20d@suse.com>
-Date: Thu, 25 Jan 2024 08:49:13 +0100
+        bh=NgHQziVKHREXn1KO8sOhxHpYyzc78sndffEbjiPRUfQ=;
+        b=vqFXxePPQkyXSgWfgU3TH7bu4IFTjVNQuF/3jJeyP0HNjMq+tddR5vAGeFSRTENVhz
+         jFCtWKBWGmsqhn9YwyJ6TSlmQF9A6zdDlwwFMqZ17qcfOqTkoNA+wsNWjLK+hpXxFxWD
+         Ef2y++h63H5zyjl8vOKeUgGzejJhqYcb1WltwlrlK1cd5MDvwFe957LsJD6zchP6G2W8
+         LRmZa5Sf2ZhemGxdURDQANWBuc+jlI+aXXz8mbm7UKrLTbom0yAp3NTp/I80cMxEp/qn
+         39OYRNEswn3lwsEqv4Rs5fKceZQRV9miP+yR21CGOJ14X2kxRz++ebiWnUiqZxysJpHj
+         XZEg==
+X-Gm-Message-State: AOJu0Yw1NlCpfzWiUohYJk1zT+NmYt8Hunnjlaf94C14WyAmph7iMJDM
+	L9i2G70ulhBtmD+LBT3TbaMjGxjHq9FKd+GEP/kvoaJBor5KbuU2Wl64bOlLeQ==
+X-Google-Smtp-Source: AGHT+IEXI6vk4q8PkoL/yXfUBUc4H/PIDqIJcVsqyJcre1kD3mZLkDHIuBEeYkPIVQXsM2lz6UfX1Q==
+X-Received: by 2002:ac2:44bb:0:b0:50f:f9bc:b248 with SMTP id c27-20020ac244bb000000b0050ff9bcb248mr115555lfm.165.1706169549304;
+        Wed, 24 Jan 2024 23:59:09 -0800 (PST)
+Message-ID: <6bb0ba9e-0f69-4e31-a99c-16a1ce94a9cf@suse.com>
+Date: Thu, 25 Jan 2024 08:59:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/ucode: Fix stability of the Raw CPU Policy rescan
+Subject: Re: [PATCH] x86: amend 'n' debug-key output with SMI count
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240123205948.1782556-1-andrew.cooper3@citrix.com>
- <090f64ae-ecf3-4edc-a6c6-8be3a09ea1ba@suse.com>
- <95a1f94e-7c82-4996-8f24-87c6628bc81a@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <50978ef4-9f11-4c70-952b-94107616f265@suse.com>
+ <e6dcf78b-bd68-49bc-8711-381befc25f02@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,43 +111,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <95a1f94e-7c82-4996-8f24-87c6628bc81a@citrix.com>
+In-Reply-To: <e6dcf78b-bd68-49bc-8711-381befc25f02@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 24.01.2024 18:23, Andrew Cooper wrote:
-> On 24/01/2024 3:37 pm, Jan Beulich wrote:
->> On 23.01.2024 21:59, Andrew Cooper wrote:
->>> Always run microcode_update_helper() on the BSP, so the the updated Raw CPU
->>> policy doesn't get non-BSP topology details included.
->> Wouldn't it be better (and consistent with ...
+On 24.01.2024 17:24, Andrew Cooper wrote:
+> On 24/01/2024 3:27 pm, Jan Beulich wrote:
+>> ... if available only, of course.
 >>
->>> Have calculate_raw_cpu_policy() clear the instantanious XSTATE sizes.  The
->>> value XCR0 | MSR_XSS had when we scanned the policy isn't terribly interesting
->>> to report.
->> ... this) to purge these details from the raw policy as well then?
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/arch/x86/cpu/common.c
+>> +++ b/xen/arch/x86/cpu/common.c
+>> @@ -406,9 +406,15 @@ void __init early_cpu_init(bool verbose)
+>>  		paddr_bits -= (ebx >> 6) & 0x3f;
+>>  	}
+>>  
+>> -	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)))
+>> +	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON))) {
+>> +		uint64_t smi_count;
+>> +
+>>  		park_offline_cpus = opt_mce;
+>>  
+>> +		if (!verbose && !rdmsr_safe(MSR_SMI_COUNT, smi_count))
+>> +			setup_force_cpu_cap(X86_FEATURE_SMI_COUNT);
+>> +	}
+>> +
 > 
-> I did spend some time considering this.
+> I know you're re-using an existing condition, but I think it's more
+> likely that it's Intel-only than common to VIA and Shanghai.
+
+Then again when re-using the condition I questioned how likely it is
+that people actually use Xen on CPUs of these two vendors, when the
+respective code is only bit-rotting.
+
+> Also, why is gated on verbose?
 > 
-> Rerunning on the same CPU is more resilient to new topology leaves, so
-> we'd want to be doing that irrespective.
+> (I think I can see why this is rhetorical question, and I expect you can
+> guess what the feedback will be.)
 
-I'm afraid I don't understand this: If a ucode update surfaced new leaves,
-they surely would appear on all CPUs? IOW my question still stands: Wouldn't
-we better zap topology data from the raw policy (thus also not propagating
-it into other policies)? At which point retrieval becomes independent of
-what CPU it is run on (if there were any other CPU-specific pieces of data,
-similar zapping should happen for them).
+Hmm, no, I don't think I can guess that. The reason is simple: In
+case the MSR doesn't exist, I'd like to avoid the respective (debug)
+log message, emitted while recovering from the #GP, appearing twice.
+(Which imo eliminates the only guess I might otherwise have: Don't
+add complexity [the extra part of the condition] when it's not
+needed.)
 
-Surely using CPU0 here isn't much of a problem, as this is a pretty
-infrequent event. But generally I'd like to avoid "preferring" CPU0 as much
-as possible. Hence I'd prefer if even in cases like this one we could avoid
-it.
+>> --- a/xen/arch/x86/nmi.c
+>> +++ b/xen/arch/x86/nmi.c
+>> @@ -589,9 +589,20 @@ static void cf_check do_nmi_stats(unsign
+>>      unsigned int cpu;
+>>      bool pend, mask;
+>>  
+>> -    printk("CPU\tNMI\n");
+>> +    printk("CPU\tNMI%s\n", boot_cpu_has(X86_FEATURE_SMI_COUNT) ? "\tSMI" : "");
+>>      for_each_online_cpu ( cpu )
+>> -        printk("%3u\t%3u\n", cpu, per_cpu(nmi_count, cpu));
+>> +    {
+>> +        printk("%3u\t%3u", cpu, per_cpu(nmi_count, cpu));
+>> +        if ( boot_cpu_has(X86_FEATURE_SMI_COUNT) )
+>> +        {
+>> +            unsigned int smi_count, dummy;
+>> +
+>> +            rdmsr(MSR_SMI_COUNT, smi_count, dummy);
+>> +            printk("\t%3u\n", smi_count);
+> 
+> This reads MSR_SMI_COUNT repeatedly on the same CPU.
+> 
+> You'll need to IPI all CPUs to dump the count into a per-cpu variable.
 
-> The XCR0/XSS state really is transient, and the useful information is
-> everywhere else in leaf 0xd.
-
-Sure, but this is still independent on what CPU the retrieval is run on.
+Oh, how embarrassing.
 
 Jan
 
