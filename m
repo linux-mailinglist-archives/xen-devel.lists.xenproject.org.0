@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B23783BB7F
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 09:15:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671370.1044684 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D232283BBCE
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 09:23:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671380.1044694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSutJ-0006AY-OL; Thu, 25 Jan 2024 08:15:17 +0000
+	id 1rSv0s-0008Tv-Fs; Thu, 25 Jan 2024 08:23:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671370.1044684; Thu, 25 Jan 2024 08:15:17 +0000
+Received: by outflank-mailman (output) from mailman id 671380.1044694; Thu, 25 Jan 2024 08:23:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rSutJ-00068O-Kc; Thu, 25 Jan 2024 08:15:17 +0000
-Received: by outflank-mailman (input) for mailman id 671370;
- Thu, 25 Jan 2024 08:15:16 +0000
+	id 1rSv0s-0008SN-C0; Thu, 25 Jan 2024 08:23:06 +0000
+Received: by outflank-mailman (input) for mailman id 671380;
+ Thu, 25 Jan 2024 08:23:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rSutI-00065O-Qq
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 08:15:16 +0000
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [2a00:1450:4864:20::22f])
+ id 1rSv0r-0008SH-At
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 08:23:05 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id de01a8c4-bb59-11ee-9b0f-b553b5be7939;
- Thu, 25 Jan 2024 09:15:14 +0100 (CET)
-Received: by mail-lj1-x22f.google.com with SMTP id
- 38308e7fff4ca-2cd0d05838fso76485221fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 00:15:14 -0800 (PST)
+ id f501e472-bb5a-11ee-9b0f-b553b5be7939;
+ Thu, 25 Jan 2024 09:23:02 +0100 (CET)
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-5100fdd37f7so2452739e87.2
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 00:23:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- r4-20020a6b4404000000b007bc3ebacf3esm7404845ioa.46.2024.01.25.00.15.12
+ l21-20020a02ccf5000000b0046e6063e2c0sm4516250jaq.107.2024.01.25.00.23.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 00:15:13 -0800 (PST)
+ Thu, 25 Jan 2024 00:23:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de01a8c4-bb59-11ee-9b0f-b553b5be7939
+X-Inumbo-ID: f501e472-bb5a-11ee-9b0f-b553b5be7939
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706170514; x=1706775314; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706170982; x=1706775782; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0TsVYP8V1WNBgDGLGJluNWLWIKRAhg3pidQ/dxNYMkg=;
-        b=FzXpeJZa5ApJyc2V2saLn2w8jpMzkwWSOpsSk+/2ivzrK0emExTIi0muKTQeHySmYF
-         SH7wBI94/iHpm5BpnG+4wndhRuxTCbQgHYfQKuVS/i/4TYgQ0gqBCmo1yVsYJNg450xV
-         LbJJi/6m67jz10zlovnBAz18NcLClIec7qXPhNjxYn1jRKPLNW1U/L8jNgKnLsfjoVEb
-         VsnHWtPrK3kBGRwyr+FafoLNifHSi3+WjA7U2Zvk1xy9NELwB/H+vedK+S8ZfPQfzeu4
-         yuAQLMY3KAfaYhW1BheKmBGdxQaAAvwpiOxMiyayStDBkOTnm7DDPKzuXtiAo/HAq27m
-         NeZA==
+        bh=m3E4knhkWBU1uhlMvX/fdydLJX4MEs/nNUhxgOJklns=;
+        b=PV8iqCcn5PBQ//rhox1btOgb7k/bUxjvGvN5qlcAfmmHf0TS1ZkGhfIbzwpIUunraP
+         KqqCPqm2G7nDSxWpdfnYEqsGLbPlcL/n7zxuoCrX8dMHgCmh79Alzlx+mFaJo68lKY3M
+         jT2SfkOoAXvXO0lkQuD2IQN4Bm4Ke5LbGllZjL8KX2KSVpUPteQctixOf/CdDnrYF7bv
+         QHGY6mW8qRALsXL+spqL5eojCKwe+lY4V2OJfIFrOQ0XbYkl9KbCZs4AFp9QNEVDCfqY
+         EMHvy20sK/dpNoL9wJs4UW6IfG24eUDj40BWwaIwgFiF/wJZCbYNqOIdUJT7dhl0BlHB
+         b0mA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706170514; x=1706775314;
+        d=1e100.net; s=20230601; t=1706170982; x=1706775782;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0TsVYP8V1WNBgDGLGJluNWLWIKRAhg3pidQ/dxNYMkg=;
-        b=ePtQ1fJGOyc+pwAUjf9fzRwZoFbNyhT43ouhWList8qZxgZlqG+nBaOmKSmAyIZG+7
-         fz3Rox7Bsu+4G780Rdt4lRaHgU0If/iExrWAEScS/kE/1xyT5LrAgX/rzJRJetBlVFeE
-         8qEylvskdOPi8Hpg3gfNJCtBvK2mBiyOL3TdYtztjUgQDrzOXlET6Ytd5a8o09UblVwb
-         X6Oo5Ovcd/lu99iykSixRUyRB+OBK9WH7pidG/yepMNJAMuwXFY+CPr1sIR9/nWFl/ZT
-         TlhH/rdnmWiKQtSAqcwLyG0vmAf0hcTIr6/R79YQ1n0DFUY1kcioZG0z/kl0KU8d1r1C
-         T43Q==
-X-Gm-Message-State: AOJu0YwUsdxufU8AAM/OKI/rPq5l679Jur7yClmnFgOHjeWAQo0H16CS
-	yk8wwAfK7gYVCg9e8bg27zZaSMpTnRRG9q2azrP4R07mCp4s+SWBU5m8M1tzIw==
-X-Google-Smtp-Source: AGHT+IEBazSi4tb6211TpYCjtgUZj5mLub0prg1DQfO97nrvFgAvCvcYWssrUsEUtmE7SRdKokQnDA==
-X-Received: by 2002:a2e:a686:0:b0:2cf:1586:bd with SMTP id q6-20020a2ea686000000b002cf158600bdmr276180lje.14.1706170514108;
-        Thu, 25 Jan 2024 00:15:14 -0800 (PST)
-Message-ID: <b19ef7de-b55c-4a70-8b64-d0d4d5a96d93@suse.com>
-Date: Thu, 25 Jan 2024 09:15:10 +0100
+        bh=m3E4knhkWBU1uhlMvX/fdydLJX4MEs/nNUhxgOJklns=;
+        b=bwaA+Yi4ijYITmECLuoESFFnIpvMhOAyyAnZu/R1TXQqzd1HKkgWwBWOnTTA/R4HE6
+         cW2r+6fUVHBVFGa2WfViYhslsK5EySvnGi6NmtEDBzIwd1xw0CHa/tD2QyXmzrwT8v0s
+         VkDxC1kq+DABHqfYtfZJRlrfIsAOiZzYmnkNG/Yy9NIUQCUU80vQMSpC1L6twc5dHu2M
+         v8cn176hlZAwoFzSLte6pdJumWK+Dlc3WT4FcgWzo7IdU0qHiYwIkhnZZIQIY91Rh/Ky
+         f05LRoW6V6aF9/jrpXkmOj+GeI5kcpcqIVkx16GIHjDRD3ZPc+1Q99yfblka3SKCTGpa
+         1IQw==
+X-Gm-Message-State: AOJu0YzS2zYSEj6KH9wrjP34AT9BSQiAjvOhjBcQNPfLO63g6uHgiRrG
+	WrbmGKVZKziNfZXB8nDLjrOjCnJIz7Q2KMvwB7Z02yPxy0vBjtvhTudMFGU52w==
+X-Google-Smtp-Source: AGHT+IFhPhVk7GZNmxQRA7JZsT7D8LrfoEf61NLHRghutGFew+dewPdwr78oPGF9MmX/O92dLIXY/Q==
+X-Received: by 2002:a2e:b0cb:0:b0:2cf:321a:17d7 with SMTP id g11-20020a2eb0cb000000b002cf321a17d7mr403728ljl.69.1706170982313;
+        Thu, 25 Jan 2024 00:23:02 -0800 (PST)
+Message-ID: <dcbd607f-f7ff-4dd3-98d1-39aec51fd81b@suse.com>
+Date: Thu, 25 Jan 2024 09:22:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] consolidate do_bug_frame() / bug_fn_t
@@ -157,51 +157,11 @@ On 25.01.2024 02:14, Andrew Cooper wrote:
 > out to be true, then the patch ought to be added and reverted in the
 > same series so it isn't left hanging about after the fact.
 
-Hmm, I'm not sure I see how reverting that would end up working. However,
-aiui you need to revert primarily for the non-const-ness of the pointers
-involved in [gs]et_irq_regs(). I wonder whether, if we followed your
-underlying thought here, those shouldn't be const-ified then anyway.
-
-> The _$X_poll() functions are used in timer context, which means there's
-> an outer regs context already latched, and that's arguably a better
-> context to use anyway for 'd'.
-
-If the timer happens to run on an idle vCPU, what "outer regs context"
-would we have there?
-
-> This in turn allows us to remove a #UD from a fast(ish) path, and remove
-> some per-cpu or static variables which are just used for non-standard
-> parameter passing because run_in_exception_handler() doesn't let you
-> pass any.
-> 
-> 
-> This leaves the '%' debugger infrastructure.  Being a debugger, it's
-> making arbitrary changes anyway and I'd much rather cast away constness
-> for a debugger, than to keep everything else mutable when it oughtn't to be.
-> 
-> If absolutely nothing else, registration and handling '%' ought to be
-> from x86 code rather than common code, which would remove the
-> do_debugger_trap_fatal() layering violation.
-> 
-> But, the more I look into the gdbstub the more I'm convinced that it
-> doesn't work.  For example, this gem:
-> 
-> /* Resuming after we've stopped used to work, but more through luck than
-> any actual intention.  It doesn't at the moment. */
-> 
-> From c/s b69f92f3012 in July 2004, and more specifically the commit
-> which added the gdbstub functionality to begin with.  I.e. it doesn't
-> appear to have ever supported more than "poke around in the crashed
-> state".  In the 2 decades that noone has fixed this, we've gained far
-> better technologies for doing this, such as running it in a VM.
-> 
-> I am going to submit some patches deleting gdbstub.  It clearly had not
-> much value to begin with, and is not definitely not worth the problems
-> it is creating in adjacent code these days.
-
-All fine. Still I wonder whether in the meantime this patch isn't an
-improvement on its own, and hence whether the const couldn't sensibly
-be added subsequently.
+Looking further into this, I can't see how reverting ought to be possible,
+even less so specifically after patch 5. Patches 4 and 5 merely eliminate
+now unused parameters. Hence imo if it could be reverted after 5, it also
+ought to be fine to revert after 3. Which in turn it would mean it's not
+needed at all. Which I simply cannot see (yet?).
 
 Jan
 
