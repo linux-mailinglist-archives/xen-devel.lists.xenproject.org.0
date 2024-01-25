@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 238A583C7DA
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:27:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671637.1045083 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD34083C7EE
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Jan 2024 17:28:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671642.1045093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2Z7-0000Bj-9a; Thu, 25 Jan 2024 16:26:57 +0000
+	id 1rT2ad-0001G5-Ji; Thu, 25 Jan 2024 16:28:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671637.1045083; Thu, 25 Jan 2024 16:26:57 +0000
+Received: by outflank-mailman (output) from mailman id 671642.1045093; Thu, 25 Jan 2024 16:28:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rT2Z7-00008v-6Z; Thu, 25 Jan 2024 16:26:57 +0000
-Received: by outflank-mailman (input) for mailman id 671637;
- Thu, 25 Jan 2024 16:26:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rT2ad-0001EW-Gf; Thu, 25 Jan 2024 16:28:31 +0000
+Received: by outflank-mailman (input) for mailman id 671642;
+ Thu, 25 Jan 2024 16:28:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=vt1H=JD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rT2Z5-00008k-GQ
- for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:26:55 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d2b31c0-bb9e-11ee-8a42-1f161083a0e0;
- Thu, 25 Jan 2024 17:26:54 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id
- 38308e7fff4ca-2cf1288097aso35196271fa.0
- for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:26:54 -0800 (PST)
+ id 1rT2ac-0001EQ-VY
+ for xen-devel@lists.xenproject.org; Thu, 25 Jan 2024 16:28:30 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c57415f1-bb9e-11ee-98f5-efadbce2ee36;
+ Thu, 25 Jan 2024 17:28:28 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id
+ 4fb4d7f45d1cf-55cdaa96f34so1772918a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Jan 2024 08:28:28 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- c8-20020a056e020cc800b0036197f7f157sm3760360ilj.2.2024.01.25.08.26.51
+ c8-20020a056e020cc800b0036197f7f157sm3760360ilj.2.2024.01.25.08.28.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Jan 2024 08:26:53 -0800 (PST)
+ Thu, 25 Jan 2024 08:28:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d2b31c0-bb9e-11ee-8a42-1f161083a0e0
+X-Inumbo-ID: c57415f1-bb9e-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706200014; x=1706804814; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706200108; x=1706804908; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=lS/QFd9JgayhWPSwlPdPzOLOtKzV6aRZX87ksbq+cQI=;
-        b=J4dk2hpA9HlAZ2/sixTf5/kWzyHiryTHy3kf/q8uw8pFrUiyCaYEAOif2KrvG4AkoK
-         8qEaYVqIJmH/6Tqpp1w2TuMXV+CDcwwrixODPMs30qXqebseG2FWH0z78RbJmmEAkfxV
-         izxPI6UvU+FFCHzxG4peI2u+IuZQa5gGh0L2Mc6iXIatISRTq5PEpnopNnqAphn9j6jf
-         aFljzeqH75LDaBqux1cRMk6KLJQjrmFHtiGhR7THe0ZS1LHXZie2THHvol+lQNc0MPN/
-         pBW04xNbTTWsV+MiKjt/X2UndgLSrz9fQelXj94p4jKzFqNwkoIzV8Ds8XCQhGcZwDpH
-         n6Dg==
+        bh=7pQid3mXTBuu2fPYArxOPPVeK5fmBM9o7miluHzNukM=;
+        b=NSQuqGLaJrbhTORHNH27AUAk9NUoTZOQ93x0Kq/l6MbnlPtPFiTuLjrNgpgRjW2BvA
+         KcTBN/EsktZr/SCHXjJl8huGBbo6tc2kht4LrKgIogMdPlufJGHNl16dkLdQw9P19cLz
+         uVmtOVkB/QAbV+uUlMuRt/Nxinja3p8k9T7ysOAjOwF7s02m98mzH+p0G+1jBCDsBOPZ
+         5DQqt5xBncb1zGWMOLLw3oXfr6rDoxf/yWDA4TtTZQbYU0eHbPKuFICQRFWVUFlBIntK
+         YxDTqnl35WMOoqk8GeUD9/CJmqd3ev61gp6XeMwUlbuPHrTfPumhxrM2lVJ0/74O5mhZ
+         2EdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706200014; x=1706804814;
+        d=1e100.net; s=20230601; t=1706200108; x=1706804908;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lS/QFd9JgayhWPSwlPdPzOLOtKzV6aRZX87ksbq+cQI=;
-        b=uhKfohm/tA+ZdHaI5zPRP4xRDTYU56PJD6gc4vTfX9OpivnXUJk7QV+jPBtR/csLYi
-         yf68vgcEw5KNp9nIROoajmDyPb3w9hrekWy58VRBceEzGD/3rPFEyNvPu4Iqor3cwLf9
-         OpiuRC+jgfoluEPtuOJZ/K8H7A7IlZPbRlvVZuk3gFB5GBMYuemwNekbdjivf69BVF0P
-         +IRWcWesyR0O5U215FZ+oUofWEaxEb9hJvj/sZmim+0K1CYrD3iRgBObONxOHqp5wH0w
-         4kQf1qxFROEqUyBrEtJnJXcFueFdLLBiRiutHDJaxY8Yg6FjfgHN+I7V5dPvL+bBs2Vc
-         cgYQ==
-X-Gm-Message-State: AOJu0YzF3XNdxnJDychLZw8rEQFQc54yoCc6RKHnDhMbZBM+9SBji2c0
-	QURrkbsazfZiJYuq0PQdbLoUpssFi7TkaroDYnciJnyHWAQmZyW5tduqKq20sg==
-X-Google-Smtp-Source: AGHT+IFV0j6XSP5o7onfbyQ1UP/b4txN7/eQie5kCCaqtWl8WNLr+ESMo8ftYiYr2Hmt6gDBFrPMKA==
-X-Received: by 2002:a2e:b059:0:b0:2cc:6210:1dce with SMTP id d25-20020a2eb059000000b002cc62101dcemr792266ljl.4.1706200013931;
-        Thu, 25 Jan 2024 08:26:53 -0800 (PST)
-Message-ID: <f4c31d93-ec71-4d63-8412-14b94bb078b4@suse.com>
-Date: Thu, 25 Jan 2024 17:26:49 +0100
+        bh=7pQid3mXTBuu2fPYArxOPPVeK5fmBM9o7miluHzNukM=;
+        b=HLyUai0cleTHu7h9IONh7uvvMAYh/pYIgTuE+KfamK5otcMqCmApOIjKrzP3+0+kys
+         S3HKW9vjod4M5hdLh94w9uFs0RVGOOalubpexVRiJAjGC+GdfIR4sOouWomKkdg+ZLHm
+         k6q7fSy7tc9Waqyqbk6hNywkuM9Dr0D9BvcdY0UZ1KGCIAsWHel5X6qa6GpmZnmjizNP
+         yrWHkC+6fxppvy2Kz27jKshmz7ncFuJ8keCmlwrRZaVDoLX/X/HCqR8uLFK9DECseD2A
+         EIGiqz4A8+m8Uv6sOmsBRSS5YY29oMHyL79SYA1Qpf0ftT8RXMMEYQB8HOa6ogu1mRGS
+         Y32A==
+X-Gm-Message-State: AOJu0YxXnZX6wBTb4MJ3WGnxUXtj5ppLjOwFEbSc9lLeht7jx0/FhV7M
+	X1d8nwi6XE0B8bXs7iTb+vlgNwnPTvw4cSCHz6CVRTMX9dNC5byMfPi2BJlrng==
+X-Google-Smtp-Source: AGHT+IEFpJsA+MLudHTE9ZnetRgYlKLjKi16iZCopjx1vfBq5aDfxxFq17R3AipJqGUxT8xtpFQj9w==
+X-Received: by 2002:a17:906:fcd9:b0:a2f:ebb:f200 with SMTP id qx25-20020a170906fcd900b00a2f0ebbf200mr146015ejb.9.1706200108317;
+        Thu, 25 Jan 2024 08:28:28 -0800 (PST)
+Message-ID: <316b72bf-177b-4bcb-8941-e1013096f7cd@suse.com>
+Date: Thu, 25 Jan 2024 17:28:25 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 (resend) 03/27] xen/vmap: Introduce vmap_size() and use
- it
+Subject: Re: [PATCH v2 (resend) 04/27] acpi: vmap pages in
+ acpi_os_alloc_memory
 Content-Language: en-US
 To: Elias El Yandouzi <eliasely@amazon.com>
 Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
- Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
+ Hongyan Xia <hongyxia@amazon.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
+ Julien Grall <jgrall@amazon.com>, xen-devel@lists.xenproject.org
 References: <20240116192611.41112-1-eliasely@amazon.com>
- <20240116192611.41112-4-eliasely@amazon.com>
+ <20240116192611.41112-5-eliasely@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,30 +114,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240116192611.41112-4-eliasely@amazon.com>
+In-Reply-To: <20240116192611.41112-5-eliasely@amazon.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 16.01.2024 20:25, Elias El Yandouzi wrote:
-> From: Julien Grall <jgrall@amazon.com>
+> From: Hongyan Xia <hongyxia@amazon.com>
 > 
-> vunmap() and vfree() currently duplicate the (small) logic to find the
-> size of an vmap area. In a follow-up patch, we will want to introduce
-> another one (this time externally).
+> Also, introduce a wrapper around vmap that maps a contiguous range for
+> boot allocations. Unfortunately, the new helper cannot be a static inline
+> because the dependencies are a mess. We would need to re-include
+> asm/page.h (was removed in aa4b9d1ee653 "include: don't use asm/page.h
+> from common headers") and it doesn't look to be enough anymore
+> because bits from asm/cpufeature.h is used in the definition of PAGE_NX.
 > 
-> So introduce a new helper vmap_size() that will return the number of
-> pages in the area starting at the given address. Take the opportunity
-> to replace the open-coded version.
+> Lastly, with the move to vmap(), it is now easier to find the size
+> of the mapping. So pass the whole area to init_boot_pages() rather than
+> just the first page.
 > 
-> Note that vfree() was storing the type of the area in a local variable.
-> But this seems to have never been used (even when it was introduced).
-> 
+> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 > Signed-off-by: Elias El Yandouzi <eliasely@amazon.com>
 
-I'm not really happy with exposing the function, but alternatives coming
-to mind for the next patch aren't great either. Hence
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
