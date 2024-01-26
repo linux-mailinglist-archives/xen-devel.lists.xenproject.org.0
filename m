@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6BF183E02B
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:33:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672256.1046072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F55B83E03D
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:33:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672269.1046181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQ4i-0005CG-UJ; Fri, 26 Jan 2024 17:33:08 +0000
+	id 1rTQ4x-00006U-Su; Fri, 26 Jan 2024 17:33:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672256.1046072; Fri, 26 Jan 2024 17:33:08 +0000
+Received: by outflank-mailman (output) from mailman id 672269.1046181; Fri, 26 Jan 2024 17:33:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQ4i-00058K-Ku; Fri, 26 Jan 2024 17:33:08 +0000
-Received: by outflank-mailman (input) for mailman id 672256;
- Fri, 26 Jan 2024 17:33:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rTQ4w-0008Bg-Mu; Fri, 26 Jan 2024 17:33:22 +0000
+Received: by outflank-mailman (input) for mailman id 672269;
+ Fri, 26 Jan 2024 17:33:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bPDA=JE=casper.srs.infradead.org=BATV+7caeb094913322f6f00d+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTQ4h-0004m7-5w
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:07 +0000
+ id 1rTQ4q-0004Zo-Ol
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:16 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f588b39c-bc70-11ee-98f5-efadbce2ee36;
- Fri, 26 Jan 2024 18:33:03 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc765063-bc70-11ee-8a43-1f161083a0e0;
+ Fri, 26 Jan 2024 18:33:15 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTQ48-0000000EKUH-0gwd; Fri, 26 Jan 2024 17:32:33 +0000
+ id 1rTQ48-0000000EKUF-0ioQ; Fri, 26 Jan 2024 17:32:33 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.97.1 #2 (Red
- Hat Linux)) id 1rTQ47-00000001elh-3JDA;
+ Hat Linux)) id 1rTQ47-00000001elk-3gRW;
  Fri, 26 Jan 2024 17:32:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -42,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: f588b39c-bc70-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: fc765063-bc70-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=mlzjYpSZjZYD2hYts+UpgvgXir7egBvmFzjPnPYKEbw=; b=qlhRo9i8k117Zm8HSNvaw8uaTn
-	njG4DzpUgoeqvAPkmQsWrCknlgqB0K0WLuGwpGTb5DCch+LgSX6v3EAcD0XQrb0ZFEJ5O64RqPuUP
-	6Bfvec+jIbg6FRkcQuxva8bWqFUF7mww9Dusx8/GItRfSPekwDpuvguN2DoAToQqtF5qMsb87IOyK
-	QJhDHMeIVGdDlZIVY9Zc7MPN7kEQiZGSbX2Aqs53XK/HIqzhkx3hkNgBe01lrKiIguTJ2c6XoQuif
-	XQ4e4jmdF1/lrt4jB1YhMGLVEDKcdwMEK13TxAC1R9GDHcaek9yYobNbxtBK0vdSZxV8/3enPv1JC
-	MP5+wlIg==;
+	bh=afu5SeBMsL4uhfrFSeYnQUM9L+/AYnp0sc/n0TEsd5I=; b=JPPoM4+wmZbFx4D6QsefgVWDEE
+	iX1pYleRxR+m/h7DfP2kkR4qT+di7aQ3livFRQOSqXrKtpvIxfjsKEje4W73LpCXtmX01BzTpK2sU
+	/GeWdwBH3OFFv6Z7QnjEzUuHeYqS8xZHORx0bb9LeoMRG7Wd/COOm+4cg6+6+/LEQt/SKV55dvyz+
+	XqY9UNEjm/QuL5olYH/9USfl6oyIP/bt/G0k0r8vzYMlTG2IBqZxPQeWX8Jsh/hwQDlvJyHSKL9gK
+	fOmRa2pOigXXOYjNJmt8NQudyjEbnVY2sjw3ebx79HiJfaMN9BJfy0pB2Z5vqvF6zx/9/XOVw2271
+	kvrJRxQQ==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -119,11 +119,10 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Thomas Huth <thuth@redhat.com>
-Subject: [PATCH v4 10/47] hw/hppa: use pci_init_nic_devices()
-Date: Fri, 26 Jan 2024 17:24:47 +0000
-Message-ID: <20240126173228.394202-11-dwmw2@infradead.org>
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v4 11/47] hw/loongarch: use pci_init_nic_devices()
+Date: Fri, 26 Jan 2024 17:24:48 +0000
+Message-ID: <20240126173228.394202-12-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240126173228.394202-1-dwmw2@infradead.org>
 References: <20240126173228.394202-1-dwmw2@infradead.org>
@@ -135,36 +134,26 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 From: David Woodhouse <dwmw@amazon.co.uk>
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Thomas Huth <thuth@redhat.com>
+Reviewed-by: Song Gao <gaosong@loongson.cn>
 ---
- hw/hppa/machine.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ hw/loongarch/virt.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/hw/hppa/machine.c b/hw/hppa/machine.c
-index 9e611620cc..a1045b48cc 100644
---- a/hw/hppa/machine.c
-+++ b/hw/hppa/machine.c
-@@ -342,7 +342,6 @@ static void machine_HP_common_init_tail(MachineState *machine, PCIBus *pci_bus,
-     uint64_t kernel_entry = 0, kernel_low, kernel_high;
-     MemoryRegion *addr_space = get_system_memory();
-     MemoryRegion *rom_region;
--    long i;
-     unsigned int smp_cpus = machine->smp.cpus;
-     SysBusDevice *s;
+diff --git a/hw/loongarch/virt.c b/hw/loongarch/virt.c
+index c9a680e61a..0ad7d8c887 100644
+--- a/hw/loongarch/virt.c
++++ b/hw/loongarch/virt.c
+@@ -504,9 +504,7 @@ static void loongarch_devices_init(DeviceState *pch_pic, LoongArchMachineState *
+     fdt_add_uart_node(lams);
  
-@@ -368,10 +367,8 @@ static void machine_HP_common_init_tail(MachineState *machine, PCIBus *pci_bus,
-                         qdev_get_gpio_in(lasi_dev, LASI_IRQ_LAN_HPA));
-     }
- 
+     /* Network init */
 -    for (i = 0; i < nb_nics; i++) {
--        if (!enable_lasi_lan()) {
--            pci_nic_init_nofail(&nd_table[i], pci_bus, mc->default_nic, NULL);
--        }
-+    if (!enable_lasi_lan()) {
-+        pci_init_nic_devices(pci_bus, mc->default_nic);
-     }
+-        pci_nic_init_nofail(&nd_table[i], pci_bus, mc->default_nic, NULL);
+-    }
++    pci_init_nic_devices(pci_bus, mc->default_nic);
  
-     /* BMC board: HP Powerbar SP2 Diva (with console only) */
+     /*
+      * There are some invalid guest memory access.
 -- 
 2.43.0
 
