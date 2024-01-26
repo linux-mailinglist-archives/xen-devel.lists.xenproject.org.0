@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5588D83E032
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:33:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672259.1046107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 500F183E0E0
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:48:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672409.1046474 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQ4m-0006Dv-4o; Fri, 26 Jan 2024 17:33:12 +0000
+	id 1rTQJH-000735-I3; Fri, 26 Jan 2024 17:48:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672259.1046107; Fri, 26 Jan 2024 17:33:12 +0000
+Received: by outflank-mailman (output) from mailman id 672409.1046474; Fri, 26 Jan 2024 17:48:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQ4l-00067l-TQ; Fri, 26 Jan 2024 17:33:11 +0000
-Received: by outflank-mailman (input) for mailman id 672259;
- Fri, 26 Jan 2024 17:33:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rTQJH-000712-Eg; Fri, 26 Jan 2024 17:48:11 +0000
+Received: by outflank-mailman (input) for mailman id 672409;
+ Fri, 26 Jan 2024 17:48:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bPDA=JE=casper.srs.infradead.org=BATV+7caeb094913322f6f00d+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTQ4j-0004m7-62
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:09 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6ec2bc1-bc70-11ee-98f5-efadbce2ee36;
- Fri, 26 Jan 2024 18:33:06 +0100 (CET)
+ <SRS0=46+y=JE=desiato.srs.infradead.org=BATV+5cc348fc898a3f56ac6c+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1rTQ54-0004Zo-G9
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:30 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 04989073-bc71-11ee-8a43-1f161083a0e0;
+ Fri, 26 Jan 2024 18:33:29 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTQ4A-0000000EKVC-0etO; Fri, 26 Jan 2024 17:32:35 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
+ id 1rTQ4B-000000069V8-2yGf; Fri, 26 Jan 2024 17:32:36 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.97.1 #2 (Red
- Hat Linux)) id 1rTQ4A-00000001eoT-3xMI;
- Fri, 26 Jan 2024 17:32:34 +0000
+ Hat Linux)) id 1rTQ4B-00000001eoX-07cN;
+ Fri, 26 Jan 2024 17:32:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: f6ec2bc1-bc70-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 04989073-bc71-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=q/lRu96lP+9hig2DfITdw70Fa08pfxR/d1NeEVgyLNY=; b=vj3nhF9bU1XNbBMdoBXROJ/CKp
-	z6OGkwU/f2qLQkr5Kvl6koyxRd9PsNFD7P4tvwbtBVduPJTn29ufLl2gUvRSOcwEj5M1PAwCGRop5
-	TAWRbg1sb3eiBIKaWuv58DTiU5r64U+Pds1iLl+EEVlFa2HJM9Eato3sSBtkNtsNYU3wwmeim7LTb
-	WcS5icwJl23aWJhXOzaJkjYZ5RidPs4FC4bKxLeij+a5tSXiGiJllO04RiIy9N0rlm5r5R5K5PO6m
-	X9VWrPGjT/2HbFyzDdU4+Uny7bmEQTUVmH/xr8IH3sBmNjyi8Cw9hpmFUYVd6R/HAUvdgzFPb3SRV
-	4c0egt9A==;
+	bh=4MfAr1yLI5YhElasbf+xYz8slg97fPxYAJHsYCE6HR0=; b=QCcaZ/6C5Iz4cXurFdCGdwPkbs
+	Tx+OFOX65z8WZLMrj3r1M1OMa1uCBfhIBkcTalLwyCSVgdp6MRC0yngtPLUk5QQopCNkJxAPjr8jV
+	gHBfM+h8Ivnb1jSyeRCUQN44kMg1saXw8rCMBiZrSz0X4jfd6xIpolJgUrAOJCJSl5DCO184V81xQ
+	YRJVYKJmmArP7BgFHFDffL11xggxzqvuYlMBM/FYtZ++qK5KeLTkvIsQV7g7OmUG8MlMaO9v2/PFx
+	5M7WoyLiczrNts5+qs1F+3zrEq194HhwpwIokm0ghvWCjhXCW0mVX+pXANYl+JThRACU+DCvFtyGJ
+	gN/pe2eA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -119,128 +119,104 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Thomas Huth <thuth@redhat.com>
-Subject: [PATCH v4 45/47] hw/pci: remove pci_nic_init_nofail()
-Date: Fri, 26 Jan 2024 17:25:22 +0000
-Message-ID: <20240126173228.394202-46-dwmw2@infradead.org>
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v4 46/47] net: remove qemu_show_nic_models(), qemu_find_nic_model()
+Date: Fri, 26 Jan 2024 17:25:23 +0000
+Message-ID: <20240126173228.394202-47-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240126173228.394202-1-dwmw2@infradead.org>
 References: <20240126173228.394202-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-This function is no longer used, as all its callers have been converted
-to use pci_init_nic_devices() instead.
+These old functions can be removed now too. Let net_param_nic() print
+the full set of network devices directly, and also make it note that a
+list more specific to this platform/config will be available by using
+'-nic model=help' instead.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Thomas Huth <thuth@redhat.com>
 ---
- hw/pci/pci.c         | 72 --------------------------------------------
- include/hw/pci/pci.h |  3 --
- 2 files changed, 75 deletions(-)
+ include/net/net.h |  3 ---
+ net/net.c         | 39 ++++++---------------------------------
+ 2 files changed, 6 insertions(+), 36 deletions(-)
 
-diff --git a/hw/pci/pci.c b/hw/pci/pci.c
-index 5849606f66..449abfb182 100644
---- a/hw/pci/pci.c
-+++ b/hw/pci/pci.c
-@@ -1853,78 +1853,6 @@ const pci_class_desc *get_class_desc(int class)
-     return desc;
+diff --git a/include/net/net.h b/include/net/net.h
+index 00ee1af7ab..588ee55f28 100644
+--- a/include/net/net.h
++++ b/include/net/net.h
+@@ -203,9 +203,6 @@ void qemu_set_vnet_hdr_len(NetClientState *nc, int len);
+ int qemu_set_vnet_le(NetClientState *nc, bool is_le);
+ int qemu_set_vnet_be(NetClientState *nc, bool is_be);
+ void qemu_macaddr_default_if_unset(MACAddr *macaddr);
+-int qemu_show_nic_models(const char *arg, const char *const *models);
+-int qemu_find_nic_model(NICInfo *nd, const char * const *models,
+-                        const char *default_model);
+ /**
+  * qemu_find_nic_info: Obtain NIC configuration information
+  * @typename: Name of device object type
+diff --git a/net/net.c b/net/net.c
+index ffd4b42d5a..d705e9b0fd 100644
+--- a/net/net.c
++++ b/net/net.c
+@@ -977,38 +977,6 @@ GPtrArray *qemu_get_nic_models(const char *device_type)
+     return nic_models;
  }
  
--/* Initialize a PCI NIC.  */
--PCIDevice *pci_nic_init_nofail(NICInfo *nd, PCIBus *rootbus,
--                               const char *default_model,
--                               const char *default_devaddr)
+-int qemu_show_nic_models(const char *arg, const char *const *models)
 -{
--    const char *devaddr = nd->devaddr ? nd->devaddr : default_devaddr;
--    GPtrArray *pci_nic_models;
--    PCIBus *bus;
--    PCIDevice *pci_dev;
--    DeviceState *dev;
--    int devfn;
 -    int i;
--    int dom, busnr;
--    unsigned slot;
 -
--    if (nd->model && !strcmp(nd->model, "virtio")) {
--        g_free(nd->model);
--        nd->model = g_strdup("virtio-net-pci");
+-    if (!arg || !is_help_option(arg)) {
+-        return 0;
 -    }
 -
--    pci_nic_models = qemu_get_nic_models(TYPE_PCI_DEVICE);
--
--    if (qemu_show_nic_models(nd->model, (const char **)pci_nic_models->pdata)) {
--        exit(0);
+-    printf("Available NIC models:\n");
+-    for (i = 0 ; models[i]; i++) {
+-        printf("%s\n", models[i]);
 -    }
--
--    i = qemu_find_nic_model(nd, (const char **)pci_nic_models->pdata,
--                            default_model);
--    if (i < 0) {
--        exit(1);
--    }
--
--    if (!rootbus) {
--        error_report("No primary PCI bus");
--        exit(1);
--    }
--
--    assert(!rootbus->parent_dev);
--
--    if (!devaddr) {
--        devfn = -1;
--        busnr = 0;
--    } else {
--        if (pci_parse_devaddr(devaddr, &dom, &busnr, &slot, NULL) < 0) {
--            error_report("Invalid PCI device address %s for device %s",
--                         devaddr, nd->model);
--            exit(1);
--        }
--
--        if (dom != 0) {
--            error_report("No support for non-zero PCI domains");
--            exit(1);
--        }
--
--        devfn = PCI_DEVFN(slot, 0);
--    }
--
--    bus = pci_find_bus_nr(rootbus, busnr);
--    if (!bus) {
--        error_report("Invalid PCI device address %s for device %s",
--                     devaddr, nd->model);
--        exit(1);
--    }
--
--    pci_dev = pci_new(devfn, nd->model);
--    dev = &pci_dev->qdev;
--    qdev_set_nic_properties(dev, nd);
--    pci_realize_and_unref(pci_dev, bus, &error_fatal);
--    g_ptr_array_free(pci_nic_models, true);
--    return pci_dev;
+-    return 1;
 -}
 -
- void pci_init_nic_devices(PCIBus *bus, const char *default_model)
+-int qemu_find_nic_model(NICInfo *nd, const char * const *models,
+-                        const char *default_model)
+-{
+-    int i;
+-
+-    if (!nd->model)
+-        nd->model = g_strdup(default_model);
+-
+-    for (i = 0 ; models[i]; i++) {
+-        if (strcmp(nd->model, models[i]) == 0)
+-            return i;
+-    }
+-
+-    error_report("Unsupported NIC model: %s", nd->model);
+-    return -1;
+-}
+-
+ static int net_init_nic(const Netdev *netdev, const char *name,
+                         NetClientState *peer, Error **errp)
  {
-     qemu_create_nic_bus_devices(&bus->qbus, TYPE_PCI_DEVICE, default_model,
-diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
-index 6ff0b95a02..eaa3fc99d8 100644
---- a/include/hw/pci/pci.h
-+++ b/include/hw/pci/pci.h
-@@ -314,9 +314,6 @@ void pci_device_set_intx_routing_notifier(PCIDevice *dev,
-                                           PCIINTxRoutingNotifier notifier);
- void pci_device_reset(PCIDevice *dev);
- 
--PCIDevice *pci_nic_init_nofail(NICInfo *nd, PCIBus *rootbus,
--                               const char *default_model,
--                               const char *default_devaddr);
- void pci_init_nic_devices(PCIBus *bus, const char *default_model);
- bool pci_init_nic_in_slot(PCIBus *rootbus, const char *default_model,
-                           const char *alias, const char *devaddr);
+@@ -1791,9 +1759,14 @@ static int net_param_nic(void *dummy, QemuOpts *opts, Error **errp)
+         }
+         if (is_help_option(type)) {
+             GPtrArray *nic_models = qemu_get_nic_models(TYPE_DEVICE);
++            int i;
+             show_netdevs();
+             printf("\n");
+-            qemu_show_nic_models(type, (const char **)nic_models->pdata);
++            printf("Available NIC models "
++                   "(use -nic model=help for a filtered list):\n");
++            for (i = 0 ; nic_models->pdata[i]; i++) {
++                printf("%s\n", (char *)nic_models->pdata[i]);
++            }
+             g_ptr_array_free(nic_models, true);
+             exit(0);
+         }
 -- 
 2.43.0
 
