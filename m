@@ -2,32 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B92A83DE57
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 17:08:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672156.1045905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7947683DE85
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 17:20:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672196.1045932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTOkn-0000jT-Lp; Fri, 26 Jan 2024 16:08:29 +0000
+	id 1rTOwK-0007Ov-2T; Fri, 26 Jan 2024 16:20:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672156.1045905; Fri, 26 Jan 2024 16:08:29 +0000
+Received: by outflank-mailman (output) from mailman id 672196.1045932; Fri, 26 Jan 2024 16:20:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTOkn-0000h8-Ic; Fri, 26 Jan 2024 16:08:29 +0000
-Received: by outflank-mailman (input) for mailman id 672156;
- Fri, 26 Jan 2024 16:08:27 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rTOwJ-0007MK-Vc; Fri, 26 Jan 2024 16:20:23 +0000
+Received: by outflank-mailman (input) for mailman id 672196;
+ Fri, 26 Jan 2024 16:20:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rTOkl-0000gP-UH
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 16:08:27 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rTOkk-0007tG-Kv; Fri, 26 Jan 2024 16:08:26 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231]
- helo=[10.95.150.130]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rTOkk-0002s4-DT; Fri, 26 Jan 2024 16:08:26 +0000
+ (envelope-from <SRS0=UtOA=JE=redhat.com=thuth@srs-se1.protection.inumbo.net>)
+ id 1rTOwJ-0007ME-6e
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 16:20:23 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ccb4de41-bc66-11ee-98f5-efadbce2ee36;
+ Fri, 26 Jan 2024 17:20:21 +0100 (CET)
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-465-dChQJkVLN52tzpSyOfPoLQ-1; Fri, 26 Jan 2024 11:20:18 -0500
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-685ca415547so6763066d6.2
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jan 2024 08:20:18 -0800 (PST)
+Received: from [192.168.0.9] (ip-109-43-176-119.web.vodafone.de.
+ [109.43.176.119]) by smtp.gmail.com with ESMTPSA id
+ om12-20020a0562143d8c00b006869bae3b11sm632416qvb.35.2024.01.26.08.20.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Jan 2024 08:20:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,218 +49,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=d76OtKf+FdQbQpIKUP5AAgKY86/TJ77hK0FFOCq9J5s=; b=ogAlqLiT0wWdEtycPEm0pnmU7y
-	R29QxOHMEZxsd27b/4Z+4q+Wuvd/clqS2mgdwh9L0oJqOmoAe4/KwviPAb2AvseNdhf2EDreR0v50
-	IcWZ/l3geH1OLR6us+k6LY4200LIYBz+8LqemsRolH1zNNU9h0MvRrlIiVNZbrXFAp4k=;
-Message-ID: <a5a553cf-fe8c-4934-ac97-bdc59aeaed1c@xen.org>
-Date: Fri, 26 Jan 2024 16:08:23 +0000
+X-Inumbo-ID: ccb4de41-bc66-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1706286020;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=MRIjfaHeC/HCDOxGifaONkhJ6qMUTCsidTOpeocpbFI=;
+	b=J98nAPV3tMYevFgzWTmuIuRhT1zrfXHWEnErWgLr8ZP5Cy/wg1MVACbzvY5g/sfJNcAs3q
+	1KVKaCakmjbr5PKmsmv6YdAD2tPbSB7FLuM2bWJ0N1sjXgRdNNaKb6WnnAr7KqdMzx4spK
+	aWPru/BH4W6Z5ouMzARPFzj5OwwkWq4=
+X-MC-Unique: dChQJkVLN52tzpSyOfPoLQ-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706286018; x=1706890818;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=MRIjfaHeC/HCDOxGifaONkhJ6qMUTCsidTOpeocpbFI=;
+        b=MK3ncNtHTv+eBSJC0R2vTiEpqVkZj+jD4qeoUD/zLovIB10HElFgGSwo0m6ojMaoOI
+         SbFOUNnqlqUZOUV9HK2wTnlzIRDAZc1unrAYWvuxN7HYocs2tmDgGT/X+rnHGaYDDifb
+         qrFN27Fy5cfA5dd2LXFY/Q6mkFlOuUHHYt4ef+kBfObvWS4XpAGws918NSpmFStOZAW5
+         GSx4QciJ/TcAxNq8tauzc3o7sYRWDfja5NkDqbZBd87rpxq7vAC5RGxkQr8mDQiJdVi2
+         PN1JaWIM9B4sBAqwnpYB7j0O4oNUIX3kv46DdwJQFaNxFOlzirUMT8BtUbGjZ79NVXFT
+         CSpw==
+X-Gm-Message-State: AOJu0YxSEvcUR+E3FjXG+xO4PniQ93FXHwO29DHGZXfsZHGmSY4h5vQE
+	YZeIAq3JvJv4h071qYURk8VeBfJw4yoHU2Axz2bM24vi2SubiY+V06b1eh62SxNWhwmm/mTDm1t
+	w6RXF4jBHaOBB8uFZjBavIBGTe4GXIJ4sDX0JckN8WwzHylUkugka5D6KUMV0BjFo
+X-Received: by 2002:a05:6214:2481:b0:686:aa83:4cc with SMTP id gi1-20020a056214248100b00686aa8304ccmr116100qvb.16.1706286018004;
+        Fri, 26 Jan 2024 08:20:18 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IHswNQ/uBjF8/Et4Ed+zf4w9PiVErcfgVM/nEdyBOIwzjWjPL1NLQrRxdQyyvj3MNG/c4OfnQ==
+X-Received: by 2002:a05:6214:2481:b0:686:aa83:4cc with SMTP id gi1-20020a056214248100b00686aa8304ccmr116030qvb.16.1706286017691;
+        Fri, 26 Jan 2024 08:20:17 -0800 (PST)
+Message-ID: <80fe8746-3b93-41c7-bd53-13bd8dac9471@redhat.com>
+Date: Fri, 26 Jan 2024 17:20:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/lib: introduce generic find next bit operations
-Content-Language: en-GB
-To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>
-References: <52730e6314210ba4164a9934a720c4fda201447b.1706266854.git.oleksii.kurochko@gmail.com>
- <f8602dc5-e603-42fc-b3a2-dc71c55db341@xen.org>
- <1104df46d7780ef1bbcb6c745685b10fe6d2aa5d.camel@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <1104df46d7780ef1bbcb6c745685b10fe6d2aa5d.camel@gmail.com>
+Subject: Re: [PATCH v3 35/46] hw/mips/mipssim: use qemu_create_nic_device()
+To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Cc: Richard Henderson <richard.henderson@linaro.org>,
+ Beniamino Galvani <b.galvani@gmail.com>,
+ Peter Maydell <peter.maydell@linaro.org>,
+ Strahinja Jankovic <strahinja.p.jankovic@gmail.com>,
+ Niek Linnenbank <nieklinnenbank@gmail.com>, =?UTF-8?Q?C=C3=A9dric_Le_Goater?=
+ <clg@kaod.org>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, Igor Mitsyanko <i.mitsyanko@gmail.com>,
+ Jean-Christophe Dubois <jcd@tribudubois.net>,
+ Andrey Smirnov <andrew.smirnov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Subbaraya Sundeep <sundeep.lkml@gmail.com>, Jan Kiszka <jan.kiszka@web.de>,
+ Tyrone Ting <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>,
+ Radoslaw Biernacki <rad@semihalf.com>,
+ Leif Lindholm <quic_llindhol@quicinc.com>,
+ Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Alistair Francis <alistair@alistair23.me>, Helge Deller <deller@gmx.de>,
+ Paolo Bonzini <pbonzini@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Song Gao
+ <gaosong@loongson.cn>, Thomas Huth <huth@tuxfamily.org>,
+ Laurent Vivier <laurent@vivier.eu>, Huacai Chen <chenhuacai@kernel.org>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>,
+ =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+ Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Jason Wang <jasowang@redhat.com>,
+ Jia Liu <proljc@gmail.com>, Stafford Horne <shorne@gmail.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Daniel Henrique Barboza <danielhb413@gmail.com>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ Harsh Prateek Bora <harshpb@linux.ibm.com>, Bin Meng
+ <bin.meng@windriver.com>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Weiwei Li <liwei1518@gmail.com>, Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+ Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Eric Farman <farman@linux.ibm.com>, David Hildenbrand <david@redhat.com>,
+ Ilya Leoshkevich <iii@linux.ibm.com>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Magnus Damm <magnus.damm@gmail.com>, Artyom Tarasenko <atar4qemu@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Max Filippov <jcmvbkbc@gmail.com>, qemu-arm@nongnu.org, qemu-ppc@nongnu.org,
+ qemu-riscv@nongnu.org, qemu-s390x@nongnu.org,
+ xen-devel@lists.xenproject.org, David Woodhouse <dwmw@amazon.co.uk>
+References: <20240108204909.564514-1-dwmw2@infradead.org>
+ <20240108204909.564514-36-dwmw2@infradead.org>
+From: Thomas Huth <thuth@redhat.com>
+Autocrypt: addr=thuth@redhat.com; keydata=
+ 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
+In-Reply-To: <20240108204909.564514-36-dwmw2@infradead.org>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Oleksii,
-
-On 26/01/2024 15:58, Oleksii wrote:
-> On Fri, 2024-01-26 at 13:20 +0000, Julien Grall wrote:
->> Hi,
-> Hi Julien,
+On 08/01/2024 21.27, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
 > 
->>
->> On 26/01/2024 12:20, Oleksii Kurochko wrote:
->>> find-next-bit.c is common for Arm64, PPC and RISCV64,
->>> so it is moved to xen/lib.
->>>
->>> Suggested-by: Jan Beulich <jbeulich@suse.com>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> ---
->>>    docs/misra/exclude-list.json                  |   4 -
->>>    xen/arch/arm/arm64/lib/Makefile               |   2 +-
->>>    xen/arch/arm/include/asm/arm64/bitops.h       |  48 --------
->>>    xen/arch/ppc/include/asm/bitops.h             | 115 -------------
->>> -----
->>>    xen/include/xen/bitops.h                      |  48 ++++++++
->>>    xen/lib/Makefile                              |   1 +
->>>    .../find_next_bit.c => lib/find-next-bit.c}   |   0
->>>    7 files changed, 50 insertions(+), 168 deletions(-)
->>>    rename xen/{arch/arm/arm64/lib/find_next_bit.c => lib/find-next-
->>> bit.c} (100%)
->>>
->>> diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-
->>> list.json
->>> index 7971d0e70f..7fe02b059d 100644
->>> --- a/docs/misra/exclude-list.json
->>> +++ b/docs/misra/exclude-list.json
->>> @@ -13,10 +13,6 @@
->>>                "rel_path": "arch/arm/arm64/insn.c",
->>>                "comment": "Imported on Linux, ignore for now"
->>>            },
->>> -        {
->>> -            "rel_path": "arch/arm/arm64/lib/find_next_bit.c",
->>
->> Rather than removing the section, I was expecting the rel_path to be
->> updated. Can you explain why you think the exclusion is not
->> necessary?
-> I considered simply updating the path to xen/lib/find-next-bit.c, but
-> ultimately opted to remove it. This decision was based on the fact that
-> the line in question checks for a file that no longer exists. 
-
-That's not quite correct. The file still exists but with a different name.
-
-> If it's
-> preferable to update the rel_path with xen/lib/find-next-bit.c, I'm
-> more than willing to make that adjustment.
-
-The problem is by removing the file, you effectively tell Eclair to 
-report any MISRA error. I don't believe this is what we want here.
-
-But if the other agrees with you, then this change ought to be explained 
-in the commit message.
-
-To me the key is the commit message should contain enough information 
-for the reviewer to understand what/why you are doing. All the changes I 
-pointed out are definitely not just a normal code movement.
+> The MIPS SIM platform instantiates its NIC only if a corresponding
+> configuration exists for it. Use qemu_create_nic_device() function for
+> that.
 > 
->>
->>> -            "comment": "Imported from Linux, ignore for now"
->>> -        },
->>>            {
->>>                "rel_path": "arch/x86/acpi/boot.c",
->>>                "comment": "Imported from Linux, ignore for now"
->>> diff --git a/xen/arch/arm/arm64/lib/Makefile
->>> b/xen/arch/arm/arm64/lib/Makefile
->>> index 1b9c7a95e6..66cfac435a 100644
->>> --- a/xen/arch/arm/arm64/lib/Makefile
->>> +++ b/xen/arch/arm/arm64/lib/Makefile
->>> @@ -1,4 +1,4 @@
->>>    obj-y += memcpy.o memcmp.o memmove.o memset.o memchr.o
->>>    obj-y += clear_page.o
->>> -obj-y += bitops.o find_next_bit.o
->>> +obj-y += bitops.o
->>>    obj-y += strchr.o strcmp.o strlen.o strncmp.o strnlen.o strrchr.o
->>> diff --git a/xen/arch/arm/include/asm/arm64/bitops.h
->>> b/xen/arch/arm/include/asm/arm64/bitops.h
->>> index d85a49bca4..f9dd066237 100644
->>> --- a/xen/arch/arm/include/asm/arm64/bitops.h
->>> +++ b/xen/arch/arm/include/asm/arm64/bitops.h
->>> @@ -36,57 +36,9 @@ static inline int flsl(unsigned long x)
->>>    
->>>    /* Based on linux/include/asm-generic/bitops/find.h */
->>>    
->>> -#ifndef find_next_bit
->>> -/**
->>> - * find_next_bit - find the next set bit in a memory region
->>> - * @addr: The address to base the search on
->>> - * @offset: The bitnumber to start searching at
->>> - * @size: The bitmap size in bits
->>> - */
->>> -extern unsigned long find_next_bit(const unsigned long *addr,
->>> unsigned long
->>> -		size, unsigned long offset);
->>> -#endif
->>> -
->>> -#ifndef find_next_zero_bit
->>> -/**
->>> - * find_next_zero_bit - find the next cleared bit in a memory
->>> region
->>> - * @addr: The address to base the search on
->>> - * @offset: The bitnumber to start searching at
->>> - * @size: The bitmap size in bits
->>> - */
->>> -extern unsigned long find_next_zero_bit(const unsigned long *addr,
->>> unsigned
->>> -		long size, unsigned long offset);
->>> -#endif
->>> -
->>> -#ifdef CONFIG_GENERIC_FIND_FIRST_BIT
->>> -
->>> -/**
->>> - * find_first_bit - find the first set bit in a memory region
->>> - * @addr: The address to start the search at
->>> - * @size: The maximum size to search
->>> - *
->>> - * Returns the bit number of the first set bit.
->>> - */
->>> -extern unsigned long find_first_bit(const unsigned long *addr,
->>> -				    unsigned long size);
->>> -
->>> -/**
->>> - * find_first_zero_bit - find the first cleared bit in a memory
->>> region
->>> - * @addr: The address to start the search at
->>> - * @size: The maximum size to search
->>> - *
->>> - * Returns the bit number of the first cleared bit.
->>> - */
->>> -extern unsigned long find_first_zero_bit(const unsigned long
->>> *addr,
->>> -					 unsigned long size);
->>> -#else /* CONFIG_GENERIC_FIND_FIRST_BIT */
->>> -
->>>    #define find_first_bit(addr, size) find_next_bit((addr), (size),
->>> 0)
->>>    #define find_first_zero_bit(addr, size)
->>> find_next_zero_bit((addr), (size), 0)
->>>    
->>> -#endif /* CONFIG_GENERIC_FIND_FIRST_BIT */
->>
->> AFAICT, you are changing the behavior for Arm64 without explaining
->> why.
->> Before, it was possible to set CONFIG_GENERIC_FIND_FIRST_BIT so the
->> generic version of find_first_*_bit are used. This is not possible
->> anymore with your change.
->>
->> Looking at Linux, I see that arm64 is now selecting
->> GENERIC_FIND_FIRST_BIT (see [1]). So I would argue, we should not
->> define
->> find_first_bit(). That said, that's probably a separate patch.
->>
->> For now, you want to explain why GENERIC_FIND_FIRST_BIT is dropped.
-> I chose to remove it because I couldn't find any usage or configuration
-> setting for this in Xen (Arm).
-
-Right. My point is the commit message can lead to think this is a simple 
-code movement and there are no change of behavior.
-
-It wasn't clear to me whether this was done on purpose or not. It looks 
-like it was and therefore should really be explained in the commit message.
-
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+>   hw/mips/mipssim.c | 13 +++++++------
+>   1 file changed, 7 insertions(+), 6 deletions(-)
 > 
-> I can add "#ifdef GENERIC_FIND_FIRST_BIT" around find_first_zero_bit()
-> and find_first_bit() in xen/bitops.h, and according to the link [1], it
-> should be wrapped with ifdef. Perhaps it would be better to use "#if
-> defined(GENERIC_FIND_FIRST_BIT) && defined(CONFIG_ARM_64)".
-> 
-> My only concern is that it might seem somewhat inconsistent with the
-> other find_*_bit() functions added in this patch. Should we be care
-> about that? I mean that do we need similar config or it would be enough
-> to add a comment why it is necessary to have ifdef
-> GENERIC_FIND_FIRST_BIT.
+> diff --git a/hw/mips/mipssim.c b/hw/mips/mipssim.c
+> index 01e323904d..16af31648e 100644
+> --- a/hw/mips/mipssim.c
+> +++ b/hw/mips/mipssim.c
+> @@ -118,13 +118,15 @@ static void main_cpu_reset(void *opaque)
+>       }
+>   }
+>   
+> -static void mipsnet_init(int base, qemu_irq irq, NICInfo *nd)
+> +static void mipsnet_init(int base, qemu_irq irq)
+>   {
+>       DeviceState *dev;
+>       SysBusDevice *s;
+>   
+> -    dev = qdev_new("mipsnet");
+> -    qdev_set_nic_properties(dev, nd);
+> +    dev = qemu_create_nic_device("mipsnet", true, NULL);
+> +    if (!dev) {
+> +        return;
+> +    }
+>   
+>       s = SYS_BUS_DEVICE(dev);
+>       sysbus_realize_and_unref(s, &error_fatal);
+> @@ -225,9 +227,8 @@ mips_mipssim_init(MachineState *machine)
+>                         sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 0));
+>       }
+>   
+> -    if (nd_table[0].used)
+> -        /* MIPSnet uses the MIPS CPU INT0, which is interrupt 2. */
+> -        mipsnet_init(0x4200, env->irq[2], &nd_table[0]);
+> +    /* MIPSnet uses the MIPS CPU INT0, which is interrupt 2. */
+> +    mipsnet_init(0x4200, env->irq[2]);
+>   }
+>   
+>   static void mips_mipssim_machine_init(MachineClass *mc)
 
-Note that I didn't ask to keep GENERIC_FIND_FIRST_BIT. I actually 
-pointed out that it can be removed but it should be explained in the 
-commit message.
+Reviewed-by: Thomas Huth <thuth@redhat.com>
 
-Cheers,
-
--- 
-Julien Grall
 
