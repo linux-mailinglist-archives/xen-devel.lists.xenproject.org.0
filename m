@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10D8483DB26
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 14:46:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672009.1045583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21BF083DB36
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 14:54:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672014.1045596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTMX4-0004wd-9c; Fri, 26 Jan 2024 13:46:10 +0000
+	id 1rTMev-0006wE-3V; Fri, 26 Jan 2024 13:54:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672009.1045583; Fri, 26 Jan 2024 13:46:10 +0000
+Received: by outflank-mailman (output) from mailman id 672014.1045596; Fri, 26 Jan 2024 13:54:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTMX4-0004uD-6o; Fri, 26 Jan 2024 13:46:10 +0000
-Received: by outflank-mailman (input) for mailman id 672009;
- Fri, 26 Jan 2024 13:46:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rTMev-0006tq-0j; Fri, 26 Jan 2024 13:54:17 +0000
+Received: by outflank-mailman (input) for mailman id 672014;
+ Fri, 26 Jan 2024 13:54:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UtOA=JE=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1rTMX2-0004u7-RQ
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 13:46:08 +0000
+ id 1rTMet-0006tk-5S
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 13:54:15 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3eceb771-bc51-11ee-98f5-efadbce2ee36;
- Fri, 26 Jan 2024 14:46:04 +0100 (CET)
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6275e3b1-bc52-11ee-8a43-1f161083a0e0;
+ Fri, 26 Jan 2024 14:54:13 +0100 (CET)
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
+ [209.85.167.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-685-UHJ6FfAoNoq31H08sGPzNA-1; Fri, 26 Jan 2024 08:46:01 -0500
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-6800e52d47aso35662996d6.1
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jan 2024 05:46:01 -0800 (PST)
+ us-mta-507-Pa9FZakQPQaZccDY9VWLdA-1; Fri, 26 Jan 2024 08:54:10 -0500
+Received: by mail-oi1-f197.google.com with SMTP id
+ 5614622812f47-3bb87fc010fso970693b6e.0
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jan 2024 05:54:10 -0800 (PST)
 Received: from [192.168.0.9] (ip-109-43-176-119.web.vodafone.de.
  [109.43.176.119]) by smtp.gmail.com with ESMTPSA id
- qo12-20020a056214590c00b0068181b61183sm528291qvb.31.2024.01.26.05.45.46
+ ck14-20020a05622a230e00b00429c9bf789fsm536259qtb.42.2024.01.26.05.53.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Jan 2024 05:45:59 -0800 (PST)
+ Fri, 26 Jan 2024 05:54:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,45 +49,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3eceb771-bc51-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 6275e3b1-bc52-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1706276762;
+	s=mimecast20190719; t=1706277251;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=gGKgT2BouFnH5blaH26ztR8G6CnT324T0Q33w49jIj8=;
-	b=Djk4kW1fPMc+f3PUhrnc/IehAS2BTPyDKEESGcXghwAA/1wEvygdFVGzTZ5iRNJrXwUfK0
-	YyY4GZpkfXBl7BFxwjM62DjrilWcCA3Lf4rs4qhBR+dS35frX4+bWrFaQ+Om2S4bI7TgBe
-	5uqasL1oMMu75SZBDYqeX5iMZPyDCys=
-X-MC-Unique: UHJ6FfAoNoq31H08sGPzNA-1
+	bh=9VRYilH8wo0GPEGOXIjrsT5q+mrKJOAq11IXLPYRxTw=;
+	b=Vn6mM9aKxmJhtq95bUYO0wlqAXHVl+JBDJCPnAPwkpI1TVF6h6HbSGnYBtVbayvtY09LKi
+	TNsj4CaZXbGzifoJ7xIPSsFajXKV/h15U4jnEsHoJRbVrqe30XmWCMsiqV1Xk/pFWheZ3B
+	/sYHtkF3Doij/skecGaFyv13zMIz9XI=
+X-MC-Unique: Pa9FZakQPQaZccDY9VWLdA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706276760; x=1706881560;
+        d=1e100.net; s=20230601; t=1706277249; x=1706882049;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=gGKgT2BouFnH5blaH26ztR8G6CnT324T0Q33w49jIj8=;
-        b=Yvn6tXclspozjl4RdOY894o874qPKxDAdd5c1eju/jP81SMCcmY5ATDMndxZNfmskm
-         plCcqvX6wgO9PdLj1aObANakzb4h36K4mLobvtlyIRZIsr0QDUBqDWWQgk0K876xIrFF
-         fOqbI/Y4mLoHWyqFtQR+KN4e0d4XK9QM4lPv3KJma2P8ycegIAyqFxF91AmnlHDiiOiv
-         HqOay3IsNnwPIt9/Iy9qsdfPmELH/LqsNtIwZqDecRw1ZlAqsc+mJ+3o5vEUyZCR1plq
-         hlRSyg6zwSkrAFzEMKNo2tOt/76RUHlDKfYwaNJY9H2uBDE6fw9dC2IFlwGL/UlIORHP
-         92Ag==
-X-Gm-Message-State: AOJu0YwisA/GP4dYj2fpGQH0EUI4+CvwTaXCqJSLO2rG/k7GNdxJncgl
-	LcdAv1ivCtEim11DaV7WWvreahPOacnRDvJo1UBNZQ79BSlOhDaALFvMOwTOwAKxAe4TWbRsccf
-	IhShiYExRZ2ntfD8//cuFYt0hBntCt+1ySnT08Y5lWyU7cPX6YvLpaEBLv+vRzaGu
-X-Received: by 2002:a0c:da88:0:b0:681:929e:28cd with SMTP id z8-20020a0cda88000000b00681929e28cdmr1377299qvj.19.1706276760654;
-        Fri, 26 Jan 2024 05:46:00 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IEXKYlPOQk0ygMtmSNAnT+cgcujEGgjsco4aR9b7xYzMbYrF8XJ08TBjdWESprAFCfhBHUXeA==
-X-Received: by 2002:a0c:da88:0:b0:681:929e:28cd with SMTP id z8-20020a0cda88000000b00681929e28cdmr1377232qvj.19.1706276760344;
-        Fri, 26 Jan 2024 05:46:00 -0800 (PST)
-Message-ID: <4ee5a881-4a23-4410-b6fd-b1124bce3dc5@redhat.com>
-Date: Fri, 26 Jan 2024 14:45:44 +0100
+        bh=9VRYilH8wo0GPEGOXIjrsT5q+mrKJOAq11IXLPYRxTw=;
+        b=YmnkXRhWShanXxx0ktlNDq5pjvx3+fmBRvuwaT0iS418TcaWyC16IIcTvRv7ndC5dR
+         RwzhTen/SDiAx2YYvhHedhWNgFma6HCFqVSfCgiSeVcCx5lXt7LdqHgSM1JeMcdRH0oD
+         i7R4YeBOMAYXGF9sXYyi4PmvlZAGvwlVDREmTnox7tgWrYj867o3Kc2uU9gtkhNMIlm2
+         iYFudXo7nFSHTM0VZbKv/4x15uJd/dFYdfbdUkKJ4iBo180uzA36LIiSug9RbGPhy3Ak
+         1FJ9mmi5chUd4bH6zKKXk7Yx4R6VDPJ8P7Aez+oAzd2rIityGRXlF22bniIsVDKuK8JL
+         Erpg==
+X-Gm-Message-State: AOJu0YysJEfVyyGa3ltpecbeG+JMsq5FfuJylauy2gWKzfMiigqA0pOI
+	4Sxq3f/CeDYf1Ei0LNGM55NuU12sTYhp4lndkaSuMH2Ma/VzHQzbeK44ikOguZWSHi6SaUX5UkE
+	oIntqNuI8y7evrqtrN8ua5wy0liklNkiPrHa1BHdvL9tmGSaxHgqcbWVbyvoLqw2E
+X-Received: by 2002:a05:6808:1918:b0:3bd:a87a:bcbd with SMTP id bf24-20020a056808191800b003bda87abcbdmr1935226oib.39.1706277249662;
+        Fri, 26 Jan 2024 05:54:09 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IEeQWYupQnuJXVRiBPK6Z06vZlZ5Pm+d2RphwsdO1902xUz6SyG+5CadZdnh/ITNfDEXMwkjw==
+X-Received: by 2002:a05:6808:1918:b0:3bd:a87a:bcbd with SMTP id bf24-20020a056808191800b003bda87abcbdmr1935168oib.39.1706277249364;
+        Fri, 26 Jan 2024 05:54:09 -0800 (PST)
+Message-ID: <531b0005-7308-4274-b357-33b699adc1cc@redhat.com>
+Date: Fri, 26 Jan 2024 14:53:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/46] hw/i386/pc: use qemu_get_nic_info() and
- pci_init_nic_devices()
-To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
+Subject: Re: [PATCH v3 12/46] hw/mips/fuloong2e: use pci_init_nic_devices()
+To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 Cc: Richard Henderson <richard.henderson@linaro.org>,
  Beniamino Galvani <b.galvani@gmail.com>,
  Peter Maydell <peter.maydell@linaro.org>,
@@ -96,11 +96,10 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
  <clg@kaod.org>, Andrew Jeffery <andrew@codeconstruct.com.au>,
  Joel Stanley <joel@jms.id.au>, Igor Mitsyanko <i.mitsyanko@gmail.com>,
  Jean-Christophe Dubois <jcd@tribudubois.net>,
- Andrey Smirnov <andrew.smirnov@gmail.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
- Rob Herring <robh@kernel.org>, Subbaraya Sundeep <sundeep.lkml@gmail.com>,
- Jan Kiszka <jan.kiszka@web.de>, Tyrone Ting <kfting@nuvoton.com>,
- Hao Wu <wuhaotsh@google.com>, Radoslaw Biernacki <rad@semihalf.com>,
+ Andrey Smirnov <andrew.smirnov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Subbaraya Sundeep <sundeep.lkml@gmail.com>, Jan Kiszka <jan.kiszka@web.de>,
+ Tyrone Ting <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>,
+ Radoslaw Biernacki <rad@semihalf.com>,
  Leif Lindholm <quic_llindhol@quicinc.com>,
  Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>,
  "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
@@ -131,13 +130,10 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
  Max Filippov <jcmvbkbc@gmail.com>, qemu-arm@nongnu.org, qemu-ppc@nongnu.org,
- qemu-riscv@nongnu.org, qemu-s390x@nongnu.org, xen-devel@lists.xenproject.org
+ qemu-riscv@nongnu.org, qemu-s390x@nongnu.org,
+ xen-devel@lists.xenproject.org, David Woodhouse <dwmw@amazon.co.uk>
 References: <20240108204909.564514-1-dwmw2@infradead.org>
- <20240108204909.564514-6-dwmw2@infradead.org>
- <d6b0fd22-92ef-4873-a19a-e7752bfddd2d@redhat.com>
- <b618c5e3163a3407c413464edd5f638f1c8563fa.camel@infradead.org>
- <da5f845f-dfee-48de-9fc2-af27b83a615b@redhat.com>
- <983ce258a214a0cbe6aeaabab01daed47a2e1066.camel@infradead.org>
+ <20240108204909.564514-13-dwmw2@infradead.org>
 From: Thomas Huth <thuth@redhat.com>
 Autocrypt: addr=thuth@redhat.com; keydata=
  xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
@@ -181,82 +177,64 @@ Autocrypt: addr=thuth@redhat.com; keydata=
  oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
  IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
  yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
-In-Reply-To: <983ce258a214a0cbe6aeaabab01daed47a2e1066.camel@infradead.org>
+In-Reply-To: <20240108204909.564514-13-dwmw2@infradead.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 26/01/2024 12.25, David Woodhouse wrote:
-> On Fri, 2024-01-26 at 12:20 +0100, Thomas Huth wrote:
->> On 26/01/2024 12.13, David Woodhouse wrote:
->>> On Fri, 2024-01-26 at 11:43 +0100, Thomas Huth wrote:
->>>> On 08/01/2024 21.26, David Woodhouse wrote:
->>>>> From: David Woodhouse <dwmw@amazon.co.uk>
->>>>>
->>>>> Eliminate direct access to nd_table[] and nb_nics by processing the the
->>>>> Xen and ISA NICs first and then calling pci_init_nic_devices() for the
->>>>> rest.
->>>>>
->>>>> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
->>>>> Reviewed-by: Paul Durrant <paul@xen.org>
->>>>> ---
->>>>>     hw/i386/pc.c                | 26 ++++++++++++++++----------
->>>>>     include/hw/net/ne2000-isa.h |  2 --
->>>>>     2 files changed, 16 insertions(+), 12 deletions(-)
->>>>>
->>>>> diff --git a/hw/i386/pc.c b/hw/i386/pc.c
->>>>> index 496498df3a..d80c536d88 100644
->>>>> --- a/hw/i386/pc.c
->>>>> +++ b/hw/i386/pc.c
->>>>> @@ -658,8 +658,11 @@ static void pc_init_ne2k_isa(ISABus *bus, NICInfo *nd)
->>>>>     {
->>>>>         static int nb_ne2k = 0;
->>>>>     
->>>>> -    if (nb_ne2k == NE2000_NB_MAX)
->>>>> +    if (nb_ne2k == NE2000_NB_MAX) {
->>>>> +        error_setg(&error_fatal,
->>>>> +                   "maximum number of ISA NE2000 devices exceeded");
->>>>>             return;
->>>>> +    }
->>>>
->>>> error_setg(&error_fatal, ...) quits QEMU, so the "return;" does not make
->>>> much sense anymore.
->>>> Now, according to include/qapi/error.h :
->>>>
->>>>     * Please don't error_setg(&error_fatal, ...), use error_report() and
->>>>     * exit(), because that's more obvious.
->>>>
->>>> So I'd suggest to do that instead.
->>>
->>> It's going slightly in the opposite direction to what's requested in
->>> https://lore.kernel.org/qemu-devel/34e2c0c6-4e04-486a-8e1f-4afdc461a5d4@linaro.org/
->>>
->>> I was thinking that a future patch would let the &error_fatal be an
->>> Error** passed in by the caller, and not actually hard-coded to be
->>> fatal at all.
->>>
->>> But sure, unless Philippe objects I'm happy to do it as you show above.
->>
->> Now that you mention it, I'd also prefer having an Error** parameter to the
->> function instead, that's certainly cleaner. So if you don't mind, please
->> follow Philippe's suggestion instead!
+On 08/01/2024 21.26, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
 > 
-> Right. There's a whole bunch of functions to untangle, that take an
-> Error** but don't return success/failure independently as they should.
-> Or don't even take the Error**.
+> The previous behaviour was: *if* the first NIC specified on the command
+> line was an RTL8139 (or unspecified model) then it gets assigned to PCI
+> slot 7, which is where the Fuloong board had an RTL8139. All other
+> devices (including the first, if it was specified a anything other then
+> an rtl8319) get dynamically assigned on the bus.
 > 
-> Rather than trying to fix that as part of this series, this was my
-> compromise — making it easy to switch that explicit &error_fatal out
-> for a function parameter, but not trying to shave that part of the yak
-> myself just yet.
+> The new behaviour is subtly different: If the first NIC was given a
+> specific model *other* than rtl8139, and a subsequent NIC was not,
+> then the rtl8139 (or unspecified) NIC will go to slot 7 and the rest
+> will be dynamically assigned.
 
-I think the nicest compromise is to add the "Error **errp" to the 
-pc_init_ne2k_isa() and change the caller to pass in &error_fatal there ... 
-further clean-up (passing the error even up further in the stack) is out of 
-scope of this series, indeed.
+Sounds fine for me ... Philippe, what do you think?
 
-  Thomas
+Reviewed-by: Thomas Huth <thuth@redhat.com>
+
+
+> 
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> ---
+>   hw/mips/fuloong2e.c | 16 +++-------------
+>   1 file changed, 3 insertions(+), 13 deletions(-)
+> 
+> diff --git a/hw/mips/fuloong2e.c b/hw/mips/fuloong2e.c
+> index 97b2c8ed8e..a45aac368c 100644
+> --- a/hw/mips/fuloong2e.c
+> +++ b/hw/mips/fuloong2e.c
+> @@ -201,19 +201,9 @@ static void main_cpu_reset(void *opaque)
+>   /* Network support */
+>   static void network_init(PCIBus *pci_bus)
+>   {
+> -    int i;
+> -
+> -    for (i = 0; i < nb_nics; i++) {
+> -        NICInfo *nd = &nd_table[i];
+> -        const char *default_devaddr = NULL;
+> -
+> -        if (i == 0 && (!nd->model || strcmp(nd->model, "rtl8139") == 0)) {
+> -            /* The Fuloong board has a RTL8139 card using PCI SLOT 7 */
+> -            default_devaddr = "07";
+> -        }
+> -
+> -        pci_nic_init_nofail(nd, pci_bus, "rtl8139", default_devaddr);
+> -    }
+> +    /* The Fuloong board has a RTL8139 card using PCI SLOT 7 */
+> +    pci_init_nic_in_slot(pci_bus, "rtl8139", NULL, "07");
+> +    pci_init_nic_devices(pci_bus, "rtl8139");
+>   }
+>   
+>   static void mips_fuloong2e_init(MachineState *machine)
 
 
