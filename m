@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B36583E0AB
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:43:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672364.1046354 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9B6D83E0AD
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:43:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672367.1046374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQEk-0007vd-R6; Fri, 26 Jan 2024 17:43:30 +0000
+	id 1rTQEp-0008UB-BF; Fri, 26 Jan 2024 17:43:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672364.1046354; Fri, 26 Jan 2024 17:43:30 +0000
+Received: by outflank-mailman (output) from mailman id 672367.1046374; Fri, 26 Jan 2024 17:43:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQEk-0007u2-MW; Fri, 26 Jan 2024 17:43:30 +0000
-Received: by outflank-mailman (input) for mailman id 672364;
- Fri, 26 Jan 2024 17:43:29 +0000
+	id 1rTQEp-0008SD-7I; Fri, 26 Jan 2024 17:43:35 +0000
+Received: by outflank-mailman (input) for mailman id 672367;
+ Fri, 26 Jan 2024 17:43:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bPDA=JE=casper.srs.infradead.org=BATV+7caeb094913322f6f00d+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTQ4x-0004m7-Pc
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:23 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=46+y=JE=desiato.srs.infradead.org=BATV+5cc348fc898a3f56ac6c+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1rTQ54-0004m7-Qy
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:30 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff2a3b3e-bc70-11ee-98f5-efadbce2ee36;
- Fri, 26 Jan 2024 18:33:20 +0100 (CET)
+ id 017f83e2-bc71-11ee-98f5-efadbce2ee36;
+ Fri, 26 Jan 2024 18:33:24 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTQ48-0000000EKUG-0XHH; Fri, 26 Jan 2024 17:32:33 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
+ id 1rTQ4A-000000069Ug-1sBY; Fri, 26 Jan 2024 17:32:35 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.97.1 #2 (Red
- Hat Linux)) id 1rTQ48-00000001elt-0h3b;
+ Hat Linux)) id 1rTQ48-00000001elw-1AKN;
  Fri, 26 Jan 2024 17:32:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -42,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: ff2a3b3e-bc70-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 017f83e2-bc71-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=7Uppd3XmmgMw4XasqXjrqhb0RWV0UlzHWXb7dMHxQkk=; b=Y5xjzzCyYHVwBdSMOVhNKGeW0i
-	4vvcFhkcRtx0NfvDdc6Eo+Rajz/qrT7LuRHMzDNblleNw/eHjlNZ+14lo0BYTIMel5RVut4KakDcm
-	pcEaYTD5+Hu0ylfmx64cEgXxj8jmLsrfwaBepCcayzt242CE3re6zAs7gU5tZvAtsTRcZw+R1hYDn
-	FOKySQ4UWj+5Jv5MQFc+l4U4VHZob8iOy6Y9sS9vXKu5WMLD0IDz2QcB2wGI+Glx6W0K45sUvDE8M
-	WOiS8RLg2iLZEy1jHmvYyBSND2F1F1H6LydXISsLobmrKgTkhR9byITplob0iPkEty4l/ttty6CzN
-	rfP4m9+g==;
+	bh=g6ItrTH6xUERJPwo+cm9fCEJutLCoak9PKJqL8zqcI4=; b=ba+p04F7gmVS2ZYXXnb5q5thmB
+	4WEY19RcmaOTcF1pOxT5ghJU0grzeoy1NkBTpXYYqeiSbsF6hKrVjnK1LchOXlR9IfvMejCnrvyWH
+	RP6vDhuK6CM9HU+pNIKpZaF5nMW+7XzAwI1h3sdiNzZQofCBU4QAN/y2YkpSzBE8sGvI+3XmG64NS
+	7tG5UqPZlt4IDE7orurvgQJom0s12YDL6mVL+sTNBfpQ/yyIxyCzOWMWX6NM0JhMqnOtIenEBgOrj
+	uGP1mQcA0gpj5ssU82hi6/xV1Gr+wVWWL3Yilz7PXJ/avJI3QscQOsOp4HeoPXryJ51F38+l4y5z/
+	++94306Q==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -121,40 +121,60 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	xen-devel@lists.xenproject.org,
 	David Woodhouse <dwmw@amazon.co.uk>,
 	Thomas Huth <thuth@redhat.com>
-Subject: [PATCH v4 14/47] hw/mips/loongson3_virt: use pci_init_nic_devices()
-Date: Fri, 26 Jan 2024 17:24:51 +0000
-Message-ID: <20240126173228.394202-15-dwmw2@infradead.org>
+Subject: [PATCH v4 15/47] hw/ppc/prep: use pci_init_nic_devices()
+Date: Fri, 26 Jan 2024 17:24:52 +0000
+Message-ID: <20240126173228.394202-16-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240126173228.394202-1-dwmw2@infradead.org>
 References: <20240126173228.394202-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
+
+Previously, the first PCI NIC would be placed in PCI slot 3 and the rest
+would be dynamically assigned. Even if the user overrode the default NIC
+type and made it something other than PCNet.
+
+Now, the first PCNet NIC (that is, anything not explicitly specified
+to be anything different) will go to slot 3 even if it isn't the first
+NIC specified on the command line. And anything else will be dynamically
+assigned.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 Reviewed-by: Thomas Huth <thuth@redhat.com>
 ---
- hw/mips/loongson3_virt.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ hw/ppc/prep.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/hw/mips/loongson3_virt.c b/hw/mips/loongson3_virt.c
-index 33eae01eca..caedde2df0 100644
---- a/hw/mips/loongson3_virt.c
-+++ b/hw/mips/loongson3_virt.c
-@@ -451,9 +451,7 @@ static inline void loongson3_virt_devices_init(MachineState *machine,
-         usb_create_simple(usb_bus_find(-1), "usb-tablet");
+diff --git a/hw/ppc/prep.c b/hw/ppc/prep.c
+index 137276bcb9..1a6cd05c61 100644
+--- a/hw/ppc/prep.c
++++ b/hw/ppc/prep.c
+@@ -241,7 +241,6 @@ static void ibm_40p_init(MachineState *machine)
+     ISADevice *isa_dev;
+     ISABus *isa_bus;
+     void *fw_cfg;
+-    int i;
+     uint32_t kernel_base = 0, initrd_base = 0;
+     long kernel_size = 0, initrd_size = 0;
+     char boot_device;
+@@ -336,10 +335,9 @@ static void ibm_40p_init(MachineState *machine)
+         /* XXX: s3-trio at PCI_DEVFN(2, 0) */
+         pci_vga_init(pci_bus);
+ 
+-        for (i = 0; i < nb_nics; i++) {
+-            pci_nic_init_nofail(&nd_table[i], pci_bus, mc->default_nic,
+-                                i == 0 ? "3" : NULL);
+-        }
++        /* First PCNET device at PCI_DEVFN(3, 0) */
++        pci_init_nic_in_slot(pci_bus, mc->default_nic, NULL, "3");
++        pci_init_nic_devices(pci_bus, mc->default_nic);
      }
  
--    for (i = 0; i < nb_nics; i++) {
--        pci_nic_init_nofail(&nd_table[i], pci_bus, mc->default_nic, NULL);
--    }
-+    pci_init_nic_devices(pci_bus, mc->default_nic);
- }
- 
- static void mips_loongson3_virt_init(MachineState *machine)
+     /* Prepare firmware configuration for OpenBIOS */
 -- 
 2.43.0
 
