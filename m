@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37E6183E034
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:33:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672260.1046122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 396B683E03C
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:33:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672271.1046187 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQ4o-0006jY-JO; Fri, 26 Jan 2024 17:33:14 +0000
+	id 1rTQ4z-0000N2-35; Fri, 26 Jan 2024 17:33:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672260.1046122; Fri, 26 Jan 2024 17:33:14 +0000
+Received: by outflank-mailman (output) from mailman id 672271.1046187; Fri, 26 Jan 2024 17:33:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQ4o-0006gs-Ai; Fri, 26 Jan 2024 17:33:14 +0000
-Received: by outflank-mailman (input) for mailman id 672260;
- Fri, 26 Jan 2024 17:33:12 +0000
+	id 1rTQ4x-0008TD-Ue; Fri, 26 Jan 2024 17:33:23 +0000
+Received: by outflank-mailman (input) for mailman id 672271;
+ Fri, 26 Jan 2024 17:33:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bPDA=JE=casper.srs.infradead.org=BATV+7caeb094913322f6f00d+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTQ4m-0004Zo-OI
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:12 +0000
+ id 1rTQ4r-0004Zo-P2
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:17 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa7483f1-bc70-11ee-8a43-1f161083a0e0;
- Fri, 26 Jan 2024 18:33:12 +0100 (CET)
+ id fd31a7b1-bc70-11ee-8a43-1f161083a0e0;
+ Fri, 26 Jan 2024 18:33:16 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTQ49-0000000EKV3-1wai; Fri, 26 Jan 2024 17:32:35 +0000
+ id 1rTQ49-0000000EKV4-2g9X; Fri, 26 Jan 2024 17:32:35 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.97.1 #2 (Red
- Hat Linux)) id 1rTQ4A-00000001env-1PSB;
+ Hat Linux)) id 1rTQ4A-00000001eo0-1h7n;
  Fri, 26 Jan 2024 17:32:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -42,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: fa7483f1-bc70-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: fd31a7b1-bc70-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=/MTEStVe8JsIJfw31uF1pPqlJs68QbDUjigCzt5wrRY=; b=aDzp80vU5CN2Sm/Q2GM88ExicE
-	ccJGYACucBtKe16CrPuXI8x6MQzxzt6fV0r84XESGseZvld5CXCQC9QzZzcFPJnI64cgHCod7ddPH
-	RewZmZQw7QQO2bMuxR/34YPRdIs5t2+mEggs7lr6xme1yiAytBNa/dIBwShHfjpuqxZIMinnpRN5R
-	0dR7BxscgGzjNLkpTt0TkHuA0WY+1biD2fXhnufi8RwbXxrBzTgy+iapTPigX5QHv2cam5VVRY345
-	xORHuQhgWGfuhy5q/rHr7UPvtk0ZKFK3DTasYt9itfNJnx5onSt6L5htjQErOc2Vj9QlNnrKKRiuW
-	RKbK9Axw==;
+	bh=WRBuYa2rIuMOyCdfUaeq0aJt9tQyMaQzZk9uum9u4Yo=; b=pbgctkJkh9eaXYKWWUsW2nOnb5
+	l3/8L/atRueV3pL+D+HzG7RHpQ+feZYCUdhPXZkdz2PfjHkDUCs9WxKoRw9ZI0wWNtnrluWAMaMoD
+	OJ+N457sv2U7r8YHNyD0xMQ10uyPuk8lzBA04v7nt8pOF9VZIx6qjrTXKgkMpb0OedmfZ94Jd5O7h
+	LYLz0sU8o9SGAzI6dm1AVi6h3b60IiNuLpJcHAGvvR8fOturCflELq4U38XAW3XovsNMiuh9jZ8L8
+	b/pu5DMAf4ZGcH95ztIBGI2cN+TD9Q+Jm6vW0/1944EDl9T/wUt4fPE1kFkxTLnSyda/hvWlXeU0p
+	z8rNRsyA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -119,11 +119,10 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Thomas Huth <thuth@redhat.com>
-Subject: [PATCH v4 38/47] hw/net/lasi_i82596: use qemu_create_nic_device()
-Date: Fri, 26 Jan 2024 17:25:15 +0000
-Message-ID: <20240126173228.394202-39-dwmw2@infradead.org>
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v4 39/47] hw/openrisc/openrisc_sim: use qemu_create_nic_device()
+Date: Fri, 26 Jan 2024 17:25:16 +0000
+Message-ID: <20240126173228.394202-40-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240126173228.394202-1-dwmw2@infradead.org>
 References: <20240126173228.394202-1-dwmw2@infradead.org>
@@ -134,91 +133,54 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Create the device only if there is a corresponding NIC config for it.
-Remove the explicit check on nd_table[0].used from hw/hppa/machine.c
-which (since commit d8a3220005d7) tries to do the same thing.
-
-The lasi_82596 support has been disabled since it was first introduced,
-since enable_lasi_lan() has always been zero. This allows the user to
-enable it by explicitly requesting a NIC model 'lasi_82596' or just
-using the alias 'lasi'. Otherwise, it defaults to a PCI NIC as before.
-
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Thomas Huth <thuth@redhat.com>
 ---
- hw/hppa/machine.c           | 11 ++++-------
- hw/net/lasi_i82596.c        | 12 +++++++-----
- include/hw/net/lasi_82596.h |  4 ++--
- 3 files changed, 13 insertions(+), 14 deletions(-)
+ hw/openrisc/openrisc_sim.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/hw/hppa/machine.c b/hw/hppa/machine.c
-index a1045b48cc..5ae4f176f6 100644
---- a/hw/hppa/machine.c
-+++ b/hw/hppa/machine.c
-@@ -362,14 +362,11 @@ static void machine_HP_common_init_tail(MachineState *machine, PCIBus *pci_bus,
-     }
+diff --git a/hw/openrisc/openrisc_sim.c b/hw/openrisc/openrisc_sim.c
+index 35da123aef..bffd6f721f 100644
+--- a/hw/openrisc/openrisc_sim.c
++++ b/hw/openrisc/openrisc_sim.c
+@@ -170,7 +170,7 @@ static void openrisc_create_fdt(Or1ksimState *state,
  
-     /* Network setup. */
--    if (nd_table[0].used && enable_lasi_lan()) {
--        lasi_82596_init(addr_space, translate(NULL, LASI_LAN_HPA),
--                        qdev_get_gpio_in(lasi_dev, LASI_IRQ_LAN_HPA));
--    }
-+    lasi_82596_init(addr_space, translate(NULL, LASI_LAN_HPA),
-+                    qdev_get_gpio_in(lasi_dev, LASI_IRQ_LAN_HPA),
-+                    enable_lasi_lan());
- 
--    if (!enable_lasi_lan()) {
--        pci_init_nic_devices(pci_bus, mc->default_nic);
--    }
-+    pci_init_nic_devices(pci_bus, mc->default_nic);
- 
-     /* BMC board: HP Powerbar SP2 Diva (with console only) */
-     pci_dev = pci_new(-1, "pci-serial");
-diff --git a/hw/net/lasi_i82596.c b/hw/net/lasi_i82596.c
-index 09e830ba5f..fcf7fae941 100644
---- a/hw/net/lasi_i82596.c
-+++ b/hw/net/lasi_i82596.c
-@@ -118,19 +118,21 @@ static void lasi_82596_realize(DeviceState *dev, Error **errp)
-     i82596_common_init(dev, s, &net_lasi_82596_info);
- }
- 
--SysBusI82596State *lasi_82596_init(MemoryRegion *addr_space,
--                  hwaddr hpa, qemu_irq lan_irq)
-+SysBusI82596State *lasi_82596_init(MemoryRegion *addr_space, hwaddr hpa,
-+                                   qemu_irq lan_irq, gboolean match_default)
+ static void openrisc_sim_net_init(Or1ksimState *state, hwaddr base, hwaddr size,
+                                   int num_cpus, OpenRISCCPU *cpus[],
+-                                  int irq_pin, NICInfo *nd)
++                                  int irq_pin)
  {
+     void *fdt = state->fdt;
      DeviceState *dev;
-     SysBusI82596State *s;
-     static const MACAddr HP_MAC = {
-         .a = { 0x08, 0x00, 0x09, 0xef, 0x34, 0xf6 } };
+@@ -178,8 +178,10 @@ static void openrisc_sim_net_init(Or1ksimState *state, hwaddr base, hwaddr size,
+     char *nodename;
+     int i;
  
--    qemu_check_nic_model(&nd_table[0], TYPE_LASI_82596);
--    dev = qdev_new(TYPE_LASI_82596);
-+    dev = qemu_create_nic_device(TYPE_LASI_82596, match_default, "lasi");
+-    dev = qdev_new("open_eth");
+-    qdev_set_nic_properties(dev, nd);
++    dev = qemu_create_nic_device("open_eth", true, NULL);
 +    if (!dev) {
-+        return NULL;
++        return;
 +    }
-+
-     s = SYSBUS_I82596(dev);
-     s->state.irq = lan_irq;
--    qdev_set_nic_properties(dev, &nd_table[0]);
-     sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
-     s->state.conf.macaddr = HP_MAC; /* set HP MAC prefix */
  
-diff --git a/include/hw/net/lasi_82596.h b/include/hw/net/lasi_82596.h
-index 3ef2f47ba2..439356ec19 100644
---- a/include/hw/net/lasi_82596.h
-+++ b/include/hw/net/lasi_82596.h
-@@ -25,7 +25,7 @@ struct SysBusI82596State {
-     int val_index:1;
- };
+     s = SYS_BUS_DEVICE(dev);
+     sysbus_realize_and_unref(s, &error_fatal);
+@@ -313,12 +315,10 @@ static void openrisc_sim_init(MachineState *machine)
+     openrisc_create_fdt(state, or1ksim_memmap, smp_cpus, machine->ram_size,
+                         machine->kernel_cmdline);
  
--SysBusI82596State *lasi_82596_init(MemoryRegion *addr_space,
--                                    hwaddr hpa, qemu_irq irq);
-+SysBusI82596State *lasi_82596_init(MemoryRegion *addr_space, hwaddr hpa,
-+                                   qemu_irq irq, gboolean match_default);
+-    if (nd_table[0].used) {
+-        openrisc_sim_net_init(state, or1ksim_memmap[OR1KSIM_ETHOC].base,
+-                              or1ksim_memmap[OR1KSIM_ETHOC].size,
+-                              smp_cpus, cpus,
+-                              OR1KSIM_ETHOC_IRQ, nd_table);
+-    }
++    openrisc_sim_net_init(state, or1ksim_memmap[OR1KSIM_ETHOC].base,
++                          or1ksim_memmap[OR1KSIM_ETHOC].size,
++                          smp_cpus, cpus,
++                          OR1KSIM_ETHOC_IRQ);
  
- #endif
+     if (smp_cpus > 1) {
+         openrisc_sim_ompic_init(state, or1ksim_memmap[OR1KSIM_OMPIC].base,
 -- 
 2.43.0
 
