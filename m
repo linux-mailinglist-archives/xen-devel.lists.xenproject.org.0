@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FEB083E0ED
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:54:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672440.1046517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA20B83E02A
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:33:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672252.1046042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQPH-000460-4h; Fri, 26 Jan 2024 17:54:23 +0000
+	id 1rTQ4f-0004be-Jg; Fri, 26 Jan 2024 17:33:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672440.1046517; Fri, 26 Jan 2024 17:54:23 +0000
+Received: by outflank-mailman (output) from mailman id 672252.1046042; Fri, 26 Jan 2024 17:33:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQPH-000442-1H; Fri, 26 Jan 2024 17:54:23 +0000
-Received: by outflank-mailman (input) for mailman id 672440;
- Fri, 26 Jan 2024 17:54:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rTQ4f-0004Zu-Gf; Fri, 26 Jan 2024 17:33:05 +0000
+Received: by outflank-mailman (input) for mailman id 672252;
+ Fri, 26 Jan 2024 17:33:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=46+y=JE=desiato.srs.infradead.org=BATV+5cc348fc898a3f56ac6c+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTQ5B-0004m7-SG
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:37 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 03a5be44-bc71-11ee-98f5-efadbce2ee36;
- Fri, 26 Jan 2024 18:33:27 +0100 (CET)
+ <SRS0=bPDA=JE=casper.srs.infradead.org=BATV+7caeb094913322f6f00d+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
+ id 1rTQ4e-0004Zo-Hg
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:04 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f54d430b-bc70-11ee-8a43-1f161083a0e0;
+ Fri, 26 Jan 2024 18:33:03 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
- by desiato.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTQ4A-000000069Us-1wZd; Fri, 26 Jan 2024 17:32:47 +0000
+ by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
+ id 1rTQ49-0000000EKUd-01Tz; Fri, 26 Jan 2024 17:32:34 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.97.1 #2 (Red
- Hat Linux)) id 1rTQ49-00000001enM-3JsS;
+ Hat Linux)) id 1rTQ49-00000001enQ-3kks;
  Fri, 26 Jan 2024 17:32:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -42,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 03a5be44-bc71-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: f54d430b-bc70-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=GkywRXV+y0p7Nt5wgFGuell3roGE2NQ8qPpvNbU7STs=; b=V4bapDZigG0KqzrpWHLQWnoMdI
-	cCsUhnQ2jJfRVYxm5QPNAx9aG3sYfWfCXybauSoZQ/SxssH+cElsrF0p4HVv4Ue3bzhEPIXPXj+LT
-	htNZt681XmQRX7j36VsmHoNxcTw2TkxrDHu0PGz2CPOboVyIiLeEKvnm3Z1F+VQnC+8GMNUQmuxxM
-	+2J/GblKKNXD4shz499zroeB9kWSx1H7G952MNGnFYL1Vg63gJXtukuip89zNkKRpTqfWlgwgBxUO
-	ER7hClAADuP/6NX4cZiaSNs9/dBeSbU2NeqAF1s/sLQdKRkQIYCWVU7TNNo7A8QWIkXDIJGf8sHEP
-	pYxaDeow==;
+	bh=+e8WGyk26Nx6F3/v612EfiHjqzKx8nYkFPtvGlnGd3w=; b=Wj7wVHpMtDarRXMBToq7G9m/GR
+	JIyL+umLSadU7YtXppHGohydct6iE2OaSPxQt+ONIgMnY6+6w/sul+wfD5BEOHoSRAba6pl7/iFG6
+	pzB+Qmg/XzA5Bcgpdv0Sv3H7Ypa3FuqdDSzmGBfk4nF9gM9Jr73sQXltSASv7KghBB2lEuqrBhs5K
+	tg/ZVNvLN3exxn+r1l2s9SkJ98IzX5zeIrUo6rK0r0NtzTeEHwyBi4wY4iPvf5Cgr3+0FepwwsCLR
+	CPE023t4WgOJN/AJAjtsl5ltjaMkSVfKE29fdVhX+Ab6pRk+sFWxlHtSnjChWv61xjwzhtviZaPoF
+	wt8AgzYA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -119,69 +119,103 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Thomas Huth <thuth@redhat.com>
-Subject: [PATCH v4 32/47] hw/m68k/mcf5208: use qemu_create_nic_device()
-Date: Fri, 26 Jan 2024 17:25:09 +0000
-Message-ID: <20240126173228.394202-33-dwmw2@infradead.org>
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v4 33/47] hw/m68k/q800: use qemu_find_nic_info()
+Date: Fri, 26 Jan 2024 17:25:10 +0000
+Message-ID: <20240126173228.394202-34-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240126173228.394202-1-dwmw2@infradead.org>
 References: <20240126173228.394202-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Thomas Huth <thuth@redhat.com>
----
- hw/m68k/mcf5208.c | 19 ++++++-------------
- 1 file changed, 6 insertions(+), 13 deletions(-)
+If a corresponding NIC configuration was found, it will have a MAC address
+already assigned, so use that. Else, generate and assign a default one.
 
-diff --git a/hw/m68k/mcf5208.c b/hw/m68k/mcf5208.c
-index d22d8536db..0cfb806c20 100644
---- a/hw/m68k/mcf5208.c
-+++ b/hw/m68k/mcf5208.c
-@@ -206,16 +206,16 @@ static void mcf5208_sys_init(MemoryRegion *address_space, qemu_irq *pic)
-     }
- }
+Using qemu_find_nic_info() is simpler than the alternative of using
+qemu_configure_nic_device() and then having to fetch the "mac" property
+as a string and convert it.
+
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+---
+ hw/m68k/q800.c | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
+
+diff --git a/hw/m68k/q800.c b/hw/m68k/q800.c
+index b80a3b6d5f..fa7683bf76 100644
+--- a/hw/m68k/q800.c
++++ b/hw/m68k/q800.c
+@@ -48,6 +48,7 @@
+ #include "hw/display/macfb.h"
+ #include "hw/block/swim.h"
+ #include "net/net.h"
++#include "net/util.h"
+ #include "qapi/error.h"
+ #include "qemu/error-report.h"
+ #include "sysemu/qtest.h"
+@@ -270,6 +271,8 @@ static void q800_machine_init(MachineState *machine)
+     BusState *adb_bus;
+     NubusBus *nubus;
+     DriveInfo *dinfo;
++    NICInfo *nd;
++    MACAddr mac;
+     uint8_t rng_seed[32];
  
--static void mcf_fec_init(MemoryRegion *sysmem, NICInfo *nd, hwaddr base,
--                         qemu_irq *irqs)
-+static void mcf_fec_init(MemoryRegion *sysmem, hwaddr base, qemu_irq *irqs)
- {
-     DeviceState *dev;
-     SysBusDevice *s;
-     int i;
+     linux_boot = (kernel_filename != NULL);
+@@ -370,13 +373,6 @@ static void q800_machine_init(MachineState *machine)
  
--    qemu_check_nic_model(nd, TYPE_MCF_FEC_NET);
--    dev = qdev_new(TYPE_MCF_FEC_NET);
--    qdev_set_nic_properties(dev, nd);
-+    dev = qemu_create_nic_device(TYPE_MCF_FEC_NET, true, NULL);
-+    if (!dev) {
-+        return;
-+    }
- 
-     s = SYS_BUS_DEVICE(dev);
-     sysbus_realize_and_unref(s, &error_fatal);
-@@ -267,14 +267,7 @@ static void mcf5208evb_init(MachineState *machine)
- 
-     mcf5208_sys_init(address_space_mem, pic);
+     /* MACSONIC */
  
 -    if (nb_nics > 1) {
--        error_report("Too many NICs");
+-        error_report("q800 can only have one ethernet interface");
 -        exit(1);
 -    }
--    if (nd_table[0].used) {
--        mcf_fec_init(address_space_mem, &nd_table[0],
--                     0xfc030000, pic + 36);
--    }
-+    mcf_fec_init(address_space_mem, 0xfc030000, pic + 36);
- 
-     g_free(pic);
- 
+-
+-    qemu_check_nic_model(&nd_table[0], "dp83932");
+-
+     /*
+      * MacSonic driver needs an Apple MAC address
+      * Valid prefix are:
+@@ -386,14 +382,21 @@ static void q800_machine_init(MachineState *machine)
+      * 08:00:07 Apple
+      * (Q800 use the last one)
+      */
+-    nd_table[0].macaddr.a[0] = 0x08;
+-    nd_table[0].macaddr.a[1] = 0x00;
+-    nd_table[0].macaddr.a[2] = 0x07;
+-
+     object_initialize_child(OBJECT(machine), "dp8393x", &m->dp8393x,
+                             TYPE_DP8393X);
+     dev = DEVICE(&m->dp8393x);
+-    qdev_set_nic_properties(dev, &nd_table[0]);
++    nd = qemu_find_nic_info(TYPE_DP8393X, true, "dp83932");
++    if (nd) {
++        qdev_set_nic_properties(dev, nd);
++        memcpy(mac.a, nd->macaddr.a, sizeof(mac.a));
++    } else {
++        qemu_macaddr_default_if_unset(&mac);
++    }
++    mac.a[0] = 0x08;
++    mac.a[1] = 0x00;
++    mac.a[2] = 0x07;
++    qdev_prop_set_macaddr(dev, "mac", mac.a);
++
+     qdev_prop_set_uint8(dev, "it_shift", 2);
+     qdev_prop_set_bit(dev, "big_endian", true);
+     object_property_set_link(OBJECT(dev), "dma_mr",
+@@ -414,7 +417,7 @@ static void q800_machine_init(MachineState *machine)
+     prom = memory_region_get_ram_ptr(&m->dp8393x_prom);
+     checksum = 0;
+     for (i = 0; i < 6; i++) {
+-        prom[i] = revbit8(nd_table[0].macaddr.a[i]);
++        prom[i] = revbit8(mac.a[i]);
+         checksum ^= prom[i];
+     }
+     prom[7] = 0xff - checksum;
 -- 
 2.43.0
 
