@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC7ED83E0D9
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:48:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672397.1046445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE3D383E0E8
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:52:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672431.1046505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQIp-0005VX-Lx; Fri, 26 Jan 2024 17:47:43 +0000
+	id 1rTQND-00027j-Ja; Fri, 26 Jan 2024 17:52:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672397.1046445; Fri, 26 Jan 2024 17:47:43 +0000
+Received: by outflank-mailman (output) from mailman id 672431.1046505; Fri, 26 Jan 2024 17:52:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQIp-0005SD-IO; Fri, 26 Jan 2024 17:47:43 +0000
-Received: by outflank-mailman (input) for mailman id 672397;
- Fri, 26 Jan 2024 17:47:42 +0000
+	id 1rTQND-00022u-EG; Fri, 26 Jan 2024 17:52:15 +0000
+Received: by outflank-mailman (input) for mailman id 672431;
+ Fri, 26 Jan 2024 17:52:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bPDA=JE=casper.srs.infradead.org=BATV+7caeb094913322f6f00d+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTQ4s-0004m7-On
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:18 +0000
+ id 1rTQ4v-0004m7-P2
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:21 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fb549e82-bc70-11ee-98f5-efadbce2ee36;
- Fri, 26 Jan 2024 18:33:13 +0100 (CET)
+ id fe38b1fb-bc70-11ee-98f5-efadbce2ee36;
+ Fri, 26 Jan 2024 18:33:18 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTQ49-0000000EKUi-0YRl; Fri, 26 Jan 2024 17:32:34 +0000
+ id 1rTQ49-0000000EKUu-0WUm; Fri, 26 Jan 2024 17:32:34 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.97.1 #2 (Red
- Hat Linux)) id 1rTQ4A-00000001enU-00UM;
+ Hat Linux)) id 1rTQ4A-00000001enY-0TPb;
  Fri, 26 Jan 2024 17:32:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -42,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: fb549e82-bc70-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: fe38b1fb-bc70-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=RalmZg2g2HcWNPspE1WbCMjLC5xu8xXxgPEaYu8kgcA=; b=E5mQKWR4z4aHkGBp7qVHFzw67C
-	v5wpWOcAtFcL6EkJiTQAISbFdVRSj2uOXmFt3yxiz2bdgjWcIy8+LJVGopK1l7o+Rbnwd+2nWkMYG
-	oIlroP1+I+949w2ebYVnJMwaCjTNv8hFsvAmC/MQ1tQjJJ1u/CGn5MWPPB7AOz+02tR7o0Ze+U7C4
-	JnUu2L1rG9U5mLFmVmv+Dvy5uXqsOlGL1qUQ32dy1gg508bL9gVJu8cL6oKbqdxodIXzXojp9Fq25
-	VnC9u6fY29dh8CbDgYiBQNL4vetAuKC9EhtiJZDBjVdfo9mOKEoWtD6k03kl1X0hLFRbwVi8eMjVx
-	tG0btbuA==;
+	bh=ZK2tD63GvqUrApaaWgfzsdauGq2sH6JIvuMsNwpoITs=; b=qkfPZXh49dYOhIJMauMCMT4Wur
+	huWzyz4Rsevt17NsZbNL4jjADOXXnZLkQ7VnzTp0d2odG3zXYBgdF4F1KtXW4/2kUjeD7HZfRyy3Z
+	w48gBqearXCoIdsu0/Qr+d0rq6lwQF2LGSJN7r1ay+GTYZP0X03kpilU9pq5H6Zb9OdzC5afjHwTq
+	SurL2JzCakVBVU5hx59YXCkgokAJr4Vf2SHPkccuA4H2S6gBVyMu7ddzFL3hH62/rkheekIN7jfU4
+	mopxJLybNEjfV2HZyF3T5/z+qI1fciXVXGmT6EVxKFXmD+LXEEajOO/8eYmnZ5/hHmxCzMYm7PcmU
+	iFeYg3aQ==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -119,11 +119,10 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
-	David Woodhouse <dwmw@amazon.co.uk>,
-	Thomas Huth <thuth@redhat.com>
-Subject: [PATCH v4 34/47] hw/microblaze: use qemu_configure_nic_device()
-Date: Fri, 26 Jan 2024 17:25:11 +0000
-Message-ID: <20240126173228.394202-35-dwmw2@infradead.org>
+	David Woodhouse <dwmw@amazon.co.uk>
+Subject: [PATCH v4 35/47] hw/mips/mipssim: use qemu_create_nic_device()
+Date: Fri, 26 Jan 2024 17:25:12 +0000
+Message-ID: <20240126173228.394202-36-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240126173228.394202-1-dwmw2@infradead.org>
 References: <20240126173228.394202-1-dwmw2@infradead.org>
@@ -134,49 +133,50 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Reviewed-by: Thomas Huth <thuth@redhat.com>
----
- hw/microblaze/petalogix_ml605_mmu.c      | 3 +--
- hw/microblaze/petalogix_s3adsp1800_mmu.c | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+The MIPS SIM platform instantiates its NIC only if a corresponding
+configuration exists for it. Use qemu_create_nic_device() function for
+that.
 
-diff --git a/hw/microblaze/petalogix_ml605_mmu.c b/hw/microblaze/petalogix_ml605_mmu.c
-index fb7889cf67..0f5fabc32e 100644
---- a/hw/microblaze/petalogix_ml605_mmu.c
-+++ b/hw/microblaze/petalogix_ml605_mmu.c
-@@ -133,7 +133,6 @@ petalogix_ml605_init(MachineState *machine)
-     sysbus_connect_irq(SYS_BUS_DEVICE(dev), 0, irq[TIMER_IRQ]);
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+---
+ hw/mips/mipssim.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/hw/mips/mipssim.c b/hw/mips/mipssim.c
+index 01e323904d..16af31648e 100644
+--- a/hw/mips/mipssim.c
++++ b/hw/mips/mipssim.c
+@@ -118,13 +118,15 @@ static void main_cpu_reset(void *opaque)
+     }
+ }
  
-     /* axi ethernet and dma initialization. */
--    qemu_check_nic_model(&nd_table[0], "xlnx.axi-ethernet");
-     eth0 = qdev_new("xlnx.axi-ethernet");
-     dma = qdev_new("xlnx.axi-dma");
+-static void mipsnet_init(int base, qemu_irq irq, NICInfo *nd)
++static void mipsnet_init(int base, qemu_irq irq)
+ {
+     DeviceState *dev;
+     SysBusDevice *s;
  
-@@ -145,7 +144,7 @@ petalogix_ml605_init(MachineState *machine)
-                                   "axistream-connected-target", NULL);
-     cs = object_property_get_link(OBJECT(dma),
-                                   "axistream-control-connected-target", NULL);
--    qdev_set_nic_properties(eth0, &nd_table[0]);
-+    qemu_configure_nic_device(eth0, true, NULL);
-     qdev_prop_set_uint32(eth0, "rxmem", 0x1000);
-     qdev_prop_set_uint32(eth0, "txmem", 0x1000);
-     object_property_set_link(OBJECT(eth0), "axistream-connected", ds,
-diff --git a/hw/microblaze/petalogix_s3adsp1800_mmu.c b/hw/microblaze/petalogix_s3adsp1800_mmu.c
-index 505639c298..dad46bd7f9 100644
---- a/hw/microblaze/petalogix_s3adsp1800_mmu.c
-+++ b/hw/microblaze/petalogix_s3adsp1800_mmu.c
-@@ -114,9 +114,8 @@ petalogix_s3adsp1800_init(MachineState *machine)
-     sysbus_mmio_map(SYS_BUS_DEVICE(dev), 0, TIMER_BASEADDR);
-     sysbus_connect_irq(SYS_BUS_DEVICE(dev), 0, irq[TIMER_IRQ]);
+-    dev = qdev_new("mipsnet");
+-    qdev_set_nic_properties(dev, nd);
++    dev = qemu_create_nic_device("mipsnet", true, NULL);
++    if (!dev) {
++        return;
++    }
  
--    qemu_check_nic_model(&nd_table[0], "xlnx.xps-ethernetlite");
-     dev = qdev_new("xlnx.xps-ethernetlite");
--    qdev_set_nic_properties(dev, &nd_table[0]);
-+    qemu_configure_nic_device(dev, true, NULL);
-     qdev_prop_set_uint32(dev, "tx-ping-pong", 0);
-     qdev_prop_set_uint32(dev, "rx-ping-pong", 0);
-     sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
+     s = SYS_BUS_DEVICE(dev);
+     sysbus_realize_and_unref(s, &error_fatal);
+@@ -225,9 +227,8 @@ mips_mipssim_init(MachineState *machine)
+                       sysbus_mmio_get_region(SYS_BUS_DEVICE(dev), 0));
+     }
+ 
+-    if (nd_table[0].used)
+-        /* MIPSnet uses the MIPS CPU INT0, which is interrupt 2. */
+-        mipsnet_init(0x4200, env->irq[2], &nd_table[0]);
++    /* MIPSnet uses the MIPS CPU INT0, which is interrupt 2. */
++    mipsnet_init(0x4200, env->irq[2]);
+ }
+ 
+ static void mips_mipssim_machine_init(MachineClass *mc)
 -- 
 2.43.0
 
