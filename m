@@ -2,34 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B98C683D9FB
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 13:10:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671969.1045532 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82ADD83DA13
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 13:21:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671974.1045542 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTL1U-0005PV-I7; Fri, 26 Jan 2024 12:09:28 +0000
+	id 1rTLCl-00088h-IL; Fri, 26 Jan 2024 12:21:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671969.1045532; Fri, 26 Jan 2024 12:09:28 +0000
+Received: by outflank-mailman (output) from mailman id 671974.1045542; Fri, 26 Jan 2024 12:21:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTL1U-0005NW-F6; Fri, 26 Jan 2024 12:09:28 +0000
-Received: by outflank-mailman (input) for mailman id 671969;
- Fri, 26 Jan 2024 12:09:26 +0000
+	id 1rTLCl-00086N-Fd; Fri, 26 Jan 2024 12:21:07 +0000
+Received: by outflank-mailman (input) for mailman id 671974;
+ Fri, 26 Jan 2024 12:21:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bPDA=JE=casper.srs.infradead.org=BATV+7caeb094913322f6f00d+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTL1S-0005NQ-6S
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 12:09:26 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=DqdW=JE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rTLCj-00086G-Ih
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 12:21:05 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bdf1723d-bc43-11ee-8a43-1f161083a0e0;
- Fri, 26 Jan 2024 13:09:25 +0100 (CET)
-Received: from [2001:8b0:10b:5:66db:af88:1954:1e3]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTL1M-0000000DXh7-0Sx7; Fri, 26 Jan 2024 12:09:21 +0000
+ id 5f5e979f-bc45-11ee-8a43-1f161083a0e0;
+ Fri, 26 Jan 2024 13:21:03 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2cc9fa5e8e1so2765461fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jan 2024 04:21:03 -0800 (PST)
+Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
+ v2-20020aa7cd42000000b0055d1f27f47dsm543631edw.28.2024.01.26.04.21.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Jan 2024 04:21:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,179 +44,358 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bdf1723d-bc43-11ee-8a43-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Mo6PzkAJC+EgEGtHwkdDFmc14PQHVaYrgEyJ2YCGXFE=; b=EUcUTKakzUGhKBiEerBx1ZDXvW
-	v7dOT1R3uLWbbqPoCHQ/aAzmtIjzZWe6u9J+ADWpwT+2ff3/uwK4FSKodM7vgEFbOmwjh8u7tz95L
-	wwCVE5uPpnQ+/R6Xoa1hHQnkqWWqIfooWLgFaGrbl7nfJep5WUmfhKOOjp+pWRwWlcBrAF5iolot4
-	ILn05KJgkKlsZf79Zx1k0F7MS6Yzqt20GpyThKNqXyxKqZ9H1Ff/aVsYrkU4gVsID8pJ+7jiqMRkK
-	yUQEKY++wqrKWvpDmyxp/bc1oT/wf94S+fdLO/yuakex9IlKNs/5jK6km805xmzMmyiFaqkY21/4z
-	X/34G7rg==;
-Message-ID: <f61da5b48fecf07e67a4e64419af6e14f05d7cdf.camel@infradead.org>
-Subject: Re: [PATCH v4 1/6] hw/xen: Set XenBackendInstance in the XenDevice
- before realizing it
-From: David Woodhouse <dwmw2@infradead.org>
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "qemu-devel@nongnu.org"
-	 <qemu-devel@nongnu.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>,  Paul Durrant <paul@xen.org>, Anthony Perard
- <anthony.perard@citrix.com>, Kevin Wolf <kwolf@redhat.com>, Hanna Reitz
- <hreitz@redhat.com>,  =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau
- <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, Jason
- Wang <jasowang@redhat.com>, "open list:X86 Xen CPUs"
- <xen-devel@lists.xenproject.org>,  "open list:Block layer core"
- <qemu-block@nongnu.org>
-Date: Fri, 26 Jan 2024 12:09:20 +0000
-In-Reply-To: <20231202014108.2017803-2-volodymyr_babchuk@epam.com>
-References: <20231202014108.2017803-1-volodymyr_babchuk@epam.com>
-	 <20231202014108.2017803-2-volodymyr_babchuk@epam.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-xU/Wt4Y89tMIMjdjhqEI"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+X-Inumbo-ID: 5f5e979f-bc45-11ee-8a43-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1706271663; x=1706876463; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=C1M7zlyz5Ss6moqRXdbeQYXZV1u1WiqCMJnYW3h3HP4=;
+        b=Kju/w2aiDJYc8DGlOl9isH71cGAEB7Cgc8Y8abglRjN9gDCcY2tctiIJo4oQuo7rCx
+         VKMFjkDSWvYI5lUEF5vTieoCH+4NhYbcIu0hLEupM+Wx3dMkZ1s6BcfRsrnxLpJLWz1O
+         dE5DcIDD01ut7+cio7Ao50tzzKVcyq7mk20j/BT5OeCQjkueNWoeD9x+mUOSqtIlIydS
+         /Wnz3GrZX5e2aB1Mw1+l7hy1jMQE8dr0Vd5rQj/+osb8Y8zFrRO8N5qnlP7Yarylr3GJ
+         56y6++TvyBfICDwng7rjz7RVe78Pg1owZVE+rDt6ithsYFK+2m6lUTV132uzFqeCMPRu
+         Xvlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706271663; x=1706876463;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=C1M7zlyz5Ss6moqRXdbeQYXZV1u1WiqCMJnYW3h3HP4=;
+        b=SeWFFXegNZqk7sC/cN3zXIiZzLc/iJcWtYJcrMKlzlYEF64XoHfmJZj7IXNpquKUuN
+         WMUScUt2pQyrOWtZoCaO3lxcg0PgTIbapqULFiWDpU7ULQn75Qycbk8OzMNidLePdC4o
+         CfjoAoeE2xx9wnkvu1jv5HnewZtBLVpW9wXE6FnRy1eydOXSf5dNqk+zUbn2DnQyvPM2
+         eVhMJUipU9f6onAOuWHWyNKx8Eei15d5e3g45/YP9iQr1k5U0dcrTyqPXq6xT7JxKPxA
+         3AYq+Mzt9/ys1zin69xvdOk29txGjH63EKrppaMvZTjROtwHegSUOjL4WbHsLdPWt35u
+         aSrQ==
+X-Gm-Message-State: AOJu0YyfDBb4WrKK0GYbF9sQTQ8/fSUOgAB1RnTFYilmndS20X2Y7Mkd
+	GK0uYioFpemTaFLh8oHcvUREgDkwygB15mBuOOutWmJ7rUNto+UVTCtPqczJ
+X-Google-Smtp-Source: AGHT+IGDEwBXaixnyY98ilAQ1iKADDafNCOd8Bxs6Ih1X3PfYLi/IAs+19hcfACvNLxg18/KrDo7RQ==
+X-Received: by 2002:a2e:994d:0:b0:2cd:dc68:829b with SMTP id r13-20020a2e994d000000b002cddc68829bmr744941ljj.23.1706271662420;
+        Fri, 26 Jan 2024 04:21:02 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Shawn Anastasio <sanastasio@raptorengineering.com>
+Subject: [PATCH] xen/lib: introduce generic find next bit operations
+Date: Fri, 26 Jan 2024 14:20:58 +0200
+Message-ID: <52730e6314210ba4164a9934a720c4fda201447b.1706266854.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Transfer-Encoding: 8bit
 
+find-next-bit.c is common for Arm64, PPC and RISCV64,
+so it is moved to xen/lib.
 
---=-xU/Wt4Y89tMIMjdjhqEI
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+ docs/misra/exclude-list.json                  |   4 -
+ xen/arch/arm/arm64/lib/Makefile               |   2 +-
+ xen/arch/arm/include/asm/arm64/bitops.h       |  48 --------
+ xen/arch/ppc/include/asm/bitops.h             | 115 ------------------
+ xen/include/xen/bitops.h                      |  48 ++++++++
+ xen/lib/Makefile                              |   1 +
+ .../find_next_bit.c => lib/find-next-bit.c}   |   0
+ 7 files changed, 50 insertions(+), 168 deletions(-)
+ rename xen/{arch/arm/arm64/lib/find_next_bit.c => lib/find-next-bit.c} (100%)
 
-On Sat, 2023-12-02 at 01:41 +0000, Volodymyr Babchuk wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
->=20
-> This allows a XenDevice implementation to know whether it was created
-> by QEMU, or merely discovered in XenStore after the toolstack created
-> it. This will allow us to create frontend/backend nodes only when we
-> should, rather than unconditionally attempting to overwrite them from
-> a driver domain which doesn't have privileges to do so.
->=20
-> As an added benefit, it also means we no longer have to call the
-> xen_backend_set_device() function from the device models immediately
-> after calling qdev_realize_and_unref(). Even though we could make
-> the argument that it's safe to do so, and the pointer to the unreffed
-> device *will* actually still be valid, it still made my skin itch to
-> look at it.
->=20
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> Reviewed-by: Paul Durrant <paul@xen.org>
+diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
+index 7971d0e70f..7fe02b059d 100644
+--- a/docs/misra/exclude-list.json
++++ b/docs/misra/exclude-list.json
+@@ -13,10 +13,6 @@
+             "rel_path": "arch/arm/arm64/insn.c",
+             "comment": "Imported on Linux, ignore for now"
+         },
+-        {
+-            "rel_path": "arch/arm/arm64/lib/find_next_bit.c",
+-            "comment": "Imported from Linux, ignore for now"
+-        },
+         {
+             "rel_path": "arch/x86/acpi/boot.c",
+             "comment": "Imported from Linux, ignore for now"
+diff --git a/xen/arch/arm/arm64/lib/Makefile b/xen/arch/arm/arm64/lib/Makefile
+index 1b9c7a95e6..66cfac435a 100644
+--- a/xen/arch/arm/arm64/lib/Makefile
++++ b/xen/arch/arm/arm64/lib/Makefile
+@@ -1,4 +1,4 @@
+ obj-y += memcpy.o memcmp.o memmove.o memset.o memchr.o
+ obj-y += clear_page.o
+-obj-y += bitops.o find_next_bit.o
++obj-y += bitops.o
+ obj-y += strchr.o strcmp.o strlen.o strncmp.o strnlen.o strrchr.o
+diff --git a/xen/arch/arm/include/asm/arm64/bitops.h b/xen/arch/arm/include/asm/arm64/bitops.h
+index d85a49bca4..f9dd066237 100644
+--- a/xen/arch/arm/include/asm/arm64/bitops.h
++++ b/xen/arch/arm/include/asm/arm64/bitops.h
+@@ -36,57 +36,9 @@ static inline int flsl(unsigned long x)
+ 
+ /* Based on linux/include/asm-generic/bitops/find.h */
+ 
+-#ifndef find_next_bit
+-/**
+- * find_next_bit - find the next set bit in a memory region
+- * @addr: The address to base the search on
+- * @offset: The bitnumber to start searching at
+- * @size: The bitmap size in bits
+- */
+-extern unsigned long find_next_bit(const unsigned long *addr, unsigned long
+-		size, unsigned long offset);
+-#endif
+-
+-#ifndef find_next_zero_bit
+-/**
+- * find_next_zero_bit - find the next cleared bit in a memory region
+- * @addr: The address to base the search on
+- * @offset: The bitnumber to start searching at
+- * @size: The bitmap size in bits
+- */
+-extern unsigned long find_next_zero_bit(const unsigned long *addr, unsigned
+-		long size, unsigned long offset);
+-#endif
+-
+-#ifdef CONFIG_GENERIC_FIND_FIRST_BIT
+-
+-/**
+- * find_first_bit - find the first set bit in a memory region
+- * @addr: The address to start the search at
+- * @size: The maximum size to search
+- *
+- * Returns the bit number of the first set bit.
+- */
+-extern unsigned long find_first_bit(const unsigned long *addr,
+-				    unsigned long size);
+-
+-/**
+- * find_first_zero_bit - find the first cleared bit in a memory region
+- * @addr: The address to start the search at
+- * @size: The maximum size to search
+- *
+- * Returns the bit number of the first cleared bit.
+- */
+-extern unsigned long find_first_zero_bit(const unsigned long *addr,
+-					 unsigned long size);
+-#else /* CONFIG_GENERIC_FIND_FIRST_BIT */
+-
+ #define find_first_bit(addr, size) find_next_bit((addr), (size), 0)
+ #define find_first_zero_bit(addr, size) find_next_zero_bit((addr), (size), 0)
+ 
+-#endif /* CONFIG_GENERIC_FIND_FIRST_BIT */
+-
+-
+ #endif /* _ARM_ARM64_BITOPS_H */
+ /*
+  * Local variables:
+diff --git a/xen/arch/ppc/include/asm/bitops.h b/xen/arch/ppc/include/asm/bitops.h
+index 5e7f36c21d..5820b9ce7b 100644
+--- a/xen/arch/ppc/include/asm/bitops.h
++++ b/xen/arch/ppc/include/asm/bitops.h
+@@ -217,119 +217,4 @@ static always_inline unsigned long __ffs(unsigned long word)
+  */
+ #define find_first_set_bit(x) (ffsl(x) - 1)
+ 
+-/*
+- * Find the first set bit in a memory region.
+- */
+-static inline unsigned long find_first_bit(const unsigned long *addr,
+-                                           unsigned long size)
+-{
+-    const unsigned long *p = addr;
+-    unsigned long result = 0;
+-    unsigned long tmp;
+-
+-    while ( size & ~(BITS_PER_LONG - 1) )
+-    {
+-        if ( (tmp = *(p++)) )
+-            goto found;
+-        result += BITS_PER_LONG;
+-        size -= BITS_PER_LONG;
+-    }
+-    if ( !size )
+-        return result;
+-
+-    tmp = (*p) & (~0UL >> (BITS_PER_LONG - size));
+-    if ( tmp == 0UL )         /* Are any bits set? */
+-        return result + size; /* Nope. */
+- found:
+-    return result + __ffs(tmp);
+-}
+-
+-static inline unsigned long find_next_bit(const unsigned long *addr,
+-                                          unsigned long size,
+-                                          unsigned long offset)
+-{
+-    const unsigned long *p = addr + BITOP_WORD(offset);
+-    unsigned long result = offset & ~(BITS_PER_LONG - 1);
+-    unsigned long tmp;
+-
+-    if ( offset >= size )
+-        return size;
+-    size -= result;
+-    offset %= BITS_PER_LONG;
+-    if ( offset )
+-    {
+-        tmp = *(p++);
+-        tmp &= (~0UL << offset);
+-        if ( size < BITS_PER_LONG )
+-            goto found_first;
+-        if ( tmp )
+-            goto found_middle;
+-        size -= BITS_PER_LONG;
+-        result += BITS_PER_LONG;
+-    }
+-    while ( size & ~(BITS_PER_LONG - 1) )
+-    {
+-        if ( (tmp = *(p++)) )
+-            goto found_middle;
+-        result += BITS_PER_LONG;
+-        size -= BITS_PER_LONG;
+-    }
+-    if ( !size )
+-        return result;
+-    tmp = *p;
+-
+- found_first:
+-    tmp &= (~0UL >> (BITS_PER_LONG - size));
+-    if ( tmp == 0UL )         /* Are any bits set? */
+-        return result + size; /* Nope. */
+- found_middle:
+-    return result + __ffs(tmp);
+-}
+-
+-/*
+- * This implementation of find_{first,next}_zero_bit was stolen from
+- * Linus' asm-alpha/bitops.h.
+- */
+-static inline unsigned long find_next_zero_bit(const unsigned long *addr,
+-                                               unsigned long size,
+-                                               unsigned long offset)
+-{
+-    const unsigned long *p = addr + BITOP_WORD(offset);
+-    unsigned long result = offset & ~(BITS_PER_LONG - 1);
+-    unsigned long tmp;
+-
+-    if ( offset >= size )
+-        return size;
+-    size -= result;
+-    offset %= BITS_PER_LONG;
+-    if ( offset )
+-    {
+-        tmp = *(p++);
+-        tmp |= ~0UL >> (BITS_PER_LONG - offset);
+-        if ( size < BITS_PER_LONG )
+-            goto found_first;
+-        if ( ~tmp )
+-            goto found_middle;
+-        size -= BITS_PER_LONG;
+-        result += BITS_PER_LONG;
+-    }
+-    while ( size & ~(BITS_PER_LONG - 1) )
+-    {
+-        if ( ~(tmp = *(p++)) )
+-            goto found_middle;
+-        result += BITS_PER_LONG;
+-        size -= BITS_PER_LONG;
+-    }
+-    if ( !size )
+-        return result;
+-    tmp = *p;
+-
+- found_first:
+-    tmp |= ~0UL << size;
+-    if ( tmp == ~0UL )        /* Are any bits zero? */
+-        return result + size; /* Nope. */
+- found_middle:
+-    return result + ffz(tmp);
+-}
+-
+ #endif /* _ASM_PPC_BITOPS_H */
+diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
+index a88d45475c..bddd75a473 100644
+--- a/xen/include/xen/bitops.h
++++ b/xen/include/xen/bitops.h
+@@ -105,6 +105,54 @@ static inline int generic_flsl(unsigned long x)
+  */
+ #include <asm/bitops.h>
+ 
++#ifndef find_next_bit
++/**
++ * find_next_bit - find the next set bit in a memory region
++ * @addr: The address to base the search on
++ * @offset: The bitnumber to start searching at
++ * @size: The bitmap size in bits
++ */
++extern unsigned long find_next_bit(const unsigned long *addr,
++                                   unsigned long size,
++                                   unsigned long offset);
++#endif
++
++#ifndef find_next_zero_bit
++/**
++ * find_next_zero_bit - find the next cleared bit in a memory region
++ * @addr: The address to base the search on
++ * @offset: The bitnumber to start searching at
++ * @size: The bitmap size in bits
++ */
++extern unsigned long find_next_zero_bit(const unsigned long *addr,
++                                        unsigned long size,
++                                        unsigned long offset);
++#endif
++
++#ifndef find_first_bit
++/**
++ * find_first_bit - find the first set bit in a memory region
++ * @addr: The address to start the search at
++ * @size: The maximum size to search
++ *
++ * Returns the bit number of the first set bit.
++ */
++extern unsigned long find_first_bit(const unsigned long *addr,
++                                    unsigned long size);
++#endif
++
++#ifndef find_first_zero_bit
++/**
++ * find_first_zero_bit - find the first cleared bit in a memory region
++ * @addr: The address to start the search at
++ * @size: The maximum size to search
++ *
++ * Returns the bit number of the first cleared bit.
++ */
++extern unsigned long find_first_zero_bit(const unsigned long *addr,
++                                         unsigned long size);
++#endif
++
+ #if BITS_PER_LONG == 64
+ # define fls64 flsl
+ # define ffs64 ffsl
+diff --git a/xen/lib/Makefile b/xen/lib/Makefile
+index 2d9ebb945f..e63798e1d4 100644
+--- a/xen/lib/Makefile
++++ b/xen/lib/Makefile
+@@ -3,6 +3,7 @@ obj-$(CONFIG_X86) += x86/
+ lib-y += bsearch.o
+ lib-y += ctors.o
+ lib-y += ctype.o
++lib-y += find-next-bit.o
+ lib-y += list-sort.o
+ lib-y += memchr.o
+ lib-y += memchr_inv.o
+diff --git a/xen/arch/arm/arm64/lib/find_next_bit.c b/xen/lib/find-next-bit.c
+similarity index 100%
+rename from xen/arch/arm/arm64/lib/find_next_bit.c
+rename to xen/lib/find-next-bit.c
+-- 
+2.43.0
 
-I still have this lying around in my working tree. Shall I forget all
-about it and let you take it with this patch series?=20
-
---=-xU/Wt4Y89tMIMjdjhqEI
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwMTI2MTIwOTIwWjAvBgkqhkiG9w0BCQQxIgQgllWem1a4
-AmbMIDkyi/r5j+dJ+Vg+tQ5wKnvpX0GYW4Ewgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBK90P1JymnINopVL9N2w7Fx9KBtytOhOFb
-W83B/oZYS7s6opLVwNYp1QgoaOiyxGDuymHe5X9qZm56FSYG7JsZNAXrq3BHcAlIflnnIrowvPtF
-x1VRbpodWLIMfRDmjsPPOrEBBuWVfkrFOuYX36y9rrmP10gTx9cHzgwLZMG3L8MqNCA58LL56+Pw
-l8Y2ydsxzouw/UQ7Pxyd21EF0Cp55b+qYBhNOjvJsLr9M798TArwjG37gg+Hqohk9s3O0K//Lvs1
-1aRputatP335zisApKmFXpI8p6bt+qpZu0tEnZegqNz9XM3rm2BL4ZMwLAlhINZn7rXgcQIDzxoO
-4JwcHyHaOoIkobDfcOKKnTJmjKSX0hNqdUFo5+rvi5LJsiP9vjVC9+5nzjF/K8Gd98vm/8JX0lf7
-7hunrO+mtK1ctCo0kf36PlOxgumqGzV9kPE0NGVUXkt3d8Zsoj3hZzpDbNV1Yjv3+vyVWFT0NXcy
-MdyAOyrCzxR+UHmYxjBjwCO/n5IoOuJlGOnmUZ2DpRGWEynedclTowcNc9b/kh26uhDdgSwXYGwu
-LUZeO6muluf0tauhBKlOFM0SwTI9qQy8AwZdWaqrNUHPkJDArcgUlAM191Nhjao5cGIbaREcd7km
-uMHGkKxItq1z35EPVYl9IAyC/zFHywWma5zjs+/EhQAAAAAAAA==
-
-
---=-xU/Wt4Y89tMIMjdjhqEI--
 
