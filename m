@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8368383D949
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 12:26:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.671956.1045524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B98C683D9FB
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 13:10:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.671969.1045532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTKLM-0006kQ-61; Fri, 26 Jan 2024 11:25:56 +0000
+	id 1rTL1U-0005PV-I7; Fri, 26 Jan 2024 12:09:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 671956.1045524; Fri, 26 Jan 2024 11:25:56 +0000
+Received: by outflank-mailman (output) from mailman id 671969.1045532; Fri, 26 Jan 2024 12:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTKLM-0006h8-2E; Fri, 26 Jan 2024 11:25:56 +0000
-Received: by outflank-mailman (input) for mailman id 671956;
- Fri, 26 Jan 2024 11:25:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rTL1U-0005NW-F6; Fri, 26 Jan 2024 12:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 671969;
+ Fri, 26 Jan 2024 12:09:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bPDA=JE=casper.srs.infradead.org=BATV+7caeb094913322f6f00d+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTKLK-0006h2-Ec
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 11:25:54 +0000
+ id 1rTL1S-0005NQ-6S
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 12:09:26 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a8db8bab-bc3d-11ee-98f5-efadbce2ee36;
- Fri, 26 Jan 2024 12:25:50 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bdf1723d-bc43-11ee-8a43-1f161083a0e0;
+ Fri, 26 Jan 2024 13:09:25 +0100 (CET)
 Received: from [2001:8b0:10b:5:66db:af88:1954:1e3]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTKKn-0000000DQl0-2of8; Fri, 26 Jan 2024 11:25:23 +0000
+ id 1rTL1M-0000000DXh7-0Sx7; Fri, 26 Jan 2024 12:09:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,157 +41,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a8db8bab-bc3d-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: bdf1723d-bc43-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KTw/8zDf1X8KjYIr+FnbXNhPNeTYeslDSj+8vPIMptA=; b=OaHpoyL7w+9VJ9SCbKEaap7VDU
-	45o+2XSuAXAFJYHjccGCadOZNStFzlNSExLajpMCvWoubMol2LrAqkrDovdC8nyUhB0JPC+iy8Y4T
-	AI4nth31iPqwXg2DEfrCMW3hSvZlJpq2OjeQdmWVNwg/48ryFMXb5InMEn5rp39xxzzo1Hu52rHt/
-	843OscrqWQQ/Is6ZkPlY8MbB2/ak92GvSrul5zKL6iatUWYLMdxRZuDNhsYVYnVmolzCvK46xHulu
-	2c3P29LTyB72yHSX/iiTMLyo9tZkDBW9D5KPQWVnUUUf1x8TfNlzGcsha2WyBrbuiOPOEBAW+r/Ks
-	8f5HIArg==;
-Message-ID: <983ce258a214a0cbe6aeaabab01daed47a2e1066.camel@infradead.org>
-Subject: Re: [PATCH v3 05/46] hw/i386/pc: use qemu_get_nic_info() and
- pci_init_nic_devices()
+	bh=Mo6PzkAJC+EgEGtHwkdDFmc14PQHVaYrgEyJ2YCGXFE=; b=EUcUTKakzUGhKBiEerBx1ZDXvW
+	v7dOT1R3uLWbbqPoCHQ/aAzmtIjzZWe6u9J+ADWpwT+2ff3/uwK4FSKodM7vgEFbOmwjh8u7tz95L
+	wwCVE5uPpnQ+/R6Xoa1hHQnkqWWqIfooWLgFaGrbl7nfJep5WUmfhKOOjp+pWRwWlcBrAF5iolot4
+	ILn05KJgkKlsZf79Zx1k0F7MS6Yzqt20GpyThKNqXyxKqZ9H1Ff/aVsYrkU4gVsID8pJ+7jiqMRkK
+	yUQEKY++wqrKWvpDmyxp/bc1oT/wf94S+fdLO/yuakex9IlKNs/5jK6km805xmzMmyiFaqkY21/4z
+	X/34G7rg==;
+Message-ID: <f61da5b48fecf07e67a4e64419af6e14f05d7cdf.camel@infradead.org>
+Subject: Re: [PATCH v4 1/6] hw/xen: Set XenBackendInstance in the XenDevice
+ before realizing it
 From: David Woodhouse <dwmw2@infradead.org>
-To: Thomas Huth <thuth@redhat.com>, qemu-devel@nongnu.org
-Cc: Richard Henderson <richard.henderson@linaro.org>, Beniamino Galvani
- <b.galvani@gmail.com>, Peter Maydell <peter.maydell@linaro.org>, Strahinja
- Jankovic <strahinja.p.jankovic@gmail.com>, Niek Linnenbank
- <nieklinnenbank@gmail.com>,  =?ISO-8859-1?Q?C=E9dric?= Le Goater
- <clg@kaod.org>, Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley
- <joel@jms.id.au>, Igor Mitsyanko <i.mitsyanko@gmail.com>, Jean-Christophe
- Dubois <jcd@tribudubois.net>, Andrey Smirnov <andrew.smirnov@gmail.com>,
- Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, Rob Herring
- <robh@kernel.org>, Subbaraya Sundeep <sundeep.lkml@gmail.com>, Jan Kiszka
- <jan.kiszka@web.de>, Tyrone Ting <kfting@nuvoton.com>, Hao Wu
- <wuhaotsh@google.com>, Radoslaw Biernacki <rad@semihalf.com>, Leif Lindholm
- <quic_llindhol@quicinc.com>, Marcin Juszkiewicz
- <marcin.juszkiewicz@linaro.org>, "Edgar E. Iglesias"
- <edgar.iglesias@gmail.com>, Alistair Francis <alistair@alistair23.me>,
- Helge Deller <deller@gmx.de>, Paolo Bonzini <pbonzini@redhat.com>,  Eduardo
- Habkost <eduardo@habkost.net>, "Michael S. Tsirkin" <mst@redhat.com>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Song Gao
- <gaosong@loongson.cn>, Thomas Huth <huth@tuxfamily.org>, Laurent Vivier
- <laurent@vivier.eu>, Huacai Chen <chenhuacai@kernel.org>, Jiaxun Yang
- <jiaxun.yang@flygoat.com>,  =?ISO-8859-1?Q?Herv=E9?= Poussineau
- <hpoussin@reactos.org>, Aleksandar Rikalo <aleksandar.rikalo@syrmia.com>, 
- Aurelien Jarno <aurelien@aurel32.net>, Jason Wang <jasowang@redhat.com>,
- Jia Liu <proljc@gmail.com>, Stafford Horne <shorne@gmail.com>, Mark
- Cave-Ayland <mark.cave-ayland@ilande.co.uk>, Nicholas Piggin
- <npiggin@gmail.com>, Daniel Henrique Barboza <danielhb413@gmail.com>, David
- Gibson <david@gibson.dropbear.id.au>, Harsh Prateek Bora
- <harshpb@linux.ibm.com>, Bin Meng <bin.meng@windriver.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Weiwei Li <liwei1518@gmail.com>, Liu Zhiwei
- <zhiwei_liu@linux.alibaba.com>, Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,  Eric Farman
- <farman@linux.ibm.com>, David Hildenbrand <david@redhat.com>, Ilya
- Leoshkevich <iii@linux.ibm.com>, Yoshinori Sato
- <ysato@users.sourceforge.jp>, Magnus Damm <magnus.damm@gmail.com>, Artyom
- Tarasenko <atar4qemu@gmail.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, Paul
- Durrant <paul@xen.org>, Max Filippov <jcmvbkbc@gmail.com>,
- qemu-arm@nongnu.org,  qemu-ppc@nongnu.org, qemu-riscv@nongnu.org,
- qemu-s390x@nongnu.org,  xen-devel@lists.xenproject.org
-Date: Fri, 26 Jan 2024 11:25:19 +0000
-In-Reply-To: <da5f845f-dfee-48de-9fc2-af27b83a615b@redhat.com>
-References: <20240108204909.564514-1-dwmw2@infradead.org>
-	 <20240108204909.564514-6-dwmw2@infradead.org>
-	 <d6b0fd22-92ef-4873-a19a-e7752bfddd2d@redhat.com>
-	 <b618c5e3163a3407c413464edd5f638f1c8563fa.camel@infradead.org>
-	 <da5f845f-dfee-48de-9fc2-af27b83a615b@redhat.com>
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "qemu-devel@nongnu.org"
+	 <qemu-devel@nongnu.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>,  Paul Durrant <paul@xen.org>, Anthony Perard
+ <anthony.perard@citrix.com>, Kevin Wolf <kwolf@redhat.com>, Hanna Reitz
+ <hreitz@redhat.com>,  =?ISO-8859-1?Q?Marc-Andr=E9?= Lureau
+ <marcandre.lureau@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, Jason
+ Wang <jasowang@redhat.com>, "open list:X86 Xen CPUs"
+ <xen-devel@lists.xenproject.org>,  "open list:Block layer core"
+ <qemu-block@nongnu.org>
+Date: Fri, 26 Jan 2024 12:09:20 +0000
+In-Reply-To: <20231202014108.2017803-2-volodymyr_babchuk@epam.com>
+References: <20231202014108.2017803-1-volodymyr_babchuk@epam.com>
+	 <20231202014108.2017803-2-volodymyr_babchuk@epam.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-tAhVskJ9pKOcssdJnf27"
+	boundary="=-xU/Wt4Y89tMIMjdjhqEI"
 User-Agent: Evolution 3.44.4-0ubuntu2 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-tAhVskJ9pKOcssdJnf27
+--=-xU/Wt4Y89tMIMjdjhqEI
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2024-01-26 at 12:20 +0100, Thomas Huth wrote:
-> On 26/01/2024 12.13, David Woodhouse wrote:
-> > On Fri, 2024-01-26 at 11:43 +0100, Thomas Huth wrote:
-> > > On 08/01/2024 21.26, David Woodhouse wrote:
-> > > > From: David Woodhouse <dwmw@amazon.co.uk>
-> > > >=20
-> > > > Eliminate direct access to nd_table[] and nb_nics by processing the=
- the
-> > > > Xen and ISA NICs first and then calling pci_init_nic_devices() for =
-the
-> > > > rest.
-> > > >=20
-> > > > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> > > > Reviewed-by: Paul Durrant <paul@xen.org>
-> > > > ---
-> > > > =C2=A0=C2=A0 hw/i386/pc.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 26 ++++++++++++++++-----=
------
-> > > > =C2=A0=C2=A0 include/hw/net/ne2000-isa.h |=C2=A0 2 --
-> > > > =C2=A0=C2=A0 2 files changed, 16 insertions(+), 12 deletions(-)
-> > > >=20
-> > > > diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-> > > > index 496498df3a..d80c536d88 100644
-> > > > --- a/hw/i386/pc.c
-> > > > +++ b/hw/i386/pc.c
-> > > > @@ -658,8 +658,11 @@ static void pc_init_ne2k_isa(ISABus *bus, NICI=
-nfo *nd)
-> > > > =C2=A0=C2=A0 {
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 static int nb_ne2k =3D 0;
-> > > > =C2=A0=C2=A0=20
-> > > > -=C2=A0=C2=A0=C2=A0 if (nb_ne2k =3D=3D NE2000_NB_MAX)
-> > > > +=C2=A0=C2=A0=C2=A0 if (nb_ne2k =3D=3D NE2000_NB_MAX) {
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 error_setg(&error_fatal=
-,
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "maximum number of ISA NE2000 de=
-vices exceeded");
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return=
-;
-> > > > +=C2=A0=C2=A0=C2=A0 }
-> > >=20
-> > > error_setg(&error_fatal, ...) quits QEMU, so the "return;" does not m=
-ake
-> > > much sense anymore.
-> > > Now, according to include/qapi/error.h :
-> > >=20
-> > > =C2=A0=C2=A0 * Please don't error_setg(&error_fatal, ...), use error_=
-report() and
-> > > =C2=A0=C2=A0 * exit(), because that's more obvious.
-> > >=20
-> > > So I'd suggest to do that instead.
-> >=20
-> > It's going slightly in the opposite direction to what's requested in
-> > https://lore.kernel.org/qemu-devel/34e2c0c6-4e04-486a-8e1f-4afdc461a5d4=
-@linaro.org/
-> >=20
-> > I was thinking that a future patch would let the &error_fatal be an
-> > Error** passed in by the caller, and not actually hard-coded to be
-> > fatal at all.
-> >=20
-> > But sure, unless Philippe objects I'm happy to do it as you show above.
+On Sat, 2023-12-02 at 01:41 +0000, Volodymyr Babchuk wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
 >=20
-> Now that you mention it, I'd also prefer having an Error** parameter to t=
-he=20
-> function instead, that's certainly cleaner. So if you don't mind, please=
-=20
-> follow Philippe's suggestion instead!
+> This allows a XenDevice implementation to know whether it was created
+> by QEMU, or merely discovered in XenStore after the toolstack created
+> it. This will allow us to create frontend/backend nodes only when we
+> should, rather than unconditionally attempting to overwrite them from
+> a driver domain which doesn't have privileges to do so.
+>=20
+> As an added benefit, it also means we no longer have to call the
+> xen_backend_set_device() function from the device models immediately
+> after calling qdev_realize_and_unref(). Even though we could make
+> the argument that it's safe to do so, and the pointer to the unreffed
+> device *will* actually still be valid, it still made my skin itch to
+> look at it.
+>=20
+> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> Reviewed-by: Paul Durrant <paul@xen.org>
 
-Right. There's a whole bunch of functions to untangle, that take an
-Error** but don't return success/failure independently as they should.
-Or don't even take the Error**.
+I still have this lying around in my working tree. Shall I forget all
+about it and let you take it with this patch series?=20
 
-Rather than trying to fix that as part of this series, this was my
-compromise =E2=80=94 making it easy to switch that explicit &error_fatal ou=
-t
-for a function parameter, but not trying to shave that part of the yak
-myself just yet.
-
---=-tAhVskJ9pKOcssdJnf27
+--=-xU/Wt4Y89tMIMjdjhqEI
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -283,25 +195,25 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwMTI2MTEyNTE5WjAvBgkqhkiG9w0BCQQxIgQghzCxi+If
-SuwVtaHRs3NbRkZ/Yb709etMhnctalHnp1Awgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwMTI2MTIwOTIwWjAvBgkqhkiG9w0BCQQxIgQgllWem1a4
+AmbMIDkyi/r5j+dJ+Vg+tQ5wKnvpX0GYW4Ewgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgClamZXrbQb4UzvcKQWRYPrJIMKLnCSn7na
-JZn+fCgPYMerQjym+JOoNhnJ7OP8eTeACu24v9Uzq8Zk/PtGEKo9RqfQ+rjntYRDhWRC3sP5rQic
-R3gfC9awRg7Hlj0Rtkw6khqGbGw4oLc1ZqcPY0zoI/wMJ51emWqkg5IZwImzd6UhLzjGwhW0WfxR
-yJ3BIKT4DkfUgXKyKZs/ywRp7f0ayV+eqthOJxtjU2t/SDhVngnokuZH87RrScq5YWCcXivzBWv3
-w/L9tm9fHGF6EYrJ73W1cJ01GizjrVDj8NjxaJpbwRgBrULqg2YGttUs6LIAAcQNJD5zayfF++ih
-lrZRdKQn8W6Pe7nU179xJ6R/JfS5uc64JVsrJIoUPqZ5OdRpIVD6Zp44a1obcZKvnaM50TfiSr15
-goG4ghfsLIxWb/+vj6wuZPzBzIslhJbo4+5yqU2OKA9Rw49pjFY5H9aRnjph5sSAS1r7CBLSLxQ3
-lRInCBYjwV80/ldL14cX7tcvn5BvMQe78Bhwt/Tzqlcj/zotf7gAqyAy7mBje8tRPmnpt2uTdagJ
-QR4/qjYVkd395CIwpqUQnlIvcP/p9We5VS9spIxVXLW8HWO3eHdOs+mUw8B0SXJktAHe0fh+bNxB
-zurlebyByZHS4Qa1UBP20n8SecGHCLFSovONo6jGQwAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBK90P1JymnINopVL9N2w7Fx9KBtytOhOFb
+W83B/oZYS7s6opLVwNYp1QgoaOiyxGDuymHe5X9qZm56FSYG7JsZNAXrq3BHcAlIflnnIrowvPtF
+x1VRbpodWLIMfRDmjsPPOrEBBuWVfkrFOuYX36y9rrmP10gTx9cHzgwLZMG3L8MqNCA58LL56+Pw
+l8Y2ydsxzouw/UQ7Pxyd21EF0Cp55b+qYBhNOjvJsLr9M798TArwjG37gg+Hqohk9s3O0K//Lvs1
+1aRputatP335zisApKmFXpI8p6bt+qpZu0tEnZegqNz9XM3rm2BL4ZMwLAlhINZn7rXgcQIDzxoO
+4JwcHyHaOoIkobDfcOKKnTJmjKSX0hNqdUFo5+rvi5LJsiP9vjVC9+5nzjF/K8Gd98vm/8JX0lf7
+7hunrO+mtK1ctCo0kf36PlOxgumqGzV9kPE0NGVUXkt3d8Zsoj3hZzpDbNV1Yjv3+vyVWFT0NXcy
+MdyAOyrCzxR+UHmYxjBjwCO/n5IoOuJlGOnmUZ2DpRGWEynedclTowcNc9b/kh26uhDdgSwXYGwu
+LUZeO6muluf0tauhBKlOFM0SwTI9qQy8AwZdWaqrNUHPkJDArcgUlAM191Nhjao5cGIbaREcd7km
+uMHGkKxItq1z35EPVYl9IAyC/zFHywWma5zjs+/EhQAAAAAAAA==
 
 
---=-tAhVskJ9pKOcssdJnf27--
+--=-xU/Wt4Y89tMIMjdjhqEI--
 
