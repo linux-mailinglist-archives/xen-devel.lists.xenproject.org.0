@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2037883DB4C
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 14:58:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672020.1045616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11AC683DB59
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 14:59:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672024.1045625 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTMiM-0008DY-Tr; Fri, 26 Jan 2024 13:57:50 +0000
+	id 1rTMjO-0000Lo-6d; Fri, 26 Jan 2024 13:58:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672020.1045616; Fri, 26 Jan 2024 13:57:50 +0000
+Received: by outflank-mailman (output) from mailman id 672024.1045625; Fri, 26 Jan 2024 13:58:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTMiM-0008Bc-Qo; Fri, 26 Jan 2024 13:57:50 +0000
-Received: by outflank-mailman (input) for mailman id 672020;
- Fri, 26 Jan 2024 13:57:49 +0000
+	id 1rTMjO-0000Jc-3x; Fri, 26 Jan 2024 13:58:54 +0000
+Received: by outflank-mailman (input) for mailman id 672024;
+ Fri, 26 Jan 2024 13:58:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UtOA=JE=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1rTMiL-0008AH-Gg
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 13:57:49 +0000
+ id 1rTMjM-0000JW-N5
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 13:58:52 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2f47acb-bc52-11ee-8a43-1f161083a0e0;
- Fri, 26 Jan 2024 14:57:48 +0100 (CET)
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ id 089dbcee-bc53-11ee-8a43-1f161083a0e0;
+ Fri, 26 Jan 2024 14:58:51 +0100 (CET)
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-62-95RRimV7OUm4sRSmbOGkdA-1; Fri, 26 Jan 2024 08:57:46 -0500
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-68b382f111dso6335056d6.3
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jan 2024 05:57:46 -0800 (PST)
+ us-mta-632-U0YrO20yN_ioybMRNo-eAA-1; Fri, 26 Jan 2024 08:58:49 -0500
+Received: by mail-vs1-f70.google.com with SMTP id
+ ada2fe7eead31-46b1aeeea7cso37279137.1
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jan 2024 05:58:49 -0800 (PST)
 Received: from [192.168.0.9] (ip-109-43-176-119.web.vodafone.de.
  [109.43.176.119]) by smtp.gmail.com with ESMTPSA id
- bt3-20020ad455c3000000b0068698b10ae6sm520455qvb.119.2024.01.26.05.57.30
+ bt3-20020ad455c3000000b0068698b10ae6sm520455qvb.119.2024.01.26.05.58.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Jan 2024 05:57:45 -0800 (PST)
+ Fri, 26 Jan 2024 05:58:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,45 +49,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2f47acb-bc52-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: 089dbcee-bc53-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1706277467;
+	s=mimecast20190719; t=1706277530;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=4f00KaOYW+hD0GFHAeduBNGn1fOJMEZkwWILKd+Ajqk=;
-	b=Zsc/GggBMPGDdhGUQtXCWRCbrtSiL0H6+GTci6mbtmTQILy4AR1BT0rKikAFbB7s8M+3Jr
-	ChmfdNQC3ZjiojUEkTRkOkanXude3xr7JlFctyWCHXdU3ybqODUMIg4gheUxUmlG7hNWOt
-	syo1R/hygN+RlSzCYIWPGlBdAni79+A=
-X-MC-Unique: 95RRimV7OUm4sRSmbOGkdA-1
+	bh=IEOUvFRUViQ3avFX3oB5M3Sw8AV4FF+8vEvsFPQx7K4=;
+	b=YSycrtUa4t2yrjuwjUkXYaKQqbFBmk8JR4RtSryqjSzso/L/s5FJhFEgP5jfWiIpSui56r
+	xe0u1X+VPVK7+/TSp3hUu9uK4hBh4gqS6yqwgSbmbKIXnzuWp4UcGrTiRiwfA4UrDMJ07Z
+	FU4YE3K77TRRBwJ18iC5J6+9msY5j5Y=
+X-MC-Unique: U0YrO20yN_ioybMRNo-eAA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706277465; x=1706882265;
+        d=1e100.net; s=20230601; t=1706277529; x=1706882329;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=4f00KaOYW+hD0GFHAeduBNGn1fOJMEZkwWILKd+Ajqk=;
-        b=vq3nQshFAeJhKPC75zQbf5wW+GHIkSKO+5WugKN7w0to/KBz76frFYJWAivWWFyfPW
-         vhcifOZDvfY+2L75vGl7NC9GJtOccyfcLQYQUeJdpFAHxGqb3QvypNYRrYkOEslZuA8y
-         AokWLstuohuUNUmyddfjQ8Xm0tCn6gMYAiOAKfReduJFqxVAFWqqddfUWDKWDXmIIEf5
-         p5O09XzaO4k4lfqBFAD8Ewbgmpg3AADl1HLSWFHYLVJVsOLhKDif5GTHD9GXY/B1edYj
-         GUogYb32ZzLaBPAYEPZuaqfQ0gUjqyQy0RJ1viEoyrx1X/GjNmgRZB1pVgsw0PSscARq
-         mhWA==
-X-Gm-Message-State: AOJu0YzrcP3RtfT4MWQp6ButR9JwW+VB+ka32e//8b72tW+nf3XiERrZ
-	Vx+6zRZbJSE/hZRqGTGS5PYegjlGxoweg6/8GOiVq6TyJ5HdUOvxaX1lIO3A/lVCn4PW3s5Ic6V
-	WFxGeguj7RA8rEEk3dDB6NSi7tmZ5xJ8xammTrZ95ja41x25/UJ0hQInPmW12o2cV
-X-Received: by 2002:a05:6214:1301:b0:681:899d:7169 with SMTP id pn1-20020a056214130100b00681899d7169mr1527491qvb.70.1706277465593;
-        Fri, 26 Jan 2024 05:57:45 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IHVHPe+ZubnFiPMTriTntPlt9DLRJQPjUL7CvdiHbDklS/dg90/Zaqvq0CQvJQU/sAi2UQuhQ==
-X-Received: by 2002:a05:6214:1301:b0:681:899d:7169 with SMTP id pn1-20020a056214130100b00681899d7169mr1527480qvb.70.1706277465344;
-        Fri, 26 Jan 2024 05:57:45 -0800 (PST)
-Message-ID: <dff6c566-04df-4dd9-b745-1058d7da277f@redhat.com>
-Date: Fri, 26 Jan 2024 14:57:29 +0100
+        bh=IEOUvFRUViQ3avFX3oB5M3Sw8AV4FF+8vEvsFPQx7K4=;
+        b=oyb5hc6ESCzccQ6o6RfEn5FL7u7Mv0FtPIkaLt04EDGJDJe9yttTFRR+5CTl1jDzmX
+         O74Oa5cxJnUBrz/pP4XeTKXydZx/gKG0bzxGM6kHUU93Cz4Vdd9edFU5c29w5vQpPXgm
+         wgi2EIr2dvcceOgnpU0ZHF7KZBg2uuSLCud723ZAmRvU6fsygKW4otsqlB3YdY7pxkzv
+         AJ/M/tFhmcBQ+Z6PIaFKuADlbj+gXEb5yrrr6IkYMXOwwGjuLgmwanlrsjCuzNQX3eE3
+         h5GpMm8wRpsm3kyt3gJKF+EvB5T1HkhYgPUR2nexUrTM4U5a6VbVzk0aP2VaGTN7k68z
+         t/4g==
+X-Gm-Message-State: AOJu0Yxz/uddPzlMrJSyliwhdqTfgKJKvcPnwjEpE0vnjuzl3Tovs/da
+	50XjFE9h/Hfz4fjElOG5FQS1bgpEC01qFzSOFaDLxiLiPEOBD4J9bQWzqOTvWRjKLrwOhZThL8t
+	wAYJ/P4vZLHKMjAnSDkQEX74ja9SuzcP02q6dCJQc6F6kSyjc/hIF4EBiP4aZEt/1
+X-Received: by 2002:a05:6102:f12:b0:46b:2403:3b88 with SMTP id v18-20020a0561020f1200b0046b24033b88mr1057597vss.25.1706277528714;
+        Fri, 26 Jan 2024 05:58:48 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IE+EyUqiT1oc8jTbobnl8hZ/hSyAFLOhY1Po3ksYgV6a5XvgIOPkE9HeND9NGdPWtD4PpoLLg==
+X-Received: by 2002:a05:6102:f12:b0:46b:2403:3b88 with SMTP id v18-20020a0561020f1200b0046b24033b88mr1057583vss.25.1706277528357;
+        Fri, 26 Jan 2024 05:58:48 -0800 (PST)
+Message-ID: <5d8d738c-4538-496d-926b-9aaad70a1d17@redhat.com>
+Date: Fri, 26 Jan 2024 14:58:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 13/46] hw/mips/malta: use pci_init_nic_devices()
-To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org,
- =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+Subject: Re: [PATCH v3 14/46] hw/mips/loongson3_virt: use
+ pci_init_nic_devices()
+To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
  Beniamino Galvani <b.galvani@gmail.com>,
  Peter Maydell <peter.maydell@linaro.org>,
@@ -96,10 +96,11 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
  <clg@kaod.org>, Andrew Jeffery <andrew@codeconstruct.com.au>,
  Joel Stanley <joel@jms.id.au>, Igor Mitsyanko <i.mitsyanko@gmail.com>,
  Jean-Christophe Dubois <jcd@tribudubois.net>,
- Andrey Smirnov <andrew.smirnov@gmail.com>, Rob Herring <robh@kernel.org>,
- Subbaraya Sundeep <sundeep.lkml@gmail.com>, Jan Kiszka <jan.kiszka@web.de>,
- Tyrone Ting <kfting@nuvoton.com>, Hao Wu <wuhaotsh@google.com>,
- Radoslaw Biernacki <rad@semihalf.com>,
+ Andrey Smirnov <andrew.smirnov@gmail.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+ Rob Herring <robh@kernel.org>, Subbaraya Sundeep <sundeep.lkml@gmail.com>,
+ Jan Kiszka <jan.kiszka@web.de>, Tyrone Ting <kfting@nuvoton.com>,
+ Hao Wu <wuhaotsh@google.com>, Radoslaw Biernacki <rad@semihalf.com>,
  Leif Lindholm <quic_llindhol@quicinc.com>,
  Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>,
  "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
@@ -133,7 +134,7 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
  qemu-riscv@nongnu.org, qemu-s390x@nongnu.org,
  xen-devel@lists.xenproject.org, David Woodhouse <dwmw@amazon.co.uk>
 References: <20240108204909.564514-1-dwmw2@infradead.org>
- <20240108204909.564514-14-dwmw2@infradead.org>
+ <20240108204909.564514-15-dwmw2@infradead.org>
 From: Thomas Huth <thuth@redhat.com>
 Autocrypt: addr=thuth@redhat.com; keydata=
  xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
@@ -177,7 +178,7 @@ Autocrypt: addr=thuth@redhat.com; keydata=
  oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
  IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
  yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
-In-Reply-To: <20240108204909.564514-14-dwmw2@infradead.org>
+In-Reply-To: <20240108204909.564514-15-dwmw2@infradead.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -187,46 +188,27 @@ Content-Transfer-Encoding: 7bit
 On 08/01/2024 21.26, David Woodhouse wrote:
 > From: David Woodhouse <dwmw@amazon.co.uk>
 > 
-> The Malta board setup code would previously place the first NIC into PCI
-> slot 11 if was a PCNet card, and the rest (including the first if it was
-> anything other than a PCNet card) would be dynamically assigned.
-> 
-> Now it will place any PCNet NIC into slot 11, and then anything else will
-> be dynamically assigned.
-> 
 > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 > ---
->   hw/mips/malta.c | 15 +++------------
->   1 file changed, 3 insertions(+), 12 deletions(-)
+>   hw/mips/loongson3_virt.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
 > 
-> diff --git a/hw/mips/malta.c b/hw/mips/malta.c
-> index d22bb1edef..af74008c82 100644
-> --- a/hw/mips/malta.c
-> +++ b/hw/mips/malta.c
-> @@ -612,18 +612,9 @@ static MaltaFPGAState *malta_fpga_init(MemoryRegion *address_space,
->   /* Network support */
->   static void network_init(PCIBus *pci_bus)
->   {
-> -    int i;
-> -
+> diff --git a/hw/mips/loongson3_virt.c b/hw/mips/loongson3_virt.c
+> index 33eae01eca..caedde2df0 100644
+> --- a/hw/mips/loongson3_virt.c
+> +++ b/hw/mips/loongson3_virt.c
+> @@ -451,9 +451,7 @@ static inline void loongson3_virt_devices_init(MachineState *machine,
+>           usb_create_simple(usb_bus_find(-1), "usb-tablet");
+>       }
+>   
 > -    for (i = 0; i < nb_nics; i++) {
-> -        NICInfo *nd = &nd_table[i];
-> -        const char *default_devaddr = NULL;
-> -
-> -        if (i == 0 && (!nd->model || strcmp(nd->model, "pcnet") == 0))
-> -            /* The malta board has a PCNet card using PCI SLOT 11 */
-> -            default_devaddr = "0b";
-> -
-> -        pci_nic_init_nofail(nd, pci_bus, "pcnet", default_devaddr);
+> -        pci_nic_init_nofail(&nd_table[i], pci_bus, mc->default_nic, NULL);
 > -    }
-> +    /* The malta board has a PCNet card using PCI SLOT 11 */
-> +    pci_init_nic_in_slot(pci_bus, "pcnet", NULL, "0b");
-> +    pci_init_nic_devices(pci_bus, "pcnet");
+> +    pci_init_nic_devices(pci_bus, mc->default_nic);
 >   }
+>   
+>   static void mips_loongson3_virt_init(MachineState *machine)
 
 Reviewed-by: Thomas Huth <thuth@redhat.com>
-
-Philippe, could you maybe have a look at this, too?
-
 
 
