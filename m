@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE98083DE03
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 16:52:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672126.1045845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BF0783DE1F
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 16:58:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672137.1045856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTOUp-0001aP-1G; Fri, 26 Jan 2024 15:51:59 +0000
+	id 1rTOaV-0003UY-M9; Fri, 26 Jan 2024 15:57:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672126.1045845; Fri, 26 Jan 2024 15:51:59 +0000
+Received: by outflank-mailman (output) from mailman id 672137.1045856; Fri, 26 Jan 2024 15:57:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTOUo-0001Xh-Un; Fri, 26 Jan 2024 15:51:58 +0000
-Received: by outflank-mailman (input) for mailman id 672126;
- Fri, 26 Jan 2024 15:51:57 +0000
+	id 1rTOaV-0003Rn-IW; Fri, 26 Jan 2024 15:57:51 +0000
+Received: by outflank-mailman (input) for mailman id 672137;
+ Fri, 26 Jan 2024 15:57:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=UtOA=JE=redhat.com=thuth@srs-se1.protection.inumbo.net>)
- id 1rTOUn-0001WN-Jp
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 15:51:57 +0000
+ id 1rTOaT-0003Rh-Qs
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 15:57:49 +0000
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d427a763-bc62-11ee-98f5-efadbce2ee36;
- Fri, 26 Jan 2024 16:51:55 +0100 (CET)
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ id a61c2919-bc63-11ee-98f5-efadbce2ee36;
+ Fri, 26 Jan 2024 16:57:47 +0100 (CET)
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-617-mMxpJthxMyeqSLfeljI6Xg-1; Fri, 26 Jan 2024 10:51:53 -0500
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-783163c7c38so63211385a.2
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jan 2024 07:51:52 -0800 (PST)
+ us-mta-473-7CAX5ugFOkiCeTWpQeSU0g-1; Fri, 26 Jan 2024 10:57:44 -0500
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-6dde06c6ab0so714233b3a.1
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jan 2024 07:57:44 -0800 (PST)
 Received: from [192.168.0.9] (ip-109-43-176-119.web.vodafone.de.
  [109.43.176.119]) by smtp.gmail.com with ESMTPSA id
- i28-20020a05620a145c00b0078199077d0asm666795qkl.125.2024.01.26.07.51.40
+ s191-20020a6377c8000000b005c67a388836sm1253488pgc.62.2024.01.26.07.57.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 26 Jan 2024 07:51:51 -0800 (PST)
+ Fri, 26 Jan 2024 07:57:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,43 +49,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d427a763-bc62-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: a61c2919-bc63-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1706284314;
+	s=mimecast20190719; t=1706284666;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=GVRU4JY42t0XtQar0MLRcTymoBOobeZe42nuYzL2Zis=;
-	b=KfUJ35dD1fEjw5e1fM4PZ6FcCMxyGKL8L2cI9HO3Wee9MKwlKYZ6o3KprIsvJlI/LkRgLN
-	eL0IfQgsD3Z0bR8aHkcgWht2XHG5cnN9sLkRaO/FTaGEtd+4NoTzV757nkQlhtvcETfXjH
-	/n8B5A2VJksWWxGt8pHKTDmgW/QRht0=
-X-MC-Unique: mMxpJthxMyeqSLfeljI6Xg-1
+	bh=uICF0HlUwroZLnpf75Ri8CLLs3QRzc6G/+R5nSoBH4g=;
+	b=SXffkU3cWtBB7t7Mz0fwNiMum8qXtLgVNAaq6iMOwJRvXdRWL8GNPnxCaQrx9UuySSm12c
+	X7crrkWGj3+xmuDau5SYTChga9vzvWwhqn7IpN99t+B591TsPLfthbQY/xUSmXH002MdWL
+	xSDIItQHdw6Uc+QJyDEydDVE7Lt9cQY=
+X-MC-Unique: 7CAX5ugFOkiCeTWpQeSU0g-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706284312; x=1706889112;
+        d=1e100.net; s=20230601; t=1706284663; x=1706889463;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GVRU4JY42t0XtQar0MLRcTymoBOobeZe42nuYzL2Zis=;
-        b=brae2XO68jBZEynd0KthBWkqhITedQgXxg0BbygoquwkQsNfb4JvypBu3CArLlVSem
-         QvJL5uHMKhwVAvNgp2krsICeBfiTQigQYgORcDKOEf114fTdT+ekwDqY8XeANnH9TXTl
-         z8VW2qHtJEEiMFO/572qRLztBFuDMZujZIIs5VSyRBnBTvS2tmccyqnuT2GCZ/wkwD+q
-         3aAWjytqoucfcn6d0AxXuSaM5LBVeH1snkcK2SLkbWwD3qXvO47S2m6pvLYjiKfwGJ0X
-         9vl/Fm03iQeWDStQ5iJvPnTvPH9KxRDuE7Wy1XRC0nFPtmoDGcQqpqU36IWY8kFDJJE4
-         KjZw==
-X-Gm-Message-State: AOJu0YzF2DOaHYy1gO9h7vEyEy174+F5VfJKxs4unPE4SGX48pr2dxnF
-	UvcaS8r+a78sdCcniDxZDxS4SG/lDs/0cLfGGdOuyzPEku5rEIi7LVuu4RhgXy9BRdjAECMXh9l
-	4T5Dpb/62N4G24zaWp9QYGiquAc7slIfZ/cb4RLNETc0uKaJiKg6SxpRYhXkJc4WO
-X-Received: by 2002:a37:e317:0:b0:783:b889:30d3 with SMTP id y23-20020a37e317000000b00783b88930d3mr1427761qki.15.1706284312511;
-        Fri, 26 Jan 2024 07:51:52 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IGCsD6roCqcIcM6eBMaPvRVq81pvEKw0TvX8mdk6PnZ9OIl3kTz+cpFaslSLmUatyOLyZVWLw==
-X-Received: by 2002:a37:e317:0:b0:783:b889:30d3 with SMTP id y23-20020a37e317000000b00783b88930d3mr1427741qki.15.1706284312247;
-        Fri, 26 Jan 2024 07:51:52 -0800 (PST)
-Message-ID: <c39be436-2790-42ff-8886-59925330b7d5@redhat.com>
-Date: Fri, 26 Jan 2024 16:51:39 +0100
+        bh=uICF0HlUwroZLnpf75Ri8CLLs3QRzc6G/+R5nSoBH4g=;
+        b=YcZUk4X9gBKwRFwo7nORUs6fTt0Qv9enu7WPTju7TjTdoYGbjwiWMqLU01nZ/I+1vH
+         lRgzVsRIKZrmadrJEtQ3aWG6KMfBJhqsuAuBpn8toVfTiolbfw86Z8stLa/AyT29w+6g
+         813CFL4sMIiE2JDQ4o5RFZ/07WTbeZACwOC+8rmRL1YM9BT9vsku350uHDGSfMUI2Sxg
+         PimK0f+pEnvHiHHJ899avbZx3O3qBbvtBAFEFdwqswln+iuMBhCD5n+l1LdvY1ui5wRi
+         8fc+WUdRM+9DcpP0azS9UtOS5TGa2LQgV+loNnA7oglQXmAOs74lxLqYdQvpK6L96zLF
+         6PZw==
+X-Gm-Message-State: AOJu0Yz6+JWx9tPs8pGTzvMNOLnOFVNYv50WEfpa3/XHCIwUjZTKNjVl
+	0ee7w/jQdcv88lhJUwzahLMVu0qecggyHSGrJ1OG7fL3U+lclVYmt/pLsNOGKseiKYa9gqttCRt
+	1q9A5KBoC7KdW3ACpWrzabuq2VvylbtK6e4MJslq1Cha4P6U4cXwYvvnqa9M+uWWI
+X-Received: by 2002:a05:6a20:be20:b0:19c:32cf:8ff2 with SMTP id ge32-20020a056a20be2000b0019c32cf8ff2mr1179219pzb.79.1706284663560;
+        Fri, 26 Jan 2024 07:57:43 -0800 (PST)
+X-Google-Smtp-Source: AGHT+IFZQOm5h/jLj/QMB8vNdMhQkOVX5I6vLQ693UCCVc/aQRp6NS+s3KWbdrdEUQBgK1ncGlBFCA==
+X-Received: by 2002:a05:6a20:be20:b0:19c:32cf:8ff2 with SMTP id ge32-20020a056a20be2000b0019c32cf8ff2mr1179183pzb.79.1706284663142;
+        Fri, 26 Jan 2024 07:57:43 -0800 (PST)
+Message-ID: <0702e0c9-599f-4809-b0b2-3b2a85b32971@redhat.com>
+Date: Fri, 26 Jan 2024 16:57:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 32/46] hw/m68k/mcf5208: use qemu_create_nic_device()
+Subject: Re: [PATCH v3 34/46] hw/microblaze: use qemu_configure_nic_device()
 To: David Woodhouse <dwmw2@infradead.org>, qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
  Beniamino Galvani <b.galvani@gmail.com>,
@@ -133,7 +133,7 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
  qemu-riscv@nongnu.org, qemu-s390x@nongnu.org,
  xen-devel@lists.xenproject.org, David Woodhouse <dwmw@amazon.co.uk>
 References: <20240108204909.564514-1-dwmw2@infradead.org>
- <20240108204909.564514-33-dwmw2@infradead.org>
+ <20240108204909.564514-35-dwmw2@infradead.org>
 From: Thomas Huth <thuth@redhat.com>
 Autocrypt: addr=thuth@redhat.com; keydata=
  xsFNBFH7eUwBEACzyOXKU+5Pcs6wNpKzrlJwzRl3VGZt95VCdb+FgoU9g11m7FWcOafrVRwU
@@ -177,7 +177,7 @@ Autocrypt: addr=thuth@redhat.com; keydata=
  oiT+z+/E59qj/EKfyce3sbC9XLjXv3mHMrq1tKX4G7IJGnS989E/fg6crv6NHae9Ckm7+lSs
  IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
  yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
-In-Reply-To: <20240108204909.564514-33-dwmw2@infradead.org>
+In-Reply-To: <20240108204909.564514-35-dwmw2@infradead.org>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -189,48 +189,47 @@ On 08/01/2024 21.27, David Woodhouse wrote:
 > 
 > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 > ---
->   hw/m68k/mcf5208.c | 19 ++++++-------------
->   1 file changed, 6 insertions(+), 13 deletions(-)
+>   hw/microblaze/petalogix_ml605_mmu.c      | 3 +--
+>   hw/microblaze/petalogix_s3adsp1800_mmu.c | 3 +--
+>   2 files changed, 2 insertions(+), 4 deletions(-)
 > 
-> diff --git a/hw/m68k/mcf5208.c b/hw/m68k/mcf5208.c
-> index d22d8536db..0cfb806c20 100644
-> --- a/hw/m68k/mcf5208.c
-> +++ b/hw/m68k/mcf5208.c
-> @@ -206,16 +206,16 @@ static void mcf5208_sys_init(MemoryRegion *address_space, qemu_irq *pic)
->       }
->   }
+> diff --git a/hw/microblaze/petalogix_ml605_mmu.c b/hw/microblaze/petalogix_ml605_mmu.c
+> index fb7889cf67..0f5fabc32e 100644
+> --- a/hw/microblaze/petalogix_ml605_mmu.c
+> +++ b/hw/microblaze/petalogix_ml605_mmu.c
+> @@ -133,7 +133,6 @@ petalogix_ml605_init(MachineState *machine)
+>       sysbus_connect_irq(SYS_BUS_DEVICE(dev), 0, irq[TIMER_IRQ]);
 >   
-> -static void mcf_fec_init(MemoryRegion *sysmem, NICInfo *nd, hwaddr base,
-> -                         qemu_irq *irqs)
-> +static void mcf_fec_init(MemoryRegion *sysmem, hwaddr base, qemu_irq *irqs)
->   {
->       DeviceState *dev;
->       SysBusDevice *s;
->       int i;
+>       /* axi ethernet and dma initialization. */
+> -    qemu_check_nic_model(&nd_table[0], "xlnx.axi-ethernet");
+>       eth0 = qdev_new("xlnx.axi-ethernet");
+>       dma = qdev_new("xlnx.axi-dma");
 >   
-> -    qemu_check_nic_model(nd, TYPE_MCF_FEC_NET);
-> -    dev = qdev_new(TYPE_MCF_FEC_NET);
-> -    qdev_set_nic_properties(dev, nd);
-> +    dev = qemu_create_nic_device(TYPE_MCF_FEC_NET, true, NULL);
-> +    if (!dev) {
-> +        return;
-> +    }
+> @@ -145,7 +144,7 @@ petalogix_ml605_init(MachineState *machine)
+>                                     "axistream-connected-target", NULL);
+>       cs = object_property_get_link(OBJECT(dma),
+>                                     "axistream-control-connected-target", NULL);
+> -    qdev_set_nic_properties(eth0, &nd_table[0]);
+> +    qemu_configure_nic_device(eth0, true, NULL);
+>       qdev_prop_set_uint32(eth0, "rxmem", 0x1000);
+>       qdev_prop_set_uint32(eth0, "txmem", 0x1000);
+>       object_property_set_link(OBJECT(eth0), "axistream-connected", ds,
+> diff --git a/hw/microblaze/petalogix_s3adsp1800_mmu.c b/hw/microblaze/petalogix_s3adsp1800_mmu.c
+> index 505639c298..dad46bd7f9 100644
+> --- a/hw/microblaze/petalogix_s3adsp1800_mmu.c
+> +++ b/hw/microblaze/petalogix_s3adsp1800_mmu.c
+> @@ -114,9 +114,8 @@ petalogix_s3adsp1800_init(MachineState *machine)
+>       sysbus_mmio_map(SYS_BUS_DEVICE(dev), 0, TIMER_BASEADDR);
+>       sysbus_connect_irq(SYS_BUS_DEVICE(dev), 0, irq[TIMER_IRQ]);
 >   
->       s = SYS_BUS_DEVICE(dev);
->       sysbus_realize_and_unref(s, &error_fatal);
-> @@ -267,14 +267,7 @@ static void mcf5208evb_init(MachineState *machine)
->   
->       mcf5208_sys_init(address_space_mem, pic);
->   
-> -    if (nb_nics > 1) {
-> -        error_report("Too many NICs");
-> -        exit(1);
-> -    }
-
-I wonder whether we'd need a different mechanism to specify the maximum 
-amount of on-board NICs now... Anyway, we can also think of that later, so:
+> -    qemu_check_nic_model(&nd_table[0], "xlnx.xps-ethernetlite");
+>       dev = qdev_new("xlnx.xps-ethernetlite");
+> -    qdev_set_nic_properties(dev, &nd_table[0]);
+> +    qemu_configure_nic_device(dev, true, NULL);
+>       qdev_prop_set_uint32(dev, "tx-ping-pong", 0);
+>       qdev_prop_set_uint32(dev, "rx-ping-pong", 0);
+>       sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
 
 Reviewed-by: Thomas Huth <thuth@redhat.com>
-
 
 
