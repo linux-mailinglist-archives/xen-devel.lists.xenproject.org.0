@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA20B83E02A
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:33:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672252.1046042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC7ED83E0D9
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jan 2024 18:48:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672397.1046445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQ4f-0004be-Jg; Fri, 26 Jan 2024 17:33:05 +0000
+	id 1rTQIp-0005VX-Lx; Fri, 26 Jan 2024 17:47:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672252.1046042; Fri, 26 Jan 2024 17:33:05 +0000
+Received: by outflank-mailman (output) from mailman id 672397.1046445; Fri, 26 Jan 2024 17:47:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTQ4f-0004Zu-Gf; Fri, 26 Jan 2024 17:33:05 +0000
-Received: by outflank-mailman (input) for mailman id 672252;
- Fri, 26 Jan 2024 17:33:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rTQIp-0005SD-IO; Fri, 26 Jan 2024 17:47:43 +0000
+Received: by outflank-mailman (input) for mailman id 672397;
+ Fri, 26 Jan 2024 17:47:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bPDA=JE=casper.srs.infradead.org=BATV+7caeb094913322f6f00d+7460+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTQ4e-0004Zo-Hg
- for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:04 +0000
+ id 1rTQ4s-0004m7-On
+ for xen-devel@lists.xenproject.org; Fri, 26 Jan 2024 17:33:18 +0000
 Received: from casper.infradead.org (casper.infradead.org
  [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f54d430b-bc70-11ee-8a43-1f161083a0e0;
- Fri, 26 Jan 2024 18:33:03 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fb549e82-bc70-11ee-98f5-efadbce2ee36;
+ Fri, 26 Jan 2024 18:33:13 +0100 (CET)
 Received: from [2001:8b0:10b:1::ebe] (helo=i7.infradead.org)
  by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTQ49-0000000EKUd-01Tz; Fri, 26 Jan 2024 17:32:34 +0000
+ id 1rTQ49-0000000EKUi-0YRl; Fri, 26 Jan 2024 17:32:34 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.97.1 #2 (Red
- Hat Linux)) id 1rTQ49-00000001enQ-3kks;
- Fri, 26 Jan 2024 17:32:33 +0000
+ Hat Linux)) id 1rTQ4A-00000001enU-00UM;
+ Fri, 26 Jan 2024 17:32:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,17 +42,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: f54d430b-bc70-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: fb549e82-bc70-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
 	Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=+e8WGyk26Nx6F3/v612EfiHjqzKx8nYkFPtvGlnGd3w=; b=Wj7wVHpMtDarRXMBToq7G9m/GR
-	JIyL+umLSadU7YtXppHGohydct6iE2OaSPxQt+ONIgMnY6+6w/sul+wfD5BEOHoSRAba6pl7/iFG6
-	pzB+Qmg/XzA5Bcgpdv0Sv3H7Ypa3FuqdDSzmGBfk4nF9gM9Jr73sQXltSASv7KghBB2lEuqrBhs5K
-	tg/ZVNvLN3exxn+r1l2s9SkJ98IzX5zeIrUo6rK0r0NtzTeEHwyBi4wY4iPvf5Cgr3+0FepwwsCLR
-	CPE023t4WgOJN/AJAjtsl5ltjaMkSVfKE29fdVhX+Ab6pRk+sFWxlHtSnjChWv61xjwzhtviZaPoF
-	wt8AgzYA==;
+	bh=RalmZg2g2HcWNPspE1WbCMjLC5xu8xXxgPEaYu8kgcA=; b=E5mQKWR4z4aHkGBp7qVHFzw67C
+	v5wpWOcAtFcL6EkJiTQAISbFdVRSj2uOXmFt3yxiz2bdgjWcIy8+LJVGopK1l7o+Rbnwd+2nWkMYG
+	oIlroP1+I+949w2ebYVnJMwaCjTNv8hFsvAmC/MQ1tQjJJ1u/CGn5MWPPB7AOz+02tR7o0Ze+U7C4
+	JnUu2L1rG9U5mLFmVmv+Dvy5uXqsOlGL1qUQ32dy1gg508bL9gVJu8cL6oKbqdxodIXzXojp9Fq25
+	VnC9u6fY29dh8CbDgYiBQNL4vetAuKC9EhtiJZDBjVdfo9mOKEoWtD6k03kl1X0hLFRbwVi8eMjVx
+	tG0btbuA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -119,10 +119,11 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
 	qemu-riscv@nongnu.org,
 	qemu-s390x@nongnu.org,
 	xen-devel@lists.xenproject.org,
-	David Woodhouse <dwmw@amazon.co.uk>
-Subject: [PATCH v4 33/47] hw/m68k/q800: use qemu_find_nic_info()
-Date: Fri, 26 Jan 2024 17:25:10 +0000
-Message-ID: <20240126173228.394202-34-dwmw2@infradead.org>
+	David Woodhouse <dwmw@amazon.co.uk>,
+	Thomas Huth <thuth@redhat.com>
+Subject: [PATCH v4 34/47] hw/microblaze: use qemu_configure_nic_device()
+Date: Fri, 26 Jan 2024 17:25:11 +0000
+Message-ID: <20240126173228.394202-35-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240126173228.394202-1-dwmw2@infradead.org>
 References: <20240126173228.394202-1-dwmw2@infradead.org>
@@ -133,89 +134,49 @@ X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-If a corresponding NIC configuration was found, it will have a MAC address
-already assigned, so use that. Else, generate and assign a default one.
-
-Using qemu_find_nic_info() is simpler than the alternative of using
-qemu_configure_nic_device() and then having to fetch the "mac" property
-as a string and convert it.
-
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Reviewed-by: Thomas Huth <thuth@redhat.com>
 ---
- hw/m68k/q800.c | 29 ++++++++++++++++-------------
- 1 file changed, 16 insertions(+), 13 deletions(-)
+ hw/microblaze/petalogix_ml605_mmu.c      | 3 +--
+ hw/microblaze/petalogix_s3adsp1800_mmu.c | 3 +--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/hw/m68k/q800.c b/hw/m68k/q800.c
-index b80a3b6d5f..fa7683bf76 100644
---- a/hw/m68k/q800.c
-+++ b/hw/m68k/q800.c
-@@ -48,6 +48,7 @@
- #include "hw/display/macfb.h"
- #include "hw/block/swim.h"
- #include "net/net.h"
-+#include "net/util.h"
- #include "qapi/error.h"
- #include "qemu/error-report.h"
- #include "sysemu/qtest.h"
-@@ -270,6 +271,8 @@ static void q800_machine_init(MachineState *machine)
-     BusState *adb_bus;
-     NubusBus *nubus;
-     DriveInfo *dinfo;
-+    NICInfo *nd;
-+    MACAddr mac;
-     uint8_t rng_seed[32];
+diff --git a/hw/microblaze/petalogix_ml605_mmu.c b/hw/microblaze/petalogix_ml605_mmu.c
+index fb7889cf67..0f5fabc32e 100644
+--- a/hw/microblaze/petalogix_ml605_mmu.c
++++ b/hw/microblaze/petalogix_ml605_mmu.c
+@@ -133,7 +133,6 @@ petalogix_ml605_init(MachineState *machine)
+     sysbus_connect_irq(SYS_BUS_DEVICE(dev), 0, irq[TIMER_IRQ]);
  
-     linux_boot = (kernel_filename != NULL);
-@@ -370,13 +373,6 @@ static void q800_machine_init(MachineState *machine)
+     /* axi ethernet and dma initialization. */
+-    qemu_check_nic_model(&nd_table[0], "xlnx.axi-ethernet");
+     eth0 = qdev_new("xlnx.axi-ethernet");
+     dma = qdev_new("xlnx.axi-dma");
  
-     /* MACSONIC */
+@@ -145,7 +144,7 @@ petalogix_ml605_init(MachineState *machine)
+                                   "axistream-connected-target", NULL);
+     cs = object_property_get_link(OBJECT(dma),
+                                   "axistream-control-connected-target", NULL);
+-    qdev_set_nic_properties(eth0, &nd_table[0]);
++    qemu_configure_nic_device(eth0, true, NULL);
+     qdev_prop_set_uint32(eth0, "rxmem", 0x1000);
+     qdev_prop_set_uint32(eth0, "txmem", 0x1000);
+     object_property_set_link(OBJECT(eth0), "axistream-connected", ds,
+diff --git a/hw/microblaze/petalogix_s3adsp1800_mmu.c b/hw/microblaze/petalogix_s3adsp1800_mmu.c
+index 505639c298..dad46bd7f9 100644
+--- a/hw/microblaze/petalogix_s3adsp1800_mmu.c
++++ b/hw/microblaze/petalogix_s3adsp1800_mmu.c
+@@ -114,9 +114,8 @@ petalogix_s3adsp1800_init(MachineState *machine)
+     sysbus_mmio_map(SYS_BUS_DEVICE(dev), 0, TIMER_BASEADDR);
+     sysbus_connect_irq(SYS_BUS_DEVICE(dev), 0, irq[TIMER_IRQ]);
  
--    if (nb_nics > 1) {
--        error_report("q800 can only have one ethernet interface");
--        exit(1);
--    }
--
--    qemu_check_nic_model(&nd_table[0], "dp83932");
--
-     /*
-      * MacSonic driver needs an Apple MAC address
-      * Valid prefix are:
-@@ -386,14 +382,21 @@ static void q800_machine_init(MachineState *machine)
-      * 08:00:07 Apple
-      * (Q800 use the last one)
-      */
--    nd_table[0].macaddr.a[0] = 0x08;
--    nd_table[0].macaddr.a[1] = 0x00;
--    nd_table[0].macaddr.a[2] = 0x07;
--
-     object_initialize_child(OBJECT(machine), "dp8393x", &m->dp8393x,
-                             TYPE_DP8393X);
-     dev = DEVICE(&m->dp8393x);
+-    qemu_check_nic_model(&nd_table[0], "xlnx.xps-ethernetlite");
+     dev = qdev_new("xlnx.xps-ethernetlite");
 -    qdev_set_nic_properties(dev, &nd_table[0]);
-+    nd = qemu_find_nic_info(TYPE_DP8393X, true, "dp83932");
-+    if (nd) {
-+        qdev_set_nic_properties(dev, nd);
-+        memcpy(mac.a, nd->macaddr.a, sizeof(mac.a));
-+    } else {
-+        qemu_macaddr_default_if_unset(&mac);
-+    }
-+    mac.a[0] = 0x08;
-+    mac.a[1] = 0x00;
-+    mac.a[2] = 0x07;
-+    qdev_prop_set_macaddr(dev, "mac", mac.a);
-+
-     qdev_prop_set_uint8(dev, "it_shift", 2);
-     qdev_prop_set_bit(dev, "big_endian", true);
-     object_property_set_link(OBJECT(dev), "dma_mr",
-@@ -414,7 +417,7 @@ static void q800_machine_init(MachineState *machine)
-     prom = memory_region_get_ram_ptr(&m->dp8393x_prom);
-     checksum = 0;
-     for (i = 0; i < 6; i++) {
--        prom[i] = revbit8(nd_table[0].macaddr.a[i]);
-+        prom[i] = revbit8(mac.a[i]);
-         checksum ^= prom[i];
-     }
-     prom[7] = 0xff - checksum;
++    qemu_configure_nic_device(dev, true, NULL);
+     qdev_prop_set_uint32(dev, "tx-ping-pong", 0);
+     qdev_prop_set_uint32(dev, "rx-ping-pong", 0);
+     sysbus_realize_and_unref(SYS_BUS_DEVICE(dev), &error_fatal);
 -- 
 2.43.0
 
