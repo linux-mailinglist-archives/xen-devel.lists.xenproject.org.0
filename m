@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 618BF83EC9D
-	for <lists+xen-devel@lfdr.de>; Sat, 27 Jan 2024 11:08:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672625.1046786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A7E883ED06
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Jan 2024 13:10:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672646.1046802 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTfbT-0005nr-U3; Sat, 27 Jan 2024 10:07:59 +0000
+	id 1rThVB-0002mg-MK; Sat, 27 Jan 2024 12:09:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672625.1046786; Sat, 27 Jan 2024 10:07:59 +0000
+Received: by outflank-mailman (output) from mailman id 672646.1046802; Sat, 27 Jan 2024 12:09:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rTfbT-0005mC-R9; Sat, 27 Jan 2024 10:07:59 +0000
-Received: by outflank-mailman (input) for mailman id 672625;
- Sat, 27 Jan 2024 10:07:58 +0000
+	id 1rThVB-0002l7-I9; Sat, 27 Jan 2024 12:09:37 +0000
+Received: by outflank-mailman (input) for mailman id 672646;
+ Sat, 27 Jan 2024 12:08:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eyoq=JF=casper.srs.infradead.org=BATV+2d71f3dbc0876e822724+7461+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1rTfbR-0005m6-KI
- for xen-devel@lists.xenproject.org; Sat, 27 Jan 2024 10:07:58 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=Em+J=JF=intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
+ id 1rThUA-0002k3-9l
+ for xen-devel@lists.xenproject.org; Sat, 27 Jan 2024 12:08:34 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f11d7c81-bcfb-11ee-8a43-1f161083a0e0;
- Sat, 27 Jan 2024 11:07:56 +0100 (CET)
-Received: from [2001:8b0:10b:5:d160:e4ac:a057:38f5]
- (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.97.1 #2 (Red Hat Linux))
- id 1rTfbC-0000000GZvS-3mTU; Sat, 27 Jan 2024 10:07:44 +0000
+ id c89ce689-bd0c-11ee-8a43-1f161083a0e0;
+ Sat, 27 Jan 2024 13:08:31 +0100 (CET)
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2024 04:08:29 -0800
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.36])
+ by fmviesa001.fm.intel.com with ESMTP; 27 Jan 2024 04:08:23 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,170 +42,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f11d7c81-bcfb-11ee-8a43-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=JEpN3uQzU1ikQM+mdHfG75NrIjNZkwzaEwcwOwUVCw0=; b=Z2AjJjv9tQHJ5QiDkHoprkayyT
-	X2TTPoyXdSAPj4qKSGscok4weh64gANVuLT4OK/LE5gf0obZBGQsQ9kjwIaeXgcZRdaaETY+ieMoq
-	uTM+upywGvMHma65mZ2osdbj6Cyo4YwXlVT9pOq8TWjdL/cZm54Ii0XCdwbQ55zt6L6iSmAx48i6H
-	8tzZ2B+7unOd3XP6DhTxn/P+pPcggOIZQsGaOwKa+6um+PR8ZsE3AS99tWEstDG0tmv2fHJjdkSQy
-	y/92olQpAGKinMb7Jw/GlKiJsDAX0jBBxwLMrrMs+rh2sKyKSB9rWTXOL3OlGrKxFl8GYTNo1zYis
-	TNE2Sjpw==;
-Message-ID: <cd2f185c1c85add9ea863d61a633089d0aaf535a.camel@infradead.org>
+X-Inumbo-ID: c89ce689-bd0c-11ee-8a43-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1706357312; x=1737893312;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=3x780jZTGqOv7hVPrMhBFyVFEFi8QjUCScTBKCbV9CE=;
+  b=S8gPhn0hD/QzxvLTe60p4U4U/c2dJGrjSY4oMGnfIExNczRZiA8rNiOq
+   475qfvROpmYoheM5tfauxqJagJkabIqVmAKjbk2I4kxnChz1LoABv5Hpw
+   R7o9ImCCWyLjDv4y7GFH9mzg5K26W+kPOBA2EUluqsVnwbylBqUhz0Sc7
+   JUTTrVjeIL3nDuYZmkQmF/eNhQXd5/lc1RoC+i7gNN5Eds+ihd/MwjlWC
+   i0hRT9jmMTOPPVSFeoL2X1gWoxYdEhpFLPCTyjaQB26mwElQgttOGTYlE
+   AKZDaBIN8IEjsMx/uKhS0L8euxR2ZLf1OGWLsr7iCbiXDoqoLXPZqUywN
+   Q==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10964"; a="2506039"
+X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; 
+   d="scan'208";a="2506039"
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.05,220,1701158400"; 
+   d="scan'208";a="29342189"
+Date: Sat, 27 Jan 2024 20:21:27 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
+Cc: qemu-devel@nongnu.org, qemu-arm@nongnu.org,
+	Thomas Huth <thuth@redhat.com>, qemu-s390x@nongnu.org,
+	qemu-riscv@nongnu.org, Eduardo Habkost <eduardo@habkost.net>,
+	kvm@vger.kernel.org, qemu-ppc@nongnu.org,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Vladimir Sementsov-Ogievskiy <vsementsov@yandex-team.ru>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>, Cameron Esfahani <dirty@apple.com>,
+	Roman Bolshakov <rbolshakov@ddn.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	xen-devel@lists.xenproject.org
 Subject: Re: [PATCH v2 10/23] target/i386: Prefer fast cpu_env() over slower
  CPU QOM cast macro
-From: David Woodhouse <dwmw2@infradead.org>
-To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>, 
-	qemu-devel@nongnu.org
-Cc: qemu-arm@nongnu.org, Thomas Huth <thuth@redhat.com>,
- qemu-s390x@nongnu.org,  qemu-riscv@nongnu.org, Eduardo Habkost
- <eduardo@habkost.net>,  kvm@vger.kernel.org, qemu-ppc@nongnu.org, Richard
- Henderson <richard.henderson@linaro.org>, Vladimir Sementsov-Ogievskiy
- <vsementsov@yandex-team.ru>, Paolo Bonzini <pbonzini@redhat.com>, "Michael
- S. Tsirkin" <mst@redhat.com>, Marcel Apfelbaum
- <marcel.apfelbaum@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- Cameron Esfahani <dirty@apple.com>, Roman Bolshakov <rbolshakov@ddn.com>, 
- Marcelo Tosatti <mtosatti@redhat.com>, xen-devel@lists.xenproject.org
-Date: Sat, 27 Jan 2024 10:07:43 +0000
-In-Reply-To: <20240126220407.95022-11-philmd@linaro.org>
+Message-ID: <ZbT1R7impEw4whqP@intel.com>
 References: <20240126220407.95022-1-philmd@linaro.org>
-	 <20240126220407.95022-11-philmd@linaro.org>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-JBCXb+YcypR1cFdo69BE"
-User-Agent: Evolution 3.44.4-0ubuntu2 
+ <20240126220407.95022-11-philmd@linaro.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240126220407.95022-11-philmd@linaro.org>
 
+Hi Philippe,
 
---=-JBCXb+YcypR1cFdo69BE
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2024-01-26 at 23:03 +0100, Philippe Mathieu-Daud=C3=A9 wrote:
+On Fri, Jan 26, 2024 at 11:03:52PM +0100, Philippe Mathieu-Daudé wrote:
+> Date: Fri, 26 Jan 2024 23:03:52 +0100
+> From: Philippe Mathieu-Daudé <philmd@linaro.org>
+> Subject: [PATCH v2 10/23] target/i386: Prefer fast cpu_env() over slower
+>  CPU QOM cast macro
+> X-Mailer: git-send-email 2.41.0
+> 
 > Mechanical patch produced running the command documented
 > in scripts/coccinelle/cpu_env.cocci_template header.
->=20
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 > ---
+>  target/i386/hvf/vmx.h               | 13 +++-------
+>  hw/i386/vmmouse.c                   |  6 ++---
+>  hw/i386/xen/xen-hvm.c               |  3 +--
+>  target/i386/arch_memory_mapping.c   |  3 +--
+>  target/i386/cpu-dump.c              |  3 +--
+>  target/i386/cpu.c                   | 37 +++++++++------------------
+>  target/i386/helper.c                | 39 ++++++++---------------------
+>  target/i386/hvf/hvf.c               |  8 ++----
+>  target/i386/hvf/x86.c               |  4 +--
+>  target/i386/hvf/x86_emu.c           |  6 ++---
+>  target/i386/hvf/x86_task.c          | 10 +++-----
+>  target/i386/hvf/x86hvf.c            |  6 ++---
+>  target/i386/kvm/kvm.c               |  6 ++---
+>  target/i386/kvm/xen-emu.c           | 32 ++++++++---------------
+>  target/i386/tcg/sysemu/bpt_helper.c |  3 +--
+>  target/i386/tcg/tcg-cpu.c           | 14 +++--------
+>  target/i386/tcg/user/excp_helper.c  |  3 +--
+>  target/i386/tcg/user/seg_helper.c   |  3 +--
+>  18 files changed, 59 insertions(+), 140 deletions(-)
+> 
 
-For the KVM/Xen parts
+[snip]
 
-Acked-by: David Woodhouse <dwmw@amazon.co.uk>
+> diff --git a/target/i386/hvf/x86hvf.c b/target/i386/hvf/x86hvf.c
+> index 3b1ef5f49a..1e7fd587fe 100644
+> --- a/target/i386/hvf/x86hvf.c
+> +++ b/target/i386/hvf/x86hvf.c
+> @@ -238,8 +238,7 @@ void hvf_get_msrs(CPUState *cs)
+>  
+>  int hvf_put_registers(CPUState *cs)
+>  {
+> -    X86CPU *x86cpu = X86_CPU(cs);
+> -    CPUX86State *env = &x86cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      wreg(cs->accel->fd, HV_X86_RAX, env->regs[R_EAX]);
+>      wreg(cs->accel->fd, HV_X86_RBX, env->regs[R_EBX]);
+> @@ -282,8 +281,7 @@ int hvf_put_registers(CPUState *cs)
+>  
+>  int hvf_get_registers(CPUState *cs)
+>  {
+> -    X86CPU *x86cpu = X86_CPU(cs);
+> -    CPUX86State *env = &x86cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      env->regs[R_EAX] = rreg(cs->accel->fd, HV_X86_RAX);
+>      env->regs[R_EBX] = rreg(cs->accel->fd, HV_X86_RBX);
 
---=-JBCXb+YcypR1cFdo69BE
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+In this file, there's another corner case:
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwMTI3MTAwNzQzWjAvBgkqhkiG9w0BCQQxIgQgDWoN0FKu
-aSw1olN5qrsQHiNybO/ClXdPKPkZXaDUG2Ewgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgAvNkutFTSZg/bsMBvnYTnQz4KQJG1r6SgP
-paNP1p7Ua/g1J7GL4SHcsg0OM3lT/SACSMu71ZVxUqiITZH1sjVkoYlyGx9Tc29Hc/g8YWGUvg9V
-us1yC0p9ntEdDiMEknAgGoczuEEvbFa6bvqFk3RsjpCJrfiaHIFwsIP+xnu5nVD0aCJLKFufoN7V
-ZdlZlSAdZ5XjK7XkaspemXf7MfFyekl30LdhrJZSnVS/UMV7nnT/dKezTDeIgPCEqi8FgntBBcO4
-i3FipbudAuf8ljhXqLSKt6jcEbIo84qx9bJcsCfVbiMWkLvnBviHgMrj/KmOMzLRmU7yqkCLs4yJ
-mmY5kb/5448Rm/zJ2Fw0WDwVh8ImUel4xbgrFYA5AYDVroQ7NKmEAE0s3jau+VxnqOblxymJUbW5
-udYztVYFlVUba8L2lJT6/oJJZ0tiEEVT8zxYGHcWosRtwjp2p5XvUQdF+9zSi/mq+XP1TNe9W5xg
-/OY0OQdKdpGXk54FGGfc+wFvLHUAgZBD/DXc/M/aFVTenjUIZbUNX7Dv+zI18MiPUY5gx8zVrbQZ
-lFlLoQ9lG2e+Czo/dGtYyqjS5bz0N7p9oO/y21b1bZiZf8F5gDgHfHRWwKHWUDALuVmh3G8c4DU0
-aztej27nYxVMc7fgnbgwXBw2BmhXjz/Tr7KJjFj8ywAAAAAAAA==
+diff --git a/target/i386/hvf/x86hvf.c b/target/i386/hvf/x86hvf.c
+index 3b1ef5f49a8a..9a145aa5aa4f 100644
+--- a/target/i386/hvf/x86hvf.c
++++ b/target/i386/hvf/x86hvf.c
+@@ -342,8 +342,7 @@ void vmx_clear_int_window_exiting(CPUState *cs)
+
+ bool hvf_inject_interrupts(CPUState *cs)
+ {
+-    X86CPU *x86cpu = X86_CPU(cs);
+-    CPUX86State *env = &x86cpu->env;
++    CPUX86State *env = cpu_env(cs);
+
+     uint8_t vector;
+     uint64_t intr_type;
+@@ -408,7 +407,7 @@ bool hvf_inject_interrupts(CPUState *cs)
+     if (!(env->hflags & HF_INHIBIT_IRQ_MASK) &&
+         (cs->interrupt_request & CPU_INTERRUPT_HARD) &&
+         (env->eflags & IF_MASK) && !(info & VMCS_INTR_VALID)) {
+-        int line = cpu_get_pic_interrupt(&x86cpu->env);
++        int line = cpu_get_pic_interrupt(env);
+         cs->interrupt_request &= ~CPU_INTERRUPT_HARD;
+         if (line >= 0) {
+             wvmcs(cs->accel->fd, VMCS_ENTRY_INTR_INFO, line |
 
 
---=-JBCXb+YcypR1cFdo69BE--
+For this special case, I'm not sure if the script can cover it as well,
+otherwise maybe it's OK to be cleaned up manually ;-).
+
+> diff --git a/target/i386/tcg/user/excp_helper.c b/target/i386/tcg/user/excp_helper.c
+> index b3bdb7831a..bfcae9f39e 100644
+> --- a/target/i386/tcg/user/excp_helper.c
+> +++ b/target/i386/tcg/user/excp_helper.c
+> @@ -26,8 +26,7 @@ void x86_cpu_record_sigsegv(CPUState *cs, vaddr addr,
+>                              MMUAccessType access_type,
+>                              bool maperr, uintptr_t ra)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      /*
+>       * The error_code that hw reports as part of the exception frame
+
+In this file, there's another case:
+
+diff --git a/target/i386/tcg/user/excp_helper.c b/target/i386/tcg/user/excp_helper.c
+index b3bdb7831a7a..02fcd64fc080 100644
+--- a/target/i386/tcg/user/excp_helper.c
++++ b/target/i386/tcg/user/excp_helper.c
+@@ -52,6 +52,5 @@ void x86_cpu_record_sigsegv(CPUState *cs, vaddr addr,
+ void x86_cpu_record_sigbus(CPUState *cs, vaddr addr,
+                            MMUAccessType access_type, uintptr_t ra)
+ {
+-    X86CPU *cpu = X86_CPU(cs);
+-    handle_unaligned_access(&cpu->env, addr, access_type, ra);
++    handle_unaligned_access(cpu_env(cs), addr, access_type, ra);
+ }
+
+[snip]
+
+LGTM.
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+
+
 
