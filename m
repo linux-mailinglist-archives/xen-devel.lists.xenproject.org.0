@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B7D4840013
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jan 2024 09:29:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.672905.1047000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C62B840384
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jan 2024 12:10:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.672913.1047011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUN0M-0002HX-D8; Mon, 29 Jan 2024 08:28:34 +0000
+	id 1rUPVb-0003aX-FZ; Mon, 29 Jan 2024 11:08:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 672905.1047000; Mon, 29 Jan 2024 08:28:34 +0000
+Received: by outflank-mailman (output) from mailman id 672913.1047011; Mon, 29 Jan 2024 11:08:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUN0M-0002Fr-AR; Mon, 29 Jan 2024 08:28:34 +0000
-Received: by outflank-mailman (input) for mailman id 672905;
- Mon, 29 Jan 2024 08:28:32 +0000
+	id 1rUPVb-0003Z1-CD; Mon, 29 Jan 2024 11:08:59 +0000
+Received: by outflank-mailman (input) for mailman id 672913;
+ Mon, 29 Jan 2024 11:08:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9RcU=JH=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rUN0K-0002Fl-L4
- for xen-devel@lists.xenproject.org; Mon, 29 Jan 2024 08:28:32 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XNHd=JH=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rUPVZ-0003Yv-8Y
+ for xen-devel@lists.xenproject.org; Mon, 29 Jan 2024 11:08:57 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6266bd93-be80-11ee-8a43-1f161083a0e0;
- Mon, 29 Jan 2024 09:28:31 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2cf4a845a76so30613271fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jan 2024 00:28:31 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p24-20020a6bce18000000b007bf78513320sm1962250iob.1.2024.01.29.00.28.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 29 Jan 2024 00:28:30 -0800 (PST)
+ id a8aa45f8-be96-11ee-8a43-1f161083a0e0;
+ Mon, 29 Jan 2024 12:07:58 +0100 (CET)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-5102e2ab56eso1696254e87.2
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jan 2024 03:07:57 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ g14-20020a19ee0e000000b005110e5a3724sm412328lfb.67.2024.01.29.03.07.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jan 2024 03:07:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,127 +45,300 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6266bd93-be80-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: a8aa45f8-be96-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706516910; x=1707121710; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qaZ2tcGSaX7VCpnRnCnK1mvXI78HkGLzoJX4dQ4dMZA=;
-        b=BcZcyhUBeDQO/GzIooFH/PxJx58tPYMoBu3IRGqShltUhv7qpqIuhDadhYCVKW6i2m
-         xk6uKGlkGMoQkx/FnB29B8INegL3BPJHjLl8sCVdryKAYko9EgjdRNvFdQiDAcbKDsXY
-         qViGUc3BrLoYX8s6Oz5A3+hBZuL62pQOZ52TNrKaP+OGCii+TUq3V1AoCUtUrNjBjhzH
-         nrd2bX7FNTxi8w2TEIcX9mYOOUO35G34kDliyXDQskShPyxjPFStwbFPiFJGuetgpekP
-         Z03uaode8smLXePmKK7b2g/zi1MilOk4sJMKRfcRVchaSJvg0TRGAT9wK+o1wLJPLMGQ
-         K6MQ==
+        d=gmail.com; s=20230601; t=1706526477; x=1707131277; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=6K4wLsQGuNpI3+vcfAR8ge4acxppjZAmqAMS4zBTgH4=;
+        b=c7yIOSgHiOdopiUwKnf0hK5Pcv9Xo5ycZzhqjw2fzb8d92iCgY4YeBXW9l3liCJKlG
+         O/H+iBIvzVjRsF5lBSSWFQn3VzwrxhV4mlqokSGKuhECwoJPTqQZNXAkkTYUxbYjCwIY
+         CQ1svn0QJvK6RA/ht97UY5/yXIG08Hd761Cv8OlKQJHGTIIjo9+6QzKi84u5u37oLzgM
+         LB+e4lCvRsyADoew5L8TAvYtHuwJvV6zv7/R55j1sINw7PAyIbXkPvEd6U1rVMz94K4L
+         Sk8A8t+mZEwmROTwxmMTGrPvMRyuy4p7nEfqNRI4LKWCBaU50Np0gBXemXlPVXQm1bsD
+         T2vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706516910; x=1707121710;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qaZ2tcGSaX7VCpnRnCnK1mvXI78HkGLzoJX4dQ4dMZA=;
-        b=Fl5WBIrJ1cEot0DkabxEZn48bypgaQXyd/TbFZ7kp01KvCXAP6hdrPCXOpQKX/M/xs
-         HKhrmt2mtM43QMWN886nln1IMl0ROhxVfPxzhjNQHEOx68aVi6kUXhDaInPDepTpEya/
-         ysJD2dKCxzKXu4PHAZTapM2pSRoy0vipv40piphEczQYuK8AebM3UaPQxekBgEpuO+fh
-         ++epbZrpFA+myQm/IfaBk7MgL08wMdxRS+T0J7ikIjSyBhVVAvUL1eEoEAYJjM3SDQNN
-         4nBGh+xzA4g3850lnVBiW3LEI14hkn9QUyOsbmoyXcchnuDxX1vdTvJ8HMl8/CvNDH4J
-         1PQg==
-X-Gm-Message-State: AOJu0Yyea+UkvVxMWJ2XY+Sk75Ex7k0SbNqKciukY9s9Vkc9O/hx9paU
-	TBcd17yMTGI8dZ7LU95faUB9zyizSF87cfxGdYjsia8KT9J084570YfLJGphyg==
-X-Google-Smtp-Source: AGHT+IHUDjym+ewyAmVN7LZNSqI8e+elbMQBD9dvDNgGPIz10SiCJB/Ma5H/yoG1V/bk5Y6JCzeNNg==
-X-Received: by 2002:a2e:a405:0:b0:2cf:1535:9307 with SMTP id p5-20020a2ea405000000b002cf15359307mr3136807ljn.52.1706516910633;
-        Mon, 29 Jan 2024 00:28:30 -0800 (PST)
-Message-ID: <04d113bf-71ab-4eba-a95f-72318c888d1f@suse.com>
-Date: Mon, 29 Jan 2024 09:28:27 +0100
+        d=1e100.net; s=20230601; t=1706526477; x=1707131277;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6K4wLsQGuNpI3+vcfAR8ge4acxppjZAmqAMS4zBTgH4=;
+        b=i9uZCU+DwBuwZFl8VOFggTtwL5g/P6vFsJYCOjB3oGEuL3RcXJI4wLtKrIcIMN5JOG
+         duo6/U8ehec7PoqCK4EbCozdRQG6su1PVTFSsd+eBsPbeOMnYyAWL0fF6mXDKGLQUDde
+         QAHn+ghQAu2unIaNp/+iHIi8NGTvX+alk3Jp+oiBzY6bSrtOwl9/lfrGdmk22r7naEpN
+         YJb2WxmM+StR3WHpW2u8CyuBQfBHOr1LZ8JlmUufnTWpIPYQt3SCOqPdidtWwyf7wSXB
+         Icj06Nuf3gMMUx6vKVkCHrQm2I0Hs2+wbotg6f4h/bQuXKj8yvNyGkeRJAD7ksYs2xbj
+         RGXg==
+X-Gm-Message-State: AOJu0YzTgT+bjHCK/UIhrLBEv/0I5HiYpEGz5IqkgeZxgeI0RdcLiJZ0
+	HL4pawCSgocVZCmVG1C3W3bVBCJCBo65riECBGObfwonSRsqpPzU
+X-Google-Smtp-Source: AGHT+IEnAc40IxuvuFJdue/TDryAQOBa0KkjXdCBsZ3bQYngZkFuA1F5dIZksQcsMsBZJi4PKFiG5Q==
+X-Received: by 2002:ac2:5b03:0:b0:510:253f:32db with SMTP id v3-20020ac25b03000000b00510253f32dbmr3649546lfn.45.1706526477167;
+        Mon, 29 Jan 2024 03:07:57 -0800 (PST)
+Message-ID: <e165048a82b55ce0beb9ea171202bfc6167334bc.camel@gmail.com>
+Subject: Re: [PATCH] xen/lib: introduce generic find next bit operations
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Shawn Anastasio
+ <sanastasio@raptorengineering.com>
+Date: Mon, 29 Jan 2024 13:07:54 +0200
+In-Reply-To: <a5a553cf-fe8c-4934-ac97-bdc59aeaed1c@xen.org>
+References: 
+	<52730e6314210ba4164a9934a720c4fda201447b.1706266854.git.oleksii.kurochko@gmail.com>
+	 <f8602dc5-e603-42fc-b3a2-dc71c55db341@xen.org>
+	 <1104df46d7780ef1bbcb6c745685b10fe6d2aa5d.camel@gmail.com>
+	 <a5a553cf-fe8c-4934-ac97-bdc59aeaed1c@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 (resend) 00/27] Remove the directmap
-Content-Language: en-US
-To: Elias El Yandouzi <eliasely@amazon.com>
-Cc: julien@xen.org, pdurrant@amazon.com, dwmw@amazon.com,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Lukasz Hawrylko <lukasz@hawrylko.pl>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Mateusz_M=C3=B3wka?= <mateusz.mowka@intel.com>,
- xen-devel@lists.xenproject.org
-References: <20240116192611.41112-1-eliasely@amazon.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240116192611.41112-1-eliasely@amazon.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 16.01.2024 20:25, Elias El Yandouzi wrote:
-> Elias El Yandouzi (3):
->   xen/x86: Add build assertion for fixmap entries
->   Rename mfn_to_virt() calls
->   Rename maddr_to_virt() calls
-> 
-> Hongyan Xia (13):
->   acpi: vmap pages in acpi_os_alloc_memory
->   xen/numa: vmap the pages for memnodemap
->   x86/srat: vmap the pages for acpi_slit
->   x86: Map/unmap pages in restore_all_guests
->   x86/pv: Rewrite how building PV dom0 handles domheap mappings
->   x86/pv: Map L4 page table for shim domain
->   x86/mapcache: Initialise the mapcache for the idle domain
->   x86: Add a boot option to enable and disable the direct map
->   x86/domain_page: Remove the fast paths when mfn is not in the
->     directmap
->   xen/page_alloc: Add a path for xenheap when there is no direct map
->   x86/setup: Leave early boot slightly earlier
->   x86/setup: vmap heap nodes when they are outside the direct map
->   x86/setup: Do not create valid mappings when directmap=no
-> 
-> Julien Grall (8):
->   xen/vmap: Check the page has been mapped in vm_init_type()
->   xen/vmap: Introduce vmap_size() and use it
->   xen/arm: fixmap: Rename the fixmap slots to follow the x86 convention
+Hi Julien,
 
-Btw, if there was clear indication that e.g. this patch (fully ack-ed
-afaict) can go in ahead of earlier patches, I probably would have put
-it in already. Considering it sits half way through the series, I don't
-want to blindly chance it, though.
+> >=20
+> > >=20
+> > > On 26/01/2024 12:20, Oleksii Kurochko wrote:
+> > > > find-next-bit.c is common for Arm64, PPC and RISCV64,
+> > > > so it is moved to xen/lib.
+> > > >=20
+> > > > Suggested-by: Jan Beulich <jbeulich@suse.com>
+> > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > > > ---
+> > > > =C2=A0=C2=A0 docs/misra/exclude-list.json=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0=C2=A0 4 -
+> > > > =C2=A0=C2=A0 xen/arch/arm/arm64/lib/Makefile=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 2 +-
+> > > > =C2=A0=C2=A0 xen/arch/arm/include/asm/arm64/bitops.h=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 48 --------
+> > > > =C2=A0=C2=A0 xen/arch/ppc/include/asm/bitops.h=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 115 --------
+> > > > -----
+> > > > -----
+> > > > =C2=A0=C2=A0 xen/include/xen/bitops.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 48 ++++++++
+> > > > =C2=A0=C2=A0 xen/lib/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=
+=A0 1 +
+> > > > =C2=A0=C2=A0 .../find_next_bit.c =3D> lib/find-next-bit.c}=C2=A0=C2=
+=A0 |=C2=A0=C2=A0 0
+> > > > =C2=A0=C2=A0 7 files changed, 50 insertions(+), 168 deletions(-)
+> > > > =C2=A0=C2=A0 rename xen/{arch/arm/arm64/lib/find_next_bit.c =3D> li=
+b/find-
+> > > > next-
+> > > > bit.c} (100%)
+> > > >=20
+> > > > diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-
+> > > > list.json
+> > > > index 7971d0e70f..7fe02b059d 100644
+> > > > --- a/docs/misra/exclude-list.json
+> > > > +++ b/docs/misra/exclude-list.json
+> > > > @@ -13,10 +13,6 @@
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "rel_path": "arch/arm/arm64/insn.c",
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "comment": "Imported on Linux, ignore for now"
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ "rel_path": "arch/arm/arm64/lib/find_next_bit.c",
+> > >=20
+> > > Rather than removing the section, I was expecting the rel_path to
+> > > be
+> > > updated. Can you explain why you think the exclusion is not
+> > > necessary?
+> > I considered simply updating the path to xen/lib/find-next-bit.c,
+> > but
+> > ultimately opted to remove it. This decision was based on the fact
+> > that
+> > the line in question checks for a file that no longer exists.=20
+>=20
+> That's not quite correct. The file still exists but with a different
+> name.
+>=20
+> > If it's
+> > preferable to update the rel_path with xen/lib/find-next-bit.c, I'm
+> > more than willing to make that adjustment.
+>=20
+> The problem is by removing the file, you effectively tell Eclair to=20
+> report any MISRA error. I don't believe this is what we want here.
+I don't know how it should work, but when I ran CI's cppcheck and
+Eclair jobs nothing were broken:
+https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/1153360853
 
-Jan
+>=20
+> But if the other agrees with you, then this change ought to be
+> explained=20
+> in the commit message.
+>=20
+> To me the key is the commit message should contain enough information
+> for the reviewer to understand what/why you are doing. All the
+> changes I=20
+> pointed out are definitely not just a normal code movement.
+I understand your point, I'll do my best next time.=20
 
->   xen/x86: Add support for the PMAP
->   xen/arm32: mm: Rename 'first' to 'root' in init_secondary_pagetables()
->   xen/arm64: mm: Use per-pCPU page-tables
->   xen/arm64: Implement a mapcache for arm64
->   xen/arm64: Allow the admin to enable/disable the directmap
-> 
-> Wei Liu (3):
->   x86/setup: Move vm_init() before acpi calls
->   x86/pv: Domheap pages should be mapped while relocating initrd
->   x86: Lift mapcache variable to the arch level
+> >=20
+> > >=20
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ "comment": "Imported from Linux, ignore for now"
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 },
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 {
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "rel_path": "arch/x86/acpi/boot.c",
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 "comment": "Imported from Linux, ignore for now"
+> > > > diff --git a/xen/arch/arm/arm64/lib/Makefile
+> > > > b/xen/arch/arm/arm64/lib/Makefile
+> > > > index 1b9c7a95e6..66cfac435a 100644
+> > > > --- a/xen/arch/arm/arm64/lib/Makefile
+> > > > +++ b/xen/arch/arm/arm64/lib/Makefile
+> > > > @@ -1,4 +1,4 @@
+> > > > =C2=A0=C2=A0 obj-y +=3D memcpy.o memcmp.o memmove.o memset.o memchr=
+.o
+> > > > =C2=A0=C2=A0 obj-y +=3D clear_page.o
+> > > > -obj-y +=3D bitops.o find_next_bit.o
+> > > > +obj-y +=3D bitops.o
+> > > > =C2=A0=C2=A0 obj-y +=3D strchr.o strcmp.o strlen.o strncmp.o strnle=
+n.o
+> > > > strrchr.o
+> > > > diff --git a/xen/arch/arm/include/asm/arm64/bitops.h
+> > > > b/xen/arch/arm/include/asm/arm64/bitops.h
+> > > > index d85a49bca4..f9dd066237 100644
+> > > > --- a/xen/arch/arm/include/asm/arm64/bitops.h
+> > > > +++ b/xen/arch/arm/include/asm/arm64/bitops.h
+> > > > @@ -36,57 +36,9 @@ static inline int flsl(unsigned long x)
+> > > > =C2=A0=C2=A0=20
+> > > > =C2=A0=C2=A0 /* Based on linux/include/asm-generic/bitops/find.h */
+> > > > =C2=A0=C2=A0=20
+> > > > -#ifndef find_next_bit
+> > > > -/**
+> > > > - * find_next_bit - find the next set bit in a memory region
+> > > > - * @addr: The address to base the search on
+> > > > - * @offset: The bitnumber to start searching at
+> > > > - * @size: The bitmap size in bits
+> > > > - */
+> > > > -extern unsigned long find_next_bit(const unsigned long *addr,
+> > > > unsigned long
+> > > > -		size, unsigned long offset);
+> > > > -#endif
+> > > > -
+> > > > -#ifndef find_next_zero_bit
+> > > > -/**
+> > > > - * find_next_zero_bit - find the next cleared bit in a memory
+> > > > region
+> > > > - * @addr: The address to base the search on
+> > > > - * @offset: The bitnumber to start searching at
+> > > > - * @size: The bitmap size in bits
+> > > > - */
+> > > > -extern unsigned long find_next_zero_bit(const unsigned long
+> > > > *addr,
+> > > > unsigned
+> > > > -		long size, unsigned long offset);
+> > > > -#endif
+> > > > -
+> > > > -#ifdef CONFIG_GENERIC_FIND_FIRST_BIT
+> > > > -
+> > > > -/**
+> > > > - * find_first_bit - find the first set bit in a memory region
+> > > > - * @addr: The address to start the search at
+> > > > - * @size: The maximum size to search
+> > > > - *
+> > > > - * Returns the bit number of the first set bit.
+> > > > - */
+> > > > -extern unsigned long find_first_bit(const unsigned long *addr,
+> > > > -				=C2=A0=C2=A0=C2=A0 unsigned long size);
+> > > > -
+> > > > -/**
+> > > > - * find_first_zero_bit - find the first cleared bit in a
+> > > > memory
+> > > > region
+> > > > - * @addr: The address to start the search at
+> > > > - * @size: The maximum size to search
+> > > > - *
+> > > > - * Returns the bit number of the first cleared bit.
+> > > > - */
+> > > > -extern unsigned long find_first_zero_bit(const unsigned long
+> > > > *addr,
+> > > > -					 unsigned long size);
+> > > > -#else /* CONFIG_GENERIC_FIND_FIRST_BIT */
+> > > > -
+> > > > =C2=A0=C2=A0 #define find_first_bit(addr, size) find_next_bit((addr=
+),
+> > > > (size),
+> > > > 0)
+> > > > =C2=A0=C2=A0 #define find_first_zero_bit(addr, size)
+> > > > find_next_zero_bit((addr), (size), 0)
+> > > > =C2=A0=C2=A0=20
+> > > > -#endif /* CONFIG_GENERIC_FIND_FIRST_BIT */
+> > >=20
+> > > AFAICT, you are changing the behavior for Arm64 without
+> > > explaining
+> > > why.
+> > > Before, it was possible to set CONFIG_GENERIC_FIND_FIRST_BIT so
+> > > the
+> > > generic version of find_first_*_bit are used. This is not
+> > > possible
+> > > anymore with your change.
+> > >=20
+> > > Looking at Linux, I see that arm64 is now selecting
+> > > GENERIC_FIND_FIRST_BIT (see [1]). So I would argue, we should not
+> > > define
+> > > find_first_bit(). That said, that's probably a separate patch.
+> > >=20
+> > > For now, you want to explain why GENERIC_FIND_FIRST_BIT is
+> > > dropped.
+> > I chose to remove it because I couldn't find any usage or
+> > configuration
+> > setting for this in Xen (Arm).
+>=20
+> Right. My point is the commit message can lead to think this is a
+> simple=20
+> code movement and there are no change of behavior.
+>=20
+> It wasn't clear to me whether this was done on purpose or not. It
+> looks=20
+> like it was and therefore should really be explained in the commit
+> message.
+Next time I'll add the explanation to the commit message to make it
+more clear.
 
+>=20
+> >=20
+> > I can add "#ifdef GENERIC_FIND_FIRST_BIT" around
+> > find_first_zero_bit()
+> > and find_first_bit() in xen/bitops.h, and according to the link
+> > [1], it
+> > should be wrapped with ifdef. Perhaps it would be better to use
+> > "#if
+> > defined(GENERIC_FIND_FIRST_BIT) && defined(CONFIG_ARM_64)".
+> >=20
+> > My only concern is that it might seem somewhat inconsistent with
+> > the
+> > other find_*_bit() functions added in this patch. Should we be care
+> > about that? I mean that do we need similar config or it would be
+> > enough
+> > to add a comment why it is necessary to have ifdef
+> > GENERIC_FIND_FIRST_BIT.
+>=20
+> Note that I didn't ask to keep GENERIC_FIND_FIRST_BIT. I actually=20
+> pointed out that it can be removed but it should be explained in the=20
+> commit message.
+GENERIC_FIND_FIRST_BIT config was removed in Linux kernel too as all
+architectures were switched to use find_{first,last}_bit()
+unconditionally:
+https://lore.kernel.org/linux-arch/20211005054059.475634-5-yury.norov@gmail=
+.com/
+
+This is not the case of Xen, as some, at least, x86 has arch specific
+implementation of find_{first,last}_bit(), but it can be another one
+justification why this config can be removed in Xen.
+
+~ Oleksii
 
