@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A21F4840C69
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jan 2024 17:53:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673050.1047208 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 501D3840EE9
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jan 2024 18:20:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673062.1047224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUUsW-0000DS-Pf; Mon, 29 Jan 2024 16:53:00 +0000
+	id 1rUVI2-00065C-5P; Mon, 29 Jan 2024 17:19:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673050.1047208; Mon, 29 Jan 2024 16:53:00 +0000
+Received: by outflank-mailman (output) from mailman id 673062.1047224; Mon, 29 Jan 2024 17:19:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUUsW-0000BX-N4; Mon, 29 Jan 2024 16:53:00 +0000
-Received: by outflank-mailman (input) for mailman id 673050;
- Mon, 29 Jan 2024 16:52:59 +0000
+	id 1rUVI2-0005ys-22; Mon, 29 Jan 2024 17:19:22 +0000
+Received: by outflank-mailman (input) for mailman id 673062;
+ Mon, 29 Jan 2024 17:19:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Kvg3=JH=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1rUUsV-0000BQ-7C
- for xen-devel@lists.xenproject.org; Mon, 29 Jan 2024 16:52:59 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
+ <SRS0=Vh+I=JH=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1rUVI0-0005vb-Ok
+ for xen-devel@lists.xenproject.org; Mon, 29 Jan 2024 17:19:20 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id da2daf9c-bec6-11ee-98f5-efadbce2ee36;
- Mon, 29 Jan 2024 17:52:57 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id
- 4fb4d7f45d1cf-55eedf5a284so1755249a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jan 2024 08:52:57 -0800 (PST)
+ id 8873b31f-beca-11ee-98f5-efadbce2ee36;
+ Mon, 29 Jan 2024 18:19:17 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-55a9008c185so5169476a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jan 2024 09:19:17 -0800 (PST)
+Received: from carlo-ubuntu.mo54.unimo.it (nonato.mo54.unimo.it.
+ [155.185.85.8]) by smtp.gmail.com with ESMTPSA id
+ eo15-20020a056402530f00b005598ec568dbsm3970494edb.59.2024.01.29.09.19.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 Jan 2024 09:19:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,189 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da2daf9c-bec6-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 8873b31f-beca-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1706547176; x=1707151976; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gbik/HL66GnscIv6B2QzSlYniR+FazWE9sptKql+PS8=;
-        b=AkDxpOQe+qNCDaqPM9uLRq7/TgBdbVnun+j9UkV3UX5/zlIs4Q8Qy/ZAiN9lgNMSPX
-         UbRtpPKrUSRJF/Pq5UZEv5WdTMsratrx3gwRtyMUDfLsP3wA0QQXPyGzA7X1v6XDJJsX
-         hutfNWk5GvpJ9qA0uBPXBjxR4hKpqNigRlHsg=
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1706548757; x=1707153557; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VXTDORbontv1SP7UM3nFDVIk1NxjAuDsyT6O7qMNlys=;
+        b=zHCVR0eMFb9MbgDCEmwvOr4ZUc3tbvvDyi0PU8lrm5lCr7FndnCvYke118USEdEGF/
+         u+9yKRIp+y124yqENaux2RMryFZkdzH56Vy6uxH8mH8JiE0kM6f5yoPDeiNtQ8X1a15m
+         xdwxXBW9EX7NNrvUl2iuUSJF5vB4OD0J/fHeV3sCs87Gori9dw0Q+Kj8BG01NBarq8Wt
+         GGMr81VSAnNj4S7L91AmgELsa9z6vMXFJs0O1xEfrShDhlpSaFMsGZaKJK5x4gO8ctnp
+         Yyy8lpfRrwqfXmujm1MPVJsFm1ImMeGkng+BSukMmiQCNc3iSjW7YEm1kAgDMIng2DV4
+         KSIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706547176; x=1707151976;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=1e100.net; s=20230601; t=1706548757; x=1707153557;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Gbik/HL66GnscIv6B2QzSlYniR+FazWE9sptKql+PS8=;
-        b=fypmhLVwlMnq9zWCUjR8wllNdWyHGejcPyDHHfdbOw5wpCh+/whzySEwpl/PVSOetS
-         9mE5MKd9zp7Q5h81jWTwEW/y1qsxVIErKtnIbL2PftwTWC/QNjtWFTKy+fC/845iI8BE
-         NX1kYeEDHgiGqXaqmJq2AJTeGDY2envIG8Kco6j/U6+chinGkVD/RKVb4c4jeNAs9TZQ
-         IS/5MWvGNnJ8StjX3B/qku4SL4Kf8aGCM9I4j1XWHW2x1PZwHX/juwGLmG/TchZe1x5b
-         qHAGLkZOCVTURmmcBTcTggIoAYIGDOihNwwi2jvFsHWx6OrmzIyBkPjBp0h5EmJUTeGY
-         3GUA==
-X-Gm-Message-State: AOJu0YwofGDaCIE8haeTwP915DFH98qymJQfxtWd8R4g+Old0+PvZ0t1
-	YUpSoyTtBCKvqEdWPmdiCmFKj67ZDTtwlzVspTo2gfN7bVWh6ZfLQcK/I15satRJFQtxI8lLqp1
-	krRMqmsu5Z1V/vKxyUvbpfcI7Gdba+xzfzDMp+Q==
-X-Google-Smtp-Source: AGHT+IHYSPQMkAwERjU/DTuQ5FWA5HwA4puRsPsGBxFt1prpqm1gu2vsuTvnk4KFMYZtV1Fav+LDYrmCFJFgOFfgUEk=
-X-Received: by 2002:a05:6402:164c:b0:55f:20ef:ca1c with SMTP id
- s12-20020a056402164c00b0055f20efca1cmr846918edx.38.1706547176424; Mon, 29 Jan
- 2024 08:52:56 -0800 (PST)
+        bh=VXTDORbontv1SP7UM3nFDVIk1NxjAuDsyT6O7qMNlys=;
+        b=FNSdyMjLOaPIkFXq+XA1lXEHNHttekqAxrBBxNnZI19nbHwlSiJcy94OG6ZZy8ppBy
+         BjBHkyCQguQknqBDpRYg+Pb8aaY+tWpvu9r6Itb3hOLvvesG3ikJdTNNpnEip5DHQidW
+         YJj1jy4k9/ifG5HjWCqEUzt7JvOdgpOXSIl8rTOJBbUm3BzB25W1eYNZtvNzJ3OjCI02
+         Gc2eNJPehrkobl68lYOOEaI8jjDWsIOTLJsm2idKjEojE7WCRlgd0Vh4MU7A4zuy5NET
+         S+j1P0EDIXzkHcXXEglEhNEyLWPFpX/O4R78p7S73DEqOZer/a1unDPNLL2/hryK0WGc
+         NKPw==
+X-Gm-Message-State: AOJu0YzakNqOglIMZDDKGVK1R+eANwCw/S20N+z5tEtO3WmseUbc3xNp
+	RkDJ+uaharUI6F/kpXMV+B8ndjgocvgAmfBzDThbTwjeOi6f54oBnZ0Fj/zgGcsQ6IzGNlX2L7R
+	Dg2s=
+X-Google-Smtp-Source: AGHT+IGpB5pG4dAwNcyg1K43OgmLop42tNjcfXBnbJpIBnCGCGInJRfqkxV4Ieo7Nx6RgopZY0Gwfg==
+X-Received: by 2002:a05:6402:14ce:b0:55f:3343:7c04 with SMTP id f14-20020a05640214ce00b0055f33437c04mr30413edx.1.1706548757156;
+        Mon, 29 Jan 2024 09:19:17 -0800 (PST)
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+To: xen-devel@lists.xenproject.org
+Cc: andrea.bastoni@minervasys.tech,
+	Carlo Nonato <carlo.nonato@minervasys.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v6 00/15] Arm cache coloring
+Date: Mon, 29 Jan 2024 18:17:56 +0100
+Message-Id: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <cover.1703072575.git.oleksii.kurochko@gmail.com>
- <08bca9a4158a190a0a953e5bc071a512cfe5f0f8.1703072575.git.oleksii.kurochko@gmail.com>
- <341249d1-217f-4ad2-9455-b1aded4b9b56@xen.org> <03cf5145-2124-4150-9f20-904f08bcabda@suse.com>
- <9f8c4fe0a87742444b52a42aa5924cf046ee18b0.camel@gmail.com>
- <67bf2be7-53f4-40d0-a856-8ae631a054b0@suse.com> <955e9b02-20bd-4279-9f60-bb757cdf1a03@xen.org>
- <0f729b61-b839-48f6-89ae-b5570b1eae0b@xen.org> <26152790b0b8c3330d9cfc3c0462a1c072d6d598.camel@gmail.com>
- <87f4c67a-3902-499a-b4e3-c1429a0d9167@suse.com> <61bb0457701582f85f60f81cefb02953587deb06.camel@gmail.com>
- <cc704b38-0fd7-4155-8de9-308ab1a46740@suse.com>
-In-Reply-To: <cc704b38-0fd7-4155-8de9-308ab1a46740@suse.com>
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Mon, 29 Jan 2024 16:52:20 +0000
-Message-ID: <CAO-mL=x4d38RH+G=UUy0w8iha1JdsrQRuDG32OAjbGqk2rMSew@mail.gmail.com>
-Subject: Re: Xen 4.19 release schedule proposal
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksii <oleksii.kurochko@gmail.com>, community.manager@xenproject.org, 
-	julien@xen.org, sstabellini@kernel.org, Bertrand.Marquis@arm.com, 
-	andrew.cooper3@citrix.com, roger.pau@citrix.com, anthony.perard@citrix.com, 
-	george.dunlap@cloud.com, jgross@suse.com, Wei.Chen@arm.com, 
-	xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000003e5d800610187af0"
+Content-Transfer-Encoding: 8bit
 
---0000000000003e5d800610187af0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Shared caches in multi-core CPU architectures represent a problem for
+predictability of memory access latency. This jeopardizes applicability
+of many Arm platform in real-time critical and mixed-criticality
+scenarios. We introduce support for cache partitioning with page
+coloring, a transparent software technique that enables isolation
+between domains and Xen, and thus avoids cache interference.
 
-Hi all,
+When creating a domain, a simple syntax (e.g. `0-3` or `4-11`) allows
+the user to define assignments of cache partitions ids, called colors,
+where assigning different colors guarantees no mutual eviction on cache
+will ever happen. This instructs the Xen memory allocator to provide
+the i-th color assignee only with pages that maps to color i, i.e. that
+are indexed in the i-th cache partition.
 
-I propose we raise this in the next community call (Thursday 1st Feb).
-We can decide on the official cadence then and any further feedback.
+The proposed implementation supports the dom0less feature.
+The proposed implementation doesn't support the static-mem feature.
+The solution has been tested in several scenarios, including Xilinx Zynq
+MPSoCs.
 
-Many thanks,
-Kelly Choi
+Open points:
+- Michal found some problem here
+https://patchew.org/Xen/20230123154735.74832-1-carlo.nonato@minervasys.tech/20230123154735.74832-4-carlo.nonato@minervasys.tech/#a7a06a26-ae79-402c-96a4-a1ebfe8b5862@amd.com
+  but I havent fully understood it. In the meantime I want to advance with v6,
+  so I hope we can continue the discussion here.
+- Default configuration. After a few tries with a domain default configuration
+  that included all colors not already in use by Xen, I went back with having
+  all available colors indiscriminately. The problem is that if Xen has all the
+  colors then domains can't be created with the default configuration.
+  In general we don't want to impose any rule on the user so, the original
+  default is preferred since it allows users to try coloring without too much
+  headache, even if this means that they are using a suboptimal configuration
+  that includes shared colors.
+- I don't know how to split #14 in smaller patches. I hope also not to have
+  misunderstood any comment there.
 
-Community Manager
-Xen Project
+Carlo Nonato (14):
+  xen/common: add cache coloring common code
+  xen/arm: add initial support for LLC coloring on arm64
+  xen/arm: permit non direct-mapped Dom0 construction
+  xen/arm: add Dom0 cache coloring support
+  xen: extend domctl interface for cache coloring
+  tools: add support for cache coloring configuration
+  xen/arm: add support for cache coloring configuration via device-tree
+  xen/page_alloc: introduce init_free_page_fields() helper
+  xen/page_alloc: introduce preserved page flags macro
+  xen: add cache coloring allocator for domains
+  xen/arm: use domain memory to allocate p2m page tables
+  xen/arm: make consider_modules() available for xen relocation
+  xen/arm: add cache coloring support for Xen
+  support: add cache coloring arm64 experimental feature
 
+Luca Miccio (1):
+  xen/arm: add Xen cache colors command line parameter
 
-On Mon, Jan 8, 2024 at 2:58=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
+ SUPPORT.md                              |   7 +
+ docs/man/xl.cfg.5.pod.in                |  10 +
+ docs/misc/arm/device-tree/booting.txt   |   4 +
+ docs/misc/cache-coloring.rst            | 210 ++++++++++++++
+ docs/misc/xen-command-line.pandoc       |  60 ++++
+ tools/include/libxl.h                   |   5 +
+ tools/include/xenctrl.h                 |   9 +
+ tools/libs/ctrl/xc_domain.c             |  34 +++
+ tools/libs/light/libxl_create.c         |   9 +
+ tools/libs/light/libxl_types.idl        |   1 +
+ tools/xl/xl_parse.c                     |  38 ++-
+ xen/arch/Kconfig                        |  25 ++
+ xen/arch/arm/Kconfig                    |   1 +
+ xen/arch/arm/Makefile                   |   1 +
+ xen/arch/arm/alternative.c              |  30 +-
+ xen/arch/arm/arm32/mmu/mm.c             |  93 +------
+ xen/arch/arm/arm64/mmu/head.S           |  57 +++-
+ xen/arch/arm/arm64/mmu/mm.c             |  28 +-
+ xen/arch/arm/dom0less-build.c           |  60 ++--
+ xen/arch/arm/domain_build.c             |  60 +++-
+ xen/arch/arm/include/asm/domain_build.h |   1 +
+ xen/arch/arm/include/asm/mm.h           |   5 +
+ xen/arch/arm/include/asm/mmu/layout.h   |   3 +
+ xen/arch/arm/include/asm/processor.h    |  16 ++
+ xen/arch/arm/include/asm/setup.h        |   3 +
+ xen/arch/arm/llc-coloring.c             | 134 +++++++++
+ xen/arch/arm/mmu/p2m.c                  |   4 +-
+ xen/arch/arm/mmu/setup.c                |  97 ++++++-
+ xen/arch/arm/setup.c                    | 100 ++++++-
+ xen/common/Kconfig                      |   3 +
+ xen/common/Makefile                     |   1 +
+ xen/common/domain.c                     |   3 +
+ xen/common/domctl.c                     |  11 +
+ xen/common/keyhandler.c                 |   3 +
+ xen/common/llc-coloring.c               | 350 ++++++++++++++++++++++++
+ xen/common/page_alloc.c                 | 214 ++++++++++++++-
+ xen/include/public/domctl.h             |   9 +
+ xen/include/xen/llc-coloring.h          |  62 +++++
+ xen/include/xen/sched.h                 |   5 +
+ 39 files changed, 1593 insertions(+), 173 deletions(-)
+ create mode 100644 docs/misc/cache-coloring.rst
+ create mode 100644 xen/arch/arm/llc-coloring.c
+ create mode 100644 xen/common/llc-coloring.c
+ create mode 100644 xen/include/xen/llc-coloring.h
 
-> On 08.01.2024 15:37, Oleksii wrote:
-> > On Thu, 2024-01-04 at 13:52 +0100, Jan Beulich wrote:
-> >> On 02.01.2024 17:59, Oleksii wrote:
-> >>> I'd like to propose the release schedule for Xen 4.19.
-> >>>
-> >>> Based on the previous release schedules [1] and [2], it seems the
-> >>> next
-> >>> release date should be on Wednesday, July 10, 2024:
-> >>>
-> >>> ** Proposed option: Wed Jul 10, 2024 **
-> >>> (+9 months from Xen 4.18 release)
-> >>
-> >> Hmm, aren't we intending to be on a 8 month cadence?
-> > Considering that in July, there will be the Xen Developer Summit, we
-> > can aim for an 8-month cadence.
->
-> July? Iirc I read June in the announcement.
->
-> > However, in the Xen release document, there was mention of a discussion
-> > [1] about cadence:
-> > "With 18 months of full support and 36 months of security support, the
-> > number of concurrent supported releases will be the same with either 8
-> > or 9 months release cycles, so I have chosen an 8-month cycle for now."
-> >
-> > I interpreted this as either an 8 or 9-month cycle, and it's not
-> > strict. If there's a strict requirement for a specific duration, I'll
-> > resend the Release Schedule Proposal.
->
-> I'm not sure about "strict". Yet ...
->
-> > [1] https://lists.xen.org/archives/html/xen-devel/2018-07/msg02240.html
->
-> ... this very mail worked out how overlap with larger holiday ranges
-> could be minimized not only for a single release, but for any as long
-> as the cadence is followed. Iirc this works out better with 8 months
-> (as kind of to be expected, as then there are only 3 variants, whereas
-> with 9 months it would be 4 of them).
->
-> Just to clarify, personally I'm fine with 9 months or even longer, but
-> it seemed to me that we had settled on 8.
->
-> Jan
->
+-- 
+2.34.1
 
---0000000000003e5d800610187af0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<div><br></div><div>I propose we raise this in the =
-next community call (Thursday 1st Feb).</div><div>We can decide on the offi=
-cial cadence then and any further feedback.=C2=A0</div><div><br clear=3D"al=
-l"><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_=
-signature"><div dir=3D"ltr"><div>Many thanks,</div><div>Kelly Choi</div><di=
-v><br></div><div><div style=3D"color:rgb(136,136,136)">Community Manager</d=
-iv><div style=3D"color:rgb(136,136,136)">Xen Project=C2=A0<br></div></div><=
-/div></div></div><br></div></div><br><div class=3D"gmail_quote"><div dir=3D=
-"ltr" class=3D"gmail_attr">On Mon, Jan 8, 2024 at 2:58=E2=80=AFPM Jan Beuli=
-ch &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote=
-:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
-8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 08.01.2024 =
-15:37, Oleksii wrote:<br>
-&gt; On Thu, 2024-01-04 at 13:52 +0100, Jan Beulich wrote:<br>
-&gt;&gt; On 02.01.2024 17:59, Oleksii wrote:<br>
-&gt;&gt;&gt; I&#39;d like to propose the release schedule for Xen 4.19.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Based on the previous release schedules [1] and [2], it seems =
-the<br>
-&gt;&gt;&gt; next<br>
-&gt;&gt;&gt; release date should be on Wednesday, July 10, 2024:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; ** Proposed option: Wed Jul 10, 2024 **<br>
-&gt;&gt;&gt; (+9 months from Xen 4.18 release)<br>
-&gt;&gt;<br>
-&gt;&gt; Hmm, aren&#39;t we intending to be on a 8 month cadence?<br>
-&gt; Considering that in July, there will be the Xen Developer Summit, we<b=
-r>
-&gt; can aim for an 8-month cadence.<br>
-<br>
-July? Iirc I read June in the announcement.<br>
-<br>
-&gt; However, in the Xen release document, there was mention of a discussio=
-n<br>
-&gt; [1] about cadence:<br>
-&gt; &quot;With 18 months of full support and 36 months of security support=
-, the<br>
-&gt; number of concurrent supported releases will be the same with either 8=
-<br>
-&gt; or 9 months release cycles, so I have chosen an 8-month cycle for now.=
-&quot;<br>
-&gt; <br>
-&gt; I interpreted this as either an 8 or 9-month cycle, and it&#39;s not<b=
-r>
-&gt; strict. If there&#39;s a strict requirement for a specific duration, I=
-&#39;ll<br>
-&gt; resend the Release Schedule Proposal.<br>
-<br>
-I&#39;m not sure about &quot;strict&quot;. Yet ...<br>
-<br>
-&gt; [1] <a href=3D"https://lists.xen.org/archives/html/xen-devel/2018-07/m=
-sg02240.html" rel=3D"noreferrer" target=3D"_blank">https://lists.xen.org/ar=
-chives/html/xen-devel/2018-07/msg02240.html</a><br>
-<br>
-... this very mail worked out how overlap with larger holiday ranges<br>
-could be minimized not only for a single release, but for any as long<br>
-as the cadence is followed. Iirc this works out better with 8 months<br>
-(as kind of to be expected, as then there are only 3 variants, whereas<br>
-with 9 months it would be 4 of them).<br>
-<br>
-Just to clarify, personally I&#39;m fine with 9 months or even longer, but<=
-br>
-it seemed to me that we had settled on 8.<br>
-<br>
-Jan<br>
-</blockquote></div>
-
---0000000000003e5d800610187af0--
 
