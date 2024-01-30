@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A0B1842039
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 10:57:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673267.1047575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9F93842062
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 11:01:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673271.1047585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUkrc-0006Mj-9k; Tue, 30 Jan 2024 09:57:08 +0000
+	id 1rUkvb-0000Jt-Qt; Tue, 30 Jan 2024 10:01:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673267.1047575; Tue, 30 Jan 2024 09:57:08 +0000
+Received: by outflank-mailman (output) from mailman id 673271.1047585; Tue, 30 Jan 2024 10:01:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUkrc-0006KW-6o; Tue, 30 Jan 2024 09:57:08 +0000
-Received: by outflank-mailman (input) for mailman id 673267;
- Tue, 30 Jan 2024 09:57:06 +0000
+	id 1rUkvb-0000HC-MX; Tue, 30 Jan 2024 10:01:15 +0000
+Received: by outflank-mailman (input) for mailman id 673271;
+ Tue, 30 Jan 2024 10:01:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFHt=JI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rUkra-0006KM-LV
- for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 09:57:06 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1rUkva-0000H6-0d
+ for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 10:01:14 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ec7ba174-bf55-11ee-8a43-1f161083a0e0;
- Tue, 30 Jan 2024 10:57:05 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id
- 38308e7fff4ca-2d051fb89fbso17618271fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jan 2024 01:57:05 -0800 (PST)
+ id 7fe5a0c8-bf56-11ee-8a43-1f161083a0e0;
+ Tue, 30 Jan 2024 11:01:13 +0100 (CET)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2cf33035d1dso39311961fa.2
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jan 2024 02:01:13 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- x13-20020a056638010d00b00470b336b56bsm1501494jao.106.2024.01.30.01.57.03
+ b13-20020a0566380b8d00b00470c4e1553esm931416jad.131.2024.01.30.02.01.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jan 2024 01:57:04 -0800 (PST)
+ Tue, 30 Jan 2024 02:01:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec7ba174-bf55-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: 7fe5a0c8-bf56-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706608625; x=1707213425; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706608872; x=1707213672; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=IiTvkDEA12sWOdI1NNDDfA1B3SEp0Xr55KevseQSkoE=;
-        b=Y6BSLwkhsCVMFqiwgSnkqvWLN3sxg3nGVrRNaUMS+fO8IrwFs/CTRuuk8H9pzFQI1h
-         9v+KgFHo4hUmBuOE/1gh33WbyB09cwpj6iusfgkOJ+804OdMgl69Csz6HsfOAGBnK86f
-         FPkq7YlEVqLQSHGRnQ6hA/oJMIulBj7+t9Yw4m+FoSbYzu/5yllrV+Vfd70IBsvnWFk4
-         NFvmiuvOpEkYsVC34WdvFhJEkQKVoDMzORVSPJ5LC2+kCwJFu7K0MLo90Fo1J5mFImQb
-         7GdCdk8ooCr8OO15HDBmWhuUqLA54wYtAAoiEIwor+0OILPRf0vj3TMwzdDKiy884Ve2
-         DfIQ==
+        bh=CHLzcoPLDTEAE+BJGU+GYGcH0d8BgyqjRpsmsTEbPrI=;
+        b=bp9sjlBoDLjnv6RRskxx/dh6vqSTvnxViOktCQeGS1aRjHiV/G//iOAI2We9/NWLfR
+         /8tyEvJQ/1lQ0FAdVDL/KOoErHMkso6auqenTjX2rGHRhkqrXckcB06XeLNdpld1/yWi
+         q1dG2SyMfv89NXD6tedhdst/M/jPuQ2uHdGXbQl5WM5p27TgOI4SmZ2COHuMe4A7TAnI
+         WAQJrAYS4ZGRSwWMBrgYIrnmqQGBF+Qyp43A67sIIUqAT4aj3Lzdb7ELXizQ5f9xEJGE
+         wVGz5Ukptr2XOxUfqCP+me6MhhNKEXIoVF8vuzsUPpW+XTU/Eep8KKnADTFrpIYVqBeX
+         bYVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706608625; x=1707213425;
+        d=1e100.net; s=20230601; t=1706608872; x=1707213672;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IiTvkDEA12sWOdI1NNDDfA1B3SEp0Xr55KevseQSkoE=;
-        b=rsL90WdekpSsrinADedta81w4q+cENR7WkPiAUSmQrm5Dd0c0eMOagvsUn8oo5RRvC
-         enVdz0sWIF05VULhHc7lYQiZOCFWBTa9xlEwnniFTLvflHBuoTs3Ar/Y42sURfhBPDTu
-         qmAmj/8TH1+jpgN39Cnepfeu8Vg2D9+tIOlBirfeS+b3P+sbp3nQImY5VnTXxQXbomCX
-         1PPSFmnNvloZsa1g5Lp4tnNW6xqxkafpWnvp2jKrZ4D0wJDhRn8OoU6rtCoRX3mWyev6
-         TvmRoj0Ht9TzUzoYW1mWz88ouWhkFGTIIXzMvAAZtN1wbabT1HkIJu2qLpMOstKvy9Vs
-         QbdQ==
-X-Gm-Message-State: AOJu0YzGZMhigQQWSLiaxlcEYMDEBicfPkzt9a8RyHh05V66glsYfoNN
-	2bnTI4g75dpLm9E7O2T4Wg40nVNbzIoh2IzbfG7/LTQDXEqUPf5lK2reRG2ExA==
-X-Google-Smtp-Source: AGHT+IFLjR+lWQjXicfSuC3gCG7/Ar0nWSfxFusyz/vgSjHYX8CFsIoplbpheWskJdSRqs0RPt9Sbw==
-X-Received: by 2002:a2e:984d:0:b0:2cd:e963:b6c1 with SMTP id e13-20020a2e984d000000b002cde963b6c1mr5443925ljj.13.1706608625184;
-        Tue, 30 Jan 2024 01:57:05 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWmOaFmfiuUBYckBTTjot70AfnAWSP8FR/jID3GK8c3qtfz2+C0GltPetd+FM+IMgbU+QVmwgKriehdBIe9ifMeCwQqhdg+poAFTx0yyjrIAYj0kY5klkhRYhGOjUxvxYXr+zKky6jnMjhGOElcACemYH3YAWnU
-Message-ID: <9ccb27a5-7946-4c16-8307-f4b124a33021@suse.com>
-Date: Tue, 30 Jan 2024 10:57:01 +0100
+        bh=CHLzcoPLDTEAE+BJGU+GYGcH0d8BgyqjRpsmsTEbPrI=;
+        b=q8vKRmSckDElMVqBXbFffemeqzDhGq5Kt3A1JJ4dW139ELhW1j/cJWKQ1ReXRuRxqq
+         Mu+kMq7B9P+FIeIbVRQYsniPFQlJ2dRhFVN26u+KeNxm/RCR8rxUz38qYrO+JXJbhZUP
+         1JeAZGx83wemZcFczRDyIV35tfYzlB8EZeOTc6BQtgs63OcTnn7c8Ll+e4sn+RjdW2fW
+         lhExzQ9OFU+r96kjsJ+oMzh3jcee615YiXdDV7euLRxcyF46HcGsNlkpLGd+d6IgoF1H
+         SKvswx81PZYQl5E8yBA4s4DdjfN/Jrn9UzVYrTnMEPc621fejSmU9VgVS77j70KAgHZJ
+         b4Cw==
+X-Gm-Message-State: AOJu0YxJyqlI0+u1mtXVWdOWAVjOffWmsGZM+FTAjBxQB59a3V5Lr3yw
+	bg8y68MnGlznzIiZ7dBH1UCPSanM6XHa842N735RNvKPpiMxqolBDxWuEtNb3hJUOo8ZWqark1c
+	=
+X-Google-Smtp-Source: AGHT+IHb9lTreDXRlhxfEzUMcKAtpVCZ6N8LQ45bIIawcCi8SFtKub9YYqosEp4pkjmgXwKFJ1G7yQ==
+X-Received: by 2002:a2e:b748:0:b0:2cd:a311:6ae9 with SMTP id k8-20020a2eb748000000b002cda3116ae9mr4746141ljo.5.1706608872504;
+        Tue, 30 Jan 2024 02:01:12 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUFlyJuBxXriUEDFv+QQjMwNBZk2QCgJzZjCfweVAj7i4ZXweBrjXw6TLKdcGo7RkpRJY0FwLxkTFx1Hk43vH9SG+StpND8EHPKNkusmgd1inTh8W+RLUjtJLlfncLcdrqkiWfHfbPFOIw=
+Message-ID: <95b9a3c1-d1d8-4a18-8eea-67d226478f28@suse.com>
+Date: Tue, 30 Jan 2024 11:01:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86: Remove gdbstub
+Subject: Re: [PATCH v3 2/2] xenpm: Print message for disabled commands
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240126205418.3587177-1-andrew.cooper3@citrix.com>
- <20240126205418.3587177-2-andrew.cooper3@citrix.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240125181454.50534-1-jandryuk@gmail.com>
+ <20240125181454.50534-3-jandryuk@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,33 +112,33 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240126205418.3587177-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20240125181454.50534-3-jandryuk@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.01.2024 21:54, Andrew Cooper wrote:
-> In 13y of working on Xen, I've never seen seen it used.  The implementation
-> was introduced (commit b69f92f3012e, Jul 28 2004) with known issues such as:
+On 25.01.2024 19:14, Jason Andryuk wrote:
+> xenpm get-cpufreq-states currently just prints no output when cpufreq is
+> disabled or HWP is running.  Have it print an appropriate message.  The
+> cpufreq disabled one mirrors the cpuidle disabled one.
 > 
->   /* Resuming after we've stopped used to work, but more through luck
->      than any actual intention.  It doesn't at the moment. */
-
-As mentioned elsewhere, this alone might constitute a valid use of gdb.
-Hence I'm a little hesitant here, but given no indication of even this
-narrow use case having been employed by anyone at any time ...
-
-> which appear to have gone unfixed for the 20 years since.
+> cpufreq disabled:
+> $ xenpm get-cpufreq-states
+> Either Xen cpufreq is disabled or no valid information is registered!
 > 
-> Nowadays there are more robust ways of inspecting crashed state, such as a
-> kexec crash kernel, or running Xen in a VM.
+> Under HWP:
+> $ xenpm get-cpufreq-states
+> P-State information not supported.  Try 'get-cpufreq-average' or 'start'.
 > 
-> This will allow us to clean up some hooks around the codebase which are
-> proving awkward for other tasks.
+> Also allow xenpm to handle EOPNOTSUPP from the pmstat hypercalls.
+> EOPNOTSUPP is returned when HWP is active in some cases and allows the
+> differentiation from cpufreq being disabled.
 > 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
+on the assumption that really xenpm also ought to be listed in "X86
+ARCHITECTURE" in ./MAINTAINERS (and be CONFIG_X86-only in the respective
+Makefile).
 
 Jan
-
 
