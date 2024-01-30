@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85DD9842D55
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 20:52:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673676.1048109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 100EF842E1E
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 21:44:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673683.1048118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUu92-0000HV-PW; Tue, 30 Jan 2024 19:51:44 +0000
+	id 1rUuxs-0002Br-GD; Tue, 30 Jan 2024 20:44:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673676.1048109; Tue, 30 Jan 2024 19:51:44 +0000
+Received: by outflank-mailman (output) from mailman id 673683.1048118; Tue, 30 Jan 2024 20:44:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUu92-0000GK-KG; Tue, 30 Jan 2024 19:51:44 +0000
-Received: by outflank-mailman (input) for mailman id 673676;
- Tue, 30 Jan 2024 19:51:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rUu91-0000CX-R6; Tue, 30 Jan 2024 19:51:43 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rUu91-00075Q-Mq; Tue, 30 Jan 2024 19:51:43 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rUu91-0000ne-8k; Tue, 30 Jan 2024 19:51:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rUu91-0001Jb-8G; Tue, 30 Jan 2024 19:51:43 +0000
+	id 1rUuxs-00029n-DI; Tue, 30 Jan 2024 20:44:16 +0000
+Received: by outflank-mailman (input) for mailman id 673683;
+ Tue, 30 Jan 2024 20:44:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UYGG=JI=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
+ id 1rUuxr-00029f-Ex
+ for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 20:44:15 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5164ea99-bfb0-11ee-98f5-efadbce2ee36;
+ Tue, 30 Jan 2024 21:44:11 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id B8CB5CE1B44;
+ Tue, 30 Jan 2024 20:44:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94EBFC433F1;
+ Tue, 30 Jan 2024 20:44:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,142 +41,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=BV5qSGdWzWtyA/wGboNcsZUgHW3dZbovITfTNvBf0ec=; b=qr5kE2wTN9XiLKhBvwGFF4IOJd
-	4AmR2AovnrqXXmp5oZN2WcdYWNheWHuHgGrAO7cOBHFANl5xJrs+oYt/AehULhy3Enw9CfQ+lVcBB
-	1VTlTY9+vYIVEn1O/EVX93szvB+mLwgwoI20Pd42K6pdyhxYb61aWGvwPxvHCXVFX2kE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184526-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5164ea99-bfb0-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706647444;
+	bh=bPw6ruebyasCXorT1LdxWx1GajiUvbLKrTDw9DFK5FA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=r3Am/ZUFJ5LvciFl7LpCgQQZ28jpBwPyRmGVj9C9/vS9yk40Aa7U+KC6hq/oO2B7n
+	 wDQJ8uK7Ltr51lQF8BQiAA8Skty5QBeFsH0/3E1VTaUey75oUEjjsZccrwn+o0MZeE
+	 Miv8UzxNckXMSMLvDHFGUgNXH0sZypZ7xRpaMpeTurT916gRzkt54hEEq2RxhsCyxH
+	 s9nK0ukGPiRl9D3B/hcIKbaI2t/XGCd1zfkzJo3hNN89BP3waa48nxA5jOnij4C3r2
+	 kY5KfQ5U4IsSneu4O25TjKls3lCrZLcTzm7OdlZZdjiu5xgCsOncdeDuXSXJQsxfgP
+	 3wdiZdO2KG//w==
+Date: Tue, 30 Jan 2024 14:44:03 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>
+Subject: Re: [RFC KERNEL PATCH v4 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
+Message-ID: <20240130204403.GA562912@bhelgaas>
 MIME-Version: 1.0
-Subject: [libvirt test] 184526: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=3a3f73ea9f1925ca5e256fa54c5aa451ddeaa19e
-X-Osstest-Versions-That:
-    libvirt=7d9fe3a637795ef23d6c7152b57cd64f9f2894c7
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 30 Jan 2024 19:51:43 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Zbi8WJPEUSMgjuVY@macbook>
 
-flight 184526 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184526/
+On Tue, Jan 30, 2024 at 10:07:36AM +0100, Roger Pau Monné wrote:
+> On Mon, Jan 29, 2024 at 04:01:13PM -0600, Bjorn Helgaas wrote:
+> > On Thu, Jan 25, 2024 at 07:17:24AM +0000, Chen, Jiqian wrote:
+> > > On 2024/1/24 00:02, Bjorn Helgaas wrote:
+> > > > On Tue, Jan 23, 2024 at 10:13:52AM +0000, Chen, Jiqian wrote:
+> > > >> On 2024/1/23 07:37, Bjorn Helgaas wrote:
+> > > >>> On Fri, Jan 05, 2024 at 02:22:17PM +0800, Jiqian Chen wrote:
+> > > >>>> There is a need for some scenarios to use gsi sysfs.
+> > > >>>> For example, when xen passthrough a device to dumU, it will
+> > > >>>> use gsi to map pirq, but currently userspace can't get gsi
+> > > >>>> number.
+> > > >>>> So, add gsi sysfs for that and for other potential scenarios.
+> > > >> ...
+> > > > 
+> > > >>> I don't know enough about Xen to know why it needs the GSI in
+> > > >>> userspace.  Is this passthrough brand new functionality that can't be
+> > > >>> done today because we don't expose the GSI yet?
+> > 
+> > I assume this must be new functionality, i.e., this kind of
+> > passthrough does not work today, right?
+> > 
+> > > >> has ACPI support and is responsible for detecting and controlling
+> > > >> the hardware, also it performs privileged operations such as the
+> > > >> creation of normal (unprivileged) domains DomUs. When we give to a
+> > > >> DomU direct access to a device, we need also to route the physical
+> > > >> interrupts to the DomU. In order to do so Xen needs to setup and map
+> > > >> the interrupts appropriately.
+> > > > 
+> > > > What kernel interfaces are used for this setup and mapping?
+> > >
+> > > For passthrough devices, the setup and mapping of routing physical
+> > > interrupts to DomU are done on Xen hypervisor side, hypervisor only
+> > > need userspace to provide the GSI info, see Xen code:
+> > > xc_physdev_map_pirq require GSI and then will call hypercall to pass
+> > > GSI into hypervisor and then hypervisor will do the mapping and
+> > > routing, kernel doesn't do the setup and mapping.
+> > 
+> > So we have to expose the GSI to userspace not because userspace itself
+> > uses it, but so userspace can turn around and pass it back into the
+> > kernel?
+> 
+> No, the point is to pass it back to Xen, which doesn't know the
+> mapping between GSIs and PCI devices because it can't execute the ACPI
+> AML resource methods that provide such information.
+> 
+> The (Linux) kernel is just a proxy that forwards the hypercalls from
+> user-space tools into Xen.
 
-Failures :-/ but no regressions.
+But I guess Xen knows how to interpret a GSI even though it doesn't
+have access to AML?
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184488
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184488
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184488
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+> > It seems like it would be better for userspace to pass an identifier
+> > of the PCI device itself back into the hypervisor.  Then the interface
+> > could be generic and potentially work even on non-ACPI systems where
+> > the GSI concept doesn't apply.
+> 
+> We would still need a way to pass the GSI to PCI device relation to
+> the hypervisor, and then cache such data in the hypervisor.
+> 
+> I don't think we have any preference of where such information should
+> be exposed, but given GSIs are an ACPI concept not specific to Xen
+> they should be exposed by a non-Xen specific interface.
 
-version targeted for testing:
- libvirt              3a3f73ea9f1925ca5e256fa54c5aa451ddeaa19e
-baseline version:
- libvirt              7d9fe3a637795ef23d6c7152b57cd64f9f2894c7
+AFAIK Linux doesn't expose GSIs directly to userspace yet.  The GSI
+concept relies on ACPI MADT, _MAT, _PRT, etc.  A GSI is associated
+with some device (PCI in this case) and some interrupt controller
+entry.  I don't understand how a GSI value is useful without knowing
+something about that framework in which GSIs exist.
 
-Last test of basis   184488  2024-01-27 04:20:30 Z    3 days
-Testing same since   184526  2024-01-30 04:18:50 Z    0 days    1 attempts
+Obviously I know less than nothing about Xen, so I apologize for
+asking all these stupid questions, but it just doesn't all make sense
+to me yet.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Privoznik <mprivozn@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   7d9fe3a637..3a3f73ea9f  3a3f73ea9f1925ca5e256fa54c5aa451ddeaa19e -> xen-tested-master
+Bjorn
 
