@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A98F842857
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 16:48:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673582.1047985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C118428C6
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 17:08:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673587.1047996 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUqKC-0004VX-Cf; Tue, 30 Jan 2024 15:47:00 +0000
+	id 1rUqdd-0002NF-2R; Tue, 30 Jan 2024 16:07:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673582.1047985; Tue, 30 Jan 2024 15:47:00 +0000
+Received: by outflank-mailman (output) from mailman id 673587.1047996; Tue, 30 Jan 2024 16:07:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUqKC-0004Tc-9c; Tue, 30 Jan 2024 15:47:00 +0000
-Received: by outflank-mailman (input) for mailman id 673582;
- Tue, 30 Jan 2024 15:46:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rUqdc-0002K0-VY; Tue, 30 Jan 2024 16:07:04 +0000
+Received: by outflank-mailman (input) for mailman id 673587;
+ Tue, 30 Jan 2024 16:07:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=M5qC=JI=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rUqKA-0004TW-R0
- for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 15:46:58 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cb18b0f4-bf86-11ee-98f5-efadbce2ee36;
- Tue, 30 Jan 2024 16:46:55 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40ef6da20feso13427715e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jan 2024 07:46:55 -0800 (PST)
-Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- n6-20020a05600c500600b0040e3488f16dsm13446984wmr.12.2024.01.30.07.46.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jan 2024 07:46:54 -0800 (PST)
+ <SRS0=+6ME=JI=intel.com=zhao1.liu@srs-se1.protection.inumbo.net>)
+ id 1rUqdb-0002Ib-4e
+ for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 16:07:03 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.20])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9829d33e-bf89-11ee-8a43-1f161083a0e0;
+ Tue, 30 Jan 2024 17:06:59 +0100 (CET)
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2024 08:06:53 -0800
+Received: from liuzhao-optiplex-7080.sh.intel.com (HELO localhost)
+ ([10.239.160.36])
+ by orviesa002.jf.intel.com with ESMTP; 30 Jan 2024 08:06:48 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +42,876 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb18b0f4-bf86-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706629614; x=1707234414; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=H4jHPpjCElDfwWmewj4NBK7BMEReCe1vgLpl7mZotfY=;
-        b=mNVu8oYbuhU1WiBOpNRK88HMeF9PwR2FPrzKUYoo7JMryhURJ3R48WwBB1AZFG0F9F
-         Ka/ECokSyc6YGX/GLbksYlajAMo4yMRS2/j21bpZmOarsyj/+3h3rDcG89SREMJbusEI
-         x18aidyKoCzv1yI/BCHX5vkaNUB4ufheMIjlc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706629614; x=1707234414;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=H4jHPpjCElDfwWmewj4NBK7BMEReCe1vgLpl7mZotfY=;
-        b=B42PlCNm2ePxO0RMuheBM3Bd8NFBX/oF37n9HswYG4yCbG4viUIeXlEDqog74x5aMW
-         WiADEhtlzAH2YaSHu59QrYcwJq82gkBhzjnjsAHI2ROWPjGZ+BfaJOww8Qn4er5VMFZP
-         nqYp3t5rjsF2Uglq3QUiyGnAnbtNbmsAvYVIWY2hxjnYCgP0K9tOMY1n9OfEoassatyK
-         FlorEcQYtTZJ5UutMEJ57K57WdZ7Y9osbA/HwUZD2RO3icQOvJjpL8Sq/HoPPPwXaxJ6
-         LjhuvMcwusBeFCx4epURx5x8ZAKRgG+J/UwV/QGpKdtWzRoievu07ll83ErOouISpNS1
-         IQhw==
-X-Gm-Message-State: AOJu0YwoCanmICDp8ibrvd7extUwoEyNibRJeiSkZGM4t5wwfqPFNkGN
-	eXl/E1HrA7o4UKgsHiZqP5P6BjvepvL7Zl2prTLFJ67WANohz1FRD2wx9qAN9DsaeyRNgg8pXyN
-	i
-X-Google-Smtp-Source: AGHT+IFazJfdusIhCpaaf8e5HYO2Ertsg+9Bj9zUZ2cHtfQFiu/R+ZInGSnKQsIhWMPBOJX/zL96jg==
-X-Received: by 2002:a05:600c:4f08:b0:40f:993e:3594 with SMTP id l8-20020a05600c4f0800b0040f993e3594mr1278607wmq.7.1706629614453;
-        Tue, 30 Jan 2024 07:46:54 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWIQL0MmF0IcfNWtas2zBzqOTgPU5xiApF8Eb0YK4WqGhMFDQrPupdGtBBHfYVqCTuAaHPSC51qUJpw5W55IHkLzxZ2JxmaV/mLA6nttM3NRVGg/26VWcnGckLUOHT+/B751/94
-Message-ID: <ef0f98b2-f06a-4afc-b338-ef0c7fedcf36@citrix.com>
-Date: Tue, 30 Jan 2024 15:46:53 +0000
+X-Inumbo-ID: 9829d33e-bf89-11ee-8a43-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1706630820; x=1738166820;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=d078j57A5IFL8Q6Ix3bl+QIPh1qyiuI6nx/+m2oYaAc=;
+  b=c5inkL0KgXxB3jZiBgsamd4cdJZfu3Qvh1+lHyjpXGpwRvpFB5F3BCzU
+   DbTv9v4Y/sNRcBpUZx7xg/4BCA/Cnd1IWR8xetegvhnl34G43hfgukd6e
+   FxNCcmBVkPAVQgScviky7tINcEZITnHfzO8Q9AtrNue7nWoRIYdBf0jeq
+   VlywLHaQ6lN2VsrkSKW4+9gKV+QwLuL29vsjKvo5r/QIpMUl3SHecrkFa
+   JRbl4Xt/cFG/VWRTdspNy7rvK7TyWpii6AieiLkU1rk29Zpn83ctBcpEL
+   hZSFSWDaOI7GXNKMGZM7WKPH2+LWMEKUM+Ylteu3uA6zHFiZ/fapUkxKM
+   g==;
+X-IronPort-AV: E=McAfee;i="6600,9927,10969"; a="393768796"
+X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; 
+   d="scan'208";a="393768796"
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.05,230,1701158400"; 
+   d="scan'208";a="29943534"
+Date: Wed, 31 Jan 2024 00:20:17 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>
+Cc: qemu-devel@nongnu.org, qemu-riscv@nongnu.org, qemu-s390x@nongnu.org,
+	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+	qemu-ppc@nongnu.org, qemu-arm@nongnu.org,
+	Richard Henderson <richard.henderson@linaro.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>, Cameron Esfahani <dirty@apple.com>,
+	Roman Bolshakov <rbolshakov@ddn.com>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 14/29] target/i386: Prefer fast cpu_env() over slower
+ CPU QOM cast macro
+Message-ID: <ZbkhwXUK39hnH9EN@intel.com>
+References: <20240129164514.73104-1-philmd@linaro.org>
+ <20240129164514.73104-15-philmd@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] x86/intel: expose IPRED_CTRL to guests
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-Cc: Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20240130091400.50622-1-roger.pau@citrix.com>
- <20240130091400.50622-2-roger.pau@citrix.com>
- <3959f556-6177-473e-a052-bec11b5a8a9b@suse.com> <ZbjmS2oLAV7Fyqdn@macbook>
- <0ad880e8-0f2b-4519-971e-c98b3411fba5@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
- VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
- srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
- Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
- ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
- YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
- LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
- e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
- gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
- ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
- cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
- CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
- 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
- IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
- SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
- JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
- mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
- ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
- RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
- dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
- /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
- TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
- Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
- 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
- vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
- g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
- wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
- 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
- kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
- bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
- uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
- XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
- HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
- pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
- vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
- b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
- 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
- 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
- nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
- B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
- d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
- 6+ahAA==
-In-Reply-To: <0ad880e8-0f2b-4519-971e-c98b3411fba5@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240129164514.73104-15-philmd@linaro.org>
 
-On 30/01/2024 12:59 pm, Jan Beulich wrote:
-> On 30.01.2024 13:06, Roger Pau MonnÃ© wrote:
->> On Tue, Jan 30, 2024 at 11:57:17AM +0100, Jan Beulich wrote:
->>> On 30.01.2024 10:13, Roger Pau Monne wrote:
->>>> The CPUID feature bit signals the presence of the IPRED_DIS_{U,S} controls in
->>>> SPEC_CTRL MSR.
->>>>
->>>> Note that those controls are not used by the hypervisor.
->>> Despite this, ...
->>>
->>>> --- a/xen/arch/x86/msr.c
->>>> +++ b/xen/arch/x86/msr.c
->>>> @@ -324,6 +324,9 @@ uint64_t msr_spec_ctrl_valid_bits(const struct cpu_policy *cp)
->>>>      return (SPEC_CTRL_IBRS | SPEC_CTRL_STIBP |
->>>>              (ssbd       ? SPEC_CTRL_SSBD       : 0) |
->>>>              (psfd       ? SPEC_CTRL_PSFD       : 0) |
->>>> +            (cp->feat.ipred_ctrl ? (SPEC_CTRL_IPRED_DIS_U |
->>>> +                                    SPEC_CTRL_IPRED_DIS_S)
->>>> +                                 : 0) |
->>>>              0);
->>>>  }
->>> ... if I'm not mistaken exposing SPEC_CTRL bits to guests is independent
->>> of whether we write SPEC_CTRL on entry to Xen. Therefore I think in the
->>> description it wants clarifying why it is acceptable to run Xen with the
->>> guest chosen settings for at least the DIS_S bit (assuming that it is
->>> okay to do so). Likely (didn't look there yet) also applicable to the
->>> further two patches.
->> "The added feature is made dependent on IBRSB, which ensures it will
->> only be exposed if X86_FEATURE_SC_MSR_{PV,HVM} is available, and that
->> ensures the value of SPEC_CTRL will get context switched on exit/entry
->> to guest."
->>
->> Would adding the above to the commit message clarify the intended
->> implementation?
-> It would improve things, at least hinting towards there being a connection
-> between exposure and updating on entry to Xen. I'd like to ask though to
-> avoid "context switch" when talking about entry from guest context. While
-> in a way technically correct, our normal meaning of the term is the
-> process of switching vCPU-s out/in on a pCPU.
+On Mon, Jan 29, 2024 at 05:44:56PM +0100, Philippe Mathieu-Daudé wrote:
+> Date: Mon, 29 Jan 2024 17:44:56 +0100
+> From: Philippe Mathieu-Daudé <philmd@linaro.org>
+> Subject: [PATCH v3 14/29] target/i386: Prefer fast cpu_env() over slower
+>  CPU QOM cast macro
+> X-Mailer: git-send-email 2.41.0
+> 
+> Mechanical patch produced running the command documented
+> in scripts/coccinelle/cpu_env.cocci_template header.
+> 
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+> ---
+>  target/i386/hvf/vmx.h                | 13 ++-------
+>  hw/i386/fw_cfg.c                     |  3 +-
+>  hw/i386/vmmouse.c                    |  6 ++--
+>  hw/i386/xen/xen-hvm.c                |  3 +-
+>  target/i386/arch_dump.c              | 11 ++------
+>  target/i386/arch_memory_mapping.c    |  3 +-
+>  target/i386/cpu-dump.c               |  3 +-
+>  target/i386/cpu.c                    | 37 ++++++++----------------
+>  target/i386/helper.c                 | 42 ++++++++--------------------
+>  target/i386/hvf/hvf.c                |  8 ++----
+>  target/i386/hvf/x86.c                |  4 +--
+>  target/i386/hvf/x86_emu.c            |  6 ++--
+>  target/i386/hvf/x86_task.c           | 10 ++-----
+>  target/i386/hvf/x86hvf.c             |  9 ++----
+>  target/i386/kvm/kvm.c                |  6 ++--
+>  target/i386/kvm/xen-emu.c            | 32 +++++++--------------
+>  target/i386/tcg/sysemu/bpt_helper.c  |  3 +-
+>  target/i386/tcg/sysemu/excp_helper.c |  3 +-
+>  target/i386/tcg/tcg-cpu.c            | 14 +++-------
+>  target/i386/tcg/user/excp_helper.c   |  6 ++--
+>  target/i386/tcg/user/seg_helper.c    |  3 +-
+>  21 files changed, 67 insertions(+), 158 deletions(-)
 
-The guests can only see MSR_SPEC_CTRL when Xen knows (and is) context
-switching them properly.
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
 
-The logic is weird for legacy IBRS reasons, but I don't think any
-further justification is necessary.
-
-~Andrew
+> 
+> diff --git a/target/i386/hvf/vmx.h b/target/i386/hvf/vmx.h
+> index 0fffcfa46c..1ad042269b 100644
+> --- a/target/i386/hvf/vmx.h
+> +++ b/target/i386/hvf/vmx.h
+> @@ -175,8 +175,7 @@ static inline void macvm_set_cr4(hv_vcpuid_t vcpu, uint64_t cr4)
+>  
+>  static inline void macvm_set_rip(CPUState *cpu, uint64_t rip)
+>  {
+> -    X86CPU *x86_cpu = X86_CPU(cpu);
+> -    CPUX86State *env = &x86_cpu->env;
+> +    CPUX86State *env = cpu_env(cpu);
+>      uint64_t val;
+>  
+>      /* BUG, should take considering overlap.. */
+> @@ -196,10 +195,7 @@ static inline void macvm_set_rip(CPUState *cpu, uint64_t rip)
+>  
+>  static inline void vmx_clear_nmi_blocking(CPUState *cpu)
+>  {
+> -    X86CPU *x86_cpu = X86_CPU(cpu);
+> -    CPUX86State *env = &x86_cpu->env;
+> -
+> -    env->hflags2 &= ~HF2_NMI_MASK;
+> +    cpu_env(cpu)->hflags2 &= ~HF2_NMI_MASK;
+>      uint32_t gi = (uint32_t) rvmcs(cpu->accel->fd, VMCS_GUEST_INTERRUPTIBILITY);
+>      gi &= ~VMCS_INTERRUPTIBILITY_NMI_BLOCKING;
+>      wvmcs(cpu->accel->fd, VMCS_GUEST_INTERRUPTIBILITY, gi);
+> @@ -207,10 +203,7 @@ static inline void vmx_clear_nmi_blocking(CPUState *cpu)
+>  
+>  static inline void vmx_set_nmi_blocking(CPUState *cpu)
+>  {
+> -    X86CPU *x86_cpu = X86_CPU(cpu);
+> -    CPUX86State *env = &x86_cpu->env;
+> -
+> -    env->hflags2 |= HF2_NMI_MASK;
+> +    cpu_env(cpu)->hflags2 |= HF2_NMI_MASK;
+>      uint32_t gi = (uint32_t)rvmcs(cpu->accel->fd, VMCS_GUEST_INTERRUPTIBILITY);
+>      gi |= VMCS_INTERRUPTIBILITY_NMI_BLOCKING;
+>      wvmcs(cpu->accel->fd, VMCS_GUEST_INTERRUPTIBILITY, gi);
+> diff --git a/hw/i386/fw_cfg.c b/hw/i386/fw_cfg.c
+> index 7362daa45a..5239cd40fa 100644
+> --- a/hw/i386/fw_cfg.c
+> +++ b/hw/i386/fw_cfg.c
+> @@ -155,8 +155,7 @@ FWCfgState *fw_cfg_arch_create(MachineState *ms,
+>  
+>  void fw_cfg_build_feature_control(MachineState *ms, FWCfgState *fw_cfg)
+>  {
+> -    X86CPU *cpu = X86_CPU(ms->possible_cpus->cpus[0].cpu);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(ms->possible_cpus->cpus[0].cpu);
+>      uint32_t unused, ebx, ecx, edx;
+>      uint64_t feature_control_bits = 0;
+>      uint64_t *val;
+> diff --git a/hw/i386/vmmouse.c b/hw/i386/vmmouse.c
+> index a8d014d09a..f292a14a15 100644
+> --- a/hw/i386/vmmouse.c
+> +++ b/hw/i386/vmmouse.c
+> @@ -74,8 +74,7 @@ struct VMMouseState {
+>  
+>  static void vmmouse_get_data(uint32_t *data)
+>  {
+> -    X86CPU *cpu = X86_CPU(current_cpu);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(current_cpu);
+>  
+>      data[0] = env->regs[R_EAX]; data[1] = env->regs[R_EBX];
+>      data[2] = env->regs[R_ECX]; data[3] = env->regs[R_EDX];
+> @@ -84,8 +83,7 @@ static void vmmouse_get_data(uint32_t *data)
+>  
+>  static void vmmouse_set_data(const uint32_t *data)
+>  {
+> -    X86CPU *cpu = X86_CPU(current_cpu);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(current_cpu);
+>  
+>      env->regs[R_EAX] = data[0]; env->regs[R_EBX] = data[1];
+>      env->regs[R_ECX] = data[2]; env->regs[R_EDX] = data[3];
+> diff --git a/hw/i386/xen/xen-hvm.c b/hw/i386/xen/xen-hvm.c
+> index f42621e674..61e5060117 100644
+> --- a/hw/i386/xen/xen-hvm.c
+> +++ b/hw/i386/xen/xen-hvm.c
+> @@ -487,8 +487,7 @@ static void regs_to_cpu(vmware_regs_t *vmport_regs, ioreq_t *req)
+>  
+>  static void regs_from_cpu(vmware_regs_t *vmport_regs)
+>  {
+> -    X86CPU *cpu = X86_CPU(current_cpu);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(current_cpu);
+>  
+>      vmport_regs->ebx = env->regs[R_EBX];
+>      vmport_regs->ecx = env->regs[R_ECX];
+> diff --git a/target/i386/arch_dump.c b/target/i386/arch_dump.c
+> index c290910a04..8939ff9fa9 100644
+> --- a/target/i386/arch_dump.c
+> +++ b/target/i386/arch_dump.c
+> @@ -203,7 +203,6 @@ int x86_cpu_write_elf64_note(WriteCoreDumpFunction f, CPUState *cs,
+>  int x86_cpu_write_elf32_note(WriteCoreDumpFunction f, CPUState *cs,
+>                               int cpuid, DumpState *s)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+>      x86_elf_prstatus prstatus;
+>      Elf32_Nhdr *note;
+>      char *buf;
+> @@ -211,7 +210,7 @@ int x86_cpu_write_elf32_note(WriteCoreDumpFunction f, CPUState *cs,
+>      const char *name = "CORE";
+>      int ret;
+>  
+> -    x86_fill_elf_prstatus(&prstatus, &cpu->env, cpuid);
+> +    x86_fill_elf_prstatus(&prstatus, cpu_env(cs), cpuid);
+>      descsz = sizeof(x86_elf_prstatus);
+>      note_size = ELF_NOTE_SIZE(sizeof(Elf32_Nhdr), name_size, descsz);
+>      note = g_malloc0(note_size);
+> @@ -381,17 +380,13 @@ static inline int cpu_write_qemu_note(WriteCoreDumpFunction f,
+>  int x86_cpu_write_elf64_qemunote(WriteCoreDumpFunction f, CPUState *cs,
+>                                   DumpState *s)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -
+> -    return cpu_write_qemu_note(f, &cpu->env, s, 1);
+> +    return cpu_write_qemu_note(f, cpu_env(cs), s, 1);
+>  }
+>  
+>  int x86_cpu_write_elf32_qemunote(WriteCoreDumpFunction f, CPUState *cs,
+>                                   DumpState *s)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -
+> -    return cpu_write_qemu_note(f, &cpu->env, s, 0);
+> +    return cpu_write_qemu_note(f, cpu_env(cs), s, 0);
+>  }
+>  
+>  int cpu_get_dump_info(ArchDumpInfo *info,
+> diff --git a/target/i386/arch_memory_mapping.c b/target/i386/arch_memory_mapping.c
+> index d1ff659128..c0604d5956 100644
+> --- a/target/i386/arch_memory_mapping.c
+> +++ b/target/i386/arch_memory_mapping.c
+> @@ -269,8 +269,7 @@ static void walk_pml5e(MemoryMappingList *list, AddressSpace *as,
+>  bool x86_cpu_get_memory_mapping(CPUState *cs, MemoryMappingList *list,
+>                                  Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>      int32_t a20_mask;
+>  
+>      if (!cpu_paging_enabled(cs)) {
+> diff --git a/target/i386/cpu-dump.c b/target/i386/cpu-dump.c
+> index 40697064d9..5459d84abd 100644
+> --- a/target/i386/cpu-dump.c
+> +++ b/target/i386/cpu-dump.c
+> @@ -343,8 +343,7 @@ void x86_cpu_dump_local_apic_state(CPUState *cs, int flags)
+>  
+>  void x86_cpu_dump_state(CPUState *cs, FILE *f, int flags)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>      int eflags, i, nb;
+>      char cc_op_name[32];
+>      static const char *seg_name[6] = { "ES", "CS", "SS", "DS", "FS", "GS" };
+> diff --git a/target/i386/cpu.c b/target/i386/cpu.c
+> index 66345c204a..5d7a266d27 100644
+> --- a/target/i386/cpu.c
+> +++ b/target/i386/cpu.c
+> @@ -5062,8 +5062,7 @@ static void x86_cpuid_version_get_family(Object *obj, Visitor *v,
+>                                           const char *name, void *opaque,
+>                                           Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(CPU(obj));
+>      int64_t value;
+>  
+>      value = (env->cpuid_version >> 8) & 0xf;
+> @@ -5077,8 +5076,7 @@ static void x86_cpuid_version_set_family(Object *obj, Visitor *v,
+>                                           const char *name, void *opaque,
+>                                           Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(CPU(obj));
+>      const int64_t min = 0;
+>      const int64_t max = 0xff + 0xf;
+>      int64_t value;
+> @@ -5104,8 +5102,7 @@ static void x86_cpuid_version_get_model(Object *obj, Visitor *v,
+>                                          const char *name, void *opaque,
+>                                          Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(CPU(obj));
+>      int64_t value;
+>  
+>      value = (env->cpuid_version >> 4) & 0xf;
+> @@ -5117,8 +5114,7 @@ static void x86_cpuid_version_set_model(Object *obj, Visitor *v,
+>                                          const char *name, void *opaque,
+>                                          Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(CPU(obj));
+>      const int64_t min = 0;
+>      const int64_t max = 0xff;
+>      int64_t value;
+> @@ -5140,11 +5136,9 @@ static void x86_cpuid_version_get_stepping(Object *obj, Visitor *v,
+>                                             const char *name, void *opaque,
+>                                             Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+>      int64_t value;
+>  
+> -    value = env->cpuid_version & 0xf;
+> +    value = cpu_env(CPU(obj))->cpuid_version & 0xf;
+>      visit_type_int(v, name, &value, errp);
+>  }
+>  
+> @@ -5152,8 +5146,7 @@ static void x86_cpuid_version_set_stepping(Object *obj, Visitor *v,
+>                                             const char *name, void *opaque,
+>                                             Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(CPU(obj));
+>      const int64_t min = 0;
+>      const int64_t max = 0xf;
+>      int64_t value;
+> @@ -5173,8 +5166,7 @@ static void x86_cpuid_version_set_stepping(Object *obj, Visitor *v,
+>  
+>  static char *x86_cpuid_get_vendor(Object *obj, Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(CPU(obj));
+>      char *value;
+>  
+>      value = g_malloc(CPUID_VENDOR_SZ + 1);
+> @@ -5186,8 +5178,7 @@ static char *x86_cpuid_get_vendor(Object *obj, Error **errp)
+>  static void x86_cpuid_set_vendor(Object *obj, const char *value,
+>                                   Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(CPU(obj));
+>      int i;
+>  
+>      if (strlen(value) != CPUID_VENDOR_SZ) {
+> @@ -5208,8 +5199,7 @@ static void x86_cpuid_set_vendor(Object *obj, const char *value,
+>  
+>  static char *x86_cpuid_get_model_id(Object *obj, Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(CPU(obj));
+>      char *value;
+>      int i;
+>  
+> @@ -5224,8 +5214,7 @@ static char *x86_cpuid_get_model_id(Object *obj, Error **errp)
+>  static void x86_cpuid_set_model_id(Object *obj, const char *model_id,
+>                                     Error **errp)
+>  {
+> -    X86CPU *cpu = X86_CPU(obj);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(CPU(obj));
+>      int c, len, i;
+>  
+>      if (model_id == NULL) {
+> @@ -7673,8 +7662,7 @@ static vaddr x86_cpu_get_pc(CPUState *cs)
+>  
+>  int x86_cpu_pending_interrupt(CPUState *cs, int interrupt_request)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>  #if !defined(CONFIG_USER_ONLY)
+>      if (interrupt_request & CPU_INTERRUPT_POLL) {
+> @@ -7722,8 +7710,7 @@ static bool x86_cpu_has_work(CPUState *cs)
+>  
+>  static void x86_disas_set_info(CPUState *cs, disassemble_info *info)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      info->mach = (env->hflags & HF_CS64_MASK ? bfd_mach_x86_64
+>                    : env->hflags & HF_CS32_MASK ? bfd_mach_i386_i386
+> diff --git a/target/i386/helper.c b/target/i386/helper.c
+> index 2070dd0dda..4c11ef70f0 100644
+> --- a/target/i386/helper.c
+> +++ b/target/i386/helper.c
+> @@ -230,8 +230,7 @@ void cpu_x86_update_cr4(CPUX86State *env, uint32_t new_cr4)
+>  hwaddr x86_cpu_get_phys_page_attrs_debug(CPUState *cs, vaddr addr,
+>                                           MemTxAttrs *attrs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>      target_ulong pde_addr, pte_addr;
+>      uint64_t pte;
+>      int32_t a20_mask;
+> @@ -373,8 +372,7 @@ static void emit_guest_memory_failure(MemoryFailureAction action, bool ar,
+>  static void do_inject_x86_mce(CPUState *cs, run_on_cpu_data data)
+>  {
+>      MCEInjectionParams *params = data.host_ptr;
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *cenv = &cpu->env;
+> +    CPUX86State *cenv = cpu_env(cs);
+>      uint64_t *banks = cenv->mce_banks + 4 * params->bank;
+>      g_autofree char *msg = NULL;
+>      bool need_reset = false;
+> @@ -625,9 +623,7 @@ void cpu_load_efer(CPUX86State *env, uint64_t val)
+>  
+>  uint8_t x86_ldub_phys(CPUState *cs, hwaddr addr)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -    MemTxAttrs attrs = cpu_get_mem_attrs(env);
+> +    MemTxAttrs attrs = cpu_get_mem_attrs(cpu_env(cs));
+>      AddressSpace *as = cpu_addressspace(cs, attrs);
+>  
+>      return address_space_ldub(as, addr, attrs, NULL);
+> @@ -635,9 +631,7 @@ uint8_t x86_ldub_phys(CPUState *cs, hwaddr addr)
+>  
+>  uint32_t x86_lduw_phys(CPUState *cs, hwaddr addr)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -    MemTxAttrs attrs = cpu_get_mem_attrs(env);
+> +    MemTxAttrs attrs = cpu_get_mem_attrs(cpu_env(cs));
+>      AddressSpace *as = cpu_addressspace(cs, attrs);
+>  
+>      return address_space_lduw(as, addr, attrs, NULL);
+> @@ -645,9 +639,7 @@ uint32_t x86_lduw_phys(CPUState *cs, hwaddr addr)
+>  
+>  uint32_t x86_ldl_phys(CPUState *cs, hwaddr addr)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -    MemTxAttrs attrs = cpu_get_mem_attrs(env);
+> +    MemTxAttrs attrs = cpu_get_mem_attrs(cpu_env(cs));
+>      AddressSpace *as = cpu_addressspace(cs, attrs);
+>  
+>      return address_space_ldl(as, addr, attrs, NULL);
+> @@ -655,9 +647,7 @@ uint32_t x86_ldl_phys(CPUState *cs, hwaddr addr)
+>  
+>  uint64_t x86_ldq_phys(CPUState *cs, hwaddr addr)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -    MemTxAttrs attrs = cpu_get_mem_attrs(env);
+> +    MemTxAttrs attrs = cpu_get_mem_attrs(cpu_env(cs));
+>      AddressSpace *as = cpu_addressspace(cs, attrs);
+>  
+>      return address_space_ldq(as, addr, attrs, NULL);
+> @@ -665,9 +655,7 @@ uint64_t x86_ldq_phys(CPUState *cs, hwaddr addr)
+>  
+>  void x86_stb_phys(CPUState *cs, hwaddr addr, uint8_t val)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -    MemTxAttrs attrs = cpu_get_mem_attrs(env);
+> +    MemTxAttrs attrs = cpu_get_mem_attrs(cpu_env(cs));
+>      AddressSpace *as = cpu_addressspace(cs, attrs);
+>  
+>      address_space_stb(as, addr, val, attrs, NULL);
+> @@ -675,9 +663,7 @@ void x86_stb_phys(CPUState *cs, hwaddr addr, uint8_t val)
+>  
+>  void x86_stl_phys_notdirty(CPUState *cs, hwaddr addr, uint32_t val)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -    MemTxAttrs attrs = cpu_get_mem_attrs(env);
+> +    MemTxAttrs attrs = cpu_get_mem_attrs(cpu_env(cs));
+>      AddressSpace *as = cpu_addressspace(cs, attrs);
+>  
+>      address_space_stl_notdirty(as, addr, val, attrs, NULL);
+> @@ -685,9 +671,7 @@ void x86_stl_phys_notdirty(CPUState *cs, hwaddr addr, uint32_t val)
+>  
+>  void x86_stw_phys(CPUState *cs, hwaddr addr, uint32_t val)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -    MemTxAttrs attrs = cpu_get_mem_attrs(env);
+> +    MemTxAttrs attrs = cpu_get_mem_attrs(cpu_env(cs));
+>      AddressSpace *as = cpu_addressspace(cs, attrs);
+>  
+>      address_space_stw(as, addr, val, attrs, NULL);
+> @@ -695,9 +679,7 @@ void x86_stw_phys(CPUState *cs, hwaddr addr, uint32_t val)
+>  
+>  void x86_stl_phys(CPUState *cs, hwaddr addr, uint32_t val)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -    MemTxAttrs attrs = cpu_get_mem_attrs(env);
+> +    MemTxAttrs attrs = cpu_get_mem_attrs(cpu_env(cs));
+>      AddressSpace *as = cpu_addressspace(cs, attrs);
+>  
+>      address_space_stl(as, addr, val, attrs, NULL);
+> @@ -705,9 +687,7 @@ void x86_stl_phys(CPUState *cs, hwaddr addr, uint32_t val)
+>  
+>  void x86_stq_phys(CPUState *cs, hwaddr addr, uint64_t val)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -    MemTxAttrs attrs = cpu_get_mem_attrs(env);
+> +    MemTxAttrs attrs = cpu_get_mem_attrs(cpu_env(cs));
+>      AddressSpace *as = cpu_addressspace(cs, attrs);
+>  
+>      address_space_stq(as, addr, val, attrs, NULL);
+> diff --git a/target/i386/hvf/hvf.c b/target/i386/hvf/hvf.c
+> index 11ffdd4c69..772578e3f4 100644
+> --- a/target/i386/hvf/hvf.c
+> +++ b/target/i386/hvf/hvf.c
+> @@ -159,10 +159,7 @@ static bool ept_emulation_fault(hvf_slot *slot, uint64_t gpa, uint64_t ept_qual)
+>  
+>  void hvf_arch_vcpu_destroy(CPUState *cpu)
+>  {
+> -    X86CPU *x86_cpu = X86_CPU(cpu);
+> -    CPUX86State *env = &x86_cpu->env;
+> -
+> -    g_free(env->hvf_mmio_buf);
+> +    g_free(cpu_env(cpu)->hvf_mmio_buf);
+>  }
+>  
+>  static void init_tsc_freq(CPUX86State *env)
+> @@ -313,8 +310,7 @@ int hvf_arch_init_vcpu(CPUState *cpu)
+>  
+>  static void hvf_store_events(CPUState *cpu, uint32_t ins_len, uint64_t idtvec_info)
+>  {
+> -    X86CPU *x86_cpu = X86_CPU(cpu);
+> -    CPUX86State *env = &x86_cpu->env;
+> +    CPUX86State *env = cpu_env(cpu);
+>  
+>      env->exception_nr = -1;
+>      env->exception_pending = 0;
+> diff --git a/target/i386/hvf/x86.c b/target/i386/hvf/x86.c
+> index 80e36136d0..932635232b 100644
+> --- a/target/i386/hvf/x86.c
+> +++ b/target/i386/hvf/x86.c
+> @@ -128,9 +128,7 @@ bool x86_is_real(CPUState *cpu)
+>  
+>  bool x86_is_v8086(CPUState *cpu)
+>  {
+> -    X86CPU *x86_cpu = X86_CPU(cpu);
+> -    CPUX86State *env = &x86_cpu->env;
+> -    return x86_is_protected(cpu) && (env->eflags & VM_MASK);
+> +    return x86_is_protected(cpu) && (cpu_env(cpu)->eflags & VM_MASK);
+>  }
+>  
+>  bool x86_is_long_mode(CPUState *cpu)
+> diff --git a/target/i386/hvf/x86_emu.c b/target/i386/hvf/x86_emu.c
+> index 3a3f0a50d0..0d13b32f91 100644
+> --- a/target/i386/hvf/x86_emu.c
+> +++ b/target/i386/hvf/x86_emu.c
+> @@ -1419,8 +1419,7 @@ static void init_cmd_handler()
+>  
+>  void load_regs(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      int i = 0;
+>      RRX(env, R_EAX) = rreg(cs->accel->fd, HV_X86_RAX);
+> @@ -1442,8 +1441,7 @@ void load_regs(CPUState *cs)
+>  
+>  void store_regs(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      int i = 0;
+>      wreg(cs->accel->fd, HV_X86_RAX, RAX(env));
+> diff --git a/target/i386/hvf/x86_task.c b/target/i386/hvf/x86_task.c
+> index f09bfbdda5..c173e9d883 100644
+> --- a/target/i386/hvf/x86_task.c
+> +++ b/target/i386/hvf/x86_task.c
+> @@ -33,8 +33,7 @@
+>  // TODO: taskswitch handling
+>  static void save_state_to_tss32(CPUState *cpu, struct x86_tss_segment32 *tss)
+>  {
+> -    X86CPU *x86_cpu = X86_CPU(cpu);
+> -    CPUX86State *env = &x86_cpu->env;
+> +    CPUX86State *env = cpu_env(cpu);
+>  
+>      /* CR3 and ldt selector are not saved intentionally */
+>      tss->eip = (uint32_t)env->eip;
+> @@ -58,8 +57,7 @@ static void save_state_to_tss32(CPUState *cpu, struct x86_tss_segment32 *tss)
+>  
+>  static void load_state_from_tss32(CPUState *cpu, struct x86_tss_segment32 *tss)
+>  {
+> -    X86CPU *x86_cpu = X86_CPU(cpu);
+> -    CPUX86State *env = &x86_cpu->env;
+> +    CPUX86State *env = cpu_env(cpu);
+>  
+>      wvmcs(cpu->accel->fd, VMCS_GUEST_CR3, tss->cr3);
+>  
+> @@ -128,9 +126,7 @@ void vmx_handle_task_switch(CPUState *cpu, x68_segment_selector tss_sel, int rea
+>      uint32_t desc_limit;
+>      struct x86_call_gate task_gate_desc;
+>      struct vmx_segment vmx_seg;
+> -
+> -    X86CPU *x86_cpu = X86_CPU(cpu);
+> -    CPUX86State *env = &x86_cpu->env;
+> +    CPUX86State *env = cpu_env(cpu);
+>  
+>      x86_read_segment_descriptor(cpu, &next_tss_desc, tss_sel);
+>      x86_read_segment_descriptor(cpu, &curr_tss_desc, old_tss_sel);
+> diff --git a/target/i386/hvf/x86hvf.c b/target/i386/hvf/x86hvf.c
+> index be2c46246e..10f79849b3 100644
+> --- a/target/i386/hvf/x86hvf.c
+> +++ b/target/i386/hvf/x86hvf.c
+> @@ -238,8 +238,7 @@ void hvf_get_msrs(CPUState *cs)
+>  
+>  int hvf_put_registers(CPUState *cs)
+>  {
+> -    X86CPU *x86cpu = X86_CPU(cs);
+> -    CPUX86State *env = &x86cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      wreg(cs->accel->fd, HV_X86_RAX, env->regs[R_EAX]);
+>      wreg(cs->accel->fd, HV_X86_RBX, env->regs[R_EBX]);
+> @@ -282,8 +281,7 @@ int hvf_put_registers(CPUState *cs)
+>  
+>  int hvf_get_registers(CPUState *cs)
+>  {
+> -    X86CPU *x86cpu = X86_CPU(cs);
+> -    CPUX86State *env = &x86cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      env->regs[R_EAX] = rreg(cs->accel->fd, HV_X86_RAX);
+>      env->regs[R_EBX] = rreg(cs->accel->fd, HV_X86_RBX);
+> @@ -342,8 +340,7 @@ void vmx_clear_int_window_exiting(CPUState *cs)
+>  
+>  bool hvf_inject_interrupts(CPUState *cs)
+>  {
+> -    X86CPU *x86cpu = X86_CPU(cs);
+> -    CPUX86State *env = &x86cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      uint8_t vector;
+>      uint64_t intr_type;
+> diff --git a/target/i386/kvm/kvm.c b/target/i386/kvm/kvm.c
+> index 76a66246eb..e4f1c62888 100644
+> --- a/target/i386/kvm/kvm.c
+> +++ b/target/i386/kvm/kvm.c
+> @@ -754,8 +754,7 @@ static inline bool freq_within_bounds(int freq, int target_freq)
+>  
+>  static int kvm_arch_set_tsc_khz(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>      int r, cur_freq;
+>      bool set_ioctl = false;
+>  
+> @@ -5369,8 +5368,7 @@ int kvm_arch_handle_exit(CPUState *cs, struct kvm_run *run)
+>  
+>  bool kvm_arch_stop_on_emulation_error(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      kvm_cpu_synchronize_state(cs);
+>      return !(env->cr[0] & CR0_PE_MASK) ||
+> diff --git a/target/i386/kvm/xen-emu.c b/target/i386/kvm/xen-emu.c
+> index fc2c2321ac..10350a22d1 100644
+> --- a/target/i386/kvm/xen-emu.c
+> +++ b/target/i386/kvm/xen-emu.c
+> @@ -313,10 +313,7 @@ static int kvm_xen_set_vcpu_callback_vector(CPUState *cs)
+>  
+>  static void do_set_vcpu_callback_vector(CPUState *cs, run_on_cpu_data data)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -
+> -    env->xen_vcpu_callback_vector = data.host_int;
+> +    cpu_env(cs)->xen_vcpu_callback_vector = data.host_int;
+>  
+>      if (kvm_xen_has_cap(EVTCHN_SEND)) {
+>          kvm_xen_set_vcpu_callback_vector(cs);
+> @@ -325,8 +322,7 @@ static void do_set_vcpu_callback_vector(CPUState *cs, run_on_cpu_data data)
+>  
+>  static int set_vcpu_info(CPUState *cs, uint64_t gpa)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>      MemoryRegionSection mrs = { .mr = NULL };
+>      void *vcpu_info_hva = NULL;
+>      int ret;
+> @@ -362,8 +358,7 @@ static int set_vcpu_info(CPUState *cs, uint64_t gpa)
+>  
+>  static void do_set_vcpu_info_default_gpa(CPUState *cs, run_on_cpu_data data)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      env->xen_vcpu_info_default_gpa = data.host_ulong;
+>  
+> @@ -375,8 +370,7 @@ static void do_set_vcpu_info_default_gpa(CPUState *cs, run_on_cpu_data data)
+>  
+>  static void do_set_vcpu_info_gpa(CPUState *cs, run_on_cpu_data data)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      env->xen_vcpu_info_gpa = data.host_ulong;
+>  
+> @@ -479,8 +473,7 @@ void kvm_xen_inject_vcpu_callback_vector(uint32_t vcpu_id, int type)
+>  /* Must always be called with xen_timers_lock held */
+>  static int kvm_xen_set_vcpu_timer(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      struct kvm_xen_vcpu_attr va = {
+>          .type = KVM_XEN_VCPU_ATTR_TYPE_TIMER,
+> @@ -527,8 +520,7 @@ int kvm_xen_set_vcpu_virq(uint32_t vcpu_id, uint16_t virq, uint16_t port)
+>  
+>  static void do_set_vcpu_time_info_gpa(CPUState *cs, run_on_cpu_data data)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      env->xen_vcpu_time_info_gpa = data.host_ulong;
+>  
+> @@ -538,8 +530,7 @@ static void do_set_vcpu_time_info_gpa(CPUState *cs, run_on_cpu_data data)
+>  
+>  static void do_set_vcpu_runstate_gpa(CPUState *cs, run_on_cpu_data data)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      env->xen_vcpu_runstate_gpa = data.host_ulong;
+>  
+> @@ -549,8 +540,7 @@ static void do_set_vcpu_runstate_gpa(CPUState *cs, run_on_cpu_data data)
+>  
+>  static void do_vcpu_soft_reset(CPUState *cs, run_on_cpu_data data)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      env->xen_vcpu_info_gpa = INVALID_GPA;
+>      env->xen_vcpu_info_default_gpa = INVALID_GPA;
+> @@ -1813,8 +1803,7 @@ uint16_t kvm_xen_get_evtchn_max_pirq(void)
+>  
+>  int kvm_put_xen_state(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>      uint64_t gpa;
+>      int ret;
+>  
+> @@ -1887,8 +1876,7 @@ int kvm_put_xen_state(CPUState *cs)
+>  
+>  int kvm_get_xen_state(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>      uint64_t gpa;
+>      int ret;
+>  
+> diff --git a/target/i386/tcg/sysemu/bpt_helper.c b/target/i386/tcg/sysemu/bpt_helper.c
+> index 4d96a48a3c..90d6117497 100644
+> --- a/target/i386/tcg/sysemu/bpt_helper.c
+> +++ b/target/i386/tcg/sysemu/bpt_helper.c
+> @@ -208,8 +208,7 @@ bool check_hw_breakpoints(CPUX86State *env, bool force_dr6_update)
+>  
+>  void breakpoint_handler(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      if (cs->watchpoint_hit) {
+>          if (cs->watchpoint_hit->flags & BP_CPU) {
+> diff --git a/target/i386/tcg/sysemu/excp_helper.c b/target/i386/tcg/sysemu/excp_helper.c
+> index 5b86f439ad..1afa177551 100644
+> --- a/target/i386/tcg/sysemu/excp_helper.c
+> +++ b/target/i386/tcg/sysemu/excp_helper.c
+> @@ -639,6 +639,5 @@ G_NORETURN void x86_cpu_do_unaligned_access(CPUState *cs, vaddr vaddr,
+>                                              MMUAccessType access_type,
+>                                              int mmu_idx, uintptr_t retaddr)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    handle_unaligned_access(&cpu->env, vaddr, access_type, retaddr);
+> +    handle_unaligned_access(cpu_env(cs), vaddr, access_type, retaddr);
+>  }
+> diff --git a/target/i386/tcg/tcg-cpu.c b/target/i386/tcg/tcg-cpu.c
+> index e1405b7be9..8f8fd6529d 100644
+> --- a/target/i386/tcg/tcg-cpu.c
+> +++ b/target/i386/tcg/tcg-cpu.c
+> @@ -29,8 +29,7 @@
+>  
+>  static void x86_cpu_exec_enter(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      CC_SRC = env->eflags & (CC_O | CC_S | CC_Z | CC_A | CC_P | CC_C);
+>      env->df = 1 - (2 * ((env->eflags >> 10) & 1));
+> @@ -40,8 +39,7 @@ static void x86_cpu_exec_enter(CPUState *cs)
+>  
+>  static void x86_cpu_exec_exit(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      env->eflags = cpu_compute_eflags(env);
+>  }
+> @@ -65,8 +63,7 @@ static void x86_restore_state_to_opc(CPUState *cs,
+>                                       const TranslationBlock *tb,
+>                                       const uint64_t *data)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>      int cc_op = data[1];
+>      uint64_t new_pc;
+>  
+> @@ -96,11 +93,8 @@ static void x86_restore_state_to_opc(CPUState *cs,
+>  #ifndef CONFIG_USER_ONLY
+>  static bool x86_debug_check_breakpoint(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> -
+>      /* RF disables all architectural breakpoints. */
+> -    return !(env->eflags & RF_MASK);
+> +    return !(cpu_env(cs)->eflags & RF_MASK);
+>  }
+>  #endif
+>  
+> diff --git a/target/i386/tcg/user/excp_helper.c b/target/i386/tcg/user/excp_helper.c
+> index b3bdb7831a..9ea5566149 100644
+> --- a/target/i386/tcg/user/excp_helper.c
+> +++ b/target/i386/tcg/user/excp_helper.c
+> @@ -26,8 +26,7 @@ void x86_cpu_record_sigsegv(CPUState *cs, vaddr addr,
+>                              MMUAccessType access_type,
+>                              bool maperr, uintptr_t ra)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      /*
+>       * The error_code that hw reports as part of the exception frame
+> @@ -52,6 +51,5 @@ void x86_cpu_record_sigsegv(CPUState *cs, vaddr addr,
+>  void x86_cpu_record_sigbus(CPUState *cs, vaddr addr,
+>                             MMUAccessType access_type, uintptr_t ra)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    handle_unaligned_access(&cpu->env, addr, access_type, ra);
+> +    handle_unaligned_access(cpu_env(cs), addr, access_type, ra);
+>  }
+> diff --git a/target/i386/tcg/user/seg_helper.c b/target/i386/tcg/user/seg_helper.c
+> index c45f2ac2ba..2f89dbb51e 100644
+> --- a/target/i386/tcg/user/seg_helper.c
+> +++ b/target/i386/tcg/user/seg_helper.c
+> @@ -78,8 +78,7 @@ static void do_interrupt_user(CPUX86State *env, int intno, int is_int,
+>  
+>  void x86_cpu_do_interrupt(CPUState *cs)
+>  {
+> -    X86CPU *cpu = X86_CPU(cs);
+> -    CPUX86State *env = &cpu->env;
+> +    CPUX86State *env = cpu_env(cs);
+>  
+>      /* if user mode only, we simulate a fake exception
+>         which will be handled outside the cpu execution
+> -- 
+> 2.41.0
+> 
+> 
 
