@@ -2,34 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 100EF842E1E
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 21:44:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673683.1048118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20517842EA1
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 22:28:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673690.1048127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUuxs-0002Br-GD; Tue, 30 Jan 2024 20:44:16 +0000
+	id 1rUvdT-0001hE-PC; Tue, 30 Jan 2024 21:27:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673683.1048118; Tue, 30 Jan 2024 20:44:16 +0000
+Received: by outflank-mailman (output) from mailman id 673690.1048127; Tue, 30 Jan 2024 21:27:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUuxs-00029n-DI; Tue, 30 Jan 2024 20:44:16 +0000
-Received: by outflank-mailman (input) for mailman id 673683;
- Tue, 30 Jan 2024 20:44:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rUvdT-0001ei-MZ; Tue, 30 Jan 2024 21:27:15 +0000
+Received: by outflank-mailman (input) for mailman id 673690;
+ Tue, 30 Jan 2024 21:27:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UYGG=JI=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1rUuxr-00029f-Ex
- for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 20:44:15 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5164ea99-bfb0-11ee-98f5-efadbce2ee36;
- Tue, 30 Jan 2024 21:44:11 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id B8CB5CE1B44;
- Tue, 30 Jan 2024 20:44:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94EBFC433F1;
- Tue, 30 Jan 2024 20:44:04 +0000 (UTC)
+ <SRS0=Trk4=JI=citrix.com=prvs=75271d196=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1rUvdS-0001ea-2p
+ for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 21:27:14 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 52f8477b-bfb6-11ee-8a43-1f161083a0e0;
+ Tue, 30 Jan 2024 22:27:11 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,114 +36,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5164ea99-bfb0-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1706647444;
-	bh=bPw6ruebyasCXorT1LdxWx1GajiUvbLKrTDw9DFK5FA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=r3Am/ZUFJ5LvciFl7LpCgQQZ28jpBwPyRmGVj9C9/vS9yk40Aa7U+KC6hq/oO2B7n
-	 wDQJ8uK7Ltr51lQF8BQiAA8Skty5QBeFsH0/3E1VTaUey75oUEjjsZccrwn+o0MZeE
-	 Miv8UzxNckXMSMLvDHFGUgNXH0sZypZ7xRpaMpeTurT916gRzkt54hEEq2RxhsCyxH
-	 s9nK0ukGPiRl9D3B/hcIKbaI2t/XGCd1zfkzJo3hNN89BP3waa48nxA5jOnij4C3r2
-	 kY5KfQ5U4IsSneu4O25TjKls3lCrZLcTzm7OdlZZdjiu5xgCsOncdeDuXSXJQsxfgP
-	 3wdiZdO2KG//w==
-Date: Tue, 30 Jan 2024 14:44:03 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
-	"Huang, Ray" <Ray.Huang@amd.com>,
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>
-Subject: Re: [RFC KERNEL PATCH v4 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
-Message-ID: <20240130204403.GA562912@bhelgaas>
+X-Inumbo-ID: 52f8477b-bfb6-11ee-8a43-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1706650031;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=8y0bRSy0+N/o2vbhG8udrGq58MblxfpHPx6TknWZBpE=;
+  b=dJHfP8GlZA6/DnU+qfXceJZ1gN+AsDliVziE9gOWzyWHwUT7tST1EyDg
+   NYIv+qcEH5x/p5LhlLoMhbLILqXpzYl3zjWX4KOKGZy6nlj0zaYmIhFOH
+   fBJK41nt9pQsnZkgDrfJyxJc6GSkHsTGPynMpuq4q9dgkOkFtxbugXGTI
+   Q=;
+X-CSE-ConnectionGUID: KQ4cbhfqRrSN6M/d6A1Y/Q==
+X-CSE-MsgGUID: apOJKLZQTQSLxtle0/aegA==
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 130226928
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.159.70
+X-Policy: $RELAYED
+X-ThreatScanner-Verdict: Negative
+IronPort-Data: A9a23:dg8OEatce/cKYMngfwnTtSUcYefnVC1eMUV32f8akzHdYApBsoF/q
+ tZmKWrVaauJZTajfth+bYu/pEkPsJ7cytE3HFE4r31mHy4b+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVaicfHg3HFc4IMsYoUoLs/YjhYJ1isSODQqIu
+ Nfjy+XSI1bg0DNvWo4uw/vrRChH4rKq5Vv0gnRkPaoX5AaFzyFPZH4iDfrZw0XQE9E88tGSH
+ 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
+ Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
+ fMwCwlRZRqDifuM2omdFMwripoKdfisBdZK0p1g5Wmx4fcORJnCR+PB5MNC3Sd2jcdLdRrcT
+ 5NHM3w1Nk2GOkAefAhPYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27B/
+ TqcpTqoWEFy2Nq3wCKi0FGItNbzpBjfSJ4WGeX///NlqQjGroAUIEJPDgbqyRWjsWauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O/Ez7QiW4rbX5wufCXkJSnhKb9lOnO0cSCEu1
+ 1SJt8j0HjEpu7qQIVqG7audpz62PSkTLEcBaDUCQA9D5MPsyKksijrfQ9AlF7S65vX3BDXxz
+ jaivCU4wbIJgqY2O76TpA6dxWj2/96QE19zuV2/sn+ZAh1RR7f5bIao50Hh981mcqPeQgeo5
+ UlDop3LhAwRNq1hhBBhUc1UQ+n3ua/UYWKA6WODCaXN4NhExpJCQWyzyGsnTKuRGpxYEQIFm
+ WeK0e+r2LddPWGxcYh8aJ+rBsIhwMDITIu9CK6INoIVPMQpKmdrGR2CgmbJgQjQfLUEy/lja
+ f93j+7yZZrlNUiX5GXvHLpMuVPa7is/2XnSVfjG8vhT6pLHPCT9Ye5cYDOzghURsPvsTPP9r
+ 4wOaKNnCnx3DIXDX8Ug2dVOcQhVfCJnXMCeRg4+XrfrHzeK0VoJU5f5qY7NsaQ890iJvo8kJ
+ k2AZ3I=
+IronPort-HdrOrdr: A9a23:3zu1oazKIrJCmTgXm5Q8KrPwIL1zdoMgy1knxilNoRw8SKKlfq
+ eV7ZAmPH7P+VAssR4b+exoVJPtfZq+z+8R3WByB8bAYOCOggLBR+sO0WKL+UyGJ8SUzI9gPM
+ lbHJSWcOeAb2RHsQ==
+X-Talos-CUID: 9a23:myqF2G4MyPKkP7wWutss13dIEcolfGTn1kz2fWr/BThAEYzScArF
+X-Talos-MUID: =?us-ascii?q?9a23=3Aob/xeAzwSNpeV0KCbHqk2wovw/qaqK22L2Iutac?=
+ =?us-ascii?q?/h/C/ETxsPzrFyz26TaZyfw=3D=3D?=
+X-IronPort-AV: E=Sophos;i="6.05,230,1701147600"; 
+   d="scan'208";a="130226928"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Tamas K Lengyel
+	<tamas@tklengyel.com>, George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Julien Grall <julien@xen.org>
+Subject: [PATCH] xen/sched: Fix UB shift in compat_set_timer_op()
+Date: Tue, 30 Jan 2024 21:27:05 +0000
+Message-ID: <20240130212706.74303-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <Zbi8WJPEUSMgjuVY@macbook>
+Content-Type: text/plain
 
-On Tue, Jan 30, 2024 at 10:07:36AM +0100, Roger Pau Monné wrote:
-> On Mon, Jan 29, 2024 at 04:01:13PM -0600, Bjorn Helgaas wrote:
-> > On Thu, Jan 25, 2024 at 07:17:24AM +0000, Chen, Jiqian wrote:
-> > > On 2024/1/24 00:02, Bjorn Helgaas wrote:
-> > > > On Tue, Jan 23, 2024 at 10:13:52AM +0000, Chen, Jiqian wrote:
-> > > >> On 2024/1/23 07:37, Bjorn Helgaas wrote:
-> > > >>> On Fri, Jan 05, 2024 at 02:22:17PM +0800, Jiqian Chen wrote:
-> > > >>>> There is a need for some scenarios to use gsi sysfs.
-> > > >>>> For example, when xen passthrough a device to dumU, it will
-> > > >>>> use gsi to map pirq, but currently userspace can't get gsi
-> > > >>>> number.
-> > > >>>> So, add gsi sysfs for that and for other potential scenarios.
-> > > >> ...
-> > > > 
-> > > >>> I don't know enough about Xen to know why it needs the GSI in
-> > > >>> userspace.  Is this passthrough brand new functionality that can't be
-> > > >>> done today because we don't expose the GSI yet?
-> > 
-> > I assume this must be new functionality, i.e., this kind of
-> > passthrough does not work today, right?
-> > 
-> > > >> has ACPI support and is responsible for detecting and controlling
-> > > >> the hardware, also it performs privileged operations such as the
-> > > >> creation of normal (unprivileged) domains DomUs. When we give to a
-> > > >> DomU direct access to a device, we need also to route the physical
-> > > >> interrupts to the DomU. In order to do so Xen needs to setup and map
-> > > >> the interrupts appropriately.
-> > > > 
-> > > > What kernel interfaces are used for this setup and mapping?
-> > >
-> > > For passthrough devices, the setup and mapping of routing physical
-> > > interrupts to DomU are done on Xen hypervisor side, hypervisor only
-> > > need userspace to provide the GSI info, see Xen code:
-> > > xc_physdev_map_pirq require GSI and then will call hypercall to pass
-> > > GSI into hypervisor and then hypervisor will do the mapping and
-> > > routing, kernel doesn't do the setup and mapping.
-> > 
-> > So we have to expose the GSI to userspace not because userspace itself
-> > uses it, but so userspace can turn around and pass it back into the
-> > kernel?
-> 
-> No, the point is to pass it back to Xen, which doesn't know the
-> mapping between GSIs and PCI devices because it can't execute the ACPI
-> AML resource methods that provide such information.
-> 
-> The (Linux) kernel is just a proxy that forwards the hypercalls from
-> user-space tools into Xen.
+Tamas reported this UBSAN failure from fuzzing:
 
-But I guess Xen knows how to interpret a GSI even though it doesn't
-have access to AML?
+  (XEN) ================================================================================
+  (XEN) UBSAN: Undefined behaviour in common/sched/compat.c:48:37
+  (XEN) left shift of negative value -2147425536
+  (XEN) ----[ Xen-4.19-unstable  x86_64  debug=y ubsan=y  Not tainted ]----
+  ...
+  (XEN) Xen call trace:
+  (XEN)    [<ffff82d040307c1c>] R ubsan.c#ubsan_epilogue+0xa/0xd9
+  (XEN)    [<ffff82d040308afb>] F __ubsan_handle_shift_out_of_bounds+0x11a/0x1c5
+  (XEN)    [<ffff82d040307758>] F compat_set_timer_op+0x41/0x43
+  (XEN)    [<ffff82d04040e4cc>] F hvm_do_multicall_call+0x77f/0xa75
+  (XEN)    [<ffff82d040519462>] F arch_do_multicall_call+0xec/0xf1
+  (XEN)    [<ffff82d040261567>] F do_multicall+0x1dc/0xde3
+  (XEN)    [<ffff82d04040d2b3>] F hvm_hypercall+0xa00/0x149a
+  (XEN)    [<ffff82d0403cd072>] F vmx_vmexit_handler+0x1596/0x279c
+  (XEN)    [<ffff82d0403d909b>] F vmx_asm_vmexit_handler+0xdb/0x200
 
-> > It seems like it would be better for userspace to pass an identifier
-> > of the PCI device itself back into the hypervisor.  Then the interface
-> > could be generic and potentially work even on non-ACPI systems where
-> > the GSI concept doesn't apply.
-> 
-> We would still need a way to pass the GSI to PCI device relation to
-> the hypervisor, and then cache such data in the hypervisor.
-> 
-> I don't think we have any preference of where such information should
-> be exposed, but given GSIs are an ACPI concept not specific to Xen
-> they should be exposed by a non-Xen specific interface.
+Left-shifting any negative value is strictly undefined behaviour in C, and
+the two parameters here come straight from the guest.
 
-AFAIK Linux doesn't expose GSIs directly to userspace yet.  The GSI
-concept relies on ACPI MADT, _MAT, _PRT, etc.  A GSI is associated
-with some device (PCI in this case) and some interrupt controller
-entry.  I don't understand how a GSI value is useful without knowing
-something about that framework in which GSIs exist.
+The fuzzer happened to choose lo 0xf, hi 0x8000e300.
 
-Obviously I know less than nothing about Xen, so I apologize for
-asking all these stupid questions, but it just doesn't all make sense
-to me yet.
+Switch everything to be unsigned values, making the shift well defined.
 
-Bjorn
+As GCC documents:
+
+  As an extension to the C language, GCC does not use the latitude given in
+  C99 and C11 only to treat certain aspects of signed '<<' as undefined.
+  However, -fsanitize=shift (and -fsanitize=undefined) will diagnose such
+  cases.
+
+this was deemed not to need an XSA.
+
+Fixes: 2942f45e09fb ("Enable compatibility mode operation for HYPERVISOR_sched_op and HYPERVISOR_set_timer_op.")
+Reported-by: Tamas K Lengyel <tamas@tklengyel.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: George Dunlap <George.Dunlap@citrix.com>
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
+CC: Julien Grall <julien@xen.org>
+---
+ xen/common/sched/compat.c    | 4 ++--
+ xen/include/hypercall-defs.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/xen/common/sched/compat.c b/xen/common/sched/compat.c
+index d718e450d40b..dd97593630ee 100644
+--- a/xen/common/sched/compat.c
++++ b/xen/common/sched/compat.c
+@@ -43,9 +43,9 @@ static int compat_poll(struct compat_sched_poll *compat)
+ 
+ #include "core.c"
+ 
+-int compat_set_timer_op(uint32_t lo, int32_t hi)
++int compat_set_timer_op(uint32_t lo, uint32_t hi)
+ {
+-    return do_set_timer_op(((s64)hi << 32) | lo);
++    return do_set_timer_op(((uint64_t)hi << 32) | lo);
+ }
+ 
+ #endif /* __COMMON_SCHED_COMPAT_C__ */
+diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
+index 6d361ddfce1b..47c093acc84d 100644
+--- a/xen/include/hypercall-defs.c
++++ b/xen/include/hypercall-defs.c
+@@ -134,7 +134,7 @@ xenoprof_op(int op, void *arg)
+ 
+ #ifdef CONFIG_COMPAT
+ prefix: compat
+-set_timer_op(uint32_t lo, int32_t hi)
++set_timer_op(uint32_t lo, uint32_t hi)
+ multicall(multicall_entry_compat_t *call_list, uint32_t nr_calls)
+ memory_op(unsigned int cmd, void *arg)
+ #ifdef CONFIG_IOREQ_SERVER
+
+base-commit: cc6ba68edf6dcd18c3865e7d7c0f1ed822796426
+prerequisite-patch-id: de9234b4d0488be5b3be5e2ec23e85789086debc
+-- 
+2.30.2
+
 
