@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1885C8420A8
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 11:07:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673283.1047614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1652D84213A
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 11:28:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673290.1047625 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUl1q-00029H-1j; Tue, 30 Jan 2024 10:07:42 +0000
+	id 1rUlKx-0007BC-KF; Tue, 30 Jan 2024 10:27:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673283.1047614; Tue, 30 Jan 2024 10:07:42 +0000
+Received: by outflank-mailman (output) from mailman id 673290.1047625; Tue, 30 Jan 2024 10:27:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUl1p-00025q-VH; Tue, 30 Jan 2024 10:07:41 +0000
-Received: by outflank-mailman (input) for mailman id 673283;
- Tue, 30 Jan 2024 10:07:41 +0000
+	id 1rUlKx-00078N-HG; Tue, 30 Jan 2024 10:27:27 +0000
+Received: by outflank-mailman (input) for mailman id 673290;
+ Tue, 30 Jan 2024 10:27:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2Zjb=JI=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1rUl1p-0001t3-5X
- for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 10:07:41 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
+ <SRS0=BUgQ=JI=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rUlKw-00075d-HD
+ for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 10:27:26 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 66e9d310-bf57-11ee-8a43-1f161083a0e0;
- Tue, 30 Jan 2024 11:07:40 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40efcb37373so7937845e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 30 Jan 2024 02:07:40 -0800 (PST)
-Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- je16-20020a05600c1f9000b0040ec66021a7sm12753644wmb.1.2024.01.30.02.07.39
+ id 28d72c99-bf5a-11ee-8a43-1f161083a0e0;
+ Tue, 30 Jan 2024 11:27:25 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40e8fec0968so44914335e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jan 2024 02:27:25 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ h9-20020a05600c350900b0040faf3df118sm494063wmq.32.2024.01.30.02.27.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jan 2024 02:07:39 -0800 (PST)
-Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 7BEC85F9D3;
- Tue, 30 Jan 2024 10:07:39 +0000 (GMT)
+ Tue, 30 Jan 2024 02:27:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,75 +44,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66e9d310-bf57-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: 28d72c99-bf5a-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706609260; x=1707214060; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+        d=citrix.com; s=google; t=1706610444; x=1707215244; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xrBGU+qDa/6KJNKxM+pthgM0a/T7J2ZKOG1Ii2mKor8=;
-        b=n9tjdI54rP2bzCS7V9/b8u3TeBPx8pdjRpNlJrvLBFMLjixBF/SK3Balppjfe6lwSN
-         kXoXwfq3Z1DNVbGW+YcbDjjis33RsFkfLZNRMX6G5MgIL7ku1TP+xBghAmFdkgeXq4hh
-         Nyawh8TjqXpFe4o19Tk59Z0r3c67imC+77csL/iyXfavoRxQWJHQbs56UXCpIeVVw5wr
-         sU/vFoprejP9C1rikU8G3zTWsYFgepJx2SVwhdL1SB7RARG8SqMSRhG6dZvQ+Mbackma
-         uSDVIjfv6k1GCV07uOKD03f4cuus8zlL5he/76YbAbJDMols8Q1m6l+6OB+tf6alnUJZ
-         Um9A==
+        bh=Ygxe54Oc/vFuzE6cnM13pQ0IrBJU0/x6Xb08+E2WI5A=;
+        b=mxpQrlV3MdTW3Qoy4/u8I3AsH1lIocVaPt9IOX3cUnBVGpAA7sed7X2SFFZV4qQ5ML
+         GFlXL9gEgCcB8kUXClh2mXCRQMB3lOxaT6EjT7aFgqKDesnIAVsvDH3ZE0ZfbnGJZT4+
+         XG2ZZK1aMdtGvuaSr6jhMgCFl/wPIws/43X1A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706609260; x=1707214060;
-        h=content-transfer-encoding:mime-version:message-id:date:user-agent
-         :references:in-reply-to:subject:cc:to:from:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=xrBGU+qDa/6KJNKxM+pthgM0a/T7J2ZKOG1Ii2mKor8=;
-        b=So+TSA1LhqgJkHZCvA/UNWmElhFnAkWopIBhlLm4PO56EwM+VZdJuFUW1yrt/93sus
-         F29mDv17+ZeW03Ry07WV0HgCI99LLSX2gnVU9/xC6RYz+ox8rl7G4Eo8kANEkKy+gIa2
-         w7jrTBPgt+x7Gb5N426XdKzHxeEDjZthu7AJ7OxRHBD0KwuEJAdr3AVbjEw0zAZvoeTZ
-         IfomRkKZVdaHMC22K3QBva+BIn6ydvpaPARvydVxAs/w3SvKAH6HBt0Q0XBoP2V1eTWX
-         Qc0yAO3arN3S8VAqpK2dCAOHBikEZg1a12djx0S6Ea3mUSEH8G0HlH6RrVdqpiZSGQ0T
-         AtIw==
-X-Gm-Message-State: AOJu0YyJZIUKe73pBdqCPr8fFAWsz+YFTBTNstwUEHBH4YJFhIxY8Ike
-	Q6jeXKvMA59vAIwL2YQLAUVa+PuWPHVOVuH5ygrf9O2mYlALZyr3gEFpAQmXN7g=
-X-Google-Smtp-Source: AGHT+IES4a1D5D/9PcTpQY4/2BqtkiUs1Bf3okY6vJmhQUyyk2+tOC1WoIESqOxxrhdVtU+DIcQgzQ==
-X-Received: by 2002:a05:600c:4f92:b0:40e:6650:b883 with SMTP id n18-20020a05600c4f9200b0040e6650b883mr6403716wmq.18.1706609260100;
-        Tue, 30 Jan 2024 02:07:40 -0800 (PST)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Cc: qemu-devel@nongnu.org,  qemu-arm@nongnu.org,  qemu-block@nongnu.org,
-  peter.maydell@linaro.org,  Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?=
- <philmd@linaro.org>,
-  Stefano Stabellini <sstabellini@kernel.org>,  Anthony Perard
- <anthony.perard@citrix.com>,  Paul Durrant <paul@xen.org>,
-  xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v3 6/6] hw/xen: convert stderr prints to error/warn reports
-In-Reply-To: <42a8953553cf68e8bacada966f93af4fbce45919.1706544115.git.manos.pitsidianakis@linaro.org>
-	(Manos Pitsidianakis's message of "Mon, 29 Jan 2024 18:09:42 +0200")
-References: <cover.1706544115.git.manos.pitsidianakis@linaro.org>
-	<42a8953553cf68e8bacada966f93af4fbce45919.1706544115.git.manos.pitsidianakis@linaro.org>
-User-Agent: mu4e 1.11.27; emacs 29.1
-Date: Tue, 30 Jan 2024 10:07:39 +0000
-Message-ID: <87zfwnp21g.fsf@draig.linaro.org>
+        d=1e100.net; s=20230601; t=1706610444; x=1707215244;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Ygxe54Oc/vFuzE6cnM13pQ0IrBJU0/x6Xb08+E2WI5A=;
+        b=H3u+jvrOUTfAR8l5jLKyF4J0VFf24HRKZx508hY8IbqvX9xF3iZ18e5fziEo/9Aab8
+         Yr0ok0griKn0JE/cgwWYLghcWOB7anic5w3NzoU7T5/KS8jD7SOcfbB31l04DnBiYBU1
+         OqztxZxDYR9+CC+2qcREWHLQSUhXDjelGD5K2gjY3zxZ0ojOsjwq7p1NLsVblBbt/0uD
+         tqMzMxY/RcRJb4acf4guQk0C1ZP6XO8yvxhcp/sFafVLl61XbgshgCT4NRWGBz7/Kc+p
+         j3Ox4fE5H/gUNGroM22YLCPvCi4RhIRuG78n0sA/JKEnLVUttigRGd/yKVzSiGE9Yj7t
+         vNWA==
+X-Gm-Message-State: AOJu0YwbADb3WVEyPP7TxrXwGeHjFUD4SxiGAwKibzEwR5K2m8w7EPud
+	i+qOFSTJZgH6/teFwm+CGyt2uzngmc++4DeMpr/ePL0FJJ+Kzg6gqTHMcrMVT4+Xvsu5+CSLLEF
+	6
+X-Google-Smtp-Source: AGHT+IH/y21ecbbJBQGgnFww+l9ax8d5rBE56KK6xIIDCWEN5QIrQqzBH/oHfulTGwUB+HKYOtRIvA==
+X-Received: by 2002:a05:600c:468d:b0:40f:4b78:7d4b with SMTP id p13-20020a05600c468d00b0040f4b787d4bmr600767wmo.41.1706610444127;
+        Tue, 30 Jan 2024 02:27:24 -0800 (PST)
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>
+Subject: [PATCH] XTF: tests SPEC_CTRL added bits
+Date: Tue, 30 Jan 2024 11:27:19 +0100
+Message-ID: <20240130102719.51150-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20240130091400.50622-1-roger.pau@citrix.com>
+References: <20240130091400.50622-1-roger.pau@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Manos Pitsidianakis <manos.pitsidianakis@linaro.org> writes:
+Dummy set/clear tests for additional spec_ctrl bits.
+---
+ docs/all-tests.dox  |   2 +
+ tests/test/Makefile |   9 ++++
+ tests/test/main.c   | 100 ++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 111 insertions(+)
+ create mode 100644 tests/test/Makefile
+ create mode 100644 tests/test/main.c
 
-> According to the QEMU Coding Style document:
->
->> Do not use printf(), fprintf() or monitor_printf(). Instead, use
->> error_report() or error_vreport() from error-report.h. This ensures the
->> error is reported in the right place (current monitor or stderr), and in
->> a uniform format.
->> Use error_printf() & friends to print additional information.
->
-> This commit changes fprintfs that report warnings and errors to the
-> appropriate report functions.
->
-> Reviewed-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
-> Signed-off-by: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+diff --git a/docs/all-tests.dox b/docs/all-tests.dox
+index 892a9e474743..5a66ac252ea5 100644
+--- a/docs/all-tests.dox
++++ b/docs/all-tests.dox
+@@ -187,3 +187,5 @@ states.
+ 
+ @subpage test-nested-vmx - Nested VT-x tests.
+ */
++# Placeholder: Merge into the appropriate location above
++@subpage test-test - @todo title
+diff --git a/tests/test/Makefile b/tests/test/Makefile
+new file mode 100644
+index 000000000000..19bc4b6a4639
+--- /dev/null
++++ b/tests/test/Makefile
+@@ -0,0 +1,9 @@
++include $(ROOT)/build/common.mk
++
++NAME      := test
++CATEGORY  := utility
++TEST-ENVS := hvm32 pv64
++
++obj-perenv += main.o
++
++include $(ROOT)/build/gen.mk
+diff --git a/tests/test/main.c b/tests/test/main.c
+new file mode 100644
+index 000000000000..9a25e95d91b7
+--- /dev/null
++++ b/tests/test/main.c
+@@ -0,0 +1,100 @@
++/**
++ * @file tests/test/main.c
++ * @ref test-test
++ *
++ * @page test-test test
++ *
++ * @todo Docs for test-test
++ *
++ * @see tests/test/main.c
++ */
++#include <xtf.h>
++
++#define MSR_SPEC_CTRL                       0x00000048
++#define  SPEC_CTRL_IPRED_DIS_U              (_AC(1, ULL) <<  3)
++#define  SPEC_CTRL_IPRED_DIS_S              (_AC(1, ULL) <<  4)
++#define  SPEC_CTRL_RRSBA_DIS_U              (_AC(1, ULL) <<  5)
++#define  SPEC_CTRL_RRSBA_DIS_S              (_AC(1, ULL) <<  6)
++#define  SPEC_CTRL_DDP_DIS_U                (_AC(1, ULL) <<  8)
++#define  SPEC_CTRL_BHI_DIS_S                (_AC(1, ULL) << 10)
++
++const char test_title[] = "SPEC_CTRL";
++
++static void update_spec_ctrl(uint64_t mask, bool set)
++{
++    uint64_t spec_ctrl = rdmsr(MSR_SPEC_CTRL);
++
++    if ( set )
++        spec_ctrl |= mask;
++    else
++        spec_ctrl &= ~mask;
++
++    wrmsr(MSR_SPEC_CTRL, spec_ctrl);
++}
++
++static void assert_spec_ctrl(uint64_t mask, bool set)
++{
++    uint64_t spec_ctrl = rdmsr(MSR_SPEC_CTRL);
++
++    if ( (spec_ctrl & mask) != (set ? mask : 0) )
++    {
++        xtf_failure("SPEC_CTRL expected: %#" PRIx64 " got: %#" PRIx64 "\n",
++                    set ? (spec_ctrl | mask) : (spec_ctrl & ~mask),
++                    spec_ctrl);
++        xtf_exit();
++    }
++}
++
++static void test_loop(uint64_t mask)
++{
++    update_spec_ctrl(mask, true);
++    assert_spec_ctrl(mask, true);
++    /* Ensure context switch to Xen. */
++    hypercall_yield();
++    assert_spec_ctrl(mask, true);
++
++    update_spec_ctrl(mask, false);
++    assert_spec_ctrl(mask, false);
++    /* Ensure context switch to Xen. */
++    hypercall_yield();
++    assert_spec_ctrl(mask, false);
++}
++
++void test_main(void)
++{
++    static const struct {
++        const char *name;
++        unsigned int feat;
++        uint64_t mask;
++    } tests[] = {
++        { "IPRED CTRL", 1, SPEC_CTRL_IPRED_DIS_U | SPEC_CTRL_IPRED_DIS_S },
++        { "RRSBA CTRL", 2, SPEC_CTRL_RRSBA_DIS_U | SPEC_CTRL_RRSBA_DIS_S },
++        { "DDP DIS", 3, SPEC_CTRL_DDP_DIS_U },
++        { "BHI DIS", 4, SPEC_CTRL_BHI_DIS_S },
++    };
++    unsigned int i;
++    uint32_t regs[4];
++
++    cpuid_count(7, 2, &regs[0], &regs[1], &regs[2], &regs[3]);
++
++    for ( i = 0; i < ARRAY_SIZE(tests); i++ )
++    {
++        if ( !test_bit(tests[i].feat, &regs[3]) )
++            continue;
++
++        printk("Testing %s\n", tests[i].name);
++        test_loop(tests[i].mask);
++    }
++
++    xtf_success(NULL);
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * tab-width: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+-- 
+2.43.0
 
-Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
-
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
 
