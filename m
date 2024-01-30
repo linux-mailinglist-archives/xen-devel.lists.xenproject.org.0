@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C09368427AD
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 16:09:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673553.1047934 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1BFF8427C2
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jan 2024 16:15:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673560.1047945 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUpjK-0005Ru-JV; Tue, 30 Jan 2024 15:08:54 +0000
+	id 1rUpp5-0007f9-7v; Tue, 30 Jan 2024 15:14:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673553.1047934; Tue, 30 Jan 2024 15:08:54 +0000
+Received: by outflank-mailman (output) from mailman id 673560.1047945; Tue, 30 Jan 2024 15:14:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rUpjK-0005Pg-GV; Tue, 30 Jan 2024 15:08:54 +0000
-Received: by outflank-mailman (input) for mailman id 673553;
- Tue, 30 Jan 2024 15:08:52 +0000
+	id 1rUpp5-0007cm-4p; Tue, 30 Jan 2024 15:14:51 +0000
+Received: by outflank-mailman (input) for mailman id 673560;
+ Tue, 30 Jan 2024 15:14:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Trk4=JI=citrix.com=prvs=75271d196=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1rUpjI-0005Pa-Aw
- for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 15:08:52 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7832b688-bf81-11ee-8a43-1f161083a0e0;
- Tue, 30 Jan 2024 16:08:50 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XFHt=JI=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rUpp4-0007cg-An
+ for xen-devel@lists.xenproject.org; Tue, 30 Jan 2024 15:14:50 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4f6c1003-bf82-11ee-8a43-1f161083a0e0;
+ Tue, 30 Jan 2024 16:14:49 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-5111ef545bfso972153e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jan 2024 07:14:49 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ l22-20020a05600c1d1600b0040ef95e1c78sm5374679wms.3.2024.01.30.07.14.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 30 Jan 2024 07:14:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,91 +45,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7832b688-bf81-11ee-8a43-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1706627330;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=HLMHriK7qQditz7wIGUQwiX09MROSVEgwt/tnEvoGNs=;
-  b=IdYtof/yO/czqYmVeJcDBxVxT94Ou1eTBxVUgvN/qviO1ksL8PINnPgs
-   nalBfSS2/AZc0+E2Ofm6ikonC9GBzXNX/V2uXeoqJeOlTEI8SylJfe+2a
-   mP5POqLclAuH+GaNDoqed0aO5TqvAUIJaVQ3Fictl8kvLEZ0cEAetuI2m
-   s=;
-X-CSE-ConnectionGUID: HPWD20hBTe24NlJXhTOTnA==
-X-CSE-MsgGUID: 1k5kzd2fS120ImIHKwuh9w==
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 129761972
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.159.70
-X-Policy: $RELAYED
-X-ThreatScanner-Verdict: Negative
-IronPort-Data: A9a23:IjC88Kl9mX/XCVkIIK6SOc3o5gzDJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xJODz2GP6reNjehKogkao6/8kIBuZTVzdRrHFdor381QSMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+e6UKicfHkpGWeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE0p5KmaVA8w5ARkOagS5g6GzRH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- dwgFxxXNhCpu+/snJS/aNlsuuMfKuC+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dMlsQYj/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9xxzJ+
- Tyfrjujav0cHIWclDmX/iiivbaVxQL+eaIxC6C4p+E/1TV/wURMUUZLBDNXu8KRmkO4Ht5SN
- UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JyOeAn7ACGyoLP/h2UQGMDS1Zpd9gOpMIwAzsw2
- Te0c8jBXGI19ufPEDTEq+bS8mva1TUpwXEqRRc7YVFd4/PfrdtvqBbtftZfN5Kzp4igcd3v+
- AxmvBTSlp1K0pZVifzqrA+b6w9AsKQlWeLc2+k2Yo5GxlkgDGJdT9b0gWU3FN4ZRGpjcnGPv
- WIfh++V5/0UAJeGmUSlGbpVQuz0vKrYbG2N3zaD+qXNERz3pxZPmqgJvllDyLpBaJ5YKVcFn
- meN0e+u2HOjFCTzNvImC25AI88r0bLhBbzYaxwgVfIXOsIZXFberElTibu4gziFfL4EzftuZ
- v92sK+EUR4nNEiQ5GPsH7dAgeJ1mX5WKKG6bcmT8ilLGIG2PBa9IYrp+nPVBgzlxMtoeDnoz
- us=
-IronPort-HdrOrdr: A9a23:48OeaK7Bw+FYnrJu5APXwMTXdLJyesId70hD6qhwISY6TiX+rb
- HIoB17726RtN9/YhEdcLy7VJVoIkmskKKdg7NhXotKNTOO0ADDQb2KhbGSpQEIcBeeygcy78
- hdmtBFeb/NMWQ=
-X-Talos-CUID: 9a23:SvHkM2xCyd5Y9pN2MeZmBgU0Iv8JKCXd5kvdeROeDURZSIGydVm5rfY=
-X-Talos-MUID: 9a23:9Fa4XgTbIlu+4b0+RXS1h2xhJssy7Z/3UhgslLQmmNaZNX1vbmI=
-X-IronPort-AV: E=Sophos;i="6.05,707,1701147600"; 
-   d="scan'208";a="129761972"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/traps: Annotate {l,c}star_enter() as nocall
-Date: Tue, 30 Jan 2024 15:08:39 +0000
-Message-ID: <20240130150839.4130909-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 4f6c1003-bf82-11ee-8a43-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1706627689; x=1707232489; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=H5qKpPPyT2bHgLKzcgC0ndj7WAiMHlxSTR3Qvxg11KY=;
+        b=C26t13S8pfNCLjQ90mYO4mxqiUDEzejn2JjfQRihGQnPYSnu8IU5S8O0aPzOBHk7Xi
+         B1CZejqb0ODhI4aEy5njB61cz/wLw9UpSvg3SyDVVwaL8zn3iNcf39bVT9n3yUphhRoq
+         5ns4aA7w1mTOkxcRRPMW7rn18H2oqlLoNLX13GPWTVf2hd3R0cUQGeuPzlHvoIYmcjeS
+         4D1iXwt9TN9VX6If/5Gop4AyQB4MSRwlXsUbEcprLIJsQD9fAl34xi2YPwFeO0DSEoti
+         mq9bFzzwlN4LVYN+OkqUH5/cRdtifk6RZEfkuPuGOx9ukUsV261a/EyE0Ty1BQIqj8g0
+         XwSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706627689; x=1707232489;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=H5qKpPPyT2bHgLKzcgC0ndj7WAiMHlxSTR3Qvxg11KY=;
+        b=k5e9Jd+J5JNwMmyyR6OiSWQ+T9UKPuRunY0m6EPLevFY2XcEm+W22J6HLApVK4XkUD
+         +nZeU+QU+mk+Cmt515ejCIp16D03bAK2hdd3Zz90Hm6tOa2/zB4bhxGgqlqJIPEqD4NU
+         wYk6mEwfxTA8YBIIEBevNmWifUdJfe7kI2O6FAIE2eU2rnkwox/TxTBT407OkOm3+dnN
+         cm5J6ViWs7MYJmPGP/T2p93Qkc6Q2ibRfGlHNGr6usKexvAZ/P+9/A1HR43ForonmZVC
+         5FoZxBpii7sopwvlv6Sp0tz07h0Zk1s2Qnwgcb+nY6qnmmlZKaCI9blulV1XHq/ZnRsn
+         ArOA==
+X-Gm-Message-State: AOJu0Yz3DM1UAg2+YxrgqCC6o7FQd7JJERHbhCfv/3+nkX2PRhsJzH5d
+	jWJ4Paq0l5ndTr2uOvmnPPBdHPch440edZ7vip5OFzqBSPOA6ciDasYefek/Iw==
+X-Google-Smtp-Source: AGHT+IHdsw4vRTsvm0uN9cptYYIqbBiAKrlsD0Qkih3iY9Fe0MeLsuYRUga1RxXZjTEk+wglUj5HHQ==
+X-Received: by 2002:a05:6512:3f8:b0:50e:76d1:b9c5 with SMTP id n24-20020a05651203f800b0050e76d1b9c5mr5433212lfq.60.1706627689044;
+        Tue, 30 Jan 2024 07:14:49 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUoUmhPUOegRKBfEEb/Us8ZKqL3n8JKxN8x+TxSbHTalXEwnJKsAmyrpiseKDcZS5pF+yDtOsboU1fFgJKZO/rU31bOO9ImUhkngCc8gimgcFUTW7KB2I77wMc=
+Message-ID: <05d63a0e-d3e3-407a-bf9a-4179f57a8a53@suse.com>
+Date: Tue, 30 Jan 2024 16:14:47 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Add braces in reloc.c
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240130144838.4119329-1-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240130144838.4119329-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-... as with other declarations which aren't legal to call from C.
+On 30.01.2024 15:48, Andrew Cooper wrote:
+> 107 lines is an unreasonably large switch statement to live inside a
+> brace-less for loop.  Drop the comment that's clumsily trying to cover the
+> fact that this logic has wrong-looking indentation.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/x86_64/traps.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-index 668605e5bc67..02fdb3637d09 100644
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -333,8 +333,8 @@ static unsigned int write_stub_trampoline(
- 
- DEFINE_PER_CPU(struct stubs, stubs);
- 
--void lstar_enter(void);
--void cstar_enter(void);
-+void nocall lstar_enter(void);
-+void nocall cstar_enter(void);
- 
- void subarch_percpu_traps_init(void)
- {
-
-base-commit: 4a7e71aa085170f1a13976507c8e248f8715f116
-prerequisite-patch-id: 897f8a9f53b9c95c7961be1793b2685c11dc6e50
--- 
-2.30.2
 
 
