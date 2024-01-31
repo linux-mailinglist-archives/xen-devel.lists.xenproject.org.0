@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5ED7843A6F
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 10:11:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673839.1048320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 957AA843A84
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 10:13:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673844.1048329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV6cP-0006Y5-P0; Wed, 31 Jan 2024 09:10:53 +0000
+	id 1rV6eG-00073a-3F; Wed, 31 Jan 2024 09:12:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673839.1048320; Wed, 31 Jan 2024 09:10:53 +0000
+Received: by outflank-mailman (output) from mailman id 673844.1048329; Wed, 31 Jan 2024 09:12:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV6cP-0006VZ-M0; Wed, 31 Jan 2024 09:10:53 +0000
-Received: by outflank-mailman (input) for mailman id 673839;
- Wed, 31 Jan 2024 09:10:52 +0000
+	id 1rV6eG-00071B-0e; Wed, 31 Jan 2024 09:12:48 +0000
+Received: by outflank-mailman (input) for mailman id 673844;
+ Wed, 31 Jan 2024 09:12:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q596=JJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rV6cO-0006VT-8D
- for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 09:10:52 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1rV6eE-000713-Rl
+ for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 09:12:46 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a062dbda-c018-11ee-98f5-efadbce2ee36;
- Wed, 31 Jan 2024 10:10:50 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3394ca0c874so3965422f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 01:10:49 -0800 (PST)
+ id e4fca485-c018-11ee-98f5-efadbce2ee36;
+ Wed, 31 Jan 2024 10:12:45 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40e80046246so3522655e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 01:12:45 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cl1-20020a5d5f01000000b0033afcc899c1sm3400247wrb.13.2024.01.31.01.10.48
+ l2-20020a05600c4f0200b0040ebfbff33csm979376wmq.36.2024.01.31.01.12.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jan 2024 01:10:49 -0800 (PST)
+ Wed, 31 Jan 2024 01:12:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a062dbda-c018-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: e4fca485-c018-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706692249; x=1707297049; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706692364; x=1707297164; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=9p39soEk6ArgSnnhDao33UTSRr0AyyVIhT0eOH58YhQ=;
-        b=EHf4ne0hK6gqSMI4rGV5s09QXXF5Pj7c/isS164s5hC03M+b6Bq9hPv0C+ZQIpOvSC
-         vhPOhAfQuuepk5SUi5zQ3+jZ65wyM2XGQveMfkFNOqkf83n50F6WZEoG4YaHuK1SY+nk
-         dhplDUUKzFo+I0xUc9fwCO0kzNCh10fgHndEvIw4WzpYEm+8wy+5HNz58kwjDeTY/V34
-         qKI65gShe62ihT5F05/NBZoyE6w5ShLs42IuFj1l1IKaL8y60Gl+Pj0Ok0jfyUjF57N4
-         KLJlhraFEtu0gQh5kN9wjtn2rCYuPYSXNN2Sjl7Aj4+4m6LKCf1TgCFWt+XyafrqLwe7
-         6CTw==
+        bh=LJ44NbYDDCT/+Y/+x5YTp0Iz0ab+1broxKOD1oGv1dA=;
+        b=YBs2hhghGbXzsQcU92QKbRq0gd0eCjI8nqgq0/GzpSJ3xyFwPJYUEBkS+umXyykcjG
+         KX6Rk5H159sJQAu0YtdG3XAZdmQCbQPwhgUOIm9gA1DByIUqYhe7cZbf/TlCTL6erDEK
+         IarVDxKlRHwaHp2GoFGl8dzazvHC/+ARjbiACd1qvKyPlU5REqMUR114IyXd+uStaMd6
+         k9Xoqg5xisS+KkTu5SYVnw14/8zXYD7ypqahePd8qhVj35aYH8ABgzVXog0mL/NBuViU
+         Yb0SvHpJXFF/CXU3RHYYg66+Ztdnun7TzsbhUuHyG3SWYFZPuLCJT+rpQVc4Yjcs+/GD
+         AwFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706692249; x=1707297049;
+        d=1e100.net; s=20230601; t=1706692364; x=1707297164;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9p39soEk6ArgSnnhDao33UTSRr0AyyVIhT0eOH58YhQ=;
-        b=YMbVK9OV5KaV5+W3kfj+bYTSiuOUOzvgZKkJxL2ivzWecOlcP4PnjClRDqlpF68Kzj
-         mJnDqmwCiPwj9KJE4eoF7fbA53p2KmSOOo5OR0LPaAZxnAk3mZQvyPY0apkPH47PEurH
-         2gXieZ6fAdsRDqJJfenV90zUOv0oGTEETcU0PNvD88MvYNArXnDvdwjysN/kpi7SUYJI
-         UWyfDuuXmqsyvlkybGlez4BcblxnxHMMTD5hPgl70fLg5aK227yJye404Oe95TDcZPVz
-         t+TctwU6Rn8NOn3lwv3LqxHb1El+r0/LTicxkaXovrfm0ekje9DqmDMB/iDpEM9FiYid
-         NfJA==
-X-Gm-Message-State: AOJu0Yx2NqfCMVSBoQ/qibH8r5myZzAnHG/u2rFgnweYTYpuQlN9gEV8
-	lRwwpw/3G0Yp8KHKxEHLLF0Z4P6AEjZURZPxXiRjEhA+z38g4quq0v2F9uGEXA==
-X-Google-Smtp-Source: AGHT+IE+MMEYtp/hiMQ/8pK/ifPMCBZ6P93wY3VQNqAQtVPFVELZh+6Pu2uP2kW9bUjIEq78zSY0aA==
-X-Received: by 2002:adf:ec45:0:b0:33a:e73b:b0d0 with SMTP id w5-20020adfec45000000b0033ae73bb0d0mr801433wrn.32.1706692249291;
-        Wed, 31 Jan 2024 01:10:49 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWxQ+kLz2F3bJwDBt3h2XTbC8jx+sXu0jwvIY+/NswatyPFwJsK/p8oQs3CahmF5HU/hLREEZqFo1xpyTc0POA44TMjN3/CDwItayOpxFPRLItHMS5g/W/N+83MvJ32B0mdC4c3eMLm5Z6XpFFs28DdGbHXD82hc+ac5DyuKEHNM5sUv6mtYWRNNUD67GlBC+2v/cSXx+SvbpzzeEpwAqvSPYstbtxdVqE1gVldCT1oIKngYnOh2Qb1WMKx2pNFbr2UIZr9TIHzqGz/EH1Ltzt4U5utfwP+q7fyWnYoxP4za7pTvzmlfGOdJBVMYDrA8VuGUinhNJ2dykbM61DdGwqSBvYhWMR1x1CpgXj4ehFDlcYJakqM4zNK6rrloT29zffgiqpjiNEW03dhabXjhiCbFSvru/46RXWMmA==
-Message-ID: <4ac2f9e6-8fa7-4446-8af3-29de4028c7a6@suse.com>
-Date: Wed, 31 Jan 2024 10:10:47 +0100
+        bh=LJ44NbYDDCT/+Y/+x5YTp0Iz0ab+1broxKOD1oGv1dA=;
+        b=PuvG6gCwCV3MLVFmhFQhvqFTwumFFh/M11ncyHOF8dUl0r/RlDOTxOniHUmVjwoP0d
+         m8koO4m+kEoZi0gvb65JlvikMctGatps1H0JlUHHmCQs1MADuWp6LN3tGhxK6DZkxtvt
+         cmDg37f1IbJMY4IANYkGBwvf8QN3l459FYOtV51v3rIkJwEIQowaPUBzDTbrdIgU4Jtp
+         zZnBz6kmOAAT5lQmISgp2pVcz/3yq+muOCnUNPra28C+FZvEXt/KVIyfRVyPk7RvJg7j
+         kIuH8dzRTAt/lt0d/WKEm8fl55cs8W72G4gv+gpbJvv7WhG6/sJKDemJrSt2Cf9/ddt8
+         /7Ig==
+X-Gm-Message-State: AOJu0Yz08rdSVroKPCr6cIUC/CdtloJRk5HKfbLxgZ3BgZIh24YPg0RE
+	t4GUG5MwoivZ8z9ZoXyXuSasacAK9Zwq+ynnYyWKGN1ARVBGZgPCouNq3YEHRA==
+X-Google-Smtp-Source: AGHT+IHdSSgx9sgICJOjEIU043LZ2O2s4tBe1boEWLHMB/3sVHYw2OAurdPoQGigk5zsBYhsNidGZQ==
+X-Received: by 2002:a05:600c:3516:b0:40f:25be:e811 with SMTP id h22-20020a05600c351600b0040f25bee811mr3562034wmq.8.1706692364520;
+        Wed, 31 Jan 2024 01:12:44 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCWqEfKzQPkAlY9lwifuGuPwEfOdIFcMRoQfYrT+kRoNwIJsWkeBL9C4UkfY/fQQ3S7b8/2TZUo4lDdXVdkXGmaHnmhr/T6hJFUvaY7Ss9aXbYUpmVsBTLVZOABcuVRMZVzgDRvW3jMmVdByMnKoXcGq
+Message-ID: <07f5e482-deca-4c63-963e-f55029001778@suse.com>
+Date: Wed, 31 Jan 2024 10:12:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/*/asm-offset: Fix bad copy&paste from x86
+Subject: Re: [PATCH] x86/hvm: Fix UBSAN failure in do_hvm_op() printk
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>, Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Shawn Anastasio <sanastasio@raptorengineering.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240130222808.106006-1-andrew.cooper3@citrix.com>
+Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240130183713.24680-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,32 +111,40 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240130222808.106006-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240130183713.24680-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.01.2024 23:28, Andrew Cooper wrote:
-> --- a/xen/arch/x86/x86_64/asm-offsets.c
-> +++ b/xen/arch/x86/x86_64/asm-offsets.c
-> @@ -18,11 +18,11 @@
->  
->  #define DEFINE(_sym, _val)                                                 \
->      asm volatile ("\n.ascii\"==>#define " #_sym " %0 /* " #_val " */<==\"" \
-> -                  : : "i" (_val) )
-> +                  :: "i" (_val))
+On 30.01.2024 19:37, Andrew Cooper wrote:
+> Tamas reported this UBSAN failure from fuzzing:
+> 
+>   (XEN) ================================================================================
+>   (XEN) UBSAN: Undefined behaviour in common/vsprintf.c:64:19
+>   (XEN) negation of -9223372036854775808 cannot be represented in type 'long long int':
+>   (XEN) ----[ Xen-4.19-unstable  x86_64  debug=y ubsan=y  Not tainted ]----
+>   ...
+>   (XEN) Xen call trace:
+>   (XEN)    [<ffff82d040307c1c>] R ubsan.c#ubsan_epilogue+0xa/0xd9
+>   (XEN)    [<ffff82d04030805d>] F __ubsan_handle_negate_overflow+0x99/0xce
+>   (XEN)    [<ffff82d04028868f>] F vsprintf.c#number+0x10a/0x93e
+>   (XEN)    [<ffff82d04028ac74>] F vsnprintf+0x19e2/0x1c56
+>   (XEN)    [<ffff82d04030a47a>] F console.c#vprintk_common+0x76/0x34d
+>   (XEN)    [<ffff82d04030a79e>] F printk+0x4d/0x4f
+>   (XEN)    [<ffff82d04040c42b>] F do_hvm_op+0x288e/0x28f5
+>   (XEN)    [<ffff82d04040d385>] F hvm_hypercall+0xad2/0x149a
+>   (XEN)    [<ffff82d0403cd072>] F vmx_vmexit_handler+0x1596/0x279c
+>   (XEN)    [<ffff82d0403d909b>] F vmx_asm_vmexit_handler+0xdb/0x200
+> 
+> The problem is an unsigned -> signed converstion because of a bad
+> formatter (%ld trying to format an unsigned long).
+> 
+> We could fix it by swapping to %lu, but this is a useless printk() even in
+> debug builds, so just drop it completely.
+> 
+> Reported-by: Tamas K Lengyel <tamas@tklengyel.com>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-The removal of the last blank is against our style; instead a blank wants
-insertion after the opening parenthesis.
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
->  #define BLANK()                                                            \
-> -    asm volatile ( "\n.ascii\"==><==\"" : : )
-> +    asm volatile ("\n.ascii\"==><==\"")
 
-Similarly here while dropping the colons is fine, the blanks next to the
-parentheses want keeping.
-
-With that adjusted throughout
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
