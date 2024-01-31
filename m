@@ -2,38 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E59BF844685
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 18:52:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674145.1048910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCF6A8447B0
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 20:01:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674154.1048919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVEkd-0007tx-PZ; Wed, 31 Jan 2024 17:51:55 +0000
+	id 1rVFot-0005lW-K8; Wed, 31 Jan 2024 19:00:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674145.1048910; Wed, 31 Jan 2024 17:51:55 +0000
+Received: by outflank-mailman (output) from mailman id 674154.1048919; Wed, 31 Jan 2024 19:00:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVEkd-0007rn-MX; Wed, 31 Jan 2024 17:51:55 +0000
-Received: by outflank-mailman (input) for mailman id 674145;
- Wed, 31 Jan 2024 17:51:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=qP3Y=JJ=rabbit.lu=slack@srs-se1.protection.inumbo.net>)
- id 1rVEkc-0007rf-9A
- for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 17:51:54 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6ad6abe7-c061-11ee-8a43-1f161083a0e0;
- Wed, 31 Jan 2024 18:51:53 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-51117bfd452so4350335e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 09:51:53 -0800 (PST)
-Received: from localhost.localdomain (82-64-138-184.subs.proxad.net.
- [82.64.138.184]) by smtp.googlemail.com with ESMTPSA id
- 18-20020a05600c025200b0040d4e1393dcsm2202014wmj.20.2024.01.31.09.51.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Jan 2024 09:51:52 -0800 (PST)
+	id 1rVFot-0005iz-HW; Wed, 31 Jan 2024 19:00:23 +0000
+Received: by outflank-mailman (input) for mailman id 674154;
+ Wed, 31 Jan 2024 19:00:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Prnq=JJ=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
+ id 1rVFor-0005is-KY
+ for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 19:00:21 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8e7f8e8-c06a-11ee-98f5-efadbce2ee36;
+ Wed, 31 Jan 2024 20:00:17 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 9B52161938;
+ Wed, 31 Jan 2024 19:00:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AACC433C7;
+ Wed, 31 Jan 2024 19:00:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,140 +41,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6ad6abe7-c061-11ee-8a43-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rabbit-lu.20230601.gappssmtp.com; s=20230601; t=1706723513; x=1707328313; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Pr+XZeL59/ULvCtUWLkROAH0Yyo92CQbvVTj7VVhUqA=;
-        b=Y/ovmtSEeuZrzozgZaqGHLwvWHX20FIkUiUYg7Sj/iSAHclxijOXbEQXSsrbHP5Dvh
-         gsu5m6Ias6jWEU+gMrVAcyeEATbm311jUjdiVSnd7i8soQldM/baAGNoAipJKajBnuLd
-         6qRpUWoy0+lhgSF9cjeLeU8Hy4qMk1s8F6gpg+dAq9fA/6AG2mUGRTZRgHgaJh1zAknb
-         9vbOYyhLGenZbXvewbyzgnOt7FwphSMf3xJ+wjDQWovTpsIcu2ah5xmEKr75vNz4csbQ
-         qHEjzkBYungUz2lIh6ch+c9TzI0Fxx40i/0lnt2BbyPlsstA1chZxUZzTy4uUCIUqU09
-         OaFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706723513; x=1707328313;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Pr+XZeL59/ULvCtUWLkROAH0Yyo92CQbvVTj7VVhUqA=;
-        b=E6cGAe7QbVsRSLr/MEV/QJYISHGWNe4Ud+9VE6ccrnU+grghH8KCZJOQ33s8K614vr
-         GnX0tBTLdCkBJ/IlUGdpcAVmAoFYD0YTUWDt3M9oNifxYlsXZRLn/W2r+kajRvSZUkav
-         +/N40qXCNqQJ2v2fzq94eV6cu1CbkdSWAd5QW9OFkBlXVJI8uewxK4um9eklQ93i8OpT
-         K6txBnV3nUdNIUigeePa7RkKoqhFgPserpyiVT7T5Ksa5BuT+K1+ZTCUKO/E4yDbjFM3
-         uNNNXTZvm6wFt97aFyrqbBgRE+tkAZ2pOCsPg4/3qTSzVi9/C+jpz7n/Dui+pm5z/68P
-         EYlQ==
-X-Gm-Message-State: AOJu0YzXcxBDRa2aNpF4SbvMB++riGuKnkqmoJ40sjjypTlpYK3len2p
-	w3D5KNlFmaHvCfGa69vgz4HxfH6Jdz8ZFBMMMCGyH7RbWAiyzeRUeHW9O9vCmLqke835Wp0ZsjP
-	P
-X-Google-Smtp-Source: AGHT+IFeAqpG/JV+ntc6HGPNu0pS034ko1aPLuX6cqVhzAK0zOC7vgHGR1gw3hZmwBHVEXSS9NDBTQ==
-X-Received: by 2002:ac2:5a0c:0:b0:50e:504e:6c34 with SMTP id q12-20020ac25a0c000000b0050e504e6c34mr148354lfn.3.1706723512707;
-        Wed, 31 Jan 2024 09:51:52 -0800 (PST)
-From: =?UTF-8?q?Cyril=20R=C3=A9bert?= <slack@rabbit.lu>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Cyril=20R=C3=A9bert?= <slack@rabbit.lu>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH] tools/xentop: add option to display dom0 first
-Date: Wed, 31 Jan 2024 18:51:34 +0100
-Message-Id: <87846acd5b31991e38561c9765eb97730c79d0f3.1706723494.git.slack@rabbit.lu>
-X-Mailer: git-send-email 2.39.2
+X-Inumbo-ID: f8e7f8e8-c06a-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1706727616;
+	bh=RZdHkRM3P7+WME/mIEGs7U7h1w50IFiQNWO97QIu6Z4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=SIRJHCGNDMqwVTzRAiLrMLdW+dkYsjK+l0LHXCGERVCfoMi4e2t93JIYx850Va7QT
+	 BGvQ2bGkqPTQRCl08dsckmMG7/8X12XOBXbK/ovMyyVPfJWNUVnHe4dp7gy6ykv8CN
+	 bbmRt1hMy9UMLho79aKU5ClxkjxcbodVDj4H68/s0G4OCEb5EFsiQ6G/TjsjcS9XwS
+	 0JDjS+avkmcF/DbbTUZyvaT110hm0lLajDCvJQVQb3ZcwFKSKf215b+9OYbl+q+WsI
+	 O7PdE1/KIhQ2AvACX37JV3KKiBwj+QSeRJjr5YGhPc8ajcZCnRUiVvuGrGs5L+oyeo
+	 DyWkc5iLaAjQg==
+Date: Wed, 31 Jan 2024 13:00:14 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>
+Subject: Re: [RFC KERNEL PATCH v4 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
+Message-ID: <20240131190014.GA593286@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZboLq6kZhwpUC_c3@macbook>
 
-Add a command line option to xentop to be able to display dom0 first, on top of the list.
-This is unconditional, so sorting domains with the S option will also ignore dom0.
+On Wed, Jan 31, 2024 at 09:58:19AM +0100, Roger Pau Monné wrote:
+> On Tue, Jan 30, 2024 at 02:44:03PM -0600, Bjorn Helgaas wrote:
+> > On Tue, Jan 30, 2024 at 10:07:36AM +0100, Roger Pau Monné wrote:
+> > > On Mon, Jan 29, 2024 at 04:01:13PM -0600, Bjorn Helgaas wrote:
+> > > > On Thu, Jan 25, 2024 at 07:17:24AM +0000, Chen, Jiqian wrote:
+> > > > > On 2024/1/24 00:02, Bjorn Helgaas wrote:
+> > > > > > On Tue, Jan 23, 2024 at 10:13:52AM +0000, Chen, Jiqian wrote:
+> > > > > >> On 2024/1/23 07:37, Bjorn Helgaas wrote:
+> > > > > >>> On Fri, Jan 05, 2024 at 02:22:17PM +0800, Jiqian Chen wrote:
+> > > > > >>>> There is a need for some scenarios to use gsi sysfs.
+> > > > > >>>> For example, when xen passthrough a device to dumU, it will
+> > > > > >>>> use gsi to map pirq, but currently userspace can't get gsi
+> > > > > >>>> number.
+> > > > > >>>> So, add gsi sysfs for that and for other potential scenarios.
+> > > > > >> ...
+> > > > > > 
+> > > > > >>> I don't know enough about Xen to know why it needs the GSI in
+> > > > > >>> userspace.  Is this passthrough brand new functionality that can't be
+> > > > > >>> done today because we don't expose the GSI yet?
+> > > > 
+> > > > I assume this must be new functionality, i.e., this kind of
+> > > > passthrough does not work today, right?
+> > > > 
+> > > > > >> has ACPI support and is responsible for detecting and controlling
+> > > > > >> the hardware, also it performs privileged operations such as the
+> > > > > >> creation of normal (unprivileged) domains DomUs. When we give to a
+> > > > > >> DomU direct access to a device, we need also to route the physical
+> > > > > >> interrupts to the DomU. In order to do so Xen needs to setup and map
+> > > > > >> the interrupts appropriately.
+> > > > > > 
+> > > > > > What kernel interfaces are used for this setup and mapping?
+> > > > >
+> > > > > For passthrough devices, the setup and mapping of routing physical
+> > > > > interrupts to DomU are done on Xen hypervisor side, hypervisor only
+> > > > > need userspace to provide the GSI info, see Xen code:
+> > > > > xc_physdev_map_pirq require GSI and then will call hypercall to pass
+> > > > > GSI into hypervisor and then hypervisor will do the mapping and
+> > > > > routing, kernel doesn't do the setup and mapping.
+> > > > 
+> > > > So we have to expose the GSI to userspace not because userspace itself
+> > > > uses it, but so userspace can turn around and pass it back into the
+> > > > kernel?
+> > > 
+> > > No, the point is to pass it back to Xen, which doesn't know the
+> > > mapping between GSIs and PCI devices because it can't execute the ACPI
+> > > AML resource methods that provide such information.
+> > > 
+> > > The (Linux) kernel is just a proxy that forwards the hypercalls from
+> > > user-space tools into Xen.
+> > 
+> > But I guess Xen knows how to interpret a GSI even though it doesn't
+> > have access to AML?
+> 
+> On x86 Xen does know how to map a GSI into an IO-APIC pin, in order
+> configure the RTE as requested.
 
-Signed-off-by: Cyril Rébert (zithro) <slack@rabbit.lu>
----
- tools/xentop/xentop.c | 31 +++++++++++++++++++++++++++----
- 1 file changed, 27 insertions(+), 4 deletions(-)
+IIUC, mapping a GSI to an IO-APIC pin requires information from the
+MADT.  So I guess Xen does use the static ACPI tables, but not the AML
+_PRT methods that would connect a GSI with a PCI device?
 
-diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
-index 950e8935c4..9068c53fd2 100644
---- a/tools/xentop/xentop.c
-+++ b/tools/xentop/xentop.c
-@@ -211,6 +211,7 @@ int show_networks = 0;
- int show_vbds = 0;
- int repeat_header = 0;
- int show_full_name = 0;
-+int dom0_first = -1;
- #define PROMPT_VAL_LEN 80
- const char *prompt = NULL;
- char prompt_val[PROMPT_VAL_LEN];
-@@ -240,6 +241,7 @@ static void usage(const char *program)
- 	       "-b, --batch	     output in batch mode, no user input accepted\n"
- 	       "-i, --iterations     number of iterations before exiting\n"
- 	       "-f, --full-name      output the full domain name (not truncated)\n"
-+	       "-z, --dom0-first     display dom0 first (ignore sorting)\n"
- 	       "\n" XENTOP_BUGSTO,
- 	       program);
- 	return;
-@@ -1162,7 +1164,8 @@ void do_vbd(xenstat_domain *domain)
- static void top(void)
- {
- 	xenstat_domain **domains;
--	unsigned int i, num_domains = 0;
-+	unsigned int i, num_domains, sort_start, sort_count = 0;
-+	int dom0_index = -1;
- 
- 	/* Now get the node information */
- 	if (prev_node != NULL)
-@@ -1183,11 +1186,27 @@ static void top(void)
- 	if(domains == NULL)
- 		fail("Failed to allocate memory\n");
- 
--	for (i=0; i < num_domains; i++)
-+	for (i=0; i < num_domains; i++) {
- 		domains[i] = xenstat_node_domain_by_index(cur_node, i);
-+		if ( strcmp(xenstat_domain_name(domains[i]), "Domain-0") == 0 )
-+			dom0_index = i;
-+	}
-+
-+	/* Handle dom0 position, not for dom0-less */
-+	if ( dom0_first == 1 && dom0_index != -1 ){
-+		/* if dom0 is not first in domains, swap it there */
-+		if ( dom0_index != 0 ){
-+			xenstat_domain *tmp;
-+			tmp = domains[0];
-+			domains[0] = domains[dom0_index];
-+			domains[dom0_index] = tmp;
-+		}
-+		sort_start = 1;
-+		sort_count = 1;
-+	}
- 
- 	/* Sort */
--	qsort(domains, num_domains, sizeof(xenstat_domain *),
-+	qsort((domains+sort_start), (num_domains-sort_count), sizeof(xenstat_domain *),
- 	      (int(*)(const void *, const void *))compare_domains);
- 
- 	if(first_domain_index >= num_domains)
-@@ -1242,9 +1261,10 @@ int main(int argc, char **argv)
- 		{ "batch",	   no_argument,	      NULL, 'b' },
- 		{ "iterations",	   required_argument, NULL, 'i' },
- 		{ "full-name",     no_argument,       NULL, 'f' },
-+		{ "dom0-first",    no_argument,       NULL, 'z' },
- 		{ 0, 0, 0, 0 },
- 	};
--	const char *sopts = "hVnxrvd:bi:f";
-+	const char *sopts = "hVnxrvd:bi:fz";
- 
- 	if (atexit(cleanup) != 0)
- 		fail("Failed to install cleanup handler.\n");
-@@ -1286,6 +1306,9 @@ int main(int argc, char **argv)
- 		case 'f':
- 			show_full_name = 1;
- 			break;
-+		case 'z':
-+			dom0_first = 1;
-+			break;
- 		}
- 	}
- 
--- 
-2.39.2
+I guess this means Xen would not be able to deal with _MAT methods,
+which also contains MADT entries?  I don't know the implications of
+this -- maybe it means Xen might not be able to use with hot-added
+devices?
 
+The tables (including DSDT and SSDTS that contain the AML) are exposed
+to userspace via /sys/firmware/acpi/tables/, but of course that
+doesn't mean Xen knows how to interpret the AML, and even if it did,
+Xen probably wouldn't be able to *evaluate* it since that could
+conflict with the host kernel's use of AML.
+
+Bjorn
 
