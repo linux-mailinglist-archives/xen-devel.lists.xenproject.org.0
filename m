@@ -2,40 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 969DB844680
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 18:51:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674144.1048899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E59BF844685
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 18:52:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674145.1048910 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVEji-0007Q3-GH; Wed, 31 Jan 2024 17:50:58 +0000
+	id 1rVEkd-0007tx-PZ; Wed, 31 Jan 2024 17:51:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674144.1048899; Wed, 31 Jan 2024 17:50:58 +0000
+Received: by outflank-mailman (output) from mailman id 674145.1048910; Wed, 31 Jan 2024 17:51:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVEji-0007NQ-D9; Wed, 31 Jan 2024 17:50:58 +0000
-Received: by outflank-mailman (input) for mailman id 674144;
- Wed, 31 Jan 2024 17:50:57 +0000
+	id 1rVEkd-0007rn-MX; Wed, 31 Jan 2024 17:51:55 +0000
+Received: by outflank-mailman (input) for mailman id 674145;
+ Wed, 31 Jan 2024 17:51:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=L0zX=JJ=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1rVEjg-0007NK-Uo
- for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 17:50:57 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=qP3Y=JJ=rabbit.lu=slack@srs-se1.protection.inumbo.net>)
+ id 1rVEkc-0007rf-9A
+ for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 17:51:54 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4890c095-c061-11ee-8a43-1f161083a0e0;
- Wed, 31 Jan 2024 18:50:55 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-51121c08535so2098831e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 09:50:55 -0800 (PST)
-Received: from draig.lan ([85.9.250.243]) by smtp.gmail.com with ESMTPSA id
- x3-20020a05600c2d0300b0040fb0c84c64sm2144891wmf.14.2024.01.31.09.50.54
+ id 6ad6abe7-c061-11ee-8a43-1f161083a0e0;
+ Wed, 31 Jan 2024 18:51:53 +0100 (CET)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-51117bfd452so4350335e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 09:51:53 -0800 (PST)
+Received: from localhost.localdomain (82-64-138-184.subs.proxad.net.
+ [82.64.138.184]) by smtp.googlemail.com with ESMTPSA id
+ 18-20020a05600c025200b0040d4e1393dcsm2202014wmj.20.2024.01.31.09.51.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Jan 2024 09:50:55 -0800 (PST)
-Received: from draig.lan (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 5B5AA5F7A8;
- Wed, 31 Jan 2024 17:50:54 +0000 (GMT)
+ Wed, 31 Jan 2024 09:51:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,159 +45,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4890c095-c061-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: 6ad6abe7-c061-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1706723455; x=1707328255; darn=lists.xenproject.org;
+        d=rabbit-lu.20230601.gappssmtp.com; s=20230601; t=1706723513; x=1707328313; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UYhl5BgNrSittXccLvyhY2byvB1ghpoW9pMQL6HzhQ0=;
-        b=inf+7aznLI4jkJLh+z/XTRFqkCI5i54no4579ajAkmEw7l27nnUxgPSaYBs5vNIZ5K
-         kAIo0voGr+v4j1Jd6DwqsnMgL9Z06fVdxiYYBXDZJUoAcZSplu187BuyqJStdaT4Bi2e
-         ocvqY/DF8DLivzvBaqE3VM6Q8JH0WZtnWSRDI0RrGf5L0KPfQ7g0E11/iR54UhYBK0IO
-         ExtQ84nsYfnx+SYlR4OZU/QwW7a0Y357psjNsVcCmESH7o7rFSpwZETNbNZkwvrmxdYM
-         xqPJlq6fnY26KrXoVy74eJaiO0N7NQafdOCulvZSBBz41NeibcvVN8VyZR4ZRylGQ4eN
-         gB5g==
+        bh=Pr+XZeL59/ULvCtUWLkROAH0Yyo92CQbvVTj7VVhUqA=;
+        b=Y/ovmtSEeuZrzozgZaqGHLwvWHX20FIkUiUYg7Sj/iSAHclxijOXbEQXSsrbHP5Dvh
+         gsu5m6Ias6jWEU+gMrVAcyeEATbm311jUjdiVSnd7i8soQldM/baAGNoAipJKajBnuLd
+         6qRpUWoy0+lhgSF9cjeLeU8Hy4qMk1s8F6gpg+dAq9fA/6AG2mUGRTZRgHgaJh1zAknb
+         9vbOYyhLGenZbXvewbyzgnOt7FwphSMf3xJ+wjDQWovTpsIcu2ah5xmEKr75vNz4csbQ
+         qHEjzkBYungUz2lIh6ch+c9TzI0Fxx40i/0lnt2BbyPlsstA1chZxUZzTy4uUCIUqU09
+         OaFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706723455; x=1707328255;
+        d=1e100.net; s=20230601; t=1706723513; x=1707328313;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UYhl5BgNrSittXccLvyhY2byvB1ghpoW9pMQL6HzhQ0=;
-        b=LAMUmQKoRuooVoBkiHe0Knqtg5Kmpii2ebpl/6hdpHR1R7e8w43Whe3kDE0bTcvivQ
-         VpEHdBF9/IZs5Ih+/DnFMXCcChcbvN+libqfJNLaXhD2fvr12eZMB7WkBjcW3B/iDTff
-         QiY2hTyEbuc2jZKtLTn2z4xMj7g8O7yt0XgOrL6OBEhomnRav/K1h5Se+OmURoQgAcQT
-         /liFz5pvAjUWSiyA+aOGquy/AD6we7r4sXFbqKPcOfQKb2MOWjO+ZIalWH6CcKBDwwWu
-         ddXeNUj56rwt03j6+PhJoSWMA99daHGjHHaLqL+6lqspsGJ8slytyO9f/in5I8vwNIPo
-         AsZQ==
-X-Gm-Message-State: AOJu0Yw0j/4F5BbCjGV1zv8tQCvtADnYXyFB4r+rNa/9rEfFxMUb0fN3
-	bmseldaNLAaWzIFiIJS9z/m7xembURXx7jgGsOB57CLMCNKXhTnxS5z9hvmHFxI=
-X-Google-Smtp-Source: AGHT+IG/NAnFraKtzJg1gKLYNXRIOrWU6Lhrh7OVd7ORbWUPl43521LoS88c8Bw7+IhLvI/8uHnnRg==
-X-Received: by 2002:ac2:4187:0:b0:511:2bd4:d987 with SMTP id z7-20020ac24187000000b005112bd4d987mr68378lfh.58.1706723455248;
-        Wed, 31 Jan 2024 09:50:55 -0800 (PST)
-From: =?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+        bh=Pr+XZeL59/ULvCtUWLkROAH0Yyo92CQbvVTj7VVhUqA=;
+        b=E6cGAe7QbVsRSLr/MEV/QJYISHGWNe4Ud+9VE6ccrnU+grghH8KCZJOQ33s8K614vr
+         GnX0tBTLdCkBJ/IlUGdpcAVmAoFYD0YTUWDt3M9oNifxYlsXZRLn/W2r+kajRvSZUkav
+         +/N40qXCNqQJ2v2fzq94eV6cu1CbkdSWAd5QW9OFkBlXVJI8uewxK4um9eklQ93i8OpT
+         K6txBnV3nUdNIUigeePa7RkKoqhFgPserpyiVT7T5Ksa5BuT+K1+ZTCUKO/E4yDbjFM3
+         uNNNXTZvm6wFt97aFyrqbBgRE+tkAZ2pOCsPg4/3qTSzVi9/C+jpz7n/Dui+pm5z/68P
+         EYlQ==
+X-Gm-Message-State: AOJu0YzXcxBDRa2aNpF4SbvMB++riGuKnkqmoJ40sjjypTlpYK3len2p
+	w3D5KNlFmaHvCfGa69vgz4HxfH6Jdz8ZFBMMMCGyH7RbWAiyzeRUeHW9O9vCmLqke835Wp0ZsjP
+	P
+X-Google-Smtp-Source: AGHT+IFeAqpG/JV+ntc6HGPNu0pS034ko1aPLuX6cqVhzAK0zOC7vgHGR1gw3hZmwBHVEXSS9NDBTQ==
+X-Received: by 2002:ac2:5a0c:0:b0:50e:504e:6c34 with SMTP id q12-20020ac25a0c000000b0050e504e6c34mr148354lfn.3.1706723512707;
+        Wed, 31 Jan 2024 09:51:52 -0800 (PST)
+From: =?UTF-8?q?Cyril=20R=C3=A9bert?= <slack@rabbit.lu>
 To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	sstabellini@kernel.org,
-	bertrand.marquis@arm.com,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
-Subject: [RFC PATCH] xen/arm: improve handling of load/store instruction decoding
-Date: Wed, 31 Jan 2024 17:50:43 +0000
-Message-Id: <20240131175043.1488886-1-alex.bennee@linaro.org>
+Cc: =?UTF-8?q?Cyril=20R=C3=A9bert?= <slack@rabbit.lu>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH] tools/xentop: add option to display dom0 first
+Date: Wed, 31 Jan 2024 18:51:34 +0100
+Message-Id: <87846acd5b31991e38561c9765eb97730c79d0f3.1706723494.git.slack@rabbit.lu>
 X-Mailer: git-send-email 2.39.2
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-While debugging VirtIO on Arm we ran into a warning due to memory
-being memcpy'd across MMIO space. While the bug was in the mappings
-the warning was a little confusing:
+Add a command line option to xentop to be able to display dom0 first, on top of the list.
+This is unconditional, so sorting domains with the S option will also ignore dom0.
 
-  (XEN) d47v2 Rn should not be equal to Rt except for r31
-  (XEN) d47v2 unhandled Arm instruction 0x3d800000
-  (XEN) d47v2 Unable to decode instruction
-
-The Rn == Rt warning is only applicable to single register load/stores
-so add some verification steps before to weed out unexpected accesses.
-
-I updated the Arm ARM reference to the online instruction decoding
-table which will hopefully be more stable than the Arm ARM section
-numbers.
-
-Signed-off-by: Alex Bennée <alex.bennee@linaro.org>
-Cc: Manos Pitsidianakis <manos.pitsidianakis@linaro.org>
+Signed-off-by: Cyril Rébert (zithro) <slack@rabbit.lu>
 ---
- xen/arch/arm/decode.c | 20 ++++++++++++++++++++
- xen/arch/arm/decode.h | 38 +++++++++++++++++++++++++++++++++++---
- 2 files changed, 55 insertions(+), 3 deletions(-)
+ tools/xentop/xentop.c | 31 +++++++++++++++++++++++++++----
+ 1 file changed, 27 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
-index 2537dbebc1..824025c24c 100644
---- a/xen/arch/arm/decode.c
-+++ b/xen/arch/arm/decode.c
-@@ -87,6 +87,26 @@ static int decode_arm64(register_t pc, mmio_info_t *info)
-         return 1;
-     }
+diff --git a/tools/xentop/xentop.c b/tools/xentop/xentop.c
+index 950e8935c4..9068c53fd2 100644
+--- a/tools/xentop/xentop.c
++++ b/tools/xentop/xentop.c
+@@ -211,6 +211,7 @@ int show_networks = 0;
+ int show_vbds = 0;
+ int repeat_header = 0;
+ int show_full_name = 0;
++int dom0_first = -1;
+ #define PROMPT_VAL_LEN 80
+ const char *prompt = NULL;
+ char prompt_val[PROMPT_VAL_LEN];
+@@ -240,6 +241,7 @@ static void usage(const char *program)
+ 	       "-b, --batch	     output in batch mode, no user input accepted\n"
+ 	       "-i, --iterations     number of iterations before exiting\n"
+ 	       "-f, --full-name      output the full domain name (not truncated)\n"
++	       "-z, --dom0-first     display dom0 first (ignore sorting)\n"
+ 	       "\n" XENTOP_BUGSTO,
+ 	       program);
+ 	return;
+@@ -1162,7 +1164,8 @@ void do_vbd(xenstat_domain *domain)
+ static void top(void)
+ {
+ 	xenstat_domain **domains;
+-	unsigned int i, num_domains = 0;
++	unsigned int i, num_domains, sort_start, sort_count = 0;
++	int dom0_index = -1;
  
-+    /*
-+     * Check this is a load/store of some sort
-+     */
-+    if ( (opcode.top_level.op1 & 0b0101) != 0b0100 )
-+    {
-+        gprintk(XENLOG_ERR, "Not a load/store instruction op1=%d",
-+                opcode.top_level.op1);
-+        goto bad_loadstore;
-+    }
-+
-+    /*
-+     * We are only expecting single register load/stores
-+     */
-+    if ( (opcode.ld_st.op0 & 0b0011) != 0b0011 )
-+    {
-+        gprintk(XENLOG_ERR, "Not single register load/store op0=%d",
-+                opcode.ld_st.op0);
-+        goto bad_loadstore;
-+    }
-+
-     /*
-      * Refer Arm v8 ARM DDI 0487G.b, Page - C6-1107
-      * "Shared decode for all encodings" (under ldr immediate)
-diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
-index 13db8ac968..b1580178eb 100644
---- a/xen/arch/arm/decode.h
-+++ b/xen/arch/arm/decode.h
-@@ -24,9 +24,27 @@
- #include <asm/processor.h>
+ 	/* Now get the node information */
+ 	if (prev_node != NULL)
+@@ -1183,11 +1186,27 @@ static void top(void)
+ 	if(domains == NULL)
+ 		fail("Failed to allocate memory\n");
  
- /*
-- * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
-- * Page 318 specifies the following bit pattern for
-- * "load/store register (immediate post-indexed)".
-+ * From:
-+ * https://developer.arm.com/documentation/ddi0602/2023-12/Index-by-Encoding
-+ *
-+ * Top level encoding:
-+ *
-+ *   31  30  29 28  25 24                                             0
-+ * ___________________________________________________________________
-+ * |op0 | x  x |  op1 |                                               |
-+ * |____|______|______|_______________________________________________|
-+ *
-+ * op0 = 0 is reserved
-+ * op1 = x1x0 for Loads and Stores
-+ *
-+ * Loads and Stores
-+ *
-+ *  31    28 27   26   25  24             9 8                        0
-+ * ___________________________________________________________________
-+ * |  op0   | 1 | op1 | 0 |       op2      |                          |
-+ * |________|___|_____|___|________________|__________________________|
-+ *
-+ * Load/store register (immediate post-indexed)
-  *
-  * 31 30 29  27 26 25  23   21 20              11   9         4       0
-  * ___________________________________________________________________
-@@ -35,6 +53,20 @@
-  */
- union instr {
-     uint32_t value;
-+    struct {
-+        unsigned int ign2:25;
-+        unsigned int op1:4;     /* instruction class */
-+        unsigned int ign1:2;
-+        unsigned int op0:1;     /* value = 1b */
-+    } top_level;
-+    struct {
-+        unsigned int ign1:9;
-+        unsigned int op2:15;
-+        unsigned int fixed1:1; /* value = 0b */
-+        unsigned int op1:1;
-+        unsigned int fixed2:1; /* value = 1b */
-+        unsigned int op0:4;
-+    } ld_st;
-     struct {
-         unsigned int rt:5;     /* Rt register */
-         unsigned int rn:5;     /* Rn register */
+-	for (i=0; i < num_domains; i++)
++	for (i=0; i < num_domains; i++) {
+ 		domains[i] = xenstat_node_domain_by_index(cur_node, i);
++		if ( strcmp(xenstat_domain_name(domains[i]), "Domain-0") == 0 )
++			dom0_index = i;
++	}
++
++	/* Handle dom0 position, not for dom0-less */
++	if ( dom0_first == 1 && dom0_index != -1 ){
++		/* if dom0 is not first in domains, swap it there */
++		if ( dom0_index != 0 ){
++			xenstat_domain *tmp;
++			tmp = domains[0];
++			domains[0] = domains[dom0_index];
++			domains[dom0_index] = tmp;
++		}
++		sort_start = 1;
++		sort_count = 1;
++	}
+ 
+ 	/* Sort */
+-	qsort(domains, num_domains, sizeof(xenstat_domain *),
++	qsort((domains+sort_start), (num_domains-sort_count), sizeof(xenstat_domain *),
+ 	      (int(*)(const void *, const void *))compare_domains);
+ 
+ 	if(first_domain_index >= num_domains)
+@@ -1242,9 +1261,10 @@ int main(int argc, char **argv)
+ 		{ "batch",	   no_argument,	      NULL, 'b' },
+ 		{ "iterations",	   required_argument, NULL, 'i' },
+ 		{ "full-name",     no_argument,       NULL, 'f' },
++		{ "dom0-first",    no_argument,       NULL, 'z' },
+ 		{ 0, 0, 0, 0 },
+ 	};
+-	const char *sopts = "hVnxrvd:bi:f";
++	const char *sopts = "hVnxrvd:bi:fz";
+ 
+ 	if (atexit(cleanup) != 0)
+ 		fail("Failed to install cleanup handler.\n");
+@@ -1286,6 +1306,9 @@ int main(int argc, char **argv)
+ 		case 'f':
+ 			show_full_name = 1;
+ 			break;
++		case 'z':
++			dom0_first = 1;
++			break;
+ 		}
+ 	}
+ 
 -- 
 2.39.2
 
