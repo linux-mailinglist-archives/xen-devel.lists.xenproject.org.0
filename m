@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C43A843A36
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 10:06:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673834.1048309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5ED7843A6F
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 10:11:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673839.1048320 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV6Xr-0004Zk-7H; Wed, 31 Jan 2024 09:06:11 +0000
+	id 1rV6cP-0006Y5-P0; Wed, 31 Jan 2024 09:10:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673834.1048309; Wed, 31 Jan 2024 09:06:11 +0000
+Received: by outflank-mailman (output) from mailman id 673839.1048320; Wed, 31 Jan 2024 09:10:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV6Xr-0004YD-4b; Wed, 31 Jan 2024 09:06:11 +0000
-Received: by outflank-mailman (input) for mailman id 673834;
- Wed, 31 Jan 2024 09:06:09 +0000
+	id 1rV6cP-0006VZ-M0; Wed, 31 Jan 2024 09:10:53 +0000
+Received: by outflank-mailman (input) for mailman id 673839;
+ Wed, 31 Jan 2024 09:10:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q596=JJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rV6Xp-0004Y3-FP
- for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 09:06:09 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1rV6cO-0006VT-8D
+ for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 09:10:52 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f8010727-c017-11ee-98f5-efadbce2ee36;
- Wed, 31 Jan 2024 10:06:07 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40faff092a2so9182575e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 01:06:07 -0800 (PST)
+ id a062dbda-c018-11ee-98f5-efadbce2ee36;
+ Wed, 31 Jan 2024 10:10:50 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-3394ca0c874so3965422f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 01:10:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fj5-20020a05600c0c8500b0040f44b5c847sm961153wmb.45.2024.01.31.01.06.06
+ cl1-20020a5d5f01000000b0033afcc899c1sm3400247wrb.13.2024.01.31.01.10.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jan 2024 01:06:06 -0800 (PST)
+ Wed, 31 Jan 2024 01:10:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8010727-c017-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: a062dbda-c018-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706691967; x=1707296767; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706692249; x=1707297049; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ztPObBMvm2jHeKYmDPmPd33ggMPo7dFXuG+6CAB2Vqc=;
-        b=FO04rgxHJKDJgHFf9S177sMjfU110FhFqge/zL7S4VGHdGJOj6i91IxoBv2SL08dxm
-         x6vH5IxSo4/pVGxboqy7olHxKgpjipTSB6jk86W5JBrWUnzsw/JJKaEThV+3xW+98Wz0
-         VKUZWgUAVgEuLIi/PjphT/22WQOUSh39YWltiA1G7mSnAxYdAS0NdsiAPuHuj0zr4GrG
-         7kpfJVzHQ8z4zI9uZPHZffUspPNI7DtIPzunZWz1RG4tHoF2bldKWUp73fXRsb8aNkIX
-         3wmQA4Foi7VRDw4zeMedmG6YNFS2Nf9xr1NLwwczxM5ShzaFNyE0gnakFQTBJBWcp6AY
-         W2iQ==
+        bh=9p39soEk6ArgSnnhDao33UTSRr0AyyVIhT0eOH58YhQ=;
+        b=EHf4ne0hK6gqSMI4rGV5s09QXXF5Pj7c/isS164s5hC03M+b6Bq9hPv0C+ZQIpOvSC
+         vhPOhAfQuuepk5SUi5zQ3+jZ65wyM2XGQveMfkFNOqkf83n50F6WZEoG4YaHuK1SY+nk
+         dhplDUUKzFo+I0xUc9fwCO0kzNCh10fgHndEvIw4WzpYEm+8wy+5HNz58kwjDeTY/V34
+         qKI65gShe62ihT5F05/NBZoyE6w5ShLs42IuFj1l1IKaL8y60Gl+Pj0Ok0jfyUjF57N4
+         KLJlhraFEtu0gQh5kN9wjtn2rCYuPYSXNN2Sjl7Aj4+4m6LKCf1TgCFWt+XyafrqLwe7
+         6CTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706691967; x=1707296767;
+        d=1e100.net; s=20230601; t=1706692249; x=1707297049;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ztPObBMvm2jHeKYmDPmPd33ggMPo7dFXuG+6CAB2Vqc=;
-        b=YNj0F0S6+EqfVi/8GI0j8PjbJWF8RzQN1c4h90SlvkRSB+b6Fw0oMni1/YsYXN//IU
-         Zoq3eMSOrUu9a00BF6X3hB5VylDnUndbjvTDyH4kBA4g4H7YkpKA+3YtwmH0YhUV0n32
-         R+NJGim8WYGgcjRMbtknWrgSQpgupTZZ7ASmQcuUbyP7lGQCYTEmcwkH9D3535NnxHVZ
-         d0PFviNXC5+LR99PvnDWLHO5MIrKl3gwj0+jxSRcWZmyi3JnhYQYplfZ8ccKV93vDxbb
-         5rIAWb4NrE0lUKVTFdGgBxPvYoAzNvLYH++D1yzNPKM5ZLTSHRkBd0ShYqo86balO1fd
-         D1Aw==
-X-Gm-Message-State: AOJu0YxaRm1iViQjLzXXgErLfZR2NSXlB8rjEqMBpenThDdLYnMRqcz/
-	KHP+yLkb+v8qOSm/kw4tb078cjjpBI4lqCiDj/sd20yTjmt+Sr7jtptsU+l28A==
-X-Google-Smtp-Source: AGHT+IFxmq7MHkoCXYW6NsF/eJrCkYZbFH7dlmmxHTRSVXaL+w86S81ReRdVmh5fuKKLkcqCX0cRuw==
-X-Received: by 2002:a05:600c:241:b0:40e:a7cf:10e0 with SMTP id 1-20020a05600c024100b0040ea7cf10e0mr892891wmj.20.1706691966909;
-        Wed, 31 Jan 2024 01:06:06 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCUR1YZ/8a7A35JMUXU+Hx3RTFeS3YcWhl83hBuy3gB2ybGFce3fhMDx138M1ib2zb15ZLM1BbPZFWQoxGmgu92p8iHrDcNAdUoVCUHxnp5bSWGqKlB+YBZ4l7wlJEs0Xi6vXyVD7pNWX0yD4KaW76BlU7gqRPsHV5YSlX8s2ISKtBgv
-Message-ID: <25b705d0-76e1-4328-bd5f-7204d08ffb86@suse.com>
-Date: Wed, 31 Jan 2024 10:06:06 +0100
+        bh=9p39soEk6ArgSnnhDao33UTSRr0AyyVIhT0eOH58YhQ=;
+        b=YMbVK9OV5KaV5+W3kfj+bYTSiuOUOzvgZKkJxL2ivzWecOlcP4PnjClRDqlpF68Kzj
+         mJnDqmwCiPwj9KJE4eoF7fbA53p2KmSOOo5OR0LPaAZxnAk3mZQvyPY0apkPH47PEurH
+         2gXieZ6fAdsRDqJJfenV90zUOv0oGTEETcU0PNvD88MvYNArXnDvdwjysN/kpi7SUYJI
+         UWyfDuuXmqsyvlkybGlez4BcblxnxHMMTD5hPgl70fLg5aK227yJye404Oe95TDcZPVz
+         t+TctwU6Rn8NOn3lwv3LqxHb1El+r0/LTicxkaXovrfm0ekje9DqmDMB/iDpEM9FiYid
+         NfJA==
+X-Gm-Message-State: AOJu0Yx2NqfCMVSBoQ/qibH8r5myZzAnHG/u2rFgnweYTYpuQlN9gEV8
+	lRwwpw/3G0Yp8KHKxEHLLF0Z4P6AEjZURZPxXiRjEhA+z38g4quq0v2F9uGEXA==
+X-Google-Smtp-Source: AGHT+IE+MMEYtp/hiMQ/8pK/ifPMCBZ6P93wY3VQNqAQtVPFVELZh+6Pu2uP2kW9bUjIEq78zSY0aA==
+X-Received: by 2002:adf:ec45:0:b0:33a:e73b:b0d0 with SMTP id w5-20020adfec45000000b0033ae73bb0d0mr801433wrn.32.1706692249291;
+        Wed, 31 Jan 2024 01:10:49 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCWxQ+kLz2F3bJwDBt3h2XTbC8jx+sXu0jwvIY+/NswatyPFwJsK/p8oQs3CahmF5HU/hLREEZqFo1xpyTc0POA44TMjN3/CDwItayOpxFPRLItHMS5g/W/N+83MvJ32B0mdC4c3eMLm5Z6XpFFs28DdGbHXD82hc+ac5DyuKEHNM5sUv6mtYWRNNUD67GlBC+2v/cSXx+SvbpzzeEpwAqvSPYstbtxdVqE1gVldCT1oIKngYnOh2Qb1WMKx2pNFbr2UIZr9TIHzqGz/EH1Ltzt4U5utfwP+q7fyWnYoxP4za7pTvzmlfGOdJBVMYDrA8VuGUinhNJ2dykbM61DdGwqSBvYhWMR1x1CpgXj4ehFDlcYJakqM4zNK6rrloT29zffgiqpjiNEW03dhabXjhiCbFSvru/46RXWMmA==
+Message-ID: <4ac2f9e6-8fa7-4446-8af3-29de4028c7a6@suse.com>
+Date: Wed, 31 Jan 2024 10:10:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Drop superfluous semi-colons
+Subject: Re: [PATCH] xen/*/asm-offset: Fix bad copy&paste from x86
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240130221808.104878-1-andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>, Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240130222808.106006-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,17 +117,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240130221808.104878-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240130222808.106006-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30.01.2024 23:18, Andrew Cooper wrote:
-> All these cases happen to be benign, but drop them anyway.  This is one step
-> towards making -Wextra-semi work.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 30.01.2024 23:28, Andrew Cooper wrote:
+> --- a/xen/arch/x86/x86_64/asm-offsets.c
+> +++ b/xen/arch/x86/x86_64/asm-offsets.c
+> @@ -18,11 +18,11 @@
+>  
+>  #define DEFINE(_sym, _val)                                                 \
+>      asm volatile ("\n.ascii\"==>#define " #_sym " %0 /* " #_val " */<==\"" \
+> -                  : : "i" (_val) )
+> +                  :: "i" (_val))
 
+The removal of the last blank is against our style; instead a blank wants
+insertion after the opening parenthesis.
+
+>  #define BLANK()                                                            \
+> -    asm volatile ( "\n.ascii\"==><==\"" : : )
+> +    asm volatile ("\n.ascii\"==><==\"")
+
+Similarly here while dropping the colons is fine, the blanks next to the
+parentheses want keeping.
+
+With that adjusted throughout
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-
+Jan
 
