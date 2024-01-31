@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12B85843A22
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 10:05:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673830.1048300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C43A843A36
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 10:06:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673834.1048309 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV6WR-00041P-R6; Wed, 31 Jan 2024 09:04:43 +0000
+	id 1rV6Xr-0004Zk-7H; Wed, 31 Jan 2024 09:06:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673830.1048300; Wed, 31 Jan 2024 09:04:43 +0000
+Received: by outflank-mailman (output) from mailman id 673834.1048309; Wed, 31 Jan 2024 09:06:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV6WR-0003zJ-NM; Wed, 31 Jan 2024 09:04:43 +0000
-Received: by outflank-mailman (input) for mailman id 673830;
- Wed, 31 Jan 2024 09:04:42 +0000
+	id 1rV6Xr-0004YD-4b; Wed, 31 Jan 2024 09:06:11 +0000
+Received: by outflank-mailman (input) for mailman id 673834;
+ Wed, 31 Jan 2024 09:06:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=q596=JJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rV6WQ-0003zD-RF
- for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 09:04:42 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ id 1rV6Xp-0004Y3-FP
+ for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 09:06:09 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c44d4de4-c017-11ee-98f5-efadbce2ee36;
- Wed, 31 Jan 2024 10:04:40 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-51032058f17so4269794e87.3
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 01:04:40 -0800 (PST)
+ id f8010727-c017-11ee-98f5-efadbce2ee36;
+ Wed, 31 Jan 2024 10:06:07 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-40faff092a2so9182575e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 01:06:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fj5-20020a05600c0c8500b0040f44b5c847sm961153wmb.45.2024.01.31.01.04.39
+ fj5-20020a05600c0c8500b0040f44b5c847sm961153wmb.45.2024.01.31.01.06.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jan 2024 01:04:39 -0800 (PST)
+ Wed, 31 Jan 2024 01:06:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c44d4de4-c017-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: f8010727-c017-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706691880; x=1707296680; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706691967; x=1707296767; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Qc+RGf1LyKvayKXqnKK5idMfxaJ4W1meb94FOtQR5Ug=;
-        b=GrDUltWIbnSsi1groVq1hL97eV79jk6b/S9pLPvvSEiavA8MDOW1rG6X47jSXHs6ah
-         mq9BzLZH+y9WtbnQv55lGjRcjWueXab7ItCPAy93xLjfQdrcNstMTi17OiMCl4pT2Z1o
-         rxjvmkWAWyE0jtLOjLen4+KJ1f4mZlXBW3Oem+NQy2CYbZdgdDJ80aQodkFJerzfa3KP
-         hfopwCdY5eLFIvPlEu5AYr4zRk6DW5P3kpxnyItdw4VcsKtgSsvGAUusSRzFP1gAJpiY
-         njHfHjOTJ1xI2CkQyWWCXS7/dEUZUnrFkFplOGIH/PKOTKQckNGgryqZOfe1AsRNAVMi
-         3D8w==
+        bh=ztPObBMvm2jHeKYmDPmPd33ggMPo7dFXuG+6CAB2Vqc=;
+        b=FO04rgxHJKDJgHFf9S177sMjfU110FhFqge/zL7S4VGHdGJOj6i91IxoBv2SL08dxm
+         x6vH5IxSo4/pVGxboqy7olHxKgpjipTSB6jk86W5JBrWUnzsw/JJKaEThV+3xW+98Wz0
+         VKUZWgUAVgEuLIi/PjphT/22WQOUSh39YWltiA1G7mSnAxYdAS0NdsiAPuHuj0zr4GrG
+         7kpfJVzHQ8z4zI9uZPHZffUspPNI7DtIPzunZWz1RG4tHoF2bldKWUp73fXRsb8aNkIX
+         3wmQA4Foi7VRDw4zeMedmG6YNFS2Nf9xr1NLwwczxM5ShzaFNyE0gnakFQTBJBWcp6AY
+         W2iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706691880; x=1707296680;
+        d=1e100.net; s=20230601; t=1706691967; x=1707296767;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qc+RGf1LyKvayKXqnKK5idMfxaJ4W1meb94FOtQR5Ug=;
-        b=I4OGmtSoz9mHgMuVbOzcXqsvOO+agH2VYEU2Wv2InZSnvQAwg02QvZZGSUFnsPol6F
-         bR5tl232+NtvMFyNGBAsPLRKV9DaAa76o91H0fx1AxuMmZvqW6Safb3u5FrR0IghmImL
-         7/2t9+0faIsCqZTEgxWPAELqQjErpoAiDTyBLJ/cfuTG8HOB0bOJ2KiVBmetZTzzJRRw
-         C7XzKaWCoknVOtgYsV3g8fZ+WDCyEoQyuACUOTkW+jhKnngfefD5iX7Pp7EMEwINvi55
-         qijL9brRpLcqyV/wFrtwb8fCnEBCbWqAT/EuPNzB7LyFxuyIDubwTIu0fUd+u69FsEsy
-         yRIA==
-X-Gm-Message-State: AOJu0YzXkZmsBeVXy2PhdxtRdOo7CDTk4XNHNSue2rgl5A3Yl0VJZwIE
-	v/w5TeMknFfdYJqc6N8NRGoAuQf1Gh4pxmDR4CMZh0QYoONmly2WjiPcrHRH9Q==
-X-Google-Smtp-Source: AGHT+IHtND/kBBheO/qpf0VjyAymK/cId7QUs2K5yotIoaJaj0YZ1cX7KWwb84slX7J/zU2OPtrSnQ==
-X-Received: by 2002:a19:690a:0:b0:510:153a:6bdc with SMTP id e10-20020a19690a000000b00510153a6bdcmr650435lfc.19.1706691880131;
-        Wed, 31 Jan 2024 01:04:40 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCXbdrZSd3/Eij/J/F3iYMFt3RqqzIgqG7WjdRaOUrdOhsqZjZqi3xlSgt6CaDrc2m57FjaN3QaYi1IHRfXZ6CJWAZMCzrppc4MFR8sF3406xJduyWViTU1vwo6rUZgj7gU8zTwjDRjOkZjtpbrYE6hjha4RQTsJGAMHFjrbP4rmWQtNsmnTqKFBV6oII8znTpPI/Y9gnzsVXQJJWOflcKzMsxvJYzUULtdUSpgsXR7g5lCW2Qf/ul1IPlz218Mc/Yww+IO0VGKljQwht2ruPsEac81AoitiqiP7qPO9KQ9ArcPG9Y2OseMPExxgTPHDkQcvj3w53Bf6kCStPXjC
-Message-ID: <2eb905da-138e-4e0f-ba93-0780258e1142@suse.com>
-Date: Wed, 31 Jan 2024 10:04:38 +0100
+        bh=ztPObBMvm2jHeKYmDPmPd33ggMPo7dFXuG+6CAB2Vqc=;
+        b=YNj0F0S6+EqfVi/8GI0j8PjbJWF8RzQN1c4h90SlvkRSB+b6Fw0oMni1/YsYXN//IU
+         Zoq3eMSOrUu9a00BF6X3hB5VylDnUndbjvTDyH4kBA4g4H7YkpKA+3YtwmH0YhUV0n32
+         R+NJGim8WYGgcjRMbtknWrgSQpgupTZZ7ASmQcuUbyP7lGQCYTEmcwkH9D3535NnxHVZ
+         d0PFviNXC5+LR99PvnDWLHO5MIrKl3gwj0+jxSRcWZmyi3JnhYQYplfZ8ccKV93vDxbb
+         5rIAWb4NrE0lUKVTFdGgBxPvYoAzNvLYH++D1yzNPKM5ZLTSHRkBd0ShYqo86balO1fd
+         D1Aw==
+X-Gm-Message-State: AOJu0YxaRm1iViQjLzXXgErLfZR2NSXlB8rjEqMBpenThDdLYnMRqcz/
+	KHP+yLkb+v8qOSm/kw4tb078cjjpBI4lqCiDj/sd20yTjmt+Sr7jtptsU+l28A==
+X-Google-Smtp-Source: AGHT+IFxmq7MHkoCXYW6NsF/eJrCkYZbFH7dlmmxHTRSVXaL+w86S81ReRdVmh5fuKKLkcqCX0cRuw==
+X-Received: by 2002:a05:600c:241:b0:40e:a7cf:10e0 with SMTP id 1-20020a05600c024100b0040ea7cf10e0mr892891wmj.20.1706691966909;
+        Wed, 31 Jan 2024 01:06:06 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUR1YZ/8a7A35JMUXU+Hx3RTFeS3YcWhl83hBuy3gB2ybGFce3fhMDx138M1ib2zb15ZLM1BbPZFWQoxGmgu92p8iHrDcNAdUoVCUHxnp5bSWGqKlB+YBZ4l7wlJEs0Xi6vXyVD7pNWX0yD4KaW76BlU7gqRPsHV5YSlX8s2ISKtBgv
+Message-ID: <25b705d0-76e1-4328-bd5f-7204d08ffb86@suse.com>
+Date: Wed, 31 Jan 2024 10:06:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 0/3] Introduce and use STATIC_ASSERT_UNREACHABLE()
+Subject: Re: [PATCH] xen: Drop superfluous semi-colons
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Simone Ballarin <simone.ballarin@bugseng.com>,
- Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
-References: <cover.1706259490.git.federico.serafini@bugseng.com>
- <e980ede6-b6bd-4ce8-acf3-ecee2698b0ee@bugseng.com>
+ Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240130221808.104878-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,35 +111,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e980ede6-b6bd-4ce8-acf3-ecee2698b0ee@bugseng.com>
+In-Reply-To: <20240130221808.104878-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31.01.2024 09:19, Federico Serafini wrote:
-> On 26/01/24 11:05, Federico Serafini wrote:
->> Introduce macro STATIC_ASSERT_UNREACHABLE(),
->> use it to replace __{get,put}_user_bad(),
->> update ECLAIR configuration to allow the use of such macro at the end of
->> switch-caluses.
->>
->> Federico Serafini (3):
->>    xen: introduce STATIC_ASSERT_UNREACHABLE()
->>    x86/uaccess: replace __{get,put}_user_bad() with
->>      STATIC_ASSERT_UNREACHABLE()
->>    automation/eclair: add deviation for MISRA C:2012 Rule 16.3
->>
->>   automation/eclair_analysis/ECLAIR/deviations.ecl | 4 ++++
->>   docs/misra/deviations.rst                        | 5 +++++
->>   xen/arch/x86/include/asm/uaccess.h               | 7 ++-----
->>   xen/include/xen/compiler.h                       | 7 +++++++
->>   4 files changed, 18 insertions(+), 5 deletions(-)
->>
+On 30.01.2024 23:18, Andrew Cooper wrote:
+> All these cases happen to be benign, but drop them anyway.  This is one step
+> towards making -Wextra-semi work.
 > 
-> Hello everyone,
-> 
-> do you have any comments on this series?
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Yes, but in due course.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+
 
