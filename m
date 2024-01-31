@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8703B8439F9
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 09:59:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673827.1048289 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12B85843A22
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 10:05:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673830.1048300 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV6QJ-0002L0-4a; Wed, 31 Jan 2024 08:58:23 +0000
+	id 1rV6WR-00041P-R6; Wed, 31 Jan 2024 09:04:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673827.1048289; Wed, 31 Jan 2024 08:58:23 +0000
+Received: by outflank-mailman (output) from mailman id 673830.1048300; Wed, 31 Jan 2024 09:04:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV6QJ-0002J1-1b; Wed, 31 Jan 2024 08:58:23 +0000
-Received: by outflank-mailman (input) for mailman id 673827;
- Wed, 31 Jan 2024 08:58:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CJWf=JJ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rV6QH-0002It-Vw
- for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 08:58:22 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e1de8cac-c016-11ee-8a43-1f161083a0e0;
- Wed, 31 Jan 2024 09:58:20 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-33b029a1c8aso230101f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 00:58:20 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- d15-20020adfa34f000000b0033ae9f1fb82sm8527367wrb.48.2024.01.31.00.58.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Jan 2024 00:58:20 -0800 (PST)
+	id 1rV6WR-0003zJ-NM; Wed, 31 Jan 2024 09:04:43 +0000
+Received: by outflank-mailman (input) for mailman id 673830;
+ Wed, 31 Jan 2024 09:04:42 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=q596=JJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rV6WQ-0003zD-RF
+ for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 09:04:42 +0000
+Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
+ [2a00:1450:4864:20::12c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c44d4de4-c017-11ee-98f5-efadbce2ee36;
+ Wed, 31 Jan 2024 10:04:40 +0100 (CET)
+Received: by mail-lf1-x12c.google.com with SMTP id
+ 2adb3069b0e04-51032058f17so4269794e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 01:04:40 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ fj5-20020a05600c0c8500b0040f44b5c847sm961153wmb.45.2024.01.31.01.04.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 Jan 2024 01:04:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,145 +45,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1de8cac-c016-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: c44d4de4-c017-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706691500; x=1707296300; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=qh9fV0VJ5xXDNHxQ7wqQ2X7g1MNe9pqa0fEzuyTcdc4=;
-        b=G7XD2aEF6v3l31i1zXnJLOt3BPK6n1ILEARinnOKHLYZx2ZErjIa7ZJxHbnIqrhfXm
-         eW0pB0W/f3OpYMuPl8lNpzzJrhBGRIU0j9htxIJ0Z3i40fYqq/6RYqqx6OlCv3pOzj4j
-         uv7QS6zx/IbZ59EnzhKx5ID+ecbkmAqOhL7mw=
+        d=suse.com; s=google; t=1706691880; x=1707296680; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Qc+RGf1LyKvayKXqnKK5idMfxaJ4W1meb94FOtQR5Ug=;
+        b=GrDUltWIbnSsi1groVq1hL97eV79jk6b/S9pLPvvSEiavA8MDOW1rG6X47jSXHs6ah
+         mq9BzLZH+y9WtbnQv55lGjRcjWueXab7ItCPAy93xLjfQdrcNstMTi17OiMCl4pT2Z1o
+         rxjvmkWAWyE0jtLOjLen4+KJ1f4mZlXBW3Oem+NQy2CYbZdgdDJ80aQodkFJerzfa3KP
+         hfopwCdY5eLFIvPlEu5AYr4zRk6DW5P3kpxnyItdw4VcsKtgSsvGAUusSRzFP1gAJpiY
+         njHfHjOTJ1xI2CkQyWWCXS7/dEUZUnrFkFplOGIH/PKOTKQckNGgryqZOfe1AsRNAVMi
+         3D8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706691500; x=1707296300;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1706691880; x=1707296680;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qh9fV0VJ5xXDNHxQ7wqQ2X7g1MNe9pqa0fEzuyTcdc4=;
-        b=it6iC9eEf3yqnwOqeR5iWvUAPGomL5b0J41dTgZxkXkHNQ1E8/1R79JnermZxNhOaD
-         Y36/Ip+dqM+Z9oXnbxKp+eQUjJW9NOmD1lLzLZ1jA2aQ4JLdO9840AVNL3dTwytoD0cL
-         5vNejAAsW7CHsEnhXGhTLNMWINwcAzJn/jVQLCdVhzcC/NdV1QRqwRv6dLhJdbLDCVg1
-         O/N2G80jqOuLYAhWplVexsD6iKI6ZnxUj6i960GvT7xJk3/9hXYm1xtxT4E05jKkjguY
-         m3DzCT2+oalJB7qLQEfGf1OnqiK0ei+XNJPrMpObyEEAGJHNJCkmxlYeU741SyM8MpCu
-         LNVw==
-X-Gm-Message-State: AOJu0Yy4U6L/T5QB52RhTtp3WdA5QFq/9/Ka/TbTyaxcpfj9Zc57OLHv
-	RtqpKewIDqyTfZaJocs5RRedlsoWy0hLEufmQ6EFJjZc0xGQ7voopUNIiSMOYvM=
-X-Google-Smtp-Source: AGHT+IEoDFw3DguH17mowGdEzig1sXO01pO7xO+LXaUUAIS/5x+ESHIRsiCl4RQiIC4BMyQA8aoC/Q==
-X-Received: by 2002:adf:ea92:0:b0:33a:ded1:b01 with SMTP id s18-20020adfea92000000b0033aded10b01mr3594397wrm.28.1706691500269;
-        Wed, 31 Jan 2024 00:58:20 -0800 (PST)
-Date: Wed, 31 Jan 2024 09:58:19 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
-	"Huang, Ray" <Ray.Huang@amd.com>,
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>
-Subject: Re: [RFC KERNEL PATCH v4 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
-Message-ID: <ZboLq6kZhwpUC_c3@macbook>
-References: <Zbi8WJPEUSMgjuVY@macbook>
- <20240130204403.GA562912@bhelgaas>
+        bh=Qc+RGf1LyKvayKXqnKK5idMfxaJ4W1meb94FOtQR5Ug=;
+        b=I4OGmtSoz9mHgMuVbOzcXqsvOO+agH2VYEU2Wv2InZSnvQAwg02QvZZGSUFnsPol6F
+         bR5tl232+NtvMFyNGBAsPLRKV9DaAa76o91H0fx1AxuMmZvqW6Safb3u5FrR0IghmImL
+         7/2t9+0faIsCqZTEgxWPAELqQjErpoAiDTyBLJ/cfuTG8HOB0bOJ2KiVBmetZTzzJRRw
+         C7XzKaWCoknVOtgYsV3g8fZ+WDCyEoQyuACUOTkW+jhKnngfefD5iX7Pp7EMEwINvi55
+         qijL9brRpLcqyV/wFrtwb8fCnEBCbWqAT/EuPNzB7LyFxuyIDubwTIu0fUd+u69FsEsy
+         yRIA==
+X-Gm-Message-State: AOJu0YzXkZmsBeVXy2PhdxtRdOo7CDTk4XNHNSue2rgl5A3Yl0VJZwIE
+	v/w5TeMknFfdYJqc6N8NRGoAuQf1Gh4pxmDR4CMZh0QYoONmly2WjiPcrHRH9Q==
+X-Google-Smtp-Source: AGHT+IHtND/kBBheO/qpf0VjyAymK/cId7QUs2K5yotIoaJaj0YZ1cX7KWwb84slX7J/zU2OPtrSnQ==
+X-Received: by 2002:a19:690a:0:b0:510:153a:6bdc with SMTP id e10-20020a19690a000000b00510153a6bdcmr650435lfc.19.1706691880131;
+        Wed, 31 Jan 2024 01:04:40 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXbdrZSd3/Eij/J/F3iYMFt3RqqzIgqG7WjdRaOUrdOhsqZjZqi3xlSgt6CaDrc2m57FjaN3QaYi1IHRfXZ6CJWAZMCzrppc4MFR8sF3406xJduyWViTU1vwo6rUZgj7gU8zTwjDRjOkZjtpbrYE6hjha4RQTsJGAMHFjrbP4rmWQtNsmnTqKFBV6oII8znTpPI/Y9gnzsVXQJJWOflcKzMsxvJYzUULtdUSpgsXR7g5lCW2Qf/ul1IPlz218Mc/Yww+IO0VGKljQwht2ruPsEac81AoitiqiP7qPO9KQ9ArcPG9Y2OseMPExxgTPHDkQcvj3w53Bf6kCStPXjC
+Message-ID: <2eb905da-138e-4e0f-ba93-0780258e1142@suse.com>
+Date: Wed, 31 Jan 2024 10:04:38 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20240130204403.GA562912@bhelgaas>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2 0/3] Introduce and use STATIC_ASSERT_UNREACHABLE()
+Content-Language: en-US
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+References: <cover.1706259490.git.federico.serafini@bugseng.com>
+ <e980ede6-b6bd-4ce8-acf3-ecee2698b0ee@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <e980ede6-b6bd-4ce8-acf3-ecee2698b0ee@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jan 30, 2024 at 02:44:03PM -0600, Bjorn Helgaas wrote:
-> On Tue, Jan 30, 2024 at 10:07:36AM +0100, Roger Pau Monné wrote:
-> > On Mon, Jan 29, 2024 at 04:01:13PM -0600, Bjorn Helgaas wrote:
-> > > On Thu, Jan 25, 2024 at 07:17:24AM +0000, Chen, Jiqian wrote:
-> > > > On 2024/1/24 00:02, Bjorn Helgaas wrote:
-> > > > > On Tue, Jan 23, 2024 at 10:13:52AM +0000, Chen, Jiqian wrote:
-> > > > >> On 2024/1/23 07:37, Bjorn Helgaas wrote:
-> > > > >>> On Fri, Jan 05, 2024 at 02:22:17PM +0800, Jiqian Chen wrote:
-> > > > >>>> There is a need for some scenarios to use gsi sysfs.
-> > > > >>>> For example, when xen passthrough a device to dumU, it will
-> > > > >>>> use gsi to map pirq, but currently userspace can't get gsi
-> > > > >>>> number.
-> > > > >>>> So, add gsi sysfs for that and for other potential scenarios.
-> > > > >> ...
-> > > > > 
-> > > > >>> I don't know enough about Xen to know why it needs the GSI in
-> > > > >>> userspace.  Is this passthrough brand new functionality that can't be
-> > > > >>> done today because we don't expose the GSI yet?
-> > > 
-> > > I assume this must be new functionality, i.e., this kind of
-> > > passthrough does not work today, right?
-> > > 
-> > > > >> has ACPI support and is responsible for detecting and controlling
-> > > > >> the hardware, also it performs privileged operations such as the
-> > > > >> creation of normal (unprivileged) domains DomUs. When we give to a
-> > > > >> DomU direct access to a device, we need also to route the physical
-> > > > >> interrupts to the DomU. In order to do so Xen needs to setup and map
-> > > > >> the interrupts appropriately.
-> > > > > 
-> > > > > What kernel interfaces are used for this setup and mapping?
-> > > >
-> > > > For passthrough devices, the setup and mapping of routing physical
-> > > > interrupts to DomU are done on Xen hypervisor side, hypervisor only
-> > > > need userspace to provide the GSI info, see Xen code:
-> > > > xc_physdev_map_pirq require GSI and then will call hypercall to pass
-> > > > GSI into hypervisor and then hypervisor will do the mapping and
-> > > > routing, kernel doesn't do the setup and mapping.
-> > > 
-> > > So we have to expose the GSI to userspace not because userspace itself
-> > > uses it, but so userspace can turn around and pass it back into the
-> > > kernel?
-> > 
-> > No, the point is to pass it back to Xen, which doesn't know the
-> > mapping between GSIs and PCI devices because it can't execute the ACPI
-> > AML resource methods that provide such information.
-> > 
-> > The (Linux) kernel is just a proxy that forwards the hypercalls from
-> > user-space tools into Xen.
+On 31.01.2024 09:19, Federico Serafini wrote:
+> On 26/01/24 11:05, Federico Serafini wrote:
+>> Introduce macro STATIC_ASSERT_UNREACHABLE(),
+>> use it to replace __{get,put}_user_bad(),
+>> update ECLAIR configuration to allow the use of such macro at the end of
+>> switch-caluses.
+>>
+>> Federico Serafini (3):
+>>    xen: introduce STATIC_ASSERT_UNREACHABLE()
+>>    x86/uaccess: replace __{get,put}_user_bad() with
+>>      STATIC_ASSERT_UNREACHABLE()
+>>    automation/eclair: add deviation for MISRA C:2012 Rule 16.3
+>>
+>>   automation/eclair_analysis/ECLAIR/deviations.ecl | 4 ++++
+>>   docs/misra/deviations.rst                        | 5 +++++
+>>   xen/arch/x86/include/asm/uaccess.h               | 7 ++-----
+>>   xen/include/xen/compiler.h                       | 7 +++++++
+>>   4 files changed, 18 insertions(+), 5 deletions(-)
+>>
 > 
-> But I guess Xen knows how to interpret a GSI even though it doesn't
-> have access to AML?
-
-On x86 Xen does know how to map a GSI into an IO-APIC pin, in order
-configure the RTE as requested.
-
-> > > It seems like it would be better for userspace to pass an identifier
-> > > of the PCI device itself back into the hypervisor.  Then the interface
-> > > could be generic and potentially work even on non-ACPI systems where
-> > > the GSI concept doesn't apply.
-> > 
-> > We would still need a way to pass the GSI to PCI device relation to
-> > the hypervisor, and then cache such data in the hypervisor.
-> > 
-> > I don't think we have any preference of where such information should
-> > be exposed, but given GSIs are an ACPI concept not specific to Xen
-> > they should be exposed by a non-Xen specific interface.
+> Hello everyone,
 > 
-> AFAIK Linux doesn't expose GSIs directly to userspace yet.  The GSI
-> concept relies on ACPI MADT, _MAT, _PRT, etc.  A GSI is associated
-> with some device (PCI in this case) and some interrupt controller
-> entry.  I don't understand how a GSI value is useful without knowing
-> something about that framework in which GSIs exist.
+> do you have any comments on this series?
 
-I wouldn't say it's strictly associated with PCI.  A GSI is a way for
-ACPI to have a single space that unifies all possible IO-APICs pins in
-the system in a flat way.  A GSI is useful in itself because there's
-a single GSI space for the whole host.
+Yes, but in due course.
 
-> Obviously I know less than nothing about Xen, so I apologize for
-> asking all these stupid questions, but it just doesn't all make sense
-> to me yet.
-
-That's all fine, maybe there's a better path or way to expose this ACPI
-information.  Maybe introduce a per-device acpi directory and expose
-it there?  Or rename the entry to acpi_gsi?
-
-Thanks, Roger.
+Jan
 
