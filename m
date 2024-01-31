@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55F32844255
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 15:57:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674065.1048741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8E628442DC
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 16:19:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674073.1048753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVC1E-0006gK-Pu; Wed, 31 Jan 2024 14:56:52 +0000
+	id 1rVCMR-0002c0-Is; Wed, 31 Jan 2024 15:18:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674065.1048741; Wed, 31 Jan 2024 14:56:52 +0000
+Received: by outflank-mailman (output) from mailman id 674073.1048753; Wed, 31 Jan 2024 15:18:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVC1E-0006dJ-Mv; Wed, 31 Jan 2024 14:56:52 +0000
-Received: by outflank-mailman (input) for mailman id 674065;
- Wed, 31 Jan 2024 14:56:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rVCMR-0002Yo-El; Wed, 31 Jan 2024 15:18:47 +0000
+Received: by outflank-mailman (input) for mailman id 674073;
+ Wed, 31 Jan 2024 15:18:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=q596=JJ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rVC1D-0006dB-9F
- for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 14:56:51 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5a71743-c048-11ee-98f5-efadbce2ee36;
- Wed, 31 Jan 2024 15:56:48 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-33ae4205ad8so3018950f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 06:56:48 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v2-20020a5d6b02000000b0033ae7d768b2sm9918523wrw.117.2024.01.31.06.56.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 31 Jan 2024 06:56:47 -0800 (PST)
+ (envelope-from <SRS0=oSjc=JJ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rVCMQ-0002Yi-84
+ for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 15:18:46 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 061e7cb4-c04c-11ee-8a43-1f161083a0e0;
+ Wed, 31 Jan 2024 16:18:45 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 673F022020;
+ Wed, 31 Jan 2024 15:18:44 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2637E1347F;
+ Wed, 31 Jan 2024 15:18:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id ASmJB9RkumV7IAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Wed, 31 Jan 2024 15:18:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,113 +51,318 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5a71743-c048-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706713008; x=1707317808; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=IyJ6ZLYSM83Rh1dcoTjIKCMTlK7oARSpY4Q5iYBd5AA=;
-        b=GPvy34zteg0uWKfHWdyyC6A+ordM04CVBT+M12pK5CvUJAHJ5UPDLtnlUYFCCW+ZAk
-         iNjqJm+zpfy7nW07OmPy4X8Ur3+fdqGVgQbTHDmlzDpcCjnmAlqkZIgQb6AfrSwA9qGC
-         BgBykHEH2m31Xgr2VEwqRdkITBPePYLdOcJrUHhHYzJfHeES/qYHoXj2ysfyLAbT0YGw
-         nD8ekjx07OPMlEIPRV+x+1yFVDS/xgeAVWX1Y+tm/DnsXh9L8wvpfUZgzJI6BI6Kfypw
-         IjXYg+UpYxa1d1Vi10NmxK6Ipw8SROT/BXEh6UT2XeFHu9ld+Y6CkLzmTsBiAHtRN0ly
-         mLxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706713008; x=1707317808;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IyJ6ZLYSM83Rh1dcoTjIKCMTlK7oARSpY4Q5iYBd5AA=;
-        b=kzgvVZDdJJw8y+Q8mh+aoLaIWYBSX8eZcOF50HNSBa4ouG6pUm0C9lHdHsHPQ88HOI
-         OVwW8kl3yXL6Belfuy8HBfn8C7BGPzYq/5az/Ihb+spS5lIH2xUCN3BB4218XsXVYVn4
-         HIUE+rfwE89usRWn5l61tzMuqU9zdlsRAvE0//wWfvwjX0FSbxaIw2W30BppqE7hX/sm
-         Ifg0yTLwJcJj3OQ2BctYV+ozp1MR0jApivQjU47S+a/Tm4qYS0yGe0oNa1AVyWTY/XAq
-         B5QAle2/hjtPJpkmr0Y7ovx+pFoz/5peDyhzxmU8euUH4siwe/bLqGKWALP89RpwFu6w
-         RiBA==
-X-Gm-Message-State: AOJu0Yy+bPaf4l5tVpBpL5XhgmquYXUBC86WxR/bjcOtSHzKeFHTc5On
-	mLnWPobOGtqm8b5OuIQ9oyeoZGqlfVKlJysccbZAVlWqCqctf4A6YQ7yMm9BJQ==
-X-Google-Smtp-Source: AGHT+IHshHuNXNHu3vhGy6mtGAiAaF0zVZop0Hk7EJWE0XMAfmXFk5DTFVz8l0fTBr32VRRXILdGNg==
-X-Received: by 2002:a5d:5150:0:b0:33a:e8be:51bd with SMTP id u16-20020a5d5150000000b0033ae8be51bdmr1318078wrt.51.1706713008199;
-        Wed, 31 Jan 2024 06:56:48 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCU+mQtfjcLs0VmznGCNzmEI7ECP0SrDFiqu5X2vhfJZGXXOJpi/cQNZ1pjF5kagJ4jmPEsQ/EZqFJnIVFtLOFP7jF9z6M5chnvBwlyvDK3bHZkEuyH0VobHEjmpy5jRVWxtil6Y8juYpUaCZi6KGSuAW08jQHFRHUqYto2KCAaHAXLUxkzSbWOKmRKw8QR+0p5kzchIMJbk7rNOD5DpCgbbuk07p8TGBKJE8g==
-Message-ID: <fdbfe86f-3b7c-4e35-90dc-ac64ee94fcd1@suse.com>
-Date: Wed, 31 Jan 2024 15:56:46 +0100
+X-Inumbo-ID: 061e7cb4-c04c-11ee-8a43-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1706714324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=da7q3omMJZdg7zQAbipKjTn0BkqeSkCKqBqcjkiOk0Y=;
+	b=XMiOIyawMxg1uzYHEkP3LN2WgdXQImhzTh0mv+cwSvIoSt+Z8Zg2Flooc0Ho/RGVY0kPRD
+	qxzEOb0NFwSC4/p1sxuSvgwXMUw4O7idGnM2tZNTJxHBIDTIgAdb54jyDkG6JBiaKGGTTu
+	9PQlls4rNvjkoqdLtLW8vlgKZz0fHUs=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1706714324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=da7q3omMJZdg7zQAbipKjTn0BkqeSkCKqBqcjkiOk0Y=;
+	b=XMiOIyawMxg1uzYHEkP3LN2WgdXQImhzTh0mv+cwSvIoSt+Z8Zg2Flooc0Ho/RGVY0kPRD
+	qxzEOb0NFwSC4/p1sxuSvgwXMUw4O7idGnM2tZNTJxHBIDTIgAdb54jyDkG6JBiaKGGTTu
+	9PQlls4rNvjkoqdLtLW8vlgKZz0fHUs=
+Message-ID: <b44e2775-c396-428f-91d2-427691509a37@suse.com>
+Date: Wed, 31 Jan 2024 16:18:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 6/7] xen/arm: switch Arm to use asm-generic/device.h
+Subject: Re: [PATCH v3 16/33] tools/libs/light: add backend type for 9pfs PV
+ devices
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1706281994.git.oleksii.kurochko@gmail.com>
- <d5d2b0515516f0554a0532ff4d4fbd9c704e0a1b.1706281994.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d5d2b0515516f0554a0532ff4d4fbd9c704e0a1b.1706281994.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
+ Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>,
+ Jason Andryuk <jandryuk@gmail.com>
+References: <20240104090055.27323-1-jgross@suse.com>
+ <20240104090055.27323-17-jgross@suse.com>
+ <2a2f50d3-f065-4b03-b75d-401a40fcb6fd@perard>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <2a2f50d3-f065-4b03-b75d-401a40fcb6fd@perard>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -3.70
+X-Spamd-Result: default: False [-3.70 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 RCPT_COUNT_FIVE(0.00)[6];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 BAYES_HAM(-3.00)[100.00%];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 R_MIXED_CHARSET(0.59)[subject];
+	 FREEMAIL_CC(0.00)[lists.xenproject.org,citrix.com,gmail.com,xen.org];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[]
+X-Spam-Flag: NO
 
-On 26.01.2024 16:42, Oleksii Kurochko wrote:
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+On 12.01.24 17:55, Anthony PERARD wrote:
+> On Thu, Jan 04, 2024 at 10:00:38AM +0100, Juergen Gross wrote:
+>> diff --git a/tools/libs/light/libxl_9pfs.c b/tools/libs/light/libxl_9pfs.c
+>> index 5ab0d3aa21..486bc4326e 100644
+>> --- a/tools/libs/light/libxl_9pfs.c
+>> +++ b/tools/libs/light/libxl_9pfs.c
+>> @@ -33,20 +33,159 @@ static int libxl__set_xenstore_p9(libxl__gc *gc, uint32_t domid,
+>>   
+>>       flexarray_append_pair(front, "tag", p9->tag);
+>>   
+>> +    if (p9->type == LIBXL_P9_TYPE_XEN_9PFSD) {
+>> +        flexarray_append_pair(back, "max-space",
+>> +                              GCSPRINTF("%u", p9->max_space));
+>> +        flexarray_append_pair(back, "max-files",
+>> +                              GCSPRINTF("%u", p9->max_files));
+>> +        flexarray_append_pair(back, "max-open-files",
+>> +                              GCSPRINTF("%u", p9->max_open_files));
+>> +        flexarray_append_pair(back, "auto-delete",
+>> +                              p9->auto_delete ? "1" : "0");
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
+>> +static int libxl__device_from_p9(libxl__gc *gc, uint32_t domid,
+>> +                                 libxl_device_p9 *type, libxl__device *device)
+>> +{
+>> +    device->backend_devid   = type->devid;
+>> +    device->backend_domid   = type->backend_domid;
+>> +    device->backend_kind    = type->type == LIBXL_P9_TYPE_QEMU
+>> +                              ? LIBXL__DEVICE_KIND_9PFS
+>> +                              : LIBXL__DEVICE_KIND_XEN_9PFS;
+>> +    device->devid           = type->devid;
+>> +    device->domid           = domid;
+>> +    device->kind            = LIBXL__DEVICE_KIND_9PFS;
+>> +
+>>       return 0;
+>>   }
+>>   
+>> -#define libxl__add_p9s NULL
+>> +static int libxl_device_p9_dm_needed(void *e, unsigned domid)
+> 
+> Prefix of the function should be "libxl__" as it's only internal to
+> libxl.
 
-I'm not an Arm maintainer, but if I was I wouldn't let you get away with
-an empty description here. Specifically at least ...
+Okay.
 
-> --- a/xen/arch/arm/device.c
-> +++ b/xen/arch/arm/device.c
-> @@ -16,7 +16,10 @@
->  #include <xen/lib.h>
->  
->  extern const struct device_desc _sdevice[], _edevice[];
-> +
-> +#ifdef CONFIG_ACPI
->  extern const struct acpi_device_desc _asdevice[], _aedevice[];
-> +#endif
->  
->  int __init device_init(struct dt_device_node *dev, enum device_class class,
->                         const void *data)
-> @@ -45,6 +48,7 @@ int __init device_init(struct dt_device_node *dev, enum device_class class,
->      return -EBADF;
->  }
->  
-> +#ifdef CONFIG_ACPI
->  int __init acpi_device_init(enum device_class class, const void *data, int class_type)
->  {
->      const struct acpi_device_desc *desc;
-> @@ -61,6 +65,7 @@ int __init acpi_device_init(enum device_class class, const void *data, int class
->  
->      return -EBADF;
->  }
-> +#endif
+> 
+>> +{
+>> +    libxl_device_p9 *elem = e;
+>> +
+>> +    return elem->type == LIBXL_P9_TYPE_QEMU && elem->backend_domid == domid;
+>> +}
+>> +
+>> +typedef struct libxl__aop9_state libxl__aop9_state;
+>> +
+>> +struct libxl__aop9_state {
+>> +    libxl__spawn_state spawn;
+>> +    libxl__ao_device *aodev;
+>> +    libxl_device_p9 *p9;
+>> +    uint32_t domid;
+>> +    void (*callback)(libxl__egc *, libxl__aop9_state *, int);
+>> +};
+>> +
+>> +static void xen9pfsd_spawn_outcome(libxl__egc *egc, libxl__aop9_state *aop9,
+>> +                                   int rc)
+>> +{
+>> +    aop9->aodev->rc = rc;
+>> +    if (rc)
+>> +        aop9->aodev->callback(egc, aop9->aodev);
+>> +    else
+>> +        libxl__device_add_async(egc, aop9->domid, &libxl__p9_devtype,
+>> +                                aop9->p9, aop9->aodev);
+>> +}
+>> +
+>> +static void xen9pfsd_confirm(libxl__egc *egc, libxl__spawn_state *spawn,
+>> +                             const char *xsdata)
+>> +{
+>> +    STATE_AO_GC(spawn->ao);
+>> +
+>> +    if (!xsdata)
+>> +        return;
+>> +
+>> +    if (strcmp(xsdata, "running"))
+>> +        return;
+>> +
+>> +    libxl__spawn_initiate_detach(gc, spawn);
+>> +}
+>> +
+>> +static void xen9pfsd_failed(libxl__egc *egc, libxl__spawn_state *spawn, int rc)
+>> +{
+>> +    libxl__aop9_state *aop9 = CONTAINER_OF(spawn, *aop9, spawn);
+>> +
+>> +    xen9pfsd_spawn_outcome(egc, aop9, rc);
+>> +}
+>> +
+>> +static void xen9pfsd_detached(libxl__egc *egc, libxl__spawn_state *spawn)
+>> +{
+>> +    libxl__aop9_state *aop9 = CONTAINER_OF(spawn, *aop9, spawn);
+>> +
+>> +    xen9pfsd_spawn_outcome(egc, aop9, 0);
+>> +}
+>> +
+>> +static int xen9pfsd_spawn(libxl__egc *egc, uint32_t domid, libxl_device_p9 *p9,
+>> +                         libxl__ao_device *aodev)
+>> +{
+>> +    STATE_AO_GC(aodev->ao);
+>> +    struct libxl__aop9_state *aop9;
+>> +    int rc;
+>> +    char *args[] = { "xen-9pfsd", NULL };
+>> +    char *path = GCSPRINTF("/local/domain/%u/libxl/xen-9pfs",
+>> +                           p9->backend_domid);
+>> +
+>> +    if (p9->type != LIBXL_P9_TYPE_XEN_9PFSD ||
+>> +        libxl__xs_read(gc, XBT_NULL, GCSPRINTF("%s/state", path)))
+> 
+> I feel like this check and this function might not work as expected.
+> What happen if we try to add more than one 9pfs "device"? libxl I think
+> is going to try to start several xen-9pfs daemon before the first one
+> have had time to write the "*/state" path.
 
-... this new #ifdef-ary would want justifying, imo.
+I don't think so. The path is specific for the _backend_ domid.
 
-Jan
+> What about two different libxl process trying to spawn that daemon? Is
+> xen-9pfs going to behave well and have one giveup? But that would
+> probably mean that libxl is going to have an error due to the process
+> exiting early, maybe.
+
+I think I need to handle this case gracefully in the daemon by exiting with
+a 0 exit code.
+
+> 
+>> +        return 0;
+>> +
+>> +    GCNEW(aop9);
+>> +    aop9->aodev = aodev;
+>> +    aop9->p9 = p9;
+>> +    aop9->domid = domid;
+>> +    aop9->callback = xen9pfsd_spawn_outcome;
+>> +
+>> +    aop9->spawn.ao = aodev->ao;
+>> +    aop9->spawn.what = "xen-9pfs daemon";
+>> +    aop9->spawn.xspath = GCSPRINTF("%s/state", path);
+>> +    aop9->spawn.timeout_ms = LIBXL_DEVICE_MODEL_START_TIMEOUT * 1000;
+>> +    aop9->spawn.pidpath = GCSPRINTF("%s/pid", path);
+>> +    aop9->spawn.midproc_cb = libxl__spawn_record_pid;
+>> +    aop9->spawn.confirm_cb = xen9pfsd_confirm;
+>> +    aop9->spawn.failure_cb = xen9pfsd_failed;
+>> +    aop9->spawn.detached_cb = xen9pfsd_detached;
+>> +    rc = libxl__spawn_spawn(egc, &aop9->spawn);
+>> +    if (rc < 0)
+>> +        return rc;
+>> +    if (!rc) {
+>> +        setsid();
+>> +        libxl__exec(gc, -1, -1, -1, LIBEXEC_BIN "/xen-9pfsd", args, NULL);
+>> +    }
+>> +
+>> +    return 1;
+>> +}
+> 
+> Could you reorder the file, to make it easier to follow the code of
+> the async style? "xen9pfsd_spawn()" should be first, followed by
+> _confirm() _failed and _detached() and finally xen9pfsd_spawn_outcome().
+
+This would need to add some forward declarations. If you really are fine with
+that, I can do the reordering.
+
+> 
+>> +
+>> +static void libxl__device_p9_add(libxl__egc *egc, uint32_t domid,
+>> +                                 libxl_device_p9 *p9,
+>> +                                 libxl__ao_device *aodev)
+>> +{
+>> +    int rc;
+>> +
+>> +    rc = xen9pfsd_spawn(egc, domid, p9, aodev);
+>> +    if (rc == 1)
+> 
+> I'd like a comment about what's different about rc==1 vs rc==0, here or
+> in the function xen9pfsd_spawn. These functions that sometime setup a
+> callback (or actually call it) and sometime don't, make things harder to
+> follow.
+
+Okay.
+
+> 
+> Or maybe we could rewrite things a bit so that there's only one function
+> that calls libxl__device_add_async(). But the current
+> libxl__device_p9_add() is kind of ok, with additional comments.
+> 
+>> +        return;
+>> +
+>> +    if (rc == 0)
+>> +        libxl__device_add_async(egc, domid, &libxl__p9_devtype, p9, aodev);
+>> +
+>> +    aodev->rc = rc;
+>> +    if (rc)
+>> +        aodev->callback(egc, aodev);
+>> +}
+>> +
+>>   #define libxl_device_p9_list NULL
+>>   #define libxl_device_p9_compare NULL
+>>   
+>>   static LIBXL_DEFINE_UPDATE_DEVID(p9)
+>> -static LIBXL_DEFINE_DEVICE_FROM_TYPE(p9)
+>> +static LIBXL_DEFINE_DEVICES_ADD(p9)
+>>   
+>>   LIBXL_DEFINE_DEVICE_REMOVE(p9)
+>>   
+>>   DEFINE_DEVICE_TYPE_STRUCT(p9, 9PFS, p9s,
+>> -    .skip_attach = 1,
+>>       .set_xenstore_config = (device_set_xenstore_config_fn_t)
+>>                              libxl__set_xenstore_p9,
+>> +    .dm_needed = libxl_device_p9_dm_needed,
+>>   );
+>> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+>> index 7d8bd5d216..82565c4c10 100644
+>> --- a/tools/libs/light/libxl_types.idl
+>> +++ b/tools/libs/light/libxl_types.idl
+>> @@ -150,6 +150,12 @@ libxl_nic_type = Enumeration("nic_type", [
+>>       (2, "VIF"),
+>>       ])
+>>   
+>> +libxl_p9_type = Enumeration("p9_type", [
+>> +    (0, "unknown"),
+>> +    (1, "qemu"),
+>> +    (2, "xen_9pfsd"),
+>> +    ])
+>> +
+>>   libxl_action_on_shutdown = Enumeration("action_on_shutdown", [
+>>       (1, "DESTROY"),
+>>   
+>> @@ -942,6 +948,11 @@ libxl_device_p9 = Struct("device_p9", [
+>>       ("path",             string),
+>>       ("security_model",   string),
+>>       ("devid",            libxl_devid),
+>> +    ("type",             libxl_p9_type),
+>> +    ("max_space",        integer),
+>> +    ("max_files",        integer),
+>> +    ("max_open_files",   integer),
+>> +    ("auto_delete",      bool),
+> 
+> These additional fields and options probably a
+> LIBXL_HAVE_XEN_9PFS macro in libxl.h.
+
+Okay, I'll add it.
+
+
+Juergen
 
