@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4296A843D4A
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 11:53:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.673902.1048469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF26F843D57
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jan 2024 11:55:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.673910.1048481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV8DM-0005hq-Df; Wed, 31 Jan 2024 10:53:08 +0000
+	id 1rV8Fg-00070e-NF; Wed, 31 Jan 2024 10:55:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 673902.1048469; Wed, 31 Jan 2024 10:53:08 +0000
+Received: by outflank-mailman (output) from mailman id 673910.1048481; Wed, 31 Jan 2024 10:55:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rV8DM-0005bg-7z; Wed, 31 Jan 2024 10:53:08 +0000
-Received: by outflank-mailman (input) for mailman id 673902;
- Wed, 31 Jan 2024 10:53:06 +0000
+	id 1rV8Fg-0006y9-KQ; Wed, 31 Jan 2024 10:55:32 +0000
+Received: by outflank-mailman (input) for mailman id 673910;
+ Wed, 31 Jan 2024 10:55:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/tZP=JJ=cloud.com=edwin.torok@srs-se1.protection.inumbo.net>)
- id 1rV8DK-0005ZD-M6
- for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 10:53:06 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ <SRS0=6GWq=JJ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rV8Ff-0006y3-4L
+ for xen-devel@lists.xenproject.org; Wed, 31 Jan 2024 10:55:31 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e87c9b25-c026-11ee-98f5-efadbce2ee36;
- Wed, 31 Jan 2024 11:53:03 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-337d05b8942so3977363f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 02:53:03 -0800 (PST)
-Received: from fedora39.edvint-x-u ([185.25.67.249])
- by smtp.gmail.com with ESMTPSA id
- o1-20020a5d4081000000b0033ae50e2c6asm10585757wrp.83.2024.01.31.02.53.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 Jan 2024 02:53:02 -0800 (PST)
+ id 3f2db21d-c027-11ee-98f5-efadbce2ee36;
+ Wed, 31 Jan 2024 11:55:29 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-5101cd91017so5602563e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 31 Jan 2024 02:55:29 -0800 (PST)
+Received: from [10.80.67.30] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ l18-20020a05600c1d1200b0040e89ade84bsm1267435wms.4.2024.01.31.02.55.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 31 Jan 2024 02:55:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,160 +45,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e87c9b25-c026-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 3f2db21d-c027-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1706698382; x=1707303182; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pEOJ3dKfDa3jEbqZ0msr8PUUdDA4TmMKdDalOhPmKw4=;
-        b=bUydjSuXSmCol8BThYnEUKsS+x8gOHcyovnHC4oZ6urjMt49XLhzNp2IkklEwL2zfo
-         DELrWWuhLdX13YdZdmmcnTZJ3wQozt92+PUvlUSjzqmg8UTJzkW6MB6HtPxyX84Bbm2M
-         DG9+xlLCx38Jdj3qtIW64VFdbM5d/GHpxGGxQ=
+        d=citrix.com; s=google; t=1706698529; x=1707303329; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=D+2Nmg0tjrdfbzuhgXQpNM5nYFF8Dz4aRdAKB1FuMxs=;
+        b=ZZLq//rSBebahvYB6aBygO4EEmeoBEDI+7rBHEe65t+wnnzPBGBxq62AV18A+uR/6d
+         XcCgWOPgVwgbaoe3dneqOssII/aD9A0vrobHk4I/TnZ4faDZm8qzIRFi6To+b5qkW6T1
+         2qotrLu6eiOFNt0Sn9JQ8mnIKZ80c0Oeazc78=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706698382; x=1707303182;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pEOJ3dKfDa3jEbqZ0msr8PUUdDA4TmMKdDalOhPmKw4=;
-        b=NFgwotV3CmXICNzuM9KRzOGfJ93HiC1RAzGCnhQ5mX7zzkYnFvKKXV5juNEh9NqU7H
-         Yfj0EyUhsf9ddiaDjQZZ1rQdUtXp/SQV1aeuRHv22gLt64FOOHZ6silgN7IBuhezHoxb
-         oTvFkyoGNzTK+X7oWMYq5grAPPNQOrm3GWbGFMxf/8goLlaGZmEtp7dguilVXKyjnthh
-         v5aQtfU+a9BebikcuWJJrz9svjRXKXxzBTnAtkxJxZA77R4qXKWghUz3QdwHpFUI0uBO
-         paNBm+c6GpMg41XRT9D0kl7m8Z6lwa2w7PsX6NXPv1YEWpyE90qLwhWV9IYwpNZ1XTMI
-         WP3w==
-X-Gm-Message-State: AOJu0Yw5h8f8q3jkNaoO0g7NB94D/jVuDaEOH5q9j6OkvEPjzw9aTT+n
-	shaCOCfQJsnyU/K5l2Y7tQy/zavHkuOq3PzuQP+/DsmzLm799c6m+Y4cE89kNUi4OZy1VKg1DUD
-	ttc87ew==
-X-Google-Smtp-Source: AGHT+IErnvggzIIJIqkmJKISVmMAepy9lUitEB9v6/O/w4NFnemd6oGnJwTS6QTKsDxkkGRS0NjoYA==
-X-Received: by 2002:a5d:630f:0:b0:33a:eb24:8383 with SMTP id i15-20020a5d630f000000b0033aeb248383mr891032wru.13.1706698382705;
-        Wed, 31 Jan 2024 02:53:02 -0800 (PST)
-From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v1 2/2] oxenstored: make Quota.t pure
-Date: Wed, 31 Jan 2024 10:52:56 +0000
-Message-ID: <f98edc633527b6d9a6855af0aff4fb77970454cc.1706697858.git.edwin.torok@cloud.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1706697858.git.edwin.torok@cloud.com>
-References: <cover.1706697858.git.edwin.torok@cloud.com>
+        d=1e100.net; s=20230601; t=1706698529; x=1707303329;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=D+2Nmg0tjrdfbzuhgXQpNM5nYFF8Dz4aRdAKB1FuMxs=;
+        b=Geg1i3IKpbHSQtYn65kTY97Ljo//FgpcWPxxntEX9g3tt6PUF0/B+zQWTtLrxduvo6
+         Wrwuph0Wv5KOpSdWULnNIR+BwyS7fjcglgJWZgxhz6/wmeMYqQjqtFrQjHyxMV6iAhQM
+         nypuyPb2bhIGf2EqfwD7i82STCtAaNYqvQkYXW513bemEyAs434AvPmKBEaVt8ze5EfP
+         uHCl3rTuZQn+Yh2Ane6ih732e88j8oOkCYvxfp0O6BjYzvU724GwNtCPpu7a/2+iWhzq
+         RiZw40w0VDccCavVP4EXB5UEpzuC5axFO9ldhuUKvE1FuVNtaFkIt5MjopAtxnv6uHzq
+         6jAA==
+X-Gm-Message-State: AOJu0YzsXX/5c0Pv6e0L9but/KaQ1EMtAbJHkiTZbsU8Z/g78qwmuZ1V
+	aJXZnn8uzaGbdPCNP2KEo6w5/GjrS4RhZZXv+1KJHUmFF7rP0xR9IF+VQqqgOUI=
+X-Google-Smtp-Source: AGHT+IGrhiebKyi1diFxjIRuiKa0enx9+McOlZMy8uXONr3Q+o0ycFresYLE+z6p3vZeQYro47mPvw==
+X-Received: by 2002:a05:6512:3b0d:b0:511:1b24:9c29 with SMTP id f13-20020a0565123b0d00b005111b249c29mr1130478lfv.5.1706698528665;
+        Wed, 31 Jan 2024 02:55:28 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCU4p3M/ovQS/auBdi9q5W+Yd0m1G9+pv4ZS+8X2iDxQrnd0v+HQgYb7fDt8k8owDlzYHR8y/yt77gbJEr6Z6YKVjq6IatBms2xglVZo5e1Y+yTqUsmIdmH+ZRxXgzG8B7ZqACsBzXHmhIUdSqwBKxQo0M4syTB6WL3hFwpZx0VvJEifYesOXpwkxZW4K+46l46igfjG5UmUNPZk
+Message-ID: <b88df473-9a3e-4c83-8629-3b65c6a6190b@citrix.com>
+Date: Wed, 31 Jan 2024 10:55:28 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 0/2] tools/ocaml: support OCaml 5.x, drop support for
+ <=4.05
+Content-Language: en-GB
+To: Christian Lindig <christian.lindig@cloud.com>,
+ =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>
+References: <cover.1706697216.git.edwin.torok@cloud.com>
+ <4E9A23AB-5745-4A71-9013-156B6648025A@cloud.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <4E9A23AB-5745-4A71-9013-156B6648025A@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Now that we no longer have a hashtable inside we can make Quota.t pure,
-and push the mutable update to its callers.
-Store.t already had a mutable Quota.t field.
+On 31/01/2024 10:44 am, Christian Lindig wrote:
+>> On 31 Jan 2024, at 10:42, Edwin Török <edwin.torok@cloud.com> wrote:
+>>
+>> Fix building oxenstored with OCaml 5.x.
+>> OCaml 5.x has removed some functions that have been deprecated for many years,
+>> in order to support OCaml 5.x we need to drop support for OCaml 4.02.
+>>
+>> Tested in gitlab CI (together with my other series):
+>> https://gitlab.com/xen-project/people/edwintorok/xen/-/pipelines/1158302827
+>>
+>> Edwin Török (2):
+>>  oxenstored: fix build on OCaml 5.x
+>>  tools/ocaml: bump minimum version to OCaml 4.05
+>>
+>> tools/configure               | 2 +-
+>> tools/configure.ac            | 2 +-
+>> tools/ocaml/xenstored/disk.ml | 2 +-
+>> 3 files changed, 3 insertions(+), 3 deletions(-)
+>>
+>> -- 
+>> 2.43.0
+>>
+> Acked-by: Christian Lindig <christian.lindig@cloud.com>
 
-No functional change.
+It occurs to me that this is the kind of thing which should get a
+CHANGELOG.md entry these days.  Something like:
 
-Signed-off-by: Edwin Török <edwin.torok@cloud.com>
----
- tools/ocaml/xenstored/quota.ml |  8 ++++----
- tools/ocaml/xenstored/store.ml | 17 ++++++++++-------
- 2 files changed, 14 insertions(+), 11 deletions(-)
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 1f55c9c72d10..fd7c8f5c6b82 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -9,6 +9,7 @@ The format is based on [Keep a
+Changelog](https://keepachangelog.com/en/1.0.0/)
+ ### Changed
+  - Changed flexible array definitions in public I/O interface headers
+to not
+    use "1" as the number of array elements.
++ - The minimum supported Ocaml toolchain version is now 4.05
+  - On x86:
+    - HVM PIRQs are disabled by default.
+    - Reduce IOMMU setup time for hardware domain.
 
-diff --git a/tools/ocaml/xenstored/quota.ml b/tools/ocaml/xenstored/quota.ml
-index f6e28ecc6a..1f652040d8 100644
---- a/tools/ocaml/xenstored/quota.ml
-+++ b/tools/ocaml/xenstored/quota.ml
-@@ -33,7 +33,7 @@ module DomidMap = Map.Make(Domid)
- type t = {
-   maxent: int;               (* max entities per domU *)
-   maxsize: int;              (* max size of data store in one node *)
--  mutable cur: int DomidMap.t; (* current domains quota *)
-+  cur: int DomidMap.t; (* current domains quota *)
- }
- 
- let to_string quota domid =
-@@ -76,10 +76,10 @@ let update_entry quota_cur id diff =
-   else DomidMap.add id nb quota_cur
- 
- let del_entry quota id =
--  quota.cur <- update_entry quota.cur id (-1)
-+  {quota with cur = update_entry quota.cur id (-1)}
- 
- let add_entry quota id =
--  quota.cur <- update_entry quota.cur id (+1)
-+  {quota with cur = update_entry quota.cur id (+1)}
- 
- let merge orig_quota mod_quota dest_quota =
-   let fold_merge id nb dest =
-@@ -87,5 +87,5 @@ let merge orig_quota mod_quota dest_quota =
-     | 0 -> dest (* not modified *)
-     | diff -> update_entry dest id diff (* update with [x=x+diff] *)
-   in
--  dest_quota.cur <- DomidMap.fold fold_merge mod_quota.cur dest_quota.cur
-+  {dest_quota with cur = DomidMap.fold fold_merge mod_quota.cur dest_quota.cur}
-   (* dest_quota = dest_quota + (mod_quota - orig_quota) *)
-diff --git a/tools/ocaml/xenstored/store.ml b/tools/ocaml/xenstored/store.ml
-index 38a4945372..9b8dd2812d 100644
---- a/tools/ocaml/xenstored/store.ml
-+++ b/tools/ocaml/xenstored/store.ml
-@@ -85,7 +85,9 @@ module Node = struct
-       raise Define.Permission_denied;
-     end
- 
--  let rec recurse fct node = fct node; SymbolMap.iter (fun _ -> recurse fct) node.children
-+  let rec recurse fct node acc =
-+    let acc = fct node acc in
-+    SymbolMap.fold (fun _ -> recurse fct) node.children acc
- 
-   (** [recurse_filter_map f tree] applies [f] on each node in the tree recursively,
-       possibly removing some nodes.
-@@ -408,7 +410,7 @@ let dump_buffer store = dump_store_buf store.root
- let set_node store path node orig_quota mod_quota =
-   let root = Path.set_node store.root path node in
-   store.root <- root;
--  Quota.merge orig_quota mod_quota store.quota
-+  store.quota <- Quota.merge orig_quota mod_quota store.quota
- 
- let write store perm path value =
-   let node, existing = get_deepest_existing_node store path in
-@@ -422,7 +424,7 @@ let write store perm path value =
-   let root, node_created = path_write store perm path value in
-   store.root <- root;
-   if node_created
--  then Quota.add_entry store.quota owner
-+  then store.quota <- Quota.add_entry store.quota owner
- 
- let mkdir store perm path =
-   let node, existing = get_deepest_existing_node store path in
-@@ -431,7 +433,7 @@ let mkdir store perm path =
-   if not (existing || (Perms.Connection.is_dom0 perm)) then Quota.check store.quota owner 0;
-   store.root <- path_mkdir store perm path;
-   if not existing then
--    Quota.add_entry store.quota owner
-+    store.quota <- Quota.add_entry store.quota owner
- 
- let rm store perm path =
-   let rmed_node = Path.get_node store.root path in
-@@ -439,7 +441,7 @@ let rm store perm path =
-   | None -> raise Define.Doesnt_exist
-   | Some rmed_node ->
-     store.root <- path_rm store perm path;
--    Node.recurse (fun node -> Quota.del_entry store.quota (Node.get_owner node)) rmed_node
-+    store.quota <- Node.recurse (fun node quota -> Quota.del_entry quota (Node.get_owner node)) rmed_node store.quota
- 
- let setperms store perm path nperms =
-   match Path.get_node store.root path with
-@@ -450,8 +452,9 @@ let setperms store perm path nperms =
-     if not ((old_owner = new_owner) || (Perms.Connection.is_dom0 perm)) then
-       raise Define.Permission_denied;
-     store.root <- path_setperms store perm path nperms;
--    Quota.del_entry store.quota old_owner;
--    Quota.add_entry store.quota new_owner
-+    store.quota <-
-+      let quota = Quota.del_entry store.quota old_owner in
-+      Quota.add_entry quota new_owner
- 
- let reset_permissions store domid =
-   Logging.info "store|node" "Cleaning up xenstore ACLs for domid %d" domid;
--- 
-2.43.0
 
+ought to do.
+
+Have we checked to see whether this drops Ocaml from any of the build
+containers ?
+
+~Andrew
 
