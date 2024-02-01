@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12F8D84627B
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 22:13:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674710.1049824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 129658462B6
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 22:40:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674715.1049833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVeLu-0008PQ-Cw; Thu, 01 Feb 2024 21:12:06 +0000
+	id 1rVenL-0005M8-JH; Thu, 01 Feb 2024 21:40:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674710.1049824; Thu, 01 Feb 2024 21:12:06 +0000
+Received: by outflank-mailman (output) from mailman id 674715.1049833; Thu, 01 Feb 2024 21:40:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVeLu-0008NM-AD; Thu, 01 Feb 2024 21:12:06 +0000
-Received: by outflank-mailman (input) for mailman id 674710;
- Thu, 01 Feb 2024 21:12:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rVenL-0005Jj-Fu; Thu, 01 Feb 2024 21:40:27 +0000
+Received: by outflank-mailman (input) for mailman id 674715;
+ Thu, 01 Feb 2024 21:40:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i6jM=JK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rVeLt-0008NG-HG
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 21:12:05 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b9aad2c-c146-11ee-8a43-1f161083a0e0;
- Thu, 01 Feb 2024 22:12:03 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id
- 2adb3069b0e04-5101cd91017so1703613e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 13:12:03 -0800 (PST)
-Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
- by smtp.gmail.com with ESMTPSA id
- v7-20020a05600c444700b0040e541ddcb1sm612832wmn.33.2024.02.01.13.12.02
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 13:12:02 -0800 (PST)
+ <SRS0=MzG+=JK=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1rVenK-0005Jd-Aj
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 21:40:26 +0000
+Received: from mail-yw1-x1136.google.com (mail-yw1-x1136.google.com
+ [2607:f8b0:4864:20::1136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 812dd29a-c14a-11ee-98f5-efadbce2ee36;
+ Thu, 01 Feb 2024 22:40:24 +0100 (CET)
+Received: by mail-yw1-x1136.google.com with SMTP id
+ 00721157ae682-6040d9e52b9so14765167b3.0
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 13:40:24 -0800 (PST)
+Received: from pm2-ws13.praxislan02.com
+ (207-172-141-204.s8906.c3-0.slvr-cbr1.lnh-slvr.md.cable.rcncustomer.com.
+ [207.172.141.204]) by smtp.gmail.com with ESMTPSA id
+ h7-20020a05620a21c700b007853eb72c49sm154978qka.46.2024.02.01.13.40.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Feb 2024 13:40:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,121 +46,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b9aad2c-c146-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: 812dd29a-c14a-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706821923; x=1707426723; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=nSJ2hZZ2VYITCzpQNgQpqsT/bQ+Ovwqx8owNpGRLy7I=;
-        b=vVRGOxYrPd+/P57aZn6eefbcQ9dUCBKJG+236rChXEkwzL7EjuhpZpOhO7+voDF3Mm
-         IMu1lzrBQPv/oYY7Tj2W5cQQmdO64RhF8QxvX4gRJ9bMLwoCbh93/Oht17dfQXm2KR/n
-         /lvzmllFLu4VgvDziE4sv8wJuAL/YPp+QOlEw=
+        d=gmail.com; s=20230601; t=1706823622; x=1707428422; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=sOBkl/FI31A16UeVSXNN4wI40FVp19VWKB4FKGEq7Co=;
+        b=k1JoC9othNW5gzz/XkYnAXF4rEl5+NZBYdNwP4Uu/BRRbIbF0AIkc6HusIr+Gn57i7
+         pJ8I6op4aMUk0iEmDrpqtcKJ4STYJWudp9XKKzaMagUxZ6l/Y+bh6608idQzXk49Q63G
+         ZPgE5G1wL3D15V9/BK4YLZbHUy8obMXVILRX8CfpSrTw7NRYb49XLtZMKKzefiDkUT81
+         J4PnI6XBzSEJ3BjGB7h6Iy6mMu+E2bLAvqKf+y1ZW7Y+nJEfpw4JMqtRHHk6YsUtXLKt
+         mmUWF9UYhHT8B3gkD1dhJzLOJ5QHafewFbyATyVionLtRD1SP5/2UL+8WHAmM4O8W8DB
+         z/QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706821923; x=1707426723;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nSJ2hZZ2VYITCzpQNgQpqsT/bQ+Ovwqx8owNpGRLy7I=;
-        b=QDJzsCz8wAWysnQZgEzuAJbBWIBnUgtYv1x/NV15NNsk3QFMyvMc7+xAPawCZ1/srG
-         aPDz1zEoa02xF+bq0Qfb0iW2Jh1EFfOKSy9rM1yHSRZ+huLT994ChXBkieFJFcqID72l
-         jS6/O9HOMg0Wp5WxaWcHrDWMQ866iWaebhZEdCQFV7jRRJ4pnIWMk2Qe5j5F6kiohZTG
-         KnbGywbQZmaHZD6W/DFzJXVXQbN//G06dvADAa6jF4q2x41Dvu16fzhi+n4AjvVhO3Ij
-         nVoJSa4hWUE/8hs9L9Lw8E9RkWFpAl+g22Xmi2GvBYmti26fWnoseUhJ6tANv4b7UhMy
-         ch5A==
-X-Gm-Message-State: AOJu0YyTh7U1/yIC0PE3tWUvcwGfPH5tnY4x20myKUWRhx02BDkL48EV
-	6Kk61nkiGpM710xP2JojOXVxKrDIh98JH1C0eogNL2c602SiLmeKqvhxUEPizsQ=
-X-Google-Smtp-Source: AGHT+IF1qYQV3WYRGe2k4kQs/eIQkj1dW54V5m//TWFyxZZPuqL1Q5/RdiTXGTpJLG7kMyTD1xs3WA==
-X-Received: by 2002:a05:6512:1103:b0:511:1796:aad6 with SMTP id l3-20020a056512110300b005111796aad6mr2983367lfg.35.1706821922811;
-        Thu, 01 Feb 2024 13:12:02 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCXJaWVxA3z8SUIiotiHS+oUN5oWQIZU7R+UHnTuUULPQ3waCjMrvQuICCMI6vqFg+C2Ir4B/vQtMAFp/OUk9YSJFKsLlJhxeo5RuIryYA+Fb2iNDHHOA+x94/F4uHEQoIh24qGt
-Message-ID: <e42ee8c5-10b0-4369-8cc9-7b298fa68ef7@citrix.com>
-Date: Thu, 1 Feb 2024 21:12:02 +0000
+        d=1e100.net; s=20230601; t=1706823622; x=1707428422;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sOBkl/FI31A16UeVSXNN4wI40FVp19VWKB4FKGEq7Co=;
+        b=ZYHiD9CDzqK72BMFiKMWV1msX+SnPUJdkr+yGUvKBwslkHSO4S3VrhHQfvR47GHiWM
+         bTiLzBldw9Mad3yV3F8mLisMBFqpxeHY6jHpcAE4aby43kgXwLlH35nQIIn5w/qH+8O+
+         UHJZXksNVzrOhmAY1N4GQANf6Mj21CrCYcoz1uXkwyVJHzKGjPxdyOovWILrqNrhR7rW
+         8QDCUNsr4KKvGmPQ5t/zItae/kQhsmwn/rnE1QVsqjTUNimqFcGTJPDMnNoiD2e5QfJP
+         yRLgaNF/Q0bx5IsUCAdoinQNLPwS5duBUBVzH+H+AdiLF8VnnqwyWgc04hXgQ1RQogO1
+         1u2Q==
+X-Gm-Message-State: AOJu0YwTIleOlfVpLTOy+t8o0o7cGSTrqPDS3KKwLOxbGcZqx/0T3oT0
+	k2uLOqfq0o85HKbiUiJXuONILw+lQG4WdtwWgpN5nUzTJPlD6eDP5eRix1LR
+X-Google-Smtp-Source: AGHT+IHXu0MiyHUQqw/Xz8M9a/POsPkTtJhpLdNaLRvqNDZa39Uf6TbkyqqY5jMPckdRNIhOxZyyvg==
+X-Received: by 2002:a81:ad08:0:b0:602:9161:2e73 with SMTP id l8-20020a81ad08000000b0060291612e73mr419591ywh.29.1706823621845;
+        Thu, 01 Feb 2024 13:40:21 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCW9l/sZeUwluN+qLJsGDA8KBjAkKBO/JxjefS6jLoalY8FJCijPf3GVLkhcwPr0IY0aHOHSfjxNfvAMrRgsjFRLs7k2lkOMyBNh+5etLeAF4ViLtqqlbBNsM5+y7O++8sGlKBFsl9T6LWgF82dxnFZpcbPKNr+vQtqoqGwUY53VVIe+BKq10oXqWYKJTFMYOnu4VC+FmbX6f0BkpAxRFnJrWJ51te4Z0NfI7xaSwZ8hCJ8hpxZ3HPIyR9pTdbgQUkqCOqNnJn5yvRrU6NTJfjepZh1tmTuANatUvTEG5uAGNAbneF1XlErOYzo=
+From: Jason Andryuk <jandryuk@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: marmarek@invisiblethingslab.com,
+	Jason Andryuk <jandryuk@gmail.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 0/3] libxl: Stubdom cd-rom changing support
+Date: Thu,  1 Feb 2024 16:40:01 -0500
+Message-ID: <20240201214004.238858-1-jandryuk@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: arrange for ENDBR zapping from
- <vendor>_ctxt_switch_masking()
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <c19cf600-5971-457b-936d-77a035ab6913@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <c19cf600-5971-457b-936d-77a035ab6913@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16/01/2024 4:53 pm, Jan Beulich wrote:
-> While altcall is already used for them, the functions want announcing in
-> .init.rodata.cf_clobber, even if the resulting static variables aren't
-> otherwise used.
->
-> While doing this also move ctxt_switch_masking to .data.ro_after_init.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+These patches enable cd-rom media changing for an HVM with a linux
+stubdom.
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+v1 didn't support these empty drives.  The code came out of OpenXT which
+has a hack - null.iso.  null.iso is an ISO with no contents.  OpenXT
+doesn't actually eject the cd-rom, it just inserts null.iso.  This patch
+set has QEMU present empty media.
 
->
-> --- a/xen/arch/x86/cpu/amd.c
-> +++ b/xen/arch/x86/cpu/amd.c
-> @@ -258,6 +258,11 @@ static void cf_check amd_ctxt_switch_mas
->  #undef LAZY
->  }
->  
-> +#ifdef CONFIG_XEN_IBT /* Announce the function to ENDBR clobbering logic. */
-> +static const typeof(ctxt_switch_masking) __initconst_cf_clobber __used csm =
-> +    amd_ctxt_switch_masking;
-> +#endif
+The first patch creates an empty file, /run/xen/empty-cdrom.%u, for Phy
+drives that are "empty".  The place holder simplifies things because the
+block scripts don't work for an empty params.  Even if the scripts were
+modified for that, a stubdom will timeout on startup when the empty
+disk/blkback never connects.  The empty file works around these issues.
 
-If we gain more of these, I suspect we'll want a wrapper for it.
+The second patch allows use of Phy backend drives for a cd-rom.  This
+works for non-stubdom HVMs.  Actually special casing stubdoms didn't
+work.
 
-Irritatingly you can't pass parameters into global asm, because the nice
-way to do this would be an _ASM_PTR in a pushsection.
+The third patch expands the cd-rom changing code to support the stubdom
+case.
 
-~Andrew
+To change the cd-rom medium, libxl will:
+ - QMP eject the medium from QEMU
+ - block-detach the old PV disk
+ - block-attach the new PV disk
+ - QMP change the medium to the new PV disk by fdset-id
+
+xl cd-eject follows the above through connecting the new PV disk,
+empty-cdrom.%u.  It skips the QMP media change.  This keeps the xenstore
+entries which are needed to identify that a cd-rom drive is present.  If
+the xenstore entries were removed on eject, libxl wouldn't find the
+device (hdc) for a subsequent cd-insert.
+
+The QMP change insert uses fdset-id STUBDOM_FDSET_CD + $disk - 'a'.
+That is, hda -> 'a', so
+STUBDOM_FDSET_CD + 'a' - 'a' = STUBDOM_FDSET_CD.
+For hdc:
+STUBDOM_FDSET_CD + 'c' - 'a' = STUBDOM_FDSET_CD + 2.
+
+The stubdom must internally handle adding /dev/xvdc to the appropriate
+fdset inside QEMU.
+
+A script like this:
+https://github.com/OpenXT/xenclient-oe/blob/master/recipes-core/initrdscripts/initramfs-stubdomain/qemu-xvdc-add-fd.sh
+
+Can be called by busybox mdev configured like this:
+https://github.com/OpenXT/xenclient-oe/blob/master/recipes-core/busybox/files/mdev.conf
+
+(OpenXT mdev as the hotplug helper works, but with a ~Qubes stubdom, I
+had to run mdev as a daemon, mdev -d.)
+
+Linux locks the cd-rom by default?  That means the QMP eject commands
+fail, but then Linux unlocks.  Re-running a second time works.  Windows
+doesn't do that.
+
+There are spurious messages sometimes like:
+libxl: error: libxl_qmp.c:1837:qmp_ev_parse_error_messages: Domain 5:Could not dup FD for /dev/fdset/8002 flags 0: No such file or directory
+
+libxl doesn't know when the stubdom has setup the fdset.  Since it gets
+those errors, it'll retry adding to the fdset.
+
+Jason Andryuk (3):
+  libxl: Create empty cdrom file for stubdom
+  libxl: Allow Phy backend for CDROM devices
+  libxl: Enable stubdom cdrom changing
+
+ docs/misc/stubdom.txt             |  16 ++
+ tools/libs/light/libxl_device.c   |  17 +-
+ tools/libs/light/libxl_disk.c     | 345 +++++++++++++++++++++++++++---
+ tools/libs/light/libxl_domain.c   |   4 +
+ tools/libs/light/libxl_internal.h |   1 +
+ 5 files changed, 344 insertions(+), 39 deletions(-)
+
+-- 
+2.43.0
+
 
