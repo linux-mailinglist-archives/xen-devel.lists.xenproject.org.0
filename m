@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86EFE845EA8
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 18:37:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674612.1049686 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F9A9845FE2
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 19:29:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674663.1049724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVaz6-0002cq-Mb; Thu, 01 Feb 2024 17:36:20 +0000
+	id 1rVbn0-0008TM-O9; Thu, 01 Feb 2024 18:27:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674612.1049686; Thu, 01 Feb 2024 17:36:20 +0000
+Received: by outflank-mailman (output) from mailman id 674663.1049724; Thu, 01 Feb 2024 18:27:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVaz6-0002ao-K2; Thu, 01 Feb 2024 17:36:20 +0000
-Received: by outflank-mailman (input) for mailman id 674612;
- Thu, 01 Feb 2024 17:36:19 +0000
+	id 1rVbn0-0008R6-Ka; Thu, 01 Feb 2024 18:27:54 +0000
+Received: by outflank-mailman (input) for mailman id 674663;
+ Thu, 01 Feb 2024 18:27:53 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rVaz5-0002ai-8B
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 17:36:19 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rVbmz-0008Qw-Qu; Thu, 01 Feb 2024 18:27:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rVaz4-00061F-QR; Thu, 01 Feb 2024 17:36:18 +0000
-Received: from [15.248.2.31] (helo=[10.24.67.35])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rVaz4-0005vb-Hi; Thu, 01 Feb 2024 17:36:18 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rVbmz-00078j-PR; Thu, 01 Feb 2024 18:27:53 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rVbmz-0006e4-E2; Thu, 01 Feb 2024 18:27:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rVbmz-0005P9-DU; Thu, 01 Feb 2024 18:27:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,61 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=zsnw957Hfwirsjx1xy39SSyh4Kw8IBkEQYb1cspkB/c=; b=FX7P5C9pdrgsi43y/iDae+DJJC
-	mmM2UGQmE7hOuwHFuSTgD2wV1ZRhXtvbITAApdR/BMd+dwVa/pGPptoEZ4vcSqGMmSIucUWP5Upre
-	tET1nn5xwTFggQPLuLiYeqrwGKRIFlOJGQNJew0dmlJ3vDZ1CcKZuNsryYu8Cskxq55k=;
-Message-ID: <aa433592-56d7-44f5-9f2d-a5288a6fd766@xen.org>
-Date: Thu, 1 Feb 2024 17:36:16 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=rX8rLPavRS3L2XzwXivWDx/dMB/0BrCwqoH/MmpsE38=; b=2ZIej4vtwD6sCFLeRJy2TSushi
+	pc8iZXHYlIW0rZWysaoUqB1PhgDIuTBMmXmoHJFceJQyu8REFJyaXQVQpfsEeaGWPCK/SOMaIn3FL
+	1E9RipsOrCBpLYKF3pIbnNLWZjsNkbUmjNVh6J/Dpvwxm6ZI0WGvr+/NlvYfzotpK+Ls=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184552-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: Properly clean update to init_ttbr and
- smp_up_cpu
-Content-Language: en-GB
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <jgrall@amazon.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20240130172942.52175-1-julien@xen.org>
- <0D96C966-8DC4-43C5-9F61-0C54A2DC796C@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <0D96C966-8DC4-43C5-9F61-0C54A2DC796C@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 184552: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=bc45f20c01f1711bc56a4bb0955c49c182a5a03a
+X-Osstest-Versions-That:
+    xen=cc6ba68edf6dcd18c3865e7d7c0f1ed822796426
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 01 Feb 2024 18:27:53 +0000
 
-Hi,
+flight 184552 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184552/
 
-On 31/01/2024 07:57, Bertrand Marquis wrote:
->> On 30 Jan 2024, at 18:29, Julien Grall <julien@xen.org> wrote:
->>
->> From: Julien Grall <jgrall@amazon.com>
->>
->> Recent rework to the secondary boot code modified how init_ttbr and
->> smp_up_cpu are accessed. Rather than directly accessing them, we
->> are using a pointer to them.
->>
->> The helper clean_dcache() is expected to take the variable in parameter
->> and then clean its content. As we now pass a pointer to the variable,
->> we will clean the area storing the address rather than the content itself.
->>
->> Switch to use clean_dcache_va_range() to avoid casting the pointer.
->>
->> Fixes: a5ed59e62c6f ("arm/mmu: Move init_ttbr to a new section .data.idmap")
->> Fixes: 9a5114074b04 ("arm/smpboot: Move smp_up_cpu to a new section .data.idmap)
->>
->> Reported-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Failures :-/ but no regressions.
 
-Committed. Thanks.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Cheers,
+version targeted for testing:
+ xen                  bc45f20c01f1711bc56a4bb0955c49c182a5a03a
+baseline version:
+ xen                  cc6ba68edf6dcd18c3865e7d7c0f1ed822796426
 
--- 
-Julien Grall
+Last test of basis   184528  2024-01-30 14:03:48 Z    2 days
+Testing same since   184552  2024-02-01 16:00:25 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Carlo Nonato <carlo.nonato@minervasys.tech>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   cc6ba68edf..bc45f20c01  bc45f20c01f1711bc56a4bb0955c49c182a5a03a -> smoke
 
