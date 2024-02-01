@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61324845AF8
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 16:11:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674494.1049461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28611845B06
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 16:14:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674501.1049470 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVYiH-0003vm-UN; Thu, 01 Feb 2024 15:10:49 +0000
+	id 1rVYlK-0004nr-Ch; Thu, 01 Feb 2024 15:13:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674494.1049461; Thu, 01 Feb 2024 15:10:49 +0000
+Received: by outflank-mailman (output) from mailman id 674501.1049470; Thu, 01 Feb 2024 15:13:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVYiH-0003sV-P6; Thu, 01 Feb 2024 15:10:49 +0000
-Received: by outflank-mailman (input) for mailman id 674494;
- Thu, 01 Feb 2024 15:10:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rVYlK-0004lm-9a; Thu, 01 Feb 2024 15:13:58 +0000
+Received: by outflank-mailman (input) for mailman id 674501;
+ Thu, 01 Feb 2024 15:13:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFwQ=JK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rVYiG-0003sL-Kw
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 15:10:48 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 13586c00-c114-11ee-98f5-efadbce2ee36;
- Thu, 01 Feb 2024 16:10:46 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-556c3f0d6c5so1263139a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 07:10:46 -0800 (PST)
+ id 1rVYlI-0004lb-FB
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 15:13:56 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 840f4193-c114-11ee-8a43-1f161083a0e0;
+ Thu, 01 Feb 2024 16:13:55 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2d051fb89fbso14707001fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 07:13:55 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- fi7-20020a170906da0700b00a36edfb508asm15809ejb.79.2024.02.01.07.10.45
+ fd12-20020a056402388c00b00557d839727esm6884848edb.7.2024.02.01.07.13.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 07:10:45 -0800 (PST)
+ Thu, 01 Feb 2024 07:13:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13586c00-c114-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 840f4193-c114-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706800246; x=1707405046; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706800435; x=1707405235; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=MpmtCMKIg7MG7KLzATLN7tvHdDRolI1j9YpQuU+oSQU=;
-        b=aRqfkYsJs+etBmF9yFOy6h8zA1aQzCv/EcB3MOG8YiM3uDwvV0eis5dKYd0yk030Mn
-         tuEbsRTgDLWHRPF8ziPQmfv+DQYIIXtAi/rR2oYUJ7abm0I28c6qUy6g7vhDMxBJWw/V
-         R0xKIYLbq1D6DNhlz+MxdCmfOcF6BCOdOSB+mhMraugoDVF4HXMeX9O2BEIROo0Nctbr
-         HI1JNfuW8QnDxZrRBbz+GcKLjp0/klevlZsN3b8FoMpBlJQ6oZ/XkQAUm1KfiRQ2QJSR
-         wAC7Q0GR4DSBP5MI/BfJzdTCcbJtx1Rq3zGan3138biKTcmtiiIW4v57LZxJdQXTJr+4
-         0fbQ==
+        bh=aXKi7HcGOdYt1N8wDuA8yYqEyLVPLGkiW5x+mctbQnA=;
+        b=bWkIisqtI5SzalPgEt5kCQ7YohYzKYzey2y5EKPQzdI4TmcfSk7Pm1rChK9jdqIZQS
+         KVJc7PR3SQVxBggJUm59TqBUf5sPLow3leh86El51BpRRKdHSCvSHZ+OCb5l/QXUCgV8
+         JNfWAjoRdibA4PclPlMOgsTSJnSm+6gw+neHEsfH8ap999y5KO2c0mtJD6yv0bXS034A
+         kA9uH2jPS5qOaZiVP1TbgNjduI9kKrU83lelUBydZfEtwPCsSioY1h2Dgtteg5oGzgHb
+         CIO2zOU5O5+CxcR4V3vK2PZdls2anfjYS3R4AM8X8oobWlQbRB/ispLWVu9LXb07SYrE
+         TccA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706800246; x=1707405046;
+        d=1e100.net; s=20230601; t=1706800435; x=1707405235;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=MpmtCMKIg7MG7KLzATLN7tvHdDRolI1j9YpQuU+oSQU=;
-        b=nyVNdg7VFP74R2tCjnMTaapOygPGL0dtEr5A87bcH8q5vsT8cl/cLIzPSKSl+USjwx
-         YkNtA0kkCvUA6SNArGnBscyD5qzOVA2G+x9k1oA1C8jzA86TzgQu3ZDFQwgWs2LFuAwl
-         XOJS1Zs9kHHaAaPgflIsyrlxd3Ibmv40OVqTG/tF4jkSBv66As7OXRYgX70itm4rPLUu
-         26UrDO2StIR+bdnyC48aER/mTnEuJkWqEEHk8ND0Bln/yIo1NHxxPdOeJYColdShRqTC
-         AWjL7bpe/IT4iDXGKu9G2MSqtsF1F2xTlFdeltunjftkz5NXtlK8pJ2lsvgdXksxDyjD
-         C60A==
-X-Gm-Message-State: AOJu0YyuH9adlzYjfJiGN3ech3DId3HIt1OSO5Pe3NkusEYkPKUoNiUS
-	XjQjo7C9A4frQbBqLzOiTcw9b1OjR+cOiO6vM2dXJrDAhsfKdnChFJMxyLSSSQ==
-X-Google-Smtp-Source: AGHT+IFEpnKZ6B3Px3BJI0czRwgs70itxp5h5od8ByQw4MCMAbS+fVkWAyW/nE6DxqtxJDLUmYl4+Q==
-X-Received: by 2002:a17:906:c7d2:b0:a36:9f72:2461 with SMTP id dc18-20020a170906c7d200b00a369f722461mr1894807ejb.69.1706800245952;
-        Thu, 01 Feb 2024 07:10:45 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCUzfX2oWSfXNYZuvfUjh+pvznlFpyEUpMiT0WSDrvE8dnVPoAMp3WPZtAMOoNSQS7LmXJ/EF1CCBpmzXbZf3NkMmHsFJAt7rMEgA4X2HU2h6sD1BVo66/y7DFAf18k2gEDLWCS2Qzby1Nr3kunL7Y4J0tDGwkVQSFfmkV/BPaCBX5+fC+pI4kg5SEWFSThBoH/vzRlIjdV7leLV30skF96fu1+TSn2qpIHFsT0TAhchgVf00Mwb+WSYJtOxOrWuvwrrkkoPOgk1gJmvuooptMY/welzze3JbzRjSZ0At3jRSG09y/gvQbDvLcUu
-Message-ID: <b39e8700-62ce-44f1-b1bc-f25bb4f27898@suse.com>
-Date: Thu, 1 Feb 2024 16:10:44 +0100
+        bh=aXKi7HcGOdYt1N8wDuA8yYqEyLVPLGkiW5x+mctbQnA=;
+        b=MUz7CIGyy3LJhuyH0jsr+2C/kIHzQHcPaNXZYrwhCu/tl+ICjiucP+FgpOEWCy8PhL
+         MWoO5bCud2ex+ai6u4arHMXVEpGGQzJl+OO7cFCHFPJaI1WjRTA1DQud7cE2QD/tUQpC
+         JgyggVXB0sFviGJipPA2llxP2+Sg6bj4qQkU/8lDfbcUc4f9etdz0ywweUt0KlGwboxQ
+         R99lk4wA3skc6sVYGZ69S8pq69DHiajqwK2NlMI+qTNEgTYFsDo1d4tKs60FQsJfnugh
+         +t29EGKh3fkbdrZjJpndye9/y3EVLLpG3EMXlA76O9Sfn5FI/1s3q2gr69v5Jn+My3Lz
+         b06w==
+X-Gm-Message-State: AOJu0YwXec05dMGqoiVFRJ4eRWa3f+0W24HlAqEHhZ9WDwPGNSmTYxOd
+	q+yfVTiwWFnXdXIb9rn1Kl5shxPTI2avACSfRVnczO+WVF7mp0z9CpWpp5lX1w==
+X-Google-Smtp-Source: AGHT+IEwSjCvoaggmdb4kXFYQ3RqVlua5qOImD5wc0V+Ei6g/Qsou0fiRFdsxrx/AZH+QvWRLeq67A==
+X-Received: by 2002:a2e:9858:0:b0:2d0:438d:fb2b with SMTP id e24-20020a2e9858000000b002d0438dfb2bmr3924988ljj.33.1706800434948;
+        Thu, 01 Feb 2024 07:13:54 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXCnKVNGws8gZYP1EY2/PjY6v/uPpFtl6vBpS+NUH7YIylRcIrznKZsk39x9ci+NlSxlAgPIS01v9xRBuDifvM23uRKe+uP7rZN2W0MVQnREkGVJJQ0NuNRmqChVhrtl6q3tfWTvoLzR8r84dAFz0OQrgB/df9I4jdimor7gKgAp7GgTg10I/54TdqZaS76eT0t/PnZTx91S7FnK5py6w7YDBrqVomlnlrRuaxkOaHbhzqUE7uEGtw=
+Message-ID: <246c970c-7fad-4842-8305-bcee78a52843@suse.com>
+Date: Thu, 1 Feb 2024 16:13:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 12/15] xen/arm: add Xen cache colors command line
- parameter
+Subject: Re: [PATCH v6 09/15] xen/page_alloc: introduce preserved page flags
+ macro
 Content-Language: en-US
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrea.bastoni@minervasys.tech, Luca Miccio <lucmiccio@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-13-carlo.nonato@minervasys.tech>
+ <20240129171811.21382-10-carlo.nonato@minervasys.tech>
+ <8a3f3c38-b290-417a-86cb-216e36182abe@suse.com>
+ <CAG+AhRU5Yhz_VF02CfaFD5ifvw8cUQbsM7-UiMcRWm+1LR4btg@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,39 +116,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240129171811.21382-13-carlo.nonato@minervasys.tech>
+In-Reply-To: <CAG+AhRU5Yhz_VF02CfaFD5ifvw8cUQbsM7-UiMcRWm+1LR4btg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29.01.2024 18:18, Carlo Nonato wrote:
-> --- a/xen/common/llc-coloring.c
-> +++ b/xen/common/llc-coloring.c
-> @@ -9,6 +9,9 @@
->  #include <xen/llc-coloring.h>
->  #include <xen/param.h>
->  
-> +#define XEN_DEFAULT_COLOR       0
-> +#define XEN_DEFAULT_NUM_COLORS  1
-> +
->  bool __ro_after_init llc_coloring_enabled;
->  boolean_param("llc-coloring", llc_coloring_enabled);
->  
-> @@ -21,6 +24,9 @@ static unsigned int __ro_after_init max_nr_colors = CONFIG_NR_LLC_COLORS;
->  static unsigned int __initdata dom0_colors[CONFIG_NR_LLC_COLORS];
->  static unsigned int __initdata dom0_num_colors;
->  
-> +static unsigned int __ro_after_init xen_colors[CONFIG_NR_LLC_COLORS];
+On 01.02.2024 15:49, Carlo Nonato wrote:
+> On Thu, Feb 1, 2024 at 3:24 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 29.01.2024 18:18, Carlo Nonato wrote:
+>>> PGC_static and PGC_extra are flags that needs to be preserved when assigning
+>>> a page. Define a new macro that groups those flags and use it instead of
+>>> or'ing every time.
+>>
+>> While here you say where the "preserving" applies, ...
+>>
+>>> --- a/xen/common/page_alloc.c
+>>> +++ b/xen/common/page_alloc.c
+>>> @@ -157,6 +157,8 @@
+>>>  #define PGC_static 0
+>>>  #endif
+>>>
+>>> +#define PGC_preserved (PGC_extra | PGC_static)
+>>
+>> ... nothing is said here. From the earlier version I also seem to recall
+>> that the constant was then used outside of assign_pages(). That would
+>> then mean amending whatever comment would be added here.
+> 
+> Yes, but it was used in places where the name didn't fit (to stop merging in
+> free_heap_pages()) and so I thought it would've been better to use the
+> constant only for one of the two concepts: only for preserved flags in
+> assign_pages().
+> 
+> Are you suggesting adding a comment to this #define to clarify its usage?
 
-So unlike for Dom0 here you use the static buffer at runtime.
-
-> +static unsigned int __ro_after_init xen_num_colors;
-
-Taken together, I don't see the value in having XEN_DEFAULT_COLOR:
-One can't simply change it and XEN_DEFAULT_NUM_COLORS to have Xen have,
-say, 4 colors by default. I think you want to have xen_colors[] have
-an initializer, with XEN_DEFAULT_COLOR dropped and XEN_DEFAULT_NUM_COLORS
-moved. Or you actually allocate the runtime buffer if a command line
-option is found, and just use ARRAY_SIZE() as the default count.
+Yes. Albeit if I understand the earlier paragraph right, you don't use
+it further (anymore). In which case the question would be: Is the patch
+still needed, and if so is it rightfully part of this series?
 
 Jan
 
