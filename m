@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35AE88459C9
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 15:15:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674460.1049380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CFAB8459F8
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 15:20:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674464.1049390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVXqD-0001MV-4k; Thu, 01 Feb 2024 14:14:57 +0000
+	id 1rVXuy-0003gR-R0; Thu, 01 Feb 2024 14:19:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674460.1049380; Thu, 01 Feb 2024 14:14:57 +0000
+Received: by outflank-mailman (output) from mailman id 674464.1049390; Thu, 01 Feb 2024 14:19:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVXqD-0001Kd-16; Thu, 01 Feb 2024 14:14:57 +0000
-Received: by outflank-mailman (input) for mailman id 674460;
- Thu, 01 Feb 2024 14:14:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rVXuy-0003da-O1; Thu, 01 Feb 2024 14:19:52 +0000
+Received: by outflank-mailman (input) for mailman id 674464;
+ Thu, 01 Feb 2024 14:19:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFwQ=JK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rVXqA-0001KX-Ta
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 14:14:54 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4443fa92-c10c-11ee-98f5-efadbce2ee36;
- Thu, 01 Feb 2024 15:14:52 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a358ec50b7cso177054666b.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 06:14:52 -0800 (PST)
+ id 1rVXux-0003c4-Od
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 14:19:51 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f5e4368e-c10c-11ee-8a43-1f161083a0e0;
+ Thu, 01 Feb 2024 15:19:50 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id
+ 4fb4d7f45d1cf-55a9008c185so1738283a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 06:19:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n11-20020a1709061d0b00b00a31805b4165sm7307095ejh.11.2024.02.01.06.14.51
+ ev20-20020a056402541400b0055a8fe70387sm6856536edb.1.2024.02.01.06.19.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 06:14:51 -0800 (PST)
+ Thu, 01 Feb 2024 06:19:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4443fa92-c10c-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: f5e4368e-c10c-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706796892; x=1707401692; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706797190; x=1707401990; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=372ElkJtaiL6Ckt2N2GRS8UgDvCeS0ipS47J5ex3oPo=;
-        b=U5Zzk9cy3F6p1AYSXBhqL5oXqA2X9BDsNV9ogxQes40DqjhOE5PrDq2aDuJ2iF2OMP
-         gJff50FwrbgJaJKVboXV5g354hTuGSJPY9+t0juLJc0zqWsGzW+SFAkiCDdkcx9dAPcE
-         XirwuZcr+O8DV2hdGcauORW/cg3kL1BkTD1TBYi9efLy35160NVDQKcIYm9gKRhSxdmv
-         XVBEWA4cTWRnnznzTv3OpNEl4vkoX/a5n/wcZRkD49VUN1txHkp0kBB0ozAldVYXkPYt
-         xAgvtNSIfn/hQoYox7N13DlOOpuZkl5yhMQV6sFWB1fPsNPuUIhqbPnxQzK9XvR9lrib
-         ua8A==
+        bh=xFLBrh7Dpw3f87TJClFlFdPkIP+m+X3DpeBb+FAMqqw=;
+        b=PNI7jFTnDkJrprISyHNm5/JCws0Ort9DCoRhyRIgD4jcth7NqGqSqc0CpcxqtX4jYg
+         L85KMwpFGpWywHXjAqxOiiTATHd4GJ1E7GwhDyUaJcHGdjYnKgPagKy91DuGUmGEoTks
+         sVvrFa7SZPRC/9iQz9fyRaupjxTfbPs0rW6SqpH6TaJQE4QAjfsewHK7IDmQDvGDa2h7
+         a2Mi41mWn7+GNf4DCoHBYw3FIBsVb8E4MzhVH1MTK1b9DNwO8TF52QYNaEU+Rq8tP3UI
+         eR9r2jN2tRque+hRXHOrJ3XqzZpa9DFDW0MVqA/aMed89nLHRp0IGW3NRrmzRkBjrRYI
+         krQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706796892; x=1707401692;
+        d=1e100.net; s=20230601; t=1706797190; x=1707401990;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=372ElkJtaiL6Ckt2N2GRS8UgDvCeS0ipS47J5ex3oPo=;
-        b=PF95EWIS2qB8TYydqiWMyoCdqsPGShrTQZInlBP6NcsiVn59SVFL2si9G4GTAfGB1l
-         vDtPkZeQr9T19mutbE+kc7lAXDbRjLlnKfMdpu46/5VnOZde77Eey1a6LjjC7F+XOfWf
-         xh/BZEolyxeetvZHZc5IRifQntZZUmj5pw8eNZWOtHYD3WHwxVfnA/+wbA+DkzeUDs4B
-         vWlLtDIYe70oo6ZR5pBVD0MgxEZXgApqBQdz+RCQpPefF0/ozxMJGklfNfRStcDqjwtz
-         1CJ/hUe2g4Ce2khnJy84ONpZ+t14syCAyMefsYS3iG1ibuhwO3GPsu2228HfRxqraLUK
-         tKjw==
-X-Gm-Message-State: AOJu0YxllbpLXY5BLWCGcEm7vZclV0vLiE26fh4aSMKvhgOaGcJcx1RQ
-	9TqFFU0RZTziDpsPrmE5FVUvng7b/5EbFdbowmpiO0zXuZySMITBw9gPPCNgyQ==
-X-Google-Smtp-Source: AGHT+IGMs6lhETPsxHHCYuu4paYmqeShsaRHhh6gxYOmsr1GP9cGuFZ6nDDesUE42Ccxf37+yHDpjw==
-X-Received: by 2002:a17:906:f884:b0:a29:b31d:1dc6 with SMTP id lg4-20020a170906f88400b00a29b31d1dc6mr4608416ejb.6.1706796892038;
-        Thu, 01 Feb 2024 06:14:52 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWrLCoi+13j4zvLjpgdICpGbP9M3IKMweasrcL5I5I6UVnXqoaByYfddo0BHjwYQc4u24nwrcIGpvOj/Sh6sMjpPELEuJOSoBkJ5RCqi50LGoxbAIu6SNLmfUBbzpUqh52JIRdWQ5FYC4LzCg==
-Message-ID: <47b5a1be-280c-4e8e-a5c5-6df7da657539@suse.com>
-Date: Thu, 1 Feb 2024 15:14:50 +0100
+        bh=xFLBrh7Dpw3f87TJClFlFdPkIP+m+X3DpeBb+FAMqqw=;
+        b=r2HHmU0m9dce4+4KJcA7gQTs6wg3HH/bDh+ITU6AgV3zS+wevAlUX6YkE91Tdu7yh3
+         lFWdLbaD/MUYzAePbDi0JJrcXUzwBjGdbgM50IaKU0omLNHE5uNjtoQRt1o/8oeBCom2
+         U91F2wGztB/FLDaXWegdinjWu9V4sVAl5pPA9qZ0GZzKJd2x93SU5KQGckdCemguBXxf
+         5rwB9CZJApeH1E2TJ0GW/R5/NL7/7g25b6jqud/7d5/ymiAEm43GNzT5k4EiVcbZ+LJW
+         c7oTiBLbQv0/Up/xS6pWR36q6RrvmhBA4hbTqHrhMqG+maUj/hCAQKjxW2wvxyDpiYIE
+         G6HQ==
+X-Gm-Message-State: AOJu0Yz7mpWVjtOu/3FRqcqgCiLZhvBAxcV1zKw3sgq/h9uoSxckT2XV
+	pW+RNb/XQCUuc7b3p5dAmH18WayQI5zMCsUQZarWXXMwSmA6FIVjGIYN/jRQNg==
+X-Google-Smtp-Source: AGHT+IEjsmIYEgx0oOGNg8gK4dNS2Sc9/aKI1hvXhaj3q0G54l/mXV66zL4dQRKZUW2UtAfPQtp3+Q==
+X-Received: by 2002:a50:8e43:0:b0:55f:5197:6314 with SMTP id 3-20020a508e43000000b0055f51976314mr4697303edx.18.1706797190022;
+        Thu, 01 Feb 2024 06:19:50 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUBqgQZk9DK8Vom/o14kamV2ZuSDDHgUC0AQp3yBxYwUOGEmXiAYPGzLM3CQ20RXxd9iDYUmoddPqZUGol9geb9pxXvFY5GN4xMTU7yBbmI4kJoTzFb7L1oj1b7BAjpfNDnm+o2X2jtV4xc59RYoPUfyucokPaHc431aTtnsGeIJENOHMBiUSchSrHNsVDMGhPBbbB1uVf1IKIsuh9TGdVQdjz9bB1VYhLOSu95PHqDb4plwZFY5GdjeTJj+kGay3KWy8LrrBJyBooCFZQY+KG4WbsXXEVuWqgVak2BDDPmjt4X33fll2lgJEvRsV2QDWB+pezyb1vXk6rablH5Xe9foxJ/XAGwPFrIfbZrc8L71JakFnlV5S94jhb10dzSbpKuMQ==
+Message-ID: <a6ffb4a5-cd83-4c04-9e5a-12d605863b5d@suse.com>
+Date: Thu, 1 Feb 2024 15:19:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] x86/p2m: aid the compiler in folding p2m_is_...()
+Subject: Re: [PATCH v6 07/15] xen/arm: add support for cache coloring
+ configuration via device-tree
 Content-Language: en-US
-To: George Dunlap <dunlapg@umich.edu>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <5d6c927e-7d7c-5754-e7eb-65d1e70f6222@suse.com>
- <7cce89f4-962e-bfbe-7d30-18fea7515bed@suse.com>
- <CAFLBxZZLJMWpf1fCNN4dhoDpYpW6O=V_C==-sCAZy6t4Df_yBw@mail.gmail.com>
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrea.bastoni@minervasys.tech,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
+ <20240129171811.21382-8-carlo.nonato@minervasys.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,51 +118,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAFLBxZZLJMWpf1fCNN4dhoDpYpW6O=V_C==-sCAZy6t4Df_yBw@mail.gmail.com>
+In-Reply-To: <20240129171811.21382-8-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 01.02.2024 14:32, George Dunlap wrote:
-> On Thu, Jun 23, 2022 at 12:54 PM Jan Beulich <jbeulich@suse.com> wrote:
-> 
->> By using | instead of || or (in the negated form) && chances increase
->> for the compiler to recognize that both predicates can actually be
->> folded into an expression requiring just a single branch (via OR-ing
->> together the respective P2M_*_TYPES constants).
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
-> 
-> Sorry for the delay.  Git complains that this patch is malformed:
-> 
-> error: `git apply --index`: error: corrupt patch at line 28
-> 
-> Similar complaint from patchew when it was posted:
-> 
-> https://patchew.org/Xen/5d6c927e-7d7c-5754-e7eb-65d1e70f6222@suse.com/
+On 29.01.2024 18:18, Carlo Nonato wrote:
+> @@ -950,6 +951,11 @@ void __init create_domUs(void)
+>  #endif
+>          }
+>  
+> +        dt_property_read_string(node, "llc-colors", &llc_colors_str);
+> +        if ( !llc_coloring_enabled && llc_colors_str)
+> +            printk(XENLOG_WARNING
+> +                   "'llc-colors' found, but LLC coloring is disabled\n");
 
-Not sure what to say. The patch surely is well-formed. It applies fine
-using patch (when not taken from email). When taken from email, patch
-mentions that it strips CRs (I'm running my email client on Windows),
-but the saved email still applies fine. "git am" indeed is unhappy
-when taking the plain file as saved from email, albeit here with an
-error different from yours. If I edit the saved email to retain just
-the From: and Subject: tags, all is fine.
+Why's this just a warning, when ...
 
-I can't tell what git doesn't like. The error messages (the one you
-see and the one I got) tell me nothing. I'm also not aware of there
-being a requirement that patches I send via email need to be
-"git am"-able (unlike in xsa.git, where I edit patches enough to be
-suitable for that), nor am I aware how I would convince my email
-client and/or server to omit whatever git doesn't like or to add
-whatever git is missing.
+> @@ -960,6 +966,11 @@ void __init create_domUs(void)
+>              panic("Error creating domain %s (rc = %ld)\n",
+>                    dt_node_name(node), PTR_ERR(d));
+>  
+> +        if ( llc_coloring_enabled &&
+> +             (rc = domain_set_llc_colors_from_str(d, llc_colors_str)) )
+> +            panic("Error initializing LLC coloring for domain %s (rc = %d)\n",
+> +                  dt_node_name(node), rc);
 
-Bottom line - your response would be actionable by me only in so far
-as I could switch to using "git send-email". Which I'm afraid I'm not
-going to do unless left with no other choice. The way I've been
-sending patches has worked well for over 20 years, and for different
-projects. (I'm aware Andrew has some special "Jan" command to apply
-patches I send, but I don't know any specifics.)
+... this results in panic()?
+
+> --- a/xen/common/llc-coloring.c
+> +++ b/xen/common/llc-coloring.c
+> @@ -254,6 +254,29 @@ int domain_set_llc_colors_domctl(struct domain *d,
+>      return domain_check_colors(d);
+>  }
+>  
+> +int domain_set_llc_colors_from_str(struct domain *d, const char *str)
+
+__init ?
+
+> +{
+> +    int err;
+> +    unsigned int *colors;
+> +
+> +    if ( !str )
+> +        return domain_set_default_colors(d);
+> +
+> +    colors = alloc_colors(max_nr_colors);
+> +    if ( !colors )
+> +        return -ENOMEM;
+> +
+> +    err = parse_color_config(str, colors, max_nr_colors, &d->num_llc_colors);
+> +    if ( err )
+> +    {
+> +        printk(XENLOG_ERR "Error parsing LLC color configuration.");
+
+Nit: No full stop at the end of log messages please.
+
+> +        return err;
+> +    }
+> +    d->llc_colors = colors;
+> +
+> +    return domain_check_colors(d);
+
+Same ordering issue as in the earlier patch, I think.
 
 Jan
 
