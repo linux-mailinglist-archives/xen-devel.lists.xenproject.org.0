@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5259D845E0C
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 18:02:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674569.1049645 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09370845E33
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 18:11:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674587.1049662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVaSC-0007sq-KA; Thu, 01 Feb 2024 17:02:20 +0000
+	id 1rVaaQ-0002hS-Ex; Thu, 01 Feb 2024 17:10:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674569.1049645; Thu, 01 Feb 2024 17:02:20 +0000
+Received: by outflank-mailman (output) from mailman id 674587.1049662; Thu, 01 Feb 2024 17:10:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVaSC-0007gf-E3; Thu, 01 Feb 2024 17:02:20 +0000
-Received: by outflank-mailman (input) for mailman id 674569;
- Thu, 01 Feb 2024 17:02:18 +0000
+	id 1rVaaQ-0002fK-CE; Thu, 01 Feb 2024 17:10:50 +0000
+Received: by outflank-mailman (input) for mailman id 674587;
+ Thu, 01 Feb 2024 17:10:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cAD+=JK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rVaSA-0006n8-Nk
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 17:02:18 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
+ id 1rVaaO-0002fC-Nk
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 17:10:48 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a7ed1163-c123-11ee-8a43-1f161083a0e0;
- Thu, 01 Feb 2024 18:02:18 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a359e6fde44so123351766b.3
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 09:02:18 -0800 (PST)
+ id d7b13bb1-c124-11ee-8a43-1f161083a0e0;
+ Thu, 01 Feb 2024 18:10:47 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id
+ a640c23a62f3a-a3566c0309fso158463466b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 09:10:47 -0800 (PST)
 Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- cu10-20020a170906ba8a00b00a36a94ecf9dsm1031214ejd.175.2024.02.01.09.02.16
+ xa14-20020a170907b9ce00b00a34ae71e58dsm7473352ejc.147.2024.02.01.09.10.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Feb 2024 09:02:17 -0800 (PST)
+ Thu, 01 Feb 2024 09:10:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,116 +44,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7ed1163-c123-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: d7b13bb1-c124-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706806937; x=1707411737; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MrhtNQnEdn9vrYvKxplKdOmWw8AltePzlQHZOnCcYkE=;
-        b=TREy726yqQyCNCvxbN4sQq49dv4v/hR85PC4SXyzmDbx1h2mFnLOECrsNCDdiUhhmA
-         Ld82CPHRMEHkuQ/KXqx5wHuWO34L8VdvELZYW0kE0uU5eC+zvBcj6O7HEv3RUcfyTen0
-         ygEamOCONVXjYDzw4zJVfMpKvC/jhgpXEzVOg=
+        d=citrix.com; s=google; t=1706807447; x=1707412247; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=510KNn1Q+2goZvYgFG10wKrbP7MgTGvopo6XgmHSduA=;
+        b=c511vmQT8O1jGlO0HNVMWgEU0bMSxc9Q1AYxGALHb5wOUvaggjdSpg/Z+F+CnTmL/0
+         tS2lfxlHJANGcegZ3PMp0AsweM0tQt+vxOOO01cCK6wQfaILfrV3ZX3IUERkDbV/zH0l
+         YIs/I1CMmgAj9M9EoXBib43Bfd3+zhtinKYVY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706806937; x=1707411737;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MrhtNQnEdn9vrYvKxplKdOmWw8AltePzlQHZOnCcYkE=;
-        b=NOdHIKklLmsUQEAdrffdW3Np4z0Z5HI7AW1xc5EDJ4Cotu+Nc3BNl7K4xOL8gxmRK2
-         gZtkq7C8N19sVf5PSJjnb88oHGSczinMOQGIj9IffGuJliVhnx16Jh6ATP5LX0adNyzA
-         d9rmYZDMc+ao+eCpcGIiFO4N6FYeUw4gcCI/iwbochqGOBKQoIBfRbCUlzGHbKkw6hBE
-         rXZVhDxTQhGtSaXgw1VjV1pR+xd6TzT+QuFnBXTJoz7/+NUCN7KkwxfucYk0FhY6asps
-         7C8gDHVwW9I6nJnOka95DYwDov6w+qo9SSeRp74Oe0lqLhefqlAQ6i4pVaaAK7dWlJxU
-         MQiA==
-X-Gm-Message-State: AOJu0YxMKqYGTxHH1nPvzYQQxcwu3tFp3CEmaxX4VSrwQ9voInO55Sc+
-	7VXj4NBEd9ENXor97/Jz67XFmxKP9BlApqhM88vfIOPZwAoe6RffUfNH6Tw2h46zk1YKwhGqMHz
-	Z
-X-Google-Smtp-Source: AGHT+IGc7i6430H4QaIi3+LxQD/GqTuUYou2Jbiu1ErGblVAr8z1YC/aUC4MxNi18CobbC4sV1WzTA==
-X-Received: by 2002:a17:906:5f96:b0:a35:b7e6:1c44 with SMTP id a22-20020a1709065f9600b00a35b7e61c44mr4170204eju.75.1706806937437;
-        Thu, 01 Feb 2024 09:02:17 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWf11yDgkYofRYjl5BKyx2LV56+rtBBpdJEdCgo5EHCP2ZvruGsNYEccw5XEHxjhlu/nPxBONNJtNXsvcabLciBZDfjnbZ8t8I6raIVlOXf
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Paul Durrant <paul@xen.org>
-Subject: [PATCH 4/4] iommu/x86: make unity range checking more strict
-Date: Thu,  1 Feb 2024 18:01:59 +0100
-Message-ID: <20240201170159.66330-5-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240201170159.66330-1-roger.pau@citrix.com>
-References: <20240201170159.66330-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1706807447; x=1707412247;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=510KNn1Q+2goZvYgFG10wKrbP7MgTGvopo6XgmHSduA=;
+        b=Q6OQNQKpyFHqKhVVLL1nca+V2txI4zW5pkrmTWqjGRfv66+XkUZhoiS/iKUaPNTsZr
+         a5DVDnBA2/3wEDYI94gB7xFsoRZz9iouNFdIVjxhMyYutZ8XKsrxHjGWLcAITZDYh4SN
+         fa2nbF8aAlpQ3872Taq0UPw4aZz6qYUVQUhzuYaHjPLK5tZs1omlmrY7z2dE8AXWEFi9
+         LJsx5Qn7BpNujygJeyjFhVMKRuqU2qLhGhHkAy1LOJhbmAe4qrM6PVJ/PHx/1awNvaQy
+         BU77abXQKekXOrgqvIAlik4ZEW068pS/zoyCnJirUFhPQzUHRRU52P/4o6O7oo+Zuv6H
+         hdmg==
+X-Gm-Message-State: AOJu0Yx4kCy+4VaAcoNJxXBLwpCRjDhIYaQyqCXjoq42QBec+s7218Hc
+	Dyzw+EsV9M7C4uqb7ORPHh5Fwuq8PK9k2KvukJJ5U2prviHr+etMQp8scq5LnqU=
+X-Google-Smtp-Source: AGHT+IGMB8bk+RwtbqA2kw8RFjlZrVHfrfFT0UtQLSx8nX7wXIHIn6m63pkC0HTAArmKFfW7Xxq61A==
+X-Received: by 2002:a17:906:491a:b0:a36:34c7:21a5 with SMTP id b26-20020a170906491a00b00a3634c721a5mr3836938ejq.22.1706807447306;
+        Thu, 01 Feb 2024 09:10:47 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCW3rj632b4k6Bly38eru1TfMXrU1Brj/DVB1CG1KkVRxwmfU+NLcJSgsyEWaPQjVgQmnD9E7P+s7lIa61S0YJvXamPbo/Ah8Ik+43p9BIu+4zJ5kZTcWnsxDLKHdQy2tw0QRBFyZhGd2XVcV5og0TTegfh0fOp1Ydj3IIU4/MqxEMaUUs1SiMGV
+Date: Thu, 1 Feb 2024 18:10:46 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Wei Liu <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+	Jun Nakajima <jun.nakajima@intel.com>
+Subject: Re: [PATCH v4 3/8] VMX: tertiary execution control infrastructure
+Message-ID: <ZbvQlrj7u-bwoVzy@macbook>
+References: <9dd23064-c79e-4a50-9c71-c0e73b189944@suse.com>
+ <aa553449-888f-4e52-85b7-0bc0b7f010b4@suse.com>
+ <ZbuFc-ha-iv6B9ui@macbook>
+ <56822f9c-6156-4652-9de1-3d599e22c51a@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <56822f9c-6156-4652-9de1-3d599e22c51a@suse.com>
 
-Currently when a unity range overlaps with memory being used as RAM by the
-hypervisor the result would be that the IOMMU gets disabled.  However that's
-not enough, as even with the IOMMU disabled the device will still access the
-affected RAM areas.
+On Thu, Feb 01, 2024 at 01:09:11PM +0100, Jan Beulich wrote:
+> On 01.02.2024 12:50, Roger Pau Monné wrote:
+> > On Thu, Jan 11, 2024 at 10:00:10AM +0100, Jan Beulich wrote:
+> >> @@ -503,6 +538,9 @@ static int vmx_init_vmcs_config(bool bsp
+> >>              "Secondary Exec Control",
+> >>              vmx_secondary_exec_control, _vmx_secondary_exec_control);
+> >>          mismatch |= cap_check(
+> >> +            "Tertiary Exec Control",
+> >> +            vmx_tertiary_exec_control, _vmx_tertiary_exec_control);
+> > 
+> > I know it's done to match the surrounding style, but couldn't you move
+> > the name parameter one line up, and then limit the call to two lines?
+> > 
+> > (I don't think it will compromise readability).
+> 
+> You mean like this:
+> 
+>         mismatch |= cap_check("Tertiary Exec Control",
+>             vmx_tertiary_exec_control, _vmx_tertiary_exec_control);
+> 
+> ? No, I view this as a mix of two possible styles. If the string literal
+> was moved up, the other legitimate style would only be
+> 
+>         mismatch |= cap_check("Tertiary Exec Control",
+>                               vmx_tertiary_exec_control,
+>                               _vmx_tertiary_exec_control);
+> 
+> aiui (again extending over 3 lines). Yet none of this is written down
+> anywhere.
+> 
+> But anyway - consistency with surrounding code trumps here, I think.
 
-Note that IVMD or RMRR ranges being placed over RAM is a firmware bug.
+I was hoping it could still fit on 2 lines, but if you need 3 never
+mind then.
 
-Doing so also allows to simplify the code and use a switch over the reported
-memory type(s).
+> >> @@ -2068,10 +2111,12 @@ void vmcs_dump_vcpu(struct vcpu *v)
+> >>                 vmr(HOST_PERF_GLOBAL_CTRL));
+> >>  
+> >>      printk("*** Control State ***\n");
+> >> -    printk("PinBased=%08x CPUBased=%08x SecondaryExec=%08x\n",
+> >> +    printk("PinBased=%08x CPUBased=%08x\n",
+> >>             vmr32(PIN_BASED_VM_EXEC_CONTROL),
+> >> -           vmr32(CPU_BASED_VM_EXEC_CONTROL),
+> >> -           vmr32(SECONDARY_VM_EXEC_CONTROL));
+> >> +           vmr32(CPU_BASED_VM_EXEC_CONTROL));
+> >> +    printk("SecondaryExec=%08x TertiaryExec=%08lx\n",
+> > 
+> > For consistency, shouldn't TertiaryExec use 016 instead of 08 (as it's
+> > a 64bit filed).
+> 
+> Perhaps, assuming we'll gets bits 32 and populated sooner or later.
+> However, I view 16-digit literal numbers as hard to read, so I'd be
+> inclined to insert a separator (e.g. an underscore) between the low
+> and high halves. Thoughts?
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/drivers/passthrough/x86/iommu.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+Works for me.
 
-diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index 63d4cb898218..9b977f84582f 100644
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -806,10 +806,14 @@ bool __init iommu_unity_region_ok(mfn_t start, mfn_t end)
- 
-     for ( addr = start; !mfn_eq(addr, end); mfn_add(addr, 1) )
-     {
--        unsigned int type = page_get_ram_type(addr);
--
--        if ( type == RAM_TYPE_UNKNOWN )
-+        /*
-+         * Any page that's at least partially of type RESERVED, UNUSABLE or
-+         * ACPI will be considered by Xen of being all of that type, and hence
-+         * the problematic pages are those that are fully holes or RAM.
-+         */
-+        switch ( page_get_ram_type(addr) )
-         {
-+        case RAM_TYPE_UNKNOWN:
-             if ( e820_add_range(mfn_to_maddr(addr),
-                                 mfn_to_maddr(addr) + PAGE_SIZE, E820_RESERVED) )
-                 continue;
-@@ -817,7 +821,10 @@ bool __init iommu_unity_region_ok(mfn_t start, mfn_t end)
-                    "IOMMU: page at %#" PRI_mfn " couldn't be reserved\n",
-                    mfn_x(addr));
-             return false;
--        }
-+
-+        case RAM_TYPE_CONVENTIONAL:
-+            panic("IOMMU: page at %#" PRI_mfn " overlaps RAM range\n",
-+                  mfn_x(addr));
- 
-         /*
-          * Types which aren't RAM are considered good enough.
-@@ -825,14 +832,7 @@ bool __init iommu_unity_region_ok(mfn_t start, mfn_t end)
-          * force Xen into assuming the whole page as having that type in
-          * practice.
-          */
--        if ( type & (RAM_TYPE_RESERVED | RAM_TYPE_ACPI |
--                     RAM_TYPE_UNUSABLE) )
--            continue;
--
--        printk(XENLOG_WARNING
--               "IOMMU: page at %#" PRI_mfn " can't be converted\n",
--               mfn_x(addr));
--        return false;
-+        }
-     }
- 
-     return true;
--- 
-2.43.0
-
+Thanks, Roger.
 
