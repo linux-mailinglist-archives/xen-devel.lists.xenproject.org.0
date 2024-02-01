@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DD01845298
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 09:21:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674246.1049078 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6EAB8452E9
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 09:40:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674256.1049088 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVSJu-0002Py-6E; Thu, 01 Feb 2024 08:21:14 +0000
+	id 1rVSbz-0005AC-Oo; Thu, 01 Feb 2024 08:39:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674246.1049078; Thu, 01 Feb 2024 08:21:14 +0000
+Received: by outflank-mailman (output) from mailman id 674256.1049088; Thu, 01 Feb 2024 08:39:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVSJu-0002OI-3R; Thu, 01 Feb 2024 08:21:14 +0000
-Received: by outflank-mailman (input) for mailman id 674246;
- Thu, 01 Feb 2024 08:16:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ox/P=JK=proton.me=oxjo@srs-se1.protection.inumbo.net>)
- id 1rVSF6-0000xF-3n
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 08:16:17 +0000
-Received: from mail-40141.protonmail.ch (mail-40141.protonmail.ch
- [185.70.40.141]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 293a3220-c0da-11ee-98f5-efadbce2ee36;
- Thu, 01 Feb 2024 09:16:12 +0100 (CET)
+	id 1rVSbz-00056z-Ls; Thu, 01 Feb 2024 08:39:55 +0000
+Received: by outflank-mailman (input) for mailman id 674256;
+ Thu, 01 Feb 2024 08:39:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cAD+=JK=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rVSby-00056t-4C
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 08:39:54 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 76f01adc-c0dd-11ee-8a43-1f161083a0e0;
+ Thu, 01 Feb 2024 09:39:53 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40e80046246so3010285e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 00:39:51 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ g10-20020a05600c4eca00b0040fbba734f3sm1082225wmq.34.2024.02.01.00.39.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Feb 2024 00:39:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,293 +44,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 293a3220-c0da-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=oat2jhs3tfeuzhvy2ui5tmazwq.protonmail; t=1706775371; x=1707034571;
-	bh=m5mnweclGAWQKNx6iCQLtjWxNRC7Y1HIkiDeF/KR1/M=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=GDQn/oHiMp5ogEXCNNEtTx9oWPyUfm9ZE3zaxJlI9up0b62tjRYzzzoRmM/tXHKLa
-	 AFEahWDJwSLIw0BBScC/DEt9ddcwFXI6B2KmvtYrXQ/2n9mG7BRitPEwxp6CRufEg/
-	 Mr8HEl93tmo6V30acpctzIp/ueDvIFK9vaHxE3XPro00I0D4Y+Sxkh4IooOVYLZIG0
-	 GhrmeYqmQ0HFa2O6mgUiriX81gctmWWpYVdwvGbQTLGBOJ9m5r2qoPoEd8alBikOZv
-	 C2H/nqesk62SQsucJooGgjudIB32BwxRhGfECHLBW7e51bWOXdB1rw5xT+f+ojFnim
-	 DbcO/B1jY5Q9Q==
-Date: Thu, 01 Feb 2024 08:16:05 +0000
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: oxjo@proton.me
-Cc: "roger.pau@citrix.com" <roger.pau@citrix.com>
-Subject: Issue iommu unrecognized on amd computer
-Message-ID: <qTUd8Z_TU2_jJzz9kTj2DJK54p4wECUT072VD_1nomh-d8Ej6hC-QNzY6BW6G9bQVdcDJuQbapJ7NlqqOAKd49Iu8rgkyt4E9qdnN_SyZj8=@proton.me>
-Feedback-ID: 99814252:user:proton
+X-Inumbo-ID: 76f01adc-c0dd-11ee-8a43-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1706776790; x=1707381590; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Mmx7Ge44ylq+xRaE54Mmi5lsueMZNlgqIRQYM/UNpUU=;
+        b=OmNEBETwYjdQ78BY2VOaVyxirQZhsePrn9jIlvhcHMLq3qHpua71BUUKK9TolNJaIM
+         ICUePWoYJ+sten497EIQhayU6+HzPM7RICgEDsW4dnkflBGpmjI0L98/8OM5R9RpzWOp
+         b91TgB3ekalm0wqP8YgixA02jfs0HOW1UyL+g=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1706776790; x=1707381590;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Mmx7Ge44ylq+xRaE54Mmi5lsueMZNlgqIRQYM/UNpUU=;
+        b=tp5nUovhg8hSheHR5aULhHepI1RkXg0+w1u9R0XWbIT3ObJCbZTMD19kYjfWYMC7PH
+         GPQYZkx/36C5+AvHs+I537C67RkfTa+YyHBZ/HJip22L/PaR0YawnSXfujdReOpnDb0Y
+         yUHCA1G3gJHbuboJd0rQGsyBJI0xPWxf3ZeNZs+3fk9RZqWPf8qur6Qm7DmyVbTFVFWV
+         qX06nNDYcSZRD5Bg93gmakJ9XUMbU58ZFaJb8jBY98lQxyXlMKeQrE7hgEpmeE+xQrUL
+         UxwpWBbmtgAhpiM39y+YIch72cdlQnHYrnJqPK4Ro/gzQfY3p42CrpBLMozgOyMnSO3B
+         tJjA==
+X-Gm-Message-State: AOJu0Yx1Iuvv8F+cBwLosI7Z5gyqSPHt1gZ7DBrOVLNwfO0vkFGpXaVT
+	rIELNccLVJDzAXL9wdk3+Hy0sdkWl9hoVkjsUQ8WGk1Bq86ciZiJSMqjcWkUMXE=
+X-Google-Smtp-Source: AGHT+IGW7bgbJkTrR4Yza/IRXj8QJZwTE7Cr91T4ok2nKqWk8e0wQ2sciL8gpCHIKiRmLekUEHkNew==
+X-Received: by 2002:a05:600c:1c9a:b0:40e:f972:9901 with SMTP id k26-20020a05600c1c9a00b0040ef9729901mr3736599wms.4.1706776790540;
+        Thu, 01 Feb 2024 00:39:50 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXDCVhgfb0o24SN4Wqn/FgnWkJYm9QCYpD/ESYbFl4VjZTFA1lzb2EecVom9k5fEwfP12Y/uppYGzcffTRrzp/icQGv3HjGZpMbEHP1O0bmMpkENMmh/i5WpK5zIezuae0Uf4YZJFj/GIIpi8YgFkSb+ve1+U2VK0dRTY3tLYI0EKqJsftwJxoWx8X1Knfb8tnC76BuOBql1srwLsN7vGSl2wcbMkEqp6rlaRVuZC9dj8g2KKow5t0/nsSr8nJZlls/92TMW3QXD5Uc/pJNuCeeBPj2+nM9/cIi4ZkYdMgG2c7Y3W/85xx3atQ7NFnga1NjCNQMDhJbuqruZaGAYHg7aAFbNfLKQC7xPnI5wPmFp1E3D2qFqwlvqSIyLUOZrN5YudkUPsFIPL0Qk1faQOXY4FjKqsnSsDMGI58pczPV4freLpRkOBnJ+zblZe0frUgjrALk1NdUEoPj3Y9vKQ+JxYOJfr1AnKZs/vkDbp6joC8yuId8ZmXn+YeGnhlWwAZhccdcXntd3R0=
+Date: Thu, 1 Feb 2024 09:39:49 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>
+Subject: Re: [RFC KERNEL PATCH v4 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
+Message-ID: <ZbtY1R15pYZz3F3B@macbook>
+References: <ZboLq6kZhwpUC_c3@macbook>
+ <20240131190014.GA593286@bhelgaas>
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="b1_ahePdPP8ZPOBcsnbMP4jUdSkh5Jox7jBC4XyO2W8"
-
-This is a multi-part message in MIME format.
-
---b1_ahePdPP8ZPOBcsnbMP4jUdSkh5Jox7jBC4XyO2W8
-Content-Type: multipart/alternative;
- boundary="b2_ahePdPP8ZPOBcsnbMP4jUdSkh5Jox7jBC4XyO2W8"
-
---b2_ahePdPP8ZPOBcsnbMP4jUdSkh5Jox7jBC4XyO2W8
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240131190014.GA593286@bhelgaas>
 
-SGksCgpGb2xsb3dpbmcgb3VyIGludGVyYWN0aW9uIG9uIG1hdHJpeCwgSSBzZW5kIHlvdSB0aGUg
-Ym9vdCBsb2cgYHhsIGRtZXNnYCBvdXRwdXQgb2YgbXkgY29tcHV0ZXIsIGJvb3Rpbmcgd2l0aCBg
-aW9tbXU9ZGVidWdgIG9wdGlvbnMgb24gbGludXggNi42LjEzLTIwMC5mYzM5LgoKTXkgaXNzdWUg
-aXMgZXZlcnl0aGluZyB3b3JrcyBvbiBxdWJlcyBvbiBteSB0aGlua3BhZCBMMTUgZ2VuIDQgd2l0
-aCBBTUQgUnl6ZW4gNyBQcm8gNzczMFUsIGV4Y2VwdCBpb21tdS9hbWQtdmkuCkkgY2FuIGJvb3Qg
-YW5kIHVzZSBhIHZtIGJ1dCBubyBwY2kgcGFzc3Rocm91Z2guCgpJIHRyaWVkIHF1YmVzIDQuMiwg
-YmFyZSB4ZW4gMTcuMiwgeGVuIDE4IGFuZCBJIGFsd2F5cyBoYXZlIHRoZSBzYW1lIG1lc3NhZ2Vz
-IHlvdSBjYW4gc2VlIGluIHRoZSBsb2dzIHdpdGggSVZNRC4KCkknZCBiZSBncmF0ZWZ1bCBpZiB5
-b3UgY2FuIHRlbGwgbWUgd2l0aGluIGEgd2VlayBpZiBpdCdzIGFuIGlzc3VlIHlvdSB0aGluayBj
-YW4gYmUgZGVhbHQgd2l0aCBvciBubyBzbyBJIGNhbiBkZWNpZGUgd2hhdCBJIGRvIHdpdGggdGhp
-cyBjb21wdXRlci4KCkJlc3QgcmVnYXJkcywKT3g=
+On Wed, Jan 31, 2024 at 01:00:14PM -0600, Bjorn Helgaas wrote:
+> On Wed, Jan 31, 2024 at 09:58:19AM +0100, Roger Pau Monné wrote:
+> > On Tue, Jan 30, 2024 at 02:44:03PM -0600, Bjorn Helgaas wrote:
+> > > On Tue, Jan 30, 2024 at 10:07:36AM +0100, Roger Pau Monné wrote:
+> > > > On Mon, Jan 29, 2024 at 04:01:13PM -0600, Bjorn Helgaas wrote:
+> > > > > On Thu, Jan 25, 2024 at 07:17:24AM +0000, Chen, Jiqian wrote:
+> > > > > > On 2024/1/24 00:02, Bjorn Helgaas wrote:
+> > > > > > > On Tue, Jan 23, 2024 at 10:13:52AM +0000, Chen, Jiqian wrote:
+> > > > > > >> On 2024/1/23 07:37, Bjorn Helgaas wrote:
+> > > > > > >>> On Fri, Jan 05, 2024 at 02:22:17PM +0800, Jiqian Chen wrote:
+> > > > > > >>>> There is a need for some scenarios to use gsi sysfs.
+> > > > > > >>>> For example, when xen passthrough a device to dumU, it will
+> > > > > > >>>> use gsi to map pirq, but currently userspace can't get gsi
+> > > > > > >>>> number.
+> > > > > > >>>> So, add gsi sysfs for that and for other potential scenarios.
+> > > > > > >> ...
+> > > > > > > 
+> > > > > > >>> I don't know enough about Xen to know why it needs the GSI in
+> > > > > > >>> userspace.  Is this passthrough brand new functionality that can't be
+> > > > > > >>> done today because we don't expose the GSI yet?
+> > > > > 
+> > > > > I assume this must be new functionality, i.e., this kind of
+> > > > > passthrough does not work today, right?
+> > > > > 
+> > > > > > >> has ACPI support and is responsible for detecting and controlling
+> > > > > > >> the hardware, also it performs privileged operations such as the
+> > > > > > >> creation of normal (unprivileged) domains DomUs. When we give to a
+> > > > > > >> DomU direct access to a device, we need also to route the physical
+> > > > > > >> interrupts to the DomU. In order to do so Xen needs to setup and map
+> > > > > > >> the interrupts appropriately.
+> > > > > > > 
+> > > > > > > What kernel interfaces are used for this setup and mapping?
+> > > > > >
+> > > > > > For passthrough devices, the setup and mapping of routing physical
+> > > > > > interrupts to DomU are done on Xen hypervisor side, hypervisor only
+> > > > > > need userspace to provide the GSI info, see Xen code:
+> > > > > > xc_physdev_map_pirq require GSI and then will call hypercall to pass
+> > > > > > GSI into hypervisor and then hypervisor will do the mapping and
+> > > > > > routing, kernel doesn't do the setup and mapping.
+> > > > > 
+> > > > > So we have to expose the GSI to userspace not because userspace itself
+> > > > > uses it, but so userspace can turn around and pass it back into the
+> > > > > kernel?
+> > > > 
+> > > > No, the point is to pass it back to Xen, which doesn't know the
+> > > > mapping between GSIs and PCI devices because it can't execute the ACPI
+> > > > AML resource methods that provide such information.
+> > > > 
+> > > > The (Linux) kernel is just a proxy that forwards the hypercalls from
+> > > > user-space tools into Xen.
+> > > 
+> > > But I guess Xen knows how to interpret a GSI even though it doesn't
+> > > have access to AML?
+> > 
+> > On x86 Xen does know how to map a GSI into an IO-APIC pin, in order
+> > configure the RTE as requested.
+> 
+> IIUC, mapping a GSI to an IO-APIC pin requires information from the
+> MADT.  So I guess Xen does use the static ACPI tables, but not the AML
+> _PRT methods that would connect a GSI with a PCI device?
 
---b2_ahePdPP8ZPOBcsnbMP4jUdSkh5Jox7jBC4XyO2W8
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
+Yes, Xen can parse the static tables, and knows the base GSI of
+IO-APICs from the MADT.
 
-PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
-cHg7Ij5IaSw8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7
-IGZvbnQtc2l6ZTogMTRweDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJp
-YWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPkZvbGxvd2luZyBvdXIgaW50ZXJhY3Rp
-b24gb24gbWF0cml4LCBJIHNlbmQgeW91IHRoZSBib290IGxvZyBgeGwgZG1lc2dgIG91dHB1dCBv
-ZiBteSBjb21wdXRlciwgYm9vdGluZyB3aXRoIGBpb21tdT1kZWJ1Z2Agb3B0aW9ucyBvbiBsaW51
-eCA2LjYuMTMtMjAwLmZjMzkuPC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBz
-YW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7Ij48YnI+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1m
-YW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7Ij5NeSBpc3N1ZSBpcyBl
-dmVyeXRoaW5nIHdvcmtzIG9uIHF1YmVzIG9uIG15IHRoaW5rcGFkIEwxNSBnZW4gNCB3aXRoIEFN
-RCBSeXplbiA3Jm5ic3A7IFBybyA3NzMwVSwgZXhjZXB0IGlvbW11L2FtZC12aS48L2Rpdj48ZGl2
-IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsi
-PkkgY2FuIGJvb3QgYW5kIHVzZSBhIHZtIGJ1dCBubyBwY2kgcGFzc3Rocm91Z2guPC9kaXY+PGRp
-diBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7
-Ij48YnI+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBm
-b250LXNpemU6IDE0cHg7Ij5JIHRyaWVkIHF1YmVzIDQuMiwgYmFyZSB4ZW4gMTcuMiwgeGVuIDE4
-IGFuZCBJIGFsd2F5cyBoYXZlIHRoZSBzYW1lIG1lc3NhZ2VzIHlvdSBjYW4gc2VlIGluIHRoZSBs
-b2dzIHdpdGggSVZNRC48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMt
-c2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWls
-eTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPkknZCBiZSBncmF0ZWZ1bCBp
-ZiB5b3UgY2FuIHRlbGwgbWUgd2l0aGluIGEgd2VlayBpZiBpdCdzIGFuIGlzc3VlIHlvdSB0aGlu
-ayBjYW4gYmUgZGVhbHQgd2l0aCBvciBubyBzbyBJIGNhbiBkZWNpZGUgd2hhdCBJIGRvIHdpdGgg
-dGhpcyBjb21wdXRlci48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMt
-c2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWls
-eTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPkJlc3QgcmVnYXJkcyw8L2Rp
-dj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTog
-MTRweDsiPk94PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlm
-OyBmb250LXNpemU6IDE0cHg7Ij48YnI+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFy
-aWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0cHg7Ij48YnI+PC9kaXY+DQo=
+> I guess this means Xen would not be able to deal with _MAT methods,
+> which also contains MADT entries?  I don't know the implications of
+> this -- maybe it means Xen might not be able to use with hot-added
+> devices?
 
+It's my understanding _MAT will only be present on some very specific
+devices (IO-APIC or CPU objects).  Xen doesn't support hotplug of
+IO-APICs, but hotplug of CPUs should in principle be supported with
+cooperation from the control domain OS (albeit it's not something that
+we tests on our CI).  I don't expect however that a CPU object _MAT
+method will return IO APIC entries.
 
---b2_ahePdPP8ZPOBcsnbMP4jUdSkh5Jox7jBC4XyO2W8--
+> The tables (including DSDT and SSDTS that contain the AML) are exposed
+> to userspace via /sys/firmware/acpi/tables/, but of course that
+> doesn't mean Xen knows how to interpret the AML, and even if it did,
+> Xen probably wouldn't be able to *evaluate* it since that could
+> conflict with the host kernel's use of AML.
 
---b1_ahePdPP8ZPOBcsnbMP4jUdSkh5Jox7jBC4XyO2W8
-Content-Type: text/plain; name=boot.log
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename=boot.log
+Indeed, there can only be a single OSPM, and that's the dom0 OS (Linux
+in our context).
 
-IFhlbiA0LjE4LjAKKFhFTikgWGVuIHZlcnNpb24gNC4xOC4wIChtb2NrYnVpbGRAKSAoZ2NjIChH
-Q0MpIDEzLjIuMSAyMDIzMTIwNSAoUmVkIEhhdCAxMy4yLjEtNikpIGRlYnVnPW4gV2VkIERlYyAx
-MyAxNzo1MDo0MiBVVEMgMjAyMwooWEVOKSBMYXRlc3QgQ2hhbmdlU2V0OiAKKFhFTikgYnVpbGQt
-aWQ6IGVhNWQxOTYwYThkMDZmMzFiMDAwMzU1ZjQ2NjIxNjlmZTEyZDA5YTYKKFhFTikgQm9vdGxv
-YWRlcjogR1JVQiAyLjA2CihYRU4pIENvbW1hbmQgbGluZTogcGxhY2Vob2xkZXIgbm8tcmVhbC1t
-b2RlIGVkZD1vZmYKKFhFTikgWGVuIGltYWdlIGxvYWQgYmFzZSBhZGRyZXNzOiAweGMxYTAwMDAw
-CihYRU4pIFZpZGVvIGluZm9ybWF0aW9uOgooWEVOKSAgVkdBIGlzIGdyYXBoaWNzIG1vZGUgMTky
-MHgxMDgwLCAzMiBicHAKKFhFTikgIFZCRS9EREMgbWV0aG9kczogbm9uZTsgRURJRCB0cmFuc2Zl
-ciB0aW1lOiAwIHNlY29uZHMKKFhFTikgRGlzYyBpbmZvcm1hdGlvbjoKKFhFTikgIEZvdW5kIDAg
-TUJSIHNpZ25hdHVyZXMKKFhFTikgIEZvdW5kIDEgRUREIGluZm9ybWF0aW9uIHN0cnVjdHVyZXMK
-KFhFTikgQ1BVIFZlbmRvcjogQU1ELCBGYW1pbHkgMjUgKDB4MTkpLCBNb2RlbCA4MCAoMHg1MCks
-IFN0ZXBwaW5nIDAgKHJhdyAwMGE1MGYwMCkKKFhFTikgRW5hYmxpbmcgU3VwZXJ2aXNvciBTaGFk
-b3cgU3RhY2tzCihYRU4pICAgLSBEaXNhYmxpbmcgUFYzMiBkdWUgdG8gQ0VUCihYRU4pIEVGSSBS
-QU0gbWFwOgooWEVOKSAgWzAwMDAwMDAwMDAwMDAwMDAsIDAwMDAwMDAwMDAwOWVmZmZdICh1c2Fi
-bGUpCihYRU4pICBbMDAwMDAwMDAwMDA5ZjAwMCwgMDAwMDAwMDAwMDA5ZmZmZl0gKHJlc2VydmVk
-KQooWEVOKSAgWzAwMDAwMDAwMDAxMDAwMDAsIDAwMDAwMDAwMDliZmZmZmZdICh1c2FibGUpCihY
-RU4pICBbMDAwMDAwMDAwOWMwMDAwMCwgMDAwMDAwMDAwOWRiMGZmZl0gKHJlc2VydmVkKQooWEVO
-KSAgWzAwMDAwMDAwMDlkYjEwMDAsIDAwMDAwMDAwMDllZmZmZmZdICh1c2FibGUpCihYRU4pICBb
-MDAwMDAwMDAwOWYwMDAwMCwgMDAwMDAwMDAwOWYwZWZmZl0gKEFDUEkgTlZTKQooWEVOKSAgWzAw
-MDAwMDAwMDlmMGYwMDAsIDAwMDAwMDAwYzJkNTdmZmZdICh1c2FibGUpCihYRU4pICBbMDAwMDAw
-MDBjMmQ1ODAwMCwgMDAwMDAwMDBjOGY1N2ZmZl0gKHJlc2VydmVkKQooWEVOKSAgWzAwMDAwMDAw
-YzhmNTgwMDAsIDAwMDAwMDAwYzlmNTdmZmZdIChBQ1BJIE5WUykKKFhFTikgIFswMDAwMDAwMGM5
-ZjU4MDAwLCAwMDAwMDAwMGM5ZmQ3ZmZmXSAoQUNQSSBkYXRhKQooWEVOKSAgWzAwMDAwMDAwYzlm
-ZDgwMDAsIDAwMDAwMDAwYzlmZDlmZmZdICh1c2FibGUpCihYRU4pICBbMDAwMDAwMDBjOWZkYTAw
-MCwgMDAwMDAwMDBjOWZmZmZmZl0gKHJlc2VydmVkKQooWEVOKSAgWzAwMDAwMDAwY2EwMDAwMDAs
-IDAwMDAwMDAwY2JmZmZmZmZdICh1c2FibGUpCihYRU4pICBbMDAwMDAwMDBjYzAwMDAwMCwgMDAw
-MDAwMDBjZGZmZmZmZl0gKHJlc2VydmVkKQooWEVOKSAgWzAwMDAwMDAwY2YwMDAwMDAsIDAwMDAw
-MDAwY2ZmZmZmZmZdIChyZXNlcnZlZCkKKFhFTikgIFswMDAwMDAwMGY4MDAwMDAwLCAwMDAwMDAw
-MGZiZmZmZmZmXSAocmVzZXJ2ZWQpCihYRU4pICBbMDAwMDAwMDBmZGMwMDAwMCwgMDAwMDAwMDBm
-ZGNmZmZmZl0gKHJlc2VydmVkKQooWEVOKSAgWzAwMDAwMDAwZmVkODAwMDAsIDAwMDAwMDAwZmVk
-ODBmZmZdIChyZXNlcnZlZCkKKFhFTikgIFswMDAwMDAwMTAwMDAwMDAwLCAwMDAwMDAwZmVlMmZm
-ZmZmXSAodXNhYmxlKQooWEVOKSAgWzAwMDAwMDBmZWUzMDAwMDAsIDAwMDAwMDEwMmZmZmZmZmZd
-IChyZXNlcnZlZCkKKFhFTikgQUNQSTogUlNEUCBDOUZENzAxNCwgMDAyNCAocjIgTEVOT1ZPKQoo
-WEVOKSBBQ1BJOiBYU0RUIEM5RkQ1MTg4LCAwMTA0IChyMSBMRU5PVk8gVFAtUjI1ICAgICAgIDEx
-MzAgUFRFQyAgICAgICAgMikKKFhFTikgQUNQSTogRkFDUCBDMzk2NDAwMCwgMDExNCAocjYgTEVO
-T1ZPIFRQLVIyNSAgICAgICAxMTMwIFBURUMgICAgICAgIDIpCihYRU4pIEFDUEk6IERTRFQgQzM5
-NEMwMDAsIDEyNzkxIChyMSBMRU5PVk8gVFAtUjI1ICAgICAgIDExMzAgSU5UTCAyMDE4MDMxMykK
-KFhFTikgQUNQSTogRkFDUyBDOURGODAwMCwgMDA0MAooWEVOKSBBQ1BJOiBTU0RUIEM1RTc0MDAw
-LCAwMEEyIChyMSBMRU5PVk8gUElEMFNzZHQgICAgICAgIDEgSU5UTCAyMDE4MDMxMykKKFhFTikg
-QUNQSTogU1NEVCBDNUU3MzAwMCwgMDc1MiAocjEgTEVOT1ZPIFVzYkNUYWJsICAgICAgICAxIElO
-VEwgMjAxODAzMTMpCihYRU4pIEFDUEk6IFNTRFQgQzVFNjYwMDAsIDczNDUgKHIyIExFTk9WTyBU
-UC1SMjUgICAgICAgICAgMiBNU0ZUICAyMDAwMDAyKQooWEVOKSBBQ1BJOiBNU0RNIEM1QjdCMDAw
-LCAwMDU1IChyMyBMRU5PVk8gVFAtUjI1ICAgICAgIDExMzAgUFRFQyAgICAgICAgMikKKFhFTikg
-QUNQSTogQkFUQiBDNUI2NjAwMCwgMDA0QSAocjIgTEVOT1ZPIFRQLVIyNSAgICAgICAxMTMwIFBU
-RUMgICAgICAgIDIpCihYRU4pIEFDUEk6IEhQRVQgQzM5NjMwMDAsIDAwMzggKHIxIExFTk9WTyBU
-UC1SMjUgICAgICAgMTEzMCBQVEVDICAgICAgICAyKQooWEVOKSBBQ1BJOiBBUElDIEMzOTYyMDAw
-LCAwMTM4IChyMiBMRU5PVk8gVFAtUjI1ICAgICAgIDExMzAgUFRFQyAgICAgICAgMikKKFhFTikg
-QUNQSTogTUNGRyBDMzk2MTAwMCwgMDAzQyAocjEgTEVOT1ZPIFRQLVIyNSAgICAgICAxMTMwIFBU
-RUMgICAgICAgIDIpCihYRU4pIEFDUEk6IFNCU1QgQzM5NjAwMDAsIDAwMzAgKHIxIExFTk9WTyBU
-UC1SMjUgICAgICAgMTEzMCBQVEVDICAgICAgICAyKQooWEVOKSBBQ1BJOiBXU01UIEMzOTVGMDAw
-LCAwMDI4IChyMSBMRU5PVk8gVFAtUjI1ICAgICAgIDExMzAgUFRFQyAgICAgICAgMikKKFhFTikg
-QUNQSTogVkZDVCBDMzkzRTAwMCwgRDg4NCAocjEgTEVOT1ZPIFRQLVIyNSAgICAgICAxMTMwIFBU
-RUMgICAgICAgIDIpCihYRU4pIEFDUEk6IFNTRFQgQzM5MzgwMDAsIDUzNTQgKHIyIExFTk9WTyBU
-UC1SMjUgICAgICAgICAgMSBBTUQgICAgICAgICAxKQooWEVOKSBBQ1BJOiBDUkFUIEMzOTM3MDAw
-LCAwRUMwIChyMSBMRU5PVk8gVFAtUjI1ICAgICAgIDExMzAgUFRFQyAgICAgICAgMikKKFhFTikg
-QUNQSTogQ0RJVCBDMzkzNjAwMCwgMDAyOSAocjEgTEVOT1ZPIFRQLVIyNSAgICAgICAxMTMwIFBU
-RUMgICAgICAgIDIpCihYRU4pIEFDUEk6IEZQRFQgQzVCNjcwMDAsIDAwMzQgKHIxIExFTk9WTyBU
-UC1SMjUgICAgICAgMTEzMCBQVEVDICAgICAgICAyKQooWEVOKSBBQ1BJOiBTU0RUIEMzOTM1MDAw
-LCAwMTQ5IChyMSBMRU5PVk8gVFAtUjI1ICAgICAgICAgIDEgSU5UTCAyMDE4MDMxMykKKFhFTikg
-QUNQSTogU1NEVCBDMzkzMzAwMCwgMTRDMyAocjEgTEVOT1ZPIFRQLVIyNSAgICAgICAgICAxIElO
-VEwgMjAxODAzMTMpCihYRU4pIEFDUEk6IFNTRFQgQzM5MzEwMDAsIDE1QTggKHIxIExFTk9WTyBU
-UC1SMjUgICAgICAgICAgMSBJTlRMIDIwMTgwMzEzKQooWEVOKSBBQ1BJOiBTU0RUIEMzOTJEMDAw
-LCAzQjBFIChyMSBMRU5PVk8gVFAtUjI1ICAgICAgICAgIDEgSU5UTCAyMDE4MDMxMykKKFhFTikg
-QUNQSTogQkdSVCBDMzkyQzAwMCwgMDAzOCAocjEgTEVOT1ZPIFRQLVIyNSAgICAgICAxMTMwIFBU
-RUMgICAgICAgIDIpCihYRU4pIEFDUEk6IFNTRFQgQzM5MkIwMDAsIDAyNEQgKHIxIExFTk9WTyBU
-UC1SMjUgICAgICAgICAgMSBJTlRMIDIwMTgwMzEzKQooWEVOKSBBQ1BJOiBTU0RUIEMzOTI5MDAw
-LCAxNEM0IChyMSBMRU5PVk8gVFAtUjI1ICAgICAgICAgIDEgSU5UTCAyMDE4MDMxMykKKFhFTikg
-QUNQSTogU1NEVCBDMzkyODAwMCwgMEFCNyAocjEgTEVOT1ZPIFRQLVIyNSAgICAgICAgICAxIElO
-VEwgMjAxODAzMTMpCihYRU4pIEFDUEk6IFVFRkkgQzlERjcwMDAsIDAwQzYgKHIxIExFTk9WTyBU
-UC1SMjUgICAgICAgMTEzMCBQVEVDICAgICAgICAyKQooWEVOKSBBQ1BJOiBJVlJTIEMzOTI3MDAw
-LCAwMUU0IChyMiBMRU5PVk8gVFAtUjI1ICAgICAgIDExMzAgUFRFQyAgICAgICAgMikKKFhFTikg
-QUNQSTogU1NEVCBDNUU3MjAwMCwgMDA5MCAocjEgTEVOT1ZPIFRQLVIyNSAgICAgICAgICAxIElO
-VEwgMjAxODAzMTMpCihYRU4pIEFDUEk6IFNTRFQgQzVFNzEwMDAsIDA5OEQgKHIxIExFTk9WTyBU
-UC1SMjUgICAgICAgICAgMSBJTlRMIDIwMTgwMzEzKQooWEVOKSBTeXN0ZW0gUkFNOiA2NDMwMk1C
-ICg2NTg0NTQ3NmtCKQooWEVOKSBObyBOVU1BIGNvbmZpZ3VyYXRpb24gZm91bmQKKFhFTikgRmFr
-aW5nIGEgbm9kZSBhdCAwMDAwMDAwMDAwMDAwMDAwLTAwMDAwMDBmZWUzMDAwMDAKKFhFTikgRG9t
-YWluIGhlYXAgaW5pdGlhbGlzZWQKKFhFTikgdmVzYWZiOiBmcmFtZWJ1ZmZlciBhdCAweDAwMDAw
-MDAwZDAwMDAwMDAsIG1hcHBlZCB0byAweGZmZmY4MmMwMDAyMDEwMDAsIHVzaW5nIDgxMjhrLCB0
-b3RhbCA4MTI4awooWEVOKSB2ZXNhZmI6IG1vZGUgaXMgMTkyMHgxMDgweDMyLCBsaW5lbGVuZ3Ro
-PTc2ODAsIGZvbnQgOHgxNgooWEVOKSB2ZXNhZmI6IFRydWVjb2xvcjogc2l6ZT04Ojg6ODo4LCBz
-aGlmdD0yNDoxNjo4OjAKKFhFTikgU01CSU9TIDMuMyBwcmVzZW50LgooWEVOKSBVc2luZyBBUElD
-IGRyaXZlciBkZWZhdWx0CihYRU4pIEFDUEk6IFBNLVRpbWVyIElPIFBvcnQ6IDB4NDA4ICgzMiBi
-aXRzKQooWEVOKSBBQ1BJOiB2NSBTTEVFUCBJTkZPOiBjb250cm9sWzE6MF0sIHN0YXR1c1sxOjBd
-CihYRU4pIEFDUEk6IFNMRUVQIElORk86IHBtMXhfY250WzE6NDA0LDE6MF0sIHBtMXhfZXZ0WzE6
-NDAwLDE6MF0KKFhFTikgQUNQSTogMzIvNjRYIEZBQ1MgYWRkcmVzcyBtaXNtYXRjaCBpbiBGQURU
-IC0gYzlkZjgwMDAvMDAwMDAwMDAwMDAwMDAwMCwgdXNpbmcgMzIKKFhFTikgQUNQSTogICAgICAg
-ICAgICAgd2FrZXVwX3ZlY1tjOWRmODAwY10sIHZlY19zaXplWzIwXQooWEVOKSBPdmVycmlkaW5n
-IEFQSUMgZHJpdmVyIHdpdGggYmlnc21wCihYRU4pIEFDUEk6IElPQVBJQyAoaWRbMHgyMF0gYWRk
-cmVzc1sweGZlYzAwMDAwXSBnc2lfYmFzZVswXSkKKFhFTikgSU9BUElDWzBdOiBhcGljX2lkIDMy
-LCB2ZXJzaW9uIDMzLCBhZGRyZXNzIDB4ZmVjMDAwMDAsIEdTSSAwLTIzCihYRU4pIEFDUEk6IElP
-QVBJQyAoaWRbMHgyMV0gYWRkcmVzc1sweGZlYzAxMDAwXSBnc2lfYmFzZVsyNF0pCihYRU4pIElP
-QVBJQ1sxXTogYXBpY19pZCAzMywgdmVyc2lvbiAzMywgYWRkcmVzcyAweGZlYzAxMDAwLCBHU0kg
-MjQtNTUKKFhFTikgQUNQSTogSU5UX1NSQ19PVlIgKGJ1cyAwIGJ1c19pcnEgMCBnbG9iYWxfaXJx
-IDIgZGZsIGRmbCkKKFhFTikgQUNQSTogSU5UX1NSQ19PVlIgKGJ1cyAwIGJ1c19pcnEgOSBnbG9i
-YWxfaXJxIDkgbG93IGxldmVsKQooWEVOKSBBQ1BJOiBIUEVUIGlkOiAweDQzNTM4MjEwIGJhc2U6
-IDB4ZmVkMDAwMDAKKFhFTikgUENJOiBNQ0ZHIGNvbmZpZ3VyYXRpb24gMDogYmFzZSBmODAwMDAw
-MCBzZWdtZW50IDAwMDAgYnVzZXMgMDAgLSAzZgooWEVOKSBQQ0k6IE1DRkcgYXJlYSBhdCBmODAw
-MDAwMCByZXNlcnZlZCBpbiBFODIwCihYRU4pIFBDSTogVXNpbmcgTUNGRyBmb3Igc2VnbWVudCAw
-MDAwIGJ1cyAwMC0zZgooWEVOKSBBQ1BJOiBCR1JUOiBpbnZhbGlkYXRpbmcgdjEgaW1hZ2UgYXQg
-MHhiZDY1NjAxOAooWEVOKSBVc2luZyBBQ1BJIChNQURUKSBmb3IgU01QIGNvbmZpZ3VyYXRpb24g
-aW5mb3JtYXRpb24KKFhFTikgU01QOiBBbGxvd2luZyAxNiBDUFVzICgwIGhvdHBsdWcgQ1BVcykK
-KFhFTikgSVJRIGxpbWl0czogNTYgR1NJLCAzMjcyIE1TSS9NU0ktWAooWEVOKSBDUFUwOiAxNjAw
-IC4uLiAyMDAwIE1IegooWEVOKSB4c3RhdGU6IHNpemU6IDB4OTg4IGFuZCBzdGF0ZXM6IDB4MjA3
-CihYRU4pIENQVTA6IEFNRCBGYW0xOWggbWFjaGluZSBjaGVjayByZXBvcnRpbmcgZW5hYmxlZAoo
-WEVOKSBWdWxuZXJhYmxlIHRvIFNSU08sIHdpdGhvdXQgc3VpdGFibGUgbWljcm9jb2RlIHRvIG1p
-dGlnYXRlCihYRU4pIFNwZWN1bGF0aXZlIG1pdGlnYXRpb24gZmFjaWxpdGllczoKKFhFTikgICBI
-YXJkd2FyZSBoaW50czogU1RJQlBfQUxXQVlTIElCUlNfRkFTVCBJQlJTX1NBTUVfTU9ERQooWEVO
-KSAgIEhhcmR3YXJlIGZlYXR1cmVzOiBJQlBCIElCUlMgU1RJQlAgU1NCRCBQU0ZECihYRU4pICAg
-Q29tcGlsZWQtaW4gc3VwcG9ydDogSU5ESVJFQ1RfVEhVTksgU0hBRE9XX1BBR0lORwooWEVOKSAg
-IFhlbiBzZXR0aW5nczogQlRJLVRodW5rIEpNUCwgU1BFQ19DVFJMOiBJQlJTKyBTVElCUCsgU1NC
-RC0gUFNGRC0sIE90aGVyOiBJQlBCLWN0eHQgQlJBTkNIX0hBUkRFTgooWEVOKSAgIFN1cHBvcnQg
-Zm9yIEhWTSBWTXM6IE1TUl9TUEVDX0NUUkwgTVNSX1ZJUlRfU1BFQ19DVFJMIFJTQgooWEVOKSAg
-IFN1cHBvcnQgZm9yIFBWIFZNczogTm9uZQooWEVOKSAgIFhQVEkgKDY0LWJpdCBQViBvbmx5KTog
-RG9tMCBkaXNhYmxlZCwgRG9tVSBkaXNhYmxlZCAod2l0aG91dCBQQ0lEKQooWEVOKSAgIFBWIEwx
-VEYgc2hhZG93aW5nOiBEb20wIGRpc2FibGVkLCBEb21VIGRpc2FibGVkCihYRU4pIFVzaW5nIHNj
-aGVkdWxlcjogU01QIENyZWRpdCBTY2hlZHVsZXIgcmV2MiAoY3JlZGl0MikKKFhFTikgSW5pdGlh
-bGl6aW5nIENyZWRpdDIgc2NoZWR1bGVyCihYRU4pICBsb2FkX3ByZWNpc2lvbl9zaGlmdDogMTgK
-KFhFTikgIGxvYWRfd2luZG93X3NoaWZ0OiAzMAooWEVOKSAgdW5kZXJsb2FkX2JhbGFuY2VfdG9s
-ZXJhbmNlOiAwCihYRU4pICBvdmVybG9hZF9iYWxhbmNlX3RvbGVyYW5jZTogLTMKKFhFTikgIHJ1
-bnF1ZXVlcyBhcnJhbmdlbWVudDogc29ja2V0CihYRU4pICBjYXAgZW5mb3JjZW1lbnQgZ3JhbnVs
-YXJpdHk6IDEwbXMKKFhFTikgbG9hZCB0cmFja2luZyB3aW5kb3cgbGVuZ3RoIDEwNzM3NDE4MjQg
-bnMKKFhFTikgUGxhdGZvcm0gdGltZXIgaXMgMTQuMzE4TUh6IEhQRVQKKFhFTikgRGV0ZWN0ZWQg
-MTk5Ni4yNTkgTUh6IHByb2Nlc3Nvci4KKFhFTikgRnJlZWQgMTAyMGtCIHVudXNlZCBCU1MgbWVt
-b3J5CihYRU4pIGFsdCB0YWJsZSBmZmZmODJkMDQwNDViZDk4IC0+IGZmZmY4MmQwNDA0NjkyYTgK
-KFhFTikgQU1ELVZpOiBJT01NVSBFeHRlbmRlZCBGZWF0dXJlczoKKFhFTikgLSBQZXJpcGhlcmFs
-IFBhZ2UgU2VydmljZSBSZXF1ZXN0CihYRU4pIC0geDJBUElDCihYRU4pIC0gTlggYml0CihYRU4p
-IC0gSW52YWxpZGF0ZSBBbGwgQ29tbWFuZAooWEVOKSAtIEd1ZXN0IEFQSUMKKFhFTikgLSBQZXJm
-b3JtYW5jZSBDb3VudGVycwooWEVOKSAtIEhvc3QgQWRkcmVzcyBUcmFuc2xhdGlvbiBTaXplOiAw
-eDIKKFhFTikgLSBHdWVzdCBBZGRyZXNzIFRyYW5zbGF0aW9uIFNpemU6IDAKKFhFTikgLSBHdWVz
-dCBDUjMgUm9vdCBUYWJsZSBMZXZlbDogMHgxCihYRU4pIC0gTWF4aW11bSBQQVNJRDogMHhmCihY
-RU4pIC0gU01JIEZpbHRlciBSZWdpc3RlcjogMHgxCihYRU4pIC0gU01JIEZpbHRlciBSZWdpc3Rl
-ciBDb3VudDogMHgxCihYRU4pIC0gR3Vlc3QgVmlydHVhbCBBUElDIE1vZGVzOiAweDEKKFhFTikg
-LSBEdWFsIFBQUiBMb2c6IDB4MgooWEVOKSAtIER1YWwgRXZlbnQgTG9nOiAweDIKKFhFTikgLSBV
-c2VyIC8gU3VwZXJ2aXNvciBQYWdlIFByb3RlY3Rpb24KKFhFTikgLSBEZXZpY2UgVGFibGUgU2Vn
-bWVudGF0aW9uOiAweDMKKFhFTikgLSBQUFIgTG9nIE92ZXJmbG93IEVhcmx5IFdhcm5pbmcKKFhF
-TikgLSBQUFIgQXV0b21hdGljIFJlc3BvbnNlCihYRU4pIC0gTWVtb3J5IEFjY2VzcyBSb3V0aW5n
-IGFuZCBDb250cm9sOiAwCihYRU4pIC0gQmxvY2sgU3RvcE1hcmsgTWVzc2FnZQooWEVOKSAtIFBl
-cmZvcm1hbmNlIE9wdGltaXphdGlvbgooWEVOKSAtIE1TSSBDYXBhYmlsaXR5IE1NSU8gQWNjZXNz
-CihYRU4pIC0gR3Vlc3QgSS9PIFByb3RlY3Rpb24KKFhFTikgLSBFbmhhbmNlZCBQUFIgSGFuZGxp
-bmcKKFhFTikgLSBBdHRyaWJ1dGUgRm9yd2FyZAooWEVOKSAtIEludmFsaWRhdGUgSU9UTEIgVHlw
-ZQooWEVOKSAtIFZNIFRhYmxlIFNpemU6IDAKKFhFTikgLSBHdWVzdCBBY2Nlc3MgQml0IFVwZGF0
-ZSBEaXNhYmxlCihYRU4pIEFNRC1WaTogV2FybmluZzogSVZNRDogW2M5ZjFjMDAwLGM5ZjQyMDAw
-KSBpcyBub3QgKGVudGlyZWx5KSBpbiByZXNlcnZlZCBtZW1vcnkKKFhFTikgQU1ELVZpOiBFcnJv
-cjogSVZNRDogcGFnZSBhdCBjOWYxYzAwMCBjYW4ndCBiZSBjb252ZXJ0ZWQKKFhFTikgQU1ELVZp
-OiBFcnJvciBpbml0aWFsaXphdGlvbgooWEVOKSBJL08gdmlydHVhbGlzYXRpb24gZGlzYWJsZWQK
-KFhFTikgRW5hYmxpbmcgQVBJQyBtb2RlOiAgUGh5c2ljYWwuICBVc2luZyAyIEkvTyBBUElDcwoo
-WEVOKSBFTkFCTElORyBJTy1BUElDIElSUXMKKFhFTikgIC0+IFVzaW5nIG5ldyBBQ0sgbWV0aG9k
-CihYRU4pIC4uVElNRVI6IHZlY3Rvcj0weEYwIGFwaWMxPTAgcGluMT0yIGFwaWMyPS0xIHBpbjI9
-LTEKKFhFTikgQWxsb2NhdGVkIGNvbnNvbGUgcmluZyBvZiA2NCBLaUIuCihYRU4pIEhWTTogQVNJ
-RHMgZW5hYmxlZC4KKFhFTikgU1ZNOiBTdXBwb3J0ZWQgYWR2YW5jZWQgZmVhdHVyZXM6CihYRU4p
-ICAtIE5lc3RlZCBQYWdlIFRhYmxlcyAoTlBUKQooWEVOKSAgLSBMYXN0IEJyYW5jaCBSZWNvcmQg
-KExCUikgVmlydHVhbGlzYXRpb24KKFhFTikgIC0gTmV4dC1SSVAgU2F2ZWQgb24gI1ZNRVhJVAoo
-WEVOKSAgLSBWTUNCIENsZWFuIEJpdHMKKFhFTikgIC0gRGVjb2RlQXNzaXN0cwooWEVOKSAgLSBW
-aXJ0dWFsIFZNTE9BRC9WTVNBVkUKKFhFTikgIC0gVmlydHVhbCBHSUYKKFhFTikgIC0gUGF1c2Ut
-SW50ZXJjZXB0IEZpbHRlcgooWEVOKSAgLSBQYXVzZS1JbnRlcmNlcHQgRmlsdGVyIFRocmVzaG9s
-ZAooWEVOKSAgLSBUU0MgUmF0ZSBNU1IKKFhFTikgIC0gTlBUIFN1cGVydmlzb3IgU2hhZG93IFN0
-YWNrCihYRU4pICAtIE1TUl9TUEVDX0NUUkwgdmlydHVhbGlzYXRpb24KKFhFTikgSFZNOiBTVk0g
-ZW5hYmxlZAooWEVOKSBIVk06IEhhcmR3YXJlIEFzc2lzdGVkIFBhZ2luZyAoSEFQKSBkZXRlY3Rl
-ZAooWEVOKSBIVk06IEhBUCBwYWdlIHNpemVzOiA0a0IsIDJNQiwgMUdCCihYRU4pIGFsdCB0YWJs
-ZSBmZmZmODJkMDQwNDViZDk4IC0+IGZmZmY4MmQwNDA0NjkyYTgKKFhFTikgQnJvdWdodCB1cCAx
-NiBDUFVzCihYRU4pIFNjaGVkdWxpbmcgZ3JhbnVsYXJpdHk6IGNwdSwgMSBDUFUgcGVyIHNjaGVk
-LXJlc291cmNlCihYRU4pIEluaXRpYWxpemluZyBDcmVkaXQyIHNjaGVkdWxlcgooWEVOKSAgbG9h
-ZF9wcmVjaXNpb25fc2hpZnQ6IDE4CihYRU4pICBsb2FkX3dpbmRvd19zaGlmdDogMzAKKFhFTikg
-IHVuZGVybG9hZF9iYWxhbmNlX3RvbGVyYW5jZTogMAooWEVOKSAgb3ZlcmxvYWRfYmFsYW5jZV90
-b2xlcmFuY2U6IC0zCihYRU4pICBydW5xdWV1ZXMgYXJyYW5nZW1lbnQ6IHNvY2tldAooWEVOKSAg
-Y2FwIGVuZm9yY2VtZW50IGdyYW51bGFyaXR5OiAxMG1zCihYRU4pIGxvYWQgdHJhY2tpbmcgd2lu
-ZG93IGxlbmd0aCAxMDczNzQxODI0IG5zCihYRU4pIEFkZGluZyBjcHUgMCB0byBydW5xdWV1ZSAw
-CihYRU4pICBGaXJzdCBjcHUgb24gcnVucXVldWUsIGFjdGl2YXRpbmcKKFhFTikgQWRkaW5nIGNw
-dSAxIHRvIHJ1bnF1ZXVlIDAKKFhFTikgQWRkaW5nIGNwdSAyIHRvIHJ1bnF1ZXVlIDAKKFhFTikg
-QWRkaW5nIGNwdSAzIHRvIHJ1bnF1ZXVlIDAKKFhFTikgQWRkaW5nIGNwdSA0IHRvIHJ1bnF1ZXVl
-IDAKKFhFTikgQWRkaW5nIGNwdSA1IHRvIHJ1bnF1ZXVlIDAKKFhFTikgQWRkaW5nIGNwdSA2IHRv
-IHJ1bnF1ZXVlIDAKKFhFTikgQWRkaW5nIGNwdSA3IHRvIHJ1bnF1ZXVlIDAKKFhFTikgQWRkaW5n
-IGNwdSA4IHRvIHJ1bnF1ZXVlIDAKKFhFTikgQWRkaW5nIGNwdSA5IHRvIHJ1bnF1ZXVlIDAKKFhF
-TikgQWRkaW5nIGNwdSAxMCB0byBydW5xdWV1ZSAwCihYRU4pIEFkZGluZyBjcHUgMTEgdG8gcnVu
-cXVldWUgMAooWEVOKSBBZGRpbmcgY3B1IDEyIHRvIHJ1bnF1ZXVlIDAKKFhFTikgQWRkaW5nIGNw
-dSAxMyB0byBydW5xdWV1ZSAwCihYRU4pIEFkZGluZyBjcHUgMTQgdG8gcnVucXVldWUgMAooWEVO
-KSBBZGRpbmcgY3B1IDE1IHRvIHJ1bnF1ZXVlIDAKKFhFTikgbWNoZWNrX3BvbGw6IE1hY2hpbmUg
-Y2hlY2sgcG9sbGluZyB0aW1lciBzdGFydGVkLgooWEVOKSBOWCAoRXhlY3V0ZSBEaXNhYmxlKSBw
-cm90ZWN0aW9uIGFjdGl2ZQooWEVOKSBEb20wIGhhcyBtYXhpbXVtIDEwOTYgUElSUXMKKFhFTikg
-KioqIEJ1aWxkaW5nIGEgUFYgRG9tMCAqKioKKFhFTikgIFhlbiAga2VybmVsOiA2NC1iaXQsIGxz
-YiwgY29tcGF0MzIKKFhFTikgIERvbTAga2VybmVsOiA2NC1iaXQsIGxzYiwgcGFkZHIgMHgxMDAw
-MDAwIC0+IDB4NGEwMDAwMAooWEVOKSBQSFlTSUNBTCBNRU1PUlkgQVJSQU5HRU1FTlQ6CihYRU4p
-ICBEb20wIGFsbG9jLjogICAwMDAwMDAwYzMwMDAwMDAwLT4wMDAwMDAwYzM4MDAwMDAwICgxNjIx
-OTU2NCBwYWdlcyB0byBiZSBhbGxvY2F0ZWQpCihYRU4pICBJbml0LiByYW1kaXNrOiAwMDAwMDAw
-ZmVhZjA1MDAwLT4wMDAwMDAwZmVlMWZmMjhlCihYRU4pIFZJUlRVQUwgTUVNT1JZIEFSUkFOR0VN
-RU5UOgooWEVOKSAgTG9hZGVkIGtlcm5lbDogZmZmZmZmZmY4MTAwMDAwMC0+ZmZmZmZmZmY4NGEw
-MDAwMAooWEVOKSAgUGh5cy1NYWNoIG1hcDogMDAwMDAwODAwMDAwMDAwMC0+MDAwMDAwODAwN2Mx
-ODUzOAooWEVOKSAgU3RhcnQgaW5mbzogICAgZmZmZmZmZmY4NGEwMDAwMC0+ZmZmZmZmZmY4NGEw
-MDRiOAooWEVOKSAgUGFnZSB0YWJsZXM6ICAgZmZmZmZmZmY4NGEwMTAwMC0+ZmZmZmZmZmY4NGEy
-YTAwMAooWEVOKSAgQm9vdCBzdGFjazogICAgZmZmZmZmZmY4NGEyYTAwMC0+ZmZmZmZmZmY4NGEy
-YjAwMAooWEVOKSAgVE9UQUw6ICAgICAgICAgZmZmZmZmZmY4MDAwMDAwMC0+ZmZmZmZmZmY4NGMw
-MDAwMAooWEVOKSAgRU5UUlkgQUREUkVTUzogZmZmZmZmZmY4M2FlNzRjMAooWEVOKSBEb20wIGhh
-cyBtYXhpbXVtIDE2IFZDUFVzCihYRU4pIEluaXRpYWwgbG93IG1lbW9yeSB2aXJxIHRocmVzaG9s
-ZCBzZXQgYXQgMHg0MDAwIHBhZ2VzLgooWEVOKSBTY3J1YmJpbmcgRnJlZSBSQU0gaW4gYmFja2dy
-b3VuZAooWEVOKSBTdGQuIExvZ2xldmVsOiBFcnJvcnMsIHdhcm5pbmdzIGFuZCBpbmZvCihYRU4p
-IEd1ZXN0IExvZ2xldmVsOiBOb3RoaW5nIChSYXRlLWxpbWl0ZWQ6IEVycm9ycyBhbmQgd2Fybmlu
-Z3MpCihYRU4pIFhlbiBpcyByZWxpbnF1aXNoaW5nIFZHQSBjb25zb2xlLgooWEVOKSAqKiogU2Vy
-aWFsIGlucHV0IHRvIERPTTAgKHR5cGUgJ0NUUkwtYScgdGhyZWUgdGltZXMgdG8gc3dpdGNoIGlu
-cHV0KQooWEVOKSBGcmVlZCA2NDhrQiBpbml0IG1lbW9yeQo=
+Getting back to our context though, what would be a suitable place for
+exposing the GSI assigned to each device?
 
---b1_ahePdPP8ZPOBcsnbMP4jUdSkh5Jox7jBC4XyO2W8--
-
+Thanks, Roger.
 
