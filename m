@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50656845952
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 14:51:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674444.1049349 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50633845964
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 14:55:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674448.1049359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVXTb-0003VD-Oo; Thu, 01 Feb 2024 13:51:35 +0000
+	id 1rVXX3-00045I-7W; Thu, 01 Feb 2024 13:55:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674444.1049349; Thu, 01 Feb 2024 13:51:35 +0000
+Received: by outflank-mailman (output) from mailman id 674448.1049359; Thu, 01 Feb 2024 13:55:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVXTb-0003T3-MF; Thu, 01 Feb 2024 13:51:35 +0000
-Received: by outflank-mailman (input) for mailman id 674444;
- Thu, 01 Feb 2024 13:51:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rVXX3-00043N-4g; Thu, 01 Feb 2024 13:55:09 +0000
+Received: by outflank-mailman (input) for mailman id 674448;
+ Thu, 01 Feb 2024 13:55:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XFwQ=JK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rVXTa-0003Sx-M0
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 13:51:34 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 025962d3-c109-11ee-8a43-1f161083a0e0;
- Thu, 01 Feb 2024 14:51:33 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-33b1a51743fso255695f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 05:51:33 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o2-20020a5d4a82000000b0033b1277e95dsm2119858wrq.77.2024.02.01.05.51.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 05:51:32 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1rVXX1-00043G-NL
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 13:55:07 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rVXWw-0001UW-OC; Thu, 01 Feb 2024 13:55:02 +0000
+Received: from [15.248.2.31] (helo=[10.24.67.35])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rVXWw-0006WY-HF; Thu, 01 Feb 2024 13:55:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,162 +39,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 025962d3-c109-11ee-8a43-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706795493; x=1707400293; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=8RRdQKASc3af7mpTARYqUcV+0lPpVTBJtM4WGMrlCRw=;
-        b=AQAMHaPpRg691kwz/SeL4DcMupVqnsJk3jhtovx3ZR1GsqpFv35GZw0Mku4gbmOI9b
-         wWSNWbk4N376x1JslwLhA7n8MdJOx9Z8vMhqQumJReGMijTRKVOgntv5LM8VNYybNbQ6
-         XcKbcotk9G5k7YZlMf5zK3Cxp2kqKM7ZMy+ZS60fsz6Zz8mbrNefy5P/lrXn+HE2a0L4
-         hJNreWQHuRzSWeKIuw9aSWdfQh4OCM9RlI+gurE2ImKBU0proy49C7Q2kulAbiyE5JEw
-         Wh0xCCqVWaqowtyDUBdHT9vt98cUbZocRRr86Q90EwT8OVe3H877zIuMiBGCE4mAhAQi
-         B9Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706795493; x=1707400293;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8RRdQKASc3af7mpTARYqUcV+0lPpVTBJtM4WGMrlCRw=;
-        b=dxNVEyA9kD66itUxye3UrO1LtvAzwVbpZvSRDkj0ksxpKIHznYhaa4CHuMdXFm3lir
-         +45Pt+ugvlWC0Dtq/oVboRLj0S2d1xoTvLmP9bc6nJnLI4XxdyYnkXyiZsBE4K+faV6K
-         6oTTeBBMO6VdOB9NPErRPC3niiwUDxcR+/ypbIK3VpahR+QDHFyDjzrml1F/+Bonot7N
-         bpgyRUJrUInOG+1HP+y5Kj2DSF01MK3aLg3mNdDpcMUMvxMUZsSdsAIxR6EfJGjHLtTl
-         xetarOIaJd7QKIayr7dEiaXb9FR4F2R60tq3XBt6dM6LzomImry8N0TVb832Nfz40dI3
-         qTPQ==
-X-Gm-Message-State: AOJu0Yzs+2enboizNcjPLTw+0zpS+X5ACd9y2iOZwI5Qt+/1N+AHVyES
-	Yhmyp7mUCoGykF/mW4SLBMpQqC9Q27PwwSla8L90DtNdBXwZlNDznZw/1tuPeQ==
-X-Google-Smtp-Source: AGHT+IFMBy8UxQLDea4mgrUx/zzQwIOassxiv2dP8qnvvs6//4Bn0T41OedMDEPWMSkZT6UI6Pd3Fg==
-X-Received: by 2002:adf:ce8b:0:b0:33a:eae4:aaf7 with SMTP id r11-20020adfce8b000000b0033aeae4aaf7mr3489557wrn.48.1706795492933;
-        Thu, 01 Feb 2024 05:51:32 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCVxHvl2mTcAPoZFlqoBOxEKsYLkudUEhv4D2bXChYhJXFEbGOOqDIEcPN/gcwZMR/HfIBcRen8SPC7QV2XjKCQuwK4/fPf+KMW7Uz7xxMW2Fv7CSHUbB5CxRSYhmsDzsGUzqYo6MiSeeglG3M/XEKvldWp8IPzaaG4vsq6bwzZkBcGZI2As2YzcjlLOv4NHyFg9pSjOOBj5RKrC5WseG7andnq9bCeGxHkNjbVSy6bz0q6ok8gBVv7R8bpbhEmF57pJvhfYKMZcgAdPyg+MdRcJdHdN00RN
-Message-ID: <49827753-14f1-42cc-8791-27c5400e6e50@suse.com>
-Date: Thu, 1 Feb 2024 14:51:31 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=BWz9L10Z3/J3KrmaAbRIqLHSINybu8RaJ2IT/zQ6ddg=; b=PkLahu2Zq8kY+vanGWH6Capr1r
+	zrGyRuZoltZ2UmqTB6FDokYyA76pBHhmDi8awyaTnsk34SQWStxN1rvky4ih0BiDhHjAmOleymGvh
+	mk8tGyXJlio0HuvxKS+LTihpqa//nnkbaLtL9nkHou53hfrQncrVJT0BduF5ntAvTwGI=;
+Message-ID: <4d913f15-f2e7-412d-a3c2-727c83df7ec1@xen.org>
+Date: Thu, 1 Feb 2024 13:55:00 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/15] xen: extend domctl interface for cache coloring
-Content-Language: en-US
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Subject: Re: [PATCH v6 04/15] xen/arm: add Dom0 cache coloring support
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>
 Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
  <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Marco Solieri <marco.solieri@minervasys.tech>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Marco Solieri <marco.solieri@minervasys.tech>,
+ xen-devel@lists.xenproject.org, Carlo Nonato <carlo.nonato@minervasys.tech>
 References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-6-carlo.nonato@minervasys.tech>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240129171811.21382-6-carlo.nonato@minervasys.tech>
-Content-Type: text/plain; charset=UTF-8
+ <20240129171811.21382-5-carlo.nonato@minervasys.tech>
+ <cf23d8a8-7111-4014-adc7-93ecd5f110ec@suse.com>
+ <12b2d25a-ff80-45d8-ad3e-fca6684508df@xen.org>
+ <02b2905d-cc83-4c39-bc29-2ac8351bfc37@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <02b2905d-cc83-4c39-bc29-2ac8351bfc37@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 29.01.2024 18:18, Carlo Nonato wrote:
-> @@ -858,6 +859,16 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->                  __HYPERVISOR_domctl, "h", u_domctl);
->          break;
->  
-> +    case XEN_DOMCTL_set_llc_colors:
-> +        if ( !llc_coloring_enabled )
-> +            break;
+Hi Jan,
 
-With "ret" still being 0, this amounts to "successfully ignored". Ought
-to be -EOPNOTSUPP, I guess.
+On 01/02/2024 13:39, Jan Beulich wrote:
+> On 01.02.2024 14:35, Julien Grall wrote:
+>> Hi Jan,
+>>
+>> On 01/02/2024 13:30, Jan Beulich wrote:
+>>> On 29.01.2024 18:18, Carlo Nonato wrote:
+>>>> Add a command line parameter to allow the user to set the coloring
+>>>> configuration for Dom0.
+>>>> A common configuration syntax for cache colors is introduced and
+>>>> documented.
+>>>> Take the opportunity to also add:
+>>>>    - default configuration notion.
+>>>>    - function to check well-formed configurations.
+>>>>
+>>>> Direct mapping Dom0 isn't possible when coloring is enabled, so
+>>>> CDF_directmap flag is removed when creating it.
+>>>
+>>> What implications does this have?
+>>>
+>>>> --- a/docs/misc/xen-command-line.pandoc
+>>>> +++ b/docs/misc/xen-command-line.pandoc
+>>>> @@ -963,6 +963,15 @@ Controls for the dom0 IOMMU setup.
+>>>>    
+>>>>    Specify a list of IO ports to be excluded from dom0 access.
+>>>>    
+>>>> +### dom0-llc-colors
+>>>> +> `= List of [ <integer> | <integer>-<integer> ]`
+>>>> +
+>>>> +> Default: `All available LLC colors`
+>>>> +
+>>>> +Specify dom0 LLC color configuration. This options is available only when
+>>>> +`CONFIG_LLC_COLORING` is enabled. If the parameter is not set, all available
+>>>> +colors are used.
+>>>
+>>> Even Arm already has a "dom0=" option. Is there a particular reason why
+>>> this doesn't become a new sub-option there?
+>>>
+>>> As to meaning: With just a single <integer>, that's still a color value
+>>> then (and not a count of colors)? Wouldn't it make sense to have a
+>>> simpler variant available where you just say how many, and a suitable
+>>> set/range is then picked?
+>>>
+>>> Finally a nit: "This option is ...".
+>>>
+>>>> @@ -2188,10 +2190,16 @@ void __init create_dom0(void)
+>>>>                panic("SVE vector length error\n");
+>>>>        }
+>>>>    
+>>>> -    dom0 = domain_create(0, &dom0_cfg, CDF_privileged | CDF_directmap);
+>>>> +    if ( !llc_coloring_enabled )
+>>>> +        flags |= CDF_directmap;
+>>>> +
+>>>> +    dom0 = domain_create(0, &dom0_cfg, flags);
+>>>>        if ( IS_ERR(dom0) )
+>>>>            panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
+>>>>    
+>>>> +    if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
+>>>> +        panic("Error initializing LLC coloring for domain 0 (rc = %d)", rc);
+>>>
+>>> As for the earlier patch, I find panic()ing here dubious. You can continue
+>>> quite fine, with a warning and perhaps again tainting the system.
+>> There are arguments for both approach.
+> 
+> In which case - perhaps allow for both? With a Kconfig-established
+> default and a command line option to override?
 
-> +        ret = domain_set_llc_colors_domctl(d, &op->u.set_llc_colors);
-> +        if ( ret == -EEXIST )
-> +            printk(XENLOG_ERR
-> +                   "Can't set LLC colors on an already created domain\n");
+Perhaps. But this is a separate discussion from this series. What Carlo 
+has been doing match the surrounding code on Arm.
 
-If at all a dprintk(). But personally I think even that's too much - we
-don't do so elsewhere, I don't think.
+> 
+>> I agree that you can continue but
+>> technically this is not the configuration you asked. Someone may not
+>> notice the tainting until it is too late (read they have done
+>> investigation).
+>>
+>> Bear in mind that the user for cache coloring will be in very
+>> specialized environment.
+> 
+> s/will/may/ I suppose. People may enable the option without being in
+> any specialized environment.
 
-> --- a/xen/common/llc-coloring.c
-> +++ b/xen/common/llc-coloring.c
-> @@ -4,6 +4,7 @@
->   *
->   * Copyright (C) 2022 Xilinx Inc.
->   */
-> +#include <xen/guest_access.h>
->  #include <xen/keyhandler.h>
->  #include <xen/llc-coloring.h>
->  #include <xen/param.h>
-> @@ -229,6 +230,30 @@ int __init dom0_set_llc_colors(struct domain *d)
->      return domain_check_colors(d);
->  }
->  
-> +int domain_set_llc_colors_domctl(struct domain *d,
-> +                                 const struct xen_domctl_set_llc_colors *config)
+Sure. But again, why would you want to boot with a half broken 
+configuration?
 
-What purpose has the "domctl" in the function name?
+In a lot of cases, you are not making a favor to the admin to continue 
+to boot. It is easy to say there is a warning in the logs, but this can 
+often be overlooked and difficult to diagnostic afterwards. For 
+instance, if you think about cache coloring the issue would be latency.
 
-> +{
-> +    unsigned int *colors;
-> +
-> +    if ( d->num_llc_colors )
-> +        return -EEXIST;
-> +
-> +    if ( !config->num_llc_colors )
-> +        return domain_set_default_colors(d);
-> +
-> +    colors = alloc_colors(config->num_llc_colors);
-> +    if ( !colors )
-> +        return -ENOMEM;
+I don't think a lambda users will be able to easily figure out that 
+their configuration was wrong.
 
-Hmm, I see here you call the function without first having bounds checked
-the input. But in case of too big a value, -ENOMEM is inappropriate, so
-such a check wants adding up front anyway.
+Futhermore, when you operate at scale, I feel it is better to have an 
+early boot crash rather than allowing the system to boot (parsing the 
+logs is feasible but IMO risky as they are not stable).
 
-> +    if ( copy_from_guest(colors, config->llc_colors, config->num_llc_colors) )
-> +        return -EFAULT;
+> 
+>> So if you can't enable cache coloring in
+>> production, then something really wrong has happened and continue to
+>> boot is probably not right.
+>>
+>> This matches the approach for Arm we have been using since the
+>> beginning. And I will strongly argue to continue this way.
+> 
+> I'm okay with this, and here (for Arm-specific code) it may even be okay
+> to do so without further justification. But in the earlier patch where
+> common code is affected, I'll insist on at least justifying this behavior.
 
-There again wants to be a check that the pointed to values are the same,
-or at least of the same size. Else you'd need to do element-wise copy.
+See above for a justification. If someone asks for cache coloring, then 
+you most likely don't want to continue without cache coloring.
 
-> +    d->llc_colors = colors;
-> +    d->num_llc_colors = config->num_llc_colors;
-> +
-> +    return domain_check_colors(d);
+If you dislike the panic() in common code, then we can simply modify the 
+function to return an error and move the panic() in the Arm code. This 
+is not my preference, but I am under the impression that we both have 
+very diverging view how to handle boot error and it will be hard to 
+reconcile them (at least in this series, this can be done afterwards if 
+somone fancy to write a series matching what you proposed above). So 
+this would be the second best option for me.
 
-And if this fails, you leave the domain with the bad settings? Shouldn't
-you check and only then store pointer and count?
+Cheers,
 
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -1190,6 +1190,13 @@ struct xen_domctl_vmtrace_op {
->  typedef struct xen_domctl_vmtrace_op xen_domctl_vmtrace_op_t;
->  DEFINE_XEN_GUEST_HANDLE(xen_domctl_vmtrace_op_t);
->  
-> +struct xen_domctl_set_llc_colors {
-> +    /* IN LLC coloring parameters */
-> +    uint32_t num_llc_colors;
-> +    uint32_t padding;
-
-I see you've added padding, but: You don't check it to be zero. Plus
-the overwhelming majority of padding fields is named "pad".
-
-Jan
+-- 
+Julien Grall
 
