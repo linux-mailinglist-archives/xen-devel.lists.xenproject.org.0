@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F139845724
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 13:14:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674385.1049240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91B5384573D
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 13:19:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674390.1049251 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVVxY-0008Lw-AJ; Thu, 01 Feb 2024 12:14:24 +0000
+	id 1rVW20-000185-SI; Thu, 01 Feb 2024 12:19:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674385.1049240; Thu, 01 Feb 2024 12:14:24 +0000
+Received: by outflank-mailman (output) from mailman id 674390.1049251; Thu, 01 Feb 2024 12:19:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVVxY-0008Jg-7V; Thu, 01 Feb 2024 12:14:24 +0000
-Received: by outflank-mailman (input) for mailman id 674385;
- Thu, 01 Feb 2024 12:14:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rVW20-000150-PF; Thu, 01 Feb 2024 12:19:00 +0000
+Received: by outflank-mailman (input) for mailman id 674390;
+ Thu, 01 Feb 2024 12:18:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFwQ=JK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rVVxW-0008Ja-O1
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 12:14:22 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6e758c66-c0fb-11ee-8a43-1f161083a0e0;
- Thu, 01 Feb 2024 13:14:21 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-5112cb7ae27so1564502e87.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 04:14:21 -0800 (PST)
+ id 1rVW1z-00013X-Lz
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 12:18:59 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 12be9131-c0fc-11ee-98f5-efadbce2ee36;
+ Thu, 01 Feb 2024 13:18:57 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-40eacb4bfa0so7382585e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 04:18:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v21-20020a05600c445500b0040faf3df118sm4353674wmn.32.2024.02.01.04.14.20
+ r7-20020adff107000000b0033b1ab837e1sm482525wro.71.2024.02.01.04.18.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 04:14:20 -0800 (PST)
+ Thu, 01 Feb 2024 04:18:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,45 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6e758c66-c0fb-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: 12be9131-c0fc-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706789661; x=1707394461; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=poKUmijZjrU6z7E2d33cHjhbfbhs9SLZRbEIBTVo/DE=;
-        b=cZz4DL6odwCfbDpN6b/XxqfZKdw4CKVICf6hUvbPbic2FZ/bTxOCFfwkwVk3mbRV54
-         2DHERwS6NM+lCe5aAm24vdFw/5Xtx/WEgPYruDpOSnqAGdsXT+p8s82vo8ZEgwmWI9pA
-         csBP7rozOVuwrJ4Jg0GSfwAEOvIvSV3GNRPF/cOtmI5QcrTm6Wh2SfQQyen8fZED+2qM
-         OF67JZTuUsQd9QpYlSGEWbpSoR4Dyhschywk+mJD1eX2gMkcl+WTsI1HdNwDSkXwiCZC
-         g3l65MLRsED8/sSfdCfIUIfIiJCSFmwqJNEvJ00cgdPxbCTtBmNPf7RlQKgMfnJGBkvz
-         Onqw==
+        d=suse.com; s=google; t=1706789937; x=1707394737; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=eD5NDrU/PsoBq64jRmzK/ZATALjDnfifROpcrYlE12M=;
+        b=JEbxKO2h9635JJWO1hgk+WORuQHq1btg8+a6Rc8/D8/3MC5HMQFI4Rpoz8UKn3mOoA
+         Pkbv9mO/S3bweIZrlvmtH2FDsmyOeSwtNP8AjAOkDTERDszxmKFLvdD0Q7ReCBFJEi0S
+         fYO8PT41xGpYbTKjtaZtSqoHvubI5hJb14dPaGNegil611mIYyZEg8lLhZKXLsKJxbRA
+         QGZgRW40WpeHgy0F/SaWqklnBsoJdb1763Vg6wELjyILUFlaSJKC6mBseWhPZCHBjVOJ
+         VFE0gu3yDxv0KcOYYeWpXhMW4AMjQ6FxMe5IeFL8aMMH5siDeXLx7l+pOY+TRH1fnUGa
+         exgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706789661; x=1707394461;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=poKUmijZjrU6z7E2d33cHjhbfbhs9SLZRbEIBTVo/DE=;
-        b=rN+zNv+GXnLSrAIZIt3kd0HVfkExc8iXdmv80Q5s1e9kWdJokBwUTHW+iwASE9BRUb
-         ikluuiu/a531U97Vjm15bX+YYaGv6wGjfKVXy0Tj4S8fpI6+/B+d+vQj4jQYC7Vz+NJe
-         I2KyNryV7/RXaVSW2hT1Ry4rSwOEr8MV7gsIlcUbNFeyvV/bD0Xouor7TOGzsBcKbhQB
-         OGQ/NEShhpYn3eXxql3q/qKdeBxhsfG+eBK8fbwIv724bAC/tyn1u5SOkfDMDKODE50U
-         g2HNwNmBCQ7f76BFg3oQn91Gd7nFZgbg9iXyxntb2TB9qeylx1DcbmOaBA2dGYfrdcRa
-         p3lg==
-X-Gm-Message-State: AOJu0YwYFHXSRdDFfcB6IMTkAdL7yilpwnLC9BvCyWGLs3kRO3DdS7AZ
-	BDN3+fH6rUXjEzuvOruG6i4NCxXnrCzcRAOfOc5wDDmRwJKiFnFP6Yqkcw02qg==
-X-Google-Smtp-Source: AGHT+IHxdOAPTqinLiUUJR1DlPq06pe5+JRkvZDL1us9hsAfrJG1Mfm4gzq7a2zjjxHFmesTNYMzLQ==
-X-Received: by 2002:ac2:54b2:0:b0:511:1e60:8157 with SMTP id w18-20020ac254b2000000b005111e608157mr1554336lfk.10.1706789661344;
-        Thu, 01 Feb 2024 04:14:21 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCXmFke1JplbLXNMHDzsGpMZvvcuwb9pqNH3vnqcW8EWR2ZsBZyL/B79yvrezo5MNQB6EksE2yGCBKpTZtB8bljQhbTAl5YZ16FSx23ONv5sDWBI0NvEkFvXGdAdFDVYST8N+B/u43q0dsazw2VAeTitF8K2SWepHha12YokQbrzHuYoVowL8cLCYGVMXBYVqsq4mpTuBdSXTTL+f8sFi95p77lYzC20d4rD1M3eeK55EYBrVs/IptvSifPU1VspNtuohIgkT5Mbd8yaU82fDRkdh6d9zZhY
-Message-ID: <412fd2a2-4382-4131-92a5-cfb399f95f31@suse.com>
-Date: Thu, 1 Feb 2024 13:14:19 +0100
+        d=1e100.net; s=20230601; t=1706789937; x=1707394737;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=eD5NDrU/PsoBq64jRmzK/ZATALjDnfifROpcrYlE12M=;
+        b=QFVcr/fQ4yfhdmi+XmsuLYtGq3N+1aQaOW7xm2Rv7UPiUVvh4kDqlSau9L7V0KCzWG
+         gGekgmNYNC+Sf1f+LlSIiCkrZ7TZpzfj5jgMnUwI51plEWO1nqwfZe7SO9TP0xGDgWqw
+         zZXk/19bcyVJFFnM2x+asX/Lu7vdS4gttQoLxV4TPylsLbvqv+F4NPqk5GBKLUJLywxA
+         b1Uh/ty6vOlMgbuGW2lz6agX213sRUG+guXSakfl9F3C+U3djneU4ffCzQDBBwfIdIqR
+         dgciKlj+xSGT/TNLGawvlThxnVFmwyb6qX9qIojrFC8esODJTz/0Tad2ITogwrZ1lm5c
+         6UIg==
+X-Gm-Message-State: AOJu0Ywd1r/eimsTb6fheW88ZgBJU/gQO7zOQbIpg/bWD/IK0zYiNHCY
+	KXITvSu1kG+lqnJmE5+g0Lw7J6ChNk2uDId99/wG4dTt8RMTjNO5UE8mmeuqTA==
+X-Google-Smtp-Source: AGHT+IF/p4o/Xb8wZmChDdC74b5tDL6KyfWTBri+huEg8aWAzIul24aPxXevexGDeI1UJEqM1anbaA==
+X-Received: by 2002:a05:600c:5486:b0:40f:2d7:287c with SMTP id iv6-20020a05600c548600b0040f02d7287cmr1475583wmb.8.1706789937022;
+        Thu, 01 Feb 2024 04:18:57 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUNUvMIJtlH1LlNw03rIBTiyobe8YrzJIEWgsx2GKoUChIqVmtowcM/clP0WJ7ot75B+qvwekFTWTtkNlpRQqVoda8Vd+dA8JJNav+juC6rbfiBe2ReHsT8TQOYvm4dso10lYz02GaA+0HrylZuXaIoTj28mkfvWx5lgs48Ycml8LPjZyrtNbvlGxsKzQQguvrN4mPlSang167/dH9aCOgsGKa86QQV8sXS/lITIcFkxvkmqYfsoMW8ua+CvaJy4UabjOTJ/X9bxC1Iy4zmpbQJrZhu6C4t
+Message-ID: <c6f2c117-c8a7-4356-8421-4781090279c0@suse.com>
+Date: Thu, 1 Feb 2024 13:18:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v6 01/15] xen/common: add cache coloring common code
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
 Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
  <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
@@ -92,7 +90,7 @@ Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
  xen-devel@lists.xenproject.org
 References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
  <20240129171811.21382-2-carlo.nonato@minervasys.tech>
- <42eabd87-b245-44e3-9945-40b1a5c5eaf5@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,30 +114,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <42eabd87-b245-44e3-9945-40b1a5c5eaf5@suse.com>
+In-Reply-To: <20240129171811.21382-2-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31.01.2024 16:57, Jan Beulich wrote:
-> On 29.01.2024 18:17, Carlo Nonato wrote:
->> +Command line parameters
->> +***********************
->> +
->> +More specific documentation is available at `docs/misc/xen-command-line.pandoc`.
->> +
->> ++----------------------+-------------------------------+
->> +| **Parameter**        | **Description**               |
->> ++----------------------+-------------------------------+
->> +| ``llc-coloring``     | enable coloring at runtime    |
->> ++----------------------+-------------------------------+
->> +| ``llc-way-size``     | set the LLC way size          |
->> ++----------------------+-------------------------------+
-> 
-> As a result of the above, I also find it confusing to specify "way size"
-> as a command line option. Cache size, number of ways, and cache line size
-> would seem more natural to me.
+On 29.01.2024 18:17, Carlo Nonato wrote:
+> --- /dev/null
+> +++ b/docs/misc/cache-coloring.rst
+> @@ -0,0 +1,87 @@
+> +Xen cache coloring user guide
+> +=============================
+> +
+> +The cache coloring support in Xen allows to reserve Last Level Cache (LLC)
+> +partitions for Dom0, DomUs and Xen itself. Currently only ARM64 is supported.
+> +
+> +To compile LLC coloring support set ``CONFIG_LLC_COLORING=y``.
+> +
+> +If needed, change the maximum number of colors with
+> +``CONFIG_NR_LLC_COLORS=<n>``.
+> +
+> +Compile Xen and the toolstack and then configure it via
+> +`Command line parameters`_.
+> +
+> +Background
+> +**********
+> +
+> +Cache hierarchy of a modern multi-core CPU typically has first levels dedicated
+> +to each core (hence using multiple cache units), while the last level is shared
+> +among all of them. Such configuration implies that memory operations on one
+> +core (e.g. running a DomU) are able to generate interference on another core
+> +(e.g .hosting another DomU). Cache coloring allows eliminating this
+> +mutual interference, and thus guaranteeing higher and more predictable
+> +performances for memory accesses.
 
-Or, alternatively, have the number of colors be specifiable directly.
+Since you say "eliminating" - what about shared mid-level caches? What about
+shared TLBs?
 
 Jan
 
