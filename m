@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC9A8845917
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 14:39:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674433.1049330 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D87D845940
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 14:49:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674440.1049339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVXI5-0007Ms-Hx; Thu, 01 Feb 2024 13:39:41 +0000
+	id 1rVXQs-0001Ig-Bk; Thu, 01 Feb 2024 13:48:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674433.1049330; Thu, 01 Feb 2024 13:39:41 +0000
+Received: by outflank-mailman (output) from mailman id 674440.1049339; Thu, 01 Feb 2024 13:48:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVXI5-0007K2-EL; Thu, 01 Feb 2024 13:39:41 +0000
-Received: by outflank-mailman (input) for mailman id 674433;
- Thu, 01 Feb 2024 13:39:39 +0000
+	id 1rVXQs-0001GK-97; Thu, 01 Feb 2024 13:48:46 +0000
+Received: by outflank-mailman (input) for mailman id 674440;
+ Thu, 01 Feb 2024 13:48:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XFwQ=JK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rVXI3-0007If-8T
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 13:39:39 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
+ (envelope-from <SRS0=+ZK+=JK=gmail.com=dunlapg@srs-se1.protection.inumbo.net>)
+ id 1rVXQr-0001GE-C0
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 13:48:45 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5807a138-c107-11ee-8a43-1f161083a0e0;
- Thu, 01 Feb 2024 14:39:38 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id
- 4fb4d7f45d1cf-55f2b0c5ae9so1187399a12.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 05:39:38 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e6-20020a50ec86000000b0055fbc52457fsm415569edr.30.2024.02.01.05.39.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 05:39:37 -0800 (PST)
+ id 9d82452d-c108-11ee-8a43-1f161083a0e0;
+ Thu, 01 Feb 2024 14:48:44 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-337cc8e72f5so586336f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 05:48:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,170 +40,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5807a138-c107-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: 9d82452d-c108-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706794778; x=1707399578; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XxXKa9rZUl8KpqDrwZu8AgUKl5L3iDiVhgOfVsooojw=;
-        b=elFg1tMGExKhVZIY52162xXonEH9dbsp0d3WhHbDc+/zqsGP1jIeyXg6vHfK8B9jio
-         ivD+aICmCPXzhImNBUYujlH/6VACqxbFDuWnbMxnjReJAWMkB5oxWFsRMftWj49WsgnI
-         1keqCfSE5sqiRBL4/cS47NCMXsP7PM4VRYv7jpIzCzTazeYhnrvNGoC2WX0ABbBcSl5h
-         nvqUk9y/RNV2/YETIyZNdzFScwTudUz6Ou0/2DUapx74g5JLEu2sLPP66mxDMmv0ChCz
-         pgT9ahzCqZs09c7T1+S3b+4qmuV2TGooczIOe19312sycIGwKGm4wYk8LCI8zDtvk2gu
-         iY7Q==
+        d=umich.edu; s=google-2016-06-03; t=1706795324; x=1707400124; darn=lists.xenproject.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=uAGJ40Mi5YAKkJYTVBw8bZ5DQVfGYXwY1pM2JcXYAro=;
+        b=ahqFhiZepKwvOq6s3o0cYYqp0wP7EtlJ4xfGJNiBSaTrhx1XsrN26inzDOedg2scMC
+         pWDCN1S5J5YH9X5YXWDOli+yfoKM5+jKtzIpF4H8SufG2WrUVqXhafp8MV9bS2FzwtVr
+         3LEqYGMbjnOkAOj8TV+PgK9q1f0YK/KNEUYucnk4QAqelUpxPLjDHmPrL34FsifTD1S7
+         DY9ohoAX1E9MBEXr4e+RM2KQnXAJZ9PTzOmooJHWmWvXGkRy2TMiVff3LZNEQiqBnZGE
+         rM9W+qpzZGyZFE7IrWtLJbVsWEkEcUr5iajnV1ebp6OT5qaxCH/WVj1b2Z8oUeGkVxB6
+         HM9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706794778; x=1707399578;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XxXKa9rZUl8KpqDrwZu8AgUKl5L3iDiVhgOfVsooojw=;
-        b=q00IMasrLI1x/OwM5f/os7Yp27NvpAkHiCa3UUfCd3/D53skJTirvFMtmLWjJxF2n/
-         I3Q7+NFri+z5W0Q4sPfQXo5MmJCCUD/CHI6q39Ean8+P4HdQtQ77SxHkbjn0VwtBgBAj
-         yTouZlWnxw4L3qbpVQysJcdDEjnyW3dhIVsPrFXNFyqP8RmjRL3J7s5dKq6JM4+v8SgP
-         gwUep5Uoi888zxaCcNOY4tz3p01OODK6tCLPDSl0BEdh+9C2jnMQsWxdHu1YV7RFIZ3E
-         VGLvCFQs9Rrsc348y0ivk30D+NaoEM7RducVx0GOeflZEQ9CsYWuWkVDFIjTjEMBDDUp
-         vzag==
-X-Gm-Message-State: AOJu0Yx2ZSqhVmtMXq2AlLSlieBj91EEdUzQ4qBZImOAoy+oZBsACxlx
-	laE/xPY+UAGVrD8BWmMjdpZhqh85jbBiDMdS/vsNxNMSQy+QfloV2jNLqxeORQ==
-X-Google-Smtp-Source: AGHT+IGECh5aNBsOigEpT3v2t8BrUbtPJKPmkXoF3D02N6X817HjuwqShtttIA0jixaptbd4Ahmznw==
-X-Received: by 2002:aa7:d386:0:b0:55f:64ca:5a6e with SMTP id x6-20020aa7d386000000b0055f64ca5a6emr3120308edq.12.1706794777653;
-        Thu, 01 Feb 2024 05:39:37 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCVngAvbmO7RP9zivsg+O4UQGLFVvLk02FwXI2a/EG1PyOocMEwhB2trjeybxR1RWKQ5RUqqCVq0B4T+x5z9druc/i4xRXubtgBdwbI4k5El1fawvvNPN+lzrRZvr68WM0h/MYbMmBrsdYY3JtMbyAngNL184PljLmCyJ5DogdG2XcYC+YzlRz1Yu4QjhrnGYnc7iPBGqEpTBbwNfzyeQ+c2G4vHDzxWVTxVYm4YXDeGEAoVvju/shVdxOJS0fuigYGMJbTWSorfPKB2jyy5VaFoD4KXTw/3034xLI4njBax9l8xawNsT+bILoQPTFQ1Br/PkrHUH/rikyV1oeilbfOJ234PjBwHkCqTO3wpMPV1U4aRGJf0Rnzmm7B2pHe0+B9KYX1FB678fcSxFWLDknz4
-Message-ID: <02b2905d-cc83-4c39-bc29-2ac8351bfc37@suse.com>
-Date: Thu, 1 Feb 2024 14:39:35 +0100
+        d=1e100.net; s=20230601; t=1706795324; x=1707400124;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=uAGJ40Mi5YAKkJYTVBw8bZ5DQVfGYXwY1pM2JcXYAro=;
+        b=WEnn/qqrTFOjGbVbnqa56O16Hr3VtocvUpMxhrVFbdIkMe5p8DU+sdH5QWcNzZihzt
+         5pQuAi2vlNDcUiTnljsKGMjsQb54/UbdXPN/XPFRe5Faao6oQsntqRj1yAPQZdbMGTcT
+         D7UAm2MzVKE0/lPKG1kem0Ghwx3JOdLU2WL7jMhHQaItmhfwrCr4uAVk+B1lO+5vyDyh
+         t8PZLlhZJPktVJrDNS7uGtmsxjnKvkEj5otG7wH5YMPstGXLiFvAXn/ryLDm2DnjAmsa
+         TXTAMWBkOaFLosTTdC6+eHM6FX33F4cX/JNX/MmhfU5u2PjHNW99GgspXgz7GoY2BoK+
+         my4g==
+X-Gm-Message-State: AOJu0Yy6NJqUwcJZgd9sIDtomtYgH+V+ZF0hILGZTa9ZjJc+jAiyVjfg
+	ftQ88U+WYHvlq5o5O47/uyxX+LPxxMNalu+InJzGI348f6SWqA7IuHdNVjTUM9dYRVAlvT2DKJn
+	awNyoen0/ivrWTN6O18JIaCQerD4=
+X-Google-Smtp-Source: AGHT+IE7tozFHaLnynQdgdJw3y9iEQ0VpntF/6OAUIFHKYfZhEIPGYvIBgrm0kz22Dc/kTDHdCp7PYd5aB4dp8NUV+U=
+X-Received: by 2002:adf:ee10:0:b0:33a:ecd6:1c71 with SMTP id
+ y16-20020adfee10000000b0033aecd61c71mr1714660wrn.56.1706795323475; Thu, 01
+ Feb 2024 05:48:43 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/15] xen/arm: add Dom0 cache coloring support
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
- <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Marco Solieri <marco.solieri@minervasys.tech>,
- xen-devel@lists.xenproject.org, Carlo Nonato <carlo.nonato@minervasys.tech>
-References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-5-carlo.nonato@minervasys.tech>
- <cf23d8a8-7111-4014-adc7-93ecd5f110ec@suse.com>
- <12b2d25a-ff80-45d8-ad3e-fca6684508df@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <12b2d25a-ff80-45d8-ad3e-fca6684508df@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <e9257e96-ede9-2809-9a77-fd4dc206badc@suse.com> <0c61e460-122c-6486-00b7-22a9a24ee1fc@suse.com>
+In-Reply-To: <0c61e460-122c-6486-00b7-22a9a24ee1fc@suse.com>
+From: George Dunlap <dunlapg@umich.edu>
+Date: Thu, 1 Feb 2024 13:48:32 +0000
+Message-ID: <CAFLBxZbUeuyLx998fpxeOCGjbgR4C_aLJcN-To9isfOcQ3iYNA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] x86/PoD: simplify / improve p2m_pod_cache_add()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: multipart/alternative; boundary="000000000000f5cef90610524009"
 
-On 01.02.2024 14:35, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 01/02/2024 13:30, Jan Beulich wrote:
->> On 29.01.2024 18:18, Carlo Nonato wrote:
->>> Add a command line parameter to allow the user to set the coloring
->>> configuration for Dom0.
->>> A common configuration syntax for cache colors is introduced and
->>> documented.
->>> Take the opportunity to also add:
->>>   - default configuration notion.
->>>   - function to check well-formed configurations.
->>>
->>> Direct mapping Dom0 isn't possible when coloring is enabled, so
->>> CDF_directmap flag is removed when creating it.
->>
->> What implications does this have?
->>
->>> --- a/docs/misc/xen-command-line.pandoc
->>> +++ b/docs/misc/xen-command-line.pandoc
->>> @@ -963,6 +963,15 @@ Controls for the dom0 IOMMU setup.
->>>   
->>>   Specify a list of IO ports to be excluded from dom0 access.
->>>   
->>> +### dom0-llc-colors
->>> +> `= List of [ <integer> | <integer>-<integer> ]`
->>> +
->>> +> Default: `All available LLC colors`
->>> +
->>> +Specify dom0 LLC color configuration. This options is available only when
->>> +`CONFIG_LLC_COLORING` is enabled. If the parameter is not set, all available
->>> +colors are used.
->>
->> Even Arm already has a "dom0=" option. Is there a particular reason why
->> this doesn't become a new sub-option there?
->>
->> As to meaning: With just a single <integer>, that's still a color value
->> then (and not a count of colors)? Wouldn't it make sense to have a
->> simpler variant available where you just say how many, and a suitable
->> set/range is then picked?
->>
->> Finally a nit: "This option is ...".
->>
->>> @@ -2188,10 +2190,16 @@ void __init create_dom0(void)
->>>               panic("SVE vector length error\n");
->>>       }
->>>   
->>> -    dom0 = domain_create(0, &dom0_cfg, CDF_privileged | CDF_directmap);
->>> +    if ( !llc_coloring_enabled )
->>> +        flags |= CDF_directmap;
->>> +
->>> +    dom0 = domain_create(0, &dom0_cfg, flags);
->>>       if ( IS_ERR(dom0) )
->>>           panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
->>>   
->>> +    if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
->>> +        panic("Error initializing LLC coloring for domain 0 (rc = %d)", rc);
->>
->> As for the earlier patch, I find panic()ing here dubious. You can continue
->> quite fine, with a warning and perhaps again tainting the system.
-> There are arguments for both approach.
+--000000000000f5cef90610524009
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In which case - perhaps allow for both? With a Kconfig-established
-default and a command line option to override?
+On Tue, Jan 4, 2022 at 9:48=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
 
-> I agree that you can continue but 
-> technically this is not the configuration you asked. Someone may not 
-> notice the tainting until it is too late (read they have done 
-> investigation).
-> 
-> Bear in mind that the user for cache coloring will be in very 
-> specialized environment.
+> Avoid recurring MFN -> page or page -> MFN translations. Drop the pretty
+> pointless local variable "p". Make sure the MFN logged in a debugging
+> error message is actually the offending one. Return negative errno
+> values rather than -1 (presently no caller really cares, but imo this
+> should change). Adjust style.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>
 
-s/will/may/ I suppose. People may enable the option without being in
-any specialized environment.
+Sorry, not sure how I managed to miss this:
 
-> So if you can't enable cache coloring in 
-> production, then something really wrong has happened and continue to 
-> boot is probably not right.
-> 
-> This matches the approach for Arm we have been using since the 
-> beginning. And I will strongly argue to continue this way.
+Reviewed-by: George Dunlap <george.dunlap@cloud.com>
 
-I'm okay with this, and here (for Arm-specific code) it may even be okay
-to do so without further justification. But in the earlier patch where
-common code is affected, I'll insist on at least justifying this behavior.
+--000000000000f5cef90610524009
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jan 4, 2022 at 9:48=E2=80=AFA=
+M Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a=
+>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Avo=
+id recurring MFN -&gt; page or page -&gt; MFN translations. Drop the pretty=
+<br>
+pointless local variable &quot;p&quot;. Make sure the MFN logged in a debug=
+ging<br>
+error message is actually the offending one. Return negative errno<br>
+values rather than -1 (presently no caller really cares, but imo this<br>
+should change). Adjust style.<br>
+<br>
+Signed-off-by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" target=
+=3D"_blank">jbeulich@suse.com</a>&gt;<br></blockquote><div><br></div><div>S=
+orry, not sure how I managed to miss this:</div><div><br></div><div><div>Re=
+viewed-by: George Dunlap &lt;<a href=3D"mailto:george.dunlap@cloud.com" tar=
+get=3D"_blank">george.dunlap@cloud.com</a>&gt;</div><div class=3D"gmail-yj6=
+qo"></div><div class=3D"gmail-adL">=C2=A0</div></div><div class=3D"gmail-ad=
+L"><br></div></div></div>
+
+--000000000000f5cef90610524009--
 
