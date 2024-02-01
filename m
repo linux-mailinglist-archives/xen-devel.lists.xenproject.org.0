@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E05784585B
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 14:00:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674409.1049279 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 776208458EC
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 14:31:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674415.1049289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVWfX-0003i0-J2; Thu, 01 Feb 2024 12:59:51 +0000
+	id 1rVX9H-0003of-Vp; Thu, 01 Feb 2024 13:30:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674409.1049279; Thu, 01 Feb 2024 12:59:51 +0000
+Received: by outflank-mailman (output) from mailman id 674415.1049289; Thu, 01 Feb 2024 13:30:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVWfX-0003fM-GB; Thu, 01 Feb 2024 12:59:51 +0000
-Received: by outflank-mailman (input) for mailman id 674409;
- Thu, 01 Feb 2024 12:59:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rVX9H-0003mX-So; Thu, 01 Feb 2024 13:30:35 +0000
+Received: by outflank-mailman (input) for mailman id 674415;
+ Thu, 01 Feb 2024 13:30:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=XFwQ=JK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rVWfV-0003do-Ca
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 12:59:49 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c5d893dc-c101-11ee-98f5-efadbce2ee36;
- Thu, 01 Feb 2024 13:59:45 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a3510d79ae9so108924266b.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 04:59:45 -0800 (PST)
+ id 1rVX9H-0003mR-0j
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 13:30:35 +0000
+Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
+ [2a00:1450:4864:20::536])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 13558d97-c106-11ee-8a43-1f161083a0e0;
+ Thu, 01 Feb 2024 14:30:33 +0100 (CET)
+Received: by mail-ed1-x536.google.com with SMTP id
+ 4fb4d7f45d1cf-55f19a3ca7aso3899898a12.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 05:30:33 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- un6-20020a170907cb8600b00a36a7f0f087sm853168ejc.222.2024.02.01.04.59.44
+ ty8-20020a170907c70800b00a353d1a19a9sm6117061ejc.191.2024.02.01.05.30.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 04:59:44 -0800 (PST)
+ Thu, 01 Feb 2024 05:30:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5d893dc-c101-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 13558d97-c106-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706792385; x=1707397185; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1706794233; x=1707399033; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=zl2cW3Nf4pRC//h1O/iq1g877AMcMR/l+E8T3gdpu4c=;
-        b=WwCQMQpPaJNq3qRfK4HKLccSKMqIzeHhBm3Li6rMDu5+nrBCvvOHoV0s+pY4Q8JhBv
-         hN72jbOvfBqzTHXpBqsv+qZuW87AF3Xctz+/8rqGDBWP/4DY+NMaO47xluzDdpKHwRuG
-         WN4t8ny1hJnEdxrCI7dmjzMgR3u/7LCvL1+Hd+32scGf0mnfDuLZOqKwxLTGiYyWysfR
-         a4exlMcICb9Ffv0Mdk3VZ7R7GtWIeT+b4OE/DfRCgiXm3/dPgsXJB+aYOwyFGhSvrqcz
-         4cGsN1hFCpam1YHSvPCkVJqFsUDW0PYQOBkimiKnWCF1bo0Ke8zv4CBVIyW6tBhLZFda
-         aKfQ==
+        bh=1YU4wWiLq7QGViTJ8twYyIsIRAeG5ZtwwK8ol7Dc0W4=;
+        b=SGazCaxJT2cSx/06lN6VXMdvWCYGuQ0Vw5ZPuvebC2UU28pP0smR//FbRmAz14iLey
+         t48jp7IA9J60klspTK5GELimKepMhiWVbbAhPMY9f9gB8irj9TFSu0GNlv5v/B7G2kez
+         NN11hOSB2/v9+pbm4DoboUGANTujMRxroNS1X6tC69iEwEEuqftnJKyZ5sX4wjIVC9V5
+         6J64E8OkE51nGg+jUbu9lBHlvaBX+y+NqIzDY2CaA9BCai0oJHLmzMt5cWS34AjU4V+Z
+         iXT+2fc+2ybAu0fOg1Mk4Lp0EpQA3Y7RQTTKGt5lOG9d1TCPla6YlN58E5zmszADgqlu
+         zH/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706792385; x=1707397185;
+        d=1e100.net; s=20230601; t=1706794233; x=1707399033;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zl2cW3Nf4pRC//h1O/iq1g877AMcMR/l+E8T3gdpu4c=;
-        b=loINMDXLkEvILakdMdGotnWzqKyfBJpPGM+qpWpgUW9PGCffKvoyf4DRuLVdyg/eYP
-         MQooYlDVUC3J2kdKuj8OOst7nk8iki0gBj17c0MVFYTaJQe2nVlO+yWBOWePttfdeckd
-         B0fdRz8hZCKfFLBfZpAbaEdlKHEJrM6pqe7nDhZo6c04RkTgxmnA1fQVV40KAOivHoHb
-         2DhjYckNO1+4NT0eO0F87mmdRvBs4DNBYzBnq9FvDeoV9NLMDW6xMVe7Dzk0UY05YshD
-         NrZ5NmlJUKcJvRQmX+z+7gRn+hs8AT2WHLWzaKFdscwEwi4F2byXmL44nfC+lxLqEpTU
-         /zmQ==
-X-Gm-Message-State: AOJu0YwtMbAZmRygDpYl64t8UGT/OaNckJbt3rOZPGSOaJL2u4wRl++u
-	d/xV0mDG41oOBYHqOSK0KgkN7mKVHH14w/mDVuCNiEp2gnI6DJw/WxWJlszFZQ==
-X-Google-Smtp-Source: AGHT+IGjwjGs0v1oXiJdD8mOW31gkXxFyk3rQD2SskaB5KSot/lGzXDyFgsWowu6ah8cajrXrFalzg==
-X-Received: by 2002:a17:906:a883:b0:a36:5079:d6c9 with SMTP id ha3-20020a170906a88300b00a365079d6c9mr3338004ejb.76.1706792384939;
-        Thu, 01 Feb 2024 04:59:44 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCXMv61hXbNFRRGNxKyhVFyOzUYucwqmMJh7MEuQw8gspOkU4MzN9MwCijeDbkN5hQ5zqGi/3nGaG+efacx08Z4JOatK1pioa50xojOtAQ1ZZ2f7Y7OK3mJ4Up49Ardy5KLUsN9xijDO5IL3abIN6I68+3z7IArUef5p3J2DkofcdSY81mYQGPor4BabVq6G7hvytIuUFvpTRzEoB5JFCe/aPYAT8cEzqvr2IYxHXcYZtlqRlB69Xh/hgSWbQQlDTuigkcmKDzHZFFCM7kachH4wGiO9ohms
-Message-ID: <749799db-de6f-4ca8-bab1-67468f97929b@suse.com>
-Date: Thu, 1 Feb 2024 13:59:43 +0100
+        bh=1YU4wWiLq7QGViTJ8twYyIsIRAeG5ZtwwK8ol7Dc0W4=;
+        b=dUiFUZTCVHFBj+le3vtgbHUOGpGn4cfwxXArpfYyPrjmPXEgNdcbddMWj99fXfQYUr
+         xPQyzlAmG3ofoHetktmdSa+BuTxpFMlY2vwREX+YCYeTGnE5UysJI6ZByAFdhGoJebg9
+         wKKR1SHjDilkx87j7wmlHdfBLXlhFP6R2Yu2BCp/7xZextwxkp9tgAl9hrsv0fOprHnC
+         tYMS4/APCQaCUaVF2DjRSlUugV6qKwL/GTumus4/UuQQKIIX54/4G7UysZcbjDkwG0xR
+         gXYz6QyL4yhypbd68z+AZjprX/9v7wqEvUhTSZPG5kc6faVFxqzzCwuSHVOXiPqsCOuG
+         Lu+w==
+X-Gm-Message-State: AOJu0Yzfz9q5x76b/aPa/wmHQdEkxhAs/eKiZhmK9oIh918MjhKH5h6K
+	LVdhs322MLNsOO5xJG4NRTGwRq1HxzbrUbwDOYS65r4XiU4gabgfbP0JOcly4g==
+X-Google-Smtp-Source: AGHT+IG0zbt/Kby5a0Ec6Dd4UsqOjpX3KN0wfRbWosqH+TkEDgZfimjmzIjRrxyxy83V9JlR7ln9EQ==
+X-Received: by 2002:a17:907:d50b:b0:a36:85b9:cd1b with SMTP id wb11-20020a170907d50b00b00a3685b9cd1bmr4066674ejc.25.1706794232927;
+        Thu, 01 Feb 2024 05:30:32 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUvwMi1o4O1O3XGlvYlCzXDYOfiWfPTcXsJzKOvVrT3BOnXf2gCPv6fW/trBSunXLl9f+P+x61r9OstYSLn+Mxc9dor+2jRellnSxHTVaUglgo3mWh0Qjc/tV16PNeN45uj+0844kuxe5DvKlnGbwg9Q1Aj0cT/vCWj1LeNppUlwy9U+Sjco9WYDrfJGlGtJ96UqSw1ZM0283As9U23OPBHmw61neh/J+8JrYHnvSjFQFEtvKg1Rku6oU6gS2qarnXqGLFDNj4XpyME/um0wiovvPG8mFO6nD0UpCHSoBW3kk+uBBlLonRfQJQx+4H5WwsB7VAvodmyuwkV1JrQPPwssJ0L2jgElbaxMWACbZ3VQTaKqMJlxk8FTY5vYAhIKr4LEw==
+Message-ID: <cf23d8a8-7111-4014-adc7-93ecd5f110ec@suse.com>
+Date: Thu, 1 Feb 2024 14:30:31 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/15] xen/common: add cache coloring common code
+Subject: Re: [PATCH v6 04/15] xen/arm: add Dom0 cache coloring support
 Content-Language: en-US
 To: Carlo Nonato <carlo.nonato@minervasys.tech>
 Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
  <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
  Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Marco Solieri <marco.solieri@minervasys.tech>,
- xen-devel@lists.xenproject.org
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-2-carlo.nonato@minervasys.tech>
+ <20240129171811.21382-5-carlo.nonato@minervasys.tech>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,172 +116,214 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240129171811.21382-2-carlo.nonato@minervasys.tech>
+In-Reply-To: <20240129171811.21382-5-carlo.nonato@minervasys.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 29.01.2024 18:17, Carlo Nonato wrote:
-> --- a/xen/arch/Kconfig
-> +++ b/xen/arch/Kconfig
-> @@ -31,3 +31,20 @@ config NR_NUMA_NODES
->  	  associated with multiple-nodes management. It is the upper bound of
->  	  the number of NUMA nodes that the scheduler, memory allocation and
->  	  other NUMA-aware components can handle.
+On 29.01.2024 18:18, Carlo Nonato wrote:
+> Add a command line parameter to allow the user to set the coloring
+> configuration for Dom0.
+> A common configuration syntax for cache colors is introduced and
+> documented.
+> Take the opportunity to also add:
+>  - default configuration notion.
+>  - function to check well-formed configurations.
+> 
+> Direct mapping Dom0 isn't possible when coloring is enabled, so
+> CDF_directmap flag is removed when creating it.
+
+What implications does this have?
+
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -963,6 +963,15 @@ Controls for the dom0 IOMMU setup.
+>  
+>  Specify a list of IO ports to be excluded from dom0 access.
+>  
+> +### dom0-llc-colors
+> +> `= List of [ <integer> | <integer>-<integer> ]`
 > +
-> +config LLC_COLORING
-> +	bool "Last Level Cache (LLC) coloring" if EXPERT
-> +	depends on HAS_LLC_COLORING
+> +> Default: `All available LLC colors`
 > +
-> +config NR_LLC_COLORS
-> +	int "Maximum number of LLC colors"
-> +	range 2 1024
+> +Specify dom0 LLC color configuration. This options is available only when
+> +`CONFIG_LLC_COLORING` is enabled. If the parameter is not set, all available
+> +colors are used.
 
-What's the reasoning behind this upper bound? IOW - can something to this
-effect be said in the description, please?
+Even Arm already has a "dom0=" option. Is there a particular reason why
+this doesn't become a new sub-option there?
 
-> +	default 128
-> +	depends on LLC_COLORING
-> +	help
-> +	  Controls the build-time size of various arrays associated with LLC
-> +	  coloring. Refer to cache coloring documentation for how to compute the
-> +	  number of colors supported by the platform. This is only an upper
-> +	  bound. The runtime value is autocomputed or manually set via cmdline.
-> +	  The default value corresponds to an 8 MiB 16-ways LLC, which should be
-> +	  more than what needed in the general case.
+As to meaning: With just a single <integer>, that's still a color value
+then (and not a count of colors)? Wouldn't it make sense to have a
+simpler variant available where you just say how many, and a suitable
+set/range is then picked?
 
-Aiui while not outright wrong, non-power-of-2 values are meaningless to
-specify. Perhaps that is worth mentioning (if not making this a value
-that's used as exponent of 2 in the first place)?
+Finally a nit: "This option is ...".
 
-As to the default and its description: As said for the documentation,
-doesn't what this corresponds to also depend on cache line size? Even
-if this was still Arm-specific rather than common code, I'd question
-whether now and forever Arm chips may only use one pre-determined cache
-line size.
+> @@ -2188,10 +2190,16 @@ void __init create_dom0(void)
+>              panic("SVE vector length error\n");
+>      }
+>  
+> -    dom0 = domain_create(0, &dom0_cfg, CDF_privileged | CDF_directmap);
+> +    if ( !llc_coloring_enabled )
+> +        flags |= CDF_directmap;
+> +
+> +    dom0 = domain_create(0, &dom0_cfg, flags);
+>      if ( IS_ERR(dom0) )
+>          panic("Error creating domain 0 (rc = %ld)\n", PTR_ERR(dom0));
+>  
+> +    if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
+> +        panic("Error initializing LLC coloring for domain 0 (rc = %d)", rc);
 
-> --- /dev/null
+As for the earlier patch, I find panic()ing here dubious. You can continue
+quite fine, with a warning and perhaps again tainting the system.
+
+> --- a/xen/common/llc-coloring.c
 > +++ b/xen/common/llc-coloring.c
-> @@ -0,0 +1,87 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
+> @@ -17,6 +17,63 @@ size_param("llc-way-size", llc_way_size);
+>  /* Number of colors available in the LLC */
+>  static unsigned int __ro_after_init max_nr_colors = CONFIG_NR_LLC_COLORS;
+>  
+> +static unsigned int __initdata dom0_colors[CONFIG_NR_LLC_COLORS];
+> +static unsigned int __initdata dom0_num_colors;
+> +
 > +/*
-> + * Last Level Cache (LLC) coloring common code
+> + * Parse the coloring configuration given in the buf string, following the
+> + * syntax below.
 > + *
-> + * Copyright (C) 2022 Xilinx Inc.
+> + * COLOR_CONFIGURATION ::= COLOR | RANGE,...,COLOR | RANGE
+> + * RANGE               ::= COLOR-COLOR
+> + *
+> + * Example: "0,2-6,15-16" represents the set of colors: 0,2,3,4,5,6,15,16.
 > + */
-> +#include <xen/keyhandler.h>
-> +#include <xen/llc-coloring.h>
-> +#include <xen/param.h>
-> +
-> +bool __ro_after_init llc_coloring_enabled;
-> +boolean_param("llc-coloring", llc_coloring_enabled);
+> +static int parse_color_config(const char *buf, unsigned int *colors,
+> +                              unsigned int num_colors, unsigned int *num_parsed)
 
-The variable has no use right now afaics, so it's unclear whether (a) it
-is legitimately non-static and (b) placed in an appropriate section.
+Is this function going to be re-used? If not, it wants to be __init.
+If so, I wonder where the input string is going to come from ...
 
-> +/* Size of an LLC way */
-> +static unsigned int __ro_after_init llc_way_size;
-> +size_param("llc-way-size", llc_way_size);
-> +/* Number of colors available in the LLC */
-> +static unsigned int __ro_after_init max_nr_colors = CONFIG_NR_LLC_COLORS;
-> +
-> +static void print_colors(const unsigned int *colors, unsigned int num_colors)
+Also "num_colors" looks to be misnamed - doesn't this specify an
+upper bound only?
+
 > +{
-> +    unsigned int i;
+> +    const char *s = buf;
 > +
-> +    printk("{ ");
-> +    for ( i = 0; i < num_colors; i++ ) {
+> +    if ( !colors || !num_colors )
+> +        return -EINVAL;
 
-Nit (style): Brace placement.
+Why do you check colors but not ...
 
-> +        unsigned int start = colors[i], end = colors[i];
-> +
-> +        printk("%u", start);
-> +
-> +        for ( ;
-> +              i < num_colors - 1 && colors[i] + 1 == colors[i + 1];
+> +    *num_parsed = 0;
 
-To reduce the number of array accesses, may I suggest to use "end + 1"
-here instead of "colors[i] + 1"? (The initializer of "end" could also
-be "start", but I guess the compiler will recognize this anyway.) This
-would then (imo) also better justify the desire for having "end" in
-the first place.
+... num_parsed? I think internal functions don't need such NULL checks.
 
-> +              i++, end++ );
+> +    while ( *s != '\0' )
+> +    {
+> +        if ( *s != ',' )
 
-Imo for clarity the semicolon want to live on its own line.
+Hmm, this way you also accept leading/trailing commas as well as multiple
+consecutive ones. Elsewhere we're more strict.
 
-> +static void dump_coloring_info(unsigned char key)
-
-This being common code now, I think it would be good practice to have
-cf_check here right away, even if for now (for whatever reason) the
-feature is meant to be limited to Arm. (Albeit see below for whether
-this is to remain that way.)
-
-> +void __init llc_coloring_init(void)
+> @@ -70,12 +150,85 @@ void __init llc_coloring_init(void)
+>      arch_llc_coloring_init();
+>  }
+>  
+> +void domain_llc_coloring_free(struct domain *d)
 > +{
-> +    if ( !llc_way_size && !(llc_way_size = get_llc_way_size()) )
-> +        panic("Probed LLC coloring way size is 0 and no custom value found\n");
-> +
-> +    /*
-> +     * The maximum number of colors must be a power of 2 in order to correctly
-> +     * map them to bits of an address, so also the LLC way size must be so.
-> +     */
-> +    if ( llc_way_size & (llc_way_size - 1) )
-> +        panic("LLC coloring way size (%u) isn't a power of 2\n", llc_way_size);
-> +
-> +    max_nr_colors = llc_way_size >> PAGE_SHIFT;
+> +    xfree(__va(__pa(d->llc_colors)));
 
-With this unconditionally initialized here, what's the purpose of the
-variable's initializer?
+This __va(__pa()) trick deserves a comment, I think.
 
-> +    if ( max_nr_colors < 2 || max_nr_colors > CONFIG_NR_LLC_COLORS )
-> +        panic("Number of LLC colors (%u) not in range [2, %u]\n",
-> +              max_nr_colors, CONFIG_NR_LLC_COLORS);
-
-I'm not convinced of panic()ing here (including the earlier two
-instances). You could warn, taint, disable, and continue. If you want
-to stick to panic(), please justify doing so in the description.
-
-Plus, if you panic(), shouldn't that be limited to llc_coloring_enabled
-being true? Or - not visible here, due to the lack of a caller of the
-function - is that meant to be taken care of by the caller (to not call
-here when the flag is off)? I think it would be cleaner if the check
-lived here; quite possibly that would then further permit the flag
-variable to become static.
-
-> +    register_keyhandler('K', dump_coloring_info, "dump LLC coloring info", 1);
-
-I'm also not convinced of using a separate key for this little bit of
-information. How about attaching this to what 'm' or 'H' produce?
-
-> +    arch_llc_coloring_init();
 > +}
 > +
-> +void domain_dump_llc_colors(const struct domain *d)
-> +{
-> +    printk("Domain %pd has %u LLC colors: ", d, d->num_llc_colors);
-
-%pd resolves to d<N> - why "Domain" as a prefix? And really - why the
-domain identifier in the first place? All surrounding information is
-already for this very domain.
-
-> +    print_colors(d->llc_colors, d->num_llc_colors);
-
-Imo this (or perhaps even the entire function) wants skipping when
-num_llc_colors is zero, which would in particular also cover the
-!llc_coloring_enabled case.
-
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -626,6 +626,11 @@ struct domain
+>  void domain_dump_llc_colors(const struct domain *d)
+>  {
+>      printk("Domain %pd has %u LLC colors: ", d, d->num_llc_colors);
+>      print_colors(d->llc_colors, d->num_llc_colors);
+>  }
 >  
->      /* Holding CDF_* constant. Internal flags for domain creation. */
->      unsigned int cdf;
+> +static unsigned int *alloc_colors(unsigned int num_colors)
+> +{
+> +    unsigned int *colors;
 > +
-> +#ifdef CONFIG_LLC_COLORING
-> +    unsigned const int *llc_colors;
+> +    if ( num_colors > max_nr_colors )
+> +        return NULL;
 
-const unsigned int * please.
+Shouldn't check_colors() have made sure of this? If so, convert to
+ASSERT()?
+
+> +    colors = xmalloc_array(unsigned int, num_colors);
+> +    if ( !colors )
+> +        return NULL;
+
+These last two lines are redundant with ...
+
+> +    return colors;
+
+... this one. Question then is whether this is useful at all as a
+separate helper function.
+
+> +}
+> +
+> +static int domain_check_colors(const struct domain *d)
+> +{
+> +    if ( !d->num_llc_colors )
+> +    {
+> +        printk(XENLOG_ERR "No LLC color config found for %pd\n", d);
+> +        return -ENODATA;
+> +    }
+> +    else if ( !check_colors(d->llc_colors, d->num_llc_colors) )
+
+I generally recommend against use of "else" in cases like this one.
+
+> +    {
+> +        printk(XENLOG_ERR "Bad LLC color config for %pd\n", d);
+> +        return -EINVAL;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+> +static int domain_set_default_colors(struct domain *d)
+> +{
+> +    unsigned int *colors = alloc_colors(max_nr_colors);
+> +    unsigned int i;
+> +
+> +    if ( !colors )
+> +        return -ENOMEM;
+> +
+> +    printk(XENLOG_WARNING
+> +           "LLC color config not found for %pd, using default\n", d);
+
+Leaving open what the default(s) is/are. Judging from ...
+
+> +    for ( i = 0; i < max_nr_colors; i++ )
+> +        colors[i] = i;
+
+... this it's simply "all colors". Then perhaps have the message also
+say so?
+
+> +    d->llc_colors = colors;
+> +    d->num_llc_colors = max_nr_colors;
+> +
+> +    return 0;
+> +}
+> +
+> +int __init dom0_set_llc_colors(struct domain *d)
+> +{
+> +    unsigned int *colors;
+> +
+> +    if ( !dom0_num_colors )
+> +        return domain_set_default_colors(d);
+> +
+> +    colors = alloc_colors(dom0_num_colors);
+> +    if ( !colors )
+> +        return -ENOMEM;
+> +
+> +    memcpy(colors, dom0_colors, sizeof(unsigned int) * dom0_num_colors);
+
+sizeof(*colors) or some such please. Plus a check that colors and
+dom0_colors are actually of the same type. Alternatively, how about
+making dom0_colors[] __ro_after_init? Is this too much of a waste?
 
 Jan
 
