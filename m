@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A49DB8460A7
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 20:09:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674700.1049803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBE12846159
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 20:47:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674704.1049814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVcQG-0005x5-Jr; Thu, 01 Feb 2024 19:08:28 +0000
+	id 1rVd17-0007B3-Cg; Thu, 01 Feb 2024 19:46:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674700.1049803; Thu, 01 Feb 2024 19:08:28 +0000
+Received: by outflank-mailman (output) from mailman id 674704.1049814; Thu, 01 Feb 2024 19:46:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVcQG-0005vC-HE; Thu, 01 Feb 2024 19:08:28 +0000
-Received: by outflank-mailman (input) for mailman id 674700;
- Thu, 01 Feb 2024 19:08:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rVd17-00079P-9x; Thu, 01 Feb 2024 19:46:33 +0000
+Received: by outflank-mailman (input) for mailman id 674704;
+ Thu, 01 Feb 2024 19:46:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=i6jM=JK=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rVcQE-0005sx-HE
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 19:08:26 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 459d5eca-c135-11ee-98f5-efadbce2ee36;
- Thu, 01 Feb 2024 20:08:24 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-33ae3cc8a6aso896970f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 11:08:24 -0800 (PST)
+ id 1rVd16-00079J-0S
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 19:46:32 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 97ecce65-c13a-11ee-8a43-1f161083a0e0;
+ Thu, 01 Feb 2024 20:46:30 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40fc2e36eeeso4438585e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 11:46:30 -0800 (PST)
 Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
  by smtp.gmail.com with ESMTPSA id
- m27-20020a056000025b00b0033b11e91c0bsm132728wrz.81.2024.02.01.11.08.23
+ p14-20020a05600c468e00b0040fbad272f6sm2749569wmo.46.2024.02.01.11.46.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 11:08:23 -0800 (PST)
+ Thu, 01 Feb 2024 11:46:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 459d5eca-c135-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 97ecce65-c13a-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1706814503; x=1707419303; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TjUYRwPbanYV4UigJIlfR3BoASsaObFgt/HvfYLJikE=;
-        b=uY9kaSkCPWDyoAYBnS7FzZGDnrCu2HR6BRQA6RnmQBfD7VrHgEj6/xykhhGU31ITvv
-         4OBO+oVoPJLAqNirHL3hYhi7gSR4YgPFhF4ObCSoj1Y8fM+9ItEDYyVm98KoTSl0+Sqq
-         3nLKcKU8XhujvuzPit0ci1j1SXEGesC2za2Zc=
+        d=citrix.com; s=google; t=1706816788; x=1707421588; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=bfkwkaqY6LXddZTpjAutD7ZofgChudRBdiKliQIp684=;
+        b=kJodZGNaoJ/xpTXoOG+p9tZorYuISKox5tL8+di1Z8Z69TndK9BbKQfxNtxLPbK5Uw
+         BelAq78jxgpa7WMQ2TTNhbCl0BNooZaXMSScarfUrBvFPG6nNGlMakWQ9PhGOTV7TtkR
+         RW3H6ni/N9sq8y7FM2RgvztAVEWvF6DWYbZTc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706814503; x=1707419303;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TjUYRwPbanYV4UigJIlfR3BoASsaObFgt/HvfYLJikE=;
-        b=deaP2MNM7URqXTa2Ns0+q6u7AUMTLIy7P2ANUw8TBaBZrekzLU6UrdmnzrEx2qCHON
-         4iwy91Cd1CMpB2x1JjpKrs5W5X7S/LldgzVEUd9QN3ToORkKFUErxhLDp0iutTxwIUGT
-         EpJmadwpjJ7sgH662iDjxVnc0i1HPgMGAxv5O4TuBW0nL6h21/jC2GdB9x+Rl2bcDcUN
-         yqd0D0SVZw0YEITI553DI6WBrrPKjrasF5vTiVOF/x40iW2I9r0VSdTTAWEJCZT8JWxJ
-         NFYNTcT25/d1uoS+y6hhg0wcYeqUift0Mv/nnGgiBbmw/Bl9BjBY/3HqT2A8iqNeE76L
-         J/Mg==
-X-Gm-Message-State: AOJu0YxzF9CFchZrGdmJZ0lTBzi2OmYaaiSp99LTaBEtmLV6tjjnY4Ya
-	J11W83ow1/I/i8TiGweQjaL1hkPO3BmFaloFC51oXkqq0aJ3iR6rlDqiJroMapOpIu+T+sCRKfs
-	7
-X-Google-Smtp-Source: AGHT+IEQ0r2joF0nW4AsnurSs3Qf2xAu9Y126gSBYOe3bcQnbD5lvSf/jnR5/xNnegM6kp0C6UWlJg==
-X-Received: by 2002:a5d:522e:0:b0:33a:e4ba:16f5 with SMTP id i14-20020a5d522e000000b0033ae4ba16f5mr2608244wra.3.1706814503681;
-        Thu, 01 Feb 2024 11:08:23 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCX3+fmlm+QzNwJVSp400Cnnt7C4iBe+aMqlg8m1DSqr2mnDEtztiuvBP1cB46ik6Gja8Vr3tLHPC0t3iGG3I2bJqJnVI6laTg8=
-Message-ID: <0f3a09a0-142e-4534-8f14-4d73dac00990@citrix.com>
-Date: Thu, 1 Feb 2024 19:08:23 +0000
+        d=1e100.net; s=20230601; t=1706816788; x=1707421588;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=bfkwkaqY6LXddZTpjAutD7ZofgChudRBdiKliQIp684=;
+        b=TrbiwdsEUueoYFiCDQPPx2U1fF1WvzDOR3WFbofZssJspcHtcl4opSYitJWYENHVDt
+         6WpKAtkZektX8WZAbPVh6SA7SJ0Wovz6+zVkD1VU8tM89xB9DUZHfEcbe6q6keMfoeMT
+         Dx097D17qui8zqzm+ILcvMndHIREQDb327No4IJPrfwSBK2MCVTIZ6B4TiQWsLWUWuci
+         a/4Y8t7fuqMZVfs0cxjtJPbt/ZVDkg1PBKAzFjaBemQrR/xUX6s6g/tiUD1/943dJglQ
+         Drmku0RG1RP/6ozy2Jg5ykN3bRgroWhKB6gsG6YbK7F2f5U6DKmaOT1U4iXJ8AA233Jq
+         EaSw==
+X-Gm-Message-State: AOJu0YxxYV+XcV/ChlPIJGdVWV/FgTqfkTXqIQpsxFtRNX2FKY3LAZ9u
+	Z7tzqrBl2PT5vJ2Mguno1Yuccsfq+cPvw+ytsoB4Kuu4FIUSvOda18flwFdM4lyZU4YxKjybTLG
+	X
+X-Google-Smtp-Source: AGHT+IEJaaNAy11CuMjtIhDZG94zdoM/cT/VjnMvTfACwIfYbdb20LD5RDeMkTWTR4pnlkY/7Rrk/A==
+X-Received: by 2002:a05:600c:3504:b0:40e:e834:3d86 with SMTP id h4-20020a05600c350400b0040ee8343d86mr29092wmq.37.1706816788516;
+        Thu, 01 Feb 2024 11:46:28 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXOypleYe3f63m/2LIhLM3XdOH2lum/UvKlw0/fdUoCFsOZarZM4b7qt2jWUNm2edi9MXwbvxlDInQ8I7PwudzYrWlycp635ybDBhRlLV2OxIC3WIPneM4deYsKla1Mm2yielMOUWYEJA9gidZS1yKgadoVvsg=
+Message-ID: <95df07a3-0fae-4f1b-bca7-04a72a333dff@citrix.com>
+Date: Thu, 1 Feb 2024 19:46:27 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Fix some typos in comments
+Subject: Re: [PATCH] xen/bitmap: Drop unused headers
 Content-Language: en-GB
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich
+ <JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>
+References: <20240201103506.549662-1-andrew.cooper3@citrix.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Frediano Ziglio <frediano.ziglio@cloud.com>,
- George Dunlap <george.dunlap@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-References: <20240201145943.738531-1-frediano.ziglio@cloud.com>
- <e31aba88-1607-4a74-b2f9-66e754c89e9c@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
  VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
@@ -130,24 +129,53 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <e31aba88-1607-4a74-b2f9-66e754c89e9c@citrix.com>
+In-Reply-To: <20240201103506.549662-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01/02/2024 3:07 pm, Andrew Cooper wrote:
-> On 01/02/2024 2:59 pm, Frediano Ziglio wrote:
->> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
->> ---
->>  arch/x86/include/arch/processor.h | 2 +-
->>  include/xen/hvm/params.h          | 2 +-
->>  include/xtf/console.h             | 2 +-
->>  include/xtf/extable.h             | 4 ++--
->>  4 files changed, 5 insertions(+), 5 deletions(-)
-> This looks like an XTF patch?
+On 01/02/2024 10:35 am, Andrew Cooper wrote:
+> Nothing in bitmap.h uses lib.h, and there's no point including types.h when we
+> need to include bitops.h anyway.
+>
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: George Dunlap <George.Dunlap@citrix.com>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Wei Liu <wl@xen.org>
+> CC: Julien Grall <julien@xen.org>
+> ---
+>  xen/include/xen/bitmap.h | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/xen/include/xen/bitmap.h b/xen/include/xen/bitmap.h
+> index b9f980e91930..9f749e3913d8 100644
+> --- a/xen/include/xen/bitmap.h
+> +++ b/xen/include/xen/bitmap.h
+> @@ -3,8 +3,6 @@
+>  
+>  #ifndef __ASSEMBLY__
+>  
+> -#include <xen/lib.h>
+> -#include <xen/types.h>
+>  #include <xen/bitops.h>
 
-Given that it applies cleanly, that will be a yes.
+Turns out this went too far, and breaks PPC.  Other arches look ok.
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com> and committed.
+https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/6076263594
 
-Thanks.
+bitmap.h uses mem{set,cpy}() so needs string.h.  That's a bug in this
+patch specifically.
+
+However, cpumask.h transitively picks up IS_ALIGNED() (so needs
+macros.h) and ASSERT() which sadly is still in lib.h
+
+I guess moving the mess from bitmap.h to cpumask.h is a (minor) improvement.
+
+But this comes back to the header tangle which prevented moving BUG() in
+the first place.  Sadly there's been no reply to my question in the
+debugger.h removal, but I'm going to get that committed and then we can
+re-evaluate.
+
+~Andrew
 
