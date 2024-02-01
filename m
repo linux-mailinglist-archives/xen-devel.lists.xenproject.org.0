@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31DF9845A9C
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 15:50:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674477.1049419 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6098845AC2
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 16:00:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674481.1049429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVYNQ-00058O-EV; Thu, 01 Feb 2024 14:49:16 +0000
+	id 1rVYXn-0000JA-Bt; Thu, 01 Feb 2024 14:59:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674477.1049419; Thu, 01 Feb 2024 14:49:16 +0000
+Received: by outflank-mailman (output) from mailman id 674481.1049429; Thu, 01 Feb 2024 14:59:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVYNQ-00055m-Bw; Thu, 01 Feb 2024 14:49:16 +0000
-Received: by outflank-mailman (input) for mailman id 674477;
- Thu, 01 Feb 2024 14:49:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rVYXn-0000GJ-9D; Thu, 01 Feb 2024 14:59:59 +0000
+Received: by outflank-mailman (input) for mailman id 674481;
+ Thu, 01 Feb 2024 14:59:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qXLx=JK=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rVYNO-00052A-N6
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 14:49:14 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0fdbc749-c111-11ee-98f5-efadbce2ee36;
- Thu, 01 Feb 2024 15:49:12 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-554fe147ddeso1329235a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 06:49:12 -0800 (PST)
+ <SRS0=fxIb=JK=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
+ id 1rVYXm-0000Ez-FD
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 14:59:58 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 907b3e74-c112-11ee-8a43-1f161083a0e0;
+ Thu, 01 Feb 2024 15:59:57 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40eac352733so9228695e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 06:59:57 -0800 (PST)
+Received: from fziglio-xenia-fedora.eng.citrite.net ([185.25.67.249])
+ by smtp.gmail.com with ESMTPSA id
+ t12-20020a05600c450c00b0040d5ae2906esm4737894wmo.30.2024.02.01.06.59.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Feb 2024 06:59:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,88 +45,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fdbc749-c111-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 907b3e74-c112-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1706798951; x=1707403751; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dFrb14sFYxvQL3XHYJxoeThDXXBr7naHSSTej1GaxwM=;
-        b=HkshQvKloTCdtnLdkPscnYQAHZr695KnweqO+dQX6FCvifY46YjvCkMeR4FBAGGIDk
-         pzRRbAy8FJxua6TLs63JVXGE6HoywShHJKeSBXXshNUY3XVSAhNFs1PO0RYB7bt7kW3K
-         eZXMy3YbtV27wFhYdkJoIMyUT095lxt9JPReoe2SLNgxGmPHw1a9m+pRXS6SgsKiCfmx
-         Iz7YsyX06Ny90kHawBFxv0ZYClaq2hXBshEXMJi1J7fX4CCQawany2AUf23bd+j+/tfA
-         BUzNMllNC9QkOdtIb1EFB/8F5zyOvDH0LxaKlMBWhG1Bfj8njRfuZLuvmlKtAQg/yncn
-         NSqA==
+        d=cloud.com; s=cloud; t=1706799597; x=1707404397; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wUDi3+dPODjB9qZn1Kktd29eMC32bAroiLdFB6ZmDys=;
+        b=K3/SWa1s4kczFXdltkie+9Xp2m8lRB8OPL9lEVfs1vpo+ZOZv2+wFEGSVq0Tdsyoqk
+         unAOWIhHzgpH9DLEM1jpkTE3TCN3TEyvnNIwYqchGzPw3OZQrCYOp792H8soevgDgA+m
+         23bL7VS37+Otn7I03yuniVsQXmP35zg0yh21s=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706798951; x=1707403751;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dFrb14sFYxvQL3XHYJxoeThDXXBr7naHSSTej1GaxwM=;
-        b=it69Y+mahH5/EjHLl2j1naCSXPhZhf51WmXt9VuMlLWTmKZXJdGxA/Bs30F0Pei9HJ
-         J6EOQdHiwSjHFBWr/uJhb9Tb21TJxAx+ynH7UxHlKer07gM68MdpNGvoXmtnIIsew5KJ
-         a9Un9q4BmB5r/JZNZYuquQykJbyssz9lg8ac48IPrH1q7I4ekLSOj5V7cuJK7l7aaB3u
-         QIvnNxFvEupCH0nY76WmxhZo80oldjZ/NeYbsxfjglzOUcmWerXgJIWzomwRlu5O9O58
-         RZkhCKHuxB2B6CnxiWahlqtafW/zauoHqDREmbA4WkOJ3XhaAIAhTbGLWDwg0uERdlZV
-         53NQ==
-X-Gm-Message-State: AOJu0YwsVrP8KC/anWDYyFoRHnaMpkDM76xQ7DwGXhrBMzAns9nSdhUY
-	XgRO0lMVPqhulY0czaJXIe7PPSGQvBDrOXBjxKjiMHOwYG8kfeuDH7/wV28YgVvaXtaEdLXBhm0
-	mCtU+a/q7673GxMzxvfrftN9jexBbB1/Z1B5S2Q==
-X-Google-Smtp-Source: AGHT+IGZeF8OndDYcaG2J0sgatGE/PKwuAz0nBmgVPylZnF2Kzym4hDGoLbgQtOieEEWLKmER+mEc/I1uizfcYgv5JA=
-X-Received: by 2002:a05:6402:b4d:b0:55e:ef54:1239 with SMTP id
- bx13-20020a0564020b4d00b0055eef541239mr3840572edb.10.1706798951541; Thu, 01
- Feb 2024 06:49:11 -0800 (PST)
+        d=1e100.net; s=20230601; t=1706799597; x=1707404397;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wUDi3+dPODjB9qZn1Kktd29eMC32bAroiLdFB6ZmDys=;
+        b=GZUJA2t+HM3JSmHZYG0LabJYyH2OmfMXubI3+ybGGh1IqfEundjlq4pXEOuG2qQuh+
+         YQTD5sF26Sm3dWgEyPYZX6MVoqrTirzsyB274UxP4uDUI5j30BdpGPZNxrKO+j5ge85U
+         uvXtJ7CKc9mCy0+ICXe69Dp/54yOVhmRB3UXxZrr6hN3AgN6OKemogHwHUTwEC53SoVQ
+         Q7rUlBGNueXvRAi/CiU+Lw2fdaC0R/OXn8jW+hW30Hjg3k1hEj0wJvaNBGcn1/xk/Zmo
+         Ar01vId1/dVnNmqIiLUCthOfhAItOTgiGQkJnuddcgJTVibPFYFyX/ifIQRsw3KetakJ
+         Wv3g==
+X-Gm-Message-State: AOJu0YwUJoMfea7Y/Ha6xVeO81rtbpgLulsJQY2dDPGGg6UVud4olB57
+	pLaESkloJjXvvUQKSFuonOhK8Z2cbAZRGWtxZQVm9WzrBRibR9bZwuDPNOVX3D7wp9inIITrkma
+	I
+X-Google-Smtp-Source: AGHT+IGKXDSVancIaYJuUcE2eBx3guV9apdjao5cLNe+I/ZxtXIKceERhfuR5AI+XVeftejihKvdCg==
+X-Received: by 2002:a05:600c:314f:b0:40e:4806:f436 with SMTP id h15-20020a05600c314f00b0040e4806f436mr3815617wmo.3.1706799596826;
+        Thu, 01 Feb 2024 06:59:56 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUxxooJNPYJ9HJDdLtqIfzjdUuPvjPLr5HQUUTc2xl5zqJiCxdFIyWrnfY+BxsDrFMtGoSnUGK1LSuOL/tCV3h+VGrq+Tz8r+qulh9KkT9uQIMG+/JmRQvr3H9vcSSRU6emzqDG
+From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: George Dunlap <george.dunlap@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+	Frediano Ziglio <frediano.ziglio@cloud.com>
+Subject: [PATCH] Fix some typos in comments
+Date: Thu,  1 Feb 2024 14:59:43 +0000
+Message-ID: <20240201145943.738531-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-10-carlo.nonato@minervasys.tech> <8a3f3c38-b290-417a-86cb-216e36182abe@suse.com>
-In-Reply-To: <8a3f3c38-b290-417a-86cb-216e36182abe@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Thu, 1 Feb 2024 15:49:00 +0100
-Message-ID: <CAG+AhRU5Yhz_VF02CfaFD5ifvw8cUQbsM7-UiMcRWm+1LR4btg@mail.gmail.com>
-Subject: Re: [PATCH v6 09/15] xen/page_alloc: introduce preserved page flags macro
-To: Jan Beulich <jbeulich@suse.com>
-Cc: andrea.bastoni@minervasys.tech, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+---
+ arch/x86/include/arch/processor.h | 2 +-
+ include/xen/hvm/params.h          | 2 +-
+ include/xtf/console.h             | 2 +-
+ include/xtf/extable.h             | 4 ++--
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-On Thu, Feb 1, 2024 at 3:24=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 29.01.2024 18:18, Carlo Nonato wrote:
-> > PGC_static and PGC_extra are flags that needs to be preserved when assi=
-gning
-> > a page. Define a new macro that groups those flags and use it instead o=
-f
-> > or'ing every time.
->
-> While here you say where the "preserving" applies, ...
->
-> > --- a/xen/common/page_alloc.c
-> > +++ b/xen/common/page_alloc.c
-> > @@ -157,6 +157,8 @@
-> >  #define PGC_static 0
-> >  #endif
-> >
-> > +#define PGC_preserved (PGC_extra | PGC_static)
->
-> ... nothing is said here. From the earlier version I also seem to recall
-> that the constant was then used outside of assign_pages(). That would
-> then mean amending whatever comment would be added here.
+diff --git a/arch/x86/include/arch/processor.h b/arch/x86/include/arch/processor.h
+index 0c33545..1c7e655 100644
+--- a/arch/x86/include/arch/processor.h
++++ b/arch/x86/include/arch/processor.h
+@@ -101,7 +101,7 @@
+ #define X86_EXC_TS            10 /* Invalid TSS. */
+ #define X86_EXC_NP            11 /* Segment Not Present. */
+ #define X86_EXC_SS            12 /* Stack-Segment Fault. */
+-#define X86_EXC_GP            13 /* General Porection Fault. */
++#define X86_EXC_GP            13 /* General Protection Fault. */
+ #define X86_EXC_PF            14 /* Page Fault. */
+ #define X86_EXC_SPV           15 /* PIC Spurious Interrupt Vector. */
+ #define X86_EXC_MF            16 /* Maths fault (x87 FPU). */
+diff --git a/include/xen/hvm/params.h b/include/xen/hvm/params.h
+index 886b986..0b7c05b 100644
+--- a/include/xen/hvm/params.h
++++ b/include/xen/hvm/params.h
+@@ -1,5 +1,5 @@
+ /*
+- * Xen public hvm paramter index
++ * Xen public hvm parameter index
+  */
+ 
+ #ifndef XEN_PUBLIC_HVM_PARAMS_H
+diff --git a/include/xtf/console.h b/include/xtf/console.h
+index caec790..16a6a23 100644
+--- a/include/xtf/console.h
++++ b/include/xtf/console.h
+@@ -11,7 +11,7 @@
+ typedef void (*cons_output_cb)(const char *buf, size_t len);
+ 
+ /*
+- * Register a console callback.  Several callbacks can be registered for usful
++ * Register a console callback.  Several callbacks can be registered for useful
+  * destinations of console text.
+  */
+ void register_console_callback(cons_output_cb cb);
+diff --git a/include/xtf/extable.h b/include/xtf/extable.h
+index e93331e..0668b7d 100644
+--- a/include/xtf/extable.h
++++ b/include/xtf/extable.h
+@@ -4,8 +4,8 @@
+  * Exception table support.
+  *
+  * Allows code to tag an instruction which might fault, and where to jump to
+- * in order to recover.  For more complicated recovery, a cusom handler
+- * handler can be registerd.
++ * in order to recover.  For more complicated recovery, a custom handler
++ * can be registered.
+  */
+ #ifndef XTF_EXTABLE_H
+ #define XTF_EXTABLE_H
+-- 
+2.43.0
 
-Yes, but it was used in places where the name didn't fit (to stop merging i=
-n
-free_heap_pages()) and so I thought it would've been better to use the
-constant only for one of the two concepts: only for preserved flags in
-assign_pages().
-
-Are you suggesting adding a comment to this #define to clarify its usage?
-
-Thanks.
-
-> Jan
 
