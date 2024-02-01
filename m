@@ -2,40 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BBC384500E
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 05:11:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674217.1049019 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8E64845085
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Feb 2024 05:52:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674221.1049028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVOPe-00013P-BD; Thu, 01 Feb 2024 04:10:54 +0000
+	id 1rVP2Y-0006c3-9M; Thu, 01 Feb 2024 04:51:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674217.1049019; Thu, 01 Feb 2024 04:10:54 +0000
+Received: by outflank-mailman (output) from mailman id 674221.1049028; Thu, 01 Feb 2024 04:51:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVOPe-00010w-6s; Thu, 01 Feb 2024 04:10:54 +0000
-Received: by outflank-mailman (input) for mailman id 674217;
- Thu, 01 Feb 2024 04:10:53 +0000
+	id 1rVP2Y-0006Zi-6T; Thu, 01 Feb 2024 04:51:06 +0000
+Received: by outflank-mailman (input) for mailman id 674221;
+ Thu, 01 Feb 2024 04:51:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RfkL=JK=nxp.com=peng.fan@srs-se1.protection.inumbo.net>)
- id 1rVOPd-00010q-I6
- for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 04:10:53 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on062f.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::62f])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WDVG=JK=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1rVP2X-0006Zb-71
+ for xen-devel@lists.xenproject.org; Thu, 01 Feb 2024 04:51:05 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20627.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::627])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e29dc848-c0b7-11ee-98f5-efadbce2ee36;
- Thu, 01 Feb 2024 05:10:50 +0100 (CET)
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com (2603:10a6:10:358::11)
- by AM0PR04MB6836.eurprd04.prod.outlook.com (2603:10a6:208:187::14)
+ id 7eb4801b-c0bd-11ee-98f5-efadbce2ee36;
+ Thu, 01 Feb 2024 05:51:01 +0100 (CET)
+Received: from PH8PR02CA0020.namprd02.prod.outlook.com (2603:10b6:510:2d0::9)
+ by BY5PR12MB4243.namprd12.prod.outlook.com (2603:10b6:a03:20f::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.26; Thu, 1 Feb
- 2024 04:10:47 +0000
-Received: from DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::c499:8cef:9bb1:ced6]) by DU0PR04MB9417.eurprd04.prod.outlook.com
- ([fe80::c499:8cef:9bb1:ced6%3]) with mapi id 15.20.7249.023; Thu, 1 Feb 2024
- 04:10:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.8; Thu, 1 Feb
+ 2024 04:50:57 +0000
+Received: from SN1PEPF0002BA4C.namprd03.prod.outlook.com
+ (2603:10b6:510:2d0:cafe::22) by PH8PR02CA0020.outlook.office365.com
+ (2603:10b6:510:2d0::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.26 via Frontend
+ Transport; Thu, 1 Feb 2024 04:50:57 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002BA4C.mail.protection.outlook.com (10.167.242.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7249.19 via Frontend Transport; Thu, 1 Feb 2024 04:50:57 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Wed, 31 Jan
+ 2024 22:50:56 -0600
+Received: from [172.23.114.18] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Wed, 31 Jan 2024 22:50:55 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,256 +59,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e29dc848-c0b7-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 7eb4801b-c0bd-11ee-98f5-efadbce2ee36
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bxuci8oc2L6yTUp7UbN2BLK64Dw/5k1cBW5/hlcVrq0rMwbLBw3diikd+f8N2lTJOHHufMwtOoAcOZkNAxvxvWgNMF2l3mAFE1PvFYNg5Vgnbjv1Up6UCZRw2eQFMoAT4Io/pVgBcEkSa7gpW3/9bfOgTCUposgywM6RslX80CGKWU57VVzN1Ic4YDJ7yuRWNURepnmmF6qKBZKj11kfQrB0gCsleAC5D6rFoT3b6tf6KqOE6LqukgrbFUOT7D2KDI2KW+X7Wd0cRj+nbdt6JXW3pXYse9qf+mhxK2ihX61ow17qsnEqKcwye2WOM5t/JFrc+FhldDWH+enFNAJEfw==
+ b=DIbXHSsvKKbwgnWF8/gmW5lIfPKu8vhpGid9qZlFs+a88X/IieMq8OiwFhHlnelS+PgEnWYum3Qcoa3SzktP2B6GCBxPkhOuRCBo8pfa/GZV9ti+wLQgUSlu0dgtcbw26WTqju04eDz5AB2ePU5bO/8+ubXm86fRGdWiZsqiR9Cj3Eo8LR9klGYQxQIS6zyQoLjUAliQ8JnnGHo7AVUz8kZ8jfGAwwZSAniCXSHmust6uZMWeK1opqFlwB1aAEnN3luD5+C8e80j5ogamundBAnTO+rOI17JN+oZ3pRHRyhtaT501Bb34Rn1YCIiXIRQTvrBAOXlU2EhWorjyVh5wQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DcVXz3h0TliXCAdcDKfzPkeUDq7pj0aXYjzX7MHA3hI=;
- b=Mal0n89NszSIHOutr+Qf+SJJjcwdsYH2H5yHqr5pemTMJrbeEzMnGvrrJE7SVy/VVYH3B9vXnCidOwAwEI/LBBiKG0rD7NKo6Xc5jECQ8p4C8CyKc/aRr7sdy9JChVmanNQB0rWwzKfb8POb6cyf54/V2rAcYzITVdYhd9odfGsGiSMz7mrcl4NEQaa1uzQiDyouvA4OfWMXr7U8QKDzMcy1tLhcPyH+fuiM4kSJ8moQdPREUZ4D3ptPOtWLfK3tP1YJ9KXIk2KDb4FM+/mRupvecoSauTFjFmhttZoCZOIIV2RbHceJ9R28fRznP1upGDnL+utse3vGdX+VXa+JXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2;
+ bh=Ii7bxJk70kAfTZiQJJ3NC2wsY5BfdVr76TAoUdYYDxA=;
+ b=QLXRfH3Z/3ZU3Yf9dflSYEd0n5H9XvU/iYzv+YFchIuFcP593y7ExfzxObUSlbiwUsUONEVSXzMMo/md/Ke2VWEEO4UDBCoLkL9DkiTCERB9jk3ewgQnQjIp/OtDBJesT0JO5ZRNYgcn37rfgCL0cwS5N57g8PSCHFcJGCkYsvgW2GN2NHcoCV51ZS6FOHBEv0DsdhjZU555ONqSZ0FGXHcREplpgJDDxbbsdbI/XCrxRiv1ZZOY5sIjkvQ27bB6SByM7Cwevy2UWalMBNkV6v8xnIauTobmL3/kKq+ZeDnMCslXROLXQfDqhsUTuTzlVoGlQSNCxqPnmgdgcP8HDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DcVXz3h0TliXCAdcDKfzPkeUDq7pj0aXYjzX7MHA3hI=;
- b=CCjZnK1v9DKwnqdLy6gng359AVCmmqQBkb5TgUWTBl/YfemDXb0IlAvzxzORpR1B77humRALy+tuaRvO8bYHnzww6bUnWGZrf5fn/p7OUV6dtDbgNqYk3X9Zr1LoD42hnmzMRi2ONZZkU+BEL3klXY5uwU6GgXLNkJv11hEkh4A=
-From: Peng Fan <peng.fan@nxp.com>
-To: John Ernberg <john.ernberg@actia.se>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Jonas Blixt <jonas.blixt@actia.se>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH 1/2] xen/arm: Add imx8q{m,x} platform glue
-Thread-Topic: [PATCH 1/2] xen/arm: Add imx8q{m,x} platform glue
-Thread-Index: AQHaVDuqVQ/kgxLZgUK/m8/hE0ez5bDz198AgAA1LICAANMm8A==
-Date: Thu, 1 Feb 2024 04:10:46 +0000
-Message-ID:
- <DU0PR04MB941760D4A8972440B5312B2088432@DU0PR04MB9417.eurprd04.prod.outlook.com>
-References: <20240131114952.305805-1-john.ernberg@actia.se>
- <20240131114952.305805-2-john.ernberg@actia.se>
- <a2f726f5-df4c-4d15-90af-7d59c0f1f513@xen.org>
- <494d4961-ad8a-4d1d-aaa6-d1bfb9d6a137@actia.se>
-In-Reply-To: <494d4961-ad8a-4d1d-aaa6-d1bfb9d6a137@actia.se>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU0PR04MB9417:EE_|AM0PR04MB6836:EE_
-x-ms-office365-filtering-correlation-id: 335956e2-f29d-4a32-8aa1-08dc22dbc475
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- sqH9RcPapi5UzcfyjoCF0sDBJaS5dHPs9J9oW0RMSLIHLCq8tLW0mMzytOKOhwQ6c3z04RL6gmJM8nV9kaQ2YSCl3XLFQRZ0WtEVsKnz7BZepBp2bk23QB0D1ah6SrzcVrosRZJAjYqPjbJs9fZNbYfI2j9izaysCjhMswVXJoXtpx0JJzzesHrwdZMHvkp8WJYV2Bw0G1112EP7fq81ALiaEIcCLiYl0uY0zpzAzvGMC+eZK+bcr1AegWgUn3T7SL7sb47jCBqAT2ScqsU+TaPvwkQC9yR7FYwQeQyg2lo2ZKXhZtfJPAc1bKYDf/6qg4+cIZ1UsIbq3RMGTl+X0I2dPT7IzaFueftjxF3cHN7vIkxE0SNwN+MxDv53g2uobrK1l6UwOsvFTHtFWqdQJZmrJR3aAFt3SAo2EW0ApGUepW0O2+1s+bRU+qAEmlGzSSOuVl3D3vF9aDfgOFhNk2CyOVRS1SM61zf77plrm9RuUFAQBfsc51smK3YJFs5WFdo6sDodS4umToOKmDKfOeDbVJzJCgzeVSgG1SQmwza+l1XQG8Kz2otHxrQ6WvrzDN8iHowKgLsRE4uBjdGMlhZDCiN4Fl3bzIbgXg7l4WzDEhCGGpYLWtTIPzH6akiXT7b2wngzWODWCqeOzVWirQ==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0PR04MB9417.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230031)(376002)(366004)(346002)(136003)(396003)(39860400002)(230922051799003)(1800799012)(64100799003)(451199024)(186009)(71200400001)(6506007)(7696005)(53546011)(9686003)(8676002)(26005)(8936002)(4326008)(52536014)(44832011)(2906002)(64756008)(316002)(5660300002)(33656002)(54906003)(66556008)(66476007)(66446008)(86362001)(110136005)(38070700009)(66946007)(76116006)(41300700001)(966005)(45080400002)(478600001)(122000001)(55016003)(83380400001)(38100700002)(32563001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?uz/duHf/AIjb52JGboPfCHdKUYcch1AZdVYbf196hs0qUguAfQou5cCLeT?=
- =?iso-8859-1?Q?baHIYTBy6tzDFj5mfyKyWPBDyT20O7XVeKsU/6n4+ZonOjoAXL7orvkkiT?=
- =?iso-8859-1?Q?+N3kpFu1A5rpVIcwB7Ry8+MfF16PIGb9oRpgB3pzrPyjzizAYd+fAqu0Kt?=
- =?iso-8859-1?Q?w4/VyNH29liEz62gjlk5tg3ZnQTTmIUGO22+UEMlgQzJqxwuFDlqpramEu?=
- =?iso-8859-1?Q?eKf5LVpJnyoMnGkAvGvK3rtxzLs76dDGHcOYU4QIl2WZUb/+kTl+YepJ0c?=
- =?iso-8859-1?Q?ZOCihAtfoqS1bWTPoEQE3hTXpBII08YUBQfWCykZilP5B3MXo8NfFAFkjH?=
- =?iso-8859-1?Q?CR3LCZDlJp17+tRsQjxW5mJuyBeSAD3E4VrMgRcuYrrXrzY9tae0PDIHVo?=
- =?iso-8859-1?Q?Zhws0duLG2X2gdLQ1JUyTfN50Tii5HBWYt29flJOlBWinhg4eV7t3616pY?=
- =?iso-8859-1?Q?QgvxL8ZXMhn3k78m7oYQyJXF7bI0s4P50Voemt70evd7Q21+gt7SOg/ktb?=
- =?iso-8859-1?Q?Dth/gh75J+pNN7mJ29VKYBxOpFgzHafWq6JB3kImvLQ5wufW1DZUk6/TFP?=
- =?iso-8859-1?Q?w6FqN4gAePUG8hKx5j7orOuJceHrkSqfHatDn/AIcIQDmDPEKcMdk3uIjW?=
- =?iso-8859-1?Q?6QsL5axxgY5spi+XrRfkE/RCNt8e4xgPyGjaFYluUHT0JVFVn2QGDsvOkP?=
- =?iso-8859-1?Q?PBtAlick8egCt4i2y8DykBHz84tbZxLudfWP8PB8BSEI+Edpx3YNUzFhIp?=
- =?iso-8859-1?Q?xg/fZMuOxY7kcdaJUV3+GmiMZuFD+PSXE715tAtMOvbIF484qPzaudNpLf?=
- =?iso-8859-1?Q?Fs6oOz7F8ghx/CMnjtJVH9bcWVRWdkQmgJg9UqP/q2oI4bJdV7/f2IqSHN?=
- =?iso-8859-1?Q?QedsVGMVpFeRto54c6DCkJhWOe5mHe8CZZ5T8Mv7hxMZhf2gMjPyyEFRS5?=
- =?iso-8859-1?Q?nPFCPrchbTGkJx7rWHPLNczAU1mKPBDM8fC8YiW4J03RYxu9Gega5tKq09?=
- =?iso-8859-1?Q?mCL/zlawo9L6JkcRVwMxzUUZOeZ26cXbHuI9j+NgdiAcO+V4r359GuN0qq?=
- =?iso-8859-1?Q?z8CJPrZyoXR214Mgir81YUEL8oJexk2w3Ov3pLCNRztmZ+3DPvfclN56pQ?=
- =?iso-8859-1?Q?Rl24ZMQy6hQDZ7rdX/+fMPgvsDVj3YAT1m2/cPkeC0CBeqX0moXoHWfGF8?=
- =?iso-8859-1?Q?Bih6P1rdPcp00/Dm0Dwoo5YDjtV8ajumt/RwBRQRJLquKM6aiBRE5OziAe?=
- =?iso-8859-1?Q?8k8Mgpn0uqln47EJtfCmZeaPnx/H6pXzyV4cpNtKeCXwnlnJepC8M2zbW5?=
- =?iso-8859-1?Q?3+KE+KsI+JWeiUFbzNd9uTZpcK210dtDGsktFaO/mRlIkAt1S9e7ozByE0?=
- =?iso-8859-1?Q?lX/Sb37N2UAV+h1+YAD/yb8CKz9mOCJp9kifa0MV6KrLke+VJNNEpkXseH?=
- =?iso-8859-1?Q?pJB1NE8UxW3A7HC0E0bGPvG/MqBA5tmsJG4OIRtPTe8WwzMW0RZAS/sEsg?=
- =?iso-8859-1?Q?u7npJevjaVAfLxd/8dXHf0bOwXJYSF9Hf4bvC2IGuI99OjXyjeofV2gvc+?=
- =?iso-8859-1?Q?Uc+PSvJW/sQxR07kKD0tHvWSOkCYTpp3N5k0IFx7RrEaZ/ZrxlXgeoLdK9?=
- =?iso-8859-1?Q?pWQRyhHPd/4EY=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ bh=Ii7bxJk70kAfTZiQJJ3NC2wsY5BfdVr76TAoUdYYDxA=;
+ b=Cj77J2EvHz6DKCZrxppEGXAAK5IHPmptx+4FozOmzTuXWFlc4yuHQcSU904FW2DIckaBVA3Aj8O/6NCsInU+vf6WEFL65SR+RUBTJ04ai1nw9zj+w6GhZUV8UUAHd1v2WwpDuC1GQcQcDppv7u2b1/qnkMiuWRvIpbnlhKbGgbM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <48a16cb3-9cb9-4b7d-a950-f190a9a64bc2@amd.com>
+Date: Wed, 31 Jan 2024 23:50:55 -0500
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU0PR04MB9417.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 335956e2-f29d-4a32-8aa1-08dc22dbc475
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Feb 2024 04:10:46.8616
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 10/15] vpci/header: emulate PCI_COMMAND register for
+ guests
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	<xen-devel@lists.xenproject.org>
+References: <20240109215145.430207-1-stewart.hildebrand@amd.com>
+ <20240109215145.430207-11-stewart.hildebrand@amd.com>
+ <50e79338-b2fd-40e9-b754-4e725e27ceb3@suse.com>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <50e79338-b2fd-40e9-b754-4e725e27ceb3@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4C:EE_|BY5PR12MB4243:EE_
+X-MS-Office365-Filtering-Correlation-Id: e1056df2-3584-4de1-804f-08dc22e16149
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	noopwhAvahLcVlVQN7DyVrhMIWwmcUpbQaEAIZTFLsR4mCgOa/zdZXvq8JcfjW60+rf0wyaQhLqATH6pANyCkMTpYQHVUP69Wsq3ZTiO3+yFbIS6J4Qx2wM1Nka2bfJ7Y/Y0r4Zdv1OdH72zvmzn1T3sYR+mBhoebpIzPT1P44Iyd3lpdpw33p5LUzT6BHn+ecwYaoWKRA7sUmBxvVlC/mRhiCXUjCtS0KSOelhCWiXjC/rvWrICH8/Qqmd3fPYqmtYdWg9RhwJwgwA4m07xjcYii+of6Cvgcfnf/aZ0MHOY74prxNrslcelJHjzHBB2juQZL/i4eRvuQCJsCM0J4RMDd2Nt/bWaj1slWK0icJf0NptURICBSXxPwU34NEW2Z2S6vh0GGBoWbVBvrGDSopSlqr112uyS2SMdmLPBKygWq8fkrCCiFTCnqDM1NrOySqsgyPSq3R0nLs5Sh47UqQAUwZs8Kibm8uK5U2sI7EPFSwNnIPqpgxf/qDTzbPD2yjHAil2QtzEKJPn+1XgfLleepQs5p9UvHg1rlt8IMZto95W11bXouvHqWgAWy/AkfoZ6IHWfWOlBJeXVCtUmufns8/30MeFruxxcBaGM5naYZUA10PxWX2CXiQ51tZ0oWS/rrvTOB46BpLBQcXPr9I7yRKrz5zfSfT9pUv2/JbZcCoiTU3+bKkpwU0CyJwDIMZ/eQif75FdF7c+3ybU7bxM+kEoHamooBtS9mgxJbah4/ftDnm/1ZqoBHFSl7+Fsg25U296dlaiOQ0zTByeEPdOvNObwzOwzT+3ZV3/kdVUOruwkbDP2S+Cc2nnCUI6aWdW51mywp9iRzztWcwKtog==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(136003)(346002)(376002)(396003)(230922051799003)(186009)(82310400011)(451199024)(64100799003)(1800799012)(46966006)(40470700004)(36840700001)(41300700001)(47076005)(36860700001)(8936002)(44832011)(4326008)(2906002)(8676002)(5660300002)(70206006)(7416002)(31696002)(86362001)(70586007)(36756003)(54906003)(16576012)(81166007)(83380400001)(82740400003)(356005)(6916009)(316002)(53546011)(478600001)(966005)(2616005)(336012)(426003)(40480700001)(40460700003)(26005)(31686004)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2024 04:50:57.4335
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Xwvpi/unVz/Zhwr+n4EvBlXIWxxgOfxTqfYpYQzoC/fimMrUkzd3XudHskmIRRmobFhrB+k/acpyiE6381Bvtw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6836
+X-MS-Exchange-CrossTenant-Network-Message-Id: e1056df2-3584-4de1-804f-08dc22e16149
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA4C.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4243
 
-> Cc: Jonas Blixt <jonas.blixt@actia.se>; xen-devel@lists.xenproject.org
-> Subject: Re: [PATCH 1/2] xen/arm: Add imx8q{m,x} platform glue
->=20
-> Hi Julien,
->=20
-> On 1/31/24 13:22, Julien Grall wrote:
-> > Hi,
-> >
-> > On 31/01/2024 11:50, John Ernberg wrote:
-> >> When using Linux for dom0 there are a bunch of drivers that need to
-> >> do SMC SIP calls into the PSCI provider to enable certain hardware
-> >> bits like the watchdog.
-> >
-> > Do you know which protocol this is under the hood. Is this SCMI?
->=20
-> I think I confused myself here when I wrote the commit log.
->=20
-> The EL3 code in our case is ATF, and it does not appear to be SCMI, nor P=
-SCI.
-> The register usage of these SMC SIP calls are as follows:
-> a0 - service
-> a1 - function
-> a2-a7 - args
->=20
-> In ATF the handler is declared as a runtime service.
->=20
-> Would the appropriate commmit message here be something along the lines
-> of below?
-> """
-> When using Linux for dom0 there are a bunch of drivers that need to do
-> SMC
-> SIP calls into the firmware to enable certain hardware bits like the watc=
-hdog.
-> """
-> >
-> >>
-> >> Provide a basic platform glue that implements the needed SMC forwardin=
-g.
-> >>
-> >> Signed-off-by: John Ernberg <john.ernberg@actia.se>
-> >> ---
-> >> NOTE: This is based on code found in NXP Xen tree located here:
-> >> https://eur01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgi=
-t
-> >> hub.com%2Fnxp-imx%2Fimx-xen%2Fblob%2Flf-
-> 5.10.y_4.13%2Fxen%2Farch%2Far
-> >>
-> m%2Fplatforms%2Fimx8qm.c&data=3D05%7C02%7Cpeng.fan%40nxp.com%7C
-> 573b599a
-> >>
-> 4b4143ceca1d08dc2271e5be%7C686ea1d3bc2b4c6fa92cd99c5c301635%7C
-> 0%7C0%7
-> >>
-> C638423119777601548%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjA
-> wMDAiLCJQI
-> >>
-> joiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&sdata=3DZO
-> 0TXjL6
-> >> g0W7TIZo8x8lTNBXEZW%2BDNcLPndWlEf5D2A%3D&reserved=3D0
-> >
-> > Anything after --- will be removed while applied to the three. I think
-> > this NOTE should be written down in the commit message.
->=20
-> Ack.
-> >
-> > You also possibly want a signed-off-by from Peng as this is his code.
->=20
-> @Peng: May I add a sign-off from you?
+On 1/25/24 10:43, Jan Beulich wrote:
+> On 09.01.2024 22:51, Stewart Hildebrand wrote:
+>> --- a/xen/drivers/vpci/header.c
+>> +++ b/xen/drivers/vpci/header.c
+>> @@ -168,6 +168,9 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
+>>      if ( !rom_only )
+>>      {
+>>          pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+>> +        /* Show DomU that we updated P2M */
+>> +        header->guest_cmd &= ~PCI_COMMAND_MEMORY;
+>> +        header->guest_cmd |= cmd & PCI_COMMAND_MEMORY;
+>>          header->bars_mapped = map;
+>>      }
+> 
+> I don't follow what the comment means to say. The bit in question has no
+> real connection to the P2M, and the guest also may have no notion of the
+> underlying hypervisor's internals. Likely connected to ...
 
-Yeah. You could add my sign off.
+Indeed. If the comment survives to v13, I'll update it to:
 
-> >
-> >>
-> >> =A0 xen/arch/arm/platforms/Makefile |=A0 1 +
-> >> =A0 xen/arch/arm/platforms/imx8qm.c | 65
-> >> +++++++++++++++++++++++++++++++++
-> >> =A0 2 files changed, 66 insertions(+)
-> >> =A0 create mode 100644 xen/arch/arm/platforms/imx8qm.c
-> >>
-> >> diff --git a/xen/arch/arm/platforms/Makefile
-> >> b/xen/arch/arm/platforms/Makefile index 8632f4115f..bec6e55d1f
-> 100644
-> >> --- a/xen/arch/arm/platforms/Makefile
-> >> +++ b/xen/arch/arm/platforms/Makefile
-> >> @@ -9,5 +9,6 @@ obj-$(CONFIG_ALL_PLAT)=A0=A0 +=3D sunxi.o
-> >> =A0 obj-$(CONFIG_ALL64_PLAT) +=3D thunderx.o
-> >> =A0 obj-$(CONFIG_ALL64_PLAT) +=3D xgene-storm.o
-> >> =A0 obj-$(CONFIG_ALL64_PLAT) +=3D brcm-raspberry-pi.o
-> >> +obj-$(CONFIG_ALL64_PLAT) +=3D imx8qm.o
-> >> =A0 obj-$(CONFIG_MPSOC_PLATFORM)=A0 +=3D xilinx-zynqmp.o
-> >> =A0 obj-$(CONFIG_MPSOC_PLATFORM)=A0 +=3D xilinx-zynqmp-eemi.o diff --g=
-it
-> >> a/xen/arch/arm/platforms/imx8qm.c
-> b/xen/arch/arm/platforms/imx8qm.c
-> >> new file mode 100644 index 0000000000..a9cd9c3615
-> >> --- /dev/null
-> >> +++ b/xen/arch/arm/platforms/imx8qm.c
-> >> @@ -0,0 +1,65 @@
-> >> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> >> +/*
-> >> + * xen/arch/arm/platforms/imx8qm.c
-> >> + *
-> >> + * i.MX 8QM setup
-> >> + *
-> >> + * Copyright (c) 2016 Freescale Inc.
-> >> + * Copyright 2018-2019 NXP
-> >> + *
-> >> + *
-> >> + * Peng Fan <peng.fan@nxp.com>
-> >> + */
-> >> +
-> >> +#include <asm/platform.h>
-> >> +#include <asm/smccc.h>
-> >> +
-> >> +static const char * const imx8qm_dt_compat[] __initconst =3D {
-> >> +=A0=A0=A0 "fsl,imx8qm",
-> >> +=A0=A0=A0 "fsl,imx8qxp",
-> >> +=A0=A0=A0 NULL
-> >> +};
-> >> +
-> >> +static bool imx8qm_smc(struct cpu_user_regs *regs) {
-> >
-> > Your implementation below will not only forward SMC for dom0 but also
-> > for any non-trusted domains. Have you investigated that all the SIP
-> > calls are safe to be called by anyone?
->=20
-> We use pure virtualized domUs, so we do not expect any calls to this SMC
-> interface from the guest. I'll limit it to dom0.
+        /* Now that we updated P2M, show DomU change to PCI_COMMAND_MEMORY */
 
-Would you mind to share what features are supported in your DomU?
+> 
+>> @@ -524,9 +527,26 @@ static void cf_check cmd_write(
+>>  {
+>>      struct vpci_header *header = data;
+>>  
+>> +    if ( !is_hardware_domain(pdev->domain) )
+>> +    {
+>> +        const struct vpci *vpci = pdev->vpci;
+>> +
+>> +        if ( (vpci->msi && vpci->msi->enabled) ||
+>> +             (vpci->msix && vpci->msix->enabled) )
+>> +            cmd |= PCI_COMMAND_INTX_DISABLE;
+>> +
+>> +        /*
+>> +         * Do not show change to PCI_COMMAND_MEMORY bit until we finish
+>> +         * modifying P2M mappings.
+>> +         */
+>> +        header->guest_cmd = (cmd & ~PCI_COMMAND_MEMORY) |
+>> +                            (header->guest_cmd & PCI_COMMAND_MEMORY);
+>> +    }
+> 
+> ... the comment here, but then shouldn't it be that the guest can't even
+> issue a 2nd cfg space access until the present write has been carried out?
+> Otherwise I'd be inclined to claim that such a partial update is unlikely
+> to be spec-conformant.
 
-Pure virtualized, you using xen pv or virtio?
+Due to the raise_softirq() call added in
 
-Thanks,
-Peng.
+  3e568fa9e19c ("vpci: fix deferral of long operations")
 
-> >
-> > But even if we restrict to dom0, have you checked that none of the
-> > SMCs use buffers?
-> I haven't found any such instances in the Linux kernel where a buffer is =
-used.
-> Adding a call filtering like suggested below additions of such functions =
-can be
-> discovered and adapted for if they would show up later.
-> >
-> > Rather than providing a blanket forward, to me it sounds more like you
-> > want to provide an allowlist of the SMCs. This is more futureproof and
-> > avoid the risk to expose unsafe SMCs to any domain.
-> >
-> > For an example, you can have a look at the EEMI mediator for Xilinx.
->=20
-> Ack. Do you prefer to see only on SMCCC service level or also on function
-> level? (a1 register, per description earlier)
-> >
-> > Cheers,
-> >
->=20
-> Thanks! // John Ernberg
+my current understanding is: when the guest toggles memory decoding, the guest vcpu doesn't resume execution until vpci_process_pending() and modify_decoding() have finished. So I think the guest should see a consistent state of the register, unless it was trying to read from a different vcpu than the one doing the writing.
+
+Regardless, if the guest did have an opportunity to successfully read the partially updated state of the register, I'm not really spotting what part of the spec that would be a violation of. PCIe 6.1 has this description regarding the bit: "When this bit is Set" and "When this bit is Clear" the device will decode (or not) memory accesses. The spec doesn't seem to distinguish whether the host or the device itself is the one to set/clear the bit. One might even try to argue the opposite: allowing the bit to be toggled before the device reflects the change would be a violation of spec. Since the spec is ambiguous in this regard, I don't think either argument is particularly strong.
+
+Chesterton's fence: the logic for deferring the update of PCI_COMMAND_MEMORY in guest_cmd was added between v10 and v11 of this series. I went back to look at the review comments on v10 [1], but the rationale is still not entirely clear to me. At the end of the day, with the information I have at hand, I suspect it would be fine either way (whether updating guest_cmd is deferred or not). If no other info comes to light, I'm leaning toward not deferring because it would be simpler to update the bit right away in cmd_write().
+
+[1] https://lore.kernel.org/xen-devel/ZVy73iJ3E8nJHvgf@macbook.local/
+
+> 
+>> @@ -843,6 +885,15 @@ static int cf_check init_header(struct pci_dev *pdev)
+>>      if ( cmd & PCI_COMMAND_MEMORY )
+>>          pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd & ~PCI_COMMAND_MEMORY);
+>>  
+>> +    /*
+>> +     * Clear PCI_COMMAND_MEMORY and PCI_COMMAND_IO for DomUs, so they will
+>> +     * always start with memory decoding disabled and to ensure that we will not
+>> +     * call modify_bars() at the end of this function.
+>> +     */
+>> +    if ( !is_hwdom )
+>> +        cmd &= ~(PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
+>> +    header->guest_cmd = cmd;
+> 
+> With PCI_COMMAND_MEMORY clear, the hw reg won't further be written on the
+> success return path. Yet wouldn't we better clear PCI_COMMAND_IO also in
+> hardware (until we properly support it)?
+
+Yes, I'll clear PCI_COMMAND_IO in hardware too
+
+> 
+> I also think the insertion point for the new code isn't well chosen: The
+> comment just out of context indicates that the code in context above is
+> connected to the subsequent code. Whereas the addition is not.
+
+I'll rearrange it
+
+> 
+>> --- a/xen/drivers/vpci/msi.c
+>> +++ b/xen/drivers/vpci/msi.c
+>> @@ -70,6 +70,15 @@ static void cf_check control_write(
+>>  
+>>          if ( vpci_msi_arch_enable(msi, pdev, vectors) )
+>>              return;
+>> +
+>> +        /*
+>> +         * Make sure domU doesn't enable INTx while enabling MSI.
+>> +         */
+> 
+> Nit: This ought to be a single line comment, just like ...
+
+OK, I'll make it a single line
+
+> 
+>> +        if ( !is_hardware_domain(pdev->domain) )
+>> +        {
+>> +            pci_intx(pdev, false);
+>> +            pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
+>> +        }
+>>      }
+>>      else
+>>          vpci_msi_arch_disable(msi, pdev);
+>> --- a/xen/drivers/vpci/msix.c
+>> +++ b/xen/drivers/vpci/msix.c
+>> @@ -135,6 +135,13 @@ static void cf_check control_write(
+>>          }
+>>      }
+>>  
+>> +    /* Make sure domU doesn't enable INTx while enabling MSI-X. */
+>> +    if ( new_enabled && !msix->enabled && !is_hardware_domain(pdev->domain) )
+>> +    {
+>> +        pci_intx(pdev, false);
+>> +        pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
+>> +    }
+> 
+> ... the similar code here has it.
+> 
+> In both cases, is it really appropriate to set the bit in guest view?
+
+I added this based on Roger's comment at [2]. Roger, what do you think? I don't believe QEMU updates the guest view in this manner.
+
+[2] https://lore.kernel.org/xen-devel/ZLqI65gmNj1XDBm4@MacBook-Air-de-Roger.local/
 
