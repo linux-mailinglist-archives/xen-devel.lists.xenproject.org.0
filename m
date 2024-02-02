@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0176846903
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Feb 2024 08:08:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674808.1049983 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38B448469DE
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Feb 2024 08:56:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674852.1050009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVner-0008Q0-UP; Fri, 02 Feb 2024 07:08:17 +0000
+	id 1rVoOl-0006h3-Os; Fri, 02 Feb 2024 07:55:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674808.1049983; Fri, 02 Feb 2024 07:08:17 +0000
+Received: by outflank-mailman (output) from mailman id 674852.1050009; Fri, 02 Feb 2024 07:55:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVner-0008Mo-Rc; Fri, 02 Feb 2024 07:08:17 +0000
-Received: by outflank-mailman (input) for mailman id 674808;
- Fri, 02 Feb 2024 07:08:16 +0000
+	id 1rVoOl-0006f4-Ld; Fri, 02 Feb 2024 07:55:43 +0000
+Received: by outflank-mailman (input) for mailman id 674852;
+ Fri, 02 Feb 2024 07:55:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WBRZ=JL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rVneq-0008Mi-U9
- for xen-devel@lists.xenproject.org; Fri, 02 Feb 2024 07:08:16 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1rVoOj-0006ey-Q4
+ for xen-devel@lists.xenproject.org; Fri, 02 Feb 2024 07:55:41 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d5c07227-c199-11ee-8a43-1f161083a0e0;
- Fri, 02 Feb 2024 08:08:15 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a2f22bfb4e6so245034366b.0
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 23:08:15 -0800 (PST)
+ id 7579f229-c1a0-11ee-8a43-1f161083a0e0;
+ Fri, 02 Feb 2024 08:55:40 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id
+ a640c23a62f3a-a318ccfe412so197398166b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 23:55:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e25-20020a170906045900b00a3595d6c358sm565046eja.36.2024.02.01.23.08.14
+ dc20-20020a170906c7d400b00a36cd9624c0sm610402ejb.95.2024.02.01.23.55.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 23:08:14 -0800 (PST)
+ Thu, 01 Feb 2024 23:55:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5c07227-c199-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: 7579f229-c1a0-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706857695; x=1707462495; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qut6hrSVzJQhMvY4HslmBnFgt2PyOl+xHe7+bdJSOB0=;
-        b=YmzKSraLy0CUgF5772CygelCgbswZrSjwASKyYg+fYjOLs2ilZDAd9iIMJeOd9LIkL
-         JnbRBCdq8nxsqnMTJV0th4wKs9oDtMbBDPwbEf+rVUozcb4krsBj6WMqXHhlOrZGJ6mn
-         tl2+7N0BEq8aNgi3jVP1p0tADJvrmYD8uvaXeJrLyj5X+aQWtcFkCzHKQDLq6/ZEOOa+
-         0LPdTCNx8p1vM2yPPOrn/nHncmX8dW/uct40fqAAuZzVic5xK7LMxVBP5N+bwaspXLFc
-         IeBLTqPb+ZM6+UdyHmgXrPNcXnGjRX1+TMr+fVRN/tNyUtV99mqGrxldRgzDu86H5PBp
-         bS/g==
+        d=suse.com; s=google; t=1706860540; x=1707465340; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=uyMkE39StgLvA3SInVPI0AARfSkny9Aun6vln2isN24=;
+        b=caCr4Ta9mmssafIb6p4wAmjnImJ7nBGHRKZfaVxDX3MLoKXx5cC2xK/A5vqGF/63vV
+         Q5L2rZS9RR5Igz2C+SWVLrskXbz3yLYAj0fN2c3v4Ml5swRGJaR2FyMLkiiapBGuBmHa
+         SsL7ZBSJd7UbwZyZEOjOf28j74ufMSHvYHHhoAuj9kttzxS1Xqifb2RqQTRu1TBWlHNn
+         JtzUcfUzBvGjDzf5d9JAGvpGATxpiuhPRazmo/1hRDvBev3SyJ8tNDOK/9x244eXxAwZ
+         rCY3aB0xht7Vf6hA9XJbzjWNzljfYO5chCNv8aZjLVwn4wmnWzL21Ar6WJRbbFSVKbH7
+         NpbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706857695; x=1707462495;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qut6hrSVzJQhMvY4HslmBnFgt2PyOl+xHe7+bdJSOB0=;
-        b=SxqRd7lEguaMINR5zpjgfUU5lKx1OorS8f+KQyT0OKQwA/NkC3EZSyp42Z1YFzHLad
-         mT9SjEyPP5FLYdvvqzouLJV+jGtCznRU900OT9h48rDk0qOQsrm42OHF/GCwpz9CSLSZ
-         ZcmdSecIT50Gsotm0CUx1JI6E8WmVNv3vdntgA/aCreBZOwqpek55Dk87y0PFycoI4JI
-         mtBXd0p0wUCCn+Udb4qMeJo0TB3KTO50H6FaHLD2OcOgICClSRZ8cD5yJvYRHDoNd8Eh
-         5J0OsdnVHRyfnUhR/5ex/TGCTf7gV23EmRXMYG0RqGxs+b7+tNgy9j+zvxu4CUOU0JGX
-         L8lA==
-X-Gm-Message-State: AOJu0Yyg8Run4vQxzUMJNJ9v7YkOH73qW/XZWZixplYArWmFzXpPy/K8
-	SAuRki9hY74M+jDNnwlbTBu17ZUVDeO2XHbh5qQLa3gbHON3OFKu0zCTvXXBeQ==
-X-Google-Smtp-Source: AGHT+IF8QUpHOuWGL26Obv9O3MUPTg9JAFlAEzuov8NWx6XZwsj8bBFrGCfH5gDhYcQegapQChvSMA==
-X-Received: by 2002:a17:906:1b57:b0:a31:2119:90d7 with SMTP id p23-20020a1709061b5700b00a31211990d7mr4828947ejg.38.1706857695063;
-        Thu, 01 Feb 2024 23:08:15 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCU+wUiKxQTdHpr+cTlfe/Zp7o489Qh6xsY2+6KaAXjdb+DSy05eBkT0eYtDuE+W8pOwslGeewWtxtCTVkXuoiUAzVAComsNRuh17kgWCPfVRN9hOWN+2Ut7mRA+hpjVpoCHqaY8mBm46dfn/IpbG3J1
-Message-ID: <578a6845-6046-4d15-88a8-8a34936095a7@suse.com>
-Date: Fri, 2 Feb 2024 08:08:13 +0100
+        d=1e100.net; s=20230601; t=1706860540; x=1707465340;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=uyMkE39StgLvA3SInVPI0AARfSkny9Aun6vln2isN24=;
+        b=mnYKG4kfJUDxtLoRXfj0axSDhf1MrhPEJbaENK29O2qcXt1uSHAeRuvUTdT7MM3yCl
+         lu0+NJXEQJMTksycNMlHo3rl3nQO24/iedtcvSdwCL14+Nd9NhawctQz8K1t9duR2Wm6
+         VnHAXI2P9upUzGDTRpxZl3xr/X23XqL59/hm1l/HVvjL9K0hvAs7kDUX2umuxEXjQIY4
+         TDFVYe+p2Q5gFznIc20k3v3MZMTBDHTkTpTqrqi9R/pY1usXgpildz4vERoIkfMB/eB/
+         Jq94ZsCGTkO8BcjqPWJY67UMOG2X5bh4dyYx2E0PIvFQdjisp2AvWbLFKHAxxXnsfKum
+         v3qQ==
+X-Gm-Message-State: AOJu0YxihOaSD6rPw6dV8plIF7qnk5lUrsXN5OUFbLERNptI4cB+pfS/
+	arPXHvhGl3qOXzoY7BLxcoshulTrzt2mySrjxweNGjOFZNR+8+2ZquhfGp7a6Q==
+X-Google-Smtp-Source: AGHT+IG4wdKiNu3Gu8m5mk1omt4OcK7bNheqFkPbehysCvBX0GDy6UX6XToxoJbnXJkQK1QxfzXmwA==
+X-Received: by 2002:a17:906:7256:b0:a36:c8fa:45a8 with SMTP id n22-20020a170906725600b00a36c8fa45a8mr978261ejk.24.1706860540122;
+        Thu, 01 Feb 2024 23:55:40 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCWfNhn1syeRgH0Sih+5MJL270DZYyPFO08Dcbc8czQ/EJvByM26xiU5/VVJbjCCTEfz4nCXI+APMIjCy+0V6KFLvryBFiuCXlTLgekNDRA5CUOB0Xt4zqTlKsIQOlLWlPm7+5hz
+Message-ID: <90e22c7c-866f-402a-ac47-6eb0e094fce4@suse.com>
+Date: Fri, 2 Feb 2024 08:55:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Ping: [PATCH] x86/guest: finish conversion to altcall
+Subject: Re: [PATCH] x86: arrange for ENDBR zapping from
+ <vendor>_ctxt_switch_masking()
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <65fb766e-ab5a-49ab-a904-01ee9711d42d@suse.com>
+References: <c19cf600-5971-457b-936d-77a035ab6913@suse.com>
+ <e42ee8c5-10b0-4369-8cc9-7b298fa68ef7@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -112,76 +113,43 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <65fb766e-ab5a-49ab-a904-01ee9711d42d@suse.com>
+In-Reply-To: <e42ee8c5-10b0-4369-8cc9-7b298fa68ef7@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 17.01.2024 10:31, Jan Beulich wrote:
-> While .setup() and .e820_fixup() don't need fiddling with for being run
-> only very early, both .ap_setup() and .resume() want converting too:
-> This way both pre-filled struct hypervisor_ops instances can become
-> __initconst_cf_clobber, thus allowing to eliminate up to 5 more ENDBR
-> (configuration dependent) during the 2nd phase of alternatives patching.
+On 01.02.2024 22:12, Andrew Cooper wrote:
+> On 16/01/2024 4:53 pm, Jan Beulich wrote:
+>> While altcall is already used for them, the functions want announcing in
+>> .init.rodata.cf_clobber, even if the resulting static variables aren't
+>> otherwise used.
+>>
+>> While doing this also move ctxt_switch_masking to .data.ro_after_init.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> While fiddling with section annotations here, also move "ops" itself to
-> .data.ro_after_init.
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Thanks.
+
+>> --- a/xen/arch/x86/cpu/amd.c
+>> +++ b/xen/arch/x86/cpu/amd.c
+>> @@ -258,6 +258,11 @@ static void cf_check amd_ctxt_switch_mas
+>>  #undef LAZY
+>>  }
+>>  
+>> +#ifdef CONFIG_XEN_IBT /* Announce the function to ENDBR clobbering logic. */
+>> +static const typeof(ctxt_switch_masking) __initconst_cf_clobber __used csm =
+>> +    amd_ctxt_switch_masking;
+>> +#endif
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> If we gain more of these, I suspect we'll want a wrapper for it.
+> 
+> Irritatingly you can't pass parameters into global asm, because the nice
+> way to do this would be an _ASM_PTR in a pushsection.
 
-May I ask for an ack (or otherwise)?
+While I'm not convinced resorting to asm() here would indeed be a good thing,
+for very many years I've been carrying a gcc change to permit exactly this.
+I don't even recall anymore why it wasn't liked upstream.
 
-Thanks, Jan
-
-> --- a/xen/arch/x86/guest/hyperv/hyperv.c
-> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
-> @@ -207,7 +207,7 @@ static int cf_check flush_tlb(
->      return hyperv_flush_tlb(mask, va, flags);
->  }
->  
-> -static const struct hypervisor_ops __initconstrel ops = {
-> +static const struct hypervisor_ops __initconst_cf_clobber ops = {
->      .name = "Hyper-V",
->      .setup = setup,
->      .ap_setup = ap_setup,
-> --- a/xen/arch/x86/guest/hypervisor.c
-> +++ b/xen/arch/x86/guest/hypervisor.c
-> @@ -13,7 +13,7 @@
->  #include <asm/cache.h>
->  #include <asm/guest.h>
->  
-> -static struct hypervisor_ops __read_mostly ops;
-> +static struct hypervisor_ops __ro_after_init ops;
->  
->  const char *__init hypervisor_probe(void)
->  {
-> @@ -49,7 +49,7 @@ void __init hypervisor_setup(void)
->  int hypervisor_ap_setup(void)
->  {
->      if ( ops.ap_setup )
-> -        return ops.ap_setup();
-> +        return alternative_call(ops.ap_setup);
->  
->      return 0;
->  }
-> @@ -57,7 +57,7 @@ int hypervisor_ap_setup(void)
->  void hypervisor_resume(void)
->  {
->      if ( ops.resume )
-> -        ops.resume();
-> +        alternative_vcall(ops.resume);
->  }
->  
->  void __init hypervisor_e820_fixup(void)
-> --- a/xen/arch/x86/guest/xen/xen.c
-> +++ b/xen/arch/x86/guest/xen/xen.c
-> @@ -318,7 +318,7 @@ static int cf_check flush_tlb(
->      return xen_hypercall_hvm_op(HVMOP_flush_tlbs, NULL);
->  }
->  
-> -static const struct hypervisor_ops __initconstrel ops = {
-> +static const struct hypervisor_ops __initconst_cf_clobber ops = {
->      .name = "Xen",
->      .setup = setup,
->      .ap_setup = ap_setup,
-
+Jan
 
