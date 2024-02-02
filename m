@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60FE78468AD
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Feb 2024 07:58:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674804.1049973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0176846903
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Feb 2024 08:08:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674808.1049983 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVnUJ-0006aS-V9; Fri, 02 Feb 2024 06:57:23 +0000
+	id 1rVner-0008Q0-UP; Fri, 02 Feb 2024 07:08:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674804.1049973; Fri, 02 Feb 2024 06:57:23 +0000
+Received: by outflank-mailman (output) from mailman id 674808.1049983; Fri, 02 Feb 2024 07:08:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVnUJ-0006Xi-S2; Fri, 02 Feb 2024 06:57:23 +0000
-Received: by outflank-mailman (input) for mailman id 674804;
- Fri, 02 Feb 2024 06:57:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rVner-0008Mo-Rc; Fri, 02 Feb 2024 07:08:17 +0000
+Received: by outflank-mailman (input) for mailman id 674808;
+ Fri, 02 Feb 2024 07:08:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=WBRZ=JL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rVnUH-0006Oy-FE
- for xen-devel@lists.xenproject.org; Fri, 02 Feb 2024 06:57:21 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4d054f50-c198-11ee-98f5-efadbce2ee36;
- Fri, 02 Feb 2024 07:57:16 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a2f79e79f0cso241742366b.2
- for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 22:57:16 -0800 (PST)
+ id 1rVneq-0008Mi-U9
+ for xen-devel@lists.xenproject.org; Fri, 02 Feb 2024 07:08:16 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d5c07227-c199-11ee-8a43-1f161083a0e0;
+ Fri, 02 Feb 2024 08:08:15 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a2f22bfb4e6so245034366b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Feb 2024 23:08:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- jl17-20020a17090775d100b00a35e26d86dfsm551834ejc.201.2024.02.01.22.57.15
+ e25-20020a170906045900b00a3595d6c358sm565046eja.36.2024.02.01.23.08.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 01 Feb 2024 22:57:15 -0800 (PST)
+ Thu, 01 Feb 2024 23:08:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d054f50-c198-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: d5c07227-c199-11ee-8a43-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1706857036; x=1707461836; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=kZdjfu8oAFQ8X474kws54qQg6FUjkj9qrq3asMu0rq0=;
-        b=gFtsKi7XlrUiKuLnxLOvRjbLDLYcBBV3osy8p1EiaJQYG+gWm09+aQXMbDJYSfeivn
-         dXC/cXUUMTDVzhRnvlU39O9GPHnUPTxydlTjPkLfAg+uA4dGBzIKvS1fry003hy5kVD5
-         Ht+v65qcbf/HX6sXWbITvLBrCufOUtsNIAMVm0fYwg4dxEJYRPSSUw2bK3L8agr+uFkB
-         sH3TI1zYtoRXscwgRZ9IeE/ULwY/Y+YYCbqgMLRcOPaPAL+yPRVq9AYDVpYAEmHFSxTq
-         O0EauO3l+WA90QCZp1ObJKp0tZYin3pgZCJsOPj/XjTJ+fBT2FXmeahrlaEn+6etVPPc
-         WaCg==
+        d=suse.com; s=google; t=1706857695; x=1707462495; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=qut6hrSVzJQhMvY4HslmBnFgt2PyOl+xHe7+bdJSOB0=;
+        b=YmzKSraLy0CUgF5772CygelCgbswZrSjwASKyYg+fYjOLs2ilZDAd9iIMJeOd9LIkL
+         JnbRBCdq8nxsqnMTJV0th4wKs9oDtMbBDPwbEf+rVUozcb4krsBj6WMqXHhlOrZGJ6mn
+         tl2+7N0BEq8aNgi3jVP1p0tADJvrmYD8uvaXeJrLyj5X+aQWtcFkCzHKQDLq6/ZEOOa+
+         0LPdTCNx8p1vM2yPPOrn/nHncmX8dW/uct40fqAAuZzVic5xK7LMxVBP5N+bwaspXLFc
+         IeBLTqPb+ZM6+UdyHmgXrPNcXnGjRX1+TMr+fVRN/tNyUtV99mqGrxldRgzDu86H5PBp
+         bS/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706857036; x=1707461836;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=kZdjfu8oAFQ8X474kws54qQg6FUjkj9qrq3asMu0rq0=;
-        b=e1u9QQFXtkliJKDJ5nvKYeNJrXqaphp384Bq7KRXQPEU9yoWfwOGWGr1ZL6bNhfVlT
-         wTBalbyovnDDt3+qnUhaPRaA9RIHZhP0glHS6GKdIhcaMIUhkF1zsKrsvLuB8CEkiObD
-         VAi0VWxcnyg+y0GBIJJZkIsgDMTfydYYRxWzUtM56RgGxWhGI8estSiszSnMlFnn5KId
-         aTJgl0+1ztkFbrTJCxHIvZc35sHePS7eqp3SpKB/eLJlqCkJS42KT9GDsqbBq6J+w779
-         8eTWPrE1x5Ysc1+ImIBuw7LAVGEOBj3iHBShPtba+GB7+qKQHDycN/RdyNTAxE1yLir+
-         FioA==
-X-Gm-Message-State: AOJu0YzHpVYk/E3XiZWUbntrS0NGihd1xb+NCaAOPR5pCcbwsS0AbLUh
-	aahpF/0hpWhOXWXEQAaegcMglAMEVv36bpaDssckjbEWcbQCg3SQxgpH15un1w==
-X-Google-Smtp-Source: AGHT+IExR5qZZrfPvrU/IqwjJ19q+7TVxlRszalZ3FzsrP3NwvfF7qWgf9e+xw9hJm/JfojtBmkBiQ==
-X-Received: by 2002:a17:906:5fd7:b0:a35:ba57:42bc with SMTP id k23-20020a1709065fd700b00a35ba5742bcmr5234974ejv.64.1706857036195;
-        Thu, 01 Feb 2024 22:57:16 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCV2wagA81I2EirX3rvEEaNf//FvaM1mOUpFsOxwjO98GHHbKF/3lCYGNlUVHKU5w1Mq4auhl4hOz+jr1e3YbBvOQMfMpt2cgoVl90wXolyEMH/G84OTWBun8pKOV+Oz4wqKsXPcvWGn5c5Jb5LHS1NzgHRd4gKUzp1f1tn1zaXUL8Q7
-Message-ID: <27632e93-482d-459d-9dec-12429a02f588@suse.com>
-Date: Fri, 2 Feb 2024 07:57:14 +0100
+        d=1e100.net; s=20230601; t=1706857695; x=1707462495;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qut6hrSVzJQhMvY4HslmBnFgt2PyOl+xHe7+bdJSOB0=;
+        b=SxqRd7lEguaMINR5zpjgfUU5lKx1OorS8f+KQyT0OKQwA/NkC3EZSyp42Z1YFzHLad
+         mT9SjEyPP5FLYdvvqzouLJV+jGtCznRU900OT9h48rDk0qOQsrm42OHF/GCwpz9CSLSZ
+         ZcmdSecIT50Gsotm0CUx1JI6E8WmVNv3vdntgA/aCreBZOwqpek55Dk87y0PFycoI4JI
+         mtBXd0p0wUCCn+Udb4qMeJo0TB3KTO50H6FaHLD2OcOgICClSRZ8cD5yJvYRHDoNd8Eh
+         5J0OsdnVHRyfnUhR/5ex/TGCTf7gV23EmRXMYG0RqGxs+b7+tNgy9j+zvxu4CUOU0JGX
+         L8lA==
+X-Gm-Message-State: AOJu0Yyg8Run4vQxzUMJNJ9v7YkOH73qW/XZWZixplYArWmFzXpPy/K8
+	SAuRki9hY74M+jDNnwlbTBu17ZUVDeO2XHbh5qQLa3gbHON3OFKu0zCTvXXBeQ==
+X-Google-Smtp-Source: AGHT+IF8QUpHOuWGL26Obv9O3MUPTg9JAFlAEzuov8NWx6XZwsj8bBFrGCfH5gDhYcQegapQChvSMA==
+X-Received: by 2002:a17:906:1b57:b0:a31:2119:90d7 with SMTP id p23-20020a1709061b5700b00a31211990d7mr4828947ejg.38.1706857695063;
+        Thu, 01 Feb 2024 23:08:15 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCU+wUiKxQTdHpr+cTlfe/Zp7o489Qh6xsY2+6KaAXjdb+DSy05eBkT0eYtDuE+W8pOwslGeewWtxtCTVkXuoiUAzVAComsNRuh17kgWCPfVRN9hOWN+2Ut7mRA+hpjVpoCHqaY8mBm46dfn/IpbG3J1
+Message-ID: <578a6845-6046-4d15-88a8-8a34936095a7@suse.com>
+Date: Fri, 2 Feb 2024 08:08:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen: Swap order of actions in the FREE*() macros
+Subject: Ping: [PATCH] x86/guest: finish conversion to altcall
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240202003942.647599-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
+To: Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <65fb766e-ab5a-49ab-a904-01ee9711d42d@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -111,39 +112,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240202003942.647599-1-andrew.cooper3@citrix.com>
+In-Reply-To: <65fb766e-ab5a-49ab-a904-01ee9711d42d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.02.2024 01:39, Andrew Cooper wrote:
-> Wherever possible, it is a good idea to NULL out the visible reference to an
-> object prior to freeing it.  The FREE*() macros already collect together both
-> parts, making it easy to adjust.
+On 17.01.2024 10:31, Jan Beulich wrote:
+> While .setup() and .e820_fixup() don't need fiddling with for being run
+> only very early, both .ap_setup() and .resume() want converting too:
+> This way both pre-filled struct hypervisor_ops instances can become
+> __initconst_cf_clobber, thus allowing to eliminate up to 5 more ENDBR
+> (configuration dependent) during the 2nd phase of alternatives patching.
 > 
-> This has a marginal code generation improvement, as some of the calls to the
-> free() function can be tailcall optimised.
+> While fiddling with section annotations here, also move "ops" itself to
+> .data.ro_after_init.
 > 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+May I ask for an ack (or otherwise)?
 
-However, ...
+Thanks, Jan
 
-> --- a/xen/include/xen/mm.h
-> +++ b/xen/include/xen/mm.h
-> @@ -92,8 +92,9 @@ bool scrub_free_pages(void);
+> --- a/xen/arch/x86/guest/hyperv/hyperv.c
+> +++ b/xen/arch/x86/guest/hyperv/hyperv.c
+> @@ -207,7 +207,7 @@ static int cf_check flush_tlb(
+>      return hyperv_flush_tlb(mask, va, flags);
+>  }
 >  
->  /* Free an allocation, and zero the pointer to it. */
->  #define FREE_XENHEAP_PAGES(p, o) do { \
-> -    free_xenheap_pages(p, o);         \
-> +    void *_ptr_ = (p);                \
+> -static const struct hypervisor_ops __initconstrel ops = {
+> +static const struct hypervisor_ops __initconst_cf_clobber ops = {
+>      .name = "Hyper-V",
+>      .setup = setup,
+>      .ap_setup = ap_setup,
+> --- a/xen/arch/x86/guest/hypervisor.c
+> +++ b/xen/arch/x86/guest/hypervisor.c
+> @@ -13,7 +13,7 @@
+>  #include <asm/cache.h>
+>  #include <asm/guest.h>
+>  
+> -static struct hypervisor_ops __read_mostly ops;
+> +static struct hypervisor_ops __ro_after_init ops;
+>  
+>  const char *__init hypervisor_probe(void)
+>  {
+> @@ -49,7 +49,7 @@ void __init hypervisor_setup(void)
+>  int hypervisor_ap_setup(void)
+>  {
+>      if ( ops.ap_setup )
+> -        return ops.ap_setup();
+> +        return alternative_call(ops.ap_setup);
+>  
+>      return 0;
+>  }
+> @@ -57,7 +57,7 @@ int hypervisor_ap_setup(void)
+>  void hypervisor_resume(void)
+>  {
+>      if ( ops.resume )
+> -        ops.resume();
+> +        alternative_vcall(ops.resume);
+>  }
+>  
+>  void __init hypervisor_e820_fixup(void)
+> --- a/xen/arch/x86/guest/xen/xen.c
+> +++ b/xen/arch/x86/guest/xen/xen.c
+> @@ -318,7 +318,7 @@ static int cf_check flush_tlb(
+>      return xen_hypercall_hvm_op(HVMOP_flush_tlbs, NULL);
+>  }
+>  
+> -static const struct hypervisor_ops __initconstrel ops = {
+> +static const struct hypervisor_ops __initconst_cf_clobber ops = {
+>      .name = "Xen",
+>      .setup = setup,
+>      .ap_setup = ap_setup,
 
-... why a trailing _and_ a leading underscore? Sooner or later we'll
-need to get rid of the leading ones anyway aiui (for Misra), here
-and elsewhere. With it omitted right away (also below):
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
