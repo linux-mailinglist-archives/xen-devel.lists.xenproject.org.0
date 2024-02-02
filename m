@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28DC6846C41
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Feb 2024 10:39:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.674922.1050122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBEF5846C3E
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Feb 2024 10:39:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.674923.1050133 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVq0S-0006aw-GF; Fri, 02 Feb 2024 09:38:44 +0000
+	id 1rVq0T-0006sT-RE; Fri, 02 Feb 2024 09:38:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 674922.1050122; Fri, 02 Feb 2024 09:38:44 +0000
+Received: by outflank-mailman (output) from mailman id 674923.1050133; Fri, 02 Feb 2024 09:38:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rVq0S-0006Zf-Ci; Fri, 02 Feb 2024 09:38:44 +0000
-Received: by outflank-mailman (input) for mailman id 674922;
+	id 1rVq0T-0006pt-Lt; Fri, 02 Feb 2024 09:38:45 +0000
+Received: by outflank-mailman (input) for mailman id 674923;
  Fri, 02 Feb 2024 09:38:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lYVL=JL=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1rVq0R-0006GX-3x
+ id 1rVq0R-0006GX-Hb
  for xen-devel@lists.xenproject.org; Fri, 02 Feb 2024 09:38:43 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d8f2270f-c1ae-11ee-8a43-1f161083a0e0;
+ id d962f27c-c1ae-11ee-8a43-1f161083a0e0;
  Fri, 02 Feb 2024 10:38:41 +0100 (CET)
 Received: from beta.station (net-188-218-67-100.cust.vodafonedsl.it
  [188.218.67.100])
- by support.bugseng.com (Postfix) with ESMTPSA id 97E9E4EE073D;
- Fri,  2 Feb 2024 10:38:39 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id 5D9C64EE073E;
+ Fri,  2 Feb 2024 10:38:40 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,97 +40,979 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8f2270f-c1ae-11ee-8a43-1f161083a0e0
+X-Inumbo-ID: d962f27c-c1ae-11ee-8a43-1f161083a0e0
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 To: xen-devel@lists.xenproject.org
 Cc: consulting@bugseng.com,
 	sstabellini@kernel.org,
+	Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
 	Simone Ballarin <simone.ballarin@bugseng.com>,
-	Jan Beulich <jbeulich@suse.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v3 3/4] xen/x86: address violations of MISRA C:2012 Rule 13.1
-Date: Fri,  2 Feb 2024 10:37:46 +0100
-Message-Id: <7e54cfeaffea70f567d248779c092c4005e93a36.1706700228.git.maria.celeste.cesario@bugseng.com>
+Subject: [PATCH v3 4/4] eclair: add and manage properties
+Date: Fri,  2 Feb 2024 10:37:47 +0100
+Message-Id: <bc9bdf2b16a6131f476e6e1f491cf04629f431cf.1706700228.git.maria.celeste.cesario@bugseng.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1706700228.git.maria.celeste.cesario@bugseng.com>
 References: <cover.1706700228.git.maria.celeste.cesario@bugseng.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rule 13.1: Initializer lists shall not contain persistent side effects
+From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
 
-This patch moves expressions with side-effects into new variables before
-the initializer lists.
+Add JSON file containing properties.
+Add rst file containing explanation on how to update properties.json.
+Add instruction to eclair_analysis/prepare.sh to parse the JSON file.
 
-No functional changes.
-
-Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
 ---
- xen/arch/x86/io_apic.c | 9 ++++++---
- xen/arch/x86/mpparse.c | 3 ++-
- xen/arch/x86/setup.c   | 3 ++-
- 3 files changed, 10 insertions(+), 5 deletions(-)
+ .../eclair_analysis/ECLAIR/analysis.ecl       |   1 +
+ automation/eclair_analysis/prepare.sh         |   2 +
+ docs/properties.json                          | 841 ++++++++++++++++++
+ docs/properties.rst                           |  58 ++
+ 4 files changed, 902 insertions(+)
+ create mode 100644 docs/properties.json
+ create mode 100644 docs/properties.rst
 
-diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-index b48a642465..4a6ab85689 100644
---- a/xen/arch/x86/io_apic.c
-+++ b/xen/arch/x86/io_apic.c
-@@ -2559,9 +2559,12 @@ integer_param("max_gsi_irqs", max_gsi_irqs);
+diff --git a/automation/eclair_analysis/ECLAIR/analysis.ecl b/automation/eclair_analysis/ECLAIR/analysis.ecl
+index a604582da3..684c5b0b39 100644
+--- a/automation/eclair_analysis/ECLAIR/analysis.ecl
++++ b/automation/eclair_analysis/ECLAIR/analysis.ecl
+@@ -30,6 +30,7 @@ if(not(scheduled_analysis),
+ -eval_file=deviations.ecl
+ -eval_file=call_properties.ecl
+ -eval_file=tagging.ecl
++-eval_file=properties.ecl
+ -eval_file=concat(set,".ecl")
  
- static __init bool bad_ioapic_register(unsigned int idx)
- {
--    union IO_APIC_reg_00 reg_00 = { .raw = io_apic_read(idx, 0) };
--    union IO_APIC_reg_01 reg_01 = { .raw = io_apic_read(idx, 1) };
--    union IO_APIC_reg_02 reg_02 = { .raw = io_apic_read(idx, 2) };
-+    uint32_t reg_00_raw = io_apic_read(idx, 0);
-+    uint32_t reg_01_raw = io_apic_read(idx, 1);
-+    uint32_t reg_02_raw = io_apic_read(idx, 2);
-+    union IO_APIC_reg_00 reg_00 = { .raw = reg_00_raw };
-+    union IO_APIC_reg_01 reg_01 = { .raw = reg_01_raw };
-+    union IO_APIC_reg_02 reg_02 = { .raw = reg_02_raw };
- 
-     if ( reg_00.raw == -1 && reg_01.raw == -1 && reg_02.raw == -1 )
-     {
-diff --git a/xen/arch/x86/mpparse.c b/xen/arch/x86/mpparse.c
-index d8ccab2449..81a819403b 100644
---- a/xen/arch/x86/mpparse.c
-+++ b/xen/arch/x86/mpparse.c
-@@ -798,11 +798,12 @@ void __init mp_register_lapic_address (
- 
- int mp_register_lapic(u32 id, bool enabled, bool hotplug)
- {
-+	u32 apic = apic_read(APIC_LVR);
- 	struct mpc_config_processor processor = {
- 		.mpc_type = MP_PROCESSOR,
- 		/* Note: We don't fill in fields not consumed anywhere. */
- 		.mpc_apicid = id,
--		.mpc_apicver = GET_APIC_VERSION(apic_read(APIC_LVR)),
-+		.mpc_apicver = GET_APIC_VERSION(apic),
- 		.mpc_cpuflag = (enabled ? CPU_ENABLED : 0) |
- 			       (id == boot_cpu_physical_apicid ?
- 				CPU_BOOTPROCESSOR : 0),
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index ee682dd136..886031d86a 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -885,13 +885,14 @@ static struct domain *__init create_dom0(const module_t *image,
- {
-     static char __initdata cmdline[MAX_GUEST_CMDLINE];
- 
-+    unsigned int max_vcpus = dom0_max_vcpus();
-     struct xen_domctl_createdomain dom0_cfg = {
-         .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
-         .max_evtchn_port = -1,
-         .max_grant_frames = -1,
-         .max_maptrack_frames = -1,
-         .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
--        .max_vcpus = dom0_max_vcpus(),
-+        .max_vcpus = max_vcpus,
-         .arch = {
-             .misc_flags = opt_dom0_msr_relaxed ? XEN_X86_MSR_RELAXED : 0,
-         },
+ -doc="Hide reports in external code."
+diff --git a/automation/eclair_analysis/prepare.sh b/automation/eclair_analysis/prepare.sh
+index fe9d16e48e..47b2a2f32a 100755
+--- a/automation/eclair_analysis/prepare.sh
++++ b/automation/eclair_analysis/prepare.sh
+@@ -43,4 +43,6 @@ fi
+     make -f "${script_dir}/Makefile.prepare" prepare
+     # Translate the /* SAF-n-safe */ comments into ECLAIR CBTs
+     scripts/xen-analysis.py --run-eclair --no-build --no-clean
++    # Translate function-properties.json into ECLAIR properties
++    python3 ${script_dir}/propertyparser.py
+ )
+diff --git a/docs/properties.json b/docs/properties.json
+new file mode 100644
+index 0000000000..74058297b5
+--- /dev/null
++++ b/docs/properties.json
+@@ -0,0 +1,841 @@
++{
++   "version": "1.0",
++   "content": [
++      {
++         "type": "function",
++         "value": "^printk.*$",
++         "properties":{
++            "pointee_write": "1..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^debugtrace_printk.*$",
++         "properties":{
++            "pointee_write": "1..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^panic.*$",
++         "properties":{
++            "pointee_write": "1..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^domain_crash$",
++         "properties":{
++            "pointee_write": "2..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^(g?d|mm_)?printk$",
++         "properties":{
++            "pointee_write": "2..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^guest_bug_on_failed$",
++         "properties":{
++            "pointee_write": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^spin_lock_init_prof$",
++         "properties":{
++            "pointee_write": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^sched_test_func$",
++         "properties":{
++            "pointee_write": "1..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^dev_(info|warn)$",
++         "properties":{
++            "pointee_write": "1..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^PAGING_DEBUG$",
++         "properties":{
++            "pointee_write": "1..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^ACPI_(WARNING|ERROR|INFO)$",
++         "properties":{
++            "pointee_write": "1..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^fdt_get_property_by_offset_.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^read_atomic_size.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^device_tree_get_reg.*$",
++         "properties":{
++            "pointee_write": "4..=always",
++            "pointee_read": "4..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^dt_get_range.*$",
++         "properties":{
++            "pointee_write": "3..=always",
++            "pointee_read": "3..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^parse_static_mem_prop.*$",
++         "properties":{
++            "pointee_write": "2..=always",
++            "pointee_read": "2..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^get_ttbr_and_gran_64bit.*$",
++         "properties":{
++            "pointee_write": "1..2=always",
++            "pointee_read": "1..2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^hvm_emulate_init_once.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^__vmread.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^hvm_pci_decode_addr.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^vpci_mmcfg_decode_addr.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^x86emul_decode.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^unmap_grant_ref.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^arm_smmu_cmdq_build_cmd.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^pci_size_mem_bar.*$",
++         "properties":{
++            "pointee_write": "4=always",
++            "pointee_read": "4=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^_hvm_read_entry.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^hvm_map_guest_frame_rw.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^guest_cpuid.*$",
++         "properties":{
++            "pointee_write": "4=always",
++            "pointee_read": "4=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^epte_get_entry_emt.*$",
++         "properties":{
++            "pointee_write": "5=always",
++            "pointee_read": "5=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^mcheck_mca_logout.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^set_field_in_reg_u32.*$",
++         "properties":{
++            "pointee_write": "5=always",
++            "pointee_read": "5=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^alloc_affinity_masks.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^xasprintf.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^find_non_smt.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^call_rcu.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^getdomaininfo.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^MAPPING_(INSERT|SEARCH)\\(.*$",
++         "properties":{
++            "pointee_write": "2..=always",
++            "pointee_read": "2..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^FormatDec.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^FormatHex.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^p2m_get_ioreq_server.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^elf_memset_unchecked.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^set_iommu_pte_present.*$",
++         "properties":{
++            "pointee_write": "7=always",
++            "pointee_read": "7=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^clear_iommu_pte_present.*$",
++         "properties":{
++            "pointee_write": "4=always",
++            "pointee_read": "4=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^vcpu_runstate_get.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^va_start.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^sgi_target_init.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^get_hw_residencies.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^x86_cpu_policy_to_featureset.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^simple_strtou?ll?\\(.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^msi_compose_msg.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^print_tainted.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^get_hvm_registers.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^x86_insn_modrm.*$",
++         "properties":{
++            "pointee_write": "2..3=always",
++            "pointee_read": "2..3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^cpuid_count_leaf.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^rcu_lock_remote_domain_by_id.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^cpuid_count.*$",
++         "properties":{
++            "pointee_write": "3..=always",
++            "pointee_read": "3..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^.*efi_boot_mem_unused.*$",
++         "properties":{
++            "pointee_write": "1..=always",
++            "pointee_read": "1..=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^collect_time_info.*$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^setup_xstate_comp.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^map_domain_gfn.*$",
++         "properties":{
++            "pointee_read": "5=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^fdt_getprop.*$",
++         "properties":{
++            "pointee_read": "4=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^fdt_get_name.*$",
++         "properties":{
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^fdt_get_property.*$",
++         "properties":{
++            "pointee_read": "4=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^pci_get_host_bridge_segment.*$",
++         "properties":{
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^dt_get_property.*$",
++         "properties":{
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^dt_property_read_u32.*$",
++         "properties":{
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^dt_device_get_paddr.*$",
++         "properties":{
++            "pointee_read": "3..4=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^get_evtchn_dt_property.*$",
++         "properties":{
++            "pointee_write": "2..3=maybe",
++            "pointee_read": "2..3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^setup_chosen_node.*$",
++         "properties":{
++            "pointee_write": "2..3=maybe",
++            "pointee_read": "2..3=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^queue_remove_raw.*$",
++         "properties":{
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^memset$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^va_start$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^memcmp$",
++         "properties":{
++            "pointee_write": "1..2=never",
++            "taken": ""
++         }
++      },
++      {
++         "type": "macro",
++         "value": "^memcpy$",
++         "properties":{
++            "pointee_write": "1=always&&2..=never",
++            "pointee_read": "1=never&&2..=always",
++            "taken": ""
++         }
++      },
++      {
++         "type": "function",
++         "value": "^get_cpu_info.*$",
++         "properties":{
++            "attribute": "pure"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^pdx_to_pfn.*$",
++         "properties":{
++            "attribute": "pure"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^is_pci_passthrough_enabled.*$",
++         "properties":{
++            "attribute": "const"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^get_cycles.*$",
++         "properties":{
++            "attribute": "noeffect"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^msi_gflags.*$",
++         "properties":{
++            "attribute": "const"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^hvm_save_size.*$",
++         "properties":{
++            "attribute": "pure"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^cpu_has.*$",
++         "properties":{
++            "attribute": "pure"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^boot_cpu_has.*$",
++         "properties":{
++            "attribute": "pure"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^get_cpu_info.*$",
++         "properties":{
++            "attribute": "pure"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^put_pte_flags.*$",
++         "properties":{
++            "attribute": "const"
++         }
++      },
++      {
++         "type": "function",
++         "value": "^is_pv_cpu.*$",
++         "properties":{
++            "attribute": "pure"
++         }
++      },
++      {
++         "description": "Property inferred as a consequence of the semantics of device_tree_get_reg",
++         "type": "function",
++         "value": "^acquire_static_memory_bank.*$",
++         "properties":{
++            "pointee_write": "4..=always",
++            "pointee_read": "4..=never",
++            "taken": ""
++         }
++      },
++      {
++         "description": "Property inferred as a consequence of the semantics of dt_set_cell",
++         "type": "function",
++         "value": "^set_interrupt.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "description":"Property inferred as a consequence of the semantics of __p2m_get_mem_access",
++         "type": "function",
++         "value": "^p2m_get_mem_access.*$",
++         "properties":{
++            "pointee_write": "3=always",
++            "pointee_read": "3=never",
++            "taken": ""
++         }
++      },
++      {
++         "description": "This function has alternative definitions with props {write=always,read=never} and {write=never,read=never}",
++         "type": "function",
++         "value": "^alloc_cpumask_var.*$",
++         "properties":{
++            "pointee_write": "1=maybe",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "description": "Property inferred as a consequence of the semantics of alloc_cpumask_var",
++         "type": "function",
++         "value": "^xenctl_bitmap_to_cpumask.*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "description": "The call to bitmap_and causes the pointee of dstp to be always written",
++         "type": "function",
++         "value": "^cpumask_(and|andnot|clear|copy|complement).*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "description": "The call to bitmap_and causes the pointee of dstp to be always written",
++         "type": "function",
++         "value": "^bitmap_(andnot|complement|fill).*$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "description": "The .*copy_(to|from).* helpers all have a memcpy-like expectation that the destination is a copy of the source. Furthermore, their uses do initialize the involved variables as needed by futher uses in the caller.",
++         "type": "macro",
++         "value": "^(__)?(raw_)?copy_from_(paddr|guest|compat)(_offset)?$",
++         "properties":{
++            "pointee_write": "1=always",
++            "pointee_read": "1=never",
++            "taken": ""
++         }
++      },
++      {
++         "description":"The .*copy_(to|from).* helpers all have a memcpy-like expectation that the destination is a copy of the source. Furthermore, their uses do initialize the involved variables as needed by futher uses in the caller.",
++         "type": "macro",
++         "value": "^(__)?copy_to_(guest|compat)(_offset)?$",
++         "properties":{
++            "pointee_write": "2=always",
++            "pointee_read": "2=never",
++            "taken": ""
++         }
++      },
++      {
++         "description": "Functions generated by build_atomic_read cannot be considered pure since the input pointer is volatile, but they do not produce any persistent side effect.",
++         "type": "function",
++         "value": "^read_u(8|16|32|64|int)_atomic.*$",
++         "properties":{
++            "attribute": "noeffect"
++         }
++      },
++      {
++         "description": "Functions generated by TYPE_SAFE are const.",
++         "type": "function",
++         "value": "^(mfn|gfn|pfn)_x\\(.*$",
++         "properties":{
++            "attribute": "const"
++         }
++      },
++      {
++         "description": "Functions generated by TYPE_SAFE are const.",
++         "type": "function",
++         "value": "^_(mfn|gfn|pfn)\\(.*$",
++         "properties":{
++            "attribute": "const"
++         }
++      }
++   ]
++}
+diff --git a/docs/properties.rst b/docs/properties.rst
+new file mode 100644
+index 0000000000..790f1ede1e
+--- /dev/null
++++ b/docs/properties.rst
+@@ -0,0 +1,58 @@
++.. SPDX-License-Identifier: CC-BY-4.0
++
++Properties list for Xen
++=======================
++
++Some functions and macros are found to have properties relevant to 
++the Xen codebase. For this reason, the file docs/properties.json 
++contains all the needed properties.
++
++Here is an example of the properties.json file::
++
++  {
++     "version": "1.0",
++     "content": [
++        {
++           "description": ""
++           "type": "function",       // required
++           "value:": "^printk*.$",   // required
++           "properties":{
++              "pointee_write": "1..2=never",
++              "pointee_read": "",
++              "taken": ""
++              "attribute": ""
++           }
++        }
++     ]
++  }
++
++Here is an explanation of the fields inside an object of the "content" array:
++
++ - description: a brief description of why the properties apply
++ - type: this is the kind of the element called: it may be either ``macro`` or ``function``
++ - value: must be a regex, starting with ^ and ending with $ and matching function fully 
++   qualified name or macro name.
++ - properties: a list of properties applied to said function.
++   Possible values are:
++
++    - pointee_write: indicate the write use for call arguments that correspond to
++      parameters whose pointee types are non-const
++    - pointee_read: indicate the read use for call arguments that correspond to
++      parameters whose pointee types are non-const
++    - taken: indicates that the specified address arguments may be stored in objects
++      that persist after the function has ceased to exist (excluding the returned value);
++      address arguments not listed are never taken
++    - attribute: attributes a function may have. Possible values are pure, const and noeffect.
++
++   pointee_read and pointee_write use a specific kind of argument, structured as pointee_arg=rw:
++
++    - pointee_arg: argument index for callee. Index 0 refers to the return value,
++      the indices of the arguments start from 1. It can be either a single value or a range.
++    - rw: a value that's either always, maybe or never
++    
++       - always: for pointee_read: argument pointee is expected to be fully initialized at function enter,
++         for pointee_write: argument pointee is fully initialized at function exit
++       - maybe: for pointee_read: argument pointee may be expected to be initialized at function enter,
++         for pointee_write: argument pointee may be written by function body
++       - never: for pointee_read: argument pointee is not expected to be read in the functions's body,
++         for pointee_write: argument pointee is never written by function body
 -- 
 2.40.0
 
