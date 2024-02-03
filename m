@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A21FC84855B
-	for <lists+xen-devel@lfdr.de>; Sat,  3 Feb 2024 12:44:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675368.1050752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACE70848563
+	for <lists+xen-devel@lfdr.de>; Sat,  3 Feb 2024 13:00:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.675376.1050762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWERA-0003qM-JM; Sat, 03 Feb 2024 11:43:56 +0000
+	id 1rWEfs-0006ar-W9; Sat, 03 Feb 2024 11:59:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675368.1050752; Sat, 03 Feb 2024 11:43:56 +0000
+Received: by outflank-mailman (output) from mailman id 675376.1050762; Sat, 03 Feb 2024 11:59:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWERA-0003ng-GP; Sat, 03 Feb 2024 11:43:56 +0000
-Received: by outflank-mailman (input) for mailman id 675368;
- Sat, 03 Feb 2024 11:43:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JBn0=JM=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rWER9-0003na-08
- for xen-devel@lists.xenproject.org; Sat, 03 Feb 2024 11:43:55 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 812aeecf-c289-11ee-98f5-efadbce2ee36;
- Sat, 03 Feb 2024 12:43:52 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-51117bfd452so5068164e87.3
- for <xen-devel@lists.xenproject.org>; Sat, 03 Feb 2024 03:43:52 -0800 (PST)
+	id 1rWEfs-0006YJ-T5; Sat, 03 Feb 2024 11:59:08 +0000
+Received: by outflank-mailman (input) for mailman id 675376;
+ Sat, 03 Feb 2024 11:59:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rWEfr-0006Y9-Fb; Sat, 03 Feb 2024 11:59:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rWEfr-000672-DG; Sat, 03 Feb 2024 11:59:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rWEfq-0006iF-Vt; Sat, 03 Feb 2024 11:59:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rWEfq-0004ts-VU; Sat, 03 Feb 2024 11:59:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,136 +42,309 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 812aeecf-c289-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1706960632; x=1707565432; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xwaSY2p3h1mRDxMHMFJXzP8ZbV1sm8YiOVuurOA3qn4=;
-        b=GDaGGzuHLPrO/LMlsKf0Ua0lEoLr2rPKW9Mx89DeS9LqapsyGHYWFfyVB56sUGRMIe
-         3hgqqPyyOKyXzmv7SY079iEJo2ED8rTMrHPQ8TAY7HQGZL0Hx24LNwR8l7yGz3HI2kRg
-         5TI7zZjk7XWUIKWM279GWx0gFmvMUIWWbzeer5yaRyooe8rMh+acEVOtbFqk2/xb6wpv
-         Cidi4zSIufYZqyYqymzfK+jSYS9N4+w1cBATqLiWjPPH1yZTkqXZVjJnN/d7AOQfkYba
-         HwYEdt03zg20WFUHc+okOK6Uv1BTZw+OSPc6suzd9KF1gljDd85f7RDjxGraleUeTpGh
-         sp7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706960632; x=1707565432;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xwaSY2p3h1mRDxMHMFJXzP8ZbV1sm8YiOVuurOA3qn4=;
-        b=k+0dfo0Wi3GCuyP9bES/ZvImaaZRIyjvhfwsa0wVim6KWG/tPj/vh3KsHd/5hd1NN9
-         HjOr4dqy24UsbIaPf4Gg1Yz0aRlYWEGQrEY5rMa15J6AFt+9XFFHsbFbCEk/RxVlmlAy
-         tjOwfzpvVrhrPVjQpcluYBZeAcd4XXfr/8oNuLbvFM5rIxcAtQmoumv9gkepeY0baQ4I
-         vlPOzNFHvrI+yVBfxRfqOeXDAPcB45siZib/u7F2WcCsqLYTGhmpv/GjMkNPahzgDsxI
-         swAOyWOVui2DLzUYPuqcgdfZCYZb+vcIbktTUVxxGhGBwfd5nx5jI4Gm0UXE3Q2NBxhE
-         fC6w==
-X-Gm-Message-State: AOJu0Yy+fQcPRaWurw33SUTvgxCOPXxrpegdU121yqIqZ+EldfWyac+p
-	RDtMDR0u37szT2enkHSASoCtPuekgbXUHjNHQIzd0uFxBZb+mkVv+koanUq2UTpUTj9uhCjZQHY
-	us8pG1j2Hh2QlN3i3qDdtKa9qRcas4etpeWstvQ==
-X-Google-Smtp-Source: AGHT+IFOmHuKGzl4AA28PwKv37wNKQEc5eexygy3Ozekw29jrH2WEICYF77aFF75gSdJjwzZSpHNtZb/akmUMeBbU6c=
-X-Received: by 2002:a05:6512:308d:b0:511:2f20:3c55 with SMTP id
- z13-20020a056512308d00b005112f203c55mr6685812lfd.12.1706960632357; Sat, 03
- Feb 2024 03:43:52 -0800 (PST)
-MIME-Version: 1.0
-References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-8-carlo.nonato@minervasys.tech> <a6ffb4a5-cd83-4c04-9e5a-12d605863b5d@suse.com>
-In-Reply-To: <a6ffb4a5-cd83-4c04-9e5a-12d605863b5d@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Sat, 3 Feb 2024 12:43:41 +0100
-Message-ID: <CAG+AhRUG8nNF0cTtFYLu1TrV4fWEbix57Ah_-Zsz=U2yRWcGpw@mail.gmail.com>
-Subject: Re: [PATCH v6 07/15] xen/arm: add support for cache coloring
- configuration via device-tree
-To: Jan Beulich <jbeulich@suse.com>
-Cc: andrea.bastoni@minervasys.tech, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-	Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=lmMbrpcRdnSzJRgfEO9S/k9Ic53kVtuvOy5faK8rCiI=; b=Hu0RS7viizIncOk+IcAeoYznxI
+	AMwucpbt9pC1ko5QiY1iznDJdZ953RJoIXQGTAkIpI2b4Go7dyHNuVRcRp7F5ba8F/A/qlVgSvPT6
+	TTLFe0Fm1PYLvKXiZiXeZZMHLokgE/4d5+R+rNXdjiXnJWHfkbAD1rqSgy3+SZjI0LIY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184566-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 184566: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-shadow:guest-start/debian.repeat:fail:heisenbug
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=021533194476035883300d60fbb3136426ac8ea5
+X-Osstest-Versions-That:
+    linux=5c24e4e9e70822cf49955fc8174bc5efaa93d17f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 03 Feb 2024 11:59:06 +0000
 
-Hi Jan,
+flight 184566 linux-linus real [real]
+flight 184575 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184566/
+http://logs.test-lab.xenproject.org/osstest/logs/184575/
 
-On Thu, Feb 1, 2024 at 3:19=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 29.01.2024 18:18, Carlo Nonato wrote:
-> > @@ -950,6 +951,11 @@ void __init create_domUs(void)
-> >  #endif
-> >          }
-> >
-> > +        dt_property_read_string(node, "llc-colors", &llc_colors_str);
-> > +        if ( !llc_coloring_enabled && llc_colors_str)
-> > +            printk(XENLOG_WARNING
-> > +                   "'llc-colors' found, but LLC coloring is disabled\n=
-");
->
-> Why's this just a warning, when ...
+Failures :-/ but no regressions.
 
-This informs the user that this configuration will be ignored, but the DomU=
- can
-be constructed anyway...
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-shadow 22 guest-start/debian.repeat fail pass in 184575-retest
 
-> > @@ -960,6 +966,11 @@ void __init create_domUs(void)
-> >              panic("Error creating domain %s (rc =3D %ld)\n",
-> >                    dt_node_name(node), PTR_ERR(d));
-> >
-> > +        if ( llc_coloring_enabled &&
-> > +             (rc =3D domain_set_llc_colors_from_str(d, llc_colors_str)=
-) )
-> > +            panic("Error initializing LLC coloring for domain %s (rc =
-=3D %d)\n",
-> > +                  dt_node_name(node), rc);
->
-> ... this results in panic()?
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail blocked in 184554
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184554
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184554
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184554
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184554
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184554
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184554
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184554
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
 
-... while here we can't continue because there's some error in the
-configuration and the DomU can't be constructed. Domains must have a valid
-coloring configuration.
+version targeted for testing:
+ linux                021533194476035883300d60fbb3136426ac8ea5
+baseline version:
+ linux                5c24e4e9e70822cf49955fc8174bc5efaa93d17f
 
-> > --- a/xen/common/llc-coloring.c
-> > +++ b/xen/common/llc-coloring.c
-> > @@ -254,6 +254,29 @@ int domain_set_llc_colors_domctl(struct domain *d,
-> >      return domain_check_colors(d);
-> >  }
-> >
-> > +int domain_set_llc_colors_from_str(struct domain *d, const char *str)
->
-> __init ?
+Last test of basis   184554  2024-02-01 18:42:19 Z    1 days
+Testing same since   184566  2024-02-02 15:26:30 Z    0 days    1 attempts
 
-Yes.
+------------------------------------------------------------
+People who touched revisions under test:
+  Aaron Conole <aconole@redhat.com>
+  Andrew Halaney <ahalaney@redhat.com>
+  Andrew Lunn <andrew@lunn.ch>
+  Arınç ÜNAL <arinc.unal@arinc9.com>
+  Benjamin Poirier <bpoirier@nvidia.com>
+  Breno Leitao <leitao@debian.org>
+  Brett Creeley <brett.creeley@amd.com>
+  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+  Chuck Lever <chuck.lever@oracle.com>
+  Daniel Golle <daniel@makrotopia.org>
+  David S. Miller <davem@davemloft.net>
+  David Wang <00107082@163.com>
+  Dmitry Goncharov <dgoncharov@users.sf.net>
+  Dmitry Safonov <dima@arista.com>
+  Donald Hunter <donald.hunter@gmail.com>
+  Eric Dumazet <edumazet@google.com>
+  Esben Haabendal <esben@geanix.com>
+  Fedor Pchelkin <pchelkin@ispras.ru>
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  Geetha sowjanya <gakula@marvell.com>
+  Hangbin Liu <liuhangbin@gmail.com>
+  Helge Deller <deller@gmx.de>
+  Helge Deller <deller@kernel.org>
+  Horatiu Vultur <horatiu.vultur@microchip.com>
+  Hui Zhou <hui.zhou@corigine.com>
+  Ido Schimmel <idosch@nvidia.com>
+  Jacob Keller <jacob.e.keller@intel.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jan Beulich <jbeulich@suse.com>
+  Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+  Jozsef Kadlecsik <kadlec@netfilter.org>
+  Krishneil Singh  <krishneil.k.singh@intel.com>
+  Linus Lüssing <linus.luessing@c0d3.blue>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Louis Peens <louis.peens@corigine.com>
+  Masahiro Yamada <masahiroy@kernel.org>
+  Matthias May <matthias.may@westermo.com>
+  Matthieu Baerts (NGI0) <matttbe@kernel.org>
+  Michal Vokáč <michal.vokac@ysoft.com>
+  Mohammad Nassiri <mnassiri@ciena.com>
+  Naama Meir <naamax.meir@linux.intel.com>
+  Namjae Jeon <linkinjeon@kernel.org>
+  Nathan Chancellor <nathan@kernel.org>
+  Nicolas Dichtel <nicolas.dichtel@6wind.com>
+  Nikita Zhandarovich <n.zhandarovich@fintech.ru>
+  Nikolay Aleksandrov <razor@blackwall.org>
+  Pablo Neira Ayuso <pablo@netfilter.org>
+  Paolo Abeni <pabeni@redhat.com>
+  Parav Pandit <parav@nvidia.com>
+  Pavan Kumar Linga <pavan.kumar.linga@intel.com>
+  Praveen Kaligineedi <pkaligineedi@google.com>
+  Pucha Himasekhar Reddy <himasekharx.reddy.pucha@intel.com> (A Contingent worker at Intel)
+  Ryan Schaefer <ryanschf@amazon.com>
+  Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
+  Simon Horman <horms@kernel.org>
+  Simon Wunderlich <sw@simonwunderlich.de>
+  Souradeep Chakrabarti <schakrabarti@linux.microsoft.com>
+  Sven Eckelmann <sven@narfation.org>
+  Tony Nguyen <anthony.l.nguyen@intel.com>
+  Wen Gu <guwen@linux.alibaba.com>
+  Xin Long <lucien.xin@gmail.com>
+  Yuezhang Mo <Yuezhang.Mo@sony.com>
+  Zhang Bingwu <xtexchooser@duck.com>
+  Zhipeng Lu <alexious@zju.edu.cn>
 
-Thanks.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
-> > +{
-> > +    int err;
-> > +    unsigned int *colors;
-> > +
-> > +    if ( !str )
-> > +        return domain_set_default_colors(d);
-> > +
-> > +    colors =3D alloc_colors(max_nr_colors);
-> > +    if ( !colors )
-> > +        return -ENOMEM;
-> > +
-> > +    err =3D parse_color_config(str, colors, max_nr_colors, &d->num_llc=
-_colors);
-> > +    if ( err )
-> > +    {
-> > +        printk(XENLOG_ERR "Error parsing LLC color configuration.");
->
-> Nit: No full stop at the end of log messages please.
->
-> > +        return err;
-> > +    }
-> > +    d->llc_colors =3D colors;
-> > +
-> > +    return domain_check_colors(d);
->
-> Same ordering issue as in the earlier patch, I think.
->
-> Jan
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   5c24e4e9e708..021533194476  021533194476035883300d60fbb3136426ac8ea5 -> tested/linux-linus
 
