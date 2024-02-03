@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8E7B848548
+	by mail.lfdr.de (Postfix) with ESMTPS id CE25B848547
 	for <lists+xen-devel@lfdr.de>; Sat,  3 Feb 2024 11:58:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675344.1050702 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.675346.1050713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWDiA-0003IS-7b; Sat, 03 Feb 2024 10:57:26 +0000
+	id 1rWDiq-0003ki-Gx; Sat, 03 Feb 2024 10:58:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675344.1050702; Sat, 03 Feb 2024 10:57:26 +0000
+Received: by outflank-mailman (output) from mailman id 675346.1050713; Sat, 03 Feb 2024 10:58:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWDiA-0003GA-47; Sat, 03 Feb 2024 10:57:26 +0000
-Received: by outflank-mailman (input) for mailman id 675344;
- Sat, 03 Feb 2024 10:57:24 +0000
+	id 1rWDiq-0003j9-D9; Sat, 03 Feb 2024 10:58:08 +0000
+Received: by outflank-mailman (input) for mailman id 675346;
+ Sat, 03 Feb 2024 10:58:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=JBn0=JM=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rWDi8-0003G3-4d
- for xen-devel@lists.xenproject.org; Sat, 03 Feb 2024 10:57:24 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1rWDip-0003h9-JZ
+ for xen-devel@lists.xenproject.org; Sat, 03 Feb 2024 10:58:07 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 012caa73-c283-11ee-98f5-efadbce2ee36;
- Sat, 03 Feb 2024 11:57:21 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id
- 4fb4d7f45d1cf-55a5e7fa471so3899788a12.1
- for <xen-devel@lists.xenproject.org>; Sat, 03 Feb 2024 02:57:21 -0800 (PST)
+ id 1bb78267-c283-11ee-98f5-efadbce2ee36;
+ Sat, 03 Feb 2024 11:58:05 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id
+ 38308e7fff4ca-2d093cb1ef3so9009941fa.3
+ for <xen-devel@lists.xenproject.org>; Sat, 03 Feb 2024 02:58:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,45 +40,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 012caa73-c283-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 1bb78267-c283-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1706957841; x=1707562641; darn=lists.xenproject.org;
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1706957885; x=1707562685; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fGsty/kH/g/f05zone2AZ5tXmGe1ChZeNzwKEwhoKGA=;
-        b=ijxnYlsbXpC8l7sYfkt39Rd32xUmUf0c72ssCYPKKJ8S5Zj3Axa338qOc8/q3fjeFl
-         dVBBd8nhvQEcyDC5BXBQykF/tLyFHiR8bKsmxEMA7q77MMK61cNijU8NDG5CObZyp1ep
-         Zj9PKJNRoeqV9SpcKsD4QKR8pwUWFxrILlp1+OaJxxyzojYmkLAZNOBkuyEMmsulYORw
-         jUnqfHsB76qBtsTSfPif9t4DMCZUJa34irqSrc6xOOw00/DLD3zqUSIUg7WHpwttkGuQ
-         zT2vjEsRVJ6jHdurPLEou9OmthafIO0H3TXm+JRPj2D0uhoP4YABpT4idL5qJRs4oxEN
-         HoLQ==
+        bh=KDdMAAimSpageKWRimuNsLBbYmOtOFz0XiaG4cD/bQk=;
+        b=ExAKcnosm83uXg9SvUMILTSpWU7KIEI3GiNrLPEmqrTwaeQTJW+FDwss1YTP+PRqZs
+         1IKw5usqKN4qBd4LO1mIwvCHbxex+sM6XF1Jn1l06p1cxVtWQf6gnX9/GGC03Dl3mpmV
+         pZmSoayZcp7gzowX1bUWaSXcMy1n/6PvpGK+oK82HbZQe64BkI21IZQ/NgO7r84mH3Pr
+         aHc5fnhuAjly6HSst3hA9num2LDb8oAHOJfTcuqCLMTinYSfnekEzglr26mgVRbsFCv6
+         LCOMOj1XRIucHqeWzrlpIde+HfD9At5MKQXsOfI/bTNGf9viLl4AHkPzLmt3/+uIAir8
+         Cogg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1706957841; x=1707562641;
+        d=1e100.net; s=20230601; t=1706957885; x=1707562685;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=fGsty/kH/g/f05zone2AZ5tXmGe1ChZeNzwKEwhoKGA=;
-        b=SoJgAxVbZUEFqoOSiWsdFEvNS0VjQpLYROjTHY3acK6+BnMN7SaZHZEHGk5Y+xDDi2
-         J6Gc41EWsGoVxiargFFMB9KVK1rgorxhP3j5jzYLJnZi7a9yeT9qld8slgKw5wXurEui
-         0GphCAsThvP0jwPpH6AhLiT5Q6+fDF9EgDIaYpgUL4JLIKMUz0aDrHAzxC/ybPkV+kbv
-         LUV/AZNxwYwlmE3Am1WHOpgT1uRlYHR+C0RwN3vYvctRfXgtCWD2Df7sQWfincVUQ13G
-         trXtg8voaQgTJF5AJLVEzgcwgKZxwuAGwpvQmliuuO3S0897+GfDb/0VUM1MapPlSsOS
-         5lfA==
-X-Gm-Message-State: AOJu0YyPwbvEUoEsyEM+jQSN69xhgFJHvO9i+qNLpuYFZw7ye8jVPGBO
-	Q7mY9S6zFv2YuxmIaxCZz4UR3jsDdbZitSfWOnWPGq4zcIsNqYMrb+NuZ0/hGuNGj6otzXnPfmV
-	rzPJhQlFpEc+9i4IJx1MLgENQtX1vAGM+ao5LQw==
-X-Google-Smtp-Source: AGHT+IGxOlJQqTT4EJoO7G6v0ZohXm/9L+cN7xvZpOugu9RQQGwd20bWHNtr7buh1aFaHtrjk5Tn4IfFKz0BRfFelNQ=
-X-Received: by 2002:aa7:c89a:0:b0:55f:fad9:a91c with SMTP id
- p26-20020aa7c89a000000b0055ffad9a91cmr1453613eds.6.1706957840528; Sat, 03 Feb
- 2024 02:57:20 -0800 (PST)
+        bh=KDdMAAimSpageKWRimuNsLBbYmOtOFz0XiaG4cD/bQk=;
+        b=DjsrhTvCdcH+XmSdySGUEycQhfYX9On4NzmnVRx7x41hXVCFpzIfy6har+VpO+Yxbm
+         BCs4IyjfDOfzf++mLU1rUdJey5DTaYszQcHkKTSTxmestcCsKK7Zyl0irWkV/h9TfZfF
+         QCyhrzWe329wDjp4Ad7Iz5gMWmTvtmQHjy0vyNGT8MqZ/XRJ8OSvYnJ4BtWKTvj2ueE/
+         iJ0MG2CWXfeG8m26L1wfx+MRNkhqRVNOpExZ1wvlEsdc5NnCmZJnHDXaQZAoG3nGbo/3
+         A4mES4Uzu3C0aoY41IeDXDhpJ2VTHvmhcN3ZL7BUy6IupfLITNlChxT53UP7FIKHGtg3
+         BePg==
+X-Gm-Message-State: AOJu0YzpPp9n+1Se27Gpg9BBEGff4VcYDiRWUMrfdaJP6cSujCQrEQcl
+	63B1VQBEfOZ9UL5n2ti98zcIXBPeHUCSmmf0HMfgK4xQO+GpAxHwMsnvwk2pNHu9LT55miw5ClF
+	2GlscHqMGzU3dN0eZX83O7uNXYiwQWfrLlti54Q==
+X-Google-Smtp-Source: AGHT+IGxlFsF5RYpqn/+fabSdxDEQBFSIQV+PRRLuuqMtWbDgRoYvgPrSFU9Zorx3+fRMvJVSiJ+gV5K6h1B5EVhClc=
+X-Received: by 2002:a2e:2201:0:b0:2d0:8eff:431e with SMTP id
+ i1-20020a2e2201000000b002d08eff431emr1732528lji.44.1706957885043; Sat, 03 Feb
+ 2024 02:58:05 -0800 (PST)
 MIME-Version: 1.0
 References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-2-carlo.nonato@minervasys.tech> <42eabd87-b245-44e3-9945-40b1a5c5eaf5@suse.com>
-In-Reply-To: <42eabd87-b245-44e3-9945-40b1a5c5eaf5@suse.com>
+ <20240129171811.21382-2-carlo.nonato@minervasys.tech> <749799db-de6f-4ca8-bab1-67468f97929b@suse.com>
+In-Reply-To: <749799db-de6f-4ca8-bab1-67468f97929b@suse.com>
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Sat, 3 Feb 2024 11:57:09 +0100
-Message-ID: <CAG+AhRVjiqjae+Lwdk71OkF=X93m+CNLFYpK65h+O1kozOgtew@mail.gmail.com>
+Date: Sat, 3 Feb 2024 11:57:54 +0100
+Message-ID: <CAG+AhRV8gPdbm5MK6-g_DO+=KNrakWs82xMCGDMGy05Rxngvtg@mail.gmail.com>
 Subject: Re: [PATCH v6 01/15] xen/common: add cache coloring common code
 To: Jan Beulich <jbeulich@suse.com>
 Cc: andrea.bastoni@minervasys.tech, Andrew Cooper <andrew.cooper3@citrix.com>, 
@@ -90,253 +90,226 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi Jan,
 
-On Wed, Jan 31, 2024 at 4:57=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
+On Thu, Feb 1, 2024 at 1:59=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
+e:
 >
 > On 29.01.2024 18:17, Carlo Nonato wrote:
-> > Last Level Cache (LLC) coloring allows to partition the cache in smalle=
-r
-> > chunks called cache colors. Since not all architectures can actually
-> > implement it, add a HAS_LLC_COLORING Kconfig and put other options unde=
-r
-> > xen/arch.
-> >
-> > LLC colors are a property of the domain, so the domain struct has to be
-> > extended.
-> >
-> > Based on original work from: Luca Miccio <lucmiccio@gmail.com>
-> >
-> > Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
-> > Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
-> > ---
-> > v6:
-> > - moved almost all code in common
-> > - moved documentation in this patch
-> > - reintroduced range for CONFIG_NR_LLC_COLORS
-> > - reintroduced some stub functions to reduce the number of checks on
-> >   llc_coloring_enabled
-> > - moved domain_llc_coloring_free() in same patch where allocation happe=
-ns
-> > - turned "d->llc_colors" to pointer-to-const
-> > - llc_coloring_init() now returns void and panics if errors are found
-> > v5:
-> > - used - instead of _ for filenames
-> > - removed domain_create_llc_colored()
-> > - removed stub functions
-> > - coloring domain fields are now #ifdef protected
-> > v4:
-> > - Kconfig options moved to xen/arch
-> > - removed range for CONFIG_NR_LLC_COLORS
-> > - added "llc_coloring_enabled" global to later implement the boot-time
-> >   switch
-> > - added domain_create_llc_colored() to be able to pass colors
-> > - added is_domain_llc_colored() macro
-> > ---
-> >  docs/misc/cache-coloring.rst      | 87 +++++++++++++++++++++++++++++++
-> >  docs/misc/xen-command-line.pandoc | 27 ++++++++++
-> >  xen/arch/Kconfig                  | 17 ++++++
-> >  xen/common/Kconfig                |  3 ++
-> >  xen/common/Makefile               |  1 +
-> >  xen/common/keyhandler.c           |  3 ++
-> >  xen/common/llc-coloring.c         | 87 +++++++++++++++++++++++++++++++
-> >  xen/include/xen/llc-coloring.h    | 38 ++++++++++++++
-> >  xen/include/xen/sched.h           |  5 ++
-> >  9 files changed, 268 insertions(+)
-> >  create mode 100644 docs/misc/cache-coloring.rst
-> >  create mode 100644 xen/common/llc-coloring.c
-> >  create mode 100644 xen/include/xen/llc-coloring.h
-> >
-> > diff --git a/docs/misc/cache-coloring.rst b/docs/misc/cache-coloring.rs=
-t
-> > new file mode 100644
-> > index 0000000000..9fe01e99e1
-> > --- /dev/null
-> > +++ b/docs/misc/cache-coloring.rst
-> > @@ -0,0 +1,87 @@
-> > +Xen cache coloring user guide
-> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D
+> > --- a/xen/arch/Kconfig
+> > +++ b/xen/arch/Kconfig
+> > @@ -31,3 +31,20 @@ config NR_NUMA_NODES
+> >         associated with multiple-nodes management. It is the upper boun=
+d of
+> >         the number of NUMA nodes that the scheduler, memory allocation =
+and
+> >         other NUMA-aware components can handle.
 > > +
-> > +The cache coloring support in Xen allows to reserve Last Level Cache (=
-LLC)
-> > +partitions for Dom0, DomUs and Xen itself. Currently only ARM64 is sup=
-ported.
+> > +config LLC_COLORING
+> > +     bool "Last Level Cache (LLC) coloring" if EXPERT
+> > +     depends on HAS_LLC_COLORING
 > > +
-> > +To compile LLC coloring support set ``CONFIG_LLC_COLORING=3Dy``.
-> > +
-> > +If needed, change the maximum number of colors with
-> > +``CONFIG_NR_LLC_COLORS=3D<n>``.
-> > +
-> > +Compile Xen and the toolstack and then configure it via
-> > +`Command line parameters`_.
-> > +
-> > +Background
-> > +**********
-> > +
-> > +Cache hierarchy of a modern multi-core CPU typically has first levels =
-dedicated
-> > +to each core (hence using multiple cache units), while the last level =
-is shared
-> > +among all of them. Such configuration implies that memory operations o=
-n one
-> > +core (e.g. running a DomU) are able to generate interference on anothe=
-r core
-> > +(e.g .hosting another DomU). Cache coloring allows eliminating this
-> > +mutual interference, and thus guaranteeing higher and more predictable
-> > +performances for memory accesses.
-> > +The key concept underlying cache coloring is a fragmentation of the me=
-mory
-> > +space into a set of sub-spaces called colors that are mapped to disjoi=
-nt cache
-> > +partitions. Technically, the whole memory space is first divided into =
-a number
-> > +of subsequent regions. Then each region is in turn divided into a numb=
-er of
-> > +subsequent sub-colors. The generic i-th color is then obtained by all =
-the
-> > +i-th sub-colors in each region.
-> > +
-> > +::
-> > +
-> > +                            Region j            Region j+1
-> > +                .....................   ............
-> > +                .                     . .
-> > +                .                       .
-> > +            _ _ _______________ _ _____________________ _ _
-> > +                |     |     |     |     |     |     |
-> > +                | c_0 | c_1 |     | c_n | c_0 | c_1 |
-> > +           _ _ _|_____|_____|_ _ _|_____|_____|_____|_ _ _
-> > +                    :                       :
-> > +                    :                       :...         ... .
-> > +                    :                            color 0
-> > +                    :...........................         ... .
-> > +                                                :
-> > +          . . ..................................:
-> > +
-> > +There are two pragmatic lesson to be learnt.
-> > +
-> > +1. If one wants to avoid cache interference between two domains, diffe=
-rent
-> > +   colors needs to be used for their memory.
-> > +
-> > +2. Color assignment must privilege contiguity in the partitioning. E.g=
-.,
-> > +   assigning colors (0,1) to domain I  and (2,3) to domain  J is bette=
-r than
-> > +   assigning colors (0,2) to I and (1,3) to J.
+> > +config NR_LLC_COLORS
+> > +     int "Maximum number of LLC colors"
+> > +     range 2 1024
 >
-> I can't connect this 2nd point with any of what was said above.
+> What's the reasoning behind this upper bound? IOW - can something to this
+> effect be said in the description, please?
 
-If colors are contiguous then a greater spatial locality is achievable. You
-mean we should better explain this?
+The only reason is that this is the number of colors that fit in a 4 KiB pa=
+ge.
+I don't have any other good way of picking a number here. 1024 is already b=
+ig
+and probably nobody would use such a configuration. But 512 or 256 would be
+equally arbitrary.
 
-> > +How to compute the number of colors
-> > +***********************************
-> > +
-> > +To compute the number of available colors for a specific platform, the=
- size of
-> > +an LLC way and the page size used by Xen must be known. The first para=
-meter can
-> > +be found in the processor manual or can be also computed dividing the =
-total
-> > +cache size by the number of its ways. The second parameter is the mini=
-mum
-> > +amount of memory that can be mapped by the hypervisor,
+> > +     default 128
+> > +     depends on LLC_COLORING
+> > +     help
+> > +       Controls the build-time size of various arrays associated with =
+LLC
+> > +       coloring. Refer to cache coloring documentation for how to comp=
+ute the
+> > +       number of colors supported by the platform. This is only an upp=
+er
+> > +       bound. The runtime value is autocomputed or manually set via cm=
+dline.
+> > +       The default value corresponds to an 8 MiB 16-ways LLC, which sh=
+ould be
+> > +       more than what needed in the general case.
 >
-> I find "amount of memory that can be mapped" quite confusing here. Don't =
-you
-> really mean the granularity at which memory can be mapped?
+> Aiui while not outright wrong, non-power-of-2 values are meaningless to
+> specify. Perhaps that is worth mentioning (if not making this a value
+> that's used as exponent of 2 in the first place)?
 
-Yes that's what I wanted to describe. I'll change it.
+Yes, I prefer a better help message.
 
-> > thus dividing the way
-> > +size by the page size, the number of total cache partitions is found. =
-So for
-> > +example, an Arm Cortex-A53 with a 16-ways associative 1 MiB LLC, can i=
-solate up
-> > +to 16 colors when pages are 4 KiB in size.
->
-> I guess it's a matter of what one's use to, but to me talking of "way siz=
-e"
-> and how the calculation is described is, well, unusual. What I would star=
-t
-> from is the smallest entity, i.e. a cache line. Then it would be relevant
-> to describe how, after removing the low so many bits to cover for cache l=
-ine
-> size, the remaining address bits are used to map to a particular set. It
-> looks to me as if you're assuming that this mapping is linear, using the
-> next so many bits from the address. Afaik this isn't true on various mode=
-rn
-> CPUs; instead hash functions are used. Without knowing at least certain
-> properties of such a hash function, I'm afraid your mapping from address =
-to
-> color isn't necessarily guaranteeing the promised isolation. The guarante=
+> As to the default and its description: As said for the documentation,
+> doesn't what this corresponds to also depend on cache line size? Even
+> if this was still Arm-specific rather than common code, I'd question
+> whether now and forever Arm chips may only use one pre-determined cache
+> line size.
+
+I hope I answered in the previous mail why the line size (in the specific c=
+ase
+we are applying coloring to) can be ignored as a parameter in favor of cach=
 e
-> may hold for processors you specifically target, but then I think in this
-> description it would help if you would fully spell out any assumptions yo=
-u
-> make on how hardware maps addresses to elements of the cache.
+size and number of ways.
 
-You're right, we are assuming a linear mapping. We are going to review and
-extend the documentation in order to fully specify when coloring can be
-applied.
+> > --- /dev/null
+> > +++ b/xen/common/llc-coloring.c
+> > @@ -0,0 +1,87 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +/*
+> > + * Last Level Cache (LLC) coloring common code
+> > + *
+> > + * Copyright (C) 2022 Xilinx Inc.
+> > + */
+> > +#include <xen/keyhandler.h>
+> > +#include <xen/llc-coloring.h>
+> > +#include <xen/param.h>
+> > +
+> > +bool __ro_after_init llc_coloring_enabled;
+> > +boolean_param("llc-coloring", llc_coloring_enabled);
+>
+> The variable has no use right now afaics, so it's unclear whether (a) it
+> is legitimately non-static and (b) placed in an appropriate section.
 
-About the "way size" it's a way of summarizing all the parameters into one.
-We could ask for different cache parameters as you said, but in the end wha=
-t
-we are interested in is how many partitions is the cache capable of isolate
-and how big they are. The answer is, in theory, as many partitions as the
-number of sets, each one as big as a cache line, bacause we can't have
-isolation inside a set.
-Then memory mapping comes into place and the minimum granularity at which
-mapping can happen actually lowers the number of partitions.
-To recap we can isolate:
-    nr_sets * line_size / page_size
-Then we simply named:
-    way_size =3D nr_sets * line_size
-Another way of computing it:
-    way_size =3D cache_size / nr_ways
+My bad here. The variable should be tested for in llc_coloring_init() and i=
+n
+domain_dump_llc_colors() (in domain_llc_coloring_free() as well, in later
+patches). That change was lost in the rebase of the series.
 
-We are ok with having two parameters: cache_size and nr_ways which are even
-easier and intuitive to find for a normal user.
-
-> Or, alternatively, have the number of colors be specifiable directly.
-
-This is to be avoided in my opinion since it's more difficult to compute an=
+Anyway per this patch, the global is only accessed from this file while it'=
+s
+going to be accessed from outside in later patches. In this case what shoul=
 d
-it requires more knowledge.
+I do? Declare it static and then make it non-static afterwards?
+
+> > +/* Size of an LLC way */
+> > +static unsigned int __ro_after_init llc_way_size;
+> > +size_param("llc-way-size", llc_way_size);
+> > +/* Number of colors available in the LLC */
+> > +static unsigned int __ro_after_init max_nr_colors =3D CONFIG_NR_LLC_CO=
+LORS;
+> > +
+> > +static void print_colors(const unsigned int *colors, unsigned int num_=
+colors)
+> > +{
+> > +    unsigned int i;
+> > +
+> > +    printk("{ ");
+> > +    for ( i =3D 0; i < num_colors; i++ ) {
+>
+> Nit (style): Brace placement.
+>
+> > +        unsigned int start =3D colors[i], end =3D colors[i];
+> > +
+> > +        printk("%u", start);
+> > +
+> > +        for ( ;
+> > +              i < num_colors - 1 && colors[i] + 1 =3D=3D colors[i + 1]=
+;
+>
+> To reduce the number of array accesses, may I suggest to use "end + 1"
+> here instead of "colors[i] + 1"? (The initializer of "end" could also
+> be "start", but I guess the compiler will recognize this anyway.) This
+> would then (imo) also better justify the desire for having "end" in
+> the first place.
+>
+> > +              i++, end++ );
+>
+> Imo for clarity the semicolon want to live on its own line.
+>
+> > +static void dump_coloring_info(unsigned char key)
+>
+> This being common code now, I think it would be good practice to have
+> cf_check here right away, even if for now (for whatever reason) the
+> feature is meant to be limited to Arm. (Albeit see below for whether
+> this is to remain that way.)
+>
+> > +void __init llc_coloring_init(void)
+> > +{
+> > +    if ( !llc_way_size && !(llc_way_size =3D get_llc_way_size()) )
+> > +        panic("Probed LLC coloring way size is 0 and no custom value f=
+ound\n");
+> > +
+> > +    /*
+> > +     * The maximum number of colors must be a power of 2 in order to c=
+orrectly
+> > +     * map them to bits of an address, so also the LLC way size must b=
+e so.
+> > +     */
+> > +    if ( llc_way_size & (llc_way_size - 1) )
+> > +        panic("LLC coloring way size (%u) isn't a power of 2\n", llc_w=
+ay_size);
+> > +
+> > +    max_nr_colors =3D llc_way_size >> PAGE_SHIFT;
+>
+> With this unconditionally initialized here, what's the purpose of the
+> variable's initializer?
+
+Previously I was using the global in parse_color_config() (later introduced=
+),
+but since now I'm not doing it anymore I can drop the initializer.
+
+> > +    if ( max_nr_colors < 2 || max_nr_colors > CONFIG_NR_LLC_COLORS )
+> > +        panic("Number of LLC colors (%u) not in range [2, %u]\n",
+> > +              max_nr_colors, CONFIG_NR_LLC_COLORS);
+>
+> I'm not convinced of panic()ing here (including the earlier two
+> instances). You could warn, taint, disable, and continue. If you want
+> to stick to panic(), please justify doing so in the description.
+>
+> Plus, if you panic(), shouldn't that be limited to llc_coloring_enabled
+> being true? Or - not visible here, due to the lack of a caller of the
+> function - is that meant to be taken care of by the caller (to not call
+> here when the flag is off)? I think it would be cleaner if the check
+> lived here; quite possibly that would then further permit the flag
+> variable to become static.
+
+You're right. As I said here the check on llc_coloring_enabled is missing.
+Obviously it's an error doing the initialization no matter what.
+
+> > +    register_keyhandler('K', dump_coloring_info, "dump LLC coloring in=
+fo", 1);
+>
+> I'm also not convinced of using a separate key for this little bit of
+> information. How about attaching this to what 'm' or 'H' produce?
+
+Ok. 'm' seems the right place.
+
+> > +    arch_llc_coloring_init();
+> > +}
+> > +
+> > +void domain_dump_llc_colors(const struct domain *d)
+> > +{
+> > +    printk("Domain %pd has %u LLC colors: ", d, d->num_llc_colors);
+>
+> %pd resolves to d<N> - why "Domain" as a prefix? And really - why the
+> domain identifier in the first place? All surrounding information is
+> already for this very domain.
+>
+> > +    print_colors(d->llc_colors, d->num_llc_colors);
+>
+> Imo this (or perhaps even the entire function) wants skipping when
+> num_llc_colors is zero, which would in particular also cover the
+> !llc_coloring_enabled case.
+
+This shouldn't be possible. As I said this function should be a no-op when
+!llc_coloring_enabled.
 
 Thanks.
 
->
-> > +Cache layout is probed automatically by looking at the CLIDR_EL1 arm r=
-egister.
-> > +This means that other system caches that aren't visible there, are ign=
-ored.
-> > +The possibility of manually setting the way size is left to the user t=
-o overcome
-> > +failing situations or for debugging/testing purposes. See
-> > +`Command line parameters`_ for more information on that.
+> > --- a/xen/include/xen/sched.h
+> > +++ b/xen/include/xen/sched.h
+> > @@ -626,6 +626,11 @@ struct domain
+> >
+> >      /* Holding CDF_* constant. Internal flags for domain creation. */
+> >      unsigned int cdf;
 > > +
-> > +Command line parameters
-> > +***********************
-> > +
-> > +More specific documentation is available at `docs/misc/xen-command-lin=
-e.pandoc`.
-> > +
-> > ++----------------------+-------------------------------+
-> > +| **Parameter**        | **Description**               |
-> > ++----------------------+-------------------------------+
-> > +| ``llc-coloring``     | enable coloring at runtime    |
-> > ++----------------------+-------------------------------+
-> > +| ``llc-way-size``     | set the LLC way size          |
-> > ++----------------------+-------------------------------+
+> > +#ifdef CONFIG_LLC_COLORING
+> > +    unsigned const int *llc_colors;
 >
-> As a result of the above, I also find it confusing to specify "way size"
-> as a command line option. Cache size, number of ways, and cache line size
-> would seem more natural to me.
->
-> I'll get to looking nat the actual code later.
+> const unsigned int * please.
 >
 > Jan
 
