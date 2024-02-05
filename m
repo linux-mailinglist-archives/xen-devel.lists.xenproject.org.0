@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89E1A849964
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 13:00:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675980.1051706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 918758499EA
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 13:18:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.675991.1051716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWxdE-0007eh-5I; Mon, 05 Feb 2024 11:59:24 +0000
+	id 1rWxv3-0003WC-Lo; Mon, 05 Feb 2024 12:17:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675980.1051706; Mon, 05 Feb 2024 11:59:24 +0000
+Received: by outflank-mailman (output) from mailman id 675991.1051716; Mon, 05 Feb 2024 12:17:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWxdE-0007cR-2M; Mon, 05 Feb 2024 11:59:24 +0000
-Received: by outflank-mailman (input) for mailman id 675980;
- Mon, 05 Feb 2024 11:59:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GYrN=JO=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rWxdC-0007cK-MR
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 11:59:22 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ff1ce4ad-c41d-11ee-8a45-1f161083a0e0;
- Mon, 05 Feb 2024 12:59:21 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-55fe4534e9bso3837359a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 03:59:20 -0800 (PST)
+	id 1rWxv3-0003UU-Iy; Mon, 05 Feb 2024 12:17:49 +0000
+Received: by outflank-mailman (input) for mailman id 675991;
+ Mon, 05 Feb 2024 12:17:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rWxv2-0003UO-GM
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 12:17:48 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 91973205-c420-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 13:17:45 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-3394b892691so1697885f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 04:17:45 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ g10-20020a5d554a000000b0033ad47d7b86sm7890967wrw.27.2024.02.05.04.17.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Feb 2024 04:17:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,328 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff1ce4ad-c41d-11ee-8a45-1f161083a0e0
+X-Inumbo-ID: 91973205-c420-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1707134360; x=1707739160; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=whbs/pgXCP/L+jODEpOkjDwEFEYoQjVHY2lqzQ/c6g0=;
-        b=JMn/lq1yAUHMA/DK7gz0GkFIEqdTZljcgkVtbl+fQQpjUybLAj9ltoFvWqknc3v3sh
-         fbG5HNBHEV8hNgxsDucNZS0NyMDeDqMJP46Jtm9vNYK9r2xQTmXjh91q1COYpBaLG6fA
-         //9re0VynjnZa4A+hxNZQAezGy0XiMOT6Qy/Mw6+GmeyFtx6urimhnT/4Fn+FU+VhbfZ
-         oWtH0zyq1TvJdSNuvZl5F7gmb8517+AT4V8NN8orNUnxyWuQa244sMf57nrMSIRtnYy3
-         k9szRJL3VbT4+nG92tMK/F4Fq0nbcywMOb5vJoMua0Fp9niZUySPwg0HAv/jboDUZ5tL
-         PZDQ==
+        d=suse.com; s=google; t=1707135465; x=1707740265; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=pnLQU156qglclpTYG17iu3Nhhrp07dcXEqyoenXfh04=;
+        b=emlClxIIH8Mp4+VA2S80FQyIJflDYbHJ+njOtGI+LWXFYnjo/5c34NBaxYdDETiNvo
+         ZyykLisWjUxRTVBAEy08nvKgHOu5BpLLI9GhzHwq3kejESfcOtQUHyVgYaMkfYiadj4E
+         6eQjrLdMKLnSW5C7OvKKKDBvIStqh68oxHFjF6pgeTNThAF1aQc/A1VXtzUxJQGS0e5j
+         a+5eMVaKEasMmyoutKhXg0fWlBwWh1l8dsNEZEWXJhi15MOpv4jkg+hYh/oEleRxjlMO
+         ti4rsGBgXyqS3SagkADhRRVi04qLDkR6cP5Llg18LCgvZfAlRC6/s506nzH2I1SEp8XD
+         gLAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707134360; x=1707739160;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=whbs/pgXCP/L+jODEpOkjDwEFEYoQjVHY2lqzQ/c6g0=;
-        b=gPW0jlD08rtTGWrU/4o8Ju/Z9fddbkmUmZBf60iERUblMuKVmEURsvvEnCRGlUihuc
-         4sxH6TorZ594Mgn8ZtFSC2U9HCm+bF0ZAFX7P9HXVuu0LfK4yBfwb0g3Fs/MBnAXx9aF
-         xtiVP5zuASVn0Tj+Buie1+Xm8GJQcalumoijXi/5hgwtEn5VtjsY4IFo9WDmRNA5o57v
-         JZoEBpaOlaeQucAOIAkjoc+u+qY2jMQielgL496y+Q78ea3YbqBYetkUo0wLPplpYxka
-         2MZQ+t2ATcDu+h53SZCwclOffRpVnhoHsLhTvNpAT+7bMaY0+qMkUouk/9GJugJzb+Q0
-         UtKQ==
-X-Gm-Message-State: AOJu0Yxluadnpj/7toxMplrUosUn9QAXbI0qlu9JoO3bjjJqcKrK/X8C
-	nhq3mcqIjvs1BvWAqnUyJQlmDROFjaQOTlEk7JnUD+MHJ5B8EbHpWgg4b92Mnx2IcD53yi9mIGU
-	DBLRvbsIgcUIprDWexWR7Q0aJQnxyTARAYcXnpQ==
-X-Google-Smtp-Source: AGHT+IEUJkjdkJpq385u7vLcAxfs0pXhw1DySgWrt+NjPsIIgTFvaydTS+OvChDXX6tQ+rER0y+M9btDG3zd4t17s8I=
-X-Received: by 2002:a05:6402:1d01:b0:560:7543:877 with SMTP id
- dg1-20020a0564021d0100b0056075430877mr1206408edb.3.1707134360273; Mon, 05 Feb
- 2024 03:59:20 -0800 (PST)
+        d=1e100.net; s=20230601; t=1707135465; x=1707740265;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=pnLQU156qglclpTYG17iu3Nhhrp07dcXEqyoenXfh04=;
+        b=CfTgI9ptzZVKsBnwJBsKRLk6R9wNhMTjN+0Y5kmdd7Bnni2iXs89VfIila3Yli/OMP
+         BCHOJLzPx4TeXNiaEYXMLH9yNo3XkMxkvOCZIsyY0sxyC61zqvDnsEIn1oPwZ4GcfRha
+         zCquRHaeAjl22IAi29Yd4gt/kEzsnyUyUzGTCnBCaOzyWYwF0rCEJ1PpSVnj313E2JaJ
+         6gVHuLRm4kJHEnJhzwBsWCRZfgG0Xz3wH4XikJBFDU5R/DQsWFRT+C/M2tU/Hhu+oKki
+         MUBGjuRw3kXh7Szb32XVDnMgiseTNz8VkVd3/IPW+1MRjWtQzSPCmzlRFUffKmfxu6jo
+         QXiQ==
+X-Gm-Message-State: AOJu0YxkX2E1C55p+FCDflfdlq8Al0eIUtHckj83KDINH6hA6fhNV3E1
+	f9ymQ9i9tgfavOBdrFz600FgcwF/zVjWgEm3gM7WPHTxitYQvQMP1NbVc55NgA==
+X-Google-Smtp-Source: AGHT+IEmvNlfdIOqYIu2HoIMGa9WQj3AuoOf4P9j0A5ZOKhcvi96EsdNbGzOibVuIccV2Km+wAVdsQ==
+X-Received: by 2002:a5d:5f4f:0:b0:33b:17f1:c70e with SMTP id cm15-20020a5d5f4f000000b0033b17f1c70emr5251349wrb.24.1707135465123;
+        Mon, 05 Feb 2024 04:17:45 -0800 (PST)
+Message-ID: <b3cd10f2-c3b4-49cc-8bac-28f525dd574b@suse.com>
+Date: Mon, 5 Feb 2024 13:17:44 +0100
 MIME-Version: 1.0
-References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-11-carlo.nonato@minervasys.tech> <1739dbb4-5d7e-4d84-8d4b-bfb13c4041d8@suse.com>
-In-Reply-To: <1739dbb4-5d7e-4d84-8d4b-bfb13c4041d8@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Mon, 5 Feb 2024 12:59:09 +0100
-Message-ID: <CAG+AhRUJysNCrUXLiu8tvh2d7oL2hNAtkM3A2-Hy73f=+PxkTA@mail.gmail.com>
-Subject: Re: [PATCH v6 10/15] xen: add cache coloring allocator for domains
-To: Jan Beulich <jbeulich@suse.com>
-Cc: andrea.bastoni@minervasys.tech, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Marco Solieri <marco.solieri@minervasys.tech>, 
-	xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Ping: Ping: [PATCH] Argo: drop meaningless mfn_valid() check
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+To: Christopher Clark <christopher.w.clark@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <580c6c48-9dd5-4296-8696-2b40beac2bc3@suse.com>
+ <5d76295f-0438-4c5d-8b2e-73a1abcc96e6@suse.com>
+ <CACMJ4GbvMhDdgOp=kUeL_+_j2yS_NVU69P8Xh9QYDLUwJ31Eow@mail.gmail.com>
+ <CACMJ4GbNJgsg7tts=9UQPUr9ofsXajuHz7wYO1r5LnevWEL4_g@mail.gmail.com>
+ <5aea32e3-033e-4299-9088-279d23801ba6@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <5aea32e3-033e-4299-9088-279d23801ba6@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+On 04.01.2024 09:12, Jan Beulich wrote:
+> On 23.12.2023 22:35, Christopher Clark wrote:
+>> On Sat, Dec 23, 2023 at 12:47 PM Christopher Clark
+>> <christopher.w.clark@gmail.com> wrote:
+>>>
+>>> On Sun, Dec 17, 2023 at 11:55 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>>>
+>>>> Christopher,
+>>>>
+>>>> On 27.11.2023 14:55, Jan Beulich wrote:
+>>>>> Holding a valid struct page_info * in hands already means the referenced
+>>>>> MFN is valid; there's no need to check that again. Convert the checking
+>>>>> logic to a switch(), to help keeping the extra (and questionable) x86-
+>>>>> only check in somewhat tidy shape.
+>>>>>
+>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Reviewed-by: Christopher Clark <christopher.w.clark@gmail.com>
+>>
+>> I'd like to hold off on this just yet, sorry -- the change does look
+>> ok as far as a transform being applied the prior logic and the
+>> necessity of the check, but with it applied, it's not obvious that it
+>> handles all the page types as best that it could there, so I'd like to
+>> look at this (and the previously submitted patch again) please.
+> 
+> I'm puzzled: This patch merely removes a pointless check. Whatever is
+> lacking with it in place will have been lacking before. Also can you
+> please give a rough estimate towards when you'll be getting back on
+> this, or ideally on both patches?
 
-On Thu, Feb 1, 2024 at 4:53=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 29.01.2024 18:18, Carlo Nonato wrote:
-> > @@ -157,7 +158,11 @@
-> >  #define PGC_static 0
-> >  #endif
-> >
-> > -#define PGC_preserved (PGC_extra | PGC_static)
-> > +#ifndef PGC_colored
-> > +#define PGC_colored 0
-> > +#endif
-> > +
-> > +#define PGC_preserved (PGC_extra | PGC_static | PGC_colored)
-> >
-> >  #ifndef PGT_TYPE_INFO_INITIALIZER
-> >  #define PGT_TYPE_INFO_INITIALIZER 0
-> > @@ -1504,6 +1509,7 @@ static void free_heap_pages(
-> >              if ( !mfn_valid(page_to_mfn(predecessor)) ||
-> >                   !page_state_is(predecessor, free) ||
-> >                   (predecessor->count_info & PGC_static) ||
-> > +                 (predecessor->count_info & PGC_colored) ||
->
-> How about a 2nd #define (e.g. PGC_no_buddy_merge) to use here and ...
->
-> >                   (PFN_ORDER(predecessor) !=3D order) ||
-> >                   (page_to_nid(predecessor) !=3D node) )
-> >                  break;
-> > @@ -1528,6 +1534,7 @@ static void free_heap_pages(
-> >              if ( !mfn_valid(page_to_mfn(successor)) ||
-> >                   !page_state_is(successor, free) ||
-> >                   (successor->count_info & PGC_static) ||
-> > +                 (successor->count_info & PGC_colored) ||
->
-> ... here? That'll then also avoid me commenting that I don't see why
-> these two PGC_* checks aren't folded.
+Another month later: I'll give it this week, and without hearing back
+I'll commit what there is some time next week, with the R-b you provided.
 
-Yes for me it's ok (I even suggested that in v5). Do you want this change t=
-o
-be merged with the previous patch? Or should they all belong to this one?
-
-> > @@ -1943,6 +1950,161 @@ static unsigned long avail_heap_pages(
-> >      return free_pages;
-> >  }
-> >
-> > +/*************************
-> > + * COLORED SIDE-ALLOCATOR
-> > + *
-> > + * Pages are grouped by LLC color in lists which are globally referred=
- to as the
-> > + * color heap. Lists are populated in end_boot_allocator().
-> > + * After initialization there will be N lists where N is the number of
-> > + * available colors on the platform.
-> > + */
-> > +static struct page_list_head *__ro_after_init _color_heap;
-> > +static unsigned long *__ro_after_init free_colored_pages;
-> > +
-> > +/* Memory required for buddy allocator to work with colored one */
-> > +#ifdef CONFIG_LLC_COLORING
-> > +static unsigned long __initdata buddy_alloc_size =3D
-> > +    MB(CONFIG_BUDDY_ALLOCATOR_SIZE);
-> > +size_param("buddy-alloc-size", buddy_alloc_size);
-> > +
-> > +#define domain_num_llc_colors(d) (d)->num_llc_colors
-> > +#define domain_llc_color(d, i)   (d)->llc_colors[(i)]
->
-> Nit: Unnecessary parentheses inside the square brackets.
->
-> > +#else
-> > +static unsigned long __initdata buddy_alloc_size;
-> > +
-> > +#define domain_num_llc_colors(d) 0
-> > +#define domain_llc_color(d, i)   0
-> > +#endif
-> > +
-> > +#define color_heap(color) (&_color_heap[color])
->
-> Wouldn't this better live next to _color_heap()'s definition?
->
-> > +static void free_color_heap_page(struct page_info *pg, bool need_scrub=
-)
-> > +{
-> > +    unsigned int color =3D page_to_llc_color(pg);
-> > +    struct page_list_head *head =3D color_heap(color);
-> > +
-> > +    spin_lock(&heap_lock);
-> > +
-> > +    mark_page_free(pg, page_to_mfn(pg));
-> > +
-> > +    if ( need_scrub )
-> > +    {
-> > +        pg->count_info |=3D PGC_need_scrub;
-> > +        poison_one_page(pg);
-> > +    }
-> > +
-> > +    pg->count_info |=3D PGC_colored;
->
-> The page transiently losing PGC_colored is not an issue then (presumably
-> because of holding the heap lock)? Did you consider having mark_page_free=
-()
-> also use PGC_preserved?
-
-I did something similar to what it's done in unprepare_staticmem_pages():
-first mark_page_free() is called and then PGC_static is added to count_info=
-.
-
-> > +    free_colored_pages[color]++;
-> > +    page_list_add(pg, head);
-> > +
-> > +    spin_unlock(&heap_lock);
-> > +}
-> > +
-> > +static struct page_info *alloc_color_heap_page(unsigned int memflags,
-> > +                                               const struct domain *d)
-> > +{
-> > +    struct page_info *pg =3D NULL;
-> > +    unsigned int i, color =3D 0;
-> > +    unsigned long max =3D 0;
-> > +    bool need_tlbflush =3D false;
-> > +    uint32_t tlbflush_timestamp =3D 0;
-> > +    bool scrub =3D !(memflags & MEMF_no_scrub);
-> > +
-> > +    spin_lock(&heap_lock);
-> > +
-> > +    for ( i =3D 0; i < domain_num_llc_colors(d); i++ )
-> > +    {
-> > +        unsigned long free =3D free_colored_pages[domain_llc_color(d, =
-i)];
-> > +
-> > +        if ( free > max )
-> > +        {
-> > +            color =3D domain_llc_color(d, i);
-> > +            pg =3D page_list_first(color_heap(color));
-> > +            max =3D free;
-> > +        }
-> > +    }
->
-> The apporach is likely fine at least initially, but: By going from where
-> the most free pages are, you're not necessarily evenly distributing a
-> domain's pages over the colors it may use, unless the domain uses its
-> set of colors exclusively.
-
-We don't find it problematic since the exclusive set of colors are to be
-preferred (as per the documentation).
-
-> > +    if ( !pg )
-> > +    {
-> > +        spin_unlock(&heap_lock);
-> > +        return NULL;
-> > +    }
-> > +
-> > +    pg->count_info =3D PGC_state_inuse | PGC_colored |
-> > +                     (pg->count_info & PGC_need_scrub);
->
-> Isn't PGC_colored already set on the page?
-
-Yes but here I need to make sure that only PGC_state_inuse | PGC_colored ar=
-e
-used so an assignment seems legit.
-
-> Together with ...
->
-> > +    free_colored_pages[color]--;
-> > +    page_list_del(pg, color_heap(color));
-> > +
-> > +    if ( !(memflags & MEMF_no_tlbflush) )
-> > +        accumulate_tlbflush(&need_tlbflush, pg, &tlbflush_timestamp);
-> > +
-> > +    init_free_page_fields(pg);
-> > +
-> > +    spin_unlock(&heap_lock);
-> > +
-> > +    if ( test_and_clear_bit(_PGC_need_scrub, &pg->count_info) && scrub=
- )
->
-> ... this, can't the above be simplified?
-
-I tried to replicate what happens in alloc_heap_pages() where:
-
->  /* Preserve PGC_need_scrub so we can check it after lock is dropped. */
->  pg[i].count_info =3D PGC_state_inuse | (pg[i].count_info & PGC_need_scru=
-b);
-
-and then after the unlock the bit is tested.
-
-> > +        scrub_one_page(pg);
-> > +    else if ( scrub )
-> > +        check_one_page(pg);
-> > +
-> > +    if ( need_tlbflush )
-> > +        filtered_flush_tlb_mask(tlbflush_timestamp);
-> > +
-> > +    flush_page_to_ram(mfn_x(page_to_mfn(pg)),
-> > +                      !(memflags & MEMF_no_icache_flush));
-> > +
-> > +    return pg;
-> > +}
-> > +
-> > +static void __init init_color_heap_pages(struct page_info *pg,
-> > +                                         unsigned long nr_pages)
-> > +{
-> > +    unsigned int i;
-> > +    bool need_scrub =3D opt_bootscrub =3D=3D BOOTSCRUB_IDLE;
-> > +
-> > +    if ( buddy_alloc_size )
-> > +    {
-> > +        unsigned long buddy_pages =3D min(PFN_DOWN(buddy_alloc_size), =
-nr_pages);
-> > +
-> > +        init_heap_pages(pg, buddy_pages);
-> > +        nr_pages -=3D buddy_pages;
-> > +        buddy_alloc_size -=3D buddy_pages << PAGE_SHIFT;
-> > +        pg +=3D buddy_pages;
-> > +    }
-> > +
-> > +    if ( !_color_heap )
-> > +    {
-> > +        unsigned int max_nr_colors =3D get_max_nr_llc_colors();
-> > +
-> > +        _color_heap =3D xmalloc_array(struct page_list_head, max_nr_co=
-lors);
-> > +        free_colored_pages =3D xzalloc_array(unsigned long, max_nr_col=
-ors);
-> > +        if ( !_color_heap || !free_colored_pages )
-> > +            panic("Can't allocate colored heap. Buddy reserved size is=
- too low");
-> > +
-> > +        for ( i =3D 0; i < max_nr_colors; i++ )
-> > +            INIT_PAGE_LIST_HEAD(color_heap(i));
-> > +    }
-> > +
-> > +    if ( nr_pages )
-> > +        printk(XENLOG_DEBUG
-> > +               "Init color heap with %lu pages, start MFN: %"PRI_mfn"\=
-n",
-> > +               nr_pages, mfn_x(page_to_mfn(pg)));
->
-> This message can be issued more than once. Is that really desirable /
-> necessary?
-
-No I can drop it.
-
-> > @@ -2458,7 +2626,14 @@ struct page_info *alloc_domheap_pages(
-> >      if ( memflags & MEMF_no_owner )
-> >          memflags |=3D MEMF_no_refcount;
-> >
-> > -    if ( !dma_bitsize )
-> > +    /* Only domains are supported for coloring */
-> > +    if ( d && llc_coloring_enabled )
-> > +    {
-> > +        /* Colored allocation must be done on 0 order */
-> > +        if ( order || (pg =3D alloc_color_heap_page(memflags, d)) =3D=
-=3D NULL )
-> > +            return NULL;
-> > +    }
->
-> I think I had asked before: What about MEMF_node() or MEMF_bits()
-> having been used by the caller?
-
-MEMF_node() is used for NUMA, right? I think that for the moment, since cac=
-he
-coloring is supported only on arm64 and NUMA is not yet supported, it's saf=
-e
-to ignore it.
-
-I'm not sure I understood what MEMF_bits() is for. It restricts the allocat=
-or
-to return pages in some range, right?
-
-Thanks.
-
-> Jan
+Jan
 
