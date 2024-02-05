@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FB6984984A
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 12:02:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675930.1051616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C19E8849851
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 12:03:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.675934.1051626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWwk4-00064Y-SB; Mon, 05 Feb 2024 11:02:24 +0000
+	id 1rWwl9-0006g8-9S; Mon, 05 Feb 2024 11:03:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675930.1051616; Mon, 05 Feb 2024 11:02:24 +0000
+Received: by outflank-mailman (output) from mailman id 675934.1051626; Mon, 05 Feb 2024 11:03:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWwk4-00061V-Oa; Mon, 05 Feb 2024 11:02:24 +0000
-Received: by outflank-mailman (input) for mailman id 675930;
- Mon, 05 Feb 2024 11:02:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rWwl9-0006eZ-5J; Mon, 05 Feb 2024 11:03:31 +0000
+Received: by outflank-mailman (input) for mailman id 675934;
+ Mon, 05 Feb 2024 11:03:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rWwk3-00061F-0Z
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 11:02:23 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0930ec22-c416-11ee-8a45-1f161083a0e0;
- Mon, 05 Feb 2024 12:02:21 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-40fd280421aso14375455e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 03:02:21 -0800 (PST)
+ id 1rWwl7-0006eH-GH
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 11:03:29 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3063a019-c416-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 12:03:27 +0100 (CET)
+Received: by mail-lj1-x230.google.com with SMTP id
+ 38308e7fff4ca-2cf4d2175b2so47748451fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 03:03:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n8-20020a05600c500800b0040fd162944fsm6859582wmr.35.2024.02.05.03.02.12
+ n8-20020a05600c500800b0040fd162944fsm6859582wmr.35.2024.02.05.03.03.26
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Feb 2024 03:02:13 -0800 (PST)
+ Mon, 05 Feb 2024 03:03:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0930ec22-c416-11ee-8a45-1f161083a0e0
+X-Inumbo-ID: 3063a019-c416-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707130941; x=1707735741; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=JMhBhF+jLHqSxlmz3PoFc0DY3oDXSGsNldebH1x70jc=;
-        b=ei0mN1u2KtEkwRRtxOLTKB6Ds3wJE0AFcMoyj6hIHUCevHQL4xDVsYQSoZw51zLCkP
-         WLE4gt5zmFYviAJUu2Zid6VoIHK/8I4O03xgw1c04lc+tut61MMxThVom84PnSlVkf76
-         6M/MMcZ46ttXC0NVH96Z2npbeF1b7M9iuIjBxdoX7YgDu+8oIv8RDjRD7merDoNrYwNj
-         G9wkxhMX2xYc0NxSilDlJ1k20IH/3KEbNvtAj6YZ/ccMLcCgbKoPtqPK+9pgTVPv1U30
-         XwGy4Yk4s68EZVC7Yx6M+eYeslgvIG4z8ppVmeXAh4BcIEPOGOfFwtiy37bedKIbWI5T
-         UZIA==
+        d=suse.com; s=google; t=1707131007; x=1707735807; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=qQnuT178TRlW0ncotS0NtNaqASxlSbwyqI0Oiy5iAaw=;
+        b=RT7X4dPqXiOzCDIg1dsTI2F/db9kpvikuFcNR+4poG4f+7MB58XIzzDA234H1lnQHq
+         kOzvrQ+d+SdxxU3JQnHEDcGmwfkLfp3lCKPkSBdkbmkMOuJdx97na4WosON5JeND+9PC
+         GOlwQHvJ7XMZ2C45zDFWRLWBS3O26Doc2kUkjLdkrmUH5/QO/eycNJCBr0BLOE8TlUvJ
+         3OMZAk5CY21WcncZ8GXG2haVpgSVLMEUnE4i72P0mVJaEOazGpyEbeYe7FYVVL2rwvX7
+         77kKqGIY5hUvoRk2xcX2rphf5RWSBsPrYkED3PDYR/aLTtfOQkMZA1Ict6B6+e0cItwK
+         CGNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707130941; x=1707735741;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JMhBhF+jLHqSxlmz3PoFc0DY3oDXSGsNldebH1x70jc=;
-        b=cLFRgxCTVm0vuVw1PlgBS1mRdtOca1TcQLKI7z6BnOBM7Jwbuvqyv/QlxfMicwBLs1
-         l7G49dQqUAk3PMgxXh1LBE68l1YSmMYWYbl/k2VNQBILwnzTtxSXWja9laWcJ9V9SiiQ
-         fCiu9rzn0GWRjwW/NRa5tkBsqt86L97J/AqKJqmYacCsfTrmQz4Tn4gU8dY7UsGr4Jhk
-         z/iGTPG2IkGDC+8w3ygII98L8wRmGbQBVsdIewkQgz1hJS6S/I6Bizrg3gSJdnwKkuMH
-         XxHkjMbWH9QBH2kFs+00IO/GZhXQz+j2pPrLsE+nX3MlmwHb/ShiZ1MO4TTruIUFZ3Q+
-         paBw==
-X-Gm-Message-State: AOJu0YxR5udJqNU7z8P7Bfe6ir1580tS6L69MVaVU9h26SuBiSAWr+me
-	4m/RCYXpewBL9g1e3Glml5eU5IZ7JER6dqpHN3PsOnK3wh+PXsjVTqC6ksh4Cskq8GHxe9YM/Nc
+        d=1e100.net; s=20230601; t=1707131007; x=1707735807;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=qQnuT178TRlW0ncotS0NtNaqASxlSbwyqI0Oiy5iAaw=;
+        b=d3iRGH1PXdb0l/B8xMAMYX/4HUrfa1Z9D49XLD9khn1IrGn3zLO1is3GftXFgQSnAj
+         +XKL7Oqlw5IV5R4qkpEcNBpUJzPcqkhVVVw1yo/cOma2jJTPz8b4qwXpDqom1gLlPfUB
+         spYKgfNA0Cg6AOGTp3nZp3qKWheyfHFfdNv6qHzBsnEl2mFtLfGj5ta2z2uaDjBceHmm
+         IhfroP0hI7n1Wp5CMWa/gabhBB9c5XSNPmz4dG/AIWIABa/83atKY0MibqfKRYFS/s4Z
+         Rrbd6SUFXoM5T7QGEGPMbHkjW52GENaWJAZR41TIhVStZfyGU+Wu/H7ipLc31KPCIZcs
+         H1wA==
+X-Gm-Message-State: AOJu0YwFFuNmhtM37tFZUzdm8ETNKN3kq3iRQXkCJhwMYZqfdA32/BEw
+	23cdh7STVQUYmMfDib3Gwkj8dAH6InnV5LcRoDrsad7np7A07HM2Nn2FN8zv82DMtMvdqB1tJ1A
 	=
-X-Google-Smtp-Source: AGHT+IHoZ2j2fykQIUqgEUwSeqD2KadUvquUBLsnbiO59SBJLvMWkN6sm6rrXOn0LXcqOeZLcS/9eQ==
-X-Received: by 2002:a05:600c:4f44:b0:40e:d30d:3fe2 with SMTP id m4-20020a05600c4f4400b0040ed30d3fe2mr4784821wmq.5.1707130933375;
-        Mon, 05 Feb 2024 03:02:13 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCUCwKy49F54VvtTcCjc4HlA6iTbflap4YpOlO614g9fbYRLWvDndOS1UOUGQqmyWMB/JH2TZjRf50/6r7ncU/iK5U4HWrjvZbZlFwTSo+X6h9Eu9df9wPP7YlE0jqLSYurjemKjG5S60anv7/eKlHG/v0tN6mCV5Rd2114F
-Message-ID: <a0a7fa35-4615-4a9b-9887-569353f05e33@suse.com>
-Date: Mon, 5 Feb 2024 12:02:15 +0100
+X-Google-Smtp-Source: AGHT+IEX+Xb1nJ4GIZ5yrhUdDAX/Ds+MeoIxYHNvhJWpN+FsxmZuvqOAjgil9esX3O9SdAD0jO6WNg==
+X-Received: by 2002:a05:6512:783:b0:511:546c:1f14 with SMTP id x3-20020a056512078300b00511546c1f14mr770910lfr.63.1707131007135;
+        Mon, 05 Feb 2024 03:03:27 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXDMB1RGsEUkeHRLVavpaWfRbrLd8Toqzzn8e1+D4q+0FGcU8N0tC2gBCw0as+r8UIdv/fHpDkySDW+L1hO5Zi+aZMtumWZSx0fI7w0VFoc+FxnyPvDQfofbLCBZAb+gyO7W7EQcwImPnFZcyBuhiF1o1cMHHZug7OL7451
+Message-ID: <a73f9ba8-8914-4c41-be55-a57c93c571f0@suse.com>
+Date: Mon, 5 Feb 2024 12:03:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH 1/2] gnttab: fully ignore zero-size copy requests
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 0/2] gnttab: hypervisor side XSA-448 follow-up
+References: <a0a7fa35-4615-4a9b-9887-569353f05e33@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -111,13 +113,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a0a7fa35-4615-4a9b-9887-569353f05e33@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Let's try to better deal with effectively no-op requests.
+Along the line with observations in the context of XSA-448, no field in
+struct gnttab_copy_ptr is relevant when no data is to be copied, much
+like e.g. the pointers passed to memcpy() are irrelevant (and would
+never be "validated") when the passed length is zero.
 
-1: fully ignore zero-size copy requests
-2: almost fully ignore zero-size flush requests
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -3061,6 +3061,9 @@ static int gnttab_copy_one(const struct
+ {
+     int rc;
+ 
++    if ( unlikely(!op->len) )
++        return GNTST_okay;
++
+     if ( !src->domain || op->source.domid != src->ptr.domid ||
+          !dest->domain || op->dest.domid != dest->ptr.domid )
+     {
+
 
