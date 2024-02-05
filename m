@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5150849CBA
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 15:15:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676135.1052026 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21922849D12
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 15:31:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676140.1052036 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzkE-0006OE-Ku; Mon, 05 Feb 2024 14:14:46 +0000
+	id 1rWzzD-0003nA-Te; Mon, 05 Feb 2024 14:30:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676135.1052026; Mon, 05 Feb 2024 14:14:46 +0000
+Received: by outflank-mailman (output) from mailman id 676140.1052036; Mon, 05 Feb 2024 14:30:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzkE-0006Mg-Hg; Mon, 05 Feb 2024 14:14:46 +0000
-Received: by outflank-mailman (input) for mailman id 676135;
- Mon, 05 Feb 2024 14:14:46 +0000
+	id 1rWzzD-0003l8-Qf; Mon, 05 Feb 2024 14:30:15 +0000
+Received: by outflank-mailman (input) for mailman id 676140;
+ Mon, 05 Feb 2024 14:30:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W3Sh=JO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rWzkE-0006Ma-2p
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 14:14:46 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rWzzD-0003ky-0Y
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 14:30:15 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e8c4872b-c430-11ee-98f5-efadbce2ee36;
- Mon, 05 Feb 2024 15:14:43 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id
- a640c23a62f3a-a37878ac4f4so160937666b.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 06:14:43 -0800 (PST)
-Received: from andrewcoop.citrite.net (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- tk3-20020a170907c28300b00a36d0dae491sm4386283ejc.202.2024.02.05.06.14.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Feb 2024 06:14:42 -0800 (PST)
+ id 11cadc41-c433-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 15:30:11 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-40fd55c7f93so13886085e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 06:30:11 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ z4-20020a05600c0a0400b0040fcaec04b8sm32498wmp.22.2024.02.05.06.30.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Feb 2024 06:30:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,76 +45,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8c4872b-c430-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 11cadc41-c433-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707142483; x=1707747283; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=41QmEK7DxB5U6RS33FRHcI/eQ7monSTUA7T7HhrUaQM=;
-        b=apBMmfmZc4YTmkzT4YVFc7WJuza9uTNZGpRpS9i6v/mLmSTnb8YJCFXOVCWMuB1dnJ
-         bQeXF9CRm+5b5L66aQfUFZ23NxpExXFWhgbXEHUe79GiCoeBGsP0/ZKhwKvHeOHj58h3
-         QZH0oom/gzSfFsbkLmBehDBcw88X1L+yAck+w=
+        d=suse.com; s=google; t=1707143411; x=1707748211; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=wKHQD7J0KrjI4QYeHCYKNTmsHSzza/9OcMlhsFtXRr0=;
+        b=LG9OV58lYRFKA4T2BAS1QpWFEK5uyXjq7ftB1uqXUymhuTb/uOZ+zIhpv2a8RgXXal
+         2hIZWK/yl7/K5ojCnx6CWfVfMIuJ7c34LIBraQjaLlKNoB3ahmMzDeHeNWAicJMQf2ns
+         7zfHou98irNLHZQsTiAqM2jlrCeaqfrBnlRJg18w0RMukLQVknk8dYZaGyEAEn3EO8Gy
+         B+TecxUz2kURiTM8uJA+GemUFETowJnsqiPMsPh7U/WabZH57xu+KYhUHZjXRXW4Cqa4
+         lh83Wd/fGpwcFil4/4zelpq18n/VRpT7CvaPPVuhi5I1qjNw8sEJUuYlD6DkBHuXUBf7
+         aEYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707142483; x=1707747283;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=41QmEK7DxB5U6RS33FRHcI/eQ7monSTUA7T7HhrUaQM=;
-        b=fac0clUxeqDJEGqkNcfntGDbMlL4az8UQwQrmg37Rrji6sUzgWDMd93NNnwxcyAREC
-         NFA7VmSbzAcFCAApNv5/qVQ8u3qQXaHRgMO/pY3/yqbxccXJRK4Wg7j8vDfEW1xb3jLT
-         5PNrsPrrKOrSfZzk/T89Wche9TRX2iyPeWsTUT1rkBqPhenixcs4Rkv+ERS6rIl7oDWA
-         yF1gRkOD0U7mLxfPyHB60mQXnz1cTIOuoC0XSRin+vdDEVaFAhGQlhKIRbe4T8j6bmlQ
-         tn4xFw6vScSssAli3EoWUbDgwIftqg6b3xk1D3ntPSjljaoQewZ0GrHPzb/vyHTvQeB/
-         UMZA==
-X-Gm-Message-State: AOJu0YxT/QgRoO4S0Bo89WTw7/GDiubUvgHDLeB/9g2r7PSukvZ5Oon2
-	9MAi7eJQzqa0H3XRAdDkiIh+/GU6c1tMmZC+3R5HxLNs3QjuktQNzRW4aTmktq7LtgzyJkIAXuG
-	s
-X-Google-Smtp-Source: AGHT+IGz7CuvzQlHrzbkmmxFpkz2VFiR2Dj/lSIvS8xZZn9YBXerEWe58k9CxXWv2QkFw1jGOJIAgQ==
-X-Received: by 2002:a17:906:b56:b0:a37:8227:debb with SMTP id v22-20020a1709060b5600b00a378227debbmr3459007ejg.30.1707142483148;
-        Mon, 05 Feb 2024 06:14:43 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCW8ItI73Mh/4o2xJVmIaqrJb3ccRHjjLexE04qMZwKg0YDtPE4z2esDIkEAeJBWzEvIbYy1PFBkOLmoIAIkTq/iFK2artPkBp84vMmRCxPUwesmesZdKtARnJBESUgb3KsAd/U=
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/cpu: Fix mixed tabs/spaces
-Date: Mon,  5 Feb 2024 14:14:41 +0000
-Message-Id: <20240205141441.1880188-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+        d=1e100.net; s=20230601; t=1707143411; x=1707748211;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wKHQD7J0KrjI4QYeHCYKNTmsHSzza/9OcMlhsFtXRr0=;
+        b=jqWdpd4Zu2YFDreVOwPd7wXlswhw0yfMR5Qfc3XvUlH3Mx5EtEw+I3wSyTK3xxII3r
+         /nB/FnyxNCkWUxiEbnnmwCuEkcjuG9PlhBCnbyyatY6KSFvzfviwwjTHdU+Z4VEE8oeW
+         JRUCOK/TPSQFY5oBbnlEWgE7z2mKHLY8LGL/Pa+47xfeROVvJhLpwh2y/fUAsnK93e6/
+         AUSRVLwA+4MC4sOtIXP6zO8gdbMBNBDGX59MtgGNLfH4zZF22tJmWmNYi+L3aWC6l1eC
+         QIbwZc49tAck6IkWh2MClodHQv+Fh2GXQKnuOz9UL1kgaZtr+ej0AhLFtUSLTgiOUNU1
+         o+Uw==
+X-Gm-Message-State: AOJu0YxHf8pxr1cd873CBgQwlaLDv8rwAu/kHZyAGdfuLLSdtPZsRHTm
+	iJl2kwybMLgx/bSBj08+mo2dTfptSApTX9AOpHeRWdndxurHC4DMr2B3AJKQbA==
+X-Google-Smtp-Source: AGHT+IH5jAhmzYd8DjRNLQOdzebHVnH6igLRPb8eZcOOfUC9cm6wQBScAQ5yXoVvXk0A2yp8DaILDw==
+X-Received: by 2002:a5d:5f46:0:b0:33b:2856:5188 with SMTP id cm6-20020a5d5f46000000b0033b28565188mr8502022wrb.44.1707143411118;
+        Mon, 05 Feb 2024 06:30:11 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCWXVlDLlODcFbYoddE/1EVCOlGIw7wGf4OAdTkoONe9rjPg83HO/6iH7vDCiPtg874Nq+S5y9m7rhvLWDglrUruNDn6TvZmAIL35Jny2NTx9DJiMXZce4pzyMCYj/QQj7Zf3fOQCx8rpClZolDjM3S9VTrxWXKnxlMxTAd8oWpBMXBtuIyYlzmakd5qK2HSIFfS4F1pADB0Jayt08tU6XIkKJlQRqhGrq3Tgdep2DwjozYg/GhYBzNLMsJBRejQrvFTpU7BdOg+0e3e0cNcgwaZYeamCGDTaVLsxumT/taPTrUJGI85M3I5pWR/YUNBO/Di0Z62CqpAIwctYAd1jFajZSwB79U10P2A9/ejnr4iTCY3YXmyZXefUp4TrXil8sfVeA==
+Message-ID: <805b91bd-e341-4dd4-aa69-867c86bc4eb1@suse.com>
+Date: Mon, 5 Feb 2024 15:30:09 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 10/15] xen: add cache coloring allocator for domains
+Content-Language: en-US
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
+ <20240129171811.21382-11-carlo.nonato@minervasys.tech>
+ <1739dbb4-5d7e-4d84-8d4b-bfb13c4041d8@suse.com>
+ <CAG+AhRUJysNCrUXLiu8tvh2d7oL2hNAtkM3A2-Hy73f=+PxkTA@mail.gmail.com>
+ <0ef140da-77d3-411f-8f19-eee0aaf1fa9d@suse.com>
+ <CAG+AhRVTpcEHpWVY1qUNt3Uc-cDPqV2ZRe8rwfvY4YZUPUP7Ew@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAG+AhRVTpcEHpWVY1qUNt3Uc-cDPqV2ZRe8rwfvY4YZUPUP7Ew@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Fixes: 660f8a75013c ("x86/CPU: convert vendor hook invocations to altcall")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/cpu/common.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On 05.02.2024 15:10, Carlo Nonato wrote:
+> On Mon, Feb 5, 2024 at 1:38 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 05.02.2024 12:59, Carlo Nonato wrote:
+>>> On Thu, Feb 1, 2024 at 4:53 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>>> On 29.01.2024 18:18, Carlo Nonato wrote:
+>>>>> @@ -2458,7 +2626,14 @@ struct page_info *alloc_domheap_pages(
+>>>>>      if ( memflags & MEMF_no_owner )
+>>>>>          memflags |= MEMF_no_refcount;
+>>>>>
+>>>>> -    if ( !dma_bitsize )
+>>>>> +    /* Only domains are supported for coloring */
+>>>>> +    if ( d && llc_coloring_enabled )
+>>>>> +    {
+>>>>> +        /* Colored allocation must be done on 0 order */
+>>>>> +        if ( order || (pg = alloc_color_heap_page(memflags, d)) == NULL )
+>>>>> +            return NULL;
+>>>>> +    }
+>>>>
+>>>> I think I had asked before: What about MEMF_node() or MEMF_bits()
+>>>> having been used by the caller?
+>>>
+>>> MEMF_node() is used for NUMA, right? I think that for the moment, since cache
+>>> coloring is supported only on arm64 and NUMA is not yet supported, it's safe
+>>> to ignore it.
+>>
+>> NUMA or not, I'm wary of silent ignoring of inputs. I'd rather request
+>> that, just like with staticmem, precautions are then taken to avoid
+>> coloring and NUMA to be used together. Recall that much like your work,
+>> work to support NUMA is also in progress (unless it was canceled, but
+>> not so announced).
+> 
+> Ok.
+> 
+>>> I'm not sure I understood what MEMF_bits() is for. It restricts the allocator
+>>> to return pages in some range, right?
+>>
+>> Correct.
+> 
+> So I need to think about this, since I see no easy way of supporting such a
+> thing with the current colored allocator implementation.
+> Do you have any suggestions?
 
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index 26eed2ade1e3..28d7f34c4dbe 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -336,8 +336,8 @@ void __init early_cpu_init(bool verbose)
- 
- 	c->x86_vendor = x86_cpuid_lookup_vendor(ebx, ecx, edx);
- 	switch (c->x86_vendor) {
--	case X86_VENDOR_INTEL:	  actual_cpu = intel_cpu_dev;    break;
--	case X86_VENDOR_AMD:	  actual_cpu = amd_cpu_dev;      break;
-+	case X86_VENDOR_INTEL:    actual_cpu = intel_cpu_dev;    break;
-+	case X86_VENDOR_AMD:      actual_cpu = amd_cpu_dev;      break;
- 	case X86_VENDOR_CENTAUR:  actual_cpu = centaur_cpu_dev;  break;
- 	case X86_VENDOR_SHANGHAI: actual_cpu = shanghai_cpu_dev; break;
- 	case X86_VENDOR_HYGON:    actual_cpu = hygon_cpu_dev;    break;
+Well, at least properly fail requests you can't fulfill.
 
-base-commit: 9eee78988ca081eeed0a69fc9773e2e4268d1ed7
--- 
-2.30.2
-
+Jan
 
