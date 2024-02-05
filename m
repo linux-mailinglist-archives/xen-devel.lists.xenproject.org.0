@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE25849BD5
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 14:32:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676063.1051866 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DCC9849C02
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 14:38:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676066.1051876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWz5V-00071W-J5; Mon, 05 Feb 2024 13:32:41 +0000
+	id 1rWzAU-0007nC-5O; Mon, 05 Feb 2024 13:37:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676063.1051866; Mon, 05 Feb 2024 13:32:41 +0000
+Received: by outflank-mailman (output) from mailman id 676066.1051876; Mon, 05 Feb 2024 13:37:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWz5V-0006zd-GP; Mon, 05 Feb 2024 13:32:41 +0000
-Received: by outflank-mailman (input) for mailman id 676063;
- Mon, 05 Feb 2024 13:32:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rWzAU-0007lJ-27; Mon, 05 Feb 2024 13:37:50 +0000
+Received: by outflank-mailman (input) for mailman id 676066;
+ Mon, 05 Feb 2024 13:37:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rWz5T-0006zC-KT
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 13:32:39 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06b4388b-c42b-11ee-98f5-efadbce2ee36;
- Mon, 05 Feb 2024 14:32:37 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-40fcb4ef7bcso24017385e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 05:32:37 -0800 (PST)
+ id 1rWzAS-0007l7-2D
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 13:37:48 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bf1f29c4-c42b-11ee-8a45-1f161083a0e0;
+ Mon, 05 Feb 2024 14:37:46 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-40fb63c40c0so39433665e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 05:37:46 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n10-20020a5d67ca000000b0033b3cf1ff09sm2278382wrw.29.2024.02.05.05.32.36
+ f9-20020a05600c4e8900b0040f035bebfcsm8625476wmq.12.2024.02.05.05.37.45
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Feb 2024 05:32:36 -0800 (PST)
+ Mon, 05 Feb 2024 05:37:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06b4388b-c42b-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: bf1f29c4-c42b-11ee-8a45-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707139956; x=1707744756; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707140266; x=1707745066; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=l1ReB3jZD1WlYuF9U7WzsUOq1WPtCay0Ptk0kyAo6EU=;
-        b=OsdNTd6VMeUh4ga+XuwOrHQkxh7A6GWbkpi5eCDqNmXBkK834Jk91+PHum1oZG0uRY
-         IbeMiLbL5Qcsp0gAJN2LvqZX9zOZb3D7Ex9VTfhtK91vPnvcB3e6bGEzOIo92tFh40HQ
-         zY456ruFJqnqln0ALSAajjDy4OgmqWiB/QcBCFTZwxkrVwjiMN1CYanWby17eoWp6+rm
-         WOt82awziojisi29NohcHVLvrug6WuVEYYY7qIsgqLDOQbNtCZ6pMMMbvgY7gVeAwfyr
-         lMXhzKY6lwYYKLYIxOhtJ+aX4853V52XNuHTx2S4oP827WCjoKNAkVdg6BFD2lzTGult
-         WSfQ==
+        bh=07aP1qEUKfU9p7fDjH02hl2Wgx9V9VqMoOdijrGIkAk=;
+        b=eCxBGvqHEdz2eWnhgkBVOolFsi7fJewod/mwqWstWnTt4rajUQVxkdtSeK47vlY6c6
+         f4UPZyDxpl4dwenBJk4pIxlm115VZ1FhD+ywWmrs7KFrio3YXn5OS0m+RHCRSi3pp51S
+         6HvII86pSxU8s38KMc2VWJx5CBRJpp6Bv6D9tgXL/K3RCcA0NZ1KFUw1aWRAbdahJoGY
+         JHXQL2yurKCZFi7OVemu2NuZrSr9ytnSWNmJbV2GNdwCgwqpSk26pPM8UHWKjSmnLrYp
+         KHv8U/r/1HZmgykPKMyOW3Vps1TQlYIzOtsnLLMcEueC+3O9WllfNAEccsX81JMpRR81
+         WbAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707139956; x=1707744756;
+        d=1e100.net; s=20230601; t=1707140266; x=1707745066;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=l1ReB3jZD1WlYuF9U7WzsUOq1WPtCay0Ptk0kyAo6EU=;
-        b=kObTvxeaDCx9jVG2wR7dMXqgkc/SOPy93t5UEIkcCw4JVKLaHkvgIr3phM5ZkHdPoz
-         CvMnEeLe7n8E4vc36YSQjFgGhgyJtGhP1z1mexpKMjlDefspBLD8NyoJZ53vxZnVRvez
-         79QGkTmUuLi3mqt51Xi+BCl5e+YKubCOU3/wzIYrhTVRmtzpwncU2NGGDt2rEVilr9gR
-         BpzYiVqWvTTIJ7dWUl/Y0mz9Nrc7xzfVdwY5wIxIlBEpiVLn8nTB4M7xPC/3/D33+ETj
-         ZrhvecvoNs/Z19hHBa4NtvCl0EfvrXEYHEdNQ9wsedRXJ/qR8PihAlKP10ML25KWn8YI
-         tIRA==
-X-Gm-Message-State: AOJu0YxJqQwAQN+KpEOjBjZ6RBXbvelnNZ/lZ8+XkVL0PJCd2jM5fK1+
-	pP55waFQkGLwK7rs6WO8bAMLBQGp2INcyA+u+dtjPlP0EdZ8xaWUfITLREbr9W2qhXEPg/H5jU4
+        bh=07aP1qEUKfU9p7fDjH02hl2Wgx9V9VqMoOdijrGIkAk=;
+        b=PanFpET/74xqyY/rN6QPZL13t0OFxVG7XwWV8BKZMM+xzg9HoDHbhrfyMcCW5+7ivd
+         qwE8rHvjEXVwAwm3lcK5+xnF1mUHLl6mQYzAWuPc28wCfdB+jXA1OdCg2GwuwC+iVm9a
+         mVbf2Y70/s8borkLKS2NadrUGgy1GXxH2qHS1DpGyjnI743Dq38PM62KEQHtSWdUVkJe
+         rgbZh+Xvz4hcyjGVj/TxG6oVOCzpMyGBxvajuJpSAQxP9xLogJYxRKsEwH8UZh4nN+D/
+         w3uRfxf/Lw+bf30NWeze7+x0yWbeuHomVxdksXx6IENL/gRfCxN0FJ6RQ3L4FXPuO0N9
+         J9Tw==
+X-Gm-Message-State: AOJu0YzYgVrUSI4+9YGVOGyXLsh2UXkupDx3IY0W/8MXXyiWn1iiCHq0
+	l25Cggz6UH+bY6r8BFIcTkbaUbkCCcussATx0swkltbe7uHOeQpjoVv68jQaD6x16JD6JU5E1D0
 	=
-X-Google-Smtp-Source: AGHT+IF5ujFRkwOP55BlIw1cbRp7a5E9Ub1z36GcCR65nDdw4WLhkgsaaFcxuA6JhcSbFMJ2OgtpNg==
-X-Received: by 2002:adf:fc07:0:b0:33b:381f:a89d with SMTP id i7-20020adffc07000000b0033b381fa89dmr2590949wrr.67.1707139956605;
-        Mon, 05 Feb 2024 05:32:36 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCUzG0P9zKzwFHwq5DPm4P9WDTXo3Zio+7hklMnfnsR5ZTOxFq+l7Aqqzb3rFGSatuJAUaPnHDX7I0n1fg8v7aPhvjDIsY42b2FhjXJRSW9pGCldwZTGy8+jl8BqgNMT7rDsN0WOdDG48EnSZ75tczgGbRCqN7de3njxXpq9UMLcU+Wzsi5Uzldk91rLha61HW8jwbDJWtGQN7avnT+dRarUUie1fDPZhpHozEAHlpjVA4shmyUOXSRZ5INT2kXwEdxTEUA/togY1DNLDDEMeFkiy2B1COzJJtqHOBYWylo=
-Message-ID: <f20d2cef-4435-4b9a-9ad8-61ceddb6bcba@suse.com>
-Date: Mon, 5 Feb 2024 14:32:35 +0100
+X-Google-Smtp-Source: AGHT+IEJB1Xik0xxmpKBk6ml66jNYoIJ8zz8EiPv6nzfeKDtgWnW0Adn8C9VdjUfu3QlSSkGpwAJDQ==
+X-Received: by 2002:a05:600c:1c88:b0:40d:8bc2:6059 with SMTP id k8-20020a05600c1c8800b0040d8bc26059mr4904521wms.36.1707140265918;
+        Mon, 05 Feb 2024 05:37:45 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCWXs1K47j0vODaBHD2YixDtZniESQOohEYalDit9pxWRSDDqj8ycL1T7kPNOmhzogkrBpP0oEX8tg7tgGOkLSG/2BPmK8yWePs54H+ecyZBeeW+fJQPbnrGnkZkubcx8W0OpAVp10G1dO9br1O9qWrZNhzSs1od9vTfTU+8/b0=
+Message-ID: <bc782b14-d897-4a94-b71d-97c4abeb85df@suse.com>
+Date: Mon, 5 Feb 2024 14:37:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v3 8/8] consolidate do_bug_frame() / bug_fn_t
+Subject: [PATCH v4.5 3/8] VMX: tertiary execution control infrastructure
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
+References: <9dd23064-c79e-4a50-9c71-c0e73b189944@suse.com>
+ <aa553449-888f-4e52-85b7-0bc0b7f010b4@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -117,257 +114,248 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
+In-Reply-To: <aa553449-888f-4e52-85b7-0bc0b7f010b4@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-The type not being used in do_bug_frame() is suspicious. Apparently
-that's solely because the type uses a pointer-to-const parameter,
-when so far run_in_exception_handler() wanted functions taking pointer-
-to-non-const. Expand use of const, in turn requiring common code's
-do_bug_frame() as well as [gs]et_irq_regs() to also gain const. This
-then brings the former function also closer to the common one, with
-Arm's use of vaddr_t remaining as a difference.
+This is a prereq to enabling e.g. the MSRLIST feature.
 
-While there also replace the bogus use of hard tabs in [gs]et_irq_regs()
-(I clearly didn't mean to put it in like this).
+Note that the PROCBASED_CTLS3 MSR is different from other VMX feature
+reporting MSRs, in that all 64 bits report allowed 1-settings.
+
+vVMX code is left alone, though, for the time being.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-This is an alternative proposal to
-https://lists.xen.org/archives/html/xen-devel/2023-12/msg01385.html.
----
-v3: Retain / extend use of const. Make part of series.
-v2: [skipped]
+v4.5: Bump zero-padding width in vmcs_dump_vcpu(). Add
+      TERTIARY_EXEC_VIRT_SPEC_CTRL. Constify
+      vmx_update_tertiary_exec_control()'s parameter. Re-base.
+v2: New.
 
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -220,7 +220,7 @@ void do_IRQ(struct cpu_user_regs *regs,
- {
-     struct irq_desc *desc = irq_to_desc(irq);
-     struct irqaction *action;
--    struct cpu_user_regs *old_regs = set_irq_regs(regs);
-+    const struct cpu_user_regs *old_regs = set_irq_regs(regs);
- 
-     perfc_incr(irqs);
- 
---- a/xen/arch/x86/include/asm/processor.h
-+++ b/xen/arch/x86/include/asm/processor.h
-@@ -409,8 +409,7 @@ static always_inline void rep_nop(void)
- void show_code(const struct cpu_user_regs *regs);
- void show_stack_overflow(unsigned int cpu, const struct cpu_user_regs *regs);
- void show_registers(const struct cpu_user_regs *regs);
--#define dump_execution_state() \
--    run_in_exception_handler(show_execution_state_nonconst)
-+#define dump_execution_state() run_in_exception_handler(show_execution_state)
- void show_page_walk(unsigned long addr);
- void noreturn fatal_trap(const struct cpu_user_regs *regs, bool show_remote);
- 
---- a/xen/arch/x86/irq.c
-+++ b/xen/arch/x86/irq.c
-@@ -1896,7 +1896,7 @@ void do_IRQ(struct cpu_user_regs *regs)
-     struct irq_desc  *desc;
-     unsigned int      vector = (uint8_t)regs->entry_vector;
-     int               irq = this_cpu(vector_irq)[vector];
--    struct cpu_user_regs *old_regs = set_irq_regs(regs);
-+    const struct cpu_user_regs *old_regs = set_irq_regs(regs);
- 
-     perfc_incr(irqs);
-     this_cpu(irq_count)++;
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -643,7 +643,7 @@ void show_stack_overflow(unsigned int cp
-     printk("\n");
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -164,6 +164,7 @@ static int cf_check parse_ept_param_runt
+ u32 vmx_pin_based_exec_control __read_mostly;
+ u32 vmx_cpu_based_exec_control __read_mostly;
+ u32 vmx_secondary_exec_control __read_mostly;
++uint64_t vmx_tertiary_exec_control __read_mostly;
+ u32 vmx_vmexit_control __read_mostly;
+ u32 vmx_vmentry_control __read_mostly;
+ u64 vmx_ept_vpid_cap __read_mostly;
+@@ -228,10 +229,32 @@ static u32 adjust_vmx_controls(
+     return ctl;
  }
  
--void show_execution_state(const struct cpu_user_regs *regs)
-+void cf_check show_execution_state(const struct cpu_user_regs *regs)
+-static bool cap_check(const char *name, u32 expected, u32 saw)
++static uint64_t adjust_vmx_controls2(
++    const char *name, uint64_t ctl_min, uint64_t ctl_opt, unsigned int msr,
++    bool *mismatch)
++{
++    uint64_t vmx_msr, ctl = ctl_min | ctl_opt;
++
++    rdmsrl(msr, vmx_msr);
++
++    ctl &= vmx_msr; /* bit == 0 ==> must be zero */
++
++    /* Ensure minimum (required) set of control bits are supported. */
++    if ( ctl_min & ~ctl )
++    {
++        *mismatch = true;
++        printk("VMX: CPU%u has insufficient %s (%#lx; requires %#lx)\n",
++               smp_processor_id(), name, ctl, ctl_min);
++    }
++
++    return ctl;
++}
++
++static bool cap_check(
++    const char *name, unsigned long expected, unsigned long saw)
  {
-     /* Prevent interleaving of output. */
-     unsigned long flags = console_lock_recursive_irqsave();
-@@ -655,11 +655,6 @@ void show_execution_state(const struct c
-     console_unlock_recursive_irqrestore(flags);
+     if ( saw != expected )
+-        printk("VMX %s: saw %#x expected %#x\n", name, saw, expected);
++        printk("VMX %s: saw %#lx expected %#lx\n", name, saw, expected);
+     return saw != expected;
  }
  
--void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs)
--{
--    show_execution_state(regs);
--}
--
- void vcpu_show_execution_state(struct vcpu *v)
- {
-     unsigned long flags = 0;
---- a/xen/common/bug.c
-+++ b/xen/common/bug.c
-@@ -10,7 +10,7 @@
-  * Returns a negative value in case of an error otherwise
-  * BUGFRAME_{run_fn, warn, bug, assert}
-  */
--int do_bug_frame(struct cpu_user_regs *regs, unsigned long pc)
-+int do_bug_frame(const struct cpu_user_regs *regs, unsigned long pc)
- {
-     const struct bug_frame *bug = NULL;
-     const struct virtual_region *region;
-@@ -44,14 +44,10 @@ int do_bug_frame(struct cpu_user_regs *r
- 
-     if ( id == BUGFRAME_run_fn )
-     {
--        void (*fn)(struct cpu_user_regs *) = bug_ptr(bug);
-+        bug_fn_t *fn = bug_ptr(bug);
- 
-         fn(regs);
- 
--        /* Re-enforce consistent types, because of the casts involved. */
--        if ( false )
--            run_in_exception_handler(fn);
--
-         return id;
+@@ -241,6 +264,7 @@ static int vmx_init_vmcs_config(bool bsp
+     u32 _vmx_pin_based_exec_control;
+     u32 _vmx_cpu_based_exec_control;
+     u32 _vmx_secondary_exec_control = 0;
++    uint64_t _vmx_tertiary_exec_control = 0;
+     u64 _vmx_ept_vpid_cap = 0;
+     u64 _vmx_misc_cap = 0;
+     u32 _vmx_vmexit_control;
+@@ -274,7 +298,8 @@ static int vmx_init_vmcs_config(bool bsp
+     opt = (CPU_BASED_ACTIVATE_MSR_BITMAP |
+            CPU_BASED_TPR_SHADOW |
+            CPU_BASED_MONITOR_TRAP_FLAG |
+-           CPU_BASED_ACTIVATE_SECONDARY_CONTROLS);
++           CPU_BASED_ACTIVATE_SECONDARY_CONTROLS |
++           CPU_BASED_ACTIVATE_TERTIARY_CONTROLS);
+     _vmx_cpu_based_exec_control = adjust_vmx_controls(
+         "CPU-Based Exec Control", min, opt,
+         MSR_IA32_VMX_PROCBASED_CTLS, &mismatch);
+@@ -338,6 +363,15 @@ static int vmx_init_vmcs_config(bool bsp
+             MSR_IA32_VMX_PROCBASED_CTLS2, &mismatch);
      }
  
---- a/xen/common/irq.c
-+++ b/xen/common/irq.c
-@@ -1,7 +1,7 @@
- #include <xen/irq.h>
- #include <xen/errno.h>
++    if ( _vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS )
++    {
++        uint64_t opt = 0;
++
++        _vmx_tertiary_exec_control = adjust_vmx_controls2(
++            "Tertiary Exec Control", 0, opt,
++            MSR_IA32_VMX_PROCBASED_CTLS3, &mismatch);
++    }
++
+     /* The IA32_VMX_EPT_VPID_CAP MSR exists only when EPT or VPID available */
+     if ( _vmx_secondary_exec_control & (SECONDARY_EXEC_ENABLE_EPT |
+                                         SECONDARY_EXEC_ENABLE_VPID) )
+@@ -468,6 +502,7 @@ static int vmx_init_vmcs_config(bool bsp
+         vmx_pin_based_exec_control = _vmx_pin_based_exec_control;
+         vmx_cpu_based_exec_control = _vmx_cpu_based_exec_control;
+         vmx_secondary_exec_control = _vmx_secondary_exec_control;
++        vmx_tertiary_exec_control  = _vmx_tertiary_exec_control;
+         vmx_ept_vpid_cap           = _vmx_ept_vpid_cap;
+         vmx_vmexit_control         = _vmx_vmexit_control;
+         vmx_vmentry_control        = _vmx_vmentry_control;
+@@ -503,6 +538,9 @@ static int vmx_init_vmcs_config(bool bsp
+             "Secondary Exec Control",
+             vmx_secondary_exec_control, _vmx_secondary_exec_control);
+         mismatch |= cap_check(
++            "Tertiary Exec Control",
++            vmx_tertiary_exec_control, _vmx_tertiary_exec_control);
++        mismatch |= cap_check(
+             "VMExit Control",
+             vmx_vmexit_control, _vmx_vmexit_control);
+         mismatch |= cap_check(
+@@ -1080,6 +1118,7 @@ static int construct_vmcs(struct vcpu *v
+         v->arch.hvm.vmx.exec_control |= CPU_BASED_RDTSC_EXITING;
  
--DEFINE_PER_CPU(struct cpu_user_regs *, irq_regs);
-+DEFINE_PER_CPU(const struct cpu_user_regs *, irq_regs);
+     v->arch.hvm.vmx.secondary_exec_control = vmx_secondary_exec_control;
++    v->arch.hvm.vmx.tertiary_exec_control  = vmx_tertiary_exec_control;
  
- int init_one_irq_desc(struct irq_desc *desc)
- {
---- a/xen/common/keyhandler.c
-+++ b/xen/common/keyhandler.c
-@@ -135,7 +135,7 @@ static void cf_check show_handlers(unsig
+     /*
+      * Disable features which we don't want active by default:
+@@ -1134,6 +1173,10 @@ static int construct_vmcs(struct vcpu *v
+         __vmwrite(SECONDARY_VM_EXEC_CONTROL,
+                   v->arch.hvm.vmx.secondary_exec_control);
  
- static cpumask_t dump_execstate_mask;
- 
--void cf_check dump_execstate(struct cpu_user_regs *regs)
-+void cf_check dump_execstate(const struct cpu_user_regs *regs)
- {
-     unsigned int cpu = smp_processor_id();
- 
---- a/xen/drivers/char/ehci-dbgp.c
-+++ b/xen/drivers/char/ehci-dbgp.c
-@@ -1246,14 +1246,14 @@ static int cf_check ehci_dbgp_getc(struc
- /* Safe: ehci_dbgp_poll() runs as timer handler, so not reentrant. */
- static struct serial_port *poll_port;
- 
--static void cf_check _ehci_dbgp_poll(struct cpu_user_regs *regs)
-+static void cf_check _ehci_dbgp_poll(const struct cpu_user_regs *regs)
- {
-     struct serial_port *port = poll_port;
-     struct ehci_dbgp *dbgp = port->uart;
-     unsigned long flags;
-     unsigned int timeout = MICROSECS(DBGP_CHECK_INTERVAL);
-     bool empty = false;
--    struct cpu_user_regs *old_regs;
-+    const struct cpu_user_regs *old_regs;
- 
-     if ( !dbgp->ehci_debug )
-         return;
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -206,11 +206,11 @@ static void cf_check ns16550_interrupt(i
- /* Safe: ns16550_poll() runs as softirq so not reentrant on a given CPU. */
- static DEFINE_PER_CPU(struct serial_port *, poll_port);
- 
--static void cf_check __ns16550_poll(struct cpu_user_regs *regs)
-+static void cf_check __ns16550_poll(const struct cpu_user_regs *regs)
- {
-     struct serial_port *port = this_cpu(poll_port);
-     struct ns16550 *uart = port->uart;
--    struct cpu_user_regs *old_regs;
-+    const struct cpu_user_regs *old_regs;
- 
-     if ( uart->intr_works )
-         return; /* Interrupts work - no more polling */
---- a/xen/drivers/char/xhci-dbc.c
-+++ b/xen/drivers/char/xhci-dbc.c
-@@ -1164,7 +1164,7 @@ static void cf_check dbc_uart_poll(void
-     struct dbc_uart *uart = port->uart;
-     struct dbc *dbc = &uart->dbc;
-     unsigned long flags = 0;
--    struct cpu_user_regs *old_regs;
-+    const struct cpu_user_regs *old_regs;
- 
-     if ( spin_trylock_irqsave(&port->tx_lock, flags) )
++    if ( cpu_has_vmx_tertiary_exec_control )
++        __vmwrite(TERTIARY_VM_EXEC_CONTROL,
++                  v->arch.hvm.vmx.tertiary_exec_control);
++
+     /* MSR access bitmap. */
+     if ( cpu_has_vmx_msr_bitmap )
      {
---- a/xen/include/xen/bug.h
-+++ b/xen/include/xen/bug.h
-@@ -101,8 +101,7 @@ typedef void bug_fn_t(const struct cpu_u
+@@ -2068,10 +2111,12 @@ void vmcs_dump_vcpu(struct vcpu *v)
+                vmr(HOST_PERF_GLOBAL_CTRL));
  
- #ifndef run_in_exception_handler
+     printk("*** Control State ***\n");
+-    printk("PinBased=%08x CPUBased=%08x SecondaryExec=%08x\n",
++    printk("PinBased=%08x CPUBased=%08x\n",
+            vmr32(PIN_BASED_VM_EXEC_CONTROL),
+-           vmr32(CPU_BASED_VM_EXEC_CONTROL),
+-           vmr32(SECONDARY_VM_EXEC_CONTROL));
++           vmr32(CPU_BASED_VM_EXEC_CONTROL));
++    printk("SecondaryExec=%08x TertiaryExec=%016lx\n",
++           vmr32(SECONDARY_VM_EXEC_CONTROL),
++           vmr(TERTIARY_VM_EXEC_CONTROL));
+     printk("EntryControls=%08x ExitControls=%08x\n", vmentry_ctl, vmexit_ctl);
+     printk("ExceptionBitmap=%08x PFECmask=%08x PFECmatch=%08x\n",
+            vmr32(EXCEPTION_BITMAP),
+@@ -2174,6 +2219,7 @@ int __init vmx_vmcs_init(void)
+         vmx_pin_based_exec_control = 0;
+         vmx_cpu_based_exec_control = 0;
+         vmx_secondary_exec_control = 0;
++        vmx_tertiary_exec_control  = 0;
+         vmx_vmexit_control         = 0;
+         vmx_vmentry_control        = 0;
+         vmx_ept_vpid_cap           = 0;
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -114,6 +114,7 @@ struct vmx_vcpu {
+     /* Cache of cpu execution control. */
+     u32                  exec_control;
+     u32                  secondary_exec_control;
++    uint64_t             tertiary_exec_control;
+     u32                  exception_bitmap;
  
--static void always_inline run_in_exception_handler(
--    void (*fn)(struct cpu_user_regs *regs))
-+static void always_inline run_in_exception_handler(bug_fn_t *fn)
- {
-     BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL);
+     uint64_t             shadow_gs;
+@@ -196,6 +197,7 @@ void vmx_vmcs_reload(struct vcpu *v);
+ #define CPU_BASED_RDTSC_EXITING               0x00001000U
+ #define CPU_BASED_CR3_LOAD_EXITING            0x00008000U
+ #define CPU_BASED_CR3_STORE_EXITING           0x00010000U
++#define CPU_BASED_ACTIVATE_TERTIARY_CONTROLS  0x00020000U
+ #define CPU_BASED_CR8_LOAD_EXITING            0x00080000U
+ #define CPU_BASED_CR8_STORE_EXITING           0x00100000U
+ #define CPU_BASED_TPR_SHADOW                  0x00200000U
+@@ -260,6 +262,14 @@ extern u32 vmx_vmentry_control;
+ #define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000U
+ extern u32 vmx_secondary_exec_control;
+ 
++#define TERTIARY_EXEC_LOADIWKEY_EXITING         BIT(0, UL)
++#define TERTIARY_EXEC_ENABLE_HLAT               BIT(1, UL)
++#define TERTIARY_EXEC_EPT_PAGING_WRITE          BIT(2, UL)
++#define TERTIARY_EXEC_GUEST_PAGING_VERIFY       BIT(3, UL)
++#define TERTIARY_EXEC_IPI_VIRT                  BIT(4, UL)
++#define TERTIARY_EXEC_VIRT_SPEC_CTRL            BIT(7, UL)
++extern uint64_t vmx_tertiary_exec_control;
++
+ #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
+ #define VMX_EPT_WALK_LENGTH_4_SUPPORTED                     0x00000040
+ #define VMX_EPT_MEMORY_TYPE_UC                              0x00000100
+@@ -296,6 +306,8 @@ extern u64 vmx_ept_vpid_cap;
+     (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_MSR_BITMAP)
+ #define cpu_has_vmx_secondary_exec_control \
+     (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_SECONDARY_CONTROLS)
++#define cpu_has_vmx_tertiary_exec_control \
++    (vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS)
+ #define cpu_has_vmx_ept \
+     (vmx_secondary_exec_control & SECONDARY_EXEC_ENABLE_EPT)
+ #define cpu_has_vmx_dt_exiting \
+@@ -423,6 +435,7 @@ enum vmcs_field {
+     VIRT_EXCEPTION_INFO             = 0x0000202a,
+     XSS_EXIT_BITMAP                 = 0x0000202c,
+     TSC_MULTIPLIER                  = 0x00002032,
++    TERTIARY_VM_EXEC_CONTROL        = 0x00002034,
+     GUEST_PHYSICAL_ADDRESS          = 0x00002400,
+     VMCS_LINK_POINTER               = 0x00002800,
+     GUEST_IA32_DEBUGCTL             = 0x00002802,
+--- a/xen/arch/x86/include/asm/msr-index.h
++++ b/xen/arch/x86/include/asm/msr-index.h
+@@ -347,6 +347,7 @@
+ #define MSR_IA32_VMX_TRUE_EXIT_CTLS             0x48f
+ #define MSR_IA32_VMX_TRUE_ENTRY_CTLS            0x490
+ #define MSR_IA32_VMX_VMFUNC                     0x491
++#define MSR_IA32_VMX_PROCBASED_CTLS3            0x492
+ 
+ /* K7/K8 MSRs. Not complete. See the architecture manual for a more
+    complete list. */
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -760,6 +760,12 @@ void vmx_update_secondary_exec_control(s
+                   v->arch.hvm.vmx.secondary_exec_control);
  }
-@@ -133,7 +132,7 @@ static void always_inline run_in_excepti
-  * Returns a negative value in case of an error otherwise
-  * BUGFRAME_{run_fn, warn, bug, assert}
-  */
--int do_bug_frame(struct cpu_user_regs *regs, unsigned long pc);
-+int do_bug_frame(const struct cpu_user_regs *regs, unsigned long pc);
  
- #endif /* CONFIG_GENERIC_BUG_FRAME */
- 
---- a/xen/include/xen/irq.h
-+++ b/xen/include/xen/irq.h
-@@ -134,21 +134,22 @@ void cf_check irq_actor_none(struct irq_
-  * Per-cpu interrupted context register state - the inner-most interrupt frame
-  * on the stack.
-  */
--DECLARE_PER_CPU(struct cpu_user_regs *, irq_regs);
-+DECLARE_PER_CPU(const struct cpu_user_regs *, irq_regs);
- 
--static inline struct cpu_user_regs *get_irq_regs(void)
-+static inline const struct cpu_user_regs *get_irq_regs(void)
++void vmx_update_tertiary_exec_control(const struct vcpu *v)
++{
++    __vmwrite(TERTIARY_VM_EXEC_CONTROL,
++              v->arch.hvm.vmx.tertiary_exec_control);
++}
++
+ void vmx_update_exception_bitmap(struct vcpu *v)
  {
--	return this_cpu(irq_regs);
-+    return this_cpu(irq_regs);
- }
+     u32 bitmap = unlikely(v->arch.hvm.vmx.vmx_realmode)
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
+@@ -81,6 +81,7 @@ void vmx_realmode(struct cpu_user_regs *
+ void vmx_update_exception_bitmap(struct vcpu *v);
+ void vmx_update_cpu_exec_control(struct vcpu *v);
+ void vmx_update_secondary_exec_control(struct vcpu *v);
++void vmx_update_tertiary_exec_control(const struct vcpu *v);
  
--static inline struct cpu_user_regs *set_irq_regs(struct cpu_user_regs *new_regs)
-+static inline const struct cpu_user_regs *set_irq_regs(
-+    const struct cpu_user_regs *new_regs)
- {
--	struct cpu_user_regs *old_regs, **pp_regs = &this_cpu(irq_regs);
-+    const struct cpu_user_regs *old_regs, **pp_regs = &this_cpu(irq_regs);
- 
--	old_regs = *pp_regs;
--	*pp_regs = new_regs;
-+    old_regs = *pp_regs;
-+    *pp_regs = new_regs;
- 
--	return old_regs;
-+    return old_regs;
- }
- 
- struct domain;
---- a/xen/include/xen/kernel.h
-+++ b/xen/include/xen/kernel.h
-@@ -110,8 +110,7 @@ extern const unsigned int xen_config_dat
- struct cpu_user_regs;
- struct vcpu;
- 
--void show_execution_state(const struct cpu_user_regs *regs);
--void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs);
-+void cf_check show_execution_state(const struct cpu_user_regs *regs);
- void vcpu_show_execution_state(struct vcpu *v);
- 
- #endif /* _LINUX_KERNEL_H */
---- a/xen/include/xen/lib.h
-+++ b/xen/include/xen/lib.h
-@@ -173,7 +173,7 @@ extern char *print_tainted(char *str);
- extern void add_taint(unsigned int taint);
- 
- struct cpu_user_regs;
--void cf_check dump_execstate(struct cpu_user_regs *regs);
-+void cf_check dump_execstate(const struct cpu_user_regs *regs);
- 
- void init_constructors(void);
- 
+ #define POSTED_INTR_ON  0
+ #define POSTED_INTR_SN  1
 
 
