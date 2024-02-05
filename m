@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E37B5849E40
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 16:33:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676200.1052202 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE88E849E37
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 16:33:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676201.1052215 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX0xl-0008PD-Tc; Mon, 05 Feb 2024 15:32:49 +0000
+	id 1rX0xn-0000Mw-92; Mon, 05 Feb 2024 15:32:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676200.1052202; Mon, 05 Feb 2024 15:32:49 +0000
+Received: by outflank-mailman (output) from mailman id 676201.1052215; Mon, 05 Feb 2024 15:32:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX0xl-0008Il-PX; Mon, 05 Feb 2024 15:32:49 +0000
-Received: by outflank-mailman (input) for mailman id 676200;
- Mon, 05 Feb 2024 15:32:48 +0000
+	id 1rX0xn-0000Ih-55; Mon, 05 Feb 2024 15:32:51 +0000
+Received: by outflank-mailman (input) for mailman id 676201;
+ Mon, 05 Feb 2024 15:32:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TPgQ=JO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rX0xk-0007I6-OC
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 15:32:48 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ id 1rX0xl-0007I6-Oa
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 15:32:49 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d028054a-c43b-11ee-98f5-efadbce2ee36;
+ id d0af2684-c43b-11ee-98f5-efadbce2ee36;
  Mon, 05 Feb 2024 16:32:47 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id
- 2adb3069b0e04-51121637524so6822970e87.1
+Received: by mail-lf1-x133.google.com with SMTP id
+ 2adb3069b0e04-51124db6cf0so3952831e87.0
  for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 07:32:47 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- s1-20020a056512314100b005114d401157sm474445lfi.2.2024.02.05.07.32.45
+ s1-20020a056512314100b005114d401157sm474445lfi.2.2024.02.05.07.32.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Feb 2024 07:32:45 -0800 (PST)
+ Mon, 05 Feb 2024 07:32:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,129 +44,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d028054a-c43b-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: d0af2684-c43b-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707147166; x=1707751966; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1707147167; x=1707751967; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r6k+h8FV3d3vqiaEMlAmNrvziqvskuI2jnLZD/dQBlM=;
-        b=BgVd3K+6wg0nuW7AQWKED/JY0hLQaTZzM4vXEdBNcyhSKrrMGj5hE+7FcO7sZV8eh8
-         HHM0dLIx8DXOpAYL8LIybxN5VDhGh52B1NpCguA5ZngX4STh3n7zq7dS2e4wELc07Wva
-         QvTBT9LFdsK/CAI+DnXilpu9bh8kUSeJrTx4epcVwTf+sfPmwItegTHJ+wCLxq2Ep3v1
-         cTSfdvZ7i1GYcvYnNFxeE2NYMGb/6HGA2AFGUgf9zP4O1rcUIkpxpXfC8ttmcyIAw6nY
-         2gO4DLBoWYG9ar/O4XOOw+dztC/aTIn93rSlTAu3c9aaFnTX3/ANCXF9lhIeztkbEXub
-         77Xg==
+        bh=EBotcF0+SThVpP3W9n7XOyM76ldShQpdZhp7LK29d70=;
+        b=bTD2yDLrXJ6LzZXaF0oSRYvepLB07HVyKTqZjqvG8asR7M4nlzZRPwOzZZYMQfuqVx
+         MIYh+nWLHzCYi5dKrYB7jG5JcohulixFBi3cnAqxdcVkR2JP6p/oXBxi06XnowVVfYHP
+         v6nuJMOAvoYJPs3c7SKLac9swSaoPMaZ95fmvvXe/NiobAO00mU/G7wAGnKgwjhbEGfP
+         Afc/5gLKMWL9iVmwhM7eO0dCM6/Nl9AxoWG7nzsZDUgK42cya2zL04rsMdndOvBnFSNS
+         bdWRNX3h93QQWXuAJGt/z5Hbci/MqCcYswWIClYjLcCCkvXbrOMdqHznTRQcRopLsLfc
+         CW9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707147166; x=1707751966;
+        d=1e100.net; s=20230601; t=1707147167; x=1707751967;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=r6k+h8FV3d3vqiaEMlAmNrvziqvskuI2jnLZD/dQBlM=;
-        b=NONUKb2QKp5v0bht11wHzRBX+8CjKY82uD0hhhl12pc+mj7iumUEWLyu24b1vXc93C
-         kcgcBwqmxgSYg0LREdjU8pK7OJhwLAAtw1S4aj5A4AkciMP+tJB8h9eIvgY0UmIUvylX
-         rf6ys/pT2xSFvN/MVrvydNIXkAXNp4vMiRY7EGwNhFV8/WzI44bLqwVqktxkwuSHoPzR
-         0+gxcOkLDm3FsRElyh0/FtoZhzxck4aSxQQ0I2jXuX38DSRh/hTXw9dm7GPizBBX+ycw
-         cjsrTG7dlHTGE8/94Koeh6VR6KTmzVRVHCsIkGcJtOPEaOndhQ1JSw0k6FmUCsP4ciLC
-         kJNA==
-X-Gm-Message-State: AOJu0Yxu0AbUQvZ+cPuQt5gj+n7fnaHXsQgNR89O9uhiRE+VtTpQjJ7r
-	MVQ61mIDKPIm+Xuq4yPbHN0WhzdZiZUNWIvwJTBbOJ0FQNf/NN7PnOCrZAFE
-X-Google-Smtp-Source: AGHT+IH2pEQL4vZHR4MIEJz68fgv+P3tICF/uAeNOq4jVyksCsAdQPpNvtJllexRR5adepWtKjsiXg==
-X-Received: by 2002:ac2:4141:0:b0:511:56cf:5547 with SMTP id c1-20020ac24141000000b0051156cf5547mr341802lfi.1.1707147166303;
-        Mon, 05 Feb 2024 07:32:46 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCUDAoZxLjfy7HkxTNBi3WUn1ERJyszXw4tprspv4xeX6CniIEbx62uxIUGO2bOy3eu8pVs9iyJ86O+M5hmcFSa3Dk1vJLbHMRtg/aAHExQOCR1vm999z27iGd104XrjDG/+76NqhFh11WTetvT877pp3trNF5xmkeINlC1wqnyELm4+QQdizAZiBzPsg5jMbevc53ljIAKeJ7Q3BpN0CPX8kbcRJnnB5FjZvzpz0R1NP1UalY5MgCy5ykM+Oin/gHEE+67qFCo8cj40bVDh2W39CisiC/WiYg0MoWY+OWJaLhxd0LkYTa/6KZzbWHy4DROOxq1w
+        bh=EBotcF0+SThVpP3W9n7XOyM76ldShQpdZhp7LK29d70=;
+        b=Jf2iGiL6juPFl2QIUvagxmAhcnbM47ziJqiND7TwK5qsWnhw5HZP3/jxwdJ7rNuF26
+         GDQc1gxAjeCfRHdPOZgE8dYcbeuc1rQK6IZ/KnmYAiatt00vcSwh8P29WUOSK6/mMEQ1
+         JINZZ75u9AsbJBD7gvQEnS7FiZk8hH1HxnGQ1lVCMmD8ysQI9854F0Xub7RaY5cYCWcj
+         i4cTgTQh9Tgk3htByy9l+ZspPRkBCrx+ZneQK/z60MT4TLDaS1AUEqyWI791ZpbM97uZ
+         Yb9R4Zi0JOWwPi6eJXQ8tWUqWvStGee4ZDMZwisBy4IQb1sfIFQ8l1dOLs0kAs5qQrDV
+         sYMQ==
+X-Gm-Message-State: AOJu0Ywf2KHvJfmCRBVFl+y4Hmj3k5FUU1xuHIb7CFGCs7ysvYjeNo1g
+	vGq07zZpU1Vtfc39fCD30YX1tLtre/6MDFvcconp/dLY/xR3/S9e9o4CCWsw
+X-Google-Smtp-Source: AGHT+IGlApynLcTSmBkHRExhVCI8u5HUGtusmYhRVxMrylZdRgq9ep6QS77uqsxZ/UfDXjAB9p32hw==
+X-Received: by 2002:a19:4f56:0:b0:511:56fb:b2a8 with SMTP id a22-20020a194f56000000b0051156fbb2a8mr122013lfk.8.1707147167141;
+        Mon, 05 Feb 2024 07:32:47 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXnEv4K2PpNuztEqD+bWPCE7ysgM6vo9uLx9ZkjlfOwMNyBtdDQpC4sybGDlJU5awDLLOC6X/EGUrjNzWzLh0Uldqk5N2/moeqwv2MoHDKwb45hlAdvzxdQBKVvdkezRrdzbrDEXg==
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v4 05/30] xen/riscv: introduce guest_atomics.h
-Date: Mon,  5 Feb 2024 16:32:12 +0100
-Message-ID: <542c61229e1056c3fdec3a5c086136e3b5909b07.1707146506.git.oleksii.kurochko@gmail.com>
+	Paul Durrant <paul@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v4 06/30] xen: avoid generation of empty asm/iommu.h
+Date: Mon,  5 Feb 2024 16:32:13 +0100
+Message-ID: <a94aba19d32bbe8d2fa78d6d8931f9f0ca51160a.1707146506.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1707146506.git.oleksii.kurochko@gmail.com>
 References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+asm/iommu.h shouldn't be included when CONFIG_HAS_PASSTHROUGH
+isn't enabled.
+As <asm/iommu.h> is ifdef-ed by CONFIG_HAS_PASSTHROUGH it should
+be also ifdef-ed field "struct arch_iommu arch" in struct domain_iommu
+as definition of arch_iommu is located in <asm/iommu.h>.
+
+These amount of changes are enough to avoid generation of empty
+asm/iommu.h for now.
+
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V4:
- - Drop in guest_testop() and guest_bitop() casts of function arguments.
- - Change "commit message" to "commit title" in "Changes in V3" to be more precise about
-   what was changed.
- - use BUG_ON("unimplemented") instead of ASSERT_UNREACHABLE
+ - Update the commit message.
 ---
 Changes in V3:
- - update the commit title
- - drop TODO commit.
- - add ASSERT_UNREACHABLE for stubs guest functions.
- - Add SPDX & footer
+ - new patch.
 ---
-Changes in V2:
- - Nothing changed. Only rebase.
----
- xen/arch/riscv/include/asm/guest_atomics.h | 44 ++++++++++++++++++++++
- 1 file changed, 44 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/guest_atomics.h
+ xen/include/xen/iommu.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/xen/arch/riscv/include/asm/guest_atomics.h b/xen/arch/riscv/include/asm/guest_atomics.h
-new file mode 100644
-index 0000000000..de54914454
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/guest_atomics.h
-@@ -0,0 +1,44 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_RISCV_GUEST_ATOMICS_H
-+#define __ASM_RISCV_GUEST_ATOMICS_H
-+
-+#include <xen/bug.h>
-+
-+#define guest_testop(name)                                                  \
-+static inline int guest_##name(struct domain *d, int nr, volatile void *p)  \
-+{                                                                           \
-+    BUG_ON("unimplemented");                                                \
-+                                                                            \
-+    return 0;                                                               \
-+}
-+
-+#define guest_bitop(name)                                                   \
-+static inline void guest_##name(struct domain *d, int nr, volatile void *p) \
-+{                                                                           \
-+    BUG_ON("unimplemented");                                                \
-+}
-+
-+guest_bitop(set_bit)
-+guest_bitop(clear_bit)
-+guest_bitop(change_bit)
-+
-+#undef guest_bitop
-+
-+guest_testop(test_and_set_bit)
-+guest_testop(test_and_clear_bit)
-+guest_testop(test_and_change_bit)
-+
-+#undef guest_testop
-+
-+#define guest_test_bit(d, nr, p) ((void)(d), test_bit(nr, p))
-+
-+#endif /* __ASM_RISCV_GUEST_ATOMICS_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+index a21f25df9f..7aa6a77209 100644
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -337,7 +337,9 @@ extern int iommu_add_extra_reserved_device_memory(unsigned long start,
+ extern int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
+                                                   void *ctxt);
+ 
++#ifdef CONFIG_HAS_PASSTHROUGH
+ #include <asm/iommu.h>
++#endif
+ 
+ #ifndef iommu_call
+ # define iommu_call(ops, fn, args...) ((ops)->fn(args))
+@@ -345,7 +347,9 @@ extern int iommu_get_extra_reserved_device_memory(iommu_grdm_t *func,
+ #endif
+ 
+ struct domain_iommu {
++#ifdef CONFIG_HAS_PASSTHROUGH
+     struct arch_iommu arch;
++#endif
+ 
+     /* iommu_ops */
+     const struct iommu_ops *platform_ops;
 -- 
 2.43.0
 
