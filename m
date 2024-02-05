@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9884984A6BD
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 22:14:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676506.1052662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2829F84A70A
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 22:21:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676511.1052671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX6Hc-0006wN-NG; Mon, 05 Feb 2024 21:13:40 +0000
+	id 1rX6PA-00008u-FP; Mon, 05 Feb 2024 21:21:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676506.1052662; Mon, 05 Feb 2024 21:13:40 +0000
+Received: by outflank-mailman (output) from mailman id 676511.1052671; Mon, 05 Feb 2024 21:21:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX6Hc-0006um-KV; Mon, 05 Feb 2024 21:13:40 +0000
-Received: by outflank-mailman (input) for mailman id 676506;
- Mon, 05 Feb 2024 21:13:38 +0000
+	id 1rX6PA-00006N-C8; Mon, 05 Feb 2024 21:21:28 +0000
+Received: by outflank-mailman (input) for mailman id 676511;
+ Mon, 05 Feb 2024 21:21:26 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rX6Ha-0006ug-MD
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 21:13:38 +0000
+ (envelope-from <julien@xen.org>) id 1rX6P8-00006H-Di
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 21:21:26 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rX6HZ-0007KX-RG; Mon, 05 Feb 2024 21:13:37 +0000
+ id 1rX6P5-0007RS-Tz; Mon, 05 Feb 2024 21:21:23 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1rX6HZ-0007xj-KW; Mon, 05 Feb 2024 21:13:37 +0000
+ id 1rX6P5-00088N-NL; Mon, 05 Feb 2024 21:21:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,148 +40,67 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=P+HzqDk5bXex/unV08zPnvaewpAc0p8Ya3Cp51axNaw=; b=5E4GrSUIa9NqR0pfVsbd9Ad6sp
-	+rxOKm7QfLqxpiz258a+oVIxNceU2+bS6yMSKDo+8N5dyapK1q1cm9+xG31bj7YGbmPLmuVxYEPzu
-	77/lbBk7NVzslrRkq3Dg85gsGLgM+W6eRm5X7br0TWt9CzB99cbduNj3DvBJNL5bI/KA=;
-Message-ID: <ad801dea-7a7a-4307-927b-8a4e9edb2134@xen.org>
-Date: Mon, 5 Feb 2024 21:13:35 +0000
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=GSC24i2dQ31Wyy1eONMEhN79Ac5qxXifBbooRVtuCaw=; b=nub6J2VdbpUsGUDthSi9tAtn+w
+	xqzBQxBLUgFg1wKm7fje8YtD77o+PZ9oxVD567U0C/qUSBZa7ykZQ6M7mjfhhX5cHBSU/45Q9z4gg
+	DCiuHRkHw61yI0IlvlxfksV9Qrsz2+Pb0An6A0IGhjbDbF/iXl5f0g5v/sck1M7aSENc=;
+Message-ID: <cbdf382c-a688-45f5-b834-9e3ab70ffc53@xen.org>
+Date: Mon, 5 Feb 2024 21:21:22 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/32] tools: enable xenstore-stubdom to use 9pfs
+Subject: Re: [PATCH 2/5] Remove useless assignment
 Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20240205104637.14868-1-frediano.ziglio@cloud.com>
+ <alpine.DEB.2.22.394.2402051241240.1925432@ubuntu-linux-20-04-desktop>
 From: Julien Grall <julien@xen.org>
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
- <rosbrookn@gmail.com>, Samuel Thibault <samuel.thibault@ens-lyon.org>
-References: <20240205105001.24171-1-jgross@suse.com>
- <689635a7-6d34-44fe-b00b-31fdc03f6969@xen.org>
- <d4740502-795a-4e22-afe2-abd0746da843@suse.com>
- <c635e693-fe07-458c-9d58-273e2779f5b9@xen.org>
-In-Reply-To: <c635e693-fe07-458c-9d58-273e2779f5b9@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2402051241240.1925432@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
+The tag says '2/5' but I don't see a thread. Is the series meant to 
+contain more patches?
 
-On 05/02/2024 17:18, Julien Grall wrote:
-> Hi Juergen,
-> 
-> On 05/02/2024 11:08, Jürgen Groß wrote:
->> On 05.02.24 11:55, Julien Grall wrote:
->>> Hi Juergen,
->>>
->>> On 05/02/2024 10:49, Juergen Gross wrote:
->>>> This series is adding 9pfs support to Xenstore-stubdom, enabling it
->>>> to do logging to a dom0 directory.
->>>>
->>>> This is a prerequisite for the final goal to add live update support
->>>> to Xenstore-stubdom, as it enables the stubdom to store its state in
->>>> a dom0 file.
->>>>
->>>> The 9pfs backend is a new daemon written from scratch. Using a
->>>> dedicated 9pfs daemon has several advantages:
->>>>
->>>> - it is using much less resources than a full blown qemu process
->>>> - it can serve multiple guests (the idea is to use it for other
->>>>    infrastructure domains, like qemu-stubdom or driver domains, too)
->>>> - it is designed to support several security enhancements, like
->>>>    limiting the number of files for a guest, or limiting the allocated
->>>>    file system space
->>>> - it doesn't support file links (neither hard nor soft links) or
->>>>    referencing parent directories via "..", minimizing the risk that
->>>>    a guest can "escape" from its home directory
->>>>
->>>> Note that for now the daemon only contains the minimal needed
->>>> functionality to do logging from Xenstore-stubdom. I didn't want to
->>>> add all the 9pfs commands and security add-ons in the beginning, in
->>>> order to avoid needless efforts in case the idea of the daemon is
->>>> being rejected.
->>>>
->>>> Changes in V4:
->>>> - patch 2 of V3 was applied
->>>> - added support of reading directories
->>>> - addressed review comments
->>>>
->>>> Changes in V3:
->>>> - new patches 1, 23-25
->>>> - addressed review comments
->>>>
->>>> Changes in V2:
->>>> - support of multiple rings per device
->>>> - xenlogd->xen-9pfsd rename
->>>> - addressed review comments
->>>> - fixed some bugs
->>>>
->>>> Juergen Gross (32):
->>>>    tools: add access macros for unaligned data
->>>>    tools: add a new xen logging daemon
->>>>    tools/xen-9pfsd: connect to frontend
->>>>    tools/xen-9pfsd: add transport layer
->>>>    tools/xen-9pfsd: add 9pfs response generation support
->>>>    tools/xen-9pfsd: add 9pfs version request support
->>>>    tools/xen-9pfsd: add 9pfs attach request support
->>>>    tools/xen-9pfsd: add 9pfs walk request support
->>>>    tools/xen-9pfsd: add 9pfs open request support
->>>>    tools/xen-9pfsd: add 9pfs clunk request support
->>>>    tools/xen-9pfsd: add 9pfs create request support
->>>>    tools/xen-9pfsd: add 9pfs stat request support
->>>>    tools/xen-9pfsd: add 9pfs write request support
->>>>    tools/xen-9pfsd: add 9pfs read request support
->>>>    tools/libs/light: add backend type for 9pfs PV devices
->>>>    tools/xl: support new 9pfs backend xen_9pfsd
->>>>    tools/helpers: allocate xenstore event channel for xenstore stubdom
->>>>    tools/xenstored: rename xenbus_evtchn()
->>>>    stubdom: extend xenstore stubdom configs
->>>>    tools: add 9pfs device to xenstore-stubdom
->>>>    tools/xenstored: add early_init() function
->>>>    tools/xenstored: move systemd handling to posix.c
->>>>    tools/xenstored: move all log-pipe handling into posix.c
->>>>    tools/xenstored: move all socket handling into posix.c
->>>>    tools/xenstored: get own domid in stubdom case
->>>>    tools/xenstored: rework ring page (un)map functions
->>>>    tools/xenstored: split domain_init()
->>>>    tools/xenstored: map stubdom interface
->>>>    tools/xenstored: mount 9pfs device in stubdom
->>>>    tools/xenstored: add helpers for filename handling
->>>>    tools/xenstored: support complete log capabilities in stubdom
->>>>    tools/xenstored: have a single do_control_memreport()
->>>
->>> I haven't checked what's the state of the 9PFS patches. Can part of 
->>> the xenstored changes be committed without the 9PFS changes?
+Also, the title is not very specific about where the assignment is 
+removed. I have committed with the following title:
+
+xen/evtchn: Remove useful assignment in evtchn_alloc_unbound
+
+On 05/02/2024 20:41, Stefano Stabellini wrote:
+> On Mon, 5 Feb 2024, Frediano Ziglio wrote:
+>> The variable is assigned later, that value is never used.
+
+I also add 'rc' just for clarity.
+
 >>
->> The following patches can go in without the 9pfs daemon:
+>> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 > 
-> It looks like the gitalb CI is not happy with the following patches [1]:
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 > 
-> In function ‘free_stat’,
->      inlined from ‘write_9pfs’ at 9pfront.c:935:9:
-> 9pfront.c:120:14: error: ‘stat.name’ may be used uninitialized 
-> [-Werror=maybe-uninitialized]
->    120 |     free(stat->name);
->        |          ~~~~^~~~~~
-> 9pfront.c: In function ‘write_9pfs’:
-> 9pfront.c:929:20: note: ‘stat’ declared here
->    929 |     struct p9_stat stat;
->        |                    ^~~~
-> 
-> I think...
-> 
+>> ---
+>>   xen/common/event_channel.c | 2 --
+>>   1 file changed, 2 deletions(-)
 >>
->> tools/helpers: allocate xenstore event channel for xenstore stubdom
->> tools/xenstored: rename xenbus_evtchn()
->> stubdom: extend xenstore stubdom configs
-> 
-> .. this is related to this patch. Can you have a look?
-> 
-> I have just pushed a new branch without this patch. Let see if the CI 
-> [2] will pass this time.
+>> diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+>> index a7a004a084..15aec5dcbb 100644
+>> --- a/xen/common/event_channel.c
+>> +++ b/xen/common/event_channel.c
+>> @@ -324,8 +324,6 @@ int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, evtchn_port_t port)
+>>           goto out;
+>>       }
+>>   
+>> -    rc = 0;
+>> -
 
-It passed. So I committed all the patches you mentionned but "stubdom: 
-extend xenstore stubdom configs".
+This looks like a missing clean-up from e5ba5165cae6 ("xen/evtchn: Purge 
+ERROR_EXIT{,_DOM}()").
 
 Cheers,
 
