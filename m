@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C80D8496A9
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 10:37:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675733.1051145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86D5E8496B1
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 10:37:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.675735.1051156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWvPF-0007Qi-5k; Mon, 05 Feb 2024 09:36:49 +0000
+	id 1rWvPw-0008Ao-EP; Mon, 05 Feb 2024 09:37:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675733.1051145; Mon, 05 Feb 2024 09:36:49 +0000
+Received: by outflank-mailman (output) from mailman id 675735.1051156; Mon, 05 Feb 2024 09:37:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWvPF-0007Oo-37; Mon, 05 Feb 2024 09:36:49 +0000
-Received: by outflank-mailman (input) for mailman id 675733;
- Mon, 05 Feb 2024 09:36:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rWvPw-00088P-BV; Mon, 05 Feb 2024 09:37:32 +0000
+Received: by outflank-mailman (input) for mailman id 675735;
+ Mon, 05 Feb 2024 09:37:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rWvPD-0007Oe-Gt
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 09:36:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rWvPC-0001V9-Oh; Mon, 05 Feb 2024 09:36:46 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rWvPC-0002Fp-Jr; Mon, 05 Feb 2024 09:36:46 +0000
+ (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rWvPu-0007pV-Us
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 09:37:30 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2db1c08d-c40a-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 10:37:29 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id
+ 2adb3069b0e04-51121637524so6285462e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 01:37:29 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ h11-20020a05600c314b00b0040fde7250f4sm350606wmo.38.2024.02.05.01.37.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Feb 2024 01:37:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,107 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=env0YJKk9R293kThFXtsw6WZIYkIC2PNcd6ob0Oe2VA=; b=BZeVq+8buNt3fcy9K7+heOrYSF
-	l1IZp1F02mCLCuOQrZZTWsMwGukBKi4xhwNXIYqeSFEFjzAT9ekfBOzDuJhKnRW5qMGVSAY+CuBJd
-	YoxwbtH4VEh1dW06FiaJsosLOC6JZ6heErr0qL9fTBFKFszLeC7RSaM4dXUv5cn2x7Dc=;
-Message-ID: <fb0e6d99-8cfd-4e99-b9e9-07aac9321b46@xen.org>
-Date: Mon, 5 Feb 2024 09:36:45 +0000
+X-Inumbo-ID: 2db1c08d-c40a-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1707125848; x=1707730648; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QAvm6dqaFKH/KmVmlkXN3f2MJxKOho4bem3WUKORwKU=;
+        b=MR8SpM4sv4YHO7l6NsGPueq9le3wShrnbh1YC3LKRIgFhoIJk+1Ps3zo+I0L1WrQvg
+         T6dvK3EXcJAGpYLG/5+opfu59+5bNk+SUhxuLp4CU9vwil8Wxvmh8Dma7VaRkHBqTrJB
+         rOU3zj7j9xVi3DvY7TCfapdlDV5p9fxGRfxojcLwJVoA1IgHybsoT88JcF4JwvJAJB32
+         8YFE9gEi/qLhzHMp1Nt5jXdunTV4zarQRMdkLTcCdx6olvBrA7iuH+X4eXUhPuWaM0Yx
+         pevgJW/ePyXYlkGFtHadeI/7sDbGnoRKSDSh7+51IOmDdC37dZbBeCSfWAd14+ugveAs
+         njqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707125848; x=1707730648;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=QAvm6dqaFKH/KmVmlkXN3f2MJxKOho4bem3WUKORwKU=;
+        b=oxV7zgYmOJ1UOsd9NM/1dpXN3vOaWb2fm7EIhe6xpFHjSaa+DOFeN+YOgXfz07rVLA
+         yKnJmbVFcSk2YlvpFdW0o//tOe1XvT0dVJmQNiET6En6/aVz5MV2nnuhEuNPoopVJzeB
+         bcwPjX7NJmKEmeAGIycRicx5ll6t8wYcOcv/nTc/HLDaniIPdQsqxlD+zD6WvbTxhBBF
+         +fHNWpdrx47zpVkaBUYIJ3MKduqCcOabLHP695rolNOxht3X2IX5szRp5GApwsNqlqR5
+         jYdQ5xngLrmSCP5+AfV4XzX5/DUMGLrYccaKUmr8t6Dcce0SbkMUWwozA6AhBxz9VhPI
+         1E4g==
+X-Gm-Message-State: AOJu0YxcPTWVb97+NjUsgjRtQK63E1bRSrOCBg1YbyiT/U5VfuktSeoB
+	dk1+qlGaMJg/z9OpkgwPlWt1Gf3xcqP5or+iml1ILMOfO1W1Hj8OtBQt1jePUA==
+X-Google-Smtp-Source: AGHT+IE1M8ZaHQnOtfnGdyJpOMNL3DFNWKXiwEf660AjIaAY6Xr9yEUYuEDrXQzfAVK04Za2ajnQDA==
+X-Received: by 2002:a05:6512:1153:b0:511:53fa:b971 with SMTP id m19-20020a056512115300b0051153fab971mr809998lfg.9.1707125848585;
+        Mon, 05 Feb 2024 01:37:28 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCVJSNQHLtlc4LZRlQmHYJAvVOO84UHHJ8Qm9MxCWZcVPAUgJTxTBwta3Lgk1MMmAT2QLWSOvrp8NjvLl1KfT9US8w9IWLccbxBr45XKsqI+U4YV35XpdBUZXT5gcMyKyWXjYhQ2C/bx7CsVxTl48H/DyyLxff3+8gO+awzegREfZFedxq9UBkeGBj5e6waNfBp0LQRRtiPHwYJp1gyJ0XK4RQYLsW+GHvcw6BLvQAjNHMq/69Wwa1+rCowywUmCKku3eyG5RQSHPcgXcOV9P0XaU3mLWudZ
+Message-ID: <275107b0-bcee-489b-92e6-449a4ac627d0@suse.com>
+Date: Mon, 5 Feb 2024 10:37:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 25/33] tools/xenstored: move all socket handling into
- posix.c
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20240104090055.27323-1-jgross@suse.com>
- <20240104090055.27323-26-jgross@suse.com>
- <dcc477bd-b7cf-40e8-85be-3cde5b9cfd61@xen.org>
- <c4d5b0e0-e726-4ab2-9482-f284f2b92674@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <c4d5b0e0-e726-4ab2-9482-f284f2b92674@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v6 05/15] xen: extend domctl interface for cache coloring
+Content-Language: en-US
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Marco Solieri <marco.solieri@minervasys.tech>,
+ xen-devel@lists.xenproject.org
+References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
+ <20240129171811.21382-6-carlo.nonato@minervasys.tech>
+ <49827753-14f1-42cc-8791-27c5400e6e50@suse.com>
+ <CAG+AhRUGdkqhoSL-ihiCGZctH2mkSOi+ap+=a_kKLzJRGugCbw@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAG+AhRUGdkqhoSL-ihiCGZctH2mkSOi+ap+=a_kKLzJRGugCbw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Juergen,
-
-On 05/02/2024 09:21, Juergen Gross wrote:
-> On 26.01.24 17:22, Julien Grall wrote:
->> Hi Juergen,
+On 03.02.2024 12:41, Carlo Nonato wrote:
+> On Thu, Feb 1, 2024 at 2:51 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 29.01.2024 18:18, Carlo Nonato wrote:
+>>> --- a/xen/common/llc-coloring.c
+>>> +++ b/xen/common/llc-coloring.c
+>>> @@ -4,6 +4,7 @@
+>>>   *
+>>>   * Copyright (C) 2022 Xilinx Inc.
+>>>   */
+>>> +#include <xen/guest_access.h>
+>>>  #include <xen/keyhandler.h>
+>>>  #include <xen/llc-coloring.h>
+>>>  #include <xen/param.h>
+>>> @@ -229,6 +230,30 @@ int __init dom0_set_llc_colors(struct domain *d)
+>>>      return domain_check_colors(d);
+>>>  }
+>>>
+>>> +int domain_set_llc_colors_domctl(struct domain *d,
+>>> +                                 const struct xen_domctl_set_llc_colors *config)
 >>
->> On 04/01/2024 09:00, Juergen Gross wrote:
->>> All of the socket handling is needed only when running as daemon.
->>>
->>> Move it into posix.c, allowing to remove the NO_SOCKETS macro.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> ---
->>> V3:
->>> - new patch
->>> ---
->>>   tools/xenstored/Makefile.common |   4 -
->>>   tools/xenstored/core.c          | 156 +-------------------------------
->>>   tools/xenstored/core.h          |   8 +-
->>>   tools/xenstored/domain.c        |   9 +-
->>>   tools/xenstored/minios.c        |   6 ++
->>>   tools/xenstored/posix.c         | 153 +++++++++++++++++++++++++++++++
->>>   6 files changed, 167 insertions(+), 169 deletions(-)
->>>
->>> diff --git a/tools/xenstored/Makefile.common 
->>> b/tools/xenstored/Makefile.common
->>> index 189ab81b8d..ef63ef650c 100644
->>> --- a/tools/xenstored/Makefile.common
->>> +++ b/tools/xenstored/Makefile.common
->>> @@ -16,10 +16,6 @@ CFLAGS += $(CFLAGS_libxenctrl)
->>>   CFLAGS += $(CFLAGS_libxenguest)
->>>   CFLAGS += $(CFLAGS_libxentoolcore)
->>> -ifdef CONFIG_STUBDOM
->>> -CFLAGS += -DNO_SOCKETS=1
->>> -endif
->>> -
->>>   $(XENSTORED_OBJS-y): CFLAGS += $(CFLAGS_libxengnttab)
->>>   xenstored.a: $(XENSTORED_OBJS-y)
->>> diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
->>> index 650c1d1574..8ff1faccef 100644
->>> --- a/tools/xenstored/core.c
->>> +++ b/tools/xenstored/core.c
->>> @@ -20,10 +20,6 @@
->>>   #include <sys/types.h>
->>>   #include <sys/stat.h>
->>>   #include <poll.h>
->>> -#ifndef NO_SOCKETS
->>> -#include <sys/socket.h>
->>> -#include <sys/un.h>
->>> -#endif
->>>   #include <sys/time.h>
->>>   #include <time.h>
->>>   #include <unistd.h>
->>> @@ -61,7 +57,7 @@ static unsigned int current_array_size;
->>>   static unsigned int nr_fds;
->>>   static unsigned int delayed_requests;
->>> -static int sock = -1;
->>> +int sock = -1;
->>
->> Similar comment to 'fds' on the previous patch. This name is quite 
->> generic. Can we either pass it as an argument (or return) or rename it?
+>> What purpose has the "domctl" in the function name?
 > 
-> Turns out this patch now makes the "fds" solution more complicated: I'd 
-> need to
-> add fds as an additional parameter to the .can_write() and .can_read() 
-> callbacks
-> of struct interface_funcs.
-> 
-> I can do that, but an alternative would be to just rename fds to e.g. 
-> poll_fds.
-> 
-> Do you have any preference?
-The last one seems to be the simplest approach. And I am fine with the 
-renaming. This can be improved in the future.
+> To signal that it's called from domctl. Do you suggest leaving it out?
 
-Cheers,
+Yes. Names want to be descriptive, but also not be overly long. Imo.
 
--- 
-Julien Grall
+Jan
 
