@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C63FC849FFC
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 17:54:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676402.1052561 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2742F84A06A
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 18:18:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676449.1052572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX2Ez-0000Pa-N1; Mon, 05 Feb 2024 16:54:41 +0000
+	id 1rX2bn-0008Vo-Jo; Mon, 05 Feb 2024 17:18:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676402.1052561; Mon, 05 Feb 2024 16:54:41 +0000
+Received: by outflank-mailman (output) from mailman id 676449.1052572; Mon, 05 Feb 2024 17:18:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX2Ez-0000O1-K2; Mon, 05 Feb 2024 16:54:41 +0000
-Received: by outflank-mailman (input) for mailman id 676402;
- Mon, 05 Feb 2024 16:54:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W3Sh=JO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rX2Ex-0000Np-IM
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 16:54:39 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3f19a4e6-c447-11ee-98f5-efadbce2ee36;
- Mon, 05 Feb 2024 17:54:37 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id
- 2adb3069b0e04-5112a04c7acso7448402e87.3
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 08:54:37 -0800 (PST)
-Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
- by smtp.gmail.com with ESMTPSA id
- d8-20020a5d4f88000000b0033ae50e2c6asm16490wru.83.2024.02.05.08.54.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Feb 2024 08:54:36 -0800 (PST)
+	id 1rX2bn-0008TZ-H7; Mon, 05 Feb 2024 17:18:15 +0000
+Received: by outflank-mailman (input) for mailman id 676449;
+ Mon, 05 Feb 2024 17:18:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rX2bm-0008TT-Ov
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 17:18:14 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rX2bl-00033V-Nz; Mon, 05 Feb 2024 17:18:13 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rX2bl-0004Yg-Ep; Mon, 05 Feb 2024 17:18:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,155 +39,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f19a4e6-c447-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707152077; x=1707756877; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=BKfBRmbXv56Vn3QaN3CNW3o0CXzD4Qv3mgebMPPj7Oo=;
-        b=ae0unsS+SiDATPUK5iAPMcHvKDi9pd+9dBi8N/+L4yy+fjC6DSoz+JGw6Eq9yyp7wz
-         odWutN7CldY9sIABBNZosd3ZIAk1cNyNQgRky2YG8zXYg3X6swFV8FY17r/lCuSks+9h
-         J4+QKt1ZhdLdRdjbXickovIo16AkjTJuUMfUU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707152077; x=1707756877;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BKfBRmbXv56Vn3QaN3CNW3o0CXzD4Qv3mgebMPPj7Oo=;
-        b=cB5Zl5ikwHzaovRiH/tSGb5c32yuqKnH4RD+H7mFq5TnLm9GRbjsKP6NmmorLF0hDm
-         T+wrg+zEnRv48ub1MnPy2a+y8Ufpqgnwnd8FcRQiu1D59PGrtaq+eZ5JNudEpoZIbdOZ
-         lquN0irXI/yXeMp4pDhi4l5ZKTks+J//r3JmfwRlnxLlvqUOYIiUM4ozNcZTI3+2oRQJ
-         vxK9FXZm9Wa9l5i5AW+9LQQ7fXBUZASd/W4oaKPJYRbov9QYhrUPksmLAvGY6uScfLib
-         bQBuGptRHPq17JWZKTiF5M2agGFSbSfddPb/nQgzLKhukXjWZrEJV+EUgp6ASbAr/dry
-         swMA==
-X-Gm-Message-State: AOJu0YyOM3BPZgj0HRBywXWayZsBCAKvZmwJGJuz6xJyITvkLRghklGj
-	DMKaKUptaHlZFXpBEzRP65g8LpgoeCNoybde9XJMxsOMyK4Qc1sOUc70agiA8EU=
-X-Google-Smtp-Source: AGHT+IGHieaEAPxp1ksOtGx0ekAWhDqlQJ2A0Tmv1KTVCerwzFX2qm5L0dDDbCJsChFSz+a0KR00ng==
-X-Received: by 2002:ac2:5968:0:b0:511:4aa7:b5c2 with SMTP id h8-20020ac25968000000b005114aa7b5c2mr121413lfp.26.1707152076993;
-        Mon, 05 Feb 2024 08:54:36 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCUBB7FLeRZAwP9jaPEhOKVxuy0nbPf4WI951CpeKKFRXSZewC0WpQSZc/MczCBPeF+A2MXvRsLY/0ZkiNLZVcDdV1HO4Ch7CdupdOJwsMs40mPw9mPMEmRmQLJ/yzble1bzdzkIHJw5+2dM1+48abGZxO+tE00jRqmZxDYmNFrtbaojVq9c5sJEP+tGhDeoOpGDCb5FoYY2BlFVYlAKmDRFaJr/iwUPx7iMFApw3/+UN6Abw7f2u1eyntTcz8YABDh9SA==
-Message-ID: <3fc56b77-9b8c-402f-a338-5f415e5ab603@citrix.com>
-Date: Mon, 5 Feb 2024 16:54:36 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=dtFtpwA9k+Tnq6W1cMFNl2l9PfphsVGGnDsjmQ4CZ+w=; b=QBRMHebTJVKTjLIdSE+xiptcP5
+	aVtqNpO23BZNl7LryCBIjieB+z1lKnfrEfWEZoUFmZgeYYNr7UHwRQZDnZJ09KL3dEZl51S3iG3LK
+	3jcoF+pjpjG0XnYAYjlJEd/Qv6CkCZ013oqQ7ATGd9FX9uz3kzP7dBZxlue9J6Q3CQZM=;
+Message-ID: <c635e693-fe07-458c-9d58-273e2779f5b9@xen.org>
+Date: Mon, 5 Feb 2024 17:18:11 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v4] xen/arm: ffa: reclaim shared memory on guest
- destroy
+Subject: Re: [PATCH v4 00/32] tools: enable xenstore-stubdom to use 9pfs
 Content-Language: en-GB
-To: Jens Wiklander <jens.wiklander@linaro.org>, xen-devel@lists.xenproject.org
-Cc: patches@linaro.org, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-References: <20240205154909.2392231-1-jens.wiklander@linaro.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <20240205154909.2392231-1-jens.wiklander@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
+ <rosbrookn@gmail.com>, Samuel Thibault <samuel.thibault@ens-lyon.org>
+References: <20240205105001.24171-1-jgross@suse.com>
+ <689635a7-6d34-44fe-b00b-31fdc03f6969@xen.org>
+ <d4740502-795a-4e22-afe2-abd0746da843@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <d4740502-795a-4e22-afe2-abd0746da843@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 05/02/2024 3:49 pm, Jens Wiklander wrote:
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 0793c1c7585d..bbb6b819ee2b 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -992,53 +1008,75 @@ static void put_shm_pages(struct ffa_shm_mem *shm)
->      }
->  }
->  
-> -static bool inc_ctx_shm_count(struct ffa_ctx *ctx)
-> +static bool inc_ctx_shm_count(struct domain *d, struct ffa_ctx *ctx)
->  {
->      bool ret = true;
->  
->      spin_lock(&ctx->lock);
-> +
-> +    /*
-> +     * If this is the first shm added, increase the domain reference
-> +     * counter as we need to keep domain around a bit longer to reclaim the
-> +     * shared memory in the teardown path.
-> +     */
-> +    if ( !ctx->shm_count )
-> +        get_knownalive_domain(d);
-> +
->      if (ctx->shm_count >= FFA_MAX_SHM_COUNT)
->          ret = false;
->      else
->          ctx->shm_count++;
-> +
->      spin_unlock(&ctx->lock);
+Hi Juergen,
 
-This is subtle.  It reads as if there is a reference leak.  There really
-will be one if FFA_MAX_SHM_COUNT happens to be 0.
+On 05/02/2024 11:08, Jürgen Groß wrote:
+> On 05.02.24 11:55, Julien Grall wrote:
+>> Hi Juergen,
+>>
+>> On 05/02/2024 10:49, Juergen Gross wrote:
+>>> This series is adding 9pfs support to Xenstore-stubdom, enabling it
+>>> to do logging to a dom0 directory.
+>>>
+>>> This is a prerequisite for the final goal to add live update support
+>>> to Xenstore-stubdom, as it enables the stubdom to store its state in
+>>> a dom0 file.
+>>>
+>>> The 9pfs backend is a new daemon written from scratch. Using a
+>>> dedicated 9pfs daemon has several advantages:
+>>>
+>>> - it is using much less resources than a full blown qemu process
+>>> - it can serve multiple guests (the idea is to use it for other
+>>>    infrastructure domains, like qemu-stubdom or driver domains, too)
+>>> - it is designed to support several security enhancements, like
+>>>    limiting the number of files for a guest, or limiting the allocated
+>>>    file system space
+>>> - it doesn't support file links (neither hard nor soft links) or
+>>>    referencing parent directories via "..", minimizing the risk that
+>>>    a guest can "escape" from its home directory
+>>>
+>>> Note that for now the daemon only contains the minimal needed
+>>> functionality to do logging from Xenstore-stubdom. I didn't want to
+>>> add all the 9pfs commands and security add-ons in the beginning, in
+>>> order to avoid needless efforts in case the idea of the daemon is
+>>> being rejected.
+>>>
+>>> Changes in V4:
+>>> - patch 2 of V3 was applied
+>>> - added support of reading directories
+>>> - addressed review comments
+>>>
+>>> Changes in V3:
+>>> - new patches 1, 23-25
+>>> - addressed review comments
+>>>
+>>> Changes in V2:
+>>> - support of multiple rings per device
+>>> - xenlogd->xen-9pfsd rename
+>>> - addressed review comments
+>>> - fixed some bugs
+>>>
+>>> Juergen Gross (32):
+>>>    tools: add access macros for unaligned data
+>>>    tools: add a new xen logging daemon
+>>>    tools/xen-9pfsd: connect to frontend
+>>>    tools/xen-9pfsd: add transport layer
+>>>    tools/xen-9pfsd: add 9pfs response generation support
+>>>    tools/xen-9pfsd: add 9pfs version request support
+>>>    tools/xen-9pfsd: add 9pfs attach request support
+>>>    tools/xen-9pfsd: add 9pfs walk request support
+>>>    tools/xen-9pfsd: add 9pfs open request support
+>>>    tools/xen-9pfsd: add 9pfs clunk request support
+>>>    tools/xen-9pfsd: add 9pfs create request support
+>>>    tools/xen-9pfsd: add 9pfs stat request support
+>>>    tools/xen-9pfsd: add 9pfs write request support
+>>>    tools/xen-9pfsd: add 9pfs read request support
+>>>    tools/libs/light: add backend type for 9pfs PV devices
+>>>    tools/xl: support new 9pfs backend xen_9pfsd
+>>>    tools/helpers: allocate xenstore event channel for xenstore stubdom
+>>>    tools/xenstored: rename xenbus_evtchn()
+>>>    stubdom: extend xenstore stubdom configs
+>>>    tools: add 9pfs device to xenstore-stubdom
+>>>    tools/xenstored: add early_init() function
+>>>    tools/xenstored: move systemd handling to posix.c
+>>>    tools/xenstored: move all log-pipe handling into posix.c
+>>>    tools/xenstored: move all socket handling into posix.c
+>>>    tools/xenstored: get own domid in stubdom case
+>>>    tools/xenstored: rework ring page (un)map functions
+>>>    tools/xenstored: split domain_init()
+>>>    tools/xenstored: map stubdom interface
+>>>    tools/xenstored: mount 9pfs device in stubdom
+>>>    tools/xenstored: add helpers for filename handling
+>>>    tools/xenstored: support complete log capabilities in stubdom
+>>>    tools/xenstored: have a single do_control_memreport()
+>>
+>> I haven't checked what's the state of the 9PFS patches. Can part of 
+>> the xenstored changes be committed without the 9PFS changes?
+> 
+> The following patches can go in without the 9pfs daemon:
 
-You could add a BUILD_BUG_ON(), but IMO it would be far clearer to
-follow if you moved the get_knownalive_domain() into the else clause.
+It looks like the gitalb CI is not happy with the following patches [1]:
 
->  
->      return ret;
->  }
->  
-> -static void dec_ctx_shm_count(struct ffa_ctx *ctx)
-> +static void dec_ctx_shm_count(struct domain *d, struct ffa_ctx *ctx)
->  {
->      spin_lock(&ctx->lock);
-> +
->      ASSERT(ctx->shm_count > 0);
->      ctx->shm_count--;
-> +
-> +    /*
-> +     * If this was the last shm removed, let go of the domain reference we
-> +     * took in inc_ctx_shm_count() above.
-> +     */
-> +    if ( !ctx->shm_count )
-> +        put_domain(d);
-> +
->      spin_unlock(&ctx->lock);
+In function ‘free_stat’,
+     inlined from ‘write_9pfs’ at 9pfront.c:935:9:
+9pfront.c:120:14: error: ‘stat.name’ may be used uninitialized 
+[-Werror=maybe-uninitialized]
+   120 |     free(stat->name);
+       |          ~~~~^~~~~~
+9pfront.c: In function ‘write_9pfs’:
+9pfront.c:929:20: note: ‘stat’ declared here
+   929 |     struct p9_stat stat;
+       |                    ^~~~
 
-You want a local bool called drop_ref, set within the lock, and move the
-put_domain() down here.  put_domain() is potentially a large operation.
+I think...
 
-~Andrew
+> 
+> tools/helpers: allocate xenstore event channel for xenstore stubdom
+> tools/xenstored: rename xenbus_evtchn()
+> stubdom: extend xenstore stubdom configs
+
+.. this is related to this patch. Can you have a look?
+
+I have just pushed a new branch without this patch. Let see if the CI 
+[2] will pass this time.
+
+> tools/xenstored: add early_init() function
+> tools/xenstored: move systemd handling to posix.c
+> tools/xenstored: move all log-pipe handling into posix.c
+> tools/xenstored: move all socket handling into posix.c
+> tools/xenstored: get own domid in stubdom case
+> tools/xenstored: rework ring page (un)map functions
+> tools/xenstored: split domain_init()
+> tools/xenstored: map stubdom interface
+
+Cheers,
+
+[1] https://gitlab.com/xen-project/people/julieng/xen/-/pipelines/1165147815
+[2] https://gitlab.com/xen-project/people/julieng/xen/-/pipelines/1165166977
+
+-- 
+Julien Grall
 
