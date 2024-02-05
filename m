@@ -2,38 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE1688496C3
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 10:40:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675739.1051165 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14E3784975E
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 11:09:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.675751.1051177 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWvSF-0000mD-P2; Mon, 05 Feb 2024 09:39:55 +0000
+	id 1rWvtf-0005s2-36; Mon, 05 Feb 2024 10:08:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675739.1051165; Mon, 05 Feb 2024 09:39:55 +0000
+Received: by outflank-mailman (output) from mailman id 675751.1051177; Mon, 05 Feb 2024 10:08:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWvSF-0000kU-MQ; Mon, 05 Feb 2024 09:39:55 +0000
-Received: by outflank-mailman (input) for mailman id 675739;
- Mon, 05 Feb 2024 09:39:54 +0000
+	id 1rWvte-0005on-Vh; Mon, 05 Feb 2024 10:08:14 +0000
+Received: by outflank-mailman (input) for mailman id 675751;
+ Mon, 05 Feb 2024 10:08:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rWvSE-0000kO-Fn
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 09:39:54 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VsQK=JO=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rWvtd-0005oh-21
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 10:08:13 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20621.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::621])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 83b1ebc9-c40a-11ee-8a45-1f161083a0e0;
- Mon, 05 Feb 2024 10:39:53 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id
- 2adb3069b0e04-51025cafb51so6276957e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 01:39:53 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ay2-20020a05600c1e0200b0040fdb17e66csm2725405wmb.4.2024.02.05.01.39.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Feb 2024 01:39:52 -0800 (PST)
+ id 770f01e9-c40e-11ee-8a45-1f161083a0e0;
+ Mon, 05 Feb 2024 11:08:11 +0100 (CET)
+Received: from SA0PR11CA0084.namprd11.prod.outlook.com (2603:10b6:806:d2::29)
+ by DS7PR12MB9044.namprd12.prod.outlook.com (2603:10b6:8:e3::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.17; Mon, 5 Feb
+ 2024 10:08:07 +0000
+Received: from SA2PEPF000015C9.namprd03.prod.outlook.com
+ (2603:10b6:806:d2:cafe::dd) by SA0PR11CA0084.outlook.office365.com
+ (2603:10b6:806:d2::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7159.18 via Frontend
+ Transport; Mon, 5 Feb 2024 10:08:07 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SA2PEPF000015C9.mail.protection.outlook.com (10.167.241.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7249.19 via Frontend Transport; Mon, 5 Feb 2024 10:08:07 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 5 Feb
+ 2024 04:08:07 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 5 Feb
+ 2024 04:08:06 -0600
+Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
+ Transport; Mon, 5 Feb 2024 04:08:04 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,123 +63,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83b1ebc9-c40a-11ee-8a45-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707125993; x=1707730793; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=HFtPtIsiMgcY2W79MV1g1dHWCE1ow2sFdFokur2UR5M=;
-        b=NuyMVVS20DbhxKU4FXC+GxRBjiF3vGGP2zfgu77he2zya1JX0uFdeik/DOi8eJL0/6
-         zhAm1bvDSdRGaWHJrCfGucxwGhxH0otOi08yQwc+YI4Gb56pqwQQ/ce+8UD2z948VK9k
-         BX32diXVryARbqkEjeHTCHAPp+SFgCVGHPuJVNW6n65NU9uRswzxQgMnzsmV4gWtSQzq
-         8zc1SG+4aTfg5D0l2Q/5pYnL2C92PGfmg4WeJI7/brp/yDDXqnZo3thagazQ0TzVicHq
-         5qihbzEyhs3O/0KG5WgobKpvjmOk/KEUopEsYdPGgzaYFBjQxshA/m35TS05V1bzSidw
-         hnWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707125993; x=1707730793;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HFtPtIsiMgcY2W79MV1g1dHWCE1ow2sFdFokur2UR5M=;
-        b=r+gVS+kc0S5PKJgqipEyvMnw5fSw7kDUWAjqN5XwCaAYPl4KLbm/tEkxKB64qoz9fr
-         GYtAdpH1TZbejiVuuEupIl4PT4zaeQkdu0SeF9Zg7ByCqt5O71aW4/J5aLrG578+NDu/
-         hTAuSJ6Hs5an2J4cUxxYAMycowXDj3B+0ZaggTFxAnfuYnjulM1etVK5OKYCWijsBQ+4
-         sa9HrCNAgyswj7sEMrfAl8Fp3IIYzMigLlu3vZx3zgVZdR8/M3CR1kkDIcTgaaoBMQTy
-         OjnwZmlpWGFS8wcjCtRDDnKQwdZWv9/1lKv21IQy5vBdLJwuKdrpT28iwO8tIy2EblcP
-         gn2Q==
-X-Gm-Message-State: AOJu0YzuJf7iFuKv0Xkh7c4Q+pqMblsr0u52v5F8ZddSIToV5EMryffu
-	Qak68n/u5Lz5QkmHcyRKldAnzBoSi5H7wu8KU8rrGMhHWhZrllGlrZKL8JFfpg==
-X-Google-Smtp-Source: AGHT+IFQXeyjawxy0vjE4cMv5Sg+C7Z38vPKSwitDcAxSdyAcT+fN/Cntt4BeyMCVqfFbQxHtl+E7w==
-X-Received: by 2002:a05:6512:31ca:b0:50e:7c70:f8da with SMTP id j10-20020a05651231ca00b0050e7c70f8damr6378955lfe.16.1707125993015;
-        Mon, 05 Feb 2024 01:39:53 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWRFRxn6duz6IXN0MpPZ+hOwnG4yqPpZahDgctq4h8oZrlpcJaH7r8iEXuGeAzjNo7QO36jt/dFRcwLUUtU+78RGcVdndBpoE9hFvIZ/1klDWNVVJ/XxJZLmBLmvSNmZ8WUP7gyXI5vx9fo/Jymdm2Fx2/9CY8d41nwDz4KJbEFkKaECRhgqqz5tl7oghXYehOpyzNMoI7e4ZqMHES/VaumDOLoFtiblAIg+RPIYkMe72eng7a5xAPKJRnRvB5SSFLW/K810HU7AwNPMCgok1WZUqa1piZ0oJajzKkN57BfA9KC3VXW3nTg3wWd5Z9EjlKZKW3LPhlVYubXUyluzsEepTabye79R1qVt7AKO9Tng+IQeRnzgX04mHaJNdjrleIYpQ==
-Message-ID: <26815df2-bfe5-4767-b1a6-94666e535f4e@suse.com>
-Date: Mon, 5 Feb 2024 10:39:55 +0100
+X-Inumbo-ID: 770f01e9-c40e-11ee-8a45-1f161083a0e0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OjBIg7XzZ2YIUEJ/NT/J6rKc21Lfg06xyBcnMMpGqe36Ir/aePLT3uj8l0R5nSbPddCif2LJ5Vm4sC7f1Iz21PMbiP8+M15OHtUZBtsaEUiUpyZkEjbdDKglPyXgTfosFHL/oZPr6xKh8zgHGMK8LlWm08PtLTsg/CsYV+kJw+p8xT6qokZVQqxyMN0QwaANFMr6hIIvXf5KQNA09ELYDdljYeGTNpGVujJJ+soF20D+7PyEtMOghKmkcGmzUCGr6UNygZWj3IRCAesnjMuHAPWvaRZSTKETL1hJ6SAY4r0Enquc3atAYFQM+SEkAaEFmpYUnTyZKoObcSWUsr4IfQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zt3qmdHsgtzsLYbX8ogEy8B8gjkmIE8jC21cSZOWJ1o=;
+ b=XXIJbLAEFFwpsCfUoZHB7pkCyWXxHln5RpBgBMh6sh96JT7t7IVIiOkjv+qYLV9hIpqjfKpVeBAgRyVVUAzo5wsskrJCgKzCsfw4Gmg9+GP6Vum/8g+V7royyo1Q80DaMNGOGqPuoOkJpjzh8qyMKA4lawUToGwXLoo94ENfs0N8cpcC8NAfUqRORKKOxf2QtvwKHbpZ+dIHr7nMYwuRAqnAGfK0Lo8fc+n67JvbqUc8cKeIZKHiWgEHmKO1s8QAZ48gjkkbDaNgpCxHt2glMeoFnkm0/psabOynfMV6TcJGpVsx5dVteuEUraHrjJPSf//BtRV49idL5h3dtWjJMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zt3qmdHsgtzsLYbX8ogEy8B8gjkmIE8jC21cSZOWJ1o=;
+ b=AfKCKa+k8tvU0gQrhGqZvv+VPvXdNJFGfUceHcOOi7QEGt3rnAU4zqKnQUnoY0RGv58NLm8x3dbigKH2wx7bhdHmxbzPfJnP4LgkIzGXiSu8I+hR9MWMQMILNNa0PfKpr70K9IyddTCQmT+S8qXunxez6qxkVdXNyfb1skgUXRM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <8867c445-2a34-4506-95e7-8eca4d91a364@amd.com>
+Date: Mon, 5 Feb 2024 11:08:04 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v6 07/15] xen/arm: add support for cache coloring
  configuration via device-tree
-Content-Language: en-US
-To: Carlo Nonato <carlo.nonato@minervasys.tech>
-Cc: andrea.bastoni@minervasys.tech,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+To: Jan Beulich <jbeulich@suse.com>, Carlo Nonato
+	<carlo.nonato@minervasys.tech>
+CC: <andrea.bastoni@minervasys.tech>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Marco Solieri
+	<marco.solieri@minervasys.tech>, <xen-devel@lists.xenproject.org>
 References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
  <20240129171811.21382-8-carlo.nonato@minervasys.tech>
  <a6ffb4a5-cd83-4c04-9e5a-12d605863b5d@suse.com>
  <CAG+AhRUG8nNF0cTtFYLu1TrV4fWEbix57Ah_-Zsz=U2yRWcGpw@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAG+AhRUG8nNF0cTtFYLu1TrV4fWEbix57Ah_-Zsz=U2yRWcGpw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+ <26815df2-bfe5-4767-b1a6-94666e535f4e@suse.com>
+Content-Language: en-US
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <26815df2-bfe5-4767-b1a6-94666e535f4e@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015C9:EE_|DS7PR12MB9044:EE_
+X-MS-Office365-Filtering-Correlation-Id: 04571602-143a-4ad2-6e08-08dc263259cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	FKFgWoZfNxCCEaPPxUy0U3qMsCRVb74QCOzrruZNq04/7vzOsptYRQ4YbY+PtH4wv+C4/lcnUqJ6mfKG7JOjvBnA+cagMCA4xML79sDrXZCXIUcJSeNDM3rJ21fluwIRLMIRHI7c33cg4pk+8fgDGpbfr2OB5LKkaf8LYNW669unthJd818P6delkLl62GOwDLw9ce3TjAvOEFBF9+hahrWHwRyjE98r/xIuLaKbskfJGXoyUjPg1OKl3X3QmnNzSzMzPUEEoEV5VCgPbmSA2McA7kWpyNcOc/1VoVRFLa3GzGWgVSeudbUY6HiZpr9PRwYG+KIW2qbt3emlIeU3fXdU6aI7Ys+c0ztoP9pvogEEvIdZu6lurvwOw5lOObsG2xk3MMt73ARZZ/kg3F/xOT6vwJNTd2/96NpmdG5G2ABDXljAiQN+Av//MoHw6WUd85ktRsPRjJrfajYKmXR4nh+D7F4N48G+V24DODAJZgmFgp56E6YOuVu4emhFy4exq4//r/CfclraPiRAicmNcfnehdbbed8zT5QARJk8tqG4IlnWr0JPI7nwq1vNwzeB2oybX23h+FUF/SGqZRRDUioWCKQ6mCXAV9izAHIsq7Gn2G0uN+Qo3oYuji2487548zpm0qrBNGPycc8gOsOJe3Zh+TqYcsI2lhhcHnareW0JJfGytSGv93wsUk/FUthi7C0/jWTgAAdrmmORNFiH9GO5DVlM7y/cTi6JwKwVYYWmKObvoAM1H1w98btjTvPQBUTjtZD7rR/zaAQTO80aE577bZpPiJ262jWgXl8qIMFxn52z2Z5aZzY2tqbXT2UA
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(396003)(39860400002)(136003)(376002)(346002)(230922051799003)(230273577357003)(82310400011)(451199024)(186009)(64100799003)(1800799012)(40470700004)(36840700001)(46966006)(41300700001)(8676002)(4326008)(5660300002)(31696002)(8936002)(44832011)(86362001)(54906003)(16576012)(316002)(478600001)(70586007)(70206006)(110136005)(356005)(2906002)(7416002)(36756003)(47076005)(36860700001)(82740400003)(81166007)(2616005)(53546011)(83380400001)(26005)(426003)(336012)(40460700003)(40480700001)(31686004)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2024 10:08:07.5932
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04571602-143a-4ad2-6e08-08dc263259cc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF000015C9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9044
 
-On 03.02.2024 12:43, Carlo Nonato wrote:
-> On Thu, Feb 1, 2024 at 3:19 PM Jan Beulich <jbeulich@suse.com> wrote:
->> On 29.01.2024 18:18, Carlo Nonato wrote:
->>> @@ -950,6 +951,11 @@ void __init create_domUs(void)
->>>  #endif
->>>          }
->>>
->>> +        dt_property_read_string(node, "llc-colors", &llc_colors_str);
->>> +        if ( !llc_coloring_enabled && llc_colors_str)
->>> +            printk(XENLOG_WARNING
->>> +                   "'llc-colors' found, but LLC coloring is disabled\n");
->>
->> Why's this just a warning, when ...
+
+
+On 05/02/2024 10:39, Jan Beulich wrote:
 > 
-> This informs the user that this configuration will be ignored, but the DomU can
-> be constructed anyway...
-
-Yet that's a violation of the principle that Julien had outlined when
-discussing whether to panic() in such cases. The property indicates to
-me that the domain ought to be run with coloring enabled, i.e. not much
-different from ...
-
->>> @@ -960,6 +966,11 @@ void __init create_domUs(void)
->>>              panic("Error creating domain %s (rc = %ld)\n",
->>>                    dt_node_name(node), PTR_ERR(d));
->>>
->>> +        if ( llc_coloring_enabled &&
->>> +             (rc = domain_set_llc_colors_from_str(d, llc_colors_str)) )
->>> +            panic("Error initializing LLC coloring for domain %s (rc = %d)\n",
->>> +                  dt_node_name(node), rc);
->>
->> ... this results in panic()?
 > 
-> ... while here we can't continue because there's some error in the
-> configuration and the DomU can't be constructed. Domains must have a valid
-> coloring configuration.
+> On 03.02.2024 12:43, Carlo Nonato wrote:
+>> On Thu, Feb 1, 2024 at 3:19 PM Jan Beulich <jbeulich@suse.com> wrote:
+>>> On 29.01.2024 18:18, Carlo Nonato wrote:
+>>>> @@ -950,6 +951,11 @@ void __init create_domUs(void)
+>>>>  #endif
+>>>>          }
+>>>>
+>>>> +        dt_property_read_string(node, "llc-colors", &llc_colors_str);
+>>>> +        if ( !llc_coloring_enabled && llc_colors_str)
+>>>> +            printk(XENLOG_WARNING
+>>>> +                   "'llc-colors' found, but LLC coloring is disabled\n");
+>>>
+>>> Why's this just a warning, when ...
+>>
+>> This informs the user that this configuration will be ignored, but the DomU can
+>> be constructed anyway...
+> 
+> Yet that's a violation of the principle that Julien had outlined when
+> discussing whether to panic() in such cases. The property indicates to
+> me that the domain ought to be run with coloring enabled, i.e. not much
+> different from ...
+> 
+>>>> @@ -960,6 +966,11 @@ void __init create_domUs(void)
+>>>>              panic("Error creating domain %s (rc = %ld)\n",
+>>>>                    dt_node_name(node), PTR_ERR(d));
+>>>>
+>>>> +        if ( llc_coloring_enabled &&
+>>>> +             (rc = domain_set_llc_colors_from_str(d, llc_colors_str)) )
+>>>> +            panic("Error initializing LLC coloring for domain %s (rc = %d)\n",
+>>>> +                  dt_node_name(node), rc);
+>>>
+>>> ... this results in panic()?
+>>
+>> ... while here we can't continue because there's some error in the
+>> configuration and the DomU can't be constructed. Domains must have a valid
+>> coloring configuration.
+> 
+> ... the request not being possible to fulfill here.
++1
+If the user requests a certain functionality which cannot be fulfilled, we shall panic.
+Take a look at e.g. sve, static-shmem, vpl011.
 
-... the request not being possible to fulfill here.
-
-Jan
+~Michal
 
