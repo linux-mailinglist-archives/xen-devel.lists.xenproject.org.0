@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A7A6849AEE
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 13:51:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676014.1051756 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F658849B34
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 13:59:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676018.1051766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWyRf-0003UR-Vs; Mon, 05 Feb 2024 12:51:31 +0000
+	id 1rWyZ9-0004Y2-LD; Mon, 05 Feb 2024 12:59:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676014.1051756; Mon, 05 Feb 2024 12:51:31 +0000
+Received: by outflank-mailman (output) from mailman id 676018.1051766; Mon, 05 Feb 2024 12:59:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWyRf-0003RZ-So; Mon, 05 Feb 2024 12:51:31 +0000
-Received: by outflank-mailman (input) for mailman id 676014;
- Mon, 05 Feb 2024 12:51:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rWyZ9-0004V8-Hf; Mon, 05 Feb 2024 12:59:15 +0000
+Received: by outflank-mailman (input) for mailman id 676018;
+ Mon, 05 Feb 2024 12:59:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VsQK=JO=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rWyRe-0003RN-MW
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 12:51:30 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20600.outbound.protection.outlook.com
- [2a01:111:f403:2416::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4608bb93-c425-11ee-98f5-efadbce2ee36;
- Mon, 05 Feb 2024 13:51:27 +0100 (CET)
-Received: from BLAPR03CA0128.namprd03.prod.outlook.com (2603:10b6:208:32e::13)
- by DM4PR12MB5134.namprd12.prod.outlook.com (2603:10b6:5:391::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.14; Mon, 5 Feb
- 2024 12:51:23 +0000
-Received: from BL02EPF0001A0FC.namprd03.prod.outlook.com
- (2603:10b6:208:32e:cafe::a5) by BLAPR03CA0128.outlook.office365.com
- (2603:10b6:208:32e::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.34 via Frontend
- Transport; Mon, 5 Feb 2024 12:51:23 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0001A0FC.mail.protection.outlook.com (10.167.242.103) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Mon, 5 Feb 2024 12:51:22 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Mon, 5 Feb
- 2024 06:50:34 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34 via Frontend
- Transport; Mon, 5 Feb 2024 06:50:32 -0600
+ <SRS0=TPgQ=JO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1rWyZ8-0004V2-0Q
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 12:59:14 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5c2183a8-c426-11ee-8a45-1f161083a0e0;
+ Mon, 05 Feb 2024 13:59:13 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-55a90a0a1a1so5471982a12.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 04:59:12 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ i23-20020a056402055700b0055fba4996d9sm3885294edx.71.2024.02.05.04.59.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Feb 2024 04:59:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,104 +45,284 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4608bb93-c425-11ee-98f5-efadbce2ee36
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F/qoyHRDqIlGwgdkElfjVGEniNgEHmgVlQt2gd9k4gI1wGKefgjxdJuSYvcMNu60U+JTqhDHsrdkTmuR/9zwPU7eRLvDSjqnZNP/kqJFxPpT+RPZ8l82UYAfGLfKXaBNEqYzlps0q766azoee9m4JN0WTwzRTAMyUTODwWmHDiSKiS8ckbDwXfZhH+QVG+j3KcgTfdwVz5VieFo3IYr11PBu7J1E9SrJ9NBUWkY1vRP2N0n8ptsfIpaMUsoDbR68y1ubFqtNRY4Qg3tDy/VK1kQyAzRuQPvcSE/I31tV/bR9bBCCzwGZTOrGx8/Mf2vR0d8A8Kp+clmpzRbZPOzGOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oZI5TNxZT3y6TKxyWrg3hJtD8+hQ67fWO8ncRaQqWhY=;
- b=C216T5hRHzk04wH1Qo6t5sV5b1VWC6LUHuxWD2053JA9T4DAIo6PyZw8OHnbL9ohNexxavqJnVs0hu1rLkUf0+sEJ3RwZhS4pPimkwRT6iQCeQ6tWZ/1flvI3unmCvt1ZKJ/mHTEf1Lk97lSYejmasT2VsQ9E8cjYK42ripKM8inJ2fR2dcCh+qqPIWnr4JMB94b6nGJzgFWeOb4tNyB4iXhufAvDahkuEYYlWxJQI3egTF5zj0dOzNo6zcMfAa7qX/YuBhRxd8iwPBvu2xbHbUoOhlaZIsHF77QDrihjoehs3Mz81NIvqEERxIeZRO6dNYYjOcT5Q5+qgfGmJmOkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oZI5TNxZT3y6TKxyWrg3hJtD8+hQ67fWO8ncRaQqWhY=;
- b=Ji0Nrw/mN+zG7UCrnJJSqxczqwrSRIiaVP8+XJIxCl4BZtuG5ZqxZVBeUHtTtY6mUxkR/p9sV486XCG3j5tJE6oOdmaU0JskHizmdqTfCd7cgYeYLAsBkX6GXocX6EuiDv09xQulizZqKpVbJlGpzwXM7IfFuqJp76XQX/lMN8k=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <d6f57871-c3fc-4a51-bec8-f9a12a048186@amd.com>
-Date: Mon, 5 Feb 2024 13:50:31 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen/arm: improve handling of load/store instruction
- decoding
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, =?UTF-8?Q?Alex_Benn=C3=A9e?=
-	<alex.bennee@linaro.org>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <bertrand.marquis@arm.com>, Manos Pitsidianakis
-	<manos.pitsidianakis@linaro.org>
-References: <20240131175043.1488886-1-alex.bennee@linaro.org>
- <e82e5a15-88e8-4d24-b872-548b608cebbc@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <e82e5a15-88e8-4d24-b872-548b608cebbc@xen.org>
+X-Inumbo-ID: 5c2183a8-c426-11ee-8a45-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1707137952; x=1707742752; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=aekdhF8+mBnuPMS0XztHvPgSeHTu1C66eam1fhIlJ2A=;
+        b=l55ROmaGy/kvQJZwzIoak4ZCVflHriz9+RDvlXUgMDwlG/8eWTN87f8jSxHx4FbvUG
+         uL5EWELSPIHHOTP8whdc8WJjO9NOe59jnNRxLEAl4GhR3tHqBPV+C1BlCbJWHhOR+x0x
+         Ky3Ue7LlyhdpWSdQcbtr+7WrR5Wea5vi+BakcE6/OitlewKQgfT/ToDi04wCqCrev67T
+         XAlH57HVCCemP9F63W7mozwqqIBhmLaif2i6QvNCckS2H8t7NqU7ar1NiQO98ZTD6T3s
+         ARyzKicJ3gWjx6XWqlaDoD1ENo0WUQ6te4GcMAN05u2cnAac7kd2ovQze+P5vHI+Q9VM
+         NDJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707137952; x=1707742752;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=aekdhF8+mBnuPMS0XztHvPgSeHTu1C66eam1fhIlJ2A=;
+        b=ZIYl1X2MKSMmv+QfEfvw5wFK1Uwob24jPYZbgwCRj84RLamIndMB4OT6yJebUmnIvw
+         KTjn15FoySJTdW6ep8HGtUidbJUL1OCy+OI1mSuA+LCtLZXGLcnFnq56JE39iObAThxT
+         hZfxT9rFcBGjk9ijxAIgR+HUffJk5YYIc0VXgzfixN/j7brC2obRRD/DleqQzw8I4hXq
+         esqignhTUXjGC4tuMHdGEPJMEQ1RZYGU6WaNsnagQSPQSovS0CqJqYzPEglJ5WUKw6Vr
+         7W3wdH1YPgGQUgpHsMHanXJVa2+U8x3RrcLpK849dIQ7boptgbh1GoKF1me6nazTxOlb
+         okkA==
+X-Gm-Message-State: AOJu0YwuwBvIKn+g64SIhE466SDBB2Y1gpMin/xYELVXE4F/bcTGXOFh
+	Pcp382kkpNtmuLgVTx0z+2LFA4jdp8VKKODohvdUdZMD9PPPilY9
+X-Google-Smtp-Source: AGHT+IHHyvUujXCiv2azAf+10uecScQ75UBjG9WbKaCQVDxIjJFZ6EquwEjMLBTLfNqq1PBOQ6CA/Q==
+X-Received: by 2002:aa7:c0d1:0:b0:55f:4602:bf7c with SMTP id j17-20020aa7c0d1000000b0055f4602bf7cmr5332115edp.28.1707137952302;
+        Mon, 05 Feb 2024 04:59:12 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCVTGg9rydxaYacFBKj4gsvGjy6FTtbeNsKL9yo5bxODu3jDv6jgRN059K/celqb1ZaiTBGOmOwwUtPWcAwOZPla1qSDMXqdofRBvgRFP2WGMomTOxT3giJ8KqNNz9Dw1AwQv4LODrWFdE7akYsqGd0OPhiGezhYgKqjYZM0OtEM5YitEBvD+VWMvqC4gBRMEeT6b0uabR/1q8mwkCk=
+Message-ID: <1da6b3acbc07490323c007188e2f34500149b089.camel@gmail.com>
+Subject: Re: [PATCH v7 5/7] xen/asm-generic: introduce generic device.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Date: Mon, 05 Feb 2024 13:59:10 +0100
+In-Reply-To: <392e3c39-e984-4e4c-8ca9-f4a2f2ea86cf@suse.com>
+References: <cover.1706281994.git.oleksii.kurochko@gmail.com>
+	 <621ff5bd992ea8e6202ec03fa52c0e09aacd8f83.1706281994.git.oleksii.kurochko@gmail.com>
+	 <392e3c39-e984-4e4c-8ca9-f4a2f2ea86cf@suse.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FC:EE_|DM4PR12MB5134:EE_
-X-MS-Office365-Filtering-Correlation-Id: 371e650a-017e-4e7e-6188-08dc26492811
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	oF1hBRAZ40n+Ci/v7tsgXxkdTKkKHGvbS1vNCObvArcWAlV93SP1v/uITB/l76vrHztfkjQ53vYJnFpk1S1Y89M4yY8VzojXzZu6GUBHSxLP4CGec1ct7r3aBRPEIhn9FCdFH5vZZb6XlTp3T6yE7ST7hODS2Xwipi5F6hVQMCyM9UNZ8reR6993Rolr58vLh86KtEQC4N+VsKSPhOZK+8iWnGqqB0QmGxgOH/VMqWFcxe/nv5mbOCmak1bUvlnYaU9RT/wOfBa/B2zzM3JGBk7SYNoQp1FuGOBIlmR45h1Fk5TwYc7Jkn4GugJLrRIs9aoV+eUO4Qjv8v2zL5BWpC4bcs59e6ApNcqf9pgFREtX5EXtNAzftTCLTxHY3muk1NcU6tvrXSXrIkE1KdxVvNuqmIf+lrTiP3kmHUMGJosF6OMX0DzMRx7H+Kfsb7XieNbnC4prwZuLNbZICoYiL7Ekl6I6/fYM6gdsvv/6elTArZstZa9wFKC5KaSa4u+fP+sodTYfsGXB/f1iyrKm25cE4wUJygZRxUWvZWJFnnQjNiJrMqdnVh12PKNtGUbh80Tl4q5W2Y7VFx0jAZQIP27k9y9dR9MZLn3+B4OnJt98alfj89DjF7RQHD02IYoqTd5BqMoO0GtpEAMyFMhQaXPmEdRrZAhZcf1+b+w4LG/LRAnQhlbvLMtdrHIzMR2mArF3EIMvAwJYCz+10IbEQ9IhtWuYs9LY9zEQUEMioL+7JcLsHmdQzluij6SNjxheZrvHsYYuscJDCVtTPOtiW4wKQg26GD/zxprg9uetRcU=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(136003)(346002)(39860400002)(396003)(230922051799003)(230273577357003)(82310400011)(64100799003)(186009)(451199024)(1800799012)(40470700004)(46966006)(36840700001)(40460700003)(40480700001)(31686004)(41300700001)(478600001)(31696002)(86362001)(53546011)(36756003)(426003)(336012)(66574015)(2616005)(81166007)(82740400003)(47076005)(83380400001)(26005)(356005)(2906002)(5660300002)(316002)(70206006)(54906003)(44832011)(16576012)(36860700001)(8936002)(4326008)(8676002)(70586007)(110136005)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2024 12:51:22.5994
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 371e650a-017e-4e7e-6188-08dc26492811
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A0FC.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5134
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+MIME-Version: 1.0
 
+On Wed, 2024-01-31 at 15:54 +0100, Jan Beulich wrote:
+> On 26.01.2024 16:42, Oleksii Kurochko wrote:
+> > Arm, PPC and RISC-V use the same device.h thereby device.h
+> > was moved to asm-generic.
+>=20
+> It's not "move" anymore with the splitting off of the Arm and PPC
+> parts. For reasons mentioned before, I'm not exactly happy with
+> it not being a move anymore, but I expect you were asked to split.
+>=20
+> > Arm's device.h was taken as a base with
+> > the following changes:
+> > =C2=A0- #ifdef PCI related things.
+>=20
+> Well, not really, with ...
+>=20
+> > =C2=A0- #ifdef ACPI related things.
+> > =C2=A0- Rename #ifdef guards.
+> > =C2=A0- Add SPDX tag.
+> > =C2=A0- #ifdef CONFIG_HAS_DEVICE_TREE related things.
+> > =C2=A0- #ifdef-ing iommu related things with CONFIG_HAS_PASSTHROUGH.
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > Changes in V7:
+> > =C2=A0- keeping DEVICE_PCI_HOSTBRIDGE available for every build based o=
+n
+> > the reply:
+> > =C2=A0=C2=A0=C2=A0
+> > https://lore.kernel.org/xen-devel/926a5c12-7f02-42ec-92a8-1c82d060c710@=
+xen.org/
+>=20
+> ... this. Specifically ...
+>=20
+> > --- /dev/null
+> > +++ b/xen/include/asm-generic/device.h
+> > @@ -0,0 +1,162 @@
+> > +/* SPDX-License-Identifier: GPL-2.0-only */
+> > +#ifndef __ASM_GENERIC_DEVICE_H__
+> > +#define __ASM_GENERIC_DEVICE_H__
+> > +
+> > +#include <xen/stdbool.h>
+> > +
+> > +/*
+> > + * DEV_TYPE_MAX is currently not in use, but it was added because
+> > the enum may
+> > + * be empty when !HAS_DEVICE_TREE and !HAS_PCI, which could lead
+> > to
+> > + * a compilation error.
+> > + */
+> > +enum device_type
+> > +{
+> > +#ifdef CONFIG_HAS_DEVICE_TREE
+> > +=C2=A0=C2=A0=C2=A0 DEV_DT,
+> > +#endif
+> > +
+> > +#ifdef CONFIG_HAS_PCI
+> > +=C2=A0=C2=A0=C2=A0 DEV_PCI,
+> > +#endif
+>=20
+> ... this is now inconsistent with ...
+>=20
+> > +=C2=A0=C2=A0=C2=A0 DEV_TYPE_MAX,
+> > +};
+> > +
+> > +enum device_class
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 DEVICE_SERIAL,
+> > +=C2=A0=C2=A0=C2=A0 DEVICE_IOMMU,
+> > +=C2=A0=C2=A0=C2=A0 DEVICE_INTERRUPT_CONTROLLER,
+> > +=C2=A0=C2=A0=C2=A0 DEVICE_PCI_HOSTBRIDGE,
+>=20
+> ... this. Either we want PCI-related #ifdef-ary, or we don't. There
+> shouldn't be a mix (unless there's a good reason).
+Agreed, I overlooked the fact that we now have inconsistency.
 
+Then it is needed to update remove CONFIG_HAS_PCI in device_type enum
+too.
 
-On 05/02/2024 11:42, Julien Grall wrote:
-> 
-> 
-> Hi Alex,
-> 
-> On 31/01/2024 17:50, Alex Bennée wrote:
->> While debugging VirtIO on Arm we ran into a warning due to memory
->> being memcpy'd across MMIO space. While the bug was in the mappings
->> the warning was a little confusing:
->>
->>    (XEN) d47v2 Rn should not be equal to Rt except for r31
->>    (XEN) d47v2 unhandled Arm instruction 0x3d800000
->>    (XEN) d47v2 Unable to decode instruction
->>
->> The Rn == Rt warning is only applicable to single register load/stores
->> so add some verification steps before to weed out unexpected accesses.
->>
->> I updated the Arm ARM reference to the online instruction decoding
->> table which will hopefully be more stable than the Arm ARM section
->> numbers.
-NIT: commit msg should be written in imperative mood.
+>=20
+> Also the use of blank lines inside the earlier enum would better be
+> consistent.
+>=20
+> > +=C2=A0=C2=A0=C2=A0 /* Use for error */
+> > +=C2=A0=C2=A0=C2=A0 DEVICE_UNKNOWN,
+> > +};
+> > +
+> > +struct dev_archdata {
+> > +#ifdef CONFIG_HAS_PASSTHROUGH
+> > +=C2=A0=C2=A0=C2=A0 void *iommu;=C2=A0=C2=A0=C2=A0 /* IOMMU private dat=
+a */
+> > +#endif
+> > +};
+> > +
+> > +/* struct device - The basic device structure */
+> > +struct device
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 enum device_type type;
+> > +#ifdef CONFIG_HAS_DEVICE_TREE
+> > +=C2=A0=C2=A0=C2=A0 struct dt_device_node *of_node; /* Used by drivers =
+imported
+> > from Linux */
+> > +#endif
+> > +=C2=A0=C2=A0=C2=A0 struct dev_archdata archdata;
+> > +#ifdef CONFIG_HAS_PASSTHROUGH
+> > +=C2=A0=C2=A0=C2=A0 struct iommu_fwspec *iommu_fwspec; /* per-device IO=
+MMU
+> > instance data */
+> > +#endif
+> > +};
+> > +
+> > +typedef struct device device_t;
+> > +
+> > +#ifdef CONFIG_HAS_DEVICE_TREE
+> > +
+> > +#include <xen/device_tree.h>
+> > +
+> > +#define dev_is_dt(dev)=C2=A0 ((dev)->type =3D=3D DEV_DT)
+> > +
+> > +/**
+> > + *=C2=A0 device_init - Initialize a device
+> > + *=C2=A0 @dev: device to initialize
+> > + *=C2=A0 @class: class of the device (serial, network...)
+> > + *=C2=A0 @data: specific data for initializing the device
+> > + *
+> > + *=C2=A0 Return 0 on success.
+> > + */
+> > +int device_init(struct dt_device_node *dev, enum device_class
+> > class,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 const void *data);
+> > +
+> > +/**
+> > + * device_get_type - Get the type of the device
+> > + * @dev: device to match
+> > + *
+> > + * Return the device type on success or DEVICE_ANY on failure
+> > + */
+> > +enum device_class device_get_class(const struct dt_device_node
+> > *dev);
+> > +
+> > +#define DT_DEVICE_START(_name, _namestr,
+> > _class)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+>=20
+> Would be really nice if in the course of generalization these leading
+> underscores would also disappear. Yes, that'll require changing two
+> of the names more than just to drop the underscores, to account for
+> ...
+>=20
+> > +static const struct device_desc __dev_desc_##_name
+> > __used=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +__section(".dev.info") =3D
+> > {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0 .name =3D
+> > _namestr,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +=C2=A0=C2=A0=C2=A0 .class =3D
+> > _class,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+>=20
+> ... these field names.
+>=20
+> Also there's a strack backslash on the last line above.
+Sure, I'll drop the leading underscores. Thanks.
 
-> 
-> I am not sure if the links to the Arm websites are stable. But from
-> past, experience, URL tends to disappear after a while. This is why we
-> went with the section + the Arm spec.
-> 
-> This also has the advantage that we can check any differences between
-> version. So my preference is to stick the Arm ARM reference. Bertrand,
-> Michal, Stefano, any opinions?
-I would prefer if we refer to Arm ARM instead of links to Arm websites.
+~ Oleksii
+>=20
+> Both comments similarly apply to the ACPI stuff further down.
+>=20
+> > +#define
+> > DT_DEVICE_END=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > +};
+> > +
+> > +#else /* !CONFIG_HAS_DEVICE_TREE */
+> > +#define dev_is_dt(dev) ((void)(dev), false)
+> > +#endif /* CONFIG_HAS_DEVICE_TREE */
+> > +
+> > +#ifdef CONFIG_HAS_PCI
+> > +#define dev_is_pci(dev) ((dev)->type =3D=3D DEV_PCI)
+> > +#else
+> > +#define dev_is_pci(dev) ((void)(dev), false)
+> > +#endif
+> > +
+> > +struct device_desc {
+> > +=C2=A0=C2=A0=C2=A0 /* Device name */
+> > +=C2=A0=C2=A0=C2=A0 const char *name;
+> > +=C2=A0=C2=A0=C2=A0 /* Device class */
+> > +=C2=A0=C2=A0=C2=A0 enum device_class class;
+> > +
+> > +#ifdef CONFIG_HAS_DEVICE_TREE
+> > +
+> > +=C2=A0=C2=A0=C2=A0 /* List of devices supported by this driver */
+> > +=C2=A0=C2=A0=C2=A0 const struct dt_device_match *dt_match;
+> > +=C2=A0=C2=A0=C2=A0 /*
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * Device initialization.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 *
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 * -EAGAIN is used to indicate that device pro=
+bing is
+> > deferred.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
+> > +=C2=A0=C2=A0=C2=A0 int (*init)(struct dt_device_node *dev, const void =
+*data);
+> > +
+> > +#endif
+> > +};
+> > +
+> > +#ifdef CONFIG_ACPI
+> > +
+> > +struct acpi_device_desc {
+> > +=C2=A0=C2=A0=C2=A0 /* Device name */
+> > +=C2=A0=C2=A0=C2=A0 const char *name;
+> > +=C2=A0=C2=A0=C2=A0 /* Device class */
+> > +=C2=A0=C2=A0=C2=A0 enum device_class class;
+>=20
+> I understand it's this way on Arm right now, and I'm also not going
+> to insist that you do anything about it right here, but it's still
+> odd that struct device_desc doesn't simply have a union to cover for
+> both DT and ACPI.
+>=20
+> Jan
 
-Also, looking at Arm ARM J.a C4.1.88 (Loads and Stores) the encoding is a bit
-different compared to that website and includes op3 and op4 (op2 is 24:23).
-
-~Michal
 
