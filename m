@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2742F84A06A
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 18:18:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676449.1052572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B102384A0A9
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 18:27:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676453.1052581 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX2bn-0008Vo-Jo; Mon, 05 Feb 2024 17:18:15 +0000
+	id 1rX2kc-0002ry-Db; Mon, 05 Feb 2024 17:27:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676449.1052572; Mon, 05 Feb 2024 17:18:15 +0000
+Received: by outflank-mailman (output) from mailman id 676453.1052581; Mon, 05 Feb 2024 17:27:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX2bn-0008TZ-H7; Mon, 05 Feb 2024 17:18:15 +0000
-Received: by outflank-mailman (input) for mailman id 676449;
- Mon, 05 Feb 2024 17:18:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rX2bm-0008TT-Ov
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 17:18:14 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rX2bl-00033V-Nz; Mon, 05 Feb 2024 17:18:13 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rX2bl-0004Yg-Ep; Mon, 05 Feb 2024 17:18:13 +0000
+	id 1rX2kc-0002q3-Ah; Mon, 05 Feb 2024 17:27:22 +0000
+Received: by outflank-mailman (input) for mailman id 676453;
+ Mon, 05 Feb 2024 17:27:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+Hmw=JO=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rX2kb-0002px-L4
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 17:27:21 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d030ca10-c44b-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 18:27:19 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a358ec50b7cso602417866b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 09:27:19 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ ti12-20020a170907c20c00b00a36fa497a65sm50901ejc.110.2024.02.05.09.27.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Feb 2024 09:27:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,157 +45,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=dtFtpwA9k+Tnq6W1cMFNl2l9PfphsVGGnDsjmQ4CZ+w=; b=QBRMHebTJVKTjLIdSE+xiptcP5
-	aVtqNpO23BZNl7LryCBIjieB+z1lKnfrEfWEZoUFmZgeYYNr7UHwRQZDnZJ09KL3dEZl51S3iG3LK
-	3jcoF+pjpjG0XnYAYjlJEd/Qv6CkCZ013oqQ7ATGd9FX9uz3kzP7dBZxlue9J6Q3CQZM=;
-Message-ID: <c635e693-fe07-458c-9d58-273e2779f5b9@xen.org>
-Date: Mon, 5 Feb 2024 17:18:11 +0000
+X-Inumbo-ID: d030ca10-c44b-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1707154038; x=1707758838; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=awdyICZKqpWCHNwcWSP6CybyXKbC+Vyt3NLnV4CSWMQ=;
+        b=lZ4Omjd/la8O5RByLi/XyKnlhN+51GFdW7YsRXJb9xGyxBu/qI34wLHn6rhdn8zhyV
+         te3riLasY2hIQ2Qpv9hWc3KwqFv7+8irzFaPVRHUWiVxK+J405JxZk5VXo9DtUdzfx06
+         0Ws3We3uBzvLmSOgiV+tsRVs808TuFBNSo4F8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707154038; x=1707758838;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=awdyICZKqpWCHNwcWSP6CybyXKbC+Vyt3NLnV4CSWMQ=;
+        b=KI63/yOLgQSv9PDprpfygL8UsPJP9l3sU6fzp8AcbYZt5t66QT8Fte5KXeAHUmjXqI
+         FqhAJU85/7e/ksk+EdpgXOgzC62iLnofI7Fd7wX3JwsYH3J1CLmJTUwi6aExE4eaxyfQ
+         oIJ6F4xtArTeb7c49dG0vzaGV09/x+Y2K9boqx/zfw0sR/aRoNvALRI8XWaUyD9xQPyq
+         zfkx4MJh4eB13/EXf9scK80//X2bUnbSKILXxRoPH1Zg4IlGf97oHengtxiOvpoIRXb9
+         KfG2h3qja6eUM1aRAoBKDfllV2CrUVO00Bq2tMHfnYVTK66uLkt/Bs8VtK1BAnfTnb/E
+         7Jww==
+X-Gm-Message-State: AOJu0YwjTZmx6qszfcUtPcZUVpayarX/I6pe12nn0H4aaQKvZtT0A0KU
+	txQHemhWJTWRjL1wMTMHlGM16O7uhEYwg7FTEMSNHZmDnI5s+b/qbwABBr1+n+8Kjci00QlI+D4
+	P
+X-Google-Smtp-Source: AGHT+IGmRA8eleUDlMIOzy/6BiQJrCEg5AazEKptofHP2EWYZYzrkni/pfSf4js5hALIFOGkwNwEww==
+X-Received: by 2002:a17:907:1708:b0:a37:8424:3d0 with SMTP id le8-20020a170907170800b00a37842403d0mr343465ejc.9.1707154038624;
+        Mon, 05 Feb 2024 09:27:18 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXF8xgmBSCcl2NU/7Xjg6Qw3pzBW81agg6w77+Qzj8VdOdAhst5UAxXUMo9iVqe9+HSn5I8TWk+5LaQ
+Date: Mon, 5 Feb 2024 17:27:17 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Cyril =?iso-8859-1?Q?R=E9bert?= <slack@rabbit.lu>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] tools/xentop: add option to display dom0 first
+Message-ID: <a8194dec-70f0-4f90-898d-f15152a5018b@perard>
+References: <87846acd5b31991e38561c9765eb97730c79d0f3.1706723494.git.slack@rabbit.lu>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/32] tools: enable xenstore-stubdom to use 9pfs
-Content-Language: en-GB
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
- <rosbrookn@gmail.com>, Samuel Thibault <samuel.thibault@ens-lyon.org>
-References: <20240205105001.24171-1-jgross@suse.com>
- <689635a7-6d34-44fe-b00b-31fdc03f6969@xen.org>
- <d4740502-795a-4e22-afe2-abd0746da843@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <d4740502-795a-4e22-afe2-abd0746da843@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <87846acd5b31991e38561c9765eb97730c79d0f3.1706723494.git.slack@rabbit.lu>
 
-Hi Juergen,
-
-On 05/02/2024 11:08, Jürgen Groß wrote:
-> On 05.02.24 11:55, Julien Grall wrote:
->> Hi Juergen,
->>
->> On 05/02/2024 10:49, Juergen Gross wrote:
->>> This series is adding 9pfs support to Xenstore-stubdom, enabling it
->>> to do logging to a dom0 directory.
->>>
->>> This is a prerequisite for the final goal to add live update support
->>> to Xenstore-stubdom, as it enables the stubdom to store its state in
->>> a dom0 file.
->>>
->>> The 9pfs backend is a new daemon written from scratch. Using a
->>> dedicated 9pfs daemon has several advantages:
->>>
->>> - it is using much less resources than a full blown qemu process
->>> - it can serve multiple guests (the idea is to use it for other
->>>    infrastructure domains, like qemu-stubdom or driver domains, too)
->>> - it is designed to support several security enhancements, like
->>>    limiting the number of files for a guest, or limiting the allocated
->>>    file system space
->>> - it doesn't support file links (neither hard nor soft links) or
->>>    referencing parent directories via "..", minimizing the risk that
->>>    a guest can "escape" from its home directory
->>>
->>> Note that for now the daemon only contains the minimal needed
->>> functionality to do logging from Xenstore-stubdom. I didn't want to
->>> add all the 9pfs commands and security add-ons in the beginning, in
->>> order to avoid needless efforts in case the idea of the daemon is
->>> being rejected.
->>>
->>> Changes in V4:
->>> - patch 2 of V3 was applied
->>> - added support of reading directories
->>> - addressed review comments
->>>
->>> Changes in V3:
->>> - new patches 1, 23-25
->>> - addressed review comments
->>>
->>> Changes in V2:
->>> - support of multiple rings per device
->>> - xenlogd->xen-9pfsd rename
->>> - addressed review comments
->>> - fixed some bugs
->>>
->>> Juergen Gross (32):
->>>    tools: add access macros for unaligned data
->>>    tools: add a new xen logging daemon
->>>    tools/xen-9pfsd: connect to frontend
->>>    tools/xen-9pfsd: add transport layer
->>>    tools/xen-9pfsd: add 9pfs response generation support
->>>    tools/xen-9pfsd: add 9pfs version request support
->>>    tools/xen-9pfsd: add 9pfs attach request support
->>>    tools/xen-9pfsd: add 9pfs walk request support
->>>    tools/xen-9pfsd: add 9pfs open request support
->>>    tools/xen-9pfsd: add 9pfs clunk request support
->>>    tools/xen-9pfsd: add 9pfs create request support
->>>    tools/xen-9pfsd: add 9pfs stat request support
->>>    tools/xen-9pfsd: add 9pfs write request support
->>>    tools/xen-9pfsd: add 9pfs read request support
->>>    tools/libs/light: add backend type for 9pfs PV devices
->>>    tools/xl: support new 9pfs backend xen_9pfsd
->>>    tools/helpers: allocate xenstore event channel for xenstore stubdom
->>>    tools/xenstored: rename xenbus_evtchn()
->>>    stubdom: extend xenstore stubdom configs
->>>    tools: add 9pfs device to xenstore-stubdom
->>>    tools/xenstored: add early_init() function
->>>    tools/xenstored: move systemd handling to posix.c
->>>    tools/xenstored: move all log-pipe handling into posix.c
->>>    tools/xenstored: move all socket handling into posix.c
->>>    tools/xenstored: get own domid in stubdom case
->>>    tools/xenstored: rework ring page (un)map functions
->>>    tools/xenstored: split domain_init()
->>>    tools/xenstored: map stubdom interface
->>>    tools/xenstored: mount 9pfs device in stubdom
->>>    tools/xenstored: add helpers for filename handling
->>>    tools/xenstored: support complete log capabilities in stubdom
->>>    tools/xenstored: have a single do_control_memreport()
->>
->> I haven't checked what's the state of the 9PFS patches. Can part of 
->> the xenstored changes be committed without the 9PFS changes?
+On Wed, Jan 31, 2024 at 06:51:34PM +0100, Cyril R�bert wrote:
+> Add a command line option to xentop to be able to display dom0 first, on top of the list.
+> This is unconditional, so sorting domains with the S option will also ignore dom0.
 > 
-> The following patches can go in without the 9pfs daemon:
+> Signed-off-by: Cyril R�bert (zithro) <slack@rabbit.lu>
 
-It looks like the gitalb CI is not happy with the following patches [1]:
+Hi Cyril,
 
-In function ‘free_stat’,
-     inlined from ‘write_9pfs’ at 9pfront.c:935:9:
-9pfront.c:120:14: error: ‘stat.name’ may be used uninitialized 
-[-Werror=maybe-uninitialized]
-   120 |     free(stat->name);
-       |          ~~~~^~~~~~
-9pfront.c: In function ‘write_9pfs’:
-9pfront.c:929:20: note: ‘stat’ declared here
-   929 |     struct p9_stat stat;
-       |                    ^~~~
+Your patch looks like a good idea, but xentop segv without '-z' now, when
+there are guest running.
 
-I think...
+Revelant part of a backtrace:
+#0  xenstat_domain_name (domain=0x121) at xenstat.c:344
+344		return domain->name;
+#6  0x00006344dd283651 in top () at xentop.c:1209
+        i = 2
+        num_domains = 2
+        sort_start = 1
+        sort_count = <optimized out>
+        dom0_index = <optimized out>
+1209		qsort((domains+sort_start), (num_domains-sort_count), sizeof(xenstat_domain *),
+1210		      (int(*)(const void *, const void *))compare_domains);
 
-> 
-> tools/helpers: allocate xenstore event channel for xenstore stubdom
-> tools/xenstored: rename xenbus_evtchn()
-> stubdom: extend xenstore stubdom configs
 
-.. this is related to this patch. Can you have a look?
+Also, could you update the man page? Here "docs/man/xentop.1.pod""
 
-I have just pushed a new branch without this patch. Let see if the CI 
-[2] will pass this time.
-
-> tools/xenstored: add early_init() function
-> tools/xenstored: move systemd handling to posix.c
-> tools/xenstored: move all log-pipe handling into posix.c
-> tools/xenstored: move all socket handling into posix.c
-> tools/xenstored: get own domid in stubdom case
-> tools/xenstored: rework ring page (un)map functions
-> tools/xenstored: split domain_init()
-> tools/xenstored: map stubdom interface
-
-Cheers,
-
-[1] https://gitlab.com/xen-project/people/julieng/xen/-/pipelines/1165147815
-[2] https://gitlab.com/xen-project/people/julieng/xen/-/pipelines/1165166977
+Thanks,
 
 -- 
-Julien Grall
+Anthony PERARD
 
