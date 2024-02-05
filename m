@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D32849853
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 12:04:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675936.1051636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5907C849880
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 12:10:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.675943.1051646 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWwlZ-0007AF-I2; Mon, 05 Feb 2024 11:03:57 +0000
+	id 1rWwqR-0008Ny-3K; Mon, 05 Feb 2024 11:08:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675936.1051636; Mon, 05 Feb 2024 11:03:57 +0000
+Received: by outflank-mailman (output) from mailman id 675943.1051646; Mon, 05 Feb 2024 11:08:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWwlZ-00077g-E8; Mon, 05 Feb 2024 11:03:57 +0000
-Received: by outflank-mailman (input) for mailman id 675936;
- Mon, 05 Feb 2024 11:03:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rWwqR-0008Lq-02; Mon, 05 Feb 2024 11:08:59 +0000
+Received: by outflank-mailman (input) for mailman id 675943;
+ Mon, 05 Feb 2024 11:08:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rWwlY-00075h-2M
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 11:03:56 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 40fd76d9-c416-11ee-8a45-1f161083a0e0;
- Mon, 05 Feb 2024 12:03:55 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-40fc22f372cso32611295e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 03:03:55 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n8-20020a05600c500800b0040fd162944fsm6859582wmr.35.2024.02.05.03.03.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Feb 2024 03:03:54 -0800 (PST)
+ (envelope-from <SRS0=b4fC=JO=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rWwqP-0008JF-PP
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 11:08:57 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f2f31bb7-c416-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 12:08:54 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 814C12212D;
+ Mon,  5 Feb 2024 11:08:53 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 442F8132DD;
+ Mon,  5 Feb 2024 11:08:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([10.150.64.162])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 0IHfDsXBwGWUOwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 05 Feb 2024 11:08:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +51,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40fd76d9-c416-11ee-8a45-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707131035; x=1707735835; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bsP4/6DK9onXjg/QyVKo8/M3vS3DN9Ae4cLk5QBN9lY=;
-        b=aZ4SB3pdjH8Fc9j/lAJ5KVzZhR1HBEaXz9XuEe84V0PdsEaRpjIk7QfgFs1+sKVbqL
-         H7ZCz2D1oyMwKATjAc4vRO0Hqcicy8EwzmtPwv5x9ts5zpc9OHF2WK5jXV/GInx+PB9b
-         MePgPmf0E5iyCCKiTYwWokksjrA3j9fxFIQXHBwmj0i7tyuVAebRxptkKMBo73jrdIpH
-         pGkZc4uw+F4dA4incZdgDo9/OsJx9ny2Aajjx8AUNOLKzX1z0kZEKoT+rjK/R/gZo9fF
-         Ff/iSzDljYKeYdK/08x83/iaA3DZ4eSpgVzvYVJjhpcdQEvb9A6e5XKWenHlE2QjhKl5
-         FzQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707131035; x=1707735835;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=bsP4/6DK9onXjg/QyVKo8/M3vS3DN9Ae4cLk5QBN9lY=;
-        b=bLen14K6jqrN2JCIaRTfJEGzB6kdaz4/3JxhCZDkv892kvzqK4w6ubeoo5nP4yzRys
-         HvJ1fwoxZG2yoYJ0IskJtwj1CSfJmD/Ohs5zgJiTelS85LyeCIwMNYcXRs1A5Kw6rdDO
-         mss2bVKG0EozQKbFLBc7JA2UhXbwvsth+aFvAVNTXCL5lZYAWXVETx19WmtGLRoxukA3
-         GpImTQSVhYDtMI9qQMfIfiJacGFa6nMAdiYOnatDXfTAKzcfektEX3dGvs8l6yYgjad3
-         laJ5QTwcraXIFbapWdjPWGpIwuiVc7I5mft48yyHfU6V1mGdpQzxrjkD/VaFeYSJPCMH
-         WzKg==
-X-Gm-Message-State: AOJu0Yw+aeVWBfIH9hFUf1j9k3K85lTmBofYTKr0B6GYHoc7YoBD9DgG
-	WE6HHAPcxuIiQxsiYTnf0JsTwa2JoCU+qnEh4PB9eKw3tBeT845W6d0qeUGHXQJSc7WLYGQRx3k
-	=
-X-Google-Smtp-Source: AGHT+IE55s07IQQaRh1RDB8AefWOYLW2L5s2DFBXn797p0KxXpT3Q95nwt514Q7W32OlUbh5wYOrfw==
-X-Received: by 2002:a05:600c:4ec7:b0:40e:5ed3:ccf4 with SMTP id g7-20020a05600c4ec700b0040e5ed3ccf4mr4517267wmq.16.1707131034678;
-        Mon, 05 Feb 2024 03:03:54 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCVE5WJ+iiDOkVCWZTykBJ5YA1suaUNHO5lzMjBbiGOK1Dw/i8PjCk1srnuFfF9vxsRkUq67b52U47WSVaDa92JAJStd0ma541aw80NxF8z2Ujw2WwtFaEgUyQpLKUs4nUm/vBxF9uo0f4XWciRDT4yREzaoZ0zxFd+PL0tL
-Message-ID: <26ff8f42-2a76-4f8d-9af6-5830b0aae739@suse.com>
-Date: Mon, 5 Feb 2024 12:03:57 +0100
+X-Inumbo-ID: f2f31bb7-c416-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1707131333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OTAX6IEAs+BtLQ3mCkBm+QT1FK6ZCTnoPrPnxLn3ttk=;
+	b=ekxObCXlEApDTZ0EY4rTOaL4U2cQ37Fzp0mjVDsYy/WtrKni/xCsp4JDIL5u7uldij9p3I
+	iJzXwJcZyKSjnABiU0/aEiXEoeLLFYfQHPMdP4JutLJ423PeOoarpqllzlk7S0v47lEgcd
+	REwkwhk+klBYZ8SqARZ749ajHhSFPj8=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1707131333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OTAX6IEAs+BtLQ3mCkBm+QT1FK6ZCTnoPrPnxLn3ttk=;
+	b=ekxObCXlEApDTZ0EY4rTOaL4U2cQ37Fzp0mjVDsYy/WtrKni/xCsp4JDIL5u7uldij9p3I
+	iJzXwJcZyKSjnABiU0/aEiXEoeLLFYfQHPMdP4JutLJ423PeOoarpqllzlk7S0v47lEgcd
+	REwkwhk+klBYZ8SqARZ749ajHhSFPj8=
+Message-ID: <d4740502-795a-4e22-afe2-abd0746da843@suse.com>
+Date: Mon, 5 Feb 2024 12:08:52 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 2/2] almost fully ignore zero-size flush requests
+Subject: Re: [PATCH v4 00/32] tools: enable xenstore-stubdom to use 9pfs
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <a0a7fa35-4615-4a9b-9887-569353f05e33@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a0a7fa35-4615-4a9b-9887-569353f05e33@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
+ <rosbrookn@gmail.com>, Samuel Thibault <samuel.thibault@ens-lyon.org>
+References: <20240205105001.24171-1-jgross@suse.com>
+ <689635a7-6d34-44fe-b00b-31fdc03f6969@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+In-Reply-To: <689635a7-6d34-44fe-b00b-31fdc03f6969@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out1.suse.de;
+	none
+X-Spam-Level: 
+X-Spam-Score: -3.58
+X-Spamd-Result: default: False [-3.58 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 XM_UA_NO_VERSION(0.01)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 NEURAL_HAM_LONG(-1.00)[-1.000];
+	 BAYES_HAM(-3.00)[100.00%];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 NEURAL_HAM_SHORT(-0.20)[-1.000];
+	 RCPT_COUNT_SEVEN(0.00)[7];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 R_MIXED_CHARSET(0.71)[subject];
+	 FREEMAIL_CC(0.00)[xen.org,citrix.com,gmail.com,ens-lyon.org];
+	 RCVD_TLS_ALL(0.00)[];
+	 MID_RHS_MATCH_FROM(0.00)[]
+X-Spam-Flag: NO
 
-Along the line with observations in the context of XSA-448, besides
-"op" no field is relevant when the range to be flushed is empty, much
-like e.g. the pointers passed to memcpy() are irrelevant (and would
-never be "validated") when the passed length is zero. Split the existing
-condition validating "op", "offset", and "length", leaving only the "op"
-part ahead of the check for length being zero (or no flushing to be
-performed).
+On 05.02.24 11:55, Julien Grall wrote:
+> Hi Juergen,
+> 
+> On 05/02/2024 10:49, Juergen Gross wrote:
+>> This series is adding 9pfs support to Xenstore-stubdom, enabling it
+>> to do logging to a dom0 directory.
+>>
+>> This is a prerequisite for the final goal to add live update support
+>> to Xenstore-stubdom, as it enables the stubdom to store its state in
+>> a dom0 file.
+>>
+>> The 9pfs backend is a new daemon written from scratch. Using a
+>> dedicated 9pfs daemon has several advantages:
+>>
+>> - it is using much less resources than a full blown qemu process
+>> - it can serve multiple guests (the idea is to use it for other
+>>    infrastructure domains, like qemu-stubdom or driver domains, too)
+>> - it is designed to support several security enhancements, like
+>>    limiting the number of files for a guest, or limiting the allocated
+>>    file system space
+>> - it doesn't support file links (neither hard nor soft links) or
+>>    referencing parent directories via "..", minimizing the risk that
+>>    a guest can "escape" from its home directory
+>>
+>> Note that for now the daemon only contains the minimal needed
+>> functionality to do logging from Xenstore-stubdom. I didn't want to
+>> add all the 9pfs commands and security add-ons in the beginning, in
+>> order to avoid needless efforts in case the idea of the daemon is
+>> being rejected.
+>>
+>> Changes in V4:
+>> - patch 2 of V3 was applied
+>> - added support of reading directories
+>> - addressed review comments
+>>
+>> Changes in V3:
+>> - new patches 1, 23-25
+>> - addressed review comments
+>>
+>> Changes in V2:
+>> - support of multiple rings per device
+>> - xenlogd->xen-9pfsd rename
+>> - addressed review comments
+>> - fixed some bugs
+>>
+>> Juergen Gross (32):
+>>    tools: add access macros for unaligned data
+>>    tools: add a new xen logging daemon
+>>    tools/xen-9pfsd: connect to frontend
+>>    tools/xen-9pfsd: add transport layer
+>>    tools/xen-9pfsd: add 9pfs response generation support
+>>    tools/xen-9pfsd: add 9pfs version request support
+>>    tools/xen-9pfsd: add 9pfs attach request support
+>>    tools/xen-9pfsd: add 9pfs walk request support
+>>    tools/xen-9pfsd: add 9pfs open request support
+>>    tools/xen-9pfsd: add 9pfs clunk request support
+>>    tools/xen-9pfsd: add 9pfs create request support
+>>    tools/xen-9pfsd: add 9pfs stat request support
+>>    tools/xen-9pfsd: add 9pfs write request support
+>>    tools/xen-9pfsd: add 9pfs read request support
+>>    tools/libs/light: add backend type for 9pfs PV devices
+>>    tools/xl: support new 9pfs backend xen_9pfsd
+>>    tools/helpers: allocate xenstore event channel for xenstore stubdom
+>>    tools/xenstored: rename xenbus_evtchn()
+>>    stubdom: extend xenstore stubdom configs
+>>    tools: add 9pfs device to xenstore-stubdom
+>>    tools/xenstored: add early_init() function
+>>    tools/xenstored: move systemd handling to posix.c
+>>    tools/xenstored: move all log-pipe handling into posix.c
+>>    tools/xenstored: move all socket handling into posix.c
+>>    tools/xenstored: get own domid in stubdom case
+>>    tools/xenstored: rework ring page (un)map functions
+>>    tools/xenstored: split domain_init()
+>>    tools/xenstored: map stubdom interface
+>>    tools/xenstored: mount 9pfs device in stubdom
+>>    tools/xenstored: add helpers for filename handling
+>>    tools/xenstored: support complete log capabilities in stubdom
+>>    tools/xenstored: have a single do_control_memreport()
+> 
+> I haven't checked what's the state of the 9PFS patches. Can part of the 
+> xenstored changes be committed without the 9PFS changes?
 
-In the course of splitting also simplify the moved part of the condition
-from 3 to 2 conditionals, potentially (depending on the architecture)
-requiring one less (conditional) branch.
+The following patches can go in without the 9pfs daemon:
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+tools/helpers: allocate xenstore event channel for xenstore stubdom
+tools/xenstored: rename xenbus_evtchn()
+stubdom: extend xenstore stubdom configs
+tools/xenstored: add early_init() function
+tools/xenstored: move systemd handling to posix.c
+tools/xenstored: move all log-pipe handling into posix.c
+tools/xenstored: move all socket handling into posix.c
+tools/xenstored: get own domid in stubdom case
+tools/xenstored: rework ring page (un)map functions
+tools/xenstored: split domain_init()
+tools/xenstored: map stubdom interface
 
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -3528,15 +3528,16 @@ static int _cache_flush(const gnttab_cac
-     void *v;
-     int ret;
- 
--    if ( (cflush->offset >= PAGE_SIZE) ||
--         (cflush->length > PAGE_SIZE) ||
--         (cflush->offset + cflush->length > PAGE_SIZE) ||
--         (cflush->op & ~(GNTTAB_CACHE_INVAL | GNTTAB_CACHE_CLEAN)) )
-+    if ( cflush->op & ~(GNTTAB_CACHE_INVAL | GNTTAB_CACHE_CLEAN) )
-         return -EINVAL;
- 
-     if ( cflush->length == 0 || cflush->op == 0 )
-         return !*cur_ref ? 0 : -EILSEQ;
- 
-+    if ( (cflush->offset | cflush->length) > PAGE_SIZE ||
-+         cflush->offset + cflush->length > PAGE_SIZE )
-+        return -EINVAL;
-+
-     /* currently unimplemented */
-     if ( cflush->op & GNTTAB_CACHE_SOURCE_GREF )
-         return -EOPNOTSUPP;
 
+Juergen
 
