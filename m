@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DA25849C03
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 14:38:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676067.1051886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62A86849C0D
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 14:39:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676073.1051896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzAV-00082B-Gb; Mon, 05 Feb 2024 13:37:51 +0000
+	id 1rWzBs-0000fc-Rc; Mon, 05 Feb 2024 13:39:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676067.1051886; Mon, 05 Feb 2024 13:37:51 +0000
+Received: by outflank-mailman (output) from mailman id 676073.1051896; Mon, 05 Feb 2024 13:39:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzAV-0007zk-Db; Mon, 05 Feb 2024 13:37:51 +0000
-Received: by outflank-mailman (input) for mailman id 676067;
- Mon, 05 Feb 2024 13:37:49 +0000
+	id 1rWzBs-0000dN-OT; Mon, 05 Feb 2024 13:39:16 +0000
+Received: by outflank-mailman (input) for mailman id 676073;
+ Mon, 05 Feb 2024 13:39:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=W3Sh=JO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rWzAT-0007lD-9T
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 13:37:49 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
+ id 1rWzBr-0000bx-Oa
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 13:39:15 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bf48ad15-c42b-11ee-98f5-efadbce2ee36;
- Mon, 05 Feb 2024 14:37:46 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5605c7b1f32so1260760a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 05:37:46 -0800 (PST)
+ id f32ff78f-c42b-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 14:39:13 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id
+ 4fb4d7f45d1cf-55ff4dbe6a8so3505902a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 05:39:13 -0800 (PST)
 Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
  by smtp.gmail.com with ESMTPSA id
- t6-20020aa7d706000000b005605ebacec5sm1316929edq.43.2024.02.05.05.37.45
+ t6-20020aa7d706000000b005605ebacec5sm1316929edq.43.2024.02.05.05.39.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Feb 2024 05:37:46 -0800 (PST)
+ Mon, 05 Feb 2024 05:39:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,46 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf48ad15-c42b-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: f32ff78f-c42b-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707140266; x=1707745066; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707140353; x=1707745153; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=FnfkxvKA/F7T4oAMOqBwsz1+RAZM28v3kElo3Ihlm40=;
-        b=N7oOqWurJC3ly7Kt9R9NDxGOf6FXOCE4o7KYqY4vicYQSll7dpEljrcrJW3uEQnHT6
-         JAIupPWJrPRcOVw6AN2NM5l0bnnQXhNjczwmu3Ph4owtebWI/2WF5LK0bOx9PicOW2T0
-         COeThe+QJyNvHg3uI16fPQiUtJpqcxMt3o2n0=
+        bh=XLD+1dJ8ux83BRuEoUgHNkrO0SO+RLAYOKnM2f3QAyc=;
+        b=bt/poVZvtEqycEH+ADhkPgM2/r9zO/UkeLtuoX0gHZpRSBEP9b5gtTc3pxEfhmVU6a
+         J9sGIjHT1R5PP1M8t5qvt8vGdfiSYlot4tPd+zKAEz6PL9bNpRZ4AR9hl4zRaTausfyn
+         DMA1IqFFX5ffEhqxK/QGCu4QayibVoI0L80CQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707140266; x=1707745066;
+        d=1e100.net; s=20230601; t=1707140353; x=1707745153;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FnfkxvKA/F7T4oAMOqBwsz1+RAZM28v3kElo3Ihlm40=;
-        b=sP6pUMj/YgUbA5BXjy+AyTIojshG9RetaRGIPWTEPl8a4TEJHiKkwTOSot2GpPHKVM
-         Iri3eOWplDsMLJ4BBRXO1cIqwMJDMVI2wYrznJceB2FpiSjDjLz+J/9G1hEQo+0c/aSz
-         c2kMv67D8lznId2ZSQpPZ18Xhc631RS+wmUoBHDiG+saIeQEruO9OU7UrsGgdjq57wOL
-         74rMfp4ApaMQQmrb2z9z3JuvEazdyQUdiPUDHWuPpyDGtSDfWAdxAjELpsJ9TibgyzPX
-         PvvSPw3N+6QDd4eA7ETn3ym7f6W9BL7OHnGiwewGS6P+f6hsx29IiNLzfPMw1l4nPj9M
-         9cYw==
-X-Gm-Message-State: AOJu0YzutLs+fUjvjenexGgcY5waPWbMZHmCYPEAxd3n4WOMIGVh7Wh/
-	lUXLY+6iEHqQsb/8/HD8rBhKmiaUUb1pFAodsmVSf1T8Kpk9o40Kojv4ufExG1Y=
-X-Google-Smtp-Source: AGHT+IEdjklQk1J1uFuhCunR9Omu2Q8a/zfcPD3G9knP9utjOu0NtazleXZNdCLZ6wfO+MHl9xMGNA==
-X-Received: by 2002:a05:6402:2c3:b0:560:e6d:4ce9 with SMTP id b3-20020a05640202c300b005600e6d4ce9mr4074250edx.41.1707140266348;
-        Mon, 05 Feb 2024 05:37:46 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWFkthbLqPvaJSaA9iBjEobrjoS8HfMQoyannNe3oMrwtpazljfnUWFz07v4/RZKuYqkvIAiZDSW895cSaqs07vtUKC1zlVZqgs/jX3jozoCKajdSSL/4wUjRM+iO69g1X7Gfi0sxCIphNApPG/OF/7sJcWy/w6Dj17tiS31wOiYxNs
-Message-ID: <35a04808-9ff3-474d-a394-169fd787d468@citrix.com>
-Date: Mon, 5 Feb 2024 13:37:45 +0000
+        bh=XLD+1dJ8ux83BRuEoUgHNkrO0SO+RLAYOKnM2f3QAyc=;
+        b=ZBQbI+HYjdGA2wU807aNJbOLsgMO7t8DtCMXJMxtlqkDTzcEO/grH7WrbpWRV6IbmP
+         lOVIvbFgy0hSvyajVWY/NNDtGhbz2b6mnoVACjxQv7ZzUhSJCHuX3Ys5+wKIzbhL2xw+
+         n31YAZKy82bp5pDz3m4Txj57FUICtYPhlvv+/NmjvORk50AyrWJG4xB4bqzDg7dBGVRr
+         l3Kktg651c9Y2GInU52w8NfehOMeIX2OT0iTBFsiKGP2q4w7+SfYyrRg3iA4/DhaOJqD
+         UL2fGMnhCelAcTNxo38jvpD+mdSCCqm/Q8RR3/mVgpYM1YPIM0Du22OzX65w2e6YT/EO
+         Xhsw==
+X-Gm-Message-State: AOJu0YyLIatOHYpvKqoiRk0PyVSuGVMTyunMbdEwctWCSeUNuiNHuBkb
+	ChDRnFZlwdlP/6wqKgqL9Kd9Ti6TC+L35oST/hGxcRvNjUQdUV7myX+2kalmeGQ=
+X-Google-Smtp-Source: AGHT+IFFl+BgrLXhvNem+b23szpWzo0Dmp46SOwDZqtr0uhPp6HTKgDrhlKQDccve/DaSSBPFRWbwg==
+X-Received: by 2002:aa7:d58b:0:b0:55f:dbb8:9163 with SMTP id r11-20020aa7d58b000000b0055fdbb89163mr5091899edq.37.1707140353466;
+        Mon, 05 Feb 2024 05:39:13 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCVnQzaiqmLcyao6a1BcwhYLexToqXEXHds1VEy4BVNNBD1RFGJZpBcMZaeSu54Wt3M10NUIbjCxKAO8y8qyJyjF5V33g6XVDGoZeAttIQG/hSRD7AxGrHicH3e9p3fqv1ADZMdIy68DC1neBoIneIPKq74s/rQTIr4WwcPQZRTuYVXZ/A7uGbu0CEbki1MzqvfG2PPepp99NGgJEKDIF4J1WApN7fKE33NbsUO7BKl/azd0Gbao8VjyY81jKSNmWmiSRGTyrZKKCY0QpxLkjw==
+Message-ID: <89c8e8bd-8a76-42e6-baee-0a03d021cdca@citrix.com>
+Date: Mon, 5 Feb 2024 13:39:12 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/8] serial: drop serial_rx_fn's regs parameter
+Subject: Re: [PATCH v3 5/8] serial: drop serial_[rt]x_interrupt()'s regs
+ parameter
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
- <df7f2df7-d45c-4c96-a84a-5ca816a5b733@suse.com>
+ <93aec041-70f6-4385-9a52-8808e0cea931@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -129,12 +133,12 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <df7f2df7-d45c-4c96-a84a-5ca816a5b733@suse.com>
+In-Reply-To: <93aec041-70f6-4385-9a52-8808e0cea931@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/02/2024 1:28 pm, Jan Beulich wrote:
-> It's simply not needed anymore.
+On 05/02/2024 1:30 pm, Jan Beulich wrote:
+> They're simply not needed anymore.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
