@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87DBF84981E
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 11:52:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675813.1051356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 781EC849821
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 11:52:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.675814.1051367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWwad-0006P9-Qw; Mon, 05 Feb 2024 10:52:39 +0000
+	id 1rWwaj-0006j0-3A; Mon, 05 Feb 2024 10:52:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675813.1051356; Mon, 05 Feb 2024 10:52:39 +0000
+Received: by outflank-mailman (output) from mailman id 675814.1051367; Mon, 05 Feb 2024 10:52:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWwad-0006M0-Mv; Mon, 05 Feb 2024 10:52:39 +0000
-Received: by outflank-mailman (input) for mailman id 675813;
- Mon, 05 Feb 2024 10:52:38 +0000
+	id 1rWwai-0006fh-Un; Mon, 05 Feb 2024 10:52:44 +0000
+Received: by outflank-mailman (input) for mailman id 675814;
+ Mon, 05 Feb 2024 10:52:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=b4fC=JO=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rWwac-00064Q-28
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 10:52:38 +0000
+ id 1rWwah-00064Q-Qk
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 10:52:43 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ac30caae-c414-11ee-98f5-efadbce2ee36;
- Mon, 05 Feb 2024 11:52:36 +0100 (CET)
+ id af8e7d03-c414-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 11:52:42 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1279222100;
- Mon,  5 Feb 2024 10:52:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ACCA222288;
+ Mon,  5 Feb 2024 10:52:41 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BDF5C132DD;
- Mon,  5 Feb 2024 10:52:35 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 72995132DD;
+ Mon,  5 Feb 2024 10:52:41 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CPKmLPO9wGXuNgAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 05 Feb 2024 10:52:35 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Lxx6Gvm9wGX2NgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Mon, 05 Feb 2024 10:52:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,25 +51,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac30caae-c414-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: af8e7d03-c414-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1707130356; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1707130361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WeNBiDTNS7TMepXj/jHm53gvlyAKdRYh91nCqLjvqLA=;
-	b=ihzYIvnwhErawe9X0SPXCpAAKCwJ5kImARwcHVfOvAYWrMKt8N3m6pcy/ylnYFzPUrDUc8
-	fJGFWcsoYkpqv6UQQY1e5LpK/jgZ2kC2Qu+nfUerL6NaPTNOnbNDa4C6iZVz5ImDz+3pTK
-	kuZqJjCB6DEJ06yHzi/BIfO2Uy+VYvI=
+	bh=CNBMmRI5jm2OY3r5fUBNPy2uDNZ81cgAaFW7uO2/RZQ=;
+	b=rd2j+e3DNUEu/4Q9X+OKH3cW4mxygqpC2Q4CSidj4iIM6NEpol3IKANp8g8I2Vkv//VyIi
+	kJzIkXPdk4Wu5Pse18J6awFQUOfbrZ1ZqINl9rPR8O0YgA0RsNJPBa2mUpCIIw/ZR3B2Hx
+	gOp/VaS1Jxatyn3uVijFCGVU6N7sHXA=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1707130356; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1707130361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WeNBiDTNS7TMepXj/jHm53gvlyAKdRYh91nCqLjvqLA=;
-	b=ihzYIvnwhErawe9X0SPXCpAAKCwJ5kImARwcHVfOvAYWrMKt8N3m6pcy/ylnYFzPUrDUc8
-	fJGFWcsoYkpqv6UQQY1e5LpK/jgZ2kC2Qu+nfUerL6NaPTNOnbNDa4C6iZVz5ImDz+3pTK
-	kuZqJjCB6DEJ06yHzi/BIfO2Uy+VYvI=
+	bh=CNBMmRI5jm2OY3r5fUBNPy2uDNZ81cgAaFW7uO2/RZQ=;
+	b=rd2j+e3DNUEu/4Q9X+OKH3cW4mxygqpC2Q4CSidj4iIM6NEpol3IKANp8g8I2Vkv//VyIi
+	kJzIkXPdk4Wu5Pse18J6awFQUOfbrZ1ZqINl9rPR8O0YgA0RsNJPBa2mUpCIIw/ZR3B2Hx
+	gOp/VaS1Jxatyn3uVijFCGVU6N7sHXA=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -78,9 +78,9 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Anthony PERARD <anthony.perard@citrix.com>,
 	Jason Andryuk <jandryuk@gmail.com>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v4 27/32] tools/xenstored: split domain_init()
-Date: Mon,  5 Feb 2024 11:49:56 +0100
-Message-Id: <20240205105001.24171-28-jgross@suse.com>
+Subject: [PATCH v4 28/32] tools/xenstored: map stubdom interface
+Date: Mon,  5 Feb 2024 11:49:57 +0100
+Message-Id: <20240205105001.24171-29-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20240205105001.24171-1-jgross@suse.com>
 References: <20240205105001.24171-1-jgross@suse.com>
@@ -88,23 +88,19 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Authentication-Results: smtp-out1.suse.de;
 	none
-X-Spam-Level: 
-X-Spam-Score: -3.30
-X-Spamd-Result: default: False [-3.30 / 50.00];
+X-Spamd-Result: default: False [-2.10 / 50.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
 	 FROM_HAS_DN(0.00)[];
 	 TO_DN_SOME(0.00)[];
-	 R_MISSING_CHARSET(2.50)[];
 	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	 R_MISSING_CHARSET(2.50)[];
 	 MIME_GOOD(-0.10)[text/plain];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
 	 REPLY(-4.00)[];
 	 BROKEN_CONTENT_TYPE(1.50)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
 	 RCVD_COUNT_THREE(0.00)[3];
 	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 NEURAL_HAM_SHORT(-0.20)[-1.000];
 	 RCPT_COUNT_SEVEN(0.00)[7];
 	 MID_CONTAINS_FROM(1.00)[];
 	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
@@ -114,95 +110,110 @@ X-Spamd-Result: default: False [-3.30 / 50.00];
 	 FREEMAIL_CC(0.00)[suse.com,xen.org,citrix.com,gmail.com,amazon.com];
 	 RCVD_TLS_ALL(0.00)[];
 	 BAYES_HAM(-3.00)[100.00%]
+X-Spam-Level: 
 X-Spam-Flag: NO
+X-Spam-Score: -2.10
 
-Today domain_init() is called either just before calling dom0_init()
-in case no live update is being performed, or it is called after
-reading the global state from read_state_global(), as the event
-channel fd is needed.
+When running as stubdom, map the stubdom's Xenstore ring page in order
+to support using the 9pfs frontend.
 
-Split up domain_init() into a preparation part which can be called
-unconditionally, and in a part setting up the event channel handle.
-
-Note that there is no chance that chk_domain_generation() can be
-called now before xc_handle has been setup, so there is no need for
-the related special case anymore.
+Use the same pattern as in dom0_init() when running as daemon in dom0
+(introduce the own domain, then send an event to the client side to
+signal Xenstore is ready to communicate).
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
 Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
-V3:
-- rename new function to domain_early_init() (Julien Grall)
----
  tools/xenstored/core.c   |  2 ++
- tools/xenstored/domain.c | 12 ++++++------
+ tools/xenstored/domain.c | 27 ++++++++++++++++++++++++++-
  tools/xenstored/domain.h |  1 +
- 3 files changed, 9 insertions(+), 6 deletions(-)
+ 3 files changed, 29 insertions(+), 1 deletion(-)
 
 diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
-index 9eb3cdf446..3bf2ec7734 100644
+index 3bf2ec7734..48fc787ac1 100644
 --- a/tools/xenstored/core.c
 +++ b/tools/xenstored/core.c
-@@ -2742,6 +2742,8 @@ int main(int argc, char *argv[])
+@@ -2767,6 +2767,8 @@ int main(int argc, char *argv[])
+ 		lu_read_state();
+ #endif
  
- 	talloc_enable_null_tracking();
- 
-+	domain_early_init();
++	stubdom_init();
 +
- 	/* Listen to hypervisor. */
- 	if (!live_update) {
- 		domain_init(-1);
+ 	check_store();
+ 
+ 	/* Get ready to listen to the tools. */
 diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
-index af80a8221d..621b415088 100644
+index 621b415088..1a7d5e9756 100644
 --- a/tools/xenstored/domain.c
 +++ b/tools/xenstored/domain.c
-@@ -1224,10 +1224,8 @@ static int domeq_fn(const void *key1, const void *key2)
- 	return *(const unsigned int *)key1 == *(const unsigned int *)key2;
+@@ -37,6 +37,10 @@
+ #include <xenctrl.h>
+ #include <xen/grant_table.h>
+ 
++#ifdef __MINIOS__
++#include <mini-os/xenbus.h>
++#endif
++
+ static xc_interface **xc_handle;
+ xengnttab_handle **xgt_handle;
+ static evtchn_port_t virq_port;
+@@ -500,6 +504,11 @@ static void *map_interface(domid_t domid)
+ 	if (domid == xenbus_master_domid())
+ 		return xenbus_map();
+ 
++#ifdef __MINIOS__
++	if (domid == stub_domid)
++		return xenstore_buf;
++#endif
++
+ 	return xengnttab_map_grant_ref(*xgt_handle, domid,
+ 				       GNTTAB_RESERVED_XENSTORE,
+ 				       PROT_READ|PROT_WRITE);
+@@ -509,7 +518,7 @@ static void unmap_interface(domid_t domid, void *interface)
+ {
+ 	if (domid == xenbus_master_domid())
+ 		unmap_xenbus(interface);
+-	else
++	else if (domid != stub_domid)
+ 		xengnttab_unmap(*xgt_handle, interface, 1);
  }
  
--void domain_init(int evtfd)
-+void domain_early_init(void)
- {
--	int rc;
--
- 	/* Start with a random rather low domain count for the hashtable. */
- 	domhash = create_hashtable(NULL, "domains", domhash_fn, domeq_fn, 0);
- 	if (!domhash)
-@@ -1258,6 +1256,11 @@ void domain_init(int evtfd)
- 	xengnttab_set_max_grants(*xgt_handle, DOMID_FIRST_RESERVED);
+@@ -1214,6 +1223,22 @@ void dom0_init(void)
+ 	xenevtchn_notify(xce_handle, dom0->port);
+ }
  
- 	talloc_set_destructor(xgt_handle, close_xgt_handle);
++void stubdom_init(void)
++{
++#ifdef __MINIOS__
++	struct domain *stubdom;
++
++	if (stub_domid < 0)
++		return;
++
++	stubdom = introduce_domain(NULL, stub_domid, xenbus_evtchn, false);
++	if (!stubdom)
++		barf_perror("Failed to initialize stubdom");
++
++	xenevtchn_notify(xce_handle, stubdom->port);
++#endif
 +}
 +
-+void domain_init(int evtfd)
-+{
-+	int rc;
- 
- 	if (evtfd < 0)
- 		xce_handle = xenevtchn_open(NULL, XENEVTCHN_NO_CLOEXEC);
-@@ -1291,9 +1294,6 @@ static bool chk_domain_generation(unsigned int domid, uint64_t gen)
+ static unsigned int domhash_fn(const void *k)
  {
- 	struct domain *d;
- 
--	if (!xc_handle && domid == dom0_domid)
--		return true;
--
- 	d = find_domain_struct(domid);
- 
- 	return d && d->generation <= gen;
+ 	return *(const unsigned int *)k;
 diff --git a/tools/xenstored/domain.h b/tools/xenstored/domain.h
-index 7625dca8cd..224c4c23e2 100644
+index 224c4c23e2..844ac11510 100644
 --- a/tools/xenstored/domain.h
 +++ b/tools/xenstored/domain.h
-@@ -82,6 +82,7 @@ int do_get_domain_path(const void *ctx, struct connection *conn,
- int do_reset_watches(const void *ctx, struct connection *conn,
- 		     struct buffered_data *in);
- 
-+void domain_early_init(void);
+@@ -85,6 +85,7 @@ int do_reset_watches(const void *ctx, struct connection *conn,
+ void domain_early_init(void);
  void domain_init(int evtfd);
  void dom0_init(void);
++void stubdom_init(void);
  void domain_deinit(void);
+ void ignore_connection(struct connection *conn, unsigned int err);
+ 
 -- 
 2.35.3
 
