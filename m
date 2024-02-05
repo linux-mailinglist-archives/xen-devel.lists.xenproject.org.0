@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E9D5849C67
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 14:57:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676106.1051986 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C53A7849C8A
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 15:02:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676116.1051996 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzTZ-0000ev-H6; Mon, 05 Feb 2024 13:57:33 +0000
+	id 1rWzYB-00030b-1n; Mon, 05 Feb 2024 14:02:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676106.1051986; Mon, 05 Feb 2024 13:57:33 +0000
+Received: by outflank-mailman (output) from mailman id 676116.1051996; Mon, 05 Feb 2024 14:02:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzTZ-0000ce-E2; Mon, 05 Feb 2024 13:57:33 +0000
-Received: by outflank-mailman (input) for mailman id 676106;
- Mon, 05 Feb 2024 13:57:32 +0000
+	id 1rWzYA-0002yk-VD; Mon, 05 Feb 2024 14:02:18 +0000
+Received: by outflank-mailman (input) for mailman id 676116;
+ Mon, 05 Feb 2024 14:02:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rWzTY-0000cP-QM
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 13:57:32 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
+ id 1rWzY9-0002ye-Sd
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 14:02:17 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8181d953-c42e-11ee-8a45-1f161083a0e0;
- Mon, 05 Feb 2024 14:57:31 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id
- 2adb3069b0e04-5113a7e662aso2866125e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 05:57:31 -0800 (PST)
+ id 2b429e2a-c42f-11ee-8a45-1f161083a0e0;
+ Mon, 05 Feb 2024 15:02:16 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-33b402116e5so411569f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 06:02:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s10-20020a05600c044a00b0040efc268713sm8570104wmb.26.2024.02.05.05.57.30
+ t10-20020adff04a000000b003392206c808sm8079238wro.105.2024.02.05.06.02.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Feb 2024 05:57:31 -0800 (PST)
+ Mon, 05 Feb 2024 06:02:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8181d953-c42e-11ee-8a45-1f161083a0e0
+X-Inumbo-ID: 2b429e2a-c42f-11ee-8a45-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707141451; x=1707746251; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=uXBzhqSfaSDHiztTRpLA+4XGmypB9k5L3zoFSjZ2FGw=;
-        b=WTepeszGzejkvWAtf3tKou+/LYsiSLa3v0GInR0N9Ge14AbFbv1iKA96qNa+Tcr4V+
-         mQmwsx+tCnrW/Us4kvssg0sX7FQsaIUjZi+vGllMXlIPcSkygXRtd+TOUFcqyXpnNmnD
-         +exqSn/Fh8EBuWIGWOGffBvOOmJqbtId9c/ZPjlpwfxCW1upYpduoHDJbCZ4Y/NNTQ7N
-         JMKMZWXzQGrmdpdbIp6Pj6NR6q0EOMuC3bqVIfSk0sBFwDUeAHayI5GkwaFys1hWbgsH
-         QDg8rdvECZef0UfZPuuILljnToTcsXRKzs3J6E/1I4nDT5PBHKzAGyNDtxc0YSrQf8XZ
-         KwcQ==
+        d=suse.com; s=google; t=1707141736; x=1707746536; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=YdbLGgIFQ8R+s1/q4QmsyMW3KYfCZDydBE9Pbqdi9y8=;
+        b=bHeVE96iEAvxIMHNnM2T6CREHTl5talzetbNyZbvMyOek+y47e96PjYkpi+sOuxsAY
+         WWBRb+fzTmw+azkJfchkVSw+c737kyyejS1yAvtSf8ylHaBUj9dY5SRbn68xwnEA0j4N
+         U0EjADXOv/1MkRGHlhW7Vl6nT4iy8OqEVVMK/+s7Ycn7lya2DIyqlZmw3DfzjjYuNc/a
+         WHVAzXIAdRR/TSOccWUC9Y/Z2jvdzENmRmp6DzLbGeE9YDleyU+V0C+wfAqX0Qbz7MdK
+         MjvPzV5B6ieyYi5s2M5f3q++pamrfOKwTATiEWlaKSeIUdJ39FNKuSVZxf+8gsWy4R/5
+         sqNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707141451; x=1707746251;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=uXBzhqSfaSDHiztTRpLA+4XGmypB9k5L3zoFSjZ2FGw=;
-        b=PUWzhIlaOVQ+BldPS4bnPCn909hUMX9RmrCL29JuVPPCSnjdYbp8S805zkGkguJOPJ
-         LfGb+bhQl3KEX/MLapdeLXgBVqxU4JbAB1fQruHjbi8wg9RQZDEvZr0jzIMQfROkQe5J
-         VS/RjvoPSEpRKdh22GgU8goVrQxS/lFFmSKs7uH0C4Wkqf3ypEtWsUETJ+WhxjusOmuq
-         6/JrmCUGZ+2rafesMbIKH6GlSoISglK/9XTygIIoaFSCKnkRzIrTLaNQeS9nAYbVURgW
-         E1Epk/nEWwuaM6z60z3XeW9iVFuhYfUwXBhs9VDiW/CqZb0sn77gZKIABR4WfIW+ccre
-         25Ng==
-X-Gm-Message-State: AOJu0YzvfYGkEAxj0gXmlUU3zU0tlYDQ+PV6CUDsyfFJE+CTTboHVXz6
-	ntk+v18v+EQzsInfeQ3nSdoLGOBnwWwmJSCNKkSVAr16AmB/7+IPTjNZaw7MEomDTKAGvQVTrtA
-	=
-X-Google-Smtp-Source: AGHT+IHLs7xqGMOV9FUSIW0Qe9gIZaLvyw2Qc/RKngXz/bIVhXNReXe7jtU8m9R58AapmeNettF78A==
-X-Received: by 2002:a05:6512:3986:b0:511:38e6:6b24 with SMTP id j6-20020a056512398600b0051138e66b24mr7361998lfu.3.1707141451332;
-        Mon, 05 Feb 2024 05:57:31 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWsYbpE8CY1tALojkxNPjsAGiREs6ASV67DA7aeFNc+U3dc/3OoOVQeWMP45ydfdCroMNsPU33ctkZIT9Qa+hpjxc1GTgdD+0O7YsaxyXIv/R+N
-Message-ID: <22e7036c-cf49-4160-bd26-fbba6b67ff5d@suse.com>
-Date: Mon, 5 Feb 2024 14:57:30 +0100
+        d=1e100.net; s=20230601; t=1707141736; x=1707746536;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=YdbLGgIFQ8R+s1/q4QmsyMW3KYfCZDydBE9Pbqdi9y8=;
+        b=L2SF6yjmvskD3eF96lM4yIR9vogfLhCtCRNUuySAit4uJrpfYEhun0gFyF0nCJ4MNz
+         hL6csroQ+xHL1xTLGhg1yGyRxnMUZhkKl2BdHN4B1EtV5KM/YmAO1z5zvj8JEcTesNbq
+         9LWC72GMRv4+lgMGL5491gYthhYuz1T77ElZwXPIcGsS0wZdw958/bAZEuMI4Vt2JIby
+         I9KZHRq6f0EH6IaqvEUbPBB8XzoS8rcEvEuKiDaNsfBpJXkhV96kVbkNMjPzE7ArwEw8
+         r30zzyLMYFI6eGm1SF71xEXbZaIPFHMl1ZqGK+fXNjxqk2JxylVmlipYjgFPnC34gJZl
+         q05g==
+X-Gm-Message-State: AOJu0YymT3Xv66NVMcn/7H/2PmfbPcxy2PXkhvJBxV382MX3u9nD9Ikk
+	YDpj+9jsQ08+WScdvAUckKTGMaWaHn+3WUH48AfSBxGPTeXVAvK5fXEFI6bHVw==
+X-Google-Smtp-Source: AGHT+IFBGL7x0Lq/IGB0XCGLTTtLnpd/GbVhHxBgeyF0c4E5jkBKxx/llTTndYurambVlr8t+w59dA==
+X-Received: by 2002:a5d:4809:0:b0:33b:1131:ebfd with SMTP id l9-20020a5d4809000000b0033b1131ebfdmr8781342wrq.49.1707141736150;
+        Mon, 05 Feb 2024 06:02:16 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXP0fPeHZzcNDfu4yKGWVDpuOV+waIgQWKtnTH5eMbjKwfLC/hCNVZ652vqrXfLG6QvH1fYovHWMNx5SJEUW1BCRXkVSRwoXy/Xn/Ut1FQesTCosTUi3v7QkpPQPyKeqsnKy2IfnCkC8GVbHjlzmHIYWTX2xqSnwL22vYERM2QA1uk5X0J8iGwoEeprZGORgPSYkaatPxoIW3iIt0Mzn9iqzCs7oOXBkVzdDLCnha9/8Ya54IUg+0jebjySPNKLljcN9YLO0F3eYa6IkbTZwSGmx88BKWpBKTJM8FPQXjuO2gGpzr4=
+Message-ID: <6f4dc7e2-c54d-4dce-8cd3-7fd45391eb0d@suse.com>
+Date: Mon, 5 Feb 2024 15:02:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 7/7] VT-d: move {,un}map_vtd_domain_page()
+Subject: Re: [PATCH v3 8/8] consolidate do_bug_frame() / bug_fn_t
 Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
+ <f20d2cef-4435-4b9a-9ad8-61ceddb6bcba@suse.com>
+ <f97088c6-ec2e-4c60-b91d-ec1a30d077df@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Kevin Tian <kevin.tian@intel.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Paul Durrant <paul@xen.org>
-References: <25506838-b818-4686-8c16-3a198338af44@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -112,141 +117,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <25506838-b818-4686-8c16-3a198338af44@suse.com>
+In-Reply-To: <f97088c6-ec2e-4c60-b91d-ec1a30d077df@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-..., thus allowing them to become static. There's nothing x86-specific
-about these functions anyway.
+On 05.02.2024 14:51, Andrew Cooper wrote:
+> On 05/02/2024 1:32 pm, Jan Beulich wrote:
+>> The type not being used in do_bug_frame() is suspicious. Apparently
+>> that's solely because the type uses a pointer-to-const parameter,
+>> when so far run_in_exception_handler() wanted functions taking pointer-
+>> to-non-const. Expand use of const, in turn requiring common code's
+>> do_bug_frame() as well as [gs]et_irq_regs() to also gain const. This
+>> then brings the former function also closer to the common one, with
+>> Arm's use of vaddr_t remaining as a difference.
+>>
+>> While there also replace the bogus use of hard tabs in [gs]et_irq_regs()
+>> (I clearly didn't mean to put it in like this).
+> 
+> I meant to query that at the time and clearly forgot to.
+> 
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> I'm still confident we can get rid of the fake frame in the serial
+> drivers, but this is an improvement nonetheless.
+> 
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Since only the "iommu_inclusive_mapping" parameter declaration would be
-left in the file, move that as well. There's nothing VT-d specific about
-it (anymore?): "dom0-iommu=map-inclusive" is similarly generic, and
-documentation also doesn't say anything.
+Thanks.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> I'll rebase my work over this.  It's going to collide horribly.
 
---- a/xen/drivers/passthrough/vtd/Makefile
-+++ b/xen/drivers/passthrough/vtd/Makefile
-@@ -1,5 +1,3 @@
--obj-$(CONFIG_X86) += x86/
--
- obj-y += iommu.o
- obj-y += dmar.o
- obj-y += utils.o
---- a/xen/drivers/passthrough/vtd/extern.h
-+++ b/xen/drivers/passthrough/vtd/extern.h
-@@ -21,6 +21,7 @@
- #define _VTD_EXTERN_H_
- 
- #include "dmar.h"
-+#include <xen/domain_page.h>
- #include <xen/keyhandler.h>
- 
- #define VTDPREFIX "[VT-D]"
-@@ -68,8 +69,6 @@ struct acpi_rhsa_unit *drhd_to_rhsa(cons
- 
- uint64_t alloc_pgtable_maddr(unsigned long npages, nodeid_t node);
- void free_pgtable_maddr(u64 maddr);
--void *map_vtd_domain_page(u64 maddr);
--void unmap_vtd_domain_page(const void *va);
- int domain_context_mapping_one(struct domain *domain, struct vtd_iommu *iommu,
-                                uint8_t bus, uint8_t devfn,
-                                const struct pci_dev *pdev, domid_t domid,
-@@ -79,6 +78,16 @@ int domain_context_unmap_one(struct doma
- int cf_check intel_iommu_get_reserved_device_memory(
-     iommu_grdm_t *func, void *ctxt);
- 
-+static inline void *map_vtd_domain_page(paddr_t maddr)
-+{
-+    return map_domain_page(_mfn(paddr_to_pfn(maddr)));
-+}
-+
-+static inline void unmap_vtd_domain_page(const void *va)
-+{
-+    unmap_domain_page(va);
-+}
-+
- unsigned int cf_check io_apic_read_remap_rte(
-     unsigned int apic, unsigned int reg);
- void cf_check io_apic_write_remap_rte(
---- a/xen/drivers/passthrough/vtd/x86/Makefile
-+++ /dev/null
-@@ -1 +0,0 @@
--obj-y += vtd.o
---- a/xen/drivers/passthrough/vtd/x86/vtd.c
-+++ /dev/null
-@@ -1,48 +0,0 @@
--/*
-- * Copyright (c) 2008, Intel Corporation.
-- *
-- * This program is free software; you can redistribute it and/or modify it
-- * under the terms and conditions of the GNU General Public License,
-- * version 2, as published by the Free Software Foundation.
-- *
-- * This program is distributed in the hope it will be useful, but WITHOUT
-- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-- * more details.
-- *
-- * You should have received a copy of the GNU General Public License along with
-- * this program; If not, see <http://www.gnu.org/licenses/>.
-- *
-- * Copyright (C) Allen Kay <allen.m.kay@intel.com>
-- * Copyright (C) Weidong Han <weidong.han@intel.com>
-- */
--
--#include <xen/param.h>
--#include <xen/sched.h>
--#include <xen/softirq.h>
--#include <xen/domain_page.h>
--#include <asm/paging.h>
--#include <xen/iommu.h>
--#include <xen/irq.h>
--#include <xen/numa.h>
--#include <asm/fixmap.h>
--#include "../iommu.h"
--#include "../dmar.h"
--#include "../vtd.h"
--#include "../extern.h"
--
--/*
-- * iommu_inclusive_mapping: when set, all memory below 4GB is included in dom0
-- * 1:1 iommu mappings except xen and unusable regions.
-- */
--boolean_param("iommu_inclusive_mapping", iommu_hwdom_inclusive);
--
--void *map_vtd_domain_page(u64 maddr)
--{
--    return map_domain_page(_mfn(paddr_to_pfn(maddr)));
--}
--
--void unmap_vtd_domain_page(const void *va)
--{
--    unmap_domain_page(va);
--}
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -19,6 +19,7 @@
- #include <xen/paging.h>
- #include <xen/guest_access.h>
- #include <xen/event.h>
-+#include <xen/param.h>
- #include <xen/softirq.h>
- #include <xen/vm_event.h>
- #include <xsm/xsm.h>
-@@ -36,6 +37,12 @@ bool __initdata iommu_superpages = true;
- 
- enum iommu_intremap __read_mostly iommu_intremap = iommu_intremap_full;
- 
-+/*
-+ * iommu_inclusive_mapping: When set, all memory below 4GB is included in dom0
-+ * 1:1 iommu mappings except xen and unusable regions.
-+ */
-+boolean_param("iommu_inclusive_mapping", iommu_hwdom_inclusive);
-+
- #ifdef CONFIG_PV
- /* Possible unfiltered LAPIC/MSI messages from untrusted sources? */
- bool __read_mostly untrusted_msi;
+For the patch here they're affected only because I stuck the patch at
+the end of the series. I think it ought to be possible to move it to
+the front, and then it could be left to be determined whether my
+introducing of set_irq_regs() in the poll handlers could actually be
+avoided by whatever work you have pending / in progress.
 
+Jan
 
