@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A93784A3A0
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 20:25:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676481.1052622 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A16B84A545
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 21:15:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676489.1052632 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX4Zh-0000Pd-Eb; Mon, 05 Feb 2024 19:24:13 +0000
+	id 1rX5ME-0006q8-4s; Mon, 05 Feb 2024 20:14:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676481.1052622; Mon, 05 Feb 2024 19:24:13 +0000
+Received: by outflank-mailman (output) from mailman id 676489.1052632; Mon, 05 Feb 2024 20:14:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX4Zh-0000Mz-Bm; Mon, 05 Feb 2024 19:24:13 +0000
-Received: by outflank-mailman (input) for mailman id 676481;
- Mon, 05 Feb 2024 19:24:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rX5ME-0006nJ-1l; Mon, 05 Feb 2024 20:14:22 +0000
+Received: by outflank-mailman (input) for mailman id 676489;
+ Mon, 05 Feb 2024 20:14:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TPgQ=JO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rX4Zf-0000Mt-3b
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 19:24:11 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 216a6e30-c45c-11ee-98f5-efadbce2ee36;
- Mon, 05 Feb 2024 20:24:07 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-51025cafb51so7199209e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 11:24:07 -0800 (PST)
+ <SRS0=DQRq=JO=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
+ id 1rX5MD-0006nD-14
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 20:14:21 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 25309d30-c463-11ee-8a46-1f161083a0e0;
+ Mon, 05 Feb 2024 21:14:20 +0100 (CET)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2d051fb89fbso730481fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 12:14:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,133 +40,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 216a6e30-c45c-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 25309d30-c463-11ee-8a46-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707161046; x=1707765846; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=cwJBPcNJmmrerSUs52ZYrXNaXNd9wYCH1lR6Sjnrv0Q=;
-        b=IvKojqNxHOxHpbTb5FbbdO9uErxhczthKhd5xSI6CsTgkL51A/a6pznnQei1Y7nLH5
-         j9ST7y7FvcYuRclhaaLA/IgjZmJwh4CuL1lgLD5vuFitR6QI0X8pLle8AALKwo8TtJXq
-         hkZ90iOXP2JnX6fB+G1oi1R8Z7st6MNKCEHAhSVJV4I1GedYwUD+sgi46sxa0wEQFD0H
-         PyegYo1L383rpDOE/6vO0haE3YbNT3RR2tGjh6PI3d0ANL6v0nwZAoH5hK/nqH9DTnIj
-         wsOx52q7ktWfoCZ0aZfQ3VOfgsBwuB2gHvH3gHzRpSRJWyDnEl9DFlz+uBCMAOoEKF47
-         8EAw==
+        d=gmail.com; s=20230601; t=1707164059; x=1707768859; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jXe+1bcPtK0g/zBwZbjckLDPRV+tVJBOzR3z17zKq/4=;
+        b=FcS93UDNnM3v0jd4N7amR4riF+swIuSB72zaLXbz+Nax2MUWD3vsb1R/rJwHpGNM9Q
+         njE3l955Bvrxd7L0SOsz2shbTgV7/zdoEfJhrX7RMc9nVsyFVSIMfHqZEnp/kqelVoxb
+         K6eJwYowYTEqIVT0YupPhbyRCmh+dZKhff18P+q6SpfQraQ/PGASvKdRkhuNL+tSmpPv
+         5FRyIgKjITQBBcYJ22T3GTV9MDORwOCL5APzUWazoF2cR3KZhxBtrOFj2h7VesTQsQar
+         pyASZIQ4MU9sdhwmKcZO9ZVfpjIoge+Rd5GmwTP0mFTu7yWuKYsIo2L0xacjcT12l4vX
+         LfXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707161046; x=1707765846;
-        h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=cwJBPcNJmmrerSUs52ZYrXNaXNd9wYCH1lR6Sjnrv0Q=;
-        b=NyLXxkM1mrRlQnN1VhJjiGEOMIB9YzxQOlR1bu/+iLJqCzqEX06L3OPlmXUycmk8dI
-         i2NiZL5MIYqyJ1BEVifCbdrYkhoYWBotkJTqbxtbJk00L5mG1KxPo0zaWl+Z8qm/+pxf
-         2NYa20fyzs4Ggs8OSdQMOoOiKGbmjxsnh2/SVRhPvlcEuCPro2cPmC3xuuaz7BnAgAG3
-         IhFk4o8cdOtwtzcDNIYnaFJ952/0bMfliAkyCxh+XLZk0t3BYRPkuV5uFo1andcn/4cn
-         OKb5ucnVn86c54CdrEP4nlW/J6uOwFuljN27iRpnFfG17+Ndc/GH2ue+FWCQKLJUjaBy
-         l6CA==
-X-Gm-Message-State: AOJu0YyjsPfzKE6UbB6iQDbyU63UaUU9+604Pr4xz3U/rddbkiRfsxmX
-	gppxX0Tkf/kc271bXXIMMbaAeKDi/UCy2GyJKN21cFKEQPrl0TTBAtBEJTWdvbGzUdddPRwVBE1
-	31OvmmJ/xx3udMFuLNmzGzwbC0WOQp3Bnb34=
-X-Google-Smtp-Source: AGHT+IHdBHHkk5HS55p2dNgPu7P+oVVVa9HqzAuMQX6DSnLjFQ5Hh6vx04QiUHFyZKy+Dv+YlMRnfLMAMkCVm+JKpUA=
-X-Received: by 2002:ac2:530a:0:b0:511:5936:c874 with SMTP id
- c10-20020ac2530a000000b005115936c874mr266319lfh.6.1707161046149; Mon, 05 Feb
- 2024 11:24:06 -0800 (PST)
+        d=1e100.net; s=20230601; t=1707164059; x=1707768859;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=jXe+1bcPtK0g/zBwZbjckLDPRV+tVJBOzR3z17zKq/4=;
+        b=b/At2ZAoYlq9vlbS30VWqqZZnvRu2EbTxYQ4bhpWte8a0JUkSRaY/284nbXjLnMAvH
+         AVOFJIuOrRbgjW9mo8BAXsEfMknnjVpw/hPCYplgD8rRk0e0KkwqpsEJXSRRL2GeXAGa
+         c5bQw9kw3YNfkCSLCkX7HTI/3Mr/+FsqKGHlPI7ioe8hC4UhRkToFPE8eQRze63NF5rA
+         0AxCQrnocivj1hhKDkAKtFG9Y0jHGuHx+v1hvAopiKwaeehkXnF3qhw9Q/mXbaERh2RN
+         Kbkkh8APj9z4h/yow+I6KGFIbb/cte70LLHjESkOlo/dqPkCSCnr7bz2E8hZQ6kV0z5E
+         8kMw==
+X-Gm-Message-State: AOJu0YzLh6Ovowp2NgVLte6cVrXNXja6KfxoHepz4r0fVM+DYb+/A/+e
+	1Fp6H41h9aaKWlnmyqdc3hKzIsIq6hz9F+zwAB9QWpEaV/F0+AaKOzX+IE1fdaEnbIOs2dH4FI9
+	E4Cck7JDHLIxTv/hwEtBqBNLePnI=
+X-Google-Smtp-Source: AGHT+IF0H2DhJ01UdGjSBeD5Jqhd5PHSR8v5f6yAwdttrE+uzR07rx+ZH2NTUFZup7LIvMsD2Gbtgw/Qj7SadYs5SW8=
+X-Received: by 2002:a2e:b0f0:0:b0:2d0:b018:c0f0 with SMTP id
+ h16-20020a2eb0f0000000b002d0b018c0f0mr535774ljl.33.1707164059333; Mon, 05 Feb
+ 2024 12:14:19 -0800 (PST)
 MIME-Version: 1.0
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Date: Mon, 5 Feb 2024 20:23:30 +0100
-Message-ID: <CAMacjJzio2EDwudCUHoL6psKYztkHZOWwLNDknATvpN6Y0im=Q@mail.gmail.com>
-Subject: Xen 4.19 release status tracking list
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: committers@xenproject.org, community.manager@xenproject.org, 
-	Kelly Choi <kelly.choi@cloud.com>
+References: <580c6c48-9dd5-4296-8696-2b40beac2bc3@suse.com>
+ <5d76295f-0438-4c5d-8b2e-73a1abcc96e6@suse.com> <CACMJ4GbvMhDdgOp=kUeL_+_j2yS_NVU69P8Xh9QYDLUwJ31Eow@mail.gmail.com>
+ <CACMJ4GbNJgsg7tts=9UQPUr9ofsXajuHz7wYO1r5LnevWEL4_g@mail.gmail.com>
+ <5aea32e3-033e-4299-9088-279d23801ba6@suse.com> <b3cd10f2-c3b4-49cc-8bac-28f525dd574b@suse.com>
+In-Reply-To: <b3cd10f2-c3b4-49cc-8bac-28f525dd574b@suse.com>
+From: Christopher Clark <christopher.w.clark@gmail.com>
+Date: Mon, 5 Feb 2024 12:14:07 -0800
+Message-ID: <CACMJ4GZGb+Yh74pAdhp9ise6U_iM0AFhxtcfXXYF6xYWcySLJw@mail.gmail.com>
+Subject: Re: Ping: Ping: [PATCH] Argo: drop meaningless mfn_valid() check
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello everyone,
+On Mon, Feb 5, 2024 at 4:17=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 04.01.2024 09:12, Jan Beulich wrote:
+> > On 23.12.2023 22:35, Christopher Clark wrote:
+> >> On Sat, Dec 23, 2023 at 12:47=E2=80=AFPM Christopher Clark
+> >> <christopher.w.clark@gmail.com> wrote:
+> >>>
+> >>> On Sun, Dec 17, 2023 at 11:55=E2=80=AFPM Jan Beulich <jbeulich@suse.c=
+om> wrote:
+> >>>>
+> >>>> Christopher,
+> >>>>
+> >>>> On 27.11.2023 14:55, Jan Beulich wrote:
+> >>>>> Holding a valid struct page_info * in hands already means the refer=
+enced
+> >>>>> MFN is valid; there's no need to check that again. Convert the chec=
+king
+> >>>>> logic to a switch(), to help keeping the extra (and questionable) x=
+86-
+> >>>>> only check in somewhat tidy shape.
+> >>>>>
+> >>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>>
+> >>> Reviewed-by: Christopher Clark <christopher.w.clark@gmail.com>
+> >>
+> >> I'd like to hold off on this just yet, sorry -- the change does look
+> >> ok as far as a transform being applied the prior logic and the
+> >> necessity of the check, but with it applied, it's not obvious that it
+> >> handles all the page types as best that it could there, so I'd like to
+> >> look at this (and the previously submitted patch again) please.
+> >
+> > I'm puzzled: This patch merely removes a pointless check. Whatever is
+> > lacking with it in place will have been lacking before. Also can you
+> > please give a rough estimate towards when you'll be getting back on
+> > this, or ideally on both patches?
+>
+> Another month later: I'll give it this week, and without hearing back
+> I'll commit what there is some time next week, with the R-b you provided.
 
-I would like to share with you a list for status tracking based on Xen ML:
+Sorry for the slow communication. I'm not unaware of this but it has
+been difficult to provide an update on when I will be able to give it
+the appropriate attention.
+I understand that you'd appreciate a response before next week, so
+I'll aim for that.
 
-Arm:
-  * [PATCH v5 00/13] Arm cache coloring [
-https://lore.kernel.org/xen-devel/20240102095138.17933-1-carlo.nonato@minervasys.tech/
-]
-  * [PATCH v1 repost 0/4] xen/arm64: Rework the MMU-off code (idmap)
-so it is self-contained [
-https://lore.kernel.org/xen-devel/20240116143709.86584-1-julien@xen.org/
-]
-  * [PATCH v13 00/14] PCI devices passthrough on Arm, part 3 [
-https://lore.kernel.org/xen-devel/20240202213321.1920347-1-stewart.hildebrand@amd.com/
-]
+thanks,
 
-PPC:
-  *  [PATCH v2 0/7] Early Boot Allocation on Power [
-https://lore.kernel.org/xen-devel/cover.1702607884.git.sanastasio@raptorengineering.com/
-]
-
-RISC-V:
-  *  [PATCH v4 00/30]  Enable build of full Xen for RISC-V [
-https://lore.kernel.org/xen-devel/cover.1707146506.git.oleksii.kurochko@gmail.com/
-]
-
-x86:
-  * [PATCH 0/4] iommu/x86: fixes/improvements for unity range checks [
-https://lore.kernel.org/xen-devel/20240201170159.66330-1-roger.pau@citrix.com/
-]
-  * [PATCH 0/8] x86: support AVX10.1 [
-https://lore.kernel.org/xen-devel/298db76f-d0ee-4d47-931f-1baa1a7546cf@suse.com/
-]
-  * [PATCH v13 00/35] x86: enable FRED for x86-64 [
-https://lore.kernel.org/xen-devel/20231205105030.8698-1-xin3.li@intel.com/
-]
-  * [PATCH v4 0/8] x86emul: misc additions
-https://lore.kernel.org/xen-devel/9dd23064-c79e-4a50-9c71-c0e73b189944@suse.com/
-  * [PATCH 0/7] VT-d: SATC handling and ATS tidying [
-https://lore.kernel.org/xen-devel/25506838-b818-4686-8c16-3a198338af44@suse.com/
-]
-  * [XEN PATCH 0/9] x86: parallelize AP bring-up during boot [
-https://lore.kernel.org/xen-devel/cover.1699982111.git.krystian.hebel@3mdeb.com/
-]
-  * [PATCH v2 00/12] x86: memcpy() / memset() (non-)ERMS flavors plus
-fallout [ https://lore.kernel.org/xen-devel/8f56a8f4-0482-932f-96a9-c791bebb4610@suse.com/
-]
-
-common:
-  * annotate entry points with type and size" series [
-https://lore.kernel.org/xen-devel/5e74a501-2824-42af-804b-47b515aa9bcf@suse.com/
-]
-  * [PATCH v2 0/8] limit passing around of cpu_user_regs [
-https://lore.kernel.org/xen-devel/33db57a2-b569-4fa8-b0b0-36ea92528d7b@suse.com/
-]
-  * [PATCH v2 (resend) 00/27] Remove the directmap [
-https://lore.kernel.org/xen-devel/20240116192611.41112-1-eliasely@amazon.com/
-]
-  * [PATCH v4 00/32] tools: enable xenstore-stubdom to use 9pfs [
-https://lore.kernel.org/xen-devel/20240205105001.24171-1-jgross@suse.com/
-]
-  * [PATCH v7 0/7] Introduce generic headers [
-https://lore.kernel.org/xen-devel/cover.1706281994.git.oleksii.kurochko@gmail.com/
-]
-  * [PATCH] move __read_mostly to xen/cache.h
-[https://lore.kernel.org/xen-devel/f25eb5c9-7c14-6e23-8535-2c66772b333e@suse.com/]
-  * [PATCH v2] NUMA: no need for asm/numa.h when !NUMA [
-https://lore.kernel.org/xen-devel/94cffa48-5e31-4557-827d-c6dec6031d05@suse.com/
-]
-  * [XEN PATCH v2 1/3] xen: introduce STATIC_ASSERT_UNREACHABLE() [
-https://lore.kernel.org/xen-devel/42fc6ae8d3eb802429d29c774502ff232340dc84.1706259490.git.federico.serafini@bugseng.com/
-]
-  * [PATCH] xen: move BUG_ON(), WARN_ON(), ASSERT(),
-ASSERT_UNREACHABLE() to xen/bug.h [
-https://lore.kernel.org/xen-devel/4887b2d91a4bf2e8b4b66f03964259651981403b.1706897023.git.oleksii.kurochko@gmail.com/
-]
-  * [PATCH] xen/lib: introduce generic find next bit operations [
-https://lore.kernel.org/xen-devel/52730e6314210ba4164a9934a720c4fda201447b.1706266854.git.oleksii.kurochko@gmail.com/
-]
-
-Please reply with items you would like to see in 4.19 so that people
-know what is happening and prioritize accordingly.
-You're welcome to provide a description and use cases of the feature
-you're working on.
-
-Have a nice week!
-
-Best regards,
- Oleksii
+Christopher
 
