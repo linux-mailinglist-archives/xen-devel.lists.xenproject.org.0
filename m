@@ -2,45 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9970849653
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3D6849654
 	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 10:21:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675705.1051086 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.675706.1051096 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWvA0-0002nz-Hn; Mon, 05 Feb 2024 09:21:04 +0000
+	id 1rWvAF-00038O-SM; Mon, 05 Feb 2024 09:21:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675705.1051086; Mon, 05 Feb 2024 09:21:04 +0000
+Received: by outflank-mailman (output) from mailman id 675706.1051096; Mon, 05 Feb 2024 09:21:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWvA0-0002lr-Dn; Mon, 05 Feb 2024 09:21:04 +0000
-Received: by outflank-mailman (input) for mailman id 675705;
- Mon, 05 Feb 2024 09:21:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rWvAF-000356-P5; Mon, 05 Feb 2024 09:21:19 +0000
+Received: by outflank-mailman (input) for mailman id 675706;
+ Mon, 05 Feb 2024 09:21:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=b4fC=JO=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rWv9z-0002ll-PR
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 09:21:03 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e177977b-c407-11ee-8a45-1f161083a0e0;
- Mon, 05 Feb 2024 10:21:02 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BF4A222030;
- Mon,  5 Feb 2024 09:21:01 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 97912136F5;
- Mon,  5 Feb 2024 09:21:01 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id XPt7I32owGWwHAAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 05 Feb 2024 09:21:01 +0000
+ (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rWvAE-00034W-FV
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 09:21:18 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e94ccb89-c407-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 10:21:15 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-33adec41b55so2643538f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 01:21:15 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ z11-20020a5d4c8b000000b0033b3d726d41sm1548046wrs.104.2024.02.05.01.21.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 05 Feb 2024 01:21:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,252 +45,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e177977b-c407-11ee-8a45-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1707124861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Tp3qKGzgjZmnMxQ5Z5H2MgUI9LsT+czRWEroxqF2alo=;
-	b=Ctsl2Jfylj/BkryaNlHByhwwiDEknNn9mLuAT4Ih3t/AW3LLvUZjKFnL8dp8wxDVf67X4O
-	ZYvcFYum213ovMK0sGIIyK7kq9xu1wxEa3fenB0tAbEM+aY2CJ/cBPyxZhWOn4ZmzgzOKX
-	bb4kToS3XGJxd3BWhgHoHH6Qe6eVYf0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1707124861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Tp3qKGzgjZmnMxQ5Z5H2MgUI9LsT+czRWEroxqF2alo=;
-	b=Ctsl2Jfylj/BkryaNlHByhwwiDEknNn9mLuAT4Ih3t/AW3LLvUZjKFnL8dp8wxDVf67X4O
-	ZYvcFYum213ovMK0sGIIyK7kq9xu1wxEa3fenB0tAbEM+aY2CJ/cBPyxZhWOn4ZmzgzOKX
-	bb4kToS3XGJxd3BWhgHoHH6Qe6eVYf0=
-Message-ID: <c4d5b0e0-e726-4ab2-9482-f284f2b92674@suse.com>
-Date: Mon, 5 Feb 2024 10:21:00 +0100
+X-Inumbo-ID: e94ccb89-c407-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1707124875; x=1707729675; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=j2Q/2D/uhkEc/IQYeaxz94TrTCI22fhTLhvc0BslLEA=;
+        b=ceXwaxlyCW5g5ySp8VEF9RJ+OMGAkSFe7I/P70zyGxeAt878sG3lRe9XD5hxUeP1xy
+         uE2XWfWwG8UkPmURlyVxOtX6HbeVa2cDuOgDfGvAK2Ba9nLGUu++22yf/iCXRAyFJbTG
+         q8XrajsJH9TDbuRBZR/hl7y6sbjOno2P/DNaZL/ysrHFEmTl0/vOyxSPI6VFpaP7Vqpy
+         fbSxQaN80So4FcZ/yN39h40xMSLhqaKIYEDmBKeFfwVkHzaMBhG9g8usf/Kr8XnWTH2m
+         lqd190ePS1h44hgi4O9oZemXzif8rvtDtdd+b0YVPEU5i9pq0775HwWP1w354l7S4niR
+         JvAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707124875; x=1707729675;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=j2Q/2D/uhkEc/IQYeaxz94TrTCI22fhTLhvc0BslLEA=;
+        b=Mr5Ddrud+7Z12N7tJmd5KpyxX+9piJ/rH3tGfvuQCVuBjhLUNqExBZPzA296HJEYZC
+         8r2u8pCUowq7zifnAe6GrpIFmPna5HjYAxXEdNDAuRuE4s6Lda9xoxsjkTbWnyRZp1JV
+         mHWy/yoYG1fUPtNu7Czv36DzOMHKLslJ17keMsHpiEmWs3GuWxpHYSfHfCbl3Qqx8HYw
+         GhS+8LJHZBdvPcUAQCIV1h1xa0tFKbja+MxXns7zy+za3evRYWvQHt+tL60fi3mdYN6b
+         FSwm/Be9SyKK41QW8YFuOlRrYSpe1/6J3Rgw/KxrVGxUfJPDGnM6Leu5Oin+eb33WPe/
+         HxZA==
+X-Gm-Message-State: AOJu0Yw9Q2B1iU0sUHk5ysREO/aBwVGsGHlVEDq8QUm6QD9CxwMre4rr
+	VGol+abTIscSQpAgUPt8+1AVZstYXdxhWnAkHbXANFl+bBaiLF7Tli6X0tXLT1M2WptVpyDKi0s
+	=
+X-Google-Smtp-Source: AGHT+IFyGq0q46qH+HMAV51w/HNQwcRlTZ6iiKJ49W2J8Te4rvK82boWbnSq4dl8koxPX+FG2rwycQ==
+X-Received: by 2002:adf:f009:0:b0:33b:14fa:53ea with SMTP id j9-20020adff009000000b0033b14fa53eamr7071779wro.33.1707124874844;
+        Mon, 05 Feb 2024 01:21:14 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXL4JSi5sFMa4vvqImThemsdDuYcoSFErj2K9v8bUigUkhPoS5VM/pyFrpHFw5bW/9gl/bEYVgLBBWBXzg6stdpFPH+SbxVLHHiTOJi2TdoyID02uwzhw3L3IHy4hoV18jzIg30hw6priMcnULHc/Vdgqucxv1nmtr/KhFiwgRFBghNLJlvYpJNJTL/MjBL/AYLADBlUt2D8q023ToVq0F7iIsjFGVPUXhLUpQt6ygcX5X+QQizKmHk6kKSXU54MzVG3ywsSGQvRwQsfzdOx6r2OQ4CvUmU
+Message-ID: <101c9449-8eab-477b-8f41-fb6c2c70c97a@suse.com>
+Date: Mon, 5 Feb 2024 10:21:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 25/33] tools/xenstored: move all socket handling into
- posix.c
+Subject: Re: [PATCH v6 01/15] xen/common: add cache coloring common code
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20240104090055.27323-1-jgross@suse.com>
- <20240104090055.27323-26-jgross@suse.com>
- <dcc477bd-b7cf-40e8-85be-3cde5b9cfd61@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <dcc477bd-b7cf-40e8-85be-3cde5b9cfd61@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------K7eZ8ovPuUvz2bJcAVCFUx8q"
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Ctsl2Jfy
-X-Spamd-Result: default: False [-5.20 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	 XM_UA_NO_VERSION(0.01)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 HAS_ATTACHMENT(0.00)[];
-	 BAYES_HAM(-3.00)[100.00%];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 DKIM_TRACE(0.00)[suse.com:+];
-	 MIME_BASE64_TEXT(0.10)[];
-	 MX_GOOD(-0.01)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email];
-	 SIGNED_PGP(-2.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 RCVD_TLS_ALL(0.00)[];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: BF4A222030
-X-Spam-Level: 
-X-Spam-Score: -5.20
-X-Spam-Flag: NO
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrea.bastoni@minervasys.tech, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Marco Solieri <marco.solieri@minervasys.tech>,
+ xen-devel@lists.xenproject.org
+References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
+ <20240129171811.21382-2-carlo.nonato@minervasys.tech>
+ <42eabd87-b245-44e3-9945-40b1a5c5eaf5@suse.com>
+ <CAG+AhRVjiqjae+Lwdk71OkF=X93m+CNLFYpK65h+O1kozOgtew@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAG+AhRVjiqjae+Lwdk71OkF=X93m+CNLFYpK65h+O1kozOgtew@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------K7eZ8ovPuUvz2bJcAVCFUx8q
-Content-Type: multipart/mixed; boundary="------------2RAwL0wvq4E7Ep80rjsE4RtN";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <c4d5b0e0-e726-4ab2-9482-f284f2b92674@suse.com>
-Subject: Re: [PATCH v3 25/33] tools/xenstored: move all socket handling into
- posix.c
-References: <20240104090055.27323-1-jgross@suse.com>
- <20240104090055.27323-26-jgross@suse.com>
- <dcc477bd-b7cf-40e8-85be-3cde5b9cfd61@xen.org>
-In-Reply-To: <dcc477bd-b7cf-40e8-85be-3cde5b9cfd61@xen.org>
+On 03.02.2024 11:57, Carlo Nonato wrote:
+> On Wed, Jan 31, 2024 at 4:57 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 29.01.2024 18:17, Carlo Nonato wrote:
+>>> +Background
+>>> +**********
+>>> +
+>>> +Cache hierarchy of a modern multi-core CPU typically has first levels dedicated
+>>> +to each core (hence using multiple cache units), while the last level is shared
+>>> +among all of them. Such configuration implies that memory operations on one
+>>> +core (e.g. running a DomU) are able to generate interference on another core
+>>> +(e.g .hosting another DomU). Cache coloring allows eliminating this
+>>> +mutual interference, and thus guaranteeing higher and more predictable
+>>> +performances for memory accesses.
+>>> +The key concept underlying cache coloring is a fragmentation of the memory
+>>> +space into a set of sub-spaces called colors that are mapped to disjoint cache
+>>> +partitions. Technically, the whole memory space is first divided into a number
+>>> +of subsequent regions. Then each region is in turn divided into a number of
+>>> +subsequent sub-colors. The generic i-th color is then obtained by all the
+>>> +i-th sub-colors in each region.
+>>> +
+>>> +::
+>>> +
+>>> +                            Region j            Region j+1
+>>> +                .....................   ............
+>>> +                .                     . .
+>>> +                .                       .
+>>> +            _ _ _______________ _ _____________________ _ _
+>>> +                |     |     |     |     |     |     |
+>>> +                | c_0 | c_1 |     | c_n | c_0 | c_1 |
+>>> +           _ _ _|_____|_____|_ _ _|_____|_____|_____|_ _ _
+>>> +                    :                       :
+>>> +                    :                       :...         ... .
+>>> +                    :                            color 0
+>>> +                    :...........................         ... .
+>>> +                                                :
+>>> +          . . ..................................:
+>>> +
+>>> +There are two pragmatic lesson to be learnt.
+>>> +
+>>> +1. If one wants to avoid cache interference between two domains, different
+>>> +   colors needs to be used for their memory.
+>>> +
+>>> +2. Color assignment must privilege contiguity in the partitioning. E.g.,
+>>> +   assigning colors (0,1) to domain I  and (2,3) to domain  J is better than
+>>> +   assigning colors (0,2) to I and (1,3) to J.
+>>
+>> I can't connect this 2nd point with any of what was said above.
+> 
+> If colors are contiguous then a greater spatial locality is achievable. You
+> mean we should better explain this?
 
---------------2RAwL0wvq4E7Ep80rjsE4RtN
-Content-Type: multipart/mixed; boundary="------------0B01UgYYQ45VEXIBX7L0Ul5g"
+Yes, but not just that. See how you using "must" in the text contradicts you
+now suggesting this is merely an optimization.
 
---------------0B01UgYYQ45VEXIBX7L0Ul5g
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+>>> +How to compute the number of colors
+>>> +***********************************
+>>> +
+>>> +To compute the number of available colors for a specific platform, the size of
+>>> +an LLC way and the page size used by Xen must be known. The first parameter can
+>>> +be found in the processor manual or can be also computed dividing the total
+>>> +cache size by the number of its ways. The second parameter is the minimum
+>>> +amount of memory that can be mapped by the hypervisor,
+>>
+>> I find "amount of memory that can be mapped" quite confusing here. Don't you
+>> really mean the granularity at which memory can be mapped?
+> 
+> Yes that's what I wanted to describe. I'll change it.
+> 
+>>> thus dividing the way
+>>> +size by the page size, the number of total cache partitions is found. So for
+>>> +example, an Arm Cortex-A53 with a 16-ways associative 1 MiB LLC, can isolate up
+>>> +to 16 colors when pages are 4 KiB in size.
+>>
+>> I guess it's a matter of what one's use to, but to me talking of "way size"
+>> and how the calculation is described is, well, unusual. What I would start
+>> from is the smallest entity, i.e. a cache line. Then it would be relevant
+>> to describe how, after removing the low so many bits to cover for cache line
+>> size, the remaining address bits are used to map to a particular set. It
+>> looks to me as if you're assuming that this mapping is linear, using the
+>> next so many bits from the address. Afaik this isn't true on various modern
+>> CPUs; instead hash functions are used. Without knowing at least certain
+>> properties of such a hash function, I'm afraid your mapping from address to
+>> color isn't necessarily guaranteeing the promised isolation. The guarantee
+>> may hold for processors you specifically target, but then I think in this
+>> description it would help if you would fully spell out any assumptions you
+>> make on how hardware maps addresses to elements of the cache.
+> 
+> You're right, we are assuming a linear mapping. We are going to review and
+> extend the documentation in order to fully specify when coloring can be
+> applied.
+> 
+> About the "way size" it's a way of summarizing all the parameters into one.
+> We could ask for different cache parameters as you said, but in the end what
+> we are interested in is how many partitions is the cache capable of isolate
+> and how big they are. The answer is, in theory, as many partitions as the
+> number of sets, each one as big as a cache line, bacause we can't have
+> isolation inside a set.
+> Then memory mapping comes into place and the minimum granularity at which
+> mapping can happen actually lowers the number of partitions.
+> To recap we can isolate:
+>     nr_sets * line_size / page_size
+> Then we simply named:
+>     way_size = nr_sets * line_size
+> Another way of computing it:
+>     way_size = cache_size / nr_ways
+> 
+> We are ok with having two parameters: cache_size and nr_ways which are even
+> easier and intuitive to find for a normal user.
 
-T24gMjYuMDEuMjQgMTc6MjIsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
-Cj4gDQo+IE9uIDA0LzAxLzIwMjQgMDk6MDAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBB
-bGwgb2YgdGhlIHNvY2tldCBoYW5kbGluZyBpcyBuZWVkZWQgb25seSB3aGVuIHJ1bm5pbmcg
-YXMgZGFlbW9uLg0KPj4NCj4+IE1vdmUgaXQgaW50byBwb3NpeC5jLCBhbGxvd2luZyB0byBy
-ZW1vdmUgdGhlIE5PX1NPQ0tFVFMgbWFjcm8uDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogSnVl
-cmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KPj4gLS0tDQo+PiBWMzoNCj4+IC0gbmV3
-IHBhdGNoDQo+PiAtLS0NCj4+IMKgIHRvb2xzL3hlbnN0b3JlZC9NYWtlZmlsZS5jb21tb24g
-fMKgwqAgNCAtDQo+PiDCoCB0b29scy94ZW5zdG9yZWQvY29yZS5jwqDCoMKgwqDCoMKgwqDC
-oMKgIHwgMTU2ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+PiDCoCB0b29s
-cy94ZW5zdG9yZWQvY29yZS5owqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDggKy0NCj4+IMKg
-IHRvb2xzL3hlbnN0b3JlZC9kb21haW4uY8KgwqDCoMKgwqDCoMKgIHzCoMKgIDkgKy0NCj4+
-IMKgIHRvb2xzL3hlbnN0b3JlZC9taW5pb3MuY8KgwqDCoMKgwqDCoMKgIHzCoMKgIDYgKysN
-Cj4+IMKgIHRvb2xzL3hlbnN0b3JlZC9wb3NpeC5jwqDCoMKgwqDCoMKgwqDCoCB8IDE1MyAr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+PiDCoCA2IGZpbGVzIGNoYW5nZWQs
-IDE2NyBpbnNlcnRpb25zKCspLCAxNjkgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdp
-dCBhL3Rvb2xzL3hlbnN0b3JlZC9NYWtlZmlsZS5jb21tb24gYi90b29scy94ZW5zdG9yZWQv
-TWFrZWZpbGUuY29tbW9uDQo+PiBpbmRleCAxODlhYjgxYjhkLi5lZjYzZWY2NTBjIDEwMDY0
-NA0KPj4gLS0tIGEvdG9vbHMveGVuc3RvcmVkL01ha2VmaWxlLmNvbW1vbg0KPj4gKysrIGIv
-dG9vbHMveGVuc3RvcmVkL01ha2VmaWxlLmNvbW1vbg0KPj4gQEAgLTE2LDEwICsxNiw2IEBA
-IENGTEFHUyArPSAkKENGTEFHU19saWJ4ZW5jdHJsKQ0KPj4gwqAgQ0ZMQUdTICs9ICQoQ0ZM
-QUdTX2xpYnhlbmd1ZXN0KQ0KPj4gwqAgQ0ZMQUdTICs9ICQoQ0ZMQUdTX2xpYnhlbnRvb2xj
-b3JlKQ0KPj4gLWlmZGVmIENPTkZJR19TVFVCRE9NDQo+PiAtQ0ZMQUdTICs9IC1ETk9fU09D
-S0VUUz0xDQo+PiAtZW5kaWYNCj4+IC0NCj4+IMKgICQoWEVOU1RPUkVEX09CSlMteSk6IENG
-TEFHUyArPSAkKENGTEFHU19saWJ4ZW5nbnR0YWIpDQo+PiDCoCB4ZW5zdG9yZWQuYTogJChY
-RU5TVE9SRURfT0JKUy15KQ0KPj4gZGlmZiAtLWdpdCBhL3Rvb2xzL3hlbnN0b3JlZC9jb3Jl
-LmMgYi90b29scy94ZW5zdG9yZWQvY29yZS5jDQo+PiBpbmRleCA2NTBjMWQxNTc0Li44ZmYx
-ZmFjY2VmIDEwMDY0NA0KPj4gLS0tIGEvdG9vbHMveGVuc3RvcmVkL2NvcmUuYw0KPj4gKysr
-IGIvdG9vbHMveGVuc3RvcmVkL2NvcmUuYw0KPj4gQEAgLTIwLDEwICsyMCw2IEBADQo+PiDC
-oCAjaW5jbHVkZSA8c3lzL3R5cGVzLmg+DQo+PiDCoCAjaW5jbHVkZSA8c3lzL3N0YXQuaD4N
-Cj4+IMKgICNpbmNsdWRlIDxwb2xsLmg+DQo+PiAtI2lmbmRlZiBOT19TT0NLRVRTDQo+PiAt
-I2luY2x1ZGUgPHN5cy9zb2NrZXQuaD4NCj4+IC0jaW5jbHVkZSA8c3lzL3VuLmg+DQo+PiAt
-I2VuZGlmDQo+PiDCoCAjaW5jbHVkZSA8c3lzL3RpbWUuaD4NCj4+IMKgICNpbmNsdWRlIDx0
-aW1lLmg+DQo+PiDCoCAjaW5jbHVkZSA8dW5pc3RkLmg+DQo+PiBAQCAtNjEsNyArNTcsNyBA
-QCBzdGF0aWMgdW5zaWduZWQgaW50IGN1cnJlbnRfYXJyYXlfc2l6ZTsNCj4+IMKgIHN0YXRp
-YyB1bnNpZ25lZCBpbnQgbnJfZmRzOw0KPj4gwqAgc3RhdGljIHVuc2lnbmVkIGludCBkZWxh
-eWVkX3JlcXVlc3RzOw0KPj4gLXN0YXRpYyBpbnQgc29jayA9IC0xOw0KPj4gK2ludCBzb2Nr
-ID0gLTE7DQo+IA0KPiBTaW1pbGFyIGNvbW1lbnQgdG8gJ2Zkcycgb24gdGhlIHByZXZpb3Vz
-IHBhdGNoLiBUaGlzIG5hbWUgaXMgcXVpdGUgZ2VuZXJpYy4gQ2FuIA0KPiB3ZSBlaXRoZXIg
-cGFzcyBpdCBhcyBhbiBhcmd1bWVudCAob3IgcmV0dXJuKSBvciByZW5hbWUgaXQ/DQoNClR1
-cm5zIG91dCB0aGlzIHBhdGNoIG5vdyBtYWtlcyB0aGUgImZkcyIgc29sdXRpb24gbW9yZSBj
-b21wbGljYXRlZDogSSdkIG5lZWQgdG8NCmFkZCBmZHMgYXMgYW4gYWRkaXRpb25hbCBwYXJh
-bWV0ZXIgdG8gdGhlIC5jYW5fd3JpdGUoKSBhbmQgLmNhbl9yZWFkKCkgY2FsbGJhY2tzDQpv
-ZiBzdHJ1Y3QgaW50ZXJmYWNlX2Z1bmNzLg0KDQpJIGNhbiBkbyB0aGF0LCBidXQgYW4gYWx0
-ZXJuYXRpdmUgd291bGQgYmUgdG8ganVzdCByZW5hbWUgZmRzIHRvIGUuZy4gcG9sbF9mZHMu
-DQoNCkRvIHlvdSBoYXZlIGFueSBwcmVmZXJlbmNlPw0KDQpJbiBjYXNlIHdlIHBhc3MgZmRz
-IGFzIGEgcGFyYW1ldGVyLCBJJ2QgYmUgaW5jbGluZWQgdG8gbWFrZSBpdCBldmVuIGxvY2Fs
-IHRvIHRoZQ0KbWFpbigpIGZ1bmN0aW9uLg0KDQoNCkp1ZXJnZW4NCg==
---------------0B01UgYYQ45VEXIBX7L0Ul5g
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Right, that's the aspect I was actually after.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------0B01UgYYQ45VEXIBX7L0Ul5g--
-
---------------2RAwL0wvq4E7Ep80rjsE4RtN--
-
---------------K7eZ8ovPuUvz2bJcAVCFUx8q
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmXAqH0FAwAAAAAACgkQsN6d1ii/Ey/u
-MQf9GmdF9/BRxEzqIZpm6TfF9eC7SxPhAZn9TYtjunQURxZq+d3vW56jq3tPNOFFGQfpq6sSetlc
-jXgTITkAXfRKhvoYfiMyOp5lOL0BU4Wz7B7sFp7aSk8GGX8VPRW1j7o2k6V6W0kTaBMetogkUOxy
-TDe/h2pu+G4HIS4UDFdSKd8Ye/gS79g/ri3BZHP+ox+rbLdnyrmuFJckS8qtVa7iu/DXmmMB0k6Y
-c9nMTU0J6JFZWyOgkwGsq5nwvfEeOhi6gxUYxGn048PAgDLff8m95IBICb2Po3UKf+xfFvfHMNHL
-PW+f8EbkavGoE6x0TjIFMIPlrP98tAU1F+cO64P2Cg==
-=CQn2
------END PGP SIGNATURE-----
-
---------------K7eZ8ovPuUvz2bJcAVCFUx8q--
+Jan
 
