@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C53A7849C8A
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 15:02:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676116.1051996 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCD03849C92
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 15:05:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676125.1052006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzYB-00030b-1n; Mon, 05 Feb 2024 14:02:19 +0000
+	id 1rWzbB-0003f8-FH; Mon, 05 Feb 2024 14:05:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676116.1051996; Mon, 05 Feb 2024 14:02:19 +0000
+Received: by outflank-mailman (output) from mailman id 676125.1052006; Mon, 05 Feb 2024 14:05:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzYA-0002yk-VD; Mon, 05 Feb 2024 14:02:18 +0000
-Received: by outflank-mailman (input) for mailman id 676116;
- Mon, 05 Feb 2024 14:02:17 +0000
+	id 1rWzbB-0003cs-Bg; Mon, 05 Feb 2024 14:05:25 +0000
+Received: by outflank-mailman (input) for mailman id 676125;
+ Mon, 05 Feb 2024 14:05:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8/S5=JO=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rWzY9-0002ye-Sd
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 14:02:17 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1rWzb9-0003cm-Hq
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 14:05:23 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b429e2a-c42f-11ee-8a45-1f161083a0e0;
- Mon, 05 Feb 2024 15:02:16 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-33b402116e5so411569f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 06:02:16 -0800 (PST)
+ id 99562ea2-c42f-11ee-8a45-1f161083a0e0;
+ Mon, 05 Feb 2024 15:05:22 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-40fc52c2ae4so29014335e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 06:05:21 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t10-20020adff04a000000b003392206c808sm8079238wro.105.2024.02.05.06.02.15
+ p4-20020a5d4e04000000b0033b3ceda5dbsm2367341wrt.44.2024.02.05.06.05.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Feb 2024 06:02:15 -0800 (PST)
+ Mon, 05 Feb 2024 06:05:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b429e2a-c42f-11ee-8a45-1f161083a0e0
+X-Inumbo-ID: 99562ea2-c42f-11ee-8a45-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707141736; x=1707746536; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707141921; x=1707746721; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=YdbLGgIFQ8R+s1/q4QmsyMW3KYfCZDydBE9Pbqdi9y8=;
-        b=bHeVE96iEAvxIMHNnM2T6CREHTl5talzetbNyZbvMyOek+y47e96PjYkpi+sOuxsAY
-         WWBRb+fzTmw+azkJfchkVSw+c737kyyejS1yAvtSf8ylHaBUj9dY5SRbn68xwnEA0j4N
-         U0EjADXOv/1MkRGHlhW7Vl6nT4iy8OqEVVMK/+s7Ycn7lya2DIyqlZmw3DfzjjYuNc/a
-         WHVAzXIAdRR/TSOccWUC9Y/Z2jvdzENmRmp6DzLbGeE9YDleyU+V0C+wfAqX0Qbz7MdK
-         MjvPzV5B6ieyYi5s2M5f3q++pamrfOKwTATiEWlaKSeIUdJ39FNKuSVZxf+8gsWy4R/5
-         sqNg==
+        bh=ngGvdTM+gCWTGJaPodlHCVbpAEcmrptnfv2LPQTxfYc=;
+        b=d/YXxRTGgWOwCsc6s4yRt5xziPLNxzXegu6VA9HJJk3E4ZL3Ga6VS+Uw8GAnBtp6IC
+         5KsrnMsh9mfYN7/iVgucjCuBRX3ZBY8cdDCk8IhN+zsVJBOXgqAIPeebQvooQiOUlXZZ
+         ICMOHWEJzqraQMG0hZAvSwpGMDwXsvsUNLLHjVZaUCJoeAPazYU1qWsx9PLP3QuCjUXh
+         HDV+pibjUw7JDgkkf/5N6oY19NUgdE28WgEnE4HdiB6UT6VMtTSuYEpOSY1QnGz0j+K3
+         sJgRI/gRFQszoEQL1b3D98EhmcRAWgBRL7laac5oPQ/c2mzyr6A7jiqE5CLLVHsm1q07
+         A6jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707141736; x=1707746536;
+        d=1e100.net; s=20230601; t=1707141921; x=1707746721;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YdbLGgIFQ8R+s1/q4QmsyMW3KYfCZDydBE9Pbqdi9y8=;
-        b=L2SF6yjmvskD3eF96lM4yIR9vogfLhCtCRNUuySAit4uJrpfYEhun0gFyF0nCJ4MNz
-         hL6csroQ+xHL1xTLGhg1yGyRxnMUZhkKl2BdHN4B1EtV5KM/YmAO1z5zvj8JEcTesNbq
-         9LWC72GMRv4+lgMGL5491gYthhYuz1T77ElZwXPIcGsS0wZdw958/bAZEuMI4Vt2JIby
-         I9KZHRq6f0EH6IaqvEUbPBB8XzoS8rcEvEuKiDaNsfBpJXkhV96kVbkNMjPzE7ArwEw8
-         r30zzyLMYFI6eGm1SF71xEXbZaIPFHMl1ZqGK+fXNjxqk2JxylVmlipYjgFPnC34gJZl
-         q05g==
-X-Gm-Message-State: AOJu0YymT3Xv66NVMcn/7H/2PmfbPcxy2PXkhvJBxV382MX3u9nD9Ikk
-	YDpj+9jsQ08+WScdvAUckKTGMaWaHn+3WUH48AfSBxGPTeXVAvK5fXEFI6bHVw==
-X-Google-Smtp-Source: AGHT+IFBGL7x0Lq/IGB0XCGLTTtLnpd/GbVhHxBgeyF0c4E5jkBKxx/llTTndYurambVlr8t+w59dA==
-X-Received: by 2002:a5d:4809:0:b0:33b:1131:ebfd with SMTP id l9-20020a5d4809000000b0033b1131ebfdmr8781342wrq.49.1707141736150;
-        Mon, 05 Feb 2024 06:02:16 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCXP0fPeHZzcNDfu4yKGWVDpuOV+waIgQWKtnTH5eMbjKwfLC/hCNVZ652vqrXfLG6QvH1fYovHWMNx5SJEUW1BCRXkVSRwoXy/Xn/Ut1FQesTCosTUi3v7QkpPQPyKeqsnKy2IfnCkC8GVbHjlzmHIYWTX2xqSnwL22vYERM2QA1uk5X0J8iGwoEeprZGORgPSYkaatPxoIW3iIt0Mzn9iqzCs7oOXBkVzdDLCnha9/8Ya54IUg+0jebjySPNKLljcN9YLO0F3eYa6IkbTZwSGmx88BKWpBKTJM8FPQXjuO2gGpzr4=
-Message-ID: <6f4dc7e2-c54d-4dce-8cd3-7fd45391eb0d@suse.com>
-Date: Mon, 5 Feb 2024 15:02:15 +0100
+        bh=ngGvdTM+gCWTGJaPodlHCVbpAEcmrptnfv2LPQTxfYc=;
+        b=Fp02stL7yvNQZaO1RNwc+7KmZlQ0aDtQ6R4KEqOJ3D4DWGVa+VrCERo4JoaEw5CTCF
+         W6PO7OoL4L7KwNyFGbai+kkKUjRxoVrWazeMtDug0qFqOP6zf68hIN/EAiEzEZZh0VTM
+         zK5/NpYMzLCBw/lf5B1bFeu9bxb4U89MZnRs/SZk2tjVUcUYVNzshECOUQbcFw0Y9AcA
+         3sAB3DKdVBd4Kl3iRhPtVOsiGDA6IM94vLujyA6C+hkeczWwGh3ymAxJBJD+lGvfBqMK
+         s5G2rLNGoV5EJak+0YWma5Hn7gqZsz/8ITosh4Sm8PkbNKr1Xi+wGRZ6mKTnYpU7TS1s
+         VOmA==
+X-Gm-Message-State: AOJu0Yyu8DdZfbIUhhBWGpCyf9PpOi8NKWp0qZfjP0NlV66GZnqR6cKH
+	AjCIDj6eegxSGxb5IfJLV1nZzYoj8eN6O3pJDJvGZTZ4tjjDzfyxM2ccKzE4hg==
+X-Google-Smtp-Source: AGHT+IHfJYlcae+Bt1kKIZMeJZjsKkMR12d10EsaZDT9hPt3lzAJT0OZ8Q1p/g/PPu05A/y5kAuatA==
+X-Received: by 2002:a05:600c:4ed2:b0:40f:dd0e:1ed3 with SMTP id g18-20020a05600c4ed200b0040fdd0e1ed3mr1351733wmq.28.1707141920811;
+        Mon, 05 Feb 2024 06:05:20 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXDiYRclsbruPeGzd9FReUxd0ATFLcLR4CvNfwa9bJc/7RtEdVIjIhEROgv4iwTguayoRFL52DRloG4D7iZJTO7gqRHp23nNy3Lx0mviijZBFtM/biAW/xnKY089NWG+jnqYIFT+oq46GIZAOnxW8D2t8gUtcn3/+0RqRLrpEvaRXLDBEAJAhyPEbtw1sDvHMuOeNqHojIlVviVBYl582lnxc9pHBlD7lXdvshz17N9rP4QrYteK0eLz1f25P8yRQl0lQmJFcYpfX9iVEcewMDICUXwFG7eJ6Zf8LQIdNvZjE5D5xtffuc=
+Message-ID: <8b71122a-8446-4619-992e-ec2475e602d0@suse.com>
+Date: Mon, 5 Feb 2024 15:05:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 8/8] consolidate do_bug_frame() / bug_fn_t
+Subject: Re: [PATCH v3 31/34] xen/riscv: add minimal stuff to mm.h to build
+ full Xen
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
- <f20d2cef-4435-4b9a-9ad8-61ceddb6bcba@suse.com>
- <f97088c6-ec2e-4c60-b91d-ec1a30d077df@citrix.com>
+ xen-devel@lists.xenproject.org
+References: <cover.1703255175.git.oleksii.kurochko@gmail.com>
+ <4411f6af38586074b347cd6005f19f9c670faa74.1703255175.git.oleksii.kurochko@gmail.com>
+ <d347c4d9-e93b-4937-8e33-e5fbbdcd6bfb@suse.com>
+ <f3858360fba14a2c5b794bdd0400cd7ab8e66f73.camel@gmail.com>
+ <44a9a92c-ac4c-43d0-bc1e-685818e4331d@suse.com>
+ <211e7d7fb7d52d0bc7dbb12d5619a39f98d5b21c.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,41 +120,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f97088c6-ec2e-4c60-b91d-ec1a30d077df@citrix.com>
+In-Reply-To: <211e7d7fb7d52d0bc7dbb12d5619a39f98d5b21c.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 05.02.2024 14:51, Andrew Cooper wrote:
-> On 05/02/2024 1:32 pm, Jan Beulich wrote:
->> The type not being used in do_bug_frame() is suspicious. Apparently
->> that's solely because the type uses a pointer-to-const parameter,
->> when so far run_in_exception_handler() wanted functions taking pointer-
->> to-non-const. Expand use of const, in turn requiring common code's
->> do_bug_frame() as well as [gs]et_irq_regs() to also gain const. This
->> then brings the former function also closer to the common one, with
->> Arm's use of vaddr_t remaining as a difference.
+On 05.02.2024 13:49, Oleksii wrote:
+> On Mon, 2024-02-05 at 08:46 +0100, Jan Beulich wrote:
+>> On 02.02.2024 18:30, Oleksii wrote:
+>>> On Tue, 2024-01-23 at 14:03 +0100, Jan Beulich wrote:
+>>>> On 22.12.2023 16:13, Oleksii Kurochko wrote:
+>>>>> +/* Convert between Xen-heap virtual addresses and page-info
+>>>>> structures. */
+>>>>> +static inline struct page_info *virt_to_page(const void *v)
+>>>>> +{
+>>>>> +    BUG();
+>>>>> +    return NULL;
+>>>>> +}
+>>>>> +
+>>>>> +/*
+>>>>> + * We define non-underscored wrappers for above conversion
+>>>>> functions.
+>>>>> + * These are overriden in various source files while
+>>>>> underscored
+>>>>> version
+>>>>> + * remain intact.
+>>>>> + */
+>>>>> +#define virt_to_mfn(va)     __virt_to_mfn(va)
+>>>>> +#define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
+>>>>
+>>>> Is this really still needed? Would be pretty nice if in a new
+>>>> port we
+>>>> could get to start cleanly right away (i.e. by not needing per-
+>>>> file
+>>>> overrides, but using type-safe expansions here right away).
+>>> We still need __virt_to_mfn and __mfn_to_virt as common code use
+>>> them:
+>>>  * xen/common/xenoprof.c:24:#define virt_to_mfn(va)
+>>> mfn(__virt_to_mfn(va))
 >>
->> While there also replace the bogus use of hard tabs in [gs]et_irq_regs()
->> (I clearly didn't mean to put it in like this).
-> 
-> I meant to query that at the time and clearly forgot to.
-> 
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> I'm still confident we can get rid of the fake frame in the serial
-> drivers, but this is an improvement nonetheless.
-> 
-> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Are you meaning to enable this code on RISC-V.
+> Yes, that is what I meant.
 
-Thanks.
-
-> I'll rebase my work over this.  It's going to collide horribly.
-
-For the patch here they're affected only because I stuck the patch at
-the end of the series. I think it ought to be possible to move it to
-the front, and then it could be left to be determined whether my
-introducing of set_irq_regs() in the poll handlers could actually be
-avoided by whatever work you have pending / in progress.
+And why would you do that? Even Arm doesn't use it, and I'd expect no
+newer port would care about this very old interface.
 
 Jan
 
