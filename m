@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 763948497FD
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 11:45:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.675771.1051226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F2B849801
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 11:47:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.675775.1051235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWwTk-0006WH-Pq; Mon, 05 Feb 2024 10:45:32 +0000
+	id 1rWwV6-00076t-7f; Mon, 05 Feb 2024 10:46:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 675771.1051226; Mon, 05 Feb 2024 10:45:32 +0000
+Received: by outflank-mailman (output) from mailman id 675775.1051235; Mon, 05 Feb 2024 10:46:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWwTk-0006Uj-Mo; Mon, 05 Feb 2024 10:45:32 +0000
-Received: by outflank-mailman (input) for mailman id 675771;
- Mon, 05 Feb 2024 10:45:31 +0000
+	id 1rWwV6-00074Q-4z; Mon, 05 Feb 2024 10:46:56 +0000
+Received: by outflank-mailman (input) for mailman id 675775;
+ Mon, 05 Feb 2024 10:46:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/8nl=JO=cloud.com=frediano.ziglio@srs-se1.protection.inumbo.net>)
- id 1rWwTj-0006Ud-Kt
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 10:45:31 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ id 1rWwV4-00074G-BA
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 10:46:54 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ae75e977-c413-11ee-8a45-1f161083a0e0;
- Mon, 05 Feb 2024 11:45:30 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-5606f2107ebso1045610a12.1
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 02:45:30 -0800 (PST)
+ id dfca4a3a-c413-11ee-8a45-1f161083a0e0;
+ Mon, 05 Feb 2024 11:46:53 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id
+ 4fb4d7f45d1cf-56001d49cc5so2785901a12.2
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 02:46:53 -0800 (PST)
 Received: from localhost.localdomain ([185.25.64.249])
  by smtp.gmail.com with ESMTPSA id
- st10-20020a170907c08a00b00a36f7891799sm4137629ejc.193.2024.02.05.02.45.29
+ ty24-20020a170907c71800b00a372a739731sm3409598ejc.45.2024.02.05.02.46.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Feb 2024 02:45:29 -0800 (PST)
+ Mon, 05 Feb 2024 02:46:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,149 +45,69 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae75e977-c413-11ee-8a45-1f161083a0e0
+X-Inumbo-ID: dfca4a3a-c413-11ee-8a45-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1707129930; x=1707734730; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1707130013; x=1707734813; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=KFRLF/eDxgbHDTI7/GHRl3I+hTFf/BFZxPyQ0bGdHe8=;
-        b=QaQkvvKu40zmNYr3wK07W236H9j17Li3ElDA9v76rktEmIfdMXlUKJHJlgNadnmJ8u
-         FTjjyAM9gHv7KhHVwS5NFKoGyvIXmGkeUhc+jhmW9qisaGdVjlrL3hiOnnKijuirEVcZ
-         6ryjyOGfA3lCx4ZieD75YzJwUkTMyPvE6+Qjo=
+        bh=SzenSDt43d9dKKfeFM0SDMDstPJFaTNqj96pw7JED8k=;
+        b=W/p+LcO90q9l0VU7eVvx2W0lx0DImxZAmXC5LLtLOWpTmI1jZYbP6s32gsZMtFYj0Z
+         Le/cEnYozgQJMjCDgUba0DKrFmoCRaQuavg5sXrfc2YQndCReuipWYqOIP5h8yZs3QIh
+         zU3V0iDYNlmktFWKyfb7h61+Iw5EL5dgGfFD8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707129930; x=1707734730;
+        d=1e100.net; s=20230601; t=1707130013; x=1707734813;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=KFRLF/eDxgbHDTI7/GHRl3I+hTFf/BFZxPyQ0bGdHe8=;
-        b=TVDLDPHSUQa/ErGebz7YX64U+QTiF0oYbhSIjX9nxzbSvkyX+wabeUXGSqqFuKkgUS
-         2YxoV9SRytOOD5qbQ/+IQhfioJtnvqFHQyZryXdS4XS8RUceS9GrmNmm8ulCI0gKS83V
-         Qwfdt0LwpC6IoTStlfVTRTzMsv367ktU5ILv1ZO5nP1b3ogxCjsdRnJVrj4CHqhebJfW
-         neyPmLUFyC/GAcCOqf0lwY5H3UmK+4Xi2UjQ5YcOrx3A/XfCYsQya4fZd7BrGvt3omuS
-         hOVMGeZVrVR6iTjpy3FLw4vlTuzkQGydF1oxEgf+yhKsOjuz7BpUDMGaxzn/x7jPUY93
-         85OQ==
-X-Gm-Message-State: AOJu0Yw5H4UA0n8qhbvvcV8Ua0Rwq2daItmLRZ1McApX29OE/XHvh9f0
-	oFLxpa0gD6QS4O4F0zasI7VXuYwqF4lgteZkJsRzp//Eev5lK9rj+MQfmvXudNRUehcH2HguKu8
-	fc4ev7g==
-X-Google-Smtp-Source: AGHT+IHnzcS/aHFsA8Lz6lv0ncTPBBlXB9hZV/8pptAbo5+iwwJyGv0h9ZJFqEAj3VnHRjBASzhXeA==
-X-Received: by 2002:a17:906:5647:b0:a34:9d98:ac1f with SMTP id v7-20020a170906564700b00a349d98ac1fmr6926315ejr.24.1707129930225;
-        Mon, 05 Feb 2024 02:45:30 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWHQYT6OFTXRTQpovzE1OQK79KJxFz9IJZd+StjlMDMHgTfvS7pKpWFLc8ExpKIcf73WbY26B3pu3NcIvD7ZK95+WrpUOH4YQCzTkl6YrJveqzV2Vt8x+SVGWJcxHCnNbKdMSabqhqQBvemBqedibcwz6GSHmRGj/eREFEvnkWPCCBTvnO6u6Nem95vwSVLyjrcO/F0TDn/AXYn4tGZ40F4ECUVaaLJX63tHsU8wkIwCizL/M5vzNfvYwJC8pWofCCIbiqw6yHKbZ8O9oH6pGmLIOk=
+        bh=SzenSDt43d9dKKfeFM0SDMDstPJFaTNqj96pw7JED8k=;
+        b=FuFiBcwuT+6TSv5R6inl13J9h4MFTGn4dKQlC0blsrq4nQ/U69ksvB+PS5OZ2RtQZH
+         rsV00hQPQGe0DDYHA1C4rK8skQLyQUSBhp21lyZP8EucO5AkUmqKs9H544TgcNGQH/du
+         OSo8N0dfeBvJtTWvnzMWz9V/uXCSiHbU520HyRRW8L6S5SHsE3oOOY23hXg42O7PzlUr
+         Uo6q9CjHwmqCraBYCr/nRrbYnreyGWhIsORiBI3nHnZGJp9xsOM65nOI0ElfhkqREDOy
+         sSZH1DWuwO2mtG2sk1lysBiyhNYEiXV5ZeqQYx014iyFKMiA2GfHfgRRUfkMHj6NyjdZ
+         5Asw==
+X-Gm-Message-State: AOJu0YysJSrIQP40BgqWEwhuRbJX6bWpjyH94KHsdM3uEQzEbGkACfVu
+	+yS13vZcQzLSFkvTzdTJu858feCHHkVa4NjytzA5aPNjbDr47OYy5gm2wklKScE=
+X-Google-Smtp-Source: AGHT+IGpt7ONVCe4L9IOR0v5GCjP3NS8ipucmpxnpP8IN6nrT22e82WK+MJKeNOvIaSiGD1ieUkC8Q==
+X-Received: by 2002:a17:907:77d0:b0:a37:152e:2e61 with SMTP id kz16-20020a17090777d000b00a37152e2e61mr6562814ejc.71.1707130012924;
+        Mon, 05 Feb 2024 02:46:52 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUq9xZccYn5t6aR5xhQOBUOB6URWktyY2MLQj+RFNhncs7AC8XGpc5ZJ8q8b9AxJqq5FOjIoJruXSeyy9HFIHwAyLA2/Wb0UZeYhZBFOVtidxKUAlRXBX9Xh9zkx2V4/ekj5veA5U3wuNvo/MYAOJD55/LB0Ul0cvMY4aVOg4Lsheg8QKMR6kjRtw8oe5/wMFhwcQ41l1yzTAfqgdNsLbQQ9U1AQgJuAAK4aw==
 From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
 	George Dunlap <george.dunlap@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
 Cc: xen-devel@lists.xenproject.org,
 	Frediano Ziglio <frediano.ziglio@cloud.com>
-Subject: [PATCH 1/5] Constify some parameters
-Date: Mon,  5 Feb 2024 10:45:04 +0000
-Message-Id: <20240205104504.14830-1-frediano.ziglio@cloud.com>
+Subject: [PATCH 2/5] Remove useless assignment
+Date: Mon,  5 Feb 2024 10:46:37 +0000
+Message-Id: <20240205104637.14868-1-frediano.ziglio@cloud.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Make clean they are not changed in the functions.
+The variable is assigned later, that value is never used.
 
 Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 ---
- xen/arch/x86/pv/callback.c | 4 ++--
- xen/common/sched/compat.c  | 2 +-
- xen/common/sched/core.c    | 2 +-
- xen/xsm/flask/flask_op.c   | 8 ++++----
- 4 files changed, 8 insertions(+), 8 deletions(-)
+ xen/common/event_channel.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/xen/arch/x86/pv/callback.c b/xen/arch/x86/pv/callback.c
-index 17829304fe..caec4fb16f 100644
---- a/xen/arch/x86/pv/callback.c
-+++ b/xen/arch/x86/pv/callback.c
-@@ -48,7 +48,7 @@ static void unregister_guest_nmi_callback(void)
-     memset(t, 0, sizeof(*t));
- }
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index a7a004a084..15aec5dcbb 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -324,8 +324,6 @@ int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, evtchn_port_t port)
+         goto out;
+     }
  
--static long register_guest_callback(struct callback_register *reg)
-+static long register_guest_callback(const struct callback_register *reg)
- {
-     long ret = 0;
-     struct vcpu *curr = current;
-@@ -102,7 +102,7 @@ static long register_guest_callback(struct callback_register *reg)
-     return ret;
- }
+-    rc = 0;
+-
+     chn = evtchn_from_port(d, port);
  
--static long unregister_guest_callback(struct callback_unregister *unreg)
-+static long unregister_guest_callback(const struct callback_unregister *unreg)
- {
-     long ret;
- 
-diff --git a/xen/common/sched/compat.c b/xen/common/sched/compat.c
-index dd97593630..a02204ec9a 100644
---- a/xen/common/sched/compat.c
-+++ b/xen/common/sched/compat.c
-@@ -26,7 +26,7 @@ CHECK_sched_shutdown;
- CHECK_sched_remote_shutdown;
- #undef xen_sched_remote_shutdown
- 
--static int compat_poll(struct compat_sched_poll *compat)
-+static int compat_poll(const struct compat_sched_poll *compat)
- {
-     struct sched_poll native;
- 
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index d177c675c8..c5db373972 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -1431,7 +1431,7 @@ static void vcpu_block_enable_events(void)
-     vcpu_block();
- }
- 
--static long do_poll(struct sched_poll *sched_poll)
-+static long do_poll(const struct sched_poll *sched_poll)
- {
-     struct vcpu   *v = current;
-     struct domain *d = v->domain;
-diff --git a/xen/xsm/flask/flask_op.c b/xen/xsm/flask/flask_op.c
-index b866e8d05f..ea7dd10dc8 100644
---- a/xen/xsm/flask/flask_op.c
-+++ b/xen/xsm/flask/flask_op.c
-@@ -469,7 +469,7 @@ static int flask_security_load(struct xen_flask_load *load)
-     return ret;
- }
- 
--static int flask_devicetree_label(struct xen_flask_devicetree_label *arg)
-+static int flask_devicetree_label(const struct xen_flask_devicetree_label *arg)
- {
-     int rv;
-     char *buf;
-@@ -492,7 +492,7 @@ static int flask_devicetree_label(struct xen_flask_devicetree_label *arg)
- 
- #ifndef COMPAT
- 
--static int flask_ocontext_del(struct xen_flask_ocontext *arg)
-+static int flask_ocontext_del(const struct xen_flask_ocontext *arg)
- {
-     int rv;
- 
-@@ -506,7 +506,7 @@ static int flask_ocontext_del(struct xen_flask_ocontext *arg)
-     return security_ocontext_del(arg->ocon, arg->low, arg->high);
- }
- 
--static int flask_ocontext_add(struct xen_flask_ocontext *arg)
-+static int flask_ocontext_add(const struct xen_flask_ocontext *arg)
- {
-     int rv;
- 
-@@ -550,7 +550,7 @@ static int flask_get_peer_sid(struct xen_flask_peersid *arg)
-     return rv;
- }
- 
--static int flask_relabel_domain(struct xen_flask_relabel *arg)
-+static int flask_relabel_domain(const struct xen_flask_relabel *arg)
- {
-     int rc;
-     struct domain *d;
+     rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
 -- 
 2.34.1
 
