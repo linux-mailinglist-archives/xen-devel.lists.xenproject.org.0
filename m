@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F658849B34
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 13:59:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676018.1051766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B537849B53
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 14:03:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676023.1051776 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWyZ9-0004Y2-LD; Mon, 05 Feb 2024 12:59:15 +0000
+	id 1rWyd2-0006Cp-4t; Mon, 05 Feb 2024 13:03:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676018.1051766; Mon, 05 Feb 2024 12:59:15 +0000
+Received: by outflank-mailman (output) from mailman id 676023.1051776; Mon, 05 Feb 2024 13:03:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWyZ9-0004V8-Hf; Mon, 05 Feb 2024 12:59:15 +0000
-Received: by outflank-mailman (input) for mailman id 676018;
- Mon, 05 Feb 2024 12:59:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rWyd2-0006Ah-1T; Mon, 05 Feb 2024 13:03:16 +0000
+Received: by outflank-mailman (input) for mailman id 676023;
+ Mon, 05 Feb 2024 13:03:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TPgQ=JO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rWyZ8-0004V2-0Q
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 12:59:14 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5c2183a8-c426-11ee-8a45-1f161083a0e0;
- Mon, 05 Feb 2024 13:59:13 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-55a90a0a1a1so5471982a12.0
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 04:59:12 -0800 (PST)
+ id 1rWyd0-0006Ab-8M
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 13:03:14 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ead80a6b-c426-11ee-98f5-efadbce2ee36;
+ Mon, 05 Feb 2024 14:03:12 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2cf3ed3b917so53760481fa.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 05:03:12 -0800 (PST)
 Received: from [192.168.206.239] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- i23-20020a056402055700b0055fba4996d9sm3885294edx.71.2024.02.05.04.59.11
+ s11-20020a05651c048b00b002d0a98330b3sm463428ljc.108.2024.02.05.05.03.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Feb 2024 04:59:11 -0800 (PST)
+ Mon, 05 Feb 2024 05:03:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,284 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c2183a8-c426-11ee-8a45-1f161083a0e0
+X-Inumbo-ID: ead80a6b-c426-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707137952; x=1707742752; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1707138192; x=1707742992; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=aekdhF8+mBnuPMS0XztHvPgSeHTu1C66eam1fhIlJ2A=;
-        b=l55ROmaGy/kvQJZwzIoak4ZCVflHriz9+RDvlXUgMDwlG/8eWTN87f8jSxHx4FbvUG
-         uL5EWELSPIHHOTP8whdc8WJjO9NOe59jnNRxLEAl4GhR3tHqBPV+C1BlCbJWHhOR+x0x
-         Ky3Ue7LlyhdpWSdQcbtr+7WrR5Wea5vi+BakcE6/OitlewKQgfT/ToDi04wCqCrev67T
-         XAlH57HVCCemP9F63W7mozwqqIBhmLaif2i6QvNCckS2H8t7NqU7ar1NiQO98ZTD6T3s
-         ARyzKicJ3gWjx6XWqlaDoD1ENo0WUQ6te4GcMAN05u2cnAac7kd2ovQze+P5vHI+Q9VM
-         NDJg==
+        bh=DjuTW+h/eS6V5ntAPTSQrDbv/oSKHjDglZUV3FxC1jM=;
+        b=DPtyMCKFCul2mDVzM1cZ8pQH+vTov+Ut5VEZPlsTwKWzM0kDDu5ldLvIeYhSEzk6Gn
+         6yKgG2kw44eweqCi56unQl6D9O11F5qgBzsDAkerjwfiAKNn9zpJBbE1pkcdH+2ch0+g
+         2UdtrzlTLBFh225pNXp+m+jL8jn/mNm2WzuHRJRRVeS5N3A2wO6JZ9TSDbY2RUavjac2
+         ABbA4qnCXO/YawS0D7eKeRUyw4fntRKb2dhNojrJGayxw4NdQGp4r1J81sRZbZHGj6rB
+         hOXX2jK/DV/Yu96luRt50Q5jfFL37xX1ZjNCdI15UjB5XG21QUyD8Gx3TpZfAVmjNBhU
+         dkbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707137952; x=1707742752;
+        d=1e100.net; s=20230601; t=1707138192; x=1707742992;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=aekdhF8+mBnuPMS0XztHvPgSeHTu1C66eam1fhIlJ2A=;
-        b=ZIYl1X2MKSMmv+QfEfvw5wFK1Uwob24jPYZbgwCRj84RLamIndMB4OT6yJebUmnIvw
-         KTjn15FoySJTdW6ep8HGtUidbJUL1OCy+OI1mSuA+LCtLZXGLcnFnq56JE39iObAThxT
-         hZfxT9rFcBGjk9ijxAIgR+HUffJk5YYIc0VXgzfixN/j7brC2obRRD/DleqQzw8I4hXq
-         esqignhTUXjGC4tuMHdGEPJMEQ1RZYGU6WaNsnagQSPQSovS0CqJqYzPEglJ5WUKw6Vr
-         7W3wdH1YPgGQUgpHsMHanXJVa2+U8x3RrcLpK849dIQ7boptgbh1GoKF1me6nazTxOlb
-         okkA==
-X-Gm-Message-State: AOJu0YwuwBvIKn+g64SIhE466SDBB2Y1gpMin/xYELVXE4F/bcTGXOFh
-	Pcp382kkpNtmuLgVTx0z+2LFA4jdp8VKKODohvdUdZMD9PPPilY9
-X-Google-Smtp-Source: AGHT+IHHyvUujXCiv2azAf+10uecScQ75UBjG9WbKaCQVDxIjJFZ6EquwEjMLBTLfNqq1PBOQ6CA/Q==
-X-Received: by 2002:aa7:c0d1:0:b0:55f:4602:bf7c with SMTP id j17-20020aa7c0d1000000b0055f4602bf7cmr5332115edp.28.1707137952302;
-        Mon, 05 Feb 2024 04:59:12 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCVTGg9rydxaYacFBKj4gsvGjy6FTtbeNsKL9yo5bxODu3jDv6jgRN059K/celqb1ZaiTBGOmOwwUtPWcAwOZPla1qSDMXqdofRBvgRFP2WGMomTOxT3giJ8KqNNz9Dw1AwQv4LODrWFdE7akYsqGd0OPhiGezhYgKqjYZM0OtEM5YitEBvD+VWMvqC4gBRMEeT6b0uabR/1q8mwkCk=
-Message-ID: <1da6b3acbc07490323c007188e2f34500149b089.camel@gmail.com>
-Subject: Re: [PATCH v7 5/7] xen/asm-generic: introduce generic device.h
+        bh=DjuTW+h/eS6V5ntAPTSQrDbv/oSKHjDglZUV3FxC1jM=;
+        b=WlYmY9B4u3DlSsuCeRzl1oX1M3jGvNQBttxttEUN2CY7DzwlLT92ksPTycvB3Vl2Jg
+         HGAj+yn1/mhoH8RugfwVwFqr0QP8aIU7qw3zVc5RgoFUt+ba7YiqKhU9OGoua2mR8jWK
+         m+Kw5OzZ2LwVvDz19N5B3uaGazbaTLcdDO4eTWwbjOM3XAn1Tilo21oNt7RDDrwcFBdc
+         /Za6Ok+QvyOMwgonkpx5jwldxxmtd/kG6+G3xSJWdhL4lW1Ivs6adiTLImjlzz0z2bXN
+         +IP5oHys9c4Y2o8vWZeNS8vlBkW6dINSSjRs/qTTGGiGLfe+DIEg2Ym+PimZs8z/Znqn
+         SMGg==
+X-Gm-Message-State: AOJu0Yw0W4U1vapE9dwJCJrn8DoPcGDHVgG56eYGawku1WfkiOOMiqwO
+	of2DpYLAMUMpKZjIa2KkZqvcLNVasZEVNr1kMARwxPcB62J1z2wv
+X-Google-Smtp-Source: AGHT+IFRnFKuM/mN9Me7PDjUhz8T6c505MdFEUD0vq0fOyotGu4evIe57yl2pXJIdCuSa8kpX87aOQ==
+X-Received: by 2002:a2e:9e10:0:b0:2cd:4883:6e25 with SMTP id e16-20020a2e9e10000000b002cd48836e25mr9898144ljk.50.1707138191557;
+        Mon, 05 Feb 2024 05:03:11 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCVWS/vbF0cVXfaf5vHhyYPt3XLsT4i5rPvZljThiZjDFUg5R/PdBtINOjB36uMU5DYsJTYXzTvRCAGs69pq/bm4gl0DlgbYTRSc5hRV2cXKZxII6e6oftGXyhejJHMkrB+ALQmzGbGaPXzsTvRAO/+bJMs/r2JzKmjfZsS+wylOxYc59tNWkcyHrlkvuNvf++eBgsyGcELLeNgwdFUoGz3l5NqtMmzLUNLrxQ==
+Message-ID: <d26713350e9e8f584450acf4f102436a41217028.camel@gmail.com>
+Subject: Re: [PATCH v7 6/7] xen/arm: switch Arm to use asm-generic/device.h
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Mon, 05 Feb 2024 13:59:10 +0100
-In-Reply-To: <392e3c39-e984-4e4c-8ca9-f4a2f2ea86cf@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>,  Bertrand Marquis <bertrand.marquis@arm.com>, Michal
+ Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, xen-devel@lists.xenproject.org
+Date: Mon, 05 Feb 2024 14:03:10 +0100
+In-Reply-To: <fdbfe86f-3b7c-4e35-90dc-ac64ee94fcd1@suse.com>
 References: <cover.1706281994.git.oleksii.kurochko@gmail.com>
-	 <621ff5bd992ea8e6202ec03fa52c0e09aacd8f83.1706281994.git.oleksii.kurochko@gmail.com>
-	 <392e3c39-e984-4e4c-8ca9-f4a2f2ea86cf@suse.com>
+	 <d5d2b0515516f0554a0532ff4d4fbd9c704e0a1b.1706281994.git.oleksii.kurochko@gmail.com>
+	 <fdbfe86f-3b7c-4e35-90dc-ac64ee94fcd1@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
 
-On Wed, 2024-01-31 at 15:54 +0100, Jan Beulich wrote:
+On Wed, 2024-01-31 at 15:56 +0100, Jan Beulich wrote:
 > On 26.01.2024 16:42, Oleksii Kurochko wrote:
-> > Arm, PPC and RISC-V use the same device.h thereby device.h
-> > was moved to asm-generic.
->=20
-> It's not "move" anymore with the splitting off of the Arm and PPC
-> parts. For reasons mentioned before, I'm not exactly happy with
-> it not being a move anymore, but I expect you were asked to split.
->=20
-> > Arm's device.h was taken as a base with
-> > the following changes:
-> > =C2=A0- #ifdef PCI related things.
->=20
-> Well, not really, with ...
->=20
-> > =C2=A0- #ifdef ACPI related things.
-> > =C2=A0- Rename #ifdef guards.
-> > =C2=A0- Add SPDX tag.
-> > =C2=A0- #ifdef CONFIG_HAS_DEVICE_TREE related things.
-> > =C2=A0- #ifdef-ing iommu related things with CONFIG_HAS_PASSTHROUGH.
-> >=20
 > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > Changes in V7:
-> > =C2=A0- keeping DEVICE_PCI_HOSTBRIDGE available for every build based o=
-n
-> > the reply:
-> > =C2=A0=C2=A0=C2=A0
-> > https://lore.kernel.org/xen-devel/926a5c12-7f02-42ec-92a8-1c82d060c710@=
-xen.org/
 >=20
-> ... this. Specifically ...
+> I'm not an Arm maintainer, but if I was I wouldn't let you get away
+> with
+> an empty description here. Specifically at least ...
 >=20
-> > --- /dev/null
-> > +++ b/xen/include/asm-generic/device.h
-> > @@ -0,0 +1,162 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +#ifndef __ASM_GENERIC_DEVICE_H__
-> > +#define __ASM_GENERIC_DEVICE_H__
-> > +
-> > +#include <xen/stdbool.h>
-> > +
-> > +/*
-> > + * DEV_TYPE_MAX is currently not in use, but it was added because
-> > the enum may
-> > + * be empty when !HAS_DEVICE_TREE and !HAS_PCI, which could lead
-> > to
-> > + * a compilation error.
-> > + */
-> > +enum device_type
-> > +{
-> > +#ifdef CONFIG_HAS_DEVICE_TREE
-> > +=C2=A0=C2=A0=C2=A0 DEV_DT,
-> > +#endif
-> > +
-> > +#ifdef CONFIG_HAS_PCI
-> > +=C2=A0=C2=A0=C2=A0 DEV_PCI,
-> > +#endif
->=20
-> ... this is now inconsistent with ...
->=20
-> > +=C2=A0=C2=A0=C2=A0 DEV_TYPE_MAX,
-> > +};
-> > +
-> > +enum device_class
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 DEVICE_SERIAL,
-> > +=C2=A0=C2=A0=C2=A0 DEVICE_IOMMU,
-> > +=C2=A0=C2=A0=C2=A0 DEVICE_INTERRUPT_CONTROLLER,
-> > +=C2=A0=C2=A0=C2=A0 DEVICE_PCI_HOSTBRIDGE,
->=20
-> ... this. Either we want PCI-related #ifdef-ary, or we don't. There
-> shouldn't be a mix (unless there's a good reason).
-Agreed, I overlooked the fact that we now have inconsistency.
-
-Then it is needed to update remove CONFIG_HAS_PCI in device_type enum
-too.
-
->=20
-> Also the use of blank lines inside the earlier enum would better be
-> consistent.
->=20
-> > +=C2=A0=C2=A0=C2=A0 /* Use for error */
-> > +=C2=A0=C2=A0=C2=A0 DEVICE_UNKNOWN,
-> > +};
-> > +
-> > +struct dev_archdata {
-> > +#ifdef CONFIG_HAS_PASSTHROUGH
-> > +=C2=A0=C2=A0=C2=A0 void *iommu;=C2=A0=C2=A0=C2=A0 /* IOMMU private dat=
-a */
-> > +#endif
-> > +};
-> > +
-> > +/* struct device - The basic device structure */
-> > +struct device
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 enum device_type type;
-> > +#ifdef CONFIG_HAS_DEVICE_TREE
-> > +=C2=A0=C2=A0=C2=A0 struct dt_device_node *of_node; /* Used by drivers =
-imported
-> > from Linux */
-> > +#endif
-> > +=C2=A0=C2=A0=C2=A0 struct dev_archdata archdata;
-> > +#ifdef CONFIG_HAS_PASSTHROUGH
-> > +=C2=A0=C2=A0=C2=A0 struct iommu_fwspec *iommu_fwspec; /* per-device IO=
-MMU
-> > instance data */
-> > +#endif
-> > +};
-> > +
-> > +typedef struct device device_t;
-> > +
-> > +#ifdef CONFIG_HAS_DEVICE_TREE
-> > +
-> > +#include <xen/device_tree.h>
-> > +
-> > +#define dev_is_dt(dev)=C2=A0 ((dev)->type =3D=3D DEV_DT)
-> > +
-> > +/**
-> > + *=C2=A0 device_init - Initialize a device
-> > + *=C2=A0 @dev: device to initialize
-> > + *=C2=A0 @class: class of the device (serial, network...)
-> > + *=C2=A0 @data: specific data for initializing the device
-> > + *
-> > + *=C2=A0 Return 0 on success.
-> > + */
-> > +int device_init(struct dt_device_node *dev, enum device_class
-> > class,
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 const void *data);
-> > +
-> > +/**
-> > + * device_get_type - Get the type of the device
-> > + * @dev: device to match
-> > + *
-> > + * Return the device type on success or DEVICE_ANY on failure
-> > + */
-> > +enum device_class device_get_class(const struct dt_device_node
-> > *dev);
-> > +
-> > +#define DT_DEVICE_START(_name, _namestr,
-> > _class)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->=20
-> Would be really nice if in the course of generalization these leading
-> underscores would also disappear. Yes, that'll require changing two
-> of the names more than just to drop the underscores, to account for
-> ...
->=20
-> > +static const struct device_desc __dev_desc_##_name
-> > __used=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > +__section(".dev.info") =3D
-> > {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > +=C2=A0=C2=A0=C2=A0 .name =3D
-> > _namestr,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > +=C2=A0=C2=A0=C2=A0 .class =3D
-> > _class,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->=20
-> ... these field names.
->=20
-> Also there's a strack backslash on the last line above.
-Sure, I'll drop the leading underscores. Thanks.
-
-~ Oleksii
->=20
-> Both comments similarly apply to the ACPI stuff further down.
->=20
-> > +#define
-> > DT_DEVICE_END=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
-> > +};
-> > +
-> > +#else /* !CONFIG_HAS_DEVICE_TREE */
-> > +#define dev_is_dt(dev) ((void)(dev), false)
-> > +#endif /* CONFIG_HAS_DEVICE_TREE */
-> > +
-> > +#ifdef CONFIG_HAS_PCI
-> > +#define dev_is_pci(dev) ((dev)->type =3D=3D DEV_PCI)
-> > +#else
-> > +#define dev_is_pci(dev) ((void)(dev), false)
-> > +#endif
-> > +
-> > +struct device_desc {
-> > +=C2=A0=C2=A0=C2=A0 /* Device name */
-> > +=C2=A0=C2=A0=C2=A0 const char *name;
-> > +=C2=A0=C2=A0=C2=A0 /* Device class */
-> > +=C2=A0=C2=A0=C2=A0 enum device_class class;
-> > +
-> > +#ifdef CONFIG_HAS_DEVICE_TREE
-> > +
-> > +=C2=A0=C2=A0=C2=A0 /* List of devices supported by this driver */
-> > +=C2=A0=C2=A0=C2=A0 const struct dt_device_match *dt_match;
-> > +=C2=A0=C2=A0=C2=A0 /*
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * Device initialization.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 *
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 * -EAGAIN is used to indicate that device pro=
-bing is
-> > deferred.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > +=C2=A0=C2=A0=C2=A0 int (*init)(struct dt_device_node *dev, const void =
-*data);
-> > +
-> > +#endif
-> > +};
+> > --- a/xen/arch/arm/device.c
+> > +++ b/xen/arch/arm/device.c
+> > @@ -16,7 +16,10 @@
+> > =C2=A0#include <xen/lib.h>
+> > =C2=A0
+> > =C2=A0extern const struct device_desc _sdevice[], _edevice[];
 > > +
 > > +#ifdef CONFIG_ACPI
-> > +
-> > +struct acpi_device_desc {
-> > +=C2=A0=C2=A0=C2=A0 /* Device name */
-> > +=C2=A0=C2=A0=C2=A0 const char *name;
-> > +=C2=A0=C2=A0=C2=A0 /* Device class */
-> > +=C2=A0=C2=A0=C2=A0 enum device_class class;
+> > =C2=A0extern const struct acpi_device_desc _asdevice[], _aedevice[];
+> > +#endif
+> > =C2=A0
+> > =C2=A0int __init device_init(struct dt_device_node *dev, enum
+> > device_class class,
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const=
+ void *data)
+> > @@ -45,6 +48,7 @@ int __init device_init(struct dt_device_node
+> > *dev, enum device_class class,
+> > =C2=A0=C2=A0=C2=A0=C2=A0 return -EBADF;
+> > =C2=A0}
+> > =C2=A0
+> > +#ifdef CONFIG_ACPI
+> > =C2=A0int __init acpi_device_init(enum device_class class, const void
+> > *data, int class_type)
+> > =C2=A0{
+> > =C2=A0=C2=A0=C2=A0=C2=A0 const struct acpi_device_desc *desc;
+> > @@ -61,6 +65,7 @@ int __init acpi_device_init(enum device_class
+> > class, const void *data, int class
+> > =C2=A0
+> > =C2=A0=C2=A0=C2=A0=C2=A0 return -EBADF;
+> > =C2=A0}
+> > +#endif
 >=20
-> I understand it's this way on Arm right now, and I'm also not going
-> to insist that you do anything about it right here, but it's still
-> odd that struct device_desc doesn't simply have a union to cover for
-> both DT and ACPI.
->=20
-> Jan
+> ... this new #ifdef-ary would want justifying, imo.
+It was added because all ACPI-related things are under #ifdef
+CONFIG_ACPI. Therefore, if CONFIG_ACPI is disabled, it will result in a
+compilation error.
 
+Perhaps, you are right; it would be better to include this information
+in the commit description.
+
+~ Oleksii
 
