@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 098CA849E92
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 16:39:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676273.1052401 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB857849E46
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 16:33:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676212.1052316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX13q-0004A8-Ev; Mon, 05 Feb 2024 15:39:06 +0000
+	id 1rX0y3-0003m1-Cb; Mon, 05 Feb 2024 15:33:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676273.1052401; Mon, 05 Feb 2024 15:39:06 +0000
+Received: by outflank-mailman (output) from mailman id 676212.1052316; Mon, 05 Feb 2024 15:33:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rX13q-00047G-By; Mon, 05 Feb 2024 15:39:06 +0000
-Received: by outflank-mailman (input) for mailman id 676273;
- Mon, 05 Feb 2024 15:39:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rX0y2-0003N8-Mw; Mon, 05 Feb 2024 15:33:06 +0000
+Received: by outflank-mailman (input) for mailman id 676212;
+ Mon, 05 Feb 2024 15:33:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TPgQ=JO=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rX0xy-0007I6-Gk
+ id 1rX0xy-0007Hv-2v
  for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 15:33:02 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d8531ee9-c43b-11ee-98f5-efadbce2ee36;
- Mon, 05 Feb 2024 16:33:00 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id
- 2adb3069b0e04-511531f03f6so810453e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 07:33:00 -0800 (PST)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d8db995f-c43b-11ee-8a46-1f161083a0e0;
+ Mon, 05 Feb 2024 16:33:01 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-5114cd44f6aso1310796e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 07:33:01 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- s1-20020a056512314100b005114d401157sm474445lfi.2.2024.02.05.07.32.59
+ s1-20020a056512314100b005114d401157sm474445lfi.2.2024.02.05.07.33.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Feb 2024 07:32:59 -0800 (PST)
+ Mon, 05 Feb 2024 07:33:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +44,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d8531ee9-c43b-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: d8db995f-c43b-11ee-8a46-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707147180; x=1707751980; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1707147181; x=1707751981; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Fh1fXKNPLCGaG/VnLCvzTyh2EW511i6o4O6lrTHgeBw=;
-        b=UpuoIWF6MvaSPzfv6soZwe0sbtgkS9Yip/6za+EPpxY88tZSbeutaM1tOOPtXMjo98
-         lay7woK7VDAApoAxqlQRLbPhuxlOKZUYbIQmNDiJ5bW6ZbUQJsbkuMv5nUdiFT+NNLbP
-         gBU6xqQdIrog9AxJXDiPg0R5s+5bKXuXCDpLqaNuXuEsuuvpC2E8knGfZL/Sio7TzK2J
-         Z1l3HccB7SpwDutagRoKVTPiOMSmUOM3eYFJgYwZ/fa7nM9bkErXQ5bTM0dbpYHg6emK
-         mi0YTrwp+rqO8LHnxc1mR1w4YamccPHB7xfektTywCzzxn+3lq0+z7t7t4Cbb+qOe1Zx
-         +lQw==
+        bh=kwBu84D0n1DoTgY2J9dL0hCB/ukCq+oQwz679ugGOF4=;
+        b=OFFxYpOT/SCyDL3P4UH7yKxo6jAD4zIDgfyQmZhiMldsCDOSXRwOyrRoILJ4Qu3f7E
+         8ddYejoBv0KJqgCMnUTkP000y04jlVZdxJfCwFI9ZuoTW34S1SeHKtHci6Fl3VDyXg7o
+         bQ8Z1SuaXbVGLpCRstLzshOr8fRMBwEBJQtbYBm/HxEYqfvRzrFpv2T3Y9CH/+oH/jmb
+         vVX74E+Rq1Z2pWPtlyY0ZIjrD3rCtUPM2J7GLyOKhH9pRtZpLU2NhTp7CIHy4PIqdHjp
+         8/BetZJC4JpZjmrKR7+y4lQYcq+bSC2aVBzB27n75Z58qWcOJnx3oWjDqohEOTdwJq65
+         toBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707147180; x=1707751980;
+        d=1e100.net; s=20230601; t=1707147181; x=1707751981;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Fh1fXKNPLCGaG/VnLCvzTyh2EW511i6o4O6lrTHgeBw=;
-        b=N2sBglsHC71O8wKAiP3C7xcd8ruKpH5ThLz5zolJ69Y1nxGannhdVtAUUBM2s5VEJV
-         YQNRryrcDdvDXUBLyL/KwxdBZKF7dSTOxb3Acoh/yXabXpX6TRy1DP1l39krYAzImEST
-         0JTbAiRni9/20sdQ3yaPHPVZ8oh2ZvmtKMnyMYClnEb0XOPjbKic53VTf1ixuyvok/oS
-         RQoq3LpqdgUJmdiJdNXp99ENzEY4ffFO7k1eHlFOfzu8ItdZmESC467HVQlU8q6S7IE3
-         44vSJ8p9iHejd7xeZf6DBZ557txgzUeey8NHf9PTlrwGv1z+cbhBUp6Q6BHWWt6RiQSc
-         vVGg==
-X-Gm-Message-State: AOJu0YxLQZ5cY5V+MvVAvWmA6Ejd463vmbeWWcoH6fVVzgFb9zfLIjCa
-	GBLvH5/gyipUOEwEdYjEkbqvFSo07BKkCR6Nd4M+Y+wACBH2mU/tmjU/YGY5
-X-Google-Smtp-Source: AGHT+IHUe+H4IHHtzSGa/KZg/3OWOYeEcxwYLKDEgMAfnmSQCcWtVTsDgjs4MKtetv1K08sdHB0AcA==
-X-Received: by 2002:a05:6512:3151:b0:511:4ee4:48d1 with SMTP id s17-20020a056512315100b005114ee448d1mr2311431lfi.32.1707147180083;
+        bh=kwBu84D0n1DoTgY2J9dL0hCB/ukCq+oQwz679ugGOF4=;
+        b=O3zDQUjGbKaS6Tlj1T2Sopxs0SP5xoa/4xjqWsCCI6p9qnQdzI0dnrC0DP/praq6Yz
+         65tedYkiTCjlsq5gk/Ldhd0pOIwZtentGbofJCO3CT59kIzX/tUBdEEHxLHmftgeja2+
+         X/lNuf2bcBv0Jdn/lOka1mkRzoUmLZ7GXf72OqjixGUqonG8zxEoF8ehOXfendoObbXw
+         fQedE3a4X6AuinGHuY7960JBQzpiMTxhjKuD4lJ5/4UsFpQ2pgtBbDTp9tQx31tikF3i
+         aVP2oeRzxCGgO6FsnmAYdcqjPtvv2lf+acDibYi/MPWHVinTE3X+DEho/RdjXd7jOT5N
+         cFqQ==
+X-Gm-Message-State: AOJu0YxT6khiSJnHiqB5VDVVEoshXOjlD7wHVLAp9NieH/ItBIMrE8d1
+	EXGFvrmfpshvqG5Hoo7BK9fbzyDcvql4rP9ZhXxKooIu7b/M9tRddUA2s3Wd
+X-Google-Smtp-Source: AGHT+IHFs7tlpIVryWCEx1JXjwZyMAuN58CNQvo4IL2SB1CB+7ciG6j8sE5ZI3WEmiEJI+a19G/ChQ==
+X-Received: by 2002:a05:6512:480a:b0:511:52b4:8b93 with SMTP id eo10-20020a056512480a00b0051152b48b93mr1399173lfb.29.1707147180898;
         Mon, 05 Feb 2024 07:33:00 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCVv0V2Sn1riFTcccMtaw4DrDISuAWzeSjJbFZLS60Bt1zzm5rHHNZZ5719o0GuJ3Zloh8JRFR0HWBsQljxCnJIG4dy4pcTfVNMkTQlozDoJRy+gAQtiuH0Yyu7MVjp1B+qAAk609pFnX4azd5lmdlumMjsLfqM3KFxVu41h95BXd3MpBtNtCWdCiL1Bpv2LylLvLH2rcDmnBclr9a0YkFLuukm6VwYXwke3MkV+2VMm2Q/gTtx+6goiKCCWRmdVMWQ2dnUbDxYKNzFloaLeXv8/PM+fSDzFGJ3wqHLedvq9nwNTljLZyK+OXWtWIvV/2JWgbGzr
+X-Forwarded-Encrypted: i=0; AJvYcCWtUKb5cQm7vsiITfH1eqCM5692QeSptFfBnvihdgDBloWsy0FZFfbMu6VWt6mVQwB/ujLAGwBpm8WDazQDnfAfnk4lWXNygCw5d5LzWBNfX1HVHgtjg8FAwUCmcKtcDI1bh9emA4QJcqbb5rNaMMxH1/4ADlWrKgSM5iZlTWTtYidxoeMHPjv+zdBmXtQFnKXe5TQn+t5MqI6Tj/cYJRM4/UqvcxtTDC8xE0sy1DIASGuGmBEhhLUaq9wfpnp5m7ac5VbuWr1sgBiQs81Ey9f08rkW66UkHEUWv5rqieRBPdsKZkoQnMw5Hx6knmwU1iUAJUlW
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
@@ -87,9 +87,9 @@ Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v4 18/30] xen/riscv: introduce time.h
-Date: Mon,  5 Feb 2024 16:32:25 +0100
-Message-ID: <f0a4566c185469fa9f5de41b5bbbc7234cfa9912.1707146506.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v4 19/30] xen/riscv: introduce event.h
+Date: Mon,  5 Feb 2024 16:32:26 +0100
+Message-ID: <a57aed8d2d8424c63b1f27d007b2d5cfe35460cc.1707146506.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1707146506.git.oleksii.kurochko@gmail.com>
 References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
@@ -97,51 +97,61 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in V4:
  - s/BUG()/BUG_ON("unimplemented")
+ - s/xen\/bug.h/xen\/lib.h as BUG_ON is defined in xen/lib.h.
 ---
 Changes in V3:
- - Acked-by: Jan Beulich <jbeulich@suse.com>
  - add SPDX
- - Add new line
+ - add BUG() inside stubs.
+ - update the commit message
 ---
 Changes in V2:
- - change xen/lib.h to xen/bug.h
- - remove inclusion of <asm/processor.h> as it's not needed.
+ - Nothing changed. Only rebase.
 ---
- xen/arch/riscv/include/asm/time.h | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/time.h
+ xen/arch/riscv/include/asm/event.h | 40 ++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/event.h
 
-diff --git a/xen/arch/riscv/include/asm/time.h b/xen/arch/riscv/include/asm/time.h
+diff --git a/xen/arch/riscv/include/asm/event.h b/xen/arch/riscv/include/asm/event.h
 new file mode 100644
-index 0000000000..2e359fa046
+index 0000000000..b6a76c0f5d
 --- /dev/null
-+++ b/xen/arch/riscv/include/asm/time.h
-@@ -0,0 +1,29 @@
++++ b/xen/arch/riscv/include/asm/event.h
+@@ -0,0 +1,40 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_RISCV_TIME_H__
-+#define __ASM_RISCV_TIME_H__
++#ifndef __ASM_RISCV_EVENT_H__
++#define __ASM_RISCV_EVENT_H__
 +
-+#include <xen/bug.h>
-+#include <asm/csr.h>
++#include <xen/lib.h>
 +
-+struct vcpu;
++void vcpu_mark_events_pending(struct vcpu *v);
 +
-+/* TODO: implement */
-+static inline void force_update_vcpu_system_time(struct vcpu *v) { BUG_ON("unimplemented"); }
-+
-+typedef unsigned long cycles_t;
-+
-+static inline cycles_t get_cycles(void)
++static inline int vcpu_event_delivery_is_enabled(struct vcpu *v)
 +{
-+	return csr_read(CSR_TIME);
++    BUG_ON("unimplemented");
++    return 0;
 +}
 +
-+#endif /* __ASM_RISCV_TIME_H__ */
++static inline int local_events_need_delivery(void)
++{
++    BUG_ON("unimplemented");
++    return 0;
++}
 +
++static inline void local_event_delivery_enable(void)
++{
++    BUG_ON("unimplemented");
++}
++
++/* No arch specific virq definition now. Default to global. */
++static inline bool arch_virq_is_global(unsigned int virq)
++{
++    return true;
++}
++
++#endif
 +/*
 + * Local variables:
 + * mode: C
