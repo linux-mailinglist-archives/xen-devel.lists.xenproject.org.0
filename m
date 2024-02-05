@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62A86849C0D
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 14:39:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676073.1051896 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCDA3849C39
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Feb 2024 14:52:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676083.1051906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzBs-0000fc-Rc; Mon, 05 Feb 2024 13:39:16 +0000
+	id 1rWzNv-0004Ox-Tj; Mon, 05 Feb 2024 13:51:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676073.1051896; Mon, 05 Feb 2024 13:39:16 +0000
+Received: by outflank-mailman (output) from mailman id 676083.1051906; Mon, 05 Feb 2024 13:51:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rWzBs-0000dN-OT; Mon, 05 Feb 2024 13:39:16 +0000
-Received: by outflank-mailman (input) for mailman id 676073;
- Mon, 05 Feb 2024 13:39:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rWzNv-0004Mb-QQ; Mon, 05 Feb 2024 13:51:43 +0000
+Received: by outflank-mailman (input) for mailman id 676083;
+ Mon, 05 Feb 2024 13:51:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=W3Sh=JO=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rWzBr-0000bx-Oa
- for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 13:39:15 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f32ff78f-c42b-11ee-98f5-efadbce2ee36;
- Mon, 05 Feb 2024 14:39:13 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id
- 4fb4d7f45d1cf-55ff4dbe6a8so3505902a12.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 05:39:13 -0800 (PST)
+ id 1rWzNu-0004MV-BL
+ for xen-devel@lists.xenproject.org; Mon, 05 Feb 2024 13:51:42 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b08ca260-c42d-11ee-8a45-1f161083a0e0;
+ Mon, 05 Feb 2024 14:51:41 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-40fdc500db5so5781195e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 05:51:41 -0800 (PST)
 Received: from [192.168.1.10] (host-92-3-248-192.as13285.net. [92.3.248.192])
  by smtp.gmail.com with ESMTPSA id
- t6-20020aa7d706000000b005605ebacec5sm1316929edq.43.2024.02.05.05.39.12
+ fj3-20020a05600c0c8300b0040fdd361c5fsm1902192wmb.47.2024.02.05.05.51.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Feb 2024 05:39:13 -0800 (PST)
+ Mon, 05 Feb 2024 05:51:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f32ff78f-c42b-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: b08ca260-c42d-11ee-8a45-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707140353; x=1707745153; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707141101; x=1707745901; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=XLD+1dJ8ux83BRuEoUgHNkrO0SO+RLAYOKnM2f3QAyc=;
-        b=bt/poVZvtEqycEH+ADhkPgM2/r9zO/UkeLtuoX0gHZpRSBEP9b5gtTc3pxEfhmVU6a
-         J9sGIjHT1R5PP1M8t5qvt8vGdfiSYlot4tPd+zKAEz6PL9bNpRZ4AR9hl4zRaTausfyn
-         DMA1IqFFX5ffEhqxK/QGCu4QayibVoI0L80CQ=
+        bh=oa4bBqi9S19tUVsoSzmhSdurXd96E8njIM7dJUC1EpY=;
+        b=RIh2AFyw0pWtWGXQL1pefOMBDy5hGa/ZoA9uSN+RwcNk536kpn4GD9BwAS9uQtccxu
+         m/QeVnDOXcoZiufclpcMadSkaknBG70euhW6VKJljbTwfK58rvAc5uwQhGhfz++2hI3e
+         SvhAItqIFnMDyYuvSzfryeI3j2ASUR3VVvOyY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707140353; x=1707745153;
+        d=1e100.net; s=20230601; t=1707141101; x=1707745901;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XLD+1dJ8ux83BRuEoUgHNkrO0SO+RLAYOKnM2f3QAyc=;
-        b=ZBQbI+HYjdGA2wU807aNJbOLsgMO7t8DtCMXJMxtlqkDTzcEO/grH7WrbpWRV6IbmP
-         lOVIvbFgy0hSvyajVWY/NNDtGhbz2b6mnoVACjxQv7ZzUhSJCHuX3Ys5+wKIzbhL2xw+
-         n31YAZKy82bp5pDz3m4Txj57FUICtYPhlvv+/NmjvORk50AyrWJG4xB4bqzDg7dBGVRr
-         l3Kktg651c9Y2GInU52w8NfehOMeIX2OT0iTBFsiKGP2q4w7+SfYyrRg3iA4/DhaOJqD
-         UL2fGMnhCelAcTNxo38jvpD+mdSCCqm/Q8RR3/mVgpYM1YPIM0Du22OzX65w2e6YT/EO
-         Xhsw==
-X-Gm-Message-State: AOJu0YyLIatOHYpvKqoiRk0PyVSuGVMTyunMbdEwctWCSeUNuiNHuBkb
-	ChDRnFZlwdlP/6wqKgqL9Kd9Ti6TC+L35oST/hGxcRvNjUQdUV7myX+2kalmeGQ=
-X-Google-Smtp-Source: AGHT+IFFl+BgrLXhvNem+b23szpWzo0Dmp46SOwDZqtr0uhPp6HTKgDrhlKQDccve/DaSSBPFRWbwg==
-X-Received: by 2002:aa7:d58b:0:b0:55f:dbb8:9163 with SMTP id r11-20020aa7d58b000000b0055fdbb89163mr5091899edq.37.1707140353466;
-        Mon, 05 Feb 2024 05:39:13 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCVnQzaiqmLcyao6a1BcwhYLexToqXEXHds1VEy4BVNNBD1RFGJZpBcMZaeSu54Wt3M10NUIbjCxKAO8y8qyJyjF5V33g6XVDGoZeAttIQG/hSRD7AxGrHicH3e9p3fqv1ADZMdIy68DC1neBoIneIPKq74s/rQTIr4WwcPQZRTuYVXZ/A7uGbu0CEbki1MzqvfG2PPepp99NGgJEKDIF4J1WApN7fKE33NbsUO7BKl/azd0Gbao8VjyY81jKSNmWmiSRGTyrZKKCY0QpxLkjw==
-Message-ID: <89c8e8bd-8a76-42e6-baee-0a03d021cdca@citrix.com>
-Date: Mon, 5 Feb 2024 13:39:12 +0000
+        bh=oa4bBqi9S19tUVsoSzmhSdurXd96E8njIM7dJUC1EpY=;
+        b=mKH0fPqjCZZxRic7J1bGXmfrbGSgg0KD6rNNn3evH+gRyXqfKeV+PDzSTocB4flPXL
+         LbpIVKZW+1kBrxoagqq+NP1xYFrdBhhHlT400KYpy0WbbZK1zF13aZK6p1Rm7DPzZXKV
+         LcGpGxIlAjsacK4P1YcxD6AefoAIvxyAXVxaY6e/TY8fX8x1kBdksmBlH5d92ULEPwz1
+         oW1ElLLEoVBrlF+MbbRf1Z/LWYk09JUDKZc4zJ48izdXtDPFpxKjg7qoR6/Yc4xIDLtL
+         mIp3j9gxvwL8ck9w3/ES1p9FpPCla1/FKt8IDQ0VtsirGXPL8FGcmSFJ9uutXXxmDIUs
+         DqbQ==
+X-Gm-Message-State: AOJu0YwrT4hfR9zjbbI6xMbDi6h4QOzjMbppts54d4gBQclRTC0FoIon
+	B6pOyUogMZyszRVMjkxaYwiFqbxTsjrwbnUzbtQqlUDArpabDm3OotMUgxf4QWE=
+X-Google-Smtp-Source: AGHT+IEIKbafgRlyI/ns248dlUKYhMt3avcs4W0vGOtzIFr7TL2F+9E8U4S4k9TqzPpuvJTtUIxssQ==
+X-Received: by 2002:a5d:6da9:0:b0:33b:3b86:b881 with SMTP id u9-20020a5d6da9000000b0033b3b86b881mr3160495wrs.38.1707141100725;
+        Mon, 05 Feb 2024 05:51:40 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUf6zHtOb7u5CxHNTdniPQ2/u/Fq0M8tVKk6y9+bv3O6ycNFaoe3kAF3ln5LFJm5+t2A/v8thc3qH0N0dLQfXgyQIuMnVKejPjUek8Ut5GiIbB63utlgAoENvfY4OTOWJEtt+s2D0Q19fCf65T5Ymxn4dDXjKOOePRcvGGkNeDnLf8n87s3RDxsgRLN2C4I98h5thRr11b5aYdq+7ga933tF5IDlfUBS4fX0A2dgXk/74BKDr/Qr5R3hfbjshGxNsNx4Jl9XQs7vxDUxEgATMLLctzpo+8HyHWsXwLOEuU+SLdsiXs=
+Message-ID: <f97088c6-ec2e-4c60-b91d-ec1a30d077df@citrix.com>
+Date: Mon, 5 Feb 2024 13:51:40 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/8] serial: drop serial_[rt]x_interrupt()'s regs
- parameter
+Subject: Re: [PATCH v3 8/8] consolidate do_bug_frame() / bug_fn_t
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Michal Orzel <michal.orzel@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
- <93aec041-70f6-4385-9a52-8808e0cea931@suse.com>
+ <f20d2cef-4435-4b9a-9ad8-61ceddb6bcba@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -133,14 +133,32 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <93aec041-70f6-4385-9a52-8808e0cea931@suse.com>
+In-Reply-To: <f20d2cef-4435-4b9a-9ad8-61ceddb6bcba@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05/02/2024 1:30 pm, Jan Beulich wrote:
-> They're simply not needed anymore.
+On 05/02/2024 1:32 pm, Jan Beulich wrote:
+> The type not being used in do_bug_frame() is suspicious. Apparently
+> that's solely because the type uses a pointer-to-const parameter,
+> when so far run_in_exception_handler() wanted functions taking pointer-
+> to-non-const. Expand use of const, in turn requiring common code's
+> do_bug_frame() as well as [gs]et_irq_regs() to also gain const. This
+> then brings the former function also closer to the common one, with
+> Arm's use of vaddr_t remaining as a difference.
 >
+> While there also replace the bogus use of hard tabs in [gs]et_irq_regs()
+> (I clearly didn't mean to put it in like this).
+
+I meant to query that at the time and clearly forgot to.
+
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
+I'm still confident we can get rid of the fake frame in the serial
+drivers, but this is an improvement nonetheless.
+
 Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+I'll rebase my work over this.  It's going to collide horribly.
+
+~Andrew
 
