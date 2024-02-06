@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6BCC84AB80
+	by mail.lfdr.de (Postfix) with ESMTPS id 78E5784AB7F
 	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 02:21:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676578.1052753 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.676582.1052792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXA8v-0007dJ-VH; Tue, 06 Feb 2024 01:20:57 +0000
+	id 1rXA8z-000099-9p; Tue, 06 Feb 2024 01:21:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676578.1052753; Tue, 06 Feb 2024 01:20:57 +0000
+Received: by outflank-mailman (output) from mailman id 676582.1052792; Tue, 06 Feb 2024 01:21:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXA8v-0007a8-QB; Tue, 06 Feb 2024 01:20:57 +0000
-Received: by outflank-mailman (input) for mailman id 676578;
- Tue, 06 Feb 2024 01:20:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXA8z-00006L-4t; Tue, 06 Feb 2024 01:21:01 +0000
+Received: by outflank-mailman (input) for mailman id 676582;
+ Tue, 06 Feb 2024 01:20:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+4KK=JP=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rXA8u-0007Lc-E7
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 01:20:56 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f9f6cc8f-c48d-11ee-8a47-1f161083a0e0;
- Tue, 06 Feb 2024 02:20:55 +0100 (CET)
-Received: by mail-lf1-x12e.google.com with SMTP id
- 2adb3069b0e04-51109060d6aso7221716e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 17:20:55 -0800 (PST)
+ id 1rXA8x-0007Zy-PD
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 01:20:59 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fb2ca541-c48d-11ee-98f5-efadbce2ee36;
+ Tue, 06 Feb 2024 02:20:58 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id
+ a640c23a62f3a-a36126ee41eso631826366b.2
+ for <xen-devel@lists.xenproject.org>; Mon, 05 Feb 2024 17:20:58 -0800 (PST)
 Received: from georged-x-u.eng.citrite.net ([185.25.67.249])
  by smtp.gmail.com with ESMTPSA id
- cu9-20020a170906ba8900b00a3726a5e5fdsm486803ejd.95.2024.02.05.17.20.53
+ cu9-20020a170906ba8900b00a3726a5e5fdsm486803ejd.95.2024.02.05.17.20.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Feb 2024 17:20:53 -0800 (PST)
+ Mon, 05 Feb 2024 17:20:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9f6cc8f-c48d-11ee-8a47-1f161083a0e0
+X-Inumbo-ID: fb2ca541-c48d-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1707182455; x=1707787255; darn=lists.xenproject.org;
+        d=cloud.com; s=cloud; t=1707182456; x=1707787256; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UyL8iRnNOrzO0tXt0n8exVji9pmykaMWjAoTvDaMaqU=;
-        b=OWHkK360S0r4Ul1/tP7Q4uxYpaaG9VAlVUaP7/TbyXbh786wlEY2kaTyTRq4BsPlVU
-         QmuJPmEcLKgmJVXq1hOTeN2s/sxU/Wk1F96HWzhXJZrIjm448KnLnPhRJgb9zho1d1GX
-         N0u4XkO5N8l6QkysRwRaA2cXU/dXrfZAdnXAk=
+        bh=L70F5M+Yt0degs+BEb21BR1J/47RzHBiPjSDLgFIrFk=;
+        b=j1EYUQ+fHKnTmqxI0VGdNQ9+dFBX/mF06iiq9gWHcVDBC5n+b5QaeSk8SmHxFSrqFE
+         kBd+ISy/Kafa9rP272XnDVTSsQ4/FJZeCK1PFkqgL/feoFT6sA1djl+SK/c9bYvc6SIN
+         89Vao6Z+tTAR+CGjNPmtOEwtFRY6oeFc05lUU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707182455; x=1707787255;
+        d=1e100.net; s=20230601; t=1707182456; x=1707787256;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=UyL8iRnNOrzO0tXt0n8exVji9pmykaMWjAoTvDaMaqU=;
-        b=Xaxyo93gf30AOsLQf9jh2woG/VDoH5BSkNm01b+omIk5ng8JQdljjs544KWzTmSpgo
-         71YyNEMQKQE8A2QMp53F2AQur1RvTg8RUIsQI1URDevmNrlb0lBp6Ff2TL14fpesRjVk
-         tpGLKvsv8Aj3Cmdo4EmMZagjVKaQgg+wTRkI0yHBoalFpyIjuKm8qNdUOtwsG9NuIDIz
-         xLsKSRLF6nO76qA75w2FY7SnBOCg8UX23HoB6aJDbqp7W0EmTpZqzoKCQgcpwIdvpPDi
-         3iujbUwccQJeeaZBol1arpx1kDJDkj1lAqS41O38BpRYfNJ2QtgtFcA+7+yHRL1/bMR2
-         fMyA==
-X-Gm-Message-State: AOJu0YxLJIIThWEEQsw+mUDHOIrPkANdC1nBU10+v/vHd+yqmoL8x5Vi
-	UXYU9IyZjNA/rZvcU62iy0D71XApR6e0BAEBGX4KUEk2Gkfmi962OOtxXdmdT4l29/3vWdsX0J+
-	NS00=
-X-Google-Smtp-Source: AGHT+IFXWt1zdRs1Qg+qzCQpO7rNI1yCQJ/5UArCsgophMlXMPxm+ZJT0/q9e/bXuOnjUq/kUe4MRw==
-X-Received: by 2002:ac2:533c:0:b0:511:525a:a527 with SMTP id f28-20020ac2533c000000b00511525aa527mr491189lfh.49.1707182455217;
-        Mon, 05 Feb 2024 17:20:55 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCXjUY728lp6AlPZ93eaAYRGO8gG2OWdp8QzNUYPwV1CfEh1Q0r0oPr6krNNWob5guieNOn3eVe3Gu+9KBHYlER6WPdwbRZqLCz7rCHjkEzZgfoCBomlAuH92z+4Ie1ROU1ie4HOtf/2mMMwopr+C9/ZXX5N0Frs0hDw8/lTyYlrrTLMQJO3HDR4N9Djn7JyScRfDWPxQqgMjrjKaakGd8+fDpW6sg4yRFnj321K
+        bh=L70F5M+Yt0degs+BEb21BR1J/47RzHBiPjSDLgFIrFk=;
+        b=h37pmgz5+BpVPJQ2u17vd2A6jMT4VAQMw7wcefuN1LgbF5rG4s8YuJ19yWkxETy/DZ
+         mgK+gxkzYKVCCEI6/ia30MkQU0JdH7kFBCfvST4E+Gyaf6QA16WaoRPJKp7rvNQGS1Um
+         sxWFLdyTZF0C1xvajiD3835OFVHiZt+uYtgZfFuV49A41TJH06rx7uU18NKGit5XoO+M
+         hfKaLqP1ednf+9FuAHeLSlBf6hI84n7Akb1kB5JyUVdbKq2NqKNreyUG0U9FMQUyXF99
+         jdwbHO46bE0RBY+ADMkCtCxM11EfTzjPKDA61wNrITDOPDHGOALYB0Fr6j9XWXh7S16G
+         ooiw==
+X-Gm-Message-State: AOJu0YwEh+WfO5aO8EyW7YilnjAzX6WMZLziO9yZUExwfLksvrvl/46S
+	mD0lx7ZeUWTjpp3po++a83v+vfpVEIQioCi96z+A3cgpsUVMKnJQvxIReEHNlzT91sIYH36qY1s
+	Z2dE=
+X-Google-Smtp-Source: AGHT+IEXW5qmvPYuFsiInq8Uq3VpZtdGvVqLvFwDeeB+2lRmMIo5xrqr5HiC4wRrxRfOjM99F7cohw==
+X-Received: by 2002:a17:906:2898:b0:a35:fdf9:e7e4 with SMTP id o24-20020a170906289800b00a35fdf9e7e4mr383456ejd.20.1707182456690;
+        Mon, 05 Feb 2024 17:20:56 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUdFVxDXqUTy+KWuGDk9yEfcrUsYbrUs0c2vEvbCgp4OIQ4VwxWTe0XpXtjdTOM7vPlMl4shxt7HWuNdwmidnyMU7/6r2m9xA7zHup0o0TUvBeGNE0RNNNS+6A18/SRccuDndw6os5gq7hMMgpaLvPcTCJs7wREdDrF1KmzBaY=
 From: George Dunlap <george.dunlap@cloud.com>
 To: xen-devel@lists.xenproject.org
 Cc: George Dunlap <george.dunlap@cloud.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH 3/6] xen/hvm: Move other hvm_function_table booleans into the caps bitfield
-Date: Tue,  6 Feb 2024 01:20:48 +0000
-Message-Id: <20240206012051.3564035-4-george.dunlap@cloud.com>
+	Wei Liu <wl@xen.org>
+Subject: [PATCH 4/6] nestedsvm: Disable TscRateMSR
+Date: Tue,  6 Feb 2024 01:20:49 +0000
+Message-Id: <20240206012051.3564035-5-george.dunlap@cloud.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20240206012051.3564035-1-george.dunlap@cloud.com>
 References: <20240206012051.3564035-1-george.dunlap@cloud.com>
@@ -93,10 +91,46 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Moving them all together has several advantages:
- * Collects them all in one part of the struct
- * The `caps` field means that we can drop the "_supported" suffix, as it's
-   clear what is meant.
+The primary purpose of TSC scaling, from our perspective, is to
+maintain the fiction of an "invariant TSC" across migrates between
+platforms with different clock speeds.
+
+On AMD, the TscRateMSR CPUID bit is unconditionally enabled in the
+"host cpuid", even if the hardware doesn't actually support it.
+According to c/s fd14a1943c4 ("nestedsvm: Support TSC Rate MSR"),
+testing showed that emulating TSC scaling in an L1 was more expensive
+than emulating TSC scaling on an L0 (due to extra sets of vmexit /
+vmenter).
+
+However, the current implementation seems to be broken.
+
+First of all, the final L2 scaling ratio should be a composition of
+the L0 scaling ratio and the L1 scaling ratio; there's no indication
+this is being done anywhere.
+
+Secondly, it's not clear that the L1 tsc scaling ratio actually
+affects the L0 tsc scaling ratio.  The stored value (ns_tscratio) is
+used to affect the tsc *offset*, but doesn't seem to actually be
+factored into d->hvm.tsc_scaling_ratio.  (Which shouldn't be
+per-domain anyway, but per-vcpu.)  Having the *offset* scaled
+according to the nested scaling without the actual RDTSC itself also
+being scaled has got to produce inconsistent results.
+
+For now, just disable the functionality entirely until we can
+implement it properly:
+
+- Don't set TSCRATEMSR in the host CPUID policy
+
+- Remove MSR_AMD64_TSC_RATIO emulation handling, so that the guest
+  guests a #GP if it tries to access them (as it should when
+  TSCRATEMSR is clear)
+
+- Remove ns_tscratio from struct nestedhvm, and all code that touches
+  it
+
+Unfortunately this means ripping out the scaling calculation stuff as
+well, since it's only used in the nested case; it's there in the git
+tree if we need it for reference when we re-introduce it.
 
 Signed-off-by: George Dunlap <george.dunlap@cloud.com>
 ---
@@ -104,187 +138,147 @@ CC: Jan Beulich <jbeulich@suse.com>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>
 CC: "Roger Pau Monné" <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
-CC: Jun Nakajima <jun.nakajima@intel.com>
-CC: Kevin Tian <kevin.tian@intel.com>
 ---
- xen/arch/x86/hvm/hvm.c             |  6 +++---
- xen/arch/x86/hvm/svm/svm.c         |  2 +-
- xen/arch/x86/hvm/vlapic.c          |  4 ++--
- xen/arch/x86/hvm/vmx/vmcs.c        |  2 +-
- xen/arch/x86/hvm/vmx/vmx.c         |  8 ++++----
- xen/arch/x86/include/asm/hvm/hvm.h | 29 ++++++++++++++---------------
- 6 files changed, 25 insertions(+), 26 deletions(-)
+ xen/arch/x86/cpu-policy.c                    |  3 +-
+ xen/arch/x86/hvm/svm/nestedsvm.c             |  2 -
+ xen/arch/x86/hvm/svm/svm.c                   | 57 --------------------
+ xen/arch/x86/include/asm/hvm/svm/nestedsvm.h |  5 --
+ 4 files changed, 1 insertion(+), 66 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index ae9d4c4756..aa2f2d054a 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -136,7 +136,7 @@ static struct notifier_block cpu_nfb = {
- 
- static bool __init hap_supported(struct hvm_function_table *fns)
- {
--    if ( !fns->hap_supported )
-+    if ( !fns->caps.hap )
-     {
-         printk("HVM: Hardware Assisted Paging (HAP) not detected\n");
-         return false;
-@@ -144,7 +144,7 @@ static bool __init hap_supported(struct hvm_function_table *fns)
- 
-     if ( !opt_hap_enabled )
-     {
--        fns->hap_supported = 0;
-+        fns->caps.hap = 0;
-         printk("HVM: Hardware Assisted Paging (HAP) detected but disabled\n");
-         return false;
-     }
-@@ -190,7 +190,7 @@ static int __init cf_check hvm_enable(void)
+diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
+index 10079c26ae..d71abbc44a 100644
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -407,8 +407,7 @@ static void __init calculate_host_policy(void)
+                                (1u << SVM_FEATURE_PAUSEFILTER) |
+                                (1u << SVM_FEATURE_DECODEASSISTS));
+         /* Enable features which are always emulated. */
+-        p->extd.raw[0xa].d |= ((1u << SVM_FEATURE_VMCBCLEAN) |
+-                               (1u << SVM_FEATURE_TSCRATEMSR));
++        p->extd.raw[0xa].d |= (1u << SVM_FEATURE_VMCBCLEAN);
      }
  
-     if ( !opt_altp2m_enabled )
--        hvm_funcs.altp2m_supported = 0;
-+        hvm_funcs.caps.altp2m = 0;
+     /* 0x000000ce  MSR_INTEL_PLATFORM_INFO */
+diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
+index ee9602f5c8..d02a59f184 100644
+--- a/xen/arch/x86/hvm/svm/nestedsvm.c
++++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+@@ -146,8 +146,6 @@ int cf_check nsvm_vcpu_reset(struct vcpu *v)
+     svm->ns_msr_hsavepa = INVALID_PADDR;
+     svm->ns_ovvmcb_pa = INVALID_PADDR;
  
-     if ( opt_hvm_fep )
-         warning_add(warning_hvm_fep);
+-    svm->ns_tscratio = DEFAULT_TSC_RATIO;
+-
+     svm->ns_cr_intercepts = 0;
+     svm->ns_dr_intercepts = 0;
+     svm->ns_exception_intercepts = 0;
 diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 40bc1ffbc6..b551eac807 100644
+index b551eac807..34b9f603bc 100644
 --- a/xen/arch/x86/hvm/svm/svm.c
 +++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -2580,7 +2580,7 @@ const struct hvm_function_table * __init start_svm(void)
-     if ( !printed )
-         printk(" - none\n");
+@@ -777,43 +777,6 @@ static int cf_check svm_get_guest_pat(struct vcpu *v, u64 *gpat)
+     return 1;
+ }
  
--    svm_function_table.hap_supported = cpu_has_svm_npt;
-+    svm_function_table.caps.hap = cpu_has_svm_npt;
-     svm_function_table.caps.hap_superpage_2mb = true;
-     svm_function_table.caps.hap_superpage_1gb = cpu_has_page1gb;
+-static uint64_t scale_tsc(uint64_t host_tsc, uint64_t ratio)
+-{
+-    uint64_t mult, frac, scaled_host_tsc;
+-
+-    if ( ratio == DEFAULT_TSC_RATIO )
+-        return host_tsc;
+-
+-    /*
+-     * Suppose the most significant 32 bits of host_tsc and ratio are
+-     * tsc_h and mult, and the least 32 bits of them are tsc_l and frac,
+-     * then
+-     *     host_tsc * ratio * 2^-32
+-     *     = host_tsc * (mult * 2^32 + frac) * 2^-32
+-     *     = host_tsc * mult + (tsc_h * 2^32 + tsc_l) * frac * 2^-32
+-     *     = host_tsc * mult + tsc_h * frac + ((tsc_l * frac) >> 32)
+-     *
+-     * Multiplications in the last two terms are between 32-bit integers,
+-     * so both of them can fit in 64-bit integers.
+-     *
+-     * Because mult is usually less than 10 in practice, it's very rare
+-     * that host_tsc * mult can overflow a 64-bit integer.
+-     */
+-    mult = ratio >> 32;
+-    frac = ratio & ((1ULL << 32) - 1);
+-    scaled_host_tsc  = host_tsc * mult;
+-    scaled_host_tsc += (host_tsc >> 32) * frac;
+-    scaled_host_tsc += ((host_tsc & ((1ULL << 32) - 1)) * frac) >> 32;
+-
+-    return scaled_host_tsc;
+-}
+-
+-static uint64_t svm_get_tsc_offset(uint64_t host_tsc, uint64_t guest_tsc,
+-    uint64_t ratio)
+-{
+-    return guest_tsc - scale_tsc(host_tsc, ratio);
+-}
+-
+ static void cf_check svm_set_tsc_offset(struct vcpu *v, u64 offset, u64 at_tsc)
+ {
+     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
+@@ -832,18 +795,8 @@ static void cf_check svm_set_tsc_offset(struct vcpu *v, u64 offset, u64 at_tsc)
  
-diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
-index 71a4b954b0..dcbcf4a1fe 100644
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -1326,7 +1326,7 @@ int vlapic_has_pending_irq(struct vcpu *v)
-     if ( irr == -1 )
-         return -1;
- 
--    if ( hvm_funcs.virtual_intr_delivery_enabled &&
-+    if ( hvm_funcs.caps.virtual_intr_delivery &&
-          !nestedhvm_vcpu_in_guestmode(v) )
-         return irr;
- 
-@@ -1361,7 +1361,7 @@ int vlapic_ack_pending_irq(struct vcpu *v, int vector, bool force_ack)
-     int isr;
- 
-     if ( !force_ack &&
--         hvm_funcs.virtual_intr_delivery_enabled )
-+         hvm_funcs.caps.virtual_intr_delivery )
-         return 1;
- 
-     /* If there's no chance of using APIC assist then bail now. */
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index 53f9d81aa9..aff69d5320 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -112,7 +112,7 @@ static int cf_check parse_ept_param_runtime(const char *s)
-     struct domain *d;
-     int val;
- 
--    if ( !cpu_has_vmx_ept || !hvm_funcs.hap_supported ||
-+    if ( !cpu_has_vmx_ept || !hvm_funcs.caps.hap ||
-          !(hvm_funcs.caps.hap_superpage_2mb ||
-            hvm_funcs.caps.hap_superpage_1gb) )
+     if ( nestedhvm_vcpu_in_guestmode(v) )
      {
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 9cfc0140b4..4bcf436d2c 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -2963,7 +2963,7 @@ const struct hvm_function_table * __init start_vmx(void)
-         return NULL;
+-        struct nestedsvm *svm = &vcpu_nestedsvm(v);
+-
+         n2_tsc_offset = vmcb_get_tsc_offset(n2vmcb) -
+                         vmcb_get_tsc_offset(n1vmcb);
+-        if ( svm->ns_tscratio != DEFAULT_TSC_RATIO )
+-        {
+-            uint64_t guest_tsc = hvm_get_guest_tsc_fixed(v, at_tsc);
+-
+-            n2_tsc_offset = svm_get_tsc_offset(guest_tsc,
+-                                               guest_tsc + n2_tsc_offset,
+-                                               svm->ns_tscratio);
+-        }
+         vmcb_set_tsc_offset(n1vmcb, offset);
      }
  
--    vmx_function_table.singlestep_supported = cpu_has_monitor_trap_flag;
-+    vmx_function_table.caps.singlestep = cpu_has_monitor_trap_flag;
+@@ -1921,10 +1874,6 @@ static int cf_check svm_msr_read_intercept(
+         *msr_content = nsvm->ns_msr_hsavepa;
+         break;
  
-     if ( cpu_has_vmx_dt_exiting )
-         vmx_function_table.set_descriptor_access_exiting =
-@@ -2986,8 +2986,8 @@ const struct hvm_function_table * __init start_vmx(void)
-                 printk("VMX: Disabling executable EPT superpages due to CVE-2018-12207\n");
-         }
- 
--        vmx_function_table.hap_supported = 1;
--        vmx_function_table.altp2m_supported = 1;
-+        vmx_function_table.caps.hap = 1;
-+        vmx_function_table.caps.altp2m = 1;
- 
-         vmx_function_table.caps.hap_superpage_2mb = cpu_has_vmx_ept_2mb;
-         vmx_function_table.caps.hap_superpage_1gb = cpu_has_vmx_ept_1gb;
-@@ -3000,7 +3000,7 @@ const struct hvm_function_table * __init start_vmx(void)
-         vmx_function_table.update_eoi_exit_bitmap = vmx_update_eoi_exit_bitmap;
-         vmx_function_table.process_isr = vmx_process_isr;
-         vmx_function_table.handle_eoi = vmx_handle_eoi;
--        vmx_function_table.virtual_intr_delivery_enabled = true;
-+        vmx_function_table.caps.virtual_intr_delivery = true;
-     }
- 
-     if ( cpu_has_vmx_posted_intr_processing )
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index f50476f50f..bbd83a8275 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -86,20 +86,19 @@ struct hvm_vcpu_nonreg_state {
- struct hvm_function_table {
-     const char *name;
- 
--    /* Support Hardware-Assisted Paging? */
--    bool hap_supported;
+-    case MSR_AMD64_TSC_RATIO:
+-        *msr_content = nsvm->ns_tscratio;
+-        break;
 -
--    /* Necessary hardware support for alternate p2m's? */
--    bool altp2m_supported;
--    bool singlestep_supported;
+     case MSR_AMD_OSVW_ID_LENGTH:
+     case MSR_AMD_OSVW_STATUS:
+         if ( !d->arch.cpuid->extd.osvw )
+@@ -2103,12 +2052,6 @@ static int cf_check svm_msr_write_intercept(
+             goto gpf;
+         break;
+ 
+-    case MSR_AMD64_TSC_RATIO:
+-        if ( msr_content & TSC_RATIO_RSVD_BITS )
+-            goto gpf;
+-        nsvm->ns_tscratio = msr_content;
+-        break;
 -
--    /* Hardware virtual interrupt delivery enable? */
--    bool virtual_intr_delivery_enabled;
+     case MSR_IA32_MCx_MISC(4): /* Threshold register */
+     case MSR_F10_MC4_MISC1 ... MSR_F10_MC4_MISC3:
+         /*
+diff --git a/xen/arch/x86/include/asm/hvm/svm/nestedsvm.h b/xen/arch/x86/include/asm/hvm/svm/nestedsvm.h
+index 406fc082b1..45d658ad01 100644
+--- a/xen/arch/x86/include/asm/hvm/svm/nestedsvm.h
++++ b/xen/arch/x86/include/asm/hvm/svm/nestedsvm.h
+@@ -18,11 +18,6 @@ struct nestedsvm {
+      */
+     uint64_t ns_ovvmcb_pa;
+ 
+-    /* virtual tscratio holding the value l1 guest writes to the
+-     * MSR_AMD64_TSC_RATIO MSR.
+-     */
+-    uint64_t ns_tscratio;
 -
-     struct {
-         /* Indicate HAP capabilities. */
--        bool hap_superpage_1gb:1,
--            hap_superpage_2mb:1;
-+        bool hap:1,
-+             hap_superpage_1gb:1,
-+             hap_superpage_2mb:1,
-+
-+            /* Altp2m capabilities */
-+            altp2m:1,
-+            singlestep:1,
-+            
-+            /* Hardware virtual interrupt delivery enable? */
-+            virtual_intr_delivery;
-+
-     } caps;
- 
-     /*
-@@ -642,18 +641,18 @@ static inline void hvm_enable_msr_interception(struct domain *d, uint32_t msr)
- 
- static inline bool hvm_is_singlestep_supported(void)
- {
--    return hvm_funcs.singlestep_supported;
-+    return hvm_funcs.caps.singlestep;
- }
- 
- static inline bool hvm_hap_supported(void)
- {
--    return hvm_funcs.hap_supported;
-+    return hvm_funcs.caps.hap;
- }
- 
- /* returns true if hardware supports alternate p2m's */
- static inline bool hvm_altp2m_supported(void)
- {
--    return hvm_funcs.altp2m_supported;
-+    return hvm_funcs.caps.altp2m;
- }
- 
- /* updates the current hardware p2m */
+     /* Cached real intercepts of the l2 guest */
+     uint32_t ns_cr_intercepts;
+     uint32_t ns_dr_intercepts;
 -- 
 2.25.1
 
