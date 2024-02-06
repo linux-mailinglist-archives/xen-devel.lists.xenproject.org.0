@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE24B84B3D3
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 12:46:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676826.1053121 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A1684B3EA
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 12:47:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676830.1053132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXJtK-0000dm-5C; Tue, 06 Feb 2024 11:45:30 +0000
+	id 1rXJuk-00018Q-Eq; Tue, 06 Feb 2024 11:46:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676826.1053121; Tue, 06 Feb 2024 11:45:30 +0000
+Received: by outflank-mailman (output) from mailman id 676830.1053132; Tue, 06 Feb 2024 11:46:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXJtK-0000b9-29; Tue, 06 Feb 2024 11:45:30 +0000
-Received: by outflank-mailman (input) for mailman id 676826;
- Tue, 06 Feb 2024 11:45:28 +0000
+	id 1rXJuk-00016s-Bj; Tue, 06 Feb 2024 11:46:58 +0000
+Received: by outflank-mailman (input) for mailman id 676830;
+ Tue, 06 Feb 2024 11:46:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gRx7=JP=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rXJtI-0000b3-RL
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 11:45:28 +0000
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [2a00:1450:4864:20::435])
+ <SRS0=JoWx=JP=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1rXJui-000164-Su
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 11:46:56 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 380f825f-c4e5-11ee-98f5-efadbce2ee36;
- Tue, 06 Feb 2024 12:45:26 +0100 (CET)
-Received: by mail-wr1-x435.google.com with SMTP id
- ffacd0b85a97d-33934567777so559587f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 03:45:26 -0800 (PST)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- y8-20020adff148000000b0033b40a3f92asm1922876wro.25.2024.02.06.03.45.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Feb 2024 03:45:25 -0800 (PST)
+ id 6c90067a-c4e5-11ee-98f5-efadbce2ee36;
+ Tue, 06 Feb 2024 12:46:54 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-55a90a0a1a1so6950090a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 03:46:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,74 +40,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 380f825f-c4e5-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 6c90067a-c4e5-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707219926; x=1707824726; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=Tka5qtyLrYE27vOZvMawkfiBkGIW5D3nt1DAHLzndpU=;
-        b=Vi46zJC/LO3B3Orj1M8bKwqpQTspwdX/MCrKmH3QlZV5oZeDgVOvJtJfDA2XQq5hZv
-         VB8GEd3ybbrOoFXwx16gLT7WFizNSKiCFBZ7H2whhg3vZouMv06yvS8nSVEZmvE5Ekbl
-         ZCD32TWGkn8PHbOz9dRU7a0U7pmRUTWsIwySM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707219926; x=1707824726;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1707220014; x=1707824814; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Tka5qtyLrYE27vOZvMawkfiBkGIW5D3nt1DAHLzndpU=;
-        b=T9UpbcCeus1BlGmf793kfRxlFo3Zdhp/2bq7hYVqn+ufk2L7ZzVhSZ4wNXQBC4rG2d
-         K9Kj0SZaEFGP7mJ0x86Zq2g5JiyBeA9XqVJB0RDIIBvhmmH4Ei78Kg/IUbBtTr71lcHG
-         /7ndG3RQQ0vBRKoAgVShNFunhAHpIZ7KFpIvhaOqZzyBx76WfFUVAGOCgZtzXmLZhDdU
-         E4RKSCkEhMl/839k4ZVcH7T8f8wSzV0SZjau6sFz54zWlg8j2+gkk71PxFeUBtvS0Vbx
-         XUOcm+yW5D73kDYDRz3UiE0kWpcld4SMFyxZFJkuKwX7E46qhqiMAQxdeiXFMKRMnI87
-         diWw==
-X-Gm-Message-State: AOJu0YzrGJ5v+fQwAzbzO/stgJp/8j8th8xVHXa1O+yQJCaIXgzJ+6KJ
-	5R2xmtPljAfVzZCNmBNNfAt4wnP++zLI40zZwxtQ8oZcSZzjILDwQy1KlLLNDqo=
-X-Google-Smtp-Source: AGHT+IFKvVsfnNXDXHhgHwWadUcH1NTA60yZQO+vuApHBTFW3qvVaiNBBIo8N57FuQo+ftuit0uCDQ==
-X-Received: by 2002:a5d:4c8f:0:b0:33b:4649:9943 with SMTP id z15-20020a5d4c8f000000b0033b46499943mr1248257wrs.52.1707219926226;
-        Tue, 06 Feb 2024 03:45:26 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCViLwz0+EKonMwihsmyiI1usf71NwAnC05iY5C+w3hyTs3np5UcY0JleRRLVc8hzo/hHcWhMtK4/NaL
-Date: Tue, 6 Feb 2024 11:45:25 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/4] block-common: Fix same_vm for no targets
-Message-ID: <cd9e0194-5814-4735-bca4-df2577102c19@perard>
-References: <20240201183024.145424-1-jandryuk@gmail.com>
- <20240201183024.145424-2-jandryuk@gmail.com>
+        bh=p8/oMxMR+vfjnyX3RtwcY6FGZAgbqksWkgFNdCxGN/Y=;
+        b=EQ5WZs7JcdFtBZNvzSmBX3/hRBHC5C5LACW2/LhhBs60kqkT0pOsfvTzvFewiRk82I
+         7wcGoT1vTHISg9DvgLoAptggzDwSJOmStroas1ECsUS4ZJH1Avn2VvI+gyH2yCheouMK
+         zyKqD1n09LWklp6KfsvQP+Ms9mWm4+d9B11N78pM57W0q9g38UACGTMKhlctLQbdQRkQ
+         QNo8liJpYoGnyhoKArVB0gm9FlvxvcUCKd0i5p6cQd3R7WRCRj87uJo04KknBLW/jfG+
+         8dKYuRHgdpbQMsSvZEtFQ1fWsaTQFQLQBBUX6X4n2C056wMLAeMwywk2IcIhnKaCI8xz
+         YPqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707220014; x=1707824814;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=p8/oMxMR+vfjnyX3RtwcY6FGZAgbqksWkgFNdCxGN/Y=;
+        b=aegREF0jhLUCT4TrVXv6Oc2FM8SexKXyMB+Q0kb7QaJfoEgtLaox0tavPiQNKJrgRu
+         iWlOwbLAPtZqepxg7Vi76cBN2K9jx9xpLDzbjtsj6uWTcfsFWYSlAVgOI2B7K9lYpbIS
+         7NyJW5WAR+GieKTcCL0WvJB7bECvWjM7vieuLkspCfFZueIjSsPUNjtOXmLXlS1H24ep
+         XJN5ppl4nWpX75CVTTw8T8E/z55WX5aeYO2Xq9Z3Z9eKK8+K7Su59E9qOntU9GmeJTeB
+         rLEZ0BZGs0M8O6nHHHI3IsMYFhr7Sqw/FvySkcAN5nWdlMHEt96lJjFQ3b1j8u2IvVIg
+         7qUQ==
+X-Gm-Message-State: AOJu0Yy77FyB//GWJAAraFkpyPy24V97PtlwBB7iob+NifFyDWi5LBDF
+	jyGevRe4tOdP5jzqFLVMEkjhq87hhKz2DXR2cn+310zN7v8GylgVrcy+NpyNkDqPOXaCHMNgZF3
+	Y0kZffhm2g2nmNuPsGwhUblC/11i+eJDMwlnVOw==
+X-Google-Smtp-Source: AGHT+IG6CgiBWyW3Ari4+zP/yA0q67PInJczVKi7aOcOSsudE+rjN7rZMBSBjfm339oApfWkXUMJqgcEExwDjHTI9qQ=
+X-Received: by 2002:aa7:d643:0:b0:55f:fba9:de8c with SMTP id
+ v3-20020aa7d643000000b0055ffba9de8cmr1418413edr.21.1707220014002; Tue, 06 Feb
+ 2024 03:46:54 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240201183024.145424-2-jandryuk@gmail.com>
+References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
+ <20240129171811.21382-6-carlo.nonato@minervasys.tech> <49827753-14f1-42cc-8791-27c5400e6e50@suse.com>
+In-Reply-To: <49827753-14f1-42cc-8791-27c5400e6e50@suse.com>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Tue, 6 Feb 2024 12:46:43 +0100
+Message-ID: <CAG+AhRX82h40t53LB2h91A6N0fCVafyaCGQn7Pwmn6GZ+RM+mQ@mail.gmail.com>
+Subject: Re: [PATCH v6 05/15] xen: extend domctl interface for cache coloring
+To: Jan Beulich <jbeulich@suse.com>
+Cc: andrea.bastoni@minervasys.tech, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Feb 01, 2024 at 01:30:21PM -0500, Jason Andryuk wrote:
-> same_vm is broken when the two main domains do not have targets.  otvm
-> and targetvm are both missing, which means they get set to -1 and then
-> converted to empty strings:
-> 
-> ++10697+ local targetvm=-1
-> ++10697+ local otvm=-1
-> ++10697+ otvm=
-> ++10697+ othervm=/vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4
-> ++10697+ targetvm=
-> ++10697+ local frontend_uuid=/vm/844dea4e-44f8-4e3e-8145-325132a31ca5
-> 
-> The final comparison returns true since the two empty strings match:
-> 
-> ++10697+ '[' /vm/844dea4e-44f8-4e3e-8145-325132a31ca5 = /vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4 -o '' = /vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4 -o /vm/844dea4e-44f8-4e3e-8145-325132a31ca5 = '' -o '' = '' ']'
-> 
-> Replace -1 with distinct strings indicating the lack of a value and
-> remove the collescing to empty stings.  The strings themselves will no
-> longer match, and that is correct.
-> 
-> ++12364+ '[' /vm/844dea4e-44f8-4e3e-8145-325132a31ca5 = /vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4 -o 'No target' = /vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4 -o /vm/844dea4e-44f8-4e3e-8145-325132a31ca5 = 'No other target' -o 'No target' = 'No other target' ']'
-> 
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+Hi Jan,
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+On Thu, Feb 1, 2024 at 2:51=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 29.01.2024 18:18, Carlo Nonato wrote:
+> > @@ -858,6 +859,16 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t=
+) u_domctl)
+> >                  __HYPERVISOR_domctl, "h", u_domctl);
+> >          break;
+> >
+> > +    case XEN_DOMCTL_set_llc_colors:
+> > +        if ( !llc_coloring_enabled )
+> > +            break;
+>
+> With "ret" still being 0, this amounts to "successfully ignored". Ought
+> to be -EOPNOTSUPP, I guess.
+>
+> > +        ret =3D domain_set_llc_colors_domctl(d, &op->u.set_llc_colors)=
+;
+> > +        if ( ret =3D=3D -EEXIST )
+> > +            printk(XENLOG_ERR
+> > +                   "Can't set LLC colors on an already created domain\=
+n");
+>
+> If at all a dprintk(). But personally I think even that's too much - we
+> don't do so elsewhere, I don't think.
+>
+> > --- a/xen/common/llc-coloring.c
+> > +++ b/xen/common/llc-coloring.c
+> > @@ -4,6 +4,7 @@
+> >   *
+> >   * Copyright (C) 2022 Xilinx Inc.
+> >   */
+> > +#include <xen/guest_access.h>
+> >  #include <xen/keyhandler.h>
+> >  #include <xen/llc-coloring.h>
+> >  #include <xen/param.h>
+> > @@ -229,6 +230,30 @@ int __init dom0_set_llc_colors(struct domain *d)
+> >      return domain_check_colors(d);
+> >  }
+> >
+> > +int domain_set_llc_colors_domctl(struct domain *d,
+> > +                                 const struct xen_domctl_set_llc_color=
+s *config)
+>
+> What purpose has the "domctl" in the function name?
+>
+> > +{
+> > +    unsigned int *colors;
+> > +
+> > +    if ( d->num_llc_colors )
+> > +        return -EEXIST;
+> > +
+> > +    if ( !config->num_llc_colors )
+> > +        return domain_set_default_colors(d);
+> > +
+> > +    colors =3D alloc_colors(config->num_llc_colors);
+> > +    if ( !colors )
+> > +        return -ENOMEM;
+>
+> Hmm, I see here you call the function without first having bounds checked
+> the input. But in case of too big a value, -ENOMEM is inappropriate, so
+> such a check wants adding up front anyway.
+>
+> > +    if ( copy_from_guest(colors, config->llc_colors, config->num_llc_c=
+olors) )
+> > +        return -EFAULT;
+>
+> There again wants to be a check that the pointed to values are the same,
+> or at least of the same size. Else you'd need to do element-wise copy.
 
-Thanks,
+Sorry to bring this back again, but I've just noticed copy_from_guest()
+already checks for type compatibility. For what regards the size I don't th=
+ink
+I understood what to check. colors is defined to be of the same size of
+config->llc_colors.
 
--- 
-Anthony PERARD
+Thanks.
+
+> > +    d->llc_colors =3D colors;
+> > +    d->num_llc_colors =3D config->num_llc_colors;
+> > +
+> > +    return domain_check_colors(d);
+>
+> And if this fails, you leave the domain with the bad settings? Shouldn't
+> you check and only then store pointer and count?
+>
+> > --- a/xen/include/public/domctl.h
+> > +++ b/xen/include/public/domctl.h
+> > @@ -1190,6 +1190,13 @@ struct xen_domctl_vmtrace_op {
+> >  typedef struct xen_domctl_vmtrace_op xen_domctl_vmtrace_op_t;
+> >  DEFINE_XEN_GUEST_HANDLE(xen_domctl_vmtrace_op_t);
+> >
+> > +struct xen_domctl_set_llc_colors {
+> > +    /* IN LLC coloring parameters */
+> > +    uint32_t num_llc_colors;
+> > +    uint32_t padding;
+>
+> I see you've added padding, but: You don't check it to be zero. Plus
+> the overwhelming majority of padding fields is named "pad".
+>
+> Jan
 
