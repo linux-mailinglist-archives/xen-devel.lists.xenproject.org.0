@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA3384B647
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 14:26:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676931.1053291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 203E784B64D
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 14:27:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676935.1053302 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXLSG-0000QA-AD; Tue, 06 Feb 2024 13:25:40 +0000
+	id 1rXLTW-0000vE-Ks; Tue, 06 Feb 2024 13:26:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676931.1053291; Tue, 06 Feb 2024 13:25:40 +0000
+Received: by outflank-mailman (output) from mailman id 676935.1053302; Tue, 06 Feb 2024 13:26:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXLSG-0000Na-7Y; Tue, 06 Feb 2024 13:25:40 +0000
-Received: by outflank-mailman (input) for mailman id 676931;
- Tue, 06 Feb 2024 13:25:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rXLTW-0000sq-I5; Tue, 06 Feb 2024 13:26:58 +0000
+Received: by outflank-mailman (input) for mailman id 676935;
+ Tue, 06 Feb 2024 13:26:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gccX=JP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXLSE-0000NU-9t
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 13:25:38 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 35b6e8dc-c4f3-11ee-98f5-efadbce2ee36;
- Tue, 06 Feb 2024 14:25:35 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-33b409fc4aeso1261184f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 05:25:36 -0800 (PST)
+ id 1rXLTV-0000s7-2w
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 13:26:57 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65cb7542-c4f3-11ee-8a47-1f161083a0e0;
+ Tue, 06 Feb 2024 14:26:56 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-40fd2f7ef55so3422545e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 05:26:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n8-20020a5d4c48000000b0033afe816977sm2086647wrt.66.2024.02.06.05.25.35
+ n8-20020a5d4c48000000b0033afe816977sm2086647wrt.66.2024.02.06.05.26.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Feb 2024 05:25:35 -0800 (PST)
+ Tue, 06 Feb 2024 05:26:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35b6e8dc-c4f3-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 65cb7542-c4f3-11ee-8a47-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707225935; x=1707830735; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=HwxfR3P3szSE5y1QYgAVF9WnC4T0JlErkuO1LusfE44=;
-        b=QZnCONj+AXpAwWa+T9Fl/QwoMeKp/EPNsSbjKkjhq6A9dwUreiDY568CEvPnJQm4qe
-         sdeMyDGGYP7w9i/tjO8fQFzbp58vA2X39q9YgpCjgW3KcqP+GTfY8AiKmCC2Zjq+oimh
-         HexHBJ5kIY5o3WGlPte8rjk5FQ/Sf8hJVWw41kkodpN1rzmA+7+h2v7MTO5twlLIHiqF
-         Zgr0c4hITx8rpyK8FXe+jldTDpdCo/V8Q8H7yH3dyCwjJ7InQmY7Wj2QZvrcaCX9OY0G
-         TZfLfDuU7C9+4nRX8WyVzLllLlLzZsp1FSCWY14/MfUJH+/1iU15HFJdvMe8L3Zo89Aw
-         aJ8g==
+        d=suse.com; s=google; t=1707226015; x=1707830815; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=yIaW+g9kYbMb8fPMAantRbdmlPa6spMR0FsE3eqJ6GI=;
+        b=CNKi3V6cGQa/o3/zrWA0ppwmYK+tjlQYGMBKF2Yt+uzofZ6i2g/TGQ9YRYqxYf4OJH
+         tWnNr2GCKrMuHS+xbdvArxMjHzhCipGbnUP75WY1PXJZmZ1RoeV5jW7bdoa5uj/JYeRm
+         oYPDw6MnLTmp3y5gny3Ge7L40wS/ANp/dOiS9DUTrk5KTuLBb4vh/Q+TBbm5fxU8xo8S
+         Yclt9hOl2pE/ATv/0B2HVsf5z3HJ6azCVr2bzJfXPecrF2vEk65op3uPIfopu0jDJbY1
+         OefwJ7Uogfiq+4PpfCDb/BOUwF9sO8IRBH2WTFKt4Y866RZlyEl1amHHC5JRJR9olOsF
+         HkOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707225935; x=1707830735;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HwxfR3P3szSE5y1QYgAVF9WnC4T0JlErkuO1LusfE44=;
-        b=guUO/yclSI0+li0cf1s/Mmr0VAGfbsEtzJoiRi6fpUC0SSv79mqPnstFniskPztkS7
-         rDcf2/85arbYpkMp2FU3Jdf1e4s8HjnU6u6gi07F9NOQebmxexu6PiwWnN+Wf/RRthiD
-         gHoS5w6BrcWZ6XqW/uqsYWYF4jbTyTNvpAxc8E3gmeO0cdG8nzuIhiG7qiCZK8RvxxMx
-         OIi3rX/y6nZvYZmNEeUKpsmfQ5BouX2gIhPfoOKgEp98rpciQ56AYbQYwifVpKLpAHCG
-         qvVQroP3eOW5gjPtotbeBxRVul8fY+bKr2EnNqWbpXPyhSwQnKePcjPv8uW0E3Xi80od
-         Hcrw==
-X-Gm-Message-State: AOJu0Yy8EyWVtPLV8vy1gGYGxRT4VhZw1JXN7JCWhi1knAr5SJomhJsl
-	BE0CmHplf9C0s7H9DAU4CQxI2L/+ybSs/RHCRsovTi/hUDVV9vKX2uZCtGvoxQ==
-X-Google-Smtp-Source: AGHT+IFvkXG3gKt0NtUfEQjtYZl+LTSpno0oEWlTA9mv/VuH5fDr9sqg2jL6QMt5nVrwVpNnMtGuew==
-X-Received: by 2002:a5d:56d2:0:b0:33a:ff67:74a with SMTP id m18-20020a5d56d2000000b0033aff67074amr1166247wrw.63.1707225935672;
-        Tue, 06 Feb 2024 05:25:35 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCUdV8hCV5AQH6Xz8TCSjYEJcOMQoXagGCepqQ2r1Tc50478FOOD58reSB5CUFDOpIeZAmWDrHXJFX/X3VyUCtQI0+gX0zJeV0rmtLSvy4S8Z/yftoFo+awBqdQvROKkJDVncWvWP8NYoldKNMRhFqf+MnyLse7cEMUqr4ROeBt6upNMsLwbL1PEHVVU
-Message-ID: <ec849d3a-4f6a-4afd-a7c4-418906eb909a@suse.com>
-Date: Tue, 6 Feb 2024 14:25:34 +0100
+        d=1e100.net; s=20230601; t=1707226015; x=1707830815;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yIaW+g9kYbMb8fPMAantRbdmlPa6spMR0FsE3eqJ6GI=;
+        b=bEDE/jiGRk549z2egfhX/kwAjUGTmr3PYhRvXgRJ3XQOGC1vx8o7Ur0ryYchKfbjpR
+         q3u+LCSZdys80bV9uXMGHfdKRj6//RqMBIopICEhAFBbJ0c9bnJYuvAxy3Uq7JFSnDMu
+         943HZN1OWSaqdsE4MM54bhGu608Y74dSBSEdScVgixavlDFX7yOzR+CimRUbY4kTpfjK
+         gqcGv3/UUSbkTN+rw7OxQg0GNzeEs6VPBdcWk0y2j7v06fZ+GNemsrM6V0ALzJZ8OgKi
+         1DznIkQ7RrMZm588OJOTGP/oRc7loYNmb3x+ApWiiTeiNOL9KgEcU2fPobMiTXweAhRe
+         F0XQ==
+X-Gm-Message-State: AOJu0Yz2cEQQUtBV74+m65UOICUEvFrup8IpSZHLnnraUc/zdQ8WuL/F
+	HzehWPApjfibQ4sRunZ8Iqaqgl32e+VMrVDp3HQRvfkjSrlJRV2G0MbMJNY860lGxoRR1OZTcBQ
+	=
+X-Google-Smtp-Source: AGHT+IGOJvrLASMT0nOEeLB913YWT8yr11YTe5KtmmlhVfrsVCE/NMIlkQqQDbZbzN3Jd5s5Qc5erg==
+X-Received: by 2002:a5d:6887:0:b0:337:68df:5426 with SMTP id h7-20020a5d6887000000b0033768df5426mr1426575wru.34.1707226015512;
+        Tue, 06 Feb 2024 05:26:55 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCWL1xAFMWeaeanMcqlqs142ipj6CftNhUyvelzdtteLKAGCQ+Z1xOxz87htfqDC6FSXIz/8qUon3pFqakRsRwtpMaD4j0di9jQRSWAF/HwOGisHFuIepZ2MfRnAuNyhzOUGiIPuKREjyzpuE8L4AZM9wuDTTwxOu0aoIRgAg+VdU8MiZV1QpGlBwd1Z9oU5zxMGB16l1fND941kH7OHvf2Ss8uHSDBKI20c7f34xJ77oQoUucPX+qA=
+Message-ID: <0e673e08-6fa8-4e1e-bfde-a2764b121d61@suse.com>
+Date: Tue, 6 Feb 2024 14:26:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 2/3] x86/uaccess: replace __{get,put}_user_bad()
- with STATIC_ASSERT_UNREACHABLE()
+Subject: Re: [XEN PATCH v2 1/3] xen: introduce STATIC_ASSERT_UNREACHABLE()
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 To: Federico Serafini <federico.serafini@bugseng.com>
 Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
 References: <cover.1706259490.git.federico.serafini@bugseng.com>
- <e28bb23a12fae3c8630f943b469137d367f20022.1706259490.git.federico.serafini@bugseng.com>
-From: Jan Beulich <jbeulich@suse.com>
+ <42fc6ae8d3eb802429d29c774502ff232340dc84.1706259490.git.federico.serafini@bugseng.com>
+ <2c0d22be-0b31-4e62-a8f8-2dc82147e51a@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -113,32 +116,41 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e28bb23a12fae3c8630f943b469137d367f20022.1706259490.git.federico.serafini@bugseng.com>
+In-Reply-To: <2c0d22be-0b31-4e62-a8f8-2dc82147e51a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 26.01.2024 11:05, Federico Serafini wrote:
-> @@ -208,7 +205,7 @@ do {                                                                       \
->      case 8:                                                                \
->          put_unsafe_asm(x, ptr, grd, retval, "q",  "", "ir", errret);       \
->          break;                                                             \
-> -    default: __put_user_bad();                                             \
-> +    default: STATIC_ASSERT_UNREACHABLE();                                  \
->      }                                                                      \
->      clac();                                                                \
->  } while ( false )
-> @@ -227,7 +224,7 @@ do {                                                                       \
->      case 2: get_unsafe_asm(x, ptr, grd, retval, "w", "=r", errret); break; \
->      case 4: get_unsafe_asm(x, ptr, grd, retval, "k", "=r", errret); break; \
->      case 8: get_unsafe_asm(x, ptr, grd, retval,  "", "=r", errret); break; \
-> -    default: __get_user_bad();                                             \
-> +    default: STATIC_ASSERT_UNREACHABLE();                                  \
->      }                                                                      \
->      clac();                                                                \
->  } while ( false )
+On 06.02.2024 14:22, Jan Beulich wrote:
+> On 26.01.2024 11:05, Federico Serafini wrote:> --- a/xen/include/xen/compiler.h
+>> +++ b/xen/include/xen/compiler.h
+>> @@ -64,6 +64,13 @@
+>>  # define fallthrough        do {} while (0)  /* fallthrough */
+>>  #endif
+>>  
+>> +/*
+>> + * Add the following macro to check that a program point is considered
+>> + * unreachable by the static analysis performed by the compiler.
+>> + */
+>> +#define STATIC_ASSERT_UNREACHABLE() \
+>> +    asm ( ".error \"static assertion failed: unreachable\"" )
+> 
+> In the comment s/Add/Use/? The macro is there after all when this gets
+> committed. Overall maybe
+> 
+> "Use this macro at program points considered unreachable, to be checked
+>  by the compiler's static analysis."
+> 
+> ?
+> 
+> Also while asm()s without operands are implicitly volatile, I think it
+> would be a good idea to make that explicit nevertheless.
+> 
+> I'd be happy to adjust while committing, so long as you agree. If you
+> agree, and provided diagnostics resulting from this are useful (an
+> example would have been nice in the description):
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Related to my remark on patch 1 - how is one to know the macro this was
-invoked from, when seeing the resulting diagnostic?
+Actually, having seen patch 2, I need to withdraw this right away.
 
 Jan
 
