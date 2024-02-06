@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4582C84B1A4
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 10:54:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676720.1052955 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04DD384B1AF
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 10:57:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676725.1052965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXI9e-0000Ha-LG; Tue, 06 Feb 2024 09:54:14 +0000
+	id 1rXICR-0000qU-2I; Tue, 06 Feb 2024 09:57:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676720.1052955; Tue, 06 Feb 2024 09:54:14 +0000
+Received: by outflank-mailman (output) from mailman id 676725.1052965; Tue, 06 Feb 2024 09:57:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXI9e-0000FJ-IX; Tue, 06 Feb 2024 09:54:14 +0000
-Received: by outflank-mailman (input) for mailman id 676720;
- Tue, 06 Feb 2024 09:54:13 +0000
+	id 1rXICQ-0000nd-Vu; Tue, 06 Feb 2024 09:57:06 +0000
+Received: by outflank-mailman (input) for mailman id 676725;
+ Tue, 06 Feb 2024 09:57:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gccX=JP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXI9d-0000FD-Jn
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 09:54:13 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
+ id 1rXICP-0000mt-Os
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 09:57:05 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ad46879d-c4d5-11ee-98f5-efadbce2ee36;
- Tue, 06 Feb 2024 10:54:11 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-511413e52d4so3529044e87.1
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 01:54:11 -0800 (PST)
+ id 14161715-c4d6-11ee-98f5-efadbce2ee36;
+ Tue, 06 Feb 2024 10:57:03 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-337d05b8942so4123185f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 01:57:04 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- o25-20020adfa119000000b0033b437f3216sm1675126wro.74.2024.02.06.01.54.10
+ i9-20020adfe489000000b0033b45bdb2a1sm1414894wrm.4.2024.02.06.01.57.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Feb 2024 01:54:10 -0800 (PST)
+ Tue, 06 Feb 2024 01:57:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ad46879d-c4d5-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 14161715-c4d6-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707213251; x=1707818051; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707213423; x=1707818223; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=8UWJnYtEMGQtCa1T6Gl0yX15YIuBgiUtiUSuo4amgWM=;
-        b=aeU4ap3d/X8u6dm88l4FERjBtwZ1GpUetlhTy/3ujw9rmzI5lg8MYahlcQWOsJQJdB
-         /GdDH9d6OtiHNJ8Sso80bjNdBo8nwxuIaMvLYxuXCFvNbZLxp/a1ud5ggeQXC8t44gvY
-         SvGEcu6rUBFfwdjQp/oT7pK0qN9b9XMMGj024ZCVXSuqLiYSvOi4esSwDuGF4i0wTc6P
-         1U/V1AxhjIH2RgZYt3QLXfGVpaSZyXoMP2K/TsLOP70052K2z6VXVRrmARtiWxV0CsHQ
-         LjZtQhJOt1F9dxWTFRIT7gO+7wdhBItvLzV1aVT38tiMCCzL8PtqW2y7yCEd6NbGtF1V
-         peRg==
+        bh=JuNrHofBsjzXnwInvms5nbhtrurzzvQIMsoyTqKEL3s=;
+        b=LJgFrex/qMMVYFbmBgiBP11EYNHGqzamUQvYggzk5D9BEVz5BbLcsfulbnL3tnI6/v
+         k3JhZObXynOGzjuUS2k/PH/MbH15bRWfC/GXaoepYOpvt2Y5P0Vhe8Qxv/Fn8Ojm1ZP/
+         iPb0HBFfXrL8UZUZq006C/LpUyCNUFytqiC+1GuqRE5IjQJSgG7uIWr+WNssbhaa6+9t
+         t+DSTRP7XqrKTh/1O3LVl87KXI2xJEGl0G4pvetuAgKkT8qLkriukocwyp9vZ2hFLNN2
+         kLmLdOlTvtHfTu905PsarecG0fYtkjDFkC3BnK/pjpgJ3IMxdhzM7JRI8oo1OWqJGqda
+         +zjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707213251; x=1707818051;
+        d=1e100.net; s=20230601; t=1707213423; x=1707818223;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=8UWJnYtEMGQtCa1T6Gl0yX15YIuBgiUtiUSuo4amgWM=;
-        b=seYmjhlCgsCt7sVD4Zamb3zpeYQ9lNgAJ3S7AgUSIVBFM42qCFD383ls59MhX5ckLN
-         UMGD7+C8QuX4O/Il6zjK4PIm9O7ZTIMawPVRxyA3virPBhs09wIdcPPI4sAaAdLEqBx6
-         jn4TPpKD3n4ha8MSNjxd7v8yRn0vnvE8wJWq4T7dBZq80bHD1dsF62VhasGsOMafdZ0I
-         8siP+DlsfwQjyrmt/WNVttV4MP/5DUp0X53cpJSMHjokBJZr6PbPonpB9vWzPc9MrngZ
-         wkiVeiQKa/4GI4dTf0CV7Wh5E68VcF/3YxSia3o62ouVG6StxTMLjTP/5HB+ngipVZ19
-         QB2Q==
-X-Gm-Message-State: AOJu0YyuVE+HAOamSDLzhU8U0LzlcAJCRWkaJfJeKjg1nR8zwohR8Sxl
-	46zlY1+MY0FL+63xxzP01EEB1VVwVEfXClNlfAe5QLq3Cew9XzrXY7PMC9cMMQ==
-X-Google-Smtp-Source: AGHT+IEweeEDvPP57kGdadllL3gb67m1LRTXuuTNp0wlPByZm2bYQc9oflIZa8A5tULSckFM4pGlBw==
-X-Received: by 2002:a05:6512:33cc:b0:511:5724:dcd1 with SMTP id d12-20020a05651233cc00b005115724dcd1mr1878893lfg.11.1707213250969;
-        Tue, 06 Feb 2024 01:54:10 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCUhtjaWV1kZrLqpS98bkVIsJXM+al18LT1Jww3h6bDsRGey7+mGXvqM+1jEaODEtKZ7UpWX7/mBMl7k70+0TfryYcuM1DVswCo30zd/+2ouDoHjMKLpJaNc1vucdFmBNFe9Ov7Eba+Yd6ziIti4bva8YQQMV/5M5V7R0aOf7ei3Blzc
-Message-ID: <90090302-ec5b-427e-8f64-aa57ce4aa19d@suse.com>
-Date: Tue, 6 Feb 2024 10:54:09 +0100
+        bh=JuNrHofBsjzXnwInvms5nbhtrurzzvQIMsoyTqKEL3s=;
+        b=wlH1U8dY8BBCJVTx8ztSLVBkMQhbDiMMGh6ah6HRsDJtrpuL0+Fu2VHegL1gfA3R/G
+         Mav00KWnyk5uEdq3tHQfor88Iyltom6FRdGVVGTmEYU58p1Ix94Xmd3gPjgnE8VXEBfW
+         PlTixJsGJL+07DrwXlNgUtjLR7dc1XYRzyvqoEWUZkhxI9W/xDwdUQtm7GT6K8BRkC07
+         50+wgs4feHcRvEJKX9OfZaK5FsCIyQwfsTJ/GuJyv+gy8EbJpZhNZlnwQcuCAzPbIwew
+         RAl2Njsw+S++uJbIAqH27TYIfR7QDTy88HMQrjLLRp6X31jEFFl9BuQkFRrzrBFM50eU
+         m2iw==
+X-Gm-Message-State: AOJu0Ywj5DxNGd0I3VAHyTeMA9xA+8fSHLf42n+jR721e3I/oBuZyuj4
+	knxA+iRKSIPS3sY2aZZHZAuavdm/KWST6LFuCmdhM34FN9wpjy+oqBjEf2rCOA==
+X-Google-Smtp-Source: AGHT+IFGFOknQLwiTJwHI3pjFWjOgNX5xBqOSSWFBhusWxv21BDKMed9ETxdTRNxoQaspFkCJX6S/w==
+X-Received: by 2002:adf:cd08:0:b0:33b:2fac:6a44 with SMTP id w8-20020adfcd08000000b0033b2fac6a44mr941929wrm.34.1707213423579;
+        Tue, 06 Feb 2024 01:57:03 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXYNn3TtvTz+MhHHut/Loqb38D7QNw/gyUp0W8DqiFe8VRot61YSm2LMKclJoLQ2Ugw9WFFu4we3Ukzm1m95EMesz6E6kHFNb/3nSYykBlg/IF65gaLuJGz5R7FJmoZ6hztlgf3cLFJfyjFyOoMVftc8Kl321UP+Q08zJAqayEMBdRVIBG/eQTasjYwK4W6MfoNrR2I4tZXPY1f88bLnmnzpGpGzN15RZ7TOrHaD4urcq81XbK9IsY=
+Message-ID: <1179f656-5205-4d62-80fc-3338f3e9bedb@suse.com>
+Date: Tue, 6 Feb 2024 10:57:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/bitmap: Compile with -Wsign-conversion
+Subject: Re: [PATCH 1/5] Constify some parameters
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20240205151454.1920291-1-andrew.cooper3@citrix.com>
+To: Frediano Ziglio <frediano.ziglio@cloud.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper
+ <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Dario Faggioli
+ <dfaggioli@suse.com>, "Daniel P . Smith" <dpsmith@apertussolutions.com>
+References: <20240205104504.14830-1-frediano.ziglio@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,34 +113,18 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240205151454.1920291-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20240205104504.14830-1-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.02.2024 16:14, Andrew Cooper wrote:
-> @@ -263,7 +266,7 @@ int bitmap_find_free_region(unsigned long *bitmap, unsigned int bits, unsigned i
->  	unsigned int pages = 1 << order;
+On 05.02.2024 11:45, Frediano Ziglio wrote:
+> Make clean they are not changed in the functions.
 
-If we mean to keep this function (see my reply to the other patch),
-shouldn't we also check "order" along with
+s/clean/clear/ ?
 
->  	unsigned int i;
->  
-> -	if(pages > BITS_PER_LONG)
-> +	if (pages > BITS_PER_LONG || bits >= INT_MAX)
->  		return -EINVAL;
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
 
-... these checks?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> @@ -278,7 +281,7 @@ int bitmap_find_free_region(unsigned long *bitmap, unsigned int bits, unsigned i
->  		if((bitmap[index] & (mask << offset)) == 0) {
->  			/* set region in bimap */
->  			bitmap[index] |= (mask << offset);
-> -			return i;
-> +			return (int)i;
 
-I agree with Julien that it looks like this change actually belongs in
-the other patch.
-
-Jan
 
