@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3FBE84B145
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 10:28:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676696.1052916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1E9384B15A
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 10:34:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676700.1052925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXHkm-0002x3-SE; Tue, 06 Feb 2024 09:28:32 +0000
+	id 1rXHqR-0004PT-Em; Tue, 06 Feb 2024 09:34:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676696.1052916; Tue, 06 Feb 2024 09:28:32 +0000
+Received: by outflank-mailman (output) from mailman id 676700.1052925; Tue, 06 Feb 2024 09:34:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXHkm-0002vL-Pa; Tue, 06 Feb 2024 09:28:32 +0000
-Received: by outflank-mailman (input) for mailman id 676696;
- Tue, 06 Feb 2024 09:28:31 +0000
+	id 1rXHqR-0004NF-C7; Tue, 06 Feb 2024 09:34:23 +0000
+Received: by outflank-mailman (input) for mailman id 676700;
+ Tue, 06 Feb 2024 09:34:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x4wk=JP=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rXHkl-0002vF-3O
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 09:28:31 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gccX=JP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rXHqQ-0004N9-6i
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 09:34:22 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1611637c-c4d2-11ee-98f5-efadbce2ee36;
- Tue, 06 Feb 2024 10:28:28 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a380c98e824so78472066b.2
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 01:28:28 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- cx6-20020a170907168600b00a381da7b320sm623769ejd.177.2024.02.06.01.28.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Feb 2024 01:28:28 -0800 (PST)
+ id e71c25c8-c4d2-11ee-98f5-efadbce2ee36;
+ Tue, 06 Feb 2024 10:34:20 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2d090c83d45so40151481fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 01:34:20 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ n1-20020a05640206c100b0055fd90b0556sm836293edy.90.2024.02.06.01.34.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Feb 2024 01:34:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,199 +45,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1611637c-c4d2-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: e71c25c8-c4d2-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707211708; x=1707816508; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=rJvSmlDSKQ+A0UGCJt6qFwMR0lxaOLbqyGG2NiGrajQ=;
-        b=A8l0HFeK9fPo1xWtlcW6am7l0wvVxx1Thb+dq1VxYg69qWGI3L/MR8pfwa0JirIy2p
-         yTmmlUE+ZXunFWIzvdrpwpTp9WI1MhYIHabCNe78qdRf5fpZL1VzVW3l0aEWhFqc0yoB
-         5yHS9mAKSqHEwZKmE4M8iLEScc7sLsY11Oxvg=
+        d=suse.com; s=google; t=1707212059; x=1707816859; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=d9nNKtEgZz65B54Rk3a0q+Gvw5E3vaE1jvwO7dd9KVQ=;
+        b=fgIbipHyq/mD2Q7q2EoA3KzNUcP4Z/JSbJ183VJEiO1Y7DVVXJE2kLT5SMjnHmGlIe
+         YoH9nRqfjJkThQw7P06ifC32lVLOrZK0mXWE+ZP2/5Yyu7PVFKQjyNiRtTWq+sBZ7Pzt
+         NawNve/y9GGyW+U71Bdsw2ETiw1EBMS4pFlPxinnxJckhpHHqTfE73D9r6Fm7vWMFsEB
+         b360qc/1t/Q5l3rgzGe7owe1m60nQCtOBORHBCJ6qPHFnBQeJnXlBqPyJXiwTxt10IR1
+         XqSH8aZ41nCuJauJKTnRhKvOZb6KY1kTUcyYmw1mY4ZIVTfYMmzWBIiZQSGHlb8gHdav
+         DZqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707211708; x=1707816508;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=rJvSmlDSKQ+A0UGCJt6qFwMR0lxaOLbqyGG2NiGrajQ=;
-        b=Ow3RskDEaNJl8vNNwzxBwUf15upcs3JZcx4dQz652jgOdLo4XBsk365rrlLvqnDdjB
-         c0bp/aggWsSDLGvmdSsQ+xcqh+BEm1I57UsLzUU/kCx5ZsZ6oZVjpVd33wUa+ge6pYUC
-         kZdxSLdPMg4sQqk6wdoJQFuYVmu2fEy2HWIF5eP71TW2D4c1OH/9VdviSK5FGRh/dIcZ
-         eMfFb2fQZQtqpfiXouagSvncNYv8yhjUm4sylhjOG4hXPDsga7fWisP966SMOeWE90JY
-         dA1n8Yjx+Yy47OfCZZU4xr5dUYT17uP1mBr9oizLxka43Z7Ay2S6ewqhqVS3zc4uNlYg
-         TpDQ==
-X-Gm-Message-State: AOJu0YyGV6LBQbIotkFrj0UyUw0XuYrn6Z9S+2FRPIry6z7GpVvvqg97
-	GghnXkDdWP/JzQ1n6LrVx5UVdxr3XleiMaUj+C4iZDtNo2zsyRAo+BcQ8Q+AC3Q=
-X-Google-Smtp-Source: AGHT+IG9xsl73RafWKOZHSFzGvdyUvUcw60yoFKkmDrKvlNji1NANozWPHJ9ZG3B+kXThzFP1ulU9g==
-X-Received: by 2002:a17:906:512:b0:a37:ad51:86dc with SMTP id j18-20020a170906051200b00a37ad5186dcmr1327806eja.9.1707211708400;
-        Tue, 06 Feb 2024 01:28:28 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCXtyZ2u60eFlJ82YbG7g/CVSzuGf8YwjumT/CR7vTQioOA6+C0Pyaoo+cXuj6tDdFg9KlohKT6r01U5k9piHhx7Mm7/s3a7/9aQvkjITm3UMtx0ACn8RCmdsKZaMVLWbKFdS0gmBtZglfyIFEeOuL3Z1KKuTfvZnNu5AlqMS4FQSrYZgA==
-Date: Tue, 6 Feb 2024 10:28:27 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jun Nakajima <jun.nakajima@intel.com>
-Subject: Re: [PATCH v4.5 3/8] VMX: tertiary execution control infrastructure
-Message-ID: <ZcH7uwpxwYUq9yR0@macbook>
-References: <9dd23064-c79e-4a50-9c71-c0e73b189944@suse.com>
- <aa553449-888f-4e52-85b7-0bc0b7f010b4@suse.com>
- <bc782b14-d897-4a94-b71d-97c4abeb85df@suse.com>
+        d=1e100.net; s=20230601; t=1707212059; x=1707816859;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d9nNKtEgZz65B54Rk3a0q+Gvw5E3vaE1jvwO7dd9KVQ=;
+        b=G0k3Ye6Yc3sS0CuXBGjVpTbu5J+ZFd8tCfyZjXDptzBhQM9YVAPrsB7POE6I8Cbk4x
+         o4F6oGteQd/d3Twy5pUZl7+eCQtWPEJ4L/W3No7MhedhtwU0pKfZyKxuU8u5bMWuEAjh
+         pnPFl3+y6+aGCUs3GO8fniyzCMkiKd6HxVr0LdOR9K8Qs7/x3Y2Vx+uKLOhgWZ9ShUFa
+         Ie8ON1j0svu7j0FhcIBhsxFwwjCYwXUIb1wducmtBDXSEhk62f50OUiyfBxJjesKNLC6
+         uSjF6PkIhEA3JNqn+2fuQTfj4dc5/+wjoqegN6M+kA6MSCIemRlOY6cUHxGlrTmSIamf
+         lB+w==
+X-Gm-Message-State: AOJu0Yw1zW8yFyu2sSCbwgnvY8FB4G9/SsyTwUVDzGKrNZbZkm3Fm2U6
+	PRH/BNwXcAV9juNb8EF8Jy8rVsHxQfaojLVTnFO8rDzBcG0HgVs5iTUo91OUOg==
+X-Google-Smtp-Source: AGHT+IH7jvvefEXIsXF/CAVB+vVMCHIJrhUenBSP+iKIREr0wPKr0mOzWcNAKL/R7oPBRVqxn6tsqA==
+X-Received: by 2002:a2e:95c9:0:b0:2d0:9efa:666f with SMTP id y9-20020a2e95c9000000b002d09efa666fmr1536096ljh.21.1707212059020;
+        Tue, 06 Feb 2024 01:34:19 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCXBVf3WloR43BkmJiX3X/UfAh5+rShGkDL/YoOJPiRKM6Je7XXY740I5amSKOwRSsgknjjtjOlLXVRl8oC50HVndpQY7mT1wacwErA+6LrxCBsv5gQFgzUP4JUPc1Mo0mzTWI8ROrotQT23jsdzae0cDRIMMhkoQnhssrWXUfts63dkNyNRiZ6XJMwC174=
+Message-ID: <1256d6a8-5744-4790-b12c-8a36b9d144ed@suse.com>
+Date: Tue, 6 Feb 2024 10:34:17 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bc782b14-d897-4a94-b71d-97c4abeb85df@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/bitmap: Compile with -Wsign-conversion
+To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
+References: <20240205151454.1920291-1-andrew.cooper3@citrix.com>
+ <072da633-de82-4d93-b467-8372973406fe@xen.org>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <072da633-de82-4d93-b467-8372973406fe@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Feb 05, 2024 at 02:37:44PM +0100, Jan Beulich wrote:
-> This is a prereq to enabling e.g. the MSRLIST feature.
+On 05.02.2024 16:55, Julien Grall wrote:
+> On 05/02/2024 15:14, Andrew Cooper wrote:
+>> Use pragmas to able the warning in this file only.  All supported versions of
+>> Clang understand this, while older GCCs simply ignore it.
+>>
+>> bitmap_find_free_region() is the only function which isn't sign-convert
+>> clean.  This highlights a latent bug in that it can't return successfully for
+>> a bitmap larger than 2G.
+>>
+>> Add an extra check, and explicit cast to silence the warning.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: George Dunlap <George.Dunlap@citrix.com>
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>> CC: Wei Liu <wl@xen.org>
+>> CC: Julien Grall <julien@xen.org>
+>>
+>> Slightly RFC.  This is our first use of pragmas like this.
 > 
-> Note that the PROCBASED_CTLS3 MSR is different from other VMX feature
-> reporting MSRs, in that all 64 bits report allowed 1-settings.
+> The only other approach I can think of is specifying the CFLAGS per file 
+> like Linux did. I don't know if our build system supports that though.
+
+It does, see e.g.
+
+# Allows usercopy.c to include itself
+$(obj)/usercopy.o: CFLAGS-y += -iquote .
+
+in arch/x86/Makefile.
+
+> AFAICT, the only advantage would be to avoid duplicating the pragmas. So 
+> this is not a strong preference.
+
+My other concern there are old gcc versions we still support. I haven't
+checked (yet) when support for these pragma-s was introduced; I only
+know they haven't been there forever. However, ...
+
+>> --- a/xen/common/bitmap.c
+>> +++ b/xen/common/bitmap.c
+>> @@ -14,6 +14,9 @@
+>>   #include <xen/lib.h>
+>>   #include <asm/byteorder.h>
+>>   
+>> +#pragma GCC diagnostic warning "-Wsign-conversion"
+>> +#pragma clang diagnostic warning "-Wsign-conversion"
+>> +
 > 
-> vVMX code is left alone, though, for the time being.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> OOI, any reason why wasn't added at the right at the top of the file?
 
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+... this may be relevant: Inline functions may have an issue with being
+processed with the warning enabled. Otoh it may also be a problem if
+the warning isn't enabled for them.
 
-> ---
-> v4.5: Bump zero-padding width in vmcs_dump_vcpu(). Add
->       TERTIARY_EXEC_VIRT_SPEC_CTRL. Constify
->       vmx_update_tertiary_exec_control()'s parameter. Re-base.
-> v2: New.
-> 
-> --- a/xen/arch/x86/hvm/vmx/vmcs.c
-> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
-> @@ -164,6 +164,7 @@ static int cf_check parse_ept_param_runt
->  u32 vmx_pin_based_exec_control __read_mostly;
->  u32 vmx_cpu_based_exec_control __read_mostly;
->  u32 vmx_secondary_exec_control __read_mostly;
-> +uint64_t vmx_tertiary_exec_control __read_mostly;
->  u32 vmx_vmexit_control __read_mostly;
->  u32 vmx_vmentry_control __read_mostly;
->  u64 vmx_ept_vpid_cap __read_mostly;
-> @@ -228,10 +229,32 @@ static u32 adjust_vmx_controls(
->      return ctl;
->  }
->  
-> -static bool cap_check(const char *name, u32 expected, u32 saw)
-> +static uint64_t adjust_vmx_controls2(
-> +    const char *name, uint64_t ctl_min, uint64_t ctl_opt, unsigned int msr,
-> +    bool *mismatch)
-> +{
-> +    uint64_t vmx_msr, ctl = ctl_min | ctl_opt;
-> +
-> +    rdmsrl(msr, vmx_msr);
-> +
-> +    ctl &= vmx_msr; /* bit == 0 ==> must be zero */
-> +
-> +    /* Ensure minimum (required) set of control bits are supported. */
-> +    if ( ctl_min & ~ctl )
-> +    {
-> +        *mismatch = true;
-> +        printk("VMX: CPU%u has insufficient %s (%#lx; requires %#lx)\n",
-> +               smp_processor_id(), name, ctl, ctl_min);
-> +    }
-> +
-> +    return ctl;
-> +}
-> +
-> +static bool cap_check(
-> +    const char *name, unsigned long expected, unsigned long saw)
->  {
->      if ( saw != expected )
-> -        printk("VMX %s: saw %#x expected %#x\n", name, saw, expected);
-> +        printk("VMX %s: saw %#lx expected %#lx\n", name, saw, expected);
->      return saw != expected;
->  }
->  
-> @@ -241,6 +264,7 @@ static int vmx_init_vmcs_config(bool bsp
->      u32 _vmx_pin_based_exec_control;
->      u32 _vmx_cpu_based_exec_control;
->      u32 _vmx_secondary_exec_control = 0;
-> +    uint64_t _vmx_tertiary_exec_control = 0;
->      u64 _vmx_ept_vpid_cap = 0;
->      u64 _vmx_misc_cap = 0;
->      u32 _vmx_vmexit_control;
-> @@ -274,7 +298,8 @@ static int vmx_init_vmcs_config(bool bsp
->      opt = (CPU_BASED_ACTIVATE_MSR_BITMAP |
->             CPU_BASED_TPR_SHADOW |
->             CPU_BASED_MONITOR_TRAP_FLAG |
-> -           CPU_BASED_ACTIVATE_SECONDARY_CONTROLS);
-> +           CPU_BASED_ACTIVATE_SECONDARY_CONTROLS |
-> +           CPU_BASED_ACTIVATE_TERTIARY_CONTROLS);
->      _vmx_cpu_based_exec_control = adjust_vmx_controls(
->          "CPU-Based Exec Control", min, opt,
->          MSR_IA32_VMX_PROCBASED_CTLS, &mismatch);
-> @@ -338,6 +363,15 @@ static int vmx_init_vmcs_config(bool bsp
->              MSR_IA32_VMX_PROCBASED_CTLS2, &mismatch);
->      }
->  
-> +    if ( _vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS )
-> +    {
-> +        uint64_t opt = 0;
-> +
-> +        _vmx_tertiary_exec_control = adjust_vmx_controls2(
-> +            "Tertiary Exec Control", 0, opt,
-> +            MSR_IA32_VMX_PROCBASED_CTLS3, &mismatch);
-> +    }
-> +
->      /* The IA32_VMX_EPT_VPID_CAP MSR exists only when EPT or VPID available */
->      if ( _vmx_secondary_exec_control & (SECONDARY_EXEC_ENABLE_EPT |
->                                          SECONDARY_EXEC_ENABLE_VPID) )
-> @@ -468,6 +502,7 @@ static int vmx_init_vmcs_config(bool bsp
->          vmx_pin_based_exec_control = _vmx_pin_based_exec_control;
->          vmx_cpu_based_exec_control = _vmx_cpu_based_exec_control;
->          vmx_secondary_exec_control = _vmx_secondary_exec_control;
-> +        vmx_tertiary_exec_control  = _vmx_tertiary_exec_control;
->          vmx_ept_vpid_cap           = _vmx_ept_vpid_cap;
->          vmx_vmexit_control         = _vmx_vmexit_control;
->          vmx_vmentry_control        = _vmx_vmentry_control;
-> @@ -503,6 +538,9 @@ static int vmx_init_vmcs_config(bool bsp
->              "Secondary Exec Control",
->              vmx_secondary_exec_control, _vmx_secondary_exec_control);
->          mismatch |= cap_check(
-> +            "Tertiary Exec Control",
-> +            vmx_tertiary_exec_control, _vmx_tertiary_exec_control);
-> +        mismatch |= cap_check(
->              "VMExit Control",
->              vmx_vmexit_control, _vmx_vmexit_control);
->          mismatch |= cap_check(
-> @@ -1080,6 +1118,7 @@ static int construct_vmcs(struct vcpu *v
->          v->arch.hvm.vmx.exec_control |= CPU_BASED_RDTSC_EXITING;
->  
->      v->arch.hvm.vmx.secondary_exec_control = vmx_secondary_exec_control;
-> +    v->arch.hvm.vmx.tertiary_exec_control  = vmx_tertiary_exec_control;
->  
->      /*
->       * Disable features which we don't want active by default:
-> @@ -1134,6 +1173,10 @@ static int construct_vmcs(struct vcpu *v
->          __vmwrite(SECONDARY_VM_EXEC_CONTROL,
->                    v->arch.hvm.vmx.secondary_exec_control);
->  
-> +    if ( cpu_has_vmx_tertiary_exec_control )
-> +        __vmwrite(TERTIARY_VM_EXEC_CONTROL,
-> +                  v->arch.hvm.vmx.tertiary_exec_control);
-> +
->      /* MSR access bitmap. */
->      if ( cpu_has_vmx_msr_bitmap )
->      {
-> @@ -2068,10 +2111,12 @@ void vmcs_dump_vcpu(struct vcpu *v)
->                 vmr(HOST_PERF_GLOBAL_CTRL));
->  
->      printk("*** Control State ***\n");
-> -    printk("PinBased=%08x CPUBased=%08x SecondaryExec=%08x\n",
-> +    printk("PinBased=%08x CPUBased=%08x\n",
->             vmr32(PIN_BASED_VM_EXEC_CONTROL),
-> -           vmr32(CPU_BASED_VM_EXEC_CONTROL),
-> -           vmr32(SECONDARY_VM_EXEC_CONTROL));
-> +           vmr32(CPU_BASED_VM_EXEC_CONTROL));
-> +    printk("SecondaryExec=%08x TertiaryExec=%016lx\n",
-
-I thought you wanted to split the print into two 32bit halves here?
-
-Thanks, Roger.
+Jan
 
