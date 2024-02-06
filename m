@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1A1684B3EA
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 12:47:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676830.1053132 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9E5484B3EE
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 12:49:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676835.1053141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXJuk-00018Q-Eq; Tue, 06 Feb 2024 11:46:58 +0000
+	id 1rXJwv-0002Dg-PU; Tue, 06 Feb 2024 11:49:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676830.1053132; Tue, 06 Feb 2024 11:46:58 +0000
+Received: by outflank-mailman (output) from mailman id 676835.1053141; Tue, 06 Feb 2024 11:49:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXJuk-00016s-Bj; Tue, 06 Feb 2024 11:46:58 +0000
-Received: by outflank-mailman (input) for mailman id 676830;
- Tue, 06 Feb 2024 11:46:57 +0000
+	id 1rXJwv-0002B1-Mp; Tue, 06 Feb 2024 11:49:13 +0000
+Received: by outflank-mailman (input) for mailman id 676835;
+ Tue, 06 Feb 2024 11:49:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JoWx=JP=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1rXJui-000164-Su
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 11:46:56 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gccX=JP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rXJwu-0002Av-7h
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 11:49:12 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6c90067a-c4e5-11ee-98f5-efadbce2ee36;
- Tue, 06 Feb 2024 12:46:54 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id
- 4fb4d7f45d1cf-55a90a0a1a1so6950090a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 03:46:54 -0800 (PST)
+ id bd133a91-c4e5-11ee-98f5-efadbce2ee36;
+ Tue, 06 Feb 2024 12:49:09 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-33b466bc363so360090f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 03:49:10 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ w17-20020a5d6811000000b0033afcc899c1sm1915771wru.13.2024.02.06.03.49.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Feb 2024 03:49:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,155 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6c90067a-c4e5-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: bd133a91-c4e5-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20230601.gappssmtp.com; s=20230601; t=1707220014; x=1707824814; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=p8/oMxMR+vfjnyX3RtwcY6FGZAgbqksWkgFNdCxGN/Y=;
-        b=EQ5WZs7JcdFtBZNvzSmBX3/hRBHC5C5LACW2/LhhBs60kqkT0pOsfvTzvFewiRk82I
-         7wcGoT1vTHISg9DvgLoAptggzDwSJOmStroas1ECsUS4ZJH1Avn2VvI+gyH2yCheouMK
-         zyKqD1n09LWklp6KfsvQP+Ms9mWm4+d9B11N78pM57W0q9g38UACGTMKhlctLQbdQRkQ
-         QNo8liJpYoGnyhoKArVB0gm9FlvxvcUCKd0i5p6cQd3R7WRCRj87uJo04KknBLW/jfG+
-         8dKYuRHgdpbQMsSvZEtFQ1fWsaTQFQLQBBUX6X4n2C056wMLAeMwywk2IcIhnKaCI8xz
-         YPqA==
+        d=suse.com; s=google; t=1707220149; x=1707824949; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/eIw2pgQ2mmhwfkUOy8UoWwbTRbjlat4j7eQPYE7Jeo=;
+        b=gNRPyy+IzwNTcnuZqwPtiYbpg+KdK1ezKhqjkafUGrzsU0TpB0KfGICdMbLsqdHaiC
+         /pC10TguFwHRTYidglf8eKWKH6VvbEV41qBvy+lNMMWeo4n0WgpnoOEXVghduYFuclGl
+         BINfsaNzUrHcpItrwRNDbpnhYwCphtAatWCGvs9Ydj97jANAabf/0FoWTbzJ/FByYQiL
+         vnu3Ef3IVi38Vh5VQepadScBzVTKhTyH5pwXPUOHnBBuht4DxYcg1tzKUaXvnjnSFBvR
+         OO/Vk/5/xyYzdtqwWfGgb8XmiPtScWrDb1Erqtbv71YsZFPZWIN56jHku1WPzjX8Me9O
+         oaFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707220014; x=1707824814;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=p8/oMxMR+vfjnyX3RtwcY6FGZAgbqksWkgFNdCxGN/Y=;
-        b=aegREF0jhLUCT4TrVXv6Oc2FM8SexKXyMB+Q0kb7QaJfoEgtLaox0tavPiQNKJrgRu
-         iWlOwbLAPtZqepxg7Vi76cBN2K9jx9xpLDzbjtsj6uWTcfsFWYSlAVgOI2B7K9lYpbIS
-         7NyJW5WAR+GieKTcCL0WvJB7bECvWjM7vieuLkspCfFZueIjSsPUNjtOXmLXlS1H24ep
-         XJN5ppl4nWpX75CVTTw8T8E/z55WX5aeYO2Xq9Z3Z9eKK8+K7Su59E9qOntU9GmeJTeB
-         rLEZ0BZGs0M8O6nHHHI3IsMYFhr7Sqw/FvySkcAN5nWdlMHEt96lJjFQ3b1j8u2IvVIg
-         7qUQ==
-X-Gm-Message-State: AOJu0Yy77FyB//GWJAAraFkpyPy24V97PtlwBB7iob+NifFyDWi5LBDF
-	jyGevRe4tOdP5jzqFLVMEkjhq87hhKz2DXR2cn+310zN7v8GylgVrcy+NpyNkDqPOXaCHMNgZF3
-	Y0kZffhm2g2nmNuPsGwhUblC/11i+eJDMwlnVOw==
-X-Google-Smtp-Source: AGHT+IG6CgiBWyW3Ari4+zP/yA0q67PInJczVKi7aOcOSsudE+rjN7rZMBSBjfm339oApfWkXUMJqgcEExwDjHTI9qQ=
-X-Received: by 2002:aa7:d643:0:b0:55f:fba9:de8c with SMTP id
- v3-20020aa7d643000000b0055ffba9de8cmr1418413edr.21.1707220014002; Tue, 06 Feb
- 2024 03:46:54 -0800 (PST)
+        d=1e100.net; s=20230601; t=1707220149; x=1707824949;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/eIw2pgQ2mmhwfkUOy8UoWwbTRbjlat4j7eQPYE7Jeo=;
+        b=NB1rTtK+DulPArLjRDXgBJ2UiShfldtfe1C5Qw1CBvumCkKaKdWTGJZ2EXU2D3a5xZ
+         3VnSaVkNphHWO//1QPc76g3VsHGuiBaK+/snj/LrLM6yEPm7IVWpZUC2JsZUBV0jHh7a
+         Z0YbtllT5q/JFzqf0TfLOvhmDXJL8JdnDcm2o78lIkqNWRFE54W17G0ESvmkcnMQUeir
+         cYqmRDOQBShkU2jv1qy85gihkrBoOGzL4VBd753az9TBnEt+zm8fxmaJcRnU5+OS2+br
+         014/vfZPOpS82MhM/fJ8FQwkVU1c3eqKvSeheBGH/dt8utRp/xheM0dVrSHhpi2ymDpZ
+         VfXA==
+X-Gm-Message-State: AOJu0Yzx7/zf9o2KXGBqlMVSaSCVD4S+9pAHE6SQPqAHNNiIyqEF69ud
+	MXRi5jB3bcU+h0YqetDOWTd0svsz5JRKHdeG3Ei5ykdXTtWs5jNXCiwJk6FIeA==
+X-Google-Smtp-Source: AGHT+IFRD2gWEvd0gMa6ZYAJ6KqPQy/HtW5u9R+oB+TjXj+dWBgctvilTvaHWmeSv7OjXhhFjhKbUQ==
+X-Received: by 2002:a5d:4f0e:0:b0:33b:2633:b527 with SMTP id c14-20020a5d4f0e000000b0033b2633b527mr1046884wru.20.1707220149418;
+        Tue, 06 Feb 2024 03:49:09 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCWNik0RgHRVebarSf9EAdgtO4ko4pv9kSpgVkEYJlJhn8FjzBq4bvDXC3Zf7rhtShNk+jttx316BhLWon+k5qKjOsnitg0tAHTM4fe5wXU=
+Message-ID: <5db22ee1-40b3-4df8-88b8-446a2e224d22@suse.com>
+Date: Tue, 6 Feb 2024 12:49:08 +0100
 MIME-Version: 1.0
-References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
- <20240129171811.21382-6-carlo.nonato@minervasys.tech> <49827753-14f1-42cc-8791-27c5400e6e50@suse.com>
-In-Reply-To: <49827753-14f1-42cc-8791-27c5400e6e50@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Tue, 6 Feb 2024 12:46:43 +0100
-Message-ID: <CAG+AhRX82h40t53LB2h91A6N0fCVafyaCGQn7Pwmn6GZ+RM+mQ@mail.gmail.com>
-Subject: Re: [PATCH v6 05/15] xen: extend domctl interface for cache coloring
-To: Jan Beulich <jbeulich@suse.com>
-Cc: andrea.bastoni@minervasys.tech, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] iommu/x86: make unity range checking more strict
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20240201170159.66330-1-roger.pau@citrix.com>
+ <20240201170159.66330-5-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240201170159.66330-5-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+On 01.02.2024 18:01, Roger Pau Monne wrote:
+> Currently when a unity range overlaps with memory being used as RAM by the
+> hypervisor the result would be that the IOMMU gets disabled.  However that's
+> not enough, as even with the IOMMU disabled the device will still access the
+> affected RAM areas.
 
-On Thu, Feb 1, 2024 at 2:51=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 29.01.2024 18:18, Carlo Nonato wrote:
-> > @@ -858,6 +859,16 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t=
-) u_domctl)
-> >                  __HYPERVISOR_domctl, "h", u_domctl);
-> >          break;
-> >
-> > +    case XEN_DOMCTL_set_llc_colors:
-> > +        if ( !llc_coloring_enabled )
-> > +            break;
->
-> With "ret" still being 0, this amounts to "successfully ignored". Ought
-> to be -EOPNOTSUPP, I guess.
->
-> > +        ret =3D domain_set_llc_colors_domctl(d, &op->u.set_llc_colors)=
-;
-> > +        if ( ret =3D=3D -EEXIST )
-> > +            printk(XENLOG_ERR
-> > +                   "Can't set LLC colors on an already created domain\=
-n");
->
-> If at all a dprintk(). But personally I think even that's too much - we
-> don't do so elsewhere, I don't think.
->
-> > --- a/xen/common/llc-coloring.c
-> > +++ b/xen/common/llc-coloring.c
-> > @@ -4,6 +4,7 @@
-> >   *
-> >   * Copyright (C) 2022 Xilinx Inc.
-> >   */
-> > +#include <xen/guest_access.h>
-> >  #include <xen/keyhandler.h>
-> >  #include <xen/llc-coloring.h>
-> >  #include <xen/param.h>
-> > @@ -229,6 +230,30 @@ int __init dom0_set_llc_colors(struct domain *d)
-> >      return domain_check_colors(d);
-> >  }
-> >
-> > +int domain_set_llc_colors_domctl(struct domain *d,
-> > +                                 const struct xen_domctl_set_llc_color=
-s *config)
->
-> What purpose has the "domctl" in the function name?
->
-> > +{
-> > +    unsigned int *colors;
-> > +
-> > +    if ( d->num_llc_colors )
-> > +        return -EEXIST;
-> > +
-> > +    if ( !config->num_llc_colors )
-> > +        return domain_set_default_colors(d);
-> > +
-> > +    colors =3D alloc_colors(config->num_llc_colors);
-> > +    if ( !colors )
-> > +        return -ENOMEM;
->
-> Hmm, I see here you call the function without first having bounds checked
-> the input. But in case of too big a value, -ENOMEM is inappropriate, so
-> such a check wants adding up front anyway.
->
-> > +    if ( copy_from_guest(colors, config->llc_colors, config->num_llc_c=
-olors) )
-> > +        return -EFAULT;
->
-> There again wants to be a check that the pointed to values are the same,
-> or at least of the same size. Else you'd need to do element-wise copy.
+Hmm, no, I think this is going too far. Not the least because it is
+s/will/may/. But also because if we really wanted such behavior, we
+ought to also parse the respective ACPI tables when the "iommu=off".
 
-Sorry to bring this back again, but I've just noticed copy_from_guest()
-already checks for type compatibility. For what regards the size I don't th=
-ink
-I understood what to check. colors is defined to be of the same size of
-config->llc_colors.
+> Note that IVMD or RMRR ranges being placed over RAM is a firmware bug.
 
-Thanks.
+As written this is wrong: They're typically in RAM, just that the E820
+type for that range should not be RAM_TYPE_CONVENTIONAL.
 
-> > +    d->llc_colors =3D colors;
-> > +    d->num_llc_colors =3D config->num_llc_colors;
-> > +
-> > +    return domain_check_colors(d);
->
-> And if this fails, you leave the domain with the bad settings? Shouldn't
-> you check and only then store pointer and count?
->
-> > --- a/xen/include/public/domctl.h
-> > +++ b/xen/include/public/domctl.h
-> > @@ -1190,6 +1190,13 @@ struct xen_domctl_vmtrace_op {
-> >  typedef struct xen_domctl_vmtrace_op xen_domctl_vmtrace_op_t;
-> >  DEFINE_XEN_GUEST_HANDLE(xen_domctl_vmtrace_op_t);
-> >
-> > +struct xen_domctl_set_llc_colors {
-> > +    /* IN LLC coloring parameters */
-> > +    uint32_t num_llc_colors;
-> > +    uint32_t padding;
->
-> I see you've added padding, but: You don't check it to be zero. Plus
-> the overwhelming majority of padding fields is named "pad".
->
-> Jan
+> Doing so also allows to simplify the code and use a switch over the reported
+> memory type(s).
+
+I'm afraid this isn't right either: page_get_ram_type() can set
+multiple bits in its output.
+
+Jan
 
