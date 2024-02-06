@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1962884B317
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 12:08:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676798.1053082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C5EA84B345
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 12:18:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676807.1053093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXJIq-000138-Ki; Tue, 06 Feb 2024 11:07:48 +0000
+	id 1rXJSJ-00035U-HF; Tue, 06 Feb 2024 11:17:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676798.1053082; Tue, 06 Feb 2024 11:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 676807.1053093; Tue, 06 Feb 2024 11:17:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXJIq-00010k-HD; Tue, 06 Feb 2024 11:07:48 +0000
-Received: by outflank-mailman (input) for mailman id 676798;
- Tue, 06 Feb 2024 11:07:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXJSJ-00032H-EH; Tue, 06 Feb 2024 11:17:35 +0000
+Received: by outflank-mailman (input) for mailman id 676807;
+ Tue, 06 Feb 2024 11:17:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gccX=JP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXJIp-00010e-K2
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 11:07:47 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f50168db-c4df-11ee-8a47-1f161083a0e0;
- Tue, 06 Feb 2024 12:07:46 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id
- 38308e7fff4ca-2d051fb89fbso10021631fa.2
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 03:07:46 -0800 (PST)
+ id 1rXJSH-00032B-H0
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 11:17:33 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 51c23eee-c4e1-11ee-98f5-efadbce2ee36;
+ Tue, 06 Feb 2024 12:17:31 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40ff2838851so490985e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 03:17:31 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f17-20020a05600c4e9100b0040ec66021a7sm1638724wmq.1.2024.02.06.03.07.45
+ l6-20020a5d5266000000b0033b04f7585dsm1858668wrc.3.2024.02.06.03.17.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Feb 2024 03:07:45 -0800 (PST)
+ Tue, 06 Feb 2024 03:17:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f50168db-c4df-11ee-8a47-1f161083a0e0
+X-Inumbo-ID: 51c23eee-c4e1-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707217666; x=1707822466; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707218251; x=1707823051; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=iUG6/+tZCYrHwnRon06RIRkeDgg4m+Y80C/Gx+1VKU0=;
-        b=Bx1pRlBJsMnpXH5H7HwgQTIEgnQVxMd8/WIRC83NQqC9X2GxaIUFT5g6eejSIJm/+V
-         kUM25ZK0y75pwIUpP0Re3GONx1NsogbFsw1QpEy4k5tKRPWWEOLLKDDMUQbYw4YngVEH
-         KOC0vVij5GLuf/H+DHLyAtA9DTgYW0ajVj8CbzVKryTlu2KGmQ+qzAKMzg3FFaCe+9Po
-         rmb7TDCLdVKUiOuCFRl7r7McL1drwESHTLUfJLlP44QT+3LzwX/g+qNPzFPWhVoBeGn3
-         mDgiJRCQCxXW6EjmXmk039+UypW3d5RjVL5TtDqn1V3ByJxz19HGEWsDWtCX6FI7iwff
-         p2jQ==
+        bh=jTlDZCF5STgE7bqWsxYU6ACHRM/5epAF+J6uP5ItGAM=;
+        b=VWV5xwnVT0AUGlqINTDnBXoETeRORyV3w03tJAchIao3yGlawrOfs0XZ2KkwKtuUKd
+         I+omcQy27tU/880700M/6sb2jZFQGP3iZHTKyqLXutNmW5bGmjL0xmsbpCIDQVVb2U/Y
+         6Z9R70kkefYo+a7BGC0KX5pql1F9AFYQFZfuUxRQ01swHM1mvzjzHvUbRs8ksiLe7NKR
+         3SWwSH0o9WibIsU98TFrPKxkha+PovuM6FHg/CbpRTncr9cNKzcqFt55k/Da/jHMuLTn
+         dVetLaM826oC2AIBfq1w25orRysO6wNNB7TRxaLQKoMcrJ8Z27keQJ7v/qsoS71a5VZq
+         keng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707217666; x=1707822466;
+        d=1e100.net; s=20230601; t=1707218251; x=1707823051;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=iUG6/+tZCYrHwnRon06RIRkeDgg4m+Y80C/Gx+1VKU0=;
-        b=tsU+cl52M808Mw/A8ecnfXnHKZMS2GJ5A/vTJhYYADmPD+tVcdwJvA94PVsohVFgm5
-         0fRvgD7VYhY/s4bokCvkTDOG4I2KP38wEaM9s0FiYMe8bTqYahuhMeO5brYnkiy5S8UJ
-         Et1939YCFmZ8f9rEJ3Jj9TEdCokMN8BEmiL8U/+qR9/vgdvZotb55Gc5quK5ImLi72rf
-         MDPbQ78LXugFGRulDYiD4u52gGrsqmhrrTXCUC2D2AGHbAe+tIBNrIvPd879Rz53x+Pd
-         cUGegG1n41pIJrJvd8yNjTVYIS5Q/8z71gVMcHZ4wLJU8m1ru1GNDtNVp5utEiGbLsQN
-         qQ7Q==
-X-Gm-Message-State: AOJu0YwaGXgtZINcKjpag2OBU5j6gSGK4VaXDlT7lxKSHLoOpMeMycVo
-	Nf3kJgxo/1DNh1VL5868YS6eIopX1d6+iZROF/7SHGOnoRgA1FyoAHQiYipylw==
-X-Google-Smtp-Source: AGHT+IGgVS+NWNpXS5ZX77lU+K7ee0WtEzreozvtX+2uX4dl1Slz0a+vsGrtoIoa/nMc8x7y9oHZcg==
-X-Received: by 2002:a19:ca52:0:b0:511:34fd:7de4 with SMTP id h18-20020a19ca52000000b0051134fd7de4mr1612576lfj.18.1707217665820;
-        Tue, 06 Feb 2024 03:07:45 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCVIjpbIKnhRlb6SP53yBM9WC6d7K5xdi97vyboiSb4woEtfwNtlSyCqtM56HzDscYXn627LSJqk0oLGrfRVbG4Dt2L63sf5O9Q+2zL4Y7gDX+DgsdgW+PkBS1jeKa3HRNG59BrqjVufEL9CGWTyqYDwLNyV804bLFj53Yogxf1fD47p1a69z7U4No7LJDOj4elG9gWH7IsLjBTMIS+uO744APLGZrIUBhCpqUQniDZz47L1cxl+AxgbpK8+dreo/sH1b3YiCGPLZcM3CixuZyU2DQxU5dQOD8B2QCKwY5l6CQP3SgNbA/hRImwSPgL1K3m7vXW0iZ0poTuQ+3FG0RI0uFJTTKQWnM/M6Jfm1WuvnEiFMZwz5v4gvSzI20PrJYM7/azvyIvNX9AyhC4=
-Message-ID: <8169b6f0-b6d6-4d1a-bac4-a068c6f15306@suse.com>
-Date: Tue, 6 Feb 2024 12:07:44 +0100
+        bh=jTlDZCF5STgE7bqWsxYU6ACHRM/5epAF+J6uP5ItGAM=;
+        b=gWzf27G2S6W/es8wSXuIiH/L/ChOj87a915dDsTYfz7dCnAOn/L+HrJcAIVesT1tfC
+         +w5cmsSlDV9KBGxnuqeByToZjbmMkVUhKyUDCMtxAPijrI+XCTm/cs/kpnseulT7pXx6
+         3l/dloAAYAj7p/0zkecTwyCc0aAq1RdhNPFlxpapKu7Je9PQ+UCO7KUflka78LuWhV1Y
+         jwsI7uY2S3G8PZ+j6rohZvm1xnOlpSkM5xSd+/liqayX4fLClGmqp/GcW7mgA/OV9kfe
+         lXLiOWgRtflQ5nbNwTl3MSEKwueGBYAnWRlH6Ot8An0Nzf1BU7/PALfVQzT0IRvb7Ykz
+         Nc5A==
+X-Gm-Message-State: AOJu0YwXkI10b8qz2CtlDpr54d7/1fogHmQLql4Eubno6CtWYEiULhio
+	X5ofCjPqAfhe5Pnmm3MwmLfIrSmN5g6msnbxJLwNfNPA3+nHC9Z6rM23QAEVyQ==
+X-Google-Smtp-Source: AGHT+IEOcEzkFCGNqeeONaQK3q2Lc4xS5yI1gSmBmhUmfaoBhl1Vg7v1CVt46dKiGzIJ3dEvyOd0aA==
+X-Received: by 2002:a05:600c:3147:b0:40f:af68:3ab with SMTP id h7-20020a05600c314700b0040faf6803abmr1425313wmo.5.1707218250866;
+        Tue, 06 Feb 2024 03:17:30 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCVbob1Gbdym7yT8cB9HR0nks/P8VgAsH0cGnGgwaw/E5DU6q+s173LJANGedFTZufirTGHck5bozyayq9R/aJUY6lQZzdKCdCcM4hpEPeaAN0cQ1iWildsN9Xluw0Hquoxq2MXGxgatqg==
+Message-ID: <232baaae-5fe0-4a94-8469-d1dac520c1af@suse.com>
+Date: Tue, 6 Feb 2024 12:17:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86: Add configuration options for max_altp2m and
- max_nestedp2m limits
+Subject: Re: [PATCH 2/4] iommu/x86: introduce a generic IVMD/RMRR range
+ validity helper
 Content-Language: en-US
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, xen-devel@lists.xenproject.org
-References: <9143475dddf8d0141fb3864ed90153591554a425.1707213019.git.w1benny@gmail.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20240201170159.66330-1-roger.pau@citrix.com>
+ <20240201170159.66330-3-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -117,32 +112,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9143475dddf8d0141fb3864ed90153591554a425.1707213019.git.w1benny@gmail.com>
+In-Reply-To: <20240201170159.66330-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.02.2024 11:08, Petr Beneš wrote:
-> From: Petr Beneš <w1benny@gmail.com>
-> 
-> This commit introduces the ability to configure the maximum number of altp2m
-> and nestedp2m tables through boot-time parameters.  Previously, the limits were
-> hardcoded to a maximum of 10 for both.  This change allows for greater
-> flexibility in environments that require more or fewer tables, enhancing Xen's
-> adaptability to different workloads and scenarios.
-> 
-> Adjustments include:
-> - Adding boot parameters `max_altp2m` and `max_nestedp2m` to allow setting
->   these limits at boot time.
-> - Modifying various parts of the code to use these configurable limits instead
->   of the previous hardcoded values.
-> - Ensuring that if the configured values exceed the maximum supported EPTP
->   entries, they are adjusted down with a warning logged.
-> - Adjusting the initial allocation of pages in `hap_enable` from 256 to 2048
->   pages when `old_pages == 0`.
+On 01.02.2024 18:01, Roger Pau Monne wrote:
+> IVMD and RMRR ranges are functionally equivalent, and as so could use the same
+> validity checker.
 
-This change ought to come separately, with its own justification. Assuming
-it can be justified at all, considering it also affects the non-nested,
-non-alternative case.
+May I suggest s/equivalent/similar/?
+
+> Move the IVMD to x86 common IOMMU code and adjust the function to take a pair
+> of [start, end) mfn parameters.
+
+[start,end) ranges generally come with the problem of not allowing to
+represent the full address space. While that isn't specifically a problem
+here, seeing that both VT-d and V-i present inclusive ranges, how about
+making the common function match that?
 
 Jan
 
