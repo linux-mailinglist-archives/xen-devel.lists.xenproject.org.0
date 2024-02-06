@@ -2,32 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5455F84BDCC
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 20:05:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677083.1053495 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A72F184BDF4
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 20:11:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677089.1053507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXQkq-00047l-JF; Tue, 06 Feb 2024 19:05:12 +0000
+	id 1rXQr2-0005lv-9g; Tue, 06 Feb 2024 19:11:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677083.1053495; Tue, 06 Feb 2024 19:05:12 +0000
+Received: by outflank-mailman (output) from mailman id 677089.1053507; Tue, 06 Feb 2024 19:11:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXQkq-00044X-GQ; Tue, 06 Feb 2024 19:05:12 +0000
-Received: by outflank-mailman (input) for mailman id 677083;
- Tue, 06 Feb 2024 19:05:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rXQr2-0005ir-6d; Tue, 06 Feb 2024 19:11:36 +0000
+Received: by outflank-mailman (input) for mailman id 677089;
+ Tue, 06 Feb 2024 19:11:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rXQkp-00044R-8r
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 19:05:11 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rXQko-0001oy-QS; Tue, 06 Feb 2024 19:05:10 +0000
-Received: from [15.248.2.233] (helo=[10.24.67.33])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rXQko-000577-Jy; Tue, 06 Feb 2024 19:05:10 +0000
+ (envelope-from <SRS0=z75a=JP=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rXQr0-0005iR-R9
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 19:11:34 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de
+ [2a07:de40:b251:101:10:150:64:2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 890635d0-c523-11ee-98f5-efadbce2ee36;
+ Tue, 06 Feb 2024 20:11:31 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6629C1F38E;
+ Tue,  6 Feb 2024 19:11:30 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 22C49139D8;
+ Tue,  6 Feb 2024 19:11:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id W+45O2CEwmXSHQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 06 Feb 2024 19:11:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,172 +52,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=9/LqaCaGVK2AihcOmcNwgx4zFOFq/CqvfKVNCDwmvV4=; b=wWx9tn1XYqO1f78tWvd1u4lYRG
-	M9DowVasE7ZNg1HttM0haZ7kRob44d4wySM73dosRjKYG0lrCiyBzkvXnSVIW6/RPUEsHaeZQuykI
-	A61Q1HSnC0ikQh3H2uWym1IQXg4skN3CI6x+bgGPd03KVzAhBdf6eGd/SSWJ66jGEMRk=;
-Message-ID: <0c4e4a40-7327-4377-bfdd-82e69bc838ae@xen.org>
-Date: Tue, 6 Feb 2024 19:05:08 +0000
+X-Inumbo-ID: 890635d0-c523-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1707246690; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=v3tdZNE3CtH/sw9mKXkbSutXzAO/0g8n6ykGpI2lzis=;
+	b=EZbfd8XCXsYGmQoQxJeGsrmeM4xhPDzP40waWElzCWaAkcw+lNPc4zYMQmVVQAFWE5r70t
+	IpFlAejVodVeLVOkdgytNKGHpoO0jFABQZq1FU6iChOzh6Z2Q+o40g6jsNIR8J4JE4tok6
+	q6+qVl/Flny/RuutjA5IjLKXgapYWDE=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1707246690; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=v3tdZNE3CtH/sw9mKXkbSutXzAO/0g8n6ykGpI2lzis=;
+	b=EZbfd8XCXsYGmQoQxJeGsrmeM4xhPDzP40waWElzCWaAkcw+lNPc4zYMQmVVQAFWE5r70t
+	IpFlAejVodVeLVOkdgytNKGHpoO0jFABQZq1FU6iChOzh6Z2Q+o40g6jsNIR8J4JE4tok6
+	q6+qVl/Flny/RuutjA5IjLKXgapYWDE=
+From: Juergen Gross <jgross@suse.com>
+To: minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org,
+	wl@xen.org,
+	julien@xen.org,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH v2] Mini-OS: fix 9pfs frontend error path
+Date: Tue,  6 Feb 2024 20:11:25 +0100
+Message-Id: <20240206191125.13065-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN v4 2/3] xen/arm: arm64: Add emulation of Debug Data Transfer
- Registers
-Content-Language: en-GB
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com, michal.orzel@amd.com,
- luca.fancellu@arm.com
-References: <20240131121049.225044-1-ayan.kumar.halder@amd.com>
- <20240131121049.225044-3-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240131121049.225044-3-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out2.suse.de;
+	none
+X-Spamd-Result: default: False [4.90 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 R_MISSING_CHARSET(2.50)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 BROKEN_CONTENT_TYPE(1.50)[];
+	 RCPT_COUNT_FIVE(0.00)[6];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_ALL(0.00)[]
+X-Spam-Level: ****
+X-Spam-Score: 4.90
+X-Spam-Flag: NO
 
-Hi Ayan,
+The early error exit in p9_stat() returns without zeroing the p9_stat
+buffer, resulting in free() being called with an uninitialized pointer.
 
-On 31/01/2024 12:10, Ayan Kumar Halder wrote:
-> From: Michal Orzel <michal.orzel@amd.com>
-> 
-> Currently, if user enables HVC_DCC config option in Linux, it invokes access
-> to debug data transfer registers (i.e. DBGDTRTX_EL0 on arm64, DBGDTRTXINT on
-> arm32). As these registers are not emulated, Xen injects an undefined
-> exception to the guest and Linux crashes.
-> 
-> To prevent this crash, introduce a partial emulation of DBGDTR[TR]X_EL0
-> (these registers share the same encoding) as RAZ/WI and MDCCSR_EL0 as TXfull.
-> 
-> Refer ARM DDI 0487J.a ID042523, D19.3.8, DBGDTRTX_EL0
-> "If TXfull is set to 1, set DTRRX and DTRTX to UNKNOWN".
-> 
-> Thus, any OS is expected to read MDCCSR_EL0 and check for TXfull before
-> using DBGDTRTX_EL0. Linux does it via hvc_dcc_init() ---> hvc_dcc_check(),
-> and returns -ENODEV in case TXfull bit is still set after writing a test
-> character. This way we prevent the guest from making use of HVC DCC as a
-> console.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> Changes from
-> 
-> v1 :- 1. DBGDTR_EL0 does not emulate RXfull. This is to avoid giving the OS any
-> indication that the RX buffer is full and is waiting to be read.
-> 
-> 2. In Arm32, DBGOSLSR is emulated. Also DBGDTRTXINT is emulated at EL0 only.
-> 
-> 3. Fixed the commit message and inline code comments.
-> 
-> v2 :- 1. Split the patch into two (separate patches for arm64 and arm32).
-> 2. Removed the "fail" label.
-> 3. Fixed the commit message.
-> 
-> v3 :- 1. "HSR_SYSREG_MDCCSR_EL0" emulation differs based on whether
-> partial_emulation_enabled is true or not.
-> 
-> 2. If partial_emulation_enabled is false, then access to HSR_SYSREG_DBGDTR_EL0,
-> HSR_SYSREG_DBGDTRTX_EL0 would lead to undefined exception.
-> 
->   xen/arch/arm/arm64/vsysreg.c         | 28 ++++++++++++++++++++++++----
->   xen/arch/arm/include/asm/arm64/hsr.h |  3 +++
->   2 files changed, 27 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
-> index b5d54c569b..94f0a6c384 100644
-> --- a/xen/arch/arm/arm64/vsysreg.c
-> +++ b/xen/arch/arm/arm64/vsysreg.c
-> @@ -159,9 +159,6 @@ void do_sysreg(struct cpu_user_regs *regs,
->        *
->        * Unhandled:
->        *    MDCCINT_EL1
-> -     *    DBGDTR_EL0
-> -     *    DBGDTRRX_EL0
-> -     *    DBGDTRTX_EL0
->        *    OSDTRRX_EL1
->        *    OSDTRTX_EL1
->        *    OSECCR_EL1
-> @@ -173,10 +170,32 @@ void do_sysreg(struct cpu_user_regs *regs,
->           return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 1);
->       case HSR_SYSREG_MDCCSR_EL0:
->           /*
-> +         * Xen doesn't expose a real (or emulated) Debug Communications Channel
-> +         * (DCC) to a domain. Yet the Arm ARM implies this is not an optional
-> +         * feature. So some domains may start to probe it. For instance, the
-> +         * HVC_DCC driver in Linux (since f377775dc083 and at least up to v6.7),
-> +         * will try to write some characters and check if the transmit buffer
-> +         * has emptied.
-> +         *
-> +         * By setting TX status bit (only if partial emulation is enabled) to
-> +         * indicate the transmit buffer is full, we would hint the OS that the
-> +         * DCC is probably not working.
-> +         *
-> +         * Bit 29: TX full
-> +         *
->            * Accessible at EL0 only if MDSCR_EL1.TDCC is set to 0. We emulate that
->            * register as RAZ/WI above. So RO at both EL0 and EL1.
+Fix that by calling free_stat() in p9_stat() in case of returning an
+error and potentially having allocated strings.
 
-The sentence "we emulate that register as ..." seems to be stale?
+Reported-by: Julien Grall <julien@xen.org>
+Fixes: 2d1dfccd3aa3 ("Mini-OS: add read and write support to 9pfsfront")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- call free_stat() in p9_stat() in case of returning an error
+  (Samuel Thibault)
+---
+ 9pfront.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
->            */
-> -        return handle_ro_raz(regs, regidx, hsr.sysreg.read, hsr, 0);
-> +        return handle_ro_read_val(regs, regidx, hsr.sysreg.read, hsr, 0,
-> +                                  partial_emulation ? (1U << 29) : 0);
-> +
-> +    case HSR_SYSREG_DBGDTR_EL0:
-> +    /* DBGDTR[TR]X_EL0 share the same encoding */
-> +    case HSR_SYSREG_DBGDTRTX_EL0:
-> +        if ( !partial_emulation )
-> +            goto fail;
-> +        return handle_raz_wi(regs, regidx, hsr.sysreg.read, hsr, 0);
-
-AFAICT, all the emulation helpers have an explanation why we are using 
-them. But here this is not the case. Can you add one?
-
-> +
->       HSR_SYSREG_DBG_CASES(DBGBVR):
->       HSR_SYSREG_DBG_CASES(DBGBCR):
->       HSR_SYSREG_DBG_CASES(DBGWVR):
-> @@ -394,6 +413,7 @@ void do_sysreg(struct cpu_user_regs *regs,
->        * And all other unknown registers.
->        */
->       default:
-> + fail:
-
-AFAICT, this would violate MISRA 15.3 [1]. We didn't seem to have yet 
-(?) accepted the rule, but I don't see we would not given I feel this is 
-similar to what Rule 16.2 is trying to prevent and we accepted it.
-
-I think case, I move all the code within default outside. And then call 
-"goto fail" from the default label.
-
->           {
->               const struct hsr_sysreg sysreg = hsr.sysreg;
->   
-> diff --git a/xen/arch/arm/include/asm/arm64/hsr.h b/xen/arch/arm/include/asm/arm64/hsr.h
-> index e691d41c17..1495ccddea 100644
-> --- a/xen/arch/arm/include/asm/arm64/hsr.h
-> +++ b/xen/arch/arm/include/asm/arm64/hsr.h
-> @@ -47,6 +47,9 @@
->   #define HSR_SYSREG_OSDLR_EL1      HSR_SYSREG(2,0,c1,c3,4)
->   #define HSR_SYSREG_DBGPRCR_EL1    HSR_SYSREG(2,0,c1,c4,4)
->   #define HSR_SYSREG_MDCCSR_EL0     HSR_SYSREG(2,3,c0,c1,0)
-> +#define HSR_SYSREG_DBGDTR_EL0     HSR_SYSREG(2,3,c0,c4,0)
-> +#define HSR_SYSREG_DBGDTRTX_EL0   HSR_SYSREG(2,3,c0,c5,0)
-> +#define HSR_SYSREG_DBGDTRRX_EL0   HSR_SYSREG(2,3,c0,c5,0)
->   
->   #define HSR_SYSREG_DBGBVRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,4)
->   #define HSR_SYSREG_DBGBCRn_EL1(n) HSR_SYSREG(2,0,c0,c##n,5)
-
-Cheers,
-
-[1] 
-https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_15_03.c
-[2] 
-https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_16_02.c
-
+diff --git a/9pfront.c b/9pfront.c
+index 315089bc..042879a7 100644
+--- a/9pfront.c
++++ b/9pfront.c
+@@ -728,6 +728,8 @@ static int p9_stat(struct dev_9pfs *dev, uint32_t fid, struct p9_stat *stat)
+            &stat->extension, &stat->n_uid, &stat->n_gid, &stat->n_muid);
+ 
+     ret = req->result;
++    if ( ret )
++        free_stat(&stat);
+ 
+     put_free_req(dev, req);
+ 
+@@ -932,13 +934,13 @@ static int write_9pfs(struct file *file, const void *buf, size_t nbytes)
+     if ( f9pfs->append )
+     {
+         ret = p9_stat(f9pfs->dev, f9pfs->fid, &stat);
+-        free_stat(&stat);
+         if ( ret )
+         {
+             errno = EIO;
+             return -1;
+         }
+         file->offset = stat.length;
++        free_stat(&stat);
+     }
+ 
+     ret = p9_write(f9pfs->dev, f9pfs->fid, file->offset, buf, nbytes);
 -- 
-Julien Grall
+2.35.3
+
 
