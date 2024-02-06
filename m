@@ -2,33 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B71084BA95
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 17:05:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677027.1053420 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2931084BABD
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 17:18:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677035.1053431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXNwU-0004xU-B6; Tue, 06 Feb 2024 16:05:02 +0000
+	id 1rXO8t-000713-HR; Tue, 06 Feb 2024 16:17:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677027.1053420; Tue, 06 Feb 2024 16:05:02 +0000
+Received: by outflank-mailman (output) from mailman id 677035.1053431; Tue, 06 Feb 2024 16:17:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXNwU-0004uh-82; Tue, 06 Feb 2024 16:05:02 +0000
-Received: by outflank-mailman (input) for mailman id 677027;
- Tue, 06 Feb 2024 16:05:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXO8t-0006y2-E0; Tue, 06 Feb 2024 16:17:51 +0000
+Received: by outflank-mailman (input) for mailman id 677035;
+ Tue, 06 Feb 2024 16:17:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HR0g=JP=gmail.com=euidzero@srs-se1.protection.inumbo.net>)
- id 1rXNwS-0004ub-Qj
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 16:05:00 +0000
-Received: from mail-pj1-x102a.google.com (mail-pj1-x102a.google.com
- [2607:f8b0:4864:20::102a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79567307-c509-11ee-8a48-1f161083a0e0;
- Tue, 06 Feb 2024 17:04:58 +0100 (CET)
-Received: by mail-pj1-x102a.google.com with SMTP id
- 98e67ed59e1d1-296a02b7104so1780613a91.2
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 08:04:59 -0800 (PST)
+ <SRS0=bmrB=JP=outlook.it=giuseppe.de.rosa@srs-se1.protection.inumbo.net>)
+ id 1rXO8r-0006vo-Nd
+ for xen-devel@lists.xen.org; Tue, 06 Feb 2024 16:17:49 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05olkn20800.outbound.protection.outlook.com
+ [2a01:111:f403:2e13::800])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 426c56a4-c50b-11ee-98f5-efadbce2ee36;
+ Tue, 06 Feb 2024 17:17:45 +0100 (CET)
+Received: from DB9P192MB1434.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:296::21)
+ by DU0P192MB1951.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:411::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.36; Tue, 6 Feb
+ 2024 16:17:42 +0000
+Received: from DB9P192MB1434.EURP192.PROD.OUTLOOK.COM
+ ([fe80::3954:cef6:c539:697a]) by DB9P192MB1434.EURP192.PROD.OUTLOOK.COM
+ ([fe80::3954:cef6:c539:697a%6]) with mapi id 15.20.7249.035; Tue, 6 Feb 2024
+ 16:17:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,209 +47,730 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79567307-c509-11ee-8a48-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707235497; x=1707840297; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=BDD4xO+tU5cqx3drot12zKF0OHarPvqjDEeUhqYVy3k=;
-        b=DQEmJM0hOaWqEIocYsZMHym5ImVOAZWr8/J2iPa23F3IZyIs9F6gOYKI0+8KyUrYVx
-         VR8Yjwzp7b0TFchkERF/QFmFRJmk8+l66wwLaDZ1R6FbZ03coejmrttnRdn8n8aKzkwA
-         CMRl332uIGI4kXUODSBSzAZkJxjzGZiSUJkJEqUGQgK6MJiiC4OuxZW+xQhszP6kybDe
-         ONDp/T1MqODL2hJ2JXizbCDLPyYRzk4sXf9A5ewoJksSryou7FyV+RRhe22mQt75xWHH
-         UjVjDNeTUReFExLAKhHD/0/k4XuItHRcCpwyYw15soArKcsgforxhNgOYtyGRHHSue68
-         aong==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707235497; x=1707840297;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BDD4xO+tU5cqx3drot12zKF0OHarPvqjDEeUhqYVy3k=;
-        b=eT6edCAmXH8Awq0plh5Dr6oYPnqV/vEFUtXQTP+jQ0n8VntbiWUwuTkY0BC2AHsCgA
-         SamEMBK9yZnYwP8WFgT9jwGmtDD+yx4Wyzdzk//+HjS5Cqx+QVZp4VkDd652JedG3zpp
-         Fp6jspHY9F/XkenY/dpHXgeEaLTeiHwWDUlwQ4kAWov08sexvTYj8TcV3SBEwuN6QLPl
-         zMh7hLRdNxn38AJzs2SVZFSuiKOJNbmwA12WM5tKFgRvh2Y2iw9/tGFzYxK0aJ9wnAQu
-         WTYixasnUdF5hl7DEknEDq8DNEKXyQIzQ4qYqwFnKIDAsBqYDhDzfmbrJwx0CGEj7veI
-         jg/w==
-X-Gm-Message-State: AOJu0YyBeVh1h2i4Nujms7s+ZzZWf2fph/qqmUnacCfJGyCAbNUg1oZ7
-	0cJjGfVA2Dzso7+L2hDbETTCcpniPEwqzwohkCnFzjyJYO9aBe1QNcrVz57AkMrhIPDIspQG98p
-	qmNA4ob2aK+rfG2fCf98q4RrQfSMpaRAAwBFTwg==
-X-Google-Smtp-Source: AGHT+IFZAAk48D1jEvUq5gFRdS9N76/AJ2mA/VAKw7vxAkd1JX9MoN1D6ko+oOa60+ThMyKujom2BqS1wp81F+G4sZE=
-X-Received: by 2002:a17:90a:e643:b0:296:344d:5a0b with SMTP id
- ep3-20020a17090ae64300b00296344d5a0bmr2759314pjb.15.1707235497020; Tue, 06
- Feb 2024 08:04:57 -0800 (PST)
+X-Inumbo-ID: 426c56a4-c50b-11ee-98f5-efadbce2ee36
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hCUtJHrn8hzxkeTzsYNGuOLAlwOpQBIyyDdUFka9i8yFh41GSvI03yUm1AQr1Ik11Dnm22D3sEPT/Q23d3X37RX6QZxf3T8RjY1bV39Rd/u/xHYUFPS4iUOFu6DhEYJ9kqqCa0+rGTm7cCjHwkCTWNWraY6Vx9u5VM8WwV99CkGRyQ017nWC19Cn6bxvssh7DtpDoV+GV68dInJnXrj9HHrQDPPaSpZgPNvSMMCTj4P4n0mGPEMFtASc94cif2AjT/3r30kPMW9jwN4PhjLW0gOK5nG0exAVuPw9ymmtbqZJktDVEtT2VdHeZ3g5y+D6CPKOgDEGL/5k7npYs6iGMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7kycROZqAaTkyG+kYa3gPHkmWsxhIihlVtcW94aOH6c=;
+ b=B4wyJzsN5a4gBCJqdujznaiZhOEIHUqJJcPGrHZGdLk5oTeZnqywZNk3X/mpYNOaedcHqagGAa/XzlxrJSWuUFya41sgtkFJkqMPEtD1tMNYWsdpZziYYsTGjqKLmihjieJafuAh6aGOkZYeqNHrhAE17W5n/Xupol3doGZlEV/f081O4NefQxa6q8AitZQ5adj1gB6C2NlvuUAOvqId1AgVJ/zV2xIk6vCKoSSulERZ+FQradEgSt5icY77nVugIuCjLPs/UqcXcc9czmXvjQEr9TJcX06jEIvwlJXY76zb2iNOM/vwcFb2Ghs/m6bc/0FZ6p3haxhL/V8wsJpnaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+From: Giuseppe De Rosa <giuseppe.de.rosa@outlook.it>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, "xen-devel@lists.xen.org"
+	<xen-devel@lists.xen.org>
+Subject: R: [BUG] Possible FATAL PAGE FAULT in domain_crash function on Xen
+ 4.14.6
+Thread-Topic: [BUG] Possible FATAL PAGE FAULT in domain_crash function on Xen
+ 4.14.6
+Thread-Index: AQHaWPFxTFnf2PP9dU2mKqDyY7lMybD9WsMAgAAheyA=
+Date: Tue, 6 Feb 2024 16:17:42 +0000
+Message-ID:
+ <DB9P192MB143408981DB724A477C0ADA6A6462@DB9P192MB1434.EURP192.PROD.OUTLOOK.COM>
+References:
+ <DB9P192MB1434AD2FD1069E39FB480068A6462@DB9P192MB1434.EURP192.PROD.OUTLOOK.COM>
+ <5cb25d4f-c3be-4c45-a434-421e1bf54be3@citrix.com>
+In-Reply-To: <5cb25d4f-c3be-4c45-a434-421e1bf54be3@citrix.com>
+Accept-Language: it-IT, en-US
+Content-Language: it-IT
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+x-tmn: [RltGXoKOyqgU5NHietxuq3XOYJ6cYoPKdcTFnw77gm0=]
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB9P192MB1434:EE_|DU0P192MB1951:EE_
+x-ms-office365-filtering-correlation-id: 1a7e45af-fe60-4161-3fba-08dc272f2576
+x-ms-exchange-slblob-mailprops:
+ WaIXnCbdHrOEviK8+uzePdFfNisOgVEmkoxbfNPwsUIZpudLBB2q+9cq/tPX4qPvM9FK6TzTI9rXOBABhonhKmXq1H3F2xXUyeji9R/Jt2YNKYtQopjSEoamd26t5/SYcWiwenN6naua5uiNTod1ZDoMgjcnY01FOL9H3+wA+jtsZbEwuJqJOfKmJOT6QXpFcUhVIvnsQ0eW+MHnJUCBnQWpTynyoRgUJ6gr6kNQ8bTm9kSL272yHV5bmeC41HI9SgQOa34jMmvwghi8BVcYh1b8e6YEQ4x0XYdCovJTGuOo8BgpseJjUCBP62190Kf1ZCtENnJXDyDPYiQwNdJ6SV6z0XYNhbsPhbjr+z2OWiU8hLWxaJ1rvOAbVfotWL4m8lDUIuy/2GWtnVrL30k9/0Cc2G6ORqqzh1AIWrzZ0pcCjJLY508ketau8gOldP3dykQpsLNHLtKQW/zXkNISv2Vmy8sxHT5rKrAS5sEmEG41ZRmJOcPOJ3UB9vvxikmBBD0iyeryTI+6vaSkNlvHQFkAFmJtIACmf1dUCdkiwi5b62FbsCpkbGARl+wQp2i5kCpETiBcNogZIK2HD7n9aJwJcCWI7eZZ9SvzcNIwqq+hfMbCm9GSDCHdb8dmmBb28hH+B2rvi0cFwnFCh2WvWAbFsBr8YpY+s85Cb05f5Lam0C6eqNsnMVjJNGGuP7+3TdT/Ux283crDnhuy8/PopAnl/ENwGvK8Oh4PHnJrw6yWQ0YTh+21tTLqB44xFQYpf7n9/sd2BbU=
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 9sVgsrjV/J6jqibLehPI/Fqk7mRDY3Zf4YCmEZI86Ij3YlS5mbh7xsPWkfrk6MwQyH/rMGygyEK+OljHSoZO67eh4o7jKS91eqdQTNYnAYjKXGcopxFAlDzpdD6hrmfjYiFDpo/iux2/4selZVMIKKADCgZDggQk/CibyugU2RIRG0Zh7uUFx1iuEPpi2saazpqYIqzfRJd/9saW/rS4crMpgcJuEDC5xkZVHogZHFSNdK72LrLRfBEL/WkAV1jUOs5ctTFcchEyDhnZv+A/9mICu+2H0B63n4rCe8aXQbHp+zELijy4fKyWNc9ywgueel6LT4MGCBeP64LlbnvtK12Dg7A2y3sh9YmHnAr5HmXx9ujpJPr5BFvaSgL2x9IIMWZsORqR1efYqCf8zwpa8gnjGhQfGigWjI8kd81ZbB2yO2HSUaQeR8z27OT8pDNRMZu2LGzd5X3BjPn8nKPg0VmGFhBadfnkqtr+hVRtofmt/C/x7y0BXhRlCAfqOzniE7TZXp0Bizm+5Zh6AkxPu91QiNW7nxXYxSrQftDEZNBAQ3N0/mpYfe7EU2SX52dc
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?+Amfm7Lm5R98xgsH+GNdYsDQGrHcRa9w55HsaP/aMJvMQSdQb0fNo770cJ?=
+ =?iso-8859-1?Q?hhJs9EYb4ZZFW6PM6nQNPSiw9wEPX/gCvHoomUh0XQ7NEznKph9040yoVr?=
+ =?iso-8859-1?Q?xTF4Fhdfkf834IxnbOWPGpkyiUUcBPf2VSrtgKxQkGPggukxAUqR/bc+ak?=
+ =?iso-8859-1?Q?X/0TTcrxyk+Lfl7Z5273/reuYau7b1m7yv5C4Z+xXlvf3m48YC2n+6OdCA?=
+ =?iso-8859-1?Q?SlyOxmgPNu1mru3LmdKKDU708UaLElHJSqkrz7G2PKNjBoyYN8pAWJbnoO?=
+ =?iso-8859-1?Q?6SLFSfMRsFIZP/uIUPM4OEkXkvHkF6mFZw1h9+oLzBJL4WEASQuZtGkIKx?=
+ =?iso-8859-1?Q?Q78QvbVuLgqJd2FsiF4fwRKc8oXgnV7LDg9QwoNJK9juQWBBaCnZW3I/qH?=
+ =?iso-8859-1?Q?w7F2M3fsLZ2fS9sO6m5NVxnayrHVkayoMtir1l3xA+RV8r0hXDRInW6v4C?=
+ =?iso-8859-1?Q?vKIByHgfTvexSjYm+J6DFiX/biL3x3pvHVRQGYyU5Kq2Zr6dRHpgXpKhhY?=
+ =?iso-8859-1?Q?hn9JvxEiVt/HYmgLFNAq0FE8Bizxrn5TeyTtpXf/P+EwMq1V4J3wwBPcNb?=
+ =?iso-8859-1?Q?rNDmE9fse7WGCtnzaZ5yBVgpaXs58T30uh7kn1LP/KF3m74eqcEjA16qq2?=
+ =?iso-8859-1?Q?26oj3KjRbNlBO9+978KgVNjixk+MIIScxpJc/FS51jDFkeHnyrcFGrdZ9F?=
+ =?iso-8859-1?Q?4GHO9csb4K/yInnV7t82ROfH9noWREMfT6xuP81bs0tA2sd1g54U+HL2Of?=
+ =?iso-8859-1?Q?WsAxJO6rNqW3eZ8eR7441Dg078BuWyU3slb8CuxZwyOD5MhGQe29uqPXWo?=
+ =?iso-8859-1?Q?yZ0YQ5LMgaFs9+Dji4layDIV8TCT51Bwyj+vU0Rif4Uicw76TBlGmjQYsM?=
+ =?iso-8859-1?Q?qOp7vKju+HAEtaWhasrrSd6lb0UkoOQsPVrgrPNx1NfCzKfmW19dMfW8sb?=
+ =?iso-8859-1?Q?sOIHKgREwSm6GFWN5e2dxKGXwRbdTFOhsyHVEBD31mbYSC+paoKzjrYiIV?=
+ =?iso-8859-1?Q?PQI9WRhRTooQ39OSGrL6ka1OrJtwdANPJ3K/FCZu/intvcXfxpiPc0GVt6?=
+ =?iso-8859-1?Q?dK3g458OYIT2L+33uIPYfM1DLvU05xT4w7p2/8O5+xQDpfhBGwVwPgpccE?=
+ =?iso-8859-1?Q?9yyMJLOUQWM4i1WNNeH1QsaU6dwQcJr41k5T+6FZHab0WBiwCn4NFhOxSh?=
+ =?iso-8859-1?Q?u4wVygyx4ZCHNO56AU08mmXsesQ35iaEirIphoPvKaoXPGXjWKsJk62soV?=
+ =?iso-8859-1?Q?1kBs14rgta7L4XzI1/CNGPJrT0wBFBXw0URlB1DDA=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_DB9P192MB143408981DB724A477C0ADA6A6462DB9P192MB1434EURP_"
 MIME-Version: 1.0
-References: <CAKm-Umas=5=JzooRzPHxUDigKpFK3Ze7cQcG8eR5kWgn-d_7fQ@mail.gmail.com>
- <CAKm-UmaUZ=rj-F3RvMoR7H3OvBHm1iy4PTRZAjyi=MQUVTuYVg@mail.gmail.com>
- <CAKm-Umat77MTh6=GEuH+bf1WRX+_B4-N5hY4xwADALfhj4QCPA@mail.gmail.com>
- <6ba9568a-ff8e-48ad-907f-74303e04d3a2@suse.com> <CAKm-UmZVoUhidEV15Xk+J_XN5a2GsBqMbXL9wqdFdoAFf_u5AA@mail.gmail.com>
- <bcbceba7-42ac-45be-80ab-e3dfe7741ec6@suse.com> <2eafe45b-fd97-472c-a173-459d6ff0b957@suse.com>
- <CAKm-Umbs2D7NHFE+NW2xKOu7-AZhFpH4uzE5QTuQusnGA_eNWA@mail.gmail.com>
- <f539144c-885a-461c-a506-bdb73e626a65@suse.com> <CAKm-UmY126AfdGhWcZ3s9vwN9+ksVRRFEhOu0ZFMoDvxrqOibw@mail.gmail.com>
- <CAKm-UmYt3iV8zOhSmtqMGhi_8T93c_nCbnefs4m3UC+3UABqeQ@mail.gmail.com>
- <CAKm-UmY-KXEAtBagikW4Jvp=SFXtmEg8P62pHfSo3Hr2s-0_-A@mail.gmail.com>
- <CAKm-UmYbMCfXc1Ny0=qfB+UaLSXV9oEHZiSgS=mwKMwmOFGVrQ@mail.gmail.com>
- <77c1c05d-a0a0-4292-9257-9b7fbebee0e3@suse.com> <2859ad22-8714-4628-8142-fc77fc2072c3@amd.com>
- <CAKm-UmZpyGkWXugYTJqU+qqVDyCFEKghtd=NTr2wK5EMCeL9Ww@mail.gmail.com>
- <214585d5-689d-4ba6-bd48-359428a7ed8f@amd.com> <CAKm-UmZoKwre8-G793VqRNFCmzAti1o-0Kp3ZyV_Z5cc0YNiKw@mail.gmail.com>
- <CAKm-Umb=kGFqc5je9E3bbfQ0bcbZeY_Ntv5JDmO-vXj3N0MvPg@mail.gmail.com>
-In-Reply-To: <CAKm-Umb=kGFqc5je9E3bbfQ0bcbZeY_Ntv5JDmO-vXj3N0MvPg@mail.gmail.com>
-From: =?UTF-8?Q?S=C3=A9bastien_Chaumat?= <euidzero@gmail.com>
-Date: Tue, 6 Feb 2024 17:04:45 +0100
-Message-ID: <CAKm-UmZ113q-a8wEE5yo0OPPM3JpNqJzKaU1eNiCzT2YkGU0pQ@mail.gmail.com>
-Subject: Re: [BUG]i2c_hid_acpi broken with 4.17.2 on Framework Laptop 13 AMD
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Mario Limonciello <mario.limonciello@amd.com>, 
-	Juergen Gross <jgross@suse.com>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Content-Type: multipart/alternative; boundary="0000000000005921250610b8bdd3"
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-fb43a.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB9P192MB1434.EURP192.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a7e45af-fe60-4161-3fba-08dc272f2576
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Feb 2024 16:17:42.4753
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0P192MB1951
 
---0000000000005921250610b8bdd3
-Content-Type: text/plain; charset="UTF-8"
+--_000_DB9P192MB143408981DB724A477C0ADA6A6462DB9P192MB1434EURP_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-Le jeu. 1 f=C3=A9vr. 2024 =C3=A0 13:30, S=C3=A9bastien Chaumat <euidzero@gm=
-ail.com> a
-=C3=A9crit :
+Hello Andrew,
 
-> I spotted the following warning for IRQ7 (along with IRQ6 and 10)
->>
->> [    0.686073] fedora kernel: __irq_set_trigger: genirq: No set_type
->> function for IRQ 7 (IR-IO-APIC)
->>
->> This comes from kernel/irq/manage.c
->>
->>
->> int __irq_set_trigger(struct irq_desc *desc, unsigned long flags)
->> {
->> struct irq_chip *chip =3D desc->irq_data.chip;
->> int ret, unmask =3D 0;
->>
->> if (!chip || !chip->irq_set_type) {
->> /*
->> * IRQF_TRIGGER_* but the PIC does not support multiple
->> * flow-types?
->> */
->> pr_debug("No set_type function for IRQ %d (%s)\n",
->> irq_desc_get_irq(desc),
->> chip ? (chip->name ? : "unknown") : "unknown");
->> return 0;
->> }
->> Could this have a role in the IRQ misconfiguration by xen ?
->>
->
->  Things are getting even weirder :
->
-> xen 4.18.1-pre (vanilla, no patching of pci_xen_initial_domain()), kernel
-> 6.8.0-rc2) :
->
-> checking /sys/kernel/irq/7 :
->
-> actions: pinctrl_amd
-> chip_name: xen-pirq
-> hwirq:
-> name: ioapic-edge
-> per_cpu_count: 0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
-> type: edge
-> wakeup: disabled
->
-> now checking  xen with xl debug-key i
->
-> (XEN)    IRQ:   7 vec:51 IO-APIC-level   status=3D030 aff:{13}/{13}
-> in-flight=3D0 d0:  7(---)
-> (XEN)     IRQ  7 Vec 81:
-> (XEN)       Apic 0x00, Pin  7: vec=3D51 delivery=3DFixed dest=3DP status=
-=3D1
-> polarity=3D1 irr=3D1 trig=3DL mask=3D0 dest_id:0000510d
->
-> So even after dom0 is set up, the kernel considers  IRQ7 is of type edge
-> while xen has it registered as IO-APIC-level.
->
-> Reasoning backward  (using a  kernel without the pinctrl_amd driver to
-ensure xen only is at stake) :
- checking the diff in IOAPIC  between bare metal and xen  (IRQ7 is on pin07
-on APIC )
+Thank you for the quick response. I have no local modifications to Xen, pre=
+cisely in order to test it as cleanly as possible.
+As soon as possible, I'll try to use a more recent version. Regarding the s=
+tack trace, I believe the series of function calls starts from:
 
-using kernel argument : apic=3Ddebug
+vmx_asm_vmexit_handler -> vmx_vmexit_handler -> domain_crash -> __domain_cr=
+ash
 
-bare metal :
-[    0.715330] fedora kernel: ... APIC VERSION: 81050010
-...
-[    0.715433] fedora kernel:  pin07, disabled, edge , high, V(00), IRR(0),
-S(0), physical, D(0000), M(0)
+Thank you for addressing the concerns about security, next time I'll follow=
+ your advice.
 
-xen :
-[    2.249582] fedora kernel: ... APIC VERSION: 00000014
-...
-[    2.249730] fedora kernel:  pin07, disabled, level, low , V(60), IRR(0),
-S(0), physical, D(0000), M(0)
+Best regards,
+Giuseppe De Rosa.
+________________________________
+Da: Andrew Cooper <andrew.cooper3@citrix.com>
+Inviato: marted=EC 6 febbraio 2024 15:11
+A: Giuseppe De Rosa <giuseppe.de.rosa@outlook.it>; xen-devel@lists.xen.org =
+<xen-devel@lists.xen.org>
+Oggetto: Re: [BUG] Possible FATAL PAGE FAULT in domain_crash function on Xe=
+n 4.14.6
 
-So the APIC table is not the same.
+On 06/02/2024 12:14 pm, Giuseppe De Rosa wrote:
+> Bug detailed description:
+>
+> ----------------
+>
+> While booting a Linux Debian 7 "Wheezy" VM, Xen crashes with a FATAL
+> PAGE FAULT.
+>
+>
+>
+> Environment :
+>
+> ----------------
+>
+> HW: Intel(R) Xeon(R) CPU E5-1620 v2 @ 3.70GHz (2 CPU, Xen in nested
+> virtualization upon QEMU/KVM), 4GB RAM
+>
+> Xen: Xen 4.14.6 (xen-hypervisor-4.14-amd64 package)
+>
+> Dom0: Linux 5.10.0-26-amd64 (Debian 11 "Bullseye"), 1 CPU, 1024GB RAM
+>
+>
+>
+> Reproduce steps:
+>
+> ----------------
+>
+> 1.      Install debian 11 and xen package
+>
+> 2.      Boot a clean debian 7 image in hardware-assisted virtualization
+>
+> 3.      Single bit-flip bit number 2 of VMCS field
+> "VM_EXIT_QUALIFICATION" (field number 6400). In my case, value changed
+> from [100049] -> [10004d]
+>
+> 4.      Leave the debian7 guest executing after the bit flip.
+>
+>
+>
+> Current result:
+>
+> ----------------
+>
+> Xen crash
+>
+>
+>
+> Console error log:
+>
+> ----------------
+>
+> (XEN) d1v0 Unexpected PIO status 1, port 0x10 read 0x00000000ffff
+>
+> (XEN) domain_crash called from io.c:166
+> (XEN) Domain 1 (vcpu#0) crashed on cpu#1:
+> (XEN) ----[ Xen-4.14.6  x86_64  debug=3Dn   Not tainted ]----
+> (XEN) CPU:    1
+> (XEN) RIP:    0010:[<ffffffff8100712e>]
+> (XEN) RFLAGS: 0000000000000046   CONTEXT: hvm guest (d1v0)
+> (XEN) rax: 0000000000000000   rbx: 0000000040000000   rcx: 00000000000000=
+01
+> (XEN) rdx: 0000000000000000   rsi: ffffffff81666a80   rdi: ffffffff816178=
+30
+> (XEN) rbp: 0000000000000020   rsp: ffffffff81601e78   r8:  00000000000002=
+00
+> (XEN) r9:  ffffffff8168f2a0   r10: 0000000000000007   r11: 00000000000000=
+07
+> (XEN) r12: ffffffff81601f58   r13: ffffffffffffffff   r14: 000000000008c8=
+00
+> (XEN) r15: 0000000000001000   cr0: 0000000080050033   cr4: 00000000001000=
+a0
+> (XEN) cr3: 0000000001605000   cr2: 0000000000000000
+> (XEN) fsb: 0000000000000000   gsb: ffffffff81696000   gss: 00000000000000=
+00
+> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: 0010
+> (XEN) d1v0 Bad rIP ffffffff8100712e for mode 0
+> (XEN) domain_crash called from vmx.c:4413
+> (XEN) ----[ Xen-4.14.6  x86_64  debug=3Dn   Not tainted ]----
+> (XEN) CPU:    1
+> (XEN) RIP:    e008:[<ffff82d040206fa9>] __domain_crash+0x9/0x80
+> (XEN) RFLAGS: 0000000000010296   CONTEXT: hypervisor (d1v0)
+> (XEN) rax: ffff830139c0506c   rbx: ffff8301308a0000   rcx: 00000000000000=
+00
+> (XEN) rdx: ffff830136ddffff   rsi: 000000000000000a   rdi: 00000000000000=
+00
+> (XEN) rbp: 0000000000000000   rsp: ffff830136ddfee0   r8:  00000000000000=
+01
+> (XEN) r9:  0000000000004000   r10: 0000000000000001   r11: ffff82d040372d=
+40
+> (XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 00000000000000=
+00
+> (XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 00000000001526=
+e0
+> (XEN) cr3: 0000000136da6000   cr2: 0000000000000208
+> (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 00000000000000=
+00
+> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+> (XEN) Xen code around <ffff82d040206fa9> (__domain_crash+0x9/0x80):
+> (XEN)  0f 1e fa 55 48 89 fd 53 <80> bf 08 02 00 00 00 75 2d 48 89 e3 0f
+> b7 37 48
+> (XEN) Xen stack trace from rsp=3Dffff830136ddfee0:
+> (XEN)    ffff8301308a0000 0000000000000000 ffff82d0402a1798 0000000000001=
+000
+> (XEN)    000000000008c800 ffffffffffffffff ffffffff81601f58 0000000000000=
+020
+> (XEN)    0000000040000000 0000000000000007 0000000000000007 ffffffff8168f=
+2a0
+> (XEN)    0000000000000200 0000000000000000 0000000000000001 0000000000000=
+000
+> (XEN)    ffffffff81666a80 ffffffff81617830 000000fa00000000 ffffffff81007=
+12e
+> (XEN)    0000000000000000 0000000000000046 ffffffff81601e78 0000000000000=
+000
+> (XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+> (XEN)    0000e01000000001 ffff8301308a0000 00000030f9686000 0000000000152=
+6e0
+> (XEN)    0000000000000000 0000000000000000 0006020200000000 0000000000000=
+000
+> (XEN) Xen call trace:
+> (XEN)    [<ffff82d040206fa9>] R __domain_crash+0x9/0x80
+> (XEN)    [<ffff82d0402a1798>] S vmx_asm_vmexit_handler+0xf8/0x210
+> (XEN)
+> (XEN) Pagetable walk from 0000000000000208:
+> (XEN)  L4[0x000] =3D 0000000000000000 ffffffffffffffff
+> (XEN)
+> (XEN) ****************************************
+> (XEN) Panic on CPU 1:
+> (XEN) FATAL PAGE FAULT
+> (XEN) [error_code=3D0000]
+> (XEN) Faulting linear address: 0000000000000208
+> (XEN) ****************************************
+> (XEN)
+> (XEN) Reboot in five seconds...
+>
+>
+>
+> HVM guest config file:
+>
+> --------------------------------
+>
+> name =3D "debian7"
+>
+> builder=3D "hvm"
+> memory =3D 1024
+> vcpus =3D 1
+> cpus=3D ["1"]
+> disk=3D["qcow2:/home/test/debian7.qcow2,xvda,w"]
+> vnc =3D 1
+> vnclisten =3D '127.0.0.1'
+> vncdisplay =3D 1
+> boot =3D "d"
+> serial =3D "pty"
+>
+> Discussion
+> --------------------------------
+>
+> Hello, i am conducting robustness tests on Xen 4.14. I bit flipped the
+> field VM_EXIT_QUALIFICATION during the exit handling of an
+> IO_INSTRUCTION. After a VM Read on that field, Xen crashes with this
+> error log. This is my (possible) explanation:
+>
+> Xen correctly detects an error in the field, resulting in a domain crash
+> (Unexpected PIO status 1) called from this point in the code:
+>
+> xen/arch/x86/hvm/io.c
+> ```
+> gprintk(XENLOG_ERR, "Unexpected PIO status %d, port %#x %s 0x%0*x\n",
+>                 rc, port, dir =3D=3D IOREQ_WRITE ? "write" : "read",
+>                 size * 2, data & ((1u << (size * 8)) - 1));
+> domain_crash(curr->domain);
+> return false;
+> ```
+>
+> In the `handle_pio` function, in the handling of the `IO_INSTRUCTION`
+> exit reason. However, the code continues and ends here for an issue in
+> the processor mode:
+>
+> /xen/arch/x86/hvm/vmx/vmx.c
+> ```
+> mode =3D vmx_guest_x86_mode(v);
+>     if ( mode =3D=3D 8 ? !is_canonical_address(regs->rip)
+>                    : regs->rip !=3D regs->eip )
+>     {
+>         gprintk(XENLOG_WARNING, "Bad rIP %lx for mode %u\n", regs->rip,
+> mode);
+>
+>         if ( vmx_get_cpl() )
+>         {
+>             __vmread(VM_ENTRY_INTR_INFO, &intr_info);
+>             if ( !(intr_info & INTR_INFO_VALID_MASK) )
+>                 hvm_inject_hw_exception(TRAP_gp_fault, 0);
+>             /* Need to fix rIP nevertheless. */
+>             if ( mode =3D=3D 8 )
+>                 regs->rip =3D (long)(regs->rip << (64 - VADDR_BITS)) >>
+>                             (64 - VADDR_BITS);
+>             else
+>                 regs->rip =3D regs->eip;
+>         }
+>         else
+>             domain_crash(v->domain);
+>     }
+> ```
+>
+> However, the domain pointer has already been deallocated due to the
+> previous domain crash, resulting in a page fault that leads to Xen crashi=
+ng.
+>
+> I would like to report this crash and ask for your opinion. Based on
+> previous research, I do not believe it has been reported before. I am
+> unsure if it could potentially be a security issue, hence I am posting
+> it here. Let me know if I should provide other results. Thank you for
+> your kind response in advance.
 
-As strange as it looks the  (IOAPIC 0) pin07 is correctly described by the
-APIC in xen but yet differently than in baremetal.
-But the APIC message comes long after the
-[    1.833145] fedora kernel: xen: registering gsi 7 triggering 0 polarity =
-1
 
-so I wonder if the APIC pin07 info had any influence.
+Answering somewhat out of order.
 
---0000000000005921250610b8bdd3
-Content-Type: text/html; charset="UTF-8"
+You've posted this publicly so the cat is out of the bag regardless.  If
+you have concerns about security, please email security@xen.org as your
+first point of contact.
+
+That said, nested virt is not security supported.  It's still an
+experimental feature, so bugs like this are fine to come straight to the
+public mailing list.
+
+The "Bad rIP" logic is buggy and has since been deleted.  Xen 4.14 is a
+very old version of Xen, and is outside of general bugfix support.
+
+It is quite likely that this bug still exists, but please use an
+up-to-date version of Xen.  Fixes need developing against master and are
+unlikely to be backported in this case, given its experimental status.
+
+Also, you should be using a debug build of Xen generally for work like
+this.  (I have no idea if it would alter your observations.)
+
+
+I'm not sure what I think about bitflipping the exit qualification.  In
+other places, that will definitely cause more severe crashes, and Xen
+won't be getting in the game of auditing the VMX implementation against
+the VMX spec.
+
+
+For this crash you've got, there should be no way for the domain pointer
+to have been freed in the sequence you've described.  While the vCPU is
+still scheduled, the structures will remain.
+
+Looking at the second backtrace, It looks suspiciously like a NULL
+pointer was passed into __domain_crash() from vmx_asm_vmexit_handler()
+but there's no such call call, nor a tailcall out of the handler, even
+taking a peek at the 4.14 code.
+
+If you have local changes, I'd look at those first.
+
+~Andrew
+
+--_000_DB9P192MB143408981DB724A477C0ADA6A6462DB9P192MB1434EURP_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div>Le=C2=A0jeu. 1 f=C3=A9vr. 2024 =
-=C3=A0=C2=A013:30, S=C3=A9bastien Chaumat &lt;<a href=3D"mailto:euidzero@gm=
-ail.com" target=3D"_blank">euidzero@gmail.com</a>&gt; a =C3=A9crit=C2=A0:<d=
-iv class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:=
-0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">=
-<div dir=3D"ltr"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex"><div dir=3D"ltr"><div>I spotted the following warning fo=
-r IRQ7 (along with IRQ6 and 10)<br></div><div><br></div><div><div>[ =C2=A0 =
-=C2=A00.686073] fedora kernel: __irq_set_trigger: genirq: No set_type funct=
-ion for IRQ 7 (IR-IO-APIC)</div></div><div><br></div><div>This comes from k=
-ernel/irq/manage.c</div><div><br></div><div><br></div>int __irq_set_trigger=
-(struct irq_desc *desc, unsigned long flags)<br>{<br>struct irq_chip *chip =
-=3D desc-&gt;irq_data.chip;<br>int ret, unmask =3D 0;<br><br>if (!chip || !=
-chip-&gt;irq_set_type) {<br>/*<br>* IRQF_TRIGGER_* but the PIC does not sup=
-port multiple<br>* flow-types?<br>*/<br>pr_debug(&quot;No set_type function=
- for IRQ %d (%s)\n&quot;,<br>irq_desc_get_irq(desc),<br>chip ? (chip-&gt;na=
-me ? : &quot;unknown&quot;) : &quot;unknown&quot;);<br>return 0;<br>}<div>C=
-ould this have a role in the IRQ misconfiguration by xen ?</div><div><div><=
-/div></div></div></blockquote><div><br></div><div>=C2=A0Things are getting =
-even weirder : <br></div><div><br></div><div>xen 4.18.1-pre (vanilla, no pa=
-tching of  pci_xen_initial_domain()), kernel 6.8.0-rc2) :<br><div><br></div=
-><div>checking /sys/kernel/irq/7 :</div><div><br></div><div>actions: pinctr=
-l_amd<br>chip_name: xen-pirq<br>hwirq: <br>name: ioapic-edge<br>per_cpu_cou=
-nt: 0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0<br>type: edge<br>wakeup: disabled</div>=
-<div><br></div><div>now checking=C2=A0 xen with xl debug-key i</div><div><b=
-r></div><div>(XEN) =C2=A0 =C2=A0IRQ: =C2=A0 7 vec:51 IO-APIC-level =C2=A0 s=
-tatus=3D030 aff:{13}/{13} in-flight=3D0 d0: =C2=A07(---)</div><div><div>(XE=
-N) =C2=A0 =C2=A0 IRQ =C2=A07 Vec 81:<br>(XEN) =C2=A0 =C2=A0 =C2=A0 Apic 0x0=
-0, Pin =C2=A07: vec=3D51 delivery=3DFixed dest=3DP status=3D1 polarity=3D1 =
-irr=3D1 trig=3DL mask=3D0 dest_id:0000510d</div><div><br></div><div>So even=
- after dom0 is set up, the kernel considers=C2=A0 IRQ7 is of type edge whil=
-e xen has it registered as IO-APIC-level.</div><div><br></div></div></div><=
-/div></div></blockquote><div>Reasoning backward=C2=A0 (using a=C2=A0 kernel=
- without the pinctrl_amd driver to ensure xen only is at stake) :</div><div=
->=C2=A0checking the diff in IOAPIC=C2=A0 between bare metal and xen=C2=A0 (=
-IRQ7 is on pin07 on APIC ) <br></div><div><br></div><div>using kernel argum=
-ent : apic=3Ddebug</div><div><br></div><div>bare metal :</div><div>[ =C2=A0=
- =C2=A00.715330] fedora kernel: ... APIC VERSION: 81050010</div><div>...</d=
-iv><div>[ =C2=A0 =C2=A00.715433] fedora kernel: =C2=A0pin07, disabled, edge=
- , high, V(00), IRR(0), S(0), physical, D(0000), M(0)</div><div><br></div><=
-div>xen :<br></div><div>[ =C2=A0 =C2=A02.249582] fedora kernel: ... APIC VE=
-RSION: 00000014</div><div>...</div><div>[ =C2=A0 =C2=A02.249730] fedora ker=
-nel: =C2=A0pin07, disabled, level, low , V(60), IRR(0), S(0), physical, D(0=
-000), M(0)</div><div><br></div><div>So the APIC table is not the same.</div=
-><div><br></div><div>As strange as it looks the=C2=A0 (IOAPIC 0) pin07 is c=
-orrectly described by the APIC in xen but yet differently than in baremetal=
-.</div><div>But the APIC message comes long after the <br></div><div>[ =C2=
-=A0 =C2=A01.833145] fedora kernel: xen: registering gsi 7 triggering 0 pola=
-rity 1</div><div><br></div><div>so I wonder if the APIC pin07 info had any =
-influence.</div><div><br></div><div><br></div><div><br></div><div><br></div=
-><div><br></div></div></div>
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div class=3D"elementToProof"><span style=3D"font-family: Calibri, Helvetic=
+a, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">Hello Andrew,</span><=
+/div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);"><br>
+</span></div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);">Thank you for the quick response. I have no lo=
+cal modifications to Xen, precisely in order to test it as cleanly as possi=
+ble.</span></div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);">As soon as possible, I'll try to use a more re=
+cent version. Regarding the stack trace, I believe the series of function c=
+alls starts from:</span></div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);"><br>
+</span></div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);">vmx_asm_vmexit_handler -&gt; vmx_vmexit_handle=
+r -&gt; domain_crash -&gt; __domain_crash</span></div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);"><br>
+</span></div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);">Thank you for addressing the concerns about se=
+curity, next time I'll follow your advice.</span></div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);"><br>
+</span></div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);">Best regards,</span></div>
+<div><span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size:=
+ 12pt; color: rgb(0, 0, 0);">Giuseppe De Rosa.</span></div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>Da:</b> Andrew Cooper &lt;andre=
+w.cooper3@citrix.com&gt;<br>
+<b>Inviato:</b> marted=EC 6 febbraio 2024 15:11<br>
+<b>A:</b> Giuseppe De Rosa &lt;giuseppe.de.rosa@outlook.it&gt;; xen-devel@l=
+ists.xen.org &lt;xen-devel@lists.xen.org&gt;<br>
+<b>Oggetto:</b> Re: [BUG] Possible FATAL PAGE FAULT in domain_crash functio=
+n on Xen 4.14.6</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 06/02/2024 12:14 pm, Giuseppe De Rosa wrote:<br=
+>
+&gt; Bug detailed description:<br>
+&gt; <br>
+&gt; ----------------<br>
+&gt; <br>
+&gt; While booting a Linux Debian 7 &quot;Wheezy&quot; VM, Xen crashes with=
+ a FATAL<br>
+&gt; PAGE FAULT.&nbsp;<br>
+&gt; <br>
+&gt; &nbsp;<br>
+&gt; <br>
+&gt; Environment :<br>
+&gt; <br>
+&gt; ----------------<br>
+&gt; <br>
+&gt; HW: Intel(R) Xeon(R) CPU E5-1620 v2 @ 3.70GHz (2 CPU, Xen in nested<br=
+>
+&gt; virtualization upon QEMU/KVM), 4GB RAM<br>
+&gt; <br>
+&gt; Xen: Xen 4.14.6 (xen-hypervisor-4.14-amd64 package)<br>
+&gt; <br>
+&gt; Dom0: Linux 5.10.0-26-amd64 (Debian 11 &quot;Bullseye&quot;), 1 CPU, 1=
+024GB RAM<br>
+&gt; <br>
+&gt; &nbsp;<br>
+&gt; <br>
+&gt; Reproduce steps:<br>
+&gt; <br>
+&gt; ----------------<br>
+&gt; <br>
+&gt; 1.&nbsp; &nbsp; &nbsp; Install debian 11 and xen package<br>
+&gt; <br>
+&gt; 2.&nbsp; &nbsp; &nbsp; Boot a clean debian 7 image in hardware-assiste=
+d virtualization<br>
+&gt; <br>
+&gt; 3.&nbsp; &nbsp; &nbsp; Single bit-flip bit number 2 of VMCS field<br>
+&gt; &quot;VM_EXIT_QUALIFICATION&quot; (field number 6400). In my case, val=
+ue changed<br>
+&gt; from [100049] -&gt; [10004d]<br>
+&gt; <br>
+&gt; 4.&nbsp; &nbsp; &nbsp; Leave the debian7 guest executing after the bit=
+ flip.<br>
+&gt; <br>
+&gt; &nbsp;<br>
+&gt; <br>
+&gt; Current result:<br>
+&gt; <br>
+&gt; ----------------<br>
+&gt; <br>
+&gt; Xen crash<br>
+&gt; <br>
+&gt; &nbsp;<br>
+&gt; <br>
+&gt; Console error log:<br>
+&gt; <br>
+&gt; ----------------<br>
+&gt; <br>
+&gt; (XEN) d1v0 Unexpected PIO status 1, port 0x10 read 0x00000000ffff<br>
+&gt; <br>
+&gt; (XEN) domain_crash called from io.c:166<br>
+&gt; (XEN) Domain 1 (vcpu#0) crashed on cpu#1:<br>
+&gt; (XEN) ----[ Xen-4.14.6 &nbsp;x86_64 &nbsp;debug=3Dn &nbsp; Not tainted=
+ ]----<br>
+&gt; (XEN) CPU: &nbsp; &nbsp;1<br>
+&gt; (XEN) RIP: &nbsp; &nbsp;0010:[&lt;ffffffff8100712e&gt;]<br>
+&gt; (XEN) RFLAGS: 0000000000000046 &nbsp; CONTEXT: hvm guest (d1v0)<br>
+&gt; (XEN) rax: 0000000000000000 &nbsp; rbx: 0000000040000000 &nbsp; rcx: 0=
+000000000000001<br>
+&gt; (XEN) rdx: 0000000000000000 &nbsp; rsi: ffffffff81666a80 &nbsp; rdi: f=
+fffffff81617830<br>
+&gt; (XEN) rbp: 0000000000000020 &nbsp; rsp: ffffffff81601e78 &nbsp; r8: &n=
+bsp;0000000000000200<br>
+&gt; (XEN) r9: &nbsp;ffffffff8168f2a0 &nbsp; r10: 0000000000000007 &nbsp; r=
+11: 0000000000000007<br>
+&gt; (XEN) r12: ffffffff81601f58 &nbsp; r13: ffffffffffffffff &nbsp; r14: 0=
+00000000008c800<br>
+&gt; (XEN) r15: 0000000000001000 &nbsp; cr0: 0000000080050033 &nbsp; cr4: 0=
+0000000001000a0<br>
+&gt; (XEN) cr3: 0000000001605000 &nbsp; cr2: 0000000000000000<br>
+&gt; (XEN) fsb: 0000000000000000 &nbsp; gsb: ffffffff81696000 &nbsp; gss: 0=
+000000000000000<br>
+&gt; (XEN) ds: 0000 &nbsp; es: 0000 &nbsp; fs: 0000 &nbsp; gs: 0000 &nbsp; =
+ss: 0000 &nbsp; cs: 0010<br>
+&gt; (XEN) d1v0 Bad rIP ffffffff8100712e for mode 0<br>
+&gt; (XEN) domain_crash called from vmx.c:4413<br>
+&gt; (XEN) ----[ Xen-4.14.6 &nbsp;x86_64 &nbsp;debug=3Dn &nbsp; Not tainted=
+ ]----<br>
+&gt; (XEN) CPU: &nbsp; &nbsp;1<br>
+&gt; (XEN) RIP: &nbsp; &nbsp;e008:[&lt;ffff82d040206fa9&gt;] __domain_crash=
++0x9/0x80<br>
+&gt; (XEN) RFLAGS: 0000000000010296 &nbsp; CONTEXT: hypervisor (d1v0)<br>
+&gt; (XEN) rax: ffff830139c0506c &nbsp; rbx: ffff8301308a0000 &nbsp; rcx: 0=
+000000000000000<br>
+&gt; (XEN) rdx: ffff830136ddffff &nbsp; rsi: 000000000000000a &nbsp; rdi: 0=
+000000000000000<br>
+&gt; (XEN) rbp: 0000000000000000 &nbsp; rsp: ffff830136ddfee0 &nbsp; r8: &n=
+bsp;0000000000000001<br>
+&gt; (XEN) r9: &nbsp;0000000000004000 &nbsp; r10: 0000000000000001 &nbsp; r=
+11: ffff82d040372d40<br>
+&gt; (XEN) r12: 0000000000000000 &nbsp; r13: 0000000000000000 &nbsp; r14: 0=
+000000000000000<br>
+&gt; (XEN) r15: 0000000000000000 &nbsp; cr0: 0000000080050033 &nbsp; cr4: 0=
+0000000001526e0<br>
+&gt; (XEN) cr3: 0000000136da6000 &nbsp; cr2: 0000000000000208<br>
+&gt; (XEN) fsb: 0000000000000000 &nbsp; gsb: 0000000000000000 &nbsp; gss: 0=
+000000000000000<br>
+&gt; (XEN) ds: 0000 &nbsp; es: 0000 &nbsp; fs: 0000 &nbsp; gs: 0000 &nbsp; =
+ss: 0000 &nbsp; cs: e008<br>
+&gt; (XEN) Xen code around &lt;ffff82d040206fa9&gt; (__domain_crash+0x9/0x8=
+0):<br>
+&gt; (XEN) &nbsp;0f 1e fa 55 48 89 fd 53 &lt;80&gt; bf 08 02 00 00 00 75 2d=
+ 48 89 e3 0f<br>
+&gt; b7 37 48<br>
+&gt; (XEN) Xen stack trace from rsp=3Dffff830136ddfee0:<br>
+&gt; (XEN) &nbsp; &nbsp;ffff8301308a0000 0000000000000000 ffff82d0402a1798 =
+0000000000001000<br>
+&gt; (XEN) &nbsp; &nbsp;000000000008c800 ffffffffffffffff ffffffff81601f58 =
+0000000000000020<br>
+&gt; (XEN) &nbsp; &nbsp;0000000040000000 0000000000000007 0000000000000007 =
+ffffffff8168f2a0<br>
+&gt; (XEN) &nbsp; &nbsp;0000000000000200 0000000000000000 0000000000000001 =
+0000000000000000<br>
+&gt; (XEN) &nbsp; &nbsp;ffffffff81666a80 ffffffff81617830 000000fa00000000 =
+ffffffff8100712e<br>
+&gt; (XEN) &nbsp; &nbsp;0000000000000000 0000000000000046 ffffffff81601e78 =
+0000000000000000<br>
+&gt; (XEN) &nbsp; &nbsp;0000000000000000 0000000000000000 0000000000000000 =
+0000000000000000<br>
+&gt; (XEN) &nbsp; &nbsp;0000e01000000001 ffff8301308a0000 00000030f9686000 =
+00000000001526e0<br>
+&gt; (XEN) &nbsp; &nbsp;0000000000000000 0000000000000000 0006020200000000 =
+0000000000000000<br>
+&gt; (XEN) Xen call trace:<br>
+&gt; (XEN) &nbsp; &nbsp;[&lt;ffff82d040206fa9&gt;] R __domain_crash+0x9/0x8=
+0<br>
+&gt; (XEN) &nbsp; &nbsp;[&lt;ffff82d0402a1798&gt;] S vmx_asm_vmexit_handler=
++0xf8/0x210<br>
+&gt; (XEN)<br>
+&gt; (XEN) Pagetable walk from 0000000000000208:<br>
+&gt; (XEN) &nbsp;L4[0x000] =3D 0000000000000000 ffffffffffffffff<br>
+&gt; (XEN)<br>
+&gt; (XEN) ****************************************<br>
+&gt; (XEN) Panic on CPU 1:<br>
+&gt; (XEN) FATAL PAGE FAULT<br>
+&gt; (XEN) [error_code=3D0000]<br>
+&gt; (XEN) Faulting linear address: 0000000000000208<br>
+&gt; (XEN) ****************************************<br>
+&gt; (XEN)<br>
+&gt; (XEN) Reboot in five seconds...<br>
+&gt; <br>
+&gt; &nbsp;<br>
+&gt; <br>
+&gt; HVM guest config file:<br>
+&gt; <br>
+&gt; --------------------------------<br>
+&gt; <br>
+&gt; name =3D &quot;debian7&quot;<br>
+&gt; <br>
+&gt; builder=3D &quot;hvm&quot;<br>
+&gt; memory =3D 1024<br>
+&gt; vcpus =3D 1<br>
+&gt; cpus=3D [&quot;1&quot;]<br>
+&gt; disk=3D[&quot;qcow2:/home/test/debian7.qcow2,xvda,w&quot;]<br>
+&gt; vnc =3D 1<br>
+&gt; vnclisten =3D '127.0.0.1'<br>
+&gt; vncdisplay =3D 1<br>
+&gt; boot =3D &quot;d&quot;<br>
+&gt; serial =3D &quot;pty&quot;<br>
+&gt; <br>
+&gt; Discussion<br>
+&gt; --------------------------------<br>
+&gt; <br>
+&gt; Hello, i am conducting robustness tests on Xen 4.14. I bit flipped the=
+<br>
+&gt; field VM_EXIT_QUALIFICATION during the exit handling of an<br>
+&gt; IO_INSTRUCTION. After a VM Read on that field, Xen crashes with this<b=
+r>
+&gt; error log. This is my (possible) explanation:<br>
+&gt; <br>
+&gt; Xen correctly detects an error in the field, resulting in a domain cra=
+sh<br>
+&gt; (Unexpected PIO status 1) called from this point in the code:<br>
+&gt; <br>
+&gt; xen/arch/x86/hvm/io.c<br>
+&gt; ```<br>
+&gt; gprintk(XENLOG_ERR, &quot;Unexpected PIO status %d, port %#x %s 0x%0*x=
+\n&quot;,<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rc, port, dir =
+=3D=3D IOREQ_WRITE ? &quot;write&quot; : &quot;read&quot;,<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; size * 2, data=
+ &amp; ((1u &lt;&lt; (size * 8)) - 1));<br>
+&gt; domain_crash(curr-&gt;domain);<br>
+&gt; return false;<br>
+&gt; ```<br>
+&gt; <br>
+&gt; In the `handle_pio` function, in the handling of the `IO_INSTRUCTION`<=
+br>
+&gt; exit reason. However, the code continues and ends here for an issue in=
+<br>
+&gt; the processor mode:<br>
+&gt; <br>
+&gt; /xen/arch/x86/hvm/vmx/vmx.c<br>
+&gt; ```<br>
+&gt; mode =3D vmx_guest_x86_mode(v);<br>
+&gt; &nbsp; &nbsp; if ( mode =3D=3D 8 ? !is_canonical_address(regs-&gt;rip)=
+<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:=
+ regs-&gt;rip !=3D regs-&gt;eip )<br>
+&gt; &nbsp; &nbsp; {<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; gprintk(XENLOG_WARNING, &quot;Bad rIP %lx =
+for mode %u\n&quot;, regs-&gt;rip,<br>
+&gt; mode);<br>
+&gt; <br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; if ( vmx_get_cpl() )<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; {<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; __vmread(VM_ENTRY_INTR_INFO,=
+ &amp;intr_info);<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if ( !(intr_info &amp; INTR_=
+INFO_VALID_MASK) )<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; hvm_inject_hw_=
+exception(TRAP_gp_fault, 0);<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; /* Need to fix rIP neverthel=
+ess. */<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if ( mode =3D=3D 8 )<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; regs-&gt;rip =
+=3D (long)(regs-&gt;rip &lt;&lt; (64 - VADDR_BITS)) &gt;&gt;<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; (64 - VADDR_BITS);<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; regs-&gt;rip =
+=3D regs-&gt;eip;<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; }<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; else<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; domain_crash(v-&gt;domain);<=
+br>
+&gt; &nbsp; &nbsp; }<br>
+&gt; ```<br>
+&gt; <br>
+&gt; However, the domain pointer has already been deallocated due to the<br=
+>
+&gt; previous domain crash, resulting in a page fault that leads to Xen cra=
+shing.<br>
+&gt; <br>
+&gt; I would like to report this crash and ask for your opinion. Based on<b=
+r>
+&gt; previous research, I do not believe it has been reported before. I am<=
+br>
+&gt; unsure if it could potentially be a security issue, hence I am posting=
+<br>
+&gt; it here. Let me know if I should provide other results. Thank you for<=
+br>
+&gt; your kind response in advance.<br>
+<br>
+<br>
+Answering somewhat out of order.<br>
+<br>
+You've posted this publicly so the cat is out of the bag regardless.&nbsp; =
+If<br>
+you have concerns about security, please email security@xen.org as your<br>
+first point of contact.<br>
+<br>
+That said, nested virt is not security supported.&nbsp; It's still an<br>
+experimental feature, so bugs like this are fine to come straight to the<br=
+>
+public mailing list.<br>
+<br>
+The &quot;Bad rIP&quot; logic is buggy and has since been deleted.&nbsp; Xe=
+n 4.14 is a<br>
+very old version of Xen, and is outside of general bugfix support.<br>
+<br>
+It is quite likely that this bug still exists, but please use an<br>
+up-to-date version of Xen.&nbsp; Fixes need developing against master and a=
+re<br>
+unlikely to be backported in this case, given its experimental status.<br>
+<br>
+Also, you should be using a debug build of Xen generally for work like<br>
+this.&nbsp; (I have no idea if it would alter your observations.)<br>
+<br>
+<br>
+I'm not sure what I think about bitflipping the exit qualification.&nbsp; I=
+n<br>
+other places, that will definitely cause more severe crashes, and Xen<br>
+won't be getting in the game of auditing the VMX implementation against<br>
+the VMX spec.<br>
+<br>
+<br>
+For this crash you've got, there should be no way for the domain pointer<br=
+>
+to have been freed in the sequence you've described.&nbsp; While the vCPU i=
+s<br>
+still scheduled, the structures will remain.<br>
+<br>
+Looking at the second backtrace, It looks suspiciously like a NULL<br>
+pointer was passed into __domain_crash() from vmx_asm_vmexit_handler()<br>
+but there's no such call call, nor a tailcall out of the handler, even<br>
+taking a peek at the 4.14 code.<br>
+<br>
+If you have local changes, I'd look at those first.<br>
+<br>
+~Andrew<br>
+</div>
+</span></font></div>
+</body>
+</html>
 
---0000000000005921250610b8bdd3--
+--_000_DB9P192MB143408981DB724A477C0ADA6A6462DB9P192MB1434EURP_--
 
