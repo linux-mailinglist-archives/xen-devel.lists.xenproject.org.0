@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EE9A84B22E
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 11:13:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676758.1053022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE2CB84B252
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 11:17:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676765.1053031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXIRy-0006Km-GH; Tue, 06 Feb 2024 10:13:10 +0000
+	id 1rXIVa-0006uM-VD; Tue, 06 Feb 2024 10:16:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676758.1053022; Tue, 06 Feb 2024 10:13:10 +0000
+Received: by outflank-mailman (output) from mailman id 676765.1053031; Tue, 06 Feb 2024 10:16:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXIRy-0006I6-D4; Tue, 06 Feb 2024 10:13:10 +0000
-Received: by outflank-mailman (input) for mailman id 676758;
- Tue, 06 Feb 2024 10:13:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rXIVa-0006sn-SS; Tue, 06 Feb 2024 10:16:54 +0000
+Received: by outflank-mailman (input) for mailman id 676765;
+ Tue, 06 Feb 2024 10:16:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gccX=JP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXIRx-0006I0-Ba
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 10:13:09 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 523c2879-c4d8-11ee-98f5-efadbce2ee36;
- Tue, 06 Feb 2024 11:13:06 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40ff13d2628so259235e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 02:13:07 -0800 (PST)
+ id 1rXIVZ-0006sh-Mm
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 10:16:53 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d8bed5c5-c4d8-11ee-8a47-1f161083a0e0;
+ Tue, 06 Feb 2024 11:16:52 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-33b1b21c020so3156595f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 02:16:52 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v15-20020a05600c444f00b0040fdb17e66csm1519236wmn.4.2024.02.06.02.13.06
+ f17-20020adfdb51000000b00337d6f0013esm1691714wrj.107.2024.02.06.02.16.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Feb 2024 02:13:06 -0800 (PST)
+ Tue, 06 Feb 2024 02:16:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 523c2879-c4d8-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: d8bed5c5-c4d8-11ee-8a47-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707214387; x=1707819187; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lFQ2fZ7ptp0gQ3lQ8/JqAFd2cGFa29Kt/kIlBhW3Oyk=;
-        b=CzmiVk9dIVepnAS0DcgQZ76E9JPs7XyvXesmQq5UksOvbJlFcXf7R2l025JjW9sR5i
-         x8XDn4tN5ir7Mg+Z8G+fZjAk1PBcU8/taM0UQ9cpHfb7gPbaxxxxvnXkYeh/UjvHCzSI
-         1uobyiu7CrBkUWEX29n7jdt4wvYo/csEa4y/EBHO9BIWulwct+5aF+y11/VltFZpjnzW
-         KNflHyIDnUFKdOa7Z02sdYqncMSwHQJSsAZo5XV2NOd+7uD0DIZBAPp1hKevehBzrvJK
-         ULNMlVc2h/KT0Q9eTpknE8vCYPTToIC5u4QCZlD5orc4M7CSVX938EV/xx9kHdgXx9Uj
-         4eYg==
+        d=suse.com; s=google; t=1707214612; x=1707819412; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/fdb57JZvf0dvGSH2X/1n7eUey51PwWD70FB2aYbEw0=;
+        b=ExfoqCD0nkJX5ktDXNeDFv1FV2Ioi5FOL5TmC6DxFVDGrzYIm+1y89A6MaTqTXy/iS
+         LGYvdbB0FbMdW0PN0LZKOKGrE43UlumyvREvFaguBU4s83ShWtYZ/e+CPl+AX6n8SXdT
+         DSOIkjFcYpxlcZtZzuo81Jtb2/g2TrL+2ALkCxzOrBEKmkKLjNI//G437FOxSLWd8z75
+         J3b5Hc+6kfrzelDv2hLwWCEF1YLcZ/2OevyzCQcTthBaWcufJvp7vt5chMaLZudpAGYi
+         mJJaiGMWrVy057KyHhUjzQd10uhOBI1sZlFTqBlw700E85TFWLRSW6U1LZI+FKyv1flD
+         rqVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707214387; x=1707819187;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lFQ2fZ7ptp0gQ3lQ8/JqAFd2cGFa29Kt/kIlBhW3Oyk=;
-        b=WMK+47efdQMbIQouqUCoK8OLJD9pQP1zAU3dtNXngxVDBpck4Cxp/izCl9KukCBZFt
-         8SSbG0p6foe4uPfKoV3s8s3Rqq4Fn7glKac6AKxmAuFH7k+39sadT9kJN/2IJhB2JwzX
-         O0hkjvtddA8ud5btJK8a7aN15FHCltS3POqevI1YUbzo73ND+Z1UwpnnhSI/AURhVC2N
-         qy0S7DIGq/clIHoddUUwl4lJZzV/zOlyDyqtXUxfZLRM/ShWTEPa899/OBT0MwhN5M2W
-         Fb7b8lHTjc2n/KovS0qfpJA8aYfIppgnQk7DYcmy7cWyDHPuzTEIeDA/yQNBIhZY9Hy5
-         5RnQ==
-X-Gm-Message-State: AOJu0YzZjggOhFBhWtsovaEgEfj7qSfATTJbtHXkJwJrb3Dz/nSyOayx
-	Wi17cIUN9Pw5WkhgdMQKPWWzrem65H7ldjUdDOauKPYf9qC5tGvLl0jXcVfU2w==
-X-Google-Smtp-Source: AGHT+IGFA4d1LwA5BvGuFvtIE9j9bcX0iLYJG/Yc3Vsxb0jTk5VQA/Yp8s3rGvtuU1SwD9wI2dvdFA==
-X-Received: by 2002:a05:600c:4f42:b0:40f:e40:b53d with SMTP id m2-20020a05600c4f4200b0040f0e40b53dmr1241079wmq.1.1707214386845;
-        Tue, 06 Feb 2024 02:13:06 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCXTk3k9DuB4qzAjWmHHU24kUl5q5jXaK/snrN9CwD4bLpe2fBSllYQAkN0zCHsCRnIYA8yk3VpnOCLKHOIAVeJSuM0e2WAjVpEOAdCvDaTxCjvbuXnFjsP4N4aK9vkZaMy0addCHs/mc7NeZQ==
-Message-ID: <2a30ce41-7802-4e22-bccb-101ec5b0cace@suse.com>
-Date: Tue, 6 Feb 2024 11:13:05 +0100
+        d=1e100.net; s=20230601; t=1707214612; x=1707819412;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/fdb57JZvf0dvGSH2X/1n7eUey51PwWD70FB2aYbEw0=;
+        b=arZlGyre2HbfIOZfbq9n0aNqd2xJDpTNnCnSZFlt8MmJmJATbLT4r2aZKabHfguBsm
+         D0BJKd4Y2vNRldZd6KHb1dRn/A3r/qnnzeoJrhHSRK65kQD98zmCEhSgdQNgaEFop8Xi
+         r9mmxAPb3GThDk4qmFTUJUdneM++MFiF7NQhVqcwetm2kyeKT4jbmzVd/gZhT1HbbHNL
+         j0XymzLkHrsaX77WfxcNVUSfzdzka9Ejw0MGlPb+CcbJQgTHD6d2JcupjCCFbfMKIwsk
+         Vw7Ogx+9CJ4PABf83yYK9RsYYEltmp2tBsEVs/4u24qwR0ZFjNnJJzkfql8+jLfx45YA
+         8srg==
+X-Gm-Message-State: AOJu0YwA1EAittp2zgC/+QIL+A3IjTohDmJ30fvblbWKIg80BVZ3Ncyu
+	QygIYgbX4r53H5gmwgmEErbOGP0IFGs5dxkEu3l/gQTpAdsrLMnzI0UXNfC1+8nD/PutaBwzauE
+	=
+X-Google-Smtp-Source: AGHT+IHONHAsNChAsu7enF6j9CqMMhBRNLh70v3O/Foqo0VjZHYjV4JHpTlH1ObDCMbPmvaZAbV1Sg==
+X-Received: by 2002:a05:6000:1372:b0:33b:44d0:63ea with SMTP id q18-20020a056000137200b0033b44d063eamr916777wrz.59.1707214611941;
+        Tue, 06 Feb 2024 02:16:51 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUA6+G5HgP+JHQaDNGBSemww5tbmw1Bs5CtrGI6SfKPSlim/RibMGZcp4bHF9sCPMiG7qlefsD4MTIOm4dLh6HIKvLP+N3bbLzSRwBeh7QDPZpFOKHyE3jLp2m/4Qb/
+Message-ID: <e531ab31-6137-4fbb-9b05-b972ca102c4b@suse.com>
+Date: Tue, 6 Feb 2024 11:16:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] Reduce assembly instruction size
+Subject: Re: [PATCH 1/4] amd-vi: fix IVMD memory type checks
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, oxjo@proton.me,
+ xen-devel@lists.xenproject.org
+References: <20240201170159.66330-1-roger.pau@citrix.com>
+ <20240201170159.66330-2-roger.pau@citrix.com>
 Content-Language: en-US
-To: Frediano Ziglio <frediano.ziglio@cloud.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-References: <20240205104919.14983-1-frediano.ziglio@cloud.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,22 +113,24 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240205104919.14983-1-frediano.ziglio@cloud.com>
+In-Reply-To: <20240201170159.66330-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.02.2024 11:49, Frediano Ziglio wrote:
-> Use 32 bit versions in all cases, not only for registers till 8th.
-> This reduces the encoding from (example with r14):
+On 01.02.2024 18:01, Roger Pau Monne wrote:
+> The current code that parses the IVMD blocks is relaxed with regard to the
+> restriction that such unity regions should always fall into memory ranges
+> marked as reserved in the memory map.
 > 
->      49 c7 c6 ff 7f 00 00    mov    $0x7fff,%r14
+> However the type checks for the IVMD addresses are inverted, and as a result
+> IVMD ranges falling into RAM areas are accepted.  Note that having such ranges
+> in the first place is a firmware bug, as IVMD should always fall into reserved
+> ranges.
 > 
-> to
-> 
->      41 be ff 7f 00 00       mov    $0x7fff,%r14d
-> 
-> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> Fixes: ed6c77ebf0c1 ('AMD/IOMMU: check / convert IVMD ranges for being / to be reserved')
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
 
 
