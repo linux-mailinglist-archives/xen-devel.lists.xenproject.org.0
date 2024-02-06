@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D46084B631
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 14:20:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676920.1053272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4804B84B63B
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 14:22:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676925.1053281 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXLMl-0006o9-Cg; Tue, 06 Feb 2024 13:19:59 +0000
+	id 1rXLPH-0008CJ-Pm; Tue, 06 Feb 2024 13:22:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676920.1053272; Tue, 06 Feb 2024 13:19:59 +0000
+Received: by outflank-mailman (output) from mailman id 676925.1053281; Tue, 06 Feb 2024 13:22:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXLMl-0006ls-9x; Tue, 06 Feb 2024 13:19:59 +0000
-Received: by outflank-mailman (input) for mailman id 676920;
- Tue, 06 Feb 2024 13:19:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=60ZD=JP=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1rXLMk-0006lm-Ne
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 13:19:58 +0000
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b18bdb0-c4f2-11ee-8a47-1f161083a0e0;
- Tue, 06 Feb 2024 14:19:57 +0100 (CET)
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
- [209.85.128.179]) by mx.zohomail.com
- with SMTPS id 1707225592988261.1018244172735;
- Tue, 6 Feb 2024 05:19:52 -0800 (PST)
-Received: by mail-yw1-f179.google.com with SMTP id
- 00721157ae682-6047cfd1f5cso5137627b3.2
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 05:19:52 -0800 (PST)
+	id 1rXLPH-0008A7-M2; Tue, 06 Feb 2024 13:22:35 +0000
+Received: by outflank-mailman (input) for mailman id 676925;
+ Tue, 06 Feb 2024 13:22:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gccX=JP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rXLPG-0008A1-1g
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 13:22:34 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c7ce4b5f-c4f2-11ee-98f5-efadbce2ee36;
+ Tue, 06 Feb 2024 14:22:31 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-40ff2838851so1689085e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 05:22:31 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ e5-20020adfef05000000b0033b4a77b2c7sm438068wro.82.2024.02.06.05.22.30
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Feb 2024 05:22:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,84 +45,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b18bdb0-c4f2-11ee-8a47-1f161083a0e0
-ARC-Seal: i=1; a=rsa-sha256; t=1707225594; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=cL02Ku0IQtKMqV/NTJie9lYsLUetZX4DOhwQnft6FXOD7upXALl7MzJbO4h0OX+R6GnkfO2W9iGE03xMyfxlcFFYQ3HVAAOFR/sFTuWuKH3hSYZ49Ds7AH2flXtuMOk5B0zTyGWExAoKsB035IS0ip3y/g4r/df1hu0N9EauY/U=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1707225594; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=AcLOC/B+zC/6qFNeSnAd6vo5Xv4mxXGkXuFcuaV4UJw=; 
-	b=EuO1DaqpziDI1J5oFH9eQS0H5svK+ZpPe6O6AJwupGm+2AKAyRBcuiViXvS5DxaOXop/GlI5UUqe9et09DWW78xapJ5c0hIk567My+yNIAId8mYSYDXIr1Oi3VfbBKAfoSumDa7o8cVs7j8a2dnnjzW66XQ+sy0thRGTkHYtHyo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=tklengyel.com;
-	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
-	dmarc=pass header.from=<tamas@tklengyel.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1707225594;
-	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
-	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=AcLOC/B+zC/6qFNeSnAd6vo5Xv4mxXGkXuFcuaV4UJw=;
-	b=N8LCTPGbSgB2LJRJqMbBIEdgM1mgFxt3Lvw5jMmqEvJl36c+KfVribOowDky4Ag9
-	48N62H4m7nSp0KjhxzQzee70ftfHaaO8qHXNKnwZoVt7GZSB/U9g1qYxNIYj8XUYQZG
-	oYqeHMlH9P8WdcX7lFJeySGABHBTnqclHAJavFug=
-X-Gm-Message-State: AOJu0YzTBnDNZNG7rha8BujhAnfkCfg1HcZ2mdLG+j7Q4At3BJI1+sHA
-	5NDztyOB96Zk2PRQkFg2hZaU/SwrdFjJ6K0OcT+ZcrTfxT1Na6Oh+Q29e8E19/3litlYhwRIQTD
-	E4HL2sBL7nSeF5SMeEJHmwRxV4L8=
-X-Google-Smtp-Source: AGHT+IGoYFQfrjNcmQfvWdJFAmAU4/LKUO44kppH4PWiT0XTvp3pvHQNBlTd7uxRAN6c9gNhjGnzF+uvEp7mXkK4m48=
-X-Received: by 2002:a81:b3c7:0:b0:603:bc00:b469 with SMTP id
- r190-20020a81b3c7000000b00603bc00b469mr1874263ywh.11.1707225591949; Tue, 06
- Feb 2024 05:19:51 -0800 (PST)
+X-Inumbo-ID: c7ce4b5f-c4f2-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1707225751; x=1707830551; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=neL3aSBf46/Z9wmi5MvCpK5OMpLGZ272JdpQZUqJSPo=;
+        b=M23GvP8ZF/WaBuu+mPB+HNR79r3bAusu8Xt5GUgmh3yMdyD0RM77wn9YqXIOIy+v4A
+         U8XEqTVITQw6Ugk0xw6p7OCCz8qFe7j8N37gzMhK29ILgCnYctDlx5hf8nM0F8ljBnBY
+         QM1W5njLo32LDCvq1PhGLBL+y2Gk0U1port1Ksk3r/Zp9jl29+isqg+l/0vkGeh2atKU
+         5DVXvEg3b4MrYgmvtV7Hm49ncOJRtJkIzj+mlovwzvyhzPyLU309LBzYHshMbSkMQcGh
+         Cw9lDuWGrpSFcXHOtllS30wuXxSjXmoJOhPcyrz1LzEh4t60+mKym+SzxmYqfudwiS7d
+         K55A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707225751; x=1707830551;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=neL3aSBf46/Z9wmi5MvCpK5OMpLGZ272JdpQZUqJSPo=;
+        b=rzR4X1KfaNJAVEOSc/o6BtlwcrZ8tFF6QuAvwU60QCj+AoIBmnm7MyBX0owi0UO0EW
+         iUY8zB8ZYqcOTkokpdpcXzGtCp94hB7gyZBgzqhJmkXP1kal81vgeqIk8zHEvqUtvuup
+         hpSmkusYJTdtjVGq/Ap3/CWBj4Bf8+9ma+Y0ysd+m1yAYTPwblM41Ynz+M1TOXHoxENQ
+         f26tvbdsDSAIMyMJEcqqyzEXTvbOrikuByAuAnvFXqEFYdOMKHAuviKtiexY5SvGqHDO
+         XHxxxDMLSTUZafpGDgQdZYco6QZBVAGP5F0vEcv5n8RGE0GUnVFIxT2PBc0OuLtcJPpe
+         i7HQ==
+X-Gm-Message-State: AOJu0Ywl/Tyafn6RakQzMu24bIU/OYlQ0HcP2NQkuAPlBb7/npoAQYz1
+	iP1M5IxcBeNQ4JwwYHzQX4GKIc8b1kcplDEaYmA7QAkpqgR7vtoxbJdq2COoMA==
+X-Google-Smtp-Source: AGHT+IFgghMx5fJeiYPe7TiLRKzwCNWZNPDuoDTlFzWQ57aX+Zf6kdC5yo8KZm9WnugTk7oX+nwpaQ==
+X-Received: by 2002:a05:600c:1d89:b0:40f:ecd4:7ef0 with SMTP id p9-20020a05600c1d8900b0040fecd47ef0mr852699wms.24.1707225751273;
+        Tue, 06 Feb 2024 05:22:31 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUPUns1S8Hbyixg0G0muhZX2BQ6zfZFjqjf9jCZPQMMFanszw3w0SIvU8sP5j4fdUsUzyU4qu+3BZkS1sWYxuLQmAJJTOrdMp0vTIF97fZkcl9Pzdbxd3kDMRnRj388jWQAZzpC9r6wzxfo+drxaLrrXntwrCKtJIwsd7ox2RjQw+dz7As/o9j/ULVHDUfQ7kfoAkT+X/RmRcsX7kwgpBquUZSIldLCRdHsZ8n6AMcpK/VI+nHPrco=
+Message-ID: <2c0d22be-0b31-4e62-a8f8-2dc82147e51a@suse.com>
+Date: Tue, 6 Feb 2024 14:22:30 +0100
 MIME-Version: 1.0
-References: <1b854c6b38787675294c58eea25556ce241b2b4f.1707213023.git.w1benny@gmail.com>
-In-Reply-To: <1b854c6b38787675294c58eea25556ce241b2b4f.1707213023.git.w1benny@gmail.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Tue, 6 Feb 2024 08:19:16 -0500
-X-Gmail-Original-Message-ID: <CABfawh=V14gV14McU_5mhb+714QCjXA1+G3y5WQmSMeFJVYKBQ@mail.gmail.com>
-Message-ID: <CABfawh=V14gV14McU_5mhb+714QCjXA1+G3y5WQmSMeFJVYKBQ@mail.gmail.com>
-Subject: Re: [PATCH] x86/altp2m: p2m_altp2m_get_or_propagate() should honor ap2m->default_access
-To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Alexandru Isaila <aisaila@bitdefender.com>, 
-	Petre Pircalabu <ppircalabu@bitdefender.com>, Wei Liu <wl@xen.org>, 
-	Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2 1/3] xen: introduce STATIC_ASSERT_UNREACHABLE()
+Content-Language: en-US
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1706259490.git.federico.serafini@bugseng.com>
+ <42fc6ae8d3eb802429d29c774502ff232340dc84.1706259490.git.federico.serafini@bugseng.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <42fc6ae8d3eb802429d29c774502ff232340dc84.1706259490.git.federico.serafini@bugseng.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 6, 2024 at 5:08=E2=80=AFAM Petr Bene=C5=A1 <w1benny@gmail.com> =
-wrote:
->
-> From: Petr Bene=C5=A1 <w1benny@gmail.com>
->
-> This patch addresses a behavior discrepancy in the handling of altp2m vie=
-ws,
-> where upon the creation and subsequent EPT violation, the page access
-> permissions were incorrectly inherited from the hostp2m instead of respec=
-ting
-> the altp2m default_access.
->
-> Previously, when a new altp2m view was established with restrictive
-> default_access permissions and activated via xc_altp2m_switch_to_view(),
-> it failed to trigger an event on the first access violation.  This behavi=
-or
-> diverged from the intended mechanism, where the altp2m's default_access
-> should dictate the initial permissions, ensuring proper event triggering =
-on
-> access violations.
->
-> The correction involves modifying the handling mechanism to respect the
-> altp2m view's default_access upon its activation, eliminating the need fo=
-r
-> setting memory access permissions for the entire altp2m range (e.g. withi=
-n
-> xen-access.c).  This change not only aligns the behavior with the expecte=
-d
-> access control logic but also results in a significant performance improv=
-ement
-> by reducing the overhead associated with setting memory access permission=
-s
-> across the altp2m range.
->
-> Signed-off-by: Petr Bene=C5=A1 <w1benny@gmail.com>
+On 26.01.2024 11:05, Federico Serafini wrote:> --- a/xen/include/xen/compiler.h
+> +++ b/xen/include/xen/compiler.h
+> @@ -64,6 +64,13 @@
+>  # define fallthrough        do {} while (0)  /* fallthrough */
+>  #endif
+>  
+> +/*
+> + * Add the following macro to check that a program point is considered
+> + * unreachable by the static analysis performed by the compiler.
+> + */
+> +#define STATIC_ASSERT_UNREACHABLE() \
+> +    asm ( ".error \"static assertion failed: unreachable\"" )
 
-Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+In the comment s/Add/Use/? The macro is there after all when this gets
+committed. Overall maybe
+
+"Use this macro at program points considered unreachable, to be checked
+ by the compiler's static analysis."
+
+?
+
+Also while asm()s without operands are implicitly volatile, I think it
+would be a good idea to make that explicit nevertheless.
+
+I'd be happy to adjust while committing, so long as you agree. If you
+agree, and provided diagnostics resulting from this are useful (an
+example would have been nice in the description):
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Jan
 
