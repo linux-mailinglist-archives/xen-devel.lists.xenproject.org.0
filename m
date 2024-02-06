@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206AE84B0D5
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 10:16:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676680.1052886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A52CB84B0D8
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 10:17:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676682.1052896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXHYS-0008Q0-8j; Tue, 06 Feb 2024 09:15:48 +0000
+	id 1rXHZl-0000UI-Iu; Tue, 06 Feb 2024 09:17:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676680.1052886; Tue, 06 Feb 2024 09:15:48 +0000
+Received: by outflank-mailman (output) from mailman id 676682.1052896; Tue, 06 Feb 2024 09:17:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXHYS-0008OH-5q; Tue, 06 Feb 2024 09:15:48 +0000
-Received: by outflank-mailman (input) for mailman id 676680;
- Tue, 06 Feb 2024 09:15:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rXHZl-0000Rb-GA; Tue, 06 Feb 2024 09:17:09 +0000
+Received: by outflank-mailman (input) for mailman id 676682;
+ Tue, 06 Feb 2024 09:17:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gccX=JP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXHYQ-0008OB-Hz
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 09:15:46 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4e3981c2-c4d0-11ee-98f5-efadbce2ee36;
- Tue, 06 Feb 2024 10:15:44 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40fd2f7ef55so1786745e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 01:15:44 -0800 (PST)
+ id 1rXHZk-0000RT-VM
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 09:17:08 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8014f883-c4d0-11ee-8a47-1f161083a0e0;
+ Tue, 06 Feb 2024 10:17:07 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40fdf17fa89so1884255e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 01:17:07 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- s13-20020a05600c45cd00b0040e4733aecbsm1315832wmo.15.2024.02.06.01.15.43
+ s13-20020a05600c45cd00b0040e4733aecbsm1315832wmo.15.2024.02.06.01.17.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Feb 2024 01:15:43 -0800 (PST)
+ Tue, 06 Feb 2024 01:17:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4e3981c2-c4d0-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 8014f883-c4d0-11ee-8a47-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707210943; x=1707815743; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Hcgqavd5ViKDWn4ZTVmJrmTvxwn61LKHCoTm2YoE7hA=;
-        b=fCfQnFGL58CZIHgjY5Uw6DwGDO2ethUIVrmW4SMv0gQjJ4J8uxnhMcP1coIsX4NnS5
-         GqkXQBS6IRFMmxfz4+tjtlifnjozjVlZ3gXRWtVpLe9o3jug3YZ5aBCx6KBfijLQjQ1Y
-         VOv4hrGE8QXJSpWudmyOS9mkNM8WF8pGoptqOq36TCKOaav9mSyUu8RfAXB/m4PXjZEs
-         pjtdD/C3wb9io9sqf28dmaDwV/q/8wqNGVt7mJ/0Yj+iSi6ZHwIQcDkHmEQbxDBCy3IP
-         MuAuFafn7/VmUGvmURPElygRXQ6L7vtD+FjApiyloREOVRO40UTizmVXjW8neYHCNZSM
-         6Gwg==
+        d=suse.com; s=google; t=1707211027; x=1707815827; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=arBGPFrOLwqCftlxAZTfXEpNoXrQlI3w1e8E8Eg7n1w=;
+        b=AHMkt1Tum5vSProNBRaH5p7S7cZNts2se5XgXRj9b5CySQREVjUBhIsHkht+VqZvtC
+         ngzv9R2bCvSnXlQZSPv88pnB33Y7j4f/Jlkqt7hJg7+7tvZKLa5Ro+7g6KCclrwV7DD3
+         rXaVMtW/jLEa2vfb8Bm5Dip/1sywaGtN1J73BFhU724QHmKhyzTUxuY762PRc9BUDR+J
+         NkPBEq9npa+7XZbCBAotoxN9fcDlxY3wUu/0McOXLQqwECYPx7mjC5nTPTCp1Xx/JLvy
+         Pic21MbL6K0VgWrg+sLtDllrfx48snk30hPai7jAYceQudDy1zoiX17TYX1QlM6QUlWD
+         9y+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707210943; x=1707815743;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Hcgqavd5ViKDWn4ZTVmJrmTvxwn61LKHCoTm2YoE7hA=;
-        b=qwtzEKVzrimJzg7fZTLJYO5yceypGrar7otIuTkrUYjImpoYWERPc0lTmXrDZ2IUi4
-         7q2ver8MDWRw0D1qWYluGlOxY3jZYBv0Oed6iEXtC1Epo42OdmMIvysD7HPtbPzTR+oS
-         uLkGvvSDxCGP+xeurlaM0vRzZJt8jS2H1zce1ejgYDcZ8sAhZWBWMiUHBc5fudV4g5d2
-         oLLZAkII8WKn+RJbaBWIt5fDMAgGPNRUU10WgoK9s99yZEENUlXwDRgHAcUd7GDGvQjy
-         q48XjK4k3n3sz1kcmt1GowVtbUJ5Sb6jxtODmZD5hfCn5yujpdhVzuADlZJ7maiegXt8
-         FRSA==
-X-Gm-Message-State: AOJu0YyGOj5A95AjHEC/mdhdPdMFS+xB1BDTDLxU/hUxvk9jQDQiBpHH
-	pT077ohEPvOMiZHeBQUVdZv8j2rpNS4aB63KOVhTlyrCI1M07aE0WSDRXOiLIQ==
-X-Google-Smtp-Source: AGHT+IGixe5/V/9tAra8sNR0z5Fhi8t7iskxkyEhgHeYdBCuKeSqZA310qZgVXel9JR/uG8R03ZqCQ==
-X-Received: by 2002:a05:600c:474f:b0:40f:c234:2006 with SMTP id w15-20020a05600c474f00b0040fc2342006mr1652814wmo.8.1707210943592;
-        Tue, 06 Feb 2024 01:15:43 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCXZ39n2kynwBnXkyRX+VvxOY8DfbiGNZ6bvj34kJIzCycUOI/ghZYC+ANDPL71QeNrIx+MDMb8f2N8x1yHfHKCK0OW2nXK0gXyon8JbKSIDBMlP711ldzy2KL5cBuE2yXv0J0BZKaZD+pDqUWmn2Iv1eaDeLUEAEz+hfaoYwZwBqqxXt1sIK6O8PWi0qduNxjqPyJpbMxfrf55J6s37bh0=
-Message-ID: <dfb48bce-378d-478d-b65e-ab8e27aedcf3@suse.com>
-Date: Tue, 6 Feb 2024 10:15:42 +0100
+        d=1e100.net; s=20230601; t=1707211027; x=1707815827;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=arBGPFrOLwqCftlxAZTfXEpNoXrQlI3w1e8E8Eg7n1w=;
+        b=NRDb1P5pe7tciTenH6UjzA65tpTGf/29/0aaxQu7cXb4Tb1pT2UOuV4gy3qZh0KQz2
+         9egwMlzmcpb5AgJTM6lH4d9nW9YsnxGDJZ9mZ0bGYlIjNmb+yShWcFuY/b8VjimOr4vG
+         nROmEiVdekkiT6wySjcg/074T8tfubJww5dSz1SNwTf8lklRXWEVCJuUFCIXCUfyqlp/
+         1zSvnNd8XP4nJabKd3/7zs3xpiuP4SmIbtYx3UlJ4ufU3CcLQIEGxVmeeBnGElj+0B8W
+         VrBzlOs7jCYXaep6BZzfzIAylfyNfRuNA7Bnxt8UZ/ix1x0Lx/u0rZ0clFIQAdCqnMMx
+         9pTQ==
+X-Gm-Message-State: AOJu0YwT+Y2OnLRcR+KQDN46qZDBPNSecigYHWN8HwqLR8tYEjU5x/hm
+	senYJA7cj4MZaGquWK8bOFAVjuS4p1ojSoKI34HLOM/4wNAbQKMs0JXxEh7bAA==
+X-Google-Smtp-Source: AGHT+IFEpZh0/jizEzpIcYwCMsFRDVOBRr3/+nvor086leDd6s4pqGIVz31Xcc8UEDv8QOWdLEvmHA==
+X-Received: by 2002:a05:600c:474f:b0:40f:c234:2006 with SMTP id w15-20020a05600c474f00b0040fc2342006mr1657194wmo.8.1707211027304;
+        Tue, 06 Feb 2024 01:17:07 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCVZRKutFXgwgIQVZPbZI4lhx7CqzhIP76aQ9f3DTPUjtDpZmqaOcmAUxBkcivl1MdLMC7K+DL1YXNdY4My4v8XVcjYre9Po/5JQwL5ZIerIyqpP0lF9DsEzCJN5J4sC67MC4cCIMPuWmL2UEzepWDwBNS0Q2bsWYpi7iSPUKzPp8v+vpZVoFT9JvS3zlUscufgMFOgZkBAqjFvzv68qzuY=
+Message-ID: <6f8b3145-3e7a-4968-b68b-efa56c99fe55@suse.com>
+Date: Tue, 6 Feb 2024 10:17:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 2/5] Remove useless assignment
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
+From: Jan Beulich <jbeulich@suse.com>
+To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
+ xen-devel@lists.xenproject.org, Frediano Ziglio <frediano.ziglio@cloud.com>
 References: <20240205104637.14868-1-frediano.ziglio@cloud.com>
  <alpine.DEB.2.22.394.2402051241240.1925432@ubuntu-linux-20-04-desktop>
  <cbdf382c-a688-45f5-b834-9e3ab70ffc53@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
+ <dfb48bce-378d-478d-b65e-ab8e27aedcf3@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -114,20 +115,23 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cbdf382c-a688-45f5-b834-9e3ab70ffc53@xen.org>
+In-Reply-To: <dfb48bce-378d-478d-b65e-ab8e27aedcf3@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05.02.2024 22:21, Julien Grall wrote:
-> The tag says '2/5' but I don't see a thread. Is the series meant to 
-> contain more patches?
+On 06.02.2024 10:15, Jan Beulich wrote:
+> On 05.02.2024 22:21, Julien Grall wrote:
+>> The tag says '2/5' but I don't see a thread. Is the series meant to 
+>> contain more patches?
+>>
+>> Also, the title is not very specific about where the assignment is 
+>> removed. I have committed with the following title:
+>>
+>> xen/evtchn: Remove useful assignment in evtchn_alloc_unbound
 > 
-> Also, the title is not very specific about where the assignment is 
-> removed. I have committed with the following title:
-> 
-> xen/evtchn: Remove useful assignment in evtchn_alloc_unbound
+> Luckily in what you committed it is actually "useless" ;-)
 
-Luckily in what you committed it is actually "useless" ;-)
+Oh, I'm sorry - I see I got To: and Cc: mixed up in the earlier reply.
 
 Jan
 
