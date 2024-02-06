@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01E8A84B16F
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 10:38:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676706.1052936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8217F84B197
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 10:49:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676715.1052947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXHtm-00053q-Ts; Tue, 06 Feb 2024 09:37:50 +0000
+	id 1rXI4j-0007AQ-06; Tue, 06 Feb 2024 09:49:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676706.1052936; Tue, 06 Feb 2024 09:37:50 +0000
+Received: by outflank-mailman (output) from mailman id 676715.1052947; Tue, 06 Feb 2024 09:49:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXHtm-000527-R3; Tue, 06 Feb 2024 09:37:50 +0000
-Received: by outflank-mailman (input) for mailman id 676706;
- Tue, 06 Feb 2024 09:37:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rXI4i-00077C-TJ; Tue, 06 Feb 2024 09:49:08 +0000
+Received: by outflank-mailman (input) for mailman id 676715;
+ Tue, 06 Feb 2024 09:49:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gccX=JP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXHtk-000520-LZ
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 09:37:48 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6276fda5-c4d3-11ee-98f5-efadbce2ee36;
- Tue, 06 Feb 2024 10:37:46 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id
- 2adb3069b0e04-5114cd44fdbso4043375e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 01:37:46 -0800 (PST)
+ id 1rXI4h-000776-V3
+ for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 09:49:07 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f7d8c98f-c4d4-11ee-8a47-1f161083a0e0;
+ Tue, 06 Feb 2024 10:49:06 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id
+ ffacd0b85a97d-33b29b5ea96so197957f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 01:49:06 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- d6-20020a5d5386000000b0033af5086c2dsm1626212wrv.58.2024.02.06.01.37.45
+ 2-20020a5d47a2000000b0033b3cf1ff09sm1658565wrb.29.2024.02.06.01.49.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Feb 2024 01:37:45 -0800 (PST)
+ Tue, 06 Feb 2024 01:49:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6276fda5-c4d3-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: f7d8c98f-c4d4-11ee-8a47-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707212266; x=1707817066; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707212946; x=1707817746; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=9un3fFUe0EdRZG6+nIG7Cnyyr83cTu3bB29nOdSiALU=;
-        b=SU6jI8dSsPWi7eabpP3kgWuYxEWiG8JEWDBmcT4yyqeyZePyUX2+Zr9rOwOojdXBIy
-         VkgOy+URlaMPVqQ11wx/z5JsiukzVJrSn+nTA/qk4gK0oJlgF6MwAFXwJX9ZVRE+77RH
-         aG2L4nhwF+lQx7GeCSpgaZH7hZHQBgi4fB7aHahjKhTQaUCdSv2xCtq9o9rkbkYDggFn
-         /XoHcfQOuLJe6NETL3ApuGJiLZL4uO9ZHzsWlITpCp0EFAUVRwJIJOHt3Me1GVg4gvZO
-         YumBcLbSBjJ7AVWx3/myge/yW1Xkr0DOyfw3VouERnGb5lzqXIaUUkak0V1vPsO+6/6O
-         MkSQ==
+        bh=2xxWdwj1rfmffidHvI1N7kDJOByOykfylcPogO39CiQ=;
+        b=U2FzDbQ/95IhQmwQLrTFdgURnMkqPiaGESmKa1leBWNcKAU1ZCxxKpWBpM5ot+/sVi
+         jsiVvFE1jgRI64ixMeXM3i2LciX+Xz0nodFCqQUPZP2kCVI9qYy2x7ZwSUPXAdK4Rf+O
+         ZlX1/urGxqAoX/DUlpXq9UKLid34HwVTz3q4G21esM5WYynAomnYWX0bx6l0+7dYqk1c
+         0jaqFoSrYkT8eqg9OF6R/b7qhY4sV4YcD5Qql9+Q1n/YvDDdHCYKB4wcylxYRs+w1tHO
+         0aRs2f/BpYLIc2ivvYAt+cxsCioYSXYRJ5zUVjGmdzZm2MikbhqdnCSyEGyTFs0iTqBX
+         EzjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707212266; x=1707817066;
+        d=1e100.net; s=20230601; t=1707212946; x=1707817746;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9un3fFUe0EdRZG6+nIG7Cnyyr83cTu3bB29nOdSiALU=;
-        b=TAvp4oOOVr0H/QohA93DZMpXFCM/Mtw4zzY4WfFrXjaFaw9qo/Xk1Jv+iXydKU4rXw
-         A0mXdjX8ccfqC24/s8kNCSKOGJXKRHs6wcjVyGuBB0PK6ABI1Psot+Gkzw0mAjku93uN
-         0uRTiB3ZimW2hKXDz3WZaA79w6WvAL1s+dLl3rik73SxxnnzpLy+o7GA7HK3BpX6YWJS
-         Wuk1Owbawr7mg3jyjIch/4zmzSKSyUl1JO8oYmmxBBCgdRKOgvkN9dm7UN0SnGUbuafI
-         CtNZ4fKWzjDhJrtIvrpqGfwYj1DK+Sw+55XGpkOv97JmjR07Vbl5iAPrwOc7RkyUPYdh
-         7Bzw==
-X-Gm-Message-State: AOJu0Ywr8P0xX4aWx0I79s6fxC9h+6uzCgeykYbFluebJlX6euYQT39S
-	Ckla4/i2QvWCwWKxDJbFSqC/ZzgpB+KsYD9a0OXPBtn7Ww95Ew4twQIbLEaFBw==
-X-Google-Smtp-Source: AGHT+IFKyYlASpDPaTxHBmtUYrRmHkjLup9BqfUxS6DDzuFLiCgufNhQs+hKF2eKd45YHRJcMfwPqg==
-X-Received: by 2002:a05:6512:2028:b0:511:4967:9f0a with SMTP id s8-20020a056512202800b0051149679f0amr1358976lfs.57.1707212266076;
-        Tue, 06 Feb 2024 01:37:46 -0800 (PST)
-X-Forwarded-Encrypted: i=0; AJvYcCWSRN+t5t0jQKvBqHzFJ6ZeOpmgadrvi8r3qClWw45C/ctZ0WDwoLpqxvIRZIBcVClDhNVw7pNVq4OXfpj1mBRtgoZnhEqzNbwIp7/kPsoppNliNsDdIq2Ft54Y1H/UBAkbsPSo4A6byPuMrcV1qICeJFePdaFskSi4OksymAMfQPUDew==
-Message-ID: <3125dcdd-573a-4bad-a0a2-9c501d94cc82@suse.com>
-Date: Tue, 6 Feb 2024 10:37:45 +0100
+        bh=2xxWdwj1rfmffidHvI1N7kDJOByOykfylcPogO39CiQ=;
+        b=CxOLDSwk95fQRQuCyh3GCCzyHZG76+lDh079UOlZ9QjJz0uxs4gBQVaFu7Vrb5o47K
+         IUrtVDEMWwKjjIgnHs3st4I9BZwpzr/pIsUA5yKzRbOJSqAYG2wMwN2kdXwYXz+ZIzTO
+         /CXGetJEjJiXG87Ghfh2pSRhvqJZAhIBX8KBo9bZPg8f0an/WdKNmukflN2+Ob3ruDiG
+         KZUHLka51yxJ58zmIZ3y66g6plvL9bwkJdIqxPUMbFwu7VZcSuxZMM53yg2bzoFNL5yd
+         GyOked4p7H2LdC8p02+GT/Is6avHKbeFQ9MwP6x5b4Yk8HcTPirMCxCwO8sks+SbUxSe
+         KM3w==
+X-Gm-Message-State: AOJu0YxReoe8I34K9aVFKNz2Ia5fGiYqjW1mWAUgd7KrvkPy/VQmHtN5
+	bQrJQqQwtRBrrHMBmr8LzXsLNvDNbwZbmp4H3zMWSLgI3g1PUA2fzNCPjtUk+A==
+X-Google-Smtp-Source: AGHT+IHsKJ9HFaHLZ6wMweln86ZCP5UdGmnUNhdFAthi6Hu2fgU4OVOOlgkX4A4f4/5cSEULKQrROQ==
+X-Received: by 2002:a5d:4ecf:0:b0:33a:f090:f758 with SMTP id s15-20020a5d4ecf000000b0033af090f758mr987689wrv.27.1707212946083;
+        Tue, 06 Feb 2024 01:49:06 -0800 (PST)
+X-Forwarded-Encrypted: i=0; AJvYcCUd8MHWiweO30fiKWaBQhFE3weq2XpwCbgM3zxgTOQ9uW6/uiDtpJIzVM/mh55YIhKJ5W7QjTu4Vtf+y6w0cw1t2e93BFYdPbto9pR+hw8sz/0bnh77K2UuhSKnb+jWuabU+o0JM3DZgkcbQ8LoYB8+1ilUHRd+lx6tuV9YouBPhUOCIHV8mqIBROBOZJs=
+Message-ID: <0ede3663-7611-4684-b223-42305a9d0b96@suse.com>
+Date: Tue, 6 Feb 2024 10:49:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4.5 3/8] VMX: tertiary execution control infrastructure
+Subject: Re: [PATCH] x86/bitmap: Even more signed-ness fixes
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
-References: <9dd23064-c79e-4a50-9c71-c0e73b189944@suse.com>
- <aa553449-888f-4e52-85b7-0bc0b7f010b4@suse.com>
- <bc782b14-d897-4a94-b71d-97c4abeb85df@suse.com> <ZcH7uwpxwYUq9yR0@macbook>
+To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20240205151413.1919983-1-andrew.cooper3@citrix.com>
+ <6997ec6f-15a0-4c88-9a96-c7f4f450b2dd@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,44 +112,49 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZcH7uwpxwYUq9yR0@macbook>
+In-Reply-To: <6997ec6f-15a0-4c88-9a96-c7f4f450b2dd@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 06.02.2024 10:28, Roger Pau Monné wrote:
-> On Mon, Feb 05, 2024 at 02:37:44PM +0100, Jan Beulich wrote:
->> This is a prereq to enabling e.g. the MSRLIST feature.
->>
->> Note that the PROCBASED_CTLS3 MSR is different from other VMX feature
->> reporting MSRs, in that all 64 bits report allowed 1-settings.
->>
->> vVMX code is left alone, though, for the time being.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 05.02.2024 17:02, Julien Grall wrote:
+> On 05/02/2024 15:14, Andrew Cooper wrote:
+>> -int bitmap_find_free_region(unsigned long *bitmap, int bits, int order)
+>> +int bitmap_find_free_region(unsigned long *bitmap, unsigned int bits, unsigned int order)
+>>   {
+>>   	unsigned long mask;
+>> -	int pages = 1 << order;
+>> -	int i;
+>> +	unsigned int pages = 1 << order;
+>> +	unsigned int i;
 > 
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-Thanks.
-
->> @@ -2068,10 +2111,12 @@ void vmcs_dump_vcpu(struct vcpu *v)
->>                 vmr(HOST_PERF_GLOBAL_CTRL));
->>  
->>      printk("*** Control State ***\n");
->> -    printk("PinBased=%08x CPUBased=%08x SecondaryExec=%08x\n",
->> +    printk("PinBased=%08x CPUBased=%08x\n",
->>             vmr32(PIN_BASED_VM_EXEC_CONTROL),
->> -           vmr32(CPU_BASED_VM_EXEC_CONTROL),
->> -           vmr32(SECONDARY_VM_EXEC_CONTROL));
->> +           vmr32(CPU_BASED_VM_EXEC_CONTROL));
->> +    printk("SecondaryExec=%08x TertiaryExec=%016lx\n",
+> ... I think your other patch is fixing a latent bug you introduced here. 
+> Before hand, if bits was "negative", we would return -ENOMEM. Now if we 
+> pass 2GB or higher, we would go through the loop.
 > 
-> I thought you wanted to split the print into two 32bit halves here?
+> So I would fold the hunk from common/bitmap.c here.
+> 
+>>   
+>>   	if(pages > BITS_PER_LONG)
+>>   		return -EINVAL;
+> 
+> [...]
+> 
+>> -int bitmap_allocate_region(unsigned long *bitmap, int pos, int order)
+>> +int bitmap_allocate_region(unsigned long *bitmap, unsigned int pos,
+>> +			   unsigned int order)
+>>   {
+>> -	int pages = 1 << order;
+>> +	unsigned int pages = 1 << order;
+>>   	unsigned long mask = (1ul << (pages - 1));
+>> -	int index = pos/BITS_PER_LONG;
+>> -	int offset = pos - (index * BITS_PER_LONG);
+>> +	unsigned int index = pos/BITS_PER_LONG; 
+> NIT: While you modify the line, can you add a space before after / as 
+> you did above?
 
-Indeed I wanted to, but when about to do so I noticed several other
-uses of %016lx in the same function. I value consistency higher here;
-if we want to introduce such splitting, I think we want to do it
-uniformly. And then we may even want to think about possible ways of
-indicating the desire for such splitting right in the format string.
+Instead of any of this - how about we finally purge this dead code? All
+of bitmap_*_region() were dead in 3.2 (and perhaps even before), and they
+are still dead.
 
 Jan
 
