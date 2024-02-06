@@ -2,45 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EBCD84B6C5
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 14:44:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.676944.1053312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AECD684B72F
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Feb 2024 15:00:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.676952.1053321 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXLji-0004mS-0t; Tue, 06 Feb 2024 13:43:42 +0000
+	id 1rXLz7-0007RM-A8; Tue, 06 Feb 2024 13:59:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 676944.1053312; Tue, 06 Feb 2024 13:43:41 +0000
+Received: by outflank-mailman (output) from mailman id 676952.1053321; Tue, 06 Feb 2024 13:59:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXLjh-0004kK-UG; Tue, 06 Feb 2024 13:43:41 +0000
-Received: by outflank-mailman (input) for mailman id 676944;
- Tue, 06 Feb 2024 13:43:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXLz7-0007Pr-7T; Tue, 06 Feb 2024 13:59:37 +0000
+Received: by outflank-mailman (input) for mailman id 676952;
+ Tue, 06 Feb 2024 13:59:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=z75a=JP=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rXLjg-0004iW-VP
- for xen-devel@lists.xenproject.org; Tue, 06 Feb 2024 13:43:40 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc49236a-c4f5-11ee-8a47-1f161083a0e0;
- Tue, 06 Feb 2024 14:43:40 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4639222030;
- Tue,  6 Feb 2024 13:43:39 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1E07B132DD;
- Tue,  6 Feb 2024 13:43:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id xXpxBYs3wmVGQgAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 06 Feb 2024 13:43:39 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rXLz5-0007Ph-SW; Tue, 06 Feb 2024 13:59:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rXLz5-00044K-PK; Tue, 06 Feb 2024 13:59:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rXLz5-0003B0-FZ; Tue, 06 Feb 2024 13:59:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rXLz5-00077i-F0; Tue, 06 Feb 2024 13:59:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,101 +42,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc49236a-c4f5-11ee-8a47-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1707227019; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/ktfHFMT+dUDRU7YcjswPtaU36Yaut2wQu0bdPBH468=;
-	b=F5uHvTaQfC+hnSpuorNCwbz7+uMIAYuYMuHHpla1YuzZ5dOfldmANwP9PqMvfQJAdlon7n
-	KRAKS1Sk9XG8KhtHAJs//hnPdpPssVqTlv2pmB7qasFnCFKhbkWIUSDl2Os6MV2WBVOyky
-	WyczExRKQJHJ+TE672fyUYHcIHqLJXY=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1707227019; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/ktfHFMT+dUDRU7YcjswPtaU36Yaut2wQu0bdPBH468=;
-	b=F5uHvTaQfC+hnSpuorNCwbz7+uMIAYuYMuHHpla1YuzZ5dOfldmANwP9PqMvfQJAdlon7n
-	KRAKS1Sk9XG8KhtHAJs//hnPdpPssVqTlv2pmB7qasFnCFKhbkWIUSDl2Os6MV2WBVOyky
-	WyczExRKQJHJ+TE672fyUYHcIHqLJXY=
-Message-ID: <244f3950-b7e8-4563-8972-bd230021433a@suse.com>
-Date: Tue, 6 Feb 2024 14:43:38 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/libs/light: don't allow to stop Xenstore stubdom
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20240206124345.19433-1-jgross@suse.com>
- <d420a9c2-3fa0-40cc-adf7-ffd88fcffbfe@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-In-Reply-To: <d420a9c2-3fa0-40cc-adf7-ffd88fcffbfe@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=KLAV87Rn9yZM7fgGLfvboF7pG4XjSgIPK2yYQ3S9xiE=; b=re4gseFzaFdhsQ5PHlrxrRLThF
+	GbPh+2kl2NoH2dkJptlMR7O5ApM48RTV4qiw+OC+UCtSlv0uy7IBDQFHZNF2BPzSO3M4EHgTmWEGE
+	Cchh6VQ07WgRkFdP87Uqm10EpAM8YlVoifxCfNBz+gsoDvmA2bs/8mtPAKRy6HuxAcZU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184605-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=F5uHvTaQ
-X-Spamd-Result: default: False [-0.11 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	 XM_UA_NO_VERSION(0.01)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	 BAYES_HAM(-0.58)[81.36%];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 DKIM_TRACE(0.00)[suse.com:+];
-	 MX_GOOD(-0.01)[];
-	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 R_MIXED_CHARSET(0.77)[subject];
-	 RCVD_TLS_ALL(0.00)[];
-	 MID_RHS_MATCH_FROM(0.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Score: -0.11
-X-Rspamd-Queue-Id: 4639222030
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-Spamd-Bar: /
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 184605: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=57a923bfd920307c5bfa533c95dba16a13ea0225
+X-Osstest-Versions-That:
+    xen=1cb7949b37b3d8892d8a3cea3ad1e2448352a34d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 06 Feb 2024 13:59:35 +0000
 
-On 06.02.24 14:08, Andrew Cooper wrote:
-> On 06/02/2024 12:43 pm, Juergen Gross wrote:
->> A Xenstore stubdom should never be stoppable.
->>
->> Reject attempts to do so.
->>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
-> 
-> I don't think this is a clever idea.  `xl destroy` is also the "please
-> clean up my system when it's in a very dead state" command, and that
-> also includes a dead xenstored stubdom.
+flight 184605 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184605/
 
-I don't think xl destroy for a dead Xenstore stubdom will ever work.
-xl destroy tries to read (and delete) Xenstore entries, after all.
+Failures :-/ but no regressions.
 
-I think you'd need a program using libxenctrl without all the xl/libxl
-actions for achieving this goal. And this would work with my current
-patch, too.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> If you're looking for some protection, then maybe a `--force` flag to
-> override, but there must be some way of getting this to run.
+version targeted for testing:
+ xen                  57a923bfd920307c5bfa533c95dba16a13ea0225
+baseline version:
+ xen                  1cb7949b37b3d8892d8a3cea3ad1e2448352a34d
 
-A system without Xenstore is probably quite useless anyway. At least today
-there is no way a new Xenstore would be able to connect to existing domains.
+Last test of basis   184599  2024-02-06 01:00:34 Z    0 days
+Testing same since   184605  2024-02-06 11:03:06 Z    0 days    1 attempts
 
-OTOH I'm inclined to add more hooks, e.g. for "xl pause" and "xl migrate".
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  David Woodhouse <dwmw2@amazon.com>
+  Elias El Yandouzi <eliasely@amazon.com>
+  Frediano Ziglio <frediano.ziglio@cloud.com>
+  George Dunlap <george.dunlap@cloud.com>
+  Hongyan Xia <hongyxia@amazon.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  oxjo <oxjo@proton.me>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Wei Liu <wei.liu2@citrix.com>
 
-And I do think that libxl is the right level for that, as I don't want users
-to be able to kill/pause/migrate Xenstore stubdom via libvirt either.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-Juergen
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   1cb7949b37..57a923bfd9  57a923bfd920307c5bfa533c95dba16a13ea0225 -> smoke
 
