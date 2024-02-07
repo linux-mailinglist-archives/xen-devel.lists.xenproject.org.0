@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C60584CAA0
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 13:22:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677507.1054107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7DA784CAB7
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 13:28:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677511.1054118 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXgvW-0002EU-KE; Wed, 07 Feb 2024 12:21:18 +0000
+	id 1rXh2E-000365-AP; Wed, 07 Feb 2024 12:28:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677507.1054107; Wed, 07 Feb 2024 12:21:18 +0000
+Received: by outflank-mailman (output) from mailman id 677511.1054118; Wed, 07 Feb 2024 12:28:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXgvW-0002Bu-HX; Wed, 07 Feb 2024 12:21:18 +0000
-Received: by outflank-mailman (input) for mailman id 677507;
- Wed, 07 Feb 2024 12:21:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rXh2E-00033y-7O; Wed, 07 Feb 2024 12:28:14 +0000
+Received: by outflank-mailman (input) for mailman id 677511;
+ Wed, 07 Feb 2024 12:28:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nQwS=JQ=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
- id 1rXgvU-0002Bo-Vc
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 12:21:16 +0000
+ id 1rXh2C-00033m-PP
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 12:28:12 +0000
 Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 62f8da3e-c5b3-11ee-98f5-efadbce2ee36;
- Wed, 07 Feb 2024 13:21:14 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5b6dba7b-c5b4-11ee-8a49-1f161083a0e0;
+ Wed, 07 Feb 2024 13:28:11 +0100 (CET)
 Received: from [192.168.1.140] (unknown [81.56.166.244])
- by support.bugseng.com (Postfix) with ESMTPSA id DB1734EE0738;
- Wed,  7 Feb 2024 13:21:13 +0100 (CET)
+ by support.bugseng.com (Postfix) with ESMTPSA id C7B3A4EE0738;
+ Wed,  7 Feb 2024 13:28:10 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,186 +39,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62f8da3e-c5b3-11ee-98f5-efadbce2ee36
-Message-ID: <e48f4d49-274c-4bd6-8e3b-1ecaee6fa602@bugseng.com>
-Date: Wed, 7 Feb 2024 13:21:12 +0100
+X-Inumbo-ID: 5b6dba7b-c5b4-11ee-8a49-1f161083a0e0
+Message-ID: <f4525632-5874-48f3-8b75-49c328433c43@bugseng.com>
+Date: Wed, 7 Feb 2024 13:28:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v4 1/4] xen: add SAF deviation for debugging and
- logging effects
+Subject: Re: [XEN PATCH v4 3/4] xen/x86: address violations of MISRA C:2012
+ Rule 13.1
 Content-Language: en-US
 To: Jan Beulich <jbeulich@suse.com>
 Cc: consulting@bugseng.com, sstabellini@kernel.org,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>,
- Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
- xen-devel@lists.xenproject.org
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <cover.1706886631.git.simone.ballarin@bugseng.com>
- <7c6aeedac626b171ed44df50ce5e3e2c76593f60.1706886631.git.simone.ballarin@bugseng.com>
- <09869431-ed00-4102-93fd-84c697a5c950@suse.com>
- <851eb6ec-558b-4a89-a31a-34046730bb55@bugseng.com>
- <41474fe7-c65f-4244-a455-0aaa0e4315e3@suse.com>
+ <16bb514ac0a5fe0d6e9a2c95279a8200ff4495c6.1706886631.git.simone.ballarin@bugseng.com>
+ <b23ffbf2-e1b1-42f5-b0ea-9f0889a5a7af@suse.com>
 From: Simone Ballarin <simone.ballarin@bugseng.com>
 Organization: BUGSENG
-In-Reply-To: <41474fe7-c65f-4244-a455-0aaa0e4315e3@suse.com>
+In-Reply-To: <b23ffbf2-e1b1-42f5-b0ea-9f0889a5a7af@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07/02/24 11:24, Jan Beulich wrote:
-> On 07.02.2024 11:03, Simone Ballarin wrote:
->> On 06/02/24 13:04, Jan Beulich wrote:
->>> On 02.02.2024 16:16, Simone Ballarin wrote:
->>>> Rule 13.1: Initializer lists shall not contain persistent side effects
->>>>
->>>> Effects caused by debug/logging macros and functions (like ASSERT, __bad_atomic_size,
->>>> LOG, etc ...) that crash execution or produce logs are not dangerous in initializer
->>>> lists. The evaluation order in abnormal conditions is not relevant. Evaluation order
->>>> of logging effects is always safe.
->>>
->>> I thought I said so before: When talking of just logging, evaluation order
->>> may very well have a impact on correctness. Therefore we shouldn't mix
->>> debugging and logging.
+On 06/02/24 14:13, Jan Beulich wrote:
+> On 02.02.2024 16:16, Simone Ballarin wrote:
+>> Rule 13.1: Initializer lists shall not contain persistent side effects
 >>
->> My general feeling was that changes like the following one are not supported by
->> the community:
+>> This patch moves expressions with side-effects into new variables before
+>> the initializer lists.
 >>
->> - x = { .field1 = function_with_logs_effects() /*other eventual code*/ };
->> + int field1 = function_with_logs_effects();
->> + x = { .field1 = field1 /*other eventual code*/};
+>> No functional changes.
 >>
->> so I tried to deviate as much as possible.
->>
->> If having log effects is a good reason to do changes like the above, I can
->> propose a patch in that sense.
+>> Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
 > 
-> Just to avoid misunderstandings: I'm not advocating for changes like the
-> one you outline above. I simply consider the rule too strict: There's
-> nothing at risk when there's just a single operation with side effects
-> in an initializer.
-
-I agree for the safe cases such as single item list initializers (independently
-by the number of effect contained in io_apic_read).
-In fact, I was about to propose in another patch to deviate cases like:
-
-union IO_APIC_reg_01 reg_01 = { .raw = io_apic_read(idx, 1) };
-union IO_APIC_reg_02 reg_02 = { .raw = io_apic_read(idx, 2) };
-
-> Even when there are multiple such operations, whether
-> there's anything at risk depends on whether any of the side effects
-> actually collide. In a number of cases the compiler would actually warn
-> (and thus, due to -Werror, the build would fail).
+> To be honest, I don't like this. It's more code for no gain. Really its
+> hampering clarity imo. I'm willing to be convinced otherwise, but for
+> now this gets a nack from me.
 > 
-
-I don't completely agree on that, this requires an in-depth comprehension
-of the code especially when complex call chains are involved. Moreover
-these deviations need to be maintained when one of the function involved changes.
-
-> The primary purpose of my comment here was that we need to please
-> separate debugging from logging side effects.
->
-
-Ok, I will work in that sense.
-
->>>> --- a/xen/arch/arm/guestcopy.c
->>>> +++ b/xen/arch/arm/guestcopy.c
->>>> @@ -110,26 +110,34 @@ static unsigned long copy_guest(void *buf, uint64_t addr, unsigned int len,
->>>>    unsigned long raw_copy_to_guest(void *to, const void *from, unsigned int len)
->>>>    {
->>>>        return copy_guest((void *)from, (vaddr_t)to, len,
->>>> -                      GVA_INFO(current), COPY_to_guest | COPY_linear);
->>>> +                      /* SAF-4-safe No persistent side effects */
->>>> +                      GVA_INFO(current),
->>>
->>> I _still_ think this leaves ambiguity. The more that you need to look
->>> up GVA_INFO() to recognize what this is about.
->>
->>
->> Just to recap: here the point is that current reads a register with a volatile asm, so the
->> violation is in the expansion of GVA_INFO(current). Both GVA_INFO and current taken alone
->> are completely fine, so this is the only place where a SAF comment can be placed.
->>
->> The exapansion is:
->> ((copy_info_t) { .gva = { ((*({ unsigned long __ptr; __asm__ ("" : "=r"(__ptr) : "0"(&
->>     per_cpu__curr_vcpu)); (typeof(&per_cpu__curr_vcpu)) (__ptr + (({ uint64_t _r; asm volatile("mrs  %0, ""TPIDR_EL2" : "=r"
->>     (_r)); _r; }))); }))) } }), (1U << 1) | (1U << 2));
->>
->> My proposals are:
->> 1) address the violation moving the current expansion outside (extra variable);
->> 2) put a more detailed comment to avoid the ambiguity;
->> 3) use an ECL deviation for GVA_INFO(current).
->>
->> Do you have any preference or proposal?
+> As an aside, ...
 > 
-> Imo 3 is not an option at all. Probably 1 wouldn't be too bad here, but
-> I still wouldn't like it (as matching a general pattern I try to avoid:
-> introducing local variables that are used just once and don't meaningfully
-> improve e.g. readability). Therefore out of what you list, 2 would remain.
-> But I'm not happy with a comment here either - as per above, there's
-> nothing that can go wrong here as long as there's only a single construct
-> with side effect(s).
->
-So, would be changing the SAF in:
-/* SAF-<new_id>-safe single item initializer */
+>> --- a/xen/arch/x86/io_apic.c
+>> +++ b/xen/arch/x86/io_apic.c
+>> @@ -2559,9 +2559,12 @@ integer_param("max_gsi_irqs", max_gsi_irqs);
+>>   
+>>   static __init bool bad_ioapic_register(unsigned int idx)
+>>   {
+>> -    union IO_APIC_reg_00 reg_00 = { .raw = io_apic_read(idx, 0) };
+>> -    union IO_APIC_reg_01 reg_01 = { .raw = io_apic_read(idx, 1) };
+>> -    union IO_APIC_reg_02 reg_02 = { .raw = io_apic_read(idx, 2) };
+>> +    uint32_t reg_00_raw = io_apic_read(idx, 0);
+>> +    uint32_t reg_01_raw = io_apic_read(idx, 1);
+>> +    uint32_t reg_02_raw = io_apic_read(idx, 2);
 
-OK for you?
+I'll propose a deviation for these single item initializers.
 
->>>> --- a/xen/arch/x86/hvm/hvm.c
->>>> +++ b/xen/arch/x86/hvm/hvm.c
->>>> @@ -800,6 +800,7 @@ static int cf_check hvm_save_cpu_ctxt(struct vcpu *v, hvm_domain_context_t *h)
->>>>    {
->>>>        struct segment_register seg;
->>>>        struct hvm_hw_cpu ctxt = {
->>>> +        /* SAF-3-safe effects for debugging/logging reasons are safe */
->>>>            .tsc = hvm_get_guest_tsc_fixed(v, v->domain->arch.hvm.sync_tsc),
->>>
->>> A prereq for this imo is that the function take const struct vcpu *.
->>> But I'm not sure that'll suffice. The function can change at any time,
->>> rendering the comment here stale perhaps without anyone noticing.
->>>
->>
->> IMO It isn't a strict prereq, but it would make everything more clear.
->>
->> In any case, apart adding the const, I do not see other easy solutions.
->> Would you give me your ack if I change the function signature?
 > 
-> Well, as said: I'm not sure that'll suffice.
+> ... while you properly use uint32_t here, ...
 > 
->> Another possible solutions would be documenting the function in the new
->> JSON file with a special attribute like only_debug_effect. Of course,
->> this still requires keeping the JSON up to date in case of changes.
-> 
-> Exactly. So wouldn't really help.
-> 
-> In any event I'd like to ask that you consider splitting up this patch,
-> such that you won't need multiple acks for any of the parts. That'll
-> also allow focusing on one aspect at a time in reviews.
+>> +    union IO_APIC_reg_00 reg_00 = { .raw = reg_00_raw };
+>> +    union IO_APIC_reg_01 reg_01 = { .raw = reg_01_raw };
+>> +    union IO_APIC_reg_02 reg_02 = { .raw = reg_02_raw };
+>>   
+>>       if ( reg_00.raw == -1 && reg_01.raw == -1 && reg_02.raw == -1 )
+>>       {
+>> --- a/xen/arch/x86/mpparse.c
+>> +++ b/xen/arch/x86/mpparse.c
+>> @@ -798,11 +798,12 @@ void __init mp_register_lapic_address (
+>>   
+>>   int mp_register_lapic(u32 id, bool enabled, bool hotplug)
+>>   {
+>> +	u32 apic = apic_read(APIC_LVR);> 
+> ... why the being-phased-out u32 here?
 > 
 
-Ok, but please consider that the JSON file has been precisely added to deal
-with these cases (avoiding __attribute__). If we are scared to use it, it becomes
-meaningless.
-
-@Stefano maybe your opinion could help.
-
-Another more complex option would be emulating __attribute__ (in general any property)
-with a comment:
-
-/* @attribute: [only_debug_effects]
-int foo(void);
-
-This solution implies that:
-- we need a script to convert these comments in ECL configurations (the script should
-   parse the entire codebase);
-- regexes cannot be used (the JSON instead accepts regexes);
-- to be coherent, all properties that actually lives in the JSON should be moved inside
-   these comments. This means a lot of changes. A hybrid approach is also possible.
+It was just to be coherent with the type of id.
+I will use uint32_t in the next submission.
 
 > Jan
+> 
+>>   	struct mpc_config_processor processor = {
+>>   		.mpc_type = MP_PROCESSOR,
+>>   		/* Note: We don't fill in fields not consumed anywhere. */
+>>   		.mpc_apicid = id,
+>> -		.mpc_apicver = GET_APIC_VERSION(apic_read(APIC_LVR)),
+>> +		.mpc_apicver = GET_APIC_VERSION(apic),
+>>   		.mpc_cpuflag = (enabled ? CPU_ENABLED : 0) |
+>>   			       (id == boot_cpu_physical_apicid ?
+>>   				CPU_BOOTPROCESSOR : 0),
+>> --- a/xen/arch/x86/setup.c
+>> +++ b/xen/arch/x86/setup.c
+>> @@ -885,13 +885,14 @@ static struct domain *__init create_dom0(const module_t *image,
+>>   {
+>>       static char __initdata cmdline[MAX_GUEST_CMDLINE];
+>>   
+>> +    unsigned int max_vcpus = dom0_max_vcpus();
+>>       struct xen_domctl_createdomain dom0_cfg = {
+>>           .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
+>>           .max_evtchn_port = -1,
+>>           .max_grant_frames = -1,
+>>           .max_maptrack_frames = -1,
+>>           .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+>> -        .max_vcpus = dom0_max_vcpus(),
+>> +        .max_vcpus = max_vcpus,
+>>           .arch = {
+>>               .misc_flags = opt_dom0_msr_relaxed ? XEN_X86_MSR_RELAXED : 0,
+>>           },
+> 
 
 -- 
 Simone Ballarin, M.Sc.
