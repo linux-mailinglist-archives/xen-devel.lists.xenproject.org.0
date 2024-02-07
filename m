@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E97D784CBB8
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 14:37:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677568.1054247 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9744784CBB9
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 14:38:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677573.1054257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXi7E-0000qp-Sb; Wed, 07 Feb 2024 13:37:28 +0000
+	id 1rXi7j-0001qh-3s; Wed, 07 Feb 2024 13:37:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677568.1054247; Wed, 07 Feb 2024 13:37:28 +0000
+Received: by outflank-mailman (output) from mailman id 677573.1054257; Wed, 07 Feb 2024 13:37:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXi7E-0000pD-Pv; Wed, 07 Feb 2024 13:37:28 +0000
-Received: by outflank-mailman (input) for mailman id 677568;
- Wed, 07 Feb 2024 13:37:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXi7j-0001pH-12; Wed, 07 Feb 2024 13:37:59 +0000
+Received: by outflank-mailman (input) for mailman id 677573;
+ Wed, 07 Feb 2024 13:37:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EHwQ=JQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXi7D-00007V-44
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 13:37:27 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 079c2b0f-c5be-11ee-8a49-1f161083a0e0;
- Wed, 07 Feb 2024 14:37:25 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-33b4e6972f6so428495f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 05:37:25 -0800 (PST)
+ id 1rXi7h-0000oU-Aj
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 13:37:57 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 195b303c-c5be-11ee-98f5-efadbce2ee36;
+ Wed, 07 Feb 2024 14:37:55 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-40f033c2e30so5412265e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 05:37:55 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z12-20020a056000110c00b0033b4ebc3c8fsm1328999wrw.2.2024.02.07.05.37.24
+ z12-20020a056000110c00b0033b4ebc3c8fsm1328999wrw.2.2024.02.07.05.37.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 05:37:25 -0800 (PST)
+ Wed, 07 Feb 2024 05:37:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 079c2b0f-c5be-11ee-8a49-1f161083a0e0
+X-Inumbo-ID: 195b303c-c5be-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707313045; x=1707917845; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707313075; x=1707917875; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y82MohMyrcgLEJtzsSnSC+KLl8n5qIEw59SpPMusgXQ=;
-        b=AUhN+VJOqRSomyX1XdT0sXVjPEG5IJSfHLljALSePrOEe2lmMzl5RLEM3B+xB0rLv+
-         qOYEY6tVW9OwvRwsUf3IJtU6ES8N2JajpZnKUjXZF2H4Xrc1d7ys+c33kIhauuYvJDZJ
-         n2Sk9aA3rFkFAT4lpzMx0w4lZMFQwoaEHaZM7R2Wk5yKcCEQobS4jH0sV9wqbMiXaj/w
-         0kRwncGmH5Wtew8AJG/1AK/aE4eQPA02ZamRHBZHuV5iCI77vfvwAF0ShJqLdoBKj9S7
-         N+vRRbDxIlIH8+7RSF78vf0N5AqfcwTXm5cWGyf7JTyYoLLl5TfJCqArwHawO5wrgoke
-         eHvQ==
+        bh=YjmnSJwKzDpM0u5Pn+iHXjwC2VYerV7wNfCIIKzoSdk=;
+        b=a/XQdWITxE3GaPINMKu5S+GDaSDA+tn5jzD+GuTUWliYQl9s5+NrwqYG5rCJwCaPda
+         f6g/BbH/4WCvStQly0uIna22yFXHjUzaZxpaZ9Akw/zgmItM9kc3yfT/s3L2afMpHVV6
+         uWYVwTIxnoJy2vn+VoS6T+i90k7qZn5kKAAyHeTIKkc598MW5Qcy69TtqDZIScdeljMt
+         GBrJVxr9VAHX5y57yPiiN2XJ4rGXVggNDyciValHbbIYKHj30fBJEGqSuCmEIho5xmcS
+         Kq9anCNVqaI7rcxTa+Clq9ayKbRpw6E9coF2F+kXYzMwZX6RzyNrCF4b07a9IEi/VK81
+         ofrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707313045; x=1707917845;
+        d=1e100.net; s=20230601; t=1707313075; x=1707917875;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Y82MohMyrcgLEJtzsSnSC+KLl8n5qIEw59SpPMusgXQ=;
-        b=ls0qIPIjYH3GslGtlRVYvHSx1LpYHRQ4in49qn6P2cERw05nhafdqlbmB4PMhBhhSW
-         Z0DaVzkBSwg545AucnXm87N52ckMtdrEUuHBF6Cnvstw32t4JbcJZX2QHBhovmWEKB4q
-         eLqrDlT29IMiDbMDHBLBQzZmKvoyBO39ZarrVu8j0B8sFgHBydLvbGp4pwZofv4gUsbc
-         oUNbeRntEljeKa6DF8XnAzmIWTg9hiWGczLptHkl3jm5jXq5NgXnAGFHtlJAYYFAMXiA
-         bpfg3tckEHNXtbGUlmN5qfDij7LK5Y2koAb/TFiaAWc8/oRCzwPpS9gbznmG0Ue1gQ0m
-         VtKg==
-X-Gm-Message-State: AOJu0YyjUxxZfhp6CkYfe0x1Kgv4Rnip5DgKylsK76L35liai4GquQ3a
-	EjW3jv2Bqo/R7H7nBSyDVoxQmzjGTI/+RMggkAaG2DTOtC96FYu6iUVNchIUmj5Y0uAYUdc99/0
+        bh=YjmnSJwKzDpM0u5Pn+iHXjwC2VYerV7wNfCIIKzoSdk=;
+        b=mQpKeqIJO/XsbDPaFR55janBjD1lVSqkAAV4l0XqaAAFlU2LMIz/l5x3hjAk4E7XLE
+         s1jNP/R1CxJoWeFkI8N8U0gK7weoRU9MZmcXrWi7Tc+EacWUc0PU0WpjNQ9KgESibIqT
+         Q8bpwsVhU0ciKcd419kooQNPmZxU6+xrgtiEubzW7ohCPyXhNW0rssuKo1SDqQtVorHt
+         9CE4zvh+oDryfvJ6tYUIF/tSOhGZCHLCzzs33T+G3cKfHwAFitJTH43kyOpvjmTImkUU
+         2DH4+mUnnm8YVnIG3GO20M/YiQWEFm+1JepoT7NDioxZ+KtMHIxriGvHZw7iEYwdT953
+         LVEQ==
+X-Gm-Message-State: AOJu0YwgGudOvkAgljd8xGw7UQaEAbd0Wgry7rWN8Y/itPgEnu9531Tl
+	V5raSUlM++JXCgAM4BBjK2S0552FSAXs5Khqyv5eFWWEGUGxUJd+YCKoVOj35G0bDALSD30+ktg
 	=
-X-Google-Smtp-Source: AGHT+IFUN/uUEJTFN2yjSewFuBdgBOu537B/gJx5tTd1flGr1zhH3Prm3E38ihIpLr4G4/lXhZ0KUA==
-X-Received: by 2002:a5d:6d88:0:b0:337:c454:81a8 with SMTP id l8-20020a5d6d88000000b00337c45481a8mr3845735wrs.55.1707313045482;
-        Wed, 07 Feb 2024 05:37:25 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWgCqCvdwRAAtY3jDnLko+pXIr43NzcubyFc10vabDAJBB1OM609Uvscdtj9CEijIijeyy49nyWr3JVGcQR2xNtaDetaDEYK/TZMJuGerHmTXzEnJdYhO9KJFcWbumv7SOMrU0nwtnfIR8bH1RsKPtVfiSfMxG7ohnl+Xb8EXC4JR0y9r8Uu012OK9SBCuhkU8tyaB5HyPhZA==
-Message-ID: <5fc304c0-be1f-46dd-a783-4030ec76a2f8@suse.com>
-Date: Wed, 7 Feb 2024 14:37:24 +0100
+X-Google-Smtp-Source: AGHT+IFIHCSmXG0T6Q2bGWzEPV7V0mNOStg32L3BpcsG4d89iHLOwNJgqR5ZSsZMIA8DmFvMvAimpw==
+X-Received: by 2002:adf:f410:0:b0:33b:3fe8:6413 with SMTP id g16-20020adff410000000b0033b3fe86413mr4042855wro.27.1707313075072;
+        Wed, 07 Feb 2024 05:37:55 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCXXpQ+thZHgfpMWIr7AbathifGsjYNkr2ViU0JJR0dAKbtDRfTUvw0iSXnDeixeMRkyHCKnIWgVcl6rcXp3APL74VONGyJ50qXo1p/d9EEZ+CvatvWYoNSKMznKtwYMq4Y2QFCCOEkpqVER
+Message-ID: <cbc04b39-44cd-4f1f-a011-5d9d313f24d3@suse.com>
+Date: Wed, 7 Feb 2024 14:37:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v6 3/7] VMX: convert entry point annotations
+Subject: [PATCH v6 4/7] x86/ACPI: annotate assembly functions with type and
+ size
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Kevin Tian <kevin.tian@intel.com>,
- Jun Nakajima <jun.nakajima@intel.com>
+ George Dunlap <george.dunlap@citrix.com>
 References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
  <3ba82c3a-ff95-43d0-8672-a63b23bc2cdc@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,35 +123,53 @@ Use the generic framework from xen/linkage.h.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
+The .Lsuspend_err label is used in a cross-function manner here, but
+it's not clear to me what - if anything - to do about this.
+---
 v6: New.
 
---- a/xen/arch/x86/hvm/vmx/entry.S
-+++ b/xen/arch/x86/hvm/vmx/entry.S
-@@ -24,7 +24,7 @@
- #define VMRESUME     .byte 0x0f,0x01,0xc3
- #define VMLAUNCH     .byte 0x0f,0x01,0xc2
+--- a/xen/arch/x86/acpi/wakeup_prot.S
++++ b/xen/arch/x86/acpi/wakeup_prot.S
+@@ -7,7 +7,7 @@
+         .text
+         .code64
  
--ENTRY(vmx_asm_vmexit_handler)
-+FUNC(vmx_asm_vmexit_handler)
-         SAVE_ALL
+-ENTRY(do_suspend_lowlevel)
++FUNC(do_suspend_lowlevel)
+         push    %rbp
+         push    %rbx
+         push    %r12
+@@ -32,6 +32,7 @@ ENTRY(do_suspend_lowlevel)
  
-         mov  %cr2,%rax
-@@ -132,7 +132,7 @@ UNLIKELY_END(realmode)
-         call vmx_vmentry_failure
-         jmp  .Lvmx_process_softirqs
+         /* It seems we didn't suspend.  Get out of here. */
+         jmp     .Lsuspend_err
++END(do_suspend_lowlevel)
  
--ENTRY(vmx_asm_do_vmentry)
-+LABEL(vmx_asm_do_vmentry)
-         GET_CURRENT(bx)
-         jmp  .Lvmx_do_vmentry
+         /*
+          * do_suspend_lowlevel() is arranged to behave as a regular function
+@@ -43,7 +44,7 @@ ENTRY(do_suspend_lowlevel)
+          *
+          * Everything else, including the stack, needs restoring.
+          */
+-ENTRY(s3_resume)
++FUNC(s3_resume)
+         lgdt    boot_gdtr(%rip)
  
-@@ -150,6 +150,4 @@ ENTRY(vmx_asm_do_vmentry)
-         sti
-         call do_softirq
-         jmp  .Lvmx_do_vmentry
--
--        .type vmx_asm_vmexit_handler, @function
--        .size vmx_asm_vmexit_handler, . - vmx_asm_vmexit_handler
-+END(vmx_asm_vmexit_handler)
+         mov     saved_cr0(%rip), %rax
+@@ -132,6 +133,7 @@ ENTRY(s3_resume)
+         pop     %rbx
+         pop     %rbp
+         ret
++END(s3_resume)
+ 
+ .data
+         .align 16
+@@ -142,5 +144,4 @@ saved_cr0:      .quad   0
+ saved_ssp:      .quad   0
+ #endif
+ 
+-GLOBAL(saved_magic)
+-        .long   0x9abcdef0
++ASM_INT(saved_magic, 0x9abcdef0)
 
 
