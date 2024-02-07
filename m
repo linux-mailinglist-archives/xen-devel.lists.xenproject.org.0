@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFBDF84CBBD
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 14:38:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677577.1054268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2518284CBBE
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 14:39:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677581.1054278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXi8G-0002Tv-DO; Wed, 07 Feb 2024 13:38:32 +0000
+	id 1rXi8b-0002zW-OT; Wed, 07 Feb 2024 13:38:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677577.1054268; Wed, 07 Feb 2024 13:38:32 +0000
+Received: by outflank-mailman (output) from mailman id 677581.1054278; Wed, 07 Feb 2024 13:38:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXi8G-0002SQ-93; Wed, 07 Feb 2024 13:38:32 +0000
-Received: by outflank-mailman (input) for mailman id 677577;
- Wed, 07 Feb 2024 13:38:31 +0000
+	id 1rXi8b-0002xw-LF; Wed, 07 Feb 2024 13:38:53 +0000
+Received: by outflank-mailman (input) for mailman id 677581;
+ Wed, 07 Feb 2024 13:38:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EHwQ=JQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXi8F-0002S8-Ku
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 13:38:31 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1rXi8a-0002S8-1A
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 13:38:52 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d9b36f8-c5be-11ee-98f5-efadbce2ee36;
- Wed, 07 Feb 2024 14:38:29 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-33929364bdaso429933f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 05:38:29 -0800 (PST)
+ id 39f6b48d-c5be-11ee-98f5-efadbce2ee36;
+ Wed, 07 Feb 2024 14:38:50 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-33b1d7f736bso526476f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 05:38:50 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z12-20020a056000110c00b0033b4ebc3c8fsm1328999wrw.2.2024.02.07.05.38.28
+ z12-20020a056000110c00b0033b4ebc3c8fsm1328999wrw.2.2024.02.07.05.38.49
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 05:38:28 -0800 (PST)
+ Wed, 07 Feb 2024 05:38:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,44 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d9b36f8-c5be-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 39f6b48d-c5be-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707313109; x=1707917909; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707313130; x=1707917930; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XZ8E4NCSVP15aCKtBvXW1WrLdgMyh/zRv3UNW3vt5Qc=;
-        b=ejMoMTrlgFVyOskBb4n2ZZg2Gc0mJvo83SEoqeVY6SldeZx/eCDYkOppXuhkBDQ3QI
-         pv/nOdVSvXlWmLWH1cw+7nPXDYMR7EaT5E0p+uzeAOyhK2jzo+7KhAy2UAjYw1LF+ofd
-         rRIcbAS4XaVbahmtf6VfErYxM7YyOYvZbGL0DQY2v7IW554sp+ehuAS9MBsPaF+eX7Er
-         SRqdYWXvdRdG7vv60QXnXLfOuapKMtrzOSWFo4Vf6lzwKTp36XfkWNXeXjPkYLga6K9u
-         3ngDXeWF1C2aZtyP6ehovVcpOBoO1nq2TFP2LLqf3W5ng4w/FrE4s4yoNhBt9slFnU9V
-         FBCA==
+        bh=aBpoZSGBreowDhO2VF/qZrHAAevqhsPVyooMAssUAG4=;
+        b=cCNK7Vm59Z9mYsC6ky0LYdvDjldX1QdIXbCpcodAtt3mZ6TiKqUBMXlQAQDAeo6y2s
+         K/wXi6CTUr0u0DlZ2ZekFrzQG+0SsVh7uVfclDZBMy3L7ZyA6O2I2vBcW5hG2X5xbRKX
+         IaaZBrnJvN7JMt1xZpKzzrLBFUmWgPdAINpfnXn7dSAmzKXpWr2GyvVNtXUEwN4CoUWZ
+         bjKepR6sxN1dbz0CmA4YuFe9iDPfljExY6ySvxzs5ks9hyupgMFfvLnOJPgE5HMzsoEi
+         t/3W98V7JRz2DNk+kfzZ3raIiujOf1dO0Rlc7hZb5Hn+Vfc/qMTVDuMCWZaCClSs0f0T
+         WphQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707313109; x=1707917909;
+        d=1e100.net; s=20230601; t=1707313130; x=1707917930;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=XZ8E4NCSVP15aCKtBvXW1WrLdgMyh/zRv3UNW3vt5Qc=;
-        b=TBCQN1c/oI4PMzSLfxfYhJRCUEOgxNaswNPzwkRLRN3hknj10VS+/oiTdVDpkxCmJm
-         3B0ykFs1XMyhfAMTS92bwMjZ0CBk/b4oookzxkgUGvH2Mhco/XsPmI2x/em6HhoUb7/G
-         7T9ExA1C+wBadnZjTddMCP2xU8OREklX7oWeunKYIFVoQNCMhWYv3/SFF1DlrkMgpSJ2
-         inHgQ6wrNh+Y+Cr8hIogY/NrnIK9+4ze6RT8PDNzXueii2ySkOhSwyDcDR1A+Tk2FNb/
-         /Hh7SoIO1fPpUWTmbv7XM2m3U4HBtzuqvkZzyIMTZWHCixoVonQowLtSGcCDWzaeJmsz
-         0HOQ==
-X-Gm-Message-State: AOJu0YzmyjdfWZL6TBCxlBgmTVNu85bbfxXI2wsyh6iqdbtBXxAgUsqL
-	FmtaoHTOgQyMGh5apZxr1GNJ21O3Ltlxf+CoFaYySeto4uZOOD0F/PVF1YlBPe7s22MkjBllX5Y
+        bh=aBpoZSGBreowDhO2VF/qZrHAAevqhsPVyooMAssUAG4=;
+        b=PowgE0pHl8BgdZCKtPZq9HUqFQ58J/anIOUozXS0HkTfidNt+76wRLgR2sL3qp0dkL
+         Y/jokecZWwiG1eArsh4h1Ew6AECB90ubGjZQ1epw64nikhG9DvgZiG+wl686HG/CUIjx
+         SLEgJh8NaqAV45L96M48gL0+yNqmLfvleToluELQ4ZhDRDeaMKOhH/IJfwJRSn9oTwGR
+         0u5Ya+Eiszjd2JEpzdPJAm8JeKdoc4fuiFf8wFfjc2Gc8HP4wND3THWZReGBV21JDcsx
+         o+wMpW7i9P8qx0JKgwngSjO7wTnSnkk/ckcbBzGEP6gmZHRThHZXG1BtM6YiOxHmYw16
+         403A==
+X-Gm-Message-State: AOJu0Ywr7xDswFqBW0/rEd+C6gSOf+m9l1Qne9epxWcELe4MnUlyvpfi
+	ihwnM+m2RtBwJjiOVRT5Hfn/AaK6+Skv0SkkpvPb/GnT0jJkqixcDKnVUcCxT7bsUqugiA47TIo
 	=
-X-Google-Smtp-Source: AGHT+IGR06n/2V+cnjT9rh5AURC/vp9SxGx6kbg+I20kRXd6mNNxweTRBk0aiO1Os0kvTevB74O8fA==
-X-Received: by 2002:adf:ec84:0:b0:33a:e526:3a49 with SMTP id z4-20020adfec84000000b0033ae5263a49mr3451729wrn.23.1707313109062;
-        Wed, 07 Feb 2024 05:38:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWAdXI5+RWS6xEYY7Cc2hdkIRfrrGk9gWx6/LEAc7GOqeFlyonCbnqtaapIcpNz61nL5szCdCqgqT0XgqtWnWG4wuDXyMo5e3brj26mBcIsMC+syEvtHPnxVot976HjBBmf8RcZ6By7MRL7
-Message-ID: <50c0bcbb-e46e-4777-a7e8-20ee4b979b05@suse.com>
-Date: Wed, 7 Feb 2024 14:38:28 +0100
+X-Google-Smtp-Source: AGHT+IGSFfXYOZS+6DKecgfnZokmK4eRCNKXhnba6Cmtvw/CVLUogCftvpuW1Dwd4a5QpImfyVFPZA==
+X-Received: by 2002:a5d:468a:0:b0:33b:4382:c54 with SMTP id u10-20020a5d468a000000b0033b43820c54mr2970345wrq.62.1707313129835;
+        Wed, 07 Feb 2024 05:38:49 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUxK+RGJLlk2fIeOCc43MT2CekBJEHPKSMDl3gENroZYzOzyMUa0IIWTboi+ObE+9JEuEB6PcJlIOzgRAK0W75rzR3tAQTAfspOzqfChrJlVA3f0t8iwHEpyqcy7JJgyPlY2VeufF5k4mjm
+Message-ID: <4b0a581d-be2b-444d-a044-668b5e2e2279@suse.com>
+Date: Wed, 7 Feb 2024 14:38:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v6 5/7] x86/kexec: convert entry point annotations
+Subject: [PATCH v6 6/7] x86: convert misc assembly function annotations
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -122,111 +122,138 @@ Use the generic framework from xen/linkage.h.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Using the linker script like this feels fragile. Maybe it's better to
-suppress (#undef) CONFIG_CC_SPLIT_SECTIONS for this one file?
----
 v6: New.
 
---- a/xen/arch/x86/x86_64/kexec_reloc.S
-+++ b/xen/arch/x86/x86_64/kexec_reloc.S
-@@ -21,10 +21,9 @@
- #include <asm/machine_kexec.h>
+--- a/xen/arch/x86/clear_page.S
++++ b/xen/arch/x86/clear_page.S
+@@ -1,8 +1,9 @@
+         .file __FILE__
  
-         .section .text.kexec, "ax", @progbits
--        .align PAGE_SIZE
-         .code64
++#include <xen/linkage.h>
+ #include <asm/page.h>
  
--ENTRY(kexec_reloc)
-+FUNC(kexec_reloc, PAGE_SIZE)
-         /* %rdi - code page maddr */
-         /* %rsi - page table maddr */
-         /* %rdx - indirection page maddr */
-@@ -91,8 +90,9 @@ ENTRY(kexec_reloc)
-         push    $0x10
-         push    %rax
-         lretq
-+END(kexec_reloc)
+-ENTRY(clear_page_sse2)
++FUNC(clear_page_sse2)
+         mov     $PAGE_SIZE/32, %ecx
+         xor     %eax,%eax
  
--relocate_pages:
-+FUNC_LOCAL(relocate_pages)
-         /* %rdi - indirection page maddr */
-         pushq   %rbx
+@@ -16,6 +17,4 @@ ENTRY(clear_page_sse2)
  
-@@ -138,10 +138,11 @@ relocate_pages:
- .L_done:
-         popq    %rbx
+         sfence
          ret
-+END(relocate_pages)
- 
-         .code32
- 
--compatibility_mode:
-+FUNC_LOCAL(compatibility_mode)
-         /* Setup some sane segments. */
-         movl    $0x0008, %eax
-         movl    %eax, %ds
-@@ -168,39 +169,29 @@ compatibility_mode:
-         /* Call the image entry point.  This should never return. */
-         call    *%ebp
-         ud2
-+END(compatibility_mode)
- 
--        .align 4
--compat_mode_gdt_desc:
-+DATA_LOCAL(compat_mode_gdt_desc, 4)
-         .word .Lcompat_mode_gdt_end - compat_mode_gdt -1
-         .quad 0x0000000000000000     /* set in call_32_bit above */
-+END(compat_mode_gdt_desc)
- 
--        .type compat_mode_gdt_desc, @object
--        .size compat_mode_gdt_desc, . - compat_mode_gdt_desc
 -
--        .align 8
--compat_mode_gdt:
-+DATA_LOCAL(compat_mode_gdt, 8)
-         .quad 0x0000000000000000     /* null                              */
-         .quad 0x00cf93000000ffff     /* 0x0008 ring 0 data                */
-         .quad 0x00cf9b000000ffff     /* 0x0010 ring 0 code, compatibility */
- .Lcompat_mode_gdt_end:
-+END(compat_mode_gdt)
+-        .type clear_page_sse2, @function
+-        .size clear_page_sse2, . - clear_page_sse2
++END(clear_page_sse2)
+--- a/xen/arch/x86/copy_page.S
++++ b/xen/arch/x86/copy_page.S
+@@ -1,5 +1,6 @@
+         .file __FILE__
  
--        .type compat_mode_gdt, @object
--        .size compat_mode_gdt, . - compat_mode_gdt
++#include <xen/linkage.h>
+ #include <asm/page.h>
+ 
+ #define src_reg %rsi
+@@ -10,7 +11,7 @@
+ #define tmp3_reg %r10
+ #define tmp4_reg %r11
+ 
+-ENTRY(copy_page_sse2)
++FUNC(copy_page_sse2)
+         mov     $PAGE_SIZE/(4*WORD_SIZE)-3, %ecx
+ 
+         prefetchnta 2*4*WORD_SIZE(src_reg)
+@@ -41,6 +42,4 @@ ENTRY(copy_page_sse2)
+ 
+         sfence
+         ret
 -
--compat_mode_idt:
-+DATA_LOCAL(compat_mode_idt)
-         .word 0                      /* limit */
-         .long 0                      /* base */
+-        .type copy_page_sse2, @function
+-        .size copy_page_sse2, . - copy_page_sse2
++END(copy_page_sse2)
+--- a/xen/arch/x86/guest/xen/hypercall_page.S
++++ b/xen/arch/x86/guest/xen/hypercall_page.S
+@@ -3,13 +3,11 @@
+ #include <public/xen.h>
+ 
+         .section ".text.page_aligned", "ax", @progbits
+-        .p2align PAGE_SHIFT
+ 
+-GLOBAL(hypercall_page)
++DATA(hypercall_page, PAGE_SIZE)
+          /* Poisoned with `ret` for safety before hypercalls are set up. */
+         .fill PAGE_SIZE, 1, 0xc3
+-        .type hypercall_page, STT_OBJECT
+-        .size hypercall_page, PAGE_SIZE
++END(hypercall_page)
+ 
+ /*
+  * Identify a specific hypercall in the hypercall page
+--- a/xen/arch/x86/indirect-thunk.S
++++ b/xen/arch/x86/indirect-thunk.S
+@@ -35,15 +35,13 @@
+ .macro GEN_INDIRECT_THUNK reg:req
+         .section .text.__x86_indirect_thunk_\reg, "ax", @progbits
+ 
+-ENTRY(__x86_indirect_thunk_\reg)
++FUNC(__x86_indirect_thunk_\reg)
+         ALTERNATIVE_2 __stringify(IND_THUNK_RETPOLINE \reg),              \
+         __stringify(IND_THUNK_LFENCE \reg), X86_FEATURE_IND_THUNK_LFENCE, \
+         __stringify(IND_THUNK_JMP \reg),    X86_FEATURE_IND_THUNK_JMP
+ 
+         int3 /* Halt straight-line speculation */
 -
--        .type compat_mode_idt, @object
--        .size compat_mode_idt, . - compat_mode_idt
-+END(compat_mode_idt)
+-        .size __x86_indirect_thunk_\reg, . - __x86_indirect_thunk_\reg
+-        .type __x86_indirect_thunk_\reg, @function
++END(__x86_indirect_thunk_\reg)
+ .endm
  
-         /*
-          * 16 words of stack are more than enough.
-          */
--        .align 8
--reloc_stack:
-+DATA_LOCAL(reloc_stack, 8)
-         .fill 16,8,0
- .Lreloc_stack_base:
+ /* Instantiate GEN_INDIRECT_THUNK for each register except %rsp. */
+--- a/xen/arch/x86/pv/gpr_switch.S
++++ b/xen/arch/x86/pv/gpr_switch.S
+@@ -10,7 +10,7 @@
+ #include <asm/asm_defns.h>
+ 
+ /* Load guest GPRs.  Parameter in %rdi, clobbers all registers. */
+-ENTRY(load_guest_gprs)
++FUNC(load_guest_gprs)
+         movq  UREGS_rdx(%rdi), %rdx
+         movq  UREGS_rax(%rdi), %rax
+         movq  UREGS_rbx(%rdi), %rbx
+@@ -27,13 +27,10 @@ ENTRY(load_guest_gprs)
+         movq  UREGS_rcx(%rdi), %rcx
+         movq  UREGS_rdi(%rdi), %rdi
+         ret
 -
--        .type reloc_stack, @object
--        .size reloc_stack, . - reloc_stack
-+END(reloc_stack)
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -92,7 +92,10 @@ SECTIONS
-        . = ALIGN(PAGE_SIZE);
-        _etextentry = .;
+-        .size load_guest_gprs, . - load_guest_gprs
+-        .type load_guest_gprs, STT_FUNC
+-
++END(load_guest_gprs)
  
--       *(.text.kexec)          /* Page aligned in the object file. */
-+       /* Page aligned in the object file. */
-+       *(.text.kexec.kexec_reloc)
-+       *(.text.kexec.*)
-+       *(.text.kexec)
-        kexec_reloc_end = .;
- 
-        *(.text.cold)
+ /* Save guest GPRs.  Parameter on the stack above the return address. */
+-ENTRY(save_guest_gprs)
++FUNC(save_guest_gprs)
+         pushq %rdi
+         movq  2*8(%rsp), %rdi
+         movq  %rax, UREGS_rax(%rdi)
+@@ -52,6 +49,4 @@ ENTRY(save_guest_gprs)
+         movq  %rdx, UREGS_rdx(%rdi)
+         movq  %rcx, UREGS_rcx(%rdi)
+         ret
+-
+-        .size save_guest_gprs, . - save_guest_gprs
+-        .type save_guest_gprs, STT_FUNC
++END(save_guest_gprs)
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -599,7 +599,7 @@ domain_crash_page_fault_0x8:
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         movq  %rsi,%rdi
+         call  show_page_walk
+-ENTRY(dom_crash_sync_extable)
++LABEL(dom_crash_sync_extable, 0)
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         # Get out of the guest-save area of the stack.
+         GET_STACK_END(ax)
 
 
