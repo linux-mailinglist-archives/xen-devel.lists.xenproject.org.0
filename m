@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FC0084CBB5
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 14:37:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677564.1054238 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E97D784CBB8
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 14:37:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677568.1054247 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXi6s-0000Fp-MG; Wed, 07 Feb 2024 13:37:06 +0000
+	id 1rXi7E-0000qp-Sb; Wed, 07 Feb 2024 13:37:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677564.1054238; Wed, 07 Feb 2024 13:37:06 +0000
+Received: by outflank-mailman (output) from mailman id 677568.1054247; Wed, 07 Feb 2024 13:37:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXi6s-0000AR-IO; Wed, 07 Feb 2024 13:37:06 +0000
-Received: by outflank-mailman (input) for mailman id 677564;
- Wed, 07 Feb 2024 13:37:05 +0000
+	id 1rXi7E-0000pD-Pv; Wed, 07 Feb 2024 13:37:28 +0000
+Received: by outflank-mailman (input) for mailman id 677568;
+ Wed, 07 Feb 2024 13:37:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EHwQ=JQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXi6r-00007V-Gq
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 13:37:05 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ id 1rXi7D-00007V-44
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 13:37:27 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fb1c2f07-c5bd-11ee-8a49-1f161083a0e0;
- Wed, 07 Feb 2024 14:37:04 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id
- ffacd0b85a97d-33b0f36b808so485883f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 05:37:04 -0800 (PST)
+ id 079c2b0f-c5be-11ee-8a49-1f161083a0e0;
+ Wed, 07 Feb 2024 14:37:25 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id
+ ffacd0b85a97d-33b4e6972f6so428495f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 05:37:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z12-20020a056000110c00b0033b4ebc3c8fsm1328999wrw.2.2024.02.07.05.37.03
+ z12-20020a056000110c00b0033b4ebc3c8fsm1328999wrw.2.2024.02.07.05.37.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 05:37:04 -0800 (PST)
+ Wed, 07 Feb 2024 05:37:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fb1c2f07-c5bd-11ee-8a49-1f161083a0e0
+X-Inumbo-ID: 079c2b0f-c5be-11ee-8a49-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707313024; x=1707917824; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707313045; x=1707917845; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y42iGpChZ2+X/wNXWYFaYLa/ywLQuM+ANdY+in144ps=;
-        b=d44bpYhtKeJew4D/SmArcLYoQG4aPDe9wAh1y4VcB2zTDoXkYUQl4XJIYZ0c4xcOh4
-         AzUOMe17WRhoMEMyA/uwnyvuHhBwVmqrDCP3wONQwzdvlz3W6IneZw3fB9DC4Sc4se9r
-         cGVQeb018pLHOsFLSYzmRq7CmpCJNwuhLZkI7LTdeEZhTLuwXNln7NZRmv7nXQ5SU9DB
-         QFih9OYvtHIfH3naO44ZwICIWh5byCzCdiT9hZH8gPHXxaZRMxg93m55/cLdgOnHi2+y
-         Ttbfuq5mIPiaX0JtEgjTzmMy3hLxkQtsy4hKJst6MnYjcqxPdKGfnsVmxIKaOtZIpAGg
-         C7kQ==
+        bh=Y82MohMyrcgLEJtzsSnSC+KLl8n5qIEw59SpPMusgXQ=;
+        b=AUhN+VJOqRSomyX1XdT0sXVjPEG5IJSfHLljALSePrOEe2lmMzl5RLEM3B+xB0rLv+
+         qOYEY6tVW9OwvRwsUf3IJtU6ES8N2JajpZnKUjXZF2H4Xrc1d7ys+c33kIhauuYvJDZJ
+         n2Sk9aA3rFkFAT4lpzMx0w4lZMFQwoaEHaZM7R2Wk5yKcCEQobS4jH0sV9wqbMiXaj/w
+         0kRwncGmH5Wtew8AJG/1AK/aE4eQPA02ZamRHBZHuV5iCI77vfvwAF0ShJqLdoBKj9S7
+         N+vRRbDxIlIH8+7RSF78vf0N5AqfcwTXm5cWGyf7JTyYoLLl5TfJCqArwHawO5wrgoke
+         eHvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707313024; x=1707917824;
+        d=1e100.net; s=20230601; t=1707313045; x=1707917845;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=Y42iGpChZ2+X/wNXWYFaYLa/ywLQuM+ANdY+in144ps=;
-        b=Cbm5oJwWz5+as8uj6bacx4kW+kZmkLJ/MivaVI/3I6ZGrXaNAKJjuGlYzyCOTFGvKi
-         MHNoe7ltIBu9RskWk+pcIrOp4TpDHhcfx5JcohcQKqA7WcwNLytB0LOZw6Gz6NFE4sjt
-         3K/w5rMosXuwUoKrc77lLB/iLI8t79YLiosCrddWs2PQSXd8m4jmmApuevCtZ2E2wZfd
-         pjBg9HMWx/rgHlr1aU2wBtLUlLOijwYItypWEvDZi86MYrqtXAE5YGu0lhoFxeZR2fvO
-         A3slfkh9CVSYkwpYAtARa+ArvOEqVPe0JtaZGy0j/R8MtV3oaJrpiu84tYYrrvTO4nep
-         D4/Q==
-X-Gm-Message-State: AOJu0YxuRy8i17yZrgYJZSD4AAZTAJcOP4RkfLM33WwI/BcdOTVXoJfl
-	Yfx9LLnQMc81qiBI/GbWgpn02baZByqVcnnvMA/QljAvtOT8QxUvzCewTb2HyTHn0YltsJVY7GQ
+        bh=Y82MohMyrcgLEJtzsSnSC+KLl8n5qIEw59SpPMusgXQ=;
+        b=ls0qIPIjYH3GslGtlRVYvHSx1LpYHRQ4in49qn6P2cERw05nhafdqlbmB4PMhBhhSW
+         Z0DaVzkBSwg545AucnXm87N52ckMtdrEUuHBF6Cnvstw32t4JbcJZX2QHBhovmWEKB4q
+         eLqrDlT29IMiDbMDHBLBQzZmKvoyBO39ZarrVu8j0B8sFgHBydLvbGp4pwZofv4gUsbc
+         oUNbeRntEljeKa6DF8XnAzmIWTg9hiWGczLptHkl3jm5jXq5NgXnAGFHtlJAYYFAMXiA
+         bpfg3tckEHNXtbGUlmN5qfDij7LK5Y2koAb/TFiaAWc8/oRCzwPpS9gbznmG0Ue1gQ0m
+         VtKg==
+X-Gm-Message-State: AOJu0YyjUxxZfhp6CkYfe0x1Kgv4Rnip5DgKylsK76L35liai4GquQ3a
+	EjW3jv2Bqo/R7H7nBSyDVoxQmzjGTI/+RMggkAaG2DTOtC96FYu6iUVNchIUmj5Y0uAYUdc99/0
 	=
-X-Google-Smtp-Source: AGHT+IGqEj83M/D2sQzNE34YqcaSeXT63U2jm74FPmYefn3qGCzpuoeUh9bblWZ+cxInNq8cnsRdxw==
-X-Received: by 2002:a5d:4b02:0:b0:33b:2c2a:934f with SMTP id v2-20020a5d4b02000000b0033b2c2a934fmr3907458wrq.44.1707313024408;
-        Wed, 07 Feb 2024 05:37:04 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUDjdr0j/18mr6bOOe4ACIO6K6mAv7beJONhQU9byqRqWrNr6kVo35NwOvtTSCtDBbj3+umFFufEChtn8U6cOMN3v46yLOG8DnmdYv9i6dN8BbfEakK+M/vzjx00qfGLcqY210b7qPQiTVi
-Message-ID: <4be8669e-bea7-49a7-9a56-f043c76d2f72@suse.com>
-Date: Wed, 7 Feb 2024 14:37:03 +0100
+X-Google-Smtp-Source: AGHT+IFUN/uUEJTFN2yjSewFuBdgBOu537B/gJx5tTd1flGr1zhH3Prm3E38ihIpLr4G4/lXhZ0KUA==
+X-Received: by 2002:a5d:6d88:0:b0:337:c454:81a8 with SMTP id l8-20020a5d6d88000000b00337c45481a8mr3845735wrs.55.1707313045482;
+        Wed, 07 Feb 2024 05:37:25 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWgCqCvdwRAAtY3jDnLko+pXIr43NzcubyFc10vabDAJBB1OM609Uvscdtj9CEijIijeyy49nyWr3JVGcQR2xNtaDetaDEYK/TZMJuGerHmTXzEnJdYhO9KJFcWbumv7SOMrU0nwtnfIR8bH1RsKPtVfiSfMxG7ohnl+Xb8EXC4JR0y9r8Uu012OK9SBCuhkU8tyaB5HyPhZA==
+Message-ID: <5fc304c0-be1f-46dd-a783-4030ec76a2f8@suse.com>
+Date: Wed, 7 Feb 2024 14:37:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v6 2/7] SVM: convert entry point annotations
+Subject: [PATCH v6 3/7] VMX: convert entry point annotations
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>
+ George Dunlap <george.dunlap@citrix.com>, Kevin Tian <kevin.tian@intel.com>,
+ Jun Nakajima <jun.nakajima@intel.com>
 References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
  <3ba82c3a-ff95-43d0-8672-a63b23bc2cdc@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,33 +125,33 @@ Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
 v6: New.
 
---- a/xen/arch/x86/hvm/svm/entry.S
-+++ b/xen/arch/x86/hvm/svm/entry.S
+--- a/xen/arch/x86/hvm/vmx/entry.S
++++ b/xen/arch/x86/hvm/vmx/entry.S
 @@ -24,7 +24,7 @@
- #include <asm/asm_defns.h>
- #include <asm/page.h>
+ #define VMRESUME     .byte 0x0f,0x01,0xc3
+ #define VMLAUNCH     .byte 0x0f,0x01,0xc2
  
--ENTRY(svm_asm_do_resume)
-+FUNC(svm_asm_do_resume)
+-ENTRY(vmx_asm_vmexit_handler)
++FUNC(vmx_asm_vmexit_handler)
+         SAVE_ALL
+ 
+         mov  %cr2,%rax
+@@ -132,7 +132,7 @@ UNLIKELY_END(realmode)
+         call vmx_vmentry_failure
+         jmp  .Lvmx_process_softirqs
+ 
+-ENTRY(vmx_asm_do_vmentry)
++LABEL(vmx_asm_do_vmentry)
          GET_CURRENT(bx)
- .Lsvm_do_resume:
-         call svm_intr_assist
-@@ -132,7 +132,7 @@ __UNLIKELY_END(nsvm_hap)
-          * to safely resolve any Spectre-v1 concerns in the above logic.
-          */
-         stgi
--GLOBAL(svm_stgi_label)
-+LABEL(svm_stgi_label, 0)
-         call svm_vmexit_handler
-         jmp  .Lsvm_do_resume
+         jmp  .Lvmx_do_vmentry
  
-@@ -140,6 +140,4 @@ GLOBAL(svm_stgi_label)
+@@ -150,6 +150,4 @@ ENTRY(vmx_asm_do_vmentry)
          sti
          call do_softirq
-         jmp  .Lsvm_do_resume
+         jmp  .Lvmx_do_vmentry
 -
--        .type svm_asm_do_resume, @function
--        .size svm_asm_do_resume, . - svm_asm_do_resume
-+END(svm_asm_do_resume)
+-        .type vmx_asm_vmexit_handler, @function
+-        .size vmx_asm_vmexit_handler, . - vmx_asm_vmexit_handler
++END(vmx_asm_vmexit_handler)
 
 
