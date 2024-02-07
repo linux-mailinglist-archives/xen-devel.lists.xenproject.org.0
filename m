@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA79B84C18F
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 01:53:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677205.1053662 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45A3384C195
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 01:57:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677211.1053671 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXWBR-0001g9-SD; Wed, 07 Feb 2024 00:53:01 +0000
+	id 1rXWF9-0002Hz-9y; Wed, 07 Feb 2024 00:56:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677205.1053662; Wed, 07 Feb 2024 00:53:01 +0000
+Received: by outflank-mailman (output) from mailman id 677211.1053671; Wed, 07 Feb 2024 00:56:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXWBR-0001cq-Og; Wed, 07 Feb 2024 00:53:01 +0000
-Received: by outflank-mailman (input) for mailman id 677205;
- Wed, 07 Feb 2024 00:53:00 +0000
+	id 1rXWF9-0002GC-6u; Wed, 07 Feb 2024 00:56:51 +0000
+Received: by outflank-mailman (input) for mailman id 677211;
+ Wed, 07 Feb 2024 00:56:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aVye=JQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rXWBQ-0001cg-LC
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 00:53:00 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
+ id 1rXWF7-0002G4-47
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 00:56:49 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ba4dcba-c553-11ee-98f5-efadbce2ee36;
- Wed, 07 Feb 2024 01:52:58 +0100 (CET)
+ id c3885c07-c553-11ee-98f5-efadbce2ee36;
+ Wed, 07 Feb 2024 01:56:46 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 46360CE17A3;
- Wed,  7 Feb 2024 00:52:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9964C433F1;
- Wed,  7 Feb 2024 00:52:49 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 30040CE0AD1;
+ Wed,  7 Feb 2024 00:56:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40CA5C433F1;
+ Wed,  7 Feb 2024 00:56:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,83 +41,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ba4dcba-c553-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: c3885c07-c553-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707267171;
-	bh=xAfUPySfxt0Pz2hB+12JwdNp3voxUh0xmb4J46MURxw=;
+	s=k20201202; t=1707267403;
+	bh=2qY4drNQqGRmpUWpSieyaKhSzukR+nwgPbenc7u9fnc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=OeilyJfle8VsXGQwFkgi5vpEhENounSHbJ2XNqZqQuwhP+Pz76MTkT885zL4je7iG
-	 w8/AmpbvWrOkJ2ZQVZ2gxwHo6nIuMuTTlnS5wvA4GgChA+6mR9S4CoJWyENWxtMFBQ
-	 0FleC91qGsEilcU6FzscPyNKPVMopkLQKVZLZioyJC5UpYsSzfN61Aj5YJ73DrHJDo
-	 OfBak4vrPUkAzDd7hl+ADClN/89IQTVfN38LwazWWnWCaYJBZOQh9Iv+SQPjs2C4bx
-	 K26rInZHZb7Ak6hYFmNNt7oqiyqynrjtYqIa6px78Yz93twnk4bxEZvFBiOCniK0tZ
-	 p7VA6UoNRG1Gw==
-Date: Tue, 6 Feb 2024 16:52:48 -0800 (PST)
+	b=G21ArrC73I926WzFlER8xrNjumJtFLJznI6lz8G4XlaRTxp69biEoQj8s91T37E4A
+	 nG31w9+TSEtrxiT7jVX93iFeZsQuKHvvorH3s85K4qolnkOiE55HczRsp42/0BG0ju
+	 oDOkM1CIQGWx1lXP5KDJjDuP1+QaedMxSpUBPm2i7fTSTXLqTl9RzZu1Ja0YFBiqqR
+	 Xo/eqO3o91XTqt7NJS59bE1EckDe4LT3rf7tDp/lUxvvf7ugp+y6kXKLfa9rG5qg0K
+	 p3iRoPgweja2c+I52vi4sfvOBpFoEX5XHQbaoXrOPuPPCpaZLdlmV10KeHHTi000yy
+	 tTHIpvVHUaFpw==
+Date: Tue, 6 Feb 2024 16:56:40 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-cc: Nicola Vetrini <nicola.vetrini@bugseng.com>, 
-    xen-devel@lists.xenproject.org, consulting@bugseng.com, 
-    Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
+cc: Simone Ballarin <simone.ballarin@bugseng.com>, consulting@bugseng.com, 
+    sstabellini@kernel.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
     =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Wei Liu <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>, 
-    Simone Ballarin <simone.ballarin@bugseng.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 1/2] x86/IOMMU: address violations of MISRA C:2012
- Rule 14.4
-In-Reply-To: <2a21b871-8762-43ee-b9f3-bf34869d008f@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2402061652170.1925432@ubuntu-linux-20-04-desktop>
-References: <cover.1702310368.git.maria.celeste.cesario@bugseng.com> <746a33fff1386b2e76657b5f7cfb31f3b117a1fe.1702310368.git.maria.celeste.cesario@bugseng.com> <891a1ab0b772910999f49878ae679634@bugseng.com> <2a21b871-8762-43ee-b9f3-bf34869d008f@suse.com>
+    Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v4 3/4] xen/x86: address violations of MISRA C:2012
+ Rule 13.1
+In-Reply-To: <b23ffbf2-e1b1-42f5-b0ea-9f0889a5a7af@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2402061656080.1925432@ubuntu-linux-20-04-desktop>
+References: <cover.1706886631.git.simone.ballarin@bugseng.com> <16bb514ac0a5fe0d6e9a2c95279a8200ff4495c6.1706886631.git.simone.ballarin@bugseng.com> <b23ffbf2-e1b1-42f5-b0ea-9f0889a5a7af@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 5 Feb 2024, Jan Beulich wrote:
-> On 05.02.2024 16:36, Nicola Vetrini wrote:
-> > On 2023-12-13 17:10, Simone Ballarin wrote:
-> >> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
-> >>
-> >> The xen sources contain violations of MISRA C:2012 Rule 14.4 whose
-> >> headline states:
-> >> "The controlling expression of an if statement and the controlling
-> >> expression of an iteration-statement shall have essentially Boolean 
-> >> type".
-> >>
-> >> Add comparisons to avoid using enum constants as controlling 
-> >> expressions
-> >> to comply with Rule 14.4.
-> >> No functional change.
-> >>
-> >> Signed-off-by: Maria Celeste Cesario  
-> >> <maria.celeste.cesario@bugseng.com>
-> >> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
-> >> ---
-> >> Changes in v2
-> >> - rename prefix from AMD/IOMMU to x86/IOMMU
-> >> - move changes on msi.c and hpet.c in this patch.
-> >> ---
-> >>  xen/arch/x86/hpet.c                      | 6 +++---
-> >>  xen/arch/x86/msi.c                       | 4 ++--
-> >>  xen/drivers/passthrough/amd/iommu_init.c | 4 ++--
-> >>  xen/drivers/passthrough/vtd/iommu.c      | 4 ++--
-> >>  xen/drivers/passthrough/vtd/quirks.c     | 2 +-
-> >>  5 files changed, 10 insertions(+), 10 deletions(-)
-> >>
+On Tue, 6 Feb 2024, Jan Beulich wrote:
+> On 02.02.2024 16:16, Simone Ballarin wrote:
+> > Rule 13.1: Initializer lists shall not contain persistent side effects
 > > 
-> > +Stefano
+> > This patch moves expressions with side-effects into new variables before
+> > the initializer lists.
 > > 
-> > Hi all,
+> > No functional changes.
 > > 
-> > this patch seems not to have been committed into staging, unlike the 
-> > other patch from this series. Since these are the only remaining 
-> > violations for Rule 14.4, then I think these changes could be reviewed.
+> > Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
 > 
-> It's no surprise the change isn't committed yet, when it hasn't had any
-> of the necessary tags. As far as I'm concerned, I seem to recall
-> indicating clearly that I'm not happy with this change, and hence acks
-> would need to come from elsewhere.
+> To be honest, I don't like this. It's more code for no gain. Really its
+> hampering clarity imo. I'm willing to be convinced otherwise, but for
+> now this gets a nack from me.
 
-Thanks Jan for not blocking it. I gave my reviewed-by, let's see if one
-of the other x86 maintainers is OK to ack it.
+Which part of the patch you don't like? The changes to
+bad_ioapic_register?
+
+
+
+> As an aside, ...
+> 
+> > --- a/xen/arch/x86/io_apic.c
+> > +++ b/xen/arch/x86/io_apic.c
+> > @@ -2559,9 +2559,12 @@ integer_param("max_gsi_irqs", max_gsi_irqs);
+> >  
+> >  static __init bool bad_ioapic_register(unsigned int idx)
+> >  {
+> > -    union IO_APIC_reg_00 reg_00 = { .raw = io_apic_read(idx, 0) };
+> > -    union IO_APIC_reg_01 reg_01 = { .raw = io_apic_read(idx, 1) };
+> > -    union IO_APIC_reg_02 reg_02 = { .raw = io_apic_read(idx, 2) };
+> > +    uint32_t reg_00_raw = io_apic_read(idx, 0);
+> > +    uint32_t reg_01_raw = io_apic_read(idx, 1);
+> > +    uint32_t reg_02_raw = io_apic_read(idx, 2);
+> 
+> ... while you properly use uint32_t here, ...
+> 
+> > +    union IO_APIC_reg_00 reg_00 = { .raw = reg_00_raw };
+> > +    union IO_APIC_reg_01 reg_01 = { .raw = reg_01_raw };
+> > +    union IO_APIC_reg_02 reg_02 = { .raw = reg_02_raw };
+> >  
+> >      if ( reg_00.raw == -1 && reg_01.raw == -1 && reg_02.raw == -1 )
+> >      {
+> > --- a/xen/arch/x86/mpparse.c
+> > +++ b/xen/arch/x86/mpparse.c
+> > @@ -798,11 +798,12 @@ void __init mp_register_lapic_address (
+> >  
+> >  int mp_register_lapic(u32 id, bool enabled, bool hotplug)
+> >  {
+> > +	u32 apic = apic_read(APIC_LVR);
+> 
+> ... why the being-phased-out u32 here?
+> 
+> Jan
+> 
+> >  	struct mpc_config_processor processor = {
+> >  		.mpc_type = MP_PROCESSOR,
+> >  		/* Note: We don't fill in fields not consumed anywhere. */
+> >  		.mpc_apicid = id,
+> > -		.mpc_apicver = GET_APIC_VERSION(apic_read(APIC_LVR)),
+> > +		.mpc_apicver = GET_APIC_VERSION(apic),
+> >  		.mpc_cpuflag = (enabled ? CPU_ENABLED : 0) |
+> >  			       (id == boot_cpu_physical_apicid ?
+> >  				CPU_BOOTPROCESSOR : 0),
+> > --- a/xen/arch/x86/setup.c
+> > +++ b/xen/arch/x86/setup.c
+> > @@ -885,13 +885,14 @@ static struct domain *__init create_dom0(const module_t *image,
+> >  {
+> >      static char __initdata cmdline[MAX_GUEST_CMDLINE];
+> >  
+> > +    unsigned int max_vcpus = dom0_max_vcpus();
+> >      struct xen_domctl_createdomain dom0_cfg = {
+> >          .flags = IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity : 0,
+> >          .max_evtchn_port = -1,
+> >          .max_grant_frames = -1,
+> >          .max_maptrack_frames = -1,
+> >          .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+> > -        .max_vcpus = dom0_max_vcpus(),
+> > +        .max_vcpus = max_vcpus,
+> >          .arch = {
+> >              .misc_flags = opt_dom0_msr_relaxed ? XEN_X86_MSR_RELAXED : 0,
+> >          },
+> 
 
