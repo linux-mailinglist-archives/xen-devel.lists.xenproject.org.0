@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBE1A84C17B
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 01:47:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677197.1053642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9A4684C18C
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 01:52:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677203.1053652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXW5o-0007yn-1P; Wed, 07 Feb 2024 00:47:12 +0000
+	id 1rXWAZ-0001AQ-IX; Wed, 07 Feb 2024 00:52:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677197.1053642; Wed, 07 Feb 2024 00:47:12 +0000
+Received: by outflank-mailman (output) from mailman id 677203.1053652; Wed, 07 Feb 2024 00:52:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXW5n-0007xE-UL; Wed, 07 Feb 2024 00:47:11 +0000
-Received: by outflank-mailman (input) for mailman id 677197;
- Wed, 07 Feb 2024 00:47:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXWAZ-00018A-Fl; Wed, 07 Feb 2024 00:52:07 +0000
+Received: by outflank-mailman (input) for mailman id 677203;
+ Wed, 07 Feb 2024 00:52:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=aVye=JQ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1rXW5m-0007x8-9p
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 00:47:10 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b693504-c552-11ee-8a49-1f161083a0e0;
- Wed, 07 Feb 2024 01:47:08 +0100 (CET)
+ id 1rXWAY-00017Z-CZ
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 00:52:06 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1b0379f4-c553-11ee-98f5-efadbce2ee36;
+ Wed, 07 Feb 2024 01:52:04 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 48962CE1774;
- Wed,  7 Feb 2024 00:47:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E45C433F1;
- Wed,  7 Feb 2024 00:46:59 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTP id 38683CE17D4;
+ Wed,  7 Feb 2024 00:52:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823B8C433A6;
+ Wed,  7 Feb 2024 00:51:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,115 +41,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b693504-c552-11ee-8a49-1f161083a0e0
+X-Inumbo-ID: 1b0379f4-c553-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707266820;
-	bh=/R57MmC0z3d2YbVpLZQ+paJCglOOu9H5nf/rYdJyaBU=;
+	s=k20201202; t=1707267120;
+	bh=OZ9lrDX/2MuUzHRp0v6dDGpVXgFTkxmaBQKsLaph3Ec=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NeCHMnsgGf8Nyf6VUi3Qb01HkToHjYnps+HyP9VJsV3pM3Xyj8jyE1wyx1rJNhLj0
-	 VD3Msop8d3W+WiGDXWarpXJO9L09c9BkdJaj/aYvfJhUu2hXp83P15qBmBY+oDaUmU
-	 ABz6q3/sZVN9bQ/5wk+eVh/ekJbexaJLzDQItqcjg14a3dzhu+BE1rZodBNhdWFBlJ
-	 eSXyLKHDCOVcR/6z3Y2dECYo1TgghAQEM4AWdJrF4MjbErZ68Ds+smBrsxJ49YCSvE
-	 UIwWYaUI3bweBNMc4/l5u7kQXboXau3yDgGUsLj6pv31ps1+5+nSQtLkXNg7S6AlYS
-	 qJ4sDgtxRD+wQ==
-Date: Tue, 6 Feb 2024 16:46:57 -0800 (PST)
+	b=Q4PRnr4UI+j0s/ZiXSFGiRimA4AbjvomnSgT06IU78zVLjRrEwOz810nScYUI+UJT
+	 1LvMX56WJ1FKqUB2cOIorxILICktIuC97/BYnyqA0GpirhkftSIb7XE0oj5+aazjnB
+	 wWW+CVB6XDN1DNajTkMJGWvlgANs0mfIi6sSuakX10CInewM3J2hr8h7swQR15/LMt
+	 g5Cx9br4ZJqpnroEuy2xEZ8T4zTtEkyp5wOK27XpTQ8nss4eG4A02bjBA3wXxPFezT
+	 AU60rBkx6Me+mNc1wpxleiMmuaXoTiQUrw8tuXk68gIMoVt+UbvX0fC6Rho64OM6Ym
+	 KAFLg3nyh65BQ==
+Date: Tue, 6 Feb 2024 16:51:58 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com
-Subject: Re: [PATCH] automation: Switch yocto-qemux86-64 job to run on x86
-In-Reply-To: <20240206152012.51107-1-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2402061646480.1925432@ubuntu-linux-20-04-desktop>
-References: <20240206152012.51107-1-michal.orzel@amd.com>
+To: Simone Ballarin <simone.ballarin@bugseng.com>
+cc: xen-devel@lists.xenproject.org, consulting@bugseng.com, 
+    Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>
+Subject: Re: [PATCH v2 1/2] x86/IOMMU: address violations of MISRA C:2012
+ Rule 14.4
+In-Reply-To: <746a33fff1386b2e76657b5f7cfb31f3b117a1fe.1702310368.git.maria.celeste.cesario@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2402061651140.1925432@ubuntu-linux-20-04-desktop>
+References: <cover.1702310368.git.maria.celeste.cesario@bugseng.com> <746a33fff1386b2e76657b5f7cfb31f3b117a1fe.1702310368.git.maria.celeste.cesario@bugseng.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 6 Feb 2024, Michal Orzel wrote:
-> At the moment, all Yocto jobs run on Arm64 runners. To address CI
-> capacity issues, move yocto-qemux86-64 job to x86. Reflect the change in
-> the makefile generating Yocto docker files and fix CONTAINER name
-> definition that incorrectly expects YOCTO_HOST variable to be set for x86
-> container as well, which does not have a platform name appended.
+On Wed, 13 Dec 2023, Simone Ballarin wrote:
+> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-
+> The xen sources contain violations of MISRA C:2012 Rule 14.4 whose
+> headline states:
+> "The controlling expression of an if statement and the controlling
+> expression of an iteration-statement shall have essentially Boolean type".
+> 
+> Add comparisons to avoid using enum constants as controlling expressions
+> to comply with Rule 14.4.
+> No functional change.
+> 
+> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
+However it needs an ack from an x86 maintainer
 
 
 > ---
-> I built and pushed a new container to registry.
-> Pipeline:
-> https://gitlab.com/xen-project/people/morzel/xen-orzelmichal/-/pipelines/1166227598
+> Changes in v2
+> - rename prefix from AMD/IOMMU to x86/IOMMU
+> - move changes on msi.c and hpet.c in this patch.
 > ---
->  automation/build/yocto/yocto.inc |  6 ++++--
->  automation/gitlab-ci/build.yaml  | 10 +++-------
->  2 files changed, 7 insertions(+), 9 deletions(-)
+>  xen/arch/x86/hpet.c                      | 6 +++---
+>  xen/arch/x86/msi.c                       | 4 ++--
+>  xen/drivers/passthrough/amd/iommu_init.c | 4 ++--
+>  xen/drivers/passthrough/vtd/iommu.c      | 4 ++--
+>  xen/drivers/passthrough/vtd/quirks.c     | 2 +-
+>  5 files changed, 10 insertions(+), 10 deletions(-)
 > 
-> diff --git a/automation/build/yocto/yocto.inc b/automation/build/yocto/yocto.inc
-> index e4328ec7f378..2f3b1a5b2a34 100644
-> --- a/automation/build/yocto/yocto.inc
-> +++ b/automation/build/yocto/yocto.inc
-> @@ -18,11 +18,13 @@ YOCTO_TARGETS = qemuarm64 qemuarm qemux86-64
->  YOCTO_ARCHS = amd64 arm64v8
+> diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
+> index 7be26c6a9b..d1ddc8ddf6 100644
+> --- a/xen/arch/x86/hpet.c
+> +++ b/xen/arch/x86/hpet.c
+> @@ -279,7 +279,7 @@ static int hpet_msi_write(struct hpet_event_channel *ch, struct msi_msg *msg)
+>  {
+>      ch->msi.msg = *msg;
 >  
->  # Architecture we want to use in gitlab CI (depends on runners arch).
-> -CI_ARCH = arm64v8
-> +CI_ARCH-qemuarm64 = arm64v8
-> +CI_ARCH-qemuarm = arm64v8
-> +CI_ARCH-qemux86-64 = amd64
+> -    if ( iommu_intremap )
+> +    if ( iommu_intremap != iommu_intremap_off )
+>      {
+>          int rc = iommu_update_ire_from_msi(&ch->msi, msg);
 >  
->  define GEN_DOCKER
->  # Make all is generating architecture we use in the CI.
-> -ifeq ($(CI_ARCH),$(3))
-> +ifeq ($(CI_ARCH-$(2)),$(3))
->  CONTAINERS += yocto/$(1)-$(2)$(4)
->  else
->  CONTAINERS_EXTRA += yocto/$(1)-$(2)$(4)
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 32af30ccedc9..6d2cb18b8883 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -213,7 +213,7 @@
->      - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` ${YOCTO_BOARD} ${YOCTO_OUTPUT}
->    variables:
->      YOCTO_VERSION: kirkstone
-> -    CONTAINER: yocto:${YOCTO_VERSION}-${YOCTO_BOARD}-${YOCTO_HOST}
-> +    CONTAINER: yocto:${YOCTO_VERSION}-${YOCTO_BOARD}${YOCTO_HOST}
->    artifacts:
->      paths:
->        - 'logs/*'
-> @@ -224,16 +224,12 @@
->  .yocto-test-arm64:
->    extends: .yocto-test
->    variables:
-> -    YOCTO_HOST: arm64v8
-> +    YOCTO_HOST: -arm64v8
->    tags:
->      - arm64
+> @@ -353,7 +353,7 @@ static int __init hpet_setup_msi_irq(struct hpet_event_channel *ch)
+>      u32 cfg = hpet_read32(HPET_Tn_CFG(ch->idx));
+>      irq_desc_t *desc = irq_to_desc(ch->msi.irq);
 >  
-> -# This is not used by any test job as we only run Yocto on arm based machines.
-> -# Keep it here so that someone having x86 hardware can easily add jobs.
->  .yocto-test-x86-64:
->    extends: .yocto-test
-> -  variables:
-> -    YOCTO_HOST: amd64
->    tags:
->      - x86_64
+> -    if ( iommu_intremap )
+> +    if ( iommu_intremap != iommu_intremap_off )
+>      {
+>          ch->msi.hpet_id = hpet_blockid;
+>          ret = iommu_setup_hpet_msi(&ch->msi);
+> @@ -372,7 +372,7 @@ static int __init hpet_setup_msi_irq(struct hpet_event_channel *ch)
+>          ret = __hpet_setup_msi_irq(desc);
+>      if ( ret < 0 )
+>      {
+> -        if ( iommu_intremap )
+> +        if ( iommu_intremap != iommu_intremap_off )
+>              iommu_update_ire_from_msi(&ch->msi, NULL);
+>          return ret;
+>      }
+> diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
+> index 7f8e794254..72dce2e4ab 100644
+> --- a/xen/arch/x86/msi.c
+> +++ b/xen/arch/x86/msi.c
+> @@ -189,7 +189,7 @@ static int write_msi_msg(struct msi_desc *entry, struct msi_msg *msg)
+>  {
+>      entry->msg = *msg;
 >  
-> @@ -576,7 +572,7 @@ yocto-qemuarm:
->      YOCTO_OUTPUT: --copy-output
+> -    if ( iommu_intremap )
+> +    if ( iommu_intremap != iommu_intremap_off )
+>      {
+>          int rc;
 >  
->  yocto-qemux86-64:
-> -  extends: .yocto-test-arm64
-> +  extends: .yocto-test-x86-64
->    variables:
->      YOCTO_BOARD: qemux86-64
+> @@ -555,7 +555,7 @@ int msi_free_irq(struct msi_desc *entry)
+>              destroy_irq(entry[nr].irq);
+>  
+>          /* Free the unused IRTE if intr remap enabled */
+> -        if ( iommu_intremap )
+> +        if ( iommu_intremap != iommu_intremap_off )
+>              iommu_update_ire_from_msi(entry + nr, NULL);
+>      }
+>  
+> diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
+> index 5515cb70fd..e02a09a9a7 100644
+> --- a/xen/drivers/passthrough/amd/iommu_init.c
+> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+> @@ -1480,7 +1480,7 @@ int __init amd_iommu_init(bool xt)
+>              goto error_out;
+>      }
+>  
+> -    if ( iommu_intremap )
+> +    if ( iommu_intremap != iommu_intremap_off )
+>          register_keyhandler('V', &amd_iommu_dump_intremap_tables,
+>                              "dump IOMMU intremap tables", 0);
+>  
+> @@ -1498,7 +1498,7 @@ int __init amd_iommu_init_late(void)
+>  
+>      /* Further initialize the device table(s). */
+>      pci_init = true;
+> -    if ( iommu_intremap )
+> +    if ( iommu_intremap != iommu_intremap_off )
+>          rc = iterate_ivrs_mappings(amd_iommu_setup_device_table);
+>  
+>      for_each_amd_iommu ( iommu )
+> diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+> index e13b7d99db..bd6d69a6f5 100644
+> --- a/xen/drivers/passthrough/vtd/iommu.c
+> +++ b/xen/drivers/passthrough/vtd/iommu.c
+> @@ -2543,7 +2543,7 @@ static int __must_check init_vtd_hw(bool resume)
+>      /*
+>       * Enable interrupt remapping
+>       */  
+> -    if ( iommu_intremap )
+> +    if ( iommu_intremap != iommu_intremap_off )
+>      {
+>          int apic;
+>          for ( apic = 0; apic < nr_ioapics; apic++ )
+> @@ -2559,7 +2559,7 @@ static int __must_check init_vtd_hw(bool resume)
+>              }
+>          }
+>      }
+> -    if ( iommu_intremap )
+> +    if ( iommu_intremap != iommu_intremap_off )
+>      {
+>          for_each_drhd_unit ( drhd )
+>          {
+> diff --git a/xen/drivers/passthrough/vtd/quirks.c b/xen/drivers/passthrough/vtd/quirks.c
+> index 5a56565ea8..950dcd56ef 100644
+> --- a/xen/drivers/passthrough/vtd/quirks.c
+> +++ b/xen/drivers/passthrough/vtd/quirks.c
+> @@ -392,7 +392,7 @@ void __init platform_quirks_init(void)
+>      map_igd_reg();
+>  
+>      /* Tylersburg interrupt remap quirk */
+> -    if ( iommu_intremap )
+> +    if ( iommu_intremap != iommu_intremap_off )
+>          tylersburg_intremap_quirk();
+>  }
 >  
 > -- 
-> 2.25.1
+> 2.40.0
+> 
 > 
 
