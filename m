@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CAF084CEAD
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 17:12:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677807.1054666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09F5884CEC4
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 17:19:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677812.1054676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXkWM-0005N0-HR; Wed, 07 Feb 2024 16:11:34 +0000
+	id 1rXkdz-00075D-B2; Wed, 07 Feb 2024 16:19:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677807.1054666; Wed, 07 Feb 2024 16:11:34 +0000
+Received: by outflank-mailman (output) from mailman id 677812.1054676; Wed, 07 Feb 2024 16:19:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXkWM-0005Ku-El; Wed, 07 Feb 2024 16:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 677807;
- Wed, 07 Feb 2024 16:11:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXkdz-00071z-7l; Wed, 07 Feb 2024 16:19:27 +0000
+Received: by outflank-mailman (input) for mailman id 677812;
+ Wed, 07 Feb 2024 16:19:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EHwQ=JQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXkWL-0005Ko-Fx
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 16:11:33 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8eedaa58-c5d3-11ee-8a4a-1f161083a0e0;
- Wed, 07 Feb 2024 17:11:32 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-41028900b83so961555e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 08:11:32 -0800 (PST)
+ id 1rXkdx-00070h-UM
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 16:19:25 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a7cd78be-c5d4-11ee-98f5-efadbce2ee36;
+ Wed, 07 Feb 2024 17:19:23 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ 5b1f17b1804b1-4101fc00832so3432625e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 08:19:23 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bh9-20020a05600c3d0900b0041027934b19sm313220wmb.7.2024.02.07.08.11.31
+ j11-20020a05600c190b00b0040fe5994d0csm2595513wmq.0.2024.02.07.08.19.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 08:11:31 -0800 (PST)
+ Wed, 07 Feb 2024 08:19:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,49 +45,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8eedaa58-c5d3-11ee-8a4a-1f161083a0e0
+X-Inumbo-ID: a7cd78be-c5d4-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707322292; x=1707927092; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707322763; x=1707927563; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=nKE+UH5CLXyTzi6UmjufGHKXNy858Aqo/bh0dbKyexo=;
-        b=aWoiiDcBCEWyYBwKWHewpOYaYF5C/GEfGY2IDi0iUlA/qQtHjEKSxkzyI5J6b471U9
-         dFkvGx/CAMbueirL0PN377mGeLP++gxs8bnRiVwZ8aKJm+qCoh/yz9M2U5L96cWV4BKp
-         QIgXOn7VeJhygeujG2M2Jete39I7gzadrxJ7LoSVFA4pjlHRpRBQZU9v8D9wDA+fQbZi
-         oHfbpuKJ7ldUEBYvGeCRber1iK9RHOD/p5/qSrEbDw7uzbEBJ1Y+MdqD25nmmcuQRfEl
-         he4qV7rR0tIFjSBkiirZfKXudLcq+jKjg/nUlxeIpwocfS2IbtVYDIn5F75Wvj5any8N
-         KlxA==
+        bh=GaVJzzhvZXekZjvJeV5RvXknDdmJRT+EvgPzHIwBJ44=;
+        b=H/AqZu9aCDj1DtDFGvxJb7UY6z8r8p9gNmkgEQ7vvrmJE7YE7QYAxJFYJDTk4p10hM
+         OjMoa+I8hnagX6MhueR4OZzm2MGaG0fTyHN+lh8+jd4PRNqgNe+MH7TIepykSEW29Pxe
+         b+5NmQj5A9qQJMKtBdn2AlUkYGOfP0yy7lnoVCVPv56HqmfDBiQyLlcN28DMLIqBqwF5
+         2OLM8zn0Nw2Fkh7iS4/7Vvr3mvUSDAvDKsezO/PJpXAxBBCf8GRcZWGJGKIRgdhXBLiz
+         b7qePe227ZQ+wr6u+HhRbYyzhceJiGnEadYWpXfd+CuJlxsVoqPkk0UUYXIePAMUpVRN
+         OsGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707322292; x=1707927092;
+        d=1e100.net; s=20230601; t=1707322763; x=1707927563;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=nKE+UH5CLXyTzi6UmjufGHKXNy858Aqo/bh0dbKyexo=;
-        b=vuyXe3t/mzeMVblYeOp2MJzkErYbkr5mjMz2R2vJxo02HBieCHwPyVZrFmmPrLkh3L
-         I5zxAvjldqZqYG1PMpCoRYFdodAkTpgaLDzcRCv8Wkhh1yy1Ix3dTkcxOoplMGuUUmAJ
-         hDpsJUHX/hc+Ry4I+qm/Z9Q7c+ET7JW/auACPVL+GJd0us+XpxACyAzBASs00hc/WFDJ
-         9bjQN+okBWc+RmCLJkwqn2inO9y07ZobhBBRnceJd6EbuvNVRZi1nIQdrTyEyOxXfQMj
-         8fnv3eOgMJ+Ced11eVXYUZ/zHyBhXDCMn0n8/JJ3RBM+GBY0zbekwA+BmTxOjCcay6F2
-         wPwA==
-X-Gm-Message-State: AOJu0YycTDFKTF5+aD15QzxxYzdoWQPLiLQhfthaqbJP4NTfa+9zdIMU
-	ZaCWVT+ZTtzYcwZ6ga+velcr1QYhXzZo88y8JrJW3sqRQ3zwXWI76pu8/wYXWA==
-X-Google-Smtp-Source: AGHT+IH4EoKc/UEYyEeLUGG8Omg1WDat1nGttqddfySYnVLAOZeKI6Yv45e/ncIOeiOq7FHs8Tz1Ug==
-X-Received: by 2002:a05:600c:1d99:b0:410:2058:c478 with SMTP id p25-20020a05600c1d9900b004102058c478mr762793wms.5.1707322291741;
-        Wed, 07 Feb 2024 08:11:31 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXlEijOBTKL7mYoLAfPz68fujlStIzstAPPmpW512v9iylUy0Rn7g8FXA/P8oLkcSXaCeHs4fO9ZKUXiEkmI1S6km6UcQQ1IOdYhsAaP/+5l/q7HBjY7CFkFjNyo62HcukLwoq4R1DERSOT+nISlZKK
-Message-ID: <d0e03f9a-83b2-4809-9b76-5612f28f2464@suse.com>
-Date: Wed, 7 Feb 2024 17:11:30 +0100
+        bh=GaVJzzhvZXekZjvJeV5RvXknDdmJRT+EvgPzHIwBJ44=;
+        b=URaSnCzipdhtXz6j+ijPvHMZtPdlrpLJWDmgG24hKtrCOhwGwSkvATvyoLiyYtkWh9
+         xw4k96MnDc3S/3DRojBdDzVUx5avX31OZbreu1OfaqLWoMV/Y2JzQ6C+miGuYXnG9DLC
+         86wkhspYqrIHUq8DvKMKJJo29PjPyGH77HNXadQ4YVB6mmAUzwRCFKL/irtcxzTXSOxp
+         e7Ta1wd1k1F1yDMv9ACHAYeZRGgbeh0PRIw+cC8aE/oWDacM5vVKYz3K76waF0CHIIAM
+         N5UuS4l6bxa05H4LMqBLz1+9ms53suv4uP87XNTcZr1GO5U8mmzaTxgEihkUpgILk9Ct
+         di+Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUVyP9LhhDLgVQAbJ1k3lg1vfLvZbrz2QF9McYvrfEa9Y8v8t3lgCVQRUq0mUeXVL5uGbWCZ2pOjQAWQdK2YqvMBhoLY+M8v+cUK0gJ3yg=
+X-Gm-Message-State: AOJu0YxSo5/ylF8FgGAL7cCct4/jESBrbJPUDLHVKL25efZMzks3SsON
+	QVbNDFIbe+36ZSM39LH/rzHkXnrPd6lM2bfzJFPmIb5fKReOn1/5Jqfl54GYLQ==
+X-Google-Smtp-Source: AGHT+IGv1frmZcd3w58BYSohr9vit+R8YdQ2Qb3TLfFUstDpSE/rDDd1OFxw89NdM/p3rErVUUk+uw==
+X-Received: by 2002:a05:600c:3d93:b0:410:219f:121b with SMTP id bi19-20020a05600c3d9300b00410219f121bmr580614wmb.21.1707322762979;
+        Wed, 07 Feb 2024 08:19:22 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUN0IamYoxtLq0CVWm8GQROqCSHQnrsGUx2grnA3KhAgdS9L0Fe03D16mneX1VZAyjoulwKsYJpXA9wdV8sP15VGJJ6faCnp2VvOfBVJ/M8E/BAFQXkGj9tWIRBykppUWp6DzmYOnm7C8IvbcBmxLRaKE7E7cPvpuUjeOdQ3Dwg7UIIm9UziOGBKChXVrlHVjzE7CW8IZcXeNKqtst6SIXUrdrd
+Message-ID: <a4c2f7c0-66bc-436f-bc99-8f8ba4ec822e@suse.com>
+Date: Wed, 7 Feb 2024 17:19:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 1/9] x86/boot: choose AP stack based on APIC ID
+Subject: Re: [XEN PATCH v2 2/3] x86/uaccess: replace __{get,put}_user_bad()
+ with STATIC_ASSERT_UNREACHABLE()
 Content-Language: en-US
-To: Krystian Hebel <krystian.hebel@3mdeb.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
- <0e7dd957b6f26fa7b752bdce1ef6ebe97c825903.1699982111.git.krystian.hebel@3mdeb.com>
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1706259490.git.federico.serafini@bugseng.com>
+ <e28bb23a12fae3c8630f943b469137d367f20022.1706259490.git.federico.serafini@bugseng.com>
+ <ec849d3a-4f6a-4afd-a7c4-418906eb909a@suse.com>
+ <alpine.DEB.2.22.394.2402061707520.1925432@ubuntu-linux-20-04-desktop>
+ <22ee2311-1e6b-4f2e-86e4-12d20b5ba4a2@suse.com>
+ <6451696b-0366-4069-b82b-094e63eced8d@bugseng.com>
+ <0b0b5a50-7692-4500-baa4-68df8f1c5d7a@suse.com>
+ <d7812cd9-7d06-493b-b8a8-d2353f148e8b@bugseng.com>
+ <a5d9b91d-4e56-4512-9b15-d6868a383923@suse.com>
+ <04a2c7b2-07e5-46fd-835e-42b3c6307547@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -112,126 +123,98 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <0e7dd957b6f26fa7b752bdce1ef6ebe97c825903.1699982111.git.krystian.hebel@3mdeb.com>
+In-Reply-To: <04a2c7b2-07e5-46fd-835e-42b3c6307547@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.11.2023 18:49, Krystian Hebel wrote:
-> --- a/xen/arch/x86/boot/trampoline.S
-> +++ b/xen/arch/x86/boot/trampoline.S
-> @@ -72,6 +72,26 @@ trampoline_protmode_entry:
->          mov     $X86_CR4_PAE,%ecx
->          mov     %ecx,%cr4
->  
-> +        /*
-> +         * Get APIC ID while we're in non-paged mode. Start by checking if
-> +         * x2APIC is enabled.
-> +         */
-> +        mov     $MSR_APIC_BASE, %ecx
-> +        rdmsr
-> +        and     $APIC_BASE_EXTD, %eax
+On 07.02.2024 16:58, Federico Serafini wrote:
+> On 07/02/24 16:24, Jan Beulich wrote:
+>> On 07.02.2024 16:08, Federico Serafini wrote:
+>>> On 07/02/24 15:16, Jan Beulich wrote:
+>>>> On 07.02.2024 14:51, Federico Serafini wrote:
+>>>>> On 07/02/24 08:38, Jan Beulich wrote:
+>>>>>> On 07.02.2024 02:08, Stefano Stabellini wrote:
+>>>>>>> On Tue, 6 Feb 2024, Jan Beulich wrote:
+>>>>>>>> On 26.01.2024 11:05, Federico Serafini wrote:
+>>>>>>>>> @@ -208,7 +205,7 @@ do {                                                                       \
+>>>>>>>>>         case 8:                                                                \
+>>>>>>>>>             put_unsafe_asm(x, ptr, grd, retval, "q",  "", "ir", errret);       \
+>>>>>>>>>             break;                                                             \
+>>>>>>>>> -    default: __put_user_bad();                                             \
+>>>>>>>>> +    default: STATIC_ASSERT_UNREACHABLE();                                  \
+>>>>>>>>>         }                                                                      \
+>>>>>>>>>         clac();                                                                \
+>>>>>>>>>     } while ( false )
+>>>>>>>>> @@ -227,7 +224,7 @@ do {                                                                       \
+>>>>>>>>>         case 2: get_unsafe_asm(x, ptr, grd, retval, "w", "=r", errret); break; \
+>>>>>>>>>         case 4: get_unsafe_asm(x, ptr, grd, retval, "k", "=r", errret); break; \
+>>>>>>>>>         case 8: get_unsafe_asm(x, ptr, grd, retval,  "", "=r", errret); break; \
+>>>>>>>>> -    default: __get_user_bad();                                             \
+>>>>>>>>> +    default: STATIC_ASSERT_UNREACHABLE();                                  \
+>>>>>>>>>         }                                                                      \
+>>>>>>>>>         clac();                                                                \
+>>>>>>>>>     } while ( false )
+>>>>>>>>
+>>>>>>>> Related to my remark on patch 1 - how is one to know the macro this was
+>>>>>>>> invoked from, when seeing the resulting diagnostic?
+>>>>>>>
+>>>>>>> I am not sure what do you mean here... we do get an error like the
+>>>>>>> following (I added a STATIC_ASSERT_UNREACHABLE for case 4):
+>>>>>>>
+>>>>>>> ./arch/x86/include/asm/uaccess.h:262: Error: static assertion failed: unreachable
+>>>>>>
+>>>>>> Right - and how do I know what _user_ of the macro actually triggered
+>>>>>> it? ISTR suggesting to use one or more of __FILE__ / __LINE__ /
+>>>>>> __FUNCTION__ here, for that specific purpose ...
+>>>>>
+>>>>> To test the macro and its diagnostics,
+>>>>> I modified the first "git grep" occurrence of ASSERT_UNREACHABLE()
+>>>>> on the x86 code with STATIC_ASSERT_UNREACHABLE(),
+>>>>> that is in file arch/x86/alternative.c, line 312,
+>>>>> function _apply_alternatives().
+>>>>>
+>>>>> What I got is the following build error:
+>>>>>
+>>>>> ...
+>>>>> arch/x86/alternative.c: Assembler messages:
+>>>>> arch/x86/alternative.c:312: Error: static assertion failed: unreachable
+>>>>>      CC      arch/x86/copy_page.o
+>>>>> make[2]: *** [Rules.mk:247: arch/x86/alternative.o] Error 1
+>>>>
+>>>> But that's not what my request was about. Here sufficient context is
+>>>> given, even if it would be nice if the function was also visible right
+>>>> away. But that's not the same as the case above, where the new macro
+>>>> is used inside another macro.
+>>>
+>>> An example of that is the get_unsafe_size() macro,
+>>> whose body uses STATIC_ASSERT_UNREACHABLE().
+>>> A wrong use of get_unsafe_size() at line n
+>>> leads to a build error pointing to the line n,
+>>> isn't this the desired behavior?
+>>
+>> Aiui this would point to the line in the header file, when what you need
+>> to spot the bad use of the macro is the line in the source file actually
+>> using the macro. Quoting from an earlier mail of yours:
+>>
+>> ./arch/x86/include/asm/uaccess.h:262: Error: static assertion failed: unreachable
+> 
+> It points to the header file uaccess.h because at line 262 there is
+> an intentional wrong use of put_guest_size(), within the body of
+> __copy_to_guest_pv() function.
 
-You don't use the result, in which case "test" is to be preferred over
-"and".
+Yet that's again only a helper function being inlined into the ultimate
+caller. That ultimate caller is what wants identifying in the diag. Not
+the least because of ...
 
-> +        jnz     .Lx2apic
-> +
-> +        /* Not x2APIC, read from MMIO */
-> +        mov     0xfee00020, %esp
+> This example can be misleading because {get,put}_unsafe_size() are
+> defined in the same file but the diagnostics is doing the
+> right thing.
 
-Please don't open-code existing constants (APIC_ID here and below,
-APIC_DEFAULT_PHYS_BASE just here, and ...
-
-> +        shr     $24, %esp
-
-... a to-be-introduced constant here (for {G,S}ET_xAPIC_ID() to use as
-well then). This is the only way of being able to easily identify all
-pieces of code accessing the same piece of hardware.
-
-> +        jmp     1f
-> +
-> +.Lx2apic:
-> +        mov     $(MSR_X2APIC_FIRST + (0x20 >> 4)), %ecx
-> +        rdmsr
-> +        mov     %eax, %esp
-> +1:
-
-Overall I'm worried of the use of %esp throughout here.
-
-> --- a/xen/arch/x86/boot/x86_64.S
-> +++ b/xen/arch/x86/boot/x86_64.S
-> @@ -15,7 +15,33 @@ ENTRY(__high_start)
->          mov     $XEN_MINIMAL_CR4,%rcx
->          mov     %rcx,%cr4
->  
-> -        mov     stack_start(%rip),%rsp
-> +        test    %ebx,%ebx
-
-Nit (style): Elsewhere you have blanks after the commas, just here
-(and once again near the end of the hunk) you don't.
-
-> +        cmovz   stack_start(%rip), %rsp
-> +        jz      .L_stack_set
-> +
-> +        /* APs only: get stack base from APIC ID saved in %esp. */
-> +        mov     $-1, %rax
-
-Why a 64-bit insn here and ...
-
-> +        lea     x86_cpu_to_apicid(%rip), %rcx
-> +1:
-> +        add     $1, %rax
-
-... here, when you only use (far less than) 32-bit values?
-
-> +        cmp     $NR_CPUS, %eax
-> +        jb      2f
-> +        hlt
-> +2:
-> +        cmp     %esp, (%rcx, %rax, 4)
-> +        jne     1b
-
-Aren't you open-coding REPNE SCASD here?
-
-> +        /* %eax is now Xen CPU index. */
-> +        lea     stack_base(%rip), %rcx
-> +        mov     (%rcx, %rax, 8), %rsp
-> +
-> +        test    %rsp,%rsp
-> +        jnz     1f
-> +        hlt
-> +1:
-> +        add     $(STACK_SIZE - CPUINFO_sizeof), %rsp
-
-Even this post-adjustment is worrying me. Imo the stack pointer is
-better set exactly once, to its final value. Keeping it at its init
-value of 0 until then yields more predictable results in case it
-ends up being used somewhere.
-
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1951,6 +1951,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->       */
->      if ( !pv_shim )
->      {
-> +        /* Separate loop to make parallel AP bringup possible. */
->          for_each_present_cpu ( i )
->          {
->              /* Set up cpu_to_node[]. */
-> @@ -1958,6 +1959,12 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->              /* Set up node_to_cpumask based on cpu_to_node[]. */
->              numa_add_cpu(i);
->  
-> +            if ( stack_base[i] == NULL )
-> +                stack_base[i] = cpu_alloc_stack(i);
-> +        }
-
-Imo this wants accompanying by removal of the allocation in
-cpu_smpboot_alloc(). Which would then make more visible that there's
-error checking there, but not here (I realize there effectively is
-error checking in assembly code, but that'll end in HLT with no
-useful indication of what the problem is). Provided, as Julien has
-pointed out, that the change is necessary in the first place.
+... this. And really __copy_to_guest_pv() is the wrong place to put a
+wrong put_guest_size() in, to try out how diagnostics would look like
+in reality: That function falls back to copy_to_guest_ll() for all
+cases it can't handle directly. You want to place a bogus put_guest()
+somewhere in a .c file to see what results.
 
 Jan
 
