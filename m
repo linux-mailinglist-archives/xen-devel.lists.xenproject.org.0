@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1456984CC25
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 14:56:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677645.1054376 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7AF784CC39
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 15:00:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677657.1054386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXiP3-0002mn-Vm; Wed, 07 Feb 2024 13:55:53 +0000
+	id 1rXiTi-0005Q6-Jf; Wed, 07 Feb 2024 14:00:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677645.1054376; Wed, 07 Feb 2024 13:55:53 +0000
+Received: by outflank-mailman (output) from mailman id 677657.1054386; Wed, 07 Feb 2024 14:00:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXiP3-0002kh-SU; Wed, 07 Feb 2024 13:55:53 +0000
-Received: by outflank-mailman (input) for mailman id 677645;
- Wed, 07 Feb 2024 13:55:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rXiTi-0005Nh-GF; Wed, 07 Feb 2024 14:00:42 +0000
+Received: by outflank-mailman (input) for mailman id 677657;
+ Wed, 07 Feb 2024 14:00:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=t7Cu=JQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rXiP2-0002kb-Mw
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 13:55:52 +0000
-Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
- [2a00:1450:4864:20::534])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a2aa67a-c5c0-11ee-98f5-efadbce2ee36;
- Wed, 07 Feb 2024 14:55:50 +0100 (CET)
-Received: by mail-ed1-x534.google.com with SMTP id
- 4fb4d7f45d1cf-55783b7b47aso897589a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 05:55:50 -0800 (PST)
+ id 1rXiTg-0005NZ-P8
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 14:00:40 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4692fa9d-c5c1-11ee-8a49-1f161083a0e0;
+ Wed, 07 Feb 2024 15:00:40 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id
+ a640c23a62f3a-a389ea940f1so9533966b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 06:00:40 -0800 (PST)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- v21-20020aa7d9d5000000b00560ada2df6dsm685560eds.45.2024.02.07.05.55.49
+ b27-20020a170906491b00b00a36d0dae491sm782384ejq.202.2024.02.07.06.00.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 05:55:49 -0800 (PST)
+ Wed, 07 Feb 2024 06:00:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a2aa67a-c5c0-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 4692fa9d-c5c1-11ee-8a49-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707314150; x=1707918950; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707314439; x=1707919239; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=qZ+r8dd1O25QMrSpy4XNymKw2jbC121Nj8siOIzmWuQ=;
-        b=T/N0pcIrSwBe2kdvGXThiIxF+Fjt5gjJXQJwVxdt5TsXNapWR4OBkCRNpYg2yHFSED
-         tFIrY+LejbEsnWjsNaMfx9UrqQyS9dilKSDdiqn0uoHZ0Q2iEJv2KPI1zNzj6O955yL8
-         PQjcMS74F7WMpK2oxO1b5jDcFnECiVXjrTeGo=
+        bh=l1r7EhfbR/xK2yfox+JQNnX9ej4QNRq+KOLLJ9kK4n4=;
+        b=ES6hX9IQwbCmuz8oVzSHiVYR6+oBajx6Fh0IDmKIMJ15q0xx1gbbt/CPzjPlKmW3M9
+         u2h9E/uPpJZMEpBOABuDsnQJxrVCL4denfPBMd3zLVjMT/q77JcKW/Li5v6sYHZFK4jx
+         eg7wItVVv5Axlct/AHE35EtBtO4dqLapE8B00=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707314150; x=1707918950;
+        d=1e100.net; s=20230601; t=1707314439; x=1707919239;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qZ+r8dd1O25QMrSpy4XNymKw2jbC121Nj8siOIzmWuQ=;
-        b=qGhR1WdxGmc5Yr+HbylqHoqnziwpYJ6GmG3pC53BvsOpICow05YD5NckqbLzDQm//Y
-         W9lY0WMOLgTwH7lEmnr45lCEGGNDRZOG9oiEVgwxdZpJjEB4upGTzUUaSrgADIj6J0/t
-         rh6cJMwrBU3SCek0qlT50aALloYVbZ7YwRW7PU4pm1U7ki6yvJk1DaPc5fmhrjBCnOAy
-         aeS2x4X0XE3JOiMHi5dc5aW2GEzVaaYew9o7DrGfoB4ScxYinDu7KpWEGr4kiWB4Tgeu
-         OSDoGQkRgy0L42FWHUOWlMRvKhKIYpGoCoeMeehKEtElFEj6mPTWZ5gfbFJrC5FeE+hT
-         sMvg==
-X-Forwarded-Encrypted: i=1; AJvYcCVOnCfQg1OaffMwY65pyaxeA0Sr6+Mc3/H1ftNbvHv8gsGHGPHCmv/Nuq63ZHihgnUzadco89A5aQOXmg7H/PirbUz8fkkKSv7JwLyY3J0=
-X-Gm-Message-State: AOJu0YyuBF+ioiL8dnNEdxebK2faRftU1Uwiari7BdTCoQDuP0kXPJcV
-	v8JkJ+n1apy6co9e/4aIOd0IBEKMxOEQV9VdZZFG6A6rpQL1e7cHoTy7nKzxzaP+qBd1hFx0QI8
-	H
-X-Google-Smtp-Source: AGHT+IFzA2Z9+raem4TmwhFovXnrhUQPRvfB1YkBIJ25NO5aOnL0y1mKqYXf27LSYBiFa9QcCbilPA==
-X-Received: by 2002:aa7:df11:0:b0:560:8fb7:a721 with SMTP id c17-20020aa7df11000000b005608fb7a721mr4371322edy.13.1707314150173;
-        Wed, 07 Feb 2024 05:55:50 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXpuRur2D4wGj3oiGpLI+90YZNb4PfccnuCJx30/sGSmjdniPiwPNWJ3XYIZoI/Snn7nw96IlSFU9z8Y+1JiULF0x4uqP+z7ktBk3O73EG0rmOESniMsvSR1MvCdkkE+PFVvkZLvQTVCHTNRfnKLRG6ezw3mr2EWQyYuOP4U3S7fIHQhcqw3U9CFgGJWLQvVnk1Yk/3GjgL2PK0nrajEuOm+yXlwxBe3oGZwpc1
-Message-ID: <c11bd472-fc43-49c5-8482-4fc7ed836269@citrix.com>
-Date: Wed, 7 Feb 2024 13:55:49 +0000
+        bh=l1r7EhfbR/xK2yfox+JQNnX9ej4QNRq+KOLLJ9kK4n4=;
+        b=BaZui8/D5gV9nc2cK/V3NiGX1NYVio2MakHU3oeZUEoNRuq3HqF+FIyO619Bz2X+gg
+         AHIkav3CEQynu2LyaBDAUvWTmmFyOsfpsUZf1p9qUmXMDgZJNr+GiugivpTK0v+NYCf2
+         sBBhNfSRvloHVE6RCz5wVUNTh1fDV5EhnOG8hPeQ1H3cOFBgwVX7PnFUBJK4WpYJjBAi
+         WuKJbwDavl7oF8mmOAIicHEnKcKWzMKs2HFz56QyrmV4p2mFt2C5DN7HyoSl7B/AyrP0
+         hfy/gANeQaseFEHaKpVwNyWVzThaSgwbn/SxRX0/XCBmNUdPH0VGMQ45dxeeuS4K+SIv
+         pwqA==
+X-Gm-Message-State: AOJu0YyFH6nPmQTmaPUozNwa1COirEsQmyF9YSpCwUQVkRMmDLUV8emb
+	39hlj+ig7MzEGzdJOOmFstVaRf40FsnnvH9tM+gf5MdIuBpRFsdUXlOHNajR1qI=
+X-Google-Smtp-Source: AGHT+IGP4tquwo6XGZR5eSrlKHi1uMaXfR4Gov7uml9Ht09snch2mEpLBPixsSRik8rARAoacJnkQg==
+X-Received: by 2002:a17:906:3ca1:b0:a37:8a2c:316a with SMTP id b1-20020a1709063ca100b00a378a2c316amr3697548ejh.45.1707314439324;
+        Wed, 07 Feb 2024 06:00:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCXzSz0REHTRSob5wtiwAeffFEo7NSiBpdeOrqf/fsf1NzF1z8mCWQiOg1uXjD7ZYIHvVuLNHBbjwRhAEqUpaCz17mOAjnmWUrHyUKCJP3otfOsjIr0PzT4bYBNfD84rKosAH0fk1kEsWWaeuLUbRWOaRiOSXZaAK5AbEm+WW0s=
+Message-ID: <0744256b-4584-425f-a0cb-48a84d3a7b8f@citrix.com>
+Date: Wed, 7 Feb 2024 14:00:38 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/7] VMX: convert entry point annotations
+Subject: Re: [PATCH v6 4/7] x86/ACPI: annotate assembly functions with type
+ and size
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
+ <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>
 References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
  <3ba82c3a-ff95-43d0-8672-a63b23bc2cdc@suse.com>
- <5fc304c0-be1f-46dd-a783-4030ec76a2f8@suse.com>
+ <cbc04b39-44cd-4f1f-a011-5d9d313f24d3@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -133,47 +131,24 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <5fc304c0-be1f-46dd-a783-4030ec76a2f8@suse.com>
+In-Reply-To: <cbc04b39-44cd-4f1f-a011-5d9d313f24d3@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 07/02/2024 1:37 pm, Jan Beulich wrote:
 > Use the generic framework from xen/linkage.h.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> v6: New.
->
-> --- a/xen/arch/x86/hvm/vmx/entry.S
-> +++ b/xen/arch/x86/hvm/vmx/entry.S
-> @@ -24,7 +24,7 @@
->  #define VMRESUME     .byte 0x0f,0x01,0xc3
->  #define VMLAUNCH     .byte 0x0f,0x01,0xc2
->  
-> -ENTRY(vmx_asm_vmexit_handler)
-> +FUNC(vmx_asm_vmexit_handler)
->          SAVE_ALL
->  
->          mov  %cr2,%rax
-> @@ -132,7 +132,7 @@ UNLIKELY_END(realmode)
->          call vmx_vmentry_failure
->          jmp  .Lvmx_process_softirqs
->  
-> -ENTRY(vmx_asm_do_vmentry)
-> +LABEL(vmx_asm_do_vmentry)
+> The .Lsuspend_err label is used in a cross-function manner here, but
+> it's not clear to me what - if anything - to do about this.
 
-This really is a function, not a label.
+Well - again like VMX, this is special CODE.
 
-xen.git/xen$ git grep vmx_asm_do_vmentry
-arch/x86/hvm/vmx/entry.S:135:ENTRY(vmx_asm_do_vmentry)
-arch/x86/hvm/vmx/vmcs.c:1855:void noreturn vmx_asm_do_vmentry(void);
-arch/x86/hvm/vmx/vmcs.c:1929:    reset_stack_and_jump(vmx_asm_do_vmentry);
+It really is one function, do_suspend_lowlevel() - see how it's caller
+uses it, with a magic position in the middle that is joined by the S3 path.
 
-It is giant mess, of two functions forming part of the same loop.
-
-Considering that you declines to take CODE, I don't know what to
-suggest.  The point of CODE, distinct to FUNC, was to identify the
-places where weird things were going on, and this absolutely counts.
+s3_resume should be a CODE too, or whatever we call a not-LABEL.
 
 ~Andrew
 
