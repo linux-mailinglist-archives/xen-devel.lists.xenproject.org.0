@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4656D84CC60
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 15:11:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677671.1054415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ACBB84CC7A
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 15:17:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677677.1054425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXidp-0008Jh-Vn; Wed, 07 Feb 2024 14:11:09 +0000
+	id 1rXijJ-0000yc-Li; Wed, 07 Feb 2024 14:16:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677671.1054415; Wed, 07 Feb 2024 14:11:09 +0000
+Received: by outflank-mailman (output) from mailman id 677677.1054425; Wed, 07 Feb 2024 14:16:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXidp-0008HM-Sw; Wed, 07 Feb 2024 14:11:09 +0000
-Received: by outflank-mailman (input) for mailman id 677671;
- Wed, 07 Feb 2024 14:11:07 +0000
+	id 1rXijJ-0000wE-Iz; Wed, 07 Feb 2024 14:16:49 +0000
+Received: by outflank-mailman (input) for mailman id 677677;
+ Wed, 07 Feb 2024 14:16:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=t7Cu=JQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rXidn-0008HG-RR
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 14:11:07 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=EHwQ=JQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rXijI-0000w8-E5
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 14:16:48 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bbb0c253-c5c2-11ee-98f5-efadbce2ee36;
- Wed, 07 Feb 2024 15:11:05 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id
- 2adb3069b0e04-511490772f6so734547e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 06:11:05 -0800 (PST)
-Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- jl13-20020a17090775cd00b00a35cf6727c1sm793868ejc.105.2024.02.07.06.11.04
+ id 868379c8-c5c3-11ee-98f5-efadbce2ee36;
+ Wed, 07 Feb 2024 15:16:46 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-4101d096c92so2789795e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 06:16:46 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ f18-20020a05600c4e9200b0040fe0bb761dsm5438894wmq.16.2024.02.07.06.16.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 06:11:05 -0800 (PST)
+ Wed, 07 Feb 2024 06:16:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,116 +45,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbb0c253-c5c2-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 868379c8-c5c3-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707315065; x=1707919865; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=XRsra38j88U49UA+I68ks0cCTPJ89STFRWfeESpYjDY=;
-        b=aJC0Jgtv+EhRNWbkwVCbE3RkZzEwUO5sVvYNKbKATYef52BocLuvgGnNpL6E0F6++1
-         RytnzolylJjKV2oT+0D+0V9WHqtm6Ag8l6a49sMqwb6az4bTVLsaZJZkktSuDmvMgwrd
-         BDdsOqa9/+VZ2ghgKBowKAyGIBKl6siUCltEQ=
+        d=suse.com; s=google; t=1707315406; x=1707920206; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=u0h55+3hzBq5cmd5rCMnlrIJBOEVlByJPH9Vvdn2WXo=;
+        b=cwqrd3VQQslY/HVCWyu8bRpQl6Pm0Ox9rmJWmP3ucFF0F0Y2ZVpIRw1GhN0U6I1T62
+         K5AfhJAMPwaOMHGYqLctNVPTNQFoCq58aFmFpQTQNDnuWDFHjkUBJVX7O3nocLPDzmuW
+         XXUkKF2s5x5Ed+/QDnfVMQ6+ffKqMUrAasM1CZiQig1AfnzP42pYbPKS2UwvwXwuv8/g
+         GGbiuiwF0XoHwGV7SxbNz48zenyh1rLNUJiwlYyc1VVt2B1H6oUhPIgJ3xo6VyeQe3Sy
+         awyQ9IKEwgjh0Zdyzi4zT9oIh0bpG2rdBaZgl3YGm0vkW08wrxpJIdbgzjayOxsKFHFG
+         jdJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707315065; x=1707919865;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=XRsra38j88U49UA+I68ks0cCTPJ89STFRWfeESpYjDY=;
-        b=hY1PyWvEJkABb1MmOlZTsyIDYiN/IPEZijOE2TPNW4WHuWDuJTQL5FosOrlZsoBvuK
-         Bs5bA8eamW8vhL/0tF3m+DS3m4H7pRdR2c/9S0KcC/2UA1JreDtXO+N0ASEG/2e46QK9
-         SrKNVw1gLyfqxYcRKuoOuyaPa4UqqbvoXtAwEdW7l/Hd1XZFukt9eErDYRJygzBaCmOP
-         +SgsutgEZt5yk1b1XcXtJHOpL34+L/rM4vE3gJPp/yYCxlChIfCijlvSBFPMoA3Hlfz9
-         61nZUJMfQ0o7uguSNBpgCtLqOb0mg7JL5QoGHT+RgHr6W+BeT1cMKcCpdORcT9yFahno
-         m1+Q==
-X-Gm-Message-State: AOJu0YxC9sMiRfCbwkjTIbjJfnF9YmiCd8RaE7rBD5An3Cm4ehwi5Qi5
-	ljCErsjhqP/KclrwQoK++cYkG3wYfprfsCQoHu4sUBXnEh8GhvzTFWc/9HRq6Nc=
-X-Google-Smtp-Source: AGHT+IHW0GCqKtA46+FINbW52jjTqFmn0YG3NwAKTcUxwv2TxPPF4v+Jf7y7P2Okan4odSOsjNGuTg==
-X-Received: by 2002:ac2:4832:0:b0:511:4268:3a54 with SMTP id 18-20020ac24832000000b0051142683a54mr3481511lft.29.1707315065299;
-        Wed, 07 Feb 2024 06:11:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCX17A/Au5nwZudVU5slV/eTKOiHK3FFZ/eosqwT4Cvd0tcU00Q9FhFJpdDuplbZI7zaW24qHRXZje8BxkCYyWF+gi/HuBWnzlRt42WzTHwWuTYx0mKk50YdKBZK55v6mIXN7N5sG5i4B08hPSIQnUKdg8fMfj41Y6IZRxwTwWM=
-Message-ID: <4784f1e9-2415-45cc-ac1f-561cefb3d5c1@citrix.com>
-Date: Wed, 7 Feb 2024 14:11:04 +0000
+        d=1e100.net; s=20230601; t=1707315406; x=1707920206;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=u0h55+3hzBq5cmd5rCMnlrIJBOEVlByJPH9Vvdn2WXo=;
+        b=IoFTyjkoBfvrKLYtIm/6mniV5TgvikX+1Fnh9hHp0Je6NG+b35t9FQL7lWA/aNrQJY
+         b073GyqGr6wmY1VUig6rWECThgqS64UHLt5aioihCPGan5HSbH9gW4LQNF+9DmyI3pH5
+         Olg1nO7LGLdoRPlh9NQQBzKjo903eGvFQeK8B0avFkdnJbf0nExRMEM+0mmkdE52zyFE
+         h5EyS8n6wowmOf+NED/URjBDpeisSMS0G7Z8IPae+xMuct7FIQr60vpXV66SilVyITO4
+         QH8DlYVcsIJtfez1tSWGSfIGABAXcDxmVGLTe9t0BkROXeuzgiXFGT40Q701ar13TLKw
+         qRpQ==
+X-Gm-Message-State: AOJu0YxwJ6u+nA5c8+wvO6sJSmIIRQPI5KeACMNHryW6JvBmpKGMnH5d
+	OjRcLaYdb45TqFYj6dGgCTF8BzMwTs/Hhz3yIfqbqXv5AjMsUaMJb2wY5D1Bqw==
+X-Google-Smtp-Source: AGHT+IF4cyD38LO7MPpt/li4lyXfPo3ydSShEix60JMXhPLdd3TY+nJzPD0qInLdjjoh607ZeX6sFQ==
+X-Received: by 2002:a05:600c:3595:b0:40f:d432:c4a0 with SMTP id p21-20020a05600c359500b0040fd432c4a0mr4832957wmq.27.1707315405641;
+        Wed, 07 Feb 2024 06:16:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUxRKDFYEFxE8ZssylmnRrQe7NqJTu2T1ra3ELKnAtZn5F97JECWQHyH4DtaMPqmFGvuHtritR303BjHJ5VdghjiIcjP+9zrgGRQgDr/ri04rUarYDIiVWvXD5ymwavwfVp2C1lspQKTC4wr8SKXU/NIC6JXCMXkp4VlL8m8L5Y4+zhwl58RYQZYfRgL7HKWmIBR3K3kqI9cpPUsIvuC3R9BdsL
+Message-ID: <0b0b5a50-7692-4500-baa4-68df8f1c5d7a@suse.com>
+Date: Wed, 7 Feb 2024 15:16:44 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 6/7] x86: convert misc assembly function annotations
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>
-References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
- <3ba82c3a-ff95-43d0-8672-a63b23bc2cdc@suse.com>
- <4b0a581d-be2b-444d-a044-668b5e2e2279@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <4b0a581d-be2b-444d-a044-668b5e2e2279@suse.com>
+Subject: Re: [XEN PATCH v2 2/3] x86/uaccess: replace __{get,put}_user_bad()
+ with STATIC_ASSERT_UNREACHABLE()
+To: Federico Serafini <federico.serafini@bugseng.com>
+Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1706259490.git.federico.serafini@bugseng.com>
+ <e28bb23a12fae3c8630f943b469137d367f20022.1706259490.git.federico.serafini@bugseng.com>
+ <ec849d3a-4f6a-4afd-a7c4-418906eb909a@suse.com>
+ <alpine.DEB.2.22.394.2402061707520.1925432@ubuntu-linux-20-04-desktop>
+ <22ee2311-1e6b-4f2e-86e4-12d20b5ba4a2@suse.com>
+ <6451696b-0366-4069-b82b-094e63eced8d@bugseng.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6451696b-0366-4069-b82b-094e63eced8d@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 07/02/2024 1:38 pm, Jan Beulich wrote:
+On 07.02.2024 14:51, Federico Serafini wrote:
+> On 07/02/24 08:38, Jan Beulich wrote:
+>> On 07.02.2024 02:08, Stefano Stabellini wrote:
+>>> On Tue, 6 Feb 2024, Jan Beulich wrote:
+>>>> On 26.01.2024 11:05, Federico Serafini wrote:
+>>>>> @@ -208,7 +205,7 @@ do {                                                                       \
+>>>>>       case 8:                                                                \
+>>>>>           put_unsafe_asm(x, ptr, grd, retval, "q",  "", "ir", errret);       \
+>>>>>           break;                                                             \
+>>>>> -    default: __put_user_bad();                                             \
+>>>>> +    default: STATIC_ASSERT_UNREACHABLE();                                  \
+>>>>>       }                                                                      \
+>>>>>       clac();                                                                \
+>>>>>   } while ( false )
+>>>>> @@ -227,7 +224,7 @@ do {                                                                       \
+>>>>>       case 2: get_unsafe_asm(x, ptr, grd, retval, "w", "=r", errret); break; \
+>>>>>       case 4: get_unsafe_asm(x, ptr, grd, retval, "k", "=r", errret); break; \
+>>>>>       case 8: get_unsafe_asm(x, ptr, grd, retval,  "", "=r", errret); break; \
+>>>>> -    default: __get_user_bad();                                             \
+>>>>> +    default: STATIC_ASSERT_UNREACHABLE();                                  \
+>>>>>       }                                                                      \
+>>>>>       clac();                                                                \
+>>>>>   } while ( false )
+>>>>
+>>>> Related to my remark on patch 1 - how is one to know the macro this was
+>>>> invoked from, when seeing the resulting diagnostic?
+>>>
+>>> I am not sure what do you mean here... we do get an error like the
+>>> following (I added a STATIC_ASSERT_UNREACHABLE for case 4):
+>>>
+>>> ./arch/x86/include/asm/uaccess.h:262: Error: static assertion failed: unreachable
+>>
+>> Right - and how do I know what _user_ of the macro actually triggered
+>> it? ISTR suggesting to use one or more of __FILE__ / __LINE__ /
+>> __FUNCTION__ here, for that specific purpose ...
+> 
+> To test the macro and its diagnostics,
+> I modified the first "git grep" occurrence of ASSERT_UNREACHABLE()
+> on the x86 code with STATIC_ASSERT_UNREACHABLE(),
+> that is in file arch/x86/alternative.c, line 312,
+> function _apply_alternatives().
+> 
+> What I got is the following build error:
+> 
+> ...
+> arch/x86/alternative.c: Assembler messages:
+> arch/x86/alternative.c:312: Error: static assertion failed: unreachable
+>    CC      arch/x86/copy_page.o
+> make[2]: *** [Rules.mk:247: arch/x86/alternative.o] Error 1
 
-> --- a/xen/arch/x86/x86_64/entry.S
-> +++ b/xen/arch/x86/x86_64/entry.S
-> @@ -599,7 +599,7 @@ domain_crash_page_fault_0x8:
->          ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
->          movq  %rsi,%rdi
->          call  show_page_walk
-> -ENTRY(dom_crash_sync_extable)
-> +LABEL(dom_crash_sync_extable, 0)
->          ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
->          # Get out of the guest-save area of the stack.
->          GET_STACK_END(ax)
->
+But that's not what my request was about. Here sufficient context is
+given, even if it would be nice if the function was also visible right
+away. But that's not the same as the case above, where the new macro
+is used inside another macro.
 
-This again is a function, and one even used across-TUs.
+> If I understood your requests correctly,
+> the only thing missing is the function name but I didn't find a way
+> to make __FUNCTION__ or __func__ work with the .error directive.
+> Do you know any tricks to make it work?
 
-Furthermore, it's a (domain) fatal error path.  It has the least excuse
-of all to not conform to a regular function-like layout.
+I didn't think any tricks would be required:
 
-Everything else looks fine.  If you want to split this out into a
-separate patch to address its function-ness, then consider the remainder
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+asm ( ".error " __FILE__ ":" __LINE__ ": in function " __FUNCTION__ );
+
+Yet it looks like I was under the wrong impression that __FUNCTION__
+differed from __func__ and would be like __FILE__ / __LINE__. I have
+to admit I have no good idea then how to achieve helpful diagnostics.
+
+Jan
 
