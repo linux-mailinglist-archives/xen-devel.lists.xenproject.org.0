@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B77F784C317
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 04:28:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677252.1053743 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CDD084C58F
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 08:21:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677261.1053752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXYbp-0003TS-EK; Wed, 07 Feb 2024 03:28:25 +0000
+	id 1rXcE2-0003mp-LF; Wed, 07 Feb 2024 07:20:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677252.1053743; Wed, 07 Feb 2024 03:28:25 +0000
+Received: by outflank-mailman (output) from mailman id 677261.1053752; Wed, 07 Feb 2024 07:20:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXYbp-0003Qv-AK; Wed, 07 Feb 2024 03:28:25 +0000
-Received: by outflank-mailman (input) for mailman id 677252;
- Wed, 07 Feb 2024 03:28:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rXcE2-0003kw-Hu; Wed, 07 Feb 2024 07:20:06 +0000
+Received: by outflank-mailman (input) for mailman id 677261;
+ Wed, 07 Feb 2024 07:20:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rXYbn-0003Qj-SI; Wed, 07 Feb 2024 03:28:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rXYbn-0006ut-Jv; Wed, 07 Feb 2024 03:28:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1rXYbn-0002pF-7i; Wed, 07 Feb 2024 03:28:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1rXYbn-0001vi-77; Wed, 07 Feb 2024 03:28:23 +0000
+ (envelope-from <SRS0=EHwQ=JQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rXcE1-0003PF-5b
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 07:20:05 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4f714469-c589-11ee-8a49-1f161083a0e0;
+ Wed, 07 Feb 2024 08:20:03 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-40fe59b22dbso2077435e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 06 Feb 2024 23:20:03 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ bl13-20020adfe24d000000b0033b39cba5e4sm733640wrb.116.2024.02.06.23.20.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Feb 2024 23:20:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +45,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xK6lgEp/B0DmMSwg3VOJpgud/fYt95EMK/i2n1dFxzM=; b=A8UHqyleCmtUgmO3NZGReA2Fmm
-	uKFQatbm9/ksFlSZO/cEZV6J+EENyywcvzrMte7fRPNiZ0+HIcipjlXQoxpNFbiwopMosM0MkSon0
-	e4DlC2NZNeKYTrOL+a0966gUNNylwX4I57jcan9K9SqTRtcYlyQYWUtT89FgX0GAk5hs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-184611-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4f714469-c589-11ee-8a49-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1707290402; x=1707895202; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dsqIjtdJvYnDqXUdFBSMbduiUGYGKQ1mhaQP04o58Tc=;
+        b=XomLSKWkxd1SpHezyzkMeWFwujpUsFMXITAv7YmCqrrYeIZ01jWkqyJ6tCRhHB+dXX
+         55MYr0vC+gAp0GpuCRzPryVH6bXmUp8y2iMyBR15AYMkwiF/h/HPvls5YtjlE7Nk3S1f
+         dq6C6h3GGEIVAC51A9J54oqAcJaemZsEJjv8IOAriTQiCP+3i8wdu1d95nXHL0JgCse2
+         aWGUYW8MGLk/dPpjxxRJ+vtHEKUIiW04pjVMbIPgeRSMxND5YZ/i77YmM1GjR2qXiBNE
+         5VsH2Ejtn+MzC1Gv6su2CikfJjm/vLSru91aJfx6GNXXBVC9vtSA/iUcfdzdC/IguOgm
+         teng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707290402; x=1707895202;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=dsqIjtdJvYnDqXUdFBSMbduiUGYGKQ1mhaQP04o58Tc=;
+        b=V5E1qISHDdg668WwT54FZn6rDNrAh6Hc8y3tmy6UkE7nyMcDDe73KX2YM23pzXFT+f
+         2vWKmx+zHJBxXFCLCMWUSbgXhpTLDIUceFzA2HBnrfjJhYeEqKTSPdPwicuDC7WppC/p
+         1Bv/uh8VGuUR7eL2iSB/iZHp0JG762ITYHpedK8136CZia6Djl1YVbBFUWInZpM8mP/w
+         eqTIUuxNi0mq9NkKZmEKe2vrGtoz1hRVODVgbVqMuh9eF8wU1zfkyRW44PACd69p2G7O
+         uf/tYmuB9ON6ud9Unf9CEMCJI8U1LP7sBpzPjBWWIRzEj6z6dtrb1B1Ac34mD5sn5NV3
+         lWrA==
+X-Gm-Message-State: AOJu0Yx+sEojKCvRG3KM42362Xnqf5nd2WH4yqELzO+fySNljclqFCGH
+	KYH/YPtiJKT+hoZL9pdAEEp6Ocw6jZr12sbvMrGfXJrNJQcTX4LjQYJ+Fswkdg==
+X-Google-Smtp-Source: AGHT+IFcpg0VM145aEdMVYTIcloClLOv/UjrIDtDOAG91vYxrgMpKXzsHjMR2DJZRCT2NS+S/4HIOQ==
+X-Received: by 2002:a5d:5349:0:b0:33b:4d13:30a1 with SMTP id t9-20020a5d5349000000b0033b4d1330a1mr859313wrv.2.1707290402551;
+        Tue, 06 Feb 2024 23:20:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCV24P5J20ieH0txA7sN6eEEXGwRT3nD/+ghLEH9d022U0+YJ+wTsKhMMugS7+0pvVZvLFmo9si8GH9iUDCyQYI/ErDGjc4uXZYUxYmEd3lNZkBlRWZVzhR6CKpAO4Skpx3ie8cOADWk5mNsKY637l8yvRkQDKdTK8VgVytnSwnUt3CQyYwWkPwQNRsjN2jnjN2iyVh0PMvAP37p5Mc/5ejNT7rFk8bn3nv89Fvp/9ttfQBcRP1RU37yQVADsXC8YfSX33kjkls2E7eK8EAaaWl+k0JKJ56/X9LP
+Message-ID: <743801de-1fe2-4575-9987-a9fbf80afdb9@suse.com>
+Date: Wed, 7 Feb 2024 08:20:01 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 184611: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=59a69674b533a2d0c0ad5cd7fbcd655295574509
-X-Osstest-Versions-That:
-    xen=57a923bfd920307c5bfa533c95dba16a13ea0225
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 07 Feb 2024 03:28:23 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] x86/IOMMU: address violations of MISRA C:2012 Rule
+ 14.4
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, consulting@bugseng.com,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+ Simone Ballarin <simone.ballarin@bugseng.com>
+References: <cover.1702310368.git.maria.celeste.cesario@bugseng.com>
+ <746a33fff1386b2e76657b5f7cfb31f3b117a1fe.1702310368.git.maria.celeste.cesario@bugseng.com>
+ <alpine.DEB.2.22.394.2402061651140.1925432@ubuntu-linux-20-04-desktop>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2402061651140.1925432@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 184611 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/184611/
+On 07.02.2024 01:51, Stefano Stabellini wrote:
+> On Wed, 13 Dec 2023, Simone Ballarin wrote:
+>> From: Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>
+>>
+>> The xen sources contain violations of MISRA C:2012 Rule 14.4 whose
+>> headline states:
+>> "The controlling expression of an if statement and the controlling
+>> expression of an iteration-statement shall have essentially Boolean type".
+>>
+>> Add comparisons to avoid using enum constants as controlling expressions
+>> to comply with Rule 14.4.
+>> No functional change.
+>>
+>> Signed-off-by: Maria Celeste Cesario  <maria.celeste.cesario@bugseng.com>
+>> Signed-off-by: Simone Ballarin  <simone.ballarin@bugseng.com>
+> 
+> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> However it needs an ack from an x86 maintainer
 
-Failures :-/ but no regressions.
+And from respective IOMMU ones.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  59a69674b533a2d0c0ad5cd7fbcd655295574509
-baseline version:
- xen                  57a923bfd920307c5bfa533c95dba16a13ea0225
-
-Last test of basis   184605  2024-02-06 11:03:06 Z    0 days
-Testing same since   184611  2024-02-07 01:02:09 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Michal Orzel <michal.orzel@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   57a923bfd9..59a69674b5  59a69674b533a2d0c0ad5cd7fbcd655295574509 -> smoke
+Jan
 
