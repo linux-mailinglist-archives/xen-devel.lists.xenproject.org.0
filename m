@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3224284CC50
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 15:06:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677664.1054406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4656D84CC60
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 15:11:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677671.1054415 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXiYd-0006dF-BR; Wed, 07 Feb 2024 14:05:47 +0000
+	id 1rXidp-0008Jh-Vn; Wed, 07 Feb 2024 14:11:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677664.1054406; Wed, 07 Feb 2024 14:05:47 +0000
+Received: by outflank-mailman (output) from mailman id 677671.1054415; Wed, 07 Feb 2024 14:11:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXiYd-0006bL-8H; Wed, 07 Feb 2024 14:05:47 +0000
-Received: by outflank-mailman (input) for mailman id 677664;
- Wed, 07 Feb 2024 14:05:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXidp-0008HM-Sw; Wed, 07 Feb 2024 14:11:09 +0000
+Received: by outflank-mailman (input) for mailman id 677671;
+ Wed, 07 Feb 2024 14:11:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=t7Cu=JQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rXiYb-0006bF-Pd
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 14:05:45 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fc51d16a-c5c1-11ee-8a49-1f161083a0e0;
- Wed, 07 Feb 2024 15:05:45 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id
- 4fb4d7f45d1cf-560f37e2d9bso6011a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 06:05:45 -0800 (PST)
+ id 1rXidn-0008HG-RR
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 14:11:07 +0000
+Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
+ [2a00:1450:4864:20::12b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bbb0c253-c5c2-11ee-98f5-efadbce2ee36;
+ Wed, 07 Feb 2024 15:11:05 +0100 (CET)
+Received: by mail-lf1-x12b.google.com with SMTP id
+ 2adb3069b0e04-511490772f6so734547e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 06:11:05 -0800 (PST)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- k9-20020a50c8c9000000b0056010210438sm699694edh.32.2024.02.07.06.05.44
+ jl13-20020a17090775cd00b00a35cf6727c1sm793868ejc.105.2024.02.07.06.11.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 06:05:44 -0800 (PST)
+ Wed, 07 Feb 2024 06:11:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,39 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc51d16a-c5c1-11ee-8a49-1f161083a0e0
+X-Inumbo-ID: bbb0c253-c5c2-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707314744; x=1707919544; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707315065; x=1707919865; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=cba5wmsZcKD/2MZ7axaD0kSURXsy5xMPmG6QLNQZh/8=;
-        b=m1bU1rYYBLGv8k+KN+2c923/e7FxmYYxOy+rU5pipYI5mTP12yIPrGql+KfZ6yQ79e
-         Dt5H/QIrc0qktLWDQ5JuNhksiYBJz+OxHcmKujE9cfErs5QkMiQ10csQ++/4bESvSnld
-         lGSb9wfM7eZk8MRbs568iPQYGnDoSLF10azzk=
+        bh=XRsra38j88U49UA+I68ks0cCTPJ89STFRWfeESpYjDY=;
+        b=aJC0Jgtv+EhRNWbkwVCbE3RkZzEwUO5sVvYNKbKATYef52BocLuvgGnNpL6E0F6++1
+         RytnzolylJjKV2oT+0D+0V9WHqtm6Ag8l6a49sMqwb6az4bTVLsaZJZkktSuDmvMgwrd
+         BDdsOqa9/+VZ2ghgKBowKAyGIBKl6siUCltEQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707314744; x=1707919544;
+        d=1e100.net; s=20230601; t=1707315065; x=1707919865;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=cba5wmsZcKD/2MZ7axaD0kSURXsy5xMPmG6QLNQZh/8=;
-        b=hBB0egXOz6W/EMtpa5BqitXTpdrJD8cBjg7klfxuk6zufrAsU0+F7maMnbtxaK0vqh
-         Wk/5g8hHuWzB4b8uuG0NOAti7rc+eOR6gCTJ4KeMw6BbqmECSVmySdVNY5Ybkj5eQyTW
-         gmd54s7RLwL8dZRq0tzJM3+n/35MOaoncANMovVWUUrGJz8a3qGA0ridNKtjLGP5S/hF
-         jwz4rA7dSASJ7shNtJP060u3qvkaHw70nE3R/yyFaPhc63PhwTYC4zCm9Y1MYn217BX2
-         hn8xtX4c57V3XLEc8kbmiJEz8Md1XcBdh6MYDpVRkYuml9a6h8CuY2uKmNQIzy5nvcfn
-         FgMQ==
-X-Gm-Message-State: AOJu0YyRjyqqlqq/fQHipKDROLtBIm/qCwhvD0DoBxKKvERiVDgD8MKK
-	fAhx+bLzOc8FgO9N0We+1Oow4Mkcr3gKReG5KxXjdZr+lkLaWW3e1Djue8lQrB8=
-X-Google-Smtp-Source: AGHT+IGwk8RI+ApuOQB5GgTbsaGslyAnwWbcGkRvbyCQx3WpGeOO5xfHmIMUrm9GAyhwWIKlDONOvA==
-X-Received: by 2002:aa7:cf03:0:b0:55f:4602:bf84 with SMTP id a3-20020aa7cf03000000b0055f4602bf84mr3684514edy.27.1707314744408;
-        Wed, 07 Feb 2024 06:05:44 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWKxsHJki0vf10c/SUn4Vd62+l2bOliMVg9WQrAt+3Hb38/vqNC8G+KhJrd+79eBHR+c4b3f3oZ7pGX7ouVkYhYImsc6RcZfNZrqei4YE/GvjZvT6dXDwaAnNc4gohXM+r/iKuiBIWdQTeyk2Dgl4scZxzL4S6mWA12TAFlshw=
-Message-ID: <a0003ed2-1f1e-431a-a12b-2717d267503f@citrix.com>
-Date: Wed, 7 Feb 2024 14:05:43 +0000
+        bh=XRsra38j88U49UA+I68ks0cCTPJ89STFRWfeESpYjDY=;
+        b=hY1PyWvEJkABb1MmOlZTsyIDYiN/IPEZijOE2TPNW4WHuWDuJTQL5FosOrlZsoBvuK
+         Bs5bA8eamW8vhL/0tF3m+DS3m4H7pRdR2c/9S0KcC/2UA1JreDtXO+N0ASEG/2e46QK9
+         SrKNVw1gLyfqxYcRKuoOuyaPa4UqqbvoXtAwEdW7l/Hd1XZFukt9eErDYRJygzBaCmOP
+         +SgsutgEZt5yk1b1XcXtJHOpL34+L/rM4vE3gJPp/yYCxlChIfCijlvSBFPMoA3Hlfz9
+         61nZUJMfQ0o7uguSNBpgCtLqOb0mg7JL5QoGHT+RgHr6W+BeT1cMKcCpdORcT9yFahno
+         m1+Q==
+X-Gm-Message-State: AOJu0YxC9sMiRfCbwkjTIbjJfnF9YmiCd8RaE7rBD5An3Cm4ehwi5Qi5
+	ljCErsjhqP/KclrwQoK++cYkG3wYfprfsCQoHu4sUBXnEh8GhvzTFWc/9HRq6Nc=
+X-Google-Smtp-Source: AGHT+IHW0GCqKtA46+FINbW52jjTqFmn0YG3NwAKTcUxwv2TxPPF4v+Jf7y7P2Okan4odSOsjNGuTg==
+X-Received: by 2002:ac2:4832:0:b0:511:4268:3a54 with SMTP id 18-20020ac24832000000b0051142683a54mr3481511lft.29.1707315065299;
+        Wed, 07 Feb 2024 06:11:05 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCX17A/Au5nwZudVU5slV/eTKOiHK3FFZ/eosqwT4Cvd0tcU00Q9FhFJpdDuplbZI7zaW24qHRXZje8BxkCYyWF+gi/HuBWnzlRt42WzTHwWuTYx0mKk50YdKBZK55v6mIXN7N5sG5i4B08hPSIQnUKdg8fMfj41Y6IZRxwTwWM=
+Message-ID: <4784f1e9-2415-45cc-ac1f-561cefb3d5c1@citrix.com>
+Date: Wed, 7 Feb 2024 14:11:04 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/7] x86/kexec: convert entry point annotations
+Subject: Re: [PATCH v6 6/7] x86: convert misc assembly function annotations
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -85,7 +85,7 @@ Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
  <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>
 References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
  <3ba82c3a-ff95-43d0-8672-a63b23bc2cdc@suse.com>
- <50c0bcbb-e46e-4777-a7e8-20ee4b979b05@suse.com>
+ <4b0a581d-be2b-444d-a044-668b5e2e2279@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -130,23 +130,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <50c0bcbb-e46e-4777-a7e8-20ee4b979b05@suse.com>
+In-Reply-To: <4b0a581d-be2b-444d-a044-668b5e2e2279@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 07/02/2024 1:38 pm, Jan Beulich wrote:
-> Use the generic framework from xen/linkage.h.
+
+> --- a/xen/arch/x86/x86_64/entry.S
+> +++ b/xen/arch/x86/x86_64/entry.S
+> @@ -599,7 +599,7 @@ domain_crash_page_fault_0x8:
+>          ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+>          movq  %rsi,%rdi
+>          call  show_page_walk
+> -ENTRY(dom_crash_sync_extable)
+> +LABEL(dom_crash_sync_extable, 0)
+>          ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+>          # Get out of the guest-save area of the stack.
+>          GET_STACK_END(ax)
 >
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Using the linker script like this feels fragile. Maybe it's better to
-> suppress (#undef) CONFIG_CC_SPLIT_SECTIONS for this one file?
 
-This is specific glue code, needing to fit in a single page.  I'd prefer
-to explicitly state that SPLIT_SECTIONS is inapplciable, than to try to
-undo the effects in the linker script.
+This again is a function, and one even used across-TUs.
 
-Everything else looks ok.  I'll fix the preexiting errors after a rebase.
+Furthermore, it's a (domain) fatal error path.  It has the least excuse
+of all to not conform to a regular function-like layout.
 
-~Andrew
+Everything else looks fine.  If you want to split this out into a
+separate patch to address its function-ness, then consider the remainder
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
