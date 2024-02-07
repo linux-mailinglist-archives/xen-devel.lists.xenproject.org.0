@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C89784CEDE
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 17:28:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677817.1054686 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 972A284CF2E
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 17:42:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677823.1054696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXkmM-0000Kh-8m; Wed, 07 Feb 2024 16:28:06 +0000
+	id 1rXkyu-0003hp-Dc; Wed, 07 Feb 2024 16:41:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677817.1054686; Wed, 07 Feb 2024 16:28:06 +0000
+Received: by outflank-mailman (output) from mailman id 677823.1054696; Wed, 07 Feb 2024 16:41:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXkmM-0000Gx-63; Wed, 07 Feb 2024 16:28:06 +0000
-Received: by outflank-mailman (input) for mailman id 677817;
- Wed, 07 Feb 2024 16:28:04 +0000
+	id 1rXkyu-0003fD-AK; Wed, 07 Feb 2024 16:41:04 +0000
+Received: by outflank-mailman (input) for mailman id 677823;
+ Wed, 07 Feb 2024 16:41:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EHwQ=JQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXkmK-0000Gr-1c
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 16:28:04 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
+ id 1rXkyt-0003f7-Os
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 16:41:03 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd0a295c-c5d5-11ee-8a4a-1f161083a0e0;
- Wed, 07 Feb 2024 17:28:02 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- 5b1f17b1804b1-40fd2f7ef55so11557945e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 08:28:02 -0800 (PST)
+ id ae079667-c5d7-11ee-8a4a-1f161083a0e0;
+ Wed, 07 Feb 2024 17:41:02 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-41008ab427fso7734765e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 08:41:02 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- t17-20020a05600c199100b0040ef2e7041esm2634750wmq.6.2024.02.07.08.28.01
+ b7-20020a05600010c700b0033b459e8f60sm1853630wrx.18.2024.02.07.08.41.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 08:28:01 -0800 (PST)
+ Wed, 07 Feb 2024 08:41:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd0a295c-c5d5-11ee-8a4a-1f161083a0e0
+X-Inumbo-ID: ae079667-c5d7-11ee-8a4a-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707323282; x=1707928082; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707324062; x=1707928862; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=q6TdYqu32u1KRS7tNYDPZhANdGBEMh0MB5q5fR4i4VA=;
-        b=LwovsdSpKhZyJz7roY2hcRKwSXtjOYXjr/GCsRk968Ifx+qrzzPd4gIOEx0eObP4S9
-         KdJgXLFRXh0yAW+SqPmSlCIhEl7gd56y39Yb9rnYUWUjReE2CnU8DaGd2SrgJo5sevd5
-         srVHLsf6SPeimvTB4M5lMqEgULLwlC7nC0nQndLQ0Fl6pK9Cn7QrjG4Mm19BFoIEHzsA
-         mTGpO22bSBOofmlWo4nBcZmDKGRwgfjpyoIxm1Im8G6+AwzVyYZa6flP31PY6MltRquX
-         iGmU0VeR/kRwPMevoi9mPuYOiRw0n2tXpyLsDNb1OcQmHnMF6Wp6S6yG+W4GSTb5uEMz
-         VWpg==
+        bh=4wzTALPGPQx+krgy++JH7ll+8zWoYZ429HdJyi3Km34=;
+        b=MkfSlsr3OtIVopV6auKmETRmEs6lj/ArexgEQRGltEfUx9hEb2ql1cU7tC3So6Y/fr
+         cKX935yLjqux6PESRqXq7a86dF+rF6xNDVQS5y+5vBZU2bwNOgJcq7SQHcZwEXf7sQSr
+         +mPWirpfFUBP3CfszHrEcOLl7yacLkopwsdg4UPcFunVcqYAiqTpkX5IOgi25bvlcHjS
+         fKLpNZEfzfPxdi9kaSN1Y4hj0gjRsnc2pGABpwKRKGVQz2Dry8/GiP4Y32hzz0P4z/l1
+         GRDBcvSGO/icIA8MKsp++/vrC7SppwxRdt/7DPx//Bo66b4oXK9ot8MzbJYB1OBFdPhJ
+         iisA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707323282; x=1707928082;
+        d=1e100.net; s=20230601; t=1707324062; x=1707928862;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=q6TdYqu32u1KRS7tNYDPZhANdGBEMh0MB5q5fR4i4VA=;
-        b=wIdIKSnH2f1ux5klNvda3JzzsRTLY3fVExe/UJ1MVwWHCooxJavuTVg+CXq2jCxtR5
-         nzyCzQ4xW2V1Am8fQscBrnPWykeo1afwIBlRBJLfq5/S1EAI3SU8F0hakVlazBVhmyqC
-         G9us0tmi0JmnLe25lAFjAx+BJHvF3xEJjehqevZSsnITikRsAprDvYxpG5VtN7RDO4gg
-         9cYY6Oiziw2FfuVJym4oIbwBTfRGc8shRKlzuUX0nrO9gaRsHx9x/OI7QTZ7rf/pAup+
-         Qa/DZnvIJzRudO+x3vC9F/ABtb6xItaSD+Uz3bup4XiS9NWbU4xrHl3re0sjnARbsU5M
-         34Mg==
-X-Gm-Message-State: AOJu0Yy/IjZhdYozKJQjlDNqZ67Ua6r/nssC6TA7981VGGBefy8Iebrq
-	KBtUHCcN4IcFC+dDRlWTWa3Yel+5hpQzdEY3Flg0C5SfwR9AgAwywTmWUcp2JQ==
-X-Google-Smtp-Source: AGHT+IHOk3skZX8eYWutNmYm546LyurSMygvkjb1/qeQ0GpD8Y0wEKJ1tvd3lvmk4SQDG+Dxxmw8iQ==
-X-Received: by 2002:a05:600c:4f96:b0:40e:fb74:c514 with SMTP id n22-20020a05600c4f9600b0040efb74c514mr5038432wmq.7.1707323281834;
-        Wed, 07 Feb 2024 08:28:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWhaCn/fgoo3THGyDymbFMQiNxIidILnLEP3ZjuTExNdTrcV7OG6ao1iHb3v9O5TVcVrGrtQClZrLI+s63Vv8ptYUehlkIjyYc9CpjX1Rdbr3GsWugFFN9MFgO/FslDcI0V6rCOjYn77CRwuTeKfx4P
-Message-ID: <904f358b-c535-4de2-b31d-e593687af11b@suse.com>
-Date: Wed, 7 Feb 2024 17:28:00 +0100
+        bh=4wzTALPGPQx+krgy++JH7ll+8zWoYZ429HdJyi3Km34=;
+        b=MJYUGYUFRaHsgQzaUjwq++WcZ1jYF4dgrEobxsdnVrOKuNbr1QwhfDnIro7b4h7FJO
+         nhZpdiqJe/d/7FrgIj0tl4obqq8WLHE8gbAlVmYXPgHq/wESj3WesRgUP8u4z3hzCPny
+         KnmLAiYJm7g32p0Y7nz0MyimZRMPKW6aKxGwN1V37Ueas983QSAAzizIDq5iYgb7duNO
+         GHvkGNs0Y1HonnWyDNHH/9k65lWGcwqqeKuMui2WAoDAYzhiWfR0dgJcVm/jHYmPR/5l
+         V/8Tackh2omF2kze32OJ3VwG1vRl8XX0iCCPMrs7VP8s1JF5UYgvwavc/qwkwjmzeVn0
+         3oCg==
+X-Forwarded-Encrypted: i=1; AJvYcCVutMTMm89mfomheZa4JSZj/dvS7jn1VpfR8zGB7RNouxXTr1ecEQlX3NDdprYkqWKS/eWr4wUfwS9D64JxH6iZvGVOigloQa3yrrTSvzw=
+X-Gm-Message-State: AOJu0YxthC4edrrHQRwlUVrZCKUtiIa97/y0EphDp3om/FFbv6MxbTRo
+	NxJ2rsywJdQYCGGMnhoW1j+YlIB3mrIX/49q2AI4J9tww1vNdEG9JqMd2Tapkg==
+X-Google-Smtp-Source: AGHT+IGgj565s8RiXjL+ftfCBRVIoOOftoII7/Hw5eBGyE8NOE86vIs7J2TV19rM35GkSj2+muGtTw==
+X-Received: by 2002:a5d:55c8:0:b0:33b:17c5:dcc8 with SMTP id i8-20020a5d55c8000000b0033b17c5dcc8mr3719679wrw.43.1707324061790;
+        Wed, 07 Feb 2024 08:41:01 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVuh540rcao5EbXC3FOFiXKswUT41gOigIelHZ4uMpfaVY7Vy0So+8lrQIN5gKb6gvZ7IuFsTD/VdeHh9MkVfyrj+rP8Bc9BoBzFCOn1oFacawkbfAFy7j/DEP/1Uy/STRNx/XgEqpUAlV2Ex/mKQ+72AJZUv2Dci8cu2GsBG/6k30cxzWKgrY8ZM4=
+Message-ID: <24dc1f13-3add-4b5f-9e2d-a18286b691eb@suse.com>
+Date: Wed, 7 Feb 2024 17:41:00 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 2/9] x86: don't access x86_cpu_to_apicid[] directly,
- use cpu_physical_id(cpu)
+Subject: Re: [XEN PATCH 3/9] x86/smp: drop x86_cpu_to_apicid, use
+ cpu_data[cpu].apicid instead
 Content-Language: en-US
-To: Krystian Hebel <krystian.hebel@3mdeb.com>
+To: Julien Grall <julien@xen.org>, Krystian Hebel <krystian.hebel@3mdeb.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
 References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
- <705574ddb7f18bae9ed3f60ddf2e4bda02c70388.1699982111.git.krystian.hebel@3mdeb.com>
+ <8121d9b472b305be751158aa3af3fed98ff0572e.1699982111.git.krystian.hebel@3mdeb.com>
+ <b85ecee7-65ce-47f0-8e9d-cdc056d337fb@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,58 +115,117 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <705574ddb7f18bae9ed3f60ddf2e4bda02c70388.1699982111.git.krystian.hebel@3mdeb.com>
+In-Reply-To: <b85ecee7-65ce-47f0-8e9d-cdc056d337fb@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.11.2023 18:49, Krystian Hebel wrote:
-> --- a/xen/arch/x86/apic.c
-> +++ b/xen/arch/x86/apic.c
-> @@ -950,7 +950,7 @@ __next:
->       */
->      if (boot_cpu_physical_apicid == -1U)
->          boot_cpu_physical_apicid = get_apic_id();
-> -    x86_cpu_to_apicid[0] = get_apic_id();
-> +    cpu_physical_id(0) = get_apic_id();
+On 02.02.2024 19:11, Julien Grall wrote:
+> Hi,
+> 
+> On 14/11/2023 17:50, Krystian Hebel wrote:
+>> Both fields held the same data.
+>>
+>> Signed-off-by: Krystian Hebel <krystian.hebel@3mdeb.com>
+>> ---
+>>   xen/arch/x86/boot/x86_64.S           |  8 +++++---
+>>   xen/arch/x86/include/asm/asm_defns.h |  2 +-
+>>   xen/arch/x86/include/asm/processor.h |  2 ++
+>>   xen/arch/x86/include/asm/smp.h       |  4 ----
+>>   xen/arch/x86/numa.c                  | 15 +++++++--------
+>>   xen/arch/x86/smpboot.c               |  8 ++++----
+>>   xen/arch/x86/x86_64/asm-offsets.c    |  4 +++-
+>>   7 files changed, 22 insertions(+), 21 deletions(-)
+>>
+>> diff --git a/xen/arch/x86/boot/x86_64.S b/xen/arch/x86/boot/x86_64.S
+>> index b85b47b5c1a0..195550b5c0ea 100644
+>> --- a/xen/arch/x86/boot/x86_64.S
+>> +++ b/xen/arch/x86/boot/x86_64.S
+>> @@ -20,15 +20,17 @@ ENTRY(__high_start)
+>>           jz      .L_stack_set
+>>   
+>>           /* APs only: get stack base from APIC ID saved in %esp. */
+>> -        mov     $-1, %rax
+>> -        lea     x86_cpu_to_apicid(%rip), %rcx
+>> +        mov     $0, %rax
+>> +        lea     cpu_data(%rip), %rcx
+>> +        /* cpu_data[0] is BSP, skip it. */
+>>   1:
+>>           add     $1, %rax
+>> +        add     $CPUINFO_X86_sizeof, %rcx
+>>           cmp     $NR_CPUS, %eax
+>>           jb      2f
+>>           hlt
+>>   2:
+>> -        cmp     %esp, (%rcx, %rax, 4)
+>> +        cmp     %esp, CPUINFO_X86_apicid(%rcx)
+>>           jne     1b
+>>   
+>>           /* %eax is now Xen CPU index. */
+> 
+> As mentioned in an earlier patch, I think you want to re-order the 
+> patches. This will avoid to modify twice the same code within the same 
+> series (it is best to avoid if you can).
 
-While personally I don't mind as much, I expect Andrew would not like
-this: Something that looks like a function call on the lhs is against
-what normal language structure would be.
+I second this request. Even more so that there's an unexplained move
+from starting at $-1 to starting at $0 (in which case you really want
+to use xor, not mov).
 
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -1615,7 +1615,7 @@ long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
->              break;
->  
->          cpu_id.phys_id =
-> -            (uint64_t)x86_cpu_to_apicid[v->vcpu_id] |
-> +            (uint64_t)cpu_physical_id(v->vcpu_id) |
->              ((uint64_t)acpi_get_processor_id(v->vcpu_id) << 32);
+>> --- a/xen/arch/x86/numa.c
+>> +++ b/xen/arch/x86/numa.c
+>> @@ -54,14 +54,13 @@ bool __init arch_numa_unavailable(void)
+>>   /*
+>>    * Setup early cpu_to_node.
+>>    *
+>> - * Populate cpu_to_node[] only if x86_cpu_to_apicid[],
+>> - * and apicid_to_node[] tables have valid entries for a CPU.
+>> - * This means we skip cpu_to_node[] initialisation for NUMA
+>> - * emulation and faking node case (when running a kernel compiled
+>> - * for NUMA on a non NUMA box), which is OK as cpu_to_node[]
+>> - * is already initialized in a round robin manner at numa_init_array,
+>> - * prior to this call, and this initialization is good enough
+>> - * for the fake NUMA cases.
+>> + * Populate cpu_to_node[] only if cpu_data[], and apicid_to_node[]
 
-While the cast on the 2nd line is necessary, the one on the 2st isn't
-and would be nice to be dropped while touching the line anyway.
+You mean cpu_physical_id() here, and then this change wants doing when
+switching to that, imo.
 
-> --- a/xen/arch/x86/numa.c
-> +++ b/xen/arch/x86/numa.c
-> @@ -70,7 +70,7 @@ void __init init_cpu_to_node(void)
->  
->      for ( i = 0; i < nr_cpu_ids; i++ )
->      {
-> -        u32 apicid = x86_cpu_to_apicid[i];
-> +        u32 apicid = cpu_physical_id(i);
->          if ( apicid == BAD_APICID )
->              continue;
->          node = apicid < MAX_LOCAL_APIC ? apicid_to_node[apicid] : NUMA_NO_NODE;
+>> + * tables have valid entries for a CPU. This means we skip
+>> + * cpu_to_node[] initialisation for NUMA emulation and faking node
+>> + * case (when running a kernel compiled for NUMA on a non NUMA box),
+>> + * which is OK as cpu_to_node[] is already initialized in a round
+>> + * robin manner at numa_init_array, prior to this call, and this
+>> + * initialization is good enough for the fake NUMA cases.
+>>    */
 
-We're in the process of phasing out u32 and friends, favoring uint32_t.
-Would be nice if in code being touched anyway (i.e. not just here) the
-conversion would be done right away. Then again fixed-width types are
-preferably avoided where not really needed (see ./CODING_STYLE), so
-quite likely it actually wants to be unsigned int here.
+Also if you're already re-wrapping this comment, please make better use
+of line width.
 
-Furthermore our style demands that declaration(s) and statement(s) are
-separated by a blank line. Inserting the missing one in cases like the
-one here would be very desirable as well.
+>> --- a/xen/arch/x86/x86_64/asm-offsets.c
+>> +++ b/xen/arch/x86/x86_64/asm-offsets.c
+>> @@ -159,7 +159,9 @@ void __dummy__(void)
+>>       OFFSET(IRQSTAT_softirq_pending, irq_cpustat_t, __softirq_pending);
+>>       BLANK();
+>>   
+>> -    OFFSET(CPUINFO_features, struct cpuinfo_x86, x86_capability);
+>> +    OFFSET(CPUINFO_X86_features, struct cpuinfo_x86, x86_capability);
+> 
+> The rename seems to be unrelated to this patch. Can you clarify?
+
+I agree some renaming wants doing, but separately. That's because we
+use CPUINFO_ as a prefix for two entirely different structure's offsets
+right now. I'm not convinced of CPUINFO_X86_ as the new prefix though:
+Uses are against cpu_data[], so CPUDATA_ may be better. Might be good
+if Andrew and/or Roger could voice their view.
 
 Jan
+
+>> +    OFFSET(CPUINFO_X86_apicid, struct cpuinfo_x86, apicid);
+>> +    DEFINE(CPUINFO_X86_sizeof, sizeof(struct cpuinfo_x86));
+>>       BLANK();
+>>   
+>>       OFFSET(MB_flags, multiboot_info_t, flags);
+> 
+> Cheers,
+> 
+
 
