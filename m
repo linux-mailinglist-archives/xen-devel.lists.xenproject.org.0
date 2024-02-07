@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2B2A84CE1F
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 16:35:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677776.1054625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF2C384CE57
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 16:45:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677791.1054635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXjwi-0003wW-W7; Wed, 07 Feb 2024 15:34:44 +0000
+	id 1rXk69-000764-1j; Wed, 07 Feb 2024 15:44:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677776.1054625; Wed, 07 Feb 2024 15:34:44 +0000
+Received: by outflank-mailman (output) from mailman id 677791.1054635; Wed, 07 Feb 2024 15:44:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXjwi-0003ub-TB; Wed, 07 Feb 2024 15:34:44 +0000
-Received: by outflank-mailman (input) for mailman id 677776;
- Wed, 07 Feb 2024 15:34:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rXk68-000732-VG; Wed, 07 Feb 2024 15:44:28 +0000
+Received: by outflank-mailman (input) for mailman id 677791;
+ Wed, 07 Feb 2024 15:44:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gvxy=JQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rXjwh-0003S2-LK
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 15:34:43 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6986bc28-c5ce-11ee-98f5-efadbce2ee36;
- Wed, 07 Feb 2024 16:34:42 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-40ef3f351d2so11075215e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 07:34:42 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- fa7-20020a05600c518700b0040ef3ae26cdsm2436907wmb.37.2024.02.07.07.34.40
+ <SRS0=9378=JQ=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rXk67-00072w-8u
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 15:44:27 +0000
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [2a00:1450:4864:20::531])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c5a683f8-c5cf-11ee-8a49-1f161083a0e0;
+ Wed, 07 Feb 2024 16:44:26 +0100 (CET)
+Received: by mail-ed1-x531.google.com with SMTP id
+ 4fb4d7f45d1cf-55fcceb5f34so812935a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 07:44:26 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ rn3-20020a170906d92300b00a3829e6015fsm879229ejb.55.2024.02.07.07.44.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Feb 2024 07:34:40 -0800 (PST)
+ Wed, 07 Feb 2024 07:44:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +45,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6986bc28-c5ce-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: c5a683f8-c5cf-11ee-8a49-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707320081; x=1707924881; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xvplvaESko/5mMtO6f7pTc5NpoSjdl4OVHnVT3YtPaA=;
-        b=sRNbGtjozI7jsBmiv6wWsMD9W42cQjB2QWz5wbCA4VKFP+TN9HBcQ8IamaA3cpWFxM
-         vBh3HMy/o7HRZkS7s1Pt6v5FrrUjCL/t18yfpcwNDmMKPrBLLbQUZy0P8IiSulGQF9C/
-         AEy1NUumpw/LAmKkKj/1iQa2diFSHpPxxCKmY=
+        d=citrix.com; s=google; t=1707320665; x=1707925465; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Z0SbiVzdSKRqvmXr/5qOJD7ln6HcULYsjafGA9w2GiU=;
+        b=XFEozJ++suDjF3Xz5BDHVFVi+O4LnyFlNV2n3MGEbUf4ZunC4VVu4rooIsWdxdk/nD
+         sNJwXOIo1qzePOyODklDUxBBb2BsQ0ABq3Z5uf7F7VxgKnkavdrXCdDhrXH8Oftx/RfZ
+         1fzJdeH3pB0Yg1NvM5TpOTaGPKoX063t+6RSU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707320081; x=1707924881;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=xvplvaESko/5mMtO6f7pTc5NpoSjdl4OVHnVT3YtPaA=;
-        b=XV7aUKm2qmo7OQlT/zYBr7GrKf/td5Yi0/9S4v4lRfZmfZMZQQ9dL8nsxSV2fFsCzW
-         O/n/6RsOCk9dt4Kw/XRK2szFW1y9L8sUkZyxMYZmeDwo9TH46NCHUG/jK8foPGkiPMKU
-         4jKkUUu5Bg/aAl/L9K9O6ovRijL14GJvQbwnardR3lY714erbBf2JroHFG0juFnL+XA3
-         7+OZP8zBfoUh1TtHH4PVVthDo8+Hp3rpofQGZiNlyYS15Bek2Dzkr+1ZZ+filtHconk2
-         RXpr9xbn4j0w107qdzsDSfItTOBbnS4969APXUF4XrvHwlNG5GDqy67YoRDjuP9rBSpj
-         4Qmw==
-X-Gm-Message-State: AOJu0YyLvZ3X92CmrUQGYBpf6AWrFqP/JDlfhO2G/OA8+HQS0Arsae/0
-	/eHzmlB7Km9dWvcppQKOMcal++xFeW7/VpSHOKyBqiGkjerguUSzYSlgi0kbtNcwThz4MdqEGwD
-	e
-X-Google-Smtp-Source: AGHT+IFkS/KQnrbwKgRj5eFfG/1jKpAO+OKO8YN/8QkkTtfBcLgsExK9uaG+sSyEdWxyTU9ZOPpW2g==
-X-Received: by 2002:a05:600c:3552:b0:40f:b69e:aa1e with SMTP id i18-20020a05600c355200b0040fb69eaa1emr9583718wmq.13.1707320080960;
-        Wed, 07 Feb 2024 07:34:40 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUEuOBcJ3Alw3uB8O9HITmnlttfnBK6KRhKaEwkWf8MNCIcisvQNBCf9Jn4+syC4ScYJNdapPguiKYrkqXmARi4bV1Iq2/Bls/z+Lig+1Ydl1eFECOqrKogka1yRTAnRMYuXcKGVREpuNr8XwW3hSCPOSY=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 2/2] iommu/vt-d: switch to common RMRR checker
-Date: Wed,  7 Feb 2024 16:34:17 +0100
-Message-ID: <20240207153417.89975-3-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20240207153417.89975-1-roger.pau@citrix.com>
-References: <20240207153417.89975-1-roger.pau@citrix.com>
+        d=1e100.net; s=20230601; t=1707320665; x=1707925465;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z0SbiVzdSKRqvmXr/5qOJD7ln6HcULYsjafGA9w2GiU=;
+        b=dzYS5sG+1pJ9p7Aour0z9lZin7xvEPtMufZqkg5WiBKDZ6eKtFrlIW4bAaQ1C7XoGD
+         cd4J4olLddJ0NdIAfK31plDNcpi3ZIsA3eqnC4IYGId/0Y5Q/IBeq5gubB1LHUy0gyK4
+         pdwjiHIPKplniAiIcNOAFEEz9s+zIUVmtbBLfIyrMlgxk7O3ZwX1e+qLvQvHho86W+DN
+         PE1/xpv7jr0dJa/fKMUK+ZGIJLc3HrpaHOSa55pALUxt32rTLdnCmgjQV9jBLqCESy7p
+         CIwJ3ICUb94qaj8kosPah2HOSvtnSumn+fjBQi+GDZVYYoAU6sRSGfFAtPAgKORFISus
+         lsIw==
+X-Gm-Message-State: AOJu0YzJ4QirLcghgSILWqII99B0c8A3crj7L0eXXJcjCG+XjARVT6CN
+	wiFSoKocyGpPj1DtoUlaB5sYVQwTFTI5EkYfKMu8C2VfathdnHzwUysx9kJWKHc=
+X-Google-Smtp-Source: AGHT+IE1dUnzCIYzDNduPTL/tRNq9CGTMsHr+tgi9BU1MUh+eQHb47nQ24eX3eLZLZwuGjqXrXqVtA==
+X-Received: by 2002:a17:906:ee1:b0:a37:3881:77e with SMTP id x1-20020a1709060ee100b00a373881077emr4244826eji.45.1707320665623;
+        Wed, 07 Feb 2024 07:44:25 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUeeI7d3NlyXuANJ6W7RN37SHBDWakgO0WuOei3jnX36TkD8FOIdxtpEIW03N6vXUKqsO2A6KtshOTq
+Date: Wed, 7 Feb 2024 15:44:24 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: zithro <slack@rabbit.lu>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] tools/xentop: add option to display dom0 first
+Message-ID: <5f6c6a52-9ef1-4db2-9e5e-2ca916bdf225@perard>
+References: <87846acd5b31991e38561c9765eb97730c79d0f3.1706723494.git.slack@rabbit.lu>
+ <a8194dec-70f0-4f90-898d-f15152a5018b@perard>
+ <1f2fab6d-6eaf-4e32-a124-cf1042c31312@rabbit.lu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <1f2fab6d-6eaf-4e32-a124-cf1042c31312@rabbit.lu>
 
-Use the newly introduced generic unity map checker.
+On Tue, Feb 06, 2024 at 03:38:05PM +0100, zithro wrote:
+> On 05 Feb 2024 18:27, Anthony PERARD wrote:
+> > On Wed, Jan 31, 2024 at 06:51:34PM +0100, Cyril RÈbert wrote:
+> > > Add a command line option to xentop to be able to display dom0 first, on top of the list.
+> > > This is unconditional, so sorting domains with the S option will also ignore dom0.
+> > > 
+> > > Signed-off-by: Cyril RÈbert (zithro) <slack@rabbit.lu>
+> > Your patch looks like a good idea
+> 
+> Thanks, I also have a "display dom id column" in the pipes, almost ready to
+> send, but I found kind of a bug doing this (field_id/fields offsets off by
+> one).
+> Are there "most wanted functionnalities" concerning xentop, while I'm at it
+> ? There's a TODO in xentop's folder.
 
-Also drop the message recommending the usage of iommu_inclusive_mapping: the
-ranges would end up being mapped anyway even if some of the checks above
-failed, regardless of whether iommu_inclusive_mapping is set.  Plus such option
-is not supported for PVH, and it's deprecated.
+That TODO file is 18 year old, and never been touch since. I don't know
+how relevant it is. As for wanted features, I'm not aware of such list.
 
-Signed-off-by: Roger Pau Monn√© <roger.pau@citrix.com>
----
-Changes since v1:
- - Adjust to changes in the previous patch.
- - Expand commit message.
----
- xen/drivers/passthrough/vtd/dmar.c | 14 +++-----------
- 1 file changed, 3 insertions(+), 11 deletions(-)
+> Things I'd like to add, if possible, is domain management (pause/unpause,
+> maybe shutdown/destroy), columns hiding and domains hiding.
 
-diff --git a/xen/drivers/passthrough/vtd/dmar.c b/xen/drivers/passthrough/vtd/dmar.c
-index 07772f178fe6..76aade816c08 100644
---- a/xen/drivers/passthrough/vtd/dmar.c
-+++ b/xen/drivers/passthrough/vtd/dmar.c
-@@ -642,17 +642,9 @@ acpi_parse_one_rmrr(struct acpi_dmar_header *header)
-            return -EEXIST;
-        }
- 
--    /* This check is here simply to detect when RMRR values are
--     * not properly represented in the system memory map and
--     * inform the user
--     */
--    if ( !e820_all_mapped(base_addr, end_addr + 1, E820_RESERVED) &&
--         !e820_all_mapped(base_addr, end_addr + 1, E820_NVS) &&
--         !e820_all_mapped(base_addr, end_addr + 1, E820_ACPI) )
--        printk(XENLOG_WARNING VTDPREFIX
--               " RMRR [%"PRIx64",%"PRIx64"] not in reserved memory;"
--               " need \"iommu_inclusive_mapping=1\"?\n",
--                base_addr, end_addr);
-+    if ( !iommu_unity_region_ok("RMRR", maddr_to_mfn(base_addr),
-+                                maddr_to_mfn(end_addr)) )
-+        return -EIO;
- 
-     rmrru = xzalloc(struct acpi_rmrr_unit);
-     if ( !rmrru )
+I'm slightly worried about adding domain management, what if someone hit
+the wrong key and kill a domain when they just wanted to do something
+else, but I guess we can make domain management work more or less
+safely. In any case, any feature is welcome.
+
+> > but xentop segv without '-z' now, when there are guest running.
+> 
+> I failed at the strict minimum here, should have tested ... Sorry for
+> wasting your time !
+
+No worries, and your patch was reviewed so you didn't failed to the
+strict minimum ;-).
+
+> Bug spotted ("sort_start" incorrectly initialized), will post a v2.
+> 
+> > Revelant part of a backtrace:
+> > #0  xenstat_domain_name (domain=0x121) at xenstat.c:344
+> > 344		return domain->name;
+> > #6  0x00006344dd283651 in top () at xentop.c:1209
+> >          i = 2
+> >          num_domains = 2
+> >          sort_start = 1
+> >          sort_count = <optimized out>
+> >          dom0_index = <optimized out>
+> > 1209		qsort((domains+sort_start), (num_domains-sort_count), sizeof(xenstat_domain *),
+> > 1210		      (int(*)(const void *, const void *))compare_domains);
+> 
+> What soft did you use to get that output ? A debugger ?
+> (It's a real question, I'm a noob).
+
+I've used `gdb`, the GNU Debugger. There's plenty of tutorial on the
+internet on the few commands that are useful to get started. And you can
+run your program with gdb or run it on a coredump.
+
+What I pasted, is a mixture of running the command `bt full`, and `list`
+and `up`/`down` to get to the function I wanted to print a bit of the
+source code.
+
+Cheers,
+
 -- 
-2.43.0
-
+Anthony PERARD
 
