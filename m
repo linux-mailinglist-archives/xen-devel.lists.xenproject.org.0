@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67AB284C70C
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 10:15:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677301.1053823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 761D584C83A
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 11:04:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677309.1053832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXe1B-00043L-Io; Wed, 07 Feb 2024 09:14:57 +0000
+	id 1rXelp-0002I6-50; Wed, 07 Feb 2024 10:03:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677301.1053823; Wed, 07 Feb 2024 09:14:57 +0000
+Received: by outflank-mailman (output) from mailman id 677309.1053832; Wed, 07 Feb 2024 10:03:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXe1B-000407-Fd; Wed, 07 Feb 2024 09:14:57 +0000
-Received: by outflank-mailman (input) for mailman id 677301;
- Wed, 07 Feb 2024 09:14:56 +0000
+	id 1rXelp-0002FS-1x; Wed, 07 Feb 2024 10:03:09 +0000
+Received: by outflank-mailman (input) for mailman id 677309;
+ Wed, 07 Feb 2024 10:03:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gvxy=JQ=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rXe1A-000401-0r
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 09:14:56 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ <SRS0=nQwS=JQ=bugseng.com=simone.ballarin@srs-se1.protection.inumbo.net>)
+ id 1rXelo-0002FI-A7
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 10:03:08 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5b0c483d-c599-11ee-8a49-1f161083a0e0;
- Wed, 07 Feb 2024 10:14:54 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-560a9738081so406375a12.1
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 01:14:54 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- ev9-20020a056402540900b0055c9280dc51sm451910edb.14.2024.02.07.01.14.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 07 Feb 2024 01:14:53 -0800 (PST)
+ id 170fdb13-c5a0-11ee-8a49-1f161083a0e0;
+ Wed, 07 Feb 2024 11:03:07 +0100 (CET)
+Received: from [192.168.1.140] (unknown [81.56.166.244])
+ by support.bugseng.com (Postfix) with ESMTPSA id EA6CC4EE0738;
+ Wed,  7 Feb 2024 11:03:05 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,85 +39,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b0c483d-c599-11ee-8a49-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707297294; x=1707902094; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xy7k443k0GctZ/WaQZNw858yCaCIbup+H2QveNxhzYc=;
-        b=BXEMDrqhs8XDSkTZAU+P+D0WQYTp3cIjVUDU/djaU7o9OrgKIAKwNuTxiv8y1m96g5
-         +nnHkHeKZ9DeRKeodz8ElZojhEgRBVzKJ8XIkbygnzx9DQUNpHZaWCHDzHockO6DvUPT
-         oJ+lWnpCJHZMwlIiHIL+cE2UShG17j9eg+P2o=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707297294; x=1707902094;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xy7k443k0GctZ/WaQZNw858yCaCIbup+H2QveNxhzYc=;
-        b=u41gPxZeNFBCPwPCx+7L3VOa9dKCryGYQ4NjmUjE2tU4BCO4YpWRzf7/PLOoM/EC5C
-         xqzfP7MTdrtcvhTKqHvmqK/tvQzYBIeupTpcSr4dERuKzx9XCMu7wyD+asKM6p+9F3Yz
-         jD1IkP82dVj7OSx+LhmQDmMzWwjX+kZNr0TB9S/FB3k0CzpkSl8xHBFbpPz+TDND7RQd
-         UdZW60BwzQCdl+yyebVaUUMV5Lk0hcjrF3E0isAnf+YYh1W0Hov4CxFCOJ6gk7VpLFKT
-         49P64beI4L4gseP4C3oYl4rzUVnKmBsRvQ82aoDp8blb4O9a3LWX9+s5Rml5o9r1YfJ/
-         xe5w==
-X-Gm-Message-State: AOJu0YzZ7/8yn6xD96quGfPb2j18fuGgfoTSzh5hOU9LE26G1Mh9khU4
-	t/myjbaMlMXLksimiwehxghRsZm8KivBG20Q8fVxbqfRmfX6q9yT/kcY4un5hrS9Y3UGOgPtgxu
-	0
-X-Google-Smtp-Source: AGHT+IH5CGQ5Do/RJiwekak5uzTI7sIocFtSiqYi4S/IwY4JiDMNDCeyksa3USmNUaiD59mja4/k0Q==
-X-Received: by 2002:aa7:d693:0:b0:560:654c:157a with SMTP id d19-20020aa7d693000000b00560654c157amr3294423edr.30.1707297293961;
-        Wed, 07 Feb 2024 01:14:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUSO2Kh3wydBNEqH5rgVzdGAg6rGkvjTNHpXwhSr3aLYfUI4TxIsXE2a1AhBQew09FzKc8RkCml5s8Sn+xTYIbRoJs0goiBDd4fPgy5Qn4=
-Date: Wed, 7 Feb 2024 10:14:52 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 4/4] iommu/x86: make unity range checking more strict
-Message-ID: <ZcNKDKD4G7fpIX80@macbook>
-References: <20240201170159.66330-1-roger.pau@citrix.com>
- <20240201170159.66330-5-roger.pau@citrix.com>
- <5db22ee1-40b3-4df8-88b8-446a2e224d22@suse.com>
+X-Inumbo-ID: 170fdb13-c5a0-11ee-8a49-1f161083a0e0
+Message-ID: <851eb6ec-558b-4a89-a31a-34046730bb55@bugseng.com>
+Date: Wed, 7 Feb 2024 11:03:04 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5db22ee1-40b3-4df8-88b8-446a2e224d22@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v4 1/4] xen: add SAF deviation for debugging and
+ logging effects
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: consulting@bugseng.com, sstabellini@kernel.org,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>,
+ Maria Celeste Cesario <maria.celeste.cesario@bugseng.com>,
+ xen-devel@lists.xenproject.org
+References: <cover.1706886631.git.simone.ballarin@bugseng.com>
+ <7c6aeedac626b171ed44df50ce5e3e2c76593f60.1706886631.git.simone.ballarin@bugseng.com>
+ <09869431-ed00-4102-93fd-84c697a5c950@suse.com>
+From: Simone Ballarin <simone.ballarin@bugseng.com>
+Organization: BUGSENG
+In-Reply-To: <09869431-ed00-4102-93fd-84c697a5c950@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 06, 2024 at 12:49:08PM +0100, Jan Beulich wrote:
-> On 01.02.2024 18:01, Roger Pau Monne wrote:
-> > Currently when a unity range overlaps with memory being used as RAM by the
-> > hypervisor the result would be that the IOMMU gets disabled.  However that's
-> > not enough, as even with the IOMMU disabled the device will still access the
-> > affected RAM areas.
+On 06/02/24 13:04, Jan Beulich wrote:
+> On 02.02.2024 16:16, Simone Ballarin wrote:
+>> Rule 13.1: Initializer lists shall not contain persistent side effects
+>>
+>> Effects caused by debug/logging macros and functions (like ASSERT, __bad_atomic_size,
+>> LOG, etc ...) that crash execution or produce logs are not dangerous in initializer
+>> lists. The evaluation order in abnormal conditions is not relevant. Evaluation order
+>> of logging effects is always safe.
 > 
-> Hmm, no, I think this is going too far. Not the least because it is
-> s/will/may/. But also because if we really wanted such behavior, we
-> ought to also parse the respective ACPI tables when the "iommu=off".
+> I thought I said so before: When talking of just logging, evaluation order
+> may very well have a impact on correctness. Therefore we shouldn't mix
+> debugging and logging.
 
-I guessed so, hence why it's the last patch in the series.  TBH I
-think it's very unlikely that such system exist.
+My general feeling was that changes like the following one are not supported by
+the community:
 
-> > Note that IVMD or RMRR ranges being placed over RAM is a firmware bug.
+- x = { .field1 = function_with_logs_effects() /*other eventual code*/ };
++ int field1 = function_with_logs_effects();
++ x = { .field1 = field1 /*other eventual code*/};
+
+so I tried to deviate as much as possible.
+
+If having log effects is a good reason to do changes like the above, I can
+propose a patch in that sense.
+
 > 
-> As written this is wrong: They're typically in RAM, just that the E820
-> type for that range should not be RAM_TYPE_CONVENTIONAL.
-
-Hm, yes, ÇI should have written 'over a RAM range in the memory map'
-or similar.
-
-> > Doing so also allows to simplify the code and use a switch over the reported
-> > memory type(s).
+>> Function hvm_get_guest_tsc_fixed (indirectly) performs different side effects.
+>> For example it calls hvm_get_guest_time_fixed that contains an ASSERT and calls
+>> to spin_lock and spin_unlock.
+>>
+>> These side effects are not dangerous: they can be executed regardless of the
+>> initializer list evaluation order
+>>
+>> This patch deviates violations using SAF commits caused by debug/logging macros and
+>> functions.
 > 
-> I'm afraid this isn't right either: page_get_ram_type() can set
-> multiple bits in its output.
+> DYM "comments"?
+> 
 
-It can indeed.  But if the only bit set is RAM_TYPE_CONVENTIONAL then
-the page will be handled as RAM, and that's where Xen would be in
-trouble if a device is also using such page as a unity map.
+Oh yes, sorry.
 
-If the page however is RAM_TYPE_CONVENTIONAL | RAM_TYPE_RESERVED then
-the RESERVED type will take over the whole page, and it's no longer an
-issue to have a unity range covering it.
+>> --- a/xen/arch/arm/device.c
+>> +++ b/xen/arch/arm/device.c
+>> @@ -331,6 +331,7 @@ int handle_device(struct domain *d, struct dt_device_node *dev, p2m_type_t p2mt,
+>>           .p2mt = p2mt,
+>>           .skip_mapping = !own_device ||
+>>                           (is_pci_passthrough_enabled() &&
+>> +                        /* SAF-3-safe effects for debugging/logging reasons are safe */
+>>                           (device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE)),
+> 
+> Taking this just as example: I think the comment is too long. Just
+> saying (leaving aside my comment higher up) "debugging/logging"
+> would imo be sufficient.
+> 
 
-Thanks, Roger.
+Ok.
+
+>> --- a/xen/arch/arm/guestcopy.c
+>> +++ b/xen/arch/arm/guestcopy.c
+>> @@ -110,26 +110,34 @@ static unsigned long copy_guest(void *buf, uint64_t addr, unsigned int len,
+>>   unsigned long raw_copy_to_guest(void *to, const void *from, unsigned int len)
+>>   {
+>>       return copy_guest((void *)from, (vaddr_t)to, len,
+>> -                      GVA_INFO(current), COPY_to_guest | COPY_linear);
+>> +                      /* SAF-4-safe No persistent side effects */
+>> +                      GVA_INFO(current),
+> 
+> I _still_ think this leaves ambiguity. The more that you need to look
+> up GVA_INFO() to recognize what this is about.
+
+
+Just to recap: here the point is that current reads a register with a volatile asm, so the
+violation is in the expansion of GVA_INFO(current). Both GVA_INFO and current taken alone
+are completely fine, so this is the only place where a SAF comment can be placed.
+
+The exapansion is:
+((copy_info_t) { .gva = { ((*({ unsigned long __ptr; __asm__ ("" : "=r"(__ptr) : "0"(&
+   per_cpu__curr_vcpu)); (typeof(&per_cpu__curr_vcpu)) (__ptr + (({ uint64_t _r; asm volatile("mrs  %0, ""TPIDR_EL2" : "=r"
+   (_r)); _r; }))); }))) } }), (1U << 1) | (1U << 2));
+
+My proposals are:
+1) address the violation moving the current expansion outside (extra variable);
+2) put a more detailed comment to avoid the ambiguity;
+3) use an ECL deviation for GVA_INFO(current).
+
+Do you have any preference or proposal?
+
+>> --- a/xen/arch/x86/hvm/hvm.c
+>> +++ b/xen/arch/x86/hvm/hvm.c
+>> @@ -800,6 +800,7 @@ static int cf_check hvm_save_cpu_ctxt(struct vcpu *v, hvm_domain_context_t *h)
+>>   {
+>>       struct segment_register seg;
+>>       struct hvm_hw_cpu ctxt = {
+>> +        /* SAF-3-safe effects for debugging/logging reasons are safe */
+>>           .tsc = hvm_get_guest_tsc_fixed(v, v->domain->arch.hvm.sync_tsc),
+> 
+> A prereq for this imo is that the function take const struct vcpu *.
+> But I'm not sure that'll suffice. The function can change at any time,
+> rendering the comment here stale perhaps without anyone noticing.
+>
+
+IMO It isn't a strict prereq, but it would make everything more clear.
+
+In any case, apart adding the const, I do not see other easy solutions.
+Would you give me your ack if I change the function signature?
+
+Another possible solutions would be documenting the function in the new
+JSON file with a special attribute like only_debug_effect. Of course,
+this still requires keeping the JSON up to date in case of changes.
+
+>> --- a/xen/common/sched/core.c
+>> +++ b/xen/common/sched/core.c
+>> @@ -1521,6 +1521,7 @@ long vcpu_yield(void)
+>>   
+>>       SCHED_STAT_CRANK(vcpu_yield);
+>>   
+>> +    /* SAF-4-safe No persistent side effects */
+>>       TRACE_2D(TRC_SCHED_YIELD, current->domain->domain_id, current->vcpu_id);
+>>       raise_softirq(SCHEDULE_SOFTIRQ);
+>>       return 0;
+>> @@ -1899,6 +1900,7 @@ ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>           if ( copy_from_guest(&sched_shutdown, arg, 1) )
+>>               break;
+>>   
+>> +        /* SAF-4-safe No persistent side effects */
+>>           TRACE_3D(TRC_SCHED_SHUTDOWN,
+>>                    current->domain->domain_id, current->vcpu_id,
+>>                    sched_shutdown.reason);
+>> @@ -1916,6 +1918,7 @@ ret_t do_sched_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>>           if ( copy_from_guest(&sched_shutdown, arg, 1) )
+>>               break;
+>>   
+>> +        /* SAF-4-safe No persistent side effects */
+>>           TRACE_3D(TRC_SCHED_SHUTDOWN_CODE,
+>>                    d->domain_id, current->vcpu_id, sched_shutdown.reason);
+>>   
+> 
+> For all of these iirc the suggestion was to latch current into a local
+> variable (named "curr" by convention).
+> 
+
+Ok.
+
+> Jan
+
+-- 
+Simone Ballarin, M.Sc.
+
+Field Application Engineer, BUGSENG (https://bugseng.com)
+
 
