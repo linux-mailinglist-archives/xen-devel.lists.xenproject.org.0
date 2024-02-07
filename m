@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B8FB84CCB3
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 15:27:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.677695.1054466 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C46884CCC9
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Feb 2024 15:32:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.677703.1054475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXitO-0005nL-Bp; Wed, 07 Feb 2024 14:27:14 +0000
+	id 1rXixc-00081a-RT; Wed, 07 Feb 2024 14:31:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 677695.1054466; Wed, 07 Feb 2024 14:27:14 +0000
+Received: by outflank-mailman (output) from mailman id 677703.1054475; Wed, 07 Feb 2024 14:31:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXitO-0005lf-8A; Wed, 07 Feb 2024 14:27:14 +0000
-Received: by outflank-mailman (input) for mailman id 677695;
- Wed, 07 Feb 2024 14:27:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXixc-0007z5-OY; Wed, 07 Feb 2024 14:31:36 +0000
+Received: by outflank-mailman (input) for mailman id 677703;
+ Wed, 07 Feb 2024 14:31:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=t7Cu=JQ=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1rXitN-0005l0-Nl
- for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 14:27:13 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fc41b4c2-c5c4-11ee-8a49-1f161083a0e0;
- Wed, 07 Feb 2024 15:27:13 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a28a6cef709so100989466b.1
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 06:27:13 -0800 (PST)
+ id 1rXixb-0007yz-EI
+ for xen-devel@lists.xenproject.org; Wed, 07 Feb 2024 14:31:35 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 976a1e89-c5c5-11ee-98f5-efadbce2ee36;
+ Wed, 07 Feb 2024 15:31:33 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id
+ a640c23a62f3a-a26f73732c5so100059466b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 06:31:33 -0800 (PST)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- bi10-20020a170906a24a00b00a371a1b40c1sm822187ejb.23.2024.02.07.06.27.12
+ q25-20020a17090622d900b00a37579fa8f1sm813196eja.71.2024.02.07.06.31.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 06:27:12 -0800 (PST)
+ Wed, 07 Feb 2024 06:31:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc41b4c2-c5c4-11ee-8a49-1f161083a0e0
+X-Inumbo-ID: 976a1e89-c5c5-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707316033; x=1707920833; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707316293; x=1707921093; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=xSTRBj9hIamysI41oHj8qdndP0w+mL+CHkqpJbH/j00=;
-        b=sjXQNFtkry+lHuCvqzUEYFeUfuWIn7LHgtkyPGkLxdwHbbfN19EZ9Jz0x8Q+71mdkA
-         cMORlRjyX8lXhLOC+C9FIxGSvYk77FpYSx8p9ytw4a7ppKcvAsxxXUc4Tvlmoc0X32ie
-         gtXwgm0h396HX/vw8n7N4K99Q7VR6A95F+ra4=
+        bh=jig2Fn74+PW1WgMpn+wHyKCUQJuRi09dFaicsCJwpJo=;
+        b=cQABvtaz+nywmHfgjQ+XbO5j0TC6Tzu0Bpy/8E/Gsp/3bD5kjzr60F65FaNOyY7WBC
+         aazGfmcaC4po2u3Zvx41PjLyMOxuDyNd0V+mxPX6CEMRyAoJ/GVPW87Of7Ey9aTNun/V
+         kCFv1suqfABtckCg8j2h+6ldSM10pKSWicWnk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707316033; x=1707920833;
+        d=1e100.net; s=20230601; t=1707316293; x=1707921093;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=xSTRBj9hIamysI41oHj8qdndP0w+mL+CHkqpJbH/j00=;
-        b=LyK+C+9lhWsu0W1Hq8eEUPvNJr1hyK+QF+TkFm1bpvR8g/OSU8Eh+3tpYLdRG72qtL
-         NcoDBnwHmJV4TDVfoIO8+6Wkng69ROlgX+xqRxPJJfe87PDpZU1UR84k7MfbFJs2aupw
-         Ybw3tAe7rHpewb/pl6qAw/xsUToPTcKtViU09mKj/JYotfvgS/vUzS3jz1WXFeMBUXe/
-         B6H0eByHFXXbbcyGxLtzGbCau51eSfr9oFLMh0BtxE1gJcojWdgDnIqKbPn370Yf2vYV
-         uXSfP9CiBKlVjg7MNkHdafDjAmFP949v72hruO9XLGNS2MlHY5BDObSpLmZ+eLQIoCWv
-         WycQ==
-X-Gm-Message-State: AOJu0YycwsrsF/sxX9gOh7yGJ3FYBsDkiKURMf7fC8m/hyWa4QDtMXwR
-	bzyiYwMR+TLRiPutMRYMgg2HzlzloQJvcDr30HPDwg+J5crAo10LuF+OnDCPx6Q=
-X-Google-Smtp-Source: AGHT+IGasbD83RRA3rAALKf36ep1GL+otVwZwTaOb2zLonyTBsAAci5d80bMs0RN0am33yXnCwdgJQ==
-X-Received: by 2002:a17:906:300b:b0:a38:19d1:cddf with SMTP id 11-20020a170906300b00b00a3819d1cddfmr3170842ejz.0.1707316032828;
-        Wed, 07 Feb 2024 06:27:12 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCU93tv2A/QiD9sekiWd/3EgPezt704DEJLqKqV1L7oD3ultMBIpTHRvf9Raamx9Qh0VGnPaY91IWstoyFdKljQPZLlYIGYO9cnVA4CLqGg26DAjN7cOeNRi6EQuMKo9ixntQF6P5VRitCdeM6f+n1HyYZv8I7TY2Z4BK+ipDYo=
-Message-ID: <c0d19a2a-3599-4f9c-ab34-c090e29760a4@citrix.com>
-Date: Wed, 7 Feb 2024 14:27:12 +0000
+        bh=jig2Fn74+PW1WgMpn+wHyKCUQJuRi09dFaicsCJwpJo=;
+        b=vNKHcFrvrfD5W+m+DrYYM5shJtBsME41M//PEx1FbeZ8p66WBTFhw12mKlBiWHi4Ir
+         3nxRszQtrirZ5ajsLQ27WIjLsFMEvsOcqIlsO2c/jIJbkmY4C0Lzd8A5h9rvszNtevMZ
+         qgzEkS5WUSvTIRDjI4Jbcosb79Us9zhCdNRZRfuJ5WG322Rb4oQPcPGueD1cdLksIeLv
+         AWzcJGhO1dKlmTlvAyIdcsHA9RdiPC2T8ZXgEzDL8DLLvpzvQvc06hxqhbC1uCbs0c7d
+         Z6fZctpFBarOKyDVHQfmFMasnzkSQWKcKfG68pevry2og+a/F1DHQtDuDj2GpIcVSeG5
+         +Gwg==
+X-Gm-Message-State: AOJu0YzJDrM8pKw6t9XfYp0AVvhrdmAh9sedtBJZauz0klprT03YXv04
+	X2wULyWFMOe+QR9m2GtHN41oiffVpKWeb5WOsUXnNgRySRB33Kv2tGqUIck0Sm8=
+X-Google-Smtp-Source: AGHT+IFJ7aoT4k5YGU1mtNWa08vNQDUPSwxjk2AWaCsfcTGUe0ClC0rPBxUb4i40lZ0l7TE4yIpK8g==
+X-Received: by 2002:a17:906:2551:b0:a38:40d0:24db with SMTP id j17-20020a170906255100b00a3840d024dbmr2962652ejb.13.1707316293085;
+        Wed, 07 Feb 2024 06:31:33 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWJP9c14Pb/gZxpaMaADoDEFwSD9RT/EsypWUqOFfhFhpnXgABsjnPA7Lt3U7aZG7QGSQK1aMzipiFjk5mjsZDk3FY5HClS8j+1f+c0eJFczykG9IzNs59VwpGeIHZKYmso18MW
+Message-ID: <59b77f3b-53d8-481b-925c-b7f0dc64e2c3@citrix.com>
+Date: Wed, 7 Feb 2024 14:31:32 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 7/7] x86: move ENTRY(), GLOBAL(), and ALIGN
+Subject: Re: [PATCH] hvmloader: suppress GNU ld 2.39 warning about RWX load
+ segments
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>
-References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
- <3ba82c3a-ff95-43d0-8672-a63b23bc2cdc@suse.com>
- <64785449-1ca6-41f7-9012-2f432c171e3a@suse.com>
+ <roger.pau@citrix.com>
+References: <90070a25-445f-4b82-be19-d87b25fc9b8c@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -130,23 +129,31 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <64785449-1ca6-41f7-9012-2f432c171e3a@suse.com>
+In-Reply-To: <90070a25-445f-4b82-be19-d87b25fc9b8c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 07/02/2024 1:39 pm, Jan Beulich wrote:
-> ... to boot code, limiting their scope and thus allowing to drop
-> respective #undef-s from the linker script.
+On 07/02/2024 2:03 pm, Jan Beulich wrote:
+> This aspect is simply meaningless for this component.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> An obvious alternative would be to convert boot code right away too, but
-> I think this has lower priority for now.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+In principle Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>, but
 
-It would be nice to take these out, and it doesn't look as if it's too
-much work to do, but I guess we can settle for getting them out of config.h
+>
+> --- a/tools/firmware/hvmloader/Makefile
+> +++ b/tools/firmware/hvmloader/Makefile
+> @@ -20,6 +20,8 @@
+>  XEN_ROOT = $(CURDIR)/../../..
+>  include $(XEN_ROOT)/tools/firmware/Rules.mk
+>  
+> +ld-option = $(shell if $(LD) -v $(1) >/dev/null 2>&1; then echo y; else echo n; fi)
+
+The root config.mk has cc-option, and one opencoded ld-option for
+handling build-id's.
+
+This ought to live there, and ideally clean up the opencoded use while
+at at.
 
 ~Andrew
 
