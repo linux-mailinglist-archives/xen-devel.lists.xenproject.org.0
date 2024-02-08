@@ -2,45 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA74084E66C
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 18:13:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678427.1055742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0592E84E6D6
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 18:32:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678453.1055763 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY7xa-0003wg-GN; Thu, 08 Feb 2024 17:13:14 +0000
+	id 1rY8FU-0001tA-C5; Thu, 08 Feb 2024 17:31:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678427.1055742; Thu, 08 Feb 2024 17:13:14 +0000
+Received: by outflank-mailman (output) from mailman id 678453.1055763; Thu, 08 Feb 2024 17:31:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY7xa-0003uA-Dh; Thu, 08 Feb 2024 17:13:14 +0000
-Received: by outflank-mailman (input) for mailman id 678427;
- Thu, 08 Feb 2024 17:13:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=m/2e=JR=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rY7ij-0005bD-IJ
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 16:57:53 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32bbef2b-c6a3-11ee-8a4a-1f161083a0e0;
- Thu, 08 Feb 2024 17:57:53 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B606421F60;
- Thu,  8 Feb 2024 16:57:52 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7F6281326D;
- Thu,  8 Feb 2024 16:57:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id q7qoHRAIxWWjFAAAD6G6ig
- (envelope-from <jgross@suse.com>); Thu, 08 Feb 2024 16:57:52 +0000
+	id 1rY8FU-0001qY-8r; Thu, 08 Feb 2024 17:31:44 +0000
+Received: by outflank-mailman (input) for mailman id 678453;
+ Thu, 08 Feb 2024 17:31:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mdps=JR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rY8FT-0001qS-6Y
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 17:31:43 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eb64a81c-c6a7-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 18:31:40 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2cf5917f049so1365131fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 09:31:40 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ cx12-20020a170907168c00b00a3bcfe76170sm119527ejd.2.2024.02.08.09.31.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Feb 2024 09:31:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,107 +44,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32bbef2b-c6a3-11ee-8a4a-1f161083a0e0
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Jason Andryuk <jandryuk@gmail.com>
-Subject: [PATCH v5 22/22] tools/xenstored: have a single do_control_memreport()
-Date: Thu,  8 Feb 2024 17:55:46 +0100
-Message-Id: <20240208165546.5715-23-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20240208165546.5715-1-jgross@suse.com>
-References: <20240208165546.5715-1-jgross@suse.com>
+X-Inumbo-ID: eb64a81c-c6a7-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1707413500; x=1708018300; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=vOKqfPtYD5AX98Cbs2+YqThcOaVb5WkLWqN42uxEHYI=;
+        b=TO1JA352brXbB/BjrU1fEFcrlH508zQouWQH0+elaSClbqLJ5x5LM05mUz7594OWs3
+         jt4tjIg/Ua5uP3dV/YS0iKz016tKXTzsx9Vc7/1HjOUZSLvLbxuj8JBPGoa/mSBiQZqg
+         2q+22xZ7KIMgqSHq2Su/olhva/fl1TZcm6A3U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707413500; x=1708018300;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vOKqfPtYD5AX98Cbs2+YqThcOaVb5WkLWqN42uxEHYI=;
+        b=cn77FoXWdvIJqGY6RGC8i5zPKXf22B4qw7Rz9awTGGK4RpWBNyLbOkRwTmgtQJgf2T
+         HgMYhgiz9pRW97YR7QgCROqXgOC5nU/zAlN9jFi1AaxZjKTbBEuNrGILEWgUgvBkRG8W
+         gzHhQ7AfsVsn3H9YalRCalSIIEAcw5U+XIMKNH9RZMW5pmiLHwMSUZCdDmLtUYlVFCA+
+         SnsNbg3GdrL2XPuo6d/rjQNvtyb90ModfVvH18zX7Ea7IxJk+9mVfHwMICg1A5Ktk2WS
+         XuUP8X+w+Sopz8rYPPVDrsHJL3MLjc4eFP8oEgvWkoW+ccD4HedUB+Djm4DNc2animLQ
+         Y7NA==
+X-Gm-Message-State: AOJu0YzGXqkWYehKa1u+ZE6DLYx69k5G59xR60wmuLrhyxiLsKBdjIUp
+	gouKh3HeJcyAPergPdlaUEbrFviYVLfqQtRIEzXooiqbFoecKZihlt2ljim9rkg=
+X-Google-Smtp-Source: AGHT+IFxextErh7M4gWfyaT2Njuy6Op6P/1y8aX0KQoW/JbjiHrsZ2ob/M+5aa+NeuPTyWFxxNQLBA==
+X-Received: by 2002:a2e:9211:0:b0:2d0:aafc:914c with SMTP id k17-20020a2e9211000000b002d0aafc914cmr28432ljg.1.1707413500051;
+        Thu, 08 Feb 2024 09:31:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCU5yA5s0TRpr2zJQPNryhdwWB1slmgWyKG9LI2WcZbw8wiLp2e9+7DVsCXp1IR4MTuOBdld1gwN/7zC1ho5Tk7RebNHZ/g6ADwmQHbhMlKOoweh
+Date: Thu, 8 Feb 2024 18:31:38 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
+Subject: Re: [PATCH 4/7] VT-d: replace find_ats_dev_drhd()
+Message-ID: <ZcUP-t5gFx2v31at@macbook>
+References: <25506838-b818-4686-8c16-3a198338af44@suse.com>
+ <a75bef32-8bbb-4471-b26b-981b06173cd5@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	 REPLY(-4.00)[]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: B606421F60
-X-Spam-Level: 
-X-Spam-Score: -4.00
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <a75bef32-8bbb-4471-b26b-981b06173cd5@suse.com>
 
-With 9pfs now available in Xenstore-stubdom, there is no reason to
-have distinct do_control_memreport() variants for the daemon and the
-stubdom implementations.
+On Mon, Feb 05, 2024 at 02:56:36PM +0100, Jan Beulich wrote:
+> All callers only care about boolean outcome. For this there's no point
+> in allocating a duplicate of the respective DRHD structure; a simple
+> boolean suffices (which eventually may wantg to become a count, such
+                                         ^ want
+> that the "any ATS devices assigned state" can also clear again). With
+> that boolean, remove respective parameters from internal helper
+> functions right away, as those have access to the flag through another
+> parameter.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
----
- tools/xenstored/control.c | 27 +++++++--------------------
- 1 file changed, 7 insertions(+), 20 deletions(-)
+AFAICT the intention is that this is a non-functional change?
 
-diff --git a/tools/xenstored/control.c b/tools/xenstored/control.c
-index dae23a5ac0..9561289179 100644
---- a/tools/xenstored/control.c
-+++ b/tools/xenstored/control.c
-@@ -216,23 +216,11 @@ static int do_control_logfile(const void *ctx, struct connection *conn,
- 	return 0;
- }
- 
--#ifdef __MINIOS__
--static int do_control_memreport(const void *ctx, struct connection *conn,
--				const char **vec, int num)
--{
--	if (num)
--		return EINVAL;
--
--	talloc_report_full(NULL, stdout);
--
--	send_ack(conn, XS_CONTROL);
--	return 0;
--}
--#else
- static int do_control_memreport(const void *ctx, struct connection *conn,
- 				const char **vec, int num)
- {
- 	FILE *fp;
-+	const char *filename;
- 	int fd;
- 
- 	if (num > 1)
-@@ -255,8 +243,12 @@ static int do_control_memreport(const void *ctx, struct connection *conn,
- 			if (!fp)
- 				close(fd);
- 		}
--	} else
--		fp = fopen(vec[0], "a");
-+	} else {
-+		filename = absolute_filename(ctx, vec[0]);
-+		if (!filename)
-+			return ENOMEM;
-+		fp = fopen(filename, "a");
-+	}
- 
- 	if (!fp)
- 		return EBADF;
-@@ -267,7 +259,6 @@ static int do_control_memreport(const void *ctx, struct connection *conn,
- 	send_ack(conn, XS_CONTROL);
- 	return 0;
- }
--#endif
- 
- static int do_control_print(const void *ctx, struct connection *conn,
- 			    const char **vec, int num)
-@@ -310,11 +301,7 @@ static struct cmd_s cmds[] = {
- 		"    Default timeout is 60 seconds.", 5 },
- #endif
- 	{ "logfile", do_control_logfile, "<file>" },
--#ifdef __MINIOS__
--	{ "memreport", do_control_memreport, "" },
--#else
- 	{ "memreport", do_control_memreport, "[<file>]" },
--#endif
- 	{ "print", do_control_print, "<string>" },
- 	{ "quota", do_control_quota,
- 		"[set <name> <val>|<domid>|max [-r]]" },
--- 
-2.35.3
+> 
+> --- a/xen/drivers/passthrough/vtd/extern.h
+> +++ b/xen/drivers/passthrough/vtd/extern.h
+> @@ -65,8 +65,6 @@ struct acpi_drhd_unit *ioapic_to_drhd(un
+>  struct acpi_drhd_unit *hpet_to_drhd(unsigned int hpet_id);
+>  struct acpi_rhsa_unit *drhd_to_rhsa(const struct acpi_drhd_unit *drhd);
+>  
+> -struct acpi_drhd_unit *find_ats_dev_drhd(struct vtd_iommu *iommu);
+> -
+>  int ats_device(const struct pci_dev *, const struct acpi_drhd_unit *);
+>  
+>  int dev_invalidate_iotlb(struct vtd_iommu *iommu, u16 did,
+> --- a/xen/drivers/passthrough/vtd/iommu.c
+> +++ b/xen/drivers/passthrough/vtd/iommu.c
+> @@ -624,8 +624,7 @@ int cf_check vtd_flush_iotlb_reg(
+>  }
+>  
+>  static int __must_check iommu_flush_iotlb_global(struct vtd_iommu *iommu,
+> -                                                 bool flush_non_present_entry,
+> -                                                 bool flush_dev_iotlb)
+> +                                                 bool flush_non_present_entry)
+>  {
+>      int status;
+>  
+> @@ -633,7 +632,7 @@ static int __must_check iommu_flush_iotl
+>      vtd_ops_preamble_quirk(iommu);
+>  
+>      status = iommu->flush.iotlb(iommu, 0, 0, 0, DMA_TLB_GLOBAL_FLUSH,
+> -                                flush_non_present_entry, flush_dev_iotlb);
+> +                                flush_non_present_entry, iommu->flush_dev_iotlb);
 
+Any reason to not also remove the parameter from here also?  As the handler
+gets iommu passed as the first parameter anyway.
+
+Thanks, Roger.
 
