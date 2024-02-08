@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29C1A84DAD9
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 08:47:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678006.1055005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57C8584DAE3
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 08:50:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678010.1055014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXz71-0007xB-Rd; Thu, 08 Feb 2024 07:46:23 +0000
+	id 1rXzAs-00018q-B8; Thu, 08 Feb 2024 07:50:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678006.1055005; Thu, 08 Feb 2024 07:46:23 +0000
+Received: by outflank-mailman (output) from mailman id 678010.1055014; Thu, 08 Feb 2024 07:50:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXz71-0007ty-OT; Thu, 08 Feb 2024 07:46:23 +0000
-Received: by outflank-mailman (input) for mailman id 678006;
- Thu, 08 Feb 2024 07:46:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rXzAs-00015l-8E; Thu, 08 Feb 2024 07:50:22 +0000
+Received: by outflank-mailman (input) for mailman id 678010;
+ Thu, 08 Feb 2024 07:50:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXz6z-0007tb-Ue
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 07:46:21 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 25714793-c656-11ee-98f5-efadbce2ee36;
- Thu, 08 Feb 2024 08:46:19 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id
- ffacd0b85a97d-33b13332ca7so843713f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 23:46:19 -0800 (PST)
+ id 1rXzAr-00015f-Ii
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 07:50:21 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b4f33ad2-c656-11ee-8a4a-1f161083a0e0;
+ Thu, 08 Feb 2024 08:50:20 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4101eb5a115so10501255e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 23:50:20 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- g2-20020adff3c2000000b00337d5cd0d8asm3013827wrp.90.2024.02.07.23.46.18
+ g2-20020adff3c2000000b00337d5cd0d8asm3019916wrp.90.2024.02.07.23.50.19
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 23:46:18 -0800 (PST)
+ Wed, 07 Feb 2024 23:50:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,58 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25714793-c656-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: b4f33ad2-c656-11ee-8a4a-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707378379; x=1707983179; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=lE1cibqb+0alDvGvEMZl/lOukYeRYjy3aGf4NS6gOCA=;
-        b=e+oRRfv8ebbjYco8ACQODap7UB+WiWNDWbJ01hMTUqaAkuCVJ/01dz0+mHANhzdbe1
-         or7cynyXRHzboorQfmxDi7AAkLAKi9wAvUPgBC0pmmEzSBRtQG75dsV+Hyu131PaXVXR
-         l4konenl6bHwGJl3y+M1XlXufcXVvCswJClf6uelai/RejfBxHl5ZbH8tE5au8CsDlJ1
-         YE+6Top/eekDU4zljSNbcmiL1E/WT3OIm0jcQFd2UKNNVvGBfLUBLn6xUkIOpMoTrOO8
-         K6AqvFiit6ONfKHKbK6uO1ONKf1e8IDnaTtoNYDbPuPxuIgo2wbc08MJBDieHX1Hw5SE
-         DUaQ==
+        d=suse.com; s=google; t=1707378619; x=1707983419; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=TB1ao47PA2wE8Mgp6SW7hVzOtec7VfK8GjzF9zx5AOw=;
+        b=SZ7S/sLzF8cqcVK1AGmoY+N29O3fmO/NzYUA4yoDTsiaFwiLM6B6u1n2UIiOHcs1hR
+         sDivILuX+gUMJslpWuCFvcD3Ek4ZghzjuAacZD31dg4Jv9rrPVXzJIZXFyjhYiWh1i9z
+         C0Q/Dj4gpOYU4iVO8D6VmbpaDSJAToNiMxFXiBM/FTlJMvqPb2TIjyslpHO3voIgylKS
+         qsJAo3u/Ys3QbjU5XtHEtW3vsFPLUiawKolKtPS5vLKQGsXS0+8psCW20E55c8r0fYB4
+         XdONoabVLnrXhzpkV9Nj7S68EuTGmzXfTNcxpRCLJu1/jHakIaqTIwhpnqqO7obAGm80
+         OEYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707378379; x=1707983179;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lE1cibqb+0alDvGvEMZl/lOukYeRYjy3aGf4NS6gOCA=;
-        b=PSr374XSFv3bCDXfhvNsd9//moZFBNHNRCBRQxm2rFSGE8D+DcP12r5kHcfbqcEOnI
-         SpZ6sHNGWABdCoq8fIoNLbnDAaM8B8F9U21lwT6o0iVUbPa/WfC+4LTWjjgk/u7pXByE
-         oLFugHNIWiT0InMtiRCGMIsvjYClMudrQXs09WIyUEStyvbt19zZPVWJW+ElVBAOajX5
-         vjocTIQf2HhWjbBPSrWSEHvOCEZvoT0pdhC1EJwX3iLeat6aVMyi2J4ufvF40ZyVcWcC
-         KN0s04pKMbY90SX1763eGoh/O7xHjTmwSvSw2BFJVGSsx1wlOtYmCfEiWgM4PUBTJIxO
-         7Eng==
-X-Gm-Message-State: AOJu0YwBbZIR5SwAfyk+d6uKFko8HjMC1mIFbbO7LzuSZhCyhOWrrMsm
-	1oPTJNcGXDNdTacbSzR5XRISXeCNTpQ763eKRKCDnk2Ux4BbZ5RkVB5wi7FGBA==
-X-Google-Smtp-Source: AGHT+IF/K2UjwB5v7Rv/7I96J9LGiCChvsd/FYlS54QQ9sXjUKN/wpjVreWYDMjM3oM1rJIaUDXiqw==
-X-Received: by 2002:adf:f38e:0:b0:33b:5a6c:330e with SMTP id m14-20020adff38e000000b0033b5a6c330emr398490wro.2.1707378378831;
-        Wed, 07 Feb 2024 23:46:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUEKzWUJd3q/faJ3daOkQLt525PoRO9hdfc+IPNiPuAhT2Tdlnf7L5HiduShtsolxur4oy3hv/dNPBiu4wNtQnOHmvBY1fCdgbKbv06I4B/jp6x1N+UP1B7Ppwu4mO1+bylOvlFjUSx21fFfgdlGp9tKkYa9YLBofjPhwCGvI2goIdzBylz+sdrRtk0nvHwOQzdqE4id1zA1xgwBYkaSSgA4dKozTk2nenZCGabQXmiokbqKmOIycsqA8mpROpii3eZcVZ68BTwmmwWMokivV5hGs+R5OBoRs4bX7PZB7X2xNR7y68mra43
-Message-ID: <156f2693-e178-4553-b4b4-f671b0221dfc@suse.com>
-Date: Thu, 8 Feb 2024 08:46:17 +0100
+        d=1e100.net; s=20230601; t=1707378619; x=1707983419;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=TB1ao47PA2wE8Mgp6SW7hVzOtec7VfK8GjzF9zx5AOw=;
+        b=jWtKLe4a3fTnjXTff7ukIbepNJDuvMfbkhlUBIb1S4jJnrg9fdmQRXYcj82eqyP5Hv
+         PnXE9a0CmXM5UYRfZd+OjcI8uXApa6cMkmokv9FDM/ymbnn6dDSnsOl5RsjNSd/r7YH7
+         Q5mHLdczFLbP4StmINSk/QVXdfoUQavKBqr84W2/TtqrMZb7sxPyBFcguI9FBsJmTaEH
+         LqE6GEo6s3DoWYNV3Zg+Ajgq7201GM+W43GAWWQMn9lGLs2oqvfeuXlujvSGWJhro867
+         uCvKp71hWeBTh/vbMsSKLePIXXPbsNYjqKLS32kO+LsDMUbdvsVZEkOSzBhukTtJGdj1
+         S5og==
+X-Gm-Message-State: AOJu0YzRvYVP2hDx4PwJx369QztX14HRCAUXmgNoPKfxazIDnDT9BRAB
+	lI8C2ZlLE61MJhJQ4lP0Q3fHz6WecOgAsuKODrs8Z/kX8rOyKx3lGTSspY+rhQ==
+X-Google-Smtp-Source: AGHT+IEDyz92JcyTX/EXoPXoUl5EKBsdtymyMl5gui+p1sB3stm1hUz6TviPwsZKn6bKLy160985Cw==
+X-Received: by 2002:a5d:53d1:0:b0:33b:10de:59a2 with SMTP id a17-20020a5d53d1000000b0033b10de59a2mr4818038wrw.15.1707378619603;
+        Wed, 07 Feb 2024 23:50:19 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCXKWRFWgh5pgmEsONn49zqH2KXbv4Ftk0yKkFEnXOC65Jy+W7IN65aQX55aQP5ZM7RVDYyJD6NJnIZ37pgIfj89PQhmr6Ig9/7OMZEpEzmR4l5Gv1CpodvMffA=
+Message-ID: <714d7de9-5a6e-4d30-bd2d-5b84ae24f3dd@suse.com>
+Date: Thu, 8 Feb 2024 08:50:18 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/altp2m: p2m_altp2m_get_or_propagate() should honor
- ap2m->default_access
-To: George Dunlap <george.dunlap@cloud.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, =?UTF-8?Q?Petr_Bene=C5=A1?=
- <w1benny@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel@lists.xenproject.org, Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <1b854c6b38787675294c58eea25556ce241b2b4f.1707213023.git.w1benny@gmail.com>
- <CA+zSX=beYAGb81zqD19YNAV3cXPFTk-7V68XYn59Eb3mGFH_Jg@mail.gmail.com>
- <507f29cf-7a07-4f3d-81e8-2236a8380b1a@citrix.com>
- <CABfawh=6AHZzH1aBP2A=oRUTvjVmgd6QQNxEQAwGCBV_9-CTcA@mail.gmail.com>
- <CA+zSX=Zou19sjb8ToLTaMjLHLYmqptsMXCT50Y9MwGykOaTrZQ@mail.gmail.com>
+Subject: Re: [PATCH 1/4] block-common: Fix same_vm for no targets
 Content-Language: en-US
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+References: <20240201183024.145424-1-jandryuk@gmail.com>
+ <20240201183024.145424-2-jandryuk@gmail.com>
+ <cd9e0194-5814-4735-bca4-df2577102c19@perard>
+ <a0145f9d-654d-4336-b5bb-69883543b919@suse.com>
+ <CAKf6xptDuYr2mT0w39Ezb3gTETYoZBpFUQ1Zqe6Kb9UeRQw7EQ@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -121,26 +114,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CA+zSX=Zou19sjb8ToLTaMjLHLYmqptsMXCT50Y9MwGykOaTrZQ@mail.gmail.com>
+In-Reply-To: <CAKf6xptDuYr2mT0w39Ezb3gTETYoZBpFUQ1Zqe6Kb9UeRQw7EQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.02.2024 05:32, George Dunlap wrote:
-> Er, ok, just one more comment: this could allow an altp2m to have more
-> permissions than the host; for example, the host p2m entry could be
-> p2m_access_r, but if the altp2m's default_access were p2m_access_rw,
-> it would override that.  Is that the behavior we want?  Or do we want
-> to do some sort of intersection of permissions?
+On 08.02.2024 03:25, Jason Andryuk wrote:
+> On Wed, Feb 7, 2024 at 7:50 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 06.02.2024 12:45, Anthony PERARD wrote:
+>>> On Thu, Feb 01, 2024 at 01:30:21PM -0500, Jason Andryuk wrote:
+>>>> same_vm is broken when the two main domains do not have targets.  otvm
+>>>> and targetvm are both missing, which means they get set to -1 and then
+>>>> converted to empty strings:
+>>>>
+>>>> ++10697+ local targetvm=-1
+>>>> ++10697+ local otvm=-1
+>>>> ++10697+ otvm=
+>>>> ++10697+ othervm=/vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4
+>>>> ++10697+ targetvm=
+>>>> ++10697+ local frontend_uuid=/vm/844dea4e-44f8-4e3e-8145-325132a31ca5
+>>>>
+>>>> The final comparison returns true since the two empty strings match:
+>>>>
+>>>> ++10697+ '[' /vm/844dea4e-44f8-4e3e-8145-325132a31ca5 = /vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4 -o '' = /vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4 -o /vm/844dea4e-44f8-4e3e-8145-325132a31ca5 = '' -o '' = '' ']'
+>>>>
+>>>> Replace -1 with distinct strings indicating the lack of a value and
+>>>> remove the collescing to empty stings.  The strings themselves will no
+>>>> longer match, and that is correct.
+>>>>
+>>>> ++12364+ '[' /vm/844dea4e-44f8-4e3e-8145-325132a31ca5 = /vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4 -o 'No target' = /vm/cc97bc2f-3a91-43f7-8fbc-4cb92f90b4e4 -o /vm/844dea4e-44f8-4e3e-8145-325132a31ca5 = 'No other target' -o 'No target' = 'No other target' ']'
+>>>>
+>>>> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+>>>
+>>> Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+>>
+>> I've committed this, but I take the absence of a Fixes: tag as indication
+>> that this doesn't want/need backporting.
 > 
-> If the former, I'd propose the comment be adjusted thus:
+> Hmmm, maybe this should have a Fixes.  Sorry I didn't investigate that
+> better before submission.
 > 
->  * If the entry is invalid, and the host entry was valid, propagate
->  * the host's entry to the altp2m, retaining page order but using the
->  * altp2m's default_access, and indicate that the caller should re-try
->  * the faulting instruction.
+> Looks like this would be the commit:
+> https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=f3a7ca02400d1c416e97451b4aebfaf608fc8192
+> 
+> f3a7ca02400d1 ("hotplug/Linux: fix same_vm check in block script")
+> 
+> I need to circle back on this.  IIRC, when I set up a conflicting
+> assignment of a writable disk to two VMs with block-tap, it was
+> allowed and not denied.  That is what prompted this change.
+> 
+> I'll have to double check there isn't something in the regular block
+> that might prevent that.
 
-I find it highly questionable that such blind overriding should be taking
-place.
+Okay, I'll wait for a result here before deciding whether to queue.
 
 Jan
 
