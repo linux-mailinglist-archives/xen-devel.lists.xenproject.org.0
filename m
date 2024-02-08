@@ -2,52 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41C6184E0CF
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 13:38:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678179.1055256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B0C084E0D9
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 13:42:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678184.1055266 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY3fw-00023W-BQ; Thu, 08 Feb 2024 12:38:44 +0000
+	id 1rY3jf-0003vE-TB; Thu, 08 Feb 2024 12:42:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678179.1055256; Thu, 08 Feb 2024 12:38:44 +0000
+Received: by outflank-mailman (output) from mailman id 678184.1055266; Thu, 08 Feb 2024 12:42:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY3fw-00021o-7l; Thu, 08 Feb 2024 12:38:44 +0000
-Received: by outflank-mailman (input) for mailman id 678179;
- Thu, 08 Feb 2024 12:38:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rY3jf-0003sO-Q7; Thu, 08 Feb 2024 12:42:35 +0000
+Received: by outflank-mailman (input) for mailman id 678184;
+ Thu, 08 Feb 2024 12:42:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UFk1=JR=amazon.de=prvs=761b9cf69=mheyne@srs-se1.protection.inumbo.net>)
- id 1rY3fu-00021i-Rg
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 12:38:42 +0000
-Received: from smtp-fw-80009.amazon.com (smtp-fw-80009.amazon.com
- [99.78.197.220]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fc430d95-c67e-11ee-8a4a-1f161083a0e0;
- Thu, 08 Feb 2024 13:38:41 +0100 (CET)
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev) ([10.25.36.210])
- by smtp-border-fw-80009.pdx80.corp.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Feb 2024 12:38:36 +0000
-Received: from EX19MTAUEA002.ant.amazon.com [10.0.44.209:48592]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.4.133:2525]
- with esmtp (Farcaster)
- id 8f6b3cd2-68f2-4838-a80e-f09091bf4d06; Thu, 8 Feb 2024 12:38:35 +0000 (UTC)
-Received: from EX19D008UEC002.ant.amazon.com (10.252.135.242) by
- EX19MTAUEA002.ant.amazon.com (10.252.134.9) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Thu, 8 Feb 2024 12:38:32 +0000
-Received: from EX19MTAUWA001.ant.amazon.com (10.250.64.204) by
- EX19D008UEC002.ant.amazon.com (10.252.135.242) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.40; Thu, 8 Feb 2024 12:38:32 +0000
-Received: from dev-dsk-mheyne-1b-c1362c4d.eu-west-1.amazon.com (10.15.57.183)
- by mail-relay.amazon.com (10.250.64.204) with Microsoft SMTP Server
- id
- 15.2.1118.40 via Frontend Transport; Thu, 8 Feb 2024 12:38:31 +0000
-Received: by dev-dsk-mheyne-1b-c1362c4d.eu-west-1.amazon.com (Postfix,
- from userid 5466572)
- id 67924956; Thu,  8 Feb 2024 12:38:31 +0000 (UTC)
+ <SRS0=mdps=JR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rY3je-0003sI-Dj
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 12:42:34 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 86ea671c-c67f-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 13:42:32 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id
+ 4fb4d7f45d1cf-55ff5f6a610so1887213a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 04:42:32 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ i8-20020a05640200c800b0055ffa94d6b8sm773244edu.31.2024.02.08.04.42.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 08 Feb 2024 04:42:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,162 +44,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fc430d95-c67e-11ee-8a4a-1f161083a0e0
+X-Inumbo-ID: 86ea671c-c67f-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
-  t=1707395921; x=1738931921;
-  h=date:from:to:subject:message-id:references:mime-version:
-   in-reply-to;
-  bh=XpaOl328Z0sK2jVAZ5hfANv8ZvM8k9ggJCj6QG2taxk=;
-  b=VETxlY73eMhY7MzEZulFGG6AycRpfM4JY89u54jYMmmRXwEMro5nvY8V
-   Mta0NEJBuy4DYxv+5LDywwWZariAyr9J9jae7Uaplvar7cTA1OH8s2Rio
-   K1+UPOwc1xKuafxb6g64M8QMlCYkub2woJuJwStxVbQ+ftcFyBBgILvO4
-   o=;
-X-IronPort-AV: E=Sophos;i="6.05,253,1701129600"; 
-   d="scan'208";a="64637088"
-X-Farcaster-Flow-ID: 8f6b3cd2-68f2-4838-a80e-f09091bf4d06
-Date: Thu, 8 Feb 2024 12:38:31 +0000
-From: Maximilian Heyne <mheyne@amazon.de>
-To: Julien Grall <jgrall@amazon.com>, <stable@vger.kernel.org>, "Andrew
- Panyakin" <apanyaki@amazon.com>, Juergen Gross <jgross@suse.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Rahul Singh <rahul.singh@arm.com>, "David
- Woodhouse" <dwmw@amazon.co.uk>, Viresh Kumar <viresh.kumar@linaro.org>,
-	"Konrad Rzeszutek Wilk" <konrad.wilk@oracle.com>, Jeremy Fitzhardinge
-	<jeremy.fitzhardinge@citrix.com>, <xen-devel@lists.xenproject.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] xen/events: close evtchn after mapping cleanup
-Message-ID: <ZcTLR9uUyfy9cNUk@amazon.de>
-References: <20240124163130.31324-1-mheyne@amazon.de>
+        d=citrix.com; s=google; t=1707396152; x=1708000952; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=DhOx3zcsQMMZLsZQMGj7+ND2NZNNZJqpdgSoYj0lico=;
+        b=Dq4ezVkNBlSje/3Z8fkf30xn+ZcwQgqte3hb23pt2yiLPfEobMK1Bzpg2qllcucYKH
+         NE+rfKXYWcybfl5te0dJvqKv8tbtSxTVYkgPfVQ+7ZeHXQLOIfrS9jDR0gqIp8dMgGgu
+         nmAHdYpcjqPz1YMxNiN34wkA2mtfDAELriJAo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707396152; x=1708000952;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DhOx3zcsQMMZLsZQMGj7+ND2NZNNZJqpdgSoYj0lico=;
+        b=IEnEjz07VvCns8j5WgNg7P1eZ3DVCJMEfP8+KddyZCUb0ZNNWeWOYESoidvt6Lndcx
+         KPHupumIyXE/zBqO2e6L6iyZPPLggwCAqkBbvKow69+46Yi1pAq5TZ+Ce6snj1q7S8qx
+         RnJi8ycdGBo0q183Kb0u+Hw6trZ+S6nk2JOSid5YRZnDt69NlNKIUBHu4+4oFF8bkJP5
+         oJGh+J+WIxxOjY0U7La1fnacoQ4iC+c6Yshojs7h8pvnGOH3K5RpicAItd96b2XbutuI
+         E+KjCvGKXVSOjx65RlaHfnRIia3ooC2DTpRsji6v8ZVaU/RsmjDdNLbOV7UKmPpG3NyW
+         sNXQ==
+X-Gm-Message-State: AOJu0Yzru989250/6e9p6wxSl8Xx/Ae+EVxaNk43lHZksIlVtUg6+omk
+	GyIBojybqYXGnS2zABZpWI9nw29Ii8h9D2/H9wx0y+czBDxOeKL4I0juwYjvUH2UIEaLE3oTlbP
+	y
+X-Google-Smtp-Source: AGHT+IH6PX/HjpKnGtXKGpU4N85hWOXaM1TkZQ44xyasBqxctlGiZlTO9NaKGygB0/gfyGoMz8yFDw==
+X-Received: by 2002:aa7:c2d3:0:b0:560:62e0:d28e with SMTP id m19-20020aa7c2d3000000b0056062e0d28emr6474958edp.33.1707396151778;
+        Thu, 08 Feb 2024 04:42:31 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCW9DuxmUHT9pGQK0ya8v8Qg6XukFUVco9e4TNyM2WTj2zXCMJ1GgwE7c1CeABgPjMMEivQAmnSDpLppiA0unmEUXSzrZjGDWsneYufh6jl3uF27
+Date: Thu, 8 Feb 2024 13:42:30 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
+Subject: Re: [PATCH 3/7] VT-d: respect ACPI SATC's ATC_REQUIRED flag
+Message-ID: <ZcTMNkGvBT5S5z7L@macbook>
+References: <25506838-b818-4686-8c16-3a198338af44@suse.com>
+ <72496fb7-8835-4d45-bd92-7e7d612861c7@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20240124163130.31324-1-mheyne@amazon.de>
+In-Reply-To: <72496fb7-8835-4d45-bd92-7e7d612861c7@suse.com>
 
-On Wed, Jan 24, 2024 at 04:31:28PM +0000, Maximilian Heyne wrote:
-> shutdown_pirq and startup_pirq are not taking the
-> irq_mapping_update_lock because they can't due to lock inversion. Both
-> are called with the irq_desc->lock being taking. The lock order,
-> however, is first irq_mapping_update_lock and then irq_desc->lock.
+On Mon, Feb 05, 2024 at 02:56:14PM +0100, Jan Beulich wrote:
+> When the flag is set, permit Dom0 to control the device (no worse than
+> what we had before and in line with other "best effort" behavior we use
+> when it comes to Dom0), but suppress passing through to DomU-s unless
+> ATS can actually be enabled for such devices.
 > 
-> This opens multiple races:
-> - shutdown_pirq can be interrupted by a function that allocates an event
->   channel:
-> 
->   CPU0                        CPU1
->   shutdown_pirq {
->     xen_evtchn_close(e)
->                               __startup_pirq {
->                                 EVTCHNOP_bind_pirq
->                                   -> returns just freed evtchn e
->                                 set_evtchn_to_irq(e, irq)
->                               }
->     xen_irq_info_cleanup() {
->       set_evtchn_to_irq(e, -1)
->     }
->   }
-> 
->   Assume here event channel e refers here to the same event channel
->   number.
->   After this race the evtchn_to_irq mapping for e is invalid (-1).
-> 
-> - __startup_pirq races with __unbind_from_irq in a similar way. Because
->   __startup_pirq doesn't take irq_mapping_update_lock it can grab the
->   evtchn that __unbind_from_irq is currently freeing and cleaning up. In
->   this case even though the event channel is allocated, its mapping can
->   be unset in evtchn_to_irq.
-> 
-> The fix is to first cleanup the mappings and then close the event
-> channel. In this way, when an event channel gets allocated it's
-> potential previous evtchn_to_irq mappings are guaranteed to be unset already.
-> This is also the reverse order of the allocation where first the event
-> channel is allocated and then the mappings are setup.
-> 
-> On a 5.10 kernel prior to commit 3fcdaf3d7634 ("xen/events: modify internal
-> [un]bind interfaces"), we hit a BUG like the following during probing of NVMe
-> devices. The issue is that during nvme_setup_io_queues, pci_free_irq
-> is called for every device which results in a call to shutdown_pirq.
-> With many nvme devices it's therefore likely to hit this race during
-> boot because there will be multiple calls to shutdown_pirq and
-> startup_pirq are running potentially in parallel.
-> 
->   ------------[ cut here ]------------
->   blkfront: xvda: barrier or flush: disabled; persistent grants: enabled; indirect descriptors: enabled; bounce buffer: enabled
->   kernel BUG at drivers/xen/events/events_base.c:499!
->   invalid opcode: 0000 [#1] SMP PTI
->   CPU: 44 PID: 375 Comm: kworker/u257:23 Not tainted 5.10.201-191.748.amzn2.x86_64 #1
->   Hardware name: Xen HVM domU, BIOS 4.11.amazon 08/24/2006
->   Workqueue: nvme-reset-wq nvme_reset_work
->   RIP: 0010:bind_evtchn_to_cpu+0xdf/0xf0
->   Code: 5d 41 5e c3 cc cc cc cc 44 89 f7 e8 2b 55 ad ff 49 89 c5 48 85 c0 0f 84 64 ff ff ff 4c 8b 68 30 41 83 fe ff 0f 85 60 ff ff ff <0f> 0b 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 0f 1f 44 00 00
->   RSP: 0000:ffffc9000d533b08 EFLAGS: 00010046
->   RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000006
->   RDX: 0000000000000028 RSI: 00000000ffffffff RDI: 00000000ffffffff
->   RBP: ffff888107419680 R08: 0000000000000000 R09: ffffffff82d72b00
->   R10: 0000000000000000 R11: 0000000000000000 R12: 00000000000001ed
->   R13: 0000000000000000 R14: 00000000ffffffff R15: 0000000000000002
->   FS:  0000000000000000(0000) GS:ffff88bc8b500000(0000) knlGS:0000000000000000
->   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->   CR2: 0000000000000000 CR3: 0000000002610001 CR4: 00000000001706e0
->   DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
->   DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
->   Call Trace:
->    ? show_trace_log_lvl+0x1c1/0x2d9
->    ? show_trace_log_lvl+0x1c1/0x2d9
->    ? set_affinity_irq+0xdc/0x1c0
->    ? __die_body.cold+0x8/0xd
->    ? die+0x2b/0x50
->    ? do_trap+0x90/0x110
->    ? bind_evtchn_to_cpu+0xdf/0xf0
->    ? do_error_trap+0x65/0x80
->    ? bind_evtchn_to_cpu+0xdf/0xf0
->    ? exc_invalid_op+0x4e/0x70
->    ? bind_evtchn_to_cpu+0xdf/0xf0
->    ? asm_exc_invalid_op+0x12/0x20
->    ? bind_evtchn_to_cpu+0xdf/0xf0
->    ? bind_evtchn_to_cpu+0xc5/0xf0
->    set_affinity_irq+0xdc/0x1c0
->    irq_do_set_affinity+0x1d7/0x1f0
->    irq_setup_affinity+0xd6/0x1a0
->    irq_startup+0x8a/0xf0
->    __setup_irq+0x639/0x6d0
->    ? nvme_suspend+0x150/0x150
->    request_threaded_irq+0x10c/0x180
->    ? nvme_suspend+0x150/0x150
->    pci_request_irq+0xa8/0xf0
->    ? __blk_mq_free_request+0x74/0xa0
->    queue_request_irq+0x6f/0x80
->    nvme_create_queue+0x1af/0x200
->    nvme_create_io_queues+0xbd/0xf0
->    nvme_setup_io_queues+0x246/0x320
->    ? nvme_irq_check+0x30/0x30
->    nvme_reset_work+0x1c8/0x400
->    process_one_work+0x1b0/0x350
->    worker_thread+0x49/0x310
->    ? process_one_work+0x350/0x350
->    kthread+0x11b/0x140
->    ? __kthread_bind_mask+0x60/0x60
->    ret_from_fork+0x22/0x30
->   Modules linked in:
->   ---[ end trace a11715de1eee1873 ]---
-> 
-> Fixes: d46a78b05c0e ("xen: implement pirq type event channels")
-> Cc: stable@vger.kernel.org
-> Co-debugged-by: Andrew Panyakin <apanyaki@amazon.com>
-> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Is ats_device() using acpi_find_matched_atsr_unit() unconditionally
+> actually correct? Shouldn't that check be skipped for root complex
+> integrated devices?
 
-Friendly ping. Did anyone find time to look at this?
+Yes, I think so, ATSR only lists root ports supporting ATS, because
+the root complex is assumed to always be ATS capable.
 
+None of this seems to be working then for PCIe endpoints directly in
+the root complex, as ats_device() will always return 0?
 
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -225,7 +225,10 @@ exceptions (watchdog NMIs and unexpected
+>  > Default: `false`
+>  
+>  Permits Xen to set up and use PCI Address Translation Services.  This is a
+> -performance optimisation for PCI Passthrough.
+> +performance optimisation for PCI Passthrough.  Note that firmware may indicate
+> +that certain devices need to have ATS enabled for proper operation. For such
+> +devices ATS will be enabled by default, unless the option is used in its
+> +negative form.
 
-Amazon Development Center Germany GmbH
-Krausenstr. 38
-10117 Berlin
-Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
-Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-Sitz: Berlin
-Ust-ID: DE 289 237 879
+I'm kind of worried that we add this support while maintaining the
+WARNING below.  If I was an admin I would certainly be worried whether
+my system could lock-up during normal operations, even with the
+devices assigned to dom0 and not a malicious domain.
 
+I know that enabling ATS is forced on us from DMAR, but still.
 
+>  **WARNING: Xen cannot currently safely use ATS because of its synchronous wait
+>  loops for Queued Invalidation completions.**
+> --- a/xen/drivers/passthrough/vtd/dmar.c
+> +++ b/xen/drivers/passthrough/vtd/dmar.c
+> @@ -254,6 +254,24 @@ struct acpi_atsr_unit *acpi_find_matched
+>      return all_ports;
+>  }
+>  
+> +const struct acpi_satc_unit *acpi_find_matched_satc_unit(
+> +    const struct pci_dev *pdev)
+> +{
+> +    const struct acpi_satc_unit *satc;
+> +
+> +    list_for_each_entry ( satc, &acpi_satc_units, list )
+> +    {
+> +        if ( satc->segment != pdev->seg )
+> +            continue;
+> +
+> +        for ( unsigned int i = 0; i < satc->scope.devices_cnt; ++i )
+> +            if ( satc->scope.devices[i] == pdev->sbdf.bdf )
+> +                return satc;
+> +    }
+> +
+> +    return NULL;
+> +}
+> +
+>  struct acpi_rhsa_unit *drhd_to_rhsa(const struct acpi_drhd_unit *drhd)
+>  {
+>      struct acpi_rhsa_unit *rhsa;
+> --- a/xen/drivers/passthrough/vtd/dmar.h
+> +++ b/xen/drivers/passthrough/vtd/dmar.h
+> @@ -109,6 +109,8 @@ struct acpi_satc_unit {
+>  
+>  struct acpi_drhd_unit *acpi_find_matched_drhd_unit(const struct pci_dev *);
+>  struct acpi_atsr_unit *acpi_find_matched_atsr_unit(const struct pci_dev *);
+> +const struct acpi_satc_unit *acpi_find_matched_satc_unit(
+> +    const struct pci_dev *pdev);
+>  
+>  #define DMAR_TYPE 1
+>  #define RMRR_TYPE 2
+> --- a/xen/drivers/passthrough/vtd/iommu.c
+> +++ b/xen/drivers/passthrough/vtd/iommu.c
+> @@ -2364,6 +2364,25 @@ static int cf_check intel_iommu_add_devi
+>      if ( ret )
+>          dprintk(XENLOG_ERR VTDPREFIX, "%pd: context mapping failed\n",
+>                  pdev->domain);
+> +    else if ( !pdev->broken )
+> +    {
+> +        const struct acpi_drhd_unit *drhd = acpi_find_matched_drhd_unit(pdev);
+> +        const struct acpi_satc_unit *satc = acpi_find_matched_satc_unit(pdev);
+> +
+> +        /*
+> +         * Prevent the device from getting assigned to an unprivileged domain
+> +         * when firmware indicates ATS is required, but ATS could not be enabled
+> +         * (e.g. because of being suppressed via command line option).
+> +         */
 
+I think a safer policy would be to prevent assigning any device that
+has atc_required set unless opt_ats > 1 (ie: the user has explicitly
+opted-in to the usage of ATS).
+
+While we can't likely avoid ATS being enabled for devices having the
+ATC_REQUIRED flag, we shouldn't allow passthrough to possibly
+untrusted guests without notice.
+
+Thanks, Roger.
 
