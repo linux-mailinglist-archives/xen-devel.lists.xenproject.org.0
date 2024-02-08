@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B22584DAAE
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 08:29:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678001.1054994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29C1A84DAD9
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 08:47:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678006.1055005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXyqO-00058i-EB; Thu, 08 Feb 2024 07:29:12 +0000
+	id 1rXz71-0007xB-Rd; Thu, 08 Feb 2024 07:46:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678001.1054994; Thu, 08 Feb 2024 07:29:12 +0000
+Received: by outflank-mailman (output) from mailman id 678006.1055005; Thu, 08 Feb 2024 07:46:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXyqO-00055x-B7; Thu, 08 Feb 2024 07:29:12 +0000
-Received: by outflank-mailman (input) for mailman id 678001;
- Thu, 08 Feb 2024 07:29:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rXz71-0007ty-OT; Thu, 08 Feb 2024 07:46:23 +0000
+Received: by outflank-mailman (input) for mailman id 678006;
+ Thu, 08 Feb 2024 07:46:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXyqM-00055r-GL
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 07:29:10 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf134073-c653-11ee-8a4a-1f161083a0e0;
- Thu, 08 Feb 2024 08:29:09 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-3392b12dd21so952276f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 23:29:09 -0800 (PST)
+ id 1rXz6z-0007tb-Ue
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 07:46:21 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 25714793-c656-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 08:46:19 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-33b13332ca7so843713f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Feb 2024 23:46:19 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bq8-20020a5d5a08000000b0033b55186901sm1243690wrb.94.2024.02.07.23.29.07
+ g2-20020adff3c2000000b00337d5cd0d8asm3013827wrp.90.2024.02.07.23.46.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 07 Feb 2024 23:29:07 -0800 (PST)
+ Wed, 07 Feb 2024 23:46:18 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf134073-c653-11ee-8a4a-1f161083a0e0
+X-Inumbo-ID: 25714793-c656-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707377348; x=1707982148; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vfjQHRPN3metDdrirwzAwxK0e7/WGzBowxCDPw/EbP4=;
-        b=INrv8cxze+QA86beOJxOE3yMqSyzWnLQ6OixtF3KTLZicap4hTHDdnN1VzSj0w09+6
-         luAlpOkeT9Bf+eTjTfwI2Mdco7YM1q+otKU4AwaYLoZLK9VExno8rRAp76ZvVyzuvny/
-         AuLc0MhH7EKL2eW6zn6Mu6ivJFZ7MTwOTwaWiW2pOByEBR+isBkyT/iJiDLFOAM6+5NH
-         ettv/wG9M4qFibMCyGZcfcpuOK0ebY2pdegsG0KOeMvnd8Ukz9wqQoOIjgPEMDjHpcXa
-         AdSfsF8qwv/xwzNQQzmnf/H9iQwXPNz7matzV3S8nu9C3obM06OZUuudt4ECrfBbG/Hi
-         L5pQ==
+        d=suse.com; s=google; t=1707378379; x=1707983179; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=lE1cibqb+0alDvGvEMZl/lOukYeRYjy3aGf4NS6gOCA=;
+        b=e+oRRfv8ebbjYco8ACQODap7UB+WiWNDWbJ01hMTUqaAkuCVJ/01dz0+mHANhzdbe1
+         or7cynyXRHzboorQfmxDi7AAkLAKi9wAvUPgBC0pmmEzSBRtQG75dsV+Hyu131PaXVXR
+         l4konenl6bHwGJl3y+M1XlXufcXVvCswJClf6uelai/RejfBxHl5ZbH8tE5au8CsDlJ1
+         YE+6Top/eekDU4zljSNbcmiL1E/WT3OIm0jcQFd2UKNNVvGBfLUBLn6xUkIOpMoTrOO8
+         K6AqvFiit6ONfKHKbK6uO1ONKf1e8IDnaTtoNYDbPuPxuIgo2wbc08MJBDieHX1Hw5SE
+         DUaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707377348; x=1707982148;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vfjQHRPN3metDdrirwzAwxK0e7/WGzBowxCDPw/EbP4=;
-        b=m9AiAILR9NxXdVRdD3v5/5nctPNsVe5dGzFSsYNEeeREznJHGkQzMC8iDGJJmwpZ9U
-         JL5FLHIvXrf2DeHvhhcjPBruLVWlbcmLUt6df29CHaNuuVp0idWxyivSNHkTD8OssiSc
-         RsqvKgLD+KeefJHNurzGDSSvNU5WFU898PKmLdp/d5p/u+UIEtMDF4ngBqTviBHmUfCa
-         lfKKMRBBgP3NXFSTG9HSB1UdsCtNkq/efjIr9opBImmJ3XpHVOW7MLBnkO6jJfmYq08D
-         3yVHgF92UGyYYMXJ8hW4SE/v/qxfl85nw95jE9Izsu9fgXesuE1fxyqTUQWD/Z1eBFEd
-         nZsw==
-X-Gm-Message-State: AOJu0YyykdmOtkySS7rgd3iIv7iqqmOGSeqqHof4DUzmHGqcrdbTqi5h
-	RZ1yld954WLXLDyj8cEI9+ST/1VbHo+oJFX7uYjtdm5FZXswGtnghd8Xfs38hQ==
-X-Google-Smtp-Source: AGHT+IEmDUBeQgKKCT9mdpB9+e++W9/X9MZX6yqxefpE0AWm1Z0Hqpp8l4j6aa/GjMLitWWmhs2ApQ==
-X-Received: by 2002:a5d:634e:0:b0:33a:edf8:b8e6 with SMTP id b14-20020a5d634e000000b0033aedf8b8e6mr4685967wrw.58.1707377348125;
-        Wed, 07 Feb 2024 23:29:08 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWIRcCwDjA+mo7vfknLPuzkGyss9vN4mVn/cDhFs5SOz6q4krvoTTopMqpqEogJzAmGamh3uh/FUiORTI/fD64vKnFaEjPc2NuJCtnAGpNurBajhyvdFZAhA3DJNVGCnOwtc6r7ybQ0xAeV7dMV9icj
-Message-ID: <0d776dcc-af14-436a-bf8b-9bfb39b787b8@suse.com>
-Date: Thu, 8 Feb 2024 08:29:07 +0100
+        d=1e100.net; s=20230601; t=1707378379; x=1707983179;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=lE1cibqb+0alDvGvEMZl/lOukYeRYjy3aGf4NS6gOCA=;
+        b=PSr374XSFv3bCDXfhvNsd9//moZFBNHNRCBRQxm2rFSGE8D+DcP12r5kHcfbqcEOnI
+         SpZ6sHNGWABdCoq8fIoNLbnDAaM8B8F9U21lwT6o0iVUbPa/WfC+4LTWjjgk/u7pXByE
+         oLFugHNIWiT0InMtiRCGMIsvjYClMudrQXs09WIyUEStyvbt19zZPVWJW+ElVBAOajX5
+         vjocTIQf2HhWjbBPSrWSEHvOCEZvoT0pdhC1EJwX3iLeat6aVMyi2J4ufvF40ZyVcWcC
+         KN0s04pKMbY90SX1763eGoh/O7xHjTmwSvSw2BFJVGSsx1wlOtYmCfEiWgM4PUBTJIxO
+         7Eng==
+X-Gm-Message-State: AOJu0YwBbZIR5SwAfyk+d6uKFko8HjMC1mIFbbO7LzuSZhCyhOWrrMsm
+	1oPTJNcGXDNdTacbSzR5XRISXeCNTpQ763eKRKCDnk2Ux4BbZ5RkVB5wi7FGBA==
+X-Google-Smtp-Source: AGHT+IF/K2UjwB5v7Rv/7I96J9LGiCChvsd/FYlS54QQ9sXjUKN/wpjVreWYDMjM3oM1rJIaUDXiqw==
+X-Received: by 2002:adf:f38e:0:b0:33b:5a6c:330e with SMTP id m14-20020adff38e000000b0033b5a6c330emr398490wro.2.1707378378831;
+        Wed, 07 Feb 2024 23:46:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUEKzWUJd3q/faJ3daOkQLt525PoRO9hdfc+IPNiPuAhT2Tdlnf7L5HiduShtsolxur4oy3hv/dNPBiu4wNtQnOHmvBY1fCdgbKbv06I4B/jp6x1N+UP1B7Ppwu4mO1+bylOvlFjUSx21fFfgdlGp9tKkYa9YLBofjPhwCGvI2goIdzBylz+sdrRtk0nvHwOQzdqE4id1zA1xgwBYkaSSgA4dKozTk2nenZCGabQXmiokbqKmOIycsqA8mpROpii3eZcVZ68BTwmmwWMokivV5hGs+R5OBoRs4bX7PZB7X2xNR7y68mra43
+Message-ID: <156f2693-e178-4553-b4b4-f671b0221dfc@suse.com>
+Date: Thu, 8 Feb 2024 08:46:17 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 3/9] x86/smp: drop x86_cpu_to_apicid, use
- cpu_data[cpu].apicid instead
-Content-Language: en-US
-To: Krystian Hebel <krystian.hebel@3mdeb.com>
+Subject: Re: [PATCH] x86/altp2m: p2m_altp2m_get_or_propagate() should honor
+ ap2m->default_access
+To: George Dunlap <george.dunlap@cloud.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, =?UTF-8?Q?Petr_Bene=C5=A1?=
+ <w1benny@gmail.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
- <8121d9b472b305be751158aa3af3fed98ff0572e.1699982111.git.krystian.hebel@3mdeb.com>
+ xen-devel@lists.xenproject.org, Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <1b854c6b38787675294c58eea25556ce241b2b4f.1707213023.git.w1benny@gmail.com>
+ <CA+zSX=beYAGb81zqD19YNAV3cXPFTk-7V68XYn59Eb3mGFH_Jg@mail.gmail.com>
+ <507f29cf-7a07-4f3d-81e8-2236a8380b1a@citrix.com>
+ <CABfawh=6AHZzH1aBP2A=oRUTvjVmgd6QQNxEQAwGCBV_9-CTcA@mail.gmail.com>
+ <CA+zSX=Zou19sjb8ToLTaMjLHLYmqptsMXCT50Y9MwGykOaTrZQ@mail.gmail.com>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,41 +121,26 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8121d9b472b305be751158aa3af3fed98ff0572e.1699982111.git.krystian.hebel@3mdeb.com>
+In-Reply-To: <CA+zSX=Zou19sjb8ToLTaMjLHLYmqptsMXCT50Y9MwGykOaTrZQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14.11.2023 18:50, Krystian Hebel wrote:
-> Both fields held the same data.
+On 08.02.2024 05:32, George Dunlap wrote:
+> Er, ok, just one more comment: this could allow an altp2m to have more
+> permissions than the host; for example, the host p2m entry could be
+> p2m_access_r, but if the altp2m's default_access were p2m_access_rw,
+> it would override that.  Is that the behavior we want?  Or do we want
+> to do some sort of intersection of permissions?
+> 
+> If the former, I'd propose the comment be adjusted thus:
+> 
+>  * If the entry is invalid, and the host entry was valid, propagate
+>  * the host's entry to the altp2m, retaining page order but using the
+>  * altp2m's default_access, and indicate that the caller should re-try
+>  * the faulting instruction.
 
-Supposedly the same data only. They come from different origins, and you're
-hiding this quite well by leaving all sites in place where the field is
-written. Both items are also used for entirely separate purposes. So you
-need to
-- explain why both sources of information necessarily provide the same
-  data,
-- especially if there's remaining concern from the above explanation that
-  the two values might end up different in corner cases (running
-  virtualized ourselves comes to mind as a possible example), explain why
-  nevertheless it is fine (risk free) to use the consolidated item for
-  all of the originally separate purposes,
-- either explain or do away with the multiple places setting this single
-  remaining field.
-
-> --- a/xen/arch/x86/smpboot.c
-> +++ b/xen/arch/x86/smpboot.c
-> @@ -61,10 +61,8 @@ unsigned int __read_mostly nr_sockets;
->  cpumask_t **__read_mostly socket_cpumask;
->  static cpumask_t *secondary_socket_cpumask;
->  
-> -struct cpuinfo_x86 cpu_data[NR_CPUS];
-> -
-> -u32 x86_cpu_to_apicid[NR_CPUS] __read_mostly =
-> -	{ [0 ... NR_CPUS-1] = BAD_APICID };
-> +struct cpuinfo_x86 cpu_data[NR_CPUS] =
-> +        { [0 ... NR_CPUS-1] .apicid = BAD_APICID };
-
-Nit: Stray blank after closing square bracket.
+I find it highly questionable that such blind overriding should be taking
+place.
 
 Jan
 
