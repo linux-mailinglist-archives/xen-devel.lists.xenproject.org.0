@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B7D284E22A
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 14:42:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678198.1055276 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 379FB84E233
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 14:45:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678203.1055289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY4eW-0004GH-4h; Thu, 08 Feb 2024 13:41:20 +0000
+	id 1rY4in-0004sp-Lx; Thu, 08 Feb 2024 13:45:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678198.1055276; Thu, 08 Feb 2024 13:41:20 +0000
+Received: by outflank-mailman (output) from mailman id 678203.1055289; Thu, 08 Feb 2024 13:45:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY4eW-0004DY-1x; Thu, 08 Feb 2024 13:41:20 +0000
-Received: by outflank-mailman (input) for mailman id 678198;
- Thu, 08 Feb 2024 13:41:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rY4eU-0004DS-C1
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 13:41:18 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bba9ccbb-c687-11ee-8a4a-1f161083a0e0;
- Thu, 08 Feb 2024 14:41:16 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-40fb3b5893eso14534245e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 05:41:16 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- iv9-20020a05600c548900b004104bc8d841sm555445wmb.13.2024.02.08.05.40.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Feb 2024 05:40:54 -0800 (PST)
+	id 1rY4in-0004qV-JJ; Thu, 08 Feb 2024 13:45:45 +0000
+Received: by outflank-mailman (input) for mailman id 678203;
+ Thu, 08 Feb 2024 13:45:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9ajo=JR=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1rY4im-0004qP-7l
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 13:45:44 +0000
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 58a99e84-c688-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 14:45:41 +0100 (CET)
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
+ [209.85.128.177]) by mx.zohomail.com
+ with SMTPS id 170739993763192.12847165744085;
+ Thu, 8 Feb 2024 05:45:37 -0800 (PST)
+Received: by mail-yw1-f177.google.com with SMTP id
+ 00721157ae682-604a3d33c4dso8941557b3.1
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 05:45:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,163 +43,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bba9ccbb-c687-11ee-8a4a-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707399676; x=1708004476; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=CABFFYl92xdWMf0DiklpDeUUblSm1jKtp8QnB6qJDPU=;
-        b=T4SW54BtNIyMDaAwH1RI/YiBRAYiHbvrINdst9jznI7cJR61mhJfZEvWmqE1foLcpr
-         RL+APBatjgL8MtCVLVW5pEyFwyI20GoRlVBCFMCO03VfHBs/PwcV+/G0bPjHdr6ayPsc
-         bSvZIEMGRq7VXVQkNs68629PWV5NsgZM15gK8mV0UDAfYAKSyPZ1itrkG4QiAlWNELDQ
-         dde1EfiRRJoqW+QrmczBWMkT/RMAVa9dqajqJHVOSUEawr/RCDz/dapQXy/hCV8fuyOB
-         jp7S727ZzmeN479YN50gVkOZBffSlFBgdmO5qGoynnhEqnE4MvLkJKL+zUPngmsxd9gr
-         tL/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707399676; x=1708004476;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=CABFFYl92xdWMf0DiklpDeUUblSm1jKtp8QnB6qJDPU=;
-        b=D1z0TJ6HOU+A5zxHBCRIBD6Obs6qK7ThsfVS+bf45jdeG9aJI1DIFDA1Pb+PCGVaDk
-         GYRLsmwhPocskxzJf4olCm7mv1xpkOjCxMX4gpXG18J+PF23D+OoHEecfEwBq9akeem3
-         tN4wy8Rf0EVOmknqVhuGY0s2kN1AAM1Ea1kOkgAwg5j18qgz9rAyas134WTO3excLFJm
-         QrvHZE5k3AQUvCWcW6lTvf2vMiX3nOaYxU4ucxMpzilSS7zZsA2rS3aCU7eo0at87tpx
-         T7hZtdCsmWdTwMhn8/irKIVFHjNvkORzexZN/YAaNUgUDF/cfhaTzQoFWNIXaxX4RinL
-         LXgA==
-X-Forwarded-Encrypted: i=1; AJvYcCXCaJfrrgrONfp5gAOkLvCAsfJ3koMmkGXUrcSVf6ssTR3pZOoxVpw7UFSNzfbNPhtr4I14u7BVSTfRq7tQvEDu02hVcak8fYXH2ZDf+vE=
-X-Gm-Message-State: AOJu0YzDO+xj4Uq4ZYhOiaEHu5PY6hn5fyuKuSvmQAe9lNO+uoinM5li
-	a1mlpstgeH/rqsPTlwSx4bJaPFxxewYBjiZR0BIAwl81stGWHnEG2i6IOx6dXA==
-X-Google-Smtp-Source: AGHT+IG3oBHD//gbzfxRjUQd4WkuFHz2ISynBvf6Lt65W4lSIu/vfVGC2mfXe/eyC0ASVTpSY1hfJQ==
-X-Received: by 2002:a05:600c:19c7:b0:40f:dd7e:4a4d with SMTP id u7-20020a05600c19c700b0040fdd7e4a4dmr7276575wmq.31.1707399655165;
-        Thu, 08 Feb 2024 05:40:55 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWGJ+SoKhdfLaHOPIBBF+cPkkrgnfV4rTLqm6ly/63qssg0T5TcKdtnWBWsHzJot/uLZJB7ViLPIawx+aLfkX1rpdvv99dwnAux04M+7ujkyzUzE10bNbyPx5NzwdfPumtzc+QOUa2EScn2aFayJtnjG7TWIAvCLO+bo36L9Rhpnzkmmt4ffha0FppO
-Message-ID: <91e3fd09-8325-49b0-9d7b-43aacf2acd81@suse.com>
-Date: Thu, 8 Feb 2024 14:40:53 +0100
+X-Inumbo-ID: 58a99e84-c688-11ee-98f5-efadbce2ee36
+ARC-Seal: i=1; a=rsa-sha256; t=1707399938; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MZNOKKcfMuEihrKl9ms5pooZutHgMwlw6Tm5BWMknV2HSqL/Rr6g6TtekqFTHcPNo89kyStwYcPLvTK2/+474fkVZyqnfS+pFcJFqlxO6t+oTmecp68FXR/uGOvRWWxzPepb0YygPKI8ryzmZH8Ntu7h6LVgG0BOUbyNF+/HZsY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1707399938; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=tjXjQaxzEOyNGIfNc6u0nIFLCWtCu/UY1BqT0L8u9LE=; 
+	b=XaVQKg4QQfJ9VBUaiZef3qgDpC6xubuXCldl4keDdybC4UGdT5ZUoGUoiAwH5x99ugxPetT1ub6vhGoXLY55f2+r/YKYsJy2Jx9H+xJPFcoWHztUbXIqiLl9TJf6y7IFMad/gs/WFH7zR1NMqxP7xMTbIU8CQEABmiH0SnUzcBY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=tklengyel.com;
+	spf=pass  smtp.mailfrom=tamas@tklengyel.com;
+	dmarc=pass header.from=<tamas@tklengyel.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1707399938;
+	s=zmail; d=tklengyel.com; i=tamas@tklengyel.com;
+	h=MIME-Version:References:In-Reply-To:From:From:Date:Date:Message-ID:Subject:Subject:To:To:Cc:Cc:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=tjXjQaxzEOyNGIfNc6u0nIFLCWtCu/UY1BqT0L8u9LE=;
+	b=MO7qqhIMqQ834IceewfKx4FuvZ6bTWyLjY+sfUZKdWAp0/8rFXJtNASR1zGhRgZi
+	OEeUcGbkj6GP3rthqHge9MdMpMCy51Mx9u2wIAzxMaqv7r0BBVSCME6M6TJy5I/96tU
+	sVVvcFNZxKORFILHIFIBPgpUnSosgWZKyu+ldylQ=
+X-Forwarded-Encrypted: i=1; AJvYcCWFJCpnbglG35aW3UjVCZUvGrB5SQ9w/UpW4KXpwzuaByJVPQzI6RK4rmS+vU6QVIW1dRibKc3LJOh7pBxOCYYmUS4G13DOSOkhavBQjes=
+X-Gm-Message-State: AOJu0YzLWVqXfd3MBuCWvw2S6KcUq/roX0PDAeNTPUEDYsp7q+NHazEK
+	xqazl/f9cBtELFRDoLvx58cbc13X5dQyjZXjudpzBHTaKioFGq1/6FoYFNUI/YH1Ezyfa+kGfoF
+	TZESzTVlnI9Z5t8lXirJ8/KFeA+c=
+X-Google-Smtp-Source: AGHT+IGKwratiCXm/VVOg3+QguJ2fjWe+3MCJq+zct0YYRBxrQqTLCOxgjFMCaiZEV4n3asLC4w27OG1MaI2yH4WFcA=
+X-Received: by 2002:a81:cf04:0:b0:604:4b89:bf4 with SMTP id
+ u4-20020a81cf04000000b006044b890bf4mr8187743ywi.20.1707399936709; Thu, 08 Feb
+ 2024 05:45:36 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/vmx: add support for virtualize SPEC_CTRL
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20240206142507.81985-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240206142507.81985-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <1b854c6b38787675294c58eea25556ce241b2b4f.1707213023.git.w1benny@gmail.com>
+ <CA+zSX=beYAGb81zqD19YNAV3cXPFTk-7V68XYn59Eb3mGFH_Jg@mail.gmail.com>
+ <507f29cf-7a07-4f3d-81e8-2236a8380b1a@citrix.com> <CABfawh=6AHZzH1aBP2A=oRUTvjVmgd6QQNxEQAwGCBV_9-CTcA@mail.gmail.com>
+ <CA+zSX=Zou19sjb8ToLTaMjLHLYmqptsMXCT50Y9MwGykOaTrZQ@mail.gmail.com> <156f2693-e178-4553-b4b4-f671b0221dfc@suse.com>
+In-Reply-To: <156f2693-e178-4553-b4b4-f671b0221dfc@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Thu, 8 Feb 2024 08:45:01 -0500
+X-Gmail-Original-Message-ID: <CABfawhmYaGCLN2rsi4y+-CJs-AA+01YLEZdbkGvUi3t0MM42=A@mail.gmail.com>
+Message-ID: <CABfawhmYaGCLN2rsi4y+-CJs-AA+01YLEZdbkGvUi3t0MM42=A@mail.gmail.com>
+Subject: Re: [PATCH] x86/altp2m: p2m_altp2m_get_or_propagate() should honor ap2m->default_access
+To: Jan Beulich <jbeulich@suse.com>
+Cc: George Dunlap <george.dunlap@cloud.com>, =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
+	Alexandru Isaila <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 06.02.2024 15:25, Roger Pau Monne wrote:
-> @@ -2086,6 +2091,9 @@ void vmcs_dump_vcpu(struct vcpu *v)
->      if ( v->arch.hvm.vmx.secondary_exec_control &
->           SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY )
->          printk("InterruptStatus = %04x\n", vmr16(GUEST_INTR_STATUS));
-> +    if ( cpu_has_vmx_virt_spec_ctrl )
-> +        printk("SPEC_CTRL mask = %#016lx  shadow = %#016lx\n",
-> +               vmr(SPEC_CTRL_MASK), vmr(SPEC_CTRL_SHADOW));
+On Thu, Feb 8, 2024 at 2:46=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wrot=
+e:
+>
+> On 08.02.2024 05:32, George Dunlap wrote:
+> > Er, ok, just one more comment: this could allow an altp2m to have more
+> > permissions than the host; for example, the host p2m entry could be
+> > p2m_access_r, but if the altp2m's default_access were p2m_access_rw,
+> > it would override that.  Is that the behavior we want?  Or do we want
+> > to do some sort of intersection of permissions?
+> >
+> > If the former, I'd propose the comment be adjusted thus:
 
-#0... doesn't make a lot of sense; only e.g. %#lx does. Seeing context
-there's no 0x prefix there anyway. Having looked at the function the
-other day, I know though that there's a fair mix of 0x-prefixed and
-unprefixed hex numbers that are output. Personally I'd prefer if all
-0x prefixes were omitted here. If you and Andrew think otherwise, I can
-live with that, so long as we're at least striving towards consistent
-output (I may be able to get to doing a conversion patch, once I know
-which way the conversion should be).
+No intersection of permissions please, that needlessly complicates
+things and makes it hard to reason about the state of a view where
+default permissions are used. No need to force a specific type of
+usecase here where the hostp2m's permissions are special just cause we
+say so. No, the permissions in the hostp2m should not have more weight
+then the specifically requested default permission.
 
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -823,18 +823,28 @@ static void cf_check vmx_cpuid_policy_changed(struct vcpu *v)
->      {
->          vmx_clear_msr_intercept(v, MSR_SPEC_CTRL, VMX_MSR_RW);
->  
-> -        rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
-> -        if ( rc )
-> -            goto out;
-> +        if ( !cpu_has_vmx_virt_spec_ctrl )
-> +        {
-> +            rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
-> +            if ( rc )
-> +                goto out;
-> +        }
+> >
+> >  * If the entry is invalid, and the host entry was valid, propagate
+> >  * the host's entry to the altp2m, retaining page order but using the
+> >  * altp2m's default_access, and indicate that the caller should re-try
+> >  * the faulting instruction.
+>
+> I find it highly questionable that such blind overriding should be taking
+> place.
 
-I'm certainly okay with you doing it this way, but generally I'd prefer
-if code churn was limited whjere possible. Here leveraging that rc is 0
-on entry, a smaller change would be to
+It's not blind overriding, it's the requested default permission set
+for a view where no entry was present before. It is the expected
+behavior. It would be way harder to design applications with this
+feature if it was special cased and it would take different
+permissions based on what permission is set in another view.
 
-        if ( !cpu_has_vmx_virt_spec_ctrl )
-            rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
-        if ( rc )
-            goto out;
-
-(similarly below then).
-
->      else
->      {
->          vmx_set_msr_intercept(v, MSR_SPEC_CTRL, VMX_MSR_RW);
->  
-> -        rc = vmx_del_msr(v, MSR_SPEC_CTRL, VMX_MSR_GUEST);
-> -        if ( rc && rc != -ESRCH )
-> -            goto out;
-> -        rc = 0; /* Tolerate -ESRCH */
-> +        /*
-> +         * NB: there's no need to clear the virtualize SPEC_CTRL control, as
-> +         * the MSR intercept takes precedence.
-> +         */
-
-The two VMCS values are, aiui, unused during guest entry/exit. Maybe
-worth mentioning here as well, as that not being the case would also
-raise correctness questions?
-
-> --- a/xen/arch/x86/include/asm/msr.h
-> +++ b/xen/arch/x86/include/asm/msr.h
-> @@ -302,8 +302,13 @@ struct vcpu_msrs
->       * For PV guests, this holds the guest kernel value.  It is accessed on
->       * every entry/exit path.
->       *
-> -     * For VT-x guests, the guest value is held in the MSR guest load/save
-> -     * list.
-> +     * For VT-x guests, the guest value is held in the MSR guest load/save list
-> +     * if there's no support for virtualized SPEC_CTRL. If virtualized
-> +     * SPEC_CTRL is enabled the value here signals which bits in SPEC_CTRL the
-> +     * guest is not able to modify.  Note that the value for those bits used in
-> +     * Xen context is also used in the guest context.  Setting a bit here
-> +     * doesn't force such bit to set in the guest context unless also set in
-> +     * Xen selection of SPEC_CTRL.
-
-Hmm, this mask value is unlikely to be in need of being vCPU-specific.
-I'd not even expect it to be per-domain, but simply global.
-
-I also can't spot where you set that field; do we really mean to give
-guests full control now that we have it (rather than e.g. running in
-IBRS-always-on mode at least under certain conditions)? If intended to
-be like this for now, this (to me at least) surprising aspect could
-likely do with mentioning in the description.
-
-Jan
+Tamas
 
