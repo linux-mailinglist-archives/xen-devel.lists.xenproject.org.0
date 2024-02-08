@@ -2,33 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B05D84DDF3
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 11:17:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678067.1055124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 861D184DE90
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 11:45:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678105.1055149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY1Su-0001Gc-80; Thu, 08 Feb 2024 10:17:08 +0000
+	id 1rY1ti-0006jQ-Pd; Thu, 08 Feb 2024 10:44:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678067.1055124; Thu, 08 Feb 2024 10:17:08 +0000
+Received: by outflank-mailman (output) from mailman id 678105.1055149; Thu, 08 Feb 2024 10:44:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY1Su-0001F5-3q; Thu, 08 Feb 2024 10:17:08 +0000
-Received: by outflank-mailman (input) for mailman id 678067;
- Thu, 08 Feb 2024 10:17:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rY1ti-0006gD-MU; Thu, 08 Feb 2024 10:44:50 +0000
+Received: by outflank-mailman (input) for mailman id 678105;
+ Thu, 08 Feb 2024 10:44:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pa6k=JR=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1rY1Ss-0001Eo-GR
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 10:17:06 +0000
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [2a00:1450:4864:20::541])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 34c2c2fb-c66b-11ee-98f5-efadbce2ee36;
- Thu, 08 Feb 2024 11:17:04 +0100 (CET)
-Received: by mail-ed1-x541.google.com with SMTP id
- 4fb4d7f45d1cf-5602500d1a6so1931436a12.3
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 02:17:04 -0800 (PST)
+ <SRS0=Up58=JR=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1rY1th-0006g7-HV
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 10:44:49 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2407::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 13842ea3-c66f-11ee-8a4a-1f161083a0e0;
+ Thu, 08 Feb 2024 11:44:47 +0100 (CET)
+Received: from DM6PR03CA0067.namprd03.prod.outlook.com (2603:10b6:5:100::44)
+ by PH7PR12MB6538.namprd12.prod.outlook.com (2603:10b6:510:1f1::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.10; Thu, 8 Feb
+ 2024 10:44:42 +0000
+Received: from CY4PEPF0000FCBE.namprd03.prod.outlook.com
+ (2603:10b6:5:100:cafe::f5) by DM6PR03CA0067.outlook.office365.com
+ (2603:10b6:5:100::44) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7249.37 via Frontend
+ Transport; Thu, 8 Feb 2024 10:44:42 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CY4PEPF0000FCBE.mail.protection.outlook.com (10.167.242.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7249.19 via Frontend Transport; Thu, 8 Feb 2024 10:44:41 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.34; Thu, 8 Feb
+ 2024 04:44:40 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.32; Thu, 8 Feb
+ 2024 02:44:40 -0800
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.34
+ via Frontend Transport; Thu, 8 Feb 2024 04:44:39 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,74 +63,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34c2c2fb-c66b-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1707387424; x=1707992224; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=AbTGySjrskR5XP4hQZjlCOJWstAuPb2HAfUelcGxGZk=;
-        b=IP8btcyJz00KIOzvLYKHSFGHr+V4/KwXdq425x6qIYTIlBfRN367/nzvtX02iTSrFT
-         cPomNj1G8k8F0g6kpr2msmtgicatOwkVpWA9bVo/kKpfyUU53HXs/ienwhUcur8mcobB
-         TLFh3wLkDAHWIWhJ6SOAT+YSoNWXfZj7y2/Mg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707387424; x=1707992224;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=AbTGySjrskR5XP4hQZjlCOJWstAuPb2HAfUelcGxGZk=;
-        b=MWawtw5bE+fXne03kLh3S9CRM9iNq9q+OaJrVGkrJeyHx4le4B0Urhr0z5KTp8UR7+
-         rGoO+XVXeUyZmTXY6GSg0IVCJ1r1e9F3ppt+ARhKAiXtEaAWK8Jwz399mWRsehH0W5oA
-         HefMAj9gs3nx14JqbZP0f1Rb4qrGn7ycFL2D4xLxuufOSCFArEpTlAMbZNRroujE3ZE4
-         LZShuYQBsNpYm+eX6c2LdqiRHTH1kuh3OGl+4c06cLUjIqnOVr58dnaYPBFp4v5m3L8K
-         m81ip+4b9p/thc1Y2WEcPVVYVL7BE8NBUkNIA012dYerWDCU9IL1pxXI6stKQMghCfVJ
-         WUNA==
-X-Gm-Message-State: AOJu0YydKaEWrQrNuzBt85aW+4PTLa4BiVzN8gGlXkJXaZ6Xu2VjoMAP
-	6MSEgQVK5xtF5W2aBh0NOXXMaMCFFmkQ7t2wI/6g6H5indt4aictXjyV5D/ZguOWg5Y+0lVmgMV
-	cYD/mX9EfB1+S13+oE8zqTtuftjDqM0FFQMenT+hUEW30Kk1uJCgg4CrU
-X-Google-Smtp-Source: AGHT+IHe6AGaed2PJn4jN/U3ncOM07HkK6LqNUDGKQihPy8aUtplZ92K1Nq9g7koR31K/hwd9Zj6lkuqHjm350FZr/A=
-X-Received: by 2002:a17:906:319a:b0:a38:aa7f:bdd2 with SMTP id
- 26-20020a170906319a00b00a38aa7fbdd2mr1539922ejy.59.1707387423669; Thu, 08 Feb
- 2024 02:17:03 -0800 (PST)
+X-Inumbo-ID: 13842ea3-c66f-11ee-8a4a-1f161083a0e0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=E2bcZFAkakoZypWyc7LQEQYZwWGo0Jb6fu//3u/ZZabzF/eboREq16Je2Lg+JyOmsUGptmytC2Culdtsa17p+985WdNF4sEZnLXMdNJDk/hWPAZncvhLOHYqnRXOqq57/Pji9z4n5awAXz74+16F/D9Qo8Wi1Pa/Xr5OiEQPH3KH/nnMtXK9M+kRlK0RWIKfd+YvCo+e8NKK4RQRDVncjheitfQ5TZyrJXvDy8LMCFfLBmvn4LzeMKUVOI1eeGFmUtZ9eJgnd4SeMKesKwJzaSgm8sbdHTR5ATVQUnf7jnsrUzEVPiRaAYeiuWBxghQlwNgwZ/NnAVegdmWX/lYqzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qe6SRiNUmo8alfoEpeT1FGLlqpS/CEq6DFcwSK5kqkw=;
+ b=TWtBHGWo1nB0eVHAjLHCQjTMafIXRmFPqpUTcvurws7IDciFgk31b7hvYoxfm0HFIV08nrLwLExnLtGO8Nquo7qicuhqAnQowGvowMtnYjllOGGjdo3O4y1ixc/ZF5tfn9ciNJJwglpL6SQV+NJ9Xr80NVXV95oZlum34/AhChAY/sW7AWsMtstJtEf6gNYfG3lrm5LccE4ga2z4Lj4z+x4G22n2ia0C74/MRtOuYxjT121OHcEkH3vr5G3gyhpAFkXSM/JPQwj8ovNm6GrhL/fjxiBAyPnAAGh0Jj1gmiLfyQroXI+OMxbVIXMa5+DGoDmX9IPrFRSYVY6bsSjRwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qe6SRiNUmo8alfoEpeT1FGLlqpS/CEq6DFcwSK5kqkw=;
+ b=kJMezAY4MCN0m0O3VdW2RYEVk56PaAB61QNmwSxYWnmMiWUGGK6lRqbHFoRwvP5j0eAgAzhKLhhHRPXMUlTsw3ooSr8sFIHLiWYJtVUwXHTHyj/B+bH3sblxzbO4rpiR9uVg+BTe8EeDHjerY1eBAD/TluUW+rlPnUz+4E0SK6M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: Fix UBSAN failure in start_xen()
+Date: Thu, 8 Feb 2024 11:43:39 +0100
+Message-ID: <20240208104339.37826-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Thu, 8 Feb 2024 11:16:28 +0100
-Message-ID: <CAO-mL=wTYM8-=gUCJxew8gM+M6WvkVszroqVW8kJEiNLDZ-PHQ@mail.gmail.com>
-Subject: CFP for Xen Summit 2024!
-To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org, 
-	xen-announce@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000e1d6ca0610dc1cca"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBE:EE_|PH7PR12MB6538:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b20c5b1-5205-4f79-1f7c-08dc2892f4c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	dRthpoS3OagOnjDMjqB+nProMbElFIIdTlvrIY8CUsErkGRkSIHEWCDE2WnL2xMXw+GxkQkX/qUIrkB2tUPALLYJpTmzZAldFvnYXQUWIULNGrejcXv+GlyHtRUQD+VdHtibWFqtyddrAcJkw2zxCCsxEo3Z2NSGOoRmkEXISAafgoJaCkoXDlgzN9iCD/qttREKyRazJxaUWPLExOwZmy11fh0Lyp5EXS0g9rIUpful/15Nj/kddz9jRnr7+8U2uZ1WQlG+DkB2CwnbpPhTousAp+t1Sei2QGV6FLWsLtQl9DQ0aW1kariHSQBS2giKXPYKzJm83YJIOzC3smK7gLK8KvLhyx07o2YmVqPlei1x/ng+ps5KLL5OEKhWPzTCCmNo2MO7aVKU0J6Ot8o/fRu3Orrg0zw02JuXqsvIX5K7DzcqZ0Kuc5I3qwx1iADfqgUwE+trZRmmjtANGUXwy5b6J2nnSosQBJngfgoOobiP1npohNxnCGO1GLcntYDEgkIfpK7uXuJ/N9gh8zMa7nqomzxdCxxxm90zsDSgcB+SeBDTjdBLWT/GzWDPaS3kwSoK69JNrv+u5udj8i5nIRKd3iU0uoSwuDlaCmBwbwQ=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(346002)(396003)(136003)(376002)(230922051799003)(82310400011)(64100799003)(451199024)(1800799012)(186009)(40470700004)(36840700001)(46966006)(41300700001)(2906002)(8936002)(44832011)(5660300002)(8676002)(4326008)(83380400001)(1076003)(426003)(336012)(478600001)(26005)(2616005)(36756003)(86362001)(6916009)(316002)(54906003)(70586007)(70206006)(82740400003)(356005)(81166007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2024 10:44:41.5297
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b20c5b1-5205-4f79-1f7c-08dc2892f4c8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000FCBE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6538
 
---000000000000e1d6ca0610dc1cca
-Content-Type: text/plain; charset="UTF-8"
+When running Xen on arm32, in scenario where Xen is loaded at an address
+such as boot_phys_offset >= 2GB, UBSAN reports the following:
 
-Hi all,
+(XEN) UBSAN: Undefined behaviour in arch/arm/setup.c:739:58
+(XEN) pointer operation underflowed 00200000 to 86800000
+(XEN) Xen WARN at common/ubsan/ubsan.c:172
+(XEN) ----[ Xen-4.19-unstable  arm32  debug=y ubsan=y  Not tainted ]----
+...
+(XEN) Xen call trace:
+(XEN)    [<0031b4c0>] ubsan.c#ubsan_epilogue+0x18/0xf0 (PC)
+(XEN)    [<0031d134>] __ubsan_handle_pointer_overflow+0xb8/0xd4 (LR)
+(XEN)    [<0031d134>] __ubsan_handle_pointer_overflow+0xb8/0xd4
+(XEN)    [<004d15a8>] start_xen+0xe0/0xbe0
+(XEN)    [<0020007c>] head.o#primary_switched+0x4/0x30
 
-*A reminder that our CFP for Xen Summit 2024 closes in less than a month! *
+The failure is reported for the following line:
+(paddr_t)(uintptr_t)(_start + boot_phys_offset)
 
-We'd love to hear from you.
+This occurs because the compiler treats (ptr + size) with size bigger than
+PTRDIFF_MAX as undefined behavior. To address this, switch to macro
+virt_to_maddr(), given the future plans to eliminate boot_phys_offset.
 
-Submit your talk here:
-https://events.linuxfoundation.org/xen-project-summit/
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+ xen/arch/arm/setup.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Many thanks,
-Kelly Choi
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 7e28f62d09f1..424744ad5e1a 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -736,7 +736,7 @@ void asmlinkage __init start_xen(unsigned long boot_phys_offset,
+ 
+     /* Register Xen's load address as a boot module. */
+     xen_bootmodule = add_boot_module(BOOTMOD_XEN,
+-                             (paddr_t)(uintptr_t)(_start + boot_phys_offset),
++                             virt_to_maddr(_start),
+                              (paddr_t)(uintptr_t)(_end - _start), false);
+     BUG_ON(!xen_bootmodule);
+ 
+-- 
+2.25.1
 
-Community Manager
-Xen Project
-
---000000000000e1d6ca0610dc1cca
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,=C2=A0<div><br></div><div><b>A reminder that our CF=
-P for Xen Summit 2024 closes in less than a month!=C2=A0</b></div><div><br>=
-</div><div>We&#39;d love to hear from you.</div><div><br></div><div>Submit =
-your talk here:=C2=A0<a href=3D"https://events.linuxfoundation.org/xen-proj=
-ect-summit/">https://events.linuxfoundation.org/xen-project-summit/</a></di=
-v><div><br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_signature" da=
-ta-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Many thanks,</div><d=
-iv>Kelly Choi</div><div><br></div><div><div style=3D"color:rgb(136,136,136)=
-">Community Manager</div><div style=3D"color:rgb(136,136,136)">Xen Project=
-=C2=A0<br></div></div></div></div></div></div></div>
-
---000000000000e1d6ca0610dc1cca--
 
