@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C64884DB18
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 09:10:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678031.1055053 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CDE984DBEC
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 09:52:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678036.1055064 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXzTy-0006Is-0t; Thu, 08 Feb 2024 08:10:06 +0000
+	id 1rY07y-0003j4-27; Thu, 08 Feb 2024 08:51:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678031.1055053; Thu, 08 Feb 2024 08:10:05 +0000
+Received: by outflank-mailman (output) from mailman id 678036.1055064; Thu, 08 Feb 2024 08:51:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXzTx-0006F2-U9; Thu, 08 Feb 2024 08:10:05 +0000
-Received: by outflank-mailman (input) for mailman id 678031;
- Thu, 08 Feb 2024 08:10:05 +0000
+	id 1rY07x-0003gb-Ul; Thu, 08 Feb 2024 08:51:25 +0000
+Received: by outflank-mailman (input) for mailman id 678036;
+ Thu, 08 Feb 2024 08:51:25 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gCg7=JR=cloud.com=george.dunlap@srs-se1.protection.inumbo.net>)
- id 1rXzTx-0005lh-89
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 08:10:05 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YTSP=JR=rabbit.lu=slack@srs-se1.protection.inumbo.net>)
+ id 1rY07x-0003gV-07
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 08:51:25 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 74e6fe78-c659-11ee-98f5-efadbce2ee36;
- Thu, 08 Feb 2024 09:10:01 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-511717231bfso90488e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 00:10:01 -0800 (PST)
+ id 3be67c38-c65f-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 09:51:22 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-40fc22f372cso13031615e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 00:51:22 -0800 (PST)
+Received: from [192.168.2.1] (82-64-138-184.subs.proxad.net. [82.64.138.184])
+ by smtp.googlemail.com with ESMTPSA id
+ q30-20020adfb19e000000b0033b2221d938sm3135967wra.76.2024.02.08.00.51.20
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Feb 2024 00:51:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,104 +45,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74e6fe78-c659-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 3be67c38-c65f-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1707379800; x=1707984600; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dikZXvOrvcq8ZB5trjy0EP7GCY4EkWanEfHrJyxj5gc=;
-        b=bW3SDMRS8wTZHoK8ZHAFXBAForZ/FYwAHVJv3Yo78FN02ioqg2PjlJMKhf3ouYjspa
-         iZnNtrKurUn6T+srKVuKEea1pnS0+sQ/2XxZpUDnilyBjiZB0r+G7HB/J0s8ABXUZES5
-         bqmp76CwsgUQ0TbFyVwK18BR1VUpZBCHlGRsI=
+        d=rabbit-lu.20230601.gappssmtp.com; s=20230601; t=1707382282; x=1707987082; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=JzUyytzaAKCWO+7wPw+FR11d2mjz6ZrQxww+yYXLRMY=;
+        b=sI0sjlUMoM9GwkymEJmM9skDm+6JifXi0vJHUi5CVcxQzOxPVaNOaTj9ws6HNpqOOA
+         PVbn57uIhgzgojR3hWQyzpDxwWV6EEGjENUosRsOpt9sZPqssBYrUOyFzdImJfgvD+K0
+         90fYB+fkKmNeV4kBqNiHT9/45+FgwQV2Dlgs1OC5wQOM45aKWutVbq6SC+JfxXSWbHY2
+         kItEFGrMlx+3RxY18V075vtmJRz2FKfTwnlxF7sjiEBuJIlQo79HfwlYiSF6RIim+IPe
+         cTt2krGjwymVS3ZVjDFCQPq6ZzaxEakY3CIevvqFqVEHkJomcPEw7UZgSv9g7Q8aWgRm
+         Nb1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707379800; x=1707984600;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=dikZXvOrvcq8ZB5trjy0EP7GCY4EkWanEfHrJyxj5gc=;
-        b=QCeZmUo2KqPnEILhrOBUF0X0VjxNl1Tb6JYMqHsuG8UkJTzjn0o+Mue0UmuBKG68Q6
-         cO99TA89bFf52xv3g+xk/4fyRDQJDldU7XImFceecWfcAI118OfoV9ZkGSnh6Gls+1Gj
-         6xP2eZZCQ3EzolUQe+ZwvZJxBh4qXqdA19z92/CJLRG752GoXtglLOkHP3q1KHQy5QsH
-         nqPtWzRX2Iio7siGW3W1StPJu4bTKpGFNPm9ciFerIA/u9QIRG2dZDoXvW1EJyfUjodY
-         2WEd841nr7vhKd5fb/R6oDf1Ipxh0+eFtnIWk8KQHkuBJAHsBTcYW2M0LJ8DZATijVat
-         GKqQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWyqH+/v8CsIw9ImfG/eviK9XCWpFrphpK5ill2FtZ4VkwPzbCF1JsgKDr93SYV0+KvkZ7YwgwER1iKSRnQg46FmMWZumS5hsxU7Izc7Z0=
-X-Gm-Message-State: AOJu0YxG3dSUmPcTZqISeldpRwQ7/t+tZMWDs4fuClq4uN0LBJmlPOB2
-	MfjIgBVl8ODqWa0WdBfV2H77dW8qEB9MxjCrXSlEYvvw7T6XNdIQLp37O7mWcG7FGNbj0IHTeYv
-	SHRc88ArdFvojwF7Swh2JyzkLCCTeMP8C5vZV5g==
-X-Google-Smtp-Source: AGHT+IHdtj7v3m80PJGjkqfdPRAXnXTQs85KLSz21ZfIeyG0K5G3j+0dj+4ruYiBRV1Wen9Nij2Ps/d7gL/Vsu8N7i4=
-X-Received: by 2002:a05:6512:b88:b0:511:54ab:9bed with SMTP id
- b8-20020a0565120b8800b0051154ab9bedmr6838357lfv.2.1707379800584; Thu, 08 Feb
- 2024 00:10:00 -0800 (PST)
+        d=1e100.net; s=20230601; t=1707382282; x=1707987082;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=JzUyytzaAKCWO+7wPw+FR11d2mjz6ZrQxww+yYXLRMY=;
+        b=pYUiHSPfliU8so6NqiTFFOLpJ4KmJUpaGvhN0CoXeCb18+b27L6BkhTP7tFgi51r+r
+         AmU0KYvu7bEaynIaaYyTGHQSdx4hMwiD1BYw/38pglKjHEckDHYRc/wf6xRvZCDYED4N
+         i0bKBTIH9Cn7sXWtPMf7OUG6QoQlTILfRUjbLgb+U4sh98PZCQMlFU7c2CoH6AT13uLh
+         5gjKEs0JDS5TpQNLCsOdyGOXgkwnSxpoM5wbnGc58M7kikcoLVTqqk+SBv2VqmikDRdh
+         ZrjjUweA9rv/yY6/d299rUkUAJB3gQPwTZHIxevsez/LIbhdokGfiO6hw2vjWBcCkGPL
+         pFdg==
+X-Gm-Message-State: AOJu0YxqZsbAPMquN9wWNPoDeM+r6Cq9IKRsa8s1XjIhkF6wUe2IMo+3
+	GbDbJK3vQE6zAIP/wpjCiMUr0p1LIRpca+iRbA4Fv5aDsFCzc9qhuTRhj9YRjIg=
+X-Google-Smtp-Source: AGHT+IHJfJxk9UExK2yDzdkgiZdwUFjwmCHGho+cWobWW4Rkq/bQsWQkFdHUlk6dOapc+IHKotbp5A==
+X-Received: by 2002:a05:6000:1843:b0:33b:2f8f:da32 with SMTP id c3-20020a056000184300b0033b2f8fda32mr6420762wri.10.1707382281353;
+        Thu, 08 Feb 2024 00:51:21 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCXuLOqCiftNaQG+dqkyCuzK1E000kZlTRwHeHU9K3zQYcb2lExkf0SoD1iaK5HzXLJqmW+VdYIvyI5W
+Message-ID: <a096dab8-88c4-4450-8c55-60d68346367f@rabbit.lu>
+Date: Thu, 8 Feb 2024 09:51:21 +0100
 MIME-Version: 1.0
-References: <5d6c927e-7d7c-5754-e7eb-65d1e70f6222@suse.com>
- <8d5df1f4-74ca-27cc-99f0-7e7a82050de1@suse.com> <CAFLBxZbO2-f3rdgVhu2j_7sRWSeL5oMZt6pit=6nRvhPn=pqoQ@mail.gmail.com>
- <bb2533df-dbb6-4836-bfe9-3611cd11b7f9@suse.com>
-In-Reply-To: <bb2533df-dbb6-4836-bfe9-3611cd11b7f9@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 8 Feb 2024 08:09:49 +0000
-Message-ID: <CA+zSX=ZPq+AXjUqytiOCwzfBc3xYF1GfTc4hELHz0oPagZsurw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] x86/p2m: make p2m_get_page_from_gfn() handle grant
- case correctly
-To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <dunlapg@umich.edu>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: zithro <slack@rabbit.lu>
+Subject: Re: [PATCH] tools/xentop: add option to display dom0 first
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+References: <87846acd5b31991e38561c9765eb97730c79d0f3.1706723494.git.slack@rabbit.lu>
+ <a8194dec-70f0-4f90-898d-f15152a5018b@perard>
+ <1f2fab6d-6eaf-4e32-a124-cf1042c31312@rabbit.lu>
+ <5f6c6a52-9ef1-4db2-9e5e-2ca916bdf225@perard>
+Content-Language: en-US
+In-Reply-To: <5f6c6a52-9ef1-4db2-9e5e-2ca916bdf225@perard>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Feb 8, 2024 at 4:02=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wrot=
-e:
->
-> On 08.02.2024 07:32, George Dunlap wrote:
-> > On Thu, Jun 23, 2022 at 7:54=E2=80=AFPM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >
-> >> Grant P2M entries, which are covered by p2m_is_any_ram(), wouldn't pas=
-s
-> >> the get_page() unless the grant was a local one. These need to take th=
-e
-> >> same path as foreign entries. Just the assertion there is not valid fo=
-r
-> >> local grants, and hence it triggering needs to be avoided.
-> >>
-> >
-> > I think I'd say:
-> >
-> > ---
-> > The 'fast' path of p2m_get_page_from_gfn handles three cases: normal ra=
-m,
-> > foreign p2m entries, and grant map entries.  For normal ram and grant t=
-able
-> > entries, get_page() is called, but for foreign entries,
-> > page_get_owner_and_reference() is called, since the current domain is
-> > expected not to be the owner.
-> >
-> > Unfortunately, grant maps are *also* generally expected to be owned by
-> > foreign domains; so this function will fail for any p2m entry containin=
-g a
-> > grant map that doesn't happen to be local.
-> >
-> > Have grant maps take the same path as foreign entries.  Since grants ma=
-y
-> > actually be either foreign or local, adjust the assertion to allow for =
-this.
-> > ---
->
-> Sure, thanks, I can use this, but then I'd perhaps ought to add your
-> S-o-b instead of ...
-<snip>
-> ... R-b, requiring yet someone else's ack?
+On 07 Feb 2024 16:44, Anthony PERARD wrote:
+> No worries, and your patch was reviewed so you didn't failed to the 
+> strict minimum ;-).
 
-Legally I think the SoB is more for the provenance of the code than
-the commit messages; so it would mainly be to credit me, which I'm not
-particularly fussed by.
+Ahah, true, just felt a bit stupid ! Thanks, and also for the gdb pointers.
+But sorry for nooby "non-rebased/non-squashed" v2, fixed now ;)
 
-That said, we did just put something in MAINTAINERS about how to deal
-with this situation; You sending the patch implicitly approves all the
-changes I made, so then if I give an R-b, that approves all the
-changes you made, satisfying the requirements.
+>> I have a "display dom id column" in the pipes, ready to send [...]
+> That TODO file is 18 year old, and never been touch since. I don't 
+> know how relevant it is. As for wanted features, I'm not aware of 
+> such list.
 
- -George
+TODO is 18 y/o, but some ideas are still nice to have ! At least
+for me ;)
+
+Like adding a "domain id" column, I ask beforehand because it will
+change the default, expected display of xentop in "batch mode", and it
+will annoy everyone relying on a constant output. Should I worry ?
+
+To preserve old behaviour, I'd have to add the possibility of
+displaying/hiding columns -before- adding the "dom_id" column, to then
+make it hidden by default.
+
+> I'm slightly worried about adding domain management, what if someone 
+> hit the wrong key and kill a domain when they just wanted to do 
+> something else, but I guess we can make domain management work more 
+> or less safely. In any case, any feature is welcome.
+
+I share your concerns re. domain management, we've all messed up at
+least once with the wrong term/window, could be a real PITA !
+Some have seen a ":q" followed by "oops" in XenDevel recently :)
+
+I'd create a "*M*anage domain" bottom item, as a prompt, asking
+the action and domain, like "pause domu1", "r domu2","s 42" :
+
+     Manage domain (p/r/s/d <Domain>): _
+     Manage domain (p/r/s/d <Domain>): pause domu1_
+     Manage domain (p/r/s/d <Domain>): s 42_
+
+I think it's practical -and- safe enough, even the shortest form.
+Would that be a good starting point ?
+
+((( Rest of the mail is a list of alternatives, but requiring the 
+ability to select a domain/line :
+
+1) Select the domain, press <M>, enter the action in a prompt :
+
+     *P*ause/unpause,*R*estart,*S*hutdown,*D*estroy domain 'mydomu' ? _
+
+2) Like (2) but add a confirmation step :
+
+     To pause 'mydomu', type [y/yes/pause/dom_name/etc]: _
+
+This confirm step could be user-chosen with a cmdline option, like :
+     -c/-m [no-confirm/y/yes/action-name/dom-id/dom-name]
+
+3) Arrow-keys and menu driven: select the domain <Enter> select the
+action <Enter> (could also be used to display more domain info/config)
+
+)))
+
+
+-- 
+++
+zithro / Cyril
+
 
