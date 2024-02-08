@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30E8284E484
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 16:56:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678303.1055423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83E9C84E48F
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 16:59:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678309.1055432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY6lR-00066B-0r; Thu, 08 Feb 2024 15:56:37 +0000
+	id 1rY6o5-00071Y-Hf; Thu, 08 Feb 2024 15:59:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678303.1055423; Thu, 08 Feb 2024 15:56:36 +0000
+Received: by outflank-mailman (output) from mailman id 678309.1055432; Thu, 08 Feb 2024 15:59:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY6lQ-00062y-UG; Thu, 08 Feb 2024 15:56:36 +0000
-Received: by outflank-mailman (input) for mailman id 678303;
- Thu, 08 Feb 2024 15:56:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rY6o5-0006zc-F5; Thu, 08 Feb 2024 15:59:21 +0000
+Received: by outflank-mailman (input) for mailman id 678309;
+ Thu, 08 Feb 2024 15:59:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rY6lP-00062h-RW
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 15:56:35 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1f4126f-c69a-11ee-98f5-efadbce2ee36;
- Thu, 08 Feb 2024 16:56:34 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-33b436dbdcfso1442564f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 07:56:34 -0800 (PST)
+ id 1rY6o3-0006zU-MT
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 15:59:19 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 041bd668-c69b-11ee-8a4a-1f161083a0e0;
+ Thu, 08 Feb 2024 16:59:18 +0100 (CET)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-51168addef1so2897156e87.1
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 07:59:18 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dr9-20020a5d5f89000000b0033b14f22180sm3940318wrb.20.2024.02.08.07.56.32
+ jl26-20020a05600c6a9a00b0040fff3382casm1965797wmb.46.2024.02.08.07.59.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Feb 2024 07:56:33 -0800 (PST)
+ Thu, 08 Feb 2024 07:59:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1f4126f-c69a-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 041bd668-c69b-11ee-8a4a-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707407793; x=1708012593; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WoKTmhnl937M83ulqEmDhr8UT5Fq+44qVy8o8fulbP4=;
-        b=AsAx/XkgwiBFqltYPM30/uLojylOdMAfWXucRLih5Tt544PNXXfZXO95/dAzAM2o2n
-         YaxJlXY/cKdd3/ZgaSj9OuPZX1DNdtZG96eASwll7elNyHdQQyaYWMYkzG/25iCkePdL
-         G19urwlh9sYun63U3E0kauhC4ODp0TOa0P124fythvuZ+ZICWYrSS9c9fNq1lCShelEY
-         MNkh7aTcRZ9VoK0aL3Mbf8T7f66Yr+SHpRqVGpxBbD3SlFaXqDMDC058lB45NyIm136N
-         RomyAOFpMI+lakuA2II7QyFPDoAkcmxVWCq0xGthUn4AlAgPID099k44fpv0u/DyF5L6
-         YmNg==
+        d=suse.com; s=google; t=1707407958; x=1708012758; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=opkDLlYlwAcgajlR7y6ntiRvdsqEsQAXt5P7B8Dgv+g=;
+        b=c+3n51K/JUk79gdtph/xFjCCtBD19yk8lw4IH5sF83REetMd727xI7bKeySEj7/RXI
+         7RJMJTaOQsieXWDi/5yLQTxvhl0EJxIxSoSbX58QkcFlvdAMs28Wgtob+FUrDGNsX7dx
+         QbsipxS3fcfYgSCK3i9XZPwdPYU/Mn5pCq89DVvTxzkDajbJ05NxCO0X+QC/1r/aMHpu
+         f1xXyTzoN1a0GjXuYD7HPn4k1MtLfNd/IR1DQL14uXFlWGVdBnKXh+3KB9Yka0SVAGMx
+         3R+tZrsNqsx9n16opH0uNkdkGwT3yFJVXVGknlU7vSYTfQgb6RDp5+gYED+Vg7Z6nycg
+         BaIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707407793; x=1708012593;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WoKTmhnl937M83ulqEmDhr8UT5Fq+44qVy8o8fulbP4=;
-        b=EFJUxYxltTdmUcvEgjrQaZkShd+SKbf7wyZ5SYZN9lQQoXiclSKb9jvbN+O50UlQ7j
-         9tuMtFRFB3PCXvfFGM3KE4JruwZqjAZjmf8EFDJLuvwM11B9g9vzHL2avf0zRKw8NkmR
-         pkvNXNpAAtu/jWIv3oK/OfyzHqdXXogm48Gn+h+J3R5oge7Y3mwk83LZn9Ex7uN5961n
-         Gakh7SWHbdCtj5IBninC1VggmsIbNruwrYg6SUHDi3mcs0uQr/wnvrJ/xzW1mNQxRURt
-         TbkSYykhV48vMCbCpV02i50laHZsszsEH7woNmQ2BDWGtTQOX1Psf33ijyC0R90DPWDh
-         2ahg==
-X-Forwarded-Encrypted: i=1; AJvYcCWgG75P9aDypPCwelVK+U+sd+IFlFCp5Id2dd2pdJpmtFNCl2Sn/1jsXfD6eStGf1mP+KIFfLC2WKTqa7f6QgHZ7fz5u04gorBus3HBy/4=
-X-Gm-Message-State: AOJu0Ywv4ktaZyCqdH85BB5++jmOPYON6Ir6tcusF42E0cjcw+f4D0Tm
-	LpnNW6KhI+pzsshUBn6YQmL5Ry+8ekr9zbTdc3m/WCnBNDJDjMPf86RPrPqKkg==
-X-Google-Smtp-Source: AGHT+IEXxy4E4Mcg6IM9g0DANqMlEQWN12/RB5CcSE4m5hpDG2PMk8mUyGy98G4iEfWFIjzrHRrkKw==
-X-Received: by 2002:a5d:42c5:0:b0:33b:1a39:e501 with SMTP id t5-20020a5d42c5000000b0033b1a39e501mr5494134wrr.28.1707407793541;
-        Thu, 08 Feb 2024 07:56:33 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCVPmvhsxXkUehwKER38yQsypxjca1lfVSAd0MGyfsN6IHTwHc71D/q6lz6jqcx35v2jXr13sA3N0R7dq2OTrjIdZRCL93HhxfmzsjAgGIYHyxHZVdnJWhtqyyX6XitTq3SCMbFnqOzGaBtNPoQTdS2BQ5nIA2OcNG7EHfmp+0kraQ3xLRjGk7r6h0DIsSw2ouLvcWLWkA1P5x8wRb8aK9cciNMGeDIdZ5qnVSrJjEOC3oiBY3hdC8rMMj7iUDqawteOJZbcP7wCtMopYScvWn+FSu83RCeMEq2kd8Nnz2UpYBMAwSFwMK2J7WqLPq8VprFADdkX2mdSfzuQTvYsL932KmvCOJQdQ0wOwd123xYsM0+HJPouQAIdtYdv1xlz1ZsIHSh3nlAGFujNhfVDU6h2TGI=
-Message-ID: <891e8cc2-e073-4cd3-9998-4c01ae775a3b@suse.com>
-Date: Thu, 8 Feb 2024 16:56:32 +0100
+        d=1e100.net; s=20230601; t=1707407958; x=1708012758;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=opkDLlYlwAcgajlR7y6ntiRvdsqEsQAXt5P7B8Dgv+g=;
+        b=v9TbtIdZ/C0vUo4WztQiKHOFRHMdGpjuDmeRhlrB4FOIToLuT5MPrJZTwUxVsk30sm
+         LvimEp2dqcktPZyGMQKoA6GIcElSCXv3hgbc6suMCWIaTjA/jWtIDvMAI9mahNIyCKty
+         C5ZsUHuwL6GIq/iIkEO6uItPfOHufBt5iBRkxc6Ik/SoUCjIhMt5QtSn4gqsfkelHpM8
+         EC6zqn7EEapebdyncPcAFZA3DzcRsHjhqwEfcOfMcw5q0iOuSkoVWvn79CvqYlQqR2o9
+         NlNvumBIetK5U/rdc7hvdU3ue+qFfcpuU7naqwYLVeHuctNrowJPPWGUiNd6DKJtRQ7S
+         p9OA==
+X-Gm-Message-State: AOJu0Yzpw84zRHeHpFxLR0qVqpQbm1+D5NAsOYRQIUajQzFmAx3f+kY3
+	40/wWBg52qu9iUSGTgk58rz/0s8m11UVXqNq3InDdl+TSH1k3KAR5VtpU72xE4rCF1Ip+ajjaQ0
+	=
+X-Google-Smtp-Source: AGHT+IFDCeuGS01OPrOQ2jug1IHE7nVncAtND3DA5AgLA/umbntR63ri6VA+u11tzQJih9c+39Rz+A==
+X-Received: by 2002:a05:6512:23a3:b0:511:5322:345b with SMTP id c35-20020a05651223a300b005115322345bmr7321843lfv.7.1707407958189;
+        Thu, 08 Feb 2024 07:59:18 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVqAk52yeXQyinP+0NOLH6e/ts7RO36WE2W/hIN/7MljLN1qdkDaP0FSrYnZnRv0zuYhJtXBLd1BOH5Ww1NjB5uAP5ZDBzdjxNAt5o32Wa+cUm6jGDGvGtoDCTJyFQ3PB1oRqCi6D7Uein9QU1oiL6NFyelKaI=
+Message-ID: <c0a2b6fe-e64f-433a-accf-124a7cee3f91@suse.com>
+Date: Thu, 8 Feb 2024 16:59:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] docs/misra: add asm-offset.c to exclude-list
+Subject: Re: [PATCH] x86/HVM: tidy state on hvmemul_map_linear_addr()'s error
+ path
 Content-Language: en-US
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <09b659e19bf2cc6b3ee4320e019bdfa7def5f3b8.1707406598.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Manuel Andreas <manuel.andreas@tum.de>, Paul Durrant <paul@xen.org>
+References: <c4c1d2b3-591e-403f-879b-bbb897f7ff25@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -114,38 +114,68 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <09b659e19bf2cc6b3ee4320e019bdfa7def5f3b8.1707406598.git.nicola.vetrini@bugseng.com>
+In-Reply-To: <c4c1d2b3-591e-403f-879b-bbb897f7ff25@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.02.2024 16:50, Nicola Vetrini wrote:
-> These files contain several deliberate violations of MISRA C rules and
-> they are not linked in the final Xen binary, therefore they can be exempted
-> from MISRA compliance.
+On 06.02.2024 13:06, Jan Beulich wrote:
+> While in the vast majority of cases failure of the function will not
+> be followed by re-invocation with the same emulation context, a few
+> very specific insns - involving multiple independent writes, e.g. ENTER
+> and PUSHA - exist where this can happen. Since failure of the function
+> only signals to the caller that it ought to try an MMIO write instead,
+> such failure also cannot be assumed to result in wholesale failure of
+> emulation of the current insn. Instead we have to maintain internal
+> state such that another invocation of the function with the same
+> emulation context remains possible. To achieve that we need to reset MFN
+> slots after putting page references on the error path.
 > 
-> No functional change.
+> Note that all of this affects debugging code only, in causing an
+> assertion to trigger (higher up in the function). There's otherwise no
+> misbehavior - such a "leftover" slot would simply be overwritten by new
+> contents in a release build.
 > 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+> Also extend the related unmap() assertion, to further check for MFN 0.
+> 
+> Fixes: 8cbd4fb0b7ea ("x86/hvm: implement hvmemul_write() using real mappings")
+> Reported.by: Manuel Andreas <manuel.andreas@tum.de>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-albeit ...
-
-> --- a/docs/misra/exclude-list.json
-> +++ b/docs/misra/exclude-list.json
-> @@ -101,6 +101,10 @@
->              "rel_path": "arch/x86/efi/check.c",
->              "comment": "The resulting code is not included in the final Xen binary, ignore for now"
->          },
-> +        {
-> +          "rel_path": "arch/*/*/asm-offsets.c",
-> +          "comment": "The resulting code is not included in the final Xen binary, ignore for now"
-> +        },
->          {
->              "rel_path": "common/coverage/*",
->              "comment": "Files to support gcov, ignore for now"
-
-... something looks odd with indentation; can probably be adjusted
-while committing.
+Just noticed that I forgot to Cc Paul.
 
 Jan
+
+> ---
+> While probably I could be convinced to omit the #ifndef, I'm really
+> considering to extend the one in hvmemul_unmap_linear_addr(), to
+> eliminate the zapping from release builds: Leaving MFN 0 in place is not
+> much better than leaving a (presently) guest-owned one there. And we
+> can't really put/leave INVALID_MFN there, as that would conflict with
+> other debug checking.
+> 
+> --- a/xen/arch/x86/hvm/emulate.c
+> +++ b/xen/arch/x86/hvm/emulate.c
+> @@ -696,7 +696,12 @@ static void *hvmemul_map_linear_addr(
+>   out:
+>      /* Drop all held references. */
+>      while ( mfn-- > hvmemul_ctxt->mfn )
+> +    {
+>          put_page(mfn_to_page(*mfn));
+> +#ifndef NDEBUG /* Clean slot for a subsequent map()'s error checking. */
+> +        *mfn = _mfn(0);
+> +#endif
+> +    }
+>  
+>      return err;
+>  }
+> @@ -718,7 +723,7 @@ static void hvmemul_unmap_linear_addr(
+>  
+>      for ( i = 0; i < nr_frames; i++ )
+>      {
+> -        ASSERT(mfn_valid(*mfn));
+> +        ASSERT(mfn_x(*mfn) && mfn_valid(*mfn));
+>          paging_mark_dirty(currd, *mfn);
+>          put_page(mfn_to_page(*mfn));
+>  
+
 
