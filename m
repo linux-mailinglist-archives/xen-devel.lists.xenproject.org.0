@@ -2,38 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83E9C84E48F
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 16:59:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678309.1055432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1117A84E4AA
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 17:05:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678313.1055443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY6o5-00071Y-Hf; Thu, 08 Feb 2024 15:59:21 +0000
+	id 1rY6tv-0000u2-6B; Thu, 08 Feb 2024 16:05:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678309.1055432; Thu, 08 Feb 2024 15:59:21 +0000
+Received: by outflank-mailman (output) from mailman id 678313.1055443; Thu, 08 Feb 2024 16:05:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY6o5-0006zc-F5; Thu, 08 Feb 2024 15:59:21 +0000
-Received: by outflank-mailman (input) for mailman id 678309;
- Thu, 08 Feb 2024 15:59:19 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rY6tv-0000rM-38; Thu, 08 Feb 2024 16:05:23 +0000
+Received: by outflank-mailman (input) for mailman id 678313;
+ Thu, 08 Feb 2024 16:05:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rY6o3-0006zU-MT
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 15:59:19 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 041bd668-c69b-11ee-8a4a-1f161083a0e0;
- Thu, 08 Feb 2024 16:59:18 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id
- 2adb3069b0e04-51168addef1so2897156e87.1
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 07:59:18 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- jl26-20020a05600c6a9a00b0040fff3382casm1965797wmb.46.2024.02.08.07.59.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Feb 2024 07:59:17 -0800 (PST)
+ (envelope-from <SRS0=m/2e=JR=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1rY6tu-0000rG-1p
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 16:05:22 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id db03be06-c69b-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 17:05:19 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 733601FCF4;
+ Thu,  8 Feb 2024 16:05:18 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 305931326D;
+ Thu,  8 Feb 2024 16:05:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id id0+Cr77xGWzAwAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 08 Feb 2024 16:05:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,137 +52,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 041bd668-c69b-11ee-8a4a-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707407958; x=1708012758; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=opkDLlYlwAcgajlR7y6ntiRvdsqEsQAXt5P7B8Dgv+g=;
-        b=c+3n51K/JUk79gdtph/xFjCCtBD19yk8lw4IH5sF83REetMd727xI7bKeySEj7/RXI
-         7RJMJTaOQsieXWDi/5yLQTxvhl0EJxIxSoSbX58QkcFlvdAMs28Wgtob+FUrDGNsX7dx
-         QbsipxS3fcfYgSCK3i9XZPwdPYU/Mn5pCq89DVvTxzkDajbJ05NxCO0X+QC/1r/aMHpu
-         f1xXyTzoN1a0GjXuYD7HPn4k1MtLfNd/IR1DQL14uXFlWGVdBnKXh+3KB9Yka0SVAGMx
-         3R+tZrsNqsx9n16opH0uNkdkGwT3yFJVXVGknlU7vSYTfQgb6RDp5+gYED+Vg7Z6nycg
-         BaIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707407958; x=1708012758;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=opkDLlYlwAcgajlR7y6ntiRvdsqEsQAXt5P7B8Dgv+g=;
-        b=v9TbtIdZ/C0vUo4WztQiKHOFRHMdGpjuDmeRhlrB4FOIToLuT5MPrJZTwUxVsk30sm
-         LvimEp2dqcktPZyGMQKoA6GIcElSCXv3hgbc6suMCWIaTjA/jWtIDvMAI9mahNIyCKty
-         C5ZsUHuwL6GIq/iIkEO6uItPfOHufBt5iBRkxc6Ik/SoUCjIhMt5QtSn4gqsfkelHpM8
-         EC6zqn7EEapebdyncPcAFZA3DzcRsHjhqwEfcOfMcw5q0iOuSkoVWvn79CvqYlQqR2o9
-         NlNvumBIetK5U/rdc7hvdU3ue+qFfcpuU7naqwYLVeHuctNrowJPPWGUiNd6DKJtRQ7S
-         p9OA==
-X-Gm-Message-State: AOJu0Yzpw84zRHeHpFxLR0qVqpQbm1+D5NAsOYRQIUajQzFmAx3f+kY3
-	40/wWBg52qu9iUSGTgk58rz/0s8m11UVXqNq3InDdl+TSH1k3KAR5VtpU72xE4rCF1Ip+ajjaQ0
-	=
-X-Google-Smtp-Source: AGHT+IFDCeuGS01OPrOQ2jug1IHE7nVncAtND3DA5AgLA/umbntR63ri6VA+u11tzQJih9c+39Rz+A==
-X-Received: by 2002:a05:6512:23a3:b0:511:5322:345b with SMTP id c35-20020a05651223a300b005115322345bmr7321843lfv.7.1707407958189;
-        Thu, 08 Feb 2024 07:59:18 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCVqAk52yeXQyinP+0NOLH6e/ts7RO36WE2W/hIN/7MljLN1qdkDaP0FSrYnZnRv0zuYhJtXBLd1BOH5Ww1NjB5uAP5ZDBzdjxNAt5o32Wa+cUm6jGDGvGtoDCTJyFQ3PB1oRqCi6D7Uein9QU1oiL6NFyelKaI=
-Message-ID: <c0a2b6fe-e64f-433a-accf-124a7cee3f91@suse.com>
-Date: Thu, 8 Feb 2024 16:59:16 +0100
+X-Inumbo-ID: db03be06-c69b-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1707408318; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=GzoKAVtAHMHyYxKj3Jy39XsROB3PeexKhIb/Jv9U/Co=;
+	b=isd/087gteg1utA3oqlCzukeuQxrMvA3AFLMem8sffCqZIQz84oWqOEqQaxs+ybM68XRK3
+	k9QgBTgP2WwBVdjCWxuC/FUzDo7AZevlFGyrlZ4hC2vz3wmllKgalTpTG4H+Rgw3lgoOCM
+	Q7MJEt0O11jwgSa+DQw63lbskXbX56c=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1707408318; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=GzoKAVtAHMHyYxKj3Jy39XsROB3PeexKhIb/Jv9U/Co=;
+	b=isd/087gteg1utA3oqlCzukeuQxrMvA3AFLMem8sffCqZIQz84oWqOEqQaxs+ybM68XRK3
+	k9QgBTgP2WwBVdjCWxuC/FUzDo7AZevlFGyrlZ4hC2vz3wmllKgalTpTG4H+Rgw3lgoOCM
+	Q7MJEt0O11jwgSa+DQw63lbskXbX56c=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH] docs: add a best practices coding guide
+Date: Thu,  8 Feb 2024 17:05:15 +0100
+Message-Id: <20240208160515.9949-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/HVM: tidy state on hvmemul_map_linear_addr()'s error
- path
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Manuel Andreas <manuel.andreas@tum.de>, Paul Durrant <paul@xen.org>
-References: <c4c1d2b3-591e-403f-879b-bbb897f7ff25@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c4c1d2b3-591e-403f-879b-bbb897f7ff25@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.com header.s=susede1 header.b="isd/087g"
+X-Spamd-Result: default: False [-3.81 / 50.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	 RCVD_DKIM_ARC_DNSWL_HI(-1.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
+	 DKIM_TRACE(0.00)[suse.com:+];
+	 MX_GOOD(-0.01)[];
+	 RCPT_COUNT_SEVEN(0.00)[8];
+	 MID_CONTAINS_FROM(1.00)[];
+	 DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email];
+	 FUZZY_BLOCKED(0.00)[rspamd.com];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_IN_DNSWL_HI(-0.50)[2a07:de40:b281:104:10:150:64:97:from];
+	 RCVD_TLS_ALL(0.00)[];
+	 BAYES_HAM(-3.00)[100.00%]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 733601FCF4
+X-Spam-Level: 
+X-Spam-Score: -3.81
+X-Spam-Flag: NO
 
-On 06.02.2024 13:06, Jan Beulich wrote:
-> While in the vast majority of cases failure of the function will not
-> be followed by re-invocation with the same emulation context, a few
-> very specific insns - involving multiple independent writes, e.g. ENTER
-> and PUSHA - exist where this can happen. Since failure of the function
-> only signals to the caller that it ought to try an MMIO write instead,
-> such failure also cannot be assumed to result in wholesale failure of
-> emulation of the current insn. Instead we have to maintain internal
-> state such that another invocation of the function with the same
-> emulation context remains possible. To achieve that we need to reset MFN
-> slots after putting page references on the error path.
-> 
-> Note that all of this affects debugging code only, in causing an
-> assertion to trigger (higher up in the function). There's otherwise no
-> misbehavior - such a "leftover" slot would simply be overwritten by new
-> contents in a release build.
-> 
-> Also extend the related unmap() assertion, to further check for MFN 0.
-> 
-> Fixes: 8cbd4fb0b7ea ("x86/hvm: implement hvmemul_write() using real mappings")
-> Reported.by: Manuel Andreas <manuel.andreas@tum.de>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Today the CODING_STYLE contains a section "Handling unexpected
+conditions" specific to the hypervisor. This section is kind of
+misplaced for a coding style. It should rather be part of a "Coding
+best practices" guide.
 
-Just noticed that I forgot to Cc Paul.
+Add such a guide as docs/process/coding-best-practices.pandoc and
+move the mentioned section from CODING_STYLE to the new file, while
+converting the format to pandoc.
 
-Jan
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ CODING_STYLE                              | 102 ----------------------
+ docs/process/coding-best-practices.pandoc |  92 +++++++++++++++++++
+ 2 files changed, 92 insertions(+), 102 deletions(-)
+ create mode 100644 docs/process/coding-best-practices.pandoc
 
-> ---
-> While probably I could be convinced to omit the #ifndef, I'm really
-> considering to extend the one in hvmemul_unmap_linear_addr(), to
-> eliminate the zapping from release builds: Leaving MFN 0 in place is not
-> much better than leaving a (presently) guest-owned one there. And we
-> can't really put/leave INVALID_MFN there, as that would conflict with
-> other debug checking.
-> 
-> --- a/xen/arch/x86/hvm/emulate.c
-> +++ b/xen/arch/x86/hvm/emulate.c
-> @@ -696,7 +696,12 @@ static void *hvmemul_map_linear_addr(
->   out:
->      /* Drop all held references. */
->      while ( mfn-- > hvmemul_ctxt->mfn )
-> +    {
->          put_page(mfn_to_page(*mfn));
-> +#ifndef NDEBUG /* Clean slot for a subsequent map()'s error checking. */
-> +        *mfn = _mfn(0);
-> +#endif
-> +    }
->  
->      return err;
->  }
-> @@ -718,7 +723,7 @@ static void hvmemul_unmap_linear_addr(
->  
->      for ( i = 0; i < nr_frames; i++ )
->      {
-> -        ASSERT(mfn_valid(*mfn));
-> +        ASSERT(mfn_x(*mfn) && mfn_valid(*mfn));
->          paging_mark_dirty(currd, *mfn);
->          put_page(mfn_to_page(*mfn));
->  
+diff --git a/CODING_STYLE b/CODING_STYLE
+index ed13ee2b66..7f6e9ad065 100644
+--- a/CODING_STYLE
++++ b/CODING_STYLE
+@@ -167,105 +167,3 @@ the end of files.  It should be:
+  * indent-tabs-mode: nil
+  * End:
+  */
+-
+-Handling unexpected conditions
+-------------------------------
+-
+-GUIDELINES:
+-
+-Passing errors up the stack should be used when the caller is already
+-expecting to handle errors, and the state when the error was
+-discovered isn’t broken, or isn't too hard to fix.
+-
+-domain_crash() should be used when passing errors up the stack is too
+-difficult, and/or when fixing up state of a guest is impractical, but
+-where fixing up the state of Xen will allow Xen to continue running.
+-This is particularly appropriate when the guest is exhibiting behavior
+-well-behaved guests shouldn't.
+-
+-BUG_ON() should be used when you can’t pass errors up the stack, and
+-either continuing or crashing the guest would likely cause an
+-information leak or privilege escalation vulnerability.
+-
+-ASSERT() IS NOT AN ERROR HANDLING MECHANISM.  ASSERT is a way to move
+-detection of a bug earlier in the programming cycle; it is a
+-more-noticeable printk.  It should only be added after one of the
+-other three error-handling mechanisms has been evaluated for
+-reliability and security.
+-
+-RATIONALE:
+-
+-It's frequently the case that code is written with the assumption that
+-certain conditions can never happen.  There are several possible
+-actions programmers can take in these situations:
+-
+-* Programmers can simply not handle those cases in any way, other than
+-perhaps to write a comment documenting what the assumption is.
+-
+-* Programmers can try to handle the case gracefully -- fixing up
+-in-progress state and returning an error to the user.
+-
+-* Programmers can crash the guest.
+-
+-* Programmers can use ASSERT(), which will cause the check to be
+-executed in DEBUG builds, and cause the hypervisor to crash if it's
+-violated
+-
+-* Programmers can use BUG_ON(), which will cause the check to be
+-executed in both DEBUG and non-DEBUG builds, and cause the hypervisor
+-to crash if it's violated.
+-
+-In selecting which response to use, we want to achieve several goals:
+-
+-- To minimize risk of introducing security vulnerabilities,
+-  particularly as the code evolves over time
+-
+-- To efficiently spend programmer time
+-
+-- To detect violations of assumptions as early as possible
+-
+-- To minimize the impact of bugs on production use cases
+-
+-The guidelines above attempt to balance these:
+-
+-- When the caller is expecting to handle errors, and there is no
+-broken state at the time the unexpected condition is discovered, or
+-when fixing the state is straightforward, then fixing up the state and
+-returning an error is the most robust thing to do.  However, if the
+-caller isn't expecting to handle errors, or if the state is difficult
+-to fix, then returning an error may require extensive refactoring,
+-which is not a good use of programmer time when they're certain that
+-this condition cannot occur.
+-
+-- BUG_ON() will stop all hypervisor action immediately.  In situations
+-where continuing might allow an attacker to escalate privilege, a
+-BUG_ON() can change a privilege escalation or information leak into a
+-denial-of-service (an improvement).  But in situations where
+-continuing (say, returning an error) might be safe, then BUG_ON() can
+-change a benign failure into denial-of-service (a degradation).
+-
+-- domain_crash() is similar to BUG_ON(), but with a more limited
+-effect: it stops that domain immediately.  In situations where
+-continuing might cause guest or hypervisor corruption, but destroying
+-the guest allows the hypervisor to continue, this can change a more
+-serious bug into a guest denial-of-service.  But in situations where
+-returning an error might be safe, then domain_crash() can change a
+-benign failure into a guest denial-of-service.
+-
+-- ASSERT() will stop the hypervisor during development, but allow
+-hypervisor action to continue during production.  In situations where
+-continuing will at worst result in a denial-of-service, and at best
+-may have little effect other than perhaps quirky behavior, using an
+-ASSERT() will allow violation of assumptions to be detected as soon as
+-possible, while not causing undue degradation in production
+-hypervisors.  However, in situations where continuing could cause
+-privilege escalation or information leaks, using an ASSERT() can
+-introduce security vulnerabilities.
+-
+-Note however that domain_crash() has its own traps: callers far up the
+-call stack may not realize that the domain is now dying as a result of
+-an innocuous-looking operation, particularly if somewhere on the
+-callstack between the initial function call and the failure, no error
+-is returned.  Using domain_crash() requires careful inspection and
+-documentation of the code to make sure all callers at the stack handle
+-a newly-dead domain gracefully.
+diff --git a/docs/process/coding-best-practices.pandoc b/docs/process/coding-best-practices.pandoc
+new file mode 100644
+index 0000000000..f611aa9a55
+--- /dev/null
++++ b/docs/process/coding-best-practices.pandoc
+@@ -0,0 +1,92 @@
++# Best Practices in the Hypervisor
++
++## Handling unexpected conditions
++
++### Guidelines
++
++Passing errors up the stack should be used when the caller is already
++expecting to handle errors, and the state when the error was
++discovered isn’t broken, or isn't too hard to fix.
++
++domain_crash() should be used when passing errors up the stack is too
++difficult, and/or when fixing up state of a guest is impractical, but
++where fixing up the state of Xen will allow Xen to continue running.
++This is particularly appropriate when the guest is exhibiting behavior
++well-behaved guests shouldn't.
++
++BUG_ON() should be used when you can’t pass errors up the stack, and
++either continuing or crashing the guest would likely cause an
++information leak or privilege escalation vulnerability.
++
++ASSERT() IS NOT AN ERROR HANDLING MECHANISM.  ASSERT is a way to move
++detection of a bug earlier in the programming cycle; it is a
++more-noticeable printk.  It should only be added after one of the
++other three error-handling mechanisms has been evaluated for
++reliability and security.
++
++### Rationale
++
++It's frequently the case that code is written with the assumption that
++certain conditions can never happen.  There are several possible
++actions programmers can take in these situations:
++
++ * Programmers can simply not handle those cases in any way, other than
++   perhaps to write a comment documenting what the assumption is.
++ * Programmers can try to handle the case gracefully -- fixing up
++   in-progress state and returning an error to the user.
++ * Programmers can crash the guest.
++ * Programmers can use ASSERT(), which will cause the check to be
++   executed in DEBUG builds, and cause the hypervisor to crash if it's
++   violated
++ * Programmers can use BUG_ON(), which will cause the check to be
++   executed in both DEBUG and non-DEBUG builds, and cause the hypervisor
++   to crash if it's violated.
++
++In selecting which response to use, we want to achieve several goals:
++
++ * To minimize risk of introducing security vulnerabilities,
++   particularly as the code evolves over time
++ * To efficiently spend programmer time
++ * To detect violations of assumptions as early as possible
++ * To minimize the impact of bugs on production use cases
++
++The guidelines above attempt to balance these:
++
++ * When the caller is expecting to handle errors, and there is no
++   broken state at the time the unexpected condition is discovered, or
++   when fixing the state is straightforward, then fixing up the state and
++   returning an error is the most robust thing to do.  However, if the
++   caller isn't expecting to handle errors, or if the state is difficult
++   to fix, then returning an error may require extensive refactoring,
++   which is not a good use of programmer time when they're certain that
++   this condition cannot occur.
++ * BUG_ON() will stop all hypervisor action immediately.  In situations
++   where continuing might allow an attacker to escalate privilege, a
++   BUG_ON() can change a privilege escalation or information leak into a
++   denial-of-service (an improvement).  But in situations where
++   continuing (say, returning an error) might be safe, then BUG_ON() can
++   change a benign failure into denial-of-service (a degradation).
++ * domain_crash() is similar to BUG_ON(), but with a more limited
++   effect: it stops that domain immediately.  In situations where
++   continuing might cause guest or hypervisor corruption, but destroying
++   the guest allows the hypervisor to continue, this can change a more
++   serious bug into a guest denial-of-service.  But in situations where
++   returning an error might be safe, then domain_crash() can change a
++   benign failure into a guest denial-of-service.
++ * ASSERT() will stop the hypervisor during development, but allow
++   hypervisor action to continue during production.  In situations where
++   continuing will at worst result in a denial-of-service, and at best
++   may have little effect other than perhaps quirky behavior, using an
++   ASSERT() will allow violation of assumptions to be detected as soon as
++   possible, while not causing undue degradation in production
++   hypervisors.  However, in situations where continuing could cause
++   privilege escalation or information leaks, using an ASSERT() can
++   introduce security vulnerabilities.
++
++Note however that domain_crash() has its own traps: callers far up the
++call stack may not realize that the domain is now dying as a result of
++an innocuous-looking operation, particularly if somewhere on the
++callstack between the initial function call and the failure, no error
++is returned.  Using domain_crash() requires careful inspection and
++documentation of the code to make sure all callers at the stack handle
++a newly-dead domain gracefully.
+-- 
+2.35.3
 
 
