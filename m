@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82FF884DAEF
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 09:02:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678022.1055033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59BCC84DAF6
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 09:06:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678024.1055044 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXzMN-00044E-15; Thu, 08 Feb 2024 08:02:15 +0000
+	id 1rXzQ0-0004db-GI; Thu, 08 Feb 2024 08:06:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678022.1055033; Thu, 08 Feb 2024 08:02:15 +0000
+Received: by outflank-mailman (output) from mailman id 678024.1055044; Thu, 08 Feb 2024 08:06:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rXzMM-00042J-UI; Thu, 08 Feb 2024 08:02:14 +0000
-Received: by outflank-mailman (input) for mailman id 678022;
- Thu, 08 Feb 2024 08:02:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rXzQ0-0004c2-DQ; Thu, 08 Feb 2024 08:06:00 +0000
+Received: by outflank-mailman (input) for mailman id 678024;
+ Thu, 08 Feb 2024 08:05:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rXzML-00042D-5U
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 08:02:13 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5c64732b-c658-11ee-98f5-efadbce2ee36;
- Thu, 08 Feb 2024 09:02:10 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4102eae7e6aso5238985e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 00:02:10 -0800 (PST)
+ id 1rXzPy-0004bk-Ri
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 08:05:58 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e3de74ac-c658-11ee-8a4a-1f161083a0e0;
+ Thu, 08 Feb 2024 09:05:57 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-33b436dbdcfso1133089f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 00:05:57 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m3-20020a056000024300b0033b2799815csm3055415wrz.86.2024.02.08.00.02.09
+ e3-20020a5d5003000000b0033b524e54d1sm1881204wrt.113.2024.02.08.00.05.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Feb 2024 00:02:09 -0800 (PST)
+ Thu, 08 Feb 2024 00:05:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,52 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c64732b-c658-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: e3de74ac-c658-11ee-8a4a-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707379330; x=1707984130; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707379557; x=1707984357; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=sA6DTUljh8AuqClGp1xj+vIuOIKVU2MgFNi3HwqW92Y=;
-        b=X3NNEyAhBllCgj4f5Vt3rz/P8SAlz+Q2zOJMKMujdhiAibLDKMDEKKhkTHUtJzP6rl
-         rTy2r0X+P3A3J3K2kzmpDjKSVFkyosQZfxmtN1auGuAc8N5CSn/uV8jX1RchYYn9Kwfz
-         DKamEmfQM50No05IxHwpZf5WnyKdJ1tgNhLDRLbx1IaqqDRZtVUvMTbm7KFcHAFckoOa
-         PI25XRYHU0Uk4U6rytEZ3/hlfDy5VIg06HT5gn6XnYBgTVEdPmDcqMG4sK4XBlW83cHp
-         +VD+KhX/1JJPmCKzYk5chfTUlRQzNu290C3J8MLJKEbdLj43m24bhIYoUKMmhx9XREEq
-         +/hg==
+        bh=SJ2b+YIn4mMFi8rKTUVQ8lugGtyEfUAbFbXwWFmHkp0=;
+        b=Z57msbG74UU7ll2gnCccBLCzxwUIeTMqTc/m/tb8z6G7qTgjCTTDTrSbDoIyQeeF7O
+         /GBZpkgNXXNE7dUBUWHpT1DVDyIahWpuqGexk0qujJP00B0N8z7HARbFRqZ9uMEeqwaW
+         ckpQ8URpGcJTFUpZ+Ff4ddKW7XDYcOrxMcYzYFljcc4i8RaYdEIqwjUc4tZkL9k17my/
+         d94bRBHxKffq95F7mLRzbrGhanz499NvQdHglSelPzmN1VSXt4IMGdAMLIbgR2gjbjzp
+         WEa1ZwyPU/wnhBJZve7votmIDGZlJWB73L8FfP/Jl+STcC1lodb2Xjiutzbal1xq9vFh
+         WWZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707379330; x=1707984130;
+        d=1e100.net; s=20230601; t=1707379557; x=1707984357;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sA6DTUljh8AuqClGp1xj+vIuOIKVU2MgFNi3HwqW92Y=;
-        b=ctitJKhrYv5pugcTOHjU774PRF57nA77amEMuoK/8yhuiPNTYrWcZUk2YCQhoCWMrS
-         x2rzXiZJ9yGuZE7fNfYbuUil43l3fs0eFMQ7/FuCnBi1007GQsra3tT0FbQ4d+b10AwA
-         kM6wtLUg0D+LnPIGw3ba1r3xaQc1QJ38LolqA/AvgabZ5u5dqfOpq3omlbrnlUAFkQQj
-         deFOf1lCOQjPnzDFxjiPZVqFinfybkukERnBF52f1DDG+fnd0NU0XR03o2hP8A5O9q0w
-         oHNVLI94LF8unU6jh6Imn53xBXqV+tWXguCxjCUiGM6kZlpkI9z5eLYu8eu8gr8ma+f+
-         Ih/A==
-X-Gm-Message-State: AOJu0Yylbun0f/gNt44Z01adIEstsfW2sRmxiPfKeIvgjnXMq51Dme7L
-	IYeF3hHDnM6KuENxww95dxEQp1ypbINu7LiKttcdAQ4ZaaIsp1rJynZY7xgEVg==
-X-Google-Smtp-Source: AGHT+IGxlQqzhqccR5pAw12IpRkO5HU6l2U7IJY1tN6SfFuEzk7LuNMbasBODOHwaki763Q9WfVL5A==
-X-Received: by 2002:a05:600c:1d9c:b0:410:3fc8:f75c with SMTP id p28-20020a05600c1d9c00b004103fc8f75cmr433965wms.36.1707379330082;
-        Thu, 08 Feb 2024 00:02:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUhfKUGOOm413S2cJBFpu4jL9UI8tzRGXXO/2+cg1i87DxvzXXHzPsDS66B7gFMlJ3jVyrNsMd0Jt0T6s/+SMsJzVRaZJNufB4utIG6R6Dsmgw6ln/aGqF+bNmPZGbCWRhRc38/ECQ1y+1JTeZCGz9CYPVOC3MIuKQsisMXcwugjtB0ajQ=
-Message-ID: <bb2533df-dbb6-4836-bfe9-3611cd11b7f9@suse.com>
-Date: Thu, 8 Feb 2024 09:02:09 +0100
+        bh=SJ2b+YIn4mMFi8rKTUVQ8lugGtyEfUAbFbXwWFmHkp0=;
+        b=XYFCQKnIe3FXJg4WmOR2S8JkLwUpVTpjNXQyW64ipyb2ok0plr0f5vk9R4lerQNhCa
+         cFPYV1UJWL919jZxMi57iRBHYsXD5nHgZ+UujdpyHs9bWESb5b6oV46Q1nWpUWiVNt8z
+         AbPJnM8glChiOBd/y6+zOJoIhxWwVh8Yl8nZMWVgtsSOC2vPhXmRMhPV7FuSarX0PNTl
+         73KcmW0BzETjwy8dzhsoz5CNftg0QdWM3ZA9mrhVuy+OUvuY7PnVb3nUcsFm3DxPbwZn
+         7Du/gMiFBiHAjFHDojiPMxGlCMSw0HjnvDb2s2Mv+WrBWgAXDRpAtaFLtMucOfNXb17e
+         VtIA==
+X-Gm-Message-State: AOJu0YzycV/auuCXTL7aXe3y/zFlnIwCA+n0ymwIN6sBQvVOaFvyTyVk
+	bwUrMcIYsSEAO6gq+HGem5MsFNIjCZBUr+GeVqIEWh7FJJUFVXppSgBT6g8vsA==
+X-Google-Smtp-Source: AGHT+IFTy/rBUUqPyky62p9LP9uKd62XnUWEUWLDj5VPqSSlu1No8GXhCYFFqMTaitsyi3cthrnKLA==
+X-Received: by 2002:a5d:6651:0:b0:33b:39d5:553d with SMTP id f17-20020a5d6651000000b0033b39d5553dmr5248295wrw.60.1707379557343;
+        Thu, 08 Feb 2024 00:05:57 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVF2gfnpHFwWxg6D/cbPwBpYORLt3qhOipvRvoj7S66MTa/I3yTkx24JagdtrMQDe6PwfBL4dCOlgp+NXLEq9lidAO6jCklzLiSo5k3hJFwcJ1s2zrcfvn3SfcZdseEKbA3JZeJTraRhkhwioS5J5D8z6X/h342dGdb9AtUm84/OksABfmFTwTTNgDUHB9xfNQPkfwsZ39m082+xSdSZpw6KtZXT1Bg705gtRiCCUleIxmNPgORhnfpD7XhJ2MFF55zPnUbsuA4O9AABJAU3W6SN6JErFhgYI4BfepSOOumrLHXA8AGNPZyxRBFzSZhXpDfsu1dBBDbLt+ra4Y0Xm+IL3CzOofPM5wHNnBKjZSJjnSWRLISrX4BDKeEQNMCQDD/S+rHHImPXx+mDzGJMveEdCk=
+Message-ID: <9b9c128f-f143-4c2c-9ee2-67a240d216d5@suse.com>
+Date: Thu, 8 Feb 2024 09:05:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] x86/p2m: make p2m_get_page_from_gfn() handle grant
- case correctly
+Subject: Re: [XEN PATCH] docs/misra: add x86_64 and arm64 asm-offset.c to
+ exclude-list
 Content-Language: en-US
-To: George Dunlap <dunlapg@umich.edu>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@cloud.com>
-References: <5d6c927e-7d7c-5754-e7eb-65d1e70f6222@suse.com>
- <8d5df1f4-74ca-27cc-99f0-7e7a82050de1@suse.com>
- <CAFLBxZbO2-f3rdgVhu2j_7sRWSeL5oMZt6pit=6nRvhPn=pqoQ@mail.gmail.com>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ julien@xen.org, George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <b0c855581eed247a32b745906f84d352bf812091.1707324479.git.nicola.vetrini@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,78 +114,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CAFLBxZbO2-f3rdgVhu2j_7sRWSeL5oMZt6pit=6nRvhPn=pqoQ@mail.gmail.com>
+In-Reply-To: <b0c855581eed247a32b745906f84d352bf812091.1707324479.git.nicola.vetrini@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 08.02.2024 07:32, George Dunlap wrote:
-> On Thu, Jun 23, 2022 at 7:54 PM Jan Beulich <jbeulich@suse.com> wrote:
+On 08.02.2024 08:55, Nicola Vetrini wrote:
+> These two files contain several deliberate violations of MISRA C rules and
+> they are not linked in the final Xen binary, therefore they can be exempted
+> from MISRA compliance.
 > 
->> Grant P2M entries, which are covered by p2m_is_any_ram(), wouldn't pass
->> the get_page() unless the grant was a local one. These need to take the
->> same path as foreign entries. Just the assertion there is not valid for
->> local grants, and hence it triggering needs to be avoided.
->>
+> No functional change.
 > 
-> I think I'd say:
-> 
+> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 > ---
-> The 'fast' path of p2m_get_page_from_gfn handles three cases: normal ram,
-> foreign p2m entries, and grant map entries.  For normal ram and grant table
-> entries, get_page() is called, but for foreign entries,
-> page_get_owner_and_reference() is called, since the current domain is
-> expected not to be the owner.
-> 
-> Unfortunately, grant maps are *also* generally expected to be owned by
-> foreign domains; so this function will fail for any p2m entry containing a
-> grant map that doesn't happen to be local.
-> 
-> Have grant maps take the same path as foreign entries.  Since grants may
-> actually be either foreign or local, adjust the assertion to allow for this.
-> ---
+> Since the exclude list only contains arm64 and x86 files I reasoned that
+> introducing an entry that would match all architectures would not be desirable
+> (e.g., arm32). I'm happy to change that, though.
 
-Sure, thanks, I can use this, but then I'd perhaps ought to add your
-S-o-b instead of ...
-
-> One more comment...
-> 
-> 
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Using | instead of || helps the compiler fold the two p2m_is_*().
->> ---
->> v2: The shared case was fine; limit to grant adjustment.
->>
->> --- a/xen/arch/x86/mm/p2m.c
->> +++ b/xen/arch/x86/mm/p2m.c
->> @@ -357,11 +357,11 @@ struct page_info *p2m_get_page_from_gfn(
->>               && !((q & P2M_UNSHARE) && p2m_is_shared(*t)) )
->>          {
->>              page = mfn_to_page(mfn);
->> -            if ( unlikely(p2m_is_foreign(*t)) )
->> +            if ( unlikely(p2m_is_foreign(*t) | p2m_is_grant(*t)) )
->>
-> 
-> I'm not a fan of this.  If you replace it with || you can have my R-b
-
-... R-b, requiring yet someone else's ack?
-
-> immediately; otherwise we'll have to wait until we can discuss our general
-> policy on this sort of thing at the x86 maintainer's call.
-
-I prefer to wait. Considering that even leaving aside the use of
-p2m_is_...() "if ( a || b )" is equivalent to "if ( a | b )" (with a and
-b of suitable types, of course), and typically requiring less branches
-(on x86 at least; architectures with predicated insns of course are
-different), personally I'd see us make more use of this in general.
-(Hence also the post-commit-message remark.) But yes, Misra in principle
-doesn't like such (we've already deviated the underlying pattern,
-though).
-
-Of course the compiler is generally in a position to do such a
-transformation itself. Just that in at least this specific case I did
-observe it not to. I didn't check simpler cases any time halfway
-recently.
+Just wanted to ask - if globs are permitted, I'd favor covering all possible
+architectures. It is certainly expected that they all follow suit. Just that
+in the absence of sub-architectures the path would be xen/arch/*/asm-offsets.c
+(and it's quite possible that we may, over time, morph x86 to a sub-arch-less
+form).
 
 Jan
+
+> ---
+>  docs/misra/exclude-list.json | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
+> index 7971d0e70f5b..bd05478e03e9 100644
+> --- a/docs/misra/exclude-list.json
+> +++ b/docs/misra/exclude-list.json
+> @@ -17,6 +17,10 @@
+>              "rel_path": "arch/arm/arm64/lib/find_next_bit.c",
+>              "comment": "Imported from Linux, ignore for now"
+>          },
+> +        {
+> +          "rel_path": "arch/arm/arm64/asm-offsets.c",
+> +          "comment": "The resulting code is not included in the final Xen binary, ignore for now"
+> +        },
+>          {
+>              "rel_path": "arch/x86/acpi/boot.c",
+>              "comment": "Imported from Linux, ignore for now"
+> @@ -97,6 +101,10 @@
+>              "rel_path": "arch/x86/x86_64/mmconf-fam10h.c",
+>              "comment": "Imported from Linux, ignore for now"
+>          },
+> +        {
+> +          "rel_path": "arch/x86/x86_64/asm-offsets.c",
+> +          "comment": "The resulting code is not included in the final Xen binary, ignore for now"
+> +        },
+>          {
+>              "rel_path": "arch/x86/efi/check.c",
+>              "comment": "The resulting code is not included in the final Xen binary, ignore for now"
+
 
