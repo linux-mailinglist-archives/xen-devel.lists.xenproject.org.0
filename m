@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10E7584E4DA
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 17:18:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678329.1055483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98BE384E4E7
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 17:21:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678334.1055493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY75u-0004pm-15; Thu, 08 Feb 2024 16:17:46 +0000
+	id 1rY798-0006dg-FF; Thu, 08 Feb 2024 16:21:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678329.1055483; Thu, 08 Feb 2024 16:17:45 +0000
+Received: by outflank-mailman (output) from mailman id 678334.1055493; Thu, 08 Feb 2024 16:21:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY75t-0004o6-US; Thu, 08 Feb 2024 16:17:45 +0000
-Received: by outflank-mailman (input) for mailman id 678329;
- Thu, 08 Feb 2024 16:17:44 +0000
+	id 1rY798-0006bW-CM; Thu, 08 Feb 2024 16:21:06 +0000
+Received: by outflank-mailman (input) for mailman id 678334;
+ Thu, 08 Feb 2024 16:21:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rY75s-0004o0-3Z
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 16:17:44 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
+ id 1rY797-0006bQ-Fe
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 16:21:05 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 959bd598-c69d-11ee-98f5-efadbce2ee36;
- Thu, 08 Feb 2024 17:17:41 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2d0d95e8133so401031fa.1
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 08:17:41 -0800 (PST)
+ id 0cc92b68-c69e-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 17:21:01 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4102f273c46so207475e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 08:21:01 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m13-20020adfa3cd000000b0033ae50e2c6asm3959655wrb.83.2024.02.08.08.17.40
+ q4-20020adfea04000000b0033afcc899c1sm3927352wrm.13.2024.02.08.08.21.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Feb 2024 08:17:41 -0800 (PST)
+ Thu, 08 Feb 2024 08:21:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 959bd598-c69d-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 0cc92b68-c69e-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707409061; x=1708013861; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vrAgSpRzw0VF3hyy7scsIHdqo8uFRtXsBzGWlj8EKnU=;
-        b=XT3nplztcGn36BbDAxxVS6l3ICt7d3N3MeJDvggIHq4XrclezkjvJpWyhA8HmfNfQ1
-         hRDceUW/jDBEUXRvlZqrLYoxddITG3Aq5ycHRQWI3YzTmpuIYicN4KrC2r+4SFiERVgX
-         N5kiH7VHfr2375hFNMNm7YkW8/wH+GqVCCKy01SIPfHwMDj9aRzN3rUFi3k8bqF1XClh
-         Eu4GFfPGukL965+6uhkQvYJVvedAtnm1bEd1Ikbwh/LVWEfn0WgIXtmLy2WQV678RSn5
-         NdixIJ77zcuZnd7Z174qhgLpr0kDrl/Xl/0lRNlrPwohJg2UPn4mwqsrdM29v5cfRGwY
-         wsQg==
+        d=suse.com; s=google; t=1707409261; x=1708014061; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xqG/Vmab/OeEfIeTFczQuKZrhTLj5YYY2ejvrMDjsJA=;
+        b=VEFg8/2dx8tdjFSvk+B++EvYIPsHSF/kdPhtVUiFQeU5tpBVZ59AtilmeznU2VGbwQ
+         ZsY9RBznivdm30iFJfGj7ARUuodbrgOnxJNjqSCzaV6FGK0uk81U4TohWLNIwhTNSp3E
+         tyYUKpwICuFmBbk5XPrGtxdhUg6PZEa5oltbRlewwXuUO3Gv3cCAe3uIxoB4r4N6mbCU
+         /4l4XE2GATiUnb+XwGcQ7V6LgwJxYO2JfLEmOK7IHFzRJNLTR/csEtV49WtczQmJsmLJ
+         YkrFFlCfeGjhJ+1HiS1YPYCPtPob8FSnrpmLCAXzrkz+SfSuQRjDjfRVyPPdqd4Ic6B8
+         GPiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707409061; x=1708013861;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vrAgSpRzw0VF3hyy7scsIHdqo8uFRtXsBzGWlj8EKnU=;
-        b=v5qVwLkXuSPhn4SSFXcNA1d2pyWD01hMOwvwz7rcBqQ+eJA/q4nNLz1tX0MXEBd3A9
-         zKXRENzT///Fx//Ik6X6uI9WxLK3yVYcGvdRlJ4864PXq/UMd5gca0QdM9W2s7rNBOup
-         wbyaCfJ8vzYZisMx3shDhU6MhLrK9r813EyQbA1KTBl6e93lP4n5do4lLn4ueapW7xbj
-         aqnXBeMVE4XHIu0pjmb7/+vD/YjrdaQ9tvxrmLjiZu84TSvRYEGFJl7fQePWgiUJxwoj
-         1k4rtwY0x5igaSIl3VSMGsInLDc42WcZ/0Ujjth4upfqKS4DBFHkKphpZDqVvXTC7V3e
-         Qzgw==
-X-Gm-Message-State: AOJu0YypRAkF5ELsO8TnTkDYQgWavBnrMTRTGG9iCIsXG5eAayYbbrtb
-	pzXNWIjFwOlLiEhy4QXAw0lliHMNhR9DXQg/+Hfrium5V6iW74m9Br97A1nRsA==
-X-Google-Smtp-Source: AGHT+IHrxvZ/S950vrLi99fwE/2Z918+m6wqxV9EhfMJRslLQ9sDzePtryHvj51c3KmI9g4GVQs9yA==
-X-Received: by 2002:a2e:9bcb:0:b0:2cd:1ca6:87bf with SMTP id w11-20020a2e9bcb000000b002cd1ca687bfmr6957020ljj.8.1707409061241;
-        Thu, 08 Feb 2024 08:17:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUm/bnmKOGk3/+6BAzSKuBsNyCbGwQc2a1wIXAvxsLRrNr9ZPbgO2gnF7adtSg7R0mJNDOuBdvrLX2+c/+FEQzQVXHQxJrs9rb6Kqjs30I0ACbvPQf/tjkSYw/P8ofashutoj0LJKnPcABDF+HlfrRt3RoYe83Yh/EaPMDJaSlLjXIMUS8XDC4=
-Message-ID: <3120d2fe-0698-4c7c-9916-45ff5a32b3a7@suse.com>
-Date: Thu, 8 Feb 2024 17:17:39 +0100
+        d=1e100.net; s=20230601; t=1707409261; x=1708014061;
+        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
+         :from:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=xqG/Vmab/OeEfIeTFczQuKZrhTLj5YYY2ejvrMDjsJA=;
+        b=douXm+eyBKtqHaJVkQePbtaMBYKov9v1XNSQ4qInzJdmgvARXbuOlGtIV5uIxXMRoU
+         uUmOHu6XSqlwTjQ3YMUmErSw7xjjf4Ay1+y6DaKq5bdvYaYLXoZHlpUaMRLmD9gLH7IO
+         SIG/TslsWx8oF5PGw/y0r+m3bnJCbt97JBiU3XQdo6ntp/1P+KKs67JD7wE2D7IG6wWT
+         bQaUlg4z8nBVFf2EaYMx7zeibNPeLbhCiGiEVCPknDGlElwnXVKD5EJuMmf/Q533fxPS
+         qfCsmb3kWm/9cdQakUyI1VRQq6BAU4o1uaI9T/vNxQPTGWJklkA1wwPp4PmoA4kqyz5M
+         oUnw==
+X-Gm-Message-State: AOJu0YwATwYqjQQ4IpcNaKd5rcCF+0Dn0RqwmEGlbRzhO13ttGei+66i
+	rJevbjf2XmpzQlBJmw6uj7vdKnNbpgkwCIYVQZzlz4eWPls9mhLc+ArIKMCgHw==
+X-Google-Smtp-Source: AGHT+IG5eNWYMVBH+AvsGH8q161Jguv0pvgJ5f20ENibyuAMOFGBGk/wtIpsSP9I12eNC6KtuhX94w==
+X-Received: by 2002:a5d:4607:0:b0:33b:470b:a377 with SMTP id t7-20020a5d4607000000b0033b470ba377mr5863752wrq.14.1707409261220;
+        Thu, 08 Feb 2024 08:21:01 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVvLvlux8ux2QjLbif3Ie6ZENmuKiV5+pfGK9rcIVdEBMUqsGZvnieP+yv6FOMUvdMSRWbND6qANQNJxupqcqRLbiFZ4Jd/BZVLYz1zsikzq5GHWUrJivXW4FWttxKWkKGhw+MOUmg1Ekso6v1Yiqr5Q5z4k9ZAOTGgcKzG9XKiGmapTWQ7x0j8uzYu8moAJo4tqJSLp8cJJC2QknPmAHiSlFQJGrl1GC+oYKdv
+Message-ID: <1d3f93c0-64ac-414d-b677-ec48a1ddf046@suse.com>
+Date: Thu, 8 Feb 2024 17:20:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/HVM: tidy state on hvmemul_map_linear_addr()'s error
- path
+Subject: Re: [PATCH v6 3/7] VMX: convert entry point annotations
 Content-Language: en-US
-To: paul@xen.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Manuel Andreas <manuel.andreas@tum.de>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c4c1d2b3-591e-403f-879b-bbb897f7ff25@suse.com>
- <c0a2b6fe-e64f-433a-accf-124a7cee3f91@suse.com>
- <d4e3ea26-961a-4c30-a366-d0afba475813@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e4bf47ca-2ae6-1fd4-56a6-e4e777150b64@suse.com>
+ <3ba82c3a-ff95-43d0-8672-a63b23bc2cdc@suse.com>
+ <5fc304c0-be1f-46dd-a783-4030ec76a2f8@suse.com>
+ <c11bd472-fc43-49c5-8482-4fc7ed836269@citrix.com>
+ <a6bf6d72-5796-4ccc-aa3e-38438f986b32@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -115,58 +117,57 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d4e3ea26-961a-4c30-a366-d0afba475813@xen.org>
+In-Reply-To: <a6bf6d72-5796-4ccc-aa3e-38438f986b32@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 08.02.2024 17:11, Paul Durrant wrote:
-> On 08/02/2024 15:59, Jan Beulich wrote:
->> On 06.02.2024 13:06, Jan Beulich wrote:
->>> While in the vast majority of cases failure of the function will not
->>> be followed by re-invocation with the same emulation context, a few
->>> very specific insns - involving multiple independent writes, e.g. ENTER
->>> and PUSHA - exist where this can happen. Since failure of the function
->>> only signals to the caller that it ought to try an MMIO write instead,
->>> such failure also cannot be assumed to result in wholesale failure of
->>> emulation of the current insn. Instead we have to maintain internal
->>> state such that another invocation of the function with the same
->>> emulation context remains possible. To achieve that we need to reset MFN
->>> slots after putting page references on the error path.
+On 07.02.2024 15:25, Jan Beulich wrote:
+> On 07.02.2024 14:55, Andrew Cooper wrote:
+>> On 07/02/2024 1:37 pm, Jan Beulich wrote:
+>>> Use the generic framework from xen/linkage.h.
 >>>
->>> Note that all of this affects debugging code only, in causing an
->>> assertion to trigger (higher up in the function). There's otherwise no
->>> misbehavior - such a "leftover" slot would simply be overwritten by new
->>> contents in a release build.
->>>
->>> Also extend the related unmap() assertion, to further check for MFN 0.
->>>
->>> Fixes: 8cbd4fb0b7ea ("x86/hvm: implement hvmemul_write() using real mappings")
->>> Reported.by: Manuel Andreas <manuel.andreas@tum.de>
 >>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>
->> Just noticed that I forgot to Cc Paul.
->>
->> Jan
->>
 >>> ---
->>> While probably I could be convinced to omit the #ifndef, I'm really
->>> considering to extend the one in hvmemul_unmap_linear_addr(), to
->>> eliminate the zapping from release builds: Leaving MFN 0 in place is not
->>> much better than leaving a (presently) guest-owned one there. And we
->>> can't really put/leave INVALID_MFN there, as that would conflict with
->>> other debug checking.
+>>> v6: New.
+>>>
+>>> --- a/xen/arch/x86/hvm/vmx/entry.S
+>>> +++ b/xen/arch/x86/hvm/vmx/entry.S
+>>> @@ -24,7 +24,7 @@
+>>>  #define VMRESUME     .byte 0x0f,0x01,0xc3
+>>>  #define VMLAUNCH     .byte 0x0f,0x01,0xc2
+>>>  
+>>> -ENTRY(vmx_asm_vmexit_handler)
+>>> +FUNC(vmx_asm_vmexit_handler)
+>>>          SAVE_ALL
+>>>  
+>>>          mov  %cr2,%rax
+>>> @@ -132,7 +132,7 @@ UNLIKELY_END(realmode)
+>>>          call vmx_vmentry_failure
+>>>          jmp  .Lvmx_process_softirqs
+>>>  
+>>> -ENTRY(vmx_asm_do_vmentry)
+>>> +LABEL(vmx_asm_do_vmentry)
+>>
+>> This really is a function, not a label.
+>>
+>> xen.git/xen$ git grep vmx_asm_do_vmentry
+>> arch/x86/hvm/vmx/entry.S:135:ENTRY(vmx_asm_do_vmentry)
+>> arch/x86/hvm/vmx/vmcs.c:1855:void noreturn vmx_asm_do_vmentry(void);
+>> arch/x86/hvm/vmx/vmcs.c:1929:    reset_stack_and_jump(vmx_asm_do_vmentry);
+>>
+>> It is giant mess, of two functions forming part of the same loop.
+>>
+>> Considering that you declines to take CODE, I don't know what to
+>> suggest.  The point of CODE, distinct to FUNC, was to identify the
+>> places where weird things were going on, and this absolutely counts.
 > 
-> Would it be worth defining a sentinel value for this purpose rather than 
-> hardcoding _mfn(0)? (_mfn(0) seems like a reasonable sentinel... it's 
-> just a question of having a #define for it).
+> What's not clear to me: How would CODE() differ from both FUNC() and
+> LABEL()? And if the symbol is to be a function, what's wrong with
+> using FUNC() here as is?
 
-Perhaps, but that's for a separate patch then.
-
-> Either way...
-> 
-> Acked-by: Paul Durrant <paul@xen.org>
-
-Thanks.
+Well, I figured this one: FUNC() may switch sections following patch 1,
+so indeed we'd need something that is much like FUNC(), but without the
+(optional) section switch.
 
 Jan
 
