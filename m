@@ -2,38 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD65384E0CA
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 13:38:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678176.1055246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41C6184E0CF
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 13:38:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678179.1055256 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY3eS-0001TG-17; Thu, 08 Feb 2024 12:37:12 +0000
+	id 1rY3fw-00023W-BQ; Thu, 08 Feb 2024 12:38:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678176.1055246; Thu, 08 Feb 2024 12:37:12 +0000
+Received: by outflank-mailman (output) from mailman id 678179.1055256; Thu, 08 Feb 2024 12:38:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY3eR-0001Rj-UT; Thu, 08 Feb 2024 12:37:11 +0000
-Received: by outflank-mailman (input) for mailman id 678176;
- Thu, 08 Feb 2024 12:37:09 +0000
+	id 1rY3fw-00021o-7l; Thu, 08 Feb 2024 12:38:44 +0000
+Received: by outflank-mailman (input) for mailman id 678179;
+ Thu, 08 Feb 2024 12:38:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rY3eP-0001Rd-Na
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 12:37:09 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c5be4bdd-c67e-11ee-8a4a-1f161083a0e0;
- Thu, 08 Feb 2024 13:37:08 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id
- ffacd0b85a97d-337d05b8942so1311711f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 04:37:08 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- f2-20020a5d50c2000000b0033b4db744e5sm3523400wrt.12.2024.02.08.04.37.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Feb 2024 04:37:07 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UFk1=JR=amazon.de=prvs=761b9cf69=mheyne@srs-se1.protection.inumbo.net>)
+ id 1rY3fu-00021i-Rg
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 12:38:42 +0000
+Received: from smtp-fw-80009.amazon.com (smtp-fw-80009.amazon.com
+ [99.78.197.220]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fc430d95-c67e-11ee-8a4a-1f161083a0e0;
+ Thu, 08 Feb 2024 13:38:41 +0100 (CET)
+Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
+ smtpout.prod.us-east-1.prod.farcaster.email.amazon.dev) ([10.25.36.210])
+ by smtp-border-fw-80009.pdx80.corp.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Feb 2024 12:38:36 +0000
+Received: from EX19MTAUEA002.ant.amazon.com [10.0.44.209:48592]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.4.133:2525]
+ with esmtp (Farcaster)
+ id 8f6b3cd2-68f2-4838-a80e-f09091bf4d06; Thu, 8 Feb 2024 12:38:35 +0000 (UTC)
+Received: from EX19D008UEC002.ant.amazon.com (10.252.135.242) by
+ EX19MTAUEA002.ant.amazon.com (10.252.134.9) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Thu, 8 Feb 2024 12:38:32 +0000
+Received: from EX19MTAUWA001.ant.amazon.com (10.250.64.204) by
+ EX19D008UEC002.ant.amazon.com (10.252.135.242) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1118.40; Thu, 8 Feb 2024 12:38:32 +0000
+Received: from dev-dsk-mheyne-1b-c1362c4d.eu-west-1.amazon.com (10.15.57.183)
+ by mail-relay.amazon.com (10.250.64.204) with Microsoft SMTP Server
+ id
+ 15.2.1118.40 via Frontend Transport; Thu, 8 Feb 2024 12:38:31 +0000
+Received: by dev-dsk-mheyne-1b-c1362c4d.eu-west-1.amazon.com (Postfix,
+ from userid 5466572)
+ id 67924956; Thu,  8 Feb 2024 12:38:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,214 +59,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5be4bdd-c67e-11ee-8a4a-1f161083a0e0
+X-Inumbo-ID: fc430d95-c67e-11ee-8a4a-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707395827; x=1708000627; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=g+bO2YLDTgvwGVjHmGR/iqLM3C/eV82w8BM4exB2zLQ=;
-        b=c/oimUwQX3cIde2F7/ZapzwLjjbvPuFsWslEmgHCA13+eqfb2xCuwYJITmWgu5pyBz
-         G15sG/UOxHjUHBe6bNgzFxQc9yevuA9xFWCp2uIU2CtMiepZD2gP2eNBrxyDvPZRT3xW
-         x0LQ3p+AFsR8rdbkMSWkqbDfGVnt9tZ+q8IZ1Bxl2mY2R+/aLR2uMOSMllQ+Y5zPjK2U
-         zkeIpLdP07WfdyqHHNrvSFRDC+Y6G4F8jKU9IjvyFdW6iKclVOgZO6vnXZ53kbjqOLhn
-         ekW1VYZYj5kmu2+1yMvPj3oiGTLrPy476Y/UHvLP5+rM2yAJ1/gPevy9uMYD39Cko8na
-         o2yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707395827; x=1708000627;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=g+bO2YLDTgvwGVjHmGR/iqLM3C/eV82w8BM4exB2zLQ=;
-        b=G2ehzVRmTI2MTM0Lyq14RI3Pw6Gkit9og/3NI1DAAqwMWbGIZElXCorFl2RmbKul6H
-         yzEX5ZJlwrNXiIHj5bLTCLLrPFABRGEWSZTMhf9YSWsAmess9cz2C8INHqJxQ/HmhkTJ
-         GdY14lBmZ8sqdkwctddJir94d2mlMgTPE0paSI64y9nE8CBhHKiQl2GqEJJ4Vk/0bsQR
-         scodJXNWGF8hgZY1iASoRwhoHsvJUNVj08SSTL9ViHP/q0ddDiEII3PsSDKI09ER5FWv
-         9gPLsQ1CDk10BJKM4hf41jh8FhVLJh4xqXHuC2IdtPzEJD3mt6hPfq+dO31yBGfiO+ys
-         jdWQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUfwXLhEKPpIaptMdxYrZCExMeIJlNh5fFnd3NoJTULVMdIG/pDTf3Shc2yminaE1n3HUw7mxiMAfQhg8QCMfAdN0tdLNiEUrahUPjuAws=
-X-Gm-Message-State: AOJu0Yw8XQqX/xzg6j8pKXAXc0AVChiQGEwvpQSuQjIHulrbiFHgn0ld
-	Mq8ehL8IRzCZIglhVQEc69czOr4d06ZnDx9FJC6EuK3wDKATLiERRO3mskAI/g==
-X-Google-Smtp-Source: AGHT+IHtF6AS+YG5ehp1lZuKjmubSNJjlIvb3lKyA5iPGAmMxM8bvl9IOTXg/bTSBTmiV/EIQxtdcg==
-X-Received: by 2002:adf:a490:0:b0:33b:50e5:8a78 with SMTP id g16-20020adfa490000000b0033b50e58a78mr3229679wrb.22.1707395827632;
-        Thu, 08 Feb 2024 04:37:07 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCV0Kz8OFu1pwmM0HnfbsUMN9XxmpXSAostBsNrndDdLc7MGttviyJo+0/+1bRoGW73kZjT0e5fsS2UVBYtRTm31h31/nv/Dj5wI3egG4Q5az6EZ9ZX/mfa0C6Xg9HtyUr3etoPIpMUG2vV4nuIen9L0
-Message-ID: <dad39029-d0fc-4aa0-8562-4c7a02ca8039@suse.com>
-Date: Thu, 8 Feb 2024 13:37:06 +0100
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+  t=1707395921; x=1738931921;
+  h=date:from:to:subject:message-id:references:mime-version:
+   in-reply-to;
+  bh=XpaOl328Z0sK2jVAZ5hfANv8ZvM8k9ggJCj6QG2taxk=;
+  b=VETxlY73eMhY7MzEZulFGG6AycRpfM4JY89u54jYMmmRXwEMro5nvY8V
+   Mta0NEJBuy4DYxv+5LDywwWZariAyr9J9jae7Uaplvar7cTA1OH8s2Rio
+   K1+UPOwc1xKuafxb6g64M8QMlCYkub2woJuJwStxVbQ+ftcFyBBgILvO4
+   o=;
+X-IronPort-AV: E=Sophos;i="6.05,253,1701129600"; 
+   d="scan'208";a="64637088"
+X-Farcaster-Flow-ID: 8f6b3cd2-68f2-4838-a80e-f09091bf4d06
+Date: Thu, 8 Feb 2024 12:38:31 +0000
+From: Maximilian Heyne <mheyne@amazon.de>
+To: Julien Grall <jgrall@amazon.com>, <stable@vger.kernel.org>, "Andrew
+ Panyakin" <apanyaki@amazon.com>, Juergen Gross <jgross@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Oleksandr Tyshchenko
+	<oleksandr_tyshchenko@epam.com>, Rahul Singh <rahul.singh@arm.com>, "David
+ Woodhouse" <dwmw@amazon.co.uk>, Viresh Kumar <viresh.kumar@linaro.org>,
+	"Konrad Rzeszutek Wilk" <konrad.wilk@oracle.com>, Jeremy Fitzhardinge
+	<jeremy.fitzhardinge@citrix.com>, <xen-devel@lists.xenproject.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] xen/events: close evtchn after mapping cleanup
+Message-ID: <ZcTLR9uUyfy9cNUk@amazon.de>
+References: <20240124163130.31324-1-mheyne@amazon.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH 9/9] x86/smp: start APs in parallel during boot
-Content-Language: en-US
-To: Krystian Hebel <krystian.hebel@3mdeb.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
- <77c9199eabf3a30ebcf89356b2dd35abd611a3a9.1699982111.git.krystian.hebel@3mdeb.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <77c9199eabf3a30ebcf89356b2dd35abd611a3a9.1699982111.git.krystian.hebel@3mdeb.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20240124163130.31324-1-mheyne@amazon.de>
 
-On 14.11.2023 18:50, Krystian Hebel wrote:
-> Multiple delays are required when sending IPIs and waiting for
-> responses. During boot, 4 such IPIs were sent per each AP. With this
-> change, only one set of broadcast IPIs is sent. This reduces boot time,
-> especially for platforms with large number of cores.
+On Wed, Jan 24, 2024 at 04:31:28PM +0000, Maximilian Heyne wrote:
+> shutdown_pirq and startup_pirq are not taking the
+> irq_mapping_update_lock because they can't due to lock inversion. Both
+> are called with the irq_desc->lock being taking. The lock order,
+> however, is first irq_mapping_update_lock and then irq_desc->lock.
+> 
+> This opens multiple races:
+> - shutdown_pirq can be interrupted by a function that allocates an event
+>   channel:
+> 
+>   CPU0                        CPU1
+>   shutdown_pirq {
+>     xen_evtchn_close(e)
+>                               __startup_pirq {
+>                                 EVTCHNOP_bind_pirq
+>                                   -> returns just freed evtchn e
+>                                 set_evtchn_to_irq(e, irq)
+>                               }
+>     xen_irq_info_cleanup() {
+>       set_evtchn_to_irq(e, -1)
+>     }
+>   }
+> 
+>   Assume here event channel e refers here to the same event channel
+>   number.
+>   After this race the evtchn_to_irq mapping for e is invalid (-1).
+> 
+> - __startup_pirq races with __unbind_from_irq in a similar way. Because
+>   __startup_pirq doesn't take irq_mapping_update_lock it can grab the
+>   evtchn that __unbind_from_irq is currently freeing and cleaning up. In
+>   this case even though the event channel is allocated, its mapping can
+>   be unset in evtchn_to_irq.
+> 
+> The fix is to first cleanup the mappings and then close the event
+> channel. In this way, when an event channel gets allocated it's
+> potential previous evtchn_to_irq mappings are guaranteed to be unset already.
+> This is also the reverse order of the allocation where first the event
+> channel is allocated and then the mappings are setup.
+> 
+> On a 5.10 kernel prior to commit 3fcdaf3d7634 ("xen/events: modify internal
+> [un]bind interfaces"), we hit a BUG like the following during probing of NVMe
+> devices. The issue is that during nvme_setup_io_queues, pci_free_irq
+> is called for every device which results in a call to shutdown_pirq.
+> With many nvme devices it's therefore likely to hit this race during
+> boot because there will be multiple calls to shutdown_pirq and
+> startup_pirq are running potentially in parallel.
+> 
+>   ------------[ cut here ]------------
+>   blkfront: xvda: barrier or flush: disabled; persistent grants: enabled; indirect descriptors: enabled; bounce buffer: enabled
+>   kernel BUG at drivers/xen/events/events_base.c:499!
+>   invalid opcode: 0000 [#1] SMP PTI
+>   CPU: 44 PID: 375 Comm: kworker/u257:23 Not tainted 5.10.201-191.748.amzn2.x86_64 #1
+>   Hardware name: Xen HVM domU, BIOS 4.11.amazon 08/24/2006
+>   Workqueue: nvme-reset-wq nvme_reset_work
+>   RIP: 0010:bind_evtchn_to_cpu+0xdf/0xf0
+>   Code: 5d 41 5e c3 cc cc cc cc 44 89 f7 e8 2b 55 ad ff 49 89 c5 48 85 c0 0f 84 64 ff ff ff 4c 8b 68 30 41 83 fe ff 0f 85 60 ff ff ff <0f> 0b 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 0f 1f 44 00 00
+>   RSP: 0000:ffffc9000d533b08 EFLAGS: 00010046
+>   RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000006
+>   RDX: 0000000000000028 RSI: 00000000ffffffff RDI: 00000000ffffffff
+>   RBP: ffff888107419680 R08: 0000000000000000 R09: ffffffff82d72b00
+>   R10: 0000000000000000 R11: 0000000000000000 R12: 00000000000001ed
+>   R13: 0000000000000000 R14: 00000000ffffffff R15: 0000000000000002
+>   FS:  0000000000000000(0000) GS:ffff88bc8b500000(0000) knlGS:0000000000000000
+>   CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+>   CR2: 0000000000000000 CR3: 0000000002610001 CR4: 00000000001706e0
+>   DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+>   DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+>   Call Trace:
+>    ? show_trace_log_lvl+0x1c1/0x2d9
+>    ? show_trace_log_lvl+0x1c1/0x2d9
+>    ? set_affinity_irq+0xdc/0x1c0
+>    ? __die_body.cold+0x8/0xd
+>    ? die+0x2b/0x50
+>    ? do_trap+0x90/0x110
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? do_error_trap+0x65/0x80
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? exc_invalid_op+0x4e/0x70
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? asm_exc_invalid_op+0x12/0x20
+>    ? bind_evtchn_to_cpu+0xdf/0xf0
+>    ? bind_evtchn_to_cpu+0xc5/0xf0
+>    set_affinity_irq+0xdc/0x1c0
+>    irq_do_set_affinity+0x1d7/0x1f0
+>    irq_setup_affinity+0xd6/0x1a0
+>    irq_startup+0x8a/0xf0
+>    __setup_irq+0x639/0x6d0
+>    ? nvme_suspend+0x150/0x150
+>    request_threaded_irq+0x10c/0x180
+>    ? nvme_suspend+0x150/0x150
+>    pci_request_irq+0xa8/0xf0
+>    ? __blk_mq_free_request+0x74/0xa0
+>    queue_request_irq+0x6f/0x80
+>    nvme_create_queue+0x1af/0x200
+>    nvme_create_io_queues+0xbd/0xf0
+>    nvme_setup_io_queues+0x246/0x320
+>    ? nvme_irq_check+0x30/0x30
+>    nvme_reset_work+0x1c8/0x400
+>    process_one_work+0x1b0/0x350
+>    worker_thread+0x49/0x310
+>    ? process_one_work+0x350/0x350
+>    kthread+0x11b/0x140
+>    ? __kthread_bind_mask+0x60/0x60
+>    ret_from_fork+0x22/0x30
+>   Modules linked in:
+>   ---[ end trace a11715de1eee1873 ]---
+> 
+> Fixes: d46a78b05c0e ("xen: implement pirq type event channels")
+> Cc: stable@vger.kernel.org
+> Co-debugged-by: Andrew Panyakin <apanyaki@amazon.com>
+> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
 
-Yet APs do their startup work in parallel only for a brief period of
-time, if I'm not mistaken. Othwerwise I can't see why you'd still have
-cpu_up() in __start_xen().
+Friendly ping. Did anyone find time to look at this?
 
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1963,6 +1963,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->                  cpu_data[i].stack_base = cpu_alloc_stack(i);
->          }
->  
-> +        smp_send_init_sipi_sipi_allbutself();
-> +
->          for_each_present_cpu ( i )
->          {
->              if ( (park_offline_cpus || num_online_cpus() < max_cpus) &&
 
-So what about constraints on the number of CPUs to use? In such a case
-you shouldn't send the IPI to all of them, at least if they're not
-meant to be parked.
 
-> --- a/xen/arch/x86/smpboot.c
-> +++ b/xen/arch/x86/smpboot.c
-> @@ -425,7 +425,7 @@ void start_secondary(unsigned int cpu)
->  
->  static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
->  {
-> -    unsigned long send_status = 0, accept_status = 0;
-> +    unsigned long send_status = 0, accept_status = 0, sh = 0;
+Amazon Development Center Germany GmbH
+Krausenstr. 38
+10117 Berlin
+Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
+Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+Sitz: Berlin
+Ust-ID: DE 289 237 879
 
-sh doesn't need to be 64 bits wide, does it?
 
->      int maxlvt, timeout, i;
->  
->      /*
-> @@ -445,6 +445,12 @@ static int wakeup_secondary_cpu(int phys_apicid, unsigned long start_eip)
->      if ( tboot_in_measured_env() && !tboot_wake_ap(phys_apicid, start_eip) )
->          return 0;
->  
-> +    /*
-> +     * Use destination shorthand for broadcasting IPIs during boot.
-> +     */
 
-Nit (style): This is a single line comment.
-
-> +    if ( phys_apicid == BAD_APICID )
-> +        sh = APIC_DEST_ALLBUT;
-
-I think the latest for this the function parameter wants changing to
-unsigned int (in another prereq patch).
-
-> @@ -573,21 +578,31 @@ static int do_boot_cpu(int apicid, int cpu)
->       */
->      mtrr_save_state();
->  
-> -    start_eip = bootsym_phys(trampoline_realmode_entry);
-> +    /* Check if AP is already up. */
-> +    if ( cpu_data[cpu].cpu_state != CPU_STATE_INIT )
-> +    {
-> +        /* This grunge runs the startup process for the targeted processor. */
-> +        unsigned long start_eip;
-> +        start_eip = bootsym_phys(trampoline_realmode_entry);
->  
-> -    /* start_eip needs be page aligned, and below the 1M boundary. */
-> -    if ( start_eip & ~0xff000 )
-> -        panic("AP trampoline %#lx not suitably positioned\n", start_eip);
-> +        /* start_eip needs be page aligned, and below the 1M boundary. */
-> +        if ( start_eip & ~0xff000 )
-> +            panic("AP trampoline %#lx not suitably positioned\n", start_eip);
-
-Isn't this redundant now with the panic() in
-smp_send_init_sipi_sipi_allbutself(), at least as long as that runs
-unconditionally.
-
-> -    /* So we see what's up   */
-> -    if ( opt_cpu_info )
-> -        printk("Booting processor %d/%d eip %lx\n",
-> -               cpu, apicid, start_eip);
-> +        /* So we see what's up   */
-> +        if ( opt_cpu_info )
-> +            printk("AP trampoline at %lx\n", start_eip);
-
-Why this change in log message? It makes messages for individual CPUs
-indistinguishable. And like above it's redundant with what
-smp_send_init_sipi_sipi_allbutself() logs.
-
-> -    /* This grunge runs the startup process for the targeted processor. */
-> +        /* mark "stuck" area as not stuck */
-> +        bootsym(trampoline_cpu_started) = 0;
-> +        smp_mb();
->  
-> -    /* Starting actual IPI sequence... */
-> -    boot_error = wakeup_secondary_cpu(apicid, start_eip);
-> +        /* Starting actual IPI sequence... */
-> +        boot_error = wakeup_secondary_cpu(apicid, start_eip);
-> +    }
-> +
-> +    if ( opt_cpu_info )
-> +        printk("Booting processor %d/%d\n", cpu, apicid);
-
-Oh, here's the other half. Yet for above it still doesn't make sense
-to issue the same message for all CPUs.
-
-> @@ -646,10 +661,6 @@ static int do_boot_cpu(int apicid, int cpu)
->          rc = -EIO;
->      }
->  
-> -    /* mark "stuck" area as not stuck */
-> -    bootsym(trampoline_cpu_started) = 0;
-> -    smp_mb();
-
-While you move this up, it's not clear to me how you would now
-identify individual stuck CPUs. I would have expected that this is
-another global that needs converting up front, to be per-CPU.
-
-> @@ -1155,6 +1166,23 @@ static struct notifier_block cpu_smpboot_nfb = {
->      .notifier_call = cpu_smpboot_callback
->  };
->  
-> +void smp_send_init_sipi_sipi_allbutself(void)
-
-__init?
-
-> +{
-> +    unsigned long start_eip;
-> +    start_eip = bootsym_phys(trampoline_realmode_entry);
-
-This can be the initializer of the variable, which would then save
-me from complaining about the missing blank line between declaration
-and statement(s). (Actually, as I notice only now - same for code you
-move around in do_boot_cpu().)
-
-Jan
 
