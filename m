@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5351684DF84
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 12:15:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678125.1055169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E491784DFBD
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 12:31:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678131.1055179 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY2Mf-0003WE-8A; Thu, 08 Feb 2024 11:14:45 +0000
+	id 1rY2bg-0006Xt-KF; Thu, 08 Feb 2024 11:30:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678125.1055169; Thu, 08 Feb 2024 11:14:45 +0000
+Received: by outflank-mailman (output) from mailman id 678131.1055179; Thu, 08 Feb 2024 11:30:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY2Mf-0003Tl-5L; Thu, 08 Feb 2024 11:14:45 +0000
-Received: by outflank-mailman (input) for mailman id 678125;
- Thu, 08 Feb 2024 11:14:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rY2bg-0006W1-HL; Thu, 08 Feb 2024 11:30:16 +0000
+Received: by outflank-mailman (input) for mailman id 678131;
+ Thu, 08 Feb 2024 11:30:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rY2Md-0003Tf-DU
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 11:14:43 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 418320d3-c673-11ee-8a4a-1f161083a0e0;
- Thu, 08 Feb 2024 12:14:42 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-3394ca0c874so1272343f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 03:14:41 -0800 (PST)
+ id 1rY2be-0006Vs-WE
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 11:30:15 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6bb1d238-c675-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 12:30:11 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-4103fc91755so2890585e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 03:30:11 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- y16-20020a5d6150000000b0033b443a7aa7sm3342432wrt.97.2024.02.08.03.14.40
+ h18-20020adffa92000000b0033afe6968bfsm3383070wrr.64.2024.02.08.03.30.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Feb 2024 03:14:41 -0800 (PST)
+ Thu, 08 Feb 2024 03:30:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,62 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 418320d3-c673-11ee-8a4a-1f161083a0e0
+X-Inumbo-ID: 6bb1d238-c675-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707390881; x=1707995681; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707391811; x=1707996611; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=WJhKsc/PhbHhvUZpY7uO3Xn7XeP9pnyGn84MJLpOOFM=;
-        b=RFiTx7KOOmYCKykPdJ/nnXtnQU0xjm8QsKUUwAxWABDSGFIusZq7p3TsFHypqZ1tPv
-         jDuLXhPIhDCU9bRXKaveitX1AaBOv8XfbdvC4YrtNXnl5ahhsCcPRfOWa6geU14sPp4f
-         l+3/in+5LRX0CCh7xRZVN+VVW7Oet1W0OBAnxJdGjbDorIfP2mBIUuFEyCyt6e5HqYDf
-         a2egjU3P9utIJApm2+zfmPfmeC23uL8EpfLdnxeu2I8JtetBP9xlXH5XAEqsY1aom7Y/
-         UzGOKxF6LA2Yaw975GOpKhEyL0ZDZpS+AOn9CckdTYlOyMy9zD6MAJcl+j4MnwYY8isk
-         bcNw==
+        bh=pdhg3xSGzFMAZb/LNRGGE+OJKIs3hiKXgSsLNVGtgZU=;
+        b=Do02MTB8GlOYbkiod3I5T6fhY16nVaq0t9Vsb5sPYpjdRzT8ihDN8ECHvFdVMXjR0M
+         kWaHvNjqFEnChOG8mLmJO6QrKzu9TVft3TokmSt8dJErwbseSqRt0kJ3ShmRvvmNLjhx
+         4KyqWGl+F4nxGT14+WA9bldgwvMEvqQ8NRsWXl/4/17+YWaYh4xLPMQo03jvdEHQG2ys
+         4ydWiBqsjTG5p2+WJLCW65vc1SAaO6U6YErQ5iuy6zOhqj2srJoRNcs6YeHP9PYqy8FX
+         0Ra3/SJDmdPH7nRzN0Lwe69IhM7rulZMPTVYkF6y5cjC+uuhwBZC/Ekh7H6wkvGXY/5/
+         9T3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707390881; x=1707995681;
+        d=1e100.net; s=20230601; t=1707391811; x=1707996611;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WJhKsc/PhbHhvUZpY7uO3Xn7XeP9pnyGn84MJLpOOFM=;
-        b=cjX5pIrzQh0VYEotzDKnnsMvKcjz7cORPQ6+FuK3dtAnF94A6Kqnfu383c8ndNCjQq
-         ljjI2KVLH6+3GCnRlVeCiPVCWZZp6P1U2nDASbS3IjDYcQReS5reWET88MzUDpeWYy6X
-         GuZtzRI6L4ajzs1Jtfq3giBgMj99PXxYTTpQu4r74wkLd4v+9yVdRyJz1iBG+juy6NbX
-         u6Kmpp4aoXLSUGz1l9JB2V5wCSRn/OVMGm820WlmpXjuNI8GkJrHBTOHH29f+VtuEkCj
-         ofQiehd+o2HfEwpVgT8xJDeRMAKxHLmDpfcFTMHCn8Sis2lWbSCzJNcoO8q6Adbm0QWp
-         3xsA==
-X-Forwarded-Encrypted: i=1; AJvYcCVWbVqJ8rTMx0ShCVry4r6IE0bKiW21wuTQZXDQd6JhcO4wHZWXldAH/ZB4PF9Y9xqOglfnD08GxAW6euqvXn5iUYR2QDp5iEXGuZhneFk=
-X-Gm-Message-State: AOJu0YxG+mzLTEmwE1mHPkHioPbJ6hEHfgN8tRapfUh5TNTt/mM7+O1K
-	IISoZ+RQOncsJO2uXSc6tMn/2AkJSHULqPqslwM+3vyqR+RLI0zQhlWrnRk9FQ==
-X-Google-Smtp-Source: AGHT+IFylrrAl6aJ2C/Hb3phl/+IWyRvdAZv/JyGmvhsWE/nvhJLz1SUpOn/GZCiOcXZi4GiBY4sgg==
-X-Received: by 2002:adf:fc88:0:b0:33b:304d:36b7 with SMTP id g8-20020adffc88000000b0033b304d36b7mr5248456wrr.56.1707390881320;
-        Thu, 08 Feb 2024 03:14:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWtjuXxem4auupau0lPwAwAX5g03VI/R//n7SzPHCxoVwXoHkqFe869bWRvVay3IF07mPiPab8Onujk1gBNzFCYquihLg4emImWKenWyCIiynS7UIYryZPzNcAqcshgS7fZZwTAk8UNUZ+ao4PsxwbDu40DqycfjKiJT4wKLttkqtmeH9hHpv+Cy7uvba1pbqYtHzjjUrXjTRZBL1i19V7f5Krw
-Message-ID: <2117bb4e-94a3-4990-945b-6fb141ae1e63@suse.com>
-Date: Thu, 8 Feb 2024 12:14:40 +0100
+        bh=pdhg3xSGzFMAZb/LNRGGE+OJKIs3hiKXgSsLNVGtgZU=;
+        b=Uw9Re8kuuXTwZrRDu5G51mjszk6r/TJKoc9lYk5mGesATi9w8QjOUpRjdw2h3PRmFG
+         vUvaNX78h54HdMCxf6IMhLh225uPxW2i2a2KBWo9edqAupwQSUSgOhvzvjfW6crDh7Pr
+         iefhrnqvLwPPHn9bdXo9bwPNYMm0sjPXra614OyRzd289ZhBsCFAb4C36VaKq7EGxc45
+         q6CCh+/+2B430ShxYmJqIYxxMcX/TUplQreIlwxeMHoRDzECy1cIgtW6en4nH9i2Q9oc
+         zkDHLGlSeG+LaFk8r6khV8oeQfQdDi/Y2kiKur+Q1odYAeOS4uzf778PNrJbq7NaKh7A
+         um4g==
+X-Forwarded-Encrypted: i=1; AJvYcCX9KSr4vAY4mh3UlnFjoI6bZihLBZhAv3p5G9FkXWlQXbQuFdOr1z3SnhspeMzfxEEA73PXVwvgK4S17sU6L7HZVo53yN2+25RLkNSAzyg=
+X-Gm-Message-State: AOJu0YxiwfqZeg5uAgOPGaML/QEoE8/fQPc5iULOdrw023uQHm+UCTam
+	uQZ3eFwKfNprLVNyk5O9BYbI2BSHQyAPfeVbdJdH1T4YSP/w8xxkk2cAjzxz9Q==
+X-Google-Smtp-Source: AGHT+IGVyLts7G7/0rMJP9J77GnwsYcyC3kh2E1fvSbU0yiPw2dAHZndzGtfkZ/7KQFAoqNVWNSpXg==
+X-Received: by 2002:a5d:4cc8:0:b0:33b:381d:a71e with SMTP id c8-20020a5d4cc8000000b0033b381da71emr5010235wrt.17.1707391811150;
+        Thu, 08 Feb 2024 03:30:11 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCV+cVVYw+FTFCL5I3+hLQHLJHW1THwBycf9d6eIICWEUyEfM49SUvNOr5nXRh8SIX5R+JRNJ7WP7jJ3a/aiLLxObqWh501Dwm0GXGeUMBY7nRxYqcVcNim/xtRL2yXK4/OIM4knXttjQkTZR3XkHn3+
+Message-ID: <665c7f47-a218-4187-858d-562bb5b9513b@suse.com>
+Date: Thu, 8 Feb 2024 12:30:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2 2/3] x86/uaccess: replace __{get,put}_user_bad()
- with STATIC_ASSERT_UNREACHABLE()
+Subject: Re: [XEN PATCH 6/9] x86/shutdown: protect against recurrent
+ machine_restart()
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: consulting@bugseng.com, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <cover.1706259490.git.federico.serafini@bugseng.com>
- <e28bb23a12fae3c8630f943b469137d367f20022.1706259490.git.federico.serafini@bugseng.com>
- <ec849d3a-4f6a-4afd-a7c4-418906eb909a@suse.com>
- <alpine.DEB.2.22.394.2402061707520.1925432@ubuntu-linux-20-04-desktop>
- <22ee2311-1e6b-4f2e-86e4-12d20b5ba4a2@suse.com>
- <6451696b-0366-4069-b82b-094e63eced8d@bugseng.com>
- <0b0b5a50-7692-4500-baa4-68df8f1c5d7a@suse.com>
- <d7812cd9-7d06-493b-b8a8-d2353f148e8b@bugseng.com>
- <a5d9b91d-4e56-4512-9b15-d6868a383923@suse.com>
- <04a2c7b2-07e5-46fd-835e-42b3c6307547@bugseng.com>
- <a4c2f7c0-66bc-436f-bc99-8f8ba4ec822e@suse.com>
- <fffaa145-16ff-4969-bf4c-cfe0be98b66a@bugseng.com>
+To: Krystian Hebel <krystian.hebel@3mdeb.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
+ <87b0e650f28038c2fb64c5eb607c8fdaa7b4db07.1699982111.git.krystian.hebel@3mdeb.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -125,115 +114,20 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fffaa145-16ff-4969-bf4c-cfe0be98b66a@bugseng.com>
+In-Reply-To: <87b0e650f28038c2fb64c5eb607c8fdaa7b4db07.1699982111.git.krystian.hebel@3mdeb.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08.02.2024 11:45, Federico Serafini wrote:
-> On 07/02/24 17:19, Jan Beulich wrote:
->> On 07.02.2024 16:58, Federico Serafini wrote:
->>> On 07/02/24 16:24, Jan Beulich wrote:
->>>> On 07.02.2024 16:08, Federico Serafini wrote:
->>>>> On 07/02/24 15:16, Jan Beulich wrote:
->>>>>> On 07.02.2024 14:51, Federico Serafini wrote:
->>>>>>> On 07/02/24 08:38, Jan Beulich wrote:
->>>>>>>> On 07.02.2024 02:08, Stefano Stabellini wrote:
->>>>>>>>> On Tue, 6 Feb 2024, Jan Beulich wrote:
->>>>>>>>>> On 26.01.2024 11:05, Federico Serafini wrote:
->>>>>>>>>>> @@ -208,7 +205,7 @@ do {                                                                       \
->>>>>>>>>>>          case 8:                                                                \
->>>>>>>>>>>              put_unsafe_asm(x, ptr, grd, retval, "q",  "", "ir", errret);       \
->>>>>>>>>>>              break;                                                             \
->>>>>>>>>>> -    default: __put_user_bad();                                             \
->>>>>>>>>>> +    default: STATIC_ASSERT_UNREACHABLE();                                  \
->>>>>>>>>>>          }                                                                      \
->>>>>>>>>>>          clac();                                                                \
->>>>>>>>>>>      } while ( false )
->>>>>>>>>>> @@ -227,7 +224,7 @@ do {                                                                       \
->>>>>>>>>>>          case 2: get_unsafe_asm(x, ptr, grd, retval, "w", "=r", errret); break; \
->>>>>>>>>>>          case 4: get_unsafe_asm(x, ptr, grd, retval, "k", "=r", errret); break; \
->>>>>>>>>>>          case 8: get_unsafe_asm(x, ptr, grd, retval,  "", "=r", errret); break; \
->>>>>>>>>>> -    default: __get_user_bad();                                             \
->>>>>>>>>>> +    default: STATIC_ASSERT_UNREACHABLE();                                  \
->>>>>>>>>>>          }                                                                      \
->>>>>>>>>>>          clac();                                                                \
->>>>>>>>>>>      } while ( false )
->>>>>>>>>>
->>>>>>>>>> Related to my remark on patch 1 - how is one to know the macro this was
->>>>>>>>>> invoked from, when seeing the resulting diagnostic?
->>>>>>>>>
->>>>>>>>> I am not sure what do you mean here... we do get an error like the
->>>>>>>>> following (I added a STATIC_ASSERT_UNREACHABLE for case 4):
->>>>>>>>>
->>>>>>>>> ./arch/x86/include/asm/uaccess.h:262: Error: static assertion failed: unreachable
->>>>>>>>
->>>>>>>> Right - and how do I know what _user_ of the macro actually triggered
->>>>>>>> it? ISTR suggesting to use one or more of __FILE__ / __LINE__ /
->>>>>>>> __FUNCTION__ here, for that specific purpose ...
->>>>>>>
->>>>>>> To test the macro and its diagnostics,
->>>>>>> I modified the first "git grep" occurrence of ASSERT_UNREACHABLE()
->>>>>>> on the x86 code with STATIC_ASSERT_UNREACHABLE(),
->>>>>>> that is in file arch/x86/alternative.c, line 312,
->>>>>>> function _apply_alternatives().
->>>>>>>
->>>>>>> What I got is the following build error:
->>>>>>>
->>>>>>> ...
->>>>>>> arch/x86/alternative.c: Assembler messages:
->>>>>>> arch/x86/alternative.c:312: Error: static assertion failed: unreachable
->>>>>>>       CC      arch/x86/copy_page.o
->>>>>>> make[2]: *** [Rules.mk:247: arch/x86/alternative.o] Error 1
->>>>>>
->>>>>> But that's not what my request was about. Here sufficient context is
->>>>>> given, even if it would be nice if the function was also visible right
->>>>>> away. But that's not the same as the case above, where the new macro
->>>>>> is used inside another macro.
->>>>>
->>>>> An example of that is the get_unsafe_size() macro,
->>>>> whose body uses STATIC_ASSERT_UNREACHABLE().
->>>>> A wrong use of get_unsafe_size() at line n
->>>>> leads to a build error pointing to the line n,
->>>>> isn't this the desired behavior?
->>>>
->>>> Aiui this would point to the line in the header file, when what you need
->>>> to spot the bad use of the macro is the line in the source file actually
->>>> using the macro. Quoting from an earlier mail of yours:
->>>>
->>>> ./arch/x86/include/asm/uaccess.h:262: Error: static assertion failed: unreachable
->>>
->>> It points to the header file uaccess.h because at line 262 there is
->>> an intentional wrong use of put_guest_size(), within the body of
->>> __copy_to_guest_pv() function.
->>
->> Yet that's again only a helper function being inlined into the ultimate
->> caller. That ultimate caller is what wants identifying in the diag. Not
->> the least because of ...
->>
->>> This example can be misleading because {get,put}_unsafe_size() are
->>> defined in the same file but the diagnostics is doing the
->>> right thing.
->>
->> ... this. And really __copy_to_guest_pv() is the wrong place to put a
->> wrong put_guest_size() in, to try out how diagnostics would look like
->> in reality: That function falls back to copy_to_guest_ll() for all
->> cases it can't handle directly. You want to place a bogus put_guest()
->> somewhere in a .c file to see what results.
-> 
-> I added a bogus call to put_guest() at line 387 of
-> file xen/arch/x86/mm.c, inside function page_is_ram_type().
-> Assuming I did not choose another wrong place,
-> the diagnostic seems appropriate:
-> 
-> arch/x86/mm.c: Assembler messages:
-> arch/x86/mm.c:387: Error: static assertion failed: unreachable
+On 14.11.2023 18:50, Krystian Hebel wrote:
+> If multiple CPUs called machine_restart() before actual restart took
+> place, but after boot CPU declared itself not online,
 
-Oh, okay, this looks appropriate then as to identifying where the
-source construct is. However, we then still don't know where the
-assertion in question is (there could be multiple in what the
-original construct expands to). So I'm still inclined to ask that
-__FILE__ / __LINE__ and/or the name of the invoking construct
-(macro or function) be made visible in the diagnostic.
+Can you help me please in identifying where this operation is? I can see
+two places where a CPU is removed from cpu_online_map, yet neither
+__stop_this_cpu() nor __cpu_disable() ought to be coming into play here.
+In fact I didn't think CPU0 was ever marked not-online. Except perhaps
+if we came through machine_crash_shutdown() -> nmi_shootdown_cpus(), but
+I'm sure you would have mentioned such a further dependency.
 
 Jan
 
