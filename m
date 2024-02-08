@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B1D184E002
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 12:49:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678152.1055225 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E87584E075
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 13:13:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678170.1055236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY2u5-0001uJ-1L; Thu, 08 Feb 2024 11:49:17 +0000
+	id 1rY3HF-0006ZI-6M; Thu, 08 Feb 2024 12:13:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678152.1055225; Thu, 08 Feb 2024 11:49:17 +0000
+Received: by outflank-mailman (output) from mailman id 678170.1055236; Thu, 08 Feb 2024 12:13:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rY2u4-0001sH-Ux; Thu, 08 Feb 2024 11:49:16 +0000
-Received: by outflank-mailman (input) for mailman id 678152;
- Thu, 08 Feb 2024 11:49:16 +0000
+	id 1rY3HF-0006Wv-3S; Thu, 08 Feb 2024 12:13:13 +0000
+Received: by outflank-mailman (input) for mailman id 678170;
+ Thu, 08 Feb 2024 12:13:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mdps=JR=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rY2u4-0001sB-32
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 11:49:16 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=nVk9=JR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rY3HD-0006Wp-GQ
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 12:13:11 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1492fcfe-c678-11ee-98f5-efadbce2ee36;
- Thu, 08 Feb 2024 12:49:14 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id
- a640c23a62f3a-a2a17f3217aso213966966b.2
- for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 03:49:14 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- gq12-20020a170906e24c00b00a3816515cd4sm1812331ejb.116.2024.02.08.03.49.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Feb 2024 03:49:13 -0800 (PST)
+ id 6bf774ee-c67b-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 13:13:09 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-33b0ecb1965so1124397f8f.1
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 04:13:09 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ bn14-20020a056000060e00b0033b5a6b4b9bsm842507wrb.71.2024.02.08.04.13.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 08 Feb 2024 04:13:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,157 +45,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1492fcfe-c678-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 6bf774ee-c67b-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707392953; x=1707997753; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+qTxWUbBQSGBGPIVl5GZg1+uuCSi3J+TktZnHjRxE9M=;
-        b=h6LJJ9qPugvfPaNhBvaM9yz9ThtDWATfd+ndD+ZZnWK86CaIbq9nxurMkeqFoEki7I
-         bBm/BC3r98hK/CL38uq68Ga7SE64mf7eoVAhW32xJFPKSAjTL8E/U2x/oR8+ydTps5k+
-         5eT9hVytKNuqZHtKR7pN/qZoZaGbDGx/Sm0nU=
+        d=suse.com; s=google; t=1707394388; x=1707999188; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zijVtzTTJMWH7R5G6lvUwxpJR1glBtEArYNbKa6Ng9s=;
+        b=U9/pJMKkmmdIiKp+L7dlH2oCjEiw7EelQGbCGdobhlWXLtBjc7fT1STTARRC6Fuj4S
+         g1kbLQIL6fB1pXr9Iyely0reUw8/KC8sPZDFFlLR4xFvPo04GQ3ijq+ZZcJ0s+3/ILdA
+         rlpM1SIG/SMPdAcTfGKSoUYtgiKrTU9tUD2G9/ZmGuwjs+kXH/DPWq9MoReJsGt0XZPS
+         NwUG2mRRLiPJiqK+WcJRUH99vu1/TvZGqaehx+AdgJH+bceocjddkWX7J4l9NKZQTyUj
+         KzoauQFTp6qkd2NUT6FYiy4nvXx4aZNNAutqnYVxYKRD3pEPD47hkeIhSolcT4SBFbZj
+         Y8wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707392953; x=1707997753;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+qTxWUbBQSGBGPIVl5GZg1+uuCSi3J+TktZnHjRxE9M=;
-        b=tTye5RFwIcVWckj65mPSZATHdWo99ZYO+v+veWDeGBbRHPx9JiGRO3ZFHNbhYXiF8X
-         dzWa1OVMmWovpc16cIUnACb1NfdFFay+GJJGr4KLBVBgXpUMdY8Ps4lqPRyUZXI8zV3c
-         DVGZ17K/HfUSOy5AjIh7w2Mll7cAC40tvL3K0TzOu7F7zzamPNlevck0LicPWJqd+5LC
-         e/kWgwGXj3hFK4eon2lOD0mZ5QFPETAXbkShxurpS9fU0bAPCXoP3mQD1tR2/9oYpujF
-         HoSZROmuej6Dk8stVhrvTvoz7XRsDQ4Cl8FxtcGKjwHNY+rMmu4N6gkPA+6iuoZ8X3eg
-         ldSQ==
-X-Gm-Message-State: AOJu0YxdHOLYwwWTE3IRAyUOW2b6kvmrpSYGDAUpgE7xseDoVMgZohkt
-	LEmhWWjnTmil+WvhloMtncoCvX+XmUbl90R2GiTwLte4/XSHqOyVbFoqGSfriU0=
-X-Google-Smtp-Source: AGHT+IG3YqqOqA3vyZLfdBck11XK0C/kfM3095U73ByEA4rdmtCfav1RdTGNwjLP/HSrQanUPdPy3A==
-X-Received: by 2002:a17:906:bcf8:b0:a37:9aaa:9c2e with SMTP id op24-20020a170906bcf800b00a379aaa9c2emr5831131ejb.76.1707392953426;
-        Thu, 08 Feb 2024 03:49:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWYncylOMhE0q91k9VsqA3fkEsFUDT9HNq+qpPsjOhonilGGNymndN1cQlehoVnUiWzyI0yoaP38ivPY8rEXJIzid8E+tVouyBtutKQMTCXSImJZLgsI2e00ow8bKi11tT6X8WUGqpwIw+4spAE
-Date: Thu, 8 Feb 2024 12:49:12 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 2/7] IOMMU: rename and re-type ats_enabled
-Message-ID: <ZcS_uC2t96Lh720Y@macbook>
-References: <25506838-b818-4686-8c16-3a198338af44@suse.com>
- <467d24e1-8ed3-4dda-a334-70ff747bf94b@suse.com>
+        d=1e100.net; s=20230601; t=1707394388; x=1707999188;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zijVtzTTJMWH7R5G6lvUwxpJR1glBtEArYNbKa6Ng9s=;
+        b=DjzUoL05jvFf+ld/UzDAji6Rj9s3DXUX+u2mSjUC3AAL9Zb+3m0g635nVOzO+FmYP3
+         608PfU+aOqXzCMjrD+JHGlOrvqwPL9auLo8Bul/ndDCjpqA0nqIvdx3Uvutnmpg6KDLZ
+         AevMfchbOprCjyAocsC1VSI+Grz3w0fnJ1vFAEitONRvBV+0Nm7hxxVZq+3GraPeGmm/
+         mv80bZsb9CD58Uh0BaFOl3gIYeZxyGdLDgkZ4Ael86YmyYRYRVoEzTgcaZFfnP2DCiyk
+         ZBnE3gW1M5/WDOK5/1mb2VVd5mBB0X3kmkY33e5ZzbpKDLtOimd5MQWmhpzXzVDcGHdT
+         xs2g==
+X-Gm-Message-State: AOJu0YxXx1LDIbFAEChQGaCTRzLOiS77XBCla1GWHkNiBcqk7VsRR9vo
+	nGbBQ8NJ8H8bvtxkMxSXrcTXmUpVxBFutxkyrZDT2dVMojD0mNQHjjfROzQHTQ==
+X-Google-Smtp-Source: AGHT+IEo8wydfTyw7UcbA5yEJSrqGRir9w5aIsKii2VVd44MvBAo1OTrUN5UfM5Ujb0liTDxGHay1g==
+X-Received: by 2002:a05:6000:4014:b0:33b:597a:5018 with SMTP id cp20-20020a056000401400b0033b597a5018mr1270925wrb.71.1707394388483;
+        Thu, 08 Feb 2024 04:13:08 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWi+NyBq7EoM4oTxqySKuZ37QiGAb1oaYoLZ+VagRg6TVp+EBC1dEZDY/V7+4Rd59oTetjX8fhjIEKthV/mgls3MS/lSUuHm2ZFvtm5jkB8va4qgzW8RmbWLfsx33DyLc6j6UOVgav8+g1p8QVoxDal
+Message-ID: <c1e23e38-aaac-44c5-a1af-999f71909110@suse.com>
+Date: Thu, 8 Feb 2024 13:13:07 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <467d24e1-8ed3-4dda-a334-70ff747bf94b@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH 8/9] x86/smp: make cpu_state per-CPU
+Content-Language: en-US
+To: Krystian Hebel <krystian.hebel@3mdeb.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <cover.1699982111.git.krystian.hebel@3mdeb.com>
+ <52083114d4cbbc75f021e8c61763ad0e166cf05b.1699982111.git.krystian.hebel@3mdeb.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <52083114d4cbbc75f021e8c61763ad0e166cf05b.1699982111.git.krystian.hebel@3mdeb.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Feb 05, 2024 at 02:55:43PM +0100, Jan Beulich wrote:
-> Make the variable a tristate, with (as done elsewhere) a negative value
-> meaning "default". Since all use sites need looking at, also rename it
-> to match our usual "opt_*" pattern. While touching it, also move it to
-> .data.ro_after_init.
+On 14.11.2023 18:50, Krystian Hebel wrote:
+> This will be used for parallel AP bring-up.
 > 
-> The only place it retains boolean nature is pci_ats_device(), for now.
+> CPU_STATE_INIT changed direction.
 
-Why does it retain the boolean nature in pci_ats_device()?
+Nit: I think you mean "changes" as you describe what the patch does, not
+what has happened before. But ...
 
-I assume this is to avoid having to touch the line again in a further
-patch, as given the current logic pci_ats_device() would also want to
-treat -1 as ATS disabled.
+> It was previously set by BSP and never
+> consumed by AP. Now it signals that AP got through assembly part of
+> initialization and waits for BSP to call notifiers that set up data
+> structures required for further initialization.
 
-I think this is all fine because you add additional opt_ats > 0 checks
-before the call to pci_ats_device(), but would be good to know this is
-the intention.
+... all of this is, afaict, independent of what the title says the
+purpose of this patch is. Since the correctness of the state change
+adjustments doesn't look straightforward to prove, please split the
+mechanical change from the change to the actual logic.
 
-> In AMD code re-order conditionals to have the config space accesses
-> after (cheaper) flag checks.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> In domain_context_mapping_one() I'm a little puzzled that translation
-> type is selected based on only IOMMU and global properties, i.e. not
-> taking the device itself into account.
+> --- a/xen/arch/x86/include/asm/cpufeature.h
+> +++ b/xen/arch/x86/include/asm/cpufeature.h
+> @@ -38,6 +38,7 @@ struct cpuinfo_x86 {
+>      unsigned int cpu_core_id;          /* core ID of each logical CPU */
+>      unsigned int compute_unit_id;      /* AMD compute unit ID of each logical CPU */
+>      void *stack_base;
+> +    unsigned int cpu_state;
+>      unsigned short x86_clflush_size;
+>  } __cacheline_aligned;
 
-That seems like a bug to me, we should check that the device supports
-ATS (and has it enabled) before setting the translation type to
-CONTEXT_TT_DEV_IOTLB unconditionally.  We should likely use
-ats_device() instead of ats_enabled in domain_context_mapping_one().
+Is there any reason this cannot be ordinary per-CPU data?
 
-There's also IMO a second bug here, which is that we possibly attempt
-to flush the device IOTLB before having ATS enabled.  We flush the
-device TLB in domain_context_mapping_one(), yet ATS is enabled by the
-caller afterwards (see domain_context_mapping()).
+> --- a/xen/arch/x86/smpboot.c
+> +++ b/xen/arch/x86/smpboot.c
+> @@ -65,15 +65,18 @@ struct cpuinfo_x86 cpu_data[NR_CPUS] =
+>          { [0 ... NR_CPUS-1] .apicid = BAD_APICID };
+>  
+>  static int cpu_error;
+> -static enum cpu_state {
+> +enum cpu_state {
+>      CPU_STATE_DYING,    /* slave -> master: I am dying */
+>      CPU_STATE_DEAD,     /* slave -> master: I am completely dead */
+> -    CPU_STATE_INIT,     /* master -> slave: Early bringup phase 1 */
+> -    CPU_STATE_CALLOUT,  /* master -> slave: Early bringup phase 2 */
+> +    CPU_STATE_INIT,     /* slave -> master: Early bringup phase 1 completed */
+> +    CPU_STATE_CALLOUT,  /* master -> slave: Start early bringup phase 2 */
 
-> 
-> --- a/xen/drivers/passthrough/amd/iommu_cmd.c
-> +++ b/xen/drivers/passthrough/amd/iommu_cmd.c
-> @@ -282,7 +282,7 @@ void amd_iommu_flush_iotlb(u8 devfn, con
->      struct amd_iommu *iommu;
->      unsigned int req_id, queueid, maxpend;
->  
-> -    if ( !ats_enabled )
-> +    if ( opt_ats <= 0 )
->          return;
->  
->      if ( !pci_ats_enabled(pdev->seg, pdev->bus, pdev->devfn) )
-> @@ -340,7 +340,7 @@ static void _amd_iommu_flush_pages(struc
->          flush_command_buffer(iommu, 0);
->      }
->  
-> -    if ( ats_enabled )
-> +    if ( opt_ats > 0 )
->      {
->          amd_iommu_flush_all_iotlbs(d, daddr, order);
->  
-> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-> @@ -185,10 +185,11 @@ static int __must_check amd_iommu_setup_
->          dte->ex = ivrs_dev->dte_allow_exclusion;
->          dte->sys_mgt = MASK_EXTR(ivrs_dev->device_flags, ACPI_IVHD_SYSTEM_MGMT);
->  
-> -        if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
-> +        if ( opt_ats > 0 &&
->               !ivrs_dev->block_ats &&
-> -             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) )
-> -            dte->i = ats_enabled;
-> +             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
-> +             pci_ats_device(iommu->seg, bus, pdev->devfn) )
-> +            dte->i = true;
->  
->          spin_unlock_irqrestore(&iommu->lock, flags);
->  
-> @@ -248,10 +249,11 @@ static int __must_check amd_iommu_setup_
->          ASSERT(dte->sys_mgt == MASK_EXTR(ivrs_dev->device_flags,
->                                           ACPI_IVHD_SYSTEM_MGMT));
->  
-> -        if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
-> +        if ( opt_ats > 0 &&
->               !ivrs_dev->block_ats &&
-> -             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) )
-> -            ASSERT(dte->i == ats_enabled);
-> +             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
-> +             pci_ats_device(iommu->seg, bus, pdev->devfn) )
-> +            ASSERT(dte->i);
->  
->          spin_unlock_irqrestore(&iommu->lock, flags);
->  
-> @@ -268,9 +270,10 @@ static int __must_check amd_iommu_setup_
->  
->      ASSERT(pcidevs_locked());
->  
-> -    if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
-> +    if ( opt_ats > 0 &&
->           !ivrs_dev->block_ats &&
->           iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
-> +         pci_ats_device(iommu->seg, bus, pdev->devfn) &&
->           !pci_ats_enabled(iommu->seg, bus, pdev->devfn) )
+It's not really clear to me whether the adding of "Start" on the 2nd line
+really adds value.
 
-Seeing that this same set of conditions is used in 3 different checks,
-could we add a wrapper for it?
+>      CPU_STATE_CALLIN,   /* slave -> master: Completed phase 2 */
+>      CPU_STATE_ONLINE    /* master -> slave: Go fully online now. */
+> -} cpu_state;
+> -#define set_cpu_state(state) do { smp_mb(); cpu_state = (state); } while (0)
+> +};
+> +#define set_cpu_state(cpu, state) do { \
+> +    smp_mb(); \
+> +    cpu_data[cpu].cpu_state = (state); \
+> +} while (0)
 
-opt_ats > 0 && !ivrs_dev->block_ats &&
-iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
-pci_ats_device(iommu->seg, bus, pdev->devfn)
+While you merely re-arrange it, I'd still like to ask: Does this really
+need to be smp_mb(), not just smp_wmb()?
 
-pci_device_ats_capable()? or some such.
+> @@ -320,6 +317,10 @@ void start_secondary(unsigned int cpu)
+>  
+>      /* Critical region without IDT or TSS.  Any fault is deadly! */
+>  
+> +    /* Wait until data set up by CPU_UP_PREPARE notifiers is ready. */
+> +    while ( cpu_data[cpu].cpu_state != CPU_STATE_CALLOUT )
+> +        cpu_relax();
 
-Thanks, Roger.
+I'm afraid I don't understand the comment (and hence whether this loop
+is actually needed here): __cpu_up() is called only after those
+notifiers completed.
+
+> @@ -1161,6 +1171,12 @@ void __init smp_prepare_cpus(void)
+>      cpu_data[0].stack_base = (void *)
+>               ((unsigned long)stack_start & ~(STACK_SIZE - 1));
+>  
+> +    /* Set state as CALLOUT so APs won't change it in initialize_cpu_data() */
+> +    boot_cpu_data.cpu_state = CPU_STATE_CALLOUT;
+
+This is actually one of the reasons I don't like you putting the item
+as a new field in struct cpuinfo_x86. Otherwise imo initialize_cpu_data()
+ought to gain a respective assertion.
+
+Jan
 
