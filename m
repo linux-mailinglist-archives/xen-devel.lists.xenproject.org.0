@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D102B84EA92
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 22:33:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678484.1055822 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4CE184EA9D
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Feb 2024 22:35:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678487.1055833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYC1O-0005us-Ag; Thu, 08 Feb 2024 21:33:26 +0000
+	id 1rYC3U-0006Sb-MX; Thu, 08 Feb 2024 21:35:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678484.1055822; Thu, 08 Feb 2024 21:33:26 +0000
+Received: by outflank-mailman (output) from mailman id 678487.1055833; Thu, 08 Feb 2024 21:35:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYC1O-0005t5-7p; Thu, 08 Feb 2024 21:33:26 +0000
-Received: by outflank-mailman (input) for mailman id 678484;
- Thu, 08 Feb 2024 21:33:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1rYC3U-0006R4-Jd; Thu, 08 Feb 2024 21:35:36 +0000
+Received: by outflank-mailman (input) for mailman id 678487;
+ Thu, 08 Feb 2024 21:35:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rYC1N-0005sC-CB
- for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 21:33:25 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rYC1M-0007zj-OJ; Thu, 08 Feb 2024 21:33:24 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rYC1M-0003pD-J3; Thu, 08 Feb 2024 21:33:24 +0000
+ (envelope-from <SRS0=jPix=JR=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
+ id 1rYC3T-0006Qy-84
+ for xen-devel@lists.xenproject.org; Thu, 08 Feb 2024 21:35:35 +0000
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [2001:4860:4864:20::34])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fc777f29-c6c9-11ee-98f5-efadbce2ee36;
+ Thu, 08 Feb 2024 22:35:33 +0100 (CET)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-214410e969cso557221fac.0
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Feb 2024 13:35:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,80 +40,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=BW5qiyt7AQfECNgwOhZqLpmZVcPreDUv8vn3ys0CSp4=; b=qkGt7yt+8Ohf49EWTyWEtWfApm
-	lDzouXqEQ4pqiIJ+0cDbXWJPAyqT8DiPU6wacmYKFx/Rvxawwk8zXtY1zoFZqB4reUw+o0RDgfiRz
-	NhwGUBKBBwUAXL8ja7xIow2afwf+kl5fjfL74wEL+jAE8epMwiaki81LnstTzQ7kQ0JU=;
-Message-ID: <ccc568a3-d81c-482c-8768-c5934e3943a8@xen.org>
-Date: Thu, 8 Feb 2024 21:33:22 +0000
+X-Inumbo-ID: fc777f29-c6c9-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1707428131; x=1708032931; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3Mh+xWIVTtqZw4i0bVaC8y7Z/eeQ+wmiQoKLgVaf7JA=;
+        b=FdgxPk5gt6pOiLnWe2Y+wqWMN1Re5Hto4ER+C3bfR5HO+8XmMe+K6/DBxz4JPCSdc3
+         9jstggOc4LBhARosWJspMIv7gx2EByqZoCjfV+HzCkc2I9xJVN2OYFa1e9QJJzY6D+my
+         nXaoa14p23AfoF8/iVbWPDcNUoRKP6RLU+F5FT9bQgpnsmP92E4A6RXdsGGwxq1ty/RI
+         dOLBD8tffravNK/8v6nemR/q22Smdb6hocDArsp8TMbDfYndKIXODX/ZGD5jpV9osTaK
+         aYxsWp2VDGo5bLHd1ButrZ7W8GfrLci/xDA4PxMUmWMab5UgcNe5uKBhiw1ytUTt9N+n
+         gWLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707428131; x=1708032931;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=3Mh+xWIVTtqZw4i0bVaC8y7Z/eeQ+wmiQoKLgVaf7JA=;
+        b=lw+c/1LuWu1DKI1MSDcjh8J15DIWNylgPjx4DG/JpVrZda7H3qYhMLYe5EVOwn7Vm0
+         5NWYMfigd0u58OKy+XUqezpLnLXDTs0PBn85AwFRVKX8qFb4Pa3AD+kD8bHxzF+9YFp0
+         RgPomXX7P3WGsSuxK7baz8YrxoWSRNtpCH4WU4SQYPl8HRxGZOK9rAeSOhrCj+F5gcnR
+         6qZnfEMXsOiK+rzkh+hlt/9rsusuAGAbswFC1bx7zVCPuk9dl8IXcO4a7Grpu6v6mkwK
+         z0ndmFhNsbza1gryX2aMhP3IxeWma98Z582oc674jUyfXg3lu05lSYrCdTNdTQ/xU6YY
+         vIUg==
+X-Gm-Message-State: AOJu0YyEUQVtS75Bslhhlcz78NXM7lOIPvlEgKv2C9DGlWBnevQBNeFy
+	DtAxjyj/+7d2g9BEs2pEAAoHxCJVyo3roVtHicyFasOkHtj+xh7mBjkwYRiqVGsRS3PWUZFJrGT
+	fuhH//XZZE8tDdW5duN8/VHBS5e0=
+X-Google-Smtp-Source: AGHT+IHfFjTyxsLbTPD/HdzbnDuyruvrDDAKk0A/2doxdRvMNO/PSk8n+hDuTVEr8ggOLJIpaxd/nUANy7d7AlhTa9A=
+X-Received: by 2002:a05:6871:721:b0:214:fb22:c9b9 with SMTP id
+ f33-20020a056871072100b00214fb22c9b9mr1994270oap.26.1707428131585; Thu, 08
+ Feb 2024 13:35:31 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH] docs/misra: add x86_64 and arm64 asm-offset.c to
- exclude-list
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com, jbeulich@suse.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-References: <b0c855581eed247a32b745906f84d352bf812091.1707324479.git.nicola.vetrini@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <b0c855581eed247a32b745906f84d352bf812091.1707324479.git.nicola.vetrini@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <9b9909c9e93cb540b3488c784935acc2bc9e071e.1707343396.git.w1benny@gmail.com>
+ <3A858D7F-C953-4EF0-8919-AE96D6105AB1@cloud.com>
+In-Reply-To: <3A858D7F-C953-4EF0-8919-AE96D6105AB1@cloud.com>
+From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Date: Thu, 8 Feb 2024 22:35:20 +0100
+Message-ID: <CAKBKdXijXDcSnnm2P9kTe74924foiBxRks7mpxwE+q4rjiEbAA@mail.gmail.com>
+Subject: Re: [PATCH] tools/ocaml: Add missing vmtrace_buf_kb field
+To: Christian Lindig <christian.lindig@cloud.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, David Scott <dave@recoil.org>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nicola,
+> On Thu, Feb 8, 2024 at 10:14=E2=80=AFAM Christian Lindig <christian.lindi=
+g@cloud.com> wrote:
+>
+> > On 7 Feb 2024, at 22:04, Petr Bene=C5=A1 <w1benny@gmail.com> wrote:
+> >
+> >
+> > Add the missing `vmtrace_buf_kb` field to the OCaml bindings to match t=
+he
+> > vm.cfg configuration, correcting an oversight from its initial introduc=
+tion.
+> >
+> > Signed-off-by: Petr Bene=C5=A1 <w1benny@gmail.com>
+>
+> Acked-by: Christian Lindig <christian.lindig@cloud.com>
+>
+> This looks correct from an OCaml perspective. Why was the new field added=
+ in the middle of the record type domctl_create_config and thus forcing cha=
+nges to the index of fields coming later in the record versus just appendin=
+g the new field to the record type?
+>
 
-On 08/02/2024 07:55, Nicola Vetrini wrote:
-> These two files contain several deliberate violations of MISRA C rules and
-> they are not linked in the final Xen binary, therefore they can be exempted
-> from MISRA compliance.
+To match the position of the field inside of xen_domctl_createdomain.
 
-I am curious, what are the violations you are talking about?
-
-Cheers,
-
->  > No functional change.
-> 
-> Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
-> ---
-> Since the exclude list only contains arm64 and x86 files I reasoned that
-> introducing an entry that would match all architectures would not be desirable
-> (e.g., arm32). I'm happy to change that, though.
-> ---
->   docs/misra/exclude-list.json | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
-> index 7971d0e70f5b..bd05478e03e9 100644
-> --- a/docs/misra/exclude-list.json
-> +++ b/docs/misra/exclude-list.json
-> @@ -17,6 +17,10 @@
->               "rel_path": "arch/arm/arm64/lib/find_next_bit.c",
->               "comment": "Imported from Linux, ignore for now"
->           },
-> +        {
-> +          "rel_path": "arch/arm/arm64/asm-offsets.c",
-> +          "comment": "The resulting code is not included in the final Xen binary, ignore for now"
-> +        },
->           {
->               "rel_path": "arch/x86/acpi/boot.c",
->               "comment": "Imported from Linux, ignore for now"
-> @@ -97,6 +101,10 @@
->               "rel_path": "arch/x86/x86_64/mmconf-fam10h.c",
->               "comment": "Imported from Linux, ignore for now"
->           },
-> +        {
-> +          "rel_path": "arch/x86/x86_64/asm-offsets.c",
-> +          "comment": "The resulting code is not included in the final Xen binary, ignore for now"
-> +        },
->           {
->               "rel_path": "arch/x86/efi/check.c",
->               "comment": "The resulting code is not included in the final Xen binary, ignore for now"
-
--- 
-Julien Grall
+P.
 
