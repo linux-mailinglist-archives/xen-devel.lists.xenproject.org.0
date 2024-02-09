@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F382284F8D2
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 16:47:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678748.1056247 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A68B84F8E8
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 16:52:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678753.1056257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYT5Q-0001R4-0q; Fri, 09 Feb 2024 15:46:44 +0000
+	id 1rYTAf-0003Mo-Ik; Fri, 09 Feb 2024 15:52:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678748.1056247; Fri, 09 Feb 2024 15:46:43 +0000
+Received: by outflank-mailman (output) from mailman id 678753.1056257; Fri, 09 Feb 2024 15:52:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYT5P-0001PY-U4; Fri, 09 Feb 2024 15:46:43 +0000
-Received: by outflank-mailman (input) for mailman id 678748;
- Fri, 09 Feb 2024 15:46:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=v369=JS=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
- id 1rYT5O-0001PS-7J
- for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 15:46:42 +0000
-Received: from mail-oa1-x2f.google.com (mail-oa1-x2f.google.com
- [2001:4860:4864:20::2f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69994740-c762-11ee-8a4b-1f161083a0e0;
- Fri, 09 Feb 2024 16:46:40 +0100 (CET)
-Received: by mail-oa1-x2f.google.com with SMTP id
- 586e51a60fabf-2191b085639so402922fac.0
- for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 07:46:39 -0800 (PST)
+	id 1rYTAf-0003LI-G3; Fri, 09 Feb 2024 15:52:09 +0000
+Received: by outflank-mailman (input) for mailman id 678753;
+ Fri, 09 Feb 2024 15:52:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BFPS=JS=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rYTAd-0003LC-Dc
+ for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 15:52:07 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2bf907fc-c763-11ee-98f5-efadbce2ee36;
+ Fri, 09 Feb 2024 16:52:05 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 917894EE0739;
+ Fri,  9 Feb 2024 16:52:04 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,147 +39,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69994740-c762-11ee-8a4b-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707493598; x=1708098398; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pGLniU/Nd8/gkAQj+uYixOpsybWYqA3IabfJTeP8PU0=;
-        b=Q3h/BOL8FRlsLtKVnt9UKmgWWEYlxMgf5bjkKxRRS/1KQGGiYQGEGnfjgYilwyrgOY
-         dF9eXVpeIAoKizoodnP6SF4LX/8+1R8FATiH9p0KN5rdPSFRwqRuRxCB7e/EiOF+YpFi
-         J6NVbWMTHWFxVpjmkc37ivcjqTnGdyAKUXoyLEufvEzmYD74Q/sMGWK4bpZHYJO1iWSu
-         ylq75HBLsHds5JQWlZ7BCwlqW8P2icE6LgGL6T/BTMKh4ltH2doc7AIu5zT2Lrckg6kF
-         pHNp5VhD5JJleAfwCiYG7WZuwLMmue7RwiKMonNVN76+z8FZ+d0UXdai8VnLyWUsb/va
-         BULQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707493598; x=1708098398;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pGLniU/Nd8/gkAQj+uYixOpsybWYqA3IabfJTeP8PU0=;
-        b=IM43gpo1cnbuweaU6ufDsSbPXF2cspYgzInvRKnJzz0l32QpeBnXlKkIUP+7cWdPki
-         RVdr517ays/UTcpSEL+yFNZ/wQWB6s1F7jW2pTqhy68uIcgD0UbPvH/f6b5rNiXKDIRp
-         A+J63NcZJNv+nqZJBMPtOyVlpRlj9wjUATfaShlrJxfpXlu+SSUHzDSjYijZl0mHUK52
-         CqbzAp3mAZBKPXqAeN+g0ItIc14u1dYNu6K3uU1oe0Fd6UzBc7fZiriOm5b1RtJirKUJ
-         X/AXO5W2pNS30/TbZSIAu+cTQqXTLAwwLwBa17rDYpL3IAJGi95RH7n8XN6pJjhaW1UH
-         1Apg==
-X-Gm-Message-State: AOJu0YwQ+c8LkEgcrOsdb1I5p4xnhh6SvL3BXWD9eFZ48Qfui5ggV/fB
-	+Fhy8hG5r4UbfhnafRHgDO79Ar94yUdFeUhjhYXvp7oNj6UMSv7gjDubVXefsMXaqnCJ6xO6ci4
-	SfiOOmOv1oSqeSAV5bgPD6N+n2Q8=
-X-Google-Smtp-Source: AGHT+IGLhm3d/5UqOMS3N8mjaV72I+nJgfGEbPykyE53OIH3Fo+4fezabWWTAiM/5/hAhR3sFWFVXLWO7q01gA+8ka0=
-X-Received: by 2002:a05:6870:a9aa:b0:206:6db:dff9 with SMTP id
- ep42-20020a056870a9aa00b0020606dbdff9mr2085043oab.58.1707493598201; Fri, 09
- Feb 2024 07:46:38 -0800 (PST)
+X-Inumbo-ID: 2bf907fc-c763-11ee-98f5-efadbce2ee36
 MIME-Version: 1.0
-References: <fa519b9a544d3d19a31313292a909d12775e6e1f.1707427103.git.w1benny@gmail.com>
- <eba39016-7d7a-4d35-865c-bfa03674617a@citrix.com>
-In-Reply-To: <eba39016-7d7a-4d35-865c-bfa03674617a@citrix.com>
-From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
-Date: Fri, 9 Feb 2024 16:46:26 +0100
-Message-ID: <CAKBKdXhs5Wx8U5iaLWnRuVxMMTJ20zyWO6Nnku06nDg90jtCMA@mail.gmail.com>
-Subject: Re: [PATCH] x86/hvm: Fix fast singlestep state persistence
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org, tamas@tklengyel.com, 
-	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Feb 2024 16:52:04 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Xen Devel <xen-devel@lists.xenproject.org>
+Cc: Consulting <consulting@bugseng.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Jbeulich
+ <jbeulich@suse.com>, Andrew Cooper3 <andrew.cooper3@citrix.com>, Roger Pau
+ <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Wei Liu
+ <wl@xen.org>
+Subject: Return type of clean_and_invalidate_dcache_va_range
+Message-ID: <e050b096ff39aa857f9c267a8dbb4ef6@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-> On Fri, Feb 9, 2024 at 3:58=E2=80=AFPM Andrew Cooper <andrew.cooper3@citr=
-ix.com> wrote:
->
-> On 08/02/2024 9:20 pm, Petr Bene=C5=A1 wrote:
-> > From: Petr Bene=C5=A1 <w1benny@gmail.com>
-> >
-> > This patch addresses an issue where the fast singlestep setting would p=
-ersist
-> > despite xc_domain_debug_control being called with XEN_DOMCTL_DEBUG_OP_S=
-INGLE_STEP_OFF.
-> > Specifically, if fast singlestep was enabled in a VMI session and that =
-session
-> > stopped before the MTF trap occurred, the fast singlestep setting remai=
-ned
-> > active even though MTF itself was disabled.  This led to a situation wh=
-ere, upon
-> > starting a new VMI session, the first event to trigger an EPT violation=
- would
-> > cause the corresponding EPT event callback to be skipped due to the lin=
-gering
-> > fast singlestep setting.
-> >
-> > The fix ensures that the fast singlestep setting is properly reset when
-> > disabling single step debugging operations.
-> >
-> > Signed-off-by: Petr Bene=C5=A1 <w1benny@gmail.com>
-> > ---
-> >  xen/arch/x86/hvm/hvm.c | 32 +++++++++++++++++++++++---------
-> >  1 file changed, 23 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> > index e8deeb0222..4f988de4c1 100644
-> > --- a/xen/arch/x86/hvm/hvm.c
-> > +++ b/xen/arch/x86/hvm/hvm.c
-> > @@ -5160,26 +5160,40 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HAND=
-LE_PARAM(void) arg)
-> >
-> >  int hvm_debug_op(struct vcpu *v, int32_t op)
-> >  {
-> > -    int rc;
-> > +    int rc =3D 0;
-> >
-> >      switch ( op )
-> >      {
-> >          case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_ON:
-> >          case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_OFF:
-> > -            rc =3D -EOPNOTSUPP;
-> >              if ( !cpu_has_monitor_trap_flag )
-> > -                break;
-> > -            rc =3D 0;
-> > -            vcpu_pause(v);
-> > -            v->arch.hvm.single_step =3D
-> > -                (op =3D=3D XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_ON);
-> > -            vcpu_unpause(v); /* guest will latch new state */
-> > +                return -EOPNOTSUPP;
-> >              break;
-> >          default:
-> > -            rc =3D -ENOSYS;
-> > +            return -ENOSYS;
-> > +    }
-> > +
-> > +    vcpu_pause(v);
-> > +
-> > +    switch ( op )
-> > +    {
-> > +        case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_ON:
-> > +            v->arch.hvm.single_step =3D true;
-> > +            break;
-> > +
-> > +        case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_OFF:
-> > +            v->arch.hvm.single_step =3D false;
-> > +            v->arch.hvm.fast_single_step.enabled =3D false;
-> > +            v->arch.hvm.fast_single_step.p2midx =3D 0;
-> >              break;
-> > +
-> > +        default:
-> > +            ASSERT_UNREACHABLE();
->
-> Two things.
->
-> First, this reads as if it's reachable, and therefore wrong.  You
-> probably want an /* Excluded above */ comment to point out why it's safe
-> in this case.
->
-> Second, I know you're copying the existing switch(), but it wasn't
-> compliant with Xen's coding style.  The cases and their clauses should
-> have one fewer indentation level.
->
-> I'm happy to fix up both on commit.
->
-> ~Andrew
+Hi all,
 
-Thanks for the feedback. If it's not too much of a hassle, I'll be
-happy if you fix it.
+In the context of violations of MISRA C:2012 Rule 17.7: "The value 
+returned by a function having non-void return type shall be used", I was 
+looking at the function "clean_and_invalidate_dcache_va_range". It has 
+the following signature on both arm and x86:
 
-P.
+static inline int clean_and_invalidate_dcache_va_range
+     (const void *p, unsigned long size)
+
+The commit that introduced it for Arm ~9 years ago (71d64afe3e12: "arm: 
+return int from *_dcache_va_range") [1] mentions that on Arm it can't 
+fail, but supposedly it can on x86.
+
+However, as far as I can tell, for both arch-es the implementation now 
+always returns 0 [2][3], so perhaps the mention of -EOPNOTSUPP for x86 
+is no longer true (I wasn't able to reconstruct if there was a time at 
+which this was true, even in the same commit that changed the return 
+type to int).
+
+The question is: should the return type be void, since it appears that 
+every user is ignoring the returned value (violating the rule), except 
+the one in common/grant_table.c [4]?
+
+The other two resolution paths are either allowing this function's 
+result to be ignored or cast all ignored invocations to void, with the 
+first being cleaner from a code readability perspective.
+
+[1] These functions cannot really fail on ARM, but their x86 equivalents 
+can (-EOPNOTSUPP). Change the prototype to return int.
+[2] 
+https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/arm/include/asm/page.h#L218
+[3] 
+https://gitlab.com/xen-project/xen/-/blob/staging/xen/arch/x86/include/asm/flushtlb.h#L188
+[4] 
+https://gitlab.com/xen-project/xen/-/blob/staging/xen/common/grant_table.c#L3576
+
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
