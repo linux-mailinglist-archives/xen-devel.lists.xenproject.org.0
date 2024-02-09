@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C40A84FB59
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 18:58:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678777.1056287 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 822F084FB5D
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 19:01:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678780.1056297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYV93-0005bV-NS; Fri, 09 Feb 2024 17:58:37 +0000
+	id 1rYVBK-0007Cg-8h; Fri, 09 Feb 2024 18:00:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678777.1056287; Fri, 09 Feb 2024 17:58:37 +0000
+Received: by outflank-mailman (output) from mailman id 678780.1056297; Fri, 09 Feb 2024 18:00:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYV93-0005Zc-KH; Fri, 09 Feb 2024 17:58:37 +0000
-Received: by outflank-mailman (input) for mailman id 678777;
- Fri, 09 Feb 2024 17:58:36 +0000
+	id 1rYVBK-0007B0-40; Fri, 09 Feb 2024 18:00:58 +0000
+Received: by outflank-mailman (input) for mailman id 678780;
+ Fri, 09 Feb 2024 18:00:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Qnec=JS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rYV92-0005ZO-L5
- for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 17:58:36 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ id 1rYVBI-0007AX-P7
+ for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 18:00:56 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d7bf9aa8-c774-11ee-98f5-efadbce2ee36;
- Fri, 09 Feb 2024 18:58:34 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id
- a640c23a62f3a-a383016f428so137429566b.2
- for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 09:58:34 -0800 (PST)
+ id 2ada27f8-c775-11ee-98f5-efadbce2ee36;
+ Fri, 09 Feb 2024 19:00:54 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-5600c43caddso1548855a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 10:00:54 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- ty15-20020a170907c70f00b00a358b6242fcsm966999ejc.114.2024.02.09.09.58.32
+ fd1-20020a056402388100b00561103f29fbsm984503edb.75.2024.02.09.10.00.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Feb 2024 09:58:33 -0800 (PST)
+ Fri, 09 Feb 2024 10:00:52 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,388 +44,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7bf9aa8-c774-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 2ada27f8-c775-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707501514; x=1708106314; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1707501653; x=1708106453; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=2lrkJ9V+mE1GUJ7aII/vGn7VoenhC2UAArd0NmS/noQ=;
-        b=bZCp6P9EgGhWltelv1EW481bmqBLxnOIgPSaJam2HoEi1OOX16qkgcrhu/tAn57f7O
-         5ivrYGmrpMgWcVk41+pw4j3Tguw64IjZ9Q3cI0VRtKUEzGGNPmU0ouc7jj4R7q16Etui
-         aRo0ldFaYI5J7sNi9ERDymfWjdDzKKwWTY3GmV+zNmj1hDkNuBxm2gqDwbjWe9f4hMzv
-         CWPsa1FbjsptMcjdZm6Q9aF7vPXKLpb0kKjr2kAztDfVqiyLL4UJk+h7r9AuZzXeWkYk
-         ARwl+miB19FyNPt31N3EuA+C31cu+cNoy2dAYwHpj3fl1UjsrmXjVlR+zKMVa9XIYjCF
-         lwaw==
+        bh=Bs9ogOGLG/U26z7bEm15alnNocp6JCN0/JehCJi+Wgw=;
+        b=gBBZPeAiP+kiEh30FVBtaKdDAuoDW/wb5u/Yl3zccLWPBTcyFuvcIzn1kPShYQcV5L
+         QXvR5jTH0R40Yw2YHzz9kQbhQlP1vxThf+7+dpsA0HmU78jwnUcivAEtHLRzGS63DkPx
+         88jDeGCWCHW7vSZh/sHWjurSH2DrLmhAnyJha0xZ6bBpqh24HgyIZicKLace36Fuwpmm
+         +MSUJqVbQd83Rnf77yljBGTfPu/EWBfcO1+yBUVJW6VAdX5Z4bGWDXdV1Q+AxJbaFw2/
+         UYosfHCGfWW6M6dt8xVsuFNqGbUa1BZq7iwkc4wuKB8s1YF9AnAbE5wmAtKxYDFodhYc
+         I9Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707501514; x=1708106314;
+        d=1e100.net; s=20230601; t=1707501653; x=1708106453;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=2lrkJ9V+mE1GUJ7aII/vGn7VoenhC2UAArd0NmS/noQ=;
-        b=V0m4583EvKKLaKRE/bhtqu01bvfNN0dRqEZC36iJgq9u72Y6PzYMGJGOISGZRmZLYf
-         JjFbZ0Ec6agUKaq2aqvXHQA4S4EZqmSR7qeghe7TPSsKMf/2moF1vJ9Ucwyz4yqrTsJS
-         DFsoEOvzrUAJMLKVCsv1MIvom97L524GTws+V8ercrWcdaJvtwL6woQYCvbTRbOBoUO+
-         J/frfGhV9LWGw1zTj84FM00txy3GFlosCMcl3UDLeeFzhiwiWI/4YzqZ64epCxjJTKNp
-         uucXzUUVdGqfOZHgy7WRtF1YhXZWpOchmenXU9TsPpTl2YLAMqJ/xm9ykWqNm+A5qNfh
-         +C/g==
-X-Gm-Message-State: AOJu0YyOjm/nF5e0MzevVwQ3Xz3/jROXxwnrad0iEjZErX9J/cmvOehY
-	qkYDguYf3QmQSBA5N8m9MC+kXMSo5Uj3VcoTc5kstngDkPP0BEJxUSprwOeG
-X-Google-Smtp-Source: AGHT+IG4/yVaVqTmTUdvj85AiCmykXPfvOVQfW7vtw+raXGRW3duqrmrkW9WeBZDTJwX3xHCQp2kmA==
-X-Received: by 2002:a17:906:138e:b0:a37:2566:e248 with SMTP id f14-20020a170906138e00b00a372566e248mr2059724ejc.37.1707501513785;
-        Fri, 09 Feb 2024 09:58:33 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUwj+GLoZzXGKtudUJE+LOLgvk5tKyT1bhuhpO0NzBiT0I0ed1BpOpkwHUUJMMq87ZqBtWZfCHn5kB2ke/v2lh3fuymnZ26krLQpoF+cJLXCEGqzuDwFbCBtLkNz7mKxmjJaRfLna5djXTwDeGDhZRYNt3TuOwxckZpg2ogxybFAz1gWR/HazKkToDwN8o/5jnGsq8TmrDz4ise2ZzaykMsPoTXKOysAftzFpk1oUsQqkG3dxEybwr/88+rWZvEMUYNoENaqrXrEzbD2N7gEMIeX/fhq5ant398QiTegeBJh5GOVXB9HlbjCRlVmPuPWhKflfs/h9DKS4WOoxWeASwbV0uVRJyjDUk3ZcAK9a2HD79L+6T1SE7Y
+        bh=Bs9ogOGLG/U26z7bEm15alnNocp6JCN0/JehCJi+Wgw=;
+        b=qL+BvMw5QN0Q43NwIZF60GS+JBDpGPxvjrpWqVuEEN2q9RVI4PhL3c/YPrqiGJp5Fh
+         oMMzWp8mAiQFbBbAR4otaPVrZjm/kx0ZUGdipVCkpyixFnEAsJis7OroyPcEK79O6xNp
+         bj21mhWqzC+zxOHoULFV5tdXCvAPvw/+psI/a0l55wZdK3lNj73+t6z6OEtmBrJlqIG+
+         rPbZC0H+5ZFIgZltkrBd9ychPfN7CSShILtY71d+cClonPPNOY9Q/nLygGhV83UFdlRb
+         kQHuGB1IVQHq8e46an6AbVp4ghrmdwXtsolJHmcLt69h2k/pifPCH6gN35Aa5DpTr/XW
+         8tWw==
+X-Gm-Message-State: AOJu0Ywp+tdBgCKuSrpz1hrLDlHOOfy5PTnrrQLNw1exccA3F1gT6CSj
+	tVVaS4r09VmyXxT7UOnrlakUN0A1+aGLMlXXpbscGcuyv9DN4RoXSEulDug8
+X-Google-Smtp-Source: AGHT+IF/prAYCCgRd01hVTel3l+zsf3uytU0uSrtVjBhByLiQLPt5hGw3OqXEjpzyK9BHHubiAm5JA==
+X-Received: by 2002:a05:6402:5172:b0:55f:e2be:ec0e with SMTP id d18-20020a056402517200b0055fe2beec0emr1915143ede.1.1707501652539;
+        Fri, 09 Feb 2024 10:00:52 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVvZgV6duVjqfdo8lft4AMLopEZ2qr4Yma8GPzb13TkJdRfdQvsUhogHBzMFLpZgw9KPvUbbgSTqZbb7zKp5Z0PTpN3v6yJPkVlDNSQi3Ozo4mRW5qJG3FBBhN0ZQ1mMqLPXavX3bVimPVw/NVBQHbqJl+3yAPuIX8w10JwVhu051BbhkwdWAmA7uohdieve/47Sr0OfjNZ8bhukCpHxw/aNZpGtM2n5L6YOWHNNLcX+k+WeyUBABLbCZ/gzBAzpiJWriSLBVHz1lhR7QkCu6EkL2ZT70rVyb75xeQiw3A1DAAnJXd9aRXuVsQTY1Jj0g9721J2cbSWu+fJ2ZvvL6dNQCNAjelhmV9Hpc+WwCw0LTAfb2aJOL2KGeiaSwrS+uMtyjNyFhWzGbAW/lQXwYiLUNumuKYS8ejFyRm/sJDzTUSURp0b7DcNlFQXrK+E5hcan8dUkJpGsa9NSo80SXUzwcV8M9m6loyFyt0+PrcRH84LrKB4lQ3mQa3AsPbKA/l4huy2dVvhoIQ5zPbIFnKZdzAShEao+Omyyq7M8f5bv3h1wRTrzpZG7JYcAzuovd5ITRgGY9O7uxvLIoR/sQc=
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+	Doug Goldstein <cardoe@cardoe.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
+	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,
+	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Shawn Anastasio <sanastasio@raptorengineering.com>
-Subject: [PATCH v2] xen/lib: introduce generic find next bit operations
-Date: Fri,  9 Feb 2024 18:58:30 +0100
-Message-ID: <fea2e65768457adcfedbfcc294004b1d5c2e86ea.1707495704.git.oleksii.kurochko@gmail.com>
+	Shawn Anastasio <sanastasio@raptorengineering.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v8 0/7]  Introduce generic headers
+Date: Fri,  9 Feb 2024 19:00:42 +0100
+Message-ID: <cover.1707499278.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-find-next-bit.c is common for Arm64, PPC and RISCV64,
-so it is moved to xen/lib.
+Some headers are common between several architectures, so the current patch series
+provide them.
 
-PPC has been transitioned to generic functions from find-next-bit.c
-since it now shares the same implementation as the PPC-specific code.
+Another one reason to have them as generic is a simplification of adding support
+necessary to make a complete Xen build as it was/is being done in the patch series [1]
+and [2].
 
-The MISRA exclude list has been updated to verify
-lib/find-next-bit.c instead of Arm's find_next_bit.c,
-as Arm's find_next_bit.c has been relocated to xen/lib/.
+Also, instead of providing generic/stub headers, it was used
+"#ifdef CONFIG_* #include <asm/*.h> #endif" instead of providing empty headers.
 
-Despite CONFIG_GENERIC_FIND_FIRST_BIT not currently being used in
-Xen and being removed from the Linux kernel [1], it could theoretically
-prove useful for Xen. This is because the Linux kernel transitioned
-Arm to the generic version of find_first_bit() and
-find_first_zero_bit() due to improvements [1] in both performance
-and .text size.
-It would be prudent to investigate whether [1] is applicable to Xen
-as well and, if so, implement the necessary changes in a separate patch.
+This patch series is a pre-requisite for "Enable build of full Xen for RISC-V" [3].
 
-[1] https://lore.kernel.org/linux-arch/20211005054059.475634-5-yury.norov@gmail.com/
-
-Suggested-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+[1] https://lore.kernel.org/xen-devel/cover.1694543103.git.sanastasio@raptorengineering.com/
+[2] https://lore.kernel.org/xen-devel/cover.1692181079.git.oleksii.kurochko@gmail.com/
+[3] https://lore.kernel.org/xen-devel/cover.1700761381.git.oleksii.kurochko@gmail.com/
 ---
- docs/misra/exclude-list.json                  |   8 +-
- xen/arch/arm/arm64/lib/Makefile               |   2 +-
- xen/arch/arm/include/asm/arm64/bitops.h       |  46 +------
- xen/arch/ppc/include/asm/bitops.h             | 115 ------------------
- xen/include/xen/bitops.h                      |  48 ++++++++
- xen/lib/Makefile                              |   1 +
- .../find_next_bit.c => lib/find-next-bit.c}   |   0
- 7 files changed, 55 insertions(+), 165 deletions(-)
- rename xen/{arch/arm/arm64/lib/find_next_bit.c => lib/find-next-bit.c} (100%)
+Changes in V8:
+ - Add Acked-by Acked-by: Tamas K Lengyel <tamas@tklengyel.com> for patches:
+    [PATCH v7 4/7] xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
+    [PATCH v7 3/7] xen/asm-generic: introduce stub header monitor.h
+ - Update the commit messages for patches:
+    [PATCH v7 5/7] xen/asm-generic: introduce generic device.h
+    [PATCH v7 6/7] xen/arm: switch Arm to use asm-generic/device.h
+ - Drop #ifdef HAS_PCI in asm-generic/device.h to be consistent with other pci-related
+   things in the header.
+ - Code styles fixes.    
+---
+Changes in V7:
+ - The following patches were dropped because of rebasing as they were merged
+   to staging:
+   - [PATCH v6 3/9] xen/asm-generic: introduce generic div64.h header
+   - [PATCH v6 6/9] xen/asm-generic: introduce stub header softirq.h
+   - [PATCH v6 7/9] xen: ifdef inclusion of <asm/grant_table.h> in <xen/grant_table.h>
+   - [PATCH v6 8/9] xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
+- [PATCH v6 5/9] xen/asm-generic: introduce stub header numa.h was dropped becaus of
+  the patch: "[PATCH v2] NUMA: no need for asm/numa.h when !NUMA"
+- Drop definition of arch_monitor_domctl_event for PPC.
+- define arch_monitor_domctl_event in asm-generic/monitor.h.
+- Add "define HAS_ARCH_MONITOR_DOMCTL_EVENT" in arm/.../monitor.h as it has arch
+  specific implementation.
+- keeping DEVICE_PCI_HOSTBRIDGE available for every build based on the reply:
+    https://lore.kernel.org/xen-devel/926a5c12-7f02-42ec-92a8-1c82d060c710@xen.org/
+- add comment above enum device_type.h with explanation about DEV_TYPE_MAX.        
+- drop #ifdef HAS_PCI around "(device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE))" in ARM code.
+- separate patch  "[PATCH v6 9/9] xen/asm-generic: introduce generic device.h" into 3 patches.
+---
+Changes in V6:
+ - Fix the build script to work properly with EXTRA_FIXED_RANDCONFIG.
+ - Introduce separate randconfig yaml with fixed configs for RISC-V.
+ - Disable CONFIG_GRANT_TABLE and CONFIG_MEM_ACCESS for PPC and RISC-V.
+ - Remove change in Kconfig/common for CONFIG_GRANT_TABLE and CONFIG_MEM_ACCESS.
+ - Rebase on top of the latest staging. 
+---
+Changes in V5:
+ - Update the patch series message as patch related to delay.h was merged.
+ - Rebase on top of staging because half of the patches of the patch series were
+   merged to staging branch.
+ - Add A-by for some of the patches.
+ - Add "depends on X86 || Arm" for CONFIG_GRANT_TABLE and CONFIG_MEM_ACCESS to be
+   sure it won't be turned on by randconfig in CI.
+ - Partly switch Arm and PPC to asm-generic/monitor.h.
+ - Some other minor changes
+---
+Changes in V4:
+ - Update the cover letter message
+ - Add Reviewed-by/Acked-by for patches:
+    [PATCH v3 01/14] xen/asm-generic: introduce stub header paging.h
+    [PATCH v3 03/14] xen/asm-generic: introduce generic hypercall.h
+    [PATCH v3 04/14] xen/asm-generic: introduce generic header iocap.h
+    [PATCH v3 05/14] xen/asm-generic: introduce stub header <asm/random.h>
+    [PATCH v3 06/14] xen/asm-generic: introduce generic header percpu.h
+    [PATCH v3 07/14] xen/asm-generic: introduce generalized hardirq.h
+    [PATCH v3 08/14] xen/asm-generic: introduce generic div64.h header
+    [PATCH v3 09/14] xen/asm-generic: introduce generic header altp2m.h
+    [PATCH v3 10/14] xen/asm-generic: introduce stub header monitor.h
+    [PATCH v3 11/14] xen/asm-generic: introduce stub header numa.h
+    [PATCH v3 12/14] xen/asm-generic: introduce stub header softirq.h
+ - Fix some code style and minor issues.
+ - Use asm-generic version of device.h for Arm and PPC.
+---
+Changes in V3:
+ - Update the commit message of the cover letter.
+ - Drop the following patch as it can be arch-specific enough:
+   * [PATCH v2 09/15] xen/asm-generic: introduce generic header smp.h
+ - Drop correspondent arch specific headers and use asm-generic version of
+   a header.
+ - Back to the patch series patches:
+   * xen: ifdef inclusion of <asm/grant_table.h> in <xen/grant_table.h>
+   * xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
+---
+Changes in V2:
+ - Update the commit message of the cover letter.
+ - Drop the following patches because they are arch-specific or was sent as a separate patch:
+   - xen/asm-generic: introduce stub header event.h
+	 - xen/asm-generic: introduce stub header spinlock.h
+	 - [PATCH v1 03/29] xen/asm-generic: introduce stub header cpufeature.h
+	 - [PATCH v1 07/29] xen/asm-generic: introduce stub header guest_atomics.h
+	 - [PATCH v1 10/29] xen/asm-generic: introduce stub header iommu.h
+	 - [PATCH v1 12/29] xen/asm-generic: introduce stub header pci.h because separate patch was sent [5]
+	 - [PATCH v1 14/29] xen/asm-generic: introduce stub header setup.h
+	 - [PATCH v1 15/29] xen/asm-generic: introduce stub header xenoprof.h because of [3].
+	 - [PATCH v1 16/29] xen/asm-generic: introduce stub header flushtlb.h
+	 - [PATCH v1 22/29] xen/asm-generic: introduce stub header delay.h because of [3]
+	 - [PATCH v1 23/29] xen/asm-generic: introduce stub header domain.h
+	 - [PATCH v1 24/29] xen/asm-generic: introduce stub header guest_access.h
+	 - [PATCH v1 25/29] xen/asm-generic: introduce stub header irq.h ( probably not so generic as I expected, I'll back to it if it will be necessary in the future )
+	 - [PATCH v1 28/29] xen/asm-generic: introduce stub header p2m.h ( probably not so generic as I expected, I'll back to it if it will be necessary in the future )
+ - For the rest of the patches please look at changes for each patch separately.
+---
 
-diff --git a/docs/misra/exclude-list.json b/docs/misra/exclude-list.json
-index 7971d0e70f..b28174d0eb 100644
---- a/docs/misra/exclude-list.json
-+++ b/docs/misra/exclude-list.json
-@@ -13,10 +13,6 @@
-             "rel_path": "arch/arm/arm64/insn.c",
-             "comment": "Imported on Linux, ignore for now"
-         },
--        {
--            "rel_path": "arch/arm/arm64/lib/find_next_bit.c",
--            "comment": "Imported from Linux, ignore for now"
--        },
-         {
-             "rel_path": "arch/x86/acpi/boot.c",
-             "comment": "Imported from Linux, ignore for now"
-@@ -221,6 +217,10 @@
-             "rel_path": "include/xen/decompress.h",
-             "comment": "Imported from Linux, ignore for now"
-         },
-+        {
-+            "rel_path": "lib/find-next-bit.c",
-+            "comment": "Imported from Linux, ignore for now"
-+        },
-         {
-             "rel_path": "lib/list-sort.c",
-             "comment": "Imported from Linux, ignore for now"
-diff --git a/xen/arch/arm/arm64/lib/Makefile b/xen/arch/arm/arm64/lib/Makefile
-index 1b9c7a95e6..66cfac435a 100644
---- a/xen/arch/arm/arm64/lib/Makefile
-+++ b/xen/arch/arm/arm64/lib/Makefile
-@@ -1,4 +1,4 @@
- obj-y += memcpy.o memcmp.o memmove.o memset.o memchr.o
- obj-y += clear_page.o
--obj-y += bitops.o find_next_bit.o
-+obj-y += bitops.o
- obj-y += strchr.o strcmp.o strlen.o strncmp.o strnlen.o strrchr.o
-diff --git a/xen/arch/arm/include/asm/arm64/bitops.h b/xen/arch/arm/include/asm/arm64/bitops.h
-index d85a49bca4..0efde29068 100644
---- a/xen/arch/arm/include/asm/arm64/bitops.h
-+++ b/xen/arch/arm/include/asm/arm64/bitops.h
-@@ -36,57 +36,13 @@ static inline int flsl(unsigned long x)
- 
- /* Based on linux/include/asm-generic/bitops/find.h */
- 
--#ifndef find_next_bit
--/**
-- * find_next_bit - find the next set bit in a memory region
-- * @addr: The address to base the search on
-- * @offset: The bitnumber to start searching at
-- * @size: The bitmap size in bits
-- */
--extern unsigned long find_next_bit(const unsigned long *addr, unsigned long
--		size, unsigned long offset);
--#endif
--
--#ifndef find_next_zero_bit
--/**
-- * find_next_zero_bit - find the next cleared bit in a memory region
-- * @addr: The address to base the search on
-- * @offset: The bitnumber to start searching at
-- * @size: The bitmap size in bits
-- */
--extern unsigned long find_next_zero_bit(const unsigned long *addr, unsigned
--		long size, unsigned long offset);
--#endif
--
--#ifdef CONFIG_GENERIC_FIND_FIRST_BIT
--
--/**
-- * find_first_bit - find the first set bit in a memory region
-- * @addr: The address to start the search at
-- * @size: The maximum size to search
-- *
-- * Returns the bit number of the first set bit.
-- */
--extern unsigned long find_first_bit(const unsigned long *addr,
--				    unsigned long size);
--
--/**
-- * find_first_zero_bit - find the first cleared bit in a memory region
-- * @addr: The address to start the search at
-- * @size: The maximum size to search
-- *
-- * Returns the bit number of the first cleared bit.
-- */
--extern unsigned long find_first_zero_bit(const unsigned long *addr,
--					 unsigned long size);
--#else /* CONFIG_GENERIC_FIND_FIRST_BIT */
-+#ifndef CONFIG_GENERIC_FIND_FIRST_BIT
- 
- #define find_first_bit(addr, size) find_next_bit((addr), (size), 0)
- #define find_first_zero_bit(addr, size) find_next_zero_bit((addr), (size), 0)
- 
- #endif /* CONFIG_GENERIC_FIND_FIRST_BIT */
- 
--
- #endif /* _ARM_ARM64_BITOPS_H */
- /*
-  * Local variables:
-diff --git a/xen/arch/ppc/include/asm/bitops.h b/xen/arch/ppc/include/asm/bitops.h
-index 5e7f36c21d..5820b9ce7b 100644
---- a/xen/arch/ppc/include/asm/bitops.h
-+++ b/xen/arch/ppc/include/asm/bitops.h
-@@ -217,119 +217,4 @@ static always_inline unsigned long __ffs(unsigned long word)
-  */
- #define find_first_set_bit(x) (ffsl(x) - 1)
- 
--/*
-- * Find the first set bit in a memory region.
-- */
--static inline unsigned long find_first_bit(const unsigned long *addr,
--                                           unsigned long size)
--{
--    const unsigned long *p = addr;
--    unsigned long result = 0;
--    unsigned long tmp;
--
--    while ( size & ~(BITS_PER_LONG - 1) )
--    {
--        if ( (tmp = *(p++)) )
--            goto found;
--        result += BITS_PER_LONG;
--        size -= BITS_PER_LONG;
--    }
--    if ( !size )
--        return result;
--
--    tmp = (*p) & (~0UL >> (BITS_PER_LONG - size));
--    if ( tmp == 0UL )         /* Are any bits set? */
--        return result + size; /* Nope. */
-- found:
--    return result + __ffs(tmp);
--}
--
--static inline unsigned long find_next_bit(const unsigned long *addr,
--                                          unsigned long size,
--                                          unsigned long offset)
--{
--    const unsigned long *p = addr + BITOP_WORD(offset);
--    unsigned long result = offset & ~(BITS_PER_LONG - 1);
--    unsigned long tmp;
--
--    if ( offset >= size )
--        return size;
--    size -= result;
--    offset %= BITS_PER_LONG;
--    if ( offset )
--    {
--        tmp = *(p++);
--        tmp &= (~0UL << offset);
--        if ( size < BITS_PER_LONG )
--            goto found_first;
--        if ( tmp )
--            goto found_middle;
--        size -= BITS_PER_LONG;
--        result += BITS_PER_LONG;
--    }
--    while ( size & ~(BITS_PER_LONG - 1) )
--    {
--        if ( (tmp = *(p++)) )
--            goto found_middle;
--        result += BITS_PER_LONG;
--        size -= BITS_PER_LONG;
--    }
--    if ( !size )
--        return result;
--    tmp = *p;
--
-- found_first:
--    tmp &= (~0UL >> (BITS_PER_LONG - size));
--    if ( tmp == 0UL )         /* Are any bits set? */
--        return result + size; /* Nope. */
-- found_middle:
--    return result + __ffs(tmp);
--}
--
--/*
-- * This implementation of find_{first,next}_zero_bit was stolen from
-- * Linus' asm-alpha/bitops.h.
-- */
--static inline unsigned long find_next_zero_bit(const unsigned long *addr,
--                                               unsigned long size,
--                                               unsigned long offset)
--{
--    const unsigned long *p = addr + BITOP_WORD(offset);
--    unsigned long result = offset & ~(BITS_PER_LONG - 1);
--    unsigned long tmp;
--
--    if ( offset >= size )
--        return size;
--    size -= result;
--    offset %= BITS_PER_LONG;
--    if ( offset )
--    {
--        tmp = *(p++);
--        tmp |= ~0UL >> (BITS_PER_LONG - offset);
--        if ( size < BITS_PER_LONG )
--            goto found_first;
--        if ( ~tmp )
--            goto found_middle;
--        size -= BITS_PER_LONG;
--        result += BITS_PER_LONG;
--    }
--    while ( size & ~(BITS_PER_LONG - 1) )
--    {
--        if ( ~(tmp = *(p++)) )
--            goto found_middle;
--        result += BITS_PER_LONG;
--        size -= BITS_PER_LONG;
--    }
--    if ( !size )
--        return result;
--    tmp = *p;
--
-- found_first:
--    tmp |= ~0UL << size;
--    if ( tmp == ~0UL )        /* Are any bits zero? */
--        return result + size; /* Nope. */
-- found_middle:
--    return result + ffz(tmp);
--}
--
- #endif /* _ASM_PPC_BITOPS_H */
-diff --git a/xen/include/xen/bitops.h b/xen/include/xen/bitops.h
-index 2cb7892bcc..e3c5a4ccf3 100644
---- a/xen/include/xen/bitops.h
-+++ b/xen/include/xen/bitops.h
-@@ -105,6 +105,54 @@ static inline int generic_flsl(unsigned long x)
-  */
- #include <asm/bitops.h>
- 
-+#ifndef find_next_bit
-+/**
-+ * find_next_bit - find the next set bit in a memory region
-+ * @addr: The address to base the search on
-+ * @offset: The bitnumber to start searching at
-+ * @size: The bitmap size in bits
-+ */
-+extern unsigned long find_next_bit(const unsigned long *addr,
-+                                   unsigned long size,
-+                                   unsigned long offset);
-+#endif
-+
-+#ifndef find_next_zero_bit
-+/**
-+ * find_next_zero_bit - find the next cleared bit in a memory region
-+ * @addr: The address to base the search on
-+ * @offset: The bitnumber to start searching at
-+ * @size: The bitmap size in bits
-+ */
-+extern unsigned long find_next_zero_bit(const unsigned long *addr,
-+                                        unsigned long size,
-+                                        unsigned long offset);
-+#endif
-+
-+#ifndef find_first_bit
-+/**
-+ * find_first_bit - find the first set bit in a memory region
-+ * @addr: The address to start the search at
-+ * @size: The maximum size to search
-+ *
-+ * Returns the bit number of the first set bit.
-+ */
-+extern unsigned long find_first_bit(const unsigned long *addr,
-+                                    unsigned long size);
-+#endif
-+
-+#ifndef find_first_zero_bit
-+/**
-+ * find_first_zero_bit - find the first cleared bit in a memory region
-+ * @addr: The address to start the search at
-+ * @size: The maximum size to search
-+ *
-+ * Returns the bit number of the first cleared bit.
-+ */
-+extern unsigned long find_first_zero_bit(const unsigned long *addr,
-+                                         unsigned long size);
-+#endif
-+
- #if BITS_PER_LONG == 64
- # define fls64 flsl
- # define ffs64 ffsl
-diff --git a/xen/lib/Makefile b/xen/lib/Makefile
-index 2d9ebb945f..e63798e1d4 100644
---- a/xen/lib/Makefile
-+++ b/xen/lib/Makefile
-@@ -3,6 +3,7 @@ obj-$(CONFIG_X86) += x86/
- lib-y += bsearch.o
- lib-y += ctors.o
- lib-y += ctype.o
-+lib-y += find-next-bit.o
- lib-y += list-sort.o
- lib-y += memchr.o
- lib-y += memchr_inv.o
-diff --git a/xen/arch/arm/arm64/lib/find_next_bit.c b/xen/lib/find-next-bit.c
-similarity index 100%
-rename from xen/arch/arm/arm64/lib/find_next_bit.c
-rename to xen/lib/find-next-bit.c
+Oleksii Kurochko (7):
+  automation: ensure values in EXTRA_FIXED_RANDCONFIG are separated by
+    new line
+  automation: introduce fixed randconfig for RISC-V
+  xen/asm-generic: introduce stub header monitor.h
+  xen/asm-generic: ifdef inclusion of <asm/mem_access.h>
+  xen/asm-generic: introduce generic device.h
+  xen/arm: switch Arm to use asm-generic/device.h
+  xen/ppc: switch PPC to use asm-generic/device.h
+
+ automation/gitlab-ci/build.yaml               |   8 +-
+ .../gitlab-ci/riscv-fixed-randconfig.yaml     |   7 ++
+ automation/scripts/build                      |   6 +-
+ xen/arch/arm/device.c                         |   5 +
+ xen/arch/arm/domain_build.c                   |   2 +-
+ xen/arch/arm/gic-v2.c                         |   4 +-
+ xen/arch/arm/gic-v3.c                         |   6 +-
+ xen/arch/arm/gic.c                            |   4 +-
+ xen/arch/arm/include/asm/Makefile             |   1 +
+ xen/arch/arm/include/asm/monitor.h            |  25 +---
+ xen/arch/arm/p2m.c                            |   1 +
+ xen/arch/arm/traps.c                          |   1 +
+ xen/arch/ppc/configs/ppc64_defconfig          |   1 +
+ xen/arch/ppc/include/asm/Makefile             |   1 +
+ xen/arch/ppc/include/asm/device.h             |  53 --------
+ xen/arch/ppc/include/asm/mem_access.h         |   5 -
+ xen/arch/ppc/include/asm/monitor.h            |  28 +----
+ xen/arch/ppc/stubs.c                          |   8 --
+ xen/arch/riscv/configs/tiny64_defconfig       |   1 +
+ .../asm => include/asm-generic}/device.h      | 117 +++++++++++-------
+ xen/include/asm-generic/monitor.h             |  64 ++++++++++
+ xen/include/xen/mem_access.h                  |   2 +
+ 22 files changed, 174 insertions(+), 176 deletions(-)
+ create mode 100644 automation/gitlab-ci/riscv-fixed-randconfig.yaml
+ delete mode 100644 xen/arch/ppc/include/asm/device.h
+ delete mode 100644 xen/arch/ppc/include/asm/mem_access.h
+ rename xen/{arch/arm/include/asm => include/asm-generic}/device.h (66%)
+ create mode 100644 xen/include/asm-generic/monitor.h
+
 -- 
 2.43.0
 
