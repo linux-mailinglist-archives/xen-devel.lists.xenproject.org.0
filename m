@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4DA384F4D0
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 12:47:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678652.1056112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2266884F4D8
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 12:52:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678658.1056122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYPLK-0002nB-9V; Fri, 09 Feb 2024 11:46:54 +0000
+	id 1rYPQ1-0004e1-RA; Fri, 09 Feb 2024 11:51:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678652.1056112; Fri, 09 Feb 2024 11:46:54 +0000
+Received: by outflank-mailman (output) from mailman id 678658.1056122; Fri, 09 Feb 2024 11:51:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYPLK-0002ke-6q; Fri, 09 Feb 2024 11:46:54 +0000
-Received: by outflank-mailman (input) for mailman id 678652;
- Fri, 09 Feb 2024 11:46:52 +0000
+	id 1rYPQ1-0004bg-OO; Fri, 09 Feb 2024 11:51:45 +0000
+Received: by outflank-mailman (input) for mailman id 678658;
+ Fri, 09 Feb 2024 11:51:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4TWb=JS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rYPLI-0002kX-B4
- for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 11:46:52 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1rYPQ0-0004ba-UD
+ for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 11:51:44 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e99f18bc-c740-11ee-8a4b-1f161083a0e0;
- Fri, 09 Feb 2024 12:46:51 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-33b2960ff60so1103957f8f.1
- for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 03:46:51 -0800 (PST)
+ id 984462ac-c741-11ee-8a4b-1f161083a0e0;
+ Fri, 09 Feb 2024 12:51:43 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-33b29b5ea96so443108f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 03:51:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- v3-20020a5d59c3000000b0033b66c2d61esm918936wry.48.2024.02.09.03.46.49
+ r15-20020a5d4e4f000000b0033b17880eacsm1611218wrt.56.2024.02.09.03.51.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Feb 2024 03:46:49 -0800 (PST)
+ Fri, 09 Feb 2024 03:51:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e99f18bc-c740-11ee-8a4b-1f161083a0e0
+X-Inumbo-ID: 984462ac-c741-11ee-8a4b-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707479210; x=1708084010; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707479503; x=1708084303; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=PiEferPHOA1KnMDY4S9rwu+csM6PS8dV3Ai9ITuH0uc=;
-        b=UrNZ5/NVWzrwV7cU0ejqGfizR3Qo9CR+rR+OpGzZq7jcZoKBD64C678fR3ONRlM+P9
-         pm9P3NpfUaC3uDxt3D2oK+qDZYxko4KQZ+oGWkP0H2KJC9JIKicEjP87eXTZxfITxvMZ
-         Xoz+6sFlpuAwF75yVglLKquKO2vKpYfMVHhmnHbRXhiQjAIEDXg9HvgU9AEO1eNl4366
-         4kbIIajkKrdT0bfORmQTrSdEf8F8zAhbK2MXlHWsSeffqR0XpmJ2283GrDbrpO5e4Y01
-         P2Lm9fvpkbvPm0uMXfn9L4dN0uLvuqgUb8/MqPvlQ5NxVF6hdgPLwPANmD0yUZ7EoKsz
-         mV7w==
+        bh=eX0TodQJ+EiGGJzfw7RdCoXaDa3ajnzOtvqsNFlyrgY=;
+        b=BO0PotZBGvVj6MXDfHbZqdZ2FNnj6NWIehisKvevB05cFyB/dAlPGJmYNJDTcWNVJQ
+         iJ8x17ugee04/WGIh3efkWhaHbHwozECuJ1DJcp5Hikq8WtvSUaAnqfJJ4iYwZXVQbJs
+         rQv/A01JTKhfHSTmWRw153+vdBl0dDG9rVjZo3qn6zn5V1tWVhZv5wwtRugRVDMIFCC/
+         LYEjMHNUCcGYuyJ+k/61xyikRq+6tUE+6EzzKG9lYAgjmd6QBKlm3OvVNMGsndQQEw7t
+         KhlmjHYjRG3ZgRRoMxxYcOQ6P9K3yzwoRhL/RH6JU+MVLKBrYiFB7i+1mQLALJEAiWSD
+         yEhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707479210; x=1708084010;
+        d=1e100.net; s=20230601; t=1707479503; x=1708084303;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PiEferPHOA1KnMDY4S9rwu+csM6PS8dV3Ai9ITuH0uc=;
-        b=koNGDOG7WkwhnMgzojcBwv03QOylVqCrcqx+U3MkEDS5ydYAE4lUyXBcNVOoXOXlVK
-         ZbI3r/qdm5I8mF+wwat7A6Wm5MdTmh9k6GOAvXIWnJgDrTKALZu8bn04rsYqaKdUbzmg
-         OSFm0n8kBFnO53ELN6u7AKeeSYut15MboK6x1JwVsJY/EglahWTE+GPWOHaWA0w3coyd
-         2r6W3PmG6d5HitiwkA42AdP2m/+nYcMjss2Rb2WP2UBa5vLQIqv/2EkKANVQIdi/M4Cl
-         LNIU8l4P6fOlphmD9Y5JMkF2Ln29sNRoMMeDMmg7Nzjbk+KzkzESIg5KTDvpDq1fFFPV
-         Mpsg==
-X-Forwarded-Encrypted: i=1; AJvYcCUOdBoii3tnl/Dfm8L1rS5IlceDa5YTGiBNN7K59Nk4zTkrAeu/C1zWgMSte+iDAmfVHiRBeNWOYWrq8jrm7vMuF4pXVPtz+3gcI2bnNQ4=
-X-Gm-Message-State: AOJu0YwbuThbw0IaQwzUMcYT9QBWlrTReM+FSOFZ9/V/X16e3cgs0pyR
-	7utByMnpi86dpud9JTBOZQ2EzADyWrjPIB2YWIybz6kRfdGmV4RFi81XIR2C1w==
-X-Google-Smtp-Source: AGHT+IGr8l83hIgRTnIZkYDs1ZxRuNO9ekH1PsLv7Ku/lMQTgf3mbYHT2NFBp/LTcc9kbdX+8O0adA==
-X-Received: by 2002:adf:fb81:0:b0:33b:3c05:cafb with SMTP id a1-20020adffb81000000b0033b3c05cafbmr856871wrr.16.1707479210201;
-        Fri, 09 Feb 2024 03:46:50 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCU71sj4KFkgLkNzmL98QHZA6LHuxDn4AwXtnAd+39Pl+4HZu0HIzHDTOkPhr1wQ3Q2dMthMlVYoiU/YOM2wuVU3bD3hKP9tvyaBsnRru2r1JVO3nVTmfG8XC/PncsTD+l0eUA9gTpXY1wfApPChKYFPjDc/lyhLsIbLscS0vDtzPyvXcosEO5/rNOI2eMWSv72bQDqigjljjmDrjbBYCQLlmhd2s5OfmVEDAOcvJ/sbBcBEdWNcUJaq4mlmHRw5XGjLg4zohWkjstHJc7ozjF7ZZj2DUVxO0qimEiMXjpq2okFvnmVzvoLx8IANbwaCu4ok5G59n8M2gLouCJywiyT6u3xf06S7BS36Lpn5PPwgLVn1oOwQiRsims6KrwNF0JFWCJa+gEM712X3/ePxV0h1ncFzzU5NzMVwkwdr7Ec=
-Message-ID: <efc0eee4-9903-4228-b33e-cb50d4c545ee@suse.com>
-Date: Fri, 9 Feb 2024 12:46:48 +0100
+        bh=eX0TodQJ+EiGGJzfw7RdCoXaDa3ajnzOtvqsNFlyrgY=;
+        b=B72z2wW6/xqyJQhn18+a14Tk1sqyl5CWtxks/U22ocvbl30x8ZIL0QD85/ghsWs1dX
+         5CxpL+GdNhACwjsRzxdUU73nJ62AFqwUpMNS8OXb5VdRyhiu4z3Tj6gnmsyRDt8ivJRs
+         fo1fy0WbcKfwAbqS89mjij7f5wZi4eR8tcOQJU4fQsF60jbXKm24GYZHCFi5c8LMcrhs
+         JG4JtLEZsOnOPdMlF4licmBq4oyXNK+nCMEM89kmHi9leZWBBzUNtn71xh4Va0CHliOf
+         LD0NLVb1n0pm0U/n+mytZ49r/xuuewrd8gJwWubovXDAG+Fen188KS8KTQTozUe0aoMO
+         gxPw==
+X-Gm-Message-State: AOJu0Yz6Hr5r6UTAXhqs1N9iXqjh6RmMQLeOnjIA7QJqDWfNlS8zKq9I
+	Z8lOeCNSfRSIArpdSHsoPe4ujulkniZ6pfmsoA3v9pVHNnhyHXsSMe6/cjhQsg==
+X-Google-Smtp-Source: AGHT+IGL2wtyj8JoCK4/ne/iuallM0OrjB8j6qE4CPlaM7cJSsRVwv/ka4bYV9bfUzw/f//SV5VwtA==
+X-Received: by 2002:adf:a3c2:0:b0:33b:65d3:cd91 with SMTP id m2-20020adfa3c2000000b0033b65d3cd91mr795146wrb.3.1707479503259;
+        Fri, 09 Feb 2024 03:51:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWZakR/jEUPbKEmlFMnd1jemDbED3meq/I3zwxkAfk1Yf026SnWEFA6ZRBpetI4i3pDQs990GKmy357tSbDgwaajsZf/wWCpMmef0fedhN0LVAYOXlLCWn4nJLqHHlGGPAoJIHEzwN7hIoHg0AEIFCJfZI/2VBrGZUuVBvfC8E9L2NMvltBxvjAeqDt
+Message-ID: <fe22b91e-227c-45df-a39a-dcccd8726cd3@suse.com>
+Date: Fri, 9 Feb 2024 12:51:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] docs/misra: add asm-offset.c to exclude-list
+Subject: Re: [PATCH] x86/vmx: add support for virtualize SPEC_CTRL
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
- ayan.kumar.halder@amd.com, consulting@bugseng.com,
- andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <09b659e19bf2cc6b3ee4320e019bdfa7def5f3b8.1707406598.git.nicola.vetrini@bugseng.com>
- <891e8cc2-e073-4cd3-9998-4c01ae775a3b@suse.com>
- <8977390f-9549-40d5-bfdc-5c3da81521fc@xen.org>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240206142507.81985-1-roger.pau@citrix.com>
+ <91e3fd09-8325-49b0-9d7b-43aacf2acd81@suse.com> <ZcYCXrEaOyxZUb2I@macbook>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,73 +112,73 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8977390f-9549-40d5-bfdc-5c3da81521fc@xen.org>
+In-Reply-To: <ZcYCXrEaOyxZUb2I@macbook>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.02.2024 10:40, Julien Grall wrote:
-> Replying on the v2 as well.
-
-And answering here despite the respective question was raised on the
-v1 thread: I'm certainly okay with the more detailed commit message.
-A few nits, though:
-
-> On 08/02/2024 15:56, Jan Beulich wrote:
->> On 08.02.2024 16:50, Nicola Vetrini wrote:
->>> These files contain several deliberate violations of MISRA C rules and
->>> they are not linked in the final Xen binary, therefore they can be exempted
->>> from MISRA compliance.
-> 
-> I'd like the commit message to be expanded a little bit to explain which 
-> MISRA rules are a problem. This helped me to understand why we excluded 
-> rather than fixed.
-> 
-> Base on the previous discussion, I would suggest:
-> 
-> These files contain several deliberate violation of MISRA C rules such as:
-
-violations
-
->    * R20.12 on Arm for macros DEFINE and OFFSET, where the second 
-> argument of OFFSET is a macro and is used as a normal parameter and a 
-> stringification operand.
-
-Is this really for Arm only?
-
->    * R2.1 because the file is not linked That said it was decided to 
-> deviate the rule itselfed to deviate that aspect).
-
-There look to be punctuation issues here. Also s/itselfed/itself/, and
-the duplicate "deviate" is also a little odd to read (maybe "deal with"
-or "address" in place of the 2nd instance).
-
-> The files are also not linked in the final Xen binary, therefore they 
-> can be expempted from MISRA compliance.
-
-Looks to duplicate what the latter half of the 2nd bullet point has.
-If to be kept: s/expempted/exempted/.
-
->>> --- a/docs/misra/exclude-list.json
->>> +++ b/docs/misra/exclude-list.json
->>> @@ -101,6 +101,10 @@
->>>               "rel_path": "arch/x86/efi/check.c",
->>>               "comment": "The resulting code is not included in the final Xen binary, ignore for now"
->>>           },
->>> +        {
->>> +          "rel_path": "arch/*/*/asm-offsets.c",
->>> +          "comment": "The resulting code is not included in the final Xen binary, ignore for now"
->>> +        },
->>>           {
->>>               "rel_path": "common/coverage/*",
->>>               "comment": "Files to support gcov, ignore for now"
+On 09.02.2024 11:45, Roger Pau Monné wrote:
+> On Thu, Feb 08, 2024 at 02:40:53PM +0100, Jan Beulich wrote:
+>> On 06.02.2024 15:25, Roger Pau Monne wrote:
+>>> @@ -2086,6 +2091,9 @@ void vmcs_dump_vcpu(struct vcpu *v)
+>>>      if ( v->arch.hvm.vmx.secondary_exec_control &
+>>>           SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY )
+>>>          printk("InterruptStatus = %04x\n", vmr16(GUEST_INTR_STATUS));
+>>> +    if ( cpu_has_vmx_virt_spec_ctrl )
+>>> +        printk("SPEC_CTRL mask = %#016lx  shadow = %#016lx\n",
+>>> +               vmr(SPEC_CTRL_MASK), vmr(SPEC_CTRL_SHADOW));
 >>
->> ... something looks odd with indentation; can probably be adjusted
->> while committing.
+>> #0... doesn't make a lot of sense; only e.g. %#lx does. Seeing context
+>> there's no 0x prefix there anyway. Having looked at the function the
+>> other day, I know though that there's a fair mix of 0x-prefixed and
+>> unprefixed hex numbers that are output.
 > 
-> I am happy to take care of both the commit message and the indentation 
-> on commit.
+> For consistency with how other MSRs are printed I should use the '0x'
+> prefix.
 
-Okay, I'll leave that to you then.
+MSRs? It's VMCS fields which are printed here.
+
+>> Personally I'd prefer if all
+>> 0x prefixes were omitted here. If you and Andrew think otherwise, I can
+>> live with that, so long as we're at least striving towards consistent
+>> output (I may be able to get to doing a conversion patch, once I know
+>> which way the conversion should be).
+> 
+> I usually prefer the '0x' to avoid ambiguity.  However this being all
+> hardware registers, I might be fine with dropping the '0x' on the
+> grounds that all registers are always printed as hex.
+> 
+>>> --- a/xen/arch/x86/hvm/vmx/vmx.c
+>>> +++ b/xen/arch/x86/hvm/vmx/vmx.c
+>>> @@ -823,18 +823,28 @@ static void cf_check vmx_cpuid_policy_changed(struct vcpu *v)
+>>>      {
+>>>          vmx_clear_msr_intercept(v, MSR_SPEC_CTRL, VMX_MSR_RW);
+>>>  
+>>> -        rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
+>>> -        if ( rc )
+>>> -            goto out;
+>>> +        if ( !cpu_has_vmx_virt_spec_ctrl )
+>>> +        {
+>>> +            rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
+>>> +            if ( rc )
+>>> +                goto out;
+>>> +        }
+>>
+>> I'm certainly okay with you doing it this way, but generally I'd prefer
+>> if code churn was limited whjere possible. Here leveraging that rc is 0
+>> on entry, a smaller change would be to
+>>
+>>         if ( !cpu_has_vmx_virt_spec_ctrl )
+>>             rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
+>>         if ( rc )
+>>             goto out;
+>>
+>> (similarly below then).
+> 
+> That looks odd to me, and is not how I would write that code.  I can
+> however adjust if you insist.  Given it's just a two line difference I
+> think it was worth having the more usual form.
+
+As said, I'm okay with the change as is.
 
 Jan
 
