@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74C8884F112
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 08:53:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678552.1055933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4152584F13D
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 09:12:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678561.1055943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYLgj-0001qL-RK; Fri, 09 Feb 2024 07:52:45 +0000
+	id 1rYLyo-0005JB-NK; Fri, 09 Feb 2024 08:11:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678552.1055933; Fri, 09 Feb 2024 07:52:45 +0000
+Received: by outflank-mailman (output) from mailman id 678561.1055943; Fri, 09 Feb 2024 08:11:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYLgj-0001oP-Ns; Fri, 09 Feb 2024 07:52:45 +0000
-Received: by outflank-mailman (input) for mailman id 678552;
- Fri, 09 Feb 2024 07:52:43 +0000
+	id 1rYLyo-0005HG-K4; Fri, 09 Feb 2024 08:11:26 +0000
+Received: by outflank-mailman (input) for mailman id 678561;
+ Fri, 09 Feb 2024 08:11:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BFPS=JS=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1rYLgh-0001oI-Ue
- for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 07:52:43 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ <SRS0=aSO/=JS=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rYLyn-0005HA-Ke
+ for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 08:11:25 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33c85d06-c720-11ee-8a4b-1f161083a0e0;
- Fri, 09 Feb 2024 08:52:42 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 52D4F4EE0739;
- Fri,  9 Feb 2024 08:52:41 +0100 (CET)
+ id d0dd46f9-c722-11ee-8a4b-1f161083a0e0;
+ Fri, 09 Feb 2024 09:11:24 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-41047395814so5775345e9.1
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 00:11:24 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ g4-20020a5d46c4000000b0033b1f023af2sm1158153wrs.52.2024.02.09.00.11.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Feb 2024 00:11:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,52 +44,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33c85d06-c720-11ee-8a4b-1f161083a0e0
+X-Inumbo-ID: d0dd46f9-c722-11ee-8a4b-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1707466284; x=1708071084; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=GVTHB6Z/WJ/dQCx8xwxfP0PgrYlWn1zft1GvNWCII9Y=;
+        b=wBbHpNVKpv2oBQH68/1I0UErB83pvxFE16ifQg2BfmtwTPc4gImuAIgEFaQmfZM1eX
+         jVpwK74DxO8BYIA3Ry3/YrhZjPljwwzB3gZdfSp+a8zjYffOLexHd9C7yaQh3KQx7Wrm
+         hJvNse/WFWoHdDaNoqMPq3xmFMGa8AGejLUWo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707466284; x=1708071084;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GVTHB6Z/WJ/dQCx8xwxfP0PgrYlWn1zft1GvNWCII9Y=;
+        b=mcskyw+VRFctiUzOYrVHbJ0MPWOv+wEXrRRknJxUbpBxlXeMlF80X4BVss/26JX3kK
+         OigXnsFDtLu9jQcd55F08YDQIXesNBLFelPeM7U6ujZxDuhcEw9Qr7i1/vaFpOepzP7Q
+         3oUzG9nEaMN6e1mYdOgn4GU9qF2NWKmiYdJ9l4qolY08ZMSDlZDFSuWwLp1O+aVDStrI
+         p7cV4n4AXMbBfICepwzzVPDxCDCPzWluEYbHnVzTuoqofme1IBtN2vBUDIELk34BEits
+         uPaI5GpaeISODbtLDxJJ2f/lzdznnC3mcxuBwmr3wFDsIibvGifZAoLkEHpdvi67FNHE
+         Cjag==
+X-Gm-Message-State: AOJu0YwMBzq0dNPvGRXNdidRPELDavfO05wK2uyIA0reufL9RjKpzVod
+	1z5xmdz7nCFt80eqEt1UVR4ZFkGRGj8Uyag4am9o05HcWlmy2FQe4bsAYmO90cQ=
+X-Google-Smtp-Source: AGHT+IGzU79p5Epp/sld2vo3kIRxLlIxaVQpLL66jc5+oNk88fQ8L4QjfR1GaqacXCjUobQXVE3ayw==
+X-Received: by 2002:a05:600c:19d1:b0:40f:b691:d3c1 with SMTP id u17-20020a05600c19d100b0040fb691d3c1mr580645wmq.30.1707466283957;
+        Fri, 09 Feb 2024 00:11:23 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUGNUXcW1v1eaGMXjXB8JscA07ihnYPOXlZpjTsPxKXMpCn0C5ZlLuKaoKRqrawjIHQ4q85QdDcNRUrvYqNgn3pejFFMPmAFpBVQAq1CPT0Lzze
+Date: Fri, 9 Feb 2024 09:11:22 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
+Subject: Re: [PATCH 4/7] VT-d: replace find_ats_dev_drhd()
+Message-ID: <ZcXeKvdyxwtECV4a@macbook>
+References: <25506838-b818-4686-8c16-3a198338af44@suse.com>
+ <a75bef32-8bbb-4471-b26b-981b06173cd5@suse.com>
+ <ZcUP-t5gFx2v31at@macbook>
+ <ee53bbdd-4d57-4470-9ff4-1ff6b9eec63c@suse.com>
 MIME-Version: 1.0
-Date: Fri, 09 Feb 2024 08:52:41 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
- michal.orzel@amd.com, xenia.ragiadakou@amd.com, ayan.kumar.halder@amd.com,
- consulting@bugseng.com, jbeulich@suse.com, andrew.cooper3@citrix.com,
- roger.pau@citrix.com, bertrand.marquis@arm.com, George Dunlap
- <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH] docs/misra: add x86_64 and arm64 asm-offset.c to
- exclude-list
-In-Reply-To: <ccc568a3-d81c-482c-8768-c5934e3943a8@xen.org>
-References: <b0c855581eed247a32b745906f84d352bf812091.1707324479.git.nicola.vetrini@bugseng.com>
- <ccc568a3-d81c-482c-8768-c5934e3943a8@xen.org>
-Message-ID: <a6ed69c037c23cf2b0854ef52d797921@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ee53bbdd-4d57-4470-9ff4-1ff6b9eec63c@suse.com>
 
-Hi Julien,
+On Fri, Feb 09, 2024 at 08:06:07AM +0100, Jan Beulich wrote:
+> On 08.02.2024 18:31, Roger Pau Monné wrote:
+> > On Mon, Feb 05, 2024 at 02:56:36PM +0100, Jan Beulich wrote:
+> >> All callers only care about boolean outcome. For this there's no point
+> >> in allocating a duplicate of the respective DRHD structure; a simple
+> >> boolean suffices (which eventually may wantg to become a count, such
+> >                                          ^ want
+> >> that the "any ATS devices assigned state" can also clear again). With
+> >> that boolean, remove respective parameters from internal helper
+> >> functions right away, as those have access to the flag through another
+> >> parameter.
+> >>
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > 
+> > AFAICT the intention is that this is a non-functional change?
+> 
+> No functional effect intended, yes. Added such a sentence.
 
-On 2024-02-08 22:33, Julien Grall wrote:
-> Hi Nicola,
-> 
-> On 08/02/2024 07:55, Nicola Vetrini wrote:
->> These two files contain several deliberate violations of MISRA C rules 
->> and
->> they are not linked in the final Xen binary, therefore they can be 
->> exempted
->> from MISRA compliance.
-> 
-> I am curious, what are the violations you are talking about?
-> 
-> Cheers,
-> 
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-The one that prompted the exclusion is for R20.12 on arm for the macros 
-DEFINE and OFFSET, where the second argument of OFFSET is a macro and is 
-used as a normal parameter and a stringification operand.
-However, there are other special cases (e.g., the file not being linked, 
-which violates R2.1 and was already decided to deviate that aspect).
+> 
+> >> --- a/xen/drivers/passthrough/vtd/extern.h
+> >> +++ b/xen/drivers/passthrough/vtd/extern.h
+> >> @@ -65,8 +65,6 @@ struct acpi_drhd_unit *ioapic_to_drhd(un
+> >>  struct acpi_drhd_unit *hpet_to_drhd(unsigned int hpet_id);
+> >>  struct acpi_rhsa_unit *drhd_to_rhsa(const struct acpi_drhd_unit *drhd);
+> >>  
+> >> -struct acpi_drhd_unit *find_ats_dev_drhd(struct vtd_iommu *iommu);
+> >> -
+> >>  int ats_device(const struct pci_dev *, const struct acpi_drhd_unit *);
+> >>  
+> >>  int dev_invalidate_iotlb(struct vtd_iommu *iommu, u16 did,
+> >> --- a/xen/drivers/passthrough/vtd/iommu.c
+> >> +++ b/xen/drivers/passthrough/vtd/iommu.c
+> >> @@ -624,8 +624,7 @@ int cf_check vtd_flush_iotlb_reg(
+> >>  }
+> >>  
+> >>  static int __must_check iommu_flush_iotlb_global(struct vtd_iommu *iommu,
+> >> -                                                 bool flush_non_present_entry,
+> >> -                                                 bool flush_dev_iotlb)
+> >> +                                                 bool flush_non_present_entry)
+> >>  {
+> >>      int status;
+> >>  
+> >> @@ -633,7 +632,7 @@ static int __must_check iommu_flush_iotl
+> >>      vtd_ops_preamble_quirk(iommu);
+> >>  
+> >>      status = iommu->flush.iotlb(iommu, 0, 0, 0, DMA_TLB_GLOBAL_FLUSH,
+> >> -                                flush_non_present_entry, flush_dev_iotlb);
+> >> +                                flush_non_present_entry, iommu->flush_dev_iotlb);
+> > 
+> > Any reason to not also remove the parameter from here also?  As the handler
+> > gets iommu passed as the first parameter anyway.
+> 
+> Indeed, yet then the patch would have grown quite a bit. I think I
+> meant to have a respective post-commit-message remark, but then
+> forgot to actually put one there. Once (if) this change has gone in,
+> a follow-on patch could further tidy tings. (The "right away" in the
+> description was kind of meant to indicate that.)
 
--- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
+Would you mind adding a sentence to the commit message that the
+vtd_iommu hooks are not modified in order to avoid the patch growing
+too much?  Otherwise it it's not clear why those are not also
+converted.
+
+Thanks, Roger.
 
