@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48BA184FB5E
+	by mail.lfdr.de (Postfix) with ESMTPS id 5896384FB5F
 	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 19:01:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678781.1056303 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.678782.1056319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYVBK-0007HH-HM; Fri, 09 Feb 2024 18:00:58 +0000
+	id 1rYVBL-0007hv-St; Fri, 09 Feb 2024 18:00:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678781.1056303; Fri, 09 Feb 2024 18:00:58 +0000
+Received: by outflank-mailman (output) from mailman id 678782.1056319; Fri, 09 Feb 2024 18:00:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYVBK-0007CX-Bw; Fri, 09 Feb 2024 18:00:58 +0000
-Received: by outflank-mailman (input) for mailman id 678781;
+	id 1rYVBL-0007eE-KU; Fri, 09 Feb 2024 18:00:59 +0000
+Received: by outflank-mailman (input) for mailman id 678782;
  Fri, 09 Feb 2024 18:00:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Qnec=JS=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1rYVBJ-0007AX-06
+ id 1rYVBJ-0007AX-Nd
  for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 18:00:57 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b4587ba-c775-11ee-98f5-efadbce2ee36;
- Fri, 09 Feb 2024 19:00:54 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id
- 4fb4d7f45d1cf-56001d49cc5so1574177a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 10:00:54 -0800 (PST)
+ id 2c0f6149-c775-11ee-98f5-efadbce2ee36;
+ Fri, 09 Feb 2024 19:00:56 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2d066b82658so17478961fa.3
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 10:00:56 -0800 (PST)
 Received: from fedora.. ([94.75.70.14]) by smtp.gmail.com with ESMTPSA id
- fd1-20020a056402388100b00561103f29fbsm984503edb.75.2024.02.09.10.00.52
+ fd1-20020a056402388100b00561103f29fbsm984503edb.75.2024.02.09.10.00.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Feb 2024 10:00:52 -0800 (PST)
+ Fri, 09 Feb 2024 10:00:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,61 +44,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b4587ba-c775-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 2c0f6149-c775-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707501653; x=1708106453; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1707501655; x=1708106455; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8B0Pj3x9NNKyskGfWUDgYAd1f6cJ4ZaavTN0FBUQZB0=;
-        b=hVJR1BqBFs+33LuACE+BtHluv4asgv0Ii/hfFeuXPieavH8xQ90r4/p7jQyitCAj6j
-         03CXLm5zD7s89cCV0UmwNP9XAtfx8ufnXnFC52nSBR30mFGn8m81whnEia/KVJiKduL8
-         f5rfYy4KSYx+G0m2bORWWEB8Y4uBgXv5LGt5FRvks+uKztwoKkt13nDoI3OyLBvqtFXQ
-         yFAsFWVmouLEXwvIwTciPHBBVnAi5vIouo+bQ090GSzaU6QaNsO5TyLX90h2guN+65ym
-         evHVe2C1N9wgVjknBhoQlHEHsbW2hRdHclGx7PKGLI79gJWEl3zYLMbq3/UBjTwi58kN
-         +YNg==
+        bh=2FAxJg0gmB5DWDjQyTT6C98jISHS9vZdHw6mxETNKmo=;
+        b=E27mnS4bZ1BDoOq5d3Dg2Dc+ocZRlrmtvuoMKCToE/lbvm9r8W6BOGfH0UfZ49kbP5
+         sl1/h+hGtvdc6CDaDKaqDbaZ7NdPS3eb2w/LAZLERLgS8QSHceUV7XEAno39EbwWAz/Y
+         oI4R9NWNQ28FsDVZpOP/8mda5dUzM3DY+IZ+8g3RyYQHOWSncXAJSWIQoF4C8XgShI1h
+         sQNrf+QP83I7Od+xiwsJtBkQg1TCTX1Hxm/29Ut7C+kOCf7BRh4ea7EOUDwhtin9UW+N
+         yjcMwvkD5R5VIj7ukMlA5fMQqzBGvQZw4ua5tq7jQdqAL3AYwUKNIBeWVykP9K87IYTd
+         kaRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707501653; x=1708106453;
+        d=1e100.net; s=20230601; t=1707501655; x=1708106455;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=8B0Pj3x9NNKyskGfWUDgYAd1f6cJ4ZaavTN0FBUQZB0=;
-        b=nOu+JehDBDcdanz65c4oRk3obYkkzGhGTbf87JEfjjRO3nTPWNz4ftRe2R/QVtNNly
-         MMDFoxhi8BnBx5Lb9XTek1ujAuEJe0H7gwxx08iW7O8m8fkN9IqKyQxhq+xrytjSUa78
-         eAXKkErcVxWrOxdIj+d8jpN1yBwaixhw2UmOhCo4vzezIiuVp7luORAmRDuZHmQRerrJ
-         UryMZGRIEhCsTuvTyKKJpVNU04FKSDb1zIkfW5J4pS6ELruCPq0w3Jk8EjNe6sQLUFEB
-         1uI846sP4dbPxGR/xmKFYRdrFHW6FE5BohsyAskPDuYM8fizdbw4GWUyZCRKgrUfoVRD
-         lBjw==
-X-Gm-Message-State: AOJu0YyD15moGf6cFDTKKjvXS2WAKpevQsSqRFrGXgXvOXOggeJJTdV0
-	dRE1MS2qzHEPpnI3sHe4e4Y/9hrDK7beNycWPcFfjwR5P9pjPCAWdlvxuVOy
-X-Google-Smtp-Source: AGHT+IG7YVXB7f4PptTAFpGa8e2Ebe1L2b/BYhzaG1OzjD3gFAhpsghcd0eV447A5hEkZZ+cTgF6yw==
-X-Received: by 2002:a05:6402:148a:b0:561:c35:dad7 with SMTP id e10-20020a056402148a00b005610c35dad7mr2005215edv.32.1707501653167;
-        Fri, 09 Feb 2024 10:00:53 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCVJq/ORgYEshu0agU36A7K2vaCtwYElOyG89uaAaZbIGprzWaCHQZSxuiaWXmvYNC53dDnvYqCoRA5D/DMmtg47GnJuanhYSEj3pySLOrY3r6CTI82SQ6TwgQ==
+        bh=2FAxJg0gmB5DWDjQyTT6C98jISHS9vZdHw6mxETNKmo=;
+        b=lZyKt/p0BxpuEU5RbmGQiFunTFlbUqlmOcm5xTxRbh9MTqAiWv0DS+luj4XzZC2tf3
+         EdgI3PZkG41olls/66mR5RAsCEZkvWKB3qhRFesogHRulX9pbM/uD3EqR+nFVXD6ak7C
+         azJTTZUD8BsVNBeFLntZ/gOCphlpaIGecY0vpN4Uico9skKnaw3gw5mSZGJkOwkOQLk/
+         nZ+vHVKGQcKGViFiixWHtS3aokY7eaEMgyjHHlmxKBgDolNe4ccTyvt77UlKvGHfIhIy
+         JAYzzU6IIZPoSBU+7E7V2ZyTWowFITkAKtIXGQvW9HpM5rXSGQH1/mxDVoHLpfrwhNqw
+         z3LQ==
+X-Gm-Message-State: AOJu0Yxs9r2AlDunwz+Qoejf2pYADzzyc8+5DctKUFdoM7ibYzc2xJU/
+	5Oc2UKfJQg38hLLQHF6E2A2pagT9oFeyuc6/RzCkMBZeiBmuzUsQzmLYObX5
+X-Google-Smtp-Source: AGHT+IFbSuQHrFD+pCaWosSAT51WKM2wswg64lILWQSiNhb+QTAe+Zz7P5j3ad0mIicMH3BJdo6Qeg==
+X-Received: by 2002:a2e:9888:0:b0:2d0:a2ad:bb5 with SMTP id b8-20020a2e9888000000b002d0a2ad0bb5mr1691612ljj.44.1707501654857;
+        Fri, 09 Feb 2024 10:00:54 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCU2UNPXe/bQPGqfYVR+SWxZqR7Zi8dQvlVA1YR82f6V8MlZ84d6/8d410wm+zJH0xq9zzODG8LCTm+bzx6fbU7UQQRCXjVZ0tDE/77AZUqwDTDa5nH/MhdxWA==
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Doug Goldstein <cardoe@cardoe.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v8 1/7] automation: ensure values in EXTRA_FIXED_RANDCONFIG are separated by new line
-Date: Fri,  9 Feb 2024 19:00:43 +0100
-Message-ID: <8b6f208f0b4327392cfddbfa6809117cc7686750.1707499278.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v8 2/7] automation: introduce fixed randconfig for RISC-V
+Date: Fri,  9 Feb 2024 19:00:44 +0100
+Message-ID: <3f662e3b4ded36d982ff04ed5cdfdd8e36f83594.1707499278.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1707499278.git.oleksii.kurochko@gmail.com>
 References: <cover.1707499278.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Kconfig tool expects each configuration to be on a new line.
+This patch introduces the file riscv-fixed-randconfig.yaml,
+which includes all configurations that should be disabled for
+randconfig builds.
 
-The current version of the build script puts all of ${EXTRA_FIXED_RANDCONFIG}
-in a single line and configs are seperated by spaces.
-
-As a result, only the first configuration in ${EXTRA_FIXED_RANDCONFIG} will
-be used.
-
+Suggested-by: Stefano Stabellini <sstabellini@kernel.org>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
+The patch were introduced after discussion in a topic:
+ https://lore.kernel.org/xen-devel/cover.1701966261.git.oleksii.kurochko@gmail.com/
+ ---
 Changes in V8:
  - Nothing changed. Only rebase
 ---
@@ -108,35 +108,57 @@ Changes in V7:
 Changes in V6:
  - The patch was introduced in this version of patch series.
 ---
- automation/scripts/build | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ automation/gitlab-ci/build.yaml                  | 8 ++++----
+ automation/gitlab-ci/riscv-fixed-randconfig.yaml | 7 +++++++
+ 2 files changed, 11 insertions(+), 4 deletions(-)
+ create mode 100644 automation/gitlab-ci/riscv-fixed-randconfig.yaml
 
-diff --git a/automation/scripts/build b/automation/scripts/build
-index b3c71fb6fb..13b043923d 100755
---- a/automation/scripts/build
-+++ b/automation/scripts/build
-@@ -14,7 +14,7 @@ if [[ "${RANDCONFIG}" == "y" ]]; then
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index 6d2cb18b88..376eb17f9c 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -512,6 +512,8 @@ alpine-3.18-gcc-debug-arm64-boot-cpupools:
+       CONFIG_BOOT_TIME_CPUPOOLS=y
  
-     # Append job-specific fixed configuration
-     if [[ -n "${EXTRA_FIXED_RANDCONFIG}" ]]; then
--        echo "${EXTRA_FIXED_RANDCONFIG}" >> xen/tools/kconfig/allrandom.config
-+        sed "s/ /\n/g" <<< "${EXTRA_FIXED_RANDCONFIG}" > xen/tools/kconfig/allrandom.config
-     fi
- 
-     make -j$(nproc) -C xen KCONFIG_ALLCONFIG=tools/kconfig/allrandom.config randconfig
-@@ -28,9 +28,11 @@ else
-     echo "CONFIG_DEBUG=${debug}" >> xen/.config
- 
-     if [[ -n "${EXTRA_XEN_CONFIG}" ]]; then
--        echo "${EXTRA_XEN_CONFIG}" >> xen/.config
-+        sed "s/ /\n/g" <<< "${EXTRA_XEN_CONFIG}" >> xen/.config
-     fi
- 
-+    cat xen/.config
+ # RISC-V 64 cross-build
++include: 'automation/gitlab-ci/riscv-fixed-randconfig.yaml'
 +
-     make -j$(nproc) -C xen olddefconfig
- fi
+ archlinux-current-gcc-riscv64:
+   extends: .gcc-riscv64-cross-build
+   variables:
+@@ -532,8 +534,7 @@ archlinux-current-gcc-riscv64-randconfig:
+     CONTAINER: archlinux:current-riscv64
+     KBUILD_DEFCONFIG: tiny64_defconfig
+     RANDCONFIG: y
+-    EXTRA_FIXED_RANDCONFIG:
+-      CONFIG_COVERAGE=n
++    EXTRA_FIXED_RANDCONFIG: !reference [.riscv-fixed-randconfig, variables, EXTRA_FIXED_RANDCONFIG]
  
+ archlinux-current-gcc-riscv64-debug-randconfig:
+   extends: .gcc-riscv64-cross-build-debug
+@@ -541,8 +542,7 @@ archlinux-current-gcc-riscv64-debug-randconfig:
+     CONTAINER: archlinux:current-riscv64
+     KBUILD_DEFCONFIG: tiny64_defconfig
+     RANDCONFIG: y
+-    EXTRA_FIXED_RANDCONFIG:
+-      CONFIG_COVERAGE=n
++    EXTRA_FIXED_RANDCONFIG: !reference [.riscv-fixed-randconfig, variables, EXTRA_FIXED_RANDCONFIG]
+ 
+ # Power cross-build
+ debian-bullseye-gcc-ppc64le:
+diff --git a/automation/gitlab-ci/riscv-fixed-randconfig.yaml b/automation/gitlab-ci/riscv-fixed-randconfig.yaml
+new file mode 100644
+index 0000000000..f1282b40c9
+--- /dev/null
++++ b/automation/gitlab-ci/riscv-fixed-randconfig.yaml
+@@ -0,0 +1,7 @@
++.riscv-fixed-randconfig:
++  variables:
++    EXTRA_FIXED_RANDCONFIG:
++      CONFIG_COVERAGE=n
++      CONFIG_EXPERT=y
++      CONFIG_GRANT_TABLE=n
++      CONFIG_MEM_ACCESS=n
 -- 
 2.43.0
 
