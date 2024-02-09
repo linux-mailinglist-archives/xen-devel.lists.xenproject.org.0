@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8742D84F7D7
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 15:45:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678733.1056226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69DF484F801
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 15:58:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678737.1056236 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYS78-0008R2-9l; Fri, 09 Feb 2024 14:44:26 +0000
+	id 1rYSKr-0002Xn-Fs; Fri, 09 Feb 2024 14:58:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678733.1056226; Fri, 09 Feb 2024 14:44:26 +0000
+Received: by outflank-mailman (output) from mailman id 678737.1056236; Fri, 09 Feb 2024 14:58:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYS78-0008Of-70; Fri, 09 Feb 2024 14:44:26 +0000
-Received: by outflank-mailman (input) for mailman id 678733;
- Fri, 09 Feb 2024 14:44:25 +0000
+	id 1rYSKr-0002Vc-Ck; Fri, 09 Feb 2024 14:58:37 +0000
+Received: by outflank-mailman (input) for mailman id 678737;
+ Fri, 09 Feb 2024 14:58:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4TWb=JS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rYS77-0008OZ-Ft
- for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 14:44:25 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BZDb=JS=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1rYSKp-0002VW-Sa
+ for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 14:58:35 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6cfae60-c759-11ee-98f5-efadbce2ee36;
- Fri, 09 Feb 2024 15:44:23 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id
- 5b1f17b1804b1-41068e36cbbso5686685e9.2
- for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 06:44:23 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- p6-20020adfcc86000000b0033afb963d0dsm1965253wrj.101.2024.02.09.06.44.21
+ id b13ebfda-c75b-11ee-98f5-efadbce2ee36;
+ Fri, 09 Feb 2024 15:58:32 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a370e7e1e02so116650566b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 06:58:32 -0800 (PST)
+Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ v26-20020a170906489a00b00a385dd961bbsm831640ejq.192.2024.02.09.06.58.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 09 Feb 2024 06:44:22 -0800 (PST)
+ Fri, 09 Feb 2024 06:58:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +45,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6cfae60-c759-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: b13ebfda-c75b-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707489862; x=1708094662; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707490712; x=1708095512; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=+3Yj7hO4QutSZqSdyo1ZNc+oTsKD4Eomw49ZUTIRolA=;
-        b=bvk7ZAbKkTDTYMnHRjBsTzj7uZlNzJ+eoLdh1Wd6yZyASIiUDF5Uwpkq7L0wtACCir
-         sWhGbc4mdsvfnd8EoAAc4kA6IZ8epxf3HIYPRWwR0ew27MynCMrW2nsCtksk1BkHeX+z
-         +dTnsK7u7mvtVi1owvwbS1GSfQnETZQasCJnvb4vPaQlI80YlGjAKJTrJ0FQGEkqlVoI
-         MSJA0iBnH927UfpdJ+s3diwxQgK4MiGhpYn60eVFE3kOi7S31O5dcvsVOtKQU+v5wwP+
-         ab5zJmqWlapfbJZq1ipSn/h5YcMhraON1wSjL/XK5jvG1ogekEfdHlZDpt9IgmW79ADw
-         reVQ==
+        bh=dFexxYaH8CObRk0trpAT4UEPECRJcHoYoTUKZ3cvh+s=;
+        b=m50IsjLL4OI031eMPqhtkWLXeIgY8reWSdyhU2GJkNOUbkh6LoiyMkL48HD9JHuarN
+         DNBLSKCf2KmPjey5U3FBz2Gu98VU8Kgh+u0vN/IUgXIdwSgA6iuqiCotASeR5oHQMumv
+         2ZF6Q+R94OIxcuS4qTujwjXC69j1I320+fHyk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707489862; x=1708094662;
+        d=1e100.net; s=20230601; t=1707490712; x=1708095512;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+3Yj7hO4QutSZqSdyo1ZNc+oTsKD4Eomw49ZUTIRolA=;
-        b=f7h+8m+to9sBtuirRPh5Ch5y6/5ZIzbiWsC9GwZU6QYpChyUoGEkyI9T9GaQhW0DFo
-         ENAp5Ksp+iymS5qSuutpDUBcaktpjh4Z0defp5OIkhRFQDYTsXlPdCqmT5zcSspils0o
-         UwQ7eCxZbs98szLo+VXRTjsPdYRotZoHnvTXUYBxNL5GD9qktiBU6v0kf5vLSZ6Enuix
-         bc4hvFqlwd1PpdJn76lvcMqM8jBx6KhuzNpTftyKXGBpNbVxv2qw26y03Kfaw9W5u8nk
-         TOAOsD/R5kJ9CCk4PPy2nnWEwZdiBu/G+EEDHXpN/8e3Eye4t1DrPGZJAJxjqQmat7PQ
-         lX5g==
-X-Gm-Message-State: AOJu0YwrFGBDViLmlGbefIb18PHohaGczNPIxcO4WcMhxKQAurm0uR0H
-	xv3bO30evLZNy9r0ouOphb1ds0ISqiZVq2At2G3logOkZAcYpa73vgqs312I2Q==
-X-Google-Smtp-Source: AGHT+IFueh0D+GOWMixyDaV3FDC80b7a5zZIwWVjD+liFaVSmCBP5njLHbpXK5LvQPRzZMHyonFmEw==
-X-Received: by 2002:a05:600c:3d97:b0:40f:e806:2f19 with SMTP id bi23-20020a05600c3d9700b0040fe8062f19mr1642822wmb.22.1707489862377;
-        Fri, 09 Feb 2024 06:44:22 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCV1lJsHYrv2gf15lpbCN/IZ1SZasveslzAbbahxHRlMReJAtAxioSVU0WlVb4c7jrvJQ26BStecsUVqL/MAmOJhJ4WVHmYR4Sw6zsBW20gAWnPE
-Message-ID: <5a495da2-f012-4411-8620-7e765a92bd1b@suse.com>
-Date: Fri, 9 Feb 2024 15:44:21 +0100
+        bh=dFexxYaH8CObRk0trpAT4UEPECRJcHoYoTUKZ3cvh+s=;
+        b=hXU5kS8JMNv8RBpGCjxpQhiZhrVj/vX8s409KmDj60Slz0CkCqaN2o8CsHeSW10oiu
+         357HqNcVEVGE+Kt8G8bba5M6nu/W1MhiptefzAvaX+g/vVrH3x4MGjBcyu6ByRouOSZ6
+         b46k9aAVv5Hnr6iYzJkMs4dv/wUq55e9gbQ5m2JOE5yGD58wQDbxe7GoCgnCwO7y0Iu3
+         Y2T3TMKVznkxtk61ceeV/TeQeOPkh9j1HsVDU5RpWs2Zw8eC0MxQfNSpjDhUozz6vA/E
+         CEsbxirzxkBS/KpTGaD0vTP7rdRSXrkA5MLKa+I89+fCVKgpjNrDLLqgKfyEa3xLjiYn
+         fDpQ==
+X-Gm-Message-State: AOJu0YyVeWknGPBEmAYNHpoZPSaXTqv0sLsX/RMpsiCp/u1GlUKZJtKd
+	FhH0dJNzu+klh2UAu6IjmlHzB5RmDB+BF1B0B45Os75O+3re3eyO/gb/Cbgns6I=
+X-Google-Smtp-Source: AGHT+IHIP8N+GpuNf3670pKBXb1L718uMBLYyC3UyhckHJkTnohTtHbAUT34acr/EBw+9S8/zHwXmQ==
+X-Received: by 2002:a17:906:af11:b0:a37:d286:8c98 with SMTP id lx17-20020a170906af1100b00a37d2868c98mr1497119ejb.14.1707490712084;
+        Fri, 09 Feb 2024 06:58:32 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCXhNrBl2I5wtjF1L5dbxM92vLxJxEd1QirF68a5C7MG8466bTi0tcvKABpoAymnDFzwh62RJ9YQwWb77IE6muuHRqXwYaBT2y9aWkO2qfs9XTe+9ZFrEBhbcB49bF9fvJwcDO1LE65KBw+gD1bmm/oP15SEohVfFXahRXuOwJUJj2K69w==
+Message-ID: <eba39016-7d7a-4d35-865c-bfa03674617a@citrix.com>
+Date: Fri, 9 Feb 2024 14:58:31 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/7] VT-d: move dev_invalidate_iotlb() to the sole file
- it's used from
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>
-References: <25506838-b818-4686-8c16-3a198338af44@suse.com>
- <0d14f148-32e0-4dac-b5e8-3230adfc5f9d@suse.com> <ZcXhauUax5WHD93J@macbook>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZcXhauUax5WHD93J@macbook>
+Subject: Re: [PATCH] x86/hvm: Fix fast singlestep state persistence
+Content-Language: en-GB
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: tamas@tklengyel.com, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <fa519b9a544d3d19a31313292a909d12775e6e1f.1707427103.git.w1benny@gmail.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <fa519b9a544d3d19a31313292a909d12775e6e1f.1707427103.git.w1benny@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 09.02.2024 09:25, Roger Pau Monné wrote:
-> On Mon, Feb 05, 2024 at 02:57:12PM +0100, Jan Beulich wrote:
->> ..., thus allowing it and qinval_device_iotlb_sync() to become static.
->> There's nothing x86-specific about the function anyway. While moving,
->> adjust types to better match ./CODING_STYLE (albeit use of fixed-width
->> types for parameters is retained to limit the effective change).
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+On 08/02/2024 9:20 pm, Petr Beneš wrote:
+> From: Petr Beneš <w1benny@gmail.com>
+>
+> This patch addresses an issue where the fast singlestep setting would persist
+> despite xc_domain_debug_control being called with XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_OFF.
+> Specifically, if fast singlestep was enabled in a VMI session and that session
+> stopped before the MTF trap occurred, the fast singlestep setting remained
+> active even though MTF itself was disabled.  This led to a situation where, upon
+> starting a new VMI session, the first event to trigger an EPT violation would
+> cause the corresponding EPT event callback to be skipped due to the lingering
+> fast singlestep setting.
+>
+> The fix ensures that the fast singlestep setting is properly reset when
+> disabling single step debugging operations.
+>
+> Signed-off-by: Petr Beneš <w1benny@gmail.com>
+> ---
+>  xen/arch/x86/hvm/hvm.c | 32 +++++++++++++++++++++++---------
+>  1 file changed, 23 insertions(+), 9 deletions(-)
+>
+> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+> index e8deeb0222..4f988de4c1 100644
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -5160,26 +5160,40 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) arg)
+>  
+>  int hvm_debug_op(struct vcpu *v, int32_t op)
+>  {
+> -    int rc;
+> +    int rc = 0;
+>  
+>      switch ( op )
+>      {
+>          case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_ON:
+>          case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_OFF:
+> -            rc = -EOPNOTSUPP;
+>              if ( !cpu_has_monitor_trap_flag )
+> -                break;
+> -            rc = 0;
+> -            vcpu_pause(v);
+> -            v->arch.hvm.single_step =
+> -                (op == XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_ON);
+> -            vcpu_unpause(v); /* guest will latch new state */
+> +                return -EOPNOTSUPP;
+>              break;
+>          default:
+> -            rc = -ENOSYS;
+> +            return -ENOSYS;
+> +    }
+> +
+> +    vcpu_pause(v);
+> +
+> +    switch ( op )
+> +    {
+> +        case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_ON:
+> +            v->arch.hvm.single_step = true;
+> +            break;
+> +
+> +        case XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_OFF:
+> +            v->arch.hvm.single_step = false;
+> +            v->arch.hvm.fast_single_step.enabled = false;
+> +            v->arch.hvm.fast_single_step.p2midx = 0;
+>              break;
+> +
+> +        default:
+> +            ASSERT_UNREACHABLE();
 
-Thanks.
+Two things.
 
->> +static int dev_invalidate_iotlb(struct vtd_iommu *iommu, uint16_t did,
->> +                                paddr_t addr, unsigned int size_order,
->> +                                uint64_t type)
->> +{
->> +    struct pci_dev *pdev, *temp;
->> +    int ret = 0;
->> +
->> +    if ( !ecap_dev_iotlb(iommu->ecap) )
->> +        return ret;
->> +
->> +    list_for_each_entry_safe( pdev, temp, &iommu->ats_devices, ats.list )
->> +    {
->> +        bool sbit;
->> +        int rc = 0;
->> +
->> +        switch ( type )
->> +        {
->> +        case DMA_TLB_DSI_FLUSH:
->> +            if ( !device_in_domain(iommu, pdev, did) )
->> +                break;
->> +            /* fall through if DSI condition met */
->> +        case DMA_TLB_GLOBAL_FLUSH:
->> +            /* invalidate all translations: sbit=1,bit_63=0,bit[62:12]=1 */
->> +            sbit = 1;
->> +            addr = (~0UL << PAGE_SHIFT_4K) & 0x7FFFFFFFFFFFFFFF;
-> 
-> Given the MISRA stuff, won't it be better to append 'UL' here while
-> moving?
+First, this reads as if it's reachable, and therefore wrong.  You
+probably want an /* Excluded above */ comment to point out why it's safe
+in this case.
 
-Sure, done.
+Second, I know you're copying the existing switch(), but it wasn't
+compliant with Xen's coding style.  The cases and their clauses should
+have one fewer indentation level.
 
-Jan
+I'm happy to fix up both on commit.
+
+~Andrew
 
