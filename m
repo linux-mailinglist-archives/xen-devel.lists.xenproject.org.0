@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1398B84F4CB
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 12:41:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.678647.1056103 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4DA384F4D0
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Feb 2024 12:47:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.678652.1056112 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYPG0-00028g-K4; Fri, 09 Feb 2024 11:41:24 +0000
+	id 1rYPLK-0002nB-9V; Fri, 09 Feb 2024 11:46:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 678647.1056103; Fri, 09 Feb 2024 11:41:24 +0000
+Received: by outflank-mailman (output) from mailman id 678652.1056112; Fri, 09 Feb 2024 11:46:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rYPG0-00026C-GR; Fri, 09 Feb 2024 11:41:24 +0000
-Received: by outflank-mailman (input) for mailman id 678647;
- Fri, 09 Feb 2024 11:41:22 +0000
+	id 1rYPLK-0002ke-6q; Fri, 09 Feb 2024 11:46:54 +0000
+Received: by outflank-mailman (input) for mailman id 678652;
+ Fri, 09 Feb 2024 11:46:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aSO/=JS=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1rYPFy-000266-GY
- for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 11:41:22 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=4TWb=JS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rYPLI-0002kX-B4
+ for xen-devel@lists.xenproject.org; Fri, 09 Feb 2024 11:46:52 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2540a61f-c740-11ee-8a4b-1f161083a0e0;
- Fri, 09 Feb 2024 12:41:21 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id
- a640c23a62f3a-a38392b9917so111224366b.1
- for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 03:41:21 -0800 (PST)
-Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- q18-20020a17090609b200b00a3a40b7ecdbsm677798eje.69.2024.02.09.03.41.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 09 Feb 2024 03:41:20 -0800 (PST)
+ id e99f18bc-c740-11ee-8a4b-1f161083a0e0;
+ Fri, 09 Feb 2024 12:46:51 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-33b2960ff60so1103957f8f.1
+ for <xen-devel@lists.xenproject.org>; Fri, 09 Feb 2024 03:46:51 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ v3-20020a5d59c3000000b0033b66c2d61esm918936wry.48.2024.02.09.03.46.49
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 09 Feb 2024 03:46:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,247 +45,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2540a61f-c740-11ee-8a4b-1f161083a0e0
+X-Inumbo-ID: e99f18bc-c740-11ee-8a4b-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707478880; x=1708083680; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Xkhp1PJ17XuWxmN1RggcbPkPzxtBkxTMYnDQw1aIVAM=;
-        b=Uw7KCBF8dBYFj/20xPwIJxYZAEOEALfOVhiQkx0Ws2ZGolXprz9ntXaIO+P15yp3kA
-         DR4WuDZUbTIEp+t/1dt7/6/iDCLzWmr4nLy2WYLZHqkHnAMT9dD7t5JCKJzYqkR5nesO
-         ZATP+kiTXkQMj0af8LdAP/0FMyGt1G5tnmyLU=
+        d=suse.com; s=google; t=1707479210; x=1708084010; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=PiEferPHOA1KnMDY4S9rwu+csM6PS8dV3Ai9ITuH0uc=;
+        b=UrNZ5/NVWzrwV7cU0ejqGfizR3Qo9CR+rR+OpGzZq7jcZoKBD64C678fR3ONRlM+P9
+         pm9P3NpfUaC3uDxt3D2oK+qDZYxko4KQZ+oGWkP0H2KJC9JIKicEjP87eXTZxfITxvMZ
+         Xoz+6sFlpuAwF75yVglLKquKO2vKpYfMVHhmnHbRXhiQjAIEDXg9HvgU9AEO1eNl4366
+         4kbIIajkKrdT0bfORmQTrSdEf8F8zAhbK2MXlHWsSeffqR0XpmJ2283GrDbrpO5e4Y01
+         P2Lm9fvpkbvPm0uMXfn9L4dN0uLvuqgUb8/MqPvlQ5NxVF6hdgPLwPANmD0yUZ7EoKsz
+         mV7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707478880; x=1708083680;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Xkhp1PJ17XuWxmN1RggcbPkPzxtBkxTMYnDQw1aIVAM=;
-        b=LMrwVngn+AZf0Isj4sxXtuElMsrgawgiV93SxbRGlSw1mjgXbZGR1iiuuhJwnSCrju
-         de5G3HjJ0TNGcAywi52ZtDkKX7nMyZgHIVaSrGbbEbBAZck5HpIUUAUrRUKzXFAfjIwd
-         BGqIFLb758rYb8QOSgSYtWcuREM7zJ+QHKm234DWZ77vNq69cHZNujC4COkWFR5MBRqE
-         FFAuprn5sX4UcZAoj1bO9e41YRskesU0xOJp6bdN3D6w0r1agfhjYPtmQRJ6vLLP47+Q
-         UYYZY74OTwfoSsII8PSp3aMKMqzc307QaAIc+vnxtiXCquc0w2j8T+oSvQZVMPYC2TwG
-         wo9g==
-X-Gm-Message-State: AOJu0Yys8oSwKV04+Q0SAq2RHDtpQhwAGGmhvVSLZUkWHXsEHlQu+cF1
-	d7ybtpNtMj3/FpAvJ72IJuIRiSrMsIQ9fRs6CFk9C9RLlBslOKdqafdopSM6DQd3MQG6veZbhcj
-	F
-X-Google-Smtp-Source: AGHT+IE4JIDuMxyjgMZ5SdPB9b0tR1hC6YJtZnZJl4k55QtaKWT0EYEICeUJ3qhFkuomVDPXt2yZLQ==
-X-Received: by 2002:a17:906:3455:b0:a3c:267:112a with SMTP id d21-20020a170906345500b00a3c0267112amr437012ejb.12.1707478880492;
-        Fri, 09 Feb 2024 03:41:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXywGqP+ITP3OKYjlAbchXWUwZku3PQPv7BHHiY2H9HWGPOeSw6Kg/PE29R0UffrXY/ZwrorLXC6EDn1CvT7jM7hs4K/FJ75p1Z3ycK+SQURUdR49uM8dQ+KmKnIIEvz8YanJqPl9RnBPShACOgFWaa4SXxmblQLuXiKsA9XDEXrVBmQJUjTODf8ikE+TJkYUS9vegz4Wo=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2] x86/vmx: add support for virtualize SPEC_CTRL
-Date: Fri,  9 Feb 2024 12:40:45 +0100
-Message-ID: <20240209114045.97005-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20230601; t=1707479210; x=1708084010;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=PiEferPHOA1KnMDY4S9rwu+csM6PS8dV3Ai9ITuH0uc=;
+        b=koNGDOG7WkwhnMgzojcBwv03QOylVqCrcqx+U3MkEDS5ydYAE4lUyXBcNVOoXOXlVK
+         ZbI3r/qdm5I8mF+wwat7A6Wm5MdTmh9k6GOAvXIWnJgDrTKALZu8bn04rsYqaKdUbzmg
+         OSFm0n8kBFnO53ELN6u7AKeeSYut15MboK6x1JwVsJY/EglahWTE+GPWOHaWA0w3coyd
+         2r6W3PmG6d5HitiwkA42AdP2m/+nYcMjss2Rb2WP2UBa5vLQIqv/2EkKANVQIdi/M4Cl
+         LNIU8l4P6fOlphmD9Y5JMkF2Ln29sNRoMMeDMmg7Nzjbk+KzkzESIg5KTDvpDq1fFFPV
+         Mpsg==
+X-Forwarded-Encrypted: i=1; AJvYcCUOdBoii3tnl/Dfm8L1rS5IlceDa5YTGiBNN7K59Nk4zTkrAeu/C1zWgMSte+iDAmfVHiRBeNWOYWrq8jrm7vMuF4pXVPtz+3gcI2bnNQ4=
+X-Gm-Message-State: AOJu0YwbuThbw0IaQwzUMcYT9QBWlrTReM+FSOFZ9/V/X16e3cgs0pyR
+	7utByMnpi86dpud9JTBOZQ2EzADyWrjPIB2YWIybz6kRfdGmV4RFi81XIR2C1w==
+X-Google-Smtp-Source: AGHT+IGr8l83hIgRTnIZkYDs1ZxRuNO9ekH1PsLv7Ku/lMQTgf3mbYHT2NFBp/LTcc9kbdX+8O0adA==
+X-Received: by 2002:adf:fb81:0:b0:33b:3c05:cafb with SMTP id a1-20020adffb81000000b0033b3c05cafbmr856871wrr.16.1707479210201;
+        Fri, 09 Feb 2024 03:46:50 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCU71sj4KFkgLkNzmL98QHZA6LHuxDn4AwXtnAd+39Pl+4HZu0HIzHDTOkPhr1wQ3Q2dMthMlVYoiU/YOM2wuVU3bD3hKP9tvyaBsnRru2r1JVO3nVTmfG8XC/PncsTD+l0eUA9gTpXY1wfApPChKYFPjDc/lyhLsIbLscS0vDtzPyvXcosEO5/rNOI2eMWSv72bQDqigjljjmDrjbBYCQLlmhd2s5OfmVEDAOcvJ/sbBcBEdWNcUJaq4mlmHRw5XGjLg4zohWkjstHJc7ozjF7ZZj2DUVxO0qimEiMXjpq2okFvnmVzvoLx8IANbwaCu4ok5G59n8M2gLouCJywiyT6u3xf06S7BS36Lpn5PPwgLVn1oOwQiRsims6KrwNF0JFWCJa+gEM712X3/ePxV0h1ncFzzU5NzMVwkwdr7Ec=
+Message-ID: <efc0eee4-9903-4228-b33e-cb50d4c545ee@suse.com>
+Date: Fri, 9 Feb 2024 12:46:48 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [XEN PATCH v2] docs/misra: add asm-offset.c to exclude-list
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org, Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <09b659e19bf2cc6b3ee4320e019bdfa7def5f3b8.1707406598.git.nicola.vetrini@bugseng.com>
+ <891e8cc2-e073-4cd3-9998-4c01ae775a3b@suse.com>
+ <8977390f-9549-40d5-bfdc-5c3da81521fc@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <8977390f-9549-40d5-bfdc-5c3da81521fc@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-The feature is defined in the tertiary exec control, and is available starting
-from Sapphire Rapids and Alder Lake CPUs.
+On 09.02.2024 10:40, Julien Grall wrote:
+> Replying on the v2 as well.
 
-When enabled, two extra VMCS fields are used: SPEC_CTRL mask and shadow.  Bits
-set in mask are not allowed to be toggled by the guest (either set or clear)
-and the value in the shadow field is the value the guest expects to be in the
-SPEC_CTRL register.
+And answering here despite the respective question was raised on the
+v1 thread: I'm certainly okay with the more detailed commit message.
+A few nits, though:
 
-By using it the hypervisor can force the value of SPEC_CTRL bits behind the
-guest back without having to trap all accesses to SPEC_CTRL, note that no bits
-are forced into the guest as part of this patch.  It also allows getting rid of
-SPEC_CTRL in the guest MSR load list, since the value in the shadow field will
-be loaded by the hardware on vmentry.
+> On 08/02/2024 15:56, Jan Beulich wrote:
+>> On 08.02.2024 16:50, Nicola Vetrini wrote:
+>>> These files contain several deliberate violations of MISRA C rules and
+>>> they are not linked in the final Xen binary, therefore they can be exempted
+>>> from MISRA compliance.
+> 
+> I'd like the commit message to be expanded a little bit to explain which 
+> MISRA rules are a problem. This helped me to understand why we excluded 
+> rather than fixed.
+> 
+> Base on the previous discussion, I would suggest:
+> 
+> These files contain several deliberate violation of MISRA C rules such as:
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - Expand commit message and code comments.
- - Prefix the output of the VMCS dump with '0x'.
----
- xen/arch/x86/hvm/vmx/vmcs.c             | 10 +++++-
- xen/arch/x86/hvm/vmx/vmx.c              | 41 ++++++++++++++++++++-----
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  5 +++
- xen/arch/x86/include/asm/msr.h          |  9 ++++--
- 4 files changed, 55 insertions(+), 10 deletions(-)
+violations
 
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index 9e016634ab5c..dc46adb02595 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -202,6 +202,7 @@ static void __init vmx_display_features(void)
-     P(cpu_has_vmx_tsc_scaling, "TSC Scaling");
-     P(cpu_has_vmx_bus_lock_detection, "Bus Lock Detection");
-     P(cpu_has_vmx_notify_vm_exiting, "Notify VM Exit");
-+    P(cpu_has_vmx_virt_spec_ctrl, "Virtualize SPEC_CTRL");
- #undef P
- 
-     if ( !printed )
-@@ -365,7 +366,7 @@ static int vmx_init_vmcs_config(bool bsp)
- 
-     if ( _vmx_cpu_based_exec_control & CPU_BASED_ACTIVATE_TERTIARY_CONTROLS )
-     {
--        uint64_t opt = 0;
-+        uint64_t opt = TERTIARY_EXEC_VIRT_SPEC_CTRL;
- 
-         _vmx_tertiary_exec_control = adjust_vmx_controls2(
-             "Tertiary Exec Control", 0, opt,
-@@ -1378,6 +1379,10 @@ static int construct_vmcs(struct vcpu *v)
-         rc = vmx_add_msr(v, MSR_PRED_CMD, PRED_CMD_IBPB,
-                          VMX_MSR_HOST);
- 
-+    /* Set any bits we don't allow toggling in the mask field. */
-+    if ( cpu_has_vmx_virt_spec_ctrl && v->arch.msrs->spec_ctrl.raw )
-+        __vmwrite(SPEC_CTRL_MASK, v->arch.msrs->spec_ctrl.raw);
-+
-  out:
-     vmx_vmcs_exit(v);
- 
-@@ -2086,6 +2091,9 @@ void vmcs_dump_vcpu(struct vcpu *v)
-     if ( v->arch.hvm.vmx.secondary_exec_control &
-          SECONDARY_EXEC_VIRTUAL_INTR_DELIVERY )
-         printk("InterruptStatus = %04x\n", vmr16(GUEST_INTR_STATUS));
-+    if ( cpu_has_vmx_virt_spec_ctrl )
-+        printk("SPEC_CTRL mask = 0x%016lx  shadow = 0x%016lx\n",
-+               vmr(SPEC_CTRL_MASK), vmr(SPEC_CTRL_SHADOW));
- 
-     printk("*** Host State ***\n");
-     printk("RIP = 0x%016lx (%ps)  RSP = 0x%016lx\n",
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 48376cc32751..33cffb4f8747 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -823,18 +823,29 @@ static void cf_check vmx_cpuid_policy_changed(struct vcpu *v)
-     {
-         vmx_clear_msr_intercept(v, MSR_SPEC_CTRL, VMX_MSR_RW);
- 
--        rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
--        if ( rc )
--            goto out;
-+        if ( !cpu_has_vmx_virt_spec_ctrl )
-+        {
-+            rc = vmx_add_guest_msr(v, MSR_SPEC_CTRL, 0);
-+            if ( rc )
-+                goto out;
-+        }
-     }
-     else
-     {
-         vmx_set_msr_intercept(v, MSR_SPEC_CTRL, VMX_MSR_RW);
- 
--        rc = vmx_del_msr(v, MSR_SPEC_CTRL, VMX_MSR_GUEST);
--        if ( rc && rc != -ESRCH )
--            goto out;
--        rc = 0; /* Tolerate -ESRCH */
-+        /*
-+         * NB: there's no need to clear the virtualize SPEC_CTRL control, as
-+         * the MSR intercept takes precedence.  The SPEC_CTRL shadow VMCS field
-+         * is also not loaded on guest entry/exit if the intercept is set.
-+         */
-+        if ( !cpu_has_vmx_virt_spec_ctrl )
-+        {
-+            rc = vmx_del_msr(v, MSR_SPEC_CTRL, VMX_MSR_GUEST);
-+            if ( rc && rc != -ESRCH )
-+                goto out;
-+            rc = 0; /* Tolerate -ESRCH */
-+        }
-     }
- 
-     /* MSR_PRED_CMD is safe to pass through if the guest knows about it. */
-@@ -2629,6 +2640,9 @@ static uint64_t cf_check vmx_get_reg(struct vcpu *v, unsigned int reg)
-     switch ( reg )
-     {
-     case MSR_SPEC_CTRL:
-+        if ( cpu_has_vmx_virt_spec_ctrl )
-+            /* Requires remote VMCS loaded - fetched below. */
-+            break;
-         rc = vmx_read_guest_msr(v, reg, &val);
-         if ( rc )
-         {
-@@ -2652,6 +2666,11 @@ static uint64_t cf_check vmx_get_reg(struct vcpu *v, unsigned int reg)
-     vmx_vmcs_enter(v);
-     switch ( reg )
-     {
-+    case MSR_SPEC_CTRL:
-+        ASSERT(cpu_has_vmx_virt_spec_ctrl);
-+        __vmread(SPEC_CTRL_SHADOW, &val);
-+        break;
-+
-     case MSR_IA32_BNDCFGS:
-         __vmread(GUEST_BNDCFGS, &val);
-         break;
-@@ -2678,6 +2697,9 @@ static void cf_check vmx_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
-     switch ( reg )
-     {
-     case MSR_SPEC_CTRL:
-+        if ( cpu_has_vmx_virt_spec_ctrl )
-+            /* Requires remote VMCS loaded - fetched below. */
-+            break;
-         rc = vmx_write_guest_msr(v, reg, val);
-         if ( rc )
-         {
-@@ -2698,6 +2720,11 @@ static void cf_check vmx_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
-     vmx_vmcs_enter(v);
-     switch ( reg )
-     {
-+    case MSR_SPEC_CTRL:
-+        ASSERT(cpu_has_vmx_virt_spec_ctrl);
-+        __vmwrite(SPEC_CTRL_SHADOW, val);
-+        break;
-+
-     case MSR_IA32_BNDCFGS:
-         __vmwrite(GUEST_BNDCFGS, val);
-         break;
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-index a7dd2eeffcad..58140af69153 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -270,6 +270,9 @@ extern u32 vmx_secondary_exec_control;
- #define TERTIARY_EXEC_VIRT_SPEC_CTRL            BIT(7, UL)
- extern uint64_t vmx_tertiary_exec_control;
- 
-+#define cpu_has_vmx_virt_spec_ctrl \
-+     (vmx_tertiary_exec_control & TERTIARY_EXEC_VIRT_SPEC_CTRL)
-+
- #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
- #define VMX_EPT_WALK_LENGTH_4_SUPPORTED                     0x00000040
- #define VMX_EPT_MEMORY_TYPE_UC                              0x00000100
-@@ -436,6 +439,8 @@ enum vmcs_field {
-     XSS_EXIT_BITMAP                 = 0x0000202c,
-     TSC_MULTIPLIER                  = 0x00002032,
-     TERTIARY_VM_EXEC_CONTROL        = 0x00002034,
-+    SPEC_CTRL_MASK                  = 0x0000204a,
-+    SPEC_CTRL_SHADOW                = 0x0000204c,
-     GUEST_PHYSICAL_ADDRESS          = 0x00002400,
-     VMCS_LINK_POINTER               = 0x00002800,
-     GUEST_IA32_DEBUGCTL             = 0x00002802,
-diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
-index 1d8ea9f26faa..eed7b36cd992 100644
---- a/xen/arch/x86/include/asm/msr.h
-+++ b/xen/arch/x86/include/asm/msr.h
-@@ -302,8 +302,13 @@ struct vcpu_msrs
-      * For PV guests, this holds the guest kernel value.  It is accessed on
-      * every entry/exit path.
-      *
--     * For VT-x guests, the guest value is held in the MSR guest load/save
--     * list.
-+     * For VT-x guests, the guest value is held in the MSR guest load/save list
-+     * if there's no support for virtualized SPEC_CTRL. If virtualized
-+     * SPEC_CTRL is enabled the value here signals which bits in SPEC_CTRL the
-+     * guest is not able to modify.  Note that the value for those bits used in
-+     * Xen context is also used in the guest context.  Setting a bit here
-+     * doesn't force such bit to set in the guest context unless also set in
-+     * Xen selection of SPEC_CTRL.
-      *
-      * For SVM, the guest value lives in the VMCB, and hardware saves/restores
-      * the host value automatically.  However, guests run with the OR of the
--- 
-2.43.0
+>    * R20.12 on Arm for macros DEFINE and OFFSET, where the second 
+> argument of OFFSET is a macro and is used as a normal parameter and a 
+> stringification operand.
 
+Is this really for Arm only?
+
+>    * R2.1 because the file is not linked That said it was decided to 
+> deviate the rule itselfed to deviate that aspect).
+
+There look to be punctuation issues here. Also s/itselfed/itself/, and
+the duplicate "deviate" is also a little odd to read (maybe "deal with"
+or "address" in place of the 2nd instance).
+
+> The files are also not linked in the final Xen binary, therefore they 
+> can be expempted from MISRA compliance.
+
+Looks to duplicate what the latter half of the 2nd bullet point has.
+If to be kept: s/expempted/exempted/.
+
+>>> --- a/docs/misra/exclude-list.json
+>>> +++ b/docs/misra/exclude-list.json
+>>> @@ -101,6 +101,10 @@
+>>>               "rel_path": "arch/x86/efi/check.c",
+>>>               "comment": "The resulting code is not included in the final Xen binary, ignore for now"
+>>>           },
+>>> +        {
+>>> +          "rel_path": "arch/*/*/asm-offsets.c",
+>>> +          "comment": "The resulting code is not included in the final Xen binary, ignore for now"
+>>> +        },
+>>>           {
+>>>               "rel_path": "common/coverage/*",
+>>>               "comment": "Files to support gcov, ignore for now"
+>>
+>> ... something looks odd with indentation; can probably be adjusted
+>> while committing.
+> 
+> I am happy to take care of both the commit message and the indentation 
+> on commit.
+
+Okay, I'll leave that to you then.
+
+Jan
 
