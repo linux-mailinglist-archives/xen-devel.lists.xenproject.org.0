@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DDA5851CF5
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 19:39:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679696.1057306 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 167FC851DCF
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 20:19:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679702.1057316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZbCM-0007ob-SQ; Mon, 12 Feb 2024 18:38:34 +0000
+	id 1rZbpd-0004lT-T2; Mon, 12 Feb 2024 19:19:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679696.1057306; Mon, 12 Feb 2024 18:38:34 +0000
+Received: by outflank-mailman (output) from mailman id 679702.1057316; Mon, 12 Feb 2024 19:19:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZbCM-0007lf-Po; Mon, 12 Feb 2024 18:38:34 +0000
-Received: by outflank-mailman (input) for mailman id 679696;
- Mon, 12 Feb 2024 18:38:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1rZbCL-0007lZ-N7
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 18:38:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rZbCK-0003AO-7F; Mon, 12 Feb 2024 18:38:32 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1rZbCJ-0000w0-Tz; Mon, 12 Feb 2024 18:38:32 +0000
+	id 1rZbpd-0004jV-Py; Mon, 12 Feb 2024 19:19:09 +0000
+Received: by outflank-mailman (input) for mailman id 679702;
+ Mon, 12 Feb 2024 19:19:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=G6LY=JV=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
+ id 1rZbpc-0004j6-Eh
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 19:19:08 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9684ec17-c9db-11ee-8a4c-1f161083a0e0;
+ Mon, 12 Feb 2024 20:19:06 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id 9CC4ACE13B7;
+ Mon, 12 Feb 2024 19:19:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95ECEC433F1;
+ Mon, 12 Feb 2024 19:18:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,217 +42,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=wW9OZL67jLnN0yjB6N2SrzdWDC25QQCKYvxPL9HRe+c=; b=Ree2ebO9LjHh/2MtfcGEl2j7A2
-	qEGHTKgF16h8PMQSa6cqOYuq8/unUW47PvBdRfmObcBImqabWN45S6AttRgv2/vcxPNX1YIbHY65D
-	GNkL9Dj6oivnnxP65HkHU0MqSUrSUo8oa74Q8m3x/pgd2G25y7Rk7oN74UF14FaHxV1M=;
-Message-ID: <09589e8f-77b6-47f7-b5bd-cf485e4b60f1@xen.org>
-Date: Mon, 12 Feb 2024 18:38:29 +0000
+X-Inumbo-ID: 9684ec17-c9db-11ee-8a4c-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1707765539;
+	bh=KtY+2vwykgYx0ZhCuIUifzWpXvaxOyQLOoq8eVe0/yU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=jwRehpBB1mbek9OHSZcQG4LLIahO11fkowPwY+RDEnhfuRZO2S52shbq7/dcY+qfE
+	 iEYB8aVjIU3buYbYfh9x6CFS1/B6CnDOvzAv9g3Jn96LPZl9XjXRj3ZlnLmvhiC1jb
+	 j7E5z5nUMRSMYvlK8qNk2Js+O3eopRzA9Uux1dLjoVTcAYhb541gdyXAHlbb1u+4E0
+	 02afHZ6L5zYFBoNbCq9Hf2fB4NBQzsa1nHeCculaTjKqbKwDppZ7P0VG8PXOrOHt3r
+	 xcq2+FbZ0RSijcp6poSdUYCOPMyZiyUoLrxj0tejWKyGB9ClrtU0x41aXcP01RaS4o
+	 8SuuSZ9KNU8+g==
+Date: Mon, 12 Feb 2024 13:18:58 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>
+Subject: Re: [RFC KERNEL PATCH v4 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
+Message-ID: <20240212191858.GA1137351@bhelgaas>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Return type of clean_and_invalidate_dcache_va_range
-Content-Language: en-GB
-To: Nicola Vetrini <nicola.vetrini@bugseng.com>,
- Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Xen Devel <xen-devel@lists.xenproject.org>,
- Consulting <consulting@bugseng.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper3 <andrew.cooper3@citrix.com>, Roger Pau
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>
-References: <e050b096ff39aa857f9c267a8dbb4ef6@bugseng.com>
- <alpine.DEB.2.22.394.2402091402080.1925432@ubuntu-linux-20-04-desktop>
- <f86baad0-f113-4156-9c10-6910e8c63492@xen.org>
- <02446758-a5a9-4a8a-8ce6-15abdc9ede65@suse.com>
- <99faac70440a68824a17fcaaea55ef48@bugseng.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <99faac70440a68824a17fcaaea55ef48@bugseng.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <ZcnhOEjnTgbYFPVl@macbook>
 
-Hi Nicola,
-
-On 12/02/2024 14:56, Nicola Vetrini wrote:
-> On 2024-02-12 09:26, Jan Beulich wrote:
->> On 10.02.2024 11:17, Julien Grall wrote:
->>> Hi,
->>>
->>> On 09/02/2024 22:02, Stefano Stabellini wrote:
->>>> On Fri, 9 Feb 2024, Nicola Vetrini wrote:
->>>>> Hi all,
->>>>>
->>>>> In the context of violations of MISRA C:2012 Rule 17.7: "The value 
->>>>> returned by
->>>>> a function having non-void return type shall be used", I was 
->>>>> looking at the
->>>>> function "clean_and_invalidate_dcache_va_range". It has the following
->>>>> signature on both arm and x86:
->>>>>
->>>>> static inline int clean_and_invalidate_dcache_va_range
->>>>>      (const void *p, unsigned long size)
->>>>>
->>>>> The commit that introduced it for Arm ~9 years ago (71d64afe3e12: 
->>>>> "arm: return
->>>>> int from *_dcache_va_range") [1] mentions that on Arm it can't 
->>>>> fail, but
->>>>> supposedly it can on x86.
->>>>>
->>>>> However, as far as I can tell, for both arch-es the implementation 
->>>>> now always
->>>>> returns 0 [2][3], so perhaps the mention of -EOPNOTSUPP for x86 is 
->>>>> no longer
->>>>> true (I wasn't able to reconstruct if there was a time at which 
->>>>> this was true,
->>>>> even in the same commit that changed the return type to int).
->>>>>
->>>>> The question is: should the return type be void, since it appears 
->>>>> that every
->>>>> user is ignoring the returned value (violating the rule), except 
->>>>> the one in
->>>>> common/grant_table.c [4]?
->>>>
->>>> Looking at the implementation on both ARM and x86, I am in favor of
->>>> changing the return type to void
->>> I think we need some consistency between all the cache flush helpers
->>> (clean_and_invalidate_dcache_va_range, invalidate_dcache_va_range() and
->>> clean_dcache_va_range()). They should all return a values or not 
->>> return any.
->>
->> +1
->>
+On Mon, Feb 12, 2024 at 10:13:28AM +0100, Roger Pau Monné wrote:
+> On Fri, Feb 09, 2024 at 03:05:49PM -0600, Bjorn Helgaas wrote:
+> > On Thu, Feb 01, 2024 at 09:39:49AM +0100, Roger Pau Monné wrote:
+> > > On Wed, Jan 31, 2024 at 01:00:14PM -0600, Bjorn Helgaas wrote:
+> > > > On Wed, Jan 31, 2024 at 09:58:19AM +0100, Roger Pau Monné wrote:
+> > > > > On Tue, Jan 30, 2024 at 02:44:03PM -0600, Bjorn Helgaas wrote:
+> > > > > > On Tue, Jan 30, 2024 at 10:07:36AM +0100, Roger Pau Monné wrote:
+> > > > > > > On Mon, Jan 29, 2024 at 04:01:13PM -0600, Bjorn Helgaas wrote:
+> > > > > > > > On Thu, Jan 25, 2024 at 07:17:24AM +0000, Chen, Jiqian wrote:
+> > > > > > > > > On 2024/1/24 00:02, Bjorn Helgaas wrote:
+> > > > > > > > > > On Tue, Jan 23, 2024 at 10:13:52AM +0000, Chen, Jiqian wrote:
+> > > > > > > > > >> On 2024/1/23 07:37, Bjorn Helgaas wrote:
+> > > > > > > > > >>> On Fri, Jan 05, 2024 at 02:22:17PM +0800, Jiqian Chen wrote:
+> > > > > > > > > >>>> There is a need for some scenarios to use gsi sysfs.
+> > > > > > > > > >>>> For example, when xen passthrough a device to dumU, it will
+> > > > > > > > > >>>> use gsi to map pirq, but currently userspace can't get gsi
+> > > > > > > > > >>>> number.
+> > > > > > > > > >>>> So, add gsi sysfs for that and for other potential scenarios.
+> > > > > > > > > >> ...
+> > > > > > > > > > 
+> > > > > > > > > >>> I don't know enough about Xen to know why it needs the GSI in
+> > > > > > > > > >>> userspace.  Is this passthrough brand new functionality that can't be
+> > > > > > > > > >>> done today because we don't expose the GSI yet?
+> > > > > > > > 
+> > > > > > > > I assume this must be new functionality, i.e., this kind of
+> > > > > > > > passthrough does not work today, right?
+> > > > > > > > 
+> > > > > > > > > >> has ACPI support and is responsible for detecting and controlling
+> > > > > > > > > >> the hardware, also it performs privileged operations such as the
+> > > > > > > > > >> creation of normal (unprivileged) domains DomUs. When we give to a
+> > > > > > > > > >> DomU direct access to a device, we need also to route the physical
+> > > > > > > > > >> interrupts to the DomU. In order to do so Xen needs to setup and map
+> > > > > > > > > >> the interrupts appropriately.
+> > > > > > > > > > 
+> > > > > > > > > > What kernel interfaces are used for this setup and mapping?
+> > > > > > > > >
+> > > > > > > > > For passthrough devices, the setup and mapping of routing physical
+> > > > > > > > > interrupts to DomU are done on Xen hypervisor side, hypervisor only
+> > > > > > > > > need userspace to provide the GSI info, see Xen code:
+> > > > > > > > > xc_physdev_map_pirq require GSI and then will call hypercall to pass
+> > > > > > > > > GSI into hypervisor and then hypervisor will do the mapping and
+> > > > > > > > > routing, kernel doesn't do the setup and mapping.
+> > > > > > > > 
+> > > > > > > > So we have to expose the GSI to userspace not because userspace itself
+> > > > > > > > uses it, but so userspace can turn around and pass it back into the
+> > > > > > > > kernel?
+> > > > > > > 
+> > > > > > > No, the point is to pass it back to Xen, which doesn't know the
+> > > > > > > mapping between GSIs and PCI devices because it can't execute the ACPI
+> > > > > > > AML resource methods that provide such information.
+> > > > > > > 
+> > > > > > > The (Linux) kernel is just a proxy that forwards the hypercalls from
+> > > > > > > user-space tools into Xen.
+> > > > > > 
+> > > > > > But I guess Xen knows how to interpret a GSI even though it doesn't
+> > > > > > have access to AML?
+> > > > > 
+> > > > > On x86 Xen does know how to map a GSI into an IO-APIC pin, in order
+> > > > > configure the RTE as requested.
+> > > > 
+> > > > IIUC, mapping a GSI to an IO-APIC pin requires information from the
+> > > > MADT.  So I guess Xen does use the static ACPI tables, but not the AML
+> > > > _PRT methods that would connect a GSI with a PCI device?
+> > > 
+> > > Yes, Xen can parse the static tables, and knows the base GSI of
+> > > IO-APICs from the MADT.
+> > > 
+> > > > I guess this means Xen would not be able to deal with _MAT methods,
+> > > > which also contains MADT entries?  I don't know the implications of
+> > > > this -- maybe it means Xen might not be able to use with hot-added
+> > > > devices?
+> > > 
+> > > It's my understanding _MAT will only be present on some very specific
+> > > devices (IO-APIC or CPU objects).  Xen doesn't support hotplug of
+> > > IO-APICs, but hotplug of CPUs should in principle be supported with
+> > > cooperation from the control domain OS (albeit it's not something that
+> > > we tests on our CI).  I don't expect however that a CPU object _MAT
+> > > method will return IO APIC entries.
+> > > 
+> > > > The tables (including DSDT and SSDTS that contain the AML) are exposed
+> > > > to userspace via /sys/firmware/acpi/tables/, but of course that
+> > > > doesn't mean Xen knows how to interpret the AML, and even if it did,
+> > > > Xen probably wouldn't be able to *evaluate* it since that could
+> > > > conflict with the host kernel's use of AML.
+> > > 
+> > > Indeed, there can only be a single OSPM, and that's the dom0 OS (Linux
+> > > in our context).
+> > > 
+> > > Getting back to our context though, what would be a suitable place for
+> > > exposing the GSI assigned to each device?
+> > 
+> > IIUC, the Xen hypervisor:
+> > 
+> >   - Interprets /sys/firmware/acpi/tables/APIC (or gets this via
+> >     something running on the Dom0 kernel) to find the physical base
+> >     address and GSI base, e.g., from I/O APIC, I/O SAPIC.
 > 
-> I agree. I took this helper as an example, but e.g. 
-> invalidate_dcache_va_range returns -EOPNOTSUPP on x86 and it's only used 
-> in common/grant_table.
-> Perhaps the signatures should remain as is for consistency, especially 
-> given the remark below about the other architectures, and this would 
-> entail a deviation.
+> No, Xen parses the MADT directly from memory, before stating dom0.
+> That's a static table so it's fine for Xen to parse it and obtain the
+> I/O APIC GSI base.
 
-In general, I am not in favor of adding a deviation if the code can be 
-changed. In this case, we could have (untested and just a hack to show 
-my point):
+It's an interesting split to consume ACPI static tables directly but
+put the AML interpreter elsewhere.  I doubt the ACPI spec envisioned
+that, which makes me wonder what other things we could trip over, but
+that's just a tangent.
 
-diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-index 5721eab22561..ae9ccf5388fc 100644
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -3573,7 +3573,13 @@ static int _cache_flush(const 
-gnttab_cache_flush_t *cflush, grant_ref_t *cur_ref
-      v += cflush->offset;
+> >   - Needs the GSI to locate the APIC and pin within the APIC.  The
+> >     Dom0 kernel is the OSPM, so only it can evaluate the AML _PRT to
+> >     learn the PCI device -> GSI mapping.
+> 
+> Yes, Xen doesn't know the PCI device -> GSI mapping.  Dom0 needs to
+> parse the ACPI methods and signal Xen to configure a GSI with a
+> given trigger and polarity.
+> 
+> >   - Has direct access to the APIC physical base address to program the
+> >     Redirection Table.
+> 
+> Yes, the hardware (native) I/O APIC is owned by Xen, and not directly
+> accessible by dom0.
+> 
+> > The patch seems a little messy to me because the PCI core has to keep
+> > track of the GSI even though it doesn't need it itself.  And the
+> > current patch exposes it on all arches, even non-ACPI ones or when
+> > ACPI is disabled (easily fixable).
+> > 
+> > We only call acpi_pci_irq_enable() in the pci_enable_device() path, so
+> > we don't know the GSI unless a Dom0 driver has claimed the device and
+> > called pci_enable_device() for it, which seems like it might not be
+> > desirable.
+> 
+> I think that's always the case, as on dom0 devices to be passed
+> through are handled by pciback which does enable them.
 
-      if ( (cflush->op & GNTTAB_CACHE_INVAL) && (cflush->op & 
-GNTTAB_CACHE_CLEAN) )
--        ret = clean_and_invalidate_dcache_va_range(v, cflush->length);
-+    {
-+#ifdef clean_and_invalidate_dcache_va_range
-+        clean_and_invalidate_dcache_va_range(v, cflush->length);
-+        ret = 0;
-+#else
-+        ret = -ENOSYS;
-+#endif
-      else if ( cflush->op & GNTTAB_CACHE_INVAL )
-          ret = invalidate_dcache_va_range(v, cflush->length);
-      else if ( cflush->op & GNTTAB_CACHE_CLEAN )
+pcistub_init_device() labels the pci_enable_device() as a "HACK"
+related to determining the IRQ, which makes me think there's not
+really a requirement for the device to be *enabled* (BAR decoding
+enabled) by dom0.
 
-An alternative would be to introduced arch_grant_cache_flush() and move 
-the if/else logic there. Something like:
+> I agree it might be best to not tie exposing the node to
+> pci_enable_device() having been called.  Is _PRT only evaluated as
+> part of acpi_pci_irq_enable()? (or pci_enable_device()).
 
-diff --git a/xen/arch/arm/include/asm/page.h 
-b/xen/arch/arm/include/asm/page.h
-index 69f817d1e68a..4a3de49762a1 100644
---- a/xen/arch/arm/include/asm/page.h
-+++ b/xen/arch/arm/include/asm/page.h
-@@ -281,6 +281,19 @@ static inline void write_pte(lpae_t *p, lpae_t pte)
-      dsb(sy);
-  }
+Yes.  AFAICT, acpi_pci_irq_enable() is the only path that evaluates
+_PRT (except for a debugger interface).  I don't think it *needs* to
+be that way, and the fact that we do it per-device like that means we
+evaluate _PRT many times even though I think the results never change.
 
-+static inline arch_grant_cache_flush(unsigned int op, const void *p, 
-unsigned long size)
-+{
-+    unsigned int order = get_order_from_bytes(size);
-+
-+    if ( (cflush->op & GNTTAB_CACHE_INVAL) && (cflush->op & 
-GNTTAB_CACHE_CLEAN) )
-+        clean_and_invalidate_dcache_va_range(v, cflush->length);
-+    else if ( cflush->op & GNTTAB_CACHE_INVAL )
-+        invalidate_dcache_va_range(v, cflush->length);
-+    else if ( cflush->op & GNTTAB_CACHE_CLEAN )
-+        clean_dcache_va_range(v, cflush->length);
-+
-+    return 0;
-+}
+I could imagine evaluating _PRT once as part of enumerating a PCI host
+bridge (and maybe PCI-PCI bridge, per acpi_pci_irq_find_prt_entry()
+comment), but that looks like a fair bit of work to implement.  And of
+course it doesn't really affect the question of how to expose the
+result, although it does suggest /sys/bus/acpi/devices/PNP0A03:00/ as
+a possible location.
 
-  /* Flush the dcache for an entire page. */
-  void flush_page_to_ram(unsigned long mfn, bool sync_icache);
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 424744ad5e1a..647e1522466d 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -735,8 +735,7 @@ void asmlinkage __init start_xen(unsigned long 
-boot_phys_offset,
-                fdt_paddr);
-
-      /* Register Xen's load address as a boot module. */
--    xen_bootmodule = add_boot_module(BOOTMOD_XEN,
--                             virt_to_maddr(_start),
-+    xen_bootmodule = add_boot_module(BOOTMOD_XEN, virt_to_maddr(_start),
-                               (paddr_t)(uintptr_t)(_end - _start), false);
-      BUG_ON(!xen_bootmodule);
-
-diff --git a/xen/arch/x86/include/asm/flushtlb.h 
-b/xen/arch/x86/include/asm/flushtlb.h
-index bb0ad58db49b..dfe51cddde90 100644
---- a/xen/arch/x86/include/asm/flushtlb.h
-+++ b/xen/arch/x86/include/asm/flushtlb.h
-@@ -182,23 +182,22 @@ void flush_area_mask(const cpumask_t *mask, const 
-void *va,
-  }
-
-  static inline void flush_page_to_ram(unsigned long mfn, bool 
-sync_icache) {}
--static inline int invalidate_dcache_va_range(const void *p,
--                                             unsigned long size)
--{ return -EOPNOTSUPP; }
--static inline int clean_and_invalidate_dcache_va_range(const void *p,
--                                                       unsigned long size)
-+
-+unsigned int guest_flush_tlb_flags(const struct domain *d);
-+void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask);
-+
-+static inline arch_grant_cache_flush(unsigned int op, const void *p, 
-unsigned long size)
-  {
--    unsigned int order = get_order_from_bytes(size);
-+    unsigned int order;
-+
-+    if ( !(cflush->op & GNTTAB_CACHE_CLEAN) )
-+        return -EOPNOTSUPP;
-+
-+    order = get_order_from_bytes(size);
-      /* sub-page granularity support needs to be added if necessary */
-      flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
-+
-      return 0;
-  }
--static inline int clean_dcache_va_range(const void *p, unsigned long size)
--{
--    return clean_and_invalidate_dcache_va_range(p, size);
--}
--
--unsigned int guest_flush_tlb_flags(const struct domain *d);
--void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask);
-
-  #endif /* __FLUSHTLB_H__ */
-
-I have a slight preference for the latter. I would like to hear the 
-opinion of the others.
-
-Cheers,
-
--- 
-Julien Grall
+Bjorn
 
