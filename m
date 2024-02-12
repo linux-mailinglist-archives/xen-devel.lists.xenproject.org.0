@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A1B9851783
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 16:04:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679623.1057147 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24B97851791
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 16:05:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679625.1057157 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZXqd-0000Lk-Oh; Mon, 12 Feb 2024 15:03:55 +0000
+	id 1rZXsN-0000vG-2y; Mon, 12 Feb 2024 15:05:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679623.1057147; Mon, 12 Feb 2024 15:03:55 +0000
+Received: by outflank-mailman (output) from mailman id 679625.1057157; Mon, 12 Feb 2024 15:05:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZXqd-0000JH-LE; Mon, 12 Feb 2024 15:03:55 +0000
-Received: by outflank-mailman (input) for mailman id 679623;
- Mon, 12 Feb 2024 15:03:53 +0000
+	id 1rZXsM-0000tK-Vk; Mon, 12 Feb 2024 15:05:42 +0000
+Received: by outflank-mailman (input) for mailman id 679625;
+ Mon, 12 Feb 2024 15:05:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6iVD=JV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZXqb-0000JB-KV
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 15:03:53 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1rZXsL-0000qI-Hk
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 15:05:41 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef05e113-c9b7-11ee-8a4c-1f161083a0e0;
- Mon, 12 Feb 2024 16:03:52 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-33aeb088324so2151984f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 07:03:52 -0800 (PST)
+ id 2fbf85c3-c9b8-11ee-8a4c-1f161083a0e0;
+ Mon, 12 Feb 2024 16:05:40 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ 5b1f17b1804b1-411a5b8765bso1823275e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 07:05:40 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- b8-20020a05600003c800b0033b65818667sm7152688wrg.76.2024.02.12.07.03.51
+ n16-20020a5d67d0000000b0033af26545c8sm6987897wrw.50.2024.02.12.07.05.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 07:03:51 -0800 (PST)
+ Mon, 12 Feb 2024 07:05:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef05e113-c9b7-11ee-8a4c-1f161083a0e0
+X-Inumbo-ID: 2fbf85c3-c9b8-11ee-8a4c-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707750232; x=1708355032; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707750340; x=1708355140; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=sDMVOYplVYaTemfb+geuyF7pUqmwx0HbxEjrQg17lM8=;
-        b=UJAM06nzrwBObTvV+trEBmgdo6tAD2m/KUB7VNS/PBDrppdiyACJ7K0ZRSCBcSO5JG
-         Fe188/kgoTsRH7HmTXxd9U3IEQ1Q9Go6u/qdxQi8fodFy1JBUqiYLl6HGx4mkXSjk5CM
-         lFoJn9+M6OVlLjWM17euwjQT6PvwUfxvHiSGTMWxrp3PJoJEuY+Ny3GJK83fgIItSj8B
-         2DMC5AqSzwwTRzoKAY1z/QCsT6wETiOj0ivi+onWdGiz1y7q6lAvCKF03O1fObQUSjEj
-         WI2uO4hU3tU/Zfpf8DKUJDIeEM4mLgAwkv5GBkhQJXEdeG/J4Qn4uf95bFCv/Ctwv/ip
-         iKJQ==
+        bh=G7EAqjlnRFxD16UrnMJajlEeaimgLOuCMVU+W7dSDyU=;
+        b=MOyRXtpqMqNBT2hiM5EmXZ1VbNep9WLhbjrzQ79HD4tPiwsRzRHtJMaHLAFczfN3eT
+         +MH8YI0gxnKEjT3xzRJwhh+yaRCzdaA1mKXmxijmvoIj23ecNR9RxUxT6yQy6cZrbQyB
+         XKZajsfEDCkYd02r/TM8293iCPvXzJuSyPvQMdCYXKE7neCNYDURmEumst2MyMlKRBea
+         R+CWCqvd87Gjs/w6rrZYWebtpNzY2NPFekGeHB+DgkJVHmY3teOWifCMkYBxOqSGakYs
+         LL9FoyqohLt2ByGvTpoC2YXpLEVQco80BOiWJgT7xdsxKfTA49LJQpFXgF/JyyqrFlrG
+         tITQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707750232; x=1708355032;
+        d=1e100.net; s=20230601; t=1707750340; x=1708355140;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=sDMVOYplVYaTemfb+geuyF7pUqmwx0HbxEjrQg17lM8=;
-        b=pl52iF9/blVOZNwrxQ2AgYNuNuKW8Lz6D33o2qLR8KS23SnHf6w0XZXnj8FXnWts7P
-         6hHkGViY7AvAvxhu4C12mpXB7ZWvaFp6kQQyzSbNkFnupiG4HJRbopgE4Ba0kdYPZg/h
-         YLizGmuFcNMQhfju1eoZIeioQNUMQYoeEDJmXlk4AkWzsAARuNbxPTUX6W6/DlO4+DX0
-         yp7r25vfoI7+KPV4vCjdny/mKD41RlNA3bfKsIOX+4XIXnomA8R4ixrBKgKAKfM6lx1d
-         2VdUdqhYbCiH1Q4UmsdpHiOh38XiOvcXHAaJhiRR6n5lTIpjzpWzjIV0rwnwbPDVs3fR
-         vsew==
-X-Forwarded-Encrypted: i=1; AJvYcCWCGKNx2iJ92zrgsKDuc6aZbGuXvZO7wRAhIQwgx7Y7Agj0VaVpvfGGvH9VYrJ+sQyIksEMrQZ5XOoidemreZhG7rBjFRcWHig+NHo9kXc=
-X-Gm-Message-State: AOJu0Ywv4ep+M/BjsiLcasPLTbEcnt+/hfC897jEDxTSG8RkEEWt9+li
-	Hflf1DK0Dka9ZxOJBp/k50eWiwPhm9B3gGHK6/IORp89D2i625Z/5qBB21ZyVQ==
-X-Google-Smtp-Source: AGHT+IH4fSAMXTt/POP73CskPlVA8KKufGUmIGZ81uurJ1uoaJZSJbCtSlpoy+5d0pqjJgaSUZ1c4g==
-X-Received: by 2002:adf:f40f:0:b0:33b:6dd9:a6a with SMTP id g15-20020adff40f000000b0033b6dd90a6amr5618089wro.22.1707750231754;
-        Mon, 12 Feb 2024 07:03:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCU8VkbH/BnRylsn8L7ryl/KhrCVNiULvDzTc+kMwoxLHybWQShasYc6MKJ7Lfex4Do8SKOyGVn+z7hlMMg/UA7S18N/IweNVNOF0CcfQkmR35n6WP/+syWrWCJw3fT+rQ+9lJQJP+b+saBJtfIk6p/tojjnLKeZakAzZFAS8avOBGp21cNe2RSEL/WPLmm1JfrJCA9dLMgtyrDGkhA+T6vKPNyqGAvD53rMDynvaXXfEGPWqodgOAfYVoY1Jk60TMtxsWfv+WVwdzoTbnZgWLaCEXVPAWcZFd88WUhJZ7C0Df0kGwqxXEo=
-Message-ID: <16baca98-44fe-42ba-b61d-ff1945e0d2b5@suse.com>
-Date: Mon, 12 Feb 2024 16:03:50 +0100
+        bh=G7EAqjlnRFxD16UrnMJajlEeaimgLOuCMVU+W7dSDyU=;
+        b=umiTwJ7f8xPpyHyZPQ3gdYm29QDEyUIU/SVAWIIIZAojd2ZkQrDafgbsJyO5IEkDFf
+         I+QxtQusvm/XqTo57mYoCf7Ona9wL/CTPlvQYJyZmKIKbBotsR/UU6FeZN1/6U3ky1Po
+         9XJSMs1qiif0xKwH+0aEBqRpXFFHBOiwpjrb8v5/eR4AiDVasVCZ9ygBSk9siRsa9sJB
+         x6ily5i/GfY4rDM+a8dqsNTQNlrkCtmDh8vYzJwNIKSCqu59fziyOaBGjG/eEc8ctud/
+         TyHNg4CW45SSWIcL5kkf03ckihgT72Zxmh8b1bMOToqeqJeo5PWGCnykrOPj7nfIiaK4
+         bF8w==
+X-Forwarded-Encrypted: i=1; AJvYcCW8OXnJHE/gUCe2My37TlywTlVMqC2DWb5hHZ7UhoM7cFoFjy0ut7U5SdOYo8bSIr8OrF387ZaE0pkbeHvqZtIIG/UuxCvB1rH5yMy9VBQ=
+X-Gm-Message-State: AOJu0Yxix3l245BXInCSX2OomO/Z+WzBolaIP3DRO7xCfRdpAv+62uV/
+	CvInOfIhJgBxQaY98r45sGP34EImGoH6h8EYgnuEx7D7oQxYdHQXTH6mPeUU3g==
+X-Google-Smtp-Source: AGHT+IGy0VFkhkTLhNt+G9H60u9TGF9DW/ZeWApp2ury9xxkqzHDCeCyUqAp+QrPN/PzuU7+3LbV8g==
+X-Received: by 2002:a05:600c:4f4b:b0:410:ce61:8609 with SMTP id m11-20020a05600c4f4b00b00410ce618609mr2883617wmq.11.1707750340389;
+        Mon, 12 Feb 2024 07:05:40 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWfbj8Vmg0UNwF4rBg47khSVQE2Ff5q8ggcypWcRXorFraBcAV+sX+8QuU98MAz2x4rin8cQtpazQBxvhBuT0lhrKW0T6XNy8buvWBP96xYvF0tPXJ5f7D8FQponHNdUH5uWR8jfkjPRjmdNOfydXQte/k3EHixWcV9qSsrCUnst2Auc9eXmj29ccYEM6WEbgNQHBl1XIwc/TNfTRM=
+Message-ID: <b3141aff-32ad-4e2c-aa2c-a5803924951f@suse.com>
+Date: Mon, 12 Feb 2024 16:05:39 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/30] xen/riscv: use some asm-generic headers
+Subject: Re: [PATCH v4 03/30] xen: add support in public/hvm/save.h for PPC
+ and RISC-V
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
- <a721f0c092306b589fae5f44bdaafcd94c60ed14.1707146506.git.oleksii.kurochko@gmail.com>
+ <c929f784466e1ba57c19663e88f22c598d961709.1707146506.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,32 +115,42 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a721f0c092306b589fae5f44bdaafcd94c60ed14.1707146506.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <c929f784466e1ba57c19663e88f22c598d961709.1707146506.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 05.02.2024 16:32, Oleksii Kurochko wrote:
-> Some headers are the same as asm-generic verions of them
-> so use them instead of arch-specific headers.
-
-Just to mention it (I'll commit this as is, unless asked to do otherwise):
-With this description I'd expect those "some headers" to be removed by
-this patch. Yet you're not talking about anything that exists; instead I
-think you mean "would end up the same". Yet that's precisely what
-asm-generic/ is for. Hence I would have said something along the lines of
-"don't need any customization".
-
+> No specific header is needed to include in public/hvm/save.h for
+> PPC and RISC-V for now.
+> 
+> Code related to PPC was changed based on the comment:
+> https://lore.kernel.org/xen-devel/c2f3280e-2208-496b-a0b5-fda1a2076b3a@raptorengineering.com/
+> 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> ---
->  As [PATCH v6 0/9] Introduce generic headers
->  (https://lore.kernel.org/xen-devel/cover.1703072575.git.oleksii.kurochko@gmail.com/)
->  is not stable, the list in asm/Makefile can be changed, but the changes will
->  be easy.
 
-Or wait - doesn't this mean the change here can't be committed yet? I
-know the cover letter specifies dependencies, yet I think we need to come
-to a point where this large series won't need re-posting again and again.
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Albeit I don't see why ...
+
+> --- a/xen/include/public/hvm/save.h
+> +++ b/xen/include/public/hvm/save.h
+> @@ -89,8 +89,8 @@ DECLARE_HVM_SAVE_TYPE(END, 0, struct hvm_save_end);
+>  #include "../arch-x86/hvm/save.h"
+>  #elif defined(__arm__) || defined(__aarch64__)
+>  #include "../arch-arm/hvm/save.h"
+> -#elif defined(__powerpc64__)
+> -#include "../arch-ppc.h"
+> +#elif defined(__powerpc64__) || defined(__riscv)
+> +/* no specific header to include */
+>  #else
+
+... this isn't simply
+
+#elif !defined(__powerpc64__) && !defined(__riscv)
 
 Jan
+
+>  #error "unsupported architecture"
+>  #endif
+
 
