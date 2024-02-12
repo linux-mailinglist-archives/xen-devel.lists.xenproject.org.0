@@ -2,45 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46F3C8517EA
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 16:27:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679658.1057236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BFD0851845
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 16:39:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679666.1057247 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZYD1-0000Ig-Bm; Mon, 12 Feb 2024 15:27:03 +0000
+	id 1rZYOL-0002uc-Ev; Mon, 12 Feb 2024 15:38:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679658.1057236; Mon, 12 Feb 2024 15:27:03 +0000
+Received: by outflank-mailman (output) from mailman id 679666.1057247; Mon, 12 Feb 2024 15:38:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZYD1-0000G5-8n; Mon, 12 Feb 2024 15:27:03 +0000
-Received: by outflank-mailman (input) for mailman id 679658;
- Mon, 12 Feb 2024 15:27:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=JouK=JV=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1rZYD0-0000Fx-0U
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 15:27:02 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [2a07:de40:b251:101:10:150:64:1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ab221d5-c9bb-11ee-8a4c-1f161083a0e0;
- Mon, 12 Feb 2024 16:27:01 +0100 (CET)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1B77B22198;
- Mon, 12 Feb 2024 15:27:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DB71213985;
- Mon, 12 Feb 2024 15:26:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([10.150.64.162])
- by imap1.dmz-prg2.suse.org with ESMTPSA id ir+0M8M4ymUpYwAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 12 Feb 2024 15:26:59 +0000
+	id 1rZYOL-0002sg-C5; Mon, 12 Feb 2024 15:38:45 +0000
+Received: by outflank-mailman (input) for mailman id 679666;
+ Mon, 12 Feb 2024 15:38:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IbWo=JV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rZYOK-0002sX-54
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 15:38:44 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cb9b5521-c9bc-11ee-98f5-efadbce2ee36;
+ Mon, 12 Feb 2024 16:38:40 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-410db155e57so6696735e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 07:38:40 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ je11-20020a05600c1f8b00b00410885ba8casm7714743wmb.39.2024.02.12.07.38.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Feb 2024 07:38:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,215 +44,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ab221d5-c9bb-11ee-8a4c-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1707751620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=JDnbsSmLRToMshpOSrPEVaIi1UWXzwXyk73ONXdsI50=;
-	b=nDr1bsb0Iu16Uh7TCzio89xgas3oPSoVyfbmEZr2KyPVZTcCvAyb5hPgyjoeSDsZrA96wn
-	yESU4olWRcmqBgOpaPGfjH+k3EWRCMjznxvgsaOCpOKeIbm3vf1291c1keDOnt/XhRBL4C
-	j73JGeDrpmhr8LGtZMHcI7QPlMEGg9Y=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1707751620; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=JDnbsSmLRToMshpOSrPEVaIi1UWXzwXyk73ONXdsI50=;
-	b=nDr1bsb0Iu16Uh7TCzio89xgas3oPSoVyfbmEZr2KyPVZTcCvAyb5hPgyjoeSDsZrA96wn
-	yESU4olWRcmqBgOpaPGfjH+k3EWRCMjznxvgsaOCpOKeIbm3vf1291c1keDOnt/XhRBL4C
-	j73JGeDrpmhr8LGtZMHcI7QPlMEGg9Y=
-Message-ID: <b6652732-d408-4ec9-bcf3-fdf7f84dd00a@suse.com>
-Date: Mon, 12 Feb 2024 16:26:59 +0100
+X-Inumbo-ID: cb9b5521-c9bc-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1707752320; x=1708357120; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=sN0aDPuErzB0rLLjDfP31AhY1wWx/5dUNIrbT7KkRJw=;
+        b=CT9xRslVu2v3E+DosIo9bwvEKaiYZu6kLNWLEVTrU+z4HHzfaALMUFnIcnfgwiZrpE
+         y4jfbFEy166xN2FrO3I9u758IDGwJNrRqkYRId+KcjQCfP9lDGsU0wM/p6Pe4Q5REO3w
+         YV11hWGQESY6C7kEJo8jcc+KEDaNEN+nDcjNw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707752320; x=1708357120;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=sN0aDPuErzB0rLLjDfP31AhY1wWx/5dUNIrbT7KkRJw=;
+        b=PheIxaHGsTF66MsC94DLVzcNHhwk7vgqL2GFZ1JtJkpDRFOfnz7vcwaf28gTYjS7zO
+         xROp9YY5PWcs13HdmefGTVfeNMU0dItkjThNI5kBJMEiAFkgIUL1ENQPVZmrKofVAGql
+         Kq2V4p2IMviaBDqiXG9kQzptT6fJEjth5Sxr+BGRNYmZ0MrFdfbNqLwcnR32GrMKzOLU
+         UyZR/jZFb+QN5UX/d8zVD+kTBxJx5+x3cj/lI83OUJK0upQBGhx4WZfMO0WPUMSh7D6f
+         BQ1nYIPaLXrsdnL0M3ESOMuh+MYi9PctUJL6I1/RnzDxysM7CpTpQ22dmxFGrHWVz4pa
+         z5ZQ==
+X-Gm-Message-State: AOJu0YwISjfFz+oUkGjwcDZBKPjLVGUPGYUS84kYNO8mGCI5H0r3NcTQ
+	LaLSINdjUcEYBF3Bj8vK5hp3N3Pi87K+zW75jq3FOt139X10J7Y6WCMs5imq2Gp83+3T1xke0sL
+	x
+X-Google-Smtp-Source: AGHT+IF+J3FtfNQv4zbYmq83MibN1zsuNiyYiDAmjrf4dQuGKs+g0k9GzS85PPU8eILbUVGUdRCReQ==
+X-Received: by 2002:a05:600c:c12:b0:410:a138:7447 with SMTP id fm18-20020a05600c0c1200b00410a1387447mr5093101wmb.27.1707752319800;
+        Mon, 12 Feb 2024 07:38:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCV+J78BSTrMzJQSAXwiU/iguBJkeBo6HhU5EJU/na9F2LPoPPEZvHZKql/Xen3EdnS6ckTGHtpZMXfKuuEEsLl/GIXtepWiHqOCP9xU3Qg14RCN0xfFSX8EBUC+Q7lSP91pYsAuGYVDqW4RpTQq
+Date: Mon, 12 Feb 2024 16:38:38 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Kevin Tian <kevin.tian@intel.com>, Paul Durrant <paul@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 2/7] IOMMU: rename and re-type ats_enabled
+Message-ID: <Zco7fvp1nPVlLtRy@macbook>
+References: <25506838-b818-4686-8c16-3a198338af44@suse.com>
+ <467d24e1-8ed3-4dda-a334-70ff747bf94b@suse.com>
+ <ZcS_uC2t96Lh720Y@macbook>
+ <4179ded9-36b8-4d47-997b-40d056e033af@suse.com>
+ <ZcnnautuDD2qluQm@macbook>
+ <2fccd004-b35a-4cde-afbb-722cb2413902@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/xenbus: document will_handle argument for
- xenbus_watch_path()
-Content-Language: en-US
-To: SeongJae Park <sj@kernel.org>
-Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- kernel test robot <lkp@intel.com>
-References: <20240112185903.83737-1-sj@kernel.org>
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20240112185903.83737-1-sj@kernel.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------gLgkIRd1a9czmCD5XBFjNM0S"
-Authentication-Results: smtp-out1.suse.de;
-	none
-X-Spam-Level: 
-X-Spam-Score: -3.36
-X-Spamd-Result: default: False [-3.36 / 50.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 XM_UA_NO_VERSION(0.01)[];
-	 FROM_HAS_DN(0.00)[];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 BAYES_HAM(-1.18)[88.96%];
-	 MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	 HAS_ATTACHMENT(0.00)[];
-	 NEURAL_HAM_LONG(-1.00)[-1.000];
-	 MIME_BASE64_TEXT_BOGUS(1.00)[];
-	 RCPT_COUNT_FIVE(0.00)[6];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	 NEURAL_HAM_SHORT(-0.20)[-0.982];
-	 MIME_BASE64_TEXT(0.10)[];
-	 SIGNED_PGP(-2.00)[];
-	 FUZZY_BLOCKED(0.00)[rspamd.com];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	 RCVD_TLS_ALL(0.00)[];
-	 MID_RHS_MATCH_FROM(0.00)[];
-	 MIME_UNKNOWN(0.10)[application/pgp-keys]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2fccd004-b35a-4cde-afbb-722cb2413902@suse.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------gLgkIRd1a9czmCD5XBFjNM0S
-Content-Type: multipart/mixed; boundary="------------gl8sQ4R0va4tfmtD2baX32Ek";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: SeongJae Park <sj@kernel.org>
-Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- kernel test robot <lkp@intel.com>
-Message-ID: <b6652732-d408-4ec9-bcf3-fdf7f84dd00a@suse.com>
-Subject: Re: [PATCH] xen/xenbus: document will_handle argument for
- xenbus_watch_path()
-References: <20240112185903.83737-1-sj@kernel.org>
-In-Reply-To: <20240112185903.83737-1-sj@kernel.org>
+On Mon, Feb 12, 2024 at 11:45:33AM +0100, Jan Beulich wrote:
+> On 12.02.2024 10:39, Roger Pau Monné wrote:
+> > On Thu, Feb 08, 2024 at 04:49:46PM +0100, Jan Beulich wrote:
+> >> On 08.02.2024 12:49, Roger Pau Monné wrote:
+> >>> On Mon, Feb 05, 2024 at 02:55:43PM +0100, Jan Beulich wrote:
+> >>>> Make the variable a tristate, with (as done elsewhere) a negative value
+> >>>> meaning "default". Since all use sites need looking at, also rename it
+> >>>> to match our usual "opt_*" pattern. While touching it, also move it to
+> >>>> .data.ro_after_init.
+> >>>>
+> >>>> The only place it retains boolean nature is pci_ats_device(), for now.
+> >>>
+> >>> Why does it retain the boolean nature in pci_ats_device()?
+> >>>
+> >>> I assume this is to avoid having to touch the line again in a further
+> >>> patch, as given the current logic pci_ats_device() would also want to
+> >>> treat -1 as ATS disabled.
+> >>
+> >> No, then I would need to touch the line. The function wants to treat
+> >> -1 as "maybe enabled", so the caller can know whether a device is an
+> >> ATS device regardless of whether ATS use is fully off, or only
+> >> "soft-off".
+> > 
+> > I have to admit I'm slightly concerned about this soft-off.  Given the
+> > current status of ATS itself in Xen, and the technology itself, I
+> > think a user should always opt-in to ATS usage.
+> 
+> The plan is to follow your suggestion in patch 3 and require explicit
+> enabling for passing through of such devices. For Dom0, however, I
+> think it is important that we respect the firmware request by default.
+> The only viable(?!) alternative would be to panic() instead.
 
---------------gl8sQ4R0va4tfmtD2baX32Ek
-Content-Type: multipart/mixed; boundary="------------4Q4sVHUfGM1suk8NTO0UN9cB"
+Or assign to domIO?
 
---------------4Q4sVHUfGM1suk8NTO0UN9cB
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> >>>> --- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> >>>> +++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
+> >>>> @@ -185,10 +185,11 @@ static int __must_check amd_iommu_setup_
+> >>>>          dte->ex = ivrs_dev->dte_allow_exclusion;
+> >>>>          dte->sys_mgt = MASK_EXTR(ivrs_dev->device_flags, ACPI_IVHD_SYSTEM_MGMT);
+> >>>>  
+> >>>> -        if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
+> >>>> +        if ( opt_ats > 0 &&
+> >>>>               !ivrs_dev->block_ats &&
+> >>>> -             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) )
+> >>>> -            dte->i = ats_enabled;
+> >>>> +             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
+> >>>> +             pci_ats_device(iommu->seg, bus, pdev->devfn) )
+> >>>> +            dte->i = true;
+> >>>>  
+> >>>>          spin_unlock_irqrestore(&iommu->lock, flags);
+> >>>>  
+> >>>> @@ -248,10 +249,11 @@ static int __must_check amd_iommu_setup_
+> >>>>          ASSERT(dte->sys_mgt == MASK_EXTR(ivrs_dev->device_flags,
+> >>>>                                           ACPI_IVHD_SYSTEM_MGMT));
+> >>>>  
+> >>>> -        if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
+> >>>> +        if ( opt_ats > 0 &&
+> >>>>               !ivrs_dev->block_ats &&
+> >>>> -             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) )
+> >>>> -            ASSERT(dte->i == ats_enabled);
+> >>>> +             iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
+> >>>> +             pci_ats_device(iommu->seg, bus, pdev->devfn) )
+> >>>> +            ASSERT(dte->i);
+> >>>>  
+> >>>>          spin_unlock_irqrestore(&iommu->lock, flags);
+> >>>>  
+> >>>> @@ -268,9 +270,10 @@ static int __must_check amd_iommu_setup_
+> >>>>  
+> >>>>      ASSERT(pcidevs_locked());
+> >>>>  
+> >>>> -    if ( pci_ats_device(iommu->seg, bus, pdev->devfn) &&
+> >>>> +    if ( opt_ats > 0 &&
+> >>>>           !ivrs_dev->block_ats &&
+> >>>>           iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
+> >>>> +         pci_ats_device(iommu->seg, bus, pdev->devfn) &&
+> >>>>           !pci_ats_enabled(iommu->seg, bus, pdev->devfn) )
+> >>>
+> >>> Seeing that this same set of conditions is used in 3 different checks,
+> >>> could we add a wrapper for it?
+> >>>
+> >>> opt_ats > 0 && !ivrs_dev->block_ats &&
+> >>> iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
+> >>> pci_ats_device(iommu->seg, bus, pdev->devfn)
+> >>>
+> >>> pci_device_ats_capable()? or some such.
+> >>
+> >> I was pondering that, yes (iirc already once when adding block_ats).
+> >> Problem is the name. "capable" isn't quite right when considering
+> >> the tristate opt_ats. And pci_device_may_use_ats() reads, well,
+> >> clumsy to me. If you have any good idea for a name that's fully
+> >> applicable and not odd or overly long, I can certainly introduce
+> >> such a helper.
+> > 
+> > But if ATS is soft-disabled (-1) or hard disabled (0), it's fine to
+> > consider the devices as not ATS capable for the context here?
+> 
+> I don't like mixing capability and policy aspects into a resulting
+> "capable".
 
-T24gMTIuMDEuMjQgMTk6NTksIFNlb25nSmFlIFBhcmsgd3JvdGU6DQo+IENvbW1pdCAyZTg1
-ZDMyYjFjODYgKCJ4ZW4veGVuYnVzOiBBZGQgJ3dpbGxfaGFuZGxlJyBjYWxsYmFjayBzdXBw
-b3J0IGluDQo+IHhlbmJ1c193YXRjaF9wYXRoKCkiKSBhZGRlZCB3aWxsX2hhbmRsZSBhcmd1
-bWVudCB0byB4ZW5idXNfd2F0Y2hfcGF0aCgpDQo+IGFuZCBpdHMgd3JhcHBlciwgeGVuYnVz
-X3dhdGNoX3BhdGhmbXQoKSwgYnV0IGRpZG4ndCBkb2N1bWVudCBpdCBvbiB0aGUNCj4ga2Vy
-bmVsZG9jIGNvbW1lbnRzIG9mIHRoZSBmdW5jdGlvbi4gIFRoaXMgaXMgY2F1c2luZyB3YXJu
-aW5ncyB0aGF0DQo+IHJlcG9ydGVkIGJ5IGtlcm5lbCB0ZXN0IHJvYm90LiAgQWRkIHRoZSBk
-b2N1bWVudGF0aW9uIHRvIGZpeCBpdC4NCj4gDQo+IEZpeGVzOiAyZTg1ZDMyYjFjODYgKCJ4
-ZW4veGVuYnVzOiBBZGQgJ3dpbGxfaGFuZGxlJyBjYWxsYmFjayBzdXBwb3J0IGluIHhlbmJ1
-c193YXRjaF9wYXRoKCkiKQ0KPiBSZXBvcnRlZC1ieToga2VybmVsIHRlc3Qgcm9ib3QgPGxr
-cEBpbnRlbC5jb20+DQo+IENsb3NlczogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvb2Uta2J1
-aWxkLWFsbC8yMDI0MDExMjExNTQuRkk4akRHdW4tbGtwQGludGVsLmNvbS8NCj4gU2lnbmVk
-LW9mZi1ieTogU2VvbmdKYWUgUGFyayA8c2pAa2VybmVsLm9yZz4NCg0KUmV2aWV3ZWQtYnk6
-IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQo=
---------------4Q4sVHUfGM1suk8NTO0UN9cB
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+IMO we should prefer avoiding code repetition, even if at the cost
+of having a handler that have a maybe not ideal naming, but I can't
+force you to do that.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R3/CwO0EGAEIACAWIQSFEmdy6PYElKXQl/ew3p3W
-KL8TLwUCWt3w0AIbAgCBCRCw3p3WKL8TL3YgBBkWCAAdFiEEUy2wekH2OPMeOLge
-gFxhu0/YY74FAlrd8NAACgkQgFxhu0/YY75NiwD/fQf/RXpyv9ZX4n8UJrKDq422
-bcwkujisT6jix2mOOwYBAKiip9+mAD6W5NPXdhk1XraECcIspcf2ff5kCAlG0DIN
-aTUH/RIwNWzXDG58yQoLdD/UPcFgi8GWtNUp0Fhc/GeBxGipXYnvuWxwS+Qs1Qay
-7/Nbal/v4/eZZaWs8wl2VtrHTS96/IF6q2o0qMey0dq2AxnZbQIULiEndgR625EF
-RFg+IbO4ldSkB3trsF2ypYLij4ZObm2casLIP7iB8NKmQ5PndL8Y07TtiQ+Sb/wn
-g4GgV+BJoKdDWLPCAlCMilwbZ88Ijb+HF/aipc9hsqvW/hnXC2GajJSAY3Qs9Mib
-4Hm91jzbAjmp7243pQ4bJMfYHemFFBRaoLC7ayqQjcsttN2ufINlqLFPZPR/i3IX
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
-
---------------4Q4sVHUfGM1suk8NTO0UN9cB--
-
---------------gl8sQ4R0va4tfmtD2baX32Ek--
-
---------------gLgkIRd1a9czmCD5XBFjNM0S
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmXKOMMFAwAAAAAACgkQsN6d1ii/Ey9n
-Sgf+NJ2PWK5T2ouqRnkoHicpulBdtJr+OvcxkqfQlW/OXRHmjq4yhnDByxnSvV7z+BaB/KrgD8jJ
-grkzED+/oTrEWRpPmJek8hc4co/lWwssV9lEnOodqhIhc1YOXFC5rsHn2SgrjBFozsj3QyHqpHX3
-uDhvqMsMbtGIIPTRUR3cNL5AOj5kmkb3Ll2ZZvaK4rqUU3Ov/lVHczmK1gTHJPmCmBy//XQfyise
-tQXQbgQ19Je8rfqQyXswIJLbUAreMBi+xZlOAHoB/cOJQ5u60bUCnIq6HZv7tu0B/GjZ7bdC5Wp+
-m9fqvukRujv/A9Z8PH6TnNMhkBGuGEj5awP03/Z6gw==
-=ITPR
------END PGP SIGNATURE-----
-
---------------gLgkIRd1a9czmCD5XBFjNM0S--
+Thanks, Roger.
 
