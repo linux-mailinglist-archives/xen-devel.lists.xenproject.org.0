@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 167FC851DCF
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 20:19:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679702.1057316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3E5F851E7F
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 21:13:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679707.1057327 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZbpd-0004lT-T2; Mon, 12 Feb 2024 19:19:09 +0000
+	id 1rZcfa-0003io-VW; Mon, 12 Feb 2024 20:12:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679702.1057316; Mon, 12 Feb 2024 19:19:09 +0000
+Received: by outflank-mailman (output) from mailman id 679707.1057327; Mon, 12 Feb 2024 20:12:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZbpd-0004jV-Py; Mon, 12 Feb 2024 19:19:09 +0000
-Received: by outflank-mailman (input) for mailman id 679702;
- Mon, 12 Feb 2024 19:19:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=G6LY=JV=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1rZbpc-0004j6-Eh
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 19:19:08 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9684ec17-c9db-11ee-8a4c-1f161083a0e0;
- Mon, 12 Feb 2024 20:19:06 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 9CC4ACE13B7;
- Mon, 12 Feb 2024 19:19:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95ECEC433F1;
- Mon, 12 Feb 2024 19:18:59 +0000 (UTC)
+	id 1rZcfa-0003hI-RB; Mon, 12 Feb 2024 20:12:50 +0000
+Received: by outflank-mailman (input) for mailman id 679707;
+ Mon, 12 Feb 2024 20:12:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rZcfZ-0003h8-4a; Mon, 12 Feb 2024 20:12:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rZcfY-0004q1-Lq; Mon, 12 Feb 2024 20:12:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1rZcfY-0000ds-45; Mon, 12 Feb 2024 20:12:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1rZcfY-00089S-3d; Mon, 12 Feb 2024 20:12:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,195 +42,367 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9684ec17-c9db-11ee-8a4c-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707765539;
-	bh=KtY+2vwykgYx0ZhCuIUifzWpXvaxOyQLOoq8eVe0/yU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=jwRehpBB1mbek9OHSZcQG4LLIahO11fkowPwY+RDEnhfuRZO2S52shbq7/dcY+qfE
-	 iEYB8aVjIU3buYbYfh9x6CFS1/B6CnDOvzAv9g3Jn96LPZl9XjXRj3ZlnLmvhiC1jb
-	 j7E5z5nUMRSMYvlK8qNk2Js+O3eopRzA9Uux1dLjoVTcAYhb541gdyXAHlbb1u+4E0
-	 02afHZ6L5zYFBoNbCq9Hf2fB4NBQzsa1nHeCculaTjKqbKwDppZ7P0VG8PXOrOHt3r
-	 xcq2+FbZ0RSijcp6poSdUYCOPMyZiyUoLrxj0tejWKyGB9ClrtU0x41aXcP01RaS4o
-	 8SuuSZ9KNU8+g==
-Date: Mon, 12 Feb 2024 13:18:58 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
-	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
-	"Huang, Ray" <Ray.Huang@amd.com>,
-	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>
-Subject: Re: [RFC KERNEL PATCH v4 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
-Message-ID: <20240212191858.GA1137351@bhelgaas>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=PuK0zCfYeoiY9NWzlfS6LlNDtM8l6NNHFieDZDJ0D6M=; b=On9OMk7M5EkRUW48mH2CWEGH0A
+	5h/TQvySxbRAqqou7K3AdLJA+J6eKDoYg1W9+/gFKzpFHfrcZSeHv+Kqdlh0oecpnWUtlZMYLAydM
+	heiyI6GTxUjNaC9SBfpH9O1GbvoOHI/kQL18IGYU3tR6rGN+7xeIxWUvqGs3r/oUiLfA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-184651-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZcnhOEjnTgbYFPVl@macbook>
+MIME-Version: 1.0
+Subject: [xen-unstable test] 184651: regressions - trouble: broken/fail/pass
+X-Osstest-Failures:
+    xen-unstable:test-xtf-amd64-amd64-3:<job status>:broken:regression
+    xen-unstable:test-xtf-amd64-amd64-3:host-install(5):broken:regression
+    xen-unstable:test-amd64-coresched-i386-xl:guest-localmigrate/x10:fail:regression
+    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=772380f7547bac7e4c10c9ceff87af3f54151ae5
+X-Osstest-Versions-That:
+    xen=4e5bd87d24ac2b08f33c6a9c0d530daef99ed369
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 12 Feb 2024 20:12:48 +0000
 
-On Mon, Feb 12, 2024 at 10:13:28AM +0100, Roger Pau Monné wrote:
-> On Fri, Feb 09, 2024 at 03:05:49PM -0600, Bjorn Helgaas wrote:
-> > On Thu, Feb 01, 2024 at 09:39:49AM +0100, Roger Pau Monné wrote:
-> > > On Wed, Jan 31, 2024 at 01:00:14PM -0600, Bjorn Helgaas wrote:
-> > > > On Wed, Jan 31, 2024 at 09:58:19AM +0100, Roger Pau Monné wrote:
-> > > > > On Tue, Jan 30, 2024 at 02:44:03PM -0600, Bjorn Helgaas wrote:
-> > > > > > On Tue, Jan 30, 2024 at 10:07:36AM +0100, Roger Pau Monné wrote:
-> > > > > > > On Mon, Jan 29, 2024 at 04:01:13PM -0600, Bjorn Helgaas wrote:
-> > > > > > > > On Thu, Jan 25, 2024 at 07:17:24AM +0000, Chen, Jiqian wrote:
-> > > > > > > > > On 2024/1/24 00:02, Bjorn Helgaas wrote:
-> > > > > > > > > > On Tue, Jan 23, 2024 at 10:13:52AM +0000, Chen, Jiqian wrote:
-> > > > > > > > > >> On 2024/1/23 07:37, Bjorn Helgaas wrote:
-> > > > > > > > > >>> On Fri, Jan 05, 2024 at 02:22:17PM +0800, Jiqian Chen wrote:
-> > > > > > > > > >>>> There is a need for some scenarios to use gsi sysfs.
-> > > > > > > > > >>>> For example, when xen passthrough a device to dumU, it will
-> > > > > > > > > >>>> use gsi to map pirq, but currently userspace can't get gsi
-> > > > > > > > > >>>> number.
-> > > > > > > > > >>>> So, add gsi sysfs for that and for other potential scenarios.
-> > > > > > > > > >> ...
-> > > > > > > > > > 
-> > > > > > > > > >>> I don't know enough about Xen to know why it needs the GSI in
-> > > > > > > > > >>> userspace.  Is this passthrough brand new functionality that can't be
-> > > > > > > > > >>> done today because we don't expose the GSI yet?
-> > > > > > > > 
-> > > > > > > > I assume this must be new functionality, i.e., this kind of
-> > > > > > > > passthrough does not work today, right?
-> > > > > > > > 
-> > > > > > > > > >> has ACPI support and is responsible for detecting and controlling
-> > > > > > > > > >> the hardware, also it performs privileged operations such as the
-> > > > > > > > > >> creation of normal (unprivileged) domains DomUs. When we give to a
-> > > > > > > > > >> DomU direct access to a device, we need also to route the physical
-> > > > > > > > > >> interrupts to the DomU. In order to do so Xen needs to setup and map
-> > > > > > > > > >> the interrupts appropriately.
-> > > > > > > > > > 
-> > > > > > > > > > What kernel interfaces are used for this setup and mapping?
-> > > > > > > > >
-> > > > > > > > > For passthrough devices, the setup and mapping of routing physical
-> > > > > > > > > interrupts to DomU are done on Xen hypervisor side, hypervisor only
-> > > > > > > > > need userspace to provide the GSI info, see Xen code:
-> > > > > > > > > xc_physdev_map_pirq require GSI and then will call hypercall to pass
-> > > > > > > > > GSI into hypervisor and then hypervisor will do the mapping and
-> > > > > > > > > routing, kernel doesn't do the setup and mapping.
-> > > > > > > > 
-> > > > > > > > So we have to expose the GSI to userspace not because userspace itself
-> > > > > > > > uses it, but so userspace can turn around and pass it back into the
-> > > > > > > > kernel?
-> > > > > > > 
-> > > > > > > No, the point is to pass it back to Xen, which doesn't know the
-> > > > > > > mapping between GSIs and PCI devices because it can't execute the ACPI
-> > > > > > > AML resource methods that provide such information.
-> > > > > > > 
-> > > > > > > The (Linux) kernel is just a proxy that forwards the hypercalls from
-> > > > > > > user-space tools into Xen.
-> > > > > > 
-> > > > > > But I guess Xen knows how to interpret a GSI even though it doesn't
-> > > > > > have access to AML?
-> > > > > 
-> > > > > On x86 Xen does know how to map a GSI into an IO-APIC pin, in order
-> > > > > configure the RTE as requested.
-> > > > 
-> > > > IIUC, mapping a GSI to an IO-APIC pin requires information from the
-> > > > MADT.  So I guess Xen does use the static ACPI tables, but not the AML
-> > > > _PRT methods that would connect a GSI with a PCI device?
-> > > 
-> > > Yes, Xen can parse the static tables, and knows the base GSI of
-> > > IO-APICs from the MADT.
-> > > 
-> > > > I guess this means Xen would not be able to deal with _MAT methods,
-> > > > which also contains MADT entries?  I don't know the implications of
-> > > > this -- maybe it means Xen might not be able to use with hot-added
-> > > > devices?
-> > > 
-> > > It's my understanding _MAT will only be present on some very specific
-> > > devices (IO-APIC or CPU objects).  Xen doesn't support hotplug of
-> > > IO-APICs, but hotplug of CPUs should in principle be supported with
-> > > cooperation from the control domain OS (albeit it's not something that
-> > > we tests on our CI).  I don't expect however that a CPU object _MAT
-> > > method will return IO APIC entries.
-> > > 
-> > > > The tables (including DSDT and SSDTS that contain the AML) are exposed
-> > > > to userspace via /sys/firmware/acpi/tables/, but of course that
-> > > > doesn't mean Xen knows how to interpret the AML, and even if it did,
-> > > > Xen probably wouldn't be able to *evaluate* it since that could
-> > > > conflict with the host kernel's use of AML.
-> > > 
-> > > Indeed, there can only be a single OSPM, and that's the dom0 OS (Linux
-> > > in our context).
-> > > 
-> > > Getting back to our context though, what would be a suitable place for
-> > > exposing the GSI assigned to each device?
-> > 
-> > IIUC, the Xen hypervisor:
-> > 
-> >   - Interprets /sys/firmware/acpi/tables/APIC (or gets this via
-> >     something running on the Dom0 kernel) to find the physical base
-> >     address and GSI base, e.g., from I/O APIC, I/O SAPIC.
-> 
-> No, Xen parses the MADT directly from memory, before stating dom0.
-> That's a static table so it's fine for Xen to parse it and obtain the
-> I/O APIC GSI base.
+flight 184651 xen-unstable real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/184651/
 
-It's an interesting split to consume ACPI static tables directly but
-put the AML interpreter elsewhere.  I doubt the ACPI spec envisioned
-that, which makes me wonder what other things we could trip over, but
-that's just a tangent.
+Regressions :-(
 
-> >   - Needs the GSI to locate the APIC and pin within the APIC.  The
-> >     Dom0 kernel is the OSPM, so only it can evaluate the AML _PRT to
-> >     learn the PCI device -> GSI mapping.
-> 
-> Yes, Xen doesn't know the PCI device -> GSI mapping.  Dom0 needs to
-> parse the ACPI methods and signal Xen to configure a GSI with a
-> given trigger and polarity.
-> 
-> >   - Has direct access to the APIC physical base address to program the
-> >     Redirection Table.
-> 
-> Yes, the hardware (native) I/O APIC is owned by Xen, and not directly
-> accessible by dom0.
-> 
-> > The patch seems a little messy to me because the PCI core has to keep
-> > track of the GSI even though it doesn't need it itself.  And the
-> > current patch exposes it on all arches, even non-ACPI ones or when
-> > ACPI is disabled (easily fixable).
-> > 
-> > We only call acpi_pci_irq_enable() in the pci_enable_device() path, so
-> > we don't know the GSI unless a Dom0 driver has claimed the device and
-> > called pci_enable_device() for it, which seems like it might not be
-> > desirable.
-> 
-> I think that's always the case, as on dom0 devices to be passed
-> through are handled by pciback which does enable them.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-xtf-amd64-amd64-3          <job status>                 broken
+ test-xtf-amd64-amd64-3        5 host-install(5)        broken REGR. vs. 184648
+ test-amd64-coresched-i386-xl 20 guest-localmigrate/x10   fail REGR. vs. 184648
 
-pcistub_init_device() labels the pci_enable_device() as a "HACK"
-related to determining the IRQ, which makes me think there's not
-really a requirement for the device to be *enabled* (BAR decoding
-enabled) by dom0.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 184648
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 184648
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 184648
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 184648
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 184648
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 184648
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 184648
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 184648
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 184648
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 184648
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 184648
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 184648
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-> I agree it might be best to not tie exposing the node to
-> pci_enable_device() having been called.  Is _PRT only evaluated as
-> part of acpi_pci_irq_enable()? (or pci_enable_device()).
+version targeted for testing:
+ xen                  772380f7547bac7e4c10c9ceff87af3f54151ae5
+baseline version:
+ xen                  4e5bd87d24ac2b08f33c6a9c0d530daef99ed369
 
-Yes.  AFAICT, acpi_pci_irq_enable() is the only path that evaluates
-_PRT (except for a debugger interface).  I don't think it *needs* to
-be that way, and the fact that we do it per-device like that means we
-evaluate _PRT many times even though I think the results never change.
+Last test of basis   184648  2024-02-12 01:53:55 Z    0 days
+Testing same since   184651  2024-02-12 11:39:03 Z    0 days    1 attempts
 
-I could imagine evaluating _PRT once as part of enumerating a PCI host
-bridge (and maybe PCI-PCI bridge, per acpi_pci_irq_find_prt_entry()
-comment), but that looks like a fair bit of work to implement.  And of
-course it doesn't really affect the question of how to expose the
-result, although it does suggest /sys/bus/acpi/devices/PNP0A03:00/ as
-a possible location.
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Petr Beneš <w1benny@gmail.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Simone Ballarin <simone.ballarin@bugseng.com>
 
-Bjorn
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       broken  
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job test-xtf-amd64-amd64-3 broken
+broken-step test-xtf-amd64-amd64-3 host-install(5)
+
+Not pushing.
+
+------------------------------------------------------------
+commit 772380f7547bac7e4c10c9ceff87af3f54151ae5
+Author: Simone Ballarin <simone.ballarin@bugseng.com>
+Date:   Mon Feb 12 09:38:22 2024 +0100
+
+    eclair: remove wrongly added -eval_file
+    
+    properties.ecl does not exist and it is not
+    even generated by propertyparser.py. Loading
+    this file causes empty ECLAIR analysis.
+    
+    Fixes: f4519ee8 ("eclair: move function and macro properties outside ECLAIR")
+    Signed-off-by: Simone Ballarin <simone.ballarin@bugseng.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 897def94b56175ce569673a05909d2f223e1e749
+Author: Petr Beneš <w1benny@gmail.com>
+Date:   Mon Feb 12 09:37:58 2024 +0100
+
+    x86/hvm: Fix fast singlestep state persistence
+    
+    This patch addresses an issue where the fast singlestep setting would persist
+    despite xc_domain_debug_control being called with XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_OFF.
+    Specifically, if fast singlestep was enabled in a VMI session and that session
+    stopped before the MTF trap occurred, the fast singlestep setting remained
+    active even though MTF itself was disabled.  This led to a situation where, upon
+    starting a new VMI session, the first event to trigger an EPT violation would
+    cause the corresponding EPT event callback to be skipped due to the lingering
+    fast singlestep setting.
+    
+    The fix ensures that the fast singlestep setting is properly reset when
+    disabling single step debugging operations.
+    
+    Signed-off-by: Petr Beneš <w1benny@gmail.com>
+    Reviewed-by: Tamas K Lengyel <tamas@tklengyel.com>
+
+commit a773adedbd913966e812bddcd6b223c2e4ce3061
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Mon Feb 12 09:37:18 2024 +0100
+
+    x86/PV32: restore PAE-extended-CR3 logic
+    
+    While the PAE-extended-CR3 VM assist is a 32-bit only concept, it still
+    applies to guests also when run on a 64-bit hypervisor: The "extended
+    CR3" format has to be used there as well, to fit the address in the only
+    32-bit wide register there. As a result it was a mistake that the check
+    was never enabled for that case, and was then mistakenly deleted in the
+    course of removal of 32-bit-Xen code (218adf199e68 ["x86: We can assume
+    CONFIG_PAGING_LEVELS==4"]).
+    
+    Similarly during Dom0 construction kernel awareness needs to be taken
+    into account, and respective code was again mistakenly never enabled for
+    32-bit Dom0 when running on 64-bit Xen (and thus wrongly deleted by
+    5d1181a5ea5e ["xen: Remove x86_32 build target"]).
+    
+    At the same time restrict enabling of the assist for Dom0 to just the
+    32-bit case. Furthermore there's no need for an atomic update there.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+(qemu changes not included)
 
