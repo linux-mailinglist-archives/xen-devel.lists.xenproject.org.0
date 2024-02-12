@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65931850EAC
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 09:13:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679310.1056723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA9D4850EC8
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 09:21:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679313.1056732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZRR4-0002Zr-QD; Mon, 12 Feb 2024 08:13:06 +0000
+	id 1rZRYm-0004gx-ID; Mon, 12 Feb 2024 08:21:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679310.1056723; Mon, 12 Feb 2024 08:13:06 +0000
+Received: by outflank-mailman (output) from mailman id 679313.1056732; Mon, 12 Feb 2024 08:21:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZRR4-0002Y8-NO; Mon, 12 Feb 2024 08:13:06 +0000
-Received: by outflank-mailman (input) for mailman id 679310;
- Mon, 12 Feb 2024 08:13:05 +0000
+	id 1rZRYm-0004ei-FL; Mon, 12 Feb 2024 08:21:04 +0000
+Received: by outflank-mailman (input) for mailman id 679313;
+ Mon, 12 Feb 2024 08:21:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tvA+=JV=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1rZRR3-0002Y2-Pb
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 08:13:05 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20601.outbound.protection.outlook.com
- [2a01:111:f403:2408::601])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=6iVD=JV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rZRYk-0004ec-Qy
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 08:21:02 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8a6c7cee-c97e-11ee-98f5-efadbce2ee36;
- Mon, 12 Feb 2024 09:13:03 +0100 (CET)
-Received: from CY5PR16CA0013.namprd16.prod.outlook.com (2603:10b6:930:10::32)
- by PH0PR12MB8176.namprd12.prod.outlook.com (2603:10b6:510:290::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.24; Mon, 12 Feb
- 2024 08:12:57 +0000
-Received: from CY4PEPF0000E9D5.namprd05.prod.outlook.com
- (2603:10b6:930:10:cafe::52) by CY5PR16CA0013.outlook.office365.com
- (2603:10b6:930:10::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7270.35 via Frontend
- Transport; Mon, 12 Feb 2024 08:12:57 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CY4PEPF0000E9D5.mail.protection.outlook.com (10.167.241.76) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.7249.19 via Frontend Transport; Mon, 12 Feb 2024 08:12:57 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Mon, 12 Feb
- 2024 02:12:55 -0600
-Received: from [10.252.147.188] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
- Transport; Mon, 12 Feb 2024 02:12:54 -0600
+ id a70aba47-c97f-11ee-98f5-efadbce2ee36;
+ Mon, 12 Feb 2024 09:21:00 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-33aeb088324so1892254f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 00:20:59 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ch8-20020a5d5d08000000b0033b75b39aebsm4590733wrb.11.2024.02.12.00.20.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 12 Feb 2024 00:20:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,83 +45,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a6c7cee-c97e-11ee-98f5-efadbce2ee36
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oYm53e209R3JrgrW1CTzsKrKZP1yEenUZjedMzKG6wYacBUPyWqwHEIMgB7AunkPa8nBt10T7VhGj9thQlGcw5ZtXkyrwbJJhkM3yHllNfS27B6W/VqzWEWfhsFrtTxLe/v1MRQoPlnemvEgA0MQ0r6/rpB6oWomQKeSEq3iZLKY1M+V7yfXWifZVu0ztiuF2w3tD/A9PTqUKNIzo0csOYy2p2oZY/cZ/WCLqgxIgu5v6VluQFBr3TL1fyzG8PZ+2s/SvKpbcQP4zKvR/RjHwQTy0PCayEuuvPtWZG38Yz8axTrb5+R2QTifmlUA5qVYxA8HyOOsh5KyYfstKtFbew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2BCuVF2LjiJkAqCSItuhKHrn8l6x2R3Y3ZiE8ZP9DFY=;
- b=NKszdVUFHyyYOIz9LxtboZ6fvA+7rwWCn/VxGkDokGF/VYiKkWmVr/qD8HMs4Feed7u+tPnnsPLWzmSjGX5oOyRb3k9T7ECHGj2hzHAPkjbkRJ9NK+nuZN95lmrQzrcOp1kLSNCeXekOuz9rizEGQOCajeVsTdrf5AbeuEzChuF2l5owx9GJLSEIFtSffGZDJQbTXxfPG7+AhDLHHbiAdIo8iUeYw8nwd90FqKbjnS8QTmI96dxGpsBAJmV5esLOSHT0JxGxhCUVus20py7PVStmVR5D7+TAyAmnuvjWMcMe/YODIEqfvn8ais9C8Bj43nFHbAlwNg60+8LMl7C+2g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2BCuVF2LjiJkAqCSItuhKHrn8l6x2R3Y3ZiE8ZP9DFY=;
- b=RPXMFCOCZ3fUvD+3EmLcclcXUFgjJqPhdr7l+qtCD2MrLkWNMa/BSDaHVgXtVDY4jH8/EIt38LwRQBhJgTIj91ez/wKP2ODtzpUsgGmGsQ+LyGC2Y2dmVrr3KIsIejFOgaICSasoBuyHKrknJJ43tqqeUWJPGQ4f6GQlI9EFG60=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <c516259d-46f1-4bef-b4d0-4cfe18a3cb8a@amd.com>
-Date: Mon, 12 Feb 2024 09:12:53 +0100
+X-Inumbo-ID: a70aba47-c97f-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1707726059; x=1708330859; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QxAED0Upw3UUaTw/PsXjs9hNGEU9EnOi2nrcGLgAIxM=;
+        b=A2W/Ayp0d8nJl3EOjg1Wdd9B2V5omEcVHTSYRKQ5LO8fwkC5h3AK/ePd2jcl6QG6uw
+         ASGyDRpZjaCYmnzBhV0/qXMzl8JO6FR8VcjstPqpZuDGOlLBiaQPYSL/YqmsNcbsfv5F
+         frpbUIzg7MUBW7p+oheXrYzIMn+J/Oq4SEQltdbp2HLRd9bC5CiHfWTnYb+iVsB6KnYq
+         mkia4UC7GOqlYnqu3NYN8qLdYgmQiOa0y/Cd9YojKGydZTxKqaqTnrgwWb/fIB1ikWHo
+         YceYoMhA/yrn4sZcVs+QYmgtAptqKgy9OoP0MQLBgzru6tipIC8Y02+TDyoT3LWo8UyH
+         u01w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707726059; x=1708330859;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=QxAED0Upw3UUaTw/PsXjs9hNGEU9EnOi2nrcGLgAIxM=;
+        b=cfKVZX/je9TQKNFJLQwxVmug88bgVS84yWGDBZQLFnxn8Lk9nYh7/gtBn/CYIPj51J
+         XaN6Cp94WZW1fATbwP3rSnLcDEu9DkidRQq+h34TXesYjH83ZmuzhkqE8t2l20GGHKbu
+         Ya7v+fp/7LRj5AsggAvwA4QA/uCYGFUUnX5FK33HC4gCAlOcNp3eWeYkqf9L5DcsmRX+
+         mZaFBkfUpk1JqgNlsjybov6cUmEyv9bAEL4V0skpzTakLbPwXoI/KrtFmmyRyrFl7VKf
+         tEGfjAlO5Iom9V58qGWfXg9bQydA+776Z3N0EdUHB0MBPAlDBjWYzOAFXPk1R0eKZ1I9
+         RFpQ==
+X-Gm-Message-State: AOJu0YwjtSJHZOyz/UR5Dv8kDWx/TwY2/b4i1KjHDxtdD+rqqSM3Q+hB
+	PPPdFxG7sV+CQLOrQAfh2NFkxOl2BmT2cU35F+Un7dqtHUfRHa8u9/y5xTjDNw==
+X-Google-Smtp-Source: AGHT+IGx2zqaW6JEG3NSgsQFKqNrjcogYI42tO8A6DBU4NB0ynUvwdNIrwbIB8JjMeTrlCv1lxLjxQ==
+X-Received: by 2002:adf:e6cf:0:b0:33b:6d59:61cd with SMTP id y15-20020adfe6cf000000b0033b6d5961cdmr436163wrm.11.1707726059066;
+        Mon, 12 Feb 2024 00:20:59 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCW0SN4jQE371CBe6vPPZpj768cGL5NO3XajAMUN7PKjOREoPX4nZ75xhifvAosgrZEWz3blgFwb1KUgTHw2dWwzQujdPxmwW+hKEBvWaEknqrJn1dQnVz6ttkUotV72KDV9sV2+4iijJaAG95cdnNC5OK1o6XhWGAD2D6OAhwxK2JKP+fHgsku7/fNA28+ZqeefRbFZgJ8VEH9PxXDmau8xpClwiJHOHb5YDJV9q8nSblwVedZz12Uj03fKIe40BPrD/xj92uP7zNhDjofW8bjB20jQ4BmwUtVzaLjw/ILUNKJllWk=
+Message-ID: <9504e77d-6f52-489c-a91a-f4d1a6ce9a33@suse.com>
+Date: Mon, 12 Feb 2024 09:20:59 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/7] automation: ensure values in
- EXTRA_FIXED_RANDCONFIG are separated by new line
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-References: <cover.1707499278.git.oleksii.kurochko@gmail.com>
- <8b6f208f0b4327392cfddbfa6809117cc7686750.1707499278.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v1] docs/misra/rules.rst: catch up with accepted rules
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <8b6f208f0b4327392cfddbfa6809117cc7686750.1707499278.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
+ bertrand.marquis@arm.com, roger.pau@citrix.com, roberto.bagnara@bugseng.com,
+ federico.serafini@bugseng.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2402091653110.1925432@ubuntu-linux-20-04-desktop>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <alpine.DEB.2.22.394.2402091653110.1925432@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D5:EE_|PH0PR12MB8176:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4eb8e14-8a30-4254-86a1-08dc2ba26bdf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	1DGtTL6MzxyVMhp9WpbPsVBO3lMxrB2ntAqCsMijAmr1ChWd6bBnXkBN6Ngul6DjLvpteBO4wvw6EDTRILRmh5wcF8u85UN2Rzc4k7w/NqhA8A9T8hoOpsC1bv9xiJjhbn7nwQ52caZp5t9WDr8Go4U0zsnqkbOQbGifXv10u17xVd4gGUC5+HEXc0q/cUdEcuR4k7tc/FN6vgTOH1S6Xv7gclprItibTu1r2z/P0Kn/wt4N1zo6HulwyCtZA9vLfZTUWVs9BSpFa0mseePQ9iUrBTMsUwIey0Z5aphwDYMCqHckni8J4uct4j6I7f+3HW4wzQAeTi6V+bcSSsBY8aaNiS7Sy1+wlZnl6u+aWlVS4q1+/lprLKRuH1OPl5osoNrCDJKdWazN2mkBhMMTVslxzqgqi8pb5Ivz8KZI4DQ41AUC5cT6JFmkuIbqB4cMsltv0nEQf/nKkmvMvVfkARFF7ge1VxIXUcSn5+njazzTvh1qD2lbgNww+/cr3MKXqBcxysFOFCsuxa/jcVsHxgcjrHwtMr/Nfkc64glpCL9I4gE5ZEYMOr/Jhb/UR9D1X+AzoGLFWcLRpyJEKQb5rK+b463HZa4SfhwAEp4xAOw=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(136003)(376002)(396003)(346002)(39860400002)(230922051799003)(186009)(82310400011)(1800799012)(64100799003)(451199024)(40470700004)(46966006)(36840700001)(81166007)(31686004)(82740400003)(356005)(41300700001)(86362001)(31696002)(4744005)(426003)(5660300002)(336012)(44832011)(8676002)(8936002)(70586007)(70206006)(4326008)(110136005)(54906003)(16576012)(316002)(2616005)(26005)(36756003)(478600001)(2906002)(53546011);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2024 08:12:57.3337
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4eb8e14-8a30-4254-86a1-08dc2ba26bdf
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000E9D5.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8176
 
-Hi Oleksii,
+On 10.02.2024 02:00, Stefano Stabellini wrote:
+> Update docs/misra/rules.rst to reflect the MISRA C rules accepted in the
+> last couple of months.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+> 
+> In the notes section I added some info about the deviations, but in any
+> case the appropriate info will also be added to deviations.rst,
+> safe.json, etc.
+> 
+> I also added Rule 14.4, which is older, but when I first tried to add it
+> to rules.rst, Jan had a question I couldn't reply clearly:
+> https://marc.info/?l=xen-devel&m=169828285627163
+> 
+> I think now with this series, the impact of Rule 14.4 is clearer:
+> https://marc.info/?l=xen-devel&m=170194257326186
 
-On 09/02/2024 19:00, Oleksii Kurochko wrote:
-> 
-> 
-> Kconfig tool expects each configuration to be on a new line.
-> 
-> The current version of the build script puts all of ${EXTRA_FIXED_RANDCONFIG}
-> in a single line and configs are seperated by spaces.
-> 
-> As a result, only the first configuration in ${EXTRA_FIXED_RANDCONFIG} will
-> be used.
-There is no need for this patch. If you want the variables to be separated by new lines,
-just use a '|' symbol after EXTRA_FIXED_RANDCONFIG (see all definitions of EXTRA_XEN_CONFIG).
+This series is about enums only afaics. Yet the rule is much wider, and iirc
+we had agreed that for integer and pointer types the normal language
+conversion to boolean meaning is fine as well. Not only do you not mention
+this case in the entry, but it also continue to mean that effectively we
+limit the rule to a very narrow case. Which continue to leave open the
+question of whether the rule is worthwhile to accept in the first place.
 
-~Michal
-
+Jan
 
