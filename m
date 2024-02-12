@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44F338510D6
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 11:29:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679517.1056957 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A31C85110D
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 11:37:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679521.1056967 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZTYK-0000JW-FR; Mon, 12 Feb 2024 10:28:44 +0000
+	id 1rZTgU-0002sw-6M; Mon, 12 Feb 2024 10:37:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679517.1056957; Mon, 12 Feb 2024 10:28:44 +0000
+Received: by outflank-mailman (output) from mailman id 679521.1056967; Mon, 12 Feb 2024 10:37:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZTYK-0000Gk-CG; Mon, 12 Feb 2024 10:28:44 +0000
-Received: by outflank-mailman (input) for mailman id 679517;
- Mon, 12 Feb 2024 10:28:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rZTgU-0002qD-3N; Mon, 12 Feb 2024 10:37:10 +0000
+Received: by outflank-mailman (input) for mailman id 679521;
+ Mon, 12 Feb 2024 10:37:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=9jSY=JV=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rZTYI-0000Ge-U9
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 10:28:42 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d629936-c991-11ee-98f5-efadbce2ee36;
- Mon, 12 Feb 2024 11:28:40 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2d09b21a8bbso34190071fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 02:28:40 -0800 (PST)
+ id 1rZTgS-0002q7-OZ
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 10:37:08 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ab92ffc3-c992-11ee-8a4c-1f161083a0e0;
+ Mon, 12 Feb 2024 11:37:07 +0100 (CET)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-5116b017503so4096668e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 02:37:07 -0800 (PST)
 Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- a22-20020aa7d756000000b0056140d51b7asm2613355eds.83.2024.02.12.02.28.39
+ r4-20020a05600c298400b0040fdc7f4fcdsm8240866wmd.4.2024.02.12.02.37.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Feb 2024 02:28:39 -0800 (PST)
+ Mon, 12 Feb 2024 02:37:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,82 +45,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d629936-c991-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: ab92ffc3-c992-11ee-8a4c-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707733720; x=1708338520; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707734227; x=1708339027; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=jUUI3GfqaHKmy5SV4Q2DqQy4jjrcpq08WVUneH3czzI=;
-        b=g0G3GSbFzZNoeHS4JZEqe0ndmDg/hoUr+i74C9sTIMDGCKwSYMaIEULLCgefMVMo6x
-         f4zUHKptaWXDzLumbzf8TrgH4qShjdmT20eVCbClfzggFEc3fZLRJ18RnyuhCttfpofm
-         dmzQedmF6l/o3Co110/O13uPHLMHnBYhjzLeQ=
+        bh=ZNeG2pIJ4FHUiCpE/SuqfX3/MiVauHYmdF0xmWZokYQ=;
+        b=nSY7v9ixmTo2v+22hzbOmAbVRVDs29TUND+uYKEUBACTj/ur5FL6ITxq4lDOjdoI0T
+         y8J4UfisWjO0NQke52RUVsBHI7dEk0iD7gvfuTVrxzT8pEZUZisCRAbITUkX7A2w63sX
+         nAXr7KvXNasM+fpBNf21A+bJI9Vf8sDiMbTkM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707733720; x=1708338520;
+        d=1e100.net; s=20230601; t=1707734227; x=1708339027;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jUUI3GfqaHKmy5SV4Q2DqQy4jjrcpq08WVUneH3czzI=;
-        b=LClOmOo64DonfvxTWbPXYrTQyh7VFASpR1HdMZn4c3tsDS/CWKWMX/9P1l0yUeCeXs
-         kz2+5fneexN/aj2DyeR0g47Flgy6sY+UsEqpR9HVdmnke/tZEoC287AUoSOec3FLnkdU
-         34G4El4VgCdVq8voxVYprnR08hvOU9GbFZBeM+r/Wgj0in8eX7wMOiW8pyaOPevj0cLP
-         jKAU9VMXG/aBewr9Rbinc2LD9qc54Pa6Q9XMH62RgKK0CirmZN8nzMhIhSpLrO7mJhI7
-         5zY6g/Vv6aIETXSHGuv8zCGav4PL44T/71S/CcqMXy/OCZvQ489b/HXe4wjBS5+tBlKG
-         nWlg==
-X-Gm-Message-State: AOJu0Yypysln8UbGZqwH7TEd4lt5YNmW1t8zD7INF/nyY2WOX56+DQFo
-	AikvKAxZtSi+cIpNiPrVRtKiqMXskoIbNqwYYd0Wne2ckvngkvjx8FmWH+G1eXk=
-X-Google-Smtp-Source: AGHT+IFpRB2TBiEfByAU22ZXMlRhKnmIAe28zTZbsTzbv+YFU43V3QvCc36UDjwfHqMF7B03L5CsVw==
-X-Received: by 2002:a2e:960b:0:b0:2d0:a8f6:c882 with SMTP id v11-20020a2e960b000000b002d0a8f6c882mr4234067ljh.42.1707733720146;
-        Mon, 12 Feb 2024 02:28:40 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXM1r3UoT4T13pdtBMst4pWYpM/jLdTKkhnmNmIM0GB72q18iqC1mnVzTMUW8E9jGrrBf/tHg5kq2PonCkiQZJ/uGwyax0QZj6xGzo=
-Date: Mon, 12 Feb 2024 10:28:39 +0000
+        bh=ZNeG2pIJ4FHUiCpE/SuqfX3/MiVauHYmdF0xmWZokYQ=;
+        b=HyxW+Dt627KHyAX7hexHRDwY3fYjEYt2SOLkSQZpZ/Yp2FsYSWWbtn/HFENXFEk41C
+         keL7iVrCgS0C3NBLyPYa2xML9i5/oJuYSTR+KtQdx/4i+aHe75iOYEeSWyO27zlhW95X
+         OfKmV/uQHPcWE3bjT8B6tcyg0yDi/QCNmyJiAm5cZH4vpwGMrHCmfQCtAz1Wi6kAmAHy
+         KP0OEQvtS21cOSACOFGAAON2y4Q2u8Xi2+Gdh+9AU060jk7sh/jQEJoXNbOO7aSbXYLH
+         ZJOxdseJ+5JYP7Sz6laV3/Smo0PmLfxQM6+X0uBDDMZrvE3GE/qXZOonWN1SalVhtT6n
+         JhwQ==
+X-Gm-Message-State: AOJu0Yz13zZRby1iUbZ8A8v2zVgoloClWotdVvCgX9/Pc3ceECib4dWJ
+	h3+Q6QBfsWId08VKP2dzfgiM041wFaKGzINhZiI0SdC9GqMltec4C0Vf5XLzab4=
+X-Google-Smtp-Source: AGHT+IGuil5j5HYCfxQUEtAulBqlU+/v7x1mcVJhJ9zcIduYoikBTsc38dlhHQuvabsBpvFbx2XXyg==
+X-Received: by 2002:a05:6512:31d6:b0:511:51a2:e9c4 with SMTP id j22-20020a05651231d600b0051151a2e9c4mr5481039lfe.15.1707734227180;
+        Mon, 12 Feb 2024 02:37:07 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWrnCdYKWqscqZmyxTKeM2xjcGSBoicKRQgKOdfaJeO2PJ7Woj17Z7dVioF3V7DE1jC+ZQYdBzt0OKr
+Date: Mon, 12 Feb 2024 10:37:06 +0000
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 2/4] libxl: Add support for blktap vbd3
-Message-ID: <12968873-6fc7-4c76-9bf9-6beff73a714e@perard>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 3/4] hotplug: Update block-tap
+Message-ID: <ea8cc573-bcb1-4f6e-b1d1-0e2e22476515@perard>
 References: <20240201183024.145424-1-jandryuk@gmail.com>
- <20240201183024.145424-3-jandryuk@gmail.com>
+ <20240201183024.145424-4-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240201183024.145424-3-jandryuk@gmail.com>
+In-Reply-To: <20240201183024.145424-4-jandryuk@gmail.com>
 
-On Thu, Feb 01, 2024 at 01:30:22PM -0500, Jason Andryuk wrote:
-> This patch re-introduces blktap support to libxl.  Unlike earlier
-> versions, it does not link against any blktap library.  libxl changes
-> are needed to write to the vbd3 backend XenStore nodes.
+On Thu, Feb 01, 2024 at 01:30:23PM -0500, Jason Andryuk wrote:
+> Implement a sharing check like the regular block script.
 > 
-> blktap has three components.  tapdisk is a daemon implementing the disk
-> IO, NBD (Network Block Device), and Xen PV interfaces.  tap-ctl is a
-> tool to control tapdisks - creating, starting, stopping and freeing.
-> tapback manages the XenStore operations and instructs tapdisk to
-> connect.
+> Checking tapback inside block-tap is too late since it needs to be
+> running to transition the backend to InitWait before block-tap is run.
 > 
-> It is notable that tapdisk performs the grant and event channel ops, but
-> doesn't interact with XenStore.  tapback performs XenStore operations
-> and notifies tapdisks of values and changes.
+> tap-ctl check will be removed when the requirement for the blktap kernel
+> driver is removed.  Remove it now as it is of limited use.
 > 
-> The flow is: libxl writes to the "vbd3" XenStore nodes and runs the
-> block-tap script.  The block-tap script runs tap-ctl to create a tapdisk
-> instance as the physical device.  tapback then sees the tapdisk and
-> instructs the tapdisk to connect up the PV blkif interface.
+> find_device() needs to be non-fatal allow a sharing check.
 > 
-> This is expected to work without the kernel blktap driver, so the
-> block-tap script is modified accordingly to write the UNIX NBD path.
-> 
-> backendtype=tap was not fully removed previously, but it would never
-> succeed since it would hit the hardcoded error in disk_try_backend().
-> It is reused now.
-> 
-> An example command to attach a vhd:
-> xl block-attach vm 'vdev=xvdf,backendtype=tap,format=vhd,target=/srv/target.vhd'
-> 
-> Format raw also works to run an "aio:" tapdisk.
-> 
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> Only write physical-device-path because that is all that tapback needs.
+> Also write_dev doesn't handled files and would incorrectly store
+> physical-device as 0:0 which would confuse the minor inside tapback
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Missing SOB.
+
+
+Is `block-tap` still going to work with the example given in the script
+header? That is:
+    "script=block-tap,vdev=xvda,target=<type>:<file>"
+Or maybe, that example is already broken?
+
+> ---
+> diff --git a/tools/hotplug/Linux/block-tap b/tools/hotplug/Linux/block-tap
+> index 89247921b9..5eca09f0f6 100755
+> --- a/tools/hotplug/Linux/block-tap
+> +++ b/tools/hotplug/Linux/block-tap
+> +count_using()
+> +{
+> +  local file="$1"
+> +  local f
+> +
+> +  local i=0
+> +  local base_path="$XENBUS_BASE_PATH/$XENBUS_TYPE"
+> +  for dom in $(xenstore-list "$base_path")
+> +  do
+> +    for dev in $(xenstore-list "$base_path/$dom")
+
+This function is probably missing "local dom dev".
+
+> +    do
+> +      f=$(xenstore_read_default "$base_path/$dom/$dev/params" "")
+> +      f=$(echo "$f" | cut -d ":" -f 2)
+> +
+> +      if [ -n "$f" ] && [ "$file" = $f ] ; then
+> +          i=$(( i + 1 ))
+> +      fi
+> +    done
+> +  done
+> +
+> +  echo "$i"
+> +}
+> +
+
+> +check_tap_sharing()
+> +{
+> +  local file="$1"
+> +  local mode="$2"
+> +  local dev
+> +
+> +  local base_path="$XENBUS_BASE_PATH/$XENBUS_TYPE"
+> +  for dom in $(xenstore-list "$base_path") ; do
+
+Should we add "local dom" to the function?
+
+> +    for dev in $(xenstore-list "$base_path/$dom") ; do
+> +      f=$(xenstore_read_default "$base_path/$dom/$dev/params" "")
+
+Same here, maybe "local f" would be good to have too.
+
+> @@ -89,15 +183,57 @@ find_device()
+>  # the device
+>  add()
+>  {
+> -    dev=$(tap-ctl create -a $target)
+> -    write_dev $dev
+> +    local minor
+> +    local pid
+> +    local res
+> +
+> +    claim_lock "block"
+> +
+> +    if find_device; then
+> +        result=$( check_tap_sharing "$file" "$mode" )
+> +        if [ "$result" != "ok" ] ; then
+> +            do_ebusy "tap $type file $file in use " "$mode" "${result%% *}"
+> +        fi
+> +    else
+> +        tap_create
+
+The new function tap_create() is doing something similar to the replace
+`tap-ctl create` call, right?
+
+
+>  # Disconnects the device
+>  remove()
+>  {
+> -    find_device
+> -    do_or_die tap-ctl destroy -p ${pid} -m ${minor} > /dev/null
+> +    local minor
+> +    local pid
+> +
+> +    claim_lock "block"
+> +
+> +    if tap_shared ; then
+> +        return
+> +    fi
+> +
+> +    minor=$( xenstore_read "$XENBUS_PATH/minor" )
+> +    pid=$( xenstore_read "$XENBUS_PATH/pid" )
+> +
+> +    [ -n "$minor" ] || fatal "minor missing"
+> +    [ -n "$pid" ] || fatal "pid missing"
+> +    do_or_die tap-ctl close -p "$pid" -m "$minor" > /dev/null
+> +    do_or_die tap-ctl detach -p "$pid" -m "$minor" > /dev/null
+
+Should we also call `tap-ctl free`, like `tap-ctl destroy` seems to do?
+
+> +
+> +    release_lock "block"
+>  }
+>  
+>  command=$1
 
 Thanks,
 
