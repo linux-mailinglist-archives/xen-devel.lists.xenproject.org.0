@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 825538516E6
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 15:20:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679591.1057087 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24BFA8516FD
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 15:23:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679595.1057097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZX9v-0007Wb-8x; Mon, 12 Feb 2024 14:19:47 +0000
+	id 1rZXCu-0000WU-MQ; Mon, 12 Feb 2024 14:22:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679591.1057087; Mon, 12 Feb 2024 14:19:47 +0000
+Received: by outflank-mailman (output) from mailman id 679595.1057097; Mon, 12 Feb 2024 14:22:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZX9v-0007Ub-5J; Mon, 12 Feb 2024 14:19:47 +0000
-Received: by outflank-mailman (input) for mailman id 679591;
- Mon, 12 Feb 2024 14:19:45 +0000
+	id 1rZXCu-0000UO-JP; Mon, 12 Feb 2024 14:22:52 +0000
+Received: by outflank-mailman (input) for mailman id 679595;
+ Mon, 12 Feb 2024 14:22:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6iVD=JV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZX9t-0007UV-U2
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 14:19:45 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1rZXCs-0000UH-TP
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 14:22:50 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4d7957f-c9b1-11ee-8a4c-1f161083a0e0;
- Mon, 12 Feb 2024 15:19:44 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-33aeb088324so2118998f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 06:19:44 -0800 (PST)
+ id 33573286-c9b2-11ee-8a4c-1f161083a0e0;
+ Mon, 12 Feb 2024 15:22:50 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-411a595de0cso1582815e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 06:22:49 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ch16-20020a5d5d10000000b0033b58cbf3ebsm6953562wrb.26.2024.02.12.06.19.43
+ bs25-20020a056000071900b0033b45bdb2a1sm7039751wrb.4.2024.02.12.06.22.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 06:19:43 -0800 (PST)
+ Mon, 12 Feb 2024 06:22:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4d7957f-c9b1-11ee-8a4c-1f161083a0e0
+X-Inumbo-ID: 33573286-c9b2-11ee-8a4c-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707747584; x=1708352384; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707747769; x=1708352569; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=JulKx+SVt0hyNzIkagwD5rYYirJi6m5LCwZwtfnX1AQ=;
-        b=UXhindaLqirT+xi/Pnh2KSMbmo7+IUNo38H39SN4PdHwhTXiZsExUhv/7zG0q12Ha4
-         rQG/qhNo4vBCmJapcptVONz6S875I4dZWB/r1s9FOfdWtxWnwAEi9wjaRqC/jLbuE6Vz
-         7ovyxYtbXzsKEPUoO1KOOrYe6oD6j9I6o5UbhLPcPt2VefBrpBKNdW1iAP0TybRWMphn
-         oyMM7/ePhzCnN8DWXDKnBZF0F6g+TEYurVy3qMg1JWmPgdNyK8rWiPex1mECnN9+1wae
-         4xuibFXVasS+SPcK0ZlOHZONmFLXJuah4kq98x+m2SHe05EQkxZeHwouKYLqG8Ee4vnu
-         /7fA==
+        bh=jKP3l0e1bgYYbVAbkkRW0/BNXPryqSD8TvJ/QIxwWN8=;
+        b=AzVIElOCQt+uS1z5g/28lR1CItZ5RV7Q1o3xFuunvh5wzQemgEfs0zZkgnTjpMUFPQ
+         bwOQKZ08I/Jw2GnfLcyBAxFH0oqRtVwxiNZf/jTxxLtEjhNHjbBo2A+VvnI/3RGdktjs
+         SIdS6uvDaPiKbiXqDMCkqR54YH0qCWdPZYuwDX5mMuqQgdPtllFmqo+QD9G36t28qOon
+         F46MXhebvrqhcrThK5ro3NM+t2XM1A2FQB0AOYb3yhKpRxtG7/qX5C/JmnBoHE3GGFHl
+         dhsCBzm43oirMoWN+vJDLUPUHrdMhqW52iuzhpugmLmfPBgB9CsGGvlZf45iaPkffM1H
+         7UfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707747584; x=1708352384;
+        d=1e100.net; s=20230601; t=1707747769; x=1708352569;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JulKx+SVt0hyNzIkagwD5rYYirJi6m5LCwZwtfnX1AQ=;
-        b=vE9vEvKsSEm29UAWwNzf7ohqBh828xEajrgIPvHzg6b/mq9USKub1IZ2eXGqvE/S4+
-         2bDpsB2Vaj5kTBrnt+OrpTWVGFAHl33ZslpVZeQsMwqcws6HdWHbrOafNzmYd8gxdIcv
-         3L9V2Ni+0QjFYAYy0w+zej1MKh37SBpWgJoSnfqTjZXpdBEH7EFKUwZ592bbW7dp+ccW
-         oXcYo+tWbGDaruUVSsQs9LTaMV3jNlzuNi/dG6epuPL/xooe2SiAPKHwD72gf/bAnN8z
-         I+N0aO72kuKOpQxUP/uwPjpN7IaOYhcAwj9SnJ985dmmqp+SKJFUfdMPpy39f+t9mAZ1
-         xl7g==
-X-Gm-Message-State: AOJu0YxQnxSDTautVwqr77oyC43UtxWMLNgTKtquskkfYGSTL4T0tJIg
-	JRjs3tCiRWumfZdVzfa1TmhIAl/2oMB2ehMdXRXKr7ZCBj2NrbSuvmE1qnfaAQ==
-X-Google-Smtp-Source: AGHT+IEODM4Kfye65a1Z1bbCV33+qT+Zr0+2Dpo5GuSlAqGhr8OHowtoUCjbHZBo8E7wA/6ox9QSTA==
-X-Received: by 2002:adf:fd10:0:b0:33b:3c9b:683e with SMTP id e16-20020adffd10000000b0033b3c9b683emr5264964wrr.64.1707747583834;
-        Mon, 12 Feb 2024 06:19:43 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCVfmGKlIKpAF5erHXbhdwRgDRXH1aL4ShKCnBQVK1Wph4wkO9kzzRM/OcnD3zvRKLNq+UU6UhuiQLMRFrD/VNxYE/2C6ouihnG6/36WedtCgsAeUGuxoDHSBHX/hjxHMwEJelG87t0qTEjKL+1bPELd0dJ2JM5CcmcJIq9p7RtGLDJOWiLsVADfWQIzcNIaoEUO3JTYoNqYt4rbs5E=
-Message-ID: <94a9353f-1dd0-4957-af2c-281f9b3bbe7c@suse.com>
-Date: Mon, 12 Feb 2024 15:19:42 +0100
+        bh=jKP3l0e1bgYYbVAbkkRW0/BNXPryqSD8TvJ/QIxwWN8=;
+        b=jNB+KVl+RgIly/HBhOOUW8Wl4VrzzW/gWAd1JVepVhya3wyMNnzovDrossgl6tbn6+
+         cbWY/8cGxYZ6/fhOghU3aaYeW5Nr0C7nUdihA0T3jhBs6tMd1UlAfuAIk1xlMTF+d03g
+         Ut+Kl1NLGDIdx3G8HHrMWt3QNW1rW8RHlXVQyZjHmdMPHdaZETr75EKGZbdqz0U/xtpf
+         0PgVz6tQmiRbyGflCTBfPBMnpH0Q/oZrypMhwJ3je+OFPddAs8XOtOWPSi2VoSCScjUw
+         0NqWhP9S2JAnNafmrBp2O9M44zqNDHBSiOWTZHl1NlMghKTQ3b1DdG53pWxnC00MDRpA
+         HJzg==
+X-Gm-Message-State: AOJu0YzAJoO70+8AEkCJ9lCkBMjk/CS/Spt1Ld/FNL4F8a4+NdhsoW9Y
+	b+GZYyKc03Fjv90izoA7rsyqq3JiVS8G2lPr2mlcPFmSdGIm/KIb0Id2xjQJyw==
+X-Google-Smtp-Source: AGHT+IGXr29XZekbJIVUk/FByaeh5PSMdov+TjQC9v03jhyFNIF2Ma23lcCBpXi7hiDh3/SzTZTm4Q==
+X-Received: by 2002:a5d:5585:0:b0:33a:edaf:13ec with SMTP id i5-20020a5d5585000000b0033aedaf13ecmr5158701wrv.14.1707747769344;
+        Mon, 12 Feb 2024 06:22:49 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUbugZf3s+Vgg3ojPArSBhLZ7ax9qKKQ0Lj5MUQdtkAnS+sABtO0z26GlRFDKBiGzSBMV7uMQt+IjNVdvQ6aVwDI1l/PZiNBP0TT5A3Gpw1g1mH+l3j4/MFhkqKz2VlIiO/N82xGqTmXvBqfgaHN6oOz7Iiq03P4tHKWh0OSN0FPnKexqE=
+Message-ID: <59d7106d-21e8-4e5d-aa8d-bc2fc859a004@suse.com>
+Date: Mon, 12 Feb 2024 15:22:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 5/7] xen/asm-generic: introduce generic device.h
+Subject: Re: [PATCH v2 2/2] x86/p2m: aid the compiler in folding p2m_is_...()
 Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1707499278.git.oleksii.kurochko@gmail.com>
- <4ecb5e5f4a1dbf585ac7a9ebe40b5fd8e4709182.1707499278.git.oleksii.kurochko@gmail.com>
+To: George Dunlap <dunlapg@umich.edu>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@cloud.com>
+References: <5d6c927e-7d7c-5754-e7eb-65d1e70f6222@suse.com>
+ <7cce89f4-962e-bfbe-7d30-18fea7515bed@suse.com>
+ <CAFLBxZZLJMWpf1fCNN4dhoDpYpW6O=V_C==-sCAZy6t4Df_yBw@mail.gmail.com>
+ <47b5a1be-280c-4e8e-a5c5-6df7da657539@suse.com>
+ <CAFLBxZY4hR6mxL_Zu+AYaNFsg528zmnL45K6tcE=_Lq7s5p=0w@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,99 +116,62 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4ecb5e5f4a1dbf585ac7a9ebe40b5fd8e4709182.1707499278.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <CAFLBxZY4hR6mxL_Zu+AYaNFsg528zmnL45K6tcE=_Lq7s5p=0w@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09.02.2024 19:00, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/include/asm-generic/device.h
-> @@ -0,0 +1,149 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef __ASM_GENERIC_DEVICE_H__
-> +#define __ASM_GENERIC_DEVICE_H__
-> +
-> +#include <xen/stdbool.h>
-> +
-> +enum device_type
-> +{
-> +#ifdef CONFIG_HAS_DEVICE_TREE
-> +    DEV_DT,
-> +#endif
-> +    DEV_PCI
-> +};
-> +
-> +enum device_class
-> +{
-> +    DEVICE_SERIAL,
-> +    DEVICE_IOMMU,
-> +    DEVICE_INTERRUPT_CONTROLLER,
-> +    DEVICE_PCI_HOSTBRIDGE,
-> +    /* Use for error */
-> +    DEVICE_UNKNOWN,
-> +};
-> +
-> +struct dev_archdata {
-> +#ifdef CONFIG_HAS_PASSTHROUGH
-> +    void *iommu;    /* IOMMU private data */
-> +#endif
-> +};
-> +
-> +/* struct device - The basic device structure */
-> +struct device
-> +{
-> +    enum device_type type;
-> +#ifdef CONFIG_HAS_DEVICE_TREE
-> +    struct dt_device_node *of_node; /* Used by drivers imported from Linux */
-> +#endif
-> +    struct dev_archdata archdata;
-> +#ifdef CONFIG_HAS_PASSTHROUGH
-> +    struct iommu_fwspec *iommu_fwspec; /* per-device IOMMU instance data */
-> +#endif
-> +};
-> +
-> +typedef struct device device_t;
-> +
-> +#ifdef CONFIG_HAS_DEVICE_TREE
-> +
-> +#include <xen/device_tree.h>
-> +
-> +#define dev_is_dt(dev)  ((dev)->type == DEV_DT)
-> +
-> +/**
-> + *  device_init - Initialize a device
-> + *  @dev: device to initialize
-> + *  @class: class of the device (serial, network...)
-> + *  @data: specific data for initializing the device
-> + *
-> + *  Return 0 on success.
-> + */
-> +int device_init(struct dt_device_node *dev, enum device_class class,
-> +                const void *data);
-> +
-> +/**
-> + * device_get_type - Get the type of the device
-> + * @dev: device to match
-> + *
-> + * Return the device type on success or DEVICE_ANY on failure
-> + */
-> +enum device_class device_get_class(const struct dt_device_node *dev);
-> +
-> +#define DT_DEVICE_START(name_, namestr_, class_)            \
+On 07.02.2024 04:07, George Dunlap wrote:
+> On Thu, Feb 1, 2024 at 10:15 PM Jan Beulich <jbeulich@suse.com> wrote:
+> --- a/xen/arch/x86/mm/p2m.c
+> +++ b/xen/arch/x86/mm/p2m.c
+> @@ -379,7 +379,7 @@ struct page_info *p2m_get_page_from_gfn(
+>              return page;
+> =20
+>          /* Error path: not a suitable GFN at all */
+> -        if ( !p2m_is_ram(*t) && !p2m_is_paging(*t) && !p2m_is_pod(*t) &&
+> +        if ( !(p2m_is_ram(*t) | p2m_is_paging(*t) | p2m_is_pod(*t)) &&
+>               !mem_sharing_is_fork(p2m->domain) )
+>              return NULL;
+>      }
+> ```
+> 
+> Note the "=20" at the beginning of the empty line.  Why `patch` handles it
+> but `git am` doesn't, who knows.
+> 
+> 
+>> I'm also not aware of there
+>> being a requirement that patches I send via email need to be
+>> "git am"-able (unlike in xsa.git, where I edit patches enough to be
+>> suitable for that), nor am I aware how I would convince my email
+>> client and/or server to omit whatever git doesn't like or to add
+>> whatever git is missing.
+>>
+>> Bottom line - your response would be actionable by me only in so far
+>> as I could switch to using "git send-email". Which I'm afraid I'm not
+>> going to do unless left with no other choice. The way I've been
+>> sending patches has worked well for over 20 years, and for different
+>> projects. (I'm aware Andrew has some special "Jan" command to apply
+>> patches I send, but I don't know any specifics.)
+>>
+> 
+> In the general case, I'm not going to review a patch without being able to
+> see it in context; and it's not reasonable to expect reviewers to have
+> specific contributor-specific scripts for doing so.  If we run into this
+> issue in the future, and you want my review, you may have to post a git
+> tree somewhere, or attach the patch as an attachment or something.  (Or you
+> can try to figure out why `git am` isn't working and try to upstream a fix.)
+> 
+> That said, in this case, context isn't really necessary to understand the
+> change, so it won't be necessary.
+> 
+> The logic of the change is obviously correct; but it definitely reduces the
+> readability.  I kind of feel like whether this sort of optimization is
+> worth the benefits is more a general x86 maintainer policy decision.  Maybe
+> we can talk about it at the next maintainer's meeting I'll be at?
 
-I don't think the trailing underscores are needed or helpful here
-(or in the ACPI counterpart), ...
-
-> +static const struct device_desc __dev_desc_##name_ __used   \
-> +__section(".dev.info") = {                                  \
-> +    .name = namestr_,                                       \
-> +    .class = class_,
-
-... seeing this all it would have taken was to avoid the two words
-"name" and "class" (by e.g. using "ident" and "cls").
-
-Nevertheless:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+While you weren't able to be there, I brought this up nevertheless, and
+both Andrew and Roger agreed with you. Therefore I'll drop this patch
+and adjust the other one.
 
 Jan
 
