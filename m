@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA9D4850EC8
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 09:21:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679313.1056732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C36850EDB
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 09:27:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679318.1056743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZRYm-0004gx-ID; Mon, 12 Feb 2024 08:21:04 +0000
+	id 1rZReO-0005Lx-9Y; Mon, 12 Feb 2024 08:26:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679313.1056732; Mon, 12 Feb 2024 08:21:04 +0000
+Received: by outflank-mailman (output) from mailman id 679318.1056743; Mon, 12 Feb 2024 08:26:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZRYm-0004ei-FL; Mon, 12 Feb 2024 08:21:04 +0000
-Received: by outflank-mailman (input) for mailman id 679313;
- Mon, 12 Feb 2024 08:21:02 +0000
+	id 1rZReO-0005JK-6U; Mon, 12 Feb 2024 08:26:52 +0000
+Received: by outflank-mailman (input) for mailman id 679318;
+ Mon, 12 Feb 2024 08:26:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6iVD=JV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZRYk-0004ec-Qy
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 08:21:02 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1rZReN-0005JE-1E
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 08:26:51 +0000
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [2a00:1450:4864:20::42d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a70aba47-c97f-11ee-98f5-efadbce2ee36;
- Mon, 12 Feb 2024 09:21:00 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-33aeb088324so1892254f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 00:20:59 -0800 (PST)
+ id 773211d3-c980-11ee-98f5-efadbce2ee36;
+ Mon, 12 Feb 2024 09:26:49 +0100 (CET)
+Received: by mail-wr1-x42d.google.com with SMTP id
+ ffacd0b85a97d-33b18099411so1667912f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 00:26:48 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ch8-20020a5d5d08000000b0033b75b39aebsm4590733wrb.11.2024.02.12.00.20.58
+ e27-20020a5d595b000000b0033b80a0d002sm2718176wri.57.2024.02.12.00.26.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 00:20:58 -0800 (PST)
+ Mon, 12 Feb 2024 00:26:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a70aba47-c97f-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 773211d3-c980-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707726059; x=1708330859; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QxAED0Upw3UUaTw/PsXjs9hNGEU9EnOi2nrcGLgAIxM=;
-        b=A2W/Ayp0d8nJl3EOjg1Wdd9B2V5omEcVHTSYRKQ5LO8fwkC5h3AK/ePd2jcl6QG6uw
-         ASGyDRpZjaCYmnzBhV0/qXMzl8JO6FR8VcjstPqpZuDGOlLBiaQPYSL/YqmsNcbsfv5F
-         frpbUIzg7MUBW7p+oheXrYzIMn+J/Oq4SEQltdbp2HLRd9bC5CiHfWTnYb+iVsB6KnYq
-         mkia4UC7GOqlYnqu3NYN8qLdYgmQiOa0y/Cd9YojKGydZTxKqaqTnrgwWb/fIB1ikWHo
-         YceYoMhA/yrn4sZcVs+QYmgtAptqKgy9OoP0MQLBgzru6tipIC8Y02+TDyoT3LWo8UyH
-         u01w==
+        d=suse.com; s=google; t=1707726408; x=1708331208; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=od8jxRrRiKzPFlw+nYsHZiXd4nL03CPY77R8l36qlnM=;
+        b=f2UwtqaIOspn4q0/sYdGbNCtnD05Vz4laB2SeQu3UeXBSrLAcyyRgN9Me4QsEvmC+7
+         c/pT8/h6oPlHEJ8KIiRZPZRFd0EXk4/QZrtw+LFvNkmIgxSlSNFOAwpLNXLedrUC8+li
+         q8ruW99diFdyG7UbXWyhq4lqjvp/wySgKLq4ev8IiVVsBjVNiHi22QJ86ykfTkurMHse
+         wxYR+8//Xy0PIU5HwBs0cN0yWHzNj/hjs6cB65I0p1HnLE6V9OLXRBNrHCAvgeJe9nPf
+         bMH8tGbhS5vHpexvBx0GAnsBD2KY0yeqUclDJXAx4gOqWg/pc1CyBtjuhM095c7i7jJU
+         z9vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707726059; x=1708330859;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=QxAED0Upw3UUaTw/PsXjs9hNGEU9EnOi2nrcGLgAIxM=;
-        b=cfKVZX/je9TQKNFJLQwxVmug88bgVS84yWGDBZQLFnxn8Lk9nYh7/gtBn/CYIPj51J
-         XaN6Cp94WZW1fATbwP3rSnLcDEu9DkidRQq+h34TXesYjH83ZmuzhkqE8t2l20GGHKbu
-         Ya7v+fp/7LRj5AsggAvwA4QA/uCYGFUUnX5FK33HC4gCAlOcNp3eWeYkqf9L5DcsmRX+
-         mZaFBkfUpk1JqgNlsjybov6cUmEyv9bAEL4V0skpzTakLbPwXoI/KrtFmmyRyrFl7VKf
-         tEGfjAlO5Iom9V58qGWfXg9bQydA+776Z3N0EdUHB0MBPAlDBjWYzOAFXPk1R0eKZ1I9
-         RFpQ==
-X-Gm-Message-State: AOJu0YwjtSJHZOyz/UR5Dv8kDWx/TwY2/b4i1KjHDxtdD+rqqSM3Q+hB
-	PPPdFxG7sV+CQLOrQAfh2NFkxOl2BmT2cU35F+Un7dqtHUfRHa8u9/y5xTjDNw==
-X-Google-Smtp-Source: AGHT+IGx2zqaW6JEG3NSgsQFKqNrjcogYI42tO8A6DBU4NB0ynUvwdNIrwbIB8JjMeTrlCv1lxLjxQ==
-X-Received: by 2002:adf:e6cf:0:b0:33b:6d59:61cd with SMTP id y15-20020adfe6cf000000b0033b6d5961cdmr436163wrm.11.1707726059066;
-        Mon, 12 Feb 2024 00:20:59 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCW0SN4jQE371CBe6vPPZpj768cGL5NO3XajAMUN7PKjOREoPX4nZ75xhifvAosgrZEWz3blgFwb1KUgTHw2dWwzQujdPxmwW+hKEBvWaEknqrJn1dQnVz6ttkUotV72KDV9sV2+4iijJaAG95cdnNC5OK1o6XhWGAD2D6OAhwxK2JKP+fHgsku7/fNA28+ZqeefRbFZgJ8VEH9PxXDmau8xpClwiJHOHb5YDJV9q8nSblwVedZz12Uj03fKIe40BPrD/xj92uP7zNhDjofW8bjB20jQ4BmwUtVzaLjw/ILUNKJllWk=
-Message-ID: <9504e77d-6f52-489c-a91a-f4d1a6ce9a33@suse.com>
-Date: Mon, 12 Feb 2024 09:20:59 +0100
+        d=1e100.net; s=20230601; t=1707726408; x=1708331208;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=od8jxRrRiKzPFlw+nYsHZiXd4nL03CPY77R8l36qlnM=;
+        b=DCpDqXdiRi3iQYJsR4ouDhnNEaBllPrZ2qnCppvtebdnJrlNOhuRbTRoQyLEftff1N
+         MSkE7/ksud3LvN2f4D4NWM61RbVHq8rleaOQbWICx/R1pS0AM0QmlE0NEXSMKw1ISycO
+         6WtBM7eUfD1k8m/idi7x0HCi6DlMG0rE0CTU4HWK/QKaffl0oWEUZ44izM2X+enY2p9f
+         cZxCRwdp5YPmYgLff5SasKd1H4glsajc8TWmTmLhD+0XSargOS7PjhwD8CKGlY3A4mfk
+         cYw/LRLLnONdUZY0NCThKU0u3Q1qzbUPBR0P2bc4vzvgZw88NugfF6JXZOkkT2ylLvTD
+         XmPQ==
+X-Gm-Message-State: AOJu0YwsK+XzgQBi8Rr/YdUabRpGSy/nKdYEJ9XodRwZDgmFKjaGK+c2
+	+hEOJscCQtWuw8Gshvi99RrHQgQ612LBpDgB5FklpEEKqblRo40Oj+xFjZIx4g==
+X-Google-Smtp-Source: AGHT+IF3yJxQ1J/0ELE+vneMMG4VTpysjk6zLpvtcmFNo7kZ5SfDsAIvntxPehFeu3eBU9ns9niXmA==
+X-Received: by 2002:a5d:43cc:0:b0:33b:43d7:14 with SMTP id v12-20020a5d43cc000000b0033b43d70014mr4280629wrr.61.1707726408231;
+        Mon, 12 Feb 2024 00:26:48 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWt3TCUre5foUEvMAxJuqGUJiLN8XhBKjOtWUVGbafAsrlSLv8veySYZkSFV2rzeOXYrZi/lG+j3vkBFyOj9ILGlheyGOJHj8hzSdoTKSHbR9Hdsfe6paf+wB1mS1jyYfeow5ZIlc1xnBTZKz7E/LfK+emfnT84HTZfOsKhr/PSpPaZrcI5OpYi2UJDHweQXxcnz4hd636AwgjKOGdhIpuVmlXi4Rgcq7TGPnnf8TgOMBk9xJ+/uVdhqSX8z4HJiIWfizO7IktltiYriqeHzNWm0XUUqtHQ7ZOw7qTcP2/6FBYasxx1Bbe7N6i5lJqEQvg7YHCdorgcCYqwYRBRtnonHw==
+Message-ID: <02446758-a5a9-4a8a-8ce6-15abdc9ede65@suse.com>
+Date: Mon, 12 Feb 2024 09:26:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] docs/misra/rules.rst: catch up with accepted rules
+Subject: Re: Return type of clean_and_invalidate_dcache_va_range
+To: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen Devel <xen-devel@lists.xenproject.org>,
+ Consulting <consulting@bugseng.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Andrew Cooper3 <andrew.cooper3@citrix.com>, Roger Pau
+ <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>, Nicola Vetrini <nicola.vetrini@bugseng.com>
+References: <e050b096ff39aa857f9c267a8dbb4ef6@bugseng.com>
+ <alpine.DEB.2.22.394.2402091402080.1925432@ubuntu-linux-20-04-desktop>
+ <f86baad0-f113-4156-9c10-6910e8c63492@xen.org>
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
- bertrand.marquis@arm.com, roger.pau@citrix.com, roberto.bagnara@bugseng.com,
- federico.serafini@bugseng.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2402091653110.1925432@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,34 +118,52 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2402091653110.1925432@ubuntu-linux-20-04-desktop>
+In-Reply-To: <f86baad0-f113-4156-9c10-6910e8c63492@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10.02.2024 02:00, Stefano Stabellini wrote:
-> Update docs/misra/rules.rst to reflect the MISRA C rules accepted in the
-> last couple of months.
+On 10.02.2024 11:17, Julien Grall wrote:
+> Hi,
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> ---
-> 
-> In the notes section I added some info about the deviations, but in any
-> case the appropriate info will also be added to deviations.rst,
-> safe.json, etc.
-> 
-> I also added Rule 14.4, which is older, but when I first tried to add it
-> to rules.rst, Jan had a question I couldn't reply clearly:
-> https://marc.info/?l=xen-devel&m=169828285627163
-> 
-> I think now with this series, the impact of Rule 14.4 is clearer:
-> https://marc.info/?l=xen-devel&m=170194257326186
+> On 09/02/2024 22:02, Stefano Stabellini wrote:
+>> On Fri, 9 Feb 2024, Nicola Vetrini wrote:
+>>> Hi all,
+>>>
+>>> In the context of violations of MISRA C:2012 Rule 17.7: "The value returned by
+>>> a function having non-void return type shall be used", I was looking at the
+>>> function "clean_and_invalidate_dcache_va_range". It has the following
+>>> signature on both arm and x86:
+>>>
+>>> static inline int clean_and_invalidate_dcache_va_range
+>>>      (const void *p, unsigned long size)
+>>>
+>>> The commit that introduced it for Arm ~9 years ago (71d64afe3e12: "arm: return
+>>> int from *_dcache_va_range") [1] mentions that on Arm it can't fail, but
+>>> supposedly it can on x86.
+>>>
+>>> However, as far as I can tell, for both arch-es the implementation now always
+>>> returns 0 [2][3], so perhaps the mention of -EOPNOTSUPP for x86 is no longer
+>>> true (I wasn't able to reconstruct if there was a time at which this was true,
+>>> even in the same commit that changed the return type to int).
+>>>
+>>> The question is: should the return type be void, since it appears that every
+>>> user is ignoring the returned value (violating the rule), except the one in
+>>> common/grant_table.c [4]?
+>>
+>> Looking at the implementation on both ARM and x86, I am in favor of
+>> changing the return type to void
+> I think we need some consistency between all the cache flush helpers 
+> (clean_and_invalidate_dcache_va_range, invalidate_dcache_va_range() and 
+> clean_dcache_va_range()). They should all return a values or not return any.
 
-This series is about enums only afaics. Yet the rule is much wider, and iirc
-we had agreed that for integer and pointer types the normal language
-conversion to boolean meaning is fine as well. Not only do you not mention
-this case in the entry, but it also continue to mean that effectively we
-limit the rule to a very narrow case. Which continue to leave open the
-question of whether the rule is worthwhile to accept in the first place.
++1
+
+> That said, we have two other architectures in development. Are we saying 
+> this helpers will not need to (initially) return -EOPNOTSUPP?
+
+For "(initially)" that's not an issue - such a stub can as well be filled
+for BUG_ON("unimplemented"). The question there is what the ultimate
+implementations are going to look like.
 
 Jan
 
