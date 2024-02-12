@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E7A08527DC
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 04:44:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679741.1057387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98D8D8528AA
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 07:16:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679700.1057418 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZjiD-00050v-BA; Tue, 13 Feb 2024 03:44:01 +0000
+	id 1rZm5y-0006PE-9c; Tue, 13 Feb 2024 06:16:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679741.1057387; Tue, 13 Feb 2024 03:44:01 +0000
+Received: by outflank-mailman (output) from mailman id 679700.1057418; Tue, 13 Feb 2024 06:16:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZjiD-0004yP-6s; Tue, 13 Feb 2024 03:44:01 +0000
-Received: by outflank-mailman (input) for mailman id 679741;
- Tue, 13 Feb 2024 03:43:59 +0000
+	id 1rZm5y-0006Ml-6n; Tue, 13 Feb 2024 06:16:42 +0000
+Received: by outflank-mailman (input) for mailman id 679700;
+ Mon, 12 Feb 2024 18:51:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zAib=JW=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1rZjiB-0004yJ-50
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 03:43:59 +0000
-Received: from wfout2-smtp.messagingengine.com
- (wfout2-smtp.messagingengine.com [64.147.123.145])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jcaA=JV=knorrie.org=hans@srs-se1.protection.inumbo.net>)
+ id 1rZbOZ-0002Ce-1a
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 18:51:11 +0000
+Received: from albatros.knorrie.org (albatros.knorrie.org [35.156.0.23])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b0a1464-ca22-11ee-8a4d-1f161083a0e0;
- Tue, 13 Feb 2024 04:43:56 +0100 (CET)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailfout.west.internal (Postfix) with ESMTP id BAE641C00091;
- Mon, 12 Feb 2024 22:43:50 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Mon, 12 Feb 2024 22:43:51 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Feb 2024 22:43:48 -0500 (EST)
+ id ae91aca5-c9d7-11ee-8a4c-1f161083a0e0;
+ Mon, 12 Feb 2024 19:51:08 +0100 (CET)
+Received: from [IPV6:4000:0:fb:a::15]
+ (2a02-a213-2bc5-6a80-0000-0000-0000-0004.cable.dynamic.v6.ziggo.nl
+ [IPv6:2a02:a213:2bc5:6a80::4])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ (No client certificate requested)
+ by albatros.knorrie.org (Postfix) with ESMTPSA id 0E66D30BA8;
+ Mon, 12 Feb 2024 19:51:06 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,154 +44,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b0a1464-ca22-11ee-8a4d-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1707795830;
-	 x=1707882230; bh=96KYMZfSEqyIRUJtvm5SXgTmTOy/Iu9skirSS8EXVb4=; b=
-	DPQgQPdtfTlaJyhbGKM4tr/ZhScmN6LhBk+Xw/P/lVo4iEMjxp3yeFVeY2HWVl8s
-	qEUgNwBtiA4td7gOLOaNEcXu6KUN4zgs+FuL8APSD47WwqYxe7U5x+VtE5uhnr1J
-	uNtpPnaUY8f2BAStdtUFr2+Al/drQdDFtX/NVP8+YNeYe68/9EaGaA6FPSjP3T4z
-	9cZrlJH3J0+vUCTV4T7OBwoBA2cDl+sKeBCRs4m3rQTcVoVManHyCmNK9R8SM92X
-	4Sof+3V4lcvpmD9/LybVohtWOvQxzVCZQR8lJdx31CO76mwHjzurvMmcHgSfBR+b
-	hqaln//SfXZfSW5yCtPmSg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1707795830; x=1707882230; bh=96KYMZfSEqyIRUJtvm5SXgTmTOy/
-	Iu9skirSS8EXVb4=; b=dQRgZojgePfM8Oyemh8Qg/L5RmwccRzn/CniCfJ4g+uu
-	4srrUEGKwmqzoDSYQdtPLrLDvudrfuDJ2L5TC4IK4bwsYqbTT5gOPxe+6C5xJ4wC
-	gGg1oNRhfu/loUo5tMDwYd5mxIUwt+guHylIOSmmG7k7Cw/2cUnGVxmuSpaCrSFB
-	dqUS+Ly4IQAqD1LT6zAsYE+b3iCnfa8km59bvIZo8EzjM51NAECJPGflBqlhNoZr
-	MY3Qm/L0DxWU2SGI6Eii0s/9HY2VlCwH/P9LFZbvogO6MMgmXM5G77AVwIJEY6v2
-	n5t2LHCoQywUHPLNEQUJgp59vNLFUjATqgf5sch9eQ==
-X-ME-Sender: <xms:deXKZTQVoadRmEaaulA5DuREve69b0Rr_uutm0ByHcLxRSTs9VYN7A>
-    <xme:deXKZUzbiATMMGB9kwQsZRhgSmMAB7jmMifiuALrVRm6z4YwBy-X27eG9Oh_I7rqk
-    p3nISuErc0dPw>
-X-ME-Received: <xmr:deXKZY3_u-xjzpSan45SkMadHxlkHl7ItRMFkVCPN3N2OHsVUf3W4gcugYXqSuoo-Q0SVsISEImyT54uzskyxBlgpgp9dAXyYA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudeggdeihecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
-    hinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeihfelhfekhefgveejjeet
-    vedtgfduveelgeekteehueeufeefudegveejueefhfenucffohhmrghinhepghhithhhuh
-    gsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
-    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:deXKZTDpg9T_hG2IRhBUkDmCkij6tIT_aom9wYLD2UaYU6i-Gf1Ohg>
-    <xmx:deXKZcgtL9SmBpZq91hS0trEUg4y1m3rWieQ9hMYJ-X-18yMxj0JwA>
-    <xmx:deXKZXrKfuA0EUe3r9AzHBjr8HGJp6V23qgMpKMJ0PzP1rJMZV5iNw>
-    <xmx:duXKZXUvDpmU-uZmB8GsmfleiRGV0ZwdnKY4xTr36PtakUV7D-FsUzXG_CM>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 13 Feb 2024 04:43:46 +0100
-From: Marek Marczykowski <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 1/8] serial: fake IRQ-regs context in poll handlers
-Message-ID: <ZcrlcuNU9y8WymiK@mail-itl>
-References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
- <893be03d-22cc-4b8c-8a54-6479961c5aa2@suse.com>
- <b591cd2a-2b49-436e-9cf7-788d9064a778@xen.org>
- <4530606b-1b5e-47a4-aa41-e12e9178b06d@suse.com>
+X-Inumbo-ID: ae91aca5-c9d7-11ee-8a4c-1f161083a0e0
+Message-ID: <509f476b-1c0a-401a-a564-28490c96e2ab@knorrie.org>
+Date: Mon, 12 Feb 2024 19:51:05 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="VRYmdlhezWG4ObHs"
-Content-Disposition: inline
-In-Reply-To: <4530606b-1b5e-47a4-aa41-e12e9178b06d@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: Bug#1063270: The "64bits time_t transition" in Debian/Xen
+To: Andrew Cooper <andrew.cooper3@citrix.com>, 1063270@bugs.debian.org,
+ zithro <slack@rabbit.lu>, xen-devel@lists.xenproject.org,
+ Maximilian Engelhardt <maxi@daemonizer.de>
+References: <51e993f4-c250-400c-bbf4-017a1dbf1c2d@rabbit.lu>
+ <170717408685.1943167.14081331758881904940.reportbug@homer.dodds.net>
+ <2922b179-571a-4745-b204-7dc7e2beeeea@citrix.com>
+Content-Language: en-US
+From: Hans van Kranenburg <hans@knorrie.org>
+In-Reply-To: <2922b179-571a-4745-b204-7dc7e2beeeea@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
---VRYmdlhezWG4ObHs
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Feb 2024 04:43:46 +0100
-From: Marek Marczykowski <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 1/8] serial: fake IRQ-regs context in poll handlers
+On 2/12/24 18:43, Andrew Cooper wrote:
+> On 12/02/2024 5:27 pm, zithro wrote:
+>> Hey all,
+>>
+>> the Debian project is focused on the "2038 time_t" switch.
+>> So the maintainers of the Debian Xen package must ensure that all
+>> imported Xen code conforms to the new Debian standards.
+>>
+>> I was asked by Andrew Cooper to post here about this, I'll quote him :
+>> "So I had been idly wondering whether Xen would match up to Debian's new
+>> policy, and it appears not
+>> this topic really needs to be brought up on the xen-devel mailing list
+>> do you have any more details as to what has gone wrong?
+>> this is something we ought to arrange to happen in CI by default
+>> but it sounds like there's some work needed first"
+>>
+>> (Not answering the question because I'm just a messenger).
+> 
+> xen.git/xen$ git grep -w time_t -- :/
+> ../tools/console/client/main.c:106:     time_t start, now;
+> ../tools/console/daemon/io.c:272:       time_t now = time(NULL);
+> ../tools/libs/light/libxl_qmp.c:116:    time_t timeout;
+> ../tools/libs/light/libxl_qmp.c:585:                               
+> time_t ask_timeout)
+> ../tools/libs/light/libxl_x86.c:516:        time_t t;
+> ../tools/libs/toollog/xtl_logger_stdio.c:61:        time_t now = time(0);
+> ../tools/tests/xenstore/test-xenstore.c:453:    time_t stop;
+> ../tools/xenmon/xenbaked.c:98:time_t start_time;
+> ../tools/xenstored/core.c:109:  time_t now;
+> ../tools/xenstored/core.h:150:  time_t ta_start_time;
+> ../tools/xenstored/domain.c:143:        time_t mem_last_msg;
+> ../tools/xenstored/domain.c:188:static time_t wrl_log_last_warning; /*
+> 0: no previous warning */
+> ../tools/xenstored/domain.c:1584:       time_t now;
+> ../tools/xenstored/lu.c:160:    time_t now = time(NULL);
+> ../tools/xenstored/lu.c:185:    time_t now = time(NULL);
+> ../tools/xenstored/lu.c:292:    time_t now = time(NULL);
+> ../tools/xenstored/lu.h:32:     time_t started_at;
+> ../tools/xentop/xentop.c:947:   time_t curt;
+> ../tools/xl/xl_info.c:742:static char *current_time_to_string(time_t now)
+> ../tools/xl/xl_info.c:759:static void print_dom0_uptime(int short_mode,
+> time_t now)
+> ../tools/xl/xl_info.c:810:static void print_domU_uptime(uint32_t domuid,
+> int short_mode, time_t now)
+> ../tools/xl/xl_info.c:847:    time_t now;
+> ../tools/xl/xl_vmcontrol.c:336:        time_t start;
+> ../tools/xl/xl_vmcontrol.c:495:    time_t now;
+> ../tools/xl/xl_vmcontrol.c:504:    if (now == ((time_t) -1)) {
+> ../tools/xs-clients/xenstore_control.c:33:    time_t time_start;
+> arch/x86/cpu/mcheck/mce.h:224:    uint64_t time;     /* wall time_t when
+> error was detected */
+> arch/x86/time.c:1129: * machines were long is 32-bit! (However, as
+> time_t is signed, we
+> 
+> 
+> I don't see any ABI problems from using a 64bit time_t.  The only header
+> file with a time_t is xenstored/lu.h which is a private header and not a
+> public ABI.
+> 
+> I guess we fell into the "could not be analysed via
+> abi-compliance-checker" case?
 
-On Mon, Feb 12, 2024 at 10:04:38AM +0100, Jan Beulich wrote:
-> On 08.02.2024 23:00, Julien Grall wrote:
-> > On 05/02/2024 13:27, Jan Beulich wrote:
-> >> In preparation of dropping the register parameters from
-> >> serial_[rt]x_interrupt() and in turn from IRQ handler functions,
-> >> register state needs making available another way for the few key
-> >> handlers which need it. Fake IRQ-like state.
-> >>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >> ---
-> >> The use of guest_cpu_user_regs() in dbc_uart_poll() is inconsistent wi=
-th
-> >> other console poll functions we have, and it's unclear whether that's
-> >> actually generally correct.
-> >=20
-> > Is it? Looking at ns16550_poll() we would pass guest_user_regs() if=20
-> > run_in_exception() doesn't exist. But looking at the caller, no-on seem=
-s=20
-> > to care about the 'regs'. So is this just a latent bug?
->=20
-> What do you mean by "doesn't exist"? ns16550_poll() assumes it exists.
-> And I can spot any use of guest_user_regs() on the respective generic
-> or Arm-specific bug.c paths.
->=20
-> > BTW, do you have an idea why the poll function is not run in an=20
-> > exception handler?
->=20
-> "The poll function" being which one? If you mean the one in xhci-dbc.c
-> then that's why I had Cc-ed Marek. Moving him to To: - maybe that
-> manages to finally catch his attention.
+Thanks for also looking into this!
 
-TBH, I don't know. That's part of the original xue patch at
-https://github.com/connojd/xue/blob/master/patches/xen-xue-dbgp.patch
-and it works for me as it is.
+Maximilian mentioned in #debian-xen that doing a Debian package build
+with DEB_BUILD_OPTIONS=abi=+lfs and _FILE_OFFSET_BITS=64 and
+_TIME_BITS=64 resulted in the exact same binaries for shared libs.
 
-> >> Andrew suggested to move set_irq_regs() to BUGFRAME_run_fn handling;
-> >> it's not clear to me whether that would be (a) correct from an abstract
-> >> pov (that's exception, not interrupt context after all)=20
-> >=20
-> > I agree with that.
-> >=20
-> >> and (b) really beneficial.
-> >=20
-> > I guess this could help to reduce the amount of churn. I can't really=
-=20
-> > make my mind whether this is worth it or not. So I would keep it as you=
- did.
->=20
-> Good, thanks.
->=20
-> Jan
+What we also found is these reports:
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+1. Enabling lfs, which has no effect:
+https://adrien.dcln.fr/misc/armhf-time_t/2024-02-06T16%3A48%3A00/compat_reports/libxen-dev/base_to_lfs/compat_report.html
 
---VRYmdlhezWG4ObHs
-Content-Type: application/pgp-signature; name="signature.asc"
+2. Enabling the 64-bit time_t as well:
+https://adrien.dcln.fr/misc/armhf-time_t/2024-02-06T16%3A48%3A00/compat_reports/libxen-dev/lfs_to_time_t/compat_report.html
+In there, see "Problems with Data Types, Low Severity  2 " about
+struct_timeval:
 
------BEGIN PGP SIGNATURE-----
+---- >8 ----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmXK5XIACgkQ24/THMrX
-1yxyxQf/fYWlS65gDO42ftVko/W0ePGo4k8FIO3VFzxzBulu0VIh3Lf+L9CxIjgj
-1flsR3OZ9r06z6CvcZocuBRnb6miXJzB0LrcLjroLVLrGvrMVpUfukTVrDSxfty4
-XM0AFAFnyAwe60XMjmWdKjBW6r8a5pSA56jCNuwpiH4vlMK2kyAUhOPwwl1QU0vd
-D4qo2ufxzJ2zEgcFjTg7JEEmiUhoSM46rNteCC84lT8+nl04msauN9UlWkDIKdhw
-yJ67zRtAJ80k1RJY/ZSaHOqqZIAE6nw7dkXOFLQV+kE9J+2ZXqPinHZ3IGEmQCMq
-9w/Tus0VKAIKiuX/OpI0bZVwHVRJlQ==
-=dVoS
------END PGP SIGNATURE-----
+  [+] struct timeval
+    Change -> Effect
+    1 Type of field tv_sec has been changed from __time_t to __time64_t.
+-> Recompilation of a client program may be broken.
+    2 Type of field tv_usec has been changed from __suseconds_t to
+__suseconds64_t. -> Recompilation of a client program may be broken.
 
---VRYmdlhezWG4ObHs--
+  [+] affected symbols: 3 (0.2%)
+    * libxl_osevent_afterpoll ( libxl_ctx* ctx, int nfds, struct pollfd
+const* fds, struct timeval now ) -> 4th parameter 'now' is of type
+'struct timeval'.
+    * libxl_osevent_beforepoll ( libxl_ctx* ctx, int* nfds_io, struct
+pollfd* fds, int* timeout_upd, struct timeval now ) -> 5th parameter
+'now' is of type 'struct timeval'.
+    * libxl_osevent_register_hooks ( libxl_ctx* ctx, libxl_osevent_hooks
+const* hooks, void* user ) -> Field 'hooks.timeout_modify.p2' in 2nd
+parameter 'hooks' (pointer) has base type 'struct timeval'.
+
+---- >8 ----
+
+So, the question is, is this correct and would it cause a problem.
+
+If so, it also means that those functions are in a versioned lib,
+libxenlight.so.4.17.0 (in binary package libxenmisc4.17).
+
+Coincidentally, we are currently preparing the upload to switch from Xen
+4.17 to Xen 4.18 in Debian unstable. So, if we just go ahead with doing
+that, and make sure it's built in the new way already...
+
+then...
+
+tada.wav!
+
+We just immediately have the correct libxenmisc4.18, and no other
+(stable lib) packages have to be renamed.
+
+Hans
 
