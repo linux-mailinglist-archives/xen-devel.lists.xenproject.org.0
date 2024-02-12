@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0AB9850F40
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 10:05:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679362.1056788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5810C850F76
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 10:14:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679369.1056798 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZSEz-0006LY-Tj; Mon, 12 Feb 2024 09:04:41 +0000
+	id 1rZSNZ-0001tb-K1; Mon, 12 Feb 2024 09:13:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679362.1056788; Mon, 12 Feb 2024 09:04:41 +0000
+Received: by outflank-mailman (output) from mailman id 679369.1056798; Mon, 12 Feb 2024 09:13:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZSEz-0006JV-Qk; Mon, 12 Feb 2024 09:04:41 +0000
-Received: by outflank-mailman (input) for mailman id 679362;
- Mon, 12 Feb 2024 09:04:40 +0000
+	id 1rZSNZ-0001rA-Ev; Mon, 12 Feb 2024 09:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 679369;
+ Mon, 12 Feb 2024 09:13:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6iVD=JV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZSEy-0006JP-Kp
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 09:04:40 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=IbWo=JV=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1rZSNY-0001r4-2H
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 09:13:32 +0000
+Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
+ [2a00:1450:4864:20::535])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bfe02ff5-c985-11ee-98f5-efadbce2ee36;
- Mon, 12 Feb 2024 10:04:38 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-337cc8e72f5so2163997f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 01:04:38 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bp9-20020a5d5a89000000b0033b4796641asm6227691wrb.22.2024.02.12.01.04.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 01:04:37 -0800 (PST)
+ id fcc2cb92-c986-11ee-98f5-efadbce2ee36;
+ Mon, 12 Feb 2024 10:13:30 +0100 (CET)
+Received: by mail-ed1-x535.google.com with SMTP id
+ 4fb4d7f45d1cf-55a5e7fa471so3780252a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 01:13:29 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ y3-20020aa7c243000000b005612ac47d85sm2539889edo.82.2024.02.12.01.13.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Feb 2024 01:13:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,120 +44,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfe02ff5-c985-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: fcc2cb92-c986-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707728678; x=1708333478; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=s3mCtQgf9bplc7MhJ5AYousP7UL1yZNDiGkHf1pEsFQ=;
-        b=Oa6JA38J2e33S3kljNE16DzDvhzuczdc8YsIrpfLPxVhfFPopEd/9TXFDKQOHilLyI
-         uDOPLg8Rn+ux+mgjehuandQYi4cY/b/M8xL4pBYatN5E4ldBrsOF/MGci1Pk/Q2wTTun
-         MRd1mk7qU0l9GHo3pJT8xwbatBNibDuN/ydjU8YMEUNRV7jxoIABjQmzzEuUCwKnV7fN
-         D537eW8qtjU43iVJ3L0kkeEEqWYKPxszqw+AEPPItGa889wanjDEVNznK6lsuGcJn4+Z
-         4J23G7tDaiPBfygZU6FD/tU94LuTRHGQRonpzIDui9mY8TwoncA7+gwViFq7i0Tsopet
-         FmFg==
+        d=citrix.com; s=google; t=1707729209; x=1708334009; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=kpndX5C2Mii0Flwlx+5AtvY+2C+NxX9epFi0dvTnTAk=;
+        b=ICxh1bTBNIRP/Wrh4PP3jWs6L4XUaqvIbfG/7WS9QciYVf2E2Eh0HKNfktLifF5GRn
+         fpq9V5TFWo8PDKGaLJQfc7jpZM6NTkHS3f1NtjsOVcOmrl3eROHTpWFSfa8/q/G9PgVC
+         9Q2mo1fsncTXxfV/L6CXIBWvrKDs4SJ50i3Es=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707728678; x=1708333478;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
+        d=1e100.net; s=20230601; t=1707729209; x=1708334009;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=s3mCtQgf9bplc7MhJ5AYousP7UL1yZNDiGkHf1pEsFQ=;
-        b=GUKbUTIScAdY/Ni9h2Bf/1GSsM5DUQ0TjTP5/1mWzY6TkUr06xafSkdMGTrfkbO9h5
-         283DCKMh7ZZKyS15fZQwLwEltNAhWC2Ha7lk1yL08iVpyJTS2mf/SCj4rvPPqBy2PbRn
-         wByyQpAHX+0o9FciiBPdJrbphe8tnHm0z410rrBLoUcnKTkuENNYG3/ohGkap24xl1Rd
-         MaCnC/SHbbwTN5fu6PU7F+s3pQUgzOF3uQ9JRcdg5SGCy36NU0Ut47T2senqQgdA0DOX
-         GVF1M4GZln78xbf4cFtqRzlFTLaQ47pNTCTuxe4F+GfwU9CDLNdeRv9NdDCjRSftM46s
-         M7UA==
-X-Gm-Message-State: AOJu0Yzcrko82VBtxywRAL93f8D6Wn8FdCOkFgxyaT5y5AYfujK659Tm
-	iFmel4OxqLO7Ptfb+FQNtGnqRTaExbc8wo4raX/+RWuPHNs6hLfJJb9X+xhy6g==
-X-Google-Smtp-Source: AGHT+IHtNGPldtkREn0sSMd9qikx3orZ5nEqCaEq3vWfLsWawau+rPH88zLz6eiwaAsOpWNWSfqfiQ==
-X-Received: by 2002:a5d:4808:0:b0:33b:4382:c4b with SMTP id l8-20020a5d4808000000b0033b43820c4bmr4157355wrq.63.1707728677743;
-        Mon, 12 Feb 2024 01:04:37 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUnpvoVW4d/Z6a0IYJ5thZwsRQAoK7y/B7chg8/wTEZag+/uqqhNVBU7yfOx2Fl60CZn4xE/YlJ6uLAbkuPnE4ZAOACQmQ8/RPYuVmAbo9c8VzXfMtwoEPqUdlwl1E1Zrt+15sSEK9qy2IhnL/tiLcHKNYvyPWcV3NY9AUEq2LfF0hGiZqObcSf/3o08HGIt9wY3o0mCK5dvSp2hwJhaeeAP+ujD/spoeYe35+u5A==
-Message-ID: <4530606b-1b5e-47a4-aa41-e12e9178b06d@suse.com>
-Date: Mon, 12 Feb 2024 10:04:38 +0100
+        bh=kpndX5C2Mii0Flwlx+5AtvY+2C+NxX9epFi0dvTnTAk=;
+        b=dQlccyYyK8dMSpWCbCwc0hgTja6sC1VSe8DjyNpRB306vF+2b3Sq5O2HZhpqAbfPHt
+         /iOP8baTXjDVNwb/DZU5I+pjZtMNYkYk0RnKOavamCGbGr/6MtdyAP9gD8nGJU30swVG
+         f33o19B3lVNMKxQ1SD7IZKLmb/AvvCXCyS5KM/dL6jwSFGFCi41y+sqNfWelI4TYKrr3
+         VcA7QpeR1R66vNIb/TJkF9vS/hEKZrlGSbfqpu6WIovcKGwotEu4JjedcB1q7NeuRbru
+         YeCq9f5DYNH1EPwpXSSe1VCqGcd1enorOjlDvYBFusjvPt3zNpqnHpKqfOUAiC84lIXS
+         h0Ww==
+X-Gm-Message-State: AOJu0Yyt2m+8g8KIVIuSVf4cgpS72oSn/09NRliZhgbFAbOGMjpWHED9
+	DEgtYCoo4nEDUw52xepOd0WltY10TyPytzbR0WF8KudpPJOMhIZB5ts9uRcLBSA=
+X-Google-Smtp-Source: AGHT+IFGM2App413SIKcCc2Ur0ABS1uXMeYaU9EoPH8ldn/XY6VDUheFoubSE+uiG+infjMyonjofA==
+X-Received: by 2002:aa7:d3cb:0:b0:560:93b1:a351 with SMTP id o11-20020aa7d3cb000000b0056093b1a351mr4796353edr.37.1707729209255;
+        Mon, 12 Feb 2024 01:13:29 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUi3cSiwbKOwpf9FXAXb3ol8cK21LF8oKTT7zqFHCYqkgcXjwYmpCjbQMm3YKWVBH0wL86GTtfkE0i71Wno6hJgmt+n7jCwj2ThW0BisPIfQ9BSjJ3P/9EBUj8hO4d+sYwI+fl9m6GT0ua3Ox1pNPX7VAhJzufiSulJnviWa7/EOypfxKpbGGnncIAlMdGui2MMtGMDfqBpBLO8n3REJrswc3RQISy4K2jPKesDs7g2VZ3q0NEQLmNizGjzCA67Ju4VddytRfukHTZfMGKvlTY9RDFYR7GrkRHU1/hVzORPAOSWyG1y0gtq04IbVpZNMTko1Xmz0KZVrkmZCyPUjiONYOx3qrezQhpvHry9fw5wK5nTj0snXr1yUQ1iD4ss1Nf0x9YWGtsKGTQ9mR0L8z3HHiCTjSmC8+ol4A7mwG+oApaXZvTUGqk/+B1CF2OES/et67TnEkF84wM1h3O5GUBRMqd0yODERzxI+mqk8FUavSZFQnV9sWAW5/Ay76BMMWPFvRpYW9HQB3Y=
+Date: Mon, 12 Feb 2024 10:13:28 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: "Chen, Jiqian" <Jiqian.Chen@amd.com>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>,
+	"Hildebrand, Stewart" <Stewart.Hildebrand@amd.com>,
+	"Huang, Ray" <Ray.Huang@amd.com>,
+	"Ragiadakou, Xenia" <Xenia.Ragiadakou@amd.com>
+Subject: Re: [RFC KERNEL PATCH v4 3/3] PCI/sysfs: Add gsi sysfs for pci_dev
+Message-ID: <ZcnhOEjnTgbYFPVl@macbook>
+References: <ZbtY1R15pYZz3F3B@macbook>
+ <20240209210549.GA884438@bhelgaas>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] serial: fake IRQ-regs context in poll handlers
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
- <893be03d-22cc-4b8c-8a54-6479961c5aa2@suse.com>
- <b591cd2a-2b49-436e-9cf7-788d9064a778@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b591cd2a-2b49-436e-9cf7-788d9064a778@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20240209210549.GA884438@bhelgaas>
 
-On 08.02.2024 23:00, Julien Grall wrote:
-> On 05/02/2024 13:27, Jan Beulich wrote:
->> In preparation of dropping the register parameters from
->> serial_[rt]x_interrupt() and in turn from IRQ handler functions,
->> register state needs making available another way for the few key
->> handlers which need it. Fake IRQ-like state.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> The use of guest_cpu_user_regs() in dbc_uart_poll() is inconsistent with
->> other console poll functions we have, and it's unclear whether that's
->> actually generally correct.
+On Fri, Feb 09, 2024 at 03:05:49PM -0600, Bjorn Helgaas wrote:
+> On Thu, Feb 01, 2024 at 09:39:49AM +0100, Roger Pau Monné wrote:
+> > On Wed, Jan 31, 2024 at 01:00:14PM -0600, Bjorn Helgaas wrote:
+> > > On Wed, Jan 31, 2024 at 09:58:19AM +0100, Roger Pau Monné wrote:
+> > > > On Tue, Jan 30, 2024 at 02:44:03PM -0600, Bjorn Helgaas wrote:
+> > > > > On Tue, Jan 30, 2024 at 10:07:36AM +0100, Roger Pau Monné wrote:
+> > > > > > On Mon, Jan 29, 2024 at 04:01:13PM -0600, Bjorn Helgaas wrote:
+> > > > > > > On Thu, Jan 25, 2024 at 07:17:24AM +0000, Chen, Jiqian wrote:
+> > > > > > > > On 2024/1/24 00:02, Bjorn Helgaas wrote:
+> > > > > > > > > On Tue, Jan 23, 2024 at 10:13:52AM +0000, Chen, Jiqian wrote:
+> > > > > > > > >> On 2024/1/23 07:37, Bjorn Helgaas wrote:
+> > > > > > > > >>> On Fri, Jan 05, 2024 at 02:22:17PM +0800, Jiqian Chen wrote:
+> > > > > > > > >>>> There is a need for some scenarios to use gsi sysfs.
+> > > > > > > > >>>> For example, when xen passthrough a device to dumU, it will
+> > > > > > > > >>>> use gsi to map pirq, but currently userspace can't get gsi
+> > > > > > > > >>>> number.
+> > > > > > > > >>>> So, add gsi sysfs for that and for other potential scenarios.
+> > > > > > > > >> ...
+> > > > > > > > > 
+> > > > > > > > >>> I don't know enough about Xen to know why it needs the GSI in
+> > > > > > > > >>> userspace.  Is this passthrough brand new functionality that can't be
+> > > > > > > > >>> done today because we don't expose the GSI yet?
+> > > > > > > 
+> > > > > > > I assume this must be new functionality, i.e., this kind of
+> > > > > > > passthrough does not work today, right?
+> > > > > > > 
+> > > > > > > > >> has ACPI support and is responsible for detecting and controlling
+> > > > > > > > >> the hardware, also it performs privileged operations such as the
+> > > > > > > > >> creation of normal (unprivileged) domains DomUs. When we give to a
+> > > > > > > > >> DomU direct access to a device, we need also to route the physical
+> > > > > > > > >> interrupts to the DomU. In order to do so Xen needs to setup and map
+> > > > > > > > >> the interrupts appropriately.
+> > > > > > > > > 
+> > > > > > > > > What kernel interfaces are used for this setup and mapping?
+> > > > > > > >
+> > > > > > > > For passthrough devices, the setup and mapping of routing physical
+> > > > > > > > interrupts to DomU are done on Xen hypervisor side, hypervisor only
+> > > > > > > > need userspace to provide the GSI info, see Xen code:
+> > > > > > > > xc_physdev_map_pirq require GSI and then will call hypercall to pass
+> > > > > > > > GSI into hypervisor and then hypervisor will do the mapping and
+> > > > > > > > routing, kernel doesn't do the setup and mapping.
+> > > > > > > 
+> > > > > > > So we have to expose the GSI to userspace not because userspace itself
+> > > > > > > uses it, but so userspace can turn around and pass it back into the
+> > > > > > > kernel?
+> > > > > > 
+> > > > > > No, the point is to pass it back to Xen, which doesn't know the
+> > > > > > mapping between GSIs and PCI devices because it can't execute the ACPI
+> > > > > > AML resource methods that provide such information.
+> > > > > > 
+> > > > > > The (Linux) kernel is just a proxy that forwards the hypercalls from
+> > > > > > user-space tools into Xen.
+> > > > > 
+> > > > > But I guess Xen knows how to interpret a GSI even though it doesn't
+> > > > > have access to AML?
+> > > > 
+> > > > On x86 Xen does know how to map a GSI into an IO-APIC pin, in order
+> > > > configure the RTE as requested.
+> > > 
+> > > IIUC, mapping a GSI to an IO-APIC pin requires information from the
+> > > MADT.  So I guess Xen does use the static ACPI tables, but not the AML
+> > > _PRT methods that would connect a GSI with a PCI device?
+> > 
+> > Yes, Xen can parse the static tables, and knows the base GSI of
+> > IO-APICs from the MADT.
+> > 
+> > > I guess this means Xen would not be able to deal with _MAT methods,
+> > > which also contains MADT entries?  I don't know the implications of
+> > > this -- maybe it means Xen might not be able to use with hot-added
+> > > devices?
+> > 
+> > It's my understanding _MAT will only be present on some very specific
+> > devices (IO-APIC or CPU objects).  Xen doesn't support hotplug of
+> > IO-APICs, but hotplug of CPUs should in principle be supported with
+> > cooperation from the control domain OS (albeit it's not something that
+> > we tests on our CI).  I don't expect however that a CPU object _MAT
+> > method will return IO APIC entries.
+> > 
+> > > The tables (including DSDT and SSDTS that contain the AML) are exposed
+> > > to userspace via /sys/firmware/acpi/tables/, but of course that
+> > > doesn't mean Xen knows how to interpret the AML, and even if it did,
+> > > Xen probably wouldn't be able to *evaluate* it since that could
+> > > conflict with the host kernel's use of AML.
+> > 
+> > Indeed, there can only be a single OSPM, and that's the dom0 OS (Linux
+> > in our context).
+> > 
+> > Getting back to our context though, what would be a suitable place for
+> > exposing the GSI assigned to each device?
 > 
-> Is it? Looking at ns16550_poll() we would pass guest_user_regs() if 
-> run_in_exception() doesn't exist. But looking at the caller, no-on seems 
-> to care about the 'regs'. So is this just a latent bug?
-
-What do you mean by "doesn't exist"? ns16550_poll() assumes it exists.
-And I can spot any use of guest_user_regs() on the respective generic
-or Arm-specific bug.c paths.
-
-> BTW, do you have an idea why the poll function is not run in an 
-> exception handler?
-
-"The poll function" being which one? If you mean the one in xhci-dbc.c
-then that's why I had Cc-ed Marek. Moving him to To: - maybe that
-manages to finally catch his attention.
-
->> Andrew suggested to move set_irq_regs() to BUGFRAME_run_fn handling;
->> it's not clear to me whether that would be (a) correct from an abstract
->> pov (that's exception, not interrupt context after all) 
+> IIUC, the Xen hypervisor:
 > 
-> I agree with that.
-> 
->> and (b) really beneficial.
-> 
-> I guess this could help to reduce the amount of churn. I can't really 
-> make my mind whether this is worth it or not. So I would keep it as you did.
+>   - Interprets /sys/firmware/acpi/tables/APIC (or gets this via
+>     something running on the Dom0 kernel) to find the physical base
+>     address and GSI base, e.g., from I/O APIC, I/O SAPIC.
 
-Good, thanks.
+No, Xen parses the MADT directly from memory, before stating dom0.
+That's a static table so it's fine for Xen to parse it and obtain the
+I/O APIC GSI base.
 
-Jan
+>   - Needs the GSI to locate the APIC and pin within the APIC.  The
+>     Dom0 kernel is the OSPM, so only it can evaluate the AML _PRT to
+>     learn the PCI device -> GSI mapping.
+
+Yes, Xen doesn't know the PCI device -> GSI mapping.  Dom0 needs to
+parse the ACPI methods and signal Xen to configure a GSI with a
+given trigger and polarity.
+
+>   - Has direct access to the APIC physical base address to program the
+>     Redirection Table.
+
+Yes, the hardware (native) I/O APIC is owned by Xen, and not directly
+accessible by dom0.
+
+> The patch seems a little messy to me because the PCI core has to keep
+> track of the GSI even though it doesn't need it itself.  And the
+> current patch exposes it on all arches, even non-ACPI ones or when
+> ACPI is disabled (easily fixable).
+> 
+> We only call acpi_pci_irq_enable() in the pci_enable_device() path, so
+> we don't know the GSI unless a Dom0 driver has claimed the device and
+> called pci_enable_device() for it, which seems like it might not be
+> desirable.
+
+I think that's always the case, as on dom0 devices to be passed
+through are handled by pciback which does enable them.
+
+I agree it might be best to not tie exposing the node to
+pci_enable_device() having been called.  Is _PRT only evaluated as
+part of acpi_pci_irq_enable()? (or pci_enable_device()).
+
+> I was hoping we could put it in /sys/firmware/acpi/interrupts, but
+> that looks like it's only for SCI statistics.  I guess we could moot a
+> new /sys/firmware/acpi/gsi/ directory, but then each file there would
+> have to identify a device, which might not be as convenient as the
+> /sys/devices/ directory that already exists.  I guess there may be
+> GSIs for things other than PCI devices; will you ever care about any
+> of those?
+
+We only support passthrough of PCI devices so far, but I guess if any
+of such non-PCI devices ever appear and those use a GSI, and Xen
+supports passthrough for them, then yes, we would need to fetch such
+GSI somehow.
+
+Thanks, Roger.
 
