@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A15B851728
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 15:38:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679609.1057127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9006B851766
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 15:56:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679619.1057138 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZXRm-0003en-F0; Mon, 12 Feb 2024 14:38:14 +0000
+	id 1rZXj9-00078k-1t; Mon, 12 Feb 2024 14:56:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679609.1057127; Mon, 12 Feb 2024 14:38:14 +0000
+Received: by outflank-mailman (output) from mailman id 679619.1057138; Mon, 12 Feb 2024 14:56:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZXRm-0003cu-Br; Mon, 12 Feb 2024 14:38:14 +0000
-Received: by outflank-mailman (input) for mailman id 679609;
- Mon, 12 Feb 2024 14:38:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6iVD=JV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZXRl-0003cm-FC
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 14:38:13 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 56fb7638-c9b4-11ee-98f5-efadbce2ee36;
- Mon, 12 Feb 2024 15:38:08 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-4114e0a2978so3319805e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 06:38:08 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 4-20020a05600c028400b00411a0477755sm715668wmk.9.2024.02.12.06.38.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 06:38:08 -0800 (PST)
+	id 1rZXj8-00075Y-Un; Mon, 12 Feb 2024 14:56:10 +0000
+Received: by outflank-mailman (input) for mailman id 679619;
+ Mon, 12 Feb 2024 14:56:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kTqq=JV=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
+ id 1rZXj6-00075S-Ug
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 14:56:08 +0000
+Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d9b4b0fa-c9b6-11ee-8a4c-1f161083a0e0;
+ Mon, 12 Feb 2024 15:56:07 +0100 (CET)
+Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
+ by support.bugseng.com (Postfix) with ESMTPA id 9704D4EE0737;
+ Mon, 12 Feb 2024 15:56:06 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +39,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56fb7638-c9b4-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707748688; x=1708353488; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=GJVMzOCjIbr/pyn9HLEbGwESHTTN32845yRzZszXAtE=;
-        b=H9SR2h8mleY7fAiBdiPrMb/kn+dH6AA99V58SfsiLfypV2MAJc+t+DOGTrYJFLm5fX
-         w2xcYPOKMgTU30HYP1PVWjO94X87KCDyf2ONssP6p3EGmLH6tvWW87lAoti5bTU2NlNn
-         foZV9JUuZA2Q2CY+PdzOIhrDt7O5XDy3ztV21UmyHGQNMOisuqIM4RUPoHNT8KkY0YmY
-         /7p4wF598SezgPNwyJ7u9HRoqKS3/Uop6ABZDA8bi5uGF0CfNl/XckWB7+5t/rLa+Xsc
-         AozeBFejjSxLtKb+bBAhfap+psbMuWRDdGayAntxyRuDONsrabRKEc/aiGFsZTF4D2xJ
-         BDag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707748688; x=1708353488;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=GJVMzOCjIbr/pyn9HLEbGwESHTTN32845yRzZszXAtE=;
-        b=tNJN4tvfny753WR87nT8/N/iFdkCj5TcUH6u+C3awhXbyiuXu882y3xrO+6INRiZBb
-         m3uGdlv98BUB4X5ULzr4JZwiBv70OEo6jWd9fDLXqvCYsUPsDy7SNS1z4puo5oy/+56A
-         6gBFUyYja8npeZCKv2XcP5gVkq6WknJ6Dwh4/8ewbxyqHZeuMxnwN2eAY9E36WIF7ek1
-         U8ftHH6OMDS1APPbTA2Hopn67apy+ifw7W6bLWtXeTq6CpLdzyMLClPdN7GG/YT0TsU+
-         i/HkOsX4eXTx4Vo0eBKFlbbtQ1LibBqh+E642Aq8Yy/yVhBvgGeJDpfVyVd8spAR2clU
-         oSxg==
-X-Gm-Message-State: AOJu0YwGE31lf95DD7pWWpl7smx1FyexJnQgApEvqSZl9lNc3unj8lc3
-	NazrM+gXBeBCE8aTQZ7SY7n/LSSV9lTrFXCGb5MZldtGLi8mlLsVfyV1UNqhmA==
-X-Google-Smtp-Source: AGHT+IGQmMT3rU8pgfK33CuiCMI6y2NWgL4bQF1gSCYRsd3A9ZULN/Qku12uVRSMVMs08FCAzO0EBw==
-X-Received: by 2002:a05:600c:5204:b0:410:6d23:dd6e with SMTP id fb4-20020a05600c520400b004106d23dd6emr6154922wmb.13.1707748688285;
-        Mon, 12 Feb 2024 06:38:08 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXBHge1QXw8XP8/mR3tE9FM0xoFbEqJGOG92pcNv3IKQ3/xkCQ3BMQWxYaJe2yfWSzEDvpMKu+q093A0Z1ijC1di2ZTgInNrAbtjfOhqpfvGwiD/lIEz9KgZ/Z6cBpAom1zcBcigjsuNLM=
-Message-ID: <c27c76ec-36cd-43cb-b76f-e8f95fb27ed8@suse.com>
-Date: Mon, 12 Feb 2024 15:38:07 +0100
+X-Inumbo-ID: d9b4b0fa-c9b6-11ee-8a4c-1f161083a0e0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] iommu/vt-d: switch to common RMRR checker
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <20240207153417.89975-1-roger.pau@citrix.com>
- <20240207153417.89975-3-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240207153417.89975-3-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Mon, 12 Feb 2024 15:56:06 +0100
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Xen Devel <xen-devel@lists.xenproject.org>,
+ Consulting <consulting@bugseng.com>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Andrew
+ Cooper3 <andrew.cooper3@citrix.com>, Roger Pau <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
+Subject: Re: Return type of clean_and_invalidate_dcache_va_range
+In-Reply-To: <02446758-a5a9-4a8a-8ce6-15abdc9ede65@suse.com>
+References: <e050b096ff39aa857f9c267a8dbb4ef6@bugseng.com>
+ <alpine.DEB.2.22.394.2402091402080.1925432@ubuntu-linux-20-04-desktop>
+ <f86baad0-f113-4156-9c10-6910e8c63492@xen.org>
+ <02446758-a5a9-4a8a-8ce6-15abdc9ede65@suse.com>
+Message-ID: <99faac70440a68824a17fcaaea55ef48@bugseng.com>
+X-Sender: nicola.vetrini@bugseng.com
+Organization: BUGSENG s.r.l.
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 07.02.2024 16:34, Roger Pau Monne wrote:
-> Use the newly introduced generic unity map checker.
+On 2024-02-12 09:26, Jan Beulich wrote:
+> On 10.02.2024 11:17, Julien Grall wrote:
+>> Hi,
+>> 
+>> On 09/02/2024 22:02, Stefano Stabellini wrote:
+>>> On Fri, 9 Feb 2024, Nicola Vetrini wrote:
+>>>> Hi all,
+>>>> 
+>>>> In the context of violations of MISRA C:2012 Rule 17.7: "The value 
+>>>> returned by
+>>>> a function having non-void return type shall be used", I was looking 
+>>>> at the
+>>>> function "clean_and_invalidate_dcache_va_range". It has the 
+>>>> following
+>>>> signature on both arm and x86:
+>>>> 
+>>>> static inline int clean_and_invalidate_dcache_va_range
+>>>>      (const void *p, unsigned long size)
+>>>> 
+>>>> The commit that introduced it for Arm ~9 years ago (71d64afe3e12: 
+>>>> "arm: return
+>>>> int from *_dcache_va_range") [1] mentions that on Arm it can't fail, 
+>>>> but
+>>>> supposedly it can on x86.
+>>>> 
+>>>> However, as far as I can tell, for both arch-es the implementation 
+>>>> now always
+>>>> returns 0 [2][3], so perhaps the mention of -EOPNOTSUPP for x86 is 
+>>>> no longer
+>>>> true (I wasn't able to reconstruct if there was a time at which this 
+>>>> was true,
+>>>> even in the same commit that changed the return type to int).
+>>>> 
+>>>> The question is: should the return type be void, since it appears 
+>>>> that every
+>>>> user is ignoring the returned value (violating the rule), except the 
+>>>> one in
+>>>> common/grant_table.c [4]?
+>>> 
+>>> Looking at the implementation on both ARM and x86, I am in favor of
+>>> changing the return type to void
+>> I think we need some consistency between all the cache flush helpers
+>> (clean_and_invalidate_dcache_va_range, invalidate_dcache_va_range() 
+>> and
+>> clean_dcache_va_range()). They should all return a values or not 
+>> return any.
 > 
-> Also drop the message recommending the usage of iommu_inclusive_mapping: the
-> ranges would end up being mapped anyway even if some of the checks above
-> failed, regardless of whether iommu_inclusive_mapping is set.  Plus such option
-> is not supported for PVH, and it's deprecated.
+> +1
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I agree. I took this helper as an example, but e.g. 
+invalidate_dcache_va_range returns -EOPNOTSUPP on x86 and it's only used 
+in common/grant_table.
+Perhaps the signatures should remain as is for consistency, especially 
+given the remark below about the other architectures, and this would 
+entail a deviation.
 
+>> That said, we have two other architectures in development. Are we 
+>> saying
+>> this helpers will not need to (initially) return -EOPNOTSUPP?
+> 
+> For "(initially)" that's not an issue - such a stub can as well be 
+> filled
+> for BUG_ON("unimplemented"). The question there is what the ultimate
+> implementations are going to look like.
+> 
 
+Should I CC them in this thread?
+
+-- 
+Nicola Vetrini, BSc
+Software Engineer, BUGSENG srl (https://bugseng.com)
 
