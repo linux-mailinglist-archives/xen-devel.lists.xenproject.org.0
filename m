@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C16D8517CC
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 16:18:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679646.1057206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F25D8517D6
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Feb 2024 16:21:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679649.1057216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZY4k-0005RP-6a; Mon, 12 Feb 2024 15:18:30 +0000
+	id 1rZY7D-0006su-IC; Mon, 12 Feb 2024 15:21:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679646.1057206; Mon, 12 Feb 2024 15:18:30 +0000
+Received: by outflank-mailman (output) from mailman id 679649.1057216; Mon, 12 Feb 2024 15:21:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZY4k-0005PE-3g; Mon, 12 Feb 2024 15:18:30 +0000
-Received: by outflank-mailman (input) for mailman id 679646;
- Mon, 12 Feb 2024 15:18:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rZY7D-0006qe-FZ; Mon, 12 Feb 2024 15:21:03 +0000
+Received: by outflank-mailman (input) for mailman id 679649;
+ Mon, 12 Feb 2024 15:21:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6iVD=JV=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZY4i-0005P6-VW
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 15:18:28 +0000
+ id 1rZY7C-0006qY-RP
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 15:21:02 +0000
 Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
  [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f8fb6ba9-c9b9-11ee-8a4c-1f161083a0e0;
- Mon, 12 Feb 2024 16:18:28 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 53c0862c-c9ba-11ee-98f5-efadbce2ee36;
+ Mon, 12 Feb 2024 16:21:00 +0100 (CET)
 Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4108cbd92b9so14961555e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 07:18:28 -0800 (PST)
+ 5b1f17b1804b1-4114e0a2978so3776785e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 07:21:00 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- cc19-20020a5d5c13000000b0033b728190c1sm6495099wrb.79.2024.02.12.07.18.26
+ v9-20020a5d4b09000000b0033b843786e1sm2304795wrq.51.2024.02.12.07.20.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 07:18:27 -0800 (PST)
+ Mon, 12 Feb 2024 07:20:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,42 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8fb6ba9-c9b9-11ee-8a4c-1f161083a0e0
+X-Inumbo-ID: 53c0862c-c9ba-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707751107; x=1708355907; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707751260; x=1708356060; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=0Ggy6Dnpfi6Dgb+gTBMGbmPZ/TYNLlwNkwiEMz341IM=;
-        b=c6MJ5A5ZMvulhk8oLFL51IobS5AhERtcFcSbl5rHR/LkDqmej29CEp1GHc78mPtj7r
-         tph4RAiblaGLuMcsGhczPlXwu4X7ygQHE+RoaqBBQvLRdqPejjtr0IkJvtZkcd7b3w1V
-         rNweIQ7xJvHg21RIaZ1mYD8J5bvsupCrbHH4Ven2JI1/ccmEA4Yns5PGliIngg2i8ycE
-         8lisViL++wd8T8FmhbyPoK1RpWO9pTEJiuFVvEiRkZ+m+EDobC/oV6uMyMq6hY+9HbRh
-         qcAPjth+ih8K0Y99EF/wmTUjXR2XBOzbiWgLFsiIgKACrtx09rxhP/0Q9K+nluViVR34
-         Xb5Q==
+        bh=5sGDdGFbGFwzm+aPUvtN/8Pp/keIpjg6C/TDKw8U/4Q=;
+        b=O0A/kBg05tF5jo6jPRTw+mTfNRw6HwOV7v4eVPdqi5JlliiSeEC9EluirvpLqsMmTI
+         ye1amG7Gf/9B1RYVxOU44d89hYuejgYB+e5Xq9JJ4xMFxXglPsLQQq4APUw8t6EMmQFo
+         yP1a9PtBDRgIhDCl1JIGxjiJk3VEu4WalvQOimYaS0KS+Ajqk8cSu7RQ6Z/dBwhK2Ira
+         elPS6PfsSyv0OEQZeT51g1SWIPFTjpQkTE+Dn7psBRDalAIn/aqX2TzZeDwqFU6INOZ/
+         ZWcbtWcHhzfbKLhJ4HB6A2Zdq+LpWWUrwUYKu/sM34o1Z5RBPQcqczc7mMUpRksKvcMM
+         kgvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707751107; x=1708355907;
+        d=1e100.net; s=20230601; t=1707751260; x=1708356060;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=0Ggy6Dnpfi6Dgb+gTBMGbmPZ/TYNLlwNkwiEMz341IM=;
-        b=Ctf4irIXSnP8IJb+wxGSkoAlI5uzGZ18jzJx5NMHAVdYk5/UDaYY0oyz6Unor9U6Bb
-         1M1U97uVjhoFa8Cs5QiE1sYTq7GSvBfFa0cOf5FnESngYTfJXmPcovUG8CHAd+FEuCtH
-         JejGrbpZ2rWQ15Efk8i5k+WerZ91l8Mkirxh84Ce2Fg7Db2eS3sAbhfIKVUgswEFw19M
-         tYuouGWCAIQbzAdXuIxT+vT7YOpa4dXm8xr7A64HX2EeLAIOkX0T6u8m2vlxC5NJzya+
-         cKT0IrSPrFY+QM3ufq0fv+L5ID9VKbxXooOkmllbvCoL5uC2ebvNUD/hVqnj0WnU/vYg
-         RM2g==
-X-Gm-Message-State: AOJu0YxHRN1QAm0Ou6//cxv67/3W8d2tB+XIoVaTTj3/PyUd7eMcpVFD
-	FjYRLbR2n48uOj/YO/4te/pO06kMYTNUqiQVAFr5uZvgVM22osZdBjbZQ9OTDA==
-X-Google-Smtp-Source: AGHT+IHwugeM2iLrEzHqBY7Xru4PyBDGo+16Xh99k9svqexfzulWmBNOmbLkVNVh0HZ0tV8Qtzkpyg==
-X-Received: by 2002:a05:600c:34d5:b0:410:cd66:e2ec with SMTP id d21-20020a05600c34d500b00410cd66e2ecmr2618394wmq.10.1707751107461;
-        Mon, 12 Feb 2024 07:18:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCVGMWfSFxSy0gbEyiXdz0laXnAdETi0GG+Mp9rnNqzilSnAjLq/zySJGkeDxOLR/rdtOmRzf8KPe9qTONFozlbtfsWFIVxK9r+YkM275GpdcCEFmfbrUrE50lcbUstYyk4BTvs18GxC9NWpHy8XqpWAgQ+ojWu0KBuPfT2fObF6rsiSiXQU+GPGi8m3JC1hF2jmvqeHA6A6ZkcSrQKzQOkTqDn/1JYUW8lDwNzOmUTJgSERs068VjApygz7/tbezicxq0oKy0TnjnZzIDr7FuWrw0M+6JmXRopo+gmHoWPwrDROJRXkpbk=
-Message-ID: <2962005e-252f-453e-a8fe-25856b16fe57@suse.com>
-Date: Mon, 12 Feb 2024 16:18:26 +0100
+        bh=5sGDdGFbGFwzm+aPUvtN/8Pp/keIpjg6C/TDKw8U/4Q=;
+        b=EvnDIswk9vwMos3Ye2DoiCYCLyk4k02OzoUSqVMH5RWted8FpJwf5zHzsiYb9G1Ss9
+         f2oMqt/Cc5rfw8foU16IpHmD4eQN3Qoq6tu084T8eL7lUO5/J2gDOlr7OyD47Gx2wMyE
+         /GQi+gLg/0X1ZDIQBm+TKfSGY0Fltd4hwyYxpeoF5+nPANi/FpVXVEq8Z+yoQGnim/b5
+         9a51L+9FcHy+npB3l5djWkDIzP3cxWG34GeSigBXnx2tHxXwUlPuTP5ILvinzKc2NQZw
+         pId3IsYpY1MLoFOC+xBL2HFRIIMWQIfNz0+1AniqCcGOQlJLqHPnA1foTJcfcBj9sF/l
+         dROg==
+X-Gm-Message-State: AOJu0YzXmj+huHE49tdI1diw7q6ZROXAWQjdnjsfOzUsy3W++ARN9+Kg
+	7R0bcz44JDONBtsgkFD4GbSfTkgT3Pk7prkMuK+jwfAScwH20q1O/kjQSGHQGQ==
+X-Google-Smtp-Source: AGHT+IFJvvuu18s0cMR+Dh9YvdxR8HezWBwfu/RQAsKhGjyLjOlWmH8Et4IuTx+TGBXArGAylkJt0Q==
+X-Received: by 2002:a05:600c:4e92:b0:40e:c06a:3ed5 with SMTP id f18-20020a05600c4e9200b0040ec06a3ed5mr6721973wmq.2.1707751259776;
+        Mon, 12 Feb 2024 07:20:59 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUuJF3n4iEsUd1ZEMa2hAJT/cz79uCX9B82+0d6zQRG6fxobMOOWDOEJVbFetfExG5kiNW1pAEzzUPXR2jK0nzCcmmqLIBFJnD/rqf1cN+l0if0SYv3hApaPcaz8krq79wSebv6wBINxJ56U1Gxp0nbBDWuGlP1dl+Ex9hvM8OfvTy1dqApJe4DsjMvwc2ytgX5sR0PIN1TiUSadbZcay3XD5snomaFWM33TmPyqjJipI2U0KAKv5Ur4nhpjI7mh0kV6GOrmX76NVFHPJbNJNu9kbG71R8omEv1toNL/Bk4kjhIX1rkDxc=
+Message-ID: <36b25710-cf95-4250-bf4a-6ccf4f418909@suse.com>
+Date: Mon, 12 Feb 2024 16:20:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 18/30] xen/riscv: introduce time.h
+Subject: Re: [PATCH v4 19/30] xen/riscv: introduce event.h
 Content-Language: en-US
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Alistair Francis <alistair.francis@wdc.com>,
@@ -90,7 +90,7 @@ Cc: Alistair Francis <alistair.francis@wdc.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
- <f0a4566c185469fa9f5de41b5bbbc7234cfa9912.1707146506.git.oleksii.kurochko@gmail.com>
+ <a57aed8d2d8424c63b1f27d007b2d5cfe35460cc.1707146506.git.oleksii.kurochko@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -115,33 +115,53 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f0a4566c185469fa9f5de41b5bbbc7234cfa9912.1707146506.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <a57aed8d2d8424c63b1f27d007b2d5cfe35460cc.1707146506.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 05.02.2024 16:32, Oleksii Kurochko wrote:
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Nevertheless ...
+Acked-by: Jan Beulich <jbeulich@suse.com>
+again with a nit, though:
 
 > --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/time.h
-> @@ -0,0 +1,29 @@
+> +++ b/xen/arch/riscv/include/asm/event.h
+> @@ -0,0 +1,40 @@
 > +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef __ASM_RISCV_TIME_H__
-> +#define __ASM_RISCV_TIME_H__
+> +#ifndef __ASM_RISCV_EVENT_H__
+> +#define __ASM_RISCV_EVENT_H__
 > +
-> +#include <xen/bug.h>
-> +#include <asm/csr.h>
+> +#include <xen/lib.h>
 > +
-> +struct vcpu;
+> +void vcpu_mark_events_pending(struct vcpu *v);
 > +
-> +/* TODO: implement */
-> +static inline void force_update_vcpu_system_time(struct vcpu *v) { BUG_ON("unimplemented"); }
+> +static inline int vcpu_event_delivery_is_enabled(struct vcpu *v)
+> +{
+> +    BUG_ON("unimplemented");
+> +    return 0;
+> +}
+> +
+> +static inline int local_events_need_delivery(void)
+> +{
+> +    BUG_ON("unimplemented");
+> +    return 0;
+> +}
+> +
+> +static inline void local_event_delivery_enable(void)
+> +{
+> +    BUG_ON("unimplemented");
+> +}
+> +
+> +/* No arch specific virq definition now. Default to global. */
+> +static inline bool arch_virq_is_global(unsigned int virq)
+> +{
+> +    return true;
+> +}
+> +
+> +#endif
 
-... nit: Too long line. The comment also doesn't look to serve any purpose
-anymore, with the BUG_ON() now taking uniform shape.
+This want to gain the usual comment.
 
 Jan
 
