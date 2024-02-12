@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F068852264
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 00:23:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679724.1057356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AA1C852287
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 00:29:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679729.1057366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZfdt-0000oO-Ki; Mon, 12 Feb 2024 23:23:17 +0000
+	id 1rZfjX-0001TU-9K; Mon, 12 Feb 2024 23:29:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679724.1057356; Mon, 12 Feb 2024 23:23:17 +0000
+Received: by outflank-mailman (output) from mailman id 679729.1057366; Mon, 12 Feb 2024 23:29:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZfdt-0000lp-I6; Mon, 12 Feb 2024 23:23:17 +0000
-Received: by outflank-mailman (input) for mailman id 679724;
- Mon, 12 Feb 2024 23:23:16 +0000
+	id 1rZfjX-0001Qd-6a; Mon, 12 Feb 2024 23:29:07 +0000
+Received: by outflank-mailman (input) for mailman id 679729;
+ Mon, 12 Feb 2024 23:29:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=eRG0=JV=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1rZfds-0000lj-MS
- for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 23:23:16 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rW7E=JV=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1rZfjW-0001NL-94
+ for xen-devel@lists.xenproject.org; Mon, 12 Feb 2024 23:29:06 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b15e3ec3-c9fd-11ee-8a4d-1f161083a0e0;
- Tue, 13 Feb 2024 00:23:14 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.17.1/8.15.2) with ESMTPS id 41CNN0xY065828
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Mon, 12 Feb 2024 18:23:06 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.17.1/8.15.2/Submit) id 41CNN0mY065827;
- Mon, 12 Feb 2024 15:23:00 -0800 (PST) (envelope-from ehem)
+ id 8277d347-c9fe-11ee-8a4d-1f161083a0e0;
+ Tue, 13 Feb 2024 00:29:05 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id F151A60ECD;
+ Mon, 12 Feb 2024 23:29:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 606FCC433F1;
+ Mon, 12 Feb 2024 23:29:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,85 +41,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b15e3ec3-c9fd-11ee-8a4d-1f161083a0e0
-Date: Mon, 12 Feb 2024 15:23:00 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-        Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: Serious AMD-Vi issue
-Message-ID: <ZcqoVBnsgUJw8G0l@mattapan.m5p.com>
-References: <ZbLDlRi0vctlhsNp@mattapan.m5p.com>
+X-Inumbo-ID: 8277d347-c9fe-11ee-8a4d-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1707780543;
+	bh=OZmWRyAZ96aIiqGUnApBj9/GzU1LECVikVIx9OJtviQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=sUhjCLeyJQSC+hYpQL8kqbT2BVhPqwCcgcfsMisIAG+uQqimRkMNRF9PL9cfIRKWh
+	 yRUbEFI3XOWQKFB1UR0dJ93ghozW/fXhgrK30ChKeAve0qshx7Wc1y+sXH7Ay3TZnO
+	 wkgJg07KcZaPhuYqRXw7wJrwi4jp95t7xecibBbo8B8ZPlhcnJ68jwo9iuOql/9IrY
+	 EopbupN+xxGkeFL29wrjUI15kTwGaCaygI4nAdrKVLMaTQVfdOsNmov+B3+ehDu+Im
+	 iQIqRFZP5eT+ZBuUJjvfoMHuqhyiGdZ78Uza/0kXjFxS7X1f6EzKp7sLoDlhMyjDst
+	 ncPa8BgzLi+mQ==
+Date: Mon, 12 Feb 2024 15:29:00 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Daniil Dulov <d.dulov@aladdin.ru>
+cc: Juergen Gross <jgross@suse.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Jeremy Fitzhardinge <jeremy.fitzhardinge@citrix.com>, 
+    xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org, 
+    linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org
+Subject: Re: [PATCH] swiotlb-xen: remove redundant NULL check
+In-Reply-To: <20240211150958.4112-1-d.dulov@aladdin.ru>
+Message-ID: <alpine.DEB.2.22.394.2402121528340.1925432@ubuntu-linux-20-04-desktop>
+References: <20240211150958.4112-1-d.dulov@aladdin.ru>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ZbLDlRi0vctlhsNp@mattapan.m5p.com>
-X-Spam-Status: No, score=0.0 required=10.0 tests=KHOP_HELO_FCRDNS
-	autolearn=unavailable autolearn_force=no version=4.0.0
-X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-14) on mattapan.m5p.com
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Jan 25, 2024 at 12:24:53PM -0800, Elliott Mitchell wrote:
-> Apparently this was first noticed with 4.14, but more recently I've been
-> able to reproduce the issue:
-> 
-> https://bugs.debian.org/988477
-> 
-> The original observation features MD-RAID1 using a pair of Samsung
-> SATA-attached flash devices.  The main line shows up in `xl dmesg`:
-> 
-> (XEN) AMD-Vi: IO_PAGE_FAULT: DDDD:bb:dd.f d0 addr ffffff???????000 flags 0x8 I
-> 
-> Where the device points at the SATA controller.  I've ended up
-> reproducing this with some noticable differences.
-> 
-> A major goal of RAID is to have different devices fail at different
-> times.  Hence my initial run had a Samsung device plus a device from
-> another reputable flash manufacturer.
-> 
-> I initially noticed this due to messages in domain 0's dmesg about
-> errors from the SATA device.  Wasn't until rather later that I noticed
-> the IOMMU warnings in Xen's dmesg (perhaps post-domain 0 messages should
-> be duplicated into domain 0's dmesg?).
-> 
-> All of the failures consistently pointed at the Samsung device.  Due to
-> the expectation it would fail first (lower quality offering with
-> lesser guarantees), I proceeded to replace it with a NVMe device.
-> 
-> With some monitoring I discovered the NVMe device was now triggering
-> IOMMU errors, though not nearly as many as the Samsung SATA device did.
-> As such looks like AMD-Vi plus MD-RAID1 appears to be exposing some sort
-> of IOMMU issue with Xen.
-> 
-> 
-> All I can do is offer speculation about the underlying cause.  There
-> does seem to be a pattern of higher-performance flash storage devices
-> being more severely effected.
-> 
-> I was speculating about the issue being the MD-RAID1 driver abusing
-> Linux's DMA infrastructure in some fashion.
-> 
-> Upon further consideration, I'm wondering if this is perhaps a latency
-> issue.  I imagine there is some sort of flush after the IOMMU tables are
-> modified.  Perhaps the Samsung SATA (and all NVMe) devices were trying to
-> execute commands before reloading the IOMMU tables is complete.
+Hi Daniil,
 
-Ping!
+Against which Linux branch was this patch generated?
 
-The recipe seems to be Linux MD RAID1, plus Samsung SATA or any NVMe.
+Cheers,
 
-To make it explicit, when I tried Crucial SATA + Samsung SATA.  IOMMU
-errors matched the Samsung SATA (a number of times the SATA driver
-complained).
-
-As stated, I'm speculating lower latency devices starting to execute
-commands before IOMMU tables have finished reloading.  When originally
-implemented fast flash devices were rare.
+Stefano
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+On Sun, 11 Feb 2024, Daniil Dulov wrote:
+> In this case hwdev cannot be NULL, so remove redundant NULL check.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> 
+> Fixes: b097186fd29d ("swiotlb-xen: SWIOTLB library for Xen PV guest with PCI passthrough.")
+> Signed-off-by: Daniil Dulov <d.dulov@aladdin.ru>
+> ---
+>  drivers/xen/swiotlb-xen.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/xen/swiotlb-xen.c b/drivers/xen/swiotlb-xen.c
+> index 2b385c1b4a99..b166f6efea26 100644
+> --- a/drivers/xen/swiotlb-xen.c
+> +++ b/drivers/xen/swiotlb-xen.c
+> @@ -305,7 +305,7 @@ xen_swiotlb_alloc_coherent(struct device *hwdev, size_t size,
+>  	if (!ret)
+>  		return ret;
+>  
+> -	if (hwdev && hwdev->coherent_dma_mask)
+> +	if (hwdev->coherent_dma_mask)
+>  		dma_mask = hwdev->coherent_dma_mask;
+>  
+>  	/* At this point dma_handle is the dma address, next we are
+> -- 
+> 2.25.1
+> 
 
