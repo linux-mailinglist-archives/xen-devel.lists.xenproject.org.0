@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBF57852FBF
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:42:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679868.1057631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D8BF852FF1
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:55:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679879.1057641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZrBI-0001i7-Mj; Tue, 13 Feb 2024 11:42:32 +0000
+	id 1rZrN8-00049V-OC; Tue, 13 Feb 2024 11:54:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679868.1057631; Tue, 13 Feb 2024 11:42:32 +0000
+Received: by outflank-mailman (output) from mailman id 679879.1057641; Tue, 13 Feb 2024 11:54:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZrBI-0001fM-K3; Tue, 13 Feb 2024 11:42:32 +0000
-Received: by outflank-mailman (input) for mailman id 679868;
- Tue, 13 Feb 2024 11:42:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rZrN8-00047y-LQ; Tue, 13 Feb 2024 11:54:46 +0000
+Received: by outflank-mailman (input) for mailman id 679879;
+ Tue, 13 Feb 2024 11:54:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gnrE=JW=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rZrBG-0000fG-VD
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:42:30 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f838589c-ca64-11ee-8a4d-1f161083a0e0;
- Tue, 13 Feb 2024 12:42:30 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id
- 38308e7fff4ca-2d073b54359so62895951fa.0
- for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:42:30 -0800 (PST)
+ id 1rZrN7-00047s-A7
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:54:45 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id acf1939e-ca66-11ee-98f5-efadbce2ee36;
+ Tue, 13 Feb 2024 12:54:43 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-411c779ab2dso2488435e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:54:43 -0800 (PST)
 Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- r11-20020a05600c458b00b00410504b582csm11558849wmo.11.2024.02.13.03.42.29
+ dn7-20020a05600c654700b00411b7c91470sm1783573wmb.12.2024.02.13.03.54.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Feb 2024 03:42:29 -0800 (PST)
+ Tue, 13 Feb 2024 03:54:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,71 +45,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f838589c-ca64-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: acf1939e-ca66-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707824550; x=1708429350; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=SFOxlptOy6yPH4rsd8K2htw0DvvMc2uXfBIk/uVlwbs=;
-        b=RShpAisH7H105h734oYjHnECSid7P82n+5EKyUyo9eBrQbXrrcgouEiW0h4h9SMeOW
-         EgElGS06ioKF5lYK5mVkosRBxH9aB8aeiRtIgURRZrt0vzoxkOX3sgi/0vMs34DIj3D1
-         /UWRJ65PaDZcQFqjp9m5EhUTcv6EnuKl6H+fY=
+        d=citrix.com; s=google; t=1707825283; x=1708430083; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=GHforX524n+IhGAmSToWCoKgL9eYJr/QjPXWxywpgPU=;
+        b=V348cra5z2uhxcDFt9+oUILKAqCADHf/gjFtYbZC2nRjihNkQCTV+mAWlKC6uYfv4I
+         vtndk0zMJ7BtDVMfBLoTxcQwWWH0dM9xqXCwfeJmH5W4Ovx74xByvu3cvv5XBn0SU/7L
+         UIuHCK/CAT8zml/J+GV/AfNwMHZOhhr8p7r4k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707824550; x=1708429350;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SFOxlptOy6yPH4rsd8K2htw0DvvMc2uXfBIk/uVlwbs=;
-        b=FsxUnQ5Cu4XY6Q+0Aasylo5t2Ulss3cBbwGiWQpyQANOfisxcFa9B7xjmSg793J38U
-         DzMwlWVG5WEtLb6OIwEJRdOP2P3hzImDYIeg+mXt2ZfbQRn+rk3EGeR38uHNsx2QMDcZ
-         YMm8lVJMZ+AQOf6PpA79ZIBD5ggvD4B1KqQ6ObrKgAes8+jafGNtt92HBsYztrvdPO3U
-         pYjqhUjnfh7ANi8Zbf/K0pvxy2zWGKxbP5jBYG1tg4XBq8wS/GzJ/6BA0t2G4FijaLk5
-         fCov3m8/rQcKIvqlsMU8NufZWN8hLRnptiYo/qqwTTHiaOnOMDE2TW3yDXxMl7qlG02v
-         ExAg==
-X-Gm-Message-State: AOJu0YzZHo/ZTr2onOnAdu3v+QJXt5CZAVBGN1AGy4+PA08v4fvXQO5s
-	F+6/1iWC3DDWVxa8xxJk+alvxlSWI9L6azPAH9V7qTNlQooCVmxPNGCBQSw1Ou6HS05RHleHtFL
-	O
-X-Google-Smtp-Source: AGHT+IFupjNruEJrK6M00oYJtsFjanhK06mAzHaDcS7siv7Dz+vr+ljh9/JeONto5LOKC7c8sK48Vg==
-X-Received: by 2002:a2e:a548:0:b0:2d0:be0f:96ff with SMTP id e8-20020a2ea548000000b002d0be0f96ffmr7808300ljn.17.1707824550099;
-        Tue, 13 Feb 2024 03:42:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWwInivjc+fhkoQTGh52mlruKbbsI5ah9NIG04rizDPVZ82wnE3qp4h6epP2fF30zUQkgMzYuUPzoYmsWtZ44XWKHxirhdbX7b0nFILI4bCAdFWAMyw2iqIaV9JK560kH+hftJdOKPniuBL0S0=
-Date: Tue, 13 Feb 2024 11:42:29 +0000
+        d=1e100.net; s=20230601; t=1707825283; x=1708430083;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=GHforX524n+IhGAmSToWCoKgL9eYJr/QjPXWxywpgPU=;
+        b=ZlQEzbPK/bncv7HtPs7l8PxTEl0NTUDcDfrb8juVs/b9uQRZvHUVSKTgRQyl9pEH4v
+         wXyouZkLt0Y8zIgHTNoZ7d1ajgTFL7JBNC7soqbmGwCPXOVvmeoKBLb32q6e2EHnx+eB
+         B9MB9sYVd5mwq7yb1gFH4xjS7lXpYpeqiyu48xxf6tCi6tu0j6I8uPk8aJTv8esVduva
+         +WMZWkh3739IkL42pIeTYOLm348SDxzKs1K+yeBRsRnSZUjKXnyrLj3v0/Hp3Jk3Vy+q
+         djd912ODMwHNVVIF2p1pnOMIW1N645/lxPb//Z+mc1ynqJdX9sFJs9Dj9c/WYb1TL0ay
+         HiYw==
+X-Gm-Message-State: AOJu0YzynHrnlEMLb9zdSKyfcOWhGSbVxxNMxu23ng9UisLBaE41gfz6
+	RhzpFwmBQkCNRYgEVNVEV0qXKNxOoYWwouFERA9O0X63oI5qDw00LpPmFN4KQJ4=
+X-Google-Smtp-Source: AGHT+IFXm5l5BOck2+xxXz4SHFCtloMRqyP8/lk9nejBFwo0ZDoQP0BamW4yCbmxWygh/G5ZhZQ+3Q==
+X-Received: by 2002:a05:600c:4e06:b0:411:c25d:7018 with SMTP id b6-20020a05600c4e0600b00411c25d7018mr890540wmq.12.1707825282890;
+        Tue, 13 Feb 2024 03:54:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUJyp4aSECUFfTXYBDc1lPM94AYeKAJ2OGu24M4QNLTIiJ6Hhf2U6oa+OUnDUE1cDb/nHUl7CZGV7uzgQqjKYETAXa5aLg69+jF2WMqF2nWv4RBtu5wGdRsZVLKyCVIa21AOecM2r8=
+Date: Tue, 13 Feb 2024 11:54:42 +0000
 From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org, marmarek@invisiblethingslab.com,
+To: Petr =?utf-8?B?QmVuZcWh?= <w1benny@gmail.com>
+Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
 	Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v2 2/3] libxl: Allow Phy backend for CDROM devices
-Message-ID: <d1c987d1-1f2d-40bd-9e28-21415cdb84ce@perard>
-References: <20240201214004.238858-1-jandryuk@gmail.com>
- <20240201214004.238858-3-jandryuk@gmail.com>
+Subject: Re: [PATCH] libxl: Fix comment for LIBXL_HAVE_VMTRACE_BUF_KB
+Message-ID: <54abae4a-1a39-464f-8ae7-f8e806557017@perard>
+References: <2bb71b2ba88e6eb6177c27dd65f2af608a634ac2.1707261567.git.w1benny@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20240201214004.238858-3-jandryuk@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2bb71b2ba88e6eb6177c27dd65f2af608a634ac2.1707261567.git.w1benny@gmail.com>
 
-On Thu, Feb 01, 2024 at 04:40:03PM -0500, Jason Andryuk wrote:
-> A Linux HVM domain ignores PV block devices with type cdrom.  The
-> Windows PV drivers also ignore device-type != "disk".  Therefore QEMU's
-> emulated CD-ROM support is used.  This allows ejection and other CD-ROM
-> features to work.
+On Tue, Feb 06, 2024 at 11:23:45PM +0000, Petr Beneš wrote:
+> From: Petr Beneš <w1benny@gmail.com>
 > 
-> With a stubdom, QEMU is running in the stubdom.  A PV disk is still
-> connected into the stubdom, and then QEMU can emulate the CD-ROM into
-> the guest.  Phy support has been enhanced to provide a placeholder file
-> forempty disks, so it is usable as a CDROM backend as well.  Allow Phy
-> to pass the check as well.
-> 
-> (Bypassing just for a linux-based stubdom doesn't work because
-> libxl__device_disk_setdefault() gets called early in domain creation
-> before xenstore is populated with relevant information for the stubdom
-> type.  The build information isn't readily available and won't exist in
-> some call trees, so it isn't usable either.)
-> 
-> Let disk_try_backend() allow format empty for Phy cdrom drives.
-> 
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> It's located in libxl_domain_build_info, not libxl_domain_create_info.
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Hi Petr,
+
+You need a "Signed-off-by:" tag when sending patches.
+
+We could probably add also a fixes tag
+Fixes: 45ba9a7d7688 ("tools/[lib]xl: Add vmtrace_buf_size parameter")
+
+Otherwise, patch looks fine, so with the SOB: Acked-by: Anthony PERARD <anthony.perard@citrix.com>
 
 Thanks,
 
