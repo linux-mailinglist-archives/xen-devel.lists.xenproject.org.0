@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 091A7852F98
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:36:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679852.1057582 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91F9A852F9D
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:37:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679855.1057592 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZr4o-00060A-TT; Tue, 13 Feb 2024 11:35:50 +0000
+	id 1rZr5y-0006ZD-BZ; Tue, 13 Feb 2024 11:37:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679852.1057582; Tue, 13 Feb 2024 11:35:50 +0000
+Received: by outflank-mailman (output) from mailman id 679855.1057592; Tue, 13 Feb 2024 11:37:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZr4o-0005wy-Q3; Tue, 13 Feb 2024 11:35:50 +0000
-Received: by outflank-mailman (input) for mailman id 679852;
- Tue, 13 Feb 2024 11:35:49 +0000
+	id 1rZr5y-0006Vo-8O; Tue, 13 Feb 2024 11:37:02 +0000
+Received: by outflank-mailman (input) for mailman id 679855;
+ Tue, 13 Feb 2024 11:37:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gnrE=JW=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rZr4n-0005wr-Ev
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:35:49 +0000
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [2a00:1450:4864:20::52e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=W/Jz=JW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1rZr5w-0005wr-O6
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:37:00 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 07f686aa-ca64-11ee-8a4d-1f161083a0e0;
- Tue, 13 Feb 2024 12:35:47 +0100 (CET)
-Received: by mail-ed1-x52e.google.com with SMTP id
- 4fb4d7f45d1cf-561f8b8c058so732430a12.0
- for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:35:47 -0800 (PST)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- st10-20020a170907c08a00b00a3c5e6515d0sm1202894ejc.24.2024.02.13.03.35.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Feb 2024 03:35:46 -0800 (PST)
+ id 32e71da8-ca64-11ee-8a4d-1f161083a0e0;
+ Tue, 13 Feb 2024 12:36:59 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-410ca9e851bso14953925e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:36:59 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ j8-20020adfe508000000b0033aedaea1b2sm9357452wrm.30.2024.02.13.03.36.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 13 Feb 2024 03:36:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,297 +45,416 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07f686aa-ca64-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 32e71da8-ca64-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707824147; x=1708428947; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=UflNTsRNumGC6EKCakxsXONmRQPRfVLwHRKxdQ7Uasw=;
-        b=LhPByerq4w9KIHi4FBH2UjLEO2W2ebqjSlgBYMMrqJy8U0Io9CF8ETIHz8F4S79W84
-         kdhrchjNwMA2ACbsChEiH5nrtRulQefDo66SSqT4RTtO1I0kQsUZ7kbru6azbPqeXySn
-         Mny+0qArMoN+ReT9IUTYblLmCze2sQ1yXxqiw=
+        d=suse.com; s=google; t=1707824219; x=1708429019; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Z8HVVCKdR2JQf6NX1jGQ1/KKxoyowqEyolTxOAblmNk=;
+        b=EFdk5SHSdLeY4T8F8pjwINywM3Fq77AaDJ7xNXsRMYkdUt3tBPr/nDBSI+MzLPL+Uw
+         Co7plS4WSHUzYWS/FeuYXLJpz8rHJ7nSOfrA7SIJR8+WLBdTSkGhXEdIFrrtZCCedPUo
+         z8y2McT97aGtRQeSFVoKAyBitDTzI/vtHqp2roI4mLr7U9FoRs61jyabMNVGV3o+Mis6
+         FS5pDL0lW607bGftxj8qs6ru8j0Ma/0a0RSeKCA9vkNwbefEhqk4o+avcYe7DHCEMHQk
+         O24INN3Ak/I6AviJNM0jSC2evtNOLMNUICqCGSmuaKeTD/WGUqOgf1A7ZFZA80erM1gU
+         jq+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707824147; x=1708428947;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UflNTsRNumGC6EKCakxsXONmRQPRfVLwHRKxdQ7Uasw=;
-        b=Qg7dpao1DzuHpnHUgV2LOct2FdikhrZJ8bc+9TeN5o7RoIwte7JN1bW+E2D2mPurkM
-         Ih3Jk4JOmmlU19KQEgyuaALWgE3m+Ft+Vh+9pZJJYD+SIPShnigFZ03a0esPE5cYlq7N
-         Z5l0oPSpAZ0J0gxIWr6JuOVzxXcwZXvIKbWobcmP6C9vT0LteGh2WlOEH/phu6HPgdbf
-         SHL2Fk3tR3lZP85QFOv5sPKmp7EGPw5mFW6l6zQghalPB5w390g6hnteZ1Rhsev2pby6
-         WwVDFhqRa7qSuGVWqpMFwpuFo8hTKKucdyoOPl/tG+mhsSAnFr1VHD4i2K9XWaaw5pvw
-         cvow==
-X-Gm-Message-State: AOJu0YwUF6z915EFpIJrv+6EGnzF/vI7zOCKb2Z+yLBVR+inBTphBbwc
-	zevOllIcy4oMP/n+ZvDdA8O8NwRjYj13+xKKzrSKhxEgBvTMDc99cky6QpqYpRk=
-X-Google-Smtp-Source: AGHT+IFyCtpkFk8rlXxzlthUKOlmGfwl/2FIK71k6UD/iRyd7h7yu0CVCqNe7aiSJZIBbHnk3VgAhg==
-X-Received: by 2002:a17:906:eb57:b0:a3d:20eb:1ee8 with SMTP id mc23-20020a170906eb5700b00a3d20eb1ee8mr122655ejb.2.1707824146907;
-        Tue, 13 Feb 2024 03:35:46 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCW3o1s2Mw2xAHUVK1yPKXDz/wb3yK0/qKKBdbwYakl85/erl6/nbep4p25Z3l9fS4f6U3v3EUGrw0HMtZWum7yWtVjYFRbRiYLl+PTAvRbOAMGDSkLIQLx0b3GHHPTzDD1WTe0JPd4lfOeK8klB/3/IDC41qkayH8eM1I+N9BbnjHcyCgnmcbhKgWwPEQJHzsSNEbkzBSopSvgEW1le4Z27YE4+BUrDBYku0h+UXudIP3re1TEBw+3qwU/y6R1d4fw3IKeLERvo2/KHoIoaCcBc0JYi/VBoEn/u1TMG
-Date: Tue, 13 Feb 2024 11:35:46 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: xen-devel@lists.xenproject.org, marmarek@invisiblethingslab.com,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v2 3/3] libxl: Enable stubdom cdrom changing
-Message-ID: <ff5f5321-5cb2-4a39-9a68-d5465098a7ff@perard>
-References: <20240201214004.238858-1-jandryuk@gmail.com>
- <20240201214004.238858-4-jandryuk@gmail.com>
+        d=1e100.net; s=20230601; t=1707824219; x=1708429019;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Z8HVVCKdR2JQf6NX1jGQ1/KKxoyowqEyolTxOAblmNk=;
+        b=k4zPBmwmWeqigsFLauxfGot+DERfbetSaez4ftTRSDp5B3icYIIuF1t1rEPnc2zIbO
+         hiLIuryY8tcQj3kCo7/vUn9bx7jUf0ov3fITGn9reOxP6QfNeMEuwoTMZPkni+x444F1
+         o0EWEJKTbM0maKzMb+Dd/5i1Jmc+eyLyovp7YNC7wrbIYkNqhpOjpwovXxh4glQEXnUz
+         Gc3sCh0rPTNcDvtRHuXPVjj1gXuxdvXH5MN7F1UbnfWVJF1TIGCVE/jPoqrfoPmbnVrE
+         d98YHFVIIIAiQUsduPSqVtR34xg6DS94ZA3HBqdREwbFoaiBRvkuew00oTrHybrY/h8E
+         ZDGQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWnd0A86nl6z7iqj9iAF2u25gGmOLAOcwd4R+zjIOanTS9pYzvQ0pmB/5FBoKaajt2sIcwg3wunaMyH4qjKUE9LFETH6ukwmPErcmdrHXo=
+X-Gm-Message-State: AOJu0YxU2rb9EgMSjYmksa6iA0RbgLLmfDMYgbSEa5zG20P9Wkwx7XgK
+	Vi8yCBrgCcZX/ePM7sEucxmgH+3DbX/4Qui78SMlQmvh84JISz7vPPqZLOXGzA==
+X-Google-Smtp-Source: AGHT+IEIhXSxrrgCus0ENH/r51WtOjRNxoISbc+g0Bv+dnXpqSJvu+KEDWUzn5JH3T41RG+guh020Q==
+X-Received: by 2002:a05:600c:1d07:b0:410:cf4f:68e1 with SMTP id l7-20020a05600c1d0700b00410cf4f68e1mr4387021wms.2.1707824219045;
+        Tue, 13 Feb 2024 03:36:59 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUsRC6LTP5gVZDasTnIopEXjnB4sjt/oeJvEJ/4Yj55HsOmZkAro/1XFhO3AI967qv/RJlZUgDmkLnIShacMVWG29zJ2ujQI6owvTNYEZMuKk3SEfaJbf5HeQAqqct5KbNcBrrp5tyArfcDt0XyYJvhueCwid2ubeQNa9LOCjdsnD2ZG7/t1FA5LML+Kne72MFw4/EhJil14munIW7CZalpleJo7xozM7xmYJ6DcpIUuES3LNOP77u3w/1n1Z210XYcvOeHEcJCJQuWPyyeH7byKx1DOoZtOEAMQYiNi8W1rleQy3TGyGww
+Message-ID: <134e09c9-776a-4261-a28b-137d109b62ef@suse.com>
+Date: Tue, 13 Feb 2024 12:36:57 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240201214004.238858-4-jandryuk@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 14/30] xen/riscv: introduce atomic.h
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
+ <6554f2479e19ed3eae6de842ac1568c31d236461.1707146506.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6554f2479e19ed3eae6de842ac1568c31d236461.1707146506.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Feb 01, 2024 at 04:40:04PM -0500, Jason Andryuk wrote:
-> To change the cd-rom medium, libxl will:
->  - QMP eject the medium from QEMU
->  - block-detach the old PV disk
->  - block-attach the new PV disk
->  - QMP change the medium to the new PV disk by fdset-id
+On 05.02.2024 16:32, Oleksii Kurochko wrote:
+> From: Bobby Eshleman <bobbyeshleman@gmail.com>
 > 
-> The QMP code is reused, and remove and attach are implemented here.
-> 
-> The stubdom must internally handle adding /dev/xvdc to the appropriate
-> fdset.  libxl in dom0 doesn't see the result of adding to the fdset as
-> that is internal to the stubdom, so a delay and retries are added to
-> around calling cdrom_insert_addfd_cb().
+> Additionally, this patch introduces macros in fence.h,
+> which are utilized in atomic.h.
 
-Why do you use "fdset" in linux stubdom, can't QEMU open /dev/xvdc
-directly? And so why don't libxl tell QEMU to open /dev/xvdc?
+These are used in an earlier patch already, so either you want to
+re-order the series, or you want to move that introduction ahead.
 
-I think the only reason I've implemented cd-insert via fdset in libxl
-was because that was the only way to have libxl open a file on behalf of
-QEMU when it's deprivileged and don't have access to any file. But that
-doesn't mean we need to use an fdset with the stubdom.
-
-
-And BTW, there's a "query-fdsets" command that could be used to findout
-when and fdset is available, there's even an "opaque" field that could
-be used to communicate which fdset to use instead of needing to rely on
-a static fdset-id.
-
-> For cd-eject, we still need to attach the empty vbd.  This is necessary
-> since xenstore is used to determine that hdc exists.  Otherwise after
-> eject, hdc would be gone and the cd-insert would fail to find the drive
-> to insert new media.
-> 
-> The ERROR_JSON_CONFIG_EMPTY check in cdrom_insert_inserted() is because
-> a stubdom don't have a json config.
-> 
-> Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> ---
-> diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.c
-> index 09082ffb58..6354982c05 100644
-> --- a/tools/libs/light/libxl_disk.c
-> +++ b/tools/libs/light/libxl_disk.c
-> @@ -905,6 +938,18 @@ int libxl_cdrom_insert(libxl_ctx *ctx, uint32_t domid, libxl_device_disk *disk,
->          disk->format = LIBXL_DISK_FORMAT_EMPTY;
->      }
->  
-> +#define STUBDOM_FDSET_CD 8000
-> +    if (strncmp(disk->vdev, "hd", 2) == 0) {
-> +        cis->stubdom_fdset = STUBDOM_FDSET_CD + disk->vdev[2] - 'a';
-> +    } else if (strncmp(disk->vdev, "xvd", 3) == 0) {
-> +        cis->stubdom_fdset = STUBDOM_FDSET_CD + disk->vdev[3] - 'a';
-
-Currently, cd-rom eject/insert also works if one use "sdc", so we
-probably want to check for "sd".
-
-Also, you could use device_virtdisk_matches() like
-libxl__device_disk_dev_number(). I'm not sure if having vdev been
-something like "xvdaa" is going to work well, and that case isn't going
-to produce the expected fdset. (Without the patch, "xvdaa" produce a
-warning when trying to generate QEMU's command line, so maybe it's fine
-to not handle this case.)
-
-> +    } else {
-> +        LOGD(ERROR, cis->domid, "disk->vdev \"%s\" isn't hdX or xvdY",
-> +             disk->vdev);
-> +        rc = ERROR_FAIL;
-> +        goto out;
-> +    }
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/atomic.h
+> @@ -0,0 +1,395 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Taken and modified from Linux.
+> + *
+> + * atomic##prefix##_*xchg_*(atomic##prefix##_t *v, c_t n) were updated to use
+> + * __*xchg_generic()
+> + * 
+> + * Copyright (C) 2007 Red Hat, Inc. All Rights Reserved.
+> + * Copyright (C) 2012 Regents of the University of California
+> + * Copyright (C) 2017 SiFive
+> + * Copyright (C) 2021 Vates SAS
+> + */
 > +
->  out:
->      libxl__device_list_free(&libxl__disk_devtype, disks, num);
->      if (rc) {
-> @@ -923,6 +968,7 @@ static void cdrom_insert_lock_acquired(libxl__egc *egc,
->      libxl__cdrom_insert_state *cis = CONTAINER_OF(lock, *cis, qmp_lock);
->      STATE_AO_GC(cis->ao);
->  
-> +    LOGD(DEBUG, cis->domid, "rc=%d", rc);
-
-Left over debug logging? The new one in cdrom_insert_done() might be
-enough? Also, I think libxl__ao_complete() does log this rc value as
-well.
-
->      if (rc) goto out;
->  
->      rc = libxl__ev_time_register_rel(ao, &cis->time,
-
-
-> +static void cdrom_insert_stubdom_ejected(libxl__egc *egc, libxl__ev_qmp *qmp,
-> +                                         const libxl__json_object *response,
-> +                                         int rc)
+> +#ifndef _ASM_RISCV_ATOMIC_H
+> +#define _ASM_RISCV_ATOMIC_H
+> +
+> +#include <xen/atomic.h>
+> +#include <asm/cmpxchg.h>
+> +#include <asm/fence.h>
+> +#include <asm/io.h>
+> +#include <asm/system.h>
+> +
+> +void __bad_atomic_size(void);
+> +
+> +static always_inline void read_atomic_size(const volatile void *p,
+> +                                           void *res,
+> +                                           unsigned int size)
 > +{
-> +    libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
-> +    libxl__device *device;
-> +    STATE_AO_GC(cis->ao);
-> +    domid_t stubdomid = libxl_get_stubdom_id(CTX, cis->domid);
+> +    switch ( size )
+> +    {
+> +    case 1: *(uint8_t *)res = readb(p); break;
+> +    case 2: *(uint16_t *)res = readw(p); break;
+> +    case 4: *(uint32_t *)res = readl(p); break;
+> +    case 8: *(uint32_t *)res  = readq(p); break;
 
-cis->disk_domid?
+Why is it the MMIO primitives you use here, i.e. not read<X>_cpu()?
+It's RAM you're accessing after all.
 
-> +
-> +    LOGD(DEBUG, cis->domid, "rc=%d", rc);
-> +    /* cis->stubdom_fdset is initially empty, so remove-fd fails the first
-> +     * call with:
-> +     * {"error": {"class": "GenericError",
-> +     *            "desc": "File descriptor named 'fdset-id:8675' not found"}}
-> +     * Carry on in that case. */
-> +    if (rc && rc != ERROR_QMP_GENERIC_ERROR) goto out;
-> +
-> +    GCNEW(device);
-> +    rc = libxl__device_from_disk(gc, stubdomid, cis->disk, device);
-> +    if (rc != 0) goto out;
+Also - no CONFIG_64BIT conditional here (like you have in the other
+patch)?
 
-If (rc) is more common without "!= 0".
-
-
-> +
-> +    /* block dev eject */
-> +    /* Below is basically an open coding of:
-> +     * libxl_device_disk__remove(CTX, cis->domid, cis->disk, 0);
-
-One too many '_'?
-
-> +     * ...since we can't call it from within libxl.
-
-Well, not exactly, we also need to set our own callback and own struct
-here.
-
-> +     */
-> +    libxl__prepare_ao_device(ao, &cis->aodev_del);
-> +    cis->aodev_del.action = LIBXL__DEVICE_ACTION_REMOVE;
-> +    cis->aodev_del.dev = device;
-> +    cis->aodev_del.callback = cdrom_insert_stubdom_disk_ejected_aocomplete;
-> +    cis->aodev_del.force.flag = LIBXL__FORCE_OFF;
-> +    libxl__initiate_device_generic_remove(egc, &cis->aodev_del);
-
-It doesn't looks like you need an extra `aodev_del` field, and you can
-probably reuse the same `aodev` field twice.
-
-> +    return;
-> +
-> + out:
-> +    cdrom_insert_done(egc, cis, rc); /* must be last */
+> +    default: __bad_atomic_size(); break;
+> +    }
 > +}
 > +
-> +static void cdrom_insert_stubdom_disk_ejected_aocomplete(libxl__egc *egc,
-> +                                                         libxl__ao_device *aodev)
+> +#define read_atomic(p) ({                               \
+> +    union { typeof(*p) val; char c[0]; } x_;            \
+> +    read_atomic_size(p, x_.c, sizeof(*p));              \
+
+I'll be curious for how much longer gcc will tolerate this accessing
+of a zero-length array, without issuing at least a warning. I'd
+recommend using sizeof(*(p)) as the array dimension right away. (From
+this not also the missing parentheses in what you have.)
+
+> +    x_.val;                                             \
+> +})
+> +
+> +#define write_atomic(p, x)                              \
+> +({                                                      \
+> +    typeof(*p) x__ = (x);                               \
+> +    switch ( sizeof(*p) )                               \
+> +    {                                                   \
+> +    case 1: writeb((uint8_t)x__,  p); break;            \
+> +    case 2: writew((uint16_t)x__, p); break;            \
+> +    case 4: writel((uint32_t)x__, p); break;            \
+> +    case 8: writeq((uint64_t)x__, p); break;            \
+
+Are the casts actually necessary here?
+
+> +    default: __bad_atomic_size(); break;                \
+> +    }                                                   \
+> +    x__;                                                \
+> +})
+> +
+> +#define add_sized(p, x)                                 \
+> +({                                                      \
+> +    typeof(*(p)) x__ = (x);                             \
+> +    switch ( sizeof(*(p)) )                             \
+> +    {                                                   \
+> +    case 1: writeb(read_atomic(p) + x__, p); break;     \
+> +    case 2: writew(read_atomic(p) + x__, p); break;     \
+> +    case 4: writel(read_atomic(p) + x__, p); break;     \
+> +    default: __bad_atomic_size(); break;                \
+> +    }                                                   \
+> +})
+> +
+> +/*
+> + *  __unqual_scalar_typeof(x) - Declare an unqualified scalar type, leaving
+> + *               non-scalar types unchanged.
+> + *
+> + * Prefer C11 _Generic for better compile-times and simpler code. Note: 'char'
+> + * is not type-compatible with 'signed char', and we define a separate case.
+> + */
+> +#define __scalar_type_to_expr_cases(type)               \
+> +    unsigned type:  (unsigned type)0,                   \
+> +    signed type:    (signed type)0
+> +
+> +#define __unqual_scalar_typeof(x) typeof(               \
+> +    _Generic((x),                                       \
+> +        char:  (char)0,                                 \
+> +        __scalar_type_to_expr_cases(char),              \
+> +        __scalar_type_to_expr_cases(short),             \
+> +        __scalar_type_to_expr_cases(int),               \
+> +        __scalar_type_to_expr_cases(long),              \
+> +        __scalar_type_to_expr_cases(long long),         \
+> +        default: (x)))
+
+This isn't RISC-V specific, is it? In which case it wants moving to,
+perhaps, xen/macros.h (and then also have the leading underscores
+dropped).
+
+> +#define READ_ONCE(x)  (*(const volatile __unqual_scalar_typeof(x) *)&(x))
+> +#define WRITE_ONCE(x, val)                                      \
+> +    do {                                                        \
+> +        *(volatile typeof(x) *)&(x) = (val);                    \
+> +    } while (0)
+
+In Xen we use ACCESS_ONCE(); any reason you need to introduce
+{READ,WRITE}_ONCE() in addition? Without them, __unqual_scalar_typeof()
+may then also not be needed (or, if there's a need to enhance it, may
+then be needed for ACCESS_ONCE()). Which in turn raises the question
+why only READ_ONCE() uses it here.
+
+> +#define __atomic_acquire_fence() \
+> +    __asm__ __volatile__( RISCV_ACQUIRE_BARRIER "" ::: "memory" )
+
+Missing blank here and ...
+
+> +#define __atomic_release_fence() \
+> +    __asm__ __volatile__( RISCV_RELEASE_BARRIER "" ::: "memory" );
+
+... here, and stray semicolon additionally just here.
+
+> +static inline int atomic_read(const atomic_t *v)
 > +{
-> +    STATE_AO_GC(aodev->ao);
-> +    libxl__cdrom_insert_state *cis = CONTAINER_OF(aodev, *cis, aodev_del);
-> +
-> +    LOGD(DEBUG, cis->domid, "rc=%d", aodev->rc);
-> +    if (aodev->rc) {
-> +        if (aodev->dev) {
-
-I'm pretty sure "aodev->dev" should be set, so this if doesn't seems
-needed.
-
-> +            LOGD(ERROR, aodev->dev->domid, "Unable to %s %s with id %u",
-> +                        libxl__device_action_to_string(aodev->action),
-
-We already know the action is "remove".
-
-> +                        libxl__device_kind_to_string(aodev->dev->kind),
-> +                        aodev->dev->devid);
-
-This whole message could be personalised to what we are trying to
-achieve, that is, remove the cd-rom from the stubdomain.
-
-> +        } else {
-> +            LOG(ERROR, "unable to %s device",
-> +                       libxl__device_action_to_string(aodev->action));
-> +        }
-> +        goto out;
-> +    }
-> +
-> +    cdrom_insert_stubdom_disk_ejected(egc, &cis->qmp, NULL, aodev->rc);
-> +    return;
-> +
-> + out:
-> +    cdrom_insert_done(egc, cis, aodev->rc);
+> +    return READ_ONCE(v->counter);
 > +}
 > +
-> +static void cdrom_insert_stubdom_disk_ejected(libxl__egc *egc,
-> +                                              libxl__ev_qmp *qmp,
-> +                                              const libxl__json_object *response,
-> +                                              int rc)
-
-This functions prototype looks like a ev_qmp callback but it's never
-used like that. Also, it could be merged into the previous function.
-
-
->  static void cdrom_insert_inserted(libxl__egc *egc,
->                                    libxl__ev_qmp *qmp,
->                                    const libxl__json_object *response,
->                                    int rc)
->  {
-> -    EGC_GC;
->      libxl__cdrom_insert_state *cis = CONTAINER_OF(qmp, *cis, qmp);
-> +    STATE_AO_GC(cis->ao);
-
-Why do you replace EGC_GC by AO_GC ? Is there an allocation that need to
-last longer in the current function? If it's just to have "ao" in the
-current scope, you can use "cis->ao" below.
-
->      libxl__flock *data_lock = NULL;
->      libxl_domain_config d_config;
->      flexarray_t *insert = NULL;
-> @@ -1171,9 +1401,22 @@ static void cdrom_insert_inserted(libxl__egc *egc,
->  
->      libxl_domain_config_init(&d_config);
->  
-> -    if (rc) goto out;
-> +    LOGD(DEBUG, cis->domid, "rc=%d", rc);
+> +static inline int _atomic_read(atomic_t v)
+> +{
+> +    return v.counter;
+> +}
 > +
-> +    if (rc) {
-> +        if (cis->retries++ < 10 ) {
-> +            LOGD(DEBUG, qmp->domid, "Retrying QMP cdrom change\n");
-> +            rc = libxl__ev_time_register_rel(ao, &cis->timeout_retry,
-> +                                             cdrom_insert_addfd_retry, 100);
-> +            if (rc) goto out;
->  
-> -    rc = libxl__device_from_disk(gc, domid, disk, &device);
-> +            return;
-> +        } else {
-> +            goto out;
-> +        }
-> +    }
+> +static inline void atomic_set(atomic_t *v, int i)
+> +{
+> +    WRITE_ONCE(v->counter, i);
+> +}
 > +
-> +    rc = libxl__device_from_disk(gc, cis->disk_domid, disk, &device);
->      if (rc) goto out;
->      be_path = libxl__device_backend_path(gc, &device);
->      libxl_path = libxl__device_libxl_path(gc, &device);
-> @@ -1257,7 +1500,10 @@ static void cdrom_insert_done(libxl__egc *egc,
->  {
->      EGC_GC;
->  
-> +    LOGD(DEBUG, cis->domid, "rc=%d", rc);
+> +static inline void _atomic_set(atomic_t *v, int i)
+> +{
+> +    v->counter = i;
+> +}
+> +
+> +static inline int atomic_sub_and_test(int i, atomic_t *v)
+> +{
+> +    return atomic_sub_return(i, v) == 0;
+> +}
+> +
+> +static inline void atomic_inc(atomic_t *v)
+> +{
+> +    atomic_add(1, v);
+> +}
+> +
+> +static inline int atomic_inc_return(atomic_t *v)
+> +{
+> +    return atomic_add_return(1, v);
+> +}
+> +
+> +static inline void atomic_dec(atomic_t *v)
+> +{
+> +    atomic_sub(1, v);
+> +}
+> +
+> +static inline int atomic_dec_return(atomic_t *v)
+> +{
+> +    return atomic_sub_return(1, v);
+> +}
+> +
+> +static inline int atomic_dec_and_test(atomic_t *v)
+> +{
+> +    return atomic_sub_return(1, v) == 0;
+> +}
+> +
+> +static inline int atomic_add_negative(int i, atomic_t *v)
+> +{
+> +    return atomic_add_return(i, v) < 0;
+> +}
+> +
+> +static inline int atomic_inc_and_test(atomic_t *v)
+> +{
+> +    return atomic_add_return(1, v) == 0;
+> +}
 
-I don't think this is useful because libxl__ao_complete() will print rc
-as well.
+None of these look RISC-V-specific. Perhaps worth having something in
+asm-generic/ that can be utilized here?
 
->      libxl__ev_time_deregister(gc, &cis->time);
-> +    libxl__ev_time_deregister(gc, &cis->timeout_retry);
->      libxl__ev_qmp_dispose(gc, &cis->qmp);
->      if (cis->qmp.payload_fd >= 0) close(cis->qmp.payload_fd);
->      libxl__ev_slowlock_unlock(gc, &cis->qmp_lock);
+> +/*
+> + * First, the atomic ops that have no ordering constraints and therefor don't
+> + * have the AQ or RL bits set.  These don't return anything, so there's only
+> + * one version to worry about.
+> + */
+> +#define ATOMIC_OP(op, asm_op, I, asm_type, c_type, prefix)  \
+> +static inline                                               \
+> +void atomic##prefix##_##op(c_type i, atomic##prefix##_t *v) \
+> +{                                                           \
+> +    __asm__ __volatile__ (                                  \
+> +        "   amo" #asm_op "." #asm_type " zero, %1, %0"      \
+> +        : "+A" (v->counter)                                 \
+> +        : "r" (I)                                           \
+> +        : "memory" );                                       \
+> +}                                                           \
+> +
+> +#define ATOMIC_OPS(op, asm_op, I)                           \
+> +        ATOMIC_OP (op, asm_op, I, w, int,   )
 
--- 
-Anthony PERARD
+So the last three parameters are to be ready to also support
+atomic64, without actually doing so right now?
+
+> +ATOMIC_OPS(add, add,  i)
+> +ATOMIC_OPS(sub, add, -i)
+> +ATOMIC_OPS(and, and,  i)
+> +ATOMIC_OPS( or,  or,  i)
+> +ATOMIC_OPS(xor, xor,  i)
+> +
+> +#undef ATOMIC_OP
+> +#undef ATOMIC_OPS
+> +
+> +/*
+> + * Atomic ops that have ordered, relaxed, acquire, and release variants.
+> + * There's two flavors of these: the arithmatic ops have both fetch and return
+> + * versions, while the logical ops only have fetch versions.
+> + */
+
+I'm somewhat confused by the comment: It first talks of 4 variants, but
+then says there are only 2 (arithmetic) or 1 (logical) ones.
+
+> +#define ATOMIC_FETCH_OP(op, asm_op, I, asm_type, c_type, prefix)    \
+> +static inline                                                       \
+> +c_type atomic##prefix##_fetch_##op##_relaxed(c_type i,              \
+> +                         atomic##prefix##_t *v)                     \
+> +{                                                                   \
+> +    register c_type ret;                                            \
+> +    __asm__ __volatile__ (                                          \
+> +        "   amo" #asm_op "." #asm_type " %1, %2, %0"                \
+> +        : "+A" (v->counter), "=r" (ret)                             \
+> +        : "r" (I)                                                   \
+> +        : "memory" );                                               \
+> +    return ret;                                                     \
+> +}                                                                   \
+> +static inline                                                       \
+> +c_type atomic##prefix##_fetch_##op(c_type i, atomic##prefix##_t *v) \
+> +{                                                                   \
+> +    register c_type ret;                                            \
+> +    __asm__ __volatile__ (                                          \
+> +        "   amo" #asm_op "." #asm_type ".aqrl  %1, %2, %0"          \
+> +        : "+A" (v->counter), "=r" (ret)                             \
+> +        : "r" (I)                                                   \
+> +        : "memory" );                                               \
+> +    return ret;                                                     \
+> +}
+> +
+> +#define ATOMIC_OP_RETURN(op, asm_op, c_op, I, asm_type, c_type, prefix) \
+> +static inline                                                           \
+> +c_type atomic##prefix##_##op##_return_relaxed(c_type i,                 \
+> +                          atomic##prefix##_t *v)                        \
+> +{                                                                       \
+> +        return atomic##prefix##_fetch_##op##_relaxed(i, v) c_op I;      \
+> +}                                                                       \
+> +static inline                                                           \
+> +c_type atomic##prefix##_##op##_return(c_type i, atomic##prefix##_t *v)  \
+> +{                                                                       \
+> +        return atomic##prefix##_fetch_##op(i, v) c_op I;                \
+> +}
+> +
+> +#define ATOMIC_OPS(op, asm_op, c_op, I)                                 \
+> +        ATOMIC_FETCH_OP( op, asm_op,       I, w, int,   )               \
+> +        ATOMIC_OP_RETURN(op, asm_op, c_op, I, w, int,   )
+> +
+> +ATOMIC_OPS(add, add, +,  i)
+> +ATOMIC_OPS(sub, add, +, -i)
+> +
+> +#define atomic_add_return_relaxed   atomic_add_return_relaxed
+> +#define atomic_sub_return_relaxed   atomic_sub_return_relaxed
+> +#define atomic_add_return   atomic_add_return
+> +#define atomic_sub_return   atomic_sub_return
+> +
+> +#define atomic_fetch_add_relaxed    atomic_fetch_add_relaxed
+> +#define atomic_fetch_sub_relaxed    atomic_fetch_sub_relaxed
+> +#define atomic_fetch_add    atomic_fetch_add
+> +#define atomic_fetch_sub    atomic_fetch_sub
+
+What are all of these #define-s (any yet more further down) about?
+
+> +static inline int atomic_sub_if_positive(atomic_t *v, int offset)
+> +{
+> +       int prev, rc;
+> +
+> +    __asm__ __volatile__ (
+> +        "0: lr.w     %[p],  %[c]\n"
+> +        "   sub      %[rc], %[p], %[o]\n"
+> +        "   bltz     %[rc], 1f\n"
+> +        "   sc.w.rl  %[rc], %[rc], %[c]\n"
+> +        "   bnez     %[rc], 0b\n"
+> +        "   fence    rw, rw\n"
+> +        "1:\n"
+> +        : [p]"=&r" (prev), [rc]"=&r" (rc), [c]"+A" (v->counter)
+> +        : [o]"r" (offset)
+
+Nit: Blanks please between ] and ".
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/fence.h
+> @@ -0,0 +1,8 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +#ifndef _ASM_RISCV_FENCE_H
+> +#define _ASM_RISCV_FENCE_H
+> +
+> +#define RISCV_ACQUIRE_BARRIER   "\tfence r , rw\n"
+> +#define RISCV_RELEASE_BARRIER   "\tfence rw,  w\n"
+
+Seeing that another "fence rw, rw" appears in this patch, I'm now pretty
+sure you want to add e.g. RISCV_FULL_BARRIER here as well.
+
+Jan
 
