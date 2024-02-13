@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB83C852996
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 08:15:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679759.1057429 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20954852A30
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 08:38:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679764.1057439 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZmzT-0004tF-GG; Tue, 13 Feb 2024 07:14:03 +0000
+	id 1rZnMo-0007p0-GY; Tue, 13 Feb 2024 07:38:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679759.1057429; Tue, 13 Feb 2024 07:14:03 +0000
+Received: by outflank-mailman (output) from mailman id 679764.1057439; Tue, 13 Feb 2024 07:38:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZmzT-0004qU-DI; Tue, 13 Feb 2024 07:14:03 +0000
-Received: by outflank-mailman (input) for mailman id 679759;
- Tue, 13 Feb 2024 07:14:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1rZnMo-0007m8-DP; Tue, 13 Feb 2024 07:38:10 +0000
+Received: by outflank-mailman (input) for mailman id 679764;
+ Tue, 13 Feb 2024 07:38:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=W/Jz=JW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZmzS-0004qM-5a
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 07:14:02 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 74eba9bb-ca3f-11ee-98f5-efadbce2ee36;
- Tue, 13 Feb 2024 08:13:59 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-40efcb37373so32067255e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 23:13:59 -0800 (PST)
+ id 1rZnMn-0007m2-Ai
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 07:38:09 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d494857d-ca42-11ee-8a4d-1f161083a0e0;
+ Tue, 13 Feb 2024 08:38:08 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id
+ ffacd0b85a97d-337d05b8942so3357945f8f.3
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 23:38:08 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dx9-20020a05600c63c900b0040d5ae2906esm10679670wmb.30.2024.02.12.23.13.58
+ bt25-20020a056000081900b0033b792ed609sm6602714wrb.91.2024.02.12.23.38.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 23:13:58 -0800 (PST)
+ Mon, 12 Feb 2024 23:38:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +45,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74eba9bb-ca3f-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: d494857d-ca42-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707808439; x=1708413239; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707809887; x=1708414687; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=vy6WUO8JrMmJ5Heu8bApmAce3OPcq0UizfnHuhdaLT8=;
-        b=Q2o8wqGayXJK+15CQc0D0o/y+KnC0vafh9vZ3H3Y2rOfUYsxnjNOHJXp0wgsD0VVrK
-         KfUtCjaS8zzWdQLlmVAFU2Cyl889dBuh/qd+s0jChHZ3JWEWwYg2zoXsEv0mXuElY8mJ
-         7TCMldHWVwvEuEOBk8YXhAgsr8QITnmBdDYWeHYhFyhHbQX/UVl1+SL/mOIABS2qVKsA
-         xfAjdhO2rLEU4kXXiOHfkBe6DJsDUNtWAQ+UEWtBUkC5MWwcr8iLjR+jPx7Jkpy/Q0Hy
-         h6Il0vBirukYo/oPeeSDj7Sp4oHHFx03TGQfJ2sSqP/XeijGZg3JwfhV1YTOSBmQeV/O
-         5pIQ==
+        bh=g2TUnxqUFEUuds5VoosuLXLTLztNDPp3bX3riYGqOcU=;
+        b=UIVn8kEqWVMUUwQ9tAT2zyZobITnbsym+pqVwf8MWrD/Vyt489CCVLheJLTdQPklaP
+         TApozAVn6tAHmqLkRLJu3In9Ok5f3qv0vQi7W7YQe6gew2H+MB5wMDfKLKuZwYc9lHZQ
+         KASaRtKVZ1Ya/kLjpCy04gXe+a++3AwJTYkg/rhD5U2+XYfa1quAiyVGmVnO1a3JLBDn
+         8jQFQk8K6vcrB7FVf3DpfU4o3BGUt4ibTGUIPoKwv7AwknBJVuXmZH+5ibmLDtEv6OoC
+         0kkUfrcPCix1n07LdOfJgHYtV4F1uinnpDFIfvdF/uQNxqGRqUJfXqt5RDwmrRa5bXR3
+         a59Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707808439; x=1708413239;
+        d=1e100.net; s=20230601; t=1707809887; x=1708414687;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vy6WUO8JrMmJ5Heu8bApmAce3OPcq0UizfnHuhdaLT8=;
-        b=Ie65z4Co0W/n0ZPnRcXKUFflf6nJP16/NOSwX5fiEQ4GktSMnzN8VNyeLHsQSK3wIh
-         0RrIaVFCs//BNc04WiyqODkn8Yl+dZCEMRsH7HA9HPp+CZxIZEBXZdmpM+oKNDKZObnL
-         2sPo1Oztt4oUzUUDL2wc0j6DRoL9s6yKcpowrgVTWjKaCQmuJjaKFbwm86a8uuVHvTDn
-         xv5Dl7RWIlUlryrNNphAI/AzGKCtsBk2zb62r0xrSWP26+AoYztBMJO5Y61gJJdRvQd1
-         fquv1UdgtXCuVUAEngA455fJp3N9OQ7ICE0ILaK3RJBUbbzedAYX0c7XWiIEydnNscMY
-         eDjQ==
-X-Forwarded-Encrypted: i=1; AJvYcCX7NE7ySpdcte6fvoufRfjkIS+neqs4TtZe/Euu7t7XfdbKj8z+tVEmRF+s/8wU0DvnY2z2zKku3Flt+HG2q9F2CYJ4qVyl349YBLrSucw=
-X-Gm-Message-State: AOJu0YyW73h03lMYonkBhMDJGnfaEkcmVZVKk/4lEPEOvh8//O7BUnJW
-	4o8nFp2stZmZeBW/GNmSh4jiPVE4/69r6axqio2EFJugDYvZuKBE6eFbYaVQ+w==
-X-Google-Smtp-Source: AGHT+IGz4wUCsMCCEoETO//hhIM4n7UB+6AjU0NUagPLKVEqUn7qp+DCLv5j/UXdULcAoaXmxKnNyQ==
-X-Received: by 2002:a05:600c:45c8:b0:410:d71b:19ae with SMTP id s8-20020a05600c45c800b00410d71b19aemr3107896wmo.25.1707808438946;
-        Mon, 12 Feb 2024 23:13:58 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUD7WMYI4qxZ0Tq+n0m+NYSyGzvc5d+fRERJL/LsaTvSPLC3qCdcATlX6KA4LQPYId3E81go0toNdjAgMDW8/yhc21IfTGDZWW7VQPwi3HD92AYtRSeEbdHQ86sGVLwR4z1D9MTbAk7zoYmTON/YRmWFQEdoMIat8YNgD/yAk+BVHsbhuwmr6T0n2n4gv3pKK1RX7Y9JmTy6x4PdzVGAw/PVwO7h4hrzbzBjuCnyMRB+jwyKjPRTRhlJY9mhMgQUabI5jR6/gXRBwHqg+o7AKjbNTUWryHUn3B/W6ZawWjddHDOOKYotar2/xmGOX5WHqpWZjESn3+ISC8Qqzj8FjwnGhbwyDUtkIg0
-Message-ID: <c0b8f2ec-a3bb-45a6-b748-052d55a6fd5c@suse.com>
-Date: Tue, 13 Feb 2024 08:13:57 +0100
+        bh=g2TUnxqUFEUuds5VoosuLXLTLztNDPp3bX3riYGqOcU=;
+        b=pEAUQaEVz6nb9bTaGX/snxEW4z64dz+4wT+72+d4m5/ILIbzKGbsZvzYMeIjSq5MY4
+         0t0f9t1NVWHjTOG18+dMro9nwODHxMkz1liPy0UTGdxE9To/RjQoUevfxrr7KozcLvq9
+         EwdHWyOhCCCfUpz9zIHIKOGI87YtRo/NBRhDiiG6iWvL049IiCb4qzZYRPrknL7qQZ/v
+         WZnc2KUPN9m9cZz7p8mHxIIPG3dyQQzdJg8mSqfofas4AfmZrHjrLVuv2AJ5DVk1eulS
+         lqOvXUsHOhWJws2aAFMLyJk9PBIuluPlXhVb3BEG7yl6XAVG9FrSqxAob2bIujOf8aBh
+         KFQg==
+X-Gm-Message-State: AOJu0Yy8XNeGyUMxlwrUj93sBikVJmjCuCK1VojR2Hd2QSw6IkwhfAOX
+	5EFMxDJjPtLEyyCRnftGRSiVsep0SpHB6ZZdfta/XJS+6BBaTBs7+1q6exAjOQ==
+X-Google-Smtp-Source: AGHT+IFVmCk/GcVZ1U5c6YbSrUVLcj5Me8xy5p8vSQCPar7Dm48mdRqUMDtFPSVxXpCJZluTWtHsWQ==
+X-Received: by 2002:adf:e68a:0:b0:33b:433d:e1d7 with SMTP id r10-20020adfe68a000000b0033b433de1d7mr6639764wrm.1.1707809887381;
+        Mon, 12 Feb 2024 23:38:07 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVVzJVHDs1sbXPfI79/DDojUlFZPHXEugtMnUi5pwNgHTUHFCWQp6fVVDkmeX0L2+lWo4n3WP1pLk0B7QbdDk4J3RMlf/zFB9lGVdCHNWbJdl55WdbggEmpJPeY4WzWL4hGjp4QCnWBAVMiTTOiGgFut0K6KvXShuA8g1FQLlyJYdH9aC3ewBaPv0P3x+Qk2ez7W4Jm+//8Gt4n/s8hdz7Bz2Bgtdjl/hrhltiDxRyevoM0Mrew5YENCZv9IE6+EPwnv0ZkutXatal9t5Kqxy2AiiD0Gjs9QSxr+V9gGv6E5/nJxcs=
+Message-ID: <d7295c43-c415-4113-8d9c-e6e3d688763e@suse.com>
+Date: Tue, 13 Feb 2024 08:38:06 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Return type of clean_and_invalidate_dcache_va_range
+Subject: Re: [PATCH v1] docs/misra/rules.rst: catch up with accepted rules
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Nicola Vetrini <nicola.vetrini@bugseng.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Xen Devel <xen-devel@lists.xenproject.org>,
- Consulting <consulting@bugseng.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper3 <andrew.cooper3@citrix.com>, Roger Pau
- <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>
-References: <e050b096ff39aa857f9c267a8dbb4ef6@bugseng.com>
- <alpine.DEB.2.22.394.2402091402080.1925432@ubuntu-linux-20-04-desktop>
- <f86baad0-f113-4156-9c10-6910e8c63492@xen.org>
- <02446758-a5a9-4a8a-8ce6-15abdc9ede65@suse.com>
- <99faac70440a68824a17fcaaea55ef48@bugseng.com>
- <09589e8f-77b6-47f7-b5bd-cf485e4b60f1@xen.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
+ bertrand.marquis@arm.com, roger.pau@citrix.com, roberto.bagnara@bugseng.com,
+ federico.serafini@bugseng.com, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.22.394.2402091653110.1925432@ubuntu-linux-20-04-desktop>
+ <9504e77d-6f52-489c-a91a-f4d1a6ce9a33@suse.com>
+ <alpine.DEB.2.22.394.2402121512050.1925432@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -122,110 +113,76 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <09589e8f-77b6-47f7-b5bd-cf485e4b60f1@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2402121512050.1925432@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12.02.2024 19:38, Julien Grall wrote:
-> An alternative would be to introduced arch_grant_cache_flush() and move 
-> the if/else logic there. Something like:
+On 13.02.2024 00:18, Stefano Stabellini wrote:
+> On Mon, 12 Feb 2024, Jan Beulich wrote:
+>> On 10.02.2024 02:00, Stefano Stabellini wrote:
+>>> Update docs/misra/rules.rst to reflect the MISRA C rules accepted in the
+>>> last couple of months.
+>>>
+>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>>> ---
+>>>
+>>> In the notes section I added some info about the deviations, but in any
+>>> case the appropriate info will also be added to deviations.rst,
+>>> safe.json, etc.
+>>>
+>>> I also added Rule 14.4, which is older, but when I first tried to add it
+>>> to rules.rst, Jan had a question I couldn't reply clearly:
+>>> https://marc.info/?l=xen-devel&m=169828285627163
+>>>
+>>> I think now with this series, the impact of Rule 14.4 is clearer:
+>>> https://marc.info/?l=xen-devel&m=170194257326186
+>>
+>> This series is about enums only afaics. Yet the rule is much wider, and iirc
+>> we had agreed that for integer and pointer types the normal language
+>> conversion to boolean meaning is fine as well. Not only do you not mention
+>> this case in the entry,
 > 
-> diff --git a/xen/arch/arm/include/asm/page.h 
-> b/xen/arch/arm/include/asm/page.h
-> index 69f817d1e68a..4a3de49762a1 100644
-> --- a/xen/arch/arm/include/asm/page.h
-> +++ b/xen/arch/arm/include/asm/page.h
-> @@ -281,6 +281,19 @@ static inline void write_pte(lpae_t *p, lpae_t pte)
->       dsb(sy);
->   }
+> I can add a note about it.
 > 
-> +static inline arch_grant_cache_flush(unsigned int op, const void *p, 
-> unsigned long size)
-> +{
-> +    unsigned int order = get_order_from_bytes(size);
-> +
-> +    if ( (cflush->op & GNTTAB_CACHE_INVAL) && (cflush->op & 
-> GNTTAB_CACHE_CLEAN) )
-> +        clean_and_invalidate_dcache_va_range(v, cflush->length);
-> +    else if ( cflush->op & GNTTAB_CACHE_INVAL )
-> +        invalidate_dcache_va_range(v, cflush->length);
-> +    else if ( cflush->op & GNTTAB_CACHE_CLEAN )
-> +        clean_dcache_va_range(v, cflush->length);
-> +
-> +    return 0;
-> +}
 > 
->   /* Flush the dcache for an entire page. */
->   void flush_page_to_ram(unsigned long mfn, bool sync_icache);
-> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> index 424744ad5e1a..647e1522466d 100644
-> --- a/xen/arch/arm/setup.c
-> +++ b/xen/arch/arm/setup.c
-> @@ -735,8 +735,7 @@ void asmlinkage __init start_xen(unsigned long 
-> boot_phys_offset,
->                 fdt_paddr);
+>> but it also continue to mean that effectively we
+>> limit the rule to a very narrow case. Which continue to leave open the
+>> question of whether the rule is worthwhile to accept in the first place.
 > 
->       /* Register Xen's load address as a boot module. */
-> -    xen_bootmodule = add_boot_module(BOOTMOD_XEN,
-> -                             virt_to_maddr(_start),
-> +    xen_bootmodule = add_boot_module(BOOTMOD_XEN, virt_to_maddr(_start),
->                                (paddr_t)(uintptr_t)(_end - _start), false);
->       BUG_ON(!xen_bootmodule);
-> 
-> diff --git a/xen/arch/x86/include/asm/flushtlb.h 
-> b/xen/arch/x86/include/asm/flushtlb.h
-> index bb0ad58db49b..dfe51cddde90 100644
-> --- a/xen/arch/x86/include/asm/flushtlb.h
-> +++ b/xen/arch/x86/include/asm/flushtlb.h
-> @@ -182,23 +182,22 @@ void flush_area_mask(const cpumask_t *mask, const 
-> void *va,
->   }
-> 
->   static inline void flush_page_to_ram(unsigned long mfn, bool 
-> sync_icache) {}
-> -static inline int invalidate_dcache_va_range(const void *p,
-> -                                             unsigned long size)
-> -{ return -EOPNOTSUPP; }
-> -static inline int clean_and_invalidate_dcache_va_range(const void *p,
-> -                                                       unsigned long size)
-> +
-> +unsigned int guest_flush_tlb_flags(const struct domain *d);
-> +void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask);
-> +
-> +static inline arch_grant_cache_flush(unsigned int op, const void *p, 
-> unsigned long size)
->   {
-> -    unsigned int order = get_order_from_bytes(size);
-> +    unsigned int order;
-> +
-> +    if ( !(cflush->op & GNTTAB_CACHE_CLEAN) )
-> +        return -EOPNOTSUPP;
-> +
-> +    order = get_order_from_bytes(size);
->       /* sub-page granularity support needs to be added if necessary */
->       flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
-> +
->       return 0;
->   }
-> -static inline int clean_dcache_va_range(const void *p, unsigned long size)
-> -{
-> -    return clean_and_invalidate_dcache_va_range(p, size);
-> -}
-> -
-> -unsigned int guest_flush_tlb_flags(const struct domain *d);
-> -void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask);
-> 
->   #endif /* __FLUSHTLB_H__ */
-> 
-> I have a slight preference for the latter. I would like to hear the 
-> opinion of the others.
+> When someone does a safety certification, there is a difference between
+> deviating a rule as a whole or accepting the rule and only deviating
+> certain aspects of it (simply ignoring the rule is typically not an
+> option in safety certification context.) So here I think it would help
+> downstreams interested in safety if we added the rule, with specific
+> deviations.
 
-I would prefer this 2nd form, too, assuming the setup.c change wasn't
-really meant to be there. The one thing that doesn't become clear: In
-the sketch above arch_grant_cache_flush() has no return type, yet has
-"return 0". This raises a question towards the one that's at the root
-of this thread: Do you mean the function to have a return value, and
-if so will it be (sensibly) used?
+Yet then in other cases you refer to Bertrand's general statement of it
+not being helpful when too little of a rule is left by deviating.
 
-Jan
+> Do you have any comments on the other parts of this patch? If not, I
+> would be happy to resent the rest unmodified, and update only 14.4 in
+> its own separate patch where we can discuss further.
+
+Well. We're in territory now where I'm not really happy anymore with the
+full scope of what is being added to the "accepted" list. Leaving 14.4
+aside, what you have in the patch all looks like what was agreed upon,
+but then I'm not taking notes during meetings, and hence I can't help
+the impression that e.g. for 5.5 there was more than just the one
+"permitted" pattern. Therefore, while I deliberately didn't comment
+there (for not having a concrete case in mind), I'm afraid I also don't
+feel anymore like acking such multi-rule patches. If you strictly went
+one by one, it is certainly possible that I might ack this and that.
+
+As attempted to voice several times during the meetings, I pretty
+strongly disagree with many of the "developer confusion" aspects, when
+they take away options the language quite obviously and naturally
+provides. We're talking about hypervisor code here, not some random
+tool that was thrown together in a haste. At the risk of sounding
+arrogant, people being easily confused by what I'd call normal code
+should simply not touch code like this. Whereas the spirit of many of
+these rules looks to rather go in the direction that basically anyone
+knowing a little bit of C should be qualified enough to maintain code
+made subject to all of these rules.
+
+I'm sorry, Jan
 
