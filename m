@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A16D853811
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 18:32:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680106.1057970 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4B2C8538C8
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 18:40:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680112.1057981 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZwdV-0005cA-Tk; Tue, 13 Feb 2024 17:32:01 +0000
+	id 1rZwlg-0007cU-JS; Tue, 13 Feb 2024 17:40:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680106.1057970; Tue, 13 Feb 2024 17:32:01 +0000
+Received: by outflank-mailman (output) from mailman id 680112.1057981; Tue, 13 Feb 2024 17:40:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZwdV-0005Zs-R3; Tue, 13 Feb 2024 17:32:01 +0000
-Received: by outflank-mailman (input) for mailman id 680106;
- Tue, 13 Feb 2024 17:32:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gnrE=JW=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rZwdU-0005Zk-D0
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 17:32:00 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c9e646b3-ca95-11ee-98f5-efadbce2ee36;
- Tue, 13 Feb 2024 18:31:58 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id
- a640c23a62f3a-a28a6cef709so626183966b.1
- for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 09:31:58 -0800 (PST)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- s7-20020a17090699c700b00a3cb136aef0sm1477683ejn.224.2024.02.13.09.31.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Feb 2024 09:31:57 -0800 (PST)
+	id 1rZwlg-0007a9-Gk; Tue, 13 Feb 2024 17:40:28 +0000
+Received: by outflank-mailman (input) for mailman id 680112;
+ Tue, 13 Feb 2024 17:40:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1rZwle-0007a3-VR
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 17:40:27 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rZwld-0004XT-Kd; Tue, 13 Feb 2024 17:40:25 +0000
+Received: from [15.248.2.25] (helo=[10.24.67.29])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1rZwld-0001OJ-Ad; Tue, 13 Feb 2024 17:40:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,57 +39,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c9e646b3-ca95-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707845518; x=1708450318; darn=lists.xenproject.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=jadmpGMsfnY6CDwqqwa7KbW7cyrm8fvm/Nnghv6GeuQ=;
-        b=TtnlSpui+615qs+RhHELJPKRt8w2rfue8/50mzClIBdrvbeapiLsu7yXAytXJK6Awc
-         YCdyO5UNaj6S5O45aUUvN6XkqKI2cCRc6UoaPNNn9ZS+GW+DCNAiyanNTPr5tUrU/1zE
-         xPzV7RjvsEaJRqePVxmMg9Mm28bPmpSbIBHOM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707845518; x=1708450318;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jadmpGMsfnY6CDwqqwa7KbW7cyrm8fvm/Nnghv6GeuQ=;
-        b=KXRZ+iPLapZoB4y51DOherKBNfNh0fMRMi1L+7/sUJguCuBpq8hws1kobe5HnZtBqK
-         Hgf2S9e3NCzHth5KeZcIaopJUofU5B59KIXzlOSGyldVeWKs3xl5M65pIvS8S6WtJ469
-         5Ql9eNHAHEq+bRqq2vJX2nGcAmK/095r3oqxmQyzZQlkP/X07YMibvIoMVnpei5WaFqg
-         8Z6GQUUA7FlGKLZ2CF21FlCSs4746htoDA2EYC3wo5B/2L4WEcoNyvjn+g8jTrNJhl+4
-         U/2A+EyakOZvMjTIVdm53orCCssjNClxujLckqpKST7FfoAEJ8PevcCyEBbvehhUopHJ
-         UCjw==
-X-Gm-Message-State: AOJu0YxCTP98lCCK6vMyNmsntURkooQ8ubhBH8bcCeWStptC7rPz/SA/
-	maUV+hy1HhjzGPFWecZVZw+0rGwKPosvzH7pZIhH/nlpPEmjH+wYZaXKqzDE3Gs=
-X-Google-Smtp-Source: AGHT+IFwvSL7a+s1VENs5br/aOQ+1YbL9bztJ0i7nbmvlFiQMdqFGZZhncRXvN7r64w7a6hXxX6WgQ==
-X-Received: by 2002:a17:906:1c0b:b0:a3c:8f4c:b1d with SMTP id k11-20020a1709061c0b00b00a3c8f4c0b1dmr5284ejg.63.1707845517876;
-        Tue, 13 Feb 2024 09:31:57 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWkbJvurJ1HMNuLQ77BBU8gUccyON2xQeCW9LRCXgZJ1/8VnAaBF8v74VOYN3h+VmgLSoUYzo5Ra/mpuQnLjyAO99WrcrjIHuxdRup83IfXitaAixuz
-Date: Tue, 13 Feb 2024 17:31:57 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v5 01/22] tools: add access macros for unaligned data
-Message-ID: <92250210-dede-44be-81ce-3db2bcb5b04a@perard>
-References: <20240208165546.5715-1-jgross@suse.com>
- <20240208165546.5715-2-jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=dqFCjYFXnPyxVCcP1xlWDNnuPp5d/WLL6xFEIoLefso=; b=1YrEfDIUxU0+YJ8PL4SHmJK3Jb
+	DZE0BmwpZgEppVxEklWSxaNKSUOd4OUC3cYGN7DtHmed09dn7L70GRiRAi5Mk/byXQeu1MbvZ4xmS
+	wE0orfrnO/kDdeW5tfr2mGT1NNA9BxflbLMXheiWeFnG0qKNFbIsJ4PVfforkWsSz0dk=;
+Message-ID: <e12914b8-5c6a-4085-b5e8-03c5bdcc2c27@xen.org>
+Date: Tue, 13 Feb 2024 17:40:22 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20240208165546.5715-2-jgross@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 3/7] xen/asm-generic: introduce stub header monitor.h
+Content-Language: en-GB
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Jan Beulich <jbeulich@suse.com>
+References: <cover.1707499278.git.oleksii.kurochko@gmail.com>
+ <84568b0c24a5ec96244f3f34537e9a148367facf.1707499278.git.oleksii.kurochko@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <84568b0c24a5ec96244f3f34537e9a148367facf.1707499278.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Feb 08, 2024 at 05:55:25PM +0100, Juergen Gross wrote:
-> Add the basic access macros for unaligned data to common-macros.h.
+Hi Oleksii,
+
+On 09/02/2024 18:00, Oleksii Kurochko wrote:
+> The header is shared between several archs so it is
+> moved to asm-generic.
 > 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Switch partly Arm and PPC to asm-generic/monitor.h and only
+> arch_monitor_get_capabilities() left in arch-specific/monitor.h.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+> ---
+> Changes in V8:
+>   - Add Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+> ---
+> Changes in V7:
+>   - Drop definition of arch_monitor_domctl_event for PPC.
+>   - define arch_monitor_domctl_event in asm-generic/monitor.h.
+>   - add "define HAS_ARCH_MONITOR_DOMCTL_EVENT" in arm/.../monitor.h as it has arch specific implementation.
+> ---
+> Changes in V6:
+>   - Rebase only.
+> ---
+> Changes in V5:
+>    - Switched partly Arm and PPC to asm-generic monitor.h only
+>      arch_monitor_get_capabilities() left in arch-specific/monitor.h.
+>    - Updated the commit message.
+> ---
+> Changes in V4:
+>   - Removed the double blank line.
+>   - Added Acked-by: Jan Beulich <jbeulich@suse.com>.
+>   - Update the commit message
+> ---
+> Changes in V3:
+>   - Use forward-declaration of struct domain instead of " #include <xen/sched.h> ".
+>   - Add ' include <xen/errno.h> '
+>   - Drop PPC's monitor.h.
+> ---
+> Changes in V2:
+> 	- remove inclusion of "+#include <public/domctl.h>"
+> 	- add "struct xen_domctl_monitor_op;"
+> 	- remove one of SPDX tags.
+> ---
+>   xen/arch/arm/include/asm/monitor.h | 25 +-----------
+>   xen/arch/ppc/include/asm/monitor.h | 28 +------------
 
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+Looking at MAINTAINERS, monitor.h was covered by "VM EVENT, MEM ACCESS 
+and MONITOR". As you move to ...
 
-Thanks,
+>   xen/arch/ppc/stubs.c               |  8 ----
+>   xen/include/asm-generic/monitor.h  | 64 ++++++++++++++++++++++++++++++
+
+... asm-generic/, I believe it will now fall under "THE REST". So I 
+think MAINTAINERS needs to be updated to also cover asm-generic/monitor.h.
+
+Looking at what was already committed, I think asm-generic/vm_event.h 
+should also be added in MAINTAINERS. Can you send a separate patch for that?
+
+Cheers,
 
 -- 
-Anthony PERARD
+Julien Grall
 
