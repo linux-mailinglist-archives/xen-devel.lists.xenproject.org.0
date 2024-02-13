@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B686B852EBE
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:05:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679841.1057562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 860E0852ED9
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:14:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679846.1057572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZqb4-0000sq-6v; Tue, 13 Feb 2024 11:05:06 +0000
+	id 1rZqjX-0002i1-33; Tue, 13 Feb 2024 11:13:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679841.1057562; Tue, 13 Feb 2024 11:05:06 +0000
+Received: by outflank-mailman (output) from mailman id 679846.1057572; Tue, 13 Feb 2024 11:13:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZqb4-0000rI-2w; Tue, 13 Feb 2024 11:05:06 +0000
-Received: by outflank-mailman (input) for mailman id 679841;
- Tue, 13 Feb 2024 11:05:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=W/Jz=JW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZqb2-0000rC-Jq
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:05:04 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bc88ecfb-ca5f-11ee-8a4d-1f161083a0e0;
- Tue, 13 Feb 2024 12:05:03 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-339289fead2so2709705f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:05:03 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- e27-20020a5d595b000000b0033b80a0d002sm5924940wri.57.2024.02.13.03.05.01
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Feb 2024 03:05:02 -0800 (PST)
+	id 1rZqjX-0002fi-00; Tue, 13 Feb 2024 11:13:51 +0000
+Received: by outflank-mailman (input) for mailman id 679846;
+ Tue, 13 Feb 2024 11:13:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8AlW=JW=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1rZqjV-0002fZ-R9
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:13:50 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f5120cfb-ca60-11ee-98f5-efadbce2ee36;
+ Tue, 13 Feb 2024 12:13:47 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id
+ 4fb4d7f45d1cf-55a179f5fa1so5705961a12.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:13:47 -0800 (PST)
+Received: from localhost.localdomain (h-217-31-164-171.A175.priv.bahnhof.se.
+ [217.31.164.171]) by smtp.gmail.com with ESMTPSA id
+ by18-20020a170906a2d200b00a3c8494b9c9sm1187640ejb.9.2024.02.13.03.13.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Feb 2024 03:13:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,218 +45,577 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc88ecfb-ca5f-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: f5120cfb-ca60-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707822302; x=1708427102; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=zkomEXbfXI/7ZZptfA2/rfk5DOgP+KKcci0WVktYpTg=;
-        b=XlmRjHhbbPDEQW0vEyA96Hci/fnwPxs3jQ9EhFmOUcY1w4MnvNLKxSrLxPYTHaGyIg
-         zBC2UXg6aE4ZY52kz8usVVngrqxPgSspaP44I7CeaZ4L5JpdtfTAZ02/H5V6x9XYkv3S
-         hFf54TZ/YKQ3C/F8aNhydR9UqrRBFMCDCT85KvSiWPlLL+VeRDf1q+sf8p+hrU8CAq8d
-         BKncisOUl0x417mH96Tr4W5S072MPe70kUTEdTtrySEqtlf5C7r99MqXNvcm/Ea01bXr
-         Q+6fHuegSJkiDMuNadYxWas61dcvf/JMUj7eKnIK7Id3SVLkZvGVhekeG8R2fj5p9keS
-         AxdA==
+        d=linaro.org; s=google; t=1707822826; x=1708427626; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ah2W+Jqw0gjGODmbPx4KrR3Ac+wyRbbfIMKbSN3TmiY=;
+        b=AylmvOT9sRFbXq/8AtJh+bOcZACl/bo8symGdGEaHhNedpdtl8VvP8kaWszbGulvEf
+         4yQpeQLEyPhcQBmhDZIMHNzlWZoIuTutNnG0NcCrHdaXUF/Dj0yeiCBJ6AmNaY5AIEED
+         juFw986z+jzQbE/Cbt1cRdVhf8tcF5zer6J9SFTZ6ZMWIdyM0cYWnUCcKsQrfecnPw7y
+         qAHjvwgcj9Y5HOnqvCtb5mac6Opm34ci3OxjNtj1pT8s5y3/4EQH0O6BbTfc28ODz2Fx
+         48akDqUSvpHfe6YaZMU7QI2GwFvkwt/9mcc66U9igJX92UD8VuqfDX6hFINe6+7rzTIH
+         cFCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707822302; x=1708427102;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zkomEXbfXI/7ZZptfA2/rfk5DOgP+KKcci0WVktYpTg=;
-        b=j06++yjHGJ8t/WosxNjBYoKlMbQSms7Be2dHLBAoEVXhkHuID3q58HhLdjhwoHZGov
-         RspPZkbkhskP7iSMZRKeXR2Sj3JqkRzu9yA6f7A1/ZkXIwCYEtqUZPDGjC8QfCiEWA1a
-         jvhXPpCafzS8ajlKUAPH4ofB4o0C5faasKPgxO4JtXcFTm/Jz8mOUYhM7EluTM4q6ole
-         htCvP/OtG9Yh0qrP4GsSpU3+/5fZrtzKw9P09+wMHXL0/wy8hQCD+g81J4f7v3/rjNkz
-         4qMNTauFPGxfiluORSG1qC/68buKZrUquXgP/DvUUAQbcLoiZ+GeIJAtRNuV9VsPwPd/
-         6Vqw==
-X-Forwarded-Encrypted: i=1; AJvYcCVdBcpCgE0QqsV7ygKpZ3miJiOVYmD8yRcQFm13E8AYzHTaGi5Uay7Cgy8yyAtAcpBqa0hqSJ8DZ7Zk9vPKguVE+gFnXIFXXbhVkisKNdI=
-X-Gm-Message-State: AOJu0YzwKvYzAiTCORQUjJ51tF4BftU/jbXeZUktoPCcI637tugsu3y1
-	rWR48IxubF0X0ktBcABHEdDxady07BPndMdTSQjt4c5v5Akz96SmPatSyK8jpg==
-X-Google-Smtp-Source: AGHT+IE3xHY382busbeHjY3skFDuUEygR1VQgBNmtSRZE4gZNUZYy+VQyqLy6GYYJUVZqJrTeel+JQ==
-X-Received: by 2002:adf:f582:0:b0:33b:237b:22c2 with SMTP id f2-20020adff582000000b0033b237b22c2mr6585437wro.21.1707822302459;
-        Tue, 13 Feb 2024 03:05:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWO3F7Xxte6KTRfftuOyC9eDRbfSjQpnbSkP+/aPmWruLpS1+uPKV+03x21BsacpHKWDAemcb/ouz04b4YXeTzhzRLjnlntRaLjvASnKy37ShHumnkNZoVx93jX+R2l0uDnSgOKZwAcxdZXv7ed+rBQAwDbS14/4lI0FkZffFwCJOp6iN2tTzzfMVJHi6Ndu5sax7neQhd/DxU/QJ3pwVtnzKjOzV3GZXBdLKlwB6BomW8mDTF+xy8GI0T6bz2hKxr7J2S1n9bBh8oBBLatWX9cXpZr3rRqhQw+eBpc50JaHuY6s3/Wd7I=
-Message-ID: <5508296c-2721-43e4-83d3-2603ce31d010@suse.com>
-Date: Tue, 13 Feb 2024 12:05:01 +0100
+        d=1e100.net; s=20230601; t=1707822826; x=1708427626;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Ah2W+Jqw0gjGODmbPx4KrR3Ac+wyRbbfIMKbSN3TmiY=;
+        b=Hu2H/bdmuiH4prWYkqntOWnMZqPG8zFl0yJ0+NpJ1e4XqjqHUzXCdhmqzGoIt7XtuM
+         RwDx/q0QWY89WGkNzC5BPdhSLUUndlw4F8IkkXrdzcYaY0Xuyn+enbdjAlIYs8aws5cd
+         cepHoz6fkXOxC2UbX6zf1XC/dvS2kYCC4FHt6AB3krThJc3byFiGHscdK1PCPDuhJ4kM
+         GeUtvdmqd9P4II8qaxEuZji/9sY2+VAa4/1EztDivCaluAZdQ+8/XHc+qHj9+cr3dQkL
+         P0o0zvTnWkFFZJ7lGpyd3Ys0QcW6hb7LzPKIA3j2335LlsBfnb1fvQR2UkQC8S/6XzMr
+         xaew==
+X-Gm-Message-State: AOJu0Yzvl0x/NFxy5/oa4HDNWFnAWxY51td/0tWx8Lukw5hHQHpqEyTN
+	7+JGFf/oKYvbmA+ayVgo79uw8mdwFYzNZI1315POOcZS+d40H5UDFVyaGTtCAJbjPFq4Omposre
+	b
+X-Google-Smtp-Source: AGHT+IFFZptaPu4QRJPbnM0mWZMAJhROTmtogdtbhPiBM9zg9t+ljajdWElSymRRacZsnFPnZGYuPA==
+X-Received: by 2002:a17:906:114b:b0:a3d:18e3:9c52 with SMTP id i11-20020a170906114b00b00a3d18e39c52mr321079eja.4.1707822826200;
+        Tue, 13 Feb 2024 03:13:46 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUWldfdzYm8TNZxEH0eSrKa9Cy8suwSs0b7eRlxZ99FBZ1+FgNdKzIy/z1m24Inrp7R0XDj21xQ8cO8LsU4K2QHEzp0bC0XSFlu5VbhHBdIhry0r3OdZwrhzOgv1G5+EIFb5uQW9DR7escthAb67ygm5DXEE48PdHk7LmXIuF7D91vImu5hVKg254m4RXgRYgNnYrbSg5Xp56IWLc8jVbzT4ZVHVxaiEp6Wsr1Vcsoeh9EqJ4mz6chnXtJ+MR4OltRPgYIPJQMYcrmwgnYNcLfH/4EC+GQMoiI=
+From: Jens Wiklander <jens.wiklander@linaro.org>
+To: xen-devel@lists.xenproject.org
+Cc: patches@linaro.org,
+	Jens Wiklander <jens.wiklander@linaro.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [XEN PATCH v5] xen/arm: ffa: reclaim shared memory on guest destroy
+Date: Tue, 13 Feb 2024 12:13:36 +0100
+Message-Id: <20240213111336.881934-1-jens.wiklander@linaro.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 13/30] xen/riscv: introduce io.h
-Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
- <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
- <64afc021f680e55d486f8429c02513bc9bf4b9ea.1707146506.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <64afc021f680e55d486f8429c02513bc9bf4b9ea.1707146506.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05.02.2024 16:32, Oleksii Kurochko wrote:
-> The header taken form Linux 6.4.0-rc1 and is based on
-> arch/riscv/include/asm/mmio.h.
-> 
-> Addionally, to the header was added definions of ioremap_*().
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in V4:
->  - delete inner parentheses in macros.
->  - s/u<N>/uint<N>.
-> ---
-> Changes in V3:
->  - re-sync with linux kernel
->  - update the commit message
-> ---
-> Changes in V2:
->  - Nothing changed. Only rebase.
-> ---
->  xen/arch/riscv/include/asm/io.h | 142 ++++++++++++++++++++++++++++++++
->  1 file changed, 142 insertions(+)
->  create mode 100644 xen/arch/riscv/include/asm/io.h
-> 
-> diff --git a/xen/arch/riscv/include/asm/io.h b/xen/arch/riscv/include/asm/io.h
-> new file mode 100644
-> index 0000000000..1e61a40522
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/io.h
-> @@ -0,0 +1,142 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * {read,write}{b,w,l,q} based on arch/arm64/include/asm/io.h
-> + *   which was based on arch/arm/include/io.h
-> + *
-> + * Copyright (C) 1996-2000 Russell King
-> + * Copyright (C) 2012 ARM Ltd.
-> + * Copyright (C) 2014 Regents of the University of California
-> + */
-> +
-> +
-> +#ifndef _ASM_RISCV_IO_H
-> +#define _ASM_RISCV_IO_H
-> +
-> +#include <asm/byteorder.h>
-> +
-> +/*
-> + * The RISC-V ISA doesn't yet specify how to query or modify PMAs, so we can't
-> + * change the properties of memory regions.  This should be fixed by the
-> + * upcoming platform spec.
-> + */
-> +#define ioremap_nocache(addr, size) ioremap(addr, size)
-> +#define ioremap_wc(addr, size) ioremap(addr, size)
-> +#define ioremap_wt(addr, size) ioremap(addr, size)
-> +
-> +/* Generic IO read/write.  These perform native-endian accesses. */
-> +#define __raw_writeb __raw_writeb
+When an FF-A enabled guest is destroyed it may leave behind memory
+shared with SPs. This memory must be reclaimed before it's reused or an
+SP may make changes to memory used by a new unrelated guest. So when the
+domain is teared down add FF-A requests to reclaim all remaining shared
+memory.
 
-What use are this and the similar other #define-s?
+SPs in the secure world are notified using VM_DESTROYED that a guest has
+been destroyed. An SP is supposed to relinquish all shared memory to allow
+reclaiming the memory. The relinquish operation may need to be delayed if
+the shared memory is for instance part of a DMA operation.
 
-> +static inline void __raw_writeb(uint8_t val, volatile void __iomem *addr)
-> +{
-> +	asm volatile("sb %0, 0(%1)" : : "r" (val), "r" (addr));
+The domain reference counter is increased when the first FF-A shared
+memory is registered and the counter is decreased again when the last
+shared memory is reclaimed. If FF-A shared memory registrations remain
+at the end of of ffa_domain_teardown() a timer is set to try to reclaim
+the shared memory every second until the memory is reclaimed.
 
-Nit (throughout): Missing blanks. Or wait - is this file intended to
-be Linux style? If so, it's just one blank that's missing.
+A few minor style fixes with a removed empty line here and an added new
+line there.
 
-> +/*
-> + * Unordered I/O memory access primitives.  These are even more relaxed than
-> + * the relaxed versions, as they don't even order accesses between successive
-> + * operations to the I/O regions.
-> + */
-> +#define readb_cpu(c)		({ uint8_t  __r = __raw_readb(c); __r; })
-> +#define readw_cpu(c)		({ uint16_t __r = le16_to_cpu((__force __le16)__raw_readw(c)); __r; })
-> +#define readl_cpu(c)		({ uint32_t __r = le32_to_cpu((__force __le32)__raw_readl(c)); __r; })
+Signed-off-by: Jens Wiklander <jens.wiklander@linaro.org>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+v5:
+- Move the put_domain() call after the spinlock section in dec_ctx_shm_count()
+- Move the get_knownalive_domain() call into the else statement in
+  inc_ctx_shm_count() to make sure it's only performed if ctx->shm_count
+  is to be increased
 
-Didn't we settle on the little-endian stuff to be dropped from here?
-No matter what CPU endianness, what endianness a particular device
-(and hence its MMIO region(s)) is using is entirely independent. Hence
-conversion, where necessary, needs to occur at a layer up.
+v4:
+- Retry FFA_MSG_SEND_VM_DESTROYED on the returned errors
+  FFA_RET_INTERRUPTED and FFA_RET_RETRY even after all shared memory
+  handles has been reclaimed.
+- Retry ffa_mem_reclaim() only on temporary returned errors, permanent
+  errors like FFA_RET_INVALID_PARAMETERS is dealt with in recovery mode
+  instead since the SPMC isn't expected to use that error under normal
+  circumstances.
 
-Also, what good do the __r variables do here? If they weren't here,
-we also wouldn't need to discuss their naming.
+v3:
+- Mentioning in the commit message that there are some style fixes
+- Addressing review comments
+- Refactor the ffa_domain_teardown() path to let
+  ffa_domain_teardown_continue() do most of the work.
 
-> +#define writeb_cpu(v,c)		((void)__raw_writeb(v,c))
-> +#define writew_cpu(v,c)		((void)__raw_writew((__force uint16_t)cpu_to_le16(v),c))
-> +#define writel_cpu(v,c)		((void)__raw_writel((__force uint32_t)cpu_to_le32(v),c))
+v2:
+- Update commit message to match the new implementation
+- Using a per domain bitfield to keep track of which SPs has been notified
+  with VM_DESTROYED
+- Holding a domain reference counter to keep the domain as a zombie domain
+  while there still is shared memory registrations remaining to be reclaimed
+- Using a timer to retry reclaiming remaining shared memory registrations
+---
+ xen/arch/arm/tee/ffa.c | 295 ++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 245 insertions(+), 50 deletions(-)
 
-Nit: Blanks after commas please (also again further down).
+diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
+index 0793c1c7585d..9a05dcede17a 100644
+--- a/xen/arch/arm/tee/ffa.c
++++ b/xen/arch/arm/tee/ffa.c
+@@ -54,6 +54,7 @@
+ #include <xen/mm.h>
+ #include <xen/sched.h>
+ #include <xen/sizes.h>
++#include <xen/timer.h>
+ #include <xen/types.h>
+ 
+ #include <asm/event.h>
+@@ -144,6 +145,12 @@
+  */
+ #define FFA_MAX_SHM_COUNT               32
+ 
++/*
++ * The time we wait until trying to tear down a domain again if it was
++ * blocked initially.
++ */
++#define FFA_CTX_TEARDOWN_DELAY          SECONDS(1)
++
+ /* FF-A-1.1-REL0 section 10.9.2 Memory region handle, page 167 */
+ #define FFA_HANDLE_HYP_FLAG             BIT(63, ULL)
+ #define FFA_HANDLE_INVALID              0xffffffffffffffffULL
+@@ -384,11 +391,6 @@ struct ffa_ctx {
+     unsigned int page_count;
+     /* FF-A version used by the guest */
+     uint32_t guest_vers;
+-    /*
+-     * Number of SPs that we have sent a VM created signal to, used in
+-     * ffa_domain_teardown() to know which SPs need to be signalled.
+-     */
+-    uint16_t create_signal_count;
+     bool rx_is_free;
+     /* Used shared memory objects, struct ffa_shm_mem */
+     struct list_head shm_list;
+@@ -402,6 +404,15 @@ struct ffa_ctx {
+     spinlock_t tx_lock;
+     spinlock_t rx_lock;
+     spinlock_t lock;
++    /* Used if domain can't be torn down immediately */
++    struct domain *teardown_d;
++    struct list_head teardown_list;
++    s_time_t teardown_expire;
++    /*
++     * Used for ffa_domain_teardown() to keep track of which SPs should be
++     * notified that this guest is being destroyed.
++     */
++    unsigned long vm_destroy_bitmap[];
+ };
+ 
+ struct ffa_shm_mem {
+@@ -436,6 +447,12 @@ static void *ffa_tx __read_mostly;
+ static DEFINE_SPINLOCK(ffa_rx_buffer_lock);
+ static DEFINE_SPINLOCK(ffa_tx_buffer_lock);
+ 
++
++/* Used to track domains that could not be torn down immediately. */
++static struct timer ffa_teardown_timer;
++static struct list_head ffa_teardown_head;
++static DEFINE_SPINLOCK(ffa_teardown_lock);
++
+ static bool ffa_get_version(uint32_t *vers)
+ {
+     const struct arm_smccc_1_2_regs arg = {
+@@ -853,7 +870,6 @@ static int32_t handle_partition_info_get(uint32_t w1, uint32_t w2, uint32_t w3,
+             goto out_rx_release;
+         }
+ 
+-
+         memcpy(ctx->rx, ffa_rx, sz);
+     }
+     ctx->rx_is_free = false;
+@@ -992,53 +1008,83 @@ static void put_shm_pages(struct ffa_shm_mem *shm)
+     }
+ }
+ 
+-static bool inc_ctx_shm_count(struct ffa_ctx *ctx)
++static bool inc_ctx_shm_count(struct domain *d, struct ffa_ctx *ctx)
+ {
+     bool ret = true;
+ 
+     spin_lock(&ctx->lock);
+-    if (ctx->shm_count >= FFA_MAX_SHM_COUNT)
++
++    if ( ctx->shm_count >= FFA_MAX_SHM_COUNT )
++    {
+         ret = false;
++    }
+     else
++    {
++        /*
++         * If this is the first shm added, increase the domain reference
++         * counter as we need to keep domain around a bit longer to reclaim
++         * the shared memory in the teardown path.
++         */
++        if ( !ctx->shm_count )
++            get_knownalive_domain(d);
++
+         ctx->shm_count++;
++    }
++
+     spin_unlock(&ctx->lock);
+ 
+     return ret;
+ }
+ 
+-static void dec_ctx_shm_count(struct ffa_ctx *ctx)
++static void dec_ctx_shm_count(struct domain *d, struct ffa_ctx *ctx)
+ {
++    bool drop_ref;
++
+     spin_lock(&ctx->lock);
++
+     ASSERT(ctx->shm_count > 0);
+     ctx->shm_count--;
++
++    /*
++     * If this was the last shm removed, let go of the domain reference we
++     * took in inc_ctx_shm_count() above.
++     */
++    drop_ref = !ctx->shm_count;
++
+     spin_unlock(&ctx->lock);
++
++    if ( drop_ref )
++        put_domain(d);
+ }
+ 
+-static struct ffa_shm_mem *alloc_ffa_shm_mem(struct ffa_ctx *ctx,
++static struct ffa_shm_mem *alloc_ffa_shm_mem(struct domain *d,
+                                              unsigned int page_count)
+ {
++    struct ffa_ctx *ctx = d->arch.tee;
+     struct ffa_shm_mem *shm;
+ 
+     if ( page_count >= FFA_MAX_SHM_PAGE_COUNT )
+         return NULL;
+-    if ( !inc_ctx_shm_count(ctx) )
++    if ( !inc_ctx_shm_count(d, ctx) )
+         return NULL;
+ 
+     shm = xzalloc_flex_struct(struct ffa_shm_mem, pages, page_count);
+     if ( shm )
+         shm->page_count = page_count;
+     else
+-        dec_ctx_shm_count(ctx);
++        dec_ctx_shm_count(d, ctx);
+ 
+     return shm;
+ }
+ 
+-static void free_ffa_shm_mem(struct ffa_ctx *ctx, struct ffa_shm_mem *shm)
++static void free_ffa_shm_mem(struct domain *d, struct ffa_shm_mem *shm)
+ {
++    struct ffa_ctx *ctx = d->arch.tee;
++
+     if ( !shm )
+         return;
+ 
+-    dec_ctx_shm_count(ctx);
++    dec_ctx_shm_count(d, ctx);
+     put_shm_pages(shm);
+     xfree(shm);
+ }
+@@ -1306,7 +1352,7 @@ static void handle_mem_share(struct cpu_user_regs *regs)
+         goto out_unlock;
+     }
+ 
+-    shm = alloc_ffa_shm_mem(ctx, page_count);
++    shm = alloc_ffa_shm_mem(d, page_count);
+     if ( !shm )
+     {
+         ret = FFA_RET_NO_MEMORY;
+@@ -1350,7 +1396,7 @@ static void handle_mem_share(struct cpu_user_regs *regs)
+ 
+ out:
+     if ( ret )
+-        free_ffa_shm_mem(ctx, shm);
++        free_ffa_shm_mem(d, shm);
+ out_unlock:
+     spin_unlock(&ctx->tx_lock);
+ 
+@@ -1401,7 +1447,7 @@ static int handle_mem_reclaim(uint64_t handle, uint32_t flags)
+     }
+     else
+     {
+-        free_ffa_shm_mem(ctx, shm);
++        free_ffa_shm_mem(d, shm);
+     }
+ 
+     return ret;
+@@ -1486,6 +1532,41 @@ static bool ffa_handle_call(struct cpu_user_regs *regs)
+     }
+ }
+ 
++static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start,
++                              uint16_t end, uint16_t sp_id)
++{
++    unsigned int n;
++
++    for ( n = start; n < end; n++ )
++    {
++        if ( subscr[n] == sp_id )
++            return true;
++    }
++
++    return false;
++}
++
++static void vm_destroy_bitmap_init(struct ffa_ctx *ctx,
++                                   unsigned int create_signal_count)
++{
++    unsigned int n;
++
++    for ( n = 0; n < subscr_vm_destroyed_count; n++ )
++    {
++        /*
++         * Skip SPs subscribed to the VM created event that never was
++         * notified of the VM creation due to an error during
++         * ffa_domain_init().
++         */
++        if ( is_in_subscr_list(subscr_vm_created, create_signal_count,
++                               subscr_vm_created_count,
++                               subscr_vm_destroyed[n]) )
++            continue;
++
++        set_bit(n, ctx->vm_destroy_bitmap);
++    }
++}
++
+ static int ffa_domain_init(struct domain *d)
+ {
+     struct ffa_ctx *ctx;
+@@ -1501,11 +1582,14 @@ static int ffa_domain_init(struct domain *d)
+     if ( d->domain_id >= UINT16_MAX)
+         return -ERANGE;
+ 
+-    ctx = xzalloc(struct ffa_ctx);
++    ctx = xzalloc_flex_struct(struct ffa_ctx, vm_destroy_bitmap,
++                              BITS_TO_LONGS(subscr_vm_destroyed_count));
+     if ( !ctx )
+         return -ENOMEM;
+ 
+     d->arch.tee = ctx;
++    ctx->teardown_d = d;
++    INIT_LIST_HEAD(&ctx->shm_list);
+ 
+     for ( n = 0; n < subscr_vm_created_count; n++ )
+     {
+@@ -1515,65 +1599,173 @@ static int ffa_domain_init(struct domain *d)
+         {
+             printk(XENLOG_ERR "ffa: Failed to report creation of vm_id %u to  %u: res %d\n",
+                    get_vm_id(d), subscr_vm_created[n], res);
+-            ctx->create_signal_count = n;
+-            return -EIO;
++            break;
+         }
+     }
+-    ctx->create_signal_count = subscr_vm_created_count;
+-
+-    INIT_LIST_HEAD(&ctx->shm_list);
++    vm_destroy_bitmap_init(ctx, n);
++    if ( n != subscr_vm_created_count )
++        return -EIO;
+ 
+     return 0;
+ }
+ 
+-static bool is_in_subscr_list(const uint16_t *subscr, uint16_t start,
+-                              uint16_t end, uint16_t sp_id)
++static void send_vm_destroyed(struct domain *d)
+ {
++    struct ffa_ctx *ctx = d->arch.tee;
+     unsigned int n;
++    int32_t res;
+ 
+-    for ( n = start; n < end; n++ )
++    for ( n = 0; n < subscr_vm_destroyed_count; n++ )
+     {
+-        if ( subscr[n] == sp_id )
+-            return true;
+-    }
++        if ( !test_bit(n, ctx->vm_destroy_bitmap) )
++            continue;
+ 
+-    return false;
++        res = ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_id(d),
++                                     FFA_MSG_SEND_VM_DESTROYED);
++
++        if ( res )
++        {
++            printk(XENLOG_ERR "%pd: ffa: Failed to report destruction of vm_id %u to %u: res %d\n",
++                   d, get_vm_id(d), subscr_vm_destroyed[n], res);
++        }
++
++        /*
++         * For these two error codes the hypervisor is expected to resend
++         * the destruction message. For the rest it is expected that the
++         * error is permanent and that is doesn't help to resend the
++         * destruction message.
++         */
++        if ( res != FFA_RET_INTERRUPTED && res != FFA_RET_RETRY )
++            clear_bit(n, ctx->vm_destroy_bitmap);
++    }
+ }
+ 
+-/* This function is supposed to undo what ffa_domain_init() has done */
+-static int ffa_domain_teardown(struct domain *d)
++static void reclaim_shms(struct domain *d)
+ {
+     struct ffa_ctx *ctx = d->arch.tee;
+-    unsigned int n;
++    struct ffa_shm_mem *shm, *tmp;
+     int32_t res;
+ 
+-    if ( !ctx )
+-        return 0;
++    list_for_each_entry_safe(shm, tmp, &ctx->shm_list, list)
++    {
++        register_t handle_hi;
++        register_t handle_lo;
++
++        uint64_to_regpair(&handle_hi, &handle_lo, shm->handle);
++        res = ffa_mem_reclaim(handle_lo, handle_hi, 0);
++        switch ( res ) {
++        case FFA_RET_OK:
++            printk(XENLOG_G_DEBUG "%pd: ffa: Reclaimed handle %#lx\n",
++                   d, shm->handle);
++            list_del(&shm->list);
++            free_ffa_shm_mem(d, shm);
++            break;
++        case FFA_RET_DENIED:
++            /*
++             * A temporary error that may get resolved a bit later, it's
++             * worth retrying.
++             */
++            printk(XENLOG_G_INFO "%pd: ffa: Failed to reclaim handle %#lx : %d\n",
++                   d, shm->handle, res);
++            break; /* We will retry later */
++        default:
++            /*
++             * The rest of the error codes are not expected and are assumed
++             * to be of a permanent nature. It not in our control to handle
++             * the error properly so the object in this case is to try to
++             * minimize the damage.
++             *
++             * FFA_RET_NO_MEMORY might be a temporary error as it it could
++             * succeed if retried later, but treat it as permanent for now.
++             */
++            printk(XENLOG_G_INFO "%pd: ffa: Permanent failure to reclaim handle %#lx : %d\n",
++                   d, shm->handle, res);
+ 
+-    for ( n = 0; n < subscr_vm_destroyed_count; n++ )
++            /*
++             * Remove the shm from the list and free it, but don't drop
++             * references. This results in having the shared physical pages
++             * permanently allocate and also keeps the domain as a zombie
++             * domain.
++             */
++            list_del(&shm->list);
++            xfree(shm);
++            break;
++        }
++    }
++}
++
++static void ffa_domain_teardown_continue(struct ffa_ctx *ctx, bool first_time)
++{
++    struct ffa_ctx *next_ctx = NULL;
++
++    send_vm_destroyed(ctx->teardown_d);
++    reclaim_shms(ctx->teardown_d);
++
++    if ( ctx->shm_count ||
++         !bitmap_empty(ctx->vm_destroy_bitmap, subscr_vm_destroyed_count) )
++    {
++        printk(XENLOG_G_INFO "%pd: ffa: Remaining cleanup, retrying\n", ctx->teardown_d);
++
++        ctx->teardown_expire = NOW() + FFA_CTX_TEARDOWN_DELAY;
++
++        spin_lock(&ffa_teardown_lock);
++        list_add_tail(&ctx->teardown_list, &ffa_teardown_head);
++        /* Need to set a new timer for the next ctx in line */
++        next_ctx = list_first_entry(&ffa_teardown_head, struct ffa_ctx,
++                                    teardown_list);
++        spin_unlock(&ffa_teardown_lock);
++    }
++    else
+     {
+         /*
+-         * Skip SPs subscribed to the VM created event that never was
+-         * notified of the VM creation due to an error during
+-         * ffa_domain_init().
++         * domain_destroy() might have been called (via put_domain() in
++         * reclaim_shms()), so we can't touch the domain structure anymore.
+          */
+-        if ( is_in_subscr_list(subscr_vm_created, ctx->create_signal_count,
+-                               subscr_vm_created_count,
+-                               subscr_vm_destroyed[n]) )
+-            continue;
+-
+-        res = ffa_direct_req_send_vm(subscr_vm_destroyed[n], get_vm_id(d),
+-                                     FFA_MSG_SEND_VM_DESTROYED);
++        xfree(ctx);
+ 
+-        if ( res )
+-            printk(XENLOG_ERR "ffa: Failed to report destruction of vm_id %u to  %u: res %d\n",
+-                   get_vm_id(d), subscr_vm_destroyed[n], res);
++        /* Only check if there has been a change to the teardown queue */
++        if ( !first_time )
++        {
++            spin_lock(&ffa_teardown_lock);
++            next_ctx = list_first_entry_or_null(&ffa_teardown_head,
++                                                struct ffa_ctx, teardown_list);
++            spin_unlock(&ffa_teardown_lock);
++        }
+     }
+ 
++    if ( next_ctx )
++        set_timer(&ffa_teardown_timer, next_ctx->teardown_expire);
++}
++
++static void ffa_teardown_timer_callback(void *arg)
++{
++    struct ffa_ctx *ctx;
++
++    spin_lock(&ffa_teardown_lock);
++    ctx = list_first_entry_or_null(&ffa_teardown_head, struct ffa_ctx,
++                                   teardown_list);
++    if ( ctx )
++        list_del(&ctx->teardown_list);
++    spin_unlock(&ffa_teardown_lock);
++
++    if ( ctx )
++        ffa_domain_teardown_continue(ctx, false /* !first_time */);
++    else
++        printk(XENLOG_G_ERR "%s: teardown list is empty\n", __func__);
++}
++
++/* This function is supposed to undo what ffa_domain_init() has done */
++static int ffa_domain_teardown(struct domain *d)
++{
++    struct ffa_ctx *ctx = d->arch.tee;
++
++    if ( !ctx )
++        return 0;
++
+     if ( ctx->rx )
+         rxtx_unmap(ctx);
+ 
+-    XFREE(d->arch.tee);
++    ffa_domain_teardown_continue(ctx, true /* first_time */);
+ 
+     return 0;
+ }
+@@ -1739,6 +1931,9 @@ static bool ffa_probe(void)
+     if ( !init_sps() )
+         goto err_free_ffa_tx;
+ 
++    INIT_LIST_HEAD(&ffa_teardown_head);
++    init_timer(&ffa_teardown_timer, ffa_teardown_timer_callback, NULL, 0);
++
+     return true;
+ 
+ err_free_ffa_tx:
+-- 
+2.34.1
 
-> +#ifdef CONFIG_64BIT
-> +#define readq_cpu(c)		({ u64 __r = le64_to_cpu((__force __le64)__raw_readq(c)); __r; })
-> +#define writeq_cpu(v,c)		((void)__raw_writeq((__force u64)cpu_to_le64(v),c))
-
-uint64_t (twice)
-
-> +#endif
-> +
-> +/*
-> + * I/O memory access primitives. Reads are ordered relative to any
-> + * following Normal memory access. Writes are ordered relative to any prior
-> + * Normal memory access.  The memory barriers here are necessary as RISC-V
-> + * doesn't define any ordering between the memory space and the I/O space.
-> + */
-> +#define __io_br()	do {} while (0)
-
-Nit: This and ...
-
-> +#define __io_ar(v)	__asm__ __volatile__ ("fence i,r" : : : "memory");
-> +#define __io_bw()	__asm__ __volatile__ ("fence w,o" : : : "memory");
-> +#define __io_aw()	do { } while (0)
-
-... this want to be spelled exactly the same.
-
-Also, why does __io_ar() have a parameter (which it then doesn't use)?
-
-Finally at least within a single file please be consistent about asm()
-vs __asm__() use.
-
-> +#define readb(c)	({ uint8_t  __v; __io_br(); __v = readb_cpu(c); __io_ar(__v); __v; })
-> +#define readw(c)	({ uint16_t __v; __io_br(); __v = readw_cpu(c); __io_ar(__v); __v; })
-> +#define readl(c)	({ uint32_t __v; __io_br(); __v = readl_cpu(c); __io_ar(__v); __v; })
-
-Here the local variables are surely needed. Still they would preferably
-not have any underscores as prefixes.
-
-> +#define writeb(v,c)	({ __io_bw(); writeb_cpu(v,c); __io_aw(); })
-> +#define writew(v,c)	({ __io_bw(); writew_cpu(v,c); __io_aw(); })
-> +#define writel(v,c)	({ __io_bw(); writel_cpu(v,c); __io_aw(); })
-> +
-> +#ifdef CONFIG_64BIT
-> +#define readq(c)	({ u64 __v; __io_br(); __v = readq_cpu(c); __io_ar(__v); __v; })
-
-uint64_t again
-
-> +#define writeq(v,c)	({ __io_bw(); writeq_cpu((v),(c)); __io_aw(); })
-
-Inner parentheses still left?
-
-Jan
 
