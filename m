@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20954852A30
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 08:38:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679764.1057439 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E1FE852A37
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 08:46:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679767.1057449 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZnMo-0007p0-GY; Tue, 13 Feb 2024 07:38:10 +0000
+	id 1rZnUN-00014m-8z; Tue, 13 Feb 2024 07:45:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679764.1057439; Tue, 13 Feb 2024 07:38:10 +0000
+Received: by outflank-mailman (output) from mailman id 679767.1057449; Tue, 13 Feb 2024 07:45:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZnMo-0007m8-DP; Tue, 13 Feb 2024 07:38:10 +0000
-Received: by outflank-mailman (input) for mailman id 679764;
- Tue, 13 Feb 2024 07:38:09 +0000
+	id 1rZnUN-00011x-6F; Tue, 13 Feb 2024 07:45:59 +0000
+Received: by outflank-mailman (input) for mailman id 679767;
+ Tue, 13 Feb 2024 07:45:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=W/Jz=JW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZnMn-0007m2-Ai
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 07:38:09 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1rZnUL-00011r-Ce
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 07:45:57 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d494857d-ca42-11ee-8a4d-1f161083a0e0;
- Tue, 13 Feb 2024 08:38:08 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id
- ffacd0b85a97d-337d05b8942so3357945f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 23:38:08 -0800 (PST)
+ id ebc14e9a-ca43-11ee-8a4d-1f161083a0e0;
+ Tue, 13 Feb 2024 08:45:56 +0100 (CET)
+Received: by mail-lj1-x236.google.com with SMTP id
+ 38308e7fff4ca-2d0d799b55cso49989751fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Feb 2024 23:45:56 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bt25-20020a056000081900b0033b792ed609sm6602714wrb.91.2024.02.12.23.38.06
+ h13-20020a2e9ecd000000b002d0f768a0cesm402971ljk.12.2024.02.12.23.45.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 12 Feb 2024 23:38:07 -0800 (PST)
+ Mon, 12 Feb 2024 23:45:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,50 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d494857d-ca42-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: ebc14e9a-ca43-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707809887; x=1708414687; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707810356; x=1708415156; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=g2TUnxqUFEUuds5VoosuLXLTLztNDPp3bX3riYGqOcU=;
-        b=UIVn8kEqWVMUUwQ9tAT2zyZobITnbsym+pqVwf8MWrD/Vyt489CCVLheJLTdQPklaP
-         TApozAVn6tAHmqLkRLJu3In9Ok5f3qv0vQi7W7YQe6gew2H+MB5wMDfKLKuZwYc9lHZQ
-         KASaRtKVZ1Ya/kLjpCy04gXe+a++3AwJTYkg/rhD5U2+XYfa1quAiyVGmVnO1a3JLBDn
-         8jQFQk8K6vcrB7FVf3DpfU4o3BGUt4ibTGUIPoKwv7AwknBJVuXmZH+5ibmLDtEv6OoC
-         0kkUfrcPCix1n07LdOfJgHYtV4F1uinnpDFIfvdF/uQNxqGRqUJfXqt5RDwmrRa5bXR3
-         a59Q==
+        bh=ZrvzPUVeg3QniT/kEFrnvxAk6x7E45FOL+PUkf3vrpU=;
+        b=fbjlcEfEUY/KfkVi1ad57bbF8quY5yjKUEi3p7JrFJPl3B8AQWPr+k096/lbvZQpLi
+         pw66TfaP7J0MTmZ2SYF/EqXQqHsC0k5qYCHH9AkVq7bpybcfIcdablkBoceXXqrPsVvz
+         6lNpwWpmX+xf4EsC1p+ysioAbQ2npjfDsPXY3j2XWBOh14nweNIkMvqMbTnNjyX8WPTZ
+         e8nGZlNWSqBEFfibq3kiwdD1rhq5fFu51KDHtfBcquyB6XiowxoQQwOG74Zsat2j4lik
+         V2lQUIjj7lBsIgtJXooyZ9+t6u8Er+4KocfKCYEwc8MWQDbr1kgiuASk53JmD1n16BMV
+         CuyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707809887; x=1708414687;
+        d=1e100.net; s=20230601; t=1707810356; x=1708415156;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=g2TUnxqUFEUuds5VoosuLXLTLztNDPp3bX3riYGqOcU=;
-        b=pEAUQaEVz6nb9bTaGX/snxEW4z64dz+4wT+72+d4m5/ILIbzKGbsZvzYMeIjSq5MY4
-         0t0f9t1NVWHjTOG18+dMro9nwODHxMkz1liPy0UTGdxE9To/RjQoUevfxrr7KozcLvq9
-         EwdHWyOhCCCfUpz9zIHIKOGI87YtRo/NBRhDiiG6iWvL049IiCb4qzZYRPrknL7qQZ/v
-         WZnc2KUPN9m9cZz7p8mHxIIPG3dyQQzdJg8mSqfofas4AfmZrHjrLVuv2AJ5DVk1eulS
-         lqOvXUsHOhWJws2aAFMLyJk9PBIuluPlXhVb3BEG7yl6XAVG9FrSqxAob2bIujOf8aBh
-         KFQg==
-X-Gm-Message-State: AOJu0Yy8XNeGyUMxlwrUj93sBikVJmjCuCK1VojR2Hd2QSw6IkwhfAOX
-	5EFMxDJjPtLEyyCRnftGRSiVsep0SpHB6ZZdfta/XJS+6BBaTBs7+1q6exAjOQ==
-X-Google-Smtp-Source: AGHT+IFVmCk/GcVZ1U5c6YbSrUVLcj5Me8xy5p8vSQCPar7Dm48mdRqUMDtFPSVxXpCJZluTWtHsWQ==
-X-Received: by 2002:adf:e68a:0:b0:33b:433d:e1d7 with SMTP id r10-20020adfe68a000000b0033b433de1d7mr6639764wrm.1.1707809887381;
-        Mon, 12 Feb 2024 23:38:07 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCVVzJVHDs1sbXPfI79/DDojUlFZPHXEugtMnUi5pwNgHTUHFCWQp6fVVDkmeX0L2+lWo4n3WP1pLk0B7QbdDk4J3RMlf/zFB9lGVdCHNWbJdl55WdbggEmpJPeY4WzWL4hGjp4QCnWBAVMiTTOiGgFut0K6KvXShuA8g1FQLlyJYdH9aC3ewBaPv0P3x+Qk2ez7W4Jm+//8Gt4n/s8hdz7Bz2Bgtdjl/hrhltiDxRyevoM0Mrew5YENCZv9IE6+EPwnv0ZkutXatal9t5Kqxy2AiiD0Gjs9QSxr+V9gGv6E5/nJxcs=
-Message-ID: <d7295c43-c415-4113-8d9c-e6e3d688763e@suse.com>
-Date: Tue, 13 Feb 2024 08:38:06 +0100
+        bh=ZrvzPUVeg3QniT/kEFrnvxAk6x7E45FOL+PUkf3vrpU=;
+        b=J4qXRSEzeUWW/PX1Rd70dDJ7rLqqSDMSuzex60fVUU+YSnI+wvnPO8rCX8sElTc5ns
+         9d8zS3GwUrX5D4KWGLb9GHoN8Gf0Ha0xolKEvkLm9OeulwJhhtlPs7DV7B0gZMZzuLwQ
+         Tb4m2kYOsngD+2QQL5AKJd+0v34hB5Oy6gdXfwmcd76k/VqUkocqcrilbG1y0vZVWqsM
+         M75m4rr9dpkYdflM8B2t3VrbhMKm9y9HugpcTJ4I0/v0s66Vr+Gwg4V1zF4veY7xwC9H
+         9cYAzyR6FCtF0PPa135NbdOSA6hYhXVHRyCWeRxsjIaPDTQVcisxaQ+ljj119Qxb56Z2
+         JzFA==
+X-Forwarded-Encrypted: i=1; AJvYcCVRx9x94uGx8f0b/BySA+/GZndWFCpsHSAxPm1iaXulAnoEM0mS0wupRQZqNBSXl+aJ9Pkc23hDdFRglzQzo/gBu8X1bsPcrJ3lFJVJSxA=
+X-Gm-Message-State: AOJu0YzSLIsncGPbDiFUJol9PsJ0XgoofVC4BSmhZ6AvBRh5RfllL119
+	0m2JzoDqftwiZcAF/imCjMo6zjvkFvUl6azeCHryoQNi0dj4z1uHFUkpTjtuOA==
+X-Google-Smtp-Source: AGHT+IGlLnoaOgo1CgxxXSJc3lxnmZH5xHHHjewhH70rxNqk6dwMkwLyzVt9ae7BVi/Y7bpGCLMYIg==
+X-Received: by 2002:a2e:a366:0:b0:2d0:cd6a:ecf7 with SMTP id i6-20020a2ea366000000b002d0cd6aecf7mr5695177ljn.50.1707810355794;
+        Mon, 12 Feb 2024 23:45:55 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCW9TDiGJ8ZRAt7xOmssENkVCgrV3R2d49NRcaAgS9SpvGf3Rqq/px6eptyrbqTsfdRmezR9KRICUWS9Z3f6JaVIsWbWFRdJGTxRDA84cUSKdwNf1z6HLoagLHoBUk1J3EVVBr8ckj7b4c9t4kU/aMsE/I3etACS87HslQQkzwtlZgoRcrRvPZpZ87QpjJ5jBQrinegX8gUoV9Hfv9UCE4MpV9UqKbCOlw==
+Message-ID: <817ceec4-ed12-4360-a6ce-f87732f62251@suse.com>
+Date: Tue, 13 Feb 2024 08:45:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] docs/misra/rules.rst: catch up with accepted rules
+Subject: Re: [PATCH v3 1/8] serial: fake IRQ-regs context in poll handlers
 Content-Language: en-US
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
- bertrand.marquis@arm.com, roger.pau@citrix.com, roberto.bagnara@bugseng.com,
- federico.serafini@bugseng.com, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2402091653110.1925432@ubuntu-linux-20-04-desktop>
- <9504e77d-6f52-489c-a91a-f4d1a6ce9a33@suse.com>
- <alpine.DEB.2.22.394.2402121512050.1925432@ubuntu-linux-20-04-desktop>
+To: Marek Marczykowski <marmarek@invisiblethingslab.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
+ <893be03d-22cc-4b8c-8a54-6479961c5aa2@suse.com>
+ <b591cd2a-2b49-436e-9cf7-788d9064a778@xen.org>
+ <4530606b-1b5e-47a4-aa41-e12e9178b06d@suse.com> <ZcrlcuNU9y8WymiK@mail-itl>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -113,76 +116,47 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <alpine.DEB.2.22.394.2402121512050.1925432@ubuntu-linux-20-04-desktop>
+In-Reply-To: <ZcrlcuNU9y8WymiK@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.02.2024 00:18, Stefano Stabellini wrote:
-> On Mon, 12 Feb 2024, Jan Beulich wrote:
->> On 10.02.2024 02:00, Stefano Stabellini wrote:
->>> Update docs/misra/rules.rst to reflect the MISRA C rules accepted in the
->>> last couple of months.
+On 13.02.2024 04:43, Marek Marczykowski wrote:
+> On Mon, Feb 12, 2024 at 10:04:38AM +0100, Jan Beulich wrote:
+>> On 08.02.2024 23:00, Julien Grall wrote:
+>>> On 05/02/2024 13:27, Jan Beulich wrote:
+>>>> In preparation of dropping the register parameters from
+>>>> serial_[rt]x_interrupt() and in turn from IRQ handler functions,
+>>>> register state needs making available another way for the few key
+>>>> handlers which need it. Fake IRQ-like state.
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> The use of guest_cpu_user_regs() in dbc_uart_poll() is inconsistent with
+>>>> other console poll functions we have, and it's unclear whether that's
+>>>> actually generally correct.
 >>>
->>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>> ---
->>>
->>> In the notes section I added some info about the deviations, but in any
->>> case the appropriate info will also be added to deviations.rst,
->>> safe.json, etc.
->>>
->>> I also added Rule 14.4, which is older, but when I first tried to add it
->>> to rules.rst, Jan had a question I couldn't reply clearly:
->>> https://marc.info/?l=xen-devel&m=169828285627163
->>>
->>> I think now with this series, the impact of Rule 14.4 is clearer:
->>> https://marc.info/?l=xen-devel&m=170194257326186
+>>> Is it? Looking at ns16550_poll() we would pass guest_user_regs() if 
+>>> run_in_exception() doesn't exist. But looking at the caller, no-on seems 
+>>> to care about the 'regs'. So is this just a latent bug?
 >>
->> This series is about enums only afaics. Yet the rule is much wider, and iirc
->> we had agreed that for integer and pointer types the normal language
->> conversion to boolean meaning is fine as well. Not only do you not mention
->> this case in the entry,
+>> What do you mean by "doesn't exist"? ns16550_poll() assumes it exists.
+>> And I can spot any use of guest_user_regs() on the respective generic
+>> or Arm-specific bug.c paths.
+>>
+>>> BTW, do you have an idea why the poll function is not run in an 
+>>> exception handler?
+>>
+>> "The poll function" being which one? If you mean the one in xhci-dbc.c
+>> then that's why I had Cc-ed Marek. Moving him to To: - maybe that
+>> manages to finally catch his attention.
 > 
-> I can add a note about it.
-> 
-> 
->> but it also continue to mean that effectively we
->> limit the rule to a very narrow case. Which continue to leave open the
->> question of whether the rule is worthwhile to accept in the first place.
-> 
-> When someone does a safety certification, there is a difference between
-> deviating a rule as a whole or accepting the rule and only deviating
-> certain aspects of it (simply ignoring the rule is typically not an
-> option in safety certification context.) So here I think it would help
-> downstreams interested in safety if we added the rule, with specific
-> deviations.
+> TBH, I don't know. That's part of the original xue patch at
+> https://github.com/connojd/xue/blob/master/patches/xen-xue-dbgp.patch
+> and it works for me as it is.
 
-Yet then in other cases you refer to Bertrand's general statement of it
-not being helpful when too little of a rule is left by deviating.
+"Works" meaning what? Doesn't crash on you? Or does also provide
+sensible output in _all_ cases (i.e. including when e.g. the poll
+happens to run on an idle vCPU)?
 
-> Do you have any comments on the other parts of this patch? If not, I
-> would be happy to resent the rest unmodified, and update only 14.4 in
-> its own separate patch where we can discuss further.
-
-Well. We're in territory now where I'm not really happy anymore with the
-full scope of what is being added to the "accepted" list. Leaving 14.4
-aside, what you have in the patch all looks like what was agreed upon,
-but then I'm not taking notes during meetings, and hence I can't help
-the impression that e.g. for 5.5 there was more than just the one
-"permitted" pattern. Therefore, while I deliberately didn't comment
-there (for not having a concrete case in mind), I'm afraid I also don't
-feel anymore like acking such multi-rule patches. If you strictly went
-one by one, it is certainly possible that I might ack this and that.
-
-As attempted to voice several times during the meetings, I pretty
-strongly disagree with many of the "developer confusion" aspects, when
-they take away options the language quite obviously and naturally
-provides. We're talking about hypervisor code here, not some random
-tool that was thrown together in a haste. At the risk of sounding
-arrogant, people being easily confused by what I'd call normal code
-should simply not touch code like this. Whereas the spirit of many of
-these rules looks to rather go in the direction that basically anyone
-knowing a little bit of C should be qualified enough to maintain code
-made subject to all of these rules.
-
-I'm sorry, Jan
+Jan
 
