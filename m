@@ -2,35 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D08C7853D87
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 22:47:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680149.1058050 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D74C8853EC8
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 23:34:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680153.1058061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ra0bo-0000W9-Ox; Tue, 13 Feb 2024 21:46:32 +0000
+	id 1ra1LM-0006oK-17; Tue, 13 Feb 2024 22:33:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680149.1058050; Tue, 13 Feb 2024 21:46:32 +0000
+Received: by outflank-mailman (output) from mailman id 680153.1058061; Tue, 13 Feb 2024 22:33:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ra0bo-0000Ud-MQ; Tue, 13 Feb 2024 21:46:32 +0000
-Received: by outflank-mailman (input) for mailman id 680149;
- Tue, 13 Feb 2024 21:46:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ra1LL-0006lw-To; Tue, 13 Feb 2024 22:33:35 +0000
+Received: by outflank-mailman (input) for mailman id 680153;
+ Tue, 13 Feb 2024 22:33:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mM3Z=JW=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ra0bn-0000UX-6d
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 21:46:31 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5688b718-cab9-11ee-98f5-efadbce2ee36;
- Tue, 13 Feb 2024 22:46:28 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sin.source.kernel.org (Postfix) with ESMTP id 66644CE1F39;
- Tue, 13 Feb 2024 21:46:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ACBEC433C7;
- Tue, 13 Feb 2024 21:46:20 +0000 (UTC)
+ <SRS0=kFBu=JW=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1ra1LJ-0006lq-Ry
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 22:33:33 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2405::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ea1af306-cabf-11ee-8a4d-1f161083a0e0;
+ Tue, 13 Feb 2024 23:33:32 +0100 (CET)
+Received: from BYAPR21CA0022.namprd21.prod.outlook.com (2603:10b6:a03:114::32)
+ by SJ2PR12MB7919.namprd12.prod.outlook.com (2603:10b6:a03:4cc::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.17; Tue, 13 Feb
+ 2024 22:33:29 +0000
+Received: from MWH0EPF000971E6.namprd02.prod.outlook.com
+ (2603:10b6:a03:114:cafe::7e) by BYAPR21CA0022.outlook.office365.com
+ (2603:10b6:a03:114::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.9 via Frontend
+ Transport; Tue, 13 Feb 2024 22:33:29 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MWH0EPF000971E6.mail.protection.outlook.com (10.167.243.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Tue, 13 Feb 2024 22:33:28 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 13 Feb
+ 2024 16:33:27 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Tue, 13 Feb
+ 2024 16:33:27 -0600
+Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.35 via Frontend Transport; Tue, 13 Feb 2024 16:33:26 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,137 +64,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5688b718-cab9-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1707860781;
-	bh=vz6VjlFd/DQuexXekHi8OgvwCROKnOnDwpEmjiujEE0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=oyZPWs4CXxvrr9ci/9ubQzd+kJ4ekY6ty6C4tg5xs2fJ+OAmVcYdRgObFjEFLiD5O
-	 S0d+yYw0iRdMu4caFbhnTQWRutzWENAXr14xkYEtLo7CQ2XMjhlcGbeXwdID6ruO0p
-	 y7OzI7sImuGiraxflnpDuhHC8mrc372IlK9hM4osE9/Bm1eHmqt/E0s3AzSxc8Yfy3
-	 VLYGdLDIH5SyTcG5htfTvZtyujo2aXC37hR4y+mf84PBK2JtzKhVoFcpNVwJQj47F7
-	 lBlRwn/gcjd7slgJSaC9z8I/2UYyXUg0kG36jqFPTKvl7NauzK4sknUVwhC5PA1+14
-	 b5EFWtBBO4uaQ==
-Date: Tue, 13 Feb 2024 13:46:18 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
+X-Inumbo-ID: ea1af306-cabf-11ee-8a4d-1f161083a0e0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FSCe+JYEPgiprKCi3bFbNmeUzlMCwtW6FRSBzVVa1+f+q5/0+byzSyb4KW6obrZyY1v9BMkksFdwYnX8eGKf9+v+S14z1tHFQn2Zm1NN0udYSxJon38wBFtwMvQ9uPnI1IEoAJvl8jmQtW28RRuwvm10VFrSZI4JuCfP68MQyiEz2XvMTIUPwTE6EwsVAoUJBdjHgbyvb6pRdXChaFX9hZL+amkW+nZDprZKgc+Bw8WLRIcsvoXda/PSl/7EHpAETCRwhBSYLzRWZyo00690r0AM6RtvPdHA7PAYAH9TGLECz/ybPCyFgFM92zGcXK3Pcr4QhTn8FpBpxzx0mTzbdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K2EGIVFayJXte1/ifsz9IeqstFIZA97IZnNrIWiSUO8=;
+ b=ffYN7oUEP/2JMO3/D4SKVIm8zGhQDCwVRP0hlCubxgkQsBrohtrcy9QVaa8eZ095EjJIMiBEVlyPw45j9QSBtvqpD67A8Sv2Gi1oezUHKk8D3QU+gjiO1Jq3lFC4wBhJtXmLOgCY1t1WCA5BEc4BkOqhhvWYzVNc3hxgW0Ka68VOu4dZYJou/MFWWXq31XsYO6BITbdqyeo4RtJjwn3Mm3Dt1lGFJ6S9ofaYtJiAl5Hd+1ER4FVdEFDPwXvuiBhr97R/HsdYh1/ihIEJK5SNZL8T66cEqBW2e9KJtynl15uksO2R3ZCknvfWIhKJfj6kyFE1MhZwTXbGBi+4AM29Zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K2EGIVFayJXte1/ifsz9IeqstFIZA97IZnNrIWiSUO8=;
+ b=0zifFnoNG5qvh6Ho1qg6ASJAAoQvuGWWNbtHsr9810xy1wSREV/kJBmNQDq7jxbld0ReDaUoQMTbc6+yDfb4PlSgChXG3rvRkqkreZo0pP3hLgSI7KnVOglvH8P80AuW7Uw/wLBZXrrDPkVKUILaoxzhkVP3Dt3EhndHilTZIug=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Date: Tue, 13 Feb 2024 14:33:25 -0800
+From: Stefano Stabellini <stefano.stabellini@amd.com>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com, 
-    george.dunlap@citrix.com, julien@xen.org, bertrand.marquis@arm.com, 
-    roger.pau@citrix.com, roberto.bagnara@bugseng.com, 
-    federico.serafini@bugseng.com, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v1] docs/misra/rules.rst: catch up with accepted rules
-In-Reply-To: <d7295c43-c415-4113-8d9c-e6e3d688763e@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2402131330160.1925432@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2402091653110.1925432@ubuntu-linux-20-04-desktop> <9504e77d-6f52-489c-a91a-f4d1a6ce9a33@suse.com> <alpine.DEB.2.22.394.2402121512050.1925432@ubuntu-linux-20-04-desktop> <d7295c43-c415-4113-8d9c-e6e3d688763e@suse.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <stefano.stabellini@amd.com>, <andrew.cooper3@citrix.com>,
+	<jbeulich@suse.com>, <george.dunlap@citrix.com>, <julien@xen.org>,
+	<bertrannd.marquis@arm.com>, <roger.pau@citrix.com>,
+	<roberto.bagnara@bugseng.com>, <federico.serafini@bugseng.com>
+Subject: [PATCH v2] docs/misra/rules.rst update
+Message-ID: <alpine.DEB.2.22.394.2402131431070.1925432@ubuntu-linux-20-04-desktop>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="US-ASCII"
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000971E6:EE_|SJ2PR12MB7919:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00aaf083-51bb-4d79-af24-08dc2ce3ccd4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ZiEO4KT4b13Zdt0wO0WEfb7hdyagyVn3c89Yuy3aspG892wVYyExd4/BjnCQ4rfS2HHaGCHgCvuQ2K7hTT/hW0h4SiUtqGdQ0nL6EykzNt4ciC97LORo1PxM6aCzHs6Kh/tqhHDPRgt3V++VxdCoXi5PVXmiXG+Ls9QjWlidm51aSVaXzhItIK6omBALnleMv0WlNj2paRUPBrNsjr/wMfoYOautU2z6S2C2Ad/JBX+ADTdmGSwm9sYvIlOZBceeeVbna00sEucI2K1neI26HGiuU4lk8hXp5gUoT4myKW9AnwuUr4nrV6rnWXkkl87fegXGZUkjY23cpOIZCSlgbmdwcCjE87tzNsRsNOFGxJP+IEoAfwjZuY8T+LBQiKuikUxk2ALY/s9AOrnkNh/x06kJKE8hQQHMvfDjUb8XeKfVhJU1ND5QTGvP74pXj76NE8uVdcjTsx0eG6k8DHpr8xhZmqrEkfmV1+EsB7OFemBMeqRVVVDVaG1v1y6uFX3qLtVsvgXiwOfgOl8IJtmUCnAFRaYcZOUcvb6KIr03OV0CRrHcux5Zm1WBT+EOpQp9WQHKaeZFsEQVZyU2FAwFNqr8S4kV+Xa/X22l68rPPIA=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(7916004)(396003)(39860400002)(136003)(376002)(346002)(230922051799003)(82310400011)(64100799003)(451199024)(186009)(1800799012)(46966006)(36840700001)(40470700004)(4326008)(8936002)(44832011)(8676002)(15650500001)(5660300002)(33716001)(336012)(426003)(83380400001)(81166007)(558084003)(26005)(356005)(70206006)(86362001)(82740400003)(6916009)(70586007)(316002)(54906003)(9686003)(2906002)(478600001)(41300700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2024 22:33:28.3894
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00aaf083-51bb-4d79-af24-08dc2ce3ccd4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000971E6.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7919
 
-On Tue, 13 Feb 2024, Jan Beulich wrote:
-> On 13.02.2024 00:18, Stefano Stabellini wrote:
-> > On Mon, 12 Feb 2024, Jan Beulich wrote:
-> >> On 10.02.2024 02:00, Stefano Stabellini wrote:
-> >>> Update docs/misra/rules.rst to reflect the MISRA C rules accepted in the
-> >>> last couple of months.
-> >>>
-> >>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> >>> ---
-> >>>
-> >>> In the notes section I added some info about the deviations, but in any
-> >>> case the appropriate info will also be added to deviations.rst,
-> >>> safe.json, etc.
-> >>>
-> >>> I also added Rule 14.4, which is older, but when I first tried to add it
-> >>> to rules.rst, Jan had a question I couldn't reply clearly:
-> >>> https://marc.info/?l=xen-devel&m=169828285627163
-> >>>
-> >>> I think now with this series, the impact of Rule 14.4 is clearer:
-> >>> https://marc.info/?l=xen-devel&m=170194257326186
-> >>
-> >> This series is about enums only afaics. Yet the rule is much wider, and iirc
-> >> we had agreed that for integer and pointer types the normal language
-> >> conversion to boolean meaning is fine as well. Not only do you not mention
-> >> this case in the entry,
-> > 
-> > I can add a note about it.
-> > 
-> > 
-> >> but it also continue to mean that effectively we
-> >> limit the rule to a very narrow case. Which continue to leave open the
-> >> question of whether the rule is worthwhile to accept in the first place.
-> > 
-> > When someone does a safety certification, there is a difference between
-> > deviating a rule as a whole or accepting the rule and only deviating
-> > certain aspects of it (simply ignoring the rule is typically not an
-> > option in safety certification context.) So here I think it would help
-> > downstreams interested in safety if we added the rule, with specific
-> > deviations.
-> 
-> Yet then in other cases you refer to Bertrand's general statement of it
-> not being helpful when too little of a rule is left by deviating.
+Hi all,
 
-I think it is a case-by-case judgement call. Also, keep in mind that
-Bertrand's goal was to encourage us to accept more rules in their
-entirety without any deviations, not reject more rules. Especially as
-rejecting rules it is typically not possible for people doing safety, so
-the alternative is to write a wider deviation -- deviate even more, not
-less.
+Update docs/misra/rules.rst to reflect the MISRA C rules accepted in the
+last couple of months.
 
+Cheers,
 
-> > Do you have any comments on the other parts of this patch? If not, I
-> > would be happy to resent the rest unmodified, and update only 14.4 in
-> > its own separate patch where we can discuss further.
-> 
-> Well. We're in territory now where I'm not really happy anymore with the
-> full scope of what is being added to the "accepted" list. Leaving 14.4
-> aside, what you have in the patch all looks like what was agreed upon,
-> but then I'm not taking notes during meetings, and hence I can't help
-> the impression that e.g. for 5.5 there was more than just the one
-> "permitted" pattern. Therefore, while I deliberately didn't comment
-> there (for not having a concrete case in mind), I'm afraid I also don't
-> feel anymore like acking such multi-rule patches. If you strictly went
-> one by one, it is certainly possible that I might ack this and that.
-
-That's understandable especially as this time I was slower to send out
-the patch to update docs/misra/rules.rst (apologies for that.)
-
-Specifically for 5.5, I have the following notes from Roberto:
-"""
-We tag as deliberate all violations involving clashes
-between function-like macros and non-callable entities.
-We also tag as deliberate the violations matching the pattern #define x x.
-In the future, once string.h will be restricted to the <string.h> functionality
-of the C standard, string.h will be deviated further.
-Further deviations are yet to be agreed upon (e.g., on ARM64 the deviation
-of TYPE_SAFE resolves most of the violation; on x86_64 the deviation
-of TYPE_SAFE resolves half of the violations but the others depend
-on only about a dozen of macros).
-"""
-
-I added to the notes section only the part that I thought would make
-sense to keep there. For the rest, I think it would be best to leave it
-to future updates of documenting-violations.rst and/or safe.json as
-appropriate.
-
-I'll split out 14.4 and 5.5, and keep the rest in one patch.
-
-
-> As attempted to voice several times during the meetings, I pretty
-> strongly disagree with many of the "developer confusion" aspects, when
-> they take away options the language quite obviously and naturally
-> provides. We're talking about hypervisor code here, not some random
-> tool that was thrown together in a haste. At the risk of sounding
-> arrogant, people being easily confused by what I'd call normal code
-> should simply not touch code like this. Whereas the spirit of many of
-> these rules looks to rather go in the direction that basically anyone
-> knowing a little bit of C should be qualified enough to maintain code
-> made subject to all of these rules.
-
-At some point there will be new people working on Xen (among others,
-AMD has been hiring). New people need to start from somewhere. So the
-less confusing the code the better it is because it is also less error
-prone. There is code reviews and tests, but if the code was less prone
-to misinterpretations, then there would be fewer chances of errors in
-the first place.
+Stefano
 
