@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3AAB853340
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 15:34:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679923.1057725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F49A8533A2
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 15:53:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679961.1057751 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZtrT-0005pX-KU; Tue, 13 Feb 2024 14:34:15 +0000
+	id 1rZu9o-0001iC-Jc; Tue, 13 Feb 2024 14:53:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679923.1057725; Tue, 13 Feb 2024 14:34:15 +0000
+Received: by outflank-mailman (output) from mailman id 679961.1057751; Tue, 13 Feb 2024 14:53:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZtrT-0005nz-GC; Tue, 13 Feb 2024 14:34:15 +0000
-Received: by outflank-mailman (input) for mailman id 679923;
- Tue, 13 Feb 2024 14:34:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rZu9o-0001gV-Fq; Tue, 13 Feb 2024 14:53:12 +0000
+Received: by outflank-mailman (input) for mailman id 679961;
+ Tue, 13 Feb 2024 14:53:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SqM6=JW=cloud.com=kelly.choi@srs-se1.protection.inumbo.net>)
- id 1rZtrS-0005nn-2j
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 14:34:14 +0000
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [2a00:1450:4864:20::643])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5008d04-ca7c-11ee-8a4d-1f161083a0e0;
- Tue, 13 Feb 2024 15:34:13 +0100 (CET)
-Received: by mail-ej1-x643.google.com with SMTP id
- a640c23a62f3a-a3d2587116aso17470466b.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 06:34:13 -0800 (PST)
+ <SRS0=zAib=JW=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1rZu9m-0001gP-NT
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 14:53:10 +0000
+Received: from fout4-smtp.messagingengine.com (fout4-smtp.messagingengine.com
+ [103.168.172.147]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 988242ac-ca7f-11ee-98f5-efadbce2ee36;
+ Tue, 13 Feb 2024 15:53:07 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailfout.nyi.internal (Postfix) with ESMTP id E468F13800B5;
+ Tue, 13 Feb 2024 09:53:05 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 13 Feb 2024 09:53:05 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Feb 2024 09:53:04 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,85 +43,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5008d04-ca7c-11ee-8a4d-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1707834852; x=1708439652; darn=lists.xenproject.org;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=m/tLFueGTPOjDp5fpr95SEip2U5yJw1eI2KrdoB48zQ=;
-        b=fA4T3L0WQlI1HdjZRsbFrTjbEhgA71e3t5XF2hSnf/XkBf1AccT56XNF9yAmviCO1i
-         7E2i0mAiDJIwvxB3rMq3meVRhy41dGrXaIywPYsoYYjeGNLquE9+6RWBd6bzSdhdW4N3
-         BXkO7mugdEInfnepgB8Z71Durk004H/uMh+Ag=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707834852; x=1708439652;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=m/tLFueGTPOjDp5fpr95SEip2U5yJw1eI2KrdoB48zQ=;
-        b=luYEDfB0nvpUAgCyPujsLM4CJZwpA2P5XfRboHuMnJ5o6j2MBmDyBBnhJkg/sgbLFH
-         Y0nMt/5zj0RK4qn9o027dSLetJHfLx3N+s298weig3GM0r7IVqp204lUBQI2i09t6hxr
-         RGEH1kgN6A4QnGaNgC4k1gcRxhhtn0/Y5mR4Ki//6XNolgQQD8qPFHIJeFdD7hjZs7ye
-         LhwNsqb0W3RLtz7WWkdq0FnHwZavu75oc9kW6mPT+SdaHiwTOo7bC84GntheBJ8LrqzM
-         qpuH4hA3U8JTyPG9/1FVIbOuLLjbTcetyd7dG21ghaCJRRLDMBw/uJBNLK1p1uyFt6UC
-         kD9g==
-X-Gm-Message-State: AOJu0YwOHIvO09OKH5U29tJgXoNEd+AX/n43TE1RZ7lC3bvXCMvI/5SS
-	N2atOhF1So5hqjf30Waodeg/LbX1UFCV/NzHKJw330o4hSYVuS0wiskKhEM6nY5T4CMzIFWsr/E
-	M80eHgjdoYb4IVzV3iqq327zSZuyUNTNvNz+xtwQZRraCqbPwAIKnXb4q
-X-Google-Smtp-Source: AGHT+IFIdg7CBNnXtDrwZKaVLcqInhj5HPnWpbNTL4wO9GUhQFOTKUh0XTL6HeglRrdaaFv6cjdEC9qPp3Ad08b372k=
-X-Received: by 2002:a17:906:40ca:b0:a35:e7a1:66ec with SMTP id
- a10-20020a17090640ca00b00a35e7a166ecmr6496969ejk.44.1707834852247; Tue, 13
- Feb 2024 06:34:12 -0800 (PST)
+X-Inumbo-ID: 988242ac-ca7f-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1707835985;
+	 x=1707922385; bh=DFfeuBoVBxksTdKSx0VpgsUDX+NEgO6od69uHWLszc0=; b=
+	dcz9yctKQC0vh9OoSyvra9SoskehQuDACtmPWzo6Iury+EMkGFgqOPT8tm3hN7Sc
+	rmOmnCWR5ONkEXRdRSJbwdRR1Lq+416lLvrvphTYLQElaqqzgEod/lGRDPjwlk3B
+	lfKpF+BD7L1PT3Sx4zPvibiY3eogxuTvgeA0nUlPLeyaidoKw8FJE/nUldE+uFfD
+	8M5fVF0nn+5CCfCv41nwawp2+fsCd2z7aHW0nMq0LIaovzIBkUoLyqcxK/y6ebvS
+	R+MAkIUpxFH4YdrihzRUHfkFowNUTCQdnGdyLgOz6RglgFU+7MdmZE8HY3YVvhnf
+	O9f+yWFFyeMFN3AOLxtzEw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1707835985; x=1707922385; bh=DFfeuBoVBxksTdKSx0VpgsUDX+NE
+	gO6od69uHWLszc0=; b=vEpqm2BMOT/Dz/ZyFO5EAwtLXtwPBgt5+MN+X/bKQ+IS
+	GxjY8A9m9U3rczWo9wJqSYIGnuZVjMP2QllmRZJEJZGr2u44E5sfsOklhpWsflNg
+	3KVABOa3qCZsWaBaS+B2CrTG0Jcm5NQHwQO6jmsc4eMyjEfz+pIk8TWwQEnNKxxs
+	4n6wItv4EEBjwGYwLPCYfqxWRQd7J0jpTtOUXDVpvMqX+6lsXXg2yCC+Ng4phx4n
+	DcjipDz+vi23AVpfW+ps+iUyfQ8AH6X0lR3P/z303vIEy1bycj7HSOnFJ62UGoLb
+	xAwfI3GYXilDDovNYVnAj8EgF3ZQqziO66uOBRQM7Q==
+X-ME-Sender: <xms:UYLLZWJAFdVZEw8RJqE--gSe47LTjlTL0RAzT8fXLsMqU6g4ex8BhQ>
+    <xme:UYLLZeKRMnCvrS6cguEGGqBztDraVZ6qy6hzjmMuaS1BeQQG9ogUhjObcsuW5ldfP
+    dABrPFof4DL8Q>
+X-ME-Received: <xmr:UYLLZWuBUaRqfFhbTi-Gwvh1h9DSh84oerHIUqMfmbs_PLEMakTP-PvEbpc6b5jHYMjbTd9OJ35mqGIwU9iIpTKK1b6NZSJcdw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudehgdeilecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
+    hinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeihfelhfekhefgveejjeet
+    vedtgfduveelgeekteehueeufeefudegveejueefhfenucffohhmrghinhepghhithhhuh
+    gsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:UYLLZbaogY7ggXl2BOfwWfo0ershlv-HFr79opgr4HEn8YjB5ANykg>
+    <xmx:UYLLZdYd1ML_VZam_rCLaCxsGjq66F_0pVPDt-lbN95PqfFnUEC-AA>
+    <xmx:UYLLZXCUTR3UKq6Ov22mKdFsCmBAGE2drAEDwCeazCF3ZW1MLDAn0g>
+    <xmx:UYLLZSOCu9y3ZerXbEghDFBdbNL1NtCBCGtrrwQNt7cnUq5eSS6z-w>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 13 Feb 2024 15:53:02 +0100
+From: Marek Marczykowski <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 1/8] serial: fake IRQ-regs context in poll handlers
+Message-ID: <ZcuCTnMpFib4ArHW@mail-itl>
+References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
+ <893be03d-22cc-4b8c-8a54-6479961c5aa2@suse.com>
+ <b591cd2a-2b49-436e-9cf7-788d9064a778@xen.org>
+ <4530606b-1b5e-47a4-aa41-e12e9178b06d@suse.com>
+ <ZcrlcuNU9y8WymiK@mail-itl>
+ <817ceec4-ed12-4360-a6ce-f87732f62251@suse.com>
 MIME-Version: 1.0
-From: Kelly Choi <kelly.choi@cloud.com>
-Date: Tue, 13 Feb 2024 14:33:36 +0000
-Message-ID: <CAO-mL=wFR=jz7sJdBsqVxesg9VQ4mZ4OeHcV-TdtB6mBP81T4Q@mail.gmail.com>
-Subject: Xen Summit 2024 - Registrations now open!
-To: xen-devel@lists.xenproject.org, xen-users@lists.xenproject.org, 
-	xen-announce@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="000000000000b4351c0611444966"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="mt9SbzcEVrn24iEJ"
+Content-Disposition: inline
+In-Reply-To: <817ceec4-ed12-4360-a6ce-f87732f62251@suse.com>
 
---000000000000b4351c0611444966
-Content-Type: text/plain; charset="UTF-8"
 
-Hello Xen Community,
-
-Our Xen Summit 2024 registrations are now open! Secure your early bird
-rates today.
-https://events.linuxfoundation.org/xen-project-summit/register/
-
-If you're an academic studying for a relevant degree, entry is free!
-(subject to a social media or blog post after the event)
-
-Please make sure to submit your talks early, as CFPs will close at the end
-of the month.
-
-If you have any questions, please let me know or email
-cfp@linuxfoundation.org
-
-Many thanks,
-Kelly Choi
-
-Community Manager
-Xen Project
-
---000000000000b4351c0611444966
-Content-Type: text/html; charset="UTF-8"
+--mt9SbzcEVrn24iEJ
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Feb 2024 15:53:02 +0100
+From: Marek Marczykowski <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 1/8] serial: fake IRQ-regs context in poll handlers
 
-<div dir=3D"ltr">Hello Xen Community,=C2=A0<div><br></div><div>Our Xen Summ=
-it 2024 registrations are now open! Secure your early bird rates today.=C2=
-=A0</div><div><a href=3D"https://events.linuxfoundation.org/xen-project-sum=
-mit/register/">https://events.linuxfoundation.org/xen-project-summit/regist=
-er/</a><br></div><div><br></div><div>If you&#39;re an academic studying for=
- a relevant degree, entry is free!=C2=A0=C2=A0</div><div>(subject to a soci=
-al media or blog post after the event)</div><div><br></div><div>Please make=
- sure to submit your talks early, as CFPs will close at the end of the mont=
-h.=C2=A0</div><div><br></div><div>If you have=C2=A0any questions, please=C2=
-=A0let me know or email=C2=A0<a href=3D"mailto:cfp@linuxfoundation.org">cfp=
-@linuxfoundation.org</a></div><div><br></div><div>Many thanks,<div><div dir=
-=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div =
-dir=3D"ltr"><div>Kelly Choi</div><div><br></div><div><div style=3D"color:rg=
-b(136,136,136)">Community Manager</div><div style=3D"color:rgb(136,136,136)=
-">Xen Project=C2=A0<br></div></div></div></div></div></div></div>
+On Tue, Feb 13, 2024 at 08:45:54AM +0100, Jan Beulich wrote:
+> On 13.02.2024 04:43, Marek Marczykowski wrote:
+> > On Mon, Feb 12, 2024 at 10:04:38AM +0100, Jan Beulich wrote:
+> >> On 08.02.2024 23:00, Julien Grall wrote:
+> >>> On 05/02/2024 13:27, Jan Beulich wrote:
+> >>>> In preparation of dropping the register parameters from
+> >>>> serial_[rt]x_interrupt() and in turn from IRQ handler functions,
+> >>>> register state needs making available another way for the few key
+> >>>> handlers which need it. Fake IRQ-like state.
+> >>>>
+> >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >>>> ---
+> >>>> The use of guest_cpu_user_regs() in dbc_uart_poll() is inconsistent =
+with
+> >>>> other console poll functions we have, and it's unclear whether that's
+> >>>> actually generally correct.
+> >>>
+> >>> Is it? Looking at ns16550_poll() we would pass guest_user_regs() if=
+=20
+> >>> run_in_exception() doesn't exist. But looking at the caller, no-on se=
+ems=20
+> >>> to care about the 'regs'. So is this just a latent bug?
+> >>
+> >> What do you mean by "doesn't exist"? ns16550_poll() assumes it exists.
+> >> And I can spot any use of guest_user_regs() on the respective generic
+> >> or Arm-specific bug.c paths.
+> >>
+> >>> BTW, do you have an idea why the poll function is not run in an=20
+> >>> exception handler?
+> >>
+> >> "The poll function" being which one? If you mean the one in xhci-dbc.c
+> >> then that's why I had Cc-ed Marek. Moving him to To: - maybe that
+> >> manages to finally catch his attention.
+> >=20
+> > TBH, I don't know. That's part of the original xue patch at
+> > https://github.com/connojd/xue/blob/master/patches/xen-xue-dbgp.patch
+> > and it works for me as it is.
+>=20
+> "Works" meaning what? Doesn't crash on you? Or does also provide
+> sensible output in _all_ cases (i.e. including when e.g. the poll
+> happens to run on an idle vCPU)?
 
---000000000000b4351c0611444966--
+Generally provides sensible output, for example during boot (it is using
+idle vCPU then, right?).
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--mt9SbzcEVrn24iEJ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmXLgk4ACgkQ24/THMrX
+1yxYqQf/QZCLPTxbKmXZI+CXVOH0exzR0oHacrk7Sb7hN5FhSBcbMsCiQ5HZ4IdF
+eumV1VDdDKw0piFz5vnLk/X++4j9N37ySeyE26jUpzp4aB0JHzBqU+ItedpinVGe
+MauH1EdhqsBJ+kKUVP5FTUQCbaLLowdsTzHl2fP07/xOTRNWXyhxiMJSLrrbuCkN
+ul2kKAmkTiRCQt3pGcYo9kSEMieQOckHwhZ5TokbzlTYTEJ40Ehp15lSQmDX04an
+ILN2Z6DtpimhQyUgnia6+/wgzrLXYVjkrtdYpnbe2wG4trf+Sqpv8OYlDFgiUjJN
+HtDj59AJbaCgFGJvODIHlcHC3On/Aw==
+=fsI6
+-----END PGP SIGNATURE-----
+
+--mt9SbzcEVrn24iEJ--
 
