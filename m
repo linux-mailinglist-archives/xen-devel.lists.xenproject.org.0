@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B30C7852FBC
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:42:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679867.1057622 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBF57852FBF
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:42:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679868.1057631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZrAx-0001GA-FO; Tue, 13 Feb 2024 11:42:11 +0000
+	id 1rZrBI-0001i7-Mj; Tue, 13 Feb 2024 11:42:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679867.1057622; Tue, 13 Feb 2024 11:42:11 +0000
+Received: by outflank-mailman (output) from mailman id 679868.1057631; Tue, 13 Feb 2024 11:42:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZrAx-0001Cw-CE; Tue, 13 Feb 2024 11:42:11 +0000
-Received: by outflank-mailman (input) for mailman id 679867;
- Tue, 13 Feb 2024 11:42:10 +0000
+	id 1rZrBI-0001fM-K3; Tue, 13 Feb 2024 11:42:32 +0000
+Received: by outflank-mailman (input) for mailman id 679868;
+ Tue, 13 Feb 2024 11:42:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gnrE=JW=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1rZrAw-0000fG-8w
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:42:10 +0000
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [2a00:1450:4864:20::429])
+ id 1rZrBG-0000fG-VD
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:42:30 +0000
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [2a00:1450:4864:20::22d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ebc41058-ca64-11ee-8a4d-1f161083a0e0;
- Tue, 13 Feb 2024 12:42:09 +0100 (CET)
-Received: by mail-wr1-x429.google.com with SMTP id
- ffacd0b85a97d-3394b892691so2793568f8f.1
- for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:42:09 -0800 (PST)
+ id f838589c-ca64-11ee-8a4d-1f161083a0e0;
+ Tue, 13 Feb 2024 12:42:30 +0100 (CET)
+Received: by mail-lj1-x22d.google.com with SMTP id
+ 38308e7fff4ca-2d073b54359so62895951fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:42:30 -0800 (PST)
 Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- t17-20020a05600c199100b0041069adbd87sm11681216wmq.21.2024.02.13.03.42.08
+ r11-20020a05600c458b00b00410504b582csm11558849wmo.11.2024.02.13.03.42.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Feb 2024 03:42:08 -0800 (PST)
+ Tue, 13 Feb 2024 03:42:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,74 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebc41058-ca64-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: f838589c-ca64-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707824529; x=1708429329; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707824550; x=1708429350; darn=lists.xenproject.org;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=BqKGq5Rihofp0wbN6VyPB/1V+A38BSfVOvDXOT3Q0hY=;
-        b=Kip6C0i8V5nXcQpiNmrVVUfYPT1ACXwVltBBNzYQ+Q+w4C68kbVGthkbW1I8Lh42Tp
-         nUwqAjyySmKGyUWg5PesBZi+ulkbsZcDU4IHKp6kbC1E2CpFhNVgDZxWm3lM5G4VAMeF
-         sVuGNfIVUJpyrH89eBoqykh5c9n18LVsj/MwQ=
+        bh=SFOxlptOy6yPH4rsd8K2htw0DvvMc2uXfBIk/uVlwbs=;
+        b=RShpAisH7H105h734oYjHnECSid7P82n+5EKyUyo9eBrQbXrrcgouEiW0h4h9SMeOW
+         EgElGS06ioKF5lYK5mVkosRBxH9aB8aeiRtIgURRZrt0vzoxkOX3sgi/0vMs34DIj3D1
+         /UWRJ65PaDZcQFqjp9m5EhUTcv6EnuKl6H+fY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707824529; x=1708429329;
+        d=1e100.net; s=20230601; t=1707824550; x=1708429350;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=BqKGq5Rihofp0wbN6VyPB/1V+A38BSfVOvDXOT3Q0hY=;
-        b=HONacPQR2Hh4jixRvhiYg6btIrTSCxvfmbEd+pttfp7yetztEi1PMx0m96foiOoXUK
-         zH+Y2U8D2oTv59+5eMYV7FWyisa0m/zBBUklU4cChMGgRYBuMY1g6/2KL2GduBxBeWGa
-         ay5dPaqu2TyIgMEqX4Kzl11qr+KOtICfbtPKAGpswtmQ7w/X+JUecuQA6cufL9Lu0z3c
-         tukvOYXE9M5SBM8xH4L2+fu4zNbpo0nUvJJl4NRRAbbGr4B3J/4g93hk/L2oTsKTmwJ1
-         J1cNwPWcIy6HikJ1BHnZ3Lgw66HRJyKsw0wecMXizlq3EwAWkQTjpOGgTeYCnwlkCSE1
-         TeFQ==
-X-Gm-Message-State: AOJu0YyJfuOMB++7GtT3O5SOnjNL0xVi6iHaADLGQnHLkgh0ooDG6HnI
-	SU40Ro1CxRl2UPaCPyqmF8rDFoWJB1dKaSuwI5ly3F10rdZLXuvvq0C0EdV6DVaP+btC40tS8zi
-	i
-X-Google-Smtp-Source: AGHT+IFJldikD4pD+qgUgBILN2mzEnuJ2H738k1u2ZLCaKjs/EPrgDobC1Aw+icE6v8e5yOULLV/OA==
-X-Received: by 2002:a05:6000:136c:b0:33b:51d5:bd1c with SMTP id q12-20020a056000136c00b0033b51d5bd1cmr1722315wrz.12.1707824529148;
-        Tue, 13 Feb 2024 03:42:09 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXQuorW5H5DgdRpYxnAhRhSajAwwNhS6IdZmw7ScIIVCL2fEZaONcIqdYkUvB+EXm5mb1Z0+Q5UGV7Wwj/mVXjd9bSIgfQVdhmWbGNfgos1SL1J2lUgP981puFk/mkuyI1bGilVYVtPCl4rCWM=
-Date: Tue, 13 Feb 2024 11:42:08 +0000
+        bh=SFOxlptOy6yPH4rsd8K2htw0DvvMc2uXfBIk/uVlwbs=;
+        b=FsxUnQ5Cu4XY6Q+0Aasylo5t2Ulss3cBbwGiWQpyQANOfisxcFa9B7xjmSg793J38U
+         DzMwlWVG5WEtLb6OIwEJRdOP2P3hzImDYIeg+mXt2ZfbQRn+rk3EGeR38uHNsx2QMDcZ
+         YMm8lVJMZ+AQOf6PpA79ZIBD5ggvD4B1KqQ6ObrKgAes8+jafGNtt92HBsYztrvdPO3U
+         pYjqhUjnfh7ANi8Zbf/K0pvxy2zWGKxbP5jBYG1tg4XBq8wS/GzJ/6BA0t2G4FijaLk5
+         fCov3m8/rQcKIvqlsMU8NufZWN8hLRnptiYo/qqwTTHiaOnOMDE2TW3yDXxMl7qlG02v
+         ExAg==
+X-Gm-Message-State: AOJu0YzZHo/ZTr2onOnAdu3v+QJXt5CZAVBGN1AGy4+PA08v4fvXQO5s
+	F+6/1iWC3DDWVxa8xxJk+alvxlSWI9L6azPAH9V7qTNlQooCVmxPNGCBQSw1Ou6HS05RHleHtFL
+	O
+X-Google-Smtp-Source: AGHT+IFupjNruEJrK6M00oYJtsFjanhK06mAzHaDcS7siv7Dz+vr+ljh9/JeONto5LOKC7c8sK48Vg==
+X-Received: by 2002:a2e:a548:0:b0:2d0:be0f:96ff with SMTP id e8-20020a2ea548000000b002d0be0f96ffmr7808300ljn.17.1707824550099;
+        Tue, 13 Feb 2024 03:42:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWwInivjc+fhkoQTGh52mlruKbbsI5ah9NIG04rizDPVZ82wnE3qp4h6epP2fF30zUQkgMzYuUPzoYmsWtZ44XWKHxirhdbX7b0nFILI4bCAdFWAMyw2iqIaV9JK560kH+hftJdOKPniuBL0S0=
+Date: Tue, 13 Feb 2024 11:42:29 +0000
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Jason Andryuk <jandryuk@gmail.com>
 Cc: xen-devel@lists.xenproject.org, marmarek@invisiblethingslab.com,
 	Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v2 1/3] libxl: Create empty file for Phy cdrom
-Message-ID: <5fac8d52-c07a-4e1d-b6e8-c47fcb4f12d0@perard>
+Subject: Re: [PATCH v2 2/3] libxl: Allow Phy backend for CDROM devices
+Message-ID: <d1c987d1-1f2d-40bd-9e28-21415cdb84ce@perard>
 References: <20240201214004.238858-1-jandryuk@gmail.com>
- <20240201214004.238858-2-jandryuk@gmail.com>
+ <20240201214004.238858-3-jandryuk@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20240201214004.238858-2-jandryuk@gmail.com>
+In-Reply-To: <20240201214004.238858-3-jandryuk@gmail.com>
 
-On Thu, Feb 01, 2024 at 04:40:02PM -0500, Jason Andryuk wrote:
-> With a device model stubdom, dom0 exports a PV disk to the stubdom.
-> Inside the stubdom, QEMU emulates a cdrom to the guest with a
-> host_device pointing at the PV frontend (/dev/xvdc)
+On Thu, Feb 01, 2024 at 04:40:03PM -0500, Jason Andryuk wrote:
+> A Linux HVM domain ignores PV block devices with type cdrom.  The
+> Windows PV drivers also ignore device-type != "disk".  Therefore QEMU's
+> emulated CD-ROM support is used.  This allows ejection and other CD-ROM
+> features to work.
 > 
-> An empty cdrom drive causes problems booting the stubdom.  The PV disk
-> protocol isn't designed to support no media.  That can be partially
-> hacked around, but the stubdom kernel waits for all block devices to
-> transition to Connected.  Since the backend never connects empty media,
-> stubdom launch times out and it is destroyed.
+> With a stubdom, QEMU is running in the stubdom.  A PV disk is still
+> connected into the stubdom, and then QEMU can emulate the CD-ROM into
+> the guest.  Phy support has been enhanced to provide a placeholder file
+> forempty disks, so it is usable as a CDROM backend as well.  Allow Phy
+> to pass the check as well.
 > 
-> Empty media and the PV disks not connecting is fine at runtime since the
-> stubdom keeps running irrespective of the disk state.
+> (Bypassing just for a linux-based stubdom doesn't work because
+> libxl__device_disk_setdefault() gets called early in domain creation
+> before xenstore is populated with relevant information for the stubdom
+> type.  The build information isn't readily available and won't exist in
+> some call trees, so it isn't usable either.)
 > 
-> Empty media can be worked around my providing an empty file to the
-> stubdom for the PV disk source.  This works as the disk is exposed as a
-> zero-size disk.  Dynamically create the empty file as needed and remove
-> in the stubdom cleanup.
-> 
-> libxl__device_disk_set_backend() needs to allow through these "empty"
-> disks with a pdev_path.
-> 
-> Fixup the params writing since scripts have trouble with an empty params
-> field.
-> 
-> This works for non-stubdom HVMs as well.
+> Let disk_try_backend() allow format empty for Phy cdrom drives.
 > 
 > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
 
