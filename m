@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CAB58534FD
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 16:44:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680030.1057853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5E29853520
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 16:51:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680035.1057863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZux7-0006WN-98; Tue, 13 Feb 2024 15:44:09 +0000
+	id 1rZv42-00086M-VY; Tue, 13 Feb 2024 15:51:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680030.1057853; Tue, 13 Feb 2024 15:44:09 +0000
+Received: by outflank-mailman (output) from mailman id 680035.1057863; Tue, 13 Feb 2024 15:51:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZux7-0006UW-5O; Tue, 13 Feb 2024 15:44:09 +0000
-Received: by outflank-mailman (input) for mailman id 680030;
- Tue, 13 Feb 2024 15:44:08 +0000
+	id 1rZv42-00083g-Rj; Tue, 13 Feb 2024 15:51:18 +0000
+Received: by outflank-mailman (input) for mailman id 680035;
+ Tue, 13 Feb 2024 15:51:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=W/Jz=JW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1rZux6-0006UQ-KA
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 15:44:08 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
+ id 1rZv41-00083a-PF
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 15:51:17 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b83655a2-ca86-11ee-98f5-efadbce2ee36;
- Tue, 13 Feb 2024 16:44:06 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-411d76c9ce3so787055e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 07:44:06 -0800 (PST)
+ id b8257428-ca87-11ee-98f5-efadbce2ee36;
+ Tue, 13 Feb 2024 16:51:15 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-41166710058so13244845e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 07:51:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- hi7-20020a05600c534700b00410be9b8b96sm7509886wmb.37.2024.02.13.07.44.05
+ bn8-20020a056000060800b0033b198efbedsm10093929wrb.15.2024.02.13.07.51.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Feb 2024 07:44:05 -0800 (PST)
+ Tue, 13 Feb 2024 07:51:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b83655a2-ca86-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: b8257428-ca87-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707839045; x=1708443845; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707839475; x=1708444275; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=1Uyx6HzAtaWMW1Wl2nJI/9FPFKqQgwt7hBFmnn/vgPc=;
-        b=SPyfV8Lr2Q6AMchCqv8X0WpNbXGt/kWbFzg64cnnnL2xt/TD9iVBV/71yC2E08oiql
-         LiUvAHqGRb9x8ZFU85f3K8RuG9ZuehJ2m409ZvNXesqsflHLp0J/aOwIaiUfBuYkx8aR
-         0haILqFOc7HcCCH7E56ET5pkxvwh/podfInvl4PZXrp7EMd7nOenSVJY8eQz3y7uV+0M
-         ZrRa9Hv4ymChUnQuiAlYGnp+cwHpsQnOZ9JUjkPz0QYRAtbH55C0PJ4mvrK/XneC0yaZ
-         9cM7nc2gSRXb8r66C4pjTaK3seLeE2vSB1+ABCTj8dN+mVLOoWLYAAdx/RwIfP0hDRgm
-         vpig==
+        bh=2i2aUtxxyZJ4vBmTsnj4Ousq0q5qhRJ9YTgfeT1TVAA=;
+        b=B5gwgUfmktwHRmfHNjg6Z2lMTOmqj232C+CKxeQgKVnppZWQlsmTsdzOwdjsS87rwA
+         jVEXLkZtd9xeP2uzyy5VLWcm07d2rALpqQj0Oi4gyUdg/QDPjlYbdyS1qkblEknSq9N9
+         8bFX51qQuZLTaJmh2WZjaps6ANiZOW5BSQV5kmrfPtuJz/Khpj4dXsxRZYXsWBwTJluT
+         QKRU77wJ8ST6ewwsxuid7IoutV5HJWuBXQxpsK26/PmtElzr4FL3wrbYt1xTiOCmc7sr
+         4QTqRUhve5qO19FefDIpa8Dd9m7NbLDpp5xThR4IucMCSu3K/UE9WuulNyjgsazmAmyb
+         O8zA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707839045; x=1708443845;
+        d=1e100.net; s=20230601; t=1707839475; x=1708444275;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=1Uyx6HzAtaWMW1Wl2nJI/9FPFKqQgwt7hBFmnn/vgPc=;
-        b=ZY/ygZkOaKbXHkTJvqiF1yME4369dXg0JxIo8Cw1JoQp1MFCyW+xVdSv0e8NMtzULZ
-         2jn1PTEX6kLeNBzffnulUHblr2fIw89yEdIeCeI96qk+0X7Et9v8r++Jt9NpCd4wRWCz
-         8oCN57ninPKkI2F73Vp0kLjTNyqDqtgRJhjYmLWPDxyJddYhFsHQb5AP7NoExbuG05dC
-         m4IvUS0yPeGDBIs/J7KPW4p15mRgH/EUZe7LDKtYXLMJvS8I6a5rzlUWAzdAt2V+/FLg
-         y4NgyYE3niGTUQTGULxPgllXdGBzM30P26EhBahHlIWGszpR3O+THHqMizjA+cz7uXmQ
-         0uHw==
-X-Forwarded-Encrypted: i=1; AJvYcCWU95QvO6/bRu5zFs0N2SbYj6YUtrqoqy5c4hvX91v2UIJ3FACxHEOKu5Oh6dO5cFl5gjnt6OmoCJB8rcZg//N9yzCrOSFsRy6LkhM3w3U=
-X-Gm-Message-State: AOJu0Yw5fjFMF8b0DirgmJGLP8BWdCQlr9nD+o4aEelx3qLcWWet0SLS
-	aB9AS8PdXOXzoLEBYRftoVQ6zTSxD2pRpZ5PzD3qv/bi9AnaVr92nmCLDU40HQ==
-X-Google-Smtp-Source: AGHT+IGrWldOTkLMd59SXhe55YIx6EGkiHqT60aSWXgc7pF4uc5BZOQPWyQM/ESRdL8Pso+OF317iw==
-X-Received: by 2002:adf:fa8d:0:b0:33c:e29c:69a1 with SMTP id h13-20020adffa8d000000b0033ce29c69a1mr719272wrr.56.1707839045684;
-        Tue, 13 Feb 2024 07:44:05 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUJCGarz7YC7YbtDgciXIE0377vq9J7yc+UHhpLtxjHzkl9b8LtHhtB4R1cUfQ+OQsuHcddnuV/DrR+J1maRanJkUKzSE+c7pnJ7WZBWJuODpgaELbpWUjK7zu2NrI1S5itROl2bcxVWO7q7fA+Jr5YmWKNu1tm715mKmD4wPbhSWFzIfvKv9sqoKa/jEipPqLDrQxLq0eZGT+x05JPy0RVSVo/Tzk4pQ==
-Message-ID: <23bcd506-f843-42f7-a541-0d8db7c319ab@suse.com>
-Date: Tue, 13 Feb 2024 16:44:04 +0100
+        bh=2i2aUtxxyZJ4vBmTsnj4Ousq0q5qhRJ9YTgfeT1TVAA=;
+        b=aEI9Gafc+38F6YAmqLn+FZzMtENG/1kMDp939V2YKYFBcOjvjvYArsQ/W5tBRJnSOB
+         pc9jC6hqhPdVWCXDPxMUrM4pjLHyWdMPM75pNxydw42NyRAS+yP83dMrweSeJW9l/0BJ
+         +f6Znd/lJ0o9eT6MBA3+sl7xA7mx/1T/asKncRxPVvgTbsKUDjh6uC31zBbaNtQNDO62
+         4QgFZk4ZHK79muDNn/4kMnVbX07cZjsvQK8AqqXtZbdBQ7SXIhKAeu8KGnUJ+88fc4mn
+         i1/++Yu2rpgdiXdf3G7AqELeAK2Xcr0BhfttANz2pMFzbXnU0WctvInngS2ZwcHVwAWR
+         kO1A==
+X-Forwarded-Encrypted: i=1; AJvYcCXp/4TsLM55+hSyIUeO34bnYPvolA9+asKBUjKtQKGmGDmRmNjg0X7A3dbS/FFbUogCwMM6ovGl0ooVuBXFtniUeNnX9/mJbvxzO760GXE=
+X-Gm-Message-State: AOJu0Yw6z1PxOkEM+qG8EYkojeRV9/V6rjTjenjmFMaWN8ZkGUphCFLv
+	9LCo+yheXjwGHNIF/jzwgE48fQ0D8Eu37wYVSi97rs/WPnRiUTqU03VaYiB4eg==
+X-Google-Smtp-Source: AGHT+IHIMkvCzVWYYMDIAdMujc8qZuROpTA11IDUBbei6qnLnq+MmCoUVMiJgUjgROFdJxiaMGLb5g==
+X-Received: by 2002:a05:600c:1549:b0:410:f582:6675 with SMTP id f9-20020a05600c154900b00410f5826675mr28695wmg.26.1707839475070;
+        Tue, 13 Feb 2024 07:51:15 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWKLdOcWVRZCP7QRXi2ZQLUChxHB7DqjozFgnYcpHXwbEWEJWBvGLS9HhgdSv9SeOco86Tia5Z2PjyroHGklsQCJHivy/O5D33B2u0R0xy+ReuPe9LYiqD+kXIfooY9ul20kiWsTz8bjjCy8No9xLoVoYO5CDVu7p8VjW2DLC/7+tI2ZbFI+B8nxUwKj2JDIug7G3WyPE6v40E0rmiiinZqIa0FdXHUbcfVedNV/C7GrKQ7CORPWiww4UfPTPP7v3HX3t6r16w1mA0ssyc2UD7p/lNi9lB/VPnLKgi73L2jRaUyR18/FANMv7HVxpZOehSviDNU4ueembdYXRANETC+7Gbn8Y8MEAMfwuWV8e2VNugrH0lwkJlpmTw00R9SPt1UvP9hdp4crypBR/2tpP6W3CfzRNXcYvDR2q8f9USpt1N3ut4YosuUGq74BmygevuigpOR
+Message-ID: <ab71e3e7-c032-454a-b9eb-4a8e9e064b8c@suse.com>
+Date: Tue, 13 Feb 2024 16:51:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] serial: fake IRQ-regs context in poll handlers
+Subject: Re: [PATCH v6 1/3] xen: introduce Kconfig function alignment option
 Content-Language: en-US
-To: Marek Marczykowski <marmarek@invisiblethingslab.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
- <893be03d-22cc-4b8c-8a54-6479961c5aa2@suse.com>
- <b591cd2a-2b49-436e-9cf7-788d9064a778@xen.org>
- <4530606b-1b5e-47a4-aa41-e12e9178b06d@suse.com> <ZcrlcuNU9y8WymiK@mail-itl>
- <817ceec4-ed12-4360-a6ce-f87732f62251@suse.com> <ZcuCTnMpFib4ArHW@mail-itl>
- <b52fa3fa-4e33-4211-af18-f00aaa0b365b@suse.com> <ZcuGo_vQhiTAQep0@mail-itl>
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Shawn Anastasio <sanastasio@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
+References: <20240207145547.89689-1-roger.pau@citrix.com>
+ <20240207145547.89689-2-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,75 +120,22 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZcuGo_vQhiTAQep0@mail-itl>
+In-Reply-To: <20240207145547.89689-2-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13.02.2024 16:11, Marek Marczykowski wrote:
-> On Tue, Feb 13, 2024 at 04:00:32PM +0100, Jan Beulich wrote:
->> On 13.02.2024 15:53, Marek Marczykowski wrote:
->>> On Tue, Feb 13, 2024 at 08:45:54AM +0100, Jan Beulich wrote:
->>>> On 13.02.2024 04:43, Marek Marczykowski wrote:
->>>>> On Mon, Feb 12, 2024 at 10:04:38AM +0100, Jan Beulich wrote:
->>>>>> On 08.02.2024 23:00, Julien Grall wrote:
->>>>>>> On 05/02/2024 13:27, Jan Beulich wrote:
->>>>>>>> In preparation of dropping the register parameters from
->>>>>>>> serial_[rt]x_interrupt() and in turn from IRQ handler functions,
->>>>>>>> register state needs making available another way for the few key
->>>>>>>> handlers which need it. Fake IRQ-like state.
->>>>>>>>
->>>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>>>> ---
->>>>>>>> The use of guest_cpu_user_regs() in dbc_uart_poll() is inconsistent with
->>>>>>>> other console poll functions we have, and it's unclear whether that's
->>>>>>>> actually generally correct.
->>>>>>>
->>>>>>> Is it? Looking at ns16550_poll() we would pass guest_user_regs() if 
->>>>>>> run_in_exception() doesn't exist. But looking at the caller, no-on seems 
->>>>>>> to care about the 'regs'. So is this just a latent bug?
->>>>>>
->>>>>> What do you mean by "doesn't exist"? ns16550_poll() assumes it exists.
->>>>>> And I can spot any use of guest_user_regs() on the respective generic
->>>>>> or Arm-specific bug.c paths.
->>>>>>
->>>>>>> BTW, do you have an idea why the poll function is not run in an 
->>>>>>> exception handler?
->>>>>>
->>>>>> "The poll function" being which one? If you mean the one in xhci-dbc.c
->>>>>> then that's why I had Cc-ed Marek. Moving him to To: - maybe that
->>>>>> manages to finally catch his attention.
->>>>>
->>>>> TBH, I don't know. That's part of the original xue patch at
->>>>> https://github.com/connojd/xue/blob/master/patches/xen-xue-dbgp.patch
->>>>> and it works for me as it is.
->>>>
->>>> "Works" meaning what? Doesn't crash on you? Or does also provide
->>>> sensible output in _all_ cases (i.e. including when e.g. the poll
->>>> happens to run on an idle vCPU)?
->>>
->>> Generally provides sensible output, for example during boot (it is using
->>> idle vCPU then, right?).
->>
->> Before Dom0 is started: Yes. With the exception of the phase where PV
->> Dom0's page tables are constructed, albeit in that time window
->> guest_cpu_user_regs() shouldn't yield sensible data either. I can only
->> say I'm surprised; since I have no way to properly test with an XHCI
->> debug port, I'd have to see about faking something to convince myself
->> (unless you were to supply example output).
-> 
-> Would you like me to test this series with xhci console?
+On 07.02.2024 15:55, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -29,6 +29,7 @@ config X86
+>  	select HAS_UBSAN
+>  	select HAS_VPCI if HVM
+>  	select NEEDS_LIBELF
+> +	select FUNCTION_ALIGNMENT_16B
 
-The behavior shouldn't really be connected to this series. But yes, 'd'
-debug key output (just the part for the CPU the key handling was
-actually invoked from) with the xhci debug console would be of
-interest, for the case where that CPU at that time runs an idle vCPU.
-
-> Or maybe add
-> some extra debug prints and include their output? But note, printk from
-> inside console code generally leads to deadlocks. What I did for some
-> debugging was to log into some separate buffer and dump it later.
-
-Right, this would be more involved.
+With the insertion here as well as for Arm and PPC obeying alphabetic
+sorting:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
