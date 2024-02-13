@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40BA8852FA0
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:37:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.679856.1057602 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3CC2852FB7
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Feb 2024 12:41:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.679864.1057611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZr6I-0006yO-JI; Tue, 13 Feb 2024 11:37:22 +0000
+	id 1rZrAI-0000gu-1u; Tue, 13 Feb 2024 11:41:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 679856.1057602; Tue, 13 Feb 2024 11:37:22 +0000
+Received: by outflank-mailman (output) from mailman id 679864.1057611; Tue, 13 Feb 2024 11:41:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1rZr6I-0006w5-G8; Tue, 13 Feb 2024 11:37:22 +0000
-Received: by outflank-mailman (input) for mailman id 679856;
- Tue, 13 Feb 2024 11:37:20 +0000
+	id 1rZrAH-0000fO-VK; Tue, 13 Feb 2024 11:41:29 +0000
+Received: by outflank-mailman (input) for mailman id 679864;
+ Tue, 13 Feb 2024 11:41:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oPHc=JW=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1rZr6G-0005wr-Q7
- for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:37:20 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ <SRS0=gnrE=JW=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1rZrAG-0000fG-5w
+ for xen-devel@lists.xenproject.org; Tue, 13 Feb 2024 11:41:28 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3f3066ea-ca64-11ee-8a4d-1f161083a0e0;
- Tue, 13 Feb 2024 12:37:20 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-33b28aadb28so2675574f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:37:20 -0800 (PST)
-Received: from [192.168.8.23] (54-240-197-234.amazon.com. [54.240.197.234])
- by smtp.gmail.com with ESMTPSA id
- p16-20020adfcc90000000b0033b2497fdaesm9276695wrj.95.2024.02.13.03.37.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Feb 2024 03:37:19 -0800 (PST)
+ id d2726e06-ca64-11ee-8a4d-1f161083a0e0;
+ Tue, 13 Feb 2024 12:41:27 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-33b1d7f736bso566658f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 03:41:27 -0800 (PST)
+Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ a15-20020adffacf000000b0033b39cba5e4sm9296098wrs.116.2024.02.13.03.41.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Feb 2024 03:41:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,82 +45,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3f3066ea-ca64-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: d2726e06-ca64-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707824240; x=1708429040; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=sQis1qvp/U8auXJAKP/yrBgCFkOt5KYyAk393lVPOdY=;
-        b=A/qaFvjRaEk9VPB003SzkFxMiqXqQF8U5aejURJ8RMLIF62S3dVo13ZocTrddcUH62
-         Y9JsKA4yZ6Kh/JfAdt6uayffK59/NPlhbEqo83/sDaFwIIEzJTiAS9vSMGKbScPN2AWH
-         kKUGEDHQhWRGgw6uAQazkPohwVEFYOzU7U2kBcPntd6z7HSsoaAed7YhfawYoMRTL7+0
-         17558DQNgncwUuoAre6MO59PnVK8rlITo3AvFnx20Sm34ue7lw5M8gqwjbQnNxlxrKCN
-         k/WuGBG6kZ7ufRhfpQXYiiT53uiM4OKGhn1fX52g3j1yUMb4XToy2/6WPl8qJusBLQiW
-         HEAg==
+        d=citrix.com; s=google; t=1707824487; x=1708429287; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=XQhla5REKvPeHXu4c0wBu7qVePgmPWZor8lCzIG6MU0=;
+        b=IUtfs6zDiet98ej2bk51AYrgiGwX1IYoBJ5iBveCDpqeF0tFxnHgPxqeR4/OVE8noo
+         +g/66vr71ziPDMrL+F58qIJIf+iLpDEuCJmv5f4Zu3iKRpddmuQsMOekyIsP5mhudc1i
+         z5SKYtbc5RL6qAdH5grpVbKRpuwJjjY87Xwlg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707824240; x=1708429040;
-        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
-         :content-language:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1707824487; x=1708429287;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sQis1qvp/U8auXJAKP/yrBgCFkOt5KYyAk393lVPOdY=;
-        b=V92P9JXmePywvcuj1/xz5ZQpxJepkAOo4BIk4NCj6+wvXKidvCTPKhn3g7d9ZPJ/IT
-         MFI4BCpNl5Jh8iiaNcwKP6yD0qtvW4wDraUGUlifIAjJsca1KDokev5FftncTbq5lzox
-         Rhni9ZpuBqb/DXT+IYO57APeX8fXUIWmg/ysCmM7Z71tFE59XuRSkTB7J1G5HwlKYBlA
-         13Zfrdcnk4l5bwJ15z229pxpbTGCxb6aErSS5mfshBLhS5f0enGv/1F4Sl5DZIQiXqmj
-         WqXIJIZMHB7wbffUg0g1Vnluq8Rt/LPvnT3VRCaMl9/wUElFGbgn1U8YPecO8WS3wvB+
-         cIzQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWczQWpPNEnXcy4Ekpvg1hcUvPC8zhmhYMA0aCtCjeytkI6A3/MnJDBdchxJWAkQsNW65HvbAJ0LWVyLbgBZWIBOoNB8ntIl4eQJf7NqN0=
-X-Gm-Message-State: AOJu0YywD5ZNkvK/1HqgvCNela6Yy1k7k6v9m5a8bLZM1wdRNNpG6tWe
-	0DOieewGWIUSRGRhgbtkYaYPHVdwnWFy+EcDcIw+Ay4TvndIjM0l
-X-Google-Smtp-Source: AGHT+IFK4Uezp+NtfTRO82kWqc1JFIQYUrKoKWoO8VA6xRW8Sfp6GwechICHtRD/UhF7cWc5l61FwQ==
-X-Received: by 2002:a5d:4a04:0:b0:33b:615a:19b7 with SMTP id m4-20020a5d4a04000000b0033b615a19b7mr6889589wrq.22.1707824239404;
-        Tue, 13 Feb 2024 03:37:19 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWYwXCX5Zan6qTGfNR6oFZZAnPtvBVbtDkgy46zuE6MWtOG79IXS1Xg9FMxBxaQ7ljLpjj5Ino1dZ5cTTXXzuRaRgAqN7nfmWbWCawfFsjD3OnIU+f1iKFB4NLJPwLZTuCKBi/Hl5A05/yKAyo/xndTcJhSqOrYindSC8FpLWr0mabO7E0cefKm8+Q9hCr0UdrUP3Any7Pb3YlzFxBMjLm5k9P7Slfu3WToV5gVxzRogu1S//5oFy3GHJRaTUp1wuhbbl0XSif73wXn1ehw4DLDyiU7eRD1jXG34FMDTzKKUw==
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <fb3fb0b0-c11e-49a8-9a28-f3d3bb0fb6ee@xen.org>
-Date: Tue, 13 Feb 2024 11:37:06 +0000
+        bh=XQhla5REKvPeHXu4c0wBu7qVePgmPWZor8lCzIG6MU0=;
+        b=JM/doAnlrSREhyYf0YNwxJkd6fODR2Vbllwvh0C5f/qsnRzL6iIfLyRJ84kumwGclD
+         L5K9H9GHB44ErR6ZpYOVdzwmMHtbye81hDPeiWP1USLWpSeLQTCd7idZdRh0iQdOI/kf
+         ETvWhtayLVwfpWxMM19PkWbIZAtwsKmSAY5iiMwAUj2J0FHWaImfpvis60AI04XyfNho
+         fCkqgjASqvbB1TyZhBoVs3Xv9LWQ3YLRTQ8bk9KQDsJfYKNhU5xUxIM1vFv82FWLWR9b
+         1U/zBbRZuzG1VyBQp/2mPQ/cwwPSCkTwmIVwxSMJViGlHnDnnhlibQIjmoOBRIXh5lht
+         PE0g==
+X-Gm-Message-State: AOJu0YyRnoeh053gxMP37X4KR7Pt/f84IaTS5Lwvy6FTlIX/KQFvxYgm
+	wZa44cTwSGf2U8koN1hnNa9yftQ7iEr0fVYGFEzXz7L3QE2CkIdzG7wCsBnbxXMEA7ZOP70irxk
+	2
+X-Google-Smtp-Source: AGHT+IGV3cIEfwQqvQVIastam2kN3OinMwDNNobqiijwCBlNaF3PoRMck2XUEJ/9Jwo6KwMn7/p6HA==
+X-Received: by 2002:a5d:4b52:0:b0:33a:eec4:c0c6 with SMTP id w18-20020a5d4b52000000b0033aeec4c0c6mr5924287wrs.12.1707824486783;
+        Tue, 13 Feb 2024 03:41:26 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCU3P/PvkkIUB75s0vD3f6OIrkC2jNbDYJf/cqYWZcadXCjyq4gNKdViNo7/zIqaqE8JTjYz8xXXLwZ3G1j7b102BAuvBG0AZi1FoShqH9+cFkoT4DcODIC0Chx+96K3lSzzZ233vnIo6MFLGaiBts394JhEePLCOHGv1OhYItIpjunIkf5OPnkNVf8rMYFuoEwnAqlw2FOKd/T7xWJjZr4EB+bJum6t3YYUI+jLgfZZaRv0nnd+HC2rvvy2he38UlvflNqwH183TUSi4ae18wagSsMi58RSq+Q8FKoc
+Date: Tue, 13 Feb 2024 11:41:26 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: xen-devel@lists.xenproject.org, marmarek@invisiblethingslab.com,
+	Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v2 0/3] libxl: Stubdom cd-rom changing support
+Message-ID: <e5df0cde-3855-45c3-9000-cf34baf28616@perard>
+References: <20240201214004.238858-1-jandryuk@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: paul@xen.org
-Subject: Re: [PATCH net 1/7] net: fill in MODULE_DESCRIPTION()s for
- xen-netback
-Content-Language: en-US
-To: Breno Leitao <leitao@debian.org>, kuba@kernel.org, davem@davemloft.net,
- pabeni@redhat.com, edumazet@google.com, Wei Liu <wei.liu@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, horms@kernel.org,
- "moderated list:XEN NETWORK BACKEND DRIVER" <xen-devel@lists.xenproject.org>
-References: <20240213112122.404045-1-leitao@debian.org>
- <20240213112122.404045-2-leitao@debian.org>
-Organization: Xen Project
-In-Reply-To: <20240213112122.404045-2-leitao@debian.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20240201214004.238858-1-jandryuk@gmail.com>
 
-On 13/02/2024 11:21, Breno Leitao wrote:
-> W=1 builds now warn if module is built without a MODULE_DESCRIPTION().
-> Add descriptions to the Xen backend network module.
-> 
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> ---
->   drivers/net/xen-netback/netback.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
+On Thu, Feb 01, 2024 at 04:40:01PM -0500, Jason Andryuk wrote:
+> Linux locks the cd-rom by default?  That means the QMP eject commands
+> fail, but then Linux unlocks.  Re-running a second time works.  Windows
+> doesn't do that.
 
-Acked-by: Paul Durrant <paul@xen.org>
+Yes, looks like it. It would be possible to have libxl retry
+automatically since Linux eject and unlock the cd-rom tray, then QEMU
+does send an event via QMP about this, so libxl could retry after
+receiving the event. Waiting for events is just not implemented in
+libxl, but that something that could be done.
 
-> diff --git a/drivers/net/xen-netback/netback.c b/drivers/net/xen-netback/netback.c
-> index fab361a250d6..ef76850d9bcd 100644
-> --- a/drivers/net/xen-netback/netback.c
-> +++ b/drivers/net/xen-netback/netback.c
-> @@ -1778,5 +1778,6 @@ static void __exit netback_fini(void)
->   }
->   module_exit(netback_fini);
->   
-> +MODULE_DESCRIPTION("Xen backend network device module");
->   MODULE_LICENSE("Dual BSD/GPL");
->   MODULE_ALIAS("xen-backend:vif");
+The event is, for example:
+    'event': 'DEVICE_TRAY_MOVED', 'data': {'device': 'ide-5632', 'tray-open': True, 'id': 'ide-5632'}
 
+Cheers,
+
+-- 
+Anthony PERARD
 
