@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20DC085447E
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 10:02:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680270.1058292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0475085449F
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 10:08:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680273.1058303 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raB9J-0006vU-8B; Wed, 14 Feb 2024 09:01:49 +0000
+	id 1raBFI-0007hH-TF; Wed, 14 Feb 2024 09:08:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680270.1058292; Wed, 14 Feb 2024 09:01:49 +0000
+Received: by outflank-mailman (output) from mailman id 680273.1058303; Wed, 14 Feb 2024 09:08:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raB9J-0006sO-5L; Wed, 14 Feb 2024 09:01:49 +0000
-Received: by outflank-mailman (input) for mailman id 680270;
- Wed, 14 Feb 2024 09:01:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1raBFI-0007eq-Pl; Wed, 14 Feb 2024 09:08:00 +0000
+Received: by outflank-mailman (input) for mailman id 680273;
+ Wed, 14 Feb 2024 09:07:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raB9H-0006sI-P8
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 09:01:47 +0000
-Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
- [2a00:1450:4864:20::12f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id add02d99-cb17-11ee-98f5-efadbce2ee36;
- Wed, 14 Feb 2024 10:01:45 +0100 (CET)
-Received: by mail-lf1-x12f.google.com with SMTP id
- 2adb3069b0e04-511a45f6a57so729302e87.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 01:01:45 -0800 (PST)
+ id 1raBFH-0007ei-AQ
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 09:07:59 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8bdec29d-cb18-11ee-8a4d-1f161083a0e0;
+ Wed, 14 Feb 2024 10:07:58 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id
+ 2adb3069b0e04-5114b2b3b73so6118635e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 01:07:58 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- hi25-20020a05600c535900b0040fd3121c4asm1276799wmb.46.2024.02.14.01.01.44
+ dx2-20020a05600c63c200b0040fdd7cbc8dsm1286762wmb.47.2024.02.14.01.07.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 01:01:44 -0800 (PST)
+ Wed, 14 Feb 2024 01:07:57 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: add02d99-cb17-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 8bdec29d-cb18-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707901305; x=1708506105; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707901678; x=1708506478; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Q0ur9nELkuWSS0YY4di7Ol5dbQl/XWQkAoCQYw4HsM8=;
-        b=CgUF6PMkHj4jyslE9Ujt5g7O12JOBK6Q+jSYaLkOYAVk2N//jvBBNvYsFdZ2guMw6n
-         eK94HzxksKIuU/7MDUbRi2ALYiRPJeq+C5jJbsMfpx4MOs6Rdp8Jy99sHSoA+iX7M2GJ
-         ZPQC0O/jSCnqUsQT07TXPQSFGu00LfEI72YxeLVNSdtaz6IuoQXTiAoLJlaaZAmx3B1g
-         9AvUVgwXfM4gA2NfSAlFCVdDB+b6V7f/tA7Pd8OnIqMxdMYD20wmmLoza5tfdFOecg05
-         Q92aLL/YkHdy70oyq42ggaJyHAFG8drdG0GgFIGNen5SDliXFku0FD5656EgL8qu5ubs
-         HVNQ==
+        bh=fmjmg7VEdxkzSuaPj3H56MSSyKHu4neqLtCFh8PmLdI=;
+        b=Kvxm76aG0yfUysKfhVHegf49UblaDinBvvejnJyeCyS2KWgs9LAjwhCNYs2OCYht56
+         K+SuRZLubz96pScrAg44CQZFHDOqHJmCRzw+PvGiK3+8iECAJpTwjzsZ0lYNTGTuOpxK
+         FvNXIovAqDCnJ9Y2J8WQvK8nTxXqBzhoTuvVv6JktReea/lfLWrwsOjhCvAxrmHzSgKr
+         rDNVN8ACy9WusQgPgWYELgJWF0jtKeH1es8+7FKKY0O3XfnhSOxR7EaCP3NVEvzDP5/Y
+         lfufatdrDUUGLJq5IwCPLLbI00dmw23vdZWzubMEsp+K3blXd5bDdOFGk1lhC7sQuPMY
+         bBhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707901305; x=1708506105;
+        d=1e100.net; s=20230601; t=1707901678; x=1708506478;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q0ur9nELkuWSS0YY4di7Ol5dbQl/XWQkAoCQYw4HsM8=;
-        b=YzzqX3QMDMFtKNC4N8Z3w3VB3VpMdsjdhcsGsHAPBtkvnyXxdh1jqrKpGT1rdIkB2K
-         KQGU3WE4KqVfNpGfj/Dr343ExD/uyhYlNLKDkREKGUklJnubZktj7n6yn/eh6bilFWso
-         k/JZi+ILTc3wUzodp9qSG2Y3JeGaK3XU4cexU36juzozgAgoCz3wYhjuviUvmQ7cEpz5
-         3fPwung8a0QTsNUnruav80of3BVMeQikjSatZPtnIwYWruhvcRmnPeoFffiJxZ8hPrpH
-         Qc/LXVBh07ce/7/QloVFz+tdN6Z33dAkBto9ZbZ+7Noms2houLuTvYg0FyiyRPbfqmK7
-         gApA==
-X-Forwarded-Encrypted: i=1; AJvYcCWl7XGsFuadZF2LoyZvwQyOJb0hjTNmaHGUehBXTmGAhtSo6ZmZyUXd4BmNOxejr3jgz8XHfDhmiXV9P2VtJVJGdCQGQNp1dJoGlqqtIBM=
-X-Gm-Message-State: AOJu0YztFuIWfujnjyyUnth+qxrGa4OS9RLmGHBdJPPRGKZwecbW9kCJ
-	kxFicFX+YQNP9ZYYmrWBOdwJITZ4V4JuXw7XB7Pg7Z81qplW/KFl9g+x7S8L7A==
-X-Google-Smtp-Source: AGHT+IHFIFktTo3watGZnMVNWV8V+fi0IZlCpQIqRa2rZDhNnXIvNAt6/dEk023SkjPqJYIqdFv06g==
-X-Received: by 2002:ac2:5e8d:0:b0:511:5537:fb26 with SMTP id b13-20020ac25e8d000000b005115537fb26mr1532705lfq.39.1707901305139;
-        Wed, 14 Feb 2024 01:01:45 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWKtHMzFPmTacNM0Q8yxgcyTf7HpN/58W9N2pL/IllLC4GHcTv9TxuNJU8c8Cm+rgpl3yOg5bs1bKZM3HGALBhXiFf1T5GBCz8Xuz5KRuSAEuFu9I8sSm4Z1ifcZoW3XaJ9j0oZ
-Message-ID: <790c81c8-04f4-435b-937f-87fa1cd54998@suse.com>
-Date: Wed, 14 Feb 2024 10:01:43 +0100
+        bh=fmjmg7VEdxkzSuaPj3H56MSSyKHu4neqLtCFh8PmLdI=;
+        b=Dh9XHIFIdLJYyUeu26JJm0yOaNcdXHp2Ho0WsdakLoczZG9Z5bwqtf0ropaFBZIa9s
+         ExvO7YeBE4VV0No8Dz2rFi6xNNOh4bzWW/SW8nrx7jZsCsJarxmq2R5UsS7tKihvAAhX
+         25ZoJcCPNWyoHOOe6lxfJN/FetXLy8y0ed6j5AwnFmqngUHunZaF6ngIp9HcHHHjAEzm
+         wFohqy3zCoxY53Bjox6IeH/uq85wHW/cWfbkI3QWJGwHPRcZQaJ15xnecTq1Fw7weFnE
+         JCcz1Ahn57jhoWe8A6JNP6JUZhgxPFa0r+wFu3lQ35kL0wkDbffigHV6c4xhgDG0DcCn
+         IOpg==
+X-Gm-Message-State: AOJu0Yw8IS8mGrWYT6aszYk/PzojcW/gJX8n51a6AgAIwzn7E268EQZL
+	lXwJJimjUhfX3+94gkOBc7WX4FZve967n4PSzvxYRhxjvMFyNgKqi4TREO/+NA==
+X-Google-Smtp-Source: AGHT+IEjxo5i4Wyw5qFN5W4+zvKJIIXcGgiCjZo2OD6lBnEUdzXTZSAINmJUi25V/KD+ALXjhjNmYg==
+X-Received: by 2002:ac2:4bcd:0:b0:511:a024:dbaa with SMTP id o13-20020ac24bcd000000b00511a024dbaamr2117616lfq.3.1707901677731;
+        Wed, 14 Feb 2024 01:07:57 -0800 (PST)
+Message-ID: <911f37dc-b4d9-42c1-9575-98ef93099976@suse.com>
+Date: Wed, 14 Feb 2024 10:07:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [regression] Re: [PATCH v2 2/2] iommu/vt-d: switch to common RMRR
- checker
+Subject: Re: [PATCH v13 01/14] vpci: use per-domain PCI lock to protect vpci
+ structure
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
-References: <20240207153417.89975-1-roger.pau@citrix.com>
- <20240207153417.89975-3-roger.pau@citrix.com>
- <c27c76ec-36cd-43cb-b76f-e8f95fb27ed8@suse.com>
- <c4f27180-86bf-45fd-8641-bd160c6de229@citrix.com>
- <37ed1abe-afcc-4a76-8a86-623282ca37a3@suse.com> <Zcx9w5eZkXiN9s66@macbook>
+To: Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Paul Durrant <paul@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20240202213321.1920347-1-stewart.hildebrand@amd.com>
+ <20240202213321.1920347-2-stewart.hildebrand@amd.com>
+ <Zcsp15Aqve11Icjb@macbook> <ec5d0c39-1559-4f10-9574-98cfa0542993@suse.com>
+ <ZcswBFHtINB1XMAS@macbook> <db0ce984-88e3-4394-b270-c5db585f8209@suse.com>
+ <f3b34d97-17b5-44ef-ad9e-ad04a96754d0@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,37 +120,106 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <Zcx9w5eZkXiN9s66@macbook>
+In-Reply-To: <f3b34d97-17b5-44ef-ad9e-ad04a96754d0@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14.02.2024 09:45, Roger Pau Monné wrote:
-> On Wed, Feb 14, 2024 at 08:45:28AM +0100, Jan Beulich wrote:
->> On 13.02.2024 23:37, Andrew Cooper wrote:
->>> It's very likely something in this series, but the link to Intel might
->>> just be chance of which hardware got selected, and I've got no clue why
->>> there's a reset with no further logging out of Xen...
+On 13.02.2024 17:58, Stewart Hildebrand wrote:
+> On 2/13/24 04:05, Jan Beulich wrote:
+>> On 13.02.2024 10:01, Roger Pau Monné wrote:
+>>> On Tue, Feb 13, 2024 at 09:44:58AM +0100, Jan Beulich wrote:
+>>>> On 13.02.2024 09:35, Roger Pau Monné wrote:
+>>>>> On Fri, Feb 02, 2024 at 04:33:05PM -0500, Stewart Hildebrand wrote:
+>>>>>> --- a/xen/include/xen/sched.h
+>>>>>> +++ b/xen/include/xen/sched.h
+>>>>>> @@ -462,7 +462,8 @@ struct domain
+>>>>>>  #ifdef CONFIG_HAS_PCI
+>>>>>>      struct list_head pdev_list;
+>>>>>>      /*
+>>>>>> -     * pci_lock protects access to pdev_list.
+>>>>>> +     * pci_lock protects access to pdev_list. pci_lock also protects pdev->vpci
+>>>>>> +     * structure from being removed.
+>>>>>>       *
+>>>>>>       * Any user *reading* from pdev_list, or from devices stored in pdev_list,
+>>>>>>       * should hold either pcidevs_lock() or pci_lock in read mode. Optionally,
+>>>>>> @@ -628,6 +629,18 @@ struct domain
+>>>>>>      unsigned int cdf;
+>>>>>>  };
+>>>>>>  
+>>>>>> +/*
+>>>>>> + * Check for use in ASSERTs to ensure that:
+>>>>>> + *   1. we can *read* d->pdev_list
+>>>>>> + *   2. pdevs (belonging to this domain) do not go away
+>>>>>> + *   3. pdevs (belonging to this domain) do not get assigned to other domains
+>>>>>
+>>>>> I think you can just state that this check ensures there will be no
+>>>>> changes to the entries in d->pdev_list, but not the contents of each
+>>>>> entry.  No changes to d->pdev_list already ensures not devices can be
+>>>>> deassigned or removed from the system, and obviously makes the list
+>>>>> safe to iterate against.
+>>>>>
+>>>>> I would also drop the explicitly mention this is intended for ASSERT
+>>>>> usage: there's nothing specific in the code that prevents it from
+>>>>> being used in other places (albeit I think that's unlikely).
+>>>>
+>>>> But pcidevs_locked(), resolving to spin_is_locked(), isn't reliable. The
+>>>> assertion usage is best-effort only, without a guarantee that all wrong
+>>>> uses would be caught.
+>>>
+>>> Do we want to protect this with !NDEBUG guards then?
 >>
->> I second this - even after looking closely at the patches again, I can't
->> make a connection between them and the observed behavior. Didn't yet look
->> at what, if anything, osstest may have to say. Do I understand correctly
->> that the cited log messages are the last sign of life prior to the
->> systems rebooting?
+>> Yes, that would look to be desirable.
 > 
-> I've found it:
+> We will then also need a definition of pdev_list_is_read_locked() in the
+> #else case so we don't risk running into "error: implicit declaration of
+> function 'pdev_list_is_read_locked'".
 > 
->     for ( addr = start; mfn_x(addr) <= mfn_x(end); mfn_add(addr, 1) )
+> Such a definition might look like:
 > 
-> Should be:
+> #define pdev_list_is_read_locked(d) ({ (void)d; ASSERT_UNREACHABLE(); false; })
 > 
->     for ( addr = start; mfn_x(addr) <= mfn_x(end); addr = mfn_add(addr, 1) )
-> 
-> mfn_add() doesn't modify the parameter.  Will see about making those
-> helpers __must_check in order to avoid this happening in the future.
+> so that we still evaluate d exactly once in the NDEBUG case.
 
-Hmm, yes, it's not the first time this has happened. But even seeing the
-flaw I still can't explain the observed behavior: The system ought to
-hang then, not instantly reboot?
+Except that ASSERT_UNREACHABLE() use is bogus in the NDEBUG case. The
+way our ASSERT() works in the NDEBUG case looks to make it sufficient
+for there to be
+
+bool pdev_list_is_read_locked(const struct domain *d);
+
+in the #else case (with no implementation anywhere).
+
+>>>>>> + * This check is not suitable for protecting other state or critical regions.
+>>>>>> + */
+>>>>>> +#define pdev_list_is_read_locked(d) ({                           \
+>>>>>
+>>>>> I would be tempted to drop at least the '_read_' part from the name,
+>>>>> the name is getting a bit too long for my taste.
+>>>>
+>>>> While I agree with the long-ish aspect, I'm afraid the "read" part is
+>>>> crucial. As a result I see no room for shortening.
+>>>
+>>> OK, if you think that's crucial then I'm not going to argue.
+>>>
+>>>>>> +        struct domain *d_ = (d);                                 \
+>>>>>
+>>>>> Why do you need this local domain variable?  Can't you use the d
+>>>>> parameter directly?
+>>>>
+>>>> It would be evaluated then somewhere between 0 and 2 times.
+>>>
+>>> It's ASSERT code only, so I don't see that as an issue.
+>>
+>> Fair point.
+>>
+>>>  Otherwise d_ needs to be made const.
+>>
+>> Indeed, but for assert-only code I agree the option is slightly better,
+>> ideally suitably commented upon.
+> 
+> Is "the option" here referring to making d_ const, or using d directly
+> (with suitable comment)?
+
+The latter.
 
 Jan
 
