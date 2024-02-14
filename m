@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0CDC854399
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 08:46:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680213.1058151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AF018543AD
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 08:55:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680218.1058161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ra9xX-0008NB-3l; Wed, 14 Feb 2024 07:45:35 +0000
+	id 1raA7G-0001fY-0s; Wed, 14 Feb 2024 07:55:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680213.1058151; Wed, 14 Feb 2024 07:45:35 +0000
+Received: by outflank-mailman (output) from mailman id 680218.1058161; Wed, 14 Feb 2024 07:55:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ra9xX-0008Kh-0e; Wed, 14 Feb 2024 07:45:35 +0000
-Received: by outflank-mailman (input) for mailman id 680213;
- Wed, 14 Feb 2024 07:45:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1raA7F-0001cT-Tn; Wed, 14 Feb 2024 07:55:37 +0000
+Received: by outflank-mailman (input) for mailman id 680218;
+ Wed, 14 Feb 2024 07:55:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1ra9xV-0008Kb-P8
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 07:45:33 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06a85fa0-cb0d-11ee-98f5-efadbce2ee36;
- Wed, 14 Feb 2024 08:45:30 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-41166710058so18732375e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 23:45:30 -0800 (PST)
+ id 1raA7E-0001cN-Mv
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 07:55:36 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6f576c08-cb0e-11ee-8a4d-1f161083a0e0;
+ Wed, 14 Feb 2024 08:55:35 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2d10ae127ffso17361251fa.3
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Feb 2024 23:55:35 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- j12-20020a05600c190c00b00410bca333b7sm1081377wmq.27.2024.02.13.23.45.29
+ be15-20020a05600c1e8f00b004107219c664sm1128506wmb.32.2024.02.13.23.55.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 13 Feb 2024 23:45:29 -0800 (PST)
+ Tue, 13 Feb 2024 23:55:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,51 +45,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06a85fa0-cb0d-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 6f576c08-cb0e-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707896730; x=1708501530; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707897335; x=1708502135; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=agwqrUROehPCJu5b9QY6Us3Xd1MVOfemUwJf+50z7ek=;
-        b=FLI+p2WZaLbDBrXMsjMxyDh1qRpeaTFWZEJsrEtb+FukTEoV7zWDcFuMChnrHoXD2x
-         uKe3uwVVByKOUX02/2hUBlcRic4oWvjIUJO5hGCrF+XQX5cP8EN8QUtD2GahNBY6Sixh
-         l4GZuKzsYKV8AH09/y/7e2SAJuHujSBuG3luCKZh9CUhX0pJyYT6no+xJthyLDHl3Esf
-         NJzGhAjPF8VbBCS/wMbRDRGltFerhWpPwGnyqK/Kx4IJdvUvlIuCiQBy8XVPKpdaGAum
-         xc1ztAttEzgYTWWf2PKHKlrl4jgJX94tOeLZA4VTTBmYlkm+HyizrWiqv4W9oZ7XkZV+
-         aprA==
+        bh=xSPml6Psa7uiTdppooK2P7rnh6GtisF82Sju1HjR1cM=;
+        b=HjmIweBSidcHgyEfSIUje2Knop47gsuB3b/f6nBIZM6m47Do2ZStOys/+pUMJ6NdOh
+         JmSBWfO7yEPcuVW4hzrXlDKFbL1gdoY1G6QwPhPG3f/8SWBp2eNWboMehme8bcwCxUTQ
+         rELg1Pt2QqTL906FAk4Jioq/h4ktUpQXWqRhjlXiBgcL8N5sWkr/lmQkPYgs2sVEGxIl
+         FyhhC0hhMBMI8wACXGXRCZ8CP2Ai/lMFdg/cJiPVlRUmLxSNvaqQTgKpPVGFeaAdY4MW
+         KIE2g4gOqx5Bqs0mlFY7/Id5soiTfJaE28HUUc6LckxJ3okaA7hcgemZ31hj9gKVV5pN
+         C6Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707896730; x=1708501530;
+        d=1e100.net; s=20230601; t=1707897335; x=1708502135;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=agwqrUROehPCJu5b9QY6Us3Xd1MVOfemUwJf+50z7ek=;
-        b=LN5nSoX1s5o8kZRram3WAEE4d3ZDUWP0mjozLZB5vBao9jKdnjHVlfUrNlL2oDR4FQ
-         xwBKb+iP2hWq+gMWxS+5x2LqwX+37F8Nq87mMgDgCIpVpAyX73rwAMXKlJUV7rdmYPWQ
-         9WXCCWGH3QG8cGRywwvxJ8zDCgRFhxnuVJHIFB+eQi0NFUKxttmjVh2WIHAiaPAufieG
-         f5RAz16kV1EyXDSQJHVLq+QC3JLoLA1x8pW/qUhvoKsPYUmQ1QucQQ55fjojsSXDVb7m
-         xD/NbiDLD02vciJcANpCtG3l9MMk++s3IA03Zxl9J2N0KR++ZeolJSnxACjDVCNzU5PL
-         fRhQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXOIttP17awcVgUXYMaw0/0D1iyxtwKF8DOndA2NI8Eumx38DVHF309AHRhongQcwSqAc18IU5rzB8AjYulTzQcAz8JsjOPMfc9ZGP7pqg=
-X-Gm-Message-State: AOJu0YxDuO/EJPlEbKbIF+VLQcd93apVnLqoJpr3rqcYfSWKeTf5n/eR
-	WPBcTkFXQxkbIZfPgbQO9+6bH4wKH9PfqniPEztss9qpQw4tPNLBgFvHdfq1ZQ==
-X-Google-Smtp-Source: AGHT+IHTGISP9QRCS0Z0n4QXu2RNyVuKZ36/5rMpqnEfNE9NY6ayD47MB5PkFBSvWNhZmZjH9CLVfg==
-X-Received: by 2002:a05:600c:511f:b0:40f:d2ff:85b1 with SMTP id o31-20020a05600c511f00b0040fd2ff85b1mr1452328wms.25.1707896729780;
-        Tue, 13 Feb 2024 23:45:29 -0800 (PST)
-Message-ID: <37ed1abe-afcc-4a76-8a86-623282ca37a3@suse.com>
-Date: Wed, 14 Feb 2024 08:45:28 +0100
+        bh=xSPml6Psa7uiTdppooK2P7rnh6GtisF82Sju1HjR1cM=;
+        b=IeTP9RARIsaBz1j3BVINm0Pq4vC04jmQkzgmt4PkxCnjKWKI78B28yWjooHD4qdItT
+         Ja8xZokrJ/bOZ3tzVHNNzmB2qdVoSZ9dyNaSXWr6+1/cT7rOjkaO1bqRvAyVv33+Qpin
+         AIMHw5S59+Wbp9GMEW83Fblc+8jkC8uR/5oUjh/Agd9C8+4O1gmNNJh1Vn3LIcrkz8xm
+         +80EWWRkFwbyaiXHk1dlpemESGvf6L0xpx3p+bq7Wxz1l/ctI9vsbs5d7uZW5qe82K6N
+         F+JrIhPeHebmVQPQc3efVzIQFCo9sbydA9zFxUsxgj22NfIgFI5AMkJ/hq6jVpPekAOh
+         nBhA==
+X-Forwarded-Encrypted: i=1; AJvYcCWeQnX+nGyS7C3ZqeStmNkT1LNHVnKXeqD6uQIoXuxezMTSQ/W4iY+B5wIm8ACzqLltVw5HmcNfDtVF1t7+eqUctg3q5xBqnldKbZg/obQ=
+X-Gm-Message-State: AOJu0YxnBDUHsAAHtKQqAjFTEps/MJEJ4J4F/ceI0LrAYTcgW2gTLc0b
+	CUrSUpC9BmhQEJ9BPyIFcnvvjs7Bzzsx3ZjbZ0wNHoPOggQswCsiKQVRTj2JKQ==
+X-Google-Smtp-Source: AGHT+IE1I7uvjPAQwHiFNLhx8rXHlBejPaJhEvtocVIB8P9EQt8HmO6zWYW2eV7GhpktNfvLE6PAvQ==
+X-Received: by 2002:a05:651c:314:b0:2d0:b6c4:2180 with SMTP id a20-20020a05651c031400b002d0b6c42180mr1127696ljp.53.1707897334858;
+        Tue, 13 Feb 2024 23:55:34 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWA8IIhENIcDXpPiSFA6Oq7K4eycReCf2JC9q+q6h+yZ9EUMhORtHvR4OBt9yUxJDLMnecZ6NLfnFNOnKOUcryS8zEilioXVeFIEdMbAhUgbIf5HtMQ8TCu7s/RmAOBwjPmtjLHYm8kK1oU04RhEVxtwOup+QivyST6a4uDD4ugzDpwaBBFQrYX2qfe1UpcvZoi4aM1yBKyTWIMhCWNdwio2YCjWs2rvwKeF0ljBxJVygb7wMHxsj7e4TS40YKJk24e3l6NCAxPJHFD5MbEUQTuDVxf9TyVyMw/cCfC63LKhxjBYf0YV1oFLwrHQphJvrSLT0cD3VzeVW9L1bklCCAQyMGvfXscONDXBLfMGkgbi3mt6z3ptWOiapIcG58UIZkIOw==
+Message-ID: <0feb6a90-2c3e-489f-90de-b4b2979997dd@suse.com>
+Date: Wed, 14 Feb 2024 08:55:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [regression] Re: [PATCH v2 2/2] iommu/vt-d: switch to common RMRR
- checker
+Subject: Re: [PATCH v6 14/15] xen/arm: add cache coloring support for Xen
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-Cc: Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
-References: <20240207153417.89975-1-roger.pau@citrix.com>
- <20240207153417.89975-3-roger.pau@citrix.com>
- <c27c76ec-36cd-43cb-b76f-e8f95fb27ed8@suse.com>
- <c4f27180-86bf-45fd-8641-bd160c6de229@citrix.com>
+To: Carlo Nonato <carlo.nonato@minervasys.tech>
+Cc: andrea.bastoni@minervasys.tech,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+References: <20240129171811.21382-1-carlo.nonato@minervasys.tech>
+ <20240129171811.21382-15-carlo.nonato@minervasys.tech>
+ <a66e3131-1de1-49cb-9b26-5fb1fd77bc20@suse.com>
+ <CAG+AhRWv5MazB-txmPkcb3CAuWFQvM97HH3D-_bn6r3kdB360A@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -114,75 +120,69 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <c4f27180-86bf-45fd-8641-bd160c6de229@citrix.com>
+In-Reply-To: <CAG+AhRWv5MazB-txmPkcb3CAuWFQvM97HH3D-_bn6r3kdB360A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 13.02.2024 23:37, Andrew Cooper wrote:
-> On 12/02/2024 2:38 pm, Jan Beulich wrote:
->> On 07.02.2024 16:34, Roger Pau Monne wrote:
->>> Use the newly introduced generic unity map checker.
+On 13.02.2024 18:29, Carlo Nonato wrote:
+> On Tue, Feb 13, 2024 at 4:25 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 29.01.2024 18:18, Carlo Nonato wrote:
+>>> @@ -218,9 +230,44 @@ static void xen_pt_enforce_wnx(void)
+>>> --- a/xen/common/llc-coloring.c
+>>> +++ b/xen/common/llc-coloring.c
+>>> @@ -29,6 +29,8 @@ static unsigned int __ro_after_init xen_num_colors;
 >>>
->>> Also drop the message recommending the usage of iommu_inclusive_mapping: the
->>> ranges would end up being mapped anyway even if some of the checks above
->>> failed, regardless of whether iommu_inclusive_mapping is set.  Plus such option
->>> is not supported for PVH, and it's deprecated.
+>>>  #define mfn_color_mask              (max_nr_colors - 1)
+>>>  #define mfn_to_color(mfn)           (mfn_x(mfn) & mfn_color_mask)
+>>> +#define mfn_set_color(mfn, color)   (_mfn((mfn_x(mfn) & ~mfn_color_mask) | \
+>>> +                                     (color)))
+>>
+>> Nit: The wrapped line wants further indenting, such that it becomes
+>> immediately clear what parentheses are still open. Alternatively:
+>>
+>> #define mfn_set_color(mfn, color) \
+>>     (_mfn((mfn_x(mfn) & ~mfn_color_mask) | (color)))
+>>
+>> This is certainly an "interesting" construct: I, for one, wouldn't expect
+>> that setting the color actually changes the MFN.
+> 
+> Would something like mfn_with_color() be a better name? I need something that
+> expresses clearly that something will be returned. Maybe colored_mfn() is even
+> better?
+
+The latter reads as if it was a predicate, not a transformation. The former
+or get_mfn_with_color() _may_ be okay. Without the get_ it's still a little
+predicate-like, while the get_ itself somewhat collides with other uses of
+that prefix, specifically e.g. get_page{,_type}(). So I'm still not overly
+happy, yet e.g. mfn_from_mfn_and_color() feels clumsy to me.
+
+>>> --- a/xen/include/xen/llc-coloring.h
+>>> +++ b/xen/include/xen/llc-coloring.h
+>>> @@ -24,6 +24,17 @@ static inline void domain_llc_coloring_free(struct domain *d) {}
+>>>  static inline void domain_dump_llc_colors(const struct domain *d) {}
+>>>  #endif
 >>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>> +/**
+>>> + * Iterate over each Xen mfn in the colored space.
+>>> + * @mfn:    the current mfn. The first non colored mfn must be provided as the
+>>> + *          starting point.
+>>> + * @i:      loop index.
+>>> + */
+>>> +#define for_each_xen_colored_mfn(mfn, i)        \
+>>> +    for ( i = 0, mfn = xen_colored_mfn(mfn);    \
+>>> +          i < (_end - _start) >> PAGE_SHIFT;    \
+>>> +          i++, mfn = xen_colored_mfn(mfn_add(mfn, 1)) )
+>>
+>> While the comment mentions it, I still consider it problematic that
+>> - unlike other for_each_* constructs we have - this requires one of
+>> the iteration variables to be set up front. Question is why it needs
+>> to be that way: Isn't it the MFN underlying _start which you mean to
+>> start from?
 > 
-> XenRT says no.
-> 
-> It's not clear exactly what's going on here, but the latest resync with
-> staging (covering only today's pushed changes) suffered 4 failures to
-> boot, on a mix of Intel hardware (SNB, SKL, SKX and CLX).
-> 
-> All 4 triple-fault-like things where following a log message about an RMRR:
-> 
-> (XEN) RMRR: [0x0e8 ,0x0e8] is not (entirely) in reserved memory
-> 
-> not being in reserved memory.
-> 
-> 
-> First of all - fix this printk() to print full addresses, not frame
-> numbers.  It's obnoxious to cross reference with the E820.
+> As said above, this is used also when page tables setup isn't complete
+> so I can't easily find the first MFN.
 
-Perhaps better indeed. The stray blank before the comma also wants dropping.
-And while looking over the patch again, "mfn_t addr;" also isn't very
-helpful - the variable would better be named mfn.
-
-> In the example above, 0xe8000 is regular RAM in:
-> 
-> (XEN)  [0000000000000000, 000000000009d3ff] (usable)
-
-Well, no, E8000 is outside of that range, and I'm inclined to guess it's
-the SNB where you saw that. Iirc my SNB has such an RMRR range, too. (Or
-was it the Westmere?)
-
-> In another example,
-> 
-> (XEN) RMRR: [0x4d800 ,0x4ffff] is not (entirely) in reserved memory
-> 
-> is a hole between:
-> 
-> (XEN)  [000000004d3ff000, 000000004d3fffff] (usable)
-> (XEN)  [00000000e0000000, 00000000efffffff] (reserved)
-> 
-> We should also explicitly render holes when printing the E820, because
-> that's also unnecessarily hard to spot.
-
-I disagree here - both "ends" of a hole are easily visible from the
-neighboring ranges.
-
-> It's very likely something in this series, but the link to Intel might
-> just be chance of which hardware got selected, and I've got no clue why
-> there's a reset with no further logging out of Xen...
-
-I second this - even after looking closely at the patches again, I can't
-make a connection between them and the observed behavior. Didn't yet look
-at what, if anything, osstest may have to say. Do I understand correctly
-that the cited log messages are the last sign of life prior to the
-systems rebooting?
+Did you consider making the initial value a macro parameter then?
 
 Jan
 
