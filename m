@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C32E85517B
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 19:06:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681130.1059749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B258551E0
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 19:15:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681136.1059757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raJec-0006sx-G3; Wed, 14 Feb 2024 18:06:42 +0000
+	id 1raJmj-0000X9-8S; Wed, 14 Feb 2024 18:15:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681130.1059749; Wed, 14 Feb 2024 18:06:42 +0000
+Received: by outflank-mailman (output) from mailman id 681136.1059757; Wed, 14 Feb 2024 18:15:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raJec-0006qA-Ck; Wed, 14 Feb 2024 18:06:42 +0000
-Received: by outflank-mailman (input) for mailman id 681130;
- Wed, 14 Feb 2024 18:06:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1raJmj-0000V3-5R; Wed, 14 Feb 2024 18:15:05 +0000
+Received: by outflank-mailman (input) for mailman id 681136;
+ Wed, 14 Feb 2024 18:15:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4Sn1=JX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1raJea-0006q2-K8
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 18:06:40 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cced29aa-cb63-11ee-8a4d-1f161083a0e0;
- Wed, 14 Feb 2024 19:06:39 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id
- 4fb4d7f45d1cf-5600c43caddso30573a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 10:06:39 -0800 (PST)
+ id 1raJmh-0000Uu-PP
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 18:15:03 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f7d028da-cb64-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 19:15:01 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a3d5e77cfbeso14120366b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 10:15:01 -0800 (PST)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- eo14-20020a056402530e00b00561f0ce1c91sm1786848edb.31.2024.02.14.10.06.38
+ vs2-20020a170907a58200b00a3d5b5221bbsm587020ejc.141.2024.02.14.10.14.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 10:06:39 -0800 (PST)
+ Wed, 14 Feb 2024 10:15:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,47 +45,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cced29aa-cb63-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: f7d028da-cb64-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707933999; x=1708538799; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707934500; x=1708539300; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=37j6eElZ6gYL2fWuf2fnGhbQJvRalCcw79uaKd1ALlw=;
-        b=JAc8LLh86WIxxku4lOApAMgb/C85k9X/zMTuveFRFDwo6n4icKp9oIsJOUAIV1LTOJ
-         QWf3km481KJt0ieQIAD5uKazK4Q1MpUozuMIq/TrZhBJewvIvucrx4hA9WYbFVfPMeO9
-         BYISmklRBWfUhRJhy84RBWL4leT/cMeYqm6Do=
+        bh=KiNv5W7Gl51WblfWE3TFKqwR1YncW99F/nk5SJm2mOI=;
+        b=Hg0H++UNCmGYYTZW1Zl5F241dn9OI1Sy/dgsJPG7s9TZP1aKDzPlDcnftu0ErnDvLs
+         5+oIO7FF2ON5dNvgkE0Hlq7ybE+rScIhgIDvngQeHXHADJ1dQM9/dSdLN8jIBYjZ0Zde
+         V2qZwIl+tbZcdscjPQIztXWxCws2n/0cWoZ7c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707933999; x=1708538799;
+        d=1e100.net; s=20230601; t=1707934500; x=1708539300;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=37j6eElZ6gYL2fWuf2fnGhbQJvRalCcw79uaKd1ALlw=;
-        b=IUqo7M6Kx9bzV4USvzQF9+jGYcymKbqYEDuH/Btp7q2QB2PiDEh5YHWu6ZeUNDrrN7
-         HAFPTR1jCiXSgKRR+DP/YH4SsdsOieeR/oWp7fSYhNYNlskTvqUqBYIG0U3cg0T8B8Ya
-         1R6PSejocEglkelO7S5wAhRSLcwxQlflIG8LVA4n0Nl+VbfZm+18GCmD3tSaRmQ3R8rS
-         zmP58f8QXdlDPx8E8Jp4wxvB1fcvC3djU71/uegu4NRzII4ZLnNNpeOf3kyy3vXjTRNj
-         0iANeY4KuNhBd5DXys6iVmVBPAIn9BNAOpe5h7DD5Y5gTBMNW97o3rtY0kQDAw2Cco/t
-         TQrQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVfkdBgfpSIHNg1Xf5fBU8wpP9SrSnDQC3kCQtL9FWFUC6tqQHSNvZEMxoPf1tjjqk6RRyPXkc/aPfI358NAg0RMemlo200uKq5M4/vxx0=
-X-Gm-Message-State: AOJu0YyAn+CHiYxtBUt3W2Um83APa6eXCcjUxPdAkcTdo5S59bEpIABl
-	p38C39Gii4jfNqhws1nDewjb3M94DNCXoWbzL0pZnA8VnoTWbfyw6TmNvQnMQ6A=
-X-Google-Smtp-Source: AGHT+IGzt4oUARh6ueYiUVpLLVllsr4kP3w3oBbf9fwqwCZ2I4oM75yyOkTbYlKZ9wnR54OtBVVViQ==
-X-Received: by 2002:a05:6402:1491:b0:562:f95:e501 with SMTP id e17-20020a056402149100b005620f95e501mr2381635edv.26.1707933999219;
-        Wed, 14 Feb 2024 10:06:39 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXo/MSza71iXwHT+vkWpnQm6ZwkM9qHl0NOkakjXvyemALHU/7ByWkGhEXkG9Y0SEIe3ki/l+Ax9A1SDP4eJbGclybSirec4qdgt8J4PWCzTzfXZ5qUrX37BeL/XKVsnWmHTEIjJ/lzwcRORwZgQ9Ns2aIHTfwH5ULo8xMQ2jGKBEp/xprc3VPhgBh3C2SqESrrqOM+VDO+xl9rFCPSHiKo4xVoTZygea3tQhOItCcM
-Message-ID: <dca166f1-6b94-46bb-b576-411ef9cce127@citrix.com>
-Date: Wed, 14 Feb 2024 18:06:38 +0000
+        bh=KiNv5W7Gl51WblfWE3TFKqwR1YncW99F/nk5SJm2mOI=;
+        b=sZ5TuHaGx5/dIHi8sK0enhEb+NuT8eDOAUw3Ix279tKhKlm1IRgP0g+rT+8cZc9CDa
+         Z1LcWhP7I2/Tnzz1spmplkM641vwyXkftHBDdv/qLEX8ZTk9jv7PtURvK9h5pw1egyuB
+         jexh445g2MZfbZE61As3QYok+W/kOuYyjgxKsVrG2y01hJ240MGl6dmaOZtfliOewlum
+         2RXIG/6o/TLAunVaPYeqGfeiJr2xMtwZFan+FzjPXcDxxI8Z4oZqcNv1xqWw6w9FUN66
+         VZ7onNhf/yUgDpUFXjdNWgS2eZc8pHYKgR+SkTO8D4AoEIOLrO4IqOtnOZC/4BZ+W4Ft
+         DkUg==
+X-Forwarded-Encrypted: i=1; AJvYcCW7fnJkuDeLdzQ6Hhg42gF7NonPXIUVoiaSYPCp6WswFQpSOKIDSiIYAXKs3gzTj27dKPiFGYp7MKJsM0kU/ufqlNjcQodyUaITqSecU50=
+X-Gm-Message-State: AOJu0YyaLoJ0WW7188YXfjTExp7BvPeuAk1Q9Urpsrok2ms4rdtZFHg2
+	URdvGXPRGPRETxvStSBqUx376seprbaQk2anzlBPQAVPP+dpteEUVEvNsGY2MRo=
+X-Google-Smtp-Source: AGHT+IGQr9AYSCNGpfF0jsRcXPNupd0f8qz3oUzdVSQu/jaNPrwaZx5MpUKINwnu4QoVOo1r6SHYZw==
+X-Received: by 2002:a17:906:ce2b:b0:a38:5b3c:7c9b with SMTP id sd11-20020a170906ce2b00b00a385b3c7c9bmr2622254ejb.18.1707934500614;
+        Wed, 14 Feb 2024 10:15:00 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCX1Ozpg+kqyWXYNMWuHBvH3WNB66Wci6cgRvadLAb6f4BJueS//7AaV8cH6cIAbQDuoKwaYF9NQzPVD1sEwnDEfVo9YAXTn0KpuL3gEBesy8/US1jK6DRrebH/qxeFnbH6ve5Q7wBtkdduiuMzBlR+4RH90NB4mjk5+ehDsS26ZFbaM7lt88u9uNO/NOyz2B2QsTBZIGgZV+fruIqG5JMMWRQwJ/Z6RowvbS8a1w6vU3+EQwmK/Lwms0bS8qFGnvWV2kdIzfH3kScF/x1xz7AZsvPO5MmZ/zN0ndKBNWGwNAkwS/8KZc2A0MOWai00=
+Message-ID: <219340f5-8378-42aa-84cf-bbb0bb0fb486@citrix.com>
+Date: Wed, 14 Feb 2024 18:14:59 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [XEN PATCH v2] build: Replace `which` with `command -v`
+Subject: Re: [PATCH] x86/altp2m: p2m_altp2m_get_or_propagate() should honor
+ ap2m->default_access
 Content-Language: en-GB
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20240214180039.57527-1-anthony.perard@citrix.com>
+To: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <1b854c6b38787675294c58eea25556ce241b2b4f.1707213023.git.w1benny@gmail.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
@@ -130,26 +134,39 @@ Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-In-Reply-To: <20240214180039.57527-1-anthony.perard@citrix.com>
+In-Reply-To: <1b854c6b38787675294c58eea25556ce241b2b4f.1707213023.git.w1benny@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14/02/2024 6:00 pm, Anthony PERARD wrote:
-> The `which` command is not standard, may not exist on the build host,
-> or may not behave as expected by the build system. It is recommended
-> to use `command -v` to find out if a command exist and have its path,
-> and it's part of a POSIX shell standard (at least, it seems to be
-> mandatory since IEEE Std 1003.1-2008, but was optional before).
+On 06/02/2024 10:08 am, Petr Beneš wrote:
+> From: Petr Beneš <w1benny@gmail.com>
 >
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> This patch addresses a behavior discrepancy in the handling of altp2m views,
+> where upon the creation and subsequent EPT violation, the page access
+> permissions were incorrectly inherited from the hostp2m instead of respecting
+> the altp2m default_access.
+>
+> Previously, when a new altp2m view was established with restrictive
+> default_access permissions and activated via xc_altp2m_switch_to_view(),
+> it failed to trigger an event on the first access violation.  This behavior
+> diverged from the intended mechanism, where the altp2m's default_access
+> should dictate the initial permissions, ensuring proper event triggering on
+> access violations.
+>
+> The correction involves modifying the handling mechanism to respect the
+> altp2m view's default_access upon its activation, eliminating the need for
+> setting memory access permissions for the entire altp2m range (e.g. within
+> xen-access.c).  This change not only aligns the behavior with the expected
+> access control logic but also results in a significant performance improvement
+> by reducing the overhead associated with setting memory access permissions
+> across the altp2m range.
+>
+> Signed-off-by: Petr Beneš <w1benny@gmail.com>
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+It appears that all discussion has completed.
 
-I expect we want fixes tags for c8a8645f1ef (python) and 3b47bcdb6d383
-(figlet).  Both my fault it turns out...
-
-Happy to fix on commit.
+So unless anyone screams, I'm going to commit this with Tamas' ack as
+he's the major user of this functionality.
 
 ~Andrew
 
