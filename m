@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE468854D1D
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 16:41:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681027.1059545 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 815CE854D30
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 16:45:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681035.1059564 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raHNx-0003JZ-NF; Wed, 14 Feb 2024 15:41:21 +0000
+	id 1raHRl-0004DH-7j; Wed, 14 Feb 2024 15:45:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681027.1059545; Wed, 14 Feb 2024 15:41:21 +0000
+Received: by outflank-mailman (output) from mailman id 681035.1059564; Wed, 14 Feb 2024 15:45:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raHNx-0003Go-Ka; Wed, 14 Feb 2024 15:41:21 +0000
-Received: by outflank-mailman (input) for mailman id 681027;
- Wed, 14 Feb 2024 15:41:19 +0000
+	id 1raHRl-0004AN-4J; Wed, 14 Feb 2024 15:45:17 +0000
+Received: by outflank-mailman (input) for mailman id 681035;
+ Wed, 14 Feb 2024 15:45:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raHNv-0003Gg-P8
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 15:41:19 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1raHRk-0004AG-Jg
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 15:45:16 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7eb53ca1-cb4f-11ee-8a4d-1f161083a0e0;
- Wed, 14 Feb 2024 16:41:18 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-411f17700ffso5152155e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 07:41:18 -0800 (PST)
+ id 0bdd5a6c-cb50-11ee-8a4d-1f161083a0e0;
+ Wed, 14 Feb 2024 16:45:15 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id
+ ffacd0b85a97d-33cddf4b4b5so1276942f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 07:45:15 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- z1-20020a05600c0a0100b00411ce6def3fsm2345857wmp.38.2024.02.14.07.41.17
+ r2-20020a056000014200b0033b4acb999dsm12623407wrx.98.2024.02.14.07.45.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 07:41:17 -0800 (PST)
+ Wed, 14 Feb 2024 07:45:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,55 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7eb53ca1-cb4f-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 0bdd5a6c-cb50-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707925278; x=1708530078; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707925515; x=1708530315; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=H5VUANlO1xV6UYsQayWjOtnZr9ZMmIC4eD4CnxviuJk=;
-        b=NGrJJ/IZzZt1FZij4MTchjGnE0IxAPp0O9N9WzrOtjTeZgHAXDugX/ILzkLfT9JjVp
-         Rd3aCDxq5SMHVu19QjzkgcJApVMhVEXmmPhaU6GzDGE+gmT5XBgSzbl86qhTvttx38v3
-         Svl0tOXf99shij426gZ+vMdFApZrK461NklDyI6o2KMd0/u9dn7kWri18NoHXf4d0WbW
-         DAXAW0+JOb6cNy2limWoCehV/tcf+mpG5bLh4rfS3eour8SROVXV96pgRET4k1dZq2K1
-         VZprS+0h/FbD6vIJzEJP0cHB0BtaD17FbXH+WzrohyvoeW9V5NGztF1VXFXjG5+cB0oM
-         xhiQ==
+        bh=TvQiN1hpDNMqbnpgIeCWsGY/7CQtMyl74GRbryjZrhU=;
+        b=QtGzVoEolyqwJQ4mgrN3ms+gcBTLROeP0h9tqyJcuKHlIZ7wNws+quVcdRAJcgSGLB
+         ZqD5/3f/I/htTndpR5WCOVsZ95/4T5E6+DtaKULiEXOzI/aR6X06X9t5sWT5U0YIdUJd
+         mYu6cf8cwSjWiWbfkMa+NxFHM0Tg1MgKX/QKobBi3ByIfFAuP3qUx7YcNEH9DVMfS0du
+         hd65X2vyLxA629/hVR6YApOcoz4BxGt4SjTQO6NLrTnxas72mZ/0r99oEoHBtN50+19y
+         tFBUED4TxUXvvLKUpx8lRBwFs9rMXoO6Biu/y/MyrTjCkHuPS/Zmy48t6+ZNVpXhYveh
+         SNaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707925278; x=1708530078;
+        d=1e100.net; s=20230601; t=1707925515; x=1708530315;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=H5VUANlO1xV6UYsQayWjOtnZr9ZMmIC4eD4CnxviuJk=;
-        b=R61CI4IaKcjbeXZChJ2TWEIfyf4vUwLPUbMFDT5bNG6rNV3bH8SUQ0WuApSwPPDT8U
-         ouCP5Q7GZWBdaPFV+yZWy6d+Hu4thkzzpZujOUNSK1IiLvE0b/LLIO9RKd1kwFctPCR6
-         dUmp1GO+0ATXEcSPKe2YTQZH+f840rAFjop/bh8Wi+gI1ExdFJ+f9OjSBb52WT7usCbG
-         lSGM19b+63awL8yBtF+KTaCf6LgduP+bcIGDQRkv1OG6GjhkB/olbWMJIqpSX24tUQZO
-         H7L6YXlOceub/MZVj6Qn1DSapQS6m7OEEOHyhgOicv+EgHN7jn5hSBmvhhICMvq+7U0R
-         +wuw==
-X-Forwarded-Encrypted: i=1; AJvYcCXLtVIoyg9JcNBcqiNgGTWWaMynI5KSFoesoEQSeZHJWWINp0Lco9VvHdrk+wQxunJs1/mJG5r1dOQaXA958qRISSUnH8PGncjWWS4xsYQ=
-X-Gm-Message-State: AOJu0YxU6MyzMQj4ky+rjVUhe9RKTKFdF2cHHb0IMHHqIuex4gqIPElr
-	vGsROewaen1WMg5vSG42CZUHWIa0xXfGZ2YQb67/ZF95sC13/DOtLxwNAvI5nA==
-X-Google-Smtp-Source: AGHT+IEBT8gmWi1+xReFfTrYPz8d/ygqnr42j1mWH+xNHEkxZU0eURsKajhdhsMuptbcDV+00FO+yw==
-X-Received: by 2002:a05:600c:1991:b0:411:ffcd:8f81 with SMTP id t17-20020a05600c199100b00411ffcd8f81mr444660wmq.18.1707925277883;
-        Wed, 14 Feb 2024 07:41:17 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXbxt9DfIj066IoyEYa8+sAqo/Ls0rTvE2CQloCvqDBkLJVafjyucxcwVZ77MJLuYRfAxG1zwm3IDfUKl2zxALM06y03vNIvbv5vewqz3kNc76cq82N6ApMyyyznhVSZSL818KQtNgPoBg71BhQ7+mjN5YwJVrfV450TtmW2oMbPfSIwNwXF3TTfXGm7g0CVQgAPB5024FJZDEUt9OdOBN+CJQcAOPuoPkLvqOYX2nbx/KXQgSPP/y9uQZ/xDEb0TfDo+kFWv4ICj2nUZvXLjFVU4ZXbS/Fyd7Le1stBgAB5/9XMalQccR6Xg==
-Message-ID: <180cac00-e7c4-4bea-bd13-c5983da707d7@suse.com>
-Date: Wed, 14 Feb 2024 16:41:16 +0100
+        bh=TvQiN1hpDNMqbnpgIeCWsGY/7CQtMyl74GRbryjZrhU=;
+        b=hmvie1pjNYhfZRcnstsSUKEHvMB4wTqSmuwoJaAGwhm/TOY2/yKDZzrIzMwhrw1hgb
+         RmTucG/bqVfqhVmoQQPIToSugtUtyJlqQAWto+dorlbQEi63aps45Of9DKEPetvJTBPv
+         mfvIBrNakZhHjJ47ITZ/i7YK5lU1kooO5pMlBkQlYju4ixWnyOOBpAVvsV3EYqN9aj9H
+         0LeFNJzO/jXVVyZOxE48X8lorGRblHPGZer/mg7xiFdoNTfhlJ5Ym+h43+iNuS3vLX5G
+         FiIVYc/EHL25+l7tn60EYQwJBdgGBsUq2bOGm15W6cSyGzskcFTLlfP0FRZdCaG7nYm7
+         5Ziw==
+X-Forwarded-Encrypted: i=1; AJvYcCV5XSRI9gDRukaX7zv4ArY/XiXqLnQggV1HbTzMZb76UX2T4nTznt1cS4nVqC75y45ABRVW5hEI4z/nptND5ZwDpyox4pGK74GemZVUr0Y=
+X-Gm-Message-State: AOJu0YzejrTItAbckapNAl0E6hpnUKvv5NbzpBAAk1YkletL3ZUgwlVr
+	FAM4Uc3M7dU/LHcNzzNP+25NEfiiOQHVGm6VXmhvOfG0RY5Z7gPcWENdxLBycg==
+X-Google-Smtp-Source: AGHT+IGkg8kCfd4nk4XfXVp4V6XVfyn4kJHXtM/gVD52cfZiOycE0Dr3AS4P/JJpJCgNLRibPzCaHA==
+X-Received: by 2002:adf:e90a:0:b0:33b:649a:1a1b with SMTP id f10-20020adfe90a000000b0033b649a1a1bmr2311195wrm.49.1707925514743;
+        Wed, 14 Feb 2024 07:45:14 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWftMTWQ3K0SjNZPcs9pCAHpczQraU0ZfpLWzM3CFYWy4da1f0HtN+OO5YOcNL36BV/ZAVTWfCYXLfs9LsBif5tLiVxgHM4T5g3cJNx95ENxvqb7EmtvR/Jm/8pYlPabJXalyB/T47KVrDL2mMg14LYvW9wBHcLmHKoAGTDlHmGGqxsAEjwjzWZQEne4wIfMbbL1udiwJ5eoUnI4c1kVJLNDO+w0TKMyTOG3PmkWa6RXAl41hHV0o1OAd9VCb5WFQzLj3zjpbY1PNkIyL7Zvh5ttqAvsUm7wky8eOYXtHfpIDA7dc0TpMWLnoY21RG2SwnizoXzPmloAEKY992Ff4+n1klBQUF7nPMwP5OPWN2KY2rlc0fE7hfnS5EwBnxScL+L72tD3IG+mK0E5+MoaJep5T0w/gtgx4RbVgsEshnseRC1U+irTyWF+8z3p3kXZ/XfUvJnMEtyU92+CqDBbj3mNxI=
+Message-ID: <447b1843-f28c-4633-9e74-d695bc37208a@suse.com>
+Date: Wed, 14 Feb 2024 16:45:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 10/14] vpci/header: emulate PCI_COMMAND register for
- guests
+Subject: Re: [XEN PATCH] automation/eclair_analysis: deviate certain macros
+ for Rule 20.12
 Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+Cc: sstabellini@kernel.org, michal.orzel@amd.com, xenia.ragiadakou@amd.com,
+ ayan.kumar.halder@amd.com, consulting@bugseng.com,
+ andrew.cooper3@citrix.com, roger.pau@citrix.com, bertrand.marquis@arm.com,
+ julien@xen.org, Simone Ballarin <simone.ballarin@bugseng.com>,
+ Doug Goldstein <cardoe@cardoe.com>, George Dunlap
+ <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
-References: <20240202213321.1920347-1-stewart.hildebrand@amd.com>
- <20240202213321.1920347-11-stewart.hildebrand@amd.com>
+References: <892be5c403ca7a20b35fb9facacb6a38bc7f6bfe.1707900742.git.nicola.vetrini@bugseng.com>
+ <3519db82-6126-4aa0-9d04-795edf6f2bca@suse.com>
+ <b87f53b8e39fdbd7f7aefe63f227fe7f@bugseng.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -118,61 +119,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20240202213321.1920347-11-stewart.hildebrand@amd.com>
+In-Reply-To: <b87f53b8e39fdbd7f7aefe63f227fe7f@bugseng.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 02.02.2024 22:33, Stewart Hildebrand wrote:
-> @@ -836,9 +870,20 @@ static int cf_check init_header(struct pci_dev *pdev)
->      if ( pdev->ignore_bars )
->          return 0;
->  
-> -    /* Disable memory decoding before sizing. */
->      cmd = pci_conf_read16(pdev->sbdf, PCI_COMMAND);
-> -    if ( cmd & PCI_COMMAND_MEMORY )
-> +
-> +    /*
-> +     * Clear PCI_COMMAND_MEMORY and PCI_COMMAND_IO for DomUs, so they will
-> +     * always start with memory decoding disabled and to ensure that we will not
-> +     * call modify_bars() at the end of this function.
+On 14.02.2024 16:31, Nicola Vetrini wrote:
+> On 2024-02-14 12:49, Jan Beulich wrote:
+>> On 14.02.2024 12:26, Nicola Vetrini wrote:
+>>> +-config=MC3R1.R20.12,macros+={deliberate, 
+>>> "name(ASSERT||BUILD_BUG_ON||BUILD_BUG_ON_ZERO||GENERATE_CASE)"}
+>>
+>> I said in another context already that it is necessary to separate
+>> global scope macros from local helper ones. Any CU can introduce 
+>> another
+>> GENERATE_CASE(), and would be deviated here right away. In fact I
+>> question applicability of the deviation to arm/arm64/vsysreg.c; I only
+>> see it as applicable to arm/vcpreg.c.
+> 
+> Why wouldn't this be applicable for vsysreg.c? I can certainly fine-tune 
+> the deviation, if needed
 
-To achieve this, fiddling with PCI_COMMAND_IO isn't necessary. Which isn't
-to say its clearing should go away; quite the other way around: Why would
-we leave e.g. PCI_COMMAND_MASTER enabled? In fact wasn't it in an earlier
-version of the series that the guest view simply started out as zero? The
-patch description still says so.
-
-> --- a/xen/drivers/vpci/msi.c
-> +++ b/xen/drivers/vpci/msi.c
-> @@ -70,6 +70,13 @@ static void cf_check control_write(
->  
->          if ( vpci_msi_arch_enable(msi, pdev, vectors) )
->              return;
-> +
-> +        /* Make sure domU doesn't enable INTx while enabling MSI. */
-> +        if ( !is_hardware_domain(pdev->domain) )
-> +        {
-> +            pci_intx(pdev, false);
-> +            pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
-> +        }
-
-While here we're inside "if ( new_enabled )", ...
-
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -135,6 +135,13 @@ static void cf_check control_write(
->          }
->      }
->  
-> +    /* Make sure domU doesn't enable INTx while enabling MSI-X. */
-> +    if ( new_enabled && !msix->enabled && !is_hardware_domain(pdev->domain) )
-> +    {
-> +        pci_intx(pdev, false);
-> +        pdev->vpci->header.guest_cmd |= PCI_COMMAND_INTX_DISABLE;
-> +    }
-
-.. here you further check that it's actually a 0->1 transition? Why
-not alike for MSI?
+There the sole macro parameter is used in only one of the possible ways,
+with ##, unless I'm overlooking something. Aiui it is mixed use which
+would need a deviation.
 
 Jan
 
