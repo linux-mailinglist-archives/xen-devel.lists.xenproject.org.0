@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13238854A39
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 14:16:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680748.1058846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08461854A5F
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 14:22:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680755.1058855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raF6v-0000f0-2h; Wed, 14 Feb 2024 13:15:37 +0000
+	id 1raFDJ-0002yS-Oh; Wed, 14 Feb 2024 13:22:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680748.1058846; Wed, 14 Feb 2024 13:15:37 +0000
+Received: by outflank-mailman (output) from mailman id 680755.1058855; Wed, 14 Feb 2024 13:22:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raF6u-0000cx-VT; Wed, 14 Feb 2024 13:15:36 +0000
-Received: by outflank-mailman (input) for mailman id 680748;
- Wed, 14 Feb 2024 13:15:35 +0000
+	id 1raFDJ-0002wZ-M7; Wed, 14 Feb 2024 13:22:13 +0000
+Received: by outflank-mailman (input) for mailman id 680755;
+ Wed, 14 Feb 2024 13:22:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raF6t-0000cX-8N
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 13:15:35 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ id 1raFDJ-0002wT-0p
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 13:22:13 +0000
+Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
+ [2a00:1450:4864:20::330])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 21ffd7b5-cb3b-11ee-98f5-efadbce2ee36;
- Wed, 14 Feb 2024 14:15:33 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-33cddf4b4b5so1133841f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 05:15:33 -0800 (PST)
+ id 0f0ff012-cb3c-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 14:22:10 +0100 (CET)
+Received: by mail-wm1-x330.google.com with SMTP id
+ 5b1f17b1804b1-41102f140b4so15212975e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 05:22:10 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- u14-20020a056000038e00b0033ce40eee9fsm2480791wrf.58.2024.02.14.05.15.31
+ n9-20020a05600c294900b00410cc2f5550sm1912910wmd.19.2024.02.14.05.22.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 05:15:32 -0800 (PST)
+ Wed, 14 Feb 2024 05:22:09 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21ffd7b5-cb3b-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 0f0ff012-cb3c-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707916532; x=1708521332; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707916930; x=1708521730; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=n6C0PY+0B/eU5cH4iEmzlZHG2r8SQ67nXHcdU7UpiIc=;
-        b=Uo2ohDe9olc0H30zJXOR4eyjx/0TWyYNkDlkYdp5Njq2xYcMZMfqN0DJUc1eB0E414
-         2rFUKRbomymgkx1DRkAy/14JzOUFO8EJ1NzZBgWabeXshdWmumLaqoSohH+0nQoOiAom
-         RvfkSucXip8n2v2fNAiwIMtEd2qpC19W9NUv8CI7Szb9aBt60wSU0Kom/C3C8+ft46wm
-         WXHuxa9/BtKp836qRwc1Qmo/5a9ACjBoaQJhOl+dlN9khXx6zlo4hKL6Zd9q5XV2zc7J
-         7TI2BjC4m8gGVbQI+bo9ewWj/6bAGTVnZerMDmTadRFeJ1K5ZnXSsN7pA++MWg91nZ1Q
-         P/tg==
+        bh=Za8dYxhmQv5z0d1hW7+w4ZKDD4wdXQ+pZGwuqrALwhE=;
+        b=RFrYuHBNprrJusHQtb35S50UoHul1BdBFFq2asEf2+c93jYKOR3BYeHcR9SkhH8Ri1
+         VRlrGh04Rf4dK1wKiofmbB9P+Jb+mbqtnHAvKj5SS5DUBKf5YO05IcXkpK1PGpglbeq4
+         aWJgcmquP4l8lXMtHlGRuhhAgV9i+xxwRD/DP7PxYB420FxM3LHAMF45Ef2I3VvFuP8s
+         wFbWdqeMoBiMqmMqzCeZAk5dxCLrxASuNozgva8/xIrllFHMwaWnjjXPqTyN/edMmXKT
+         g90Ai85XGSzcw0nhDDSvbiLHvvndDBwqz07+dqVKCN+zBNNZM0+nWa/hJXzNdqfOdwib
+         Quig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707916532; x=1708521332;
+        d=1e100.net; s=20230601; t=1707916930; x=1708521730;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=n6C0PY+0B/eU5cH4iEmzlZHG2r8SQ67nXHcdU7UpiIc=;
-        b=JS7amntXNn3OfSIDnrDUNxdOJJvwiHx7jo1QUEvDzJp3b+OFmodZpxdWVWQURYFGqq
-         vTAcVY0/w8WjUsrY99IzYYcIcCdif5iuSA8UQqfT/3dcrCuQYtqnhLn3ItgUtobq+sLc
-         bGXmflZs/DUFWjVbZvjg60E5wRjS+69wJQ+aiOQQVFWdc/t0jISumnjlxEMgz7x6mqQ/
-         Tjd2dZLdjMsGg9dMMhBfm82gCgmelgybDZAVBxJBwzBQeQdVEI0vDV5Hrs5TgVNlTFj1
-         2ytoFQpIRqviLvMRenXz9dxzNnmPjQIkpne/wmrRQA0B77l/VRrAiYRu2hklF7IqYDnh
-         JzDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVVsSAF2c0SP61nWU5ndLD6f49s9x5MaF3OLmOMeOI8yS+5gPqFPgMroDemDoSNpbw1YKrRpyaf/5QHzTz+cwNj0avNxYptj0EzPb+tK6M=
-X-Gm-Message-State: AOJu0YzmplKyCiH2xR2yWx2UZc34t93bltS9BWIHo0jfmbjdbmcDlAGd
-	zSsG+cGrCNW7BVofsicxP7KoRKGhsuOj6CiwlaTcNnzVji1hLJAiTsAJ3dlMIg==
-X-Google-Smtp-Source: AGHT+IETcjpYO34DCIQMnCwd3dcohCnHjfiabDEyWguteJHFU/1oc9WLVjCVx15tzM05d31Q94hxBA==
-X-Received: by 2002:a5d:51c7:0:b0:33b:7d9b:4592 with SMTP id n7-20020a5d51c7000000b0033b7d9b4592mr2017179wrv.5.1707916532491;
-        Wed, 14 Feb 2024 05:15:32 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUnBSHL+PgeDPoIK1o7DgQ+w8jxB50essMLshAyXMIKxv84cLdLxu08JpZ4DfrOJOkvB5XeLDVlAbQoTkOg2NCHI7pw223r3112dHXS1Lo5q+zQEXR+AOKDiDw9S0uofvKNGCoh6tGB3vwsqtsbqoDLgjFJe1Gp3X5smkmHPrz/fW5VHK4UvRGx1cPh3UcIX3By0RsGlevLaR863pEhBveHUvHxUD3SnWpZPWG/tDC4IV265NIQCLsrmyKi185ih7X5ezzdekdbQj3+5n+72gcAGokX29jyEG1J8V2qxfdK7pg=
-Message-ID: <2da73259-a86e-4a13-9fd4-4217372f4b76@suse.com>
-Date: Wed, 14 Feb 2024 14:15:31 +0100
+        bh=Za8dYxhmQv5z0d1hW7+w4ZKDD4wdXQ+pZGwuqrALwhE=;
+        b=GYcaqjqSXwaD/1k4ErOceOi12plxFoqfo/QVzkG56SyrRcrGeNNdrVrWVO6Jq6EhcO
+         8SOa1YcA+irhZCbZcx+m9qCdtJpD3WSR7N9U5pKdHePYnbsErdPwqQwk+jirvCUYO6bF
+         sUEMkdT3gmRKRl64kdYcviTmw7JrdB+CB1G5ir+bpyOx1OabbsM0hIIipB8+qgZNw9aP
+         W5Vpw2ZXu8Jcbi8HcPaqpFpsMMTTofz9/lIsvBsyNwtGHPMSrVMjVrI+ksuzcDoTaPIq
+         MvO5/l9NtD1edkTW5Pl3xaCkfxbEXPTTTSRfIoxorvSefFiw1q2eP5H7GlIs4Me7OX+r
+         WaoQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWE7bQLD+KeZcPFDEiIGY74kMoPYwwHV1PPE442sKvC4YSRaeJLh7PHeg2TWKxjtL2XXnBTFgU+amKd7XECNaEcsu+aX5mNUmrbgBPZkHE=
+X-Gm-Message-State: AOJu0YzmrN1cJajYtft3l0mhP3nAoREuwlDMicxjrrwosEHdmCH0xfbg
+	kurP6U5JJTu6ow8uMXQ0eblgRcAOCy6/1StN28O1p5BvbBbpVYpLCUXPWbyjCQ==
+X-Google-Smtp-Source: AGHT+IEIEbq2klUpJohxXfOhdp9gJ2tr+ijQD1FJ9Iec9F35vHtTYaF8uBWf8ishWFtWSTYNEESZsw==
+X-Received: by 2002:a05:600c:1da3:b0:411:c390:ea43 with SMTP id p35-20020a05600c1da300b00411c390ea43mr2020263wms.10.1707916930246;
+        Wed, 14 Feb 2024 05:22:10 -0800 (PST)
+Message-ID: <2416e41e-0b59-4e63-a9c2-550983b71c1c@suse.com>
+Date: Wed, 14 Feb 2024 14:22:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] docs/misra/rules.rst: add rule 5.5
+Subject: Re: [PATCH 2/5] iommu/x86: print RMRR/IVMD ranges using full
+ addresses
 Content-Language: en-US
-To: Federico Serafini <federico.serafini@bugseng.com>
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
- bertrand.marquis@arm.com, roger.pau@citrix.com,
- xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@amd.com>, roberto.bagnara@bugseng.com
-References: <alpine.DEB.2.22.394.2402131431070.1925432@ubuntu-linux-20-04-desktop>
- <20240213223334.3693410-2-stefano.stabellini@amd.com>
- <50719397-b053-43e1-9cf7-cc9eae9098ed@suse.com>
- <40b7465f-4966-43c7-8db3-e28a6cc48445@bugseng.com>
+To: Roger Pau Monne <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20240214103741.16189-1-roger.pau@citrix.com>
+ <20240214103741.16189-3-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,84 +112,35 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <40b7465f-4966-43c7-8db3-e28a6cc48445@bugseng.com>
+In-Reply-To: <20240214103741.16189-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 14.02.2024 12:27, Federico Serafini wrote:
-> On 14/02/24 09:28, Jan Beulich wrote:
->> On 13.02.2024 23:33, Stefano Stabellini wrote:
->>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>> ---
->>>   docs/misra/rules.rst | 6 ++++++
->>>   1 file changed, 6 insertions(+)
->>>
->>> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
->>> index c185366966..931158b354 100644
->>> --- a/docs/misra/rules.rst
->>> +++ b/docs/misra/rules.rst
->>> @@ -181,6 +181,12 @@ maintainers if you want to suggest a change.
->>>          headers (xen/include/public/) are allowed to retain longer
->>>          identifiers for backward compatibility.
->>>   
->>> +   * - `Rule 5.5 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_05.c>`_
->>> +     - Required
->>> +     - Identifiers shall be distinct from macro names
->>> +     - Clashes between function-like macros and non-callable entities
->>> +       are allowed. The pattern #define x x is also allowed.
->>
->> Just for me to know what exactly is covered (hence also a question
->> to Roberto as to [to be] implemented Eclair behavior): Even when
->> the above would be sufficient (and imo better) people frequently
->> write
->>
->> #define a(x, y) b(x, y)
->>
->> which, transformed to the specific case here, would then be
->>
->> #define a(x, y) a(x, y)
->>
->> I'd assume such ought to also be covered, but that's not clear
->> from the spelling above.
+On 14.02.2024 11:37, Roger Pau Monne wrote:
+> It's easier to correlate with the physical memory map if the addresses are
+> fully printed, instead of using frame numbers.
 > 
-> I list what happens in some different situations,
-> then we can find the right words for the documentation and/or
-> refine the configuration:
-> 
-> If you
-> #define x x
-> and then use `x' as identifier,
-> the resulting violation is deviated (allowed pattern).
-> 
-> If you
-> #define a(x, y) a(x, y)
-> and then use `a' as identifier for a non-callable entity,
-> the resulting violation is deviated (no clash with non-callable
-> entities).
-> If you use identifier `a' for a callable entity, the resulting violation
-> is reported: the allowed pattern covers only macros expanding to their
-> own name, in this case the macro name is considered to be
-> `a' only, not a(x, y).
-> 
-> If you
-> #define a(x, y) b(x, y)
-> and then use `a' as identifier for a non-callable entity,
-> the resulting violation is deviated (no clash with non-callable
-> entities).
+> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-I'm afraid I don't see what violation there is in this case, to
-deviate. As a result I'm also not sure I correctly understand the
-rest of your reply.
+In principle
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+I'm not sure though that this fully matches Andrew's intentions:
 
-> If you use `a' as identifier for a callable entity,
-> this is not a violation because after the preprocessing phase,
-> identifier `a' no longer exists.
-> 
-> As far as I know, this is what was agreed upon in one of the recent
-> MISRA meetings.
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -801,8 +801,8 @@ bool __init iommu_unity_region_ok(const char *prefix, mfn_t start, mfn_t end)
+>          return true;
+>  
+>      printk(XENLOG_WARNING
+> -           "%s: [%#" PRI_mfn " ,%#" PRI_mfn "] is not (entirely) in reserved memory\n",
+> -           prefix, mfn_x(start), mfn_x(end));
+> +           "%s: [%#lx, %#lx] is not (entirely) in reserved memory\n",
+> +           prefix, mfn_to_maddr(start), mfn_to_maddr(end));
 
-That was my fear (of being what I'd call a wrong [insufficient]
-interpretation of what was meant).
+e820.c uses [%016Lx, %016Lx] instead, i.e. full 16-digit numbers. For
+easiest cross matching it may be desirable to do the same here. Then
+of course the 0x prefixes may also better disappear.
 
 Jan
 
