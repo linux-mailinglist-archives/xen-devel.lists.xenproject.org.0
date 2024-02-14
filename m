@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A86B855088
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 18:41:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681116.1059717 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A16BF8550B9
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 18:48:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681122.1059728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raJFQ-0002JK-Sg; Wed, 14 Feb 2024 17:40:40 +0000
+	id 1raJMs-00031k-PO; Wed, 14 Feb 2024 17:48:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681116.1059717; Wed, 14 Feb 2024 17:40:40 +0000
+Received: by outflank-mailman (output) from mailman id 681122.1059728; Wed, 14 Feb 2024 17:48:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raJFQ-0002HD-QB; Wed, 14 Feb 2024 17:40:40 +0000
-Received: by outflank-mailman (input) for mailman id 681116;
- Wed, 14 Feb 2024 17:40:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1raJMs-0002zn-MT; Wed, 14 Feb 2024 17:48:22 +0000
+Received: by outflank-mailman (input) for mailman id 681122;
+ Wed, 14 Feb 2024 17:48:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4Sn1=JX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1raJFQ-0002H7-4N
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 17:40:40 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ab6d35d-cb60-11ee-8a4d-1f161083a0e0;
- Wed, 14 Feb 2024 18:40:39 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id
- a640c23a62f3a-a3d01a9a9a2so232713166b.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 09:40:39 -0800 (PST)
+ id 1raJMr-0002zf-TL
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 17:48:21 +0000
+Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
+ [2a00:1450:4864:20::132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d641b48-cb61-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 18:48:19 +0100 (CET)
+Received: by mail-lf1-x132.google.com with SMTP id
+ 2adb3069b0e04-511acd26c2bso950025e87.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 09:48:19 -0800 (PST)
 Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- vi16-20020a170907d41000b00a3ce31d3ffdsm2365838ejc.93.2024.02.14.09.40.38
+ un8-20020a170907cb8800b00a3d0a094574sm1753623ejc.66.2024.02.14.09.48.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 09:40:38 -0800 (PST)
+ Wed, 14 Feb 2024 09:48:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,38 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ab6d35d-cb60-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 3d641b48-cb61-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707932438; x=1708537238; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707932899; x=1708537699; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=6aQhl2xza4kDvBJT8FjINNxnWqWGuSlxm9Fy5soVkgw=;
-        b=ad5+Q5bGEdnWshFtiLT9/RJyDkjH+Lu745byYwUS3D8WF6ywOvVtATbhwPDyMAaYHw
-         KfU4ZilmWLj2rZRGfEEcKI5oKwR6BS2z6NlqQpC3qstAxKy0eUVQ7m0g0oq1TcTYZYuu
-         NLa/OW9H11/ZGDkqdM1CKV8hv9PJYNTHSxlNE=
+        bh=vxfOdf0wghA/C5YJTyJEu20TyJgflNsMVkLrPyiVqYM=;
+        b=GkWZovQGopacuErvpLga9wkXIAXXqg/XXVUhcMSiQ6PNRuSCf+HVQOnoBuo/z0MIzY
+         GN6WNU+n6KnVGW3Xukswqx7lmbgrunmSxGsdjZmzq5fWBfg86XFVcDLcfPTBOaZXswuj
+         bFhqirTRBH+Lh/OzHxTZqG6r6/CFGzJ/4jIrg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707932438; x=1708537238;
+        d=1e100.net; s=20230601; t=1707932899; x=1708537699;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=6aQhl2xza4kDvBJT8FjINNxnWqWGuSlxm9Fy5soVkgw=;
-        b=T1qbQZqTWHQWmULqPPMf0KvLPb+huIQCHzawI/iaCCOe53rtZSlwZzhvw7vxjLFgaW
-         dVKEZWQgaJPkfboUGx2hvGFSAJeizRuVOKP0JXprMFw4jEgGZQ1B6XCo2hw9WKXdqHnw
-         CPuEDwlWM5qEoF8G2qXto+f0INhgu2HQF1cZ5BS38i4C47JZx8sTKvPHaTZh3xmP+/ih
-         5B9gz0aE/R9c92syWqnlbGNgdkVB0dll06A8B+cJr/DQNJf9srzwuJQE+Ofy0AGfrRJY
-         OG4/c4hSGiFJqX/jgAJNrioI0g/AZ1cL63sycw/iw/Ne91082fFMLP2qPeLqlQaoUBTR
-         CE2g==
-X-Forwarded-Encrypted: i=1; AJvYcCWmBfXfj6jSv1LlN1KzhzZ6hStWiPt/fzOWNITqugYXKqAL0uLt8rKvLFXdNnAuSBPjAueDZQY0iQNcMs+2aI3nXr96pDeJpK2SRl4ObJk=
-X-Gm-Message-State: AOJu0YwWMrRxK6QAhQFGiETM947Pn1nLB1aPOq96ytOugLurbdjDqrOg
-	X/Hf9TTtlp5z2C5uP05fErQnCPfr/ot8e1zBqAZtoyJJ1GNNzI+DsRF4GAfBDiTtUilRCTFkIvi
-	p
-X-Google-Smtp-Source: AGHT+IHHHayKrVIUAC/GRYv65r4Qcoqr/R2fQt0T6z9BTgKrggS1InhOJvMWu3MQ5zpDeQko+V0XnQ==
-X-Received: by 2002:a17:906:6606:b0:a3d:11a4:6f90 with SMTP id b6-20020a170906660600b00a3d11a46f90mr2166833ejp.43.1707932438534;
-        Wed, 14 Feb 2024 09:40:38 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCVyP7Yi/LGMnS+Lq1JxwBm5l/IasMJpl/BxowRmPay0R/i7FL8J2tObgihqBmArhdW5jhMhHkLbJd+AQArSMFcU6BJwPM8ZlZEec1iV9NPhTD7uv2Z2xo8DuHlrv1nCUfYixenVHugV+4BacMkFieeXjE74KZ8mkyEU2Fs4OQ==
-Message-ID: <a628abf7-a04d-4c32-ad49-a2fe073f3286@citrix.com>
-Date: Wed, 14 Feb 2024 17:40:37 +0000
+        bh=vxfOdf0wghA/C5YJTyJEu20TyJgflNsMVkLrPyiVqYM=;
+        b=eqZaJscPBs5Z03A+q+2+XfMjLtkhHob8pSEDHsR4atoOMTd5lLcOfg1yYHnONpNkyT
+         UgNsdRwKX09VSFVdLTHo4rc5f3oVVgYDd3uUme1wKDh+O2Sw+MhGy9abe88MQFgMIPI8
+         qWMaxnmvM25/utayEz1c1xX/Smv1QBCNRjE97Bp2UidoDgHB8E1QPf0FstKA8Z6Bc7Tq
+         Z10k0bS3h8NIVlA7gGL+w1/h/3+HwQENWY9bVFaGE78/iZ8jIJiU6x42Jd8Dt8uP4fVS
+         YtSJNKeISnKA/NJKEmXwG5Mtmwyg1zpZSkXVoclxjxnd+fY3Fcq7TZ4D5HVm0UsBmew5
+         S1sw==
+X-Forwarded-Encrypted: i=1; AJvYcCXxEPl2YVSu6fhbBxdPc4YWKP06hXv8bahALjkmXM7iru+8SEqxHwPfCXrlRANS6m8GqZU7s0l13INx6tchcgxCZ7m0pwPgG2rYgzMKH2g=
+X-Gm-Message-State: AOJu0YzrPBZEVGzOayKYjxk3pIwf/MTF4TLgr+m8OXJdZYDc3xfX7/f5
+	9vvpbrkIA7HFHgZzS17B4dL6/lDQJmNPRqkUbNyvcWRS/A1+UPMjPN7YrlncqCk=
+X-Google-Smtp-Source: AGHT+IHcCsjGSYit/C03zWXaZ+zt34W2264AYLdpxnqSLBMBDoKwJuSmN+irHoRO6Jxb9OT/u5b2/g==
+X-Received: by 2002:a05:6512:3b8f:b0:511:42b5:5616 with SMTP id g15-20020a0565123b8f00b0051142b55616mr3401152lfv.17.1707932899325;
+        Wed, 14 Feb 2024 09:48:19 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUU6XyYERw9vJpORWmi4nDk9bV4b4yFrGZsy1IiB4ZDy0RD90kFYlKu1MHkcOIbzVNuq35CFh6fsZ3v7xCrZwm16CMGzVtvxSvRmQQHmKGBAnaOrgpE5W9GAq2d49DVJ+dndnF7tTZ2Cl/VsOvAUmIVsIiQg9t4Nvxx3r+l4A==
+Message-ID: <4af65d74-b465-4f2b-9c4e-b1dab9a4ea7a@citrix.com>
+Date: Wed, 14 Feb 2024 17:48:18 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v5 07/22] tools/9pfsd: add 9pfs attach request support
@@ -135,37 +134,27 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 On 08/02/2024 4:55 pm, Juergen Gross wrote:
-> +static struct p9_fid *alloc_fid_mem(device *device, unsigned int fid,
-> +                                    const char *path)
+> +static struct p9_fid *alloc_fid(device *device, unsigned int fid,
+> +                                const char *path)
 > +{
-> +    struct p9_fid *fidp;
-> +    size_t pathlen;
+> +    struct p9_fid *fidp = NULL;
 > +
-> +    pathlen = strlen(path);
-> +    fidp = calloc(sizeof(*fidp) + pathlen + 1, 1);
-> +    if ( !fidp )
-> +        return NULL;
+> +    pthread_mutex_lock(&device->fid_mutex);
 > +
-> +    fidp->fid = fid;
-> +    strncpy(fidp->path, path, pathlen);
-> +
-> +    return fidp;
-> +}
+> +    if ( find_fid(device, fid) )
+> +    {
+> +        errno = EBADFD;
 
-GitlabCI has something to say about this. 
-https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1176787593
+Also, FreeBSD says no.
 
-I think they're all variations of:
+https://cirrus-ci.com/task/6634697753624576
 
-io.c: In function 'alloc_fid_mem.isra.8':
-io.c:566:5: error: 'strncpy' output truncated before terminating nul
-copying as many bytes from a string as its length
-[-Werror=stringop-truncation]
-     strncpy(fidp->path, path, pathlen);
-     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-io.c:560:15: note: length computed here
-     pathlen = strlen(path);
-               ^~~~~~~~~~~~
+io.c:580:17: error: use of undeclared identifier 'EBADFD'
+        errno = EBADFD;
+                ^
+1 error generated.
+
+Need to use EBADF.
 
 ~Andrew
 
