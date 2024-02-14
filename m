@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0AD38547D3
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 12:14:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680577.1058566 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A53B854815
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 12:20:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680582.1058576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDDP-0004sd-IL; Wed, 14 Feb 2024 11:14:11 +0000
+	id 1raDJC-0006eZ-89; Wed, 14 Feb 2024 11:20:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680577.1058566; Wed, 14 Feb 2024 11:14:11 +0000
+Received: by outflank-mailman (output) from mailman id 680582.1058576; Wed, 14 Feb 2024 11:20:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDDP-0004r7-F5; Wed, 14 Feb 2024 11:14:11 +0000
-Received: by outflank-mailman (input) for mailman id 680577;
- Wed, 14 Feb 2024 11:14:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1raDJC-0006co-2g; Wed, 14 Feb 2024 11:20:10 +0000
+Received: by outflank-mailman (input) for mailman id 680582;
+ Wed, 14 Feb 2024 11:20:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FFc2=JX=redhat.com=mst@srs-se1.protection.inumbo.net>)
- id 1raDDO-0004r1-1b
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 11:14:10 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b531974-cb2a-11ee-8a4d-1f161083a0e0;
- Wed, 14 Feb 2024 12:14:08 +0100 (CET)
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-426-R1r3iXM5OYagLtERndrv8Q-1; Wed, 14 Feb 2024 06:14:04 -0500
-Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-a30f9374db7so67610166b.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 03:14:04 -0800 (PST)
-Received: from redhat.com ([2.52.26.67]) by smtp.gmail.com with ESMTPSA id
- gv24-20020a170906f11800b00a3bd8a34b1bsm2212432ejb.164.2024.02.14.03.13.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Feb 2024 03:14:00 -0800 (PST)
+ (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1raDJA-0006ch-3V
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 11:20:08 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 00b9312b-cb2b-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 12:20:05 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-410e676c6bbso14394615e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 03:20:05 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ g14-20020a05600c310e00b00410e90e82ebsm1677669wmo.4.2024.02.14.03.20.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Feb 2024 03:20:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,350 +45,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b531974-cb2a-11ee-8a4d-1f161083a0e0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1707909246;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c1T4mZW1Lt2fEcvTpJpGMJKvoac/0r1T6DraMR3Q2iM=;
-	b=Z0S/q/Hkq2hpqo+Ygzs19Z1NaYy7ISdPxio7KCmGppHj8+qybZ0NFYXH2aKKxRa629oTxC
-	XZnUDCukMDBA4QXy2gtYPFonultbGhHPGpI8SI789gTm/PVqMUdAT42aJEYWoIQeGoQm5J
-	VPwxSorK6tvFSRqplKOr4YTafjolMAc=
-X-MC-Unique: R1r3iXM5OYagLtERndrv8Q-1
+X-Inumbo-ID: 00b9312b-cb2b-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1707909605; x=1708514405; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Rt1gKRJfgTQ1hdAu1e9zYcBvohmGTmI3u928D67LkQ0=;
+        b=CSWAlZktdEkolTR8fqCO73GNfmDKxuAwlG8JNVI8OLQLscM6DLQgthO2r0ikMBWcBo
+         9XRdmRL7EAwOmEyFFkdi7rVf79KO5bAVCieeG8vAVP8i1/w8WxcN/HfpclQF8hg73LH9
+         oOHLzPDKEeFuQbH9ws3XPdNa4kbZxIpnh0tlx5pYtzVwMfAeHLYVJd4tK2SNtfQHL3LN
+         bK9rrqqgiPesTICCT+h+ATOy27SA8mzeCetAaVDTmm1m/BIE5B1Qw70JtLzOWmm6y1DI
+         m0MgUg22T8jhT8aOAbrh+LuS49YjknSCt2BvXw3o9saf517UkzvGGnoJ7h2AeEkcx1BG
+         XRvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707909243; x=1708514043;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=c1T4mZW1Lt2fEcvTpJpGMJKvoac/0r1T6DraMR3Q2iM=;
-        b=kRpQ0pQZFMtN5oPgs5KcZQWGSKA16ldZyQTRZEeFAD3kXqvLkr/KrNtjtyuH+F3FXu
-         DHNnLYPTsyc7jBYw8Fd4jOKHWlYPGTkgszTFGbPF50NyuzNI0JjxhDwN3VC4zJpPXlhS
-         XrlJJ3SRNQ/BDRtwnYTdSJVJbl8C89nHPt6p5qlowxS3W9j0f7GR75aLPCj0h1/7vF+6
-         2rB14F6uihRLKMJexuNr17zcemCONp/veiwt9TLpDFEqzSSjiYBpSQ/j3qr1bu/RIylK
-         dkbrMedpUv3FQH0+P1xuD/u8t2x9K0vPJaoKbEllZKFNIaJqktb2sBQRP6Y9VqF3+c7m
-         uQPA==
-X-Forwarded-Encrypted: i=1; AJvYcCVjzwZbEZFeXSGMtRuZmFupdHxtO51Y32lWcFC2XmclElPFEZ9/MwERatH0VKCafeviJWdu357XDGZlR6fsqmEi8za0t58uZnWS6ASOrUs=
-X-Gm-Message-State: AOJu0YxdsbXRoV8l6xAp6JDbO2I4j17CkHQC2ZMez/3SJg6Uo92Ym/lG
-	ZYjHXPXDPpXAi37s1GUFc1z44qLYEBF3ZuOR4HfGSgu8WTd+pM+5bgNpvVDaG3+/ihm2gExH8eZ
-	Os5kSVHLr3OAmflaiCa0fMDQLr0KYgWPlzqjUXjmDEQ0k+qmZSj+7OM4P6GqJIZ0M
-X-Received: by 2002:a17:906:aacb:b0:a3c:d0d0:4602 with SMTP id kt11-20020a170906aacb00b00a3cd0d04602mr1474604ejb.6.1707909243471;
-        Wed, 14 Feb 2024 03:14:03 -0800 (PST)
-X-Google-Smtp-Source: AGHT+IH8PGa8fe+YzlQNsaQxLZwEWdxHc893kIKDULDI4XVDmy08H/IvVqWGbByMSYsf44RIBF6RxQ==
-X-Received: by 2002:a17:906:aacb:b0:a3c:d0d0:4602 with SMTP id kt11-20020a170906aacb00b00a3cd0d04602mr1474559ejb.6.1707909242253;
-        Wed, 14 Feb 2024 03:14:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXzRh2VKZgo8A+woJ9nPu2okdk+XErDylKqAwVKf+sraUsUJAczLmragZ3ncuj+Z6gPCv/6xLKry8uh0vcpB7oLoDWlHlKxDV1VU2kqdG7uW+KLSabxeWUYT0SJzIB8y5XTgOIhWIJoZyEJWTP7pIVzIPL9arbFi8oUEQJWNIwMy37kApC/rRlAPXUHbU75UO8npXBekk5cXAm+Zo7QQfoKktb99+icWJ8zFp6+HqJcuTP6Z95etyaO2pW2Hlji3fBUmakvB0UwdaD9NzPFIOknAMjRD/w9UM2GtuI+bD0a+H3DWT3O9EuqWWeL9phyZZ4edKF2UUA2k46f1aQhrj08zjpcdxPAXKMBomkkOgSwmAl40S95V6ImclLcuJ6meqzuR+YL2w==
-Date: Wed, 14 Feb 2024 06:13:57 -0500
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: qemu-devel@nongnu.org
-Cc: Peter Maydell <peter.maydell@linaro.org>,
-	Bui Quang Minh <minhquangbui99@gmail.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Sunil Muthuswamy <sunilmut@microsoft.com>,
-	xen-devel@lists.xenproject.org
-Subject: [PULL 14/60] apic, i386/tcg: add x2apic transitions
-Message-ID: <774204cf9874e58dc7fc13394a505452357750ad.1707909001.git.mst@redhat.com>
-References: <cover.1707909001.git.mst@redhat.com>
+        d=1e100.net; s=20230601; t=1707909605; x=1708514405;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Rt1gKRJfgTQ1hdAu1e9zYcBvohmGTmI3u928D67LkQ0=;
+        b=bQu9N0du5Dm3vYp0zDaO2ALwprlSKHpbICBtSsSV2sRFGNh6BhxWMsS6506dp2XJCa
+         UHS90flxKs3Y1KKzmxhp52FLHaLNyzFHg8woQxD0Gla/uYv8K3N816X8FhYxySECJmgE
+         5EUcatwk03CghEP3EN8NvMJhTyYfldCgZNlqdFYWukFZ7laQhYRwqX8MdqsAZ0NKT0qg
+         h1J3YJnmDlyKbsT4flQHWCmQVkUedSE5sWQJUo+Ju++AsuajcQWFjS1LRyMUlvYvm0M3
+         x9U8fGA9sLAPy6sthIArEKYpTtirC3pSlklA3NRUc86MqVCi7BD9yjsLUnKQzA6/ssoI
+         Kxxg==
+X-Forwarded-Encrypted: i=1; AJvYcCUbL0QVJLsGw9iPs6g6g/FecAWNercJHKvc+A4ZUhGlxZpO0exUuz/vXhgEN6cqJWBaDaoijdEwFar1rsXWgXNGRjv+ZajLEKE2DniozAE=
+X-Gm-Message-State: AOJu0Yy5oGQADecwv7ruL5GJ4tMprw4pvwsjNwwYA6sQtrHmjjHn04ut
+	dMXr/nc2DIffMbsiCCzNjUwiztnAH1AUvALYmRYkRvFVzjM8La6V271HZ8aOEQ==
+X-Google-Smtp-Source: AGHT+IFjLkaqewCMOPDe0RsfnfaBR25sKq8cXcWypbnvWnvEYgaOsIUqdyzDYP8F9K2FW/QHXrfq9g==
+X-Received: by 2002:a05:600c:518e:b0:411:e398:9eff with SMTP id fa14-20020a05600c518e00b00411e3989effmr1255518wmb.37.1707909604664;
+        Wed, 14 Feb 2024 03:20:04 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCX6Iz8ndJ/Xn1eGE1NzMirEKgaX2wdgH8i6OY9Uc73NOAjdGUtguzagfxiBlafKXAd0pCoGbgf0IxHtZosM2i3CM1PCeTAk8G8M2FZkt+FjLyVd4EYUkjU2HxMchex7A3xauro0wc3BAM6eytLhdrc6v7rt2Y5S83iHsXigbOp41RvgZjO6SyF4LSL32F10KMTiIniJ0Q8dCcgi+VpdapXt6ManFKe9SJTJjhLeLK+4hXxrlBymN3tzPhERPkM3SzD5fKsJH6cwfgxZRjy1SZR+OT99bd7Un2wUH6AGaM3Qu7c9RmphLXA=
+Message-ID: <905ad2e9-ed7f-41f1-a660-456241dd059c@suse.com>
+Date: Wed, 14 Feb 2024 12:20:03 +0100
 MIME-Version: 1.0
-In-Reply-To: <cover.1707909001.git.mst@redhat.com>
-X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
-X-Mutt-Fcc: =sent
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/30] xen/riscv: introduce bitops.h
+Content-Language: en-US
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Alistair Francis <alistair.francis@wdc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>, Connor Davis
+ <connojdavis@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
+ <f76bd85f4b64a47c59c0b306ce425036819fa380.1707146506.git.oleksii.kurochko@gmail.com>
+ <b13fd044-c6db-45ab-83d0-3d02221967ed@suse.com>
+ <655eed7d1af08936ee3f42a0b88eeb2e197434e2.camel@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <655eed7d1af08936ee3f42a0b88eeb2e197434e2.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Bui Quang Minh <minhquangbui99@gmail.com>
+On 14.02.2024 12:06, Oleksii wrote:
+> On Mon, 2024-02-12 at 16:58 +0100, Jan Beulich wrote:
+>> On 05.02.2024 16:32, Oleksii Kurochko wrote:
+>>> +({                                                      \
+>>> +    unsigned long __res, __mask;                        \
+>>
+>> Leftover leading underscores?
+> It is how it was defined in Linux, so I thought that I've to leave it
+> as it, but I am OK to rename this variables in next patch version.
 
-This commit adds support for x2APIC transitions when writing to
-MSR_IA32_APICBASE register and finally adds CPUID_EXT_X2APIC to
-TCG_EXT_FEATURES.
+My view: If you retain Linux style, retaining such names is also (kind
+of) okay. If you convert to Xen style, then name changes are to occur
+as part of that conversion.
 
-The set_base in APICCommonClass now returns an integer to indicate error in
-execution. apic_set_base return -1 on invalid APIC state transition,
-accelerator can use this to raise appropriate exception.
+>>> +    __mask = BIT_MASK(nr);                              \
+>>> +    __asm__ __volatile__ (                              \
+>>> +        __AMO(op) #ord " %0, %2, %1"                    \
+>>> +        : "=r" (__res), "+A" (addr[BIT_WORD(nr)])       \
+>>> +        : "r" (mod(__mask))                             \
+>>> +        : "memory");                                    \
+>>> +    ((__res & __mask) != 0);                            \
+>>> +})
+>>> +
+>>> +#define __op_bit_ord(op, mod, nr, addr, ord)    \
+>>> +    __asm__ __volatile__ (                      \
+>>> +        __AMO(op) #ord " zero, %1, %0"          \
+>>> +        : "+A" (addr[BIT_WORD(nr)])             \
+>>> +        : "r" (mod(BIT_MASK(nr)))               \
+>>> +        : "memory");
+>>> +
+>>> +#define __test_and_op_bit(op, mod, nr, addr)    \
+>>> +    __test_and_op_bit_ord(op, mod, nr, addr, .aqrl)
+>>> +#define __op_bit(op, mod, nr, addr) \
+>>> +    __op_bit_ord(op, mod, nr, addr, )
+>>> +
+>>> +/* Bitmask modifiers */
+>>> +#define __NOP(x)    (x)
+>>> +#define __NOT(x)    (~(x))
+>>
+>> Here the (double) leading underscores are truly worrying: Simple
+>> names like this aren't impossible to be assigned meaninb by a
+>> compiler.
+> I am not really understand what is the difference for a compiler
+> between NOP and __NOP? Do you mean that the leading double underscores
+> (__) are often used to indicate that these macros are implementation-
+> specific and might be reserved for the compiler or the standard
+> library?
 
-Signed-off-by: Bui Quang Minh <minhquangbui99@gmail.com>
-Message-Id: <20240111154404.5333-4-minhquangbui99@gmail.com>
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
----
- include/hw/i386/apic.h               |  2 +-
- include/hw/i386/apic_internal.h      |  2 +-
- target/i386/cpu.h                    |  4 ++
- hw/i386/kvm/apic.c                   |  3 +-
- hw/i386/xen/xen_apic.c               |  3 +-
- hw/intc/apic.c                       | 62 +++++++++++++++++++++++++++-
- hw/intc/apic_common.c                | 13 +++---
- target/i386/cpu.c                    |  9 ++--
- target/i386/tcg/sysemu/misc_helper.c | 14 ++++++-
- target/i386/whpx/whpx-apic.c         |  3 +-
- 10 files changed, 96 insertions(+), 19 deletions(-)
+It's not "often used". Identifiers starting with two underscores or an
+underscore and a capital letter are reserved for the implementation
+(i.e. for the compiler's internal use). When not overly generic we
+stand a fair chance of getting away. But NOP and NOT are pretty generic.
 
-diff --git a/include/hw/i386/apic.h b/include/hw/i386/apic.h
-index c8ca41ab44..f6e7489f2d 100644
---- a/include/hw/i386/apic.h
-+++ b/include/hw/i386/apic.h
-@@ -8,7 +8,7 @@ int apic_accept_pic_intr(DeviceState *s);
- void apic_deliver_pic_intr(DeviceState *s, int level);
- void apic_deliver_nmi(DeviceState *d);
- int apic_get_interrupt(DeviceState *s);
--void cpu_set_apic_base(DeviceState *s, uint64_t val);
-+int cpu_set_apic_base(DeviceState *s, uint64_t val);
- uint64_t cpu_get_apic_base(DeviceState *s);
- void cpu_set_apic_tpr(DeviceState *s, uint8_t val);
- uint8_t cpu_get_apic_tpr(DeviceState *s);
-diff --git a/include/hw/i386/apic_internal.h b/include/hw/i386/apic_internal.h
-index e796e6cae3..d6e85833da 100644
---- a/include/hw/i386/apic_internal.h
-+++ b/include/hw/i386/apic_internal.h
-@@ -137,7 +137,7 @@ struct APICCommonClass {
- 
-     DeviceRealize realize;
-     DeviceUnrealize unrealize;
--    void (*set_base)(APICCommonState *s, uint64_t val);
-+    int (*set_base)(APICCommonState *s, uint64_t val);
-     void (*set_tpr)(APICCommonState *s, uint8_t val);
-     uint8_t (*get_tpr)(APICCommonState *s);
-     void (*enable_tpr_reporting)(APICCommonState *s, bool enable);
-diff --git a/target/i386/cpu.h b/target/i386/cpu.h
-index 08eaa61c56..dfe43b8204 100644
---- a/target/i386/cpu.h
-+++ b/target/i386/cpu.h
-@@ -379,6 +379,10 @@ typedef enum X86Seg {
- #define MSR_IA32_APICBASE_ENABLE        (1<<11)
- #define MSR_IA32_APICBASE_EXTD          (1 << 10)
- #define MSR_IA32_APICBASE_BASE          (0xfffffU<<12)
-+#define MSR_IA32_APICBASE_RESERVED \
-+        (~(uint64_t)(MSR_IA32_APICBASE_BSP | MSR_IA32_APICBASE_ENABLE \
-+                     | MSR_IA32_APICBASE_EXTD | MSR_IA32_APICBASE_BASE))
-+
- #define MSR_IA32_FEATURE_CONTROL        0x0000003a
- #define MSR_TSC_ADJUST                  0x0000003b
- #define MSR_IA32_SPEC_CTRL              0x48
-diff --git a/hw/i386/kvm/apic.c b/hw/i386/kvm/apic.c
-index 1e89ca0899..a72c28e8a7 100644
---- a/hw/i386/kvm/apic.c
-+++ b/hw/i386/kvm/apic.c
-@@ -95,9 +95,10 @@ void kvm_get_apic_state(DeviceState *dev, struct kvm_lapic_state *kapic)
-     apic_next_timer(s, s->initial_count_load_time);
- }
- 
--static void kvm_apic_set_base(APICCommonState *s, uint64_t val)
-+static int kvm_apic_set_base(APICCommonState *s, uint64_t val)
- {
-     s->apicbase = val;
-+    return 0;
- }
- 
- static void kvm_apic_set_tpr(APICCommonState *s, uint8_t val)
-diff --git a/hw/i386/xen/xen_apic.c b/hw/i386/xen/xen_apic.c
-index 7c7a60b166..101e16a766 100644
---- a/hw/i386/xen/xen_apic.c
-+++ b/hw/i386/xen/xen_apic.c
-@@ -49,8 +49,9 @@ static void xen_apic_realize(DeviceState *dev, Error **errp)
-     msi_nonbroken = true;
- }
- 
--static void xen_apic_set_base(APICCommonState *s, uint64_t val)
-+static int xen_apic_set_base(APICCommonState *s, uint64_t val)
- {
-+    return 0;
- }
- 
- static void xen_apic_set_tpr(APICCommonState *s, uint8_t val)
-diff --git a/hw/intc/apic.c b/hw/intc/apic.c
-index 178fb26b47..1d887d66b8 100644
---- a/hw/intc/apic.c
-+++ b/hw/intc/apic.c
-@@ -308,8 +308,49 @@ bool is_x2apic_mode(DeviceState *dev)
-     return s->apicbase & MSR_IA32_APICBASE_EXTD;
- }
- 
--static void apic_set_base(APICCommonState *s, uint64_t val)
-+static int apic_set_base_check(APICCommonState *s, uint64_t val)
- {
-+    /* Enable x2apic when x2apic is not supported by CPU */
-+    if (!cpu_has_x2apic_feature(&s->cpu->env) &&
-+        val & MSR_IA32_APICBASE_EXTD) {
-+        return -1;
-+    }
-+
-+    /*
-+     * Transition into invalid state
-+     * (s->apicbase & MSR_IA32_APICBASE_ENABLE == 0) &&
-+     * (s->apicbase & MSR_IA32_APICBASE_EXTD) == 1
-+     */
-+    if (!(val & MSR_IA32_APICBASE_ENABLE) &&
-+        (val & MSR_IA32_APICBASE_EXTD)) {
-+        return -1;
-+    }
-+
-+    /* Invalid transition from disabled mode to x2APIC */
-+    if (!(s->apicbase & MSR_IA32_APICBASE_ENABLE) &&
-+        !(s->apicbase & MSR_IA32_APICBASE_EXTD) &&
-+        (val & MSR_IA32_APICBASE_ENABLE) &&
-+        (val & MSR_IA32_APICBASE_EXTD)) {
-+        return -1;
-+    }
-+
-+    /* Invalid transition from x2APIC to xAPIC */
-+    if ((s->apicbase & MSR_IA32_APICBASE_ENABLE) &&
-+        (s->apicbase & MSR_IA32_APICBASE_EXTD) &&
-+        (val & MSR_IA32_APICBASE_ENABLE) &&
-+        !(val & MSR_IA32_APICBASE_EXTD)) {
-+        return -1;
-+    }
-+
-+    return 0;
-+}
-+
-+static int apic_set_base(APICCommonState *s, uint64_t val)
-+{
-+    if (apic_set_base_check(s, val) < 0) {
-+        return -1;
-+    }
-+
-     s->apicbase = (val & 0xfffff000) |
-         (s->apicbase & (MSR_IA32_APICBASE_BSP | MSR_IA32_APICBASE_ENABLE));
-     /* if disabled, cannot be enabled again */
-@@ -318,6 +359,25 @@ static void apic_set_base(APICCommonState *s, uint64_t val)
-         cpu_clear_apic_feature(&s->cpu->env);
-         s->spurious_vec &= ~APIC_SV_ENABLE;
-     }
-+
-+    /* Transition from disabled mode to xAPIC */
-+    if (!(s->apicbase & MSR_IA32_APICBASE_ENABLE) &&
-+        (val & MSR_IA32_APICBASE_ENABLE)) {
-+        s->apicbase |= MSR_IA32_APICBASE_ENABLE;
-+        cpu_set_apic_feature(&s->cpu->env);
-+    }
-+
-+    /* Transition from xAPIC to x2APIC */
-+    if (cpu_has_x2apic_feature(&s->cpu->env) &&
-+        !(s->apicbase & MSR_IA32_APICBASE_EXTD) &&
-+        (val & MSR_IA32_APICBASE_EXTD)) {
-+        s->apicbase |= MSR_IA32_APICBASE_EXTD;
-+
-+        s->log_dest = ((s->initial_apic_id & 0xffff0) << 16) |
-+                      (1 << (s->initial_apic_id & 0xf));
-+    }
-+
-+    return 0;
- }
- 
- static void apic_set_tpr(APICCommonState *s, uint8_t val)
-diff --git a/hw/intc/apic_common.c b/hw/intc/apic_common.c
-index 3c43ac9a1d..16ab40a35f 100644
---- a/hw/intc/apic_common.c
-+++ b/hw/intc/apic_common.c
-@@ -35,20 +35,19 @@
- 
- bool apic_report_tpr_access;
- 
--void cpu_set_apic_base(DeviceState *dev, uint64_t val)
-+int cpu_set_apic_base(DeviceState *dev, uint64_t val)
- {
-     trace_cpu_set_apic_base(val);
- 
-     if (dev) {
-         APICCommonState *s = APIC_COMMON(dev);
-         APICCommonClass *info = APIC_COMMON_GET_CLASS(s);
--        /* switching to x2APIC, reset possibly modified xAPIC ID */
--        if (!(s->apicbase & MSR_IA32_APICBASE_EXTD) &&
--            (val & MSR_IA32_APICBASE_EXTD)) {
--            s->id = s->initial_apic_id;
--        }
--        info->set_base(s, val);
-+        /* Reset possibly modified xAPIC ID */
-+        s->id = s->initial_apic_id;
-+        return info->set_base(s, val);
-     }
-+
-+    return 0;
- }
- 
- uint64_t cpu_get_apic_base(DeviceState *dev)
-diff --git a/target/i386/cpu.c b/target/i386/cpu.c
-index ef46755a50..2126b0e589 100644
---- a/target/i386/cpu.c
-+++ b/target/i386/cpu.c
-@@ -631,8 +631,8 @@ void x86_cpu_vendor_words2str(char *dst, uint32_t vendor1,
-  * in CPL=3; remove them if they are ever implemented for system emulation.
-  */
- #if defined CONFIG_USER_ONLY
--#define CPUID_EXT_KERNEL_FEATURES (CPUID_EXT_PCID | CPUID_EXT_TSC_DEADLINE_TIMER | \
--                                 CPUID_EXT_X2APIC)
-+#define CPUID_EXT_KERNEL_FEATURES \
-+          (CPUID_EXT_PCID | CPUID_EXT_TSC_DEADLINE_TIMER)
- #else
- #define CPUID_EXT_KERNEL_FEATURES 0
- #endif
-@@ -642,12 +642,13 @@ void x86_cpu_vendor_words2str(char *dst, uint32_t vendor1,
-           CPUID_EXT_XSAVE | /* CPUID_EXT_OSXSAVE is dynamic */   \
-           CPUID_EXT_MOVBE | CPUID_EXT_AES | CPUID_EXT_HYPERVISOR | \
-           CPUID_EXT_RDRAND | CPUID_EXT_AVX | CPUID_EXT_F16C | \
--          CPUID_EXT_FMA | CPUID_EXT_KERNEL_FEATURES)
-+          CPUID_EXT_FMA | CPUID_EXT_X2APIC | CPUID_EXT_KERNEL_FEATURES)
-           /* missing:
-           CPUID_EXT_DTES64, CPUID_EXT_DSCPL, CPUID_EXT_VMX, CPUID_EXT_SMX,
-           CPUID_EXT_EST, CPUID_EXT_TM2, CPUID_EXT_CID,
-           CPUID_EXT_XTPR, CPUID_EXT_PDCM, CPUID_EXT_PCID, CPUID_EXT_DCA,
--          CPUID_EXT_X2APIC, CPUID_EXT_TSC_DEADLINE_TIMER */
-+          CPUID_EXT_TSC_DEADLINE_TIMER
-+          */
- 
- #ifdef TARGET_X86_64
- #define TCG_EXT2_X86_64_FEATURES CPUID_EXT2_LM
-diff --git a/target/i386/tcg/sysemu/misc_helper.c b/target/i386/tcg/sysemu/misc_helper.c
-index 1c43a9f4f7..7de0a6e866 100644
---- a/target/i386/tcg/sysemu/misc_helper.c
-+++ b/target/i386/tcg/sysemu/misc_helper.c
-@@ -158,9 +158,19 @@ void helper_wrmsr(CPUX86State *env)
-     case MSR_IA32_SYSENTER_EIP:
-         env->sysenter_eip = val;
-         break;
--    case MSR_IA32_APICBASE:
--        cpu_set_apic_base(env_archcpu(env)->apic_state, val);
-+    case MSR_IA32_APICBASE: {
-+        int ret;
-+
-+        if (val & MSR_IA32_APICBASE_RESERVED) {
-+            goto error;
-+        }
-+
-+        ret = cpu_set_apic_base(env_archcpu(env)->apic_state, val);
-+        if (ret < 0) {
-+            goto error;
-+        }
-         break;
-+    }
-     case MSR_EFER:
-         {
-             uint64_t update_mask;
-diff --git a/target/i386/whpx/whpx-apic.c b/target/i386/whpx/whpx-apic.c
-index 8710e37567..7e14ded978 100644
---- a/target/i386/whpx/whpx-apic.c
-+++ b/target/i386/whpx/whpx-apic.c
-@@ -90,9 +90,10 @@ static void whpx_get_apic_state(APICCommonState *s,
-     apic_next_timer(s, s->initial_count_load_time);
- }
- 
--static void whpx_apic_set_base(APICCommonState *s, uint64_t val)
-+static int whpx_apic_set_base(APICCommonState *s, uint64_t val)
- {
-     s->apicbase = val;
-+    return 0;
- }
- 
- static void whpx_put_apic_base(CPUState *cpu, uint64_t val)
--- 
-MST
+>>> +#include <asm-generic/bitops/fls.h>
+>>> +#include <asm-generic/bitops/flsl.h>
+>>> +#include <asm-generic/bitops/__ffs.h>
+>>> +#include <asm-generic/bitops/ffs.h>
+>>> +#include <asm-generic/bitops/ffsl.h>
+>>> +#include <asm-generic/bitops/ffz.h>
+>>> +#include <asm-generic/bitops/find-first-set-bit.h>
+>>> +#include <asm-generic/bitops/hweight.h>
+>>> +#include <asm-generic/bitops/test-bit.h>
+>>
+>> To be honest there's too much stuff being added here to asm-generic/,
+>> all in one go. I'll see about commenting on the remaining parts here,
+>> but I'd like to ask that you seriously consider splitting.
+> Would it be better to send it outside of this patch series? I can
+> create a separate patch series with a separate patch for each asm-
+> generic/bitops/*.h
 
+Not sure. Depends in part on whether then you'd effectively introduce
+dead code. If the introduction was such that RISC-V used the new ones
+right away, then yes, that would quite likely be better.
+
+Jan
 
