@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29B7F8548A1
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 12:42:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680621.1058676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E0238548A3
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 12:42:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680622.1058685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDeP-0006WU-3w; Wed, 14 Feb 2024 11:42:05 +0000
+	id 1raDeR-0006qv-FJ; Wed, 14 Feb 2024 11:42:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680621.1058676; Wed, 14 Feb 2024 11:42:05 +0000
+Received: by outflank-mailman (output) from mailman id 680622.1058685; Wed, 14 Feb 2024 11:42:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDeP-0006Tq-01; Wed, 14 Feb 2024 11:42:05 +0000
-Received: by outflank-mailman (input) for mailman id 680621;
- Wed, 14 Feb 2024 11:42:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1raDeR-0006n7-Av; Wed, 14 Feb 2024 11:42:07 +0000
+Received: by outflank-mailman (input) for mailman id 680622;
+ Wed, 14 Feb 2024 11:42:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WArD=JX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1raDeN-0005Pc-1p
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 11:42:03 +0000
-Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
- [2a00:1450:4864:20::234])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 11f41b25-cb2e-11ee-8a4d-1f161083a0e0;
- Wed, 14 Feb 2024 12:42:02 +0100 (CET)
-Received: by mail-lj1-x234.google.com with SMTP id
- 38308e7fff4ca-2d0a4e1789cso63429811fa.3
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 03:42:02 -0800 (PST)
+ id 1raDeQ-0006Bc-07
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 11:42:06 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 13158367-cb2e-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 12:42:04 +0100 (CET)
+Received: by mail-lj1-x235.google.com with SMTP id
+ 38308e7fff4ca-2d0d7985dfdso75380661fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 03:42:04 -0800 (PST)
 Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- t27-20020a05620a035b00b00785367e5a93sm3725905qkm.77.2024.02.14.03.42.00
+ bl20-20020a05620a1a9400b007871de8ec59sm1213626qkb.129.2024.02.14.03.42.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Feb 2024 03:42:01 -0800 (PST)
+ Wed, 14 Feb 2024 03:42:03 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,44 +44,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11f41b25-cb2e-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 13158367-cb2e-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707910921; x=1708515721; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707910924; x=1708515724; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zbHWtGQxe+lF1Oh/RMVx/RWGcnqoQ1bvQB9vtnF0JLs=;
-        b=EYpQ//rDxIqwy1B+4GD0x8hPSRnVtDTLHzBFTJ2Hnx5DJNTCU9yFTcH4C1thxsqL6a
-         W4SRlMeEmgwD1Mhyu/N0Nq4UqaD672Yf0Ajev47TOmgsd8iHmTEtSg+o33jgDcLud5DU
-         4n9Wa2knLdio+MxODqUcvz/LU7NHkt5UnHL2Y=
+        bh=GJNvqG2IGk9PsE23BxVL4PP6tdgbjCcG8XCSUoGj9SA=;
+        b=fYam6ZkLBgALIdNuWAFx7UiX271DdFtImeyeOUyx0kknu/6atDJK797eneyGEVVYhS
+         Re7FTwNIL6a7pRFuGgV2Iyr+2hpPlEB7IXFqUl91lG075/qjkC0lMAiyo+yDzpdRYj7E
+         dH2BKL9+62Ej1Omt6nIJkUIPx44P07ojnFS/4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707910921; x=1708515721;
+        d=1e100.net; s=20230601; t=1707910924; x=1708515724;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=zbHWtGQxe+lF1Oh/RMVx/RWGcnqoQ1bvQB9vtnF0JLs=;
-        b=mKVgHBj5O+Cj9CtuHET/JOD7OQyhhCCvUUIBefapmqvqH6Abp3r7Fo5fCNJWLDfLTC
-         Kvvh97/D5IXSSAQJcspcTCpxkD3IKLyWx1REP1j8vAOUt26ElA21ibfDLJ4+BAWKDN7d
-         Ba6mpFct3wro5GiPIxje7kSjJaDlhJhxKYavvdu1qwUBzJ6dTiKPOCvBKwHfx8VzplxL
-         NCj5/5/oYyFYd+XfIx/jjIk0OsXtHBRkoFIuYVHg/1J1YhqDQbchg9ZNLcqQZI1qjqCp
-         Q6wFcX6pHczbyeL/2QDS6yl7WCcorbnnPwOtA35X3nnX78ZlEK2dqj/RKCEfNxcqTL0z
-         z53g==
-X-Gm-Message-State: AOJu0Yz/LRmKR4oVSN5pQ3YcAyR9lkgNnjwXYHMWaJWo+4c7wTpi5qGk
-	PdnTQMKSAaFYvnSNxgw+zMBCEmUBNt46c87Dw20esoaRgbeWychd9CXPlIJETwb7rKTg3WdL73K
-	C
-X-Google-Smtp-Source: AGHT+IGit4GnXlDQsJF49FMFMw89YetTn+GHy8FchTC0tzsg9sECFBGs3fbenu35rI3rLBMV31tpzA==
-X-Received: by 2002:a05:651c:151:b0:2d0:f8d7:a91c with SMTP id c17-20020a05651c015100b002d0f8d7a91cmr1741911ljd.52.1707910921603;
-        Wed, 14 Feb 2024 03:42:01 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUIoLUKXv+O3lO+DQm8w35xbRtpWa1TiHlLqcDtv8HdUSV3S5HOln3aAlDvmfHXGpKEXTs7ptD7YkFg0uKVcLfTuoxR2AZ6VnQO3W3/WF61dzMvtunXuzIzsKFv35Xl+m2yov/Lms2Klb44
+        bh=GJNvqG2IGk9PsE23BxVL4PP6tdgbjCcG8XCSUoGj9SA=;
+        b=Jv1OUFNCs97A6mBuOwtiX8IwfECfW+cxMgtARfOKdbg2I09j5QnwKkGSmdrSJot9Yo
+         fvym4KYl37Zbb+HKlqKILlXnPuLn4CkwTs1wEIq+Pq0VabNapjYSYBT44eFEwW5sdHhh
+         JE3R5NwmPgUy6z5JenAXkSARBZWWtacd/GMsz1cZ3XXBQHYfiDaTNtGotEVobFMqQt/2
+         5+n1EDtMe8HXspF77yEV7Ju5Tzerm15h+WMBUnDaJujgdKkMpNTidvJRr5f797q/w/CQ
+         ZpEi/FA6DWJEcbyZLlIphEI04JRhEQIop7w2AIYDDDFx0Q6B3lsi0/9BYzzmPldanmik
+         zXQg==
+X-Gm-Message-State: AOJu0YwNYjinrEf71GABLCv30e9q9xxP6NHdHcR/nxqbKtKKfV6Oi9oZ
+	6jXy6f7JvR0ER0b/TQlDMgAkSpO9mCuBBhA6g8pb5qToX6b6s+yRRxPgxmdQYrZoB9zCEJJQbm7
+	V
+X-Google-Smtp-Source: AGHT+IERu49AGLIkPi283NJAq1+/A4S0ucosD9AQdE9Pv8SPP/1s0udEm7HZ9T+ks4n26Nx+Dh+bSQ==
+X-Received: by 2002:a05:651c:1425:b0:2d0:aa28:6f77 with SMTP id u37-20020a05651c142500b002d0aa286f77mr1534669lje.45.1707910923934;
+        Wed, 14 Feb 2024 03:42:03 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUiClLFOh55PWam1Jc8L+bOL+KWodINot4ElxIAPkcWyyWduLUh/Prog/oIShPDXpmPyM3yEHr7dTmShha8Q3352O8rjla6S86V9p2imJdeYf6w26ogCW+bDGotQ1PWpRU9QYo/3P1p28QE3F9akc6c0XsZnqZDq11Gfk7rmbmUlusoxxZmcFHZ6gcDyeeTzaTBbc1XbKZZoEFkRSmCp1gcSLuILQsOZvtiYQ==
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Paul Durrant <paul@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 4/5] iommu/x86: print page type in IVMD/RMRR check in case of error
-Date: Wed, 14 Feb 2024 11:37:40 +0100
-Message-ID: <20240214103741.16189-5-roger.pau@citrix.com>
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH 5/5] mm: add the __must_check attribute to {gfn,mfn}_add()
+Date: Wed, 14 Feb 2024 11:37:41 +0100
+Message-ID: <20240214103741.16189-6-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240214103741.16189-1-roger.pau@citrix.com>
 References: <20240214103741.16189-1-roger.pau@citrix.com>
@@ -89,30 +92,42 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Provide more information in case the page can't be converted, and print the
-original type(s).
+It's not obvious from the function itself whether the incremented value will be
+stored in the parameter, or returned to the caller.  That has leads to bugs in
+the past as callers assume the incremented value is stored in the parameter.
 
-Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Add the __must_check attribute to the function to easily spot callers that
+don't consume the returned value, which signals an error in the caller logic.
+
+No functional change intended.
+
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/drivers/passthrough/x86/iommu.c | 4 ++--
+ xen/include/xen/mm-frame.h | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index e713cf803e8a..217409c29644 100644
---- a/xen/drivers/passthrough/x86/iommu.c
-+++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -827,8 +827,8 @@ bool __init iommu_unity_region_ok(const char *prefix, mfn_t start, mfn_t end)
-                      RAM_TYPE_UNUSABLE) )
-             continue;
+diff --git a/xen/include/xen/mm-frame.h b/xen/include/xen/mm-frame.h
+index 922ae418807a..c25e836f255a 100644
+--- a/xen/include/xen/mm-frame.h
++++ b/xen/include/xen/mm-frame.h
+@@ -23,7 +23,7 @@ TYPE_SAFE(unsigned long, mfn);
+ #undef mfn_x
+ #endif
  
--        printk(XENLOG_ERR "%s: page at %#lx can't be converted\n",
--               prefix, paddr_to_pfn(addr));
-+        printk(XENLOG_ERR "%s: page at %#lx can't be converted (type %#x)\n",
-+               prefix, paddr_to_pfn(addr), type);
-         return false;
-     }
+-static inline mfn_t mfn_add(mfn_t mfn, unsigned long i)
++static inline mfn_t __must_check mfn_add(mfn_t mfn, unsigned long i)
+ {
+     return _mfn(mfn_x(mfn) + i);
+ }
+@@ -62,7 +62,7 @@ TYPE_SAFE(unsigned long, gfn);
+ #undef gfn_x
+ #endif
  
+-static inline gfn_t gfn_add(gfn_t gfn, unsigned long i)
++static inline gfn_t __must_check gfn_add(gfn_t gfn, unsigned long i)
+ {
+     return _gfn(gfn_x(gfn) + i);
+ }
 -- 
 2.43.0
 
