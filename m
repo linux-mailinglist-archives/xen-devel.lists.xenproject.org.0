@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2CE8854843
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 12:27:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680594.1058595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8D15854862
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 12:31:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680599.1058606 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDQU-0008Hx-7M; Wed, 14 Feb 2024 11:27:42 +0000
+	id 1raDTX-0001Rx-Kz; Wed, 14 Feb 2024 11:30:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680594.1058595; Wed, 14 Feb 2024 11:27:42 +0000
+Received: by outflank-mailman (output) from mailman id 680599.1058606; Wed, 14 Feb 2024 11:30:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDQU-0008GQ-4H; Wed, 14 Feb 2024 11:27:42 +0000
-Received: by outflank-mailman (input) for mailman id 680594;
- Wed, 14 Feb 2024 11:27:40 +0000
+	id 1raDTX-0001Pq-Hh; Wed, 14 Feb 2024 11:30:51 +0000
+Received: by outflank-mailman (input) for mailman id 680599;
+ Wed, 14 Feb 2024 11:30:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3HRx=JX=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1raDQS-0007mb-KI
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 11:27:40 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=VWPZ=JX=gmail.com=w1benny@srs-se1.protection.inumbo.net>)
+ id 1raDTW-0001Pk-KE
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 11:30:50 +0000
+Received: from mail-oa1-x34.google.com (mail-oa1-x34.google.com
+ [2001:4860:4864:20::34])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0f1c83a9-cb2c-11ee-98f5-efadbce2ee36;
- Wed, 14 Feb 2024 12:27:39 +0100 (CET)
-Received: from [172.20.10.2] (unknown [37.163.90.143])
- by support.bugseng.com (Postfix) with ESMTPSA id 4B8374EE0738;
- Wed, 14 Feb 2024 12:27:37 +0100 (CET)
+ id 7fdcf12e-cb2c-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 12:30:48 +0100 (CET)
+Received: by mail-oa1-x34.google.com with SMTP id
+ 586e51a60fabf-2185739b64cso3403076fac.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 03:30:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +40,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0f1c83a9-cb2c-11ee-98f5-efadbce2ee36
-Message-ID: <40b7465f-4966-43c7-8db3-e28a6cc48445@bugseng.com>
-Date: Wed, 14 Feb 2024 12:27:35 +0100
+X-Inumbo-ID: 7fdcf12e-cb2c-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1707910247; x=1708515047; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6g+2n+lFd1EoSzGvfq+eeDzfB8zXGJFLjsEcNhQw+uw=;
+        b=My5atkWn9hVxmW7l1BnNCO7hD7Z4q8xe80XRMO/3/0+g77Q6g8Ier9GUDJypnHyT2h
+         vafaGzWgeyFWycJsKOQUvaEZA+sf8ZGv7dkazgsYaz3gsm2XQMFeFkVmyJxz2IQBPfXF
+         v9MbEGj3+/5JyoOaoJeM5qNpvCzIPa7S8iRtzKL1bCUZ+6Z+GYrWxjmjqw9TC3QZ3bzo
+         Mn/Ih1y7qaFFHjgghjAR/n8b/3Tt2MdgURctjPjj5m/xrPyfIR5MzyXD+O9+K7voZDSZ
+         MX2zGHKbNHtiA3Jvs0Mez0TGLcGGVd753t5SIsfr1hr75FjxOESM31fmlPhKAjUD9mlN
+         mVug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707910247; x=1708515047;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=6g+2n+lFd1EoSzGvfq+eeDzfB8zXGJFLjsEcNhQw+uw=;
+        b=Hek6lHutQwGNu5RLtL54cKm1ge95TrTEJgwb2OdEVPKb3dnBYhdfZ0MDeAkkTEtza6
+         yjA90stCVNdX1nnydZOse5Dm0itvl7BBErrodnMrVoD9CeXuHAO1HheTeQNGCBbackyW
+         rP2fU5K9RhqdyjJv0Lum6U0FlyS0LjPjJ0eYIOvG+AQPPGnejOcAlY3UV0Ds9sbVdeAM
+         WLtDSYBRgP0XNMMBVO/PpZj7s34l7Ldu+5WyW7J3bwlHd60MGS+RjFLeu79PgjbikrhU
+         nBzY5D4kVESJPSo52YDHV2/G/WzwdTLEdiOrkYMQrj8nvI+sX67oSAB58Pri9hVsgfC7
+         1H9w==
+X-Forwarded-Encrypted: i=1; AJvYcCXlXTuohuuu/nR3xUz9O/Vy8dyMm2omoJqmq0OjbjLZQcQNor7c4a+ADHl5F0Ltk7OH+5/Y5qRi0VcGf6suG4D5ZJdWjwm/6Z38IBdMgF8=
+X-Gm-Message-State: AOJu0YxzKVZAKNSU3zVFt+TGQPfND2pOZIOemKRjCDdJfUInHG/CL71o
+	7v+cKFAiiDDIeS6oGeb2DugXgEVD5okH3+1TWdmYM5gyWYcft7digIQhOV8vDECKJSCHhYQOofn
+	+UeRitS/mhWEEDbgnNAMEm+pJF6M=
+X-Google-Smtp-Source: AGHT+IFRBf+8YTuGQPtDmqCnI+rSbaLJuYzTauzsLB1Fco8wJ+FQbHxHl4JbLzq7cRWpTLrJ1nuoC3X+IIZOhSuYfxQ=
+X-Received: by 2002:a05:6870:d628:b0:21a:6563:f4d3 with SMTP id
+ a40-20020a056870d62800b0021a6563f4d3mr2398037oaq.49.1707910247408; Wed, 14
+ Feb 2024 03:30:47 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] docs/misra/rules.rst: add rule 5.5
-Content-Language: en-US, it
-To: Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <stefano.stabellini@amd.com>, roberto.bagnara@bugseng.com
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
- bertrannd.marquis@arm.com, roger.pau@citrix.com,
- xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2402131431070.1925432@ubuntu-linux-20-04-desktop>
- <20240213223334.3693410-2-stefano.stabellini@amd.com>
- <50719397-b053-43e1-9cf7-cc9eae9098ed@suse.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <50719397-b053-43e1-9cf7-cc9eae9098ed@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <9b9909c9e93cb540b3488c784935acc2bc9e071e.1707343396.git.w1benny@gmail.com>
+ <3A858D7F-C953-4EF0-8919-AE96D6105AB1@cloud.com> <01b0d902-1903-4618-ad43-f625e57b61e1@suse.com>
+In-Reply-To: <01b0d902-1903-4618-ad43-f625e57b61e1@suse.com>
+From: =?UTF-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>
+Date: Wed, 14 Feb 2024 12:30:36 +0100
+Message-ID: <CAKBKdXjdOoGSbN_c4gyBqAHni+D4+o+gC=LNc4VEaaezYYki+g@mail.gmail.com>
+Subject: Re: [PATCH] tools/ocaml: Add missing vmtrace_buf_kb field
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Christian Lindig <christian.lindig@cloud.com>, Xen-devel <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, David Scott <dave@recoil.org>, Wei Liu <wl@xen.org>, 
+	Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 14/02/24 09:28, Jan Beulich wrote:
-> On 13.02.2024 23:33, Stefano Stabellini wrote:
->> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->> ---
->>   docs/misra/rules.rst | 6 ++++++
->>   1 file changed, 6 insertions(+)
->>
->> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
->> index c185366966..931158b354 100644
->> --- a/docs/misra/rules.rst
->> +++ b/docs/misra/rules.rst
->> @@ -181,6 +181,12 @@ maintainers if you want to suggest a change.
->>          headers (xen/include/public/) are allowed to retain longer
->>          identifiers for backward compatibility.
->>   
->> +   * - `Rule 5.5 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_05.c>`_
->> +     - Required
->> +     - Identifiers shall be distinct from macro names
->> +     - Clashes between function-like macros and non-callable entities
->> +       are allowed. The pattern #define x x is also allowed.
-> 
-> Just for me to know what exactly is covered (hence also a question
-> to Roberto as to [to be] implemented Eclair behavior): Even when
-> the above would be sufficient (and imo better) people frequently
-> write
-> 
-> #define a(x, y) b(x, y)
-> 
-> which, transformed to the specific case here, would then be
-> 
-> #define a(x, y) a(x, y)
-> 
-> I'd assume such ought to also be covered, but that's not clear
-> from the spelling above.
+On Wed, Feb 14, 2024 at 8:12=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 08.02.2024 10:13, Christian Lindig wrote:
+> >> On 7 Feb 2024, at 22:04, Petr Bene=C5=A1 <w1benny@gmail.com> wrote:
+> >> Add the missing `vmtrace_buf_kb` field to the OCaml bindings to match =
+the
+> >> vm.cfg configuration, correcting an oversight from its initial introdu=
+ction.
+> >>
+> >> Signed-off-by: Petr Bene=C5=A1 <w1benny@gmail.com>
+> >
+> > Acked-by: Christian Lindig <christian.lindig@cloud.com>
+> >
+> > This looks correct from an OCaml perspective. Why was the new field add=
+ed in the middle of the record type domctl_create_config and thus forcing c=
+hanges to the index of fields coming later in the record versus just append=
+ing the new field to the record type?
+> >
+> > The critical bit is using the correct type in "Int32_val(VAL_VMTRACE_BU=
+F_KB)=E2=80=9D that matches the type "vmtrace_buf_kb: int32;=E2=80=9D - whi=
+ch it does.
+>
+> Is this then perhaps also lacking a
+>
+> Fixes: 45ba9a7d7688 ("tools/[lib]xl: Add vmtrace_buf_size parameter")
+>
+> and hence wanting backporting?
+>
+> Jan
 
-I list what happens in some different situations,
-then we can find the right words for the documentation and/or
-refine the configuration:
+In my opinion, yes.
 
-If you
-#define x x
-and then use `x' as identifier,
-the resulting violation is deviated (allowed pattern).
-
-If you
-#define a(x, y) a(x, y)
-and then use `a' as identifier for a non-callable entity,
-the resulting violation is deviated (no clash with non-callable
-entities).
-If you use identifier `a' for a callable entity, the resulting violation
-is reported: the allowed pattern covers only macros expanding to their
-own name, in this case the macro name is considered to be
-`a' only, not a(x, y).
-
-If you
-#define a(x, y) b(x, y)
-and then use `a' as identifier for a non-callable entity,
-the resulting violation is deviated (no clash with non-callable
-entities).
-If you use `a' as identifier for a callable entity,
-this is not a violation because after the preprocessing phase,
-identifier `a' no longer exists.
-
-As far as I know, this is what was agreed upon in one of the recent
-MISRA meetings.
-
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+P.
 
