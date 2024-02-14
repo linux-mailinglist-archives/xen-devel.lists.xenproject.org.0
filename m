@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 478FA854A81
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 14:30:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680765.1058875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDD51854A82
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 14:31:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680767.1058886 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raFLL-0005CV-OK; Wed, 14 Feb 2024 13:30:31 +0000
+	id 1raFLb-0005Ym-03; Wed, 14 Feb 2024 13:30:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680765.1058875; Wed, 14 Feb 2024 13:30:31 +0000
+Received: by outflank-mailman (output) from mailman id 680767.1058886; Wed, 14 Feb 2024 13:30:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raFLL-0005Az-La; Wed, 14 Feb 2024 13:30:31 +0000
-Received: by outflank-mailman (input) for mailman id 680765;
- Wed, 14 Feb 2024 13:30:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mIjL=JX=cloud.com=christian.lindig@srs-se1.protection.inumbo.net>)
- id 1raFLK-00058m-Ka
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 13:30:30 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38a16fe8-cb3d-11ee-8a4d-1f161083a0e0;
- Wed, 14 Feb 2024 14:30:30 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id
- a640c23a62f3a-a26ed1e05c7so305539866b.2
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 05:30:30 -0800 (PST)
-Received: from smtpclient.apple ([160.101.139.1])
- by smtp.gmail.com with ESMTPSA id
- ca23-20020a170906a3d700b00a3caccb8f66sm2320867ejb.44.2024.02.14.05.30.29
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 14 Feb 2024 05:30:29 -0800 (PST)
+	id 1raFLa-0005Wa-Sj; Wed, 14 Feb 2024 13:30:46 +0000
+Received: by outflank-mailman (input) for mailman id 680767;
+ Wed, 14 Feb 2024 13:30:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1raFLZ-0005Ti-5P
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 13:30:45 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 40ac8e04-cb3d-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 14:30:43 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-411d2836b20so9707015e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 05:30:43 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ h16-20020a056000001000b0033cdedb3e84sm3964907wrx.18.2024.02.14.05.30.42
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Feb 2024 05:30:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,71 +45,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38a16fe8-cb3d-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 40ac8e04-cb3d-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud; t=1707917429; x=1708522229; darn=lists.xenproject.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Uw6dNung5bnivI0pZ1zZjo9g75/H0AXcN8gPbhDiXss=;
-        b=KSo68wxhpFY6jjzwDIyT6ozfSAkuwqh8KzRJnNRX7Je61RD5NJobTWhhuidZUaXLpa
-         BiaB8J6H7yYTkyz3ravt4HpJvrghY6NbuQND9W6wEQkEW+NuOrPD+wpjHUnMI1SljsfZ
-         y64Vmglew8euNCMgAoE0UMXkiUd1HA6Jx9o2g=
+        d=suse.com; s=google; t=1707917443; x=1708522243; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6Jnwz2PcsLE2CA+AOjY9sKso1knmUH7H5GPWbGxMJW0=;
+        b=IZVHLb5fc8tTzv7xQ/4ljwvMq2reyLEZYScWi4EpjBUkqtQp+VJcmlSmRq09etvbqV
+         QWh6pXCBCFVzpLleUPmN85DvPdQAHGX7HpdfWrw5ZgcERtG0AwCvyV7i9o3ozqssz1y/
+         4FZxS8iSisiTpcy3YasX8A4eO+U3ffl3b2QMVs3IdjephBr+LmVAFkXco/EXScwcTKxR
+         iODciQ/uutPWFsj7E0L2MaRAaGqGGoNXXzVhwAl+HMNlkVoJU3qLLAAMFWK/CMefGR9P
+         gwlTslts8lTeZ7/TWwGgtnNTKE5/Vr2VuavMcpNDA1BTMhKWtJwkcfMzM52oYiB2B9N/
+         dqOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707917429; x=1708522229;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Uw6dNung5bnivI0pZ1zZjo9g75/H0AXcN8gPbhDiXss=;
-        b=d345bHiE4DMl8x3JphXKfU5ZrcibwAPA/yzX334OJd6y+z0ikzPCYOnJfRA04D56zB
-         aDVa2LdgDKDR3yLtb4594N2VUYnZAe/RKiYlJLchiB5/zwJLba38jg4ZLZPKivC9TjHi
-         Xnnw+5lJIFucsi8gjW1qs2LEXMeAERfJXFgFaH1pt6W+BxK4+zqfdul19schV3uYwUUz
-         RnAydoTp8gJ6CrwY41aWcelbZOQjEjs84f6FMUKTnVEBaMtuK3r9JQFXSnL0Cw9189RH
-         lxOl0iNIY6fkSHL+9aMhT1Fw0kL4DtbLXrbd3ESiGEuo797pfJdEHD9uLjwRpHXExBfy
-         usmQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXW7cXsD0CJcTnBEkmpV+ma6HC8ZgjIL/jprZGiiI/JKR1G8rp/jqZpUSlRhkhRWoxZO2QzXUmIxRL7nmIo1uHv9PjViLtqv0qLpizi2GU=
-X-Gm-Message-State: AOJu0YyS809yo+3bfC/Flb3pFKbRQGQ6xej8CHlB8Tzj6m31Uo8NnzzP
-	vvCGGg7fMznVRgO/0+xo0p0/lcgkuRID2wZJ7lqh/9b8bcjvCJj634hVoEk6O4o=
-X-Google-Smtp-Source: AGHT+IGxz8DX0Ag72bUYpwxMmZMfMVxz43iA5Rv2wIQbj18PV9FEV9Y0y5opL0oobHowAIW3877dkA==
-X-Received: by 2002:a17:906:fa94:b0:a3c:d7a5:6ab1 with SMTP id lt20-20020a170906fa9400b00a3cd7a56ab1mr2002258ejb.0.1707917429565;
-        Wed, 14 Feb 2024 05:30:29 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCWsjtZTSMqkhrsgb+rgBtIdXw8ZqLqhmTSLZzqNeyaea4TG2jy2ZoBnWcf0TINsd7Pbc7eK5OKfhFYjLDwCNh/udgooIPVdHROw5myT6uurom4RxDxKgChm446IWt403keBZUwCe6tTCWpLAHMVpDCmP9Qjk0uXCQsZP0DwfCU2pxLJCA5wp/chtLfFRU/yWpFdzB33eqXKJtk=
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.200.91.1.1\))
-Subject: Re: [PATCH] tools/ocaml: Add missing vmtrace_buf_kb field
-From: Christian Lindig <christian.lindig@cloud.com>
-In-Reply-To: <046415d5-d4f4-4870-a588-60637ea3bc3a@citrix.com>
-Date: Wed, 14 Feb 2024 13:30:18 +0000
-Cc: Jan Beulich <jbeulich@suse.com>,
- =?utf-8?Q?Petr_Bene=C5=A1?= <w1benny@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- David Scott <dave@recoil.org>,
- Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <217314CC-5717-4253-9DEC-61D5DA1E52AC@cloud.com>
-References: <9b9909c9e93cb540b3488c784935acc2bc9e071e.1707343396.git.w1benny@gmail.com>
- <3A858D7F-C953-4EF0-8919-AE96D6105AB1@cloud.com>
- <01b0d902-1903-4618-ad43-f625e57b61e1@suse.com>
- <046415d5-d4f4-4870-a588-60637ea3bc3a@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-X-Mailer: Apple Mail (2.3774.200.91.1.1)
+        d=1e100.net; s=20230601; t=1707917443; x=1708522243;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=6Jnwz2PcsLE2CA+AOjY9sKso1knmUH7H5GPWbGxMJW0=;
+        b=GgMAf/oqRqFNt/f5ja/DcCf9f5n/SD/X6KGuu1+1X8RXZpKX7ojxhkTcMQ1O93JBBT
+         /hxQ3adfakn0+Xumr3I3b+JOXyTYSvcvgIUfDOoQLyXZQswjpAPiyONdy+mpMcsnBBoJ
+         RxUMkmXGdRbvXoXGlaem21EB0/y+9K7dmmWz0L9p04ad78LFsbmPiIPDDbm96NOnIBbx
+         Di7Cj6o+5jBk1jMOhvrcjlGlFdQV9axg6GDPmieZmGf7sn8otWH2BmYYwKoTewL5yI8S
+         UVwHm42uru4Jxziv8fk/eURV+US3Y6LHgCNnOF4R1savMkdNIpMEy2reTOF4BOh8JfZm
+         Ji2Q==
+X-Forwarded-Encrypted: i=1; AJvYcCUGGfL0Vx781LouIb8WYWhUIard4fcdoxSvcBAGuKptfGkqX5Ies6ytxIQnmO9knETw+lX/CSaAgEIlDg+T0XsncUmwmfcjRioCnwXeyVo=
+X-Gm-Message-State: AOJu0Yx/geq9DLgNdtI7S1IjqGJFWj3m7NaFtKIEsVZGd1GIRj5bY5wU
+	JUOtaCtCRcZBrbDutkBvTCFS8O3lXYL/63u+bJSilKuqY7U7NuOjYsbxp6pFkA==
+X-Google-Smtp-Source: AGHT+IETjPPahs5Lk0gw+/zX+JTKxLg6vZib0nEN5qtQG7aWtiQOIY2IgTqwjZjher/6Aj4Oze4nfA==
+X-Received: by 2002:a05:600c:190c:b0:410:72e0:d391 with SMTP id j12-20020a05600c190c00b0041072e0d391mr1936886wmq.6.1707917443002;
+        Wed, 14 Feb 2024 05:30:43 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVEbwcv2Itggz1byTFXoqmFvryxBwoK0qGcM4+DV+ofhGpbIC2FMiVA/aG2xicto4KgD8HnqgMsscM/6AWpi2Gw2Ajv70DDku874btkgyqPOmZjSRtO1wD+sn4Le5fPRiVoX3sXAaM7FHY=
+Message-ID: <d62df112-6cb8-46aa-ad50-d7e3da14e43b@suse.com>
+Date: Wed, 14 Feb 2024 14:30:42 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] iommu/x86: print page type in IVMD/RMRR check in case
+ of error
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20240214103741.16189-1-roger.pau@citrix.com>
+ <20240214103741.16189-5-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20240214103741.16189-5-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+On 14.02.2024 11:37, Roger Pau Monne wrote:
+> Provide more information in case the page can't be converted, and print the
+> original type(s).
+> 
+> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
 
-
-> On 14 Feb 2024, at 11:45, Andrew Cooper <andrew.cooper3@citrix.com> =
-wrote:
->=20
-> Xapi is the only consumer of this interface.  I've fixed up the build
-> against staging, but we're not going to be running KFX under Xapi any
-> time soon.
->=20
-> Ultimately it's Christian's call.
-
-
-After a discussion with Andrew, we will not back port for now as we =
-expect Xapi to use a new version that has it when it becomes relevant.
-
-=E2=80=94 C=
 
