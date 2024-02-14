@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0475085449F
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 10:08:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680273.1058303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DFB88544A9
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 10:09:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680278.1058313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raBFI-0007hH-TF; Wed, 14 Feb 2024 09:08:00 +0000
+	id 1raBGt-0008H9-6w; Wed, 14 Feb 2024 09:09:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680273.1058303; Wed, 14 Feb 2024 09:08:00 +0000
+Received: by outflank-mailman (output) from mailman id 680278.1058313; Wed, 14 Feb 2024 09:09:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raBFI-0007eq-Pl; Wed, 14 Feb 2024 09:08:00 +0000
-Received: by outflank-mailman (input) for mailman id 680273;
- Wed, 14 Feb 2024 09:07:59 +0000
+	id 1raBGt-0008FS-3S; Wed, 14 Feb 2024 09:09:39 +0000
+Received: by outflank-mailman (input) for mailman id 680278;
+ Wed, 14 Feb 2024 09:09:37 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raBFH-0007ei-AQ
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 09:07:59 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=C2D8=JX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1raBGr-0008Dg-MM
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 09:09:37 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8bdec29d-cb18-11ee-8a4d-1f161083a0e0;
- Wed, 14 Feb 2024 10:07:58 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-5114b2b3b73so6118635e87.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 01:07:58 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- dx2-20020a05600c63c200b0040fdd7cbc8dsm1286762wmb.47.2024.02.14.01.07.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 01:07:57 -0800 (PST)
+ id c68fdf81-cb18-11ee-8a4d-1f161083a0e0;
+ Wed, 14 Feb 2024 10:09:36 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id
+ a640c23a62f3a-a2f22bfb4e6so714674366b.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 01:09:36 -0800 (PST)
+Received: from [192.168.206.239] ([94.75.70.14])
+ by smtp.gmail.com with ESMTPSA id
+ hu18-20020a170907a09200b00a3d1cce7c6fsm1024204ejc.62.2024.02.14.01.09.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Feb 2024 01:09:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,181 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bdec29d-cb18-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: c68fdf81-cb18-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707901678; x=1708506478; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fmjmg7VEdxkzSuaPj3H56MSSyKHu4neqLtCFh8PmLdI=;
-        b=Kvxm76aG0yfUysKfhVHegf49UblaDinBvvejnJyeCyS2KWgs9LAjwhCNYs2OCYht56
-         K+SuRZLubz96pScrAg44CQZFHDOqHJmCRzw+PvGiK3+8iECAJpTwjzsZ0lYNTGTuOpxK
-         FvNXIovAqDCnJ9Y2J8WQvK8nTxXqBzhoTuvVv6JktReea/lfLWrwsOjhCvAxrmHzSgKr
-         rDNVN8ACy9WusQgPgWYELgJWF0jtKeH1es8+7FKKY0O3XfnhSOxR7EaCP3NVEvzDP5/Y
-         lfufatdrDUUGLJq5IwCPLLbI00dmw23vdZWzubMEsp+K3blXd5bDdOFGk1lhC7sQuPMY
-         bBhg==
+        d=gmail.com; s=20230601; t=1707901776; x=1708506576; darn=lists.xenproject.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=sPUlJDhf2pZebErIfa7t3QKc2ftExv3cCl/QvvNC50o=;
+        b=gISCj7BfF1c78he4gxssnNYmwwCzAr0ZRQelcUFMIA8thH1EcGwURvSaCXc+EZ8GCW
+         kknLSzcg5kh7HRAbDUo4EfizupgTG6mK9RvIbUwRvYlHicrq1CG+94cZde+P3bgqCEBS
+         PWt+XLcUvndn5LhcMVyPfW5LrxL39cKr2milQ26QVYJZU1Mn4eCJ9hqVW5r5Z4jx7G36
+         c1JEGms/GzIkdBmYXn1Q3wh7W7vqcGXbTpPZn6CfF1VCP2GekgZ/Cw/85FZofp8unwzN
+         icGdsgWTNap/aoukI5h0B/AOyfRkZkAr1A2CEDk8GI58TeAnCyXve/DGgD85uMa1KYBN
+         vMgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707901678; x=1708506478;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
-         :to:content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fmjmg7VEdxkzSuaPj3H56MSSyKHu4neqLtCFh8PmLdI=;
-        b=Dh9XHIFIdLJYyUeu26JJm0yOaNcdXHp2Ho0WsdakLoczZG9Z5bwqtf0ropaFBZIa9s
-         ExvO7YeBE4VV0No8Dz2rFi6xNNOh4bzWW/SW8nrx7jZsCsJarxmq2R5UsS7tKihvAAhX
-         25ZoJcCPNWyoHOOe6lxfJN/FetXLy8y0ed6j5AwnFmqngUHunZaF6ngIp9HcHHHjAEzm
-         wFohqy3zCoxY53Bjox6IeH/uq85wHW/cWfbkI3QWJGwHPRcZQaJ15xnecTq1Fw7weFnE
-         JCcz1Ahn57jhoWe8A6JNP6JUZhgxPFa0r+wFu3lQ35kL0wkDbffigHV6c4xhgDG0DcCn
-         IOpg==
-X-Gm-Message-State: AOJu0Yw8IS8mGrWYT6aszYk/PzojcW/gJX8n51a6AgAIwzn7E268EQZL
-	lXwJJimjUhfX3+94gkOBc7WX4FZve967n4PSzvxYRhxjvMFyNgKqi4TREO/+NA==
-X-Google-Smtp-Source: AGHT+IEjxo5i4Wyw5qFN5W4+zvKJIIXcGgiCjZo2OD6lBnEUdzXTZSAINmJUi25V/KD+ALXjhjNmYg==
-X-Received: by 2002:ac2:4bcd:0:b0:511:a024:dbaa with SMTP id o13-20020ac24bcd000000b00511a024dbaamr2117616lfq.3.1707901677731;
-        Wed, 14 Feb 2024 01:07:57 -0800 (PST)
-Message-ID: <911f37dc-b4d9-42c1-9575-98ef93099976@suse.com>
-Date: Wed, 14 Feb 2024 10:07:55 +0100
+        d=1e100.net; s=20230601; t=1707901776; x=1708506576;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sPUlJDhf2pZebErIfa7t3QKc2ftExv3cCl/QvvNC50o=;
+        b=YfRHcXpJG4DeoAnxxSjh2sDFvk6vqPfVgF1ipoFB/xOK3/ap8TP41kHE+4t76i+gN2
+         ZEr1s8gWK7tlLLqafb7p180P9leDu2Omf5pw0MR1nKSXWZlYIISM43kLTcCamcKrD9pE
+         +/i6Exdf94qo4IBYyITqYYC6XjOdwQ4XQfhtGbvzuFSn8wU4UGsfr8sNlGfW/4v1HrzU
+         aYTHOMPtr+479vXB0irEBqGU14iMkJN0scrlY0D0LPpqsBQiml9ziM4R7SrnkJcl4Jel
+         VucLnLuTD+H/WjzNPUFuODzVN8/Wt1p7TKFyRK7ekRklclR/nng0hMbS819o/3gqf+IA
+         y2Fg==
+X-Forwarded-Encrypted: i=1; AJvYcCVuxpSnYmPIVF7Z0+h6S5FnwLOQoDoQeX5JB6XMDrNh/shNa5COjFf5kW4g8GshcMUH+DfVQMdhByWJ+thZzRttTKvWCoBeRDmHBNEAW9s=
+X-Gm-Message-State: AOJu0YwVKGrsgQvnOiWUQdqw5jG9brGsoQaoB+IuBzT8w9OYRqAE7yf/
+	7AbFqP5snCUREn1PRsRPSIAXnvhELKUKYQWXyQYfX/V/ht7N/o6S
+X-Google-Smtp-Source: AGHT+IESqlnjGRol16m9Vchh8ZbjQ+C5afhSr/N8b7cDb4rSA9Yhnp1Dun2mWKHC4K9iEQmM8gH4HA==
+X-Received: by 2002:a17:906:3710:b0:a3d:50ee:e636 with SMTP id d16-20020a170906371000b00a3d50eee636mr649809ejc.27.1707901775866;
+        Wed, 14 Feb 2024 01:09:35 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVbjpdaGJg30YO0XsjCmow2nrWqrzzM3gnru8Cx6Ihw/0x9/FyiAysjnP1mSm1H72ywq1/82bJ36C8jCgWQ4Gv0kK5xsd4K9REQ72V2RFS0B1xtBkOv0B6z83IbmDxulRrv8YPN5ypXoF8Qr1UfjmED9jkJaEHxww8ptnbkqXUj40lqwY4+erLORrABVvXHzYYsM4HDBGquET/GKyn9Jy5u/QbmRn3kw/pq0rVQZNH+JBAUggFvnKQ1kjWlL8ABFhHmfqXE3GKappvhMEz2jRwE4kBXIzklb34t9xoGxU7iQzxLH9sJOlmaBNr75aHxCxRY7fUX2Ge81P7S1aAUxpdqbXTi4KXQe57U7qbEggnnHinvRq3TySgDS3kByA==
+Message-ID: <ea20431452c5e7ec7efc02b1d2832bb29d33a769.camel@gmail.com>
+Subject: Re: [PATCH v8 3/7] xen/asm-generic: introduce stub header monitor.h
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Tamas K Lengyel <tamas@tklengyel.com>, Alexandru Isaila
+ <aisaila@bitdefender.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>,  Shawn Anastasio
+ <sanastasio@raptorengineering.com>, Jan Beulich <jbeulich@suse.com>
+Date: Wed, 14 Feb 2024 10:09:34 +0100
+In-Reply-To: <4cc1eb90-e3ef-4225-aa98-441c11c3fc8a@xen.org>
+References: <cover.1707499278.git.oleksii.kurochko@gmail.com>
+	 <84568b0c24a5ec96244f3f34537e9a148367facf.1707499278.git.oleksii.kurochko@gmail.com>
+	 <e12914b8-5c6a-4085-b5e8-03c5bdcc2c27@xen.org>
+	 <4cc1eb90-e3ef-4225-aa98-441c11c3fc8a@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 01/14] vpci: use per-domain PCI lock to protect vpci
- structure
-Content-Language: en-US
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Paul Durrant <paul@xen.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20240202213321.1920347-1-stewart.hildebrand@amd.com>
- <20240202213321.1920347-2-stewart.hildebrand@amd.com>
- <Zcsp15Aqve11Icjb@macbook> <ec5d0c39-1559-4f10-9574-98cfa0542993@suse.com>
- <ZcswBFHtINB1XMAS@macbook> <db0ce984-88e3-4394-b270-c5db585f8209@suse.com>
- <f3b34d97-17b5-44ef-ad9e-ad04a96754d0@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f3b34d97-17b5-44ef-ad9e-ad04a96754d0@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 13.02.2024 17:58, Stewart Hildebrand wrote:
-> On 2/13/24 04:05, Jan Beulich wrote:
->> On 13.02.2024 10:01, Roger Pau Monné wrote:
->>> On Tue, Feb 13, 2024 at 09:44:58AM +0100, Jan Beulich wrote:
->>>> On 13.02.2024 09:35, Roger Pau Monné wrote:
->>>>> On Fri, Feb 02, 2024 at 04:33:05PM -0500, Stewart Hildebrand wrote:
->>>>>> --- a/xen/include/xen/sched.h
->>>>>> +++ b/xen/include/xen/sched.h
->>>>>> @@ -462,7 +462,8 @@ struct domain
->>>>>>  #ifdef CONFIG_HAS_PCI
->>>>>>      struct list_head pdev_list;
->>>>>>      /*
->>>>>> -     * pci_lock protects access to pdev_list.
->>>>>> +     * pci_lock protects access to pdev_list. pci_lock also protects pdev->vpci
->>>>>> +     * structure from being removed.
->>>>>>       *
->>>>>>       * Any user *reading* from pdev_list, or from devices stored in pdev_list,
->>>>>>       * should hold either pcidevs_lock() or pci_lock in read mode. Optionally,
->>>>>> @@ -628,6 +629,18 @@ struct domain
->>>>>>      unsigned int cdf;
->>>>>>  };
->>>>>>  
->>>>>> +/*
->>>>>> + * Check for use in ASSERTs to ensure that:
->>>>>> + *   1. we can *read* d->pdev_list
->>>>>> + *   2. pdevs (belonging to this domain) do not go away
->>>>>> + *   3. pdevs (belonging to this domain) do not get assigned to other domains
->>>>>
->>>>> I think you can just state that this check ensures there will be no
->>>>> changes to the entries in d->pdev_list, but not the contents of each
->>>>> entry.  No changes to d->pdev_list already ensures not devices can be
->>>>> deassigned or removed from the system, and obviously makes the list
->>>>> safe to iterate against.
->>>>>
->>>>> I would also drop the explicitly mention this is intended for ASSERT
->>>>> usage: there's nothing specific in the code that prevents it from
->>>>> being used in other places (albeit I think that's unlikely).
->>>>
->>>> But pcidevs_locked(), resolving to spin_is_locked(), isn't reliable. The
->>>> assertion usage is best-effort only, without a guarantee that all wrong
->>>> uses would be caught.
->>>
->>> Do we want to protect this with !NDEBUG guards then?
->>
->> Yes, that would look to be desirable.
-> 
-> We will then also need a definition of pdev_list_is_read_locked() in the
-> #else case so we don't risk running into "error: implicit declaration of
-> function 'pdev_list_is_read_locked'".
-> 
-> Such a definition might look like:
-> 
-> #define pdev_list_is_read_locked(d) ({ (void)d; ASSERT_UNREACHABLE(); false; })
-> 
-> so that we still evaluate d exactly once in the NDEBUG case.
 
-Except that ASSERT_UNREACHABLE() use is bogus in the NDEBUG case. The
-way our ASSERT() works in the NDEBUG case looks to make it sufficient
-for there to be
+Hi Julien,
 
-bool pdev_list_is_read_locked(const struct domain *d);
+> On 13/02/2024 17:40, Julien Grall wrote:
+> > Hi Oleksii,
+> >=20
+> > On 09/02/2024 18:00, Oleksii Kurochko wrote:
+> > > The header is shared between several archs so it is
+> > > moved to asm-generic.
+> > >=20
+> > > Switch partly Arm and PPC to asm-generic/monitor.h and only
+> > > arch_monitor_get_capabilities() left in arch-specific/monitor.h.
+> > >=20
+> > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > > Acked-by: Jan Beulich <jbeulich@suse.com>
+> > > Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+> > > ---
+> > > Changes in V8:
+> > > =C2=A0 - Add Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+> > > ---
+> > > Changes in V7:
+> > > =C2=A0 - Drop definition of arch_monitor_domctl_event for PPC.
+> > > =C2=A0 - define arch_monitor_domctl_event in asm-generic/monitor.h.
+> > > =C2=A0 - add "define HAS_ARCH_MONITOR_DOMCTL_EVENT" in
+> > > arm/.../monitor.h as=20
+> > > it has arch specific implementation.
+> > > ---
+> > > Changes in V6:
+> > > =C2=A0 - Rebase only.
+> > > ---
+> > > Changes in V5:
+> > > =C2=A0=C2=A0 - Switched partly Arm and PPC to asm-generic monitor.h o=
+nly
+> > > =C2=A0=C2=A0=C2=A0=C2=A0 arch_monitor_get_capabilities() left in arch=
+-
+> > > specific/monitor.h.
+> > > =C2=A0=C2=A0 - Updated the commit message.
+> > > ---
+> > > Changes in V4:
+> > > =C2=A0 - Removed the double blank line.
+> > > =C2=A0 - Added Acked-by: Jan Beulich <jbeulich@suse.com>.
+> > > =C2=A0 - Update the commit message
+> > > ---
+> > > Changes in V3:
+> > > =C2=A0 - Use forward-declaration of struct domain instead of "
+> > > #include=20
+> > > <xen/sched.h> ".
+> > > =C2=A0 - Add ' include <xen/errno.h> '
+> > > =C2=A0 - Drop PPC's monitor.h.
+> > > ---
+> > > Changes in V2:
+> > > =C2=A0=C2=A0=C2=A0=C2=A0- remove inclusion of "+#include <public/domc=
+tl.h>"
+> > > =C2=A0=C2=A0=C2=A0=C2=A0- add "struct xen_domctl_monitor_op;"
+> > > =C2=A0=C2=A0=C2=A0=C2=A0- remove one of SPDX tags.
+> > > ---
+> > > =C2=A0 xen/arch/arm/include/asm/monitor.h | 25 +-----------
+> > > =C2=A0 xen/arch/ppc/include/asm/monitor.h | 28 +------------
+> >=20
+> > Looking at MAINTAINERS, monitor.h was covered by "VM EVENT, MEM
+> > ACCESS=20
+> > and MONITOR". As you move to ...
+> >=20
+> > > =C2=A0 xen/arch/ppc/stubs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 8 ----
+> > > =C2=A0 xen/include/asm-generic/monitor.h=C2=A0 | 64
+> > > ++++++++++++++++++++++++++++++
+> >=20
+> > ... asm-generic/, I believe it will now fall under "THE REST". So I
+> > think MAINTAINERS needs to be updated to also cover asm-
+> > generic/monitor.h.
+> >=20
+> > Looking at what was already committed, I think asm-
+> > generic/vm_event.h=20
+> > should also be added in MAINTAINERS. Can you send a separate patch
+> > for=20
+> > that?
+>=20
+> Oh, I just noticed that we have the following entry:
+>=20
+> xen/include/*/monitor.h
+>=20
+> So the header is already covered. Sorry for the noise.
+>=20
+> As the code is falling under the "VM EVENT..." subsystem, then
+> Tamas's=20
+> acked is technically sufficient for this patch (even for the PPC
+> change).
+>=20
+> But just in case you need one for Arm:
+>=20
+> Acked-by: Julien Grall <jgrall@amazon.com>
+Thanks.
 
-in the #else case (with no implementation anywhere).
-
->>>>>> + * This check is not suitable for protecting other state or critical regions.
->>>>>> + */
->>>>>> +#define pdev_list_is_read_locked(d) ({                           \
->>>>>
->>>>> I would be tempted to drop at least the '_read_' part from the name,
->>>>> the name is getting a bit too long for my taste.
->>>>
->>>> While I agree with the long-ish aspect, I'm afraid the "read" part is
->>>> crucial. As a result I see no room for shortening.
->>>
->>> OK, if you think that's crucial then I'm not going to argue.
->>>
->>>>>> +        struct domain *d_ = (d);                                 \
->>>>>
->>>>> Why do you need this local domain variable?  Can't you use the d
->>>>> parameter directly?
->>>>
->>>> It would be evaluated then somewhere between 0 and 2 times.
->>>
->>> It's ASSERT code only, so I don't see that as an issue.
->>
->> Fair point.
->>
->>>  Otherwise d_ needs to be made const.
->>
->> Indeed, but for assert-only code I agree the option is slightly better,
->> ideally suitably commented upon.
-> 
-> Is "the option" here referring to making d_ const, or using d directly
-> (with suitable comment)?
-
-The latter.
-
-Jan
+~ Oleksii
 
