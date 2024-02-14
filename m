@@ -2,33 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A6A8854AD3
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 14:57:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680794.1058926 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B3CF854AF2
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 15:01:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680803.1058936 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raFkS-0003K8-Lj; Wed, 14 Feb 2024 13:56:28 +0000
+	id 1raFoG-0005YE-B5; Wed, 14 Feb 2024 14:00:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680794.1058926; Wed, 14 Feb 2024 13:56:28 +0000
+Received: by outflank-mailman (output) from mailman id 680803.1058936; Wed, 14 Feb 2024 14:00:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raFkS-0003IC-IH; Wed, 14 Feb 2024 13:56:28 +0000
-Received: by outflank-mailman (input) for mailman id 680794;
- Wed, 14 Feb 2024 13:56:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1raFoG-0005WF-7K; Wed, 14 Feb 2024 14:00:24 +0000
+Received: by outflank-mailman (input) for mailman id 680803;
+ Wed, 14 Feb 2024 14:00:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3HRx=JX=bugseng.com=federico.serafini@srs-se1.protection.inumbo.net>)
- id 1raFkQ-000309-Pp
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 13:56:26 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d7ff73ea-cb40-11ee-8a4d-1f161083a0e0;
- Wed, 14 Feb 2024 14:56:25 +0100 (CET)
-Received: from [192.168.1.229] (93-36-216-194.ip62.fastwebnet.it
- [93.36.216.194])
- by support.bugseng.com (Postfix) with ESMTPSA id 23AF04EE0738;
- Wed, 14 Feb 2024 14:56:25 +0100 (CET)
+ <SRS0=WArD=JX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1raFoE-0005W7-PH
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 14:00:22 +0000
+Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
+ [2a00:1450:4864:20::233])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 64082c3f-cb41-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 15:00:20 +0100 (CET)
+Received: by mail-lj1-x233.google.com with SMTP id
+ 38308e7fff4ca-2d0cdbd67f0so77878371fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 06:00:20 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ h7-20020ac85147000000b0042c21e75aeesm1997900qtn.64.2024.02.14.06.00.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Feb 2024 06:00:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,117 +44,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7ff73ea-cb40-11ee-8a4d-1f161083a0e0
-Message-ID: <3632611e-61ff-455a-9cc1-990a1f663d83@bugseng.com>
-Date: Wed, 14 Feb 2024 14:56:24 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] docs/misra/rules.rst: add rule 5.5
-Content-Language: en-US, it
+X-Inumbo-ID: 64082c3f-cb41-11ee-98f5-efadbce2ee36
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1707919220; x=1708524020; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=SK+ljDOJFwB1Pcm4QUM+mo6y8GGH+iEANQ6BOvMG5o4=;
+        b=OPAIm1cSzndgve/pIdyXGGQBu9nBuqoZkwWnpv08h4YmolOXGpEBqBRIHk/4skYhHr
+         oXkozQWex10B3KAofW9+4ueYAsIDX6AH5vWXEo/d/yjyi2W64SLkmfDDnRNxWE0HnUe2
+         xJFl4v+Ua0ALPOFZKsS96pwZGtTk5EQersU38=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707919220; x=1708524020;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=SK+ljDOJFwB1Pcm4QUM+mo6y8GGH+iEANQ6BOvMG5o4=;
+        b=mEpOq4a9AqfATfVCHH6IlTHPhWolBxdLPoqtnySna7lUhbq6rr4ZlnpoS6NUz57wCa
+         7Gr8/ZR3gp2MySNDvu0+zONrWxHBuezNq2UmpwyNhQb/hLyOKz4Nrro/GlpdjbIQFs/Z
+         TKTxYOE1N7zphhGTz4B/2nsOSIMKKvN4dlmUpZYnjkcfMJC+SycPJZMiT71RJemyW5mO
+         vZFzNNQ4h6AvOM8bJVFMJCGYdraXta4MTYnFNrZux9ZBWjChqCJlzvVkyqPnco/pJC2m
+         OJA6uy4TdpIau3b8FiIha5B7mTXUcBKoFYxEbEdguKKs8dfkUOtBStpcMMfr2xt6JvWN
+         TNcQ==
+X-Forwarded-Encrypted: i=1; AJvYcCU9Xw5bYV44vkRaI5Ru/Rej1BzmEOC3BixNny/8Ic6TaX0yxubCTDKJDhcojdky5GGUoyMJ8QL0D9RH/coPyOr0fWggXH7uPJFidbJ+7xE=
+X-Gm-Message-State: AOJu0YzNQd5QpQtE94V6BX0BqeMdo6gcEAmd/S+XA9ZhDUQRp4Q+fiKl
+	xlTSStm0D5xCpjU+c7r+Zgy7PRC5koBb6x1JX6O+tJBro8PN5cQ5Yxsylr4qXrI=
+X-Google-Smtp-Source: AGHT+IF9d+rjt2dxgOmfcpJTuI+BCrZDmQTK1bnJgLnJ1TTDXqNVcaeetIu/UdJF7IN7GK8rAgTkLQ==
+X-Received: by 2002:a2e:a686:0:b0:2d0:b3c4:5113 with SMTP id q6-20020a2ea686000000b002d0b3c45113mr2037359lje.11.1707919220207;
+        Wed, 14 Feb 2024 06:00:20 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUgl3+Ub4/7Ry97ZnjZsHzIm4TgTAqX/UW8dqsL846sT9HzTo7JG+4/GxQFegO4BD/wrImCxnOK4mFV9vLlwRuMsRZFjThQtSO4NLzAa5DaS0p2g4tkVKhnLJd2YyzyRAQ0d6an805H6+miWPVgMB9mlt88jtuew7bNCxildDvgwZdWaA9IFpnhkIiMElOyowX3Ty1OwjloGaXyPHg=
+Date: Wed, 14 Feb 2024 15:00:17 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org,
- bertrand.marquis@arm.com, roger.pau@citrix.com,
- xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@amd.com>, roberto.bagnara@bugseng.com
-References: <alpine.DEB.2.22.394.2402131431070.1925432@ubuntu-linux-20-04-desktop>
- <20240213223334.3693410-2-stefano.stabellini@amd.com>
- <50719397-b053-43e1-9cf7-cc9eae9098ed@suse.com>
- <40b7465f-4966-43c7-8db3-e28a6cc48445@bugseng.com>
- <2da73259-a86e-4a13-9fd4-4217372f4b76@suse.com>
-From: Federico Serafini <federico.serafini@bugseng.com>
-Organization: BUGSENG srl
-In-Reply-To: <2da73259-a86e-4a13-9fd4-4217372f4b76@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 5/5] mm: add the __must_check attribute to {gfn,mfn}_add()
+Message-ID: <ZczHcTSaxM3KJOR_@macbook>
+References: <20240214103741.16189-1-roger.pau@citrix.com>
+ <20240214103741.16189-6-roger.pau@citrix.com>
+ <ff45456b-87bf-4e6c-b2c9-6f3d5258d478@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ff45456b-87bf-4e6c-b2c9-6f3d5258d478@suse.com>
 
-On 14/02/24 14:15, Jan Beulich wrote:
-> On 14.02.2024 12:27, Federico Serafini wrote:
->> On 14/02/24 09:28, Jan Beulich wrote:
->>> On 13.02.2024 23:33, Stefano Stabellini wrote:
->>>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
->>>> ---
->>>>    docs/misra/rules.rst | 6 ++++++
->>>>    1 file changed, 6 insertions(+)
->>>>
->>>> diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
->>>> index c185366966..931158b354 100644
->>>> --- a/docs/misra/rules.rst
->>>> +++ b/docs/misra/rules.rst
->>>> @@ -181,6 +181,12 @@ maintainers if you want to suggest a change.
->>>>           headers (xen/include/public/) are allowed to retain longer
->>>>           identifiers for backward compatibility.
->>>>    
->>>> +   * - `Rule 5.5 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_05_05.c>`_
->>>> +     - Required
->>>> +     - Identifiers shall be distinct from macro names
->>>> +     - Clashes between function-like macros and non-callable entities
->>>> +       are allowed. The pattern #define x x is also allowed.
->>>
->>> Just for me to know what exactly is covered (hence also a question
->>> to Roberto as to [to be] implemented Eclair behavior): Even when
->>> the above would be sufficient (and imo better) people frequently
->>> write
->>>
->>> #define a(x, y) b(x, y)
->>>
->>> which, transformed to the specific case here, would then be
->>>
->>> #define a(x, y) a(x, y)
->>>
->>> I'd assume such ought to also be covered, but that's not clear
->>> from the spelling above.
->>
->> I list what happens in some different situations,
->> then we can find the right words for the documentation and/or
->> refine the configuration:
->>
->> If you
->> #define x x
->> and then use `x' as identifier,
->> the resulting violation is deviated (allowed pattern).
->>
->> If you
->> #define a(x, y) a(x, y)
->> and then use `a' as identifier for a non-callable entity,
->> the resulting violation is deviated (no clash with non-callable
->> entities).
->> If you use identifier `a' for a callable entity, the resulting violation
->> is reported: the allowed pattern covers only macros expanding to their
->> own name, in this case the macro name is considered to be
->> `a' only, not a(x, y).
->>
->> If you
->> #define a(x, y) b(x, y)
->> and then use `a' as identifier for a non-callable entity,
->> the resulting violation is deviated (no clash with non-callable
->> entities).
+On Wed, Feb 14, 2024 at 02:42:46PM +0100, Jan Beulich wrote:
+> On 14.02.2024 11:37, Roger Pau Monne wrote:
+> > It's not obvious from the function itself whether the incremented value will be
 > 
-> I'm afraid I don't see what violation there is in this case, to
-> deviate. As a result I'm also not sure I correctly understand the
-> rest of your reply.
+> s/the function itself/just the function name/ ?
+> 
+> > stored in the parameter, or returned to the caller.  That has leads to bugs in
+> > the past as callers assume the incremented value is stored in the parameter.
+> 
+> ... callers may assume ... ?
+> 
+> > --- a/xen/include/xen/mm-frame.h
+> > +++ b/xen/include/xen/mm-frame.h
+> > @@ -23,7 +23,7 @@ TYPE_SAFE(unsigned long, mfn);
+> >  #undef mfn_x
+> >  #endif
+> >  
+> > -static inline mfn_t mfn_add(mfn_t mfn, unsigned long i)
+> > +static inline mfn_t __must_check mfn_add(mfn_t mfn, unsigned long i)
+> >  {
+> >      return _mfn(mfn_x(mfn) + i);
+> >  }
+> > @@ -62,7 +62,7 @@ TYPE_SAFE(unsigned long, gfn);
+> >  #undef gfn_x
+> >  #endif
+> >  
+> > -static inline gfn_t gfn_add(gfn_t gfn, unsigned long i)
+> > +static inline gfn_t __must_check gfn_add(gfn_t gfn, unsigned long i)
+> >  {
+> >      return _gfn(gfn_x(gfn) + i);
+> >  }
+> 
+> What about dfn_add() (in xen/iommu.h)?
 
-#define a(x, y) b(x, y)
+Oh, didn't spot that one.
 
-int a; // Violation of Rule 5.5.
-
-The macro name `a' that exist before the preprocessing phase,
-still exists after the preprocessing phase as identifier for the integer
-variable and this is a violation.
-
->> If you use `a' as identifier for a callable entity,
->> this is not a violation because after the preprocessing phase,
->> identifier `a' no longer exists.
-I correct myself:
-if you use `a' as identifier for a *function*,
-it is not a violation because after the preprocessing phase
-the identifier `a' no longer exists, for example:
-
-#define a(x, y) b(x, y)
-
-void a(int x, int y); // Ok.
-
--- 
-Federico Serafini, M.Sc.
-
-Software Engineer, BUGSENG (http://bugseng.com)
+Thanks, Roger.
 
