@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFD7B8548A2
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B7F8548A1
 	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 12:42:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680620.1058667 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.680621.1058676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDeN-0006Gj-Ry; Wed, 14 Feb 2024 11:42:03 +0000
+	id 1raDeP-0006WU-3w; Wed, 14 Feb 2024 11:42:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680620.1058667; Wed, 14 Feb 2024 11:42:03 +0000
+Received: by outflank-mailman (output) from mailman id 680621.1058676; Wed, 14 Feb 2024 11:42:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDeN-0006DK-NS; Wed, 14 Feb 2024 11:42:03 +0000
-Received: by outflank-mailman (input) for mailman id 680620;
- Wed, 14 Feb 2024 11:42:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1raDeP-0006Tq-01; Wed, 14 Feb 2024 11:42:05 +0000
+Received: by outflank-mailman (input) for mailman id 680621;
+ Wed, 14 Feb 2024 11:42:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=WArD=JX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1raDeM-0006Bc-Jn
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 11:42:02 +0000
-Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
- [2a00:1450:4864:20::22a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10b392fe-cb2e-11ee-98f5-efadbce2ee36;
- Wed, 14 Feb 2024 12:42:00 +0100 (CET)
-Received: by mail-lj1-x22a.google.com with SMTP id
- 38308e7fff4ca-2d0fd07ba8bso35152041fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 03:42:00 -0800 (PST)
+ id 1raDeN-0005Pc-1p
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 11:42:03 +0000
+Received: from mail-lj1-x234.google.com (mail-lj1-x234.google.com
+ [2a00:1450:4864:20::234])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 11f41b25-cb2e-11ee-8a4d-1f161083a0e0;
+ Wed, 14 Feb 2024 12:42:02 +0100 (CET)
+Received: by mail-lj1-x234.google.com with SMTP id
+ 38308e7fff4ca-2d0a4e1789cso63429811fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 03:42:02 -0800 (PST)
 Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
- bi38-20020a05620a31a600b007872ed24739sm180347qkb.31.2024.02.14.03.41.58
+ t27-20020a05620a035b00b00785367e5a93sm3725905qkm.77.2024.02.14.03.42.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Feb 2024 03:41:59 -0800 (PST)
+ Wed, 14 Feb 2024 03:42:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,44 +44,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10b392fe-cb2e-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 11f41b25-cb2e-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707910919; x=1708515719; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1707910921; x=1708515721; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SKL9Cv8WHcDaH4CP4Lonu8yBimilzz26H15juTt/ZxA=;
-        b=nEe4aLtez9IXm9cX4kSlhp+yFykMDFn90VDMvr6IQYhSFu7r4oYvd8Gr5PBSRrD4J6
-         nbXzmt2sasTjduN8+bY2oS03WoEHuz7nVCXV9EYgrRMF9vXAD/7py+ZJk03Umc60trLp
-         TxhHGiRAphBwZSVlHTFC658VQaB24Agv9yepY=
+        bh=zbHWtGQxe+lF1Oh/RMVx/RWGcnqoQ1bvQB9vtnF0JLs=;
+        b=EYpQ//rDxIqwy1B+4GD0x8hPSRnVtDTLHzBFTJ2Hnx5DJNTCU9yFTcH4C1thxsqL6a
+         W4SRlMeEmgwD1Mhyu/N0Nq4UqaD672Yf0Ajev47TOmgsd8iHmTEtSg+o33jgDcLud5DU
+         4n9Wa2knLdio+MxODqUcvz/LU7NHkt5UnHL2Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707910919; x=1708515719;
+        d=1e100.net; s=20230601; t=1707910921; x=1708515721;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=SKL9Cv8WHcDaH4CP4Lonu8yBimilzz26H15juTt/ZxA=;
-        b=wId2IcD2gy8n4kVxlDO9PM2YrmO14VGM/Y70zTtxK/rdVAR8wW01ypWXNy+RpIErj3
-         4UxMJ422hImjkY6jtDjg5SpCg2vZ3xmrMoXIaC3gOOvItrrtZJNiyQoNomu3DO39wrni
-         xVpwx0oJxFIMkZmiGXn7B17GujxouVHdBE50dn2gx0dBxaLFu9M8gkH7tBV1SOW0SZd9
-         pwt7OSsudSAaTCj6ZunBNPDWjVpPhjGKd4VDuKI+c/p9ZFbkoCYH93I7P+HQoCeYVDeP
-         BmPWR4gcLAfSXnEvLNLbhoFjrumWxLuOYEwP28N3+m3oUCUI/sQfrhO7bcNhK3D2TXnF
-         Nixw==
-X-Gm-Message-State: AOJu0YyVgWot4iQhzV/4/w5tjh9qvkeXhjPzBuRQuX9Ivc/VLDXNDus/
-	VjgMuUXC3VfqSGiCVYicTb3IUyOk8gbExgw2TxEBkOktENOEk5h7cRv1jR70WtqK+oQ6NC6WhcR
-	o
-X-Google-Smtp-Source: AGHT+IHUsXy8zpz6Pkru0Y+FJ4gDPCuKjJ3J88fc19kB1QXCFNBgs5JRwin6PaWa+OJZ0ev+OgzL6g==
-X-Received: by 2002:a2e:9bd7:0:b0:2d0:b464:a9b1 with SMTP id w23-20020a2e9bd7000000b002d0b464a9b1mr1782333ljj.4.1707910919383;
-        Wed, 14 Feb 2024 03:41:59 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCVoumRfLLegYsfIk0OlRRhL1cxE/bp5SDNpmxtiua8EizwJKwUX8BArraMIUl0wj0hJ2jKP0AtR05o5kO9FmvnRBd9+V+rSutBzGOkNv+cfPzEtV1HNQV1uxM2VRTQllPnC+ZptTBTenXNm
+        bh=zbHWtGQxe+lF1Oh/RMVx/RWGcnqoQ1bvQB9vtnF0JLs=;
+        b=mKVgHBj5O+Cj9CtuHET/JOD7OQyhhCCvUUIBefapmqvqH6Abp3r7Fo5fCNJWLDfLTC
+         Kvvh97/D5IXSSAQJcspcTCpxkD3IKLyWx1REP1j8vAOUt26ElA21ibfDLJ4+BAWKDN7d
+         Ba6mpFct3wro5GiPIxje7kSjJaDlhJhxKYavvdu1qwUBzJ6dTiKPOCvBKwHfx8VzplxL
+         NCj5/5/oYyFYd+XfIx/jjIk0OsXtHBRkoFIuYVHg/1J1YhqDQbchg9ZNLcqQZI1qjqCp
+         Q6wFcX6pHczbyeL/2QDS6yl7WCcorbnnPwOtA35X3nnX78ZlEK2dqj/RKCEfNxcqTL0z
+         z53g==
+X-Gm-Message-State: AOJu0Yz/LRmKR4oVSN5pQ3YcAyR9lkgNnjwXYHMWaJWo+4c7wTpi5qGk
+	PdnTQMKSAaFYvnSNxgw+zMBCEmUBNt46c87Dw20esoaRgbeWychd9CXPlIJETwb7rKTg3WdL73K
+	C
+X-Google-Smtp-Source: AGHT+IGit4GnXlDQsJF49FMFMw89YetTn+GHy8FchTC0tzsg9sECFBGs3fbenu35rI3rLBMV31tpzA==
+X-Received: by 2002:a05:651c:151:b0:2d0:f8d7:a91c with SMTP id c17-20020a05651c015100b002d0f8d7a91cmr1741911ljd.52.1707910921603;
+        Wed, 14 Feb 2024 03:42:01 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUIoLUKXv+O3lO+DQm8w35xbRtpWa1TiHlLqcDtv8HdUSV3S5HOln3aAlDvmfHXGpKEXTs7ptD7YkFg0uKVcLfTuoxR2AZ6VnQO3W3/WF61dzMvtunXuzIzsKFv35Xl+m2yov/Lms2Klb44
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Paul Durrant <paul@xen.org>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH 3/5] iommu/x86: use full addresses internally for the IVMD/RMRR range checks
-Date: Wed, 14 Feb 2024 11:37:39 +0100
-Message-ID: <20240214103741.16189-4-roger.pau@citrix.com>
+Subject: [PATCH 4/5] iommu/x86: print page type in IVMD/RMRR check in case of error
+Date: Wed, 14 Feb 2024 11:37:40 +0100
+Message-ID: <20240214103741.16189-5-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20240214103741.16189-1-roger.pau@citrix.com>
 References: <20240214103741.16189-1-roger.pau@citrix.com>
@@ -89,65 +89,27 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Adjust the code in the checker to use full addresses rather than frame numbers,
-as it's only page_get_ram_type() that requires an mfn parameter.
+Provide more information in case the page can't be converted, and print the
+original type(s).
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/drivers/passthrough/x86/iommu.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+ xen/drivers/passthrough/x86/iommu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
-index 304a2f5480c7..e713cf803e8a 100644
+index e713cf803e8a..217409c29644 100644
 --- a/xen/drivers/passthrough/x86/iommu.c
 +++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -794,28 +794,26 @@ __initcall(adjust_irq_affinities);
- 
- bool __init iommu_unity_region_ok(const char *prefix, mfn_t start, mfn_t end)
- {
--    mfn_t addr;
-+    paddr_t s = mfn_to_maddr(start), e = mfn_to_maddr(end);
- 
--    if ( e820_all_mapped(mfn_to_maddr(start), mfn_to_maddr(end) + PAGE_SIZE,
--                         E820_RESERVED) )
-+    if ( e820_all_mapped(s, e + PAGE_SIZE, E820_RESERVED) )
-         return true;
- 
-     printk(XENLOG_WARNING
-            "%s: [%#lx, %#lx] is not (entirely) in reserved memory\n",
--           prefix, mfn_to_maddr(start), mfn_to_maddr(end));
-+           prefix, s, e);
- 
--    for ( addr = start; mfn_x(addr) <= mfn_x(end); addr = mfn_add(addr, 1) )
-+    for ( paddr_t addr = s; addr <= e; addr += PAGE_SIZE )
-     {
--        unsigned int type = page_get_ram_type(addr);
-+        unsigned int type = page_get_ram_type(maddr_to_mfn(addr));
- 
-         if ( type == RAM_TYPE_UNKNOWN )
-         {
--            if ( e820_add_range(mfn_to_maddr(addr),
--                                mfn_to_maddr(addr) + PAGE_SIZE, E820_RESERVED) )
-+            if ( e820_add_range(addr, addr + PAGE_SIZE, E820_RESERVED) )
-                 continue;
-             printk(XENLOG_ERR
--                   "%s: page at %#" PRI_mfn " couldn't be reserved\n",
--                   prefix, mfn_x(addr));
-+                   "%s: page at %#lx couldn't be reserved\n",
-+                   prefix, paddr_to_pfn(addr));
-             return false;
-         }
- 
-@@ -829,9 +827,8 @@ bool __init iommu_unity_region_ok(const char *prefix, mfn_t start, mfn_t end)
+@@ -827,8 +827,8 @@ bool __init iommu_unity_region_ok(const char *prefix, mfn_t start, mfn_t end)
                       RAM_TYPE_UNUSABLE) )
              continue;
  
--        printk(XENLOG_ERR
--               "%s: page at %#" PRI_mfn " can't be converted\n",
--               prefix, mfn_x(addr));
-+        printk(XENLOG_ERR "%s: page at %#lx can't be converted\n",
-+               prefix, paddr_to_pfn(addr));
+-        printk(XENLOG_ERR "%s: page at %#lx can't be converted\n",
+-               prefix, paddr_to_pfn(addr));
++        printk(XENLOG_ERR "%s: page at %#lx can't be converted (type %#x)\n",
++               prefix, paddr_to_pfn(addr), type);
          return false;
      }
  
