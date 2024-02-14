@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27EBB854C2C
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 16:08:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680954.1059377 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CADA854C4B
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 16:13:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680966.1059424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raGrz-0000ny-BY; Wed, 14 Feb 2024 15:08:19 +0000
+	id 1raGwY-0002kj-FS; Wed, 14 Feb 2024 15:13:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680954.1059377; Wed, 14 Feb 2024 15:08:19 +0000
+Received: by outflank-mailman (output) from mailman id 680966.1059424; Wed, 14 Feb 2024 15:13:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raGrz-0000m2-8p; Wed, 14 Feb 2024 15:08:19 +0000
-Received: by outflank-mailman (input) for mailman id 680954;
- Wed, 14 Feb 2024 15:08:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1raGwY-0002iq-CN; Wed, 14 Feb 2024 15:13:02 +0000
+Received: by outflank-mailman (input) for mailman id 680966;
+ Wed, 14 Feb 2024 15:13:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raGrx-0000ls-ED
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 15:08:17 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e09a6d5b-cb4a-11ee-98f5-efadbce2ee36;
- Wed, 14 Feb 2024 16:08:15 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id
- 38308e7fff4ca-2d107900457so27149241fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 07:08:15 -0800 (PST)
+ id 1raGwX-0002ic-25
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 15:13:01 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a53ea85-cb4b-11ee-8a4d-1f161083a0e0;
+ Wed, 14 Feb 2024 16:12:59 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id
+ 38308e7fff4ca-2d0a4e8444dso63364111fa.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 07:12:59 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- m22-20020a7bcb96000000b0040fafd84095sm2130736wmi.41.2024.02.14.07.08.13
+ hn32-20020a05600ca3a000b00410ebcf8180sm2206447wmb.43.2024.02.14.07.12.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 07:08:13 -0800 (PST)
+ Wed, 14 Feb 2024 07:12:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +45,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e09a6d5b-cb4a-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 8a53ea85-cb4b-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707923295; x=1708528095; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707923579; x=1708528379; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=IPp1XQ7LPeZ5bV2atiaBj+y5LoeQvJFr62RZlyniSWY=;
-        b=Kk0br5/V8uNO7+CUoUll7GQQ174rpKfQDcneqVI1GOrbpvVbFvJVznDSCaD4j8HwAO
-         xk33Wf1j+D4bAYoyXqqLYhv2YvDHooBqx1s+oL+Y8kns2+eeAW67PDH9rfHzostGai6m
-         P0yqpDUc78nMD0pW17w7G3BPe7b9YPX0PwUEGnBppBLyypYAl9o7IB97ECq7TgHRUduM
-         Isn3jtMLSvjWrSkXFAVm4oLy0n3Ylxs1/F19pTrwm8b8Kmo1oISe1XO52vTAZsQE/NgW
-         20a1fgNqT5HSAYVM8zstinZNgDIQnx1y93I6285iX1lA2MoObndDbcorFzkQxjVf8klq
-         Oskg==
+        bh=SmBQtWqYk9CvBmizB1i7LwVJxy/3yjASVs1Xa7mYRYo=;
+        b=Q7yEbJSDvxJ8eZ151M2V6f1uY8KzqJXsIe3CQmRBThHtcUb44Tra1fXTuJtcXdZe7F
+         HEeVdkJqq80js02BPiTbElWHXoRAONORVkzt5eJp9nhbWxsnFKNGUy/ZL6+YwuaCuU+d
+         hqg/pNorY98PN+s+7nNfAoMeHNB5S4JY9idsHVhVo4InkgOnjHu6Qvv1PoqhKktwSAjy
+         3RSg+WtTjxN0wBgCZeynH1n/VW/Jj+BhmyFf0PS/D7iK1l6hCje8Ybl9PbfJGxiJFjOu
+         fp0xG3s4srJH9qi0VwKdUXI6T9gCCXL/cCGderLieNEFpus+/pIvCLSR92mv7Xf0ggS+
+         drIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707923295; x=1708528095;
+        d=1e100.net; s=20230601; t=1707923579; x=1708528379;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=IPp1XQ7LPeZ5bV2atiaBj+y5LoeQvJFr62RZlyniSWY=;
-        b=ly1xLtU1CTZpkoLNi2jgLxzfwwIDGuFkGiEyNhUhyQxgSIsiuzUbVOOGlQP5CuP80u
-         233A11wRdoj5MxSyPk87bCkqp7G/SeihsjJGAQqxw+Nt8gVyEHH9uzGBgJiYEZR0mpbp
-         G/uG8YRrvvcXpfjwhcC6+vBUm7Cu7THufKtruFC8qf6RCUIAM02vSiDpaEanTpKhhTXK
-         fUU05qSURn2LsqsdMxQ4PUsKJ5vVPrWUr42qWCh5j4WnzUkFqelLgnHKuPfzHwGHySMg
-         MmL8LA7mOJKlO/YDk2bw9FX+4dse40pi/6c9tD/DAfVNeO6XmUSd+4MoVeHBi0KZpoe0
-         gm/w==
-X-Gm-Message-State: AOJu0YyWXv72IHXTfHz9wok1K0yM+usL67KMH4T8ue2EKjyivCiDFGt0
-	p/MhET4gWDpmOt3rzFXycBbQkECOS1QpUX/g7MsH3EqhS3AEFf3XZGaWEuwGpQ==
-X-Google-Smtp-Source: AGHT+IFkQd8efQKrrrO0G5mJ5ipb1YMZqMoY4w2jgGgWks+8Vbfs9ELcrurcGm2884ewN5XzOcli2w==
-X-Received: by 2002:a05:651c:198a:b0:2d1:1d89:347a with SMTP id bx10-20020a05651c198a00b002d11d89347amr1266023ljb.17.1707923294717;
-        Wed, 14 Feb 2024 07:08:14 -0800 (PST)
-Message-ID: <ce3ae020-92b2-44fd-8055-694e374f68a9@suse.com>
-Date: Wed, 14 Feb 2024 16:08:12 +0100
+        bh=SmBQtWqYk9CvBmizB1i7LwVJxy/3yjASVs1Xa7mYRYo=;
+        b=W270bQSB1FDxLESnMHSYf7R/u0+j+rPaI6EB6UQWh4zToX+uNI69IgvCt9VLNmJ7gX
+         tKjJDbeQLT40QO0KJKJnoDDfGhpFcjUR3o3evYqRIWlAjJTF7eiyNN0prNYTFks6D261
+         M1Pj0mvnEpyqMObCbiY/F4OApT9hWyQPYkICpMX0Wdz2pRTQv+3bAVN7mgUUmlo2Zf5Y
+         75Bw2SE+2x3snnE6TS00j5tHN08oOViuIMT3kE4As+eJOfoP1J8aKDu1mnjdpEGOoE7Z
+         K0jNYEU0DOzoPR4MZBd2dmYgPzxiv0RBIuMg0gF4uZ7V0HuvVXasbht+6Fh5gPzlFUsL
+         fTZw==
+X-Forwarded-Encrypted: i=1; AJvYcCUXF85wIExMJK/CYKZAd0/mT9L1hPJkrF/bbEQV/weBu/E9mBBBNdxmj7DGZgaWM+cMB5T7F6mNnf4giPpw1pW1pCQPfSgAmdkYgNG8RUg=
+X-Gm-Message-State: AOJu0YynOojG3URMmXG5Y2/0JIQlE2XmCiizmXpC8uls47lE9Sz5AV+V
+	PdFbdWppBX8uf5TOkBpoF+wrdB/rvUTvBSYJLnHzHx4xyJwcF+TPytalAR0L3w==
+X-Google-Smtp-Source: AGHT+IEM3+DZ1fCRA+5ZVBlBnelcscSOrVF8Zji8HWdFkqEXOcyMkelxT+fivlwQoZ/vBVpnfCv6lA==
+X-Received: by 2002:a05:651c:212:b0:2d0:c490:affe with SMTP id y18-20020a05651c021200b002d0c490affemr2240015ljn.19.1707923579513;
+        Wed, 14 Feb 2024 07:12:59 -0800 (PST)
+Message-ID: <560ff594-97fd-4cee-a9e4-70d153bf3a53@suse.com>
+Date: Wed, 14 Feb 2024 16:12:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] Reduce assembly code size of exception entry points
+Subject: Re: [XEN PATCH] build: Replace `which` with `command -v`
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Frediano Ziglio <frediano.ziglio@cloud.com>
-References: <20240214103558.13655-1-frediano.ziglio@cloud.com>
- <ZczWAg-zmoLXiWAr@macbook>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20240214143411.37957-1-anthony.perard@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -111,28 +112,38 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ZczWAg-zmoLXiWAr@macbook>
+In-Reply-To: <20240214143411.37957-1-anthony.perard@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 14.02.2024 16:02, Roger Pau Monné wrote:
-> On Wed, Feb 14, 2024 at 10:35:58AM +0000, Frediano Ziglio wrote:
->> We just pushed a 8-bytes zero and exception constants are
->> small so we can just write a single byte saving 3 bytes for
->> instruction.
->> With ENDBR64 this reduces the size of many entry points from 32 to
->> 16 bytes (due to alignment).
->> Similar code is already used in autogen_stubs.
+On 14.02.2024 15:34, Anthony PERARD wrote:
+> The `which` command is not standard, may not exist on the build host,
+> or may not behave as expected. It is recommanded to use `command -v`
+> to find out if a command exist and have it's path, and it's part of a
+> POSIX shell standard.
 > 
-> Will using movb instead of movl have any performance impact?  I don't
-> think we should trade speed for code size, so this needs to be
-> mentioned in the commit message.
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> ---
+>  xen/Makefile | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/Makefile b/xen/Makefile
+> index 21832d6402..767e47d6c7 100644
+> --- a/xen/Makefile
+> +++ b/xen/Makefile
+> @@ -25,8 +25,8 @@ export XEN_BUILD_HOST	:= $(shell hostname)
+>  endif
+>  
+>  # Best effort attempt to find a python interpreter, defaulting to Python 3 if
+> -# available.  Fall back to just `python` if `which` is nowhere to be found.
+> -PYTHON_INTERPRETER	:= $(word 1,$(shell which python3 python python2 2>/dev/null) python)
+> +# available.  Fall back to just `python`.
+> +PYTHON_INTERPRETER	:= $(word 1,$(shell command -v python3 || command -v python || command -v python2) python)
+>  export PYTHON		?= $(PYTHON_INTERPRETER)
 
-That's really what the last sentence is about (it could have been said
-more explicitly though): If doing so on interrupt paths is fine, it
-ought to be fine on exception paths as well. Plus, no matter what, we
-have two overlapping stores in every one of these places. But yes,
-their sizes may still be relevant to the overall result.
+Shouldn't we go farther with this and also switch the use in
+xen/build.mk (which looks to be the only other one I can find under
+xen/ and config/)?
 
 Jan
 
