@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFD77855037
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 18:28:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681107.1059708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A86B855088
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 18:41:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681116.1059717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raJ34-0007YE-SU; Wed, 14 Feb 2024 17:27:54 +0000
+	id 1raJFQ-0002JK-Sg; Wed, 14 Feb 2024 17:40:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681107.1059708; Wed, 14 Feb 2024 17:27:54 +0000
+Received: by outflank-mailman (output) from mailman id 681116.1059717; Wed, 14 Feb 2024 17:40:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raJ34-0007Vw-O9; Wed, 14 Feb 2024 17:27:54 +0000
-Received: by outflank-mailman (input) for mailman id 681107;
- Wed, 14 Feb 2024 17:27:53 +0000
+	id 1raJFQ-0002HD-QB; Wed, 14 Feb 2024 17:40:40 +0000
+Received: by outflank-mailman (input) for mailman id 681116;
+ Wed, 14 Feb 2024 17:40:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hroU=JX=cloud.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1raJ33-0007Vq-1l
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 17:27:53 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
+ <SRS0=4Sn1=JX=cloud.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1raJFQ-0002H7-4N
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 17:40:40 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61a16c62-cb5e-11ee-8a4d-1f161083a0e0;
- Wed, 14 Feb 2024 18:27:52 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-3394bec856fso659065f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 09:27:52 -0800 (PST)
-Received: from perard.uk.xensource.com (default-46-102-197-194.interdsl.co.uk.
+ id 2ab6d35d-cb60-11ee-8a4d-1f161083a0e0;
+ Wed, 14 Feb 2024 18:40:39 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id
+ a640c23a62f3a-a3d01a9a9a2so232713166b.1
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 09:40:39 -0800 (PST)
+Received: from [10.80.67.149] (default-46-102-197-194.interdsl.co.uk.
  [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- fm7-20020a05600c0c0700b00411062c123esm2609487wmb.26.2024.02.14.09.27.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Feb 2024 09:27:51 -0800 (PST)
+ vi16-20020a170907d41000b00a3ce31d3ffdsm2365838ejc.93.2024.02.14.09.40.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Feb 2024 09:40:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,81 +45,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61a16c62-cb5e-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 2ab6d35d-cb60-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1707931671; x=1708536471; darn=lists.xenproject.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=+IxHnV8/9K1qQ9cTZTKCjiDJk/W8DnR94KHlGZYkQ0M=;
-        b=sJPW+cImXSJ6f1GprIJj48R08zWg7xoWTuhcQe2Rmzi6PiemiguKJhW7lDzWSewENC
-         PzoMV2jl32LphAaFlaGZhe6OoHqafcYD8IQbfst7G4b307qCsaeBuvQ2ySLTSugEVA9o
-         nlHvvFjV8p/zbXWRwPBQgYx/QqQo7BEeAioJk=
+        d=citrix.com; s=google; t=1707932438; x=1708537238; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=6aQhl2xza4kDvBJT8FjINNxnWqWGuSlxm9Fy5soVkgw=;
+        b=ad5+Q5bGEdnWshFtiLT9/RJyDkjH+Lu745byYwUS3D8WF6ywOvVtATbhwPDyMAaYHw
+         KfU4ZilmWLj2rZRGfEEcKI5oKwR6BS2z6NlqQpC3qstAxKy0eUVQ7m0g0oq1TcTYZYuu
+         NLa/OW9H11/ZGDkqdM1CKV8hv9PJYNTHSxlNE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707931671; x=1708536471;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date
+        d=1e100.net; s=20230601; t=1707932438; x=1708537238;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+IxHnV8/9K1qQ9cTZTKCjiDJk/W8DnR94KHlGZYkQ0M=;
-        b=CmybW1SbOMtIAKv/J31TGgFK9lsobbEY5771wIN3SmU7icZL1HjEKrjcaml9iqi81u
-         NSJC2wodPgNF7N8Tq8T5x4jU3e0TVA4qtqfdiQd5+ELw2XMy1LFBQJjKJ2XPk2mr23rl
-         X629vcQUzP5SnalaN+AZ7oVG0jaoOH9aOXboLQMSlkUbWYW0S5rptB34pUcEi1iT7Qra
-         rwNfcB2Cc60mT/OMUZYeKrlcI8xWlQbeA+CNkyLTS8b86o2ugLMgGM2M6cY1rYtDH6IO
-         4QNPVb9XnZ1bL0aQ+O2MQs4xhGNE2qhnv8RlvcNWOZw7HRrcwLOHwKFVsZuSr8saegV8
-         I6XA==
-X-Gm-Message-State: AOJu0Yylj0ZzLC3b5+TiLLadE1GKDsZ5eR8qNllrrcVJApjLhiSksQan
-	A+VTvndj2KZ+CdG7HWAsGsIvJmPOQsnDeSwPDxWZlrN4Kbi7b5S89/PuSlK8XF4=
-X-Google-Smtp-Source: AGHT+IEWpTGUH6XrpQRC5lTcS8bV31/yc5/WTMnxibCgSv+EyL6vBw25kdlGBui518ylwHEhHhVseQ==
-X-Received: by 2002:a5d:4048:0:b0:33b:2138:623c with SMTP id w8-20020a5d4048000000b0033b2138623cmr2576466wrp.16.1707931671686;
-        Wed, 14 Feb 2024 09:27:51 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCX+eRRBXsyqDNpx2sZmEfNi0pFI7QkUWFr5OJ37smIpWL1sUtGWRinygUlMssD8YxzEmjQox3GCq906JRst3S3oqjCC+MoGT832nn0T3FSYvaHr5sKSTkPF0JoDa/1Qn7pPM9OGotAraVby1Yh08+HDQXrXz4jTjpFSWWEBAQ+HCfE/l09qC7huMJ8eKlk6ty6tkvCyzwE=
-Date: Wed, 14 Feb 2024 17:27:50 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org,
-	George Dunlap <george.dunlap@citrix.com>,
-	Nick Rosbrook <rosbrookn@gmail.com>, Wei Liu <wl@xen.org>,
-	Jason Andryuk <jandryuk@gmail.com>,
-	George Dunlap <george.dunlap@cloud.com>
-Subject: Re: [PATCH v5 15/22] tools/libs/light: add backend type for 9pfs PV
- devices
-Message-ID: <a3a0d9eb-97ae-4e5d-ad08-cfe5319836d7@perard>
-References: <20240208165546.5715-1-jgross@suse.com>
- <20240208165546.5715-16-jgross@suse.com>
- <5e6893dd-5280-4a14-8d00-4ed76e8c8e98@perard>
- <c6af9dd1-01d4-48a2-86b9-ccb2967136f7@suse.com>
+        bh=6aQhl2xza4kDvBJT8FjINNxnWqWGuSlxm9Fy5soVkgw=;
+        b=T1qbQZqTWHQWmULqPPMf0KvLPb+huIQCHzawI/iaCCOe53rtZSlwZzhvw7vxjLFgaW
+         dVKEZWQgaJPkfboUGx2hvGFSAJeizRuVOKP0JXprMFw4jEgGZQ1B6XCo2hw9WKXdqHnw
+         CPuEDwlWM5qEoF8G2qXto+f0INhgu2HQF1cZ5BS38i4C47JZx8sTKvPHaTZh3xmP+/ih
+         5B9gz0aE/R9c92syWqnlbGNgdkVB0dll06A8B+cJr/DQNJf9srzwuJQE+Ofy0AGfrRJY
+         OG4/c4hSGiFJqX/jgAJNrioI0g/AZ1cL63sycw/iw/Ne91082fFMLP2qPeLqlQaoUBTR
+         CE2g==
+X-Forwarded-Encrypted: i=1; AJvYcCWmBfXfj6jSv1LlN1KzhzZ6hStWiPt/fzOWNITqugYXKqAL0uLt8rKvLFXdNnAuSBPjAueDZQY0iQNcMs+2aI3nXr96pDeJpK2SRl4ObJk=
+X-Gm-Message-State: AOJu0YwWMrRxK6QAhQFGiETM947Pn1nLB1aPOq96ytOugLurbdjDqrOg
+	X/Hf9TTtlp5z2C5uP05fErQnCPfr/ot8e1zBqAZtoyJJ1GNNzI+DsRF4GAfBDiTtUilRCTFkIvi
+	p
+X-Google-Smtp-Source: AGHT+IHHHayKrVIUAC/GRYv65r4Qcoqr/R2fQt0T6z9BTgKrggS1InhOJvMWu3MQ5zpDeQko+V0XnQ==
+X-Received: by 2002:a17:906:6606:b0:a3d:11a4:6f90 with SMTP id b6-20020a170906660600b00a3d11a46f90mr2166833ejp.43.1707932438534;
+        Wed, 14 Feb 2024 09:40:38 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCVyP7Yi/LGMnS+Lq1JxwBm5l/IasMJpl/BxowRmPay0R/i7FL8J2tObgihqBmArhdW5jhMhHkLbJd+AQArSMFcU6BJwPM8ZlZEec1iV9NPhTD7uv2Z2xo8DuHlrv1nCUfYixenVHugV+4BacMkFieeXjE74KZ8mkyEU2Fs4OQ==
+Message-ID: <a628abf7-a04d-4c32-ad49-a2fe073f3286@citrix.com>
+Date: Wed, 14 Feb 2024 17:40:37 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 07/22] tools/9pfsd: add 9pfs attach request support
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Jason Andryuk <jandryuk@gmail.com>
+References: <20240208165546.5715-1-jgross@suse.com>
+ <20240208165546.5715-8-jgross@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20240208165546.5715-8-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c6af9dd1-01d4-48a2-86b9-ccb2967136f7@suse.com>
 
-On Wed, Feb 14, 2024 at 11:18:18AM +0100, J�rgen Gro� wrote:
-> On 13.02.24 19:03, Anthony PERARD wrote:
-> > On Thu, Feb 08, 2024 at 05:55:39PM +0100, Juergen Gross wrote:
-> > > +struct libxl__aop9_state {
-> > > +    libxl__spawn_state spawn;
-> > > +    libxl__ao_device *aodev;
-> > > +    libxl_device_p9 p9;
-> > > +    uint32_t domid;
-> > > +    void (*callback)(libxl__egc *, libxl__aop9_state *, int);
-> > 
-> > This "callback" is never used, right?
-> 
-> Why do you think so?
-> 
-> In xen9pfsd_spawn() it is used:
-> 
->   aop9->callback = xen9pfsd_spawn_outcome;
+On 08/02/2024 4:55 pm, Juergen Gross wrote:
+> +static struct p9_fid *alloc_fid_mem(device *device, unsigned int fid,
+> +                                    const char *path)
+> +{
+> +    struct p9_fid *fidp;
+> +    size_t pathlen;
+> +
+> +    pathlen = strlen(path);
+> +    fidp = calloc(sizeof(*fidp) + pathlen + 1, 1);
+> +    if ( !fidp )
+> +        return NULL;
+> +
+> +    fidp->fid = fid;
+> +    strncpy(fidp->path, path, pathlen);
+> +
+> +    return fidp;
+> +}
 
-By never used, I mean that nothing is reading the value, their is no
-"aop9->callback(egc, aop9, rc)" call.
-It might have been useful if a caller of xen9pfsd_spawn() was actually
-setting this field, but that's not an option here. And callbacks of
-xen9pfsd_spawn() knows to call xen9pfsd_spawn_outcome() when done.
+GitlabCI has something to say about this. 
+https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/1176787593
 
-Cheers,
+I think they're all variations of:
 
--- 
-Anthony PERARD
+io.c: In function 'alloc_fid_mem.isra.8':
+io.c:566:5: error: 'strncpy' output truncated before terminating nul
+copying as many bytes from a string as its length
+[-Werror=stringop-truncation]
+     strncpy(fidp->path, path, pathlen);
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+io.c:560:15: note: length computed here
+     pathlen = strlen(path);
+               ^~~~~~~~~~~~
+
+~Andrew
 
