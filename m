@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD78285456A
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 10:34:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680306.1058372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8236E85462E
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 10:36:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680309.1058383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raBev-0007k3-Az; Wed, 14 Feb 2024 09:34:29 +0000
+	id 1raBgG-0008JS-Kl; Wed, 14 Feb 2024 09:35:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680306.1058372; Wed, 14 Feb 2024 09:34:29 +0000
+Received: by outflank-mailman (output) from mailman id 680309.1058383; Wed, 14 Feb 2024 09:35:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raBev-0007iN-8F; Wed, 14 Feb 2024 09:34:29 +0000
-Received: by outflank-mailman (input) for mailman id 680306;
- Wed, 14 Feb 2024 09:34:27 +0000
+	id 1raBgG-0008GZ-Hn; Wed, 14 Feb 2024 09:35:52 +0000
+Received: by outflank-mailman (input) for mailman id 680309;
+ Wed, 14 Feb 2024 09:35:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=C2D8=JX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1raBet-0007fU-M5
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 09:34:27 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
+ id 1raBgF-0008GT-BC
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 09:35:51 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e496152-cb1c-11ee-98f5-efadbce2ee36;
- Wed, 14 Feb 2024 10:34:26 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id
- 4fb4d7f45d1cf-5638dbf1417so43352a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 01:34:26 -0800 (PST)
+ id 6fe8bea1-cb1c-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 10:35:49 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-a3cede53710so201321166b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 01:35:49 -0800 (PST)
 Received: from [192.168.206.239] ([94.75.70.14])
  by smtp.gmail.com with ESMTPSA id
- j2-20020aa7de82000000b005621b45daffsm651262edv.28.2024.02.14.01.34.24
+ jw18-20020a170906e95200b00a3d606ad367sm84807ejb.38.2024.02.14.01.35.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Feb 2024 01:34:25 -0800 (PST)
+ Wed, 14 Feb 2024 01:35:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,142 +45,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e496152-cb1c-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 6fe8bea1-cb1c-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707903265; x=1708508065; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1707903349; x=1708508149; darn=lists.xenproject.org;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=hP4kZLnN1WW8YJLFPK9+BmBruAYbYOdwq2j5yxpv070=;
-        b=a3typs2NwxCM4y+xt0TNH5sBEE0sqCWI0wxru9dAqpmGJVIaC7vOi6Bn5GAtkpXim6
-         /TD4LL6b+pnla4sM/+iHPMYogGWVvJ2JPFvuAJEaWZ//5oaAcHeYHE2IkkJDaPNHNRbU
-         XADkqqa06KjkB52wczFGg2N3RHbwgE/5hAyJpcnLib1QljvMa4EGNJW5Ndyfu+pyfhTp
-         x1ygGDB516LVexd91VluVobKf4bc/MMixdC1PRVzO7ytoklpJ9opPx5gbUhX237RFcsU
-         vlFaiGY4XzTJPVjC80igexwRkcgaXvdEnHvfVwOA9HIHAbyiJK/mER9JnmQnK6jBz2oo
-         3rgQ==
+        bh=Jm4piMvAEf9h/Ke1toGz6mjDyUEI8hyJyycjFH3AcA8=;
+        b=hwy02Xb5MIPRCO/SgBHuM8RcuVDh3TWRM6q2UHQY1Z3WjkxvAAY6s4zjVi5xjqQ/ci
+         0Uq2rgl6QJE1Fn2tqHIglE4ywYOphBcFO4/vnkwqUDGLopqaLaRPlpSLBJt+FhBaRFeD
+         x7/sJHM1cBsGc9BTFZwz0fwnLXDZbSjPUN0z+kJY2OsilZg9SaT7vn5hq5NoZuYQlRTF
+         2ndBHctLBfGdsTc/9Kly/1R5plo6bG0rI9lvbT0gUINb8JazwOOZYJF7nRSMCF9CMX/s
+         Q1XMdKqVHeW1YT2CQNX5qmmFGO5Lds+T8QfFmoPcQWj9mFOQQOSpYXFFpc4L7qPDW9rQ
+         YbRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707903265; x=1708508065;
+        d=1e100.net; s=20230601; t=1707903349; x=1708508149;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=hP4kZLnN1WW8YJLFPK9+BmBruAYbYOdwq2j5yxpv070=;
-        b=L5karuSn3nrQz86Rs3Ff4cMyxq6B3KNrIhEaxWT83RPnv2VLtysG3WQ6B4gTmNy3Sv
-         EzMpJi/9B5bHI4HNYRe0AN0owJBmsLzfv+09aLW1G3gwmd2i9B/7TYcKungubpsplbgL
-         kabY+UdgkF7r7FnlyRIF8AcprPvO+4WGRty30oJCPKrBZrsDs4P07Eo3RlcYWbkZAnZU
-         mYTJKylnEhzKfcfHMEMpT3NOjSEo1UPam0lwZqgyPMXxLKGoYjfXOe7BWIF95hu6+sDg
-         oGCAr+2kAW+TFsVM/HqicpDLFVZZ/ZCv6hFeKYLYgfDZXJyT/1OBdL+M59cqa6By0NGd
-         v5Ww==
-X-Forwarded-Encrypted: i=1; AJvYcCU1SBKttrOlV8p95t0ta6Lzg9SXqUyPzjyHkMCerWdi1Q0un5V5HvtwZjCkNgnU89Hu/5G5cVXzKexU0rs+0NELnzwqa57EKaaS5PamN+w=
-X-Gm-Message-State: AOJu0YyLrDNO5Zj/ocDjrW/DmUeXDVQpmqCIaqm/WtMyLx2iWbifuu+T
-	kCn7MmjetVYXqAbEUlmtPcsmPBOSwQLVL6vqrEB/xP0MngBvhtZkRDtrLoqK
-X-Google-Smtp-Source: AGHT+IEIlYGC6H37Zpz4V7TnbqcQepqhVKppa5hQl8CnG6YSmb/T2tgIUGKG3uV/EsJndymRRQ+oUg==
-X-Received: by 2002:aa7:d1cb:0:b0:55f:99:c895 with SMTP id g11-20020aa7d1cb000000b0055f0099c895mr1574912edp.20.1707903265455;
-        Wed, 14 Feb 2024 01:34:25 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCUGZGyJOAetSdRCzRT8wk7AEWUt1WwA9F6F0d6JO62L8G+SVP5gz5fd9xAH6hnuyx31zMb7nLB86lhZLtdmpjAFjGyQS5XCrb0/xgbT8XMSBPL/P+2QVSFnTbIdlvtLDzIPDQSY0x8ykf5T6py311EfzO+VDmgDkuDfn01IXe+t7feuPJy9ifcN4eyISs5BErRtfbng//hR+ssp
-Message-ID: <f76b81ca2e4c057e266597de2a00179c039a20d9.camel@gmail.com>
-Subject: Re: [PATCH v8 6/7] xen/arm: switch Arm to use asm-generic/device.h
+        bh=Jm4piMvAEf9h/Ke1toGz6mjDyUEI8hyJyycjFH3AcA8=;
+        b=lD5THyaIT0vkccL89qELpRY8aGuCyVp8/WFKzoX5eBCsk4lq/ezf48UvzgeKiO5ITw
+         wfmYbKz5l7Vbvlr06HWvxYBOOgXe3YtMdKVH/iHgij0BMMehLtxFzpNZF2u1lk8hrnZj
+         Oj6kNkI0kJmPTk97PGV/HKPmtFMFF2ISn1eeKCWmCUeeCEsJjwVELvtvSVtI9dDa/P/c
+         Y4nMtZufJkoZx6LBBGVJYwZqZROV/dpEj+ivRWWXSVO9oN/prFYBtjI8DJFT1HirDPor
+         jh27aqdW36Z4qx8jE9I4nrWSEeocPOSi6u/3agUzVKvbP57vkBENHu5zEq1Q1RvL1aEd
+         awHw==
+X-Forwarded-Encrypted: i=1; AJvYcCXI7VFS+j5JGRcUDUeiwv3rDfGTc1ZPWg7aXdsS7LxSW1KxsJNGIufKZOIi/quFhp/nNk70YFF7s52aErppI+aqSw5h782ltmuS2U7xGyM=
+X-Gm-Message-State: AOJu0Yz7LGsIvQusG1havwqxTReCdJho156yR2OkJXtt3iKRn2FHOkDu
+	vR9CzTEwuIRL3JV2CgJc3vqKLqejdcDl1aj9ujJTWLvtLWNMu4JN
+X-Google-Smtp-Source: AGHT+IGkgu301vkQpKrx9qs6p7JGMW0OKBRVP+Cbe3+5a/ekBvf6YqTf1Pr4DlpXqMtIUYeyrYAfEQ==
+X-Received: by 2002:a17:906:48e:b0:a3c:cd89:edb2 with SMTP id f14-20020a170906048e00b00a3ccd89edb2mr1571243eja.22.1707903348684;
+        Wed, 14 Feb 2024 01:35:48 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCUFM0XDq6DySXxtBtLMUU1ynIy5FiLs2U7AxeH2JLG01oTja95kZlisaQYITSzE0XvSi3RCe/nm3mgCLjretUYfwzag5ks/LfyZwhdf24Z7K52CFTz7Ic9DWE54yE92sC2yOvGzl2wMwE/x1SEjOSg708CF5Pkykk6/Azqx1OU09JgVYkJObqQLueNJOfhVww0OfKhSJYM7YlYjEJFpqm17yJw5PcNAWcZRV8GQGrDTZ7vIXUu/XYai6KcLD2DFT6m7UOMu6bgPNGs7P6ddUSXCK0vkeMaaesPXaw6Yv380JDXflcjdhjMIEyDZS2+KVNWUf03yE1ipxy2nnBWLLflwqcuQOc9f1wb0OQ==
+Message-ID: <656dfb55b67e78061e83ca5863b515fa9b6de24f.camel@gmail.com>
+Subject: Re: [PATCH v2] xen/lib: introduce generic find next bit operations
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	 <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
-	Babchuk <Volodymyr_Babchuk@epam.com>
-Date: Wed, 14 Feb 2024 10:34:24 +0100
-In-Reply-To: <cd2091d2-ac71-4d6f-a9a2-e7444889af69@xen.org>
-References: <cover.1707499278.git.oleksii.kurochko@gmail.com>
-	 <ae256e804cbfd3c5d17ef9d17f100ebbf17c48fc.1707499278.git.oleksii.kurochko@gmail.com>
-	 <cd2091d2-ac71-4d6f-a9a2-e7444889af69@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Shawn Anastasio
+ <sanastasio@raptorengineering.com>,  xen-devel@lists.xenproject.org
+Date: Wed, 14 Feb 2024 10:35:47 +0100
+In-Reply-To: <f8534623-39bf-4c4a-9236-ed5bd3d655c2@suse.com>
+References: 
+	<fea2e65768457adcfedbfcc294004b1d5c2e86ea.1707495704.git.oleksii.kurochko@gmail.com>
+	 <f8534623-39bf-4c4a-9236-ed5bd3d655c2@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
 MIME-Version: 1.0
 
-Hi Julien,
-
-On Tue, 2024-02-13 at 18:12 +0000, Julien Grall wrote:
-> Hi Oleksii,
->=20
-> On 09/02/2024 18:00, Oleksii Kurochko wrote:
-> > The following changes were done as a result of switching to
-> > asm-generic/device.h:
-> > =C2=A0 * DEVICE_GIC was renamed to DEVICE_INTERRUPT_CONTROLLER accordin=
-g
-> > =C2=A0=C2=A0=C2=A0 to definition of enum device_class in asm-generic/de=
-vice.h.
-> > =C2=A0 * acpi-related things in Arm code were guarded by #ifdef
-> > CONFIG_ACPI
-> > =C2=A0=C2=A0=C2=A0 as struct acpi_device_desc was guarded in asm-generi=
-c, also
-> > functions
-> > =C2=A0=C2=A0=C2=A0 acpi_device_init() was guarded too as they are using=
- structure
-> > =C2=A0=C2=A0=C2=A0 acpi_device_desc inside.
-> > =C2=A0 * drop arm/include/asm/device.h and update
-> > arm/include/asm/Makefile
-> > =C2=A0=C2=A0=C2=A0 to use asm-generic/device.h instead.
+On Mon, 2024-02-12 at 15:15 +0100, Jan Beulich wrote:
+> On 09.02.2024 18:58, Oleksii Kurochko wrote:
+> > find-next-bit.c is common for Arm64, PPC and RISCV64,
+> > so it is moved to xen/lib.
 > >=20
+> > PPC has been transitioned to generic functions from find-next-bit.c
+> > since it now shares the same implementation as the PPC-specific
+> > code.
+> >=20
+> > The MISRA exclude list has been updated to verify
+> > lib/find-next-bit.c instead of Arm's find_next_bit.c,
+> > as Arm's find_next_bit.c has been relocated to xen/lib/.
+> >=20
+> > Despite CONFIG_GENERIC_FIND_FIRST_BIT not currently being used in
+> > Xen and being removed from the Linux kernel [1], it could
+> > theoretically
+> > prove useful for Xen. This is because the Linux kernel transitioned
+> > Arm to the generic version of find_first_bit() and
+> > find_first_zero_bit() due to improvements [1] in both performance
+> > and .text size.
+> > It would be prudent to investigate whether [1] is applicable to Xen
+> > as well and, if so, implement the necessary changes in a separate
+> > patch.
+> >=20
+> > [1]
+> > https://lore.kernel.org/linux-arch/20211005054059.475634-5-yury.norov@g=
+mail.com/
+> >=20
+> > Suggested-by: Jan Beulich <jbeulich@suse.com>
 > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > Changes in V8:
-> > =C2=A0 - update the commit message
-> > ---
-> > Changes in V7:
-> > =C2=A0 - newly introduced patch which is based on the previous version
-> > of the patch:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [PATCH v6 9/9] xen/asm-generic: introduc=
-e generic device.h
-> > ---
-> > =C2=A0 xen/arch/arm/device.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 5 ++
-> > =C2=A0 xen/arch/arm/domain_build.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-|=C2=A0=C2=A0 2 +-
-> > =C2=A0 xen/arch/arm/gic-v2.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +-
-> > =C2=A0 xen/arch/arm/gic-v3.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
-> > =C2=A0 xen/arch/arm/gic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 4 +-
-> > =C2=A0 xen/arch/arm/include/asm/Makefile |=C2=A0=C2=A0 1 +
-> > =C2=A0 xen/arch/arm/include/asm/device.h | 124 ------------------------=
--
-> > -----
-> > =C2=A0 7 files changed, 14 insertions(+), 132 deletions(-)
-> > =C2=A0 delete mode 100644 xen/arch/arm/include/asm/device.h
-> >=20
-> > diff --git a/xen/arch/arm/device.c b/xen/arch/arm/device.c
-> > index 1f631d3274..3e02cff008 100644
-> > --- a/xen/arch/arm/device.c
-> > +++ b/xen/arch/arm/device.c
-> > @@ -16,7 +16,10 @@
-> > =C2=A0 #include <xen/lib.h>
-> > =C2=A0=20
-> > =C2=A0 extern const struct device_desc _sdevice[], _edevice[];
-> > +
-> > +#ifdef CONFIG_ACPI
-> > =C2=A0 extern const struct acpi_device_desc _asdevice[], _aedevice[];
-> > +#endif
 >=20
-> Can you also update the linker script to protect the following code?
-Sure, I'll update that. Also please look at my comment to the previous
-patch. Perhaps, it will be needed to update this patch to ifdef
-device_init() and device_get_class(), and provide stubs for them in
-case of !CONFIG_HAS_DEVICE_TREE.
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Thanks!
 
-
-> I.e
 >=20
-> #ifdef CONFIG_ACPI
-> =C2=A0=C2=A0 . =3D ALIGN(8);
-> =C2=A0=C2=A0 .adev.info : {
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _asdevice =3D .;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.adev.info)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _aedevice =3D .;
-> =C2=A0=C2=A0 } :text
-> #endif
->=20
-> With this change:
->=20
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
-Thanks.
+> A revision log would have been nice, though.
+Missed that. In case if it will be needed a new patch version, I'll
+back the log.
 
 ~ Oleksii
 
