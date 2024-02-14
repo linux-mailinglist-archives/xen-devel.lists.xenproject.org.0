@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950D0854A09
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 14:06:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680733.1058817 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ACE7854A18
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 14:09:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680736.1058826 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raEyE-0005oc-RY; Wed, 14 Feb 2024 13:06:38 +0000
+	id 1raF1A-0006XJ-83; Wed, 14 Feb 2024 13:09:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680733.1058817; Wed, 14 Feb 2024 13:06:38 +0000
+Received: by outflank-mailman (output) from mailman id 680736.1058826; Wed, 14 Feb 2024 13:09:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raEyE-0005lQ-OU; Wed, 14 Feb 2024 13:06:38 +0000
-Received: by outflank-mailman (input) for mailman id 680733;
- Wed, 14 Feb 2024 13:06:37 +0000
+	id 1raF1A-0006Ur-4x; Wed, 14 Feb 2024 13:09:40 +0000
+Received: by outflank-mailman (input) for mailman id 680736;
+ Wed, 14 Feb 2024 13:09:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raEyD-0005lJ-OL
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 13:06:37 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+ id 1raF18-0006Uh-8O
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 13:09:38 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e1907fcc-cb39-11ee-98f5-efadbce2ee36;
- Wed, 14 Feb 2024 14:06:35 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-410e676c6bbso15157975e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 05:06:35 -0800 (PST)
+ id 4c9641d1-cb3a-11ee-98f5-efadbce2ee36;
+ Wed, 14 Feb 2024 14:09:34 +0100 (CET)
+Received: by mail-lf1-x131.google.com with SMTP id
+ 2adb3069b0e04-511898b6c9eso4093275e87.3
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 05:09:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- n9-20020a05600c294900b00410cc2f5550sm1874323wmd.19.2024.02.14.05.06.34
+ m10-20020a05600c4f4a00b00411e6243e70sm1933730wmq.12.2024.02.14.05.09.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Feb 2024 05:06:34 -0800 (PST)
+ Wed, 14 Feb 2024 05:09:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,53 +45,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e1907fcc-cb39-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 4c9641d1-cb3a-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707915995; x=1708520795; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707916174; x=1708520974; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=/+SBJH3tyuiPYvHw7rIW+L4RszvBgnNudqwloHmO/Us=;
-        b=Z0X/x97xmj+4UdYCpSsnwuC887C7oKk2ZJksQV1XVL9VxwJUyrCnnwmYIiSjew+0/5
-         sWIrzwarAsVjGcIeML/IUccxP1p0f4Lmkl32HfZLo5i5bqzuKs69JKM8YHJlBGLw9EIm
-         H2jRZSCAqkpG6cgSDLRYcipL8YPWrFDFfp659p9xAvtKTLeuCeU2InAG+HB+cOObnxVo
-         dGs2C0ycRvXychrPFVoV8YxE/csx963efJbWTuWbVg7NZVJepVX6uLbL8SWinY18bJW0
-         DQWPzG8IyV8I2Rys0XDAVsUH+Szyos5E1NqccHZ65LuDM4XB2ibLCpv/0nr5csvzZ+bc
-         yDVA==
+        bh=2WgV/KpmqVIoQsd4n3Phk/UVFdI4GBNBCLy9AxSUPqY=;
+        b=H0YUrLmI4NQLCBCq1kpjJtOSPJbB9g+KwXFzbqWbFZ1JPN1YUvujMtY1QLZVPluU8Y
+         SitW0vxXa94DG/wYXxQ/ec4v2n0QilLKfdAC1gnMBxDnQz1wkjrG0yRuxiTeMikviENl
+         rm6gn6F+TTnT5P7tLmDhrPQ6deWgvQ4hE1vqqyORfzEGCjKZDDd3Ec3gAwwHBWSYPRgm
+         VVJ8/KjMr+9DcViMgpK+Opoxm07W6aIJNsrNTQ/+/1DCDJhTwtazB9ZYN7SzpkgWE5TE
+         bAWyIr5a5tAMLz269XxYFhPq72tllLpLdZa5BoTmrOPcbYiD1fo0B7qKfp9gdgRXQXMY
+         SyKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707915995; x=1708520795;
+        d=1e100.net; s=20230601; t=1707916174; x=1708520974;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
          :to:content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=/+SBJH3tyuiPYvHw7rIW+L4RszvBgnNudqwloHmO/Us=;
-        b=AtkyizKuShkqI02vuzsSSQCLM0im6VuiPAxeCaphrG2DsCiscXwqiInkY//T/deJaw
-         nIGIpLemDyrkJ2PwBLsvjvtb6S2enSzj4tr+oKIOYePLRwHpCy+Gliibv5Vl9mJeEtSI
-         q+7P0f2fYieDy4YnaaI5zapdc42x4XaKPc5BW9vJilAfXVua6q/Sgp8i2pMFDXqQtFrY
-         O6YGDiOBiqqXD9HnoGHLsM4YZDwPBU/u2+clmXM3jqxo0LI2cclzU8LDs/rpZGho3RKH
-         VNPcwFdf/EpsCAwTKOy3xmrg4klylU8iy67LUirLGMP6IePnudhVu3M4q/W79ve1DoUK
-         plDQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXjGizBXl7/cplOlDonep/U9xMg29PTUE/7CpEU+MNwQuFEqoD1ocvrDgokrxlM8KNid/tUVRejJtvxMNAC+2DYqRmzqwxYW/gGgI3FE4M=
-X-Gm-Message-State: AOJu0YzjmPWXWhf3DorJZ28KX9AyphJq5ZLR837JuPQTAWTOE8KVmns4
-	elf6iTMvgl++k/x0AqB514wbdLiggu9yICYJy3AX9DxhphAoBJ8mToPK7YrMEQ==
-X-Google-Smtp-Source: AGHT+IHD4CcEeoZH1+OX4/V+HxpW3HboiNhhdvuL2DWjtyLH0Y08NzWxImaf33FkaHhye4qtMByUaw==
-X-Received: by 2002:a05:600c:470f:b0:410:d1bd:150e with SMTP id v15-20020a05600c470f00b00410d1bd150emr1869377wmo.14.1707915994916;
-        Wed, 14 Feb 2024 05:06:34 -0800 (PST)
-Message-ID: <d63e0139-8f75-4c14-b612-27b003592d3d@suse.com>
-Date: Wed, 14 Feb 2024 14:06:34 +0100
+        bh=2WgV/KpmqVIoQsd4n3Phk/UVFdI4GBNBCLy9AxSUPqY=;
+        b=bTqWAx94WzW0e5K/aNk2QLjLHhgkp6z42kTPu17ncQC9fFlfdZC6eg6Q2FD6dHuhqh
+         f4NSCPfsVUSqT1nqwHN5T0ZHQa6/VCvKCbLOWZCIyrvgGMGLeEDovjSHT9uVgN+jDDbi
+         msO4MDogkApRud7H36xvrC2r2ojrp7Lw5T/pLhvgpXfbOV23JGXP9m41IuXy8Y4iCly3
+         ukbx0AEqE//bIqVLwvkXzzd8ds0ohwUBlhNA3a3JSJIFh3zKRROjh44OMlTyJYQi3AKV
+         zFgCnbRUu5qFptsoFicoYiiA3jxgm8eP1gThhp6cDtGIIRqgn8r//MGvubd/xuOpHAVG
+         ZNzg==
+X-Forwarded-Encrypted: i=1; AJvYcCVN9+Ktyd56Mt7ZYmQlzbJ2/I2ezeTJcaxu1lHb0iPVw7Twavu4Ggq+CbBq3ILHnfBHI0CijRgzgTQoElAbLjph4MeESvZFl/67jMIOeqs=
+X-Gm-Message-State: AOJu0Yyw9OxBLrSwRlildbzYjmGnjQtrA/Q8fjAF8/vJWn3uAJHTseCX
+	lVYSmLg+yQjxclLIyrLCp2qt5dy6vmLyrn92h9tpG26NhFRHRP1Ity7vHmaTOg==
+X-Google-Smtp-Source: AGHT+IF5tn5KKuczaaH54Vs9gcimwfvNX1ijsYcJrHo4SP7BOAdGX2/EFM1sFDhtXCRHWyVqJugnOg==
+X-Received: by 2002:a05:6512:3983:b0:511:7c0a:da3 with SMTP id j3-20020a056512398300b005117c0a0da3mr2193477lfu.25.1707916174436;
+        Wed, 14 Feb 2024 05:09:34 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCWhE/UnIeLJH/KKuV5WbfZRXqwFo+AXyrgTSNRG9t6b8cuT925ZRg3D3b4+EuKebpSxPQucivq8Wbw0r/g9/9FnK/TXZOLsRsQ0IuLdGJeHKCxd2zgqiNcL6UDTxnNpeBuJ65ipVDZPxg0w0uJFAwj+1C5uNCa+GnnF+qGe2o0fwksvF2uAjbHZhwzhRY9krD3qwYFO2tCH/lU/usvyfzZQ+FdWlItTChqwy4/zj/pnrW21QtojjCk74Xy/lpE88/v1c/hLW76HIdIezWBLJnwfEldudTUXV4ckVaoGpU9HrLGTcBjydg8U
+Message-ID: <59312f50-d36c-48d8-8d95-e1abe48d9bc3@suse.com>
+Date: Wed, 14 Feb 2024 14:09:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 30/30] xen/README: add compiler and binutils versions
- for RISC-V64
+Subject: Re: [PATCH v4 14/30] xen/riscv: introduce atomic.h
 Content-Language: en-US
 To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
- <d62dff38ee661f3fb713554d544c966fa889fd83.1707146506.git.oleksii.kurochko@gmail.com>
- <16162577-dc0f-4c4b-acd5-9c2519f94c9a@suse.com>
- <4b7ff366d58089a1c755c01cef21c503f408464b.camel@gmail.com>
+ <6554f2479e19ed3eae6de842ac1568c31d236461.1707146506.git.oleksii.kurochko@gmail.com>
+ <134e09c9-776a-4261-a28b-137d109b62ef@suse.com>
+ <8af3bbf27c51f4b5d8663b537c3123c6e05e74e7.camel@gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -116,58 +119,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4b7ff366d58089a1c755c01cef21c503f408464b.camel@gmail.com>
+In-Reply-To: <8af3bbf27c51f4b5d8663b537c3123c6e05e74e7.camel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 14.02.2024 13:21, Oleksii wrote:
-> On Wed, 2024-02-14 at 10:52 +0100, Jan Beulich wrote:
+On 14.02.2024 13:11, Oleksii wrote:
+> On Tue, 2024-02-13 at 12:36 +0100, Jan Beulich wrote:
 >> On 05.02.2024 16:32, Oleksii Kurochko wrote:
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> ---
->>>  Changes in V4:
->>>   - Update version of GCC (12.2) and GNU Binutils (2.39) to the
->>> version
->>>     which are in Xen's contrainter for RISC-V
->>> ---
->>>  Changes in V3:
->>>   - new patch
->>> ---
->>>  README | 3 +++
->>>  1 file changed, 3 insertions(+)
->>>
->>> diff --git a/README b/README
->>> index c8a108449e..9a898125e1 100644
->>> --- a/README
->>> +++ b/README
->>> @@ -48,6 +48,9 @@ provided by your OS distributor:
->>>        - For ARM 64-bit:
->>>          - GCC 5.1 or later
->>>          - GNU Binutils 2.24 or later
->>> +      - For RISC-V 64-bit:
->>> +        - GCC 12.2 or later
->>> +        - GNU Binutils 2.39 or later
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/include/asm/atomic.h
+>>> @@ -0,0 +1,395 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +/*
+>>> + * Taken and modified from Linux.
+>>> + *
+>>> + * atomic##prefix##_*xchg_*(atomic##prefix##_t *v, c_t n) were
+>>> updated to use
+>>> + * __*xchg_generic()
+>>> + * 
+>>> + * Copyright (C) 2007 Red Hat, Inc. All Rights Reserved.
+>>> + * Copyright (C) 2012 Regents of the University of California
+>>> + * Copyright (C) 2017 SiFive
+>>> + * Copyright (C) 2021 Vates SAS
+>>> + */
+>>> +
+>>> +#ifndef _ASM_RISCV_ATOMIC_H
+>>> +#define _ASM_RISCV_ATOMIC_H
+>>> +
+>>> +#include <xen/atomic.h>
+>>> +#include <asm/cmpxchg.h>
+>>> +#include <asm/fence.h>
+>>> +#include <asm/io.h>
+>>> +#include <asm/system.h>
+>>> +
+>>> +void __bad_atomic_size(void);
+>>> +
+>>> +static always_inline void read_atomic_size(const volatile void *p,
+>>> +                                           void *res,
+>>> +                                           unsigned int size)
+>>> +{
+>>> +    switch ( size )
+>>> +    {
+>>> +    case 1: *(uint8_t *)res = readb(p); break;
+>>> +    case 2: *(uint16_t *)res = readw(p); break;
+>>> +    case 4: *(uint32_t *)res = readl(p); break;
+>>> +    case 8: *(uint32_t *)res  = readq(p); break;
 >>
->> And neither gcc 12.1 nor binutils 2.38 are good enough? Once again
->> the
->> question likely wouldn't have needed raising if there was a non-empty
->> description ...
-> I haven't verified gcc 12.1 and binutils 2.38. gcc 12.2 and binutils
-> 2.39 were chosen because this veriosn is used in Xen contrainer for
-> RISC-V, on my system I have newer versions. So this is the minimal
-> versions which would be always tested and I can't be sure that the
-> lessser version will work fine, as there is not any compilation testing
-> for that.
-> 
->>
->> Also - Clang pretty certainly supports RISC-V, too. Any information
->> on
->> a minimally required version there?
-> I haven't verified that. I am only testing gcc for now.
-> I can add this information to commit message.
+>> Why is it the MMIO primitives you use here, i.e. not read<X>_cpu()?
+>> It's RAM you're accessing after all.
+> Legacy from Linux kernel. For some reason they wanted to have ordered
+> read/write access.
 
-Yes please. And if this isn't a firm lower bound, that fact imo wants
-reflecting in README itself as well.
+Wants expressing in a comment then, or at the very least in the patch
+description.
 
 Jan
 
