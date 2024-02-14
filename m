@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5DAC8548E0
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 13:02:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680677.1058725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D2468548E4
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 13:04:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680683.1058735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDy0-0005gE-A4; Wed, 14 Feb 2024 12:02:20 +0000
+	id 1raDzt-0006QG-LB; Wed, 14 Feb 2024 12:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680677.1058725; Wed, 14 Feb 2024 12:02:20 +0000
+Received: by outflank-mailman (output) from mailman id 680683.1058735; Wed, 14 Feb 2024 12:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raDy0-0005eN-7O; Wed, 14 Feb 2024 12:02:20 +0000
-Received: by outflank-mailman (input) for mailman id 680677;
- Wed, 14 Feb 2024 12:02:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1raDxy-0005eH-BK
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 12:02:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1raDxy-0002Ab-54; Wed, 14 Feb 2024 12:02:18 +0000
-Received: from [15.248.2.25] (helo=[10.24.67.29])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1raDxx-0006Lh-TW; Wed, 14 Feb 2024 12:02:18 +0000
+	id 1raDzt-0006OY-IB; Wed, 14 Feb 2024 12:04:17 +0000
+Received: by outflank-mailman (input) for mailman id 680683;
+ Wed, 14 Feb 2024 12:04:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WArD=JX=cloud.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1raDzs-0006OP-Dm
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 12:04:16 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c7f8980-cb31-11ee-8a4d-1f161083a0e0;
+ Wed, 14 Feb 2024 13:04:15 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id
+ 2adb3069b0e04-5118d65cf9cso3940626e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 04:04:15 -0800 (PST)
+Received: from localhost ([213.195.118.74]) by smtp.gmail.com with ESMTPSA id
+ h22-20020ac85056000000b0042dbbe27a55sm430962qtm.66.2024.02.14.04.04.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Feb 2024 04:04:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,78 +44,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=YRM/j+EA91QLN+z8xGAnc5ab9MB8UUZAVjVKosB1qus=; b=54PH/F8O8KJeuElzWEZahHU/Nd
-	wW8LIxFepqRis+nSmkltT/h+8B4EV3DcsXKxCHnOCo9PqM5oeTkh+vRK5DfafHzmX+amwCnS5xCPV
-	IUPv68/gsmgg5QYSRsvtgX7T4gmSmYjpeU+ji2D0avZmUMs3yy8U8nSWB5EZl4N0pP2I=;
-Message-ID: <aa89e2b8-7251-4cd4-a2f9-cfb32a642af3@xen.org>
-Date: Wed, 14 Feb 2024 12:02:15 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] mm: add the __must_check attribute to {gfn,mfn}_add()
-Content-Language: en-GB
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+X-Inumbo-ID: 2c7f8980-cb31-11ee-8a4d-1f161083a0e0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1707912255; x=1708517055; darn=lists.xenproject.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=UDsEfgwp8wcDvHYNMbE3kESDb0kSmC9ET3bXxl+wzto=;
+        b=G9itvYDx3F3wE38tqRhfCDpkblVEsUkxk/ctvLLQf2zAVgbUo6EV3oZ3QFM6TQ32Lo
+         erFk9i9IMqgwrpAYqPCQ3ERDZCIi/6nZfWYbjionmhfZiCUT+gdz0b/hY+ob8/MHTrPW
+         HhVBn7pU3pZ7NCPLKJJEey+N/wtfXlybvKNa8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707912255; x=1708517055;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UDsEfgwp8wcDvHYNMbE3kESDb0kSmC9ET3bXxl+wzto=;
+        b=WSw8vc0MYsqZXx8TxuifdhClK3TR4nR39Eme1Edoj8G49sRXQDOuPhM2HDvLt7F730
+         kNweqSI7UlzRrFWtXCpCzVTdmbDEfCukoxS5zN563d5HFPOXqccoIjYuAk+gWx8QC31C
+         6P7drq39paL3PK/7xl9fzJo1hEuv0H2r5ek1g5ML/mutdy9sNxcMSMLeM3pA2OybgJbN
+         nkDae/PgMsbA9dBMzDYvmoLmPEMZMoufPK3tBLNpZYh6ZsF23zL4NP0kO4v+9O9e4tRW
+         kJ2negvayz1pK5ESAuqI3mid7LUeffdJOUXw5OpSZ0jd5yBk0fJdrtDUL0jy613aKdpf
+         n97A==
+X-Forwarded-Encrypted: i=1; AJvYcCUI5rTlYk0EYI3ZJrTruLA9NLKhEf3YGNhKzili38rDEdb1Qi745uUV46EZB8HjNeNugs4RRMhaTN0Fz/bUffs4L00Taz6ze4FpyIt9wHM=
+X-Gm-Message-State: AOJu0YwTy0H6rW+hRzdCXBWhS8Z75l3uwmeNDfU3p4rFWcCKLmwMs+NF
+	xX45K6S59TLoY1ppvcABnoszSz8MBIJAs2yg8woEp3t3c/EGr1hagYPdYUvT3Ss=
+X-Google-Smtp-Source: AGHT+IGxiGlwLPi/moC75NIUet2FgAUQsi4O6r4RrNMf8WHSEYZFYneKm2D/gkoO4rnvgXhM/iCATw==
+X-Received: by 2002:a05:6512:2026:b0:511:69b3:a47e with SMTP id s6-20020a056512202600b0051169b3a47emr1582330lfs.52.1707912255065;
+        Wed, 14 Feb 2024 04:04:15 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AJvYcCXspfXe6IhdjYPjAiKekEE0zoaF41AO8//AX/HQGibEgLkhVA8YUvUizB0h63p56RUZQM0ZwEGLYPN3Wj+XgiOdoYni3T+bdXC/lp/oWf4=
+Date: Wed, 14 Feb 2024 13:04:12 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 1/5] iommu/x86: fix IVMD/RMRR range checker loop increment
+Message-ID: <ZcysPDDHvkEuFrgJ@macbook>
 References: <20240214103741.16189-1-roger.pau@citrix.com>
- <20240214103741.16189-6-roger.pau@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20240214103741.16189-6-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ <20240214103741.16189-2-roger.pau@citrix.com>
+ <b2433393-1a04-4570-abe6-0356db9976f8@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <b2433393-1a04-4570-abe6-0356db9976f8@suse.com>
 
-Hi,
-
-On 14/02/2024 10:37, Roger Pau Monne wrote:
-> It's not obvious from the function itself whether the incremented value will be
-> stored in the parameter, or returned to the caller.  That has leads to bugs in
-> the past as callers assume the incremented value is stored in the parameter.
+On Wed, Feb 14, 2024 at 12:51:36PM +0100, Jan Beulich wrote:
+> On 14.02.2024 11:37, Roger Pau Monne wrote:
+> > mfn_add() doesn't store the incremented value in the parameter, and instead
+> > returns it to the caller.  As a result, the loop in iommu_unity_region_ok()
+> > didn't make progress.  Fix it by storing the incremented value.
+> > 
+> > Fixes: e45801dea17b ('iommu/x86: introduce a generic IVMD/RMRR range validity helper')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> Add the __must_check attribute to the function to easily spot callers that
-> don't consume the returned value, which signals an error in the caller logic.
-
-I like the patch. We should add more __must_check in the code :). I 
-think ECLAIR will also help us to spot any place where we don't use the 
-returned value.
-
-> No functional change intended.
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Should Andrew get a Reported-by here? And surely we want to list the
+> Coverity ID as well? (Happy to take of both while committing, so long
+> as you agree.)
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Oh, I didn't add those here, yes, sure, feel free to add.
 
-> ---
->   xen/include/xen/mm-frame.h | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/include/xen/mm-frame.h b/xen/include/xen/mm-frame.h
-> index 922ae418807a..c25e836f255a 100644
-> --- a/xen/include/xen/mm-frame.h
-> +++ b/xen/include/xen/mm-frame.h
-> @@ -23,7 +23,7 @@ TYPE_SAFE(unsigned long, mfn);
->   #undef mfn_x
->   #endif
->   
-> -static inline mfn_t mfn_add(mfn_t mfn, unsigned long i)
-> +static inline mfn_t __must_check mfn_add(mfn_t mfn, unsigned long i)
->   {
->       return _mfn(mfn_x(mfn) + i);
->   }
-> @@ -62,7 +62,7 @@ TYPE_SAFE(unsigned long, gfn);
->   #undef gfn_x
->   #endif
->   
-> -static inline gfn_t gfn_add(gfn_t gfn, unsigned long i)
-> +static inline gfn_t __must_check gfn_add(gfn_t gfn, unsigned long i)
->   {
->       return _gfn(gfn_x(gfn) + i);
->   }
-
-Cheers,
-
--- 
-Julien Grall
+Thanks, Roger.
 
