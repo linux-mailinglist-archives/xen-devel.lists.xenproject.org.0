@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E083854917
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 13:21:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.680716.1058796 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77DD08549BF
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Feb 2024 13:55:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.680727.1058806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raEGf-0004vf-6i; Wed, 14 Feb 2024 12:21:37 +0000
+	id 1raEmr-0003bZ-N7; Wed, 14 Feb 2024 12:54:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 680716.1058796; Wed, 14 Feb 2024 12:21:37 +0000
+Received: by outflank-mailman (output) from mailman id 680727.1058806; Wed, 14 Feb 2024 12:54:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raEGf-0004t1-3X; Wed, 14 Feb 2024 12:21:37 +0000
-Received: by outflank-mailman (input) for mailman id 680716;
- Wed, 14 Feb 2024 12:21:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=C2D8=JX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1raEGd-0004rR-Fz
- for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 12:21:35 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 97001d7e-cb33-11ee-98f5-efadbce2ee36;
- Wed, 14 Feb 2024 13:21:33 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id
- a640c23a62f3a-a2d7e2e7fe0so131400366b.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 04:21:33 -0800 (PST)
-Received: from [192.168.206.239] ([94.75.70.14])
- by smtp.gmail.com with ESMTPSA id
- qb35-20020a1709077ea300b00a3840fbeef9sm2257224ejc.70.2024.02.14.04.21.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Feb 2024 04:21:32 -0800 (PST)
+	id 1raEmr-0003Yo-JO; Wed, 14 Feb 2024 12:54:53 +0000
+Received: by outflank-mailman (input) for mailman id 680727;
+ Wed, 14 Feb 2024 12:54:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=l+oD=JX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1raEmp-0003Yi-IL
+ for xen-devel@lists.xenproject.org; Wed, 14 Feb 2024 12:54:51 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3d3d227b-cb38-11ee-8a4d-1f161083a0e0;
+ Wed, 14 Feb 2024 13:54:50 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id
+ 38308e7fff4ca-2d0d799b55cso68004141fa.0
+ for <xen-devel@lists.xenproject.org>; Wed, 14 Feb 2024 04:54:50 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ p15-20020a05600c1d8f00b0040ecdd672fasm1951305wms.13.2024.02.14.04.54.49
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Feb 2024 04:54:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,103 +46,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97001d7e-cb33-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 3d3d227b-cb38-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1707913293; x=1708518093; darn=lists.xenproject.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Aqu1pzReXGCcQGJ62RxsKSX1lKOwf9R4esB0hrUWg7E=;
-        b=Fu8bbS/DWa0slUos+Kz1cRsJUhrCyX2p0EBiT2srf12lAW5OAEzmehwnxetENrTFVp
-         WaNiHmSqufJQ3unxr6qZ1SQczgezWJL1UPCSsLMf8K6PXUCJZKIuE48XHOvztTBNpMf3
-         PoIO7w1DD8ZtBvK0WoPySoc//OS1yvCSNXBJooZRL4KpD7RvXi5Nh25fKU+GPNPVKdD3
-         U9/riYSSbcw9vdIr8XIfPTpBf0i11JQyGSJCzdScIlk0m6OIzKkbVxrHc9Uha0QSft9V
-         D4Ia8avh6g/SXblMIFI1sx4OMBXIv/EzDtqVni+23bhJwJ+qeM4v01ieSMME5BGC7CdZ
-         H/KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707913293; x=1708518093;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+        d=suse.com; s=google; t=1707915289; x=1708520089; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=Aqu1pzReXGCcQGJ62RxsKSX1lKOwf9R4esB0hrUWg7E=;
-        b=jSZ80dFphu4CNLah9MVPFNgCSC5VKzGt9oDaRe/7fZUpJ03YIgV74zXWwxHsGv5wjS
-         RZT6eFGbZXy59jleMx1VjbIIdUstznhA3wmMosd4BhPYS0Umw4Ctwag2npf9kDnr41gk
-         wU5g76LNSWtYHDJiXcHQJTPZTojEm1ZTvl1toj72Hu+uL5Rc9yHg0NBLLwkAE6jaEFQt
-         c+U2DWU2LvfEY5R7Ch5gl1cf4MXSAH4NTPegpydTh3j4uvPaQ1fUfr224Z9IEW+0+nQu
-         gGY4g0cRq1wi3iRdTPQe5XzLOnTamXAWrtWtvmtmglabfnpW+poMoth9qeoK0TSwbpm+
-         OIiQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWtraxhbAGVUdN2pu+SCKvFzs/GNOTaAPHuVCMcRVaaGmrl+HoJLTJASk8GURalnIKV1MzaxTP4CCUp7H6eW+oVEE8UCsV4HQL21bgHaIs=
-X-Gm-Message-State: AOJu0YzISFhGiBEIa//DytAEsBFHbaaqSTWZDOrJMEGHqVw1A/CFU9NJ
-	U9TyNckG46O2QF/N+/04unz7gVu5/w5sR2ydnSYLjUM0hAj6WmDk
-X-Google-Smtp-Source: AGHT+IHgSyZjknsoS3eVmO0IjIwoFtHC61etgbM/wfT5AYEt/1d/GZ+pG3DoS/J76TIZoHf2lxZ1CQ==
-X-Received: by 2002:a17:906:2614:b0:a3c:698:635f with SMTP id h20-20020a170906261400b00a3c0698635fmr1496045ejc.28.1707913292778;
-        Wed, 14 Feb 2024 04:21:32 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AJvYcCXNkUa3gWujoZTuqWzPYaCRP+QxwMjBUyik8pAgbXd5daCCThMKgTC5mnmWY1Abwue02IuKSfGq89s40F3Y86IUNbekuOOIpaUqDCfjI0dsri2nzp+O40i/JEFSq/WgGy3UxpZiNOo05qv6TuruKO0DyjL2J/a2m1f9SayTZbxOvAqlnosDUvQcUKTKM9f0fAxAVvyhrdBqZWEx3nY=
-Message-ID: <4b7ff366d58089a1c755c01cef21c503f408464b.camel@gmail.com>
-Subject: Re: [PATCH v4 30/30] xen/README: add compiler and binutils versions
- for RISC-V64
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
- <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Wed, 14 Feb 2024 13:21:31 +0100
-In-Reply-To: <16162577-dc0f-4c4b-acd5-9c2519f94c9a@suse.com>
-References: <cover.1707146506.git.oleksii.kurochko@gmail.com>
-	 <d62dff38ee661f3fb713554d544c966fa889fd83.1707146506.git.oleksii.kurochko@gmail.com>
-	 <16162577-dc0f-4c4b-acd5-9c2519f94c9a@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.2 (3.50.2-1.fc39) 
+        bh=0nGc33uiEkM41QRyRyElvnJ93fT7k0IZrbbvFNTqVG8=;
+        b=UnWMWT2MAAvg++1t/JJPApbbRtqLZlQchQ5w/FB5jwd5d1NppE0p6iM0dFj1PS9ReF
+         /D3P0jQoTvxfKozpwDRp/tneFHKY6JcTMxbxneiGcF2yqeEVini18cxdE1lkzVYuEW9y
+         7SOQ6wZazBUKy9Sc4fvGuCmXDX4oKTqUB87RZyh9S5zCxKWB3ZSNPFNNOfmWWJTt+xNv
+         yrc899NMm45kbRsVyCKd3zDxKyQAzBPEPHRmWGIAElSMbZyBOrpz88YjtmgJpCrmfB2d
+         vWVHNMZmAjGNgrj5m0WKTe4rhtNMVsxfNMIvfdDNa7ysXiR682HaiHaRJfksH8PuYQe8
+         c/Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1707915289; x=1708520089;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=0nGc33uiEkM41QRyRyElvnJ93fT7k0IZrbbvFNTqVG8=;
+        b=FFrwv5gNthWUErIS/YL9sREvn/SkZk+cjUFsIui4pHQr2Bz2C1OTaNf6ZtC8wW6Wwi
+         WU8E85VRU+OGUmD+Stzn9cuqPW2TXoeoEQlmqPRmu8bN4FPMFssx7H83tyQ0oEAgo8Ot
+         tAv7fXx63pctinW80M3qr9TiP5vXN67FqPvIW6byPlw4lxMmdmMFZm2tkI7ZLYi8mgqn
+         4cKwBou6vH+bLqtzUN/fBjqds+0z6yYE8+dkaZ3T0JDj7vI/TfhOUY/aUncGL9my3/js
+         b67ylESLWOZq2yD5UoFgvMhxdJdi+6RXXODolKIPia44VXsUAlrKfiPZnSaPt458COed
+         vqiA==
+X-Gm-Message-State: AOJu0YxNUqo5Euqbu5Wr6sCj+C458QVakSxzqeY3W/gqVmVy2JqEJ3gE
+	KJ+MPh2pMrLhjw9TdOMzRhOtAl1KEt3nkrQZah3GcM27dgNKNshD91cggVyLIvXoBR+9CHUf6UM
+	=
+X-Google-Smtp-Source: AGHT+IHHjOGUJLNnpIg4wkrzXEXBnk8IrLSTpeoy2+hNtpJz2R5NBfFWLzOVMhayeKREwo1FJXvq1w==
+X-Received: by 2002:a2e:b0d2:0:b0:2d0:c1df:b4df with SMTP id g18-20020a2eb0d2000000b002d0c1dfb4dfmr2213413ljl.39.1707915289652;
+        Wed, 14 Feb 2024 04:54:49 -0800 (PST)
+Message-ID: <12ce9813-d9a3-4770-b7ab-a5ccfef65b23@suse.com>
+Date: Wed, 14 Feb 2024 13:54:48 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: xen | Failed pipeline for staging | d670c1a3
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <65ccb539c5f56_2c88e1496072@gitlab-sidekiq-catchall-v2-5d948c44f-qdsrj.mail>
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <65ccb539c5f56_2c88e1496072@gitlab-sidekiq-catchall-v2-5d948c44f-qdsrj.mail>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2024-02-14 at 10:52 +0100, Jan Beulich wrote:
-> On 05.02.2024 16:32, Oleksii Kurochko wrote:
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > =C2=A0Changes in V4:
-> > =C2=A0 - Update version of GCC (12.2) and GNU Binutils (2.39) to the
-> > version
-> > =C2=A0=C2=A0=C2=A0 which are in Xen's contrainter for RISC-V
-> > ---
-> > =C2=A0Changes in V3:
-> > =C2=A0 - new patch
-> > ---
-> > =C2=A0README | 3 +++
-> > =C2=A01 file changed, 3 insertions(+)
-> >=20
-> > diff --git a/README b/README
-> > index c8a108449e..9a898125e1 100644
-> > --- a/README
-> > +++ b/README
-> > @@ -48,6 +48,9 @@ provided by your OS distributor:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - For ARM 64-bit:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GCC 5.1 or later
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GNU Binutils 2.24 or=
- later
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - For RISC-V 64-bit:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GCC 12.2 or later
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - GNU Binutils 2.39 or late=
-r
->=20
-> And neither gcc 12.1 nor binutils 2.38 are good enough? Once again
-> the
-> question likely wouldn't have needed raising if there was a non-empty
-> description ...
-I haven't verified gcc 12.1 and binutils 2.38. gcc 12.2 and binutils
-2.39 were chosen because this veriosn is used in Xen contrainer for
-RISC-V, on my system I have newer versions. So this is the minimal
-versions which would be always tested and I can't be sure that the
-lessser version will work fine, as there is not any compilation testing
-for that.
+On 14.02.2024 13:42, GitLab wrote:
+> 
+> 
+> Pipeline #1176167215 has failed!
+> 
+> Project: xen ( https://gitlab.com/xen-project/xen )
+> Branch: staging ( https://gitlab.com/xen-project/xen/-/commits/staging )
+> 
+> Commit: d670c1a3 ( https://gitlab.com/xen-project/xen/-/commit/d670c1a38ba3561296f68c0079209365760b3001 )
+> Commit Message: libxl: Fix comment for LIBXL_HAVE_VMTRACE_BUF_K...
+> Commit Author: Petr Beneš
+> Committed by: Jan Beulich ( https://gitlab.com/jbeulich )
+> 
+> 
+> Pipeline #1176167215 ( https://gitlab.com/xen-project/xen/-/pipelines/1176167215 ) triggered by Ganis ( https://gitlab.com/ganis )
+> had 1 failed job.
+> 
+> Job #6169539038 ( https://gitlab.com/xen-project/xen/-/jobs/6169539038/raw )
+> 
+> Stage: build
+> Name: yocto-qemux86-64
 
->=20
-> Also - Clang pretty certainly supports RISC-V, too. Any information
-> on
-> a minimally required version there?
-I haven't verified that. I am only testing gcc for now.
-I can add this information to commit message.
+Hmm, pretty odd: Dom0 crashes during boot with
 
-~ Oleksii
+[   10.642958] segment-related general protection fault: e030 [#1] PREEMPT SMP NOPTI
+...
+[   10.642958] RIP: e030:native_irq_return_iret+0x0/0x2
+
+when E030 is also what's reported to be in CS (with the RPL bits stripped
+off). According to the stack trace it's in the middle of applying
+alternatives, with xen_irq_enable_direct() also on the stack. So maybe a
+badly timed interrupt that normally we get away with?
+
+Sadly modern Linux doesn't dump raw stack contents by default anymore, so
+it's impossible to see what exactly was on the stack, for the IRET to
+consume.
+
+Jan
 
