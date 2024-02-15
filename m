@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D71F8562F3
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 13:19:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681661.1060515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 412498563F0
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 14:04:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681676.1060530 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raahI-0002xE-CH; Thu, 15 Feb 2024 12:18:36 +0000
+	id 1rabO3-0002EU-Pg; Thu, 15 Feb 2024 13:02:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681661.1060515; Thu, 15 Feb 2024 12:18:36 +0000
+Received: by outflank-mailman (output) from mailman id 681676.1060530; Thu, 15 Feb 2024 13:02:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raahI-0002uO-8g; Thu, 15 Feb 2024 12:18:36 +0000
-Received: by outflank-mailman (input) for mailman id 681661;
- Thu, 15 Feb 2024 12:18:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1rabO3-0002Br-MZ; Thu, 15 Feb 2024 13:02:47 +0000
+Received: by outflank-mailman (input) for mailman id 681676;
+ Thu, 15 Feb 2024 13:02:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4dJ3=JY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raahG-0002uI-Vp
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 12:18:34 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 564b3dd9-cbfc-11ee-8a4d-1f161083a0e0;
- Thu, 15 Feb 2024 13:18:33 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-411d715c401so6217285e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 04:18:33 -0800 (PST)
+ id 1rabO2-0002Bl-EC
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 13:02:46 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 81f265cf-cc02-11ee-98f5-efadbce2ee36;
+ Thu, 15 Feb 2024 14:02:43 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-411dd149c97so6329585e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 05:02:43 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ch16-20020a5d5d10000000b0033b8881f31dsm1708886wrb.68.2024.02.15.04.18.32
+ h17-20020a05600c315100b004122b7a680dsm481815wmo.21.2024.02.15.05.02.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Feb 2024 04:18:32 -0800 (PST)
+ Thu, 15 Feb 2024 05:02:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,54 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 564b3dd9-cbfc-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 81f265cf-cc02-11ee-98f5-efadbce2ee36
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707999513; x=1708604313; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TcbtW0QQB+zc2LXVhjwVYholr8BwFtWxCTOuZ0Dj2ig=;
-        b=ewHYlnnPjXj67KKg8KTrNxBt1TPPZsuDAbV7McvO+q28oyVedyu0UOR+GjcYZHt80R
-         jBPwTZTzK1QvH0/B4090b3iOhrQx6f7S7BvFMxUtFCiJa5gzvPvE81eAYhRoOD6YB3vc
-         YMJ3QlKLYT2GZUIZunBcTAQrOOl+xrUT9mLwrz+iyfhXo4PO9ME2WMyCbj85XMlTBaBE
-         36tDlF1tr/LWWiDyIgt7ClH6laIXSNtxgQoA1gOBoKRDe9sklU0oklLtmtVFtfW5oqMR
-         41ILc6BFnl6lh6ZW93ovT2l29p247sY7pqrwLv+1JP/FdqXN9//1FbXbNb5ji0x1a3BH
-         FiLQ==
+        d=suse.com; s=google; t=1708002163; x=1708606963; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8FhGuYE9Pg1G7/QKIdhUEz9mCVcvgJbOBO6LH5n9n0U=;
+        b=VNVlfrpdf2jkBahAo/9TdalGIXN4xU3yPuepX3WMyNpB9On78NrwS4IWBXHyXaiAAp
+         POc31pFCweDIj5KkpRdvzrtdpjwLJcZRDs5VCrs21lWAcDTUeQ29athAj5ZkCvi6osee
+         Iihw+EdsdiYnMucMY7yElfrWSf6vyjeG2UE+pRdO0wJwyoKl+jdw69ClEawkJ5j/zdTF
+         JAJLTdrVdPkMNB9njEs1Gkd2S7+vyZrCNZxRKwIjKSj2+nBrraQihL0MNjZBWdV3/eRI
+         GY4jS2TDMIR7M+BdQhBtQnogu9KUADgG7ZlT3hmOLzzM2YX9P/OWSix8X1P1LQmuxO5d
+         UkzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707999513; x=1708604313;
-        h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
-         :from:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TcbtW0QQB+zc2LXVhjwVYholr8BwFtWxCTOuZ0Dj2ig=;
-        b=Dm9h2PC0kKr/C5HfCTQbRvvvd/6DZyHd9nk3MbUiNiJVyOP8ndx2pxMWkhYJSqIVjZ
-         udUjxekujGPF+sCpGBT77CLHvTa64OkIJsktP/aMo3YXplLCGyr0SBjumtuBj7D7Tq32
-         f5gLE3+eCbgBgAV2BypPUuKjm88MpOI3ygQ4yCbbByn9Jbrms4lPbbywOJhnb7IxgYNO
-         Jy+mcgQJqK8mm7b9TWRzNhyYMcEYSpjD1Keykn1YKh20jEol+fEWG3SR5wEVCGj0i1lR
-         2Mn8i8C29PLUotxnyEb3JiILLZcfpcq1BvajOMk1RGv9ZLaL4LAPFxM+V8E1cfeF85+/
-         2xTw==
-X-Forwarded-Encrypted: i=1; AJvYcCXGkJ8M5+skDp0wdmS5bNHeRy1XulsMlafALwOUXumXufH4JsGNtoSWXgTAMhfdh82NBGkqmaVDuttOmYiFJPSXy2R3afqKyUb+vSneDLE=
-X-Gm-Message-State: AOJu0YzUjtSezK0pnGOjkid/qzTmXxTqcfob1qmNJ1Bn9W3y190ZCC/h
-	S/zMzct1pOKu2RVZOFT5nWa1tCVFQote4xnUe5VvAqExwZH6S81dWNvQuem0dQ==
-X-Google-Smtp-Source: AGHT+IEfaY4bCk3TBCOmMkDZaZX1+QDARNBJYeKEas4Jzk6L596oLh1BPzxjRoMCVB48hPJDDHg3yA==
-X-Received: by 2002:a5d:64a7:0:b0:33d:ed4:4aad with SMTP id m7-20020a5d64a7000000b0033d0ed44aadmr872114wrp.60.1707999513090;
-        Thu, 15 Feb 2024 04:18:33 -0800 (PST)
-Message-ID: <1c2c941a-984e-423e-9cfa-6dd103c26e11@suse.com>
-Date: Thu, 15 Feb 2024 13:18:31 +0100
+        d=1e100.net; s=20230601; t=1708002163; x=1708606963;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from:references:cc
+         :to:content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=8FhGuYE9Pg1G7/QKIdhUEz9mCVcvgJbOBO6LH5n9n0U=;
+        b=Gar6gguImhaIFjHo9u/I+4gg0Jrlmx97crbfdRygWUQU3axW+PLW+SCBVjW7Vc6msu
+         1Xw6KwtfO5A6+GVEjMP+j+x5rMcdO+Sxi1WsX8bix/wYES9I4UVuuEmv5cdygCUbPqA4
+         K7a5uWNeqbSkMcotF1Q+Fna/FfverDw1x/J/Rn2D6JuBjqsug5A/thN/2YexJAlC23Qt
+         f3LHYrVhlUQJrsZ8IMZy5xwOqd6ZRvrI6h1Vvq+KFiZNkl7+hdPCFUmioJu3DlRQQs38
+         UjAEyqC9NMCNdpacYgUWCEzzPdwj4HN+/kOK/6NXXglpCfDDc1YpTR0HD+IBrkCGs5dx
+         FxNA==
+X-Forwarded-Encrypted: i=1; AJvYcCVtG+60WRc9G/irnZguXsyJfV+LO1A3VJGwFxDGUJtcKyHfJ6x0i0hKjV1HxUUtvjMlZk9TXibzs6FLYrYe9aGCKPnv6PqbVJJNOqMnQrc=
+X-Gm-Message-State: AOJu0YzF1uYorMvL7aAdEJtXuuabp6GxPpgj/gLYhSMWDxWCMz7fo5BG
+	8KeJQBGLnuXj/STauXGvUoLaW9ru64qHiLgBgkbgZrILNVym8SgLFD/Inkrl4Q==
+X-Google-Smtp-Source: AGHT+IFl2yJn3y/xU7xvdrW0G1tUMl3Yzlxjne8iCZr3QgVDUaaW2PTI1fyr/f13hsaimAHDXUOKDA==
+X-Received: by 2002:a05:600c:2203:b0:411:e634:8377 with SMTP id z3-20020a05600c220300b00411e6348377mr1444539wml.38.1708002163308;
+        Thu, 15 Feb 2024 05:02:43 -0800 (PST)
+Message-ID: <a48cbad6-701d-4077-9044-4205b932a7f3@suse.com>
+Date: Thu, 15 Feb 2024 14:02:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] build/xen: fail to rebuild if Kconfig fails
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: anthony.perard@citrix.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony Perard <anthony.perard@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  xen-devel@lists.xenproject.org
 References: <20240215093002.23527-1-roger.pau@citrix.com>
  <a2edb04f-c343-4baf-9f15-d96c4d014f05@suse.com> <Zc3nXpUOlnIHEfsl@macbook>
  <54678829-4bcf-4d83-8134-1ab386f299b6@suse.com> <Zc3v20RKMssbaDsl@macbook>
- <4a462da5-e826-489f-8b59-40c7e6c6ba68@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -116,85 +115,94 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4a462da5-e826-489f-8b59-40c7e6c6ba68@suse.com>
+In-Reply-To: <Zc3v20RKMssbaDsl@macbook>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 15.02.2024 13:11, Jan Beulich wrote:
-> On 15.02.2024 12:04, Roger Pau Monné wrote:
->> On Thu, Feb 15, 2024 at 11:43:02AM +0100, Jan Beulich wrote:
->>> On 15.02.2024 11:28, Roger Pau Monné wrote:
->>>> Without the reordering the include of include/config/auto.conf will
->>>> always succeed on rebuilds, because the include is done before
->>>> executing the include/config/%.conf.cmd target that does the `rm`.
+On 15.02.2024 12:04, Roger Pau Monné wrote:
+> On Thu, Feb 15, 2024 at 11:43:02AM +0100, Jan Beulich wrote:
+>> On 15.02.2024 11:28, Roger Pau Monné wrote:
+>>> On Thu, Feb 15, 2024 at 10:49:31AM +0100, Jan Beulich wrote:
+>>>> On 15.02.2024 10:30, Roger Pau Monne wrote:
+>>>>> --- a/xen/Makefile
+>>>>> +++ b/xen/Makefile
+>>>>> @@ -358,10 +358,10 @@ config: tools_fixdep outputmakefile FORCE
+>>>>>  else # !config-build
+>>>>>  
+>>>>>  ifeq ($(need-config),y)
+>>>>> --include include/config/auto.conf
+>>>>>  # Read in dependencies to all Kconfig* files, make sure to run syncconfig if
+>>>>>  # changes are detected.
+>>>>>  -include include/config/auto.conf.cmd
+>>>>> +include include/config/auto.conf
+>>>>
+>>>> With the - dropped, ...
+>>>>
+>>>>> @@ -375,6 +375,7 @@ $(KCONFIG_CONFIG): tools_fixdep
+>>>>>  # This exploits the 'multi-target pattern rule' trick.
+>>>>>  # The syncconfig should be executed only once to make all the targets.
+>>>>>  include/config/%.conf include/config/%.conf.cmd: $(KCONFIG_CONFIG)
+>>>>> +	rm -rf include/config/$*.conf
+>>>>>  	$(Q)$(MAKE) $(build)=tools/kconfig syncconfig
+>>>>
+>>>> ... is this really necessary? The error status from the sub-make is ignored
+>>>> only because of the -, isn't it?
 >>>
->>> That's a dual target: It also handles include/config/%.conf. I.e.
->>> because of this ...
+>>> Without the `rm` the include/config/auto.conf is not removed by
+>>> Kconfig on error, so the include will still succeed but use the stale
+>>> auto.conf file.
 >>>
->>>> With the current order the include of include/config/%.conf.cmd that
->>>> triggers the re-build of auto.conf happens after having included the
->>>> file already.
->>>
->>> ... either include would trigger this same rule. IOW I'm afraid I'm still
->>> not seeing what is gained by the re-ordering. I'm also unconvinced that
->>> "triggers" in the sense you use it is actually applicable. Quoting make
->>> doc again: "Once it has finished reading makefiles, make will try to
->>> remake any that are out of date or don’t exist." To me this means that
->>> first all makefile reading will finish, and then whichever included files
->>> need re-making will be re-made.
+>>> Keep in mind on rebuilds include/config/auto.conf is already present,
+>>> so the rule is only executed for the include/config/auto.conf.cmd
+>>> target.
 >>
->> Without the re-ordering the execution is not stopped on failure to
->> generate include/config/auto.conf:
->>
->> # gmake -j8 xen clang=y
->> gmake -C xen install
->> gmake[1]: Entering directory '/root/src/xen/xen'
->> rm -rf include/config/auto.conf
->> tools/kconfig/conf  --syncconfig Kconfig
->> common/Kconfig:2: syntax error
->> common/Kconfig:1: invalid statement
->> gmake[2]: *** [tools/kconfig/Makefile:73: syncconfig] Error 1
->> gmake[1]: Failed to remake makefile 'include/config/auto.conf'.
->>   UPD     include/xen/compile.h
->>  Xen 4.19-unstable
->> gmake[3]: Nothing to be done for 'all'.
->> [...]
->>
->> With the re-ordering:
->>
->> # gmake -j8 xen clang=y
->> gmake -C xen install
->> gmake[1]: Entering directory '/root/src/xen/xen'
->> rm -rf include/config/auto.conf
->> tools/kconfig/conf  --syncconfig Kconfig
->> common/Kconfig:2: syntax error
->> common/Kconfig:1: invalid statement
->> gmake[2]: *** [tools/kconfig/Makefile:73: syncconfig] Error 1
->> gmake[1]: *** [Makefile:379: include/config/auto.conf] Error 2
->> gmake[1]: Leaving directory '/root/src/xen/xen'
->> gmake: *** [Makefile:143: install-xen] Error 2
->> #
->>
->> So the re-ordering is meaningful.
+>> But the sub-make ought to return failure, which ought to then stop the
+>> build process?
 > 
-> Hmm, I was about to say "no, it isn't" but then remembered to try newer
-> make. With 3.81 all is working as intended with no re-ordering. I wonder
-> if this isn't something with make, rather than our makefiles ...
+> For some reason it doesn't, not at least with GNU Make 4.3.
+> 
+> It stops the build if the '-' is dropped from the include of
+> include/config/auto.conf.cmd.  But that will always fail as
+> include/config/auto.conf.cmd is never created.
+> 
+> Maybe there's something weird with our makefile, I certainly don't
+> know that much, but as noted in the commit message,
+> include/config/auto.conf.cmd failing doesn't cause the build to
+> stop.
 
-And indeed it's quite strange: The same effect can be had by dropping the
-- from the other include (and no re-ordering). Extending the sub-make
-invocation to
+How about the below as an alternative? I'm not overly happy with the
+double ifneq, but I also don't see a good other option.
 
-	$(Q)$(MAKE) $(build)=tools/kconfig syncconfig || { err=$$?; echo "$@: error $$err" >&2; exit $$err; }
-
-I can see that it's the latter of the includes which is reported as $@,
-and failure of the sub-make is conveyed only when it's the latter of
-the includes which has no -. When really any of the targets being subject
-of "include" without - should respect failure.
-
-I'll play with this some more, but considering the overall situation
-maybe (perhaps just partly) reverting the commit Anthony pointed out is
-then the least bad option, accepting the warnings with old make.
+This way the missing auto.conf is detected slightly later, but this
+may well be good enough. Then again I might be overlooking yet
+something else that this breaks ...
 
 Jan
+
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -375,6 +375,7 @@ $(KCONFIG_CONFIG): tools_fixdep
+ # This exploits the 'multi-target pattern rule' trick.
+ # The syncconfig should be executed only once to make all the targets.
+ include/config/%.conf include/config/%.conf.cmd: $(KCONFIG_CONFIG)
++	$(Q)rm -f include/config/$*.conf
+ 	$(Q)$(MAKE) $(build)=tools/kconfig syncconfig
+ 
+ ifeq ($(CONFIG_DEBUG),y)
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -15,7 +15,11 @@ srcdir := $(srctree)/$(src)
+ PHONY := __build
+ __build:
+ 
+--include $(objtree)/include/config/auto.conf
++ifneq ($(obj),tools)
++ifneq ($(obj),tools/kconfig)
++include $(objtree)/include/config/auto.conf
++endif
++endif
+ 
+ include $(XEN_ROOT)/Config.mk
+ include $(srctree)/scripts/Kbuild.include
+
 
