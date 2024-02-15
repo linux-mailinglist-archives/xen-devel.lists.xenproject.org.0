@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 873F48558F0
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 03:21:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681216.1059851 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C595E855A1F
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 06:28:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681222.1059863 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raRLv-0004oI-9u; Thu, 15 Feb 2024 02:19:55 +0000
+	id 1raUGs-0008Js-As; Thu, 15 Feb 2024 05:26:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681216.1059851; Thu, 15 Feb 2024 02:19:55 +0000
+Received: by outflank-mailman (output) from mailman id 681222.1059863; Thu, 15 Feb 2024 05:26:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raRLv-0004lp-77; Thu, 15 Feb 2024 02:19:55 +0000
-Received: by outflank-mailman (input) for mailman id 681216;
- Thu, 15 Feb 2024 02:19:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1raUGs-0008Ge-7a; Thu, 15 Feb 2024 05:26:54 +0000
+Received: by outflank-mailman (input) for mailman id 681222;
+ Thu, 15 Feb 2024 05:26:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+jew=JY=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1raRLt-0004lj-2w
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 02:19:53 +0000
-Received: from wfout7-smtp.messagingengine.com
- (wfout7-smtp.messagingengine.com [64.147.123.150])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b09a6bbe-cba8-11ee-98f5-efadbce2ee36;
- Thu, 15 Feb 2024 03:19:48 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailfout.west.internal (Postfix) with ESMTP id 6A0E81C0007E;
- Wed, 14 Feb 2024 21:19:45 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Wed, 14 Feb 2024 21:19:46 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 14 Feb 2024 21:19:43 -0500 (EST)
+ <SRS0=RjNl=JY=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1raUGr-0008GY-0F
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 05:26:53 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2417::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d1acbc87-cbc2-11ee-8a4d-1f161083a0e0;
+ Thu, 15 Feb 2024 06:26:51 +0100 (CET)
+Received: from BL1PR13CA0394.namprd13.prod.outlook.com (2603:10b6:208:2c2::9)
+ by SA1PR12MB7150.namprd12.prod.outlook.com (2603:10b6:806:2b4::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.25; Thu, 15 Feb
+ 2024 05:26:47 +0000
+Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
+ (2603:10b6:208:2c2:cafe::19) by BL1PR13CA0394.outlook.office365.com
+ (2603:10b6:208:2c2::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.29 via Frontend
+ Transport; Thu, 15 Feb 2024 05:26:46 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Thu, 15 Feb 2024 05:26:46 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 14 Feb
+ 2024 23:26:46 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Wed, 14 Feb
+ 2024 23:26:46 -0600
+Received: from [172.27.131.30] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35 via Frontend
+ Transport; Wed, 14 Feb 2024 23:26:44 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,278 +63,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b09a6bbe-cba8-11ee-98f5-efadbce2ee36
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1707963584;
-	 x=1708049984; bh=06HGHn4qudP95v7fKy2/rJ9whPfa1kXdI0kdXfazAos=; b=
-	KMU4j/Gc3lvPxbPvT56BKfJegMpwLNfhYum+q+OSc3o03xAq1nv+1uANTvfgl2eI
-	959NpA7kfIjU9xi/FNrJj+62DbRn4RmPyLpIV2J+H0+YXmyANZoALrk1uSQtsJLP
-	+LRhi2TobcHffhKDYWhJ/eh49Yesx1HhwMT5NdmTnB+XJH3MuR9LhjL687YVii8u
-	O5LKvX3N79H/gN2cxc2oUHppkgW/cBRbdzMC1Fdij1+h7lANDpi6DCJkNPPQBx32
-	g8OG957UiKxcK+d/Yg7gkhnFtaJvPlLe4uVxowUUTrOGVkZ/fGJveBViikgIMmcD
-	NK9h7HVBGrnx8SeazIP/VA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1707963584; x=1708049984; bh=06HGHn4qudP95v7fKy2/rJ9whPfa
-	1kXdI0kdXfazAos=; b=j3bGFNF3/NY2umt82z1K86+QpCdS+Yn3EtXigbqjT4DD
-	3c/rOwJu3BQ9YIDzCaz6RwhHQfA6paBEKNXvX34rckkhmn/LQFVHBeWAVHjnjTU+
-	VgsH9J3LXSp5dQv8g6nGRAxzWPvEtgld2UTfbn0ky8Bs4KxVOtjYSx2zSo2ony41
-	KB4GSPVttWxwv77GDm2+pVb+jb+VXVEd2gIfWCgkqD/hVE8jXEZgT/mD3mo55bCN
-	GunA5fVs8uLUCrXjePEc4JlBtPMBwrrT11RdfGw3NriTEl0WSI5fS9FnAzBcDYrk
-	ilcK6P5mWGZtc7evIbmaT/Rl+gAdw/BAkgQmaqmLmw==
-X-ME-Sender: <xms:wHTNZW-BwOeR_hTCn5LNHyVyFVpAUbJjiQOvXyewS9MgonvOc_D_JQ>
-    <xme:wHTNZWvyin0j6HZkRLBufKYgsj5NEM8x_ttLzmGqA7w0QcKg56HR4DaVD1udR9Sp5
-    VKPaDUCAguPjQ>
-X-ME-Received: <xmr:wHTNZcCx-YVMHH1-9eS3rorTPOLUn8c8GL5zL_gD8FVTNqkVXKOWRduGNuf93xeV62khK4hg55xgKhlauWLQhi-IUTu7af9lZQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvledrudekgdegfecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
-    hinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeihfelhfekhefgveejjeet
-    vedtgfduveelgeekteehueeufeefudegveejueefhfenucffohhmrghinhepghhithhhuh
-    gsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
-    mhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:wHTNZeea5gKxh_42nSv0JFfY-qXbRtZ18TANY2oqtl0UjJ4pf__K-Q>
-    <xmx:wHTNZbNCk8aNY41ub-vOoODjHV0XJEdaG7fuj2X3GSqLzEl68HMlkw>
-    <xmx:wHTNZYnUihLP8ZTcyTuJlVYt51oDfZ6sjRLtzwr9K9TYj6QoPz7w1w>
-    <xmx:wHTNZXAgnUqUuFowZvi-1UIQIn8-ndt6A0LC5q3d_fPrsrO2wO4CpdcHvwI>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 15 Feb 2024 03:19:40 +0100
-From: Marek Marczykowski <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 1/8] serial: fake IRQ-regs context in poll handlers
-Message-ID: <Zc10vFQtG40isDHK@mail-itl>
-References: <ebc330a9-eafa-4858-b5cf-5694c4da911d@suse.com>
- <893be03d-22cc-4b8c-8a54-6479961c5aa2@suse.com>
- <b591cd2a-2b49-436e-9cf7-788d9064a778@xen.org>
- <4530606b-1b5e-47a4-aa41-e12e9178b06d@suse.com>
- <ZcrlcuNU9y8WymiK@mail-itl>
- <817ceec4-ed12-4360-a6ce-f87732f62251@suse.com>
- <ZcuCTnMpFib4ArHW@mail-itl>
- <b52fa3fa-4e33-4211-af18-f00aaa0b365b@suse.com>
- <ZcuGo_vQhiTAQep0@mail-itl>
- <23bcd506-f843-42f7-a541-0d8db7c319ab@suse.com>
+X-Inumbo-ID: d1acbc87-cbc2-11ee-8a4d-1f161083a0e0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hY37+ZY0yvxYqFDLS8Qi3Wl42jClpieRu+pd677bL/zqlNHi7Rbp5wxvj5AuPgtLYx7Bv3QQqRG5dqCGStI4o4SrF49bbfG7yy3Oy9mc3qtLW3gSyfd6273oU/w0sZpPPvwniNfRS8KgH0YLsaQ3FB/Z1s9XD8VyperxOop9J/ve0emG1GeGA1S/rn0Is6YClBUlbfsEHB3BnG7jrJvVd4iTALGrRUtFRzk2b5VhdT4bevZo3qLo37fcVWOs5wNvIhc27zGZ7Uy/FaipbiYuZczStVEuKGpZIZS4oqyY2RFf9vOvnpJDE8UOMUt+pRNAUlLy7dxUzMYI34IbtLSmBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LGcn4dr4r7yoZtaNsJN7hiO4rVa2xVLAOV1RLsTcJwo=;
+ b=DD6rywfTSn1aGTrV+5hiQGg5lV45xUriqI3JfzHHJnLKouWiVt5eywOZHmJXqh9OBsfFtZK27SvgvlKPxom05leLviISh/Y/AQ2/XGEG7dx0I9cNTDF2R6nSMmNb5T69WR5dXCqyTOPY3HJO59qw7gekVwhQONKqjnp1lldpoeuAZx2cnOvl0z1NUyDM8t+sSduuFHouQFuHbY++JdvUFbg0YeM4c4RXfCpwJsDO2fui3Tw1gwzLiw6Ep9ZM4fPfl0Hlly50jQQ2EVjIKwuQ20nsVaNyrIWHKb63jQnXAcyguH8HbceK72jElWcdEIIfHwFsZ74+BdOp+lM3Xx54CQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LGcn4dr4r7yoZtaNsJN7hiO4rVa2xVLAOV1RLsTcJwo=;
+ b=0V6Qy8ZA2IrgPINUUjlvKXfzGp0L1IDautNpyWyalAoVh098D6KLoQcVCxwabgf5OsmC/Yxt9DryUvt0bF6GZIs1jwXE2p6dQdymQsiCgpQQPmSMUDBTFpYkDz6DDIGk3wDeRteaFWIRKh6e9NYshZugC9dCbYcT5ef0Dmb50s0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <8b6fa7eb-cead-4758-b9d8-d1b4bf8b4c77@amd.com>
+Date: Thu, 15 Feb 2024 00:26:44 -0500
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="PMzvEAhlaWIXeocq"
-Content-Disposition: inline
-In-Reply-To: <23bcd506-f843-42f7-a541-0d8db7c319ab@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 01/14] vpci: use per-domain PCI lock to protect vpci
+ structure
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>
+CC: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
+	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
+	<kevin.tian@intel.com>, Paul Durrant <paul@xen.org>, Volodymyr Babchuk
+	<volodymyr_babchuk@epam.com>, <xen-devel@lists.xenproject.org>
+References: <20240202213321.1920347-1-stewart.hildebrand@amd.com>
+ <20240202213321.1920347-2-stewart.hildebrand@amd.com>
+ <123f4cc2-8fc7-4e2a-b44c-78a81b3a1a3e@suse.com>
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <123f4cc2-8fc7-4e2a-b44c-78a81b3a1a3e@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|SA1PR12MB7150:EE_
+X-MS-Office365-Filtering-Correlation-Id: e85fdc8d-dba4-4de0-247c-08dc2de6b429
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	k67mp/fBZdMl0WwPXZ7VPSJxOQbYyj/Kdm3KlxSYXxcUnU+HqwRLSNQ4YWOv/9v5lxDaoHY2HKZFmM58i9ql/EorosL9D5E5fpOx1bI2xu8/wL8sDMxdIuf4IdM1oAv47Y8TWd5r3mWVAiGH16EvQ3BsXsHpSFWmpE16qi5Q+rZVWxQuViHhJYAH05DzmRrNpZQmak88KTS0w1aeFT8bied1XLywA8m0OiLrK/RxZHq2+r0vsVwFFBV6yYC5h68DMLFrDBC4ciTUyraCA2xsMeJYulVJXaubg2tQ1COb+/tN1SOnOQIRbS1Ky296pQGbUqttcEv0vol34o6J3ZBZqq5nn+O6EAPZnbVfk0dsmq/i6ST6KZSIYPomxeO5RJOSJbJuHe7ZbsxfQRIkHQsVq4pW9FVN4JEjtv5FuveDtS2AVN9BZaStrVnQt6JxLUtiAzOZgmqFxTLAwGUksAA7qBW0ekr4yIro1AoDhXT8r4/a0t1vpA9UX+KQIWcO0T8+HrT8ShnlOrTLfTsZWkyq0yFu5ss6jxoFFTH/wK0l7lQemEXb353ncKTi42jEo5O9TlfABoAcaJS+v6uZX4iAw6UauaGf5FeOCL5Rj5gR3hbk+Y7VZ7DuBxXVAZuY9hvvy6wY3Mm3mPhH92Ufnn4mNA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(39860400002)(136003)(346002)(376002)(396003)(230922051799003)(1800799012)(36860700004)(82310400011)(186009)(64100799003)(451199024)(46966006)(40470700004)(54906003)(7416002)(2906002)(478600001)(336012)(426003)(26005)(83380400001)(356005)(2616005)(44832011)(966005)(53546011)(81166007)(41300700001)(82740400003)(316002)(70586007)(70206006)(8936002)(8676002)(110136005)(16576012)(36756003)(31686004)(5660300002)(4326008)(86362001)(31696002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2024 05:26:46.7622
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e85fdc8d-dba4-4de0-247c-08dc2de6b429
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECD9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7150
 
+On 2/14/24 06:38, Jan Beulich wrote:
+> On 02.02.2024 22:33, Stewart Hildebrand wrote:
+>> --- a/xen/arch/x86/physdev.c
+>> +++ b/xen/arch/x86/physdev.c
+>> @@ -123,7 +123,9 @@ int physdev_map_pirq(domid_t domid, int type, int *index, int *pirq_p,
+>>  
+>>      case MAP_PIRQ_TYPE_MSI:
+>>      case MAP_PIRQ_TYPE_MULTI_MSI:
+>> +        pcidevs_lock();
+>>          ret = allocate_and_map_msi_pirq(d, *index, pirq_p, type, msi);
+>> +        pcidevs_unlock();
+>>          break;
+> 
+> I'm afraid I need to come back to this: This is the only place where this
+> patch retains (moves) use of the global lock. By moving, its scope is
+> actually extended. It was previously said that conversion doesn't happen
+> to limit the scope of what is changing. But with allocate_and_map_msi_pirq()
+> being happy about either lock being held, I'm having a hard time seeing why
+> here the global lock would continue to need using. To me doing so suggests
+> uncertainty whether the checking in the function is actually correct.
 
---PMzvEAhlaWIXeocq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 15 Feb 2024 03:19:40 +0100
-From: Marek Marczykowski <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3 1/8] serial: fake IRQ-regs context in poll handlers
+I understand the concern. I've gone back and forth on this one in
+particular myself [1]. I've tested it both ways (i.e. as shown here with
+pcidevs_lock() and replacing it with read_lock(&d->pci_lock)). In the
+analysis I've done, I also cannot find a need to continue using
+pcidevs_lock() here. read_lock(&d->pci_lock) is sufficient. Let's be
+clear: both ways are correct. The only reason I left it at
+pcidevs_lock() for v13 was to make sure the code was doing what the
+commit description and notes in the cover letter say.
 
-On Tue, Feb 13, 2024 at 04:44:04PM +0100, Jan Beulich wrote:
-> On 13.02.2024 16:11, Marek Marczykowski wrote:
-> > On Tue, Feb 13, 2024 at 04:00:32PM +0100, Jan Beulich wrote:
-> >> On 13.02.2024 15:53, Marek Marczykowski wrote:
-> >>> On Tue, Feb 13, 2024 at 08:45:54AM +0100, Jan Beulich wrote:
-> >>>> On 13.02.2024 04:43, Marek Marczykowski wrote:
-> >>>>> On Mon, Feb 12, 2024 at 10:04:38AM +0100, Jan Beulich wrote:
-> >>>>>> On 08.02.2024 23:00, Julien Grall wrote:
-> >>>>>>> On 05/02/2024 13:27, Jan Beulich wrote:
-> >>>>>>>> In preparation of dropping the register parameters from
-> >>>>>>>> serial_[rt]x_interrupt() and in turn from IRQ handler functions,
-> >>>>>>>> register state needs making available another way for the few key
-> >>>>>>>> handlers which need it. Fake IRQ-like state.
-> >>>>>>>>
-> >>>>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >>>>>>>> ---
-> >>>>>>>> The use of guest_cpu_user_regs() in dbc_uart_poll() is inconsist=
-ent with
-> >>>>>>>> other console poll functions we have, and it's unclear whether t=
-hat's
-> >>>>>>>> actually generally correct.
-> >>>>>>>
-> >>>>>>> Is it? Looking at ns16550_poll() we would pass guest_user_regs() =
-if=20
-> >>>>>>> run_in_exception() doesn't exist. But looking at the caller, no-o=
-n seems=20
-> >>>>>>> to care about the 'regs'. So is this just a latent bug?
-> >>>>>>
-> >>>>>> What do you mean by "doesn't exist"? ns16550_poll() assumes it exi=
-sts.
-> >>>>>> And I can spot any use of guest_user_regs() on the respective gene=
-ric
-> >>>>>> or Arm-specific bug.c paths.
-> >>>>>>
-> >>>>>>> BTW, do you have an idea why the poll function is not run in an=
-=20
-> >>>>>>> exception handler?
-> >>>>>>
-> >>>>>> "The poll function" being which one? If you mean the one in xhci-d=
-bc.c
-> >>>>>> then that's why I had Cc-ed Marek. Moving him to To: - maybe that
-> >>>>>> manages to finally catch his attention.
-> >>>>>
-> >>>>> TBH, I don't know. That's part of the original xue patch at
-> >>>>> https://github.com/connojd/xue/blob/master/patches/xen-xue-dbgp.pat=
-ch
-> >>>>> and it works for me as it is.
-> >>>>
-> >>>> "Works" meaning what? Doesn't crash on you? Or does also provide
-> >>>> sensible output in _all_ cases (i.e. including when e.g. the poll
-> >>>> happens to run on an idle vCPU)?
-> >>>
-> >>> Generally provides sensible output, for example during boot (it is us=
-ing
-> >>> idle vCPU then, right?).
-> >>
-> >> Before Dom0 is started: Yes. With the exception of the phase where PV
-> >> Dom0's page tables are constructed, albeit in that time window
-> >> guest_cpu_user_regs() shouldn't yield sensible data either. I can only
-> >> say I'm surprised; since I have no way to properly test with an XHCI
-> >> debug port, I'd have to see about faking something to convince myself
-> >> (unless you were to supply example output).
-> >=20
-> > Would you like me to test this series with xhci console?
->=20
-> The behavior shouldn't really be connected to this series. But yes, 'd'
-> debug key output (just the part for the CPU the key handling was
-> actually invoked from) with the xhci debug console would be of
-> interest, for the case where that CPU at that time runs an idle vCPU.
+allocate_and_map_msi_pirq() acquires write_lock(&d->event_lock), and
+accesses to non-domain-specific data fall in the category of reading
+__read_mostly globals or are appropriately protected by desc->lock
+and/or vector_lock and/or cmpxchg.
 
-I managed to press 'd' before dom0 started. Full output at
-https://gist.github.com/marmarek/a495cd666f4aafed3a5cfcb8393f515b (it's
-Alder Lake, and smt=3Doff, so CPU numbering is weird).
-Interestingly, I do _not_ see output for CPU0, where I'd expect the
-key handler to run... I see all the idle ones, plus one doing memory
-scrubbing.
-But also, I don't see info about the handling CPU when doing `xl
-debug-key d`. At one time, with `xl debug-key d` I got this:
+I'll change it to read_lock(&d->pci_lock) in this one particular
+instance (and update the description appropriately).
 
-(XEN) *** Dumping CPU6 guest state (d0v7): ***
-(XEN) ----[ Xen-4.18-unstable  x86_64  debug=3Dy  Tainted:  M     ]----
-(XEN) CPU:    6
-(XEN) RIP:    e033:[<ffffffff81e1546a>]
-(XEN) RFLAGS: 0000000000000286   EM: 0   CONTEXT: pv guest (d0v7)
-(XEN) rax: 0000000000000023   rbx: 0000000000000005   rcx: ffffffff81e1546a
-(XEN) rdx: 0000000000000000   rsi: 0000000000000000   rdi: 000079147611e010
-(XEN) rbp: ffff88810db53200   rsp: ffffc90041c6bde0   r8:  0000000000000000
-(XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000286
-(XEN) r12: 0000000000305000   r13: 00007ffc61097f40   r14: ffff88810db53200
-(XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 0000000000b526e0
-(XEN) cr3: 00000004ae2a7000   cr2: 00000000006d3118
-(XEN) fsb: 0000791475b8a380   gsb: ffff8881897c0000   gss: 0000000000000000
-(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e02b   cs: e033
-(XEN) Guest stack trace from rsp=3Dffffc90041c6bde0:
-(XEN)    0000000000000001 0000000000000000 ffffffffc02905a6 0000000000000023
-(XEN)    000079147611e010 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 8064129fc747f100 ffffffffc0291568 0000000000305000
-(XEN)    8064129fc747f100 0000000000000005 ffffffff813f7d4d ffffc90041c6bf58
-(XEN)    ffffc90041c6bf48 0000000000000000 0000000000000000 0000000000000000
-(XEN)    ffffffff81e16158 00000000006d3118 ffffc90041c6bf58 0000000000000040
-(XEN)    ffffffff8132f6bb 0000000000000006 ffffc90041c6bf58 00000000006d3118
-(XEN)    0000000000000255 ffff888102cf8880 ffff888102cf88f0 ffffffff8108746f
-(XEN)    0000000000000000 0000000000000002 ffffc90041c6bf58 ffffc90041c6bf58
-(XEN)    00000000006d3118 0000000000000000 0000000000000006 0000000000000000
-(XEN)    0000000000000000 ffffffff81e1a975 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 ffffffff8200009b 000000000043d9b0
-(XEN)    000000000043d990 00007ffc61097f90 00007ffc61097fc0 00007ffc61099d16
-(XEN)    00000000006cab40 0000000000000246 0000000000000001 0000000000000000
-(XEN)    0000000000000006 ffffffffffffffda 0000791475f1ed6f 00007ffc61097f40
-(XEN)    0000000000305000 0000000000000005 0000000000000010 0000791475f1ed6f
-(XEN)    0000000000000033 0000000000000246 00007ffc61097ed0 000000000000002b
-(XEN)     Fault while accessing guest memory.
-(XEN)=20
-(XEN) *** Dumping CPU0 host state: ***
-(XEN) ----[ Xen-4.18-unstable  x86_64  debug=3Dy  Tainted:  M     ]----
-(XEN) CPU:    0
-(XEN) RIP:    e008:[<ffff82d04022c07e>] _spin_unlock_irqrestore+0x21/0x27
-(XEN) RFLAGS: 0000000000000206   CONTEXT: hypervisor
-(XEN) rax: ffff82d0405c1038   rbx: 0000000000000200   rcx: 0000000000000008
-(XEN) rdx: ffff830856d07fff   rsi: ffff8308529d5b28   rdi: ffff8308529d5b20
-(XEN) rbp: ffff830856d07dc8   rsp: ffff830856d07dc0   r8:  0000000000000001
-(XEN) r9:  ffff8308529d5b20   r10: ffff82d0405c13a0   r11: 000000d091e62221
-(XEN) r12: ffff82d040476898   r13: 0000000000000296   r14: ffff82d040476918
-(XEN) r15: ffff82cffff04700   cr0: 0000000080050033   cr4: 0000000000b526e0
-(XEN) cr3: 000000082e7ff000   cr2: ffff888109538618
-(XEN) fsb: 0000000000000000   gsb: ffff888189600000   gss: 0000000000000000
-(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
-(XEN) Xen code around <ffff82d04022c07e> (_spin_unlock_irqrestore+0x21/0x27=
-):
-(XEN)  fd ff ff 48 09 1c 24 9d <48> 8b 5d f8 c9 c3 0f b7 47 04 66 25 ff 0f =
-66 3d
-(XEN) Xen stack trace from rsp=3Dffff830856d07dc0:
-(XEN)    ffff82d0405d0c80 ffff830856d07e08 ffff82d040257c3f 0000000040476898
-(XEN)    ffff82d0405c1280 ffff82d040257bca ffff82d040476898 000000d0911fcbc4
-(XEN)    0000000000000000 ffff830856d07e30 ffff82d04022d55c ffff82d0405c1280
-(XEN)    ffff8308529d5f00 ffff82d0405d0d68 ffff830856d07e70 ffff82d04022de59
-(XEN)    ffff830856d07ef8 ffff82d0405c7f00 ffffffffffffffff ffff82d0405c7f00
-(XEN)    ffff830856d07fff 0000000000000000 ffff830856d07ea8 ffff82d04022b53e
-(XEN)    0000000000000000 0000000000007fff ffff82d0405c7f00 ffff82d0405c11d0
-(XEN)    ffff82d0405db2a0 ffff830856d07eb8 ffff82d04022b5d1 ffff830856d07ef0
-(XEN)    ffff82d0402fcd15 ffff82d0402fcc88 ffff8308528cb000 ffff830856d07ef8
-(XEN)    ffff830856ce2000 0000000000000000 ffff830856d07e18 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 ffffffff82c1aa40
-(XEN)    0000000000000000 0000000000000246 0000000000007ff0 0000000000000000
-(XEN)    000000000fd109eb 0000000000000000 ffffffff81e153aa 4000000000000000
-(XEN)    deadbeefdeadf00d deadbeefdeadf00d 0000010000000000 ffffffff81e153aa
-(XEN)    000000000000e033 0000000000000246 ffffffff82c03dd0 000000000000e02b
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000000
-(XEN)    0000e01000000000 ffff830856ce1000 0000000000000000 0000000000b526e0
-(XEN)    0000000000000000 0000000000000000 0006030300000000 0000000000000000
-(XEN) Xen call trace:
-(XEN)    [<ffff82d04022c07e>] R _spin_unlock_irqrestore+0x21/0x27
-(XEN)    [<ffff82d040257c3f>] F xhci-dbc.c#dbc_uart_poll+0x75/0x17c
-(XEN)    [<ffff82d04022d55c>] F timer.c#execute_timer+0x45/0x5c
-(XEN)    [<ffff82d04022de59>] F timer.c#timer_softirq_action+0x71/0x275
-(XEN)    [<ffff82d04022b53e>] F softirq.c#__do_softirq+0x94/0xbe
-(XEN)    [<ffff82d04022b5d1>] F do_softirq+0x13/0x15
-(XEN)    [<ffff82d0402fcd15>] F domain.c#idle_loop+0x8d/0xe6
-
-(other CPUs in mwait-idle)
-
-> > Or maybe add
-> > some extra debug prints and include their output? But note, printk from
-> > inside console code generally leads to deadlocks. What I did for some
-> > debugging was to log into some separate buffer and dump it later.
->=20
-> Right, this would be more involved.
->=20
-> Jan
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---PMzvEAhlaWIXeocq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmXNdLwACgkQ24/THMrX
-1yxqlgf+NOQt0926sb4bVt3vGsTb1ua6SF6ggpCt1mqSjifDwDpKQslyOtL5sWCv
-y2LkaiqiSj+iLHRnyt/9XR9l/NKwe83o7nNd1p3Z/2x0EpaIwdWJkC04Oc3/YXup
-GRqgHOiOoG+eJQqRQnLsu+6+Z8KckINvYt14RycdwpqUBhY+nn+Jm/sl8hJ44QdP
-grW2rYoyxMh1WIzs5d90FEVAKsUIUMp1OuWykKMcGWPewxg6lq10zItryhXQiu3f
-mei1wRfbjjb4oME7jc8tB8rs8DOU2/iYQ32WjcioAiayb0FoPLgse8uQYPSm5Pys
-Ew0zoWYRcql1wO3ACqPtl7Qcc+BDdQ==
-=1IKe
------END PGP SIGNATURE-----
-
---PMzvEAhlaWIXeocq--
+[1] https://lore.kernel.org/xen-devel/3c1023c4-25fb-41f1-83eb-03cbc1c3720e@amd.com/
 
