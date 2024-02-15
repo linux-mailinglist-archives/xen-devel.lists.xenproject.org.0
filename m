@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC1FF855EF0
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:15:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681490.1060295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4920855EF6
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 11:16:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681497.1060306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYmM-0001ms-GE; Thu, 15 Feb 2024 10:15:42 +0000
+	id 1raYmt-0002QF-Rc; Thu, 15 Feb 2024 10:16:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681490.1060295; Thu, 15 Feb 2024 10:15:42 +0000
+Received: by outflank-mailman (output) from mailman id 681497.1060306; Thu, 15 Feb 2024 10:16:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1raYmM-0001lY-Cv; Thu, 15 Feb 2024 10:15:42 +0000
-Received: by outflank-mailman (input) for mailman id 681490;
- Thu, 15 Feb 2024 10:15:41 +0000
+	id 1raYmt-0002Nf-OD; Thu, 15 Feb 2024 10:16:15 +0000
+Received: by outflank-mailman (input) for mailman id 681497;
+ Thu, 15 Feb 2024 10:16:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4dJ3=JY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1raYmL-0001ZT-3o
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:15:41 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
+ id 1raYmr-0001ZT-CG
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 10:16:13 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b716d5d-cbeb-11ee-8a4d-1f161083a0e0;
- Thu, 15 Feb 2024 11:15:40 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id
- ffacd0b85a97d-339289fead2so377451f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:15:40 -0800 (PST)
+ id 3eb48278-cbeb-11ee-8a4d-1f161083a0e0;
+ Thu, 15 Feb 2024 11:16:12 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id
+ 38308e7fff4ca-2d0d95e8133so8328621fa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Feb 2024 02:16:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.15.39
+ bs3-20020a056000070300b0033b45bdb2a1sm1361072wrb.4.2024.02.15.02.16.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 15 Feb 2024 02:15:39 -0800 (PST)
+ Thu, 15 Feb 2024 02:16:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,43 +45,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b716d5d-cbeb-11ee-8a4d-1f161083a0e0
+X-Inumbo-ID: 3eb48278-cbeb-11ee-8a4d-1f161083a0e0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1707992140; x=1708596940; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1707992172; x=1708596972; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=gocTw3drw4/MldPbi03GFmG0diUgBYkMjWI02M8R94k=;
-        b=YoeDS2lZx4qkPuxr6nyw8h4lIMFW2T+tijVEWGdk7iFQA6mMyUmtVw6C5cHH1SnL7E
-         M/ov3lqSlZSoA9JzfHIbvDNtmdqQh2eCpXURvjBicmAE+riF52fCH3Ctmuc7SOTlPWUH
-         wjrS2+cNs0EHVC0nlKXZvPL9GZcEIqnwbKzChH18xJcrZyVLeZ2LVLwFEq45lIvWU6Zw
-         NpI53bICnXZZwn15arEevfsOS2fZ59URfu32x5733VD5LnUpgCTDT8RsFgc86jVNMgoq
-         XkknDeTmpzmx4X3OodrL6JMFRb86vSal6m8Uoxso+hHepjRuhcLedxTuD5ns8oFOMkAD
-         j3AQ==
+        bh=pvYCja/S6ezysFDR56QyJhiQ4LakZ7EGAU+IRQcHkow=;
+        b=E8F7ztVqfJzJ4XvJ5Ep2pMkHhXV/cb7Po+L6EML++7dr1c0HpG4Jqn+KkDnkQgtR6P
+         4aUMYMNfDBn0bgUq2TvpSp/s7vZf+CkOVccOuR4p4KV7cSrh2yH+CBQBmiRa6P273hPF
+         Td7yflXf89uoGWsir1x4zEMQe7W5udHa9SpQn6Mw+lL31W/ptNzwZ/3rHqbzk/tdfXLy
+         UDA3hm7BshaHpUZ6MOzua0NdpLAWmcHBUxVd9nxu6T7FsuEK1jJii01lEPGKwjSjT8p7
+         pyWc+FDR/c8C3jRKyXXT49YMSSt5uNQ5MywfsE6stm/OZpNDjL8m9Jf6u6JU8RuJmljY
+         Pu2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1707992140; x=1708596940;
+        d=1e100.net; s=20230601; t=1707992172; x=1708596972;
         h=content-transfer-encoding:in-reply-to:autocrypt:references:cc:to
          :from:content-language:subject:user-agent:mime-version:date
          :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=gocTw3drw4/MldPbi03GFmG0diUgBYkMjWI02M8R94k=;
-        b=D9TeeT80adyBIGUxbeSLdFXANcUrl3XPzt97YSQpLvQO0VFpNRaclD7pCnPuZblPxQ
-         muaOnbY9WW/GYU5G32+gBNVL2bRcaBERLuKsEHlZA9eVgwjSiH3w6mGRIEjqHIy4/aOO
-         hu7Yyy+7Q234nK5U8H6bMCNhJttj1oA5c4hcebi9cwnSRzHwufmQDQwgflbROxfF3Q2A
-         NVAYL6lAdQUFYnMW+V0WMV4e6FrYAMU9wQQnjqn+oqQ4r7VWVxu7BatWw1GngNA2t0qr
-         BddkzBevczdU2Z3jEuOMate56TfzazNOgCQFwiqNsMqDi/SEvF7+fuHwq0JRrI01CsXA
-         hleg==
-X-Gm-Message-State: AOJu0Yzp0biwbjAB7Two7fF4kFS8yVxX97sv3TnTnmeXD6ZxGDPg4LIi
-	KFS4D6dH1z4uzCd/NBHwvgtLFcleien85IsNDi5rPkb2VrwXxrJli4kVwN42rmT+HCjyY/vTYdw
+        bh=pvYCja/S6ezysFDR56QyJhiQ4LakZ7EGAU+IRQcHkow=;
+        b=Qrhfw8gk1TbGXJGEVVnYHX9fei6L7WS/2KmhPyDKa5rhAEVlpjNt9NbJ+B8IFlk+uc
+         AJy9Rxaph6v56NLVYGg+t3p9uyDe7aLtU0ObSb2Dgh0CHXhTa9cFmsSVJg7IVUGFCdly
+         y0kqATwHsx+8RgNioL1pW0dQ6D6VIGUsSIgNsbGUjTt+LkHGruXDu95Z6B1b8+DcQldi
+         2uEDCLBmeifGluEeLa10QLgmHqS+VavdlNa0KDAGNUedqEM1xCnK/wJwZY6ztRxZ4Py7
+         rYe12OdGCuFHp4sUER1SivF0z/DJITflIN7+KL91jK2UFfGW3poR3BB+hdt7zJKyZZ+5
+         M7+w==
+X-Gm-Message-State: AOJu0YyhunNqMy3wITLvUAMzumBu9SnK4WYXFeFFxLcm4oJfcrxVKx8y
+	rfPqjlXsSw3xlSSf8h351P3sNDYvPGrapOjmtpGkSuVMl9TnuWY/jqX83SN2EGO4rZ5YHD7ZgHI
 	=
-X-Google-Smtp-Source: AGHT+IEoOerVJ4qI6jh0D6P7vaV4hh6KoDawu6j/5/bl736eUS0wdzKYkiDCBkV8iHrfET6mnp+gkQ==
-X-Received: by 2002:a5d:660e:0:b0:33c:f9d6:fb20 with SMTP id n14-20020a5d660e000000b0033cf9d6fb20mr1025439wru.45.1707992139790;
-        Thu, 15 Feb 2024 02:15:39 -0800 (PST)
-Message-ID: <7f11ca06-9bed-443b-9c79-0e62b71a1f96@suse.com>
-Date: Thu, 15 Feb 2024 11:15:39 +0100
+X-Google-Smtp-Source: AGHT+IHaNfJ1XoIWuOA4FB8Cfvo2/hwJaB1FIeDk2PiK1bwBIgOwZw0rqaqNJdskZ8Y97NbZ1KnyeA==
+X-Received: by 2002:a2e:a171:0:b0:2d0:a90b:e4e3 with SMTP id u17-20020a2ea171000000b002d0a90be4e3mr844303ljl.27.1707992172169;
+        Thu, 15 Feb 2024 02:16:12 -0800 (PST)
+Message-ID: <e98daa41-c6b6-4f4e-b41d-84006011068d@suse.com>
+Date: Thu, 15 Feb 2024 11:16:11 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 05/12] IOMMU: rename and re-type ats_enabled
+Subject: [PATCH v2 06/12] VT-d: respect ACPI SATC's ATC_REQUIRED flag
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -115,127 +115,153 @@ In-Reply-To: <64b028be-2197-4951-ae5b-32f9eabfa84a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Make the variable a tristate, with (as done elsewhere) a negative value
-meaning "default". Since all use sites need looking at, also rename it
-to match our usual "opt_*" pattern. While touching it, also move it to
-.data.ro_after_init.
-
-The only place it retains boolean nature is pci_ats_device(), for now.
-
-In AMD code re-order conditionals to have the config space accesses
-after (cheaper) flag checks.
+When the flag is set, permit Dom0 to control the device (no worse than
+what we had before and in line with other "best effort" behavior we use
+when it comes to Dom0), but suppress passing through to DomU-s unless
+ATS can actually be enabled for such devices (and was explicitly enabled
+on the command line).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-In domain_context_mapping_one() I'm a little puzzled that translation
-type is selected based on only IOMMU and global properties, i.e. not
-taking the device itself into account.
----
 v2: Re-base over new earlier patches.
 
---- a/xen/drivers/passthrough/amd/iommu_cmd.c
-+++ b/xen/drivers/passthrough/amd/iommu_cmd.c
-@@ -282,7 +282,7 @@ void amd_iommu_flush_iotlb(u8 devfn, con
-     struct amd_iommu *iommu;
-     unsigned int req_id, queueid, maxpend;
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -225,7 +225,11 @@ exceptions (watchdog NMIs and unexpected
+ > Default: `false`
  
--    if ( !ats_enabled )
-+    if ( opt_ats <= 0 )
-         return;
+ Permits Xen to set up and use PCI Address Translation Services.  This is a
+-performance optimisation for PCI Passthrough.
++performance optimisation for PCI Passthrough.  Note that firmware may indicate
++that certain devices need to have ATS enabled for proper operation. For such
++devices ATS will be enabled by default, unless the option is used in its
++negative form.  Such devices will still not be eligible for passing through to
++guests, unless the option is used in its positive form.
  
-     if ( !pci_ats_enabled(pdev->seg, pdev->bus, pdev->devfn) )
-@@ -340,7 +340,7 @@ static void _amd_iommu_flush_pages(struc
-         flush_command_buffer(iommu, 0);
-     }
- 
--    if ( ats_enabled )
-+    if ( opt_ats > 0 )
-     {
-         amd_iommu_flush_all_iotlbs(d, daddr, order);
- 
---- a/xen/drivers/passthrough/amd/pci_amd_iommu.c
-+++ b/xen/drivers/passthrough/amd/pci_amd_iommu.c
-@@ -119,7 +119,7 @@ static bool use_ats(
-     const struct amd_iommu *iommu,
-     const struct ivrs_mappings *ivrs_dev)
- {
--    return !ivrs_dev->block_ats &&
-+    return opt_ats > 0 && !ivrs_dev->block_ats &&
-            iommu_has_cap(iommu, PCI_CAP_IOTLB_SHIFT) &&
-            pci_ats_device(iommu->seg, pdev->bus, pdev->devfn);
+ **WARNING: Xen cannot currently safely use ATS because of its synchronous wait
+ loops for Queued Invalidation completions.**
+--- a/xen/drivers/passthrough/vtd/dmar.c
++++ b/xen/drivers/passthrough/vtd/dmar.c
+@@ -253,6 +253,24 @@ struct acpi_atsr_unit *acpi_find_matched
+     return all_ports;
  }
-@@ -196,7 +196,7 @@ static int __must_check amd_iommu_setup_
-         dte->sys_mgt = MASK_EXTR(ivrs_dev->device_flags, ACPI_IVHD_SYSTEM_MGMT);
  
-         if ( use_ats(pdev, iommu, ivrs_dev) )
--            dte->i = ats_enabled;
-+            dte->i = true;
- 
-         spin_unlock_irqrestore(&iommu->lock, flags);
- 
-@@ -257,7 +257,7 @@ static int __must_check amd_iommu_setup_
-                                          ACPI_IVHD_SYSTEM_MGMT));
- 
-         if ( use_ats(pdev, iommu, ivrs_dev) )
--            ASSERT(dte->i == ats_enabled);
-+            ASSERT(dte->i);
- 
-         spin_unlock_irqrestore(&iommu->lock, flags);
- 
---- a/xen/drivers/passthrough/ats.c
-+++ b/xen/drivers/passthrough/ats.c
-@@ -18,8 +18,8 @@
- #include <xen/pci_regs.h>
- #include "ats.h"
- 
--bool __read_mostly ats_enabled;
--boolean_param("ats", ats_enabled);
-+int8_t __ro_after_init opt_ats = -1;
-+boolean_param("ats", opt_ats);
- 
- int enable_ats_device(struct pci_dev *pdev, struct list_head *ats_list)
++const struct acpi_satc_unit *acpi_find_matched_satc_unit(
++    const struct pci_dev *pdev)
++{
++    const struct acpi_satc_unit *satc;
++
++    list_for_each_entry ( satc, &acpi_satc_units, list )
++    {
++        if ( satc->segment != pdev->seg )
++            continue;
++
++        for ( unsigned int i = 0; i < satc->scope.devices_cnt; ++i )
++            if ( satc->scope.devices[i] == pdev->sbdf.bdf )
++                return satc;
++    }
++
++    return NULL;
++}
++
+ struct acpi_rhsa_unit *drhd_to_rhsa(const struct acpi_drhd_unit *drhd)
  {
---- a/xen/drivers/passthrough/ats.h
-+++ b/xen/drivers/passthrough/ats.h
-@@ -22,7 +22,7 @@
- #define ATS_QUEUE_DEPTH_MASK     0x1f
- #define ATS_ENABLE               (1<<15)
+     struct acpi_rhsa_unit *rhsa;
+--- a/xen/drivers/passthrough/vtd/dmar.h
++++ b/xen/drivers/passthrough/vtd/dmar.h
+@@ -112,6 +112,8 @@ struct acpi_satc_unit {
  
--extern bool ats_enabled;
-+extern int8_t opt_ats;
+ struct acpi_drhd_unit *acpi_find_matched_drhd_unit(const struct pci_dev *);
+ struct acpi_atsr_unit *acpi_find_matched_atsr_unit(const struct pci_dev *);
++const struct acpi_satc_unit *acpi_find_matched_satc_unit(
++    const struct pci_dev *pdev);
  
- int enable_ats_device(struct pci_dev *pdev, struct list_head *ats_list);
- void disable_ats_device(struct pci_dev *pdev);
-@@ -43,7 +43,7 @@ static inline int pci_ats_enabled(int se
- 
- static inline int pci_ats_device(int seg, int bus, int devfn)
- {
--    if ( !ats_enabled )
-+    if ( !opt_ats )
-         return 0;
- 
-     return pci_find_ext_capability(PCI_SBDF(seg, bus, devfn),
+ #define DMAR_TYPE 1
+ #define RMRR_TYPE 2
 --- a/xen/drivers/passthrough/vtd/iommu.c
 +++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -1543,7 +1543,7 @@ int domain_context_mapping_one(
-         }
+@@ -2364,6 +2364,26 @@ static int cf_check intel_iommu_add_devi
+     if ( ret )
+         dprintk(XENLOG_ERR VTDPREFIX, "%pd: context mapping failed\n",
+                 pdev->domain);
++    else if ( !pdev->broken )
++    {
++        const struct acpi_drhd_unit *drhd = acpi_find_matched_drhd_unit(pdev);
++        const struct acpi_satc_unit *satc = acpi_find_matched_satc_unit(pdev);
++
++        /*
++         * Prevent the device from getting assigned to an unprivileged domain
++         * when firmware indicates ATS is required, but ATS could not be enabled
++         * or was not explicitly enabled via command line option.
++         */
++        if ( satc && satc->atc_required &&
++             (!drhd || ats_device(pdev, drhd) <= 0 ||
++              !pci_ats_enabled(pdev->seg, pdev->bus, pdev->devfn) ||
++              opt_ats < 0) )
++        {
++            printk(XENLOG_WARNING "ATS: %pp is not eligible for pass-through\n",
++                   &pdev->sbdf);
++            pdev->broken = true;
++        }
++    }
  
-         context_set_address_root(lctxt, root);
--        if ( ats_enabled && ecap_dev_iotlb(iommu->ecap) )
-+        if ( opt_ats > 0 && ecap_dev_iotlb(iommu->ecap) )
-             context_set_translation_type(lctxt, CONTEXT_TT_DEV_IOTLB);
-         else
-             context_set_translation_type(lctxt, CONTEXT_TT_MULTI_LEVEL);
+     return ret;
+ }
+@@ -2375,12 +2395,26 @@ static int cf_check intel_iommu_enable_d
+ 
+     pci_vtd_quirk(pdev);
+ 
+-    if ( ret <= 0 )
+-        return ret;
++    if ( ret <= 0 ||
++         (ret = enable_ats_device(pdev, &drhd->iommu->ats_devices)) < 0 ||
++         opt_ats < 0 )
++    {
++        const struct acpi_satc_unit *satc = acpi_find_matched_satc_unit(pdev);
++
++        /*
++         * Besides in error cases also prevent the device from getting assigned
++         * to an unprivileged domain when firmware indicates ATS is required,
++         * but ATS use was not explicitly enabled via command line option.
++         */
++        if ( satc && satc->atc_required && !pdev->broken )
++        {
++            printk(XENLOG_WARNING "ATS: %pp is not eligible for pass-through\n",
++                   &pdev->sbdf);
++            pdev->broken = true;
++        }
++    }
+ 
+-    ret = enable_ats_device(pdev, &drhd->iommu->ats_devices);
+-
+-    return ret >= 0 ? 0 : ret;
++    return ret <= 0 ? ret : 0;
+ }
+ 
+ static int cf_check intel_iommu_remove_device(u8 devfn, struct pci_dev *pdev)
 --- a/xen/drivers/passthrough/vtd/x86/ats.c
 +++ b/xen/drivers/passthrough/vtd/x86/ats.c
-@@ -46,7 +46,7 @@ int ats_device(const struct pci_dev *pde
+@@ -45,8 +45,9 @@ int ats_device(const struct pci_dev *pde
+ {
      struct acpi_drhd_unit *ats_drhd;
      unsigned int pos, expfl = 0;
++    const struct acpi_satc_unit *satc;
  
--    if ( !ats_enabled || !iommu_qinval )
-+    if ( opt_ats <= 0 || !iommu_qinval )
+-    if ( opt_ats <= 0 || !iommu_qinval )
++    if ( !opt_ats || !iommu_qinval )
          return 0;
  
      if ( !ecap_queued_inval(drhd->iommu->ecap) ||
+@@ -61,6 +62,10 @@ int ats_device(const struct pci_dev *pde
+          !acpi_find_matched_atsr_unit(pdev) )
+         return 0;
+ 
++    satc = acpi_find_matched_satc_unit(pdev);
++    if ( opt_ats < 0 && (!satc || !satc->atc_required) )
++        return 0;
++
+     ats_drhd = find_ats_dev_drhd(drhd->iommu);
+     pos = pci_find_ext_capability(pdev->sbdf, PCI_EXT_CAP_ID_ATS);
+ 
 
 
