@@ -2,32 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF6B5856600
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 15:32:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.681830.1060800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24A54856620
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Feb 2024 15:40:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.681837.1060809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1racmD-0002jr-Ov; Thu, 15 Feb 2024 14:31:49 +0000
+	id 1racuF-0004hb-Kz; Thu, 15 Feb 2024 14:40:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 681830.1060800; Thu, 15 Feb 2024 14:31:49 +0000
+Received: by outflank-mailman (output) from mailman id 681837.1060809; Thu, 15 Feb 2024 14:40:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1racmD-0002i5-Lx; Thu, 15 Feb 2024 14:31:49 +0000
-Received: by outflank-mailman (input) for mailman id 681830;
- Thu, 15 Feb 2024 14:31:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1racuF-0004g0-I7; Thu, 15 Feb 2024 14:40:07 +0000
+Received: by outflank-mailman (input) for mailman id 681837;
+ Thu, 15 Feb 2024 14:40:06 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YE+Y=JY=bugseng.com=nicola.vetrini@srs-se1.protection.inumbo.net>)
- id 1racmC-0002hx-Bn
- for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 14:31:48 +0000
-Received: from support.bugseng.com (mail.bugseng.com [162.55.131.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f0ca4d78-cc0e-11ee-98f5-efadbce2ee36;
- Thu, 15 Feb 2024 15:31:43 +0100 (CET)
-Received: from support.bugseng.com (support.bugseng.com [162.55.131.47])
- by support.bugseng.com (Postfix) with ESMTPA id 586DF4EE0737;
- Thu, 15 Feb 2024 15:31:43 +0100 (CET)
+ <SRS0=DeW9=JY=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1racuE-0004au-G7
+ for xen-devel@lists.xenproject.org; Thu, 15 Feb 2024 14:40:06 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on20601.outbound.protection.outlook.com
+ [2a01:111:f403:2412::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1ae3f8d3-cc10-11ee-8a4d-1f161083a0e0;
+ Thu, 15 Feb 2024 15:40:05 +0100 (CET)
+Received: from SN7P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:124::17)
+ by CH2PR12MB4954.namprd12.prod.outlook.com (2603:10b6:610:63::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7316.13; Thu, 15 Feb
+ 2024 14:39:57 +0000
+Received: from SN1PEPF0002636C.namprd02.prod.outlook.com
+ (2603:10b6:806:124:cafe::77) by SN7P222CA0007.outlook.office365.com
+ (2603:10b6:806:124::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.7292.26 via Frontend
+ Transport; Thu, 15 Feb 2024 14:39:56 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ SN1PEPF0002636C.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.7292.25 via Frontend Transport; Thu, 15 Feb 2024 14:39:56 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 15 Feb
+ 2024 08:39:56 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.35; Thu, 15 Feb
+ 2024 08:39:55 -0600
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2507.35
+ via Frontend Transport; Thu, 15 Feb 2024 08:39:54 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,281 +63,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f0ca4d78-cc0e-11ee-98f5-efadbce2ee36
+X-Inumbo-ID: 1ae3f8d3-cc10-11ee-8a4d-1f161083a0e0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QjhH/jlyyn7lsM2hFEjAOIX6unOKhMynQ4B46QFz7KXkAfu6Im87S4RDAfDgVQLECefJ3PwN/DYw0q/4CdTIJAFGB62TXmk2cPEtZ4UjMY1kTJhT05wsSguy0kXXpN2o6ITx9qg+lc87ur6OhGgMbfNOYdW4l/t4AQ7toHn4KRPuG7xNdCoU62ne3BnxwxeZmClOh63aU5bYAHXHHhM9fd7yVX4Zjm5hWMT+xG9+pxmQZCtOb4ksZc2BpnCa+AdCRNaRVeQBWcXy97uzchUPIoIs5oToYjRToeTHFCgu3bzGsDQTTpXlhpcOldTgMYulBHD2Rvqi92pdeMkkCvtePQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Pl/4LzIa0JB2UM6kwdo2VC2cy7AYS5i7obHhz//bLcM=;
+ b=Jh0uqMVEWT2XJBlg8wx9V9wS8MYk9ODjvxwIB4WYvsWdWhU1aJqXfJqLsEhjyjHU0OTY1KcLLk7IPTepu/ZeF+GAC0H8zSMBwfkphkl3Sk+ijHUMwtTcpmPV98cXlQxDJzWWRwbVUOJK9y7Ag1JTXYFgKxQB9TlBLFQCzIzXW4a7Oinc8/S1u4TRTTpzwZu9m4EDmPR3+g1/CkG7cL4sKGQgEgfgnVGPmMk/aGm2atmxFnsq7N4m8IEcSfcBdFqU/hqQYzWUXbPkyVCEyK0pw2WLjpduF9a0brHsrnEfsCcdB+j8Cx7TFG1Q85ETNrm5EvlpPUg2s03YQWF86Izq8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pl/4LzIa0JB2UM6kwdo2VC2cy7AYS5i7obHhz//bLcM=;
+ b=eUCrg4TieD9GaxGA3DpGKYaqW9l5K9nU9n9UDVXbbwk5TInbPS/NaN1gR5tsWzpmk86HibynKexHawAhVAFnf80IV6LHMRVS2s7JKbBLyi0MU5hW4W7WkbN7yK9geKzaJeTq/uSGel6xUZj1nNRG9DHu7K/zEjKQUY2zDDmRJsw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: Make hwdom vUART optional feature
+Date: Thu, 15 Feb 2024 15:39:47 +0100
+Message-ID: <20240215143947.90073-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Date: Thu, 15 Feb 2024 15:31:43 +0100
-From: Nicola Vetrini <nicola.vetrini@bugseng.com>
-To: Julien Grall <julien@xen.org>
-Cc: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Xen Devel <xen-devel@lists.xenproject.org>,
- Consulting <consulting@bugseng.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Andrew
- Cooper3 <andrew.cooper3@citrix.com>, Roger Pau <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: Return type of clean_and_invalidate_dcache_va_range
-In-Reply-To: <9eb25d90-9f10-44e5-b9aa-32e3f898389a@xen.org>
-References: <e050b096ff39aa857f9c267a8dbb4ef6@bugseng.com>
- <alpine.DEB.2.22.394.2402091402080.1925432@ubuntu-linux-20-04-desktop>
- <f86baad0-f113-4156-9c10-6910e8c63492@xen.org>
- <02446758-a5a9-4a8a-8ce6-15abdc9ede65@suse.com>
- <99faac70440a68824a17fcaaea55ef48@bugseng.com>
- <09589e8f-77b6-47f7-b5bd-cf485e4b60f1@xen.org>
- <c0b8f2ec-a3bb-45a6-b748-052d55a6fd5c@suse.com>
- <9eb25d90-9f10-44e5-b9aa-32e3f898389a@xen.org>
-Message-ID: <2171bcc9eeea6613409e3ee1e9eedbc3@bugseng.com>
-X-Sender: nicola.vetrini@bugseng.com
-Organization: BUGSENG s.r.l.
-Content-Type: multipart/mixed;
- boundary="=_21dddb0de5c10f3729bd45b19a2db9a4"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636C:EE_|CH2PR12MB4954:EE_
+X-MS-Office365-Filtering-Correlation-Id: 461a0367-1a68-4871-5623-08dc2e33fac8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	P1mNhxAUVHQhaap/eN0S3ZyOWqBJrPoJsZ6cssaCaa3IiWKvd83FOEXWk5kNHSz/r4MFfImCyiurE+WNhvTeuL0LcYJoflNr2DxSIfkY3RnAcKWan5R57nHRl6m8ZYeMi2GNWqlnP8Dh2Tk74SZpC4prcRe/BcFnEuXrADEuJXWI1uUgmHTzB6GelCNpL+D9n1SM9igU89Um0X7CrTMZTTRCc5ghkjpaxYdmoSo8IAUgB0WoyokS/rJUF4RpaeJ6WCuSK/T0bk9GbLuEY4KmXix64Dqj+gjBojP5PluDi9flZcStpfeqnDThFLu6ayd6QVp0IzN5Nxo60MpkVsxFr5ykIooW5xEBS76o7r4gZV/LSbdl3G9sXABcMQQwn2ZY+aaHqMEf1cm3FtMJYXrSZaDvNgkJUphxMiEvj3Osou7xL3JN31TkBeS7oeMTgDjKiEALn6dq2up7M14/td9MaUcdPhpgB2jMZlE74SLtJpJ+4EzxVeH6oI+b3fJ/qD1CMq+r73S8yKhq9jIlbfscHl2gM+ImfCxMI9dNXpn2EsXKQr9hAC0q5awayQaBcobCbhu04rrJg2nqVayMCkHf791ocImCjOKfmDtVhJTK4cY6qk7C81r2SWcbwNDq6f1rrbtehOm0M002f9pO7nDf2EK8SPbBC9CYVsjvFskT6jE=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230031)(4636009)(376002)(39860400002)(396003)(346002)(136003)(230922051799003)(451199024)(1800799012)(82310400011)(64100799003)(186009)(36860700004)(46966006)(40470700004)(5660300002)(44832011)(316002)(54906003)(41300700001)(2906002)(426003)(83380400001)(26005)(1076003)(2616005)(336012)(81166007)(356005)(86362001)(82740400003)(36756003)(6666004)(6916009)(8936002)(70206006)(70586007)(4326008)(8676002)(478600001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Feb 2024 14:39:56.4785
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 461a0367-1a68-4871-5623-08dc2e33fac8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002636C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4954
 
---=_21dddb0de5c10f3729bd45b19a2db9a4
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+At the moment, the hardware domain vUART is always compiled in. In the
+spirit of fine granular configuration, make it optional so that the
+feature can be disabled if not needed. This UART is not exposed (e.g.
+via device tree) to a domain and is mostly used to support special use
+cases like Linux early printk, prints from the decompressor code, etc.
 
-Hi Julien,
+Introduce Kconfig option CONFIG_HWDOM_VUART, enabled by default (to keep
+the current behavior) and use it to protect the vUART related code.
+Provide stubs for domain_vuart_{init,free}() in case the feature is
+disabled. Take the opportunity to add a struct domain forward declaration
+to vuart.h, so that the header is self contained.
 
-On 2024-02-13 18:14, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 13/02/2024 07:13, Jan Beulich wrote:
->> On 12.02.2024 19:38, Julien Grall wrote:
->>> An alternative would be to introduced arch_grant_cache_flush() and 
->>> move
->>> the if/else logic there. Something like:
->>> 
->>> diff --git a/xen/arch/arm/include/asm/page.h
->>> b/xen/arch/arm/include/asm/page.h
->>> index 69f817d1e68a..4a3de49762a1 100644
->>> --- a/xen/arch/arm/include/asm/page.h
->>> +++ b/xen/arch/arm/include/asm/page.h
->>> @@ -281,6 +281,19 @@ static inline void write_pte(lpae_t *p, lpae_t 
->>> pte)
->>>        dsb(sy);
->>>    }
->>> 
->>> +static inline arch_grant_cache_flush(unsigned int op, const void *p,
->>> unsigned long size)
->>> +{
->>> +    unsigned int order = get_order_from_bytes(size);
->>> +
->>> +    if ( (cflush->op & GNTTAB_CACHE_INVAL) && (cflush->op &
->>> GNTTAB_CACHE_CLEAN) )
->>> +        clean_and_invalidate_dcache_va_range(v, cflush->length);
->>> +    else if ( cflush->op & GNTTAB_CACHE_INVAL )
->>> +        invalidate_dcache_va_range(v, cflush->length);
->>> +    else if ( cflush->op & GNTTAB_CACHE_CLEAN )
->>> +        clean_dcache_va_range(v, cflush->length);
->>> +
->>> +    return 0;
->>> +}
->>> 
->>>    /* Flush the dcache for an entire page. */
->>>    void flush_page_to_ram(unsigned long mfn, bool sync_icache);
->>> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
->>> index 424744ad5e1a..647e1522466d 100644
->>> --- a/xen/arch/arm/setup.c
->>> +++ b/xen/arch/arm/setup.c
->>> @@ -735,8 +735,7 @@ void asmlinkage __init start_xen(unsigned long
->>> boot_phys_offset,
->>>                  fdt_paddr);
->>> 
->>>        /* Register Xen's load address as a boot module. */
->>> -    xen_bootmodule = add_boot_module(BOOTMOD_XEN,
->>> -                             virt_to_maddr(_start),
->>> +    xen_bootmodule = add_boot_module(BOOTMOD_XEN, 
->>> virt_to_maddr(_start),
->>>                                 (paddr_t)(uintptr_t)(_end - _start), 
->>> false);
->>>        BUG_ON(!xen_bootmodule);
->>> 
->>> diff --git a/xen/arch/x86/include/asm/flushtlb.h
->>> b/xen/arch/x86/include/asm/flushtlb.h
->>> index bb0ad58db49b..dfe51cddde90 100644
->>> --- a/xen/arch/x86/include/asm/flushtlb.h
->>> +++ b/xen/arch/x86/include/asm/flushtlb.h
->>> @@ -182,23 +182,22 @@ void flush_area_mask(const cpumask_t *mask, 
->>> const
->>> void *va,
->>>    }
->>> 
->>>    static inline void flush_page_to_ram(unsigned long mfn, bool
->>> sync_icache) {}
->>> -static inline int invalidate_dcache_va_range(const void *p,
->>> -                                             unsigned long size)
->>> -{ return -EOPNOTSUPP; }
->>> -static inline int clean_and_invalidate_dcache_va_range(const void 
->>> *p,
->>> -                                                       unsigned long 
->>> size)
->>> +
->>> +unsigned int guest_flush_tlb_flags(const struct domain *d);
->>> +void guest_flush_tlb_mask(const struct domain *d, const cpumask_t 
->>> *mask);
->>> +
->>> +static inline arch_grant_cache_flush(unsigned int op, const void *p,
->>> unsigned long size)
->>>    {
->>> -    unsigned int order = get_order_from_bytes(size);
->>> +    unsigned int order;
->>> +
->>> +    if ( !(cflush->op & GNTTAB_CACHE_CLEAN) )
->>> +        return -EOPNOTSUPP;
->>> +
->>> +    order = get_order_from_bytes(size);
->>>        /* sub-page granularity support needs to be added if necessary 
->>> */
->>>        flush_area_local(p, FLUSH_CACHE|FLUSH_ORDER(order));
->>> +
->>>        return 0;
->>>    }
->>> -static inline int clean_dcache_va_range(const void *p, unsigned long 
->>> size)
->>> -{
->>> -    return clean_and_invalidate_dcache_va_range(p, size);
->>> -}
->>> -
->>> -unsigned int guest_flush_tlb_flags(const struct domain *d);
->>> -void guest_flush_tlb_mask(const struct domain *d, const cpumask_t 
->>> *mask);
->>> 
->>>    #endif /* __FLUSHTLB_H__ */
->>> 
->>> I have a slight preference for the latter. I would like to hear the
->>> opinion of the others.
->> 
->> I would prefer this 2nd form, too, assuming the setup.c change wasn't
->> really meant to be there.
-> 
-> Indeed. I had another previous change I didn't and forgot to remove it.
-> 
->> The one thing that doesn't become clear: In
->> the sketch above arch_grant_cache_flush() has no return type, yet has
->> "return 0". This raises a question towards the one that's at the root
->> of this thread: Do you mean the function to have a return value, and
->> if so will it be (sensibly) used?
-> 
-> Sorry I should have double checked the code before sending it. 
-> arch_grant_cache_flush() should return a value. So each arch can decide 
-> if they handle a given operation.
-> 
-> Cheers,
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+ xen/arch/arm/Kconfig              |  8 ++++++++
+ xen/arch/arm/Makefile             |  2 +-
+ xen/arch/arm/include/asm/domain.h |  2 ++
+ xen/arch/arm/vuart.h              | 15 +++++++++++++++
+ 4 files changed, 26 insertions(+), 1 deletion(-)
 
-I do like the idea. I applied some of the suggestions to this proof of 
-concept patch (attached). Still not compile-tested, since the CI seems a 
-bit slow today.
-
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 50e9bfae1ac8..72af329564b7 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -150,6 +150,14 @@ config SBSA_VUART_CONSOLE
+ 	  Allows a guest to use SBSA Generic UART as a console. The
+ 	  SBSA Generic UART implements a subset of ARM PL011 UART.
+ 
++config HWDOM_VUART
++	bool "Emulated UART for hardware domain"
++	default y
++	help
++	  Allows a hardware domain to use a minimalistic UART (single transmit
++	  and status register) which takes information from dtuart. Note that this
++	  UART is not intended to be exposed (e.g. via device-tree) to a domain.
++
+ config ARM_SSBD
+ 	bool "Speculative Store Bypass Disable" if EXPERT
+ 	depends on HAS_ALTERNATIVE
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 33c677672fe6..7b1350e2ef0a 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -71,7 +71,7 @@ obj-y += vtimer.o
+ obj-$(CONFIG_SBSA_VUART_CONSOLE) += vpl011.o
+ obj-y += vsmc.o
+ obj-y += vpsci.o
+-obj-y += vuart.o
++obj-$(CONFIG_HWDOM_VUART) += vuart.o
+ 
+ extra-y += xen.lds
+ 
+diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+index 5fb8cd79c01a..8218afb8626a 100644
+--- a/xen/arch/arm/include/asm/domain.h
++++ b/xen/arch/arm/include/asm/domain.h
+@@ -91,6 +91,7 @@ struct arch_domain
+ 
+     struct vgic_dist vgic;
+ 
++#ifdef CONFIG_HWDOM_VUART
+     struct vuart {
+ #define VUART_BUF_SIZE 128
+         char                        *buf;
+@@ -98,6 +99,7 @@ struct arch_domain
+         const struct vuart_info     *info;
+         spinlock_t                  lock;
+     } vuart;
++#endif
+ 
+     unsigned int evtchn_irq;
+ #ifdef CONFIG_ACPI
+diff --git a/xen/arch/arm/vuart.h b/xen/arch/arm/vuart.h
+index bd23bd92f631..36658b4a8c7f 100644
+--- a/xen/arch/arm/vuart.h
++++ b/xen/arch/arm/vuart.h
+@@ -20,9 +20,24 @@
+ #ifndef __ARCH_ARM_VUART_H__
+ #define __ARCH_ARM_VUART_H__
+ 
++struct domain;
++
++#ifdef CONFIG_HWDOM_VUART
++
+ int domain_vuart_init(struct domain *d);
+ void domain_vuart_free(struct domain *d);
+ 
++#else
++
++static inline int domain_vuart_init(struct domain *d)
++{
++    return 0;
++}
++
++static inline void domain_vuart_free(struct domain *d) {};
++
++#endif /* CONFIG_HWDOM_VUART */
++
+ #endif /* __ARCH_ARM_VUART_H__ */
+ 
+ /*
 -- 
-Nicola Vetrini, BSc
-Software Engineer, BUGSENG srl (https://bugseng.com)
---=_21dddb0de5c10f3729bd45b19a2db9a4
-Content-Transfer-Encoding: base64
-Content-Type: text/x-diff;
- name=cache_helpers.patch
-Content-Disposition: attachment;
- filename=cache_helpers.patch;
- size=5715
+2.25.1
 
-ZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9wYWdlLmggYi94ZW4vYXJjaC9h
-cm0vaW5jbHVkZS9hc20vcGFnZS5oCmluZGV4IDY5ZjgxN2QxZTY4YS4uNWY5MzU3NjMyMTY0IDEw
-MDY0NAotLS0gYS94ZW4vYXJjaC9hcm0vaW5jbHVkZS9hc20vcGFnZS5oCisrKyBiL3hlbi9hcmNo
-L2FybS9pbmNsdWRlL2FzbS9wYWdlLmgKQEAgLTE1OSwxMyArMTU5LDEzIEBAIHN0YXRpYyBpbmxp
-bmUgc2l6ZV90IHJlYWRfZGNhY2hlX2xpbmVfYnl0ZXModm9pZCkKICAqIGlmICdyYW5nZScgaXMg
-bGFyZ2UgZW5vdWdoIHdlIG1pZ2h0IHdhbnQgdG8gdXNlIG1vZGVsLXNwZWNpZmljCiAgKiBmdWxs
-LWNhY2hlIGZsdXNoZXMuICovCiAKLXN0YXRpYyBpbmxpbmUgaW50IGludmFsaWRhdGVfZGNhY2hl
-X3ZhX3JhbmdlKGNvbnN0IHZvaWQgKnAsIHVuc2lnbmVkIGxvbmcgc2l6ZSkKK3N0YXRpYyBpbmxp
-bmUgdm9pZCBpbnZhbGlkYXRlX2RjYWNoZV92YV9yYW5nZShjb25zdCB2b2lkICpwLCB1bnNpZ25l
-ZCBsb25nIHNpemUpCiB7CiAgICAgc2l6ZV90IGNhY2hlbGluZV9tYXNrID0gZGNhY2hlX2xpbmVf
-Ynl0ZXMgLSAxOwogICAgIHVuc2lnbmVkIGxvbmcgaWR4ID0gMDsKIAogICAgIGlmICggIXNpemUg
-KQotICAgICAgICByZXR1cm4gMDsKKyAgICAgICAgcmV0dXJuOwogCiAgICAgLyogUGFzc2luZyBh
-IHJlZ2lvbiB0aGF0IHdyYXBzIGFyb3VuZCBpcyBpbGxlZ2FsICovCiAgICAgQVNTRVJUKCgodWlu
-dHB0cl90KXAgKyBzaXplIC0gMSkgPj0gKHVpbnRwdHJfdClwKTsKQEAgLTE4OCwxNyArMTg4LDE1
-IEBAIHN0YXRpYyBpbmxpbmUgaW50IGludmFsaWRhdGVfZGNhY2hlX3ZhX3JhbmdlKGNvbnN0IHZv
-aWQgKnAsIHVuc2lnbmVkIGxvbmcgc2l6ZSkKICAgICAgICAgYXNtIHZvbGF0aWxlIChfX2NsZWFu
-X2FuZF9pbnZhbGlkYXRlX2RjYWNoZV9vbmUoMCkgOiA6ICJyIiAocCArIGlkeCkpOwogCiAgICAg
-ZHNiKHN5KTsgICAgICAgICAgIC8qIFNvIHdlIGtub3cgdGhlIGZsdXNoZXMgaGFwcGVuIGJlZm9y
-ZSBjb250aW51aW5nICovCi0KLSAgICByZXR1cm4gMDsKIH0KIAotc3RhdGljIGlubGluZSBpbnQg
-Y2xlYW5fZGNhY2hlX3ZhX3JhbmdlKGNvbnN0IHZvaWQgKnAsIHVuc2lnbmVkIGxvbmcgc2l6ZSkK
-K3N0YXRpYyBpbmxpbmUgdm9pZCBjbGVhbl9kY2FjaGVfdmFfcmFuZ2UoY29uc3Qgdm9pZCAqcCwg
-dW5zaWduZWQgbG9uZyBzaXplKQogewogICAgIHNpemVfdCBjYWNoZWxpbmVfbWFzayA9IGRjYWNo
-ZV9saW5lX2J5dGVzIC0gMTsKICAgICB1bnNpZ25lZCBsb25nIGlkeCA9IDA7CiAKICAgICBpZiAo
-ICFzaXplICkKLSAgICAgICAgcmV0dXJuIDA7CisgICAgICAgIHJldHVybjsKIAogICAgIC8qIFBh
-c3NpbmcgYSByZWdpb24gdGhhdCB3cmFwcyBhcm91bmQgaXMgaWxsZWdhbCAqLwogICAgIEFTU0VS
-VCgoKHVpbnRwdHJfdClwICsgc2l6ZSAtIDEpID49ICh1aW50cHRyX3QpcCk7CkBAIC0yMTEsMTgg
-KzIwOSwxNiBAQCBzdGF0aWMgaW5saW5lIGludCBjbGVhbl9kY2FjaGVfdmFfcmFuZ2UoY29uc3Qg
-dm9pZCAqcCwgdW5zaWduZWQgbG9uZyBzaXplKQogICAgICAgICAgICAgaWR4ICs9IGRjYWNoZV9s
-aW5lX2J5dGVzLCBzaXplIC09IGRjYWNoZV9saW5lX2J5dGVzICkKICAgICAgICAgYXNtIHZvbGF0
-aWxlIChfX2NsZWFuX2RjYWNoZV9vbmUoMCkgOiA6ICJyIiAocCArIGlkeCkpOwogICAgIGRzYihz
-eSk7ICAgICAgICAgICAvKiBTbyB3ZSBrbm93IHRoZSBmbHVzaGVzIGhhcHBlbiBiZWZvcmUgY29u
-dGludWluZyAqLwotICAgIC8qIEFSTSBjYWxsZXJzIGFzc3VtZSB0aGF0IGRjYWNoZV8qIGZ1bmN0
-aW9ucyBjYW5ub3QgZmFpbC4gKi8KLSAgICByZXR1cm4gMDsKIH0KIAotc3RhdGljIGlubGluZSBp
-bnQgY2xlYW5fYW5kX2ludmFsaWRhdGVfZGNhY2hlX3ZhX3JhbmdlCitzdGF0aWMgaW5saW5lIHZv
-aWQgY2xlYW5fYW5kX2ludmFsaWRhdGVfZGNhY2hlX3ZhX3JhbmdlCiAgICAgKGNvbnN0IHZvaWQg
-KnAsIHVuc2lnbmVkIGxvbmcgc2l6ZSkKIHsKICAgICBzaXplX3QgY2FjaGVsaW5lX21hc2sgPSBk
-Y2FjaGVfbGluZV9ieXRlcyAtIDE7CiAgICAgdW5zaWduZWQgbG9uZyBpZHggPSAwOwogCiAgICAg
-aWYgKCAhc2l6ZSApCi0gICAgICAgIHJldHVybiAwOworICAgICAgICByZXR1cm47CiAKICAgICAv
-KiBQYXNzaW5nIGEgcmVnaW9uIHRoYXQgd3JhcHMgYXJvdW5kIGlzIGlsbGVnYWwgKi8KICAgICBB
-U1NFUlQoKCh1aW50cHRyX3QpcCArIHNpemUgLSAxKSA+PSAodWludHB0cl90KXApOwpAQCAtMjM1
-LDggKzIzMSw2IEBAIHN0YXRpYyBpbmxpbmUgaW50IGNsZWFuX2FuZF9pbnZhbGlkYXRlX2RjYWNo
-ZV92YV9yYW5nZQogICAgICAgICAgICAgaWR4ICs9IGRjYWNoZV9saW5lX2J5dGVzLCBzaXplIC09
-IGRjYWNoZV9saW5lX2J5dGVzICkKICAgICAgICAgYXNtIHZvbGF0aWxlIChfX2NsZWFuX2FuZF9p
-bnZhbGlkYXRlX2RjYWNoZV9vbmUoMCkgOiA6ICJyIiAocCArIGlkeCkpOwogICAgIGRzYihzeSk7
-ICAgICAgICAgLyogU28gd2Uga25vdyB0aGUgZmx1c2hlcyBoYXBwZW4gYmVmb3JlIGNvbnRpbnVp
-bmcgKi8KLSAgICAvKiBBUk0gY2FsbGVycyBhc3N1bWUgdGhhdCBkY2FjaGVfKiBmdW5jdGlvbnMg
-Y2Fubm90IGZhaWwuICovCi0gICAgcmV0dXJuIDA7CiB9CiAKIC8qIE1hY3JvcyBmb3IgZmx1c2hp
-bmcgYSBzaW5nbGUgc21hbGwgaXRlbS4gIFRoZSBwcmVkaWNhdGUgaXMgYWx3YXlzCkBAIC0yNjYs
-NiArMjYwLDIwIEBAIHN0YXRpYyBpbmxpbmUgaW50IGNsZWFuX2FuZF9pbnZhbGlkYXRlX2RjYWNo
-ZV92YV9yYW5nZQogICAgICAgICAgICAgOiA6ICJyIiAoX3ApLCAibSIgKCpfcCkpOyAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgXAogfSB3aGlsZSAoMCkKIAorc3RhdGljIGlubGlu
-ZSBpbnQgYXJjaF9ncmFudF9jYWNoZV9mbHVzaCh1bnNpZ25lZCBpbnQgb3AsIGNvbnN0IHZvaWQg
-KnAsCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxv
-bmcgc2l6ZSkKK3sKKyAgICBpZiAoIChvcCAmIEdOVFRBQl9DQUNIRV9JTlZBTCkgJiYgKG9wICYg
-R05UVEFCX0NBQ0hFX0NMRUFOKSApCisgICAgICAgIGNsZWFuX2FuZF9pbnZhbGlkYXRlX2RjYWNo
-ZV92YV9yYW5nZSh2LCBzaXplKTsKKyAgICBlbHNlIGlmICggb3AgJiBHTlRUQUJfQ0FDSEVfSU5W
-QUwgKQorICAgICAgICBpbnZhbGlkYXRlX2RjYWNoZV92YV9yYW5nZSh2LCBzaXplKTsKKyAgICBl
-bHNlIGlmICggb3AgJiBHTlRUQUJfQ0FDSEVfQ0xFQU4gKQorICAgICAgICBjbGVhbl9kY2FjaGVf
-dmFfcmFuZ2Uodiwgc2l6ZSk7CisKKyAgICAvKiBBUk0gY2FsbGVycyBhc3N1bWUgdGhhdCBkY2Fj
-aGVfKiBmdW5jdGlvbnMgY2Fubm90IGZhaWwuICovCisgICAgcmV0dXJuIDA7Cit9CisKIC8qCiAg
-KiBXcml0ZSBhIHBhZ2V0YWJsZSBlbnRyeS4KICAqCmRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYv
-aW5jbHVkZS9hc20vZmx1c2h0bGIuaCBiL3hlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9mbHVzaHRs
-Yi5oCmluZGV4IGJiMGFkNThkYjQ5Yi4uN2M3MWZlMzc3NzU3IDEwMDY0NAotLS0gYS94ZW4vYXJj
-aC94ODYvaW5jbHVkZS9hc20vZmx1c2h0bGIuaAorKysgYi94ZW4vYXJjaC94ODYvaW5jbHVkZS9h
-c20vZmx1c2h0bGIuaApAQCAtMTgyLDIxICsxODIsMjEgQEAgdm9pZCBmbHVzaF9hcmVhX21hc2so
-Y29uc3QgY3B1bWFza190ICptYXNrLCBjb25zdCB2b2lkICp2YSwKIH0KIAogc3RhdGljIGlubGlu
-ZSB2b2lkIGZsdXNoX3BhZ2VfdG9fcmFtKHVuc2lnbmVkIGxvbmcgbWZuLCBib29sIHN5bmNfaWNh
-Y2hlKSB7fQotc3RhdGljIGlubGluZSBpbnQgaW52YWxpZGF0ZV9kY2FjaGVfdmFfcmFuZ2UoY29u
-c3Qgdm9pZCAqcCwKLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHVuc2lnbmVkIGxvbmcgc2l6ZSkKLXsgcmV0dXJuIC1FT1BOT1RTVVBQOyB9Ci1zdGF0aWMgaW5s
-aW5lIGludCBjbGVhbl9hbmRfaW52YWxpZGF0ZV9kY2FjaGVfdmFfcmFuZ2UoY29uc3Qgdm9pZCAq
-cCwKLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICB1bnNpZ25lZCBsb25nIHNpemUpCisKK3N0YXRpYyBpbmxpbmUgYXJjaF9ncmFudF9jYWNoZV9m
-bHVzaCh1bnNpZ25lZCBpbnQgb3AsIGNvbnN0IHZvaWQgKnAsCisgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBzaXplKQogewotICAgIHVuc2lnbmVkIGlu
-dCBvcmRlciA9IGdldF9vcmRlcl9mcm9tX2J5dGVzKHNpemUpOworICAgIHVuc2lnbmVkIGludCBv
-cmRlcjsKKworICAgIGlmICggIShjZmx1c2gtPm9wICYgR05UVEFCX0NBQ0hFX0NMRUFOKSApCisg
-ICAgICAgIHJldHVybiAtRU9QTk9UU1VQUDsKKworICAgIG9yZGVyID0gZ2V0X29yZGVyX2Zyb21f
-Ynl0ZXMoc2l6ZSk7CiAgICAgLyogc3ViLXBhZ2UgZ3JhbnVsYXJpdHkgc3VwcG9ydCBuZWVkcyB0
-byBiZSBhZGRlZCBpZiBuZWNlc3NhcnkgKi8KICAgICBmbHVzaF9hcmVhX2xvY2FsKHAsIEZMVVNI
-X0NBQ0hFfEZMVVNIX09SREVSKG9yZGVyKSk7CisKICAgICByZXR1cm4gMDsKIH0KLXN0YXRpYyBp
-bmxpbmUgaW50IGNsZWFuX2RjYWNoZV92YV9yYW5nZShjb25zdCB2b2lkICpwLCB1bnNpZ25lZCBs
-b25nIHNpemUpCi17Ci0gICAgcmV0dXJuIGNsZWFuX2FuZF9pbnZhbGlkYXRlX2RjYWNoZV92YV9y
-YW5nZShwLCBzaXplKTsKLX0KIAogdW5zaWduZWQgaW50IGd1ZXN0X2ZsdXNoX3RsYl9mbGFncyhj
-b25zdCBzdHJ1Y3QgZG9tYWluICpkKTsKIHZvaWQgZ3Vlc3RfZmx1c2hfdGxiX21hc2soY29uc3Qg
-c3RydWN0IGRvbWFpbiAqZCwgY29uc3QgY3B1bWFza190ICptYXNrKTsKZGlmZiAtLWdpdCBhL3hl
-bi9jb21tb24vZ3JhbnRfdGFibGUuYyBiL3hlbi9jb21tb24vZ3JhbnRfdGFibGUuYwppbmRleCA1
-NzIxZWFiMjI1NjEuLjg2MTVlYTE0NGJiMyAxMDA2NDQKLS0tIGEveGVuL2NvbW1vbi9ncmFudF90
-YWJsZS5jCisrKyBiL3hlbi9jb21tb24vZ3JhbnRfdGFibGUuYwpAQCAtMzU3MiwxNCArMzU3Miw3
-IEBAIHN0YXRpYyBpbnQgX2NhY2hlX2ZsdXNoKGNvbnN0IGdudHRhYl9jYWNoZV9mbHVzaF90ICpj
-Zmx1c2gsIGdyYW50X3JlZl90ICpjdXJfcmVmCiAgICAgdiA9IG1hcF9kb21haW5fcGFnZShtZm4p
-OwogICAgIHYgKz0gY2ZsdXNoLT5vZmZzZXQ7CiAKLSAgICBpZiAoIChjZmx1c2gtPm9wICYgR05U
-VEFCX0NBQ0hFX0lOVkFMKSAmJiAoY2ZsdXNoLT5vcCAmIEdOVFRBQl9DQUNIRV9DTEVBTikgKQot
-ICAgICAgICByZXQgPSBjbGVhbl9hbmRfaW52YWxpZGF0ZV9kY2FjaGVfdmFfcmFuZ2UodiwgY2Zs
-dXNoLT5sZW5ndGgpOwotICAgIGVsc2UgaWYgKCBjZmx1c2gtPm9wICYgR05UVEFCX0NBQ0hFX0lO
-VkFMICkKLSAgICAgICAgcmV0ID0gaW52YWxpZGF0ZV9kY2FjaGVfdmFfcmFuZ2UodiwgY2ZsdXNo
-LT5sZW5ndGgpOwotICAgIGVsc2UgaWYgKCBjZmx1c2gtPm9wICYgR05UVEFCX0NBQ0hFX0NMRUFO
-ICkKLSAgICAgICAgcmV0ID0gY2xlYW5fZGNhY2hlX3ZhX3JhbmdlKHYsIGNmbHVzaC0+bGVuZ3Ro
-KTsKLSAgICBlbHNlCi0gICAgICAgIHJldCA9IDA7CisgICAgcmV0ID0gYXJjaF9ncmFudF9jYWNo
-ZV9mbHVzaChjZmx1c2gtPm9wLCB2LCBjZmx1c2gtPmxlbmd0aCk7CiAKICAgICBpZiAoIGQgIT0g
-b3duZXIgKQogICAgIHsK
---=_21dddb0de5c10f3729bd45b19a2db9a4--
 
